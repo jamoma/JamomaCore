@@ -50,6 +50,15 @@ if (jsarguments.length>12)
 draw();
 refresh();
 
+function getvalueof()
+{
+	return myval;
+}
+
+function setvalueof(v)
+{
+	msg_int(v);
+}
 
 function smooth(v)
 {
@@ -134,6 +143,7 @@ function msg_int(v)
 		myval = 1;
 	draw();
 	refresh();
+	notifyclients();
 	if (myval)
 		outlet(1,mytexton);
 	else
@@ -308,6 +318,6 @@ onclick.local = 1; //private
 
 function ondblclick()
 {
-	onclick();
+	bang();
 }
 ondblclick.local = 1; //private
