@@ -3,7 +3,7 @@ max v2;
 #P window setfont "Sans Serif" 9.;
 #N in 1;
 #P newobj 128 31 25 196617 in 1;
-#P newex 128 53 111 196617 route sr-ratio bitdepth;
+#P newex 128 53 113 196617 route sr_ratio bitdepth;
 #N out~ 2;
 #P newobj 183 171 35 196617 out~ 2;
 #P newex 183 142 95 196617 degrade~;
