@@ -1,17 +1,33 @@
-Jamoma (JAde MOdules for MAx)
+JAMOMA
+A module-building framework for interchange, collaboration, and ease of integration
 
 
 INSTALLING
-	1. Do an anonymous cvs checkout of Jamoma into a directory of your choosing.
-	2. move the jamoma-fileformats.txt file into /Library/Application Support/Cycling '74/init
-	3. start Max
-	4. Add the Jamoma folder to the search path
+	1. Launch your terminal.app
+	2. Type (or copy/paste) the following and press return:
+
+		cd "/Library/Application Support/Cycling '74"
+
+	3. Download the files
+		A. If you are a project developer, type (or copy/paste) the following 
+		(replacing "tap" with your sourceforge username)
+
+			cvs -d :ext:tap@cvs.sourceforge.net:/cvsroot/jamoma checkout .
+
+		B. If you not a project developer, type (or copy/paste) the following two 
+		lines (if you get an error, just try again)	
+
+			cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/jamoma login
+			cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/jamoma co Jamoma
+					
+	4. move the jamoma-fileformats.txt file into /Library/Application Support/Cycling '74/init
+	5. start Max
+
 	
 EXAMPLES
 	For now look at the following files
-	- jam.core prototype
-	- untitled
-	- comb.mod
+	- untitled.txt
+	- jam.filter.mod
 		
 
 HELPFUL CVS COMMANDS:
