@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<meta name="generator" content="Adobe GoLive 6">
+		<title>Jade: degradeM reference</title>
+	</head>
+<html>
+<body bgcolor=#F7F7F7 link=#000000 vlink=#000000>
+		<table width="100%" border="0" cellspacing="2" cellpadding="5">
+			<tr>
+				<td align="right" bgcolor="#c5c5c5"><font size="+2" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>degradeM</b></font></td>
+			</tr>
+			<tr>
+				<td bgcolor=black align=right><font size=+1 color="#c5c5c5" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Digital Distortion</font></td>
+			</tr>
+		</table>
+		<p><font face="Times">
+
+The <b>degradeM</b> module creates digital down-sampling effects. This module responds to all instructions provided by <a href="standard-audio.html">Jade's audio libraries</a>.</font></p>
+		<p><font face="Times">size = single x single </font></p>
+		<table border=0 width=100%>
+<tr>
+<td bgcolor=#b6a7ff><font size=+1 face="Times"><b><a href="jade-connections.html">Connections</a>:</b></font></td>
+</tr>
+</table>
+		<table border=0 width=100%>
+			<tr>
+<td bgcolor=#CCCCCC width=15%><font face="Times"><b>I/O</b></font></td>
+				<td bgcolor=#CCCCCC width=15%><font face="Times"><b>Type</b></font></td>
+				<td bgcolor=#CCCCCC width=65%><font face="Times"><b>Additional Info</b></font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC width="15%"><font face="Courier">input(1)</font></td>
+				<td bgcolor=#D7D7CC width="15%"><font face="Courier">audio</font></td>
+				<td bgcolor=#D7D7CC><font face="Courier">n/a</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC width="15%"><font face="Courier">output(1)</font></td>
+				<td bgcolor=#D7D7CC width="15%"><font face="Courier">audio</font></td>
+				<td bgcolor=#D7D7CC><font face="Courier">n/a</font></td>
+			</tr>
+		</table>
+<p>
+<table border=0 width=100%>
+<tr>
+<td bgcolor=#b6a7ff><font size=+1 face="Times"><a href="jade-instructions.html"><b>Instructions:</b></a></font></td>
+</tr>
+</table>
+
+<table border=0 width=100%>
+			<tr>
+<td bgcolor=#CCCCCC width=10%><font face="Times"><b>Name</b></font></td>
+<td bgcolor=#CCCCCC width=5%><font face="Times"><b>Arguments</b></font></td>
+				<td bgcolor=#CCCCCC><font face="Times"><b>Ramp Enabled</b></font></td>
+				<td bgcolor=#CCCCCC width=85%><font face="Times"><b>Description</b></font></td>
+</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">sr-ratio</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">float</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">yes</font></td>
+				<td bgcolor="#d7d7cc" width="85%"><font face="Times">Sets the ratio to the current sample rate. 1.0 = the current sample rate, 0.5 = half the current sample rate, etc.</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">bitdepth</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">int</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">yes</font></td>
+				<td bgcolor="#d7d7cc" width="85%"><font face="Times">Sets the bitdepth to down-sample to.</font></td>
+			</tr>
+		</table>
+		<p>
+		<table border=0 width=100%>
+			<tr>
+				<td bgcolor=#b6a7ff><font size=+1 face="Times"><b><a href="jade-feedback.html">Feedback</a>:</b></font></td>
+			</tr>
+		</table>
+		<table border=0 width=100%>
+			<tr>
+				<td bgcolor=#CCCCCC width=15%><font face="Times"><b>Name</b></font></td>
+				<td bgcolor=#CCCCCC width=15%><font face="Times"><b>Arguments</b></font></td>
+				<td bgcolor=#CCCCCC width=65%><font face="Times"><b>Description</b></font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC width="15%"><font face="Courier">&lt;instruction&gt;</font></td>
+				<td bgcolor=#D7D7CC width="15%"><font face="Times">&lt;</font><font face="Courier">arguments&gt;</font></td>
+				<td bgcolor=#D7D7CC><font face="Times">All instructions for this module are returned.</font></td>
+			</tr>
+		</table>
+		<p></p>
+		<table border=0 width=100%>
+<tr>
+<td bgcolor=#b6a7ff><font size=+1 face="Times"><b>See Also:</b></td>
+</tr>
+<tr>
+<td bgcolor=#CCCCCC><a href="degrade.html"><b>degrade</b></a></td>
+</tr>
+</table>
+	</body>
+</html>

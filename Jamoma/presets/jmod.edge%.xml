@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "edge%">
+<pattrstorage name = "jmod.edge%">
 	<slot number = "1">
 		<patcher name = "jmod.gui.1Uh.v.mxb">
-			<patcher name = "j2-gui.menu.v.mxb">
-				<patcher name = "jmod.parameter.mxb">
-					<pattr name = "preview" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter.mxb[1]">
-					<pattr name = "bypass" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter.mxb[2]">
-					<pattr name = "freeze" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter.mxb[3]">
-					<pattr name = "mute" value = "0" />
-				</patcher>
+			<patcher name = "jmod.parameter.mxb">
+				<pattr name = "preview" value = "1" />
+			</patcher>
+			<patcher name = "jmod.parameter.mxb[1]">
+				<pattr name = "bypass" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter.mxb[2]">
+				<pattr name = "freeze" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter.mxb[3]">
+				<pattr name = "mute" value = "0" />
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[1]">

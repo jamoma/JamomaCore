@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<meta name="generator" content="Adobe GoLive 6">
+		<title>Jade: std.input reference</title>
+	</head>
+<html>
+<body bgcolor=#F7F7F7 link=#000000 vlink=#000000>
+		<table width="100%" border="0" cellspacing="2" cellpadding="5">
+			<tr>
+				<td align="right" bgcolor="#c5c5c5"><font size="+2" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>input</b></font></td>
+			</tr>
+			<tr>
+				<td bgcolor=black align=right><font size=+1 color="#c5c5c5" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Audio Input</font></td>
+			</tr>
+		</table>
+		<p><font face="Times">
+
+The <b>input</b> module provides 2 channels of audio input from your soundcard/adc and provides facilities for alternatively playing back from a soundfile or test source. This module should be installed in the input location.</font></p>
+		<p><font face="Times">size = </font><font face="Courier">n/a</font><font face="Times"> </font></p>
+		<table border=0 width=100%>
+<tr>
+<td bgcolor=#b6a7ff><font size=+1 face="Times"><b><a href="jade-connections.html">Connections</a>:</b></font></td>
+</tr>
+</table>
+		<table border=0 width=100%>
+			<tr>
+<td bgcolor=#CCCCCC width=15%><font face="Times"><b>I/O</b></font></td>
+				<td bgcolor=#CCCCCC width=15%><font face="Times"><b>Type</b></font></td>
+				<td bgcolor=#CCCCCC width=65%><font face="Times"><b>Additional Info</b></font></td>
+			</tr>
+			<tr>
+<td bgcolor=#D7CCCC width="15%"><font face="Times">output(1)</font></td>
+				<td bgcolor=#D7D7CC width="15%"><font face="Times">audio</font></td>
+				<td bgcolor=#D7D7CC><font face="Courier">n/a</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC width="15%"><font face="Times">output(2)</font></td>
+				<td bgcolor=#D7D7CC width="15%"><font face="Times">audio</font></td>
+				<td bgcolor=#D7D7CC><font face="Courier">n/a</font></td>
+			</tr>
+		</table>
+<p>
+<table border=0 width=100%>
+<tr>
+<td bgcolor=#b6a7ff><font size=+1 face="Times"><a href="jade-instructions.html"><b>Instructions:</b></a></font></td>
+</tr>
+</table>
+
+<table border=0 width=100%>
+			<tr>
+<td bgcolor=#CCCCCC width=10%><font face="Times"><b>Name</b></font></td>
+<td bgcolor=#CCCCCC width=5%><font face="Times"><b>Arguments</b></font></td>
+				<td bgcolor=#CCCCCC><font face="Times"><b>Ramp Enabled</b></font></td>
+				<td bgcolor=#CCCCCC width=85%><font face="Times"><b>Description</b></font></td>
+</tr>
+			<tr>
+<td bgcolor=#D7CCCC valign=top><font face="Courier">source_select</font></td>
+<td bgcolor=#DDDDDD valign=top><font face="Courier">int</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">no</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Chooses the sound source to send to the outlets. 0 = No Input, 1 = Live Input, 2 = SoundFile Input, 3 = test source: 1KHz sine wave, 4 = test source: pink noise.</font></td>
+</tr>
+<tr>
+<td bgcolor=#D7CCCC valign=top><font face="Courier">play</font></td>
+<td bgcolor=#DDDDDD valign=top><font face="Courier">toggle</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">no</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Turns on/off the soundfile playback.</font></td>
+</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">loop</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">toggle</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">no</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Turns on/off looping for the soundfile playback.</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">direct</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">instructions</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">no</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Direct access to the underlying sfplay~ object. For more info on sfplay~, see the MSP2 reference manual.</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">gain</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">float</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">yes</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Sets the gain for channels 1 &amp; 2 in decibels (where 0dB is full range).</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">gainR</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">float</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">yes</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Sets the gain for channel 2 in decibels (where 0dB is full range) when the controls are not linked (see the &quot;link&quot; instruction below).</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">midigain</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">int</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">yes</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Sets the gain for channels 1 &amp; 2 in MIDI units, where 127 is full range.</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">midigainR</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">int</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">yes</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Sets the gain for channel  4 in MIDI units, where 127 is full range, when the controls are not linked.</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">gainInc</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">n/a</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">no</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Increases the midigain for for channels 1 &amp; 2 by one.</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">gainDec</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">n/a</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">no</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Decreases the midigain for for channels 1 &amp; 2 by one.</font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC valign=top><font face="Courier">link</font></td>
+				<td bgcolor=#DDDDDD valign=top><font face="Courier">toggle</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Courier">no</font></td>
+				<td bgcolor=#D7D7CC valign=top><font face="Times">Gangs the left and right gain sliders together when toggled on.</font></td>
+			</tr>
+		</table>
+		<p>
+		<table border=0 width=100%>
+			<tr>
+				<td bgcolor=#b6a7ff><font size=+1 face="Times"><b><a href="jade-feedback.html">Feedback</a>:</b></font></td>
+			</tr>
+		</table>
+		<table border=0 width=100%>
+			<tr>
+				<td bgcolor=#CCCCCC width=15%><font face="Times"><b>Name</b></font></td>
+				<td bgcolor=#CCCCCC width=15%><font face="Times"><b>Arguments</b></font></td>
+				<td bgcolor=#CCCCCC width=65%><font face="Times"><b>Description</b></font></td>
+			</tr>
+			<tr>
+				<td bgcolor=#D7CCCC width="15%"><font face="Times">&lt;instruction&gt;</font></td>
+				<td bgcolor=#D7D7CC width="15%"><font face="Times">&lt;arguments&gt;</font></td>
+				<td bgcolor=#D7D7CC>All instructions for this module are returned.</td>
+			</tr>
+		</table>
+		<p></p>
+		<table border=0 width=100%>
+<tr>
+<td bgcolor=#b6a7ff><font size=+1 face="Times"><b>See Also:</b></td>
+</tr>
+<tr>
+<td bgcolor=#CCCCCC><a href="output.html"><b>output</b></a><b> </b><a href="input2.html"><b>input2</b></a></td>
+</tr>
+</table>
+	</body>
+</html>
