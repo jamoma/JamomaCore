@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
 <pattrstorage name = "jmod.input~">
-	<slot number = "1" lock = "0">
+	<slot number = "1">
 		<patcher name = "jmod.parameter.mxb[4]">
 			<pattr name = "loop" value = "1" />
 		</patcher>
@@ -12,7 +12,7 @@
 			<pattr name = "source_select" value = "2" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "modout" value = "0" />
+			<pattr name = "modout" value = "1" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt">
 			<pattr name = "set_left_ch" value = "0" />
