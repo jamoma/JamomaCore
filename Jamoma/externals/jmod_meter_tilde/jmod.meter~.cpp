@@ -3,30 +3,35 @@
 // License: GNU LGPL
 
 #include "ext.h"				// Max Header
+#include "z_dsp.h"				// MSP Header
 #include "ext_common.h"			// includes the MIN macro
 #include "ext_strings.h"		// String Functions
 #include "commonsyms.h"			// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"			// Max Object Extensions (attributes) Header
 #include "ext_user.h"
 #include "ext_wind.h"
+#include <math.h>
 
 // Macros and Constants
-#define RES_ID		10120		// ID of our SICN resources
-#define MAXWIDTH 	1024L		// maximum width and height of user object in pixels
-#define MAXHEIGHT	512L		//		(defines maximum offscreen canvas allocation)
-#define MINWIDTH 	64L			// minimum width and height
-#define MINHEIGHT	5L			//		...
-#define DEFWIDTH 	200			// default width and height
-#define DEFHEIGHT	12			//		...
+#define RES_ID			10120		// ID of our SICN resources
+#define MAXWIDTH 		1024L		// maximum width and height of user object in pixels
+#define MAXHEIGHT		512L		//		(defines maximum offscreen canvas allocation)
+#define MINWIDTH 		20L			// minimum width and height
+#define MINHEIGHT		2L			//		...
+#define DEFWIDTH 		100			// default width and height
+#define DEFHEIGHT		10			//		...
+#define POLL_INTERVAL	150			// metro time
 
 // Data Structure for our object
-typedef struct meter{
-	t_box		x_box;			// required box structure for all ui externs
+typedef struct {
+	t_pxbox		my_box;			// required box structure for all audio ui externs
 	void		*obex;			// max 4.5 object extensions
 	void		*qelem;			// queue element to defer drawing commands
-	
+	void		*clock;			// clock for polling the audio analysis results
 	
 	Rect 		rect;			// for comparing with x_box.b_rect in the update() method
+	
+	float		envelope;		// the result of the amplitude analysis [0.0, 1.0]
 } t_meter;
 
 // Prototypes for our methods:
@@ -35,6 +40,10 @@ void *meter_menu(void *p, long x, long y, long font);
 void meter_free(t_meter *x);
 void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst);	// Max Methods...
 void meter_bang(t_meter *x);
+void meter_float(t_meter *x, double value);
+void meter_tick(t_meter *x);
+t_int *meter_perform(t_int *w);
+void meter_dsp(t_meter *x, t_signal **sp, short *count);
 void meter_update(t_meter *x);											// UI Methods...
 void meter_click(t_meter *x, Point pt, short modifiers);
 void meter_psave(t_meter *x, void *w);
@@ -63,7 +72,11 @@ void main(void)
  	class_addmethod(c, (method)meter_update, 	"update", A_FLOAT, 0L);
  	class_addmethod(c, (method)meter_psave,		"psave", A_CANT, 0L);	
 	class_addmethod(c, (method)meter_assist, 	"assist", A_CANT, 0L); 
-	class_addmethod(c, (method)meter_bang, 		"bang", 0L); 
+	class_addmethod(c, (method)meter_bang, 		"bang", 0L);
+	class_addmethod(c, (method)meter_float,		"float", A_FLOAT, 0L);
+ 	class_addmethod(c, (method)meter_dsp, 		"dsp", A_CANT, 0L);		
+
+	class_dspinitbox(c);									// Setup object's class to work with MSP
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -85,6 +98,8 @@ void *meter_new(t_symbol *s, short argc, t_atom *argv)
 	
 	x = (t_meter*)object_alloc(meter_class);
 	if(x){
+		dsp_setupbox((t_pxbox *)x, 1);
+	
 		patcher = argv[0].a_w.w_obj;					// patcher
 		x_coord = argv[1].a_w.w_long;					// x coord
 		y_coord = argv[2].a_w.w_long;					// y coord
@@ -106,13 +121,19 @@ void *meter_new(t_symbol *s, short argc, t_atom *argv)
 		box_new((t_box *)x, (t_patcher *)patcher, flags, x_coord, y_coord, x_coord + width, y_coord + height);
 
 		// Reassign the box's firstin field to point to our new object
-		x->x_box.b_firstin = (void *)x;
+		x->my_box.z_box.b_firstin = (void *)x;
 		
 		// Cache rect for comparisons when the user decides to re-size the object
-		x->rect = x->x_box.b_rect;
+		x->rect = x->my_box.z_box.b_rect;
 
 		// Create our queue element for defering calls to the draw function
 		x->qelem = qelem_new(x, (method)meter_qfn);
+
+		// Create clock routine for polling the audio result
+		x->clock = clock_new(x, (method)meter_tick);
+
+		// Set defaults
+		x->envelope = 0;
 		
 		// Finish it up...
 		box_ready((t_box *)x);
@@ -141,8 +162,9 @@ void *meter_menu(void *p, long x, long y, long font)
 // delete
 void meter_free(t_meter *x)
 {
+	dsp_freebox((t_pxbox *)x);
 	qelem_free(x->qelem);
-	box_free((box *)x);
+	freeobject((t_object *)x->clock);
 }
 
 
@@ -170,6 +192,53 @@ void meter_bang(t_meter *x)
 }
 
 
+// Method: bang
+void meter_float(t_meter *x, double value)
+{
+	x->envelope = value;
+	qelem_set(x->qelem);
+}
+
+
+// Method: triggered by our clock
+void meter_tick(t_meter *x)
+{
+	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
+		clock_delay(x->clock, POLL_INTERVAL); 		// schedule the clock
+		meter_bang(x); 								// draw the meters
+	}
+}
+
+
+// Method: perform signal processing
+t_int *meter_perform(t_int *w)
+{
+	t_meter		*x = (t_meter *)(w[1]);
+	t_float		*input = (float *)(w[2]);
+	long 		n = (long)(w[3]);
+	float 		currentvalue;
+
+	while(n--){
+		currentvalue = ((*input) < 0)?-(*input):*input; // get the current sample's absolute value
+		if(currentvalue > x->envelope) 					// if it's a new peak amplitude...
+			x->envelope = currentvalue;
+		input++; 										// increment pointer in the vector
+	}
+	return (w+4);
+}		
+
+
+// Method: compile dsp chain
+void meter_dsp(t_meter *x, t_signal **sp, short *count)
+{		
+	if(count[0]){
+		dsp_add(meter_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
+		clock_delay(x->clock, POLL_INTERVAL); 			// start the clock
+	}	
+}
+
+
+
 /************************************************************************************/
 // Required UI Object Methods
 
@@ -179,14 +248,14 @@ void meter_update(t_meter *x)
 {
 	short width_old = x->rect.right - x->rect.left;
 	short height_old = x->rect.bottom - x->rect.top;
-	short width_new = x->x_box.b_rect.right - x->x_box.b_rect.left;
-	short height_new = x->x_box.b_rect.bottom - x->x_box.b_rect.top;
+	short width_new = x->my_box.z_box.b_rect.right - x->my_box.z_box.b_rect.left;
+	short height_new = x->my_box.z_box.b_rect.bottom - x->my_box.z_box.b_rect.top;
 
 	if(/*!x->x_offscreen ||*/ height_new != height_old || width_new != width_old) {
 		width_new = CLIP(width_new, MINWIDTH, MAXWIDTH); // constrain to min and max size
 		height_new = CLIP(height_new, MINHEIGHT, MAXHEIGHT);
-		box_size(&x->x_box, width_new, height_new);	// this function actually resizes out t_box structure
-		x->rect = x->x_box.b_rect;
+		box_size(&x->my_box, width_new, height_new);	// this function actually resizes out t_box structure
+		x->rect = x->my_box.zbox.b_rect;
 		
 		//xgui_allocoffscreen(x); // (existing offsceen is disposed inside)
 	}
@@ -204,12 +273,12 @@ void meter_click(t_meter *x, Point pt, short modifiers)
 // Save our UI object's location and appearance with the patcher...
 void meter_psave(t_meter *x, void *w)
 {
-	Rect r = x->x_box.b_rect;
+	Rect r = x->my_box.zbox.b_rect;
 	t_atom argv[16];
 	short inc = 0;
 	
 	SETSYM(argv,gensym("#P"));
-	if (x->x_box.b_hidden) {	// i.e. if it's hidden when the patcher is locked
+	if (x->my_box.zbox.b_hidden) {	// i.e. if it's hidden when the patcher is locked
 		SETSYM(argv+1,gensym("hidden"));
 		inc = 1;
 	}
@@ -230,7 +299,7 @@ void meter_psave(t_meter *x, void *w)
 // The deferred routine called by our Qelem
 void meter_qfn(t_meter *x)
 {
-	GrafPtr	gp = patcher_setport(x->x_box.b_patcher);
+	GrafPtr	gp = patcher_setport(x->my_box.b_patcher);
 	
 	if(gp){				// if the pointer is valid...
 		if(!box_nodraw((t_box *)x)){
@@ -248,28 +317,65 @@ void meter_draw(t_meter *x)
 	GrafPtr		curPort;
 	GDHandle	curDevice;
 	RGBColor	frgb;
-	Rect		rect_ui = x->x_box.b_rect;
+	Rect		rect_ui = x->my_box.b_rect;
 	Rect		rect_temp;
 	short		i;
-	short		width_ui = x->x_box.b_rect.right - x->x_box.b_rect.left;
+	short		width_ui = x->my_box.b_rect.right - x->my_box.b_rect.left;
+	short		width_green = 0.96 * width_ui;		// 96% of total width
+	short		width_red = width_ui - width_green;	// 4% of total width
 	short		left = x->x_box.b_rect.left;
-	//float		ratio;
+	float		level;
 	
 	GetGWorld((CGrafPtr *)&curPort, &curDevice);
 	PenMode(srcCopy);
 	
 	frgb.blue = 0;
 	frgb.green = 65535;
-	rect_temp.top = x->x_box.b_rect.top;
-	rect_temp.bottom = x->x_box.b_rect.bottom;
+	rect_temp.top = x->my_box.b_rect.top;
+	rect_temp.bottom = x->my_box.b_rect.bottom;
 
-	for(i=0; i<width_ui; i++){
+	// Draw Green
+	for(i=0; i<width_green; i++){
 		rect_temp.left = left + i;
 		rect_temp.right = rect_temp.left + 1;
-		frgb.red = (i * 65535) / width_ui;
+		frgb.red = (i * 65535) / width_green;
 		
 		RGBForeColor(&frgb);
 		PaintRect(&rect_temp);
 	}
+
+	// Draw Red
+	frgb.green = 0;
+	rect_temp.left = left + i;
+	rect_temp.right = x->my_box.b_rect.right;
+	
+	RGBForeColor(&frgb);
+	PaintRect(&rect_temp);
+
+	// Draw Gray
+	frgb.red = 2000;
+	frgb.green = 2000;
+	frgb.blue = 2000;
+	RGBForeColor(&frgb);
+
+	level = CLIP(x->envelope, 0.0, 1.0);		// get the amplitude
+	
+	if(level >= 1.0) return;
+	if(level > 0.0) {
+		rect_temp.right = left + width_ui;
+
+		level = CLIP(20. * (log10(level)), -96.0, 0.0);	// convert to decibels
+		rect_temp.left = (left + width_green) + (level * 0.0104166667 * width_green);		
+
+		PaintRect(&rect_temp);
+	}
+	else{
+		PaintRect(&rect_ui);
+	}
+	
+	
+	x->envelope = 0;								// reset the amplitude tracker
 }
+
+
 
