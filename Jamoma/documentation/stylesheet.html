@@ -4,7 +4,9 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
 		<title>Jamoma Style Sheet &amp; Module Specification</title>
-	</head>
+	
+<link href="styles/jamoma.css" rel="stylesheet" type="text/css">
+</head>
 
 	<body bgcolor="#ffffff">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -17,16 +19,17 @@
 				</td>
 			</tr>
 		</table>
-		<p><font face="Arial"><b>Jamoma Style Sheet &amp; Module Specification</b></font></p>
+		
+<h1>Jamoma Style Sheet &amp; Module Specification</h1>
 		<p>Type an overview of the specification here.</p>
 		<p>Discuss the difference between a message and a parameter.</p>
 		<p>Discuss that all modules should return their parameter values as they are updated.</p>
-		<p><br>
-			<font face="Arial"><b>File Format</b></font></p>
+		
+<h1>File Format</h1>
 		<p>All module filenames should end with the &#147;.mod&#148; extension, and should be saved in Max&#146;s text format. Similarly, all algorithms should end with &#147;.alg&#148; extension and be saved in Max&#146;s text format. Other underlying patches or abstractions should also be saved in text format. The preferred extensions for text format files (with the exception of .mod or .alg files) is .txt or .mxt.</p>
 		<p>If there is a situation where a binary format patcher must be used. the preferred extension for binary Max patches is .mxb.</p>
-		<p><br>
-			<font face="Arial"><b>Standardized Messages and Parameters</b></font></p>
+		
+<h1>Standardized Messages and Parameters</h1>
 		<p>Some intro.</p>
 		<p>All modules should, where feasible, implement the following messages:</p>
 		<ul>
@@ -52,8 +55,8 @@
 			<li>preview &lt;toggle&gt;:
 			<li>genframe: generates a frame, essentially sending a bang to a Jitter matrix operator
 		</ul>
-		<p><br>
-			<font face="Arial"><b>Reserved Syntax and Messages</b></font></p>
+		
+<h1>Reserved Syntax and Messages</h1>
 		<p>No module may accept or use the following:</p>
 		<ul>
 			<li>Any message beginning with an undescore.  These are reserved for internal use by Jamoma module components.
@@ -64,8 +67,8 @@
 			<li>close
 			<li>Any standard message, as previously defined, in a way that differs from the way defined in this style sheet
 		</ul>
-		<p><br>
-			<font face="Arial"><b>User Interface Dimensions</b></font></p>
+		
+<h1>User Interface Dimensions</h1>
 		<p>User interface dimensions are based on the paradigm of conventional rack mount hardware.  To demonstrate this, the width a &#147;1U&#148; module is 510 pixels.  Thus the width of a half rack unit module is 255 pixels.  The width of 510 pixels was chosen to maximize the number of modules that can fit on a monitor with a resolution of 1024 pixels.</p>
 		<p>The height of a 1U module is 60 pixels.  Heights then, must be a multiple of 60 pixels high.  The size of a module&#146;s interface must follow these guidelines.  Furthermore, the size of the module should be accessible to the host patch so that it may query the module about this.  </p>
 		<p>The chart below shows the dimensions of the most common module sizes. </p>
@@ -107,8 +110,8 @@
 			</tr>
 		</table>
 		<p>Modules may be made which are taller that those in this table, provided they follow the same convention.</p>
-		<p><br>
-			<font face="Arial"><b>User Interface Features</b></font></p>
+		
+<h1>User Interface Features</h1>
 		<p>The user interface may designed according to the desires and whims of the developer.  To maximize the experience of a user, however, it is ideal to remain somewhat consistent with the conventions established by the example modules that are included with the canonical Jamoma package.</p>
 		<p></p>
 	</body>
