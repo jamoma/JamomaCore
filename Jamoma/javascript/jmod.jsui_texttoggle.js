@@ -151,6 +151,17 @@ function msg_int(v)
 	outlet(0,myval);
 }
 
+function set(v)
+{
+	if (v==0)
+		myval = 0;
+	else
+		myval = 1;
+	draw();
+	refresh();
+	notifyclients();
+}
+
 function draw()
 {
 	var str,width,height,aspect;
