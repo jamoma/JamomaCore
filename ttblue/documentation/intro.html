@@ -1,16 +1,134 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-
-	<head>
-		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-		<title>TapTools2 DSP Library: Introduction</title>
-	</head>
-
-	<body bgcolor="#ffffff">
-		<font face="Arial"><b>Introduction</b></font>
-		<p>The Tap.Tools2 DSP Library is set of cross-platform C++ objects for performing operations on vectors of audio samples.</p>
-		<p><br>
-			<font face="Arial"><b>Installing</b></font></p>
-		<p>Place the folder containing this ReadMe somewhere on your hard-drive. Then Make sure your compiler has access to it in order to compile the code.</p>
-	</body>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" media="screen" href="intro_files/intro.css">
+</head>
+<body style="margin: 18 18 18 18;" bgcolor="#ffffff"><div>
+<p style="padding-top: 0; " class="Heading "><span style="font-size: 14.00pt; vertical-align: 0.000000em; ">Introduction</span><span style="vertical-align: 0.000000em; "> </span></p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">The Tap.Tools Blue DSP Library is a set of open </span><span style="font-family: 'TimesNewRomanPSMT', 'Times New Roman'; line-height: 1.25; vertical-align: 0.000000em; ">source</span><span style="vertical-align: 0.000000em; ">, cross-platform, C++ objects for performing operations on vectors of audio samples. It the basis of commercial products such as </span><a href="http://www.electrotap.com/taptoolsmax/" style="color: #000099; text-decoration: underline; vertical-align: 0.000000em; ">Tap.Tools Max 2.0</a><span style="vertical-align: 0.000000em; ">, </span><a href="http://www.electrotap.com/jade/" style="color: #000099; text-decoration: underline; vertical-align: 0.000000em; ">Jade 2.0</a><span style="vertical-align: 0.000000em; ">, and </span><a href="http://www.electrotap.com/hipno/" style="color: #000099; text-decoration: underline; vertical-align: 0.000000em; ">Hipno</a><span style="vertical-align: 0.000000em; ">.</span></p>
+<p class="Body " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Heading " style="font-family: 'Arial-BoldMT', 'Arial'; font-weight: bold; line-height: 1.14; vertical-align: 0.000000em; ">Objects</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">Tap.Tools Blue objects are fullly-qualified C++ objects composed of both data elements and algorithms that operate on those elements. Most objects are analogous to a module in a modular systhesizer such as the Moog 900 series. In other words, an object may be an amplifier, an oscillator, a filter, etc. All Tap.Tools Blue objects derive from a common base class, </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">taptools_base</span><span style="vertical-align: 0.000000em; ">, which defines a variety of common macros, shared features, and the basic structure of derived classes.</span></p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">All objects have attributes, which are the parameters that the user of an object interfaces with. All attributes are accessed via a unified </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">attr_set()</span><span style="vertical-align: 0.000000em; "> and </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">attr_get()</span><span style="vertical-align: 0.000000em; "> mechanism.</span></p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">All objects perform their algorithm in blocks (or vectors) of samples rather than one sample at a time. This greatly increases the efficiency of the DSP routines. This routine is accessed via a common </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">dsp_vector_calc()</span><span style="vertical-align: 0.000000em; "> method. If an object needs to define multiple dsp methods that have the same input and output configuration, they may defined privately and pointed to by a function pointer called </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">dsp_vector_calc()</span><span style="vertical-align: 0.000000em; ">. If there are varying numbers of inputs or outputs for the different </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">dsp_vector_calc()</span><span style="font-family: 'Courier', 'Courier'; font-size: 13.00pt; line-height: 1.23; vertical-align: 0.000000em; "> </span><span style="vertical-align: 0.000000em; ">routines, then you may simply overload the function.</span></p>
+<p class="Body " style="vertical-align: 0.000000em; ">To use a Tap.Tools Blue object, you will need to include the header for that object in the callling code. You will not need to include any additional code in your project. One of the features of C++ is that all code that is included in the class definition header is automatically inlined, without need for additional keywords or options. Tap.Tools Blue objects take advantage of this, which also simplifies file management and reduces the time required to create a new object by integrating the interface and implementation into one entity.</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">You will also need to include the header for the </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">taptools_audio_signal</span><span style="vertical-align: 0.000000em; "> object. Audio signals are objects that allocate or reference vectors of samples. Working with audio signal objects are detailed elsewhere in this documentation.</span></p>
+<p class="Body " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Heading " style="font-family: 'Arial-BoldMT', 'Arial'; font-weight: bold; line-height: 1.14; vertical-align: 0.000000em; ">Instance Creation &amp; Deletion</p>
+<p class="Body " style="font-family: 'Arial-BoldMT', 'Arial'; font-weight: bold; line-height: 1.17; vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body " style="vertical-align: 0.000000em; ">Tap.Tools Blue objects use the standard C++ constructor and destructor mechanism. This means that a user creates an instance of a Tap.Tools Blue object using the new keyword, such as in this example:</p>
+<p class="Code "><span style="font-family: 'Courier', 'Courier'; font-size: 10.00pt; line-height: 1.32; vertical-align: 0.000000em; ">tap_ga</span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">in *my_ob</span><span style="font-family: 'Courier', 'Courier'; font-size: 10.00pt; line-height: 1.32; vertical-align: 0.000000em; ">ject; // pointer to a tap_gain object</span></p>
+<p class="Code " style="font-family: 'Courier', 'Courier'; font-size: 10.00pt; line-height: 1.32; vertical-align: 0.000000em; ">my_object = new tap_gain();</p>
+<p class="Code " style="font-family: 'Courier', 'Courier'; font-size: 10.00pt; line-height: 1.32; vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">When this function is called, the constructor method of the Tap.Tools Blue object is called. In this example, that object is the </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">tap_gain</span><span style="vertical-align: 0.000000em; "> object. The constructor method is responsible both for allocating any memory, member Tap.Tools Blue objects, and for initializing attributes. The constructor method looks like this:</span></p>
+<p class="Code " style="vertical-align: 0.000000em; ">tap_gain(void) // Constructor </p>
+<p class="Code " style="vertical-align: 0.000000em; ">{</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;gain = 1.0;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">}</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body " style="vertical-align: 0.000000em; ">Likewise, the user will be expected to free the object using the standard free keyword, as in the following example.</p>
+<p class="Code " style="vertical-align: 0.000000em; ">delete my_object;</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">In the case of the </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">tap_gain</span><span style="vertical-align: 0.000000em; "> object, there is no memory to free. The destructor function may then be left unimplemented, or an empty destructor may be implemented. Below is the empty destructor method found in the </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">tap_gain</span><span style="vertical-align: 0.000000em; "> object.</span></p>
+<p class="Code " style="vertical-align: 0.000000em; ">~tap_gain(void) // Destructor</p>
+<p class="Code " style="vertical-align: 0.000000em; ">{</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">}</p>
+<p class="Body " style="font-family: 'Courier', 'Courier'; font-size: 13.00pt; line-height: 1.23; vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Heading " style="font-family: 'Arial-BoldMT', 'Arial'; font-weight: bold; line-height: 1.14; vertical-align: 0.000000em; ">Accessor Methods</p>
+<p class="Body " style="font-family: 'Arial-BoldMT', 'Arial'; font-weight: bold; line-height: 1.17; vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body " style="vertical-align: 0.000000em; ">Accessor methods provide mechanism for setting and querying attribute values in a Tap.Tools Blue object. Typically all attribute values will be declared as private members of a class, thus making it necessary to use an accessor to access those values. An object will typically implement at least two accessor methods: a set method and a get method. The example below shows code that calls both methods of a a member object.</p>
+<p class="Code " style="vertical-align: 0.000000em; ">float temp;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">my_object-&gt;set_attr(tap_gain::k_gain, -6.0);</p>
+<p class="Code " style="vertical-align: 0.000000em; ">temp = my_object-&gt;get_attr(tap_gain::k_gain); //temp = -6 dB</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">Notice that the first argument is always a </span><span style="font-family: 'Times-Bold', 'Times'; font-weight: bold; line-height: 1.17; vertical-align: 0.000000em; ">selector</span><span style="vertical-align: 0.000000em; ">. Each object defines a set of selectors for choosing which attribute you are accessing with the above methods. For example, inside the </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">tap_gain</span><span style="vertical-align: 0.000000em; "> object the following is the definition of the selectors.</span></p>
+<p class="Code " style="vertical-align: 0.000000em; ">enum selectors{ // Attribute Selectors</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;k_gain,</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;k_gain_direct,</p>
+<p class="Code " style="vertical-align: 0.000000em; ">};</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body " style="vertical-align: 0.000000em; ">The associated routines inside of the tap_gain object are defined in the code fragment that follows.</p>
+<p class="Code " style="vertical-align: 0.000000em; ">// Set Attributes</p>
+<p class="Code "><span style="vertical-align: 0.000000em; ">void set_attr(tt_selector sel, tt_attribute_value val)</span><span style="vertical-align: 0.000000em; "> </span><span style="vertical-align: 0.000000em; ">{</span><span style="vertical-align: 0.000000em; "></span></p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;switch (sel){</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case k_gain:</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gain = decibels_to_amplitude(val);</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case k_gain_direct:</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gain = val;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+<p class="Code " style="vertical-align: 0.000000em; ">}</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">// Get Attributes</p>
+<p class="Code " style="vertical-align: 0.000000em; ">tt_attribute_value get_attr(tt_selector sel) {</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;switch (sel){</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case k_gain:</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return amplitude_to_decibels(gain);</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case k_gain_direct:</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return gain;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;return 0.0; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
+<p class="Code " style="vertical-align: 0.000000em; ">}</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+<p class="Heading " style="font-family: 'Arial-BoldMT', 'Arial'; font-weight: bold; line-height: 1.14; vertical-align: 0.000000em; ">DSP Methods</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">The dsp methods are where the actual work of calculating and processing occurs. &nbsp;At the moment, this is carried out via a method (or methods) named </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">dsp_vector_calc()</span><span style="vertical-align: 0.000000em; ">. This object will be passed one or more audio signal objects, which contain the input and/or output vectors that will be read or written by the routine. &nbsp;</span></p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">For example, the </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">tap_gain</span><span style="vertical-align: 0.000000em; "> class simply scales a signal. &nbsp;It requires one input signal and one output signal. &nbsp;In context, we would call the dsp routine as in the following code fragment.</span></p>
+<p class="Code " style="vertical-align: 0.000000em; ">tt_audio_signal *input;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">tt_audio_signal *output;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">input = new tt_audio_signal(64);</p>
+<p class="Code " style="vertical-align: 0.000000em; ">output = new tt_audio_signal(64);</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">// A block of 64 samples are written to the input signal here!</p>
+<p class="Code " style="vertical-align: 0.000000em; ">my_object-&gt;dsp_vector_calc(input, output);</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">// now use the 64 samples in the output signal to do something.</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">The processing is then performed in the </span><span style="vertical-align: 0.000000em; " class="Code_Fragment ">tap_gain</span><span style="vertical-align: 0.000000em; "> class. &nbsp;The code for that method provides a simple example of how this functions.</span></p>
+<p class="Code " style="vertical-align: 0.000000em; ">void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)</p>
+<p class="Code " style="vertical-align: 0.000000em; ">{</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;temp_vs = in-&gt;vectorsize;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;while(temp_vs--)</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*out-&gt;vector++ = *in-&gt;vector++ * gain;</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Code " style="vertical-align: 0.000000em; ">&nbsp;&nbsp;&nbsp;&nbsp;in-&gt;reset(); out-&gt;reset();</p>
+<p class="Code " style="vertical-align: 0.000000em; ">}</p>
+<p class="Code " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Body "><span style="vertical-align: 0.000000em; ">Note that this object looks at the first audio signal to determine the number of samples to process as a block. &nbsp;You </span><span style="font-style: italic; vertical-align: 0.000000em; ">must</span><span style="vertical-align: 0.000000em; "> ensure that both signals are of the same block size to guarantee proper operation. &nbsp;Tap.Tools Blue objects also maintain a vectorsize attribute internally, though this is not used in all objects at this time. &nbsp;This is likely to change - to be safe, make sure you set the vectorsize of the object and the signals to all match. &nbsp;</span></p>
+<p class="Body " style="vertical-align: 0.000000em; ">Also note that we are resetting the signals when we are done. &nbsp;The purpose of this is to make sure that we leave the signals as we found them - meaning that the internal pointer &ldquo;vector&rdquo; is returned to the first sample of the block of samples the signal contains.</p>
+<p class="Body " style="vertical-align: 0.000000em;  visibility: hidden; ">&nbsp;</p>
+<p class="Heading " style="font-family: 'Arial-BoldMT', 'Arial'; font-weight: bold; line-height: 1.14; vertical-align: 0.000000em; ">Putting It All Together</p>
+<p class="Body " style="vertical-align: 0.000000em; ">Tap.Tools Blue objects are fullly-qualified C++ objects following a structure that is both easy to interface with and is self-documenting in nature. &nbsp;Please consult the reference portion of this documentation for details on using objects in your code. &nbsp;To create your own objects, you are encouraged to look at the existing object code. &nbsp;If you are inclined, please consider submitting your new objects or example code to the project so that it may keep growing!</p>
+<p class="Body " style="vertical-align: 0.000000em; ">For writing objects, the following recommendations may be helpful.</p>
+<div style="margin-bottom: 0; margin-top: 0; text-align: center; " class="Body "><table cellspacing="0" style="background-color: transparent; border-collapse: collapse; " class="Table">
+<tr>
+<th style="background-color: #b0b3b2; border: 1.00pt #000000 solid; height: 25pt; vertical-align: top; width: 156pt; " class="Normal table_header_row_cell_style_default"><div><p style="margin-bottom: 0; margin-top: 0; padding-bottom: 0; padding-top: 0; text-align: center; " class="Sub_heading ">Topic</p></div></th>
+<th style="background-color: #b0b3b2; border: 1.00pt #000000 solid; height: 25pt; vertical-align: top; width: 156pt; " class="Normal table_header_row_cell_style_default"><div><p style="margin-bottom: 0; margin-top: 0; padding-bottom: 0; padding-top: 0; text-align: center; " class="Sub_heading ">Example Object</p></div></th>
+</tr>
+<tr>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">Methods to deal with a variable number of channels.</p></div></td>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">tap_mixer_mono</p></div></td>
+</tr>
+<tr>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">Setting different dsp methods based on changes in attribute values</p></div></td>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">tap_svf</p></div></td>
+</tr>
+<tr>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">Attribute accessors that need to set more than a single value.</p></div></td>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">tap_buffer</p></div></td>
+</tr>
+<tr>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">Creating an object that uses other Tap.Tools Blue objects internally.</p></div></td>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">tap_shift, tap_verb</p></div></td>
+</tr>
+<tr>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">Using function pointers to increase speed by reducing branching</p></div></td>
+<td style="background-color: transparent; border: 1.00pt #000000 solid; height: 53pt; vertical-align: top; width: 156pt; " class="Normal table_cell_style_default"><div><p style="padding-bottom: 0; padding-top: 0; vertical-align: 0.000000em; " class="Body ">tap_adsr</p></div></td>
+</tr>
+</table></div>
+<p style="padding-bottom: 0; " class="Body "></p>
+</div></body>
 </html>

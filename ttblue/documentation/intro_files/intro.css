@@ -1,0 +1,110 @@
+.Heading {
+    color: #000000;
+    font-family: 'Arial-BoldMT', 'Arial';
+    font-size: 14.00pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 1.14;
+    margin-bottom: 0;
+    margin-left: 0.00pt;
+    margin-right: 0.00pt;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 12;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0.00pt;
+    text-transform: none;
+    vertical-align: 0.000000em;
+}
+.Sub_heading {
+    color: #000000;
+    font-family: 'Helvetica-Bold', 'Helvetica';
+    font-size: 12.00pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 1.17;
+    margin-bottom: 0;
+    margin-left: 0.00pt;
+    margin-right: 0.00pt;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 6;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0.00pt;
+    text-transform: none;
+    vertical-align: 0.000000em;
+}
+.Body {
+    color: #000000;
+    font-family: 'TimesNewRomanPSMT', 'Times New Roman';
+    font-size: 12.00pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    letter-spacing: 0;
+    line-height: 1.25;
+    margin-bottom: 0;
+    margin-left: 0.00pt;
+    margin-right: 0.00pt;
+    margin-top: 0;
+    padding-bottom: 12;
+    padding-top: 0;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0.00pt;
+    text-transform: none;
+    vertical-align: 0.000000em;
+}
+.Code {
+    color: #000000;
+    font-family: 'Courier', 'Courier';
+    font-size: 10.00pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    letter-spacing: 0;
+    line-height: 1.32;
+    margin-bottom: 0;
+    margin-left: 36.00pt;
+    margin-right: 0.00pt;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    text-align: left;
+    text-decoration: none;
+    text-indent: 0.00pt;
+    text-transform: none;
+    vertical-align: 0.000000em;
+}
+.table_header_row_cell_style_default {
+    background-color: #b0b3b2;
+}
+.Table {
+    background-color: transparent;
+    border-collapse: collapse;
+}
+.Code_Fragment {
+    color: #000000;
+    font-family: 'Courier', 'Courier';
+    font-size: 10.00pt;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    letter-spacing: 0;
+    line-height: 1.20;
+    text-decoration: none;
+    text-transform: none;
+    vertical-align: 0.000000em;
+}
+.Normal {
+    vertical-align: top;
+}
+.table_cell_style_default {
+    background-color: transparent;
+}
