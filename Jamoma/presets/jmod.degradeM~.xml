@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "degradeM~">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "jmod.parameter">
+				<pattr name = "mute" value = "1" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "bypass" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[3]">
+				<pattr name = "gain" value = "-76.199997" />
+			</patcher>
+			<patcher name = "jmod.parameter[5]">
+				<pattr name = "sr" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[6]">
+				<pattr name = "defeat_meters" value = "0" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxb">
+			<pattr name = "bitdepth" value = "6." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[1]">
+			<pattr name = "sr-ratio" value = "0.25" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
