@@ -1,0 +1,12 @@
+max v2;
+#N vpatcher 42 67 642 467;
+#P window setfont "Sans Serif" 9.;
+#P newex 57 218 48 196617 cycle~ 1;
+#P user ezdac~ 292 266 336 299 0;
+#P user gain~ 392 67 24 100 158 0 1.071519 7.94321 10.;
+#P message 146 84 48 196617 0.00005;
+#P flonum 143 126 57 9 0 0 0 3 0 0 0 221 221 221 222 222 222 0 0 0;
+#P user jmod.meter~ 141 176 200 12;
+#P connect 1 0 0 0;
+#P connect 2 0 1 0;
+#P pop;
