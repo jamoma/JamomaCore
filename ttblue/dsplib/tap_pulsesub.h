@@ -13,6 +13,11 @@
 
 // Include appropriate headers
 #include "taptools_base.h"
+#include "tap_offset.h"
+#include "tap_phasor.h"
+#include "tap_adsr.h"
+#include "tap_multiply.h"
+#include "taptools_audio_signal.h"
 
 
 /********************************************************
