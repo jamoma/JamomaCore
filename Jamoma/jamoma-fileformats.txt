@@ -1,1 +1,2 @@
+max fileformat .alg TEXT;
 max fileformat .mod TEXT;
