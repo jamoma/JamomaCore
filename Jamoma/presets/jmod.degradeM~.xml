@@ -23,7 +23,7 @@
 			<pattr name = "bitdepth" value = "6." />
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "sr-ratio" value = "0.25" />
+			<pattr name = "sr_ratio" value = "0.25" />
 		</patcher>
 	</slot>
 </pattrstorage>
