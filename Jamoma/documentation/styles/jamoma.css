@@ -17,3 +17,53 @@ h2 {
 	font-size: 12px;
 	font-weight: bold;
 }
+.instructionName {
+	font-family: "Courier New", Courier, mono;
+	background-color: #D7CCCC;
+	vertical-align: top;
+}
+.instructionArgument {
+	font-family: "Courier New", Courier, mono;
+	background-color: #DDDDDD;
+	vertical-align: top;
+}
+.instructionRamp {
+	font-family: "Courier New", Courier, mono;
+	background-color: #D7D7CC;
+	vertical-align: top;
+}
+.instructionDescription {
+	font-family: "Times New Roman", Times, serif;
+	background-color: #D7D7CC;
+	vertical-align: top;
+}
+.moduleName {
+	font-family: Arial, Helvetica, Geneva, Swiss, sans-serif;
+	font-size: +2em;
+	background-color: #c5c5c5;
+	text-align: right;
+	vertical-align: top;
+}
+.moduleDescription {
+	font-family: Arial, Helvetica, Geneva, Swiss, sans-serif;
+	font-size: 1em;
+	background-color: #000000;
+	color: #c5c5c5;
+	text-align: right;
+	vertical-align: top;
+}
+.tableHeading1 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: larger;
+	font-weight: bold;
+	background-color: #b6a7ff;
+	text-align: left;
+	vertical-align: top;
+}
+.tableHeading2 {
+	font-family: "Times New Roman", Times, serif;
+	font-weight: bold;
+	background-color: #CCCCCC;
+	text-align: left;
+	vertical-align: top;
+}

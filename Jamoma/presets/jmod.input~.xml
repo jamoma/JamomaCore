@@ -11,15 +11,6 @@
 		<patcher name = "jmod.parameter.mxb[8]">
 			<pattr name = "source_select" value = "2" />
 		</patcher>
-		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "modout" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "set_left_ch" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "set_right_ch" value = "0" />
-		</patcher>
 		<patcher name = "jmod.parameter.gain.mxt">
 			<pattr name = "gain_midi" value = "0." />
 		</patcher>
@@ -28,6 +19,15 @@
 		</patcher>
 		<patcher name = "jmod.parameter.gain.mxt[2]">
 			<pattr name = "gain_2_midi" value = "127." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[2]">
+			<pattr name = "link" value = "1" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "set_ch_1" value = "1" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "set_ch_2" value = "2" />
 		</patcher>
 	</slot>
 </pattrstorage>

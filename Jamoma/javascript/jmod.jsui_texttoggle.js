@@ -13,6 +13,7 @@ var mytexton = "on";
 var mytextoff = "off";
 var mybrgb = [0.8,0.8,0.8];
 var myfrgb = [0.,0.,0.];
+var myrgb1 = [0.6,0.6,0.6];
 var myfont = "Sans Serif";  // Geneva on Mac, Arial on PC
 var myfontsize = 0.5; // relative to height
 var mybevel = 0.25;
@@ -37,15 +38,21 @@ if (jsarguments.length>6)
 if (jsarguments.length>7)
 	myfrgb[1] = jsarguments[7]/255.;
 if (jsarguments.length>8)
-	myfrgb[2] = jsarguments[8]/255.;
+	myfrgb[2] = jsarguments[8]/255.
 if (jsarguments.length>9)
-	myfont = jsarguments[9];
+	myrgb1[0] = jsarguments[9]/255.;
 if (jsarguments.length>10)
-	myfontsize = jsarguments[10];
+	myrgb1[1] = jsarguments[10]/255.;
 if (jsarguments.length>11)
-	mybevel = jsarguments[11];
+	myrgb1[2] = jsarguments[11]/255.
 if (jsarguments.length>12)
-	mysmooth = jsarguments[12];
+	myfont = jsarguments[12];
+if (jsarguments.length>13)
+	myfontsize = jsarguments[13];
+if (jsarguments.length>14)
+	mybevel = jsarguments[14];
+if (jsarguments.length>15)
+	mysmooth = jsarguments[15];
 
 draw();
 refresh();
@@ -81,6 +88,15 @@ function brgb(r,g,b)
 	mybrgb[0] = r/255.;
 	mybrgb[1] = g/255.;
 	mybrgb[2] = b/255.;
+	draw();
+	refresh();
+}
+
+function rgb1(r,g,b)
+{
+	myrgb1[0] = r/255.;
+	myrgb1[1] = g/255.;
+	myrgb1[2] = b/255.;
 	draw();
 	refresh();
 }
@@ -182,9 +198,9 @@ function draw()
 		sh = myshade;
 	
 	if (myval) {
-		localrgb[0] = mybrgb[0] * 0.8 + myfrgb[0] * 0.2;
-		localrgb[1] = mybrgb[1] * 0.8 + myfrgb[1] * 0.2;
-		localrgb[2] = mybrgb[2] * 0.8 + myfrgb[2] * 0.2;
+		localrgb[0] = myrgb1[0];
+		localrgb[1] = myrgb1[1];
+		localrgb[2] = myrgb1[2];
 	} else {
 		localrgb[0] = mybrgb[0];
 		localrgb[1] = mybrgb[1];
