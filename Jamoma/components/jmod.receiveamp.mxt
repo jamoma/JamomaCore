@@ -1,0 +1,14 @@
+max v2;
+#N vpatcher 558 165 791 422;
+#P window setfont "Sans Serif" 9.;
+#P newex 46 161 43 196617 receive;
+#P outlet 46 197 15 0;
+#P newex 46 75 118 196617 t $1 $2;
+#P newex 46 52 45 196617 loadbang;
+#P newex 46 99 118 196617 sprintf set %s_xxx_%s;
+#P connect 1 0 2 0;
+#P connect 2 0 0 0;
+#P connect 0 0 4 0;
+#P connect 4 0 3 0;
+#P connect 2 1 0 1;
+#P pop;
