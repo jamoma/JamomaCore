@@ -1,0 +1,13 @@
+Note
+
+To successfully compile these Xcode projects, you will need to do one of the following:
+
+1) Move the project into the same folder as the example Xcode projects in the Cycling '74's MaxMSP SDK.
+
+2) Move a copy of the c74support folder from the SDK in to the Xcode folder in the examples folder that comes with Tap.Tools Blue
+
+3) Change the appropriate paths in the Xcode project to point to whatever location you have placed your c74support folder.
+
+
+The easiest will probably be one 2nd option above.
+
