@@ -1,5 +1,6 @@
 {\rtf1\mac\ansicpg10000\cocoartf102
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;\f1\fmodern\fcharset77 CourierNewPSMT;}
+{\fonttbl\f0\fswiss\fcharset77 Helvetica;\f1\fnil\fcharset77 LucidaGrande;\f2\fmodern\fcharset77 CourierNewPSMT;
+}
 {\colortbl;\red255\green255\blue255;}
 \margl1440\margr1440\vieww14360\viewh14480\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
@@ -7,25 +8,42 @@
 \f0\fs48 \cf0 Jamoma
 \fs24 \
 A module-building framework for interchange, collaboration, and ease of integration\
+Version 0.1 - 13 March 2005\
+_________________________________________________________________\
 \
 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 
-\fs32 Installing
+\fs32 \cf0 Installing
 \fs24 \
-	1. Launch your terminal.app\
-	2. Type (or copy/paste) the following and press return:\
-		cd "/Library/Application Support/Cycling '74\
-	3. Download the files\
-	4. move the jamoma-fileformats.txt file into /Library/Application Support/Cycling '74/init\
-	5. start Max\
+1. Move this folder (the "Jamoma" folder) into the following folder:\
+	Mac OSX:	/Library/Application Support/Cycling '74/\
+	Win XP:	C:\\Program Files\\Common Files\\Cycling '74\\ \
+ \
+2. Move the jamoma-fileformats.txt file into the "init" folder that is in the Cycling '74 folder.\
 \
 	\
 
 \fs32 Examples
 \fs24 \
-	For now look at the following files\
-	- untitled.txt\
-	- jam.filter.mod\
+To get started, there is an examples folder in the Jamoma folder.  Check out some of the examples that are present in there.  Also be sure to check out the Jamoma Style Sheet which is in the documentation folder.\
+\
+\
+
+\fs32 Licensing
+\fs24 \
+Jamoma is open source software.  It is licensed under the terms of the GNU LGPL.  Please see the file "
+\f1 GNU-LGPL.txt" in the Jamoma folder to review the terms of this license
+\f0 .\
+\
+\
+
+\fs32 Developing Jamoma?
+\fs24 \
+If you are interested in developing Jamoma, contact us via the sourceforge project page.  You can access this page via the following url:\
+	http://jamoma.sourceforge.net/\
+\
+Some information for developers, who have already been added to the project, is below in the section on CVS.\
 		\
 \
 
@@ -43,7 +61,7 @@ CVS requires that you use your Sourceforge name and password.  You will probably
 	\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
 
-\f1 \cf0 		<?xml version="1.0" encoding="UTF-8"?>\
+\f2 \cf0 		<?xml version="1.0" encoding="UTF-8"?>\
 		<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">\
 		<plist version="0.9">\
 		<dict>\
@@ -75,14 +93,17 @@ Once you have that all set up, the following example commands may be a useful qu
 	cvs commit -m "just added a modules folder and a comb filter module"\
 \
 \
-\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 
-\fs32 \cf0 FILE FORMATS
+\fs32 \cf0 File Formats
 \fs24 \
 	All patches MUST be in text format except for help patches which MUST be in binary format\
+	The .mod extension is used for modules, and the .alg extension for algorithms - these are still text format files\
 	All graphics should be in .pct or .psd (photoshop) format\
 	\
 	If there is a non-text format of file you need to commit to the repository, post a note to the\
 	mailing list (on sourceforge) and I'll add a filter for it.\
-	}
+	\
+\
+\
+}
