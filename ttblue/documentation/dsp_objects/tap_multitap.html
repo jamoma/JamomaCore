@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<title>Tap.Tools2 DSP Library: API Reference</title>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+			<tr>
+				<td align="left" valign="middle" bgcolor="#4f5397"><font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>tap_multitap</b></font></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" bgcolor="#d4d4d4"><font size="-1" color="#4f5397" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Non-interpolating multitap delay unit</font></td>
+			</tr>
+			<tr>
+				<td width="70%">This object depends on the sample-rate being set correctly in order to set the delays, so be sure you don't overlook it.
+					<p>Also, the constructor requires an argument to define the maximum delay time you will use (it allocates a memory buffer for the delay). If the argument is a float the argument will be interpreted in milliseconds, if the argument is a long it will be interpreted as a number of samples to allocate. </p>
+				</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Attributes
+							<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_delay_ms</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The delay time for a tap defined in milliseconds. This requires two arguments: the tap number [0 - 99] and the delay time.</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>k_delay_samples</code></td>
+										<td valign="top">The delay time for a tap defined in samples. This requires two arguments: the tap number [0 - 99] and the delay time.</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_gain</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The gain for a tap defined in decibels. This requires two arguments: the tap number [0 - 99] and the gain (where 0 dB = full scale, -6 dB = 0.5, etc.).</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>k_numtaps</code></td>
+										<td valign="top">The number of taps on the delay line. [1 - 100, default: 1]</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_master_gain</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The master output gain for the multitap unit defined in decibels (where 0 dB = full scale, -6 dB = 0.5, etc.).</td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%">
+					
+				</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>DSP Loop</b></font>
+					<blockquote>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;</code><code>sample_vector in,<br>
+									</code><code>
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;short vector_size, <br>&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out<br>
+										
+										
+										
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top">Note that all of the taps are mixed in this object before being output. You don't have access to the individual delay outputs.</td>
+							</tr>
+						</table>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

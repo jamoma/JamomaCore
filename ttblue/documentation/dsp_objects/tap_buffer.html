@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<title>Tap.Tools2 DSP Library: API Reference</title>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+			<tr>
+				<td align="left" valign="middle" bgcolor="#4f5397"><font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>tap_buffer</b></font></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" bgcolor="#d4d4d4"><font size="-1" color="#4f5397" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Memory buffer</font></td>
+			</tr>
+			<tr>
+				<td width="70%">The buffer is a block of the data type <code>sample_value,</code> stored in memory. It can be used in the creation of new Tap.Tools classes and as a parameter to other Tap.Tools classes. For an example of doing this, refer to the<code> tap_wavetable</code> class.
+					<p>This object differs from most Tap.Tools objects in that it does not have a dsp routine.</p>
+					<p>The constructor takes an optional argument, a long, to set the size of the buffer in samples. With no argument, the buffer is not allocated until one of the size attributes are set.</p>
+					<p>Additionally, because buffers are meant to be available for uses where speed is important, the buffer contents and buffer size in samples have been made public in this class. Acces can be done as in this example:</p>
+					<blockquote>
+						<p><code>tap_buffer *mybuffer;<br>
+								mybuffer = new tap_buffer(512); // allocate 512 sample buffer<br>
+								<br>
+								// this is the hard way to clear the buffer:<br>
+								// note that this calls public members rather <br>
+								//&nbsp;&nbsp;&nbsp;&nbsp;than the safer accessor functions<br>
+								
+								for(i=0; i &lt; (mybuffer-&gt;length_samples); i++)<br>
+								
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mybuffer-&gt;contents[i] = 0;</code></p>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Attributes<ul>
+							<table width="100%" border="0" cellspacing="2" cellpadding="5">
+								<tr>
+									<td valign="top" bgcolor="#e1e1e1"><code>k_length_ms</code></td>
+									<td valign="top" bgcolor="#e1e1e1">Sets the length of the buffer in milliseconds. Setting this attribute will clear the buffer and allocate memory - so do this operation only where appropriate (i.e. not in an interupt). </td>
+								</tr>
+									<tr>
+									<td valign="top"><code>k_length_samples</code></td>
+									<td valign="top">Sets the length of the buffer in samples. Setting this attribute will clear the buffer and allocate memory - so do this operation only where appropriate (i.e. not in an interupt). </td>
+								</tr>
+								</table></ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Methods<ul>
+							<table width="100%" border="0" cellspacing="2" cellpadding="5">
+								<tr>
+									<td valign="top" bgcolor="#e1e1e1"><code>clear()</code></td>
+									<td valign="top" bgcolor="#e1e1e1">Resets all of the values in the buffer to zero.</td>
+								</tr>
+									<tr>
+										<td valign="top"><code>sample_value peek<br>
+												&nbsp;&nbsp;&nbsp;&nbsp;(long&nbsp;index)</code></td>
+										<td valign="top">Returns the <code>sample_value</code> of the sample stored at the index passed as an argument.</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>poke(long index,<br>
+												&nbsp;&nbsp;&nbsp;&nbsp;sample_value val)</code></td>
+										<td valign="top" bgcolor="#e1e1e1">Sets the <code>sample_value</code> in the buffer located at index to the <code>sample_value</code> passed as the second argument.</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>fill(selector sel)</code></td>
+										<td valign="top">Fills the buffer with one period of values according to the selector argument. Selectors with the &quot;_mod&quot; tag are modulator versions of the normal waveform, meaning that they are in the range of 0.0 to 1.0 instead of -1.0 to 1.0 (this only applies to traditional waveforms). The following selectors can be used:<br>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_sine</code> - sine wave<br>
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_sine_mod</code> - sine wave from 0.0 to 1.0 <br>
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_cos</code> - cosine wave<br>
+											
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_cos_mod</code> - cosine wave from 0.0 to 1.0<br>
+											
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_square</code> - square wave<br>
+											
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_square_mod</code> - square wave from 0.0 to 1.0<br>
+											
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_triangle</code> - triangle wave<br>
+											
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_triangle_mod</code> - triangle wave from 0.0 to 1.0<br>
+											
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_ramp</code> - ramp wave<br>
+											
+											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_ramp_mod</code> - ramp wave from 0.0 to 1.0<br>
+										</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>fill(selector sel, <br>
+												&nbsp;&nbsp;&nbsp;&nbsp;attribute_value&nbsp;param1,<br>
+												&nbsp;&nbsp;&nbsp;&nbsp;attribute_value&nbsp;param2)</code></td>
+										<td valign="top" bgcolor="#e1e1e1">Fills the buffer with one period of values according to the selector argument and the 2 parameters. The following selectors can be used:<br>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>k_gauss</code> - gaussian window<br>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>param1</code>: spread (ex: 0.125)<br>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>param2</code>: peak (ex: 0.5)<br>
+										</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>set_buffer(tap_buffer&nbsp;*newbuffer)</code></td>
+										<td valign="top">If you have another <code>tap_buffer</code> object, pass a pointer to it as the argument to this function, and your buffer object will access the <code>newbuffer</code> object instead of its internal buffer.</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>init()</code></td>
+										<td valign="top" bgcolor="#e1e1e1">Initializes the buffer parameters. This sets the buffer back to its state after being constructed with no argument. You can use this if you have previously set the buffer to reference an outside buffer and want it to go back to referencing its own internal buffer.</td>
+									</tr>
+								</table></ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>DSP Loop</b></font>
+					<blockquote>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>&lt;none&gt;</code></td>
+							</tr>
+							<tr>
+								<td valign="top"></td>
+							</tr>
+						</table>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

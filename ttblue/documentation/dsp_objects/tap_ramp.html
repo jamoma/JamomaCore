@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<title>Tap.Tools2 DSP Library: API Reference</title>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+			<tr>
+				<td align="left" valign="middle" bgcolor="#4f5397"><font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>tap_ramp</b></font></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" bgcolor="#d4d4d4"><font size="-1" color="#4f5397" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Generate ramping signals</font></td>
+			</tr>
+			<tr>
+				<td width="70%">This object generates a linear ramp from one point to another for smooth changes.</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Attributes
+							<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_current_value</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The current value in the ramp. Typically used to define the start point for the ramp. [default: 0.0].</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>k_destination_value</code></td>
+										<td valign="top">The destination value for the ramp. This will also flag the object to begin ramping the next time the dsp loop is called.</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_ramp_ms</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The amount of time for the ramp to take in getting to the destination value, specified in milliseconds. This will also flag the object to begin ramping the next time the dsp loop is called.</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>k_ramp_samps</code></td>
+										<td valign="top">The amount of time for the ramp to take in getting to the destination value, specified in samples. This will also flag the object to begin ramping the next time the dsp loop is called.</td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Methods
+							<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>stop()</code></td>
+										<td valign="top" bgcolor="#e1e1e1">Use to halt the ramping process.</td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>DSP Loop</b></font>
+					<blockquote>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+									</code><code>
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;short vector_size, <br>&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out<br>
+										
+										
+										
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top"></td>
+							</tr>
+						</table>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

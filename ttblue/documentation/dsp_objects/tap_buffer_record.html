@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<title>Tap.Tools2 DSP Library: API Reference</title>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+			<tr>
+				<td align="left" valign="middle" bgcolor="#4f5397"><font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>tap_buffer_record</b></font></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" bgcolor="#d4d4d4"><font size="-1" color="#4f5397" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Record to an audio buffer</font></td>
+			</tr>
+			<tr>
+				<td width="70%">This object features straight-forward recording to a buffer, and also sports a fancy record mode whereby newly recorded samples are faded into the buffer to for smooth sound.</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Attributes
+							<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_mode</code></td>
+										<td valign="top" bgcolor="#e1e1e1">You can choose the operational mode of the recorder (see the above comment). The attribute should be set with one of the following selectors:
+											<ul>
+												<code>k_mode_direct [default]<br>
+													k_mode_fadein<br>
+												</code>
+											</ul>
+										</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>k_record</code></td>
+										<td valign="top">Toggle for turning the record &quot;button&quot; on/off.</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_loop</code></td>
+										<td valign="top" bgcolor="#e1e1e1">Toggles on/off loop recording.</td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Methods</b></font><ul>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>set_buffer(tap_buffer&nbsp;*newbuffer)</code></td>
+								<td valign="top" bgcolor="#e1e1e1">Pass a pointer to a <code>tap_buffer</code> object to have this object reference that buffer. 
+									<p>Be sure you don't delete the buffer while this object is still recording to it! Resizing the buffer while this object is recording should not present any problems.</p>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top"><code>get_buffer()</code></td>
+								<td valign="top">Returns a pointer to the <code>tap_buffer</code> object that this object is currently referencing.</td>
+							</tr>
+						</table>
+					</ul></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>DSP Loop</b></font>
+					<blockquote>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector in<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;short vector_size,<br>
+										
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top"></td>
+							</tr>
+						</table>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

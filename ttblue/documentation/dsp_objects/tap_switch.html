@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<title>Tap.Tools2 DSP Library: API Reference</title>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+			<tr>
+				<td align="left" valign="middle" bgcolor="#4f5397"><font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>tap_switch</b></font></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" bgcolor="#d4d4d4"><font size="-1" color="#4f5397" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Switch an input between N outputs</font></td>
+			</tr>
+			<tr>
+				<td width="70%"></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Attributes
+							<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_position</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The position of the switch. A position of 0 is off, a position of 1 turns on the first input, a position of 2 turns on the second output, etc. </td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%">
+					
+				</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>DSP Loops</b></font>
+					<blockquote>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;</code><code>sample_vector in,<br>
+									</code><code>
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;short vector_size, <br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out1<br>
+										
+										
+										
+										
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top">A 1 output switch.</td>
+							</tr>
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;</code><code>sample_vector in,<br>
+									</code><code>&nbsp;&nbsp;&nbsp;&nbsp;short vector_size,<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out1<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out2<br>
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top">A 2 output switch.</td>
+							</tr>
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;</code><code>sample_vector in,<br>
+									</code><code>&nbsp;&nbsp;&nbsp;&nbsp;short vector_size,<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out1<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out2<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out3<br>
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top">A 3 output switch.</td>
+							</tr>
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;</code><code>sample_vector in,<br>
+									</code><code>&nbsp;&nbsp;&nbsp;&nbsp;short vector_size,<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out1<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out2<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out3<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out4<br>
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top">A 4 output switch.</td>
+							</tr>
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;</code><code>sample_vector in,<br>
+									</code><code>&nbsp;&nbsp;&nbsp;&nbsp;short vector_size,<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out1<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out2<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out3<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out4<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out5<br>
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top">A 5 output switch.</td>
+							</tr>
+						</table>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

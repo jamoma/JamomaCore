@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<title>Tap.Tools2 DSP Library: API Reference</title>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+			<tr>
+				<td align="left" valign="middle" bgcolor="#4f5397"><font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>tap_lfo</b></font></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" bgcolor="#d4d4d4"><font size="-1" color="#4f5397" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Wavetable-based low frequency oscillator</font></td>
+			</tr>
+			<tr>
+				<td width="70%">This object is intended only for use in applications where it will drive parameters of other objects. It is not suitable for use as an audio signal. After running the <code>dsp_vector_calc</code> method only the first sample of the output vector will actually contain a valid value. 
+					<p>If you want to actually have a completely filled <code>sample_vector</code> then use the <code>tap_wavetable</code> object. In applications where you want to drive parameters of other objects at the vector-rate, this object willl be faster than <code>tap_wavetable</code>.</p>
+				</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Attributes
+							<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_frequency</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The base frequency of the oscillator specified in Hertz [0.0 - Nyquist, default: 0.0 Hz].</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>k_mode</code></td>
+										<td valign="top">You can choose one of the built-in waveforms. The waveforms with the &quot;_mod&quot; tag are suitable for use as modulators, i.e. they are in the range of 0.0 to 1.0 instead of the usual audio range of -1.0 to 1.0. Setting this attribute is actually calling the <code>fill()</code> function of the member <code>tap_buffer</code> object this oscillator is built on. The attribute should be set with one of the following selectors:
+											<ul>
+												<code>k_mode_sine [default]<br>
+													k_mode_sine_mod<br>
+												</code><code>k_mode_cos<br>
+													k_mode_cos_mod<br>
+													k_mode_square<br>
+													k_mode_square_mod<br>
+													k_mode_triangle<br>
+													k_mode_triangle_mod<br>
+													k_mode_ramp<br>
+													k_mode_ramp_mod<br>
+												</code>
+											</ul>
+										</td>
+									</tr>
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>k_gain</code></td>
+										<td valign="top" bgcolor="#e1e1e1">The output level of the oscillator in decibels.</td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Methods
+							<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>set_wavetable(tap_buffer&nbsp;*newbuffer)</code></td>
+										<td valign="top" bgcolor="#e1e1e1">You can pass a pointer to a <code>tap_buffer</code> object to have the oscillator use your own custom waveform. The oscillator will use the entire length of the buffer you pass it as one period of the wave form.</td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>DSP Loop</b></font>
+					<blockquote>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;short vector_size,<br>
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out<br>
+										
+										
+										
+										
+										
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top">This dsp routine will only place a value in the first sample of the &quot;out&quot; <code>sample_vector</code>.</td>
+							</tr>
+						</table>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>

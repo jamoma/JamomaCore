@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+		<title>Tap.Tools2 DSP Library: API Reference</title>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<table width="100%" border="0" cellspacing="0" cellpadding="5">
+			<tr>
+				<td align="left" valign="middle" bgcolor="#4f5397"><font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>tap_allpass</b></font></td>
+			</tr>
+			<tr>
+				<td align="left" valign="middle" bgcolor="#d4d4d4"><font size="-1" color="#4f5397" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Allpass filter</font></td>
+			</tr>
+			<tr>
+				<td width="70%">You must specify the maximum delay time as an argument (in milliseconds) to the constructor. This allocates a buffer for the delay. This can only be changed by using the init() method described below.</td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Attributes<ul>
+							<table width="100%" border="0" cellspacing="2" cellpadding="5">
+								<tr>
+									<td valign="top" bgcolor="#e1e1e1"><code>k_delay</code></td>
+									<td valign="top" bgcolor="#e1e1e1">The filter&#146;s amount of delay specified in milliseconds. [default: 0 ms]</td>
+								</tr>
+									<tr>
+									<td valign="top"><code>k_gain</code></td>
+									<td valign="top">The gain coefficient for the filter. You should keep this below 1.0 to prevent blow-ups. [default: 0.0]</td>
+								</tr>
+								</table></ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>Methods<ul>
+								<table width="100%" border="0" cellspacing="2" cellpadding="5">
+									<tr>
+										<td valign="top" bgcolor="#e1e1e1"><code>clear()</code></td>
+										<td valign="top" bgcolor="#e1e1e1">Use to reset the buffers to zero. Handy in the event of something blowing-up.</td>
+									</tr>
+									<tr>
+										<td valign="top"><code>init(attribute_value&nbsp;ms)</code></td>
+										<td valign="top">Use this if you need to resize the buffers for the delay. This frees and reallocated memory, so take care not to do it in a timing critical situation (such as in an interrupt).</td>
+									</tr>
+								</table>
+							</ul>
+						</b></font></td>
+			</tr>
+			<tr>
+				<td width="70%"><font face="Arial"><b>DSP Loop</b></font>
+					<blockquote>
+						<table width="100%" border="0" cellspacing="2" cellpadding="5">
+							<tr>
+								<td valign="top" bgcolor="#e1e1e1"><code>void dsp_vector_calc(<br>
+										&nbsp;&nbsp;&nbsp;&nbsp;</code><code>sample_vector in, <br>
+										&nbsp;&nbsp;&nbsp;&nbsp;short vector_size, <br>
+										&nbsp;&nbsp;&nbsp;&nbsp;sample_vector out<br>
+										)</code></td>
+							</tr>
+							<tr>
+								<td valign="top"></td>
+							</tr>
+						</table>
+						<p></p>
+					</blockquote>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>
