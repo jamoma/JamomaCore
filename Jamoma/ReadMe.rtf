@@ -1,6 +1,6 @@
 {\rtf1\mac\ansicpg10000\cocoartf102
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
+{\fonttbl\f0\fswiss\fcharset77 Helvetica;\f1\fmodern\fcharset77 CourierNewPSMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
 \margl1440\margr1440\vieww14360\viewh14480\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 
@@ -30,30 +30,53 @@ A module-building framework for interchange, collaboration, and ease of integrat
 \
 
 \fs32 Configuring CVS
-\fs24 
+\fs24 \
+To work with the CVS repository, you must first have a Sourceforge login.  \
 \
-To work with the CVS repository, you must first have a Sourceforge login.  Once you have one, the following example commands may be a useful quick reference.  Remember to replace "tap" with your own sourceforge id.\
+CVS requires that you use your Sourceforge name and password.  You will probably go nuts entering your password every time.  Here is a quick overview on how to set up keys so you don't have to enter the password anymore.\
+\
+	1. Generate keys with this command: ssh-keygen -t rsa \
+	2. Open the .pub key with a text editor.  Copy/Paste it into the Sourceforge form @ http://sourceforge.net/account/\
+	3. Make sure the environment variable is set up in ~/.MacOSX/environment.plist\
+	\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+
+\f1\fs24 \cf2 		<?xml version="1.0" encoding="UTF-8"?>\
+		<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">\
+		<plist version="0.9">\
+		<dict>\
+			<key>CVS_RSH</key>\
+			<string>/usr/bin/ssh</string>\
+		</dict>\
+		</plist>\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
+
+\f0 \cf0 \
+	4. Add the following to .bash_profile\
+		eval `ssh-agent`\
+		ssh-add ~/.ssh/id2_dsa\
+\
+	5. Add this to .bash_logout\
+		eval `ssh-agent -k`\
+		sleep 1\
+\
+	References:\
+	1.  http://sourceforge.net/docman/display_doc.php?docid=761&group_id=1\
+	2.  http://www.macdevcenter.com/pub/a/mac/2003/08/08/version_control_two.html\
+\
+\
+Once you have that all set up, the following example commands may be a useful quick reference (be sure to cd into the project's folder first).  Remember to replace "tap" with your own sourceforge id.\
 \
 	cvs -d :ext:tap@cvs.sourceforge.net:/cvsroot/jamoma checkout .\
 	cvs add Modules\
 	cvs add Modules/comb.mod\
 	cvs commit -m "just added a modules folder and a comb filter module"\
 \
-You will probably go nuts entering your password every time.  Here is a quick overview on how to set up keys so you don't have to enter the password anymore.\
-\
-	1. Generate keys with \
-	2. Open the .pub key with a text editor.  Copy/Paste it into the Sourceforge form\
-	3. Make sure the environment variable is set up in the .MacOS folder\
-	4. Add two junk to .bash_profile and .bash_logout so that they key will be active during the sessions\
-\
-	References:\
-	1.  http://sourceforge.net/docman/display_doc.php?docid=761&group_id=1\
-	2.  http://www.macdevcenter.com/pub/a/mac/2003/08/08/version_control_two.html
 \
 \
-\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural
 
-\fs32 FILE FORMATS
+\fs32 \cf0 FILE FORMATS
 \fs24 \
 	All patches MUST be in text format except for help patches which MUST be in binary format\
 	All graphics should be in .pct or .psd (photoshop) format\
