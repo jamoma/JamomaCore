@@ -24,3 +24,12 @@ HELPFUL CVS COMMANDS:
 		cvs add Jamoma
 		cvs add Jamoma/comb.mod
 		cvs commit -m "Sync"
+
+
+FILE FORMATS
+	All patches MUST be in text format except for help patches which MUST be in binary format
+	All graphics should be in .pct or .psd (photoshop) format
+	
+	If there is a non-text format of file you need to commit to the repository, post a note to the
+	mailing list (on sourceforge) and I'll add a filter for it.
+	
