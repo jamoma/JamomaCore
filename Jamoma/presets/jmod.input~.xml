@@ -1,34 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
 <pattrstorage name = "input~">
-	<slot number = "1">
-		<patcher name = "jmod.parameter.mxb[4]">
-			<pattr name = "loop" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[5]">
-			<pattr name = "play" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[8]">
-			<pattr name = "source_select" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "modout" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "set_left_ch" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "set_right_ch" value = "2" />
-		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt">
-			<pattr name = "gain_m_midi" value = "0." />
-		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt[1]">
-			<pattr name = "gain_1_midi" value = "127." />
-		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt[2]">
-			<pattr name = "gain_2_midi" value = "127." />
-		</patcher>
-	</slot>
 </pattrstorage>
 
