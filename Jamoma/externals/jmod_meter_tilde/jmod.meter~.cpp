@@ -169,6 +169,7 @@ void meter_free(t_meter *x)
 	dsp_freebox((t_pxbox *)x);
 	qelem_free(x->qelem);
 	freeobject((t_object *)x->clock);
+	box_free((t_box *)x);
 }
 
 
