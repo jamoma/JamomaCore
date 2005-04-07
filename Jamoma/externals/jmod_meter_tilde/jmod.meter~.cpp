@@ -324,7 +324,7 @@ void meter_draw(t_meter *x)
 {
 	GrafPtr		curPort;
 	GDHandle	curDevice;
-	RGBColor	frgb;
+	RGBColor	frgb, old_color;
 	Rect		rect_ui = x->my_box.z_box.b_rect;
 	Rect		rect_temp;
 	short		i;
@@ -336,6 +336,7 @@ void meter_draw(t_meter *x)
 	short		position;
 	
 	GetGWorld((CGrafPtr *)&curPort, &curDevice);
+	GetForeColor(&old_color);
 	PenMode(srcCopy);
 	
 	frgb.blue = 0;
@@ -397,7 +398,15 @@ void meter_draw(t_meter *x)
 		x->peak_level = level;
 	}
 
-	if(x->peak > 0.99999){
+	if((x->peak > 0) && (x->peak <1)){	// Green Range
+		frgb.green = 65535;
+		frgb.red = x->peak_level * 5653.5;
+		rect_temp.left = x->peak_position;
+		rect_temp.right = x->peak_position + 1;
+		RGBForeColor(&frgb);
+		PaintRect(&rect_temp);
+	}
+	else if(x->peak > 0){				// Red Range
 		frgb.red = 65535;
 		frgb.green = 0;
 		frgb.blue = 0;
@@ -406,19 +415,12 @@ void meter_draw(t_meter *x)
 		RGBForeColor(&frgb);
 		PaintRect(&rect_temp);
 	}
-	else{
-		frgb.green = 65535;
-		frgb.red = x->peak_level * 5653.5;
-		rect_temp.left = x->peak_position;
-		rect_temp.right = x->peak_position + 1;
-		RGBForeColor(&frgb);
-		PaintRect(&rect_temp);
-	}
 	
 out:
 	x->envelope = 0;								// reset the amplitude tracker
 
 	PenNormal();
+	RGBForeColor(&old_color);	
 	//SetGWorld((CGrafPtr)curPort, curDevice);
 	
 }
