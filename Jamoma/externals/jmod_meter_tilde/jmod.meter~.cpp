@@ -32,6 +32,9 @@ typedef struct {
 	Rect 		rect;			// for comparing with x_box.b_rect in the update() method
 	
 	float		envelope;		// the result of the amplitude analysis [0.0, 1.0]
+	float		peak;			// the loudest sample since the last reset
+	short		peak_position;
+	short		peak_level;
 } t_meter;
 
 // Prototypes for our methods:
@@ -134,6 +137,7 @@ void *meter_new(t_symbol *s, short argc, t_atom *argv)
 
 		// Set defaults
 		x->envelope = 0;
+		x->peak = 0;
 		
 		// Finish it up...
 		box_ready((t_box *)x);
@@ -188,11 +192,12 @@ void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst)
 // Method: bang
 void meter_bang(t_meter *x)
 {
+	x->peak = 0;	// reset the peak hold
 	qelem_set(x->qelem);
 }
 
 
-// Method: bang
+// Method: float
 void meter_float(t_meter *x, double value)
 {
 	x->envelope = value;
@@ -234,7 +239,8 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 	if(count[0]){
 		dsp_add(meter_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
 		clock_delay(x->clock, POLL_INTERVAL); 			// start the clock
-	}	
+		x->peak = 0;
+	}
 }
 
 
@@ -251,7 +257,7 @@ void meter_update(t_meter *x)
 	short width_new = x->my_box.z_box.b_rect.right - x->my_box.z_box.b_rect.left;
 	short height_new = x->my_box.z_box.b_rect.bottom - x->my_box.z_box.b_rect.top;
 
-	if(/*!x->x_offscreen ||*/ height_new != height_old || width_new != width_old) {
+	if(height_new != height_old || width_new != width_old) {
 		width_new = CLIP(width_new, MINWIDTH, MAXWIDTH); // constrain to min and max size
 		height_new = CLIP(height_new, MINHEIGHT, MAXHEIGHT);
 		box_size(&x->my_box, width_new, height_new);	// this function actually resizes out t_box structure
@@ -266,7 +272,8 @@ void meter_update(t_meter *x)
 // If the user clicks on the object
 void meter_click(t_meter *x, Point pt, short modifiers)
 { 
-	;	// Ignore the clicks for the time being - maybe clear the peak hold in the future...
+	x->peak = 0;	// reset the peak hold
+	//qelem_set(x->qelem);
 }
 
 
@@ -325,6 +332,7 @@ void meter_draw(t_meter *x)
 	short		width_red = width_ui - width_green;	// 4% of total width
 	short		left = x->my_box.z_box.b_rect.left;
 	float		level;
+	short		position;
 	
 	GetGWorld((CGrafPtr *)&curPort, &curDevice);
 	PenMode(srcCopy);
@@ -352,20 +360,27 @@ void meter_draw(t_meter *x)
 	RGBForeColor(&frgb);
 	PaintRect(&rect_temp);
 
+
 	// Draw Gray
-	frgb.red = 2000;
-	frgb.green = 2000;
-	frgb.blue = 2000;
+	frgb.red = 4000;
+	frgb.green = 4000;
+	frgb.blue = 4000;
 	RGBForeColor(&frgb);
 
 	level = CLIP(x->envelope, 0.0, 1.0);		// get the amplitude
 	
-	if(level >= 1.0) return;
+	if(level >= 1.0){
+		x->peak = 1.0;
+		goto out;
+	}
 	if(level > 0.0) {
 		rect_temp.right = left + width_ui;
 
 		level = CLIP(20. * (log10(level)), -96.0, 0.0);	// convert to decibels
-		rect_temp.left = (left + width_green) + (level * 0.0104166667 * width_green);		
+		// level = -(96 - (exp((level)*log(1.035)) * 96));
+		level = -(96 - (exp((level) * 0.0344014267) * 96));
+		position = (left + width_green) + (level * 0.0104166667 * width_green);
+		rect_temp.left = position;		
 
 		PaintRect(&rect_temp);
 	}
@@ -374,6 +389,32 @@ void meter_draw(t_meter *x)
 	}
 	
 	
+	// Peak Hold
+	if(x->envelope > x->peak){
+		x->peak = x->envelope;
+		x->peak_position = position;
+		x->peak_level = level;
+	}
+
+	if(x->peak > 0.99999){
+		frgb.red = 65535;
+		frgb.green = 0;
+		frgb.blue = 0;
+		rect_temp.left = left + i;
+		rect_temp.right = x->my_box.z_box.b_rect.right;
+		RGBForeColor(&frgb);
+		PaintRect(&rect_temp);
+	}
+	else{
+		frgb.green = 65535;
+		frgb.red = x->peak_level * 5653.5;
+		rect_temp.left = x->peak_position;
+		rect_temp.right = x->peak_position + 1;
+		RGBForeColor(&frgb);
+		PaintRect(&rect_temp);
+	}
+	
+out:	
 	x->envelope = 0;								// reset the amplitude tracker
 }
 
