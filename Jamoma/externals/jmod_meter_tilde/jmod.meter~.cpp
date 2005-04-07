@@ -314,7 +314,8 @@ void meter_qfn(t_meter *x)
 			box_enddraw((t_box *)x);
 		}
 	}
-	SetPort(gp);
+	//SetPort(gp);
+	patcher_restoreport(gp);
 }
 
 
@@ -414,8 +415,12 @@ void meter_draw(t_meter *x)
 		PaintRect(&rect_temp);
 	}
 	
-out:	
+out:
 	x->envelope = 0;								// reset the amplitude tracker
+
+	PenNormal();
+	//SetGWorld((CGrafPtr)curPort, curDevice);
+	
 }
 
 
