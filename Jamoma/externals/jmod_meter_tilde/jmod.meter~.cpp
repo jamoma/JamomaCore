@@ -3,14 +3,14 @@
 // License: GNU LGPL
 
 #include "ext.h"				// Max Header
-#include "z_dsp.h"				// MSP Header
+#include "ext_user.h"
 #include "ext_common.h"			// includes the MIN macro
 #include "ext_strings.h"		// String Functions
 #include "commonsyms.h"			// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"			// Max Object Extensions (attributes) Header
-#include "ext_user.h"
 #include "ext_wind.h"
 #include <math.h>
+#include "z_dsp.h"				// MSP Header
 
 // Macros and Constants
 #define RES_ID			10120		// ID of our SICN resources
@@ -255,7 +255,7 @@ void meter_update(t_meter *x)
 		width_new = CLIP(width_new, MINWIDTH, MAXWIDTH); // constrain to min and max size
 		height_new = CLIP(height_new, MINHEIGHT, MAXHEIGHT);
 		box_size(&x->my_box, width_new, height_new);	// this function actually resizes out t_box structure
-		x->rect = x->my_box.zbox.b_rect;
+		x->rect = x->my_box.z_box.b_rect;
 		
 		//xgui_allocoffscreen(x); // (existing offsceen is disposed inside)
 	}
@@ -273,12 +273,12 @@ void meter_click(t_meter *x, Point pt, short modifiers)
 // Save our UI object's location and appearance with the patcher...
 void meter_psave(t_meter *x, void *w)
 {
-	Rect r = x->my_box.zbox.b_rect;
+	Rect r = x->my_box.z_box.b_rect;
 	t_atom argv[16];
 	short inc = 0;
 	
 	SETSYM(argv,gensym("#P"));
-	if (x->my_box.zbox.b_hidden) {	// i.e. if it's hidden when the patcher is locked
+	if (x->my_box.z_box.b_hidden) {	// i.e. if it's hidden when the patcher is locked
 		SETSYM(argv+1,gensym("hidden"));
 		inc = 1;
 	}
@@ -299,7 +299,7 @@ void meter_psave(t_meter *x, void *w)
 // The deferred routine called by our Qelem
 void meter_qfn(t_meter *x)
 {
-	GrafPtr	gp = patcher_setport(x->my_box.b_patcher);
+	GrafPtr	gp = patcher_setport(x->my_box.z_box.b_patcher);
 	
 	if(gp){				// if the pointer is valid...
 		if(!box_nodraw((t_box *)x)){
@@ -317,13 +317,13 @@ void meter_draw(t_meter *x)
 	GrafPtr		curPort;
 	GDHandle	curDevice;
 	RGBColor	frgb;
-	Rect		rect_ui = x->my_box.b_rect;
+	Rect		rect_ui = x->my_box.z_box.b_rect;
 	Rect		rect_temp;
 	short		i;
-	short		width_ui = x->my_box.b_rect.right - x->my_box.b_rect.left;
+	short		width_ui = x->my_box.z_box.b_rect.right - x->my_box.z_box.b_rect.left;
 	short		width_green = 0.96 * width_ui;		// 96% of total width
 	short		width_red = width_ui - width_green;	// 4% of total width
-	short		left = x->x_box.b_rect.left;
+	short		left = x->my_box.z_box.b_rect.left;
 	float		level;
 	
 	GetGWorld((CGrafPtr *)&curPort, &curDevice);
@@ -331,8 +331,8 @@ void meter_draw(t_meter *x)
 	
 	frgb.blue = 0;
 	frgb.green = 65535;
-	rect_temp.top = x->my_box.b_rect.top;
-	rect_temp.bottom = x->my_box.b_rect.bottom;
+	rect_temp.top = x->my_box.z_box.b_rect.top;
+	rect_temp.bottom = x->my_box.z_box.b_rect.bottom;
 
 	// Draw Green
 	for(i=0; i<width_green; i++){
@@ -347,7 +347,7 @@ void meter_draw(t_meter *x)
 	// Draw Red
 	frgb.green = 0;
 	rect_temp.left = left + i;
-	rect_temp.right = x->my_box.b_rect.right;
+	rect_temp.right = x->my_box.z_box.b_rect.right;
 	
 	RGBForeColor(&frgb);
 	PaintRect(&rect_temp);
