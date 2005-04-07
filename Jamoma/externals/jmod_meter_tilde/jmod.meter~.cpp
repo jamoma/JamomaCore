@@ -210,7 +210,7 @@ void meter_tick(t_meter *x)
 {
 	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
 		clock_delay(x->clock, POLL_INTERVAL); 		// schedule the clock
-		meter_bang(x); 								// draw the meters
+		qelem_set(x->qelem); 						// draw the meters
 	}
 }
 
@@ -362,9 +362,9 @@ void meter_draw(t_meter *x)
 
 
 	// Draw Gray
-	frgb.red = 4000;
-	frgb.green = 4000;
-	frgb.blue = 4000;
+	frgb.red = 8000;
+	frgb.green = 8000;
+	frgb.blue = 8000;
 	RGBForeColor(&frgb);
 
 	level = CLIP(x->envelope, 0.0, 1.0);		// get the amplitude
