@@ -166,10 +166,10 @@ void *meter_menu(void *p, long x, long y, long font)
 // delete
 void meter_free(t_meter *x)
 {
-	dsp_freebox((t_pxbox *)x);
-	qelem_free(x->qelem);
-	freeobject((t_object *)x->clock);
-	box_free((t_box *)x);
+	dsp_freebox((t_pxbox *)x);			// a version of dsp_free() for ui objects
+	qelem_free(x->qelem);				// delete our qelem
+	freeobject((t_object *)x->clock);	// delete our clock
+	box_free((t_box *)x);				// free the ui box
 }
 
 
@@ -190,7 +190,7 @@ void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst)
 }
 
 
-// Method: bang
+// Method: bang - clear the peak hold and redraw
 void meter_bang(t_meter *x)
 {
 	x->peak = 0;	// reset the peak hold
@@ -198,7 +198,7 @@ void meter_bang(t_meter *x)
 }
 
 
-// Method: float
+// Method: float - can be used instead of a signal
 void meter_float(t_meter *x, double value)
 {
 	x->envelope = value;
@@ -274,7 +274,6 @@ void meter_update(t_meter *x)
 void meter_click(t_meter *x, Point pt, short modifiers)
 { 
 	x->peak = 0;	// reset the peak hold
-	//qelem_set(x->qelem);
 }
 
 
@@ -315,7 +314,6 @@ void meter_qfn(t_meter *x)
 			box_enddraw((t_box *)x);
 		}
 	}
-	//SetPort(gp);
 	patcher_restoreport(gp);
 }
 
@@ -422,8 +420,6 @@ out:
 
 	PenNormal();
 	RGBForeColor(&old_color);	
-	//SetGWorld((CGrafPtr)curPort, curDevice);
-	
 }
 
 
