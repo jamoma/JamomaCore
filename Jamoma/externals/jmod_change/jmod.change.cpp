@@ -122,7 +122,7 @@ void change_int(t_change *x, long value)
 	x->last_input_int = value;		
 }
 
-void change_float(t_change *x, float value)
+void change_float(t_change *x, double value)
 {
 	if(x->inletnum == 0){
 		if(value != x->last_input_float)

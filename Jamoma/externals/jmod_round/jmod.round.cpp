@@ -90,7 +90,7 @@ void round_int(t_round *x, long value)
 
 
 // FLOAT input
-void round_float(t_round *x, float value)
+void round_float(t_round *x, double value)
 {
 	long out;
 	
