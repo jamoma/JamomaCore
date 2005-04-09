@@ -29,7 +29,7 @@ void change_assist(t_change *x, void *b, long m, long a, char *s);		// Assistanc
 void *change_new(void);													// New Object Creation Method
 void change_anything(t_change *x, Symbol *msg, short argc, Atom *argv);	// Symbol method
 void change_int(t_change *x, long value);
-void change_float(t_change *x, float value);
+void change_float(t_change *x, double value);
 float atom_getvalue(long index, short argc, t_atom *argv);
 void atom_copy(t_atom *dst, t_atom *src);
 bool atom_compare(Atom *in1, Atom *in2);
