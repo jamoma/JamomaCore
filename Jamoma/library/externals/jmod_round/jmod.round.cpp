@@ -17,13 +17,13 @@ typedef struct _round{				// Data structure for this object
 
 // Prototypes for methods: need a method for each incoming message
 void *round_new(long value);
-void round_float(t_round *x, float value);
+void round_float(t_round *x, double value);
 void round_int(t_round *x, long value);
 void round_assist(t_round *round, void *b, long m, long a, char *s);
 
 // Globals
-t_class *this_class;				// Required. Global pointing to this class 
-
+t_class		*this_class;				// Required. Global pointing to this class 
+t_symbol	*ps_dumpout;
 
 /************************************************************************************/
 // Main() Function
@@ -50,6 +50,9 @@ void main(void)				// main recieves a copy of the Max function macros table
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	this_class = c;
+	
+	// Initialize Globals
+	ps_dumpout = gensym("dumpout");
 }
 
 
@@ -62,7 +65,7 @@ void *round_new(long value)
 
 	x = (t_round *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if(x){
-    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
+    	object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 		x->outlet = intout(x);		//Create the outlet
 	}
 	return(x);						// must return a pointer to the new instance 

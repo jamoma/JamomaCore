@@ -33,6 +33,9 @@ char find_match(t_route *x, t_symbol *input, short position);
 
 // Globals
 t_class		*route_class;				// Required: Global pointer for our class
+t_symbol	*ps_long;
+t_symbol	*ps_symbol;
+t_symbol	*ps_dumpout;
 
 
 /************************************************************************************/
@@ -44,7 +47,11 @@ void main(void)				// main recieves a copy of the Max function macros table
 	t_class *c;
 	t_object *attr;
 	
+	// Initialize Globals
 	common_symbols_init();
+	ps_long = gensym("long");
+	ps_symbol = gensym("symbol");
+	ps_dumpout = gensym("dumpout");
 
 	// Define our class
 	c = class_new("jmod.route",(method)route_new, (method)0L, (short)sizeof(t_route), (method)0L, A_GIMME, 0);
@@ -59,17 +66,17 @@ void main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
 
 	// ATTRIBUTE: searchstring
-	attr = attr_offset_array_new("searchstring", _sym_symbol, MAX_LIST_LENGTH, attrflags, 
+	attr = attr_offset_array_new("searchstring", ps_symbol, MAX_LIST_LENGTH, attrflags, 
 		(method)0, (method)0, calcoffset(t_route, searchlistlen), calcoffset(t_route, searchlist));
 	class_addattr(c, attr);	
 
 	// ATTRIBUTE: searchpositions
-	attr = attr_offset_array_new("searchpositions", _sym_long, MAX_LIST_LENGTH, attrflags, 
+	attr = attr_offset_array_new("searchpositions", ps_long, MAX_LIST_LENGTH, attrflags, 
 		(method)0, (method)0, calcoffset(t_route, searchpositionslen), calcoffset(t_route, searchpositions));
 	class_addattr(c, attr);	
 
 	// ATTRIBUTE: partialmatch
-	attr = attr_offset_new("partialmatch", _sym_long, attrflags,
+	attr = attr_offset_new("partialmatch", ps_long, attrflags,
 		(method)0, (method)0, calcoffset(t_route, partialmatch));
 	class_addattr(c, attr);	
 
@@ -92,7 +99,7 @@ void *route_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_route	*x = (t_route *)object_alloc(route_class);
 	if(x){
-		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
+		object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 			
 		// Create Outlets
 		x->my_outlet[1] = outlet_new(x, 0);

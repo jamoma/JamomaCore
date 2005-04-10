@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jmod.round"
+
+EXPORTS
+	main
