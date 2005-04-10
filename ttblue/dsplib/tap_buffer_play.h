@@ -129,7 +129,6 @@ class tap_buffer_play:public taptools_audio{
 		// DSP LOOP: input is the location in samples
 		void dsp_vector_calc_samples(tt_audio_signal *in, tt_audio_signal *out)
 		{
-//			int p1, p2;
 			unsigned long p1, p2;	
 			float diff;
 			double index;
@@ -177,7 +176,6 @@ class tap_buffer_play:public taptools_audio{
 		// DSP LOOP: input is the location from 0 to 1
 		void dsp_vector_calc_normalized(tt_audio_signal *in, tt_audio_signal *out)
 		{
-			//int p1, p2;
 			unsigned long p1, p2;
 			float diff, wavetable_length = (float)wavetable->length_samples;
 			double index;

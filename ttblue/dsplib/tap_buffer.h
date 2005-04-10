@@ -24,7 +24,7 @@
 class tap_buffer:public taptools_audio{
 
 	private:
-		tt_attribute_value				length_ms;				// length of the buffer in milliseconds
+		tt_attribute_value			length_ms;				// length of the buffer in milliseconds
 		bool						local_contents;			// flags true if we are using the internal buffer
 				
 	public:
@@ -146,8 +146,7 @@ class tap_buffer:public taptools_audio{
 				case k_sine_mod:							// (modulator version: ranges from 0 to 1)
 					for(i=0; i < length_samples; i++){
 						contents[i] = 0.5 + (0.5 * sin(twopi * (double(i) / (double(length_samples) - 1.0))));
-
-}
+					}
 					break;
 					
 				case k_cos:								// COSINE WAVE

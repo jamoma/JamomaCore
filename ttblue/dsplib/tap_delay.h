@@ -60,16 +60,12 @@ class tap_delay:public taptools_audio{
 		tap_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
 		{
 			init(max);
-//			set_attr(k_interpolation, k_interpolation_none);
-//			set_attr(k_delay_samples, 1);
 		}
 
 		tap_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
 		{
 			long max = max_ms * sr * 0.001;
 			init(max);
-//			set_attr(k_interpolation, k_interpolation_none);
-//			set_attr(k_delay_samples, 1);
 		}
 
 		~tap_delay()										// Destructor
@@ -99,7 +95,6 @@ class tap_delay:public taptools_audio{
 			switch (sel){
 				case k_delay_ms:
 					delay_ms = val;
-//					delay_samples = clip(long(delay_ms * sr * 0.001), long(0), delay_samples_max);
 					delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
 					break;
 				case k_delay_samples:
@@ -131,7 +126,7 @@ class tap_delay:public taptools_audio{
 					}	
 					else
 //						std::cerr << "tap_delay: invalid interpolation mode specified" << std::endl;
-error("BAD INTERPOLATION SETTING");
+						error("BAD INTERPOLATION SETTING");
 					break;
 				default:
 //					std:cerr << "tap_delay: invalid attribute specified for set_attr()" << std::endl;
@@ -223,8 +218,7 @@ error("BAD INTERPOLATION SETTING");
 			
 			temp_vs = in->vectorsize;
 		    while(temp_vs--){
-//				*in_ptr++ = *in->vector++;		// Store Input
-				*in_ptr = *in->vector++;
+				*in_ptr = *in->vector++;		// Store Input
 								
 				// MOVE THE RECORD HEAD
 				in_ptr++;

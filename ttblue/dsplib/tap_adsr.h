@@ -106,7 +106,6 @@ class tap_adsr:public taptools_audio{
 		}
 
 
-		// ATTRIBUTES
 		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 		{
 			switch (sel){
@@ -173,8 +172,8 @@ class tap_adsr:public taptools_audio{
 					break;
 			}
 		}
-		
-		
+				
+
 		// METHOD: CONTROL-RATE TRIGGER
 		void set_trigger(bool val)
 		{

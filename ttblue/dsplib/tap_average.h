@@ -181,40 +181,6 @@ class tap_average:public taptools_audio{
 			}
 			in->reset(); out->reset();
 		}
-
-/*
-		void dsp_vector_calc_bipolar(sample_vector in, short vector_size, sample_vector out)
-		{
-			sample_value	value;
-			
-			while(vector_size--){
-				if (outBinPtr > lastBinPtr)
-					outBinPtr = bins;
-				if (inBinPtr > lastBinPtr)
-					inBinPtr = bins;
-				accumulator -= *outBinPtr++;
-				
-				value = *in++;
-				
-				switch (mode) {
-					case k_mode_bipolar:
-						accumulator += *inBinPtr++ = value;
-						*out++ = accumulator * intervalReciprocal;
-						break;
-					case k_mode_absolute:
-						accumulator += *inBinPtr++ = fabs(value);
-						*out++ = accumulator * intervalReciprocal;
-						break;
-					case k_mode_rms:
-						accumulator += *inBinPtr++ = value * value;
-						*out++ = sqrt(accumulator * intervalReciprocal);
-						break;
-				}
-			}
-		}
-*/
-		
 };
-
 
 #endif	// TAP_AVERAGE_H
