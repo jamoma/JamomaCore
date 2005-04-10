@@ -26,7 +26,7 @@
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\c74support\max-includes\common\&quot;"
+				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\..\c74support\max-includes\common\&quot;"
 				PreprocessorDefinitions="WIN_VERSION;WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
@@ -49,7 +49,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies=".\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\c74support\msp-includes\MaxAudio.lib"
+				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
 				OutputFile=".\..\Build_Windows\jmod.change.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -179,7 +179,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\..\c74support\max-includes\common\commonsyms.c">
+				RelativePath="..\..\..\..\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
 				RelativePath=".\jmod.change.cpp">
