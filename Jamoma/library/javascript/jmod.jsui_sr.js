@@ -61,12 +61,12 @@
  function clicky(y,button)
  {
  var arrows
- if (button == 1 && y > 8)//bot
+ if (button == 1 && y > 5)//bot
         {
         arrows=1;
         limit(ratedivision-1);
         }
- else if  (button == 1 && y <= 8)//top
+ else if  (button == 1 && y <= 5)//top
         {
         arrows=2;
         limit(ratedivision+1);
@@ -92,10 +92,10 @@
  
  function drawnumber()
  {
- sketch.font("Times New Roman");
- sketch.fontsize(12);
- sketch.glcolor(.8,.8,.8);
- sketch.moveto(sketch.screentoworld(4,4));
+ sketch.font("Arial");
+ sketch.fontsize(8);
+ sketch.glcolor(.1,.1,.1);
+ sketch.moveto(sketch.screentoworld(4,3));
  sketch.textalign("left","top");
  sketch.text(displayrate.toString() );
  }
@@ -114,39 +114,42 @@
  
  function black()
  {
- sketch.glclearcolor(.1,.1,.1,0);
- sketch.glclear();
+ 	sketch.glclearcolor(.7,.7,.7,0);
+ 	sketch.glclear();
  }
  
  
  function arrows(down)//argument 0 for no highlight 1 for down, 2 for up
  {
- sketch.glcolor(.5,.5,.5);
- sketch.tri  
- (sketch.screentoworld(pwidth-10,9),sketch.screentoworld(pwidth 
- -2,9),sketch.screentoworld(pwidth-6,14));
- sketch.tri  
- (sketch.screentoworld(pwidth-10,7),sketch.screentoworld(pwidth 
- -2,7),sketch.screentoworld(pwidth-6,2));
- sketch.glcolor(1,1,1);
- if (down==1)
-        {
-        sketch.tri  
- (sketch.screentoworld(pwidth-10,9),sketch.screentoworld(pwidth 
- -2,9),sketch.screentoworld(pwidth-6,14));
-        }
- else if (down == 2)
-        {
-        sketch.tri  
- (sketch.screentoworld(pwidth-10,7),sketch.screentoworld(pwidth 
- -2,7),sketch.screentoworld(pwidth-6,2));
+ 	sketch.glcolor(.1,.1,.1);
+ 	sketch.tri(
+		sketch.screentoworld(pwidth-8,6),
+		sketch.screentoworld(pwidth-2,6),
+		sketch.screentoworld(pwidth-5,10));
+ 	sketch.tri(
+		sketch.screentoworld(pwidth-8,5),
+		sketch.screentoworld(pwidth -2,5),
+		sketch.screentoworld(pwidth-5,1));
+
+	 sketch.glcolor(1,1,1);
+	 if (down==1){
+		sketch.tri(
+			sketch.screentoworld(pwidth-8,6),
+			sketch.screentoworld(pwidth-2,6),
+			sketch.screentoworld(pwidth-5,10));
+	}
+	else if (down == 2){
+		sketch.tri(
+			sketch.screentoworld(pwidth-8,5),
+			sketch.screentoworld(pwidth-2,5),
+			sketch.screentoworld(pwidth-5,1));
         }
  }
  
  function draw(arr)
  {
- black();
- arrows(arr);
- drawnumber();
- refresh();
+ 	black();
+ 	arrows(arr);
+ 	drawnumber();
+ 	refresh();
  }
