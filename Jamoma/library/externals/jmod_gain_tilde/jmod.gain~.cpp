@@ -56,7 +56,7 @@ void main(void)				// main recieves a copy of the Max function macros table
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("blue.xgain~",(method)gain_new, (method)gain_free, (short)sizeof(t_gain), 
+	c = class_new("jmod.gain~",(method)gain_new, (method)gain_free, (short)sizeof(t_gain), 
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_gain, obex));
 
