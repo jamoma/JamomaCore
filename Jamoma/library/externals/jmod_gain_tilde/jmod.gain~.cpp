@@ -71,7 +71,7 @@ void main(void)				// main recieves a copy of the Max function macros table
 		(method)0L,(method)attr_set_bypass, calcoffset(t_gain, attr_bypass));
 	class_addattr(c, attr);
 	
-	attr = attr_offset_new("gain", _sym_float32, attrflags,
+	attr = attr_offset_new("gain_midi", _sym_float32, attrflags,
 		(method)0L,(method)attr_set_gain, calcoffset(t_gain, attr_gain));
 	class_addattr(c, attr);	
 	
@@ -112,6 +112,10 @@ void *gain_new(t_symbol *s, short argc, t_atom *argv)
 		x->gain = new tap_gain;
 		x->copy = new tap_copy;
 		x->signal_temp = new tt_audio_signal;
+		for(i=0; i<2; i++){
+			x->signal_in[i] = new tt_audio_signal;
+			x->signal_out[i] = new tt_audio_signal;
+		}
 		
 		x->xfade->set_attr(tap_crossfade::k_mode, 0);		// defaults
 		x->xfade->set_attr(tap_crossfade::k_shape, 0);
@@ -125,11 +129,17 @@ void *gain_new(t_symbol *s, short argc, t_atom *argv)
 // Destroy
 void gain_free(t_gain *x)
 {
+	short i;
+	
 	dsp_free((t_pxobject *)x);					// Always call dsp_free first in this routine
 	delete x->xfade;
 	delete x->gain;
 	delete x->copy;
 	delete x->signal_temp;
+	for(i=0; i<2; i++){
+		delete x->signal_in[i];
+		delete x->signal_out[i];
+	}
 }
 
 /************************************************************************************/
@@ -175,12 +185,12 @@ t_max_err attr_set_bypass(t_gain *x, void *attr, long argc, t_atom *argv)
 // Perform Method
 t_int *gain_perform(t_int *w)
 {
-  	t_gain *x = (t_gain *)(w[1]);					// Pointer
-	x->signal_in[0]->vector = (t_float *)(w[2]);	// Input1L
-	x->signal_in[1]->vector = (t_float *)(w[3]);	// Input1R
-	x->signal_out[0]->vector = (t_float *)(w[4]);	// Input2L
-	x->signal_out[1]->vector = (t_float *)(w[5]);	// Input2R
-	x->signal_in[0]->vectorsize = (int)(w[6]);		// Vector Size
+  	t_gain *x = (t_gain *)(w[1]);						// Pointer
+	x->signal_in[0]->set_vector((t_float *)(w[2]));		// Input1L
+	x->signal_in[1]->set_vector((t_float *)(w[3]));		// Input1R
+	x->signal_out[0]->set_vector((t_float *)(w[4]));	// Input2L
+	x->signal_out[1]->set_vector((t_float *)(w[5]));	// Input2R
+	x->signal_in[0]->set_vectorsize((int)(w[6]));		// Vector Size
 
 	x->copy->dsp_vector_calc(x->signal_in[0], x->signal_out[0]);					// copy the raw input to the raw output
 	x->xfade->dsp_vector_calc(x->signal_in[0], x->signal_in[1], x->signal_temp);	// perform bypass operation on processed input
@@ -197,7 +207,14 @@ void gain_dsp(t_gain *x, t_signal **sp, short *count)
 	
 	x->signal_temp->alloc(sp[0]->s_n);	// re-allocate memory associated with our temp signal vector
 	
-	for(i=0; i< x->num_chans; i++)
-		dsp_add(gain_perform, 6, x, sp[i]->s_vec, sp[i * x->num_chans]->s_vec, sp[i * x->num_chans * 2]->s_vec, sp[i * x->num_chans * 3]->s_vec, sp[i]->s_n);
+	for(i=0; i < x->num_chans; i++)		//add an instance of the perform method for each channel
+		dsp_add(gain_perform, 6, 
+			x, 
+			sp[i]->s_vec, 
+			sp[i + x->num_chans]->s_vec, 
+			sp[i + (x->num_chans * 2)]->s_vec, 
+			sp[i + (x->num_chans * 3)]->s_vec, 
+			sp[i]->s_n 
+		);
 }
 
