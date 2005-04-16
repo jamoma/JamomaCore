@@ -58,6 +58,17 @@ function msg_int(value)
 		outlet(0, "script", "delete", "inlet_"+i);
 		outlet(0, "script", "delete", "outlet_"+i);
 	}
+	
+	
+	// meters
+	if(num_channels == 1){
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 1, "meter_1", 0);
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 1, "meter_2", 0);
+	}
+	else if(num_channels == 2){
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 2, "meter_1", 0);
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 3, "meter_2", 0);
+	}
 }
  
  

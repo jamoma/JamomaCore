@@ -10,7 +10,7 @@
 // CONSTANTS
 const HEIGHT_1U = 60;						// pixel dimensions
 const WIDTH_HALF = 255;						// ...
-const NUM_DEFAULT_INLETS_AND_OUTLETS = 16;	// number of these in the jmod.gui
+const NUM_DEFAULT_INLETS_AND_OUTLETS = 32;	// number of these in the jmod.gui
 
 // GLOBALS
 var attr_module_type = "audio";
@@ -29,7 +29,7 @@ var offset_y = 0;
 
 // CONFIGURATION
 inlets = 1;
-outlets = 3;
+outlets = 4;
 
 
 // INITIALIZATION
@@ -40,6 +40,7 @@ function init()
 	setoutletassist(0, "connect to a thispatcher object");
 	setoutletassist(1, "connect to a bg pictctrl");
 	setoutletassist(2, "connect to the audio control panel");
+	setoutletassist(3, "connect to the module's umenu");
 	
 	// Process Arguments	
 	if(jsarguments.length > 1)
@@ -97,8 +98,12 @@ function bang()
 		// make sure everything is visible
 		outlet(0, "script", "sendtoback", "background");		
 
-
-
+		// delete extra inlets and outlets
+		for(i=num_channels;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+			outlet(0, "script", "delete", "inlet_"+(i+1));
+			outlet(0, "script", "delete", "outlet_"+(i+1));			
+		}
+	
 
 
 
@@ -115,6 +120,11 @@ function bang()
 		// Delete the audio controls
 		outlet(0, "script", "delete", "controls");
 		
+		// delete extra inlets and outlets
+		for(i=num_channels;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+			outlet(0, "script", "delete", "inlet_"+(i+1));
+			outlet(0, "script", "delete", "outlet_"+(i+1));			
+		}
 		
 		
 		
@@ -126,9 +136,11 @@ function bang()
 		// Delete the audio controls 
 		outlet(0, "script", "delete", "controls");
 		
-		
-		
-		
+		// Delete the inlets and outlets
+		for(i=0;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+			outlet(0, "script", "delete", "inlet_"+(i+1));
+			outlet(0, "script", "delete", "outlet_"+(i+1));			
+		}
 	}
 }
 
