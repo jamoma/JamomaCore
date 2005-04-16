@@ -149,14 +149,13 @@ void gain_free(t_gain *x)
 void gain_assist(t_gain *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1){ 	// Inlets
-		switch(arg){
-			case 0: strcpy(dst, "(signal) Input signal #1"); break;
-			case 1: strcpy(dst, "(signal) Input signal #2"); break;
-			case 2: strcpy(dst, "(signal/float) Control <0 to 1>"); break;
-		}
+		if(arg < x->num_chans) strcpy(dst, "(signal) Raw (unprocessed) signal");
+		else strcpy(dst, "(signal) Processed signal");
 	}
-	else if(msg==2) // Outlets
-		strcpy(dst, "(signal) Crossgaind output");
+	else if(msg==2){ // Outlets
+		if(arg < x->num_chans) strcpy(dst, "(signal) Raw (unprocessed) signal");
+		else strcpy(dst, "(signal) Processed signal");
+	}
 }
 
 

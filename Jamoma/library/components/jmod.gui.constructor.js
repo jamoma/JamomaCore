@@ -1,5 +1,5 @@
 // Javascript for Jamoma: assemble the gui component
-// By Matt Aidekman and Timothy Place, Copyright © 2005
+// By Timothy Place, Copyright © 2005
 // License: GNU LGPL
 
 
@@ -21,6 +21,9 @@ var	num_channels;
 var attr_size = "1Uh";
 var height = 1;
 var width = "half";
+var	p = this.patcher;
+var offset_x = 0;
+var offset_y = 0;
 
 
 // CONFIGURATION
@@ -47,12 +50,20 @@ init();				// run the init function
 
 
 
-
 /*******************************************************************
  * METHODS
  *******************************************************************/
  
-// BANG: build the gui component
+/* BANG: build the gui component
+ *
+ *	There are some things here that may not seem very elegant.  As of
+ *	Max 4.5.4, New items scripted into a patch, that is loaded in a
+ *	bpatcher within a bpatcher (such as jmod.gui), are scripted into place
+ *	using the coordinates of the patcher window - not the bpatcher's 
+ *	viewable region.  This means that a number of objects are pre-included
+ *	in the jmod.gui patch and then deleted or moved dynamically, rather than
+ *	creating what is needed.
+ */
 function bang()
 {
 	// Choose the skin, if needed
@@ -69,7 +80,11 @@ function bang()
 	outlet(1, "picture", "jmod.bg." + attr_skin + "." + attr_size + ".pct");
 
 	if(attr_module_type == "audio"){
-		// script in the
+	
+		// send the num_channels to the audio_component patch
+		//	that patch will then script in the jmod.gain~ and connect it
+	
+		// script in the 
 		if((num_inputs == 2)&&(num_outputs==2)){
 			;
 		}
@@ -77,30 +92,26 @@ function bang()
 			;
 		}
 		
-/*		// move the controls
-		if(width == 1){
-			outlet(0, "script", "offset", "controls", -255, 0);
-		}
-*/
-		// script in the controls
-//sprintf script new %s bpatcher %i %i %i %i 0 0 %s 0 %i %i %i %i %i %i
-
-		var obj_audio_panel;
+		
+		
+		
+		
+		// move the controls if neccessary
 		if(width == 1)
-//			outlet(0, "script", "new", "audio_panel", "bpatcher", 
-//				90, 2, 163, 16, 0, -190, "jmod.gui.audio-component.mxt", 
-///				0, local_token, num_channels);
-			obj_audio_panel = this.patcher.newobject("bpatcher", 
-				90, 2, 163, 16, 0, -190, "jmod.gui.audio-component.mxt", 
-				0, local_token, num_channels);
-		else // width == 2
-//			outlet(0, "script", "new", "audio_panel", "bpatcher", 
-//				345, 2, 163, 16, 0, -190, "jmod.gui.audio-component.mxt", 
-//				0, local_token, num_channels);
-				
-		//outlet(0, "script", "bringtofront", "audio_panel");		
-		obj_audio_panel.bringtofront();		
+			outlet(0, "script", "offset", "controls", -255, 0);
+
+		// make sure everything is visible
 		outlet(0, "script", "sendtoback", "background");		
+
+
+
+
+
+
+
+
+
+
 				
 	}
 	else if(attr_module_type == "video"){
@@ -178,3 +189,4 @@ function anything()
 {
 	;
 }
+
