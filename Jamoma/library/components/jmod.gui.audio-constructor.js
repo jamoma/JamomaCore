@@ -8,6 +8,7 @@
  *******************************************************************/
 
 // CONSTANTS
+const MAX_NUM_CHANNELS = 16;
 
 // GLOBALS
 var	num_channels;
@@ -36,29 +37,27 @@ init();				// run the init function
  *******************************************************************/
  
  
- // Method: INT
- function msg_int(value)
- {
- //	var obj_tap_thru = new Array();
- //	var obj_inlet = new Array();
- //	var obj_outlet = new Array();
- //	var obj_jmod_gain = p.newdefault(650, 550, "jmod.gain~", num_channels);
+// Method: INT
+function msg_int(value)
+{
  	var i;
  	num_channels = value;
 
+	outlet(0, "script", "hidden", "new", "jmod_gain", "newex", 250, 520, num_channels * 50, 196617, "jmod.gain~", num_channels);
+	outlet(0, "script", "hidden", "connect", "gain_midi", 0 ,"jmod_gain", 0);
+	outlet(0, "script", "hidden", "connect", "bypass", 0 ,"jmod_gain", 0);
 
-	outlet(0, "script", "new", "jmod_gain", "newex", 650, 520, num_channels * 50, 196617, "jmod.gain~", num_channels);
-
-	// For some bizzarre reason, the signal chain is not assembled
-	//	properly without these tap.thru~ objects on the input
-	for(i=0; i<num_channels; i++){
-		
-		// inlets and outlets are already in place, we delete the extras...
-		// obj_tap_thru[i] = p.newdefault((i*50) + 250, 100, "tap.thru~");
-		// obj_inlet[i] = p.newobject("inlet", (i*50) + 250, 50, 15, 0);
-		// obj_outlet[i] = p.newobject("outlet", (i*50) + 250, 250, 15, 0);
+	for(i=0; i< (num_channels*2); i++){
+		outlet(0, "script", "hidden", "connect", "tap_thru_"+(i+1), 0, "jmod_gain", i);
+		outlet(0, "script", "hidden", "connect", "jmod_gain", i, "outlet_"+(i+1), 0);
 	}
 
- }
+	// inlets and outlets are already in place, we delete the extras...
+	for(i = MAX_NUM_CHANNELS * 2; i>(num_channels*2); i--){
+		outlet(0, "script", "delete", "tap_thru_"+i);
+		outlet(0, "script", "delete", "inlet_"+i);
+		outlet(0, "script", "delete", "outlet_"+i);
+	}
+}
  
  
