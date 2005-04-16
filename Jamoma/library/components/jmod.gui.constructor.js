@@ -8,8 +8,9 @@
  *******************************************************************/
 
 // CONSTANTS
-const HEIGHT_1U = 60;					// pixel dimensions
-const WIDTH_HALF = 255;					// ...
+const HEIGHT_1U = 60;						// pixel dimensions
+const WIDTH_HALF = 255;						// ...
+const NUM_DEFAULT_INLETS_AND_OUTLETS = 16;	// number of these in the jmod.gui
 
 // GLOBALS
 var attr_module_type = "audio";
@@ -28,7 +29,7 @@ var offset_y = 0;
 
 // CONFIGURATION
 inlets = 1;
-outlets = 2;
+outlets = 3;
 
 
 // INITIALIZATION
@@ -38,6 +39,7 @@ function init()
 	setinletassist(0, "set attributes, etc.");
 	setoutletassist(0, "connect to a thispatcher object");
 	setoutletassist(1, "connect to a bg pictctrl");
+	setoutletassist(2, "connect to the audio control panel");
 	
 	// Process Arguments	
 	if(jsarguments.length > 1)
@@ -85,15 +87,7 @@ function bang()
 		//	that patch will then script in the jmod.gain~ and connect it
 	
 		// script in the 
-		if((num_inputs == 2)&&(num_outputs==2)){
-			;
-		}
-		else if((num_inputs == 1)&&(num_outputs == 1)){
-			;
-		}
-		
-		
-		
+		outlet(2, num_channels);	// send the number of channels to the controls
 		
 		
 		// move the controls if neccessary
@@ -120,6 +114,10 @@ function bang()
 		
 		// Delete the audio controls
 		outlet(0, "script", "delete", "controls");
+		
+		
+		
+		
 	}
 	else{	// attr_module_type == "control"
 		// Replace the menu
@@ -127,6 +125,10 @@ function bang()
 	
 		// Delete the audio controls 
 		outlet(0, "script", "delete", "controls");
+		
+		
+		
+		
 	}
 }
 

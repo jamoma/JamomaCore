@@ -119,7 +119,11 @@ void *gain_new(t_symbol *s, short argc, t_atom *argv)
 		
 		x->xfade->set_attr(tap_crossfade::k_mode, 0);		// defaults
 		x->xfade->set_attr(tap_crossfade::k_shape, 0);
-		x->xfade->set_attr(tap_crossfade::k_position, 0.5);
+		x->xfade->set_attr(tap_crossfade::k_position, 1);
+		x->gain->set_attr(tap_gain::k_gain_direct, 0);
+		
+		x->attr_bypass = 0;
+		x->attr_gain = 0;
 
 		attr_args_process(x, argc, argv);					// handle attribute args				
 	}
