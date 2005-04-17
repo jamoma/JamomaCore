@@ -24,17 +24,19 @@
 
 // Data Structure for our object
 typedef struct {
-	t_pxbox		my_box;			// required box structure for all audio ui externs
-	void		*obex;			// max 4.5 object extensions
-	void		*qelem;			// queue element to defer drawing commands
-	void		*clock;			// clock for polling the audio analysis results
+	t_pxbox		my_box;				// required box structure for all audio ui externs
+	void		*obex;				// max 4.5 object extensions
+	void		*qelem;				// queue element to defer drawing commands
+	void		*clock;				// clock for polling the audio analysis results
 	
-	Rect 		rect;			// for comparing with x_box.b_rect in the update() method
+	Rect 		rect;				// for comparing with x_box.b_rect in the update() method
 	
-	float		envelope;		// the result of the amplitude analysis [0.0, 1.0]
-	float		peak;			// the loudest sample since the last reset
+	float		envelope;			// the result of the amplitude analysis [0.0, 1.0]
+	float		peak;				// the loudest sample since the last reset
 	short		peak_position;
 	short		peak_level;
+	
+	long		attr_defeat;		// turn off the meters
 } t_meter;
 
 // Prototypes for our methods:
@@ -52,6 +54,7 @@ void meter_click(t_meter *x, Point pt, short modifiers);
 void meter_psave(t_meter *x, void *w);
 void meter_qfn(t_meter *x);												// Draw Routines...
 void meter_draw(t_meter *x);
+t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv);
 
 // Globals
 t_class *meter_class;
@@ -78,6 +81,10 @@ void main(void)
 	class_addmethod(c, (method)meter_bang, 		"bang", 0L);
 	class_addmethod(c, (method)meter_float,		"float", A_FLOAT, 0L);
  	class_addmethod(c, (method)meter_dsp, 		"dsp", A_CANT, 0L);		
+
+	attr = attr_offset_new("defeat", _sym_long, attrflags,
+		(method)0L,(method)attr_set_defeat, calcoffset(t_meter, attr_defeat));
+	class_addattr(c, attr);
 
 	class_dspinitbox(c);									// Setup object's class to work with MSP
 
@@ -206,11 +213,26 @@ void meter_float(t_meter *x, double value)
 }
 
 
+// Attribute: defeat
+t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_defeat = atom_getlong(argv);
+	if(x->attr_defeat == 0) 
+		clock_delay(x->clock, POLL_INTERVAL); 	// start the clock
+
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
+
+
+
 // Method: triggered by our clock
 void meter_tick(t_meter *x)
 {
 	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
-		clock_delay(x->clock, POLL_INTERVAL); 		// schedule the clock
+		if(x->attr_defeat == 0)
+			clock_delay(x->clock, POLL_INTERVAL); 		// schedule the clock
 		qelem_set(x->qelem); 						// draw the meters
 	}
 }

@@ -17,6 +17,11 @@ var attr_module_type = "audio";
 var attr_skin = "default";
 var attr_num_inputs = 1;
 var attr_num_outputs = 1;
+var attr_meter_toggle = 1;
+var attr_preview = 1;
+var attr_bypass = 0;
+var attr_mute = 0;
+var attr_freeze = 0;
 var local_token = 0;
 var	num_channels;
 var attr_size = "1Uh";
@@ -29,7 +34,7 @@ var offset_y = 0;
 
 // CONFIGURATION
 inlets = 1;
-outlets = 4;
+outlets = 5;
 
 
 // INITIALIZATION
@@ -41,6 +46,7 @@ function init()
 	setoutletassist(1, "connect to a bg pictctrl");
 	setoutletassist(2, "connect to the audio control panel");
 	setoutletassist(3, "connect to the module's umenu");
+	setoutletassist(4, "messages to be sent to the module's hub");
 	
 	// Process Arguments	
 	if(jsarguments.length > 1)
@@ -94,28 +100,38 @@ function bang()
 		// move the controls if neccessary
 		if(width == 1)
 			outlet(0, "script", "offset", "controls", -255, 0);
+		
+		// delete the video preview window
+		outlet(0, "script", "delete", "pwindow");
 
 		// make sure everything is visible
-		outlet(0, "script", "sendtoback", "background");		
+		outlet(0, "script", "sendtoback", "background");
+		outlet(0, "script", "sendtoback", "menu");
 
 		// delete extra inlets and outlets
-		for(i=num_channels;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+		for(i=num_channels*2;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
 			outlet(0, "script", "delete", "inlet_"+(i+1));
 			outlet(0, "script", "delete", "outlet_"+(i+1));			
 		}
 	
-
-
-
-
-
-
-
+		// Setup the Menu
+		outlet(3, "append", "Defeat Signal Meters");
+		outlet(3, "append", "Clear Signal Meters");
+		outlet(3, "append", "-");
+		outlet(3, "append", "Load Settings...");
+		outlet(3, "append", "Save Settings...");
+		outlet(3, "append", "Restore Default Settings");
+		outlet(3, "append", "-");
+		outlet(3, "append", "Open Online Reference");
+		outlet(3, "append", "View Internal Components");
 				
 	}
 	else if(attr_module_type == "video"){
-		// Replace the menu
-		outlet(0, "script", "replace", "menu", "jmod.menu.v.mxt", 0, 0);
+		// Create the standard messages
+		outlet(0, "script", "hidden", "new", "param_preview", "jmod.parameter.mxt", local_token, "preview");
+		outlet(0, "script", "hidden", "new", "param_bypass", "jmod.parameter.mxt", local_token, "bypass");
+		outlet(0, "script", "hidden", "new", "param_freeze", "jmod.parameter.mxt", local_token, "freeze");
+		outlet(0, "script", "hidden", "new", "param_mute", "jmod.parameter.mxt", local_token, "mute");
 		
 		// Delete the audio controls
 		outlet(0, "script", "delete", "controls");
@@ -126,7 +142,26 @@ function bang()
 			outlet(0, "script", "delete", "outlet_"+(i+1));			
 		}
 		
+		// move the preview window if neccessary
+		if(width == 1)
+			outlet(0, "script", "offset", "pwindow", -255, 0);
 		
+		
+		// Setup the Menu
+		outlet(3, "clear");
+		outlet(3, "append", "Preview Output");
+		outlet(3, "append", "Force a Frame of Output");
+		outlet(3, "append", "-");
+		outlet(3, "append", "Bypass");
+		outlet(3, "append", "Freeze");
+		outlet(3, "append", "Mute");
+		outlet(3, "append", "-");
+		outlet(3, "append", "Load Settings...");
+		outlet(3, "append", "Save Settings...");
+		outlet(3, "append", "Restore Default Settings");
+		outlet(3, "append", "-");
+		outlet(3, "append", "Open Online Reference");
+		outlet(3, "append", "View Internal Components");
 		
 	}
 	else{	// attr_module_type == "control"
@@ -135,11 +170,101 @@ function bang()
 	
 		// Delete the audio controls 
 		outlet(0, "script", "delete", "controls");
-		
+
+		// delete the video preview window
+		outlet(0, "script", "delete", "pwindow");
+
 		// Delete the inlets and outlets
 		for(i=0;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
 			outlet(0, "script", "delete", "inlet_"+(i+1));
 			outlet(0, "script", "delete", "outlet_"+(i+1));			
+		}
+
+		// Setup the Menu
+		outlet(3, "clear");
+		outlet(3, "append", "Load Settings...");
+		outlet(3, "append", "Save Settings...");
+		outlet(3, "append", "Restore Default Settings");
+		outlet(3, "append", "-");
+		outlet(3, "append", "Open Online Reference");
+		outlet(3, "append", "View Internal Components");
+
+	}
+}
+
+
+// Method: INT - input from the menu!
+function msg_int(value)
+{
+	if(attr_module_type == "audio"){
+		switch(value){
+			case 0: 
+				if(attr_meter_toggle == 1) attr_meter_toggle = 0;
+				else if(attr_meter_toggle == 0) attr_meter_toggle = 1;
+				outlet(4, "defeat_meters", !attr_meter_toggle); 
+				outlet(3, "checkitem", 0, !attr_meter_toggle); 
+				break;
+			case 1: outlet(4, "clear_meters"); break;
+			case 3: outlet(4, "load_settings"); break;
+			case 4: outlet(4, "save_settings"); break;
+			case 5: outlet(4, "restore_defaults"); break;
+			case 7: outlet(4, "help"); break;
+			case 8: outlet(4, "view_internals"); break;
+		}
+	}
+	else if(attr_module_type == "video"){
+		switch(value){
+			case 0: 
+				if(attr_preview == 1) attr_preview = 0;
+				else if(attr_preview == 0) attr_preview = 1;
+				outlet(4, "preview", attr_preview); 
+				outlet(3, "checkitem", 0, attr_preview); 
+				break;
+			case 1: outlet(4, "force"); break;	
+			case 3:
+				if(attr_bypass == 1) attr_bypass = 0;
+				else if(attr_bypass == 0){
+					attr_bypass = 1;
+					attr_freeze = 0;
+					attr_mute = 0;
+				}
+				outlet(4, "bypass", attr_bypass); 
+				break;
+			case 4:
+				if(attr_freeze == 1) attr_freeze = 0;
+				else if(attr_freeze == 0){
+					attr_bypass = 0;
+					attr_freeze = 1;
+					attr_mute = 0;
+				}
+				outlet(4, "freeze", attr_freeze); 
+				break;
+			case 5:
+				if(attr_mute == 1) attr_mute = 0;
+				else if(attr_mute == 0){
+					attr_bypass = 0;
+					attr_freeze = 0;
+					attr_mute = 1;
+				}
+				outlet(4, "mute", attr_mute); 
+				break;
+			case 7: outlet(4, "load_settings"); break;			
+			case 8: outlet(4, "save_settings"); break;
+			case 9: outlet(4, "restore_defaults"); break;
+			case 11: outlet(4, "help"); break;
+			case 12: outlet(4, "view_internals"); break;		
+		}
+		outlet(3, "checkitem", 3, attr_bypass);
+		outlet(3, "checkitem", 4, attr_freeze);
+		outlet(3, "checkitem", 5, attr_mute);
+	}
+	else if(attr_module_type == "control"){
+		switch(value){
+			case 0: outlet(4, "load_settings"); break;
+			case 1: outlet(4, "save_settings"); break;
+			case 2: outlet(4, "restore_defaults"); break;
+			case 4: outlet(4, "help"); break;
+			case 5: outlet(4, "view_internals"); break;
 		}
 	}
 }
