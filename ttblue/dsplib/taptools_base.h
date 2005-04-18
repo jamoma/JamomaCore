@@ -329,6 +329,20 @@ class taptools_audio{
 			value = amplitude_to_decibels(value);
 			return decibels_to_millimeters(value);
 		}
+
+
+		// extended MIDI units to decibels (127 = unity gain)
+		static float xmidi_to_decibels(float value)
+		{
+			return (value - 127) * 0.6;
+		}
+		
+		// decibels to extended MIDI units  (127 = unity gain)
+		static float decibels_to_xmidi(float value)
+		{
+			return (value * 1.66666667) + 127;
+		}
+		
 		
 
 		// ************* MISC STUFF **************
