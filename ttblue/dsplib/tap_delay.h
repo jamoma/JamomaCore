@@ -262,7 +262,7 @@ class tap_delay:public taptools_audio{
 				
 				// CALCULATE THE DELAY TIME
 				// delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
-				delay_samples = delay_ms * m_sr;
+//				delay_samples = delay_ms * m_sr;
 				fdelay_samples = delay_ms * m_sr;
 				delay_samples = fdelay_samples;
 				fractional_delay = fdelay_samples - delay_samples;
@@ -293,6 +293,7 @@ class tap_delay:public taptools_audio{
 				*out->vector++ = (temp * (1.0 - fractional_delay)) + (*out_ptr * fractional_delay);
 		    }
 		    in1->reset(); in2->reset(); out->reset();
+//post("delay_signal_ms: %f, samples: %f (%i)", delay_ms, fdelay_samples, delay_samples);
 		}
 
 /*

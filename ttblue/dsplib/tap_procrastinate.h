@@ -77,6 +77,8 @@ class tap_procrastinate:public taptools_audio{
 			for(i=0; i < k_num_temp_signals; i++)
 				temp[i] = new tt_audio_signal(vectorsize);		// allocate temp signals
 			
+			buffersize_in_ms = 10000.0;
+			
 			window = new tap_buffer(512);
 			wave1 = new tap_buffer_window(window);
 			wave2 = new tap_buffer_window(window);
@@ -89,8 +91,8 @@ class tap_procrastinate:public taptools_audio{
 				gain[i] = new tap_gain;
 				phasor[i] = new tap_phasor;
 				scale[i] = new tap_gain;
-				delay1[i] = new tap_delay(10000.0f);
-				delay2[i] = new tap_delay(10000.0f);
+				delay1[i] = new tap_delay(buffersize_in_ms);
+				delay2[i] = new tap_delay(buffersize_in_ms);
 				mixer[i] = new tap_mixer_mono;
 			}
 				
@@ -115,8 +117,10 @@ class tap_procrastinate:public taptools_audio{
 				
 			// Default Settings
 			for(i=0; i<4; i++){
-				set_attr(k_ratio, i, 1.0);
-				set_attr(k_windowsize, i, 1000.0f);
+				window_size_value[i] = 10000;
+				shift_ratio_value[i] = 1.0;
+				//set_attr(k_ratio, i, 1.0);
+				//set_attr(k_windowsize, i, 1000.0f);
 			}
 			
 			randomize_parameters();
@@ -245,24 +249,21 @@ class tap_procrastinate:public taptools_audio{
 				tempval[i] = gain_high[i] - gain_low[i];
 				tempval[i] = gain_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				mixer[i]->set_attr(tap_mixer_mono::k_master_gain, tempval[i]);
-				//post("mixer_mono::master_gain %f", tempval[i]);
-				
+post("gain[%i]: %f", i, tempval[i]);				
 				tempval[i] = pan_high[i] - pan_low[i];
 				tempval[i] = pan_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				panner[i]->set_attr(tap_pan::k_position, tempval[i]);
-				//post("panner::position %f", tempval[i]);
+post("pan[%i]: %f", i, tempval[i]);				
 
 				tempval[i] = shift_high[i] - shift_low[i];
 				tempval[i] = shift_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				set_attr(k_ratio, i, tempval[i]);
-				//procrastinate_ratio(x, i, tempval[i]);
-				//post("shift::ratio %f", tempval[i]);
+post("shift[%i]: %f", i, tempval[i]);				
 
 				tempval[i] = delay_high[i] - delay_low[i];
 				tempval[i] = delay_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				set_attr(k_windowsize, i, tempval[i]);
-//				procrastinate_window(x, i, tempval[i]);
-				//post("shift::window %f", tempval[i]);
+post("delay[%i]: %f", i, tempval[i]);				
 			}		
 		}
 		
@@ -277,19 +278,21 @@ class tap_procrastinate:public taptools_audio{
 		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
 		{
 			// VOICE 1 *****************
-			phasor[0]->dsp_vector_calc(temp[0]);							// phasor~
+			phasor[0]->dsp_vector_calc(temp[0]);						// phasor~
 			scale[0]->dsp_vector_calc(temp[0], temp[1]);				// *~ 87.0
 			delay1[0]->dsp_vector_calc(in, temp[1], temp[8]);			// blue.delai~
+//post("VOICE 1a: phasor=%f, scale=%f", *temp[0], *temp[1]);
 
 			offset->dsp_vector_calc(temp[0], temp[1]);					// +~ 0.5
 			modulo->dsp_vector_calc(temp[1], temp[2]);					// %~ 1.0
 			scale[0]->dsp_vector_calc(temp[2], temp[3]);				// *~ 87.0
 			delay2[0]->dsp_vector_calc(in, temp[3], temp[9]);			// blue.delay~ (the second one)
+//post("VOICE 1b: phasor=%f, mod=%f, scale=%f", *temp[1], *temp[2], *temp[3]);
 			
-			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);		// apply the window
-			wave2->dsp_vector_calc(temp[2], temp[9], temp[7]);		// apply the window
+			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);			// apply the window
+			wave2->dsp_vector_calc(temp[2], temp[9], temp[7]);			// apply the window
 			
-			mixer[0]->dsp_vector_calc(temp[6], temp[7], temp[9]);	// combine the windowed delays and apply the gain control
+			mixer[0]->dsp_vector_calc(temp[6], temp[7], temp[9]);		// combine the windowed delays and apply the gain control
 			panner[0]->dsp_vector_calc(temp[9], temp[10], temp[11]);	
 
 
@@ -301,7 +304,6 @@ class tap_procrastinate:public taptools_audio{
 			offset->dsp_vector_calc(temp[0], temp[1]);					// +~ 0.5
 			modulo->dsp_vector_calc(temp[1], temp[2]);					// %~ 1.0
 			scale[1]->dsp_vector_calc(temp[2], temp[3]);				// *~ 87.0
-		//	x->delay2[1]->dsp_vector_calc(in, x->temp[3], n, x->temp[9]);			// blue.delay~ (the second one)
 			delay2[1]->dsp_vector_calc(temp[9], temp[3], temp[18]);			// blue.delay~ (the second one)
 			
 			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);		// apply the window
@@ -312,38 +314,36 @@ class tap_procrastinate:public taptools_audio{
 
 
 			// VOICE 3 *****************
-			phasor[2]->dsp_vector_calc(temp[0]);							// phasor~
+			phasor[2]->dsp_vector_calc(temp[0]);						// phasor~
 			scale[2]->dsp_vector_calc(temp[0], temp[1]);				// *~ 87.0
-			delay1[2]->dsp_vector_calc(temp[9], temp[1], temp[8]);	// blue.delai~
+			delay1[2]->dsp_vector_calc(temp[9], temp[1], temp[8]);		// blue.delai~
 
 			offset->dsp_vector_calc(temp[0], temp[1]);					// +~ 0.5
 			modulo->dsp_vector_calc(temp[1], temp[2]);					// %~ 1.0
 			scale[2]->dsp_vector_calc(temp[2], temp[3]);				// *~ 87.0
-		//	x->delay2[2]->dsp_vector_calc(in, x->temp[3], n, x->temp[9]);			// blue.delay~ (the second one)
-			delay2[2]->dsp_vector_calc(temp[9], temp[3], temp[18]);			// blue.delay~ (the second one)
+			delay2[2]->dsp_vector_calc(temp[9], temp[3], temp[18]);		// blue.delay~ (the second one)
 			
-			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);		// apply the window
-			wave2->dsp_vector_calc(temp[2], temp[18], temp[7]);		// apply the window
+			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);			// apply the window
+			wave2->dsp_vector_calc(temp[2], temp[18], temp[7]);			// apply the window
 			
-			mixer[2]->dsp_vector_calc(temp[6], temp[7], temp[9]);	// combine the windowed delays and apply the gain control
+			mixer[2]->dsp_vector_calc(temp[6], temp[7], temp[9]);		// combine the windowed delays and apply the gain control
 			panner[2]->dsp_vector_calc(temp[9], temp[14], temp[15]);	
 
 
 			// VOICE 4 *****************
-			phasor[3]->dsp_vector_calc(temp[0]);							// phasor~
+			phasor[3]->dsp_vector_calc(temp[0]);						// phasor~
 			scale[3]->dsp_vector_calc(temp[0], temp[1]);				// *~ 87.0
-			delay1[3]->dsp_vector_calc(temp[9], temp[1], temp[8]);	// blue.delai~
+			delay1[3]->dsp_vector_calc(temp[9], temp[1], temp[8]);		// blue.delai~
 
 			offset->dsp_vector_calc(temp[0], temp[1]);					// +~ 0.5
 			modulo->dsp_vector_calc(temp[1], temp[2]);					// %~ 1.0
 			scale[3]->dsp_vector_calc(temp[2], temp[3]);				// *~ 87.0
-		//	x->delay2[3]->dsp_vector_calc(in, x->temp[3], n, x->temp[9]);			// blue.delay~ (the second one)
-			delay2[3]->dsp_vector_calc(temp[9], temp[3], temp[18]);			// blue.delay~ (the second one)
+			delay2[3]->dsp_vector_calc(temp[9], temp[3], temp[18]);		// blue.delay~ (the second one)
 			
-			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);		// apply the window
-			wave2->dsp_vector_calc(temp[2], temp[18], temp[7]);		// apply the window
+			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);			// apply the window
+			wave2->dsp_vector_calc(temp[2], temp[18], temp[7]);			// apply the window
 			
-			mixer[3]->dsp_vector_calc(temp[6], temp[7], temp[9]);	// combine the windowed delays and apply the gain control
+			mixer[3]->dsp_vector_calc(temp[6], temp[7], temp[9]);		// combine the windowed delays and apply the gain control
 			panner[3]->dsp_vector_calc(temp[9], temp[16], temp[17]);	
 			
 			finalmix->dsp_vector_calc(temp[10], temp[12], temp[14], temp[16], out1);

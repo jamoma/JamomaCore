@@ -81,7 +81,7 @@ class tap_gain:public taptools_audio{
 		{
 			temp_vs = in->vectorsize;
 			while(temp_vs--)
-				*out->vector++ = *in->vector++ * gain;
+				*out->vector++ = (*in->vector++) * gain;
 			in->reset(); out->reset();
 		}
 		
