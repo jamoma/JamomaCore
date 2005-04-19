@@ -35,6 +35,7 @@ class tap_delay:public taptools_audio{
 		tt_attribute_value_discrete		delay_samples_max;
 		tt_attribute_value_discrete		interpolation;
 		double							fractional_delay;	// used in interpolated dsp loops
+		double 							fdelay_samples;
 
 		tt_sample_value					*buffer;
 		tt_sample_value					*in_ptr;			// "write" pointer for buffer
@@ -95,11 +96,16 @@ class tap_delay:public taptools_audio{
 			switch (sel){
 				case k_delay_ms:
 					delay_ms = val;
-					delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
+					//delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
+					fdelay_samples = delay_ms * m_sr;
+					delay_samples = fdelay_samples;
+					fractional_delay = fdelay_samples - delay_samples;
+					
 					break;
 				case k_delay_samples:
-					delay_samples = clip(long(val), long(0), delay_samples_max);
+					fdelay_samples = delay_samples = clip(long(val), long(0), delay_samples_max);
 					delay_ms = (float)delay_samples * 1000.0 / (float)sr;
+					fractional_delay = 0;
 					break;
 				case k_interpolation:
 					interpolation = val;
@@ -132,7 +138,7 @@ class tap_delay:public taptools_audio{
 //					std:cerr << "tap_delay: invalid attribute specified for set_attr()" << std::endl;
 					break;
 			}
-			clear();
+			reset();
 		}
 
 		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
@@ -188,7 +194,6 @@ class tap_delay:public taptools_audio{
 		// DSP LOOP - NO INTERPOLATION - SIGNAL SPEC'D DELAY TIME
 		void dsp_vector_calc_nointerp_2in(tt_audio_signal *in, tt_audio_signal *in2, tt_audio_signal *out)
 		{
-			double fdelay_samples;
 			temp_vs = in->vectorsize;
 
 			// CALCULATE THE DELAY TIME
@@ -252,7 +257,6 @@ class tap_delay:public taptools_audio{
 		void dsp_vector_calc_linear_2in(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 		{
 			tt_sample_value	temp;
-			double			fdelay_samples;
 			tt_sample_value	*next;
 			
 			temp_vs = in1->vectorsize;
@@ -380,16 +384,22 @@ class tap_delay:public taptools_audio{
 			set_attr(k_interpolation, k_interpolation_linear);
 			//for(i=0;i<4;i++)
 			//	output[i] = 0;
-			
+					
+			reset();
+		}
+
+		
+		// Reset the pointers
+		void reset()
+		{
 			end_ptr = buffer + delay_samples;
 			out_ptr = in_ptr - delay_samples;
 			if (out_ptr < buffer)
-				out_ptr = end_ptr + (out_ptr - buffer) + 1;	
-					
+				out_ptr = end_ptr + (out_ptr - buffer) + 1;
+				
 			clear();
 		}
-
-
+		
 		
 	public:	
 		// clear
