@@ -249,21 +249,21 @@ class tap_procrastinate:public taptools_audio{
 				tempval[i] = gain_high[i] - gain_low[i];
 				tempval[i] = gain_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				mixer[i]->set_attr(tap_mixer_mono::k_master_gain, tempval[i]);
-post("gain[%i]: %f", i, tempval[i]);				
+//post("gain[%i]: %f", i, tempval[i]);				
 				tempval[i] = pan_high[i] - pan_low[i];
 				tempval[i] = pan_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				panner[i]->set_attr(tap_pan::k_position, tempval[i]);
-post("pan[%i]: %f", i, tempval[i]);				
+//post("pan[%i]: %f", i, tempval[i]);				
 
 				tempval[i] = shift_high[i] - shift_low[i];
 				tempval[i] = shift_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				set_attr(k_ratio, i, tempval[i]);
-post("shift[%i]: %f", i, tempval[i]);				
+//post("shift[%i]: %f", i, tempval[i]);				
 
 				tempval[i] = delay_high[i] - delay_low[i];
 				tempval[i] = delay_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				set_attr(k_windowsize, i, tempval[i]);
-post("delay[%i]: %f", i, tempval[i]);				
+//post("delay[%i]: %f", i, tempval[i]);				
 			}		
 		}
 		
