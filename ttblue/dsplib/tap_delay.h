@@ -380,6 +380,12 @@ class tap_delay:public taptools_audio{
 			set_attr(k_interpolation, k_interpolation_linear);
 			//for(i=0;i<4;i++)
 			//	output[i] = 0;
+			
+			end_ptr = buffer + delay_samples;
+			out_ptr = in_ptr - delay_samples;
+			if (out_ptr < buffer)
+				out_ptr = end_ptr + (out_ptr - buffer) + 1;	
+					
 			clear();
 		}
 
@@ -389,21 +395,13 @@ class tap_delay:public taptools_audio{
 		// clear
 		void clear(void)
 		{
-			end_ptr = buffer + delay_samples;
-			out_ptr = in_ptr - delay_samples;
-			if (out_ptr < buffer)
-				out_ptr = end_ptr + (out_ptr - buffer) + 1;	
-				
-			{
-				float * i;
-				long j = 0;
-							
-				for(i = buffer; i< end_ptr; i++, j++)
-					//buffer[i] = 0.0;
-					buffer[j] = 0.0;
-					//*(buffer+i) = 0.0;
-			}
-	
+			float * i;
+			long j = 0;
+						
+			for(i = buffer; i< end_ptr; i++, j++)
+				//buffer[i] = 0.0;
+				buffer[j] = 0.0;
+				//*(buffer+i) = 0.0;
 		}
 
 			
