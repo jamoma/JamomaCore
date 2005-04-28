@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.filter~">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxb">
+			<patcher name = "jmod.parameter">
+				<pattr name = "mute" value = "1" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "bypass" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[5]">
+				<pattr name = "sr" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[6]">
+				<pattr name = "defeat_meters" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter.gain.mxt">
+				<pattr name = "gain_midi" value = "0." />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[1]">
+			<pattr name = "cf" value = "1200." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[2]">
+			<pattr name = "q" value = "1." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[3]">
+			<pattr name = "filtergain" value = "1." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb">
+			<pattr name = "filtertype" value = "lowpass" />
+		</patcher>
+	</slot>
+</pattrstorage>
+

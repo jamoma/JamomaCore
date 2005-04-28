@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.crossfade~">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxb">
+			<patcher name = "jmod.parameter">
+				<pattr name = "mute" value = "1" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "bypass" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[5]">
+				<pattr name = "sr" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[6]">
+				<pattr name = "defeat_meters" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter.gain.mxt">
+				<pattr name = "gain_midi" value = "127." />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[1]">
+			<pattr name = "crossfade" value = "1." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[3]">
+			<pattr name = "shape" value = "0" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[2]">
+			<pattr name = "calc_mode" value = "0" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
