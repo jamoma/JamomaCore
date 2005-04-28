@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "limi~">
+<pattrstorage name = "jmod.limi~">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "jmod.parameter">
+				<pattr name = "mute" value = "1" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "bypass" value = "1" />
+			</patcher>
+			<patcher name = "jmod.parameter[5]">
+				<pattr name = "sr" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[6]">
+				<pattr name = "defeat_meters" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter.gain.mxt">
+				<pattr name = "gain_midi" value = "127." />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter[2]">
+			<pattr name = "preamp" value = "6." />
+		</patcher>
+		<patcher name = "jmod.parameter[3]">
+			<pattr name = "postamp" value = "6." />
+		</patcher>
+		<patcher name = "jmod.parameter[4]">
+			<pattr name = "threshold" value = "-6." />
+		</patcher>
+		<patcher name = "jmod.parameter[5]">
+			<pattr name = "lookahead" value = "10." />
+		</patcher>
+		<patcher name = "jmod.parameter[6]">
+			<pattr name = "release" value = "300." />
+		</patcher>
+		<patcher name = "jmod.parameter[7]">
+			<pattr name = "shape" value = "0" />
+		</patcher>
+	</slot>
 </pattrstorage>
 
