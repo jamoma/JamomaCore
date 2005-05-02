@@ -46,28 +46,33 @@ function msg_int(value)
 	outlet(0, "script", "hidden", "new", "jmod_gain", "newex", 250, 520, num_channels * 50, 196617, "jmod.gain~", num_channels);
 	outlet(0, "script", "hidden", "connect", "gain_midi", 0 ,"jmod_gain", 0);
 	outlet(0, "script", "hidden", "connect", "bypass", 0 ,"jmod_gain", 0);
+	outlet(0, "script", "hidden", "connect", "mix", 0, "jmod_gain", 0);
+	//outlet(0, "script", "hidden", "connect", "route_ob", 1, "jmod_gain", 0);
 
 	for(i=0; i< (num_channels*2); i++){
-		outlet(0, "script", "hidden", "connect", "tap_thru_"+(i+1), 0, "jmod_gain", i);
+		outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "jmod_gain", i);
+	}
+	for(i=0; i< (num_channels); i++){
 		outlet(0, "script", "hidden", "connect", "jmod_gain", i, "outlet_"+(i+1), 0);
 	}
 
 	// inlets and outlets are already in place, we delete the extras...
 	for(i = MAX_NUM_CHANNELS * 2; i>(num_channels*2); i--){
-		outlet(0, "script", "delete", "tap_thru_"+i);
 		outlet(0, "script", "delete", "inlet_"+i);
+	}
+	for(i = MAX_NUM_CHANNELS; i>(num_channels); i--){
 		outlet(0, "script", "delete", "outlet_"+i);
 	}
 	
 	
 	// meters
 	if(num_channels == 1){
-		outlet(0, "script", "hidden", "connect", "jmod_gain", 1, "meter_1", 0);
-		outlet(0, "script", "hidden", "connect", "jmod_gain", 1, "meter_2", 0);
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 0, "meter_1", 0);
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 0, "meter_2", 0);
 	}
 	else if(num_channels == 2){
-		outlet(0, "script", "hidden", "connect", "jmod_gain", 2, "meter_1", 0);
-		outlet(0, "script", "hidden", "connect", "jmod_gain", 3, "meter_2", 0);
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 0, "meter_1", 0);
+		outlet(0, "script", "hidden", "connect", "jmod_gain", 1, "meter_2", 0);
 	}
 }
  

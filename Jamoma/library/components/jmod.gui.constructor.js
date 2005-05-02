@@ -108,11 +108,20 @@ function bang()
 		outlet(0, "script", "sendtoback", "background");
 		outlet(0, "script", "sendtoback", "menu");
 
+
+
 		// delete extra inlets and outlets
 		for(i=num_channels*2;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
 			outlet(0, "script", "delete", "inlet_"+(i+1));
 			outlet(0, "script", "delete", "outlet_"+(i+1));			
 		}
+
+		// connect inlets and outlets
+		for(i=0; i<num_channels; i++){
+			outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
+			outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(num_channels+i+1), 0);
+		}
+
 	
 		// Setup the Menu
 		outlet(3, "append", "Defeat Signal Meters");
