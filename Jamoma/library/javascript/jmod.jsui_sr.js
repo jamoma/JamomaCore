@@ -23,7 +23,7 @@
  
  function msg_int(into)
  {
- if (inlet==1)
+ 	if (inlet==1)
         {
         systemrate = into;
         fiverates = [into/4,into/2, into, into*2,into*4];
@@ -31,13 +31,13 @@
         displayrate = into;
         outlet(0,ratedivision);
         }
- else if( into >= -2 && into <= 2)
+ 	else if( into >= -2 && into <= 2)
         {
         limit(into);
         displayrate = fiverates[ratedivision+2];
         outlet(0,ratedivision);
         }
- else
+ 	else
         {
         for ( count = 0; count < 5 ; count++)
                 {
@@ -49,7 +49,31 @@
                         }       
                 }
         }
- draw()
+ 	draw()
+ }
+ 
+ function set(into)
+ {
+ 	if (inlet==0)
+ 	{
+ 		if( into >= -2 && into <= 2)
+        {
+        	limit(into);
+        	displayrate = fiverates[ratedivision+2];
+        }
+ 		else
+        {
+        	for ( count = 0; count < 5 ; count++)
+            {
+                if (fiverates[count] ==into)
+                {
+                    displayrate = into;
+                    ratedivision = count-2;
+				}       
+            }
+        }
+ 	draw()
+ 	}
  }
  
  function onclick(x,y,button)
