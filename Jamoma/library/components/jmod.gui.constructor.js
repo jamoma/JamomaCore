@@ -30,6 +30,7 @@ var width = "half";
 var	p = this.patcher;
 var offset_x = 0;
 var offset_y = 0;
+var has_run = 0;				// flag indicating that this module has previously been built
 
 
 // CONFIGURATION
@@ -93,112 +94,114 @@ function bang()
 		// send the num_channels to the audio_component patch
 		//	that patch will then script in the jmod.gain~ and connect it
 	
-		// script in the 
-		outlet(2, num_channels);	// send the number of channels to the controls
+	
+		if(has_run == 0){
+			// script in the 
+			outlet(2, num_channels);	// send the number of channels to the controls
+			
+			// move the controls if neccessary
+			if(width == 1)
+				outlet(0, "script", "offset", "controls", -255, 0);
 		
+			// delete extra inlets and outlets
+			for(i=num_channels*2;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+				outlet(0, "script", "delete", "inlet_"+(i+1));
+				outlet(0, "script", "delete", "outlet_"+(i+1));			
+			}
+	
+			// delete the video preview window
+			outlet(0, "script", "delete", "pwindow");
+	
+			// connect inlets and outlets
+			for(i=0; i<num_channels; i++){
+				outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
+				outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(num_channels+i+1), 0);
+			}
+			
+			// Setup the Menu
+			outlet(3, "append", "Defeat Signal Meters");
+			outlet(3, "append", "Clear Signal Meters");
+			outlet(3, "append", "-");
+			outlet(3, "append", "Load Settings...");
+			outlet(3, "append", "Save Settings...");
+			outlet(3, "append", "Restore Default Settings");
+			outlet(3, "append", "-");
+			outlet(3, "append", "Open Online Reference");
+			outlet(3, "append", "View Internal Components");
+		}		
 		
-		// move the controls if neccessary
-		if(width == 1)
-			outlet(0, "script", "offset", "controls", -255, 0);
-		
-		// delete the video preview window
-		outlet(0, "script", "delete", "pwindow");
-
 		// make sure everything is visible
 		outlet(0, "script", "sendtoback", "background");
 		outlet(0, "script", "sendtoback", "menu");
-
-
-
-		// delete extra inlets and outlets
-		for(i=num_channels*2;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
-			outlet(0, "script", "delete", "inlet_"+(i+1));
-			outlet(0, "script", "delete", "outlet_"+(i+1));			
-		}
-
-		// connect inlets and outlets
-		for(i=0; i<num_channels; i++){
-			outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
-			outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(num_channels+i+1), 0);
-		}
-
-	
-		// Setup the Menu
-		outlet(3, "append", "Defeat Signal Meters");
-		outlet(3, "append", "Clear Signal Meters");
-		outlet(3, "append", "-");
-		outlet(3, "append", "Load Settings...");
-		outlet(3, "append", "Save Settings...");
-		outlet(3, "append", "Restore Default Settings");
-		outlet(3, "append", "-");
-		outlet(3, "append", "Open Online Reference");
-		outlet(3, "append", "View Internal Components");
-				
+		
 	}
 	else if(attr_module_type == "video"){
-		// Create the standard messages
-		outlet(0, "script", "hidden", "new", "param_preview", "jmod.parameter.mxt", local_token, "preview");
-		outlet(0, "script", "hidden", "new", "param_bypass", "jmod.parameter.mxt", local_token, "bypass");
-		outlet(0, "script", "hidden", "new", "param_freeze", "jmod.parameter.mxt", local_token, "freeze");
-		outlet(0, "script", "hidden", "new", "param_mute", "jmod.parameter.mxt", local_token, "mute");
-		
-		// Delete the audio controls
-		outlet(0, "script", "delete", "controls");
-		
-		// delete extra inlets and outlets
-		for(i=num_channels;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
-			outlet(0, "script", "delete", "inlet_"+(i+1));
-			outlet(0, "script", "delete", "outlet_"+(i+1));			
+		if(has_run == 0){
+			// Create the standard messages
+			outlet(0, "script", "hidden", "new", "param_preview", "jmod.parameter.mxt", local_token, "preview");
+			outlet(0, "script", "hidden", "new", "param_bypass", "jmod.parameter.mxt", local_token, "bypass");
+			outlet(0, "script", "hidden", "new", "param_freeze", "jmod.parameter.mxt", local_token, "freeze");
+			outlet(0, "script", "hidden", "new", "param_mute", "jmod.parameter.mxt", local_token, "mute");
+			
+			// Delete the audio controls
+			outlet(0, "script", "delete", "controls");
+			
+			// delete extra inlets and outlets
+			for(i=num_channels;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+				outlet(0, "script", "delete", "inlet_"+(i+1));
+				outlet(0, "script", "delete", "outlet_"+(i+1));			
+			}
+			
+			// move the preview window if neccessary
+			if(width == 1)
+				outlet(0, "script", "offset", "pwindow", -255, 0);
+			
+			// Setup the Menu
+			outlet(3, "clear");
+			outlet(3, "append", "Preview Output");
+			outlet(3, "append", "Force a Frame of Output");
+			outlet(3, "append", "-");
+			outlet(3, "append", "Bypass");
+			outlet(3, "append", "Freeze");
+			outlet(3, "append", "Mute");
+			outlet(3, "append", "-");
+			outlet(3, "append", "Load Settings...");
+			outlet(3, "append", "Save Settings...");
+			outlet(3, "append", "Restore Default Settings");
+			outlet(3, "append", "-");
+			outlet(3, "append", "Open Online Reference");
+			outlet(3, "append", "View Internal Components");
 		}
-		
-		// move the preview window if neccessary
-		if(width == 1)
-			outlet(0, "script", "offset", "pwindow", -255, 0);
-		
-		
-		// Setup the Menu
-		outlet(3, "clear");
-		outlet(3, "append", "Preview Output");
-		outlet(3, "append", "Force a Frame of Output");
-		outlet(3, "append", "-");
-		outlet(3, "append", "Bypass");
-		outlet(3, "append", "Freeze");
-		outlet(3, "append", "Mute");
-		outlet(3, "append", "-");
-		outlet(3, "append", "Load Settings...");
-		outlet(3, "append", "Save Settings...");
-		outlet(3, "append", "Restore Default Settings");
-		outlet(3, "append", "-");
-		outlet(3, "append", "Open Online Reference");
-		outlet(3, "append", "View Internal Components");
-		
 	}
 	else{	// attr_module_type == "control"
-		// Replace the menu
-		outlet(0, "script", "replace", "menu", "jmod.menu.k.mxt", 0, 0);
+		if(has_run == 0){
+			// Replace the menu
+			outlet(0, "script", "replace", "menu", "jmod.menu.k.mxt", 0, 0);
+		
+			// Delete the audio controls 
+			outlet(0, "script", "delete", "controls");
 	
-		// Delete the audio controls 
-		outlet(0, "script", "delete", "controls");
-
-		// delete the video preview window
-		outlet(0, "script", "delete", "pwindow");
-
-		// Delete the inlets and outlets
-		for(i=0;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
-			outlet(0, "script", "delete", "inlet_"+(i+1));
-			outlet(0, "script", "delete", "outlet_"+(i+1));			
+			// delete the video preview window
+			outlet(0, "script", "delete", "pwindow");
+	
+			// Delete the inlets and outlets
+			for(i=0;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+				outlet(0, "script", "delete", "inlet_"+(i+1));
+				outlet(0, "script", "delete", "outlet_"+(i+1));			
+			}
+	
+			// Setup the Menu
+			outlet(3, "clear");
+			outlet(3, "append", "Load Settings...");
+			outlet(3, "append", "Save Settings...");
+			outlet(3, "append", "Restore Default Settings");
+			outlet(3, "append", "-");
+			outlet(3, "append", "Open Online Reference");
+			outlet(3, "append", "View Internal Components");
 		}
-
-		// Setup the Menu
-		outlet(3, "clear");
-		outlet(3, "append", "Load Settings...");
-		outlet(3, "append", "Save Settings...");
-		outlet(3, "append", "Restore Default Settings");
-		outlet(3, "append", "-");
-		outlet(3, "append", "Open Online Reference");
-		outlet(3, "append", "View Internal Components");
-
 	}
+	
+	has_run = 1;
 }
 
 
