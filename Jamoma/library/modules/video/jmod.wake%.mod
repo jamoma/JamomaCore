@@ -1,5 +1,5 @@
 max v2;
-#N vpatcher 90 66 716 344;
+#N vpatcher 362 412 988 690;
 #P window setfont "Sans Serif" 9.;
 #P comment 115 20 32 196617 bleed;
 #P comment 120 34 26 196617 gain;
