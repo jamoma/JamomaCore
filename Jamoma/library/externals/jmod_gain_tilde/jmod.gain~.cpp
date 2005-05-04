@@ -43,7 +43,10 @@ t_max_err attr_set_mix(t_gain *x, void *attr, long argc, t_atom *argv);
 t_max_err attr_set_bypass(t_gain *x, void *attr, long argc, t_atom *argv);
 
 // Globals
-t_class *gain_class;					// Required. Global pointing to this class
+t_class		*gain_class;					// Required. Global pointing to this class
+t_symbol	*ps_float32;
+t_symbol	*ps_long;
+t_symbol	*ps_dumpout;
 
 
 /************************************************************************************/
@@ -56,6 +59,9 @@ void main(void)				// main recieves a copy of the Max function macros table
 	t_object *attr;
 	
 	common_symbols_init();
+	ps_float32 = gensym("float32");
+	ps_long = gensym("long");
+	ps_dumpout = gensym("dumpout");
 
 	// Define our class
 	c = class_new("jmod.gain~",(method)gain_new, (method)gain_free, (short)sizeof(t_gain), 
@@ -69,7 +75,7 @@ void main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)gain_assist, 			"assist", A_CANT, 0L);
 
 	// Add attributes to our class:
-	attr = attr_offset_new("bypass", _sym_long, attrflags,
+	attr = attr_offset_new("bypass", ps_long, attrflags,
 		(method)0L,(method)attr_set_bypass, calcoffset(t_gain, attr_bypass));
 	class_addattr(c, attr);
 	
@@ -101,7 +107,7 @@ void *gain_new(t_symbol *s, short argc, t_atom *argv)
 	
 	t_gain *x = (t_gain *)object_alloc(gain_class);
 	if(x){
-		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));	// dumpout
+		object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x, NULL));	// dumpout
 
 		x->num_chans = 1;
 		if(attrstart && argv){
