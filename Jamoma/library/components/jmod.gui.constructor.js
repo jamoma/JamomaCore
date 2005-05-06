@@ -129,11 +129,6 @@ function bang()
 			outlet(3, "append", "Open Online Reference");
 			outlet(3, "append", "View Internal Components");
 		}		
-		
-		// make sure everything is visible
-		outlet(0, "script", "sendtoback", "background");
-		outlet(0, "script", "sendtoback", "menu");
-		
 	}
 	else if(attr_module_type == "video"){
 		if(has_run == 0){
@@ -157,7 +152,6 @@ function bang()
 				outlet(0, "script", "offset", "pwindow", -255, 0);
 			
 			// Setup the Menu
-			outlet(3, "clear");
 			outlet(3, "append", "Preview Output");
 			outlet(3, "append", "Force a Frame of Output");
 			outlet(3, "append", "-");
@@ -175,8 +169,6 @@ function bang()
 	}
 	else{	// attr_module_type == "control"
 		if(has_run == 0){
-			// Replace the menu
-			outlet(0, "script", "replace", "menu", "jmod.menu.k.mxt", 0, 0);
 		
 			// Delete the audio controls 
 			outlet(0, "script", "delete", "controls");
@@ -191,7 +183,6 @@ function bang()
 			}
 	
 			// Setup the Menu
-			outlet(3, "clear");
 			outlet(3, "append", "Load Settings...");
 			outlet(3, "append", "Save Settings...");
 			outlet(3, "append", "Restore Default Settings");
@@ -200,6 +191,10 @@ function bang()
 			outlet(3, "append", "View Internal Components");
 		}
 	}
+	
+	// make sure everything is visible
+	outlet(0, "script", "sendtoback", "background");
+	outlet(0, "script", "sendtoback", "menu");
 	
 	has_run = 1;
 }
