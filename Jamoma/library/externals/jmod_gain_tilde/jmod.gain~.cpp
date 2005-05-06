@@ -22,7 +22,6 @@ typedef struct _gain{
 	void				*obex;
 	tap_crossfade		*xfade;							// crossgain object from the ttblue library
 	tap_gain			*gain;							// gain control object the ttblue library
-	tap_copy			*copy;							// signal copier
 	tt_audio_signal		*signal_in[2];
 	tt_audio_signal		*signal_out;
 	tt_audio_signal		*signal_temp;
@@ -122,7 +121,6 @@ void *gain_new(t_symbol *s, short argc, t_atom *argv)
 
 		x->xfade = new tap_crossfade;						// Constructors
 		x->gain = new tap_gain;
-		x->copy = new tap_copy;
 		x->signal_temp = new tt_audio_signal;
 		x->signal_out = new tt_audio_signal;
 		for(i=0; i<2; i++){
@@ -150,7 +148,6 @@ void gain_free(t_gain *x)
 	dsp_free((t_pxobject *)x);					// Always call dsp_free first in this routine
 	delete x->xfade;
 	delete x->gain;
-	delete x->copy;
 	delete x->signal_temp;
 	delete x->signal_out;
 	for(i=0; i<2; i++){
