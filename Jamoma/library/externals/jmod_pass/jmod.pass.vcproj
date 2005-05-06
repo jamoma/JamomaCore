@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="jmod.route"
+	Name="jmod.pass"
 	ProjectGUID="{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	SccProjectName=""
 	SccLocalPath="">
@@ -36,10 +36,10 @@
 				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile="..\ext_win_release\jmod.route.pch"
+				PrecompiledHeaderFile="..\ext_win_release\jmod.pass.pch"
 				AssemblerListingLocation="..\ext_win_release\"
 				ObjectFile="..\ext_win_release\"
-				ProgramDataBaseFileName="..\ext_win_release\jmod.route"
+				ProgramDataBaseFileName="..\ext_win_release\jmod.pass"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="2"/>
@@ -50,17 +50,17 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
-				OutputFile=".\..\Build_Windows\jmod.route.mxe"
+				OutputFile=".\..\Build_Windows\jmod.pass.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\jmod.route.def"
+				ModuleDefinitionFile=".\jmod.pass.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="..\ext_win_release\jmod.route.pdb"
+				ProgramDatabaseFile="..\ext_win_release\jmod.pass.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\ext_win_release\jmod.route.lib"
+				ImportLibrary="..\ext_win_release\jmod.pass.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -115,10 +115,10 @@
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile="..\ext_win_debug\jmod.route.pch"
+				PrecompiledHeaderFile="..\ext_win_debug\jmod.pass.pch"
 				AssemblerListingLocation="..\ext_win_debug\"
 				ObjectFile="..\ext_win_debug\"
-				ProgramDataBaseFileName="..\ext_win_debug\jmod.route"
+				ProgramDataBaseFileName="..\ext_win_debug\jmod.pass"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
@@ -130,15 +130,15 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\c74support\max-includes\win-includes\debug\MaxAPI.lib .\..\..\c74support\max-includes\win-includes\debug\MaxExt.lib .\..\..\c74support\msp-includes\win-includes\debug\MaxAudio.lib .\..\..\Library_Windows\TapToolsBlue.lib"
-				OutputFile=".\..\..\Build_Windows\debug\jmod.route.mxe"
+				OutputFile=".\..\..\Build_Windows\debug\jmod.pass.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
 				ModuleDefinitionFile=".\tap_change.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="..\ext_win_debug\jmod.route.pdb"
+				ProgramDatabaseFile="..\ext_win_debug\jmod.pass.pdb"
 				SubSystem="2"
-				ImportLibrary="..\ext_win_debug\jmod.route.lib"
+				ImportLibrary="..\ext_win_debug\jmod.pass.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -182,10 +182,10 @@
 				RelativePath="..\..\..\..\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
-				RelativePath=".\jmod.route.cpp">
+				RelativePath=".\jmod.pass.cpp">
 			</File>
 			<File
-				RelativePath=".\jmod.route.def">
+				RelativePath=".\jmod.pass.def">
 			</File>
 		</Filter>
 		<Filter

@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jmod.route"
+LIBRARY "jmod.pass"
 
 EXPORTS
 	main
