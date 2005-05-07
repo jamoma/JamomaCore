@@ -2,17 +2,17 @@
  *******************************************************
  *		DC OFFSET FILTER/BLOCKER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_DCBLOCK_H
-#define TAP_DCBLOCK_H
+#ifndef TT_DCBLOCK_H
+#define TT_DCBLOCK_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_dcblock:public taptools_audio{
+class tt_dcblock:public tt_audio_base{
 
 	private:
 		tt_sample_value 	last_input1;
@@ -31,12 +31,12 @@ class tap_dcblock:public taptools_audio{
 	
 	public:
 
-		tap_dcblock()				// Constructor		
+		tt_dcblock()				// Constructor		
 		{
 			clear();
 		}
 
-		~tap_dcblock()				// Destructor
+		~tt_dcblock()				// Destructor
 		{
 			;
 		}
@@ -89,4 +89,4 @@ class tap_dcblock:public taptools_audio{
 		}
 };
 
-#endif	// TAP_DCBLOCK_H
+#endif	// tt_DCBLOCK_H

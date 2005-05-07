@@ -2,17 +2,17 @@
  *******************************************************
  *		RAMP GENERATOR
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_RAMP_H
-#define TAP_RAMP_H
+#ifndef TT_RAMP_H
+#define TT_RAMP_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,11 +21,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_ramp:public taptools_audio{
+class tt_ramp:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_ramp::*function_ptr_0in_1out)(tt_audio_signal *);
+		typedef void (tt_ramp::*function_ptr_0in_1out)(tt_audio_signal *);
 		function_ptr_0in_1out dsp_executor;	
 	
 		tt_attribute_value_discrete	mode;					// mode: sample_accurate or vector_accurate
@@ -50,7 +50,7 @@ class tap_ramp:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_ramp()									// Constructor		
+		tt_ramp()									// Constructor		
 		{
 			current = 0;
 			destination = 0;
@@ -59,7 +59,7 @@ class tap_ramp:public taptools_audio{
 			direction = 0;
 		}
 
-		~tap_ramp()									// Destructor
+		~tt_ramp()									// Destructor
 		{
 			;
 		}
@@ -209,13 +209,13 @@ class tap_ramp:public taptools_audio{
 		{
 			// Set the function pointers based on the attributes above
 			if((mode == k_mode_sample_accurate) && (direction == 0))
-				dsp_executor = &tap_ramp::dsp_vector_calc_sa_up;					
+				dsp_executor = &tt_ramp::dsp_vector_calc_sa_up;					
 			else if((mode == k_mode_sample_accurate) && (direction == 1))
-				dsp_executor = &tap_ramp::dsp_vector_calc_sa_down;					
+				dsp_executor = &tt_ramp::dsp_vector_calc_sa_down;					
 			else if((mode == k_mode_vector_accurate) && (direction == 0))
-				dsp_executor = &tap_ramp::dsp_vector_calc_va_up;					
+				dsp_executor = &tt_ramp::dsp_vector_calc_va_up;					
 			else
-				dsp_executor = &tap_ramp::dsp_vector_calc_va_down;
+				dsp_executor = &tt_ramp::dsp_vector_calc_va_down;
 		}
 	
 		// private function needed for setting attr
@@ -229,4 +229,4 @@ class tap_ramp:public taptools_audio{
 };
 
 
-#endif	// TAP_RAMP_H
+#endif	// tt_RAMP_H

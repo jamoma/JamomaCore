@@ -2,18 +2,18 @@
  *******************************************************
  *		PANNER (1 INPUT / 2 OUTPUTS)
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_PAN_H
-#define TAP_PAN_H
+#ifndef TT_PAN_H
+#define TT_PAN_H
 
 // Include appropriate headers
-#include "taptools_base.h"
-#include "taptools_audio_signal.h"
+#include "tt_audio_base.h"
+#include "tt_audio_signal"
 
 
 /********************************************************
@@ -22,11 +22,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_pan:public taptools_audio{
+class tt_pan:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_pan::*FuncPtr)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_pan::*FuncPtr)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
 		FuncPtr dsp_executor;
 		
 		// Attribute Values
@@ -48,14 +48,14 @@ class tap_pan:public taptools_audio{
 		
 		
 		// OBJECT LIFE					
-		tap_pan(void)										// Constructor		
+		tt_pan(void)										// Constructor		
 		{
 			set_attr(k_position, 0.5);
 			set_attr(k_shape, k_shape_equalpower);
 			set_attr(k_mode, k_mode_lookup);
 		}
 
-		~tap_pan(void)										// Destructor
+		~tt_pan(void)										// Destructor
 		{
 			;
 		}
@@ -77,11 +77,11 @@ class tap_pan:public taptools_audio{
 			}
 			// set the function pointer for the correct dsp loop to run
 			if(shape == k_shape_linear)
-				dsp_executor = &tap_pan::dsp_vector_calc_linear;
+				dsp_executor = &tt_pan::dsp_vector_calc_linear;
 			else if(mode == k_mode_calculate)
-				dsp_executor = &tap_pan::dsp_vector_calc_equalpower_calc;
+				dsp_executor = &tt_pan::dsp_vector_calc_equalpower_calc;
 			else if(mode == k_mode_lookup)
-				dsp_executor = &tap_pan::dsp_vector_calc_equalpower_lookup;
+				dsp_executor = &tt_pan::dsp_vector_calc_equalpower_lookup;
 		}
 
 		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
@@ -155,6 +155,6 @@ class tap_pan:public taptools_audio{
 
 };
 
-#endif // TAP_PAN_H
+#endif // tt_PAN_H
 
 

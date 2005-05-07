@@ -2,17 +2,17 @@
  *******************************************************
  *		OFFSET A VECTOR (ADD A CONSTANT)
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_OFFSET_H
-#define TAP_OFFSET_H
+#ifndef TT_OFFSET_H
+#define TT_OFFSET_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_offset:public taptools_audio{
+class tt_offset:public tt_audio_base{
 
 	private:
 		tt_attribute_value		offset_value;
@@ -31,12 +31,12 @@ class tap_offset:public taptools_audio{
 			k_offset_value,								// Attribute Selectors
 		};
 
-		tap_offset(void)					// Constructor		
+		tt_offset(void)					// Constructor		
 		{
 			set_attr(k_offset_value, 0.0);
 		}
 
-		~tap_offset(void)					// Destructor
+		~tt_offset(void)					// Destructor
 		{
 			;
 		}
@@ -73,6 +73,6 @@ class tap_offset:public taptools_audio{
 		}
 };
 
-#endif // TAP_OFFSET_H
+#endif // tt_OFFSET_H
 
 

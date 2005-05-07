@@ -3,17 +3,17 @@
  *		DEGRADE
  *		sample-rate and bit-depth reduction 
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_DEGRADE_H
-#define TAP_DEGRADE_H
+#ifndef TT_DEGRADE_H
+#define TT_DEGRADE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -25,7 +25,7 @@
 #define BIG_INT	0x00800000
 #define ONE_OVER_BIG_INT 1.1920928955E-7
 
-class tap_degrade:public taptools_audio{
+class tt_degrade:public tt_audio_base{
 
 	private:
 		tt_attribute_value_discrete 	bitdepth;
@@ -42,7 +42,7 @@ class tap_degrade:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_degrade()								// Constructor		
+		tt_degrade()								// Constructor		
 		{
 			set_attr(k_bitdepth, 24);
 			set_attr(k_sr_ratio, 1.0);
@@ -50,7 +50,7 @@ class tap_degrade:public taptools_audio{
 			output = 0.0;
 		}
 
-		~tap_degrade()								// Destructor
+		~tt_degrade()								// Destructor
 		{
 			;
 		}
@@ -109,4 +109,4 @@ class tap_degrade:public taptools_audio{
 };
 
 
-#endif	// TAP_DEGRADE_H
+#endif	// tt_DEGRADE_H

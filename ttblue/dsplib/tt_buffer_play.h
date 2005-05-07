@@ -2,18 +2,18 @@
  *******************************************************
  *		PLAY BACK SAMPLES FROM A BUFFER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_BUFFER_PLAY_H
-#define TAP_BUFFER_PLAY_H
+#ifndef TT_BUFFER_PLAY_H
+#define TT_BUFFER_PLAY_H
 
 // Include appropriate headers
-#include "taptools_base.h"
-#include "tap_buffer.h"
+#include "tt_audio_base.h"
+#include "tt_buffer.h"
 //#include <functional>
 
 /********************************************************
@@ -22,17 +22,17 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_buffer_play:public taptools_audio{
+class tt_buffer_play:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_buffer_play::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_buffer_play::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
 		FuncPtr dsp_executor;
 		
 		// Attribute Values
 		tt_attribute_value_discrete 	mode;
 		tt_attribute_value				gain;
-		tap_buffer						*wavetable;
+		tt_buffer						*wavetable;
 	
 	public:
 		enum selectors{										// Attribute Selectors
@@ -46,7 +46,7 @@ class tap_buffer_play:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_buffer_play()									// Constructor		
+		tt_buffer_play()									// Constructor		
 		{
 			// set defaults
 			set_attr(k_mode, k_mode_normalized);
@@ -54,7 +54,7 @@ class tap_buffer_play:public taptools_audio{
 			wavetable = 0;
 		}
 
-		tap_buffer_play(tap_buffer *mybuffer)				// Constructor - BUFFER ARG
+		tt_buffer_play(tt_buffer *mybuffer)				// Constructor - BUFFER ARG
 		{
 			// set defaults
 			set_attr(k_mode, k_mode_normalized);
@@ -63,7 +63,7 @@ class tap_buffer_play:public taptools_audio{
 			set_buffer(mybuffer);
 		}
 
-		~tap_buffer_play()									// Destructor
+		~tt_buffer_play()									// Destructor
 		{
 			;
 		}
@@ -76,13 +76,13 @@ class tap_buffer_play:public taptools_audio{
 				case k_mode:	// mode sets a function pointer to the correct dsp loop
 					mode = val;
 					if(mode == k_mode_samples)
-						dsp_executor = &tap_buffer_play::dsp_vector_calc_samples;
+						dsp_executor = &tt_buffer_play::dsp_vector_calc_samples;
 					else if(mode == k_mode_ms)
-						dsp_executor = &tap_buffer_play::dsp_vector_calc_ms;
+						dsp_executor = &tt_buffer_play::dsp_vector_calc_ms;
 					else if(mode == k_mode_normalized)
-						dsp_executor = &tap_buffer_play::dsp_vector_calc_normalized;
+						dsp_executor = &tt_buffer_play::dsp_vector_calc_normalized;
 					else if(mode == k_mode_normalized_fast)
-						dsp_executor = &tap_buffer_play::dsp_vector_calc_normalized_fast;
+						dsp_executor = &tt_buffer_play::dsp_vector_calc_normalized_fast;
 					break;
 				case k_gain:
 					gain = decibels_to_amplitude(val);
@@ -104,12 +104,12 @@ class tap_buffer_play:public taptools_audio{
 
 
 		// METHODS
-		void set_buffer(tap_buffer *mybuffer)	// Set Buffer
+		void set_buffer(tt_buffer *mybuffer)	// Set Buffer
 		{
 			wavetable = mybuffer;	
 		}
 
-		tap_buffer *get_buffer()				// Get Buffer
+		tt_buffer *get_buffer()				// Get Buffer
 		{
 			return wavetable;
 		}
@@ -209,4 +209,4 @@ class tap_buffer_play:public taptools_audio{
 		}
 };
 
-#endif	// TAP_BUFFER_PLAY_H
+#endif	// tt_BUFFER_PLAY_H

@@ -2,17 +2,17 @@
  *******************************************************
  *		ADSR ENVELOPE GENERATOR
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_ADSR_H
-#define TAP_ADSR_H
+#ifndef TT_ADSR_H
+#define TT_ADSR_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,12 +21,12 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_adsr:public taptools_audio{
+class tt_adsr:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_adsr::*function_ptr_0in_1out)(tt_audio_signal *);
-		typedef void (tap_adsr::*function_ptr_1in_1out)(tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_adsr::*function_ptr_0in_1out)(tt_audio_signal *);
+		typedef void (tt_adsr::*function_ptr_1in_1out)(tt_audio_signal *, tt_audio_signal *);
 		function_ptr_0in_1out dsp_executor;
 		function_ptr_1in_1out dsp_executor2;
 
@@ -84,7 +84,7 @@ class tap_adsr:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_adsr()										// Constructor		
+		tt_adsr()										// Constructor		
 		{
 			output = 0.0;
 			output_db = NOISE_FLOOR;
@@ -100,7 +100,7 @@ class tap_adsr:public taptools_audio{
 			temp = new tt_audio_signal(1);
 		}
 
-		~tap_adsr()										// Destructor
+		~tt_adsr()										// Destructor
 		{
 			delete temp;
 		}
@@ -137,16 +137,16 @@ class tap_adsr:public taptools_audio{
 				case k_mode:
 					mode = val;
 					if(mode == k_mode_linear){
-						dsp_executor = &tap_adsr::dsp_vector_calc_linear;
-						dsp_executor2 = &tap_adsr::dsp_vector_calc_linear;	
+						dsp_executor = &tt_adsr::dsp_vector_calc_linear;
+						dsp_executor2 = &tt_adsr::dsp_vector_calc_linear;	
 					}
 					else if(mode == k_mode_exponential){
-						dsp_executor = &tap_adsr::dsp_vector_calc_exponential;
-						dsp_executor2 = &tap_adsr::dsp_vector_calc_exponential;
+						dsp_executor = &tt_adsr::dsp_vector_calc_exponential;
+						dsp_executor2 = &tt_adsr::dsp_vector_calc_exponential;
 					}
 					break;
 				default:
-					std::cerr << "tap_adsr::set_attr - invalid attribute" << std::endl;
+					std::cerr << "tt_adsr::set_attr - invalid attribute" << std::endl;
 					break;
 			}
 		}
@@ -167,7 +167,7 @@ class tap_adsr:public taptools_audio{
 				case k_mode:
 					return mode;
 				default:
-					std::cerr << "tap_adsr::set_attr - invalid attribute" << std::endl;
+					std::cerr << "tt_adsr::set_attr - invalid attribute" << std::endl;
 					return 0;
 					break;
 			}
@@ -418,4 +418,4 @@ class tap_adsr:public taptools_audio{
 		}
 };
 
-#endif		// TAP_ADSR_H
+#endif		// tt_ADSR_H

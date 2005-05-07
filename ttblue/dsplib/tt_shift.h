@@ -2,17 +2,17 @@
  *******************************************************
  *		PITCH SHIFTER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2000-2004 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_SHIFT_H
-#define TAP_SHIFT_H
+#ifndef TT_SHIFT_H
+#define TT_SHIFT_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_shift:public taptools_audio{
+class tt_shift:public tt_audio_base{
 
 	private:
 		enum constants{
@@ -30,14 +30,14 @@ class tap_shift:public taptools_audio{
 		tt_attribute_value		window_size;				// size of the delay window
 		tt_attribute_value		shift_ratio;				// amount of pitch shift
 		
-		tap_delay				*delay1, *delay2;			// member tap.tools objects
-		tap_phasor				*phasor;
-		tap_buffer				*window;
-		tap_buffer_window		*wave1, *wave2;
-		tap_gain				*scale;
-		tap_offset				*offset;
-		tap_onewrap				*modulo;	
-		tap_add					*add;
+		tt_delay				*delay1, *delay2;			// member tap.tools objects
+		tt_phasor				*phasor;
+		tt_buffer				*window;
+		tt_buffer_window		*wave1, *wave2;
+		tt_gain				*scale;
+		tt_offset				*offset;
+		tt_onewrap				*modulo;	
+		tt_add					*add;
 	
 		tt_audio_signal			*temp[k_num_temp_signals];	// Temp Signals
 		float					buffersize_in_ms;
@@ -50,7 +50,7 @@ class tap_shift:public taptools_audio{
 		
 
 		// OBJECT LIFE ************************************************************
-		tap_shift()										// Constructor		
+		tt_shift()										// Constructor		
 		{
 			short i;
 			buffersize_in_ms = 200.0;
@@ -58,25 +58,25 @@ class tap_shift:public taptools_audio{
 			for(i=0; i < k_num_temp_signals; i++)
 				temp[i] = new tt_audio_signal(vectorsize);		// allocate temp signals
 			
-			delay1 = new tap_delay(buffersize_in_ms);
-			delay2 = new tap_delay(buffersize_in_ms);
-			phasor = new tap_phasor;
+			delay1 = new tt_delay(buffersize_in_ms);
+			delay2 = new tt_delay(buffersize_in_ms);
+			phasor = new tt_phasor;
 			
-			window = new tap_buffer(512);
-			window->fill(tap_buffer::k_padded_welch_512);
+			window = new tt_buffer(512);
+			window->fill(tt_buffer::k_padded_welch_512);
 
-			wave1 = new tap_buffer_window(window);
-			wave2 = new tap_buffer_window(window);
-			wave1->set_attr(tap_buffer_window::k_mode, tap_buffer_window::k_mode_normalized_fast);
-			wave2->set_attr(tap_buffer_window::k_mode, tap_buffer_window::k_mode_normalized_fast);
+			wave1 = new tt_buffer_window(window);
+			wave2 = new tt_buffer_window(window);
+			wave1->set_attr(tt_buffer_window::k_mode, tt_buffer_window::k_mode_normalized_fast);
+			wave2->set_attr(tt_buffer_window::k_mode, tt_buffer_window::k_mode_normalized_fast);
 
-			scale = new tap_gain;
+			scale = new tt_gain;
 
-			offset = new tap_offset;
-			offset->set_attr(tap_offset::k_offset_value, 0.5);
+			offset = new tt_offset;
+			offset->set_attr(tt_offset::k_offset_value, 0.5);
 
-			modulo = new tap_onewrap;	
-			add = new tap_add;
+			modulo = new tt_onewrap;	
+			add = new tt_add;
 				
 			// Default Settings
 			window_size = 87.0;				// must define before setting the ratio!
@@ -84,7 +84,7 @@ class tap_shift:public taptools_audio{
 			set_attr(k_windowsize, 87.0);
 		}
 
-		~tap_shift()									// Destructor
+		~tt_shift()									// Destructor
 		{
 			short i;
 	
@@ -111,11 +111,11 @@ class tap_shift:public taptools_audio{
 			switch(sel){
 				case k_ratio:
 					shift_ratio = val;
-					phasor->set_attr(tap_phasor::k_frequency, (-(shift_ratio - 1.0)) * (1.0 / (window_size * 0.001)));
+					phasor->set_attr(tt_phasor::k_frequency, (-(shift_ratio - 1.0)) * (1.0 / (window_size * 0.001)));
 					break;
 				case k_windowsize:
 					window_size = clip(val, 1.0f, buffersize_in_ms - 1);
-					scale->set_attr(tap_gain::k_gain_direct, window_size);
+					scale->set_attr(tt_gain::k_gain_direct, window_size);
 					set_attr(k_ratio, shift_ratio);				// update the phasor freq based on the new window size
 					break;
 			}
@@ -217,4 +217,4 @@ class tap_shift:public taptools_audio{
 };
 
 
-#endif	// TAP_SHIFT_H
+#endif	// tt_SHIFT_H

@@ -2,17 +2,17 @@
  *******************************************************
  *		HARD CLIP AN AUDIO SIGNAL
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_CLIP_H
-#define TAP_CLIP_H
+#ifndef TT_CLIP_H
+#define TT_CLIP_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_clip:public taptools_audio{
+class tt_clip:public tt_audio_base{
 
 	private:
 		tt_attribute_value		clip_high_value;
@@ -35,13 +35,13 @@ class tap_clip:public taptools_audio{
 		};
 		
 		// OBJECT LIFE					
-		tap_clip(void)										// Constructor		
+		tt_clip(void)										// Constructor		
 		{
 			set_attr(k_clip_high, 1.0);
 			set_attr(k_clip_low, -1.0);
 		}
 
-		~tap_clip(void)										// Destructor
+		~tt_clip(void)										// Destructor
 		{
 			;
 		}
@@ -101,6 +101,6 @@ class tap_clip:public taptools_audio{
 		
 };
 
-#endif // TAP_CLIP_H
+#endif // tt_CLIP_H
 
 

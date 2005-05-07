@@ -2,17 +2,17 @@
  *******************************************************
  *		MIXER (N INPUTS / 1 OUTPUT)
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_MIXER_MONO_H
-#define TAP_MIXER_MONO_H
+#ifndef TT_MIXER_MONO_H
+#define TT_MIXER_MONO_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_mixer_mono:public taptools_audio{
+class tt_mixer_mono:public tt_audio_base{
 
 	private:
 		enum constants{
@@ -38,7 +38,7 @@ class tap_mixer_mono:public taptools_audio{
 		};
 		
 		// OBJECT LIFE					
-		tap_mixer_mono(void)								// Constructor		
+		tt_mixer_mono(void)								// Constructor		
 		{
 			int i;
 			for(i=0; i<MAX_NUM_CHANNELS; i++)
@@ -46,7 +46,7 @@ class tap_mixer_mono:public taptools_audio{
 			master_gain = 1.0;
 		}
 
-		~tap_mixer_mono(void)								// Destructor
+		~tt_mixer_mono(void)								// Destructor
 		{
 			;
 		}
@@ -305,6 +305,6 @@ class tap_mixer_mono:public taptools_audio{
 		}		
 };
 
-#endif // TAP_MIXER_MONO_H
+#endif // tt_MIXER_MONO_H
 
 

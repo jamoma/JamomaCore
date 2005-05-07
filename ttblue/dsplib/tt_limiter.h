@@ -2,18 +2,18 @@
  *******************************************************
  *		LOOKAHEAD LIMITER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_LIMITER_H
-#define TAP_LIMITER_H
+#ifndef TT_LIMITER_H
+#define TT_LIMITER_H
 
 // Include appropriate headers
-#include "taptools_base.h"
-//#include"tap_buffer.h"
+#include "tt_audio_base.h"
+//#include"tt_buffer.h"
 
 
 /********************************************************
@@ -22,13 +22,13 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_limiter:public taptools_audio{
+class tt_limiter:public tt_audio_base{
 
 	private:
 		double	recover;
 		double	recip;
 		float 	*buf1, *buf2, *gain;
-//		tap_buffer	*buffer1, *buffer2, *buffer_gain;
+//		tt_buffer	*buffer1, *buffer2, *buffer_gain;
 		long 	bp, samps;
 		float 	last;
 
@@ -69,7 +69,7 @@ class tap_limiter:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_limiter()									// Constructor		
+		tt_limiter()									// Constructor		
 		{
 			buf1 = buf2 = gain = 0;
 		
@@ -77,13 +77,13 @@ class tap_limiter:public taptools_audio{
 			buf1 = (float *)mem_alloc(MAX_SAMPLES * sizeof(float));
 			buf2 = (float *)mem_alloc(MAX_SAMPLES * sizeof(float));
 			gain = (float *)mem_alloc(MAX_SAMPLES * sizeof(float));
-//			buffer1 = new tap_buffer;
-//			buffer2 = new tap_buffer;
-//			buffer_gain = new tap_buffer;
+//			buffer1 = new tt_buffer;
+//			buffer2 = new tt_buffer;
+//			buffer_gain = new tt_buffer;
 	
-//			buffer1->set_attr(tap_buffer::k_length_samples, MAX_SAMPLES);
-//			buffer2->set_attr(tap_buffer::k_length_samples, MAX_SAMPLES);
-//			buffer_gain->set_attr(tap_buffer::k_length_samples, MAX_SAMPLES);
+//			buffer1->set_attr(tt_buffer::k_length_samples, MAX_SAMPLES);
+//			buffer2->set_attr(tt_buffer::k_length_samples, MAX_SAMPLES);
+//			buffer_gain->set_attr(tt_buffer::k_length_samples, MAX_SAMPLES);
 
 			// set defaults
 			set_attr(k_threshold, 0.0);
@@ -95,7 +95,7 @@ class tap_limiter:public taptools_audio{
 		    clear();
 		}
 
-		~tap_limiter()									// Destructor
+		~tt_limiter()									// Destructor
 		{
 //			delete buffer1;
 //			delete buffer2;
@@ -298,4 +298,4 @@ class tap_limiter:public taptools_audio{
 };
 
 
-#endif		// TAP_LIMITER_H
+#endif		// tt_LIMITER_H

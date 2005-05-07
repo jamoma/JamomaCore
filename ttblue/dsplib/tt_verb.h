@@ -2,18 +2,18 @@
  *******************************************************
  *		REVERBERATION SIMULATOR
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2001-2004 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_VERB_H
-#define TAP_VERB_H
+#ifndef TT_VERB_H
+#define TT_VERB_H
 
 // Include appropriate headers
-#include "taptools_base.h"
-#include "tap_multitap.h"
+#include "tt_audio_base.h"
+#include "tt_multitap.h"
 
 /********************************************************
 	CLASS INTERFACE/IMPLEMENTATION
@@ -23,7 +23,7 @@
 
 // NOTE: I BELIEVE THE PATCH VERSION HAD A SECOND BANK OF MODULATORS MODULATING THE LFOS
 
-class tap_verb:public taptools_audio{
+class tt_verb:public tt_audio_base{
 
 	private:
 		enum constants{
@@ -39,19 +39,19 @@ class tap_verb:public taptools_audio{
 		tt_attribute_value_bool	use_early_reflections;
 		tt_attribute_value_bool	use_lite_version;
 		
-		tap_multitap			*early_reflections;			// other taptools objects used in this effect...
-		tap_comb				*comb_filters[6];
-		tap_lfo					*lfos[6];
-		tap_allpass				*my_allpass;
-		tap_lowpass_onepole		*my_lowpass;
-		tap_mixer_mono			*mixer;
-		tap_crossfade			*xfade;						// mix
-		tap_gain				*master_gain;				// gain
+		tt_multitap			*early_reflections;			// other taptools objects used in this effect...
+		tt_comb				*comb_filters[6];
+		tt_lfo					*lfos[6];
+		tt_allpass				*my_allpass;
+		tt_lowpass_onepole		*my_lowpass;
+		tt_mixer_mono			*mixer;
+		tt_crossfade			*xfade;						// mix
+		tt_gain				*master_gain;				// gain
 
 		tt_audio_signal			*temp[k_num_temp_signals];	// Temp Signals
 		
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_verb::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_verb::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
 		FuncPtr dsp_executor;
 
 	
@@ -71,68 +71,68 @@ class tap_verb:public taptools_audio{
 		
 
 		// OBJECT LIFE ************************************************************
-		tap_verb()										// Constructor		
+		tt_verb()										// Constructor		
 		{
 			short i;
 			for(i=0; i < k_num_temp_signals; i++)
 				temp[i] = new tt_audio_signal(vectorsize);			// allocate temp signals
 			
-				early_reflections = new tap_multitap(100.0f);		// 80 millisecond max delay time for early reflections
-				early_reflections->set_attr(tap_multitap::k_num_taps, 18);
-				early_reflections->set_attr(tap_multitap::k_master_gain, -24.0);	// Master gain for the multitap unit
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 0, 4.3);
-				early_reflections->set_attr(tap_multitap::k_gain, 0, amplitude_to_decibels(0.841));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 1, 21.5);
-				early_reflections->set_attr(tap_multitap::k_gain, 1, amplitude_to_decibels(0.504));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 2, 22.5);
-				early_reflections->set_attr(tap_multitap::k_gain, 2, amplitude_to_decibels(0.491));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 3, 26.8);
-				early_reflections->set_attr(tap_multitap::k_gain, 3, amplitude_to_decibels(0.379));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 4, 27.0);
-				early_reflections->set_attr(tap_multitap::k_gain, 4, amplitude_to_decibels(0.38));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 5, 29.8);
-				early_reflections->set_attr(tap_multitap::k_gain, 5, amplitude_to_decibels(0.346));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 6, 45.8);
-				early_reflections->set_attr(tap_multitap::k_gain, 6, amplitude_to_decibels(0.289));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 7, 48.5);
-				early_reflections->set_attr(tap_multitap::k_gain, 7, amplitude_to_decibels(0.272));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 8, 57.2);
-				early_reflections->set_attr(tap_multitap::k_gain, 8, amplitude_to_decibels(0.192));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 9, 58.7);
-				early_reflections->set_attr(tap_multitap::k_gain, 9, amplitude_to_decibels(0.193));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 10, 59.5);
-				early_reflections->set_attr(tap_multitap::k_gain, 10, amplitude_to_decibels(0.217));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 11, 61.2);
-				early_reflections->set_attr(tap_multitap::k_gain, 11, amplitude_to_decibels(0.181));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 12, 70.7);
-				early_reflections->set_attr(tap_multitap::k_gain, 12, amplitude_to_decibels(0.18));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 13, 70.8);
-				early_reflections->set_attr(tap_multitap::k_gain, 13, amplitude_to_decibels(0.181));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 14, 72.6);
-				early_reflections->set_attr(tap_multitap::k_gain, 14, amplitude_to_decibels(0.176));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 15, 74.1);
-				early_reflections->set_attr(tap_multitap::k_gain, 15, amplitude_to_decibels(0.142));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 16, 75.3);
-				early_reflections->set_attr(tap_multitap::k_gain, 16, amplitude_to_decibels(0.167));
-				early_reflections->set_attr(tap_multitap::k_delay_ms, 17, 79.7);
-				early_reflections->set_attr(tap_multitap::k_gain, 17, amplitude_to_decibels(0.134));
+				early_reflections = new tt_multitap(100.0f);		// 80 millisecond max delay time for early reflections
+				early_reflections->set_attr(tt_multitap::k_num_taps, 18);
+				early_reflections->set_attr(tt_multitap::k_master_gain, -24.0);	// Master gain for the multitap unit
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 0, 4.3);
+				early_reflections->set_attr(tt_multitap::k_gain, 0, amplitude_to_decibels(0.841));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 1, 21.5);
+				early_reflections->set_attr(tt_multitap::k_gain, 1, amplitude_to_decibels(0.504));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 2, 22.5);
+				early_reflections->set_attr(tt_multitap::k_gain, 2, amplitude_to_decibels(0.491));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 3, 26.8);
+				early_reflections->set_attr(tt_multitap::k_gain, 3, amplitude_to_decibels(0.379));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 4, 27.0);
+				early_reflections->set_attr(tt_multitap::k_gain, 4, amplitude_to_decibels(0.38));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 5, 29.8);
+				early_reflections->set_attr(tt_multitap::k_gain, 5, amplitude_to_decibels(0.346));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 6, 45.8);
+				early_reflections->set_attr(tt_multitap::k_gain, 6, amplitude_to_decibels(0.289));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 7, 48.5);
+				early_reflections->set_attr(tt_multitap::k_gain, 7, amplitude_to_decibels(0.272));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 8, 57.2);
+				early_reflections->set_attr(tt_multitap::k_gain, 8, amplitude_to_decibels(0.192));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 9, 58.7);
+				early_reflections->set_attr(tt_multitap::k_gain, 9, amplitude_to_decibels(0.193));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 10, 59.5);
+				early_reflections->set_attr(tt_multitap::k_gain, 10, amplitude_to_decibels(0.217));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 11, 61.2);
+				early_reflections->set_attr(tt_multitap::k_gain, 11, amplitude_to_decibels(0.181));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 12, 70.7);
+				early_reflections->set_attr(tt_multitap::k_gain, 12, amplitude_to_decibels(0.18));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 13, 70.8);
+				early_reflections->set_attr(tt_multitap::k_gain, 13, amplitude_to_decibels(0.181));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 14, 72.6);
+				early_reflections->set_attr(tt_multitap::k_gain, 14, amplitude_to_decibels(0.176));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 15, 74.1);
+				early_reflections->set_attr(tt_multitap::k_gain, 15, amplitude_to_decibels(0.142));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 16, 75.3);
+				early_reflections->set_attr(tt_multitap::k_gain, 16, amplitude_to_decibels(0.167));
+				early_reflections->set_attr(tt_multitap::k_delay_ms, 17, 79.7);
+				early_reflections->set_attr(tt_multitap::k_gain, 17, amplitude_to_decibels(0.134));
 
 				for(i=0; i<6; i++){
-					comb_filters[i] = new tap_comb(200.0);	// comb filters have a max delay time of 200 ms.
-					lfos[i] = new tap_lfo;					// LFOs each use the default 512 point sinewave
+					comb_filters[i] = new tt_comb(200.0);	// comb filters have a max delay time of 200 ms.
+					lfos[i] = new tt_lfo;					// LFOs each use the default 512 point sinewave
 				}
 				
-				my_allpass = new tap_allpass(7.0);			// 7 millisecond max delay time
-					my_allpass->set_attr(tap_allpass::k_delay_ms, 5.98);
-					my_allpass->set_attr(tap_allpass::k_gain, 0.7);
+				my_allpass = new tt_allpass(7.0);			// 7 millisecond max delay time
+					my_allpass->set_attr(tt_allpass::k_delay_ms, 5.98);
+					my_allpass->set_attr(tt_allpass::k_gain, 0.7);
 					
-				my_lowpass = new tap_lowpass_onepole;
-				xfade = new tap_crossfade;
-				mixer = new tap_mixer_mono;
+				my_lowpass = new tt_lowpass_onepole;
+				xfade = new tt_crossfade;
+				mixer = new tt_mixer_mono;
 					for(i=0; i<7; i++)
-						mixer->set_attr(tap_mixer_mono::k_channel_gain, i, 1.0);
-					mixer->set_attr(tap_mixer_mono::k_master_gain, 0.125);
-				master_gain = new tap_gain;
+						mixer->set_attr(tt_mixer_mono::k_channel_gain, i, 1.0);
+					mixer->set_attr(tt_mixer_mono::k_master_gain, 0.125);
+				master_gain = new tt_gain;
 				
 				// Default Settings
 				set_attr(k_delay, 100.0);
@@ -147,7 +147,7 @@ class tap_verb:public taptools_audio{
 				set_attr(k_use_early_reflections, true);
 		}
 
-		~tap_verb()									// Destructor
+		~tt_verb()									// Destructor
 		{
 			short i;
 	
@@ -174,10 +174,10 @@ class tap_verb:public taptools_audio{
 			short i;
 			switch(sel){
 				case k_mix:
-					xfade->set_attr(tap_crossfade::k_position, val * 0.01);
+					xfade->set_attr(tt_crossfade::k_position, val * 0.01);
 					break;
 				case k_gain:
-					master_gain->set_attr(tap_gain::k_gain, val);
+					master_gain->set_attr(tt_gain::k_gain, val);
 					break;
 				case k_delay:
 					delay_time = val;
@@ -190,26 +190,26 @@ class tap_verb:public taptools_audio{
 					break;
 				case k_decay:
 					for(i=0; i<6; i++)
-						comb_filters[i]->set_attr(tap_comb::k_decay, deviate(val));
+						comb_filters[i]->set_attr(tt_comb::k_decay, deviate(val));
 					decay_time = val;
 					break;
 				case k_damping:
 					for(i=0; i<6; i++)
-						comb_filters[i]->set_attr(tap_comb::k_cutoff_frequency, val);
+						comb_filters[i]->set_attr(tt_comb::k_cutoff_frequency, val);
 					damping_cf = val;
 					break;
 				case k_lowpass:
-					my_lowpass->set_attr(tap_lowpass_onepole::k_frequency, val);
+					my_lowpass->set_attr(tt_lowpass_onepole::k_frequency, val);
 					output_cf = val;
 					break;
 				case k_moddepth:
 					for(i=0; i<6; i++)
-						lfos[i]->set_attr(tap_lfo::k_gain, deviate(amplitude_to_decibels(val)));
+						lfos[i]->set_attr(tt_lfo::k_gain, deviate(amplitude_to_decibels(val)));
 					moddepth = val;
 					break;
 				case k_modfreq:
 					for(i=0; i<6; i++)
-						lfos[i]->set_attr(tap_lfo::k_frequency, deviate(val));
+						lfos[i]->set_attr(tt_lfo::k_frequency, deviate(val));
 					modfreq = val;
 					break;
 				case k_use_early_reflections:
@@ -227,9 +227,9 @@ class tap_verb:public taptools_audio{
 		{
 			switch(sel){
 				case k_mix:
-					return xfade->get_attr(tap_crossfade::k_position) * 100.0;
+					return xfade->get_attr(tt_crossfade::k_position) * 100.0;
 				case k_gain:
-					return master_gain->get_attr(tap_gain::k_gain);
+					return master_gain->get_attr(tt_gain::k_gain);
 				case k_delay:
 					return delay_time;
 				case k_decay:
@@ -277,7 +277,7 @@ class tap_verb:public taptools_audio{
 			// Unrolling this for-loop for speed doesn't seem to make a difference - compiler must be doing this automagically
 			for(i=0; i<6; i++){
 				lfos[i]->dsp_vector_calc(temp[8]);														// Run the LFO
-				comb_filters[i]->set_attr(tap_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
+				comb_filters[i]->set_attr(tt_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
 				comb_filters[i]->dsp_vector_calc(temp[0], temp[i+1]);									// Comb Stage
 			}
 			
@@ -302,7 +302,7 @@ class tap_verb:public taptools_audio{
 			// LFOs & Comb Filters
 			for(i=0; i<6; i++){
 				lfos[i]->dsp_vector_calc(temp[8]);														// Run the LFO
-				comb_filters[i]->set_attr(tap_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
+				comb_filters[i]->set_attr(tt_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
 				comb_filters[i]->dsp_vector_calc(in, temp[i+1]);										// Comb Stage
 			}
 			
@@ -330,7 +330,7 @@ class tap_verb:public taptools_audio{
 			// Unrolling this for-loop for speed doesn't seem to make a difference - compiler must be doing this automagically
 			for(i=0; i<6; i++){
 				lfos[i]->dsp_vector_calc(temp[8]);														// Run the LFO
-				comb_filters[i]->set_attr(tap_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
+				comb_filters[i]->set_attr(tt_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
 				comb_filters[i]->dsp_vector_calc(temp[0], temp[i+1]);									// Comb Stage
 			}
 			
@@ -355,7 +355,7 @@ class tap_verb:public taptools_audio{
 			// LFOs & Comb Filters
 			for(i=0; i<6; i++){
 				lfos[i]->dsp_vector_calc(temp[8]);														// Run the LFO
-				comb_filters[i]->set_attr(tap_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
+				comb_filters[i]->set_attr(tt_comb::k_delay_static, *temp[8]->vector + delay_base[i]);	// take the 1st value of the vector
 				comb_filters[i]->dsp_vector_calc(in, temp[i+1]);										// Comb Stage
 			}
 			
@@ -435,16 +435,16 @@ class tap_verb:public taptools_audio{
 		void config_dsp_pointers()
 		{
 			if(use_early_reflections && use_lite_version)
-				dsp_executor = &tap_verb::dsp_vector_calc_normal_lite;
+				dsp_executor = &tt_verb::dsp_vector_calc_normal_lite;
 			else if(use_early_reflections)
-				dsp_executor = &tap_verb::dsp_vector_calc_normal;
+				dsp_executor = &tt_verb::dsp_vector_calc_normal;
 			else if(use_lite_version)
-				dsp_executor = &tap_verb::dsp_vector_calc_no_reflections_lite;
+				dsp_executor = &tt_verb::dsp_vector_calc_no_reflections_lite;
 			else
-				dsp_executor = &tap_verb::dsp_vector_calc_no_reflections;	
+				dsp_executor = &tt_verb::dsp_vector_calc_no_reflections;	
 		}
 		
 };
 
 
-#endif	// TAP_VERB_H
+#endif	// tt_VERB_H

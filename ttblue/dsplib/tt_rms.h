@@ -2,17 +2,17 @@
  *******************************************************
  *		RMS AVERAGER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_RMS_H
-#define TAP_RMS_H
+#ifndef TT_RMS_H
+#define TT_RMS_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_rms:public taptools_audio{
+class tt_rms:public tt_audio_base{
 
 	private:
 		// int	sr;									*** Inherited: Holds local sample rate
@@ -40,12 +40,12 @@ class tap_rms:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_rms()				// Constructor		
+		tt_rms()				// Constructor		
 		{
 			coefficient = 0.9;
 		}
 
-		~tap_rms()				// Destructor
+		~tt_rms()				// Destructor
 		{
 			;
 		}
@@ -97,4 +97,4 @@ class tap_rms:public taptools_audio{
 };
 
 
-#endif	// TAP_RMS_H
+#endif	// tt_RMS_H

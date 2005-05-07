@@ -2,17 +2,17 @@
  *******************************************************
  *		VECTOR SUBTRACTION
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_SUBTRACT_H
-#define TAP_SUBTRACT_H
+#ifndef TT_SUBTRACT_H
+#define TT_SUBTRACT_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,17 +21,17 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_subtract:public taptools_audio{
+class tt_subtract:public tt_audio_base{
 
 	private:
 		
 	public:
-		tap_subtract(void)	// Constructor		
+		tt_subtract(void)	// Constructor		
 		{
 			;
 		}
 
-		~tap_subtract(void)		// Destructor
+		~tt_subtract(void)		// Destructor
 		{
 			;
 		}
@@ -46,6 +46,6 @@ class tap_subtract:public taptools_audio{
 		}
 };
 
-#endif // TAP_SUBTRACT_H
+#endif // tt_SUBTRACT_H
 
 

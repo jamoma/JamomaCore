@@ -2,17 +2,17 @@
  *******************************************************
  *		CROSSFADER (2 INPUTS / 1 OUTPUT)
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_CROSSFADE_H
-#define TAP_CROSSFADE_H
+#ifndef TT_CROSSFADE_H
+#define TT_CROSSFADE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,11 +21,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_crossfade:public taptools_audio{
+class tt_crossfade:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_crossfade::*FuncPtr)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_crossfade::*FuncPtr)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
 		FuncPtr dsp_executor;
 
 		// Attribute Values & Variables
@@ -46,14 +46,14 @@ class tap_crossfade:public taptools_audio{
 		};
 		
 		// OBJECT LIFE					
-		tap_crossfade(void)									// Constructor		
+		tt_crossfade(void)									// Constructor		
 		{
 			position = 0.5;
 			shape = k_shape_equalpower;
 			set_attr(k_mode, k_mode_lookup);
 		}
 
-		~tap_crossfade(void)								// Destructor
+		~tt_crossfade(void)								// Destructor
 		{
 			;
 		}
@@ -75,11 +75,11 @@ class tap_crossfade:public taptools_audio{
 			}
 			// set the function pointer for the correct dsp loop to run
 			if(shape == k_shape_linear)
-				dsp_executor = &tap_crossfade::dsp_vector_calc_linear;
+				dsp_executor = &tt_crossfade::dsp_vector_calc_linear;
 			else if(mode == k_mode_calculate)
-				dsp_executor = &tap_crossfade::dsp_vector_calc_equalpower_calc;
+				dsp_executor = &tt_crossfade::dsp_vector_calc_equalpower_calc;
 			else if(mode == k_mode_lookup)
-				dsp_executor = &tap_crossfade::dsp_vector_calc_equalpower_lookup;
+				dsp_executor = &tt_crossfade::dsp_vector_calc_equalpower_lookup;
 			
 		}
 
@@ -141,6 +141,6 @@ class tap_crossfade:public taptools_audio{
 		
 };
 
-#endif // TAP_CROSSFADE_H
+#endif // tt_CROSSFADE_H
 
 

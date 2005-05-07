@@ -2,17 +2,17 @@
  *******************************************************
  *		ZERO CROSSING DETECTOR / COUNTER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_ZEROX_H
-#define TAP_ZEROX_H
+#ifndef TT_ZEROX_H
+#define TT_ZEROX_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_zerox:public taptools_audio{
+class tt_zerox:public tt_audio_base{
 
 	private:
 		tt_attribute_value_discrete 	analysis_samps;				// analysis period in samples
@@ -38,13 +38,13 @@ class tap_zerox:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_zerox()										// Constructor		
+		tt_zerox()										// Constructor		
 		{
 			set_attr(k_analysis_size, 2000);
 			clear();
 		}
 
-		~tap_zerox()									// Destructor
+		~tt_zerox()									// Destructor
 		{
 			;
 		}
@@ -115,4 +115,4 @@ class tap_zerox:public taptools_audio{
 };
 
 
-#endif	// TAP_ZEROX_H
+#endif	// tt_ZEROX_H

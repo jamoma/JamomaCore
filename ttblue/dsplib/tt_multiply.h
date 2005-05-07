@@ -2,17 +2,17 @@
  *******************************************************
  *		VECTOR MULTIPLIER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_MULTIPLY_H
-#define TAP_MULTIPLY_H
+#ifndef TT_MULTIPLY_H
+#define TT_MULTIPLY_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,17 +21,17 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_multiply:public taptools_audio{
+class tt_multiply:public tt_audio_base{
 
 	private:
 		
 	public:
-		tap_multiply(void)	// Constructor		
+		tt_multiply(void)	// Constructor		
 		{
 			;
 		}
 
-		~tap_multiply(void)		// Destructor
+		~tt_multiply(void)		// Destructor
 		{
 			;
 		}
@@ -46,6 +46,6 @@ class tap_multiply:public taptools_audio{
 		}
 };
 
-#endif // TAP_MULTIPLY_H
+#endif // tt_MULTIPLY_H
 
 

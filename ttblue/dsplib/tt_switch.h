@@ -2,17 +2,17 @@
  *******************************************************
  *		SWITCH (1 INPUT / N OUTPUTS)
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_SWITCH_H
-#define TAP_SWITCH_H
+#ifndef TT_SWITCH_H
+#define TT_SWITCH_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_switch:public taptools_audio{
+class tt_switch:public tt_audio_base{
 
 	private:
 		tt_attribute_value_discrete	position;			
@@ -32,12 +32,12 @@ class tap_switch:public taptools_audio{
 		};
 		
 		// OBJECT LIFE					
-		tap_switch(void)										// Constructor		
+		tt_switch(void)										// Constructor		
 		{
 			position = 1;
 		}
 
-		~tap_switch(void)										// Destructor
+		~tt_switch(void)										// Destructor
 		{
 			;
 		}
@@ -225,6 +225,6 @@ class tap_switch:public taptools_audio{
 		
 };
 
-#endif // TAP_SWITCH_H
+#endif // tt_SWITCH_H
 
 

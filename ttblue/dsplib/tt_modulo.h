@@ -2,17 +2,17 @@
  *******************************************************
  *		VECTOR MODULO
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_MODULO_H
-#define TAP_MODULO_H
+#ifndef TT_MODULO_H
+#define TT_MODULO_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 #include <math.h>
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_modulo:public taptools_audio{
+class tt_modulo:public tt_audio_base{
 
 	private:
 		tt_attribute_value		argument;
@@ -31,12 +31,12 @@ class tap_modulo:public taptools_audio{
 			k_modulo_argument,
 		};
 
-		tap_modulo(void)	// Constructor		
+		tt_modulo(void)	// Constructor		
 		{
 			set_attr(k_modulo_argument, 1.0);
 		}
 
-		~tap_modulo(void)		// Destructor
+		~tt_modulo(void)		// Destructor
 		{
 			;
 		}
@@ -88,6 +88,6 @@ class tap_modulo:public taptools_audio{
 		}
 };
 
-#endif // TAP_MODULO_H
+#endif // tt_MODULO_H
 
 

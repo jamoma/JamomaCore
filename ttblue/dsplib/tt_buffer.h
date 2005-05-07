@@ -2,17 +2,17 @@
  *******************************************************
  *		AUDIO BUFFER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_BUFFER_H
-#define TAP_BUFFER_H
+#ifndef TT_BUFFER_H
+#define TT_BUFFER_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_buffer:public taptools_audio{
+class tt_buffer:public tt_audio_base{
 
 	private:
 		tt_attribute_value			length_ms;				// length of the buffer in milliseconds
@@ -58,18 +58,18 @@ class tap_buffer:public taptools_audio{
 		
 		
 		// OBJECT LIFE					
-		tap_buffer(long val)								// Constructor
+		tt_buffer(long val)								// Constructor
 		{
 			init();
 			set_attr(k_length_samples, val);
 		}
 
-		tap_buffer()										// Constructor
+		tt_buffer()										// Constructor
 		{
 			init();
 		}
 		
-		~tap_buffer()										// Destructor
+		~tt_buffer()										// Destructor
 		{
 			free();
 		}
@@ -107,7 +107,7 @@ class tap_buffer:public taptools_audio{
 		
 		
 		// METHOD: SET_BUFFER
-		void set_buffer(tap_buffer *newbuffer)
+		void set_buffer(tt_buffer *newbuffer)
 		{
 			free();								// release the internal buffer if appropriate
 			contents = newbuffer->contents;		// point our contents-pointer to the external one
@@ -208,9 +208,9 @@ class tap_buffer:public taptools_audio{
 
 				case k_padded_welch_512:				// FIXED 512 POINT WINDOW OF THE PADDED WELCH TYPE
 					for(i=0; i < 256; i++)
-						contents[i] = taptools_audio::lookup_half_paddedwelch[i];
+						contents[i] = tt_audio_base::lookup_half_paddedwelch[i];
 					for(j=i-1; i < 512;i++, j--){
-						contents[i] = taptools_audio::lookup_half_paddedwelch[j];
+						contents[i] = tt_audio_base::lookup_half_paddedwelch[j];
 					}	
 					break;
 			}
@@ -268,4 +268,4 @@ class tap_buffer:public taptools_audio{
 };
 
 
-#endif		// TAP_BUFFER_H
+#endif		// tt_BUFFER_H

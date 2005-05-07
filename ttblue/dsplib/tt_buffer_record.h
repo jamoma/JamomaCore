@@ -2,18 +2,18 @@
  *******************************************************
  *		RECORD SAMPLES TO A BUFFER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_BUFFER_RECORD_H
-#define TAP_BUFFER_RECORD_H
+#ifndef TT_BUFFER_RECORD_H
+#define TT_BUFFER_RECORD_H
 
 // Include appropriate headers
-#include "taptools_base.h"
-#include "tap_buffer.h"
+#include "tt_audio_base.h"
+#include "tt_buffer.h"
 
 
 /********************************************************
@@ -22,11 +22,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_buffer_record:public taptools_audio{
+class tt_buffer_record:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_buffer_record::*FuncPtr)(tt_audio_signal *);
+		typedef void (tt_buffer_record::*FuncPtr)(tt_audio_signal *);
 		FuncPtr dsp_executor;
 		
 		// Attribute Values
@@ -34,7 +34,7 @@ class tap_buffer_record:public taptools_audio{
 		tt_attribute_value_discrete		record;
 		tt_attribute_value_discrete		loop;
 		
-		tap_buffer						*my_buffer;
+		tt_buffer						*my_buffer;
 		unsigned long					index;
 	
 	
@@ -49,7 +49,7 @@ class tap_buffer_record:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_buffer_record()									// Constructor		
+		tt_buffer_record()									// Constructor		
 		{
 			// set defaults
 			set_attr(k_mode, k_mode_direct);
@@ -58,7 +58,7 @@ class tap_buffer_record:public taptools_audio{
 			my_buffer = 0;
 		}
 
-		tap_buffer_record(tap_buffer *buffer_ref)			// Constructor - BUFFER ARG
+		tt_buffer_record(tt_buffer *buffer_ref)			// Constructor - BUFFER ARG
 		{
 			// set defaults
 			set_attr(k_mode, k_mode_direct);
@@ -68,7 +68,7 @@ class tap_buffer_record:public taptools_audio{
 			set_buffer(buffer_ref);
 		}
 
-		~tap_buffer_record()								// Destructor
+		~tt_buffer_record()								// Destructor
 		{
 			;
 		}
@@ -81,9 +81,9 @@ class tap_buffer_record:public taptools_audio{
 				case k_mode:	// mode sets a function pointer to the correct dsp loop
 					mode = val;
 					if(mode == k_mode_direct)
-						dsp_executor = &tap_buffer_record::dsp_vector_calc_direct;
+						dsp_executor = &tt_buffer_record::dsp_vector_calc_direct;
 					else if(mode == k_mode_fadein)
-						dsp_executor = &tap_buffer_record::dsp_vector_calc_fadein;
+						dsp_executor = &tt_buffer_record::dsp_vector_calc_fadein;
 					break;
 				case k_record:
 					record = val;
@@ -107,12 +107,12 @@ class tap_buffer_record:public taptools_audio{
 
 
 		// METHODS
-		void set_buffer(tap_buffer *buffer_ref)	// Set Buffer
+		void set_buffer(tt_buffer *buffer_ref)	// Set Buffer
 		{
 			my_buffer = buffer_ref;	
 		}
 
-		tap_buffer *get_buffer()				// Get Buffer
+		tt_buffer *get_buffer()				// Get Buffer
 		{
 			return my_buffer;
 		}
@@ -161,4 +161,4 @@ class tap_buffer_record:public taptools_audio{
 		
 };
 
-#endif	// TAP_BUFFER_RECORD_H
+#endif	// tt_BUFFER_RECORD_H

@@ -3,17 +3,17 @@
  *		TWO POLE LOWPASS FILTER
  *		based on Hal Chamberlin
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_LOWPASS_TWOPOLE_H
-#define TAP_LOWPASS_TWOPOLE_H
+#ifndef TT_LOWPASS_TWOPOLE_H
+#define TT_LOWPASS_TWOPOLE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -22,7 +22,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_lowpass_twopole:public taptools_audio{
+class tt_lowpass_twopole:public tt_audio_base{
 
 	private:
 		// int	sr;									*** Inherited: Holds local sample rate
@@ -52,14 +52,14 @@ class tap_lowpass_twopole:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_lowpass_twopole()								// Constructor		
+		tt_lowpass_twopole()								// Constructor		
 		{
 			set_attr(k_frequency, 1000.0);	
 			set_attr(k_resonance, 1.0);	
 			clear();
 		}
 
-		~tap_lowpass_twopole()								// Destructor
+		~tt_lowpass_twopole()								// Destructor
 		{
 			;
 		}
@@ -158,4 +158,4 @@ class tap_lowpass_twopole:public taptools_audio{
 };
 
 
-#endif	// TAP_LOWPASS_TWOPOLE_H
+#endif	// tt_LOWPASS_TWOPOLE_H

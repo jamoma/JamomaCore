@@ -2,17 +2,17 @@
  ********************************************************
  *		FIXED MULTITAP DELAY UNIT
  ********************************************************
- * 		taptools_audio object
+ * 		Tap.Tools Blue Object
  *		copyright © 2003,2004 by Timothy A. Place
  *
  */
  
 // Check against redundant including
-#ifndef TAP_MULTITAP_H
-#define TAP_MULTITAP_H
+#ifndef TT_MULTItt_H
+#define TT_MULTItt_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_multitap:public taptools_audio{
+class tt_multitap:public tt_audio_base{
 
 	private:
 		enum constants{
@@ -58,19 +58,19 @@ class tap_multitap:public taptools_audio{
 
 	// OBJECT LIFE ************************************
 	
-	tap_multitap(tt_attribute_value_discrete value)		// Instance Constructor: INT ARGUMENT
+	tt_multitap(tt_attribute_value_discrete value)		// Instance Constructor: INT ARGUMENT
 	{
 		reset();
 		set_attr(k_buffersize_samples, value);
 	}
 
-	tap_multitap(tt_attribute_value value)				// Instance Constructor: FLOAT ARGUMENT
+	tt_multitap(tt_attribute_value value)				// Instance Constructor: FLOAT ARGUMENT
 	{
 		reset();
 		set_attr(k_buffersize_ms, value);
 	}
 
-	~tap_multitap()										// Instance Destructor
+	~tt_multitap()										// Instance Destructor
 	{	
 		mem_free(buffer);	
 	}
@@ -226,7 +226,7 @@ class tap_multitap:public taptools_audio{
 			position_playheads();
 			clear();
 		}else
-			error("tap_multitap could not allocate memory for the delay buffer!");
+			error("tt_multitap could not allocate memory for the delay buffer!");
 	}
 
 	void reset(void)
@@ -256,4 +256,4 @@ class tap_multitap:public taptools_audio{
 };
 
 
-#endif // TAP_MULTITAP_H
+#endif // tt_MULTItt_H

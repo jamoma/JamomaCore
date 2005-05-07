@@ -2,18 +2,18 @@
  *******************************************************
  *		WAVETABLE OSCILLATOR
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_WAVETABLE_H
-#define TAP_WAVETABLE_H
+#ifndef TT_WAVETABLE_H
+#define TT_WAVETABLE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
-#include "tap_buffer.h"
+#include "tt_audio_base.h"
+#include "tt_buffer.h"
 
 
 /********************************************************
@@ -22,13 +22,13 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_wavetable:public taptools_audio{
+class tt_wavetable:public tt_audio_base{
 
 	private:
 		tt_attribute_value_discrete 	mode;
 		tt_attribute_value				frequency;
 		tt_attribute_value				gain;
-		tap_buffer						*wavetable;
+		tt_buffer						*wavetable;
 		double							index_delta;
 		double							index;
 		
@@ -52,11 +52,11 @@ class tap_wavetable:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_wavetable()									// Constructor		
+		tt_wavetable()									// Constructor		
 		{
 			index = index_delta = 0.0;
-			wavetable = new tap_buffer(512);
-			//wavetable->set_attr(tap_buffer::k_length_samples, 512);
+			wavetable = new tt_buffer(512);
+			//wavetable->set_attr(tt_buffer::k_length_samples, 512);
 
 			// set defaults
 			set_attr(k_mode, k_mode_sine);
@@ -64,7 +64,7 @@ class tap_wavetable:public taptools_audio{
 			set_attr(k_frequency, 1.0);
 		}
 
-		~tap_wavetable()									// Destructor
+		~tt_wavetable()									// Destructor
 		{
 			delete wavetable;
 		}
@@ -77,36 +77,36 @@ class tap_wavetable:public taptools_audio{
 
 				case k_frequency:
 					frequency = clip(double(val), 0.0, sr/2.0);
-					index_delta = frequency * wavetable->get_attr(tap_buffer::k_length_samples) / sr;
+					index_delta = frequency * wavetable->get_attr(tt_buffer::k_length_samples) / sr;
 					break;
 					
 				case k_mode:
 					mode = val;
 
 					if(val == k_mode_sine)
-						wavetable->fill(tap_buffer::k_sine);
+						wavetable->fill(tt_buffer::k_sine);
 					if(val == k_mode_sine_mod)
-						wavetable->fill(tap_buffer::k_sine_mod);
+						wavetable->fill(tt_buffer::k_sine_mod);
 
 					if(val == k_mode_cos)
-						wavetable->fill(tap_buffer::k_cos);
+						wavetable->fill(tt_buffer::k_cos);
 					if(val == k_mode_cos_mod)
-						wavetable->fill(tap_buffer::k_cos_mod);
+						wavetable->fill(tt_buffer::k_cos_mod);
 
 					if(val == k_mode_square)
-						wavetable->fill(tap_buffer::k_square);
+						wavetable->fill(tt_buffer::k_square);
 					if(val == k_mode_square_mod)
-						wavetable->fill(tap_buffer::k_square_mod);
+						wavetable->fill(tt_buffer::k_square_mod);
 
 					if(val == k_mode_triangle)
-						wavetable->fill(tap_buffer::k_triangle);
+						wavetable->fill(tt_buffer::k_triangle);
 					if(val == k_mode_triangle_mod)
-						wavetable->fill(tap_buffer::k_triangle_mod);
+						wavetable->fill(tt_buffer::k_triangle_mod);
 
 					if(val == k_mode_ramp)
-						wavetable->fill(tap_buffer::k_ramp);
+						wavetable->fill(tt_buffer::k_ramp);
 					if(val == k_mode_ramp_mod)
-						wavetable->fill(tap_buffer::k_ramp_mod);
+						wavetable->fill(tt_buffer::k_ramp_mod);
 					break;
 					
 				case k_gain:
@@ -131,7 +131,7 @@ class tap_wavetable:public taptools_audio{
 		
 		
 		// METHOD: SET_WAVETABLE
-		void set_wavetable(tap_buffer *newbuffer)
+		void set_wavetable(tt_buffer *newbuffer)
 		{
 			wavetable->set_buffer(newbuffer);
 		}
@@ -203,4 +203,4 @@ class tap_wavetable:public taptools_audio{
 };
 
 
-#endif		// TAP_WAVETABLE_H
+#endif		// tt_WAVETABLE_H

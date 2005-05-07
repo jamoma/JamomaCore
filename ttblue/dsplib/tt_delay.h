@@ -2,17 +2,17 @@
  *******************************************************
  *		DELAY UNIT
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_DELAY_H
-#define TAP_DELAY_H
+#ifndef TT_DELAY_H
+#define TT_DELAY_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 /********************************************************
 	CLASS INTERFACE/IMPLEMENTATION
@@ -20,12 +20,12 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_delay:public taptools_audio{
+class tt_delay:public tt_audio_base{
 
 	private:
 		// Function pointers for the DSP Loops (use this instead of branching for speed)
-		typedef void (tap_delay::*function_ptr_1in_1out)(tt_audio_signal *, tt_audio_signal *);
-		typedef void (tap_delay::*function_ptr_2in_1out)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_delay::*function_ptr_1in_1out)(tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_delay::*function_ptr_2in_1out)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
 		function_ptr_1in_1out		dsp_executor;
 		function_ptr_2in_1out		dsp_executor2;
 
@@ -58,18 +58,18 @@ class tap_delay:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
+		tt_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
 		{
 			init(max);
 		}
 
-		tap_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
+		tt_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
 		{
 			long max = max_ms * sr * 0.001;
 			init(max);
 		}
 
-		~tap_delay()										// Destructor
+		~tt_delay()										// Destructor
 		{
 			mem_free(buffer);
 		}
@@ -110,32 +110,32 @@ class tap_delay:public taptools_audio{
 				case k_interpolation:
 					interpolation = val;
 					if(interpolation == k_interpolation_linear){
-						dsp_executor = &tap_delay::dsp_vector_calc_linear;
-						dsp_executor2 = &tap_delay::dsp_vector_calc_linear_2in;
+						dsp_executor = &tt_delay::dsp_vector_calc_linear;
+						dsp_executor2 = &tt_delay::dsp_vector_calc_linear_2in;
 					}	
 					else if(interpolation == k_interpolation_none){
-						dsp_executor = &tap_delay::dsp_vector_calc_nointerp;
-						dsp_executor2 = &tap_delay::dsp_vector_calc_nointerp_2in;
+						dsp_executor = &tt_delay::dsp_vector_calc_nointerp;
+						dsp_executor2 = &tt_delay::dsp_vector_calc_nointerp_2in;
 					}
 					else if(interpolation == k_interpolation_polynomial){
 						dsp_executor = 0;
 						dsp_executor2 = 0;
-						//dsp_executor2 = &tap_delay::dsp_vector_calc_poly_2in;
+						//dsp_executor2 = &tt_delay::dsp_vector_calc_poly_2in;
 					}
 					else if(interpolation == k_interpolation_polynomial2){
 						dsp_executor = 0;
-	//					dsp_executor2 = &tap_delay::dsp_vector_calc_poly2_2in;
+	//					dsp_executor2 = &tt_delay::dsp_vector_calc_poly2_2in;
 					}
 					else if(interpolation == k_interpolation_linear2){
-						dsp_executor = &tap_delay::dsp_vector_calc_linear;
-	//					dsp_executor2 = &tap_delay::dsp_vector_calc_linear2_2in;
+						dsp_executor = &tt_delay::dsp_vector_calc_linear;
+	//					dsp_executor2 = &tt_delay::dsp_vector_calc_linear2_2in;
 					}	
 					else
-//						std::cerr << "tap_delay: invalid interpolation mode specified" << std::endl;
+//						std::cerr << "tt_delay: invalid interpolation mode specified" << std::endl;
 						error("BAD INTERPOLATION SETTING");
 					break;
 				default:
-//					std:cerr << "tap_delay: invalid attribute specified for set_attr()" << std::endl;
+//					std:cerr << "tt_delay: invalid attribute specified for set_attr()" << std::endl;
 					break;
 			}
 			reset();
@@ -151,7 +151,7 @@ class tap_delay:public taptools_audio{
 				case k_interpolation:
 					return interpolation;
 				default:
-					std::cerr << "tap_delay: invalid attribute specified for get_attr()" << std::endl;				
+					std::cerr << "tt_delay: invalid attribute specified for get_attr()" << std::endl;				
 					return 0.0;
 			}
 		}
@@ -417,4 +417,4 @@ class tap_delay:public taptools_audio{
 			
 };
 
-#endif		// TAP_DELAY_H
+#endif		// tt_DELAY_H

@@ -2,18 +2,18 @@
 // Copyright © 2004 by Electrotap. All Rights Reserved.
 
 
-#ifndef TAPTOOLS_AUDIO_SIGNAL_HEADER
-#define TAPTOOLS_AUDIO_SIGNAL_HEADER
+#ifndef TT_AUDIO_SIGNAL_HEADER
+#define TT_AUDIO_SIGNAL_HEADER
 
 
 // taptools base header file
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /****************************************************************************************************/
 // Class Specification
 
-class tt_audio_signal:public taptools_audio{
+class tt_audio_signal:public tt_audio_base{
 	private:
 		bool				mode;
 		tt_sample_vector	vector_start;		// store the address for the beginning of the vector
@@ -119,4 +119,4 @@ class tt_audio_signal:public taptools_audio{
 
 
 
-#endif // TAPTOOLS_AUDIO_SIGNAL_HEADER
+#endif // TT_AUDIO_SIGNAL_HEADER

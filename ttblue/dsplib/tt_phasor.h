@@ -2,17 +2,17 @@
  *******************************************************
  *		CYCLING RAMP GENERATOR
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_PHASOR_H
-#define TAP_PHASOR_H
+#ifndef TT_PHASOR_H
+#define TT_PHASOR_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_phasor:public taptools_audio{
+class tt_phasor:public tt_audio_base{
 
 	private:
 		tt_attribute_value		frequency;				// define the ramp time cycle in hertz
@@ -44,14 +44,14 @@ class tap_phasor:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_phasor()								// Constructor		
+		tt_phasor()								// Constructor		
 		{
 			current = 0;
 			step = 0;
 			gain = 1.0;
 		}
 
-		~tap_phasor()								// Destructor
+		~tt_phasor()								// Destructor
 		{
 			;
 		}
@@ -132,4 +132,4 @@ class tap_phasor:public taptools_audio{
 };
 
 
-#endif	// TAP_PHASOR_H
+#endif	// tt_PHASOR_H

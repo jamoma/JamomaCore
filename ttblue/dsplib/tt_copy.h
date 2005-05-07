@@ -2,17 +2,17 @@
  *******************************************************
  *		COPY A VECTOR
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_COPY_H
-#define TAP_COPY_H
+#ifndef TT_COPY_H
+#define TT_COPY_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,17 +21,17 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_copy:public taptools_audio{
+class tt_copy:public tt_audio_base{
 
 	private:
 		
 	public:
-		tap_copy(void)	// Constructor		
+		tt_copy(void)	// Constructor		
 		{
 			;
 		}
 
-		~tap_copy(void)		// Destructor
+		~tt_copy(void)		// Destructor
 		{
 			;
 		}
@@ -57,6 +57,6 @@ class tap_copy:public taptools_audio{
 		}
 };
 
-#endif // TAP_COPY_H
+#endif // tt_COPY_H
 
 

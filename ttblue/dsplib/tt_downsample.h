@@ -2,18 +2,18 @@
  *******************************************************
  *		DOWNSAMPLE A SIGNAL - REDUCES VECTOR SIZE
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_DOWNSAMPLE_H
-#define TAP_DOWNSAMPLE_H
+#ifndef TT_DOWNSAMPLE_H
+#define TT_DOWNSAMPLE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
-#include "taptools_audio_signal.h"
+#include "tt_audio_base.h"
+#include "tt_audio_signal"
 
 
 /********************************************************
@@ -22,7 +22,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_downsample:public taptools_audio{
+class tt_downsample:public tt_audio_base{
 
 	private:
 		tt_attribute_value_discrete 	factor;				// should be a power of 2
@@ -34,12 +34,12 @@ class tap_downsample:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_downsample()									// Constructor		
+		tt_downsample()									// Constructor		
 		{
 			set_attr(k_factor, 1);							// default: no upsampling
 		}
 
-		~tap_downsample()									// Destructor
+		~tt_downsample()									// Destructor
 		{
 			;
 		}
@@ -108,4 +108,4 @@ class tap_downsample:public taptools_audio{
 };
 
 
-#endif	// TAP_DOWNSAMPLE_H
+#endif	// tt_DOWNSAMPLE_H

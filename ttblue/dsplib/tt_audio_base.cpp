@@ -1,17 +1,17 @@
 // taptools base file
 
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 // GLOBALS (CLASS STATICS)
-int taptools_audio::global_sr = 44100;						// Global Sample Rate
-int taptools_audio::global_vectorsize = 64;					// Global Vector Size
-int taptools_audio::temp_vs = 0;							// share temp variable for vectorsize calcs
+int tt_audio_base::global_sr = 44100;						// Global Sample Rate
+int tt_audio_base::global_vectorsize = 64;					// Global Vector Size
+int tt_audio_base::temp_vs = 0;							// share temp variable for vectorsize calcs
 
-const double taptools_audio::pi = 3.1415926535897932;		// pi
-const double taptools_audio::twopi = 6.2831853071795864;	// 2 * pi
-const double taptools_audio::anti_denormal_value = 1e-18;	// used by taptools_audio::anti_denormal()
+const double tt_audio_base::pi = 3.1415926535897932;		// pi
+const double tt_audio_base::twopi = 6.2831853071795864;	// 2 * pi
+const double tt_audio_base::anti_denormal_value = 1e-18;	// used by tt_audio_base::anti_denormal()
 
-const float taptools_audio::lookup_equalpower[] = {			// 512 point equal-power table
+const float tt_audio_base::lookup_equalpower[] = {			// 512 point equal-power table
 	0.999939F, 0.999908F, 0.999939F, 0.999908F, 0.999908F,
 	0.999847F, 0.999817F, 0.999756F, 0.999664F, 0.999695F, 0.999512F, 0.999481F, 0.999298F, 0.999298F, 0.999146F, 
 	0.998993F, 0.998840F, 0.998779F, 0.998505F, 0.998474F, 0.998169F, 0.998047F, 0.997864F, 0.997650F, 0.997406F, 
@@ -66,7 +66,7 @@ const float taptools_audio::lookup_equalpower[] = {			// 512 point equal-power t
 	0.036896F, 0.033752F, 0.030701F, 0.027618F, 0.024567F, 0.021484F, 0.018402F, 0.01532F, 0.012268F,0.009216F, 
 	0.006042F, 0.0F};	
 
-const float taptools_audio::lookup_half_paddedwelch[] = {		// 256 point window table
+const float tt_audio_base::lookup_half_paddedwelch[] = {		// 256 point window table
 	0.000000F, 0.000000F, 0.000000F, 0.000000F, 0.000000F, 0.000000F,	0.000000F, 0.000000F, 0.000000F, 0.000000F,
 	0.000000F, 0.000000F, 0.000000F, 0.000000F, 0.000000F, 0.000000F, 0.000000F, 0.006989F, 0.014008F, 0.021027F,
 	0.028046F, 0.035034F, 0.042053F, 0.049042F, 0.056061F, 0.063049F, 0.070038F, 0.077057F, 0.084045F, 0.091034F,
@@ -95,7 +95,7 @@ const float taptools_audio::lookup_half_paddedwelch[] = {		// 256 point window t
 	0.999969F, 0.999969F, 0.999969F, 0.999969F, 0.999969F, 0.999969F
 };
 	
-const float taptools_audio::lookup_quartersine[] = {		// 128 point quarter sine wave table
+const float tt_audio_base::lookup_quartersine[] = {		// 128 point quarter sine wave table
 	0.000000F, 0.012272F, 0.024541F, 0.036807F, 0.049068F, 0.061321F, 0.073565F, 0.085797F, 
 	0.098017F, 0.110222F, 0.122411F, 0.134581F, 0.146730F, 0.158858F, 0.170962F, 0.183040F, 
 	0.195090F, 0.207111F, 0.219101F, 0.231058F, 0.242980F, 0.254866F, 0.266713F, 0.278520F, 
@@ -122,21 +122,21 @@ const float taptools_audio::lookup_quartersine[] = {		// 128 point quarter sine 
 // CLASS IMPLEMENTATION
 
 // Constructor for this base class: do initialization, etc.
-taptools_audio::taptools_audio(void)
+tt_audio_base::tt_audio_base(void)
 {
 	set_sr(global_sr);						// Init the local sr to the global sr
 	set_vectorsize(global_vectorsize);		// Init the local vs to the global vs
 	init();
 }
 
-void taptools_audio::init()
+void tt_audio_base::init()
 {
 	is_initialized = true;					// Set the indicator flag
 }
 
 
 // DESTRUCTOR
-taptools_audio::~taptools_audio()
+tt_audio_base::~tt_audio_base()
 {
 	;
 }
@@ -144,26 +144,26 @@ taptools_audio::~taptools_audio()
 
 
 // ATTRIBUTE: global sample rate
-void taptools_audio::set_global_sr(int value)
+void tt_audio_base::set_global_sr(int value)
 {
 	global_sr = value;
 }
 
-int taptools_audio::get_global_sr()
+int tt_audio_base::get_global_sr()
 {
 	return global_sr;
 }
 
 
 // ATTRIBUTE: local sample rate (intended for use by inherited objects)
-void taptools_audio::set_sr(int value)
+void tt_audio_base::set_sr(int value)
 {
 	sr = value;
 	r_sr = 1.0 / value;
 	m_sr = sr * 0.001;
 }
 
-int taptools_audio::get_sr()
+int tt_audio_base::get_sr()
 {
 	return sr;
 }
@@ -172,24 +172,24 @@ int taptools_audio::get_sr()
 
 
 // ATTRIBUTE: global vector size
-void taptools_audio::set_global_vectorsize(int value)
+void tt_audio_base::set_global_vectorsize(int value)
 {
 	global_vectorsize = value;
 }
 
-int taptools_audio::get_global_vectorsize()
+int tt_audio_base::get_global_vectorsize()
 {
 	return global_vectorsize;
 }
 
 
 // ATTRIBUTE: local vector size (intended for use by inherited objects)
-void taptools_audio::set_vectorsize(int value)
+void tt_audio_base::set_vectorsize(int value)
 {
 	vectorsize = value;
 }
 
-int taptools_audio::get_vectorsize()
+int tt_audio_base::get_vectorsize()
 {
 	return vectorsize;
 }
@@ -201,7 +201,7 @@ int taptools_audio::get_vectorsize()
 
 
 // Platform independent memory allocation
-tt_ptr taptools_audio::mem_alloc(long size)
+tt_ptr tt_audio_base::mem_alloc(long size)
 {
 	tt_ptr alloc;
 #if defined TAPTOOLS_TARGET_MAC
@@ -211,7 +211,7 @@ tt_ptr taptools_audio::mem_alloc(long size)
 			return alloc;
 		}
 		else{
-			error("taptools_audio::mem_alloc - could not get memory");
+			error("tt_audio_base::mem_alloc - could not get memory");
 			return 0;
 		}
 	#else	
@@ -219,7 +219,7 @@ tt_ptr taptools_audio::mem_alloc(long size)
 		if(alloc)
 			return alloc;
 		else{
-			//error("taptools_audio::mem_alloc - could not get memory");
+			//error("tt_audio_base::mem_alloc - could not get memory");
 			return 0;
 		}
 	#endif	
@@ -231,7 +231,7 @@ tt_ptr taptools_audio::mem_alloc(long size)
 		if(alloc)
 			return alloc;
 		else{
-			error("taptools_audio::mem_alloc - could not get memory");
+			error("tt_audio_base::mem_alloc - could not get memory");
 			return 0;
 		}
 	#else
@@ -244,7 +244,7 @@ tt_ptr taptools_audio::mem_alloc(long size)
 
 
 // Platform independent memory de-allocation
-void taptools_audio::mem_free(void *my_ptr)
+void tt_audio_base::mem_free(void *my_ptr)
 {
 	if(my_ptr){ 
 #ifdef TAPTOOLS_TARGET_MAC

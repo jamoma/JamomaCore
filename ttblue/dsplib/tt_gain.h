@@ -2,17 +2,17 @@
  *******************************************************
  *		GAIN MODIFIER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_GAIN_H
-#define TAP_GAIN_H
+#ifndef TT_GAIN_H
+#define TT_GAIN_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_gain:public taptools_audio{
+class tt_gain:public tt_audio_base{
 
 	private:
 		// int	sr;											*** Inherited: Holds local sample rate
@@ -40,12 +40,12 @@ class tap_gain:public taptools_audio{
 		};
 		
 		// OBJECT LIFE					
-		tap_gain(void)										// Constructor		
+		tt_gain(void)										// Constructor		
 		{
 			gain = 1.0;
 		}
 
-		~tap_gain(void)										// Destructor
+		~tt_gain(void)										// Destructor
 		{
 			;
 		}
@@ -87,6 +87,6 @@ class tap_gain:public taptools_audio{
 		
 };
 
-#endif // TAP_GAIN_H
+#endif // tt_GAIN_H
 
 

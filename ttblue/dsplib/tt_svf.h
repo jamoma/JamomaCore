@@ -3,17 +3,17 @@
  *		SVF Filter
  *		
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_SVF_H
-#define TAP_SVF_H
+#ifndef TT_SVF_H
+#define TT_SVF_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -22,11 +22,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_svf:public taptools_audio{
+class tt_svf:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_svf::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_svf::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
 		FuncPtr dsp_executor;
 
 		// Attributes Values & Variables
@@ -57,7 +57,7 @@ class tap_svf:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_svf()								// Constructor		
+		tt_svf()								// Constructor		
 		{
 			set_attr(k_frequency, 1000.0);	
 			set_attr(k_resonance, 1.0);
@@ -65,7 +65,7 @@ class tap_svf:public taptools_audio{
 			clear();
 		}
 
-		~tap_svf()								// Destructor
+		~tt_svf()								// Destructor
 		{
 			;
 		}
@@ -90,15 +90,15 @@ class tap_svf:public taptools_audio{
 				case k_mode:
 					mode = val;
 					if(mode == k_mode_lowpass)
-						dsp_executor = &tap_svf::dsp_vector_calc_lowpass;
+						dsp_executor = &tt_svf::dsp_vector_calc_lowpass;
 					else if(mode == k_mode_highpass)
-						dsp_executor = &tap_svf::dsp_vector_calc_highpass;
+						dsp_executor = &tt_svf::dsp_vector_calc_highpass;
 					else if(mode == k_mode_bandpass)
-						dsp_executor = &tap_svf::dsp_vector_calc_bandpass;
+						dsp_executor = &tt_svf::dsp_vector_calc_bandpass;
 					else if(mode == k_mode_notch)
-						dsp_executor = &tap_svf::dsp_vector_calc_notch;
+						dsp_executor = &tt_svf::dsp_vector_calc_notch;
 					else if(mode == k_mode_peak)
-						dsp_executor = &tap_svf::dsp_vector_calc_peak;
+						dsp_executor = &tt_svf::dsp_vector_calc_peak;
 					break;
 			}
 			temp1 = limit_max(2.0 / freq - freq * 0.5, 2.0);
@@ -269,4 +269,4 @@ class tap_svf:public taptools_audio{
 };
 
 
-#endif	// TAP_SVF_H
+#endif	// tt_SVF_H

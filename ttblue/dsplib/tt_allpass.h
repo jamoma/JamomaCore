@@ -2,17 +2,17 @@
  *******************************************************
  *		ALLPASS FILTER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_ALLPASS_H
-#define TAP_ALLPASS_H
+#ifndef TT_ALLPASS_H
+#define TT_ALLPASS_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_allpass:public taptools_audio{
+class tt_allpass:public tt_audio_base{
 
 	private:
 		tt_attribute_value 	delay_ms;					// ATTRIBUTE: Delay time in milliseconds
@@ -43,14 +43,14 @@ class tap_allpass:public taptools_audio{
 		
 
 		// OBJECT LIFE
-		tap_allpass(tt_attribute_value milliseconds)	// Constructor
+		tt_allpass(tt_attribute_value milliseconds)	// Constructor
 		{
 			init(milliseconds);
 			set_attr(k_delay_ms, 0.0);
 			set_attr(k_gain, 0.0);
 		}
 
-		~tap_allpass()									// Destructor
+		~tt_allpass()									// Destructor
 		{
 			mem_free(ff_buffer);
 			mem_free(fb_buffer);
@@ -168,4 +168,4 @@ class tap_allpass:public taptools_audio{
 };
 
 
-#endif	// TAP_ALLPASS_H
+#endif	// tt_ALLPASS_H

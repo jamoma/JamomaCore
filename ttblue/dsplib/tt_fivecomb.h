@@ -2,17 +2,17 @@
  *******************************************************
  *		BANK OF 5 COMB FILTERS
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2000-2004 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_FIVECOMB_H
-#define TAP_FIVECOMB_H
+#ifndef TT_FIVECOMB_H
+#define TT_FIVECOMB_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,17 +21,17 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_fivecomb:public taptools_audio{
+class tt_fivecomb:public tt_audio_base{
 
 	private:
 		enum constants{
 			k_num_temp_signals = 7,
 		};
 
-		tap_comb			*comb_filter[5];			// main filters
-		tap_crossfade		*wetdry_xfader;				// does the wet-dry mix
-		tap_mixer_mono		*mixer;						// sums the 5 combs
-		tap_gain			*input_gainer;				// scales the input signal	
+		tt_comb			*comb_filter[5];			// main filters
+		tt_crossfade		*wetdry_xfader;				// does the wet-dry mix
+		tt_mixer_mono		*mixer;						// sums the 5 combs
+		tt_gain			*input_gainer;				// scales the input signal	
 		tt_audio_signal		*temp[k_num_temp_signals];	// Temp Signals
 			
 		tt_attribute_value	attr_frequency[5];
@@ -55,16 +55,16 @@ class tap_fivecomb:public taptools_audio{
 		
 
 		// OBJECT LIFE ************************************************************
-		tap_fivecomb()										// Constructor		
+		tt_fivecomb()										// Constructor		
 		{
 			short i;
 
 			for(i=0; i<5; i++){
-				x->comb_filter[i] = new tap_comb(200);
+				x->comb_filter[i] = new tt_comb(200);
 			}
-			x->wetdry_xfader = new tap_crossfade;
-			x->mixer = new tap_mixer_mono;
-			x->input_gainer = new tap_gain;
+			x->wetdry_xfader = new tt_crossfade;
+			x->mixer = new tt_mixer_mono;
+			x->input_gainer = new tt_gain;
 			
 			for(i=0; i < k_num_temp_signals; i++)			// allocate temp signals
 				x->temp[i] = new tt_audio_signal(vectorsize);
@@ -74,7 +74,7 @@ class tap_fivecomb:public taptools_audio{
 			// set_attr(k_windowsize, 87.0);
 		}
 
-		~tap_fivecomb()									// Destructor
+		~tt_fivecomb()									// Destructor
 		{
 			short i;
 			for(i=0; i<5; i++)
@@ -94,10 +94,10 @@ class tap_fivecomb:public taptools_audio{
 		{
 			switch(sel){
 				case k_mix:
-					wetdry_xfader->set_attr(tap_crossfade::k_position, val * 0.01);
+					wetdry_xfader->set_attr(tt_crossfade::k_position, val * 0.01);
 					break;
 				case k_input_gain:
-					input_gainer->set_attr(tap_gain::k_gain, val);
+					input_gainer->set_attr(tt_gain::k_gain, val);
 					break;
 				case k_frequency_scale:
 					break;
@@ -125,9 +125,9 @@ class tap_fivecomb:public taptools_audio{
 		{
 			switch(sel){
 				case k_mix:
-					return(wetdry_xfader->get_attr(tap_crossfade::k_position) * 100.0);
+					return(wetdry_xfader->get_attr(tt_crossfade::k_position) * 100.0);
 				case k_input_gain:
-					return input_gainer->get_attr(tap_gain::k_gain);
+					return input_gainer->get_attr(tt_gain::k_gain);
 				default:
 					return -1;
 			}
@@ -219,4 +219,4 @@ class tap_fivecomb:public taptools_audio{
 };
 
 
-#endif	// TAP_FIVECOMB_H
+#endif	// tt_FIVECOMB_H

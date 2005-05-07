@@ -2,17 +2,17 @@
  *******************************************************
  *		RUNNING AVERAGER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_AVERAGE_H
-#define TAP_AVERAGE_H
+#ifndef TT_AVERAGE_H
+#define TT_AVERAGE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,11 +21,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_average:public taptools_audio{
+class tt_average:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_average::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
+		typedef void (tt_average::*FuncPtr)(tt_audio_signal *, tt_audio_signal *);
 		FuncPtr dsp_executor;
 		
 		// Attribute Values & Variables
@@ -51,7 +51,7 @@ class tap_average:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_average()								// Constructor		
+		tt_average()								// Constructor		
 		{
 			bins = (tt_sample_value *)mem_alloc((1 + MAX_AVERAGE_INTERVAL) * sizeof(tt_sample_value));
 			set_attr(k_interval, 100);
@@ -59,7 +59,7 @@ class tap_average:public taptools_audio{
 			clear();
 		}
 
-		~tap_average()								// Destructor
+		~tt_average()								// Destructor
 		{
 			mem_free(bins);
 		}
@@ -77,11 +77,11 @@ class tap_average:public taptools_audio{
 				case k_mode:
 					mode = val;
 					if(mode == k_mode_bipolar)
-						dsp_executor = &tap_average::dsp_vector_calc_bipolar;
+						dsp_executor = &tt_average::dsp_vector_calc_bipolar;
 					else if(mode == k_mode_absolute)
-						dsp_executor = &tap_average::dsp_vector_calc_absolute;
+						dsp_executor = &tt_average::dsp_vector_calc_absolute;
 					else if(mode == k_mode_rms)
-						dsp_executor = &tap_average::dsp_vector_calc_rms;
+						dsp_executor = &tt_average::dsp_vector_calc_rms;
 					break;
 			}
 		}
@@ -183,4 +183,4 @@ class tap_average:public taptools_audio{
 		}
 };
 
-#endif	// TAP_AVERAGE_H
+#endif	// tt_AVERAGE_H

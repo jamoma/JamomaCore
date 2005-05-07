@@ -4,17 +4,17 @@
  *		Originally created for Jim Mobberley's
  *		"Voices: In Memoriam"
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2000-2004 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_PROCRASTINATE_H
-#define TAP_PROCRASTINATE_H
+#ifndef TT_PROCRASTINATE_H
+#define TT_PROCRASTINATE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -23,7 +23,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_procrastinate:public taptools_audio{
+class tt_procrastinate:public tt_audio_base{
 
 	private:
 		enum constants{
@@ -42,18 +42,18 @@ class tap_procrastinate:public taptools_audio{
 		float					pan_low[4];
 		float					pan_high[4];
 		
-		tap_delay				*delay1[4], *delay2[4];
-		tap_phasor				*phasor[4];
-		tap_buffer_window		*wave1, *wave2;
-		tap_gain				*scale[4];
-		tap_offset				*offset;
-		tap_onewrap				*modulo;	
-		tap_mixer_mono			*mixer[4];
-		tap_mixer_mono			*finalmix;
-		tap_buffer				*window;
+		tt_delay				*delay1[4], *delay2[4];
+		tt_phasor				*phasor[4];
+		tt_buffer_window		*wave1, *wave2;
+		tt_gain				*scale[4];
+		tt_offset				*offset;
+		tt_onewrap				*modulo;	
+		tt_mixer_mono			*mixer[4];
+		tt_mixer_mono			*finalmix;
+		tt_buffer				*window;
 		
-		tap_pan					*panner[4];
-		tap_gain				*gain[4];
+		tt_pan					*panner[4];
+		tt_gain				*gain[4];
 	
 		tt_audio_signal			*temp[k_num_temp_signals];	// Temp Signals
 		float					buffersize_in_ms;
@@ -71,7 +71,7 @@ class tap_procrastinate:public taptools_audio{
 		
 
 		// OBJECT LIFE ************************************************************
-		tap_procrastinate()										// Constructor		
+		tt_procrastinate()										// Constructor		
 		{
 			short i;
 			for(i=0; i < k_num_temp_signals; i++)
@@ -79,31 +79,31 @@ class tap_procrastinate:public taptools_audio{
 			
 			buffersize_in_ms = 10000.0;
 			
-			window = new tap_buffer(512);
-			wave1 = new tap_buffer_window(window);
-			wave2 = new tap_buffer_window(window);
-			offset = new tap_offset;
-			modulo = new tap_onewrap;	
-			finalmix = new tap_mixer_mono;
+			window = new tt_buffer(512);
+			wave1 = new tt_buffer_window(window);
+			wave2 = new tt_buffer_window(window);
+			offset = new tt_offset;
+			modulo = new tt_onewrap;	
+			finalmix = new tt_mixer_mono;
 			
 			for(i=0; i<4; i++){
-				panner[i] = new tap_pan;
-				gain[i] = new tap_gain;
-				phasor[i] = new tap_phasor;
-				scale[i] = new tap_gain;
-				delay1[i] = new tap_delay(buffersize_in_ms);
-				delay2[i] = new tap_delay(buffersize_in_ms);
-				mixer[i] = new tap_mixer_mono;
+				panner[i] = new tt_pan;
+				gain[i] = new tt_gain;
+				phasor[i] = new tt_phasor;
+				scale[i] = new tt_gain;
+				delay1[i] = new tt_delay(buffersize_in_ms);
+				delay2[i] = new tt_delay(buffersize_in_ms);
+				mixer[i] = new tt_mixer_mono;
 			}
 				
 			// Set initial state
 			for(i=0; i<4; i++){
-				mixer[i]->set_attr(tap_mixer_mono::k_master_gain, 0.0);
-				mixer[i]->set_attr(tap_mixer_mono::k_channel_gain, 0, -0.0);
-				mixer[i]->set_attr(tap_mixer_mono::k_channel_gain, 1, -0.0);
+				mixer[i]->set_attr(tt_mixer_mono::k_master_gain, 0.0);
+				mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, 0, -0.0);
+				mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, 1, -0.0);
 			}
-			offset->set_attr(tap_offset::k_offset_value, 0.5);
-			window->fill(tap_buffer::k_padded_welch_512);
+			offset->set_attr(tt_offset::k_offset_value, 0.5);
+			window->fill(tt_buffer::k_padded_welch_512);
 	
 			// Set initial ranges (0 sets all 4)
 			set_attr(k_gain_range, 0, -6.0, 0.0);
@@ -111,9 +111,9 @@ class tap_procrastinate:public taptools_audio{
 			set_attr(k_shift_range,	0, 0.8, 1.2);
 			set_attr(k_delay_range, 0, 500.0, 2000.0);
 				
-			finalmix->set_attr(tap_mixer_mono::k_master_gain, 0.0);
+			finalmix->set_attr(tt_mixer_mono::k_master_gain, 0.0);
 			for(i=0; i<4; i++)
-				finalmix->set_attr(tap_mixer_mono::k_channel_gain, i, 0.0);
+				finalmix->set_attr(tt_mixer_mono::k_channel_gain, i, 0.0);
 				
 			// Default Settings
 			for(i=0; i<4; i++){
@@ -126,7 +126,7 @@ class tap_procrastinate:public taptools_audio{
 			randomize_parameters();
 		}
 
-		~tap_procrastinate()									// Destructor
+		~tt_procrastinate()									// Destructor
 		{
 			short i;
 			
@@ -159,11 +159,11 @@ class tap_procrastinate:public taptools_audio{
 			switch(sel){
 				case k_ratio:
 					shift_ratio_value[index] = val;
-					phasor[index]->set_attr(tap_phasor::k_frequency, (-(shift_ratio_value[index] - 1.0)) * (1.0 / (window_size_value[index] * 0.001)));
+					phasor[index]->set_attr(tt_phasor::k_frequency, (-(shift_ratio_value[index] - 1.0)) * (1.0 / (window_size_value[index] * 0.001)));
 					break;
 				case k_windowsize:
 					window_size_value[index] = clip(val, 1.0f, buffersize_in_ms - 1);
-					scale[index]->set_attr(tap_gain::k_gain_direct, window_size_value[index]);
+					scale[index]->set_attr(tt_gain::k_gain_direct, window_size_value[index]);
 					set_attr(k_ratio, index, shift_ratio_value[index]);				// update the phasor freq based on the new window size
 					break;
 
@@ -248,11 +248,11 @@ class tap_procrastinate:public taptools_audio{
 			for(i=0; i<4; i++){
 				tempval[i] = gain_high[i] - gain_low[i];
 				tempval[i] = gain_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
-				mixer[i]->set_attr(tap_mixer_mono::k_master_gain, tempval[i]);
+				mixer[i]->set_attr(tt_mixer_mono::k_master_gain, tempval[i]);
 //post("gain[%i]: %f", i, tempval[i]);				
 				tempval[i] = pan_high[i] - pan_low[i];
 				tempval[i] = pan_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
-				panner[i]->set_attr(tap_pan::k_position, tempval[i]);
+				panner[i]->set_attr(tt_pan::k_position, tempval[i]);
 //post("pan[%i]: %f", i, tempval[i]);				
 
 				tempval[i] = shift_high[i] - shift_low[i];
@@ -426,4 +426,4 @@ class tap_procrastinate:public taptools_audio{
 };
 
 
-#endif	// TAP_PROCRASTINATE_H
+#endif	// tt_PROCRASTINATE_H

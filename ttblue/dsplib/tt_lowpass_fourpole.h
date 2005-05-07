@@ -3,17 +3,17 @@
  *		FOUR POLE LOWPASS FILTER
  *		based on moog-variation2, musicdsp.org
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_LOWPASS_FOURPOLE_H
-#define TAP_LOWPASS_FOURPOLE_H
+#ifndef TT_LOWPASS_FOURPOLE_H
+#define TT_LOWPASS_FOURPOLE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -22,7 +22,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_lowpass_fourpole:public taptools_audio{
+class tt_lowpass_fourpole:public tt_audio_base{
 
 	private:
 		tt_attribute_value 	resonance;
@@ -42,14 +42,14 @@ class tap_lowpass_fourpole:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_lowpass_fourpole()								// Constructor		
+		tt_lowpass_fourpole()								// Constructor		
 		{
 			set_attr(k_frequency, 4000.0);	
 			set_attr(k_resonance, 4.0);	
 			clear();
 		}
 
-		~tap_lowpass_fourpole()								// Destructor
+		~tt_lowpass_fourpole()								// Destructor
 		{
 			;
 		}
@@ -127,4 +127,4 @@ class tap_lowpass_fourpole:public taptools_audio{
 };
 
 
-#endif	// TAP_LOWPASS_FOURPOLE_H
+#endif	// tt_LOWPASS_FOURPOLE_H

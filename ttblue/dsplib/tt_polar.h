@@ -3,17 +3,17 @@
  *		CONVERSION BETWEEN 
  *		POLAR AND CARTESIAN COORDINATES
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_POLAR_H
-#define TAP_POLAR_H
+#ifndef TT_POLAR_H
+#define TT_POLAR_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 #include <math.h>
 
 /********************************************************
@@ -22,11 +22,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_polar:public taptools_audio{
+class tt_polar:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_polar::*function_ptr_2in_2out)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);			
+		typedef void (tt_polar::*function_ptr_2in_2out)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);			
 		function_ptr_2in_2out dsp_executor;
 
 		// Attributes Values & Variables
@@ -42,17 +42,17 @@ class tap_polar:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_polar()										// Constructor		
+		tt_polar()										// Constructor		
 		{
 			set_attr(k_mode, k_mode_cartopol);
 		}
 		
-		tap_polar(selectors init_mode)
+		tt_polar(selectors init_mode)
 		{
 			set_attr(k_mode, init_mode);
 		}
 
-		~tap_polar()									// Destructor
+		~tt_polar()									// Destructor
 		{
 			;
 		}
@@ -65,9 +65,9 @@ class tap_polar:public taptools_audio{
 				case k_mode:
 					mode = val;
 					if(mode == k_mode_cartopol)
-						dsp_executor = &tap_polar::dsp_vector_calc_cartopol;
+						dsp_executor = &tt_polar::dsp_vector_calc_cartopol;
 					else if(mode == k_mode_poltocar)
-						dsp_executor = &tap_polar::dsp_vector_calc_poltocar;
+						dsp_executor = &tt_polar::dsp_vector_calc_poltocar;
 					break;
 			}
 		}
@@ -140,4 +140,4 @@ class tap_polar:public taptools_audio{
 		}		
 };
 
-#endif		// TAP_POLAR_H
+#endif		// tt_POLAR_H

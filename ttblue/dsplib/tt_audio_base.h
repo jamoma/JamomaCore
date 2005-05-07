@@ -1,7 +1,7 @@
 // taptools base header file
 
-#ifndef TAPTOOLS_BASE_HEADER
-#define TAPTOOLS_BASE_HEADER
+#ifndef TT_AUDIO_BASE_HEADER
+#define TT_AUDIO_BASE_HEADER
 
 #include <math.h>		// Standard Math library
 #include <stdlib.h>
@@ -76,7 +76,7 @@ enum{
 
 
 // Specification of our base class
-class taptools_audio{
+class tt_audio_base{
 	private:
 		bool					is_initialized;				// Flag set by successful initialization
 		
@@ -101,8 +101,8 @@ class taptools_audio{
 		int						vectorsize;				// Made Public for Speed (Fast access in dsp routines)
 		
 		// OBJECT LIFE
-		taptools_audio();								// constructor
-		~taptools_audio();								// destructor - free memory, etc.
+		tt_audio_base();								// constructor
+		~tt_audio_base();								// destructor - free memory, etc.
 
 		
 		// ATTRIBUTES
@@ -388,4 +388,4 @@ class taptools_audio{
 };
 
 
-#endif // TAPTOOLS_BASE_HEADER
+#endif // tt_audio_base_HEADER

@@ -3,17 +3,17 @@
  *		UPSAMPLE A SIGNAL - USE WHEN A SIGNAL HAS BEEN 
  *		DOWNSAMPLED AND NEEDS TO BE RECONSTITUTED
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_UPSAMPLE_H
-#define TAP_UPSAMPLE_H
+#ifndef TT_UPSAMPLE_H
+#define TT_UPSAMPLE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -22,7 +22,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_upsample:public taptools_audio{
+class tt_upsample:public tt_audio_base{
 
 	private:
 		tt_attribute_value_discrete 	factor;			// should be a power of 2
@@ -34,12 +34,12 @@ class tap_upsample:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_upsample()									// Constructor		
+		tt_upsample()									// Constructor		
 		{
 			set_attr(k_factor, 1);						// default: no upsampling
 		}
 
-		~tap_upsample()									// Destructor
+		~tt_upsample()									// Destructor
 		{
 			;
 		}
@@ -108,4 +108,4 @@ class tap_upsample:public taptools_audio{
 };
 
 
-#endif	// TAP_UPSAMPLE_H
+#endif	// tt_UPSAMPLE_H

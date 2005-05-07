@@ -2,17 +2,17 @@
  *******************************************************
  *		ONE POLE LOWPASS FILTER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_LOWPASS_ONEPOLE_H
-#define TAP_LOWPASS_ONEPOLE_H
+#ifndef TT_LOWPASS_ONEPOLE_H
+#define TT_LOWPASS_ONEPOLE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_lowpass_onepole:public taptools_audio{
+class tt_lowpass_onepole:public tt_audio_base{
 
 	private:
 		// int	sr;									*** Inherited: Holds local sample rate
@@ -43,13 +43,13 @@ class tap_lowpass_onepole:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_lowpass_onepole()			// Constructor		
+		tt_lowpass_onepole()			// Constructor		
 		{
 			set_attr(k_frequency, 5000.0);
 			clear();
 		}
 
-		~tap_lowpass_onepole()							// Destructor
+		~tt_lowpass_onepole()							// Destructor
 		{
 			;
 		}
@@ -115,4 +115,4 @@ class tap_lowpass_onepole:public taptools_audio{
 };
 
 
-#endif	// TAP_LOWPASS_ONEPOLE_H
+#endif	// tt_LOWPASS_ONEPOLE_H

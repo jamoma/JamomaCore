@@ -2,17 +2,17 @@
  *******************************************************
  *		NOISE GENERATOR
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_NOISE_H
-#define TAP_NOISE_H
+#ifndef TT_NOISE_H
+#define TT_NOISE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,11 +21,11 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_noise:public taptools_audio{
+class tt_noise:public tt_audio_base{
 
 	private:
 		// Function pointer for the DSP Loop (use this instead of branching for speed)
-		typedef void (tap_noise::*FuncPtr)(tt_audio_signal *);
+		typedef void (tt_noise::*FuncPtr)(tt_audio_signal *);
 		FuncPtr dsp_executor;
 
 		// Attribute Values & Variables
@@ -45,13 +45,13 @@ class tap_noise:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_noise()										// Constructor		
+		tt_noise()										// Constructor		
 		{
 			// set defaults
 			set_attr(k_mode, k_mode_white);
 		}
 
-		~tap_noise()									// Destructor
+		~tt_noise()									// Destructor
 		{
 			;
 		}
@@ -64,13 +64,13 @@ class tap_noise:public taptools_audio{
 				case k_mode:
 					mode = val;
 					if(mode == k_mode_white)
-						dsp_executor = &tap_noise::dsp_vector_calc_white;
+						dsp_executor = &tt_noise::dsp_vector_calc_white;
 					else if(mode == k_mode_pink)
-						dsp_executor = &tap_noise::dsp_vector_calc_pink;
+						dsp_executor = &tt_noise::dsp_vector_calc_pink;
 					else if(mode == k_mode_brown)
-						dsp_executor = &tap_noise::dsp_vector_calc_brown;
+						dsp_executor = &tt_noise::dsp_vector_calc_brown;
 					else if(mode == k_mode_blue)
-						dsp_executor = &tap_noise::dsp_vector_calc_blue;
+						dsp_executor = &tt_noise::dsp_vector_calc_blue;
 					break;
 			}
 		}
@@ -178,4 +178,4 @@ class tap_noise:public taptools_audio{
 };
 
 
-#endif		// TAP_NOISE_H
+#endif		// tt_NOISE_H

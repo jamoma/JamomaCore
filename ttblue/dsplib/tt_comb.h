@@ -2,17 +2,17 @@
  *******************************************************
  *		IIR COMB FILTER
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_COMB_H
-#define TAP_COMB_H
+#ifndef TT_COMB_H
+#define TT_COMB_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_comb:public taptools_audio{
+class tt_comb:public tt_audio_base{
 
 	private:
 		// int	sr;										*** Inherited: Holds local sample rate
@@ -60,7 +60,7 @@ class tap_comb:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_comb(tt_attribute_value arg)				// Constructor		
+		tt_comb(tt_attribute_value arg)				// Constructor		
 		{
 			long i;
 			alloc = 0;
@@ -87,7 +87,7 @@ class tap_comb:public taptools_audio{
 			memwriteptr = memory + delay;
 		}
 
-		~tap_comb(void)							// Destructor
+		~tt_comb(void)							// Destructor
 		{
 			if (alloc) mem_free(alloc);
 			alloc = 0;
@@ -209,4 +209,4 @@ class tap_comb:public taptools_audio{
 };
 
 
-#endif		// TAP_COMB_H
+#endif		// tt_COMB_H

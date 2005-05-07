@@ -5,17 +5,17 @@
  *		y = 1 - (1 - x)^n (positive quadrant only) 
  *		to shape the input signal.
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_OVERDRIVE_H
-#define TAP_OVERDRIVE_H
+#ifndef TT_OVERDRIVE_H
+#define TT_OVERDRIVE_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -24,7 +24,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_overdrive:public taptools_audio{
+class tt_overdrive:public tt_audio_base{
 
 	private:
 		tt_attribute_value 	drive;
@@ -37,12 +37,12 @@ class tap_overdrive:public taptools_audio{
 		
 
 		// OBJECT LIFE					
-		tap_overdrive()								// Constructor		
+		tt_overdrive()								// Constructor		
 		{
 			set_attr(k_drive, 3.0);	
 		}
 
-		~tap_overdrive()								// Destructor
+		~tt_overdrive()								// Destructor
 		{
 			;
 		}
@@ -141,4 +141,4 @@ class tap_overdrive:public taptools_audio{
 };
 
 
-#endif	// TAP_OVERDRIVE_H
+#endif	// tt_OVERDRIVE_H

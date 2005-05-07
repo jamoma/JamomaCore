@@ -2,17 +2,17 @@
  *******************************************************
  *		CHEAPER VECTOR MODULO
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_ONEWRAP_H
-#define TAP_ONEWRAP_H
+#ifndef TT_ONEWRAP_H
+#define TT_ONEWRAP_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 #include <math.h>
 
 /********************************************************
@@ -21,7 +21,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_onewrap:public taptools_audio{
+class tt_onewrap:public tt_audio_base{
 
 	private:
 		
@@ -29,12 +29,12 @@ class tap_onewrap:public taptools_audio{
 //		enum selectors{									// Attribute Selectors
 //		};
 
-		tap_onewrap(void)	// Constructor		
+		tt_onewrap(void)	// Constructor		
 		{
 			;
 		}
 
-		~tap_onewrap(void)		// Destructor
+		~tt_onewrap(void)		// Destructor
 		{
 			;
 		}
@@ -74,6 +74,6 @@ class tap_onewrap:public taptools_audio{
 		
 };
 
-#endif // TAP_ONEWRAP_H
+#endif // tt_ONEWRAP_H
 
 

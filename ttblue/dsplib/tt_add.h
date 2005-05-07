@@ -2,17 +2,17 @@
  *******************************************************
  *		VECTOR ADDITION
  *******************************************************
- *		taptools_audio object
+ *		Tap.Tools Blue Object
  *		copyright © 2003 by Timothy A. Place
  *
  */
 
 // Check against redundant including
-#ifndef TAP_ADD_H
-#define TAP_ADD_H
+#ifndef TT_ADD_H
+#define TT_ADD_H
 
 // Include appropriate headers
-#include "taptools_base.h"
+#include "tt_audio_base.h"
 
 
 /********************************************************
@@ -21,17 +21,17 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tap_add:public taptools_audio{
+class tt_add:public tt_audio_base{
 
 	private:
 		
 	public:
-		tap_add(void)	// Constructor		
+		tt_add(void)	// Constructor		
 		{
 			;
 		}
 
-		~tap_add(void)		// Destructor
+		~tt_add(void)		// Destructor
 		{
 			;
 		}
@@ -45,4 +45,4 @@ class tap_add:public taptools_audio{
 		}
 };
 
-#endif // TAP_ADD_H
+#endif // tt_ADD_H
