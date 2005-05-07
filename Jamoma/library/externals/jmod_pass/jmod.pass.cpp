@@ -103,8 +103,22 @@ void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "Input");
 	else if(msg==2){ 				// Outlets
 		if(arg < x->num_args){
-			t_symbol *argname = atom_getsym(&x->arguments[arg]);
-			strcpy(dst, argname->s_name);
+			t_symbol	*argname;
+			char		tempstring[200];
+			switch(x->arguments[arg].a_type){
+				case A_LONG:
+					sprintf(tempstring, "%i", atom_getlong(&x->arguments[arg]));
+					strcpy(dst, tempstring);
+					break;
+				case A_FLOAT:
+					sprintf(tempstring, "%f", atom_getfloat(&x->arguments[arg]));
+					strcpy(dst, tempstring);
+					break;
+				case A_SYM:
+					argname = atom_getsym(&x->arguments[arg]);
+					strcpy(dst, argname->s_name);
+					break;
+			}
 		}
 		else
 			strcpy(dst, "overflow from non-matching input");
