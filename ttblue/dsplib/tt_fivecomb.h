@@ -13,7 +13,11 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
-
+#include "tt_comb.h"
+#include "tt_crossfade.h"
+#include "tt_mixer_mono.h"
+#include "tt_gain.h"
+#include "tt_audio_signal.h"
 
 /********************************************************
 	CLASS INTERFACE/IMPLEMENTATION
@@ -28,10 +32,10 @@ class tt_fivecomb:public tt_audio_base{
 			k_num_temp_signals = 7,
 		};
 
-		tt_comb			*comb_filter[5];			// main filters
+		tt_comb				*comb_filter[5];			// main filters
 		tt_crossfade		*wetdry_xfader;				// does the wet-dry mix
 		tt_mixer_mono		*mixer;						// sums the 5 combs
-		tt_gain			*input_gainer;				// scales the input signal	
+		tt_gain				*input_gainer;				// scales the input signal	
 		tt_audio_signal		*temp[k_num_temp_signals];	// Temp Signals
 			
 		tt_attribute_value	attr_frequency[5];
@@ -60,14 +64,14 @@ class tt_fivecomb:public tt_audio_base{
 			short i;
 
 			for(i=0; i<5; i++){
-				x->comb_filter[i] = new tt_comb(200);
+				comb_filter[i] = new tt_comb(200);
 			}
-			x->wetdry_xfader = new tt_crossfade;
-			x->mixer = new tt_mixer_mono;
-			x->input_gainer = new tt_gain;
+			wetdry_xfader = new tt_crossfade;
+			mixer = new tt_mixer_mono;
+			input_gainer = new tt_gain;
 			
 			for(i=0; i < k_num_temp_signals; i++)			// allocate temp signals
-				x->temp[i] = new tt_audio_signal(vectorsize);
+				temp[i] = new tt_audio_signal(vectorsize);
 
 			// Default Settings
 			// set_attr(k_ratio, 1.0);
@@ -118,6 +122,8 @@ class tt_fivecomb:public tt_audio_base{
 				case k_lowpass_cf:
 					break;
 			}
+			index;
+			val;
 		}
 
 
@@ -145,6 +151,8 @@ class tt_fivecomb:public tt_audio_base{
 				default:
 					return -1;
 			}
+			return -1;
+			index;
 		}
 		
 		

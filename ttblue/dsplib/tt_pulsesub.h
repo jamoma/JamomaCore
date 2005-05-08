@@ -17,7 +17,7 @@
 #include "tt_phasor.h"
 #include "tt_adsr.h"
 #include "tt_multiply.h"
-#include "tt_audio_signal"
+#include "tt_audio_signal.h"
 
 
 /********************************************************

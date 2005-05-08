@@ -24,10 +24,10 @@
 class tt_dcblock:public tt_audio_base{
 
 	private:
-		tt_sample_value 	last_input1;
-		tt_sample_value		last_output1;
-		tt_sample_value 	last_input2;
-		tt_sample_value		last_output2;
+		double	 	last_input1;
+		double		last_output1;
+		double	 	last_input2;
+		double		last_output2;
 	
 	public:
 
@@ -52,7 +52,7 @@ class tt_dcblock:public tt_audio_base{
 
 			while(vs--){
 				temp = *in->vector++;
-				*out->vector++ = last_output1 = temp - last_input1 + (last_output1 * 0.99);
+				*out->vector++ = last_output1 = temp - last_input1 + (last_output1 * 0.9997);
 				last_input1 = temp;
 			}
 			in->reset(); out->reset();
@@ -69,10 +69,10 @@ class tt_dcblock:public tt_audio_base{
 				temp1 = *in1->vector++;
 				temp2 = *in2->vector++;
 				
-				*out1->vector++ = last_output1 = temp1 - last_input1 + (last_output1 * 0.99);
+				*out1->vector++ = last_output1 = temp1 - last_input1 + (last_output1 * 0.9997);
 				last_input1 = temp1;
 
-				*out2->vector++ = last_output2 = temp2 - last_input2 + (last_output2 * 0.99);
+				*out2->vector++ = last_output2 = temp2 - last_input2 + (last_output2 * 0.9997);
 				last_input2 = temp2;
 			}
 			in1->reset(); in2->reset(); out1->reset(); out2->reset();
