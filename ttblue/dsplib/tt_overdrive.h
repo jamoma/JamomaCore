@@ -134,6 +134,7 @@ class tt_overdrive:public tt_audio_base{
 				// Integrated DC Blocker:
 				last_output1 = temp - last_input1 + (last_output1 * 0.9997);
 				last_input1 = temp;
+				temp = last_output1;
 
 				// Here starts the Overdrive:
 				float sign = 1.0;
@@ -173,6 +174,8 @@ class tt_overdrive:public tt_audio_base{
 				last_input1 = temp_left;
 				last_output2 = temp_right - last_input2 + (last_output2 * 0.9997);
 				last_input2 = temp_right;
+				temp_left = last_output1;
+				temp_right = last_output2;
 
 				// Here starts the Overdrive:
 				sign_left = 1.0;

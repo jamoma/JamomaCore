@@ -241,6 +241,8 @@ class tt_limiter:public tt_audio_base{
 				last_input1 = left_sample;
 				last_output2 = right_sample - last_input2 + (last_output2 * 0.9997);
 				last_input2 = right_sample;
+				left_sample = last_output1;
+				right_sample = last_output2;
 
 				// Limiter...		    	
 		    	buf1[bp] = right_sample * postamp;
@@ -308,6 +310,7 @@ class tt_limiter:public tt_audio_base{
 				// Integrated DC Blocker:
 				last_output1 = left_sample - last_input1 + (last_output1 * 0.9997);
 				last_input1 = left_sample;
+				left_sample = last_output1;
 
 		    	// Limiter...
 		    	buf1[bp] = right_sample * postamp;
