@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.output~">
+	<slot number = "1">
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "set_ch_1" value = "1" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "set_ch_2" value = "2" />
+		</patcher>
+		<patcher name = "jmod.parameter.gain.mxt">
+			<pattr name = "gain_midi" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[1]">
+			<pattr name = "filetype" value = "aiff" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[3]">
+			<pattr name = "samptype" value = "int24" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[2]">
+			<pattr name = "saturation_depth" value = "10." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[5]">
+			<pattr name = "limiter_preamp" value = "6." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[6]">
+			<pattr name = "limiter_postamp" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[9]">
+			<pattr name = "limiter_threshold" value = "-6." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[7]">
+			<pattr name = "limiter_lookahead" value = "64." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[8]">
+			<pattr name = "limiter_release" value = "300." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[10]">
+			<pattr name = "limiter_shape" value = "0" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[11]">
+			<pattr name = "limiter" value = "1" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[4]">
+			<pattr name = "saturation" value = "1" />
+		</patcher>
+	</slot>
+</pattrstorage>
