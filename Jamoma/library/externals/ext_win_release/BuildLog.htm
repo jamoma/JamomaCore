@@ -7,37 +7,39 @@
 <table width=100% bgcolor=#CFCFE5><tr> <td> <font face=arial size=+3>
 Build Log
 </font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
-<h3>------- Build started: Project: jmod.pass, Configuration: Release|Win32 -------
+<h3>------- Build started: Project: jmod.usurp, Configuration: Release|Win32 -------
 </h3>
 </pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
 Command Lines
 </font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>This edition of Visual C++ does not support the optimizing compiler.
-This edition of Visual C++ does not support the optimizing compiler.
 Creating temporary file "C:\DOCUME~1\TimPlace\LOCALS~1\Temp\RSP000001.rsp" with contents
 [
-/G6 /I "..\..\..\..\c74support\max-includes" /I "..\..\..\..\c74support\msp-includes" /I "..\..\..\..\c74support\max-includes\common\\" /D "WIN_VERSION" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "WIN_EXT_VERSION" /D "_WINDLL" /D "_MBCS" /GF /FD /MT /Zp2 /Fp"..\ext_win_release\jmod.pass.pch" /Fo"..\ext_win_release\\" /Fd"..\ext_win_release\jmod.pass" /W3 /c /TP
-".\jmod.pass.cpp"
+/G6 /I "..\..\..\..\c74support\max-includes" /I "..\..\..\..\c74support\msp-includes" /I "..\..\..\..\c74support\max-includes\common\\" /D "WIN_VERSION" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "WIN_EXT_VERSION" /D "_WINDLL" /D "_MBCS" /GF /FD /MT /Zp2 /Fp"..\ext_win_release\jmod.usurp.pch" /Fo"..\ext_win_release\\" /Fd"..\ext_win_release\jmod.usurp" /W3 /c /TP
+".\jmod.usurp.cpp"
+"\Documents and Settings\TimPlace\My Documents\c74support\max-includes\common\commonsyms.c"
 ]
 Creating command line "cl.exe @C:\DOCUME~1\TimPlace\LOCALS~1\Temp\RSP000001.rsp /nologo"
 Creating temporary file "C:\DOCUME~1\TimPlace\LOCALS~1\Temp\RSP000002.rsp" with contents
 [
-/OUT:".\..\Build_Windows\jmod.pass.mxe" /INCREMENTAL:NO /NOLOGO /DLL /DEF:".\jmod.pass.def" /DEBUG /PDB:"..\ext_win_release\jmod.pass.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /IMPLIB:"..\ext_win_release\jmod.pass.lib" /MACHINE:X86 /MACHINE:I386 .\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "\Documents and Settings\TimPlace\My Documents\c74support\max-includes\MaxAPI.lib" "\Documents and Settings\TimPlace\My Documents\c74support\msp-includes\MaxAudio.lib"
+/OUT:".\..\Build_Windows\jmod.usurp.mxe" /INCREMENTAL:NO /NOLOGO /DLL /DEF:".\jmod.usurp.def" /DEBUG /PDB:"..\ext_win_release\jmod.usurp.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /IMPLIB:"..\ext_win_release\jmod.usurp.lib" /MACHINE:X86 /MACHINE:I386 .\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "\Documents and Settings\TimPlace\My Documents\c74support\max-includes\MaxAPI.lib" "\Documents and Settings\TimPlace\My Documents\c74support\msp-includes\MaxAudio.lib"
 "\Documents and Settings\TimPlace\My Documents\Jamoma\library\externals\ext_win_release\commonsyms.obj"
-"\Documents and Settings\TimPlace\My Documents\Jamoma\library\externals\ext_win_release\jmod.pass.obj"
+"\Documents and Settings\TimPlace\My Documents\Jamoma\library\externals\ext_win_release\jmod.usurp.obj"
 ]
 Creating command line "link.exe @C:\DOCUME~1\TimPlace\LOCALS~1\Temp\RSP000002.rsp"
 </pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
 Output Window
 </font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Compiling...
-jmod.pass.cpp
+jmod.usurp.cpp
+commonsyms.c
+Generating Code...
 Linking...
-   Creating library ..\ext_win_release\jmod.pass.lib and object ..\ext_win_release\jmod.pass.exp
-jmod.pass.exp : warning LNK4070: /OUT:jmod.pass directive in .EXP differs from output filename '.\..\Build_Windows\jmod.pass.mxe'; ignoring directive
+   Creating library ..\ext_win_release\jmod.usurp.lib and object ..\ext_win_release\jmod.usurp.exp
+jmod.usurp.exp : warning LNK4070: /OUT:jmod.usurp directive in .EXP differs from output filename '.\..\Build_Windows\jmod.usurp.mxe'; ignoring directive
 LINK : warning LNK4235: /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
-jmod.pass.exp : warning LNK4070: /OUT:jmod.pass directive in .EXP differs from output filename '.\..\Build_Windows\jmod.pass.mxe'; ignoring directive
+jmod.usurp.exp : warning LNK4070: /OUT:jmod.usurp directive in .EXP differs from output filename '.\..\Build_Windows\jmod.usurp.mxe'; ignoring directive
 </pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
 Results
 </font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
 Build log was saved at "file://c:\Documents and Settings\TimPlace\My Documents\Jamoma\library\externals\ext_win_release\\BuildLog.htm"
-jmod.pass - 0 error(s), 3 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
+jmod.usurp - 0 error(s), 3 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
 </font></table></body></html>

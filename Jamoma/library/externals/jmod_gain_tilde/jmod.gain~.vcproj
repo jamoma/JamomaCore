@@ -188,7 +188,7 @@
 				RelativePath=".\jmod.gain~.def">
 			</File>
 			<File
-				RelativePath="..\..\..\..\ttblue\dsplib\taptools_base.cpp">
+				RelativePath="..\..\..\..\ttblue\dsplib\tt_audio_base.cpp">
 			</File>
 		</Filter>
 		<Filter

@@ -8,11 +8,11 @@
 #include "ext_strings.h"			// String Functions
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include "taptools_base.h"			// Tap.Tools Blue Headers...
-#include "taptools_audio_signal.h"
-#include "tap_crossfade.h"
-#include "tap_gain.h"
-#include "tap_copy.h"
+#include "tt_audio_base.h"			// Tap.Tools Blue Headers...
+#include "tt_audio_signal.h"
+#include "tt_crossfade.h"
+#include "tt_gain.h"
+#include "tt_copy.h"
 
 #define MAX_NUM_CHANNELS 16
 
@@ -20,8 +20,8 @@
 typedef struct _gain{
 	t_pxobject 			x_obj;
 	void				*obex;
-	tap_crossfade		*xfade;							// crossgain object from the ttblue library
-	tap_gain			*gain;							// gain control object the ttblue library
+	tt_crossfade		*xfade;							// crossgain object from the ttblue library
+	tt_gain				*gain;							// gain control object the ttblue library
 	tt_audio_signal		*signal_in[2];
 	tt_audio_signal		*signal_out;
 	tt_audio_signal		*signal_temp;
@@ -78,11 +78,11 @@ void main(void)				// main recieves a copy of the Max function macros table
 		(method)0L,(method)attr_set_bypass, calcoffset(t_gain, attr_bypass));
 	class_addattr(c, attr);
 	
-	attr = attr_offset_new("mix", _sym_float32, attrflags,
+	attr = attr_offset_new("mix", ps_float32, attrflags,
 		(method)0L,(method)attr_set_mix, calcoffset(t_gain, attr_mix));
 	class_addattr(c, attr);	
 	
-	attr = attr_offset_new("gain_midi", _sym_float32, attrflags,
+	attr = attr_offset_new("gain_midi", ps_float32, attrflags,
 		(method)0L,(method)attr_set_gain, calcoffset(t_gain, attr_gain));
 	class_addattr(c, attr);	
 	
@@ -111,7 +111,7 @@ void *gain_new(t_symbol *s, short argc, t_atom *argv)
 		x->num_chans = 1;
 		if(attrstart && argv){
 			int argument = atom_getlong(argv);
-			x->num_chans = taptools_audio::clip(argument, 1, MAX_NUM_CHANNELS);
+			x->num_chans = tt_audio_base::clip(argument, 1, MAX_NUM_CHANNELS);
 		}
 
 		dsp_setup((t_pxobject *)x, x->num_chans * 2);	// Create Object and Inlets
@@ -119,18 +119,18 @@ void *gain_new(t_symbol *s, short argc, t_atom *argv)
 		for(i=0; i< (x->num_chans); i++)
 			outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet   		
 
-		x->xfade = new tap_crossfade;						// Constructors
-		x->gain = new tap_gain;
+		x->xfade = new tt_crossfade;						// Constructors
+		x->gain = new tt_gain;
 		x->signal_temp = new tt_audio_signal;
 		x->signal_out = new tt_audio_signal;
 		for(i=0; i<2; i++){
 			x->signal_in[i] = new tt_audio_signal;
 		}
 		
-		x->xfade->set_attr(tap_crossfade::k_mode, 0);		// defaults
-		x->xfade->set_attr(tap_crossfade::k_shape, 0);
-		x->xfade->set_attr(tap_crossfade::k_position, 1);
-		x->gain->set_attr(tap_gain::k_gain_direct, 0);
+		x->xfade->set_attr(tt_crossfade::k_mode, 0);		// defaults
+		x->xfade->set_attr(tt_crossfade::k_shape, 0);
+		x->xfade->set_attr(tt_crossfade::k_position, 1);
+		x->gain->set_attr(tt_gain::k_gain_direct, 0);
 		
 		x->attr_bypass = 0;
 		x->attr_gain = 0;
@@ -176,7 +176,7 @@ void gain_assist(t_gain *x, void *b, long msg, long arg, char *dst)
 t_max_err attr_set_gain(t_gain *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_gain = atom_getfloat(argv);
-	x->gain->set_attr(tap_gain::k_gain, (x->attr_gain - 127) * .6);		// convert midi to db for tap_gain
+	x->gain->set_attr(tt_gain::k_gain, (x->attr_gain - 127) * .6);		// convert midi to db for tap_gain
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
@@ -188,7 +188,7 @@ t_max_err attr_set_mix(t_gain *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_mix = atom_getfloat(argv);
 	if(x->attr_bypass == 0)
-		x->xfade->set_attr(tap_crossfade::k_position, x->attr_mix * 0.01);
+		x->xfade->set_attr(tt_crossfade::k_position, x->attr_mix * 0.01);
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
@@ -200,9 +200,9 @@ t_max_err attr_set_bypass(t_gain *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_bypass = atom_getlong(argv);
 	if(x->attr_bypass == 0)
-		x->xfade->set_attr(tap_crossfade::k_position, x->attr_mix * 0.01);
+		x->xfade->set_attr(tt_crossfade::k_position, x->attr_mix * 0.01);
 	else
-		x->xfade->set_attr(tap_crossfade::k_position, 0.0);
+		x->xfade->set_attr(tt_crossfade::k_position, 0.0);
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
