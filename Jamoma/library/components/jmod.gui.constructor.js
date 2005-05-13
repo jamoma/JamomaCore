@@ -200,6 +200,7 @@ function bang()
 	// make sure everything is visible
 	outlet(0, "script", "sendtoback", "background");
 	outlet(0, "script", "sendtoback", "menu");
+	outlet(0, "script", "sendtoback", "param_reference");
 	
 	has_run = 1;
 }
