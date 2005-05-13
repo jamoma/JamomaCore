@@ -232,7 +232,7 @@ void meter_tick(t_meter *x)
 {
 	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
 		if(x->attr_defeat == 0)
-			clock_delay(x->clock, POLL_INTERVAL); 		// schedule the clock
+			clock_delay(x->clock, POLL_INTERVAL); 	// schedule the clock
 		qelem_set(x->qelem); 						// draw the meters
 	}
 }
