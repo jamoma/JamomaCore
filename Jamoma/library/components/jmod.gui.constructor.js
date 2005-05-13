@@ -15,6 +15,7 @@ const NUM_DEFAULT_INLETS_AND_OUTLETS = 32;	// number of these in the jmod.gui
 // GLOBALS
 var attr_module_type = "audio";
 var attr_skin = "default";
+var attr_option_no_panel = false;
 var attr_num_inputs = 1;
 var attr_num_outputs = 1;
 var attr_meter_toggle = 1;
@@ -117,6 +118,10 @@ function bang()
 				outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
 				outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(num_channels+i+1), 0);
 			}
+
+			// handle any relevant options
+			if(attr_option_no_panel)
+				outlet(0, "script", "delete", "controls");
 			
 			// Setup the Menu
 			outlet(3, "append", "Defeat Signal Meters");
@@ -283,6 +288,13 @@ function module_type(message)
 	attr_module_type = message;
 }
 
+
+// Set attribute
+function options(message)
+{
+	if(message == "no_panel")
+		attr_option_no_panel = true
+}
 
 // Set attribute
 function skin(message)
