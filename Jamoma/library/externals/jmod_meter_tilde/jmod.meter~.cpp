@@ -1,5 +1,7 @@
 // External Object for Jamoma: signal level meter 
-// By Timothy Place, Copyright © 2005
+// By Timothy Place
+// Modifications for Compiling on Windows by Thomas Grill
+// Copyright © 2005
 // License: GNU LGPL
 
 // define 
