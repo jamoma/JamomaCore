@@ -2,6 +2,10 @@
 // By Timothy Place, Copyright © 2005
 // License: GNU LGPL
 
+// define 
+
+#define USE_QTML
+
 #include "ext.h"				// Max Header
 #include "ext_user.h"
 #include "ext_common.h"			// includes the MIN macro
@@ -11,6 +15,10 @@
 #include "ext_wind.h"
 #include <math.h>
 #include "z_dsp.h"				// MSP Header
+
+#ifdef USE_QTML
+#include "ext_qtstubs.h"
+#endif
 
 // Macros and Constants
 #define RES_ID			10120		// ID of our SICN resources
@@ -58,7 +66,7 @@ t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv);
 
 // Globals
 t_class *meter_class;
-
+t_symbol *ps_long;
 
 /************************************************************************************/
 // Main() Function
@@ -70,6 +78,7 @@ void main(void)
 	t_object *attr;
 	
 	common_symbols_init();
+	ps_long = gensym("long");
 
 	c = class_new("jmod.meter~",(method)meter_new, (method)meter_free, (short)sizeof(t_meter), (method)meter_menu, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_meter, obex));
@@ -82,7 +91,7 @@ void main(void)
 	class_addmethod(c, (method)meter_float,		"float", A_FLOAT, 0L);
  	class_addmethod(c, (method)meter_dsp, 		"dsp", A_CANT, 0L);		
 
-	attr = attr_offset_new("defeat", _sym_long, attrflags,
+	attr = attr_offset_new("defeat", ps_long, attrflags,
 		(method)0L,(method)attr_set_defeat, calcoffset(t_meter, attr_defeat));
 	class_addattr(c, attr);
 
@@ -288,7 +297,10 @@ void meter_update(t_meter *x)
 		
 		//xgui_allocoffscreen(x); // (existing offsceen is disposed inside)
 	}
-	meter_draw(x);
+
+	GrafPtr	gp = XQT_patcher_setport(x->my_box.z_box.b_patcher);
+    meter_draw(x);
+    XQT_patcher_restoreport(gp); 
 }
 
 
@@ -328,40 +340,41 @@ void meter_psave(t_meter *x, void *w)
 // The deferred routine called by our Qelem
 void meter_qfn(t_meter *x)
 {
-	GrafPtr	gp = patcher_setport(x->my_box.z_box.b_patcher);
-	
+	GrafPtr	gp = XQT_patcher_setport(x->my_box.z_box.b_patcher);
+	 
 	if(gp){				// if the pointer is valid...
-		if(!box_nodraw((t_box *)x)){
+		if(!XQT_box_nodraw((t_box *)x)){
 			meter_draw(x);
-			box_enddraw((t_box *)x);
+			XQT_box_enddraw((t_box *)x);
 		}
 	}
-	patcher_restoreport(gp);
+	XQT_patcher_restoreport(gp); 
 }
-
-
+ 
+     
 // The actual drawing routine
-void meter_draw(t_meter *x)
-{
+void meter_draw(t_meter *x)   
+{ 
 	GrafPtr		curPort;
-	GDHandle	curDevice;
-	RGBColor	frgb, old_color;
+	GDHandle	curDevice; 
+	RGBColor	frgb, old_color; 
 	Rect		rect_ui = x->my_box.z_box.b_rect;
 	Rect		rect_temp;
-	short		i;
+	short		i; 
 	short		width_ui = x->my_box.z_box.b_rect.right - x->my_box.z_box.b_rect.left;
 	short		width_green = 0.96 * width_ui;		// 96% of total width
 	short		width_red = width_ui - width_green;	// 4% of total width
 	short		left = x->my_box.z_box.b_rect.left;
 	float		level;
 	short		position;
-	
+	 
 	GetGWorld((CGrafPtr *)&curPort, &curDevice);
 	GetForeColor(&old_color);
 	PenMode(srcCopy);
-	
+
 	frgb.blue = 0;
 	frgb.green = 65535;
+
 	rect_temp.top = x->my_box.z_box.b_rect.top;
 	rect_temp.bottom = x->my_box.z_box.b_rect.bottom;
 
@@ -369,20 +382,19 @@ void meter_draw(t_meter *x)
 	for(i=0; i<width_green; i++){
 		rect_temp.left = left + i;
 		rect_temp.right = rect_temp.left + 1;
-		frgb.red = (i * 65535) / width_green;
-		
+
+		frgb.red = (i * 65535) / width_green;	
 		RGBForeColor(&frgb);
 		PaintRect(&rect_temp);
 	}
 
-	// Draw Red
-	frgb.green = 0;
 	rect_temp.left = left + i;
 	rect_temp.right = x->my_box.z_box.b_rect.right;
 	
+	// Draw Red
+	frgb.green = 0;
 	RGBForeColor(&frgb);
 	PaintRect(&rect_temp);
-
 
 	// Draw Gray
 	frgb.red = 8000;
@@ -420,19 +432,19 @@ void meter_draw(t_meter *x)
 	}
 
 	if((x->peak > 0) && (x->peak <1)){	// Green Range
-		frgb.green = 65535;
-		frgb.red = x->peak_level * 5653.5;
 		rect_temp.left = x->peak_position;
 		rect_temp.right = x->peak_position + 1;
+		frgb.green = 65535;
+		frgb.red = x->peak_level * 5653.5;
 		RGBForeColor(&frgb);
 		PaintRect(&rect_temp);
 	}
 	else if(x->peak > 0){				// Red Range
+		rect_temp.left = left + i;
+		rect_temp.right = x->my_box.z_box.b_rect.right;
 		frgb.red = 65535;
 		frgb.green = 0;
 		frgb.blue = 0;
-		rect_temp.left = left + i;
-		rect_temp.right = x->my_box.z_box.b_rect.right;
 		RGBForeColor(&frgb);
 		PaintRect(&rect_temp);
 	}

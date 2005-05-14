@@ -26,7 +26,7 @@
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\..\c74support\max-includes\common\&quot;;..\..\..\..\ttblue\dsplib"
+				AdditionalIncludeDirectories="..\..\..\..\c74support\QuickTime\inc;&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\..\c74support\max-includes\common\&quot;;..\..\..\..\ttblue\dsplib"
 				PreprocessorDefinitions="WIN_VERSION;WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
@@ -49,8 +49,8 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
-				OutputFile=".\..\Build_Windows\jmod.meter~.mxe"
+				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib .\..\..\..\..\c74support\QuickTime\lib\qtmlClient.lib"
+				OutputFile=".\jmod.meter~.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
@@ -187,13 +187,13 @@
 			<File
 				RelativePath=".\jmod.meter~.def">
 			</File>
-			<File
-				RelativePath="..\..\..\..\ttblue\dsplib\taptools_base.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\..\..\MaxWinSDK\win-sdks\QuickTime\inc\QTML.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
