@@ -97,9 +97,10 @@ function bang()
 	
 	
 		if(has_run == 0){
-			// script in the 
-			outlet(2, num_channels);	// send the number of channels to the controls
-			
+//			outlet(2, num_channels);	// send the number of channels to the controls
+// JUST MOVED DOWN BELOW
+
+
 			// move the controls if neccessary
 			if(width == 1)
 				outlet(0, "script", "offset", "controls", -255, 0);
@@ -133,6 +134,9 @@ function bang()
 			outlet(3, "append", "-");
 			outlet(3, "append", "Open Online Reference");
 			outlet(3, "append", "View Internal Components");
+
+
+			outlet(2, num_channels);	// send the number of channels to the controls
 		}		
 	}
 	else if(attr_module_type == "video"){
