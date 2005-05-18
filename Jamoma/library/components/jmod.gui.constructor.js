@@ -125,6 +125,7 @@ function bang()
 				outlet(0, "script", "delete", "controls");
 			
 			// Setup the Menu
+			outlet(3, "clear");
 			outlet(3, "append", "Defeat Signal Meters");
 			outlet(3, "append", "Clear Signal Meters");
 			outlet(3, "append", "-");
@@ -161,6 +162,7 @@ function bang()
 				outlet(0, "script", "offset", "pwindow", -255, 0);
 			
 			// Setup the Menu
+			outlet(3, "clear");
 			outlet(3, "append", "Preview Output");
 			outlet(3, "append", "Force a Frame of Output");
 			outlet(3, "append", "-");
@@ -192,6 +194,7 @@ function bang()
 			}
 	
 			// Setup the Menu
+			outlet(3, "clear");
 			outlet(3, "append", "Load Settings...");
 			outlet(3, "append", "Save Settings...");
 			outlet(3, "append", "Restore Default Settings");
