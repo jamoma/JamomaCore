@@ -1,0 +1,18 @@
+max v2;
+#N vpatcher 389 385 723 669;
+#P window setfont "Sans Serif" 9.;
+#P newex 114 149 138 196617 route $1;
+#P outlet 86 179 15 0;
+#P inlet 86 25 15 0;
+#P newex 115 51 138 196617 prepend $1;
+#P newex 115 71 138 196617 s ---parameter_set;
+#P newex 114 128 138 196617 r ---parameter_get;
+#N pp $2 $3 $4 $5;
+#P newobj 86 90 167 196617 pp $2 $3 $4 $5;
+#P connect 4 0 0 0;
+#P connect 0 0 5 0;
+#P connect 6 0 5 0;
+#P connect 1 0 6 0;
+#P connect 4 0 3 0;
+#P connect 3 0 2 0;
+#P pop;
