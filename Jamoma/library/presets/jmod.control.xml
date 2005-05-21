@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.control">
+	<slot number = "1">
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "audio" value = "0" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
