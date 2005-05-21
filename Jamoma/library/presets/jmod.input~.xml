@@ -24,10 +24,10 @@
 			<pattr name = "link" value = "1" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "set_ch_1" value = "1" />
+			<pattr name = "ch_1" value = "1" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "set_ch_2" value = "2" />
+			<pattr name = "ch_2" value = "2" />
 		</patcher>
 	</slot>
 </pattrstorage>
