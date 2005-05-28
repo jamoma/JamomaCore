@@ -1,5 +1,5 @@
 max v2;
-#N vpatcher 328 44 965 290;
+#N vpatcher 303 130 940 376;
 #P window setfont "Sans Serif" 9.;
 #P window linecount 3;
 #P hidden newex 193 109 79 196617 pattrstorage @autorestore 0 @savemode 0;
