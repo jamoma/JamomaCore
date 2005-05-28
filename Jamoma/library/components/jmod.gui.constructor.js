@@ -142,14 +142,18 @@ function bang()
 	}
 	else if(attr_module_type == "video"){
 		if(has_run == 0){
-			// Create the standard messages
-			outlet(0, "script", "hidden", "new", "param_preview", "jmod.parameter.mxt", local_token, "preview");
-			outlet(0, "script", "hidden", "new", "param_bypass", "jmod.parameter.mxt", local_token, "bypass");
-			outlet(0, "script", "hidden", "new", "param_freeze", "jmod.parameter.mxt", local_token, "freeze");
-			outlet(0, "script", "hidden", "new", "param_mute", "jmod.parameter.mxt", local_token, "mute");
-			
 			// Delete the audio controls
 			outlet(0, "script", "delete", "controls");
+			
+			// Create the standard messages
+			outlet(0, "script", "hidden", "new", "param_preview", "newex", 67, 278, 291, 196617, 
+				"jmod.parameter.mxt", local_token, "preview");
+			outlet(0, "script", "hidden", "new", "param_bypass", "newex", 67, 278, 291, 196617, 
+				"jmod.parameter.mxt", local_token, "bypass");
+			outlet(0, "script", "hidden", "new", "param_freeze", "newex", 67, 278, 291, 196617, 
+				"jmod.parameter.mxt", local_token, "freeze");
+			outlet(0, "script", "hidden", "new", "param_mute", "newex", 67, 278, 291, 196617, 
+				"jmod.parameter.mxt", local_token, "mute");
 			
 			// delete extra inlets and outlets
 			for(i=num_channels;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
