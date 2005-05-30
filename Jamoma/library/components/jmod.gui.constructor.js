@@ -31,6 +31,8 @@ var width = "half";
 var	p = this.patcher;
 var offset_x = 0;
 var offset_y = 0;
+var menu_items = new Array();
+var menu_num_presets = 0;
 var has_run = 0;				// flag indicating that this module has previously been built
 
 
@@ -125,16 +127,16 @@ function bang()
 				outlet(0, "script", "delete", "controls");
 			
 			// Setup the Menu
-			outlet(3, "clear");
-			outlet(3, "append", "Defeat Signal Meters");
-			outlet(3, "append", "Clear Signal Meters");
-			outlet(3, "append", "-");
-			outlet(3, "append", "Load Settings...");
-			outlet(3, "append", "Save Settings...");
-			outlet(3, "append", "Restore Default Settings");
-			outlet(3, "append", "-");
-			outlet(3, "append", "Open Online Reference");
-			outlet(3, "append", "View Internal Components");
+			menu_clear();
+			menu_add("Defeat Signal Meters");
+			menu_add("Clear Signal Meters");
+			menu_add("-");
+			menu_add("Load Settings...");
+			menu_add("Save Settings...");
+			menu_add("Restore Default Settings");
+			menu_add("-");
+			menu_add("Open Online Reference");
+			menu_add("View Internal Components");
 
 
 			outlet(2, num_channels);	// send the number of channels to the controls
@@ -166,20 +168,20 @@ function bang()
 				outlet(0, "script", "offset", "pwindow", -255, 0);
 			
 			// Setup the Menu
-			outlet(3, "clear");
-			outlet(3, "append", "Preview Output");
-			outlet(3, "append", "Force a Frame of Output");
-			outlet(3, "append", "-");
-			outlet(3, "append", "Bypass");
-			outlet(3, "append", "Freeze");
-			outlet(3, "append", "Mute");
-			outlet(3, "append", "-");
-			outlet(3, "append", "Load Settings...");
-			outlet(3, "append", "Save Settings...");
-			outlet(3, "append", "Restore Default Settings");
-			outlet(3, "append", "-");
-			outlet(3, "append", "Open Online Reference");
-			outlet(3, "append", "View Internal Components");
+			menu_clear();
+			menu_add("Preview Output");
+			menu_add("Force a Frame of Output");
+			menu_add("-");
+			menu_add("Bypass");
+			menu_add("Freeze");
+			menu_add("Mute");
+			menu_add("-");
+			menu_add("Load Settings...");
+			menu_add("Save Settings...");
+			menu_add("Restore Default Settings");
+			menu_add("-");
+			menu_add("Open Online Reference");
+			menu_add("View Internal Components");
 		}
 	}
 	else{	// attr_module_type == "control"
@@ -198,15 +200,18 @@ function bang()
 			}
 	
 			// Setup the Menu
-			outlet(3, "clear");
-			outlet(3, "append", "Load Settings...");
-			outlet(3, "append", "Save Settings...");
-			outlet(3, "append", "Restore Default Settings");
-			outlet(3, "append", "-");
-			outlet(3, "append", "Open Online Reference");
-			outlet(3, "append", "View Internal Components");
+			menu_clear();
+			menu_add("Load Settings...");
+			menu_add("Save Settings...");
+			menu_add("Restore Default Settings");
+			menu_add("-");
+			menu_add("Open Online Reference");
+			menu_add("View Internal Components");
 		}
 	}
+	
+	// build the module menu
+	menu_build();
 	
 	// make sure everything is visible
 	outlet(0, "script", "sendtoback", "background");
@@ -234,6 +239,7 @@ function msg_int(value)
 			case 5: outlet(4, "restore_defaults"); break;
 			case 7: outlet(4, "help"); break;
 			case 8: outlet(4, "view_internals"); break;
+			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
 	else if(attr_module_type == "video"){
@@ -277,6 +283,7 @@ function msg_int(value)
 			case 9: outlet(4, "restore_defaults"); break;
 			case 11: outlet(4, "help"); break;
 			case 12: outlet(4, "view_internals"); break;		
+			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 		outlet(3, "checkitem", 3, attr_bypass);
 		outlet(3, "checkitem", 4, attr_freeze);
@@ -289,6 +296,7 @@ function msg_int(value)
 			case 2: outlet(4, "restore_defaults"); break;
 			case 4: outlet(4, "help"); break;
 			case 5: outlet(4, "view_internals"); break;
+			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
 }
@@ -360,3 +368,49 @@ function anything()
 	;
 }
 
+/************************** MODULE MENU MANAGEMENT ************************/
+// Builds the Module Menu
+function menu_build()
+{
+	outlet(3, "clear");
+	for(var i=0; i< (menu_items.length - menu_num_presets); i++){
+		outlet(3, "append", menu_items[i]);
+	}
+	outlet(3, "append", "-");
+	for(var i=menu_items.length-menu_num_presets; i<menu_items.length; i++){
+		outlet(3, "append", menu_items[i]);
+	}
+}
+
+
+// empty the array here
+function menu_clear()
+{
+	menu_presets_clear();
+	for(var i=0; i<menu_items.length; i++)
+		menu_items.pop();
+}
+
+
+// add an item to the array
+function menu_add(item_name)
+{
+	menu_items.push(item_name);
+}
+
+
+// remove presets from the menu array
+function menu_presets_clear()
+{
+	for(var i=0; i<menu_num_presets; i++)
+		menu_items.pop();
+	menu_num_presets = 0;
+}
+
+
+// add presets to the menu array
+function menu_presets_add(preset_name)
+{
+	menu_add(preset_name)
+	menu_num_presets++;
+}

@@ -13,6 +13,7 @@ const MAX_NUM_CHANNELS = 16;
 // GLOBALS
 var	num_channels;
 var	p = this.patcher;
+var local_token = "none";
 
 
 // CONFIGURATION
@@ -43,6 +44,36 @@ function msg_int(value)
  	var i;
  	num_channels = value;
 
+	// Create parameters
+	outlet(0, "script", "hidden", "new", "pattr_sr", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "sr", "@repetitions", 0);
+	outlet(0, "script", "hidden", "new", "pattr_mute", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "mute");
+	outlet(0, "script", "hidden", "new", "pattr_bypass", "newex", 100, 100, 150, 196617, 		"jmod.parameter.mxt", local_token, "bypass");
+	outlet(0, "script", "hidden", "new", "pattr_mix", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "mix", "@ramp_enable", 1);
+	outlet(0, "script", "hidden", "new", "pattr_defeat_meters", "newex", 100, 100, 150, 196617, "jmod.parameter.mxt", local_token, "defeat_meters");
+	outlet(0, "script", "hidden", "new", "pattr_gain", "newex", 100, 100, 150, 196617, 			"jmod.parameter.gain.mxt", local_token, "gain");
+
+	// Connect Parameters
+	outlet(0, "script", "hidden", "connect", "samprate", 0, "pattr_sr", 0);
+	outlet(0, "script", "hidden", "connect", "pattr_sr", 0, "samprate", 0);
+
+	outlet(0, "script", "hidden", "connect", "button_mute", 0, "pattr_mute", 0);
+	outlet(0, "script", "hidden", "connect", "pattr_mute", 0, "button_mute", 0);
+
+	outlet(0, "script", "hidden", "connect", "button_bypass", 0, "pattr_bypass", 0);
+	outlet(0, "script", "hidden", "connect", "pattr_bypass", 0, "button_bypass", 0);
+	
+	outlet(0, "script", "hidden", "connect", "pattr_mix", 1, "mix", 0);
+	outlet(0, "script", "hidden", "connect", "pattr_mix", 1, "mult_mix_out", 0);	
+	outlet(0, "script", "hidden", "connect", "mult_mix_in", 0, "pattr_mix", 0);	
+	
+	outlet(0, "script", "hidden", "connect", "pattr_defeat_meters", 1, "mess_dm", 0);
+
+	outlet(0, "script", "hidden", "connect", "pvar_gain",0, "pattr_gain",0);
+	outlet(0, "script", "hidden", "connect", "pattr_gain", 0, "mess_gain_set", 0);
+	outlet(0, "script", "hidden", "connect", "pattr_gain", 0, "gain_midi", 0);
+	
+
+	// Make Other Connnections
 	outlet(0, "script", "hidden", "new", "jmod_gain", "newex", 250, 520, num_channels * 50, 196617, "jmod.gain~", num_channels);
 	outlet(0, "script", "hidden", "connect", "gain_midi", 0 ,"jmod_gain", 0);
 	outlet(0, "script", "hidden", "connect", "bypass", 0 ,"jmod_gain", 0);
@@ -76,4 +107,8 @@ function msg_int(value)
 	}
 }
  
- 
+
+function token(value)
+{
+	local_token = value;
+}
