@@ -18,13 +18,13 @@ var attr_skin = "default";
 var attr_option_no_panel = false;
 var attr_num_inputs = 1;
 var attr_num_outputs = 1;
+var	num_channels;
 var attr_meter_toggle = 1;
 var attr_preview = 1;
 var attr_bypass = 0;
 var attr_mute = 0;
 var attr_freeze = 0;
 var local_token = 0;
-var	num_channels;
 var attr_size = "1Uh";
 var height = 1;
 var width = "half";
@@ -99,28 +99,34 @@ function bang()
 	
 	
 		if(has_run == 0){
-//			outlet(2, num_channels);	// send the number of channels to the controls
-// JUST MOVED DOWN BELOW
-
-
 			// move the controls if neccessary
 			if(width == 1)
 				outlet(0, "script", "offset", "controls", -255, 0);
 		
 			// delete extra inlets and outlets
-			for(i=num_channels*2;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+//			for(i=num_channels*2;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+//				outlet(0, "script", "delete", "inlet_"+(i+1));
+//				outlet(0, "script", "delete", "outlet_"+(i+1));			
+//			}
+			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "inlet_"+(i+1));
+			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "outlet_"+(i+1));			
-			}
+
 	
 			// delete the video preview window
 			outlet(0, "script", "delete", "pwindow");
 	
 			// connect inlets and outlets
-			for(i=0; i<num_channels; i++){
+//			for(i=0; i<num_channels; i++){
+//				outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
+//				outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(num_channels+i+1), 0);
+//			}
+			for(i=0; i<attr_num_inputs; i++)
 				outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
-				outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(num_channels+i+1), 0);
-			}
+			for(i=0; i<attr_num_outputs; i++)
+				outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(attr_num_inputs+i+1), 0);
+
 
 			// handle any relevant options
 			if(attr_option_no_panel)
@@ -158,10 +164,10 @@ function bang()
 				"jmod.parameter.mxt", local_token, "mute");
 			
 			// delete extra inlets and outlets
-			for(i=num_channels;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
+			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "inlet_"+(i+1));
+			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "outlet_"+(i+1));			
-			}
 			
 			// move the preview window if neccessary
 			if(width == 1)
