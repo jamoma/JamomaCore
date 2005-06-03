@@ -4,7 +4,7 @@ max v2;
 #P window linecount 1;
 #P hidden newex 67 340 205 196617 jmod.parameter $0_ algorithm @type menu;
 #P objectname jmod.parameter.mxt[1];
-#P hidden newex 67 278 291 196617 jmod.parameter $0_ thresh @type msg_float @ramp_enable 1;
+#P hidden newex 67 278 255 196617 jmod.parameter $0_ thresh @type msg_float @ramp 1;
 #P objectname jmod.parameter.mxt;
 #P hidden newex 67 319 78 196617 pvar Algorithm;
 #P hidden newex 67 258 64 196617 pvar Thresh;

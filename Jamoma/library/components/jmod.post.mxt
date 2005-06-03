@@ -1,9 +1,10 @@
 max v2;
-#N vpatcher 391 249 703 396;
+#N vpatcher 391 249 720 515;
 #P origin 18 0;
 #P window setfont "Sans Serif" 9.;
+#P window linecount 1;
 #P newex 165 86 112 196617 prepend $1;
-#P newex 165 106 75 196617 send jmod.post;
+#P newex 165 148 75 196617 send jmod.post;
 #P newex 34 86 128 196617 print $1;
 #P inlet 122 44 15 0;
 #P connect 0 0 1 0;

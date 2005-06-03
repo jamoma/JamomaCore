@@ -48,7 +48,7 @@ function msg_int(value)
 	outlet(0, "script", "hidden", "new", "pattr_sr", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "sr", "@repetitions", 0);
 	outlet(0, "script", "hidden", "new", "pattr_mute", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "mute");
 	outlet(0, "script", "hidden", "new", "pattr_bypass", "newex", 100, 100, 150, 196617, 		"jmod.parameter.mxt", local_token, "bypass");
-	outlet(0, "script", "hidden", "new", "pattr_mix", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "mix", "@ramp_enable", 1);
+	outlet(0, "script", "hidden", "new", "pattr_mix", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "mix", "@ramp", 1);
 	outlet(0, "script", "hidden", "new", "pattr_defeat_meters", "newex", 100, 100, 150, 196617, "jmod.parameter.mxt", local_token, "defeat_meters");
 	outlet(0, "script", "hidden", "new", "pattr_gain", "newex", 100, 100, 150, 196617, 			"jmod.parameter.gain.mxt", local_token, "gain");
 
