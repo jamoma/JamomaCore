@@ -102,5 +102,5 @@ void round_float(t_round *x, double value)
 	else
 		out = ((long)(value - 0.5));
 
-	outlet_float(x->outlet, out);
+	outlet_int(x->outlet, out);
 }
