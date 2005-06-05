@@ -12,13 +12,12 @@
 
 autowatch = 1;
 
-/*********************************
-*
-*	To be deleted
-*
-***************************************************/
-var myval=0;
-
+var this_module_name;
+var this_module_type;
+var this_module_size;
+var this_module_inlets;
+var this_module_outlets;
+var this_module_description;
 
 
 /*******************************************************************
@@ -70,7 +69,7 @@ function bang()
 
 	outlet(1, "tab");
 	outlet(1, "tab");	
-	outlet(1, "<title>Jamoma: module reference</title>");
+	outlet(1, "<title>", this_module_name, "</title>");
 	outlet(1, "cr");
 	
 	outlet(1, "tab");
@@ -105,7 +104,7 @@ function bang()
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "<td class=\"moduleName\">");
-	outlet(1, "Module Name"); 				// Have to be made dynamic
+	outlet(1, this_module_name);
 	outlet(1, "</td>");	
 	outlet(1, "cr");	
 
@@ -123,7 +122,7 @@ function bang()
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "<td class=\"moduleDescription\">");
-	outlet(1, "Module Description"); 		// Have to be made dynamic
+	outlet(1, this_module_description);
 	outlet(1, "</td>");	
 	outlet(1, "cr");	
 
@@ -139,138 +138,173 @@ function bang()
 	outlet(1, "cr");
 
 
+	/*
 
-	// More description
+				// More description
+				
+				outlet(1, "tab");
+				outlet(1, "<p>", "More Description");	// Have to be made dynamic
+				outlet(1, "NameOfModule");
+				outlet(1, "</P>");
+				outlet(1, "cr");
+	
+	*/
+
+	// Type
 	
 	outlet(1, "tab");
-	outlet(1, "<p>", "More Description");	// Have to be made dynamic
-	outlet(1, "NameOfModule");
-	outlet(1, "</P>");
+	outlet(1, "<p>", "Type of module:", "<code>");	
+	outlet(1, this_module_type);
+	outlet(1, "</code>", "<br>");
 	outlet(1, "cr");
-	
+
 	// Size
 	
 	outlet(1, "tab");
-	outlet(1, "<p>", "size", "=", "<code>");	
-	outlet(1, "size");						// Have to be made dynamic
+	outlet(1, "size", "=", "<code>");	
+	outlet(1, this_module_size);
 	outlet(1, "</code>", "</p>");
 	outlet(1, "cr");
 
 	outlet(1, "cr");
-
+	
 
 
 	// Info on inlets and outlets
 	
-	// Heading 1
-	
 	outlet(1, "tab");
-	outlet(1, "<table>");
+	outlet(1, "<p>", "Number of inlets:", "<code>");	
+	outlet(1, 1, "+", this_module_inlets);
+	outlet(1, "</code>", "<br>");
 	outlet(1, "cr");
 	
 	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<tr>");
+	outlet(1, "Number of outlets", "<code>");	
+	outlet(1, 1, "+", this_module_outlets);
+	outlet(1, "</code>", "</p>");
 	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"tableHeading1\">");
-	outlet(1, "Connections");
-	outlet(1, "</td>");	
+
 	outlet(1, "cr");	
+	
+	/*********************
+	
+				// This section is commented out.
+				// If we find a way of providing more detailed info about the various inputs and outputs
+				// it could be used, but for the time being we're going for a easier and simpler solution
+				// (see above)
+				
+				// Heading 1
+				
+				outlet(1, "tab");
+				outlet(1, "<table>");
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<tr>");
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<td class=\"tableHeading1\">");
+				outlet(1, "Connections");
+				outlet(1, "</td>");	
+				outlet(1, "cr");	
 
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "</tr>");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "</table>");
-	outlet(1, "cr");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "</tr>");
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "</table>");
+				outlet(1, "cr");
 
-	outlet(1, "cr");
-	
-	// Heading 2
-	
-	outlet(1, "tab");
-	outlet(1, "<table>");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<tr class=\"tableHeading2\">");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td width=\"15%\">");
-	outlet(1, "I/O");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td width=\"15%\">");
-	outlet(1, "Type");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td>");
-	outlet(1, "Additional Info");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
+				outlet(1, "cr");
+				
+				// Heading 2
+				
+				outlet(1, "tab");
+				outlet(1, "<table>");
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<tr class=\"tableHeading2\">");
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<td width=\"15%\">");
+				outlet(1, "I/O");
+				outlet(1, "</td>");	
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<td width=\"15%\">");
+				outlet(1, "Type");
+				outlet(1, "</td>");	
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<td>");
+				outlet(1, "Additional Info");
+				outlet(1, "</td>");	
+				outlet(1, "cr");
 
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "</tr>");
-	outlet(1, "cr");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "</tr>");
+				outlet(1, "cr");
 
+				// Content
+				// Have to be made dynamic: Check for inlets and outlets. Types. Etc.
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<tr>");
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<td class=\"instructionName\">");
+				outlet(1, "output(1)");
+				outlet(1, "</td>");	
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<td class=\"instructionDescription\">");
+				outlet(1, "audio");
+				outlet(1, "</td>");	
+				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "<td class=\"instructionDescription\">");
+				outlet(1, "n/a");
+				outlet(1, "</td>");	
+				outlet(1, "cr");
 
-	// Content
-	// Have to be made dynamic: Check for inlets and outlets. Types. Etc.
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<tr>");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionName\">");
-	outlet(1, "output(1)");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionDescription\">");
-	outlet(1, "audio");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionDescription\">");
-	outlet(1, "n/a");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
+				outlet(1, "tab");
+				outlet(1, "tab");
+				outlet(1, "</tr>");
+				outlet(1, "cr");
 
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "</tr>");
-	outlet(1, "cr");
-
-	// End of inlets/outlets table
+				// End of inlets/outlets table
+				
+	
+	//End of commented section
+	****************************************************/
 	
 	outlet(1, "tab");
 	outlet(1, "</table>");
@@ -558,4 +592,39 @@ function documentation()
 	outlet(1, "tab");
 	outlet(1, "</tr>");
 	outlet(1, "cr");
+}
+
+function title(s)
+{
+	this_module_name = s;
+}
+
+function size(s)
+{
+	this_module_size = s;
+}
+
+function module_type(s)
+{
+	this_module_type = s;
+}
+
+function num_inputs(i)
+{
+	this_module_inlets = i;
+}
+
+function num_outputs(i)
+{
+	this_module_outlets = i;
+}
+
+function module_documentation()
+{
+	this_module_description = arrayfromargs(arguments);
+}
+
+function anything()
+{
+	// any kind of message that's supposed to be ignored
 }
