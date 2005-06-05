@@ -1,21 +1,156 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>Jade: degrade</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title> jmod.degrade~ </title>
+		<link href="../styles/jamoma.css" rel="stylesheet" type="text/css" />
 	</head>
 
-	<body bgcolor=#F7F7F7 link=#000000 vlink=#000000>
-		<table width="100%" border="0" cellspacing="2" cellpadding="5">
-			<tr>
-				<td align="right" bgcolor="#c5c5c5"><font size="+2" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>degrade</b></font></td>
-			</tr>
-			<tr>
-				<td bgcolor=black align=right><font size=+1 color="#c5c5c5" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">Detect an Audio Attack</font></td>
-			</tr>
-		</table>
+<body>
+	<img src="../images/jmod.icon.mod.png" width="128" height="128" />
+	<h1>jmod.degrade~</h1>
+	<h2>no info provided </h2>
+	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
+  <hr width="85%" />
+<p>Module Type: <code>audio </code> <br />
+  Interface Size: <code>1U-half </code> </p>
+	<p> Number of signal inlets: <code>  2 </code> <br />
+Number of signal outlets: <code> 2 </code> </p>
 
+	</table>
+    <h3>Parameters</h3>
 
+	<table>
+		<tr class="tableHeading2">
+			<td> Name </td>
+			<td> Kind </td>
+			<td> Type </td>
+			<td> Range </td>
+			<td> Clipmode </td>
+			<td> Ramp Enabled </td>
+			<td> Repetitions </td>
+			<td> Description </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> bitdepth </td>
+			<td class="instructionKind"> parameter </td>
+			<td class="instructionType"> msg_int </td>
+			<td class="instructionRange"> 0.000 127.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> yes </td>
+			<td class="instructionRepetitions"> no </td>
+			<td class="instructionDescription"> no info provided </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> bypass </td>
+			<td class="instructionKind"> parameter </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 127.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> no info provided </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> defeat_meters </td>
+			<td class="instructionKind"> parameter </td>
+		<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 127.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> no info provided </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> mix </td>
+			<td class="instructionKind"> parameter </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 127.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> yes </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> no info provided </td>
+		</tr>
+	<tr>
+			<td class="instructionName"> mute </td>
+			<td class="instructionKind"> parameter </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 127.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> no info provided </td>
+	  </tr>
+		<tr>
+			<td class="instructionName"> sr </td>
+			<td class="instructionKind"> parameter </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 127.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> no </td>
+			<td class="instructionDescription"> no info provided </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> sr_ratio </td>
+			<td class="instructionKind"> parameter </td>
+			<td class="instructionType"> msg_float </td>
+			<td class="instructionRange"> 0.000 127.000 </td>
+		<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> yes </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> no info provided </td>
+		</tr>
+	</table>
 
-	</body>
-</html>	
+    <p>&nbsp;</p>
+<h3>Messages</h3>
+    <table>
+      <tr class="tableHeading2">
+        <td> Name </td>
+        <td> Kind </td>
+        <td> Type </td>
+        <td> Range </td>
+        <td> Clipmode </td>
+        <td> Ramp Enabled </td>
+        <td> Repetitions </td>
+        <td> Description </td>
+      </tr>
+      <tr>
+        <td class="instructionName"> bitdepth </td>
+        <td class="instructionKind"> parameter </td>
+        <td class="instructionType"> msg_int </td>
+        <td class="instructionRange"> 0.000 127.000 </td>
+        <td class="instructionClipmode"> none </td>
+        <td class="instructionRamp"> yes </td>
+        <td class="instructionRepetitions"> no </td>
+        <td class="instructionDescription"> no info provided </td>
+      </tr>
+      <tr>
+        <td class="instructionName"> bypass </td>
+        <td class="instructionKind"> parameter </td>
+        <td class="instructionType"> generic </td>
+        <td class="instructionRange"> 0.000 127.000 </td>
+        <td class="instructionClipmode"> none </td>
+        <td class="instructionRamp"> no </td>
+        <td class="instructionRepetitions"> yes </td>
+        <td class="instructionDescription"> no info provided </td>
+      </tr>
+      <tr>
+        <td class="instructionName"> defeat_meters </td>
+        <td class="instructionKind"> parameter </td>
+        <td class="instructionType"> generic </td>
+        <td class="instructionRange"> 0.000 127.000 </td>
+        <td class="instructionClipmode"> none </td>
+        <td class="instructionRamp"> no </td>
+        <td class="instructionRepetitions"> yes </td>
+        <td class="instructionDescription"> no info provided </td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+    <h3>About Jamoma </h3>
+    <p>Jamoma is a system for creating and exchanging structured Max patches. It consists of both a set of guidelines and an implementation of those guidelines. For more information please visit <a href="http://jamoma.org/">jamoma.org</a>. </p>
+</body>
+</html>
+			
