@@ -155,13 +155,18 @@ function bang()
 			
 			// Create the standard messages
 			outlet(0, "script", "hidden", "new", "param_preview", "newex", 67, 278, 291, 196617, 
-				"jmod.parameter.mxt", local_token, "preview");
+				"jmod.parameter.mxt", local_token, "preview", "@type", "toggle", 
+				"@description", "Turns on/off the video display in the module's preview window");
 			outlet(0, "script", "hidden", "new", "param_bypass", "newex", 67, 278, 291, 196617, 
-				"jmod.parameter.mxt", local_token, "bypass");
+				"jmod.parameter.mxt", local_token, "bypass", "@type", "toggle", 
+				"@description", "Bypasses the video processing algorithm in the module - allowing unaltered video through.");
 			outlet(0, "script", "hidden", "new", "param_freeze", "newex", 67, 278, 291, 196617, 
-				"jmod.parameter.mxt", local_token, "freeze");
+				"jmod.parameter.mxt", local_token, "freeze", "@type", "toggle", 
+				"@description", "Freezes the last frame of output from the module's processing algorithm.");
 			outlet(0, "script", "hidden", "new", "param_mute", "newex", 67, 278, 291, 196617, 
-				"jmod.parameter.mxt", local_token, "mute");
+				"jmod.parameter.mxt", local_token, "mute", "@type", "toggle", 
+				"@description", "Mutes (turns off) the module's algorithm - generating no output");
+
 			
 			// delete extra inlets and outlets
 			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)

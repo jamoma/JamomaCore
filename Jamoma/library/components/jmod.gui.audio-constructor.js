@@ -45,12 +45,28 @@ function msg_int(value)
  	num_channels = value;
 
 	// Create parameters
-	outlet(0, "script", "hidden", "new", "pattr_sr", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "sr", "@repetitions", 0);
-	outlet(0, "script", "hidden", "new", "pattr_mute", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "mute");
-	outlet(0, "script", "hidden", "new", "pattr_bypass", "newex", 100, 100, 150, 196617, 		"jmod.parameter.mxt", local_token, "bypass");
-	outlet(0, "script", "hidden", "new", "pattr_mix", "newex", 100, 100, 150, 196617, 			"jmod.parameter.mxt", local_token, "mix", "@ramp", 1);
-	outlet(0, "script", "hidden", "new", "pattr_defeat_meters", "newex", 100, 100, 150, 196617, "jmod.parameter.mxt", local_token, "defeat_meters");
-	outlet(0, "script", "hidden", "new", "pattr_gain", "newex", 100, 100, 150, 196617, 			"jmod.parameter.gain.mxt", local_token, "gain");
+	outlet(0, "script", "hidden", "new", "pattr_sr", "newex", 100, 100, 150, 196617, 			
+		"jmod.parameter.mxt", local_token, "sr", "@repetitions", 0, "@type", "msg_int", "@range", -2, 0,
+		"@description", "Sets the relative sample-rate for this module.");
+	outlet(0, "script", "hidden", "new", "pattr_mute", "newex", 100, 100, 150, 196617, 
+		"jmod.parameter.mxt", local_token, "mute", "@type", "toggle",
+		"@description", "When active, this attribute turns off the module's processing algorithm to save CPU");
+
+	outlet(0, "script", "hidden", "new", "pattr_bypass", "newex", 100, 100, 150, 196617, 
+		"jmod.parameter.mxt", local_token, "bypass", "@type", "toggle",
+		"@description", "When active, this attribute bypasses the module's processing algorithm, letting audio pass through unaffected.");
+
+	outlet(0, "script", "hidden", "new", "pattr_mix", "newex", 100, 100, 150, 196617, 	
+		"jmod.parameter.mxt", local_token, "mix", "@ramp", 1, "@type", "msg_float", "@range", 0.0, 100.0,
+		"@description", "Controls the wet/dry mix of the module's processing routine in percent.");
+
+	outlet(0, "script", "hidden", "new", "pattr_defeat_meters", "newex", 100, 100, 150, 196617,
+		"jmod.parameter.mxt", local_token, "defeat_meters", "@type", "toggle",
+		"@description", "When active, this attribute turns off the signal level meters in the module to conserve CPU.");
+
+	outlet(0, "script", "hidden", "new", "pattr_gain", "newex", 100, 100, 150, 196617, 
+		"jmod.parameter.gain.mxt", local_token, "gain");
+
 
 	// Connect Parameters
 	outlet(0, "script", "hidden", "connect", "samprate", 0, "pattr_sr", 0);

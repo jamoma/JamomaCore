@@ -90,7 +90,7 @@ function bang()
 	outlet(1, "cr");
 	
 	// top table displaying name of module etc.
-
+/*
 	outlet(1, "tab");
 	outlet(1, "<table cellspacing=\"2\" cellpadding=\"5\">");
 	outlet(1, "cr");
@@ -133,6 +133,10 @@ function bang()
 	
 	outlet(1, "tab");
 	outlet(1, "</table>");
+*/
+	outlet(1, "<h1>" + this_module_name + "</h1>");
+	outlet(1, "<h2>" + this_module_description + "</h2>")
+	
 	outlet(1, "cr");
 	
 	outlet(1, "cr");
@@ -575,7 +579,7 @@ function repetitions(i)
 	outlet(1, "cr");
 }
 
-function documentation()
+function description()
 {
 	var a = arrayfromargs(arguments);
 	
