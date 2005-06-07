@@ -33,6 +33,7 @@ outlets = 2;
 
 
 /*******************************************************************
+*
 *	function bang()
 *
 *	Generates html documentation by doing a number of queries
@@ -89,75 +90,48 @@ function bang()
 	outlet(1, "<body>");
 	outlet(1, "cr");
 	
-	// top table displaying name of module etc.
-/*
-	outlet(1, "tab");
-	outlet(1, "<table cellspacing=\"2\" cellpadding=\"5\">");
-	outlet(1, "cr");
+
+
+	// Top of page displaying name of module etc.
 	
 	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<tr>");
+	outlet(1, "<img src=\"../images/jmod.icon.mod.png\" width=\"128\" height=\"128\">");
 	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"moduleName\">");
-	outlet(1, this_module_name);
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
 
 	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "</tr>");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<tr>");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"moduleDescription\">");
-	outlet(1, this_module_description);
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
-
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "</tr>");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "</table>");
-*/
 	outlet(1, "<h1>" + this_module_name + "</h1>");
+	outlet(1, "cr");
+	
+	outlet(1, "tab");
 	outlet(1, "<h2>" + this_module_description + "</h2>")
-	
 	outlet(1, "cr");
 	
 	outlet(1, "cr");
 
 
-	/*
-
-				// More description
-				
-				outlet(1, "tab");
-				outlet(1, "<p>", "More Description");	// Have to be made dynamic
-				outlet(1, "NameOfModule");
-				outlet(1, "</P>");
-				outlet(1, "cr");
 	
-	*/
+	// Menu
+
+	outlet(1, "tab");
+	outlet(1, "<h6><a href=\"../index.html\">Table of Contents</a> |");
+	outlet(1, "<a href=\"../modules/\">Index of Modules</a> |");
+	outlet(1, "<a href=\"http://jamoma.org/\">Jamoma.org</a></h6>");
+	outlet(1, "cr");
+	
+	outlet(1, "cr");
+	
+	outlet(1, "tab");	
+	outlet(1, "<hr width=\"85%\">");
+	outlet(1, "cr");
+	
+	outlet(1, "cr");
+
+
 
 	// Type
 	
 	outlet(1, "tab");
-	outlet(1, "<p>", "Type of module:", "<code>");	
+	outlet(1, "<p>", "Module Type:", "<code>");	
 	outlet(1, this_module_type);
 	outlet(1, "</code>", "<br>");
 	outlet(1, "cr");
@@ -165,7 +139,7 @@ function bang()
 	// Size
 	
 	outlet(1, "tab");
-	outlet(1, "size", "=", "<code>");	
+	outlet(1, "Interface Size:", "<code>");	
 	outlet(1, this_module_size);
 	outlet(1, "</code>", "</p>");
 	outlet(1, "cr");
@@ -177,14 +151,14 @@ function bang()
 	// Info on inlets and outlets
 	
 	outlet(1, "tab");
-	outlet(1, "<p>", "Number of inlets:", "<code>");	
-	outlet(1, 1, "+", this_module_inlets);
+	outlet(1, "<p>", "Number of signal inlets:", "<code>");	
+	outlet(1, this_module_inlets);
 	outlet(1, "</code>", "<br>");
 	outlet(1, "cr");
 	
 	outlet(1, "tab");
-	outlet(1, "Number of outlets", "<code>");	
-	outlet(1, 1, "+", this_module_outlets);
+	outlet(1, "Number of signal outlets:", "<code>");	
+	outlet(1, this_module_outlets);
 	outlet(1, "</code>", "</p>");
 	outlet(1, "cr");
 
@@ -303,6 +277,12 @@ function bang()
 				outlet(1, "tab");
 				outlet(1, "</tr>");
 				outlet(1, "cr");
+				
+				outlet(1, "tab");
+				outlet(1, "</table>");
+				outlet(1, "cr");
+
+				outlet(1, "cr");
 
 				// End of inlets/outlets table
 				
@@ -310,45 +290,41 @@ function bang()
 	//End of commented section
 	****************************************************/
 	
-	outlet(1, "tab");
-	outlet(1, "</table>");
-	outlet(1, "cr");
 
-	outlet(1, "cr");
-	
+/*	
 	outlet(1, "tab");
 	outlet(1, "<p> &nbsp; </p>");
 	outlet(1, "cr");
 
 	outlet(1, "cr");	
+*/
 	
 	
-	
-	// Instructions
-	
+	// Parameters
+
 	// Heading 1
 	
 	outlet(1, "tab");
-	outlet(1, "<table>");
+	outlet(1, "<h3>" + "Parameters" + "</h3>");
 	outlet(1, "cr");
 	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<tr>");
 	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"tableHeading1\">");
-	outlet(1, "Instructions:");
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
 
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "</tr>");
-	outlet(1, "cr");
+	table_heading();
+
+	// Content	
+	
+	// Sort instructions in ascending alphabetic order
+	
+	outlet(0, "sort", -1, -1);
+	
+	// Request all information by dumping the coll
+	// Information is returned as messages according to the functions below
+	// Content is added and formatted by the various functions
+	
+	outlet(0, "dump");
+	
+	// End of table
 	
 	outlet(1, "tab");
 	outlet(1, "</table>");
@@ -356,8 +332,91 @@ function bang()
 
 	outlet(1, "cr");
 	
-	// Heading 2
-		
+	outlet(1, "tab");
+	outlet(1, "<p>&nbsp;</p>");
+	outlet(1, "cr");
+
+	outlet(1, "cr");
+	
+	
+
+	// Messages
+
+	// Heading 1
+	
+	outlet(1, "tab");
+	outlet(1, "<h3>" + "Messages" + "</h3>");
+	outlet(1, "cr");
+	
+	outlet(1, "cr");
+
+	table_heading();
+	
+	// End of table
+	
+	outlet(1, "tab");
+	outlet(1, "</table>");
+	outlet(1, "cr");
+
+	outlet(1, "cr");
+	
+	outlet(1, "tab");
+	outlet(1, "<p>&nbsp;</p>");
+	outlet(1, "cr");
+
+	outlet(1, "cr");
+	
+	
+	
+	// Some final info on Jamoma
+
+	outlet(1, "tab");
+	outlet(1, "<h3>" + "About Jamoma" + "</h3>");
+	outlet(1, "cr");
+
+	outlet(1, "tab");
+	outlet(1, "<p>Jamoma is a system for creating and exchanging structured Max patches.");
+	outlet(1, "cr");
+	
+	outlet(1, "tab");
+	outlet(1, "It consists of both a set of guidelines and an implementation of those guidelines.");
+	outlet(1, "cr");	
+	
+	outlet(1, "tab");
+	outlet(1, "For more information please visit <a href=\"http://jamoma.org/\">jamoma.org</a>. </p>");
+	outlet(1, "cr");
+	
+	outlet(1, "cr");	
+
+	
+	
+	// End of page
+
+	outlet(1, "</body>");
+	outlet(1, "cr");
+	
+	outlet(1, "</html>");
+	outlet(1, "cr");
+	
+	// Save file
+	
+	// Would be handy if it autosaved in the right position with correct name,
+	// but for the time being we'll have to live with this solution
+	
+	outlet(1, "write");
+}
+
+
+
+/*******************************************************************
+*
+*	function table_heading()
+*
+*	Generates table heading for parameters and messages
+*	
+*******************************************************************/
+function table_heading()
+{
 	outlet(1, "tab");
 	outlet(1, "<table>");
 	outlet(1, "cr");
@@ -436,48 +495,16 @@ function bang()
 	outlet(1, "tab");
 	outlet(1, "</tr>");
 	outlet(1, "cr");
-
-
-	// Content	
-	
-	// Sort instructions in ascending alphabetic order
-	
-	outlet(0, "sort", -1, -1);
-	
-	// Request all information by dumping the coll
-	// Information is returned as messages according to the functions below
-	// Content is added and formatted by the various functions
-	
-	outlet(0, "dump");
-	
-	
-	
-	// End of table
-	
-	outlet(1, "tab");
-	outlet(1, "</table>");
-	outlet(1, "cr");
-
-	outlet(1, "cr");
-	
-	
-	
-	// End of page
-
-	outlet(1, "</body>");
-	outlet(1, "cr");
-	
-	outlet(1, "</html>");
-	outlet(1, "cr");
-	
-	// Save file
-	
-	// Would be handy if it autosaved in the right position with correct name,
-	// but for the time being we'll have to live with this solution
-	
-	outlet(1, "write");
 }
 
+
+/*******************************************************************
+*
+*	function name()
+*
+*	Set name of parameter or message
+*	
+*******************************************************************/
 function name()
 {
 	var a = arrayfromargs(arguments);
@@ -497,6 +524,15 @@ function name()
 	outlet(1, "cr");	
 }
 
+
+
+/*******************************************************************
+*
+*	function kind()
+*
+*	Set kind of parameter or message
+*	
+*******************************************************************/
 function kind()
 {
 	var a = arrayfromargs(arguments);
@@ -510,6 +546,15 @@ function kind()
 	outlet(1, "cr");	
 }
 
+
+
+/*******************************************************************
+*
+*	function type()
+*
+*	Set type of parameter or message
+*	
+*******************************************************************/
 function type()
 {
 	var a = arrayfromargs(arguments);
@@ -523,6 +568,15 @@ function type()
 	outlet(1, "cr");	
 }
 
+
+
+/*******************************************************************
+*
+*	function range()
+*
+*	Set range of parameter or message
+*	
+*******************************************************************/
 function range()
 {
 	var a = arrayfromargs(arguments);
@@ -536,6 +590,15 @@ function range()
 	outlet(1, "cr");	
 }
 
+
+
+/*******************************************************************
+*
+*	function clipmode()
+*
+*	Set clipmode of parameter or message
+*	
+*******************************************************************/
 function clipmode()
 {
 	var a = arrayfromargs(arguments);
@@ -549,6 +612,15 @@ function clipmode()
 	outlet(1, "cr");	
 }
 
+
+
+/*******************************************************************
+*
+*	function ramp()
+*
+*	Set ramp mode of parameter or message
+*	
+*******************************************************************/
 function ramp(i)
 {
 	outlet(1, "tab");
@@ -563,6 +635,15 @@ function ramp(i)
 	outlet(1, "cr");	
 }
 
+
+
+/*******************************************************************
+*
+*	function repetitions()
+*
+*	Set repetitions mode of parameter or message
+*	
+*******************************************************************/
 function repetitions(i)
 {
 	var a = arrayfromargs(arguments);
@@ -579,6 +660,15 @@ function repetitions(i)
 	outlet(1, "cr");
 }
 
+
+
+/*******************************************************************
+*
+*	function description()
+*
+*	Describe parameter or message
+*	
+*******************************************************************/
 function description()
 {
 	var a = arrayfromargs(arguments);
@@ -598,37 +688,102 @@ function description()
 	outlet(1, "cr");
 }
 
+
+
+/*******************************************************************
+*
+*	function title()
+*
+*	Set name of moudule
+*	
+*******************************************************************/
 function title(s)
 {
 	this_module_name = s;
 }
 
+
+
+/*******************************************************************
+*
+*	function size()
+*
+*	Set size of moudule
+*	
+*******************************************************************/
 function size(s)
 {
 	this_module_size = s;
 }
 
+
+
+/*******************************************************************
+*
+*	function module_type()
+*
+*	Set type of moudule
+*	
+*******************************************************************/
 function module_type(s)
 {
 	this_module_type = s;
 }
 
+
+
+/*******************************************************************
+*
+*	function num_inputs()
+*
+*	Set number of inputs of moudule
+*	
+*******************************************************************/
 function num_inputs(i)
 {
 	this_module_inlets = i;
 }
 
+
+
+/*******************************************************************
+*
+*	function num_outputs()
+*
+*	Set number of outputs of moudule
+*	
+*******************************************************************/
 function num_outputs(i)
 {
 	this_module_outlets = i;
 }
 
-function module_documentation()
+
+
+/*******************************************************************
+*
+*	function module_description()
+*
+*	Describe module
+*	
+*******************************************************************/
+function module_description()
 {
 	this_module_description = arrayfromargs(arguments);
 }
 
+
+
+
+/*******************************************************************
+*
+*	function anything()
+*
+*	Garbage can for unimportant messages
+*	
+*******************************************************************/
 function anything()
 {
 	// any kind of message that's supposed to be ignored
 }
+

@@ -30,7 +30,10 @@ h3 {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 18px;
 	font-weight:100;
-	margin: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 2%;
+	margin-right: 2%;
 }
 
 h6 {
@@ -39,13 +42,15 @@ h6 {
 	font-weight:100;
 	text-align:center;
 	line-height: 1.2;
+	margin-right: 2%;
+	margin-left: 2%;
 }
 
 p {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	font-weight:100;
-	margin: 10px;
+	margin: 10px 2%;
 }
 
 img {
@@ -99,9 +104,11 @@ img {
 	vertical-align: top;
 }
 table {
-	width: 95%;
 	border: 0px;
-	margin: 10px;
+	width: 96%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 2%;
 }
 .instructionKind {
 	font-family: "Times New Roman", Times, serif;
@@ -137,4 +144,8 @@ table {
 	font-family: "Times New Roman", Times, serif;
 	background-color: #DDDDDD;
 	vertical-align: top;
+}
+td {
+	padding-right: 5px;
+	padding-left: 5px;
 }
