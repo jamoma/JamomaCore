@@ -19,6 +19,9 @@ var this_module_inlets;
 var this_module_outlets;
 var this_module_description;
 
+var instruction_kind;			// what kind of instruction are we currelntly looking for?
+var instruction_filter;			// is this the right kind of instruction (1/0)
+
 
 /*******************************************************************
 *	SETUP
@@ -298,9 +301,20 @@ function bang()
 
 	outlet(1, "cr");	
 */
+
+
+
+	// Sort instructions in ascending alphabetic order
 	
+	outlet(0, "sort", -1, -1);
+
+
 	
+	///////////////////////////////////////////////////
+	//
 	// Parameters
+	//
+	///////////////////////////////////////////////////
 
 	// Heading 1
 	
@@ -311,12 +325,9 @@ function bang()
 	outlet(1, "cr");
 
 	table_heading();
-
-	// Content	
 	
-	// Sort instructions in ascending alphabetic order
-	
-	outlet(0, "sort", -1, -1);
+	// Only interested in parameters this time
+	instruction_kind = "parameter";
 	
 	// Request all information by dumping the coll
 	// Information is returned as messages according to the functions below
@@ -340,7 +351,11 @@ function bang()
 	
 	
 
+	///////////////////////////////////////////////////
+	//
 	// Messages
+	//
+	///////////////////////////////////////////////////
 
 	// Heading 1
 	
@@ -351,6 +366,14 @@ function bang()
 	outlet(1, "cr");
 
 	table_heading();
+	
+	// Only interested in messages this time
+	instruction_kind = "message";
+	
+	// Request all information by dumping the coll
+	// Information is returned as messages according to the functions below
+	// Content is added and formatted by the various functions	
+	outlet(0, "dump");
 	
 	// End of table
 	
@@ -417,6 +440,7 @@ function bang()
 *******************************************************************/
 function table_heading()
 {
+	// Heading starts here
 	outlet(1, "tab");
 	outlet(1, "<table>");
 	outlet(1, "cr");
@@ -426,6 +450,8 @@ function table_heading()
 	outlet(1, "<tr class=\"tableHeading2\">");
 	outlet(1, "cr");
 	
+	
+	// Name
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -434,14 +460,7 @@ function table_heading()
 	outlet(1, "</td>");	
 	outlet(1, "cr");
 
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td>");
-	outlet(1, "Kind");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
-
+	// Type
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -450,6 +469,7 @@ function table_heading()
 	outlet(1, "</td>");	
 	outlet(1, "cr");
 
+	// Range
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -458,6 +478,7 @@ function table_heading()
 	outlet(1, "</td>");	
 	outlet(1, "cr");
 
+	// Clipmode
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -466,6 +487,7 @@ function table_heading()
 	outlet(1, "</td>");	
 	outlet(1, "cr");
 
+	// Range
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -474,6 +496,7 @@ function table_heading()
 	outlet(1, "</td>");	
 	outlet(1, "cr");
 
+	// Repetitions
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -482,6 +505,7 @@ function table_heading()
 	outlet(1, "</td>");	
 	outlet(1, "cr");
 
+	// Description
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -491,11 +515,30 @@ function table_heading()
 	outlet(1, "cr");
 
 
+	// End of line
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "</tr>");
 	outlet(1, "cr");
 }
+
+
+
+/*******************************************************************
+*
+*	function kind(s)
+*
+*	Set instruction_filter flag
+*	
+*******************************************************************/
+function kind(s)
+{
+	if (s == instruction_kind)
+		instruction_filter = 1;
+	else
+		instruction_filter = 0;
+}
+
 
 
 /*******************************************************************
@@ -507,43 +550,25 @@ function table_heading()
 *******************************************************************/
 function name()
 {
-	var a = arrayfromargs(arguments);
-	
-	// New row
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<tr>");
-	outlet(1, "cr");
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionName\">");
-	outlet(1, a);
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
-}
-
-
-
-/*******************************************************************
-*
-*	function kind()
-*
-*	Set kind of parameter or message
-*	
-*******************************************************************/
-function kind()
-{
-	var a = arrayfromargs(arguments);
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionKind\">");
-	outlet(1, a);
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
+	if (instruction_filter)
+	{
+		post();
+		var a = arrayfromargs(arguments);
+		
+		// New row
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<tr>");
+		outlet(1, "cr");
+		
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<td class=\"instructionName\">");
+		outlet(1, a);
+		outlet(1, "</td>");	
+		outlet(1, "cr");
+	}
 }
 
 
@@ -557,15 +582,18 @@ function kind()
 *******************************************************************/
 function type()
 {
-	var a = arrayfromargs(arguments);
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionType\">");
-	outlet(1, a);
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
+	if (instruction_filter)
+	{
+		var a = arrayfromargs(arguments);
+		
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<td class=\"instructionType\">");
+		outlet(1, a);
+		outlet(1, "</td>");	
+		outlet(1, "cr");
+	}
 }
 
 
@@ -579,15 +607,18 @@ function type()
 *******************************************************************/
 function range()
 {
-	var a = arrayfromargs(arguments);
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionRange\">");
-	outlet(1, a);
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
+	if (instruction_filter)
+	{
+		var a = arrayfromargs(arguments);
+		
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<td class=\"instructionRange\">");
+		outlet(1, a);
+		outlet(1, "</td>");	
+		outlet(1, "cr");
+	}
 }
 
 
@@ -601,38 +632,44 @@ function range()
 *******************************************************************/
 function clipmode()
 {
-	var a = arrayfromargs(arguments);
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionClipmode\">");
-	outlet(1, a);
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
+	if (instruction_filter)
+	{
+		var a = arrayfromargs(arguments);
+		
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<td class=\"instructionClipmode\">");
+		outlet(1, a);
+		outlet(1, "</td>");	
+		outlet(1, "cr");
+	}
 }
 
 
 
 /*******************************************************************
 *
-*	function ramp()
+*	function ramp(i)
 *
 *	Set ramp mode of parameter or message
 *	
 *******************************************************************/
 function ramp(i)
 {
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionRamp\">");
-	if (i==0)
-		outlet(1, "no");
-	else
-		outlet(1, "yes");
-	outlet(1, "</td>");	
-	outlet(1, "cr");	
+	if (instruction_filter)
+	{
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<td class=\"instructionRamp\">");
+		if (i==0)
+			outlet(1, "no");
+		else
+			outlet(1, "yes");
+		outlet(1, "</td>");	
+		outlet(1, "cr");
+	}
 }
 
 
@@ -646,18 +683,21 @@ function ramp(i)
 *******************************************************************/
 function repetitions(i)
 {
-	var a = arrayfromargs(arguments);
-	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionRepetitions\">");
-	if (i==0)
-		outlet(1, "no");
-	else
-		outlet(1, "yes");
-	outlet(1, "</td>");	
-	outlet(1, "cr");
+	if (instruction_filter)
+	{
+		var a = arrayfromargs(arguments);
+		
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<td class=\"instructionRepetitions\">");
+		if (i==0)
+			outlet(1, "no");
+		else
+			outlet(1, "yes");
+		outlet(1, "</td>");	
+		outlet(1, "cr");
+	}
 }
 
 
@@ -671,21 +711,24 @@ function repetitions(i)
 *******************************************************************/
 function description()
 {
-	var a = arrayfromargs(arguments);
+	if (instruction_filter)
+	{
+		var a = arrayfromargs(arguments);
+		
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "<td class=\"instructionDescription\">");
+		outlet(1, a);
+		outlet(1, "</td>");	
+		outlet(1, "cr");
 	
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "<td class=\"instructionDescription\">");
-	outlet(1, a);
-	outlet(1, "</td>");	
-	outlet(1, "cr");
-
-	// End of row
-	outlet(1, "tab");
-	outlet(1, "tab");
-	outlet(1, "</tr>");
-	outlet(1, "cr");
+		// End of row
+		outlet(1, "tab");
+		outlet(1, "tab");
+		outlet(1, "</tr>");
+		outlet(1, "cr");
+	}
 }
 
 
