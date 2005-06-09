@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>Jamoma ReadMe</title>
+	<link href="documentation/html/styles/jamoma.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<img src="documentation/html/images/jmod.icon.mod.png" width="128" height="128">
+<h1>Jamoma</h1>
+	<h2> A module-building framework for interchange, collaboration, and ease of integration<br />
+Version 0.1.9 - 11 June 2005</h2>
+
+<h3>Installing</h3>
+<p> 1. The easiest choice is to use the installer available for Mac OSX. </p>
+<p>2. If you wish to install manually, or you are on the Windows platform, Move this folder (the &quot;Jamoma&quot; folder) into the following folder:</p>
+<p> Mac OSX: /Library/Application Support/Cycling '74/<br />
+  Win XP: C:\Program Files\Common Files\Cycling '74\ </p>
+<p> 3. Check out the Jamoma <a href="documentation/html/index.html">documentation</a>.</p>
+<p>&nbsp;</p>
+<h3>  Requirements</h3>
+<p> Jamoma requires <a href="http://www.cycling74.com/">Cycling '74's</a> Max, version 4.5.5 or newer. </p>
+<p>Audio modules require Cycling '74's MSP.</p>
+<p>Video modules require Cycling '74's Jitter.</p>
+<p>&nbsp;</p>
+<h3>Examples</h3>
+<p> To get started, there is an examples folder in the Jamoma/documentation folder. Check out some of the examples that are present in there. Also be sure to check out the <a href="documentation/html/interface_guidelines.html">JIG (Jamoma Interface Guidelines)</a> which is in the documentation folder.</p>
+<p>&nbsp; </p>
+<h3>Licensing</h3>
+<p> Jamoma is open source software. It is licensed under the terms of the GNU LGPL. Please see the file &quot;<a href="GNU-LGPL.txt">GNU-LGPL.txt</a>&quot; in the Jamoma folder to review the terms of this license.</p>
+<p>&nbsp; </p>
+<h3>Interested in Developing or Contributing to Jamoma?</h3>
+<p> If you are interested in developing/contributing to Jamoma, contact us via the sourceforge project page. You can access this page via the following url:</p>
+<p> <a href="http://sourceforge.net/projects/jamoma/">http://sourceforge.net/projects/jamoma/</a></p>
+<p>&nbsp; </p>
+<h3>File Formats</h3>
+<p> All patches MUST be in text format.</p>
+<p> The .mod extension is used for modules, and the .alg extension for algorithms - these are still text format files</p>
+<p> All graphics should be in .pct or .psd (photoshop) format</p>
+<p>&nbsp;</p>
+<h3>Change Log</h3>
+<h6>Version 0.1.9 </h6>
+<ul>
+  <li>completed all help files </li>
+  <li>jmod.parameter.mxt: Changes to attributes (some new, some removed, some renamed)</li>
+  <li> clean up of patch layout for jmod.hub.mxt</li>
+  <li> introduced &quot;autodoc&quot; message to autogenerate html documentation of modules. </li>
+</ul>
+<h6>Version 0.1.7.1</h6>
+<ul>
+  <li> - jmod.meter~ is now compiled for Windows as well as Mac</li>
+  <li> - jmod.meter~ is now placed in the max-startup folder by the Mac installer</li>
+  <li> - new examples:<br />
+    Scripting Example: Jade-like module loading<br />
+    Pluggo Simple: Wraps a single module as a Pluggo Plugin<br />
+    Pluggo Complex: Wraps multiple modules into a Pluggo Plugin</li>
+  <li> * blue externs for windows freshly compiled</li>
+  <li> - improvements to the way soft fade in/out is done when audio is turned on/off</li>
+  <li> - new component for internal communication: jmod.gui_message.mxt</li>
+  <li> - bug fixes and improvements to various modules:<br />
+    jmod.input~<br />
+    jmod.output~<br />
+    jmod.control
+    <h6>Version 0.1.7</h6>
+  </li>
+  <li>- parameter name listing can be queried</li>
+  <li> - major change to jmod.parameter.mxt: Left outlet now returns a qlim-ed &quot;set&quot; message for display. This solves a problem with parameter ramps not being killed by user interaction. Also added second outlet, returning non-filtered values.</li>
+  <li> - Reorganization of files and folder structure</li>
+  <li> - gui component now rewritten as one dynamic bpatcher! (old static files have been archived)</li>
+  <li> - New .pct file: jmod.button.link_toggle.pct</li>
+  <li> - Changes to jmod.jsui_texttoggle.js so that background colors for on and off can be set separately</li>
+  <li> - Altered the default preset for jmod.edge% module</li>
+  <li> - jmod.input~.mod: channel gains can be linked, name of sound file displayed, play button green when on</li>
+  <li> - jmod.input~.mod: changed syntax for adc~ channels to &quot;set_ch_1 $1&quot; and &quot;set_ch_2 $1&quot;</li>
+  <li> - removed Tap.Tools dependency</li>
+  <li> - removed Jitter dependency</li>
+  <li>Added modules:<br />
+    crossfade~<br />
+    filter~<br />
+    filterM~<br />
+    mblur%<br />
+    op%<br />
+    output~<br />
+    wake%<br />
+    Added external projects folder with the following objects:<br />
+    blue.limiter~<br />
+    blue.xfade~<br />
+    jmod.change<br />
+    jmod.meter~ [still needs a windows version]<br />
+    jmod.pass<br />
+    jmod.round<br />
+    jmod.route<br />
+    jmod.usurp<br />
+    Added Javascript objects:<br />
+    jmod.js_link.js: for dealing with linked gains<br />
+  jmod.jsui_sr.js: new sample-rate jsui widget:</li>
+  <li>Documentation:<br />
+    - Added new classes to CSS for HTML documentation, all documenation now based on the CSS<br />
+    - Added initial documentation (really just moving HTML files from Jade)<br />
+    - Added basic video module demo patch<br />
+    - added some new help files for modules, and expanded existing ones.<br />
+  </li>
+</ul>
+<h6>Version 0.1.5</h6>
+<ul>
+  <li> - Added externals folder</li>
+  <li> - Eliminated dependency on Tap.Tools</li>
+</ul>
+<h6>Version 0.1.4</h6>
+<ul>
+  <li> - Misc bug fixes</li>
+  <li> - implemented the new gain mechanism in all audio module gui components</li>
+  <li> - changes param name &quot;gain_m&quot; to simply &quot;gain&quot;</li>
+</ul>
+<h6>Version 0.1.3</h6>
+<ul>
+  <li> - new module for audio input: jmod.input~.mod, as well as default preset and example patch</li>
+  <li> - new module for controlling audio in Jamoma: jmod.control.mod. Very rough sketch at the time being. Incorporates:</li>
+  <li> - audio on/off with quick fade in/fade out</li>
+  <li> - panic button</li>
+  <li> - screen refresh</li>
+  <li> - initialization of Jamoma</li>
+  <li> - CPU monitor</li>
+  <li> - new scheme for gain handling, solving prior problems of ramps not being killed by new gain messages</li>
+  <li> - most important: jmod.parameter.gain.mxt</li>
+  <li> - jmod.core.sr.mxt</li>
+  <li> - jmod.hmeters~.mxt</li>
+  <li> - jmod.receiveamp.mxt</li>
+  <li> - added Javascript text toggle: jmod.jsui_texttoggle.js with help file</li>
+  <li> - added jamoma-help folder</li>
+  <li> - added gainparameter bpatcher to be used by example patches (jmod.gain_params.mxt)</li>
+  <li> - added a number of graphics used by the input module</li>
+  <li> - added file endings to all abstractions used in components to speed up loading of Jamoma modules</li>
+  <li> - major rewrite of jmod.parameter.mxt. Should be easier to read, but behave the same as before.</li>
+  <li> - added @autorestore 0 attribute to the pattr used in jmod.parameter.mxt</li>
+  <li> - did the same to the pattr used in jmod.parameter.gain.mxt pattr</li>
+</ul>
+<h6>Version 0.1.2</h6>
+<ul>
+  <li> - Misc bug fixes</li>
+  <li> - changed tag for video modules to the % symbol</li>
+  <li> - added example patch for using pattrstorage to store and recall attributes</li>
+  <li> - added example patch for using qlist to automate modules</li>
+</ul>
+<h6>Version 0.1.1</h6>
+<ul>
+  <li> - Misc bug fixes</li>
+  <li> - Resolved some discrepancies in the documentation</li>
+  <li> - File format for the Style Sheet changed to HTML</li>
+  <li> - file name formats change and adjusted for modules, algorithms, and defaults</li>
+  <li> - added edge@ module (video edge detection in Jitter)</li>
+  <li> - updated the example patch and formatted the file properly as text</li>
+  <li> - set pattrstorage attributes correctly in the existing modules</li>
+</ul>
+<h6>Version 0.1</h6>
+<ul>
+  <li> - Initial Developer Release</li>
+</ul>
+<p>&nbsp;</p>
+</body>
+</html>
