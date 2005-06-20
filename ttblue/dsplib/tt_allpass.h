@@ -45,6 +45,9 @@ class tt_allpass:public tt_audio_base{
 		// OBJECT LIFE
 		tt_allpass(tt_attribute_value milliseconds)	// Constructor
 		{
+			ff_in_ptr = ff_out_ptr = ff_end_ptr = ff_buffer = 0;
+			fb_in_ptr = fb_out_ptr = fb_end_ptr = fb_buffer = 0;
+			delay_samples = delay_samples_max = delay_ms_max = 0;
 			init(milliseconds);
 			set_attr(k_delay_ms, 0.0);
 			set_attr(k_gain, 0.0);

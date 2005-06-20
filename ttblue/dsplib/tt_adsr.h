@@ -110,26 +110,27 @@ class tt_adsr:public tt_audio_base{
 		{
 			switch (sel){
 				case k_attack:
-					attack_ms = limit_min(val, float(1.0));
+					attack_ms = clip(val, 1.f, 60000.f);
 					attack_samples = (attack_ms / 1000.0) * sr;
 					attack_step = 1.0 / attack_samples;
 					attack_step_db = -(double(NOISE_FLOOR) / attack_samples);
 					break;
 				case k_decay:
-					decay_ms = limit_min(val, float(1.0));
+					decay_ms = clip(val, 1.f, 60000.f);
 					decay_samples = (decay_ms / 1000.0) * sr;
 					decay_step = 1.0 / decay_samples;
 					decay_step_db = -(double(NOISE_FLOOR) / decay_samples);
 					break;
 				case k_sustain_db:
-					sustain_amp = decibels_to_amplitude(val);
+					sustain_amp = clip(decibels_to_amplitude(val), -96.f,36.f);
 					sustain_db = val;
 					break;
 				case k_sustain:
 					sustain_amp = val;
+					sustain_db = amplitude_to_decibels(val);
 					break;
 				case k_release:
-					release_ms = limit_min(val, float(1.0));
+					release_ms = clip(val, 1.f, 60000.f);
 					release_samples = (release_ms / 1000.0) * sr;
 					release_step = 1.0 / release_samples;
 					release_step_db = -(double(NOISE_FLOOR) / release_samples);

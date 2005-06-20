@@ -246,7 +246,7 @@ tt_ptr tt_audio_base::mem_alloc(long size)
 // Platform independent memory de-allocation
 void tt_audio_base::mem_free(void *my_ptr)
 {
-	if(my_ptr){ 
+	if(my_ptr != 0){ 
 #ifdef TAPTOOLS_TARGET_MAC
 	#ifdef MAC_VERSION
 		sysmem_freeptr(my_ptr);
