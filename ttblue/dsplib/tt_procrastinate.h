@@ -45,7 +45,7 @@ class tt_procrastinate:public tt_audio_base{
 		tt_delay				*delay1[4], *delay2[4];
 		tt_phasor				*phasor[4];
 		tt_buffer_window		*wave1, *wave2;
-		tt_gain				*scale[4];
+		tt_gain					*scale[4];
 		tt_offset				*offset;
 		tt_onewrap				*modulo;	
 		tt_mixer_mono			*mixer[4];
@@ -53,7 +53,7 @@ class tt_procrastinate:public tt_audio_base{
 		tt_buffer				*window;
 		
 		tt_pan					*panner[4];
-		tt_gain				*gain[4];
+		tt_gain					*gain[4];
 	
 		tt_audio_signal			*temp[k_num_temp_signals];	// Temp Signals
 		float					buffersize_in_ms;

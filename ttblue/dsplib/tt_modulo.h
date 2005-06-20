@@ -88,6 +88,6 @@ class tt_modulo:public tt_audio_base{
 		}
 };
 
-#endif // tt_MODULO_H
+#endif // TT_MODULO_H
 
 

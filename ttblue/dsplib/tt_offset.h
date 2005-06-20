@@ -73,6 +73,6 @@ class tt_offset:public tt_audio_base{
 		}
 };
 
-#endif // tt_OFFSET_H
+#endif // TT_OFFSET_H
 
 

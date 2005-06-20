@@ -25,11 +25,11 @@
 class tt_lowpass_fourpole:public tt_audio_base{
 
 	private:
-		tt_attribute_value 	resonance;
+		tt_attribute_value 		resonance;
 		tt_attribute_value		frequency;
-		double				c, res;			// c = cutoff [0.0 to 1.0], res = resonance [0.0 to 4.0]
-		double				in[4], out[4];
-		double 				f, fb;
+		double					c, res;			// c = cutoff [0.0 to 1.0], res = resonance [0.0 to 4.0]
+		double					in[4], out[4];
+		double 					f, fb;
 	
 	
 	public:
@@ -127,4 +127,4 @@ class tt_lowpass_fourpole:public tt_audio_base{
 };
 
 
-#endif	// tt_LOWPASS_FOURPOLE_H
+#endif	// TT_LOWPASS_FOURPOLE_H

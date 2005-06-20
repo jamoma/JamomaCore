@@ -37,15 +37,15 @@ class tt_delay:public tt_audio_base{
 		double							fractional_delay;	// used in interpolated dsp loops
 		double 							fdelay_samples;
 
-		tt_sample_value					*buffer;
-		tt_sample_value					*in_ptr;			// "write" pointer for buffer
-		tt_sample_value					*out_ptr;			// "read" pointer
-		tt_sample_value					*end_ptr;			// points to last sample in buffer (for speed)
+		tt_sample_vector				buffer;
+		tt_sample_vector				in_ptr;				// "write" pointer for buffer
+		tt_sample_vector				out_ptr;			// "read" pointer
+		tt_sample_vector				end_ptr;			// points to last sample in buffer (for speed)
 
 		tt_sample_value					output[4];		
 	
 	public:
-		enum selectors{									// Attribute Selectors
+		enum selectors{										// Attribute Selectors
 			k_delay_ms,
 			k_delay_samples,
 			k_interpolation,
@@ -68,6 +68,26 @@ class tt_delay:public tt_audio_base{
 			long max = max_ms * sr * 0.001;
 			init(max);
 		}
+
+		// Internal method which is called by the constructors
+		void init(long max_samples)
+		{			
+			short i;
+			
+			buffer = in_ptr = out_ptr = end_ptr = 0;
+			output[0] = output[1] = output[2] = output[3] = 0;		
+		
+			buffer = (tt_sample_value *)mem_alloc((max_samples + 4) * sizeof(tt_sample_value));
+			in_ptr = buffer;
+			delay_samples_max = max_samples;
+			set_attr(k_delay_samples, max_samples - 1);
+			set_attr(k_interpolation, k_interpolation_linear);
+			for(i=0;i<4;i++)
+				output[i] = 0;
+					
+			reset();
+		}
+
 
 		~tt_delay()										// Destructor
 		{
@@ -369,25 +389,6 @@ class tt_delay:public tt_audio_base{
 		}
 */		
 		
-		// Internal method which is called by the constructors
-		void init(long max_samples)
-		{			
-//			short i;
-			buffer = in_ptr = out_ptr = end_ptr = 0;
-			output[0] = output[1] = output[2] = output[3] = 0;		
-		
-
-			buffer = (tt_sample_value *)mem_alloc((max_samples + 4) * sizeof(tt_sample_value));
-			in_ptr = buffer;
-			delay_samples_max = max_samples;
-			set_attr(k_delay_samples, max_samples - 1);
-			set_attr(k_interpolation, k_interpolation_linear);
-			//for(i=0;i<4;i++)
-			//	output[i] = 0;
-					
-			reset();
-		}
-
 		
 		// Reset the pointers
 		void reset()
@@ -417,4 +418,4 @@ class tt_delay:public tt_audio_base{
 			
 };
 
-#endif		// tt_DELAY_H
+#endif		// TT_DELAY_H

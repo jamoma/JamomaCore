@@ -24,13 +24,13 @@
 class tt_phasor:public tt_audio_base{
 
 	private:
-		tt_attribute_value		frequency;				// define the ramp time cycle in hertz
-		tt_attribute_value 		ramp_ms;				// ramp time in milliseconds
-		long					ramp_samps;				// ramp time in samples
+		tt_attribute_value		frequency;			// define the ramp time cycle in hertz
+		tt_attribute_value 		ramp_ms;			// ramp time in milliseconds
+		long					ramp_samps;			// ramp time in samples
 		tt_attribute_value		gain;
 
-		tt_sample_value			current;				// 
-		double					step;					// 		
+		tt_sample_value			current;			// 
+		double					step;				// 		
 	
 	public:
 		enum selectors{								// Attribute Selectors
@@ -44,7 +44,7 @@ class tt_phasor:public tt_audio_base{
 		
 
 		// OBJECT LIFE					
-		tt_phasor()								// Constructor		
+		tt_phasor()									// Constructor		
 		{
 			current = 0;
 			step = 0;
@@ -132,4 +132,4 @@ class tt_phasor:public tt_audio_base{
 };
 
 
-#endif	// tt_PHASOR_H
+#endif	// TT_PHASOR_H

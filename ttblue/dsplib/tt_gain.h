@@ -87,6 +87,6 @@ class tt_gain:public tt_audio_base{
 		
 };
 
-#endif // tt_GAIN_H
+#endif // TT_GAIN_H
 
 

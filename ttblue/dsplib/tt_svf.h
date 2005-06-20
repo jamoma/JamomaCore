@@ -269,4 +269,4 @@ class tt_svf:public tt_audio_base{
 };
 
 
-#endif	// tt_SVF_H
+#endif	// TT_SVF_H

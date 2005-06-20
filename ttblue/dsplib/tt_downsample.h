@@ -108,4 +108,4 @@ class tt_downsample:public tt_audio_base{
 };
 
 
-#endif	// tt_DOWNSAMPLE_H
+#endif	// TT_DOWNSAMPLE_H

@@ -39,14 +39,14 @@ class tt_verb:public tt_audio_base{
 		tt_attribute_value_bool	use_early_reflections;
 		tt_attribute_value_bool	use_lite_version;
 		
-		tt_multitap			*early_reflections;			// other taptools objects used in this effect...
-		tt_comb				*comb_filters[6];
+		tt_multitap				*early_reflections;			// other taptools objects used in this effect...
+		tt_comb					*comb_filters[6];
 		tt_lfo					*lfos[6];
 		tt_allpass				*my_allpass;
 		tt_lowpass_onepole		*my_lowpass;
 		tt_mixer_mono			*mixer;
 		tt_crossfade			*xfade;						// mix
-		tt_gain				*master_gain;				// gain
+		tt_gain					*master_gain;				// gain
 
 		tt_audio_signal			*temp[k_num_temp_signals];	// Temp Signals
 		
@@ -447,4 +447,4 @@ class tt_verb:public tt_audio_base{
 };
 
 
-#endif	// tt_VERB_H
+#endif	// TT_VERB_H

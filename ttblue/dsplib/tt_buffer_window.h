@@ -145,4 +145,4 @@ class tt_buffer_window:public tt_audio_base{
 		}
 };
 
-#endif	// tt_BUFFER_WINDOW_H
+#endif	// TT_BUFFER_WINDOW_H

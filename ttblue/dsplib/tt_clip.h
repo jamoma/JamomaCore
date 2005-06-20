@@ -101,6 +101,6 @@ class tt_clip:public tt_audio_base{
 		
 };
 
-#endif // tt_CLIP_H
+#endif // TT_CLIP_H
 
 

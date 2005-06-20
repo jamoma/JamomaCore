@@ -28,7 +28,7 @@ class tt_buffer:public tt_audio_base{
 		bool						local_contents;			// flags true if we are using the internal buffer
 				
 	public:
-		tt_sample_value				*contents;				// made public so it can be accessed with speed
+		tt_sample_vector			contents;				// made public so it can be accessed with speed
 		unsigned long				length_samples;			// length of the buffer in samples (also available for speed)
 		// short					channels;
 		// attribute_value_discrete	loop_start_file;		// loop start indicated in file
@@ -88,9 +88,8 @@ class tt_buffer:public tt_audio_base{
 					length_ms = length_samples * (1000.0 / sr);
 					break;
 			}
-			mem_free(contents);
+			free(contents);
 			contents = (tt_sample_value *)mem_alloc(length_samples * sizeof(tt_sample_value));
-			clear();
 		}
 
 		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes

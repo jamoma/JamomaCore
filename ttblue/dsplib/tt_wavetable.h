@@ -203,4 +203,4 @@ class tt_wavetable:public tt_audio_base{
 };
 
 
-#endif		// tt_WAVETABLE_H
+#endif		// TT_WAVETABLE_H

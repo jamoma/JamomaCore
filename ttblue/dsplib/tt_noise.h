@@ -178,4 +178,4 @@ class tt_noise:public tt_audio_base{
 };
 
 
-#endif		// tt_NOISE_H
+#endif		// TT_NOISE_H

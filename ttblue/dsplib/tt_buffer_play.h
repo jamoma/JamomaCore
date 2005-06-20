@@ -32,7 +32,7 @@ class tt_buffer_play:public tt_audio_base{
 		// Attribute Values
 		tt_attribute_value_discrete 	mode;
 		tt_attribute_value				gain;
-		tt_buffer						*wavetable;
+		tt_buffer						*wavetable;		// Reference to an external buffer
 	
 	public:
 		enum selectors{										// Attribute Selectors
@@ -48,6 +48,7 @@ class tt_buffer_play:public tt_audio_base{
 		// OBJECT LIFE					
 		tt_buffer_play()									// Constructor		
 		{
+			wavetable = 0;
 			// set defaults
 			set_attr(k_mode, k_mode_normalized);
 			set_attr(k_gain, 0.0);
@@ -56,6 +57,7 @@ class tt_buffer_play:public tt_audio_base{
 
 		tt_buffer_play(tt_buffer *mybuffer)				// Constructor - BUFFER ARG
 		{
+			wavetable = 0;
 			// set defaults
 			set_attr(k_mode, k_mode_normalized);
 			set_attr(k_gain, 0.0);

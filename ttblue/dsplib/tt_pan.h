@@ -155,6 +155,6 @@ class tt_pan:public tt_audio_base{
 
 };
 
-#endif // tt_PAN_H
+#endif // TT_PAN_H
 
 

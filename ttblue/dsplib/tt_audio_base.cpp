@@ -200,13 +200,13 @@ int tt_audio_base::get_vectorsize()
 
 
 
-// Platform independent memory allocation
+// Platform independent (cleared) memory allocation
 tt_ptr tt_audio_base::mem_alloc(long size)
 {
 	tt_ptr alloc;
 #if defined TAPTOOLS_TARGET_MAC
 	#if defined MAC_VERSION			// This is defined by MAX
-		alloc = (tt_ptr)sysmem_newptr(size);
+		alloc = (tt_ptr)sysmem_newptrclear(size);
 		if(alloc){
 			return alloc;
 		}
@@ -215,7 +215,7 @@ tt_ptr tt_audio_base::mem_alloc(long size)
 			return 0;
 		}
 	#else	
-		alloc = (tt_ptr)NewPtr(size);
+		alloc = (tt_ptr)NewPtrClear(size);
 		if(alloc)
 			return alloc;
 		else{
@@ -227,7 +227,7 @@ tt_ptr tt_audio_base::mem_alloc(long size)
  	
 #ifdef TAPTOOLS_TARGET_WIN	// Windows MEMORY ALLOCATION	
 	#ifdef WIN_VERSION			// This is defined by MAX for Windows
-		alloc = (tt_ptr)sysmem_newptr(size);
+		alloc = (tt_ptr)sysmem_newptrclear(size);
 		if(alloc)
 			return alloc;
 		else{
@@ -235,7 +235,8 @@ tt_ptr tt_audio_base::mem_alloc(long size)
 			return 0;
 		}
 	#else
-		alloc = HeapAlloc(GetProcessHeap(), 0, size);			// Windows API
+		//alloc = HeapAlloc(GetProcessHeap(), 0, size);			// Windows API
+		alloc = (tt_ptr)calloc(1, size);
 		// Should add some error checking here
 		return alloc;
 	#endif
@@ -250,8 +251,8 @@ void tt_audio_base::mem_free(void *my_ptr)
 #ifdef TAPTOOLS_TARGET_MAC
 	#ifdef MAC_VERSION
 		sysmem_freeptr(my_ptr);
-	//#else
-	//	DisposePtr((Ptr)my_ptr);
+	#else
+		DisposePtr((Ptr)my_ptr);
 	#endif	
 #endif // TAPTOOLS_TARGET_MAC
 
@@ -259,7 +260,8 @@ void tt_audio_base::mem_free(void *my_ptr)
 	#ifdef WIN_VERSION
 		sysmem_freeptr(my_ptr);	
 	#else 
-		HeapFree(GetProcessHeap(), 0, my_ptr)
+		//HeapFree(GetProcessHeap(), 0, my_ptr)
+		free(my_ptr);
 	#endif
 #endif // TAPTOOLS_TARGET_WIN
 		my_ptr = 0;

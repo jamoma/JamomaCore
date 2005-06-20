@@ -115,4 +115,4 @@ class tt_lowpass_onepole:public tt_audio_base{
 };
 
 
-#endif	// tt_LOWPASS_ONEPOLE_H
+#endif	// TT_LOWPASS_ONEPOLE_H

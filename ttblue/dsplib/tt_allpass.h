@@ -26,10 +26,10 @@ class tt_allpass:public tt_audio_base{
 	private:
 		tt_attribute_value 	delay_ms;					// ATTRIBUTE: Delay time in milliseconds
 		tt_attribute_value	gain;						// ATTRIBUTE: Gain coefficient
-		tt_sample_value		*ff_buffer, *fb_buffer;		// buffers for the delays
-		tt_sample_value		*ff_end_ptr, *fb_end_ptr;	// pointers to the buffer ends
-		tt_sample_value		*ff_in_ptr, *fb_in_ptr;		// write pointers
-		tt_sample_value		*ff_out_ptr, *fb_out_ptr;	// read pointers
+		tt_sample_vector	ff_buffer, fb_buffer;		// buffers for the delays
+		tt_sample_vector	ff_end_ptr, fb_end_ptr;		// pointers to the buffer ends
+		tt_sample_vector	ff_in_ptr, fb_in_ptr;		// write pointers
+		tt_sample_vector	ff_out_ptr, fb_out_ptr;		// read pointers
 		long				delay_samples_max;			// size of the delay buffers
 		float				delay_ms_max;				// ...
 		long				delay_samples;				// Delay time in samples (internal)	

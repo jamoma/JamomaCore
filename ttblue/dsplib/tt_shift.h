@@ -34,7 +34,7 @@ class tt_shift:public tt_audio_base{
 		tt_phasor				*phasor;
 		tt_buffer				*window;
 		tt_buffer_window		*wave1, *wave2;
-		tt_gain				*scale;
+		tt_gain					*scale;
 		tt_offset				*offset;
 		tt_onewrap				*modulo;	
 		tt_add					*add;

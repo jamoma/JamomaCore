@@ -54,8 +54,6 @@ class tt_adsr:public tt_audio_base{
 		short							eg_state;			// one of the eg_states defined below
 		tt_sample_value					output;
 		tt_sample_value					output_db;
-		
-		tt_audio_signal 				*temp;		// temp signal used in some DSP routines
 
 		enum constants{
 			NOISE_FLOOR = -120,							// noise floor in decibels (value at which to cut to 0.0)
@@ -96,13 +94,11 @@ class tt_adsr:public tt_audio_base{
 			set_attr(k_decay, 100.0);
 			set_attr(k_sustain_db, -6.0);
 			set_attr(k_release, 500.0 );
-			
-			temp = new tt_audio_signal(1);
 		}
 
 		~tt_adsr()										// Destructor
 		{
-			delete temp;
+			;
 		}
 
 
@@ -419,4 +415,4 @@ class tt_adsr:public tt_audio_base{
 		}
 };
 
-#endif		// tt_ADSR_H
+#endif		// TT_ADSR_H

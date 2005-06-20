@@ -61,7 +61,7 @@ class tt_lfo:public tt_audio_base{
 		// OBJECT LIFE					
 		tt_lfo()											// Constructor		
 		{
-			index = index_delta = 0.0;
+			index = index_delta = wavetable = 0;
 			wavetable = new tt_buffer;
 			wavetable->set_attr(tt_buffer::k_length_samples, 512);
 
@@ -231,4 +231,4 @@ class tt_lfo:public tt_audio_base{
 };
 
 
-#endif		// tt_LFO_H
+#endif		// TT_LFO_H

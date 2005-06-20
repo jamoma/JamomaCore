@@ -140,4 +140,4 @@ class tt_polar:public tt_audio_base{
 		}		
 };
 
-#endif		// tt_POLAR_H
+#endif		// TT_POLAR_H

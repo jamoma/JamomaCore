@@ -32,7 +32,7 @@ class tt_average:public tt_audio_base{
 		tt_attribute_value_discrete		interval;
 		tt_attribute_value_discrete		mode;
 		double 							accumulator, intervalReciprocal;
-		tt_sample_value					*bins, *inBinPtr, *outBinPtr, *lastBinPtr;
+		tt_sample_vector				bins, bins_in, bins_out, bins_end;
 	
 		// Constants
 		enum constants{
@@ -53,6 +53,7 @@ class tt_average:public tt_audio_base{
 		// OBJECT LIFE					
 		tt_average()								// Constructor		
 		{
+			bins = bins_in = bins_out = bins_end = 0;
 			bins = (tt_sample_value *)mem_alloc((1 + MAX_AVERAGE_INTERVAL) * sizeof(tt_sample_value));
 			set_attr(k_interval, 100);
 			set_attr(k_mode, k_mode_absolute);
@@ -104,16 +105,16 @@ class tt_average:public tt_audio_base{
 		{
 			int i;
 			
-			inBinPtr = bins;
+			bins_in = bins;
 			for (i = 0; i < MAX_AVERAGE_INTERVAL; i++)
-				*(inBinPtr+i) = 0.0;
+				*(bins_in+i) = 0.0;
 			
 			accumulator = 0.0;
 			intervalReciprocal = 1.0 / interval;
-			lastBinPtr = bins + interval;
-			outBinPtr = inBinPtr - interval;
-			if (outBinPtr < bins)
-				outBinPtr = lastBinPtr + (outBinPtr - bins) + 1;
+			bins_end = bins + interval;
+			bins_out = bins_in - interval;
+			if (bins_out < bins)
+				bins_out = bins_end + (bins_out - bins) + 1;
 		}
 
 
@@ -133,13 +134,13 @@ class tt_average:public tt_audio_base{
 		{
 			temp_vs = in->vectorsize;
 			while(temp_vs--){
-				if (outBinPtr > lastBinPtr)
-					outBinPtr = bins;
-				if (inBinPtr > lastBinPtr)
-					inBinPtr = bins;
-				accumulator -= *outBinPtr++;
+				if (bins_out > bins_end)
+					bins_out = bins;
+				if (bins_in > bins_end)
+					bins_in = bins;
+				accumulator -= *bins_out++;
 				
-				accumulator += *inBinPtr++ = *in->vector++;
+				accumulator += *bins_in++ = *in->vector++;
 				*out->vector++ = accumulator * intervalReciprocal;
 			}
 			in->reset(); out->reset();
@@ -150,13 +151,13 @@ class tt_average:public tt_audio_base{
 		{
 			temp_vs = in->vectorsize;
 			while(temp_vs--){
-				if (outBinPtr > lastBinPtr)
-					outBinPtr = bins;
-				if (inBinPtr > lastBinPtr)
-					inBinPtr = bins;
-				accumulator -= *outBinPtr++;
+				if (bins_out > bins_end)
+					bins_out = bins;
+				if (bins_in > bins_end)
+					bins_in = bins;
+				accumulator -= *bins_out++;
 				
-				accumulator += *inBinPtr++ = fabs(*in->vector++);
+				accumulator += *bins_in++ = fabs(*in->vector++);
 				*out->vector++ = accumulator * intervalReciprocal;
 			}
 			in->reset(); out->reset();
@@ -169,18 +170,18 @@ class tt_average:public tt_audio_base{
 			temp_vs = in->vectorsize;
 			
 			while(temp_vs--){
-				if (outBinPtr > lastBinPtr)
-					outBinPtr = bins;
-				if (inBinPtr > lastBinPtr)
-					inBinPtr = bins;
-				accumulator -= *outBinPtr++;
+				if (bins_out > bins_end)
+					bins_out = bins;
+				if (bins_in > bins_end)
+					bins_in = bins;
+				accumulator -= *bins_out++;
 				
 				value = *in->vector++;
-				accumulator += *inBinPtr++ = value * value;
+				accumulator += *bins_in++ = value * value;
 				*out->vector++ = sqrt(accumulator * intervalReciprocal);
 			}
 			in->reset(); out->reset();
 		}
 };
 
-#endif	// tt_AVERAGE_H
+#endif	// TT_AVERAGE_H

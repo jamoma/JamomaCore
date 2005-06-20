@@ -158,4 +158,4 @@ class tt_lowpass_twopole:public tt_audio_base{
 };
 
 
-#endif	// tt_LOWPASS_TWOPOLE_H
+#endif	// TT_LOWPASS_TWOPOLE_H

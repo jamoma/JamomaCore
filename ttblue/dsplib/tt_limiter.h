@@ -33,16 +33,14 @@ class tt_limiter:public tt_audio_base{
 
 		// Attributes Values & Variables 
 		tt_attribute_value_bool		defeat_dcblocker;
-		double	 					last_input1;
-		double						last_output1;
-		double	 					last_input2;
-		double						last_output2;
-		double	recover;
-		double	recip;
-		float 	*buf1, *buf2, *gain;
-//		tt_buffer	*buffer1, *buffer2, *buffer_gain;
-		long 	bp, samps;
-		float 	last;
+		double	 					last_input1, last_input2;
+		double						last_output1, last_output2;
+		double						recover;
+		double						recip;
+		tt_sample_vector 			buf1, buf2, gain;
+//		tt_buffer					*buffer1, *buffer2, *buffer_gain;
+		long 						bp, samps;
+		float 						last;
 
 		tt_attribute_value 				threshold;			
 		tt_attribute_value_discrete 	mode;
@@ -488,4 +486,4 @@ class tt_limiter:public tt_audio_base{
 };
 
 
-#endif		// tt_LIMITER_H
+#endif		// TT_LIMITER_H

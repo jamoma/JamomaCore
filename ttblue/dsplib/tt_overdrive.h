@@ -282,4 +282,4 @@ class tt_overdrive:public tt_audio_base{
 };
 
 
-#endif	// tt_OVERDRIVE_H
+#endif	// TT_OVERDRIVE_H

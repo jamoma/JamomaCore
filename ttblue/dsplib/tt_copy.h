@@ -57,6 +57,6 @@ class tt_copy:public tt_audio_base{
 		}
 };
 
-#endif // tt_COPY_H
+#endif // TT_COPY_H
 
 

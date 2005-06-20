@@ -17,7 +17,7 @@ class tt_audio_signal:public tt_audio_base{
 	private:
 		bool				mode;
 		tt_sample_vector	vector_start;		// store the address for the beginning of the vector
-		//int					vectorsize_start;	// permanent location of the vectorsize
+		//int				vectorsize_start;	// permanent location of the vectorsize
 	
 	public:
 		tt_sample_vector	vector;				// made public for fast access in dsp routines

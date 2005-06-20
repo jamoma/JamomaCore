@@ -89,4 +89,4 @@ class tt_dcblock:public tt_audio_base{
 		}
 };
 
-#endif	// tt_DCBLOCK_H
+#endif	// TT_DCBLOCK_H

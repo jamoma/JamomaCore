@@ -74,6 +74,6 @@ class tt_onewrap:public tt_audio_base{
 		
 };
 
-#endif // tt_ONEWRAP_H
+#endif // TT_ONEWRAP_H
 
 

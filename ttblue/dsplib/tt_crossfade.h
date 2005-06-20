@@ -141,6 +141,6 @@ class tt_crossfade:public tt_audio_base{
 		
 };
 
-#endif // tt_CROSSFADE_H
+#endif // TT_CROSSFADE_H
 
 

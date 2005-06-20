@@ -305,6 +305,6 @@ class tt_mixer_mono:public tt_audio_base{
 		}		
 };
 
-#endif // tt_MIXER_MONO_H
+#endif // TT_MIXER_MONO_H
 
 

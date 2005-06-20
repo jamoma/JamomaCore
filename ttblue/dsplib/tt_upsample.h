@@ -108,4 +108,4 @@ class tt_upsample:public tt_audio_base{
 };
 
 
-#endif	// tt_UPSAMPLE_H
+#endif	// TT_UPSAMPLE_H

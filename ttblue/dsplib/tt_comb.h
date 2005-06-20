@@ -24,14 +24,12 @@
 class tt_comb:public tt_audio_base{
 
 	private:
-		// int	sr;										*** Inherited: Holds local sample rate
-		float 	*memory;								// Internal Stuff for the comb filter
-		float 	*alloc;
-		//float 	delaysize;
-		long 	delay;
-		float 	msdelay;
-		float 	comb_fb_coef;
-		float 	*memwriteptr;
+		// int				sr;								*** Inherited: Holds local sample rate
+		tt_sample_vector	memory, memwriteptr, alloc;		// Internal Stuff for the comb filter
+		//float 			delaysize;
+		long 				delay;
+		float 				msdelay;
+		float 				comb_fb_coef;
 	
 		tt_attribute_value 		lowpass_feedback;			// lowpass filter parameters
 		tt_attribute_value 		lowpass_coef;
@@ -63,7 +61,7 @@ class tt_comb:public tt_audio_base{
 		tt_comb(tt_attribute_value arg)				// Constructor		
 		{
 			long i;
-			alloc = 0;
+			alloc = memwriteptr = memory = 0;
 			buffersize = arg > 24 ? arg : 25;		// init the size of the delay buffer - minimum is 25
 		
 			// ALLOCATE MEMORY BUFFER
@@ -89,8 +87,7 @@ class tt_comb:public tt_audio_base{
 
 		~tt_comb(void)							// Destructor
 		{
-			if (alloc) mem_free(alloc);
-			alloc = 0;
+			mem_free(alloc);
 		}
 
 
@@ -209,4 +206,4 @@ class tt_comb:public tt_audio_base{
 };
 
 
-#endif		// tt_COMB_H
+#endif		// TT_COMB_H

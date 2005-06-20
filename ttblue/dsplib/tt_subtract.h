@@ -46,6 +46,6 @@ class tt_subtract:public tt_audio_base{
 		}
 };
 
-#endif // tt_SUBTRACT_H
+#endif // TT_SUBTRACT_H
 
 

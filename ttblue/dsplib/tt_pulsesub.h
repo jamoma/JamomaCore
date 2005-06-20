@@ -35,8 +35,8 @@ class tt_pulsesub:public tt_audio_base{
 
 		tt_offset				*offset;					// member tap.tools objects
 		tt_phasor				*phasor;
-		tt_adsr				*env_gen;
-		tt_multiply			*scaler;	
+		tt_adsr					*env_gen;
+		tt_multiply				*scaler;	
 		tt_audio_signal			*temp[k_num_temp_signals];	// Temp Signals
 			
 	public:
@@ -204,4 +204,4 @@ class tt_pulsesub:public tt_audio_base{
 };
 
 
-#endif	// tt_SHIFT_H
+#endif	// TT_PULSESUB_H

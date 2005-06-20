@@ -3,13 +3,13 @@
  *		FIXED MULTITAP DELAY UNIT
  ********************************************************
  * 		Tap.Tools Blue Object
- *		copyright © 2003,2004 by Timothy A. Place
+ *		copyright © 2003, 2004 by Timothy A. Place
  *
  */
  
 // Check against redundant including
-#ifndef TT_MULTItt_H
-#define TT_MULTItt_H
+#ifndef TT_MULTITAP_H
+#define TT_MULTITAP_H
 
 // Include appropriate headers
 #include "tt_audio_base.h"
@@ -39,10 +39,10 @@ class tt_multitap:public tt_audio_base{
 		tt_attribute_value				master_gain;					// master output gain control (in db)
 		tt_attribute_value_discrete		num_taps;						// number of delay taps active in the unit
 		
-		tt_sample_value					*buffer;						// pointer to first location in the buffer
-		tt_sample_value					*buffer_end;					// pointer to last location in the buffer
-		tt_sample_value					*buffer_in;						// "write" pointer for the buffer
-		tt_sample_value					*buffer_out[k_max_num_taps];	// "read" pointers from the buffer for each delay
+		tt_sample_vector				buffer;							// pointer to first location in the buffer
+		tt_sample_vector				buffer_end;						// pointer to last location in the buffer
+		tt_sample_vector				buffer_in;						// "write" pointer for the buffer
+		tt_sample_vector				buffer_out[k_max_num_taps];		// "read" pointers from the buffer for each delay
 	
 	public:
 		enum selectors{
@@ -234,12 +234,12 @@ class tt_multitap:public tt_audio_base{
 		short i;
 		
 		for(i=0; i<k_max_num_taps; i++)
-			delay_ms[i] = delay_samples[i] = gain[i] = 0;
+			delay_ms[i] = delay_samples[i] = gain[i] = buffer_out[i] = 0;
 		buffersize_samples = buffersize_ms = 0;
 		buffersize_type = 0;
-		buffer = buffer_end = 0;
-		num_taps = 0;
-		
+		buffer = buffer_in = buffer_end = 0;
+		num_taps = master_gain = 0;
+
 		set_sr(global_sr);
 	}
 	
@@ -256,4 +256,4 @@ class tt_multitap:public tt_audio_base{
 };
 
 
-#endif // tt_MULTItt_H
+#endif // TT_MULTITAP_H

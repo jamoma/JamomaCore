@@ -25,11 +25,11 @@ class tt_zerox:public tt_audio_base{
 
 	private:
 		tt_attribute_value_discrete 	analysis_samps;				// analysis period in samples
-		double						r_analysis_samps;			// reciprocal of analysis size
-		bool						last_samp_was_over_zero;	// was the last sample over zero?
-		long						counter;					// counts zero-crossings
-		tt_sample_value				final_count;
-		long						analysis_location;			// keep track of how many samples so far
+		double							r_analysis_samps;			// reciprocal of analysis size
+		bool							last_samp_was_over_zero;	// was the last sample over zero?
+		long							counter;					// counts zero-crossings
+		tt_sample_value					final_count;
+		long							analysis_location;			// keep track of how many samples so far
 	
 	public:
 		enum selectors{									// Attribute Selectors
@@ -115,4 +115,4 @@ class tt_zerox:public tt_audio_base{
 };
 
 
-#endif	// tt_ZEROX_H
+#endif	// TT_ZEROX_H

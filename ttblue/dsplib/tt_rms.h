@@ -97,4 +97,4 @@ class tt_rms:public tt_audio_base{
 };
 
 
-#endif	// tt_RMS_H
+#endif	// TT_RMS_H

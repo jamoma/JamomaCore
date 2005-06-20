@@ -227,4 +227,4 @@ class tt_fivecomb:public tt_audio_base{
 };
 
 
-#endif	// tt_FIVECOMB_H
+#endif	// TT_FIVECOMB_H

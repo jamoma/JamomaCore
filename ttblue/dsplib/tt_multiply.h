@@ -46,6 +46,6 @@ class tt_multiply:public tt_audio_base{
 		}
 };
 
-#endif // tt_MULTIPLY_H
+#endif // TT_MULTIPLY_H
 
 
