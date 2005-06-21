@@ -26,7 +26,6 @@ void pass_list(t_pass *x, t_symbol *msg, short argc, t_atom *argv);
 
 // Globals
 t_class		*pass_class;				// Required: Global pointer for our class
-t_symbol	*ps_dumpout;
 
 
 /************************************************************************************/
@@ -40,7 +39,6 @@ void main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	common_symbols_init();
-	ps_dumpout = gensym("dumpout");
 
 	// Define our class
 	c = class_new("jmod.pass",(method)pass_new, (method)0L, (short)sizeof(t_pass), (method)0L, A_GIMME, 0);

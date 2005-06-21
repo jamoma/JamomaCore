@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="&quot;..\..\c74support\max-includes&quot;;&quot;..\..\c74support\msp-includes&quot;;..\..\Library_Windows;..\..\Source_Files"
+				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;..\..\..\..\c74support\QuickTime\inc;..\..\..\..\ttblue\dsplib"
 				PreprocessorDefinitions="WIN_VERSION;WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION;"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="FALSE"
@@ -122,19 +122,19 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="1"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies=".\..\..\c74support\max-includes\win-includes\debug\MaxAPI.lib .\..\..\c74support\max-includes\win-includes\debug\MaxExt.lib .\..\..\c74support\msp-includes\win-includes\debug\MaxAudio.lib .\..\..\Library_Windows\TapToolsBlue.lib"
-				OutputFile=".\..\..\Build_Windows\debug\jmod.meter~.mxe"
+				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib .\..\..\..\..\c74support\QuickTime\lib\qtmlClient.lib"
+				OutputFile=".\..\Build_Windows\debug\jmod.meter~.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\tap_change.def"
+				ModuleDefinitionFile=".\jmod.meter~.def"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\ext_win_debug\jmod.meter~.pdb"
 				SubSystem="2"

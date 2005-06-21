@@ -36,8 +36,6 @@ bool atom_compare(Atom *in1, Atom *in2);
 
 // Globals
 t_class		*change_class;			// Required. Global pointing to this class
-t_symbol	*ps_nothing;
-t_symbol	*ps_dumpout;
 
 /************************************************************************************/
 // Main() Function
@@ -66,10 +64,6 @@ void main(void)				// main recieves a copy of the Max function macros table
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	change_class = c;
-	
-	// Initialize Globals
-	ps_nothing = gensym("nothing");
-	ps_dumpout = gensym("dumpout");
 }
 
 
@@ -82,7 +76,7 @@ void *change_new(void)
 	t_change *x;									// Declare an object (based on our struct)
 	x = (t_change *)object_alloc(change_class);		// Create object, store pointer to it (get 1 inlet free)
 	if(x){
-		object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
+		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 		x->change_Out[1] = bangout(x);				// Create Outlets (right to left order)
 	    x->change_Out[0] = outlet_new(x, 0);		//	...
 
@@ -91,7 +85,7 @@ void *change_new(void)
 
 	// Init the temp storage
 	for(i=0; i<MAX_LIST_SIZE; i++)
-		atom_setsym(&(x->last_input_list[i]), ps_nothing);			
+		atom_setsym(&(x->last_input_list[i]), _sym_nothing);			
 	}
 	return (x);										// Return pointer to our instance
 }

@@ -36,9 +36,6 @@ void usurp_qfn(t_usurp *x);
 
 // Globals
 t_class		*usurp_class;				// Required: Global pointer for our class
-t_symbol	*ps_bang;
-t_symbol	*ps_list;
-t_symbol	*ps_dumpout;
 
 
 /************************************************************************************/
@@ -52,9 +49,6 @@ void main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	common_symbols_init();
-	ps_bang = gensym("bang");
-	ps_list = gensym("list");
-	ps_dumpout = gensym("dumpout");
 
 	// Define our class
 	c = class_new("jmod.usurp",(method)usurp_new, (method)usurp_free, (short)sizeof(t_usurp), (method)0L, A_GIMME, 0);
@@ -86,7 +80,7 @@ void *usurp_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_usurp	*x = (t_usurp *)object_alloc(usurp_class);
 	if(x){
-		object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x, NULL));	// dumpout
+		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));	// dumpout
 			
 		// Create Outlet(s)
 		x->outlet = outlet_new(x, 0);
@@ -126,7 +120,7 @@ void usurp_assist(t_usurp *x, void *b, long msg, long arg, char *dst)
 void usurp_bang(t_usurp *x)
 {
 	x->argc = 1;
-	SETSYM(x->argv, ps_bang);
+	SETSYM(x->argv, _sym_bang);
 	qelem_set(x->qelem);
 }
 
@@ -191,6 +185,6 @@ void usurp_qfn(t_usurp *x)
 		if(x->argv->a_type == A_SYM)
 			outlet_anything(x->outlet, x->argv->a_w.w_sym, x->argc-1, x->argv+1);
 		else
-			outlet_list(x->outlet, ps_list, x->argc, x->argv);
+			outlet_list(x->outlet, _sym_list, x->argc, x->argv);
 	}
 }

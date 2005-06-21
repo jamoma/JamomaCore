@@ -26,7 +26,7 @@
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\..\c74support\max-includes\common\&quot;"
+				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;"
 				PreprocessorDefinitions="WIN_VERSION;WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="&quot;..\..\c74support\max-includes&quot;;&quot;..\..\c74support\msp-includes&quot;;..\..\Library_Windows;..\..\Source_Files"
+				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;"
 				PreprocessorDefinitions="WIN_VERSION;WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION;"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="FALSE"
@@ -122,19 +122,19 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="1"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies=".\..\..\c74support\max-includes\win-includes\debug\MaxAPI.lib .\..\..\c74support\max-includes\win-includes\debug\MaxExt.lib .\..\..\c74support\msp-includes\win-includes\debug\MaxAudio.lib .\..\..\Library_Windows\TapToolsBlue.lib"
-				OutputFile=".\..\..\Build_Windows\debug\jmod.route.mxe"
+				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
+				OutputFile=".\..\Build_Windows\debug\jmod.route.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\tap_change.def"
+				ModuleDefinitionFile=".\jmod.route.def"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\ext_win_debug\jmod.route.pdb"
 				SubSystem="2"
@@ -191,6 +191,9 @@
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\..\..\c74support\max-includes\commonsyms.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

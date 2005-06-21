@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="jmod.gain~"
+	Name="jmod.gain"
 	ProjectGUID="{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	SccProjectName=""
 	SccLocalPath="">
@@ -26,7 +26,7 @@
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\..\c74support\max-includes\common\&quot;;..\..\..\..\ttblue\dsplib"
+				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;..\..\..\..\ttblue\dsplib"
 				PreprocessorDefinitions="WIN_VERSION;WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
@@ -36,10 +36,10 @@
 				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile="..\ext_win_release\jmod.gain~.pch"
+				PrecompiledHeaderFile="..\ext_win_release\jmod.gain.pch"
 				AssemblerListingLocation="..\ext_win_release\"
 				ObjectFile="..\ext_win_release\"
-				ProgramDataBaseFileName="..\ext_win_release\jmod.gain~"
+				ProgramDataBaseFileName="..\ext_win_release\jmod.gain"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="2"/>
@@ -50,17 +50,17 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
-				OutputFile=".\..\Build_Windows\jmod.gain~.mxe"
+				OutputFile=".\..\Build_Windows\jmod.gain.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
 				ModuleDefinitionFile=".\jmod.gain~.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="..\ext_win_release\jmod.gain~.pdb"
+				ProgramDatabaseFile="..\ext_win_release\jmod.gain.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\ext_win_release\jmod.gain~.lib"
+				ImportLibrary="..\ext_win_release\jmod.gain.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -105,7 +105,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="2"
-				AdditionalIncludeDirectories="&quot;..\..\c74support\max-includes&quot;;&quot;..\..\c74support\msp-includes&quot;;..\..\Library_Windows;..\..\Source_Files"
+				AdditionalIncludeDirectories="&quot;..\..\..\..\c74support\max-includes&quot;;&quot;..\..\..\..\c74support\msp-includes&quot;;..\..\..\..\ttblue\dsplib"
 				PreprocessorDefinitions="WIN_VERSION;WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION;"
 				MinimalRebuild="TRUE"
 				ExceptionHandling="FALSE"
@@ -115,30 +115,30 @@
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile="..\ext_win_debug\jmod.gain~.pch"
+				PrecompiledHeaderFile="..\ext_win_debug\jmod.gain.pch"
 				AssemblerListingLocation="..\ext_win_debug\"
 				ObjectFile="..\ext_win_debug\"
-				ProgramDataBaseFileName="..\ext_win_debug\jmod.gain~"
+				ProgramDataBaseFileName="..\ext_win_debug\jmod.gain"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="1"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies=".\..\..\c74support\max-includes\win-includes\debug\MaxAPI.lib .\..\..\c74support\max-includes\win-includes\debug\MaxExt.lib .\..\..\c74support\msp-includes\win-includes\debug\MaxAudio.lib .\..\..\Library_Windows\TapToolsBlue.lib"
-				OutputFile=".\..\..\Build_Windows\debug\jmod.gain~.mxe"
+				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
+				OutputFile=".\..\Build_Windows\debug\jmod.gain.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\tap_change.def"
+				ModuleDefinitionFile=".\jmod.gain~.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="..\ext_win_debug\jmod.gain~.pdb"
+				ProgramDatabaseFile="..\ext_win_debug\jmod.gain.pdb"
 				SubSystem="2"
-				ImportLibrary="..\ext_win_debug\jmod.gain~.lib"
+				ImportLibrary="..\ext_win_debug\jmod.gain.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -182,10 +182,10 @@
 				RelativePath="..\..\..\..\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
-				RelativePath=".\jmod.gain~.cpp">
+				RelativePath=".\jmod.gain.def">
 			</File>
 			<File
-				RelativePath=".\jmod.gain~.def">
+				RelativePath=".\jmod.gain~.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\..\ttblue\dsplib\tt_audio_base.cpp">
@@ -194,6 +194,12 @@
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\..\..\c74support\max-includes\commonsyms.h">
+			</File>
+			<File
+				RelativePath="..\..\..\..\ttblue\dsplib\tt_audio_base.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

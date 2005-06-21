@@ -68,7 +68,6 @@ t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv);
 
 // Globals
 t_class *meter_class;
-t_symbol *ps_long;
 
 /************************************************************************************/
 // Main() Function
@@ -80,7 +79,6 @@ void main(void)
 	t_object *attr;
 	
 	common_symbols_init();
-	ps_long = gensym("long");
 
 	c = class_new("jmod.meter~",(method)meter_new, (method)meter_free, (short)sizeof(t_meter), (method)meter_menu, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_meter, obex));
@@ -93,7 +91,7 @@ void main(void)
 	class_addmethod(c, (method)meter_float,		"float", A_FLOAT, 0L);
  	class_addmethod(c, (method)meter_dsp, 		"dsp", A_CANT, 0L);		
 
-	attr = attr_offset_new("defeat", ps_long, attrflags,
+	attr = attr_offset_new("defeat", _sym_long, attrflags,
 		(method)0L,(method)attr_set_defeat, calcoffset(t_meter, attr_defeat));
 	class_addattr(c, attr);
 
