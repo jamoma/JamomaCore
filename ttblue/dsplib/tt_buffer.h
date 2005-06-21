@@ -88,7 +88,7 @@ class tt_buffer:public tt_audio_base{
 					length_ms = length_samples * (1000.0 / sr);
 					break;
 			}
-			free(contents);
+			free();
 			contents = (tt_sample_value *)mem_alloc(length_samples * sizeof(tt_sample_value));
 		}
 

@@ -61,9 +61,8 @@ class tt_lfo:public tt_audio_base{
 		// OBJECT LIFE					
 		tt_lfo()											// Constructor		
 		{
-			index = index_delta = wavetable = 0;
-			wavetable = new tt_buffer;
-			wavetable->set_attr(tt_buffer::k_length_samples, 512);
+			index = index_delta = 0;
+			wavetable = new tt_buffer(512);
 
 			// set defaults
 			set_attr(k_mode, k_mode_sine_mod);
@@ -84,7 +83,7 @@ class tt_lfo:public tt_audio_base{
 			switch (sel){
 
 				case k_frequency:
-					frequency = clip(double(val), 0.0, sr/2.0);
+					frequency = clip(val, 0.f, sr/2.f);
 					index_delta = frequency * wavetable->get_attr(tt_buffer::k_length_samples) / sr;
 					break;
 					

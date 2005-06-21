@@ -233,8 +233,10 @@ class tt_multitap:public tt_audio_base{
 	{
 		short i;
 		
-		for(i=0; i<k_max_num_taps; i++)
-			delay_ms[i] = delay_samples[i] = gain[i] = buffer_out[i] = 0;
+		for(i=0; i<k_max_num_taps; i++){
+			delay_ms[i] = delay_samples[i] = gain[i] = 0;
+			buffer_out[i] = 0;
+		}
 		buffersize_samples = buffersize_ms = 0;
 		buffersize_type = 0;
 		buffer = buffer_in = buffer_end = 0;

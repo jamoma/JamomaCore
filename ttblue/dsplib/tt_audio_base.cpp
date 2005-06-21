@@ -228,6 +228,7 @@ tt_ptr tt_audio_base::mem_alloc(long size)
 #ifdef TAPTOOLS_TARGET_WIN	// Windows MEMORY ALLOCATION	
 	#ifdef WIN_VERSION			// This is defined by MAX for Windows
 		alloc = (tt_ptr)sysmem_newptrclear(size);
+		//alloc = (tt_ptr)sysmem_newptr(size);
 		if(alloc)
 			return alloc;
 		else{
