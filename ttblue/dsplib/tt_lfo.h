@@ -223,9 +223,18 @@ class tt_lfo:public tt_audio_base{
 			sr = value;
 			r_sr = 1.0 / value;
 			m_sr = sr * 0.001;
+			index = 0;
 			
 			set_attr(k_frequency, frequency);
 		}		
+		
+		// set vectorsize (override the inherited method)
+		void set_vectorsize(int value)
+		{
+			vectorsize = value;
+			index = 0;
+		}
+
 
 };
 
