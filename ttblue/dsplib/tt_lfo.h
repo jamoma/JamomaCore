@@ -62,6 +62,7 @@ class tt_lfo:public tt_audio_base{
 		tt_lfo()											// Constructor		
 		{
 			index = index_delta = 0;
+			phase = phase_in_samples = 0;
 			wavetable = new tt_buffer(512);
 
 			// set defaults
