@@ -1,0 +1,16 @@
+max v2;
+#N vpatcher 199 129 810 392;
+#P window setfont "Sans Serif" 9.;
+#P message 45 216 95 196617 jmod.degrade~.mod;
+#P hidden newex 45 237 64 196617 prepend help;
+#P hidden newex 45 260 45 196617 pcontrol;
+#P window setfont "Sans Serif" 36.;
+#P comment 184 69 386 196644 jmod.degradeM~.mod;
+#B frgb 0 61 132;
+#P user fpic 40 28 140 130 jmod.icon.mod.psd 0 0 0 0. 0 0 0;
+#P window setfont "Sans Serif" 9.;
+#P comment 185 127 392 196617 Mono version of audio degrade module. Refer to the stereo module for further details.;
+#P comment 43 193 100 196617 See also:;
+#P hidden connect 6 0 5 0;
+#P hidden connect 5 0 4 0;
+#P pop;
