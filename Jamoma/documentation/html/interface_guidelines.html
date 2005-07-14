@@ -26,11 +26,11 @@
 		<p>Discuss the difference between a message and a parameter.</p>
 		<p>Discuss that all modules should return their parameter values as they are updated.</p>
 		
-<h1>File Format</h1>
+<h2>File Format</h2>
 		<p>All module filenames should end with the &#147;.mod&#148; extension, and should be saved in Max&#146;s text format. Similarly, all algorithms should end with &#147;.alg&#148; extension and be saved in Max&#146;s text format. Other underlying patches or abstractions should also be saved in text format. The preferred extensions for text format files (with the exception of .mod or .alg files) is .txt or .mxt.</p>
 		<p>If there is a situation where a binary format patcher must be used. the preferred extension for binary Max patches is .mxb.</p>
 		
-<h1>Standardized Messages and Parameters</h1>
+<h2>Standardized Messages and Parameters</h2>
 		<p>Some intro.</p>
 		<p>All modules should, where feasible, implement the following messages:</p>
 		<ul>
@@ -57,7 +57,7 @@
 			<li>genframe: generates a frame, essentially sending a bang to a Jitter matrix operator
 		</ul>
 		
-<h1>Reserved Syntax and Messages</h1>
+<h2>Reserved Syntax and Messages</h2>
 		<p>No module may accept or use the following:</p>
 		<ul>
 			<li>Any message beginning with an undescore.  These are reserved for internal use by Jamoma module components.
@@ -69,7 +69,7 @@
 			<li>Any standard message, as previously defined, in a way that differs from the way defined in this style sheet
 		</ul>
 		
-<h1>User Interface Dimensions</h1>
+<h2>User Interface Dimensions</h2>
 		<p>User interface dimensions are based on the paradigm of conventional rack mount hardware.  To demonstrate this, the width a &#147;1U&#148; module is 510 pixels.  Thus the width of a half rack unit module is 255 pixels.  The width of 510 pixels was chosen to maximize the number of modules that can fit on a monitor with a resolution of 1024 pixels.</p>
 		<p>The height of a 1U module is 60 pixels.  Heights then, must be a multiple of 60 pixels high.  The size of a module&#146;s interface must follow these guidelines.  Furthermore, the size of the module should be accessible to the host patch so that it may query the module about this.  </p>
 		<p>The chart below shows the dimensions of the most common module sizes. </p>
