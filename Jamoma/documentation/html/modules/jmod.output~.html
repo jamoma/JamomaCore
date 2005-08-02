@@ -11,7 +11,8 @@
 <div id="jmod_header">
 	<img src="../images/jmod.icon.mod.png" width="128" height="128">
 	<h1>jmod.output~</h1>
-	<h2>A generic module for stereo audio output. Includes saturation , limiter and recording device.</h2>
+	<h2>A generic module for stereo audio output. Includes saturation , limiter and recording device</h2>
+
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 
 	</div>	<h3>Configuration</h3>
@@ -52,16 +53,8 @@
 			<td class="instructionDescription">  Set logical output for right channel. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> dsp_status </td>
-			<td class="instructionType"> generic </td>
-			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
-			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription">  Open DSP Status window. </td>
-		</tr>
-		<tr>
 			<td class="instructionName"> </td>
+			<td class="instructionType"> menu </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
@@ -72,7 +65,7 @@
 			<td class="instructionName"> gain_midi </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> 0 127 </td>
-	<td class="instructionClipmode"> low </td>
+			<td class="instructionClipmode"> low </td>
 			<td class="instructionRamp"> yes </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Set master gain as MIDI value. </td>
@@ -88,7 +81,7 @@
 		</tr>
 		<tr>
 			<td class="instructionName"> limiter_lookahead </td>
-		<td class="instructionType"> msg_int </td>
+			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> 0 256 </td>
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> yes </td>
@@ -132,7 +125,7 @@
 			<td class="instructionDescription"> Limiter: Set the function to be used for calculating the scaling. </td>
 		</tr>
 		<tr>
-		<td class="instructionName"> limiter_threshold </td>
+			<td class="instructionName"> limiter_threshold </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> -24 48 </td>
 			<td class="instructionClipmode"> none </td>
@@ -148,7 +141,8 @@
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> no info provided </td>
-		</tr>		<tr>
+		</tr>
+		<tr>
 			<td class="instructionName"> samptype </td>
 			<td class="instructionType"> menu </td>
 			<td class="instructionRange"> default </td>
@@ -219,7 +213,7 @@
 			<td class="instructionDescription"> Increase master gain MIDI value by one. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> gain_inc </td>
+		<td class="instructionName"> gain_inc </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> N/A </td>
 			<td class="instructionClipmode"> none </td>
@@ -236,6 +230,8 @@
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> returns a dump of symbols out the feedback outlet with the names of parameters accessible in this module </td>
 		</tr>
+		<tr>
+			<td class="instructionName"> help </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
@@ -262,7 +258,8 @@
 			<td class="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> restore_defaults </td>			<td class="instructionType"> n/a </td>
+			<td class="instructionName"> restore_defaults </td>
+			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
@@ -275,16 +272,18 @@
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
-		<td class="instructionRepetitions"> yes </td>
+			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> write an xml-preset file to disk.  An optional argument defines the file to open </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> view_internals </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+		<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning </td>
+		</tr>
 	</table>
 
 	<p>&nbsp;</p>
@@ -296,14 +295,4 @@
 
 </body>
 </html>
-	
-
-				
-			<td class="instructionType"> menu </td>
-		<tr>
-			<td class="instructionName"> view_internals </td>
-			<td class="instructionRamp"> yes </td>
-		<tr>
-			<td class="instructionName"> help </td>
-			<td class="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning </td>
-		</tr>
+		
