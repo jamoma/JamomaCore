@@ -16,6 +16,7 @@ h2 {
 	font-weight:200;
 	margin: 0;
 	color: #555;
+	text-transform: lowercase;
 }
 
 h3 {
