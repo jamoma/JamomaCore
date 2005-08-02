@@ -8,21 +8,21 @@
 	</head>
 
 <body>
+<div id="jmod_header">
 	<img src="../images/jmod.icon.mod.png" width="128" height="128">
 	<h1>jmod.degrade~</h1>
 	<h2>Emulate,the,use,of,lower,sample-rates,and,bit-resolution</h2>
 
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 
-	<hr width="85%">
-
+	</div>	<h3>Configuration</h3>
 	<p> Module Type: <code> audio </code> <br>
 	Interface Size: <code> 1U-half </code> </p>
 
 	<p> Number of signal inlets: <code> 2 </code> <br>
 	Number of signal outlets: <code> 2 </code> </p>
 
-	<h3>Parameters</h3>
+<h3>Parameters</h3>
 
 	<table>
 		<tr class="tableHeading2">
@@ -40,7 +40,7 @@
 			<td class="instructionRange"> 1 24 </td>
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> yes </td>
-			<td class="instructionRepetitions"> no </td>
+		<td class="instructionRepetitions"> no </td>
 			<td class="instructionDescription"> The number of bits that will be retained in each sample - use this for bit crunching effects. </td>
 		</tr>
 		<tr>
@@ -66,9 +66,9 @@
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> 0 127 </td>
 			<td class="instructionClipmode"> low </td>
-			<td class="instructionRamp"> yes </td>
+	<td class="instructionRamp"> yes </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Set gain as MIDI value </td>
+			<td class="instructionDescription"> Set gain as MIDI value. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> mix </td>
@@ -96,8 +96,7 @@
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> no </td>
 			<td class="instructionDescription"> Sets the relative sample-rate for this module. </td>
-		</tr>
-		<tr>
+		</tr>		<tr>
 			<td class="instructionName"> sr_ratio </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> 0.000 1.000 </td>
@@ -130,7 +129,7 @@
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> no info provided </td>
-		</tr>
+	</tr>
 		<tr>
 			<td class="instructionName"> enable </td>
 			<td class="instructionType"> generic </td>
@@ -147,7 +146,7 @@
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> yes </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Set gain as dB value </td>
+			<td class="instructionDescription"> Set gain as dB value. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> gain_dec </td>
@@ -156,7 +155,7 @@
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Increase gain MIDI value by one </td>
+			<td class="instructionDescription"> Increase gain MIDI value by one. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> gain_inc </td>
@@ -165,7 +164,7 @@
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Decrease gain MIDI value by one </td>
+			<td class="instructionDescription"> Decrease gain MIDI value by one. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> get_parameter_names </td>
@@ -187,8 +186,7 @@
 		</tr>
 		<tr>
 			<td class="instructionName"> load_settings </td>
-			<td class="instructionType"> msg_symbol </td>
-			<td class="instructionRange"> n/a </td>
+			<td class="instructionType"> msg_symbol </td>			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
@@ -205,7 +203,7 @@
 		</tr>
 		<tr>
 			<td class="instructionName"> restore_defaults </td>
-			<td class="instructionType"> n/a </td>
+		<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
@@ -241,3 +239,7 @@
 
 </body>
 </html>
+	
+	
+							<td class="instructionDescription"> The number of bits that will be retained in each sample - use this for bit crunching effects. </td>
+		</tr>

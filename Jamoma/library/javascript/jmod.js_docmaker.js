@@ -92,6 +92,8 @@ function bang()
 
 	outlet(1, "<body>");
 	outlet(1, "cr");
+	outlet(1, "<div id=\"jmod_header\">");
+	outlet(1, "cr");
 	
 
 
@@ -124,9 +126,15 @@ function bang()
 	outlet(1, "cr");
 	
 	outlet(1, "tab");	
-	outlet(1, "<hr width=\"85%\">");
-	outlet(1, "cr");
-	
+	outlet(1, "</div>");
+
+
+
+
+
+
+	outlet(1, "tab");
+	outlet(1, "<h3>" + "Configuration" + "</h3>");
 	outlet(1, "cr");
 
 

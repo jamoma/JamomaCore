@@ -3,19 +3,18 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-		<title> jmod.input~ </title>
-		<link href="../styles/jamoma.css" rel="stylesheet" type="text/css">
+		<title> jmod.input~ </title>		<link href="../styles/jamoma.css" rel="stylesheet" type="text/css">
 	</head>
 
 <body>
+<div id="jmod_header">
 	<img src="../images/jmod.icon.mod.png" width="128" height="128">
 	<h1>jmod.input~</h1>
 	<h2>A generic modul for audio input</h2>
 
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 
-	<hr width="85%">
-
+	</div>	<h3>Configuration</h3>
 	<p> Module Type: <code> audio </code> <br>
 	Interface Size: <code> 2U-half </code> </p>
 
@@ -68,7 +67,7 @@
 			<td class="instructionClipmode"> low </td>
 			<td class="instructionRamp"> yes </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Set right channel gain as MIDI value. </td>
+		<td class="instructionDescription"> Set right channel gain as MIDI value. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> gain_midi </td>
@@ -91,8 +90,7 @@
 		<tr>
 			<td class="instructionName"> loop </td>
 			<td class="instructionType"> toggle </td>
-			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> none </td>
+			<td class="instructionRange"> default </td>			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Loop soundfile. </td>
@@ -143,8 +141,7 @@
 		<tr>
 			<td class="instructionName"> dsp_status </td>
 			<td class="instructionType"> generic </td>
-			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionRange"> default </td>			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open DSP Status window. </td>
@@ -177,7 +174,7 @@
 			<td class="instructionDescription"> Increase left channel gain MIDI value by one. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> gain_1_inc </td>
+		<td class="instructionName"> gain_1_inc </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> N/A </td>
 			<td class="instructionClipmode"> none </td>
@@ -219,8 +216,7 @@
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Increase master gain MIDI value by one. </td>
-		</tr>
+			<td class="instructionDescription"> Increase master gain MIDI value by one. </td>		</tr>
 		<tr>
 			<td class="instructionName"> gain_inc </td>
 			<td class="instructionType"> generic </td>
@@ -258,6 +254,15 @@
 			<td class="instructionDescription"> open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open </td>
 		</tr>
 		<tr>
+			<td class="instructionName"> loop </td>
+			<td class="instructionType"> toggle </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Loop soundfile. </td>
+		</tr>
+		<tr>
 			<td class="instructionName"> preset_recall </td>
 			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> default </td>
@@ -273,7 +278,7 @@
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
+		<td class="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> save_settings </td>
@@ -296,7 +301,7 @@
 		<tr>
 			<td class="instructionName"> view_internals </td>
 			<td class="instructionType"> n/a </td>
-			<td class="instructionRange"> n/a </td>
+		<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
@@ -313,3 +318,7 @@
 
 </body>
 </html>
+		
+	
+
+	
