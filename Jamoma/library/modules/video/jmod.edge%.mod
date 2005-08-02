@@ -1,5 +1,5 @@
 max v2;
-#N vpatcher 6 50 389 457;
+#N vpatcher 521 170 904 577;
 #P window setfont "Sans Serif" 9.;
 #P window linecount 1;
 #P hidden message 98 86 43 9109513 autodoc;
@@ -46,8 +46,8 @@ max v2;
 #P bpatcher 0 0 256 60 0 0 jmod.gui.mxt 0 $0_;
 #P objectname jmod.gui;
 #P hidden fasten 6 0 0 0 146 213 303 213 303 -9 5 -9;
-#P hidden connect 1 0 3 0;
 #P hidden connect 20 0 3 0;
+#P hidden connect 1 0 3 0;
 #P hidden connect 3 0 2 0;
 #P hidden fasten 18 0 16 0 20 304 10 304 10 241 20 241;
 #P hidden connect 16 0 18 0;
