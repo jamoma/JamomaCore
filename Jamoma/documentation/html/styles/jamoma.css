@@ -64,6 +64,9 @@ img {
 	padding: 10px 10px 0px 0px;
 }
 
+#header img{
+	float: left;
+}
 
 .objectname {
 	font-family: Arial, Helvetica, sans-serif;
