@@ -19,7 +19,7 @@ var attr_option_no_panel = false;
 var attr_num_inputs = 1;
 var attr_num_outputs = 1;
 var	num_channels;
-var attr_meter_toggle = 1;
+var attr_displayfreeze_toggle = 0;
 var attr_preview = 1;
 var attr_bypass = 0;
 var attr_mute = 0;
@@ -97,17 +97,12 @@ function bang()
 		// send the num_channels to the audio_component patch
 		//	that patch will then script in the jmod.gain~ and connect it
 	
-	
 		if(has_run == 0){
 			// move the controls if neccessary
 			if(width == 1)
 				outlet(0, "script", "offset", "controls", -255, 0);
 		
 			// delete extra inlets and outlets
-//			for(i=num_channels*2;i<NUM_DEFAULT_INLETS_AND_OUTLETS;i++){
-//				outlet(0, "script", "delete", "inlet_"+(i+1));
-//				outlet(0, "script", "delete", "outlet_"+(i+1));			
-//			}
 			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "inlet_"+(i+1));
 			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
@@ -118,10 +113,6 @@ function bang()
 			outlet(0, "script", "delete", "pwindow");
 	
 			// connect inlets and outlets
-//			for(i=0; i<num_channels; i++){
-//				outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
-//				outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(num_channels+i+1), 0);
-//			}
 			for(i=0; i<attr_num_inputs; i++)
 				outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
 			for(i=0; i<attr_num_outputs; i++)
@@ -134,7 +125,7 @@ function bang()
 			
 			// Setup the Menu
 			menu_clear();
-			menu_add("Defeat Signal Meters");
+			menu_add("Disable UI Updates");
 			menu_add("Clear Signal Meters");
 			menu_add("-");
 			menu_add("Load Settings...");
@@ -143,7 +134,6 @@ function bang()
 			menu_add("-");
 			menu_add("Open Online Reference");
 			menu_add("View Internal Components");
-
 
 			outlet(2, num_channels);	// send the number of channels to the controls
 		}		
@@ -180,6 +170,7 @@ function bang()
 			
 			// Setup the Menu
 			menu_clear();
+			menu_add("Disable UI Updates");
 			menu_add("Preview Output");
 			menu_add("Force a Frame of Output");
 			menu_add("-");
@@ -212,6 +203,8 @@ function bang()
 	
 			// Setup the Menu
 			menu_clear();
+			menu_add("Disable Display");
+			menu_add("-");
 			menu_add("Load Settings...");
 			menu_add("Save Settings...");
 			menu_add("Restore Default Settings");
@@ -239,10 +232,10 @@ function msg_int(value)
 	if(attr_module_type == "audio"){
 		switch(value){
 			case 0: 
-				if(attr_meter_toggle == 1) attr_meter_toggle = 0;
-				else if(attr_meter_toggle == 0) attr_meter_toggle = 1;
-				outlet(4, "defeat_meters", !attr_meter_toggle); 
-				outlet(3, "checkitem", 0, !attr_meter_toggle); 
+				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
+				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
+				outlet(4, "disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
 			case 1: outlet(4, "clear_meters"); break;
 			case 3: outlet(4, "load_settings"); break;
@@ -255,14 +248,20 @@ function msg_int(value)
 	}
 	else if(attr_module_type == "video"){
 		switch(value){
-			case 0: 
+			case 0:
+				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
+				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
+				outlet(4, "disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
+				break;
+			case 1: 
 				if(attr_preview == 1) attr_preview = 0;
 				else if(attr_preview == 0) attr_preview = 1;
 				outlet(4, "preview", attr_preview); 
 				outlet(3, "checkitem", 0, attr_preview); 
 				break;
-			case 1: outlet(4, "force"); break;	
-			case 3:
+			case 2: outlet(4, "force"); break;	
+			case 4:
 				if(attr_bypass == 1) attr_bypass = 0;
 				else if(attr_bypass == 0){
 					attr_bypass = 1;
@@ -271,7 +270,7 @@ function msg_int(value)
 				}
 				outlet(4, "bypass", attr_bypass); 
 				break;
-			case 4:
+			case 5:
 				if(attr_freeze == 1) attr_freeze = 0;
 				else if(attr_freeze == 0){
 					attr_bypass = 0;
@@ -280,7 +279,7 @@ function msg_int(value)
 				}
 				outlet(4, "freeze", attr_freeze); 
 				break;
-			case 5:
+			case 6:
 				if(attr_mute == 1) attr_mute = 0;
 				else if(attr_mute == 0){
 					attr_bypass = 0;
@@ -289,11 +288,11 @@ function msg_int(value)
 				}
 				outlet(4, "mute", attr_mute); 
 				break;
-			case 7: outlet(4, "load_settings"); break;			
-			case 8: outlet(4, "save_settings"); break;
-			case 9: outlet(4, "restore_defaults"); break;
-			case 11: outlet(4, "help"); break;
-			case 12: outlet(4, "view_internals"); break;		
+			case 8: outlet(4, "load_settings"); break;			
+			case 9: outlet(4, "save_settings"); break;
+			case 10: outlet(4, "restore_defaults"); break;
+			case 12: outlet(4, "help"); break;
+			case 13: outlet(4, "view_internals"); break;		
 			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 		outlet(3, "checkitem", 3, attr_bypass);
@@ -302,11 +301,17 @@ function msg_int(value)
 	}
 	else if(attr_module_type == "control"){
 		switch(value){
-			case 0: outlet(4, "load_settings"); break;
-			case 1: outlet(4, "save_settings"); break;
-			case 2: outlet(4, "restore_defaults"); break;
-			case 4: outlet(4, "help"); break;
-			case 5: outlet(4, "view_internals"); break;
+			case 0:
+				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
+				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
+				outlet(4, "disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
+				break;
+			case 2: outlet(4, "load_settings"); break;
+			case 3: outlet(4, "save_settings"); break;
+			case 4: outlet(4, "restore_defaults"); break;
+			case 6: outlet(4, "help"); break;
+			case 7: outlet(4, "view_internals"); break;
 			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
