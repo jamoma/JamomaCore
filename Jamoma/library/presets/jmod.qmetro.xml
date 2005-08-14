@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.qmetro">
+	<slot number = "1">
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "toggle" value = "0" />
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "disable_ui_updates" value = "0" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter">
+			<pattr name = "time" value = "40" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
