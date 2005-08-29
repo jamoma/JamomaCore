@@ -1,0 +1,134 @@
+////////////////////////////////////////////////////////////
+
+cue_event INITIALISATION
+
+////////////////////////////////////////////////////////////
+
+// Module control
+	control audio 0
+	control disable_ui_updates 0
+	
+// Module input~
+	input~ gain_2_midi 0
+	input~ loop 0
+	input~ play 0
+	input~ source_select 0
+	input~ ch_1 0
+	input~ ch_2 0
+	input~ gain_midi 0.000
+	input~ gain_1_midi 0
+	input~ link 0
+	input~ disable_ui_updates 0
+	
+// Module filter~
+	filter~ gain_midi 0
+	filter~ defeat_meters 0
+	filter~ mix 0.000
+	filter~ bypass 0
+	filter~ mute 0
+	filter~ sr 0
+	filter~ disable_ui_updates 0
+	filter~ cf 68.215
+	filter~ q 1.472
+	filter~ filtergain -1.780
+	filter~ filtertype bandpass
+	
+// Module output~
+	output~ ch_1 1
+	output~ ch_2 2
+	output~ gain_midi 0.000
+	output~ filetype aiff
+	output~ samptype int24
+	output~ saturation_depth 10.000
+	output~ saturation 1
+	output~ limiter_preamp 6.000
+	output~ limiter_postamp 0.000
+	output~ limiter_lookahead 64
+	output~ limiter_release 300.000
+	output~ limiter_threshold -6.000
+	output~ limiter_shape exponential
+	output~ limiter 1
+	output~ disable_ui_updates 0
+	output~ record 0
+
+
+
+
+
+////////////////////////////////////////////////////////////
+
+cue_event AUDIO_ON
+
+////////////////////////////////////////////////////////////
+
+// Module control
+	control audio 1
+	control disable_ui_updates 0
+	
+// Module input~
+	input~ source_select 4
+	input~ gain_midi 124.000 2000
+	input~ gain_1_midi 124.000 2000
+	input~ gain_2_midi 124.000 2000
+	
+// Module filter~
+	filter~ gain_midi 127.000 2000
+
+	
+	
+	
+
+////////////////////////////////////////////////////////////
+
+cue_event FADE_IN
+
+////////////////////////////////////////////////////////////
+
+// Module output~
+	output~ gain_midi 125.000 2000
+
+
+
+
+////////////////////////////////////////////////////////////
+
+cue_event SWEEP
+
+////////////////////////////////////////////////////////////
+
+
+// Module filter~
+	filter~ cf 3000 3000
+
+
+
+
+
+////////////////////////////////////////////////////////////
+
+cue_event FADE_OUT
+
+////////////////////////////////////////////////////////////
+
+// Module output~
+	output~ gain_midi 0.000 2000	
+	
+	
+
+
+
+////////////////////////////////////////////////////////////
+
+cue_event AUDIO_OFF
+
+////////////////////////////////////////////////////////////
+
+	
+// Module input~
+	input~ gain_midi 0 100
+	
+// Module output~
+	filter~ gain_midi 0 100
+	
+// Module control
+	control audio 0
