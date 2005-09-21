@@ -11,12 +11,11 @@
 #include "ext.h"				// Max Header
 #include "ext_user.h"
 #include "ext_common.h"			// includes the MIN macro
+#include "z_dsp.h"				// MSP Header
 #include "ext_strings.h"		// String Functions
 #include "commonsyms.h"			// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"			// Max Object Extensions (attributes) Header
-#include "ext_wind.h"
 #include <math.h>
-#include "z_dsp.h"				// MSP Header
 
 #ifdef USE_QTML
 #include "ext_qtstubs.h"
@@ -83,8 +82,8 @@ void main(void)
 	c = class_new("jmod.meter~",(method)meter_new, (method)meter_free, (short)sizeof(t_meter), (method)meter_menu, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_meter, obex));
 
-	class_addmethod(c, (method)meter_click,		"click", A_LONG, 0L);
- 	class_addmethod(c, (method)meter_update, 	"update", A_FLOAT, 0L);
+	class_addmethod(c, (method)meter_click,		"click", A_CANT, 0L);
+ 	class_addmethod(c, (method)meter_update, 	"update", A_CANT, 0L);
  	class_addmethod(c, (method)meter_psave,		"psave", A_CANT, 0L);	
 	class_addmethod(c, (method)meter_assist, 	"assist", A_CANT, 0L); 
 	class_addmethod(c, (method)meter_bang, 		"bang", 0L);
