@@ -5,8 +5,9 @@
 // License: GNU LGPL
 
 // define 
-
+#ifdef WIN_VERSION
 #define USE_QTML
+#endif
 
 #include "ext.h"				// Max Header
 #include "ext_user.h"

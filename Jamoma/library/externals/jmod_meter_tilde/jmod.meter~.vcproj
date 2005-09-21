@@ -50,7 +50,7 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib .\..\..\..\..\c74support\QuickTime\lib\qtmlClient.lib"
-				OutputFile=".\..\build_windows\jmod.meter~.dll"
+				OutputFile=".\jmod.meter~.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
@@ -130,7 +130,7 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib .\..\..\..\..\c74support\QuickTime\lib\qtmlClient.lib"
-				OutputFile=".\..\Build_Windows\debug\jmod.meter~.mxe"
+				OutputFile=".\..\Build_Windows\debug\jmod.meter~.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
@@ -198,6 +198,9 @@
 		<Filter
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<File
+				RelativePath=".\jmod_meter.qtr">
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
