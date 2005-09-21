@@ -13,7 +13,6 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
-#include "tt_ramp.h"		// Used for ramping the preamp value smoothly
 //#include"tt_buffer.h"
 
 
@@ -40,8 +39,6 @@ class tt_limiter:public tt_audio_base{
 		double						recip;
 		tt_sample_vector 			buf1, buf2, gain;
 //		tt_buffer					*buffer1, *buffer2, *buffer_gain;
-		tt_ramp						*ob_ramp;
-		tt_audio_signal				*sig_ramp;
 		long 						bp, samps;
 		float 						last;
 
@@ -91,18 +88,10 @@ class tt_limiter:public tt_audio_base{
 			buf1 = (float *)mem_alloc(MAX_SAMPLES * sizeof(float));
 			buf2 = (float *)mem_alloc(MAX_SAMPLES * sizeof(float));
 			gain = (float *)mem_alloc(MAX_SAMPLES * sizeof(float));
+
 //			buffer1 = new tt_buffer;
 //			buffer2 = new tt_buffer;
 //			buffer_gain = new tt_buffer;
-
-			ob_ramp = new tt_ramp;
-			ob_ramp->set_attr(tt_ramp::k_mode, tt_ramp::k_mode_vector_accurate);
-			ob_ramp->set_attr(tt_ramp::k_current_value, 1.0);	// This is the value of preamp
-			ob_ramp->set_attr(tt_ramp::k_ramp_ms, 100.0);		// default ramp time in ms
-
-			// Allocating a signal for output from the ramp object
-			sig_ramp = new tt_audio_signal(vectorsize);	
-
 //			buffer1->set_attr(tt_buffer::k_length_samples, MAX_SAMPLES);
 //			buffer2->set_attr(tt_buffer::k_length_samples, MAX_SAMPLES);
 //			buffer_gain->set_attr(tt_buffer::k_length_samples, MAX_SAMPLES);
@@ -123,10 +112,6 @@ class tt_limiter:public tt_audio_base{
 //			delete buffer1;
 //			delete buffer2;
 //			delete buffer_gain;
-	
-			delete ob_ramp;
-			delete sig_ramp;
-
 			mem_free(buf1);
 			mem_free(buf2);
 			mem_free(gain);
@@ -150,8 +135,7 @@ class tt_limiter:public tt_audio_base{
 				    recip = 1.0 / (double)lookahead;
 					break;
 				case k_preamp:
-					//preamp = decibels_to_amplitude(val);
-					ob_ramp->set_attr(tt_ramp::k_destination_value, decibels_to_amplitude(val));
+					preamp = decibels_to_amplitude(val);
 					break;
 				case k_postamp:
 					postamp = decibels_to_amplitude(val);
@@ -243,11 +227,8 @@ class tt_limiter:public tt_audio_base{
 			double left_sample, right_sample, curgain, newgain, inc;
 			double acc, maybe;
 			long ind, flag, bbp, i;
-			char lin = (mode == k_mode_linear);		// done at the vector to save a few cycles
-			temp_vs = in1->vectorsize;
-			
-			ob_ramp->dsp_vector_calc(sig_ramp);
-			preamp = *sig_ramp->vector;				// we take only the first value of the vector
+			char lin = (mode == k_mode_linear);			// done at the vector to save a few cycles
+			temp_vs = in1->vectorsize;		
 					
 		    while(temp_vs--){
 		    	right_sample = *in1->vector++ * preamp;
@@ -321,9 +302,6 @@ class tt_limiter:public tt_audio_base{
 			char lin = (mode == k_mode_linear);			// done at the vector to save a few cycles
 			temp_vs = in->vectorsize;		
 						
-			ob_ramp->dsp_vector_calc(sig_ramp);
-			preamp = *sig_ramp->vector;				// we take only the first value of the vector
-					
 		    while (temp_vs--){
 		    	left_sample = right_sample = *in->vector++ * preamp;
 
@@ -391,9 +369,6 @@ class tt_limiter:public tt_audio_base{
 			char lin = (mode == k_mode_linear);			// done at the vector to save a few cycles
 			temp_vs = in1->vectorsize;		
 					
-			ob_ramp->dsp_vector_calc(sig_ramp);
-			preamp = *sig_ramp->vector;				// we take only the first value of the vector
-					
 		    while(temp_vs--){
 		    	right_sample = *in1->vector++ * preamp;
 		    	left_sample = *in2->vector++ * preamp;
@@ -457,9 +432,6 @@ class tt_limiter:public tt_audio_base{
 			char lin = (mode == k_mode_linear);			// done at the vector to save a few cycles
 			temp_vs = in->vectorsize;		
 						
-			ob_ramp->dsp_vector_calc(sig_ramp);
-			preamp = *sig_ramp->vector;				// we take only the first value of the vector
-					
 		    while (temp_vs--){
 		    	left_sample = right_sample = *in->vector++ * preamp;
 		    	
