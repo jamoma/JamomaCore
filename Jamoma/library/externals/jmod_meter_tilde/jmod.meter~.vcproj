@@ -50,7 +50,7 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib .\..\..\..\..\c74support\QuickTime\lib\qtmlClient.lib"
-				OutputFile=".\jmod.meter~.dll"
+				OutputFile=".\..\build_windows\jmod.meter~.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
