@@ -20,6 +20,11 @@
 
 #ifdef USE_QTML
 #include "ext_qtstubs.h"
+#define patcher_setport(x) (XQT_patcher_setport(x))
+#define box_nodraw(x) (XQT_box_nodraw(x))
+#define box_enddraw(x) (XQT_box_enddraw(x))
+#define SetPort(gp) (XQT_patcher_restoreport(gp))
+#define patcher_restoreport(gp) (XQT_patcher_restoreport(gp))
 #endif
 
 // Macros and Constants
@@ -56,6 +61,7 @@ void meter_free(t_meter *x);
 void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst);	// Max Methods...
 void meter_bang(t_meter *x);
 void meter_float(t_meter *x, double value);
+void meter_int(t_meter *x, long value);
 void meter_tick(t_meter *x);
 t_int *meter_perform(t_int *w);
 void meter_dsp(t_meter *x, t_signal **sp, short *count);
@@ -89,6 +95,7 @@ void main(void)
 	class_addmethod(c, (method)meter_assist, 	"assist", A_CANT, 0L); 
 	class_addmethod(c, (method)meter_bang, 		"bang", 0L);
 	class_addmethod(c, (method)meter_float,		"float", A_FLOAT, 0L);
+	class_addmethod(c, (method)meter_int,		"int", A_LONG, 0L);
  	class_addmethod(c, (method)meter_dsp, 		"dsp", A_CANT, 0L);		
 
 	attr = attr_offset_new("defeat", _sym_long, attrflags,
@@ -221,6 +228,11 @@ void meter_float(t_meter *x, double value)
 	qelem_set(x->qelem);
 }
 
+// cast to float...
+void meter_int(t_meter *x, long value)
+{
+	meter_float(x, (double)value);
+}
 
 // Attribute: defeat
 t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv)
@@ -234,15 +246,14 @@ t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv)
 }
 
 
-
-
 // Method: triggered by our clock
 void meter_tick(t_meter *x)
 {
+	qelem_set(x->qelem); 							// draw the meters
+
 	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
 		if(x->attr_defeat == 0)
 			clock_delay(x->clock, POLL_INTERVAL); 	// schedule the clock
-		qelem_set(x->qelem); 						// draw the meters
 	}
 }
 
@@ -276,7 +287,6 @@ void meter_dsp(t_meter *x, t_signal **sp, short *count)
 }
 
 
-
 /************************************************************************************/
 // Required UI Object Methods
 
@@ -298,16 +308,16 @@ void meter_update(t_meter *x)
 		//xgui_allocoffscreen(x); // (existing offsceen is disposed inside)
 	}
 
-	GrafPtr	gp = XQT_patcher_setport(x->my_box.z_box.b_patcher);
+	GrafPtr	gp = patcher_setport(x->my_box.z_box.b_patcher);
     meter_draw(x);
-    XQT_patcher_restoreport(gp); 
+    patcher_restoreport(gp); 
 }
 
 
 // If the user clicks on the object
 void meter_click(t_meter *x, Point pt, short modifiers)
 { 
-	x->peak = 0;	// reset the peak hold
+	meter_bang(x);		// reset the peak hold
 }
 
 
@@ -340,18 +350,18 @@ void meter_psave(t_meter *x, void *w)
 // The deferred routine called by our Qelem
 void meter_qfn(t_meter *x)
 {
-	GrafPtr	gp = XQT_patcher_setport(x->my_box.z_box.b_patcher);
-	 
+	GrafPtr gp = patcher_setport(x->my_box.z_box.b_patcher);
+
 	if(gp){				// if the pointer is valid...
-		if(!XQT_box_nodraw((t_box *)x)){
+		if(!box_nodraw((t_box *)x)){
 			meter_draw(x);
-			XQT_box_enddraw((t_box *)x);
+			box_enddraw((t_box *) x);
 		}
 	}
-	XQT_patcher_restoreport(gp); 
+	SetPort(gp);
 }
- 
-     
+
+
 // The actual drawing routine
 void meter_draw(t_meter *x)   
 { 
@@ -362,12 +372,13 @@ void meter_draw(t_meter *x)
 	Rect		rect_temp;
 	short		i; 
 	short		width_ui = x->my_box.z_box.b_rect.right - x->my_box.z_box.b_rect.left;
+	short		height_ui = x->my_box.z_box.b_rect.bottom - x->my_box.z_box.b_rect.top;
 	short		width_green = 0.96 * width_ui;		// 96% of total width
 	short		width_red = width_ui - width_green;	// 4% of total width
 	short		left = x->my_box.z_box.b_rect.left;
 	float		level;
 	short		position;
-	 
+
 	GetGWorld((CGrafPtr *)&curPort, &curDevice);
 	GetForeColor(&old_color);
 	PenMode(srcCopy);
@@ -378,51 +389,60 @@ void meter_draw(t_meter *x)
 	rect_temp.top = x->my_box.z_box.b_rect.top;
 	rect_temp.bottom = x->my_box.z_box.b_rect.bottom;
 
-	// Draw Green
-	for(i=0; i<width_green; i++){
-		rect_temp.left = left + i;
-		rect_temp.right = rect_temp.left + 1;
-
-		frgb.red = (i * 65535) / width_green;	
-		RGBForeColor(&frgb);
-		PaintRect(&rect_temp);
-	}
-
-	rect_temp.left = left + i;
-	rect_temp.right = x->my_box.z_box.b_rect.right;
-	
-	// Draw Red
-	frgb.green = 0;
-	RGBForeColor(&frgb);
-	PaintRect(&rect_temp);
-
-	// Draw Gray
-	frgb.red = 8000;
-	frgb.green = 8000;
-	frgb.blue = 8000;
-	RGBForeColor(&frgb);
-
 	level = CLIP(x->envelope, 0.0, 1.0);		// get the amplitude
 	
 	if(level >= 1.0){
 		x->peak = 1.0;
-		goto out;
-	}
-	if(level > 0.0) {
+		// Draw Green
+		for(i=0; i<width_green; i++){
+			rect_temp.left = left + i;
+			rect_temp.right = rect_temp.left + 1;
+
+			frgb.red = (i * 65535) / width_green;	
+			RGBForeColor(&frgb);
+			PaintRect(&rect_temp);
+		}
+
+		rect_temp.left = left + i;
 		rect_temp.right = left + width_ui;
 
-		level = CLIP(20. * (log10(level)), -96.0, 0.0);	// convert to decibels
-		// level = -(96 - (exp((level)*log(1.035)) * 96));
-		level = -(96 - (exp((level) * 0.0344014267) * 96));
-		position = (left + width_green) + (level * 0.0104166667 * width_green);
-		rect_temp.left = position;		
+		// Draw Red
+		frgb.green = 0;
+		RGBForeColor(&frgb);
+		PaintRect(&rect_temp);
 
+		goto out;
+	}
+	if(level >= 0.0) {
+		level = CLIP(20. * (log10(level)), -96.0, 0.0);	// convert to decibels
+		level = -(96 - (exp((level) * 0.0344014267) * 96));
+		position = (width_green) + (level * 0.0104166667 * width_green);
+
+		// Draw Green
+		for(i=0; i<position; i++){
+			frgb.red = (i * 65535) / width_green;	
+			RGBForeColor(&frgb);
+			MoveTo(left+i, rect_temp.top);
+			Line(0, height_ui);
+		}
+		rect_temp.left = left + i;
+		rect_temp.right = left + width_ui;
+
+		// Draw Gray
+		frgb.red = 8000;
+		frgb.green = 8000;
+		frgb.blue = 8000;
+		RGBForeColor(&frgb);
 		PaintRect(&rect_temp);
 	}
 	else{
+		// Draw Gray
+		frgb.red = 8000;
+		frgb.green = 8000;
+		frgb.blue = 8000;
+		RGBForeColor(&frgb);
 		PaintRect(&rect_ui);
 	}
-	
 	
 	// Peak Hold
 	if(x->envelope > x->peak){
@@ -432,15 +452,15 @@ void meter_draw(t_meter *x)
 	}
 
 	if((x->peak > 0) && (x->peak <1)){	// Green Range
-		rect_temp.left = x->peak_position;
-		rect_temp.right = x->peak_position + 1;
+		rect_temp.left = x->peak_position + left;
+		rect_temp.right = rect_temp.left + 1;
 		frgb.green = 65535;
 		frgb.red = x->peak_level * 5653.5;
 		RGBForeColor(&frgb);
 		PaintRect(&rect_temp);
 	}
 	else if(x->peak > 0){				// Red Range
-		rect_temp.left = left + i;
+		rect_temp.left = left + width_green;
 		rect_temp.right = x->my_box.z_box.b_rect.right;
 		frgb.red = 65535;
 		frgb.green = 0;
