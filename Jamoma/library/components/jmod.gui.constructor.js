@@ -258,7 +258,7 @@ function msg_int(value)
 				if(attr_preview == 1) attr_preview = 0;
 				else if(attr_preview == 0) attr_preview = 1;
 				outlet(4, "preview", attr_preview); 
-				outlet(3, "checkitem", 0, attr_preview); 
+				outlet(3, "checkitem", 1, attr_preview); 
 				break;
 			case 2: outlet(4, "force"); break;	
 			case 4:
@@ -295,9 +295,9 @@ function msg_int(value)
 			case 13: outlet(4, "view_internals"); break;		
 			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
-		outlet(3, "checkitem", 3, attr_bypass);
-		outlet(3, "checkitem", 4, attr_freeze);
-		outlet(3, "checkitem", 5, attr_mute);
+		outlet(3, "checkitem", 4, attr_bypass);
+		outlet(3, "checkitem", 5, attr_freeze);
+		outlet(3, "checkitem", 6, attr_mute);
 	}
 	else if(attr_module_type == "control"){
 		switch(value){
