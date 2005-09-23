@@ -144,7 +144,7 @@ function bang()
 			outlet(0, "script", "delete", "controls");
 			
 			// Create the standard messages
-			outlet(0, "script", "hidden", "new", "param_preview", "newex", 67, 278, 291, 196617, 
+/*			outlet(0, "script", "hidden", "new", "param_preview", "newex", 67, 278, 291, 196617, 
 				"jmod.parameter.mxt", local_token, "preview", "@type", "toggle", 
 				"@description", "Turns on/off the video display in the module's preview window");
 			outlet(0, "script", "hidden", "new", "param_bypass", "newex", 67, 278, 291, 196617, 
@@ -156,13 +156,19 @@ function bang()
 			outlet(0, "script", "hidden", "new", "param_mute", "newex", 67, 278, 291, 196617, 
 				"jmod.parameter.mxt", local_token, "mute", "@type", "toggle", 
 				"@description", "Mutes (turns off) the module's algorithm - generating no output");
-
+			outlet(0, "script", "hidden", "new", "mess_force", "newex", 67, 278, 291, 196617, 
+				"jmod.message.mxt", local_token, "force", 
+				"@description", "Forces a frame of output to be sent");
+*/
 			
 			// delete extra inlets and outlets
 			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "inlet_"+(i+1));
 			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
-				outlet(0, "script", "delete", "outlet_"+(i+1));			
+				outlet(0, "script", "delete", "outlet_"+(i+1));
+				
+			// connect preview parameter to the gate controlling the video pwindow
+//			outlet(0, "script", "hidden", "connect", "param_preview", 1, "pwindow_gate", 0);
 			
 			// move the preview window if neccessary
 			if(width == 1)
