@@ -120,7 +120,7 @@ class tt_audio_base{
 		// Attempt to knock out denormalized floats; inlined here for speed
 		static double anti_denormal(double value)
 		{
-		#ifndef MAC_VERSION					// Defined by Max(OSX) which deals with this automatically
+		#ifndef TT_DISABLE_DENORMAL_FIX		// Define this to test code without denormal fixing
 			value += anti_denormal_value;
 			value -= anti_denormal_value;
 		#endif
