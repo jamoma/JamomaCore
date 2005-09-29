@@ -96,11 +96,11 @@ class tt_allpass:public tt_audio_base{
 			temp_vs = in->vectorsize;
 			
 			while(temp_vs--){
-				temp = *in->vector++;	// Input	
+				temp = anti_denormal(*in->vector++);	// Input	
 				*ff_in_ptr = temp;		// Store the input in the feedforward buffer
 					
 				// Apply the filter
-				temp = (*ff_out_ptr) + (temp * (-gain)) + (*fb_out_ptr * gain);	
+				temp = anti_denormal((*ff_out_ptr) + (temp * (-gain)) + (*fb_out_ptr * gain));	
 				
 				*fb_in_ptr = temp;		// Store the output in the feedback buffer
 				*out->vector++ = temp;	// Output

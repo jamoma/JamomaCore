@@ -95,15 +95,15 @@ class tt_lowpass_fourpole:public tt_audio_base{
 			while(temp_vs--){
 				temp = *input->vector++;
 				
-				temp -= out[3] * fb; 
-				temp *= 0.35013 * ((f * f) * (f * f)); 
-				out[0] = temp + 0.3 * in[0] + (1 - f) * out[0]; 
+				temp -= anti_denormal(out[3] * fb); 
+				temp *= anti_denormal(0.35013 * ((f * f) * (f * f))); 
+				out[0] = anti_denormal(temp + 0.3 * in[0] + (1 - f) * out[0]); 
 				in[0] = temp; 
-				out[1] = out[0] + 0.3 * in[1] + (1 - f) * out[1]; 
+				out[1] = anti_denormal(out[0] + 0.3 * in[1] + (1 - f) * out[1]); 
 				in[1] = out[0]; 
-				out[2] = out[1] + 0.3 * in[2] + (1 - f) * out[2]; 
+				out[2] = anti_denormal(out[1] + 0.3 * in[2] + (1 - f) * out[2]); 
 				in[2] = out[1]; 
-				out[3] = out[2] + 0.3 * in[3] + (1 - f) * out[3]; 
+				out[3] = anti_denormal(out[2] + 0.3 * in[3] + (1 - f) * out[3]); 
 				in[3] = out[2]; 
 				temp = out[3];
 								

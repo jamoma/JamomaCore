@@ -160,7 +160,7 @@ class tt_comb:public tt_audio_base{
 				comb_fb_sample = *mem_readptr;
 			
 				// LOWPASS FILTER
-				comb_fb_sample = (comb_fb_sample * lowpass_coef) + (lowpass_feedback * (1 - lowpass_coef)); 
+				comb_fb_sample = anti_denormal((comb_fb_sample * lowpass_coef) + (lowpass_feedback * (1 - lowpass_coef))); 
 				lowpass_feedback = comb_fb_sample;
 			
 				// CLIPPING
@@ -168,7 +168,7 @@ class tt_comb:public tt_audio_base{
 					comb_fb_sample = clip(comb_fb_sample, clipping * -1, clipping);
 			
 				// CALCULATION & OUTPUT
-				*out->vector++ = *memwriteptr++ = *in->vector++ + (comb_fb_coef * comb_fb_sample);
+				*out->vector++ = *memwriteptr++ = anti_denormal(*in->vector++ + (comb_fb_coef * comb_fb_sample));
 			
 				//WRAP THE HEADS
 				if (++mem_readptr >= mem_end)

@@ -219,16 +219,15 @@ class tt_svf:public tt_audio_base{
 			}			
 */
 			// UNROLLED FOR LOOP FOR SPEED
-			notch_output = value - damp * bandpass_output;
-			lowpass_output += freq * bandpass_output;
-			highpass_output = notch_output - lowpass_output;
-			bandpass_output = freq * highpass_output + bandpass_output;
+			notch_output = anti_denormal(value - damp * bandpass_output);
+			lowpass_output += anti_denormal(freq * bandpass_output);
+			highpass_output = anti_denormal(notch_output - lowpass_output);
+			bandpass_output = anti_denormal(freq * highpass_output + bandpass_output);
 		
-			notch_output = value - damp * bandpass_output;
-			lowpass_output += freq * bandpass_output;
-			highpass_output = notch_output - lowpass_output;
-			bandpass_output = freq * highpass_output + bandpass_output;
-
+			notch_output = anti_denormal(value - damp * bandpass_output);
+			lowpass_output += anti_denormal(freq * bandpass_output);
+			highpass_output = anti_denormal(notch_output - lowpass_output);
+			bandpass_output = anti_denormal(freq * highpass_output + bandpass_output);
 		}	
 		
 /*		void dsp_vector_calc(sample_vector in, short vector_size, sample_vector out)

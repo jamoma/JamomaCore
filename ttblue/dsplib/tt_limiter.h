@@ -235,10 +235,10 @@ class tt_limiter:public tt_audio_base{
 		    	left_sample = *in2->vector++ * preamp;
 
 				// Integrated DC Blocker:
-				last_output1 = left_sample - last_input1 + (last_output1 * 0.9997);
-				last_input1 = left_sample;
-				last_output2 = right_sample - last_input2 + (last_output2 * 0.9997);
-				last_input2 = right_sample;
+				last_output1 = anti_denormal(left_sample - last_input1 + (last_output1 * 0.9997));
+				last_input1 = anti_denormal(left_sample);
+				last_output2 = anti_denormal(right_sample - last_input2 + (last_output2 * 0.9997));
+				last_input2 = anti_denormal(right_sample);
 				left_sample = last_output1;
 				right_sample = last_output2;
 
@@ -306,8 +306,8 @@ class tt_limiter:public tt_audio_base{
 		    	left_sample = right_sample = *in->vector++ * preamp;
 
 				// Integrated DC Blocker:
-				last_output1 = left_sample - last_input1 + (last_output1 * 0.9997);
-				last_input1 = left_sample;
+				last_output1 = anti_denormal(left_sample - last_input1 + (last_output1 * 0.9997));
+				last_input1 = anti_denormal(left_sample);
 				left_sample = last_output1;
 
 		    	// Limiter...

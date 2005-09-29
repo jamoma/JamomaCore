@@ -90,7 +90,7 @@ class tt_lowpass_onepole:public tt_audio_base{
 		{
 			temp_vs = in->vectorsize;
 			while(temp_vs--){
-				*out->vector++ = feedback = (*in->vector++ * coefficient) + (feedback * (1 - coefficient));
+				*out->vector++ = feedback = anti_denormal((*in->vector++ * coefficient) + (feedback * (1 - coefficient)));
 			}
 			in->reset(); out->reset();
 		}

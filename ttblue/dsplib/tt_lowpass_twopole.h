@@ -105,7 +105,7 @@ class tt_lowpass_twopole:public tt_audio_base{
 			
 			while(temp_vs--){
 				temp = *in->vector++;
-				temp = (feedback[k_left][0] * coef_a) - (feedback[k_left][1] * coef_b) + (temp * coef_c);
+				temp = anti_denormal((feedback[k_left][0] * coef_a) - (feedback[k_left][1] * coef_b) + (temp * coef_c));
 				*out->vector++ = temp;
 				feedback[k_left][1] = feedback[k_left][0];
 				feedback[k_left][0] = temp;
@@ -127,14 +127,14 @@ class tt_lowpass_twopole:public tt_audio_base{
 			while(temp_vs--){
 				// LEFT
 				temp[k_left] = *in1->vector++;
-				temp[k_left] = (feedback[k_left][0] * coef_a) - (feedback[k_left][1] * coef_b) + (temp[k_left] * coef_c);
+				temp[k_left] = anti_denormal((feedback[k_left][0] * coef_a) - (feedback[k_left][1] * coef_b) + (temp[k_left] * coef_c));
 				*out1->vector++ = temp[k_left];
 				feedback[k_left][1] = feedback[k_left][0];
 				feedback[k_left][0] = temp[k_left];
 				
 				// RIGHT
 				temp[k_right] = *in2->vector++;
-				temp[k_right] = (feedback[k_right][0] * coef_a) - (feedback[k_right][1] * coef_b) + (temp[k_right] * coef_c);
+				temp[k_right] = anti_denormal((feedback[k_right][0] * coef_a) - (feedback[k_right][1] * coef_b) + (temp[k_right] * coef_c));
 				*out2->vector++ = temp[k_right];
 				feedback[k_right][1] = feedback[k_right][0];
 				feedback[k_right][0] = temp[k_right];				

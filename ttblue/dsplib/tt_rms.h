@@ -80,7 +80,7 @@ class tt_rms:public tt_audio_base{
 			while(temp_vs--){
 				val = *in->vector++;
 				val = val * val;														// Square
-				val = feedback = (feedback * coefficient) + (val * (1 - coefficient));	// Mean
+				val = feedback = anti_denormal((feedback * coefficient) + (val * (1 - coefficient)));	// Mean
 				*out->vector++ = sqrt(val);											// Root
 			}
 			in->reset(); out->reset();
