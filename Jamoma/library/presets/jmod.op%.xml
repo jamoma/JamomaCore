@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.op%">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.v.mxb">
+			<patcher name = "pwindow">
+				<patcher name = "pwindow_gate[1]">
+					<pattr name = "preview" value = "1" />
+				</patcher>
+				<patcher name = "pwindow_gate[2]">
+					<pattr name = "bypass" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[3]">
+					<pattr name = "freeze" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[4]">
+					<pattr name = "mute" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[1]">
+			<pattr name = "op" value = "0" />
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "disable_ui_updates" value = "0" />
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+

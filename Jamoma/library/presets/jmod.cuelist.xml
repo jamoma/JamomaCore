@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.cuelist">
+	<slot number = "1">
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "disable_ui_updates" value = "0" />
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+
