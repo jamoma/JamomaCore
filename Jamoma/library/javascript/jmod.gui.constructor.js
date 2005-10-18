@@ -266,7 +266,7 @@ function msg_int(value)
 				outlet(4, "preview", attr_preview); 
 				outlet(3, "checkitem", 1, attr_preview); 
 				break;
-			case 2: outlet(4, "force"); break;	
+			case 2: outlet(4, "genframe"); break;	
 			case 4:
 				if(attr_bypass == 1) attr_bypass = 0;
 				else if(attr_bypass == 0){
