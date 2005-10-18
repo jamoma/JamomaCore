@@ -12,8 +12,8 @@
 	<div id="jmod_header">
 	<img src="documentation/html/images/jmod.icon.mod.png" width="128" height="128" />
 	<h1>jamoma readme </h1>
-	<h2>version 0.2<br />
-		2 august 2005</h2>
+	<h2>version 0.2.1<br />
+		18 october 2005</h2>
 
 	<h6><a href="documentation/html/index.html">Table of Contents</a> | <a href="documentation/html/modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 </div>
@@ -44,11 +44,21 @@
 <p> If you are interested in developing/contributing to Jamoma, contact us via the sourceforge project page. You can access this page via the following url:</p>
 <p> <a href="http://sourceforge.net/projects/jamoma/">http://sourceforge.net/projects/jamoma/</a></p>
 <p>&nbsp; </p>
-<h3>File Formats</h3>
-<p> All patches MUST be in text format.</p>
-<p> The .mod extension is used for modules, and the .alg extension for algorithms - these are still text format files.</p>
+<h3>Known Issues </h3>
+<p> The following are the problems of which we are currently aware:</p>
+<ul>
+	<li> When a patch is first drawn, the modules may appear block.  Refreshing the screen by sending the<span class="instructionName"> ;max refresh </span>message or unlocking the patch will resolve the problem.</li>
+</ul>
 <p>&nbsp;</p>
 <h3>Change Log</h3>
+<h4>Version 0.2.1</h4>
+<ul>
+	<li>documentation proof-reading and expansion, holes in the JIG filled in with some basic material </li>
+	<li>bug fixes in the externs (most notably in jmod.meter~ and blue.limiter~) </li>
+	<li>batch building helpers for the externs on both platforms</li>
+    <li>added jmod.cuelist module for automating modules and getting state information.</li>
+    <li>added default presets to modules that were lacking them </li>
+</ul>
 <h4>Version 0.2</h4>
 <ul>
 	<li>clean up of all existing documentation</li>

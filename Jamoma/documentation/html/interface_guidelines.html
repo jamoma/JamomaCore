@@ -17,13 +17,20 @@
 </div>
 
 
-		<h3>Type an overview of the specification here.</h3>
-		<p>Discuss the difference between a message and a parameter.</p>
-		<p>Discuss that all modules should return their parameter values as they are updated.</p>
+		<h3>Overview</h3>
+		<p>Jamoma is a specification for the structuring of patches in Cycling '74's Max.  By structuring patches according to these guidelines, users can be assured that patches become freely interchangeable components (modules) in the Max environment.  This document presents the guidelines to which patches should be structured to ensure compatibility.</p>
+		<p>In addition to presenting the guidelines, an implementation of these guidelines is also provided.  The provided framework should be sufficient for most users of Jamoma, and will ease the development of modules.  The provided framework, however, is just one of many possible implementations of these guidelines.</p>
+		
+		<h3>Passing Data</h3>
+		<p>To control a module you will need to pass data to it.  All control data is passed in via the first inlet. Internally this data is passed to a named data receiver.  The data receivers can be either <code>parameters</code> or <code>messages</code>.</p>
+		<p>A message is for stateless operations or triggers. For example, in Max a 'bang' is a stateless operation in that it does not really store the state of its value.</p> 
+		<p>Conversely, the standard toggle object has a state: it is either on or off.  This would be an example of a parameter.  Parameters in Jamoma can both have their value set, and can also be queried to return their value (the value is returned via the first outlet of the module).</p>
+		<p>All modules should return their parameter values as they are updated through the <code>feedback</code> outlet (first outlet) as just mentioned. Using the provided Jamoma framework, this happens automatically for all parameters.  Messages, because they have no state may or may not return a message.  The feedback outlet also may return other control messages as needed (such as the results of a pitch-tracker analyses or a flag for when a file is done playing).</p>
 		
 <h3>File Format</h3>
 		<p>All module filenames should end with the &#147;.mod&#148; extension, and should be saved in Max&#146;s text format. Similarly, all algorithms should end with &#147;.alg&#148; extension and be saved in Max&#146;s text format. Other underlying patches or abstractions should also be saved in text format. The preferred extensions for text format files (with the exception of .mod or .alg files) is .txt or .mxt.</p>
-		<p>If there is a situation where a binary format patcher must be used. the preferred extension for binary Max patches is .mxb.</p>
+		<p>If there is a situation where a binary format patcher must be used, the preferred extension for binary Max patches is .mxb.</p>
+		<p>The preferred format for graphics files in the Portable Network Graphics (PNG) format.</p>
 		
 <h3>Standardized Messages and Parameters</h3>
 		<p>Some intro.</p>
@@ -61,11 +68,13 @@
 			<li>mode
 			<li>open
 			<li>close
-			<li>Any standard message, as previously defined, in a way that differs from the way defined in this style sheet
+			<li>enable
+			<li>connect
+			<li>Any standard message, as previously defined, in a way that differs from the way defined in these guidelines.
 		</ul>
 		
 <h3>User Interface Dimensions</h3>
-		<p>User interface dimensions are based on the paradigm of conventional rack mount hardware.  To demonstrate this, the width a &#147;1U&#148; module is 510 pixels.  Thus the width of a half rack unit module is 255 pixels.  The width of 510 pixels was chosen to maximize the number of modules that can fit on a monitor with a resolution of 1024 pixels.</p>
+		<p>User interface dimensions are based on the paradigm of conventional rack mount hardware.  To demonstrate this, the width a &#147;1U&#148; module is 510 pixels.  Thus the width of a half rack unit module is 255 pixels.  The width of 510 pixels was chosen to maximize the number of modules that can fit on a monitor with a resolution 1024 pixels wide.</p>
 		<p>The height of a 1U module is 60 pixels.  Heights then, must be a multiple of 60 pixels high.  The size of a module&#146;s interface must follow these guidelines.  Furthermore, the size of the module should be accessible to the host patch so that it may query the module about this.  </p>
 		<p>The chart below shows the dimensions of the most common module sizes. </p>
 		<table width="130" border="1" cellspacing="2" cellpadding="0">
@@ -108,8 +117,9 @@
 		<p>Modules may be made which are taller that those in this table, provided they follow the same convention.</p>
 		
 <h3>User Interface Features</h3>
-		<p>The user interface may designed according to the desires and whims of the developer.  To maximize the experience of a user, however, it is ideal to remain somewhat consistent with the conventions established by the example modules that are included with the canonical Jamoma package.</p>
-		<p></p>
+		<p>The user interface may be designed according to the desires and whims of the developer.  To maximize the experience of a user, however, it is ideal to remain somewhat consistent with the conventions established by the example modules that are included with the canonical Jamoma package.  The framework provided by the Jamoma developers is "skinnable" - meaning that you can provide custom graphics files and then simply set a skin name as an attribute to the jmod.hub object.</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
 </body>
 
 </html>
