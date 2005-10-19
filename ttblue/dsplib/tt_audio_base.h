@@ -7,9 +7,14 @@
 #include <stdlib.h>
 #include <iostream>
 
-#ifdef WIN_VERSION
+/* If the target is an external for Cycling'74 Max then you must define
+ * TT_TARGET_MAX in a prefix file.  That way the proper flags are set
+ * to use Max's memory routines and other important facilities.
+ */
+#ifdef TT_TARGET_MAX
 #include "ext.h"
-#endif // WIN_VERSION
+#endif // TT_TARGET_MAX
+
 
 /****************************************************************************************************/
 // Type Definitions
@@ -51,8 +56,8 @@ enum{
 	#define TAPTOOLS_TARGET_WIN 1
 #elif defined(WIN32)		// Next look for something commonly defined by VC++ to see whether we're on Windows.
 	#define TAPTOOLS_TARGET_WIN 1
-#else						// If all else fails, assume we are on the Mac...
-	#define TAPTOOLS_TARGET_MAC 1
+//#else						// If all else fails, assume we are on the Mac...
+//	#define TAPTOOLS_TARGET_MAC 1
 #endif
 
 

@@ -204,8 +204,9 @@ int tt_audio_base::get_vectorsize()
 tt_ptr tt_audio_base::mem_alloc(long size)
 {
 	tt_ptr alloc;
-#if defined TAPTOOLS_TARGET_MAC
-	#if defined MAC_VERSION			// This is defined by MAX
+	
+	// Cycling '74 Max
+	#if defined(MAC_VERSION) or defined(WIN_VERSION)
 		alloc = (tt_ptr)sysmem_newptrclear(size);
 		if(alloc){
 			return alloc;
@@ -214,34 +215,28 @@ tt_ptr tt_audio_base::mem_alloc(long size)
 			error("tt_audio_base::mem_alloc - could not get memory");
 			return 0;
 		}
-	#else	
+		
+	// Generic Mac 
+	#elif defined(TAPTOOLS_TARGET_MAC)
 		alloc = (tt_ptr)NewPtrClear(size);
 		if(alloc)
 			return alloc;
 		else{
 			//error("tt_audio_base::mem_alloc - could not get memory");
 			return 0;
-		}
-	#endif	
-#endif // TAPTOOLS_TARGET_MAC
- 	
-#ifdef TAPTOOLS_TARGET_WIN	// Windows MEMORY ALLOCATION	
-	#ifdef WIN_VERSION			// This is defined by MAX for Windows
-		alloc = (tt_ptr)sysmem_newptrclear(size);
-		//alloc = (tt_ptr)sysmem_newptr(size);
-		if(alloc)
-			return alloc;
-		else{
-			error("tt_audio_base::mem_alloc - could not get memory");
-			return 0;
-		}
-	#else
+		}	
+	
+	// Generic Win
+	#elif defined(TAPTOOLS_TARGET_WIN)
 		//alloc = HeapAlloc(GetProcessHeap(), 0, size);			// Windows API
 		alloc = (tt_ptr)calloc(1, size);
 		// Should add some error checking here
 		return alloc;
+
+	// Not Defined
+	#else								
+		#error VALID TARGET NOT DEFINED!
 	#endif
-#endif // TAPTOOLS_TARGET_WIN
 }
 
 
