@@ -133,6 +133,11 @@ class tt_audio_base{
 		}
 
 
+		// Platform-independent Message Logging
+		void log_post(char *message);
+		void log_error(char *message);
+
+
 		// Platform-independent Memory routines
 		tt_ptr mem_alloc(long size);
 		void mem_free(void *my_ptr);

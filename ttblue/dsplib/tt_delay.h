@@ -140,22 +140,22 @@ class tt_delay:public tt_audio_base{
 					else if(interpolation == k_interpolation_polynomial){
 						dsp_executor = 0;
 						dsp_executor2 = 0;
-						//dsp_executor2 = &tt_delay::dsp_vector_calc_poly_2in;
+						// dsp_executor2 = &tt_delay::dsp_vector_calc_poly_2in;
+						log_post("tt_delay: This interpolation mode is not currently functional");
 					}
 					else if(interpolation == k_interpolation_polynomial2){
 						dsp_executor = 0;
-	//					dsp_executor2 = &tt_delay::dsp_vector_calc_poly2_2in;
+						// dsp_executor2 = &tt_delay::dsp_vector_calc_poly2_2in;
 					}
 					else if(interpolation == k_interpolation_linear2){
 						dsp_executor = &tt_delay::dsp_vector_calc_linear;
-	//					dsp_executor2 = &tt_delay::dsp_vector_calc_linear2_2in;
+						// dsp_executor2 = &tt_delay::dsp_vector_calc_linear2_2in;
 					}	
 					else
-//						std::cerr << "tt_delay: invalid interpolation mode specified" << std::endl;
-						error("BAD INTERPOLATION SETTING");
+						log_error("tt_delay: invalid interpolation mode specified");
 					break;
 				default:
-//					std:cerr << "tt_delay: invalid attribute specified for set_attr()" << std::endl;
+					log_error("tt_delay: invalid attribute specified for set_attr()");
 					break;
 			}
 			reset();
@@ -171,7 +171,7 @@ class tt_delay:public tt_audio_base{
 				case k_interpolation:
 					return interpolation;
 				default:
-					std::cerr << "tt_delay: invalid attribute specified for get_attr()" << std::endl;				
+					log_error("tt_delay: invalid attribute specified for get_attr()");				
 					return 0.0;
 			}
 		}
@@ -317,7 +317,7 @@ class tt_delay:public tt_audio_base{
 				*out->vector++ = (temp * (1.0 - fractional_delay)) + (*out_ptr * fractional_delay);
 		    }
 		    in1->reset(); in2->reset(); out->reset();
-//post("delay_signal_ms: %f, samples: %f (%i)", delay_ms, fdelay_samples, delay_samples);
+			//log_post("delay_signal_ms: %f, samples: %f (%i)", delay_ms, fdelay_samples, delay_samples);
 		}
 
 /*

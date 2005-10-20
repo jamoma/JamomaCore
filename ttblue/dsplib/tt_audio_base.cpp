@@ -196,6 +196,30 @@ int tt_audio_base::get_vectorsize()
 
 
 
+// Platform independent message logging
+void tt_audio_base::log_post(char *message)
+{
+	// Cycling '74 Max
+	#if defined(MAC_VERSION) or defined(WIN_VERSION)
+		post(message);
+		
+	// Generic C++
+	#else
+		std::cout << message << std::endl;
+	#endif
+}
+
+void tt_audio_base::log_error(char *message)
+{
+	// Cycling '74 Max
+	#if defined(MAC_VERSION) or defined(WIN_VERSION)
+		error(message);
+		
+	// Generic C++
+	#else
+		std::cerr << message << std::endl;
+	#endif
+}
 
 
 

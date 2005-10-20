@@ -71,7 +71,7 @@ class tt_buffer:public tt_audio_base{
 		
 		~tt_buffer()										// Destructor
 		{
-			free();
+			buffer_free();
 		}
 
 
@@ -88,7 +88,7 @@ class tt_buffer:public tt_audio_base{
 					length_ms = length_samples * (1000.0 / sr);
 					break;
 			}
-			free();
+			buffer_free();
 			contents = (tt_sample_value *)mem_alloc(length_samples * sizeof(tt_sample_value));
 		}
 
@@ -108,7 +108,7 @@ class tt_buffer:public tt_audio_base{
 		// METHOD: SET_BUFFER
 		void set_buffer(tt_buffer *newbuffer)
 		{
-			free();								// release the internal buffer if appropriate
+			buffer_free();								// release the internal buffer if appropriate
 			contents = newbuffer->contents;		// point our contents-pointer to the external one
 			length_samples = newbuffer->length_samples;
 			length_ms = newbuffer->length_ms;
@@ -244,8 +244,8 @@ class tt_buffer:public tt_audio_base{
 		}
 
 
-		// METHOD: FREE
-		void free()
+		// METHOD: BUFFER_FREE
+		void buffer_free()
 		{
 			if(local_contents){
 				mem_free(contents);

@@ -217,4 +217,4 @@ class tt_shift:public tt_audio_base{
 };
 
 
-#endif	// tt_SHIFT_H
+#endif	// TT_SHIFT_H
