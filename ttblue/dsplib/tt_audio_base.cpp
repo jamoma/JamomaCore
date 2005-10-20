@@ -244,22 +244,20 @@ tt_ptr tt_audio_base::mem_alloc(long size)
 void tt_audio_base::mem_free(void *my_ptr)
 {
 	if(my_ptr != 0){ 
-#ifdef TAPTOOLS_TARGET_MAC
-	#ifdef MAC_VERSION
-		sysmem_freeptr(my_ptr);
-	#else
-		DisposePtr((Ptr)my_ptr);
-	#endif	
-#endif // TAPTOOLS_TARGET_MAC
+		// Cycling '74 Max
+		#if defined(MAC_VERSION) or defined(WIN_VERSION)
+			sysmem_freeptr(my_ptr);
 
-#ifdef TAPTOOLS_TARGET_WIN
-	#ifdef WIN_VERSION
-		sysmem_freeptr(my_ptr);	
-	#else 
-		//HeapFree(GetProcessHeap(), 0, my_ptr)
-		free(my_ptr);
-	#endif
-#endif // TAPTOOLS_TARGET_WIN
+		// Generic Mac 
+		#elif defined(TAPTOOLS_TARGET_MAC)
+			DisposePtr((Ptr)my_ptr);
+
+		// Generic Win
+		#elif defined(TAPTOOLS_TARGET_WIN)
+			//HeapFree(GetProcessHeap(), 0, my_ptr)
+			free(my_ptr);
+		#endif
+
 		my_ptr = 0;
 	}
 }
