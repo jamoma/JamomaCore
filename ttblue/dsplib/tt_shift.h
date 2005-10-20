@@ -178,10 +178,10 @@ class tt_shift:public tt_audio_base{
 				r_sr = 1.0 / value;
 				m_sr = sr * 0.001;
 				
-				delay1->set_sr(sr);
-				delay2->set_sr(sr);
-				phasor->set_sr(sr);
-				window->set_sr(sr);
+				delay1->set_sr(sr);	// this method overides the default
+				delay2->set_sr(sr);	// this method overides the default
+				phasor->set_sr(sr);	// this method overides the default
+				window->set_sr(sr);	// the rest are essentially SR independent...
 				wave1->set_sr(sr);
 				wave2->set_sr(sr);
 				scale->set_sr(sr);

@@ -143,7 +143,7 @@ class tt_adsr:public tt_audio_base{
 					}
 					break;
 				default:
-					std::cerr << "tt_adsr::set_attr - invalid attribute" << std::endl;
+					log_error("tt_adsr::set_attr - invalid attribute");
 					break;
 			}
 		}
@@ -164,7 +164,7 @@ class tt_adsr:public tt_audio_base{
 				case k_mode:
 					return mode;
 				default:
-					std::cerr << "tt_adsr::set_attr - invalid attribute" << std::endl;
+					log_error("tt_adsr::set_attr - invalid attribute");
 					return 0;
 					break;
 			}
