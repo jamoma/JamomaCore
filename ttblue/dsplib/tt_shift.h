@@ -27,7 +27,7 @@ class tt_shift:public tt_audio_base{
 		enum constants{
 			k_num_temp_signals = 10,
 		};
-		tt_attribute_value		window_size;				// size of the delay window
+		tt_attribute_value		window_size;				// size of the delay window in ms
 		tt_attribute_value		shift_ratio;				// amount of pitch shift
 		
 		tt_delay				*delay1, *delay2;			// member tap.tools objects
@@ -188,6 +188,9 @@ class tt_shift:public tt_audio_base{
 				offset->set_sr(sr);
 				modulo->set_sr(sr);
 				add->set_sr(sr);
+				
+				set_attr(k_windowsize, window_size);
+				set_attr(k_ratio, shift_ratio);
 			}
 		}
 

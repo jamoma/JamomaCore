@@ -65,7 +65,7 @@ class tt_delay:public tt_audio_base{
 
 		tt_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
 		{
-			long max = max_ms * sr * 0.001;
+			long max = max_ms * m_sr;
 			init(max);
 		}
 
@@ -77,7 +77,9 @@ class tt_delay:public tt_audio_base{
 			buffer = in_ptr = out_ptr = end_ptr = 0;
 			output[0] = output[1] = output[2] = output[3] = 0;		
 		
+			mem_free(buffer);
 			buffer = (tt_sample_value *)mem_alloc((max_samples + 4) * sizeof(tt_sample_value));
+			
 			in_ptr = buffer;
 			delay_samples_max = max_samples;
 			set_attr(k_delay_samples, max_samples - 1);
@@ -104,6 +106,8 @@ class tt_delay:public tt_audio_base{
 				m_sr = (float)sr * 0.001;	//		...
 			
 				// This is the SR setting stuff that is specific to this object.
+				if((m_sr * delay_ms) > delay_samples_max)
+					init(m_sr * delay_ms);			// allocate a larger delay buffer if neccessary
 				set_attr(k_delay_ms, delay_ms);		// hold the delay_length in ms constant, despite the change of sr
 			}
 		}
