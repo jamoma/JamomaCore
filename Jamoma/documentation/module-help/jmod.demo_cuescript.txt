@@ -99,7 +99,8 @@ cue_event SWEEP
 
 // Module filter~
 	filter~ cf 3000 3000
-
+	WAIT 6000
+	filter~ cf 200 3000
 
 
 
