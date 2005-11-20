@@ -23,7 +23,7 @@ cue_event INITIALISATION
 // Module filter~
 	filter~ gain_midi 0
 	filter~ defeat_meters 0
-	filter~ mix 0.000
+	filter~ mix 100.000
 	filter~ bypass 0
 	filter~ mute 0
 	filter~ sr 0
