@@ -21,6 +21,7 @@ cue_event INITIALISATION
 	input~ disable_ui_updates 0
 	
 // Module filter~
+	filter~ filtertype bandpass
 	filter~ gain_midi 0
 	filter~ defeat_meters 0
 	filter~ mix 100.000
@@ -31,7 +32,6 @@ cue_event INITIALISATION
 	filter~ cf 68.215
 	filter~ q 1.472
 	filter~ filtergain -1.780
-	filter~ filtertype bandpass
 	
 // Module output~
 	output~ ch_1 1
