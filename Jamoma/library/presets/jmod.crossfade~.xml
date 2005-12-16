@@ -2,31 +2,41 @@
 
 <pattrstorage name = "jmod.crossfade~">
 	<slot number = "1">
-		<patcher name = "jmod.gui.1Uh.a.stereo.mxb">
+		<patcher name = "jmod.hub">
 			<patcher name = "jmod.parameter">
-				<pattr name = "mute" value = "1" />
-			</patcher>
-			<patcher name = "jmod.parameter[1]">
-				<pattr name = "bypass" value = "0" />
-			</patcher>
-			<patcher name = "jmod.parameter[5]">
-				<pattr name = "sr" value = "0" />
-			</patcher>
-			<patcher name = "jmod.parameter[6]">
-				<pattr name = "defeat_meters" value = "0" />
-			</patcher>
-			<patcher name = "jmod.parameter.gain.mxt">
-				<pattr name = "gain_midi" value = "127." />
+				<pattr name = "disable_ui_updates" value = "0" />
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "crossfade" value = "1." />
+			<pattr name = "position" value = "0." />
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[3]">
 			<pattr name = "shape" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[2]">
 			<pattr name = "calc_mode" value = "0" />
+		</patcher>
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxb">
+			<patcher name = "controls">
+				<patcher name = "pattr_sr">
+					<pattr name = "sr" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mute">
+					<pattr name = "mute" value = "1" />
+				</patcher>
+				<patcher name = "pattr_bypass">
+					<pattr name = "bypass" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mix">
+					<pattr name = "mix" value = "100." />
+				</patcher>
+				<patcher name = "pattr_defeat_meters">
+					<pattr name = "defeat_meters" value = "0" />
+				</patcher>
+				<patcher name = "pattr_gain">
+					<pattr name = "gain_midi" value = "0." />
+				</patcher>
+			</patcher>
 		</patcher>
 	</slot>
 </pattrstorage>
