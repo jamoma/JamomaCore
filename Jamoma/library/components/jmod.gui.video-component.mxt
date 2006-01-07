@@ -1,5 +1,7 @@
 max v2;
 #N vpatcher 189 152 889 587;
+#N comlet dumpout;
+#P hidden outlet 50 72 15 0;
 #P window setfont "Sans Serif" 9.;
 #P hidden newex 236 85 361 9109513 jmod.message.mxt $1 genframe @description "Forces a frame of output to be sent";
 #P objectname pwindow_gate[5];
@@ -20,6 +22,7 @@ max v2;
 #P user jit.pwindow -1 -1 62 47 0 1 0 0 1 0;
 #P objectname pwindow;
 #P hidden connect 1 0 0 0;
+#P hidden connect 0 1 8 0;
 #P hidden fasten 3 1 1 0 467 50 186 50;
 #P hidden connect 2 0 1 1;
 #P pop;
