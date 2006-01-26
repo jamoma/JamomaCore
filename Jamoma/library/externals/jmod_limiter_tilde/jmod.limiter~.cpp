@@ -76,7 +76,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	ps_dumpout = gensym("dumpout");
 
 	// Define our class
-	c = class_new("blue.limiter~",(method)limiter_new, (method)limiter_free, (short)sizeof(t_limiter), 
+	c = class_new("jmod.limiter~",(method)limiter_new, (method)limiter_free, (short)sizeof(t_limiter), 
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_limiter, obex));
 

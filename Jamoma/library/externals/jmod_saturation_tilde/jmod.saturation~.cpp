@@ -65,7 +65,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	ps_dumpout = gensym("dumpout");
 
 	// Define our class
-	c = class_new("blue.saturation~",(method)saturation_new, (method)saturation_free, (short)sizeof(t_saturation), 
+	c = class_new("jmod.saturation~",(method)saturation_new, (method)saturation_free, (short)sizeof(t_saturation), 
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_saturation, obex));
 

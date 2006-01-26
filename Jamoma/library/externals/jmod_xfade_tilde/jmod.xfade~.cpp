@@ -64,7 +64,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	ps_dumpout = gensym("dumpout");
 
 	// Define our class
-	c = class_new("blue.xfade~",(method)fade_new, (method)fade_free, (short)sizeof(t_fade), 
+	c = class_new("jmod.xfade~",(method)fade_new, (method)fade_free, (short)sizeof(t_fade), 
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_fade, obex));
 
