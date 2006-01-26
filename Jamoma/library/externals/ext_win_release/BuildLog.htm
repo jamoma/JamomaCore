@@ -7,39 +7,38 @@
 <table width=100% bgcolor=#CFCFE5><tr> <td> <font face=arial size=+3>
 Build Log
 </font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
-<h3>------- Build started: Project: jmod.sym.compare, Configuration: Release|Win32 -------
+<h3>------- Build started: Project: jmod.change, Configuration: Release|Win32 -------
 </h3>
 </pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
 Command Lines
-</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>This edition of Visual C++ does not support the optimizing compiler.
-Creating temporary file "C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000005.rsp" with contents
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Creating temporary file "C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000010.rsp" with contents
 [
-/G6 /I "..\..\..\..\c74support\max-includes" /I "..\..\..\..\c74support\msp-includes" /D "WIN_VERSION" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "WIN_EXT_VERSION" /D "_WINDLL" /D "_MBCS" /GF /FD /MT /Zp2 /Fp"..\ext_win_release\jmod.sym.compare.pch" /Fo"..\ext_win_release\\" /Fd"..\ext_win_release\jmod.sym.compare" /W3 /c /TP
-".\jmod.sym.compare.cpp"
-"\My Development\c74support\max-includes\common\commonsyms.c"
+/Ox /Og /Ob1 /GL /G6 /I "..\..\..\..\c74support\max-includes" /I "..\..\..\..\c74support\msp-includes" /D "WIN_VERSION" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "WIN_EXT_VERSION" /D "_WINDLL" /D "_MBCS" /GF /FD /MT /Zp2 /Fp"..\ext_win_release\jmod.change.pch" /Fo"..\ext_win_release\\" /Fd"..\ext_win_release\jmod.change" /W3 /c /TP
+.\jmod.change.cpp
+"\Electrotap\c74support\max-includes\common\commonsyms.c"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000005.rsp /nologo"
-Creating temporary file "C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000006.rsp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000010.rsp /nologo"
+Creating temporary file "C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000011.rsp" with contents
 [
-/OUT:".\..\Build_Windows\jmod.sym.compare.mxe" /INCREMENTAL:NO /NOLOGO /DLL /DEF:".\jmod.sym.compare.def" /DEBUG /PDB:"..\ext_win_release\jmod.sym.compare.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /IMPLIB:"..\ext_win_release\jmod.sym.compare.lib" /MACHINE:X86 /MACHINE:I386 .\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "\My Development\c74support\max-includes\MaxAPI.lib" "\My Development\c74support\msp-includes\MaxAudio.lib"
-"\My Development\Jamoma\library\externals\ext_win_release\commonsyms.obj"
-"\My Development\Jamoma\library\externals\ext_win_release\jmod.sym.compare.obj"
+/OUT:".\..\Build_Windows\jmod.change.mxe" /INCREMENTAL:NO /NOLOGO /DLL /DEF:".\jmod.change.def" /DEBUG /PDB:"..\ext_win_release\jmod.change.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /IMPLIB:"..\ext_win_release\jmod.change.lib" /MACHINE:X86 /MACHINE:I386 .\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "\Electrotap\c74support\max-includes\MaxAPI.lib" "\Electrotap\c74support\msp-includes\MaxAudio.lib"
+\Electrotap\Jamoma\library\externals\ext_win_release\commonsyms.obj
+\Electrotap\Jamoma\library\externals\ext_win_release\jmod.change.obj
 ]
-Creating command line "link.exe @C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000006.rsp"
+Creating command line "link.exe @C:\DOCUME~1\tim\LOCALS~1\Temp\RSP000011.rsp"
 </pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
 Output Window
 </font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Compiling...
-jmod.sym.compare.cpp
+jmod.change.cpp
 commonsyms.c
-Generating Code...
 Linking...
-   Creating library ..\ext_win_release\jmod.sym.compare.lib and object ..\ext_win_release\jmod.sym.compare.exp
-jmod.sym.compare.exp : warning LNK4070: /OUT:jmod.sym.compare directive in .EXP differs from output filename '.\..\Build_Windows\jmod.sym.compare.mxe'; ignoring directive
-LINK : warning LNK4235: /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
-jmod.sym.compare.exp : warning LNK4070: /OUT:jmod.sym.compare directive in .EXP differs from output filename '.\..\Build_Windows\jmod.sym.compare.mxe'; ignoring directive
+   Creating library ..\ext_win_release\jmod.change.lib and object ..\ext_win_release\jmod.change.exp
+jmod.change.exp : warning LNK4070: /OUT:jmod.change directive in .EXP differs from output filename '.\..\Build_Windows\jmod.change.mxe'; ignoring directive
+Generating code
+Finished generating code
+jmod.change.exp : warning LNK4070: /OUT:jmod.change directive in .EXP differs from output filename '.\..\Build_Windows\jmod.change.mxe'; ignoring directive
 </pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
 Results
 </font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
-Build log was saved at "file://e:\My Development\Jamoma\library\externals\ext_win_release\\BuildLog.htm"
-jmod.sym.compare - 0 error(s), 3 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
+Build log was saved at "file://e:\Electrotap\Jamoma\library\externals\ext_win_release\\BuildLog.htm"
+jmod.change - 0 error(s), 2 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
 </font></table></body></html>
