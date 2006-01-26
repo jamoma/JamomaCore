@@ -48,7 +48,7 @@ void symbEqual_assist(t_symbEqual *x, void *b, long msg, long arg, char *dst);
 void *symbEqual_new(Symbol *s);
 void symbEqual_free(t_symbEqual *x);
 
-void main(void)
+int main(void)
 /********************************************************************/
 /*																	*/
 /*	main: Called once the first time an object is created.			*/
@@ -61,9 +61,7 @@ void main(void)
  					
 	addmess((method)symbEqual_assist,		"assist",		A_CANT,0);
 	addmess((method)symbEqual_anything,		"anything",		A_GIMME,0);
-	finder_addclass("All Objects","tl.s==");
-    post("tl.s== © 2001-03 Trond Lossius");
-
+	return 0;
 }
 
 void symbEqual_anything(t_symbEqual *x, Symbol *s, short ac, Atom *av)

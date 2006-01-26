@@ -78,7 +78,7 @@ t_class *meter_class;
 /************************************************************************************/
 // Main() Function
 
-void main(void)
+int main(void)
 {	
 	long attrflags = 0;
 	t_class *c;
@@ -107,6 +107,7 @@ void main(void)
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	meter_class = c;
+	return 0;
 }
 
 

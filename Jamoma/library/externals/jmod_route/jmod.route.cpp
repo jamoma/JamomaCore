@@ -37,7 +37,7 @@ t_class		*route_class;				// Required: Global pointer for our class
 /************************************************************************************/
 // Main() Function
 
-void main(void)				// main recieves a copy of the Max function macros table
+int main(void)				// main recieves a copy of the Max function macros table
 {
 	long attrflags = 0;
 	t_class *c;
@@ -82,6 +82,7 @@ void main(void)				// main recieves a copy of the Max function macros table
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	route_class = c;
+	return 0;
 }
 
 

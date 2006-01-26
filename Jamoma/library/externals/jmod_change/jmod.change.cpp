@@ -40,7 +40,7 @@ t_class		*change_class;			// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-void main(void)				// main recieves a copy of the Max function macros table
+int main(void)				// main recieves a copy of the Max function macros table
 {
 	long attrflags = 0;
 	t_class *c;
@@ -64,6 +64,7 @@ void main(void)				// main recieves a copy of the Max function macros table
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	change_class = c;
+	return 0;
 }
 
 
