@@ -12,10 +12,11 @@
 typedef struct _pass{						// Data Structure for this object
 	t_object	ob;							// REQUIRED: Our object
 	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff 
-	void 		*outlets[MAX_ARGCOUNT];	// my outlet array -- NOTE: the attribute dump outlet is handled automagically
-	void		*outlet_overflow;
+	void 		*outlets[MAX_ARGCOUNT];		// my outlet array
+	void		*outlet_overflow;			// this outlet doubles as the dumpout outlet
 	t_atom		arguments[MAX_ARGCOUNT];
 	short		num_args;
+	long		attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
 } t_pass;
 
 // Prototypes for our methods:
@@ -51,6 +52,11 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
 
+	// ATTRIBUTE: strip
+	attr = attr_offset_new("strip", _sym_long, attrflags,
+		(method)0, (method)0, calcoffset(t_pass, attr_strip));
+	class_addattr(c, attr);	
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	pass_class = c;
@@ -67,8 +73,8 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 	t_pass	*x = (t_pass *)object_alloc(pass_class);
 	
 	if(x){
-		//object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 		x->outlet_overflow = outlet_new(x, 0);		// overflow outlet
+		object_obex_store((void *)x, _sym_dumpout, (object *)x->outlet_overflow);	// dumpout
 		x->num_args = argc;		
 
 		for(i=x->num_args-1; i >= 0; i--){				
@@ -85,10 +91,10 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 					break;
 			}
 		}
-
-		// attr_args_process(x,argc,argv); //handle attribute args	
+		x->attr_strip = 1;							// set default
+		attr_args_process(x, argc, argv);			//handle attribute args	
 	}
-	return (x);											// return the pointer to our new instantiation
+	return (x);										// return the pointer to our new instantiation
 }
 
 
@@ -120,13 +126,8 @@ void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst)
 			}
 		}
 		else
-			strcpy(dst, "overflow from non-matching input");
-	
-/*		switch(arg){
-			case 0: strcpy(dst, "Routed Output"); break;
-			case 1: strcpy(dst, "Attribute Stuff"); break;
- 		}
-*/ 	}		
+			strcpy(dst, "dumpout / overflow from non-matching input");	
+ 	}		
 }
 
 
@@ -134,14 +135,24 @@ void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst)
 void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	short		i;
+	t_symbol	*message;
 	
+	// strip any leading slashes
+	if(x->attr_strip != 0){
+		char *input = msg->s_name;
+		if(*input == '/')
+			input++;
+		message = gensym(input);
+	}
+	
+	// parse and send
 	for(i=0; i< x->num_args; i++){
-		if(msg == atom_getsym(&x->arguments[i])){
-			outlet_anything(x->outlets[i], msg, argc , argv);
+		if(message == atom_getsym(&x->arguments[i])){
+			outlet_anything(x->outlets[i], message, argc , argv);
 			return;
 		}
 	}
-	outlet_anything(x->outlet_overflow, msg, argc , argv);
+	outlet_anything(x->outlet_overflow, message, argc , argv);
 }
 
 
@@ -149,7 +160,17 @@ void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 void pass_list(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	short		i;
+	t_symbol	*message;
 	
+	// strip any leading slashes
+	if(x->attr_strip != 0){
+		char *input = msg->s_name;
+		if(*input == '/')
+			input++;
+		message = gensym(input);
+	}
+		
+	// parse and send
 	switch(argv[0].a_type){
 		case A_LONG:
 			for(i=0; i< x->num_args; i++){
@@ -176,7 +197,7 @@ void pass_list(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 		case A_SYM:
 			for(i=0; i< x->num_args; i++){
 				if(atom_getsym(argv) == atom_getsym(&x->arguments[i])){
-					outlet_anything(x->outlets[i], msg, argc , argv);
+					outlet_anything(x->outlets[i], message, argc , argv);
 					return;
 				}
 			}
