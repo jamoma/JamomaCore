@@ -24,3 +24,10 @@
 #DEFAULT (echo ""; id; echo %s; date; cat) >> $CVSROOT/CVSROOT/commitlog
 # or
 #DEFAULT (echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
+
+# Added by Trond 2006-01-28:
+#
+# This sends mail to a mailing list, defined by the PROJECTNAME-LISTNAME
+# value. Any changes to any modules in the project will thus generate an
+# email message to the mailing list specified.
+DEFAULT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} jamoma-devel@lists.sourceforg
