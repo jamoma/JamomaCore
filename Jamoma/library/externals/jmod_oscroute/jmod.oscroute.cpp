@@ -23,6 +23,10 @@ typedef struct _oscroute{					// Data Structure for this object
 // Prototypes for our methods:
 void *oscroute_new(t_symbol *s, long argc, t_atom *argv);
 void oscroute_assist(t_oscroute *x, void *b, long msg, long arg, char *dst);
+void oscroute_bang(t_oscroute *x);
+void oscroute_int(t_oscroute *x, long n);
+void oscroute_float(t_oscroute *x, double f);
+void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv);
 void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv);
 //void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv);
 
@@ -47,11 +51,14 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_oscroute, obex));
 
 	// Make methods accessible for our class: 
-  	//class_addmethod(c, (method)oscroute_list,			"list", A_GIMME, 0L);	
-  	class_addmethod(c, (method)oscroute_symbol,			"anything", A_GIMME, 0L);	
-	class_addmethod(c, (method)oscroute_assist,			"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
+	class_addmethod(c, (method)oscroute_bang,			"bang",		0L,			0L);	
+	class_addmethod(c, (method)oscroute_int,			"int",		A_DEFLONG,	0L);
+	class_addmethod(c, (method)oscroute_float,			"float",	A_DEFFLOAT,	0L);
+	class_addmethod(c, (method)oscroute_list,			"list",		A_GIMME,	0L);
+  	class_addmethod(c, (method)oscroute_symbol,			"anything", A_GIMME,	0L);	
+	class_addmethod(c, (method)oscroute_assist,			"assist",	A_CANT,		0L); 
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
+    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
 
 	// ATTRIBUTE: strip
 	attr = attr_offset_new("strip", _sym_long, attrflags,
@@ -112,6 +119,30 @@ void oscroute_assist(t_oscroute *x, void *b, long msg, long arg, char *dst)
 }
 
 
+// BANG INPUT: STRAIGHT TO OVERFLOW
+void oscroute_bang(t_oscroute *x)
+{
+	outlet_bang(x->outlet_overflow);
+}
+
+// INT INPUT: STRAIGHT TO OVERFLOW
+void oscroute_int(t_oscroute *x, long n)
+{
+	outlet_int(x->outlet_overflow, n);
+}
+
+// FLOAT INPUT: STRAIGHT TO OVERFLOW
+void oscroute_float(t_oscroute *x, double f)
+{
+	outlet_float(x->outlet_overflow, f);
+}
+
+// LIST INPUT: STRAIGHT TO OVERFLOW
+void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
+{
+	outlet_list(x->outlet_overflow, _sym_list, argc , argv);
+}
+
 // SYMBOL INPUT
 void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 {
@@ -125,12 +156,69 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
 	
-	if(input[0] != '/') return;
+	if(input[0] != '/') {
+		outlet_anything(x->outlet_overflow, msg, argc , argv);
+		return;
+	}
 
 	temp = strchr(input+1, '/');
-	if(temp == NULL){					// if there is no second slash 
-		output = _sym_list;
+	
+	// if there is no second slash
+	
+	if(temp == NULL){
+		message = gensym(input);
+		//post("No second slash");
+		// no arguments: return bang
+		if (argc==0) {
+			//post("No arguments");
+			for(i=0; i< x->num_args; i++) {
+				if(message == x->arguments[i]) {
+					outlet_bang(x->outlets[i]);
+					return;
+				}
+			}
+		}
+		// one argument, return int, float or anything
+		else if (argc==1) {
+			// int argument
+			if (argv->a_type==A_LONG) {
+				for(i=0; i< x->num_args; i++) {
+					if(message == x->arguments[i]) {
+						outlet_int(x->outlets[i],argv->a_w.w_long);
+						return;
+					}				
+				}
+			}
+			// float argument
+			else if (argv->a_type==A_FLOAT) {
+				for(i=0; i< x->num_args; i++) {
+					if(message == x->arguments[i]) {
+						outlet_float(x->outlets[i],argv->a_w.w_float);
+						return;
+					}				
+				}
+			}
+			// something else
+			else if (argv->a_type==A_SYM) {
+				for(i=0; i< x->num_args; i++) {
+					if(message == x->arguments[i]) {
+						outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
+						return;
+					}				
+				}
+			}
+		}
+		// two or more arguments, check if first is A_SYM
+		else if (argv->a_type==A_SYM) {
+			output = argv->a_w.w_sym;
+			argc--;
+			argv++;
+		}
+		else
+			output = _sym_list;
 	}
+	
+	// there is a second slash
 	else{
 		*temp = '\0';					// terminate the input string
 		
@@ -147,58 +235,3 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 	outlet_anything(x->outlet_overflow, msg, argc , argv);
 }
-
-/*
-// LIST INPUT
-void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
-{
-	short		i;
-	t_symbol	*message;
-	
-	// strip any leading slashes
-	if(x->attr_strip != 0){
-		char *input = msg->s_name;
-		if(*input == '/')
-			input++;
-		message = gensym(input);
-	}
-		
-	// parse and send
-	switch(argv[0].a_type){
-		case A_LONG:
-			for(i=0; i< x->num_args; i++){
-				if(x->arguments[i].a_type == A_LONG){
-					if(atom_getlong(argv) == atom_getlong(&x->arguments[i])){
-						outlet_list(x->outlets[i], 0L, argc , argv);
-						return;
-					}
-				}
-			}
-			outlet_list(x->outlet_overflow, 0L, argc , argv);
-			break;
-		case A_FLOAT:
-			for(i=0; i< x->num_args; i++){
-				if(x->arguments[i].a_type == A_FLOAT){
-					if(atom_getfloat(argv) == atom_getfloat(&x->arguments[i])){
-						outlet_list(x->outlets[i], 0L, argc , argv);
-						return;
-					}
-				}
-			}
-			outlet_list(x->outlet_overflow, 0L, argc , argv);
-			break;
-		case A_SYM:
-			for(i=0; i< x->num_args; i++){
-				if(atom_getsym(argv) == atom_getsym(&x->arguments[i])){
-					outlet_anything(x->outlets[i], message, argc , argv);
-					return;
-				}
-			}
-			outlet_list(x->outlet_overflow, 0L, argc , argv);
-			break;
-		default:
-			outlet_list(x->outlet_overflow, 0L, argc , argv);
-			break;
-	}
-}
-*/
