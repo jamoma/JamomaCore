@@ -243,13 +243,13 @@ function msg_int(value)
 				outlet(4, "disable_ui_updates", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
-			case 1: outlet(4, "clear_meters"); break;
-			case 3: outlet(4, "load_settings"); break;
-			case 4: outlet(4, "save_settings"); break;
-			case 5: outlet(4, "restore_defaults"); break;
-			case 7: outlet(4, "help"); break;
-			case 8: outlet(4, "view_internals"); break;
-			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			case 1: outlet(4, "/clear_meters"); break;
+			case 3: outlet(4, "/load_settings"); break;
+			case 4: outlet(4, "/save_settings"); break;
+			case 5: outlet(4, "/restore_defaults"); break;
+			case 7: outlet(4, "/help"); break;
+			case 8: outlet(4, "/view_internals"); break;
+			default: outlet(4, "/preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
 	else if(attr_module_type == "video"){
@@ -257,13 +257,13 @@ function msg_int(value)
 			case 0:
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
 				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
-				outlet(4, "disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(4, "/disable_ui_updates", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
 			case 1: 
 				if(attr_preview == 1) attr_preview = 0;
 				else if(attr_preview == 0) attr_preview = 1;
-				outlet(4, "preview", attr_preview); 
+				outlet(4, "/preview", attr_preview); 
 				outlet(3, "checkitem", 1, attr_preview); 
 				break;
 			case 2: outlet(4, "genframe"); break;	
@@ -274,7 +274,7 @@ function msg_int(value)
 					attr_freeze = 0;
 					attr_mute = 0;
 				}
-				outlet(4, "bypass", attr_bypass); 
+				outlet(4, "/bypass", attr_bypass); 
 				break;
 			case 5:
 				if(attr_freeze == 1) attr_freeze = 0;
@@ -283,7 +283,7 @@ function msg_int(value)
 					attr_freeze = 1;
 					attr_mute = 0;
 				}
-				outlet(4, "freeze", attr_freeze); 
+				outlet(4, "/freeze", attr_freeze); 
 				break;
 			case 6:
 				if(attr_mute == 1) attr_mute = 0;
@@ -292,14 +292,14 @@ function msg_int(value)
 					attr_freeze = 0;
 					attr_mute = 1;
 				}
-				outlet(4, "mute", attr_mute); 
+				outlet(4, "/mute", attr_mute); 
 				break;
-			case 8: outlet(4, "load_settings"); break;			
-			case 9: outlet(4, "save_settings"); break;
-			case 10: outlet(4, "restore_defaults"); break;
-			case 12: outlet(4, "help"); break;
-			case 13: outlet(4, "view_internals"); break;		
-			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			case 8: outlet(4, "/load_settings"); break;			
+			case 9: outlet(4, "/save_settings"); break;
+			case 10: outlet(4, "/restore_defaults"); break;
+			case 12: outlet(4, "/help"); break;
+			case 13: outlet(4, "/view_internals"); break;		
+			default: outlet(4, "/preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 		outlet(3, "checkitem", 4, attr_bypass);
 		outlet(3, "checkitem", 5, attr_freeze);
@@ -310,15 +310,15 @@ function msg_int(value)
 			case 0:
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
 				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
-				outlet(4, "disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(4, "/disable_ui_updates", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
-			case 2: outlet(4, "load_settings"); break;
-			case 3: outlet(4, "save_settings"); break;
-			case 4: outlet(4, "restore_defaults"); break;
-			case 6: outlet(4, "help"); break;
-			case 7: outlet(4, "view_internals"); break;
-			default: outlet(4, "preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			case 2: outlet(4, "/load_settings"); break;
+			case 3: outlet(4, "/save_settings"); break;
+			case 4: outlet(4, "/restore_defaults"); break;
+			case 6: outlet(4, "/help"); break;
+			case 7: outlet(4, "/view_internals"); break;
+			default: outlet(4, "/preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
 }
