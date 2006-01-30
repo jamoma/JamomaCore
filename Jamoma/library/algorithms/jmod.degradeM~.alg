@@ -1,13 +1,12 @@
 max v2;
-#N vpatcher 162 173 426 360;
+#N vpatcher 162 173 531 370;
 #P outlet 62 133 15 0;
 #P inlet 147 26 15 0;
 #P inlet 56 26 15 0;
 #P window setfont "Sans Serif" 9.;
-#P window linecount 1;
 #N in 1;
 #P newobj 119 26 25 196617 in 1;
-#P newex 119 51 111 196617 route sr-ratio bitdepth;
+#P newex 119 51 166 196617 jmod.oscroute /sr_ratio /bitdepth;
 #P newex 24 104 95 196617 degrade~;
 #N out~ 1;
 #P newobj 24 133 35 196617 out~ 1;
