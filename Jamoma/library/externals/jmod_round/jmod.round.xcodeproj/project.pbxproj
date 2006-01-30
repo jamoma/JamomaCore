@@ -36,8 +36,8 @@
 		223D637709892F5400AF9710 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = "/Library/Application Support/c74support/max-includes/common/commonsyms.c"; sourceTree = "<absolute>"; };
 		223D639B0989335500AF9710 /* jmod.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jmod.prefix.pch; path = ../jmod.prefix.pch; sourceTree = SOURCE_ROOT; };
 		223D643D09893D5800AF9710 /* jmod.round.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jmod.round.cpp; sourceTree = SOURCE_ROOT; };
+		224FE031098D98580088FF27 /* jmod.round.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmod.round.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D01CCD10486CAD60068D4B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D01CCD20486CAD60068D4B7 /* jmod.round.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmod.round.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D01CCD20486CAD60068D4B7 /* jmod.round.mxo */,
+				224FE031098D98580088FF27 /* jmod.round.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,7 +121,7 @@
 			name = jmod.round;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = jmod.change;
-			productReference = 8D01CCD20486CAD60068D4B7 /* jmod.round.mxo */;
+			productReference = 224FE031098D98580088FF27 /* jmod.round.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -207,12 +207,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = jmod.change_Prefix.pch;
+				GCC_PREFIX_HEADER = jmod.prefix.pch;
 				HEADER_SEARCH_PATHS = "\"/Library/Application Support/c74support/max-includes\"";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = ../build_mac;
 				OTHER_LDFLAGS = "-lmx";
-				PRODUCT_NAME = jmod.change;
+				PRODUCT_NAME = jmod.round;
 				WRAPPER_EXTENSION = mxo;
 				ZERO_LINK = YES;
 			};
