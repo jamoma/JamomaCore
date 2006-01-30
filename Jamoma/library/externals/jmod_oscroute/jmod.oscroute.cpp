@@ -167,10 +167,8 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	
 	if(temp == NULL){
 		message = gensym(input);
-		//post("No second slash");
 		// no arguments: return bang
 		if (argc==0) {
-			//post("No arguments");
 			for(i=0; i< x->num_args; i++) {
 				if(message == x->arguments[i]) {
 					outlet_bang(x->outlets[i]);
@@ -207,31 +205,37 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 					}				
 				}
 			}
+		}		
+		// There are two or more arguments, check if first is A_SYM
+		for (i=0; i< x->num_args; i++) {
+			if (message == x->arguments[i]) {		
+				if (argv->a_type==A_SYM) {
+					output = argv->a_w.w_sym;
+					argc--;
+					argv++;
+				}
+				else
+					output = _sym_list;
+				outlet_anything(x->outlets[i], output, argc , argv);
+				return;
+			}
+
 		}
-		// two or more arguments, check if first is A_SYM
-		else if (argv->a_type==A_SYM) {
-			output = argv->a_w.w_sym;
-			argc--;
-			argv++;
-		}
-		else
-			output = _sym_list;
 	}
-	
 	// there is a second slash
-	else{
-		*temp = '\0';					// terminate the input string
-		
+	else {
+		*temp = '\0';		// terminate the input string	
 		message = gensym(input);
-		*temp = '/';	// add the slash back in
+		*temp = '/';		// add the slash back in
 		output = gensym(temp);
-	}
-	// parse and send
-	for(i=0; i< x->num_args; i++){
-		if(message == x->arguments[i]){
-			outlet_anything(x->outlets[i], output, argc , argv);
-			return;
+
+		for (i=0; i< x->num_args; i++) {
+			if (message == x->arguments[i]) {
+				outlet_anything(x->outlets[i], output, argc , argv);
+				return;
+			}
 		}
 	}
+	// the message was never reckognised
 	outlet_anything(x->outlet_overflow, msg, argc , argv);
 }
