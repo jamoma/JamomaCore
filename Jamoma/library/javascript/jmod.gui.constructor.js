@@ -240,7 +240,7 @@ function msg_int(value)
 			case 0: 
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
 				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
-				outlet(4, "disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(4, "/disable_ui_updates", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
 			case 1: outlet(4, "/clear_meters"); break;
@@ -266,7 +266,7 @@ function msg_int(value)
 				outlet(4, "/preview", attr_preview); 
 				outlet(3, "checkitem", 1, attr_preview); 
 				break;
-			case 2: outlet(4, "genframe"); break;	
+			case 2: outlet(4, "/genframe"); break;	
 			case 4:
 				if(attr_bypass == 1) attr_bypass = 0;
 				else if(attr_bypass == 0){

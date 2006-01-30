@@ -185,7 +185,4 @@ max v2;
 #P hidden connect 66 0 67 0;
 #P hidden connect 71 0 73 0;
 #P hidden connect 65 0 81 0;
-#P hidden connect 35 0 81 0;
-#P hidden connect 69 0 81 0;
-#P hidden connect 34 0 81 0;
 #P pop;
