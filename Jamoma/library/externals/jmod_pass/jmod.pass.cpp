@@ -152,7 +152,7 @@ void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 			return;
 		}
 	}
-	outlet_anything(x->outlet_overflow, message, argc , argv);
+	outlet_anything(x->outlet_overflow, msg, argc , argv);
 }
 
 

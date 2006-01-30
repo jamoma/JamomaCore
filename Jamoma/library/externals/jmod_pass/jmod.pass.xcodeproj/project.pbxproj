@@ -207,12 +207,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = jmod.change_Prefix.pch;
+				GCC_PREFIX_HEADER = ../jmod.prefix.pch;
 				HEADER_SEARCH_PATHS = "\"/Library/Application Support/c74support/max-includes\"";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = ../build_mac;
 				OTHER_LDFLAGS = "-lmx";
-				PRODUCT_NAME = jmod.change;
+				PRODUCT_NAME = jmod.pass;
 				WRAPPER_EXTENSION = mxo;
 				ZERO_LINK = YES;
 			};
