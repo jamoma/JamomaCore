@@ -46,14 +46,14 @@
 <p>As we start transforming the patch above into a Jamoma module,  we will be 
   dealing with the GUI, the parameters, the logic,  and the output one at a time.</p>
 <h3>A template for control modules</h3>
-<p>In the Jamoma folder you'll find a file named jmod..template.control.mod (in 
+<p>In the Jamoma folder you'll find a file named jmod.template.control.mod (in 
   the documentation/templates folder). Make a copy of this, and rename it as <strong>jmod.qmetro.mod</strong>.</p>
 <p>If you're a Jamoma developer and planning to make the new module a part of 
   the Jamoma package, your new module should be stored in one of the subfolders 
   of library/modules, depending on what kind of module it is. If not, you should 
   find some other dedicated place in the Max search path for your custom modules.</p>
 <p>Once you have made yourself a copy and renamed it, open it and take a look:</p>
-<p><img src="../images/tutorial_02a_template.jpg" width="827" height="530"></p>
+<p><img src="../images/tutorial_02a_template.png" width="856" height="569"></p>
 <p>If your template does not look exactly like this, try clicking on the two message 
   boxes at the lower left of the window (;max refresh and ;jmod.init bang). Sometimes 
   the screen does not display all elements properly when you first load a 
@@ -61,9 +61,10 @@
 <h3>The interface</h3>
 <p>We'll start by creating the interface. If you look in the upper left corner 
   of the patch, there's a small bluish part. When the module is complete, we will 
-  be using it as a bpatcher. At that point all we will need to see is this one small region, 
-  sized 256 x 60 pixels, or &quot;1U-half&quot; in the Jamoma terminology. For 
-  more details on various sizes of modules, please refere to the <a href="../interface_guidelines.html">JIG</a>.</p>
+  be using it as a bpatcher. At that point all we will need to see is this one 
+  small region, sized 255 x 60 pixels, or &quot;1U-half&quot; in the Jamoma terminology: 
+  One unit tall (60 pixels) and half a unit wide (255 pixels). For more details 
+  on various sizes of modules, please refere to the <a href="../interface_guidelines.html">JIG</a>.</p>
 <p>For our interface we'll need a toggle and a number box here. We'll also rename 
   the comments so that they make sense to us:</p>
 <p><img src="../images/tutorial_02a_interface.jpg" width="262" height="88"></p>
@@ -98,7 +99,7 @@
 <p>&nbsp;</p>
 <p>Now it's time for connecting the pvar objects to jmod.parameter. This is how 
   we'll do it:</p>
-<p><img src="../images/tutorial_02a_pvarconnect1.jpg"></p>
+<p><img src="../images/tutorial_02a_pvarconnect1.png" width="183" height="131"></p>
 <p>Now we're ready for some magic. Try 
   turning the toggle on and off, and change the time in the interface. If everything is working as supposed to,  any change 
   you make  will cause the message box further down in the patch (connected to 
@@ -114,9 +115,30 @@
     the various Jamoma components in the module.<br>
   </li>
   <li><em>symbol</em><br>
-    The name of the parameter</li>
+    The name of the parameter.</li>
 </ul>
+<p>Jamoma use the <a href="http://www.opensoundcontrol.org">OpenSoundControl</a> 
+  protocol (or OSC for short) for communication. For this reason, make sure that 
+  all of your parameter names starts with a slash, and avoid using the following 
+  symbols as part of your parameter names as they are reserved for special purposes:</p>
+<ul>
+  <li>question mark (?)</li>
+  <li>asterix (*)</li>
+  <li> square brackets ( [ and ])</li>
+  <li>minus sign (-)</li>
+  <li>exclamation point (!)</li>
+  <li>curly braces ({ and })</li>
+  <li>comma (,)</li>
+</ul>
+<p>Slash (/) has a special meaning in OSC-land, and will have to be used accordingly. 
+  We'll look into this little by little.</p>
+<p>&nbsp;</p>
+<p>For our module we will name the two parameters<em> /toggle</em> and <em>/time</em>.</p>
+<p>&nbsp;</p>
 <p><strong>Attributes</strong></p>
+<p>&nbsp;</p>
+<p>For each parameter we can set a number of attribtues. Currently the following 
+  attributes are implemented:</p>
 <ul>
   <li><em>type</em> <em>(symbol)</em><br>
     This is used to distinguish between different types of messages. Possible 
@@ -146,16 +168,19 @@
     of the parameter. Jamoma has a built-in   documentation generator that will create an HTML 
     page for your modules using this information.</li>
 </ul>
-<p>The template tries to help you remember the various attributes.</p>
-<p>For our module the following attributes seem sensible:</p>
-<p>jmod.parameter.mxt #0_ toggle <br>
+<p>The template tries to help you remember the various attributes. For our module 
+  the following attributes seem sensible:</p>
+<p>jmod.parameter.mxt #0_ /toggle:</p>
+<p><br>
   @type msg_toggle <span class="comment">- it's a toggle</span><br>
   @ramp 0 <span class="comment">- and it doesn't make sense to let a toggle ramp</span><br>
   @repetitions 0 <span class="comment">- neither are repetitions useful</span><br>
   @range 0 1<span class="comment"> - this is all the range that we need</span><br>
   @clipmode both <span class="comment">- so anything outside the range is clipped</span><br>
   @description &quot;Toggle qmetro on/off&quot;</p>
-<p>jmod.parameter.mxt #0_ time<br>
+<p>&nbsp;</p>
+<p>jmod.parameter.mxt #0_ /time:</p>
+<p><br>
   @type msg_int<br>
   @ramp 1 <span class="comment">- can be useful for accelerando and ritardando</span><br>
   @repetitions 0 <span class="comment">- repetitions won't make any differences 
@@ -165,10 +190,11 @@
   @clipmode low <span class="comment">- but we don't want to prevent it from being 
   a higher value </span><br>
   @description &quot;Metro interval (ms)&quot;</p>
+<p>&nbsp;</p>
 <p>Now this part of the patch looks like this:</p>
-<p><img src="../images/tutorial_02a_parameters.jpg" width="377" height="149"></p>
+<p><img src="../images/tutorial_02a_parameters.png" width="368" height="141"></p>
 <p>Before we move on to creating the logic, it's worth noting that jmod.parameter 
-  is quite powerful. I addition of keeping track of the current state of the parameter, 
+  is quite powerful. In addition tokeeping track of the current state of the parameter, 
   it can be used for ramping to new values, clipping the range and filtering out 
   repetitions.</p>
 <p>On a sidenote you might have noted that we always load the component as &quot;jmod.parameter.mxt&quot;. 
@@ -179,13 +205,17 @@
   away in a subpatch. In the template the subpatch is named &quot;DoTheDo&quot;, 
   but you might want to change that for something more sensible.</p>
 <p>You might have noticed that the 2nd outlet of jmod.hub sends out messages of 
-  the kind &quot;time 40&quot; or &quot;toggle 1&quot; as you change values in 
-  the GUI. In Jamoma, you won't be passing numbers, bangs or similar on their 
-  own. They will always be preceded by a symbol telling what parameter the value 
-  is meant for. For this reason we need some routing inside DoTheDo:</p>
-<p><img src="../images/tutorial_02A_dothedo.jpg" width="384" height="330"></p>
-<p>For the same reason we won't be passing the bangs straight on, but prepend a symbol to tag the data with a meaningful name.  In this case we have chosen the symbol
-  &quot;trigger&quot;.</p>
+  the kind &quot;/time 40&quot; or &quot;/toggle 1&quot; as you change values 
+  in the GUI. In Jamoma, you won't be passing numbers, bangs or similar on their 
+  own. They will always be OpenSoundControl messages starting with a symbol telling 
+  what parameter the value is meant for. For this reason we need some routing 
+  inside DoTheDo. Instead of the standard Max <strong>route</strong> object, we 
+  will use <strong>jmod.oscroute</strong>, as it adds a number of useful OpenSoundControl-related 
+  functionalities.</p>
+<p><img src="../images/tutorial_02A_dothedo.png" width="237" height="316"></p>
+<p>For the same reason we will not be passing the bangs straight on, but prepend 
+  a symbol to tag the data with a meaningful name. In this case we have chosen 
+  the symbol &quot;/trigger&quot;. Again note that the symbol starts with a slash.</p>
 <h3>Winding up the module</h3>
 <p>There's a few more tasks to carry out before we're done.</p>
 <p>First we sant to change the displayed name of the module from jmod.control 
@@ -193,23 +223,25 @@
   In addition we'll change the description attribute for jmod.hub.</p>
 <p>If you want you can connect the outlet of DoTheDo to a button to check that 
   the patch is working.</p>
-<p><img src="../images/tutorial_02a_winding_up.jpg" width="378" height="378"></p>
-<p>Next we want to provide a default preset for the module. First 
-  click the &quot;;jmod.init bang&quot; message box so that the module is properly intiialised. Then set time to 40 and 
-  the toggle to off. Then select &quot;Save Settings...&quot; from the small pop-up menu 
-  in the left upper corner of the module GUI. Save the preset as &quot;jmod.qmetro.xml&quot; 
-  somewhere in the Max search path. Presets for standard Jamoma modules can be 
-  found in the Jamoma library/presets folder.</p>
-<p>If you want to, you can also auto-generate HTML documentation for the patch. Simply click the autodoc message box above jmod.hub. Save as 
-  &quot;jmod.qmetro.html&quot; somewhere in Max's searchpath. The documentation should look something like <a href="../modules/jmod.qmetro.html">this</a>.</p>
+<p><img src="../images/tutorial_02a_winding_up.png" width="346" height="486"></p>
+<p>Next we want to provide a default preset for the module. First click the &quot;;jmod.init 
+  bang&quot; message box so that the module is properly initialised. Then set 
+  time to 40 and the toggle to off, and select &quot;Save Settings...&quot; from 
+  the small pop-up menu in the left upper corner of the module GUI. Save the preset 
+  as &quot;jmod.qmetro.xml&quot; somewhere in the Max search path. Presets for 
+  standard Jamoma modules can be found in the Jamoma library/presets folder.</p>
+<p>If you want to, you can also auto-generate HTML documentation for the patch. 
+  Simply click the /autodoc message box above jmod.hub. Save as &quot;jmod.qmetro.html&quot; 
+  somewhere in Max's searchpath. The documentation should look something like 
+  <a href="../modules/jmod.qmetro.html">this</a>.</p>
 <h3>Testing the module</h3>
 <p>Before you start testing, make sure to remove the pre-existing jmod.qmetro.mod that we created from the library/modules/control 
   folder. That way you can be sure that you will be testing your module and not the 
   one that comes as part of the standard Jamoma package.</p>
 <p>Save and close your module patch, and create a new patch. Create a bpatcher 
   object, and in the inspecter, type &quot;jmod.qmetro.mod&quot;. Resize the bpatcher 
-  to 256x60 pixels. Add a few more objects as shown below:</p>
-<p><img src="../images/tutorial_02a_testing.jpg" width="578" height="393"></p>
+  to 255x60 pixels. Add a few more objects as shown below:</p>
+<p><img src="../images/tutorial_02a_testing.png" width="406" height="339"></p>
 <p>Click &quot;;jmod.init bang&quot; to initialise, and if the display is not looking
   as it is supposed to, refresh the screen by clicking &quot;;max refresh&quot;.</p>
 <p>If you interact with the toggle and time number box in the module, you'll see 
@@ -230,8 +262,8 @@
   <li>If you need to communicate messages to the module that you 
     do not want to treat as parameters, you can use jmod.message.</li>
   <li>jmod.hub is the brain of the Jamoma system, a hub communicating back and 
-    forth with all other jamoma components in the patch.</li>
-  <li>jmod.gui is providing the backdrop for the GUI part. It also embedds a number 
+    forth with all other jamoma components in the module.</li>
+  <li>jmod.gui is providing the backdrop for the GUI part. It also embeds a number 
     of common features that you want in all or some of the modules. This will 
     be detailed further in the tutorials on how to build audio and video modules.</li>
   <li>The module has a default preset and can be auto-documented as HTML.</li>

@@ -35,7 +35,7 @@
 			<td> Description </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> bypass </td>
+			<td class="instructionName"> /bypass </td>
 			<td class="instructionType"> toggle </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
@@ -44,7 +44,7 @@
 			<td class="instructionDescription"> When active, this attribute bypasses the module's processing algorithm, letting audio pass through unaffected. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> cf </td>
+			<td class="instructionName"> /cf </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> 30.000 11025.000 </td>
 			<td class="instructionClipmode"> both </td>
@@ -53,7 +53,7 @@
 			<td class="instructionDescription"> Center frequency (Hz) </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> defeat_meters </td>
+			<td class="instructionName"> /defeat_meters </td>
 			<td class="instructionType"> toggle </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
@@ -62,7 +62,16 @@
 			<td class="instructionDescription"> When active, this attribute turns off the signal level meters in the module to conserve CPU. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> filtergain </td>
+			<td class="instructionName"> /disable_ui_updates </td>
+			<td class="instructionType"> toggle </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /filtergain </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> -24 24 </td>
 			<td class="instructionClipmode"> both </td>
@@ -71,7 +80,7 @@
 			<td class="instructionDescription"> Gain (dB) </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> filtertype </td>
+			<td class="instructionName"> /filtertype </td>
 			<td class="instructionType"> menu </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
@@ -80,16 +89,16 @@
 			<td class="instructionDescription"> What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> gain_midi </td>
+			<td class="instructionName"> /gain/midi </td>
 			<td class="instructionType"> msg_float </td>
-			<td class="instructionRange"> 0 127 </td>
-			<td class="instructionClipmode"> low </td>
+			<td class="instructionRange"> 0 158 </td>
+			<td class="instructionClipmode"> both </td>
 			<td class="instructionRamp"> yes </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Set gain as MIDI value. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> mix </td>
+			<td class="instructionName"> /mix </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> 0 100 </td>
 			<td class="instructionClipmode"> none </td>
@@ -98,7 +107,7 @@
 			<td class="instructionDescription"> Controls the wet/dry mix of the module's processing routine in percent. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> mute </td>
+			<td class="instructionName"> /mute </td>
 			<td class="instructionType"> toggle </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
@@ -107,7 +116,7 @@
 			<td class="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> q </td>
+			<td class="instructionName"> /q </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> 0.000 100.000 </td>
 			<td class="instructionClipmode"> both </td>
@@ -116,7 +125,16 @@
 			<td class="instructionDescription"> Resonance (Q) </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> sr </td>
+			<td class="instructionName"> /set_clock </td>
+			<td class="instructionType"> msg_symbol </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Sync module to external clock. s/set_clock max set module to use the Max scheduler (default behaviour). </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /sr </td>
 			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> -2 0 </td>
 			<td class="instructionClipmode"> none </td>
@@ -141,7 +159,7 @@
 			<td> Description </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> clear_meters </td>
+			<td class="instructionName"> /clear_meters </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> both </td>
@@ -150,7 +168,7 @@
 			<td class="instructionDescription"> no info provided </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> filtergraph </td>
+			<td class="instructionName"> /filtergraph </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> both </td>
@@ -159,7 +177,7 @@
 			<td class="instructionDescription"> Messages to filtergraph. See the MSP reference for further details </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> gain </td>
+			<td class="instructionName"> /gain </td>
 			<td class="instructionType"> msg_float </td>
 			<td class="instructionRange"> -144 0 </td>
 			<td class="instructionClipmode"> none </td>
@@ -168,7 +186,7 @@
 			<td class="instructionDescription"> Set gain as dB value. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> gain_dec </td>
+			<td class="instructionName"> /gain/dec </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> N/A </td>
 			<td class="instructionClipmode"> none </td>
@@ -177,7 +195,7 @@
 			<td class="instructionDescription"> Increase gain MIDI value by one. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> gain_inc </td>
+			<td class="instructionName"> /gain/inc </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> N/A </td>
 			<td class="instructionClipmode"> none </td>
@@ -186,7 +204,7 @@
 			<td class="instructionDescription"> Decrease gain MIDI value by one. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> get_parameter_names </td>
+			<td class="instructionName"> /get_parameter_names </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
@@ -195,7 +213,7 @@
 			<td class="instructionDescription"> returns a dump of symbols out the feedback outlet with the names of parameters accessible in this module </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> help </td>
+			<td class="instructionName"> /help </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
@@ -204,7 +222,7 @@
 			<td class="instructionDescription"> open the online html reference for this module </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> load_settings </td>
+			<td class="instructionName"> /load_settings </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
@@ -213,7 +231,7 @@
 			<td class="instructionDescription"> open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> preset_recall </td>
+			<td class="instructionName"> /preset_recall </td>
 			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> both </td>
@@ -222,7 +240,7 @@
 			<td class="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> restore_defaults </td>
+			<td class="instructionName"> /restore_defaults </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
@@ -231,7 +249,7 @@
 			<td class="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> save_settings </td>
+			<td class="instructionName"> /save_settings </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
@@ -240,7 +258,7 @@
 			<td class="instructionDescription"> write an xml-preset file to disk.  An optional argument defines the file to open </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> view_internals </td>
+			<td class="instructionName"> /view_internals </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> both </td>
@@ -259,4 +277,3 @@
 
 </body>
 </html>
-			<td class="instructionRepetitions"> yes </td>
