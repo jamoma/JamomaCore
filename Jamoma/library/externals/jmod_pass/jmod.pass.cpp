@@ -8,6 +8,7 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
 #define MAX_ARGCOUNT 100
+#define MAX_MESS_SIZE 2048
 
 typedef struct _pass{						// Data Structure for this object
 	t_object	ob;							// REQUIRED: Our object
@@ -22,6 +23,8 @@ typedef struct _pass{						// Data Structure for this object
 // Prototypes for our methods:
 void *pass_new(t_symbol *s, long argc, t_atom *argv);
 void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst);
+void pass_int(t_pass *x, long n);
+void pass_float(t_pass *x, double f);
 void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv);
 void pass_list(t_pass *x, t_symbol *msg, short argc, t_atom *argv);
 
@@ -46,10 +49,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_pass, obex));
 
 	// Make methods accessible for our class: 
-  	class_addmethod(c, (method)pass_list,				"list", A_GIMME, 0L);	
+	class_addmethod(c, (method)pass_int,				"int",		A_DEFLONG,	0L);
+	class_addmethod(c, (method)pass_float,				"float",	A_DEFFLOAT,	0L);
+  	class_addmethod(c, (method)pass_list,				"list",		A_GIMME, 0L);	
   	class_addmethod(c, (method)pass_symbol,				"anything", A_GIMME, 0L);	
-	class_addmethod(c, (method)pass_assist,				"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
+	class_addmethod(c, (method)pass_assist,				"assist",	A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
 
 	// ATTRIBUTE: strip
@@ -70,6 +75,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 void *pass_new(t_symbol *s, long argc, t_atom *argv)
 {
 	short i;
+	char argument[MAX_MESS_SIZE];	// temporary container for arguments
 	t_pass	*x = (t_pass *)object_alloc(pass_class);
 	
 	if(x){
@@ -87,7 +93,11 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 					atom_setfloat(&(x->arguments[i]), atom_getfloat(argv+i));
 					break;
 				case A_SYM:
-					atom_setsym(&(x->arguments[i]), atom_getsym(argv+i));
+					strcpy(argument, atom_getsym(argv+i)->s_name);
+					if (argument[0] == '/')
+						atom_setsym(&(x->arguments[i]), gensym(argument+1));
+					else
+						atom_setsym(&(x->arguments[i]), gensym(argument));
 					break;
 			}
 		}
@@ -128,6 +138,40 @@ void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst)
 		else
 			strcpy(dst, "dumpout / overflow from non-matching input");	
  	}		
+}
+
+
+// INT INPUT
+void pass_int(t_pass *x, long n)
+{
+	short i;
+	
+	for(i=0; i< x->num_args; i++){
+		if(x->arguments[i].a_type == A_LONG){
+			if(n == atom_getlong(&x->arguments[i])){
+				outlet_int(x->outlets[i], n);
+				return;
+			}
+		}
+	}
+	outlet_int(x->outlet_overflow, n);
+}
+
+
+// FLOAT INPUT
+void pass_float(t_pass *x, double f)
+{
+	short i;
+	
+	for(i=0; i< x->num_args; i++){
+		if(x->arguments[i].a_type == A_FLOAT){
+			if(f == atom_getfloat(&x->arguments[i])){
+				outlet_float(x->outlets[i], f);
+				return;
+			}
+		}
+	}
+	outlet_float(x->outlet_overflow, f);
 }
 
 
