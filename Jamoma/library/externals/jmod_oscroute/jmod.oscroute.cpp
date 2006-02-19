@@ -16,6 +16,7 @@ typedef struct _oscroute{					// Data Structure for this object
 	void 		*outlets[MAX_ARGCOUNT];		// my outlet array
 	void		*outlet_overflow;			// this outlet doubles as the dumpout outlet
 	t_symbol	*arguments[MAX_ARGCOUNT];	// symbols to match
+	long unsigned		arglen[MAX_ARGCOUNT];		// strlen of symbols to match
 	short		num_args;
 	long		attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
 } t_oscroute;
@@ -91,6 +92,7 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 				case A_SYM:
 					//atom_setsym(&(x->arguments[i]), atom_getsym(argv+i));
 					x->arguments[i] = atom_getsym(argv+i);
+					x->arglen[i] = strlen(atom_getsym(argv+i)->s_name);
 					break;
 				default:
 					error("jmod.oscroute - invalid arguments - all args must be symbols");
@@ -150,7 +152,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	t_symbol	*message;				// our input message to match
 	t_symbol	*output;
 	char		input[MAX_MESS_SIZE];	// our input string
-	char		*temp;
+	//char		*temp;
 	
 	strcpy(input, msg->s_name);
 
@@ -161,58 +163,41 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 		return;
 	}
 
-	temp = strchr(input+1, '/');
-	
-	// if there is no second slash
-	
-	if(temp == NULL){
-		message = gensym(input);
-		// no arguments: return bang
-		if (argc==0) {
-			for(i=0; i< x->num_args; i++) {
-				if(message == x->arguments[i]) {
-					outlet_bang(x->outlets[i]);
+	message = gensym(input);
+
+	for (i=0; i < x->num_args; i++) {
+		if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i])==0) {
+			// If input string is longer than argument
+			if (strlen(msg->s_name) > x->arglen[i]) {
+				output = gensym(msg->s_name + x->arglen[i]);
+				outlet_anything(x->outlets[i], output, argc , argv);
+				return;
+			}
+			// Else we'll have to check what message to return.
+			// Do we have one argument only to the message received?
+			else if (argc==1) {
+				// int argument
+				if (argv->a_type==A_LONG) {
+					outlet_int(x->outlets[i],argv->a_w.w_long);
+					return;
+				}				
+				// float argument
+				else if (argv->a_type==A_FLOAT) {
+					outlet_float(x->outlets[i],argv->a_w.w_float);
 					return;
 				}
-			}
-		}
-		// one argument, return int, float or anything
-		else if (argc==1) {
-			// int argument
-			if (argv->a_type==A_LONG) {
-				for(i=0; i< x->num_args; i++) {
-					if(message == x->arguments[i]) {
-						outlet_int(x->outlets[i],argv->a_w.w_long);
-						return;
-					}				
-				}
-			}
-			// float argument
-			else if (argv->a_type==A_FLOAT) {
-				for(i=0; i< x->num_args; i++) {
-					if(message == x->arguments[i]) {
-						outlet_float(x->outlets[i],argv->a_w.w_float);
-						return;
-					}				
-				}
-			}
-			// something else
-			else if (argv->a_type==A_SYM) {
-				for(i=0; i< x->num_args; i++) {
-					if(message == x->arguments[i]) {
-						outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
-						return;
-					}				
-				}
-			}
-		}		
-		// There are two or more arguments, check if first is A_SYM
-		for (i=0; i< x->num_args; i++) {
-			if (message == x->arguments[i]) {		
+				// something else
+				else if (argv->a_type==A_SYM) {
+					outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
+					return;
+				}				
+			}		
+			// There are two or more arguments, check if first is A_SYM	
+			else {
 				if (argv->a_type==A_SYM) {
-					output = argv->a_w.w_sym;
-					argc--;
-					argv++;
+						output = argv->a_w.w_sym;
+						argc--;
+						argv++;
 				}
 				else
 					output = _sym_list;
@@ -222,20 +207,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 
 		}
 	}
-	// there is a second slash
-	else {
-		*temp = '\0';		// terminate the input string	
-		message = gensym(input);
-		*temp = '/';		// add the slash back in
-		output = gensym(temp);
-
-		for (i=0; i< x->num_args; i++) {
-			if (message == x->arguments[i]) {
-				outlet_anything(x->outlets[i], output, argc , argv);
-				return;
-			}
-		}
-	}
 	// the message was never reckognised
 	outlet_anything(x->outlet_overflow, msg, argc , argv);
+
 }

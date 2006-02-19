@@ -37,9 +37,9 @@ cue_event INITIALISATION
 	/output~/ch_1 1
 	/output~/ch_2 2
 	/output~/gain/midi 0.000
-	/output~/filetype aiff
-	/output~/samptype int24
-	/output~/saturation_depth 10.000
+	/output~/record/filetype aiff
+	/output~/record/samptype int24
+	/output~/saturation/depth 10.000
 	/output~/saturation/bypass 0
 	/output~/limiter/preamp 6.000
 	/output~/limiter/postamp 0.000
