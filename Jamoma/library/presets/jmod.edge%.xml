@@ -2,25 +2,35 @@
 
 <pattrstorage name = "jmod.edge%">
 	<slot number = "1">
-		<patcher name = "jmod.gui.1Uh.v.mxb">
-			<patcher name = "jmod.parameter.mxb">
-				<pattr name = "preview" value = "1" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxb[1]">
-				<pattr name = "bypass" value = "0" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxb[2]">
-				<pattr name = "freeze" value = "0" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxb[3]">
-				<pattr name = "mute" value = "0" />
+		<patcher name = "jmod.gui">
+			<patcher name = "pwindow">
+				<patcher name = "pwindow_gate[1]">
+					<pattr name = "/preview" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[2]">
+					<pattr name = "/bypass" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[3]">
+					<pattr name = "/freeze" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[4]">
+					<pattr name = "/mute" value = "0" />
+				</patcher>
 			</patcher>
 		</patcher>
-		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "algorithm" value = "0" />
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
 		</patcher>
-		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "thresh" value = "0.24" />
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "/thresh" value = "0.24" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "/algorithm" value = "Sobel" />
 		</patcher>
 	</slot>
 </pattrstorage>

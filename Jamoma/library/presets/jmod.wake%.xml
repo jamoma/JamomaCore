@@ -3,40 +3,40 @@
 <pattrstorage name = "jmod.wake%">
 	<slot number = "1">
 		<patcher name = "jmod.parameter.mxb[2]">
-			<pattr name = "feedforward" value = "0.17" />
+			<pattr name = "/feedforward" value = "0.17" />
 		</patcher>
 		<patcher name = "jmod.gui.1Uh.v.mxb">
 			<patcher name = "pwindow">
 				<patcher name = "pwindow_gate[1]">
-					<pattr name = "preview" value = "0" />
+					<pattr name = "/preview" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[2]">
-					<pattr name = "bypass" value = "0" />
+					<pattr name = "/bypass" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[3]">
-					<pattr name = "freeze" value = "0" />
+					<pattr name = "/freeze" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[4]">
-					<pattr name = "mute" value = "0" />
+					<pattr name = "/mute" value = "0" />
 				</patcher>
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.hub">
 			<patcher name = "jmod.parameter">
-				<pattr name = "disable_ui_updates" value = "0" />
+				<pattr name = "/disable_ui_updates" value = "0" />
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "feedback" value = "0.52" />
+			<pattr name = "/feedback" value = "0.52" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[3]">
-			<pattr name = "gain" value = "0.73" />
+			<pattr name = "/gain" value = "0.73" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxb[4]">
-			<pattr name = "bleed" value = "0.21" />
+			<pattr name = "/bleed" value = "0.21" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "normalize" value = "0" />
+			<pattr name = "/normalize" value = "0" />
 		</patcher>
 	</slot>
 </pattrstorage>
