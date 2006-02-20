@@ -5,16 +5,16 @@
 		<patcher name = "jmod.gui">
 			<patcher name = "pwindow">
 				<patcher name = "pwindow_gate[1]">
-					<pattr name = "preview" value = "0" />
+					<pattr name = "/preview" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[2]">
-					<pattr name = "bypass" value = "0" />
+					<pattr name = "/bypass" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[3]">
-					<pattr name = "freeze" value = "0" />
+					<pattr name = "/freeze" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[4]">
-					<pattr name = "mute" value = "0" />
+					<pattr name = "/mute" value = "0" />
 				</patcher>
 			</patcher>
 		</patcher>
@@ -24,16 +24,16 @@
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "brightness" value = "1." />
+			<pattr name = "/brightness" value = "1." />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "contrast" value = "1." />
+			<pattr name = "/contrast" value = "1." />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "saturation" value = "1." />
+			<pattr name = "/saturation" value = "1." />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[3]">
-			<pattr name = "monochrome" value = "0" />
+			<pattr name = "/monochrome" value = "0" />
 		</patcher>
 	</slot>
 </pattrstorage>
