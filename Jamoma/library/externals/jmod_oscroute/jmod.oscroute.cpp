@@ -174,7 +174,12 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 				return;
 			}
 			// Else we'll have to check what message to return.
-			// Do we have one argument only to the message received?
+			// No arguments to the message received:
+			else if (argc == 0) {
+				outlet_bang(x->outlets[i]);
+				return;
+			}
+			// One argument only to the message received:
 			else if (argc==1) {
 				// int argument
 				if (argv->a_type==A_LONG) {
@@ -192,7 +197,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 					return;
 				}				
 			}		
-			// There are two or more arguments, check if first is A_SYM	
+			// There are two or more arguments: check if first is A_SYM	
 			else {
 				if (argv->a_type==A_SYM) {
 						output = argv->a_w.w_sym;
@@ -204,7 +209,6 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 				outlet_anything(x->outlets[i], output, argc , argv);
 				return;
 			}
-
 		}
 	}
 	// the message was never reckognised
