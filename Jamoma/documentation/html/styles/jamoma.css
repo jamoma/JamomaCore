@@ -33,7 +33,7 @@ h3 {
 h4{
 	color: #333;
 	font-size: 14px;
-	font-weight: 100;
+	font-weight: bold;
 	margin-bottom: 0px;
 	margin-left: 2%;
 	margin-right: 2%;
@@ -168,4 +168,12 @@ ul {
 }
 .comment {
 	color: #6666FF;
+}
+.smallTable {
+	width: 400px;
+	border: none;
+}
+caption {
+	font-size: 11px;
+	font-style: italic;
 }
