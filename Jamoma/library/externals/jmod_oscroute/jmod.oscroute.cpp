@@ -152,7 +152,6 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	t_symbol	*message;				// our input message to match
 	t_symbol	*output;
 	char		input[MAX_MESS_SIZE];	// our input string
-	//char		*temp;
 	
 	strcpy(input, msg->s_name);
 
@@ -166,52 +165,58 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	message = gensym(input);
 
 	for (i=0; i < x->num_args; i++) {
+		// Do we have a potential match?
 		if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i])==0) {
-			// If input string is longer than argument
-			if (strlen(msg->s_name) > x->arglen[i]) {
-				output = gensym(msg->s_name + x->arglen[i]);
-				outlet_anything(x->outlets[i], output, argc , argv);
-				return;
-			}
-			// Else we'll have to check what message to return.
-			// No arguments to the message received:
-			else if (argc == 0) {
-				outlet_bang(x->outlets[i]);
-				return;
-			}
-			// One argument only to the message received:
-			else if (argc==1) {
-				// int argument
-				if (argv->a_type==A_LONG) {
-					outlet_int(x->outlets[i],argv->a_w.w_long);
-					return;
-				}				
-				// float argument
-				else if (argv->a_type==A_FLOAT) {
-					outlet_float(x->outlets[i],argv->a_w.w_float);
+			// If incomming message is longer than argument...
+			if (strlen(msg->s_name) > x->arglen[i]){
+				// ...it is only a match if it continues with a slash
+				if (input[x->arglen[i]] == '/') {
+					output = gensym(msg->s_name + x->arglen[i]);
+					outlet_anything(x->outlets[i], output, argc , argv);
 					return;
 				}
-				// something else
-				else if (argv->a_type==A_SYM) {
-					outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
-					return;
-				}				
-			}		
-			// There are two or more arguments: check if first is A_SYM	
+			}
+			// If the incomming message is no longer we know that we have a match
 			else {
-				if (argv->a_type==A_SYM) {
+				// We then have to check what message to return.
+				// The message received has no arguments:
+				if (argc == 0) {
+					outlet_bang(x->outlets[i]);
+					return;
+				}
+				// The message received has one argument only:
+				else if (argc==1) {
+					// int argument
+					if (argv->a_type==A_LONG) {
+						outlet_int(x->outlets[i],argv->a_w.w_long);
+						return;
+					}				
+					// float argument
+					else if (argv->a_type==A_FLOAT) {
+						outlet_float(x->outlets[i],argv->a_w.w_float);
+						return;
+					}
+					// something else
+					else if (argv->a_type==A_SYM) {
+						outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
+						return;
+					}				
+				}		
+				// There are two or more arguments: check if first is A_SYM	
+				else {
+					if (argv->a_type==A_SYM) {
 						output = argv->a_w.w_sym;
 						argc--;
 						argv++;
+					}
+					else
+						output = _sym_list;
+					outlet_anything(x->outlets[i], output, argc , argv);
+					return;
 				}
-				else
-					output = _sym_list;
-				outlet_anything(x->outlets[i], output, argc , argv);
-				return;
 			}
 		}
 	}
 	// the message was never reckognised
 	outlet_anything(x->outlet_overflow, msg, argc , argv);
-
 }
