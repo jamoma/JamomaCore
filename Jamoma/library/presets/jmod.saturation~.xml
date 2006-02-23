@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.saturation~">
+	<slot number = "1">
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[2]">
+			<pattr name = "/depth" value = "10." />
+		</patcher>
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "controls">
+				<patcher name = "pattr_sr">
+					<pattr name = "/sr" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mute">
+					<pattr name = "/mute" value = "1" />
+				</patcher>
+				<patcher name = "pattr_bypass">
+					<pattr name = "/bypass" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mix">
+					<pattr name = "/mix" value = "100." />
+				</patcher>
+				<patcher name = "pattr_defeat_meters">
+					<pattr name = "/defeat_meters" value = "0" />
+				</patcher>
+				<patcher name = "pattr_gain">
+					<pattr name = "/gain/midi" value = "0." />
+				</patcher>
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+
