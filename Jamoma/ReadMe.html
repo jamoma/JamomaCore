@@ -27,12 +27,14 @@
 	<li> Mac OSX: /Library/Application Support/Cycling '74/</li>
 	<li> Win XP: C:\Program Files\Common Files\Cycling '74\ </li>
 </ul>
-<p> 3. Copy the file <code>jamoma-init.txt</code> to the following folder:</p>
+<p> 3. If you have downloaded Jamoma from the CVS repository and are using Mac 
+  OSX: Locate the zipped file Jamoma/library/externals/build_mac.zip. Unzip. </p>
+<p>4. Copy the file <code>jamoma-init.txt</code> to the following folder:</p>
 <ul>
 	<li> Mac OSX: /Library/Application Support/Cycling '74/init/ </li>
 	<li> Win XP: C:\Program Files\Common Files\Cycling '74\init\  </li>
 </ul>
-<p> 4. Check out the Jamoma <a href="documentation/html/index.html">documentation</a>.</p>
+<p> 5. Check out the Jamoma <a href="documentation/html/index.html">documentation</a>.</p>
 <p>&nbsp;</p>
 <h3>  Requirements</h3>
 <p> Jamoma requires <a href="http://www.cycling74.com/">Cycling '74's</a> Max, version 4.5.5 or newer. </p>
@@ -56,6 +58,64 @@
 </ul>
 <p>&nbsp;</p>
 <h3>Change Log</h3>
+<h4>Version 0.3-preview 1</h4>
+<ul>
+  <li>Jamoma now use OpenSoundControl for communication. All modules have been 
+    updated accordingly.</li>
+  <li>Further work on JIG, both to reflect the change to OpenSoundControl, and 
+    to provide more details. Removed some restrictions that are no longer required.</li>
+  <li>Several audio externals moved from blue to being Jamoma-native, and renamed 
+    accordingly.</li>
+  <li>On Mac OSX platform all externals are now compiled as Mach-O using Xcode</li>
+  <li>New externals: 
+    <ul>
+      <li>jmod.oscroute: Routing of OpenSoundControl messages.</li>
+      <li>jmod.symcompare: Compare symbols</li>
+    </ul>
+  </li>
+  <li>New component: 
+    <ul>
+      <li>jmod.autoscale.mxt - autoscaling of control values</li>
+    </ul>
+  </li>
+  <li>Changes to externals 
+    <ul>
+      <li>jmod.pass has implemented several new features for dealing with messages 
+        starting with a &quot;/&quot;, required when passing and routing OSC messages.</li>
+    </ul>
+  </li>
+  <li>jmod.bridge has been incorporated into jmod.hub. This have some important 
+    implications: 
+    <ul>
+      <li>jmod.bridge is no longer required in main patches. Instead it is required 
+        to provide an unique OSC-compatible name (starting with &quot;/&quot;) 
+        for each module.</li>
+      <li>When creating module, it is now necsessary to provide a third argument 
+        to jmod.hub. The third argument is always to be &quot;#1&quot;. Refer 
+        to the tutorials on how to create modules for further details.</li>
+    </ul>
+  </li>
+  <li>New audio modules: 
+    <ul>
+      <li>jmod.saturation~-mod: Stereo saturation</li>
+      <li>jmod.noisegate~.mod: Stereo noise gate.</li>
+      <li>jmod.noisegateM~.mod: Mono noise gate</li>
+    </ul>
+  </li>
+  <li>Implemented new WAIT command in jmod.cuelist.mod.</li>
+  <li>New video modules: 
+    <ul>
+      <li>jmod.brcosa%.mod: change brigthness, contrast, saturation and b/w</li>
+      <li>jmod.motion%.mod: calculating motion based on simple frame difference</li>
+      <li>jmod.orsize%.mod: change orientation and size of incoming matrices</li>
+    </ul>
+  </li>
+  <li>Fixed bug in jmod.line</li>
+  <li>Fixed bug in jmod.cuelist.mod. Can still be developed further for elegancy, 
+    functions and efficiency. Maybe for 0.4.</li>
+  <li>Fixed bug in jmod.filter~.mod.</li>
+  <li>Added templates for creating various kinds of modules and algorithms.</li>
+</ul>
 <h4>Version 0.2.1</h4>
 <ul>
 	<li>documentation proof-reading and expansion, holes in the JIG filled in with some basic material </li>
