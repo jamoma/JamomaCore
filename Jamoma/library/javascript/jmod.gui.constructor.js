@@ -440,3 +440,37 @@ function menu_presets_add(preset_name)
 	menu_add(preset_name)
 	menu_num_presets++;
 }
+
+
+function preview(value)
+{
+	if(value != attr_preview){
+		msg_int(1);
+	}
+}
+
+
+function bypass(value)
+{
+	if(value != attr_bypass){
+		msg_int(4);
+	}
+}
+
+
+function freeze(value)
+{
+	if(value != attr_freeze){
+		msg_int(5);
+	}
+}
+
+
+function mute(value)
+{
+	if(value != attr_mute){
+		msg_int(6);
+	}
+}
+
+
