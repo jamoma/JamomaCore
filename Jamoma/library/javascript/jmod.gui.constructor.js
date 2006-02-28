@@ -402,6 +402,10 @@ function menu_build()
 	for(var i=menu_items.length-menu_num_presets; i<menu_items.length; i++){
 		outlet(3, "append", menu_items[i]);
 	}
+	if(attr_module_type == "video"){
+		//outlet(3, "checkitem", 1, attr_preview); // check the 'preview' item by default
+		msg_int(1);
+	}
 }
 
 
