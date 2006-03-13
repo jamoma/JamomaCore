@@ -180,19 +180,22 @@ void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	short		i;
 	t_symbol	*message;
-	
+	char *input = msg->s_name;
+
 	// strip any leading slashes
-	if(x->attr_strip != 0){
-		char *input = msg->s_name;
+//	if(x->attr_strip != 0){
 		if(*input == '/')
 			input++;
 		message = gensym(input);
-	}
+//	}
 	
 	// parse and send
 	for(i=0; i< x->num_args; i++){
 		if(message == atom_getsym(&x->arguments[i])){
-			outlet_anything(x->outlets[i], message, argc , argv);
+			if(x->attr_strip != 0)
+				outlet_anything(x->outlets[i], message, argc , argv);
+			else
+				outlet_anything(x->outlets[i], msg, argc , argv);
 			return;
 		}
 	}
