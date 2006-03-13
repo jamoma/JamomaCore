@@ -83,11 +83,13 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 	short i;
 	char argument[MAX_MESS_SIZE];	// temporary container for arguments
 	t_pass	*x = (t_pass *)object_alloc(pass_class);
+	long attrstart = attr_args_offset(argc, argv);
 	
 	if(x){
 		x->outlet_overflow = outlet_new(x, 0);		// overflow outlet
 		object_obex_store((void *)x, _sym_dumpout, (object *)x->outlet_overflow);	// dumpout
-		x->num_args = argc;		
+//		x->num_args = argc;
+		x->num_args = attrstart;
 
 		for(i=x->num_args-1; i >= 0; i--){				
 			x->outlets[i] = outlet_new(x, 0);		// Create Outlet
@@ -100,13 +102,16 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 					break;
 				case A_SYM:
 					strcpy(argument, atom_getsym(argv+i)->s_name);
-					if (argument[0] == '/')
+					if(argument[0] == '/')
 						atom_setsym(&(x->arguments[i]), gensym(argument+1));
+//					else if(argument[0] == '@')		// This is the start of our attributes
+//						goto out;
 					else
 						atom_setsym(&(x->arguments[i]), gensym(argument));
 					break;
 			}
 		}
+//out:
 		x->attr_strip = 1;							// set default
 		x->attr_stripnonmatches = 0;
 		attr_args_process(x, argc, argv);			//handle attribute args	
@@ -190,12 +195,10 @@ void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 	char *input = msg->s_name;
 
 	// strip any leading slashes
-//	if(x->attr_strip != 0){
-		if(*input == '/')
-			input++;
-		message = gensym(input);
-//	}
-	
+	if(*input == '/')
+		input++;
+	message = gensym(input);
+
 	// parse and send
 	for(i=0; i< x->num_args; i++){
 		if(message == atom_getsym(&x->arguments[i])){
