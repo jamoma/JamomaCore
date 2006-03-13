@@ -18,6 +18,7 @@ typedef struct _pass{						// Data Structure for this object
 	t_atom		arguments[MAX_ARGCOUNT];
 	short		num_args;
 	long		attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
+	long		attr_stripnonmatches;		// ATTRIBUTE: 1 = strip leading slash off overflow
 } t_pass;
 
 // Prototypes for our methods:
@@ -62,6 +63,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_pass, attr_strip));
 	class_addattr(c, attr);	
 
+	// ATTRIBUTE: stripnonmatches
+	attr = attr_offset_new("stripnonmatches", _sym_long, attrflags,
+		(method)0, (method)0, calcoffset(t_pass, attr_stripnonmatches));
+	class_addattr(c, attr);
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	pass_class = c;
@@ -102,6 +108,7 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv)
 			}
 		}
 		x->attr_strip = 1;							// set default
+		x->attr_stripnonmatches = 0;
 		attr_args_process(x, argc, argv);			//handle attribute args	
 	}
 	return (x);										// return the pointer to our new instantiation
@@ -199,7 +206,10 @@ void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 			return;
 		}
 	}
-	outlet_anything(x->outlet_overflow, msg, argc , argv);
+	if(x->attr_stripnonmatches !=0)
+		outlet_anything(x->outlet_overflow, message, argc , argv);
+	else
+		outlet_anything(x->outlet_overflow, msg, argc , argv);
 }
 
 
