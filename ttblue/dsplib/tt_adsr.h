@@ -107,13 +107,13 @@ class tt_adsr:public tt_audio_base{
 			switch (sel){
 				case k_attack:
 					attack_ms = clip(val, 1.f, 60000.f);
-					attack_samples = (attack_ms / 1000.0) * sr;
+					attack_samples = long((attack_ms / 1000.0) * sr);
 					attack_step = 1.0 / attack_samples;
 					attack_step_db = -(double(NOISE_FLOOR) / attack_samples);
 					break;
 				case k_decay:
 					decay_ms = clip(val, 1.f, 60000.f);
-					decay_samples = (decay_ms / 1000.0) * sr;
+					decay_samples = long((decay_ms / 1000.0) * sr);
 					decay_step = 1.0 / decay_samples;
 					decay_step_db = -(double(NOISE_FLOOR) / decay_samples);
 					break;
@@ -127,12 +127,12 @@ class tt_adsr:public tt_audio_base{
 					break;
 				case k_release:
 					release_ms = clip(val, 1.f, 60000.f);
-					release_samples = (release_ms / 1000.0) * sr;
+					release_samples = long((release_ms / 1000.0) * sr);
 					release_step = 1.0 / release_samples;
 					release_step_db = -(double(NOISE_FLOOR) / release_samples);
 					break;
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					if(mode == k_mode_linear){
 						dsp_executor = &tt_adsr::dsp_vector_calc_linear;
 						dsp_executor2 = &tt_adsr::dsp_vector_calc_linear;	

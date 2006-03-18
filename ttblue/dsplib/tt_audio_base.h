@@ -160,16 +160,20 @@ class tt_audio_base{
 			 */
 
 			// VC++ SEEMS TO HAVE MENTAL ISSUES, HENCE THE DUMB HACK BELOW...
-#ifdef WIN_VERSION
-			float x1 = fabs((float)(value - low_bound));
-			float x2 = fabs((float)(value - high_bound));
-#else
-			T x1 = fabs(value - low_bound);
-			T x2 = fabs(value - high_bound);
-#endif // WIN_VERSION
-			value = x1 + (low_bound + high_bound);
-			value -= x2;
-			value *= 0.5;
+//#ifdef WIN_VERSION
+//			float x1 = fabs((float)(value - low_bound));
+//			float x2 = fabs((float)(value - high_bound));
+//#else
+//			T x1 = fabs(value - low_bound);
+//			T x2 = fabs(value - high_bound);
+//#endif // WIN_VERSION
+//			value = x1 + (low_bound + high_bound);
+//			value -= x2;
+//			value *= 0.5;
+
+// Re-written here as a one-liner:			
+			value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
+			value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
 			return value;
 		}
 		

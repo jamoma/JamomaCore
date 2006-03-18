@@ -98,7 +98,7 @@ class tt_degrade:public tt_audio_base{
 				}
 				
 				// Bit Depth Reduction
-				l = output * BIG_INT;					// change float to long int
+				l = long(output * BIG_INT);				// change float to long int
 				l >>= bit_shift;						// shift away the least-significant bits
 				l <<= bit_shift;						// shift back to the correct registers
 				*out->vector++ = (float) l * ONE_OVER_BIG_INT;	// back to float

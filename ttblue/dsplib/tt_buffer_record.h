@@ -79,18 +79,18 @@ class tt_buffer_record:public tt_audio_base{
 		{
 			switch (sel){
 				case k_mode:	// mode sets a function pointer to the correct dsp loop
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					if(mode == k_mode_direct)
 						dsp_executor = &tt_buffer_record::dsp_vector_calc_direct;
 					else if(mode == k_mode_fadein)
 						dsp_executor = &tt_buffer_record::dsp_vector_calc_fadein;
 					break;
 				case k_record:
-					record = val;
+					record = (tt_attribute_value_discrete)val;
 					index = 0;		// Set back to the beginning of the buffer
 					break;
 				case k_loop:
-					loop = val;
+					loop = (tt_attribute_value_discrete)val;
 					break;
 			}
 		}

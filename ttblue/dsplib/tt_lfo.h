@@ -89,7 +89,7 @@ class tt_lfo:public tt_audio_base{
 					break;
 					
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 
 					if(val == k_mode_sine)
 						wavetable->fill(tt_buffer::k_sine);
@@ -206,7 +206,7 @@ class tt_lfo:public tt_audio_base{
 			****************/	
 		
 			// table lookup (linear interpolation)	
-			p1 = index;
+			p1 = (int)index;
 			p2 = p1 + 1;
 			diff = index - p1;	
 			p2 &= ((wavetable->length_samples) - 1);	// fast modulo:  NOTE - ONLY WORKS ON POWERS OF 2 !!!!   MAKE A SEPARATE DSP LOOP FOR THIS!!!!

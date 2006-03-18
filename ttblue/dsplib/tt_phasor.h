@@ -71,13 +71,13 @@ class tt_phasor:public tt_audio_base{
 						ramp_ms = 0;
 					}
 					else{
-						ramp_samps = (1.0 / frequency) * sr;
+						ramp_samps = long((1.0 / frequency) * sr);
 						ramp_ms = 1000.0 * (ramp_samps / float(sr));
 					}
 					break;
 				case k_ramp_ms:
 					ramp_ms = val;
-					ramp_samps = (ramp_ms * 0.001) * sr;
+					ramp_samps = long((ramp_ms * 0.001) * sr);
 					frequency = 1 / (ramp_samps / float(sr));
 					break;
 				case k_ramp_samps:

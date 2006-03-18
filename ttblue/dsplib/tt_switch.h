@@ -48,7 +48,7 @@ class tt_switch:public tt_audio_base{
 		{
 			switch (sel){
 				case k_position:
-					position = val;
+					position = (tt_attribute_value_discrete)val;
 					break;
 			}
 		}

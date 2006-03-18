@@ -72,11 +72,11 @@ class tt_average:public tt_audio_base{
 			switch (sel){
 				case k_interval:
 					val = clip(int(val), 1, int(MAX_AVERAGE_INTERVAL));
-					interval = val;
+					interval = (tt_attribute_value_discrete)val;
 					clear();
 					break;
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					if(mode == k_mode_bipolar)
 						dsp_executor = &tt_average::dsp_vector_calc_bipolar;
 					else if(mode == k_mode_absolute)

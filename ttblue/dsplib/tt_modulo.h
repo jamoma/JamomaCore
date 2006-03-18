@@ -83,7 +83,7 @@ class tt_modulo:public tt_audio_base{
 		{
 			temp_vs = in1->vectorsize;
 			while(temp_vs--)
-				*out++ = fmod(*in1->vector++, *in2->vector++);
+				*out->vector++ = fmod(*in1->vector++, *in2->vector++);
 			in1->reset(); in2->reset(); out->reset();
 		}
 };

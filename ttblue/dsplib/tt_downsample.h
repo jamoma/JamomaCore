@@ -61,7 +61,7 @@ class tt_downsample:public tt_audio_base{
 				case k_factor:
 					return factor;
 				default:
-					return 0.0;
+					return 0;
 			}
 		}
 		

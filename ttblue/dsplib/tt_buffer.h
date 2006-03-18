@@ -81,10 +81,10 @@ class tt_buffer:public tt_audio_base{
 			switch (sel){
 				case k_length_ms:
 					length_ms = val;
-					length_samples = length_ms * (sr / 1000.0);
+					length_samples = long(length_ms * (sr / 1000.0));
 					break;	
 				case k_length_samples:
-					length_samples = val + 0.49;	// round
+					length_samples = ulong(val + 0.49);	// round
 					length_ms = length_samples * (1000.0 / sr);
 					break;
 			}
@@ -160,13 +160,13 @@ class tt_buffer:public tt_audio_base{
 				case k_square:							// SQUARE WAVE (not band-limited)
 					for(i=0; i < (length_samples / 2); i++)
 						contents[i] = 1.0;				
-					for(i; i < length_samples; i++)
+					for(i=i; i < length_samples; i++)
 						contents[i] = -1.0;	
 					break;					
 				case k_square_mod:							// (modulator version)
 					for(i=0; i < (length_samples / 2); i++)
 						contents[i] = 1.0;				
-					for(i; i < length_samples; i++)
+					for(i=i; i < length_samples; i++)
 						contents[i] = 0.0;	
 					break;
 					

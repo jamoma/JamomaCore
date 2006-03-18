@@ -76,7 +76,7 @@ class tt_buffer_play:public tt_audio_base{
 		{
 			switch (sel){
 				case k_mode:	// mode sets a function pointer to the correct dsp loop
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					if(mode == k_mode_samples)
 						dsp_executor = &tt_buffer_play::dsp_vector_calc_samples;
 					else if(mode == k_mode_ms)
@@ -165,7 +165,7 @@ class tt_buffer_play:public tt_audio_base{
 				index = clip((*in->vector++ /** 1000.0) * sr*/ * m_sr), 0.0f, float(wavetable->length_samples));
 								
 				// table lookup (linear interpolation)	
-				p1 = index;
+				p1 = (int)index;
 				p2 = p1 + 1;
 				diff = index - p1;	
 				p2 &= ((wavetable->length_samples) - 1);	// fast modulo
@@ -204,7 +204,7 @@ class tt_buffer_play:public tt_audio_base{
 			temp_vs = in->vectorsize;				
 		    while(temp_vs--){
 				// locate the play head, range check
-				index = *in->vector++ * wavetable->length_samples;
+				index = long(*in->vector++ * wavetable->length_samples);
 								
 		    	*out->vector++ = wavetable->contents[index];
 		    }

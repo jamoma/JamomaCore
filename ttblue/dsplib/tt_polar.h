@@ -63,7 +63,7 @@ class tt_polar:public tt_audio_base{
 		{
 			switch (sel){
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					if(mode == k_mode_cartopol)
 						dsp_executor = &tt_polar::dsp_vector_calc_cartopol;
 					else if(mode == k_mode_poltocar)

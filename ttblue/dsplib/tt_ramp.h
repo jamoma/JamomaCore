@@ -70,7 +70,7 @@ class tt_ramp:public tt_audio_base{
 		{
 			switch (sel){
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					init();
 					break;
 				case k_current_value:
@@ -88,7 +88,7 @@ class tt_ramp:public tt_audio_base{
 						return;
 					}
 					ramp_ms = val;
-					ramp_samps = (ramp_ms * 0.001) * sr;
+					ramp_samps = long((ramp_ms * 0.001) * sr);
 					set_step();
 					
 					init();

@@ -103,12 +103,12 @@ class tt_multitap:public tt_audio_base{
 			case k_buffersize_ms:
 				buffersize_type = k_buffersize_type_ms;
 				buffersize_ms = val;
-				buffersize_samples = buffersize_ms * m_sr;
+				buffersize_samples = (tt_attribute_value_discrete)(buffersize_ms * m_sr);
 				init_buffer();
 				break;
 			case k_buffersize_samples:
 				buffersize_type = k_buffersize_type_samples;
-				buffersize_samples = val;
+				buffersize_samples = (tt_attribute_value_discrete)val;
 				buffersize_ms = buffersize_samples / sr * 1000.0;
 				init_buffer();
 				break;
@@ -144,7 +144,7 @@ class tt_multitap:public tt_audio_base{
 		switch(sel){
 			case k_delay_ms:
 				delay_ms[tap] = clip(val, 0.0F, buffersize_ms);
-				delay_samples[tap] = delay_ms[tap] * m_sr;
+				delay_samples[tap] = (tt_attribute_value_discrete)(delay_ms[tap] * m_sr);
 				position_playheads();
 				break;
 			case k_delay_samples:
@@ -234,13 +234,13 @@ class tt_multitap:public tt_audio_base{
 		short i;
 		
 		for(i=0; i<k_max_num_taps; i++){
-			delay_ms[i] = delay_samples[i] = gain[i] = 0;
+			gain[i] = delay_ms[i] = delay_samples[i] = 0;
 			buffer_out[i] = 0;
 		}
-		buffersize_samples = buffersize_ms = 0;
+		buffersize_ms = buffersize_samples = 0;
 		buffersize_type = 0;
 		buffer = buffer_in = buffer_end = 0;
-		num_taps = master_gain = 0;
+		master_gain = num_taps = 0;
 
 		set_sr(global_sr);
 	}

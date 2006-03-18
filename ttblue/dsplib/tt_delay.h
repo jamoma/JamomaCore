@@ -65,7 +65,7 @@ class tt_delay:public tt_audio_base{
 
 		tt_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
 		{
-			long max = max_ms * m_sr;
+			long max = long(max_ms * m_sr);
 			init(max);
 		}
 
@@ -107,7 +107,7 @@ class tt_delay:public tt_audio_base{
 			
 				// This is the SR setting stuff that is specific to this object.
 				if((m_sr * delay_ms) > delay_samples_max)
-					init(m_sr * delay_ms);			// allocate a larger delay buffer if neccessary
+					init(long(m_sr * delay_ms));	// allocate a larger delay buffer if neccessary
 				set_attr(k_delay_ms, delay_ms);		// hold the delay_length in ms constant, despite the change of sr
 			}
 		}
@@ -122,7 +122,7 @@ class tt_delay:public tt_audio_base{
 					delay_ms = val;
 					//delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
 					fdelay_samples = delay_ms * m_sr;
-					delay_samples = fdelay_samples;
+					delay_samples = (tt_attribute_value_discrete)fdelay_samples;
 					fractional_delay = fdelay_samples - delay_samples;
 					
 					break;
@@ -132,7 +132,7 @@ class tt_delay:public tt_audio_base{
 					fractional_delay = 0;
 					break;
 				case k_interpolation:
-					interpolation = val;
+					interpolation = (tt_attribute_value_discrete)val;
 					if(interpolation == k_interpolation_linear){
 						dsp_executor = &tt_delay::dsp_vector_calc_linear;
 						dsp_executor2 = &tt_delay::dsp_vector_calc_linear_2in;
@@ -223,7 +223,7 @@ class tt_delay:public tt_audio_base{
 			// CALCULATE THE DELAY TIME
 			delay_ms = *in2->vector;		// Because this is the Lo-Fi loop, just do this at the vector...
 			fdelay_samples = delay_ms * m_sr;
-			delay_samples = fdelay_samples;
+			delay_samples = (tt_attribute_value_discrete)fdelay_samples;
 			fractional_delay = fdelay_samples - delay_samples;
 
 		    while(temp_vs--){
@@ -292,7 +292,7 @@ class tt_delay:public tt_audio_base{
 				// delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
 //				delay_samples = delay_ms * m_sr;
 				fdelay_samples = delay_ms * m_sr;
-				delay_samples = fdelay_samples;
+				delay_samples = (tt_attribute_value_discrete)fdelay_samples;
 				fractional_delay = fdelay_samples - delay_samples;
 
 //				end_ptr = buffer + delay_samples;					// set pointer to the end of the buffer
@@ -366,7 +366,7 @@ class tt_delay:public tt_audio_base{
 				output[3] = *out_ptr;	
 				
 				// Interpolate between the play head value (from above) and the next play head value
-				//*out++ = (temp * (1.0 - fractional_delay)) + (*out_ptr * fractional_delay);
+				// *out++ = (temp * (1.0 - fractional_delay)) + (*out_ptr * fractional_delay);
 				*out->vector++ = interpolation_polynomial(output[0], output[1], output[2], output[3]);
 		    }
 		    in1->reset(); in2->reset(); out->reset();

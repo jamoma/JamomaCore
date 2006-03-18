@@ -88,7 +88,7 @@ class tt_svf:public tt_audio_base{
 					res = val * 0.1;
 					break;
 				case k_mode:
-					mode = val;
+					mode = tt_attribute_value_discrete(val);
 					if(mode == k_mode_lowpass)
 						dsp_executor = &tt_svf::dsp_vector_calc_lowpass;
 					else if(mode == k_mode_highpass)

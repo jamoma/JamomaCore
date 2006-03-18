@@ -65,7 +65,7 @@ class tt_comb:public tt_audio_base{
 			buffersize = arg > 24 ? arg : 25;		// init the size of the delay buffer - minimum is 25
 		
 			// ALLOCATE MEMORY BUFFER
-			buffersize_in_samples = buffersize * (sr * 0.001);
+			buffersize_in_samples = (long int)(buffersize * (sr * 0.001));
 			if (buffersize_in_samples < 24)			// minimum delay buffer size is 24 samples
 					buffersize_in_samples = 24;
 			alloc = (float *)mem_alloc((buffersize_in_samples + 4) * sizeof(float));

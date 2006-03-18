@@ -55,7 +55,7 @@ class tt_zerox:public tt_audio_base{
 		{
 			switch (sel){
 				case k_analysis_size:
-					analysis_samps = val;
+					analysis_samps = (tt_attribute_value_discrete)val;
 					r_analysis_samps = 1.0 / val;
 					break;
 			}

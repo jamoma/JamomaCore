@@ -81,7 +81,7 @@ class tt_clip:public tt_audio_base{
 		// DSP LOOP
 		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 		{
-			int temp_vs = in->vectorsize;		
+			temp_vs = in->vectorsize;		
 			while(temp_vs--)
 				*out->vector++ = clip(*in->vector++, clip_low_value, clip_high_value);
 			in->reset(); out->reset();

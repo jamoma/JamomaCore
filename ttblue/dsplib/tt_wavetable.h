@@ -81,7 +81,7 @@ class tt_wavetable:public tt_audio_base{
 					break;
 					
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 
 					if(val == k_mode_sine)
 						wavetable->fill(tt_buffer::k_sine);

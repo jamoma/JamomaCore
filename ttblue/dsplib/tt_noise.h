@@ -62,7 +62,7 @@ class tt_noise:public tt_audio_base{
 		{
 			switch (sel){
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					if(mode == k_mode_white)
 						dsp_executor = &tt_noise::dsp_vector_calc_white;
 					else if(mode == k_mode_pink)

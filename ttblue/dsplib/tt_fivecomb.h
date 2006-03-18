@@ -122,8 +122,8 @@ class tt_fivecomb:public tt_audio_base{
 				case k_lowpass_cf:
 					break;
 			}
-			index;
-			val;
+			//index;
+			//val;
 		}
 
 
@@ -152,7 +152,7 @@ class tt_fivecomb:public tt_audio_base{
 					return -1;
 			}
 			return -1;
-			index;
+			//index;
 		}
 		
 		

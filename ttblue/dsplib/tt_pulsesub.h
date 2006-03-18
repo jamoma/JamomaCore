@@ -129,7 +129,7 @@ class tt_pulsesub:public tt_audio_base{
 					return env_gen->get_attr(tt_adsr::k_release);
 				case k_mode:
 					{
-						tt_selector tempsel = env_gen->get_attr(tt_adsr::k_mode);
+						tt_selector tempsel = (tt_selector)env_gen->get_attr(tt_adsr::k_mode);
 						if(tempsel == tt_adsr::k_mode_linear)
 							return k_mode_linear;
 						else
@@ -138,7 +138,7 @@ class tt_pulsesub:public tt_audio_base{
 				case k_frequency:
 					return phasor->get_attr(tt_phasor::k_frequency);
 				case k_length:
-					return offset->get_attr(tt_offset::k_offset_value + 0.5);
+					return offset->get_attr(tt_offset::k_offset_value);
 				default:
 					return -1;
 			}

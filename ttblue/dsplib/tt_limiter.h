@@ -141,7 +141,7 @@ class tt_limiter:public tt_audio_base{
 					postamp = decibels_to_amplitude(val);
 					break;
 				case k_mode:
-					mode = val;
+					mode = (tt_attribute_value_discrete)val;
 					set_recover();
 					break;
 				case k_defeat_dcblocker:

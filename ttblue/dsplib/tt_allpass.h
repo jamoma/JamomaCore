@@ -47,7 +47,7 @@ class tt_allpass:public tt_audio_base{
 		{
 			ff_in_ptr = ff_out_ptr = ff_end_ptr = ff_buffer = 0;
 			fb_in_ptr = fb_out_ptr = fb_end_ptr = fb_buffer = 0;
-			delay_samples = delay_samples_max = delay_ms_max = 0;
+			delay_ms_max = delay_samples = delay_samples_max = 0;
 			init(milliseconds);
 			set_attr(k_delay_ms, 0.0);
 			set_attr(k_gain, 0.0);
@@ -66,7 +66,7 @@ class tt_allpass:public tt_audio_base{
 			switch (sel){			
 				case k_delay_ms:
 					delay_ms = clip(val, float(0.0), delay_ms_max);
-					delay_samples = delay_ms * (sr / 1000.0);
+					delay_samples = long(delay_ms * (sr / 1000.0));
 					ff_end_ptr = ff_buffer + delay_samples;
 					fb_end_ptr = fb_buffer + delay_samples;	
 					break;
@@ -129,7 +129,7 @@ class tt_allpass:public tt_audio_base{
 		void init(tt_attribute_value milliseconds)
 		{
 			delay_ms_max = milliseconds;
-			delay_samples_max = delay_ms_max * (sr / 1000.0);
+			delay_samples_max = long(delay_ms_max * (sr / 1000.0));
 			mem_free(ff_buffer);
 			mem_free(fb_buffer);
 			ff_buffer = (tt_sample_value *)mem_alloc(delay_samples_max * sizeof(tt_sample_value));
