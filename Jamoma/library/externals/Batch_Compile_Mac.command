@@ -20,6 +20,11 @@ xcodebuild -configuration Release clean build
 /Developer/Tools/CpMac -r build/Release/* ../build_mac
 cd ..
 
+cd jmod_oscroute
+xcodebuild -configuration Release clean build
+/Developer/Tools/CpMac -r build/Release/* ../build_mac
+cd ..
+
 cd jmod_pass
 xcodebuild -configuration Release clean build
 /Developer/Tools/CpMac -r build/Release/* ../build_mac
