@@ -43,7 +43,7 @@
 		223D65020989469900AF9710 /* jmod.meter~.rsrc */ = {isa = PBXFileReference; lastKnownFileType = archive.rsrc; path = "jmod.meter~.rsrc"; sourceTree = SOURCE_ROOT; };
 		22604BBB09D0626B00BBEDC1 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Versions/A/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		8D01CCD10486CAD60068D4B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D01CCD20486CAD60068D4B7 /* jmod.change.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmod.change.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D01CCD20486CAD60068D4B7 /* jmod.meter~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jmod.meter~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D01CCD20486CAD60068D4B7 /* jmod.change.mxo */,
+				8D01CCD20486CAD60068D4B7 /* jmod.meter~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,7 +132,7 @@
 			name = "jmod.meter~";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = jmod.change;
-			productReference = 8D01CCD20486CAD60068D4B7 /* jmod.change.mxo */;
+			productReference = 8D01CCD20486CAD60068D4B7 /* jmod.meter~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -231,7 +231,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = jmod.change_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"/Library/Application Support/c74support/max-includes\"";
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/MaxAudioAPI.framework/Headers,
+					../../../../ttblue/dsplib,
+				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = ../build_mac;
 				OTHER_LDFLAGS = "-lmx";
@@ -253,8 +257,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../jmod.prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					"/Library/Application Support/c74support/max-includes",
-					"/Library/Application Support/c74support/msp-includes",
+					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					../../../../ttblue/dsplib,
 				);
 				INFOPLIST_FILE = Info.plist;
