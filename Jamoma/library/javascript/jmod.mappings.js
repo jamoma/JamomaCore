@@ -102,7 +102,7 @@ function remove(mapping_name)
 	// first, find the index number of the named mapping
 	if(mapping_names.length == 0){
 		post("ERROR jmod.mappings: no such mapping to remove!"); post();
-		return;
+		return 0;
 	}
 	var entry = getindex(mapping_name);
 		
@@ -118,6 +118,8 @@ function remove(mapping_name)
 	mapping_sources[entry] = null;
 	mapping_algorithms[entry] = null;
 	mapping_destinations[entry] = null;
+
+	return 1;
 }
 
 
@@ -131,6 +133,19 @@ function modify()
 		args[i-1] = arguments[i];
 	}
 	outlet(0, "script", "send", "mapping_object_alg_"+entry, args);
+}
+
+
+// CLEAR - erases all mappings
+function clear()
+{
+	for(var i=0; i<mapping_names.length; i++){
+		remove(mapping_names[i]);
+	}
+	while(mapping_names.pop());
+	while(mapping_sources.pop());
+	while(mapping_destinations.pop());
+	while(mapping_algorithms.pop());
 }
 
 
