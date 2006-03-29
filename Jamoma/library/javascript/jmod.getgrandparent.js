@@ -1,1 +1,1 @@
-// return the name of the grandparent patch// Tim Place// Copyright © 2006, Jamoma Development Groupfunction bang(){	var grandparent_name = this.patcher.parentpatcher.box.varname;	if(grandparent_name){		outlet(0, grandparent_name);	}}
+// return the name of the grandparent patch// Tim Place// Copyright © 2006, Jamoma Development Groupfunction bang(){	var grandparent_name = this.patcher.parentpatcher.box.varname;	if(grandparent_name){		outlet(0, grandparent_name);	}post(this.patcher.parentpatcher.arguments);post();}

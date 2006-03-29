@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.oscnet">
+	<slot number = "1" name="localhost">
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "/receive_port" value = "7400" />
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter">
+			<pattr name = "/send_port" value = "7400" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "/send_ip" value = "127.0.0.1" />
+		</patcher>
+	</slot>
+	<slot number = "2" name="broadcast">
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "/receive_port" value = "7400" />
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter">
+			<pattr name = "/send_port" value = "7400" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "/send_ip" value = "255.255.255.255" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
