@@ -18,6 +18,14 @@
 				</patcher>
 			</patcher>
 		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
 		<patcher name = "jmod.parameter.mxt">
 			<pattr name = "/threshold" value = "0.1" />
 		</patcher>
@@ -25,24 +33,19 @@
 			<pattr name = "/noise" value = "1" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/trails" value = "1" />
+			<pattr name = "/trails" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[3]">
 			<pattr name = "/slide" value = "6." />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[4]">
-			<pattr name = "/algorithm" value = "1" />
+			<pattr name = "/algorithm" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[5]">
 			<pattr name = "/edge_thresh" value = "0." />
 		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "jmod.parameter[1]">
-				<pattr name = "/set_clock" value = "" />
-			</patcher>
-			<patcher name = "jmod.parameter">
-				<pattr name = "/disable_ui_updates" value = "0" />
-			</patcher>
+		<patcher name = "jmod.parameter.mxt[6]">
+			<pattr name = "/color" value = "1" />
 		</patcher>
 	</slot>
 </pattrstorage>
