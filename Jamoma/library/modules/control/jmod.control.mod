@@ -4,7 +4,7 @@ max v2;
 #P hidden newex 95 226 37 196617 t open;
 #P hidden message 47 107 50 196617 /autodoc;
 #P window linecount 3;
-#P hidden newex 95 340 152 196617 jmod.feedback $0_ /cpu @description "reports the cpu usage of the dsp processing";
+#P hidden newex 95 340 152 196617 jmod.return $0_ /cpu @description "reports the cpu usage of the dsp processing";
 #P window linecount 1;
 #P hidden newex 95 318 48 196617 pvar cpu;
 #P hidden newex 95 245 45 196617 pcontrol;

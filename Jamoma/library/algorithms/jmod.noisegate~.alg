@@ -3,7 +3,7 @@ max v2;
 #P window setfont "Sans Serif" 9.;
 #N out 1;
 #P newobj 265 361 33 196617 out 1;
-#P newex 300 361 133 196617 jmod.feedback $0_ /active;
+#P newex 300 361 133 196617 jmod.return $0_ /active;
 #P newex 265 336 40 196617 change;
 #N out~ 2;
 #P newobj 106 391 38 196617 out~ 2;

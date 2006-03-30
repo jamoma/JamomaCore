@@ -58,7 +58,7 @@ max v2;
 #P window linecount 1;
 #N vpatcher 324 218 838 371;
 #P window setfont "Sans Serif" 9.;
-#P newex 65 99 384 196617 jmod.feedback $0_ /trigger @description "sends every time the metronome fires";
+#P newex 65 99 384 196617 jmod.return $0_ /trigger @description "sends every time the metronome fires";
 #P newex 65 75 74 196617 qmetro;
 #P newex 65 51 139 196617 jmod.oscroute /toggle /time;
 #P inlet 65 29 15 0;

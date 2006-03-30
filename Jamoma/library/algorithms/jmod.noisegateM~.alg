@@ -2,7 +2,7 @@ max v2;
 #N vpatcher 318 207 908 718;
 #P window setfont "Sans Serif" 9.;
 #P window linecount 1;
-#P newex 232 363 133 196617 jmod.feedback $0_ /active;
+#P newex 232 363 133 196617 jmod.return $0_ /active;
 #P newex 197 334 40 196617 change;
 #N out 1;
 #X comment (1/0) Gate status;
