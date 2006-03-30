@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.echo~">
+	<slot number = "1">
+		<patcher name = "jmod.parameter">
+			<pattr name = "/left" value = "250" />
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[1]">
+			<pattr name = "/cf" value = "8571.957031" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[2]">
+			<pattr name = "/q" value = "0.80165" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[3]">
+			<pattr name = "/filtergain" value = "-0.547163" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb">
+			<pattr name = "/filtertype" value = "lowpass" />
+		</patcher>
+		<patcher name = "jmod.parameter[2]">
+			<pattr name = "/right" value = "750" />
+		</patcher>
+		<patcher name = "jmod.parameter[1]">
+			<pattr name = "/feedback" value = "0.2" />
+		</patcher>
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "controls">
+				<patcher name = "pattr_sr">
+					<pattr name = "/sr" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mute">
+					<pattr name = "/mute" value = "1" />
+				</patcher>
+				<patcher name = "pattr_bypass">
+					<pattr name = "/bypass" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mix">
+					<pattr name = "/mix" value = "69." />
+				</patcher>
+				<patcher name = "pattr_defeat_meters">
+					<pattr name = "/defeat_meters" value = "0" />
+				</patcher>
+				<patcher name = "pattr_gain">
+					<pattr name = "/gain/midi" value = "0." />
+				</patcher>
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+
