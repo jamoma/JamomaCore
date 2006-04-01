@@ -34,6 +34,7 @@ var offset_y = 0;
 var menu_items = new Array();
 var menu_num_presets = 0;
 var has_run = 0;				// flag indicating that this module has previously been built
+var grandparent_name;			// this is the scripting name of the object box hosting the module's patch
 
 
 // CONFIGURATION
@@ -61,6 +62,15 @@ function init()
 init.local = 1;		// hide the init function
 init();				// run the init function
 
+
+// Respond to global jmod.init initialization
+function jmod_init()
+{
+	grandparent_name = this.patcher.parentpatcher.box.varname;				// get the object's scripting name
+	if(grandparent_name){
+		outlet(4, "MODULE_TITLE", grandparent_name);
+	}
+}
 
 
 /*******************************************************************
@@ -369,10 +379,6 @@ function size(message)
 			var right = left + (width * 255);
 			var bottom = top + height;
 			grandparent_patch.box.rect = [left, top, right, bottom];
-		}
-		var grandparent_name = this.patcher.parentpatcher.box.varname;				// get the object's scripting name
-		if(grandparent_name){
-			outlet(4, "MODULE_TITLE", grandparent_name);
 		}
 	}
 }
