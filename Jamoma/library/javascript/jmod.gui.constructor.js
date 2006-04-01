@@ -370,8 +370,11 @@ function size(message)
 			var bottom = top + height;
 			grandparent_patch.box.rect = [left, top, right, bottom];
 		}
+		var grandparent_name = this.patcher.parentpatcher.box.varname;				// get the object's scripting name
+		if(grandparent_name){
+			outlet(4, "MODULE_TITLE", grandparent_name);
+		}
 	}
-	// HERE WE NEED TO ADD THE SCRIPTING NAME GETTER FOR SETTING THE MODULE TITLE
 }
 
 
