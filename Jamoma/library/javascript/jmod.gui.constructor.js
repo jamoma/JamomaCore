@@ -348,15 +348,30 @@ function skin(message)
 // Set attribute
 function size(message)
 {
-	attr_size = message;
-
-	message.match(/(.).*/).$1;
-	height = RegExp.$1 * 60;	// 60 pixels per rack unit
-	
-	if(attr_size.match(/-half/))
+	attr_size = message;			// store the string permanently
+	message.match(/(.).*/).$1;		// find the number of rack units high the module is
+	height = RegExp.$1 * 60;		// 60 pixels per rack unit	
+	if(attr_size.match(/-half/))	// is this full width or half-width
 		width = 1;
 	else
 		width = 2;
+	
+	// Are we in a patch that has a module in it?
+	var grandparent_window = this.patcher.parentpatcher.wind;						// get the module's window
+	var grandparent_patch = grandparent_window.assoc;								// get the module's object box
+	if(grandparent_patch.box.rect){
+		if((grandparent_patch.box.rect[3] - grandparent_patch.box.rect[1]) < 50){	// we are in patcher context...
+			grandparent_window.size = [width * 271, height + 16];		// (sizes are compensated for scroll bars)
+		}
+		else{																		// we are in bpatcher context...
+			var left = grandparent_patch.box.rect[0];
+			var top = grandparent_patch.box.rect[1];
+			var right = left + (width * 255);
+			var bottom = top + height;
+			grandparent_patch.box.rect = [left, top, right, bottom];
+		}
+	}
+	// HERE WE NEED TO ADD THE SCRIPTING NAME GETTER FOR SETTING THE MODULE TITLE
 }
 
 
