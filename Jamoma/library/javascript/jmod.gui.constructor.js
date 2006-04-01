@@ -349,9 +349,10 @@ function skin(message)
 function size(message)
 {
 	attr_size = message;
-// DO SOME SORT OF PATTERN MATCHING HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
-	height = 60;  // make this dynamic!
 
+	message.match(/(.).*/).$1;
+	height = RegExp.$1 * 60;	// 60 pixels per rack unit
+	
 	if(attr_size.match(/-half/))
 		width = 1;
 	else
