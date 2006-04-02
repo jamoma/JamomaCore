@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.limi~">
+<pattrstorage name = "jmod.limiter~">
 	<slot number = "1">
 		<patcher name = "jmod.hub">
 			<patcher name = "jmod.parameter">
