@@ -63,13 +63,26 @@ init.local = 1;		// hide the init function
 init();				// run the init function
 
 
+// This is run at the loadbang time...
+function loadbang()
+{
+	var gui = this.patcher.wind.assoc.box;
+	this.patcher.parentpatcher.sendtoback(gui);
+}
+
+
 // Respond to global jmod.init initialization
 function jmod_init()
 {
-	grandparent_name = this.patcher.parentpatcher.box.varname;				// get the object's scripting name
+	grandparent_name = this.patcher.parentpatcher.box.varname;
 	if(grandparent_name){
 		outlet(4, "MODULE_TITLE", grandparent_name);
 	}
+	// This should send the gui bpatcher in a module to the back
+	// 	hopefully this will then keep everything else on top of 
+	//	it visible...
+	var gui = this.patcher.wind.assoc.box;
+	this.patcher.parentpatcher.sendtoback(gui);
 }
 
 
@@ -233,10 +246,14 @@ function bang()
 	// build the module menu
 	menu_build();
 	
-	// make sure everything is visible
+	// make sure everything is visible within the gui
 	outlet(0, "script", "sendtoback", "background");
 	outlet(0, "script", "sendtoback", "menu");
 	outlet(0, "script", "sendtoback", "param_reference");
+
+	// send the gui itself to the back of the module patch
+	var gui = this.patcher.wind.assoc.box;
+	this.patcher.parentpatcher.sendtoback(gui);
 	
 	has_run = 1;
 }
@@ -381,6 +398,11 @@ function size(message)
 			grandparent_patch.box.rect = [left, top, right, bottom];
 		}
 	}
+	
+	// send the gui itself to the back of the module patch
+	var gui = this.patcher.wind.assoc.box;
+	this.patcher.parentpatcher.sendtoback(gui);
+	
 }
 
 
