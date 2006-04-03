@@ -292,7 +292,7 @@ function inspector_button(value)
 		outlet(0, "script", "delete", "inspector_message");		// delete the message
 	}
 	else{
-		if((attr_module_type != "audio.no_panel") && (attr_module_type != "control")){
+		if((attr_module_type == "audio") || (attr_module_type == "audio.ambisonic")){
 			outlet(0, "script", "offset", "controls", -13, 0);
 		}
 		if(width == 1){
