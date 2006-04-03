@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		223D637509892E2200AF9710 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223D637409892E2200AF9710 /* MaxAPI.framework */; };
 		223D64A30989400700AF9710 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223D64A20989400700AF9710 /* MaxAudioAPI.framework */; };
-		223D64C80989416A00AF9710 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223D64C70989416A00AF9710 /* tt_audio_base.cpp */; };
 		223D64DC098942CF00AF9710 /* jmod.meter~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223D64DB098942CF00AF9710 /* jmod.meter~.cpp */; };
 		223D653A09894C8F00AF9710 /* jmod.meter~.rsrc in Rez */ = {isa = PBXBuildFile; fileRef = 223D65020989469900AF9710 /* jmod.meter~.rsrc */; };
 		22604BBC09D0626B00BBEDC1 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22604BBB09D0626B00BBEDC1 /* commonsyms.c */; };
 		8D01CCCA0486CAD60068D4B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		A7D7188509E177AA006B115F /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7D7188409E177AA006B115F /* tt_audio_base.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
@@ -38,12 +38,12 @@
 		223D637409892E2200AF9710 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		223D639B0989335500AF9710 /* jmod.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jmod.prefix.pch; path = ../jmod.prefix.pch; sourceTree = SOURCE_ROOT; };
 		223D64A20989400700AF9710 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
-		223D64C70989416A00AF9710 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../../../ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 		223D64DB098942CF00AF9710 /* jmod.meter~.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = "jmod.meter~.cpp"; sourceTree = SOURCE_ROOT; };
 		223D65020989469900AF9710 /* jmod.meter~.rsrc */ = {isa = PBXFileReference; lastKnownFileType = archive.rsrc; path = "jmod.meter~.rsrc"; sourceTree = SOURCE_ROOT; };
 		22604BBB09D0626B00BBEDC1 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Versions/A/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		8D01CCD10486CAD60068D4B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D01CCD20486CAD60068D4B7 /* jmod.meter~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jmod.meter~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7D7188409E177AA006B115F /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../externals_3rd_party/ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +97,7 @@
 				223D64DB098942CF00AF9710 /* jmod.meter~.cpp */,
 				223D639B0989335500AF9710 /* jmod.prefix.pch */,
 				22604BBB09D0626B00BBEDC1 /* commonsyms.c */,
-				223D64C70989416A00AF9710 /* tt_audio_base.cpp */,
+				A7D7188409E177AA006B115F /* tt_audio_base.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -200,9 +200,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				223D64C80989416A00AF9710 /* tt_audio_base.cpp in Sources */,
 				223D64DC098942CF00AF9710 /* jmod.meter~.cpp in Sources */,
 				22604BBC09D0626B00BBEDC1 /* commonsyms.c in Sources */,
+				A7D7188509E177AA006B115F /* tt_audio_base.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +259,7 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					../../../../ttblue/dsplib,
+					../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
