@@ -78,12 +78,16 @@ function jmod_init()
 		if(grandparent_name){
 			outlet(4, "MODULE_TITLE", grandparent_name);
 		}
-		// This should send the gui bpatcher in a module to the back
-		// 	hopefully this will then keep everything else on top of 
-		//	it visible...
-		var gui = this.patcher.wind.assoc.box;
-		this.patcher.parentpatcher.sendtoback(gui);
 	}
+	else{
+		outlet(4, "MODULE_TITLE", "editing_this_module");
+	}
+	
+	// This should send the gui bpatcher in a module to the back
+	// 	hopefully this will then keep everything else on top of 
+	//	it visible...
+	var gui = this.patcher.wind.assoc.box;
+	this.patcher.parentpatcher.sendtoback(gui);
 }
 
 
