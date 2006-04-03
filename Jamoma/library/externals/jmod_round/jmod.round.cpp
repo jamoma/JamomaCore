@@ -16,7 +16,7 @@ typedef struct _round{				// Data structure for this object
 } t_round;
 
 // Prototypes for methods: need a method for each incoming message
-void *round_new(long value);
+void *round_new(void);
 void round_float(t_round *x, double value);
 void round_int(t_round *x, long value);
 void round_assist(t_round *round, void *b, long m, long a, char *s);
@@ -29,14 +29,12 @@ t_class		*this_class;				// Required. Global pointing to this class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jmod.round",(method)round_new, (method)0L, (short)sizeof(t_round), (method)0L, A_DEFLONG, 0);
+	c = class_new("jmod.round",(method)round_new, (method)0L, (short)sizeof(t_round), (method)0L, 0, 0);
 	class_obexoffset_set(c, calcoffset(t_round, obex));
 
 	// Make methods accessible for our class: 
@@ -56,7 +54,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 /************************************************************************************/
 // Object Life
 
-void *round_new(long value)
+void *round_new(void)
 {
 	t_round *x;
 
