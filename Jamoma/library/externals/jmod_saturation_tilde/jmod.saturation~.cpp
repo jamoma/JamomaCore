@@ -118,7 +118,7 @@ void *saturation_new(t_symbol *s, long argc, t_atom *argv)
 		outlet_new((t_object *)x, "signal");					// Create signal outlet
 		outlet_new((t_object *)x, "signal");					// Create signal outlet	
 
-		tt_audio_base::set_global_sr(sys_getsr());				// Set Tap.Tools global SR...
+		tt_audio_base::set_global_sr((int)sys_getsr());				// Set Tap.Tools global SR...
 		tt_audio_base::set_global_vectorsize(sys_getblksize());	// Set Tap.Tools global vector size...
 
 		x->overdrive = new tt_overdrive;						// Tap.Tools Blue Objects
@@ -242,7 +242,7 @@ out:
 // DSP Method
 void saturation_dsp(t_saturation *x, t_signal **sp, short *count)
 {
-	x->overdrive->set_sr(sp[0]->s_sr);
+	x->overdrive->set_sr((int)sp[0]->s_sr);
 	x->overdrive->clear();
 	
 	if(count[1])
