@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		223D637509892E2200AF9710 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223D637409892E2200AF9710 /* MaxAPI.framework */; };
-		223D648609893F5000AF9710 /* jmod.sym.compare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223D648509893F5000AF9710 /* jmod.sym.compare.cpp */; };
 		22604C0E09D062CD00BBEDC1 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22604C0D09D062CC00BBEDC1 /* commonsyms.c */; };
+		2293985409E10533003292DC /* jmod.equals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2293985309E10533003292DC /* jmod.equals.cpp */; };
 		8D01CCCA0486CAD60068D4B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C167DFE841241C02AAC07 /* InfoPlist.strings */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -34,10 +34,10 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		223D637409892E2200AF9710 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		223D639B0989335500AF9710 /* jmod.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jmod.prefix.pch; path = ../jmod.prefix.pch; sourceTree = SOURCE_ROOT; };
-		223D648509893F5000AF9710 /* jmod.sym.compare.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jmod.sym.compare.cpp; sourceTree = SOURCE_ROOT; };
 		22604C0D09D062CC00BBEDC1 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Versions/A/Headers/commonsyms.c; sourceTree = "<absolute>"; };
+		2293985309E10533003292DC /* jmod.equals.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jmod.equals.cpp; sourceTree = "<group>"; };
 		8D01CCD10486CAD60068D4B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D01CCD20486CAD60068D4B7 /* jmod.change.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmod.change.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D01CCD20486CAD60068D4B7 /* jmod.equals.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmod.equals.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				223D648509893F5000AF9710 /* jmod.sym.compare.cpp */,
+				2293985309E10533003292DC /* jmod.equals.cpp */,
 				223D639B0989335500AF9710 /* jmod.prefix.pch */,
 				22604C0D09D062CC00BBEDC1 /* commonsyms.c */,
 			);
@@ -95,7 +95,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D01CCD20486CAD60068D4B7 /* jmod.change.mxo */,
+				8D01CCD20486CAD60068D4B7 /* jmod.equals.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,7 +121,7 @@
 			name = jmod.sym.compare;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = jmod.change;
-			productReference = 8D01CCD20486CAD60068D4B7 /* jmod.change.mxo */;
+			productReference = 8D01CCD20486CAD60068D4B7 /* jmod.equals.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -129,7 +129,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 4FADC23708B4156C00ABE55E /* Build configuration list for PBXProject "jmod.sym.compare" */;
+			buildConfigurationList = 4FADC23708B4156C00ABE55E /* Build configuration list for PBXProject "jmod.equals" */;
 			buildSettings = {
 			};
 			buildStyles = (
@@ -178,8 +178,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				223D648609893F5000AF9710 /* jmod.sym.compare.cpp in Sources */,
 				22604C0E09D062CD00BBEDC1 /* commonsyms.c in Sources */,
+				2293985409E10533003292DC /* jmod.equals.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,6 +200,7 @@
 		4FADC23408B4156C00ABE55E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -207,12 +208,12 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = jmod.change_Prefix.pch;
-				HEADER_SEARCH_PATHS = "\"/Library/Application Support/c74support/max-includes\"";
+				GCC_PREFIX_HEADER = ../jmod.prefix.pch;
+				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/headers;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = ../build_mac;
 				OTHER_LDFLAGS = "-lmx";
-				PRODUCT_NAME = jmod.change;
+				PRODUCT_NAME = jmod.equals;
 				WRAPPER_EXTENSION = mxo;
 				ZERO_LINK = YES;
 			};
@@ -228,11 +229,11 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../jmod.prefix.pch;
-				HEADER_SEARCH_PATHS = "\"/Library/Application Support/c74support/max-includes\"";
+				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/headers;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = "-lmx";
-				PRODUCT_NAME = jmod.sym.compare;
+				PRODUCT_NAME = jmod.equals;
 				WRAPPER_EXTENSION = mxo;
 			};
 			name = Release;
@@ -269,7 +270,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4FADC23708B4156C00ABE55E /* Build configuration list for PBXProject "jmod.sym.compare" */ = {
+		4FADC23708B4156C00ABE55E /* Build configuration list for PBXProject "jmod.equals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4FADC23808B4156C00ABE55E /* Debug */,
