@@ -120,11 +120,15 @@ function bang()
 		//	that patch will then script in the jmod.gain~ and connect it
 	
 		if(has_run == 0){
-			if(attr_module_type == "audio.ambisonic"){
-				// #P bpatcher 345 2 163 16 0 -190 jmod.gui.audio-component.mxt 0 $1;
-				outlet(0, "script", "replace", "controls", "bpatcher", 345, 2, 163, 16, 0, -190, "jmod.gui.ambi-component.mxt", 0, local_token);
-				attr_num_inputs = 1;	// set these so the inlets/outlets will be deleted further down...
-				attr_num_outputs = 0;
+			if(attr_module_type == "audio.ambisonic"){	
+				// delete extra inlets and outlets
+				for(i=1; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
+					outlet(0, "script", "delete", "inlet_"+(i+1));
+				for(i=1; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
+					outlet(0, "script", "delete", "outlet_"+(i+1));			
+
+				// replace the panel with a specific ambisonic panel
+				outlet(0, "script", "replace", "controls", "bpatcher", 345, 2, 163, 16, 0, -190, "jmod.gui.ambi-component.mxt", 0, local_token);				
 			}
 			else if(attr_module_type == "audio.no_panel"){
 					outlet(0, "script", "delete", "controls");
@@ -137,13 +141,14 @@ function bang()
 					outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(attr_num_inputs+i+1), 0);			
 
 				outlet(2, num_channels);	// send the number of channels to the controls
+
+				// delete extra inlets and outlets
+				for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
+					outlet(0, "script", "delete", "inlet_"+(i+1));
+				for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
+					outlet(0, "script", "delete", "outlet_"+(i+1));			
 			}
 
-			// delete extra inlets and outlets
-			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
-				outlet(0, "script", "delete", "inlet_"+(i+1));
-			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
-				outlet(0, "script", "delete", "outlet_"+(i+1));			
 			
 			// move the controls if neccessary
 			if((width == 1) && (attr_module_type != "audio.no_panel"))
