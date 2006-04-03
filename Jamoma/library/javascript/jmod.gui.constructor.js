@@ -73,15 +73,17 @@ function loadbang()
 // Respond to global jmod.init initialization
 function jmod_init()
 {
-	grandparent_name = this.patcher.parentpatcher.box.varname;
-	if(grandparent_name){
-		outlet(4, "MODULE_TITLE", grandparent_name);
+	if(this.patcher.parentpatcher.box){
+		grandparent_name = this.patcher.parentpatcher.box.varname;
+		if(grandparent_name){
+			outlet(4, "MODULE_TITLE", grandparent_name);
+		}
+		// This should send the gui bpatcher in a module to the back
+		// 	hopefully this will then keep everything else on top of 
+		//	it visible...
+		var gui = this.patcher.wind.assoc.box;
+		this.patcher.parentpatcher.sendtoback(gui);
 	}
-	// This should send the gui bpatcher in a module to the back
-	// 	hopefully this will then keep everything else on top of 
-	//	it visible...
-	var gui = this.patcher.wind.assoc.box;
-	this.patcher.parentpatcher.sendtoback(gui);
 }
 
 
