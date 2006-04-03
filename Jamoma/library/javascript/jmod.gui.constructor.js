@@ -15,6 +15,7 @@ const NUM_DEFAULT_INLETS_AND_OUTLETS = 32;	// number of these in the jmod.gui
 // GLOBALS
 var attr_module_type = "audio";
 var attr_skin = "default";
+var attr_inspector = 0;
 var attr_num_inputs = 1;
 var attr_num_outputs = 1;
 var	num_channels;
@@ -174,6 +175,9 @@ function bang()
 			menu_add("-");
 			menu_add("Open Online Reference");
 			menu_add("View Internal Components");
+			
+			// Handle the Inspector Button
+			inspector_button(attr_inspector);
 		}		
 	}
 	else if(attr_module_type == "video"){
@@ -228,6 +232,9 @@ function bang()
 			menu_add("-");
 			menu_add("Open Online Reference");
 			menu_add("View Internal Components");
+			
+			// Handle the Inspector Button
+			inspector_button(attr_inspector);
 		}
 	}
 	else{	// attr_module_type == "control"
@@ -255,6 +262,9 @@ function bang()
 			menu_add("-");
 			menu_add("Open Online Reference");
 			menu_add("View Internal Components");
+			
+			// Handle the Inspector Button
+			inspector_button(attr_inspector);
 		}
 	}
 	
@@ -272,6 +282,25 @@ function bang()
 	
 	has_run = 1;
 }
+
+
+// PRIVATE METHOD: handle the inspector button
+function inspector_button(value)
+{
+	if(value == 0){
+		outlet(0, "script", "delete", "inspector_button"); 		// delete the button
+		outlet(0, "script", "delete", "inspector_message");		// delete the message
+	}
+	else{
+		if((attr_module_type != "audio.no_panel") && (attr_module_type != "control")){
+			outlet(0, "script", "offset", "controls", -13, 0);
+		}
+		if(width == 1){
+			outlet(0, "script", "offset", "inspector_button", -255, 0)
+		}
+	}			
+}
+inspector_button.local = 1;
 
 
 // Method: INT - input from the menu!
@@ -438,6 +467,13 @@ function set_num_channels()
 		num_channels = attr_num_outputs;
 	else
 		num_channels = attr_num_inputs;
+}
+
+
+// Set attribute
+function inspector(message)
+{
+	attr_inspector = message; // should be 1 or 0
 }
 
 
