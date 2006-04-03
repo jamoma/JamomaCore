@@ -83,7 +83,7 @@ max v2;
 #X client_rect 10 59 650 299;
 #X storage_rect 0 0 640 240;
 #P objectname jmod.crossfade~;
-#P hidden newex 0 152 395 196617 jmod.hub $0_ jmod.crossfade~ $1 @size 1U-half @module_type audio @num_inputs 4 @num_outputs 2 @description "Allows crossfades between 2 stereo sources. The first two inputs are the first source while the second 2 inputs are the second source";
+#P hidden newex 0 152 395 196617 jmod.hub $0_ jmod.crossfade~ @size 1U-half @module_type audio @num_inputs 4 @num_outputs 2 @description "Allows crossfades between 2 stereo sources. The first two inputs are the first source while the second 2 inputs are the second source";
 #P objectname jmod.hub;
 #P hidden connect 8 0 2 0;
 #P hidden connect 3 0 0 0;

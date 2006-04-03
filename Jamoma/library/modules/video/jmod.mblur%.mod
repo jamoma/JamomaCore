@@ -32,7 +32,7 @@ max v2;
 #P window linecount 1;
 #P hidden comment 14 84 79 196617 command input;
 #P window linecount 3;
-#P hidden newex 0 109 353 196617 jmod.hub $0_ jmod.mblur% $1 @size 1U-half @module_type video @algorithm_type jitter @num_inputs 1 @num_outputs 1 @description "Create a Motion-Blur type of effect by using a brightness-based envelope follower";
+#P hidden newex 0 109 353 196617 jmod.hub $0_ jmod.mblur% @size 1U-half @module_type video @algorithm_type jitter @num_inputs 1 @num_outputs 1 @description "Create a Motion-Blur type of effect by using a brightness-based envelope follower";
 #P objectname jmod.hub;
 #P hidden outlet 0 171 13 0;
 #P hidden inlet 0 84 13 0;

@@ -47,7 +47,7 @@ max v2;
 #P newex 467 114 88 196617 pvar ParameterB;
 #P newex 467 49 89 196617 pvar ParameterA;
 #P window linecount 5;
-#P newex 0 140 167 196617 jmod.hub $0_ jmod.audiotemplate~ $1 @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "This module doesn't do much yet";
+#P newex 0 140 167 196617 jmod.hub $0_ jmod.audiotemplate~ @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "This module doesn't do much yet";
 #P objectname jmod.hub;
 #P window linecount 1;
 #P comment 14 121 79 196617 command input;

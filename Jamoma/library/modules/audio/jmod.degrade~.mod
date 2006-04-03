@@ -3,7 +3,7 @@ max v2;
 #P window setfont "Sans Serif" 9.;
 #P hidden message 140 121 50 196617 /autodoc;
 #P window linecount 4;
-#P newex 0 140 249 196617 jmod.hub $0_ jmod.degrade~ $1 @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description Emulate the use of lower sample-rates and bit-resolution;
+#P newex 0 140 249 196617 jmod.hub $0_ jmod.degrade~ @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description Emulate the use of lower sample-rates and bit-resolution;
 #P objectname jmod.hub;
 #P window linecount 1;
 #P hidden comment 14 121 79 196617 command input;

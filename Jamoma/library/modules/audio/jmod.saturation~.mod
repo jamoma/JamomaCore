@@ -12,7 +12,7 @@ max v2;
 #P objectname jmod.parameter.mxt[2];
 #P hidden message 76 297 65 196617 \; max refresh;
 #P window linecount 5;
-#P hidden newex 0 140 169 196617 jmod.hub $0_ jmod.saturation~ $1 @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "Saturation (distortion) effect.";
+#P hidden newex 0 140 169 196617 jmod.hub $0_ jmod.saturation~ @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "Saturation (distortion) effect.";
 #P objectname jmod.hub;
 #P window linecount 1;
 #P hidden comment 14 121 79 196617 command input;

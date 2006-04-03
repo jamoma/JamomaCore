@@ -72,7 +72,7 @@ max v2;
 #P objectname ParameterA;
 #P newex 419 36 88 196617 pvar ParameterA;
 #P window linecount 3;
-#P newex 16 114 216 196617 jmod.hub $0_ jmod.control $1 @size 1U-half @module_type control @description "This module doesn't do much yet";
+#P newex 16 114 216 196617 jmod.hub $0_ jmod.control @size 1U-half @module_type control @description "This module doesn't do much yet";
 #P objectname jmod.hub;
 #P inlet 16 90 13 0;
 #P outlet 16 316 13 0;

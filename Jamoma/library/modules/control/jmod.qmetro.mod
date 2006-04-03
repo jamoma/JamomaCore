@@ -72,7 +72,7 @@ max v2;
 #B frgb 255 255 255;
 #P hidden newex 363 37 89 196617 pvar MetroToggle;
 #P window linecount 3;
-#P hidden newex 16 114 186 196617 jmod.hub $0_ jmod.qmetro $1 @size 1U-half @module_type control @description "A queue based metro";
+#P hidden newex 16 114 186 196617 jmod.hub $0_ jmod.qmetro @size 1U-half @module_type control @description "A queue based metro";
 #P objectname jmod.hub;
 #P hidden inlet 16 90 13 0;
 #P hidden outlet 16 316 13 0;

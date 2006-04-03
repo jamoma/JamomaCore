@@ -95,7 +95,7 @@ max v2;
 #P pop;
 #P hidden newobj 95 282 109 196617 p Control_Components;
 #P window linecount 5;
-#P hidden newex 24 132 153 196617 jmod.hub $0_ jmod.control $1 @size 1U-half @module_type control @description "Master control module for the Jamoma environment";
+#P hidden newex 24 132 153 196617 jmod.hub $0_ jmod.control @size 1U-half @module_type control @description "Master control module for the Jamoma environment";
 #P objectname jmod.hub;
 #P window linecount 2;
 #P hidden newex 318 77 218 196617 jmod.parameter.mxt $0_ /audio @type toggle @description "Toggle audio on and off.";

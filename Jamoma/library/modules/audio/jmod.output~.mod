@@ -40,7 +40,7 @@ max v2;
 #P hidden newex 443 685 164 196617 jmod.parameter.mxt $0_ /record;
 #P objectname jmod.parameter.mxt[12];
 #P window linecount 7;
-#P hidden newex 9 172 175 196617 jmod.hub.mxt $0_ jmod.output~ $1 @size 2U @module_type audio.no_panel @num_inputs 2 @num_outputs 0 @description "A generic module for stereo audio output. Includes saturation \\\, limiter and recording device";
+#P hidden newex 9 172 175 196617 jmod.hub.mxt $0_ jmod.output~ @size 2U @module_type audio.no_panel @num_inputs 2 @num_outputs 0 @description "A generic module for stereo audio output. Includes saturation \\\, limiter and recording device";
 #P objectname jmod.hub;
 #P window linecount 1;
 #P hidden comment 10 512 244 196617 - left channel jmod-meter~ tends to die;

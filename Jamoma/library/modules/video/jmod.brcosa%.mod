@@ -65,7 +65,7 @@ max v2;
 #P window linecount 1;
 #P hidden comment 15 84 79 196617 command input;
 #P window linecount 2;
-#P hidden newex 1 109 385 196617 jmod.hub $0_ jmod.brcosa% $1 @size 1U-half @module_type video @algorithm_type jitter @num_inputs 1 @num_outputs 1 @description "Simple image controls";
+#P hidden newex 1 109 385 196617 jmod.hub $0_ jmod.brcosa% @size 1U-half @module_type video @algorithm_type jitter @num_inputs 1 @num_outputs 1 @description "Simple image controls";
 #P objectname jmod.hub;
 #P hidden outlet 1 171 13 0;
 #P hidden inlet 1 84 13 0;

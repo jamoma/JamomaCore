@@ -82,7 +82,7 @@ max v2;
 #P window linecount 1;
 #P hidden newex 532 32 88 196617 pvar LOOKAHEAD;
 #P window linecount 4;
-#P hidden newex 0 140 169 196617 jmod.hub $0_ jmod.noisegate~ $1 @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "Mono noise gate.";
+#P hidden newex 0 140 169 196617 jmod.hub $0_ jmod.noisegate~ @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "Mono noise gate.";
 #P objectname jmod.hub;
 #P window linecount 1;
 #P hidden comment 14 121 79 196617 command input;

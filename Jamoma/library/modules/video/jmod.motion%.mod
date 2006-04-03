@@ -95,7 +95,7 @@ max v2;
 #P window linecount 1;
 #P hidden comment 15 84 79 196617 command input;
 #P window linecount 2;
-#P hidden newex 1 109 385 196617 jmod.hub $0_ jmod.motion% $1 @size 1U-half @module_type video @algorithm_type jitter @num_inputs 1 @num_outputs 2 @description "Motion-related analysis";
+#P hidden newex 1 109 385 196617 jmod.hub $0_ jmod.motion% @size 1U-half @module_type video @algorithm_type jitter @num_inputs 1 @num_outputs 2 @description "Motion-related analysis";
 #P objectname jmod.hub;
 #P hidden outlet 1 212 13 0;
 #P hidden inlet 1 84 13 0;

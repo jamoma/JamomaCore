@@ -140,7 +140,7 @@ max v2;
 #P window linecount 3;
 #P comment 201 633 257 196617 Convertion from freq \, gain and q to biquad coeffisients has to take place inside the poly~ (.alg) in case the poly is up- or downsampled.;
 #P window linecount 6;
-#P newex 0 128 158 196617 jmod.hub $0_ jmod.filter~ $1 @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "Stereo 2nd order IIR filter based on biquad~";
+#P newex 0 128 158 196617 jmod.hub $0_ jmod.filter~ @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "Stereo 2nd order IIR filter based on biquad~";
 #P objectname jmod.hub;
 #P hidden connect 8 0 2 0;
 #P connect 3 0 0 0;

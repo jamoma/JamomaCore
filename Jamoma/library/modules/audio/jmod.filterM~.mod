@@ -72,7 +72,7 @@ max v2;
 #P newex 177 585 83 196617 pvar CenterFreq;
 #P message 105 115 50 196617 /autodoc;
 #P window linecount 5;
-#P newex 2 144 164 196617 jmod.hub $0_ jmod.filterM~ $1 @size 1U-half @module_type audio @num_inputs 1 @num_outputs 1 @description "Mono 2nd order IIR filter based on biquad~";
+#P newex 2 144 164 196617 jmod.hub $0_ jmod.filterM~ @size 1U-half @module_type audio @num_inputs 1 @num_outputs 1 @description "Mono 2nd order IIR filter based on biquad~";
 #P objectname jmod.hub;
 #P window linecount 1;
 #P newex 259 235 115 196617 poly~ jmod.filterM~.alg;

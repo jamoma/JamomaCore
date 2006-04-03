@@ -25,7 +25,7 @@ max v2;
 #P hidden newex 19 401 344 196617 jmod.parameter.mxt $0_ /bitdepth @type msg_int @range 1 24 @clipmode both @ramp 1 @repetitions 0 @description "The number of bits that will be retained in each sample - use this for bit crunching effects.";
 #P objectname jmod.parameter.mxb;
 #P window linecount 4;
-#P hidden newex 4 180 283 196617 jmod.hub $0_ jmod.degradeM~ $1 @size 1U-half @module_type audio @num_inputs 1 @num_outputs 1 @description "Emulate the use of lower sample-rates and bit-resolution";
+#P hidden newex 4 180 283 196617 jmod.hub $0_ jmod.degradeM~ @size 1U-half @module_type audio @num_inputs 1 @num_outputs 1 @description "Emulate the use of lower sample-rates and bit-resolution";
 #P objectname jmod.hub;
 #P hidden inlet 11 -24 15 0;
 #P window linecount 1;

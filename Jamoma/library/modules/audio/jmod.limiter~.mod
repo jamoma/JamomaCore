@@ -72,7 +72,7 @@ max v2;
 #P hidden inlet 20 -22 13 0;
 #P hidden outlet 164 65 13 0;
 #P window linecount 5;
-#P hidden newex 0 125 160 196617 jmod.hub $0_ jmod.limiter~ $1 @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "A stereo limiter";
+#P hidden newex 0 125 160 196617 jmod.hub $0_ jmod.limiter~ @size 1U-half @module_type audio @num_inputs 2 @num_outputs 2 @description "A stereo limiter";
 #P objectname jmod.hub;
 #P hidden inlet 82 -20 13 0;
 #P window linecount 1;

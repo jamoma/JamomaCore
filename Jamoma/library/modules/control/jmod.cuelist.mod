@@ -47,7 +47,7 @@ max v2;
 #P hidden newex 104 285 81 196617 jmod.cuelist.alg;
 #P hidden newex 419 16 102 196617 pvar GetStateButton;
 #P window linecount 4;
-#P hidden newex 16 114 187 196617 jmod.hub $0_ jmod.cuelist $1 @size 1U-half @module_type control @description "Manage cue list in text format";
+#P hidden newex 16 114 187 196617 jmod.hub $0_ jmod.cuelist @size 1U-half @module_type control @description "Manage cue list in text format";
 #P objectname jmod.hub;
 #P hidden inlet 16 90 13 0;
 #P hidden outlet 16 316 13 0;
