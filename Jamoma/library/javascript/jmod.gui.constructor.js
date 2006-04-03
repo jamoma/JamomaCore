@@ -386,9 +386,10 @@ function size(message)
 	// Are we in a patch that has a module in it?
 	var grandparent_window = this.patcher.parentpatcher.wind;						// get the module's window
 	var grandparent_patch = grandparent_window.assoc;								// get the module's object box
-	if(grandparent_patch.box.rect){
+	if(grandparent_patch.box){
 		if((grandparent_patch.box.rect[3] - grandparent_patch.box.rect[1]) < 50){	// we are in patcher context...
-			grandparent_window.size = [width * 271, height + 16];		// (sizes are compensated for scroll bars)
+			grandparent_window.size = [width * 255, height];		// (sizes are compensated for scroll bars)
+			grandparent_window.hasgrow = 0;
 		}
 		else{																		// we are in bpatcher context...
 			var left = grandparent_patch.box.rect[0];
