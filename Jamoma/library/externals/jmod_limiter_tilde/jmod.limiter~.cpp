@@ -158,7 +158,7 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 		outlet_new((t_object *)x, "signal");					// Create signal outlet
 		outlet_new((t_object *)x, "signal");					// Create signal outlet	
 
-		tt_audio_base::set_global_sr(sys_getsr());	// Set Tap.Tools global SR...
+		tt_audio_base::set_global_sr((int)sys_getsr());	// Set Tap.Tools global SR...
 		tt_audio_base::set_global_vectorsize(sys_getblksize());	// Set Tap.Tools global vector size...
 
 		x->limiter = new tt_limiter;							// Tap.Tools Blue Objects
@@ -269,7 +269,7 @@ t_max_err limiter_setrelease(t_limiter *x, void *attr, long argc, t_atom *argv)
 // ATTRIBUTE: Lookahead
 t_max_err limiter_setlookahead(t_limiter *x, void *attr, long argc, t_atom *argv)
 {
-	x->attr_lookahead = atom_getfloat(argv);
+	x->attr_lookahead = atom_getlong(argv);
 	x->limiter->set_attr(tt_limiter::k_lookahead, x->attr_lookahead);
 	
 	return MAX_ERR_NONE;
@@ -351,7 +351,7 @@ out:
 // DSP Method
 void limiter_dsp(t_limiter *x, t_signal **sp, short *count)
 {
-	x->limiter->set_sr(sp[0]->s_sr);
+	x->limiter->set_sr((int)sp[0]->s_sr);
 	x->limiter->clear();
 	
 	if(count[1])
