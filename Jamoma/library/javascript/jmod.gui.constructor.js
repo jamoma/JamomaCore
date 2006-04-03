@@ -15,7 +15,6 @@ const NUM_DEFAULT_INLETS_AND_OUTLETS = 32;	// number of these in the jmod.gui
 // GLOBALS
 var attr_module_type = "audio";
 var attr_skin = "default";
-var attr_option_no_panel = false;
 var attr_num_inputs = 1;
 var attr_num_outputs = 1;
 var	num_channels;
@@ -115,7 +114,7 @@ function bang()
 	// Change the background graphic to match the skin (object autosizes to match it)
 	outlet(1, "picture", "jmod.bg." + attr_skin + "." + attr_size + ".pct");
 
-	if(attr_module_type == "audio"){
+	if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel")){
 	
 		// send the num_channels to the audio_component patch
 		//	that patch will then script in the jmod.gain~ and connect it
@@ -143,7 +142,7 @@ function bang()
 
 
 			// handle any relevant options
-			if(attr_option_no_panel)
+			if(attr_module_type == "audio.no_panel")
 				outlet(0, "script", "delete", "controls");
 			
 			// Setup the Menu
@@ -357,13 +356,6 @@ function module_type(message)
 	attr_module_type = message;
 }
 
-
-// Set attribute
-function options(message)
-{
-	if(message == "no_panel")
-		attr_option_no_panel = true
-}
 
 // Set attribute
 function skin(message)

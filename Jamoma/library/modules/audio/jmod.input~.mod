@@ -14,7 +14,7 @@ max v2;
 #P window linecount 2;
 #P newex 286 568 208 196617 jmod.message.mxt $0_ /dsp_status @description "Open DSP Status window.";
 #P window linecount 5;
-#P newex 9 164 177 196617 jmod.hub.mxt $0_ jmod.input~ $1 @size 2U-half @module_type audio @num_inputs 0 @num_outputs 2 @options no_panel @description "A generic modul for audio input";
+#P newex 9 164 177 196617 jmod.hub.mxt $0_ jmod.input~ $1 @size 2U-half @module_type audio.no_panel @num_inputs 0 @num_outputs 2 @description "A generic modul for audio input";
 #P objectname jmod.hub;
 #P window linecount 1;
 #N vpatcher 34 89 634 489;
