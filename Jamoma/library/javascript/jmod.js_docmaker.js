@@ -32,7 +32,7 @@ var instruction_filter;			// is this the right kind of instruction (1/0)
 
 // Inlets and outlets
 inlets = 1;
-outlets = 2;
+outlets = 3;
 
 
 /*******************************************************************
@@ -838,3 +838,16 @@ function anything()
 	// any kind of message that's supposed to be ignored
 }
 
+
+/*******************************************************************
+*
+*	function getsize()
+*
+*	Poll size of the module. this can be used for e.g. automagical
+*   resizing and positioning of the module using scripting.
+*	
+*******************************************************************/
+function getsize()
+{
+	outlet(2, this_module_size);
+}
