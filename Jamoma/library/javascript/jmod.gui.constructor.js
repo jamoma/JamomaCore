@@ -103,7 +103,7 @@ function bang()
 {
 	// Choose the skin, if needed
 	if(attr_skin == "default"){
-		if(attr_module_type == "audio")
+		if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel") || (attr_module_type == "audio.ambisonic"))
 			attr_skin = "metal.black";
 		else if(attr_module_type == "video")
 			attr_skin = "metal";
@@ -114,37 +114,44 @@ function bang()
 	// Change the background graphic to match the skin (object autosizes to match it)
 	outlet(1, "picture", "jmod.bg." + attr_skin + "." + attr_size + ".pct");
 
-	if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel")){
+	if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel") || (attr_module_type == "audio.ambisonic")){
 	
 		// send the num_channels to the audio_component patch
 		//	that patch will then script in the jmod.gain~ and connect it
 	
 		if(has_run == 0){
-			// move the controls if neccessary
-			if(width == 1)
-				outlet(0, "script", "offset", "controls", -255, 0);
-		
+			if(attr_module_type == "audio.ambisonic"){
+				// #P bpatcher 345 2 163 16 0 -190 jmod.gui.audio-component.mxt 0 $1;
+				outlet(0, "script", "replace", "controls", "bpatcher", 345, 2, 163, 16, 0, -190, "jmod.gui.ambi-component.mxt", 0, local_token);
+				attr_num_inputs = 1;	// set these so the inlets/outlets will be deleted further down...
+				attr_num_outputs = 0;
+			}
+			else if(attr_module_type == "audio.no_panel"){
+					outlet(0, "script", "delete", "controls");
+			}
+			else{
+				// connect inlets and outlets
+				for(i=0; i<attr_num_inputs; i++)
+					outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
+				for(i=0; i<attr_num_outputs; i++)
+					outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(attr_num_inputs+i+1), 0);			
+
+				outlet(2, num_channels);	// send the number of channels to the controls
+			}
+
 			// delete extra inlets and outlets
 			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "inlet_"+(i+1));
 			for(i= attr_num_inputs + attr_num_outputs; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 				outlet(0, "script", "delete", "outlet_"+(i+1));			
-
-	
+			
+			// move the controls if neccessary
+			if((width == 1) && (attr_module_type != "audio.no_panel"))
+				outlet(0, "script", "offset", "controls", -255, 0);
+		
 			// delete the video preview window
 			outlet(0, "script", "delete", "pwindow");
-	
-			// connect inlets and outlets
-			for(i=0; i<attr_num_inputs; i++)
-				outlet(0, "script", "hidden", "connect", "inlet_"+(i+1), 0, "outlet_"+(i+1), 0);
-			for(i=0; i<attr_num_outputs; i++)
-				outlet(0, "script", "hidden", "connect", "controls", i, "outlet_"+(attr_num_inputs+i+1), 0);
-
-
-			// handle any relevant options
-			if(attr_module_type == "audio.no_panel")
-				outlet(0, "script", "delete", "controls");
-			
+		
 			// Setup the Menu
 			menu_clear();
 			menu_add("Disable UI Updates");
@@ -156,8 +163,6 @@ function bang()
 			menu_add("-");
 			menu_add("Open Online Reference");
 			menu_add("View Internal Components");
-
-			outlet(2, num_channels);	// send the number of channels to the controls
 		}		
 	}
 	else if(attr_module_type == "video"){
