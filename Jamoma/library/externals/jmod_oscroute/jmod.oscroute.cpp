@@ -11,14 +11,16 @@
 #define MAX_MESS_SIZE 2048
 
 typedef struct _oscroute{					// Data Structure for this object
-	t_object	ob;							// REQUIRED: Our object
-	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff 
-	void 		*outlets[MAX_ARGCOUNT];		// my outlet array
-	void		*outlet_overflow;			// this outlet doubles as the dumpout outlet
-	t_symbol	*arguments[MAX_ARGCOUNT];	// symbols to match
-	long unsigned		arglen[MAX_ARGCOUNT];		// strlen of symbols to match
-	short		num_args;
-	long		attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
+	t_object		ob;							// REQUIRED: Our object
+	void			*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff 
+	void			*outlets[MAX_ARGCOUNT];		// my outlet array
+	void			*outlet_overflow;			// this outlet doubles as the dumpout outlet
+	t_symbol		*arguments[MAX_ARGCOUNT];	// symbols to match
+	long unsigned	arglen[MAX_ARGCOUNT];		// strlen of symbols to match
+	short			num_args;
+	long			attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
+	void			*proxy_inlet;				// pointer to the second inlet (when present)
+	long			inletnum;					// inlet used for input
 } t_oscroute;
 
 // Prototypes for our methods:
@@ -84,18 +86,27 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 	if(x){
 		x->outlet_overflow = outlet_new(x, 0);		// overflow outlet
 		//object_obex_store((void *)x, _sym_dumpout, (object *)x->outlet_overflow);	// dumpout
-		x->num_args = argc;		
-
-		for(i=x->num_args-1; i >= 0; i--){				
-			x->outlets[i] = outlet_new(x, 0);		// Create Outlet
-			switch(argv[i].a_type){
-				case A_SYM:
-					//atom_setsym(&(x->arguments[i]), atom_getsym(argv+i));
-					x->arguments[i] = atom_getsym(argv+i);
-					x->arglen[i] = strlen(atom_getsym(argv+i)->s_name);
-					break;
-				default:
-					error("jmod.oscroute - invalid arguments - all args must be symbols");
+		x->num_args = argc;
+		
+		if(argc < 1){	// if no args are provided, we provide a way to set the arg using an inlet
+			x->num_args = 1;
+			x->arguments[0] = gensym("/nil");
+			x->arglen[0] = 4;
+			x->proxy_inlet = proxy_new(x, 1, &x->inletnum);
+			x->outlets[0] = outlet_new(x, 0);
+		}
+		else{
+			for(i=x->num_args-1; i >= 0; i--){				
+				x->outlets[i] = outlet_new(x, 0);		// Create Outlet
+				switch(argv[i].a_type){
+					case A_SYM:
+						//atom_setsym(&(x->arguments[i]), atom_getsym(argv+i));
+						x->arguments[i] = atom_getsym(argv+i);
+						x->arglen[i] = strlen(atom_getsym(argv+i)->s_name);
+						break;
+					default:
+						error("jmod.oscroute - invalid arguments - all args must be symbols");
+				}
 			}
 		}
 		//attr_args_process(x, argc, argv);			//handle attribute args	
@@ -153,6 +164,14 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	t_symbol	*output;
 	char		input[MAX_MESS_SIZE];	// our input string
 	
+	// If the message comes in the second inlet, then set the string to match...
+	if(x->inletnum == 1){
+		x->arguments[0] = msg;
+		x->arglen[0] = strlen(msg->s_name);
+		return;
+	}
+	
+	// Otherwise match the stored string(s) and output...
 	strcpy(input, msg->s_name);
 
 	// Make sure we are dealing with valid OSC input by looking for a leading slash
