@@ -8,7 +8,7 @@ max v2;
 #P hidden message 106 87 50 196617 /autodoc;
 #B color 3;
 #P window linecount 3;
-#P hidden newex 0 109 347 196617 jmod.hub $0_ jmod.op% @size 1U-half $1 @module_type video @library_type jitter @num_inputs 2 @num_outputs 1 @description "Perform mathematical operations using two video inputs as the operands";
+#P hidden newex 0 109 347 196617 jmod.hub $0_ jmod.op% @size 1U-half $1 @module_type video @algorithm_type jitter @num_inputs 2 @num_outputs 1 @description "Perform mathematical operations using two video inputs as the operands";
 #P objectname jmod.hub;
 #P user ubumenu 64 29 60 196617 0 1 1 0;
 #X add pass;

@@ -60,7 +60,7 @@ max v2;
 #P message 106 87 43 9109513 autodoc;
 #B color 3;
 #P window linecount 3;
-#P newex 0 109 344 9109513 jmod.hub $0_ jmod.video.template $1 @size 1U-half @module_type video @library_type jitter @num_inputs 1 @num_outputs 1 @description "This module doesn't do much yet.";
+#P newex 0 109 344 9109513 jmod.hub $0_ jmod.video.template $1 @size 1U-half @module_type video @algorithm_type jitter @num_inputs 1 @num_outputs 1 @description "This module doesn't do much yet.";
 #P objectname jmod.hub;
 #P window linecount 1;
 #P comment 182 231 75 9109513 VIDEO OUTPUT;
