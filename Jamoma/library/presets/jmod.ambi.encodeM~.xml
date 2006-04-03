@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.ambi.encodeM~">
+	<slot number = "1">
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "/voices" value = "8" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "/order" value = "3" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[2]">
+			<pattr name = "/order" value = "3." />
+		</patcher>
+		<patcher name = "sub patch">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/1/xyz" value = "-0.000002 10. 0. 1" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/2/xyz" value = "7.071067 7.071068 0. 1" />
+			</patcher>
+			<patcher name = "jmod.parameter[2]">
+				<pattr name = "/3/xyz" value = "10. 0. 0. 1" />
+			</patcher>
+			<patcher name = "jmod.parameter[3]">
+				<pattr name = "/4/xyz" value = "7.071067 -7.071068 0. 1" />
+			</patcher>
+			<patcher name = "jmod.parameter[4]">
+				<pattr name = "/5/xyz" value = "-0.000002 -10. 0. 1" />
+			</patcher>
+			<patcher name = "jmod.parameter[5]">
+				<pattr name = "/6/xyz" value = "-7.07107 -7.071066 0. 1" />
+			</patcher>
+			<patcher name = "jmod.parameter[6]">
+				<pattr name = "/7/xyz" value = "-10. 0.000003 0. 1" />
+			</patcher>
+			<patcher name = "jmod.parameter[7]">
+				<pattr name = "/8/xyz" value = "-7.071065 7.071071 0. 1" />
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+
