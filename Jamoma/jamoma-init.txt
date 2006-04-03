@@ -1,3 +1,2 @@
 max fileformat .alg TEXT;
 max fileformat .mod TEXT;
-max objectfile jmod.s== jmod.sym.compare;
