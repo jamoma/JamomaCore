@@ -134,8 +134,9 @@ function bang()
 				for(i=1; i<NUM_DEFAULT_INLETS_AND_OUTLETS; i++)
 					outlet(0, "script", "delete", "outlet_"+(i+1));			
 
-				// replace the panel with a specific ambisonic panel
-				outlet(0, "script", "replace", "controls", "bpatcher", 345, 2, 163, 16, 0, -190, "jmod.gui.ambi-component.mxt", 0, local_token);				
+				// Replace the panel with a specific ambisonic panel
+				// Position determined according to current position of the "controls" panel.
+				outlet(0, "script", "replace", "controls", "bpatcher", this.patcher.getnamed("controls").rect, 0, -190, "jmod.gui.ambi-component.mxt", 0, local_token);	
 			}
 			else if(attr_module_type == "audio.no_panel"){
 					outlet(0, "script", "delete", "controls");
