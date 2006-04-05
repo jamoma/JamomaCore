@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="jmod.sym.compare"
+	Name="jmod.equals"
 	ProjectGUID="{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	SccProjectName=""
 	SccLocalPath="">
@@ -50,11 +50,11 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
-				OutputFile=".\..\Build_Windows\jmod.sym.compare.mxe"
+				OutputFile=".\..\Build_Windows\jmod.equals.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\jmod.sym.compare.def"
+				ModuleDefinitionFile=".\jmod.equals.def"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\ext_win_release\jmod.sym.compare.pdb"
 				SubSystem="2"
@@ -130,11 +130,11 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies=".\..\..\..\..\c74support\max-includes\MaxAPI.lib .\..\..\..\..\c74support\msp-includes\MaxAudio.lib"
-				OutputFile=".\..\Build_Windows\debug\jmod.sym.compare.mxe"
+				OutputFile=".\..\Build_Windows\debug\jmod.equals.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\jmod.sym.compare.def"
+				ModuleDefinitionFile=".\jmod.equals.def"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="..\ext_win_debug\jmod.sym.compare.pdb"
 				SubSystem="2"
@@ -182,10 +182,10 @@
 				RelativePath="..\..\..\..\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
-				RelativePath=".\jmod.sym.compare.cpp">
+				RelativePath=".\jmod.equals.cpp">
 			</File>
 			<File
-				RelativePath=".\jmod.sym.compare.def">
+				RelativePath=".\jmod.equals.def">
 			</File>
 		</Filter>
 		<Filter
