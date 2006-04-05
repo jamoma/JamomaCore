@@ -1,4 +1,0 @@
-INFORMATION ON JAMOMA EXTERNALS
-
-MACOS X SPECIFIC INFO
-The Xcode projects assume that the 'c74support' folder from the SDK is located in /Library/Application Support.  You must also have a copy of Max installed, as that installs the required frameworks.
