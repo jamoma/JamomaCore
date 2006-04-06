@@ -171,8 +171,12 @@ class tt_audio_base{
 //			value -= x2;
 //			value *= 0.5;
 
-// Re-written here as a one-liner:			
+// Re-written here as a one-liner:		
+#ifdef MAC_VERSION
 			value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
+#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
+			value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
+#endif
 			value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
 			return value;
 		}
