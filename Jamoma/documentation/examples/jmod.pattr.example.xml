@@ -2,239 +2,341 @@
 
 <pattrstorage name = "jmod.pattr.example">
 	<slot number = "1">
-		<patcher name = "jmod.degrade~.mod">
-			<pattr name = "degrade~" value = "1" />
+		<patcher name = "/another_degrade~">
+			<pattr name = "jmod.degrade~" value = "1" />
 			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
-				<patcher name = "jmod.parameter">
-					<pattr name = "mute" value = "1" />
-				</patcher>
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "bypass" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[3]">
-					<pattr name = "gain" value = "-120." />
-				</patcher>
-				<patcher name = "jmod.parameter[5]">
-					<pattr name = "sr" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[6]">
-					<pattr name = "defeat_meters" value = "0" />
+				<patcher name = "controls">
+					<patcher name = "pattr_gain">
+						<pattr name = "/gain/midi" value = "0." />
+					</patcher>
+					<patcher name = "pattr_defeat_meters">
+						<pattr name = "/defeat_meters" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mix">
+						<pattr name = "/mix" value = "100." />
+					</patcher>
+					<patcher name = "pattr_bypass">
+						<pattr name = "/bypass" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mute">
+						<pattr name = "/mute" value = "1" />
+					</patcher>
+					<patcher name = "pattr_sr">
+						<pattr name = "/sr" value = "0" />
+					</patcher>
 				</patcher>
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
-				<pattr name = "bitdepth" value = "4" />
+				<pattr name = "/bitdepth" value = "24" />
 			</patcher>
 			<patcher name = "jmod.parameter">
-				<pattr name = "sr-ratio" value = "0.1" />
+				<pattr name = "/sr_ratio" value = "0.36" />
 			</patcher>
-		</patcher>
-		<patcher name = "jmod.degrade~.mod[1]">
-			<pattr name = "degrade~" value = "1" />
-			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "jmod.hub">
 				<patcher name = "jmod.parameter">
-					<pattr name = "mute" value = "1" />
+					<pattr name = "/disable_ui_updates" value = "0" />
 				</patcher>
 				<patcher name = "jmod.parameter[1]">
-					<pattr name = "bypass" value = "0" />
+					<pattr name = "/set_clock" value = "" />
 				</patcher>
-				<patcher name = "jmod.parameter[3]">
-					<pattr name = "gain" value = "-120." />
-				</patcher>
-				<patcher name = "jmod.parameter[5]">
-					<pattr name = "sr" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[6]">
-					<pattr name = "defeat_meters" value = "0" />
+			</patcher>
+		</patcher>
+		<patcher name = "/degrade~">
+			<pattr name = "jmod.degrade~" value = "1" />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<patcher name = "pattr_gain">
+						<pattr name = "/gain/midi" value = "0." />
+					</patcher>
+					<patcher name = "pattr_defeat_meters">
+						<pattr name = "/defeat_meters" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mix">
+						<pattr name = "/mix" value = "100." />
+					</patcher>
+					<patcher name = "pattr_bypass">
+						<pattr name = "/bypass" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mute">
+						<pattr name = "/mute" value = "1" />
+					</patcher>
+					<patcher name = "pattr_sr">
+						<pattr name = "/sr" value = "0" />
+					</patcher>
 				</patcher>
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
-				<pattr name = "bitdepth" value = "4" />
+				<pattr name = "/bitdepth" value = "24" />
 			</patcher>
 			<patcher name = "jmod.parameter">
-				<pattr name = "sr-ratio" value = "0.1" />
+				<pattr name = "/sr_ratio" value = "0.65" />
+			</patcher>
+			<patcher name = "jmod.hub">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/disable_ui_updates" value = "0" />
+				</patcher>
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/set_clock" value = "" />
+				</patcher>
 			</patcher>
 		</patcher>
-		<patcher name = "jmod.degrade~.mod[2]">
-			<pattr name = "edge%" value = "1" />
-			<patcher name = "jmod.gui.1Uh.v.mxb">
-				<patcher name = "j2-gui.menu.v.mxb">
-					<patcher name = "jmod.parameter.mxb">
-						<pattr name = "preview" value = "0" />
+		<patcher name = "/edge%">
+			<pattr name = "jmod.edge%" value = "1" />
+			<patcher name = "jmod.gui">
+				<patcher name = "pwindow">
+					<patcher name = "pwindow_gate[1]">
+						<pattr name = "/preview" value = "1" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[1]">
-						<pattr name = "bypass" value = "0" />
+					<patcher name = "pwindow_gate[2]">
+						<pattr name = "/bypass" value = "0" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[2]">
-						<pattr name = "freeze" value = "0" />
+					<patcher name = "pwindow_gate[3]">
+						<pattr name = "/freeze" value = "0" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[3]">
-						<pattr name = "mute" value = "0" />
+					<patcher name = "pwindow_gate[4]">
+						<pattr name = "/mute" value = "0" />
 					</patcher>
 				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter.mxb[1]">
-				<pattr name = "algorithm" value = "0" />
+			<patcher name = "jmod.hub">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/disable_ui_updates" value = "0" />
+				</patcher>
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/set_clock" value = "" />
+				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter.mxb">
-				<pattr name = "thresh" value = "0.24" />
+			<patcher name = "jmod.parameter.mxt">
+				<pattr name = "/thresh" value = "0.24" />
+			</patcher>
+			<patcher name = "jmod.parameter.mxt[1]">
+				<pattr name = "/algorithm" value = "Sobel" />
 			</patcher>
 		</patcher>
 	</slot>
 	<slot number = "2">
-		<patcher name = "jmod.degrade~.mod">
-			<pattr name = "degrade~" value = "1" />
+		<patcher name = "/another_degrade~">
+			<pattr name = "jmod.degrade~" value = "1" />
 			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
-				<patcher name = "jmod.parameter">
-					<pattr name = "mute" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "bypass" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[3]">
-					<pattr name = "gain" value = "-9." />
-				</patcher>
-				<patcher name = "jmod.parameter[5]">
-					<pattr name = "sr" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[6]">
-					<pattr name = "defeat_meters" value = "0" />
+				<patcher name = "controls">
+					<patcher name = "pattr_gain">
+						<pattr name = "/gain/midi" value = "144." />
+					</patcher>
+					<patcher name = "pattr_defeat_meters">
+						<pattr name = "/defeat_meters" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mix">
+						<pattr name = "/mix" value = "71." />
+					</patcher>
+					<patcher name = "pattr_bypass">
+						<pattr name = "/bypass" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mute">
+						<pattr name = "/mute" value = "0" />
+					</patcher>
+					<patcher name = "pattr_sr">
+						<pattr name = "/sr" value = "0" />
+					</patcher>
 				</patcher>
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
-				<pattr name = "bitdepth" value = "4" />
+				<pattr name = "/bitdepth" value = "7" />
 			</patcher>
 			<patcher name = "jmod.parameter">
-				<pattr name = "sr-ratio" value = "0.1" />
+				<pattr name = "/sr_ratio" value = "1." />
 			</patcher>
-		</patcher>
-		<patcher name = "jmod.degrade~.mod[1]">
-			<pattr name = "degrade~" value = "1" />
-			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "jmod.hub">
 				<patcher name = "jmod.parameter">
-					<pattr name = "mute" value = "0" />
+					<pattr name = "/disable_ui_updates" value = "0" />
 				</patcher>
 				<patcher name = "jmod.parameter[1]">
-					<pattr name = "bypass" value = "1" />
+					<pattr name = "/set_clock" value = "" />
 				</patcher>
-				<patcher name = "jmod.parameter[3]">
-					<pattr name = "gain" value = "-2.4" />
-				</patcher>
-				<patcher name = "jmod.parameter[5]">
-					<pattr name = "sr" value = "-1" />
-				</patcher>
-				<patcher name = "jmod.parameter[6]">
-					<pattr name = "defeat_meters" value = "0" />
+			</patcher>
+		</patcher>
+		<patcher name = "/degrade~">
+			<pattr name = "jmod.degrade~" value = "1" />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<patcher name = "pattr_gain">
+						<pattr name = "/gain/midi" value = "130." />
+					</patcher>
+					<patcher name = "pattr_defeat_meters">
+						<pattr name = "/defeat_meters" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mix">
+						<pattr name = "/mix" value = "100." />
+					</patcher>
+					<patcher name = "pattr_bypass">
+						<pattr name = "/bypass" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mute">
+						<pattr name = "/mute" value = "0" />
+					</patcher>
+					<patcher name = "pattr_sr">
+						<pattr name = "/sr" value = "0" />
+					</patcher>
 				</patcher>
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
-				<pattr name = "bitdepth" value = "4" />
+				<pattr name = "/bitdepth" value = "12" />
 			</patcher>
 			<patcher name = "jmod.parameter">
-				<pattr name = "sr-ratio" value = "0.1" />
+				<pattr name = "/sr_ratio" value = "0.05" />
+			</patcher>
+			<patcher name = "jmod.hub">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/disable_ui_updates" value = "0" />
+				</patcher>
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/set_clock" value = "" />
+				</patcher>
 			</patcher>
 		</patcher>
-		<patcher name = "jmod.degrade~.mod[2]">
-			<pattr name = "edge%" value = "1" />
-			<patcher name = "jmod.gui.1Uh.v.mxb">
-				<patcher name = "j2-gui.menu.v.mxb">
-					<patcher name = "jmod.parameter.mxb">
-						<pattr name = "preview" value = "0" />
+		<patcher name = "/edge%">
+			<pattr name = "jmod.edge%" value = "1" />
+			<patcher name = "jmod.gui">
+				<patcher name = "pwindow">
+					<patcher name = "pwindow_gate[1]">
+						<pattr name = "/preview" value = "1" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[1]">
-						<pattr name = "bypass" value = "0" />
+					<patcher name = "pwindow_gate[2]">
+						<pattr name = "/bypass" value = "0" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[2]">
-						<pattr name = "freeze" value = "0" />
+					<patcher name = "pwindow_gate[3]">
+						<pattr name = "/freeze" value = "0" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[3]">
-						<pattr name = "mute" value = "0" />
+					<patcher name = "pwindow_gate[4]">
+						<pattr name = "/mute" value = "0" />
 					</patcher>
 				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter.mxb[1]">
-				<pattr name = "algorithm" value = "1" />
+			<patcher name = "jmod.hub">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/disable_ui_updates" value = "0" />
+				</patcher>
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/set_clock" value = "" />
+				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter.mxb">
-				<pattr name = "thresh" value = "0.78" />
+			<patcher name = "jmod.parameter.mxt">
+				<pattr name = "/thresh" value = "1.66" />
+			</patcher>
+			<patcher name = "jmod.parameter.mxt[1]">
+				<pattr name = "/algorithm" value = "Robcross" />
 			</patcher>
 		</patcher>
 	</slot>
 	<slot number = "3">
-		<patcher name = "jmod.degrade~.mod">
-			<pattr name = "degrade~" value = "1" />
+		<patcher name = "/another_degrade~">
+			<pattr name = "jmod.degrade~" value = "1" />
 			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
-				<patcher name = "jmod.parameter">
-					<pattr name = "mute" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "bypass" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[3]">
-					<pattr name = "gain" value = "-9." />
-				</patcher>
-				<patcher name = "jmod.parameter[5]">
-					<pattr name = "sr" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[6]">
-					<pattr name = "defeat_meters" value = "0" />
+				<patcher name = "controls">
+					<patcher name = "pattr_gain">
+						<pattr name = "/gain/midi" value = "95." />
+					</patcher>
+					<patcher name = "pattr_defeat_meters">
+						<pattr name = "/defeat_meters" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mix">
+						<pattr name = "/mix" value = "100." />
+					</patcher>
+					<patcher name = "pattr_bypass">
+						<pattr name = "/bypass" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mute">
+						<pattr name = "/mute" value = "0" />
+					</patcher>
+					<patcher name = "pattr_sr">
+						<pattr name = "/sr" value = "0" />
+					</patcher>
 				</patcher>
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
-				<pattr name = "bitdepth" value = "24" />
+				<pattr name = "/bitdepth" value = "24" />
 			</patcher>
 			<patcher name = "jmod.parameter">
-				<pattr name = "sr-ratio" value = "1." />
+				<pattr name = "/sr_ratio" value = "0.64" />
 			</patcher>
-		</patcher>
-		<patcher name = "jmod.degrade~.mod[1]">
-			<pattr name = "degrade~" value = "1" />
-			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "jmod.hub">
 				<patcher name = "jmod.parameter">
-					<pattr name = "mute" value = "0" />
+					<pattr name = "/disable_ui_updates" value = "0" />
 				</patcher>
 				<patcher name = "jmod.parameter[1]">
-					<pattr name = "bypass" value = "0" />
+					<pattr name = "/set_clock" value = "" />
 				</patcher>
-				<patcher name = "jmod.parameter[3]">
-					<pattr name = "gain" value = "-2.4" />
-				</patcher>
-				<patcher name = "jmod.parameter[5]">
-					<pattr name = "sr" value = "0" />
-				</patcher>
-				<patcher name = "jmod.parameter[6]">
-					<pattr name = "defeat_meters" value = "0" />
+			</patcher>
+		</patcher>
+		<patcher name = "/degrade~">
+			<pattr name = "jmod.degrade~" value = "1" />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<patcher name = "pattr_gain">
+						<pattr name = "/gain/midi" value = "83." />
+					</patcher>
+					<patcher name = "pattr_defeat_meters">
+						<pattr name = "/defeat_meters" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mix">
+						<pattr name = "/mix" value = "0." />
+					</patcher>
+					<patcher name = "pattr_bypass">
+						<pattr name = "/bypass" value = "0" />
+					</patcher>
+					<patcher name = "pattr_mute">
+						<pattr name = "/mute" value = "0" />
+					</patcher>
+					<patcher name = "pattr_sr">
+						<pattr name = "/sr" value = "0" />
+					</patcher>
 				</patcher>
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
-				<pattr name = "bitdepth" value = "1" />
+				<pattr name = "/bitdepth" value = "2" />
 			</patcher>
 			<patcher name = "jmod.parameter">
-				<pattr name = "sr-ratio" value = "0.46" />
+				<pattr name = "/sr_ratio" value = "1." />
+			</patcher>
+			<patcher name = "jmod.hub">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/disable_ui_updates" value = "0" />
+				</patcher>
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/set_clock" value = "" />
+				</patcher>
 			</patcher>
 		</patcher>
-		<patcher name = "jmod.degrade~.mod[2]">
-			<pattr name = "edge%" value = "1" />
-			<patcher name = "jmod.gui.1Uh.v.mxb">
-				<patcher name = "j2-gui.menu.v.mxb">
-					<patcher name = "jmod.parameter.mxb">
-						<pattr name = "preview" value = "0" />
+		<patcher name = "/edge%">
+			<pattr name = "jmod.edge%" value = "1" />
+			<patcher name = "jmod.gui">
+				<patcher name = "pwindow">
+					<patcher name = "pwindow_gate[1]">
+						<pattr name = "/preview" value = "0" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[1]">
-						<pattr name = "bypass" value = "0" />
+					<patcher name = "pwindow_gate[2]">
+						<pattr name = "/bypass" value = "0" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[2]">
-						<pattr name = "freeze" value = "0" />
+					<patcher name = "pwindow_gate[3]">
+						<pattr name = "/freeze" value = "1" />
 					</patcher>
-					<patcher name = "jmod.parameter.mxb[3]">
-						<pattr name = "mute" value = "0" />
+					<patcher name = "pwindow_gate[4]">
+						<pattr name = "/mute" value = "0" />
 					</patcher>
 				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter.mxb[1]">
-				<pattr name = "algorithm" value = "2" />
+			<patcher name = "jmod.hub">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/disable_ui_updates" value = "0" />
+				</patcher>
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/set_clock" value = "" />
+				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter.mxb">
-				<pattr name = "thresh" value = "0.53" />
+			<patcher name = "jmod.parameter.mxt">
+				<pattr name = "/thresh" value = "0.57" />
+			</patcher>
+			<patcher name = "jmod.parameter.mxt[1]">
+				<pattr name = "/algorithm" value = "Prewitt" />
 			</patcher>
 		</patcher>
 	</slot>

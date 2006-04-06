@@ -1,1 +1,1 @@
-link, /motion/motion/quantity * -> /echo/right;
+link, /motion/motion/quantity * -> /echo/right;
