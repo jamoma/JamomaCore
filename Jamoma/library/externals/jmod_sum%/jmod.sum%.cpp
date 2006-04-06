@@ -3,7 +3,6 @@
 	Based on the jit.iter source code by Joshua Kit Clayton and © 2002 by Cycling'74 
 */
 
-#include <carbon.h>
 #include "ext.h"			// Required for all Max External Objects
 #include "ext_strings.h"	// Used for the assistance strings
 #include "ext_obex.h"		// Object extensions for Max 4.5 (Attributes)
