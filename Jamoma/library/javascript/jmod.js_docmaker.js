@@ -396,7 +396,46 @@ function bang()
 	outlet(1, "cr");
 
 	outlet(1, "cr");
+
+
+
+	///////////////////////////////////////////////////
+	//
+	// Returned messages
+	//
+	///////////////////////////////////////////////////
+
+	// Heading 1
 	
+	outlet(1, "tab");
+	outlet(1, "<h3>" + "Return" + "</h3>");
+	outlet(1, "cr");
+	
+	outlet(1, "cr");
+
+	table_heading();
+	
+	// Only interested in returned messages this time
+	instruction_kind = "return";
+	
+	// Request all information by dumping the coll
+	// Information is returned as messages according to the functions below
+	// Content is added and formatted by the various functions	
+	outlet(0, "dump");
+	
+	// End of table
+	
+	outlet(1, "tab");
+	outlet(1, "</table>");
+	outlet(1, "cr");
+
+	outlet(1, "cr");
+	
+	outlet(1, "tab");
+	outlet(1, "<p>&nbsp;</p>");
+	outlet(1, "cr");
+
+	outlet(1, "cr");	
 	
 	
 	// Some final info on Jamoma
@@ -495,7 +534,7 @@ function table_heading()
 	outlet(1, "</td>");	
 	outlet(1, "cr");
 
-	// Range
+	// Ramp enabled.	
 	outlet(1, "tab");
 	outlet(1, "tab");
 	outlet(1, "tab");
@@ -671,7 +710,9 @@ function ramp(i)
 		outlet(1, "tab");
 		outlet(1, "tab");
 		outlet(1, "<td class=\"instructionRamp\">");
-		if (i==0)
+		if (instruction_kind=="return")
+			outlet(1, "N/A");
+		else if (i==0)
 			outlet(1, "no");
 		else
 			outlet(1, "yes");
