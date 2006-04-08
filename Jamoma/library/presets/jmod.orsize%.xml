@@ -5,7 +5,7 @@
 		<patcher name = "jmod.gui">
 			<patcher name = "pwindow">
 				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/preview" value = "0" />
+					<pattr name = "/preview" value = "1" />
 				</patcher>
 				<patcher name = "pwindow_gate[2]">
 					<pattr name = "/bypass" value = "0" />
@@ -30,7 +30,7 @@
 			<pattr name = "/zoom" value = "1." />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "/flip1" value = "0" />
+			<pattr name = "/rotate1" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[2]">
 			<pattr name = "/mirror" value = "0" />
@@ -39,7 +39,7 @@
 			<pattr name = "/offset_x" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[4]">
-			<pattr name = "/flip2" value = "0" />
+			<pattr name = "/rotate2" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[5]">
 			<pattr name = "/offset_y" value = "0" />
