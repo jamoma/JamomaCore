@@ -22,6 +22,8 @@ var this_module_description;
 var instruction_kind;			// what kind of instruction are we currelntly looking for?
 var instruction_filter;			// is this the right kind of instruction (1/0)
 
+var outfile;					// the output file for the generated HTML
+
 
 /*******************************************************************
 *	SETUP
@@ -472,10 +474,13 @@ function bang()
 	
 	// Would be handy if it autosaved in the right position with correct name,
 	// but for the time being we'll have to live with this solution
-	
-	outlet(1, "write");
+	if(outfile){
+		outlet(1, "write", outfile);
+	}
+	else{
+		outlet(1, "write");
+	}
 }
-
 
 
 /*******************************************************************
@@ -864,6 +869,19 @@ function module_description()
 	this_module_description = arrayfromargs(arguments);
 }
 
+
+
+/*******************************************************************
+*
+*	function setfile()
+*
+*	Set the file path to which the HTML will be written
+*	
+*******************************************************************/
+function setfile(s)
+{
+	outfile = s;
+}
 
 
 
