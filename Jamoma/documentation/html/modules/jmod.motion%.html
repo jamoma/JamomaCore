@@ -49,14 +49,22 @@
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionRepetitions"> no </td>
 			<td class="instructionDescription"> Bypasses the video processing algorithm in the module - allowing unaltered video through. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /color </td>
+			<td class="instructionType"> toggle </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Color or greyscale </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /disable_ui_updates </td>
 			<td class="instructionType"> toggle </td>
-			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> none </td>
+			<td class="instructionRange"> default </td>			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
@@ -76,7 +84,7 @@
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionRepetitions"> no </td>
 			<td class="instructionDescription"> Freezes the last frame of output from the module's processing algorithm. </td>
 		</tr>
 		<tr>
@@ -85,7 +93,7 @@
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionRepetitions"> no </td>
 			<td class="instructionDescription"> Mutes (turns off) the module's algorithm - generating no output. </td>
 		</tr>
 		<tr>
@@ -162,7 +170,7 @@
 			<td class="instructionName"> /direct </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Send messages directly to the jitter external embedded in the module. </td>
@@ -171,7 +179,7 @@
 			<td class="instructionName"> /genframe </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Forces a frame of output to be sent. </td>
@@ -180,16 +188,24 @@
 			<td class="instructionName"> /get_parameter_names </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Returns a dump of symbols out the feedback outlet with the names of parameters accessible in this module. </td>
 		</tr>
 		<tr>
+	<td class="instructionName"> /getmodulesize </td>			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Get size of module. </td>
+		</tr>
+		<tr>
 			<td class="instructionName"> /help </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open the online html reference for this module. </td>
@@ -198,7 +214,7 @@
 			<td class="instructionName"> /load_settings </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
@@ -207,7 +223,7 @@
 			<td class="instructionName"> /preset_recall </td>
 			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
@@ -216,7 +232,7 @@
 			<td class="instructionName"> /restore_defaults </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
@@ -225,7 +241,7 @@
 			<td class="instructionName"> /save_settings </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
@@ -234,10 +250,62 @@
 			<td class="instructionName"> /view_internals </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		</tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3>Return</h3>
+
+	<table>
+		<tr class="tableHeading2">
+			<td> Name </td>
+			<td> Type </td>
+			<td> Range </td>
+			<td> Clipmode </td>
+			<td> Ramp Enabled </td>
+			<td> Repetitions </td>
+			<td> Description </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /modulesize </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> N/A </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Size of module. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /motion/quantity </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 1.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> N/A </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> The amount of motion in the frame in a range of 0. to 1. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /motion/x </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 1.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> N/A </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> The center of gravity for the x-axis of the motion in the frame in a range of 0. to 1. (zero is left - one is right). </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /motion/y </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> 0.000 1.000 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> N/A </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> The center of gravity for the y-axis of the motion in the frame in a range of 0. to 1. (zero is left - one is right). </td>
 		</tr>
 	</table>
 

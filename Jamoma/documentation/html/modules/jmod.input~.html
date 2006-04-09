@@ -16,7 +16,7 @@
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 
 	</div>	<h3>Configuration</h3>
-	<p> Module Type: <code> audio </code> <br>
+	<p> Module Type: <code> audio.no_panel </code> <br>
 	Interface Size: <code> 2U-half </code> </p>
 
 	<p> Number of signal inlets: <code> 0 </code> <br>
@@ -153,7 +153,7 @@
 			<td class="instructionName"> /direct </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> container for various messages sent directly to the sfplay~ object. Refer to the MSP documentation for further details. </td>
@@ -162,7 +162,7 @@
 			<td class="instructionName"> /dsp_status </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open DSP Status window. </td>
@@ -190,8 +190,7 @@
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> N/A </td>
 			<td class="instructionClipmode"> none </td>
-			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionRamp"> no </td>			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Decrease master gain MIDI value by one. </td>
 		</tr>
 		<tr>
@@ -252,43 +251,52 @@
 			<td class="instructionName"> /get_parameter_names </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> returns a dump of symbols out the feedback outlet with the names of parameters accessible in this module </td>
+			<td class="instructionDescription"> Returns a dump of symbols out the feedback outlet with the names of parameters accessible in this module. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /getmodulesize </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Get size of module. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /help </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> open the online html reference for this module </td>
+			<td class="instructionDescription"> Open the online html reference for this module. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /load_settings </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open </td>
+			<td class="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /preset_recall </td>
 			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu </td>
+			<td class="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /restore_defaults </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
@@ -297,16 +305,16 @@
 			<td class="instructionName"> /save_settings </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> write an xml-preset file to disk.  An optional argument defines the file to open </td>
+			<td class="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /sf_open </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file. </td>
@@ -315,10 +323,35 @@
 			<td class="instructionName"> /view_internals </td>
 			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> both </td>
+			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning </td>
+			<td class="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		</tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3>Return</h3>
+
+	<table>
+		<tr class="tableHeading2">
+			<td> Name </td>
+			<td> Type </td>
+			<td> Range </td>
+			<td> Clipmode </td>
+			<td> Ramp Enabled </td>
+			<td> Repetitions </td>
+			<td> Description </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /modulesize </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> N/A </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Size of module. </td>
 		</tr>
 	</table>
 
