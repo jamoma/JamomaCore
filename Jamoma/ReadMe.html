@@ -20,46 +20,129 @@
 
 
 
-	<h3>Installing</h3>
-		<p><b>1.</b> Place the <code>Jamoma</code> folder in your Max searchpath (such as in the Cycling '74 folder).</p>
-		<p><b>2a.</b> If you are using <em>Windows</em>, move the <code>jamoma-init.txt</code> 
-			file into your <code>init</code>folder (inside of the Cycling '74 folder).</p>
-		<p><b>2b.</b> If you are using a <em>Mac</em> and you checked Jamoma out using SVN (rather than 
-			downloading a release from the website), you will need to unzip (double-click) the 
-			<code>build_mac.zip</code> archive located in the <code>Jamoma/library/externals</code> folder.</p>
-		<p><b>3.</b> Move the <code>jmod.meter~</code> external (in /library/externals/build_mac or 
-			/library/externals/build_win depending on your platform) into your <code>max-startup</code> folder 
-			(inside of the Cycling '74 folder)</p>
-		<p><b>4.</b> Check out the Jamoma <a href="documentation/html/index.html">documentation</a>.</p>
-		<br/>
-		<p>Optional customization you may want to do for your install might include the following:</p>
-		<p><b>A.</b> The overview patch (<code>Jamoma/documentation/jamoma-overview.mxt</code>) may be 
-			placed in the max-startup folder or in Max's patches/extras folder.</p>
-		<p><b>B.</b> The templates (patches located in <code>Jamoma/documentation/templates</code>) are most effective when placed in Max's patches/templates folder.</p>
-	<p>
+<h3>Installing</h3>
+
+<ol>
+	<li>
+		Place the <code>Jamoma</code> folder in your Max searchpath
+		(such as in the Cycling '74 folder).
+	</li>
+	<li>
+		If you are using Windows:
+		<ul>
+			<lI>
+				Move the <code>jamoma-init.txt</code> 
+				file into your <code>init</code> folder (inside of the
+				Cycling '74	folder).
+			</li>
+		</ul>
+	</li>
+	<li>
+		If you are using Mac:
+		<ul>
+			<li>
+				If you checked Jamoma out using <a 
+				href="http://sourceforge.net/svn/?group_id=78108">SVN</A> 
+				(rather than downloading a release from the website):
+				<ul>
+					<li>
+						Unzip (double-click) the 
+						<code>build_mac.zip</code> archive located in the
+						<code>Jamoma/library/externals</code> folder.
+					</li>
+					<li>
+						Unzip any archives located inside the various subfolders
+						of the <code>Jamoma/library/externals_3rd_party</code>
+						folder.
+					</li>
+				</ul>
+			</li>	
+			<li>
+				If you downloaded a release from the <a 
+				href="http://www.jamoma.org">website</A>, ignore the steps
+				above.
+			</li>
+		</ul>
+	</li>	
+	<li>
+		Move the <code>jmod.meter~</code> external (in 	
+		<code>/library/externals/build_mac</code> or 
+		<code>/library/externals/build_win</code> depending on your platform)
+		into your <code>max-startup</code> folder (inside of the 
+		Cycling '74 folder)
+	</li>
+	<li>
+		Check out the Jamoma <a 
+		href="documentation/html/index.html">documentation</a>.
+	</li>
+</ol>
+
+<p>Optional customization you may want to do for your install might include the following:</p>
+
+<ol>
+	<li>
+		The overview patch 
+		(<code>Jamoma/documentation/jamoma-overview.mxt</code>) may be 
+		copied to the max-startup folder or in Max's patches/extras folder.
+	</li>
+	<lI>
+		The templates (patches located in 	
+		<code>Jamoma/documentation/templates</code>) are most effective when
+		copied to Max's patches/templates folder.
+	</li>
+</ol>
+
+<p>The Jamoma distribution depend on certain 3rd party externals. For simplicity we have chosen to include these externals as part of the distribution. If you already have installed some or all of these externals, make sure that that the Jamoma distribution do not introduce older versions of the externals than you have already. All such externals can be found in the <code>Jamoma/library/externals_3rd_party</code> folder.</P>
 
 
-<p>&nbsp;</p>
 <h3>  Requirements</h3>
-<p> Jamoma requires <a href="http://www.cycling74.com/">Cycling '74's</a> Max, version 4.5.7 or newer (future versions may require Max 4.6).</p>
-<p>Audio modules require Cycling '74's MSP.</p>
-<p>Video modules require Cycling '74's Jitter (version 1.5.2 or higher).</p>
-<p>Ambisonic modules require both Cycling '74's MSP and Jitter.</p>
-<p>&nbsp;</p>
+
+<ul>
+	<li>
+		Jamoma requires <a href="http://www.cycling74.com/">Cycling '74's</a> 
+		Max, version 4.5.7 or newer (future versions may require Max 4.6).
+	</li>
+	<li>
+		Audio modules require Cycling '74's MSP.
+	</li>
+	<li>
+		Video modules require Cycling '74's Jitter (version 1.5.2 or 
+		higher).
+	</li>
+	<li>
+		Some ambisonic modules require both Cycling '74's MSP and Jitter.
+	</li>
+</ul>
+
+
 <h3>Examples</h3>
+
 <p> To get started, there is an examples folder in the Jamoma/documentation folder. Trond Lossius has also created some excellent <a href="documentation/html/tutorials/tutorial_01.html">tutorials</a>.  Also, if you are interested in creating your own modules, be sure to check out the <a href="documentation/html/interface_guidelines.html">JIG (Jamoma Interface Guidelines)</a> which is in the documentation folder.</p>
-<p>&nbsp; </p>
+
+
 <h3>Licensing</h3>
+
 <p> Jamoma is open source software. It is licensed under the terms of the GNU LGPL. Please see the file &quot;<a href="GNU-LGPL.txt">GNU-LGPL.txt</a>&quot; in the Jamoma folder to review the terms of this license.</p>
-<p>&nbsp; </p>
+
+
 <h3>Interested in Developing or Contributing to Jamoma?</h3>
+
 <p> If you are interested in developing/contributing to Jamoma, contact us via the sourceforge project page. You can access this page via the following url:</p>
 <p> <a href="http://sourceforge.net/projects/jamoma/">http://sourceforge.net/projects/jamoma/</a></p>
-<p>&nbsp; </p>
+
+
 <h3>Known Issues </h3>
+
 <p> The following are the problems of which we are currently aware:</p>
 <ul>
-	<li> When a patch is first drawn, the modules may appear block.  Refreshing the screen by sending the<span class="instructionName"> ;max refresh </span>message or unlocking the patch will resolve the problem.</li>
+	<li>
+		When a patch is first drawn, the modules may appear block.  Refreshing 	
+		the screen by sending the<span class="instructionName"> ;max 
+		refresh</span> message or unlocking the patch will resolve the 
+		problem.
+	</li>
 </ul>
+
 </body>
+
 </html>
