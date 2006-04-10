@@ -2,15 +2,15 @@
 
 <pattrstorage name = "jmod.ambi.decode~">
 	<slot number = "1">
-		<patcher name = "jmod.parameter[1]">
-			<pattr name = "/order" value = "3" />
-		</patcher>
 		<patcher name = "jmod.parameter">
 			<pattr name = "/voices" value = "8" />
 		</patcher>
+		<patcher name = "jmod.parameter[1]">
+			<pattr name = "/order" value = "3" />
+		</patcher>
 		<patcher name = "jmod.hub">
 			<patcher name = "jmod.parameter">
-				<pattr name = "/disable_ui_updates" value = "0" />
+				<pattr name = "/disable_ui_updates" value = "1" />
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
 				<pattr name = "/set_clock" value = "" />
@@ -28,19 +28,92 @@
 		<patcher name = "jmod.parameter[5]">
 			<pattr name = "/third" value = "0.079101" />
 		</patcher>
+		<patcher name = "decode~ inspector">
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_1" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[1]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_2" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[2]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_3" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[3]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_4" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[4]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_5" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[5]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_6" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[6]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_7" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[7]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_8" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[15]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_9" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[14]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_10" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[13]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_11" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[12]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_12" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[11]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_13" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[10]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_14" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[9]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_15" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.ambi.decode.coeffs1.mxt[8]">
+				<patcher name = "parameter">
+					<pattr name = "/setcoefs/voice_16" value = "0.8232 1. 1. 1. 0.4423 0.4423 0.4423 0.4423 0.4423 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791 0.0791" />
+				</patcher>
+			</patcher>
+		</patcher>
 		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
 			<patcher name = "controls">
-				<patcher name = "pattr_sr">
-					<pattr name = "/sr" value = "0" />
-				</patcher>
 				<patcher name = "pattr_mute">
 					<pattr name = "/mute" value = "0" />
-				</patcher>
-				<patcher name = "pattr_bypass">
-					<pattr name = "/bypass" value = "0" />
-				</patcher>
-				<patcher name = "pattr_mix">
-					<pattr name = "/mix" value = "0." />
 				</patcher>
 				<patcher name = "pattr_defeat_meters">
 					<pattr name = "/defeat_meters" value = "0" />
