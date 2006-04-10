@@ -10,7 +10,7 @@
 		</patcher>
 		<patcher name = "jmod.hub">
 			<patcher name = "jmod.parameter">
-				<pattr name = "/disable_ui_updates" value = "1" />
+				<pattr name = "/disable_ui_updates" value = "0" />
 			</patcher>
 			<patcher name = "jmod.parameter[1]">
 				<pattr name = "/set_clock" value = "" />
