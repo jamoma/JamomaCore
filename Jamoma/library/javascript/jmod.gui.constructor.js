@@ -307,7 +307,7 @@ inspector_button.local = 1;
 // Method: INT - input from the menu!
 function msg_int(value)
 {
-	if(attr_module_type == "audio"){
+	if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel") || (attr_module_type == "audio.ambisonic")){
 		switch(value){
 			case 0: 
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
