@@ -3,7 +3,7 @@
 <pattrstorage name = "jmod.ambi.encodeM~">
 	<slot number = "1">
 		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "/voices" value = "8" />
+			<pattr name = "/voices" value = "3" />
 		</patcher>
 		<patcher name = "jmod.hub">
 			<patcher name = "jmod.parameter">
