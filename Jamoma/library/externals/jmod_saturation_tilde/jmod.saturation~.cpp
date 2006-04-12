@@ -27,6 +27,7 @@ typedef struct _saturation{
     float			attr_overdrive;			// ATTRIBUTE: amount of overdrive
     long			attr_bypass_dcblocker;
     long			attr_bypass;
+	long			attr_mode;
 } t_saturation;
 
 // Prototypes for methods: need a method for each incoming message type:
@@ -38,6 +39,7 @@ void saturation_assist(t_saturation *x, void *b, long msg, long arg, char *dst);
 t_max_err saturation_setsaturation(t_saturation *x, void *attr, long argc, t_atom *argv);
 t_max_err saturation_setbypass_dcblocker(t_saturation *x, void *attr, long argc, t_atom *argv);
 t_max_err saturation_setbypass_overdrive(t_saturation *x, void *attr, long argc, t_atom *argv);
+t_max_err saturation_setmode(t_saturation *x, void *attr, long argc, t_atom *argv);
 void set_bypass(t_saturation *x);
 void saturation_clear(t_saturation *x);
 void saturation_free(t_saturation *x);
@@ -92,6 +94,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0L, (method)0L, calcoffset(t_saturation, attr_bypass));
 	class_addattr(c, attr);
 
+	// ATTRIBUTE: mode (int)
+	attr = attr_offset_new("mode", ps_long, attrflags,
+		(method)0L, (method)saturation_setmode, calcoffset(t_saturation, attr_mode));
+	class_addattr(c, attr);
+
 	// Setup our class to work with MSP
 	class_dspinit(c);
 
@@ -132,6 +139,8 @@ void *saturation_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_overdrive = 1.;									// Defaults
 	    x->attr_bypass = 0;
 		x->attr_bypass_dcblocker = 0;
+		x->attr_mode = 1;
+		x->overdrive->set_attr(tt_overdrive::k_mode, 1);
 
 		attr_args_process(x,argc,argv);							// handle attribute args					
 	}
@@ -193,6 +202,17 @@ t_max_err saturation_setbypass_dcblocker(t_saturation *x, void *attr, long argc,
 {
 	x->attr_bypass_dcblocker = atom_getlong(argv);
 	x->overdrive->set_attr(tt_overdrive::k_defeat_dcblocker, x->attr_bypass_dcblocker);
+	
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
+
+// ATTRIBUTE: Mode that the overdrive uses for calculation
+t_max_err saturation_setmode(t_saturation *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_mode = atom_getlong(argv);
+	x->overdrive->set_attr(tt_overdrive::k_mode, x->attr_mode);
 	
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
