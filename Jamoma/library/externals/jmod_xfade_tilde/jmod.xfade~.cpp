@@ -34,7 +34,7 @@ t_int *fade_perform1(t_int *w);										// An MSP Perform (signal) Method
 t_int *fade_perform2(t_int *w);										// An MSP Perform (signal) Method
 void fade_dsp(t_fade *x, t_signal **sp, short *count);				// DSP Method
 void fade_assist(t_fade *x, void *b, long m, long a, char *s);		// Assistance Method
-void fade_float(t_fade *x, float value );							// Float Method
+void fade_float(t_fade *x, double value );							// Float Method
 void fade_free(t_fade *x);
 t_max_err attr_set_position(t_fade *x, void *attr, long argc, t_atom *argv);
 t_max_err attr_set_shape(t_fade *x, void *attr, long argc, t_atom *argv);
@@ -169,7 +169,7 @@ void fade_assist(t_fade *x, void *b, long msg, long arg, char *dst)
 
 
 // Float Method
-void fade_float(t_fade *x, float value)
+void fade_float(t_fade *x, double value)
 {
 	x->attr_position = value;
 	x->xfade->set_attr(tt_crossfade::k_position, value);
