@@ -8,6 +8,13 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #define MAX_LIST_SIZE 256
 
+enum type{
+	msg_int,
+	msg_float,
+	msg_sym,
+	msg_list
+};
+
 // Data Structure for this object
 typedef struct _change			// Data Structure for this object
 {
@@ -22,6 +29,7 @@ typedef struct _change			// Data Structure for this object
 	t_atom			last_input_list[MAX_LIST_SIZE];	// 
 	long			last_input_int;
 	float			last_input_float;
+	type			last_input_type;
 } t_change;
 
 // Prototypes for methods
@@ -114,23 +122,25 @@ void change_assist(t_change *x, void *b, long msg, long arg, char *dst)
 void change_int(t_change *x, long value)
 {
 	if(x->inletnum == 0){
-		if(value != x->last_input_int)
+		if((value != x->last_input_int) || (x->last_input_type != msg_int))
 			outlet_int(x->change_Out[0], value);
 		else
 			outlet_bang(x->change_Out[1]);
 	}
-	x->last_input_int = value;		
+	x->last_input_int = value;
+	x->last_input_type = msg_int;
 }
 
 void change_float(t_change *x, double value)
 {
 	if(x->inletnum == 0){
-		if(value != x->last_input_float)
+		if((value != x->last_input_float) || (x->last_input_type != msg_float))
 			outlet_float(x->change_Out[0], value);
 		else
 			outlet_bang(x->change_Out[1]);
 	}
-	x->last_input_float = value;		
+	x->last_input_float = value;
+	x->last_input_type = msg_float;
 }
 
 
@@ -143,7 +153,7 @@ void change_anything(t_change *x, t_symbol *msg, short argc, t_atom *argv)
 	
 	if(argc){		// list input
 		if(x->inletnum == 0){
-			if(msg == x->last_input_symbol){	// if the symbol is the same, check the args...
+			if((msg == x->last_input_symbol) || (x->last_input_type != msg_list)){	// if the symbol is the same, check the args...
 				for(i=0; i<argc; i++){
 					match = atom_compare(&(x->last_input_list[i]), argv+i);			
 					if(!match) mismatch = true;
@@ -158,18 +168,20 @@ void change_anything(t_change *x, t_symbol *msg, short argc, t_atom *argv)
 				outlet_bang(x->change_Out[1]);		
 		}		
 		x->last_input_symbol = msg;						// Make copies of the input for the next time
+		x->last_input_type = msg_list;
 		for(i=0;i<argc;i++)
 			atom_copy(&(x->last_input_list[i]), argv+i);
 	}
 	
 	else{									// symbol input
 		if(x->inletnum == 0){
-			if((msg != x->last_input_symbol) || (argc != x->last_argc) || (argv != x->last_argv))
+			if((msg != x->last_input_symbol) || (argc != x->last_argc) || (argv != x->last_argv) || (x->last_input_type != msg_sym))
 				outlet_anything(x->change_Out[0], msg, argc, argv);		// output the result
 			else
 				outlet_bang(x->change_Out[1]);	
 		}
 		x->last_input_symbol = msg;
+		x->last_input_type = msg_sym;
 		x->last_argc = argc;
 		x->last_argv = argv;	
 	}
