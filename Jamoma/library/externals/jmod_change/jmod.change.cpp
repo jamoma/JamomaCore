@@ -122,7 +122,9 @@ void change_assist(t_change *x, void *b, long msg, long arg, char *dst)
 // INPUT: INT/FLOAT
 void change_int(t_change *x, long value)
 {
-	if(x->inletnum == 0){
+	long	inlet = proxy_getinlet((t_object *)x);
+
+	if(inlet == 0){
 		if((value != x->last_input_int) || (x->last_input_type != msg_int))
 			outlet_int(x->change_Out[0], value);
 		else
@@ -134,7 +136,9 @@ void change_int(t_change *x, long value)
 
 void change_float(t_change *x, double value)
 {
-	if(x->inletnum == 0){
+	long	inlet = proxy_getinlet((t_object *)x);
+
+	if(inlet == 0){
 		if((value != x->last_input_float) || (x->last_input_type != msg_float))
 			outlet_float(x->change_Out[0], value);
 		else
@@ -151,8 +155,9 @@ void change_anything(t_change *x, t_symbol *msg, short argc, t_atom *argv)
 	short 	i;
 	bool	match = false;
 	bool	mismatch = false;
+	long	inlet = proxy_getinlet((t_object *)x);
 											
-	if(x->inletnum == 0){
+	if(inlet == 0){
 		if (x->last_input_type != msg_list)		// didn't receive a list/symbol last time
 			mismatch = true;
 		else if (msg != x->last_input_symbol)	// last list/symbol received didn't start with the same symbol
@@ -176,28 +181,6 @@ void change_anything(t_change *x, t_symbol *msg, short argc, t_atom *argv)
 	x->last_argc = argc;
 	for(i=0;i<argc;i++)
 		atom_copy(&(x->last_input_list[i]), argv+i);
-}
-
-
-
-
-// Utility function for getting the value of a Max atom
-float atom_getvalue(long index, short argc, t_atom *argv)
-{
-	float	val = 0;
-	if(argc && argv){
-		if(index < argc){
-			switch(argv[index].a_type){
-				case A_LONG:
-					val = atom_getlong(argv+index);
-					break;
-				case A_FLOAT:
-					val = atom_getfloat(argv+index);
-					break;
-			}
-		}	
-	}
-	return val;
 }
 
 
