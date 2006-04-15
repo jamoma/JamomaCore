@@ -9,10 +9,10 @@
 #define MAX_LIST_SIZE 256
 
 enum type{
+	msg_new,
 	msg_int,
 	msg_float,
-	msg_sym,
-	msg_list
+	msg_list						// Also used for symbols
 };
 
 // Data Structure for this object
@@ -26,7 +26,7 @@ typedef struct _change			// Data Structure for this object
 	short 			last_argc;
 	t_atom 			*last_argv;
 	Symbol 			*last_input_symbol;
-	t_atom			last_input_list[MAX_LIST_SIZE];	// 
+	t_atom			last_input_list[MAX_LIST_SIZE];	//
 	long			last_input_int;
 	float			last_input_float;
 	type			last_input_type;
@@ -96,6 +96,7 @@ void *change_new(void)
 	for(i=0; i<MAX_LIST_SIZE; i++)
 		atom_setsym(&(x->last_input_list[i]), _sym_nothing);			
 	}
+	x->last_input_type = msg_new;					// Makes sure that first message receive goes to left outlet
 	return (x);										// Return pointer to our instance
 }
 
@@ -150,41 +151,31 @@ void change_anything(t_change *x, t_symbol *msg, short argc, t_atom *argv)
 	short 	i;
 	bool	match = false;
 	bool	mismatch = false;
-	
-	if(argc){		// list input
-		if(x->inletnum == 0){
-			if((msg == x->last_input_symbol) || (x->last_input_type != msg_list)){	// if the symbol is the same, check the args...
-				for(i=0; i<argc; i++){
-					match = atom_compare(&(x->last_input_list[i]), argv+i);			
-					if(!match) mismatch = true;
-				}
+											
+	if(x->inletnum == 0){
+		if (x->last_input_type != msg_list)		// didn't receive a list/symbol last time
+			mismatch = true;
+		else if (msg != x->last_input_symbol)	// last list/symbol received didn't start with the same symbol
+			mismatch = true;
+		else if (argc != x->last_argc)			// last list/symbol was not the same length
+			mismatch = true;
+		else {									// check to see if the args are the same...
+			for(i=0; i<argc; i++){
+				match = atom_compare(&(x->last_input_list[i]), argv+i);			
+				if(!match) mismatch = true;
 			}
-			else
-				mismatch = true;				// first symbol was different
-			
-			if(mismatch)
-				outlet_anything(x->change_Out[0], msg, argc, argv);		// output the input
-			else								// All elements are the same
-				outlet_bang(x->change_Out[1]);		
-		}		
-		x->last_input_symbol = msg;						// Make copies of the input for the next time
-		x->last_input_type = msg_list;
-		for(i=0;i<argc;i++)
-			atom_copy(&(x->last_input_list[i]), argv+i);
-	}
-	
-	else{									// symbol input
-		if(x->inletnum == 0){
-			if((msg != x->last_input_symbol) || (argc != x->last_argc) || (argv != x->last_argv) || (x->last_input_type != msg_sym))
-				outlet_anything(x->change_Out[0], msg, argc, argv);		// output the result
-			else
-				outlet_bang(x->change_Out[1]);	
 		}
-		x->last_input_symbol = msg;
-		x->last_input_type = msg_sym;
-		x->last_argc = argc;
-		x->last_argv = argv;	
-	}
+			
+		if(mismatch)							// output the input
+			outlet_anything(x->change_Out[0], msg, argc, argv);		
+		else									// All elements are the same, send a bang
+			outlet_bang(x->change_Out[1]);		
+	}		
+	x->last_input_symbol = msg;					// Make copies of the input for the next time
+	x->last_input_type = msg_list;
+	x->last_argc = argc;
+	for(i=0;i<argc;i++)
+		atom_copy(&(x->last_input_list[i]), argv+i);
 }
 
 
