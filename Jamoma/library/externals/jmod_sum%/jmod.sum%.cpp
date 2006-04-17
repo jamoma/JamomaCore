@@ -1,7 +1,11 @@
 /* 
-	Copyright © 2002 by Timothy Place
-	Based on the jit.iter source code by Joshua Kit Clayton and © 2002 by Cycling'74 
-*/
+ * jmod.sum% (originally tap.jit.sum)
+ * External for Jamoma: Jitter Matrix analysis for motion and center of gravity
+ * By Tim Place, Copyright © 2002
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"			// Required for all Max External Objects
 #include "ext_strings.h"	// Used for the assistance strings

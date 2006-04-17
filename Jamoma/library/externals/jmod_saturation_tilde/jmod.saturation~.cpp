@@ -1,7 +1,11 @@
-// External Object for Cycling '74's Max/MSP: lookahead saturation
-// Demonstrates the wrapping of a TapTools Blue object
-// By Timothy Place, Copyright © 2005
-// License: GNU LGPL
+/* 
+ * jmod.saturation
+ * External for Jamoma: add harmonic distortion (overdrive/saturation) to a signal
+ * By Tim Place, Copyright © 2005
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header

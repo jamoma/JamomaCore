@@ -1,6 +1,11 @@
-// External Object for Jamoma: duplicate filter
-// By Timothy Place, Copyright © 2005
-// License: GNU LGPL
+/* 
+ * jmod.change
+ * External for Jamoma: filter out duplicate messages
+ * By Tim Place, Copyright © 2005
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"					// Max Header
 #include "ext_strings.h"			// String Functions
@@ -21,12 +26,11 @@ typedef struct _change			// Data Structure for this object
 	t_object		ob;	
 	void			*obex;
 	void 			*change_Out[2];					// outlets
-	void			*inlet_right;					// 2nd inlet
-	long			inletnum;						// proxy input inlet number	
+	void			*inlet_right;					// 2nd inlet+
 	short 			last_argc;
 	t_atom 			*last_argv;
 	Symbol 			*last_input_symbol;
-	t_atom			last_input_list[MAX_LIST_SIZE];	//
+	t_atom			last_input_list[MAX_LIST_SIZE];
 	long			last_input_int;
 	float			last_input_float;
 	type			last_input_type;
@@ -35,6 +39,7 @@ typedef struct _change			// Data Structure for this object
 // Prototypes for methods
 void change_assist(t_change *x, void *b, long m, long a, char *s);		// Assistance Method
 void *change_new(void);													// New Object Creation Method
+void change_free(t_change *x);
 void change_anything(t_change *x, Symbol *msg, short argc, Atom *argv);	// Symbol method
 void change_int(t_change *x, long value);
 void change_float(t_change *x, double value);
@@ -57,7 +62,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jmod.change",(method)change_new, (method)0L, (short)sizeof(t_change), (method)0L, 0L, 0);
+	c = class_new("jmod.change",(method)change_new, (method)change_free, (short)sizeof(t_change), (method)0L, 0L, 0);
 	class_obexoffset_set(c, calcoffset(t_change, obex));
 
 	// Make methods accessible for our class: 
@@ -89,8 +94,8 @@ void *change_new(void)
 		x->change_Out[1] = bangout(x);				// Create Outlets (right to left order)
 	    x->change_Out[0] = outlet_new(x, 0);		//	...
 
-	// Create Right Inlet (inletnum == 1)
-		x->inlet_right = proxy_new(x, 1, &x->inletnum);
+	// Create Right Inlet (inletnum is 1)
+		x->inlet_right = proxy_new(x, 1, 0L);
 
 	// Init the temp storage
 	for(i=0; i<MAX_LIST_SIZE; i++)
@@ -98,6 +103,11 @@ void *change_new(void)
 	}
 	x->last_input_type = msg_new;					// Makes sure that first message receive goes to left outlet
 	return (x);										// Return pointer to our instance
+}
+
+void change_free(t_change *x)
+{
+	freeobject((t_object *)(x->inlet_right));
 }
 
 

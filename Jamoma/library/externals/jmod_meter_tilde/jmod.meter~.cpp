@@ -1,8 +1,12 @@
-// External Object for Jamoma: signal level meter 
-// By Timothy Place
-// Modifications for Compiling on Windows by Thomas Grill
-// Copyright © 2005
-// License: GNU LGPL
+/* 
+ * jmod.meter~
+ * External for Jamoma: signal level meter
+ * By Tim Place, Copyright © 2005
+ * Modifications for Compiling on Windows by Thomas Grill, 2005
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 // define 
 #ifdef WIN_VERSION

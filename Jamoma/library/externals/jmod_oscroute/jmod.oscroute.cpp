@@ -1,6 +1,11 @@
-// External Object for Jamoma: OSC router
-// By Timothy Place, Copyright © 2006
-// License: GNU LGPL
+/* 
+ * jmod.oscroute
+ * External for Jamoma: parse and pass OpenSoundControl messages
+ * By Tim Place, Copyright © 2006
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"					// Max Header
 #include "ext_strings.h"			// String Functions
@@ -20,11 +25,11 @@ typedef struct _oscroute{					// Data Structure for this object
 	short			num_args;
 	long			attr_strip;					// ATTRIBUTE: 1 = strip leading slash off any messages
 	void			*proxy_inlet;				// pointer to the second inlet (when present)
-	long			inletnum;					// inlet used for input
 } t_oscroute;
 
 // Prototypes for our methods:
 void *oscroute_new(t_symbol *s, long argc, t_atom *argv);
+void oscroute_free(t_oscroute *x);
 void oscroute_assist(t_oscroute *x, void *b, long msg, long arg, char *dst);
 void oscroute_bang(t_oscroute *x);
 void oscroute_int(t_oscroute *x, long n);
@@ -50,7 +55,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jmod.oscroute",(method)oscroute_new, (method)0L, (short)sizeof(t_oscroute), (method)0L, A_GIMME, 0);
+	c = class_new("jmod.oscroute",(method)oscroute_new, (method)oscroute_free, (short)sizeof(t_oscroute), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_oscroute, obex));
 
 	// Make methods accessible for our class: 
@@ -92,10 +97,11 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 			x->num_args = 1;
 			x->arguments[0] = gensym("/nil");
 			x->arglen[0] = 4;
-			x->proxy_inlet = proxy_new(x, 1, &x->inletnum);
+			x->proxy_inlet = proxy_new(x, 1, 0L);
 			x->outlets[0] = outlet_new(x, 0);
 		}
 		else{
+			x->proxy_inlet = 0;
 			for(i=x->num_args-1; i >= 0; i--){				
 				x->outlets[i] = outlet_new(x, 0);		// Create Outlet
 				switch(argv[i].a_type){
@@ -113,6 +119,13 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 	}
 	return (x);										// return the pointer to our new instantiation
 }
+
+void oscroute_free(t_oscroute *x)
+{
+	if(x->proxy_inlet != 0)
+		freeobject((t_object *)(x->proxy_inlet));
+}
+
 
 
 /************************************************************************************/
@@ -163,9 +176,10 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	t_symbol	*message;				// our input message to match
 	t_symbol	*output;
 	char		input[MAX_MESS_SIZE];	// our input string
-	
+	long		inlet = proxy_getinlet((t_object *)x);
+
 	// If the message comes in the second inlet, then set the string to match...
-	if(x->inletnum == 1){
+	if(inlet == 1){
 		x->arguments[0] = msg;
 		x->arglen[0] = strlen(msg->s_name);
 		return;

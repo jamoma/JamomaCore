@@ -1,6 +1,11 @@
-// External Object for Jamoma: pass messages based on the first argument
-// By Timothy Place, Copyright © 2005
-// License: GNU LGPL
+/* 
+ * jmod.pass
+ * External for Jamoma: pass messages if they match our criteria
+ * By Tim Place, Copyright © 2005
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"					// Max Header
 #include "ext_strings.h"			// String Functions

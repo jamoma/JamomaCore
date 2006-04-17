@@ -1,7 +1,11 @@
-// External Object for Cycling '74's Max/MSP: crossfader
-// Demonstrates the wrapping of a TapTools Blue object
-// By Timothy Place, Copyright © 2005
-// License: GNU LGPL
+/* 
+ * jmod.xfade~
+ * External for Jamoma: multichannel crossfader using ttblue
+ * By Tim Place, Copyright © 2005
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header

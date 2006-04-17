@@ -1,7 +1,11 @@
-// External Object for Jamoma: queues messages to the back of Max's main thread, 
-// 								usurping them if a new message is received
-// By Timothy Place, Copyright © 2005
-// License: GNU LGPL
+/* 
+ * jmod.gain~
+ * External for Jamoma: multichannel gain control
+ * By Tim Place, Copyright © 2005
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header

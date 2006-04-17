@@ -1,6 +1,11 @@
-// External Object for Jamoma: routes messages
-// By Timothy Place, Copyright © 2005
-// License: GNU LGPL
+/* 
+ * jmod.route
+ * External for Jamoma: route messages to an outlet if they meet our criteria
+ * By Tim Place, Copyright © 2005
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "ext.h"					// Max Header
 #include "ext_strings.h"			// String Functions
