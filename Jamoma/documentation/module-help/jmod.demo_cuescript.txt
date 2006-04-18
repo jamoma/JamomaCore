@@ -1,6 +1,6 @@
 # #############################
 
-cue_event INITIALISATION
+CUE INITIALISATION
 
 # #############################
 
@@ -57,7 +57,7 @@ cue_event INITIALISATION
 
 # #############################
 
-cue_event AUDIO_ON
+CUE AUDIO_ON
 
 # #############################
 
@@ -80,7 +80,7 @@ cue_event AUDIO_ON
 
 # #############################
 
-cue_event FADE_IN
+CUE FADE_IN
 
 # #############################
 
@@ -92,7 +92,7 @@ cue_event FADE_IN
 
 # #############################
 
-cue_event SWEEP
+CUE SWEEP
 
 # #############################
 
@@ -109,7 +109,7 @@ cue_event SWEEP
 
 # #############################
 
-cue_event FADE_OUT
+CUE FADE_OUT
 
 # #############################
 
@@ -131,7 +131,7 @@ cue_event FADE_OUT
 
 # #############################
 
-cue_event AUDIO_OFF
+CUE AUDIO_OFF
 
 # #############################
 
