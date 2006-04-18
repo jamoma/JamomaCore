@@ -52,7 +52,18 @@
 			<td class="instructionRepetitions"> no </td>
 			<td class="instructionDescription"> Listen to remote change of parameters. </td>
 		</tr>
-</table> <p>&nbsp;</p>
+		<tr>
+			<td class="instructionName"> /set_clock </td>
+			<td class="instructionType"> msg_symbol </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Sync module to external clock. <br><code>/set_clock max</code> set module to use the Max scheduler (default behaviour). </td>
+		</tr>
+	</table>
+
+	<p>&nbsp;</p>
 
 	<h3>Messages</h3>
 
@@ -67,7 +78,7 @@
 			<td> Description </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /cue_event </td>
+			<td class="instructionName"> /cue </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
@@ -147,7 +158,9 @@
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Wireless communication of messages to modules via the bridge. </td>
 		</tr>
-<tr> <td class="instructionName"> /restore_defaults </td>			<td class="instructionType"> n/a </td>
+		<tr>
+			<td class="instructionName"> /restore_defaults </td>
+			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
@@ -205,6 +218,15 @@
 			<td> Ramp Enabled </td>
 			<td> Repetitions </td>
 			<td> Description </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /cues </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> N/A </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Returns a list of all cues in the script. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /modulesize </td>
