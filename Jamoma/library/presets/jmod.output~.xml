@@ -8,9 +8,6 @@
 		<patcher name = "jmod.parameter.mxt[1]">
 			<pattr name = "/ch_2" value = "2" />
 		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt">
-			<pattr name = "/gain/midi" value = "0." />
-		</patcher>
 		<patcher name = "jmod.parameter.mxb[1]">
 			<pattr name = "/record/filetype" value = "aiff" />
 		</patcher>
@@ -19,9 +16,6 @@
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[2]">
 			<pattr name = "/saturation/depth" value = "10." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[4]">
-			<pattr name = "/saturation/bypass" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[5]">
 			<pattr name = "/limiter/preamp" value = "6." />
@@ -41,11 +35,25 @@
 		<patcher name = "jmod.parameter.mxt[10]">
 			<pattr name = "/limiter/mode" value = "exponential" />
 		</patcher>
-		<patcher name = "jmod.parameter.mxt[11]">
-			<pattr name = "/limiter/bypass" value = "0" />
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[12]">
 			<pattr name = "/record" value = "0" />
+		</patcher>
+		<patcher name = "jmod.parameter.gain.mxt">
+			<pattr name = "/gain/midi" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[4]">
+			<pattr name = "/saturation/active" value = "1" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[11]">
+			<pattr name = "/limiter/active" value = "1" />
 		</patcher>
 	</slot>
 </pattrstorage>
