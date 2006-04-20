@@ -1,11 +1,11 @@
-# #############################
+##############################
 
 CUE initialisation
 
-# #############################
+##############################
 
 # Module control
-	/control/audio 0
+	/control/audio 0			# turn off the dsp
 	/control/disable_ui_updates 0
 	
 # Module input~
@@ -15,7 +15,7 @@ CUE initialisation
 	/input~/source_select 0
 	/input~/ch_1 0
 	/input~/ch_2 0
-	/input~/gain/midi 0.000
+	/input~/gain/midi 0.000		# Note that midi units can be specified as floats in Jamoma
 	/input~/gain_1/midi 0
 	/input~/link 0
 	/input~/disable_ui_updates 0
@@ -55,11 +55,11 @@ CUE initialisation
 
 
 
-# #############################
+##############################
 
 CUE audio_on
 
-# #############################
+##############################
 
 # Module control
 	/control/audio 1
@@ -67,7 +67,7 @@ CUE audio_on
 	
 # Module input~
 	/input~/source_select 4
-	/input~/gain/midi 124.000 2000
+	/input~/gain/midi 124.000 2000	# Ramp to these new values over 2 seconds...
 	/input~/gain_1/midi 124.000 2000
 	/input~/gain_2/midi 124.000 2000
 	
@@ -78,11 +78,11 @@ CUE audio_on
 	
 	
 
-# #############################
+##############################
 
 CUE fade_in
 
-# #############################
+##############################
 
 # Module output~
 	/output~/gain/midi 125.000 2000
@@ -90,28 +90,28 @@ CUE fade_in
 
 
 
-# #############################
+##############################
 
 CUE sweep
 
-# #############################
+##############################
 
 
 # Module filter~
 	/filter~/cf 3000 3000
 	
-	WAIT 6000
+	WAIT 6000	# The wait directive pauses us for 6 seconds
 	
 	/filter~/cf 200 3000
 
 
 
 
-# #############################
+##############################
 
 CUE fade_out
 
-# #############################
+##############################
 
 # Playing safe:
 
@@ -129,11 +129,11 @@ CUE fade_out
 
 
 
-# #############################
+##############################
 
 CUE audio_off
 
-# #############################
+##############################
 
 	
 # Module input~
