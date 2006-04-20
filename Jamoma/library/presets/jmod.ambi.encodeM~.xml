@@ -16,9 +16,6 @@
 		<patcher name = "jmod.parameter.mxt[1]">
 			<pattr name = "/order" value = "3" />
 		</patcher>
-		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/order" value = "3." />
-		</patcher>
 		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
 			<patcher name = "controls">
 				<patcher name = "pattr_mute">
@@ -31,6 +28,9 @@
 					<pattr name = "/gain/midi" value = "0." />
 				</patcher>
 			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[2]">
+			<pattr name = "/db_unit" value = "3." />
 		</patcher>
 	</slot>
 </pattrstorage>
