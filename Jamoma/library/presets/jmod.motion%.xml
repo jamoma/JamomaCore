@@ -42,10 +42,10 @@
 			<pattr name = "/algorithm" value = "0" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[5]">
-			<pattr name = "/edge_thresh" value = "0." />
+			<pattr name = "/edge_thresh" value = "0.1" />
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[6]">
-			<pattr name = "/color" value = "1" />
+			<pattr name = "/color" value = "0" />
 		</patcher>
 	</slot>
 </pattrstorage>
