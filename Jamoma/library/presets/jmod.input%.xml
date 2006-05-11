@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.input%">
+	<slot number = "1">
+		<patcher name = "jmod.gui">
+			<patcher name = "pwindow">
+				<patcher name = "pwindow_gate[1]">
+					<pattr name = "/preview" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[2]">
+					<pattr name = "/bypass" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[3]">
+					<pattr name = "/freeze" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[4]">
+					<pattr name = "/mute" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.oscnet.ui.alg">
+			<patcher name = "jmod.parameter.mxt">
+				<pattr name = "/camera_on" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[3]">
+				<pattr name = "/synth_color" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[4]">
+				<pattr name = "/synth_noise_on" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/synth_color_on" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter.mxt[2]">
+				<pattr name = "/camera_size" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[5]">
+				<pattr name = "/synth_noise_rate" value = "40" />
+			</patcher>
+			<patcher name = "jmod.parameter[6]">
+				<pattr name = "/synth_noise_planes" value = "4" />
+			</patcher>
+			<patcher name = "jmod.parameter[7]">
+				<pattr name = "/file_on" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[8]">
+				<pattr name = "/file_loop" value = "1" />
+			</patcher>
+			<patcher name = "jmod.parameter[9]">
+				<pattr name = "/file_size" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[10]">
+				<pattr name = "/file_rate" value = "1." />
+			</patcher>
+			<patcher name = "jmod.parameter[11]">
+				<pattr name = "/file_counter" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[12]">
+				<pattr name = "/synth_noise_dim" value = "320 240" />
+			</patcher>
+			<patcher name = "jmod.parameter[13]">
+				<pattr name = "/file_audio" value = "1" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[2]">
+			<pattr name = "/source_mode" value = "0" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
