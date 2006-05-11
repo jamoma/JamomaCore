@@ -5,7 +5,7 @@
 		<patcher name = "jmod.gui.1Uh.v.mxb">
 			<patcher name = "pwindow">
 				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/preview" value = "1" />
+					<pattr name = "/preview" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[2]">
 					<pattr name = "/bypass" value = "0" />
@@ -21,6 +21,9 @@
 		<patcher name = "jmod.hub">
 			<patcher name = "jmod.parameter">
 				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxb">

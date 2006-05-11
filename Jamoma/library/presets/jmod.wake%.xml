@@ -5,7 +5,7 @@
 		<patcher name = "jmod.gui.1Uh.v.mxb">
 			<patcher name = "pwindow">
 				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/preview" value = "1" />
+					<pattr name = "/preview" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[2]">
 					<pattr name = "/bypass" value = "0" />
