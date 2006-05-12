@@ -32,9 +32,7 @@ var vmode = 0;								// 0: [0,157] MIDI Gain, 1: [-24,24] dB
 
 // Gains and displayed levels
 var gain_left = new Array(MAX_VOICES);		// stored internally as [0.0, 1.0]...
-var gain_right = new Array(MAX_VOICES);		// not used at the moment
 var levels_left = new Array(MAX_VOICES);
-var levels_right = new Array(MAX_VOICES);	// not used at the moment
 var attr_meters_active = 1;					// flag: display meters?
 
 var vbrgb = [0.6,0.6,0.6];					// background
@@ -69,20 +67,23 @@ function init()
 
 	if (jsarguments.length>1)
 		voices(jsarguments[1]);
+		
 	if (jsarguments.length>2)
 		active(jsarguments[2]);
+		
 	if (jsarguments.length>3)
 		mode(jsarguments[3]);
+	else
+		mode(0);
+		
 	if (jsarguments.length>4)
 		group(jsarguments[4]);
+	else
+		group(0);
 	
 	// init globals
 	for(var i=0; i<num_voices; i++){
-		gain_left[i] = 127./157.;
-		gain_right[i] = 0;
 		levels_left[i] = 0;
-		levels_right[i] = 0.01;
-		vrgb2[i] = [0.2,0.2,0.2];
 	}
 
 	onresize();
@@ -195,11 +196,6 @@ function active(variable)
 
 
 // A list of the volume levels to display
-/*
-	1st arg is a channel number (0=left, 1=right)
-	Update: This is not currently so. At the time being the object only works
-	on a set of mono sources.
-*/
 // Args are the volume as expressed in millimeters (0-100)
 function levels()
 {
