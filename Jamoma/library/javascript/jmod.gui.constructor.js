@@ -496,8 +496,7 @@ function menu_build()
 		outlet(3, "append", menu_items[i]);
 	}
 	if(attr_module_type == "video"){
-		//outlet(3, "checkitem", 1, attr_preview); // check the 'preview' item by default
-		msg_int(1);
+		//msg_int(1);	// this is the way to turn on preview by default, which we decided not to do for cpu saving reasons
 	}
 }
 
