@@ -64,14 +64,17 @@
 				<pattr name = "/file_counter" value = "0" />
 			</patcher>
 			<patcher name = "jmod.parameter[12]">
-				<pattr name = "/synth_noise_dim" value = "320 240" />
+				<pattr name = "/synth_noise_size_x" value = "320" />
 			</patcher>
 			<patcher name = "jmod.parameter[13]">
 				<pattr name = "/file_audio" value = "1" />
 			</patcher>
+			<patcher name = "jmod.parameter[14]">
+				<pattr name = "/synth_noise_size_y" value = "240" />
+			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/source_mode" value = "0" />
+			<pattr name = "/source_mode" value = "1" />
 		</patcher>
 	</slot>
 </pattrstorage>
