@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.scope~">
+	<slot number = "1">
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxb">
+			<pattr name = "/range" value = "1." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[3]">
+			<pattr name = "/buffers_per_pixel" value = "128" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[2]">
+			<pattr name = "/samples_per_buffer" value = "128" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
