@@ -287,7 +287,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
@@ -339,7 +339,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
@@ -384,7 +384,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";

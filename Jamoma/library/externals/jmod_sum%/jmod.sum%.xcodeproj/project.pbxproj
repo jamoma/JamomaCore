@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
-		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
 		22261CE30A28C1C100329D95 /* jmod.sum%.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jmod.sum%.cpp */; };
 		22261CE50A28C20600329D95 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22261CE40A28C20600329D95 /* Info.plist */; };
 		22261D350A28C3F100329D95 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261D340A28C3F100329D95 /* tt_audio_base.cpp */; };
 		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
+		22261EAD0A2B8E9A00329D95 /* JitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22261EAC0A2B8E9A00329D95 /* JitterAPI.framework */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,11 +51,11 @@
 /* Begin PBXFileReference section */
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
-		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22261CE20A28C1C100329D95 /* jmod.sum%.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = "jmod.sum%.cpp"; sourceTree = "<group>"; };
 		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D340A28C3F100329D95 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../externals_3rd_party/ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
+		22261EAC0A2B8E9A00329D95 /* JitterAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JitterAPI.framework; path = /Library/Frameworks/JitterAPI.framework; sourceTree = "<absolute>"; };
 		542ED84F09C02A0000DBC7EB /* jmod.sum%.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jmod.sum%.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -66,7 +66,7 @@
 			files = (
 				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
-				0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */,
+				22261EAD0A2B8E9A00329D95 /* JitterAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +87,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */,
+				22261EAC0A2B8E9A00329D95 /* JitterAPI.framework */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
 				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
 			);
@@ -281,13 +281,9 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
@@ -297,6 +293,7 @@
 				PRODUCT_NAME = "jmod.sum%";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/MaxAPI.framework/Headers /Library/Frameworks/JitterAPI.framework/Headers ./../../externals_3rd_party/ttblue/dsplib";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -333,13 +330,9 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
@@ -348,6 +341,7 @@
 				PRODUCT_NAME = "jmod.sum%";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/MaxAPI.framework/Headers /Library/Frameworks/JitterAPI.framework/Headers ./../../externals_3rd_party/ttblue/dsplib";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -378,13 +372,9 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
@@ -393,6 +383,7 @@
 				PRODUCT_NAME = "jmod.sum%";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/MaxAPI.framework/Headers /Library/Frameworks/JitterAPI.framework/Headers ./../../externals_3rd_party/ttblue/dsplib";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

@@ -5,21 +5,29 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>jmod.xfade~</string>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.apple.carbonbundletemplate</string>
+	<string>org.jamoma.${PRODUCT_NAME}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>iLaX</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>Jamoma 0.3</string>
+	<string>SVNREV</string>
+	<key>CFBundleShortVersionString</key>
+	<string>VERSION (SVNREV)</string>
+	<key>CFBundleLongVersionString</key>
+	<string>Jamoma VERSION (build SVNREV), Copyright 2006 Jamoma.Org</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>
