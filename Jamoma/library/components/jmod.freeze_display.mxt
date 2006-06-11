@@ -1,0 +1,1 @@
+max v2;#N vpatcher 10 59 261 299;#P inlet 197 76 15 0;#P outlet 44 176 15 0;#P window setfont "Sans Serif" 9.;#P window linecount 1;#P newex 44 154 163 196617 gate 1 1;#P newex 44 132 31 196617 == 0;#P newex 44 110 133 196617 receive $1_freeze_display;#P connect 0 0 1 0;#P connect 1 0 2 0;#P connect 2 0 3 0;#P connect 4 0 2 1;#P pop;

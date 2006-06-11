@@ -323,6 +323,8 @@ function link()
 function metering(v)
 {
 	attr_meters_active = v;
+	draw();
+	refresh();
 }
 
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.sur.ambi.adjust~">
+	<slot number = "1">
+		<patcher name = "jmod.parameter[1]">
+			<pattr name = "/order" value = "3" />
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "pattr_mute">
+			<pattr name = "/mute" value = "0" />
+		</patcher>
+		<patcher name = "gains">
+			<patcher name = "jmod.parameter[15]">
+				<pattr name = "/q/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[14]">
+				<pattr name = "/p/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[13]">
+				<pattr name = "/o/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[12]">
+				<pattr name = "/n/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[11]">
+				<pattr name = "/m/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[10]">
+				<pattr name = "/l/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[9]">
+				<pattr name = "/k/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[8]">
+				<pattr name = "/v/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[7]">
+				<pattr name = "/u/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[6]">
+				<pattr name = "/t/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[5]">
+				<pattr name = "/s/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[3]">
+				<pattr name = "/z/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[2]">
+				<pattr name = "/y/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/x/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter">
+				<pattr name = "/w/gain" value = "0." />
+			</patcher>
+			<patcher name = "jmod.parameter[4]">
+				<pattr name = "/r/gain" value = "0." />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter">
+			<pattr name = "/meter" value = "1" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
