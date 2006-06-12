@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.ambi.encodeM~">
+<pattrstorage name = "jmod.sur.ambi.encodeM~">
 	<slot number = "1">
 		<patcher name = "jmod.parameter.mxt">
 			<pattr name = "/voices" value = "3" />
@@ -30,7 +30,10 @@
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/db_unit" value = "3." />
+			<pattr name = "/db_drop_off" value = "2." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[3]">
+			<pattr name = "/center_radius" value = "0.15" />
 		</patcher>
 	</slot>
 </pattrstorage>
