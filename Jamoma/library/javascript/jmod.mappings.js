@@ -30,8 +30,8 @@ setup();
 // INIT
 function loadbang()
 {
-	outlet(0, "script", "new", "mapping_object_r", "newex",0, 0, 200, 196617, "receive", "jmod.remote.fromModule");
-	outlet(0, "script", "new", "mapping_object_s", "newex",0, 1000, 200, 196617, "send", "jmod.remote.toModule");	
+	//outlet(0, "script", "new", "mapping_object_r", "newex",0, 0, 200, 196617, "receive", "jmod.remote.fromModule");
+	//outlet(0, "script", "new", "mapping_object_s", "newex",0, 1000, 200, 196617, "send", "jmod.remote.toModule");	
 }
 
 
@@ -80,17 +80,17 @@ function create()
 	mapping_destinations[entry] = dst;
 	
 	// 3. Finally Script the Patch...
-	outlet(0, "script", "new", "mapping_object_osc_"+entry, "newex",(entry+1)*25, (entry+1)*60, 200, 196617, "jmod.oscroute", mapping_sources[entry]);
-	outlet(0, "script", "new", "mapping_object_dst_"+entry, "newex",(entry+1)*25, (entry+1)*60+40, 200, 196617, "prepend", mapping_destinations[entry]);
-	outlet(0, "script", "connect", "mapping_object_r", 0, "mapping_object_osc_"+entry, 0);
-	outlet(0, "script", "connect", "mapping_object_dst_"+entry, 0, "mapping_object_s", 0);
+	outlet(0, "script", "new", "mapping_object_src_"+entry, "newex",50, (entry+1)*70, 200, 196617, "receive", mapping_sources[entry]);
+	outlet(0, "script", "new", "mapping_object_dst_"+entry, "newex",50, (entry+1)*70+40, 200, 196617, "send", mapping_destinations[entry]);
+	//outlet(0, "script", "connect", "mapping_object_r", 0, "mapping_object_osc_"+entry, 0);
+	//outlet(0, "script", "connect", "mapping_object_dst_"+entry, 0, "mapping_object_s", 0);
 
 	if(mapping_algorithms[entry] == null){
-		outlet(0, "script", "connect", "mapping_object_osc_"+entry, 0, "mapping_object_dst_"+entry, 0);
+		outlet(0, "script", "connect", "mapping_object_src_"+entry, 0, "mapping_object_dst_"+entry, 0);
 	}
 	else{
-		outlet(0, "script", "new", "mapping_object_alg_"+entry, "newex",(entry+1)*25, (entry+1)*60+20, 200, 196617, mapping_algorithms[entry]);
-		outlet(0, "script", "connect", "mapping_object_osc_"+entry, 0, "mapping_object_alg_"+entry, 0);
+		outlet(0, "script", "new", "mapping_object_alg_"+entry, "newex",50, (entry+1)*70+20, 200, 196617, mapping_algorithms[entry]);
+		outlet(0, "script", "connect", "mapping_object_src_"+entry, 0, "mapping_object_alg_"+entry, 0);
 		outlet(0, "script", "connect", "mapping_object_alg_"+entry, 0, "mapping_object_dst_"+entry, 0);
 	}	
 }
@@ -107,7 +107,7 @@ function remove(mapping_name)
 	var entry = getindex(mapping_name);
 		
 	// second, delete all of the objects that are associated with this mapping
-	outlet(0, "script", "delete", "mapping_object_osc_"+entry);
+	outlet(0, "script", "delete", "mapping_object_src_"+entry);
 	outlet(0, "script", "delete", "mapping_object_dst_"+entry);
 	if(mapping_algorithms[entry] != null){
 		outlet(0, "script", "delete", "mapping_object_alg_"+entry);
