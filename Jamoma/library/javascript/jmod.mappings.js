@@ -80,8 +80,8 @@ function create()
 	mapping_destinations[entry] = dst;
 	
 	// 3. Finally Script the Patch...
-	outlet(0, "script", "new", "mapping_object_src_"+entry, "newex",50, (entry+1)*70, 200, 196617, "receive", mapping_sources[entry]);
-	outlet(0, "script", "new", "mapping_object_dst_"+entry, "newex",50, (entry+1)*70+40, 200, 196617, "send", mapping_destinations[entry]);
+	outlet(0, "script", "new", "mapping_object_src_"+entry, "newex",50, (entry+1)*70, 200, 196617, "receive", "/jmod/fromModule/"+mapping_sources[entry]);
+	outlet(0, "script", "new", "mapping_object_dst_"+entry, "newex",50, (entry+1)*70+40, 200, 196617, "send", "/jmod/toModule/"+mapping_destinations[entry]);
 	//outlet(0, "script", "connect", "mapping_object_r", 0, "mapping_object_osc_"+entry, 0);
 	//outlet(0, "script", "connect", "mapping_object_dst_"+entry, 0, "mapping_object_s", 0);
 
