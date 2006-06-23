@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.hi">
+	<slot number = "1">
+		<patcher name = "jmod.hub">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/disable_ui_updates" value = "0" />
+			</patcher>
+			<patcher name = "jmod.parameter[1]">
+				<pattr name = "/set_clock" value = "" />
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter[1]">
+			<pattr name = "/status" value = "0" />
+		</patcher>
+		<patcher name = "jmod.parameter[2]">
+			<pattr name = "/status" value = "100" />
+		</patcher>
+	</slot>
+</pattrstorage>
+
