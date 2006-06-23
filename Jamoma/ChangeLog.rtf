@@ -1,9 +1,53 @@
 {\rtf1\ansi\ansicpg10000\deff0{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}}
 {\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\lang1033\b\f0\fs34 Change Log\b0\fs24\par
 \par
-Last update: 2004-04-09\par
+\b Version 0.3.1\b0  (23 June 2006)\par
 \par
-\b Version 0.3-preview 2\b0\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Core/Hub/Gui:\par
+\pard\li990\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - Many tweaks and fixes to the OSC namespace implementation\par
+- fixed problems with initialization of psto caused by receiving bangs at loadbang time rather than init time\par
+- made the implementation of "View internal components" consistent across all modules\par
+- preview item in the module menu is no longer on by default in video modules\par
+- module communication now happens using dedicated sends and receives rather than listening to global broadcasts\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Externals:\par
+\pard\fi270\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - Mac versions compiled as Universal Binary for Max 4.6\par
+- updated Jasch/ICST 3rd party externals\par
+- jmod.saturation has a new 'mode' parameter that changes the algorithm it uses internally\par
+- bug fix for jmod.change where it would filter messages that it shouldn't have\par
+- fixed erratic behavior in jmod.xfade~ on windows\par
+- fixed bug in jmod.oscroute, jmod.change, and jmod.equals where the inlet calls were not thread safe\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Modules:\par
+\pard\li990\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - new ambisonic modules: jmod.ambi.speaker.delay~, jmod.ambi.doppler~, jmod.sur.multi.in~, jmod.sur.multi.out~, jmod.sur.speaker.setup\par
+- cuelist module now builds a menu with all cues; format for specifying cues in the textfile has changed; comment handling improved\par
+- new jmod.midiin module for midi input\par
+- various improvements to the jmod.mapper module\par
+- new jmod.mouse module for handling mouse input\par
+- new jmod.input% module provides video input from a device or a quicktime movie.\par
+- new jmod.output% module creates a rendering context for Jitter OpenGL patches\par
+- new jmod.xfade% module crossfades between two video sources\par
+- a series of "new" video filters that wrap Jitter externals (ported to Jamoma from Jade): jmod.plur%, jmod.avg4%, jmod.emboss%, jmod.fluoride%\par
+- added randomness parameter to jmod.qmetro\par
+- new sample-accurate jmod.delay~ and jmod.scope~ modules ported from Jade\par
+- jmod.echo~ module now has filtering and limiting built into the feedback loop\par
+- new jmod.phidgets module for working with Phidgets devices\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab components:\par
+\pard\li990\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - new jmod.autocrop% automatically crops source material\par
+- jmod.jsui_multigain.js acts as a visualizer/multislider/gain controller (used in ambisonic modules)\par
+- added jmod.thru which does nothing :-)\par
+- added a series of components for various trigonometric conversions\par
+\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Documentation:\par
+\pard\li990\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - jmod.hub is better documented\par
+- cleaned up all of the help patches\par
+- examples are now fully implemented in the OSC namespace\par
+- pluggo example now works with menu selections\par
+- tutorials split into 2 tracks: "Using Jamoma" and "Making Jamoma Modules"\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Misc:\par
+\pard\li990\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - added  the 'j3' skin as an example for how to make your own skins for modules\par
+- skin graphics now handled as 'knob' type by pictslider so that the graphic sizes could be reduced by half.\par
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\b\par
+\par
+Version 0.3\b0  (9 April 2006)\par
 \par
 \pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Jamoma now uses OpenSoundControl for communication. All modules have been updated accordingly. \par
 \tab\bullet\tab Added templates for creating various kinds of modules and algorithms.\par
