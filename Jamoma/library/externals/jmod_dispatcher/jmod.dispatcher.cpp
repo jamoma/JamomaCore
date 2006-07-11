@@ -11,6 +11,8 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 
+#define MAX_STRING_LEN 2048
+
 enum outlets{
 	k_outlet_return = 0,
 	k_outlet_algorithm,
@@ -31,7 +33,6 @@ typedef struct _dispatcher{					// Data Structure for this object
 	void			*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void			*outlets[k_num_outlets];	// outlet array
 	t_parameter		*parameter;					// linked list of parameters
-	
 	t_symbol		*attr_name;					// ATTRIBUTE: module name
 	t_symbol		*attr_type;					// ATTRIBUTE: what kind of module is this?  (audio, video, control, etc.)
 	t_symbol		*attr_description;			// ATTRIBUTE: textual description of this module
@@ -45,9 +46,7 @@ void		*dispatcher_new(t_symbol *s, long argc, t_atom *argv);
 void		dispatcher_free(t_dispatcher *x);
 void		dispatcher_assist(t_dispatcher *x, void *b, long msg, long arg, char *dst);
 void		dispatcher_symbol(t_dispatcher *x, t_symbol *msg, short argc, t_atom *argv);
-void		dispatcher_list(t_dispatcher *x, t_symbol *msg, short argc, t_atom *argv);
-void dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object);
-void dispatcher_dispatch(t_dispatcher *x, t_symbol *name, long argc, t_atom *argv);
+void		dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object);
 void		atom_copy(t_atom *dst, t_atom *src);
 
 
@@ -73,12 +72,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_dispatcher, obex));
 	
 	// Make methods accessible for our class:
- 	class_addmethod(c, (method)dispatcher_list,				"list",			A_GIMME, 0L);	
-// 	class_addmethod(c, (method)dispatcher_symbol,			"anything",		A_GIMME, 0L);
-	class_addmethod(c, (method)dispatcher_dispatch,			"anything",		A_GIMME, 0L);
-	// communication from jmod.param:
+ 	class_addmethod(c, (method)dispatcher_symbol,			"anything",		A_GIMME, 0L);
 	class_addmethod(c, (method)dispatcher_bind,				"bind",			A_CANT, 0L);
-	// standard...
 	class_addmethod(c, (method)dispatcher_assist,			"assist",		A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
@@ -133,6 +128,9 @@ void *dispatcher_new(t_symbol *s, long argc, t_atom *argv)
 
 //		x->attr_ramp = 0;							// set defaults...
 //		atom_setlong(&x->value, 0);
+		x->attr_name = _sym_nothing;
+		x->attr_type = _sym_nothing;
+		x->attr_description = _sym_nothing;
 		
 		x->parameter = NULL;						// prepare our linked list of params
 		
@@ -176,29 +174,6 @@ void dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object)
 }
 
 
-// Send a message to a jmod.param object (call the "dispatched" method in jmod.param)
-void dispatcher_dispatch(t_dispatcher *x, t_symbol *name, long argc, t_atom *argv)
-{
-	bool		found = false;
-	t_parameter	*param = x->parameter;
-	
-	// search the linked list of params to find the right one
-	while((param != NULL) && (found == false)){
-		if(param->name == name){
-			found = true;	// we found it!
-			break;
-		}
-		param = param->next;
-	}
-	
-	// dispatch to the correct jmod.param object
-	if(found == true)
-		object_method_typed(param->object, ps_dispatched, argc, argv, NULL);
-	else
-		error("jmod.dispatcher cannot find a parameter by that name (%s)", name->s_name);
-}
-
-
 /************************************************************************************/
 // Methods bound to input/inlets
 
@@ -229,20 +204,54 @@ void dispatcher_assist(t_dispatcher *x, void *b, long msg, long arg, char *dst)
 // SYMBOL INPUT
 void dispatcher_symbol(t_dispatcher *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	;
-}
+	bool		found = false;
+	t_parameter	*param = x->parameter;
+	char		input[MAX_STRING_LEN];	// our input string
+	char		*input2 = input;		// pointer to our input string
+	char		*split;
+	t_symbol	*osc = NULL;
+	t_symbol	*name = msg;			// default to the name being the message
 
+	strcpy(input, msg->s_name);
+	
+	if(*input2 == '/'){				// leading slash means it's OSC...
+		input2++;						// remove the the leading slash
+		split = strchr(input2, '/');		// remove (and store) the param name
+		if(split != NULL){
+			*split = NULL;
+			split++;					// now input2 = param name; split = any remaining OSC		
+			osc = gensym(split);
+		}
+		name = gensym(input2);
+	}
 
-// LIST INPUT <value, ramptime>
-void dispatcher_list(t_dispatcher *x, t_symbol *msg, short argc, t_atom *argv)
-{
-	;
+	// search the linked list of params to find the right one
+	while((param != NULL) && (found == false)){
+		if(param->name == name){
+			found = true;	// we found it!
+			break;
+		}
+		param = param->next;
+	}
+	
+	// dispatch to the correct jmod.param object
+	if(found == true){
+		if(osc == NULL)
+			object_method_typed(param->object, ps_dispatched, argc, argv, NULL);
+		else
+			object_method_typed(param->object, osc, argc, argv, NULL);
+	}
+	else
+		error("jmod.dispatcher cannot find a parameter by that name (%s)", name->s_name);
+
+	
 }
 
 
 /************************************************************************************/
 // Utilities
 
+// copy an atom's contents into another atom
 void atom_copy(t_atom *dst, t_atom *src)
 {
 	if(src->a_type == A_LONG)
@@ -254,3 +263,4 @@ void atom_copy(t_atom *dst, t_atom *src)
 	else
 		error("atom_copy: unrecognized type");
 }
+
