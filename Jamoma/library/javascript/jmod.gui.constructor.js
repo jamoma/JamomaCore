@@ -20,6 +20,7 @@ var attr_num_inputs = 1;
 var attr_num_outputs = 1;
 var	num_channels;
 var attr_displayfreeze_toggle = 0;
+var attr_meterfreeze_toggle = 0;
 var attr_preview = 1;
 var attr_bypass = 0;
 var attr_mute = 0;
@@ -168,6 +169,7 @@ function bang()
 			// Setup the Menu
 			menu_clear();
 			menu_add("Disable UI Updates");
+			menu_add("Disable Signal Meters");
 			menu_add("Clear Signal Meters");
 			menu_add("-");
 			menu_add("Load Settings...");
@@ -312,16 +314,22 @@ function msg_int(value)
 			case 0: 
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
 				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
-				outlet(4, "/disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
-			case 1: outlet(4, "/clear_meters"); break;
-			case 3: outlet(4, "/load_settings"); break;
-			case 4: outlet(4, "/save_settings"); break;
-			case 5: outlet(4, "/restore_defaults"); break;
-			case 7: outlet(4, "/help"); break;
-			case 8: outlet(4, "/view_internals"); break;
-			default: outlet(4, "/preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			case 1: 
+				if(attr_meterfreeze_toggle == 1) attr_meterfreeze_toggle = 0;
+				else if(attr_meterfreeze_toggle == 0) attr_meterfreeze_toggle = 1;
+				outlet(4, "/ui/meters/defeat", attr_meterfreeze_toggle); 
+				outlet(3, "checkitem", 1, attr_meterfreeze_toggle); 
+				break;
+			case 2: outlet(4, "/ui/meters/clear"); break;
+			case 4: outlet(4, "/preset/load"); break;
+			case 5: outlet(4, "/preset/save"); break;
+			case 6: outlet(4, "/preset/default"); break;
+			case 8: outlet(4, "/documentation/html"); break;
+			case 9: outlet(4, "/module/view_internals"); break;
+			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
 	else if(attr_module_type == "video"){
@@ -329,7 +337,7 @@ function msg_int(value)
 			case 0:
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
 				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
-				outlet(4, "/disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
 			case 1: 
@@ -366,12 +374,12 @@ function msg_int(value)
 				}
 				outlet(4, "/mute", attr_mute); 
 				break;
-			case 8: outlet(4, "/load_settings"); break;			
-			case 9: outlet(4, "/save_settings"); break;
-			case 10: outlet(4, "/restore_defaults"); break;
-			case 12: outlet(4, "/help"); break;
-			case 13: outlet(4, "/view_internals"); break;		
-			default: outlet(4, "/preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			case 8: outlet(4, "/preset/load"); break;			
+			case 9: outlet(4, "/preset/save"); break;
+			case 10: outlet(4, "/preset/default"); break;
+			case 12: outlet(4, "/documentation/html"); break;
+			case 13: outlet(4, "/module/view_internals"); break;		
+			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 		outlet(3, "checkitem", 4, attr_bypass);
 		outlet(3, "checkitem", 5, attr_freeze);
@@ -382,15 +390,15 @@ function msg_int(value)
 			case 0:
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
 				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
-				outlet(4, "/disable_ui_updates", attr_displayfreeze_toggle); 
+				outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
-			case 2: outlet(4, "/load_settings"); break;
-			case 3: outlet(4, "/save_settings"); break;
-			case 4: outlet(4, "/restore_defaults"); break;
-			case 6: outlet(4, "/help"); break;
-			case 7: outlet(4, "/view_internals"); break;
-			default: outlet(4, "/preset_recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			case 2: outlet(4, "/preset/load"); break;
+			case 3: outlet(4, "/preset/save"); break;
+			case 4: outlet(4, "/preset/defaul"); break;
+			case 6: outlet(4, "/documentation/html"); break;
+			case 7: outlet(4, "/module/view_internals"); break;
+			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
 }
