@@ -10,7 +10,9 @@
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		22261CE30A28C1C100329D95 /* jmod.param.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jmod.param.c */; };
 		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
-		22DAFCB90A5431A800400B6A /* pattr.common.c in Sources */ = {isa = PBXBuildFile; fileRef = 22DAFCB80A5431A800400B6A /* pattr.common.c */; };
+		22E901250A6545EE0014CFB9 /* jmod.param.clip.c in Sources */ = {isa = PBXBuildFile; fileRef = 22E901230A6545EE0014CFB9 /* jmod.param.clip.c */; };
+		22E901260A6545EE0014CFB9 /* jmod.param.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E901240A6545EE0014CFB9 /* jmod.param.h */; };
+		22E902990A6558CE0014CFB9 /* tt_audio_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E902980A6558CE0014CFB9 /* tt_audio_base.h */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -20,8 +22,9 @@
 		22261CE20A28C1C100329D95 /* jmod.param.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = jmod.param.c; sourceTree = "<group>"; };
 		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
-		22DAFBDB0A541C0700400B6A /* pattr.common.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = pattr.common.h; path = "/knox/c74support-private/pattr-support/pattr.common.h"; sourceTree = "<absolute>"; };
-		22DAFCB80A5431A800400B6A /* pattr.common.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = pattr.common.c; path = "/knox/c74support-private/pattr-support/pattr.common.c"; sourceTree = "<absolute>"; };
+		22E901230A6545EE0014CFB9 /* jmod.param.clip.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = jmod.param.clip.c; sourceTree = "<group>"; };
+		22E901240A6545EE0014CFB9 /* jmod.param.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jmod.param.h; sourceTree = "<group>"; };
+		22E902980A6558CE0014CFB9 /* tt_audio_base.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_audio_base.h; path = ../../externals_3rd_party/ttblue/dsplib/tt_audio_base.h; sourceTree = SOURCE_ROOT; };
 		542ED84F09C02A0000DBC7EB /* jmod.param.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jmod.param.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -69,10 +72,11 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				22E902980A6558CE0014CFB9 /* tt_audio_base.h */,
+				22E901240A6545EE0014CFB9 /* jmod.param.h */,
 				22261CE20A28C1C100329D95 /* jmod.param.c */,
+				22E901230A6545EE0014CFB9 /* jmod.param.clip.c */,
 				22261D720A28C44900329D95 /* commonsyms.c */,
-				22DAFBDB0A541C0700400B6A /* pattr.common.h */,
-				22DAFCB80A5431A800400B6A /* pattr.common.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -92,6 +96,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22E901260A6545EE0014CFB9 /* jmod.param.h in Headers */,
+				22E902990A6558CE0014CFB9 /* tt_audio_base.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,8 +182,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22261D730A28C44900329D95 /* commonsyms.c in Sources */,
-				22DAFCB90A5431A800400B6A /* pattr.common.c in Sources */,
 				22261CE30A28C1C100329D95 /* jmod.param.c in Sources */,
+				22E901250A6545EE0014CFB9 /* jmod.param.clip.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,10 +199,12 @@
 				DSTROOT = "$(PROJECT_DIR)";
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_ALTIVEC_EXTENSIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../common/jmod.prefix.pch;
@@ -220,6 +228,7 @@
 				PRODUCT_NAME = jmod.param;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = ./../../externals_3rd_party/ttblue/dsplib;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -242,9 +251,11 @@
 				DSTROOT = "$(PROJECT_DIR)";
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_ALTIVEC_EXTENSIONS = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../common/jmod.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -270,6 +281,7 @@
 				PRODUCT_NAME = jmod.param;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = ./../../externals_3rd_party/ttblue/dsplib;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -288,8 +300,10 @@
 				DSTROOT = "$(PROJECT_DIR)";
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
 				GCC_ALTIVEC_EXTENSIONS = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../common/jmod.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -315,6 +329,7 @@
 				PRODUCT_NAME = jmod.param;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = ./../../externals_3rd_party/ttblue/dsplib;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

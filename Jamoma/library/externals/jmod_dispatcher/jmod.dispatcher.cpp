@@ -46,7 +46,7 @@ void		*dispatcher_new(t_symbol *s, long argc, t_atom *argv);
 void		dispatcher_free(t_dispatcher *x);
 void		dispatcher_assist(t_dispatcher *x, void *b, long msg, long arg, char *dst);
 void		dispatcher_symbol(t_dispatcher *x, t_symbol *msg, short argc, t_atom *argv);
-void		dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object);
+t_symbol*	dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object);
 void		atom_copy(t_atom *dst, t_atom *src);
 
 
@@ -156,13 +156,13 @@ void dispatcher_free(t_dispatcher *x)
 // Communication with jmod.param objects
 
 // This method is called from jmod.param to register it with this dispatcher
-void dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object)
+t_symbol* dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object)
 {
 	t_parameter *new_param;
 	
 	if(param_object == NULL){
 		error("Null object cannot bind to jmod.dispatcher");
-		return;
+		return _sym_nothing;
 	}
 	
 	new_param = (t_parameter *)sysmem_newptr(sizeof(t_parameter));
@@ -171,6 +171,7 @@ void dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object)
 	new_param->next = x->parameter;
 	
 	x->parameter = new_param;
+	return x->attr_name;			// return the module name to the parameter
 }
 
 

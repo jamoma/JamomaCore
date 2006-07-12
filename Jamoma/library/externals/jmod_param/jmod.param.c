@@ -7,57 +7,17 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"				// Max Header
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
+#include "jmod.param.h"		// everything we need is in here
 
-enum outlets{
-	k_outlet_set = 0,
-	k_outlet_direct,
-	k_outlet_dumpout,
-	num_outlets
-};
-
-typedef struct _param{						// Data Structure for this object
-	t_object	ob;							// REQUIRED: Our object
-	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	t_patcher	*container;
-	void 		*outlets[num_outlets];		// my outlet array
-	t_atom		value;						// The parameter's value
-	t_symbol	*attr_name;					// ATTRIBUTE: parameter's name
-	t_symbol	*attr_clipmode;				// ATTRIBUTE: how to constrain values to the specified ranges
-	t_symbol	*attr_description;			// ATTRIBUTE: textual description of this parameter
-	long		attr_ramp;					// ATTRIBUTE: ramp mode (0 = off, 1 = linear)
-	float		ramp_time;					//		actual ramp time in milliseconds
-	float		attr_range[2];				// ATTRIBUTE: low, high
-	long		attr_range_len;				//		length actually given to us by the user
-	long		attr_repetitions;			// ATTRIBUTE: 0 = filter out repetitions (like the change object)
-	t_symbol	*attr_type;					// ATTRIBUTE: what kind of data doers this object define?
-	t_symbol	*name;						// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
-} t_param;
-
-// Prototypes for our methods:
-void		*param_new(t_symbol *s, long argc, t_atom *argv);
-void		param_free(t_param *x);
-void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
-void		param_bang(t_param *x);
-void		param_int(t_param *x, long n);
-void		param_float(t_param *x, double f);
-void		param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv);
-void		param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv);
-void param_bind(t_param *x);
-void		atom_copy(t_atom *dst, t_atom *src);
-short		atom_compare(t_param *x, t_atom *a1, t_atom *a2);	// returns 1 if they match, 0 if they don't
-void		atom_clip(t_param *x, t_atom *a);
-void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv);
 
 // Globals
 t_class		*param_class;				// Required: Global pointer for our class
 t_symbol	*ps_none, *ps_low, *ps_high, *ps_both, *ps_generic, *ps_msg_int, *ps_msg_float, 
 			*ps_msg_symbol, *ps_toggle, *ps_menu, *ps_jmod_dispatcher, *ps_bind;
 
+
 /************************************************************************************/
-// Main() Function
+// Class Definition
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
@@ -73,6 +33,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_param, obex));
 	
 	// Make methods accessible for our class:
+	// Note that we can't make the bang method directly accessible here (must go through another function)
+	//	because the function pointer is in out struct, which hasn't been defined yet
 	class_addmethod(c, (method)param_dispatched,			"dispatched",	A_GIMME, 0L);
 	class_addmethod(c, (method)param_int,					"int",			A_DEFLONG,	0L);
 	class_addmethod(c, (method)param_float,					"float",		A_DEFFLOAT,	0L);
@@ -114,7 +76,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// ATTRIBUTE: type - options are generic, msg_int, msg_float, msg_symbol, toggle, menu
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_type));
+		(method)0, (method)param_settype, calcoffset(t_param, attr_type));
 	class_addattr(c, attr);
 		
 	// Init the globals
@@ -131,6 +93,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	ps_jmod_dispatcher = gensym("jmod.dispatcher");
 	ps_bind = gensym("bind");
 
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	param_class = c;
@@ -140,7 +103,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 /************************************************************************************/
 // Object Life
-//x->pattr = (t_object *)object_new(CLASS_BOX, gensym("pattr"));		
 
 void *param_new(t_symbol *s, long argc, t_atom *argv)
 {
@@ -161,14 +123,16 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 
 		x->attr_ramp = 0;							// set defaults...
 		atom_setlong(&x->value, 0);
+		x->module_name = _sym_nothing;
+		x->name = name;
 		x->attr_name = name;
 		x->attr_clipmode = _sym_nothing;
 		x->attr_description = _sym_nothing;
 		x->attr_type = _sym_nothing;	
+		x->param_bang = &param_bang_generic;		// set function pointer to default
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
-
-		x->name = name;
+		
 		x->container = (t_patcher *)gensym("#P")->s_thing;	
 		defer_low(x, (method)param_bind, 0, 0, 0);
 	}
@@ -189,10 +153,9 @@ void param_bind(t_param *x)
 	// traverse the linked list of boxes in the patch
 	for(b = p->p_box; b; b = b->b_next){
 		theclass = object_class(b->b_firstin);
-		if(object_classname_compare(b->b_firstin, ps_jmod_dispatcher)){
-			post("found a dispatcher!");
-			object_method(b->b_firstin, ps_bind, x->name, x);
-			break;
+		if(object_classname_compare(b->b_firstin, ps_jmod_dispatcher)){						// if this is a jmod.dispatcher...
+			x->module_name = (t_symbol *)object_method(b->b_firstin, ps_bind, x->name, x);	// register with it, and get the module name
+			break;																			// then stop looking
 		}
 	}
 }
@@ -200,7 +163,10 @@ void param_bind(t_param *x)
 
 void param_free(t_param *x)
 {
-	//object_free(x->pattr);
+	/* We should add some code here to un-register this parameter from jmod.dispatcher,
+		otherwise jmod.dispatcher will continue to try and send messages to it - most
+		likely resulting in a crash...
+	*/
 	;
 }
 
@@ -228,15 +194,99 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
  	}		
 }
 
-void param_bang(t_param *x)
+
+
+/* The 'bang' method is actually a function pointer to a method optimized for the 
+	the data type of the parameter.
+*/
+
+void param_bang_generic(void *z)
 {
+	t_param *x = (t_param *)z;
+	
+	param_clip_generic(x);
 	if(x->value.a_type == A_LONG)
 		outlet_int(x->outlets[k_outlet_direct], x->value.a_w.w_long);
 	else if(x->value.a_type == A_FLOAT)
 		outlet_float(x->outlets[k_outlet_direct], x->value.a_w.w_float);
 	else if(x->value.a_type == A_SYM)
 		outlet_anything(x->outlets[k_outlet_direct], x->value.a_w.w_sym, 0, NULL);
+
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, 1, &x->value);
 }
+
+void param_bang_int(void *z)
+{
+	t_param *x = (t_param *)z;
+
+	param_clip_int(x);
+	outlet_int(x->outlets[k_outlet_direct], x->value.a_w.w_long);
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, 1, &x->value);
+}
+
+void param_bang_float(void *z)
+{
+	t_param *x = (t_param *)z;
+
+	param_clip_float(x);
+	outlet_float(x->outlets[k_outlet_direct], x->value.a_w.w_float);
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, 1, &x->value);
+}
+
+void param_bang_symbol(void *z)
+{
+	t_param *x = (t_param *)z;
+
+	outlet_anything(x->outlets[k_outlet_direct], x->value.a_w.w_sym, 0, NULL);
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, 1, &x->value);
+}
+
+void param_bang_menu(void *z)
+{
+	t_param *x = (t_param *)z;
+
+	outlet_anything(x->outlets[k_outlet_direct], x->value.a_w.w_sym, 0, NULL);
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, 1, &x->value);
+}
+
+
+
+// ATTRIBUTE: TYPE
+// This is crucial because it sets function pointers for the optimized clipping, bang, and other functions
+t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol *arg = atom_getsym(argv);
+	x->attr_type = arg;
+
+	if(arg == ps_msg_int){
+		x->param_bang = &param_bang_int;
+	}
+	else if(arg == ps_msg_float){
+		x->param_bang = &param_bang_float;
+	}
+	else if(arg == ps_msg_symbol){
+		x->param_bang = &param_bang_symbol;
+	}
+	else if(arg == ps_toggle){
+		x->param_bang = &param_bang_int;
+	}
+	else if(arg == ps_menu){
+		x->param_bang = &param_bang_menu;
+	}
+	else if(arg == ps_generic){
+		x->param_bang = &param_bang_generic;
+	}
+	else{
+		error("Jamoma - invalid type specified for %s parameter in the %s module.", x->name->s_name, x->module_name->s_name);
+		x->attr_type = ps_generic;
+		x->param_bang = &param_bang_generic;
+	}
+
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
+
 
 
 // INT INPUT
@@ -262,25 +312,12 @@ void param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	object_notify(x, _sym_modified, NULL);
 }
 
+
 // INPUT - RECEIVED FROM JMOD.DISPATCHER!!!
 void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
-
-atom_copy(&x->value, argv);
-param_bang(x);
-
-//	short	i;
-//	t_atom	a;	// for testing purposes, we'll limit it to 1 atom
-	
-//	if(argv.a_type == A_LONG)
-	
-//	else if(argv.a_type == A_FLOAT)
-	
-//	else // assume symbol
-	
-	
-//	for(i=0; i< argc; i++){
-//	}
+	atom_copy(&x->value, argv);
+	x->param_bang(x);
 }
 
 
@@ -338,43 +375,3 @@ short atom_compare(t_param *x, t_atom *a1, t_atom *a2)
 	return 0;
 }
 
-
-void atom_clip(t_param *x, t_atom *a)
-{
-	if(x->attr_clipmode == ps_low){
-		if(a->a_type == A_LONG){
-			if(a->a_w.w_long < x->attr_range[0])
-				a->a_w.w_long = x->attr_range[0];
-		}
-		else if(a->a_type == A_FLOAT){
-			if(a->a_w.w_float < x->attr_range[0])
-				a->a_w.w_float = x->attr_range[0];
-		}			
-	}
-	else if(x->attr_clipmode == ps_high){
-		if(a->a_type == A_LONG){
-			if(a->a_w.w_long > x->attr_range[1])
-				a->a_w.w_long = x->attr_range[1];
-		}
-		else if(a->a_type == A_FLOAT){
-			if(a->a_w.w_float > x->attr_range[1])
-				a->a_w.w_float = x->attr_range[1];
-		}
-	}
-	else if(x->attr_clipmode == ps_both){
-		if(a->a_type == A_LONG){
-			if(a->a_w.w_long < x->attr_range[0])
-				a->a_w.w_long = x->attr_range[0];
-			else if(a->a_w.w_long > x->attr_range[1])
-				a->a_w.w_long = x->attr_range[1];
-		}
-		else if(a->a_type == A_FLOAT){
-			if(a->a_w.w_float < x->attr_range[0])
-				a->a_w.w_float = x->attr_range[0];
-			else if(a->a_w.w_float > x->attr_range[1])
-				a->a_w.w_float = x->attr_range[1];
-		}			
-	}
-	else
-		error("atom_clip: unrecognized clip mode");
-}
