@@ -128,7 +128,7 @@ void *dispatcher_new(t_symbol *s, long argc, t_atom *argv)
 
 //		x->attr_ramp = 0;							// set defaults...
 //		atom_setlong(&x->value, 0);
-		x->attr_name = _sym_nothing;
+		x->attr_name = name;
 		x->attr_type = _sym_nothing;
 		x->attr_description = _sym_nothing;
 		
