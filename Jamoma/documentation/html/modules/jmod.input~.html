@@ -35,15 +35,6 @@
 			<td> Description </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /audio/gain/midi </td>
-			<td class="instructionType"> msg_float </td>
-			<td class="instructionRange"> 0 158 </td>
-			<td class="instructionClipmode"> both </td>
-			<td class="instructionRamp"> yes </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Set master gain as MIDI value. </td>
-		</tr>
-		<tr>
 			<td class="instructionName"> /ch_1 </td>
 			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> default </td>
@@ -69,6 +60,15 @@
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Sync module to external clock. <br><code>/set_clock max</code> set module to use the Max scheduler (default behaviour). </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /gain/midi </td>
+			<td class="instructionType"> msg_float </td>
+			<td class="instructionRange"> 0 158 </td>
+			<td class="instructionClipmode"> both </td>
+			<td class="instructionRamp"> yes </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Set master gain as MIDI value. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /gain_1/midi </td>
@@ -133,15 +133,6 @@
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		</tr>
-		<tr>
-			<td class="instructionName"> /ui/refresh </td>
-			<td class="instructionType"> msg_bang </td>
-			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> none </td>
-			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Update displayed values for module to reflect current state. </td>
-		</tr>
 	</table>
 
 	<p>&nbsp;</p>
@@ -157,33 +148,6 @@
 			<td> Ramp Enabled </td>
 			<td> Repetitions </td>
 			<td> Description </td>
-		</tr>
-		<tr>
-			<td class="instructionName"> /audio/gain </td>
-			<td class="instructionType"> msg_float </td>
-			<td class="instructionRange"> -144 0 </td>
-			<td class="instructionClipmode"> none </td>
-			<td class="instructionRamp"> yes </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Set master gain as dB value. </td>
-		</tr>
-		<tr>
-			<td class="instructionName"> /audio/gain/dec </td>
-			<td class="instructionType"> generic </td>
-			<td class="instructionRange"> N/A </td>
-			<td class="instructionClipmode"> none </td>
-			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Increase master gain MIDI value by one. </td>
-		</tr>
-		<tr>
-			<td class="instructionName"> /audio/gain/inc </td>
-			<td class="instructionType"> generic </td>
-			<td class="instructionRange"> N/A </td>
-			<td class="instructionClipmode"> none </td>
-			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Decrease master gain MIDI value by one. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /direct </td>
@@ -220,6 +184,33 @@
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open DSP Status window. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /gain </td>
+			<td class="instructionType"> msg_float </td>
+			<td class="instructionRange"> -144 0 </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> yes </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Set master gain as dB value. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /gain/dec </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> N/A </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Increase master gain MIDI value by one. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /gain/inc </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> N/A </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Decrease master gain MIDI value by one. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /gain_1 </td>
@@ -364,6 +355,15 @@
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /ui/refresh </td>
+			<td class="instructionType"> msg_bang </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		</tr>
 	</table>
 
