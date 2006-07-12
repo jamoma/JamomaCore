@@ -177,6 +177,7 @@ function bang()
 			menu_add("Restore Default Settings");
 			menu_add("-");
 			menu_add("Open Online Reference");
+			menu_add("Open Help Patch");
 			menu_add("View Internal Components");
 			
 			// Handle the Inspector Button
@@ -234,6 +235,7 @@ function bang()
 			menu_add("Restore Default Settings");
 			menu_add("-");
 			menu_add("Open Online Reference");
+			menu_add("Open Help Patch");
 			menu_add("View Internal Components");
 			
 			// Handle the Inspector Button
@@ -257,13 +259,14 @@ function bang()
 	
 			// Setup the Menu
 			menu_clear();
-			menu_add("Disable Display");
+			menu_add("Disable UI Updates");
 			menu_add("-");
 			menu_add("Load Settings...");
 			menu_add("Save Settings...");
 			menu_add("Restore Default Settings");
 			menu_add("-");
 			menu_add("Open Online Reference");
+			menu_add("Open Help Patch");
 			menu_add("View Internal Components");
 			
 			// Handle the Inspector Button
@@ -320,7 +323,7 @@ function msg_int(value)
 			case 1: 
 				if(attr_meterfreeze_toggle == 1) attr_meterfreeze_toggle = 0;
 				else if(attr_meterfreeze_toggle == 0) attr_meterfreeze_toggle = 1;
-				outlet(4, "/ui/meters/defeat", attr_meterfreeze_toggle); 
+				outlet(4, "/audio/meters/freeze", attr_meterfreeze_toggle); 
 				outlet(3, "checkitem", 1, attr_meterfreeze_toggle); 
 				break;
 			case 2: outlet(4, "/ui/meters/clear"); break;
@@ -328,7 +331,8 @@ function msg_int(value)
 			case 5: outlet(4, "/preset/save"); break;
 			case 6: outlet(4, "/preset/default"); break;
 			case 8: outlet(4, "/documentation/html"); break;
-			case 9: outlet(4, "/module/view_internals"); break;
+			case 9: outlet(4, "/documentation/help"); break;
+			case 10: outlet(4, "/module/view_internals"); break;
 			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
@@ -343,7 +347,7 @@ function msg_int(value)
 			case 1: 
 				if(attr_preview == 1) attr_preview = 0;
 				else if(attr_preview == 0) attr_preview = 1;
-				outlet(4, "/preview", attr_preview); 
+				outlet(4, "/video/preview", attr_preview); 
 				outlet(3, "checkitem", 1, attr_preview); 
 				break;
 			case 2: outlet(4, "/genframe"); break;	
@@ -354,7 +358,7 @@ function msg_int(value)
 					attr_freeze = 0;
 					attr_mute = 0;
 				}
-				outlet(4, "/bypass", attr_bypass); 
+				outlet(4, "/video/bypass", attr_bypass); 
 				break;
 			case 5:
 				if(attr_freeze == 1) attr_freeze = 0;
@@ -363,7 +367,7 @@ function msg_int(value)
 					attr_freeze = 1;
 					attr_mute = 0;
 				}
-				outlet(4, "/freeze", attr_freeze); 
+				outlet(4, "/video/freeze", attr_freeze); 
 				break;
 			case 6:
 				if(attr_mute == 1) attr_mute = 0;
@@ -372,13 +376,14 @@ function msg_int(value)
 					attr_freeze = 0;
 					attr_mute = 1;
 				}
-				outlet(4, "/mute", attr_mute); 
+				outlet(4, "/video/mute", attr_mute); 
 				break;
 			case 8: outlet(4, "/preset/load"); break;			
 			case 9: outlet(4, "/preset/save"); break;
 			case 10: outlet(4, "/preset/default"); break;
 			case 12: outlet(4, "/documentation/html"); break;
-			case 13: outlet(4, "/module/view_internals"); break;		
+			case 13: outlet(4, "/documentation/help"); break;
+			case 14: outlet(4, "/module/view_internals"); break;		
 			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 		outlet(3, "checkitem", 4, attr_bypass);
@@ -397,7 +402,9 @@ function msg_int(value)
 			case 3: outlet(4, "/preset/save"); break;
 			case 4: outlet(4, "/preset/defaul"); break;
 			case 6: outlet(4, "/documentation/html"); break;
-			case 7: outlet(4, "/module/view_internals"); break;
+			case 7: outlet(4, "/documentation/help"); break;
+			case 8: outlet(4, "/module/view_internals"); break;
+			
 			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
