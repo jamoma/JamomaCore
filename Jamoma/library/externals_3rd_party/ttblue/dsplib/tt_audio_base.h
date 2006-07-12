@@ -185,7 +185,11 @@ class tt_audio_base{
 		static T limit_max(T value, T high_bound)
 		{
 			value = high_bound - value;
+#ifdef MAC_VERSION
 			value += fabs(value);
+#else
+			value += fabs((double)value);
+#endif
 			value *= 0.5;
 			value = high_bound - value;
 			return value; 
@@ -195,7 +199,11 @@ class tt_audio_base{
 		static T limit_min(T value, T low_bound)
 		{
 			value -= low_bound;
+#ifdef MAC_VERSION
 			value += fabs(value);
+#else
+			value += fabs((double)value);
+#endif
 			value *= 0.5;
 			value -= low_bound;
 			return value; 
