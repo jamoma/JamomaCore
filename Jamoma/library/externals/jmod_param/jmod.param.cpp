@@ -49,7 +49,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_param, attr_clipmode));
 	class_addattr(c, attr);
 
-	// ATTRIBUTE: description
+	// ATTRIBUTE: description - does nothing, but is accessed by jmod.dispatcher for /autodoc generation
 	attr = attr_offset_new("description", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_param, attr_description));
 	class_addattr(c, attr);
@@ -69,7 +69,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_param, attr_range), calcoffset(t_param, attr_range_len));
 	class_addattr(c, attr);
 
-	// ATTRIBUTE: repetitions - 0 means no repetitive values are allowed, 1 means they are
+	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
 	attr = attr_offset_new("repetitions", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_param, attr_repetitions));
 	class_addattr(c, attr);
@@ -126,9 +126,12 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->module_name = _sym_nothing;
 		x->name = name;
 		x->attr_name = name;
-		x->attr_clipmode = _sym_nothing;
+		x->attr_range[0] = 0.0;
+		x->attr_range[1] = 1.0;
+		x->attr_clipmode = ps_none;
 		x->attr_description = _sym_nothing;
-		x->attr_type = _sym_nothing;	
+		x->attr_type = ps_generic;
+		x->attr_repetitions = 1;
 		x->param_bang = &param_bang_generic;		// set function pointer to default
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
@@ -316,6 +319,10 @@ void param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 // INPUT - RECEIVED FROM JMOD.DISPATCHER!!!
 void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
+	if(x->attr_repetitions == 0){
+		if(atom_compare(x, &x->value, argv))
+		return;
+	}
 	atom_copy(&x->value, argv);
 	x->param_bang(x);
 }
@@ -353,24 +360,38 @@ void atom_copy(t_atom *dst, t_atom *src)
 		error("atom_copy: unrecognized type");
 }
 
-// NOTE: this function requires the user to have set the attr_type to something other
-//	than generic...   Perhaps this enforces good form?  It certainly improves efficiency...
+
 short atom_compare(t_param *x, t_atom *a1, t_atom *a2)
 {
-	if(x->attr_type == ps_msg_int){
-		if(a1->a_w.w_long == a2->a_w.w_long)
+	if(x->attr_type == ps_msg_float){				// float is first so that it gets process the most quickly
+		if(atom_getfloat(a1) == atom_getfloat(a2))
 			return 1;
 	}
-	else if(x->attr_type == ps_msg_float){
-		if(a1->a_w.w_float == a2->a_w.w_float)
+	else if((x->attr_type == ps_msg_int) || (x->attr_type == ps_toggle)){
+		if(atom_getlong(a1) == atom_getlong(a2))
 			return 1;
 	}
 	else if(x->attr_type == ps_msg_symbol){
-		if(a1->a_w.w_sym == a2->a_w.w_sym)
+		if(atom_getsym(a1) == atom_getsym(a2))
 			return 1;
 	}
+	else if((x->attr_type == ps_generic) || (x->attr_type == ps_menu)){
+		// note that if the two are of different types, then they are obviously not the same
+		if((a1->a_type == A_LONG) && (a2->a_type == A_LONG)){
+			if(a1->a_w.w_long == a2->a_w.w_long)
+				return 1;
+		}
+		else if((a1->a_type == A_FLOAT) && (a2->a_type == A_FLOAT)){
+			if(a1->a_w.w_float == a2->a_w.w_float)
+				return 1;
+		}
+		else if((a1->a_type == A_SYM) && (a2->a_type == A_SYM)){
+			if(a1->a_w.w_sym == a2->a_w.w_sym)
+				return 1;
+		}
+	}
 	else
-		error("atom_compare: unrecognized type");
+		error("atom_compare: cannot do comparison on this data type");
 		
 	return 0;
 }
