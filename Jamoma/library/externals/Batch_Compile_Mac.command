@@ -5,6 +5,11 @@ xcodebuild -configuration Deployment clean build
 /Developer/Tools/CpMac -r build/Release/* ../build_mac
 cd ..
 
+cd jmod_dispatcher
+xcodebuild -configuration Deployment clean build
+/Developer/Tools/CpMac -r build/Release/* ../build_mac
+cd ..
+
 cd jmod_equals
 xcodebuild -configuration Deployment clean build
 /Developer/Tools/CpMac -r build/Release/* ../build_mac
@@ -26,6 +31,11 @@ xcodebuild -configuration Deployment clean build
 cd ..
 
 cd jmod_oscroute
+xcodebuild -configuration Deployment clean build
+/Developer/Tools/CpMac -r build/Release/* ../build_mac
+cd ..
+
+cd jmod_param
 xcodebuild -configuration Deployment clean build
 /Developer/Tools/CpMac -r build/Release/* ../build_mac
 cd ..
