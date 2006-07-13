@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		22261CE30A28C1C100329D95 /* jmod.sum%.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jmod.sum%.cpp */; };
-		22261CE50A28C20600329D95 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22261CE40A28C20600329D95 /* Info.plist */; };
 		22261D350A28C3F100329D95 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261D340A28C3F100329D95 /* tt_audio_base.cpp */; };
 		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
 		22261EAD0A2B8E9A00329D95 /* JitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22261EAC0A2B8E9A00329D95 /* JitterAPI.framework */; };
@@ -142,7 +141,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22261CE50A28C20600329D95 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
