@@ -13,7 +13,7 @@
 // Globals
 t_class		*param_class;				// Required: Global pointer for our class
 t_symbol	*ps_none, *ps_low, *ps_high, *ps_both, *ps_generic, *ps_msg_int, *ps_msg_float, 
-			*ps_msg_symbol, *ps_toggle, *ps_menu, *ps_jmod_dispatcher, *ps_bind;
+			*ps_msg_symbol, *ps_toggle, *ps_menu, *ps_jmod_dispatcher, *ps_bind, *ps_feedback;
 
 
 /************************************************************************************/
@@ -92,6 +92,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	ps_menu = gensym("menu");
 	ps_jmod_dispatcher = gensym("jmod.dispatcher");
 	ps_bind = gensym("bind");
+	ps_feedback = gensym("feedback");
 
 
 	// Finalize our class
@@ -125,6 +126,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setlong(&x->value, 0);
 		x->module_name = _sym_nothing;
 		x->name = name;
+		atom_setsym(&x->name_atom, name);
 		x->attr_name = name;
 		x->attr_range[0] = 0.0;
 		x->attr_range[1] = 1.0;
@@ -133,6 +135,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_type = ps_generic;
 		x->attr_repetitions = 1;
 		x->param_bang = &param_bang_generic;		// set function pointer to default
+		x->dispatcher = NULL;
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
@@ -158,6 +161,7 @@ void param_bind(t_param *x)
 		theclass = object_class(b->b_firstin);
 		if(object_classname_compare(b->b_firstin, ps_jmod_dispatcher)){						// if this is a jmod.dispatcher...
 			x->module_name = (t_symbol *)object_method(b->b_firstin, ps_bind, x->name, x);	// register with it, and get the module name
+			x->dispatcher = b->b_firstin;													// store the pointer
 			break;																			// then stop looking
 		}
 	}
@@ -296,7 +300,7 @@ t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 void param_int(t_param *x, long value)
 {
 	atom_setlong(&x->value, value);
-	object_notify(x, _sym_modified, NULL);
+	param_send_feedback(x);
 }
 
 
@@ -304,7 +308,7 @@ void param_int(t_param *x, long value)
 void param_float(t_param *x, double value)
 {
 	atom_setfloat(&x->value, value);
-	object_notify(x, _sym_modified, NULL);
+	param_send_feedback(x);
 }
 
 
@@ -312,7 +316,20 @@ void param_float(t_param *x, double value)
 void param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	atom_setsym(&x->value, msg);
-	object_notify(x, _sym_modified, NULL);
+	param_send_feedback(x);
+}
+
+
+// Send feedback to the dispatcher
+void param_send_feedback(t_param *x)
+{
+	t_atom output[2];
+	t_atom *out = (t_atom *)(&output);
+	
+	atom_copy(out, &x->name_atom);
+	atom_copy(out+1, &x->value);
+	object_method_typed(x->dispatcher, ps_feedback, 2, out, NULL);
+	//object_notify(x, _sym_modified, NULL);
 }
 
 
@@ -347,7 +364,7 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 
 /************************************************************************************/
 // Utilities
-
+/*
 void atom_copy(t_atom *dst, t_atom *src)
 {
 	if(src->a_type == A_LONG)
@@ -359,6 +376,17 @@ void atom_copy(t_atom *dst, t_atom *src)
 	else
 		error("atom_copy: unrecognized type");
 }
+*/
+// I THINK THE FOLLOWING SHOULD BE FASTER THAN WHAT IS ABOVE (THOUGH I HAVEN'T BENCHMARKED IT)
+void atom_copy(t_atom *dst, t_atom *src)
+{
+	dst->a_type = src->a_type;
+	dst->a_w.w_long = src->a_w.w_long;
+	dst->a_w.w_float = src->a_w.w_float;
+	dst->a_w.w_sym = src->a_w.w_sym;
+}
+
+
 
 
 short atom_compare(t_param *x, t_atom *a1, t_atom *a2)

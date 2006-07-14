@@ -42,11 +42,12 @@ typedef struct _dispatcher{					// Data Structure for this object
 
 
 // Prototypes for our methods:
-void		*dispatcher_new(t_symbol *s, long argc, t_atom *argv);
+void*		dispatcher_new(t_symbol *s, long argc, t_atom *argv);
 void		dispatcher_free(t_dispatcher *x);
 void		dispatcher_assist(t_dispatcher *x, void *b, long msg, long arg, char *dst);
 void		dispatcher_symbol(t_dispatcher *x, t_symbol *msg, short argc, t_atom *argv);
 t_symbol*	dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object);
+void		dispatcher_receive(t_dispatcher *x, t_symbol *name, short argc, t_atom *argv);
 void		atom_copy(t_atom *dst, t_atom *src);
 
 
@@ -74,8 +75,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	// Make methods accessible for our class:
  	class_addmethod(c, (method)dispatcher_symbol,			"anything",		A_GIMME, 0L);
 	class_addmethod(c, (method)dispatcher_bind,				"bind",			A_CANT, 0L);
+	class_addmethod(c, (method)dispatcher_receive,			"feedback",		A_GIMME, 0L);
 	class_addmethod(c, (method)dispatcher_assist,			"assist",		A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,	0);  
     class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
 
 	// ATTRIBUTE: name
@@ -174,6 +176,19 @@ t_symbol* dispatcher_bind(t_dispatcher *x, t_symbol *name, void *param_object)
 	return x->attr_name;			// return the module name to the parameter
 }
 
+
+// Receive parameter values from jmod.param
+void dispatcher_receive(t_dispatcher *x, t_symbol *name, short argc, t_atom *argv)
+{
+	char		namestring[256];
+	t_symbol	*osc;
+	
+	strcpy(namestring, "/");						// perhaps we could optimize this operation
+	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
+	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
+
+	outlet_anything(x->outlets[k_outlet_algorithm], osc, argc-1, argv+1);
+}
 
 /************************************************************************************/
 // Methods bound to input/inlets

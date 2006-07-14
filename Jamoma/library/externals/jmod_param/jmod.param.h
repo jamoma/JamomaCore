@@ -29,6 +29,7 @@ typedef struct _param{						// Data Structure for this object
 	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	pf_noargs	param_bang;					// bang method for the instance points to an optimized function
 	t_patcher	*container;
+	void		*dispatcher;				// the jmod.dispatcher object that we bind to
 	void 		*outlets[num_outlets];		// my outlet array
 	t_atom		value;						// The parameter's value
 	t_symbol	*attr_name;					// ATTRIBUTE: parameter's name
@@ -41,6 +42,7 @@ typedef struct _param{						// Data Structure for this object
 	long		attr_repetitions;			// ATTRIBUTE: 0 = filter out repetitions (like the change object)
 	t_symbol	*attr_type;					// ATTRIBUTE: what kind of data doers this object define?
 	t_symbol	*name;						// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
+	t_atom		name_atom;					// the above name, but cached as an atom for quick referencing
 	t_symbol	*module_name;				// the name of the module as reported when we bind to jmod.dispatcher
 } t_param;
 
@@ -59,6 +61,7 @@ void param_bang_generic(void *z);
 void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);
 void		param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv);
+void param_send_feedback(t_param *x);
 void		param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv);
 void param_bind(t_param *x);
 void		atom_copy(t_atom *dst, t_atom *src);
