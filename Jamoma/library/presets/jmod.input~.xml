@@ -18,7 +18,7 @@
 			<pattr name = "/ch_2" value = "2" />
 		</patcher>
 		<patcher name = "jmod.parameter.gain.mxt">
-			<pattr name = "/gain/midi" value = "0." />
+			<pattr name = "/audio/gain/midi" value = "0." />
 		</patcher>
 		<patcher name = "jmod.parameter.gain.mxt[1]">
 			<pattr name = "/gain_1/midi" value = "127." />
