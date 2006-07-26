@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.surround.multi.out~">
+<pattrstorage name = "jmod.sur.multi.out~">
 	<slot number = "1">
 		<patcher name = "jmod.parameter">
 			<pattr name = "/channel_offset" value = "0" />
 		</patcher>
 		<patcher name = "jmod.hub">
-			<patcher name = "jmod.parameter">
-				<pattr name = "/disable_ui_updates" value = "0" />
+			<patcher name = "sub patch">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/ui/freeze" value = "0" />
+				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter[1]">
-				<pattr name = "/set_clock" value = "" />
+			<patcher name = "sub patch[1]">
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/clock/set" value = "" />
+				</patcher>
 			</patcher>
 		</patcher>
 	</slot>

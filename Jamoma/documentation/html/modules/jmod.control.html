@@ -33,14 +33,33 @@
 			<td> Ramp Enabled </td>
 			<td> Repetitions </td>
 			<td> Description </td>
-		</tr>		<tr>
-			<td class="instructionName"> /set_clock </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /audio </td>
+			<td class="instructionType"> toggle </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Toggle audio on and off. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /clock/set </td>
 			<td class="instructionType"> msg_symbol </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Sync module to external clock. <br><code>/set_clock max</code> set module to use the Max scheduler (default behaviour). </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /ui/freeze </td>
+			<td class="instructionType"> toggle </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		</tr>
 	</table>
 
@@ -59,24 +78,16 @@
 			<td> Description </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /get_parameter_names </td>
-			<td class="instructionType"> n/a </td>
+			<td class="instructionName"> /documentation/help </td>
+			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Returns a dump of symbols out the feedback outlet with the names of parameters accessible in this module. </td>
+			<td class="instructionDescription"> Open the help patch for the module. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /getmodulesize </td>
-			<td class="instructionType"> generic </td>
-			<td class="instructionRange"> default </td>
-			<td class="instructionClipmode"> none </td>			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Get size of module. </td>
-		</tr>
-		<tr>
-			<td class="instructionName"> /help </td>
+			<td class="instructionName"> /documentation/html </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> none </td>
@@ -94,13 +105,31 @@
 			<td class="instructionDescription"> Initialize all Jamoma modules. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /load_settings </td>
-			<td class="instructionType"> msg_symbol </td>
+			<td class="instructionName"> /module/parameter_names/get </td>
+			<td class="instructionType"> n/a </td>
 			<td class="instructionRange"> n/a </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
+			<td class="instructionDescription"> Returns a dump of symbols out the feedback outlet with the names of parameters accessible in this module. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /module/size/get </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Get size of module. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /module/view_internals </td>
+			<td class="instructionType"> n/a </td>
+			<td class="instructionRange"> n/a </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /panic </td>
@@ -112,13 +141,58 @@
 			<td class="instructionDescription"> Stop audio immediately. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /preset_recall </td>
+			<td class="instructionName"> /preset/default </td>
+			<td class="instructionType"> n/a </td>
+			<td class="instructionRange"> n/a </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /preset/direct </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> n/a </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Access directly to the pattrstorage object. See Max Reference. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /preset/load </td>
+			<td class="instructionType"> msg_symbol </td>
+			<td class="instructionRange"> n/a </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /preset/recall </td>
 			<td class="instructionType"> msg_int </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /preset/save </td>
+			<td class="instructionType"> msg_symbol </td>
+			<td class="instructionRange"> n/a </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /preset/store </td>
+			<td class="instructionType"> msg_int </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> no </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
 		</tr>
 		<tr>
 			<td class="instructionName"> /refresh </td>
@@ -130,31 +204,13 @@
 			<td class="instructionDescription"> Refresh all Max windows. </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /restore_defaults </td>
-			<td class="instructionType"> n/a </td>
-			<td class="instructionRange"> n/a </td>
+			<td class="instructionName"> /ui/refresh </td>
+			<td class="instructionType"> msg_bang </td>
+			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> no </td>
 			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
-		</tr>
-		<tr>
-			<td class="instructionName"> /save_settings </td>
-			<td class="instructionType"> msg_symbol </td>
-			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> none </td>
-			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
-		</tr>
-		<tr>
-			<td class="instructionName"> /view_internals </td>
-			<td class="instructionType"> n/a </td>
-			<td class="instructionRange"> n/a </td>
-			<td class="instructionClipmode"> none </td>
-			<td class="instructionRamp"> no </td>
-			<td class="instructionRepetitions"> yes </td>
-			<td class="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+			<td class="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		</tr>
 	</table>
 
@@ -182,13 +238,22 @@
 			<td class="instructionDescription"> reports the cpu usage of the dsp processing </td>
 		</tr>
 		<tr>
-			<td class="instructionName"> /modulesize </td>
+			<td class="instructionName"> /module/size </td>
 			<td class="instructionType"> generic </td>
 			<td class="instructionRange"> default </td>
 			<td class="instructionClipmode"> none </td>
 			<td class="instructionRamp"> N/A </td>
 			<td class="instructionRepetitions"> yes </td>
 			<td class="instructionDescription"> Size of module. </td>
+		</tr>
+		<tr>
+			<td class="instructionName"> /preset/out </td>
+			<td class="instructionType"> generic </td>
+			<td class="instructionRange"> default </td>
+			<td class="instructionClipmode"> none </td>
+			<td class="instructionRamp"> N/A </td>
+			<td class="instructionRepetitions"> yes </td>
+			<td class="instructionDescription"> returns the ouptput of pattrstorage object </td>
 		</tr>
 	</table>
 

@@ -2,16 +2,20 @@
 
 <pattrstorage name = "jmod.cuelist">
 	<slot number = "1">
+		<patcher name = "jmod.hub">
+			<patcher name = "sub patch">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/ui/freeze" value = "0" />
+				</patcher>
+			</patcher>
+			<patcher name = "sub patch[1]">
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/clock/set" value = "" />
+				</patcher>
+			</patcher>
+		</patcher>
 		<patcher name = "jmod.parameter">
 			<pattr name = "/listen" value = "0" />
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "jmod.parameter[1]">
-				<pattr name = "/set_clock" value = "" />
-			</patcher>
-			<patcher name = "jmod.parameter">
-				<pattr name = "/disable_ui_updates" value = "0" />
-			</patcher>
 		</patcher>
 	</slot>
 </pattrstorage>

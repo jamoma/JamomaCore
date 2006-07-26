@@ -1,54 +1,46 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.plur%">
+<pattrstorage name = "jmod.fluoride%">
 	<slot number = "1">
 		<patcher name = "jmod.gui.1Uh.v.mxb">
 			<patcher name = "pwindow">
 				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/preview" value = "1" />
+					<pattr name = "/video/preview" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[2]">
-					<pattr name = "/bypass" value = "0" />
+					<pattr name = "/video/bypass" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[3]">
-					<pattr name = "/freeze" value = "0" />
+					<pattr name = "/video/freeze" value = "0" />
 				</patcher>
 				<patcher name = "pwindow_gate[4]">
-					<pattr name = "/mute" value = "0" />
+					<pattr name = "/video/mute" value = "0" />
 				</patcher>
 			</patcher>
 		</patcher>
-		<patcher name = "jmod.parameter.mxb[2]">
-			<pattr name = "/x_range" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "/y_range" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[3]">
-			<pattr name = "/y_step" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[4]">
-			<pattr name = "/x_step" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "/gang" value = "1" />
-		</patcher>
 		<patcher name = "jmod.hub">
-			<patcher name = "jmod.parameter">
-				<pattr name = "/disable_ui_updates" value = "0" />
+			<patcher name = "sub patch">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/ui/freeze" value = "0" />
+				</patcher>
 			</patcher>
-			<patcher name = "jmod.parameter[1]">
-				<pattr name = "/set_clock" value = "" />
+			<patcher name = "sub patch[1]">
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/clock/set" value = "" />
+				</patcher>
 			</patcher>
 		</patcher>
-		<patcher name = "jmod.parameter.mxb[5]">
+		<patcher name = "jmod.parameter.mxb[11]">
+			<pattr name = "/tol" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[10]">
+			<pattr name = "/lum" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[9]">
+			<pattr name = "/glow" value = "0" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxb[8]">
 			<pattr name = "/mode" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[6]">
-			<pattr name = "/scale" value = "8" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[7]">
-			<pattr name = "/colormode" value = "0" />
 		</patcher>
 	</slot>
 </pattrstorage>
