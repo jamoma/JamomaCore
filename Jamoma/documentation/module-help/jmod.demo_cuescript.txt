@@ -15,14 +15,14 @@ CUE initialisation
 	/input~/source_select 0
 	/input~/ch_1 0
 	/input~/ch_2 0
-	/input~/gain/midi 0.000		# Note that midi units can be specified as floats in Jamoma
+	/input~/audio/gain/midi 0.000		# Note that midi units can be specified as floats in Jamoma
 	/input~/gain_1/midi 0
 	/input~/link 0
 	/input~/disable_ui_updates 0
 	
 # Module filter~
 	/filter~/filtertype bandpass
-	/filter~/gain/midi 0
+	/filter~/audio/gain/midi 0
 	/filter~/defeat_meters 0
 	/filter~/mix 100.000
 	/filter~/bypass 0
@@ -36,7 +36,7 @@ CUE initialisation
 # Module output~
 	/output~/ch_1 1
 	/output~/ch_2 2
-	/output~/gain/midi 0.000
+	/output~/audio/gain/midi 0.000
 	/output~/record/filetype aiff
 	/output~/record/samptype int24
 	/output~/saturation/depth 10.000
@@ -67,12 +67,12 @@ CUE audio_on
 	
 # Module input~
 	/input~/source_select 4
-	/input~/gain/midi 124.000 2000	# Ramp to these new values over 2 seconds...
+	/input~/audio/gain/midi 124.000 2000	# Ramp to these new values over 2 seconds...
 	/input~/gain_1/midi 124.000 2000
 	/input~/gain_2/midi 124.000 2000
 	
 # Module filter~
-	/filter~/gain/midi 127.000 2000
+	/filter~/audio/gain/midi 127.000 2000
 
 	
 	
@@ -85,7 +85,7 @@ CUE fade_in
 ##############################
 
 # Module output~
-	/output~/gain/midi 125.000 2000
+	/output~/audio/gain/midi 125.000 2000
 
 
 
@@ -123,7 +123,7 @@ CUE fade_out
 
 
 # Module output~
-	/output~/gain/midi 0.000 2000	
+	/output~/audio/gain/midi 0.000 2000	
 	
 	
 
@@ -137,10 +137,10 @@ CUE audio_off
 
 	
 # Module input~
-	/input~/gain/midi 0 100
+	/input~/audio/gain/midi 0 100
 	
 # Module output~
-	/filter~/gain/midi 0 100
+	/filter~/audio/gain/midi 0 100
 	
 # Module control
 	/control/audio 0
