@@ -6,7 +6,7 @@ CUE initialisation
 
 # Module control
 	/control/audio 0			# turn off the dsp
-	/control/disable_ui_updates 0
+	/control/ui/freeze 0
 	
 # Module input~
 	/input~/gain_2/midi 0
@@ -18,17 +18,17 @@ CUE initialisation
 	/input~/audio/gain/midi 0.000		# Note that midi units can be specified as floats in Jamoma
 	/input~/gain_1/midi 0
 	/input~/link 0
-	/input~/disable_ui_updates 0
+	/input~/ui/freeze 0
 	
 # Module filter~
 	/filter~/filtertype bandpass
 	/filter~/audio/gain/midi 0
-	/filter~/defeat_meters 0
-	/filter~/mix 100.000
-	/filter~/bypass 0
-	/filter~/mute 0
-	/filter~/sr 0
-	/filter~/disable_ui_updates 0
+	/filter~/audio/meters/freeze 0
+	/filter~/audio/mix 100.000
+	/filter~/audio/bypass 0
+	/filter~/audio/mute 0
+	/filter~/audio/sample_rate 0
+	/filter~/ui/freeze 0
 	/filter~/cf 68.215
 	/filter~/q 1.472
 	/filter~/filtergain -1.780
@@ -48,7 +48,7 @@ CUE initialisation
 	/output~/limiter/threshold -6.000
 	/output~/limiter/mode exponential
 	/output~/limiter/active 1
-	/output~/disable_ui_updates 0
+	/output~/ui/freeze 0
 	/output~/record 0
 
 
@@ -63,7 +63,7 @@ CUE audio_on
 
 # Module control
 	/control/audio 1
-	/control/disable_ui_updates 0
+	/control/ui/freeze 0
 	
 # Module input~
 	/input~/source_select 4
