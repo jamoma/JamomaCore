@@ -60,8 +60,8 @@ function msg_int(value)
 		"jmod.parameter.mxt", local_token, "/audio/mix", "@ramp", 1, "@type", "msg_float", "@range", 0.0, 100.0,
 		"@description", "Controls the wet/dry mix of the module's processing routine in percent.");
 
-	outlet(0, "script", "hidden", "new", "pattr_defeat_meters", "newex", 100, 100, 150, 196617,
-		"jmod.parameter.mxt", local_token, "/audio/meters/defeat", "@type", "toggle",
+	outlet(0, "script", "hidden", "new", "pattr_meters_freeze", "newex", 100, 100, 150, 196617,
+		"jmod.parameter.mxt", local_token, "/audio/meters/freeze", "@type", "toggle",
 		"@description", "When active, this attribute turns off the signal level meters in the module to conserve CPU.");
 
 	outlet(0, "script", "hidden", "new", "pattr_gain", "newex", 100, 100, 150, 196617, 
@@ -82,7 +82,9 @@ function msg_int(value)
 	outlet(0, "script", "hidden", "connect", "pattr_mix", 1, "mult_mix_out", 0);	
 	outlet(0, "script", "hidden", "connect", "mult_mix_in", 0, "pattr_mix", 0);	
 	
-	outlet(0, "script", "hidden", "connect", "pattr_defeat_meters", 1, "mess_dm", 0);
+	outlet(0, "script", "hidden", "connect", "pattr_meters_freeze", 1, "mess_dm", 0);
+	// The following is required for /audio/meter/freeze state to be displayed properly in the module pop-up menu
+	outlet(0, "script", "hidden", "connect", "pattr_meters_freeze", 1, "audio_meter_freeze_prepend", 0);
 
 	outlet(0, "script", "hidden", "connect", "pvar_gain",0, "pattr_gain",0);
 	outlet(0, "script", "hidden", "connect", "pattr_gain", 0, "mess_gain_set", 0);
@@ -121,6 +123,7 @@ function msg_int(value)
 		outlet(0, "script", "hidden", "connect", "jmod_gain", 0, "meter_1", 0);
 		outlet(0, "script", "hidden", "connect", "jmod_gain", 1, "meter_2", 0);
 	}
+	
 }
  
 

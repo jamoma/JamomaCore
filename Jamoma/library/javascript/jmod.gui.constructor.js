@@ -21,7 +21,7 @@ var attr_num_outputs = 1;
 var	num_channels;
 var attr_displayfreeze_toggle = 0;
 var attr_meterfreeze_toggle = 0;
-var attr_preview = 1;
+var attr_preview = 0;						// preview is not turned on by default
 var attr_bypass = 0;
 var attr_mute = 0;
 var attr_freeze = 0;
@@ -169,6 +169,7 @@ function bang()
 			// Setup the Menu
 			menu_clear();
 			menu_add("Disable UI Updates");
+			menu_add("Refresh UI");
 			menu_add("Disable Signal Meters");
 			menu_add("Clear Signal Meters");
 			menu_add("-");
@@ -223,6 +224,7 @@ function bang()
 			// Setup the Menu
 			menu_clear();
 			menu_add("Disable UI Updates");
+			menu_add("Refresh UI");
 			menu_add("Preview Output");
 			menu_add("Force a Frame of Output");
 			menu_add("-");
@@ -260,6 +262,7 @@ function bang()
 			// Setup the Menu
 			menu_clear();
 			menu_add("Disable UI Updates");
+			menu_add("Refresh UI");
 			menu_add("-");
 			menu_add("Load Settings...");
 			menu_add("Save Settings...");
@@ -318,21 +321,24 @@ function msg_int(value)
 				if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
 				else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
 				outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
-				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
+				outlet(3, "checkitem", 0, attr_displayfreeze_toggle);
 				break;
-			case 1: 
-				if(attr_meterfreeze_toggle == 1) attr_meterfreeze_toggle = 0;
-				else if(attr_meterfreeze_toggle == 0) attr_meterfreeze_toggle = 1;
+			case 1: outlet(4, "/ui/refresh"); break;
+			case 2: 
+				if(attr_meterfreeze_toggle == 1)
+					attr_meterfreeze_toggle = 0;
+				else if(attr_meterfreeze_toggle == 0)
+					attr_meterfreeze_toggle = 1;
 				outlet(4, "/audio/meters/freeze", attr_meterfreeze_toggle); 
-				outlet(3, "checkitem", 1, attr_meterfreeze_toggle); 
+				outlet(3, "checkitem", 2, attr_meterfreeze_toggle); 
 				break;
-			case 2: outlet(4, "/ui/meters/clear"); break;
-			case 4: outlet(4, "/preset/load"); break;
-			case 5: outlet(4, "/preset/save"); break;
-			case 6: outlet(4, "/preset/default"); break;
-			case 8: outlet(4, "/documentation/html"); break;
-			case 9: outlet(4, "/documentation/help"); break;
-			case 10: outlet(4, "/module/view_internals"); break;
+			case 3: outlet(4, "/ui/meters/clear"); break;
+			case 5: outlet(4, "/preset/load"); break;
+			case 6: outlet(4, "/preset/save"); break;
+			case 7: outlet(4, "/preset/default"); break;
+			case 9: outlet(4, "/documentation/html"); break;
+			case 10: outlet(4, "/documentation/help"); break;
+			case 11: outlet(4, "/module/view_internals"); break;
 			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
 	}
@@ -344,14 +350,15 @@ function msg_int(value)
 				outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
-			case 1: 
+			case 1: outlet(4, "/ui/refresh"); break;
+			case 2: 
 				if(attr_preview == 1) attr_preview = 0;
 				else if(attr_preview == 0) attr_preview = 1;
 				outlet(4, "/video/preview", attr_preview); 
-				outlet(3, "checkitem", 1, attr_preview); 
+				outlet(3, "checkitem", 2, attr_preview); 
 				break;
-			case 2: outlet(4, "/genframe"); break;	
-			case 4:
+			case 3: outlet(4, "/genframe"); break;	
+			case 5:
 				if(attr_bypass == 1) attr_bypass = 0;
 				else if(attr_bypass == 0){
 					attr_bypass = 1;
@@ -360,7 +367,7 @@ function msg_int(value)
 				}
 				outlet(4, "/video/bypass", attr_bypass); 
 				break;
-			case 5:
+			case 6:
 				if(attr_freeze == 1) attr_freeze = 0;
 				else if(attr_freeze == 0){
 					attr_bypass = 0;
@@ -369,7 +376,7 @@ function msg_int(value)
 				}
 				outlet(4, "/video/freeze", attr_freeze); 
 				break;
-			case 6:
+			case 7:
 				if(attr_mute == 1) attr_mute = 0;
 				else if(attr_mute == 0){
 					attr_bypass = 0;
@@ -378,17 +385,17 @@ function msg_int(value)
 				}
 				outlet(4, "/video/mute", attr_mute); 
 				break;
-			case 8: outlet(4, "/preset/load"); break;			
-			case 9: outlet(4, "/preset/save"); break;
-			case 10: outlet(4, "/preset/default"); break;
-			case 12: outlet(4, "/documentation/html"); break;
-			case 13: outlet(4, "/documentation/help"); break;
-			case 14: outlet(4, "/module/view_internals"); break;		
+			case 9: outlet(4, "/preset/load"); break;			
+			case 10: outlet(4, "/preset/save"); break;
+			case 11: outlet(4, "/preset/default"); break;
+			case 13: outlet(4, "/documentation/html"); break;
+			case 14: outlet(4, "/documentation/help"); break;
+			case 15: outlet(4, "/module/view_internals"); break;		
 			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
-		outlet(3, "checkitem", 4, attr_bypass);
-		outlet(3, "checkitem", 5, attr_freeze);
-		outlet(3, "checkitem", 6, attr_mute);
+		outlet(3, "checkitem", 5, attr_bypass);
+		outlet(3, "checkitem", 6, attr_freeze);
+		outlet(3, "checkitem", 7, attr_mute);
 	}
 	else if(attr_module_type == "control"){
 		switch(value){
@@ -398,12 +405,13 @@ function msg_int(value)
 				outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
 				outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
 				break;
-			case 2: outlet(4, "/preset/load"); break;
-			case 3: outlet(4, "/preset/save"); break;
-			case 4: outlet(4, "/preset/defaul"); break;
-			case 6: outlet(4, "/documentation/html"); break;
-			case 7: outlet(4, "/documentation/help"); break;
-			case 8: outlet(4, "/module/view_internals"); break;
+			case 1: outlet(4, "/ui/refresh"); break;
+			case 3: outlet(4, "/preset/load"); break;
+			case 4: outlet(4, "/preset/save"); break;
+			case 5: outlet(4, "/preset/defaul"); break;
+			case 7: outlet(4, "/documentation/html"); break;
+			case 8: outlet(4, "/documentation/help"); break;
+			case 9: outlet(4, "/module/view_internals"); break;
 			
 			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
 		}
@@ -511,7 +519,7 @@ function menu_build()
 		outlet(3, "append", menu_items[i]);
 	}
 	if(attr_module_type == "video"){
-		//msg_int(1);	// this is the way to turn on preview by default, which we decided not to do for cpu saving reasons
+		//msg_int(2);	// this is the way to turn on preview by default, which we decided not to do for cpu saving reasons
 	}
 }
 
@@ -549,34 +557,57 @@ function menu_presets_add(preset_name)
 }
 
 
-function preview(value)
+// any kind of module: /ui/freeze has been changed elsewhere:
+
+function ui_freeze(value)
+{
+		if(value != attr_displayfreeze_toggle) {
+			msg_int(0);
+		}
+}
+
+
+// audio module: audio/meters/freeze has been changed elsewhere:
+
+function audio_meters_freeze(value)
+{
+		if(value != attr_meterfreeze_toggle) {
+			msg_int(2);
+		}
+}
+
+
+// video module: /video/preview, /video/bypass, /video/freeze or /video/mute
+// have been changed elsewhere:
+
+function video_preview(value)
 {
 	if(value != attr_preview){
-		msg_int(1);
+		msg_int(2);
 	}
 }
 
 
-function bypass(value)
+function video_bypass(value)
 {
 	if(value != attr_bypass){
-		msg_int(4);
-	}
-}
-
-
-function freeze(value)
-{
-	if(value != attr_freeze){
 		msg_int(5);
 	}
 }
 
 
-function mute(value)
+function video_freeze(value)
+{
+	if(value != attr_freeze){
+		msg_int(6);
+	}
+}
+
+
+function video_mute(value)
 {
 	if(value != attr_mute){
-		msg_int(6);
+		msg_int(7);
 	}
 }
 
