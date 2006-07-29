@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jmod.param"
+LIBRARY "jmod.ret"
 
 EXPORTS
 	main

@@ -59,6 +59,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.teabox", "jmod_teabox~
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.dispatcher", "jmod_dispatcher\jmod.dispatcher.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.mess", "jmod_param\jmod.mess.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.param", "jmod_param\jmod.param.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.ret", "jmod_param\jmod.ret.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -142,20 +158,44 @@ Global
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
-		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release-NoJmod|Win32
-		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
-		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release-NoJmod|Win32
-		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
-		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release-NoJmod|Win32
-		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
