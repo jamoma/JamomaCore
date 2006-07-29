@@ -1,7 +1,30 @@
 {\rtf1\ansi\ansicpg10000\deff0{\fonttbl{\f0\fswiss\fprq2\fcharset0 Arial;}}
 {\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\lang1033\b\f0\fs34 Change Log\b0\fs24\par
 \par
-\b Version 0.3.1\b0  (23 June 2006)\par
+\b Version 0.3.2\b0  (28 July 2006 - rev 825)\par
+\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Core/Hub/Gui:\par
+\pard\li990\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - Added new message /ui/refresh that will work with all modules: If display update has been frozen, this message will update displayed values. It do not cause any output, change of parameters, etc. It is simply a message to bring the displayed values back in sync with the real values used by the module.\par
+- Added new message that will be understood by all modules: /documentaion/help. This message opens the help patch for the module.\par
+- New system for communication between jmod.parameter and jmod.hub which uses dedicated send-receive links to vastly improve efficiency.\par
+- global send and receive uses dedicate connections for improved efficiency\par
+- Various name changes in the parameters in standard components (especially the gui component) to reflect a more consistent and structured namespace\par
+- the pop-up menu in the module toolbar display all messages in alphabetic order\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Externals:\par
+\pard\fi270\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - new jmod.dispatcher, jmod.param, jmod.mess, jmod.ret externs are preliminary prototype for future replacement of core components\par
+- preliminary verson of jmod.mkdir for creating directories: code donated by Bill Orcutt from the mkdir external (thanks Bill!)\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Modules:\par
+\pard\li990\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - new vbap module \par
+- Fixed bugs in the jmod.noisegate~ modules introduced when jmod.return was implemented.\par
+- new control module that can be used for testing CPU efficiency in parameter handling (intended for testing/development only)\par
+- Fixed bug in jmod.crossfade.mod reported by Guy Levesque at the user list with float number box displaying mix position not being properly updated when the module is receiving /crossfade messages from remote or in left inlet.\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab components:\par
+\pard\li990\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - new lcd-based widget: slider with text display on top of it (may be replaced by jsui in the future)\par
+\pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Documentation:\par
+\pard\li990\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - misc updates to help patches, html docs, and the overview patch\par
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\b\par
+\par
+Version 0.3.1\b0  (23 June 2006 - rev 764)\par
 \par
 \pard\fi-720\li720\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tab\bullet\tab Core/Hub/Gui:\par
 \pard\li990\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803 - Many tweaks and fixes to the OSC namespace implementation\par
