@@ -29,7 +29,7 @@ xcodebuild -configuration Deployment clean build
 cd ..
 
 cd jmod_param
-xcodebuild -configuration Deployment clean build
+xcodebuild -alltargets -configuration Deployment clean build
 cd ..
 
 cd jmod_pass
