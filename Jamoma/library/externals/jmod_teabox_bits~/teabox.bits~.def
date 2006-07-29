@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jmod.teabox.bits~"
+LIBRARY "teabox.bits~"
 
 EXPORTS
 	main

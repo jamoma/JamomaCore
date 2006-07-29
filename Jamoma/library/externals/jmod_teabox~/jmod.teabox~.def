@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jmod.gain~"
+LIBRARY "jmod.teabox~"
 
 EXPORTS
 	main
