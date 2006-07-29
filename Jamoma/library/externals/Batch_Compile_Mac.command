@@ -52,6 +52,18 @@ cd jmod_sum%
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jmod_teabox~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jmod_teabox_bits~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jmod_teabox_count~
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jmod_xfade_tilde
 xcodebuild -configuration Deployment clean build
 cd ..
