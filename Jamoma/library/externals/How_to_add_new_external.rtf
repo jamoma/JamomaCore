@@ -40,7 +40,7 @@ This document suppose that development environments, MaxMSP SDK and Jamoma are p
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
 \ls1\ilvl0\cf0 {\listtext	1.	}In the Finder, copy e.g. the jmod_change folder and rename it. For the sake of this example, we'll call our renamed project jmod_foo.\
 {\listtext	2.	}Open your jmod_foo folder and rename the Xcode project jmod.change.xcodeproj to be jmod.foo.xcodeproj.\
-{\listtext	3.	}If you have an existing C source file, copy it into the project folder.\
+{\listtext	3.	}If you have an existing C source file, copy it into the project folder. Make sure that the file ending of the source file is .cpp, even if the file itself is not C++. This will make sure that project references will work.\
 {\listtext	4.	}Double-click on the Info.plist file. The Info.plist file is very important as it tells the OS how to find your external's executable code. Click on the disclosure triangle next to the word Root. You will see a list of keys and values. There are two things you need to change.\
 \pard\tx940\tx1440\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1440\fi-1440\ql\qnatural\pardirnatural
 \ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}for CFBundleExectuable, change the word jmod.change to be the name of your external. For example, if you have an external called jmod.foo, enter jmod.foo.\
@@ -48,13 +48,12 @@ This document suppose that development environments, MaxMSP SDK and Jamoma are p
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
 \ls1\ilvl0\cf0 {\listtext	5.	}Close the Info.plist file and save your changes.\
 {\listtext	6.	}Double-click on the Xcode project you've renamed. The project window should appear again.\
-{\listtext	7.	}Within Xcode, there are two tasks you need to accomplish. First, you need to delete references to files used by the jmod.change project -- in this case there is only one, jmod.change.cpp. To do this, open the Source folder (if necessary) on the left side of the project window. Click on jmod.change.c to select it (the entry for the file should turn dark blue). Choose Delete from the File menu.\
-{\listtext	8.	}Now you need to add your file(s) to the project. The easiest way is to drag them from the Finder into the Source folder on the left side of the window (dragging them into the larger area on the right side of the window won't work). After you drag the file, you'll see a drop-down window that will ask you about handling folder references. Just click OK and you'll be fine.\
-{\listtext	9.	}The second task is to rename the thing that will be built. In the project window you may see a reference to jmod.change.mxo in red. This indicates that the project is still expecting to build an external object called jmod.change even though you renamed the project file. Choose Edit Active Target 'jmod.change' from the Project menu.\
-{\listtext	10.	}Now you are in the vast and confusing world of the Xcode Build Settings window. Click on the Build tab at the top of the window.\
-{\listtext	11.	}From the menu labeled Collection: choose Packaging. The Product Name should be jmod.change. Change this to the name of your object (for example, jmod.foo).\
-{\listtext	12.	}While you are here, you will probably want to change the name of your Target, although this has no real impact on your external object working or building. Click on the General tab at the top of the window. Change the text jmod.change to the name of your object.\
-{\listtext	13.	}Now you're ready to build your object.\
+{\listtext	7.	}Right-click (ctrl-click) the Xcode project and choose "show package contents" then open the .pbxproj file in a text editor such as BBEdit, TextMate, Emacs, etc.\
+\pard\tx940\tx1440\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1440\fi-1440\ql\qnatural\pardirnatural
+\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}do a find-and-replace for "jmod.change" replacing it with "jmod.foo"\
+{\listtext	\uc0\u8259 	}do a find-and-replace for "jmod_change" replacing it with "jmod_foo"\
+\pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
+\ls1\ilvl0\cf0 {\listtext	8.	}Now you're ready to build your object.\
 \pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 \
 \
@@ -69,9 +68,11 @@ This document suppose that development environments, MaxMSP SDK and Jamoma are p
 {\listtext	3.	}Rebuild using the script (details below). This builds the object (and all other objects) using the Deployment build configuration, thus being Universal Binary and fully optimized. The built object will be found in the Jamoma/library/externals/build_mac/Development folder.\
 \pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 \
+Please note that you should never send anyone a development build.  It will not work on any computers other than the one it was built on.  You MUST use a deployment build to get a version that will work on another computer.\
 \
+\pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f2\b\fs26 Step 3) Using the Batch_Compile_Mac.command script
+\f2\b\fs26 \cf0 Step 3) Using the Batch_Compile_Mac.command script
 \f1\b0\fs24 \
 \
 Add the new external to the Batch_Compile_Mac.command script by adding the following lines of text:\
@@ -89,8 +90,9 @@ Run the batch script:\
 \pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 \
 \
+\pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f2\b\fs26 Step 4) Add documentation:
+\f2\b\fs26 \cf0 Step 4) Add documentation:
 \f1\b0\fs24 \
 \
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
@@ -99,15 +101,18 @@ Run the batch script:\
 \pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 \
 \
+\pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f2\b\fs26 Step 5) Commit the new project to the repository.
+\f2\b\fs26 \cf0 Step 5) Commit the new project to the repository.
 \f1\b0\fs24 \
 \
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
 \ls5\ilvl0\cf0 {\listtext	1.	}Prepare externals by deleting the /build_mac/Development folder and the build_mac.zip file.\
 {\listtext	2.	}Zip the build_mac file. Do not use DropStuff for this. Instead choose "Create archive from build_mac" from the contextual menu.\
-{\listtext	3.	}Add the project folder jmod_foo to the repository.\
-{\listtext	4.	}Add the following files from the project folder:\
+{\listtext	3.	}The build folder in the jmod_foo folder should be trashed before adding things to the repository (this contains many megabytes of machine-specific garbage generated by Xcode)\
+{\listtext	4.	}Any files in the .xcodeproj bundle except for the .pbxproj should be trashes (i.e. the user preferences).\
+{\listtext	5.	}Add the project folder jmod_foo to the repository.\
+{\listtext	6.	}Add the following files from the project folder:\
 \pard\tx940\tx1440\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1440\fi-1440\ql\qnatural\pardirnatural
 \ls5\ilvl1\cf0 {\listtext	\uc0\u8259 	}English.lproj (folder)\
 \pard\tx1660\tx2160\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li2160\fi-2160\ql\qnatural\pardirnatural
@@ -121,17 +126,22 @@ Run the batch script:\
 {\listtext	\uc0\u8259 	}jmod.foo.vcproj\
 {\listtext	\uc0\u8259 	}jmod.foo.xcodeproj\
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
-\ls5\ilvl0\cf0 {\listtext	5.	}Add the help file\
-{\listtext	6.	}Commit these files as well:\
+\ls5\ilvl0\cf0 {\listtext	7.	}Add the help file\
+{\listtext	8.	}Commit these files as well:\
 \pard\tx940\tx1440\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1440\fi-1440\ql\qnatural\pardirnatural
 \ls5\ilvl1\cf0 {\listtext	\uc0\u8259 	}/library/externals/build_mac.zip\
 {\listtext	\uc0\u8259 	}/library/externals/
 \f3 Batch_Compile_Mac.command\
 \ls5\ilvl1
-\f1 {\listtext	\uc0\u8259 	}/documentation/jamoma-overview.mxt\
+\f1 {\listtext	\uc0\u8259 	}/documentation/jamoma-overview.mxt\
 \pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 \
 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\cf0 \
 \
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
