@@ -27,7 +27,7 @@ max v2;
 #P hidden newex 495 267 102 196617 t menu_presets_clear;
 #P window linecount 1;
 #P hidden message 341 194 32 196617 clear;
-#P hidden newex 341 172 55 196617 r jmod.init;
+#P hidden newex 341 172 55 196617 jmod.init.mxt #1;
 #P hidden newex 447 382 90 196617 s $1_FROM_MGUI;
 #P hidden outlet 405 104 13 0;
 #P objectname outlet_16;
