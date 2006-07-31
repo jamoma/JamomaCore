@@ -1,0 +1,1 @@
+max v2;#N vpatcher 10 59 316 278;#P outlet 41 151 15 0;#P window setfont "Sans Serif" 9.;#P window linecount 1;#P comment 153 64 100 196617 local (module) init;#P newex 153 101 52 196617 r $1_init;#P newex 41 98 58 196617 r jmod.init;#P comment 41 64 100 196617 global init;#P connect 2 0 4 0;#P connect 1 0 4 0;#P pop;
