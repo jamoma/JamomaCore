@@ -408,7 +408,7 @@ function msg_int(value)
 			case 1: outlet(4, "/ui/refresh"); break;
 			case 3: outlet(4, "/preset/load"); break;
 			case 4: outlet(4, "/preset/save"); break;
-			case 5: outlet(4, "/preset/defaul"); break;
+			case 5: outlet(4, "/preset/default"); break;
 			case 7: outlet(4, "/documentation/html"); break;
 			case 8: outlet(4, "/documentation/help"); break;
 			case 9: outlet(4, "/module/view_internals"); break;
