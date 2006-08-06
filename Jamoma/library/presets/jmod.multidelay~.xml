@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.delay~">
+<pattrstorage name = "jmod.multidelay~">
 	<slot number = "1">
 		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
 			<patcher name = "controls">
@@ -25,7 +25,7 @@
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter">
-			<pattr name = "/delay/max" value = "900000" />
+			<pattr name = "/maxdelay" value = "10000" />
 		</patcher>
 		<patcher name = "jmod.hub">
 			<patcher name = "sub patch">
@@ -40,10 +40,13 @@
 			</patcher>
 		</patcher>
 		<patcher name = "jmod.parameter[2]">
-			<pattr name = "/delay/left" value = "96429 192857 417857 578571 739286" />
+			<pattr name = "/left" value = "1786 3929 5357 7500 9643" />
 		</patcher>
 		<patcher name = "jmod.parameter[1]">
-			<pattr name = "/delay/right" value = "771429 642857 353571 289286 96429" />
+			<pattr name = "/right" value = "8929 6429 4643 2143 0" />
+		</patcher>
+		<patcher name = "jmod.parameter[3]">
+			<pattr name = "/feedback" value = "0." />
 		</patcher>
 	</slot>
 </pattrstorage>
