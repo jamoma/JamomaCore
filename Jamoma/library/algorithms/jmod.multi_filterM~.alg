@@ -1,0 +1,1 @@
+max v2;#N vpatcher 518 58 696 292;#P window setfont "Sans Serif" 9.;#P window linecount 1;#N in 1;#P newobj 14 53 25 196617 in 1;#N out~ 1;#P newobj 61 160 39 196617 out~ 1;#N in~ 1;#P newobj 72 94 33 196617 in~ 1;#P newex 61 132 50 196617 cascade~;#N in 2;#P newobj 61 52 25 196617 in 2;#P connect 0 0 1 0;#P connect 2 0 1 0;#P connect 1 0 3 0;#P pop;

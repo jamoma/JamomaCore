@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.multi_filter~">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+			<patcher name = "controls">
+				<patcher name = "pattr_gain">
+					<pattr name = "/audio/gain/midi" value = "0." />
+				</patcher>
+				<patcher name = "pattr_meters_freeze">
+					<pattr name = "/audio/meters/freeze" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mix">
+					<pattr name = "/audio/mix" value = "100." />
+				</patcher>
+				<patcher name = "pattr_bypass">
+					<pattr name = "/audio/bypass" value = "0" />
+				</patcher>
+				<patcher name = "pattr_mute">
+					<pattr name = "/audio/mute" value = "0" />
+				</patcher>
+				<patcher name = "pattr_sr">
+					<pattr name = "/audio/sample_rate" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "sub patch">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/ui/freeze" value = "0" />
+				</patcher>
+			</patcher>
+			<patcher name = "sub patch[1]">
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/clock/set" value = "" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "band.parameter">
+			<pattr name = "/bands" value = "5" />
+		</patcher>
+		<patcher name = "filter_params">
+			<patcher name = "jmod.filter_params.alg.1">
+				<patcher name = "freq_param">
+					<pattr name = "/filter_freq/1" value = "50." />
+				</patcher>
+				<patcher name = "gain_param">
+					<pattr name = "/filter_gain/1" value = "0." />
+				</patcher>
+				<patcher name = "Q_param">
+					<pattr name = "/filter_Q/1" value = "1.985294" />
+				</patcher>
+				<patcher name = "type_param">
+					<pattr name = "/filter_type/1" value = "lowshelf" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.filter_params.alg.2">
+				<patcher name = "freq_param">
+					<pattr name = "/filter_freq/2" value = "250." />
+				</patcher>
+				<patcher name = "gain_param">
+					<pattr name = "/filter_gain/2" value = "-0.358941" />
+				</patcher>
+				<patcher name = "Q_param">
+					<pattr name = "/filter_Q/2" value = "1.804278" />
+				</patcher>
+				<patcher name = "type_param">
+					<pattr name = "/filter_type/2" value = "peaknotch" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.filter_params.alg.3">
+				<patcher name = "freq_param">
+					<pattr name = "/filter_freq/3" value = "1000." />
+				</patcher>
+				<patcher name = "gain_param">
+					<pattr name = "/filter_gain/3" value = "0." />
+				</patcher>
+				<patcher name = "Q_param">
+					<pattr name = "/filter_Q/3" value = "1.804278" />
+				</patcher>
+				<patcher name = "type_param">
+					<pattr name = "/filter_type/3" value = "peaknotch" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.filter_params.alg.4">
+				<patcher name = "freq_param">
+					<pattr name = "/filter_freq/4" value = "3300." />
+				</patcher>
+				<patcher name = "gain_param">
+					<pattr name = "/filter_gain/4" value = "0.252736" />
+				</patcher>
+				<patcher name = "Q_param">
+					<pattr name = "/filter_Q/4" value = "1.804278" />
+				</patcher>
+				<patcher name = "type_param">
+					<pattr name = "/filter_type/4" value = "peaknotch" />
+				</patcher>
+			</patcher>
+			<patcher name = "jmod.filter_params.alg.5">
+				<patcher name = "freq_param">
+					<pattr name = "/filter_freq/5" value = "10000." />
+				</patcher>
+				<patcher name = "gain_param">
+					<pattr name = "/filter_gain/5" value = "0." />
+				</patcher>
+				<patcher name = "Q_param">
+					<pattr name = "/filter_Q/5" value = "2.5" />
+				</patcher>
+				<patcher name = "type_param">
+					<pattr name = "/filter_type/5" value = "highshelf" />
+				</patcher>
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+
