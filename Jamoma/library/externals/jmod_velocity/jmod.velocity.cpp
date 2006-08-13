@@ -47,7 +47,7 @@ int main(void)
 	common_symbols_init();
 	
 	// Define our class
-	c = class_new("jmod.velocity",(method)velocity_new, (method)0L, (short)sizeof(t_velocity), (method)0L, 0, 0);
+	c = class_new("jmod.velocity",(method)velocity_new, (method)0L, (short)sizeof(t_velocity), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_velocity, obex));				
 
 	// Make methods accessible for our class: 
