@@ -84,7 +84,7 @@ void *velocity_new(Symbol *s, short ac, Atom *arg)
 		if (ac)									// initialize
 		{
 			if (arg->a_type==A_LONG)
-				x->xn = (double)arg->a_w.w_long;
+				x->xn = (float)arg->a_w.w_long;
 			else if (arg->a_type==A_FLOAT) 
 				x->xn = arg->a_w.w_float;
 			else
@@ -95,7 +95,7 @@ void *velocity_new(Symbol *s, short ac, Atom *arg)
 		}
 		x->lasttime = gettime();
 	}
-	return (x);									// return pointer to instance
+	return(x);									// return pointer to instance
 }
 
 
