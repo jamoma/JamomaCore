@@ -4,6 +4,10 @@ cd jmod_change
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jmod_delta
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jmod_dispatcher
 xcodebuild -configuration Deployment clean build
 cd ..
