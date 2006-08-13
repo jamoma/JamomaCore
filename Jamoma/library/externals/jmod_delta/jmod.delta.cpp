@@ -20,7 +20,7 @@ typedef struct _delta{			// Data structure for this object
 	t_object	ob;				// Must always be the first field; used by Max
 	void		*obex;
 	float		prev;			// Previous value
-	float		delta;			// t_delta step
+	float		delta;			// delta step
 	char		clearflag;
 	void		*outlet;			// Pointer to outlet. need one for each outlet 
 } t_delta;
@@ -155,7 +155,7 @@ void delta_set(t_delta *x, Symbol *s, short ac, Atom *setval)
 	return;
 	
 	err:
-		error("tl.delta: Wrong argument for set");
+		error("jmod.delta: Wrong argument for set");
 }
 
 
