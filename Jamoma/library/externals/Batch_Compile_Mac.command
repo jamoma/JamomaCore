@@ -72,6 +72,10 @@ cd jmod_teabox_count~
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jmod_velocity
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jmod_xfade_tilde
 xcodebuild -configuration Deployment clean build
 cd ..
