@@ -41,19 +41,12 @@ This document suppose that development environments, MaxMSP SDK and Jamoma are p
 \ls1\ilvl0\cf0 {\listtext	1.	}In the Finder, copy e.g. the jmod_change folder and rename it. For the sake of this example, we'll call our renamed project jmod_foo.\
 {\listtext	2.	}Open your jmod_foo folder and rename the Xcode project jmod.change.xcodeproj to be jmod.foo.xcodeproj.\
 {\listtext	3.	}If you have an existing C source file, copy it into the project folder. Make sure that the file ending of the source file is .cpp, even if the file itself is not C++. This will make sure that project references will work.\
-{\listtext	4.	}Double-click on the Info.plist file. The Info.plist file is very important as it tells the OS how to find your external's executable code. Click on the disclosure triangle next to the word Root. You will see a list of keys and values. There are two things you need to change.\
-\pard\tx940\tx1440\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1440\fi-1440\ql\qnatural\pardirnatural
-\ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}for CFBundleExectuable, change the word jmod.change to be the name of your external. For example, if you have an external called jmod.foo, enter jmod.foo.\
-{\listtext	\uc0\u8259 	}for CFBundleIdentifier, change org.jamoma.jmod.change to a Java-style identifier ending with the name of your external object. This field is less important than the CFBundleExecutable. However, it can be used to identify your object in a Crash Log file.\
-\pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
-\ls1\ilvl0\cf0 {\listtext	5.	}Close the Info.plist file and save your changes.\
-{\listtext	6.	}Double-click on the Xcode project you've renamed. The project window should appear again.\
-{\listtext	7.	}Right-click (ctrl-click) the Xcode project and choose "show package contents" then open the .pbxproj file in a text editor such as BBEdit, TextMate, Emacs, etc.\
+{\listtext	4.	}Right-click (ctrl-click) the Xcode project and choose "show package contents" then open the .pbxproj file in a text editor such as BBEdit, TextMate, Emacs, etc.\
 \pard\tx940\tx1440\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1440\fi-1440\ql\qnatural\pardirnatural
 \ls1\ilvl1\cf0 {\listtext	\uc0\u8259 	}do a find-and-replace for "jmod.change" replacing it with "jmod.foo"\
 {\listtext	\uc0\u8259 	}do a find-and-replace for "jmod_change" replacing it with "jmod_foo"\
 \pard\tx220\tx720\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li720\fi-720\ql\qnatural\pardirnatural
-\ls1\ilvl0\cf0 {\listtext	8.	}Now you're ready to build your object.\
+\ls1\ilvl0\cf0 {\listtext	5.	}Now you're ready to open and build your object.\
 \pard\tx566\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 \cf0 \
 \
