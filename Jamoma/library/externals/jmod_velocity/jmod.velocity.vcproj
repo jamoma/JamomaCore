@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="jmod.change"
+	Name="jmod.velocity"
 	ProjectGUID="{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	SccProjectName=""
 	SccLocalPath="">
@@ -36,10 +36,10 @@
 				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile="..\ext_win_release\jmod.change.pch"
+				PrecompiledHeaderFile="..\ext_win_release\jmod.velocity.pch"
 				AssemblerListingLocation="..\ext_win_release\"
 				ObjectFile="..\ext_win_release\"
-				ProgramDataBaseFileName="..\ext_win_release\jmod.change"
+				ProgramDataBaseFileName="..\ext_win_release\jmod.velocity"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="2"/>
@@ -50,17 +50,17 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\MaxAPI.lib&quot; &quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes\MaxAudio.lib&quot;"
-				OutputFile=".\..\Build_Windows\jmod.change.mxe"
+				OutputFile=".\..\Build_Windows\jmod.velocity.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\jmod.change.def"
+				ModuleDefinitionFile=".\jmod.velocity.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="..\ext_win_release\jmod.change.pdb"
+				ProgramDatabaseFile="..\ext_win_release\jmod.velocity.pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\ext_win_release\jmod.change.lib"
+				ImportLibrary="..\ext_win_release\jmod.velocity.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -115,10 +115,10 @@
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile="..\ext_win_debug\jmod.change.pch"
+				PrecompiledHeaderFile="..\ext_win_debug\jmod.velocity.pch"
 				AssemblerListingLocation="..\ext_win_debug\"
 				ObjectFile="..\ext_win_debug\"
-				ProgramDataBaseFileName="..\ext_win_debug\jmod.change"
+				ProgramDataBaseFileName="..\ext_win_debug\jmod.velocity"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
@@ -130,15 +130,15 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\MaxAPI.lib&quot; &quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes\MaxAudio.lib&quot;"
-				OutputFile=".\..\Build_Windows\debug\jmod.change.mxe"
+				OutputFile=".\..\Build_Windows\debug\jmod.velocity.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
-				ModuleDefinitionFile=".\jmod.change.def"
+				ModuleDefinitionFile=".\jmod.velocity.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="..\ext_win_debug\jmod.change.pdb"
+				ProgramDatabaseFile="..\ext_win_debug\jmod.velocity.pdb"
 				SubSystem="2"
-				ImportLibrary="..\ext_win_debug\jmod.change.lib"
+				ImportLibrary="..\ext_win_debug\jmod.velocity.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -182,10 +182,10 @@
 				RelativePath="..\..\..\..\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
-				RelativePath=".\jmod.change.cpp">
+				RelativePath=".\jmod.velocity.cpp">
 			</File>
 			<File
-				RelativePath=".\jmod.change.def">
+				RelativePath=".\jmod.velocity.def">
 			</File>
 		</Filter>
 		<Filter
