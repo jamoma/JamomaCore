@@ -144,7 +144,7 @@ class tt_shift:public tt_audio_base{
 		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 		{
 			phasor->dsp_vector_calc(temp[0]);					// phasor~
-			scale->dsp_vector_calc(temp[0], temp[1]);			// *~ 87.0
+			scale->dsp_vector_calc(temp[0], temp[1]);			// *~ 87.0		
 			delay1->dsp_vector_calc(in, temp[1], temp[8]);		// blue.delai~
 
 			offset->dsp_vector_calc(temp[0], temp[1]);			// +~ 0.5

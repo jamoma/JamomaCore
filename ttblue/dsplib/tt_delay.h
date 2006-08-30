@@ -31,6 +31,7 @@ class tt_delay:public tt_audio_base{
 
 		// ATTRIBUTES & VARIABLES
 		tt_attribute_value				delay_ms;			// in milliseconds
+		tt_attribute_value				delay_ms_max;
 		tt_attribute_value_discrete		delay_samples;
 		tt_attribute_value_discrete		delay_samples_max;
 		tt_attribute_value_discrete		interpolation;
@@ -82,6 +83,8 @@ class tt_delay:public tt_audio_base{
 			
 			in_ptr = buffer;
 			delay_samples_max = max_samples;
+			delay_ms_max = delay_samples_max / m_sr;
+			//post("INIT: delay_ms_max: %f    delay_samps_max: %i", delay_ms_max, delay_samples_max);			
 			set_attr(k_delay_samples, max_samples - 1);
 			set_attr(k_interpolation, k_interpolation_linear);
 			for(i=0;i<4;i++)
@@ -106,12 +109,11 @@ class tt_delay:public tt_audio_base{
 				m_sr = (float)sr * 0.001;	//		...
 			
 				// This is the SR setting stuff that is specific to this object.
-				if((m_sr * delay_ms) > delay_samples_max)
+//				if((m_sr * delay_ms) > delay_samples_max)
 					init(long(m_sr * delay_ms));	// allocate a larger delay buffer if neccessary
 				set_attr(k_delay_ms, delay_ms);		// hold the delay_length in ms constant, despite the change of sr
 			}
 		}
-
 
 
 		// ATTRIBUTES
@@ -283,10 +285,14 @@ class tt_delay:public tt_audio_base{
 			tt_sample_value	temp;
 			tt_sample_value	*next;
 			
+			if(buffer == NULL)
+				return;
+			
 			temp_vs = in1->vectorsize;
 		    while(temp_vs--){
 				*in_ptr = *in1->vector++;		// Store the audio input @ the record head
 				delay_ms = *in2->vector++;		// Store the delay time input
+//				delay_ms = clip(*in2->vector++, 0.f, delay_ms_max);		// Store the delay time input
 				
 				// CALCULATE THE DELAY TIME
 				// delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
@@ -301,6 +307,7 @@ class tt_delay:public tt_audio_base{
 				in_ptr++;
 				if(in_ptr > end_ptr)
 					in_ptr = buffer;
+//				*in_ptr = *in1->vector++;		// Store the audio input @ the record head
 					
 				// MOVE THE PLAY HEAD
 				out_ptr = in_ptr - delay_samples;
@@ -399,8 +406,10 @@ class tt_delay:public tt_audio_base{
 		{
 			end_ptr = buffer + delay_samples;
 			out_ptr = in_ptr - delay_samples;
-			if (out_ptr < buffer)
+			if(out_ptr < buffer)
 				out_ptr = end_ptr + (out_ptr - buffer) + 1;
+			else if(out_ptr > end_ptr)
+				out_ptr = buffer + (out_ptr - end_ptr);
 				
 			clear();
 		}

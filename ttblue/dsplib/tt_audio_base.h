@@ -62,14 +62,6 @@ enum{
 
 
 // Include the appropriate API header
-#if TAPTOOLS_TARGET_MAC
-#ifdef __MWERKS__
-#include <Carbon.h>				// CodeWarrior
-#else
-#include <Carbon/Carbon.h>		// Project Builder or Xcode
-#endif
-#endif
-
 #if TARGET_OS_WIN				// Windows
 #include <windows.h>
 #endif
