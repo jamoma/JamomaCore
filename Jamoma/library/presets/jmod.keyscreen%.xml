@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.keyscreen%">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.v.mxb">
+			<patcher name = "pwindow">
+				<patcher name = "pwindow_gate[1]">
+					<pattr name = "/video/preview" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[2]">
+					<pattr name = "/video/bypass" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[3]">
+					<pattr name = "/video/freeze" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[4]">
+					<pattr name = "/video/mute" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "sub patch">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/ui/freeze" value = "0" />
+				</patcher>
+			</patcher>
+			<patcher name = "sub patch[1]">
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/clock/set" value = "" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter.mxt">
+			<pattr name = "/tolerance" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[1]">
+			<pattr name = "/key" value = "1" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[2]">
+			<pattr name = "/target" value = "2" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[3]">
+			<pattr name = "/mask" value = "3" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[4]">
+			<pattr name = "/mode" value = "1" />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[5]">
+			<pattr name = "/key/red" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[6]">
+			<pattr name = "/key/green" value = "0." />
+		</patcher>
+		<patcher name = "jmod.parameter.mxt[7]">
+			<pattr name = "/key/blue" value = "0." />
+		</patcher>
+	</slot>
+</pattrstorage>
+
