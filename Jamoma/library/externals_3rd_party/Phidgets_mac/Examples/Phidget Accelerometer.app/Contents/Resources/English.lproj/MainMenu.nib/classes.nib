@@ -1,0 +1,20 @@
+{
+    IBClasses = (
+        {CLASS = AccelView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = PhidgetAccelerometerController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                connectedField = NSTextField; 
+                customView = AccelView; 
+                mainWindow = id; 
+                numberOfAxesField = NSTextField; 
+                serialNumberField = NSTextField; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

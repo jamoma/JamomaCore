@@ -1,0 +1,21 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {contrastChanged = id; row1Changed = id; row2Changed = id; }; 
+            CLASS = PhidgetTextLCDController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                connectedField = NSTextField; 
+                contrastSlider = NSSlider; 
+                mainWindow = id; 
+                row1Box = NSTextField; 
+                row2Box = NSTextField; 
+                serialField = NSTextField; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,23 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {accel0 = id; accel1 = id; speed0 = id; speed1 = id; }; 
+            CLASS = PhidgetMotorController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                connectedField = id; 
+                inputs = id; 
+                mainWindow = id; 
+                numInputsField = NSTextField; 
+                numMotorsField = NSTextField; 
+                serialField = NSTextField; 
+                speed0Field = NSTextField; 
+                speed1Field = NSTextField; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

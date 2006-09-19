@@ -1,0 +1,21 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {setType = id; }; 
+            CLASS = PhidggetTemperatureSensorController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                connectedField = NSTextField; 
+                mainWindow = id; 
+                numInputsField = NSTextField; 
+                serialField = NSTextField; 
+                temp0Field = NSTextField; 
+                temp1Field = NSTextField; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,13 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = PhidgetInfo; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = PhidgetManagerController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {mainWindow = id; phidgetInfo = id; tagsTable = id; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

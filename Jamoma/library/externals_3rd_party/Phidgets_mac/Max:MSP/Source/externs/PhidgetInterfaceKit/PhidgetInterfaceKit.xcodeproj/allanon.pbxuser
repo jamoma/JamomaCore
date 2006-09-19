@@ -1,0 +1,122 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Deployment;
+		activeTarget = 8D01CCC60486CAD60068D4B7 /* PhidgetInterfaceKit */;
+		addToTargets = (
+			8D01CCC60486CAD60068D4B7 /* PhidgetInterfaceKit */,
+		);
+		codeSenseManager = C25676E80A9B61490049963B /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = 1;
+				PBXFileTableDataSourceColumnSortingKey = PBXErrorsWarningsDataSource_MessageID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					300,
+					328.2085,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXErrorsWarningsDataSource_TypeID,
+					PBXErrorsWarningsDataSource_MessageID,
+					PBXErrorsWarningsDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					438,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					258,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 177968242;
+			PBXWorkspaceStateSaveDate = 177968242;
+		};
+		perUserProjectItems = {
+			C256785F0A9B809D0049963B /* PBXTextBookmark */ = C256785F0A9B809D0049963B /* PBXTextBookmark */;
+			C2695B0B0A9B947F00CA29F6 /* PBXTextBookmark */ = C2695B0B0A9B947F00CA29F6 /* PBXTextBookmark */;
+		};
+		sourceControlManager = C25676E70A9B61490049963B /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D01CCC60486CAD60068D4B7 /* PhidgetInterfaceKit */ = {
+		activeExec = 0;
+	};
+	C25676E70A9B61490049963B /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	C25676E80A9B61490049963B /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C25677450A9B6FBB0049963B /* main.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {866, 3024}}";
+			sepNavSelRange = "{6055, 0}";
+			sepNavVisRect = "{{0, 2171}, {636, 321}}";
+		};
+	};
+	C256785F0A9B809D0049963B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C25677450A9B6FBB0049963B /* main.cpp */;
+		name = "main.cpp: 168";
+		rLen = 0;
+		rLoc = 6055;
+		rType = 0;
+		vrLen = 1181;
+		vrLoc = 5455;
+	};
+	C2695B0B0A9B947F00CA29F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C25677450A9B6FBB0049963B /* main.cpp */;
+		name = "main.cpp: 168";
+		rLen = 0;
+		rLoc = 6055;
+		rType = 0;
+		vrLen = 1097;
+		vrLoc = 5539;
+	};
+}

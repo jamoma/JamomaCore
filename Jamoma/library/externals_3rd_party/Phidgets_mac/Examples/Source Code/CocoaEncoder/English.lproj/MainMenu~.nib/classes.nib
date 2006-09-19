@@ -1,0 +1,35 @@
+{
+    IBClasses = (
+        {CLASS = EncoderInfo; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = PhidgetEncoderController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                connectedField = NSTextField; 
+                encoderInfo = EncoderInfo; 
+                inputCheckBox = NSButton; 
+                inputCheckBox2 = NSButton; 
+                inputCheckBox3 = NSButton; 
+                inputCheckBox4 = NSButton; 
+                mainWindow = id; 
+                numEncodersField = NSTextField; 
+                numInputsField = NSTextField; 
+                phidgetInfo = PhidgetInfo; 
+                positionField = NSTextField; 
+                positionField2 = NSTextField; 
+                positionField3 = NSTextField; 
+                positionField4 = NSTextField; 
+                positionSlider = NSSlider; 
+                positionSlider2 = NSSlider; 
+                positionSlider3 = NSSlider; 
+                positionSlider4 = NSSlider; 
+                serialField = NSTextField; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = PhidgetInfo; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

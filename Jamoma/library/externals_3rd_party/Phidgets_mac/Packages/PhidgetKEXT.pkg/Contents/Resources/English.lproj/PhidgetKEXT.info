@@ -1,0 +1,17 @@
+Title Phidgets Kernel Driver
+Version 
+Description Phidgets Kernel Driver
+DefaultLocation /System/Library/Extensions
+DeleteWarning 
+
+### Package Flags
+
+NeedsAuthorization YES
+Required YES
+Relocatable NO
+RequiresReboot YES
+UseUserMask NO
+OverwritePermissions YES
+InstallFat NO
+RootVolumeOnly NO
+OnlyUpdateInstalledLanguages NO

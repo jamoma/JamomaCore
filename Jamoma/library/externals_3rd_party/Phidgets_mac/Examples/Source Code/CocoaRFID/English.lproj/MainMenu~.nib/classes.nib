@@ -1,0 +1,29 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                antennaChecked = id; 
+                externalLEDChecked = id; 
+                fiveVChecked = id; 
+                onboardLEDChecked = id; 
+            }; 
+            CLASS = PhidgetRFIDController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                antennaCheck = NSButton; 
+                connectedField = NSTextField; 
+                externalLEDCheck = NSButton; 
+                fiveVCheck = NSButton; 
+                mainWindow = id; 
+                numberOfOutputsField = NSTextField; 
+                onboardLEDCheck = NSButton; 
+                serialField = NSTextField; 
+                tagField = id; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

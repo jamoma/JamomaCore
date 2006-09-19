@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# This postflight script echoes the values of the available 
+# arguments and environmental variables.
+#
+echo "Removing previous Framework..."
+rm -rf /System/Library/Frameworks/Phidget21.framework
+exit 0

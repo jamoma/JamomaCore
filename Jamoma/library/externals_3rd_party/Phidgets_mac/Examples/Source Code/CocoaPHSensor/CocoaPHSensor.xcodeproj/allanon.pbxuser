@@ -1,0 +1,275 @@
+// !$*UTF8*$!
+{
+	089C165DFE840E0CC02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {695, 490}}";
+			sepNavSelRange = "{128, 0}";
+			sepNavVisRect = "{{0, 0}, {695, 490}}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeBuildStyle = 4A9504CCFFE6A4B311CA0CBA /* Debug */;
+		activeExecutable = C29194990923BC2800F0491E /* Phidget PH Sensor */;
+		activeTarget = 8D1107260486CEB800E47090 /* Phidget PH Sensor */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* Phidget PH Sensor */,
+		);
+		breakpoints = (
+			C2FB94390A6D494A00612F69 /* PhidgetPHSensorController.m:23 */,
+		);
+		codeSenseManager = C29194B00923BC3000F0491E /* Code sense */;
+		executables = (
+			C29194990923BC2800F0491E /* Phidget PH Sensor */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXErrorsWarningsDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					300,
+					200,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXErrorsWarningsDataSource_TypeID,
+					PBXErrorsWarningsDataSource_MessageID,
+					PBXErrorsWarningsDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					497,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					153,
+					20,
+					48.1626,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 174934945;
+			PBXWorkspaceStateSaveDate = 174934945;
+		};
+		perUserProjectItems = {
+			C261AC180997D89C00264D12 /* PBXTextBookmark */ = C261AC180997D89C00264D12 /* PBXTextBookmark */;
+			C29194EF0923CCCF00F0491E /* PBXTextBookmark */ = C29194EF0923CCCF00F0491E /* PBXTextBookmark */;
+			C29194F60923CCCF00F0491E /* PBXTextBookmark */ = C29194F60923CCCF00F0491E /* PBXTextBookmark */;
+			C29194F70923CCCF00F0491E /* PBXTextBookmark */ = C29194F70923CCCF00F0491E /* PBXTextBookmark */;
+			C29194F80923CCCF00F0491E /* PBXTextBookmark */ = C29194F80923CCCF00F0491E /* PBXTextBookmark */;
+			C29194FE0923CCCF00F0491E /* PBXTextBookmark */ = C29194FE0923CCCF00F0491E /* PBXTextBookmark */;
+			C2CA28010A6C255000A06AEB /* PBXTextBookmark */ = C2CA28010A6C255000A06AEB /* PBXTextBookmark */;
+			C2FB94460A6D49AE00612F69 /* PBXTextBookmark */ = C2FB94460A6D49AE00612F69 /* PBXTextBookmark */;
+			C2FB94C80A6D4BA400612F69 /* PBXTextBookmark */ = C2FB94C80A6D4BA400612F69 /* PBXTextBookmark */;
+		};
+		sourceControlManager = C29194AF0923BC3000F0491E /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 210}}";
+			sepNavSelRange = "{25, 0}";
+			sepNavVisRect = "{{0, 0}, {740, 180}}";
+		};
+	};
+	8D1107260486CEB800E47090 /* Phidget PH Sensor */ = {
+		activeExec = 0;
+		executables = (
+			C29194990923BC2800F0491E /* Phidget PH Sensor */,
+		);
+	};
+	8D1107310486CEB800E47090 /* Info.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {686, 469}}";
+			sepNavSelRange = "{439, 0}";
+			sepNavVisRect = "{{0, 0}, {531, 469}}";
+		};
+	};
+	C261AC180997D89C00264D12 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "English: 4";
+		rLen = 0;
+		rLoc = 128;
+		rType = 0;
+		vrLen = 132;
+		vrLoc = 0;
+	};
+	C29194990923BC2800F0491E /* Phidget PH Sensor */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "Phidget PH Sensor";
+		sourceDirectories = (
+		);
+	};
+	C29194AF0923BC3000F0491E /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	C29194B00923BC3000F0491E /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C29194C00923C7F300F0491E /* PhidgetPHSensorController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {695, 625}}";
+			sepNavSelRange = "{256, 0}";
+			sepNavVisRect = "{{0, 0}, {695, 625}}";
+		};
+	};
+	C29194C10923C7F300F0491E /* PhidgetPHSensorController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {695, 1078}}";
+			sepNavSelRange = "{1855, 0}";
+			sepNavVisRect = "{{0, 411}, {695, 625}}";
+		};
+	};
+	C29194EF0923CCCF00F0491E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 12";
+		rLen = 0;
+		rLoc = 439;
+		rType = 0;
+		vrLen = 802;
+		vrLoc = 0;
+	};
+	C29194F60923CCCF00F0491E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 12";
+		rLen = 0;
+		rLoc = 439;
+		rType = 0;
+		vrLen = 802;
+		vrLoc = 0;
+	};
+	C29194F70923CCCF00F0491E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "English: 4";
+		rLen = 0;
+		rLoc = 128;
+		rType = 0;
+		vrLen = 132;
+		vrLoc = 0;
+	};
+	C29194F80923CCCF00F0491E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29194C10923C7F300F0491E /* PhidgetPHSensorController.m */;
+		name = "PhidgetPHSensorController.mm: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 136;
+		vrLoc = 0;
+	};
+	C29194FE0923CCCF00F0491E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29194C00923C7F300F0491E /* PhidgetPHSensorController.h */;
+		name = "PhidgetPHSensorController.h: 7";
+		rLen = 0;
+		rLoc = 89;
+		rType = 0;
+		vrLen = 403;
+		vrLoc = 0;
+	};
+	C2CA28010A6C255000A06AEB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29194C00923C7F300F0491E /* PhidgetPHSensorController.h */;
+		name = "PhidgetPHSensorController.h: versionField";
+		rLen = 0;
+		rLoc = 256;
+		rType = 0;
+		vrLen = 289;
+		vrLoc = 0;
+	};
+	C2FB94390A6D494A00612F69 /* PhidgetPHSensorController.m:23 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = C29194C10923C7F300F0491E /* PhidgetPHSensorController.m */;
+		functionName = "-gotPHChange:";
+		hitCount = 0;
+		lineNumber = 23;
+		modificationTime = 174934346.721368;
+		state = 1;
+	};
+	C2FB94460A6D49AE00612F69 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29194C10923C7F300F0491E /* PhidgetPHSensorController.m */;
+		name = "PhidgetPHSensorController.m: 73";
+		rLen = 0;
+		rLoc = 1855;
+		rType = 0;
+		vrLen = 1263;
+		vrLoc = 626;
+	};
+	C2FB94C80A6D4BA400612F69 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29194C10923C7F300F0491E /* PhidgetPHSensorController.m */;
+		name = "PhidgetPHSensorController.m: 73";
+		rLen = 0;
+		rLoc = 1855;
+		rType = 0;
+		vrLen = 1263;
+		vrLoc = 626;
+	};
+}

@@ -1,0 +1,22 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = PhidgetInfo; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {out = id; slide = id; }; 
+            CLASS = PhidgetLEDControllers; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                brightnessSlider = NSSlider; 
+                connectedField = NSTextField; 
+                mainWindow = id; 
+                numLEDsField = NSTextField; 
+                phidgetInfo = PhidgetInfo; 
+                serialField = NSTextField; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

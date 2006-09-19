@@ -1,0 +1,252 @@
+// !$*UTF8*$!
+{
+	089C165DFE840E0CC02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {657, 625}}";
+			sepNavSelRange = "{133, 0}";
+			sepNavVisRect = "{{0, 0}, {657, 625}}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeBuildStyle = 4A9504CCFFE6A4B311CA0CBA /* Debug */;
+		activeExecutable = C29015F20922B86000B7F44D /* Phidget Temperature Sensor */;
+		activeTarget = 8D1107260486CEB800E47090 /* Phidget Temperature Sensor */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* Phidget Temperature Sensor */,
+		);
+		codeSenseManager = C29016060922B87F00B7F44D /* Code sense */;
+		executables = (
+			C29015F20922B86000B7F44D /* Phidget Temperature Sensor */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXErrorsWarningsDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					300,
+					349.2085,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXErrorsWarningsDataSource_TypeID,
+					PBXErrorsWarningsDataSource_MessageID,
+					PBXErrorsWarningsDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					459,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					154,
+					20,
+					48.1626,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 174934954;
+			PBXWorkspaceStateSaveDate = 174934954;
+		};
+		perUserProjectItems = {
+			C29016540922C67700B7F44D /* PBXTextBookmark */ = C29016540922C67700B7F44D /* PBXTextBookmark */;
+			C29016550922C67700B7F44D /* PBXTextBookmark */ = C29016550922C67700B7F44D /* PBXTextBookmark */;
+			C29016560922C67700B7F44D /* PBXTextBookmark */ = C29016560922C67700B7F44D /* PBXTextBookmark */;
+			C29016580922C67700B7F44D /* PBXTextBookmark */ = C29016580922C67700B7F44D /* PBXTextBookmark */;
+			C29194CD0923C8B200F0491E /* PBXTextBookmark */ = C29194CD0923C8B200F0491E /* PBXTextBookmark */;
+			C2E8A8690A6C3FC800CE81BA /* PBXTextBookmark */ = C2E8A8690A6C3FC800CE81BA /* PBXTextBookmark */;
+			C2E8A86A0A6C3FC800CE81BA /* PBXTextBookmark */ = C2E8A86A0A6C3FC800CE81BA /* PBXTextBookmark */;
+			C2FB93FF0A6D48B600612F69 /* PBXTextBookmark */ = C2FB93FF0A6D48B600612F69 /* PBXTextBookmark */;
+			C2FB94D00A6D4BAD00612F69 /* PBXTextBookmark */ = C2FB94D00A6D4BAD00612F69 /* PBXTextBookmark */;
+		};
+		sourceControlManager = C29016050922B87F00B7F44D /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D1107260486CEB800E47090 /* Phidget Temperature Sensor */ = {
+		activeExec = 0;
+		executables = (
+			C29015F20922B86000B7F44D /* Phidget Temperature Sensor */,
+		);
+	};
+	8D1107310486CEB800E47090 /* Info.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {778, 625}}";
+			sepNavSelRange = "{447, 0}";
+			sepNavVisRect = "{{0, 0}, {778, 625}}";
+		};
+	};
+	C29015F20922B86000B7F44D /* Phidget Temperature Sensor */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "Phidget Temperature Sensor";
+		sourceDirectories = (
+		);
+	};
+	C29016050922B87F00B7F44D /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	C29016060922B87F00B7F44D /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C29016180922BD9700B7F44D /* PhidggetTemperatureSensorController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {657, 625}}";
+			sepNavSelRange = "{160, 0}";
+			sepNavVisRect = "{{0, 0}, {657, 625}}";
+		};
+	};
+	C29016190922BD9700B7F44D /* PhidggetTemperatureSensorController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {657, 1288}}";
+			sepNavSelRange = "{2528, 0}";
+			sepNavVisRect = "{{0, 663}, {657, 625}}";
+		};
+	};
+	C29016540922C67700B7F44D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 12";
+		rLen = 0;
+		rLoc = 447;
+		rType = 0;
+		vrLen = 810;
+		vrLoc = 0;
+	};
+	C29016550922C67700B7F44D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "English: 4";
+		rLen = 0;
+		rLoc = 133;
+		rType = 0;
+		vrLen = 141;
+		vrLoc = 0;
+	};
+	C29016560922C67700B7F44D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29016190922BD9700B7F44D /* PhidggetTemperatureSensorController.m */;
+		name = "PhidggetTemperatureSensorController.mm: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 143;
+		vrLoc = 0;
+	};
+	C29016580922C67700B7F44D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29016180922BD9700B7F44D /* PhidggetTemperatureSensorController.h */;
+		name = "PhidggetTemperatureSensorController.h: 22";
+		rLen = 0;
+		rLoc = 432;
+		rType = 0;
+		vrLen = 599;
+		vrLoc = 0;
+	};
+	C29194CD0923C8B200F0491E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 12";
+		rLen = 0;
+		rLoc = 447;
+		rType = 0;
+		vrLen = 810;
+		vrLoc = 0;
+	};
+	C2E8A8690A6C3FC800CE81BA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "English: 4";
+		rLen = 0;
+		rLoc = 133;
+		rType = 0;
+		vrLen = 141;
+		vrLoc = 0;
+	};
+	C2E8A86A0A6C3FC800CE81BA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29016180922BD9700B7F44D /* PhidggetTemperatureSensorController.h */;
+		name = "PhidggetTemperatureSensorController.h: 7";
+		rLen = 0;
+		rLoc = 160;
+		rType = 0;
+		vrLen = 432;
+		vrLoc = 0;
+	};
+	C2FB93FF0A6D48B600612F69 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29016190922BD9700B7F44D /* PhidggetTemperatureSensorController.m */;
+		name = "PhidggetTemperatureSensorController.m: windowWillClose:";
+		rLen = 0;
+		rLoc = 2528;
+		rType = 0;
+		vrLen = 1079;
+		vrLoc = 1449;
+	};
+	C2FB94D00A6D4BAD00612F69 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C29016190922BD9700B7F44D /* PhidggetTemperatureSensorController.m */;
+		name = "PhidggetTemperatureSensorController.m: windowWillClose:";
+		rLen = 0;
+		rLoc = 2528;
+		rType = 0;
+		vrLen = 1079;
+		vrLoc = 1449;
+	};
+}

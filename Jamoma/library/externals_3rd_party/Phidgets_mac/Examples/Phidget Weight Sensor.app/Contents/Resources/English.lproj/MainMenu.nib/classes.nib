@@ -1,0 +1,20 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {swtichSystem = id; }; 
+            CLASS = PhidgetWeightSensorController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                connectedField = id; 
+                mainWindow = id; 
+                serialField = id; 
+                versionField = id; 
+                weightField = id; 
+                weightSlider = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	089C165DFE840E0CC02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {493, 447}}";
+			sepNavSelRange = "{119, 0}";
+			sepNavVisRect = "{{0, 0}, {493, 447}}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeBuildStyle = 4A9504CCFFE6A4B311CA0CBA /* Debug */;
+		activeExecutable = C27CF17708916E9300B7B223 /* CocoaRFID */;
+		activeTarget = 8D1107260486CEB800E47090 /* CocoaRFID */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* CocoaRFID */,
+		);
+		breakpointsGroup = C261AC970997DECE00264D12 /* XCBreakpointsBucket */;
+		codeSenseManager = C27CF18408916ECB00B7B223 /* Code sense */;
+		executables = (
+			C27CF17708916E9300B7B223 /* CocoaRFID */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXErrorsWarningsDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					540,
+					167,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXErrorsWarningsDataSource_TypeID,
+					PBXErrorsWarningsDataSource_MessageID,
+					PBXErrorsWarningsDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					400,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					517,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					337,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 174934933;
+			PBXWorkspaceStateSaveDate = 174934933;
+		};
+		perUserProjectItems = {
+			C27CF18708916ED800B7B223 /* PBXTextBookmark */ = C27CF18708916ED800B7B223 /* PBXTextBookmark */;
+			C27CF18908916ED800B7B223 /* PBXTextBookmark */ = C27CF18908916ED800B7B223 /* PBXTextBookmark */;
+			C27CF18A08916ED800B7B223 /* PBXTextBookmark */ = C27CF18A08916ED800B7B223 /* PBXTextBookmark */;
+			C27CF22A08918B2600B7B223 /* PBXTextBookmark */ = C27CF22A08918B2600B7B223 /* PBXTextBookmark */;
+			C27CF23408918B2600B7B223 /* PBXTextBookmark */ = C27CF23408918B2600B7B223 /* PBXTextBookmark */;
+			C27CF23708918B2600B7B223 /* PBXTextBookmark */ = C27CF23708918B2600B7B223 /* PBXTextBookmark */;
+			C27CF23B08918B2600B7B223 /* PBXTextBookmark */ = C27CF23B08918B2600B7B223 /* PBXTextBookmark */;
+			C27CF3460891B0F700B7B223 /* PBXTextBookmark */ = C27CF3460891B0F700B7B223 /* PBXTextBookmark */;
+			C2CA283C0A6C2AF900A06AEB /* PBXTextBookmark */ = C2CA283C0A6C2AF900A06AEB /* PBXTextBookmark */;
+			C2FB94310A6D493F00612F69 /* PBXTextBookmark */ = C2FB94310A6D493F00612F69 /* PBXTextBookmark */;
+			C2FB94BF0A6D4B9A00612F69 /* PBXTextBookmark */ = C2FB94BF0A6D4B9A00612F69 /* PBXTextBookmark */;
+		};
+		sourceControlManager = C27CF18308916ECB00B7B223 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {493, 447}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {493, 447}}";
+		};
+	};
+	8D1107260486CEB800E47090 /* CocoaRFID */ = {
+		activeExec = 0;
+		executables = (
+			C27CF17708916E9300B7B223 /* CocoaRFID */,
+		);
+	};
+	8D1107310486CEB800E47090 /* Info.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {686, 447}}";
+			sepNavSelRange = "{415, 0}";
+			sepNavVisRect = "{{0, 0}, {493, 447}}";
+		};
+	};
+	C261AC970997DECE00264D12 /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = "Project Breakpoints";
+		objects = (
+		);
+	};
+	C27CF17708916E9300B7B223 /* CocoaRFID */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = CocoaRFID;
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+	};
+	C27CF18308916ECB00B7B223 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	C27CF18408916ECB00B7B223 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C27CF18708916ED800B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 129;
+		vrLoc = 0;
+	};
+	C27CF18908916ED800B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 8";
+		rLen = 0;
+		rLoc = 296;
+		rType = 0;
+		vrLen = 785;
+		vrLoc = 0;
+	};
+	C27CF18A08916ED800B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 129;
+		vrLoc = 0;
+	};
+	C27CF1960891730000B7B223 /* PhidgetRFIDController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {715, 609}}";
+			sepNavSelRange = "{665, 0}";
+			sepNavVisRect = "{{0, 0}, {715, 609}}";
+		};
+	};
+	C27CF1970891730000B7B223 /* PhidgetRFIDController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {770, 2142}}";
+			sepNavSelRange = "{407, 0}";
+			sepNavVisRect = "{{0, 786}, {715, 609}}";
+			sepNavWindowFrame = "{{-986, 76}, {761, 721}}";
+		};
+	};
+	C27CF22A08918B2600B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "English: 4";
+		rLen = 0;
+		rLoc = 119;
+		rType = 0;
+		vrLen = 127;
+		vrLoc = 0;
+	};
+	C27CF23408918B2600B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "English: 4";
+		rLen = 0;
+		rLoc = 119;
+		rType = 0;
+		vrLen = 127;
+		vrLoc = 0;
+	};
+	C27CF23708918B2600B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C27CF1970891730000B7B223 /* PhidgetRFIDController.m */;
+		name = "PhidgetRFIDController.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 256;
+		vrLoc = 0;
+	};
+	C27CF23B08918B2600B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C27CF1960891730000B7B223 /* PhidgetRFIDController.h */;
+		name = "PhidgetRFIDController.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 655;
+		vrLoc = 0;
+	};
+	C27CF3460891B0F700B7B223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 10";
+		rLen = 0;
+		rLoc = 353;
+		rType = 0;
+		vrLen = 787;
+		vrLoc = 0;
+	};
+	C2CA283C0A6C2AF900A06AEB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C27CF1960891730000B7B223 /* PhidgetRFIDController.h */;
+		name = "PhidgetRFIDController.h: onboardLEDChecked:";
+		rLen = 0;
+		rLoc = 665;
+		rType = 0;
+		vrLen = 671;
+		vrLoc = 0;
+	};
+	C2FB94310A6D493F00612F69 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C27CF1970891730000B7B223 /* PhidgetRFIDController.m */;
+		name = "PhidgetRFIDController.m: lostTag";
+		rLen = 0;
+		rLoc = 482;
+		rType = 0;
+		vrLen = 1168;
+		vrLoc = 0;
+	};
+	C2FB94BF0A6D4B9A00612F69 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C27CF1970891730000B7B223 /* PhidgetRFIDController.m */;
+		name = "PhidgetRFIDController.m: gotTag";
+		rLen = 0;
+		rLoc = 407;
+		rType = 0;
+		vrLen = 1091;
+		vrLoc = 1531;
+	};
+}
