@@ -3,6 +3,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.change", "jmod_change\
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.cubic_interpolate", "jmod_cubic_interpolate\jmod.cubic_interpolate.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.gain", "jmod_gain_tilde\jmod.gain~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
