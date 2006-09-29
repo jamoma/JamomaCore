@@ -60,6 +60,10 @@ cd jmod_saturation_tilde
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jmod_stats
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jmod_sum%
 xcodebuild -configuration Deployment clean build
 cd ..
