@@ -48,6 +48,10 @@ cd jmod_pass
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jmod_rgb2hsl
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jmod_round
 xcodebuild -configuration Deployment clean build
 cd ..
