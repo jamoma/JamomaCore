@@ -12,6 +12,8 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
+#define MAX_LISTLENGTH 256
+
 
 // Data Structure for this object
 typedef struct _round{				// Data structure for this object 
@@ -24,6 +26,8 @@ typedef struct _round{				// Data structure for this object
 void *round_new(void);
 void round_float(t_round *x, double value);
 void round_int(t_round *x, long value);
+void round_list(t_round *x, t_symbol *msg, short argc, t_atom *argv);
+void round_symbol(t_round *x, t_symbol *msg, short argc, t_atom *argv);
 void round_assist(t_round *round, void *b, long m, long a, char *s);
 
 // Globals
@@ -43,10 +47,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_round, obex));
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)round_int,				"int", A_LONG, 0L);
- 	class_addmethod(c, (method)round_float, 			"float", A_FLOAT, 0L);		
-	class_addmethod(c, (method)round_assist, 			"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
+	class_addmethod(c, (method)round_int,				"int",		A_LONG,	0L);
+ 	class_addmethod(c, (method)round_float, 			"float",	A_FLOAT, 0L);
+	class_addmethod(c, (method)round_list,				"list",		A_GIMME, 0L);
+	class_addmethod(c, (method)round_symbol,			"anything", A_GIMME, 0L);	
+	class_addmethod(c, (method)round_assist, 			"assist",	A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
 
 	// Finalize our class
@@ -66,9 +72,9 @@ void *round_new(void)
 	x = (t_round *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if(x){
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-		x->outlet = intout(x);		//Create the outlet
+		x->outlet = outlet_new(x, 0);			//Create the outlet
 	}
-	return(x);						// must return a pointer to the new instance 
+	return(x);									// must return a pointer to the new instance 
 }
 
 
@@ -103,4 +109,62 @@ void round_float(t_round *x, double value)
 		out = ((long)(value - 0.5));
 
 	outlet_int(x->outlet, out);
+}
+
+
+// LIST method
+void round_list(t_round *x, t_symbol *msg, short argc, t_atom *argv)
+{
+	long i, out;
+	double value;
+	t_atom arguments[MAX_LISTLENGTH];
+	
+	for (i=0; i<argc; i++) {
+		switch(argv[i].a_type){
+			case A_LONG:
+				atom_setlong(&(arguments[i]), atom_getlong(argv+i));
+				break;
+			case A_FLOAT:
+				value = atom_getfloat(argv+i);
+				if(value > 0.)
+					out = ((long)(value + 0.5));
+				else
+					out = ((long)(value - 0.5));
+				atom_setlong(&(arguments[i]), out);
+				break;
+			case A_SYM:
+				arguments[i] = argv[i];
+				break;
+		}
+	}
+	outlet_anything(x->outlet, msg, argc , arguments);
+}
+
+
+// ANYTHING method
+void round_symbol(t_round *x, t_symbol *msg, short argc, t_atom *argv)
+{
+	long i, out;
+	double value;
+	t_atom arguments[MAX_LISTLENGTH];
+	
+	for (i=0; i<argc; i++) {
+		switch(argv[i].a_type){
+			case A_LONG:
+				atom_setlong(&(arguments[i]), atom_getlong(argv+i));
+				break;
+			case A_FLOAT:
+				value = atom_getfloat(argv+i);
+				if(value > 0.)
+					out = ((long)(value + 0.5));
+				else
+					out = ((long)(value - 0.5));
+				atom_setlong(&(arguments[i]), out);
+				break;
+			case A_SYM:
+				arguments[i] = argv[i];
+				break;
+		}
+	}
+	outlet_anything(x->outlet, msg, argc , arguments);
 }
