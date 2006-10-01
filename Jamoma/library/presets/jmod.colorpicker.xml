@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.colorpicker">
+	<slot number = "1">
+		<patcher name = "jmod.hub">
+			<patcher name = "sub patch">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/ui/freeze" value = "0" />
+				</patcher>
+			</patcher>
+			<patcher name = "sub patch[1]">
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/clock/set" value = "" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "sub patch">
+			<patcher name = "jmod.parameter">
+				<pattr name = "/colors" value = "255 0 0 0 255 0 0 0 255 0 0 0 255 255 255" />
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+
