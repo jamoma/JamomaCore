@@ -21,7 +21,7 @@
 			<pattr name = "/random/mode" value = "random" />
 		</patcher>
 		<patcher name = "jmod.parameter[3]">
-			<pattr name = "/interpolate/step_size" value = "0.02" />
+			<pattr name = "/interpolate/step_size" value = "0.08" />
 		</patcher>
 		<patcher name = "jmod.parameter[6]">
 			<pattr name = "/random/step_size" value = "0.1" />
