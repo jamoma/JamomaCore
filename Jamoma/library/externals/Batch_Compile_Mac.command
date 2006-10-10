@@ -4,6 +4,10 @@ cd jmod_change
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jmod_colorspace
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jmod_cubic_interpolate
 xcodebuild -configuration Deployment clean build
 cd ..

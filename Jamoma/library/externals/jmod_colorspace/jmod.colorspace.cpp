@@ -1,26 +1,38 @@
-// Max External: tap.colorspace - colorspace conversion
-// T.Place - 16 January 2002
-//	updated for Max 4.5 / TapTools 2.0 - 2 July 2004
+/* 
+ * jmod.colorspace
+ * External for Jamoma: colorspace conversion
+ * By Tim Place, Copyright © 2002
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ *
+ * History:
+ *
+ * Ported to Jamoma from tap.colorspace by T. Lossius - 10 October 2006
+ * Updated for Max 4.5 / TapTools 2.0 - 2 July 2004
+ * Initial version T.Place - 16 January 2002
+ *
+ * Conversion routines were from Luke Dubois' Percolate Nato externals:
+ *
+ * 242.colorspace -- does colorspace conversion on an input image.
+ * by r. luke dubois (luke@music.columbia.edu),
+ * computer music center, columbia university, 2001.
+ *
+ * most of the color conversion routines in this software are taken from rafael santos'
+ * color image processing toolkit.  the copyright below cites the original author.
+ *
+ * objects and source are provided without warranty of any kind, express or implied.
+ *
+ * Copyright (C) 1996, Rafael Santos.
+ * Developed at the Ejima Lab / Department of Artificial Intelligence,
+ * Kyushu Institute of Technology.
+ */ 
 
-// These conversion routines were from Luke Dubois' Percolate Nato externals
-//	His comments follow:
 
-/* 242.colorspace -- does colorspace conversion on an input image.
-*		by r. luke dubois (luke@music.columbia.edu),
-*			computer music center, columbia university, 2001.
-*
-* most of the color conversion routines in this software are taken from rafael santos'
-* color image processing toolkit.  the copyright below cites the original author.
-*
-*	objects and source are provided without warranty of any kind, express or implied.
-*
-	* Copyright (C) 1996, Rafael Santos.
- 	* Developed at the Ejima Lab / Department of Artificial Intelligence,
- 	* Kyushu Institute of Technology.
- 	*/
-
-
-#include "taptools_maxlib_ext.h"	// Required for all TapTools objects
+#include "ext.h"					// Max Header
+#include "ext_strings.h"			// String Functions
+#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
+#include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include <math.h>
 
 
@@ -43,7 +55,8 @@ typedef struct x					// Data structure for this object
 
 
 // Class Globals
-t_class		*this_class;				// Required. Global pointing to this class 
+t_class		*this_class;				// Required. Global pointing to this class
+
 t_symbol	*ps_no_transform, *ps_rgb2cmy, *ps_cmy2rgb, *ps_rgb2hsv, *ps_hsv2rgb,
 			*ps_rgb2xyz, *ps_xyz2rgb, *ps_rgb2uvw, *ps_uvw2rgb, *ps_rgb2retinalcone,
 			*ps_retinalcone2rgb, *ps_rgb2lab, *ps_lab2rgb, *ps_rgb2yiq, *ps_yiq2rgb,
@@ -53,13 +66,13 @@ t_symbol	*ps_split, *ps_packed;
 
 
 // Prototypes for methods: need a method for each incoming message
-void *cs_new(Symbol *msg, short argc, Atom *argv);		// object creation method  
+void *cs_new(Symbol *msg, short argc, Atom *argv);			// object creation method  
 void cs_free(t_cs *x);
-void cs_bang(t_cs *x);									// method for "bang" message 
-void cs_float(t_cs *x, tt_maxarg_float value);
-void cs_int(t_cs *x, tt_maxarg_int value);
+void cs_bang(t_cs *x);										// method for "bang" message 
+void cs_float(t_cs *x, double value);				// method for "float" message
+void cs_int(t_cs *x, long value);					// method for "int" message
 void cs_assist(t_cs *x, void *b, long m, long a, char *s); 	// assistance messages
-void cs_list(t_cs *x, Symbol *msg, short argc, Atom *argv);
+void cs_list(t_cs *x, Symbol *msg, short argc, Atom *argv);	// method for "list" message
 
 void no_transform(t_cs *x);
 void rgb2cmy (t_cs *x, int r, int g, int b);	
@@ -100,10 +113,11 @@ int main(void)			//main receives a copy of the Max function macros table
 	
 	common_symbols_init();
 
+	// Define our class
 	c = class_new("tap.colorspace",(method)cs_new, (method)cs_free, (short)sizeof(t_cs), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(c,calcoffset(t_cs, obex));
-
-	taptools_max::class_init(c);														// Initialize TapTools
+	
+	// Make methods available for our class:
 	class_addmethod(c, (method)cs_bang,					"bang", 0L);	
     class_addmethod(c, (method)cs_int, 					"int", A_LONG, 0L);		// Input as int
     class_addmethod(c, (method)cs_float, 				"float", A_FLOAT, 0L);	// Input as float
@@ -112,47 +126,52 @@ int main(void)			//main receives a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);      
     class_addmethod(c, (method)object_obex_quickref, 	"quickref", A_CANT, 0);
 
+	// ATTRIBUTE: mode
 	attr = attr_offset_new("mode", _sym_symbol, attrflags,
 		(method)0L,(method)0L, calcoffset(t_cs, attr_mode));
 	class_addattr(c, attr);
 	
+	// ATTRIBUTE: outputtype
 	attr = attr_offset_new("outputtype", _sym_symbol, attrflags,
 		(method)0L,(method)0L, calcoffset(t_cs, attr_outputtype));
 	class_addattr(c, attr);
 
+	// ATTRIBUTE: autopack
 	attr = attr_offset_new("autopack", _sym_long, attrflags,
 		(method)0L,(method)0L, calcoffset(t_cs, attr_autopack));
 	class_addattr(c, attr);
 
-	this_class = taptools_max::class_finalize(c);
-
 	// initialize class globals
-	ps_no_transform = gensym("no_transform");
-	ps_rgb2cmy = gensym("rgb2cmy");
-	ps_cmy2rgb = gensym("cmy2rgb");
-	ps_rgb2hsv = gensym("rgb2hsv");
-	ps_hsv2rgb = gensym("hsv2rgb");
-	ps_rgb2xyz = gensym("rgb2xyz");
-	ps_xyz2rgb = gensym("xyz2rgb");
-	ps_rgb2uvw = gensym("rgb2uvw");
-	ps_uvw2rgb = gensym("uvw2rgb");
-	ps_rgb2retinalcone = gensym("rgb2retinalcone");
-	ps_retinalcone2rgb = gensym("retinalcone2rgb");
-	ps_rgb2lab = gensym("rgb2lab");
-	ps_lab2rgb = gensym("lab2rgb");
-	ps_rgb2yiq = gensym("rgb2yiq");
-	ps_yiq2rgb = gensym("yiq2rgb");
-	ps_rgb2hls = gensym("rgb2hls");
-	ps_hls2rgb = gensym("hls2rgb");
-	ps_rgb2rgbcie = gensym("rgb2rgbcie");
-	ps_rgbcie2rgb = gensym("rgbcie2rgb");
-	ps_rgb2rgbsmpte = gensym("rgb2rgbsmpte");
-	ps_rgbsmpte2rgb = gensym("rgbsmpte2rgb");
-	ps_rgb2hsl = gensym("rgb2hsl");
-	ps_hsl2rgb = gensym("hsl2rgb");
+	ps_no_transform		= gensym("no_transform");
+	ps_rgb2cmy			= gensym("rgb2cmy");
+	ps_cmy2rgb			= gensym("cmy2rgb");
+	ps_rgb2hsv			= gensym("rgb2hsv");
+	ps_hsv2rgb			= gensym("hsv2rgb");
+	ps_rgb2xyz			= gensym("rgb2xyz");
+	ps_xyz2rgb			= gensym("xyz2rgb");
+	ps_rgb2uvw			= gensym("rgb2uvw");
+	ps_uvw2rgb			= gensym("uvw2rgb");
+	ps_rgb2retinalcone	= gensym("rgb2retinalcone");
+	ps_retinalcone2rgb	= gensym("retinalcone2rgb");
+	ps_rgb2lab			= gensym("rgb2lab");
+	ps_lab2rgb			= gensym("lab2rgb");
+	ps_rgb2yiq			= gensym("rgb2yiq");
+	ps_yiq2rgb			= gensym("yiq2rgb");
+	ps_rgb2hls			= gensym("rgb2hls");
+	ps_hls2rgb			= gensym("hls2rgb");
+	ps_rgb2rgbcie		= gensym("rgb2rgbcie");
+	ps_rgbcie2rgb		= gensym("rgbcie2rgb");
+	ps_rgb2rgbsmpte		= gensym("rgb2rgbsmpte");
+	ps_rgbsmpte2rgb		= gensym("rgbsmpte2rgb");
+	ps_rgb2hsl			= gensym("rgb2hsl");
+	ps_hsl2rgb			= gensym("hsl2rgb");
 	
-	ps_split = gensym("split");
-	ps_packed = gensym("packed");
+	ps_split			= gensym("split");
+	ps_packed			= gensym("packed");
+	
+	// Finalize our class
+	class_register(CLASS_BOX, c);
+	this_class = c;
 	return 0;
 }
 
@@ -162,16 +181,17 @@ int main(void)			//main receives a copy of the Max function macros table
 
 void *cs_new(Symbol *msg, short argc, Atom *argv)
 {
-	t_cs 	*x;
+	t_cs 	*x;								// Declare an object (based on our struct)
 	int	i;
 	long attrstart = attr_args_offset(argc, argv);
 	long argument = 0;
 
-	if (x = (t_cs *)taptools_max::instance_create(this_class, taptools_max::PACKAGE_JITTER + taptools_max::LICENSE_DEMO)){
+	x = (t_cs *)object_alloc(this_class);		// Create object, store pointer to it (get 1 inlet free)
+	if (x) {
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 		x->out3 = intout(x);
 		x->out2 = intout(x);
-		x->out1 = intout(x);			// Create the outlet
+		x->out1 = intout(x);				// Create the outlet
 		x->inlets[0] = proxy_new(x, 2, 0L);	// Create inlet 3
 		x->inlets[1] = proxy_new(x, 1, 0L);	// Create inlet 2
 
@@ -181,9 +201,9 @@ void *cs_new(Symbol *msg, short argc, Atom *argv)
 		x->attr_outputtype = ps_split;
 		x->val1 = x->val2 = x->val3 = 1;
 		
-		attr_args_process(x,argc,argv); //handle attribute args			
-	}
-	return(x);							// must return a pointer to the new instance 
+		attr_args_process(x,argc,argv);		//handle attribute args			
+	}	
+	return(x);								// must return a pointer to the new instance 
 }
 
 
@@ -219,7 +239,7 @@ void cs_assist(t_cs *x, void *b, long msg, long arg, char *dst)
 
 
 // INTEGER INPUT
-void cs_int(t_cs *x, tt_maxarg_int value)
+void cs_int(t_cs *x, long value)
 {
 	long inletnum = proxy_getinlet((object *)x);
 	switch(inletnum){
@@ -233,7 +253,7 @@ void cs_int(t_cs *x, tt_maxarg_int value)
 
 
 // FLOAT INPUT
-void cs_float(t_cs *x, tt_maxarg_float value)
+void cs_float(t_cs *x, double value)
 {
 	long inletnum = proxy_getinlet((object *)x);
 	
@@ -381,15 +401,15 @@ setit:
 // HSV-2-RGB
 void hsv2rgb(t_cs *x, int hue, int saturation, int value)
 {
-	long		red, green, blue;
-    	double	h,s,v,h1, a[7], tr, tg, tb, q, f;                             
+	long	red, green, blue;
+	double	h,s,v,h1, a[7], tr, tg, tb, q, f;                             
 
 	h = (float)hue;
 	s = saturation/100.0;
 	v = value/100.0;
 	h1 = h;
 	//q = trunc(h1);
-	q = taptools_max::round(h1);
+	q = roundf(h1);
 	//q = h1 + 0.49; // round
 	f = h1-q; 
 	a[1] = v;
