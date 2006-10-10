@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.rgb2hsl"
-
-EXPORTS
-	main
