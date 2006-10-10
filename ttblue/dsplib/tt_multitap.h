@@ -80,8 +80,7 @@ class tt_multitap:public tt_audio_base{
 	void set_sr(int value){
 		if(value != sr){		// Do this only if the SR has changed
 			short i;
-
-			//post("setting sr: %i (was %i)", value, sr);				
+			
 			sr = value;
 			r_sr = 1.0 / sr;
 			m_sr = 0.001 * sr;
