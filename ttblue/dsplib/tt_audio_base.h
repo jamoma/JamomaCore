@@ -276,11 +276,41 @@ class tt_audio_base{
 		{
 			float 	fb;					// variable for our result		
 			delay = delay * 0.001;		// convert delay from milliseconds to seconds
-			fb = delay / decay_time;		
-			fb = fb * -60.;				
-			fb = pow(10., (fb / 20.));		
+			if(decay_time < 0){
+				fb = delay / -decay_time;
+				fb = fb * -60.;		
+				fb = pow(10., (fb / 20.));	
+				fb *= -1.;
+			}
+			else{
+				fb = delay / decay_time;
+				fb = fb * -60.;				
+				fb = pow(10., (fb / 20.));		
+			}		
 			return(fb);			
 		}
+
+		// return the decay time based on the feedback coefficient
+		static float feedback_to_decay(float feedback, float delay)
+		{
+			float 	decay_time;				// variable for our result
+			
+			if(feedback > 0){
+				decay_time = 20. * (log10(feedback));		
+				decay_time = -60.0 / decay_time;		
+				decay_time = decay_time * (delay);		
+			}
+			else if(feedback < 0){
+				decay_time = 20. * (log10(fabs(feedback)));		
+				decay_time = -60.0 / decay_time;		
+				decay_time = decay_time * (-delay);		
+			}
+			else
+				decay_time = 0;
+
+			return(decay_time);
+		}
+
 
 		// ************* DECIBEL CONVERSIONS **************
 
