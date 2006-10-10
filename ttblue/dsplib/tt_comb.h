@@ -104,6 +104,7 @@ class tt_comb:public tt_audio_base{
 					break;
 				case k_feedback:
 					comb_fb_coef = val;
+					decay = feedback_to_decay(comb_fb_coef, msdelay);
 					break;
 				case k_clip:
 					clipping = val;
