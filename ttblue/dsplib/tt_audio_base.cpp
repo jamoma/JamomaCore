@@ -5,7 +5,6 @@
 // GLOBALS (CLASS STATICS)
 int tt_audio_base::global_sr = 44100;						// Global Sample Rate
 int tt_audio_base::global_vectorsize = 64;					// Global Vector Size
-int tt_audio_base::temp_vs = 0;							// share temp variable for vectorsize calcs
 
 const double tt_audio_base::pi = 3.1415926535897932;		// pi
 const double tt_audio_base::twopi = 6.2831853071795864;	// 2 * pi

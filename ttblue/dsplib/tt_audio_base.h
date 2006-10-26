@@ -91,7 +91,7 @@ class tt_audio_base{
 		static const float 		lookup_quartersine[];		// Quarter Sine lookup table
 		static const double 	twopi;						// 6.28...
 		static const double 	anti_denormal_value;		// Used by the anti_denormal functions
-		static int				temp_vs;					// Temporary variable for use in vector routines
+		int						temp_vs;					// Temporary variable for use in vector routines
 		
 	public:
 		static const double 	pi;							// 3.14...
@@ -436,4 +436,4 @@ class tt_audio_base{
 };
 
 
-#endif // tt_audio_base_HEADER
+#endif // TT_AUDIO_BASE_HEADER
