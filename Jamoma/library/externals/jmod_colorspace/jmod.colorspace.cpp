@@ -34,7 +34,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include <math.h>
-
+#include <stdlib.h>
 
 typedef struct x					// Data structure for this object 
 {
@@ -409,7 +409,11 @@ void hsv2rgb(t_cs *x, int hue, int saturation, int value)
 	v = value/100.0;
 	h1 = h;
 	//q = trunc(h1);
+#ifdef MAC_VERSION
 	q = roundf(h1);
+#else
+	q = (long)(h1 + 0.5);
+#endif
 	//q = h1 + 0.49; // round
 	f = h1-q; 
 	a[1] = v;
