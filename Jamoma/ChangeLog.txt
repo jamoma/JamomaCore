@@ -1,6 +1,6 @@
 Change Log
 
-Version 0.3.3 (11 October 2006 - rev 1176)
+Version 0.3.3 (4 November 2006 - rev 1238)
 
 * Core/Hub/Gui:
 	- added and corrected background pictures
@@ -26,7 +26,7 @@ Version 0.3.3 (11 October 2006 - rev 1176)
 	- new module jmod.colorpicker.mod - set 1 to 12 colors to be used by other modules
 	- new module jmod.palette - generate colors mixed from a limited set of basis colors
 	- new module jmod.multidelay~ - 5 delay lines for each channel with feedback loop
-	- new module jmod.equalizer~.mod - 5 band parametric equalizer
+	- new module jmod.equalizer~.mod - multi-band parametric equalizer
 	- new module jmod.record%.mod for recording video
 	- new chromakeying modules: jmod.chromakey%.mod, jmod.keyscreen%.mod
 	- new module jmod.yfade%.mod - crossfade transition from one source to two destinations
