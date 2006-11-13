@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "jmodcore", "jmodcore.vdproj", "{32EACF0D-969F-4AA0-A3CA-1891DEEA52D4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{32EACF0D-969F-4AA0-A3CA-1891DEEA52D4}.Debug.ActiveCfg = Debug
+		{32EACF0D-969F-4AA0-A3CA-1891DEEA52D4}.Debug.Build.0 = Debug
+		{32EACF0D-969F-4AA0-A3CA-1891DEEA52D4}.Release.ActiveCfg = Release
+		{32EACF0D-969F-4AA0-A3CA-1891DEEA52D4}.Release.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
