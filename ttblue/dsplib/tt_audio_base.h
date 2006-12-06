@@ -197,7 +197,7 @@ class tt_audio_base{
 			value += fabs((double)value);
 #endif
 			value *= 0.5;
-			value -= low_bound;
+			value += low_bound;
 			return value; 
 		}
 		
