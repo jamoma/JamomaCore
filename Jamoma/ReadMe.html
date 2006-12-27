@@ -12,8 +12,8 @@
 	<div id="jmod_header">
 	<img src="documentation/html/images/jmod.icon.mod.png" width="128" height="128" />
 	<h1>jamoma readme </h1>
-	<h2>version 0.3.4<br />
-		? December 2006</h2>
+	<h2>version 0.4<br />
+		27 december 2006</h2>
 
 	<h6><a href="documentation/html/index.html">Table of Contents</a> | <a href="documentation/html/modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 </div>
@@ -30,7 +30,15 @@
 	<li>
 		If you are using Windows:
 		<ul>
-			<lI>
+			<li>Three DLL files are required.  They must be placed into the "support" folder in your Max application's folder.  
+				These three files are located deep in the Jamoma folder and must be moved:
+				<ul>
+					<li>iconv.dll - located in Jamoma\library\externals_3rd_party\libiconv</li>
+					<li>zlib1.dll - located in Jamoma\library\externals_3rd_party\libiconv</li>
+					<li>libxml2.dll - located in Jamoma\library\externals_3rd_party\libxml2\win32\bin</li>
+				</ul>
+			</li>	
+			<li>
 				If you have installed previous versions of Jamoma, please check if there is a file named <code>jamoma-init.txt</code> 
 				in your <code>init</code> folder (inside of the
 				Cycling '74	folder). If so, delete this.
@@ -65,7 +73,7 @@
 		</ul>
 	</li>	
 	<li>
-		Move the <code>jmod.meter~</code> external (in 	
+		Move the <code>jcom.meter~</code> external (in 	
 		<code>/library/externals/build_mac</code> or 
 		<code>/library/externals/build_win</code> depending on your platform)
 		into your <code>max-startup</code> folder (inside of the 
@@ -100,18 +108,18 @@
 <ul>
 	<li>
 		Jamoma requires <a href="http://www.cycling74.com/">Cycling '74's</a> 
-		Max version 4.6 or newer (Mac or Windows).
+		Max version 4.6 or newer (Mac) or version 4.5.7 or newer (Windows).
 	</li>
 	<li>
 		Audio modules require Cycling '74's MSP.
 	</li>
 	<li>
-		Video modules require Cycling '74's Jitter (version 1.6 or higher).
+		Video modules require Cycling '74's Jitter (version 1.5.2 or 
+		higher).
 	</li>
 	<li>
 		Some ambisonic modules require both Cycling '74's MSP and Jitter.
 	</li>
-<li>The Phidgets modules require the Phidgets library to be installed (can found in /library/externals_3rd_party).</li>
 </ul>
 
 
@@ -144,12 +152,6 @@
 		the screen by sending the<span class="instructionName"> ;max 
 		refresh</span> message or unlocking the patch will resolve the 
 		problem.
-	</li>
-</ul>
-
-<ul>
-	<li>
-		Overhead problems can be caused by jmod.meter~ external on Windows
 	</li>
 </ul>
 
