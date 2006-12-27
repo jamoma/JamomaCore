@@ -1,125 +1,38 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.oscnet">
-	<slot number = "1" name = "localhost">
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.oscnet.ui.alg">
-			<patcher name = "jmod.parameter.mxt">
-				<pattr name = "/receive_port" value = "7400" />
-			</patcher>
-			<patcher name = "jmod.parameter">
-				<pattr name = "/send_port" value = "7400" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[1]">
-				<pattr name = "/send_host" value = "127.0.0.1" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[2]">
-				<pattr name = "/multicast_ip" value = "224.0.0.3" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[4]">
-				<pattr name = "/multicast_join" value = "0" />
-			</patcher>
-			<patcher name = "jmod.parameter[2]">
-				<pattr name = "/multicast_port" value = "7500" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[3]">
-				<pattr name = "/osc_prefix" value = "null" />
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter[2]">
-			<pattr name = "/mode" value = "0" />
-		</patcher>
-	</slot>
-	<slot number = "2" name = "multicast">
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.oscnet.ui.alg">
-			<patcher name = "jmod.parameter.mxt">
-				<pattr name = "/receive_port" value = "7400" />
-			</patcher>
-			<patcher name = "jmod.parameter">
-				<pattr name = "/send_port" value = "7400" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[1]">
-				<pattr name = "/send_host" value = "127.0.0.1" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[2]">
-				<pattr name = "/multicast_ip" value = "224.0.0.3" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[4]">
-				<pattr name = "/multicast_join" value = "1" />
-			</patcher>
-			<patcher name = "jmod.parameter[2]">
-				<pattr name = "/multicast_port" value = "7500" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[3]">
-				<pattr name = "/osc_prefix" value = "null" />
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter[2]">
-			<pattr name = "/mode" value = "1" />
-		</patcher>
-	</slot>
-	<slot number = "3" name = "broadcast">
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.oscnet.ui.alg">
-			<patcher name = "jmod.parameter.mxt">
-				<pattr name = "/receive_port" value = "7400" />
-			</patcher>
-			<patcher name = "jmod.parameter">
-				<pattr name = "/send_port" value = "7400" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[1]">
-				<pattr name = "/send_host" value = "255.255.255.255" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[2]">
-				<pattr name = "/multicast_ip" value = "224.0.0.3" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[4]">
-				<pattr name = "/multicast_join" value = "0" />
-			</patcher>
-			<patcher name = "jmod.parameter[2]">
-				<pattr name = "/multicast_port" value = "" />
-			</patcher>
-			<patcher name = "jmod.parameter.mxt[3]">
-				<pattr name = "/osc_prefix" value = "null" />
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter[2]">
-			<pattr name = "/mode" value = "" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="receive_port" type="msg_int">7400</item>
+		<item name="send_port" type="msg_int">7400</item>
+		<item name="send_host" type="msg_symbol">127.0.0.1</item>
+		<item name="multicast_ip" type="msg_symbol">224.0.0.3</item>
+		<item name="multicast_join" type="msg_int">0</item>
+		<item name="multicast_port" type="msg_int">7500</item>
+		<item name="osc_prefix" type="msg_symbol">null</item>
+		<item name="mode" type="msg_int">0</item>
+	</preset>
+	<preset number ="2" name ="multicast">
+		<item name="receive_port" type="msg_int">7400</item>
+		<item name="send_port" type="msg_int">7400</item>
+		<item name="send_host" type="msg_symbol">127.0.0.1</item>
+		<item name="multicast_ip" type="msg_symbol">224.0.0.3</item>
+		<item name="multicast_join" type="msg_int">1</item>
+		<item name="multicast_port" type="msg_int">7500</item>
+		<item name="osc_prefix" type="msg_symbol">null</item>
+		<item name="mode" type="msg_int">1</item>
+	</preset>
+	<preset number ="3" name ="broadcast">
+		<item name="receive_port" type="msg_int">7400</item>
+		<item name="send_port" type="msg_int">7400</item>
+		<item name="send_host" type="msg_float">255.255.255.255</item>
+		<item name="multicast_ip" type="msg_symbol">224.0.0.3</item>
+		<item name="multicast_join" type="msg_int">0</item>
+		<item name="multicast_port" type="msg_int"></item>
+		<item name="osc_prefix" type="msg_symbol">null</item>
+		<item name="mode" type="msg_int"></item>
+    </preset>
+</jamoma>

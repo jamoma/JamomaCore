@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.route"
-
-EXPORTS
-	main

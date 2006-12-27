@@ -57,6 +57,20 @@ class tt_phasor:public tt_audio_base{
 		}
 
 
+		// OVER-RIDE THE INHERITED SET SR METHOD
+		void set_sr(int value)
+		{
+			if(value != sr){
+				sr = value;					// These first three need to be called to do the standard stuff from the base class
+				r_sr = 1.0 / value;			// 	THERE SHOULD BE A MORE ELEGANT WAY OF DOING THIS, NO ?!?!?!?!?
+				m_sr = (float)sr * 0.001;	//		...
+			
+				// This is the SR setting stuff that is specific to this object.
+				set_attr(k_frequency, frequency);		// set our step size (etc)
+			}
+		}
+
+
 		// ATTRIBUTES
 		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 		{

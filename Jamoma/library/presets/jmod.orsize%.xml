@@ -1,56 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.orsize%">
-	<slot number = "1">
-		<patcher name = "jmod.gui">
-			<patcher name = "pwindow">
-				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/video/preview" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[2]">
-					<pattr name = "/video/bypass" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[3]">
-					<pattr name = "/video/freeze" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[4]">
-					<pattr name = "/video/mute" value = "0" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "/zoom" value = "1." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "/rotate1" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/mirror" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[3]">
-			<pattr name = "/offset_x" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[4]">
-			<pattr name = "/rotate2" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[5]">
-			<pattr name = "/offset_y" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[6]">
-			<pattr name = "/angle" value = "0" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="video/preview" type="msg_toggle">0</item>
+		<item name="video/bypass" type="msg_toggle">0</item>
+		<item name="video/freeze" type="msg_toggle">0</item>
+		<item name="video/mute" type="msg_toggle">0</item>
+		<item name="zoom" type="msg_float">1.</item>
+		<item name="rotate1" type="msg_int">0</item>
+		<item name="mirror" type="msg_int">0</item>
+		<item name="offset_x" type="msg_int">0</item>
+		<item name="rotate2" type="msg_int">0</item>
+		<item name="offset_y" type="msg_int">0</item>
+		<item name="angle" type="msg_int">0</item>
+    </preset>
+</jamoma>

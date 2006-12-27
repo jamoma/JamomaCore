@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.pass"
-
-EXPORTS
-	main

@@ -1,46 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.input~">
-	<slot number = "1">
-		<patcher name = "jmod.parameter.mxb[4]">
-			<pattr name = "/loop" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[5]">
-			<pattr name = "/play" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[8]">
-			<pattr name = "/source_select" value = "2" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "/ch_1" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "/ch_2" value = "2" />
-		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt">
-			<pattr name = "/audio/gain/midi" value = "0." />
-		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt[1]">
-			<pattr name = "/gain_1/midi" value = "127." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/link" value = "1" />
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt[2]">
-			<pattr name = "/gain_2/midi" value = "127." />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="loop" type="msg_int">1</item>
+		<item name="play" type="msg_int">0</item>
+		<item name="source_select" type="msg_int">2</item>
+		<item name="ch_1" type="msg_int">1</item>
+		<item name="ch_2" type="msg_int">2</item>
+		<item name="gain_1/midi" type="msg_float">127.</item>
+		<item name="link" type="toggle">1</item>
+		<item name="gain_2/midi" type="msg_float">127.</item>
+ 		<item name="audio/gain/midi" type="msg_int">0</item>
+   </preset>
+</jamoma>

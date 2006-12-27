@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.mouse">
-	<slot number = "1">
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter[1]">
-			<pattr name = "/mouse_on" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter[2]">
-			<pattr name = "/mouse_menu" value = "0" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="mouse_on" type="msg_int">0</item>
+		<item name="mouse_menu" type="msg_int">0</item>
+    </preset>
+</jamoma>

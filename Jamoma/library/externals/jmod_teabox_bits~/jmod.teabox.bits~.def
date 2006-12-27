@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.teabox.bits~"
-
-EXPORTS
-	main

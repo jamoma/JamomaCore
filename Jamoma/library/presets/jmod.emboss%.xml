@@ -1,53 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.emboss%">
-	<slot number = "1">
-		<patcher name = "jmod.gui.1Uh.v.mxb">
-			<patcher name = "pwindow">
-				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/video/preview" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[2]">
-					<pattr name = "/video/bypass" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[3]">
-					<pattr name = "/video/freeze" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[4]">
-					<pattr name = "/video/mute" value = "0" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[13]">
-			<pattr name = "/tint/green" value = "0.4" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[12]">
-			<pattr name = "/tint/red" value = "0.4" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[11]">
-			<pattr name = "/mask/green" value = "0." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[10]">
-			<pattr name = "/mask/red" value = "11." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[9]">
-			<pattr name = "/tint/blue" value = "0.4" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[8]">
-			<pattr name = "/mask/blue" value = "0." />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="video/preview" type="msg_int">0</item>
+		<item name="video/bypass" type="msg_int">0</item>
+		<item name="video/freeze" type="msg_int">0</item>
+		<item name="video/mute" type="msg_int">0</item>
+		<item name="tint/green" type="msg_float">0.4</item>
+		<item name="tint/red" type="msg_float">0.4</item>
+		<item name="tint/blue" type="msg_float">0.4</item>
+		<item name="mask/green" type="msg_float">0.</item>
+		<item name="mask/red" type="msg_float">11.</item>
+		<item name="mask/blue" type="msg_float">0.</item>
+    </preset>
+</jamoma>

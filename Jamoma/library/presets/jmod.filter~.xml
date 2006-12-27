@@ -1,53 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.filter~">
-	<slot number = "1">
-		<patcher name = "jmod.gui.1Uh.a.stereo.mxb">
-			<patcher name = "controls">
-				<patcher name = "pattr_gain">
-					<pattr name = "/audio/gain/midi" value = "0" />
-				</patcher>
-				<patcher name = "pattr_meters_freeze">
-					<pattr name = "/audio/meters/freeze" value = "0" />
-				</patcher>
-				<patcher name = "pattr_mix">
-					<pattr name = "/audio/mix" value = "100." />
-				</patcher>
-				<patcher name = "pattr_bypass">
-					<pattr name = "/audio/bypass" value = "0" />
-				</patcher>
-				<patcher name = "pattr_mute">
-					<pattr name = "/audio/mute" value = "1" />
-				</patcher>
-				<patcher name = "pattr_sr">
-					<pattr name = "/audio/sample_rate" value = "0" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "/cf" value = "1548." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[2]">
-			<pattr name = "/q" value = "1." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[3]">
-			<pattr name = "/filtergain" value = "0." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "/filtertype" value = "lowpass" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="audio/gain/midi" type="msg_int">0</item>
+		<item name="audio/meters/freeze" type="msg_int">0</item>
+		<item name="audio/mix" type="msg_float">100.</item>
+		<item name="audio/bypass" type="msg_int">0</item>
+		<item name="audio/mute" type="msg_int">1</item>
+		<item name="audio/sample_rate" type="msg_int">0</item>
+		<item name="cf" type="msg_float">1548.</item>
+		<item name="q" type="msg_float">1.</item>
+		<item name="filtergain" type="msg_float">0.</item>
+		<item name="filtertype" type="msg_symbol">lowpass</item>
+    </preset>
+</jamoma>

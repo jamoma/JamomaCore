@@ -1,86 +1,21 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.motion%">
-	<slot number = "1">
-		<patcher name = "jmod.gui">
-			<patcher name = "pwindow">
-				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/video/preview" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[2]">
-					<pattr name = "/video/bypass" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[3]">
-					<pattr name = "/video/freeze" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[4]">
-					<pattr name = "/video/mute" value = "0" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "/threshold" value = "0.1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "/noise" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/trails" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[3]">
-			<pattr name = "/slide" value = "6." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[4]">
-			<pattr name = "/algorithm" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[5]">
-			<pattr name = "/edge_thresh" value = "0.1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[6]">
-			<pattr name = "/color" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[7]">
-			<pattr name = "/data_smoothing" value = "3." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[8]">
-			<pattr name = "/data_smoothing" value = "3." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[9]">
-			<pattr name = "/contraction_slide" value = "10." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[10]">
-			<pattr name = "/contraction_on" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[11]">
-			<pattr name = "/max_contraction_on" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[13]">
-			<pattr name = "/centroid_on" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[14]">
-			<pattr name = "/centroid_size_on" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[15]">
-			<pattr name = "/contraction_color" value = "255 255 84" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[16]">
-			<pattr name = "/max_contraction_color" value = "100 255 100" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[17]">
-			<pattr name = "/centroid_color" value = "255 255 255" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="preview" type="msg_int">0</item>
+		<item name="bypass" type="msg_int">0</item>
+		<item name="freeze" type="msg_int">0</item>
+		<item name="mute" type="msg_int">0</item>
+		<item name="threshold" type="msg_float">0.1</item>
+		<item name="noise" type="msg_int">1</item>
+		<item name="trails" type="msg_int">0</item>
+		<item name="slide" type="msg_float">6.</item>
+		<item name="algorithm" type="msg_int">0</item>
+		<item name="edge_thresh" type="msg_float">0.1</item>
+		<item name="color" type="msg_int">0</item>
+    </preset>
+</jamoma>

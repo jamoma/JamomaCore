@@ -1,0 +1,33 @@
+HOW TO COMPILE THIS OBJECT
+
+Special thanks to Thomas Grill for his assistance with the
+initial instruction on how to do this.
+
+User interface objects are different than plain Max objects.  
+When compiling on the Mac from CodeWarrior there should be 
+difference in the process.  However, using VC++ on Windows
+there is a slightly different process.
+
+First, when you compile from VC++, you do not compile directly
+to the .mxe file.  Instead, you compile to an intermediary .dll
+file.  You then drop into the terminal to combine the .dll with
+a resource file to create the .mxe file.  You can do that with
+the following command:
+
+	rezwack -d jcom.meter~.dll -r jcom_meter.qtr -o jcom.meter~.mxe
+
+
+It is possible that the resources have changed, however.  If 
+they have changed you will need to recompile them.  To do that,
+run this command:
+
+	rez jcom_meter.qtr.txt -o jcom_meter.qtr
+
+That text source may be obtained by taking the resource fork file
+on the Mac and running 
+
+	/Developer/Tools/DeRez jcom.meter~.rsrc
+
+HOWEVER: you must delete the MaxL and ckid resources before 
+re-compiling.  Otherwise this external will crash!
+

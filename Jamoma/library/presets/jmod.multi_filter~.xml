@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="audio/gain/midi" type="msg_float">0.</item>
+		<item name="audio/meters/freeze" type="msg_int">0</item>
+		<item name="audio/mix" type="msg_float">100.</item>
+		<item name="audio/bypass" type="msg_int">0</item>
+		<item name="audio/mute" type="msg_int">0</item>
+		<item name="audio/sample_rate" type="msg_int">0</item>
+		<item name="bands" type="msg_int">5</item>
+		<item name="filter_freq/1" type="msg_float">50.</item>
+		<item name="filter_gain/1" type="msg_float">0.</item>
+		<item name="filter_Q/1" type="msg_float">1.985294</item>
+		<item name="filter_type/1" type="msg_float">lowshelf</item>
+		<item name="filter_freq/2" type="msg_float">250.</item>
+		<item name="filter_gain/2" type="msg_float">-0.358941</item>
+		<item name="filter_Q/2" type="msg_float">1.804278</item>
+		<item name="filter_type/2" type="msg_float">peaknotch</item>
+		<item name="filter_freq/3" type="msg_float">1000.</item>
+		<item name="filter_gain/3" type="msg_float">0.</item>
+		<item name="filter_Q/3" type="msg_float">1.804278</item>
+		<item name="filter_type/3" type="msg_float">peaknotch</item>
+		<item name="filter_freq/4" type="msg_float">3300.</item>
+		<item name="filter_gain/4" type="msg_float">0.252736</item>
+		<item name="filter_Q/4" type="msg_float">1.804278</item>
+		<item name="filter_type/4" type="msg_float">peaknotch</item>
+		<item name="filter_freq/5" type="msg_float">10000.</item>
+		<item name="filter_gain/5" type="msg_float">0.</item>
+		<item name="filter_Q/5" type="msg_float">2.5</item>
+		<item name="filter_type/5" type="msg_float">highshelf</item>
+    </preset>
+</jamoma>

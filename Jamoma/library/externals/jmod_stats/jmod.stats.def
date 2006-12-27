@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.stats"
-
-EXPORTS
-	main

@@ -16,16 +16,12 @@
 	<string>iLaX</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>SVNREV</string>
 	<key>CFBundleShortVersionString</key>
 	<string>VERSION (SVNREV)</string>
 	<key>CFBundleLongVersionString</key>
 	<string>Jamoma VERSION (build SVNREV), Copyright 2006 Jamoma.Org</string>
-	<key>CSResourcesFileMapped</key>
-	<true/>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>

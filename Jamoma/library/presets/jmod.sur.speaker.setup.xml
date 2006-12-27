@@ -1,104 +1,27 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.sur.speaker.setup">
-	<slot number = "1">
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "/voices" value = "8" />
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "inspector">
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/1" value = "5. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[1]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/2" value = "3.535534 3.535534 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[2]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/3" value = "-0. 5. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[3]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/4" value = "-3.535534 3.535534 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[4]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/5" value = "-5. -0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[5]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/6" value = "-3.535533 -3.535534 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[6]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/7" value = "0.000001 -5. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[7]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/8" value = "3.535534 -3.535533 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[8]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/9" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[9]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/10" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[10]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/11" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[11]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/12" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[12]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/13" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[13]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/14" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[14]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/15" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-			<patcher name = "jmod.sur.ch.xyz_setup.mxt[15]">
-				<patcher name = "parameter">
-					<pattr name = "/xyz/16" value = "0. 0. 0." />
-				</patcher>
-			</patcher>
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="voices" type="msg_int">8</item>
+		<item name="xyz/1" type="list_float">5. 0. 0.</item>
+		<item name="xyz/2" type="list_float">3.535534 3.535534 0.</item>
+		<item name="xyz/3" type="list_float">-0. 5. 0.</item>
+		<item name="xyz/4" type="list_float">-3.535534 3.535534 0.</item>
+		<item name="xyz/5" type="list_float">-5. -0. 0.</item>
+		<item name="xyz/6" type="list_float">-3.535533 -3.535534 0.</item>
+		<item name="xyz/7" type="list_float">0.000001 -5. 0.</item>
+		<item name="xyz/8" type="list_float">3.535534 -3.535533 0.</item>
+		<item name="xyz/9" type="list_float">0. 0. 0.</item>
+		<item name="xyz/10" type="list_float">0. 0. 0.</item>
+		<item name="xyz/11" type="list_float">0. 0. 0.</item>
+		<item name="xyz/12" type="list_float">0. 0. 0.</item>
+		<item name="xyz/13" type="list_float">0. 0. 0.</item>
+		<item name="xyz/14" type="list_float">0. 0. 0.</item>
+		<item name="xyz/15" type="list_float">0. 0. 0.</item>
+		<item name="xyz/16" type="list_float">0. 0. 0.</item>
+    </preset>
+</jamoma>

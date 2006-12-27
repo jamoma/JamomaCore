@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.mapper">
-	<slot number = "1">
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/mapFrom" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "/mapTo" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[3]">
-			<pattr name = "/mapAlgorithm" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[4]">
-			<pattr name = "/mapFromReturn" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[5]">
-			<pattr name = "/mapToReturn" value = "0" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="mapFrom" type="msg_int">0</item>
+		<item name="mapTo" type="msg_int">0</item>
+		<item name="mapAlgorithm" type="msg_int">0</item>
+		<item name="mapFromReturn" type="msg_int">0</item>
+		<item name="mapToReturn" type="msg_int">0</item>
+    </preset>
+</jamoma>

@@ -1,59 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.plur%">
-	<slot number = "1">
-		<patcher name = "jmod.gui.1Uh.v.mxb">
-			<patcher name = "pwindow">
-				<patcher name = "pwindow_gate[1]">
-					<pattr name = "/video/preview" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[2]">
-					<pattr name = "/video/bypass" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[3]">
-					<pattr name = "/video/freeze" value = "0" />
-				</patcher>
-				<patcher name = "pwindow_gate[4]">
-					<pattr name = "/video/mute" value = "0" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[2]">
-			<pattr name = "/x_range" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "/y_range" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[3]">
-			<pattr name = "/y_step" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[4]">
-			<pattr name = "/x_step" value = "30" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "/gang" value = "1" />
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[5]">
-			<pattr name = "/mode" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[6]">
-			<pattr name = "/scale" value = "8" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[7]">
-			<pattr name = "/colormode" value = "0" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="video/preview" type="msg_int">0</item>
+		<item name="video/bypass" type="msg_int">0</item>
+		<item name="video/freeze" type="msg_int">0</item>
+		<item name="video/mute" type="msg_int">0</item>
+		<item name="x_range" type="msg_int">30</item>
+		<item name="y_range" type="msg_int">30</item>
+		<item name="y_step" type="msg_int">30</item>
+		<item name="x_step" type="msg_int">30</item>
+		<item name="gang" type="msg_int">1</item>
+		<item name="mode" type="msg_int">0</item>
+		<item name="scale" type="msg_int">8</item>
+		<item name="colormode" type="msg_int">0</item>
+    </preset>
+</jamoma>

@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.colorspace"
-
-EXPORTS
-	main

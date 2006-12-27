@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.sur.output~">
-	<slot number = "1">
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter">
-			<pattr name = "/voices" value = "8" />
-		</patcher>
-		<patcher name = "i">
-			<patcher name = "jmod.parameter[2]">
-				<pattr name = "/setup" value = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16" />
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter[1]">
-			<pattr name = "/offset" value = "0" />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="voices" type="msg_int">8</item>
+		<item name="setup" type="list_int">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16</item>
+		<item name="offset" type="msg_int">0</item>
+    </preset>
+</jamoma>

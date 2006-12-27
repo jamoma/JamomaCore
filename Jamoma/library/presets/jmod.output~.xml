@@ -1,64 +1,25 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.output~">
-	<slot number = "1">
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "/ch_1" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "/ch_2" value = "2" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[1]">
-			<pattr name = "/record/filetype" value = "aiff" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[3]">
-			<pattr name = "/record/samptype" value = "int24" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/saturation/depth" value = "10." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[4]">
-			<pattr name = "/saturation/active" value = "1" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[5]">
-			<pattr name = "/limiter/preamp" value = "6." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[6]">
-			<pattr name = "/limiter/postamp" value = "0." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[7]">
-			<pattr name = "/limiter/lookahead" value = "64." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[8]">
-			<pattr name = "/limiter/release" value = "300." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[9]">
-			<pattr name = "/limiter/threshold" value = "-6." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[10]">
-			<pattr name = "/limiter/mode" value = "exponential" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[11]">
-			<pattr name = "/limiter/active" value = "1" />
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[12]">
-			<pattr name = "/record" value = "0" />
-		</patcher>
-		<patcher name = "jmod.parameter.gain.mxt">
-			<pattr name = "/gain/midi" value = "0." />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+			<item name="ch_1" type="msg_int">1</item>
+			<item name="ch_2" type="msg_int">2</item>
+			<item name="record/filetype" type="msg_symbol">aiff</item>
+			<item name="record/samptype" type="msg_symbol">int24</item>
+			<item name="saturation/depth" type="msg_float">10.</item>
+			<item name="saturation/active" type="msg_int">1</item>
+			<item name="limiter/preamp" type="msg_float">6.</item>
+			<item name="limiter/postamp" type="msg_float">0.</item>
+			<item name="limiter/lookahead" type="msg_float">64.</item>
+			<item name="limiter/release" type="msg_float">300.</item>
+			<item name="limiter/threshold" type="msg_float">-6.</item>
+			<item name="limiter/mode" type="msg_symbol">exponential</item>
+			<item name="limiter/active" type="msg_int">1</item>
+			<item name="record" type="msg_int">0</item>
+			<item name="gain/midi" type="msg_float">0.</item>
+    </preset>
+</jamoma>

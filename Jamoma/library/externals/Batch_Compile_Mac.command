@@ -1,93 +1,109 @@
 #!/bin/bash
 
-cd jmod_change
+cd jcom.change
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_colorspace
+cd jcom.equals
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_cubic_interpolate
+cd jcom.gain~
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_delta
+cd jcom.gang
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_delta2
+cd jcom.hub
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_dispatcher
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jmod_equals
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jmod_gain_tilde
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jmod_limiter_tilde
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jmod_meter_tilde
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jmod_oscroute
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jmod_param
+cd jcom.in
 xcodebuild -alltargets -configuration Deployment clean build
 cd ..
 
-cd jmod_pass
+cd jcom.init
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_round
+cd jcom.limiter~
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_route
+cd jcom.meter~
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_saturation_tilde
+cd jcom.oscroute
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_stats
+cd jcom.out
+xcodebuild -alltargets -configuration Deployment clean build
+cd ..
+
+cd jcom.parameter
+xcodebuild -alltargets -configuration Deployment clean build
+cd ..
+
+cd jcom.pass
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_sum%
+cd jcom.ramp
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_teabox~
+cd jcom.receive
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_teabox_bits~
+cd jcom.remote
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_teabox_count~
+cd jcom.return
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_velocity
+cd jcom.round
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jmod_xfade_tilde
+cd jcom.route
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.saturation~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.send
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.sum%
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.teabox~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.teabox.bits~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.teabox.count~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.xfade~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.zerox~
 xcodebuild -configuration Deployment clean build
 cd ..

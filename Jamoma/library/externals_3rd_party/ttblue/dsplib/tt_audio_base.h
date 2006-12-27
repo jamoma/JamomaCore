@@ -62,14 +62,6 @@ enum{
 
 
 // Include the appropriate API header
-#if TAPTOOLS_TARGET_MAC
-#ifdef __MWERKS__
-#include <Carbon.h>				// CodeWarrior
-#else
-#include <Carbon/Carbon.h>		// Project Builder or Xcode
-#endif
-#endif
-
 #if TARGET_OS_WIN				// Windows
 #include <windows.h>
 #endif
@@ -99,7 +91,7 @@ class tt_audio_base{
 		static const float 		lookup_quartersine[];		// Quarter Sine lookup table
 		static const double 	twopi;						// 6.28...
 		static const double 	anti_denormal_value;		// Used by the anti_denormal functions
-		static int				temp_vs;					// Temporary variable for use in vector routines
+		int						temp_vs;					// Temporary variable for use in vector routines
 		
 	public:
 		static const double 	pi;							// 3.14...
@@ -205,7 +197,7 @@ class tt_audio_base{
 			value += fabs((double)value);
 #endif
 			value *= 0.5;
-			value -= low_bound;
+			value += low_bound;
 			return value; 
 		}
 		
@@ -284,11 +276,41 @@ class tt_audio_base{
 		{
 			float 	fb;					// variable for our result		
 			delay = delay * 0.001;		// convert delay from milliseconds to seconds
-			fb = delay / decay_time;		
-			fb = fb * -60.;				
-			fb = pow(10., (fb / 20.));		
+			if(decay_time < 0){
+				fb = delay / -decay_time;
+				fb = fb * -60.;		
+				fb = pow(10., (fb / 20.));	
+				fb *= -1.;
+			}
+			else{
+				fb = delay / decay_time;
+				fb = fb * -60.;				
+				fb = pow(10., (fb / 20.));		
+			}		
 			return(fb);			
 		}
+
+		// return the decay time based on the feedback coefficient
+		static float feedback_to_decay(float feedback, float delay)
+		{
+			float 	decay_time;				// variable for our result
+			
+			if(feedback > 0){
+				decay_time = 20. * (log10(feedback));		
+				decay_time = -60.0 / decay_time;		
+				decay_time = decay_time * (delay);		
+			}
+			else if(feedback < 0){
+				decay_time = 20. * (log10(fabs(feedback)));		
+				decay_time = -60.0 / decay_time;		
+				decay_time = decay_time * (-delay);		
+			}
+			else
+				decay_time = 0;
+
+			return(decay_time);
+		}
+
 
 		// ************* DECIBEL CONVERSIONS **************
 
@@ -414,4 +436,4 @@ class tt_audio_base{
 };
 
 
-#endif // tt_audio_base_HEADER
+#endif // TT_AUDIO_BASE_HEADER

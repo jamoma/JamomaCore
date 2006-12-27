@@ -1,44 +1,17 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.sur.ambi.encodeM~">
-	<slot number = "1">
-		<patcher name = "jmod.parameter.mxt">
-			<pattr name = "/voices" value = "3" />
-		</patcher>
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[1]">
-			<pattr name = "/order" value = "3" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[2]">
-			<pattr name = "/db_drop_off" value = "2." />
-		</patcher>
-		<patcher name = "jmod.parameter.mxt[3]">
-			<pattr name = "/center_radius" value = "0.15" />
-		</patcher>
-		<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
-			<patcher name = "controls">
-				<patcher name = "pattr_mute">
-					<pattr name = "/audio/mute" value = "0" />
-				</patcher>
-				<patcher name = "pattr_defeat_meters">
-					<pattr name = "/audio/meters/freeze" value = "0" />
-				</patcher>
-				<patcher name = "pattr_gain">
-					<pattr name = "/audio/gain/midi" value = "0" />
-				</patcher>
-			</patcher>
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="voices" type="msg_int">3</item>
+		<item name="order" type="msg_int">3</item>
+		<item name="db_drop_off" type="msg_float">2.</item>
+		<item name="center_radius" type="msg_float">0.15</item>
+		<item name="audio/mute" type="msg_int">0</item>
+		<item name="audio/meters/freeze" type="msg_int">0</item>
+		<item name="audio/gain/midi" type="msg_int">0</item>
+    </preset>
+</jamoma>

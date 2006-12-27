@@ -134,6 +134,9 @@ class tt_allpass:public tt_audio_base{
 			mem_free(fb_buffer);
 			ff_buffer = (tt_sample_value *)mem_alloc(delay_samples_max * sizeof(tt_sample_value));
 			fb_buffer = (tt_sample_value *)mem_alloc(delay_samples_max * sizeof(tt_sample_value));
+			if((ff_buffer == NULL) || (fb_buffer == NULL))
+				error("tt_allpass could not allocate buffers!");
+			
 			clear();
 		}
 
@@ -166,6 +169,7 @@ class tt_allpass:public tt_audio_base{
 			r_sr = 1.0 / value;
 			m_sr = sr * 0.001;
 			
+			init(delay_ms_max);				// re-alloc memory
 			set_attr(k_delay_ms, delay_ms);
 		}
 };

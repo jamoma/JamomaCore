@@ -1,81 +1,117 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.change", "jmod_change\jmod.change.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.change", "jcom.change\jcom.change.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.cubic_interpolate", "jmod_cubic_interpolate\jmod.cubic_interpolate.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.pass", "jcom.pass\jcom.pass.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.gain", "jmod_gain_tilde\jmod.gain~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.round", "jcom.round\jcom.round.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.meter~", "jmod_meter_tilde\jmod.meter~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.route", "jcom.route\jcom.route.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.pass", "jmod_pass\jmod.pass.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.equals", "jcom.equals\jcom.equals.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.round", "jmod_round\jmod.round.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.oscroute", "jcom.oscroute\jcom.oscroute.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.route", "jmod_route\jmod.route.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.sum%", "jcom.sum%\jcom.sum%.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.limiter", "jmod_limiter_tilde\jmod.limiter~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.teabox", "jcom.teabox~\jcom.teabox~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.saturation", "jmod_saturation_tilde\jmod.saturation~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.hub", "jcom.hub\jcom.hub.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.xfade", "jmod_xfade_tilde\jmod.xfade~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.message", "jcom.parameter\jcom.message.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.equals", "jmod_equals\jmod.equals.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.parameter", "jcom.parameter\jcom.parameter.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.oscroute", "jmod_oscroute\jmod.oscroute.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.in", "jcom.in\jcom.in.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.sum%", "jmod_sum%\jmod.sum%.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.init", "jcom.init\jcom.init.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.teabox.bits", "jmod_teabox_bits~\jmod.teabox.bits~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out", "jcom.out\jcom.out.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.teabox.count", "jmod_teabox_count~\jmod.teabox.count~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.ramp", "jcom.ramp\jcom.ramp.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.teabox", "jmod_teabox~\jmod.teabox~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.remote", "jcom.remote\jcom.remote.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.dispatcher", "jmod_dispatcher\jmod.dispatcher.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.return", "jcom.return\jcom.return.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.mess", "jmod_param\jmod.mess.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.in~", "jcom.in\jcom.in~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.param", "jmod_param\jmod.param.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out~", "jcom.out\jcom.out~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.ret", "jmod_param\jmod.ret.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.gain", "jcom.gain~\jcom.gain~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.gang", "jcom.gang\jcom.gang.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.limiter", "jcom.limiter~\jcom.limiter~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.meter~", "jcom.meter~\jcom.meter~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.receive", "jcom.receive\jcom.receive.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.saturation", "jcom.saturation~\jcom.saturation~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.send", "jcom.send\jcom.send.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.teabox.bits", "jcom.teabox.bits~\jcom.teabox.bits~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.teabox.count", "jcom.teabox.count~\jcom.teabox.count~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.xfade", "jcom.xfade~\jcom.xfade~.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -83,6 +119,7 @@ Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
 		Release = Release
+		Release-Nojcom = Release-Nojcom
 		Release-NoJmod = Release-NoJmod
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
@@ -90,114 +127,232 @@ Global
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release-NoJmod|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release-Nojcom|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release-Nojcom|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release-Nojcom|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release-Nojcom|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release-NoJmod|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.ActiveCfg = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Debug.Build.0 = Debug|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release.Build.0 = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.ActiveCfg = Release|Win32
+		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-Nojcom.Build.0 = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.ActiveCfg = Release|Win32
 		{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}.Release-NoJmod.Build.0 = Release|Win32
 	EndGlobalSection

@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.limiter~"
-
-EXPORTS
-	main

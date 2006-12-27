@@ -77,7 +77,6 @@ class tt_multitap:public tt_audio_base{
 
 
 	// OVER-RIDEN SR METHOD ***************************
-	
 	void set_sr(int value){
 		if(value != sr){		// Do this only if the SR has changed
 			short i;
@@ -94,6 +93,24 @@ class tt_multitap:public tt_audio_base{
 		}
 	}
 	
+	// OVER-RIDEN VS METHOD ***************************
+	void set_vectorsize(int value)
+	{
+		if(value != vectorsize){
+			short i;
+			
+			//post("setting vs: %i (was: %i)", value, vectorsize);			
+			vectorsize = value;
+			if(buffersize_type)	// if the size was spec'd in ms then resize (don't do anything if spec'd in samples)
+				set_attr(k_buffersize_ms, buffersize_ms);
+			// THE ABOVE MAY CAUSE PROBLEMS(!!!) BECAUSE IT WILL CAUSE TROUBLE FOR THE REALTIME PERFORM ROUTINES
+			for(i=0; i<num_taps; i++)
+				set_attr(k_delay_ms, i, delay_ms[i]);			
+		}
+	}
+
+
+
 	
 	// ATTRIBUTES *************************************
 	
@@ -183,6 +200,9 @@ class tt_multitap:public tt_audio_base{
 		short i;
 		temp_vs = in->vectorsize;
 		
+		if(buffer == NULL)								// there was a problem allocating memory
+			return;										//	(can happen during fast sr/vs switching in auval)
+		
 		while(temp_vs--){
 			*buffer_in++ = *in->vector++;				// record input with the write-pointer
 			temp = 0.0;
@@ -225,8 +245,11 @@ class tt_multitap:public tt_audio_base{
 			buffer_end = buffer + buffersize_samples;			// point the end-pointer to the last location in the buffer
 			position_playheads();
 			clear();
-		}else
+		}
+		else{
 			error("tt_multitap could not allocate memory for the delay buffer!");
+			buffer = NULL;
+		}
 	}
 
 	void reset(void)

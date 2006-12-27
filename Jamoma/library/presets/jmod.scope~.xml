@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
-<pattrstorage name = "jmod.scope~">
-	<slot number = "1">
-		<patcher name = "jmod.hub">
-			<patcher name = "sub patch">
-				<patcher name = "jmod.parameter">
-					<pattr name = "/ui/freeze" value = "0" />
-				</patcher>
-			</patcher>
-			<patcher name = "sub patch[1]">
-				<patcher name = "jmod.parameter[1]">
-					<pattr name = "/clock/set" value = "" />
-				</patcher>
-			</patcher>
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[3]">
-			<pattr name = "/buffers_per_pixel" value = "128" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb[2]">
-			<pattr name = "/samples_per_buffer" value = "128" />
-		</patcher>
-		<patcher name = "jmod.parameter.mxb">
-			<pattr name = "/range" value = "1." />
-		</patcher>
-	</slot>
-</pattrstorage>
-
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="buffers_per_pixel" type="msg_int">128</item>
+		<item name="samples_per_buffer" type="msg_int">128</item>
+		<item name="range" type="msg_float">1.</item>
+    </preset>
+</jamoma>

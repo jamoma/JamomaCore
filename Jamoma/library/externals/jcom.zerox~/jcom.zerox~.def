@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.zerox~"
+
+EXPORTS
+	main

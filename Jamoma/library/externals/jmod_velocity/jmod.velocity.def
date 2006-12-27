@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jmod.velocity"
-
-EXPORTS
-	main

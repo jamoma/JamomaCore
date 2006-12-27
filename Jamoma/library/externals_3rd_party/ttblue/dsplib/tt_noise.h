@@ -49,6 +49,7 @@ class tt_noise:public tt_audio_base{
 		{
 			// set defaults
 			set_attr(k_mode, k_mode_white);
+			b0 = b1 = b2 = b3 = b4 = b5 = b6 = noise_accum = 0;
 		}
 
 		~tt_noise()									// Destructor
