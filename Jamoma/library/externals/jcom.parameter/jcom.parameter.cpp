@@ -647,8 +647,30 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
+	float	value, time;
+	
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
+	else if(x->attr_ramp != ps_none){				// !!! CURRENTLY LIST RAMPING IS NOT HANDLED BY THIS CASE !!!
+		value = atom_getfloat(argv);
+		if(argc>1)
+			time = atom_getfloat(argv+1);
+		else
+			time = 0;
+
+		if(time == 0){
+			jcom_core_atom_copy(&x->attr_value, argv);
+			x->param_bang(x);
+			return;
+		}	
+
+		if(x->attr_repetitions == 0){
+			if(jcom_core_atom_compare(x->attr_type, &x->attr_value, argv))
+				return;
+		}
+		x->rampfunction->set(x->rampunit, atom_getfloat(&x->attr_value));
+		x->rampfunction->go(x->rampunit, value, time);
+	} 	
 	else {
 		for(int i = 0; i < argc; i++) {
 			switch(argv[i].a_type) 
@@ -669,33 +691,6 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 		x->list_size = argc;
 		x->param_bang(x);
-				
-		// This method has to take into account that list length might be 1 instead of two
-		// the above is a temporary hack
-		//
-		// The method should probably also check to make sure that the list actually contains floats.
-		/* XXX just ignore ramping for now since it doesn't work */
-#if 0
-		if(x->attr_ramp != ps_none){
-			if(argc>1)
-				time = atom_getfloat(argv+1);
-			else
-				time = 0;
-
-			if(time == 0){
-				jcom_core_atom_copy(&x->attr_value, argv);
-				x->param_bang(x);
-				return;
-			}	
-
-			if(x->attr_repetitions == 0){
-				if(jcom_core_atom_compare(x->attr_type, &x->attr_value, argv))
-					return;
-			}
-			x->rampfunction->set(x->rampunit, atom_getfloat(&x->attr_value));
-			x->rampfunction->go(x->rampunit, value, time);
-		}
-#endif
 	}
 }
 
