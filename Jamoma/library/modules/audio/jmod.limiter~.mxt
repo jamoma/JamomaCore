@@ -22,7 +22,7 @@ max v2;
 #P hidden newex 68 287 71 196617 pvar Postamp;
 #P hidden newex 68 220 65 196617 pvar Preamp;
 #P window linecount 2;
-#P hidden newex 68 602 378 196617 jcom.parameter mode @repetitions 0 @type menu @description "Set the function to be used for calculating the scaling. Possible values: exponential | linear";
+#P hidden newex 68 602 378 196617 jcom.parameter mode @repetitions 0 @type msg_menu @description "Set the function to be used for calculating the scaling. Possible values: exponential | linear";
 #P objectname mode;
 #P hidden newex 68 529 317 196617 jcom.parameter release @type msg_float @range 0 500 @clipmode low @ramp linear @description "The release time (ms).";
 #P objectname release;

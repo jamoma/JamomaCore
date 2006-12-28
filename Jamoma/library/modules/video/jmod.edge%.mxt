@@ -17,7 +17,7 @@ max v2;
 #P hidden message 99 86 125 196617 /documentation/generate;
 #B color 3;
 #P window linecount 2;
-#P hidden newex 351 128 283 196617 jcom.parameter algorithm @type menu @description "Choose the type of.mxtorithm to use for the edge detection.";
+#P hidden newex 351 128 283 196617 jcom.parameter algorithm @type msg_menu @description "Choose the type of.mxtorithm to use for the edge detection.";
 #P objectname algorithm;
 #P hidden newex 351 47 334 196617 jcom.parameter thresh @type msg_float @ramp linear @description "Edge detection threshold - pixels below the threshold are set to black.";
 #P objectname thresh;

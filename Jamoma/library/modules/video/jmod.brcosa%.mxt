@@ -16,7 +16,7 @@ max v2;
 #P hidden newex 188 184 78 196617 jcom.pass open;
 #P hidden newex 26 533 90 196617 pvar monochrome;
 #P window linecount 2;
-#P hidden newex 26 555 230 196617 jcom.parameter monochrome @type toggle @description "Monochrome image - 0 is default";
+#P hidden newex 26 555 230 196617 jcom.parameter monochrome @type msg_toggle @description "Monochrome image - 0 is default";
 #P objectname monochrome[1];
 #P window linecount 1;
 #P comment 98 42 66 196617 monochrome;

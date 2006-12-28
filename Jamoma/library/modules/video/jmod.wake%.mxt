@@ -21,7 +21,7 @@ max v2;
 #X set 0;
 #X done;
 #P window linecount 2;
-#P hidden newex 341 134 233 196617 jcom.parameter normalize @type toggle @description "Switches normalization on and off";
+#P hidden newex 341 134 233 196617 jcom.parameter normalize @type msg_toggle @description "Switches normalization on and off";
 #P objectname normalize;
 #P flonum 143 18 35 9 0 0 8224 3 0 0 0 221 221 221 222 222 222 0 0 0;
 #P flonum 143 32 35 9 0 0 8224 3 0 0 0 221 221 221 222 222 222 0 0 0;

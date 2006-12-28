@@ -93,7 +93,7 @@ max v2;
 #P newex 395 203 93 9109513 pvar FilterGraph 7;
 #P window linecount 2;
 #P newex 261 26 232 9109513 jcom.message filtergraph @description "Messages to filtergraph. See the MSP reference for further details";
-#P newex 413 122 380 9109513 jcom.parameter filtertype @type menu @description "What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf";
+#P newex 413 122 380 9109513 jcom.parameter filtertype @type msg_menu @description "What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf";
 #P objectname jcom.parameter.mxb;
 #P newex 550 296 301 9109513 jcom.parameter filtergain @type msg_float @range -24 24 @clipmode both @ramp linear @repetitions 0 @description "Gain (dB)";
 #P objectname jcom.parameter.mxb[3];

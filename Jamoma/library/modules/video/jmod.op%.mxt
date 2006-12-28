@@ -92,7 +92,7 @@ max v2;
 #P window linecount 1;
 #P comment 41 31 45 196617 op;
 #P window linecount 3;
-#P hidden newex 496 102 257 196617 jcom.parameter op @type menu @description "Chooses the type of operation to perform on the two video inputs to the module.";
+#P hidden newex 496 102 257 196617 jcom.parameter op @type msg_menu @description "Chooses the type of operation to perform on the two video inputs to the module.";
 #P objectname op;
 #P window linecount 1;
 #P hidden comment 252 334 75 196617 VIDEO OUTPUT;
