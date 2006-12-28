@@ -536,7 +536,7 @@ max v2;
 #B frgb 181 181 181;
 #P window linecount 2;
 #P hidden comment 286 28 248 196617 The set message is important to prevent feedback into jcom.parameter.gain from killing ongoing ramps;
-#P bpatcher 0 0 256 121 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 256 121 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.mxt;
 #P hidden connect 57 0 75 0;
 #P hidden fasten 34 0 66 0 163 171 14 171;

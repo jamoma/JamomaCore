@@ -430,7 +430,7 @@ max v2;
 #X set 1;
 #X done;
 #P objectname LimiterToggle;
-#P bpatcher 0 0 255 120 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 255 120 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.mxt;
 #P hidden fasten 14 0 75 0 167 334 20 334;
 #P hidden connect 6 0 75 0;

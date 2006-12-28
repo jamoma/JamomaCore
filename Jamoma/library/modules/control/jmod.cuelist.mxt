@@ -80,7 +80,7 @@ max v2;
 #P window linecount 1;
 #P comment 201 3 47 9109513 listen;
 #B frgb 255 255 255;
-#P bpatcher 0 0 256 62 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 256 62 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.1Uh.a.stereo.mxt;
 #P hidden fasten 8 0 5 0 171 110 21 110;
 #P hidden connect 4 0 5 0;

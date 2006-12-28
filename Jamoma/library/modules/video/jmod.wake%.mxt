@@ -55,7 +55,7 @@ max v2;
 #P objectname feedforward;
 #P window linecount 1;
 #P hidden newex 120 267 131 196617 jalg.wake%.mxt;
-#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.1Uh.v.mxb;
 #P hidden fasten 24 0 5 0 108 105 5 105;
 #P hidden connect 3 0 5 0;

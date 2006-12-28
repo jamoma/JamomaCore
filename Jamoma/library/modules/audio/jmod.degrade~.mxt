@@ -38,7 +38,7 @@ max v2;
 #P hidden outlet 0 204 13 0;
 #P hidden outlet 413 306 13 0;
 #P hidden comment 346 322 101 196617 ---signal outputs---;
-#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.1Uh.a.stereo.mxt;
 #P hidden connect 26 0 17 0;
 #P hidden fasten 24 0 17 0 270 140 5 140;

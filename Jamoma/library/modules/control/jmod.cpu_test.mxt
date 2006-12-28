@@ -83,7 +83,7 @@ max v2;
 #P newex 146 246 61 9109513 prepend set;
 #P comment 406 351 235 9109513 Attributes for jcom.parameter and jcom.message:;
 #B color 12;
-#P bpatcher 0 0 256 62 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 256 62 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.1Uh.a.stereo.mxt;
 #P fasten 29 0 7 0 43 108 21 108;
 #P connect 6 0 7 0;

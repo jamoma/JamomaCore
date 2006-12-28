@@ -40,7 +40,7 @@ max v2;
 #P objectname jcom.hub;
 #P hidden outlet 1 171 13 0;
 #P hidden inlet 1 84 13 0;
-#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui;
 #P hidden fasten 17 0 3 0 104 105 6 105;
 #P hidden connect 1 0 3 0;

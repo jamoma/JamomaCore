@@ -82,7 +82,7 @@ max v2;
 #P objectname jcom.hub;
 #P window linecount 1;
 #P hidden comment 173 209 189 9109513 The number box is only used for display;
-#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.1Uh.a.stereo.mxb;
 #P hidden connect 24 0 28 0;
 #P hidden connect 25 0 27 0;

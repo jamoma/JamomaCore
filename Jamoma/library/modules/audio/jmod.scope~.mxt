@@ -48,7 +48,7 @@ max v2;
 #P hidden outlet 11 345 15 0;
 #P hidden inlet 11 280 15 0;
 #P hidden comment 387 271 58 9109513 -- audio in --;
-#P bpatcher 0 0 255 120 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 255 120 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.mxt;
 #P hidden fasten 4 0 7 0 166 302 16 302;
 #P hidden fasten 8 0 7 0 37 300 16 300;

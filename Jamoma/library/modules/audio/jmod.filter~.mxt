@@ -134,7 +134,7 @@ max v2;
 #P window linecount 2;
 #P newex 32 640 283 196617 jcom.hub jmod.filter~ @size 1U-half @module_type audio @description "Stereo 2nd order IIR filter based on biquad~";
 #P objectname jcom.hub;
-#P bpatcher 0 0 255 60 0 0 jcom.gui.mxt 0 $0_;
+#P bpatcher 0 0 255 60 0 0 jcom.gui.mxt 0;
 #P objectname jcom.gui.1Uh.a.stereo.mxb;
 #P connect 19 0 31 0;
 #P connect 31 0 32 0;
