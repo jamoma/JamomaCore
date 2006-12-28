@@ -558,7 +558,8 @@ void param_float(t_param *x, double value)
 				return;
 		}
 		// new input - halt any ramping...
-		x->rampfunction->stop(x->rampunit);
+		if(x->rampfunction)
+			x->rampfunction->stop(x->rampunit);
 	
 		atom_setfloat(&x->attr_value, value);
 		x->param_bang(x);
