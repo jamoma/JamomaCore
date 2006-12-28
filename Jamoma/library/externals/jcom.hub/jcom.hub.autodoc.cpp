@@ -93,11 +93,15 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	
 	// Inlets and outlets
-	argc = NULL;
-	argv = NULL;
-	object_attr_getvalueof(x->in_object, ps_num_inputs, &argc, &argv);	
-	sprintf(tempstring, "\t<p>Number of signal inlets: <code> %ld </ code> <br>", atom_getlong(argv));
-	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
+	if(x->in_object){
+		argc = NULL;
+		argv = NULL;
+		object_attr_getvalueof(x->in_object, ps_num_inputs, &argc, &argv);	
+		sprintf(tempstring, "\t<p>Number of signal inlets: <code> %ld </ code> <br/>", atom_getlong(argv));
+		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
+	}
+	else
+		jcom_core_file_writeline(&file_handle, &myEof, "\t<p>BOGUS INLET DEFINITION!<br/>");
 
 	if(x->out_object){	// jcom.out is optional in the case of no signals
 		argc = NULL;
