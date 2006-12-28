@@ -382,7 +382,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	sysfile_close(file_handle);		// close file reference
 	
 	atom_setsym(&a[0], ps_done);
-	outlet_anything(x->outlets[k_outlet_return], gensym("/documentation/generate"), 1, &a[0]);			// send module feedback
+	hub_outlet_return(x, gensym("/documentation/generate"), 1, &a[0]);
 }
 
 //	Generates table heading for parameters and messages
