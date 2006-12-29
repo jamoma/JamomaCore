@@ -6,10 +6,10 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="preview" type="msg_int">0</item>
-		<item name="bypass" type="msg_int">0</item>
-		<item name="freeze" type="msg_int">0</item>
-		<item name="mute" type="msg_int">0</item>
+		<item name="video/preview" type="msg_int">0</item>
+		<item name="video/bypass" type="msg_int">0</item>
+		<item name="video/freeze" type="msg_int">0</item>
+		<item name="video/mute" type="msg_int">0</item>
 		<item name="threshold" type="msg_float">0.1</item>
 		<item name="noise" type="msg_int">1</item>
 		<item name="trails" type="msg_int">0</item>
