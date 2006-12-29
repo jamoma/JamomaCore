@@ -2,15 +2,15 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-<title> jmod.filter~ </title>
+<title> jmod.multidelay~ </title>
 		<link href="../styles/jamoma.css" rel="stylesheet" type="text/css">
 	</head>
 
 <body>
 	<div id="jcom_header">
 	<img src="../images/jcom.icon.mod.png" width="128" height="128">
-	<h1> jmod.filter~ </h1>
-	<h2> Stereo 2nd order IIR filter based on biquad~ </h2>
+	<h1> jmod.multidelay~ </h1>
+	<h2> Sample-accurate stereo multidelay. </h2>
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
@@ -86,40 +86,40 @@
 			<td class ="instructionDescription"> Sets the relative sample-rate for this module. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> cf </td>
+			<td class="instructionName"> feedback </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 30.000000 11025.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> linear </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Center frequency (Hz) </td>
+			<td class ="instructionDescription"> Amount of delay feedback. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> filtergain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -24.000000 24.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain (dB) </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> filtertype </td>
-			<td class ="instructionType"> msg_menu </td>
+			<td class="instructionName"> left </td>
+			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Delay time in milliseconds for left channel. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> q </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> both </td>
+			<td class="instructionName"> maxdelay </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 10000 </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> linear </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Resonance (Q) </td>
+			<td class ="instructionDescription"> Max delay time in milliseconds. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> right </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Delay time in milliseconds for right channel. </td>
 		<tr>
 	</table>
 
@@ -171,15 +171,6 @@
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open the online html reference for this module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> filtergraph </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Messages to filtergraph. See the MSP reference for further details </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>

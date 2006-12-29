@@ -2,24 +2,24 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-<title> jmod.filter~ </title>
+<title> jmod.cpu_test </title>
 		<link href="../styles/jamoma.css" rel="stylesheet" type="text/css">
 	</head>
 
 <body>
 	<div id="jcom_header">
 	<img src="../images/jcom.icon.mod.png" width="128" height="128">
-	<h1> jmod.filter~ </h1>
-	<h2> Stereo 2nd order IIR filter based on biquad~ </h2>
+	<h1> jmod.cpu_test </h1>
+	<h2> A test module for analysing efficiency and tracking down bottle necks in parameter and message handling. </h2>
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
 	<h3> Configuration </h3>
-	<p> Module Type: <code> audio </code> <br>
+	<p> Module Type: <code> control </code> <br>
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
-	<p>Number of signal inlets: <code> 2 </ code> <br/>
-	Number of signal outlets: <code> 2 </code> </p>
+	<p>Number of signal inlets: <code> 0 </ code> <br/>
+Number of signal outlets: <code> 0 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
@@ -32,94 +32,13 @@
 			<td> Description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/bypass </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> When active, this attribute bypasses the module's processing.mxtorithm, letting audio pass through unaffected. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 158.000000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Set gain as MIDI value. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/meters/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> When active, this attribute turns off the signal level meters in the module to conserve CPU. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/mix </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Controls the wet/dry mix of the module's processing routine in percent. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/mute </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> When active, this attribute turns off the module's processing.mxtorithm to save CPU </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/sample_rate </td>
+			<td class="instructionName"> my_parameter </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> -2 0 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Sets the relative sample-rate for this module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> cf </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 30.000000 11025.000000 </td>
+			<td class ="instructionRange"> 0 40000 </td>
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Center frequency (Hz) </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> filtergain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -24.000000 24.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain (dB) </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> filtertype </td>
-			<td class ="instructionType"> msg_menu </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> q </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Resonance (Q) </td>
+			<td class ="instructionDescription">  </td>
 		<tr>
 	</table>
 
@@ -135,24 +54,6 @@
 			<td> Ramp Enabled </td>
 			<td> Repetitions </td>
 			<td> Description </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -144.000000 18.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Set gain as dB value. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/meters/clear </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/help </td>
@@ -173,15 +74,6 @@
 			<td class ="instructionDescription"> Open the online html reference for this module. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> filtergraph </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Messages to filtergraph. See the MSP reference for further details </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> module/view_internals </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -189,6 +81,15 @@
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> my_message </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 40000 </td>
+			<td class ="instructionClipmode"> both </td>
+			<td class ="instructionRamp"> linear </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>

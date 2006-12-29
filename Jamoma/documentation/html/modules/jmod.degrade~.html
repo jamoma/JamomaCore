@@ -18,7 +18,7 @@
 	<p> Module Type: <code> audio </code> <br>
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
-	<p>Number of signal inlets: <code> 2 </ code> <br>
+	<p>Number of signal inlets: <code> 2 </ code> <br/>
 	Number of signal outlets: <code> 2 </code> </p>
 	<h3> Parameters </h3>
 	<table>
@@ -33,7 +33,7 @@
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/bypass </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -51,7 +51,7 @@
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/meters/freeze </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -63,13 +63,13 @@
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
+			<td class ="instructionRamp"> linear </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> Controls the wet/dry mix of the module's processing routine in percent. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/mute </td>
-			<td class ="instructionType"> toggle </td>
+			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
@@ -129,18 +129,90 @@
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/meters/clear </td>
-			<td class ="instructionType"> generic </td>
+			<td class ="instructionType"> msg_generic </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  </td>
 		<tr>
+		<tr>
+			<td class="instructionName"> documentation/help </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open the help patch for the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> documentation/html </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open the online html reference for this module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> module/view_internals </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/default </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/load </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/recall </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/save </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/store </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+		<tr>
 	</table>
 
 	<p>&nbsp;</p>
 
-	<h3> Messages </h3>
+	<h3> Return </h3>
 	<table>
 		<tr class="tableHeading2">
 			<td> Name </td>
