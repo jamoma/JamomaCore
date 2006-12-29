@@ -11,7 +11,7 @@ max v2;
 #P newobj 405 181 60 196617 thispatcher;
 #P window setfont "Lucida Grande" 9.;
 #P comment 42 44 255 9 by Matthew Aidekman;
-#P bpatcher 56 78 255 120 0 0 jmod.input~.mod 0;
+#P bpatcher 56 78 255 120 0 0 jmod.input~.mxt 0;
 #P objectname /input~;
 #P comment 30 29 320 9 WindowShade example;
 #P window setfont "Sans Serif" 9.;

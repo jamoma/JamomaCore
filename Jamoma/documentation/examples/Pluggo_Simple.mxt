@@ -49,7 +49,7 @@ max v2;
 #P newex 149 161 45 196617 plugout~;
 #P newex 149 35 41 196617 adc~;
 #P newex 149 58 41 196617 plugin~;
-#P bpatcher 27 85 255 60 0 0 jmod.limiter~.mod 0;
+#P bpatcher 27 85 255 60 0 0 jmod.limiter~.mxt 0;
 #P objectname ---limiter;
 #P window linecount 2;
 #P comment 27 442 326 196617 The arguments to jmod.pp are <module_parameter_name> <pp number> <plugin_parameter_name> <range_low> <range_high>;

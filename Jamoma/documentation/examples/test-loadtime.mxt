@@ -4,7 +4,7 @@ max v2;
 #P window linecount 1;
 #P comment 219 295 100 472055817 loadtime in ms;
 #P window setfont "Sans Serif" 9.;
-#P message 99 332 319 196617 script new var3 newex 264 268 35 472055817 jmod.degrade~.mod;
+#P message 99 332 319 196617 script new var3 newex 264 268 35 472055817 jmod.degrade~.mxt;
 #P window setfont Verdana 9.;
 #P number 129 294 90 9 0 0 0 7203 0 0 0 221 221 221 222 222 222 0 0 0;
 #P newex 129 271 35 472055817 timer;
