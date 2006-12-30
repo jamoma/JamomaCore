@@ -7,19 +7,11 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"				// Max Header
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
+#include "ext.h"						// Max Header
+#include "ext_obex.h"					// Max Object Extensions (attributes) Header
+#include "commonsyms.h"					// Common symbols used by the Max 4.5 API
 #include "jcom.core.h"
-
-typedef void (*t_receive_callback)(t_symbol *name, t_symbol *msg, short argc, t_atom *argv);
-
-// Our external's data structure...
-typedef struct _send{
-	t_object		ob;						// REQUIRED: Our object
-	void			*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	t_symbol		*attr_name;				// ATTRIBUTE: name
-} t_send;
+#include "jcom.sendreceive.h"
 
 // Prototypes
 void *send_new(t_symbol *s, short argc, t_atom *argv);
@@ -30,7 +22,6 @@ void send_int(t_send *x, long value);
 void send_float(t_send *x, double value);
 void send_list(t_send *x, t_symbol *msg, short argc, t_atom *argv);
 
-
 // Globals
 t_class		*send_class;				// Required: Global pointer for our class
 
@@ -38,7 +29,7 @@ t_class		*send_class;				// Required: Global pointer for our class
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int main(void)
 {
 	long attrflags = 0;
 	t_class *c;
@@ -111,50 +102,33 @@ void send_assist(t_send *x, void *b, long msg, long arg, char *dst)
 
 void send_bang(t_send *x)
 {
-	t_receive_callback	receive_callback;
-	
-	if(x->attr_name->s_thing != NULL){
-		receive_callback = (t_receive_callback)(x->attr_name->s_thing);
-		receive_callback(x->attr_name, _sym_bang, 0, NULL);
-	}
-	else
-		error("jcom.send (%s), no valid destination", x->attr_name->s_name);
+	send_list(x, _sym_bang, 0, NULL);
 }
 
 void send_int(t_send *x, long value)
 {
-	t_receive_callback	receive_callback;
 	t_atom				a;
 	
-	if(x->attr_name->s_thing != NULL){
-		receive_callback = (t_receive_callback)(x->attr_name->s_thing);
-		atom_setlong(&a, value);
-		receive_callback(x->attr_name, _sym_int, 1, &a);
-	}
-	else
-		error("jcom.send (%s), no valid destination", x->attr_name->s_name);
+	atom_setlong(&a, value);
+	send_list(x, _sym_int, 1, &a);
 }
 
 void send_float(t_send *x, double value)
 {
-	t_receive_callback	receive_callback;
 	t_atom				a;
 	
-	if(x->attr_name->s_thing != NULL){
-		receive_callback = (t_receive_callback)(x->attr_name->s_thing);
-		atom_setfloat(&a, value);
-		receive_callback(x->attr_name, _sym_float, 1, &a);
-	}
-	else
-		error("jcom.send (%s), no valid destination", x->attr_name->s_name);
+	atom_setfloat(&a, value);
+	send_list(x, _sym_float, 1, &a);
 }
 
 void send_list(t_send *x, t_symbol *msg, short argc, t_atom *argv)
 {
+	t_receive			*receive;
 	t_receive_callback	receive_callback;
 	
-	if(x->attr_name->s_thing != NULL){
-		receive_callback = (t_receive_callback)(x->attr_name->s_thing);
+	if(object_classname_compare(x->attr_name->s_thing, gensym("jcom.receive"))){
+		receive = (t_receive *)x->attr_name->s_thing;
+		receive_callback = receive->receive_master_callback;
 		receive_callback(x->attr_name, msg, argc, argv);
 	}
 	else

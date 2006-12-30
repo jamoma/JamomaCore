@@ -11,27 +11,7 @@
 #include "ext_obex.h"			// Max Object Extensions (attributes) Header
 #include "commonsyms.h"			// Common symbols used by the Max 4.5 API
 #include "jcom.core.h"
-
-// Our external's data structure...
-typedef struct _receive{
-	t_object					ob;						// REQUIRED: Our object
-	void						*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	void						*outlet;				// Need one for each outlet
-	t_symbol					*attr_name;				// ATTRIBUTE: name
-	t_receive_obex_callback		receive_obex_callback;
-	void						*receive_obex_callback_arg;
-} t_receive;
-
-
-// Set up a linked list for maintaining pointers to 
-// each instance of this external...
-typedef struct _receiver{
-	t_receive		*object;
-	_receiver		*next;
-} t_receiver;
-
-t_receiver *g_receiver_list;
-
+#include "jcom.sendreceive.h"
 
 // Prototypes
 void		*receive_new(t_symbol *s, short argc, t_atom *argv);
@@ -45,7 +25,8 @@ void		receive_insert(t_receive *x);
 void 		receive_remove(t_receive *x);
 
 // Globals
-t_class		*receive_class;				// Required: Global pointer for our class
+t_class				*receive_class;				// Required: Global pointer for our class
+static t_receiver 	*s_receiver_list;
 
 
 /************************************************************************************/
@@ -106,6 +87,7 @@ void *receive_new(t_symbol *s, short argc, t_atom *argv)
 				x->attr_name = gensym("jcom.receive no arg specified");
 			receive_bind(x);
 		}
+		x->receive_master_callback = receive_callback;
 		x->receive_obex_callback = NULL;
 		x->receive_obex_callback_arg = NULL;		
 	}
@@ -155,11 +137,11 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 void receive_bind(t_receive *x)
 {
 	if(!x->attr_name->s_thing){
-		x->attr_name->s_thing = (t_object *)(&receive_callback);
+		x->attr_name->s_thing = (t_object *)x;
 		receive_insert(x);
 	}
 	else{
-		if(x->attr_name->s_thing == ((t_object *)(&receive_callback)))
+		if(object_classname_compare(x->attr_name->s_thing, gensym("jcom.receive")))
 			receive_insert(x);
 		else	
 			error("jcom.receive: the symbol '%s' is already in use - binding failed!", x->attr_name->s_name);
@@ -175,15 +157,15 @@ void receive_insert(t_receive *x)
 	// Create the new item
 	new_receiver = (t_receiver *)sysmem_newptr(sizeof(t_receiver));
 	new_receiver->object = x;
-	new_receiver->next = g_receiver_list;
-	g_receiver_list = new_receiver;
+	new_receiver->next = s_receiver_list;
+	s_receiver_list = new_receiver;
 	critical_exit(0);
 }
 
 
 void receive_remove(t_receive *x)
 {
-	t_receiver	*receiver = g_receiver_list,
+	t_receiver	*receiver = s_receiver_list,
 				*prev_receiver = NULL;
 	short		count = -1;	// count the number of instances with this name
 
@@ -197,8 +179,8 @@ void receive_remove(t_receive *x)
 		if(receiver->object == x){
 			if(prev_receiver != NULL)
 				prev_receiver->next = receiver->next;
-			else if(receiver == g_receiver_list)
-				g_receiver_list = receiver->next;		
+			else if(receiver == s_receiver_list)
+				s_receiver_list = receiver->next;		
 			sysmem_freeptr(receiver);
 			count--;
 		}
@@ -216,7 +198,7 @@ void receive_remove(t_receive *x)
 void receive_callback(t_symbol *name, t_symbol *msg, short argc, t_atom *argv)
 {
 	t_receive 	*x;
-	t_receiver	*receiver = g_receiver_list;
+	t_receiver	*receiver = s_receiver_list;
 		
 	// Search the linked list for matching jcom.receive objects
 	while(receiver){
