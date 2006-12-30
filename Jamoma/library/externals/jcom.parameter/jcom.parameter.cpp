@@ -14,6 +14,7 @@
 t_class		*param_class;		// Required: Global pointer for our class
 bool		g_pattr_valid;		// Did pattr init successfully?
 	
+int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
 
 /************************************************************************************/
 // Class Definition
@@ -631,8 +632,11 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
 	else {
 		if(x->attr_repetitions == 0){
-			if(jcom_core_atom_compare(x->attr_type, &x->attr_value, argv))
-			return;
+			// If it's a list compare the entire thing
+			if(argc > 1 && param_list_compare(x->atom_list, x->list_size, argv, argc))
+				return;
+			else if(jcom_core_atom_compare(x->attr_type, &x->attr_value, argv))
+				return;
 		}
 		if(argc > 1){
 			param_list(x, msg, argc, argv);
@@ -644,6 +648,32 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 }
 
+// Returns true if lists are identical
+int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
+{
+	// If lists differ in length they're obviously not the same
+	if(lengthx == lengthy) {
+		short type;
+		for(int i = 0; i < lengthx; i++) {
+			if((x->a_type) != (y->a_type))
+				return 0; // not identical, types differ
+			
+			type = x->a_type;
+			if((type == A_FLOAT) && (x->a_w.w_float != y->a_w.w_float))
+				return 0;
+			else if((type == A_LONG) && (x->a_w.w_long != y->a_w.w_long))
+				return 0;
+			else if((type == A_SYM) && (x->a_w.w_sym != y->a_w.w_sym))
+				return 0;
+			
+			x++; y++;  // keep going
+		}
+	} else {
+		return 0; // list lengths differ
+	}
+	
+	return 1;
+}
 
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
@@ -673,6 +703,12 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		x->rampfunction->go(x->rampunit, value, time);
 	} 	
 	else {
+		// Don't output if the input data is identical
+		if(!x->attr_repetitions) {
+			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
+				return;	// nothing to do
+		}
+			
 		for(int i = 0; i < argc; i++) {
 			switch(argv[i].a_type) 
 			{
