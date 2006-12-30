@@ -1,5 +1,5 @@
 max v2;
-#N vpatcher 64 44 1008 768;
+#N vpatcher 5 44 949 768;
 #P window setfont "Sans Serif" 9.;
 #P window linecount 3;
 #P comment 617 476 145 196617 change this module's specific parameters remotely : continuously or with a ramp;
@@ -32,7 +32,7 @@ max v2;
 #P hidden newex 529 347 52 196617 loadmess set;
 #P window linecount 1;
 #P newex 586 355 132 196617 dac~ 1 2;
-#P message 464 378 154 196617 /audio/gain/midi 108.33;
+#P message 464 378 154 196617 /bitdepth 5;
 #P newex 464 355 61 196617 prepend set;
 #P bpatcher 464 66 255 60 0 0 jmod.control.mxt 0;
 #P objectname /control;
