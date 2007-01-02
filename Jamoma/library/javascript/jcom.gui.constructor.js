@@ -262,7 +262,7 @@ function msg_int(value)
 				outlet(4, "/audio/meters/freeze", attr_meterfreeze_toggle); 
 				outlet(3, "checkitem", 2, attr_meterfreeze_toggle); 
 				break;
-			case 3: outlet(4, "/ui/meters/clear"); break;
+			case 3: outlet(4, "/audio/meters/clear"); break;
 			case 5: outlet(4, "/preset/load"); break;
 			case 6: outlet(4, "/preset/save"); break;
 			case 7: outlet(4, "/preset/default"); break;
