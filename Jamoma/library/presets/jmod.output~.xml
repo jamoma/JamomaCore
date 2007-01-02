@@ -20,6 +20,6 @@
 			<item name="limiter/mode" type="msg_symbol">exponential</item>
 			<item name="limiter/active" type="msg_int">1</item>
 			<item name="record" type="msg_int">0</item>
-			<item name="gain/midi" type="msg_float">0.</item>
+			<item name="audio/gain/midi" type="msg_float">0.</item>
     </preset>
 </jamoma>
