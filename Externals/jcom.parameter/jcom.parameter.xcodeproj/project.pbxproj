@@ -372,7 +372,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
@@ -427,7 +427,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = /../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
@@ -448,53 +448,6 @@
 			};
 			name = Deployment;
 		};
-		0FFBB95B09731BB700D78707 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
-				GCC_ALTIVEC_EXTENSIONS = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_TRIGRAPHS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ./jcom.parameter.pch;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
-				);
-				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
-				LIBRARY_STYLE = Bundle;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = jcom.parameter;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "./../../externals_3rd_party/ttblue/dsplib ./c74";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"-Wno-conversion",
-				);
-				WRAPPER_EXTENSION = mxo;
-			};
-			name = Default;
-		};
 		0FFBB95D09731BB700D78707 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -510,14 +463,6 @@
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Deployment;
-		};
-		0FFBB95F09731BB700D78707 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				HEADER_SEARCH_PATHS = ../common;
-				USER_HEADER_SEARCH_PATHS = "";
-			};
-			name = Default;
 		};
 		228714EB0A6B3A8D001EDF38 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -547,7 +492,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
@@ -602,7 +547,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = /../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
@@ -623,53 +568,6 @@
 			};
 			name = Deployment;
 		};
-		228714ED0A6B3A8D001EDF38 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
-				GCC_ALTIVEC_EXTENSIONS = YES;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_TRIGRAPHS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ./jcom.message.pch;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
-				);
-				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
-				LIBRARY_STYLE = Bundle;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = jcom.message;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = ./../../externals_3rd_party/ttblue/dsplib;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"-Wno-conversion",
-				);
-				WRAPPER_EXTENSION = mxo;
-			};
-			name = Default;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -678,30 +576,27 @@
 			buildConfigurations = (
 				0FFBB95909731BB700D78707 /* Development */,
 				0FFBB95A09731BB700D78707 /* Deployment */,
-				0FFBB95B09731BB700D78707 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "jcom.parameter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FFBB95D09731BB700D78707 /* Development */,
 				0FFBB95E09731BB700D78707 /* Deployment */,
-				0FFBB95F09731BB700D78707 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		228714EA0A6B3A8D001EDF38 /* Build configuration list for PBXNativeTarget "jcom.message" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				228714EB0A6B3A8D001EDF38 /* Development */,
 				228714EC0A6B3A8D001EDF38 /* Deployment */,
-				228714ED0A6B3A8D001EDF38 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
 	};

@@ -250,7 +250,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
@@ -311,7 +311,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../build_mac/$(CONFIGURATION)";
+				INSTALL_PATH = /../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
