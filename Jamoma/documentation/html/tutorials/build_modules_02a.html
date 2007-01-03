@@ -175,8 +175,8 @@
   <li><em>type</em> <em>(symbol)</em><br>
     This is used to distinguish between different types of messages. Possible 
     types are:<br>
-    generic | menu | toggle | msg_int | msg_float | msg_list | msg_symbol | jit_matrix<br>
-    Default type is generic (this means any value of any type is permitted) </li>
+    msg_generic | msg_menu | msg_toggle | msg_int | msg_float | msg_list | msg_symbol | jit_matrix<br>
+    Default type is msg_generic (this means any value of any type is permitted) </li>
   <li><em>ramp (1/0)</em><br>
     Determines if parameter can be ramped or not.<br>
     Default is 0 (ramping is disabled) </li>
@@ -250,7 +250,7 @@
   standard Jamoma modules can be found in the <span class="filepath">Jamoma library/presets</span> 
   folder.</p>
 <p>If you want to, you can also auto-generate HTML documentation for the patch. 
-  Simply click the /autodoc message box above <strong>jcom.hub</strong>. Save as &quot;jmod.qmetro_tutorial.html&quot; 
+  Simply click the /documentation/generate message box above <strong>jcom.hub</strong>. Save as &quot;jmod.qmetro_tutorial.html&quot; 
   somewhere in Max's searchpath. The documentation should look something like 
   <a href="../modules/jmod.qmetro.html">this</a>.</p>
 <h3>Testing the module</h3>
