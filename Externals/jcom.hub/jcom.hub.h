@@ -74,6 +74,7 @@ typedef struct _hub{							// Data Structure for this object
 	t_symbol		*attr_description;			// ATTRIBUTE: textual description of this module
 	t_symbol		*attr_skin;					// ATTRIBUTE: skin
 	t_symbol		*attr_algorithm_type;		// ATTRIBUTE: poly, blue, jitter, etc.
+	long			attr_inspector;
 	t_object		*jcom_send;					// jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
 	t_symbol		*osc_name;					// the OSC name of this module for remote communication

@@ -59,6 +59,7 @@ extern t_symbol	*ps_none,
 				*ps_subscribe_return,
 				*ps_subscribe_init,
 				*ps_subscribe_meter,
+				*ps_inspector,
 				*ps_num_inputs,				// signal inlets and outlets
 				*ps_num_outputs,
 				*ps_type,

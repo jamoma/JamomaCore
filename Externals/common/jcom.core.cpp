@@ -54,6 +54,7 @@ t_symbol	*ps_done,
 			*ps_subscribe_return,
 			*ps_subscribe_init,
 			*ps_subscribe_meter,
+			*ps_inspector,
 			*ps_num_inputs,				// signal inlets and outlets
 			*ps_num_outputs,
 			*ps_type,					// parameter/message/return attributes
@@ -193,6 +194,7 @@ void jcom_core_init(void)
 	ps_num_inputs				= gensym("num_inputs");
 	ps_num_outputs				= gensym("num_outputs");
 	// parameter/message/return attributes
+	ps_inspector				= gensym("inspector");
 	ps_type						= gensym("type");
 	ps_range					= gensym("range");
 	ps_clipmode					= gensym("clipmode");

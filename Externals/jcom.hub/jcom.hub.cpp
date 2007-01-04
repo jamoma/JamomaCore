@@ -100,6 +100,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_hub, attr_description));
 	class_addattr(c, attr);
 			
+	// ATTRIBUTE: inspector
+	attr = attr_offset_new("inspector", _sym_long, attrflags,
+		(method)0, (method)0, calcoffset(t_hub, attr_inspector));
+	class_addattr(c, attr);
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	hub_class = c;
@@ -136,6 +141,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_algorithm_type = ps_default;		// poly for audio, jitter for video, control for control
 		x->attr_skin = ps_default;					// default tells the gui constructor js to choose for us
 		x->attr_size = ps_1U;
+		x->attr_inspector = 0;
 		x->in_object = NULL;						// module MUST have a jcom.in object
 		x->out_object = NULL;						// the jcom.out object is optional
 		x->gui_object = NULL;						// jcom.remote in the gui
@@ -458,6 +464,11 @@ void hub_gui_build(t_hub *x)
 		if(x->attr_size){
 			atom_setsym(&a[1], ps_size);
 			atom_setsym(&a[2], x->attr_size);
+			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
+		}
+		if(x->attr_inspector){
+			atom_setsym(&a[1], ps_inspector);
+			atom_setlong(&a[2], x->attr_inspector);
 			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
 		}
 		if(x->attr_algorithm_type){
