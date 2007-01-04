@@ -7,10 +7,10 @@
 	
 	<preset number="1" name="default">
 		<item name="audio/gain/midi" type="msg_int">0</item>
-		<item name="audio/meters/freeze" type="toggle">0</item>
-		<item name="audio/mix" type="msg_float">0.</item>
+		<item name="audio/meters/freeze" type="msg_toggle">0</item>
+		<item name="audio/mix" type="msg_float">100.</item>
 		<item name="audio/bypass" type="msg_int">0</item>
-		<item name="audio/mute" type="msg_int">0</item>
+		<item name="audio/mute" type="msg_int">1</item>
 		<item name="audio/sample_rate" type="msg_int">0</item>
 		<item name="preamp" type="msg_float">6.</item>
 		<item name="postamp" type="msg_float">6.</item>

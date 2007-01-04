@@ -8,9 +8,9 @@
 	<preset number="1" name="default">
 		<item name="audio/gain/midi" type="msg_int">0</item>
 		<item name="audio/meters/freeze" type="msg_int">0</item>
-		<item name="audio/mix" type="msg_float">0.</item>
+		<item name="audio/mix" type="msg_float">100.</item>
 		<item name="audio/bypass" type="msg_int">0</item>
-		<item name="audio/mute" type="msg_int">0</item>
+		<item name="audio/mute" type="msg_int">1</item>
 		<item name="audio/sample_rate" type="msg_int">0</item>
 		<item name="left" type="msg_int">250</item>
 		<item name="cf" type="msg_float">8571.957031</item>
