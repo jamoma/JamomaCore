@@ -7,8 +7,8 @@
 	</head>
 
 <body>
-	<div id="jcom_header">
-	<img src="../images/jcom.icon.mod.png" width="128" height="128">
+	<div id="jmod_header">
+	<img src="../images/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.avg4% </h1>
 	<h2> averages 4 pixels of input for each pixel of output </h2>
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
@@ -16,10 +16,10 @@
 
 	<h3> Configuration </h3>
 	<p> Module Type: <code> video </code> <br>
-	Algorithm Type: <code> default </code> </p>
+	Algorithm Type: <code> jitter </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
 	<p>Number of signal inlets: <code> 1 </ code> <br/>
-Number of signal outlets: <code> 0 </code> </p>
+	Number of signal outlets: <code> 1 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
@@ -47,7 +47,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Bypasses the video processing.mxtorithm in the module - allowing unaltered video through. </td>
+			<td class ="instructionDescription"> Bypasses the video processing algorithm in the module - allowing unaltered video through. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> video/freeze </td>

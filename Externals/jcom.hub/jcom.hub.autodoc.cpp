@@ -69,10 +69,10 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 
 	// html body
 	jcom_core_file_writeline(&file_handle, &myEof, "<body>");
-	jcom_core_file_writeline(&file_handle, &myEof, "\t<div id=\"jcom_header\">");
+	jcom_core_file_writeline(&file_handle, &myEof, "\t<div id=\"jmod_header\">");
 
 	// Top of page displaying name of module etc.
-	jcom_core_file_writeline(&file_handle, &myEof, "\t<img src=\"../images/jcom.icon.mod.png\" width=\"128\" height=\"128\">");	
+	jcom_core_file_writeline(&file_handle, &myEof, "\t<img src=\"../images/jmod.icon.mod.png\" width=\"128\" height=\"128\">");	
 	sprintf(tempstring, "\t<h1> %s </h1>", x->attr_name->s_name);
 	jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	sprintf(tempstring, "\t<h2> %s </h2>", x->attr_description->s_name);
