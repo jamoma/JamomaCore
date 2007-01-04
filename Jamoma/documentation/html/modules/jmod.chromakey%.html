@@ -2,23 +2,23 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-<title> jmod.input% </title>
+<title> jmod.chromakey% </title>
 		<link href="../styles/jamoma.css" rel="stylesheet" type="text/css">
 	</head>
 
 <body>
 	<div id="jmod_header">
 	<img src="../images/jmod.icon.mod.png" width="128" height="128">
-	<h1> jmod.input% </h1>
-	<h2> Input from either a camera - video file or video synthesis </h2>
+	<h1> jmod.chromakey% </h1>
+	<h2> Simple 2-source chromakey : Keying based on chromatic distance </h2>
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
 	<h3> Configuration </h3>
 	<p> Module Type: <code> video </code> <br>
 	Algorithm Type: <code> jitter </code> </p>
-	<p>Interface Size: <code> 1U-half </code> </p>
-	<p>Number of signal inlets: <code> 0 </ code> <br/>
+	<p>Interface Size: <code> 2U-half </code> </p>
+	<p>Number of signal inlets: <code> 2 </ code> <br/>
 	Number of signal outlets: <code> 1 </code> </p>
 	<h3> Parameters </h3>
 	<table>
@@ -32,157 +32,76 @@
 			<td> Description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> camera_on </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Turn camera on </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> camera_size </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Resolution of captured image </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> file_audio </td>
+			<td class="instructionName"> alpha </td>
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Turn audio in the video file on or off </td>
+			<td class ="instructionDescription"> alpha of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> file_counter </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Video file time counter </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> file_loop_points </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> List of low and high loop point values </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> file_loop </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Turn looping on or off </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> file_on </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Turn video on or off </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> file_rate </td>
+			<td class="instructionName"> fade </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -2.000000 2.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Playback rate of video file </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> file_size </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0.000000 10.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Select size of video playback </td>
+			<td class ="instructionDescription"> fade of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source_mode </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Choose between camera - file or synthesis as input </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> synth_color_on </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Turn video color synth on or off </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> synth_color </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class="instructionName"> key/blue </td>
+			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> List of RGB colors </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> synth_noise_on </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Turn video noise on or off </td>
+			<td class ="instructionDescription"> blue level of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> synth_noise_planes </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 1 4 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Number of matrix planes </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> synth_noise_rate </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 2 1000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp">  </td>
+			<td class="instructionName"> key/green </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Metro speed for noise </td>
+			<td class ="instructionDescription"> green level of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> synth_noise_size_x </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 1 640 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp">  </td>
+			<td class="instructionName"> key/red </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> x size of noise matrix </td>
+			<td class ="instructionDescription"> red level of the chromakey </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> synth_noise_size_y </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 1 480 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp">  </td>
+			<td class="instructionName"> maxkey </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 10.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> x size of noise matrix </td>
+			<td class ="instructionDescription"> maxkey of the chromakey </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> minkey </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 10.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> minkey of the chromakey </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> tolerance </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Tolerance of the chromakey </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> video/bypass </td>
@@ -236,15 +155,6 @@
 			<td> Description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> camera_settings </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open dialog for camera settings </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> documentation/help </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -261,15 +171,6 @@
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open the online html reference for this module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> file_open </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open dialog to select video file </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>

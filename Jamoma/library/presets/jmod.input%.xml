@@ -1,30 +1,30 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
 
-<jamoma version="0.4" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
-	
-	<preset number="1" name="default">
-		<item name="video/preview" type="msg_int">0</item>
-		<item name="video/bypass" type="msg_int">0</item>
-		<item name="video/freeze" type="msg_int">0</item>
-		<item name="video/mute" type="msg_int">0</item>
-		<item name="camera_on" type="msg_int">0</item>
-		<item name="synth_color" type="msg_int">0</item>
-		<item name="synth_noise_on" type="msg_int">0</item>
-		<item name="synth_color_on" type="msg_int">0</item>
-		<item name="camera_size" type="msg_int">0</item>
-		<item name="synth_noise_rate" type="msg_int">40</item>
-		<item name="synth_noise_planes" type="msg_int">4</item>
-		<item name="file_on" type="msg_int">0</item>
-		<item name="file_loop" type="msg_int">1</item>
-		<item name="file_size" type="msg_int">0</item>
-		<item name="file_rate" type="msg_float">1.</item>
-		<item name="file_counter" type="msg_int">0</item>
-		<item name="synth_noise_size_x" type="msg_int">320</item>
-		<item name="file_audio" type="msg_int">1</item>
-		<item name="synth_noise_size_y" type="msg_int">240</item>
-		<item name="source_mode" type="msg_int">1</item>
-    </preset>
+  <preset number='1' name='default'>
+    <item name='video/preview' type='msg_toggle'>0</item>
+    <item name='video/mute' type='msg_toggle'>0</item>
+    <item name='video/freeze' type='msg_toggle'>0</item>
+    <item name='video/bypass' type='msg_toggle'>0</item>
+    <item name='synth_noise_size_y' type='msg_int'>0</item>
+    <item name='synth_noise_size_x' type='msg_int'>0</item>
+    <item name='synth_noise_rate' type='msg_int'>0</item>
+    <item name='synth_noise_planes' type='msg_int'>1</item>
+    <item name='synth_noise_on' type='msg_toggle'>0</item>
+    <item name='synth_color' type='msg_generic'>set</item>
+    <item name='synth_color_on' type='msg_toggle'>0</item>
+    <item name='source_mode' type='msg_toggle'>0</item>
+    <item name='file_size' type='msg_int'>0</item>
+    <item name='file_rate' type='msg_float'>0</item>
+    <item name='file_on' type='msg_toggle'>0</item>
+    <item name='file_loop' type='msg_toggle'>0</item>
+    <item name='file_loop_points' type='msg_list'>0</item>
+    <item name='file_counter' type='msg_int'>0</item>
+    <item name='file_audio' type='msg_toggle'>0</item>
+    <item name='camera_size' type='msg_int'>0</item>
+    <item name='camera_on' type='msg_toggle'>0</item>
+  </preset>
 </jamoma>
