@@ -4,4 +4,20 @@
 		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
+  <preset number='1' name='default'>
+    <item name='wait_time' type='msg_float'>0</item>
+    <item name='repeat_time' type='msg_float'>0</item>
+    <item name='out_value' type='msg_float'>0</item>
+    <item name='out_message' type='msg_generic'>0</item>
+    <item name='module_out' type='msg_menu'>0</item>
+    <item name='module_out_nr' type='msg_int'>0</item>
+    <item name='module_out_function' type='msg_menu'>0</item>
+    <item name='module_out_action' type='msg_int'>0</item>
+    <item name='module_in' type='msg_menu'>0</item>
+    <item name='module_in_nr' type='msg_int'>0</item>
+    <item name='module_in_function' type='msg_menu'>0</item>
+    <item name='module_in_action' type='msg_int'>0</item>
+    <item name='in_value' type='msg_float'>0</item>
+    <item name='in_message' type='msg_generic'>0</item>
+  </preset>
 </jamoma>

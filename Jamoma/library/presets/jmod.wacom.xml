@@ -4,4 +4,9 @@
 		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
+  <preset number='1' name='default'>
+    <item name='on' type='msg_toggle'>0</item>
+    <item name='nopointer' type='msg_toggle'>1</item>
+    <item name='menu' type='msg_menu'>0</item>
+  </preset>
 </jamoma>
