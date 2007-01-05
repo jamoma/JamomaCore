@@ -93,6 +93,7 @@ void		hub_unsubscribe(t_hub *x, void *subscriber_object);
 void		hub_receive(t_hub *x, t_symbol *name, short argc, t_atom *argv);
 void		hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv);
 void 		hub_return(t_hub *x, t_symbol *name, short argc, t_atom *argv);
+void		hub_return_extended(t_hub *x, t_symbol *name, short argc, t_atom *argv);
 void 		hub_outlet_return(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
 void		hub_paramnames_get(t_hub *x);
 t_symbol*	hub_modulename_get(t_hub *x);

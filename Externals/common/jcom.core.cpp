@@ -83,6 +83,7 @@ t_symbol	*ps_done,
 			*ps__jcom_out__,
 			*ps___preview__,
 			*ps_return,
+			*ps_return_extended,
 			*ps_go,
 			*ps_init,
 			*ps_ATTRIBUTES,
@@ -223,6 +224,7 @@ void jcom_core_init(void)
 	ps__jcom_out__				= gensym("__jcom_out__");	// name of the module's jcom.out object
 	ps___preview__				= gensym("__preview__");	// name of the remote for jitter preview matrices
 	ps_return					= gensym("return");			// method called in the hub by jcom.return
+	ps_return_extended			= gensym("return_extended");
 	ps_go						= gensym("go");				// method in jcom.init called by the hub
 	ps_init						= gensym("/init");			// method in the hub called from jcom.init
 	ps_ATTRIBUTES				= gensym("ATTRIBUTES");

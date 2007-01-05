@@ -31,10 +31,8 @@ typedef struct _return{						// Data Structure for this object
 	long		attr_range_len;				//		length actually given to us by the user
 	long		attr_repetitions;			// ATTRIBUTE: 0 = filter out repetitions (like the change object)
 	t_symbol	*attr_type;					// ATTRIBUTE: what kind of data doers this object define?
-	t_symbol	*name;						// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
-	t_atom		name_atom;					// the above name, but cached as an atom for quick referencing
-	t_symbol	*module_name;				// the name of the module as reported when we subscribe to jcom.hub
-	
+	bool		has_wildcard;				//	does the name contain a '*' character?
+	t_symbol	*module_name;				// the name of the module as reported when we subscribe to jcom.hub	
 	t_atom		output[512];				// buffer that gets sent to the hub
 	short		output_len;
 } t_return;
@@ -45,6 +43,7 @@ void*	return_new(t_symbol *s, long argc, t_atom *argv);
 void	return_free(t_return *x);
 void 	return_release(t_return *x);									// Hub Deletion
 void	return_assist(t_return *x, void *b, long msg, long arg, char *dst);
+t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv);
 void	return_bang(t_return *x);
 void	return_int(t_return *x, long n);
 void	return_float(t_return *x, double f);
@@ -97,7 +96,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_return, attr_name));
+		(method)0, (method)return_setname, calcoffset(t_return, attr_name));
 	class_addattr(c, attr);	
 	
 	// ATTRIBUTE: range <low, high>
@@ -130,10 +129,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 void *return_new(t_symbol *s, long argc, t_atom *argv)
 {
-	short		i;
 	long		attrstart = attr_args_offset(argc, argv);
 	t_return	*x = (t_return *)object_alloc(return_class);
 	t_symbol	*name = _sym_nothing;
+	t_atom		a;
 
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
@@ -146,9 +145,8 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 
 		// set defaults...
 		x->module_name = _sym_nothing;
-		x->name = name;
-		atom_setsym(&x->name_atom, name);
-		x->attr_name = name;
+		atom_setsym(&a, name);
+		object_attr_setvalueof(x, ps_name, 1, &a);
 		x->attr_range[0] = 0.0;
 		x->attr_range[1] = 1.0;
 		x->attr_clipmode = ps_none;
@@ -170,7 +168,7 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 // deferred function for registering with the jcom.hub object
 void return_subscribe(t_return *x)
 {
-	x->hub = jcom_core_subscribe(x, x->name, x->container, ps_subscribe_return);
+	x->hub = jcom_core_subscribe(x, x->attr_name, x->container, ps_subscribe_return);
 	x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
 }
 
@@ -206,12 +204,31 @@ void return_assist(t_return *x, void *b, long msg, long arg, char *dst)
 }
 
 
+// ATTRIBUTE: name
+t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol *arg = atom_getsym(argv);
+	x->attr_name = arg;
+
+	if(arg->s_name[strlen(arg->s_name)-1] == '*')
+		x->has_wildcard = true;
+	else
+		x->has_wildcard = false;
+
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
+
 // Return values to the hub (so it can return them to the outside world)
 void return_send_feedback(t_return *x)
 {
-	if(x->hub != NULL)
-		object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
-
+	if(x->hub != NULL){
+		if(x->has_wildcard)
+			object_method_typed(x->hub, ps_return_extended, x->output_len, x->output, NULL);
+		else
+			object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
+	}
 	x->output_len = 1;	// truncate to just the name of this jcom.return object
 }
 

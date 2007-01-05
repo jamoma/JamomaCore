@@ -37,6 +37,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_receive,				"feedback",		A_GIMME, 0L);	// feedback from parameters and such
 	class_addmethod(c, (method)hub_private,				"private", 		A_GIMME, 0L);	// internal communications such as jcom.remote
 	class_addmethod(c, (method)hub_return,				"return",		A_GIMME, 0L);	// feedback from jcom.return
+	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_assist,				"assist",		A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT,	0);
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
@@ -394,6 +395,31 @@ void hub_return(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 	hub_outlet_return(x, osc, argc-1, argv+1);
+}
+
+// A version of the above that performs wilcard substitution
+void hub_return_extended(t_hub *x, t_symbol *name, short argc, t_atom *argv)
+{
+	char		namestring[256];
+	t_symbol	*osc;
+	
+	strcpy(namestring, "/");						// perhaps we could optimize this operation
+	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
+	if(namestring[strlen(namestring)-1] == '*'){
+		namestring[strlen(namestring)-1] = 0;
+		if(argv[1].a_type == A_LONG)
+			sprintf(namestring, "%s%ld", namestring, argv[1].a_w.w_long);
+		else if(argv[1].a_type == A_FLOAT)
+			sprintf(namestring, "%s%f", namestring, argv[1].a_w.w_float);
+		else // assuming symbol
+			strcat(namestring, atom_getsym(argv+1)->s_name);
+		osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
+		hub_outlet_return(x, osc, argc-2, argv+2);		
+	}
+	else{
+		osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
+		hub_outlet_return(x, osc, argc-1, argv+1);
+	}
 }
 
 

@@ -89,6 +89,7 @@ extern t_symbol	*ps_none,
 				*ps__jcom_out__,
 				*ps___preview__,
 				*ps_return,
+				*ps_return_extended,
 				*ps_go,
 				*ps_init,
 				*ps_ATTRIBUTES,			// used by the hub for setting up the gui...
