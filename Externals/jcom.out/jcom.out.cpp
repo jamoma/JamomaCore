@@ -168,9 +168,9 @@ void *out_new(t_symbol *s, short argc, t_atom *argv)
 		x->ramp_xfade = new tt_ramp;
 		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 #else
-		for(i=0; i < (x->num_outputs-1); i++)
+		for(i=x->num_outputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
-		for(i=0; i < (x->num_outputs); i++)
+		for(i=x->num_outputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif		
 		attr_args_process(x, argc, argv);					// handle attribute args				
