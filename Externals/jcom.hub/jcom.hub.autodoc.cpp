@@ -36,7 +36,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 
 	// SPECIFY THE FILE WE WANT TO WRITE
 	if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
-		strcpy(filename, "Untitled.html");									// Default File Name
+		sprintf(filename, "%s.html", x->attr_name->s_name);					// Default File Name
 		saveas_promptset("Save Generated HTML Documentation...");			// Instructional Text in the dialog
 		err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
 		if(err)																// User Cancelled
