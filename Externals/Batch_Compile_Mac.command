@@ -4,6 +4,22 @@ cd jcom.change
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jcom.colorchange
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.cubic_interpolate
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.delta
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.delta2
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jcom.equals
 xcodebuild -configuration Deployment clean build
 cd ..
@@ -84,6 +100,10 @@ cd jcom.send
 xcodebuild -configuration Deployment clean build
 cd ..
 
+cd jcom.stats
+xcodebuild -configuration Deployment clean build
+cd ..
+
 cd jcom.sum%
 xcodebuild -configuration Deployment clean build
 cd ..
@@ -97,6 +117,10 @@ xcodebuild -configuration Deployment clean build
 cd ..
 
 cd jcom.teabox.count~
+xcodebuild -configuration Deployment clean build
+cd ..
+
+cd jcom.velocity
 xcodebuild -configuration Deployment clean build
 cd ..
 
