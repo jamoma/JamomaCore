@@ -161,40 +161,58 @@
 			<td> Description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> voice/n/bend </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class="instructionName"> voice/*/bend </td>
+			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 0.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Pitch bend on channel n. </td>
+			<td class ="instructionDescription"> Pitch bend on channel *. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> voice/n/cc/m </td>
-			<td class ="instructionType"> msg_generic </td>
+			<td class="instructionName"> voice/*/cc/* </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Control number m changed at channel n. (1st*=n, 2d*=m)  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> voice/*/note </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> MIDI note information as pitch and velocity on channel *. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> voice/*/poly </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> poly information on channel *. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> voice/*/program </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Program change information on channel *. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> voice/* </td>
+			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 0.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Control number m changed at channel n. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> voice/n/note </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> MIDI note information as pitch and velocity on channel n. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> voice/n/program </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Program change information on channel n. </td>
+			<td class ="instructionDescription"> generic output for midiin module </td>
 		<tr>
 	</table>
 

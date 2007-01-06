@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
 
-<jamoma version="0.4" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
-	
-	<preset number="1" name="default">
-		<item name="device_menu" type="msg_int">0</item>
-    </preset>
+  <preset number='1' name='default'>
+    <item name='midi_normalize' type='msg_generic'>1</item>
+    <item name='device_menu' type='msg_menu'>0</item>
+  </preset>
 </jamoma>
