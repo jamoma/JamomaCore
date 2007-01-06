@@ -7,13 +7,13 @@
   <preset number='1' name='default'>
     <item name='videoplane/texture/scale' type='msg_list'>0</item>
     <item name='videoplane/texture/offset' type='msg_list'>0</item>
-    <item name='videoplane/nudge' type='msg_float'>0</item>
-    <item name='videoplane/interpolate' type='msg_toggle'>0</item>
+    <item name='videoplane/nudge' type='msg_float'>0.000000</item>
+    <item name='videoplane/interpolate' type='msg_toggle'>1</item>
     <item name='videoplane/gridmode' type='msg_menu'>0</item>
     <item name='videoplane/displaylist' type='msg_toggle'>0</item>
     <item name='videoplane/dim' type='msg_list'>0</item>
     <item name='videoplane/colormode' type='msg_menu'>0</item>
-    <item name='videoplane/client_storage' type='msg_toggle'>0</item>
+    <item name='videoplane/client_storage' type='msg_toggle'>1</item>
     <item name='video/preview' type='msg_toggle'>0</item>
     <item name='video/mute' type='msg_toggle'>0</item>
     <item name='video/freeze' type='msg_toggle'>0</item>
@@ -23,7 +23,7 @@
     <item name='render/context' type='msg_list'>0</item>
     <item name='render/automatic' type='msg_toggle'>0</item>
     <item name='render/antialias' type='msg_toggle'>0</item>
-    <item name='material/shininess' type='msg_float'>0</item>
+    <item name='material/shininess' type='msg_float'>0.000000</item>
     <item name='material/light/specular' type='msg_list'>0</item>
     <item name='material/light/enable' type='msg_toggle'>0</item>
     <item name='material/light/emission' type='msg_list'>0</item>
@@ -33,13 +33,13 @@
     <item name='material/automatic' type='msg_toggle'>0</item>
     <item name='fog/params' type='msg_list'>0</item>
     <item name='fog/inherit' type='msg_toggle'>0</item>
-    <item name='fog/amount' type='msg_float'>0</item>
+    <item name='fog/amount' type='msg_float'>0.000000</item>
     <item name='depth/inherit' type='msg_toggle'>0</item>
     <item name='depth/enable' type='msg_toggle'>0</item>
     <item name='depth/clear' type='msg_toggle'>0</item>
     <item name='color/rgb' type='msg_list'>0</item>
     <item name='color/inherit' type='msg_toggle'>0</item>
-    <item name='color/alpha' type='msg_float'>0</item>
+    <item name='color/alpha' type='msg_float'>0.000000</item>
     <item name='blend/mode' type='msg_list'>0</item>
     <item name='blend/enable' type='msg_toggle'>0</item>
     <item name='3D/scale' type='msg_list'>0</item>
