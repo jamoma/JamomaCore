@@ -10,10 +10,10 @@
     <item name='video/freeze' type='msg_toggle'>0</item>
     <item name='video/bypass' type='msg_toggle'>0</item>
     <item name='tolerance' type='msg_float'>0</item>
-    <item name='target' type='msg_int'>0</item>
+    <item name='target' type='msg_int'>2</item>
     <item name='mode' type='msg_toggle'>0</item>
-    <item name='mask' type='msg_int'>0</item>
-    <item name='key' type='msg_int'>0</item>
+    <item name='mask' type='msg_int'>3</item>
+    <item name='key' type='msg_int'>1</item>
     <item name='key/red' type='msg_float'>0</item>
     <item name='key/green' type='msg_float'>0</item>
     <item name='key/blue' type='msg_float'>0</item>
