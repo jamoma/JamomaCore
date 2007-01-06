@@ -142,6 +142,7 @@ void *out_new(t_symbol *s, short argc, t_atom *argv)
 		x->attr_preview = 0;
 		x->preview_object = NULL;
 		x->attr_bypass = 0;
+		x->attr_mute = 0;
 		x->attr_algorithm_type = _sym_nothing;
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
@@ -279,7 +280,11 @@ void out_algorithm_message(t_out *x, t_symbol *msg, short argc, t_atom *argv)
 			x->gain->set_attr(tt_gain::k_gain, (x->attr_gain - 127) * .6);		// convert midi to db for tap_gain			
 		}
 		else if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute)){
-			;
+			x->attr_mute = atom_getlong(argv+1);
+			if(x->attr_mute)
+				x->gain->set_attr(tt_gain::k_gain_direct, 0.);
+			else 
+				x->gain->set_attr(tt_gain::k_gain, (x->attr_gain - 127)  * .6);			
 		}
 		else if((argv->a_w.w_sym == ps_audio_bypass) || (argv->a_w.w_sym == ps_slash_audio_bypass)){
 			x->attr_bypass = atom_getlong(argv+1);

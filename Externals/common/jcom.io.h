@@ -91,6 +91,7 @@ typedef struct _out{
 	float			attr_gain;						// stored in midi values
 	long			attr_defeat_meters;				// 
 	long			attr_preview;
+	long			attr_mute;
 	void			*preview_object;
 	
 	t_symbol		*last_msg[MAX_NUM_CHANNELS];	// used by /video/freeze...
