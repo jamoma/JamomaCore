@@ -4,7 +4,7 @@
 /* 20031227 modified for OSX compiling by jasch <jasch@kat.ch> */
 
 /* 
- * jmod.delta2 (previously names tl.delta2)
+ * jcom.delta2 (previously names tl.delta2)
  * External for Jamoma: calculate 2nd order difference
  * By Trond Lossius, Copyright © 2001-06
  * 20031227 initial port to OSX compiled by jasch <jasch@kat.ch>
@@ -56,7 +56,7 @@ int main(void)
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jmod.delta2",(method)delta2_new, (method)0L, (short)sizeof(t_delta2), (method)0L, 0, 0);
+	c = class_new("jcom.delta2",(method)delta2_new, (method)0L, (short)sizeof(t_delta2), (method)0L, 0, 0);
 	class_obexoffset_set(c, calcoffset(t_delta2, obex));			
 		
 	// Make methods accessible for our class: 
@@ -69,8 +69,8 @@ int main(void)
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
 	
-	//finder_addclass("All Objects","jmod.delta2");	
-	//finder_addclass("Arith/Logic/Bitwise","jmod.delta2");
+	//finder_addclass("All Objects","jcom.delta2");	
+	//finder_addclass("Arith/Logic/Bitwise","jcom.delta2");
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -170,7 +170,7 @@ void delta2_set(t_delta2 *x, Symbol *s, short ac, Atom *setval)
 	return;
 	
 	err:
-		error("jmod.delta2: Wrong argument for set");
+		error("jcom.delta2: Wrong argument for set");
 }
 
 

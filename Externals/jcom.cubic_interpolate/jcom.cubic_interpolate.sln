@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jmod.cubic_interpolate", "jmod.cubic_interpolate.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.cubic_interpolate", "jcom.cubic_interpolate.vcproj", "{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject

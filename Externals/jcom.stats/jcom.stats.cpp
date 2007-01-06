@@ -1,5 +1,5 @@
 /*
- * jmod.stats
+ * jcom.stats
  * External for Jamoma: calculate running statistical values
  * By Trond Lossius, Copyright © 2001-06
  * 
@@ -65,7 +65,7 @@ int main(void)
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jmod.stats",(method)stats_new, (method)stats_free, (short)sizeof(t_stats), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.stats",(method)stats_new, (method)stats_free, (short)sizeof(t_stats), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_stats, obex));			
 		
 	// Make methods accessible for our class: 
@@ -128,7 +128,7 @@ void *stats_new(t_symbol *s, long argc, t_atom *argv)
 		// allocate memory for array			
 		x->values = (double *)sysmem_newptr(sizeof(double) * x->maxWindowSize); 		
 		if (x->values == NULL) {
-			error("jmod.stats: memory allocation error"); // whoops, out of memory...
+			error("jcom.stats: memory allocation error"); // whoops, out of memory...
 			return 0;
 		}
 		

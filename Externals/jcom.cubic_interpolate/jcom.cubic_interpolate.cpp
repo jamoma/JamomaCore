@@ -1,5 +1,5 @@
 /* 
- * jmod.cubic_interpolate
+ * jcom.cubic_interpolate
  * External for Jamoma: cubic interpolation on a stream of floats
  * By Trond Lossius, Copyright © 2006
  * 
@@ -54,7 +54,7 @@ int main(void)
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jmod.cubic_interpolate",(method)cubic_interpolate_new, (method)0L, (short)sizeof(t_cubic_interp), 
+	c = class_new("jcom.cubic_interpolate",(method)cubic_interpolate_new, (method)0L, (short)sizeof(t_cubic_interp), 
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_cubic_interp, obex));				
 

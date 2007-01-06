@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jmod.stats"
+LIBRARY "jcom.stats"
 
 EXPORTS
 	main

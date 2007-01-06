@@ -1,5 +1,5 @@
 /* 
- * jmod.velocity (previously names tl.velocity)
+ * jcom.velocity (previously names tl.velocity)
  * (1000*(x[n]-x[n-1]))/Æt
  * By Trond Lossius, Copyright © 2001-06
  * 20031227 modified for OSX compiling by jasch <jasch@kat.ch>
@@ -47,7 +47,7 @@ int main(void)
 	common_symbols_init();
 	
 	// Define our class
-	c = class_new("jmod.velocity",(method)velocity_new, (method)0L, (short)sizeof(t_velocity), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.velocity",(method)velocity_new, (method)0L, (short)sizeof(t_velocity), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_velocity, obex));				
 
 	// Make methods accessible for our class: 
@@ -59,8 +59,8 @@ int main(void)
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
 
-	//finder_addclass("All Objects","jmod.velocity");		//a helping hand...
-	//finder_addclass("Arith/Logic/Bitwise","jmod.velocity");
+	//finder_addclass("All Objects","jcom.velocity");		//a helping hand...
+	//finder_addclass("Arith/Logic/Bitwise","jcom.velocity");
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);

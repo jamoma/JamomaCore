@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jmod.delta2"
+LIBRARY "jcom.delta2"
 
 EXPORTS
 	main

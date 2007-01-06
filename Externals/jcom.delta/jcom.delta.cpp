@@ -1,5 +1,5 @@
 /* 
- * jmod.delta (previously names tl.delta)
+ * jcom.delta (previously names tl.delta)
  * External for Jamoma: calculate 1st order difference
  * By Trond Lossius, Copyright © 2001-06
  * 20031227 initial port to OSX compiled by jasch <jasch@kat.ch>
@@ -51,7 +51,7 @@ int main(void)
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jmod.delta",(method)delta_new, (method)0L, (short)sizeof(t_delta), (method)0L, 0, 0);
+	c = class_new("jcom.delta",(method)delta_new, (method)0L, (short)sizeof(t_delta), (method)0L, 0, 0);
 	class_obexoffset_set(c, calcoffset(t_delta, obex));				
 
 	// Make methods accessible for our class: 
@@ -63,8 +63,8 @@ int main(void)
     class_addmethod(c, (method)delta_clear,				"clear",	0);
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
-	//finder_addclass("All Objects","jmod.delta");	
-	//finder_addclass("Arith/Logic/Bitwise","jmod.delta");
+	//finder_addclass("All Objects","jcom.delta");	
+	//finder_addclass("Arith/Logic/Bitwise","jcom.delta");
 	//post("tl.delta © 2001-03 Trond Lossius");
 	
 	
@@ -155,7 +155,7 @@ void delta_set(t_delta *x, Symbol *s, short ac, Atom *setval)
 	return;
 	
 	err:
-		error("jmod.delta: Wrong argument for set");
+		error("jcom.delta: Wrong argument for set");
 }
 
 

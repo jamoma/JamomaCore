@@ -1,5 +1,5 @@
 /* 
- * jmod.colorspace
+ * jcom.colorspace
  * External for Jamoma: colorspace conversion
  * By Tim Place, Copyright © 2002
  * 
