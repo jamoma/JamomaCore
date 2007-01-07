@@ -30,7 +30,7 @@
 		22261D340A28C3F100329D95 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../externals_3rd_party/ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		226DB4710A7BAEA4008AD126 /* teabox.bits~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "teabox.bits~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
-		226DB4720A7BAEA4008AD126 /* Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "Info copy.plist"; path = "../common/Info copy.plist"; sourceTree = "<group>"; };
+		226DB4720A7BAEA4008AD126 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = "<group>"; };
 		542ED84F09C02A0000DBC7EB /* jcom.teabox.bits~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.teabox.bits~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -83,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				22261CE40A28C20600329D95 /* Info.plist */,
-				226DB4720A7BAEA4008AD126 /* Info copy.plist */,
+				226DB4720A7BAEA4008AD126 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -416,7 +416,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
-				INFOPLIST_FILE = "../common/Info copy.plist";
+				INFOPLIST_FILE = ../common/Info.plist;
 				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
@@ -469,7 +469,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
-				INFOPLIST_FILE = "../common/Info copy.plist";
+				INFOPLIST_FILE = ../common/Info.plist;
 				INSTALL_PATH = "../Teabox-Externals";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
