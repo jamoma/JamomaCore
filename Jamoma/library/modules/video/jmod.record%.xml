@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='video/preview' type='msg_toggle'>0</item>
+    <item name='video/mute' type='msg_toggle'>0</item>
+    <item name='video/freeze' type='msg_toggle'>0</item>
+    <item name='video/bypass' type='msg_toggle'>0</item>
+    <item name='realtime' type='msg_toggle'>0</item>
+    <item name='quality' type='msg_menu'>0</item>
+    <item name='matrix/type' type='msg_menu'>0</item>
+    <item name='matrix/planecount' type='msg_int'>0</item>
+    <item name='matrix/name' type='msg_list'>0</item>
+    <item name='matrix/dim' type='msg_list'>0</item>
+    <item name='matrix/adapt' type='msg_toggle'>0</item>
+    <item name='interp' type='msg_toggle'>0</item>
+    <item name='framerate' type='msg_float'>0</item>
+    <item name='codec' type='msg_menu'>0</item>
+  </preset>
+</jamoma>
