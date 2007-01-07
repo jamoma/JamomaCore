@@ -1,133 +1,42 @@
 #!/bin/bash
 
-cd jcom.change
-xcodebuild -configuration Deployment clean build
-cd ..
+config="$1"
 
-cd jcom.colorspace
-xcodebuild -configuration Deployment clean build
-cd ..
+if [ "$1" != "Development" ]; then
+	config='Deployment'
+	echo "if'd"
+fi
 
-cd jcom.cubic_interpolate
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.delta
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.delta2
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.equals
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.gain~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.gang
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.hub
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.in
-xcodebuild -alltargets -configuration Deployment clean build
-cd ..
-
-cd jcom.init
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.limiter~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.meter~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.oscroute
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.out
-xcodebuild -alltargets -configuration Deployment clean build
-cd ..
-
-cd jcom.parameter
-xcodebuild -alltargets -configuration Deployment clean build
-cd ..
-
-cd jcom.pass
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.ramp
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.receive
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.remote
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.return
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.round
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.route
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.saturation~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.send
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.stats
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.sum%
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.teabox~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.teabox.bits~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.teabox.count~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.velocity
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.xfade~
-xcodebuild -configuration Deployment clean build
-cd ..
-
-cd jcom.zerox~
-xcodebuild -configuration Deployment clean build
-cd ..
+./Compile_Object_Mac.command jcom.change "$config"
+./Compile_Object_Mac.command jcom.colorspace "$config"
+./Compile_Object_Mac.command jcom.cubic_interpolate "$config"
+./Compile_Object_Mac.command jcom.delta "$config"
+./Compile_Object_Mac.command jcom.delta2 "$config"
+./Compile_Object_Mac.command jcom.equals "$config"
+./Compile_Object_Mac.command jcom.gain~ "$config"
+./Compile_Object_Mac.command jcom.gang "$config"
+./Compile_Object_Mac.command jcom.hub "$config"
+./Compile_Object_Mac.command jcom.in "$config"
+./Compile_Object_Mac.command jcom.init "$config"
+./Compile_Object_Mac.command jcom.limiter~ "$config"
+./Compile_Object_Mac.command jcom.meter~ "$config"
+./Compile_Object_Mac.command jcom.oscroute "$config"
+./Compile_Object_Mac.command jcom.out "$config"
+./Compile_Object_Mac.command jcom.parameter "$config"
+./Compile_Object_Mac.command jcom.pass "$config"
+./Compile_Object_Mac.command jcom.ramp "$config"
+./Compile_Object_Mac.command jcom.receive "$config"
+./Compile_Object_Mac.command jcom.remote "$config"
+./Compile_Object_Mac.command jcom.return "$config"
+./Compile_Object_Mac.command jcom.round "$config"
+./Compile_Object_Mac.command jcom.route "$config"
+./Compile_Object_Mac.command jcom.saturation~ "$config"
+./Compile_Object_Mac.command jcom.send "$config"
+./Compile_Object_Mac.command jcom.stats "$config"
+./Compile_Object_Mac.command jcom.sum% "$config"
+./Compile_Object_Mac.command jcom.teabox~ "$config"
+./Compile_Object_Mac.command jcom.teabox.bits~ "$config"
+./Compile_Object_Mac.command jcom.teabox.count~ "$config"
+./Compile_Object_Mac.command jcom.velocity "$config"
+./Compile_Object_Mac.command jcom.xfade~ "$config"
+./Compile_Object_Mac.command jcom.zerox~ "$config"
