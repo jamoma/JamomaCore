@@ -4,7 +4,7 @@ cd jcom.change
 xcodebuild -configuration Deployment clean build
 cd ..
 
-cd jcom.colorchange
+cd jcom.colorspace
 xcodebuild -configuration Deployment clean build
 cd ..
 
