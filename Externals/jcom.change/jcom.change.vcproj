@@ -50,7 +50,8 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\MaxAPI.lib&quot; &quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes\MaxAudio.lib&quot;"
-				OutputFile=".\..\Build_Windows\jcom.change.mxe"
+				OutputFile=".\..\..\Jamoma\library\externals\windows
+\jcom.change.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
@@ -130,7 +131,8 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\MaxAPI.lib&quot; &quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes\MaxAudio.lib&quot;"
-				OutputFile=".\..\Build_Windows\debug\jcom.change.mxe"
+				OutputFile=".\..\..\Jamoma\library\externals\windows
+\debug\jcom.change.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
