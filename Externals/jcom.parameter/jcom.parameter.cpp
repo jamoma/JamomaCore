@@ -420,7 +420,8 @@ void param_inc(t_param *x)
 	if(x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
 	else{
-		x->rampfunction->stop(x->rampunit);					// new input - halt any ramping...
+		if (x->rampfunction)
+			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
 		if(x->attr_type == ps_msg_int){
 			x->attr_value.a_w.w_long += x->attr_stepsize;	// step up
 			param_bang_int(x);								// output
@@ -446,7 +447,8 @@ void param_dec(t_param *x)
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
 	else {
-		x->rampfunction->stop(x->rampunit);					// new input - halt any ramping...
+		if (x->rampfunction)
+			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
 		if(x->attr_type == ps_msg_int){
 			x->attr_value.a_w.w_long -= x->attr_stepsize;	// step down		
 			param_bang_int(x);								// output
