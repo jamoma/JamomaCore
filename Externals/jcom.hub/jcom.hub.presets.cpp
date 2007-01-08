@@ -196,7 +196,9 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 	
 	//post("path for xml preset file: %s", temppath);
 	hub_preset_parse(x, temppath);
+	hub_preset_buildmenu(x);
 }
+
 
 int coerceType(const char* s)
 {
@@ -604,4 +606,28 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 							
 	sysfile_close(file_handle);		// close file reference
 	post("Jamoma: /preset/write completed successfully");
+}
+
+
+// Communicate with the gui to build the preset listing in the module menu
+void hub_preset_buildmenu(t_hub *x)
+{
+	t_preset		*preset = x->preset;
+	t_atom			a[3];
+
+	if(x->gui_object != NULL){
+		atom_setsym(&a[0], ps_NEW_PRESETS_START);
+		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
+
+		while(preset){
+			atom_setsym(&a[0], ps_NEW_PRESETS);
+			atom_setlong(&a[1], preset->number);
+			atom_setsym(&a[2], preset->name);
+			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
+			preset = preset->next;
+		}
+
+		atom_setsym(&a[0], ps_MENU_REBUILD);		
+		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
+	}
 }

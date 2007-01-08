@@ -121,6 +121,7 @@ void 		hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv);	// n
 void 		hub_preset_default(t_hub *x);
 void 		hub_presets_clear(t_hub *x);
 void 		hub_presets_dump(t_hub *x);
+void		hub_preset_buildmenu(t_hub *x);
 
 
 // Globals

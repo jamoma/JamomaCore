@@ -91,6 +91,9 @@ t_symbol	*ps_done,
 			*ps_MODULE_NAME,			// name of this module class
 			*ps_MODULE_TITLE,			// OSC name of this module instance
 			*ps_PARAMETER,
+			*ps_NEW_PRESETS_START,
+			*ps_NEW_PRESETS,
+			*ps_MENU_REBUILD,
 			*ps_size,
 			*ps_skin,
 			*ps_jcom_send,	
@@ -128,6 +131,7 @@ t_symbol	*ps_done,
 			*ps_slash_module_view_internals,	//	/module/view_internals
 			*ps_slash_preset_slash_default,		// 	/preset/default
 			*ps_slash_preset_slash_load,		// 	/preset/load
+			*ps_slash_preset_slash_recall,
 			*ps_slash_preset_slash_save,		// 	/preset/save
 			*ps_ui_slash_freeze,				//	ui/freeze
 			*ps_slash_ui_slash_freeze,			//	/ui/freeze
@@ -232,6 +236,9 @@ void jcom_core_init(void)
 	ps_MODULE_NAME				= gensym("MODULE_NAME");	// name of this module class
 	ps_MODULE_TITLE				= gensym("MODULE_TITLE");	// OSC id of of this module instance
 	ps_PARAMETER				= gensym("PARAMETER");
+	ps_NEW_PRESETS_START		= gensym("NEW_PRESETS_START");
+	ps_NEW_PRESETS				= gensym("NEW_PRESETS");
+	ps_MENU_REBUILD				= gensym("MENU_REBUILD");
 	ps_size						= gensym("size");
 	ps_skin						= gensym("skin");
 	ps_jcom_send				= gensym("jcom.send");	
@@ -271,6 +278,7 @@ void jcom_core_init(void)
 	ps_slash_module_view_internals = gensym("/module/view_internals");
 	ps_slash_preset_slash_default = gensym("/preset/default");
 	ps_slash_preset_slash_load	= gensym("/preset/load");
+	ps_slash_preset_slash_recall	= gensym("/preset/recall");
 	ps_slash_preset_slash_save	= gensym("/preset/save");		
 	ps_ui_slash_freeze			= gensym("ui/freeze");
 	ps_slash_ui_slash_freeze	= gensym("/ui/freeze");

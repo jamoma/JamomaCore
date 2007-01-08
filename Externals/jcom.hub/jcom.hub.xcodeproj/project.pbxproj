@@ -272,7 +272,7 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../common ../../externals_3rd_party/libxml2/include";
+				USER_HEADER_SEARCH_PATHS = "../common ../../Externals_3rd_Party/libxml2/include";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -332,7 +332,7 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../common ../../externals_3rd_party/libxml2/include";
+				USER_HEADER_SEARCH_PATHS = "../common ../../Externals_3rd_Party/libxml2/include";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

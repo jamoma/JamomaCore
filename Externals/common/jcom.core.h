@@ -97,6 +97,9 @@ extern t_symbol	*ps_none,
 				*ps_MODULE_NAME,
 				*ps_MODULE_TITLE,
 				*ps_PARAMETER,
+				*ps_NEW_PRESETS_START,
+				*ps_NEW_PRESETS,
+				*ps_MENU_REBUILD,
 				*ps_size,
 				*ps_skin,
 				*ps_jcom_send,			// object names needed to load externs inside other objects...
@@ -134,6 +137,7 @@ extern t_symbol	*ps_none,
 				*ps_slash_module_view_internals,	//	/module/view_internals
 				*ps_slash_preset_slash_default,		// 	/preset/default
 				*ps_slash_preset_slash_load,		// 	/preset/load
+				*ps_slash_preset_slash_recall,
 				*ps_slash_preset_slash_save,		// 	/preset/save
 				*ps_ui_slash_freeze,				//	ui/freeze
 				*ps_slash_ui_slash_freeze,			//	/ui/freeze
