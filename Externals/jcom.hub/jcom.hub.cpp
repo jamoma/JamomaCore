@@ -311,11 +311,11 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 			
 			if(subscriber->type == ps_subscribe_parameter)
 				x->num_parameters--;
-			else if(x->subscriber->type == ps_subscribe_in){
+			else if(subscriber->type == ps_subscribe_in){
 				if(x->out_object)
 					object_method(x->out_object, ps_unlink_out);
 			}
-			else if(x->subscriber->type == ps_subscribe_out){
+			else if(subscriber->type == ps_subscribe_out){
 				if(x->in_object)
 					object_method(x->in_object, ps_unlink_in);
 			}
