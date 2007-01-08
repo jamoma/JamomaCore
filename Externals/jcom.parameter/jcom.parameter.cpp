@@ -540,7 +540,8 @@ void param_int(t_param *x, long value)
 				return;
 		}
 		// new input - halt any ramping...
-		x->rampfunction->stop(x->rampunit);
+		if (x->rampfunction)
+			x->rampfunction->stop(x->rampunit);
 		atom_setlong(&x->attr_value, value);
 		x->param_bang(x);
 	}
