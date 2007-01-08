@@ -470,7 +470,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "../Teabox-Externals";
+				INSTALL_PATH = "/../Teabox-Externals";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
