@@ -679,7 +679,7 @@ void hub_receive_callback(void *z, t_symbol *msg, short argc, t_atom *argv)
 	}
 
 	*split = 0;						
-	if(!strcmp(mess, x->osc_name->s_name)){		// check if we are the correct module...
+	if(!strcmp(mess, x->osc_name->s_name) || *in == '*' ){		// check if we are the correct module...
 		split++;
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
