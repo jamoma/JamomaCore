@@ -50,8 +50,7 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\MaxAPI.lib&quot; &quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes\MaxAudio.lib&quot;"
-				OutputFile=".\..\..\Jamoma\library\externals\windows
-\jcom.delta.mxe"
+				OutputFile=".\..\..\Jamoma\library\externals\windows\jcom.delta.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
@@ -131,8 +130,7 @@
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\MaxAPI.lib&quot; &quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes\MaxAudio.lib&quot;"
-				OutputFile=".\..\..\Jamoma\library\externals\windows
-\debug\jcom.delta.mxe"
+				OutputFile=".\..\..\Jamoma\library\externals\windows\debug\jcom.delta.mxe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreAllDefaultLibraries="FALSE"
@@ -181,8 +179,19 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				..\Jamoma\library\externals\windows
->
+				RelativePath="C:\Program Files\Cycling &apos;74\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\common\commonsyms.c">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\jcom.delta.cpp">
