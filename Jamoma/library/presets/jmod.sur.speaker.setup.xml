@@ -1,4 +1,4 @@
-<<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 
 <jamoma version="0.4" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,21 +7,21 @@
 	
 	<preset number="1" name="default">
 		<item name="voices" type="msg_int">8</item>
-		<item name="xyz/1" type="list_float">5. 0. 0.</item>
-		<item name="xyz/2" type="list_float">3.535534 3.535534 0.</item>
-		<item name="xyz/3" type="list_float">-0. 5. 0.</item>
-		<item name="xyz/4" type="list_float">-3.535534 3.535534 0.</item>
-		<item name="xyz/5" type="list_float">-5. -0. 0.</item>
-		<item name="xyz/6" type="list_float">-3.535533 -3.535534 0.</item>
-		<item name="xyz/7" type="list_float">0. -5. 0.</item>
-		<item name="xyz/8" type="list_float">3.535534 -3.535533 0.</item>
-		<item name="xyz/9" type="list_float">0. 0. 0.</item>
-		<item name="xyz/10" type="list_float">0. 0. 0.</item>
-		<item name="xyz/11" type="list_float">0. 0. 0.</item>
-		<item name="xyz/12" type="list_float">0. 0. 0.</item>
-		<item name="xyz/13" type="list_float">0. 0. 0.</item>
-		<item name="xyz/14" type="list_float">0. 0. 0.</item>
-		<item name="xyz/15" type="list_float">0. 0. 0.</item>
-		<item name="xyz/16" type="list_float">0. 0. 0.</item>
+		<item name="xyz/1" type="msg_list">5. 0. 0.</item>
+		<item name="xyz/2" type="msg_list">3.535534 3.535534 0.</item>
+		<item name="xyz/3" type="msg_list">-0. 5. 0.</item>
+		<item name="xyz/4" type="msg_list">-3.535534 3.535534 0.</item>
+		<item name="xyz/5" type="msg_list">-5. -0. 0.</item>
+		<item name="xyz/6" type="msg_list">-3.535533 -3.535534 0.</item>
+		<item name="xyz/7" type="msg_list">0. -5. 0.</item>
+		<item name="xyz/8" type="msg_list">3.535534 -3.535533 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
     </preset>
 </jamoma>
