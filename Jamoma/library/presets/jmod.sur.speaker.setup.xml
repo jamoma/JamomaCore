@@ -9,12 +9,316 @@
 		<item name="voices" type="msg_int">8</item>
 		<item name="xyz/1" type="msg_list">5. 0. 0.</item>
 		<item name="xyz/2" type="msg_list">3.535534 3.535534 0.</item>
-		<item name="xyz/3" type="msg_list">-0. 5. 0.</item>
+		<item name="xyz/3" type="msg_list">0. 5. 0.</item>
 		<item name="xyz/4" type="msg_list">-3.535534 3.535534 0.</item>
-		<item name="xyz/5" type="msg_list">-5. -0. 0.</item>
+		<item name="xyz/5" type="msg_list">-5. 0. 0.</item>
 		<item name="xyz/6" type="msg_list">-3.535533 -3.535534 0.</item>
 		<item name="xyz/7" type="msg_list">0. -5. 0.</item>
 		<item name="xyz/8" type="msg_list">3.535534 -3.535533 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="2" name="2 channel stereo (L-R)">
+		<item name="voices" type="msg_int">2</item>
+		<item name="xyz/1" type="msg_list">4.330127 2.5 0.</item>
+		<item name="xyz/2" type="msg_list">4.330127 -2.5 0.</item>
+		<item name="xyz/3" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/4" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/5" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/6" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="3" name="3 channel stereo (L-C-R)">
+		<item name="voices" type="msg_int">3</item>
+		<item name="xyz/1" type="msg_list">4.330127 2.5 0.</item>
+		<item name="xyz/2" type="msg_list">5. 0. 0.</item>
+		<item name="xyz/3" type="msg_list">4.330127 -2.5 0.</item>
+		<item name="xyz/4" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/5" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/6" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="4" name="4 channel channel surround (L-C-R-S)">
+		<item name="voices" type="msg_int">4</item>
+		<item name="xyz/1" type="msg_list">4.330127 2.5 0.</item>
+		<item name="xyz/2" type="msg_list">5. 0. 0.</item>
+		<item name="xyz/3" type="msg_list">4.330127 -2.5 0 0.</item>
+		<item name="xyz/4" type="msg_list">-5. 0. 0.</item>
+		<item name="xyz/5" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/6" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="5" name="5 channel surround ITU L-C-R-SR-SL">
+		<item name="voices" type="msg_int">5</item>
+		<item name="xyz/1" type="msg_list">4.330127 2.5 0.</item>
+		<item name="xyz/2" type="msg_list">5. 0. 0.</item>
+		<item name="xyz/3" type="msg_list">4.330127 -2.5 0 0.</item>
+		<item name="xyz/4" type="msg_list">-1.710101 -4.698463 0.</item>
+		<item name="xyz/5" type="msg_list">-1.710101 4.698463 0.</item>
+		<item name="xyz/6" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="6" name="7 channel surround L-C-R-SR-SBR-SBL-SL">
+		<item name="voices" type="msg_int">7</item>
+		<item name="xyz/1" type="msg_list">4.330127 2.5 0.</item>
+		<item name="xyz/2" type="msg_list">5. 0. 0.</item>
+		<item name="xyz/3" type="msg_list">4.330127 -2.5 0 0.</item>
+		<item name="xyz/4" type="msg_list">0. 5. 0.</item>
+		<item name="xyz/5" type="msg_list">-4.330127 2.5 0.</item>
+		<item name="xyz/6" type="msg_list">-4.330127 -2.5 0.</item>
+		<item name="xyz/7" type="msg_list">0. -5. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="7" name="Rig horizontal 4 channels">
+		<item name="voices" type="msg_int">4</item>
+		<item name="xyz/1" type="msg_list">3.535534 3.535534 0.</item>
+		<item name="xyz/2" type="msg_list">3.535534 -3.535534 0.</item>
+		<item name="xyz/3" type="msg_list">-3.535534 -3.535534 0.</item>
+		<item name="xyz/4" type="msg_list">-3.535534 3.535534 0.</item>
+		<item name="xyz/5" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/6" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="8" name="Rig horizontal 5 channels">
+		<item name="voices" type="msg_int">5</item>
+		<item name="xyz/1" type="msg_list">4.045085 2.938926 0.</item>
+		<item name="xyz/2" type="msg_list">4.045085 -2.938926 0.</item>
+		<item name="xyz/3" type="msg_list">-1.545085 -4.755282 0.</item>
+		<item name="xyz/4" type="msg_list">-5. 0. 0.</item>
+		<item name="xyz/5" type="msg_list">-1.545085 4.755282 0.</item>
+		<item name="xyz/6" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="9" name="Rig horizontal 6 channels">
+		<item name="voices" type="msg_int">6</item>
+		<item name="xyz/1" type="msg_list">4.330127 2.5 0.</item>
+		<item name="xyz/2" type="msg_list">4.330127 -2.5 0.</item>
+		<item name="xyz/3" type="msg_list">0. -5. 0.</item>
+		<item name="xyz/4" type="msg_list">-4.330127 -2.5 0.</item>
+		<item name="xyz/5" type="msg_list">-4.330127 2.5 0.</item>
+		<item name="xyz/6" type="msg_list">0. 5. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="10" name="Rig horizontal 8 channels 1">
+		<item name="voices" type="msg_int">8</item>
+		<item name="xyz/1" type="msg_list">4.619398 1.913416 0.</item>
+		<item name="xyz/2" type="msg_list">4.619398 -1.913416 0.</item>
+		<item name="xyz/3" type="msg_list">1.913417 -4.619398 0.</item>
+		<item name="xyz/4" type="msg_list">-1.913417 -4.619398 0.</item>
+		<item name="xyz/5" type="msg_list">-4.619398 -1.913416 0.</item>
+		<item name="xyz/6" type="msg_list">-4.619398 1.913416 0.</item>
+		<item name="xyz/7" type="msg_list">-1.913417 4.619398 0.</item>
+		<item name="xyz/8" type="msg_list">1.913417 4.619398 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="11" name="Rig horizontal 8 channels 2">
+		<item name="voices" type="msg_int">8</item>
+		<item name="xyz/1" type="msg_list">3.535534 3.535534 0.</item>
+		<item name="xyz/2" type="msg_list">5. 0.0.</item>
+		<item name="xyz/3" type="msg_list">3.535534 -3.535534 0.</item>
+		<item name="xyz/4" type="msg_list">0. -5. 0.</item>
+		<item name="xyz/5" type="msg_list">-3.535534 -3.535534 0.</item>
+		<item name="xyz/6" type="msg_list">-5. 0.0.</item>
+		<item name="xyz/7" type="msg_list">-3.535534 3.535534 0.</item>
+		<item name="xyz/8" type="msg_list">0. 5. 0.</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="12" name="Rig horizontal 12 channels">
+		<item name="voices" type="msg_int">12</item>
+		<item name="xyz/1" type="msg_list">4.330127 2.5 0.</item>
+		<item name="xyz/2" type="msg_list">5. 0.0.</item>
+		<item name="xyz/3" type="msg_list">4.330127 -2.5 0.</item>
+		<item name="xyz/4" type="msg_list">2.5 -4.330 0.</item>
+		<item name="xyz/5" type="msg_list">0. -5. 0.</item>
+		<item name="xyz/6" type="msg_list">-2.5 -4.330 0.</item>
+		<item name="xyz/7" type="msg_list">-4.330127 -2.5 0.</item>
+		<item name="xyz/8" type="msg_list">-5. 0.0.</item>
+		<item name="xyz/9" type="msg_list">-4.330127 2.5 0.</item>
+		<item name="xyz/10" type="msg_list">-2.5 4.330 0.</item>
+		<item name="xyz/11" type="msg_list">0. 5. 0.</item>
+		<item name="xyz/12" type="msg_list">2.5 4.330 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="13" name="Rig horizontal 16 channels">
+		<item name="voices" type="msg_int">16</item>
+		<item name="xyz/1" type="msg_list">4.619398 -1.913416 0.</item>
+		<item name="xyz/2" type="msg_list">5. 0. 0.</item>
+		<item name="xyz/3" type="msg_list">4.619398 1.913416 0.</item>
+		<item name="xyz/4" type="msg_list">3.535534 3.535534 0.</item>
+		<item name="xyz/5" type="msg_list">1.913417 4.619398 0.</item>
+		<item name="xyz/6" type="msg_list">0. 5. 0.</item>
+		<item name="xyz/7" type="msg_list">-1.913417 4.619398 0.</item>
+		<item name="xyz/8" type="msg_list">-3.535534 3.535534 0.</item>
+		<item name="xyz/9" type="msg_list">-4.619398 1.913416 0.</item>
+		<item name="xyz/10" type="msg_list">-5. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">-4.619397 -1.913416 0.</item>
+		<item name="xyz/12" type="msg_list">-3.535533 -3.535534 0.</item>
+		<item name="xyz/13" type="msg_list">-1.913416 -4.619398 0.</item>
+		<item name="xyz/14" type="msg_list">0. -5. 0.</item>
+		<item name="xyz/15" type="msg_list">1.913419 -4.619398 0.</item>
+		<item name="xyz/16" type="msg_list">3.535535 -3.535534 0.</item>
+    </preset>
+	<preset number="14" name="Rig 3D 8 channels (Cube)">
+		<item name="voices" type="msg_int">8</item>
+		<item name="xyz/1" type="msg_list">2.896140 2.89614 2.867882</item>
+		<item name="xyz/2" type="msg_list">2.896140 -2.89614 2.867882</item>
+		<item name="xyz/3" type="msg_list">-2.896140 -2.89614 2.867882</item>
+		<item name="xyz/4" type="msg_list">-2.896140 2.89614 2.867882</item>
+		<item name="xyz/5" type="msg_list">2.896140 2.89614 -2.867882</item>
+		<item name="xyz/6" type="msg_list">2.896140 -2.89614 -2.867882</item>
+		<item name="xyz/7" type="msg_list">-2.896140 -2.89614 -2.867882</item>
+		<item name="xyz/8" type="msg_list">-2.896140 2.89614 -2.867882</item>
+		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/12" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="15" name="Rig 3D 12 channels (Dodecahedron1)">
+		<item name="voices" type="msg_int">12</item>
+		<item name="xyz/1" type="msg_list">0. 0. 5.</item>
+		<item name="xyz/2" type="msg_list">0. 0. -5.</item>
+		<item name="xyz/3" type="msg_list">3.620085 2.630147 2.230989</item>
+		<item name="xyz/4" type="msg_list">-3.620086 -2.630147 -2.230989</item>
+		<item name="xyz/5" type="msg_list">3.620085 -2.630147 2.230989</item>
+		<item name="xyz/6" type="msg_list">-3.620086 2.630147 -2.230989</item>
+		<item name="xyz/7" type="msg_list">-1.382750 4.255666 2.230989</item>
+		<item name="xyz/8" type="msg_list">1.382749 -4.255666 -2.230989</item>
+		<item name="xyz/9" type="msg_list">-1.382750 -4.255666 2.230989</item>
+		<item name="xyz/10" type="msg_list">1.382749 4.255666 -2.230989</item>
+		<item name="xyz/11" type="msg_list">-4.474672 0. 2.230989</item>
+		<item name="xyz/12" type="msg_list">4.474672 0. -2.230989</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="16" name="Rig 3D 12 channels 2 (Dodecahedron 2)">
+		<item name="voices" type="msg_int">12</item>
+		<item name="xyz/1" type="msg_list">5. 0. 0.</item>
+		<item name="xyz/2" type="msg_list">-5. 0. 0.</item>
+		<item name="xyz/3" type="msg_list">2.230989 0. -4.474672</item>
+		<item name="xyz/4" type="msg_list">-2.230989 0. 4.474672</item>
+		<item name="xyz/5" type="msg_list">2.219306 4.263248 -1.378187</item>
+		<item name="xyz/6" type="msg_list">-2.219306 -4.263248 1.378187</item>
+		<item name="xyz/7" type="msg_list">2.219306 -4.263248 -1.378187</item>
+		<item name="xyz/8" type="msg_list">-2.219306 4.263248 1.378187</item>
+		<item name="xyz/9" type="msg_list">2.235253 2.617144 3.626872</item>
+		<item name="xyz/10" type="msg_list">-2.235253 -2.617144 -3.626872</item>
+		<item name="xyz/11" type="msg_list">2.235253 -2.617144 3.626872</item>
+		<item name="xyz/12" type="msg_list">-2.235253 2.617144 -3.626872</item>
+		<item name="xyz/13" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/14" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/15" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/16" type="msg_list">0. 0. 0.</item>
+    </preset>
+	<preset number="17" name="empty">
+		<item name="voices" type="msg_int">0</item>
+		<item name="xyz/1" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/2" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/3" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/4" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/5" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/6" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/7" type="msg_list">0. 0. 0.</item>
+		<item name="xyz/8" type="msg_list">0. 0. 0.</item>
 		<item name="xyz/9" type="msg_list">0. 0. 0.</item>
 		<item name="xyz/10" type="msg_list">0. 0. 0.</item>
 		<item name="xyz/11" type="msg_list">0. 0. 0.</item>
