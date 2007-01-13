@@ -48,6 +48,10 @@ extern t_symbol	*ps_none,
 				*ps_message_return,
 				*ps_parameter_names_start, 
 				*ps_parameter_names_end,
+				*ps_message_names_start, 
+				*ps_message_names_end,
+				*ps_return_names_start, 
+				*ps_return_names_end,
 				*ps_subscribe,				// used for calling the 'bind' method on jcom.hub
 				*ps_unsubscribe,
 				*ps_release,				// method in the hub for unsubscribing

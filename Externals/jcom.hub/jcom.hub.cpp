@@ -42,8 +42,15 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT,	0);
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
 
-	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names/get", 		0L);
-	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names/get", 	0L);
+	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names/dump", 	0L);
+	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names/dump", 	0L);
+	class_addmethod(c, (method)hub_messagenames_get,	"message_names/dump", 		0L);
+	class_addmethod(c, (method)hub_messagenames_get,	"/message_names/dump",		0L);
+	class_addmethod(c, (method)hub_returnnames_get,		"return_names/dump", 		0L);
+	class_addmethod(c, (method)hub_returnnames_get,		"/return_names/dump",		0L);
+	class_addmethod(c, (method)hub_allnames_get,		"*_names/dump",				0L);
+	class_addmethod(c, (method)hub_allnames_get,		"/*_names/dump",			0L);
+	
 	class_addmethod(c, (method)hub_modulename_get,		"module_name/get",			A_CANT);	// make this public eventually?
 	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			A_CANT);	// make this public eventually?
 	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type/get",		A_CANT);
@@ -64,8 +71,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_preset_store,		"/preset/store",			A_GIMME, 0L);	// number & optional name
 	class_addmethod(c, (method)hub_preset_default,		"preset/default",			0L);
 	class_addmethod(c, (method)hub_preset_default,		"/preset/default",			0L);
-	class_addmethod(c, (method)hub_presets_dump,		"preset/dump",				0L);
-	class_addmethod(c, (method)hub_presets_dump,		"/preset/dump",				0L);
+	class_addmethod(c, (method)hub_presets_dump,		"preset/post",				0L);
+	class_addmethod(c, (method)hub_presets_dump,		"/preset/post",				0L);
 	class_addmethod(c, (method)hub_ui_freeze,			"ui/freeze", 				A_LONG, 0L);
 	class_addmethod(c, (method)hub_ui_freeze,			"/ui/freeze", 				A_LONG, 0L);
 	class_addmethod(c, (method)hub_ui_refresh,			"ui/refresh",				0L);
@@ -573,13 +580,48 @@ void hub_paramnames_get(t_hub *x)
 		atom_setsym(&a, subscriber->name);
 		if(subscriber->type == ps_subscribe_parameter)
 			hub_outlet_return(x, ps_parameter_name, 1, &a);
-		else if(subscriber->type == ps_subscribe_message)
-			hub_outlet_return(x, ps_message_name, 1, &a);
-		else if(subscriber->type == ps_subscribe_return)
-			hub_outlet_return(x, ps_message_return, 1, &a);
 		subscriber = subscriber->next;
 	}
 	hub_outlet_return(x, ps_parameter_names_end, 0, NULL);
+}
+
+void hub_messagenames_get(t_hub *x)
+{
+	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
+	t_atom			a;
+	
+	hub_outlet_return(x, ps_message_names_start, 0, NULL);
+	
+	while(subscriber){
+		atom_setsym(&a, subscriber->name);
+		if(subscriber->type == ps_subscribe_message)
+			hub_outlet_return(x, ps_message_name, 1, &a);
+		subscriber = subscriber->next;
+	}
+	hub_outlet_return(x, ps_message_names_end, 0, NULL);
+}
+
+void hub_returnnames_get(t_hub *x)
+{
+	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
+	t_atom			a;
+	
+	hub_outlet_return(x, ps_return_names_start, 0, NULL);
+	
+	while(subscriber){
+		atom_setsym(&a, subscriber->name);
+		if(subscriber->type == ps_subscribe_return)
+			hub_outlet_return(x, ps_message_return, 1, &a);
+		subscriber = subscriber->next;
+	}
+	hub_outlet_return(x, ps_return_names_end, 0, NULL);
+}
+
+void hub_allnames_get(t_hub *x)
+{
+	hub_paramnames_get(x);
+	hub_messagenames_get(x);
+	hub_returnnames_get(x);
 }
 
 
