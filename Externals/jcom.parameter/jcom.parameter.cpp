@@ -300,21 +300,51 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
 // DUMP: use for debugging - dump state to the Max window
 void param_dump(t_param *x)
 {
-	post("");
-	post("DUMP:  %s  (%s in %s module)", x->name->s_name, OBJECT_CLASS_NAME, x->module_name->s_name);
-	post("  clipmode: %s", x->attr_clipmode->s_name);
-	post("  description: %s", x->attr_description->s_name);
-	post("  ramp: %s", x->attr_ramp->s_name);
-	post("  range: %f %f", x->attr_range[0], x->attr_range[1]);
-	post("  repetitions: %i", x->attr_repetitions);
-	post("  type: %s", x->attr_type->s_name);
-	post("  ui/freeze: %i", x->attr_ui_freeze);
-	if((x->attr_type == ps_msg_int) || (x->attr_type == ps_msg_toggle))
-		post("  value: %ld", atom_getlong(&x->attr_value));
-	else if((x->attr_type == ps_msg_float) || (x->attr_type == ps_msg_generic))
-		post("  value: %f", atom_getfloat(&x->attr_value));
-	else
-		post("  value: %s", atom_getsym(&x->attr_value)->s_name);
+	char	s[256];
+	t_atom	a[4];
+	
+	if(x->hub != NULL){
+		sprintf(s, "dump/%s:clipmode", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_clipmode);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:description", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_description);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:ramp", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_ramp);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:range", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setfloat(&a[1], x->attr_range[0]);
+		atom_setfloat(&a[2], x->attr_range[1]);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:repetitions", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setlong(&a[1], x->attr_repetitions);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:type", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_type);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:ui/freeze", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setlong(&a[1], x->attr_ui_freeze);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:value", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		jcom_core_atom_copy(&a[1], &x->attr_value);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+	}
 }
 
 
