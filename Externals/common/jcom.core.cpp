@@ -147,7 +147,8 @@ t_symbol	*ps_done,
 			*ps_mute,
 			*ps_target,
 			*ps_sendlastvalue,
-			*ps_sendbypassedvalue;
+			*ps_sendbypassedvalue,
+			*ps_star;
 			
 
 
@@ -297,6 +298,7 @@ void jcom_core_init(void)
 	ps_target					= gensym("target");
 	ps_sendlastvalue			= gensym("sendlastvalue");
 	ps_sendbypassedvalue		= gensym("sendbypassedvalue");
+	ps_star						= gensym("*");
 }
 
 

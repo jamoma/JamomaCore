@@ -648,23 +648,38 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 	name = gensym(input2);
 
-	// search the linked list of params to find the right one
-	while((subscriber != NULL) && (found == false)){
-		if(subscriber->name == name){
-			found = true;	// we found it!
-			break;
+	if(name == ps_star){			// wildcard
+		while(subscriber){
+			if(subscriber->type == ps_subscribe_parameter 
+			|| subscriber->type == ps_subscribe_message 
+			|| subscriber->type == ps_subscribe_return){
+				if(osc == NULL)
+					object_method_typed(subscriber->object, ps_dispatched, argc, argv, NULL);
+				else
+					object_method_typed(subscriber->object, osc, argc, argv, NULL);
+				}
+				subscriber = subscriber->next;
 		}
-		subscriber = subscriber->next;
 	}
-	// dispatch to the correct jcom.param object
-	if(found == true){
-		if(osc == NULL)
-			object_method_typed(subscriber->object, ps_dispatched, argc, argv, NULL);
+	else{
+		// search the linked list of params to find the right one
+		while((subscriber != NULL) && (found == false)){
+			if(subscriber->name == name){
+				found = true;	// we found it!
+				break;
+			}
+			subscriber = subscriber->next;
+		}
+		// dispatch to the correct jcom.param object
+		if(found == true){
+			if(osc == NULL)
+				object_method_typed(subscriber->object, ps_dispatched, argc, argv, NULL);
+			else
+				object_method_typed(subscriber->object, osc, argc, argv, NULL);
+		}
 		else
-			object_method_typed(subscriber->object, osc, argc, argv, NULL);
+			error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
 	}
-	else
-		error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
 }
 
 
