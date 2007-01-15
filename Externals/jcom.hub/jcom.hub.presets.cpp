@@ -203,12 +203,22 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 int coerceType(const char* s)
 {
 	// Is the first char a digit?
-	if(isdigit(s[0])) {
+	if(isdigit(s[0])){
 		// It's not a symbol, so is it an int or a float?
 		if(strchr(s, '.'))  // First char is a digit and s contains a ., consider it a float
 			return A_FLOAT;
 		else
 			return A_LONG;  // No decimal point, so treat it as an int
+	}
+	else if(s[0] == '-'){
+		if(strlen(s) > 1){
+			if(isdigit(s[1])){
+				if(strchr(s, '.'))  	// First char is a digit and s contains a ., consider it a float
+					return A_FLOAT;
+				else
+					return A_LONG;  	// No decimal point, so treat it as an int				
+			}
+		}
 	}
 	
 	return A_SYM; // Not a float, not an int, must be a symbol
