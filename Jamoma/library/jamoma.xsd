@@ -13,6 +13,7 @@
 										<xs:extension base="xs:string">
 											<xs:attribute name="name" type="xs:string"/>
 											<xs:attribute name="type" type="xs:string"/>
+											<xs:attribute name="priority" type="xs:string"/>
 										</xs:extension>
 									</xs:simpleContent>
 								</xs:complexType>

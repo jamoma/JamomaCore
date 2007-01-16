@@ -123,6 +123,10 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 			ac = NULL; av = NULL;												// init
 			object_attr_getvalueof(subscriber->object, ps_type, &ac, &av);		// get
 			item->type = atom_getsym(av);										// copy
+
+			ac = NULL; av = NULL;												// init
+			object_attr_getvalueof(subscriber->object, ps_priority, &ac, &av);	// get
+			item->priority = atom_getlong(av);									// copy
 			
 			ac = NULL; av = NULL;												// init
 			object_attr_getvalueof(subscriber->object, ps_value, &ac, &av);		// get
@@ -233,6 +237,7 @@ void hub_preset_parse(t_hub *x, char *path)
 	t_preset			*preset;				// the current preset we are parsing
 	t_preset_item		*item;					// the current preset item we are parsing
 	const xmlChar		*type;					// data type of the current preset item
+	const xmlChar		*priority;
 	int 				preset_num = 0;			// temporary holder
 	short				result = 0;
 	bool				item_opened = false;	// is there currently an item open for writing?
@@ -291,6 +296,11 @@ void hub_preset_parse(t_hub *x, char *path)
 						item->type = gensym((char *)type);
 					else
 						item->type = ps_msg_generic;
+					priority = xmlTextReaderGetAttribute(reader, (xmlChar *)"priority");
+					if(priority)
+						sscanf((char *)priority, "%ld", &item->priority);
+					else
+						item->priority = 0;
 					free((void *)name);
 					free((void *)type);
 				}
@@ -477,11 +487,11 @@ void hub_presets_dump(t_hub *x)
 		item = preset->item;
 		while(item != NULL){
 			if((item->type == ps_msg_int) || (item->type == ps_msg_toggle))
-				post("    %s (type %s): %ld", item->param_name->s_name, item->type->s_name, atom_getlong(&item->value));
+				post("    %s (type %s, priority %i): %ld", item->param_name->s_name, item->type->s_name, item->priority, atom_getlong(&item->value));
 			else if((item->type == ps_msg_symbol) || (item->type == ps_msg_menu))
-				post("    %s (type %s): %s", item->param_name->s_name, item->type->s_name, atom_getsym(&item->value)->s_name);
+				post("    %s (type %s, priority %i): %s", item->param_name->s_name, item->type->s_name, item->priority, atom_getsym(&item->value)->s_name);
 			else
-				post("    %s (type %s): %f", item->param_name->s_name, item->type->s_name, atom_getfloat(&item->value));
+				post("    %s (type %s, priority %i): %f", item->param_name->s_name, item->type->s_name, item->priority, atom_getfloat(&item->value));
 			item = item->next;
 		}		
 		preset = preset->next;
@@ -502,8 +512,8 @@ void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
 	len = err = 0;
 	
 	// write name and type
-	snprintf(tempstring, sizeof(tempstring), "    <item name='%s' type='%s'>", item->param_name->s_name, 
-		item->type->s_name);
+	snprintf(tempstring, sizeof(tempstring), "    <item name='%s' type='%s' priority='%ld'>", item->param_name->s_name, 
+		 item->type->s_name, item->priority);
 	len = strlen(tempstring);
 	sysfile_write(*fh, &len, tempstring);
 	*eof += len;
@@ -589,12 +599,12 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 			} else {
 				if(item->value.a_type == A_SYM){
 					result = atom_getsym(&item->value);
-					sprintf(tempstring, "    <item name='%s' type='%s'>%s</item>", item->param_name->s_name, item->type->s_name, result->s_name);
+					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%s</item>", item->param_name->s_name, item->type->s_name, item->priority, result->s_name);
 				}
 				else if(item->value.a_type == A_FLOAT)
-					sprintf(tempstring, "    <item name='%s' type='%s'>%f</item>", item->param_name->s_name, item->type->s_name, atom_getfloat(&item->value));
+					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%f</item>", item->param_name->s_name, item->type->s_name, item->priority, atom_getfloat(&item->value));
 				else if(item->value.a_type == A_LONG)
-					sprintf(tempstring, "    <item name='%s' type='%s'>%ld</item>", item->param_name->s_name, item->type->s_name, atom_getlong(&item->value));
+					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%ld</item>", item->param_name->s_name, item->type->s_name, item->priority, atom_getlong(&item->value));
 				
 				jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			}

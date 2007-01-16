@@ -20,8 +20,6 @@
 
 enum outlets{
 	k_outlet_return = 0,
-//	k_outlet_algorithm,
-//	k_outlet_psto,
 	k_outlet_dumpout,
 	k_num_outlets
 };
@@ -31,7 +29,6 @@ typedef struct _subscriber{
 	void			*object;		// the max object instance that represents this subscriber
 	t_symbol		*name;			// name of the parameter/message/return/remote
 	t_symbol		*type;			// examples: subscribe_parameter, subscribe_message, subscribe_in, subscribe_out, subscribe_remote, subscribe_return
-	//long			priority;		// idea for the future: use assigned priorities from the object to setup psto
 	_subscriber		*next;			// next subscriber in the linked list
 } t_subscriber;
 
@@ -40,6 +37,7 @@ typedef struct _subscriber{
 typedef struct _preset_item{
 	t_symbol		*param_name;
 	t_symbol		*type;
+	long			priority;
 	t_atom			value_list[LISTSIZE];
 	long			list_size;
 	_preset_item	*next;

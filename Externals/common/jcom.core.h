@@ -154,7 +154,8 @@ extern t_symbol	*ps_none,
 				*ps_target,
 				*ps_sendlastvalue,
 				*ps_sendbypassedvalue,
-				*ps_star;
+				*ps_star,
+				*ps_priority;
 				
 
 
