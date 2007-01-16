@@ -124,6 +124,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_param, attr_stepsize));
 	class_addattr(c, attr);
 
+	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
+	attr = attr_offset_new("priority", _sym_long, attrflags,
+		(method)0, (method)0, calcoffset(t_param, attr_priority));
+	class_addattr(c, attr);
+
 	// ATTRIBUTE: value
 	attr = attr_offset_array_new("value", _sym_atom, LISTSIZE, attrflags,
 		   (method)0, (method)0, calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
@@ -180,6 +185,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_ui_freeze = 0;
 		x->attr_slavemode = 0;
 		x->attr_stepsize = 1.0;
+		x->attr_priority = 0;						// default is no priority
 		x->param_bang = &param_bang_generic;		// set function pointer to default
 		x->hub = NULL;
 		
@@ -312,6 +318,11 @@ void param_dump(t_param *x)
 		sprintf(s, "dump/%s:description", x->attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_description);
+		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+
+		sprintf(s, "dump/%s:priority", x->attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setlong(&a[1], x->attr_priority);
 		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
 
 		sprintf(s, "dump/%s:ramp", x->attr_name->s_name);

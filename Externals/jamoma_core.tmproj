@@ -85,8 +85,6 @@
 					<string>jcom.hub/jcom.hub.autodoc.cpp</string>
 					<key>lastUsed</key>
 					<date>2006-12-29T01:13:04Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -104,7 +102,9 @@
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.presets.cpp</string>
 					<key>lastUsed</key>
-					<date>2006-12-10T07:00:50Z</date>
+					<date>2007-01-15T03:50:27Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -318,6 +318,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{246, 0}, {914, 878}}</string>
+	<string>{{293, 0}, {914, 878}}</string>
 </dict>
 </plist>

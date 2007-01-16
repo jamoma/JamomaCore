@@ -61,6 +61,7 @@ typedef struct _param{						// Data Structure for this object
 	long					attr_ui_freeze;
 	float					attr_stepsize;			// ATTRIBUTE: amount to increment or decrement by
 	t_symbol				*attr_type;				// ATTRIBUTE: what kind of data doers this object define?
+	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
 	t_symbol				*name;					// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
 	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
 	t_symbol				*module_name;			// the name of the module as reported when we subscribe to jcom.hub
