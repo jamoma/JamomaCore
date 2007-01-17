@@ -81,6 +81,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 		}		
 	}
 	else{
+		item = preset->item;
 		while(item){
 			hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
 			item = item->next;
@@ -672,9 +673,8 @@ void hub_preset_buildmenu(t_hub *x)
 
 		while(preset){
 			atom_setsym(&a[0], ps_NEW_PRESETS);
-			atom_setlong(&a[1], preset->number);
-			atom_setsym(&a[2], preset->name);
-			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
+			atom_setsym(&a[1], preset->name);
+			object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);
 			preset = preset->next;
 		}
 

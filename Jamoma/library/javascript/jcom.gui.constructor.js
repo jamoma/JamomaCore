@@ -32,6 +32,7 @@ var menu_items = new Array();
 var menu_num_presets = 0;
 var has_run = 0;				// flag indicating that this module has previously been built
 var grandparent_name;			// this is the scripting name of the object box hosting the module's patch
+var preset_items = new Array();		// holds preset names at an index
 
 
 // CONFIGURATION
@@ -269,7 +270,7 @@ function msg_int(value)
 			case 9: outlet(4, "/documentation/html"); break;
 			case 10: outlet(4, "/documentation/help"); break;
 			case 11: outlet(4, "/module/view_internals"); break;
-			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}
 	else if(attr_module_type == "video"){
@@ -321,7 +322,7 @@ function msg_int(value)
 			case 13: outlet(4, "/documentation/html"); break;
 			case 14: outlet(4, "/documentation/help"); break;
 			case 15: outlet(4, "/module/view_internals"); break;		
-			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 		outlet(3, "checkitem", 5, attr_bypass);
 		outlet(3, "checkitem", 6, attr_freeze);
@@ -341,9 +342,8 @@ function msg_int(value)
 			case 5: outlet(4, "/preset/default"); break;
 			case 7: outlet(4, "/documentation/html"); break;
 			case 8: outlet(4, "/documentation/help"); break;
-			case 9: outlet(4, "/module/view_internals"); break;
-			
-			default: outlet(4, "/preset/recall", value - (menu_items.length - menu_num_presets)) - 1; break;
+			case 9: outlet(4, "/module/view_internals"); break;			
+			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}
 }
@@ -448,8 +448,10 @@ function menu_add(item_name)
 // remove presets from the menu array
 function menu_presets_clear()
 {
-	for(var i=0; i<menu_num_presets; i++)
+	for(var i=0; i<menu_num_presets; i++){
 		menu_items.pop();
+		preset_items.pop();
+	}
 	menu_num_presets = 0;
 }
 
@@ -457,7 +459,8 @@ function menu_presets_clear()
 // add presets to the menu array
 function menu_presets_add(preset_name)
 {
-	menu_add(preset_name)
+	menu_add(preset_name);
+	preset_items.push(preset_name);
 	menu_num_presets++;
 }
 
