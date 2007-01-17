@@ -17,6 +17,9 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 	t_preset		*preset = x->preset;
 	t_preset_item	*item = NULL;
 	bool			found = false;
+	short			num_items_with_priority = 0;
+	short			num_items_recalled = 0;
+	short			i;
 	
 	if(argc < 1){
 		error("jcom.hub (%s module): preset.recall requires a valid argument", x->attr_name);
@@ -52,8 +55,36 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 	// Now take our preset items and send them out!
 	item = preset->item;
 	while(item){
-		hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
+		if(item->priority)
+			num_items_with_priority++;
 		item = item->next;
+	}
+	
+	if(num_items_with_priority > 0){
+		i=1;
+		while(num_items_with_priority > num_items_recalled){
+			item = preset->item;
+			while(item){
+				if(item->priority == i){
+					hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
+					num_items_recalled++;
+				}
+				item = item->next;
+			}
+			i++;
+		}
+		item = preset->item;
+		while(item){
+			if(item->priority == 0)
+				hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
+			item = item->next;
+		}		
+	}
+	else{
+		while(item){
+			hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
+			item = item->next;
+		}
 	}
 }
 
