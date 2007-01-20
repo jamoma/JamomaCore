@@ -146,7 +146,7 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 		
 		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		x->num_inputs = 0;
+		x->num_inputs = 1;
 		x->attr_manage_channels = 0;
 		x->attr_algorithm_type = _sym_nothing;
 		x->attr_bypass = 0;
@@ -173,9 +173,9 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 			x->signal_in[i] = new tt_audio_signal;			// Storage for the signal (accessed by jcom.out~)
 		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 #else
-		for(i=0; i < (x->num_inputs-1); i++)
+		for(i = x->num_inputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
-		for(i=0; i < (x->num_inputs); i++)
+		for(i = x->num_inputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 
 #endif
