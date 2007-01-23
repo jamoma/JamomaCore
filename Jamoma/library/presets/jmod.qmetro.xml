@@ -6,6 +6,7 @@
 >
 	
 	<preset number="1" name="default">
+    	<item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
 		<item name="toggle" type="msg_int">0</item>
 		<item name="time" type="msg_int">40</item>
 		<item name="randomness" type="msg_int">0</item>

@@ -373,7 +373,7 @@ void hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 	{
 		if (private_message == ps_slash_preset_slash_default)			// 	/preset/default
 			hub_preset_default(x);
-		else if (private_message == ps_slash_preset_slash_load)		// 	/preset/load
+		else if (private_message == ps_slash_preset_slash_load)			// 	/preset/load
 			hub_preset_read(x, userpath);
 		else if (private_message == ps_slash_preset_slash_recall)		// 	/preset/load
 			hub_preset_recall(x, _sym_list, 1, argv);
@@ -695,16 +695,21 @@ void hub_ui_freeze(t_hub *x, long val)
 {
 	t_subscriber *subscriber = x->subscriber;	// head of the linked list
 	t_atom a;
+
+	atom_setlong(&a, val);	
 	
+	// Update stored parameter value for module/freeze
+	hub_symbol(x, ps_ui_slash_freeze, 1, &a);
+	
+	// Change freeze status for all messages and parameters	
 	while(subscriber){
-		atom_setlong(&a, val);
 		if(subscriber->type == ps_subscribe_parameter)
 			object_method_typed(subscriber->object, ps_ui_slash_freeze, 1, &a, NULL);
 		subscriber = subscriber->next;
 	}
 }
 
-// FREEZE UI for all parameters
+// REFRESH UI for all parameters
 void hub_ui_refresh(t_hub *x)
 {
 	t_subscriber *subscriber = x->subscriber;	// head of the linked list

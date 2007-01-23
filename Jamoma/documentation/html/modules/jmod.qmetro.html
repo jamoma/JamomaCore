@@ -58,6 +58,15 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> Toggle qmetro on/off </td>
 		<tr>
+		<tr>
+			<td class="instructionName"> ui/freeze </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
 	</table>
 
 	<p>&nbsp;</p>
@@ -72,6 +81,15 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> Ramp Enabled </td>
 			<td> Repetitions </td>
 			<td> Description </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> documentation/generate </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Generate html documentation for the module. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/help </td>
@@ -110,7 +128,16 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/load </td>
+			<td class="instructionName"> preset/post </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Post all presets to the Max window. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/read </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
@@ -128,7 +155,16 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/save </td>
+			<td class="instructionName"> preset/store </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/write </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
@@ -137,13 +173,13 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class="instructionName"> ui/refresh </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
 	</table>
 
