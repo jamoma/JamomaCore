@@ -146,7 +146,7 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 		
 		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		x->num_inputs = 1;
+		x->num_inputs = 0;
 		x->attr_manage_channels = 0;
 		x->attr_algorithm_type = _sym_nothing;
 		x->attr_bypass = 0;
@@ -157,7 +157,8 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
 			x->num_inputs = tt_audio_base::clip(argument, 0, MAX_NUM_CHANNELS);
-		}
+		} else
+			x->outlet[0] = x->algout;  // no arguments send any input out the first outlet
 
 #ifdef JCOM_IN_TILDE
 		if(x->num_inputs > 0)
