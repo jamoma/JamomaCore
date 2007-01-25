@@ -726,33 +726,33 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
-	else if(x->attr_ramp != ps_none){				// !!! CURRENTLY LIST RAMPING IS NOT HANDLED BY THIS CASE !!!
+		
+	// Check the second to last item in the list first, which when ramping should == the string ramp
+	t_atom* ramp = argv + (argc - 2);
+	if(ramp->a_type == A_SYM && !strncmp(ramp->a_w.w_sym->s_name, "ramp", sizeof("ramp"))) {
+		// XXX this currently doesn't handle ramping with lists
 		value = atom_getfloat(argv);
-		if(argc>1)
-			time = atom_getfloat(argv+1);
-		else
-			time = 0;
+		time = atom_getfloat(argv+(argc-1));
 
-		if(time == 0){
+		if(time <= 0){
 			jcom_core_atom_copy(&x->attr_value, argv);
 			x->param_bang(x);
 			return;
 		}	
 
 		if(x->attr_repetitions == 0){
-			if(jcom_core_atom_compare(x->attr_type, &x->attr_value, argv))
-				return;
+			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
+				return;	// nothing to do
 		}
 		x->rampfunction->set(x->rampunit, atom_getfloat(&x->attr_value));
 		x->rampfunction->go(x->rampunit, value, time);
-	} 	
-	else {
+	} else {
 		// Don't output if the input data is identical
 		if(!x->attr_repetitions) {
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;	// nothing to do
 		}
-			
+		
 		for(int i = 0; i < argc; i++) {
 			switch(argv[i].a_type) 
 			{
@@ -773,6 +773,7 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		x->list_size = argc;
 		x->param_bang(x);
 	}
+
 }
 
 
