@@ -729,7 +729,7 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		
 	// Check the second to last item in the list first, which when ramping should == the string ramp
 	t_atom* ramp = argv + (argc - 2);
-	if(ramp->a_type == A_SYM && !strncmp(ramp->a_w.w_sym->s_name, "ramp", sizeof("ramp"))) {
+	if(ramp->a_type == A_SYM && ramp->a_w.w_sym == ps_ramp) {
 		// XXX this currently doesn't handle ramping with lists
 		value = atom_getfloat(argv);
 		time = atom_getfloat(argv+(argc-1));
