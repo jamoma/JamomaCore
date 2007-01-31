@@ -22,28 +22,33 @@
 
 
 		<h3>Overview</h3>
-		<p>Jamoma is a specification for the structuring of patches in Cycling '74's Max.  By structuring patches according to these guidelines, users can be assured that patches become freely interchangeable components (modules) in the Max environment.  This document presents the guidelines to which patches should be structured to ensure compatibility.</p>
+		<p>Jamoma is a specification for the structuring of patches in Cycling '74's Max.  By structuring patches according to these guidelines, users can be assured that patches become freely interchangeable modules in the Max environment.  This document presents the guidelines to which patches should be structured to ensure compatibility.</p>
 		
 <p>In addition to presenting the guidelines, an implementation of these guidelines 
   is also provided. The provided framework should be sufficient for most users 
   of Jamoma, and will ease the development of modules. The provided framework, 
   however, is just one of many possible implementations of these guidelines.</p>
 <h3>File Name and Format</h3>
-<p>All module filenames should end with the &#147;<code>.mod</code>&#148; extension, 
-  and should be saved in Max&#146;s text format. Similarly, all algorithms should 
-  end with &#147;<code>.alg</code>&#148; extension and be saved in Max&#146;s 
-  text format. Other underlying patches or abstractions should also be saved in 
-  text format. The preferred extensions for text format files (with the exception 
-  of .mod or .alg files) is <code> .txt</code> or <code>.mxt</code>.</p>
+<p>All filenames should end with the &#147;<code>.mxt</code>&#148; extension, 
+  and should be saved in Max&#146;s text format. There are three prefixes which are
+  used by Jamoma for filenames.  The three prefixes are:
+<ul>
+  <li><code>jmod</code> - A module.  A module encapsulates the algorithm and the
+	Jamoma components that communicate with that algorithm into a reusable self-contained, well, module.</li>
+  <li><code>jcom</code> - A Jamoma component.  Jamoma components significantly ease the development of 
+	modules.  They provide the backbone that all Jamoma modules are built on. </li>
+  <li><code>jalg</code> - The logical algorithm to perform.  This is essentially
+	the non-GUI part of any Max patch.</li>
+</ul>
+
 <p>If there is a situation where a binary format patcher must be used, the preferred 
   extension for binary Max patches is <code>.mxb</code>.</p>
 <p>The preferred format for graphics files in the Portable Network Graphics (PNG) 
   format.</p>
-<p>All files coming as part of the standard Jamoma distribution should share the 
-  <code>jmod.</code> prefix. Tilde (<code>~</code>) is used to indicate a audio 
-  module or algorithm: <code>jmod.myaudiomodule~.mod</code> and <code>jmod.myaudioalgorithm~.alg</code>. 
-  Percentage sign is used to indicate a video module or algorithm: <code>jmod.myvideomodule%.mod</code> 
-  and <code>jmod.myvideoalgorithm%.alg</code>.</p>
+<p>Tilde (<code>~</code>) is used to indicate a audio 
+  module or algorithm: <code>jmod.myaudiomodule~.mxt</code> and <code>jalg.myaudioalgorithm~.mxt</code>. 
+  A percentage sign is used to indicate a video module or algorithm: <code>jmod.myvideomodule%.mxt</code> 
+  and <code>jalg.myvideoalgorithm%.mxt</code>.</p>
 <h3>The structure of the modules</h3>
 <p>Jamoma is modular. All parts of the Jamoma system are to be implemented as 
   modules: Self-contained components of a system, with a well-defined interface 
@@ -56,7 +61,7 @@
   <li><em>Communication and state handling system</em>: The parts of the module 
     keeping track of the current state of the module, as well as communication 
     with the rest of the Jamoma and Max environment. This include dealing with 
-    incoming messages and paramater changes, communication with the GUI and the 
+    incoming messages and parameter changes, communication with the GUI and the 
     algorithm, as well as keeping track of current state so that it is setable 
     and getable.</li>
   <li><em>Algorithm:</em> The part of the module where the logical algorithm is 
@@ -118,13 +123,13 @@
   somewhat consistent with the conventions established by the example modules 
   that are included with the canonical Jamoma package. The framework provided 
   by the Jamoma developers is "skinnable" - meaning that you can provide custom 
-  graphics files and then simply set a skin name as an attribute to the jmod.hub 
+  graphics files and then simply set a skin name as an attribute to the <code>jcom.hub</code>
   object.</p>
 <h3>OpenSoundControl (OSC) compatibility</h3>
 <p>Jamoma is implemented according to the <a href="http://www.opensoundcontrol.org">OpenSoundControl 
   (OSC)</a> protocol. OSC's advantages include interoperability, accuracy, flexibility, 
   and enhanced organization and documentation. All communication to and from Jamoma 
-  modules thus take the form of OSC messages, utilising URL-style address patterns.</p>
+  modules thus take the form of OSC messages, utilizing URL-style address patterns.</p>
 <p></p>
 <p> According to the OSC specification, the following printable ASCII characters 
   are not allowed in the names of modules, messages or parameters: </p>
@@ -193,7 +198,7 @@
 </tr>
 </tbody>
 </table>
-<p>Jamoma do not currently support the more advanced pattern matching of OSC utilising 
+<p>Jamoma does not currently support the more advanced pattern matching of OSC utilising 
   &quot;<code>?</code>, &quot;<code>*</code>&quot;, string of characters in square 
   brackets or comma-separated list of strings enclosed in curly braces.</p>
 <p>For more details on OSC, please refer to <a href="http://www.opensoundcontrol.org/spec-1_0">The 
@@ -214,7 +219,7 @@
   because they have no state may or may not return a message. The feedback outlet 
   also may return other control messages as needed (such as the results of a pitch-tracker 
   analyses or a flag for when a file is done playing).</p>
-<p>A number of standardised parameters and messages are recommended for various 
+<p>A number of standardized parameters and messages are recommended for various 
   types of modules.</p>
 <p>&nbsp;</p>
 <h4>All modules</h4>
@@ -230,7 +235,7 @@
     <td> Description </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /disable_ui_updates </td>
+    <td class="instructionName"> ui/freeze </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -263,7 +268,7 @@
     <td> Description </td>
   </tr>
   <tr> 
-    <td class="instructionName">/autodoc</td>
+    <td class="instructionName">documentation/generate</td>
     <td class="instructionType">n/a</td>
     <td class="instructionRange">N/a</td>
     <td class="instructionClipmode">n/a</td>
@@ -273,7 +278,7 @@
       module. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /get_parameter_names </td>
+    <td class="instructionName"> parameter_names/get </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
@@ -283,7 +288,7 @@
       outlet with the names of parameters accessible in this module.</td>
   </tr>
   <tr> 
-    <td class="instructionName"> /help </td>
+    <td class="instructionName"> documentation/help </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
@@ -293,7 +298,7 @@
       module.</td>
   </tr>
   <tr> 
-    <td class="instructionName"> /load_settings </td>
+    <td class="instructionName"> preset/read </td>
     <td class="instructionType"> msg_symbol</td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
@@ -303,7 +308,7 @@
       first preset in that file. An optional argument defines the file to open.</td>
   </tr>
   <tr> 
-    <td class="instructionName"> /preset_recall </td>
+    <td class="instructionName"> preset/recall </td>
     <td class="instructionType"> msg_int</td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> both </td>
@@ -313,7 +318,7 @@
       choose presets from the module menu.</td>
   </tr>
   <tr> 
-    <td class="instructionName"> /restore_defaults </td>
+    <td class="instructionName"> preset/default </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
@@ -323,7 +328,7 @@
       the first preset in that file. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /save_settings </td>
+    <td class="instructionName"> preset/store </td>
     <td class="instructionType"> msg_symbol </td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
@@ -343,7 +348,7 @@
       max</code> set module to use the Max scheduler (default behaviour). </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /view_internals </td>
+    <td class="instructionName"> module/view_internals </td>
     <td class="instructionType"> n/a </td>
     <td class="instructionRange"> n/a </td>
     <td class="instructionClipmode"> both </td>
@@ -368,7 +373,7 @@
     <td> Description </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /bypass </td>
+    <td class="instructionName"> audio/bypass </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -378,7 +383,7 @@
       module's processing algorithm, letting audio pass through unaffected. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /defeat_meters </td>
+    <td class="instructionName"> audio/meters/freeze </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -388,7 +393,7 @@
       the signal level meters in the module to conserve CPU. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /gain/midi </td>
+    <td class="instructionName"> audio/gain/midi </td>
     <td class="instructionType"> msg_float </td>
     <td class="instructionRange"> 0 158 </td>
     <td class="instructionClipmode"> both </td>
@@ -397,7 +402,7 @@
     <td class="instructionDescription"> Set gain as MIDI value. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /mix </td>
+    <td class="instructionName"> audio/mix </td>
     <td class="instructionType"> msg_float </td>
     <td class="instructionRange"> 0 100 </td>
     <td class="instructionClipmode"> none </td>
@@ -407,7 +412,7 @@
       processing routine in percent. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /mute </td>
+    <td class="instructionName"> audio/mute </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -417,7 +422,7 @@
       the module's processing algorithm to save CPU </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /sr </td>
+    <td class="instructionName"> audio/sample_rate </td>
     <td class="instructionType"> msg_int </td>
     <td class="instructionRange"> -2 0 </td>
     <td class="instructionClipmode"> none </td>
@@ -440,7 +445,7 @@
     <td> Description </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /clear_meters </td>
+    <td class="instructionName"> audio/meters/clear </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> both </td>
@@ -449,7 +454,7 @@
     <td class="instructionDescription"> no info provided </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /gain </td>
+    <td class="instructionName"> audio/gain </td>
     <td class="instructionType"> msg_float </td>
     <td class="instructionRange"> -144 0 </td>
     <td class="instructionClipmode"> none </td>
@@ -458,7 +463,7 @@
     <td class="instructionDescription"> Set gain as dB value. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /gain/dec </td>
+    <td class="instructionName"> audio/gain:dec </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> N/A </td>
     <td class="instructionClipmode"> none </td>
@@ -467,7 +472,7 @@
     <td class="instructionDescription"> Increase gain MIDI value by one. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /gain/inc </td>
+    <td class="instructionName"> audio/gain:inc </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> N/A </td>
     <td class="instructionClipmode"> none </td>
@@ -490,7 +495,7 @@
     <td> Description </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /bypass </td>
+    <td class="instructionName"> video/bypass </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -500,7 +505,7 @@
       in the module - allowing unaltered video through. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /freeze </td>
+    <td class="instructionName"> video/freeze </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -510,7 +515,7 @@
       the module's processing algorithm. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /mute </td>
+    <td class="instructionName"> video/mute </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -520,7 +525,7 @@
       - generating no output. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /preview </td>
+    <td class="instructionName"> video/preview </td>
     <td class="instructionType"> toggle </td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> none </td>
@@ -544,7 +549,7 @@
     <td> Description </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /direct </td>
+    <td class="instructionName"> video/direct </td>
     <td class="instructionType"> generic</td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> both </td>
@@ -554,7 +559,7 @@
       embedded in the module. </td>
   </tr>
   <tr> 
-    <td class="instructionName"> /genframe </td>
+    <td class="instructionName"> video/genframe </td>
     <td class="instructionType"> n/a</td>
     <td class="instructionRange"> default </td>
     <td class="instructionClipmode"> both </td>
@@ -568,31 +573,25 @@
 <p>No module may accept or use the following:</p>
 		
 <ul>
-  <li>Any message beginning with &quot;<code>jmod.</code>&quot;. These messages 
+  <li>Any message beginning with &quot;<code>jcom.</code>&quot;. These messages 
     are reserved for internal communicatin within and between the modules. Specifically, 
     the following messages are currently being used: 
     <ul>
-      <li><code>jmod.init (bang)</code>: Initialisation of all modules</li>
-      <li><code>jmod.dsp.off (bang)</code>: Can be used for a quick fade-out when 
+      <li><code>jcom.init (bang)</code>: Initialisation of all modules</li>
+      <li><code>jcom.dsp.off (bang)</code>: Can be used for a quick fade-out when 
         audio is turned of.</li>
-      <li><code>jmod.remote.toModule</code>: Used for wireless communication from 
-        <code>jmod.cuescript.mod</code> to all other modules.</li>
-      <li><code>jmod.remote.fromModule</code>: Used for wireless communication 
+      <li><code>jcom.remote.toModule</code>: Used for wireless communication from 
+        <code>jcom.cuescript.mod</code> to all other modules.</li>
+      <li><code>jcom.remote.fromModule</code>: Used for wireless communication 
         from all Jamoma modules to <code>jmod.cuescript.mod</code>.</li>
-      <li><code>jmod.remote.state.get</code>: Used by <code>jmod.cuescript</code> for
+      <li><code>jcom.remote.state.get</code>: Used by <code>jmod.cuescript</code> for
         polling state from all named modules.</li>
-      <li><code>jmod.remote.state.return</code>: Used to provide info on
+      <li><code>jcom.remote.state.return</code>: Used to provide info on
       	state from named modules to <code>jmod.cuescript.mod</code>.</li>
     </ul>
   <li>Any standard message, as previously defined, in a way that differs from 
     the way defined in these guidelines. 
 </ul>
-<p>Inside modules there might be local wireless communcation set up between different 
-  parts of the module using <code>send</code>/<code>receive</code> pairs with 
-  arguments starting with &quot;<code>#0_</code>&quot;. To avoid conflicts with 
-  existing communication, it is recommended that local <code>send</code>/<code>receive</code> 
-  pairs starts of with &quot;<code>#0_xxx_</code>&quot;. Refer to <code>jmod.input~.mod</code> 
-  for an example on this.</p>
 </body>
 
 </html>
