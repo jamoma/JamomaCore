@@ -377,7 +377,7 @@ void hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 			hub_preset_read(x, userpath);
 		else if (private_message == ps_slash_preset_slash_recall)		// 	/preset/load
 			hub_preset_recall(x, _sym_list, 1, argv);
-		else if (private_message == ps_slash_preset_slash_save)			//	/preset/save
+		else if (private_message == ps_slash_preset_slash_write)			//	/preset/save
 			hub_preset_write(x, userpath);
 		else if (private_message == ps_slash_module_view_internals)		//	/module/view_internals
 			hub_module_view_alg(x);

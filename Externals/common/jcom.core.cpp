@@ -136,7 +136,7 @@ t_symbol	*ps_done,
 			*ps_slash_preset_slash_default,		// 	/preset/default
 			*ps_slash_preset_slash_load,		// 	/preset/load
 			*ps_slash_preset_slash_recall,
-			*ps_slash_preset_slash_save,		// 	/preset/save
+			*ps_slash_preset_slash_write,		// 	/preset/save
 			*ps_ui_slash_freeze,				//	ui/freeze
 			*ps_slash_ui_slash_freeze,			//	/ui/freeze
 			*ps_ui_slash_refresh,				//	ui/refresh
@@ -289,7 +289,7 @@ void jcom_core_init(void)
 	ps_slash_preset_slash_default = gensym("/preset/default");
 	ps_slash_preset_slash_load	= gensym("/preset/load");
 	ps_slash_preset_slash_recall	= gensym("/preset/recall");
-	ps_slash_preset_slash_save	= gensym("/preset/save");		
+	ps_slash_preset_slash_write	= gensym("/preset/write");		
 	ps_ui_slash_freeze			= gensym("ui/freeze");
 	ps_slash_ui_slash_freeze	= gensym("/ui/freeze");
 	ps_ui_slash_refresh			= gensym("ui/refresh");
