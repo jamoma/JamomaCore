@@ -172,6 +172,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	}
 	preset->next = x->preset;
 	x->preset = preset;
+	hub_preset_buildmenu(x);
 }
 
 
