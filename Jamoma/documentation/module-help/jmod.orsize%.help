@@ -44,7 +44,7 @@ max v2;
 #X shadow 0;
 #X done;
 #P window linecount 2;
-#P message 47 427 75 196617 \; jmod.init bang;
+#P message 47 427 75 196617 \; jcom.init bang;
 #P window linecount 1;
 #P hidden newex 419 193 65 196617 loadmess set;
 #P message 353 215 107 196617 /angle 0;

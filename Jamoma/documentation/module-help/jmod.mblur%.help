@@ -15,7 +15,7 @@ max v2;
 #P comment 29 56 313 196617 motion blur effect;
 #B frgb 255 255 255;
 #P window linecount 2;
-#P message 28 403 75 196617 \; jmod.init bang;
+#P message 28 403 75 196617 \; jcom.init bang;
 #P number 26 275 35 9 0 0 1 3 0 0 0 221 221 221 222 222 222 0 0 0;
 #P window linecount 1;
 #P message 26 298 68 196617 /slide_up \$1;

@@ -4,7 +4,7 @@ max v2;
 #P objectname /input%1;
 #P window setfont "Sans Serif" 9.;
 #P window linecount 2;
-#P message 82 432 75 196617 \; jmod.init bang;
+#P message 82 432 75 196617 \; jcom.init bang;
 #P window linecount 1;
 #P hidden newex 29 448 27 196617 qlim;
 #P hidden newex 29 426 45 196617 loadbang;

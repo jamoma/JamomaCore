@@ -104,7 +104,7 @@ max v2;
 #P pop;
 #P newobj 649 142 79 196617 p analysis-data;
 #P window linecount 2;
-#P message 70 448 75 196617 \; jmod.init bang;
+#P message 70 448 75 196617 \; jcom.init bang;
 #P window linecount 1;
 #P hidden newex 19 456 27 196617 qlim;
 #P hidden newex 19 434 45 196617 loadbang;

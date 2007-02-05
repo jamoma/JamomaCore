@@ -82,7 +82,7 @@ max v2;
 #P comment 23 56 260 196617 mathematical operations on two matrices;
 #B frgb 255 255 255;
 #P window linecount 2;
-#P message 30 436 75 196617 \; jmod.init bang;
+#P message 30 436 75 196617 \; jcom.init bang;
 #P window linecount 1;
 #P hidden newex 373 250 65 196617 loadmess set;
 #P message 308 272 112 196617 /op_value 0.;

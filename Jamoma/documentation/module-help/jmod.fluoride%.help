@@ -8,7 +8,7 @@ max v2;
 #P bpatcher 339 84 255 60 0 0 jmod.input% 0;
 #P objectname /input%;
 #P window linecount 2;
-#P message 22 496 75 9109513 \; jmod.init bang;
+#P message 22 496 75 9109513 \; jcom.init bang;
 #P flonum 22 341 35 9 0 0 0 139 0 0 0 221 221 221 222 222 222 0 0 0;
 #P flonum 22 323 35 9 0 0 0 139 0 0 0 221 221 221 222 222 222 0 0 0;
 #P flonum 22 305 35 9 0 0 0 139 0 0 0 221 221 221 222 222 222 0 0 0;
