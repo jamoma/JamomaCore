@@ -3,69 +3,7 @@
 #ifndef TT_AUDIO_BASE_HEADER
 #define TT_AUDIO_BASE_HEADER
 
-#include <math.h>		// Standard Math library
-#include <stdlib.h>
-#include <iostream>
-
-/* If the target is an external for Cycling'74 Max then you must define
- * TT_TARGET_MAX in a prefix file.  That way the proper flags are set
- * to use Max's memory routines and other important facilities.
- */
-#ifdef TT_TARGET_MAX
-#include "ext.h"
-#endif // TT_TARGET_MAX
-
-
-/****************************************************************************************************/
-// Type Definitions
-
-typedef short	tt_selector;
-typedef float	tt_attribute_value;
-typedef bool	tt_attribute_value_bool;
-typedef long	tt_attribute_value_discrete;
-
-typedef void 	*tt_ptr;
-
-typedef float	tt_sample_value;
-typedef double	tt_sample_value_highres;
-typedef float	*tt_sample_vector;
-typedef double	*tt_sample_vector_highres;
-
-typedef short	tt_err;						// used for returning error codes
-
-
-/****************************************************************************************************/
-// TapTools Error Codes
-
-enum{
-	TT_NOERR = 0,
-	TT_MEMALLOC_FAILED = -1,
-};
-
-
-/****************************************************************************************************/
-// Platform Sniffing
-
-// We need to figure out what OS and compiler is being used.
-// This will result in symbols being set for conditional compiling of things like memory allocation.
-
-// First Check for symbols defined by the Max API
-#ifdef MAC_VERSION
-	#define TAPTOOLS_TARGET_MAC 1
-#elif defined(WIN_VERSION)
-	#define TAPTOOLS_TARGET_WIN 1
-#elif defined(WIN32)		// Next look for something commonly defined by VC++ to see whether we're on Windows.
-	#define TAPTOOLS_TARGET_WIN 1
-//#else						// If all else fails, assume we are on the Mac...
-//	#define TAPTOOLS_TARGET_MAC 1
-#endif
-
-
-// Include the appropriate API header
-#if TARGET_OS_WIN				// Windows
-#include <windows.h>
-#endif
-
+#include "tt_base.h"
 
 
 /****************************************************************************************************/
@@ -73,7 +11,7 @@ enum{
 
 
 // Specification of our base class
-class tt_audio_base{
+class tt_audio_base:public tt_base{
 	private:
 		bool					is_initialized;				// Flag set by successful initialization
 		
@@ -124,127 +62,9 @@ class tt_audio_base{
 			return(value);
 		}
 
-
-		// Platform-independent Message Logging
-		void log_post(char *message);
-		void log_error(char *message);
-
-
-		// Platform-independent Memory routines
-		tt_ptr mem_alloc(long size);
-		void mem_free(void *my_ptr);
-		
 	
 		// UTILITIES (all inlined here for speed)
 
-		// clip utility
-		template<class T>
-		static T clip(T value, T low_bound, T high_bound)
-		{
-			// This version used branching
-			// return value < low_bound? low_bound: (value > high_bound? high_bound : value);
-			
-			// This version doesn't (!)
-			/* This also takes care of denormal number elimination - see the original post
-			 		to music-dsp by Laurent de Soras (and the appended comments)
-			   While this looks more complex, it actually _is_ faster
-			   This also applies to the min_limit and max_limit functions
-			 */
-
-			// VC++ SEEMS TO HAVE MENTAL ISSUES, HENCE THE DUMB HACK BELOW...
-//#ifdef WIN_VERSION
-//			float x1 = fabs((float)(value - low_bound));
-//			float x2 = fabs((float)(value - high_bound));
-//#else
-//			T x1 = fabs(value - low_bound);
-//			T x2 = fabs(value - high_bound);
-//#endif // WIN_VERSION
-//			value = x1 + (low_bound + high_bound);
-//			value -= x2;
-//			value *= 0.5;
-
-// Re-written here as a one-liner:		
-#ifdef MAC_VERSION
-			value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
-#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
-			value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
-#endif
-			value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
-			return value;
-		}
-		
-		template<class T>
-		static T limit_max(T value, T high_bound)
-		{
-			value = high_bound - value;
-#ifdef MAC_VERSION
-			value += fabs(value);
-#else
-			value += fabs((double)value);
-#endif
-			value *= 0.5;
-			value = high_bound - value;
-			return value; 
-		}
-		
-		template<class T>
-		static T limit_min(T value, T low_bound)
-		{
-			value -= low_bound;
-#ifdef MAC_VERSION
-			value += fabs(value);
-#else
-			value += fabs((double)value);
-#endif
-			value *= 0.5;
-			value += low_bound;
-			return value; 
-		}
-		
-		
-		// round utility
-		static long round(float value)
-		{
-			if(value > 0)
-				return((long)(value + 0.5));
-			else
-				return((long)(value - 0.5));
-		}
-		static long round(double value)
-		{
-			if(value > 0)
-				return((long)(value + 0.5));
-			else
-				return((long)(value - 0.5));
-		}
-		
-		// onewrap utility
-		template<class T>
-		static T onewrap(T value, T low_bound, T high_bound)
-		{
-			if((value >= low_bound) && (value < high_bound)) 
-				return value;
-			else if(value >= high_bound)
-				return((low_bound - 1) + (value - high_bound));	
-			else
-				return((high_bound + 1) - (low_bound - value));
-		}
-		
-		// scale utility
-		template<class T>
-		T scale(T value, T inlow, T inhigh, T outlow, T outhigh)
-		{
-			double inscale, outdiff;
-			 
-		 	inscale = 1 / (inhigh - inlow);
-		 	outdiff = outhigh - outlow;
-		 	
-			value = (value - inlow) * inscale;
-			value = (value * outdiff) + outlow;
-			return(value);											
-		}
-
-		
 		// RADIANS CONVERSIONS: cannot make static because of access to a member data element
 		// hz-to-radians conversion
 		double hertz_to_radians(double hz)	// NOTE: Be sure to set the sr before calling this function

@@ -84,7 +84,7 @@ class tt_delay:public tt_audio_base{
 			in_ptr = buffer;
 			delay_samples_max = max_samples;
 			delay_ms_max = delay_samples_max / m_sr;
-			//post("INIT: delay_ms_max: %f    delay_samps_max: %i", delay_ms_max, delay_samples_max);			
+			//log_post("INIT: delay_ms_max: %f    delay_samps_max: %i", delay_ms_max, delay_samples_max);			
 			set_attr(k_delay_samples, max_samples - 1);
 			set_attr(k_interpolation, k_interpolation_linear);
 			for(i=0;i<4;i++)

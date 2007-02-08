@@ -249,21 +249,21 @@ class tt_procrastinate:public tt_audio_base{
 				tempval[i] = gain_high[i] - gain_low[i];
 				tempval[i] = gain_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				mixer[i]->set_attr(tt_mixer_mono::k_master_gain, tempval[i]);
-//post("gain[%i]: %f", i, tempval[i]);				
+//log_post("gain[%i]: %f", i, tempval[i]);				
 				tempval[i] = pan_high[i] - pan_low[i];
 				tempval[i] = pan_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				panner[i]->set_attr(tt_pan::k_position, tempval[i]);
-//post("pan[%i]: %f", i, tempval[i]);				
+//log_post("pan[%i]: %f", i, tempval[i]);				
 
 				tempval[i] = shift_high[i] - shift_low[i];
 				tempval[i] = shift_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				set_attr(k_ratio, i, tempval[i]);
-//post("shift[%i]: %f", i, tempval[i]);				
+//log_post("shift[%i]: %f", i, tempval[i]);				
 
 				tempval[i] = delay_high[i] - delay_low[i];
 				tempval[i] = delay_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
 				set_attr(k_windowsize, i, tempval[i]);
-//post("delay[%i]: %f", i, tempval[i]);				
+//log_post("delay[%i]: %f", i, tempval[i]);				
 			}		
 		}
 		
@@ -281,13 +281,13 @@ class tt_procrastinate:public tt_audio_base{
 			phasor[0]->dsp_vector_calc(temp[0]);						// phasor~
 			scale[0]->dsp_vector_calc(temp[0], temp[1]);				// *~ 87.0
 			delay1[0]->dsp_vector_calc(in, temp[1], temp[8]);			// blue.delai~
-//post("VOICE 1a: phasor=%f, scale=%f", *temp[0], *temp[1]);
+//log_post("VOICE 1a: phasor=%f, scale=%f", *temp[0], *temp[1]);
 
 			offset->dsp_vector_calc(temp[0], temp[1]);					// +~ 0.5
 			modulo->dsp_vector_calc(temp[1], temp[2]);					// %~ 1.0
 			scale[0]->dsp_vector_calc(temp[2], temp[3]);				// *~ 87.0
 			delay2[0]->dsp_vector_calc(in, temp[3], temp[9]);			// blue.delay~ (the second one)
-//post("VOICE 1b: phasor=%f, mod=%f, scale=%f", *temp[1], *temp[2], *temp[3]);
+//log_post("VOICE 1b: phasor=%f, mod=%f, scale=%f", *temp[1], *temp[2], *temp[3]);
 			
 			wave1->dsp_vector_calc(temp[0], temp[8], temp[6]);			// apply the window
 			wave2->dsp_vector_calc(temp[2], temp[9], temp[7]);			// apply the window

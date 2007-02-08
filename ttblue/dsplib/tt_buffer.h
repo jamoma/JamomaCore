@@ -139,7 +139,7 @@ class tt_buffer:public tt_audio_base{
 				case k_sine:							// SINE WAVE
 					for(i=0; i < length_samples; i++){
 						contents[i] = sin(twopi * (double(i) / (double(length_samples) - 1.0)));
-						// post("FILL: %f", contents[i]);		
+						// log_post("FILL: %f", contents[i]);		
 					}			
 					break;				
 				case k_sine_mod:							// (modulator version: ranges from 0 to 1)
@@ -227,7 +227,7 @@ class tt_buffer:public tt_audio_base{
 						temp = double(i) / (double(length_samples) - 1);
 						contents[i] = ((-1.0 * (temp - param2) * (temp - param2)) / (2 * param1 * param1)) / (param1 * sqrt(twopi));
 						contents[i] = contents[i] * 0.3133;	// scale it
-						//post("FILL: %f", contents[i]);
+						//log_post("FILL: %f", contents[i]);
 					}
 					break;
 

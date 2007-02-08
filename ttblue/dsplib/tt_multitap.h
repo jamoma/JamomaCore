@@ -99,7 +99,7 @@ class tt_multitap:public tt_audio_base{
 		if(value != vectorsize){
 			short i;
 			
-			//post("setting vs: %i (was: %i)", value, vectorsize);			
+			//log_post("setting vs: %i (was: %i)", value, vectorsize);			
 			vectorsize = value;
 			if(buffersize_type)	// if the size was spec'd in ms then resize (don't do anything if spec'd in samples)
 				set_attr(k_buffersize_ms, buffersize_ms);
@@ -247,7 +247,7 @@ class tt_multitap:public tt_audio_base{
 			clear();
 		}
 		else{
-			error("tt_multitap could not allocate memory for the delay buffer!");
+			log_error("tt_multitap could not allocate memory for the delay buffer!");
 			buffer = NULL;
 		}
 	}

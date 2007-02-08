@@ -78,17 +78,18 @@ class tt_audio_signal:public tt_audio_base{
 				vector_start = vector = (tt_sample_value *)mem_alloc((new_vector_size) * sizeof(tt_sample_value));	// allocate new memory
 				if(vector == 0){
 					vectorsize = 0;
-					log_error("YO! Could not ALLOCATE tt_audio_signal");
-					return TT_ERR_ALLOC_FAILED;
+//log_error("YO! Could not ALLOCATE tt_audio_signal");
+					return TT_MEMALLOC_FAILED;
+
 				}
 				else{
 					vectorsize = new_vector_size;			// store the size of the vector
 					clear();
-					//log_post("VECTOR_START: %i", vector_start);
-					return TT_ERR_NONE;
+//log_post("VECTOR_START: %i", vector_start);
+					return TT_NOERR;
 				}
 			}
-			return TT_ERR_NONE;
+			return TT_NOERR;
 		}
 		
 		// RESET THE VECTOR POINTER TO THE BEGINNING OF THE VECTOR
