@@ -265,7 +265,7 @@ function msg_int(value)
 				break;
 			case 3: outlet(4, "/audio/meters/clear"); break;
 			case 5: outlet(4, "/preset/load"); break;
-			case 6: outlet(4, "/preset/save"); break;
+			case 6: outlet(4, "/preset/write"); break;
 			case 7: outlet(4, "/preset/default"); break;
 			case 9: outlet(4, "/documentation/html"); break;
 			case 10: outlet(4, "/documentation/help"); break;
@@ -317,7 +317,7 @@ function msg_int(value)
 				outlet(4, "/video/mute", attr_mute); 
 				break;
 			case 9: outlet(4, "/preset/load"); break;			
-			case 10: outlet(4, "/preset/save"); break;
+			case 10: outlet(4, "/preset/write"); break;
 			case 11: outlet(4, "/preset/default"); break;
 			case 13: outlet(4, "/documentation/html"); break;
 			case 14: outlet(4, "/documentation/help"); break;
@@ -338,7 +338,7 @@ function msg_int(value)
 				break;
 			case 1: outlet(4, "/ui/refresh"); break;
 			case 3: outlet(4, "/preset/load"); break;
-			case 4: outlet(4, "/preset/save"); break;
+			case 4: outlet(4, "/preset/write"); break;
 			case 5: outlet(4, "/preset/default"); break;
 			case 7: outlet(4, "/documentation/html"); break;
 			case 8: outlet(4, "/documentation/help"); break;
