@@ -14,8 +14,8 @@
 		<item name="noise" type="msg_int">1</item>
 		<item name="trails" type="msg_int">0</item>
 		<item name="slide" type="msg_float">6.</item>
-		<item name="algorithm" type="msg_int">0</item>
-		<item name="edge_thresh" type="msg_float">0.1</item>
+		<item name="edge/algorithm" type="msg_int">0</item>
+		<item name="edge/threshold" type="msg_float">0.1</item>
 		<item name="color" type="msg_int">0</item>
     </preset>
 </jamoma>
