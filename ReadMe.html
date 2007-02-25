@@ -3,21 +3,25 @@
 
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-		<title>Tap.Tools DSP Library: ReadMe</title>
+		<title>TTBlue: ReadMe</title>
 	</head>
 
 	<body bgcolor="#ffffff">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td rowspan="2" align="left" valign="middle" bgcolor="#abe98c" width="85"><img src="documentation/tt2_dsplogo.jpg" alt="" width="128" height="128" border="0"></td>
-				<td align="left" valign="middle" bgcolor="#ffe25c" height="52"><font size="+1" face="Courier New"><b>&nbsp;</b></font><font size="+2" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">ReadMe</font></td>
+				<td align="left" valign="middle" bgcolor="#ffe25c" height="52"><font size="+1" face="Courier New"><b>&nbsp;</b></font>
+					<font size="+2" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular">ReadMe</font></td>
 			</tr>
 			<tr>
-				<td align="left" valign="middle" bgcolor="#4f5397" height="33">&nbsp;&nbsp;&nbsp;<font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>Tap.Tools Blue DSP Library</b></font></td>
+				<td align="left" valign="middle" bgcolor="#4f5397" height="33">&nbsp;&nbsp;&nbsp;
+					<font color="#d4d4d4" face="Arial,Helvetica,Geneva,Swiss,SunSans-Regular"><b>TTBlue</b></font></td>
 			</tr>
 		</table>
 		<p><font face="Arial"><b>Introduction</b></font></p>
-		<p>The Tap.Tools Blue DSP Library is a set of open source, cross-platform, C++ objects for performing operations on vectors of audio samples. It the basis of commercial products such as <a href="http://www.electrotap.com/taptoolsmax/">Tap.Tools Max 2.0</a>, <a href="http://www.electrotap.com/jade/">Jade 2.0</a>, and <a href="http://www.electrotap.com/hipno/">Hipno</a>. </p>
+		<p>The TTBlue DSP Library is a set of open source, cross-platform, C++ objects for performing operations on vectors of audio samples. 
+			It the basis of commercial products such as <a href="http://www.electrotap.com/taptoolsmax/">Tap.Tools Max 2.0</a>, 
+			<a href="http://www.electrotap.com/jade/">Jade</a>, and <a href="http://www.electrotap.com/hipno/">Hipno</a>. </p>
 		<p><br>
 			<font face="Arial"><b>Installing</b></font></p>
 		<p>Place the folder containing this ReadMe somewhere on your hard-drive. Then Make sure your compiler has access to it in order to compile the code. </p>
@@ -29,7 +33,7 @@
 		</ul>
 		<p><br>
 			<font face="Arial"><b>License</b></font></p>
-		<p>Tap.Tools Blue is licensed as open source software under the terms of the <a href="http://www.gnu.org/licenses/lgpl.html">GNU LPGL</a>.</p>
+		<p>TTBlue is licensed as open source software under the terms of the <a href="http://www.gnu.org/licenses/lgpl.html">GNU LPGL</a>.</p>
 		<p><br>
 		</p>
 		<p><font face="Arial"><b>Features</b></font></p>
@@ -43,45 +47,31 @@
 		</p>
 		<p><font face="Arial"><b>Known Issues &amp; Wish List</b></font></p>
 		<ul>
-			<li type="disc">My AudioUnit Plugin projects don't work if I move them from the /Developer/Examples/... folder. There are some dependencies or relative-paths that I need to figure out here...
 			<li type="disc">set_sr() needs to be over-ridden in tap_delay, tap_comb, etc.
-
 			<li type="disc">sample-rate reduction in the degrade object doesn't sound quite right (compare to MSP's degrade~ which is what I'm trying to emulate). 
 			<li type="disc">would like some type of a scheduler - probably based on counting samples?
-			<li type="disc">would like to add polyphic handling
-
+			<li type="disc">would like to add polyphonic handling
 			<li type="disc">The gaussian function in tap_buffer::fill() does not produce the correct results.
-
-			<li type="disc">tap_upsample currently has no interpolation - it should have at least linear interpolation so it sounds better - perhaps as an option
-
 			<li type="disc">Need to make a sah object (especially for granular applications)...
-
 			<li type="disc">Implement Stephan's 64bit noise:<br>
 				f(Pn) = Pn + K * Pn * (1 - Pn) = p(n+1)<br>
 				n = nth value for p (initial value of p = 0.9)<br>
 				k is a constant - e.g. 3.0<br>
 				09 + 9 * 0.9 * (1.0 - 0.9)
-
 			<li type="disc">Need to implement multi-channel buffers
 			<li type="disc">Need to add file reading to tap_buffer
-
-			<li type="disc">Need to finish tap_buffer_record - in part so that tap.sustain~ can be made into an external (for reliable operation in general, and also at reduced sample rates).
-
+			<li type="disc">Need to finish tap_buffer_record - in part so that tap.sustain~ can be made into an external 
+				(for reliable operation in general, and also at reduced sample rates).
 			<li type="disc">The polynomial interpolation in the tap_delay object doesn't work properly - just use linear (which is the default) for the time being.
-
 			<li type="disc">MUST add interpolation for downsampling / upsampling object
-
 		</ul>
 		<p><br>
 		</p>
 		<p><font face="Arial"><b>More Information</b></font></p>
 		<ul>
-			<li type="disc">At the moment, this projects primary sponsor is <a href="http://www.electrotap.com/">Electrotap</a>. We are hopeful that we will find other sponsors and contributors soon.
+			<li type="disc">At the moment, this projects primary sponsor is <a href="http://www.electrotap.com/">Electrotap</a>. 
+				We are looking for additional sponsors and contributors, so please drop a note to support at electrotap.com if you are interested.
 			<li type="disc">
-			
-				
-			
-			
 			
 		</ul>
 	</body>
