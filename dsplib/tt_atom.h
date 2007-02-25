@@ -15,7 +15,7 @@
 /****************************************************************************************************/
 // Class Specification
 
-class tt_atom : tt_base {	// perhaps inherit from a shared tt_base which does the platform sniffing?
+class tt_atom : tt_base {
 	public:
 		enum types{
 			pointer = 0,
@@ -83,7 +83,7 @@ class tt_atom : tt_base {	// perhaps inherit from a shared tt_base which does th
 		
 		// DATA ACCESSORS
 		// When the type is an array, how do we access individual members?  how do we insert, push, and pop?
-		tt_float32 get_float32()
+/*		tt_float32 get_float32()
 		{
 			;
 		}
@@ -92,13 +92,40 @@ class tt_atom : tt_base {	// perhaps inherit from a shared tt_base which does th
 		{
 			;
 		}
-	
+*/	
 	// !!! Can these just be set automatically using assignments?
-	
+
+		tt_int32 operator = (const tt_atom& a){
+			if(type == int32)
+				return data.int32;
+			else{
+				// call method for converting data
+			}
+		}
 		
+		tt_atom& operator = (tt_int32 value){
+			type = int32;
+			data.int32 = value;
+			return *this;
+		}
+
+		
+		tt_float32 operator = (const tt_atom& a){
+			if(type == float32)
+				return data.float32;
+			else{
+				// call method for converting data
+			}
+		}
+		
+		tt_atom& operator = (tt_float32 value){
+			type = float32;
+			data.float32 = value;
+			return *this;
+		}
 
 };
 
 
 
-#endif // TT_AUDIO_SIGNAL_HEADER
+#endif // TT_ATOM_HEADER
