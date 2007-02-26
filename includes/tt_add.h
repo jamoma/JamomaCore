@@ -36,6 +36,10 @@ class tt_add:public tt_audio_base{
 			;
 		}
 		
+		// use the generic c++ copy constructor
+		// tt_add operator = (const tt_add &tt_add_source)
+
+
 		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 		{
 			temp_vs = in1->vectorsize;

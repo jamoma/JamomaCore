@@ -58,17 +58,18 @@ class tt_buffer:public tt_audio_base{
 		
 		
 		// OBJECT LIFE					
-		tt_buffer(long val)								// Constructor
+		tt_buffer(long val = 0)								// Constructor
 		{
 			init();
 			set_attr(k_length_samples, val);
 		}
 
+/*	BECAUSE THE ABOVE HAS A DEFAULT VALUE, THAT DEFAULT VALUE WILL BE USED IF NOTHING IS SUPPLIED
 		tt_buffer()										// Constructor
 		{
 			init();
 		}
-		
+*/		
 		~tt_buffer()										// Destructor
 		{
 			buffer_free();

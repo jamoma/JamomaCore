@@ -45,6 +45,9 @@ class tt_clip:public tt_audio_base{
 		{
 			;
 		}
+		
+		// use the generic c++ copy constructor
+		// tt_clip operator = (const tt_add &tt_clip_source)
 
 
 		// ATTRIBUTES
