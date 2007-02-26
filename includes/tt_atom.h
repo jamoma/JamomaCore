@@ -71,7 +71,8 @@ class tt_atom : tt_base {
 		}
 		
 		// TYPE ACCESSORS
-		data_type get_type()
+		// trailing const -- this method can be used on const variables
+		data_type get_type() const
 		{
 			return type;
 		}
