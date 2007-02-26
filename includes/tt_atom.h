@@ -17,7 +17,7 @@
 
 class tt_atom : tt_base {
 	public:
-		enum types{
+		enum data_type{
 			pointer = 0,
 			char,
 			string,
@@ -35,7 +35,7 @@ class tt_atom : tt_base {
 		};
 
 	private:
-		union data{
+		union data_value{
 			tt_pointer	d_pointer;
 			tt_char		d_char;
 			tt_string,
@@ -50,9 +50,9 @@ class tt_atom : tt_base {
 			float32,
 			float64,
 			tt_pointer	d_array;
-		};
+		} data;
 
-		types		type;			// what kind of data is in this tt_atom?
+		data_type	type;			// what kind of data is in this tt_atom?
 		tt_uint16	num_atoms;		// if this contains an array of other tt_atoms, the number of tt_atoms
 
 	public:
@@ -71,12 +71,12 @@ class tt_atom : tt_base {
 		}
 		
 		// TYPE ACCESSORS
-		types get_type()
+		data_type get_type()
 		{
 			return type;
 		}
 		
-		void set_type(types arg)
+		void set_type(data_type arg)	// this should never be needed
 		{
 			type = arg;
 		}
@@ -95,7 +95,7 @@ class tt_atom : tt_base {
 */	
 	// !!! Can these just be set automatically using assignments?
 
-		tt_int32 operator = (const tt_atom& a){
+		tt_int32 operator = (const tt_atom &a){
 			if(type == int32)
 				return data.int32;
 			else{
@@ -110,7 +110,7 @@ class tt_atom : tt_base {
 		}
 
 		
-		tt_float32 operator = (const tt_atom& a){
+		tt_float32 operator = (const tt_atom &a){
 			if(type == float32)
 				return data.float32;
 			else{
@@ -122,6 +122,14 @@ class tt_atom : tt_base {
 			type = float32;
 			data.float32 = value;
 			return *this;
+		}
+
+
+
+		// make sure this is a friend so that it can access the private members of the other atom
+		friend bool operator == (const tt_atom &a1, const tt_atom &a2){
+			// NEEDS PROPER IMPLEMENTATION STILL
+			return false;
 		}
 
 };

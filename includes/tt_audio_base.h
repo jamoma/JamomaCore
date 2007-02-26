@@ -67,32 +67,32 @@ class tt_audio_base:public tt_base{
 
 		// RADIANS CONVERSIONS: cannot make static because of access to a member data element
 		// hz-to-radians conversion
-		double hertz_to_radians(double hz)	// NOTE: Be sure to set the sr before calling this function
+		double hertz_to_radians(const double hz)	// NOTE: Be sure to set the sr before calling this function
 		{
 			return(hz * (pi / (sr * 0.5)));
 		}
 
 		// radians-to-hz conversion
-		double radians_to_hertz(double radians)	// NOTE: Be sure to set the sr before calling this function
+		double radians_to_hertz(const double radians)	// NOTE: Be sure to set the sr before calling this function
 		{
 			return((radians * sr) / twopi);
 		}
 
 		// degrees-to-radians conversion
-		double degrees_to_radians(double degrees)
+		double degrees_to_radians(const double degrees)
 		{
 			return((degrees * pi) / 180.);
 		}
 
 		// radians-to-degrees conversion
-		double radians_to_degrees(double radians)
+		double radians_to_degrees(const double radians)
 		{
 			return((radians * 180.) / pi);	
 		}
 
 
 		// Decay Time (seconds) to feedback coefficient conversion
-		static float decay_to_feedback(float decay_time, float delay)
+		static float decay_to_feedback(const float decay_time, const float delay)
 		{
 			float 	fb;					// variable for our result		
 			delay = delay * 0.001;		// convert delay from milliseconds to seconds
@@ -111,7 +111,7 @@ class tt_audio_base:public tt_base{
 		}
 
 		// return the decay time based on the feedback coefficient
-		static float feedback_to_decay(float feedback, float delay)
+		static float feedback_to_decay(const float feedback, const float delay)
 		{
 			float 	decay_time;				// variable for our result
 			
@@ -135,10 +135,12 @@ class tt_audio_base:public tt_base{
 		// ************* DECIBEL CONVERSIONS **************
 
 		// Amplitude to decibels
-		static float amplitude_to_decibels(float value)
+		static float amplitude_to_decibels(const float value)
 		{
-			if (value >= 0) return(20. * (log10(value)));
-			else return 0;
+			if(value >= 0) 
+				return(20. * (log10(value)));
+			else
+			 	return 0;
 		}
 
 		// Decibels to amplitude
