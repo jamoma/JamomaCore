@@ -2,8 +2,8 @@
  *******************************************************
  *		RMS AVERAGER
  *******************************************************
- *		Tap.Tools Blue Object
- *		copyright © 2003 by Timothy A. Place
+ *		TTBlue Object
+ *		Copyright © 2003 by Timothy A. Place
  *
  */
 
@@ -16,9 +16,7 @@
 
 
 /********************************************************
-	CLASS INTERFACE/IMPLEMENTATION
-
-	The entire class is implemented inline for speed.
+	CLASS INTERFACE
  ********************************************************/
 
 class tt_rms:public tt_audio_base{
@@ -40,60 +38,18 @@ class tt_rms:public tt_audio_base{
 		
 
 		// OBJECT LIFE					
-		tt_rms()				// Constructor		
-		{
-			coefficient = 0.9;
-		}
-
-		~tt_rms()				// Destructor
-		{
-			;
-		}
-
+		tt_rms();				// Constructor		
+		~tt_rms();				// Destructor
 
 		// ATTRIBUTES
-		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
-		{
-			switch (sel){
-				case k_feedback_coefficient:
-					coefficient = val;
-					break;
-			}
-		}
-
-		tt_attribute_value get_attr(tt_selector sel)			// Get Attributes
-		{
-			switch (sel){
-				case k_feedback_coefficient:
-					return coefficient;
-				default:
-					return 0.0;
-			}
-		}
-		
+		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
+		tt_attribute_value get_attr(tt_selector sel);			// Get Attributes
 		
 		// DSP LOOP
-		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
-		{
-			tt_sample_value val;
-			temp_vs = in->vectorsize;
-			while(temp_vs--){
-				val = *in->vector++;
-				val = val * val;														// Square
-				val = feedback = anti_denormal((feedback * coefficient) + (val * (1 - coefficient)));	// Mean
-				*out->vector++ = sqrt(val);											// Root
-			}
-			in->reset(); out->reset();
-		}
-
+		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);
 
 		// clear
-		void clear()
-		{
-			feedback = 0.0;	
-		}
-
-		
+		void clear();
 };
 
 

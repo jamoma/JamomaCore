@@ -1,149 +1,103 @@
-/*
- *******************************************************
- *		CYCLING RAMP GENERATOR
- *******************************************************
- *		Tap.Tools Blue Object
- *		copyright © 2003 by Timothy A. Place
- *
- */
-
-// Check against redundant including
-#ifndef TT_PHASOR_H
-#define TT_PHASOR_H
-
-// Include appropriate headers
-#include "tt_audio_base.h"
+#include "tt_phasor.h"
 
 
-/********************************************************
-	CLASS INTERFACE/IMPLEMENTATION
+// OBJECT LIFE					
+tt_phasor::tt_phasor()									// Constructor		
+{
+	current = 0;
+	step = 0;
+	gain = 1.0;
+}
 
-	The entire class is implemented inline for speed.
- ********************************************************/
+tt_phasor::~tt_phasor()								// Destructor
+{
+	;
+}
 
-class tt_phasor:public tt_audio_base{
 
-	private:
-		tt_attribute_value		frequency;			// define the ramp time cycle in hertz
-		tt_attribute_value 		ramp_ms;			// ramp time in milliseconds
-		long					ramp_samps;			// ramp time in samples
-		tt_attribute_value		gain;
-
-		tt_sample_value			current;			// 
-		double					step;				// 		
+// OVER-RIDE THE INHERITED SET SR METHOD
+inline void tt_phasor::set_sr(int value)
+{
+	if(value != sr){
+		sr = value;					// These first three need to be called to do the standard stuff from the base class
+		r_sr = 1.0 / value;			// 	THERE SHOULD BE A MORE ELEGANT WAY OF DOING THIS, NO ?!?!?!?!?
+		m_sr = (float)sr * 0.001;	//		...
 	
-	public:
-		enum selectors{								// Attribute Selectors
-			k_ramp_ms,
-			k_ramp_samps,
-			k_frequency,
-			k_phase,
-			k_gain,
-			k_gain_direct,
-		};
-		
-
-		// OBJECT LIFE					
-		tt_phasor()									// Constructor		
-		{
-			current = 0;
-			step = 0;
-			gain = 1.0;
-		}
-
-		~tt_phasor()								// Destructor
-		{
-			;
-		}
+		// This is the SR setting stuff that is specific to this object.
+		set_attr(k_frequency, frequency);		// set our step size (etc)
+	}
+}
 
 
-		// OVER-RIDE THE INHERITED SET SR METHOD
-		void set_sr(int value)
-		{
-			if(value != sr){
-				sr = value;					// These first three need to be called to do the standard stuff from the base class
-				r_sr = 1.0 / value;			// 	THERE SHOULD BE A MORE ELEGANT WAY OF DOING THIS, NO ?!?!?!?!?
-				m_sr = (float)sr * 0.001;	//		...
-			
-				// This is the SR setting stuff that is specific to this object.
-				set_attr(k_frequency, frequency);		// set our step size (etc)
+// ATTRIBUTES
+inline void tt_phasor::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+{
+	switch (sel){
+		case k_phase:
+			current = val;
+			break;
+		case k_frequency:
+			frequency = val;
+			if(frequency == 0){
+				ramp_samps = 1;
+				ramp_ms = 0;
 			}
-		}
-
-
-		// ATTRIBUTES
-		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
-		{
-			switch (sel){
-				case k_phase:
-					current = val;
-					break;
-				case k_frequency:
-					frequency = val;
-					if(frequency == 0){
-						ramp_samps = 1;
-						ramp_ms = 0;
-					}
-					else{
-						ramp_samps = long((1.0 / frequency) * sr);
-						ramp_ms = 1000.0 * (ramp_samps / float(sr));
-					}
-					break;
-				case k_ramp_ms:
-					ramp_ms = val;
-					ramp_samps = long((ramp_ms * 0.001) * sr);
-					frequency = 1 / (ramp_samps / float(sr));
-					break;
-				case k_ramp_samps:
-					ramp_samps = long(val);
-					ramp_ms = 1000.0 * (ramp_samps / float(sr));
-					frequency = 1 / (ramp_samps / float(sr));
-					break;
-				case k_gain:
-					gain = decibels_to_amplitude(val);
-					break;
-				case k_gain_direct:
-					gain = val;
+			else{
+				ramp_samps = long((1.0 / frequency) * sr);
+				ramp_ms = 1000.0 * (ramp_samps / float(sr));
 			}
-			step = 1.0 / double(ramp_samps);	// 1.0 is the destination
-		}
+			break;
+		case k_ramp_ms:
+			ramp_ms = val;
+			ramp_samps = long((ramp_ms * 0.001) * sr);
+			frequency = 1 / (ramp_samps / float(sr));
+			break;
+		case k_ramp_samps:
+			ramp_samps = long(val);
+			ramp_ms = 1000.0 * (ramp_samps / float(sr));
+			frequency = 1 / (ramp_samps / float(sr));
+			break;
+		case k_gain:
+			gain = decibels_to_amplitude(val);
+			break;
+		case k_gain_direct:
+			gain = val;
+	}
+	step = 1.0 / double(ramp_samps);	// 1.0 is the destination
+}
 
-		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
-		{
-			switch (sel){
-				case k_phase:
-					return current;
-				case k_frequency:
-					return frequency;
-				case k_ramp_ms:
-					return ramp_ms;
-				case k_ramp_samps:
-					return tt_attribute_value(ramp_samps);
-				case k_gain:
-					return amplitude_to_decibels(gain);
-				case k_gain_direct:
-					return gain;
-				default:
-					return 0.0;
-			}
-		}
-		
-		
-		// DSP LOOP
-		void dsp_vector_calc(tt_audio_signal *out)
-		{
-			temp_vs = out->vectorsize;
-			while(temp_vs--){
-				current += step;
-				if(current >= 1.0)
-					current -= 1.0;
-				else if(current < 0.0)
-					current += 1.0;
-				*out->vector++ = current * gain;	
-			}
-			out->reset();
-		}
-};
+inline tt_attribute_value tt_phasor::get_attr(tt_selector sel)				// Get Attributes
+{
+	switch (sel){
+		case k_phase:
+			return current;
+		case k_frequency:
+			return frequency;
+		case k_ramp_ms:
+			return ramp_ms;
+		case k_ramp_samps:
+			return tt_attribute_value(ramp_samps);
+		case k_gain:
+			return amplitude_to_decibels(gain);
+		case k_gain_direct:
+			return gain;
+		default:
+			return 0.0;
+	}
+}
 
 
-#endif	// TT_PHASOR_H
+// DSP LOOP
+inline void tt_phasor::dsp_vector_calc(tt_audio_signal *out)
+{
+	temp_vs = out->vectorsize;
+	while(temp_vs--){
+		current += step;
+		if(current >= 1.0)
+			current -= 1.0;
+		else if(current < 0.0)
+			current += 1.0;
+		*out->vector++ = current * gain;	
+	}
+	out->reset();
+}
