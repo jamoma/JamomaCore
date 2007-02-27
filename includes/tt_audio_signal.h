@@ -68,6 +68,17 @@ class tt_audio_signal:public tt_audio_base{
 			vector = vector_start = ext_vector;
 		}
 		
+		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+		{
+			;
+		}
+
+		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
+		{
+			return 0;
+		}
+		
+		
 		
 		// ALLOCATE A VECTOR - SET ITS SIZE
 		tt_err alloc(short new_vector_size)

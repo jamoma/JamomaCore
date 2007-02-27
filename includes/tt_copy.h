@@ -36,6 +36,17 @@ class tt_copy:public tt_audio_base{
 			;
 		}
 		
+		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+		{
+			;
+		}
+
+		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
+		{
+			return 0;
+		}
+		
+		
 		// DSP LOOP
 		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 		{

@@ -13,6 +13,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 
 
 /********************************************************
@@ -39,6 +40,16 @@ class tt_dcblock:public tt_audio_base{
 		~tt_dcblock()				// Destructor
 		{
 			;
+		}
+		
+		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+		{
+			;
+		}
+
+		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
+		{
+			return 0;
 		}
 		
 		
