@@ -2,8 +2,8 @@
  *******************************************************
  *		RUNNING AVERAGER
  *******************************************************
- *		Tap.Tools Blue Object
- *		copyright © 2003 by Timothy A. Place
+ *		TTBlue Object
+ *		Copyright © 2003 by Timothy A. Place
  *
  */
 
@@ -16,9 +16,7 @@
 
 
 /********************************************************
-	CLASS INTERFACE/IMPLEMENTATION
-
-	The entire class is implemented inline for speed.
+	CLASS INTERFACE
  ********************************************************/
 
 class tt_average:public tt_audio_base{
@@ -42,7 +40,7 @@ class tt_average:public tt_audio_base{
 	
 	public:
 		enum selectors{								
-			k_mode,							// Attribute Selectors
+			k_mode,													// Attribute Selectors
 			k_mode_bipolar,
 			k_mode_absolute,
 			k_mode_rms,
@@ -51,137 +49,24 @@ class tt_average:public tt_audio_base{
 		
 
 		// OBJECT LIFE					
-		tt_average()								// Constructor		
-		{
-			bins = bins_in = bins_out = bins_end = 0;
-			bins = (tt_sample_value *)mem_alloc((1 + MAX_AVERAGE_INTERVAL) * sizeof(tt_sample_value));
-			set_attr(k_interval, 100);
-			set_attr(k_mode, k_mode_absolute);
-			clear();
-		}
-
-		~tt_average()								// Destructor
-		{
-			mem_free(bins);
-		}
-
+		tt_average();												// Constructor		
+		~tt_average();												// Destructor
 
 		// ATTRIBUTES
-		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
-		{
-			switch (sel){
-				case k_interval:
-					val = clip(int(val), 1, int(MAX_AVERAGE_INTERVAL));
-					interval = (tt_attribute_value_discrete)val;
-					clear();
-					break;
-				case k_mode:
-					mode = (tt_attribute_value_discrete)val;
-					if(mode == k_mode_bipolar)
-						dsp_executor = &tt_average::dsp_vector_calc_bipolar;
-					else if(mode == k_mode_absolute)
-						dsp_executor = &tt_average::dsp_vector_calc_absolute;
-					else if(mode == k_mode_rms)
-						dsp_executor = &tt_average::dsp_vector_calc_rms;
-					break;
-			}
-		}
-
-		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
-		{
-			switch (sel){
-				case k_interval:
-					return interval;
-				case k_mode:
-					return mode;
-				default:
-					return 0.0;
-			}
-		}
-		
+		void set_attr(tt_selector sel, tt_attribute_value val);		// Set Attributes
+		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
 		
 		// clear
-		void clear()
-		{
-			int i;
-			
-			bins_in = bins;
-			for (i = 0; i < MAX_AVERAGE_INTERVAL; i++)
-				*(bins_in+i) = 0.0;
-			
-			accumulator = 0.0;
-			intervalReciprocal = 1.0 / interval;
-			bins_end = bins + interval;
-			bins_out = bins_in - interval;
-			if (bins_out < bins)
-				bins_out = bins_end + (bins_out - bins) + 1;
-		}
-
+		void clear();
 
 		/*****************************************************
 		 * DSP LOOPS
 		 *****************************************************/
-		
-		// Publically exposed interface for this object's dsp routine
-		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
-		{
-			(*this.*dsp_executor)(in, out);	// Run the function pointed to by our function pointer
-		}
-	
+		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);		// Publically exposed interface for this object's dsp routine
 	private:
-		// DSP LOOP: BIPOLAR
-		void dsp_vector_calc_bipolar(tt_audio_signal *in, tt_audio_signal *out)
-		{
-			temp_vs = in->vectorsize;
-			while(temp_vs--){
-				if (bins_out > bins_end)
-					bins_out = bins;
-				if (bins_in > bins_end)
-					bins_in = bins;
-				accumulator -= *bins_out++;
-				
-				accumulator += *bins_in++ = *in->vector++;
-				*out->vector++ = accumulator * intervalReciprocal;
-			}
-			in->reset(); out->reset();
-		}
-
-		// DSP LOOP: ABSOLUTE
-		void dsp_vector_calc_absolute(tt_audio_signal *in, tt_audio_signal *out)
-		{
-			temp_vs = in->vectorsize;
-			while(temp_vs--){
-				if (bins_out > bins_end)
-					bins_out = bins;
-				if (bins_in > bins_end)
-					bins_in = bins;
-				accumulator -= *bins_out++;
-				
-				accumulator += *bins_in++ = fabs(*in->vector++);
-				*out->vector++ = accumulator * intervalReciprocal;
-			}
-			in->reset(); out->reset();
-		}
-
-		// DSP LOOP: RMS
-		void dsp_vector_calc_rms(tt_audio_signal *in, tt_audio_signal *out)
-		{
-			tt_sample_value value;
-			temp_vs = in->vectorsize;
-			
-			while(temp_vs--){
-				if (bins_out > bins_end)
-					bins_out = bins;
-				if (bins_in > bins_end)
-					bins_in = bins;
-				accumulator -= *bins_out++;
-				
-				value = *in->vector++;
-				accumulator += *bins_in++ = value * value;
-				*out->vector++ = sqrt(accumulator * intervalReciprocal);
-			}
-			in->reset(); out->reset();
-		}
+		void dsp_vector_calc_bipolar(tt_audio_signal *in, tt_audio_signal *out);
+		void dsp_vector_calc_absolute(tt_audio_signal *in, tt_audio_signal *out);
+		void dsp_vector_calc_rms(tt_audio_signal *in, tt_audio_signal *out);
 };
 
 #endif	// TT_AVERAGE_H
