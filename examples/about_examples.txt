@@ -1,0 +1,15 @@
+TTBlue Examples
+
+Max/MSP Externals
+* tt.dcblock~	-- simple wrapper, no parameters
+* tt.twopole~	-- simple wrapper with parameters
+* tt.zooloop~	-- composite object using buffers
+
+AudioUnit Plug-ins
+* TTShift		-- simple wrapper with default interface
+* TTVerb		-- simple wrapper with ? interface
+
+VST Plug-ins
+* VBlueShift	-- simple wrapper with default interface
+* VBlueSVF		-- simple wrapper with ? interface
+

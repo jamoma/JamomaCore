@@ -1,0 +1,3 @@
+The zooloop~ is an MSP object that uses multiple TTBlue objects together to create a buffer-based sound capture and loop-playback object.
+
+This example demonstrates how to use buffers, how to pass audio signals between objects, and other goodies.
