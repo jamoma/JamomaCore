@@ -33,27 +33,28 @@ class tt_audio_base:public tt_base{
 		
 	public:
 		static const double 	pi;							// 3.14...
-		int						vectorsize;				// Made Public for Speed (Fast access in dsp routines)
+		int						vectorsize;					// Made Public for Speed (Fast access in dsp routines)
 		
 		// OBJECT LIFE
-		tt_audio_base();								// constructor
-		~tt_audio_base();								// destructor - free memory, etc.
+		tt_audio_base();									// constructor
+		~tt_audio_base();									// destructor - free memory, etc.
 
 		
 		// ATTRIBUTES
-		static void set_global_sr(int value);			// sets the global sample rate for the library
-		static int get_global_sr();						// return the global sample rate
-		void set_sr(int value);							// sets the local sample rate for the object
-		int get_sr();									// return the local sample rate
+		static void 	set_global_sr(int value);			// sets the global sample rate for the library
+		static int 		get_global_sr();					// return the global sample rate
+		virtual void 	set_sr(int value);					// sets the local sample rate for the object
+		virtual int 	get_sr();							// return the local sample rate
 		
-		static void set_global_vectorsize(int value);	// ADDED VECTORSIZE STUFF 2004.06.15
-		static int get_global_vectorsize();
-		void set_vectorsize(int value);
-		int get_vectorsize();
+		static void 	set_global_vectorsize(int value);	// ADDED VECTORSIZE STUFF 2004.06.15
+		static int 		get_global_vectorsize();
+		virtual void 	set_vectorsize(int value);
+		virtual int 	get_vectorsize();
 		
 		// ATTRIBUTES: pure virtual functions -- must define these in derived classes!
 		virtual void 				set_attr(tt_selector sel, tt_attribute_value val)	= 0	// Set Attributes
 		virtual tt_attribute_value 	get_attr(tt_selector sel)							= 0	// Get Attributes
+
 		
 		// Attempt to knock out denormalized floats; inlined here for speed
 		static double anti_denormal(double value)
