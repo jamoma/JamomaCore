@@ -50,7 +50,10 @@ class tt_audio_base:public tt_base{
 		static int get_global_vectorsize();
 		void set_vectorsize(int value);
 		int get_vectorsize();
-				
+		
+		// ATTRIBUTES: pure virtual functions -- must define these in derived classes!
+		virtual void 				set_attr(tt_selector sel, tt_attribute_value val)	= 0	// Set Attributes
+		virtual tt_attribute_value 	get_attr(tt_selector sel)							= 0	// Get Attributes
 		
 		// Attempt to knock out denormalized floats; inlined here for speed
 		static double anti_denormal(double value)
