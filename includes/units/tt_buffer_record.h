@@ -2,8 +2,8 @@
  *******************************************************
  *		RECORD SAMPLES TO A BUFFER
  *******************************************************
- *		Tap.Tools Blue Object
- *		copyright © 2003 by Timothy A. Place
+ *		TTBlue Object
+ *		Copyright © 2003 by Timothy A. Place
  *
  */
 
@@ -17,9 +17,7 @@
 
 
 /********************************************************
-	CLASS INTERFACE/IMPLEMENTATION
-
-	The entire class is implemented inline for speed.
+	CLASS INTERFACE
  ********************************************************/
 
 class tt_buffer_record:public tt_audio_base{
@@ -37,7 +35,6 @@ class tt_buffer_record:public tt_audio_base{
 		tt_buffer						*my_buffer;
 		unsigned long					index;
 	
-	
 	public:
 		enum selectors{										// Attribute Selectors
 			k_mode,
@@ -47,118 +44,28 @@ class tt_buffer_record:public tt_audio_base{
 			k_loop,
 		};
 		
-
 		// OBJECT LIFE					
-		tt_buffer_record()									// Constructor		
-		{
-			// set defaults
-			set_attr(k_mode, k_mode_direct);
-			set_attr(k_record, 0);
-			set_attr(k_loop, 0);
-			my_buffer = 0;
-		}
-
-		tt_buffer_record(tt_buffer *buffer_ref)			// Constructor - BUFFER ARG
-		{
-			// set defaults
-			set_attr(k_mode, k_mode_direct);
-			set_attr(k_record, 0);
-			set_attr(k_loop, 0);
-			my_buffer = 0;
-			set_buffer(buffer_ref);
-		}
-
-		~tt_buffer_record()								// Destructor
-		{
-			;
-		}
-
+		tt_buffer_record();									// Constructor		
+		tt_buffer_record(tt_buffer *buffer_ref);			// Constructor - BUFFER ARG
+		~tt_buffer_record();								// Destructor
 
 		// ATTRIBUTES
-		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
-		{
-			switch (sel){
-				case k_mode:	// mode sets a function pointer to the correct dsp loop
-					mode = (tt_attribute_value_discrete)val;
-					if(mode == k_mode_direct)
-						dsp_executor = &tt_buffer_record::dsp_vector_calc_direct;
-					else if(mode == k_mode_fadein)
-						dsp_executor = &tt_buffer_record::dsp_vector_calc_fadein;
-					break;
-				case k_record:
-					record = (tt_attribute_value_discrete)val;
-					index = 0;		// Set back to the beginning of the buffer
-					break;
-				case k_loop:
-					loop = (tt_attribute_value_discrete)val;
-					break;
-			}
-		}
-
-		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
-		{
-			switch (sel){
-				case k_mode:
-					return mode;
-				default:
-					return 0.0;
-			}
-		}
-
+		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
+		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
 
 		// METHODS
-		void set_buffer(tt_buffer *buffer_ref)	// Set Buffer
-		{
-			my_buffer = buffer_ref;	
-		}
-
-		tt_buffer *get_buffer()				// Get Buffer
-		{
-			return my_buffer;
-		}
-		
+		void set_buffer(tt_buffer *buffer_ref);	// Set Buffer
+		tt_buffer *get_buffer();				// Get Buffer		
 
 		/*****************************************************
 		 * DSP LOOPS
 		 *****************************************************/
-		
-		// Publically exposed interface for this object's dsp routine
-		void dsp_vector_calc(tt_audio_signal *in)
-		{
-			(*this.*dsp_executor)(in);
-		}
-
+		void dsp_vector_calc(tt_audio_signal *in);
 	private:
 		// DSP LOOP: direct (no fade in)
-		void dsp_vector_calc_direct(tt_audio_signal *in)
-		{
-			temp_vs = in->vectorsize;
-		    while(temp_vs--){
-				// locate the play head, range check
-				if(record == 0) return;
-				
-				my_buffer->contents[index++] = *in->vector++;	// Write to the buffer
-				
-				if(index >= my_buffer->length_samples){
-					index = 0;				
-				 	if(loop == 0)
-						record = 0;
-				}
-		    }
-   		    in->reset();
-		}
-		
+		void dsp_vector_calc_direct(tt_audio_signal *in);		
 		// DSP LOOP: fade in
-		void dsp_vector_calc_fadein(tt_audio_signal *in)
-		{
-			temp_vs = in->vectorsize;
-		    while(temp_vs--){
-				*in->vector++;// ********************* NOT YET IMPLEMENTED ************************
-		    }
-		    in->reset();
-
-		}
-		
+		void dsp_vector_calc_fadein(tt_audio_signal *in);
 };
 
-#endif	// tt_BUFFER_RECORD_H
+#endif	// TT_BUFFER_RECORD_H
