@@ -128,18 +128,12 @@ tt_audio_base::tt_audio_base(void)
 	init();
 }
 
-void tt_audio_base::init()
-{
-	is_initialized = true;					// Set the indicator flag
-}
-
 
 // DESTRUCTOR
 tt_audio_base::~tt_audio_base()
 {
 	;
 }
-
 
 
 // ATTRIBUTE: global sample rate
@@ -168,8 +162,6 @@ int tt_audio_base::get_sr()
 }
 
 
-
-
 // ATTRIBUTE: global vector size
 void tt_audio_base::set_global_vectorsize(int value)
 {
@@ -191,4 +183,208 @@ void tt_audio_base::set_vectorsize(int value)
 int tt_audio_base::get_vectorsize()
 {
 	return vectorsize;
+}
+
+
+// Attempt to knock out denormalized floats; inlined here for speed
+inline static double tt_audio_base::anti_denormal(double value)
+{
+#ifndef TT_DISABLE_DENORMAL_FIX		// Define this to test code without denormal fixing
+	value += anti_denormal_value;
+	value -= anti_denormal_value;
+#endif
+	return(value);
+}
+
+
+// UTILITIES (all inlined here for speed)
+
+// RADIANS CONVERSIONS: cannot make static because of access to a member data element
+// hz-to-radians conversion
+inline double tt_audio_base::hertz_to_radians(const double hz)	// NOTE: Be sure to set the sr before calling this function
+{
+	return(hz * (pi / (sr * 0.5)));
+}
+
+// radians-to-hz conversion
+inline double tt_audio_base::radians_to_hertz(const double radians)	// NOTE: Be sure to set the sr before calling this function
+{
+	return((radians * sr) / twopi);
+}
+
+// degrees-to-radians conversion
+inline double tt_audio_base::degrees_to_radians(const double degrees)
+{
+	return((degrees * pi) / 180.);
+}
+
+// radians-to-degrees conversion
+inline double tt_audio_base::radians_to_degrees(const double radians)
+{
+	return((radians * 180.) / pi);	
+}
+
+
+// Decay Time (seconds) to feedback coefficient conversion
+inline static float tt_audio_base::decay_to_feedback(const float decay_time, float delay)
+{
+	float 	fb;					// variable for our result		
+	delay = delay * 0.001;		// convert delay from milliseconds to seconds
+	if(decay_time < 0){
+		fb = delay / -decay_time;
+		fb = fb * -60.;		
+		fb = pow(10., (fb / 20.));	
+		fb *= -1.;
+	}
+	else{
+		fb = delay / decay_time;
+		fb = fb * -60.;				
+		fb = pow(10., (fb / 20.));		
+	}		
+	return(fb);			
+}
+
+// return the decay time based on the feedback coefficient
+inline static float tt_audio_base::feedback_to_decay(const float feedback, const float delay)
+{
+	float 	decay_time;				// variable for our result
+	
+	if(feedback > 0){
+		decay_time = 20. * (log10(feedback));		
+		decay_time = -60.0 / decay_time;		
+		decay_time = decay_time * (delay);		
+	}
+	else if(feedback < 0){
+		decay_time = 20. * (log10(fabs(feedback)));		
+		decay_time = -60.0 / decay_time;		
+		decay_time = decay_time * (-delay);		
+	}
+	else
+		decay_time = 0;
+
+	return(decay_time);
+}
+
+
+// ************* DECIBEL CONVERSIONS **************
+
+// Amplitude to decibels
+inline static float tt_audio_base::amplitude_to_decibels(const float value)
+{
+	if(value >= 0) 
+		return(20. * (log10(value)));
+	else
+	 	return 0;
+}
+
+// Decibels to amplitude
+inline static float tt_audio_base::decibels_to_amplitude(float value)
+{
+	return(pow(10., (value / 20.)));
+}
+
+// Decibels to millimeters
+inline static float tt_audio_base::decibels_to_millimeters(float value)
+{
+	if (value >= 10.)
+		value = 0.; 
+	else if (value > -10.) 
+		value = -12./5. * (value - 10.);
+	else if (value > -40.)
+		value = 48. - 12./10. * (value + 10.);
+	else if (value > -60.)
+		value = 84. - 12./20. * (value + 40.);
+	else if (value > -200.)
+		value = 96. - 1./35. * (value + 60.);
+	else value = 100.; 
+	value = 100. - value; 
+
+	return(value);
+}
+
+// Decibels to millimeters
+inline static float tt_audio_base::millimeters_to_decibels(float value)
+{
+	if (value <= 0.) 
+		value = -200.0;
+	else if (value < 4.0)
+		value = -60. - 35. * (-(value - 100) - 96.); 
+	else if (value < 16.)
+		value = -40. - 20./12. * (-(value - 100) - 84.); 
+	else if (value < 52.)
+		value = -10. - 10./12. * (-(value - 100) - 48.);
+	else if (value < 100.)
+		value = 10.0 - 5.0/12.0 * -(value - 100);	
+	else value = 10.0; 
+	
+	return(value);
+}
+
+// Millimeters to amplitude
+inline static float tt_audio_base::millimeters_to_amplitude(float value)
+{
+	value = millimeters_to_decibels(value);
+	return decibels_to_amplitude(value);
+}
+
+// Amplitude to millimeters
+inline static float tt_audio_base::amplitude_to_millimeters(float value)
+{
+	value = amplitude_to_decibels(value);
+	return decibels_to_millimeters(value);
+}
+
+
+// extended MIDI units to decibels (127 = unity gain)
+inline static float tt_audio_base::xmidi_to_decibels(float value)
+{
+	return (value - 127) * 0.6;
+}
+
+// decibels to extended MIDI units  (127 = unity gain)
+inline static float tt_audio_base::decibels_to_xmidi(float value)
+{
+	return (value * 1.66666667) + 127;
+}
+
+
+
+// ************* MISC STUFF **************
+
+// Deviate
+inline float tt_audio_base::deviate(float value)
+{
+	value += (2.0 * (float(rand()) / float(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
+	value = value * 0.001 * sr;									// convert from ms to samples
+	value = (float)prime(long(value));										// find the nearest prime number (in samples)
+	value = (value / sr) * 1000.0;								// convert back to ms
+	
+	return value;
+}
+
+// Prime
+inline static long tt_audio_base::prime(long value)
+{
+	long	candidate, last, i, isPrime;
+
+   	if(value < 2)
+  		candidate = 2;
+	else if(value == 2)
+		candidate = 3;
+	else{
+		candidate = value;
+		if (candidate % 2 == 0)    						// Test only odd numbers
+			candidate--;
+		do{
+			isPrime = true;								// Assume glorious success
+			candidate += 2;               				// Bump to the next number to test
+			last = long(sqrt((float)candidate));      				// We'll check to see if candidate has any factors, from 2 to last
+			for (i=3; (i <= last) && isPrime; i+=2){	// Loop through odd numbers only
+				if((candidate % i) == 0)
+				isPrime = false;
+			}
+		} 
+		while (!isPrime);
+	}
+	return candidate;
 }

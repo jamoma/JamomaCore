@@ -29,104 +29,31 @@ class tt_audio_signal:public tt_audio_base{
 		};
 		
 		// CREATE AN INSTANCE WITH A NULL VECTOR (useful for wrapping an external entity as an audio signal)
-		tt_audio_signal()
-		{
-			vector_start = vector = 0;
-			vectorsize = 0;
-			mode = k_mode_external;
-		}
-		
+		tt_audio_signal();		
 		// CREATE AN INSTANCE WITH A SPECIFIED VECTOR SIZE
-		tt_audio_signal(short init_vector_size)
-		{
-			tt_err	err;
-			vectorsize = 0;
-			vector_start = vector = 0;
-			
-			err = alloc(init_vector_size);
-//if(err)
-//log_error("YO! Could not instantiate tt_audio_signal");
-			// !!! Should do something to handle this error if it occurs !!!
-		}
-		
+		tt_audio_signal(short init_vector_size);
 		// DESTROY AN INSTANCE
-		~tt_audio_signal()
-		{
-			if(mode == k_mode_local)
-				mem_free(vector);		// only free the vector if this instance is responsible for it!
-		}
+		~tt_audio_signal();
 		
 		// OVERRIDE THE INHERITED SET VECTOR SIZE METHOD
-		void set_vectorsize(int value)
-		{
-			vectorsize = /* vectorsize_start = */ value;
-		}
-		
+		void set_vectorsize(int value);
 		// SET A REFERENCE TO AN EXTERNAL VECTOR
-		void set_vector(tt_sample_vector ext_vector)
-		{
-			vector = vector_start = ext_vector;
-		}
+		void set_vector(tt_sample_vector ext_vector);
 		
-		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
-		{
-			;
-		}
-
-		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
-		{
-			return 0;
-		}
-		
-		
+		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
+		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
 		
 		// ALLOCATE A VECTOR - SET ITS SIZE
-		tt_err alloc(short new_vector_size)
-		{
-			mode = k_mode_local;							// flag this so the RAM is released on free
-			if(new_vector_size != vectorsize){
-				mem_free(vector);							// release any previously allocated memory for this vector
-				vector_start = vector = (tt_sample_value *)mem_alloc((new_vector_size) * sizeof(tt_sample_value));	// allocate new memory
-				if(vector == 0){
-					vectorsize = 0;
-					log_error("YO! Could not ALLOCATE tt_audio_signal");
-					return TT_ERR_ALLOC_FAILED;
-				}
-				else{
-					vectorsize = new_vector_size;			// store the size of the vector
-					clear();
-					//log_post("VECTOR_START: %i", vector_start);
-					return TT_ERR_NONE;
-				}
-			}
-			return TT_ERR_NONE;
-		}
+		tt_err alloc(short new_vector_size);
 		
 		// RESET THE VECTOR POINTER TO THE BEGINNING OF THE VECTOR
-		void reset()
-		{
-			//vectorsize = vectorsize_start;
-			vector = vector_start;
-		}
+		void reset();
 		
 		// CLEAR - ZERO OUT A VECTOR'S CONTENTS
-		void clear()
-		{
-			short i;
-			for(i=0; i<vectorsize; i++)
-				vector[i] = 0.0;
-		}
+		void clear();
 		
 		// FILL - SET ALL VALUES IN THE SIGNAL TO A CONSTANT
-		void fill(tt_sample_value val)
-		{
-			int i;
-			for(i=0; i<vectorsize; i++)
-				vector[i] = val;
-		}
-		
+		void fill(tt_sample_value val);
 };
-
-
 
 #endif // TT_AUDIO_SIGNAL_HEADER
