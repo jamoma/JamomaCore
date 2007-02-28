@@ -2,7 +2,7 @@
 
 
 // OBJECT LIFE					
-inline tt_lfo::tt_lfo()											// Constructor		
+TT_INLINE tt_lfo::tt_lfo()											// Constructor		
 {
 	index = index_delta = 0;
 	phase = phase_in_samples = 0;
@@ -15,14 +15,14 @@ inline tt_lfo::tt_lfo()											// Constructor
 	set_attr(k_phase, 0.0);
 }
 
-inline tt_lfo::~tt_lfo()											// Destructor
+TT_INLINE tt_lfo::~tt_lfo()											// Destructor
 {
 	delete wavetable;
 }
 
 
 // ATTRIBUTES
-inline void tt_lfo::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_lfo::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 
@@ -90,7 +90,7 @@ inline void tt_lfo::set_attr(tt_selector sel, tt_attribute_value val)	// Set Att
 	}
 }
 
-inline tt_attribute_value tt_lfo::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_lfo::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
@@ -110,14 +110,14 @@ inline tt_attribute_value tt_lfo::get_attr(tt_selector sel)				// Get Attributes
 
 
 // METHOD: SET_WAVETABLE
-inline void tt_lfo::set_wavetable(tt_buffer *newbuffer)
+TT_INLINE void tt_lfo::set_wavetable(tt_buffer *newbuffer)
 {
 	wavetable->set_buffer(newbuffer);
 }
 
 
 // METHOD: RESET PHASE
-inline void tt_lfo::phase_reset()
+TT_INLINE void tt_lfo::phase_reset()
 {
 	index = phase_in_samples;		
 }
@@ -127,7 +127,7 @@ inline void tt_lfo::phase_reset()
 //	only processes the first sample of the vector
 //	intended only for driving parameters of other objects
 //	not for use as audio
-inline void tt_lfo::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE void tt_lfo::dsp_vector_calc(tt_audio_signal *out)
 {
 	int p1, p2;
 	float diff;
@@ -162,7 +162,7 @@ inline void tt_lfo::dsp_vector_calc(tt_audio_signal *out)
 // ADDITIONAL METHODS ************************************************
 
 // set sample-rate (override the inherited method)
-inline void tt_lfo::set_sr(int	value)
+TT_INLINE void tt_lfo::set_sr(int	value)
 {
 	sr = value;
 	r_sr = 1.0 / value;
@@ -173,7 +173,7 @@ inline void tt_lfo::set_sr(int	value)
 }		
 
 // set vectorsize (override the inherited method)
-inline void tt_lfo::set_vectorsize(int value)
+TT_INLINE void tt_lfo::set_vectorsize(int value)
 {
 	vectorsize = value;
 	index = 0;

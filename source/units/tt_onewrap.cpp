@@ -1,31 +1,31 @@
 #include "tt_onewrap.h"
 
-inline tt_onewrap::tt_onewrap(void)									// Constructor		
+TT_INLINE tt_onewrap::tt_onewrap(void)									// Constructor		
 {
 	;
 }
 
-inline tt_onewrap::~tt_onewrap(void)								// Destructor
+TT_INLINE tt_onewrap::~tt_onewrap(void)								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_onewrap::set_attr(selector sel, attribute_value val)	// Set Attributes
+TT_INLINE void tt_onewrap::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	;
 }
 
 
-inline attribute_value tt_onewrap::get_attr(selector sel)			// Get Attributes
+TT_INLINE tt_attribute_value tt_onewrap::get_attr(tt_selector sel)			// Get Attributes
 {
 	;
 }		
 
 
 // DSP LOOP - ARGUMENT IS A CONSTANT
-inline void tt_onewrap::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_onewrap::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value temp;
 	temp_vs = in->vectorsize;

@@ -2,7 +2,7 @@
 
 
 // OBJECT LIFE					
-inline tt_buffer::tt_buffer(long val = 0)								// Constructor
+TT_INLINE tt_buffer::tt_buffer(long val)								// Constructor
 {
 	init();
 	set_attr(k_length_samples, val);
@@ -14,14 +14,14 @@ tt_buffer()										// Constructor
 	init();
 }
 */
-inline tt_buffer::~tt_buffer()										// Destructor
+TT_INLINE tt_buffer::~tt_buffer()										// Destructor
 {
 	buffer_free();
 }
 
 
 // ATTRIBUTES
-inline void tt_buffer::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_buffer::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_length_ms:
@@ -29,7 +29,7 @@ inline void tt_buffer::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 			length_samples = long(length_ms * (sr / 1000.0));
 			break;	
 		case k_length_samples:
-			length_samples = ulong(val + 0.49);	// round
+			length_samples = (unsigned long)(val + 0.49);	// round
 			length_ms = length_samples * (1000.0 / sr);
 			break;
 	}
@@ -37,7 +37,7 @@ inline void tt_buffer::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 	contents = (tt_sample_value *)mem_alloc(length_samples * sizeof(tt_sample_value));
 }
 
-inline tt_attribute_value tt_buffer::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_buffer::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_length_ms:
@@ -51,7 +51,7 @@ inline tt_attribute_value tt_buffer::get_attr(tt_selector sel)				// Get Attribu
 
 
 // METHOD: SET_BUFFER
-inline void tt_buffer::set_buffer(tt_buffer *newbuffer)
+TT_INLINE void tt_buffer::set_buffer(tt_buffer *newbuffer)
 {
 	buffer_free();								// release the internal buffer if appropriate
 	contents = newbuffer->contents;		// point our contents-pointer to the external one
@@ -63,20 +63,20 @@ inline void tt_buffer::set_buffer(tt_buffer *newbuffer)
 
 
 // METHOD: PEEK
-inline tt_sample_value tt_buffer::peek(unsigned long index)
+TT_INLINE tt_sample_value tt_buffer::peek(unsigned long index)
 {
 	return contents[clip(index, 0UL, length_samples - 1)];
 }
 		
 // METHOD: POKE
-inline void tt_buffer::poke(unsigned long index, tt_sample_value val)
+TT_INLINE void tt_buffer::poke(unsigned long index, tt_sample_value val)
 {
 	contents[clip(index, 0UL, length_samples - 1)] = val;
 }
 
 
 // METHOD: FILL
-inline void tt_buffer::fill(tt_selector sel)
+TT_INLINE void tt_buffer::fill(tt_selector sel)
 {
 	unsigned long i, j;
 
@@ -161,7 +161,7 @@ inline void tt_buffer::fill(tt_selector sel)
 }
 
 // METHOD: FILL
-inline void tt_buffer::fill(tt_selector sel, tt_attribute_value param1, tt_attribute_value param2)
+TT_INLINE void tt_buffer::fill(tt_selector sel, tt_attribute_value param1, tt_attribute_value param2)
 {
 	unsigned long	i;
 	double	temp;
@@ -180,7 +180,7 @@ inline void tt_buffer::fill(tt_selector sel, tt_attribute_value param1, tt_attri
 }
 
 // METHOD: INIT
-inline void tt_buffer::init()
+TT_INLINE void tt_buffer::init()
 {
 	local_contents = true;
 	contents = 0;
@@ -190,7 +190,7 @@ inline void tt_buffer::init()
 
 
 // METHOD: BUFFER_FREE
-inline void tt_buffer::buffer_free()
+TT_INLINE void tt_buffer::buffer_free()
 {
 	if(local_contents){
 		mem_free(contents);
@@ -200,7 +200,7 @@ inline void tt_buffer::buffer_free()
 
 
 // METHOD: CLEAR
-inline void tt_buffer::clear()
+TT_INLINE void tt_buffer::clear()
 {
 	unsigned long i;
 	if(contents){

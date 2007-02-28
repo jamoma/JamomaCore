@@ -82,6 +82,15 @@ enum{
 #endif
 
 
+// In Xcode, there are problems with crazy linker errors if you use the inline keyword
+// If the -O2 optimization flag is used for a build, all functions are considered for
+//	inlining anyway.  So it is recommended to use that.
+#if TT_TARGET_MAC
+	#define TT_INLINE  
+#else
+	#define TT_INLINE inline
+#endif
+
 
 /****************************************************************************************************/
 // Class Specification
@@ -108,27 +117,78 @@ class tt_base{
 		tt_ptr mem_alloc(long size);
 		void mem_free(void *my_ptr);
 		
-		// clip utility that doesn't use branching
-		template<class T>
-		static T clip(T value, T low_bound, T high_bound);
-		
-		template<class T>
-		static T limit_max(T value, T high_bound);
-		
-		template<class T>
-		static T limit_min(T value, T low_bound);
-		
 		// rounding utility
 		static long round(float value);
 		static long round(double value);
 		
-		// onewrap utility
-		template<class T>
-		static T onewrap(T value, T low_bound, T high_bound);
-		
-		// scale utility
-		template<class T>
-		T scale(T value, T inlow, T inhigh, T outlow, T outhigh);
+// clip utility that doesn't use branching
+template<class T>
+TT_INLINE T tt_base::clip(T value, T low_bound, T high_bound)
+{
+	#ifdef MAC_VERSION
+		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
+	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
+		value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
+	#endif
+	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
+	return value;
+}
+
+template<class T>
+TT_INLINE T tt_base::limit_max(T value, T high_bound)
+{
+	value = high_bound - value;
+	#ifdef MAC_VERSION
+		value += fabs(value);
+	#else
+		value += fabs((double)value);
+	#endif
+	value *= 0.5;
+	value = high_bound - value;
+	return value; 
+}
+
+template<class T>
+TT_INLINE T tt_base::limit_min(T value, T low_bound)
+{
+	value -= low_bound;
+	#ifdef MAC_VERSION
+		value += fabs(value);
+	#else
+		value += fabs((double)value);
+	#endif
+	value *= 0.5;
+	value += low_bound;
+	return value; 
+}
+
+// onewrap utility
+template<class T>
+TT_INLINE T tt_base::onewrap(T value, T low_bound, T high_bound)
+{
+	if((value >= low_bound) && (value < high_bound)) 
+		return value;
+	else if(value >= high_bound)
+		return((low_bound - 1) + (value - high_bound));	
+	else
+		return((high_bound + 1) - (low_bound - value));
+}
+
+// scale utility
+template<class T>
+TT_INLINE T tt_base::scale(T value, T inlow, T inhigh, T outlow, T outhigh)
+{
+	double inscale, outdiff;
+	 
+ 	inscale = 1 / (inhigh - inlow);
+ 	outdiff = outhigh - outlow;
+ 	
+	value = (value - inlow) * inscale;
+	value = (value * outdiff) + outlow;
+	return(value);											
+}
+
+
 };
 
 #endif // TT_BASE_HEADER

@@ -14,7 +14,7 @@ tt_switch::~tt_switch(void)										// Destructor
 
 
 // ATTRIBUTES
-inline void tt_switch::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_switch::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_position:
@@ -23,7 +23,7 @@ inline void tt_switch::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 	}
 }
 
-inline tt_attribute_value tt_switch::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_switch::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_position:
@@ -35,7 +35,7 @@ inline tt_attribute_value tt_switch::get_attr(tt_selector sel)				// Get Attribu
 
 
 // DSP LOOP: 1 OUTPUT
-inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1)
+TT_INLINE void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--){
@@ -52,7 +52,7 @@ inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out
 }
 
 // DSP LOOP: 2 OUTPUTS
-inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--){
@@ -75,7 +75,7 @@ inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out
 }
 
 // DSP LOOP: 3 OUTPUTS
-inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2, tt_audio_signal *out3)
+TT_INLINE void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2, tt_audio_signal *out3)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--){
@@ -105,7 +105,7 @@ inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out
 }
 
 // DSP LOOP: 4 OUTPUTS
-inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2, tt_audio_signal *out3, tt_audio_signal *out4)
+TT_INLINE void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2, tt_audio_signal *out3, tt_audio_signal *out4)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--){
@@ -144,7 +144,7 @@ inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out
 }
 
 // DSP LOOP: 5 OUTPUTS
-inline void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2, tt_audio_signal *out3, tt_audio_signal *out4, tt_audio_signal *out5)
+TT_INLINE void tt_switch::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2, tt_audio_signal *out3, tt_audio_signal *out4, tt_audio_signal *out5)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--){

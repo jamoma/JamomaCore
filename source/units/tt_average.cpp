@@ -18,7 +18,7 @@ tt_average::~tt_average()								// Destructor
 
 
 // ATTRIBUTES
-inline void tt_average::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_average::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_interval:
@@ -38,7 +38,7 @@ inline void tt_average::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 	}
 }
 
-inline tt_attribute_value tt_average::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_average::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_interval:
@@ -52,7 +52,7 @@ inline tt_attribute_value tt_average::get_attr(tt_selector sel)				// Get Attrib
 
 
 // clear
-inline void tt_average::clear()
+TT_INLINE void tt_average::clear()
 {
 	int i;
 	
@@ -74,7 +74,7 @@ inline void tt_average::clear()
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_average::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_average::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(in, out);	// Run the function pointed to by our function pointer
 }

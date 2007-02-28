@@ -2,21 +2,21 @@
 
 
 // OBJECT LIFE					
-inline tt_lowpass_fourpole::tt_lowpass_fourpole()								// Constructor		
+TT_INLINE tt_lowpass_fourpole::tt_lowpass_fourpole()								// Constructor		
 {
 	set_attr(k_frequency, 4000.0);	
 	set_attr(k_resonance, 4.0);	
 	clear();
 }
 
-inline tt_lowpass_fourpole::~tt_lowpass_fourpole()								// Destructor
+TT_INLINE tt_lowpass_fourpole::~tt_lowpass_fourpole()								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_lowpass_fourpole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_lowpass_fourpole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){			
 		case k_frequency:
@@ -33,7 +33,7 @@ inline void tt_lowpass_fourpole::set_attr(tt_selector sel, tt_attribute_value va
 	}
 }
 
-inline tt_attribute_value tt_lowpass_fourpole::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_lowpass_fourpole::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
@@ -47,7 +47,7 @@ inline tt_attribute_value tt_lowpass_fourpole::get_attr(tt_selector sel)				// G
 
 
 // DSP LOOP
-inline void tt_lowpass_fourpole::dsp_vector_calc(tt_audio_signal *input, tt_audio_signal *output)
+TT_INLINE void tt_lowpass_fourpole::dsp_vector_calc(tt_audio_signal *input, tt_audio_signal *output)
 {
 	tt_sample_value temp;
 	temp_vs = input->vectorsize;
@@ -74,7 +74,7 @@ inline void tt_lowpass_fourpole::dsp_vector_calc(tt_audio_signal *input, tt_audi
 
 
 // clear
-inline void tt_lowpass_fourpole::clear()
+TT_INLINE void tt_lowpass_fourpole::clear()
 {
 	short i;
 	

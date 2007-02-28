@@ -14,7 +14,7 @@ tt_upsample::~tt_upsample()									// Destructor
 
 
 // ATTRIBUTES
-inline void tt_upsample::set_attr(tt_selector sel, tt_attribute_value_discrete val)	// Set Attributes
+TT_INLINE void tt_upsample::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_factor:
@@ -23,7 +23,7 @@ inline void tt_upsample::set_attr(tt_selector sel, tt_attribute_value_discrete v
 	}
 }
 
-inline tt_attribute_value_discrete tt_upsample::get_attr(tt_selector sel)			// Get Attributes
+TT_INLINE tt_attribute_value tt_upsample::get_attr(tt_selector sel)			// Get Attributes
 {
 	switch (sel){
 		case k_factor:
@@ -35,7 +35,7 @@ inline tt_attribute_value_discrete tt_upsample::get_attr(tt_selector sel)			// G
 
 
 // DSP LOOP
-inline void tt_upsample::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_upsample::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	short			up_size;
 	tt_sample_value	temp;
@@ -53,7 +53,7 @@ inline void tt_upsample::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *o
 }
 
 // DSP LOOP - STEREO
-inline void tt_upsample::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, 
+TT_INLINE void tt_upsample::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, 
 	tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	short			up_size;

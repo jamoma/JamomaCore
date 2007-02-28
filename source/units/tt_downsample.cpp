@@ -2,19 +2,19 @@
 
 
 // OBJECT LIFE					
-inline tt_downsample::tt_downsample()									// Constructor		
+TT_INLINE tt_downsample::tt_downsample()									// Constructor		
 {
 	set_attr(k_factor, 1);							// default: no upsampling
 }
 
-inline tt_downsample::~tt_downsample()									// Destructor
+TT_INLINE tt_downsample::~tt_downsample()									// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_downsample::set_attr(tt_selector sel, tt_attribute_value_discrete val)	// Set Attributes
+TT_INLINE void tt_downsample::set_attr(tt_selector sel, tt_attribute_value_discrete val)	// Set Attributes
 {
 	switch (sel){
 		case k_factor:
@@ -23,7 +23,7 @@ inline void tt_downsample::set_attr(tt_selector sel, tt_attribute_value_discrete
 	}
 }
 
-inline tt_attribute_value_discrete tt_downsample::get_attr(tt_selector sel)			// Get Attributes
+TT_INLINE tt_attribute_value_discrete tt_downsample::get_attr2(tt_selector sel)			// Get Attributes
 {
 	switch (sel){
 		case k_factor:
@@ -35,7 +35,7 @@ inline tt_attribute_value_discrete tt_downsample::get_attr(tt_selector sel)			//
 
 
 // DSP LOOP - MONO
-inline void tt_downsample::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_downsample::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value	temp;
 	short			down_size;
@@ -54,7 +54,7 @@ inline void tt_downsample::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal 
 }
 
 // DSP LOOP - STEREO
-inline void tt_downsample::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_downsample::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	tt_sample_value	temp1, temp2;
 	short			down_size;

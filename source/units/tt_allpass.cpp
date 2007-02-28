@@ -19,7 +19,7 @@ tt_allpass::~tt_allpass()									// Destructor
 
 
 // ATTRIBUTES
-inline void tt_allpass::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_allpass::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){			
 		case k_delay_ms:
@@ -34,7 +34,7 @@ inline void tt_allpass::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 	}
 }
 
-inline tt_attribute_value tt_allpass::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_allpass::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_delay_ms:
@@ -48,7 +48,7 @@ inline tt_attribute_value tt_allpass::get_attr(tt_selector sel)				// Get Attrib
 
 
 // DSP LOOP
-inline void tt_allpass::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_allpass::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value temp;
 	temp_vs = in->vectorsize;
@@ -84,7 +84,7 @@ inline void tt_allpass::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *ou
 
 
 // INIT
-inline void tt_allpass::init(tt_attribute_value milliseconds)
+TT_INLINE void tt_allpass::init(tt_attribute_value milliseconds)
 {
 	delay_ms_max = milliseconds;
 	delay_samples_max = long(delay_ms_max * (sr / 1000.0));
@@ -100,7 +100,7 @@ inline void tt_allpass::init(tt_attribute_value milliseconds)
 
 
 // clear
-inline void tt_allpass::clear()
+TT_INLINE void tt_allpass::clear()
 {
 	short i;			
 	for(i=0; i < delay_samples_max; i++){
@@ -121,7 +121,7 @@ inline void tt_allpass::clear()
 }
 
 // set sample-rate (override the inherited method)
-inline void tt_allpass::set_sr(int	value)
+TT_INLINE void tt_allpass::set_sr(int	value)
 {
 	sr = value;
 	r_sr = 1.0 / value;

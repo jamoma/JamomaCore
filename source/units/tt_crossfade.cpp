@@ -2,21 +2,21 @@
 
 
 // OBJECT LIFE					
-inline tt_crossfade::tt_crossfade(void)									// Constructor		
+TT_INLINE tt_crossfade::tt_crossfade(void)									// Constructor		
 {
 	position = 0.5;
 	shape = k_shape_equalpower;
 	set_attr(k_mode, k_mode_lookup);
 }
 
-inline tt_crossfade::~tt_crossfade(void)								// Destructor
+TT_INLINE tt_crossfade::~tt_crossfade(void)								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_crossfade::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_crossfade::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_position:
@@ -39,7 +39,7 @@ inline void tt_crossfade::set_attr(tt_selector sel, tt_attribute_value val)	// S
 	
 }
 
-inline tt_attribute_value tt_crossfade::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_crossfade::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_position:
@@ -59,7 +59,7 @@ inline tt_attribute_value tt_crossfade::get_attr(tt_selector sel)				// Get Attr
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_crossfade::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
+TT_INLINE void tt_crossfade::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(in1, in2, out);	// Run the function pointed to by our function pointer
 }

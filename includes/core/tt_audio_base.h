@@ -36,7 +36,7 @@ class tt_audio_base:public tt_base{
 		
 		// OBJECT LIFE
 		tt_audio_base();									// constructor
-		~tt_audio_base();									// destructor - free memory, etc.
+		virtual ~tt_audio_base();							// destructor - free memory, etc.
 
 		
 		// ATTRIBUTES

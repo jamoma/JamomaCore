@@ -23,7 +23,7 @@ tt_adsr::~tt_adsr()
 }
 
 
-inline void tt_adsr::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_adsr::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_attack:
@@ -69,7 +69,7 @@ inline void tt_adsr::set_attr(tt_selector sel, tt_attribute_value val)	// Set At
 	}
 }
 
-inline tt_attribute_value tt_adsr::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_adsr::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_attack:
@@ -93,7 +93,7 @@ inline tt_attribute_value tt_adsr::get_attr(tt_selector sel)				// Get Attribute
 		
 
 // METHOD: CONTROL-RATE TRIGGER
-inline void tt_adsr::set_trigger(bool val)
+TT_INLINE void tt_adsr::set_trigger(bool val)
 {
 	trigger = val;
 }
@@ -104,13 +104,13 @@ inline void tt_adsr::set_trigger(bool val)
  *****************************************************/
 
 // Publically exposed interface for CONTROL RATE triggered dsp routine
-inline void tt_adsr::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE void tt_adsr::dsp_vector_calc(tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(out);	// Run the function pointed to by our function pointer
 }
 
 // Publically exposed interface for SIGNAL RATE triggered dsp routine
-inline void tt_adsr::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_adsr::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor2)(in, out);	// Run the function pointed to by our function pointer
 }

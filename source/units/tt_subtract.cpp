@@ -11,7 +11,7 @@ tt_subtract::~tt_subtract(void)		// Destructor
 }
 
 // DSP LOOP
-inline void tt_subtract::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
+TT_INLINE void tt_subtract::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 {
 	temp_vs = in1->vectorsize;
 	while(temp_vs--)

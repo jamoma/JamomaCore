@@ -17,7 +17,7 @@ tt_svf::~tt_svf()								// Destructor
 
 
 // ATTRIBUTES
-inline void tt_svf::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_svf::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	double temp1, temp2;
 	
@@ -58,7 +58,7 @@ inline void tt_svf::set_attr(tt_selector sel, tt_attribute_value val)	// Set Att
 		damp = temp2;
 }
 
-inline tt_attribute_value tt_svf::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_svf::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
@@ -74,7 +74,7 @@ inline tt_attribute_value tt_svf::get_attr(tt_selector sel)				// Get Attributes
 
 
 // clear
-inline void tt_svf::clear()
+TT_INLINE void tt_svf::clear()
 {
 	lowpass_output = 0;
 	highpass_output = 0;
@@ -89,12 +89,12 @@ inline void tt_svf::clear()
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_svf::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_svf::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(in, out);	// Run the function pointed to by our function pointer
 }
 
-private:
+
 // DSP LOOP: LOWPASS
 void tt_svf::dsp_vector_calc_lowpass(tt_audio_signal *in, tt_audio_signal *out)
 {
@@ -152,7 +152,7 @@ void tt_svf::dsp_vector_calc_peak(tt_audio_signal *in, tt_audio_signal *out)
 
 
 // THE GUTS OF THE SVF FILTER
-inline void tt_svf::filter_tick(tt_sample_value value)
+TT_INLINE void tt_svf::filter_tick(tt_sample_value value)
 {
 //	short i;
 	

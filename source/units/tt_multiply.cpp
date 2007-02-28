@@ -13,12 +13,13 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 
 
 /********************************************************
 	CLASS INTERFACE/IMPLEMENTATION
 
-	The entire class is implemented inline for speed.
+	The entire class is implemented TT_INLINE for speed.
  ********************************************************/
 
 class tt_multiply:public tt_audio_base{

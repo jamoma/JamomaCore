@@ -1,32 +1,37 @@
 #include "tt_base.h"
 
+// needed for c++ templates.  ugh.
+#if TT_TARGET_MAC
+#pragma implementation
+#endif
+
 
 // OBJECT LIFE
-inline tt_base::tt_base()
+TT_INLINE tt_base::tt_base()
 { 
 	init(); 
 }		
 
-inline tt_base::~tt_base()
+TT_INLINE tt_base::~tt_base()
 {
 	;
 }
 
-inline void tt_base::init()
+TT_INLINE void tt_base::init()
 {	
 	is_initialized = true;	
 }
 
 
 // Platform-independent Message Logging
-inline void tt_base::log_post(char *message){
+TT_INLINE void tt_base::log_post(char *message){
 	#ifdef TT_TARGET_MAX
 		post(message);
 	#else
 		fprintf(stdout, message);
 	#endif
 }
-inline void tt_base::log_error(char *message){
+TT_INLINE void tt_base::log_error(char *message){
 	#ifdef TT_TARGET_MAX
 		error(message);
 	#else
@@ -36,7 +41,7 @@ inline void tt_base::log_error(char *message){
 
 
 // Platform-independent Memory routines
-inline tt_ptr tt_base::mem_alloc(long size)
+TT_INLINE tt_ptr tt_base::mem_alloc(long size)
 {
 	tt_ptr alloc;
 
@@ -71,7 +76,7 @@ inline tt_ptr tt_base::mem_alloc(long size)
 	#endif
 }
 
-inline void tt_base::mem_free(void *my_ptr)
+TT_INLINE void tt_base::mem_free(void *my_ptr)
 {
 	if(my_ptr != 0){ 
 		// Cycling '74 Max
@@ -91,57 +96,15 @@ inline void tt_base::mem_free(void *my_ptr)
 }
 
 
-// clip utility that doesn't use branching
-template<class T>
-inline static T tt_base::clip(T value, T low_bound, T high_bound)
-{
-	#ifdef MAC_VERSION
-		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
-	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
-		value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
-	#endif
-	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
-	return value;
-}
-
-template<class T>
-inline static T tt_base::limit_max(T value, T high_bound)
-{
-	value = high_bound - value;
-	#ifdef MAC_VERSION
-		value += fabs(value);
-	#else
-		value += fabs((double)value);
-	#endif
-	value *= 0.5;
-	value = high_bound - value;
-	return value; 
-}
-
-template<class T>
-inline static T tt_base::limit_min(T value, T low_bound)
-{
-	value -= low_bound;
-	#ifdef MAC_VERSION
-		value += fabs(value);
-	#else
-		value += fabs((double)value);
-	#endif
-	value *= 0.5;
-	value += low_bound;
-	return value; 
-}
-
-
 // rounding utility
-inline static long tt_base::round(float value)
+TT_INLINE long tt_base::round(float value)
 {
 	if(value > 0)
 		return((long)(value + 0.5));
 	else
 		return((long)(value - 0.5));
 }
-inline static long tt_base::round(double value)
+TT_INLINE long tt_base::round(double value)
 {
 	if(value > 0)
 		return((long)(value + 0.5));
@@ -149,28 +112,3 @@ inline static long tt_base::round(double value)
 		return((long)(value - 0.5));
 }
 
-// onewrap utility
-template<class T>
-inline static T tt_base::onewrap(T value, T low_bound, T high_bound)
-{
-	if((value >= low_bound) && (value < high_bound)) 
-		return value;
-	else if(value >= high_bound)
-		return((low_bound - 1) + (value - high_bound));	
-	else
-		return((high_bound + 1) - (low_bound - value));
-}
-
-// scale utility
-template<class T>
-inline T tt_base::scale(T value, T inlow, T inhigh, T outlow, T outhigh)
-{
-	double inscale, outdiff;
-	 
- 	inscale = 1 / (inhigh - inlow);
- 	outdiff = outhigh - outlow;
- 	
-	value = (value - inlow) * inscale;
-	value = (value * outdiff) + outlow;
-	return(value);											
-}

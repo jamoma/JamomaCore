@@ -85,7 +85,7 @@ tt_procrastinate::~tt_procrastinate()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-inline void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribute_value val)	// Set Attributes
 {
 	switch(sel){
 		case k_ratio:
@@ -101,7 +101,7 @@ inline void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribut
 	}
 }
 
-inline void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribute_value low, tt_attribute_value high)	// Set Attributes
+TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribute_value low, tt_attribute_value high)	// Set Attributes
 {
 	switch(sel){
 		case k_gain_range:
@@ -159,7 +159,7 @@ inline void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribut
 	}
 }
 
-inline tt_attribute_value tt_procrastinate::get_attr(tt_selector sel, short index)				// Get Attributes
+TT_INLINE tt_attribute_value tt_procrastinate::get_attr(tt_selector sel, short index)				// Get Attributes
 {
 	switch(sel){
 		case k_ratio:
@@ -171,7 +171,7 @@ inline tt_attribute_value tt_procrastinate::get_attr(tt_selector sel, short inde
 	}
 }
 
-inline void tt_procrastinate::randomize_parameters()
+TT_INLINE void tt_procrastinate::randomize_parameters()
 {
 	short	i;
 	float	tempval[4];
@@ -206,7 +206,7 @@ inline void tt_procrastinate::randomize_parameters()
 //	the vectorsize of the signals are the same as that of this object.
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_procrastinate::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_procrastinate::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	// VOICE 1 *****************
 	phasor[0]->dsp_vector_calc(temp[0]);						// phasor~
@@ -283,7 +283,7 @@ inline void tt_procrastinate::dsp_vector_calc(tt_audio_signal *in, tt_audio_sign
 
 
 // clear
-inline void tt_procrastinate::clear()
+TT_INLINE void tt_procrastinate::clear()
 {
 	short i;
 	for(i=0; i<4; i++){
@@ -293,7 +293,7 @@ inline void tt_procrastinate::clear()
 }
 
 // set sample-rate (override the inherited method)
-inline void tt_procrastinate::set_sr(int	value)
+TT_INLINE void tt_procrastinate::set_sr(int	value)
 {
 	short i;
 	
@@ -322,7 +322,7 @@ inline void tt_procrastinate::set_sr(int	value)
 }
 
 // set the vector size (override the inherited method)
-inline void tt_procrastinate::set_vectorsize(int value)
+TT_INLINE void tt_procrastinate::set_vectorsize(int value)
 {
 	short i;
 	if(value != vectorsize){

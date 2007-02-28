@@ -14,6 +14,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 
 
 /********************************************************
@@ -82,7 +83,7 @@ class tt_svf:public tt_audio_base{
 		void dsp_vector_calc_peak(tt_audio_signal *in, tt_audio_signal *out);
 
 		// THE GUTS OF THE SVF FILTER
-		void filter_tick(tt_sample_value value)
+		void filter_tick(tt_sample_value value);
 };
 
 #endif	// TT_SVF_H

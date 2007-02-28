@@ -1,12 +1,12 @@
 #include "tt_dcblock.h"
 
 
-inline tt_dcblock::tt_dcblock()				// Constructor		
+TT_INLINE tt_dcblock::tt_dcblock()				// Constructor		
 {
 	clear();
 }
 
-inline tt_dcblock::~tt_dcblock()				// Destructor
+TT_INLINE tt_dcblock::~tt_dcblock()				// Destructor
 {
 	;
 }
@@ -15,7 +15,7 @@ inline tt_dcblock::~tt_dcblock()				// Destructor
 // DSP LOOP
 // Note: an algorithm that is frequently used in Max:
 //		"biquad~ 1.0 -1.0 -0.9997 0.0"
-inline void tt_dcblock::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_dcblock::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value temp;
 	int vs = in->vectorsize;		
@@ -29,7 +29,7 @@ inline void tt_dcblock::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *ou
 }
 
 // DSP LOOP - STEREO
-inline void tt_dcblock::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_dcblock::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	tt_sample_value temp1, temp2;
 	temp_vs = in1->vectorsize;		
@@ -49,7 +49,7 @@ inline void tt_dcblock::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *i
 
 
 // METHOD: clear
-inline void tt_dcblock::clear()
+TT_INLINE void tt_dcblock::clear()
 {
 	last_input1 = 0.0;
 	last_output1 = 0.0;	

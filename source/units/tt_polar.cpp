@@ -7,7 +7,7 @@
 	set_attr(k_mode, k_mode_cartopol);
 }
 */
-tt_polar::tt_polar(selectors init_mode = k_mode_cartopol)
+tt_polar::tt_polar(selectors init_mode)
 {
 	set_attr(k_mode, init_mode);
 }
@@ -19,7 +19,7 @@ tt_polar::~tt_polar()									// Destructor
 
 
 // ATTRIBUTES
-inline void tt_polar::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_polar::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -32,7 +32,7 @@ inline void tt_polar::set_attr(tt_selector sel, tt_attribute_value val)	// Set A
 	}
 }
 
-inline tt_attribute_value tt_polar::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_polar::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -48,14 +48,14 @@ inline tt_attribute_value tt_polar::get_attr(tt_selector sel)				// Get Attribut
  *****************************************************/
 
 // Publically exposed interface for the dsp routine
-inline void tt_polar::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_polar::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	(*this.*dsp_executor)(in1, in2, out1, out2);	// Run the function pointed to by our function pointer
 }
 
 
 // DSP LOOP: CARTOPOL
-inline void tt_polar::dsp_vector_calc_cartopol(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_polar::dsp_vector_calc_cartopol(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	tt_sample_value	real, imaginary, magnitude, phase;
 	temp_vs = in1->vectorsize;
@@ -82,7 +82,7 @@ inline void tt_polar::dsp_vector_calc_cartopol(tt_audio_signal *in1, tt_audio_si
 
 
 // DSP LOOP: POLTOCAR
-inline void tt_polar::dsp_vector_calc_poltocar(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_polar::dsp_vector_calc_poltocar(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	tt_sample_value	real, imaginary, magnitude, phase;
 	temp_vs = in1->vectorsize;

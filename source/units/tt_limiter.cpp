@@ -2,7 +2,7 @@
 
 
 // OBJECT LIFE					
-inline tt_limiter::tt_limiter()									// Constructor		
+TT_INLINE tt_limiter::tt_limiter()									// Constructor		
 {
 	buf1 = buf2 = gain = 0;
 
@@ -29,7 +29,7 @@ inline tt_limiter::tt_limiter()									// Constructor
     clear();
 }
 
-inline tt_limiter::~tt_limiter()									// Destructor
+TT_INLINE tt_limiter::~tt_limiter()									// Destructor
 {
 //	delete buffer1;
 //	delete buffer2;
@@ -41,7 +41,7 @@ inline tt_limiter::~tt_limiter()									// Destructor
 
 
 // ATTRIBUTES
-inline void tt_limiter::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_limiter::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 
@@ -80,7 +80,7 @@ inline void tt_limiter::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 	}
 }
 
-inline tt_attribute_value tt_limiter::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_limiter::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_threshold:
@@ -104,7 +104,7 @@ inline tt_attribute_value tt_limiter::get_attr(tt_selector sel)				// Get Attrib
 		
 
 // clear
-inline void tt_limiter::clear(void)
+TT_INLINE void tt_limiter::clear(void)
 {
 	short i;
 	for (i=0; i<MAX_SAMPLES; i++){
@@ -129,13 +129,13 @@ inline void tt_limiter::clear(void)
  *****************************************************/
 
 // Publically exposed interface for MONO dsp routine
-inline void tt_limiter::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_limiter::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor_mono)(in, out);	// Run the function pointed to by our function pointer
 }
 
 // Publically exposed interface for STEREO dsp routine
-inline void tt_limiter::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_limiter::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	(*this.*dsp_executor_stereo)(in1, in2, out1, out2);	// Run the function pointed to by our function pointer
 }
@@ -405,7 +405,7 @@ void tt_limiter::dsp_vector_calc_mono_nodcblock(tt_audio_signal *in, tt_audio_si
 
 
 // set recover
-inline void tt_limiter::set_recover()
+TT_INLINE void tt_limiter::set_recover()
 {
 	recover = 1000. / (release * sr);
 	if (recover == 0.) 

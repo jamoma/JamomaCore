@@ -35,7 +35,7 @@ class tt_downsample:public tt_audio_base{
 
 		// ATTRIBUTES
 		void set_attr(tt_selector sel, tt_attribute_value_discrete val);	// Set Attributes
-		tt_attribute_value_discrete get_attr(tt_selector sel);			// Get Attributes
+		tt_attribute_value_discrete get_attr2(tt_selector sel);			// Get Attributes
 		
 		// DSP LOOP - MONO
 		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);

@@ -2,13 +2,13 @@
 
 
 // OBJECT LIFE					
-inline tt_clip::tt_clip(void)										// Constructor		
+TT_INLINE tt_clip::tt_clip(void)										// Constructor		
 {
 	set_attr(k_clip_high, 1.0);
 	set_attr(k_clip_low, -1.0);
 }
 
-inline tt_clip::~tt_clip(void)										// Destructor
+TT_INLINE tt_clip::~tt_clip(void)										// Destructor
 {
 	;
 }
@@ -18,7 +18,7 @@ inline tt_clip::~tt_clip(void)										// Destructor
 
 
 // ATTRIBUTES
-inline void tt_clip::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_clip::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_clip:
@@ -34,7 +34,7 @@ inline void tt_clip::set_attr(tt_selector sel, tt_attribute_value val)	// Set At
 	}
 }
 
-inline tt_attribute_value tt_clip::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_clip::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_clip:		// fall through
@@ -49,7 +49,7 @@ inline tt_attribute_value tt_clip::get_attr(tt_selector sel)				// Get Attribute
 		
 
 // DSP LOOP
-inline void tt_clip::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_clip::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	temp_vs = in->vectorsize;		
 	while(temp_vs--)
@@ -58,7 +58,7 @@ inline void tt_clip::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 }
 
 // DSP LOOP
-inline void tt_clip::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_clip::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	temp_vs = in1->vectorsize;		
 	while(temp_vs--){

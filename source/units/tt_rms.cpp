@@ -14,7 +14,7 @@ tt_rms::~tt_rms()				// Destructor
 
 
 // ATTRIBUTES
-inline void tt_rms::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_rms::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_feedback_coefficient:
@@ -23,7 +23,7 @@ inline void tt_rms::set_attr(tt_selector sel, tt_attribute_value val)	// Set Att
 	}
 }
 
-inline tt_attribute_value tt_rms::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_rms::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_feedback_coefficient:
@@ -35,7 +35,7 @@ inline tt_attribute_value tt_rms::get_attr(tt_selector sel)				// Get Attributes
 
 
 // DSP LOOP
-inline void tt_rms::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_rms::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value val;
 	temp_vs = in->vectorsize;
@@ -50,7 +50,7 @@ inline void tt_rms::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 
 
 // clear
-void clear()
+TT_INLINE void tt_rms::clear()
 {
 	feedback = 0.0;	
 }

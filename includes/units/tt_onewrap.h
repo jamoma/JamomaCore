@@ -13,7 +13,9 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 #include <math.h>
+
 
 /********************************************************
 	CLASS INTERFACE
@@ -24,18 +26,18 @@ class tt_onewrap:public tt_audio_base{
 	private:
 		
 	public:
-		enum selectors{									// Attribute Selectors
+		enum selector{									// Attribute Selectors
 		};
 
 		tt_onewrap(void);										// Constructor		
 		~tt_onewrap(void);										// Destructor
 
 		// ATTRIBUTES
-		void set_attr(selector sel, attribute_value val);		// Set Attributes
-		attribute_value get_attr(selector sel);					// Get Attributes
+		void set_attr(tt_selector sel, tt_attribute_value val);		// Set Attributes
+		tt_attribute_value get_attr(tt_selector sel);					// Get Attributes
 
 		// DSP LOOP - ARGUMENT IS A CONSTANT
-		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);
 };
 
 #endif // TT_ONEWRAP_H

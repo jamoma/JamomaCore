@@ -1,4 +1,4 @@
-#include "tt_override.h"
+#include "tt_overdrive.h"
 
 
 // OBJECT LIFE					
@@ -17,7 +17,7 @@ tt_overdrive::~tt_overdrive()								// Destructor
 
 
 // ATTRIBUTES
-inline void tt_overdrive::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_overdrive::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){			
 		case k_drive:
@@ -64,7 +64,7 @@ inline void tt_overdrive::set_attr(tt_selector sel, tt_attribute_value val)	// S
 	}
 }
 
-inline tt_attribute_value tt_overdrive::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_overdrive::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_drive:
@@ -76,7 +76,7 @@ inline tt_attribute_value tt_overdrive::get_attr(tt_selector sel)				// Get Attr
 
 
 // METHOD: clear
-inline void tt_overdrive::clear()
+TT_INLINE void tt_overdrive::clear()
 {
 	last_input1 = 0.0;
 	last_output1 = 0.0;	
@@ -90,13 +90,13 @@ inline void tt_overdrive::clear()
  *****************************************************/
 
 // Publically exposed interface for MONO dsp routine
-inline void tt_overdrive::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_overdrive::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor_mono)(in, out);	// Run the function pointed to by our function pointer
 }
 
 // Publically exposed interface for STEREO dsp routine
-inline void tt_overdrive::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_overdrive::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	(*this.*dsp_executor_stereo)(in1, in2, out1, out2);	// Run the function pointed to by our function pointer
 }

@@ -2,7 +2,7 @@
 
 
 // OBJECT LIFE					
-inline tt_buffer_window::tt_buffer_window(tt_buffer *mybuffer)				// Constructor - BUFFER ARG
+TT_INLINE tt_buffer_window::tt_buffer_window(tt_buffer *mybuffer)				// Constructor - BUFFER ARG
 {
 	// set defaults
 	set_attr(k_mode, k_mode_normalized);
@@ -10,14 +10,14 @@ inline tt_buffer_window::tt_buffer_window(tt_buffer *mybuffer)				// Constructor
 	set_buffer(mybuffer);
 }
 
-inline tt_buffer_window::~tt_buffer_window()								// Destructor
+TT_INLINE tt_buffer_window::~tt_buffer_window()								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_buffer_window::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_buffer_window::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:	// mode sets a function pointer to the correct dsp loop
@@ -30,7 +30,7 @@ inline void tt_buffer_window::set_attr(tt_selector sel, tt_attribute_value val)	
 	}
 }
 
-inline tt_attribute_value tt_buffer_window::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_buffer_window::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -42,12 +42,12 @@ inline tt_attribute_value tt_buffer_window::get_attr(tt_selector sel)				// Get 
 
 
 // METHODS
-inline void tt_buffer_window::set_buffer(tt_buffer *mybuffer)	// Set Buffer
+TT_INLINE void tt_buffer_window::set_buffer(tt_buffer *mybuffer)	// Set Buffer
 {
 	wavetable = mybuffer;	
 }
 
-inline tt_buffer *tt_buffer_window::get_buffer()				// Get Buffer
+TT_INLINE tt_buffer *tt_buffer_window::get_buffer()				// Get Buffer
 {
 	return wavetable;
 }
@@ -58,7 +58,7 @@ inline tt_buffer *tt_buffer_window::get_buffer()				// Get Buffer
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_buffer_window::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
+TT_INLINE void tt_buffer_window::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(in1, in2, out);
 }

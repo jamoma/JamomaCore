@@ -2,19 +2,19 @@
 
 
 // OBJECT LIFE					
-inline tt_delay::tt_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
+TT_INLINE tt_delay::tt_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
 {
 	init(max);
 }
 
-inline tt_delay::tt_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
+TT_INLINE tt_delay::tt_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
 {
 	long max = long(max_ms * m_sr);
 	init(max);
 }
 
 // Internal method which is called by the constructors
-inline void tt_delay::init(long max_samples)
+TT_INLINE void tt_delay::init(long max_samples)
 {			
 	short i;
 	
@@ -37,14 +37,14 @@ inline void tt_delay::init(long max_samples)
 }
 
 
-inline tt_delay::~tt_delay()										// Destructor
+TT_INLINE tt_delay::~tt_delay()										// Destructor
 {
 	mem_free(buffer);
 }
 
 
 // OVER-RIDE THE INHERITED SET SR METHOD
-inline void tt_delay::set_sr(int value)
+TT_INLINE void tt_delay::set_sr(int value)
 {
 	if(value != sr){
 		sr = value;					// These first three need to be called to do the standard stuff from the base class
@@ -60,7 +60,7 @@ inline void tt_delay::set_sr(int value)
 
 
 // ATTRIBUTES
-inline void tt_delay::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_delay::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_delay_ms:
@@ -110,7 +110,7 @@ inline void tt_delay::set_attr(tt_selector sel, tt_attribute_value val)	// Set A
 	reset();
 }
 
-inline tt_attribute_value tt_delay::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_delay::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_delay_ms:
@@ -132,13 +132,13 @@ inline tt_attribute_value tt_delay::get_attr(tt_selector sel)				// Get Attribut
  *****************************************************/
 
 // Publically exposed interface for CONTROL RATE triggered dsp routine
-inline void tt_delay::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_delay::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(in, out);	// Run the function pointed to by our function pointer
 }
 
 // Publically exposed interface for AUDIO RATE delay dsp routine
-inline void tt_delay::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
+TT_INLINE void tt_delay::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 {
 	(*this.*dsp_executor2)(in1, in2, out);	// Run the function pointed to by our function pointer
 }
@@ -345,7 +345,7 @@ tt_sample_value interpolation_polynomial(tt_sample_value y0, tt_sample_value y1,
 
 
 // Reset the pointers
-inline void tt_delay::reset()
+TT_INLINE void tt_delay::reset()
 {
 	end_ptr = buffer + delay_samples;
 	out_ptr = in_ptr - delay_samples;
@@ -359,7 +359,7 @@ inline void tt_delay::reset()
 
 
 // clear
-inline void tt_delay::clear(void)
+TT_INLINE void tt_delay::clear(void)
 {
 	float * i;
 	long j = 0;

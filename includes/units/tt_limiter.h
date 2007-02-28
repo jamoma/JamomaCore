@@ -13,6 +13,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 //#include"tt_buffer.h"
 
 
@@ -48,7 +49,7 @@ class tt_limiter:public tt_audio_base{
 		tt_attribute_value				postamp;
 		
 		// set recover
-		void set_recover()	
+		void set_recover();
 	
 	public:
 		enum selectors{									// Attribute Selectors

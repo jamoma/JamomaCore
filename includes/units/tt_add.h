@@ -13,6 +13,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 
 
 /********************************************************
@@ -27,7 +28,11 @@ class tt_add:public tt_audio_base{
 		tt_add(void);												// Constructor		
 		~tt_add(void);												// Destructor
 		// tt_add operator = (const tt_add &tt_add_source)			// use the generic c++ copy constructor
-
+		void 				set_attr(tt_selector sel, tt_attribute_value val)
+		{;}
+		tt_attribute_value 	get_attr(tt_selector sel)
+		{;}
+		
 		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out);
 };
 

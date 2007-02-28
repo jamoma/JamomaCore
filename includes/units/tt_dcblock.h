@@ -31,9 +31,11 @@ class tt_dcblock:public tt_audio_base{
 		tt_dcblock();				// Constructor		
 		~tt_dcblock();				// Destructor
 		
-		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
-		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
-
+		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+		{;}
+		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
+		{;}
+		
 		// DSP LOOP
 		// Note: an algorithm that is frequently used in Max:
 		//		"biquad~ 1.0 -1.0 -0.9997 0.0"
@@ -42,7 +44,7 @@ class tt_dcblock:public tt_audio_base{
 		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2);
 
 		// METHOD: clear
-		void clear()
+		void clear();
 };
 
 #endif	// TT_DCBLOCK_H

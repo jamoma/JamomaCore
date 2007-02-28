@@ -18,7 +18,7 @@ tt_ramp::~tt_ramp()									// Destructor
 
 
 // ATTRIBUTES
-inline void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -61,7 +61,7 @@ inline void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set At
 	}
 }
 
-inline tt_attribute_value tt_ramp::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_ramp::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_current_value:
@@ -80,7 +80,7 @@ inline tt_attribute_value tt_ramp::get_attr(tt_selector sel)				// Get Attribute
 
 
 // halt the ramp
-inline void tt_ramp::stop()
+TT_INLINE void tt_ramp::stop()
 {
 	step = 0;	
 }
@@ -88,7 +88,7 @@ inline void tt_ramp::stop()
 
 // DSP LOOP
 // Publically exposed interface for the dsp routine
-inline void tt_ramp::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE void tt_ramp::dsp_vector_calc(tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(out);	// Run the function pointed to by our function pointer
 }
@@ -157,7 +157,7 @@ void tt_ramp::dsp_vector_calc_va_down(tt_audio_signal *out)
 
 
 // INIT
-inline void tt_ramp::init()
+TT_INLINE void tt_ramp::init()
 {
 	// Set the function pointers based on the attributes above
 	if((mode == k_mode_sample_accurate) && (direction == 0))
@@ -171,7 +171,7 @@ inline void tt_ramp::init()
 }
 
 // private function needed for setting attr
-inline void tt_ramp::set_step()					
+TT_INLINE void tt_ramp::set_step()					
 {
 	step = (destination - current) / double(ramp_samps);
 	direction = (step < 0);

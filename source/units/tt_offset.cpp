@@ -13,7 +13,7 @@ tt_offset::~tt_offset(void)					// Destructor
 
 
 // ATTRIBUTES
-inline void tt_offset::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_offset::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){			
 		case k_offset_value:
@@ -22,7 +22,7 @@ inline void tt_offset::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 	}
 }
 
-inline tt_attribute_value tt_offset::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_offset::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_offset_value:
@@ -34,7 +34,7 @@ inline tt_attribute_value tt_offset::get_attr(tt_selector sel)				// Get Attribu
 		
 
 // DSP LOOP
-inline void tt_offset::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_offset::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--)

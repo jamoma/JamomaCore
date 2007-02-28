@@ -2,21 +2,21 @@
 
 
 // OBJECT LIFE					
-inline tt_noise::tt_noise()										// Constructor		
+TT_INLINE tt_noise::tt_noise()										// Constructor		
 {
 	// set defaults
 	set_attr(k_mode, k_mode_white);
 	b0 = b1 = b2 = b3 = b4 = b5 = b6 = noise_accum = 0;
 }
 
-inline tt_noise::~tt_noise()									// Destructor
+TT_INLINE tt_noise::~tt_noise()									// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_noise::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_noise::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -33,7 +33,7 @@ inline void tt_noise::set_attr(tt_selector sel, tt_attribute_value val)	// Set A
 	}
 }
 
-inline tt_attribute_value tt_noise::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_noise::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -49,7 +49,7 @@ inline tt_attribute_value tt_noise::get_attr(tt_selector sel)				// Get Attribut
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_noise::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE void tt_noise::dsp_vector_calc(tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(out);	// Run the function pointed to by our function pointer
 }

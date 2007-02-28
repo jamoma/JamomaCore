@@ -34,7 +34,7 @@ tt_pulsesub::~tt_pulsesub()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-inline void tt_pulsesub::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_pulsesub::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch(sel){
 		case k_attack:
@@ -64,7 +64,7 @@ inline void tt_pulsesub::set_attr(tt_selector sel, tt_attribute_value val)	// Se
 	}
 }
 
-inline tt_attribute_value tt_pulsesub::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_pulsesub::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch(sel){
 		case k_attack:
@@ -92,7 +92,7 @@ inline tt_attribute_value tt_pulsesub::get_attr(tt_selector sel)				// Get Attri
 	}
 }
 
-inline void tt_pulsesub::set_trigger(bool value)
+TT_INLINE void tt_pulsesub::set_trigger(bool value)
 {
 	env_gen->set_trigger(value);
 }
@@ -104,7 +104,7 @@ inline void tt_pulsesub::set_trigger(bool value)
 //	the vectorsize of the signals are the same as that of this object.
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_pulsesub::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_pulsesub::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	phasor->dsp_vector_calc(temp[0]);			// ramp wave, stored in a temporary vector
 	offset->dsp_vector_calc(temp[0], temp[1]);	// offset the ramp wave, effectively altering the duty cycle
@@ -114,7 +114,7 @@ inline void tt_pulsesub::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *o
 
 
 // set sample-rate (override the inherited method)
-inline void tt_pulsesub::set_sr(int	value)
+TT_INLINE void tt_pulsesub::set_sr(int	value)
 {
 	if(value != sr){
 		sr = value;
@@ -129,7 +129,7 @@ inline void tt_pulsesub::set_sr(int	value)
 }
 
 // set the vector size (override the inherited method)
-inline void tt_pulsesub::set_vectorsize(int value)
+TT_INLINE void tt_pulsesub::set_vectorsize(int value)
 {
 	short i;
 	if(value != vectorsize){

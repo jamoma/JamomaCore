@@ -2,21 +2,21 @@
 
 
 // OBJECT LIFE					
-inline tt_lowpass_twopole::tt_lowpass_twopole()								// Constructor		
+TT_INLINE tt_lowpass_twopole::tt_lowpass_twopole()								// Constructor		
 {
 	set_attr(k_frequency, 1000.0);	
 	set_attr(k_resonance, 1.0);	
 	clear();
 }
 
-inline tt_lowpass_twopole::~tt_lowpass_twopole()								// Destructor
+TT_INLINE tt_lowpass_twopole::~tt_lowpass_twopole()								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_lowpass_twopole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_lowpass_twopole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){			
 		case k_frequency:
@@ -34,7 +34,7 @@ inline void tt_lowpass_twopole::set_attr(tt_selector sel, tt_attribute_value val
 	coef_c = 1.0 - coef_a + coef_b;			
 }
 
-inline tt_attribute_value tt_lowpass_twopole::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_lowpass_twopole::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
@@ -48,7 +48,7 @@ inline tt_attribute_value tt_lowpass_twopole::get_attr(tt_selector sel)				// Ge
 
 
 // DSP LOOP
-inline void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value temp;
 	temp_vs = in->vectorsize;
@@ -69,7 +69,7 @@ inline void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in, tt_audio_si
 }
 
 // DSP LOOP - STEREO
-inline void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	tt_sample_value temp[2];
 	temp_vs = in1->vectorsize;
@@ -94,7 +94,7 @@ inline void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in1, tt_audio_s
 
 
 // clear
-inline void tt_lowpass_twopole::clear()
+TT_INLINE void tt_lowpass_twopole::clear()
 {
 	short i;
 	

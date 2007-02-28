@@ -2,7 +2,7 @@
 
 
 // OBJECT LIFE					
-inline tt_comb::tt_comb(tt_attribute_value arg)				// Constructor		
+TT_INLINE tt_comb::tt_comb(tt_attribute_value arg)				// Constructor		
 {
 	long i;
 	alloc = memwriteptr = memory = 0;
@@ -29,14 +29,14 @@ inline tt_comb::tt_comb(tt_attribute_value arg)				// Constructor
 	memwriteptr = memory + delay;
 }
 
-inline tt_comb::~tt_comb(void)							// Destructor
+TT_INLINE tt_comb::~tt_comb(void)							// Destructor
 {
 	mem_free(alloc);
 }
 
 
 // ATTRIBUTES
-inline void tt_comb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_comb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	double radians;
 	
@@ -69,7 +69,7 @@ inline void tt_comb::set_attr(tt_selector sel, tt_attribute_value val)	// Set At
 	}
 }
 
-inline tt_attribute_value tt_comb::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_comb::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_cutoff_frequency:
@@ -89,7 +89,7 @@ inline tt_attribute_value tt_comb::get_attr(tt_selector sel)				// Get Attribute
 
 
 // DSP LOOP
-inline void tt_comb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_comb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	float comb_fb_sample;
 	float *mem_end, *mem_readptr;
@@ -128,7 +128,7 @@ inline void tt_comb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 // ADDITIONAL METHODS ****************************************************
 
 // clear
-inline void tt_comb::clear()
+TT_INLINE void tt_comb::clear()
 {
 	long i;
 	for (i=0; i<(buffersize_in_samples + 4); i++) 
@@ -137,7 +137,7 @@ inline void tt_comb::clear()
 }
 
 // set sample-rate (override the inherited method)
-inline void tt_comb::set_sr(int	value)
+TT_INLINE void tt_comb::set_sr(int	value)
 {
 	sr = value;
 	r_sr = 1.0 / value;

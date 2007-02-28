@@ -2,7 +2,7 @@
 
 
 // OBJECT LIFE ************************************************************
-inline tt_fivecomb::tt_fivecomb()										// Constructor		
+TT_INLINE tt_fivecomb::tt_fivecomb()										// Constructor		
 {
 	short i;
 
@@ -21,7 +21,7 @@ inline tt_fivecomb::tt_fivecomb()										// Constructor
 	// set_attr(k_windowsize, 87.0);
 }
 
-inline tt_fivecomb::~tt_fivecomb()									// Destructor
+TT_INLINE tt_fivecomb::~tt_fivecomb()									// Destructor
 {
 	short i;
 	for(i=0; i<5; i++)
@@ -37,7 +37,7 @@ inline tt_fivecomb::~tt_fivecomb()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-inline void tt_fivecomb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_fivecomb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch(sel){
 		case k_mix:
@@ -55,7 +55,7 @@ inline void tt_fivecomb::set_attr(tt_selector sel, tt_attribute_value val)	// Se
 	}
 }
 
-inline void tt_fivecomb::set_attr(tt_selector sel, short index, tt_attribute_value val)
+TT_INLINE void tt_fivecomb::set_attr(tt_selector sel, short index, tt_attribute_value val)
 {
 	switch(sel){
 		case k_frequency:
@@ -70,7 +70,7 @@ inline void tt_fivecomb::set_attr(tt_selector sel, short index, tt_attribute_val
 }
 
 
-inline tt_attribute_value tt_fivecomb::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_fivecomb::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch(sel){
 		case k_mix:
@@ -82,7 +82,7 @@ inline tt_attribute_value tt_fivecomb::get_attr(tt_selector sel)				// Get Attri
 	}
 }
 
-inline tt_attribute_value tt_fivecomb::get_attr(tt_selector sel, short index)
+TT_INLINE tt_attribute_value tt_fivecomb::get_attr(tt_selector sel, short index)
 {
 	switch(sel){
 		case k_frequency:
@@ -106,7 +106,7 @@ inline tt_attribute_value tt_fivecomb::get_attr(tt_selector sel, short index)
 //	the vectorsize of the signals are the same as that of this object.
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_fivecomb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_fivecomb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	input_gainer->dsp_vector_calc(in, temp[0]);				// Scale input	
 	comb_filter[0]->dsp_vector_calc(temp[0], temp[1]);		// 5 parallel comb filters...
@@ -122,7 +122,7 @@ inline void tt_fivecomb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *o
 // ADDITIONAL METHODS ************************************************************
 
 // clear the filters
-inline void tt_fivecomb::clear()
+TT_INLINE void tt_fivecomb::clear()
 {
 	short i;
 	for(i=0; i<5; i++)
@@ -130,7 +130,7 @@ inline void tt_fivecomb::clear()
 }
 
 // set sample-rate (override the inherited method)
-inline void tt_fivecomb::set_sr(int	value)
+TT_INLINE void tt_fivecomb::set_sr(int	value)
 {
 	if(value != sr){
 		short i;
@@ -148,7 +148,7 @@ inline void tt_fivecomb::set_sr(int	value)
 }
 
 // set the vector size (override the inherited method)
-inline void tt_fivecomb::set_vectorsize(int value)
+TT_INLINE void tt_fivecomb::set_vectorsize(int value)
 {
 	short i;
 	if(value != vectorsize){

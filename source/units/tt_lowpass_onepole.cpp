@@ -2,20 +2,20 @@
 
 
 // OBJECT LIFE					
-inline tt_lowpass_onepole::tt_lowpass_onepole()			// Constructor		
+TT_INLINE tt_lowpass_onepole::tt_lowpass_onepole()			// Constructor		
 {
 	set_attr(k_frequency, 5000.0);
 	clear();
 }
 
-inline tt_lowpass_onepole::~tt_lowpass_onepole()							// Destructor
+TT_INLINE tt_lowpass_onepole::~tt_lowpass_onepole()							// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_lowpass_onepole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_lowpass_onepole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	double radians;
 
@@ -31,7 +31,7 @@ inline void tt_lowpass_onepole::set_attr(tt_selector sel, tt_attribute_value val
 	}
 }
 
-inline tt_attribute_value tt_lowpass_onepole::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_lowpass_onepole::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
@@ -45,7 +45,7 @@ inline tt_attribute_value tt_lowpass_onepole::get_attr(tt_selector sel)				// Ge
 
 
 // DSP LOOP
-inline void tt_lowpass_onepole::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_lowpass_onepole::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--){
@@ -57,13 +57,13 @@ inline void tt_lowpass_onepole::dsp_vector_calc(tt_audio_signal *in, tt_audio_si
 // ADDITIONAL METHODS *******************************************************
 
 // clear
-inline void tt_lowpass_onepole::clear()
+TT_INLINE void tt_lowpass_onepole::clear()
 {
 	feedback = 0.0;	
 }
 
 // set sample-rate (override the inherited method)
-inline void tt_lowpass_onepole::set_sr(int	value)
+TT_INLINE void tt_lowpass_onepole::set_sr(int	value)
 {
 	sr = value;
 	r_sr = 1.0 / value;

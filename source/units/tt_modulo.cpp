@@ -1,18 +1,18 @@
 #include "tt_modulo.h"
 
-inline tt_modulo::tt_modulo(void)	// Constructor		
+TT_INLINE tt_modulo::tt_modulo(void)	// Constructor		
 {
 	set_attr(k_modulo_argument, 1.0);
 }
 
-inline tt_modulo::~tt_modulo(void)		// Destructor
+TT_INLINE tt_modulo::~tt_modulo(void)		// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_modulo::set_attr(tt_selector sel, tt_attribute_value val)			// Set Attributes
+TT_INLINE void tt_modulo::set_attr(tt_selector sel, tt_attribute_value val)			// Set Attributes
 {
 	switch (sel){
 		case k_modulo_argument:
@@ -24,7 +24,7 @@ inline void tt_modulo::set_attr(tt_selector sel, tt_attribute_value val)			// Se
 }
 
 
-inline tt_attribute_value tt_modulo::get_attr(tt_selector sel)					// Get Attributes
+TT_INLINE tt_attribute_value tt_modulo::get_attr(tt_selector sel)					// Get Attributes
 {
 	switch(sel){
 		case k_modulo_argument:
@@ -37,7 +37,7 @@ inline tt_attribute_value tt_modulo::get_attr(tt_selector sel)					// Get Attrib
 
 
 // DSP LOOP - ARGUMENT IS A CONSTANT
-inline void tt_modulo::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_modulo::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	temp_vs = in->vectorsize;
 	while(temp_vs--)
@@ -48,7 +48,7 @@ inline void tt_modulo::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out
 }
 
 // DSP LOOP - ARGUMENT IS A SIGNAL
-inline void tt_modulo::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
+TT_INLINE void tt_modulo::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 {
 	temp_vs = in1->vectorsize;
 	while(temp_vs--)

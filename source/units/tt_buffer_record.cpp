@@ -2,7 +2,7 @@
 
 
 // OBJECT LIFE					
-inline tt_buffer_record::tt_buffer_record()									// Constructor		
+TT_INLINE tt_buffer_record::tt_buffer_record()									// Constructor		
 {
 	// set defaults
 	set_attr(k_mode, k_mode_direct);
@@ -11,7 +11,7 @@ inline tt_buffer_record::tt_buffer_record()									// Constructor
 	my_buffer = 0;
 }
 
-inline tt_buffer_record::tt_buffer_record(tt_buffer *buffer_ref)			// Constructor - BUFFER ARG
+TT_INLINE tt_buffer_record::tt_buffer_record(tt_buffer *buffer_ref)			// Constructor - BUFFER ARG
 {
 	// set defaults
 	set_attr(k_mode, k_mode_direct);
@@ -21,14 +21,14 @@ inline tt_buffer_record::tt_buffer_record(tt_buffer *buffer_ref)			// Constructo
 	set_buffer(buffer_ref);
 }
 
-inline tt_buffer_record::~tt_buffer_record()								// Destructor
+TT_INLINE tt_buffer_record::~tt_buffer_record()								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-inline void tt_buffer_record::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_buffer_record::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:	// mode sets a function pointer to the correct dsp loop
@@ -48,7 +48,7 @@ inline void tt_buffer_record::set_attr(tt_selector sel, tt_attribute_value val)	
 	}
 }
 
-inline tt_attribute_value tt_buffer_record::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_buffer_record::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -60,12 +60,12 @@ inline tt_attribute_value tt_buffer_record::get_attr(tt_selector sel)				// Get 
 
 
 // METHODS
-inline void tt_buffer_record::set_buffer(tt_buffer *buffer_ref)	// Set Buffer
+TT_INLINE void tt_buffer_record::set_buffer(tt_buffer *buffer_ref)	// Set Buffer
 {
 	my_buffer = buffer_ref;	
 }
 
-inline tt_buffer *tt_buffer_record::get_buffer()				// Get Buffer
+TT_INLINE tt_buffer *tt_buffer_record::get_buffer()				// Get Buffer
 {
 	return my_buffer;
 }
@@ -76,7 +76,7 @@ inline tt_buffer *tt_buffer_record::get_buffer()				// Get Buffer
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_buffer_record::dsp_vector_calc(tt_audio_signal *in)
+TT_INLINE void tt_buffer_record::dsp_vector_calc(tt_audio_signal *in)
 {
 	(*this.*dsp_executor)(in);
 }

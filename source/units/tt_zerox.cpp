@@ -15,7 +15,7 @@ tt_zerox::~tt_zerox()									// Destructor
 
 
 // ATTRIBUTES
-inline void tt_zerox::set_attr(tt_selector sel, tt_attribute_value val)		// Set Attributes
+TT_INLINE void tt_zerox::set_attr(tt_selector sel, tt_attribute_value val)		// Set Attributes
 {
 	switch (sel){
 		case k_analysis_size:
@@ -25,7 +25,7 @@ inline void tt_zerox::set_attr(tt_selector sel, tt_attribute_value val)		// Set 
 	}
 }
 
-inline tt_attribute_value tt_zerox::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_zerox::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_analysis_size:
@@ -37,7 +37,7 @@ inline tt_attribute_value tt_zerox::get_attr(tt_selector sel)				// Get Attribut
 
 
 // DSP LOOP
-inline void tt_zerox::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_zerox::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	bool this_samp_is_over_zero;
 	bool zerox_occured;
@@ -67,7 +67,7 @@ inline void tt_zerox::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1
 
 
 // clear
-inline void tt_zerox::clear()
+TT_INLINE void tt_zerox::clear()
 {
 	last_samp_was_over_zero = 0;
 	counter = 0;

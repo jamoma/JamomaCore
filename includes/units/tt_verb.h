@@ -13,7 +13,15 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 #include "tt_multitap.h"
+#include "tt_comb.h"
+#include "tt_lfo.h"
+#include "tt_allpass.h"
+#include "tt_lowpass_onepole.h"
+#include "tt_mixer_mono.h"
+#include "tt_crossfade.h"
+#include "tt_gain.h"
 
 /********************************************************
 	CLASS INTERFACE

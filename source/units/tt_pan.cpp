@@ -16,7 +16,7 @@ tt_pan::~tt_pan(void)										// Destructor
 
 
 // ATTRIBUTES
-inline void tt_pan::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_pan::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_position:
@@ -39,7 +39,7 @@ inline void tt_pan::set_attr(tt_selector sel, tt_attribute_value val)	// Set Att
 }
 
 
-inline tt_attribute_value tt_pan::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_pan::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_position:
@@ -59,7 +59,7 @@ inline tt_attribute_value tt_pan::get_attr(tt_selector sel)				// Get Attributes
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_pan::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE void tt_pan::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	(*this.*dsp_executor)(in, out1, out2);		// Run the function pointed to by our function pointer
 }

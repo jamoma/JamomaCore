@@ -58,7 +58,7 @@ tt_shift::~tt_shift()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-inline void tt_shift::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_shift::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch(sel){
 		case k_ratio:
@@ -73,7 +73,7 @@ inline void tt_shift::set_attr(tt_selector sel, tt_attribute_value val)	// Set A
 	}
 }
 
-inline tt_attribute_value tt_shift::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_shift::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch(sel){
 		case k_ratio:
@@ -93,7 +93,7 @@ inline tt_attribute_value tt_shift::get_attr(tt_selector sel)				// Get Attribut
 //	the vectorsize of the signals are the same as that of this object.
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_shift::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_shift::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	phasor->dsp_vector_calc(temp[0]);					// phasor~
 	scale->dsp_vector_calc(temp[0], temp[1]);			// *~ 87.0		
@@ -112,7 +112,7 @@ inline void tt_shift::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 
 
 // clear
-inline void tt_shift::clear()
+TT_INLINE void tt_shift::clear()
 {
 	delay1->clear();
 	delay2->clear();
@@ -120,7 +120,7 @@ inline void tt_shift::clear()
 
 
 // set sample-rate (override the inherited method)
-inline void tt_shift::set_sr(int	value)
+TT_INLINE void tt_shift::set_sr(int	value)
 {
 	if(value != sr){
 		sr = value;
@@ -145,7 +145,7 @@ inline void tt_shift::set_sr(int	value)
 
 
 // set the vector size (override the inherited method)
-inline void tt_shift::set_vectorsize(int value)
+TT_INLINE void tt_shift::set_vectorsize(int value)
 {
 	short i;
 	if(value != vectorsize){

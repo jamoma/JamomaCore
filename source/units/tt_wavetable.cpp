@@ -21,7 +21,7 @@ tt_wavetable::~tt_wavetable()									// Destructor
 
 
 // ATTRIBUTES
-inline void tt_wavetable::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_wavetable::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 
@@ -65,7 +65,7 @@ inline void tt_wavetable::set_attr(tt_selector sel, tt_attribute_value val)	// S
 	}
 }
 
-inline tt_attribute_value tt_wavetable::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_wavetable::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
@@ -81,14 +81,14 @@ inline tt_attribute_value tt_wavetable::get_attr(tt_selector sel)				// Get Attr
 
 
 // METHOD: SET_WAVETABLE
-inline void tt_wavetable::set_wavetable(tt_buffer *newbuffer)
+TT_INLINE void tt_wavetable::set_wavetable(tt_buffer *newbuffer)
 {
 	wavetable->set_buffer(newbuffer);
 }
 
 
 // DSP LOOP - WITHOUT MODULATION
-inline void tt_wavetable::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE void tt_wavetable::dsp_vector_calc(tt_audio_signal *out)
 {
 	unsigned long p1, p2;
 	float diff;
@@ -119,7 +119,7 @@ inline void tt_wavetable::dsp_vector_calc(tt_audio_signal *out)
 
 
 // DSP LOOP - WITH MODULATION INPUT
-inline void tt_wavetable::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_wavetable::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	unsigned long p1, p2;
 	float diff, wavetable_length = float(wavetable->length_samples);

@@ -16,6 +16,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
 
 
 /********************************************************

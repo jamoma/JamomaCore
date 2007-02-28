@@ -2,26 +2,26 @@
 
 
 // OBJECT LIFE ************************************	
-inline tt_multitap::tt_multitap(tt_attribute_value_discrete value)		// Instance Constructor: INT ARGUMENT
+TT_INLINE tt_multitap::tt_multitap(tt_attribute_value_discrete value)		// Instance Constructor: INT ARGUMENT
 {
 	reset();
 	set_attr(k_buffersize_samples, value);
 }
 
-inline tt_multitap::tt_multitap(tt_attribute_value value)				// Instance Constructor: FLOAT ARGUMENT
+TT_INLINE tt_multitap::tt_multitap(tt_attribute_value value)				// Instance Constructor: FLOAT ARGUMENT
 {
 	reset();
 	set_attr(k_buffersize_ms, value);
 }
 
-inline tt_multitap::~tt_multitap()										// Instance Destructor
+TT_INLINE tt_multitap::~tt_multitap()										// Instance Destructor
 {	
 	mem_free(buffer);	
 }
 
 
 // OVER-RIDEN SR METHOD ***************************
-inline void tt_multitap::set_sr(int value){
+TT_INLINE void tt_multitap::set_sr(int value){
 	if(value != sr){		// Do this only if the SR has changed
 		short i;
 		
@@ -38,7 +38,7 @@ inline void tt_multitap::set_sr(int value){
 }
 
 // OVER-RIDEN VS METHOD ***************************
-inline void tt_multitap::set_vectorsize(int value)
+TT_INLINE void tt_multitap::set_vectorsize(int value)
 {
 	if(value != vectorsize){
 		short i;
@@ -58,7 +58,7 @@ inline void tt_multitap::set_vectorsize(int value)
 
 // ATTRIBUTES *************************************
 
-inline void tt_multitap::set_attr(tt_selector sel, tt_attribute_value val)				// "GLOBAL" ATTRIBUTES FOR THIS OBJECT...
+TT_INLINE void tt_multitap::set_attr(tt_selector sel, tt_attribute_value val)				// "GLOBAL" ATTRIBUTES FOR THIS OBJECT...
 {
 	switch(sel){
 		case k_buffersize_ms:
@@ -82,7 +82,7 @@ inline void tt_multitap::set_attr(tt_selector sel, tt_attribute_value val)				//
 	}
 }
 
-inline tt_attribute_value tt_multitap::get_attr(tt_selector sel)
+TT_INLINE tt_attribute_value tt_multitap::get_attr(tt_selector sel)
 {
 	switch(sel){
 		case k_buffersize_ms:
@@ -99,7 +99,7 @@ inline tt_attribute_value tt_multitap::get_attr(tt_selector sel)
 }
 
 
-inline void tt_multitap::set_attr(tt_selector sel, int tap, tt_attribute_value val)	// "TAP-SPECIFIC" ATTRIBUTES FOR THIS OBJECT...
+TT_INLINE void tt_multitap::set_attr(tt_selector sel, int tap, tt_attribute_value val)	// "TAP-SPECIFIC" ATTRIBUTES FOR THIS OBJECT...
 {
 	tap = clip(tap, 0, k_max_num_taps -1);		// range-limit the tap number
 	switch(sel){
@@ -120,7 +120,7 @@ inline void tt_multitap::set_attr(tt_selector sel, int tap, tt_attribute_value v
 	}
 }
 
-inline tt_attribute_value tt_multitap::get_attr(tt_selector sel, int tap)
+TT_INLINE tt_attribute_value tt_multitap::get_attr(tt_selector sel, int tap)
 {
 	tap = clip(tap, 0, k_max_num_taps -1);		// range-limit the tap number
 	switch(sel){
@@ -138,7 +138,7 @@ inline tt_attribute_value tt_multitap::get_attr(tt_selector sel, int tap)
 
 // DSP ROUTINE(S) *********************************
 
-inline void tt_multitap::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_multitap::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value temp;
 	short i;
@@ -170,7 +170,7 @@ inline void tt_multitap::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *o
 
 // ADDITIONAL METHODS *****************************
 
-inline void tt_multitap::clear(void)
+TT_INLINE void tt_multitap::clear(void)
 {
 	long i;
 	for(i=0; i<buffersize_samples; i++){
@@ -179,7 +179,7 @@ inline void tt_multitap::clear(void)
 }
 
 
-inline void tt_multitap::init_buffer()
+TT_INLINE void tt_multitap::init_buffer()
 {
 	mem_free(buffer);	// release previously used memory (if any)
 	buffer = (tt_sample_value *)mem_alloc((buffersize_samples + 1) * sizeof(tt_sample_value));
@@ -195,7 +195,7 @@ inline void tt_multitap::init_buffer()
 	}
 }
 
-inline void tt_multitap::reset(void)
+TT_INLINE void tt_multitap::reset(void)
 {
 	short i;
 	
@@ -211,7 +211,7 @@ inline void tt_multitap::reset(void)
 	set_sr(global_sr);
 }
 
-inline void tt_multitap::position_playheads()				// point play heads to the correct location
+TT_INLINE void tt_multitap::position_playheads()				// point play heads to the correct location
 {
 	short i;
 	for(i=0; i<k_max_num_taps; i++){		

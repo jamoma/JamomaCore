@@ -2,7 +2,7 @@
 
 
 // CREATE AN INSTANCE WITH A NULL VECTOR (useful for wrapping an external entity as an audio signal)
-inline tt_audio_signal::tt_audio_signal()
+TT_INLINE tt_audio_signal::tt_audio_signal()
 {
 	vector_start = vector = 0;
 	vectorsize = 0;
@@ -10,7 +10,7 @@ inline tt_audio_signal::tt_audio_signal()
 }
 
 // CREATE AN INSTANCE WITH A SPECIFIED VECTOR SIZE
-inline tt_audio_signal::tt_audio_signal(short init_vector_size)
+TT_INLINE tt_audio_signal::tt_audio_signal(short init_vector_size)
 {
 	tt_err	err;
 	vectorsize = 0;
@@ -23,27 +23,27 @@ inline tt_audio_signal::tt_audio_signal(short init_vector_size)
 }
 
 // DESTROY AN INSTANCE
-inline tt_audio_signal::~tt_audio_signal()
+TT_INLINE tt_audio_signal::~tt_audio_signal()
 {
 	if(mode == k_mode_local)
 		mem_free(vector);		// only free the vector if this instance is responsible for it!
 }
 
 // OVERRIDE THE INHERITED SET VECTOR SIZE METHOD
-inline void tt_audio_signal::set_vectorsize(int value)
+TT_INLINE void tt_audio_signal::set_vectorsize(int value)
 {
 	vectorsize = /* vectorsize_start = */ value;
 }
 
 // SET A REFERENCE TO AN EXTERNAL VECTOR
-inline void tt_audio_signal::set_vector(tt_sample_vector ext_vector)
+TT_INLINE void tt_audio_signal::set_vector(tt_sample_vector ext_vector)
 {
 	vector = vector_start = ext_vector;
 }
 
 
 // ALLOCATE A VECTOR - SET ITS SIZE
-inline tt_err tt_audio_signal::alloc(short new_vector_size)
+TT_INLINE tt_err tt_audio_signal::alloc(short new_vector_size)
 {
 	mode = k_mode_local;							// flag this so the RAM is released on free
 	if(new_vector_size != vectorsize){
@@ -65,14 +65,14 @@ inline tt_err tt_audio_signal::alloc(short new_vector_size)
 }
 
 // RESET THE VECTOR POINTER TO THE BEGINNING OF THE VECTOR
-inline void tt_audio_signal::reset()
+TT_INLINE void tt_audio_signal::reset()
 {
 	//vectorsize = vectorsize_start;
 	vector = vector_start;
 }
 
 // CLEAR - ZERO OUT A VECTOR'S CONTENTS
-inline void tt_audio_signal::clear()
+TT_INLINE void tt_audio_signal::clear()
 {
 	short i;
 	for(i=0; i<vectorsize; i++)
@@ -80,7 +80,7 @@ inline void tt_audio_signal::clear()
 }
 
 // FILL - SET ALL VALUES IN THE SIGNAL TO A CONSTANT
-inline void tt_audio_signal::fill(tt_sample_value val)
+TT_INLINE void tt_audio_signal::fill(tt_sample_value val)
 {
 	int i;
 	for(i=0; i<vectorsize; i++)

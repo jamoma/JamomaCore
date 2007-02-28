@@ -15,13 +15,21 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
+#include "tt_audio_signal.h"
+#include "tt_delay.h"
+#include "tt_phasor.h"
+#include "tt_buffer_window.h"
+#include "tt_gain.h"
+#include "tt_offset.h"
+#include "tt_onewrap.h"
+#include "tt_mixer_mono.h"
+#include "tt_buffer.h"
+#include "tt_pan.h"
 
 
 /********************************************************
-	CLASS INTERFACE/IMPLEMENTATION
-
-	The entire class is implemented inline for speed.
- ********************************************************/
+	CLASS INTERFACE
+********************************************************/
 
 class tt_procrastinate:public tt_audio_base{
 

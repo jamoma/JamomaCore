@@ -16,7 +16,7 @@ tt_phasor::~tt_phasor()								// Destructor
 
 
 // OVER-RIDE THE INHERITED SET SR METHOD
-inline void tt_phasor::set_sr(int value)
+TT_INLINE void tt_phasor::set_sr(int value)
 {
 	if(value != sr){
 		sr = value;					// These first three need to be called to do the standard stuff from the base class
@@ -30,7 +30,7 @@ inline void tt_phasor::set_sr(int value)
 
 
 // ATTRIBUTES
-inline void tt_phasor::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_phasor::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_phase:
@@ -66,7 +66,7 @@ inline void tt_phasor::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 	step = 1.0 / double(ramp_samps);	// 1.0 is the destination
 }
 
-inline tt_attribute_value tt_phasor::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_phasor::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_phase:
@@ -88,7 +88,7 @@ inline tt_attribute_value tt_phasor::get_attr(tt_selector sel)				// Get Attribu
 
 
 // DSP LOOP
-inline void tt_phasor::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE void tt_phasor::dsp_vector_calc(tt_audio_signal *out)
 {
 	temp_vs = out->vectorsize;
 	while(temp_vs--){

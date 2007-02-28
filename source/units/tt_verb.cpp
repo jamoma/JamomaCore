@@ -100,7 +100,7 @@ tt_verb::~tt_verb()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-inline void tt_verb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE void tt_verb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	short i;
 	switch(sel){
@@ -155,7 +155,7 @@ inline void tt_verb::set_attr(tt_selector sel, tt_attribute_value val)	// Set At
 }
 
 
-inline tt_attribute_value tt_verb::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_attribute_value tt_verb::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch(sel){
 		case k_mix:
@@ -191,7 +191,7 @@ inline tt_attribute_value tt_verb::get_attr(tt_selector sel)				// Get Attribute
 //	the vectorsize of the signals are the same as that of this object.
 
 // Publically exposed interface for this object's dsp routine
-inline void tt_verb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE void tt_verb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(in, out);		// Run the function pointed to by our function pointer
 }
@@ -308,7 +308,7 @@ void tt_verb::dsp_vector_calc_no_reflections_lite(tt_audio_signal *in, tt_audio_
 // ADDITIONAL METHODS ************************************************************
 
 // clear
-inline void tt_verb::clear()
+TT_INLINE void tt_verb::clear()
 {
 	short i;
 	for(i=0;i<6;i++)
@@ -320,7 +320,7 @@ inline void tt_verb::clear()
 
 
 // set sample-rate (override the inherited method)
-inline void tt_verb::set_sr(int	value)
+TT_INLINE void tt_verb::set_sr(int	value)
 {
 	short i;
 	
@@ -342,7 +342,7 @@ inline void tt_verb::set_sr(int	value)
 
 
 // set the vector size (override the inherited method)
-inline void tt_verb::set_vectorsize(int value)
+TT_INLINE void tt_verb::set_vectorsize(int value)
 {
 	short i;
 	vectorsize = value;
@@ -364,7 +364,7 @@ inline void tt_verb::set_vectorsize(int value)
 }
 
 
-inline void tt_verb::config_dsp_pointers()
+TT_INLINE void tt_verb::config_dsp_pointers()
 {
 	if(use_early_reflections && use_lite_version)
 		dsp_executor = &tt_verb::dsp_vector_calc_normal_lite;
