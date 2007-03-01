@@ -38,8 +38,8 @@ void tt_multitap::set_sr(const tt_atom &a)
 			set_attr(k_buffersize_ms, buffersize_ms);
 		// THE ABOVE MAY CAUSE PROBLEMS(!!!) BECAUSE IT WILL CAUSE TROUBLE FOR THE REALTIME PERFORM ROUTINES
 		for(i=0; i<num_taps; i++){
-			temp_atom.set_uint16(0, i);
-			temp_atom.set_float32(1, delay_ms[i]);
+			temp_atom.set(0, i);
+			temp_atom.set(1, delay_ms[i]);
 			set_attr(k_delay_ms, temp_atom);
 		}
 	}
@@ -61,8 +61,8 @@ void tt_multitap::set_vectorsize(const tt_atom &a)
 			set_attr(k_buffersize_ms, buffersize_ms);
 		// THE ABOVE MAY CAUSE PROBLEMS(!!!) BECAUSE IT WILL CAUSE TROUBLE FOR THE REALTIME PERFORM ROUTINES
 		for(i=0; i<num_taps; i++){
-			temp_atom.set_uint16(0, i);
-			temp_atom.set_float32(1, delay_ms[i]);
+			temp_atom.set(0, i);
+			temp_atom.set(1, delay_ms[i]);
 			set_attr(k_delay_ms, temp_atom);
 		}
 	}
@@ -81,8 +81,8 @@ tt_err tt_multitap::set_attr(tt_selector sel, const tt_atom &a)				// "GLOBAL" A
 	tt_int16	tap;
 	
 	if(a.get_num_values() == 2){
-		tap = a;
-		val = a.get_float32(1);
+		a.get(0, val);
+		a.get(1, val);
 
 		tap = clip(int(tap), 0, k_max_num_taps -1);		// range-limit the tap number
 		switch(sel){

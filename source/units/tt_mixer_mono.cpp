@@ -18,43 +18,48 @@ tt_mixer_mono::~tt_mixer_mono(void)								// Destructor
 
 // ATTRIBUTES - TWO ARGUMENTS
 TT_INLINE
-void tt_mixer_mono::set_attr(tt_selector sel, tt_attribute_value_discrete chan, tt_attribute_value val)	// Set Attributes
+tt_err tt_mixer_mono::set_attr(tt_selector sel, const tt_atom &a)		// Set Attributes
 {
-	switch (sel){
-		case k_channel_gain:
-			channel_gain[chan] = decibels_to_amplitude(val);
-			break;
-	}
-}
-
-TT_INLINE
-void tt_mixer_mono::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
-{
+//	tt_atom		temp_atom;
+//	
+//	temp_atom.set_num_items(2);
+//	temp_atom.set(0, );
+	tt_uint16	chan;
+	tt_float32	val;
+	
 	switch (sel){
 		case k_master_gain:
+			a.get(0, val);
 			master_gain = decibels_to_amplitude(val);
 			break;
+		case k_channel_gain:
+			a.get(0, chan);
+			a.get(1, val);
+			channel_gain[chan] = decibels_to_amplitude(val);
+			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-tt_attribute_value tt_mixer_mono::get_attr(tt_selector sel)				// Get Attributes
-{
-	switch (sel){
-		case k_master_gain:
-			return amplitude_to_decibels(master_gain);
-			break;	
-	}
-	return 0.0;
-}
 
-tt_attribute_value tt_mixer_mono::get_attr(tt_selector sel, tt_attribute_value_discrete chan)	// Get Attributes
+tt_err tt_mixer_mono::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
+	tt_uint16	chan;
+
 	switch (sel){
 		case k_master_gain:
-			return amplitude_to_decibels(channel_gain[chan]);
+			a = amplitude_to_decibels(master_gain);
 			break;	
+		case k_channel_gain:
+			chan = a;
+			a = amplitude_to_decibels(channel_gain[chan]);
+			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
-	return 0.0;
+	return TT_ERR_NONE;
 }
 
 

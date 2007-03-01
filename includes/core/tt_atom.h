@@ -180,7 +180,8 @@ class tt_atom : tt_base {
 		
 		~tt_atom()
 		{
-			;
+			delete type;
+			delete data;
 		}
 		
 		
@@ -198,13 +199,19 @@ class tt_atom : tt_base {
 		}
 		
 		
-		tt_int16 get_num_values() const
+		tt_uint16 get_num_values() const
 		{
 			return num_values;
 		}
 		
-		void set_num_values(tt_int16 arg)	// this should never be needed
+		void set_num_values(const tt_uint16 arg)	// this should never be needed
 		{
+			if(arg > num_values){
+				delete type;
+				delete data;
+				type = new data_type[arg];
+				data = new data_value[arg];
+			}
 			num_values = arg;
 		}
 		
@@ -218,6 +225,12 @@ class tt_atom : tt_base {
 		}
 		
 
+
+		#pragma mark -
+		#pragma mark VALUE ACCESSORS
+
+		#pragma mark -
+		#pragma mark Methods for assignment using =
 
 		// INT8
 		tt_atom& operator = (tt_int8 value)
@@ -237,7 +250,6 @@ class tt_atom : tt_base {
 			}
 		}
 
-
 		// INT16
 		tt_atom& operator = (tt_int16 value)
 		{
@@ -255,8 +267,7 @@ class tt_atom : tt_base {
 				return 0;
 			}
 		}
-
-
+		
 		// INT32
 		tt_atom& operator = (tt_int32 value)
 		{
@@ -275,7 +286,6 @@ class tt_atom : tt_base {
 			}
 		}
 
-
 		// INT64
 		tt_atom& operator = (tt_int64 value)
 		{
@@ -293,10 +303,6 @@ class tt_atom : tt_base {
 				return 0;
 			}
 		}
-
-
-
-
 
 		// UINT8
 		tt_atom& operator = (tt_uint8 value)
@@ -333,7 +339,6 @@ class tt_atom : tt_base {
 			}
 		}
 
-
 		// UINT16
 		tt_atom& operator = (tt_uint16 value)
 		{
@@ -351,7 +356,6 @@ class tt_atom : tt_base {
 				return 0;
 			}
 		}
-
 
 		// UINT32
 		tt_atom& operator = (tt_uint32 value)
@@ -371,7 +375,6 @@ class tt_atom : tt_base {
 			}
 		}
 
-
 		// UINT64
 		tt_atom& operator = (tt_uint64 value)
 		{
@@ -389,10 +392,6 @@ class tt_atom : tt_base {
 				return 0;
 			}
 		}
-
-
-
-
 
 		// FLOAT32
 		tt_atom& operator = (tt_float32 value) 
@@ -412,7 +411,6 @@ class tt_atom : tt_base {
 			}
 		}
 
-
 		// FLOAT64
 		tt_atom& operator = (tt_float64 value)
 		{
@@ -430,6 +428,160 @@ class tt_atom : tt_base {
 				return 0;
 			}
 		}
+
+
+		#pragma mark -
+		#pragma mark set() methods
+		// Should we automatically size to the correct number of values if a higher index comes in?
+		void set(tt_uint16 index, const tt_int8 value)
+		{
+			*type = type_int8;
+			data->val_int8 = value;
+		}
+
+		void set(tt_uint16 index, const tt_int16 value)
+		{
+			*type = type_int16;
+			data->val_int16 = value;
+		}
+
+		void set(tt_uint16 index, const tt_int32 value)
+		{
+			*type = type_int32;
+			data->val_int32 = value;
+		}
+
+		void set(tt_uint16 index, const tt_int64 value)
+		{
+			*type = type_int64;
+			data->val_int64 = value;
+		}
+
+		void set(tt_uint16 index, const tt_uint8 value)
+		{
+			*type = type_uint8;
+			data->val_uint8 = value;
+		}
+
+		void set(tt_uint16 index, const tt_uint16 value)
+		{
+			*type = type_uint16;
+			data->val_uint16 = value;
+		}
+
+		void set(tt_uint16 index, const tt_uint32 value)
+		{
+			*type = type_uint32;
+			data->val_uint32 = value;
+		}
+
+		void set(tt_uint16 index, const tt_uint64 value)
+		{
+			*type = type_uint64;
+			data->val_uint64 = value;
+		}
+
+		void set(tt_uint16 index, const tt_float32 value)
+		{
+			*type = type_float32;
+			data->val_float32 = value;
+		}
+
+		void set(tt_uint16 index, const tt_float64 value)
+		{
+			*type = type_float64;
+			data->val_float64 = value;
+		}
+
+
+
+		#pragma mark -
+		#pragma mark set() methods
+		// THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
+		// Should an error be returned on failure?
+		void get(tt_uint16 index, tt_int8 &value) const
+		{
+			if(*type == type_int8)
+				value = (data+index)->val_int8;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_int16 &value) const
+		{
+			if(*type == type_int16)
+				value = (data+index)->val_int16;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_int32 &value) const
+		{
+			if(*type == type_int32)
+				value = (data+index)->val_int32;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_int64 &value) const
+		{
+			if(*type == type_int64)
+				value = (data+index)->val_int64;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_uint8 &value) const
+		{
+			if(*type == type_uint8)
+				value = (data+index)->val_uint8;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_uint16 &value) const
+		{
+			if(*type == type_uint16)
+				value = (data+index)->val_uint16;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_uint32 &value) const
+		{
+			if(*type == type_uint32)
+				value = (data+index)->val_uint32;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_uint64 &value) const
+		{
+			if(*type == type_uint64)
+				value = (data+index)->val_uint64;
+			else
+				value = 0;
+		}
+
+		void get(tt_uint16 index, tt_float32 &value) const
+		{
+			if(*type == type_float32)
+				value = (data+index)->val_float32;
+			else
+				value =  0;
+		}
+
+		void get(tt_uint16 index, tt_float64 &value) const
+		{
+			if(*type == type_float64)
+				value = (data+index)->val_float64;
+			else
+				value = 0;
+		}
+
+
+
+
 
 
 		// make sure this is a friend so that it can access the private members of the other atom
