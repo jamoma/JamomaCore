@@ -17,8 +17,11 @@ TT_INLINE tt_buffer_window::~tt_buffer_window()								// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_buffer_window::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_buffer_window::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
 		case k_mode:	// mode sets a function pointer to the correct dsp loop
 			mode = (tt_attribute_value_discrete)val;
@@ -27,17 +30,23 @@ TT_INLINE void tt_buffer_window::set_attr(tt_selector sel, tt_attribute_value va
 			else if(mode == k_mode_normalized_fast)
 				dsp_executor = &tt_buffer_window::dsp_vector_calc_normalized_fast;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_buffer_window::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_buffer_window::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

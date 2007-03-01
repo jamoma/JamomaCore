@@ -42,12 +42,10 @@ class tt_mixer_mono:public tt_audio_base{
 		tt_mixer_mono(void);								// Constructor		
 		~tt_mixer_mono(void);								// Destructor
 
-		// ATTRIBUTES - TWO ARGUMENTS
-		void set_attr(tt_selector sel, tt_attribute_value_discrete chan, tt_attribute_value val);	// Set Attributes
-		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
-		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
-		tt_attribute_value get_attr(tt_selector sel, tt_attribute_value_discrete chan);	// Get Attributes
-		
+		// ATTRIBUTES
+		tt_err 		set_attr(tt_selector sel, const tt_atom &val);
+		tt_err		get_attr(tt_selector sel, tt_atom &value);
+				
 		// DSP LOOP - 2 CHANNELS
 		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out);
 		// DSP LOOP - 3 CHANNELS

@@ -31,10 +31,10 @@ class tt_dcblock:public tt_audio_base{
 		tt_dcblock();				// Constructor		
 		~tt_dcblock();				// Destructor
 		
-		void set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
-		{;}
-		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
-		{;}
+		tt_err set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
+		{return TT_ERR_NONE;}
+		tt_err get_attr(tt_selector sel, tt_atom &val)			// Get Attributes
+		{return TT_ERR_NONE;}
 		
 		// DSP LOOP
 		// Note: an algorithm that is frequently used in Max:

@@ -36,9 +36,11 @@ TT_INLINE tt_comb::~tt_comb(void)							// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_comb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_comb::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
-	double radians;
+	tt_float32	val = a;
+	double		radians;
 	
 	switch (sel){
 		case k_cutoff_frequency:
@@ -66,30 +68,41 @@ TT_INLINE void tt_comb::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 			decay = val;
 			comb_fb_coef = decay_to_feedback(decay, msdelay);
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_comb::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_comb::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_cutoff_frequency:
-			return lowpass_frequency;
+			a = lowpass_frequency;
+			break;
 		case k_feedback:
-			return comb_fb_coef;
+			a = comb_fb_coef;
+			break;
 		case k_clip:
-			return clipping;
+			a = clipping;
+			break;
 		case k_delay:
-			return msdelay;
+			a = msdelay;
+			break;
 		case k_decay:
-			return decay;
+			a = decay;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // DSP LOOP
-TT_INLINE void tt_comb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE 
+void tt_comb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	float comb_fb_sample;
 	float *mem_end, *mem_readptr;

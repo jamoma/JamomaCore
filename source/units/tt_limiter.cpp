@@ -29,7 +29,8 @@ TT_INLINE tt_limiter::tt_limiter()									// Constructor
     clear();
 }
 
-TT_INLINE tt_limiter::~tt_limiter()									// Destructor
+TT_INLINE 
+tt_limiter::~tt_limiter()									// Destructor
 {
 //	delete buffer1;
 //	delete buffer2;
@@ -41,10 +42,12 @@ TT_INLINE tt_limiter::~tt_limiter()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_limiter::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_limiter::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
-
 		case k_threshold:
 			threshold = decibels_to_amplitude(val);
 			break;
@@ -77,34 +80,47 @@ TT_INLINE void tt_limiter::set_attr(tt_selector sel, tt_attribute_value val)	// 
 				dsp_executor_stereo = &tt_limiter::dsp_vector_calc_stereo;
 			}
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_limiter::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_limiter::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_threshold:
-			return amplitude_to_decibels(threshold);
+			a = amplitude_to_decibels(threshold);
+			break;
 		case k_release:
-			return release;
+			a = release;
+			break;
 		case k_lookahead:
-			return lookahead;
+			a = lookahead;
+			break;
 		case k_preamp:
-			return amplitude_to_decibels(preamp);
+			a = amplitude_to_decibels(preamp);
+			break;
 		case k_postamp:
-			return amplitude_to_decibels(postamp);
+			a = amplitude_to_decibels(postamp);
+			break;
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		case k_defeat_dcblocker:
-			return defeat_dcblocker;
+			a = defeat_dcblocker;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 		
 
 // clear
-TT_INLINE void tt_limiter::clear(void)
+TT_INLINE 
+void tt_limiter::clear(void)
 {
 	short i;
 	for (i=0; i<MAX_SAMPLES; i++){

@@ -46,9 +46,9 @@ class tt_lowpass_twopole:public tt_audio_base{
 		~tt_lowpass_twopole();								// Destructor
 
 		// ATTRIBUTES
-		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
-		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
-		
+		tt_err 		set_attr(tt_selector sel, const tt_atom &val);
+		tt_err		get_attr(tt_selector sel, tt_atom &value);
+				
 		// DSP LOOP
 		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);
 		// DSP LOOP - STEREO

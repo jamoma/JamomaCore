@@ -36,10 +36,10 @@ class tt_multiply:public tt_audio_base{
 			;
 		}
 
-		void set_attr(tt_selector sel, tt_attribute_value val)		// Set Attributes
-		{;}
-		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
-		{;}
+		tt_err 		set_attr(tt_selector sel, const tt_atom &val)
+		{return TT_ERR_NONE;}
+		tt_err		get_attr(tt_selector sel, tt_atom &value)
+		{return TT_ERR_NONE;}
 		
 		// DSP LOOP
 		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)

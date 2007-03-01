@@ -44,7 +44,8 @@ TT_INLINE tt_delay::~tt_delay()										// Destructor
 
 
 // OVER-RIDE THE INHERITED SET SR METHOD
-TT_INLINE void tt_delay::set_sr(int value)
+TT_INLINE 
+void tt_delay::set_sr(int value)
 {
 	if(value != sr){
 		sr = value;					// These first three need to be called to do the standard stuff from the base class
@@ -60,8 +61,11 @@ TT_INLINE void tt_delay::set_sr(int value)
 
 
 // ATTRIBUTES
-TT_INLINE void tt_delay::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_delay::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
 		case k_delay_ms:
 			delay_ms = val;
@@ -69,7 +73,6 @@ TT_INLINE void tt_delay::set_attr(tt_selector sel, tt_attribute_value val)	// Se
 			fdelay_samples = delay_ms * m_sr;
 			delay_samples = (tt_attribute_value_discrete)fdelay_samples;
 			fractional_delay = fdelay_samples - delay_samples;
-			
 			break;
 		case k_delay_samples:
 			fdelay_samples = delay_samples = clip(long(val), long(0), delay_samples_max);
@@ -104,25 +107,29 @@ TT_INLINE void tt_delay::set_attr(tt_selector sel, tt_attribute_value val)	// Se
 				log_error("tt_delay: invalid interpolation mode specified");
 			break;
 		default:
-			log_error("tt_delay: invalid attribute specified for set_attr()");
-			break;
+			return TT_ERR_ATTR_INVALID;
 	}
 	reset();
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_delay::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_delay::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_delay_ms:
-			return delay_ms;
+			a = delay_ms;
+			break;
 		case k_delay_samples:
-			return tt_attribute_value(delay_samples);
+			a = delay_samples;
+			break;
 		case k_interpolation:
-			return interpolation;
+			a = interpolation;
+			break;
 		default:
-			log_error("tt_delay: invalid attribute specified for get_attr()");				
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
@@ -132,7 +139,8 @@ TT_INLINE tt_attribute_value tt_delay::get_attr(tt_selector sel)				// Get Attri
  *****************************************************/
 
 // Publically exposed interface for CONTROL RATE triggered dsp routine
-TT_INLINE void tt_delay::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE 
+void tt_delay::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(in, out);	// Run the function pointed to by our function pointer
 }

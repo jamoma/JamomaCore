@@ -3,8 +3,8 @@
 #include "tt_audio_base.h"
 
 // GLOBALS (CLASS STATICS)
-int tt_audio_base::global_sr = 44100;						// Global Sample Rate
-int tt_audio_base::global_vectorsize = 64;					// Global Vector Size
+tt_int32 tt_audio_base::global_sr = 44100;						// Global Sample Rate
+tt_int16 tt_audio_base::global_vectorsize = 64;					// Global Vector Size
 
 const double tt_audio_base::pi = 3.1415926535897932;		// pi
 const double tt_audio_base::twopi = 6.2831853071795864;	// 2 * pi
@@ -136,52 +136,52 @@ tt_audio_base::~tt_audio_base()
 
 
 // ATTRIBUTE: global sample rate
-void tt_audio_base::set_global_sr(int value)
+void tt_audio_base::set_global_sr(const tt_atom &value)
 {
 	global_sr = value;
 }
 
-int tt_audio_base::get_global_sr()
+void tt_audio_base::get_global_sr(tt_atom &value)
 {
-	return global_sr;
+	value = global_sr;
 }
 
 
 // ATTRIBUTE: local sample rate (intended for use by inherited objects)
-void tt_audio_base::set_sr(int value)
+void tt_audio_base::set_sr(const tt_atom &value)
 {
 	sr = value;
-	r_sr = 1.0 / value;
+	r_sr = 1.0 / sr;
 	m_sr = sr * 0.001;
 }
 
-int tt_audio_base::get_sr()
+void tt_audio_base::get_sr(tt_atom &value)
 {
-	return sr;
+	value = sr;
 }
 
 
 // ATTRIBUTE: global vector size
-void tt_audio_base::set_global_vectorsize(int value)
+void tt_audio_base::set_global_vectorsize(const tt_atom &value)
 {
 	global_vectorsize = value;
 }
 
-int tt_audio_base::get_global_vectorsize()
+void tt_audio_base::get_global_vectorsize(tt_atom &value)
 {
-	return global_vectorsize;
+	value = global_vectorsize;
 }
 
 
 // ATTRIBUTE: local vector size (intended for use by inherited objects)
-void tt_audio_base::set_vectorsize(int value)
+void tt_audio_base::set_vectorsize(const tt_atom &value)
 {
 	vectorsize = value;
 }
 
-int tt_audio_base::get_vectorsize()
+void tt_audio_base::get_vectorsize(tt_atom &value)
 {
-	return vectorsize;
+	value = vectorsize;
 }
 
 

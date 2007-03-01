@@ -6,8 +6,8 @@ tt_average::tt_average()								// Constructor
 {
 	bins = bins_in = bins_out = bins_end = 0;
 	bins = (tt_sample_value *)mem_alloc((1 + MAX_AVERAGE_INTERVAL) * sizeof(tt_sample_value));
-	set_attr(k_interval, 100);
-	set_attr(k_mode, k_mode_absolute);
+	set_attr(k_interval, tt_int16(100));
+	set_attr(k_mode, tt_int16(k_mode_absolute));
 	clear();
 }
 
@@ -18,8 +18,10 @@ tt_average::~tt_average()								// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_average::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE tt_err tt_average::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
 		case k_interval:
 			val = clip(int(val), 1, int(MAX_AVERAGE_INTERVAL));
@@ -35,19 +37,23 @@ TT_INLINE void tt_average::set_attr(tt_selector sel, tt_attribute_value val)	// 
 			else if(mode == k_mode_rms)
 				dsp_executor = &tt_average::dsp_vector_calc_rms;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_average::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_err tt_average::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_interval:
-			return interval;
+			a = interval;
 		case k_mode:
-			return mode;
+			a = mode;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

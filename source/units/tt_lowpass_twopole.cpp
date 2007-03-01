@@ -2,53 +2,66 @@
 
 
 // OBJECT LIFE					
-TT_INLINE tt_lowpass_twopole::tt_lowpass_twopole()								// Constructor		
+TT_INLINE 
+tt_lowpass_twopole::tt_lowpass_twopole()								// Constructor		
 {
 	set_attr(k_frequency, 1000.0);	
 	set_attr(k_resonance, 1.0);	
 	clear();
 }
 
-TT_INLINE tt_lowpass_twopole::~tt_lowpass_twopole()								// Destructor
+TT_INLINE 
+tt_lowpass_twopole::~tt_lowpass_twopole()								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-TT_INLINE void tt_lowpass_twopole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_lowpass_twopole::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
 {
 	switch (sel){			
 		case k_frequency:
 			frequency = val;
-			radians = hertz_to_radians(val);
+			radians = hertz_to_radians(frequency);
 			break;
 		case k_resonance:
 			resonance = val;
-			if (val <= 0.001) minus_one_over_resonance = -1000.;
-			else minus_one_over_resonance = -1.0 / resonance;					
+			if(resonance <= 0.001) 
+				minus_one_over_resonance = -1000.;
+			else 
+				minus_one_over_resonance = -1.0 / resonance;					
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
 	coef_a = 2.0 * cos(radians) * exp(0.5 * radians * minus_one_over_resonance);
 	coef_b = exp(radians * minus_one_over_resonance);
 	coef_c = 1.0 - coef_a + coef_b;			
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_lowpass_twopole::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_lowpass_twopole::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
-			return frequency;
+			a = frequency;
+			break;
 		case k_resonance:
-			return resonance;
+			a = resonance;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // DSP LOOP
-TT_INLINE void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE 
+void tt_lowpass_twopole::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	tt_sample_value temp;
 	temp_vs = in->vectorsize;

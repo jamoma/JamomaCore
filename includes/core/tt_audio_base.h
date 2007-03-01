@@ -4,6 +4,7 @@
 #define TT_AUDIO_BASE_HEADER
 
 #include "tt_base.h"
+#include "tt_atom.h"
 
 
 /****************************************************************************************************/
@@ -12,51 +13,63 @@
 
 // Specification of our base class
 class tt_audio_base:public tt_base{
-	private:
-//		bool					is_initialized;				// Flag set by successful initialization		
-//		void init();										// Initialization - used by the constructors
-
 	protected:
-		int 					sr;							// This object's sample rate
-		double					r_sr;						// reciprocal of sr
-		float					m_sr;						// sr * 0.001
-		static int 				global_sr;					// Global sample rate
-		static int				global_vectorsize;
-		static const float 		lookup_equalpower[];		// Equal Power lookup table
-		static const float 		lookup_half_paddedwelch[];	// 256 point window table (the first half of it)
+		tt_int32 				sr;							// This object's sample rate
+		tt_float64				r_sr;						// reciprocal of sr
+		tt_float64				m_sr;						// sr * 0.001
+		static tt_int32			global_sr;					// Global sample rate
 
-		static const float 		lookup_quartersine[];		// Quarter Sine lookup table
-		static const double 	twopi;						// 6.28...
-		static const double 	anti_denormal_value;		// Used by the anti_denormal functions
-		int						temp_vs;					// Temporary variable for use in vector routines
+		static tt_int16			global_vectorsize;
+	public:
+		tt_int16				vectorsize;					// Made Public for Speed (Fast access in dsp routines)
+	protected:
+		tt_int16				temp_vs;					// Temporary variable for use in vector routines
+
+		static const tt_float32 lookup_equalpower[];		// Equal Power lookup table
+		static const tt_float32 lookup_half_paddedwelch[];	// 256 point window table (the first half of it)
+		static const tt_float32 lookup_quartersine[];		// Quarter Sine lookup table
+		static const tt_float64	pi;							// 3.14...
+		static const tt_float64 twopi;						// 6.28...
+		static const tt_float64 anti_denormal_value;		// Used by the anti_denormal functions
 		
 	public:
-		static const double 	pi;							// 3.14...
-		int						vectorsize;					// Made Public for Speed (Fast access in dsp routines)
-		
 		// OBJECT LIFE
 		tt_audio_base();									// constructor
 		virtual ~tt_audio_base();							// destructor - free memory, etc.
 
 		
 		// ATTRIBUTES
-		static void 	set_global_sr(int value);			// sets the global sample rate for the library
-		static int 		get_global_sr();					// return the global sample rate
-		virtual void 	set_sr(int value);					// sets the local sample rate for the object
-		virtual int 	get_sr();							// return the local sample rate
+		static void 		set_global_sr(const tt_atom &value);			// sets the global sample rate for the library
+		static void			get_global_sr(tt_atom &value);			// return the global sample rate
+		virtual void 		set_sr(const tt_atom &value);					// sets the local sample rate for the object
+		virtual void		get_sr(tt_atom &value);										// return the local sample rate
 		
-		static void 	set_global_vectorsize(int value);	// ADDED VECTORSIZE STUFF 2004.06.15
-		static int 		get_global_vectorsize();
-		virtual void 	set_vectorsize(int value);
-		virtual int 	get_vectorsize();
+		static void 		set_global_vectorsize(const tt_atom &value);
+		static void			get_global_vectorsize(tt_atom &value);
+		virtual void 		set_vectorsize(const tt_atom &value);
+		virtual void		get_vectorsize(tt_atom &value);
 		
 		// ATTRIBUTES: pure virtual functions -- must define these in derived classes!
-		virtual void 				set_attr(tt_selector sel, tt_attribute_value val)	= 0;	// Set Attributes
-		virtual tt_attribute_value 	get_attr(tt_selector sel)							= 0;	// Get Attributes
+		// FUTURE VERSIONS: MAY CHANGE THIS TO SIMPLY VIRTUAL, AS IT MAY BE USED TO SET GLOBAL SR, VS, ETC.
+		virtual tt_err 		set_attr(tt_selector sel, const tt_atom &val)	= 0;	// Set Attributes
+		virtual tt_err		get_attr(tt_selector sel, tt_atom &value)		= 0;	// Get Attributes
+
+		// ATTRIBUTE 'shortcuts'
+		tt_err set_attr(tt_selector sel, tt_float32 val)
+		{
+			tt_atom a(val);
+			return set_attr(sel, a);
+		}
+		
+		tt_err set_attr(tt_selector sel, tt_int32 val)
+		{
+			tt_atom a(val);
+			return set_attr(sel, a);
+		}
 
 		
 		// Attempt to knock out denormalized floats
-		static double anti_denormal(double value);
+		static tt_float64 anti_denormal(tt_float64 value);
 	
 		// UTILITIES
 

@@ -19,8 +19,10 @@ tt_allpass::~tt_allpass()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_allpass::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE tt_err tt_allpass::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){			
 		case k_delay_ms:
 			delay_ms = clip(val, float(0.0), delay_ms_max);
@@ -31,19 +33,25 @@ TT_INLINE void tt_allpass::set_attr(tt_selector sel, tt_attribute_value val)	// 
 		case k_gain:
 			gain = val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_allpass::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_err tt_allpass::get_attr(tt_selector sel, tt_atom &val)				// Get Attributes
 {
 	switch (sel){
 		case k_delay_ms:
-			return delay_ms;
+			val = delay_ms;
+			break;
 		case k_gain:
-			return gain;
+			val = gain;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

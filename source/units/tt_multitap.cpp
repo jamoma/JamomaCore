@@ -21,7 +21,12 @@ TT_INLINE tt_multitap::~tt_multitap()										// Instance Destructor
 
 
 // OVER-RIDEN SR METHOD ***************************
-TT_INLINE void tt_multitap::set_sr(int value){
+TT_INLINE 
+void tt_multitap::set_sr(const tt_atom &a)
+{
+	tt_int32	value = a;
+	tt_atom		temp_atom;
+	
 	if(value != sr){		// Do this only if the SR has changed
 		short i;
 		
@@ -32,14 +37,21 @@ TT_INLINE void tt_multitap::set_sr(int value){
 		if(buffersize_type)	// if the size was spec'd in ms then resize (don't do anything if spec'd in samples)
 			set_attr(k_buffersize_ms, buffersize_ms);
 		// THE ABOVE MAY CAUSE PROBLEMS(!!!) BECAUSE IT WILL CAUSE TROUBLE FOR THE REALTIME PERFORM ROUTINES
-		for(i=0; i<num_taps; i++)
-			set_attr(k_delay_ms, i, delay_ms[i]);
+		for(i=0; i<num_taps; i++){
+			temp_atom.set_uint16(0, i);
+			temp_atom.set_float32(1, delay_ms[i]);
+			set_attr(k_delay_ms, temp_atom);
+		}
 	}
 }
 
 // OVER-RIDEN VS METHOD ***************************
-TT_INLINE void tt_multitap::set_vectorsize(int value)
+TT_INLINE 
+void tt_multitap::set_vectorsize(const tt_atom &a)
 {
+	tt_int16	value = a;
+	tt_atom		temp_atom;
+	
 	if(value != vectorsize){
 		short i;
 		
@@ -48,8 +60,11 @@ TT_INLINE void tt_multitap::set_vectorsize(int value)
 		if(buffersize_type)	// if the size was spec'd in ms then resize (don't do anything if spec'd in samples)
 			set_attr(k_buffersize_ms, buffersize_ms);
 		// THE ABOVE MAY CAUSE PROBLEMS(!!!) BECAUSE IT WILL CAUSE TROUBLE FOR THE REALTIME PERFORM ROUTINES
-		for(i=0; i<num_taps; i++)
-			set_attr(k_delay_ms, i, delay_ms[i]);			
+		for(i=0; i<num_taps; i++){
+			temp_atom.set_uint16(0, i);
+			temp_atom.set_float32(1, delay_ms[i]);
+			set_attr(k_delay_ms, temp_atom);
+		}
 	}
 }
 
@@ -58,81 +73,106 @@ TT_INLINE void tt_multitap::set_vectorsize(int value)
 
 // ATTRIBUTES *************************************
 
-TT_INLINE void tt_multitap::set_attr(tt_selector sel, tt_attribute_value val)				// "GLOBAL" ATTRIBUTES FOR THIS OBJECT...
+// IN THIS METHOD, SOME ATTRIBUTES REQUIRE AN ATOM WITH 2 VALUES
+TT_INLINE 
+tt_err tt_multitap::set_attr(tt_selector sel, const tt_atom &a)				// "GLOBAL" ATTRIBUTES FOR THIS OBJECT...
 {
+	tt_float32	val;
+	tt_int16	tap;
+	
+	if(a.get_num_values() == 2){
+		tap = a;
+		val = a.get_float32(1);
+
+		tap = clip(int(tap), 0, k_max_num_taps -1);		// range-limit the tap number
+		switch(sel){
+			case k_delay_ms:
+				delay_ms[tap] = clip(val, 0.0F, buffersize_ms);
+				delay_samples[tap] = (tt_attribute_value_discrete)(delay_ms[tap] * m_sr);
+				position_playheads();
+				break;
+			case k_delay_samples:
+				delay_samples[tap] = clip((tt_attribute_value_discrete)val, 0L, buffersize_samples);
+				delay_ms[tap] = (tt_attribute_value)delay_samples[tap] / sr * 1000.0;
+				position_playheads();
+				break;
+			case k_gain:
+				gain[tap] = decibels_to_amplitude(val);
+				break;
+				// !!!!NEED TO CALL A FUNCTION HERE TO REPOSITION THE PLAY HEADS!!!!
+			default:
+				return TT_ERR_ATTR_INVALID;
+		}
+	}
+	else{
+		val = a;
+
+		switch(sel){
+			case k_buffersize_ms:
+				buffersize_type = k_buffersize_type_ms;
+				buffersize_ms = val;
+				buffersize_samples = (tt_attribute_value_discrete)(buffersize_ms * m_sr);
+				init_buffer();
+				break;
+			case k_buffersize_samples:
+				buffersize_type = k_buffersize_type_samples;
+				buffersize_samples = (tt_attribute_value_discrete)val;
+				buffersize_ms = buffersize_samples / sr * 1000.0;
+				init_buffer();
+				break;
+			case k_master_gain:
+				master_gain = decibels_to_amplitude(val);
+				break;
+			case k_num_taps:
+				num_taps = clip((int)val, 1, k_max_num_taps - 1);
+				break;
+			default:
+				return TT_ERR_ATTR_INVALID;
+		}
+	}
+	return TT_ERR_NONE;
+}
+
+
+// THE FOLLOWING IS NOT NORMAL
+// You pass in a tt_atom, and it is replaced on return
+TT_INLINE 
+tt_err tt_multitap::get_attr(tt_selector sel, tt_atom &a)
+{
+	tt_uint16 tap;
+	
 	switch(sel){
 		case k_buffersize_ms:
-			buffersize_type = k_buffersize_type_ms;
-			buffersize_ms = val;
-			buffersize_samples = (tt_attribute_value_discrete)(buffersize_ms * m_sr);
-			init_buffer();
+			a = buffersize_ms;
 			break;
 		case k_buffersize_samples:
-			buffersize_type = k_buffersize_type_samples;
-			buffersize_samples = (tt_attribute_value_discrete)val;
-			buffersize_ms = buffersize_samples / sr * 1000.0;
-			init_buffer();
+			a = buffersize_samples;
 			break;
 		case k_master_gain:
-			master_gain = decibels_to_amplitude(val);
+			a = amplitude_to_decibels(master_gain);
 			break;
 		case k_num_taps:
-			num_taps = clip((int)val, 1, k_max_num_taps - 1);
+			a = num_taps;
 			break;
-	}
-}
-
-TT_INLINE tt_attribute_value tt_multitap::get_attr(tt_selector sel)
-{
-	switch(sel){
-		case k_buffersize_ms:
-			return buffersize_ms;
-		case k_buffersize_samples:
-			return (tt_attribute_value)buffersize_samples;
-		case k_master_gain:
-			return amplitude_to_decibels(master_gain);
-		case k_num_taps:
-			return (tt_attribute_value)num_taps;
-		default:
-			return -1;
-	}
-}
-
-
-TT_INLINE void tt_multitap::set_attr(tt_selector sel, int tap, tt_attribute_value val)	// "TAP-SPECIFIC" ATTRIBUTES FOR THIS OBJECT...
-{
-	tap = clip(tap, 0, k_max_num_taps -1);		// range-limit the tap number
-	switch(sel){
 		case k_delay_ms:
-			delay_ms[tap] = clip(val, 0.0F, buffersize_ms);
-			delay_samples[tap] = (tt_attribute_value_discrete)(delay_ms[tap] * m_sr);
-			position_playheads();
+			tap = a;
+			tap = clip(int(tap), 0, k_max_num_taps -1);		// range-limit the tap number
+			a = delay_ms[tap];
 			break;
 		case k_delay_samples:
-			delay_samples[tap] = clip((tt_attribute_value_discrete)val, 0L, buffersize_samples);
-			delay_ms[tap] = (tt_attribute_value)delay_samples[tap] / sr * 1000.0;
-			position_playheads();
+			tap = a;
+			tap = clip(int(tap), 0, k_max_num_taps -1);		// range-limit the tap number
+			a = delay_samples[tap];
 			break;
 		case k_gain:
-			gain[tap] = decibels_to_amplitude(val);
+			tap = a;
+			tap = clip(int(tap), 0, k_max_num_taps -1);		// range-limit the tap number
+			a = gain[tap];
 			break;
-			// !!!!NEED TO CALL A FUNCTION HERE TO REPOSITION THE PLAY HEADS!!!!
-	}
-}
-
-TT_INLINE tt_attribute_value tt_multitap::get_attr(tt_selector sel, int tap)
-{
-	tap = clip(tap, 0, k_max_num_taps -1);		// range-limit the tap number
-	switch(sel){
-		case k_delay_ms:
-			return delay_ms[tap];
-		case k_delay_samples:
-			return (tt_attribute_value)delay_samples[tap];
-		case k_gain:
-			return gain[tap];
 		default:
-			return -1;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

@@ -84,9 +84,9 @@ class tt_adsr:public tt_audio_base{
 		tt_adsr();															// Constructor		
 		~tt_adsr();															// Destructor
 
-		void set_attr(tt_selector sel, tt_attribute_value val);				// Set Attributes
-		tt_attribute_value get_attr(tt_selector sel);						// Get Attributes
-				
+		tt_err 		set_attr(tt_selector sel, const tt_atom &val);
+		tt_err		get_attr(tt_selector sel, tt_atom &value);
+						
 		void set_trigger(bool val);											// METHOD: CONTROL-RATE TRIGGER
 
 		void dsp_vector_calc(tt_audio_signal *out);							// Publically exposed interface for CONTROL RATE triggered dsp routine

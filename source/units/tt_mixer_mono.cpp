@@ -17,6 +17,7 @@ tt_mixer_mono::~tt_mixer_mono(void)								// Destructor
 
 
 // ATTRIBUTES - TWO ARGUMENTS
+TT_INLINE
 void tt_mixer_mono::set_attr(tt_selector sel, tt_attribute_value_discrete chan, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
@@ -26,6 +27,7 @@ void tt_mixer_mono::set_attr(tt_selector sel, tt_attribute_value_discrete chan, 
 	}
 }
 
+TT_INLINE
 void tt_mixer_mono::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){

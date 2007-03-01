@@ -67,9 +67,9 @@ class tt_delay:public tt_audio_base{
 		void set_sr(int value);
 
 		// ATTRIBUTES
-		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
-		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
-		
+		tt_err 		set_attr(tt_selector sel, const tt_atom &val);
+		tt_err		get_attr(tt_selector sel, tt_atom &value);
+				
 		/*****************************************************
 		 * DSP LOOPS
 		 *****************************************************/

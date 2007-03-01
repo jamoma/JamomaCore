@@ -59,8 +59,8 @@ class tt_buffer:public tt_audio_base{
 		~tt_buffer();										// Destructor
 
 		// ATTRIBUTES
-		void set_attr(tt_selector sel, tt_attribute_value val);	// Set Attributes
-		tt_attribute_value get_attr(tt_selector sel);				// Get Attributes
+		tt_err set_attr(tt_selector sel, const tt_atom &a);	// Set Attributes
+		tt_err get_attr(tt_selector sel, tt_atom &a);		// Get Attributes
 		
 		// METHOD: SET_BUFFER
 		void set_buffer(tt_buffer *newbuffer);

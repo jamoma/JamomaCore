@@ -2,13 +2,15 @@
 
 
 // OBJECT LIFE					
-TT_INLINE tt_clip::tt_clip(void)										// Constructor		
+TT_INLINE 
+tt_clip::tt_clip(void)										// Constructor		
 {
 	set_attr(k_clip_high, 1.0);
 	set_attr(k_clip_low, -1.0);
 }
 
-TT_INLINE tt_clip::~tt_clip(void)										// Destructor
+TT_INLINE 
+tt_clip::~tt_clip(void)										// Destructor
 {
 	;
 }
@@ -18,8 +20,11 @@ TT_INLINE tt_clip::~tt_clip(void)										// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_clip::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_clip::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
 		case k_clip:
 			clip_high_value = decibels_to_amplitude(val);
@@ -31,20 +36,27 @@ TT_INLINE void tt_clip::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 		case k_clip_low:
 			clip_low_value = val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_clip::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_clip::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_clip:		// fall through
 		case k_clip_high:
-			return clip_high_value;
+			a = clip_high_value;
 			break;
 		case k_clip_low:
-			return clip_low_value;
+			a = clip_low_value;
+			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
-	return 0.0;
+	return TT_ERR_NONE;
 }
 		
 

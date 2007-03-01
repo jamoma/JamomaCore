@@ -22,15 +22,19 @@ TT_INLINE tt_lfo::~tt_lfo()											// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_lfo::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_lfo::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32	val = a;
+	tt_atom		buflen;
+	
 	switch (sel){
-
 		case k_frequency:
 			frequency = clip(val, 0.f, sr/2.f);
-			index_delta = frequency * wavetable->get_attr(tt_buffer::k_length_samples) / sr;
+			wavetable->get_attr(tt_buffer::k_length_samples, buflen);
+			val = buflen;
+			index_delta = frequency * val / sr;
 			break;
-			
 		case k_mode:
 			mode = (tt_attribute_value_discrete)val;
 
@@ -87,30 +91,41 @@ TT_INLINE void tt_lfo::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 					index += wavetable->length_samples;
 			}	
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_lfo::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_lfo::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
-			return frequency;
+			a = frequency;
+			break;
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		case k_gain:
-			return amplitude_to_decibels(gain);
+			a = amplitude_to_decibels(gain);
+			break;
 		case k_depth:
-			return gain;
+			a = gain;
+			break;
 		case k_phase:
-			return phase;
+			a = phase;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // METHOD: SET_WAVETABLE
-TT_INLINE void tt_lfo::set_wavetable(tt_buffer *newbuffer)
+TT_INLINE 
+void tt_lfo::set_wavetable(tt_buffer *newbuffer)
 {
 	wavetable->set_buffer(newbuffer);
 }

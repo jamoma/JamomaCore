@@ -4,14 +4,16 @@
 // Constructor
 tt_adsr::tt_adsr()
 {
+	tt_atom a;
+	
 	output = 0.0;
 	output_db = NOISE_FLOOR;
 	eg_state = k_eg_inactive;
 
 	// set defaults
-	set_attr(k_mode, k_mode_linear);
-	set_attr(k_attack, 50.0);
-	set_attr(k_decay, 100.0);
+	set_attr(k_mode, tt_int32(k_mode_linear));
+	set_attr(k_attack, 50f);
+	set_attr(k_decay, 100f);
 	set_attr(k_sustain_db, -6.0);
 	set_attr(k_release, 500.0 );
 }
@@ -23,8 +25,10 @@ tt_adsr::~tt_adsr()
 }
 
 
-TT_INLINE void tt_adsr::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE tt_err tt_adsr::set_attr(tt_selector sel, const tt_atom &aval)	// Set Attributes
 {
+	float	val = aval;
+	
 	switch (sel){
 		case k_attack:
 			attack_ms = clip(val, 1.f, 60000.f);
@@ -64,31 +68,32 @@ TT_INLINE void tt_adsr::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 			}
 			break;
 		default:
-			log_error("tt_adsr::set_attr - invalid attribute");
+			return TT_ERR_ATTR_INVALID;
 			break;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_adsr::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE tt_err tt_adsr::get_attr(tt_selector sel, tt_atom &val)				// Get Attributes
 {
 	switch (sel){
 		case k_attack:
-			return attack_ms;
+			val = attack_ms;
 		case k_decay:
-			return decay_ms;
+			val = decay_ms;
 		case k_sustain_db:
-			return amplitude_to_decibels(sustain_amp);
+			val = amplitude_to_decibels(sustain_amp);
 		case k_sustain:
-			return sustain_amp;
+			val = sustain_amp;
 		case k_release:
-			return release_ms;
+			val = release_ms;
 		case k_mode:
-			return mode;
+			val = mode;
 		default:
-			log_error("tt_adsr::set_attr - invalid attribute");
-			return 0;
+			return TT_ERR_ATTR_INVALID;
 			break;
 	}
+	return TT_ERR_NONE;
 }
 		
 

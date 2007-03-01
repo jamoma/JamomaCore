@@ -2,7 +2,8 @@
 
 
 // OBJECT LIFE					
-TT_INLINE tt_degrade::tt_degrade()								// Constructor		
+TT_INLINE 
+tt_degrade::tt_degrade()								// Constructor		
 {
 	set_attr(k_bitdepth, 24);
 	set_attr(k_sr_ratio, 1.0);
@@ -10,15 +11,19 @@ TT_INLINE tt_degrade::tt_degrade()								// Constructor
 	output = 0.0;
 }
 
-TT_INLINE tt_degrade::~tt_degrade()								// Destructor
+TT_INLINE 
+tt_degrade::~tt_degrade()								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-TT_INLINE void tt_degrade::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_degrade::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){			
 		case k_bitdepth:
 			bitdepth = clip(int(val), 1, 24);
@@ -27,24 +32,32 @@ TT_INLINE void tt_degrade::set_attr(tt_selector sel, tt_attribute_value val)	// 
 		case k_sr_ratio:
 			sr_ratio = val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_degrade::get_attr(tt_selector sel)			// Get Attributes
+TT_INLINE 
+tt_err tt_degrade::get_attr(tt_selector sel, tt_atom &a)			// Get Attributes
 {
 	switch (sel){
 		case k_bitdepth:
-			return bitdepth;
+			a = bitdepth;
+			break;
 		case k_sr_ratio:
-			return sr_ratio;
+			a = sr_ratio;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // DSP LOOP
-TT_INLINE void tt_degrade::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+TT_INLINE 
+void tt_degrade::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 {
 	long l;
 	temp_vs = in->vectorsize;

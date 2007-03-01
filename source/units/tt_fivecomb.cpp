@@ -37,8 +37,11 @@ TT_INLINE tt_fivecomb::~tt_fivecomb()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-TT_INLINE void tt_fivecomb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_fivecomb::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch(sel){
 		case k_mix:
 			wetdry_xfader->set_attr(tt_crossfade::k_position, val * 0.01);
@@ -52,50 +55,25 @@ TT_INLINE void tt_fivecomb::set_attr(tt_selector sel, tt_attribute_value val)	//
 			break;
 		case k_lowpass_cf_scale:
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
-}
-
-TT_INLINE void tt_fivecomb::set_attr(tt_selector sel, short index, tt_attribute_value val)
-{
-	switch(sel){
-		case k_frequency:
-			break;
-		case k_resonance:
-			break;
-		case k_lowpass_cf:
-			break;
-	}
-	//index;
-	//val;
+	return TT_ERR_NONE;
 }
 
 
-TT_INLINE tt_attribute_value tt_fivecomb::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_fivecomb::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch(sel){
 		case k_mix:
-			return(wetdry_xfader->get_attr(tt_crossfade::k_position) * 100.0);
+			//return(wetdry_xfader->get_attr(tt_crossfade::k_position) * 100.0);
 		case k_input_gain:
-			return input_gainer->get_attr(tt_gain::k_gain);
+			//return input_gainer->get_attr(tt_gain::k_gain);
 		default:
-			return -1;
+			return TT_ERR_ATTR_INVALID;
 	}
-}
-
-TT_INLINE tt_attribute_value tt_fivecomb::get_attr(tt_selector sel, short index)
-{
-	switch(sel){
-		case k_frequency:
-			break;
-		case k_resonance:
-			break;
-		case k_lowpass_cf:
-			break;
-		default:
-			return -1;
-	}
-	return -1;
-	//index;
+	return TT_ERR_NONE;
 }
 
 

@@ -1,18 +1,21 @@
 #include "tt_modulo.h"
 
-TT_INLINE tt_modulo::tt_modulo(void)	// Constructor		
+TT_INLINE 
+tt_modulo::tt_modulo(void)	// Constructor		
 {
 	set_attr(k_modulo_argument, 1.0);
 }
 
-TT_INLINE tt_modulo::~tt_modulo(void)		// Destructor
+TT_INLINE 
+tt_modulo::~tt_modulo(void)		// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-TT_INLINE void tt_modulo::set_attr(tt_selector sel, tt_attribute_value val)			// Set Attributes
+TT_INLINE 
+tt_err tt_modulo::set_attr(tt_selector sel, const tt_atom &val)			// Set Attributes
 {
 	switch (sel){
 		case k_modulo_argument:
@@ -20,18 +23,23 @@ TT_INLINE void tt_modulo::set_attr(tt_selector sel, tt_attribute_value val)			//
 			// NOTE: SHOULD CHECK TO SEE IF THE VALUE IS A POWER OF TWO - THEN CAN OPTIMIZE
 			//	BY DOING BITAND INSTEAD OF A MATHEMATICAL MODULO
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
-TT_INLINE tt_attribute_value tt_modulo::get_attr(tt_selector sel)					// Get Attributes
+TT_INLINE 
+tt_err tt_modulo::get_attr(tt_selector sel, tt_atom &val)					// Get Attributes
 {
 	switch(sel){
 		case k_modulo_argument:
 			return argument;
 		default:
-			return 0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

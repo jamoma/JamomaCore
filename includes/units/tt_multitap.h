@@ -61,16 +61,17 @@ class tt_multitap:public tt_audio_base{
 	~tt_multitap();										// Instance Destructor
 
 	// OVER-RIDEN SR METHOD ***************************
-	void set_sr(int value);
+	void set_sr(const tt_atom &value);
 	// OVER-RIDEN VS METHOD ***************************
-	void set_vectorsize(int value);
+	void set_vectorsize(const tt_atom &value);
 	
 	// ATTRIBUTES *************************************	
-	void set_attr(tt_selector sel, tt_attribute_value val);				// "GLOBAL" ATTRIBUTES FOR THIS OBJECT...
-	tt_attribute_value get_attr(tt_selector sel);
-	void set_attr(tt_selector sel, int tap, tt_attribute_value val);	// "TAP-SPECIFIC" ATTRIBUTES FOR THIS OBJECT...
-	tt_attribute_value get_attr(tt_selector sel, int tap);
-	
+// IN THIS METHOD, SOME ATTRIBUTES REQUIRE AN ATOM WITH 2 VALUES
+	tt_err 		set_attr(tt_selector sel, const tt_atom &val);
+// THE FOLLOWing IS NOT NORMAL
+// You pass in a tt_atom, and it is replaced on return
+	tt_err		get_attr(tt_selector sel, tt_atom &value);
+		
 	// DSP ROUTINE(S) *********************************	
 	void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);
 	

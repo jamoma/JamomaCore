@@ -5,7 +5,7 @@
 TT_INLINE tt_buffer_record::tt_buffer_record()									// Constructor		
 {
 	// set defaults
-	set_attr(k_mode, k_mode_direct);
+	set_attr(k_mode, tt_int16(k_mode_direct));
 	set_attr(k_record, 0);
 	set_attr(k_loop, 0);
 	my_buffer = 0;
@@ -14,7 +14,7 @@ TT_INLINE tt_buffer_record::tt_buffer_record()									// Constructor
 TT_INLINE tt_buffer_record::tt_buffer_record(tt_buffer *buffer_ref)			// Constructor - BUFFER ARG
 {
 	// set defaults
-	set_attr(k_mode, k_mode_direct);
+	set_attr(k_mode, tt_int16(k_mode_direct));
 	set_attr(k_record, 0);
 	set_attr(k_loop, 0);
 	my_buffer = 0;
@@ -28,8 +28,10 @@ TT_INLINE tt_buffer_record::~tt_buffer_record()								// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_buffer_record::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_buffer_record::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
 	switch (sel){
 		case k_mode:	// mode sets a function pointer to the correct dsp loop
 			mode = (tt_attribute_value_discrete)val;
@@ -45,27 +47,35 @@ TT_INLINE void tt_buffer_record::set_attr(tt_selector sel, tt_attribute_value va
 		case k_loop:
 			loop = (tt_attribute_value_discrete)val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_buffer_record::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_buffer_record::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // METHODS
-TT_INLINE void tt_buffer_record::set_buffer(tt_buffer *buffer_ref)	// Set Buffer
+TT_INLINE 
+void tt_buffer_record::set_buffer(tt_buffer *buffer_ref)	// Set Buffer
 {
 	my_buffer = buffer_ref;	
 }
 
-TT_INLINE tt_buffer *tt_buffer_record::get_buffer()				// Get Buffer
+TT_INLINE 
+tt_buffer *tt_buffer_record::get_buffer()				// Get Buffer
 {
 	return my_buffer;
 }

@@ -2,47 +2,57 @@
 
 
 // OBJECT LIFE					
-TT_INLINE tt_lowpass_fourpole::tt_lowpass_fourpole()								// Constructor		
+TT_INLINE 
+tt_lowpass_fourpole::tt_lowpass_fourpole()								// Constructor		
 {
 	set_attr(k_frequency, 4000.0);	
 	set_attr(k_resonance, 4.0);	
 	clear();
 }
 
-TT_INLINE tt_lowpass_fourpole::~tt_lowpass_fourpole()								// Destructor
+TT_INLINE 
+tt_lowpass_fourpole::~tt_lowpass_fourpole()								// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-TT_INLINE void tt_lowpass_fourpole::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_lowpass_fourpole::set_attr(tt_selector sel, const tt_atom &a)		// Set Attributes
 {
 	switch (sel){			
 		case k_frequency:
-			frequency = val;
-			c = (val * 2.0) / sr;
+			frequency = a;
+			c = (frequency * 2.0) / sr;
 			f = c * 1.16;
 			fb = res * (1.0 - 0.15 * (f * f));
 			break;
 		case k_resonance:
-			resonance = val;
-			res = 4.0 * (val * 0.1);
+			resonance = a;
+			res = 4.0 * (resonance * 0.1);
 			fb = res * (1.0 - 0.15 * (f * f)); 			
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_lowpass_fourpole::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_lowpass_fourpole::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
-			return frequency;
+			a = frequency;
+			break;
 		case k_resonance:
-			return resonance;
+			a = resonance;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

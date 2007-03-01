@@ -82,6 +82,7 @@ void *dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 {
     t_dcblock *x;
     short i;
+	tt_atom	sr(sys_getsr());
     
     x = (t_dcblock *)object_alloc(dcblock_class);
     if(x){
@@ -91,7 +92,7 @@ void *dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 	    outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 		x->x_obj.z_misc = Z_NO_INPLACE;
 
-		tt_audio_base::set_global_sr(sys_getsr());	// update Tap.Tool's global sr field
+		tt_audio_base::set_global_sr(sr);	// update Tap.Tool's global sr field
 		x->dcblock = new tt_dcblock;
 		x->copy = new tt_copy;
 		for(i=0; i<NUM_INPUTS; i++)

@@ -14,8 +14,11 @@ tt_gain::~tt_gain(void)										// Destructor
 
 
 // ATTRIBUTES
-void tt_gain::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE
+tt_err tt_gain::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
 		case k_gain:
 			gain = decibels_to_amplitude(val);
@@ -23,18 +26,26 @@ void tt_gain::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attribute
 		case k_gain_direct:
 			gain = val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-tt_attribute_value tt_gain::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE
+tt_err tt_gain::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_gain:
-			return amplitude_to_decibels(gain);
+			a = amplitude_to_decibels(gain);
+			break;
 		case k_gain_direct:
-			return gain;
+			a = gain;
+			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
-	return 0.0;
+	return TT_ERR_NONE;
 }
 		
 

@@ -14,15 +14,19 @@ tt_buffer()										// Constructor
 	init();
 }
 */
-TT_INLINE tt_buffer::~tt_buffer()										// Destructor
+TT_INLINE 
+tt_buffer::~tt_buffer()										// Destructor
 {
 	buffer_free();
 }
 
 
 // ATTRIBUTES
-TT_INLINE void tt_buffer::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_buffer::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
 		case k_length_ms:
 			length_ms = val;
@@ -32,26 +36,34 @@ TT_INLINE void tt_buffer::set_attr(tt_selector sel, tt_attribute_value val)	// S
 			length_samples = (unsigned long)(val + 0.49);	// round
 			length_ms = length_samples * (1000.0 / sr);
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
 	buffer_free();
 	contents = (tt_sample_value *)mem_alloc(length_samples * sizeof(tt_sample_value));
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_buffer::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE
+tt_err tt_buffer::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_length_ms:
-			return length_ms;
+			a = length_ms;
+			break;
 		case k_length_samples:
-			return tt_attribute_value(length_samples);
+			a = length_samples;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // METHOD: SET_BUFFER
-TT_INLINE void tt_buffer::set_buffer(tt_buffer *newbuffer)
+TT_INLINE 
+void tt_buffer::set_buffer(tt_buffer *newbuffer)
 {
 	buffer_free();								// release the internal buffer if appropriate
 	contents = newbuffer->contents;		// point our contents-pointer to the external one

@@ -6,7 +6,7 @@ TT_INLINE tt_buffer_play::tt_buffer_play()									// Constructor
 {
 	wavetable = 0;
 	// set defaults
-	set_attr(k_mode, k_mode_normalized);
+	set_attr(k_mode, tt_int16(k_mode_normalized));
 	set_attr(k_gain, 0.0);
 	wavetable = 0;
 }
@@ -15,7 +15,7 @@ TT_INLINE tt_buffer_play::tt_buffer_play(tt_buffer *mybuffer)				// Constructor 
 {
 	wavetable = 0;
 	// set defaults
-	set_attr(k_mode, k_mode_normalized);
+	set_attr(k_mode, tt_int16(k_mode_normalized));
 	set_attr(k_gain, 0.0);
 	wavetable = 0;
 	set_buffer(mybuffer);
@@ -28,8 +28,11 @@ TT_INLINE tt_buffer_play::~tt_buffer_play()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_buffer_play::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_buffer_play::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){
 		case k_mode:	// mode sets a function pointer to the correct dsp loop
 			mode = (tt_attribute_value_discrete)val;
@@ -45,24 +48,30 @@ TT_INLINE void tt_buffer_play::set_attr(tt_selector sel, tt_attribute_value val)
 		case k_gain:
 			gain = decibels_to_amplitude(val);
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_buffer_play::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_buffer_play::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
-			return mode;
+			a = mode;
 		case k_gain:
-			return amplitude_to_decibels(gain);
+			a = amplitude_to_decibels(gain);
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // METHODS
-TT_INLINE void tt_buffer_play::set_buffer(tt_buffer *mybuffer)	// Set Buffer
+TT_INLINE 
+void tt_buffer_play::set_buffer(tt_buffer *mybuffer)	// Set Buffer
 {
 	wavetable = mybuffer;	
 }
@@ -118,7 +127,7 @@ void tt_buffer_play::dsp_vector_calc_ms(tt_audio_signal *in, tt_audio_signal *ou
 							
     while(temp_vs--){
 		// locate the play head, range check
-		index = clip((*in->vector++ /** 1000.0) * sr*/ * m_sr), 0.0f, float(wavetable->length_samples));
+		index = clip(float(*in->vector++ /** 1000.0) * sr*/ * m_sr), 0.0f, float(wavetable->length_samples));
 						
 		// table lookup (linear interpolation)	
 		p1 = (int)index;

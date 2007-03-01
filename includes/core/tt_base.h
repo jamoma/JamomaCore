@@ -55,6 +55,8 @@ enum{
 	TT_ERR_GENERIC = -1,
 	TT_ERR_ALLOC_FAILED = -2,
 	TT_ERR_FREE_FAILED = -3,
+	
+	TT_ERR_ATTR_INVALID = -100
 };
 
 
