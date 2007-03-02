@@ -14,23 +14,30 @@ tt_rms::~tt_rms()				// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_rms::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_rms::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
 {
 	switch (sel){
 		case k_feedback_coefficient:
 			coefficient = val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_rms::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_rms::get_attr(tt_selector sel, tt_atom &val)				// Get Attributes
 {
 	switch (sel){
 		case k_feedback_coefficient:
-			return coefficient;
+			val = coefficient;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

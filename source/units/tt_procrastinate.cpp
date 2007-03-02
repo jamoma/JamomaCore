@@ -120,7 +120,7 @@ tt_err tt_procrastinate::set_attr(tt_selector sel, const tt_atom &a)	// Set Attr
 	tt_uint8	index;
 	tt_float32	low;
 	tt_float32	high;
-	tt_atom		temp;
+	tt_atom		temp_atom;
 	
 	a.get(0, index);
 	a.get(1, low);
@@ -133,10 +133,10 @@ tt_err tt_procrastinate::set_attr(tt_selector sel, const tt_atom &a)	// Set Attr
 		case k_windowsize:
 			window_size_value[index] = clip(float(low), 1.0f, buffersize_in_ms - 1);
 			scale[index]->set_attr(tt_gain::k_gain_direct, window_size_value[index]);
-			temp.set_num_values(2);
-			temp.set(0, index);
-			temp.set(1, shift_ratio_value[index]);
-			set_attr(k_ratio, temp);				// update the phasor freq based on the new window size
+			temp_atom.set_num_values(2);
+			temp_atom.set(0, index);
+			temp_atom.set(1, shift_ratio_value[index]);
+			set_attr(k_ratio, temp_atom);				// update the phasor freq based on the new window size
 			break;
 		case k_gain_range:
 			a.get(2, high);

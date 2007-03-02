@@ -2,51 +2,59 @@
 
 
 // OBJECT LIFE ************************************************************
+
+#define ER_SETDELAY(x, y) temp_atom.set(0, x); temp_atom.set(1, y); early_reflections->set_attr(tt_multitap::k_delay_ms, temp_atom);
+#define ER_SETGAIN(x, y) temp_atom.set(0, x); temp_atom.set(1, amplitude_to_decibels(y)); early_reflections->set_attr(tt_multitap::k_gain, temp_atom);
+
 tt_verb::tt_verb()										// Constructor		
 {
-	short i;
+	short	i;
+	tt_atom	temp_atom;
+	
+	temp_atom.set_num_values(2);
+	
 	for(i=0; i < k_num_temp_signals; i++)
 		temp[i] = new tt_audio_signal(vectorsize);			// allocate temp signals
 	
 		early_reflections = new tt_multitap(100.0f);		// 80 millisecond max delay time for early reflections
 		early_reflections->set_attr(tt_multitap::k_num_taps, 18);
 		early_reflections->set_attr(tt_multitap::k_master_gain, -24.0);	// Master gain for the multitap unit
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 0, 4.3);
-		early_reflections->set_attr(tt_multitap::k_gain, 0, amplitude_to_decibels(0.841));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 1, 21.5);
-		early_reflections->set_attr(tt_multitap::k_gain, 1, amplitude_to_decibels(0.504));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 2, 22.5);
-		early_reflections->set_attr(tt_multitap::k_gain, 2, amplitude_to_decibels(0.491));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 3, 26.8);
-		early_reflections->set_attr(tt_multitap::k_gain, 3, amplitude_to_decibels(0.379));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 4, 27.0);
-		early_reflections->set_attr(tt_multitap::k_gain, 4, amplitude_to_decibels(0.38));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 5, 29.8);
-		early_reflections->set_attr(tt_multitap::k_gain, 5, amplitude_to_decibels(0.346));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 6, 45.8);
-		early_reflections->set_attr(tt_multitap::k_gain, 6, amplitude_to_decibels(0.289));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 7, 48.5);
-		early_reflections->set_attr(tt_multitap::k_gain, 7, amplitude_to_decibels(0.272));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 8, 57.2);
-		early_reflections->set_attr(tt_multitap::k_gain, 8, amplitude_to_decibels(0.192));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 9, 58.7);
-		early_reflections->set_attr(tt_multitap::k_gain, 9, amplitude_to_decibels(0.193));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 10, 59.5);
-		early_reflections->set_attr(tt_multitap::k_gain, 10, amplitude_to_decibels(0.217));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 11, 61.2);
-		early_reflections->set_attr(tt_multitap::k_gain, 11, amplitude_to_decibels(0.181));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 12, 70.7);
-		early_reflections->set_attr(tt_multitap::k_gain, 12, amplitude_to_decibels(0.18));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 13, 70.8);
-		early_reflections->set_attr(tt_multitap::k_gain, 13, amplitude_to_decibels(0.181));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 14, 72.6);
-		early_reflections->set_attr(tt_multitap::k_gain, 14, amplitude_to_decibels(0.176));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 15, 74.1);
-		early_reflections->set_attr(tt_multitap::k_gain, 15, amplitude_to_decibels(0.142));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 16, 75.3);
-		early_reflections->set_attr(tt_multitap::k_gain, 16, amplitude_to_decibels(0.167));
-		early_reflections->set_attr(tt_multitap::k_delay_ms, 17, 79.7);
-		early_reflections->set_attr(tt_multitap::k_gain, 17, amplitude_to_decibels(0.134));
+		ER_SETDELAY(0, 4.3);
+		ER_SETGAIN(0, 0.841);
+		ER_SETDELAY(1, 21.5);
+		ER_SETGAIN(1, 0.504);
+		ER_SETDELAY(2, 22.5);
+		ER_SETGAIN(2, 0.491);
+		ER_SETDELAY(3, 26.8);
+		ER_SETGAIN(3, 0.379);
+		ER_SETDELAY(4, 27.0);
+		ER_SETGAIN(4, 0.38);
+		ER_SETDELAY(5, 29.8);
+		ER_SETGAIN(5, 0.346);
+		ER_SETDELAY(6, 45.8);
+		ER_SETGAIN(6, 0.289);
+		ER_SETDELAY(7, 48.5);
+		ER_SETGAIN(7, 0.272);
+		ER_SETDELAY(8, 57.2);
+		ER_SETGAIN(8, 0.192);
+		ER_SETDELAY(9, 58.7);
+		ER_SETGAIN(9, 0.193);
+		ER_SETDELAY(10, 59.5);
+		ER_SETGAIN(10, 0.217);
+		ER_SETDELAY(11, 61.2);
+		ER_SETGAIN(11, 0.181);
+		ER_SETDELAY(12, 70.7);
+		ER_SETGAIN(12, 0.18);
+		ER_SETDELAY(13, 70.8);
+		ER_SETGAIN(13, 0.181);
+		ER_SETDELAY(14, 72.6);
+		ER_SETGAIN(14, 0.176);
+		ER_SETDELAY(15, 74.1);
+		ER_SETGAIN(15, 0.142);
+		ER_SETDELAY(16, 75.3);
+		ER_SETGAIN(16, 0.167);
+		ER_SETDELAY(17, 79.7);
+		ER_SETGAIN(17, 0.134);
 
 		for(i=0; i<6; i++){
 			comb_filters[i] = new tt_comb(200.0);	// comb filters have a max delay time of 200 ms.
@@ -59,10 +67,14 @@ tt_verb::tt_verb()										// Constructor
 			
 		my_lowpass = new tt_lowpass_onepole;
 		xfade = new tt_crossfade;
+		
 		mixer = new tt_mixer_mono;
-			for(i=0; i<7; i++)
-				mixer->set_attr(tt_mixer_mono::k_channel_gain, i, 1.0);
-			mixer->set_attr(tt_mixer_mono::k_master_gain, 0.125);
+		temp_atom.set(1, 1.0);
+		for(i=0; i<7; i++){
+			temp_atom.set(0, i);
+			mixer->set_attr(tt_mixer_mono::k_channel_gain, temp_atom);
+		}
+		mixer->set_attr(tt_mixer_mono::k_master_gain, 0.125);
 		master_gain = new tt_gain;
 		
 		// Default Settings
@@ -100,9 +112,12 @@ tt_verb::~tt_verb()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-TT_INLINE void tt_verb::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_verb::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
-	short i;
+	short		i;
+	tt_float32	val = a;
+	
 	switch(sel){
 		case k_mix:
 			xfade->set_attr(tt_crossfade::k_position, val * 0.01);
@@ -151,36 +166,51 @@ TT_INLINE void tt_verb::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 			use_lite_version = (tt_attribute_value_bool)val;
 			config_dsp_pointers();
 			break;	
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
-TT_INLINE tt_attribute_value tt_verb::get_attr(tt_selector sel)				// Get Attributes
-{
+TT_INLINE 
+tt_err tt_verb::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+{	
 	switch(sel){
 		case k_mix:
-			return xfade->get_attr(tt_crossfade::k_position) * 100.0;
+			xfade->get_attr(tt_crossfade::k_position, a);	// WRONG: It should a * 100
+			break;
 		case k_gain:
-			return master_gain->get_attr(tt_gain::k_gain);
+			master_gain->get_attr(tt_gain::k_gain, a);
+			break;
 		case k_delay:
-			return delay_time;
+			a = delay_time;
+			break;
 		case k_decay:
-			return decay_time;
+			a = decay_time;
+			break;
 		case k_damping:
-			return damping_cf;
+			a = damping_cf;
+			break;
 		case k_lowpass:
-			return output_cf;
+			a = output_cf;
+			break;
 		case k_moddepth:
-			return moddepth;
+			a = moddepth;
+			break;
 		case k_modfreq:
-			return modfreq;
+			a = modfreq;
+			break;
 		case k_use_early_reflections:
-			return (tt_attribute_value)use_early_reflections;
+			a = (tt_attribute_value)use_early_reflections;
+			break;
 		case k_use_lite_version:
-			return (tt_attribute_value)use_lite_version;
+			a = (tt_attribute_value)use_lite_version;
+			break;
 		default:
-			return -1;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

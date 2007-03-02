@@ -14,23 +14,29 @@ tt_switch::~tt_switch(void)										// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_switch::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_switch::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
 	switch (sel){
 		case k_position:
-			position = (tt_attribute_value_discrete)val;
+			position = a;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_switch::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_switch::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_position:
 			return tt_attribute_value(position);
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

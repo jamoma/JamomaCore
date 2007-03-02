@@ -17,9 +17,11 @@ tt_svf::~tt_svf()								// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_svf::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_svf::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
-	double temp1, temp2;
+	double		temp1, temp2;
+	tt_float32	val = a;
 	
 	switch (sel){
 		case k_frequency:
@@ -45,6 +47,8 @@ TT_INLINE void tt_svf::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 			else if(mode == k_mode_peak)
 				dsp_executor = &tt_svf::dsp_vector_calc_peak;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
 	temp1 = limit_max(2.0 / freq - freq * 0.5, 2.0);
 	//if(2.0 < temp1) 
@@ -56,25 +60,34 @@ TT_INLINE void tt_svf::set_attr(tt_selector sel, tt_attribute_value val)	// Set 
 		damp = temp1;
 	else
 		damp = temp2;
+
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_svf::get_attr(tt_selector sel)				// Get Attributes
+
+TT_INLINE 
+tt_err tt_svf::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
-			return frequency;
+			a = frequency;
+			break;
 		case k_resonance:
-			return resonance;
+			a = resonance;
+			break;
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // clear
-TT_INLINE void tt_svf::clear()
+TT_INLINE 
+void tt_svf::clear()
 {
 	lowpass_output = 0;
 	highpass_output = 0;

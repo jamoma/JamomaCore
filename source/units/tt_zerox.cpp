@@ -15,24 +15,32 @@ tt_zerox::~tt_zerox()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_zerox::set_attr(tt_selector sel, tt_attribute_value val)		// Set Attributes
+TT_INLINE 
+tt_err tt_zerox::set_attr(tt_selector sel, const tt_atom &a)		// Set Attributes
 {
+	tt_float32 val = a;
 	switch (sel){
 		case k_analysis_size:
-			analysis_samps = (tt_attribute_value_discrete)val;
+			analysis_samps = a;
 			r_analysis_samps = 1.0 / val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_zerox::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_zerox::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_analysis_size:
-			return tt_attribute_value(analysis_samps);
+			a = analysis_samps;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

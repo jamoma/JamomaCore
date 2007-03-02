@@ -14,23 +14,30 @@ tt_upsample::~tt_upsample()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_upsample::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_upsample::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
 	switch (sel){
 		case k_factor:
-			factor = val;
+			factor = a;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_upsample::get_attr(tt_selector sel)			// Get Attributes
+TT_INLINE 
+tt_err tt_upsample::get_attr(tt_selector sel, tt_atom &a)			// Get Attributes
 {
 	switch (sel){
 		case k_factor:
-			return factor;
+			a = factor;
+			break;
 		default:
-			return 0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

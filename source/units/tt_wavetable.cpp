@@ -21,17 +21,22 @@ tt_wavetable::~tt_wavetable()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_wavetable::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_wavetable::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32	val = a;
+	tt_atom		temp;
+	
 	switch (sel){
-
 		case k_frequency:
 			frequency = clip(double(val), 0.0, sr/2.0);
-			index_delta = frequency * wavetable->get_attr(tt_buffer::k_length_samples) / sr;
+			wavetable->get_attr(tt_buffer::k_length_samples, temp);
+			val = temp;
+			index_delta = frequency * val / sr;
 			break;
 			
 		case k_mode:
-			mode = (tt_attribute_value_discrete)val;
+			mode = a;
 
 			if(val == k_mode_sine)
 				wavetable->fill(tt_buffer::k_sine);
@@ -62,33 +67,44 @@ TT_INLINE void tt_wavetable::set_attr(tt_selector sel, tt_attribute_value val)	/
 		case k_gain:
 			gain = decibels_to_amplitude(val);
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_wavetable::get_attr(tt_selector sel)				// Get Attributes
+
+TT_INLINE
+tt_err tt_wavetable::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
-			return frequency;
+			a = frequency;
+			break;
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		case k_gain:
-			return amplitude_to_decibels(gain);
+			a = amplitude_to_decibels(gain);
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
 // METHOD: SET_WAVETABLE
-TT_INLINE void tt_wavetable::set_wavetable(tt_buffer *newbuffer)
+TT_INLINE 
+void tt_wavetable::set_wavetable(tt_buffer *newbuffer)
 {
 	wavetable->set_buffer(newbuffer);
 }
 
 
 // DSP LOOP - WITHOUT MODULATION
-TT_INLINE void tt_wavetable::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE 
+void tt_wavetable::dsp_vector_calc(tt_audio_signal *out)
 {
 	unsigned long p1, p2;
 	float diff;

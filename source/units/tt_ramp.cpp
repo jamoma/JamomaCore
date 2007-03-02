@@ -19,26 +19,29 @@ tt_ramp::~tt_ramp()									// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+tt_err tt_ramp::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32	val;
+	
 	switch (sel){
 		case k_mode:
-			mode = (tt_attribute_value_discrete)val;
+			mode = a;
 			init();
 			break;
 		case k_current_value:
-			current = val;
+			current = a;
 			break;
 		case k_destination_value:
-			destination = val;
+			destination = a;
 			break;
 		case k_ramp_ms:
+			val = a;
 			if((val <= 0 + anti_denormal_value) && (val >= 0 - anti_denormal_value)){
 				step = 0;
 				current = destination;
 				direction = 0;
 				init();
-				return;
+				return TT_ERR_NONE;
 			}
 			ramp_ms = val;
 			ramp_samps = long((ramp_ms * 0.001) * sr);
@@ -47,36 +50,46 @@ void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attribute
 			init();
 			break;
 		case k_ramp_samps:
+			val = a;
 			if(val == 0){
 				step = 0;
 				current = destination;
 				direction = 0;
 				init();
-				return;
+				return TT_ERR_NONE;
 			}				
 			ramp_samps = long(val);
 			ramp_ms = 1000.0 * (ramp_samps / float(sr));
 			set_step();
 			init();
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
+
 TT_INLINE 
-tt_attribute_value tt_ramp::get_attr(tt_selector sel)				// Get Attributes
+tt_err tt_ramp::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_current_value:
-			return current;
+			a = current;
+			break;
 		case k_destination_value:
-			return destination;
+			a = destination;
+			break;
 		case k_ramp_ms:
-			return ramp_ms;
+			a = ramp_ms;
+			break;
 		case k_ramp_samps:
-			return tt_attribute_value(ramp_samps);
+			a = tt_attribute_value(ramp_samps);
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 

@@ -58,8 +58,11 @@ tt_shift::~tt_shift()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-TT_INLINE void tt_shift::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_shift::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch(sel){
 		case k_ratio:
 			shift_ratio = val;
@@ -70,19 +73,26 @@ TT_INLINE void tt_shift::set_attr(tt_selector sel, tt_attribute_value val)	// Se
 			scale->set_attr(tt_gain::k_gain_direct, window_size);
 			set_attr(k_ratio, shift_ratio);				// update the phasor freq based on the new window size
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_shift::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_shift::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch(sel){
 		case k_ratio:
-			return shift_ratio;
+			a = shift_ratio;
+			break;
 		case k_windowsize:
-			return window_size;
+			a = window_size;
+			break;
 		default:
-			return -1;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
 
