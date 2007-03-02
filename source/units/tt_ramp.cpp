@@ -18,7 +18,8 @@ tt_ramp::~tt_ramp()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -61,7 +62,8 @@ TT_INLINE void tt_ramp::set_attr(tt_selector sel, tt_attribute_value val)	// Set
 	}
 }
 
-TT_INLINE tt_attribute_value tt_ramp::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_attribute_value tt_ramp::get_attr(tt_selector sel)				// Get Attributes
 {
 	switch (sel){
 		case k_current_value:

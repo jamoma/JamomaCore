@@ -16,7 +16,8 @@ tt_phasor::~tt_phasor()								// Destructor
 
 
 // OVER-RIDE THE INHERITED SET SR METHOD
-TT_INLINE void tt_phasor::set_sr(int value)
+TT_INLINE 
+void tt_phasor::set_sr(int value)
 {
 	if(value != sr){
 		sr = value;					// These first three need to be called to do the standard stuff from the base class
@@ -30,7 +31,8 @@ TT_INLINE void tt_phasor::set_sr(int value)
 
 
 // ATTRIBUTES
-TT_INLINE void tt_phasor::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_phasor::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
 {
 	switch (sel){
 		case k_phase:
@@ -53,42 +55,55 @@ TT_INLINE void tt_phasor::set_attr(tt_selector sel, tt_attribute_value val)	// S
 			frequency = 1 / (ramp_samps / float(sr));
 			break;
 		case k_ramp_samps:
-			ramp_samps = long(val);
+			ramp_samps = val;
 			ramp_ms = 1000.0 * (ramp_samps / float(sr));
 			frequency = 1 / (ramp_samps / float(sr));
 			break;
 		case k_gain:
-			gain = decibels_to_amplitude(val);
+			gain = val;
+			gain = decibels_to_amplitude(gain);
 			break;
 		case k_gain_direct:
 			gain = val;
+		default:
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
 	step = 1.0 / double(ramp_samps);	// 1.0 is the destination
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_phasor::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_phasor::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_phase:
-			return current;
+			a = current;
+			break;
 		case k_frequency:
-			return frequency;
+			a = frequency;
+			break;
 		case k_ramp_ms:
-			return ramp_ms;
+			a = ramp_ms;
+			break;
 		case k_ramp_samps:
-			return tt_attribute_value(ramp_samps);
+			a = tt_attribute_value(ramp_samps);
+			break;
 		case k_gain:
-			return amplitude_to_decibels(gain);
+			a = amplitude_to_decibels(gain);
+			break;
 		case k_gain_direct:
-			return gain;
+			a = gain;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
 
 // DSP LOOP
-TT_INLINE void tt_phasor::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE 
+void tt_phasor::dsp_vector_calc(tt_audio_signal *out)
 {
 	temp_vs = out->vectorsize;
 	while(temp_vs--){

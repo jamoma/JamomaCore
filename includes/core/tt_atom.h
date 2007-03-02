@@ -286,6 +286,23 @@ class tt_atom : tt_base {
 			}
 		}
 
+		tt_atom& operator = (int value)
+		{
+			*type = type_int32;
+			data->val_int32 = value;
+			return *this;
+		}
+
+		operator int() const
+		{
+			if(*type == type_int32)
+				return data->val_int32;
+			else{
+				// call method for converting data
+				return 0;
+			}
+		}
+
 		// INT64
 		tt_atom& operator = (tt_int64 value)
 		{
@@ -450,6 +467,11 @@ class tt_atom : tt_base {
 			*type = type_int32;
 			data->val_int32 = value;
 		}
+		void set(tt_uint16 index, const int value)
+		{
+			*type = type_int32;
+			data->val_int32 = value;
+		}
 
 		void set(tt_uint16 index, const tt_int64 value)
 		{
@@ -516,6 +538,13 @@ class tt_atom : tt_base {
 		}
 
 		void get(tt_uint16 index, tt_int32 &value) const
+		{
+			if(*type == type_int32)
+				value = (data+index)->val_int32;
+			else
+				value = 0;
+		}
+		void get(tt_uint16 index, int &value) const
 		{
 			if(*type == type_int32)
 				value = (data+index)->val_int32;

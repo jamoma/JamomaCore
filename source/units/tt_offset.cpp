@@ -13,23 +13,30 @@ tt_offset::~tt_offset(void)					// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_offset::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_offset::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
 {
 	switch (sel){			
 		case k_offset_value:
 			offset_value = val;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_offset::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_offset::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_offset_value:
-			return offset_value;
+			a = offset_value;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 		
 

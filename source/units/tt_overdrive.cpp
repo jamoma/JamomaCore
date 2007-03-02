@@ -17,8 +17,11 @@ tt_overdrive::~tt_overdrive()								// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_overdrive::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_overdrive::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch (sel){			
 		case k_drive:
 			drive = clip(val, float(1.0), float(10.0));
@@ -37,13 +40,15 @@ TT_INLINE void tt_overdrive::set_attr(tt_selector sel, tt_attribute_value val)	/
 				else 
 					scale = 1.;
 			}
-			return;
+			return TT_ERR_NONE;
 		case k_mode:
-			mode = (tt_attribute_value_discrete)val;
+			mode = a;
 			break;
 		case k_defeat_dcblocker:
-			defeat_dcblocker = val;
+			defeat_dcblocker = a;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
 	
 	if(defeat_dcblocker && (mode == 0)){	// MODE 0 - no blocker
@@ -62,21 +67,26 @@ TT_INLINE void tt_overdrive::set_attr(tt_selector sel, tt_attribute_value val)	/
 		dsp_executor_mono =  &tt_overdrive::dsp_vector_calc_mono_sine;
 		dsp_executor_stereo = &tt_overdrive::dsp_vector_calc_stereo_sine;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_overdrive::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_overdrive::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_drive:
-			return drive;
+			a = drive;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
 
 // METHOD: clear
-TT_INLINE void tt_overdrive::clear()
+TT_INLINE 
+void tt_overdrive::clear()
 {
 	last_input1 = 0.0;
 	last_output1 = 0.0;	

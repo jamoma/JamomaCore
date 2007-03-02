@@ -19,27 +19,34 @@ tt_polar::~tt_polar()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE void tt_polar::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_polar::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:
-			mode = (tt_attribute_value_discrete)val;
+			mode = val;
 			if(mode == k_mode_cartopol)
 				dsp_executor = &tt_polar::dsp_vector_calc_cartopol;
 			else if(mode == k_mode_poltocar)
 				dsp_executor = &tt_polar::dsp_vector_calc_poltocar;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_polar::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_polar::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
-	switch (sel){
+	switch(sel){
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		default:
-			return 0.0;
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
 
@@ -48,14 +55,16 @@ TT_INLINE tt_attribute_value tt_polar::get_attr(tt_selector sel)				// Get Attri
  *****************************************************/
 
 // Publically exposed interface for the dsp routine
-TT_INLINE void tt_polar::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE 
+void tt_polar::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	(*this.*dsp_executor)(in1, in2, out1, out2);	// Run the function pointed to by our function pointer
 }
 
 
 // DSP LOOP: CARTOPOL
-TT_INLINE void tt_polar::dsp_vector_calc_cartopol(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
+TT_INLINE 
+void tt_polar::dsp_vector_calc_cartopol(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
 {
 	tt_sample_value	real, imaginary, magnitude, phase;
 	temp_vs = in1->vectorsize;

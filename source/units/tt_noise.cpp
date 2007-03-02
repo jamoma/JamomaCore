@@ -2,25 +2,28 @@
 
 
 // OBJECT LIFE					
-TT_INLINE tt_noise::tt_noise()										// Constructor		
+TT_INLINE 
+tt_noise::tt_noise()										// Constructor		
 {
 	// set defaults
 	set_attr(k_mode, k_mode_white);
 	b0 = b1 = b2 = b3 = b4 = b5 = b6 = noise_accum = 0;
 }
 
-TT_INLINE tt_noise::~tt_noise()									// Destructor
+TT_INLINE 
+tt_noise::~tt_noise()									// Destructor
 {
 	;
 }
 
 
 // ATTRIBUTES
-TT_INLINE void tt_noise::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_noise::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
-	switch (sel){
+	switch(sel){
 		case k_mode:
-			mode = (tt_attribute_value_discrete)val;
+			mode = a;
 			if(mode == k_mode_white)
 				dsp_executor = &tt_noise::dsp_vector_calc_white;
 			else if(mode == k_mode_pink)
@@ -30,17 +33,23 @@ TT_INLINE void tt_noise::set_attr(tt_selector sel, tt_attribute_value val)	// Se
 			else if(mode == k_mode_blue)
 				dsp_executor = &tt_noise::dsp_vector_calc_blue;
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_noise::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_noise::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:
-			return mode;
+			a = mode;
+			break;
 		default:
-			return 0.0;	// really should make this throw and exception (applies to all objects)!
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
 
@@ -49,7 +58,8 @@ TT_INLINE tt_attribute_value tt_noise::get_attr(tt_selector sel)				// Get Attri
  *****************************************************/
 
 // Publically exposed interface for this object's dsp routine
-TT_INLINE void tt_noise::dsp_vector_calc(tt_audio_signal *out)
+TT_INLINE 
+void tt_noise::dsp_vector_calc(tt_audio_signal *out)
 {
 	(*this.*dsp_executor)(out);	// Run the function pointed to by our function pointer
 }

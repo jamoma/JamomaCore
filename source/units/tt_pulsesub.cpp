@@ -34,8 +34,11 @@ tt_pulsesub::~tt_pulsesub()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-TT_INLINE void tt_pulsesub::set_attr(tt_selector sel, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_pulsesub::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_float32 val = a;
+	
 	switch(sel){
 		case k_attack:
 			env_gen->set_attr(tt_adsr::k_attack, val);
@@ -61,38 +64,52 @@ TT_INLINE void tt_pulsesub::set_attr(tt_selector sel, tt_attribute_value val)	//
 		case k_length:
 			offset->set_attr(tt_offset::k_offset_value, val - 0.5);
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_pulsesub::get_attr(tt_selector sel)				// Get Attributes
+TT_INLINE 
+tt_err tt_pulsesub::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
 	switch(sel){
 		case k_attack:
-			return env_gen->get_attr(tt_adsr::k_attack);
+			env_gen->get_attr(tt_adsr::k_attack, a);
+			break;
 		case k_decay:
-			return env_gen->get_attr(tt_adsr::k_decay);
+			env_gen->get_attr(tt_adsr::k_decay, a);
+			break;
 		case k_sustain:
-			return env_gen->get_attr(tt_adsr::k_sustain_db);
+			env_gen->get_attr(tt_adsr::k_sustain_db, a);
+			break;
 		case k_release:
-			return env_gen->get_attr(tt_adsr::k_release);
+			env_gen->get_attr(tt_adsr::k_release, a);
+			break;
 		case k_mode:
 			{
-				tt_selector tempsel = (tt_selector)env_gen->get_attr(tt_adsr::k_mode);
-				if(tempsel == tt_adsr::k_mode_linear)
-					return k_mode_linear;
-				else
-					return k_mode_exponential;
+				env_gen->get_attr(tt_adsr::k_mode, a);
+//				if(tempsel == tt_adsr::k_mode_linear)
+//					a = k_mode_linear;
+//				else
+//					a = k_mode_exponential;
 			}
+			break;
 		case k_frequency:
-			return phasor->get_attr(tt_phasor::k_frequency);
+			phasor->get_attr(tt_phasor::k_frequency, a);
+			break;
 		case k_length:
-			return offset->get_attr(tt_offset::k_offset_value);
+			offset->get_attr(tt_offset::k_offset_value, a);
+			break;
 		default:
-			return -1;
+			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE void tt_pulsesub::set_trigger(bool value)
+
+TT_INLINE 
+void tt_pulsesub::set_trigger(bool value)
 {
 	env_gen->set_trigger(value);
 }

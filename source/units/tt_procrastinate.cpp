@@ -4,7 +4,9 @@
 // OBJECT LIFE ************************************************************
 tt_procrastinate::tt_procrastinate()										// Constructor		
 {
-	short i;
+	short	i;
+	tt_atom	temp_atom;
+	
 	for(i=0; i < k_num_temp_signals; i++)
 		temp[i] = new tt_audio_signal(vectorsize);		// allocate temp signals
 	
@@ -28,24 +30,51 @@ tt_procrastinate::tt_procrastinate()										// Constructor
 	}
 		
 	// Set initial state
+	temp_atom.set_num_values(3);
+	temp_atom.set(0, 0);
+	temp_atom.set(1, 0);
+	
 	for(i=0; i<4; i++){
 		mixer[i]->set_attr(tt_mixer_mono::k_master_gain, 0.0);
-		mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, 0, -0.0);
-		mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, 1, -0.0);
+		temp_atom.set(0, 0);			
+//		mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, 0, -0.0);
+		mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, temp_atom);
+		temp_atom.set(0, 1);
+//		mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, 1, -0.0);
+		mixer[i]->set_attr(tt_mixer_mono::k_channel_gain, temp_atom);
 	}
 	offset->set_attr(tt_offset::k_offset_value, 0.5);
 	window->fill(tt_buffer::k_padded_welch_512);
 
 	// Set initial ranges (0 sets all 4)
-	set_attr(k_gain_range, 0, -6.0, 0.0);
-	set_attr(k_pan_range, 0, 0.25, 0.75);
-	set_attr(k_shift_range,	0, 0.8, 1.2);
-	set_attr(k_delay_range, 0, 500.0, 2000.0);
+//	set_attr(k_gain_range, 0, -6.0, 0.0);
+//	set_attr(k_pan_range, 0, 0.25, 0.75);
+//	set_attr(k_shift_range,	0, 0.8, 1.2);
+//	set_attr(k_delay_range, 0, 500.0, 2000.0);
+	temp_atom.set(0, 0);
+	temp_atom.set(1, -6.0);
+	temp_atom.set(2, 0);
+	set_attr(k_gain_range, temp_atom);
+
+	temp_atom.set(1, 0.25);		
+	temp_atom.set(2, 0.75);
+	set_attr(k_pan_range, temp_atom);
+
+	temp_atom.set(1, 0.8);
+	temp_atom.set(2, 1.2);
+	set_attr(k_shift_range, temp_atom);
+	
+	temp_atom.set(1, 500.0);
+	temp_atom.set(2, 2000.0);
+	set_attr(k_delay_range, temp_atom);
 		
 	finalmix->set_attr(tt_mixer_mono::k_master_gain, 0.0);
-	for(i=0; i<4; i++)
-		finalmix->set_attr(tt_mixer_mono::k_channel_gain, i, 0.0);
-		
+	temp_atom.set(1, 0.0);
+	for(i=0; i<4; i++){
+		temp_atom.set(0, i);
+		finalmix->set_attr(tt_mixer_mono::k_channel_gain, temp_atom);
+	}
+
 	// Default Settings
 	for(i=0; i<4; i++){
 		window_size_value[i] = 10000;
@@ -85,26 +114,32 @@ tt_procrastinate::~tt_procrastinate()									// Destructor
 
 
 // ATTRIBUTES ************************************************************
-TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribute_value val)	// Set Attributes
+TT_INLINE 
+tt_err tt_procrastinate::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 {
+	tt_uint8	index;
+	tt_float32	low;
+	tt_float32	high;
+	tt_atom		temp;
+	
+	a.get(0, index);
+	a.get(1, low);
+	
 	switch(sel){
 		case k_ratio:
-			shift_ratio_value[index] = val;
+			shift_ratio_value[index] = low;
 			phasor[index]->set_attr(tt_phasor::k_frequency, (-(shift_ratio_value[index] - 1.0)) * (1.0 / (window_size_value[index] * 0.001)));
 			break;
 		case k_windowsize:
-			window_size_value[index] = clip(val, 1.0f, buffersize_in_ms - 1);
+			window_size_value[index] = clip(float(low), 1.0f, buffersize_in_ms - 1);
 			scale[index]->set_attr(tt_gain::k_gain_direct, window_size_value[index]);
-			set_attr(k_ratio, index, shift_ratio_value[index]);				// update the phasor freq based on the new window size
+			temp.set_num_values(2);
+			temp.set(0, index);
+			temp.set(1, shift_ratio_value[index]);
+			set_attr(k_ratio, temp);				// update the phasor freq based on the new window size
 			break;
-
-	}
-}
-
-TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attribute_value low, tt_attribute_value high)	// Set Attributes
-{
-	switch(sel){
 		case k_gain_range:
+			a.get(2, high);
 			if(index != 0){
 				gain_low[index-1] = low;
 				gain_high[index-1] = high;
@@ -118,6 +153,7 @@ TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attri
 			}				
 			break;
 		case k_shift_range:
+			a.get(2, high);
 			if(index != 0){
 				shift_low[index-1] = low;
 				shift_high[index-1] = high;
@@ -131,6 +167,7 @@ TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attri
 			}				
 			break;
 		case k_pan_range:
+			a.get(2, high);
 			if(index != 0){
 				pan_low[index-1] = low;
 				pan_high[index-1] = high;
@@ -144,6 +181,7 @@ TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attri
 			}				
 			break;
 		case k_delay_range:
+			a.get(2, high);
 			if(index != 0){
 				delay_low[index-1] = low;
 				delay_high[index-1] = high;
@@ -156,25 +194,40 @@ TT_INLINE void tt_procrastinate::set_attr(tt_selector sel, short index, tt_attri
 				}
 			}			
 			break;
+		default:
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_attribute_value tt_procrastinate::get_attr(tt_selector sel, short index)				// Get Attributes
+
+TT_INLINE 
+tt_err tt_procrastinate::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
 {
+	tt_uint8 index = a;
+	
 	switch(sel){
 		case k_ratio:
-			return shift_ratio_value[index-1];
+			a = shift_ratio_value[index-1];
+			break;
 		case k_windowsize:
-			return window_size_value[index-1];
+			a = window_size_value[index-1];
+			break;
 		default:
-			return -1;
+			return TT_ERR_ATTR_INVALID;
 	}
+	return TT_ERR_NONE;
 }
 
-TT_INLINE void tt_procrastinate::randomize_parameters()
+
+TT_INLINE 
+void tt_procrastinate::randomize_parameters()
 {
 	short	i;
 	float	tempval[4];
+	tt_atom	temp_atom;
+	
+	temp_atom.set_num_values(2);
 	
 	for(i=0; i<4; i++){
 		tempval[i] = gain_high[i] - gain_low[i];
@@ -188,12 +241,17 @@ TT_INLINE void tt_procrastinate::randomize_parameters()
 
 		tempval[i] = shift_high[i] - shift_low[i];
 		tempval[i] = shift_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
-		set_attr(k_ratio, i, tempval[i]);
+		temp_atom.set(0, i);
+		temp_atom.set(1, tempval[i]);
+		set_attr(k_ratio, temp_atom);
+//		set_attr(k_ratio, i, tempval[i]);
 //log_post("shift[%i]: %f", i, tempval[i]);				
 
 		tempval[i] = delay_high[i] - delay_low[i];
 		tempval[i] = delay_low[i] + (tempval[i] * (rand() / float(RAND_MAX)));
-		set_attr(k_windowsize, i, tempval[i]);
+		temp_atom.set(1, tempval[i]);
+		set_attr(k_windowsize, temp_atom);
+//		set_attr(k_windowsize, i, tempval[i]);
 //log_post("delay[%i]: %f", i, tempval[i]);				
 	}		
 }
