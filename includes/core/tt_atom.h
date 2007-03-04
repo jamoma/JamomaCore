@@ -57,8 +57,6 @@ class tt_atom : tt_base {
 	public:
 		
 		// LIFE CYCLE
-		// Note: a single atom can be statically allocated, but an array must be dynamically allocated
-		//	An array is perhaps a linked list?  Or is it a genuine array?  
 		tt_atom()
 		{
 			data = new data_value;
@@ -180,8 +178,8 @@ class tt_atom : tt_base {
 		
 		~tt_atom()
 		{
-			delete type;
-			delete data;
+			delete []type;
+			delete []data;
 		}
 		
 		
@@ -207,8 +205,8 @@ class tt_atom : tt_base {
 		void set_num_values(const tt_uint16 arg)	// this should never be needed
 		{
 			if(arg > num_values){
-				delete type;
-				delete data;
+				delete []type;
+				delete []data;
 				type = new data_type[arg];
 				data = new data_value[arg];
 			}
@@ -615,8 +613,20 @@ class tt_atom : tt_base {
 
 		// make sure this is a friend so that it can access the private members of the other atom
 		friend bool operator == (const tt_atom &a1, const tt_atom &a2){
-			// NEEDS PROPER IMPLEMENTATION STILL
-			return false;
+			short 	i;
+			
+			if(a1.num_values != a2.num_values)
+				return false;
+						
+			for(i=0; i < a1.num_values; i++)
+				if(a1.type[i] != a2.type[i])
+					return false;
+// can we just compare a1.data[i] and a2.data[i] here?  
+// i doubt it...
+				if(a1.data[i] != a2.data[i])
+					return false;
+			}
+			return true;
 		}
 
 };
