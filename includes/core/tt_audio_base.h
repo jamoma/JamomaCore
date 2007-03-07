@@ -31,6 +31,7 @@ class tt_audio_base:public tt_base{
 		static const tt_float64	pi;							// 3.14...
 		static const tt_float64 twopi;						// 6.28...
 		static const tt_float64 anti_denormal_value;		// Used by the anti_denormal functions
+		static const tt_uint8	TT_MAX_NUM_CHANNELS;
 		
 	public:
 		// OBJECT LIFE
