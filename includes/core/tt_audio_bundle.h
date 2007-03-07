@@ -1,9 +1,8 @@
-// Interface for audio signal objects used by other Tap.Tools objects.
-// Copyright © 2004 by Electrotap. All Rights Reserved.
+// Interface for audio bundle objects (collections of signals)
+// Copyright © 2007 by Timothy Place. All Rights Reserved.
 
-
-#ifndef TT_AUDIO_SIGNAL_HEADER
-#define TT_AUDIO_SIGNAL_HEADER
+#ifndef TT_AUDIO_BUNDLE_HEADER
+#define TT_AUDIO_BUNDLE_HEADER
 
 
 // taptools base header file
@@ -13,12 +12,11 @@
 /****************************************************************************************************/
 // Class Specification
 
-class tt_audio_signal:public tt_audio_base{
+class tt_audio_bundle:public tt_audio_base{
 	private:
-		bool				mode;
-		tt_sample_vector	vector_start;		// store the address for the beginning of the vector
-		//int				vectorsize_start;	// permanent location of the vectorsize
-	
+		tt_audio_signal		**m_signal;
+		tt_uint8			m_num_signals;
+			
 	public:
 		tt_sample_vector	vector;				// made public for fast access in dsp routines
 		//					 vectorsize;		// inherited
@@ -28,32 +26,26 @@ class tt_audio_signal:public tt_audio_base{
 			k_mode_external = 0,
 		};
 		
-		// CREATE AN INSTANCE WITH A NULL VECTOR (useful for wrapping an external entity as an audio signal)
-		tt_audio_signal()
+		
+		// creates wrapped signals (i.e. they all reference external memory)
+		tt_audio_bundle(tt_uint8 num_signals)
 		{
-			vector_start = vector = 0;
-			vectorsize = 0;
-			mode = k_mode_external;
+			m_num_signals = num_signals;
+			m_signal = alloc(sizeof(tt_audio_signal*) * m_num_signals);
+			while(num_signals--)
+				m_signal[num_signals] = new tt_audio_signal;
 		}
 		
-		// CREATE AN INSTANCE WITH A SPECIFIED VECTOR SIZE
-		tt_audio_signal(short init_vector_size)
+		// CREATE AN INSTANCE WITH internal memory
+		tt_audio_bundle(tt_uint8 num_signals, tt_uint8 init_vector_size)
 		{
-			tt_err	err;
-			vectorsize = 0;
-			vector_start = vector = 0;
-			
-			err = alloc(init_vector_size);
-//if(err)
-//log_error("YO! Could not instantiate tt_audio_signal");
-			// !!! Should do something to handle this error if it occurs !!!
+			;
 		}
 		
 		// DESTROY AN INSTANCE
 		~tt_audio_signal()
 		{
-			if(mode == k_mode_local)
-				mem_free(vector);		// only free the vector if this instance is responsible for it!
+			;		// only free the vector if this instance is responsible for it!
 		}
 		
 		// OVERRIDE THE INHERITED SET VECTOR SIZE METHOD
@@ -72,51 +64,25 @@ class tt_audio_signal:public tt_audio_base{
 		// ALLOCATE A VECTOR - SET ITS SIZE
 		tt_err alloc(short new_vector_size)
 		{
-			mode = k_mode_local;							// flag this so the RAM is released on free
-			if(new_vector_size != vectorsize){
-				mem_free(vector);							// release any previously allocated memory for this vector
-				vector_start = vector = (tt_sample_value *)mem_alloc((new_vector_size) * sizeof(tt_sample_value));	// allocate new memory
-				if(vector == 0){
-					vectorsize = 0;
-//log_error("YO! Could not ALLOCATE tt_audio_signal");
-					return TT_MEMALLOC_FAILED;
-
-				}
-				else{
-					vectorsize = new_vector_size;			// store the size of the vector
-					clear();
-//log_post("VECTOR_START: %i", vector_start);
-					return TT_NOERR;
-				}
-			}
 			return TT_NOERR;
 		}
 		
-		// RESET THE VECTOR POINTER TO THE BEGINNING OF THE VECTOR
+		// RESET: Call reset on all members
 		void reset()
 		{
-			//vectorsize = vectorsize_start;
-			vector = vector_start;
+			tt_uint i;		
+			for(i=0; i<m_num_signals; i++)
+				m_signal[i].reset();
 		}
 		
 		// CLEAR - ZERO OUT A VECTOR'S CONTENTS
 		void clear()
 		{
-			short i;
-			for(i=0; i<vectorsize; i++)
-				vector[i] = 0.0;
+			tt_uint i;		
+			for(i=0; i<m_num_signals; i++)
+				m_signal[i].clear();
 		}
-		
-		// FILL - SET ALL VALUES IN THE SIGNAL TO A CONSTANT
-		void fill(tt_sample_value val)
-		{
-			int i;
-			for(i=0; i<vectorsize; i++)
-				vector[i] = val;
-		}
-		
+				
 };
 
-
-
-#endif // TT_AUDIO_SIGNAL_HEADER
+#endif // TT_AUDIO_BUNDLE_HEADER
