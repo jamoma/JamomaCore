@@ -3,7 +3,7 @@
 "VSVersion" = "3:701"
 "ProjectType" = "8:{2C2AF0D9-9B47-4FE5-BEF2-169778172667}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:TapToolsArtist"
+"ProjectName" = "8:Jamoma"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -15,25 +15,19 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1A5CA283007E40B688D8E29CAEF5AED4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2EC1CA3E17D0440CB3E98C42FC6DC24B"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6B34C2C6C97B421E82515164F487087F"
+        "MsmKey" = "8:_19564570775A4B70A78CB809CA2918DB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_94CDC03BCEB64B0398C6C050F8786907"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -51,7 +45,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Release\\TapTools Artist.msi"
+        "OutputFilename" = "8:Release\\Jamoma.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -85,37 +79,17 @@
         }
         "File"
         {
-            "{A582A373-4685-4296-BEFE-614B80A702C3}:_1A5CA283007E40B688D8E29CAEF5AED4"
+            "{A582A373-4685-4296-BEFE-614B80A702C3}:_19564570775A4B70A78CB809CA2918DB"
             {
-            "SourcePath" = "8:..\\TapTools_Miscellaneous\\TapTools-ReadMe.rtf"
-            "TargetName" = "8:TapTools-ReadMe.rtf"
+            "SourcePath" = "8:..\\..\\Jamoma\\ReadMe.rtf"
+            "TargetName" = "8:ReadMe.rtf"
             "Tag" = "8:"
             "Folder" = "8:_F5BBE7BFBFC04E0F9E751A42441176B5"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{A582A373-4685-4296-BEFE-614B80A702C3}:_2EC1CA3E17D0440CB3E98C42FC6DC24B"
-            {
-            "SourcePath" = "8:..\\TapTools_Miscellaneous\\TapTools-License-Artist.rtf"
-            "TargetName" = "8:TapTools-License-Artist.rtf"
-            "Tag" = "8:"
-            "Folder" = "8:_F5BBE7BFBFC04E0F9E751A42441176B5"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -142,6 +116,26 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{A582A373-4685-4296-BEFE-614B80A702C3}:_94CDC03BCEB64B0398C6C050F8786907"
+            {
+            "SourcePath" = "8:..\\..\\Jamoma\\GNU-LGPL.rtf"
+            "TargetName" = "8:GNU-LGPL.rtf"
+            "Tag" = "8:"
+            "Folder" = "8:_F5BBE7BFBFC04E0F9E751A42441176B5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
@@ -196,23 +190,23 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Tap.Tools Artist"
-        "ProductCode" = "8:{391FD8E3-EE00-4F6B-8369-AE59AAEECCE6}"
-        "PackageCode" = "8:{DE9FF77A-6B15-4E50-BFD9-C3472F71F0CC}"
-        "UpgradeCode" = "8:{6B8C7B88-070B-4F79-B320-BB4D6195F0F0}"
+        "ProductName" = "8:Jamoma"
+        "ProductCode" = "8:{0AB12B04-6F63-4E80-9DF4-CFBC8A483FE2}"
+        "PackageCode" = "8:{2CB7BA47-03A8-419B-B5B8-8FC80E61BDD7}"
+        "UpgradeCode" = "8:{7A43A13E-0EB7-44CA-B9A2-E196BA241EFC}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
-        "ProductVersion" = "8:2.2.1000"
-        "Manufacturer" = "8:Electrotap"
+        "ProductVersion" = "8:0.4.0001"
+        "Manufacturer" = "8:Jamoma Development Group"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Tap.Tools  Artist 2.2.1"
+        "Title" = "8:Jamoma 0.4"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Electrotap"
+        "ARPCONTACT" = "8:Jamoma Development Group"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Tap.Tools Artist"
-        "ARPURLINFOABOUT" = "8:http://electrotap.com"
+        "ARPCOMMENTS" = "8:Jamoma"
+        "ARPURLINFOABOUT" = "8:http://jamoma.org"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:1"
         "SearchPath" = "8:"
@@ -311,8 +305,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
@@ -356,8 +349,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ReadmeText"
@@ -369,7 +361,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_1A5CA283007E40B688D8E29CAEF5AED4"
+                            "Value" = "8:_19564570775A4B70A78CB809CA2918DB"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -404,8 +396,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -427,8 +418,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -450,8 +440,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "EulaText"
@@ -463,7 +452,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_2EC1CA3E17D0440CB3E98C42FC6DC24B"
+                            "Value" = "8:_19564570775A4B70A78CB809CA2918DB"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -498,8 +487,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -562,8 +550,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -607,8 +594,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -658,8 +644,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -690,8 +675,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ReadmeText"
@@ -703,7 +687,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_1A5CA283007E40B688D8E29CAEF5AED4"
+                            "Value" = "8:_19564570775A4B70A78CB809CA2918DB"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -738,8 +722,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "EulaText"
@@ -751,7 +734,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_2EC1CA3E17D0440CB3E98C42FC6DC24B"
+                            "Value" = "8:_19564570775A4B70A78CB809CA2918DB"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -786,8 +769,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -809,8 +791,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -858,8 +839,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:2"
-                            "Value" = "8:_7A4FBCD734E64D349BE44F89CE4FC128"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -869,42 +849,6 @@
         }
         "MergeModule"
         {
-            "{35A69C6E-5BA4-440D-803D-762B59A45393}:_6B34C2C6C97B421E82515164F487087F"
-            {
-            "UseDynamicProperties" = "11:TRUE"
-            "IsDependency" = "11:FALSE"
-            "SourcePath" = "8:TapTools_Core\\Release\\ttcore.msm"
-                "Properties"
-                {
-                    "_011443932878435D840AFEEA7A157328.0BE530F1A5B74BD7B52A87AEB53FAA75"
-                    {
-                    "Name" = "8:_011443932878435D840AFEEA7A157328.0BE530F1A5B74BD7B52A87AEB53FAA75"
-                    "DisplayName" = "8:TT Core Targetdir"
-                    "Description" = "8:"
-                    "Type" = "3:32769"
-                    "ContextData" = "8:_RetargetableFolder"
-                    "Attributes" = "3:6"
-                    "Setting" = "3:1"
-                    "UsePlugInResources" = "11:FALSE"
-                    }
-                    "_61179167AEA949FFA01BDC0DAE6CF909.0BE530F1A5B74BD7B52A87AEB53FAA75"
-                    {
-                    "Name" = "8:_61179167AEA949FFA01BDC0DAE6CF909.0BE530F1A5B74BD7B52A87AEB53FAA75"
-                    "DisplayName" = "8:C74FOLDER PARENT"
-                    "Description" = "8:"
-                    "Type" = "3:32769"
-                    "ContextData" = "8:_RetargetableFolder"
-                    "Attributes" = "3:6"
-                    "Setting" = "3:1"
-                    "UsePlugInResources" = "11:FALSE"
-                    }
-                }
-            "LanguageId" = "3:1033"
-            "Exclude" = "11:FALSE"
-            "Folder" = "8:"
-            "Feature" = "8:"
-            "IsolateTo" = "8:"
-            }
             "{35A69C6E-5BA4-440D-803D-762B59A45393}:_F2DB9F49F6D64E0DA09F72513FF7A4D5"
             {
             "UseDynamicProperties" = "11:TRUE"
