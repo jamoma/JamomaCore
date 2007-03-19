@@ -33,7 +33,7 @@ var menu_num_presets = 0;
 var has_run = 0;				// flag indicating that this module has previously been built
 var grandparent_name;			// this is the scripting name of the object box hosting the module's patch
 var preset_items = new Array();		// holds preset names at an index
-
+var panel_has_moved = 0;
 
 // CONFIGURATION
 inlets = 1;
@@ -115,7 +115,7 @@ function bang()
 
 	if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel") || (attr_module_type == "audio.ambisonic")){	
 		if(has_run == 0){
-			if(attr_module_type == "audio.ambisonic"){	
+			if(attr_module_type == "audio.ambisonic"){
 				// Replace the panel with a specific ambisonic panel
 				// Position determined according to current position of the "controls" panel.
 				outlet(0, "script", "replace", "controls", "bpatcher", this.patcher.getnamed("controls").rect, 0, -190, "jcom.gui.ambi-component.mxt", 0);
@@ -125,11 +125,17 @@ function bang()
 			}
 			
 			// move the controls if neccessary
-			if((width == 1) && (attr_module_type != "audio.no_panel"))
-				outlet(0, "script", "offset", "controls", -255, 0);
-		
-			// delete the video preview window
-			outlet(0, "script", "delete", "pwindow");
+			if(panel_has_moved == 0){
+				if((width == 1) && (attr_module_type != "audio.no_panel"))
+					outlet(0, "script", "offset", "controls", -255, 0);
+				panel_has_moved = 1;
+
+				// delete the video preview window
+				outlet(0, "script", "delete", "pwindow");
+
+				// Handle the Inspector Button
+				inspector_button(attr_inspector);
+			}
 		
 			// Setup the Menu
 			menu_clear();
@@ -146,8 +152,6 @@ function bang()
 			menu_add("Open Help Patch");
 			menu_add("View Internal Components");
 			
-			// Handle the Inspector Button
-			inspector_button(attr_inspector);
 		}		
 	}
 	else if(attr_module_type == "video"){
