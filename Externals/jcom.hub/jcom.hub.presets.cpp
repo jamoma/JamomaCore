@@ -429,21 +429,11 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 		error("jcom.hub (%s module): jamoma.xsd schema file not found", x->attr_name->s_name);
 		return -1;
 	}	
-	path_topathname(path, filename, fullpath);
-
-	#ifdef MAC_VERSION
-		char *temppath;
-		temppath = strchr(fullpath, ':');
-		temppath += 1;
-	#else // WIN_VERSION
-		char temppath[512];
-		path_nameconform(fullpath, temppath, PATH_STYLE_NATIVE_WIN, PATH_TYPE_ABSOLUTE);
-	#endif
-
+	jcom_core_getfilepath(path, filename, fullpath);
 
 	// 2. Actually validate the XML file using the schema...
 	//schema_doc = xmlReadFile("/Users/tim/Developer/_electrotap/Jamoma/library/jamoma.xsd", NULL, 0);
-	schema_doc = xmlReadFile(temppath, NULL, 0);
+	schema_doc = xmlReadFile(fullpath, NULL, 0);
 	if(schema_doc == NULL){
 		error("jcom.hub: preset validation could not open schema doc");
 		goto out;
