@@ -192,4 +192,8 @@ bool jcom_core_string_compare(char *s1, char *s2);
 // return: true if successful, otherwise false
 bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **object);
 
+
+// Function the translates a Max path+filename combo into a correct absolutepath
+void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath);
+
 #endif // #ifndef __JMOD_CORE_H__

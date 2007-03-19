@@ -471,3 +471,26 @@ bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **o
 	*object = (t_object *)object_new_typed(CLASS_BOX, objectname, 1, &a);
 	return true;
 }
+
+
+// Function the translates a Max path+filename combo into a correct absolutepath
+void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
+{
+	char	path[512];
+	
+	path_topathname(in_path, in_filename, path);
+
+	#ifdef MAC_VERSION
+		char *temppath;
+		temppath = strchr(path, ':');
+		*temppath = '\0';
+		temppath += 1;
+		
+		// at this point temppath points to the path after the volume, and out_filepath points to the volume
+		sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
+post("getfilepath: %s", out_filepath);
+	#else // WIN_VERSION
+		char temppath[512];
+		path_nameconform(out_filepath, temppath, PATH_STYLE_NATIVE_WIN, PATH_TYPE_ABSOLUTE);
+	#endif
+}

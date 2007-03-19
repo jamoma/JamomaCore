@@ -219,7 +219,7 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 			return;														// Not found
 		}	
 	}
-
+/*
 	path_topathname(path, filename, fullpath);
 
 #ifdef MAC_VERSION
@@ -230,9 +230,12 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 	char temppath[512];
 	path_nameconform(fullpath, temppath, PATH_STYLE_NATIVE_WIN, PATH_TYPE_ABSOLUTE);
 #endif
-	
+*/
+
+	jcom_core_getfilepath(path, filename, fullpath);
+
 	//post("path for xml preset file: %s", temppath);
-	hub_preset_parse(x, temppath);
+	hub_preset_parse(x, fullpath);
 	hub_preset_buildmenu(x);
 }
 
