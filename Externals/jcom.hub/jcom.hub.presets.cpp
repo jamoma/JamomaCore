@@ -352,7 +352,7 @@ void hub_preset_parse(t_hub *x, char *path)
 				float	temp_float = 0;
 				long	temp_int = 0;
 	
-				if((item->type == ps_msg_symbol) || (item->type == ps_msg_menu)){
+				if(item->type == ps_msg_symbol){
 					//post("Symbol! %s", (char *)value);
 					atom_setsym(&item->value, gensym((char *)val));		// assume symbol	
 					item->list_size = 1;
@@ -514,7 +514,7 @@ void hub_presets_dump(t_hub *x)
 		while(item != NULL){
 			if((item->type == ps_msg_int) || (item->type == ps_msg_toggle))
 				post("    %s (type %s, priority %i): %ld", item->param_name->s_name, item->type->s_name, item->priority, atom_getlong(&item->value));
-			else if((item->type == ps_msg_symbol) || (item->type == ps_msg_menu))
+			else if(item->type == ps_msg_symbol)
 				post("    %s (type %s, priority %i): %s", item->param_name->s_name, item->type->s_name, item->priority, atom_getsym(&item->value)->s_name);
 			else
 				post("    %s (type %s, priority %i): %f", item->param_name->s_name, item->type->s_name, item->priority, atom_getfloat(&item->value));

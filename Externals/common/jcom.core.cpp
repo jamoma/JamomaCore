@@ -28,7 +28,6 @@ t_symbol	*ps_done,
 			*ps_msg_symbol,
 			*ps_msg_list,
 			*ps_msg_toggle, 
-			*ps_msg_menu,
 			*ps_msg_none,				// this type only used by jcom.message
 			*ps_jcom_hub, 
 			*ps_feedback,
@@ -173,7 +172,6 @@ void jcom_core_init(void)
 	ps_msg_symbol				= gensym("msg_symbol");
 	ps_msg_list					= gensym("msg_list");
 	ps_msg_toggle				= gensym("msg_toggle");
-	ps_msg_menu					= gensym("msg_menu");
 	ps_msg_none					= gensym("msg_none");			// this type only used by jcom.message
 	ps_jcom_hub					= gensym("jcom.hub"); 
     ps_feedback					= gensym("feedback");
@@ -374,7 +372,7 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 		if(atom_getsym(a1) == atom_getsym(a2))
 			return 1;
 	}
-	else if((type == ps_msg_generic) || (type == ps_msg_menu) || (type == ps_msg_list)){
+	else if((type == ps_msg_generic) || (type == ps_msg_list)){
 		// type msg_list should be checked here as well.  If type == msg_list and this function is called
 		// it means we are dealing with a list of length 1, so we only need to compare one atom anyway.
 		

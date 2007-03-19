@@ -44,7 +44,7 @@ typedef void (*pf_noargs)(void *x);			// pointer to a function with only the str
 typedef struct _param{						// Data Structure for this object
 	t_object				ob;						// REQUIRED: Our object
 	void					*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	pf_noargs				param_bang;				// bang method for the instance points to an optimized function
+	pf_noargs				param_output;				// bang method for the instance points to an optimized function
 	t_patcher				*container;
 	void					*hub;					// the jcom.hub object to which we subscribe
 	void 					*outlets[num_outlets];	// my outlet array
@@ -79,14 +79,13 @@ void 		param_release(t_param *x);									// Hub Deletion
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
 void		param_dump(t_param *x);
 void		param_userbang(t_param *x);
-//void		param_bang(t_param *x);	
-void 		param_bang_int(void *z);		// one of these is called from the bang method pointer in our struct...
-void 		param_bang_float(void *z);
-void 		param_bang_symbol(void *z);
-void 		param_bang_menu(void *z);
-void 		param_bang_generic(void *z);
+//void		param_output(t_param *x);	
+void 		param_output_int(void *z);		// one of these is called from the bang method pointer in our struct...
+void 		param_output_float(void *z);
+void 		param_output_symbol(void *z);
+void 		param_output_generic(void *z);
 #ifdef JMOD_MESSAGE
-void		param_bang_none(void *z);
+void		param_output_none(void *z);
 #endif // JMOD_MESSAGE
 void 		param_inc(t_param *x);
 void 		param_dec(t_param *x);

@@ -109,7 +109,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_return, attr_repetitions));
 	class_addattr(c, attr);
 
-	// ATTRIBUTE: type - options are generic, msg_int, msg_float, msg_symbol, toggle, menu
+	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_return, attr_type));
 	class_addattr(c, attr);

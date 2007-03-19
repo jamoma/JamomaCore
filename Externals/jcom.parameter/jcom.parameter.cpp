@@ -104,7 +104,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_param, attr_repetitions));
 	class_addattr(c, attr);
 
-	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_menu, msg_list, msg_none
+	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
 		(method)0, (method)param_settype, calcoffset(t_param, attr_type));
 	class_addattr(c, attr);
@@ -186,7 +186,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_slavemode = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
-		x->param_bang = &param_bang_generic;		// set function pointer to default
+		x->param_output = &param_output_generic;		// set function pointer to default
 		x->hub = NULL;
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
@@ -253,7 +253,7 @@ t_max_err param_setvalueof(t_param *x, long argc, t_atom *argv)
 	if(argc && argv) {
 		sysmem_copyptr(argv, &x->atom_list[0], sizeof(t_atom) * argc);
 		x->list_size = argc;
-		x->param_bang(x);
+		x->param_output(x);
 	}	
 	return MAX_ERR_NONE;
 }
@@ -369,12 +369,17 @@ void param_dump(t_param *x)
 // 'bang' method for user input
 void param_userbang(t_param *x)
 {
-	x->param_bang(x);
+#ifdef JMOD_MESSAGE
+	// Is this temporary ???
+	// param_send_feedback(x);	// um, no, we need to eliminate the value
+#else
+	x->param_output(x);
+#endif
 }
 
 
 // Actual bang functions
-void param_bang_generic(void *z)
+void param_output_generic(void *z)
 {
 	t_param *x = (t_param *)z;
 	
@@ -392,7 +397,7 @@ void param_bang_generic(void *z)
 	param_send_feedback(x);
 }
 
-void param_bang_int(void *z)
+void param_output_int(void *z)
 {
 	t_param *x = (t_param *)z;
 
@@ -401,7 +406,7 @@ void param_bang_int(void *z)
 	param_send_feedback(x);
 }
 
-void param_bang_float(void *z)
+void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
 
@@ -410,7 +415,7 @@ void param_bang_float(void *z)
 	param_send_feedback(x);
 }
 
-void param_bang_symbol(void *z)
+void param_output_symbol(void *z)
 {
 	t_param *x = (t_param *)z;
 
@@ -418,15 +423,7 @@ void param_bang_symbol(void *z)
 	param_send_feedback(x);
 }
 
-void param_bang_menu(void *z)
-{
-	t_param *x = (t_param *)z;
-
-	outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
-	param_send_feedback(x);
-}
-
-void param_bang_list(void *z)
+void param_output_list(void *z)
 {
 	t_param *x = (t_param *)z;
 	
@@ -436,7 +433,7 @@ void param_bang_list(void *z)
 }
 
 #ifdef JMOD_MESSAGE
-void param_bang_none(void *z)
+void param_output_none(void *z)
 {
 	t_param *x = (t_param *)z;
 	t_atom output[1];
@@ -465,18 +462,18 @@ void param_inc(t_param *x)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
 		if(x->attr_type == ps_msg_int){
 			x->attr_value.a_w.w_long += x->attr_stepsize;	// step up
-			param_bang_int(x);								// output
+			param_output_int(x);								// output
 		}
 		else if((x->attr_type == ps_msg_float) || (x->attr_type == ps_msg_generic)){
 			x->attr_value.a_w.w_float += x->attr_stepsize;
-			param_bang_float(x);
+			param_output_float(x);
 		}
 		else if(x->attr_type == ps_msg_toggle){
 			if(x->attr_value.a_w.w_long == 1)
 				x->attr_value.a_w.w_long = 0;
 			else
 				x->attr_value.a_w.w_long = 1;
-			param_bang_int(x);
+			param_output_int(x);
 		}
 		else
 			error("%s parameter (in the %s module) is an inappropriate type for the 'inc' message.");
@@ -492,18 +489,18 @@ void param_dec(t_param *x)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
 		if(x->attr_type == ps_msg_int){
 			x->attr_value.a_w.w_long -= x->attr_stepsize;	// step down		
-			param_bang_int(x);								// output
+			param_output_int(x);								// output
 		}
 		else if((x->attr_type == ps_msg_float) || (x->attr_type == ps_msg_generic)){
 			x->attr_value.a_w.w_float -= x->attr_stepsize;
-			param_bang_float(x);
+			param_output_float(x);
 		}
 		else if(x->attr_type == ps_msg_toggle){
 			if(x->attr_value.a_w.w_long == 1)
 				x->attr_value.a_w.w_long = 0;
 			else
 				x->attr_value.a_w.w_long = 1;
-			param_bang_int(x);
+			param_output_int(x);
 		}
 		else
 			error("%s parameter (in the %s module) is an inappropriate type for the 'dec' message.");
@@ -519,35 +516,32 @@ t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	x->attr_type = arg;
 
 	if(arg == ps_msg_int){
-		x->param_bang = &param_bang_int;
+		x->param_output = &param_output_int;
 	}
 	else if(arg == ps_msg_float){
-		x->param_bang = &param_bang_float;
+		x->param_output = &param_output_float;
 	}
 	else if(arg == ps_msg_symbol){
-		x->param_bang = &param_bang_symbol;
+		x->param_output = &param_output_symbol;
 	}
 	else if(arg == ps_msg_toggle){
-		x->param_bang = &param_bang_int;
-	}
-	else if(arg == ps_msg_menu){
-		x->param_bang = &param_bang_menu;
+		x->param_output = &param_output_int;
 	}
 	else if(arg == ps_msg_generic){
-		x->param_bang = &param_bang_generic;
+		x->param_output = &param_output_generic;
 	} 
 	else if(arg == ps_msg_list){
-		x->param_bang = &param_bang_list;
+		x->param_output = &param_output_list;
 	}
 #ifdef JMOD_MESSAGE
 	else if(arg == ps_msg_none){
-		x->param_bang = &param_bang_none;
+		x->param_output = &param_output_none;
 	}
 #endif // JMOD_MESSAGE
 	else{
 		error("Jamoma - invalid type specified for %s parameter in the %s module.", x->name->s_name, x->module_name->s_name);
 		x->attr_type = ps_msg_generic;
-		x->param_bang = &param_bang_generic;
+		x->param_output = &param_output_generic;
 	}
 
 	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
@@ -586,7 +580,7 @@ void param_int(t_param *x, long value)
 		if (x->rampfunction)
 			x->rampfunction->stop(x->rampunit);
 		atom_setlong(&x->attr_value, value);
-		x->param_bang(x);
+		x->param_output(x);
 	}
 }
 
@@ -607,7 +601,7 @@ void param_float(t_param *x, double value)
 			x->rampfunction->stop(x->rampunit);
 	
 		atom_setfloat(&x->attr_value, value);
-		x->param_bang(x);
+		x->param_output(x);
 	}
 }
 
@@ -624,7 +618,7 @@ void param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 				return;
 		}
 		atom_setsym(&x->attr_value, msg);
-		x->param_bang(x);
+		x->param_output(x);
 	}
 }
 
@@ -687,7 +681,7 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 		else{
 			jcom_core_atom_copy(&x->attr_value, argv);
-			x->param_bang(x);
+			x->param_output(x);
 		}
 	}
 }
@@ -736,7 +730,7 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 
 		if(time <= 0){
 			jcom_core_atom_copy(&x->attr_value, argv);
-			x->param_bang(x);
+			x->param_output(x);
 			return;
 		}	
 
@@ -771,7 +765,7 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			}
 		}
 		x->list_size = argc;
-		x->param_bang(x);
+		x->param_output(x);
 	}
 
 }
@@ -788,7 +782,7 @@ void param_ramp_callback_float(void *v, float value)
 	if(value != oldval){
 
 		atom_setfloat(&x->attr_value, value);
-		param_bang_float(x);
+		param_output_float(x);
 	}
 }
 
@@ -801,7 +795,7 @@ void param_ramp_callback_int(void *v, float value)
 	oldval = atom_getlong(&x->attr_value);
 	if(val != oldval){
 		atom_setlong(&x->attr_value, value);
-		param_bang_int(x);
+		param_output_int(x);
 	}
 }
 
@@ -850,7 +844,7 @@ void param_ramp_setup(t_param *x)
 	}
 	
 	// 4. allocate and create ramp unit
-	if((x->attr_type == ps_msg_int) || (x->attr_type == ps_msg_menu) || (x->attr_type == ps_msg_toggle))
+	if((x->attr_type == ps_msg_int) || (x->attr_type == ps_msg_toggle))
 		x->rampunit = x->rampfunction->create(param_ramp_callback_int, (void *)x);
 	else	// assume float type
 		x->rampunit = x->rampfunction->create(param_ramp_callback_float, (void *)x);

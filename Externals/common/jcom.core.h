@@ -33,7 +33,6 @@ extern t_symbol	*ps_none,
 				*ps_msg_symbol,			// 
 				*ps_msg_list,			//
 				*ps_msg_toggle,				// 
-				*ps_msg_menu,				//
 				*ps_msg_none,			// this type only used by jcom.message
 				*ps_jcom_hub, 
 				*ps_feedback,
