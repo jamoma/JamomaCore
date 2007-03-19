@@ -69,13 +69,13 @@ CUE audio_on
 	
 # Module input~
 	/input~/source_select 4
-	/input~/audio/gain/midi 124.000 2000	
+	/input~/audio/gain/midi 124.000 ramp 2000	
 # Ramp to these new values over 2 seconds...
-	/input~/gain_1/midi 124.000 2000
-	/input~/gain_2/midi 124.000 2000
+	/input~/gain_1/midi 124.000 ramp 2000
+	/input~/gain_2/midi 124.000 ramp 2000
 	
 # Module filter~
-	/filter~/audio/gain/midi 127.000 2000
+	/filter~/audio/gain/midi 127.000 ramp 2000
 
 	
 	
@@ -88,7 +88,7 @@ CUE fade_in
 ##############################
 
 # Module output~
-	/output~/audio/gain/midi 125.000 2000
+	/output~/audio/gain/midi 125.000 ramp 2000
 
 
 
@@ -101,12 +101,12 @@ CUE sweep
 
 
 # Module filter~
-	/filter~/cf 3000 3000
+	/filter~/cf 3000 ramp 3000
 	
 	WAIT 6000	
 	# The wait directive pauses us for 6 seconds
 	
-	/filter~/cf 200 3000
+	/filter~/cf 200 ramp 3000
 
 
 
@@ -127,7 +127,7 @@ CUE fade_out
 
 
 # Module output~
-	/output~/audio/gain/midi 0.000 2000	
+	/output~/audio/gain/midi 0.000 ramp 2000	
 	
 	
 
@@ -141,10 +141,10 @@ CUE audio_off
 
 	
 # Module input~
-	/input~/audio/gain/midi 0 100
+	/input~/audio/gain/midi 0 ramp 100
 	
 # Module output~
-	/filter~/audio/gain/midi 0 100
+	/filter~/audio/gain/midi 0 ramp 100
 	
 # Module control
 	/control/audio 0
