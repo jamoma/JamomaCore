@@ -11,6 +11,7 @@
 		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
 		22A5AD6109FD79BC00FBA44E /* dcblock_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A5AD6009FD79BC00FBA44E /* dcblock_tilde.cpp */; };
 		22C01EDA09CE6CDB00177B81 /* Externs-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C01ED909CE6CDB00177B81 /* Externs-Info.plist */; };
+		22CA3C520BAB1534006A9BAC /* tt_audio_bundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CA3C510BAB1534006A9BAC /* tt_audio_bundle.h */; };
 		22F2072B0B946D56008211F4 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22F2072A0B946D56008211F4 /* commonsyms.c */; };
 		22F209F00B9533B2008211F4 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F209EC0B9533B2008211F4 /* tt_audio_base.cpp */; };
 		22F209F10B9533B2008211F4 /* tt_audio_signal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F209ED0B9533B2008211F4 /* tt_audio_signal.cpp */; };
@@ -19,7 +20,6 @@
 		22F20A3F0B953464008211F4 /* tt_atom.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A090B953464008211F4 /* tt_atom.h */; };
 		22F20A400B953464008211F4 /* tt_audio_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0A0B953464008211F4 /* tt_audio_base.h */; };
 		22F20A410B953464008211F4 /* tt_audio_signal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0B0B953464008211F4 /* tt_audio_signal.h */; };
-		22F20A420B953464008211F4 /* tt_audio_snake.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0C0B953464008211F4 /* tt_audio_snake.h */; };
 		22F20A430B953464008211F4 /* tt_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0D0B953464008211F4 /* tt_base.h */; };
 		22F20A440B953464008211F4 /* tt_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0E0B953464008211F4 /* tt_buffer.h */; };
 		22F20A450B953464008211F4 /* tt_max_prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A100B953464008211F4 /* tt_max_prefix.h */; };
@@ -122,6 +122,7 @@
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22A5AD6009FD79BC00FBA44E /* dcblock_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dcblock_tilde.cpp; sourceTree = "<group>"; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
+		22CA3C510BAB1534006A9BAC /* tt_audio_bundle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_audio_bundle.h; sourceTree = "<group>"; };
 		22F2072A0B946D56008211F4 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22F209EC0B9533B2008211F4 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../source/core/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 		22F209ED0B9533B2008211F4 /* tt_audio_signal.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_signal.cpp; path = ../../source/core/tt_audio_signal.cpp; sourceTree = SOURCE_ROOT; };
@@ -130,7 +131,6 @@
 		22F20A090B953464008211F4 /* tt_atom.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_atom.h; sourceTree = "<group>"; };
 		22F20A0A0B953464008211F4 /* tt_audio_base.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_audio_base.h; sourceTree = "<group>"; };
 		22F20A0B0B953464008211F4 /* tt_audio_signal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_audio_signal.h; sourceTree = "<group>"; };
-		22F20A0C0B953464008211F4 /* tt_audio_snake.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_audio_snake.h; sourceTree = "<group>"; };
 		22F20A0D0B953464008211F4 /* tt_base.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_base.h; sourceTree = "<group>"; };
 		22F20A0E0B953464008211F4 /* tt_buffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_buffer.h; sourceTree = "<group>"; };
 		22F20A100B953464008211F4 /* tt_max_prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_max_prefix.h; sourceTree = "<group>"; };
@@ -291,8 +291,8 @@
 		22F207270B946D2A008211F4 /* TTBlue */ = {
 			isa = PBXGroup;
 			children = (
-				22F20A050B953441008211F4 /* Source */,
 				22F20A040B953434008211F4 /* Includes */,
+				22F20A050B953441008211F4 /* Source */,
 			);
 			name = TTBlue;
 			sourceTree = "<group>";
@@ -322,7 +322,7 @@
 				22F20A090B953464008211F4 /* tt_atom.h */,
 				22F20A0A0B953464008211F4 /* tt_audio_base.h */,
 				22F20A0B0B953464008211F4 /* tt_audio_signal.h */,
-				22F20A0C0B953464008211F4 /* tt_audio_snake.h */,
+				22CA3C510BAB1534006A9BAC /* tt_audio_bundle.h */,
 				22F20A0D0B953464008211F4 /* tt_base.h */,
 				22F20A0E0B953464008211F4 /* tt_buffer.h */,
 			);
@@ -466,7 +466,6 @@
 				22F20A3F0B953464008211F4 /* tt_atom.h in Headers */,
 				22F20A400B953464008211F4 /* tt_audio_base.h in Headers */,
 				22F20A410B953464008211F4 /* tt_audio_signal.h in Headers */,
-				22F20A420B953464008211F4 /* tt_audio_snake.h in Headers */,
 				22F20A430B953464008211F4 /* tt_base.h in Headers */,
 				22F20A440B953464008211F4 /* tt_buffer.h in Headers */,
 				22F20A450B953464008211F4 /* tt_max_prefix.h in Headers */,
@@ -515,6 +514,7 @@
 				22F20A700B953464008211F4 /* tt_verb.h in Headers */,
 				22F20A710B953464008211F4 /* tt_wavetable.h in Headers */,
 				22F20A720B953464008211F4 /* tt_zerox.h in Headers */,
+				22CA3C520BAB1534006A9BAC /* tt_audio_bundle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

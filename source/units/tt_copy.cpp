@@ -12,21 +12,18 @@ tt_copy::~tt_copy(void)		// Destructor
 }
 
 // DSP LOOP
-void tt_copy::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
+void tt_copy::process(tt_audio_bundle *in, tt_audio_bundle *out)
 {
-	int vs = in->vectorsize;
-	while(vs--)
-		*out->vector++ = *in->vector++;
-	in->reset(); out->reset();
-}
-
-// DSP LOOP
-void tt_copy::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2)
-{
-	temp_vs = in1->vectorsize;
-	while(temp_vs--){
-		*out1->vector++ = *in1->vector++;
-		*out2->vector++ = *in2->vector++;
+	tt_uint8		channel = tt_audio_bundle::get_min_num_channels(in, out);
+	tt_uint16		vs		= tt_audio_bundle::get_min_vs(in, out);
+	
+	while(channel--){
+		in->use_signal(channel);
+		out->use_signal(channel);
+		temp_vs = vs;
+		while(vs--)
+			*out->vector++ = *in->vector++;
 	}
-	in1->reset(); in2->reset(); out1->reset(); out2->reset();
+	in->reset();
+	out->reset();
 }

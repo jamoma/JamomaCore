@@ -113,9 +113,6 @@ const float tt_audio_base::lookup_quartersine[] = {		// 128 point quarter sine w
 	0.995185F, 0.996313F, 0.997290F, 0.998118F, 0.998795F, 0.999322F, 0.999699F, 0.999925F 
 }; 
 
-const tt_uint8 tt_audio_base::TT_MAX_NUM_CHANNELS = 16;
-
-
 
 
 // CLASS IMPLEMENTATION

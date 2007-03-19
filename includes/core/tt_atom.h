@@ -12,6 +12,50 @@
 
 #include "tt_base.h"
 
+
+// macro for converting from one type to another regardless of type
+#define	CONVERT switch(*(type+index)){\
+			case type_int8:\
+				value = (data+index)->val_int8;\
+				break;\
+			case type_int16:\
+				value = (data+index)->val_int16;\
+				break;\
+			case type_int32:\
+				value = (data+index)->val_int32;\
+				break;\
+			case type_int64:\
+				value = (data+index)->val_int64;\
+				break;\
+			case type_uint8:\
+				value = (data+index)->val_uint8;\
+				break;\
+			case type_uint16:\
+				value = (data+index)->val_uint16;\
+				break;\
+			case type_uint32:\
+				value = (data+index)->val_uint32;\
+				break;\
+			case type_uint64:\
+				value = (data+index)->val_uint64;\
+				break;\
+			case type_float32:\
+				value = (data+index)->val_float32;\
+				break;\
+			case type_float64:\
+				value = (data+index)->val_float64;\
+				break;\
+			case type_char:\
+				value = (data+index)->val_char;\
+				break;\
+			case type_pointer:\
+			case type_string:\
+			default:\
+				value = -1;\
+				break;\
+		}
+
+
 /****************************************************************************************************/
 // Class Specification
 
@@ -243,8 +287,10 @@ class tt_atom : tt_base {
 			if(*type == type_int8)
 				return data->val_int8;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_int8 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -261,8 +307,10 @@ class tt_atom : tt_base {
 			if(*type == type_int16)
 				return data->val_int16;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_int16 value;
+				CONVERT
+				return value;
 			}
 		}
 		
@@ -279,8 +327,10 @@ class tt_atom : tt_base {
 			if(*type == type_int32)
 				return data->val_int32;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_int32 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -296,8 +346,10 @@ class tt_atom : tt_base {
 			if(*type == type_int32)
 				return data->val_int32;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_int32 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -314,8 +366,10 @@ class tt_atom : tt_base {
 			if(*type == type_int64)
 				return data->val_int64;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_int64 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -332,8 +386,10 @@ class tt_atom : tt_base {
 			if(*type == type_uint8)
 				return data->val_uint8;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_uint8 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -349,8 +405,10 @@ class tt_atom : tt_base {
 			if(*type == type_uint8)
 				return data->val_uint8;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_uint8 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -367,8 +425,10 @@ class tt_atom : tt_base {
 			if(*type == type_uint16)
 				return data->val_uint16;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_uint16 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -385,8 +445,10 @@ class tt_atom : tt_base {
 			if(*type == type_uint32)
 				return data->val_uint32;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_uint32 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -403,8 +465,10 @@ class tt_atom : tt_base {
 			if(*type == type_uint64)
 				return data->val_uint64;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_uint64 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -421,8 +485,10 @@ class tt_atom : tt_base {
 			if(*type == type_float32)
 				return data->val_float32;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_float32 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -439,8 +505,10 @@ class tt_atom : tt_base {
 			if(*type == type_float64)
 				return data->val_float64;
 			else{
-				// call method for converting data
-				return 0;
+				tt_uint16 index = 0;
+				tt_float64 value;
+				CONVERT
+				return value;
 			}
 		}
 
@@ -524,7 +592,7 @@ class tt_atom : tt_base {
 			if(*type == type_int8)
 				value = (data+index)->val_int8;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_int16 &value) const
@@ -532,7 +600,7 @@ class tt_atom : tt_base {
 			if(*type == type_int16)
 				value = (data+index)->val_int16;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_int32 &value) const
@@ -540,14 +608,14 @@ class tt_atom : tt_base {
 			if(*type == type_int32)
 				value = (data+index)->val_int32;
 			else
-				value = 0;
+				CONVERT
 		}
 		void get(tt_uint16 index, int &value) const
 		{
 			if(*type == type_int32)
 				value = (data+index)->val_int32;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_int64 &value) const
@@ -555,7 +623,7 @@ class tt_atom : tt_base {
 			if(*type == type_int64)
 				value = (data+index)->val_int64;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_uint8 &value) const
@@ -563,7 +631,7 @@ class tt_atom : tt_base {
 			if(*type == type_uint8)
 				value = (data+index)->val_uint8;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_uint16 &value) const
@@ -571,7 +639,7 @@ class tt_atom : tt_base {
 			if(*type == type_uint16)
 				value = (data+index)->val_uint16;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_uint32 &value) const
@@ -579,7 +647,7 @@ class tt_atom : tt_base {
 			if(*type == type_uint32)
 				value = (data+index)->val_uint32;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_uint64 &value) const
@@ -587,7 +655,7 @@ class tt_atom : tt_base {
 			if(*type == type_uint64)
 				value = (data+index)->val_uint64;
 			else
-				value = 0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_float32 &value) const
@@ -595,7 +663,7 @@ class tt_atom : tt_base {
 			if(*type == type_float32)
 				value = (data+index)->val_float32;
 			else
-				value =  0;
+				CONVERT
 		}
 
 		void get(tt_uint16 index, tt_float64 &value) const
@@ -603,9 +671,8 @@ class tt_atom : tt_base {
 			if(*type == type_float64)
 				value = (data+index)->val_float64;
 			else
-				value = 0;
+				CONVERT
 		}
-
 
 
 
@@ -618,17 +685,94 @@ class tt_atom : tt_base {
 			if(a1.num_values != a2.num_values)
 				return false;
 						
-			for(i=0; i < a1.num_values; i++)
+			for(i=0; i < a1.num_values; i++){
 				if(a1.type[i] != a2.type[i])
 					return false;
-// can we just compare a1.data[i] and a2.data[i] here?  
-// i doubt it...
-				if(a1.data[i] != a2.data[i])
-					return false;
+				else{
+					switch(a1.type[i]){
+						case type_int8:
+							if( (a1.data+i)->val_int8 == (a1.data+i)->val_int8 )
+								return false;
+						case type_int16:
+							if( (a1.data+i)->val_int16 == (a1.data+i)->val_int16 )
+								return false;
+						case type_int32:
+							if( (a1.data+i)->val_int32 == (a1.data+i)->val_int32 )
+								return false;
+						case type_uint8:
+							if( (a1.data+i)->val_uint8 == (a1.data+i)->val_uint8 )
+								return false;
+						case type_uint16:
+							if( (a1.data+i)->val_uint16 == (a1.data+i)->val_uint16 )
+								return false;
+						case type_uint32:
+							if( (a1.data+i)->val_uint32 == (a1.data+i)->val_uint32 )
+								return false;
+						case type_float32:
+							if( (a1.data+i)->val_float32 == (a1.data+i)->val_float32 )
+								return false;
+						case type_float64:
+							if( (a1.data+i)->val_float64 == (a1.data+i)->val_float64 )
+								return false;
+						case type_pointer:
+							if( (a1.data+i)->val_pointer == (a1.data+i)->val_pointer )
+								return false;
+						case type_char:
+							if( (a1.data+i)->val_char == (a1.data+i)->val_char )
+								return false;
+//						case type_string:
+//							if( (a1.data+i)->val_uint8 == (a1.data+i)->val_uint8 )
+//								return false;
+
+						default:
+							return false;
+					}
+				}
 			}
 			return true;
 		}
 
+/*
+		// This method is the basis of the macro at the top of this file
+		// substitute this method for the macro if it needs to be debugged...
+		
+		void get_converted_value(tt_uint8 &value, tt_uint16 index) const
+		{
+			switch(*(type+index)){
+				case type_int8:
+					value = (data+index)->val_int8;
+					break;
+				case type_int16:
+					value = (data+index)->val_int16;
+					break;
+				case type_int32:
+					value = (data+index)->val_int32;
+					break;
+				case type_uint8:
+					value = (data+index)->val_uint8;
+					break;
+				case type_uint16:
+					value = (data+index)->val_uint16;
+					break;
+				case type_uint32:
+					value = (data+index)->val_uint32;
+					break;
+				case type_float32:
+					value = (data+index)->val_float32;
+					break;
+				case type_float64:
+					value = (data+index)->val_float64;
+					break;
+				// we don't cast the pointer to other types...
+				//case type_pointer:
+				//	value = (data+index)->val_pointer;
+				//	break;
+				case type_char:
+					value = (data+index)->val_char;
+					break;
+			}
+		}
+*/
 };
 
 

@@ -13,7 +13,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
-#include "tt_audio_signal.h"
+#include "tt_audio_bundle.h"
 
 
 /********************************************************
@@ -36,8 +36,9 @@ class tt_copy:public tt_audio_base{
 		{return TT_ERR_NONE;}
 
 		// DSP LOOP
-		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);
-		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2);
+//		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out);
+//		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out1, tt_audio_signal *out2);
+		void process(tt_audio_bundle *in, tt_audio_bundle *out);
 };
 
 #endif // TT_COPY_H

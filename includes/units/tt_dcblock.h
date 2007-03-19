@@ -13,7 +13,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
-#include "tt_audio_signal.h"
+#include "tt_audio_bundle.h"
 
 
 /********************************************************
@@ -34,7 +34,7 @@ class tt_dcblock:public tt_audio_base{
 		
 		// DSP LOOP - an algorithm that is frequently used in Max:
 		//		"biquad~ 1.0 -1.0 -0.9997 0.0"
-		void process(tt_audio_bundle &in, tt_audio_bundle &out);
+		void process(tt_audio_bundle *in, tt_audio_bundle *out);
 
 		// METHOD: clear
 		void clear();
