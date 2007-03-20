@@ -29,7 +29,6 @@ CUE initialisation
 	/filter~/audio/mix 100.000
 	/filter~/audio/bypass 0
 	/filter~/audio/mute 0
-	/filter~/audio/sample_rate 0
 	/filter~/ui/freeze 0
 	/filter~/cf 68.215
 	/filter~/q 1.472
@@ -68,7 +67,7 @@ CUE audio_on
 	/control/ui/freeze 0
 	
 # Module input~
-	/source_select pink
+	/input~/source_select pink
 	/input~/audio/gain/midi 124.000 ramp 2000	
 # Ramp to these new values over 2 seconds...
 	/input~/gain_1/midi 124.000 ramp 2000
