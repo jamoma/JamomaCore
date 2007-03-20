@@ -78,7 +78,7 @@ void		param_free(t_param *x);
 void 		param_release(t_param *x);									// Hub Deletion
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
 void		param_dump(t_param *x);
-void		param_userbang(t_param *x);
+void		param_bang(t_param *x);
 //void		param_output(t_param *x);	
 void 		param_output_int(void *z);		// one of these is called from the bang method pointer in our struct...
 void 		param_output_float(void *z);

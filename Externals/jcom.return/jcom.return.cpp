@@ -239,9 +239,8 @@ void return_bang(t_return *x)
 	x->output_len = 1;
 	if(x->hub != NULL)
 		object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
-
-
 }
+
 
 // INT INPUT
 void return_int(t_return *x, long value)

@@ -58,7 +58,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_inc,					"inc",			0L);
 	class_addmethod(c, (method)param_dec,					"dec",			0L);
 	class_addmethod(c, (method)param_dump,					"dump",			0L);
-	class_addmethod(c, (method)param_userbang,				"bang",			0L);
+	class_addmethod(c, (method)param_bang,					"bang",			0L);
 	class_addmethod(c, (method)param_release,				"release",		A_CANT, 0L);	// notification of hub being freed
 	class_addmethod(c, (method)param_assist,				"assist",		A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
@@ -366,12 +366,32 @@ void param_dump(t_param *x)
    most recent output again.
 */
 
+/*
+// BANG INPUT - this sends the OSC name with no additional arguments
+void return_bang(t_return *x)
+{
+	x->output_len = 1;
+	if(x->hub != NULL)
+		object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
+}
+
+*/
+
 // 'bang' method for user input
-void param_userbang(t_param *x)
+void param_bang(t_param *x)
 {
 #ifdef JMOD_MESSAGE
-	// Is this temporary ???
-	// param_send_feedback(x);	// um, no, we need to eliminate the value
+	t_atom	a;
+	
+	atom_setsym(&a, gensym(""));
+	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, 1, &a);
+
+	// call on the hub to pass our data onward
+	if(x->hub != NULL){
+		jcom_core_atom_copy(&a, &x->name_atom);
+		object_method_typed(x->hub, ps_feedback, 1, &a, NULL);
+	}
 #else
 	x->param_output(x);
 #endif
