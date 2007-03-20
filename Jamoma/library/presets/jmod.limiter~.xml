@@ -11,7 +11,7 @@
 		<item name="audio/mix" type="msg_float">100.</item>
 		<item name="audio/bypass" type="msg_int">0</item>
 		<item name="audio/mute" type="msg_int">1</item>
-		<item name="audio/sample_rate" type="msg_int">0</item>
+		
 		<item name="preamp" type="msg_float">6.</item>
 		<item name="postamp" type="msg_float">6.</item>
 		<item name="threshold" type="msg_float">-6.</item>
