@@ -14,7 +14,6 @@
 		22A391AB0A8AB04100A164F2 /* jcom.core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A391A90A8AB04100A164F2 /* jcom.core.cpp */; };
 		22A391AC0A8AB04100A164F2 /* jcom.core.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A391AA0A8AB04100A164F2 /* jcom.core.h */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
-		A7366A000A9CD579007F2788 /* jcom.bind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73669FF0A9CD579007F2788 /* jcom.bind.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +26,6 @@
 		22A391A90A8AB04100A164F2 /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.core.cpp; path = ../common/jcom.core.cpp; sourceTree = SOURCE_ROOT; };
 		22A391AA0A8AB04100A164F2 /* jcom.core.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jcom.core.h; path = ../common/jcom.core.h; sourceTree = SOURCE_ROOT; };
 		542ED84F09C02A0000DBC7EB /* jcom.receive.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.receive.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
-		A73669FF0A9CD579007F2788 /* jcom.bind.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.bind.cpp; path = ../common/jcom.bind.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +75,6 @@
 				22261CE20A28C1C100329D95 /* jcom.receive.cpp */,
 				22261D340A28C3F100329D95 /* tt_audio_base.cpp */,
 				22261D720A28C44900329D95 /* commonsyms.c */,
-				A73669FF0A9CD579007F2788 /* jcom.bind.cpp */,
 				22A391AA0A8AB04100A164F2 /* jcom.core.h */,
 				22A391A90A8AB04100A164F2 /* jcom.core.cpp */,
 			);
@@ -187,7 +184,6 @@
 				22261D350A28C3F100329D95 /* tt_audio_base.cpp in Sources */,
 				22261D730A28C44900329D95 /* commonsyms.c in Sources */,
 				22A391AB0A8AB04100A164F2 /* jcom.core.cpp in Sources */,
-				A7366A000A9CD579007F2788 /* jcom.bind.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
