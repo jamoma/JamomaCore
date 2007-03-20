@@ -13,7 +13,7 @@ CUE initialisation
 	/input~/gain_2/midi 0
 	/input~/loop 0
 	/input~/play 0
-	/input~/source_select 0
+	/input~/source_select none
 	/input~/ch_1 0
 	/input~/ch_2 0
 	# Note that midi units can be specified as floats in Jamoma
@@ -68,7 +68,7 @@ CUE audio_on
 	/control/ui/freeze 0
 	
 # Module input~
-	/input~/source_select 4
+	/source_select pink
 	/input~/audio/gain/midi 124.000 ramp 2000	
 # Ramp to these new values over 2 seconds...
 	/input~/gain_1/midi 124.000 ramp 2000
