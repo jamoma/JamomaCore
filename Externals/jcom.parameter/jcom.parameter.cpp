@@ -690,10 +690,8 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
 	else {
 		if(x->attr_repetitions == 0){
-			// If it's a list compare the entire thing
-			if(argc > 1 && param_list_compare(x->atom_list, x->list_size, argv, argc))
-				return;
-			else if(jcom_core_atom_compare(x->attr_type, &x->attr_value, argv))
+			// If it's not a list this will perform the comparison as a 1 element list
+			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;
 		}
 		if(argc > 1){
