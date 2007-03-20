@@ -103,11 +103,11 @@ function bang()
 	// Choose the skin, if needed
 	if(attr_skin == "default"){
 		if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel") || (attr_module_type == "audio.ambisonic"))
-			attr_skin = "metal.black";
+			attr_skin = "j4.audio";
 		else if(attr_module_type == "video")
-			attr_skin = "metal";
+			attr_skin = "j4.video";
 		else if(attr_module_type == "control")
-			attr_skin = "metal.blue";
+			attr_skin = "j4.control";
 	}
 	
 	// Change the background graphic to match the skin (object autosizes to match it)
