@@ -199,12 +199,14 @@ void hub_free(t_hub *x)
 {
 	t_subscriber 	*next;
 
+	critical_enter(0);
 	while(x->subscriber != NULL){
 		object_method(x->subscriber->object, ps_release);	// notify the subscriber that the hub is going away
 		next = x->subscriber->next;
 		sysmem_freeptr(x->subscriber);
 		x->subscriber = next;
 	}
+	critical_exit(0);	
  	hub_presets_clear(x);
 	qelem_free(x->init_qelem);
 	object_free(x->jcom_send);
@@ -238,6 +240,8 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 
 	// Search the existing item names so we can insert this alphabetically
 	strcpy(namestring, name->s_name);
+
+	critical_enter(0);
 	while(item){
 		strcpy(nametocompare, item->name->s_name);
 		if(jcom_core_string_compare(namestring, nametocompare)){
@@ -297,6 +301,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 		x->num_parameters++;
 	if(new_subscriber->name == ps__gui__)
 		x->gui_object = subscriber_object;
+	critical_exit(0);
 		
 	qelem_set(x->init_qelem);			// flag the queue for initialization
 	return x->attr_name;				// return the module name to the parameter
@@ -309,6 +314,7 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 					*prev_subscriber = NULL;
 	
 	// Search the linked list for this object and remove it
+	critical_enter(0);
 	while(subscriber){
 		if(subscriber->object == subscriber_object){
 			if(prev_subscriber != NULL)
@@ -333,6 +339,7 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 		prev_subscriber = subscriber;
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 }
 
 
@@ -470,11 +477,13 @@ void hub_init(t_hub *x)
 	t_subscriber	*subscriber = x->subscriber;
 	
 	// Search the linked list for jcom.init objects and 'bang' them
+	critical_enter(0);
 	while(subscriber){
 		if(subscriber->type == ps_subscribe_init)
 			object_method(subscriber->object, ps_go);
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 	defer_low(x, (method)hub_preset_default, 0, 0, 0L);
 }
 
@@ -532,6 +541,7 @@ void hub_gui_build(t_hub *x)
 			object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
 		}
 
+		critical_enter(0);
 		while(subscriber != NULL){
 			if((subscriber->type == ps_subscribe_message) || subscriber->type == ps_subscribe_parameter){
 				atom_setsym(&a[0], ps_PARAMETER);
@@ -540,6 +550,7 @@ void hub_gui_build(t_hub *x)
 			}
 			subscriber = subscriber->next;
 		}
+		critical_exit(0);
 
 		atom_setsym(&a[0], ps_BUILD);		
 		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
@@ -576,12 +587,14 @@ void hub_paramnames_get(t_hub *x)
 	
 	hub_outlet_return(x, ps_parameter_names_start, 0, NULL);
 	
+	critical_enter(0);
 	while(subscriber){
 		atom_setsym(&a, subscriber->name);
 		if(subscriber->type == ps_subscribe_parameter)
 			hub_outlet_return(x, ps_parameter_name, 1, &a);
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 	hub_outlet_return(x, ps_parameter_names_end, 0, NULL);
 }
 
@@ -592,12 +605,14 @@ void hub_messagenames_get(t_hub *x)
 	
 	hub_outlet_return(x, ps_message_names_start, 0, NULL);
 	
+	critical_enter(0);
 	while(subscriber){
 		atom_setsym(&a, subscriber->name);
 		if(subscriber->type == ps_subscribe_message)
 			hub_outlet_return(x, ps_message_name, 1, &a);
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 	hub_outlet_return(x, ps_message_names_end, 0, NULL);
 }
 
@@ -608,12 +623,14 @@ void hub_returnnames_get(t_hub *x)
 	
 	hub_outlet_return(x, ps_return_names_start, 0, NULL);
 	
+	critical_enter(0);
 	while(subscriber){
 		atom_setsym(&a, subscriber->name);
 		if(subscriber->type == ps_subscribe_return)
 			hub_outlet_return(x, ps_message_return, 1, &a);
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 	hub_outlet_return(x, ps_return_names_end, 0, NULL);
 }
 
@@ -663,6 +680,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 	else{
 		// search the linked list of params to find the right one
+		critical_enter(0);
 		while((subscriber != NULL) && (found == false)){
 			if(subscriber->name == name){
 				found = true;	// we found it!
@@ -670,6 +688,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 			}
 			subscriber = subscriber->next;
 		}
+		critical_exit(0);
 		// dispatch to the correct jcom.param object
 		if(found == true){
 			if(osc == NULL)
@@ -702,11 +721,13 @@ void hub_ui_freeze(t_hub *x, long val)
 	hub_symbol(x, ps_ui_slash_freeze, 1, &a);
 	
 	// Change freeze status for all messages and parameters	
+	critical_enter(0);
 	while(subscriber){
 		if(subscriber->type == ps_subscribe_parameter)
 			object_method_typed(subscriber->object, ps_ui_slash_freeze, 1, &a, NULL);
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 }
 
 // REFRESH UI for all parameters
@@ -714,11 +735,13 @@ void hub_ui_refresh(t_hub *x)
 {
 	t_subscriber *subscriber = x->subscriber;	// head of the linked list
 	
+	critical_enter(0);
 	while(subscriber){
 		if(subscriber->type == ps_subscribe_parameter)
 			object_method_typed(subscriber->object, ps_ui_slash_refresh, 0, 0L, NULL);
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 }
 
 // receive messages from our internal jcom.receive external

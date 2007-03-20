@@ -125,6 +125,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	table_heading(&file_handle, &myEof);
 
 	// Process each parameter
+	critical_enter(0);
 	subscriber = x->subscriber;
 	while(subscriber){
 		if(subscriber->type == ps_subscribe_parameter){
@@ -191,6 +192,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		}
 		subscriber = subscriber->next;
 	}	
+	critical_exit(0);
 	
 	// End of table
 	jcom_core_file_writeline(&file_handle, &myEof, "\t</table>");
@@ -209,6 +211,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		
 	// Process each message
 	subscriber = x->subscriber;
+	critical_enter(0);
 	while(subscriber){
 		if(subscriber->type == ps_subscribe_message){
 			// name
@@ -274,6 +277,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		}
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 	
 	// End of table
 	jcom_core_file_writeline(&file_handle, &myEof, "\t</table>");
@@ -292,6 +296,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		
 	// Process each return
 	subscriber = x->subscriber;
+	critical_enter(0);
 	while(subscriber){
 		if(subscriber->type == ps_subscribe_return){
 			// name
@@ -357,6 +362,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 		}
 		subscriber = subscriber->next;
 	}
+	critical_exit(0);
 	
 	// End of table
 	jcom_core_file_writeline(&file_handle, &myEof, "\t</table>");

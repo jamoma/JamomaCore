@@ -25,7 +25,8 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 		error("jcom.hub (%s module): preset.recall requires a valid argument", x->attr_name);
 		return;
 	}
-	
+
+	critical_enter(0);	
 	// Search the linked list of presets for the specified preset
 	if(argv->a_type == A_SYM){
 		while(preset){
@@ -87,6 +88,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 			item = item->next;
 		}
 	}
+	critical_exit(0);
 }
 
 
@@ -119,6 +121,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	
 	// Search the linked list for this preset (if it already exists) and remove it
 	//	also remove any items that are members of the preset
+	critical_enter(0);
 	while(preset){
 		if(preset->number == preset_num){
 			if(prev_preset != NULL)
@@ -137,7 +140,6 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 		prev_preset = preset;
 		preset = preset->next;
 	}
-	
 	
 	// Allocate the slot for this preset, and store the data
 	preset = (t_preset *)sysmem_newptr(sizeof(t_preset));
@@ -172,6 +174,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	}
 	preset->next = x->preset;
 	x->preset = preset;
+	critical_exit(0);	
 	hub_preset_buildmenu(x);
 }
 
@@ -291,11 +294,13 @@ void hub_preset_parse(t_hub *x, char *path)
 		hub_presets_clear(x);
 		ret = xmlTextReaderRead(reader);
 		
+		critical_enter(0);
+
 		while(ret==1){
 			name = xmlTextReaderConstName(reader);
 			if(name == NULL)
 				return;
-
+			
 			if(!strcmp((char *)name, "preset")){
 				if(xmlTextReaderNodeType(reader) == 1){				// element start
 					number = xmlTextReaderGetAttribute(reader, (xmlChar *)"number");
@@ -309,7 +314,7 @@ void hub_preset_parse(t_hub *x, char *path)
 					//preset->name = gensym((char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"name"));
 					preset->name = gensym((char *)name);
 					preset->item = NULL;			// start with no items in the preset
-					
+	
 					free((void *)number);
 					free((void *)name);
 				}
@@ -402,6 +407,7 @@ void hub_preset_parse(t_hub *x, char *path)
 		if(ret != 0){
 			error("%s: failed to parse", path);
 		}
+		critical_exit(0);
 	}
 	else{
 		error("Unable to open %s", path);
@@ -485,6 +491,7 @@ void hub_presets_clear(t_hub *x)
 	t_preset		*next_preset;
 	t_preset_item	*next_item;
 	
+	critical_enter(0);
 	while(x->preset != NULL){
 		while(x->preset->item != NULL){
 			next_item = x->preset->item->next;
@@ -495,6 +502,7 @@ void hub_presets_clear(t_hub *x)
 		sysmem_freeptr(x->preset);
 		x->preset = next_preset;
 	}
+	critical_exit(0);
 }
 
 
@@ -508,6 +516,7 @@ void hub_presets_dump(t_hub *x)
 	post("PRESET DUMP");
 	post("");
 	
+	critical_enter(0);
 	while(preset != NULL){
 		post("  PRESET %i: %s", preset->number, preset->name->s_name);
 		item = preset->item;
@@ -522,6 +531,7 @@ void hub_presets_dump(t_hub *x)
 		}		
 		preset = preset->next;
 	}
+	critical_exit(0);
 }
 
 
@@ -612,6 +622,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, ">");
 
 	// Process each preset
+	critical_enter(0);
 	preset = x->preset;	// head of the list of presets
 	while(preset){	
 		sprintf(tempstring, "  <preset number='%ld' name='%s'>", preset->number, preset->name->s_name);
@@ -641,7 +652,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 		preset = preset->next;
 	}
 	jcom_core_file_writeline(&file_handle, &myEof, "</jamoma>");
-	
+	critical_exit(0);
 	
 	// WE ARE DONE, SO CLOSE THE FILE
 	err = sysfile_seteof(file_handle, myEof);
