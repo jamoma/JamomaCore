@@ -170,6 +170,7 @@ void receive_remove(t_receive *x)
 	short		count = -1;	// count the number of instances with this name
 
 	// Search the linked list for this object and remove it
+	critical_enter(0);
 	while(receiver){
 		if(receiver->object->attr_name == x->attr_name){
 			if(count == -1)	// none have been found yet
@@ -187,6 +188,7 @@ void receive_remove(t_receive *x)
 		prev_receiver = receiver;
 		receiver = receiver->next;
 	}
+	critical_exit(0);
 	
 	if(count == 0)
 		x->attr_name->s_thing = (t_object *)NULL;
@@ -201,6 +203,7 @@ void receive_callback(t_symbol *name, t_symbol *msg, short argc, t_atom *argv)
 	t_receiver	*receiver = s_receiver_list;
 		
 	// Search the linked list for matching jcom.receive objects
+	critical_enter(0);
 	while(receiver){
 		if(receiver->object->attr_name == name){
 			x = receiver->object;
@@ -210,6 +213,7 @@ void receive_callback(t_symbol *name, t_symbol *msg, short argc, t_atom *argv)
 		}
 		receiver = receiver->next;
 	}
+	critical_exit(0);
 }
 
 
