@@ -53,8 +53,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_paramvalues_get,		"parameter_values/dump",	0L);
 	class_addmethod(c, (method)hub_paramvalues_get,		"/parameter_values/dump",	0L);
 	
-	class_addmethod(c, (method)hub_modulename_get,		"module_name/get",			A_CANT);	// make this public eventually?
-	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			A_CANT);	// make this public eventually?
+	class_addmethod(c, (method)hub_modulename_get,		"module_name/get",			0L);
+	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			0L);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type/get",		A_CANT);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type/get",		A_CANT);
 	class_addmethod(c, (method)hub_init,				"init",						0L);
@@ -464,6 +464,10 @@ void hub_outlet_return(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 
 t_symbol *hub_modulename_get(t_hub *x)
 {
+	char	oscpath[256];
+	
+	sprintf(oscpath, "%s/module_name", x->attr_name->s_name);
+	hub_outlet_return(x, gensym(oscpath), 0, NULL);
 	return x->attr_name;
 }
 
