@@ -84,6 +84,7 @@ max v2;
 #P hidden connect 4 0 5 0;
 #P hidden fasten 8 0 5 0 171 110 21 110;
 #P hidden connect 5 0 3 0;
+#P hidden fasten 7 0 3 0 91 285 75 285 75 149 21 149;
 #P hidden connect 31 0 21 0;
 #P hidden connect 21 0 13 0;
 #P hidden connect 13 0 7 0;
