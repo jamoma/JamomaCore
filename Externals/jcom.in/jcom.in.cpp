@@ -26,27 +26,7 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "jcom.core.h"
 #include "jcom.io.h"
-
-
-// Prototypes for methods
-void *in_new(t_symbol *s, short argc, t_atom *argv);				// New Object Creation Method
-void in_subscribe(t_in *x);
-void in_link(t_in *x, void *y);
-void in_unlink(t_in *x);
-void in_dispatched(t_in *x, t_symbol *msg, short argc, t_atom *argv);
-void in_bang(t_in *x);
-void in_int(t_in *x, long value);
-void in_float(t_in *x, double value);
-void in_anything(t_in *x, t_symbol *msg, short argc, t_atom *argv);
-void in_free(t_in *x);												// Object Deletion Method
-void in_release(t_in *x);											// Hub Deletion
-void in_dsp(t_in *x, t_signal **sp, short *count);					// DSP Method
-void in_assist(t_in *x, void *b, long m, long a, char *s);			// Assistance Method
-t_int *in_perform(t_int *w);										// MSP Perform Method
-void in_algorithm_message(t_in *x, t_symbol *msg, short argc, t_atom *argv);
-void in_view_internals(t_in *x, t_symbol *msg, short argc, t_atom *argv);	// Message /module/view_internals
-void in_alloc(t_in *x, int vector_size);
-
+#include "jcom.in.h"
 
 // Globals
 t_class		*in_class;					// Required. Global pointing to this class
