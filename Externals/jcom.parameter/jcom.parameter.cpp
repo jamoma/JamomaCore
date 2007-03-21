@@ -217,8 +217,8 @@ void param_subscribe(t_param *x)
 #else
 	x->hub = jcom_core_subscribe(x, x->name, x->container, ps_subscribe_parameter);
 #endif // JMOD_MESSAGE
-
-	x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
+	if(x->hub)
+		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
 }
 
 

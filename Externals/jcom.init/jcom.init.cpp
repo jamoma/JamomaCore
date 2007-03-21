@@ -106,7 +106,8 @@ void *init_new(t_symbol *s, short argc, t_atom *argv)
 void init_subscribe(t_init *x)
 {
 	x->hub = jcom_core_subscribe(x, x->name, x->container, ps_subscribe_init);
-	x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
+	if(x->hub)
+		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
 }
 
 // Destroy
