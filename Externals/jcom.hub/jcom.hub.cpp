@@ -464,10 +464,12 @@ void hub_outlet_return(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 
 t_symbol *hub_modulename_get(t_hub *x)
 {
-	char	oscpath[256];
-	
-	sprintf(oscpath, "%s/module_name", x->attr_name->s_name);
-	hub_outlet_return(x, gensym(oscpath), 0, NULL);
+	t_atom	a;
+
+	if(x->osc_name != NULL){
+		atom_setsym(&a, x->osc_name);	
+		hub_outlet_return(x, gensym("/module_name"), 1, &a);
+	}
 	return x->attr_name;
 }
 
