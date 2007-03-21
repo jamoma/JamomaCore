@@ -254,7 +254,11 @@ void in_algorithm_message(t_in *x, t_symbol *msg, short argc, t_atom *argv)
 	char		namestring[256];
 	t_symbol	*osc;
 
-	if((argv->a_w.w_sym == ps_video_mute) || (argv->a_w.w_sym == ps_slash_video_mute))
+	if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute)){
+		x->attr_mute = atom_getlong(argv+1);
+		outlet_anything(x->algout, ps_mute, argc-1, argv+1);
+	}
+	else if((argv->a_w.w_sym == ps_video_mute) || (argv->a_w.w_sym == ps_slash_video_mute))
 		x->attr_mute = atom_getlong(argv+1);
 	else if((argv->a_w.w_sym == ps_video_bypass) || (argv->a_w.w_sym == ps_slash_video_bypass))
 		x->attr_bypass = atom_getlong(argv+1);
