@@ -467,8 +467,10 @@ t_symbol *hub_modulename_get(t_hub *x)
 	t_atom	a;
 
 	if(x->osc_name != NULL){
-		atom_setsym(&a, x->osc_name);	
-		hub_outlet_return(x, gensym("/module_name"), 1, &a);
+		if(x->osc_name != _sym_nothing){
+			atom_setsym(&a, x->osc_name);	
+			hub_outlet_return(x, gensym("/module_name"), 1, &a);
+		}
 	}
 	return x->attr_name;
 }
