@@ -414,6 +414,19 @@ t_int *out_perform(t_int *w)
 	x->signal_out->set_vector(sig);					// Output
 	x->signal_in->set_vectorsize(n);				// Vector Size
 
+	if(x->attr_bypass){
+		while(n--)
+			*sig++ = *(x->in_object->signal_in[i]->vector++);
+		x->in_object->signal_in[i]->reset();	
+		goto out;
+	}
+	
+	if(x->attr_mute){
+		while(n--)
+			*sig++ = 0;
+		goto out;
+	}
+
 	if(x->in_object)
 		x->xfade->dsp_vector_calc(x->in_object->signal_in[i], x->signal_in, x->signal_temp);	// perform bypass/mix control
 	x->gain->dsp_vector_calc(x->signal_temp, x->signal_out);								// perform gain control
@@ -433,6 +446,7 @@ t_int *out_perform(t_int *w)
 			}
 		}
 	}
+out:
 	return(w+6);
 }
 
