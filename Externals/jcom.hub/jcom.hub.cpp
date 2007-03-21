@@ -615,6 +615,7 @@ void hub_paramvalues_get(t_hub *x)
 	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
 	t_atom			*av;
 	long			ac;
+	char			osc[512];
 	
 	hub_outlet_return(x, ps_parameter_values_start, 0, NULL);
 	
@@ -622,8 +623,9 @@ void hub_paramvalues_get(t_hub *x)
 	while(subscriber){
 		if(subscriber->type == ps_subscribe_parameter){
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(subscriber->object, ps_value, &ac, &av);		// get		
-			hub_outlet_return(x, ps_parameter_value, ac, av);
+			object_attr_getvalueof(subscriber->object, ps_value, &ac, &av);		// get	
+			sprintf(osc, "%s/%s", ps_parameter_value->s_name, subscriber->name->s_name);
+			hub_outlet_return(x, gensym(osc), ac, av);
 		}
 		subscriber = subscriber->next;
 	}
