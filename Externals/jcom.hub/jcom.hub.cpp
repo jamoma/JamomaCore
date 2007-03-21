@@ -146,6 +146,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->init_qelem = qelem_new(x, (method)hub_qfn_init);
 
 		x->attr_name = name;
+		x->osc_name = _sym_nothing;
 		x->attr_type = ps_audio;
 		x->attr_description = _sym_nothing;
 		x->attr_algorithm_type = ps_default;		// poly for audio, jitter for video, control for control
