@@ -680,12 +680,10 @@ void hub_preset_buildmenu(t_hub *x)
 			atom_setsym(&a[0], ps_NEW_PRESETS);
 			atom_setsym(&a[1], preset->name);
 			object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);
-post("JCOM_HUB_DISPATCH CALL: hub_preset_buildmenu");	
 			preset = preset->next;
 		}
 
 		atom_setsym(&a[0], ps_MENU_REBUILD);		
-post("JCOM_HUB_DISPATCH CALL: hub_preset_buildmenu2");	
 		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
 	}
 }
