@@ -5,23 +5,22 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='camera_on' type='msg_toggle'>0</item>
-    <item name='camera_size' type='msg_int'>0</item>
-    <item name='file_audio' type='msg_toggle'>0</item>
-    <item name='file_counter' type='msg_int'>0</item>
-    <item name='file_loop_points' type='msg_list'>0</item>
-    <item name='file_loop' type='msg_toggle'>0</item>
-    <item name='file_on' type='msg_toggle'>0</item>
-    <item name='file_rate' type='msg_float'>0</item>
-    <item name='file_size' type='msg_int'>0</item>
-    <item name='source_mode' type='msg_toggle'>0</item>
-    <item name='synth_color_on' type='msg_toggle'>0</item>
-    <item name='synth_color' type='msg_generic'>set</item>
-    <item name='synth_noise_on' type='msg_toggle'>0</item>
-    <item name='synth_noise_planes' type='msg_int'>1</item>
-    <item name='synth_noise_rate' type='msg_int'>0</item>
-    <item name='synth_noise_size_x' type='msg_int'>0</item>
-    <item name='synth_noise_size_y' type='msg_int'>0</item>
+    <item name='camera/on' type='msg_toggle'>0</item>
+    <item name='camera/size' type='msg_int'>0</item>
+    <item name='file/audio' type='msg_toggle'>0</item>
+    <item name='file/counter' type='msg_int'>0</item>
+    <item name='file/loop_points' type='msg_list'>0</item>
+    <item name='file/loop' type='msg_toggle'>0</item>
+    <item name='file/on' type='msg_toggle'>0</item>
+    <item name='file/rate' type='msg_float'>0</item>
+    <item name='file/size' type='msg_int'>0</item>
+    <item name='synth/color/on' type='msg_toggle'>0</item>
+    <item name='synth/color' type='msg_generic'>set</item>
+    <item name='synth/noise/on' type='msg_toggle'>0</item>
+    <item name='synth/noise/planes' type='msg_int'>1</item>
+    <item name='synth/noise/rate' type='msg_int'>0</item>
+    <item name='synth/noise/size/x' type='msg_int'>0</item>
+    <item name='synth/noise/size/y' type='msg_int'>0</item>
     <item name='video/bypass' type='msg_toggle'>0</item>
     <item name='video/freeze' type='msg_toggle'>0</item>
     <item name='video/mute' type='msg_toggle'>0</item>
