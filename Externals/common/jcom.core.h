@@ -162,40 +162,56 @@ extern t_symbol	*ps_none,
 
 
 // Prototypes
-void jcom_core_init(void);		// initialize globals (such as symbol constants)
+/** Initializes Jamoma globals and symbol constants */
+void jcom_core_init(void);
 
-
-/* Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
+/** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
  * with the jcom.hub object
- *	 arg1: pointer to the object that is subscribing
- *	 arg2: name of the parameter, message, return, in, out, etc.
- *	 arg3: pointer to patcher containg the parameter, in, out, etc.
- *	 returns: a pointer to the hub object
+ * @param x pointer to the object that is subscribing
+ * @param name name of the parameter, message, return, in, out, etc.
+ * @param container pointer to patcher containg the parameter, in, out, etc.
+ * @return a pointer to the hub object
  */
 void *jcom_core_subscribe(void *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
 
-
-// arg1: pointer to the parameter/message/in/out/etc object that we are removing
-//void jcom_core_unsubscribe(void *hub, t_symbol *name);
+/** Unsubscribe a client from the hub.
+ * @param hub pointer to the hub
+ * @param object pointer to the parameter/message/in/out/etc object that we are removing
+ */
 void jcom_core_unsubscribe(void *hub, void *object);
 
-
-
+/** Utility function to perform an atom copy.
+ * @param dst the destination t_atom
+ * @param src the t_atom to be copied
+ */
 void jcom_core_atom_copy(t_atom *dst, t_atom *src);
-bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2);	// returns true if they match
+/** Utility function to compare two t_atom's.
+ * @param type the atom type of a1
+ * @param a1 a t_atom
+ * @param a2 the t_atom to compare against
+ * @return true if the t_atom's are the same
+ */
+bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2);
 
 void jcom_core_file_writeline(t_filehandle *fh, long *the_eof, char *the_text);
+/** Compares two strings
+ * @return true if the strings are the same 
+ */
 bool jcom_core_string_compare(char *s1, char *s2);
 
-// Load obex externals for use within other externals
-// arg1: object name (i.e. gensym("jcom.send"))
-// arg2: arg symbol
-// arg3: object pointer
-// return: true if successful, otherwise false
+/** Load obex externals for use within other externals
+ * @param objectname the object name (i.e. gensym("jcom.send"))
+ * @param argument arguments to the external to be loaded
+ * @param object if successful pointer to the object pointer
+ * @return true if successfully loaded, otherwise false
+ */
 bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **object);
 
-
-// Function the translates a Max path+filename combo into a correct absolutepath
+/** Translates a Max path+filename combo into a correct absolutepath.
+ * @param in_path
+ * @param in_filename the filename
+ * @param filepath the path
+ */
 void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath);
 
 #endif // #ifndef __JMOD_CORE_H__
