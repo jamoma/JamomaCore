@@ -46,6 +46,9 @@ t_symbol	*ps_done,
 			*ps_message_names_end,
 			*ps_return_names_start, 
 			*ps_return_names_end,
+			*ps_parameter_values_start,
+			*ps_parameter_values_end,
+			*ps_parameter_value,
 			*ps_subscribe,				// subscribe stuff
 			*ps_unsubscribe,
 			*ps_release,
@@ -191,6 +194,9 @@ void jcom_core_init(void)
 	ps_message_names_end		= gensym("/message_names_end");
 	ps_return_names_start		= gensym("/return_names_start");
 	ps_return_names_end			= gensym("/return_names_end");
+	ps_parameter_values_start	= gensym("/parameter_values_start");
+	ps_parameter_values_end		= gensym("/parameter_values_end");
+	ps_parameter_value			= gensym("/parameter_value");
 	// subscribe stuff
     ps_subscribe				= gensym("subscribe");
 	ps_unsubscribe				= gensym("unsubscribe");

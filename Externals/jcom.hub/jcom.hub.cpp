@@ -50,6 +50,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_returnnames_get,		"/return_names/dump",		0L);
 	class_addmethod(c, (method)hub_allnames_get,		"*_names/dump",				0L);
 	class_addmethod(c, (method)hub_allnames_get,		"/*_names/dump",			0L);
+	class_addmethod(c, (method)hub_paramvalues_get,		"parameter_values/dump",	0L);
+	class_addmethod(c, (method)hub_paramvalues_get,		"/parameter_values/dump",	0L);
 	
 	class_addmethod(c, (method)hub_modulename_get,		"module_name/get",			A_CANT);	// make this public eventually?
 	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			A_CANT);	// make this public eventually?
@@ -598,6 +600,30 @@ void hub_paramnames_get(t_hub *x)
 	hub_outlet_return(x, ps_parameter_names_end, 0, NULL);
 }
 
+
+// Return a list of parameters and message for this module
+void hub_paramvalues_get(t_hub *x)
+{
+	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
+	t_atom			*av;
+	long			ac;
+	
+	hub_outlet_return(x, ps_parameter_values_start, 0, NULL);
+	
+	critical_enter(0);
+	while(subscriber){
+		if(subscriber->type == ps_subscribe_parameter){
+			ac = NULL; av = NULL;												// init
+			object_attr_getvalueof(subscriber->object, ps_value, &ac, &av);		// get		
+			hub_outlet_return(x, ps_parameter_value, ac, av);
+		}
+		subscriber = subscriber->next;
+	}
+	critical_exit(0);
+	hub_outlet_return(x, ps_parameter_values_end, 0, NULL);
+}
+
+
 void hub_messagenames_get(t_hub *x)
 {
 	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
@@ -665,6 +691,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 	name = gensym(input2);
 
+	critical_enter(0);
 	if(name == ps_star){			// wildcard
 		while(subscriber){
 			if(subscriber->type == ps_subscribe_parameter 
@@ -680,7 +707,6 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 	else{
 		// search the linked list of params to find the right one
-		critical_enter(0);
 		while((subscriber != NULL) && (found == false)){
 			if(subscriber->name == name){
 				found = true;	// we found it!
@@ -688,7 +714,6 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 			}
 			subscriber = subscriber->next;
 		}
-		critical_exit(0);
 		// dispatch to the correct jcom.param object
 		if(found == true){
 			if(osc == NULL)
@@ -699,6 +724,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 		else
 			error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
 	}
+	critical_exit(0);
 }
 
 

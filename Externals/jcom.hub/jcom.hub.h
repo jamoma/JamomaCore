@@ -96,6 +96,7 @@ void 		hub_outlet_return(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
 void		hub_paramnames_get(t_hub *x);
 void		hub_messagenames_get(t_hub *x);
 void		hub_returnnames_get(t_hub *x);
+void		hub_paramvalues_get(t_hub *x);
 void		hub_allnames_get(t_hub *x);
 t_symbol*	hub_modulename_get(t_hub *x);
 t_symbol*	hub_algorithmtype_get(t_hub *x);
