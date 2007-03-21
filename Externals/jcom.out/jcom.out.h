@@ -33,6 +33,7 @@ void out_alloc(t_out *x, int vector_size);
 void out_link_to_in_object(t_out *x, t_in *y);
 void out_unlink(t_out *x);
 void out_register_meter(t_out *x, int meternum, void *meter_object);
+void out_remove_meters(t_out *x);
 void out_register_preview(t_out *x, void *preview_object);
 void update_meters(t_out *x);
 

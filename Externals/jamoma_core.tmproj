@@ -92,7 +92,7 @@
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-03-19T16:28:38Z</date>
+					<date>2007-03-21T10:30:39Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -127,7 +127,7 @@
 					<key>filename</key>
 					<string>jcom.parameter/jcom.parameter.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-03-19T18:02:54Z</date>
+					<date>2007-03-21T10:31:21Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -321,14 +321,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>33</integer>
+				<integer>35</integer>
 				<key>line</key>
-				<integer>374</integer>
+				<integer>163</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>352</integer>
+			<integer>139</integer>
 		</dict>
 		<key>common/jcom.core.h</key>
 		<dict>
@@ -349,14 +349,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>70</integer>
+				<integer>28</integer>
 				<key>line</key>
-				<integer>38</integer>
+				<integer>624</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>31</integer>
+			<integer>588</integer>
 		</dict>
 		<key>jcom.hub/jcom.hub.h</key>
 		<dict>
@@ -437,14 +437,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>60</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>102</integer>
+				<integer>165</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>82</integer>
+			<integer>141</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>5</integer>
+				<key>line</key>
+				<integer>165</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>165</integer>
+			</dict>
 		</dict>
 		<key>jcom.parameter/jcom.parameter.h</key>
 		<dict>

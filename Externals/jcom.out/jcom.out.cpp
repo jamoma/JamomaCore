@@ -60,6 +60,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)out_link_to_in_object,	"link_in", 				A_CANT, 0L);
 	class_addmethod(c, (method)out_unlink,				"unlink_in",			0L);
 	class_addmethod(c, (method)out_register_meter,		"register_meter",		A_CANT, 0L);
+	class_addmethod(c, (method)out_remove_meters,		"remove_meters",		A_CANT, 0L);
 	class_addmethod(c, (method)out_register_preview,	"register_preview",		A_CANT, 0L);
 #ifdef JCOM_OUT_TILDE
 	class_addmethod(c, (method)out_dsp,					"dsp", 					A_CANT, 0L);
@@ -305,6 +306,15 @@ void out_register_meter(t_out *x, int meternum, void *meter_object)
 	x->meter_object[meternum] = meter_object;
 	if((meternum+1) > x->num_meter_objects)
 		x->num_meter_objects = meternum+1;
+}
+
+
+void out_remove_meters(t_out *x)
+{
+	short i;
+	for(i=0; i<16; i++)
+		x->meter_object[i] = NULL;
+	x->num_meter_objects = 0;
 }
 
 

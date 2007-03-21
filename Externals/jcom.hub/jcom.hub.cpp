@@ -171,7 +171,9 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
 		if(!jcom_core_loadextern(ps_jcom_send, ps_jcom_remote_fromModule, &x->jcom_send))
+//		if(!jcom_core_loadextern(ps_jcom_receive, gensym("jcom.remote.toModule"), &x->jcom_receive))
 			error("jcom.hub: loading jcom.send extern failed!");
+//		if(!jcom_core_loadextern(ps_jcom_receive, gensym("jcom.remote.toModule"), &x->jcom_receive))
 		if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_remote_toModule, &x->jcom_receive))
 			error("jcom.hub: loading jcom.receive extern failed!");
 		object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
@@ -314,6 +316,8 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 {
 	t_subscriber	*subscriber = x->subscriber,
 					*prev_subscriber = NULL;
+	short			i;
+	char			temp[32];
 	
 	// Search the linked list for this object and remove it
 	critical_enter(0);
@@ -334,7 +338,16 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 				if(x->in_object)
 					object_method(x->in_object, ps_unlink_in);
 			}
-				
+			else if(subscriber->type == ps_subscribe_remote){
+				for(i=0; i<16; i++){
+					sprintf(temp, "__meter__%i", i);
+					if(subscriber->name == gensym(temp)){
+						if(x->out_object)
+							object_method(x->out_object, gensym("remove_meters"));
+					}
+				}
+			}
+			
 			sysmem_freeptr(subscriber);
 			break;
 		}
@@ -707,12 +720,14 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 			if(subscriber->type == ps_subscribe_parameter 
 			|| subscriber->type == ps_subscribe_message 
 			|| subscriber->type == ps_subscribe_return){
-				if(osc == NULL)
+				if(osc == NULL){
 					object_method_typed(subscriber->object, ps_dispatched, argc, argv, NULL);
-				else
+				}
+				else{
 					object_method_typed(subscriber->object, osc, argc, argv, NULL);
 				}
-				subscriber = subscriber->next;
+			}
+			subscriber = subscriber->next;
 		}
 	}
 	else{
@@ -726,8 +741,9 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 		// dispatch to the correct jcom.param object
 		if(found == true){
-			if(osc == NULL)
+			if(osc == NULL){
 				object_method_typed(subscriber->object, ps_dispatched, argc, argv, NULL);
+			}
 			else
 				object_method_typed(subscriber->object, osc, argc, argv, NULL);
 		}
