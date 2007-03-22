@@ -196,11 +196,24 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 
 	message = gensym(input);
-
+	
 	for (i=0; i < x->num_args; i++) {
-		// Do we have a potential match?
+		// wildcard handling
+		if(strstr(x->arguments[i]->s_name, "/*")) {
+			if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1)==0) {
+				char* c = strstr(msg->s_name+1, "/");	
+				output = gensym(c);
+				outlet_anything(x->outlets[i], output, argc, argv);
+				return;
+			} else {
+				// We break here because if the strncmp() fails it means we have a wildcard following an OSC message
+				// i.e. /robot/* but the incoming message doesn't begin with /robot
+				break;
+			}
+		}
+		// Do we have an exact match?
 		if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i])==0) {
-			// If incomming message is longer than argument...
+			// If incoming message is longer than argument...
 			if (strlen(msg->s_name) > x->arglen[i]){
 				// ...it is only a match if it continues with a slash
 				if (input[x->arglen[i]] == '/') {
@@ -209,8 +222,9 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 					return;
 				}
 			}
-			// If the incomming message is no longer we know that we have a match
+			// If the incoming message is no longer we know that we have a match
 			else {
+			
 				// We then have to check what message to return.
 				// The message received has no arguments:
 				if (argc == 0) {
