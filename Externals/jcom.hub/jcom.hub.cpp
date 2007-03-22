@@ -183,17 +183,66 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 }
 
 
+
+
+typedef struct bpatcher {
+	t_box b_box;
+	short a,b;
+	short c,d;
+	short e,f;
+	short g,h;
+	short i,j;
+	short k,l;
+	short m,n;
+	short o;
+	Symbol *b_name;
+	Atom b_argv[10];
+	short b_argc;
+} t_bpatcher;
+
+
+
 void hub_examine_context(t_hub *x)
 {
 	t_patcher	*p = x->container;
-	t_box		*b = p->p_box;
-	t_symbol	*s;
+	t_box		*box = p->p_box;
+	t_symbol	*s = NULL;
+	t_atombuf	*atoms = NULL;
+	long		size = 0;
+	t_atom		*argv = NULL;
 
-	if(p->p_vnewobj != NULL){				//	go up one level to look at how the module is instantiated
-		b = (t_box *)p->p_vnewobj;
-		p = b->b_patcher;
-		if(patcher_boxname(p, b, &s))
-			x->osc_name = s;
+	if(p->p_vnewobj != NULL){							// THIS SHOULD INDICATE WE ARE NOT AT THE TOP LEVEL (i.e. not editing)						//	go up one level to look at how the module is instantiated
+		box = (t_box *)p->p_vnewobj;
+		atoms = (t_atombuf *)box->b_binbuf;
+		if(!atoms){
+			if(ob_sym(box) == gensym("bpatcher")){
+				t_bpatcher *bp = (t_bpatcher *)box;
+				size = bp->b_argc;
+				argv = bp->b_argv;
+				x->osc_name = atom_getsym(argv);
+			}
+		} 
+		else{
+			size = atoms->a_argc - 1;
+			argv = atoms->a_argv + 1;		
+			x->osc_name = atom_getsym(argv);
+		}
+
+		// if no arg is present, then try to use the scripting name of the object
+		if(x->osc_name == _sym_nothing){
+			p = box->b_patcher;	
+			if(patcher_boxname(p, box, &s))
+				x->osc_name = s;
+			else{	
+				// try to invent something intelligent for a name
+				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name);
+				char name[256];
+				
+				strcpy(name, "/");
+				strcat(name, x->attr_name->s_name);
+				x->osc_name = gensym(name);
+			}
+		}
 	}
 	else
 		x->osc_name = gensym("/editing_this_module");
