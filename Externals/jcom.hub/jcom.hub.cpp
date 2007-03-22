@@ -210,6 +210,8 @@ void hub_examine_context(t_hub *x)
 	t_atombuf	*atoms = NULL;
 	long		size = 0;
 	t_atom		*argv = NULL;
+	char		name[256];
+	char		*nametest;
 
 	if(p->p_vnewobj != NULL){							// THIS SHOULD INDICATE WE ARE NOT AT THE TOP LEVEL (i.e. not editing)						//	go up one level to look at how the module is instantiated
 		box = (t_box *)p->p_vnewobj;
@@ -220,29 +222,45 @@ void hub_examine_context(t_hub *x)
 				size = bp->b_argc;
 				argv = bp->b_argv;
 				x->osc_name = atom_getsym(argv);
+				strcpy(name, x->osc_name->s_name);
 			}
 		} 
 		else{
 			size = atoms->a_argc - 1;
 			argv = atoms->a_argv + 1;		
 			x->osc_name = atom_getsym(argv);
+			strcpy(name, x->osc_name->s_name);
 		}
-
+		
 		// if no arg is present, then try to use the scripting name of the object
 		if(x->osc_name == _sym_nothing){
 			p = box->b_patcher;	
 			if(patcher_boxname(p, box, &s))
-				x->osc_name = s;
+				strcpy(name, s->s_name);
 			else{	
 				// try to invent something intelligent for a name
-				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name);
-				char name[256];
-				
+				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name);				
 				strcpy(name, "/");
 				strcat(name, x->attr_name->s_name);
-				x->osc_name = gensym(name);
 			}
 		}
+		// the name must begin with a /
+		if(name[0] != '/'){
+			char newname[256];
+			
+			strcpy(newname, "/");
+			strcat(newname, name);
+			strcpy(name, newname);
+			error("%s: name arguments for modules must begin with a slash!  inserting one automatically", x->attr_name->s_name);
+		}
+		
+		// if arg contains a slash then we must complain
+		nametest = name + 1;
+		if(strchr(nametest, '/')){
+			error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
+		}
+
+		x->osc_name = gensym(name);
 	}
 	else
 		x->osc_name = gensym("/editing_this_module");
