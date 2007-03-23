@@ -13,7 +13,8 @@
 #include "jcom.core.h"
 
 enum outlets{
-	k_outlet_dumpout = 0,
+	k_outlet_thru = 0,
+	k_outlet_dumpout,
 	num_outlets
 };
 
@@ -142,6 +143,7 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 	if(x){
 		x->outlets[k_outlet_dumpout] = outlet_new(x, 0L);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
+		x->outlets[k_outlet_thru] = outlet_new(x, 0L);
 
 		// set defaults...
 		x->module_name = _sym_nothing;
@@ -240,6 +242,8 @@ void return_bang(t_return *x)
 	x->output_len = 1;
 	if(x->hub != NULL)
 		object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
+	
+	outlet_anything(x->outlets[k_outlet_thru], x->attr_name, 0, NULL);
 }
 
 
@@ -249,6 +253,8 @@ void return_int(t_return *x, long value)
 	atom_setlong(&x->output[1], value);
 	x->output_len = 2;
 	return_send_feedback(x);
+
+	outlet_int(x->outlets[k_outlet_thru], value);
 }
 
 // FLOAT INPUT
@@ -257,7 +263,22 @@ void return_float(t_return *x, double value)
 	atom_setfloat(&x->output[1], value);
 	x->output_len = 2;
 	return_send_feedback(x);
+	
+	outlet_float(x->outlets[k_outlet_thru], value);	
 }
+
+/*
+#P window setfont "Sans Serif" 9.;
+#P window linecount 1;
+#P message 162 62 46 196617 45 60 7;
+#P message 78 54 63 196617 foo man chu;
+#P newex 134 121 32 196617 print;
+#P newex 130 84 64 196617 jcom.return;
+#P connect 3 0 0 0;
+#P connect 2 0 0 0;
+#P connect 0 0 1 0;
+#P window clipboard copycount 4;
+*/
 
 // SYMBOL INPUT
 void return_symbol(t_return *x, t_symbol *msg, short argc, t_atom *argv)
@@ -272,6 +293,7 @@ void return_symbol(t_return *x, t_symbol *msg, short argc, t_atom *argv)
 		x->output_len++;
 	}	
 	
+	outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-2, &x->output[2]);
 	return_send_feedback(x);
 }
 
@@ -284,5 +306,6 @@ void return_list(t_return *x, t_symbol *msg, short argc, t_atom *argv)
 		jcom_core_atom_copy(&x->output[i], argv++);
 		x->output_len++;
 	}
+	outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-1, &x->output[1]);
 	return_send_feedback(x);
 }
