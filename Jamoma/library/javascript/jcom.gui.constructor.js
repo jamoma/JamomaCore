@@ -118,7 +118,7 @@ function bang()
 			if(attr_module_type == "audio.ambisonic"){
 				// Replace the panel with a specific ambisonic panel
 				// Position determined according to current position of the "controls" panel.
-				outlet(0, "script", "replace", "controls", "bpatcher", this.patcher.getnamed("controls").rect, 0, -190, "jcom.gui.ambi-component.mxt", 0);
+				outlet(0, "script", "replace", "controls", "bpatcher", this.patcher.getnamed("controls").rect, -40, -190, "jcom.gui.ambi-component.mxt", 0);
 			}
 			else if(attr_module_type == "audio.no_panel"){
 				outlet(0, "script", "delete", "controls");
