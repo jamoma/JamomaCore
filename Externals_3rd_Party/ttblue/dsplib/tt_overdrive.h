@@ -42,12 +42,15 @@ class tt_overdrive:public tt_audio_base{
 		double	 						last_input2;
 		double							last_output2;
 		float							s, b, nb, z, scale;
+		float							preamp_db;
+		float							preamp_linear;
 	
 	public:
 		enum selectors{								
 			k_drive,								// Attribute Selectors
 			k_defeat_dcblocker,
 			k_mode,
+			k_preamp
 		};
 		
 
@@ -55,6 +58,8 @@ class tt_overdrive:public tt_audio_base{
 		tt_overdrive()								// Constructor		
 		{
 			mode = 0;
+			preamp_db = 0;
+			preamp_linear = 1.;
 			set_attr(k_drive, 3.0);	
 			set_attr(k_defeat_dcblocker, 0.0);
 			clear();
@@ -93,6 +98,10 @@ class tt_overdrive:public tt_audio_base{
 					break;
 				case k_defeat_dcblocker:
 					defeat_dcblocker = val;
+					break;
+				case k_preamp:
+					preamp_db = val;
+					preamp_linear = decibels_to_amplitude(preamp_db);
 					break;
 			}
 			
@@ -160,7 +169,7 @@ class tt_overdrive:public tt_audio_base{
 			temp_vs = in->vectorsize;
 			
 			while(temp_vs--){
-				temp = *in->vector++;
+				temp = *in->vector++ * preamp_linear;
 
 				// Integrated DC Blocker:
 				last_output1 = temp - last_input1 + (last_output1 * 0.9997);
@@ -197,8 +206,8 @@ class tt_overdrive:public tt_audio_base{
 			float sign_left, sign_right;
 			
 			while(temp_vs--){
-				temp_left = *in1->vector++;
-				temp_right = *in2->vector++;
+				temp_left = *in1->vector++ * preamp_linear;
+				temp_right = *in2->vector++ * preamp_linear;
 				
 				// Integrated DC Blocker:
 				last_output1 = temp_left - last_input1 + (last_output1 * 0.9997);
@@ -247,7 +256,7 @@ class tt_overdrive:public tt_audio_base{
 			temp_vs = in->vectorsize;
 			
 			while(temp_vs--){
-				temp = *in->vector++;
+				temp = *in->vector++ * preamp_linear;
 
 				float sign = 1.0;
 				
@@ -278,8 +287,8 @@ class tt_overdrive:public tt_audio_base{
 			float sign_left, sign_right;
 			
 			while(temp_vs--){
-				temp_left = *in1->vector++;
-				temp_right = *in2->vector++;
+				temp_left = *in1->vector++ * preamp_linear;
+				temp_right = *in2->vector++ * preamp_linear;
 				sign_left = 1.0;
 				sign_right = 1.0;
 				
@@ -317,7 +326,7 @@ class tt_overdrive:public tt_audio_base{
 			temp_vs = in->vectorsize;
 			
 			while(temp_vs--){
-				temp = *in->vector++;
+				temp = *in->vector++ * preamp_linear;
 				
 				if(temp > b) 
 					temp = 1.;
@@ -337,8 +346,8 @@ class tt_overdrive:public tt_audio_base{
 			temp_vs = in1->vectorsize;
 			
 			while(temp_vs--){
-				temp_left = *in1->vector++;
-				temp_right = *in2->vector++;
+				temp_left = *in1->vector++ * preamp_linear;
+				temp_right = *in2->vector++ * preamp_linear;
 				
 				if(temp_left > b) 
 					temp_left = 1.;
@@ -367,7 +376,7 @@ class tt_overdrive:public tt_audio_base{
 			temp_vs = in->vectorsize;
 			
 			while(temp_vs--){
-				temp = *in->vector++;
+				temp = *in->vector++ * preamp_linear;
 
 				// Integrated DC Blocker:
 				last_output1 = temp - last_input1 + (last_output1 * 0.9997);
@@ -393,8 +402,8 @@ class tt_overdrive:public tt_audio_base{
 			temp_vs = in1->vectorsize;
 			
 			while(temp_vs--){
-				temp_left = *in1->vector++;
-				temp_right = *in2->vector++;
+				temp_left = *in1->vector++ * preamp_linear;
+				temp_right = *in2->vector++ * preamp_linear;
 
 				// Integrated DC Blocker:
 				last_output1 = temp_left - last_input1 + (last_output1 * 0.9997);

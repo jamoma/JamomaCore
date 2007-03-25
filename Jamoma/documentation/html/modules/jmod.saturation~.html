@@ -77,15 +77,6 @@
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing.mxtorithm to save CPU </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/sample_rate </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> -2 0 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Sets the relative sample-rate for this module. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> depth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 99.000000 </td>
@@ -93,6 +84,33 @@
 			<td class ="instructionRamp"> linear </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> Saturation: Depth. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> mode </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Mode: Table used for waveshaping. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preamp </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -12.000000 48.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Preamp (dB). </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> ui/freeze </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		<tr>
 	</table>
 
@@ -126,6 +144,15 @@
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> documentation/generate </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Generate html documentation for the module. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/help </td>
@@ -164,7 +191,16 @@
 			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/load </td>
+			<td class="instructionName"> preset/post </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Post all presets to the Max window. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/read </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
@@ -182,7 +218,16 @@
 			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/save </td>
+			<td class="instructionName"> preset/store </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/write </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
@@ -191,13 +236,13 @@
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class="instructionName"> ui/refresh </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
 	</table>
 

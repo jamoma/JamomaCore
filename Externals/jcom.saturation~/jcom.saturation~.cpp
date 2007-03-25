@@ -32,6 +32,7 @@ typedef struct _saturation{
     long			attr_bypass_dcblocker;
     long			attr_bypass;
 	long			attr_mode;
+	float			attr_preamp_db;
 } t_saturation;
 
 // Prototypes for methods: need a method for each incoming message type:
@@ -44,6 +45,7 @@ t_max_err saturation_setsaturation(t_saturation *x, void *attr, long argc, t_ato
 t_max_err saturation_setbypass_dcblocker(t_saturation *x, void *attr, long argc, t_atom *argv);
 t_max_err saturation_setbypass_overdrive(t_saturation *x, void *attr, long argc, t_atom *argv);
 t_max_err saturation_setmode(t_saturation *x, void *attr, long argc, t_atom *argv);
+t_max_err saturation_setpreamp(t_saturation *x, void *attr, long argc, t_atom *argv);
 void set_bypass(t_saturation *x);
 void saturation_clear(t_saturation *x);
 void saturation_free(t_saturation *x);
@@ -102,6 +104,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 	attr = attr_offset_new("mode", ps_long, attrflags,
 		(method)0L, (method)saturation_setmode, calcoffset(t_saturation, attr_mode));
 	class_addattr(c, attr);
+	
+	// ATTRIBUTE: preamp
+	attr = attr_offset_new("preamp", ps_float32, attrflags,
+		(method)0L, (method)saturation_setpreamp, calcoffset(t_saturation, attr_preamp_db));
+	class_addattr(c, attr);
 
 	// Setup our class to work with MSP
 	class_dspinit(c);
@@ -145,6 +152,7 @@ void *saturation_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_bypass_dcblocker = 0;
 		x->attr_mode = 1;
 		x->overdrive->set_attr(tt_overdrive::k_mode, 1);
+		x->attr_preamp_db = 0;
 
 		attr_args_process(x,argc,argv);							// handle attribute args					
 	}
@@ -221,6 +229,17 @@ t_max_err saturation_setmode(t_saturation *x, void *attr, long argc, t_atom *arg
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
 }
+
+
+t_max_err saturation_setpreamp(t_saturation *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_preamp_db = atom_getfloat(argv);
+	x->overdrive->set_attr(tt_overdrive::k_preamp, x->attr_preamp_db);
+	
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
 
 
 // Perform Method: mono
