@@ -25,12 +25,42 @@ void		receive_insert(t_receive *x);
 void 		receive_remove(t_receive *x);
 
 // Globals
-t_class				*receive_class;				// Required: Global pointer for our class
-static t_receiver 	*s_receiver_list;
+t_class				*receive_class;				// Required: Global pointer the jcom.receive class
+t_class				*callback_class;			// Callbacks use their own class that is bound to a symbol
+t_object			*callback_object = NULL;	// An instance of the jcom.callback class
+static t_receiver 	*s_receiver_list;			// List of receive objects
 
 
 /************************************************************************************/
 // Main() Function
+
+void *jcom_callback_new(t_symbol *msg, long argc, t_atom *argv)
+{
+	t_jcom_callback	*x = (t_jcom_callback *)object_alloc(callback_class);
+	if(x){
+		x->receive_master_callback = receive_callback;
+	}
+	return x;
+}
+
+void jcom_callback_free(t_jcom_callback *x)
+{
+	;
+}
+
+void callback_initclass()
+{
+	// Define our class
+	callback_class = class_new("jcom.callback", (method)jcom_callback_new, (method)jcom_callback_free, (short)sizeof(t_jcom_callback), (method)0L, A_GIMME, 0);
+	class_obexoffset_set(callback_class, calcoffset(t_jcom_callback, obex));
+
+	// Make methods accessible for our class: 
+	// class_addmethod(c, (method)receive_set_obex_callback,	"setcallback",		A_CANT, 0L);
+
+	// Finalize our class
+	class_register(CLASS_NOBOX, callback_class);
+}
+
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
@@ -60,6 +90,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_register(CLASS_BOX, c);
 	receive_class = c;
 	
+	callback_initclass();
 	return 0;
 }
 
@@ -87,9 +118,11 @@ void *receive_new(t_symbol *s, short argc, t_atom *argv)
 				x->attr_name = gensym("jcom.receive no arg specified");
 			receive_bind(x);
 		}
-		x->receive_master_callback = receive_callback;
 		x->receive_obex_callback = NULL;
-		x->receive_obex_callback_arg = NULL;		
+		x->receive_obex_callback_arg = NULL;
+		
+		if(!callback_object)
+			callback_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.callback"));
 	}
 	return x;
 }
@@ -137,11 +170,11 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 void receive_bind(t_receive *x)
 {
 	if(!x->attr_name->s_thing){
-		x->attr_name->s_thing = (t_object *)x;
+		x->attr_name->s_thing = (t_object *)callback_object;
 		receive_insert(x);
 	}
 	else{
-		if(object_classname_compare(x->attr_name->s_thing, gensym("jcom.receive")))
+		if(object_classname_compare(x->attr_name->s_thing, gensym("jcom.callback")))
 			receive_insert(x);
 		else	
 			error("jcom.receive: the symbol '%s' is already in use - binding failed!", x->attr_name->s_name);

@@ -18,7 +18,6 @@ typedef struct _receive{
 	void						*obex;			///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void						*outlet;		///< Need one for each outlet
 	t_symbol					*attr_name;		///< ATTRIBUTE: name
-	t_receive_callback			receive_master_callback;	///< These all point to the same shared function
 	t_receive_obex_callback		receive_obex_callback;
 	void						*receive_obex_callback_arg;
 } t_receive;
@@ -36,5 +35,14 @@ typedef struct _send{
 	void			*obex;		///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	t_symbol		*attr_name;	///< ATTRIBUTE: name
 } t_send;
+
+/** Callback Object
+  * This is an internal object that is used for binding to symbols independed of jcom.receive 
+  *	instantiations   */
+typedef struct _jcom_callback{
+	t_object				ob;
+	void					*obex;
+	t_receive_callback		receive_master_callback;	///< These all point to the same shared function
+} t_jcom_callback;
 
 #endif // #ifndef __JCOM_SENDRECEIVE_H__

@@ -123,11 +123,13 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	t_receive			*receive;
+//	t_receive			*receive;
+//	t_receive_callback	receive_callback;
+	t_jcom_callback		*receive;
 	t_receive_callback	receive_callback;
 	
-	if(object_classname_compare(x->attr_name->s_thing, gensym("jcom.receive"))){
-		receive = (t_receive *)x->attr_name->s_thing;
+	if(object_classname_compare(x->attr_name->s_thing, gensym("jcom.callback"))){
+		receive = (t_jcom_callback *)x->attr_name->s_thing;
 		receive_callback = receive->receive_master_callback;
 		receive_callback(x->attr_name, msg, argc, argv);
 	}
