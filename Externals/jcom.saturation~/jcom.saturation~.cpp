@@ -32,6 +32,7 @@ typedef struct _saturation{
     long			attr_bypass_dcblocker;
     long			attr_bypass;
 	long			attr_mode;
+	long			attr_mute;
 	float			attr_preamp_db;
 } t_saturation;
 
@@ -46,6 +47,8 @@ t_max_err saturation_setbypass_dcblocker(t_saturation *x, void *attr, long argc,
 t_max_err saturation_setbypass_overdrive(t_saturation *x, void *attr, long argc, t_atom *argv);
 t_max_err saturation_setmode(t_saturation *x, void *attr, long argc, t_atom *argv);
 t_max_err saturation_setpreamp(t_saturation *x, void *attr, long argc, t_atom *argv);
+t_max_err saturation_setmute(t_saturation *x, void *attr, long argc, t_atom *argv);
+void saturation_anything(t_saturation *x, t_symbol *msg, long argc, t_atom *argv);
 void set_bypass(t_saturation *x);
 void saturation_clear(t_saturation *x);
 void saturation_free(t_saturation *x);
@@ -78,11 +81,17 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_saturation, obex));
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)saturation_dsp, 			"dsp", A_CANT, 0L);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
-    class_addmethod(c, (method)saturation_assist, 			"assist", A_CANT, 0L);
-	class_addmethod(c, (method)saturation_clear,			"clear", 0L);
+	class_addmethod(c, (method)saturation_dsp, 					"dsp", 					A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 			"dumpout", 				A_CANT, 0);  
+    class_addmethod(c, (method)object_obex_quickref,			"quickref", 			A_CANT, 0);
+    class_addmethod(c, (method)saturation_assist, 				"assist",			 	A_CANT, 0);
+	class_addmethod(c, (method)saturation_clear,				"clear", 				0);
+	class_addmethod(c, (method)saturation_setpreamp,			"/preamp",				A_GIMME, 0);
+	class_addmethod(c, (method)saturation_setsaturation,		"/saturation",			A_GIMME, 0);
+	class_addmethod(c, (method)saturation_setmode,				"/mode",				A_GIMME, 0);
+	class_addmethod(c, (method)saturation_setbypass_dcblocker,	"/dcblocker/bypass",	A_GIMME, 0);
+	class_addmethod(c, (method)saturation_setmute,				"/audio/mute",			A_GIMME, 0);
+	class_addmethod(c, (method)saturation_anything,				"anything",				A_GIMME, 0);
 
 	// Add attributes to our class:
 	// ATTRIBUTE: overdrive
@@ -220,14 +229,38 @@ t_max_err saturation_setbypass_dcblocker(t_saturation *x, void *attr, long argc,
 }
 
 
+t_max_err saturation_setmute(t_saturation *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_mute = atom_getlong(argv);
+	return MAX_ERR_NONE;
+}
+
+
 // ATTRIBUTE: Mode that the overdrive uses for calculation
 t_max_err saturation_setmode(t_saturation *x, void *attr, long argc, t_atom *argv)
 {
-	x->attr_mode = atom_getlong(argv);
+	if(argv->a_type == A_SYM){
+		if(argv->a_w.w_sym == gensym("sinus"))
+			x->attr_mode = 1;
+		else if(argv->a_w.w_sym == gensym("s-shaped"))
+			x->attr_mode = 0;
+		else
+			error("jcom.saturation - invalid mode specified");
+	}
+	else
+		x->attr_mode = atom_getlong(argv);
+		
 	x->overdrive->set_attr(tt_overdrive::k_mode, x->attr_mode);
 	
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
+}
+
+
+// when used as the algorithm for a module, we use this to suppress errors for unhandles messages
+void saturation_anything(t_saturation *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	//post("anything: %s", msg->s_name);
 }
 
 
@@ -250,7 +283,8 @@ t_int *saturation_perform(t_int *w)
 	x->signal_out[0]->set_vector((t_float *)(w[3]));
 	x->signal_in[0]->vectorsize = (int)(w[4]);
 
-	if(x->x_obj.z_disabled) goto out;
+	if(x->x_obj.z_disabled || x->attr_mute) 
+		goto out;
 
 	if(x->attr_bypass == 0)
 		x->overdrive->dsp_vector_calc(x->signal_in[0], x->signal_out[0]);
@@ -271,7 +305,8 @@ t_int *saturation_perform2(t_int *w)
 	x->signal_out[1]->set_vector((t_float *)(w[5]));
 	x->signal_in[0]->vectorsize = (int)(w[6]);
 
-	if(x->x_obj.z_disabled) goto out;
+	if(x->x_obj.z_disabled || x->attr_mute) 
+		goto out;
 	
 	if(x->attr_bypass == 0)
 		x->overdrive->dsp_vector_calc(x->signal_in[0], x->signal_in[1], x->signal_out[0], x->signal_out[1]);

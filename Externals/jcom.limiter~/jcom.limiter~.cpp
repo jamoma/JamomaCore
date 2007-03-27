@@ -33,6 +33,7 @@ typedef struct _limiter{
     long			attr_lookahead;			// ATTRIBUTE: lookahead time in samples
     long			attr_bypass_dcblocker;
     long			attr_bypass;
+	long			attr_mute;
     t_symbol		*attr_mode;				// ATTRIBUTE: mode (linear/exponential)
     float			attr_preamp;			// ATTRIBUTE: preamp in decibels
     float			attr_postamp;			// ATTRIBUTE: preamp in decibels  
@@ -52,6 +53,9 @@ t_max_err limiter_setrelease(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err limiter_setlookahead(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err limiter_setbypass_limiter(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err limiter_setbypass_dcblocker(t_limiter *x, void *attr, long argc, t_atom *argv);
+t_max_err limiter_setbypass(t_limiter *x, void *attr, long argc, t_atom *argv);
+t_max_err limiter_setmute(t_limiter *x, void *attr, long argc, t_atom *argv);
+void limiter_anything(t_limiter *x, t_symbol *msg, long argc, t_atom *argv);
 void limiter_clear(t_limiter *x);
 void limiter_free(t_limiter *x);
 
@@ -85,11 +89,22 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_limiter, obex));
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)limiter_dsp, 			"dsp", A_CANT, 0L);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
-    class_addmethod(c, (method)limiter_assist, 			"assist", A_CANT, 0L);
-	class_addmethod(c, (method)limiter_clear,			"clear", 0L);
+	class_addmethod(c, (method)limiter_dsp, 				"dsp", 					A_CANT, 0L);
+    class_addmethod(c, (method)object_obex_dumpout, 		"dumpout", 				A_CANT,0);  
+    class_addmethod(c, (method)object_obex_quickref,		"quickref", 			A_CANT, 0);
+    class_addmethod(c, (method)limiter_assist, 				"assist", 				A_CANT, 0L);
+	class_addmethod(c, (method)limiter_clear,				"clear", 				0L);
+	
+	class_addmethod(c, (method)limiter_setthreshold,		"/threshold",			A_GIMME, 0);
+	class_addmethod(c, (method)limiter_setpreamp,			"/preamp",				A_GIMME, 0);
+	class_addmethod(c, (method)limiter_setpostamp,			"/postamp",				A_GIMME, 0);
+	class_addmethod(c, (method)limiter_setrelease,			"/release",				A_GIMME, 0);
+	class_addmethod(c, (method)limiter_setlookahead,		"/lookahead",			A_GIMME, 0);
+	class_addmethod(c, (method)limiter_setmode,				"/mode",				A_GIMME, 0);
+	class_addmethod(c, (method)limiter_setbypass_dcblocker,	"/dcblocker/bypass",	A_GIMME, 0);
+	class_addmethod(c, (method)limiter_setmute,				"/audio/mute",			A_GIMME, 0);
+
+	class_addmethod(c, (method)limiter_anything,			"anything",				A_GIMME, 0);
 
 	// Add attributes to our class:
 	// ATTRIBUTE: threshold
@@ -129,7 +144,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// ATTRIBUTE: bypass_overdrive (toggle)
 	attr = attr_offset_new("bypass", ps_long, attrflags,
-		(method)0L, (method)0L, calcoffset(t_limiter, attr_bypass));
+		(method)0L, (method)limiter_setbypass, calcoffset(t_limiter, attr_bypass));
+	class_addattr(c, attr);
+
+	// ATTRIBUTE: bypass_overdrive (toggle)
+	attr = attr_offset_new("mute", ps_long, attrflags,
+		(method)0L, (method)limiter_setmute, calcoffset(t_limiter, attr_mute));
 	class_addattr(c, attr);
 
 	// Setup our class to work with MSP
@@ -292,6 +312,27 @@ t_max_err limiter_setbypass_dcblocker(t_limiter *x, void *attr, long argc, t_ato
 }
 
 
+t_max_err limiter_setbypass(t_limiter *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_bypass = atom_getlong(argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err limiter_setmute(t_limiter *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_mute = atom_getlong(argv);
+	return MAX_ERR_NONE;
+}
+
+
+// when used as the algorithm for a module, we use this to suppress errors for unhandles messages
+void limiter_anything(t_limiter *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	//post("anything: %s", msg->s_name);
+}
+
+
 // ATTRIBUTE: Mode
 t_max_err limiter_setmode(t_limiter *x, void *attr, long argc, t_atom *argv)
 {
@@ -320,7 +361,8 @@ t_int *limiter_perform(t_int *w)
 	x->signal_out[0]->set_vector((t_float *)(w[3]));
 	x->signal_in[0]->vectorsize = (int)(w[4]);
 
-	if(x->x_obj.z_disabled) goto out;
+	if(x->x_obj.z_disabled || x->attr_mute)
+	 	goto out;
 
 	if(x->attr_bypass == 0)
 		x->limiter->dsp_vector_calc(x->signal_in[0], x->signal_out[0]);
@@ -341,7 +383,8 @@ t_int *limiter_perform2(t_int *w)
 	x->signal_out[1]->set_vector((t_float *)(w[5]));
 	x->signal_in[0]->vectorsize = (int)(w[6]);
 
-	if(x->x_obj.z_disabled) goto out;
+	if(x->x_obj.z_disabled || x->attr_mute) 
+		goto out;
 	
 	if(x->attr_bypass == 0)
 		x->limiter->dsp_vector_calc(x->signal_in[0], x->signal_in[1], x->signal_out[0], x->signal_out[1]);
