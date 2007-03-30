@@ -270,13 +270,16 @@ int coerceType(const char* s)
 // Actually read and parse the XML file for a preset
 void hub_preset_parse(t_hub *x, char *path)
 {
-	xmlTextReaderPtr	reader;
-	int					ret;
-	const xmlChar 		*name, *number, *val;
-	t_preset			*preset;				// the current preset we are parsing
-	t_preset_item		*item;					// the current preset item we are parsing
-	const xmlChar		*type;					// data type of the current preset item
-	const xmlChar		*priority;
+	xmlTextReaderPtr	reader = NULL;
+	int					ret = 0;
+	const xmlChar 		*element_name = 0,
+						*name = 0, 
+						*number = 0, 
+						*val = 0;
+	t_preset			*preset = NULL;			// the current preset we are parsing
+	t_preset_item		*item = NULL;			// the current preset item we are parsing
+	const xmlChar		*type = 0;				// data type of the current preset item
+	const xmlChar		*priority = 0;
 	int 				preset_num = 0;			// temporary holder
 	short				result = 0;
 	bool				item_opened = false;	// is there currently an item open for writing?
@@ -297,11 +300,11 @@ void hub_preset_parse(t_hub *x, char *path)
 		critical_enter(0);
 
 		while(ret==1){
-			name = xmlTextReaderConstName(reader);
-			if(name == NULL)
+			element_name = xmlTextReaderConstName(reader);
+			if(element_name == NULL)
 				return;
 			
-			if(!strcmp((char *)name, "preset")){
+			if(!strcmp((char *)element_name, "preset")){
 				if(xmlTextReaderNodeType(reader) == 1){				// element start
 					number = xmlTextReaderGetAttribute(reader, (xmlChar *)"number");
 					//post("PRESET: %s - %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"number"), (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"name"));
@@ -315,8 +318,10 @@ void hub_preset_parse(t_hub *x, char *path)
 					preset->name = gensym((char *)name);
 					preset->item = NULL;			// start with no items in the preset
 	
-					free((void *)number);
-					free((void *)name);
+					xmlFree((void *)number);
+					number = NULL;
+					xmlFree((void *)name);
+					name = NULL;
 				}
 				else if(xmlTextReaderNodeType(reader) == 15){ 		// element close
 					//post("PRESET CLOSING: %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"number"));
@@ -325,7 +330,7 @@ void hub_preset_parse(t_hub *x, char *path)
 				}
 			}
 
-			if(!strcmp((char *)name, "item")){
+			if(!strcmp((char *)element_name, "item")){
 				if(xmlTextReaderNodeType(reader) == 1){				// element start
 					item_opened = true;
 					//post("   ITEM: %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"name"));
@@ -342,8 +347,10 @@ void hub_preset_parse(t_hub *x, char *path)
 						sscanf((char *)priority, "%ld", &item->priority);
 					else
 						item->priority = 0;
-					free((void *)name);
-					free((void *)type);
+					xmlFree((void *)name);
+					name = NULL;
+					xmlFree((void *)type);
+					type = NULL;
 				}
 				else if(xmlTextReaderNodeType(reader) == 15){ 		// element close
 					item->next = preset->item;
@@ -352,56 +359,58 @@ void hub_preset_parse(t_hub *x, char *path)
 				}
 			}
 
-			val = xmlTextReaderConstValue(reader);
-			if((val != NULL) && (item_opened)){
-				float	temp_float = 0;
-				long	temp_int = 0;
-	
-				if(item->type == ps_msg_symbol){
-					//post("Symbol! %s", (char *)value);
-					atom_setsym(&item->value, gensym((char *)val));		// assume symbol	
-					item->list_size = 1;
-				}
-				else if((item->type == ps_msg_int) || (item->type == ps_msg_toggle)){
-					result = sscanf((char *)val, "%ld", &temp_int);		// try to get long
-					if(result > 0){
-						//post("Int! %i", temp_int, result);
-						atom_setlong(&item->value, temp_int);					
+			if(xmlTextReaderNodeType(reader) == XML_TEXT_NODE){
+				val = xmlTextReaderConstValue(reader);
+				if((val != NULL) && (item_opened)){
+					float	temp_float = 0;
+					long	temp_int = 0;
+		
+					if(item->type == ps_msg_symbol){
+						//post("Symbol! %s", (char *)value);
+						atom_setsym(&item->value, gensym((char *)val));		// assume symbol	
 						item->list_size = 1;
 					}
-				} else {							// (msg_list, msg_generic, a list or not specified)
-					char *sep = " ";
-					char *element;
-					int i = item->list_size = 0;
+					else if((item->type == ps_msg_int) || (item->type == ps_msg_toggle)){
+						result = sscanf((char *)val, "%ld", &temp_int);		// try to get long
+						if(result > 0){
+							//post("Int! %i", temp_int, result);
+							atom_setlong(&item->value, temp_int);					
+							item->list_size = 1;
+						}
+					} 
+					else {							// (msg_list, msg_generic, a list or not specified)
+						char *sep = " ";
+						char *element;
+						int i = item->list_size = 0;
 
-					for(element = strtok((char*)val, sep); element; element = strtok(NULL, sep), i++) {
-						switch(coerceType(element))
-						{
-							case A_LONG:
-								if(sscanf(element, "%ld", &temp_int)) {
-									atom_setlong(&item->value_list[i], temp_int);
-									item->list_size += 1;
-								}
-								break;
-							case A_FLOAT:
-								if(sscanf(element, "%f", &temp_float)) {
-									atom_setfloat(&item->value_list[i], temp_float);
-									item->list_size += 1;
-								}
-								break;
-							case A_SYM:
-								atom_setsym(&item->value_list[i], gensym((char*)element));
-								item->list_size += 1;							
-								break;
-							default:
-								error("Unable to determine data type");
-								break;
+						for(element = strtok((char*)val, sep); element; element = strtok(NULL, sep), i++) {
+							switch(coerceType(element))
+							{
+								case A_LONG:
+									if(sscanf(element, "%ld", &temp_int)) {
+										atom_setlong(&item->value_list[i], temp_int);
+										item->list_size += 1;
+									}
+									break;
+								case A_FLOAT:
+									if(sscanf(element, "%f", &temp_float)) {
+										atom_setfloat(&item->value_list[i], temp_float);
+										item->list_size += 1;
+									}
+									break;
+								case A_SYM:
+									atom_setsym(&item->value_list[i], gensym((char*)element));
+									item->list_size += 1;							
+									break;
+								default:
+									error("Unable to determine data type");
+									break;
+							}
 						}
 					}
 				}
 			}			
 			ret = xmlTextReaderRead(reader);
-			free((void *)val);
 		}
 		xmlFreeTextReader(reader);
 		if(ret != 0){

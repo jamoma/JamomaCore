@@ -493,7 +493,8 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 		// at this point temppath points to the path after the volume, and out_filepath points to the volume
 		sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
 	#else // WIN_VERSION
-		char temppath[512];
-		path_nameconform(out_filepath, temppath, PATH_STYLE_NATIVE_WIN, PATH_TYPE_ABSOLUTE);
+//		char temppath[512];
+//		path_nameconform(path, out_filepath, PATH_STYLE_NATIVE_WIN, PATH_TYPE_ABSOLUTE);
+strcpy(out_filepath, path);
 	#endif
 }
