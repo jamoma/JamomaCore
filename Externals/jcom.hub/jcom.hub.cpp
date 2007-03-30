@@ -177,7 +177,8 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 //		if(!jcom_core_loadextern(ps_jcom_receive, gensym("jcom.remote.toModule"), &x->jcom_receive))
 		if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_remote_toModule, &x->jcom_receive))
 			error("jcom.hub: loading jcom.receive extern failed!");
-		object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
+		else
+			object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
 	}
 	return (x);										// return the pointer to our new instantiation
 }
