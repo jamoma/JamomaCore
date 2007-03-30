@@ -28,7 +28,7 @@ void 		receive_remove(t_receive *x);
 t_class				*receive_class;				// Required: Global pointer the jcom.receive class
 t_class				*callback_class;			// Callbacks use their own class that is bound to a symbol
 t_object			*callback_object = NULL;	// An instance of the jcom.callback class
-static t_receiver 	*s_receiver_list;			// List of receive objects
+static t_receiver 	*s_receiver_list = NULL;	// List of receive objects
 
 
 /************************************************************************************/

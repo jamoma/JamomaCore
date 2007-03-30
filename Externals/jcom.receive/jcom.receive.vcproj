@@ -198,6 +198,9 @@
 				RelativePath="..\..\..\..\c74support\max-includes\commonsyms.h">
 			</File>
 			<File
+				RelativePath="..\common\jcom.sendreceive.h">
+			</File>
+			<File
 				RelativePath="..\..\externals_3rd_party\ttblue\dsplib\tt_audio_base.h">
 			</File>
 		</Filter>
