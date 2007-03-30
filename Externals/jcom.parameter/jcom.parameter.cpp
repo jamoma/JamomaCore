@@ -559,7 +559,11 @@ t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	}
 #endif // JMOD_MESSAGE
 	else{
-		error("Jamoma - invalid type specified for %s parameter in the %s module.", x->name->s_name, x->module_name->s_name);
+#ifdef JMOD_MESSAGE
+		error("Jamoma - invalid type specified for %s jcom.message in the %s module.", x->name->s_name, x->module_name->s_name);
+#else
+		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->name->s_name, x->module_name->s_name);
+#endif
 		x->attr_type = ps_msg_generic;
 		x->param_output = &param_output_generic;
 	}
