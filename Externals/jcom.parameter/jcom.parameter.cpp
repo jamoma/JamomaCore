@@ -821,12 +821,13 @@ void param_ramp_callback_int(void *v, float value)
 void param_ramp_setup(t_param *x)
 {
 	// 1. check and free memory
+	if(x->rampunit != NULL && x->rampfunction != NULL)
+		x->rampfunction->destroy(x->rampunit);
+	if(x->rampunit != NULL)
+		x->rampunit = NULL;
 	if(x->rampfunction != NULL){
 		sysmem_freeptr(x->rampfunction);
 		x->rampfunction = NULL;
-	}
-	else if(x->rampunit != NULL){
-		x->rampfunction->destroy(x->rampunit);
 	}
 
 	// 2. allocate memory for function pointers
