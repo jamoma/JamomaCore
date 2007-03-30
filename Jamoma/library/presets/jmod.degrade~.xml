@@ -14,10 +14,10 @@
     <item name='audio/bypass' type='msg_toggle'>0</item>
   </preset>
   <preset number='2' name='crunchy'>
-    <item name='audio/mute' type='toggle'>0</item>
-    <item name='audio/bypass' type='toggle'>0</item>
+    <item name='audio/mute' type='msg_toggle'>0</item>
+    <item name='audio/bypass' type='msg_toggle'>0</item>
     <item name='audio/mix' type='msg_float'>0.000000</item>
-    <item name='audio/meters/freeze' type='toggle'>0</item>
+    <item name='audio/meters/freeze' type='msg_toggle'>0</item>
     <item name='audio/gain/midi' type='msg_int'>0</item>
     <item name='sr_ratio' type='msg_float'>0.050000</item>
     <item name='bitdepth' type='msg_int'>5</item>
