@@ -216,10 +216,13 @@ void receive_remove(t_receive *x)
 			else if(receiver == s_receiver_list)
 				s_receiver_list = receiver->next;		
 			sysmem_freeptr(receiver);
+			receiver = NULL;
 			count--;
 		}
-		prev_receiver = receiver;
-		receiver = receiver->next;
+		if(receiver){
+			prev_receiver = receiver;
+			receiver = receiver->next;
+		}
 	}
 	critical_exit(0);
 	
