@@ -821,13 +821,20 @@ void param_ramp_callback_int(void *v, float value)
 void param_ramp_setup(t_param *x)
 {
 	// 1. check and free memory
-	if(x->rampfunction != NULL)
-		sysmem_freeptr(x->rampfunction);	
-	if(x->rampunit != NULL)
+	if(x->rampfunction != NULL){
+		sysmem_freeptr(x->rampfunction);
+		x->rampfunction = NULL;
+	}
+	else if(x->rampunit != NULL){
 		x->rampfunction->destroy(x->rampunit);
+	}
 
 	// 2. allocate memory for function pointers
 	x->rampfunction = (t_rampunit_functions *)sysmem_newptr(sizeof(t_rampunit_functions));
+	if(!x->rampfunction){
+		error("jcom.parameter / jcom.message failed to create the required rampunit");
+		return;
+	}
 
 	// 3. setup function pointers
 	if(x->attr_ramp == ps_linear){

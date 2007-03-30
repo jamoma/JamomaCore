@@ -420,13 +420,13 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 {
 	char 					filename[256];			// for storing the name of the file locally
 	char 					fullpath[512];			// path and name passed on to the xml parser
-	short 					path;					// pathID#
-	long					outtype;				// the file type that is actually true
-	xmlDocPtr				schema_doc;
-	xmlSchemaParserCtxtPtr	parser_context;
-	xmlSchemaPtr			schema;
-	xmlSchemaValidCtxtPtr 	context;
-	xmlDocPtr				document;
+	short 					path = 0;				// pathID#
+	long					outtype = 0;			// the file type that is actually true
+	xmlDocPtr				schema_doc = NULL;
+	xmlSchemaParserCtxtPtr	parser_context = NULL;
+	xmlSchemaPtr			schema = NULL;
+	xmlSchemaValidCtxtPtr 	context = NULL;
+	xmlDocPtr				document = NULL;
 	short					result = 0;
 	
 	// 1. Find the XML Schema file
