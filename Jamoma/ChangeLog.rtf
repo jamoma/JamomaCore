@@ -2,7 +2,7 @@
 {\fonttbl\f0\fswiss\fcharset77 Arial-BoldMT;\f1\fswiss\fcharset77 ArialMT;\f2\fswiss\fcharset77 Helvetica;
 \f3\fnil\fcharset77 LucidaGrande;}
 {\colortbl;\red255\green255\blue255;}
-\paperw11899\paperh16839\vieww14000\viewh16480\viewkind0
+\paperw11900\paperh16840\vieww14000\viewh14580\viewkind0
 \deftab720
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
 
@@ -51,7 +51,7 @@
 			if the ui of the module was used to create it\
 		- updates to jmod.equalizer~ and jmod.multidelay~ to bring them up to date with the new core.\
 			(jmod.equalizer~ is still not ready for use though)\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural\pardirnatural
 \cf0 		- jmod.limiter~ and jmod.saturation~ now directly use an external for their algorithms\
 
 \f1 		- 
@@ -302,192 +302,192 @@ Version 0.3
 	\'a5	Hub/Gui Changes:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Module size can now be queried using the /getmodulesize message, returning e.g. /modulesize 1U-half. \
+\f3 -
+\f1  Module size can now be queried using the /getmodulesize message, returning e.g. /modulesize 1U-half. \
 	
-\f3 \uc0\u8259 
-\f1 f1 @library_type attribute renamed to @algorithm_type.  This attribute also uses more intelligent defaults based on the module_type that is specified.\
+\f3 -
+\f1  @library_type attribute renamed to @algorithm_type.  This attribute also uses more intelligent defaults based on the module_type that is specified.\
 	
-\f3 \uc0\u8259 
-\f1 f1 The @options attribute has been eliminated.  In its place, we are now using more precise @module_type attributes with class-like nomenclature.  For example:\
+\f3 -
+\f1  The @options attribute has been eliminated.  In its place, we are now using more precise @module_type attributes with class-like nomenclature.  For example:\
 \pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li2160\fi-2160\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 audio\
+\f3 -
+\f1  audio\
 	
-\f3 \uc0\u8259 
-\f1 f1 audio.no_panel\
+\f3 -
+\f1  audio.no_panel\
 	
-\f3 \uc0\u8259 
-\f1 f1 audio.ambisonic\
+\f3 -
+\f1  audio.ambisonic\
 	
-\f3 \uc0\u8259 
-\f1 f1 control\
+\f3 -
+\f1  control\
 	
-\f3 \uc0\u8259 
-\f1 f1 video\
+\f3 -
+\f1  video\
 	
-\f3 \uc0\u8259 
-\f1 f1 video.gl (not implemented, but reserved for future usage)\
+\f3 -
+\f1  video.gl (not implemented, but reserved for future usage)\
 \pard\tx940\tx1440\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Added @inspector attribute.  If 1 it will add an inspector button to the upper-right corner of the gui.  The default is 0.  To use an inspector in your module you must define this, then capture the message from the second outlet of jmod.hub to open your custom inspector window.\
+\f3 -
+\f1  Added @inspector attribute.  If 1 it will add an inspector button to the upper-right corner of the gui.  The default is 0.  To use an inspector in your module you must define this, then capture the message from the second outlet of jmod.hub to open your custom inspector window.\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.gui now sports panels dedicated for ambisonic and video modules (not just audio modules).  The video panel provides a more immediate interface for previewing, bypassing, muting, and freezing video output from a module.  \
+\f3 -
+\f1  jmod.gui now sports panels dedicated for ambisonic and video modules (not just audio modules).  The video panel provides a more immediate interface for previewing, bypassing, muting, and freezing video output from a module.  \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Added new folder for 3rd part libraries and externals\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Added zipped version of 3rd part GNU LGPL externals made by jasch/ICST (http://www.icst.net/downloads/) in new folder /library/externals_3rd_part:\
+\f3 -
+\f1  Added zipped version of 3rd part GNU LGPL externals made by jasch/ICST (http://www.icst.net/downloads/) in new folder /library/externals_3rd_part:\
 \pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li2160\fi-2160\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 ambiencode~: Ambisonic encoding\
+\f3 -
+\f1  ambiencode~: Ambisonic encoding\
 	
-\f3 \uc0\u8259 
-\f1 f1 ambidecode~: Ambisonic decoding\
+\f3 -
+\f1  ambidecode~: Ambisonic decoding\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Added ttblue library (http://sourceforge.net/projects/ttblue). Used for compiling jmod.limiter~ and jmod.saturation~.\
+\f3 -
+\f1  Added ttblue library (http://sourceforge.net/projects/ttblue). Used for compiling jmod.limiter~ and jmod.saturation~.\
 \pard\tx220\tx720\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Documentation:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Change log is now a separate rich text format file.\
+\f3 -
+\f1  Change log is now a separate rich text format file.\
 	
-\f3 \uc0\u8259 
-\f1 f1 Further work on JIG, both to reflect the change to OpenSoundControl, and to provide more details. Removed some restrictions that are no longer required. \
+\f3 -
+\f1  Further work on JIG, both to reflect the change to OpenSoundControl, and to provide more details. Removed some restrictions that are no longer required. \
 	
-\f3 \uc0\u8259 
-\f1 f1 Added a new overview patch\
+\f3 -
+\f1  Added a new overview patch\
 	
-\f3 \uc0\u8259 
-\f1 f1 New example added from the Teatrix workshop @ BEK\
+\f3 -
+\f1  New example added from the Teatrix workshop @ BEK\
 	
-\f3 \uc0\u8259 
-\f1 f1 New example added that re-generates all HTML for the modules using scripting\
+\f3 -
+\f1  New example added that re-generates all HTML for the modules using scripting\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Externals: \
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.oscroute: new external for Routing of OpenSoundControl messages. \
+\f3 -
+\f1  jmod.oscroute: new external for Routing of OpenSoundControl messages. \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.equals: new external for comparing symbols \
+\f3 -
+\f1  jmod.equals: new external for comparing symbols \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.sum%: new external sums the pixels in a Jitter matrix and returns the center of gravity for them\
+\f3 -
+\f1  jmod.sum%: new external sums the pixels in a Jitter matrix and returns the center of gravity for them\
 	
-\f3 \uc0\u8259 
-\f1 f1 Several audio externals moved from blue to being Jamoma-native, and renamed accordingly. \
+\f3 -
+\f1  Several audio externals moved from blue to being Jamoma-native, and renamed accordingly. \
 	
-\f3 \uc0\u8259 
-\f1 f1 On Mac OSX platform all externals are now compiled as Mach-O using Xcode \
+\f3 -
+\f1  On Mac OSX platform all externals are now compiled as Mach-O using Xcode \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.pass has implemented several new features for dealing with messages starting with a "/", required when passing and routing OSC messages. \
+\f3 -
+\f1  jmod.pass has implemented several new features for dealing with messages starting with a "/", required when passing and routing OSC messages. \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.bridge has been incorporated into jmod.hub and no longer exists.  This have some important implications: jmod.bridge is no longer required in main patches. Instead it is required to provide an unique OSC-compatible name (starting with "/") for each module. \
+\f3 -
+\f1  jmod.bridge has been incorporated into jmod.hub and no longer exists.  This have some important implications: jmod.bridge is no longer required in main patches. Instead it is required to provide an unique OSC-compatible name (starting with "/") for each module. \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	New components: \
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.autoscale.mxt - autoscaling of control values \
+\f3 -
+\f1  jmod.autoscale.mxt - autoscaling of control values \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.filewatcher - used for opening files and watching them for changes in external editors\
+\f3 -
+\f1  jmod.filewatcher - used for opening files and watching them for changes in external editors\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.filesaver - a standardized abstraction for throwing a file dialog and managing consecutive saves\
+\f3 -
+\f1  jmod.filesaver - a standardized abstraction for throwing a file dialog and managing consecutive saves\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.return - returns data from a module (the opposite of jmod.message); accepts many attributes that are in common with jmod.parameter and jmod.message.  This should be used for things like analysis results or flagging when a soundfile is done playing, etc.\
+\f3 -
+\f1  jmod.return - returns data from a module (the opposite of jmod.message); accepts many attributes that are in common with jmod.parameter and jmod.message.  This should be used for things like analysis results or flagging when a soundfile is done playing, etc.\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	New ambisonic modules:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.ambi.encodeM~: Encode up to 16 mono ambisonic sources\
+\f3 -
+\f1  jmod.ambi.encodeM~: Encode up to 16 mono ambisonic sources\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.ambi.decode~: Decode 1st - 3rd order ambisonic signals for up to 16 loudspeakers.\
+\f3 -
+\f1  jmod.ambi.decode~: Decode 1st - 3rd order ambisonic signals for up to 16 loudspeakers.\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	New audio modules: \
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.saturation~-mod: Stereo saturation \
+\f3 -
+\f1  jmod.saturation~-mod: Stereo saturation \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.noisegate~.mod: Stereo noise gate. \
+\f3 -
+\f1  jmod.noisegate~.mod: Stereo noise gate. \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.noisegateM~.mod: Mono noise gate \
+\f3 -
+\f1  jmod.noisegateM~.mod: Mono noise gate \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.echo~.mod: Stereo echo module\
+\f3 -
+\f1  jmod.echo~.mod: Stereo echo module\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	New control modules (and algorithms):\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.mappings: create relationships between module parameters, returns, and messages\
+\f3 -
+\f1  jmod.mappings: create relationships between module parameters, returns, and messages\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.oscnet: send and receive OpenSoundControl messages over a network \
+\f3 -
+\f1  jmod.oscnet: send and receive OpenSoundControl messages over a network \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.hi: module for using human interface devices (game controllers, tablets, etc.)\
+\f3 -
+\f1  jmod.hi: module for using human interface devices (game controllers, tablets, etc.)\
 	
-\f3 \uc0\u8259 
-\f1 f1 New jmod.transformation.alg: can be used to manipulate the data in mappings.\
+\f3 -
+\f1  New jmod.transformation.alg: can be used to manipulate the data in mappings.\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	New video modules:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.brcosa%.mod: change brigthness, contrast, saturation and b/w \
+\f3 -
+\f1  jmod.brcosa%.mod: change brigthness, contrast, saturation and b/w \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.motion%.mod: calculating motion based on simple frame difference \
+\f3 -
+\f1  jmod.motion%.mod: calculating motion based on simple frame difference \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.orsize%.mod: change orientation and size of incoming matrices \
+\f3 -
+\f1  jmod.orsize%.mod: change orientation and size of incoming matrices \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Bug fixes in modules (and algorithms)\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Increased reliability in the calls to jmod.init from the jmod.contro module.\
+\f3 -
+\f1  Increased reliability in the calls to jmod.init from the jmod.contro module.\
 	
-\f3 \uc0\u8259 
-\f1 f1 Implemented new WAIT command in jmod.cuelist.mod. \
+\f3 -
+\f1  Implemented new WAIT command in jmod.cuelist.mod. \
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.limi~ renamed to jmod.limiter~\
+\f3 -
+\f1  jmod.limi~ renamed to jmod.limiter~\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Bug fixes to components\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.message now uses @clipmode none as the default rather than @clipmode both\
+\f3 -
+\f1  jmod.message now uses @clipmode none as the default rather than @clipmode both\
 	
-\f3 \uc0\u8259 
-\f1 f1 Fixed bug in jmod.line \
+\f3 -
+\f1  Fixed bug in jmod.line \
 	
-\f3 \uc0\u8259 
-\f1 f1 Fixed bug in jmod.cuelist.mod. Can still be developed further for elegancy, functions and efficiency. Maybe for 0.4. \
+\f3 -
+\f1  Fixed bug in jmod.cuelist.mod. Can still be developed further for elegancy, functions and efficiency. Maybe for 0.4. \
 	
-\f3 \uc0\u8259 
-\f1 f1 Fixed bug in jmod.filter~.mod. \
+\f3 -
+\f1  Fixed bug in jmod.filter~.mod. \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
 \cf0 \
 
@@ -540,14 +540,14 @@ Version 0.3
 	\'a5	new examples:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Scripting Example: Jade-like module loading\
+\f3 -
+\f1  Scripting Example: Jade-like module loading\
 	
-\f3 \uc0\u8259 
-\f1 f1 Pluggo Simple: Wraps a single module as a Pluggo Plugin\
+\f3 -
+\f1  Pluggo Simple: Wraps a single module as a Pluggo Plugin\
 	
-\f3 \uc0\u8259 
-\f1 f1 Pluggo Complex: Wraps multiple modules into a Pluggo Plugin \
+\f3 -
+\f1  Pluggo Complex: Wraps multiple modules into a Pluggo Plugin \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	blue externs for windows freshly compiled \
 	\'a5	improvements to the way soft fade in/out is done when audio is turned on/off \
@@ -555,14 +555,14 @@ Version 0.3
 	\'a5	bug fixes and improvements to various modules:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.input~\
+\f3 -
+\f1  jmod.input~\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.output~\
+\f3 -
+\f1  jmod.output~\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.control \
+\f3 -
+\f1  jmod.control \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
 \cf0 \
 
@@ -584,77 +584,77 @@ Version 0.3
 	\'a5	Added modules:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 crossfade~\
+\f3 -
+\f1  crossfade~\
 	
-\f3 \uc0\u8259 
-\f1 f1 filter~\
+\f3 -
+\f1  filter~\
 	
-\f3 \uc0\u8259 
-\f1 f1 filterM~\
+\f3 -
+\f1  filterM~\
 	
-\f3 \uc0\u8259 
-\f1 f1 mblur%\
+\f3 -
+\f1  mblur%\
 	
-\f3 \uc0\u8259 
-\f1 f1 op%\
+\f3 -
+\f1  op%\
 	
-\f3 \uc0\u8259 
-\f1 f1 output~\
+\f3 -
+\f1  output~\
 	
-\f3 \uc0\u8259 
-\f1 f1 wake%\
+\f3 -
+\f1  wake%\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Added external projects folder with the following objects:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 blue.limiter~\
+\f3 -
+\f1  blue.limiter~\
 	
-\f3 \uc0\u8259 
-\f1 f1 blue.xfade~\
+\f3 -
+\f1  blue.xfade~\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.change\
+\f3 -
+\f1  jmod.change\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.meter~ [still needs a windows version]\
+\f3 -
+\f1  jmod.meter~ [still needs a windows version]\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.pass\
+\f3 -
+\f1  jmod.pass\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.round\
+\f3 -
+\f1  jmod.round\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.route\
+\f3 -
+\f1  jmod.route\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.usurp\
+\f3 -
+\f1  jmod.usurp\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Added Javascript objects:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.js_link.js: for dealing with linked gains\
+\f3 -
+\f1  jmod.js_link.js: for dealing with linked gains\
 	
-\f3 \uc0\u8259 
-\f1 f1 jmod.jsui_sr.js: new sample-rate jsui widget: \
+\f3 -
+\f1  jmod.jsui_sr.js: new sample-rate jsui widget: \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	Documentation:\
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 Added new classes to CSS for HTML documentation, all documenation now based on the CSS\
+\f3 -
+\f1  Added new classes to CSS for HTML documentation, all documenation now based on the CSS\
 	
-\f3 \uc0\u8259 
-\f1 f1 Added initial documentation (really just moving HTML files from Jade)\
+\f3 -
+\f1  Added initial documentation (really just moving HTML files from Jade)\
 	
-\f3 \uc0\u8259 
-\f1 f1 Added basic video module demo patch\
+\f3 -
+\f1  Added basic video module demo patch\
 	
-\f3 \uc0\u8259 
-\f1 f1 added some new help files for modules, and expanded existing ones. \
+\f3 -
+\f1  added some new help files for modules, and expanded existing ones. \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
 \cf0 \
 
@@ -685,20 +685,20 @@ Version 0.3
 	\'a5	new module for controlling audio in Jamoma: jmod.control.mod. Very rough sketch at the time being. Incorporates: \
 \pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
 \cf0 	
-\f3 \uc0\u8259 
-\f1 f1 audio on/off with quick fade in/fade out \
+\f3 -
+\f1  audio on/off with quick fade in/fade out \
 	
-\f3 \uc0\u8259 
-\f1 f1 panic button \
+\f3 -
+\f1  panic button \
 	
-\f3 \uc0\u8259 
-\f1 f1 screen refresh \
+\f3 -
+\f1  screen refresh \
 	
-\f3 \uc0\u8259 
-\f1 f1 initialization of Jamoma \
+\f3 -
+\f1  initialization of Jamoma \
 	
-\f3 \uc0\u8259 
-\f1 f1 CPU monitor \
+\f3 -
+\f1  CPU monitor \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'a5	new scheme for gain handling, solving prior problems of ramps not being killed by new gain messages \
 	\'a5	most important: jmod.parameter.gain.mxt \
