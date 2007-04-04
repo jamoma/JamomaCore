@@ -119,6 +119,7 @@ void		hub_receive_callback(void *x, t_symbol *msg, short argc, t_atom *argv);
 // These are in jcom.hub.autodoc.cpp
 void		hub_autodoc(t_hub *x, t_symbol *userpath);
 void		hub_doautodoc(t_hub *x, t_symbol *userpath);
+void		hub_autodoc_css(t_filehandle *file_handle, long *myEof);
 void 		table_heading(t_filehandle *file_handle, long *myEof);
 // These are in jcom.hub.presets.cpp
 void 		hub_preset_read(t_hub *x, t_symbol *userpath);
