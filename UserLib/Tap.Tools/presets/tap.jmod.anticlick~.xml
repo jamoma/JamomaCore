@@ -7,7 +7,6 @@
   <preset number='1' name='default'>
     <item name='thresh' type='msg_float'>0.050000</item>
     <item name='response' type='msg_float'>1.000000</item>
-    <item name='audio/sample_rate' type='msg_int'>0</item>
     <item name='audio/mute' type='msg_toggle'>1</item>
     <item name='audio/mix' type='msg_float'>100.000000</item>
     <item name='audio/meters/freeze' type='msg_toggle'>0</item>

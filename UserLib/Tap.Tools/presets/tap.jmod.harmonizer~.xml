@@ -9,7 +9,6 @@
     <item name='window/left' type='msg_int'>87</item>
     <item name='shift/right' type='msg_float'>0.000000</item>
     <item name='shift/left' type='msg_float'>0.000000</item>
-    <item name='audio/sample_rate' type='msg_int'>0</item>
     <item name='audio/mute' type='msg_toggle'>1</item>
     <item name='audio/mix' type='msg_float'>100.000000</item>
     <item name='audio/meters/freeze' type='msg_toggle'>0</item>
