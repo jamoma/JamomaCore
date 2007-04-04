@@ -14,4 +14,14 @@
     <item name='audio/bypass' type='msg_toggle'>0</item>
     <item name='analysis_size' type='msg_float'>2000.000000</item>
   </preset>
+  <preset number='2' name='lowfreqdemo'>
+    <item name='analysis_size' type='msg_float' priority='0'>2000.000000</item>
+    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain/midi' type='msg_float' priority='0'>127</item>
+    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='response' type='msg_float' priority='0'>0.100000</item>
+    <item name='thresh' type='msg_float' priority='0'>0.10000</item>
+  </preset>
 </jamoma>
