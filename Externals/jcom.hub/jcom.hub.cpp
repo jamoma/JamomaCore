@@ -173,9 +173,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
 		if(!jcom_core_loadextern(ps_jcom_send, ps_jcom_remote_fromModule, &x->jcom_send))
-//		if(!jcom_core_loadextern(ps_jcom_receive, gensym("jcom.remote.toModule"), &x->jcom_receive))
 			error("jcom.hub: loading jcom.send extern failed!");
-//		if(!jcom_core_loadextern(ps_jcom_receive, gensym("jcom.remote.toModule"), &x->jcom_receive))
 		if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_remote_toModule, &x->jcom_receive))
 			error("jcom.hub: loading jcom.receive extern failed!");
 		else
