@@ -260,9 +260,9 @@ void hub_examine_context(t_hub *x)
 		// search for illegal characters as specified by the OSC standard and replace them
 		for(i=0; i<strlen(name); i++){
 			if(name[i] == '[')
-				name[i] = '_';
+				name[i] = '.';
 			else if(name[i] == ']')
-				name[i] = '_';
+				name[i] = 0;
 		}
 		
 		// if arg contains a slash then we must complain
