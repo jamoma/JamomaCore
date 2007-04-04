@@ -546,6 +546,13 @@ void hub_presets_dump(t_hub *x)
 
 void hub_preset_write(t_hub *x, t_symbol *userpath)
 {
+	if(!x->preset){	// no presets have been stored, so store the current state as the default
+		t_atom	a[2];
+
+		atom_setlong(&a[0], 1);
+		atom_setsym(&a[1], ps_default);
+		hub_preset_store(x, gensym("/preset/store"), 2, a);
+	}
 	defer_low(x, (method)hub_preset_dowrite, userpath, 0, 0L);
 }
 
