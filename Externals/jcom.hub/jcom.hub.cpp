@@ -213,6 +213,7 @@ void hub_examine_context(t_hub *x)
 	t_atom		*argv = NULL;
 	char		name[256];
 	char		*nametest;
+	unsigned short		i;
 
 	if(p->p_vnewobj != NULL){							// THIS SHOULD INDICATE WE ARE NOT AT THE TOP LEVEL (i.e. not editing)						//	go up one level to look at how the module is instantiated
 		box = (t_box *)p->p_vnewobj;
@@ -240,7 +241,7 @@ void hub_examine_context(t_hub *x)
 				strcpy(name, s->s_name);
 			else{	
 				// try to invent something intelligent for a name
-				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name);				
+				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);				
 				strcpy(name, "/");
 				strcat(name, x->attr_name->s_name);
 			}
@@ -253,6 +254,14 @@ void hub_examine_context(t_hub *x)
 			strcat(newname, name);
 			strcpy(name, newname);
 			error("%s: name arguments for modules must begin with a slash!  inserting one automatically", x->attr_name->s_name);
+		}
+		
+		// search for illegal characters as specified by the OSC standard and replace them
+		for(i=0; i<strlen(name); i++){
+			if(name[i] == '[')
+				name[i] = '_';
+			else if(name[i] == ']')
+				name[i] = '_';
 		}
 		
 		// if arg contains a slash then we must complain
