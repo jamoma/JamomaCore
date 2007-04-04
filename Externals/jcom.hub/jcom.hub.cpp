@@ -153,6 +153,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_skin = ps_default;					// default tells the gui constructor js to choose for us
 		x->attr_size = ps_1U;
 		x->attr_inspector = 0;
+		x->using_wildcard = false;
 		x->in_object = NULL;						// module MUST have a jcom.in object
 		x->out_object = NULL;						// the jcom.out object is optional
 		x->gui_object = NULL;						// jcom.remote in the gui
@@ -793,6 +794,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 	name = gensym(input2);
 
 	critical_enter(0);
+
 	if(name == ps_star){			// wildcard
 		while(subscriber){
 			if(subscriber->type == ps_subscribe_parameter 
@@ -825,8 +827,12 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 			else
 				object_method_typed(subscriber->object, osc, argc, argv, NULL);
 		}
-		else
-			error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
+		else{
+			// if we got here through the use a remote message to modules named by a wildcard
+			// then we need don't post annoying errors to the Max window
+			if(!x->using_wildcard)
+				error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
+		}
 	}
 	critical_exit(0);
 }
@@ -894,7 +900,17 @@ void hub_receive_callback(void *z, t_symbol *msg, short argc, t_atom *argv)
 	}
 
 	*split = 0;						
-	if(!strcmp(mess, x->osc_name->s_name) || *in == '*' ){		// check if we are the correct module...
+	
+	if(*in == '*'){										// wildcard
+		// when parsing wildcards, we need to check and see if there is actually a valid subscriber
+		// before blindly sending the message... 
+		split++;
+		osc = gensym(split);
+		x->using_wildcard = true;
+		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
+		x->using_wildcard = false;
+	}
+	else if(!strcmp(mess, x->osc_name->s_name)){		// check if we are the correct module...
 		split++;
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
