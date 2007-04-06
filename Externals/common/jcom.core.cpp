@@ -9,6 +9,7 @@
 
 #include "ext.h"		// Max externals header
 #include "ext_obex.h"	// Obex header
+#include "jcom.core.h"
 
 #pragma mark -
 #pragma mark Globals/Init/Etc.
@@ -500,3 +501,80 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 strcpy(out_filepath, path);
 	#endif
 }
+
+
+
+// Add attributes that are common to many subscribers (such as parameter, message, and return)
+void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset)
+{
+	long 		attrflags = 0;
+	long		attroffset;
+
+	// METHODS
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
+    class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
+
+	// ATTRIBUTE: clipmode - options are none, low, high, both
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_clipmode);
+	attr = attr_offset_new("clipmode", _sym_symbol, attrflags,
+		(method)0, (method)0, 
+		attroffset);
+	class_addattr(c, attr);
+
+	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_description);
+	attr = attr_offset_new("description", _sym_symbol, attrflags,
+		(method)0, (method)0, 
+		attroffset);
+	class_addattr(c, attr);
+	
+	// ATTRIBUTE: name
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
+	attr = attr_offset_new("name", _sym_symbol, attrflags,
+//		(method)0, (method)return_setname, 
+		(method)0, (method)jcom_core_subscriber_attribute_common_setname,
+ 		attroffset);
+	class_addattr(c, attr);	
+	
+	// ATTRIBUTE: range <low, high>
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_range);
+	attr = attr_offset_array_new("range", _sym_float, 2, attrflags,
+		(method)0, (method)0, 
+		attroffset, offset + calcoffset(t_jcom_core_subscriber_common, attr_range_len));
+	class_addattr(c, attr);
+
+	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_repetitions);
+	attr = attr_offset_new("repetitions", _sym_long, attrflags,
+		(method)0, (method)0, 
+		attroffset);
+	class_addattr(c, attr);
+
+	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_type);
+	attr = attr_offset_new("type", _sym_symbol, attrflags,
+		(method)0, (method)0, 
+		attroffset);
+	class_addattr(c, attr);	
+}
+
+
+//t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv)
+// COMMON ATTRIBUTE: name
+t_max_err jcom_core_subscriber_attribute_common_setname(void *z, void *attr, long argc, t_atom *argv)
+{
+	// Potentially dangerous cast:
+	t_jcom_core_subscriber_common *x = (t_jcom_core_subscriber_common *)((long)z + sizeof(t_object));
+	
+	t_symbol *arg = atom_getsym(argv);
+	x->attr_name = arg;
+
+	if(arg->s_name[strlen(arg->s_name)-1] == '*')
+		x->has_wildcard = true;
+	else
+		x->has_wildcard = false;
+
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+

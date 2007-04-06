@@ -17,6 +17,24 @@
 
 typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, short argc, t_atom *argv);
 
+
+// !!! WARNING !!! This struct MUST be the second member of the object in which it is contained !!!
+typedef struct _jcom_core_subscriber_common{
+	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff
+	t_patcher	*container;
+	void		*hub;						// the jcom.hub object that we subscribe to
+	t_symbol	*attr_name;					// ATTRIBUTE: subscriber's name
+	t_symbol	*attr_clipmode;				// ATTRIBUTE: how to constrain values to the specified ranges
+	t_symbol	*attr_description;			// ATTRIBUTE: textual description of this parameter
+	float		attr_range[2];				// ATTRIBUTE: low, high
+	long		attr_range_len;				//		length actually given to us by the user
+	long		attr_repetitions;			// ATTRIBUTE: 0 = filter out repetitions (like the change object)
+	t_symbol	*attr_type;					// ATTRIBUTE: what kind of data doers this object define?
+	bool		has_wildcard;				//	does the name contain a '*' character?
+	t_symbol	*module_name;				// the name of the module as reported when we subscribe to jcom.hub	
+} t_jcom_core_subscriber_common;
+
+
 // Globals
 extern t_symbol	*ps_none,
 				*ps_done,
@@ -214,5 +232,19 @@ bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **o
  * @param filepath the path
  */
 void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath);
+
+
+
+/** Add attributes that are common to many subscribers (such as parameter, message, and return)
+ *	@param common a pointer to the struct that contains all of the common members for the object
+ */
+void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset);
+
+
+/** Attribute setter used for the parameter name as referenced in jcom_core_subscriber_attributes_common
+ * 	WARNING: This method REQUIRES that the t_jcom_core_subscriber data structure is the second member of the object's struct!
+ */
+t_max_err jcom_core_subscriber_attribute_common_setname(void *z, void *attr, long argc, t_atom *argv);
+
 
 #endif // #ifndef __JMOD_CORE_H__

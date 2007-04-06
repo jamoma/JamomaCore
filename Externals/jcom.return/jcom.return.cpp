@@ -19,22 +19,23 @@ enum outlets{
 };
 
 
-typedef struct _return{						// Data Structure for this object
-	t_object	ob;							// REQUIRED: Our object
-	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	t_patcher	*container;
-	void		*hub;						// the jcom.hub object that we subscribe to
-	void 		*outlets[num_outlets];		// my outlet array
-	t_symbol	*attr_name;					// ATTRIBUTE: parameter's name
-	t_symbol	*attr_clipmode;				// ATTRIBUTE: how to constrain values to the specified ranges
-	t_symbol	*attr_description;			// ATTRIBUTE: textual description of this parameter
-	float		attr_range[2];				// ATTRIBUTE: low, high
-	long		attr_range_len;				//		length actually given to us by the user
-	long		attr_repetitions;			// ATTRIBUTE: 0 = filter out repetitions (like the change object)
-	t_symbol	*attr_type;					// ATTRIBUTE: what kind of data doers this object define?
-	bool		has_wildcard;				//	does the name contain a '*' character?
-	t_symbol	*module_name;				// the name of the module as reported when we subscribe to jcom.hub	
-	t_atom		output[512];				// buffer that gets sent to the hub
+typedef struct _return{							// Data Structure for this object
+	t_object						ob;			// REQUIRED: Our object
+	t_jcom_core_subscriber_common	common;
+//	void		*obex;							// REQUIRED: Object Extensions used by Jitter/Attribute stuff
+//	t_patcher	*container;
+//	void		*hub;							// the jcom.hub object that we subscribe to
+	void 		*outlets[num_outlets];			// my outlet array
+//	t_symbol	*attr_name;						// ATTRIBUTE: parameter's name
+//	t_symbol	*attr_clipmode;					// ATTRIBUTE: how to constrain values to the specified ranges
+//	t_symbol	*attr_description;				// ATTRIBUTE: textual description of this parameter
+//	float		attr_range[2];					// ATTRIBUTE: low, high
+//	long		attr_range_len;					//		length actually given to us by the user
+//	long		attr_repetitions;				// ATTRIBUTE: 0 = filter out repetitions (like the change object)
+//	t_symbol	*attr_type;						// ATTRIBUTE: what kind of data doers this object define?
+//	bool		has_wildcard;					//	does the name contain a '*' character?
+//	t_symbol	*module_name;					// the name of the module as reported when we subscribe to jcom.hub	
+	t_atom		output[512];					// buffer that gets sent to the hub
 	short		output_len;
 } t_return;
 
@@ -44,7 +45,7 @@ void*	return_new(t_symbol *s, long argc, t_atom *argv);
 void	return_free(t_return *x);
 void 	return_release(t_return *x);									// Hub Deletion
 void	return_assist(t_return *x, void *b, long msg, long arg, char *dst);
-t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv);
+//t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv);
 void	return_bang(t_return *x);
 void	return_int(t_return *x, long n);
 void	return_float(t_return *x, double f);
@@ -63,16 +64,19 @@ t_class		*return_class;				// Required: Global pointer for our class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long attrflags = 0;
-	t_class *c;
-	t_object *attr;
-	
+//	long 		attrflags = 0;
+	t_class 	*c;
+	t_object 	*attr = NULL;
+	long		offset;
+long obexoffset;	
 	// Initialize Globals
 	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.return",(method)return_new, (method)return_free, (short)sizeof(t_return), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_return, obex));
+	offset = calcoffset(t_return, common);
+	obexoffset = offset + calcoffset(t_jcom_core_subscriber_common, obex);
+	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 	
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)return_bang,					"bang",			A_CANT, 0L);
@@ -82,9 +86,9 @@ int main(void)				// main recieves a copy of the Max function macros table
  	class_addmethod(c, (method)return_symbol,				"anything",		A_GIMME, 0L);
 	class_addmethod(c, (method)return_release,				"release",		A_CANT, 0L);	// notification of hub being freed
 	class_addmethod(c, (method)return_assist,				"assist",		A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
 
+	jcom_core_subscriber_classinit_common(c, attr, offset);
+/*
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	attr = attr_offset_new("clipmode", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_return, attr_clipmode));
@@ -114,7 +118,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_return, attr_type));
 	class_addattr(c, attr);
-		
+*/		
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -146,22 +150,23 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		x->outlets[k_outlet_thru] = outlet_new(x, 0L);
 
 		// set defaults...
-		x->module_name = _sym_nothing;
+		x->common.module_name = _sym_nothing;
 		atom_setsym(&a, name);
 		object_attr_setvalueof(x, ps_name, 1, &a);
-		x->attr_range[0] = 0.0;
-		x->attr_range[1] = 1.0;
-		x->attr_clipmode = ps_none;
-		x->attr_description = _sym_nothing;
-		x->attr_type = ps_msg_generic;
-		x->attr_repetitions = 1;
-		x->hub = NULL;
+		//jcom_core_subscriber_attribute_common_setname(&x->common, NULL, 1, &a);
+		x->common.attr_range[0] = 0.0;
+		x->common.attr_range[1] = 1.0;
+		x->common.attr_clipmode = ps_none;
+		x->common.attr_description = _sym_nothing;
+		x->common.attr_type = ps_msg_generic;
+		x->common.attr_repetitions = 1;
+		x->common.hub = NULL;
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
-		x->container = (t_patcher *)gensym("#P")->s_thing;	
+		x->common.container = (t_patcher *)gensym("#P")->s_thing;	
 		defer_low(x, (method)return_subscribe, 0, 0, 0);
 	}
 	return (x);										// return the pointer to our new instantiation
@@ -170,22 +175,22 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 // deferred function for registering with the jcom.hub object
 void return_subscribe(t_return *x)
 {
-	x->hub = jcom_core_subscribe(x, x->attr_name, x->container, ps_subscribe_return);
-	if(x->hub)
-		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
+	x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_return);
+	if(x->common.hub)
+		x->common.module_name = (t_symbol *)object_method(x->common.hub, ps_module_name_get);	
 }
 
 
 void return_free(t_return *x)
 {
-	jcom_core_unsubscribe(x->hub, x);
+	jcom_core_unsubscribe(x->common.hub, x);
 }
 
 
 // Notification that the hub no longer exists
 void return_release(t_return *x)
 {
-	x->hub = NULL;
+	x->common.hub = NULL;
 }
 
 
@@ -206,7 +211,7 @@ void return_assist(t_return *x, void *b, long msg, long arg, char *dst)
  	}		
 }
 
-
+/*
 // ATTRIBUTE: name
 t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv)
 {
@@ -221,16 +226,16 @@ t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv)
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
 }
-
+*/
 
 // Return values to the hub (so it can return them to the outside world)
 void return_send_feedback(t_return *x)
 {
-	if(x->hub != NULL){
-		if(x->has_wildcard)
-			object_method_typed(x->hub, ps_return_extended, x->output_len, x->output, NULL);
+	if(x->common.hub != NULL){
+		if(x->common.has_wildcard)
+			object_method_typed(x->common.hub, ps_return_extended, x->output_len, x->output, NULL);
 		else
-			object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
+			object_method_typed(x->common.hub, ps_return, x->output_len, x->output, NULL);
 	}
 	x->output_len = 1;	// truncate to just the name of this jcom.return object
 }
@@ -240,10 +245,10 @@ void return_send_feedback(t_return *x)
 void return_bang(t_return *x)
 {
 	x->output_len = 1;
-	if(x->hub != NULL)
-		object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
+	if(x->common.hub != NULL)
+		object_method_typed(x->common.hub, ps_return, x->output_len, x->output, NULL);
 	
-	outlet_anything(x->outlets[k_outlet_thru], x->attr_name, 0, NULL);
+	outlet_anything(x->outlets[k_outlet_thru], x->common.attr_name, 0, NULL);
 }
 
 
