@@ -178,6 +178,9 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 			error("jcom.hub: loading jcom.receive extern failed!");
 		else
 			object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
+			
+		if(!jcom_core_loadextern(ps_jcom_send, ps_jcom_broadcast_fromHub, &x->jcom_send_broadcast))
+			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
 	}
 	return (x);										// return the pointer to our new instantiation
 }
@@ -273,6 +276,10 @@ void hub_examine_context(t_hub *x)
 	}
 	else
 		x->osc_name = gensym("/editing_this_module");
+		
+	// Finally, we now tell subscribers (parameters, etc.) to subscribe
+	if(x->jcom_send_broadcast)
+		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
 }
 
 

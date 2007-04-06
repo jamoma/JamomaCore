@@ -106,6 +106,7 @@ t_symbol	*ps_done,
 			*ps_jcom_receive,
 			*ps_jcom_remote_fromModule, 			
 			*ps_jcom_remote_toModule,
+			*ps_jcom_broadcast_fromHub,
 			*ps_from_in_object,
 			*ps_box,
 			*ps_setcallback,
@@ -259,6 +260,7 @@ void jcom_core_init(void)
 	ps_jcom_receive				= gensym("jcom.receive");
 	ps_jcom_remote_fromModule 	= gensym("jcom.remote.module.from");	// different than in jamoma 0.3.x to avoid conflicts...
 	ps_jcom_remote_toModule 	= gensym("jcom.remote.module.to");
+	ps_jcom_broadcast_fromHub	= gensym("jcom.broadcast.hub.from");	// used to tell subscribers in a module to subscribe (hub has changed)
 	ps_from_in_object			= gensym("from_in_object");	// messages to the jcom.out object
 	ps_box						= gensym("box");
 	ps_setcallback				= gensym("setcallback");
