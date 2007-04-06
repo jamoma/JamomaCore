@@ -278,8 +278,10 @@ void hub_examine_context(t_hub *x)
 		x->osc_name = gensym("/editing_this_module");
 		
 	// Finally, we now tell subscribers (parameters, etc.) to subscribe
-	if(x->jcom_send_broadcast)
-		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
+	if(x->jcom_send_broadcast){
+		if(ps_jcom_broadcast_fromHub->s_thing)
+			object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
+	}
 }
 
 
