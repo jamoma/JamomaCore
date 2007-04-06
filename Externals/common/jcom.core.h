@@ -18,21 +18,35 @@
 typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, short argc, t_atom *argv);
 
 
+
 // !!! WARNING !!! This struct MUST be the second member of the object in which it is contained !!!
 typedef struct _jcom_core_subscriber_common{
-	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	t_patcher	*container;
-	void		*hub;						// the jcom.hub object that we subscribe to
-	t_symbol	*attr_name;					// ATTRIBUTE: subscriber's name
-	t_symbol	*attr_clipmode;				// ATTRIBUTE: how to constrain values to the specified ranges
-	t_symbol	*attr_description;			// ATTRIBUTE: textual description of this parameter
-	float		attr_range[2];				// ATTRIBUTE: low, high
-	long		attr_range_len;				//		length actually given to us by the user
-	long		attr_repetitions;			// ATTRIBUTE: 0 = filter out repetitions (like the change object)
-	t_symbol	*attr_type;					// ATTRIBUTE: what kind of data doers this object define?
-	bool		has_wildcard;				//	does the name contain a '*' character?
-	t_symbol	*module_name;				// the name of the module as reported when we subscribe to jcom.hub	
+	t_object		ob;						// REQUIRED: Our object
+	void			*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
+	t_patcher		*container;
+	void			*hub;					// the jcom.hub object that we subscribe to
+	t_symbol		*attr_name;				// ATTRIBUTE: subscriber's name
+	bool			has_wildcard;			//	does the name contain a '*' character?
+	t_symbol		*module_name;			// the name of the module as reported when we subscribe to jcom.hub
 } t_jcom_core_subscriber_common;
+
+typedef struct _jcom_core_subscriber_extended{
+	t_object		ob;						// REQUIRED: Our object
+	void			*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
+	t_patcher		*container;
+	void			*hub;					// the jcom.hub object that we subscribe to
+	t_symbol		*attr_name;				// ATTRIBUTE: subscriber's name
+	bool			has_wildcard;			//	does the name contain a '*' character?
+	t_symbol		*module_name;			// the name of the module as reported when we subscribe to jcom.hub
+	// extensions begin here
+	t_symbol		*attr_clipmode;			// ATTRIBUTE: how to constrain values to the specified ranges
+	t_symbol		*attr_description;		// ATTRIBUTE: textual description of this parameter
+	float			attr_range[2];			// ATTRIBUTE: low, high
+	long			attr_range_len;			//		length actually given to us by the user
+	long			attr_repetitions;		// ATTRIBUTE: 0 = filter out repetitions (like the change object)
+	t_symbol		*attr_type;				// ATTRIBUTE: what kind of data doers this object define?	
+} t_jcom_core_subscriber_extended;
+
 
 
 // Globals
@@ -239,12 +253,34 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
  *	@param common a pointer to the struct that contains all of the common members for the object
  */
 void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset);
+void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset);
+
+/** Call these when initing a new instance 
+ */
+void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol *name);
+void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_symbol *name);
 
 
 /** Attribute setter used for the parameter name as referenced in jcom_core_subscriber_attributes_common
  * 	WARNING: This method REQUIRES that the t_jcom_core_subscriber data structure is the second member of the object's struct!
  */
-t_max_err jcom_core_subscriber_attribute_common_setname(void *z, void *attr, long argc, t_atom *argv);
+t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_common *x, void *attr, long argc, t_atom *argv);
+
+
+/** Subscribe to the hub
+ */
+void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x, t_symbol *subscriber_type);
+
+
+/** Receive notification that the hub has been freed, so we shouldn't call it anymore
+ */
+void jcom_core_subscriber_hubrelease(t_jcom_core_subscriber_common *x);
+
+
+/** This should be called by subscribers when they are being freed.
+ *  If the module has no other special freeing to do, then this can be called as the destructor.
+ */
+void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x);
 
 
 #endif // #ifndef __JMOD_CORE_H__

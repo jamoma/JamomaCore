@@ -511,23 +511,10 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
 	long		attroffset;
 
 	// METHODS
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
+	class_addmethod(c, (method)jcom_core_subscriber_hubrelease,	"release",		A_CANT, 0);	// notification of hub being freed
+	class_addmethod(c, (method)object_obex_dumpout,				"dumpout",		A_CANT, 0);  
+	class_addmethod(c, (method)object_obex_quickref,			"quickref",		A_CANT, 0);
 
-	// ATTRIBUTE: clipmode - options are none, low, high, both
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_clipmode);
-	attr = attr_offset_new("clipmode", _sym_symbol, attrflags,
-		(method)0, (method)0, 
-		attroffset);
-	class_addattr(c, attr);
-
-	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_description);
-	attr = attr_offset_new("description", _sym_symbol, attrflags,
-		(method)0, (method)0, 
-		attroffset);
-	class_addattr(c, attr);
-	
 	// ATTRIBUTE: name
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
@@ -536,36 +523,83 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
  		attroffset);
 	class_addattr(c, attr);	
 	
+}
+
+
+void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset)
+{
+	long 		attrflags = 0;
+	long		attroffset;
+
+	jcom_core_subscriber_classinit_common(c, attr, offset);
+
 	// ATTRIBUTE: range <low, high>
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_range);
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
 	attr = attr_offset_array_new("range", _sym_float, 2, attrflags,
 		(method)0, (method)0, 
-		attroffset, offset + calcoffset(t_jcom_core_subscriber_common, attr_range_len));
+		attroffset, offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len));
 	class_addattr(c, attr);
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_repetitions);
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_repetitions);
 	attr = attr_offset_new("repetitions", _sym_long, attrflags,
 		(method)0, (method)0, 
 		attroffset);
 	class_addattr(c, attr);
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_type);
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_type);
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
+		(method)0, (method)0, 
+		attroffset);
+	class_addattr(c, attr);	
+	
+	// ATTRIBUTE: clipmode - options are none, low, high, both
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_clipmode);
+	attr = attr_offset_new("clipmode", _sym_symbol, attrflags,
+		(method)0, (method)0, 
+		attroffset);
+	class_addattr(c, attr);
+
+	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
+	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_description);
+	attr = attr_offset_new("description", _sym_symbol, attrflags,
 		(method)0, (method)0, 
 		attroffset);
 	class_addattr(c, attr);	
 }
 
 
+// arg is subscriber name
+void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol *name)
+{
+	t_atom 	a;
+	
+	x->hub = NULL;
+	x->module_name = _sym_nothing;
+	atom_setsym(&a, name);
+	object_attr_setvalueof(x, ps_name, 1, &a);	
+	x->container = (t_patcher *)gensym("#P")->s_thing;	
+}
+
+
+void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_symbol *name)
+{
+	jcom_core_subscriber_new_common((t_jcom_core_subscriber_common *)x, name);
+	
+	x->attr_range[0] = 0.0;
+	x->attr_range[1] = 1.0;
+	x->attr_clipmode = ps_none;
+	x->attr_description = _sym_nothing;
+	x->attr_type = ps_msg_generic;
+	x->attr_repetitions = 1;
+}
+
+
 //t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv)
 // COMMON ATTRIBUTE: name
-t_max_err jcom_core_subscriber_attribute_common_setname(void *z, void *attr, long argc, t_atom *argv)
-{
-	// Potentially dangerous cast:
-	t_jcom_core_subscriber_common *x = (t_jcom_core_subscriber_common *)((long)z + sizeof(t_object));
-	
+t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_common *x, void *attr, long argc, t_atom *argv)
+{	
 	t_symbol *arg = atom_getsym(argv);
 	x->attr_name = arg;
 
@@ -577,4 +611,27 @@ t_max_err jcom_core_subscriber_attribute_common_setname(void *z, void *attr, lon
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
 }
+
+
+// function for registering with the jcom.hub object
+void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x, t_symbol *subscriber_type)
+{
+	x->hub = jcom_core_subscribe(x, x->attr_name, x->container, subscriber_type);
+	if(x->hub)
+		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
+}
+
+
+// Notification that the hub no longer exists
+void jcom_core_subscriber_hubrelease(t_jcom_core_subscriber_common *x)
+{
+	x->hub = NULL;
+}
+
+
+void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x)
+{
+	jcom_core_unsubscribe(x->hub, x);
+}
+
 
