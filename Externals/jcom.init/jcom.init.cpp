@@ -63,8 +63,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)init_go,					"go",			A_CANT, 0);
 //	class_addmethod(c, (method)init_release,			"release",		A_CANT, 0L);	// notification of hub being freed
     class_addmethod(c, (method)init_assist,				"assist",		A_CANT, 0L);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT, 0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
+//    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT, 0);  
+//    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
 	
 	jcom_core_subscriber_classinit_common(c, attr, offset);	
 	

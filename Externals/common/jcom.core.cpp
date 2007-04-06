@@ -505,7 +505,7 @@ strcpy(out_filepath, path);
 
 
 // Add attributes that are common to many subscribers (such as parameter, message, and return)
-void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset)
+void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset, bool define_name)
 {
 	long 		attrflags = 0;
 	long		attroffset;
@@ -516,17 +516,18 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
 	class_addmethod(c, (method)object_obex_quickref,			"quickref",		A_CANT, 0);
 
 	// ATTRIBUTE: name
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
-	attr = attr_offset_new("name", _sym_symbol, attrflags,
-//		(method)0, (method)return_setname, 
-		(method)0, (method)jcom_core_subscriber_attribute_common_setname,
- 		attroffset);
-	class_addattr(c, attr);	
-	
+	if(define_name){
+		attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
+		attr = attr_offset_new("name", _sym_symbol, attrflags,
+	//		(method)0, (method)return_setname, 
+			(method)0, (method)jcom_core_subscriber_attribute_common_setname,
+	 		attroffset);
+		class_addattr(c, attr);	
+	}
 }
 
 
-void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset)
+void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset, bool define_name)
 {
 	long 		attrflags = 0;
 	long		attroffset;
@@ -535,9 +536,9 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 
 	// ATTRIBUTE: range <low, high>
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
-	attr = attr_offset_array_new("range", _sym_float, 2, attrflags,
+	attr = attr_offset_array_new("range", _sym_float32, 2, attrflags,
 		(method)0, (method)0, 
-		attroffset, offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len));
+		offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len), attroffset);
 	class_addattr(c, attr);
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
@@ -548,11 +549,11 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 	class_addattr(c, attr);
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_type);
-	attr = attr_offset_new("type", _sym_symbol, attrflags,
-		(method)0, (method)0, 
-		attroffset);
-	class_addattr(c, attr);	
+//	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_type);
+//	attr = attr_offset_new("type", _sym_symbol, attrflags,
+//		(method)0, (method)0, 
+//		attroffset);
+//	class_addattr(c, attr);	
 	
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_clipmode);
@@ -632,6 +633,7 @@ void jcom_core_subscriber_hubrelease(t_jcom_core_subscriber_common *x)
 void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x)
 {
 	jcom_core_unsubscribe(x->hub, x);
+	x->hub = NULL;
 }
 
 

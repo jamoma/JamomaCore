@@ -172,6 +172,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
+		x->jcom_send_broadcast = NULL;
 		if(!jcom_core_loadextern(ps_jcom_send, ps_jcom_remote_fromModule, &x->jcom_send))
 			error("jcom.hub: loading jcom.send extern failed!");
 		if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_remote_toModule, &x->jcom_receive))
@@ -299,8 +300,12 @@ void hub_free(t_hub *x)
 	critical_exit(0);	
  	hub_presets_clear(x);
 	qelem_free(x->init_qelem);
-	object_free(x->jcom_send);
-	object_free(x->jcom_receive);
+	if(x->jcom_send)
+		object_free(x->jcom_send);
+	if(x->jcom_receive)
+		object_free(x->jcom_receive);
+	if(x->jcom_send_broadcast)
+		object_free(x->jcom_send_broadcast);
 }
 
 

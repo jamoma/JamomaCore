@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>jcom.hub/jcom.hub.cpp</string>
+	<string>common/jcom.core.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -92,15 +92,13 @@
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-04-06T16:32:40Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2007-04-06T21:40:20Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.h</string>
 					<key>lastUsed</key>
-					<date>2007-04-06T16:32:40Z</date>
+					<date>2007-04-06T21:28:24Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -124,18 +122,20 @@
 				<dict>
 					<key>filename</key>
 					<string>jcom.parameter/jcom.parameter.clip.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-04-06T20:44:55Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>jcom.parameter/jcom.parameter.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-03-21T19:34:44Z</date>
+					<date>2007-04-06T21:13:14Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>jcom.parameter/jcom.parameter.h</string>
 					<key>lastUsed</key>
-					<date>2007-03-21T19:34:45Z</date>
+					<date>2007-04-06T20:20:21Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -154,7 +154,7 @@
 					<key>filename</key>
 					<string>jcom.remote/jcom.remote.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-03-21T19:35:04Z</date>
+					<date>2007-04-06T20:17:50Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -169,7 +169,7 @@
 					<key>filename</key>
 					<string>jcom.return/jcom.return.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-04-06T16:32:39Z</date>
+					<date>2007-04-06T22:46:29Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -184,7 +184,7 @@
 					<key>filename</key>
 					<string>jcom.in/jcom.in.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-03-21T19:35:22Z</date>
+					<date>2007-04-06T20:13:29Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -193,6 +193,8 @@
 				<dict>
 					<key>filename</key>
 					<string>jcom.in/jcom.in~.pch</string>
+					<key>lastUsed</key>
+					<date>2007-04-06T19:46:48Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -207,7 +209,7 @@
 					<key>filename</key>
 					<string>jcom.out/jcom.out.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-04-06T15:11:56Z</date>
+					<date>2007-04-06T21:25:28Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -216,6 +218,8 @@
 				<dict>
 					<key>filename</key>
 					<string>jcom.out/jcom.out~.pch</string>
+					<key>lastUsed</key>
+					<date>2007-04-06T19:47:03Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -245,7 +249,7 @@
 					<key>filename</key>
 					<string>jcom.send/jcom.send.cpp</string>
 					<key>lastUsed</key>
-					<date>2006-11-29T17:59:48Z</date>
+					<date>2007-04-06T19:32:56Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -323,40 +327,40 @@
 				<key>column</key>
 				<integer>25</integer>
 				<key>line</key>
-				<integer>562</integer>
+				<integer>544</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>531</integer>
+			<integer>522</integer>
 		</dict>
 		<key>common/jcom.core.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>125</integer>
+				<integer>95</integer>
 				<key>line</key>
-				<integer>244</integer>
+				<integer>268</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>202</integer>
+			<integer>23</integer>
 		</dict>
 		<key>jcom.hub/jcom.hub.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>286</integer>
+				<integer>306</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>256</integer>
+			<integer>283</integer>
 		</dict>
 		<key>jcom.hub/jcom.hub.h</key>
 		<dict>
@@ -372,7 +376,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>101</integer>
+			<integer>52</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
@@ -401,36 +405,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>jcom.in/jcom.in.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>16</integer>
-				<key>line</key>
-				<integer>183</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>159</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>5</integer>
-				<key>line</key>
-				<integer>183</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>16</integer>
-				<key>line</key>
-				<integer>183</integer>
-			</dict>
 		</dict>
 		<key>jcom.meter~/jcom.meter~.cpp</key>
 		<dict>
@@ -467,102 +441,100 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>74</integer>
+				<integer>26</integer>
 				<key>line</key>
-				<integer>39</integer>
+				<integer>236</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>39</integer>
+			<integer>214</integer>
+		</dict>
+		<key>jcom.parameter/jcom.parameter.clip.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>95</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>56</integer>
 		</dict>
 		<key>jcom.parameter/jcom.parameter.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>94</integer>
+				<integer>52</integer>
 				<key>line</key>
-				<integer>870</integer>
+				<integer>877</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>824</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>83</integer>
-				<key>line</key>
-				<integer>870</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>94</integer>
-				<key>line</key>
-				<integer>870</integer>
-			</dict>
+			<integer>47</integer>
 		</dict>
 		<key>jcom.parameter/jcom.parameter.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>25</integer>
+				<integer>2</integer>
 				<key>line</key>
-				<integer>66</integer>
+				<integer>99</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>63</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>66</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>25</integer>
-				<key>line</key>
-				<integer>66</integer>
-			</dict>
+			<integer>71</integer>
 		</dict>
 		<key>jcom.remote/jcom.remote.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>11</integer>
+				<integer>27</integer>
 				<key>line</key>
-				<integer>125</integer>
+				<integer>186</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>101</integer>
+			<integer>165</integer>
 		</dict>
 		<key>jcom.return/jcom.return.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>46</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>121</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>22</integer>
+			<integer>132</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>35</integer>
+				<key>line</key>
+				<integer>121</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>66</integer>
+				<key>line</key>
+				<integer>121</integer>
+			</dict>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -572,16 +544,15 @@
 		<string>common/jcom.core.h</string>
 		<string>common/jcom.core.cpp</string>
 		<string>jcom.return/jcom.return.cpp</string>
-		<string>jcom.parameter/jcom.parameter.h</string>
 		<string>jcom.remote/jcom.remote.cpp</string>
-		<string>jcom.in/jcom.in.cpp</string>
 		<string>jcom.out/jcom.out.cpp</string>
-		<string>jcom.meter~/jcom.meter~.cpp</string>
+		<string>jcom.parameter/jcom.parameter.h</string>
 		<string>jcom.parameter/jcom.parameter.cpp</string>
+		<string>jcom.parameter/jcom.parameter.clip.cpp</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{247, 12}, {1112, 866}}</string>
+	<string>{{247, 1}, {972, 877}}</string>
 </dict>
 </plist>

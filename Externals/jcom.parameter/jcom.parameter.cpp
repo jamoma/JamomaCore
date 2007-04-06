@@ -25,6 +25,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	long		attrflags = 0;
 	t_class		*c;
 	t_object	*attr;
+	long		offset;
 	
 	// Initialize Globals
 	g_pattr_valid = false;
@@ -40,8 +41,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 #endif
 
 	// Define our class
-	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, (short)sizeof(t_param), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_param, obex));
+	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, 
+		(short)sizeof(t_param), (method)0L, A_GIMME, 0);
+//	class_obexoffset_set(c, calcoffset(t_param, obex));
+	offset = calcoffset(t_param, common);
+	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 
 	if(g_pattr_valid == true)
 		pattr_obex_init(c);			// set up the pattr obex
@@ -59,10 +63,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_dec,					"dec",			0L);
 	class_addmethod(c, (method)param_dump,					"dump",			0L);
 	class_addmethod(c, (method)param_bang,					"bang",			0L);
-	class_addmethod(c, (method)param_release,				"release",		A_CANT, 0L);	// notification of hub being freed
+//	class_addmethod(c, (method)param_release,				"release",		A_CANT, 0L);	// notification of hub being freed
 	class_addmethod(c, (method)param_assist,				"assist",		A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
+//    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
+//    class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
 #ifndef JMOD_MESSAGE
 	if(g_pattr_valid == true){
 		// required to manually add because of our pattr-wrapping for parameters
@@ -72,6 +76,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 	}
 #endif
 
+	if(g_pattr_valid == true)
+		jcom_core_subscriber_classinit_extended(c, attr, offset, false);	// don't define name attr
+	else
+		jcom_core_subscriber_classinit_extended(c, attr, offset, true);		// define a name attr
+	
+/*
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	attr = attr_offset_new("clipmode", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_param, attr_clipmode));
@@ -81,19 +91,19 @@ int main(void)				// main recieves a copy of the Max function macros table
 	attr = attr_offset_new("description", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_param, attr_description));
 	class_addattr(c, attr);
-
-	if(g_pattr_valid == false){
+*/
+//	if(g_pattr_valid == false){
 		// ATTRIBUTE: name --- in parameters, the name attribute is provided to us by the pattr wrapping	
-		attr = attr_offset_new("name", _sym_symbol, attrflags,
-			(method)0, (method)0, calcoffset(t_param, attr_name));
-		class_addattr(c, attr);	
-	}
+//		attr = attr_offset_new("name", _sym_symbol, attrflags,
+//			(method)0, (method)0, calcoffset(t_param, attr_name));
+//		class_addattr(c, attr);	
+//	}
 	
 	// ATTRIBUTE: ramp
 	attr = attr_offset_new("ramp", _sym_symbol, attrflags,
 		(method)0, (method)param_setramp, calcoffset(t_param, attr_ramp));
 	class_addattr(c, attr);
-
+/*
 	// ATTRIBUTE: range <low, high>
 	attr = attr_offset_array_new("range", _sym_float32, 2, attrflags,
 		(method)0, (method)0, calcoffset(t_param, attr_range_len), calcoffset(t_param, attr_range));
@@ -103,12 +113,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 	attr = attr_offset_new("repetitions", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_param, attr_repetitions));
 	class_addattr(c, attr);
-
+*/	
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
-		(method)0, (method)param_settype, calcoffset(t_param, attr_type));
+		(method)0, (method)param_settype, calcoffset(t_jcom_core_subscriber_extended, attr_type));
 	class_addattr(c, attr);
-			
+	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
 	attr = attr_offset_new("ui/freeze", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_param, attr_ui_freeze));
@@ -171,34 +181,40 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->list_size = 1;
 		for(i = 0; i < LISTSIZE; i++)	
 			atom_setlong(&x->atom_list[i], 0); // atom_setlong(&x->attr_value, 0);
-		x->module_name = _sym_nothing;
+//		x->module_name = _sym_nothing;
 		x->name = name;
 		atom_setsym(&x->name_atom, name);
-		x->attr_name = name;
-		x->attr_range[0] = 0.0;
-		x->attr_range[1] = 1.0;
-		x->attr_range_len = 2;
-		x->attr_clipmode = ps_none;
-		x->attr_description = _sym_nothing;
-		x->attr_type = NULL;
-		x->attr_repetitions = 1;
+//		x->attr_name = name;
+//		x->attr_range[0] = 0.0;
+//		x->attr_range[1] = 1.0;
+//		x->attr_range_len = 2;
+//		x->attr_clipmode = ps_none;
+//		x->attr_description = _sym_nothing;
+//		x->attr_type = NULL;
+//		x->attr_repetitions = 1;
 		x->attr_ui_freeze = 0;
 		x->attr_slavemode = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;		// set function pointer to default
-		x->hub = NULL;
+//		x->hub = NULL;
 		
+		jcom_core_subscriber_new_extended(&x->common, name);
 		attr_args_process(x, argc, argv);			// handle attribute args
 		if(g_pattr_valid == true)
 			pattr_obex_setup(x, name);				// set up out internal pattr instance
 
-		x->container = (t_patcher *)gensym("#P")->s_thing;	
-		defer_low(x, (method)param_subscribe, 0, 0, 0);
+//		x->container = (t_patcher *)gensym("#P")->s_thing;	
+//		defer_low(x, (method)param_subscribe, 0, 0, 0);
+#ifdef JMOD_MESSAGE
+		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_message, 0, 0);
+#else
+		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_parameter, 0, 0);
+#endif
 		
 		// If no type was specified by the user we call the accessor here
 		// this is important because memory is configured - not just setting a default!
-		if(x->attr_type == NULL){
+		if(x->common.attr_type == NULL){
 			t_atom a;
 			atom_setsym(&a, ps_msg_generic);
 			object_attr_setvalueof(x, ps_type, 1, &a);
@@ -208,7 +224,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 	}
 	return (x);										// return the pointer to our new instantiation
 }
-
+/*
 // deferred function for registering with the jcom.hub object
 void param_subscribe(t_param *x)
 {
@@ -220,12 +236,13 @@ void param_subscribe(t_param *x)
 	if(x->hub)
 		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
 }
-
+*/
 
 void param_free(t_param *x)
 {	
 //	jcom_core_unsubscribe(x->hub, x->name);
-	jcom_core_unsubscribe(x->hub, x);
+//	jcom_core_unsubscribe(x->hub, x);
+	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common *)x);
 
 	if(x->rampfunction != NULL){
 		x->rampfunction->destroy(x->rampunit);
@@ -236,10 +253,10 @@ void param_free(t_param *x)
 
 
 // Notification that the hub no longer exists
-void param_release(t_param *x)
-{
-	x->hub = NULL;
-}
+//void param_release(t_param *x)
+//{
+//	x->hub = NULL;
+//}
 
 
 
@@ -309,52 +326,52 @@ void param_dump(t_param *x)
 	char	s[256];
 	t_atom	a[4];
 	
-	if(x->hub != NULL){
-		sprintf(s, "dump/%s:clipmode", x->attr_name->s_name);
+	if(x->common.hub != NULL){
+		sprintf(s, "dump/%s:clipmode", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_clipmode);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		atom_setsym(&a[1], x->common.attr_clipmode);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:description", x->attr_name->s_name);
+		sprintf(s, "dump/%s:description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_description);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		atom_setsym(&a[1], x->common.attr_description);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:priority", x->attr_name->s_name);
+		sprintf(s, "dump/%s:priority", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_priority);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:ramp", x->attr_name->s_name);
+		sprintf(s, "dump/%s:ramp", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:range", x->attr_name->s_name);
+		sprintf(s, "dump/%s:range", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setfloat(&a[1], x->attr_range[0]);
-		atom_setfloat(&a[2], x->attr_range[1]);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		atom_setfloat(&a[1], x->common.attr_range[0]);
+		atom_setfloat(&a[2], x->common.attr_range[1]);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:repetitions", x->attr_name->s_name);
+		sprintf(s, "dump/%s:repetitions", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setlong(&a[1], x->attr_repetitions);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		atom_setlong(&a[1], x->common.attr_repetitions);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:type", x->attr_name->s_name);
+		sprintf(s, "dump/%s:type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_type);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		atom_setsym(&a[1], x->common.attr_type);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:ui/freeze", x->attr_name->s_name);
+		sprintf(s, "dump/%s:ui/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 
-		sprintf(s, "dump/%s:value", x->attr_name->s_name);
+		sprintf(s, "dump/%s:value", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		jcom_core_atom_copy(&a[1], &x->attr_value);
-		object_method_typed(x->hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 	}
 }
 
@@ -388,9 +405,9 @@ void param_bang(t_param *x)
 	outlet_anything(x->outlets[k_outlet_set], _sym_set, 1, &a);
 
 	// call on the hub to pass our data onward
-	if(x->hub != NULL){
+	if(x->common.hub != NULL){
 		jcom_core_atom_copy(&a, &x->name_atom);
-		object_method_typed(x->hub, ps_feedback, 1, &a, NULL);
+		object_method_typed(x->common.hub, ps_feedback, 1, &a, NULL);
 	}
 #else
 	x->param_output(x);
@@ -464,9 +481,9 @@ void param_output_none(void *z)
 	
 	// call on the hub to pass our data onward
 	// We can not use (method)param_send_feedback here as it assumes an additional argument
-	if(x->hub != NULL){
+	if(x->common.hub != NULL){
 		jcom_core_atom_copy(out, &x->name_atom);
-		object_method_typed(x->hub, ps_feedback, 1, out, NULL);
+		object_method_typed(x->common.hub, ps_feedback, 1, out, NULL);
 	}
 }
 #endif // JMOD_MESSAGE
@@ -480,15 +497,15 @@ void param_inc(t_param *x)
 	else{
 		if (x->rampfunction)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
-		if(x->attr_type == ps_msg_int){
+		if(x->common.attr_type == ps_msg_int){
 			x->attr_value.a_w.w_long += x->attr_stepsize;	// step up
 			param_output_int(x);								// output
 		}
-		else if((x->attr_type == ps_msg_float) || (x->attr_type == ps_msg_generic)){
+		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic)){
 			x->attr_value.a_w.w_float += x->attr_stepsize;
 			param_output_float(x);
 		}
-		else if(x->attr_type == ps_msg_toggle){
+		else if(x->common.attr_type == ps_msg_toggle){
 			if(x->attr_value.a_w.w_long == 1)
 				x->attr_value.a_w.w_long = 0;
 			else
@@ -507,15 +524,15 @@ void param_dec(t_param *x)
 	else {
 		if (x->rampfunction)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
-		if(x->attr_type == ps_msg_int){
+		if(x->common.attr_type == ps_msg_int){
 			x->attr_value.a_w.w_long -= x->attr_stepsize;	// step down		
 			param_output_int(x);								// output
 		}
-		else if((x->attr_type == ps_msg_float) || (x->attr_type == ps_msg_generic)){
+		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic)){
 			x->attr_value.a_w.w_float -= x->attr_stepsize;
 			param_output_float(x);
 		}
-		else if(x->attr_type == ps_msg_toggle){
+		else if(x->common.attr_type == ps_msg_toggle){
 			if(x->attr_value.a_w.w_long == 1)
 				x->attr_value.a_w.w_long = 0;
 			else
@@ -533,7 +550,7 @@ void param_dec(t_param *x)
 t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	t_symbol *arg = atom_getsym(argv);
-	x->attr_type = arg;
+	x->common.attr_type = arg;
 
 	if(arg == ps_msg_int){
 		x->param_output = &param_output_int;
@@ -560,11 +577,11 @@ t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 #endif // JMOD_MESSAGE
 	else{
 #ifdef JMOD_MESSAGE
-		error("Jamoma - invalid type specified for %s jcom.message in the %s module.", x->name->s_name, x->module_name->s_name);
+		error("Jamoma - invalid type specified for %s jcom.message in the %s module.", x->name->s_name, x->common.module_name->s_name);
 #else
-		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->name->s_name, x->module_name->s_name);
+		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->name->s_name, x->common.module_name->s_name);
 #endif
-		x->attr_type = ps_msg_generic;
+		x->common.attr_type = ps_msg_generic;
 		x->param_output = &param_output_generic;
 	}
 
@@ -596,7 +613,7 @@ void param_int(t_param *x, long value)
 		outlet_int(x->outlets[k_outlet_direct], value);
 	else {	
 		x->list_size = 1;
-		if(x->attr_repetitions == 0){
+		if(x->common.attr_repetitions == 0){
 			if(value == atom_getlong(&x->attr_value))
 				return;
 		}
@@ -616,7 +633,7 @@ void param_float(t_param *x, double value)
 		outlet_float(x->outlets[k_outlet_direct], value);
 	else {
 		x->list_size = 1;
-		if(x->attr_repetitions == 0){
+		if(x->common.attr_repetitions == 0){
 			if(value == atom_getfloat(&x->attr_value))
 				return;
 		}
@@ -637,8 +654,8 @@ void param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		outlet_anything(x->outlets[k_outlet_direct], msg, argc, argv);
 	else {	
 		x->list_size = 1;
-		if(x->attr_repetitions == 0){
-			if(jcom_core_atom_compare(x->attr_type, &x->attr_value, argv))
+		if(x->common.attr_repetitions == 0){
+			if(jcom_core_atom_compare(x->common.attr_type, &x->attr_value, argv))
 				return;
 		}
 		atom_setsym(&x->attr_value, msg);
@@ -665,13 +682,13 @@ void param_send_feedback(t_param *x)
 		qelem_set(x->ui_qelem);
 	
 	// call on the hub to pass our data onward
-	if(x->hub != NULL){
+	if(x->common.hub != NULL){
 		jcom_core_atom_copy(out, &x->name_atom);
 		jcom_core_atom_copy(out+1, &x->attr_value);
 		// copy any remaining atoms
 		if(x->list_size > 1) 
 			sysmem_copyptr(&x->atom_list[1], out + 2, sizeof(t_atom) * (x->list_size - 1));
-		object_method_typed(x->hub, ps_feedback, x->list_size + 1, out, NULL);
+		object_method_typed(x->common.hub, ps_feedback, x->list_size + 1, out, NULL);
 	}
 	// notify pattr that we have modified data
 #ifndef JMOD_MESSAGE
@@ -693,7 +710,7 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
 	else {
-		if(x->attr_repetitions == 0){
+		if(x->common.attr_repetitions == 0){
 			// If it's not a list this will perform the comparison as a 1 element list
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;
@@ -756,7 +773,7 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			return;
 		}	
 
-		if(x->attr_repetitions == 0){
+		if(x->common.attr_repetitions == 0){
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;	// nothing to do
 		}
@@ -764,7 +781,7 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		x->rampfunction->go(x->rampunit, value, time);
 	} else {
 		// Don't output if the input data is identical
-		if(!x->attr_repetitions) {
+		if(!x->common.attr_repetitions) {
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;	// nothing to do
 		}
@@ -874,11 +891,11 @@ void param_ramp_setup(t_param *x)
 	}
 	
 	// 4. allocate and create ramp unit
-	if((x->attr_type == ps_msg_int) || (x->attr_type == ps_msg_toggle))
+	if((x->common.attr_type == ps_msg_int) || (x->common.attr_type == ps_msg_toggle))
 		x->rampunit = x->rampfunction->create(param_ramp_callback_int, (void *)x);
 	else	// assume float type
 		x->rampunit = x->rampfunction->create(param_ramp_callback_float, (void *)x);
 		
 	if(x->rampunit == NULL)
-		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->module_name);
+		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
 }

@@ -19,12 +19,14 @@
 
 
 /** JCOM.IN -- Data Structure */
-typedef struct _in{
-	t_pxobject		x_obj;
-	void			*obex;
-	t_patcher		*container;
-	void			*hub;				///< the jcom.hub object that we subscribe to
-	t_symbol		*module_name;		///< The module name
+typedef struct _in{	
+//	t_pxobject		x_obj;
+	t_jcom_core_subscriber_common	common;
+//	void			*obex;
+//	t_patcher		*container;
+//	void			*hub;				///< the jcom.hub object that we subscribe to
+//	t_symbol		*module_name;		///< The module name
+	
 	void			*out_object;		///< jcom.out object for sending messages to
 	
 	void			*inlet[MAX_NUM_CHANNELS];
@@ -34,7 +36,7 @@ typedef struct _in{
                 
 	t_symbol		*attr_algorithm_type;	///< the algorithm type
 	long			num_inputs;				///< spec'd as an argument
-	t_symbol		*attr_name;				///< name for using this as destination for remote sending
+//	t_symbol		*attr_name;				///< name for using this as destination for remote sending
 	long			attr_manage_channels;	///< do we poly~ voices to implement processing of each channel?
 	long			sigcount;				///< number of connected signals for each channel?
 	long			siglist[MAX_NUM_CHANNELS];	///< a list of states for each input/output
@@ -50,11 +52,12 @@ typedef struct _in{
 
 /** JCOM.OUT -- Data Structure */
 typedef struct _out{
-	t_pxobject		x_obj;
-	void			*obex;
-	t_patcher		*container;
-	void			*hub;				///< the jcom.hub object that we subscribe to
-	t_symbol		*module_name;		///< the module's name	
+//	t_pxobject		x_obj;
+	t_jcom_core_subscriber_common	common;
+//	void			*obex;
+//	t_patcher		*container;
+//	void			*hub;				///< the jcom.hub object that we subscribe to
+//	t_symbol		*module_name;		///< the module's name	
 	t_in			*in_object;			///< jcom.in object paired with this jcom.out object
 	void			*meter_object[MAX_NUM_CHANNELS]; ///< jcom.meter~ objects in the gui
 	short			num_meter_objects;
@@ -66,7 +69,7 @@ typedef struct _out{
 
 	t_symbol		*attr_algorithm_type;	///< default is 'poly', also we need a 'blue' type (maybe a better name?)
 	long			num_outputs;			///< spec'd as an argument
-	t_symbol		*attr_name;				///< name for using this as destination for remote sending [future]
+//	t_symbol		*attr_name;				///< name for using this as destination for remote sending [future]
 	long			sigcount;				///< number of connected signals for each channel?
 	long			siglist[MAX_NUM_CHANNELS]; ///< a list of states for each input/output
 	long			vector_size;			///< cached vector_size of the audio signals

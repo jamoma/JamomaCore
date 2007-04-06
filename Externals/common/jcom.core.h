@@ -11,6 +11,9 @@
 #define __JMOD_CORE_H__
 
 #include "ext_critical.h"
+#ifdef JCOM_AUDIO_OBJECT
+#include "z_dsp.h"			// MSP Header
+#endif
 #ifdef WIN_VERSION
 #define snprintf _snprintf
 #endif
@@ -18,20 +21,34 @@
 typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, short argc, t_atom *argv);
 
 
-
-// !!! WARNING !!! This struct MUST be the second member of the object in which it is contained !!!
+/** shared common subscriber data members
+ *	!!! WARNING !!! This struct MUST be the first member of the object in which it is contained !!!
+ */
 typedef struct _jcom_core_subscriber_common{
+#ifdef JCOM_AUDIO_OBJECT
+	t_pxobject		ob;						// REQUIRED: Our object
+#else
 	t_object		ob;						// REQUIRED: Our object
+#endif
 	void			*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	t_patcher		*container;
-	void			*hub;					// the jcom.hub object that we subscribe to
+	void			*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol		*attr_name;				// ATTRIBUTE: subscriber's name
 	bool			has_wildcard;			//	does the name contain a '*' character?
-	t_symbol		*module_name;			// the name of the module as reported when we subscribe to jcom.hub
+	t_symbol		*module_name;			///< the name of the module as reported when we subscribe to jcom.hub
 } t_jcom_core_subscriber_common;
 
+
+/** shared extended subscriber data members
+ * 	an extended subscriber is something such as jcom.parameter, jcom.message or jcom.return
+ *	!!! WARNING !!! This struct MUST be the first member of the object in which it is contained !!!
+ */
 typedef struct _jcom_core_subscriber_extended{
+#ifdef JCOM_AUDIO_OBJECT
+	t_pxobject		ob;						// REQUIRED: Our object
+#else
 	t_object		ob;						// REQUIRED: Our object
+#endif
 	void			*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	t_patcher		*container;
 	void			*hub;					// the jcom.hub object that we subscribe to
@@ -252,8 +269,8 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 /** Add attributes that are common to many subscribers (such as parameter, message, and return)
  *	@param common a pointer to the struct that contains all of the common members for the object
  */
-void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset);
-void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset);
+void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset, bool define_name = true);
+void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset, bool define_name = true);
 
 /** Call these when initing a new instance 
  */

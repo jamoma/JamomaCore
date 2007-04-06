@@ -42,29 +42,30 @@ typedef void (*pf_noargs)(void *x);			// pointer to a function with only the str
 #define attr_value	atom_list[0]
 
 typedef struct _param{						// Data Structure for this object
-	t_object				ob;						// REQUIRED: Our object
-	void					*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
+//	t_object				ob;						// REQUIRED: Our object
+	t_jcom_core_subscriber_extended	common;
+//	void					*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	pf_noargs				param_output;				// bang method for the instance points to an optimized function
-	t_patcher				*container;
-	void					*hub;					// the jcom.hub object to which we subscribe
+//	t_patcher				*container;
+//	void					*hub;					// the jcom.hub object to which we subscribe
 	void 					*outlets[num_outlets];	// my outlet array
 	t_atom					atom_list[LISTSIZE];	// was "t_atom attr_value;"	// ATTRIBUTE: The parameter's value
 	long					list_size;
-	t_symbol				*attr_name;				// ATTRIBUTE: parameter's name
-	t_symbol				*attr_clipmode;			// ATTRIBUTE: how to constrain values to the specified ranges
-	t_symbol				*attr_description;		// ATTRIBUTE: textual description of this parameter
+//	t_symbol				*attr_name;				// ATTRIBUTE: parameter's name
+//	t_symbol				*attr_clipmode;			// ATTRIBUTE: how to constrain values to the specified ranges
+//	t_symbol				*attr_description;		// ATTRIBUTE: textual description of this parameter
 	t_symbol				*attr_ramp;				// ATTRIBUTE: ramp mode 
-	float					attr_range[2];			// ATTRIBUTE: low, high
-	long					attr_range_len;			//		length actually given to us by the user
-	long					attr_repetitions;		// ATTRIBUTE: 0 = filter out repetitions (like the change object)
+//	float					attr_range[2];			// ATTRIBUTE: low, high
+//	long					attr_range_len;			//		length actually given to us by the user
+//	long					attr_repetitions;		// ATTRIBUTE: 0 = filter out repetitions (like the change object)
 	long					attr_slavemode;			// ATTRIBUTE: This instance is a slave of another instance, and simply forward anything recieved
 	long					attr_ui_freeze;
 	float					attr_stepsize;			// ATTRIBUTE: amount to increment or decrement by
-	t_symbol				*attr_type;				// ATTRIBUTE: what kind of data doers this object define?
+//	t_symbol				*attr_type;				// ATTRIBUTE: what kind of data doers this object define?
 	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
 	t_symbol				*name;					// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
 	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
-	t_symbol				*module_name;			// the name of the module as reported when we subscribe to jcom.hub
+//	t_symbol				*module_name;			// the name of the module as reported when we subscribe to jcom.hub
 	t_rampunit_functions	*rampfunction;			// function pointers for this objects rampunit interface
 	void					*rampunit;				// a pointer to our ramp unit data structure
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
@@ -75,7 +76,7 @@ typedef struct _param{						// Data Structure for this object
 // Defined in jcom.parameter.c
 void		*param_new(t_symbol *s, long argc, t_atom *argv);
 void		param_free(t_param *x);
-void 		param_release(t_param *x);									// Hub Deletion
+//void 		param_release(t_param *x);									// Hub Deletion
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
 void		param_dump(t_param *x);
 void		param_bang(t_param *x);
@@ -96,7 +97,7 @@ void 		param_send_feedback(t_param *x);
 void		param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv);
 void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);
-void 		param_subscribe(t_param *x);
+//void 		param_subscribe(t_param *x);
 void		atom_clip(t_param *x, t_atom *a);
 void 		param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv);
 t_max_err 	param_settype(t_param *x, void *attr, long argc, t_atom *argv);

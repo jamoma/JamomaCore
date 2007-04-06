@@ -39,9 +39,10 @@ t_class		*out_class;					// Required. Global pointing to this class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long attrflags = 0;
-	t_class *c;
-	t_object *attr;
+	long 		attrflags = 0;
+	t_class 	*c;
+	t_object 	*attr;
+	long		offset;
 	
 	common_symbols_init();
 
@@ -52,7 +53,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.out",(method)out_new, (method)out_free, (short)sizeof(t_out), (method)0L, A_GIMME, 0);
 #endif
 
-	class_obexoffset_set(c, calcoffset(t_out, obex));
+//	class_obexoffset_set(c, calcoffset(t_out, obex));
+	offset = calcoffset(t_out, common);
+	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)out_dispatched,			"dispatched",			A_GIMME, 0L);
@@ -71,8 +74,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 #endif
 	class_addmethod(c, (method)out_release,				"release",				A_CANT, 0L);	// notification of hub being freed
     class_addmethod(c, (method)out_assist,				"assist", 				A_CANT, 0L);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 				A_CANT, 0L);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", 			A_CANT, 0L);
+//    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 				A_CANT, 0L);  
+//    class_addmethod(c, (method)object_obex_quickref,	"quickref", 			A_CANT, 0L);
+
+	jcom_core_subscriber_classinit_common(c, attr, offset);	
 	
 	// ATTRIBUTE: algorithm_type
 	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
@@ -85,9 +90,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addattr(c, attr);	
 
 	// ATTRIBUTE: name
-	attr = attr_offset_new("name", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_out, attr_name));
-	class_addattr(c, attr);
+//	attr = attr_offset_new("name", _sym_symbol, attrflags,
+//		(method)0, (method)0, calcoffset(t_out, attr_name));
+//	class_addattr(c, attr);
 
 #ifdef JCOM_OUT_TILDE
 	// Setup our class to work with MSP
@@ -108,12 +113,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Create
 void *out_new(t_symbol *s, short argc, t_atom *argv)
 {
-	long attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	short i;
-	
-	t_out *x = (t_out *)object_alloc(out_class);
+	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
+	t_out 		*x = (t_out *)object_alloc(out_class);
+	short 		i;
+
 	if(x){
-		x->attr_name = ps__jcom_out__;
 		x->dumpout = outlet_new(x, NULL);
 		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
@@ -134,7 +138,7 @@ void *out_new(t_symbol *s, short argc, t_atom *argv)
 		else
 			dsp_setup((t_pxobject *)x, 1);					// Create Object and Inlets
 			
-		x->x_obj.z_misc = Z_NO_INPLACE | Z_PUT_LAST;		// Z_PUT_LAST so that thispoly~ gets it's message properly?  		
+		x->common.ob.z_misc = Z_NO_INPLACE | Z_PUT_LAST;	// Z_PUT_LAST so that thispoly~ gets it's message properly?  		
 		for(i=0; i < (x->num_outputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal Outlet   		
 
@@ -154,9 +158,10 @@ void *out_new(t_symbol *s, short argc, t_atom *argv)
 		for(i=x->num_outputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif		
+		jcom_core_subscriber_new_common(&x->common, ps__jcom_out__);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 
-		x->container = (t_patcher *)gensym("#P")->s_thing;	
+//		x->container = (t_patcher *)gensym("#P")->s_thing;	
 		defer_low(x, (method)out_subscribe, 0, 0, 0);
 	}
 	return (x);												// Return the pointer
@@ -172,17 +177,17 @@ void out_subscribe(t_out *x)
 	t_symbol	*result;
 	t_symbol	*modtype;
 	
-	x->hub = jcom_core_subscribe(x, x->attr_name, x->container, ps_subscribe_out);
-	if(x->hub != NULL){
-		object_attr_getvalueof(x->hub, ps_name, &argc, &argv);
-		x->module_name = atom_getsym(argv);
+	x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_out);
+	if(x->common.hub != NULL){
+		object_attr_getvalueof(x->common.hub, ps_name, &argc, &argv);
+		x->common.module_name = atom_getsym(argv);
 		x->num_meter_objects = 0;
 		
 		// Find out what type of algorithm this is supposed to control
-		object_attr_getvalueof(x->hub, ps_algorithm_type, &argc, &argv);
+		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
 		result = atom_getsym(argv);
 		if(result == ps_default){
-			object_attr_getvalueof(x->hub ,ps_module_type , &argc, &argv);
+			object_attr_getvalueof(x->common.hub ,ps_module_type , &argc, &argv);
 			modtype = atom_getsym(argv);
 		
 			if(modtype == ps_audio)
@@ -201,7 +206,8 @@ void out_subscribe(t_out *x)
 // Destroy
 void out_free(t_out *x)
 {
-	jcom_core_unsubscribe(x->hub, x);
+//	jcom_core_unsubscribe(x->hub, x);
+	jcom_core_subscriber_common_free(&x->common);
 #ifdef JCOM_OUT_TILDE
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
 	freeobject((t_object *)x->clock);	// delete our clock
@@ -222,7 +228,9 @@ void out_release(t_out *x)
 {
 	short i;
 	
-	x->hub = NULL;
+//	x->hub = NULL;
+	jcom_core_subscriber_hubrelease(&x->common);
+	
 	x->in_object = NULL;
 	for(i=0; i<MAX_NUM_CHANNELS; i++)
 		x->meter_object[i] = NULL;

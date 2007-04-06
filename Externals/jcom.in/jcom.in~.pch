@@ -10,4 +10,5 @@
 
 #include "../common/jcom.prefix.pch"
 #define JCOM_IN_TILDE
+#define JCOM_AUDIO_OBJECT
 
