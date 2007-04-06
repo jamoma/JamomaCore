@@ -43,7 +43,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, 
 		(short)sizeof(t_param), (method)0L, A_GIMME, 0);
-//	class_obexoffset_set(c, calcoffset(t_param, obex));
 	offset = calcoffset(t_param, common);
 	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 
@@ -63,10 +62,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_dec,					"dec",			0L);
 	class_addmethod(c, (method)param_dump,					"dump",			0L);
 	class_addmethod(c, (method)param_bang,					"bang",			0L);
-//	class_addmethod(c, (method)param_release,				"release",		A_CANT, 0L);	// notification of hub being freed
 	class_addmethod(c, (method)param_assist,				"assist",		A_CANT, 0L); 
-//    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",		A_CANT,0);  
-//    class_addmethod(c, (method)object_obex_quickref,		"quickref",		A_CANT, 0);
 #ifndef JMOD_MESSAGE
 	if(g_pattr_valid == true){
 		// required to manually add because of our pattr-wrapping for parameters
@@ -80,40 +76,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 		jcom_core_subscriber_classinit_extended(c, attr, offset, false);	// don't define name attr
 	else
 		jcom_core_subscriber_classinit_extended(c, attr, offset, true);		// define a name attr
-	
-/*
-	// ATTRIBUTE: clipmode - options are none, low, high, both
-	attr = attr_offset_new("clipmode", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_clipmode));
-	class_addattr(c, attr);
-
-	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
-	attr = attr_offset_new("description", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_description));
-	class_addattr(c, attr);
-*/
-//	if(g_pattr_valid == false){
-		// ATTRIBUTE: name --- in parameters, the name attribute is provided to us by the pattr wrapping	
-//		attr = attr_offset_new("name", _sym_symbol, attrflags,
-//			(method)0, (method)0, calcoffset(t_param, attr_name));
-//		class_addattr(c, attr);	
-//	}
-	
+		
 	// ATTRIBUTE: ramp
 	attr = attr_offset_new("ramp", _sym_symbol, attrflags,
 		(method)0, (method)param_setramp, calcoffset(t_param, attr_ramp));
 	class_addattr(c, attr);
-/*
-	// ATTRIBUTE: range <low, high>
-	attr = attr_offset_array_new("range", _sym_float32, 2, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_range_len), calcoffset(t_param, attr_range));
-	class_addattr(c, attr);
 
-	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
-	attr = attr_offset_new("repetitions", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_repetitions));
-	class_addattr(c, attr);
-*/	
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
 		(method)0, (method)param_settype, calcoffset(t_jcom_core_subscriber_extended, attr_type));
@@ -181,31 +149,19 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->list_size = 1;
 		for(i = 0; i < LISTSIZE; i++)	
 			atom_setlong(&x->atom_list[i], 0); // atom_setlong(&x->attr_value, 0);
-//		x->module_name = _sym_nothing;
 		x->name = name;
 		atom_setsym(&x->name_atom, name);
-//		x->attr_name = name;
-//		x->attr_range[0] = 0.0;
-//		x->attr_range[1] = 1.0;
-//		x->attr_range_len = 2;
-//		x->attr_clipmode = ps_none;
-//		x->attr_description = _sym_nothing;
-//		x->attr_type = NULL;
-//		x->attr_repetitions = 1;
 		x->attr_ui_freeze = 0;
 		x->attr_slavemode = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;		// set function pointer to default
-//		x->hub = NULL;
 		
 		jcom_core_subscriber_new_extended(&x->common, name);
 		attr_args_process(x, argc, argv);			// handle attribute args
 		if(g_pattr_valid == true)
 			pattr_obex_setup(x, name);				// set up out internal pattr instance
 
-//		x->container = (t_patcher *)gensym("#P")->s_thing;	
-//		defer_low(x, (method)param_subscribe, 0, 0, 0);
 #ifdef JMOD_MESSAGE
 		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_message, 0, 0);
 #else
@@ -224,24 +180,10 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 	}
 	return (x);										// return the pointer to our new instantiation
 }
-/*
-// deferred function for registering with the jcom.hub object
-void param_subscribe(t_param *x)
-{
-#ifdef JMOD_MESSAGE
-	x->hub = jcom_core_subscribe(x, x->name, x->container, ps_subscribe_message);
-#else
-	x->hub = jcom_core_subscribe(x, x->name, x->container, ps_subscribe_parameter);
-#endif // JMOD_MESSAGE
-	if(x->hub)
-		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
-}
-*/
+
 
 void param_free(t_param *x)
 {	
-//	jcom_core_unsubscribe(x->hub, x->name);
-//	jcom_core_unsubscribe(x->hub, x);
 	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common *)x);
 
 	if(x->rampfunction != NULL){
@@ -250,14 +192,6 @@ void param_free(t_param *x)
 	}	
 	qelem_free(x->ui_qelem);
 }
-
-
-// Notification that the hub no longer exists
-//void param_release(t_param *x)
-//{
-//	x->hub = NULL;
-//}
-
 
 
 #ifndef JMOD_MESSAGE
@@ -281,7 +215,8 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 	if(argc && argv){
 		if(*argc && *argv) {
 			// use passed in memory
-		} else { 
+		} 
+		else { 
 			if(x->list_size > 1)
 				*argv = (t_atom *)getbytes(sizeof(t_atom) * x->list_size);
 			else
@@ -376,24 +311,6 @@ void param_dump(t_param *x)
 }
 
 
-/* The 'bang' method is actually a function pointer to a method optimized for the 
-   the data type of the parameter.
-	
-   If the user sends a bang to the parameter/message, then we want to send out the 
-   most recent output again.
-*/
-
-/*
-// BANG INPUT - this sends the OSC name with no additional arguments
-void return_bang(t_return *x)
-{
-	x->output_len = 1;
-	if(x->hub != NULL)
-		object_method_typed(x->hub, ps_return, x->output_len, x->output, NULL);
-}
-
-*/
-
 // 'bang' method for user input
 void param_bang(t_param *x)
 {
@@ -421,9 +338,10 @@ void param_output_generic(void *z)
 	t_param *x = (t_param *)z;
 	
 	param_clip_generic(x);
-	if(x->list_size > 1) {
+	if(x->list_size > 1){
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
-	} else {
+	} 
+	else{
 		if(x->attr_value.a_type == A_LONG)
 			outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
 		else if(x->attr_value.a_type == A_FLOAT)
@@ -434,6 +352,7 @@ void param_output_generic(void *z)
 	param_send_feedback(x);
 }
 
+
 void param_output_int(void *z)
 {
 	t_param *x = (t_param *)z;
@@ -442,6 +361,7 @@ void param_output_int(void *z)
 	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
 	param_send_feedback(x);
 }
+
 
 void param_output_float(void *z)
 {
@@ -452,6 +372,7 @@ void param_output_float(void *z)
 	param_send_feedback(x);
 }
 
+
 void param_output_symbol(void *z)
 {
 	t_param *x = (t_param *)z;
@@ -459,6 +380,7 @@ void param_output_symbol(void *z)
 	outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
 	param_send_feedback(x);
 }
+
 
 void param_output_list(void *z)
 {
@@ -468,6 +390,7 @@ void param_output_list(void *z)
 	outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
 	param_send_feedback(x);
 }
+
 
 #ifdef JMOD_MESSAGE
 void param_output_none(void *z)
@@ -521,7 +444,7 @@ void param_dec(t_param *x)
 {
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
-	else {
+	else{
 		if (x->rampfunction)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
 		if(x->common.attr_type == ps_msg_int){
@@ -745,7 +668,8 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 			
 			x++; y++;  // keep going
 		}
-	} else {
+	} 
+	else {
 		return 0; // list lengths differ
 	}
 	
@@ -806,7 +730,6 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		x->list_size = argc;
 		x->param_output(x);
 	}
-
 }
 
 
@@ -819,7 +742,6 @@ void param_ramp_callback_float(void *v, float value)
 	float	oldval = atom_getfloat(&x->attr_value);
 	
 	if(value != oldval){
-
 		atom_setfloat(&x->attr_value, value);
 		param_output_float(x);
 	}

@@ -19,30 +19,6 @@ void param_clip_generic(t_param *x)
 		param_clip_int(x);
 	else if(x->atom_list[0].a_type == A_FLOAT)
 		param_clip_float(x);
-		
-//	THE OLD WAY OF DOING THE ABOVE IS BELOW, BUT THERE IS NO NEED TO REPEAT OURSELVES, IS THERE? [TAP]
-/*	
-	t_atom *a = &x->attr_value;
-
-	if(x->attr_clipmode == ps_low){
-		if(a->a_type == A_LONG)
-			tt_audio_base::limit_min(a->a_w.w_long, (long)x->attr_range[0]);
-		else if(a->a_type == A_FLOAT)
-			tt_audio_base::limit_min(a->a_w.w_float, x->attr_range[0]);
-	}
-	else if(x->attr_clipmode == ps_high){
-		if(a->a_type == A_LONG)
-			tt_audio_base::limit_max(a->a_w.w_long, (long)x->attr_range[1]);
-		else if(a->a_type == A_FLOAT)
-			tt_audio_base::limit_max(a->a_w.w_float, x->attr_range[1]);
-	}
-	else if(x->attr_clipmode == ps_both){
-		if(a->a_type == A_LONG)
-			tt_audio_base::clip(a->a_w.w_long, (long)x->attr_range[0], (long)x->attr_range[1]);
-		else if(a->a_type == A_FLOAT)
-			tt_audio_base::clip(a->a_w.w_float, x->attr_range[0], x->attr_range[1]);
-	}
-*/
 }
 
 

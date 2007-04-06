@@ -372,7 +372,6 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	jcom_core_file_writeline(&file_handle, &myEof, "");
 	
 	// Some final info on Jamoma
-	
 	jcom_core_file_writeline(&file_handle, &myEof, "\t<h3> About Jamoma </h3>");		
 	jcom_core_file_writeline(&file_handle, &myEof, "\t<p> Jamoma is a system for creating and exchanging structured Max patches. ");
 	jcom_core_file_writeline(&file_handle, &myEof, "\tIt consists of both a set of guidelines and an implementation of those guidelines. ");

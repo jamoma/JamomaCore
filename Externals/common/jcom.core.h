@@ -12,7 +12,7 @@
 
 #include "ext_critical.h"
 #ifdef JCOM_AUDIO_OBJECT
-#include "z_dsp.h"			// MSP Header
+#include "z_dsp.h"							// MSP Header
 #endif
 #ifdef WIN_VERSION
 #define snprintf _snprintf
@@ -26,16 +26,16 @@ typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, short argc, t_at
  */
 typedef struct _jcom_core_subscriber_common{
 #ifdef JCOM_AUDIO_OBJECT
-	t_pxobject		ob;						// REQUIRED: Our object
+	t_pxobject		ob;						///< base object for audio externs
 #else
-	t_object		ob;						// REQUIRED: Our object
+	t_object		ob;						///< base object
 #endif
-	void			*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	t_patcher		*container;
+	void			*obex;					///< object extensions
+	t_patcher		*container;				///< pointer to the patcher containing this object
 	void			*hub;					///< the jcom.hub object that we subscribe to
-	t_symbol		*attr_name;				// ATTRIBUTE: subscriber's name
-	bool			has_wildcard;			//	does the name contain a '*' character?
-	t_symbol		*module_name;			///< the name of the module as reported when we subscribe to jcom.hub
+	t_symbol		*attr_name;				///< ATTRIBUTE: subscriber's name
+	bool			has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
+	t_symbol		*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
 } t_jcom_core_subscriber_common;
 
 
@@ -45,23 +45,23 @@ typedef struct _jcom_core_subscriber_common{
  */
 typedef struct _jcom_core_subscriber_extended{
 #ifdef JCOM_AUDIO_OBJECT
-	t_pxobject		ob;						// REQUIRED: Our object
+	t_pxobject		ob;						///< base object for audio externs
 #else
-	t_object		ob;						// REQUIRED: Our object
+	t_object		ob;						///< base object
 #endif
-	void			*obex;					// REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	t_patcher		*container;
-	void			*hub;					// the jcom.hub object that we subscribe to
-	t_symbol		*attr_name;				// ATTRIBUTE: subscriber's name
-	bool			has_wildcard;			//	does the name contain a '*' character?
-	t_symbol		*module_name;			// the name of the module as reported when we subscribe to jcom.hub
+	void			*obex;					///< object extensions
+	t_patcher		*container;				///< pointer to the patcher containing this object
+	void			*hub;					///< the jcom.hub object that we subscribe to
+	t_symbol		*attr_name;				///< ATTRIBUTE: subscriber's name
+	bool			has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
+	t_symbol		*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
 	// extensions begin here
-	t_symbol		*attr_clipmode;			// ATTRIBUTE: how to constrain values to the specified ranges
-	t_symbol		*attr_description;		// ATTRIBUTE: textual description of this parameter
-	float			attr_range[2];			// ATTRIBUTE: low, high
-	long			attr_range_len;			//		length actually given to us by the user
-	long			attr_repetitions;		// ATTRIBUTE: 0 = filter out repetitions (like the change object)
-	t_symbol		*attr_type;				// ATTRIBUTE: what kind of data doers this object define?	
+	t_symbol		*attr_clipmode;			///< ATTRIBUTE: how to constrain values to the specified ranges
+	t_symbol		*attr_description;		///< ATTRIBUTE: textual description of this parameter
+	float			attr_range[2];			///< ATTRIBUTE: low, high
+	long			attr_range_len;			///<		length actually given to us by the user
+	long			attr_repetitions;		///< ATTRIBUTE: 0 = filter out repetitions (like the change object)
+	t_symbol		*attr_type;				///< ATTRIBUTE: what kind of data doers this object define?	
 } t_jcom_core_subscriber_extended;
 
 
@@ -209,11 +209,12 @@ extern t_symbol	*ps_none,
 				*ps_star,
 				*ps_priority;
 				
-
+				
 
 // Prototypes
 /** Initializes Jamoma globals and symbol constants */
 void jcom_core_init(void);
+
 
 /** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
  * with the jcom.hub object
@@ -224,17 +225,21 @@ void jcom_core_init(void);
  */
 void *jcom_core_subscribe(void *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
 
+
 /** Unsubscribe a client from the hub.
  * @param hub pointer to the hub
  * @param object pointer to the parameter/message/in/out/etc object that we are removing
  */
 void jcom_core_unsubscribe(void *hub, void *object);
 
+
 /** Utility function to perform an atom copy.
  * @param dst the destination t_atom
  * @param src the t_atom to be copied
  */
 void jcom_core_atom_copy(t_atom *dst, t_atom *src);
+
+
 /** Utility function to compare two t_atom's.
  * @param type the atom type of a1
  * @param a1 a t_atom
@@ -243,11 +248,17 @@ void jcom_core_atom_copy(t_atom *dst, t_atom *src);
  */
 bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2);
 
+
+/** Utility for writing newline terminated text to a file with the Max API
+ */ 
 void jcom_core_file_writeline(t_filehandle *fh, long *the_eof, char *the_text);
+
+
 /** Compares two strings
  * @return true if the strings are the same 
  */
 bool jcom_core_string_compare(char *s1, char *s2);
+
 
 /** Load obex externals for use within other externals
  * @param objectname the object name (i.e. gensym("jcom.send"))
@@ -257,6 +268,7 @@ bool jcom_core_string_compare(char *s1, char *s2);
  */
 bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **object);
 
+
 /** Translates a Max path+filename combo into a correct absolutepath.
  * @param in_path
  * @param in_filename the filename
@@ -265,16 +277,31 @@ bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **o
 void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath);
 
 
-
-/** Add attributes that are common to many subscribers (such as parameter, message, and return)
+/** Add methods and attributes that are common to all subscribers
+ *	@param pointer to the class that is being constructed
+ *	@param pointer to the attr list being constructed for this class
  *	@param common a pointer to the struct that contains all of the common members for the object
+ *	@param optional bool parameter (default = true) that says whether or not to define a name attribute for this class 
  */
 void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset, bool define_name = true);
+
+
+/** Add methods and attributes that are common to extended subscribers (such as parameter, message, and return)
+ *	@param pointer to the class that is being constructed
+ *	@param pointer to the attr list being constructed for this class
+ *	@param common a pointer to the struct that contains all of the common members for the object
+ *	@param optional bool parameter (default = true) that says whether or not to define a name attribute for this class 
+ */
 void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset, bool define_name = true);
 
-/** Call these when initing a new instance 
+
+/** Call this when initing a new common-based instance to set defaults
  */
 void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol *name);
+
+
+/** Call this when initing a new extended-based instance to set defaults
+ */
 void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_symbol *name);
 
 

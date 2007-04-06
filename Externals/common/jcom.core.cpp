@@ -496,9 +496,7 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 		// at this point temppath points to the path after the volume, and out_filepath points to the volume
 		sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
 	#else // WIN_VERSION
-//		char temppath[512];
-//		path_nameconform(path, out_filepath, PATH_STYLE_NATIVE_WIN, PATH_TYPE_ABSOLUTE);
-strcpy(out_filepath, path);
+		strcpy(out_filepath, path);
 	#endif
 }
 
@@ -519,7 +517,6 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
 	if(define_name){
 		attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
 		attr = attr_offset_new("name", _sym_symbol, attrflags,
-	//		(method)0, (method)return_setname, 
 			(method)0, (method)jcom_core_subscriber_attribute_common_setname,
 	 		attroffset);
 		class_addattr(c, attr);	
@@ -548,12 +545,8 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 		attroffset);
 	class_addattr(c, attr);
 
-	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
-//	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_type);
-//	attr = attr_offset_new("type", _sym_symbol, attrflags,
-//		(method)0, (method)0, 
-//		attroffset);
-//	class_addattr(c, attr);	
+	// ATTRIBUTE: type 
+	// this is not defined here because some objects (i.e jcom.parameter) need to treat this in different ways
 	
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_clipmode);
@@ -630,10 +623,9 @@ void jcom_core_subscriber_hubrelease(t_jcom_core_subscriber_common *x)
 }
 
 
+// Unsubscribe and common freeing code
 void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x)
 {
 	jcom_core_unsubscribe(x->hub, x);
 	x->hub = NULL;
 }
-
-

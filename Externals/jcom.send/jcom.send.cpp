@@ -25,7 +25,6 @@ void send_list(t_send *x, t_symbol *msg, short argc, t_atom *argv);
 // Globals
 t_class		*send_class;				// Required: Global pointer for our class
 
-
 /************************************************************************************/
 // Main() Function
 
@@ -105,6 +104,7 @@ void send_bang(t_send *x)
 	send_list(x, _sym_bang, 0, NULL);
 }
 
+
 void send_int(t_send *x, long value)
 {
 	t_atom				a;
@@ -112,6 +112,7 @@ void send_int(t_send *x, long value)
 	atom_setlong(&a, value);
 	send_list(x, _sym_int, 1, &a);
 }
+
 
 void send_float(t_send *x, double value)
 {
@@ -121,10 +122,9 @@ void send_float(t_send *x, double value)
 	send_list(x, _sym_float, 1, &a);
 }
 
+
 void send_list(t_send *x, t_symbol *msg, short argc, t_atom *argv)
 {
-//	t_receive			*receive;
-//	t_receive_callback	receive_callback;
 	t_jcom_callback		*receive;
 	t_receive_callback	receive_callback;
 	

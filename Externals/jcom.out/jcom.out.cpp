@@ -53,7 +53,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.out",(method)out_new, (method)out_free, (short)sizeof(t_out), (method)0L, A_GIMME, 0);
 #endif
 
-//	class_obexoffset_set(c, calcoffset(t_out, obex));
 	offset = calcoffset(t_out, common);
 	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 
@@ -74,8 +73,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 #endif
 	class_addmethod(c, (method)out_release,				"release",				A_CANT, 0L);	// notification of hub being freed
     class_addmethod(c, (method)out_assist,				"assist", 				A_CANT, 0L);
-//    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 				A_CANT, 0L);  
-//    class_addmethod(c, (method)object_obex_quickref,	"quickref", 			A_CANT, 0L);
 
 	jcom_core_subscriber_classinit_common(c, attr, offset);	
 	
@@ -88,11 +85,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	attr = attr_offset_new("num_outputs", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_out, num_outputs));
 	class_addattr(c, attr);	
-
-	// ATTRIBUTE: name
-//	attr = attr_offset_new("name", _sym_symbol, attrflags,
-//		(method)0, (method)0, calcoffset(t_out, attr_name));
-//	class_addattr(c, attr);
 
 #ifdef JCOM_OUT_TILDE
 	// Setup our class to work with MSP
@@ -160,8 +152,6 @@ void *out_new(t_symbol *s, short argc, t_atom *argv)
 #endif		
 		jcom_core_subscriber_new_common(&x->common, ps__jcom_out__);
 		attr_args_process(x, argc, argv);					// handle attribute args				
-
-//		x->container = (t_patcher *)gensym("#P")->s_thing;	
 		defer_low(x, (method)out_subscribe, 0, 0, 0);
 	}
 	return (x);												// Return the pointer
@@ -206,7 +196,6 @@ void out_subscribe(t_out *x)
 // Destroy
 void out_free(t_out *x)
 {
-//	jcom_core_unsubscribe(x->hub, x);
 	jcom_core_subscriber_common_free(&x->common);
 #ifdef JCOM_OUT_TILDE
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
@@ -228,9 +217,7 @@ void out_release(t_out *x)
 {
 	short i;
 	
-//	x->hub = NULL;
-	jcom_core_subscriber_hubrelease(&x->common);
-	
+	jcom_core_subscriber_hubrelease(&x->common);	
 	x->in_object = NULL;
 	for(i=0; i<MAX_NUM_CHANNELS; i++)
 		x->meter_object[i] = NULL;
@@ -408,7 +395,6 @@ void update_meters(t_out *x)
 }
 
 
-
 // Perform Method - just pass the whole vector straight through
 // (the work is all done in the dsp method)
 t_int *out_perform(t_int *w)
@@ -457,6 +443,7 @@ t_int *out_perform(t_int *w)
 out:
 	return(w+6);
 }
+
 
 t_int *out_perform_zero(t_int *w)
 {
@@ -521,4 +508,3 @@ void out_alloc(t_out *x, int vector_size)
 		x->ramp_xfade->set_vectorsize(vector_size);
 	}
 }
-

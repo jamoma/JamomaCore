@@ -31,16 +31,16 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_hub, obex));
 	
 	// Make methods accessible for our class:
- 	class_addmethod(c, (method)hub_symbol,				"anything",		A_GIMME, 0L);
-	class_addmethod(c, (method)hub_subscribe,			"subscribe",	A_CANT, 0L);	// client object subscribing
-	class_addmethod(c, (method)hub_unsubscribe,			"unsubscribe",	A_CANT, 0L);	// client object unsubscribing
-	class_addmethod(c, (method)hub_receive,				"feedback",		A_GIMME, 0L);	// feedback from parameters and such
-	class_addmethod(c, (method)hub_private,				"private", 		A_GIMME, 0L);	// internal communications such as jcom.remote
-	class_addmethod(c, (method)hub_return,				"return",		A_GIMME, 0L);	// feedback from jcom.return
+ 	class_addmethod(c, (method)hub_symbol,				"anything",					A_GIMME, 0L);
+	class_addmethod(c, (method)hub_subscribe,			"subscribe",				A_CANT, 0L);	// client object subscribing
+	class_addmethod(c, (method)hub_unsubscribe,			"unsubscribe",				A_CANT, 0L);	// client object unsubscribing
+	class_addmethod(c, (method)hub_receive,				"feedback",					A_GIMME, 0L);	// feedback from parameters and such
+	class_addmethod(c, (method)hub_private,				"private", 					A_GIMME, 0L);	// internal communications such as jcom.remote
+	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
-	class_addmethod(c, (method)hub_assist,				"assist",		A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT,	0);
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
+	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
+    class_addmethod(c, (method)object_obex_quickref,	"quickref",					A_CANT, 0);
 
 	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names/dump", 	0L);
 	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names/dump", 	0L);
@@ -519,6 +519,7 @@ void hub_return(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 	hub_outlet_return(x, osc, argc-1, argv+1);
 }
 
+
 // A version of the above that performs wilcard substitution
 void hub_return_extended(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 {
@@ -756,6 +757,7 @@ void hub_messagenames_get(t_hub *x)
 	hub_outlet_return(x, ps_message_names_end, 0, NULL);
 }
 
+
 void hub_returnnames_get(t_hub *x)
 {
 	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
@@ -773,6 +775,7 @@ void hub_returnnames_get(t_hub *x)
 	critical_exit(0);
 	hub_outlet_return(x, ps_return_names_end, 0, NULL);
 }
+
 
 void hub_allnames_get(t_hub *x)
 {
@@ -857,6 +860,7 @@ void hub_module_view_alg(t_hub *x)
 	hub_outlet_return(x, ps_slash_module_view_internals, 0, 0L);					// return from jcom.hub left outlet
 }
 
+
 // FREEZE UI for all parameters
 void hub_ui_freeze(t_hub *x, long val)
 {
@@ -878,6 +882,7 @@ void hub_ui_freeze(t_hub *x, long val)
 	critical_exit(0);
 }
 
+
 // REFRESH UI for all parameters
 void hub_ui_refresh(t_hub *x)
 {
@@ -891,6 +896,7 @@ void hub_ui_refresh(t_hub *x)
 	}
 	critical_exit(0);
 }
+
 
 // receive messages from our internal jcom.receive external
 void hub_receive_callback(void *z, t_symbol *msg, short argc, t_atom *argv)

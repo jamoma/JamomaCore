@@ -37,9 +37,8 @@ static t_receiver 	*s_receiver_list = NULL;	// List of receive objects
 void *jcom_callback_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_jcom_callback	*x = (t_jcom_callback *)object_alloc(callback_class);
-	if(x){
+	if(x)
 		x->receive_master_callback = receive_callback;
-	}
 	return x;
 }
 
@@ -53,9 +52,6 @@ void callback_initclass()
 	// Define our class
 	callback_class = class_new("jcom.callback", (method)jcom_callback_new, (method)jcom_callback_free, (short)sizeof(t_jcom_callback), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(callback_class, calcoffset(t_jcom_callback, obex));
-
-	// Make methods accessible for our class: 
-	// class_addmethod(c, (method)receive_set_obex_callback,	"setcallback",		A_CANT, 0L);
 
 	// Finalize our class
 	class_register(CLASS_NOBOX, callback_class);

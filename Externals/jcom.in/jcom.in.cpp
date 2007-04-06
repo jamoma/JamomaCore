@@ -52,7 +52,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.in",(method)in_new, (method)in_free, (short)sizeof(t_in), (method)0L, A_GIMME, 0);
 #endif
 
-//	class_obexoffset_set(c, calcoffset(t_in, obex));
 	offset = calcoffset(t_in, common);
 	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 
@@ -73,8 +72,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 #endif
 	class_addmethod(c, (method)in_release,				"release",				A_CANT, 0L);	// notification of hub being freed
     class_addmethod(c, (method)in_assist,				"assist", 				A_CANT, 0L);
-//  class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 				A_CANT, 0L);  
-//  class_addmethod(c, (method)object_obex_quickref,	"quickref", 			A_CANT, 0L);
 
 	jcom_core_subscriber_classinit_common(c, attr, offset);	
 	
@@ -88,11 +85,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_in, num_inputs));
 	class_addattr(c, attr);	
 
-	// ATTRIBUTE: name
-//	attr = attr_offset_new("name", _sym_symbol, attrflags,
-//		(method)0, (method)0, calcoffset(t_in, attr_name));
-//	class_addattr(c, attr);
-	
 #ifdef JCOM_IN_TILDE
 	// ATTRIBUTE: manage_channels
 	attr = attr_offset_new("manage_channels", _sym_long, attrflags,
@@ -124,8 +116,6 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 	short 		i;
 		
 	if(x){
-//		x->common.attr_name = ps__jcom_in__;
-	
 		x->dumpout = outlet_new(x, NULL);
 		x->algout = outlet_new(x, NULL);
 		
@@ -142,7 +132,8 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
 			x->num_inputs = tt_audio_base::clip(argument, 0, MAX_NUM_CHANNELS);
-		} else
+		} 
+		else
 			x->outlet[0] = x->algout;  // no arguments send any input out the first outlet
 
 #ifdef JCOM_IN_TILDE
@@ -167,7 +158,6 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 #endif
 		jcom_core_subscriber_new_common(&x->common, ps__jcom_in__);
 		attr_args_process(x, argc, argv);					// handle attribute args				
-//		x->container = (t_patcher *)gensym("#P")->s_thing;	// get our patcher
 		defer_low(x, (method)in_subscribe, 0, 0, 0);		// subscribe to the hub
 	}
 	return (x);												// Return the pointer
@@ -187,7 +177,6 @@ void in_subscribe(t_in *x)
 	if(x->common.hub != NULL){
 		object_attr_getvalueof(x->common.hub, ps_name, &argc, &argv);
 		x->common.module_name = atom_getsym(argv);
-//		x->out_object = NULL;
 		
 		// Find out what type of algorithm this is supposed to control
 		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
@@ -218,11 +207,9 @@ void in_free(t_in *x)
 	short i;
 	
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
-	for(i=0; i < MAX_NUM_CHANNELS; i++){
+	for(i=0; i < MAX_NUM_CHANNELS; i++)
 		delete x->signal_in[i];
-	}
 #endif
-	//jcom_core_unsubscribe(x->hub, x);
 	jcom_core_subscriber_common_free(&x->common);
 }
 
@@ -230,7 +217,6 @@ void in_free(t_in *x)
 // Notification that the hub no longer exists
 void in_release(t_in *x)
 {
-	//x->hub = NULL;
 	jcom_core_subscriber_hubrelease(&x->common);
 	x->out_object = NULL;
 }
@@ -285,6 +271,7 @@ void in_view_internals(t_in *x, t_symbol *msg, short argc, t_atom *argv)
 	outlet_anything(x->algout, ps_open, 0, 0L);
 }
 
+
 // messages received from jcom.hub for various reasons
 void in_dispatched(t_in *x, t_symbol *msg, short argc, t_atom *argv)
 {
@@ -298,10 +285,12 @@ void in_link(t_in *x, void *y)
 	x->out_object = y;
 }
 
+
 void in_unlink(t_in *x)
 {
 	x->out_object = NULL;
 }
+
 
 // NOTE: only called by the dsp() method at this point in time
 void in_send_to_algorithm(t_in *x)
@@ -415,6 +404,7 @@ t_int *in_perform(t_int *w)
 	}
 	return(w+6);
 }
+
 
 t_int *in_perform_zero(t_int *w)
 {

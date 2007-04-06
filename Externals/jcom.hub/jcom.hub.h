@@ -33,7 +33,6 @@ typedef struct _subscriber{
 } t_subscriber;
 
 
-
 typedef struct _preset_item{
 	t_symbol		*param_name;
 	t_symbol		*type;
@@ -92,7 +91,6 @@ void		hub_free(t_hub *x);
 void		hub_assist(t_hub *x, void *b, long msg, long arg, char *dst);
 void		hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
 t_symbol*	hub_subscribe(t_hub *x, t_symbol *name, void *param_object, t_symbol *type);
-//void		hub_release(t_hub *x, t_symbol *subscriber_name);
 void		hub_unsubscribe(t_hub *x, void *subscriber_object);
 void		hub_receive(t_hub *x, t_symbol *name, short argc, t_atom *argv);
 void		hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv);

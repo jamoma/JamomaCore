@@ -16,15 +16,8 @@
 // Data Structure for this object
 typedef struct _remote{
 	t_jcom_core_subscriber_common	common;
-//	t_object	x_obj;
-//	void		*obex;
-//	t_patcher	*container;
-//	void		*hub;				// the jcom.hub object that we subscribe to
-//	t_symbol	*module_name;	
-//	t_symbol	*name;				
 	void							*outlet;
-	void							*dumpout;
-	
+	void							*dumpout;	
 	t_atom							output[512];	// buffer that gets sent to the hub
 	short							output_len;
 } t_remote;
@@ -32,9 +25,6 @@ typedef struct _remote{
 
 // Prototypes for methods
 void *remote_new(t_symbol *s, short argc, t_atom *argv);			// New Object Creation Method
-//void remote_subscribe(t_remote *x);
-//void remote_free(t_remote *x);											// Object Deletion Method
-//void remote_release(t_remote *x);										// Hub Deletion
 void remote_assist(t_remote *x, void *b, long m, long a, char *s);		// Assistance Method
 void remote_dispatched(t_remote *x, t_symbol *msg, short argc, t_atom *argv);
 void remote_jit_matrix(t_remote *x, t_symbol *msg, short argc, t_atom *argv);
@@ -54,7 +44,6 @@ t_class		*remote_class;					// Required. Global pointing to this class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-//	long 		attrflags = 0;
 	t_class 	*c;
 	t_object 	*attr;
 	long		offset;
@@ -66,7 +55,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(short)sizeof(t_remote), (method)0L, A_GIMME, 0);
 	offset = calcoffset(t_remote, common);
 	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
-//	class_obexoffset_set(c, calcoffset(t_remote, obex));
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)remote_dispatched,		"dispatched",	A_GIMME, 0L);
@@ -75,9 +63,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)remote_float,			"float",		A_DEFFLOAT,	0L);
  	class_addmethod(c, (method)remote_list,				"list",			A_GIMME, 0L);
  	class_addmethod(c, (method)remote_symbol,			"anything",		A_GIMME, 0L);
-//	class_addmethod(c, (method)remote_release,			"release",		A_CANT, 0L);	// notification of hub being freed
-//    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,0);  
-  //  class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
     class_addmethod(c, (method)remote_assist,			"assist",		A_CANT, 0L);
 
 	jcom_core_subscriber_classinit_common(c, attr, offset);	
@@ -101,7 +86,6 @@ void *remote_new(t_symbol *s, short argc, t_atom *argv)
 	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_remote 	*x = (t_remote *)object_alloc(remote_class);
 	t_symbol	*name = _sym_nothing;	
-//	short i;
 	
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
@@ -113,47 +97,16 @@ void *remote_new(t_symbol *s, short argc, t_atom *argv)
 		x->outlet = outlet_new(x, NULL);
 		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-//		if(attrstart > 0)
-//			x->name = atom_getsym(argv);
-
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 
 		jcom_core_subscriber_new_common(&x->common, name);
 		attr_args_process(x, argc, argv);					// handle attribute args				
-
-//		x->container = (t_patcher *)gensym("#P")->s_thing;	
-//		defer_low(x, (method)remote_subscribe, 0, 0, 0);
 		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_remote, 0, 0);
 	}
 	return (x);												// Return the pointer
 }
 
-
-
-/*
-// deferred function for registering with the jcom.hub object
-void remote_subscribe(t_remote *x)
-{
-	x->hub = jcom_core_subscribe(x, x->name, x->container, ps_subscribe_remote);
-	if(x->hub)
-		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
-}
-
-
-// Destroy
-void remote_free(t_remote *x)
-{
-	jcom_core_unsubscribe(x->hub, x);
-}
-
-
-// Notification that the hub no longer exists
-void remote_release(t_remote *x)
-{
-	x->hub = NULL;
-}
-*/
 
 /************************************************************************************/
 // Methods bound to input/inlets
@@ -176,12 +129,12 @@ void remote_dispatched(t_remote *x, t_symbol *msg, short argc, t_atom *argv)
 	outlet_anything(x->outlet, atom_getsym(argv), argc-1, argv+1);
 }
 
+
 // messages received from jcom.out
 void remote_jit_matrix(t_remote *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, msg, argc, argv);
 }
-
 
 
 // remote values to the hub

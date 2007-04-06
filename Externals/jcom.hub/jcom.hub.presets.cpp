@@ -222,21 +222,8 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 			return;														// Not found
 		}	
 	}
-/*
-	path_topathname(path, filename, fullpath);
-
-#ifdef MAC_VERSION
-	char *temppath;
-	temppath = strchr(fullpath, ':');
-	temppath += 1;
-#else // WIN_VERSION
-	char temppath[512];
-	path_nameconform(fullpath, temppath, PATH_STYLE_NATIVE_WIN, PATH_TYPE_ABSOLUTE);
-#endif
-*/
 
 	jcom_core_getfilepath(path, filename, fullpath);
-
 	//post("path for xml preset file: %s", temppath);
 	hub_preset_parse(x, fullpath);
 	hub_preset_buildmenu(x);
@@ -263,9 +250,9 @@ int coerceType(const char* s)
 			}
 		}
 	}
-	
 	return A_SYM; // Not a float, not an int, must be a symbol
 }
+
 
 // Actually read and parse the XML file for a preset
 void hub_preset_parse(t_hub *x, char *path)
@@ -627,7 +614,6 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 		error("jcom.hub: %s - error %d creating file", filename, err);
 		return;	
 	}
-
 
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
 	jcom_core_file_writeline(&file_handle, &myEof, "<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>");
