@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='random/step_size' type='msg_float'>0</item>
-    <item name='random/mode' type='msg_menu'>0</item>
+    <item name='random/mode' type='msg_symbol'>0</item>
     <item name='interpolate' type='msg_toggle'>0</item>
     <item name='interpolate/step_size' type='msg_float'>0</item>
   </preset>
