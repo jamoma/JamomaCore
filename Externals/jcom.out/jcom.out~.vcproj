@@ -27,7 +27,7 @@
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="2"
 				AdditionalIncludeDirectories="&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes&quot;;&quot;C:\Progra~1\Cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes&quot;;..\..\externals_3rd_party\ttblue\dsplib;..\common"
-				PreprocessorDefinitions="WIN_VERSION;WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION;JCOM_OUT_TILDE"
+				PreprocessorDefinitions="WIN_VERSION;WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION;JCOM_OUT_TILDE;JCOM_AUDIO_OBJECT"
 				StringPooling="TRUE"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"

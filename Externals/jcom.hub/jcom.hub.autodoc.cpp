@@ -538,7 +538,9 @@ table {\
 	margin-left: 2%;\
 	font-size: 14px;\
 }\
-\
+");
+
+	jcom_core_file_writeline(file_handle, myEof, "\
 \
 .instructionName {\
 	font-family: 'Courier New', Courier, mono;\
