@@ -638,11 +638,14 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;
 		}
-		if(argc > 1){
+		if(argc == 1){
+			jcom_core_atom_copy(&x->attr_value, argv);
+			x->param_output(x);
+		}
+		else if(argc > 1){
 			param_list(x, msg, argc, argv);
 		}
-		else{
-			jcom_core_atom_copy(&x->attr_value, argv);
+		else{ 	// no args
 			x->param_output(x);
 		}
 	}
