@@ -100,9 +100,9 @@ void *remote_new(t_symbol *s, short argc, t_atom *argv)
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 
-		jcom_core_subscriber_new_common(&x->common, name);
+		jcom_core_subscriber_new_common(&x->common, name, ps_subscribe_remote);
 		attr_args_process(x, argc, argv);					// handle attribute args				
-		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_remote, 0, 0);
+		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 	}
 	return (x);												// Return the pointer
 }

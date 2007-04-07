@@ -19,23 +19,26 @@
 #endif
 
 typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, short argc, t_atom *argv);
-
+typedef void (*t_subscribe_method)(void *x);
 
 /** shared common subscriber data members
  *	!!! WARNING !!! This struct MUST be the first member of the object in which it is contained !!!
  */
 typedef struct _jcom_core_subscriber_common{
 #ifdef JCOM_AUDIO_OBJECT
-	t_pxobject		ob;						///< base object for audio externs
+	t_pxobject			ob;						///< base object for audio externs
 #else
-	t_object		ob;						///< base object
+	t_object			ob;						///< base object
 #endif
-	void			*obex;					///< object extensions
-	t_patcher		*container;				///< pointer to the patcher containing this object
-	void			*hub;					///< the jcom.hub object that we subscribe to
-	t_symbol		*attr_name;				///< ATTRIBUTE: subscriber's name
-	bool			has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
-	t_symbol		*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
+	void				*obex;					///< object extensions
+	t_patcher			*container;				///< pointer to the patcher containing this object
+	void				*hub;					///< the jcom.hub object that we subscribe to
+	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
+	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
+	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
+	t_symbol			*subscriber_type;		///< the class of object this subscriber belongs to from the hub's perspective
+	t_subscribe_method	custom_subscribe;		///< function pointer to a custom subscribe method for doing addition work at subscription
+	t_object			*obj_hub_broadcast;		///< jcom.receive that listens to the hub's broadcast
 } t_jcom_core_subscriber_common;
 
 
@@ -45,23 +48,26 @@ typedef struct _jcom_core_subscriber_common{
  */
 typedef struct _jcom_core_subscriber_extended{
 #ifdef JCOM_AUDIO_OBJECT
-	t_pxobject		ob;						///< base object for audio externs
+	t_pxobject			ob;						///< base object for audio externs
 #else
-	t_object		ob;						///< base object
+	t_object			ob;						///< base object
 #endif
-	void			*obex;					///< object extensions
-	t_patcher		*container;				///< pointer to the patcher containing this object
-	void			*hub;					///< the jcom.hub object that we subscribe to
-	t_symbol		*attr_name;				///< ATTRIBUTE: subscriber's name
-	bool			has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
-	t_symbol		*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
+	void				*obex;					///< object extensions
+	t_patcher			*container;				///< pointer to the patcher containing this object
+	void				*hub;					///< the jcom.hub object that we subscribe to
+	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
+	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
+	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
+	t_symbol			*subscriber_type;		///< the class of object this subscriber belongs to from the hub's perspective
+	t_subscribe_method	custom_subscribe;		///< function pointer to a custom subscribe method for doing addition work at subscription
+	t_object			*obj_hub_broadcast;		///< jcom.receive that listens to the hub's broadcast
 	// extensions begin here
-	t_symbol		*attr_clipmode;			///< ATTRIBUTE: how to constrain values to the specified ranges
-	t_symbol		*attr_description;		///< ATTRIBUTE: textual description of this parameter
-	float			attr_range[2];			///< ATTRIBUTE: low, high
-	long			attr_range_len;			///<		length actually given to us by the user
-	long			attr_repetitions;		///< ATTRIBUTE: 0 = filter out repetitions (like the change object)
-	t_symbol		*attr_type;				///< ATTRIBUTE: what kind of data doers this object define?	
+	t_symbol			*attr_clipmode;			///< ATTRIBUTE: how to constrain values to the specified ranges
+	t_symbol			*attr_description;		///< ATTRIBUTE: textual description of this parameter
+	float				attr_range[2];			///< ATTRIBUTE: low, high
+	long				attr_range_len;			///<		length actually given to us by the user
+	long				attr_repetitions;		///< ATTRIBUTE: 0 = filter out repetitions (like the change object)
+	t_symbol			*attr_type;				///< ATTRIBUTE: what kind of data doers this object define?	
 } t_jcom_core_subscriber_extended;
 
 
@@ -285,7 +291,6 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
  */
 void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset, bool define_name = true);
 
-
 /** Add methods and attributes that are common to extended subscribers (such as parameter, message, and return)
  *	@param pointer to the class that is being constructed
  *	@param pointer to the attr list being constructed for this class
@@ -297,12 +302,11 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 
 /** Call this when initing a new common-based instance to set defaults
  */
-void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol *name);
-
+void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol *name, t_symbol *subscriber_type);
 
 /** Call this when initing a new extended-based instance to set defaults
  */
-void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_symbol *name);
+void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_symbol *name, t_symbol *subscriber_type);
 
 
 /** Attribute setter used for the parameter name as referenced in jcom_core_subscriber_attributes_common
@@ -313,12 +317,16 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 
 /** Subscribe to the hub
  */
-void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x, t_symbol *subscriber_type);
+void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x);
 
 
 /** Receive notification that the hub has been freed, so we shouldn't call it anymore
  */
 void jcom_core_subscriber_hubrelease(t_jcom_core_subscriber_common *x);
+
+/** Provide a function for doing additional setup at subscription time
+*/
+void jcom_core_subscriber_setcustomsubscribe_method(t_jcom_core_subscriber_common *x, t_subscribe_method meth);
 
 
 /** This should be called by subscribers when they are being freed.
@@ -326,5 +334,9 @@ void jcom_core_subscriber_hubrelease(t_jcom_core_subscriber_common *x);
  */
 void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x);
 
+
+/** This method is called when the jcom.receive in a subscriber receives the hub's broadcast messages.
+ */
+void jcom_core_broadcast_callback(void *z, t_symbol *msg, short argc, t_atom *argv);
 
 #endif // #ifndef __JMOD_CORE_H__

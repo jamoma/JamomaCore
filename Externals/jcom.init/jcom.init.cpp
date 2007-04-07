@@ -84,10 +84,10 @@ void *init_new(t_symbol *s, short argc, t_atom *argv)
 		x->outlet = outlet_new(x, NULL);
 		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		jcom_core_subscriber_new_common(&x->common, name);
+		jcom_core_subscriber_new_common(&x->common, name, ps_subscribe_init);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 
-		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_init, 0, 0);
+		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 	}
 	return (x);												// Return the pointer
 }

@@ -157,16 +157,16 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;		// set function pointer to default
 		
-		jcom_core_subscriber_new_extended(&x->common, name);
+#ifdef JMOD_MESSAGE
+		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_message);
+#else
+		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_parameter);
+#endif
 		attr_args_process(x, argc, argv);			// handle attribute args
 		if(g_pattr_valid == true)
 			pattr_obex_setup(x, name);				// set up out internal pattr instance
 
-#ifdef JMOD_MESSAGE
-		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_message, 0, 0);
-#else
-		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_parameter, 0, 0);
-#endif
+		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 		
 		// If no type was specified by the user we call the accessor here
 		// this is important because memory is configured - not just setting a default!

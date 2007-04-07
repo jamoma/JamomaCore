@@ -14,7 +14,7 @@
 /** jcom.in constructor */
 void *in_new(t_symbol *s, short argc, t_atom *argv);
 /** Method for subscribing to jcom.hub */
-void in_subscribe(t_in *x);
+void in_subscribe(void *z);
 void in_link(t_in *x, void *y);
 void in_unlink(t_in *x);
 /** Dispatch method for communication with the hub */

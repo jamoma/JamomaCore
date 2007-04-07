@@ -105,12 +105,12 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 		x->outlets[k_outlet_thru] = outlet_new(x, 0L);
 
-		jcom_core_subscriber_new_extended(&x->common, name);
+		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_return);
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
-		defer_low(x, (method)jcom_core_subscriber_subscribe, ps_subscribe_return, 0, 0);
+		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 	}
 	return (x);										// return the pointer to our new instantiation
 }

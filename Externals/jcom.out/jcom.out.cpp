@@ -150,24 +150,27 @@ void *out_new(t_symbol *s, short argc, t_atom *argv)
 		for(i=x->num_outputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif		
-		jcom_core_subscriber_new_common(&x->common, ps__jcom_out__);
+		jcom_core_subscriber_new_common(&x->common, ps__jcom_out__, ps_subscribe_out);
+		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &out_subscribe);
+		
 		attr_args_process(x, argc, argv);					// handle attribute args				
-		defer_low(x, (method)out_subscribe, 0, 0, 0);
+		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 	}
 	return (x);												// Return the pointer
 }
 
 
 // deferred function for registering with the jcom.hub object
-void out_subscribe(t_out *x)
+void out_subscribe(void *z)
 {
 	long		argc;
 	t_atom		a;
 	t_atom		*argv = &a;
 	t_symbol	*result;
 	t_symbol	*modtype;
+	t_out		*x = (t_out *)z;
 	
-	x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_out);
+	//x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_out);
 	if(x->common.hub != NULL){
 		object_attr_getvalueof(x->common.hub, ps_name, &argc, &argv);
 		x->common.module_name = atom_getsym(argv);
@@ -177,7 +180,7 @@ void out_subscribe(t_out *x)
 		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
 		result = atom_getsym(argv);
 		if(result == ps_default){
-			object_attr_getvalueof(x->common.hub ,ps_module_type , &argc, &argv);
+			object_attr_getvalueof(x->common.hub, ps_module_type, &argc, &argv);
 			modtype = atom_getsym(argv);
 		
 			if(modtype == ps_audio)
@@ -196,7 +199,6 @@ void out_subscribe(t_out *x)
 // Destroy
 void out_free(t_out *x)
 {
-	jcom_core_subscriber_common_free(&x->common);
 #ifdef JCOM_OUT_TILDE
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
 	freeobject((t_object *)x->clock);	// delete our clock
@@ -209,6 +211,7 @@ void out_free(t_out *x)
 	delete x->ramp_gain;
 	delete x->ramp_xfade;
 #endif
+	jcom_core_subscriber_common_free(&x->common);
 }
 
 

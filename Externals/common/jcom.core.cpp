@@ -565,21 +565,31 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 
 
 // arg is subscriber name
-void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol *name)
+void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol *name, t_symbol *subscriber_type)
 {
 	t_atom 	a;
 	
+	x->subscriber_type = subscriber_type;
+	x->custom_subscribe = NULL;
 	x->hub = NULL;
+	x->obj_hub_broadcast = NULL;
 	x->module_name = _sym_nothing;
 	atom_setsym(&a, name);
 	object_attr_setvalueof(x, ps_name, 1, &a);	
-	x->container = (t_patcher *)gensym("#P")->s_thing;	
+	x->container = (t_patcher *)gensym("#P")->s_thing;
+	
+	// set up the jcom.receive the listens to broadcast messages from the hub
+	if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_broadcast_fromHub, &x->obj_hub_broadcast))
+		error("jcom.core: loading jcom.receive extern failed");
+	else
+		object_method(x->obj_hub_broadcast, ps_setcallback, &jcom_core_broadcast_callback, x);
+	
 }
 
 
-void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_symbol *name)
+void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_symbol *name, t_symbol *subscriber_type)
 {
-	jcom_core_subscriber_new_common((t_jcom_core_subscriber_common *)x, name);
+	jcom_core_subscriber_new_common((t_jcom_core_subscriber_common *)x, name, subscriber_type);
 	
 	x->attr_range[0] = 0.0;
 	x->attr_range[1] = 1.0;
@@ -608,11 +618,16 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 
 
 // function for registering with the jcom.hub object
-void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x, t_symbol *subscriber_type)
+//void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x, t_symbol *subscriber_type)
+void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
-	x->hub = jcom_core_subscribe(x, x->attr_name, x->container, subscriber_type);
-	if(x->hub)
-		x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);	
+	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
+		x->hub = jcom_core_subscribe(x, x->attr_name, x->container, x->subscriber_type);
+		if(x->hub)
+			x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);
+		if(x->custom_subscribe)
+			x->custom_subscribe(x);
+	}
 }
 
 
@@ -623,9 +638,29 @@ void jcom_core_subscriber_hubrelease(t_jcom_core_subscriber_common *x)
 }
 
 
+// Set a custom subscribe method
+void jcom_core_subscriber_setcustomsubscribe_method(t_jcom_core_subscriber_common *x, t_subscribe_method meth)
+{
+	x->custom_subscribe = meth;
+}
+
+
 // Unsubscribe and common freeing code
 void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x)
 {
 	jcom_core_unsubscribe(x->hub, x);
 	x->hub = NULL;
+	object_free(x->obj_hub_broadcast);
+	x->obj_hub_broadcast = NULL;
+}
+
+
+// receive messages from our internal jcom.receive external
+void jcom_core_broadcast_callback(void *z, t_symbol *msg, short argc, t_atom *argv)
+{
+	t_jcom_core_subscriber_common	*x = (t_jcom_core_subscriber_common *)z;
+	
+	if(msg == gensym("hub.changed"))
+		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+//		jcom_core_subscriber_subscribe(x);
 }

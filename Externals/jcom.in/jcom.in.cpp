@@ -156,33 +156,35 @@ void *in_new(t_symbol *s, short argc, t_atom *argv)
 			x->outlet[i] = outlet_new(x, 0L);
 
 #endif
-		jcom_core_subscriber_new_common(&x->common, ps__jcom_in__);
+		jcom_core_subscriber_new_common(&x->common, ps__jcom_in__, ps_subscribe_in);
+		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &in_subscribe);
 		attr_args_process(x, argc, argv);					// handle attribute args				
-		defer_low(x, (method)in_subscribe, 0, 0, 0);		// subscribe to the hub
+		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 	}
 	return (x);												// Return the pointer
 }
 
 
 // deferred function for registering with the jcom.hub object
-void in_subscribe(t_in *x)
+void in_subscribe(void *z)
 {
 	long		argc;
 	t_atom		a;
 	t_atom		*argv = &a;
 	t_symbol	*result;
 	t_symbol	*modtype;
+	t_in		*x = (t_in *)z;
 	
-	x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_in);
+	//x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_in);
 	if(x->common.hub != NULL){
-		object_attr_getvalueof(x->common.hub, ps_name, &argc, &argv);
-		x->common.module_name = atom_getsym(argv);
+		//object_attr_getvalueof(x->common.hub, ps_name, &argc, &argv);
+		//x->common.module_name = atom_getsym(argv);
 		
 		// Find out what type of algorithm this is supposed to control
 		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
 		result = atom_getsym(argv);
 		if(result == ps_default){
-			object_attr_getvalueof(x->common.hub ,ps_module_type , &argc, &argv);
+			object_attr_getvalueof(x->common.hub, ps_module_type, &argc, &argv);
 			modtype = atom_getsym(argv);
 			
 			if(modtype == ps_audio)

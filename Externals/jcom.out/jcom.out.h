@@ -13,7 +13,7 @@
 // Prototypes for methods
 /** jcom.out and jcom.out~ constructor */
 void *out_new(t_symbol *s, short argc, t_atom *argv);
-void out_subscribe(t_out *x);
+void out_subscribe(void *z);
 void out_algorithm_message(t_out *x, t_symbol *msg, short argc, t_atom *argv);
 void out_dispatched(t_out *x, t_symbol *msg, short argc, t_atom *argv);
 void out_sendbypassedvalue(t_out *x, short inletnum, t_symbol *msg, short argc, t_atom *argv);
