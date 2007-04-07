@@ -49,7 +49,8 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 	}
 	
 	if(!found){
-		error("jcom.hub (%s module): preset.recall - invalid preset specified", x->attr_name->s_name);
+		if(x->attr_name != gensym("/editing_this_module"))
+			error("jcom.hub (%s module): preset.recall - invalid preset specified", x->attr_name->s_name);
 		return;
 	}
 	
@@ -218,7 +219,8 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 	else{
 		strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
 		if(locatefile_extended(filename, &path, &outtype, NULL, -1)){	// Returns 0 if successful
-			error("jcom.hub (%s module): preset file not found", x->attr_name->s_name);
+			if(x->attr_name != gensym("/editing_this_module"))
+				error("jcom.hub (%s module): preset file not found", x->attr_name->s_name);
 			return;														// Not found
 		}	
 	}
