@@ -490,17 +490,36 @@ void param_output_none(void *z)
 // INC & DEC
 void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
+	float	stepmult = 1.0;
+	
+	if(argc){
+		if(argv->a_type == A_FLOAT){
+			stepmult = argv->a_w.w_float;
+			argc--;
+			argv++;
+		}
+		else if(argv->a_type == A_LONG){
+			stepmult = argv->a_w.w_long;
+			argc--;
+			argv++;
+		}
+		
+		if(argc){
+			;	// look for symbol "ramp" here
+		}
+	}
+	
 	if(x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
 	else{
-		if (x->rampfunction)
+		if(x->rampfunction)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
 		if(x->common.attr_type == ps_msg_int){
-			x->attr_value.a_w.w_long += x->attr_stepsize;	// step up
-			param_output_int(x);								// output
+			x->attr_value.a_w.w_long += (x->attr_stepsize * stepmult);	// step up
+			param_output_int(x);										// output
 		}
 		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic)){
-			x->attr_value.a_w.w_float += x->attr_stepsize;
+			x->attr_value.a_w.w_float += (x->attr_stepsize * stepmult);
 			param_output_float(x);
 		}
 		else if(x->common.attr_type == ps_msg_toggle){
@@ -517,17 +536,36 @@ void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 
 void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
+	float	stepmult = 1.0;
+	
+	if(argc){
+		if(argv->a_type == A_FLOAT){
+			stepmult = argv->a_w.w_float;
+			argc--;
+			argv++;
+		}
+		else if(argv->a_type == A_LONG){
+			stepmult = argv->a_w.w_long;
+			argc--;
+			argv++;
+		}
+		
+		if(argc){
+			;	// look for symbol "ramp" here
+		}
+	}
+	
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
 	else{
 		if (x->rampfunction)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
 		if(x->common.attr_type == ps_msg_int){
-			x->attr_value.a_w.w_long -= x->attr_stepsize;	// step down		
+			x->attr_value.a_w.w_long -= (x->attr_stepsize * stepmult);	// step down		
 			param_output_int(x);								// output
 		}
 		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic)){
-			x->attr_value.a_w.w_float -= x->attr_stepsize;
+			x->attr_value.a_w.w_float -= (x->attr_stepsize * stepmult);
 			param_output_float(x);
 		}
 		else if(x->common.attr_type == ps_msg_toggle){

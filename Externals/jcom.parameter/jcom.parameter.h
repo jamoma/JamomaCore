@@ -71,6 +71,7 @@ void 		param_output_int(void *z);		// one of these is called from the bang metho
 void 		param_output_float(void *z);
 void 		param_output_symbol(void *z);
 void 		param_output_generic(void *z);
+void 		param_output_list(void *z);
 #ifdef JMOD_MESSAGE
 void		param_output_none(void *z);
 #endif // JMOD_MESSAGE
