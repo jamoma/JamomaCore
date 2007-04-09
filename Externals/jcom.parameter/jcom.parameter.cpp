@@ -58,10 +58,10 @@ int main(void)				// main recieves a copy of the Max function macros table
  	class_addmethod(c, (method)param_list,					"list",			A_GIMME, 0L);
  	class_addmethod(c, (method)param_symbol,				"anything",		A_GIMME, 0L);
 	class_addmethod(c, (method)param_ui_refresh,			"ui/refresh",	0L);
-	class_addmethod(c, (method)param_inc,					"inc",			0L);
-	class_addmethod(c, (method)param_dec,					"dec",			0L);
-	class_addmethod(c, (method)param_inc,					"+",			0L);
-	class_addmethod(c, (method)param_dec,					"-",			0L);
+	class_addmethod(c, (method)param_inc,					"inc",			A_GIMME, 0L);
+	class_addmethod(c, (method)param_dec,					"dec",			A_GIMME, 0L);
+	class_addmethod(c, (method)param_inc,					"+",			A_GIMME, 0L);
+	class_addmethod(c, (method)param_dec,					"-",			A_GIMME, 0L);
 	class_addmethod(c, (method)param_dump,					"dump",			0L);
 	class_addmethod(c, (method)param_bang,					"bang",			0L);
 	class_addmethod(c, (method)param_assist,				"assist",		A_CANT, 0L); 
@@ -125,6 +125,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 /************************************************************************************/
 // Object Life
+#pragma mark -
+#pragma mark life cycle
 
 void *param_new(t_symbol *s, long argc, t_atom *argv)
 {
@@ -199,6 +201,8 @@ void param_free(t_param *x)
 #ifndef JMOD_MESSAGE
 /************************************************************************************/
 // Communication with PSTO (pattrstorage)
+#pragma mark -
+#pragma mark pattr support
 
 // FROM psto
 t_max_err param_setvalueof(t_param *x, long argc, t_atom *argv)
@@ -233,8 +237,77 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 
 #endif
 
+
 /************************************************************************************/
 // Methods bound to input/inlets
+#pragma mark -
+#pragma mark attribute accessors
+
+// ATTRIBUTE: TYPE
+// This is crucial because it sets function pointers for the optimized clipping, bang, and other functions
+t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol *arg = atom_getsym(argv);
+	x->common.attr_type = arg;
+
+	if(arg == ps_msg_int){
+		x->param_output = &param_output_int;
+	}
+	else if(arg == ps_msg_float){
+		x->param_output = &param_output_float;
+	}
+	else if(arg == ps_msg_symbol){
+		x->param_output = &param_output_symbol;
+	}
+	else if(arg == ps_msg_toggle){
+		x->param_output = &param_output_int;
+	}
+	else if(arg == ps_msg_generic){
+		x->param_output = &param_output_generic;
+	} 
+	else if(arg == ps_msg_list){
+		x->param_output = &param_output_list;
+	}
+#ifdef JMOD_MESSAGE
+	else if(arg == ps_msg_none){
+		x->param_output = &param_output_none;
+	}
+#endif // JMOD_MESSAGE
+	else{
+#ifdef JMOD_MESSAGE
+		error("Jamoma - invalid type specified for %s jcom.message in the %s module.", x->name->s_name, x->common.module_name->s_name);
+#else
+		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->name->s_name, x->common.module_name->s_name);
+#endif
+		x->common.attr_type = ps_msg_generic;
+		x->param_output = &param_output_generic;
+	}
+
+	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
+
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
+
+// ATTRIBUTE: RAMP
+// This is crucial because it sets function pointers
+t_max_err param_setramp(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol *arg = atom_getsym(argv);
+	x->attr_ramp = arg;
+	
+	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
+
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
+
+/************************************************************************************/
+// Methods bound to input/inlets
+#pragma mark -
+#pragma mark methods
 
 // Method for Assistance Messages
 void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
@@ -415,7 +488,7 @@ void param_output_none(void *z)
 
 
 // INC & DEC
-void param_inc(t_param *x)
+void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	if(x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
@@ -442,7 +515,7 @@ void param_inc(t_param *x)
 	}
 }
 
-void param_dec(t_param *x)
+void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
@@ -467,67 +540,6 @@ void param_dec(t_param *x)
 		else
 			error("%s parameter (in the %s module) is an inappropriate type for the 'dec' message.");
 	}
-}
-
-
-// ATTRIBUTE: TYPE
-// This is crucial because it sets function pointers for the optimized clipping, bang, and other functions
-t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
-{
-	t_symbol *arg = atom_getsym(argv);
-	x->common.attr_type = arg;
-
-	if(arg == ps_msg_int){
-		x->param_output = &param_output_int;
-	}
-	else if(arg == ps_msg_float){
-		x->param_output = &param_output_float;
-	}
-	else if(arg == ps_msg_symbol){
-		x->param_output = &param_output_symbol;
-	}
-	else if(arg == ps_msg_toggle){
-		x->param_output = &param_output_int;
-	}
-	else if(arg == ps_msg_generic){
-		x->param_output = &param_output_generic;
-	} 
-	else if(arg == ps_msg_list){
-		x->param_output = &param_output_list;
-	}
-#ifdef JMOD_MESSAGE
-	else if(arg == ps_msg_none){
-		x->param_output = &param_output_none;
-	}
-#endif // JMOD_MESSAGE
-	else{
-#ifdef JMOD_MESSAGE
-		error("Jamoma - invalid type specified for %s jcom.message in the %s module.", x->name->s_name, x->common.module_name->s_name);
-#else
-		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->name->s_name, x->common.module_name->s_name);
-#endif
-		x->common.attr_type = ps_msg_generic;
-		x->param_output = &param_output_generic;
-	}
-
-	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
-
-	return MAX_ERR_NONE;
-	#pragma unused(attr)
-}
-
-
-// ATTRIBUTE: RAMP
-// This is crucial because it sets function pointers
-t_max_err param_setramp(t_param *x, void *attr, long argc, t_atom *argv)
-{
-	t_symbol *arg = atom_getsym(argv);
-	x->attr_ramp = arg;
-	
-	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
-
-	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 
