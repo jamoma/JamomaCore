@@ -60,6 +60,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_ui_refresh,			"ui/refresh",	0L);
 	class_addmethod(c, (method)param_inc,					"inc",			0L);
 	class_addmethod(c, (method)param_dec,					"dec",			0L);
+	class_addmethod(c, (method)param_inc,					"+",			0L);
+	class_addmethod(c, (method)param_dec,					"-",			0L);
 	class_addmethod(c, (method)param_dump,					"dump",			0L);
 	class_addmethod(c, (method)param_bang,					"bang",			0L);
 	class_addmethod(c, (method)param_assist,				"assist",		A_CANT, 0L); 
