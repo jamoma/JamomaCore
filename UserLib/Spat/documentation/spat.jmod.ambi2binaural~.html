@@ -18,11 +18,11 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	</div>
 
 	<h3> Configuration </h3>
-	<p> Module Type: <code> audio </code> <br>
+	<p> Module Type: <code> audio.ambisonic </code> <br>
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
 	<p>Number of signal inlets: <code> 0 </ code> <br/>
-	Number of signal outlets: <code> 2 </code> </p>
+Number of signal outlets: <code> 0 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
@@ -33,15 +33,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> Ramp Enabled </td>
 			<td> Repetitions </td>
 			<td> Description </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/bypass </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> When active, this attribute bypasses the module's processing.mxtorithm, letting audio pass through unaffected. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/gain/midi </td>
@@ -60,15 +51,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> When active, this attribute turns off the signal level meters in the module to conserve CPU. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/mix </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Controls the wet/dry mix of the module's processing routine in percent. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/mute </td>
@@ -91,7 +73,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
@@ -113,6 +95,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> Description </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> /audio/meters/clear </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription">  </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> audio/gain </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -144.000000 18.000000 </td>
@@ -120,15 +111,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> linear </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Set gain as dB value. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/meters/clear </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
@@ -196,7 +178,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/recall </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -205,7 +187,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/store </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>

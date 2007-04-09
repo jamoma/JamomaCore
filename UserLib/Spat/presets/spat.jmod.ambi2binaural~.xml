@@ -7,6 +7,13 @@
   <preset number='1' name='default'>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='head' type='msg_symbol' priority='0'>KEMAR</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain/midi' type='msg_float' priority='0'>110.000000</item>
+  </preset>
+  <preset number='2' name='mute'>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='head' type='msg_symbol' priority='0'>KEMAR</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
     <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
