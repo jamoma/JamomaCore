@@ -491,8 +491,13 @@ void param_output_none(void *z)
 void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	float	stepmult = 1.0;
+	long	ramptime = 0;		// ms
+	t_atom	a[3];				// value, 'ramp', value
+	short	a_len = 1;
 	
+	// Check for Arguments...
 	if(argc){
+		// Look for arg to specify the number of steps to move
 		if(argv->a_type == A_FLOAT){
 			stepmult = argv->a_w.w_float;
 			argc--;
@@ -504,41 +509,62 @@ void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			argv++;
 		}
 		
+		// Look for args to specify a ramp time
 		if(argc){
-			;	// look for symbol "ramp" here
+			if(argv->a_type == A_SYM){
+				if(argv->a_w.w_sym == ps_ramp){
+					argc--;
+					argv++;
+					if(argc){
+						ramptime = atom_getlong(argv);
+						if(ramptime){
+							atom_setsym(a+1, ps_ramp);
+							atom_setlong(a+2, ramptime);
+							a_len = 3;
+						}
+					}
+				}
+			}
 		}
 	}
-	
+
 	if(x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
 	else{
 		if(x->rampfunction)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
-		if(x->common.attr_type == ps_msg_int){
-			x->attr_value.a_w.w_long += (x->attr_stepsize * stepmult);	// step up
-			param_output_int(x);										// output
-		}
-		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic)){
-			x->attr_value.a_w.w_float += (x->attr_stepsize * stepmult);
-			param_output_float(x);
-		}
+			
+		if(x->common.attr_type == ps_msg_int)
+			atom_setlong(a, x->attr_value.a_w.w_long + (x->attr_stepsize * stepmult));
+		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
+			atom_setfloat(a, x->attr_value.a_w.w_float + (x->attr_stepsize * stepmult));
 		else if(x->common.attr_type == ps_msg_toggle){
 			if(x->attr_value.a_w.w_long == 1)
 				x->attr_value.a_w.w_long = 0;
 			else
 				x->attr_value.a_w.w_long = 1;
 			param_output_int(x);
+			return;
 		}
-		else
+		else{
 			error("%s parameter (in the %s module) is an inappropriate type for the 'inc' message.");
+			return;
+		}
 	}
+	param_dispatched(x, msg, a_len, a);
 }
+
 
 void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	float	stepmult = 1.0;
+	long	ramptime = 0;		// ms
+	t_atom	a[3];				// value, 'ramp', value
+	short	a_len = 1;
 	
+	// Check for Arguments...
 	if(argc){
+		// Look for arg to specify the number of steps to move
 		if(argv->a_type == A_FLOAT){
 			stepmult = argv->a_w.w_float;
 			argc--;
@@ -550,34 +576,49 @@ void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			argv++;
 		}
 		
+		// Look for args to specify a ramp time
 		if(argc){
-			;	// look for symbol "ramp" here
+			if(argv->a_type == A_SYM){
+				if(argv->a_w.w_sym == ps_ramp){
+					argc--;
+					argv++;
+					if(argc){
+						ramptime = atom_getlong(argv);
+						if(ramptime){
+							atom_setsym(a+1, ps_ramp);
+							atom_setlong(a+2, ramptime);
+							a_len = 3;
+						}
+					}
+				}
+			}
 		}
 	}
-	
-	if (x->attr_slavemode)
+
+	if(x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
 	else{
-		if (x->rampfunction)
+		if(x->rampfunction)
 			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
-		if(x->common.attr_type == ps_msg_int){
-			x->attr_value.a_w.w_long -= (x->attr_stepsize * stepmult);	// step down		
-			param_output_int(x);								// output
-		}
-		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic)){
-			x->attr_value.a_w.w_float -= (x->attr_stepsize * stepmult);
-			param_output_float(x);
-		}
+			
+		if(x->common.attr_type == ps_msg_int)
+			atom_setlong(a, x->attr_value.a_w.w_long - (x->attr_stepsize * stepmult));
+		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
+			atom_setfloat(a, x->attr_value.a_w.w_float - (x->attr_stepsize * stepmult));
 		else if(x->common.attr_type == ps_msg_toggle){
 			if(x->attr_value.a_w.w_long == 1)
 				x->attr_value.a_w.w_long = 0;
 			else
 				x->attr_value.a_w.w_long = 1;
 			param_output_int(x);
+			return;
 		}
-		else
+		else{
 			error("%s parameter (in the %s module) is an inappropriate type for the 'dec' message.");
+			return;
+		}
 	}
+	param_dispatched(x, msg, a_len, a);
 }
 
 
