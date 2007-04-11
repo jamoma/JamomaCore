@@ -23,7 +23,7 @@
 #include "jcom.core.h"			// OBJECT_CLASS_NAME must defined before this
 
 // Ramp Unit interfaces
-#include "rampunit.h"
+#include "ext_ramplib.h"
 #include "ramplib.linear.max.h"
 #include "ramplib.linear.maxq.h"
 #include "ramplib.none.h"
