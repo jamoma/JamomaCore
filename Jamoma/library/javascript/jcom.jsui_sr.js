@@ -5,7 +5,7 @@
 
 
  inlets = 2
- autowatch = 1
+ //autowatch = 1
  sketch.default2d();
  
  var height = box.rect[3] - box.rect[1];
