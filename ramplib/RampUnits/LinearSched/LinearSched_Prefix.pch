@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'linear.sched' target in the 'linear.sched' project.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
+#include <Carbon/Carbon.h>

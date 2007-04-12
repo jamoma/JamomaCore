@@ -40,3 +40,6 @@ fi
 ./Compile_Object_Mac.command jcom.velocity "$config"
 ./Compile_Object_Mac.command jcom.xfade~ "$config"
 ./Compile_Object_Mac.command jcom.zerox~ "$config"
+
+./Compile_Object_Mac.command ../ramplib/RampUnits/LinearSched "$config"
+cd ../../../Externals
