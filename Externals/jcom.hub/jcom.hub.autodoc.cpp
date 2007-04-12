@@ -25,7 +25,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
 	long			myEof = 0;
 	char 			tempstring[1024];
-	t_subscriber	*subscriber = x->subscriber;	// the head of the linked list
+	subscriberList	*subscriber = x->subscriber;	// the head of the linked list
 	long			argc;
 	t_atom			a[2];
 	t_atom			*argv = &a[0];
@@ -128,17 +128,20 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	// Process each parameter
 	critical_enter(0);
 	subscriber = x->subscriber;
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_parameter){
+	subscriberIterator i;
+	t_subscriber* t;
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_parameter){
 			// name
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");	
-			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", subscriber->name->s_name);
+			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", t->name->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_type , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -146,7 +149,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object, ps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_range, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
 			if( (msg_type==ps_msg_int) || (msg_type==ps_msg_toggle) )
@@ -160,7 +163,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -168,7 +171,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// ramp
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object, ps_ramp, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_ramp, &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRamp\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -176,7 +179,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_repetitions , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -185,13 +188,12 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// description
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_description , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_description , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionDescription\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");
 		}
-		subscriber = subscriber->next;
 	}	
 	critical_exit(0);
 	
@@ -211,19 +213,19 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	table_heading(&file_handle, &myEof);
 		
 	// Process each message
-	subscriber = x->subscriber;
 	critical_enter(0);
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_message){
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_message){
 			// name
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");	
-			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", subscriber->name->s_name);
+			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", t->name->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_type , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -231,7 +233,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object, ps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_range, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
 			if( (msg_type==ps_msg_int) || (msg_type==ps_msg_toggle) )
@@ -245,7 +247,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -253,7 +255,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// ramp
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object, ps_ramp, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_ramp, &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRamp\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -261,7 +263,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_repetitions , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -270,13 +272,12 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// description
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_description , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_description , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionDescription\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");
 		}
-		subscriber = subscriber->next;
 	}
 	critical_exit(0);
 	
@@ -296,19 +297,19 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	table_heading(&file_handle, &myEof);
 		
 	// Process each return
-	subscriber = x->subscriber;
 	critical_enter(0);
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_return){
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_return){
 			// name
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");	
-			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", subscriber->name->s_name);
+			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", t->name->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_type , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -316,7 +317,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object, ps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_range, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
 			if( (msg_type==ps_msg_int) || (msg_type==ps_msg_toggle) )
@@ -330,7 +331,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -338,7 +339,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// ramp
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object, ps_ramp, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_ramp, &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRamp\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -346,7 +347,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_repetitions , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -355,13 +356,13 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// description
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(subscriber->object ,ps_description , &argc, &argv);
+			object_attr_getvalueof(t->object ,ps_description , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionDescription\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");
 		}
-		subscriber = subscriber->next;
+
 	}
 	critical_exit(0);
 	

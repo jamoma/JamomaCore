@@ -14,6 +14,7 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "jcom.core.h"
+#include "jcom.list.h"
 
 #define MAX_STRING_LEN 2048
 #define LISTSIZE 512
@@ -24,14 +25,15 @@ enum outlets{
 	k_num_outlets
 };
 
-/** Linked list of subscribers to jcom.hub */
+/** Data structure for storing information about objects subscribed to the hub. */
 typedef struct _subscriber{
 	void			*object;	///< the max object instance that represents this subscriber
 	t_symbol		*name;		///< name of the parameter/message/return/remote
 	t_symbol		*type;		///< examples: subscribe_parameter, subscribe_message, subscribe_in, subscribe_out, subscribe_remote, subscribe_return
-	_subscriber		*next;		///< next subscriber in the linked list
 } t_subscriber;
 
+typedef jcomList<t_subscriber*> subscriberList;
+typedef list<t_subscriber*>::iterator subscriberIterator;
 
 typedef struct _preset_item{
 	t_symbol		*param_name;
@@ -58,7 +60,7 @@ typedef struct _hub{							///< Data Structure for this object
 	void			*obex;						///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void			*outlets[k_num_outlets];	///< outlet array
 	t_patcher		*container;					///< the owning patcher
-	t_subscriber	*subscriber;				///< top of the linked list of parameters
+	subscriberList	*subscriber;		///< top of the linked list of parameters
 	t_preset		*preset;					///< top of the linked list of presets
 	long			num_parameters;				///< count used for working with presets
 	void			*init_qelem;				///< qelem used for initialization messages

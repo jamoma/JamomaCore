@@ -101,7 +101,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	t_preset		*prev_preset = NULL;
 	t_preset_item	*item = NULL;
 	t_preset_item	*next_item = NULL;
-	t_subscriber	*subscriber = NULL;		// used for traversing parameters to get their names and values
+	subscriberList	*subscriber;		// used for traversing parameters to get their names and values
 	t_atom			*av;					// used for return values from attribute queries
 	long			ac;						// ...
 	
@@ -150,28 +150,30 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 
 	// Allocate the items for this preset (by traversing all parameters)
 	subscriber = x->subscriber;
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_parameter){
+	subscriberIterator i;
+	t_subscriber* t;
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_parameter){
 			item = (t_preset_item *)sysmem_newptr(sizeof(t_preset_item));
-			item->param_name = subscriber->name;
+			item->param_name = t->name;
 
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(subscriber->object, ps_type, &ac, &av);		// get
+			object_attr_getvalueof(t->object, ps_type, &ac, &av);		// get
 			item->type = atom_getsym(av);										// copy
 
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(subscriber->object, ps_priority, &ac, &av);	// get
+			object_attr_getvalueof(t->object, ps_priority, &ac, &av);	// get
 			item->priority = atom_getlong(av);									// copy
 			
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(subscriber->object, ps_value, &ac, &av);		// get
+			object_attr_getvalueof(t->object, ps_value, &ac, &av);		// get
 			sysmem_copyptr(av, &item->value_list[0], sizeof(t_atom) * ac);
 			item->list_size = ac;
 
 			item->next = preset->item;
 			preset->item = item;
 		}
-		subscriber = subscriber->next;
 	}
 	preset->next = x->preset;
 	x->preset = preset;

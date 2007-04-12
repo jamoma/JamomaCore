@@ -8,10 +8,19 @@
  */
 
 #include "jcom.hub.h"
+#include <functional>
 #define value value_list[0]
 
 // Globals
 t_class		*hub_class;				// Required: Global pointer for our class
+
+/** A function object for determining if one t_subscriber object should follow another t_subscriber.
+ * This is determined by the alphabetical ordering of the names of the two t_subscribers.
+ */
+struct _subIsLess : binary_function<t_subscriber*, t_subscriber*, bool> {
+	bool operator()(const t_subscriber* p, const t_subscriber* q)
+		{	return jcom_core_string_compare(p->name->s_name, q->name->s_name); }
+} subscriberIsLess;
 
 
 /************************************************************************************/
@@ -165,7 +174,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->preview_object = NULL;
 		
 		x->preset = NULL;							// begin with no presets
-		x->subscriber = NULL;						// ... and no subscribers
+		x->subscriber = new jcomList<t_subscriber*>;						// ... and no subscribers
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
@@ -290,16 +299,17 @@ void hub_examine_context(t_hub *x)
 
 void hub_free(t_hub *x)
 {
-	t_subscriber 	*next;
+	subscriberIterator i;
+	subscriberList *subscriber = x->subscriber;
 
 	critical_enter(0);
-	while(x->subscriber != NULL){
-		object_method(x->subscriber->object, ps_release);	// notify the subscriber that the hub is going away
-		next = x->subscriber->next;
-		sysmem_freeptr(x->subscriber);
-		x->subscriber = next;
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		// notify the subscriber that the hub is going away
+		object_method((*i)->object, ps_release);
+		sysmem_freeptr(*i);
 	}
 	critical_exit(0);	
+
  	hub_presets_clear(x);
 	qelem_free(x->init_qelem);
 	if(x->jcom_send)
@@ -308,6 +318,7 @@ void hub_free(t_hub *x)
 		object_free(x->jcom_receive);
 	if(x->jcom_send_broadcast)
 		object_free(x->jcom_send_broadcast);
+	delete x->subscriber;
 }
 
 
@@ -318,11 +329,6 @@ void hub_free(t_hub *x)
 t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_symbol *type)
 {
 	t_subscriber	*new_subscriber;
-	t_subscriber	*item_prev = NULL;
-	t_subscriber 	*item = x->subscriber;
-	char 			namestring[255];
-	char			nametocompare[255];
-	int				i;
 	
 	if(subscriber_object == NULL){
 		error("Null object cannot subscribe to jcom.hub");
@@ -335,31 +341,10 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 	new_subscriber->name = name;
 	new_subscriber->type = type;
 
-	// Search the existing item names so we can insert this alphabetically
-	strcpy(namestring, name->s_name);
-
 	critical_enter(0);
-	while(item){
-		strcpy(nametocompare, item->name->s_name);
-		if(jcom_core_string_compare(namestring, nametocompare)){
-			break;
-		}
-		item_prev = item;
-		item = item->next;
-	}
+	// Merge new subscriber into subscriber list sorted alphabetically
+	x->subscriber->merge(new_subscriber, subscriberIsLess);
 
-	if(item_prev != 0)	// this the first item we've added to our list
-		item_prev->next = new_subscriber;
-	new_subscriber->next = item;
-
-	if(x->subscriber != NULL){
-		strcpy(nametocompare, x->subscriber->name->s_name);
-		if(jcom_core_string_compare(namestring, nametocompare))
-			x->subscriber = new_subscriber;
-	}
-	else
-		x->subscriber = new_subscriber;
-	
 	// special cases and other caching
 	if(new_subscriber->type == ps_subscribe_in){
 		x->in_object = subscriber_object;
@@ -374,7 +359,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 			object_method(x->in_object, ps_link_out, x->out_object);
 			object_method(x->out_object, ps_link_in, x->in_object);
 		}
-		for(i=0; i<16; i++)
+		for(int i=0; i<16; i++)
 			object_method(x->out_object, ps_register_meter, i, x->meter_object[i]);
 		object_method(x->out_object, ps_register_preview, x->preview_object);
 	}
@@ -407,46 +392,41 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 
 void hub_unsubscribe(t_hub *x, void *subscriber_object)
 {
-	t_subscriber	*subscriber = x->subscriber,
-					*prev_subscriber = NULL;
-	short			i;
-	char			temp[32];
+	subscriberList	*subscribers = x->subscriber;
+	subscriberIterator item; 
 	
 	// Search the linked list for this object and remove it
+	t_subscriber* t;
 	critical_enter(0);
-	while(subscriber){
-		if(subscriber->object == subscriber_object){
-			if(prev_subscriber != NULL)
-				prev_subscriber->next = subscriber->next;
-			else
-				x->subscriber = subscriber->next;
-			
-			if(subscriber->type == ps_subscribe_parameter)
+	for(item = subscribers->begin(); item != subscribers->end(); ++item) {
+		t = *item;
+		
+		if(t->object == subscriber_object) {
+			if(t->type == ps_subscribe_parameter)
 				x->num_parameters--;
-			else if(subscriber->type == ps_subscribe_in){
+			else if(t->type == ps_subscribe_in){
 				if(x->out_object)
 					object_method(x->out_object, ps_unlink_out);
 			}
-			else if(subscriber->type == ps_subscribe_out){
+			else if(t->type == ps_subscribe_out){
 				if(x->in_object)
 					object_method(x->in_object, ps_unlink_in);
 			}
-			else if(subscriber->type == ps_subscribe_remote){
-				for(i=0; i<16; i++){
-					sprintf(temp, "__meter__%i", i);
-					if(subscriber->name == gensym(temp)){
+			else if(t->type == ps_subscribe_remote){
+				char temp[32];
+				for(short i=0; i<16; i++) {
+					snprintf(temp, 32, "__meter__%i", i);
+					if(t->name == gensym(temp)) {
 						if(x->out_object)
 							object_method(x->out_object, gensym("remove_meters"));
 					}
 				}
 			}
-			
-			sysmem_freeptr(subscriber);
-			break;
+			item = subscribers->erase(item);
+			sysmem_freeptr(t);
 		}
-		prev_subscriber = subscriber;
-		subscriber = subscriber->next;
 	}
+
 	critical_exit(0);
 }
 
@@ -591,15 +571,16 @@ t_symbol *hub_algorithmtype_get(t_hub *x)
 
 void hub_init(t_hub *x)
 {
-	t_subscriber	*subscriber = x->subscriber;
-	
+	subscriberList	*subscriber = x->subscriber;
+	subscriberIterator i;
+		
 	// Search the linked list for jcom.init objects and 'bang' them
 	critical_enter(0);
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_init)
-			object_method(subscriber->object, ps_go);
-		subscriber = subscriber->next;
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		if((*i)->type == ps_subscribe_init)
+			object_method((*i)->object, ps_go);
 	}
+	
 	critical_exit(0);
 	defer_low(x, (method)hub_preset_default, 0, 0, 0L);
 }
@@ -616,7 +597,7 @@ void hub_qfn_init(t_hub *x)
 // send info to gui constructor
 void hub_gui_build(t_hub *x)
 {
-	t_subscriber 	*subscriber = x->subscriber;
+	subscriberList 	*subscriber = x->subscriber;
 
 	if(x->gui_object != NULL){
 		t_atom a[3];
@@ -657,15 +638,17 @@ void hub_gui_build(t_hub *x)
 			atom_setsym(&a[1], x->attr_name);
 			object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
 		}
-
+		
+		subscriberIterator i;
+		t_subscriber* t;
 		critical_enter(0);
-		while(subscriber != NULL){
-			if((subscriber->type == ps_subscribe_message) || subscriber->type == ps_subscribe_parameter){
+		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if((t->type == ps_subscribe_message) || t->type == ps_subscribe_parameter){
 				atom_setsym(&a[0], ps_PARAMETER);
-				atom_setsym(&a[1], subscriber->name);
+				atom_setsym(&a[1], t->name);
 				object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
 			}
-			subscriber = subscriber->next;
 		}
 		critical_exit(0);
 
@@ -699,17 +682,19 @@ void hub_assist(t_hub *x, void *b, long msg, long arg, char *dst)
 // Return a list of parameters and message for this module
 void hub_paramnames_get(t_hub *x)
 {
-	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
+	subscriberList	*subscriber = x->subscriber;	// head of the linked list
 	t_atom			a;
 	
 	hub_outlet_return(x, ps_parameter_names_start, 0, NULL);
 	
+	subscriberIterator i;
+	t_subscriber* t;
 	critical_enter(0);
-	while(subscriber){
-		atom_setsym(&a, subscriber->name);
-		if(subscriber->type == ps_subscribe_parameter)
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		atom_setsym(&a, t->name);
+		if(t->type == ps_subscribe_parameter)
 			hub_outlet_return(x, ps_parameter_name, 1, &a);
-		subscriber = subscriber->next;
 	}
 	critical_exit(0);
 	hub_outlet_return(x, ps_parameter_names_end, 0, NULL);
@@ -719,23 +704,26 @@ void hub_paramnames_get(t_hub *x)
 // Return a list of parameters and message for this module
 void hub_paramvalues_get(t_hub *x)
 {
-	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
+	subscriberList	*subscriber = x->subscriber;	// head of the linked list
 	t_atom			*av;
 	long			ac;
 	char			osc[512];
 	
 	hub_outlet_return(x, ps_parameter_values_start, 0, NULL);
 	
+	subscriberIterator i;
+	t_subscriber* t;
 	critical_enter(0);
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_parameter){
-			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(subscriber->object, ps_value, &ac, &av);		// get	
-			sprintf(osc, "%s/%s", ps_parameter_value->s_name, subscriber->name->s_name);
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_parameter){
+			ac = NULL; av = NULL;										// init
+			object_attr_getvalueof(t->object, ps_value, &ac, &av);		// get	
+			sprintf(osc, "%s/%s", ps_parameter_value->s_name, t->name->s_name);
 			hub_outlet_return(x, gensym(osc), ac, av);
 		}
-		subscriber = subscriber->next;
 	}
+		
 	critical_exit(0);
 	hub_outlet_return(x, ps_parameter_values_end, 0, NULL);
 }
@@ -743,17 +731,19 @@ void hub_paramvalues_get(t_hub *x)
 
 void hub_messagenames_get(t_hub *x)
 {
-	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
+	subscriberList	*subscriber = x->subscriber;	// linked list of subscribers
 	t_atom			a;
 	
 	hub_outlet_return(x, ps_message_names_start, 0, NULL);
 	
+	subscriberIterator i;
+	t_subscriber* t;
 	critical_enter(0);
-	while(subscriber){
-		atom_setsym(&a, subscriber->name);
-		if(subscriber->type == ps_subscribe_message)
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		atom_setsym(&a, t->name);
+		if(t->type == ps_subscribe_message)
 			hub_outlet_return(x, ps_message_name, 1, &a);
-		subscriber = subscriber->next;
 	}
 	critical_exit(0);
 	hub_outlet_return(x, ps_message_names_end, 0, NULL);
@@ -762,17 +752,19 @@ void hub_messagenames_get(t_hub *x)
 
 void hub_returnnames_get(t_hub *x)
 {
-	t_subscriber	*subscriber = x->subscriber;	// head of the linked list
+	subscriberList	*subscriber = x->subscriber;	// head of the linked list
 	t_atom			a;
 	
 	hub_outlet_return(x, ps_return_names_start, 0, NULL);
 	
+	subscriberIterator i;
+	t_subscriber* t;
 	critical_enter(0);
-	while(subscriber){
-		atom_setsym(&a, subscriber->name);
-		if(subscriber->type == ps_subscribe_return)
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		atom_setsym(&a, t->name);
+		if(t->type == ps_subscribe_return)
 			hub_outlet_return(x, ps_message_return, 1, &a);
-		subscriber = subscriber->next;
 	}
 	critical_exit(0);
 	hub_outlet_return(x, ps_return_names_end, 0, NULL);
@@ -791,7 +783,7 @@ void hub_allnames_get(t_hub *x)
 void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	bool			found = false;
-	t_subscriber	*subscriber = x->subscriber;
+	subscriberList	*subscriber = x->subscriber;
 	char			input[MAX_STRING_LEN];	// our input string
 	char			*input2 = input;		// pointer to our input string
 	char			*split;
@@ -810,39 +802,43 @@ void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
 	}
 	name = gensym(input2);
 
+	subscriberIterator i;
+	t_subscriber* t;
 	critical_enter(0);
-
 	if(name == ps_star){			// wildcard
-		while(subscriber){
-			if(subscriber->type == ps_subscribe_parameter 
-			|| subscriber->type == ps_subscribe_message 
-			|| subscriber->type == ps_subscribe_return){
+		t_symbol* type;
+		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i; type = t->type;
+			if(type == ps_subscribe_parameter 
+			  || type == ps_subscribe_message 
+			  || type == ps_subscribe_return){
 				if(osc == NULL){
-					object_method_typed(subscriber->object, ps_dispatched, argc, argv, NULL);
+					object_method_typed(t->object, ps_dispatched, argc, argv, NULL);
 				}
 				else{
-					object_method_typed(subscriber->object, osc, argc, argv, NULL);
+					object_method_typed(t->object, osc, argc, argv, NULL);
 				}
 			}
-			subscriber = subscriber->next;
 		}
 	}
 	else{
+		
 		// search the linked list of params to find the right one
-		while((subscriber != NULL) && (found == false)){
-			if(subscriber->name == name){
-				found = true;	// we found it!
+		for(i = subscriber->begin(); (i != subscriber->end()) && (found == false); ++i) {
+			t = *i; 
+			if(t->name == name) {
+				found = true;
 				break;
 			}
-			subscriber = subscriber->next;
 		}
+
 		// dispatch to the correct jcom.param object
 		if(found == true){
 			if(osc == NULL){
-				object_method_typed(subscriber->object, ps_dispatched, argc, argv, NULL);
+				object_method_typed(t->object, ps_dispatched, argc, argv, NULL);
 			}
 			else
-				object_method_typed(subscriber->object, osc, argc, argv, NULL);
+				object_method_typed(t->object, osc, argc, argv, NULL);
 		}
 		else{
 			// if we got here through the use a remote message to modules named by a wildcard
@@ -866,7 +862,7 @@ void hub_module_view_alg(t_hub *x)
 // FREEZE UI for all parameters
 void hub_ui_freeze(t_hub *x, long val)
 {
-	t_subscriber *subscriber = x->subscriber;	// head of the linked list
+	subscriberList *subscriber = x->subscriber;	// head of the linked list
 	t_atom a;
 
 	atom_setlong(&a, val);	
@@ -875,11 +871,13 @@ void hub_ui_freeze(t_hub *x, long val)
 	hub_symbol(x, ps_ui_slash_freeze, 1, &a);
 	
 	// Change freeze status for all messages and parameters	
+	subscriberIterator i;
+	t_subscriber* t;
 	critical_enter(0);
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_parameter)
-			object_method_typed(subscriber->object, ps_ui_slash_freeze, 1, &a, NULL);
-		subscriber = subscriber->next;
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_parameter)
+			object_method_typed(t->object, ps_ui_slash_freeze, 1, &a, NULL);
 	}
 	critical_exit(0);
 }
@@ -888,13 +886,15 @@ void hub_ui_freeze(t_hub *x, long val)
 // REFRESH UI for all parameters
 void hub_ui_refresh(t_hub *x)
 {
-	t_subscriber *subscriber = x->subscriber;	// head of the linked list
+	subscriberList *subscriber = x->subscriber;	// head of the linked list
 	
+	subscriberIterator i;
+	t_subscriber* t;
 	critical_enter(0);
-	while(subscriber){
-		if(subscriber->type == ps_subscribe_parameter)
-			object_method_typed(subscriber->object, ps_ui_slash_refresh, 0, 0L, NULL);
-		subscriber = subscriber->next;
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_parameter)
+			object_method_typed(t->object, ps_ui_slash_refresh, 0, 0L, NULL);
 	}
 	critical_exit(0);
 }
