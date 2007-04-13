@@ -16,8 +16,11 @@ using namespace std;
 template<class T> 
 class jcomList {
 public:
+	
 	jcomList() { };
 	~jcomList() { };
+	
+	typedef typename list<T>::iterator jcomListIterator;
 
 	/** Put an item at the front of the list
 	 * @param x the item to add to the list
@@ -35,7 +38,7 @@ public:
 	*/
 	void remove(const T& x)
 	{
-		typename list<T>::iterator i = find(ll.begin(), ll.end(), x);
+		jcomListIterator i = find(ll.begin(), ll.end(), x);
 		if(i != ll.end())
 			ll.erase(i);
 	}
@@ -44,10 +47,15 @@ public:
 	{
 		return find(ll.begin(), ll.end(), x) != ll.end();
 	}
+	template<typename Predicate>
+	jcomListIterator find_if(jcomListIterator first, jcomListIterator last, Predicate pred)
+	{
+		return find_if(first, last, pred);
+	}
 	
 	T& element(const T& x) 
 	{
-		typename list<T>::iterator i = find(ll.begin(), ll.end(), x);
+		jcomListIterator i = find(ll.begin(), ll.end(), x);
 		return *i;
 	}
 	
@@ -71,11 +79,11 @@ public:
 	 * @param position the position of the list item to remove
 	 * @return an updated iterator pointing to the position that followed the removed item
 	 */
-	typename list<T>::iterator erase(typename list<T>::iterator position) { return ll.erase(position); }
+	jcomListIterator erase(jcomListIterator position) { return ll.erase(position); }
 	/** @return an iterator to the front of the list */
-	typename list<T>::iterator begin() { return ll.begin(); }
+	jcomListIterator begin() { return ll.begin(); }
 	/** @return an iterator to one past the end of the list */
-	typename list<T>::iterator end() { return ll.end(); }
+	jcomListIterator end() { return ll.end(); }
 	
 private:
 	list<T> ll;
