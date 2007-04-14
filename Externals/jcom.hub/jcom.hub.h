@@ -52,6 +52,9 @@ typedef struct _preset{
 	_preset			*next;
 } t_preset;
 
+typedef jcomList<t_preset*> presetList;
+typedef list<t_preset*>::iterator presetListIterator;
+
 /** The Hub. jcom.hub performs a large part of the automagic part of Jamoma.  This includes
  * things such as saving and recalling presets, resizing modules to one of the standard sizes
  * forwarding of control messages to jcom.in and so on.  */
@@ -61,7 +64,7 @@ typedef struct _hub{							///< Data Structure for this object
 	void			*outlets[k_num_outlets];	///< outlet array
 	t_patcher		*container;					///< the owning patcher
 	subscriberList	*subscriber;		///< top of the linked list of parameters
-	t_preset		*preset;					///< top of the linked list of presets
+	presetList		*preset;					///< top of the linked list of presets
 	long			num_parameters;				///< count used for working with presets
 	void			*init_qelem;				///< qelem used for initialization messages
 	void			*in_object;					///< cache the jcom.in object directly for quick access
