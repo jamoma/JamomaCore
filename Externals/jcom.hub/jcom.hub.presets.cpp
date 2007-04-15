@@ -66,9 +66,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 	if(!found){
 		if(x->attr_name != gensym("/editing_this_module"))
 			error("jcom.hub (%s module): preset.recall - invalid preset specified", x->attr_name->s_name);
-		/* XXX We went critical above, if the preset isn't found shouldn't we call critical_exit() before
-		 * we return from this function?
-		 */
+		critical_exit(0);
 		return;
 	}
 	
