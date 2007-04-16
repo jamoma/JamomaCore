@@ -173,8 +173,8 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 			x->meter_object[i] = NULL;
 		x->preview_object = NULL;
 		
-		x->preset = new jcomList<t_preset*>;							// begin with no presets
-		x->subscriber = new jcomList<t_subscriber*>;						// ... and no subscribers
+		x->preset = new presetList;							// begin with no presets
+		x->subscriber = new subscriberList;						// ... and no subscribers
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
