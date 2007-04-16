@@ -24,10 +24,18 @@ struct _byNum : binary_function<t_preset*, long, bool> {
 		{	return p->number == q; }
 } presetByNumber;
 
+/** A function object for determining if one t_preset object should follow another t_preset.
+ * This is determined by the preset number.
+ */
+struct _presetIsLess : binary_function<t_preset*, t_preset*, bool> {
+	bool operator()(const t_preset* p, const t_preset* q)
+		{	return p->number < q->number; }
+} presetIsLess;
+
 void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// number or name
 {
 	presetList		*preset = x->preset;
-	t_preset_item	*item = NULL;
+	presetItemList	*item;
 	bool			found = false;
 	short			num_items_with_priority = 0;
 	short			num_items_recalled = 0;
@@ -71,39 +79,39 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 	}
 	
 	// Now take our preset items and send them out!
-	t_preset* p = *pIter;
-	item = p->item;
-	while(item){
-		if(item->priority)
+	item = (*pIter)->item;
+	presetItemListIterator itemIterator;
+	for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+		if((*itemIterator)->priority)
 			num_items_with_priority++;
-		item = item->next;
 	}
-	
+
+	t_preset_item *presetItem;
 	if(num_items_with_priority > 0){
 		i=1;
 		while(num_items_with_priority > num_items_recalled){
-			item = p->item;
-			while(item){
-				if(item->priority == i){
-					hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
+			for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+				presetItem = *itemIterator;
+				if(presetItem->priority == i) {
+					hub_symbol(x, presetItem->param_name, presetItem->list_size,
+						&(presetItem->value_list[0]));
 					num_items_recalled++;
 				}
-				item = item->next;
 			}
 			i++;
 		}
-		item = p->item;
-		while(item){
-			if(item->priority == 0)
-				hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
-			item = item->next;
+		// Recall items with priority 0 now
+		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+			presetItem = *itemIterator;
+			if(presetItem->priority == 0)
+				hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
 		}		
 	}
 	else{
-		item = p->item;
-		while(item){
-			hub_symbol(x, item->param_name, item->list_size, &item->value_list[0]);
-			item = item->next;
+		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+			presetItem = *itemIterator;
+			if(presetItem->priority == 0)
+				hub_symbol(x, presetItem->param_name, presetItem->list_size, &(presetItem->value_list[0]));
 		}
 	}
 	critical_exit(0);
@@ -115,8 +123,8 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	long			preset_num = 0;
 	t_symbol		*preset_name = NULL;
 	presetList		*preset = x->preset;
-	t_preset_item	*item = NULL;
-	t_preset_item	*next_item = NULL;
+	presetItemList	*item;
+	t_preset_item	*newItem = NULL;
 	subscriberList	*subscriber;		// used for traversing parameters to get their names and values
 	t_atom			*av;					// used for return values from attribute queries
 	long			ac;						// ...
@@ -139,6 +147,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	// Search the linked list for this preset (if it already exists) and remove it
 	//	also remove any items that are members of the preset
 	presetListIterator pIter;
+	presetItemListIterator itemIterator;
 	t_preset* p;
 	/*
 	pIter = preset->begin();
@@ -149,11 +158,14 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
 		p = *pIter;
 		if(p->number == preset_num) {
-			while(p->item != NULL){
-				next_item = p->item->next;
-				sysmem_freeptr(p->item);
-				p->item = next_item;
-			}		
+			item = p->item;
+			// Free the parameters this preset contains
+			for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+				sysmem_freeptr(*itemIterator);
+				itemIterator = item->erase(itemIterator);
+			}
+			delete item;
+			// Free the preset itself
 			sysmem_freeptr(p);
 			// Remove from linked list
 			pIter = preset->erase(pIter);
@@ -165,7 +177,8 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	p = (t_preset *)sysmem_newptr(sizeof(t_preset));
 	p->number = preset_num;
 	p->name = preset_name;
-	p->item = NULL;			// start with no items in the preset
+	/* XXX Probably also need to delete this in hub_free() when deleting a preset */
+	p->item = new presetItemList;			// start with no items in the preset
 
 	// Allocate the items for this preset (by traversing all parameters)
 	subscriber = x->subscriber;
@@ -174,27 +187,26 @@ void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// num
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if(t->type == ps_subscribe_parameter){
-			item = (t_preset_item *)sysmem_newptr(sizeof(t_preset_item));
-			item->param_name = t->name;
+			newItem = (t_preset_item *)sysmem_newptr(sizeof(t_preset_item));
+			newItem->param_name = t->name;
 
 			ac = NULL; av = NULL;												// init
 			object_attr_getvalueof(t->object, ps_type, &ac, &av);		// get
-			item->type = atom_getsym(av);										// copy
+			newItem->type = atom_getsym(av);										// copy
 
 			ac = NULL; av = NULL;												// init
 			object_attr_getvalueof(t->object, ps_priority, &ac, &av);	// get
-			item->priority = atom_getlong(av);									// copy
+			newItem->priority = atom_getlong(av);									// copy
 			
 			ac = NULL; av = NULL;												// init
 			object_attr_getvalueof(t->object, ps_value, &ac, &av);		// get
-			sysmem_copyptr(av, &item->value_list[0], sizeof(t_atom) * ac);
-			item->list_size = ac;
-
-			item->next = p->item;
-			p->item = item;
+			sysmem_copyptr(av, &newItem->value_list[0], sizeof(t_atom) * ac);
+			newItem->list_size = ac;
+			
+			p->item->push_back(newItem);
 		}
 	}
-	preset->push_back(p);
+	preset->merge(p, presetIsLess);
 	critical_exit(0);	
 	hub_preset_buildmenu(x);
 }
@@ -327,7 +339,7 @@ void hub_preset_parse(t_hub *x, char *path)
 					name = xmlTextReaderGetAttribute(reader, (xmlChar *)"name");
 					//preset->name = gensym((char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"name"));
 					preset->name = gensym((char *)name);
-					preset->item = NULL;			// start with no items in the preset
+					preset->item = new presetItemList;	
 	
 					xmlFree((void *)number);
 					number = NULL;
@@ -336,7 +348,8 @@ void hub_preset_parse(t_hub *x, char *path)
 				}
 				else if(xmlTextReaderNodeType(reader) == 15){ 		// element close
 					//post("PRESET CLOSING: %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"number"));
-					presetLL->push_front(preset);
+					//presetLL->push_front(preset);
+					presetLL->merge(preset, presetIsLess);
 				}
 			}
 
@@ -362,10 +375,11 @@ void hub_preset_parse(t_hub *x, char *path)
 					xmlFree((void *)type);
 					type = NULL;
 					/* XXX should we also be calling xmlFree(reader, (xmlChar*)"priority") right here? */
+					xmlFree((void*)priority); 
+					priority = NULL;
 				}
 				else if(xmlTextReaderNodeType(reader) == 15){ 		// element close
-					item->next = preset->item;
-					preset->item = item;
+					preset->item->push_back(item);
 					item_opened = false;
 				}
 			}
@@ -509,7 +523,8 @@ out:
 void hub_presets_clear(t_hub *x)
 {
 	presetList		*next_preset = x->preset;
-	t_preset_item	*next_item;
+	presetItemList	*next_item;
+	presetItemListIterator itemIterator;
 
 	presetListIterator i;
 	t_preset* p;
@@ -521,12 +536,16 @@ void hub_presets_clear(t_hub *x)
 	critical_enter(0);	
 	for(i = next_preset->begin(); 	i != next_preset->end(); ++i) {
 		p = *i;
-		while(p->item != NULL){
-			next_item = p->item->next;
-			sysmem_freeptr(p->item);
-			p->item = next_item;
-		}		
+		next_item = p->item;
+		for(itemIterator = next_item->begin(); itemIterator != next_item->end(); ++itemIterator) {
+			// Free the preset item
+			sysmem_freeptr(*itemIterator);
+			// Remove preset item from the item list for this preset
+			itemIterator = next_item->erase(itemIterator);
+		}
+		delete next_item;
 		sysmem_freeptr(p);
+		i = next_preset->erase(i);
 	}
 	critical_exit(0);
 }
@@ -536,27 +555,33 @@ void hub_presets_clear(t_hub *x)
 void hub_presets_dump(t_hub *x)
 {
 	presetList		*preset = x->preset;
-	t_preset_item	*item;
+	presetItemList	*item;
 
 	post("");
 	post("PRESET DUMP");
 	post("");
 	
 	presetListIterator i;
+	presetItemListIterator itemIterator;
 	t_preset *p;
+	t_preset_item *presetItem;
 	critical_enter(0);
 	for(i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
 		post("  PRESET %i: %s", p->number, p->name->s_name);
 		item = p->item;
-		while(item != NULL){
-			if((item->type == ps_msg_int) || (item->type == ps_msg_toggle))
-				post("    %s (type %s, priority %i): %ld", item->param_name->s_name, item->type->s_name, item->priority, atom_getlong(&item->value));
-			else if(item->type == ps_msg_symbol)
-				post("    %s (type %s, priority %i): %s", item->param_name->s_name, item->type->s_name, item->priority, atom_getsym(&item->value)->s_name);
+		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+			presetItem = *itemIterator;
+			if((presetItem->type == ps_msg_int) || (presetItem->type == ps_msg_toggle))
+				post("    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
+				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
+			else if(presetItem->type == ps_msg_symbol)
+				post("    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
+				 	presetItem->type->s_name, presetItem->priority, 
+					atom_getsym(&(presetItem->value))->s_name);
 			else
-				post("    %s (type %s, priority %i): %f", item->param_name->s_name, item->type->s_name, item->priority, atom_getfloat(&item->value));
-			item = item->next;
+				post("    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
+					presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
 		}		
 	}
 	critical_exit(0);
@@ -583,8 +608,8 @@ void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
 	len = err = 0;
 	
 	// write name and type
-	snprintf(tempstring, sizeof(tempstring), "    <item name='%s' type='%s' priority='%ld'>", item->param_name->s_name, 
-		 item->type->s_name, item->priority);
+	snprintf(tempstring, sizeof(tempstring), "    <item name='%s' type='%s' priority='%ld'>",
+		item->param_name->s_name, item->type->s_name, item->priority);
 	len = strlen(tempstring);
 	sysfile_write(*fh, &len, tempstring);
 	*eof += len;
@@ -624,7 +649,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	long			myEof = 0;
 	char 			tempstring[1024];
 	presetList		*preset = x->preset;		// the head of the linked list
-	t_preset_item	*item = NULL;				// for accessing items of the preset
+	presetItemList	*item = NULL;				// for accessing items of the preset
 	t_symbol		*result;
 
 	// SPECIFY THE FILE WE WANT TO WRITE
@@ -657,9 +682,11 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 
 	// Process each preset
 	presetListIterator i;
+	presetItemListIterator itemIterator;
 	t_preset* p;
-	critical_enter(0);
+	t_preset_item *presetItem;
 	preset = x->preset;	// head of the list of presets
+	critical_enter(0);
 	for(i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
 		sprintf(tempstring, "  <preset number='%ld' name='%s'>", p->number, p->name->s_name);
@@ -667,23 +694,29 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 
 		// Process each item in the preset
 		item = p->item;
-		while(item) {
-			if(item->list_size > 1) {
-				writeList(&file_handle, &myEof, item);				
+		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
+			presetItem = *itemIterator;
+			if(presetItem->list_size > 1) {
+				writeList(&file_handle, &myEof, presetItem);				
 			} else {
-				if(item->value.a_type == A_SYM){
-					result = atom_getsym(&item->value);
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%s</item>", item->param_name->s_name, item->type->s_name, item->priority, result->s_name);
+				if(presetItem->value.a_type == A_SYM){
+					result = atom_getsym(&(presetItem->value));
+					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%s</item>",
+					 	presetItem->param_name->s_name, presetItem->type->s_name, 
+						presetItem->priority, result->s_name);
 				}
-				else if(item->value.a_type == A_FLOAT)
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%f</item>", item->param_name->s_name, item->type->s_name, item->priority, atom_getfloat(&item->value));
-				else if(item->value.a_type == A_LONG)
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%ld</item>", item->param_name->s_name, item->type->s_name, item->priority, atom_getlong(&item->value));
+				else if(presetItem->value.a_type == A_FLOAT)
+					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%f</item>",
+					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
+						atom_getfloat(&(presetItem->value)));
+				else if(presetItem->value.a_type == A_LONG)
+					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%ld</item>",
+					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
+						atom_getlong(&(presetItem->value)));
 				
 				jcom_core_file_writeline(&file_handle, &myEof, tempstring);
-				item = item->next;
 			}
-		}	
+		}
 		
 		jcom_core_file_writeline(&file_handle, &myEof, "  </preset>");
 	}
