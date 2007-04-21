@@ -182,7 +182,7 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 		outlet_new((t_object *)x, "signal");					// Create signal outlet
 		outlet_new((t_object *)x, "signal");					// Create signal outlet	
 
-		tt_audio_base::set_global_sr((int)sys_getsr());	// Set Tap.Tools global SR...
+		tt_audio_base::set_global_sr((int)sys_getsr());			// Set Tap.Tools global SR...
 		tt_audio_base::set_global_vectorsize(sys_getblksize());	// Set Tap.Tools global vector size...
 
 		x->limiter = new tt_limiter;							// Tap.Tools Blue Objects
@@ -200,9 +200,10 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 	    x->attr_preamp = 1.;
 	    x->attr_postamp = 1.;
 	    x->attr_bypass = 0;
+		x->attr_mute = 0;
 	    x->attr_bypass_dcblocker = 0;
 
-		attr_args_process(x,argc,argv);					//handle attribute args					
+		attr_args_process(x,argc,argv);				//handle attribute args					
 	}
 	return (x);									// Return the pointer
 }
