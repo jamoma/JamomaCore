@@ -157,9 +157,10 @@ void *saturation_new(t_symbol *s, long argc, t_atom *argv)
 			x->signal_out[i] = new tt_audio_signal;
 
 		x->attr_overdrive = 1.;									// Defaults
-	    x->attr_bypass = 0;
 		x->attr_bypass_dcblocker = 0;
+	    x->attr_bypass = 0;
 		x->attr_mode = 1;
+		x->attr_mute = 0;
 		x->overdrive->set_attr(tt_overdrive::k_mode, 1);
 		x->attr_preamp_db = 0;
 
