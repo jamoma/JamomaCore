@@ -80,6 +80,10 @@ public:
 	 * @return an updated iterator pointing to the position that followed the removed item
 	 */
 	jcomListIterator erase(jcomListIterator position) { return ll.erase(position); }
+	/** Removes the list item at position.  
+	 * @param position the position of the list item to remove
+	 */
+	void remove(jcomListIterator position) { ll.erase(position); }
 	/** @return an iterator to the front of the list */
 	jcomListIterator begin() { return ll.begin(); }
 	/** @return an iterator to one past the end of the list */
