@@ -59,7 +59,8 @@ init();			// run the init function
 function loadbang()
 {
 	var gui = this.patcher.wind.assoc.box;
-	this.patcher.parentpatcher.sendtoback(gui);
+	if(this.patcher.parentpatcher)
+		this.patcher.parentpatcher.sendtoback(gui);
 }
 
 
