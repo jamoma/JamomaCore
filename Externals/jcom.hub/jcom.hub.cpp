@@ -296,7 +296,6 @@ void hub_examine_context(t_hub *x)
 	}
 }
 
-
 void hub_free(t_hub *x)
 {
 	subscriberIterator i;
@@ -394,12 +393,11 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 void hub_unsubscribe(t_hub *x, void *subscriber_object)
 {
 	subscriberList	*subscribers = x->subscriber;
-	subscriberIterator item; 
 	
 	// Search the linked list for this object and remove it
 	t_subscriber* t;
 	critical_enter(0);
-	for(item = subscribers->begin(); item != subscribers->end(); ++item) {
+	for(subscriberIterator item = subscribers->begin(); item != subscribers->end(); ++item) {
 		t = *item;
 		
 		if(t->object == subscriber_object) {
@@ -425,6 +423,14 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 			}
 			item = subscribers->erase(item);
 			sysmem_freeptr(t);
+			/** XXX why does this need to be here?  It seems Microsoft's compiler is generating code 
+			 * that will preincrement (++) the item iterator in the for loop despite the fact that 
+			 * the for loops if condition has been met and following conditional statement shouldn't
+			 * execute.  Either that or something awkward about the the behavior of their STL 
+			 * implementation */
+			if(item == subscribers->end())
+				break;
+
 		}
 	}
 

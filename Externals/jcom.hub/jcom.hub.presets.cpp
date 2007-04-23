@@ -348,7 +348,6 @@ void hub_preset_parse(t_hub *x, char *path)
 				}
 				else if(xmlTextReaderNodeType(reader) == 15){ 		// element close
 					//post("PRESET CLOSING: %s", (char *)xmlTextReaderGetAttribute(reader, (xmlChar *)"number"));
-					//presetLL->push_front(preset);
 					presetLL->merge(preset, presetIsLess);
 				}
 			}
@@ -522,30 +521,28 @@ out:
 // Erase all presets from memory
 void hub_presets_clear(t_hub *x)
 {
-	presetList		*next_preset = x->preset;
-	presetItemList	*next_item;
-	presetItemListIterator itemIterator;
+	presetList		*presetList = x->preset;
+	presetItemList	*itemList;
+	presetItemListIterator  nextItem;
+	presetListIterator pli;
+	t_preset *thePreset;	
 
-	presetListIterator i;
-	t_preset* p;
-
-	/** XXX Would it be safe here to delay going critical until after the first while loop condition
-	 * met?  In theory we should only need to go critical when we are modifying the list like when 
-	 * calling erase() or insert().  Leavig it alone for now until after the new linked list code
-	 * is in place.  */
 	critical_enter(0);	
-	for(i = next_preset->begin(); 	i != next_preset->end(); ++i) {
-		p = *i;
-		next_item = p->item;
-		for(itemIterator = next_item->begin(); itemIterator != next_item->end(); ++itemIterator) {
-			// Free the preset item
-			sysmem_freeptr(*itemIterator);
-			// Remove preset item from the item list for this preset
-			itemIterator = next_item->erase(itemIterator);
+	while(!presetList->empty()) {
+		pli = presetList->begin();
+		thePreset = *pli;
+		itemList = thePreset->item;  // The list of items in the preset
+		// Delete all the items in the preset
+		while(itemList->empty()) {
+			nextItem = itemList->begin();
+			sysmem_freeptr(*nextItem);
+			itemList->remove(nextItem);
 		}
-		delete next_item;
-		sysmem_freeptr(p);
-		i = next_preset->erase(i);
+		delete itemList;
+		// Free the preset itself
+		sysmem_freeptr(thePreset);
+		// Remove from list
+		presetList->remove(pli);
 	}
 	critical_exit(0);
 }
