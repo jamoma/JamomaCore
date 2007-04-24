@@ -575,8 +575,11 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	x->obj_hub_broadcast = NULL;
 	x->module_name = _sym_nothing;
 	atom_setsym(&a, name);
-	object_attr_setvalueof(x, ps_name, 1, &a);	
-	x->container = (t_patcher *)gensym("#P")->s_thing;
+	object_attr_setvalueof(x, ps_name, 1, &a);
+	
+	object_obex_lookup(x, gensym("#P"), (t_object **)&x->container);
+	if(!x->container)
+		x->container = (t_patcher *)gensym("#P")->s_thing;
 	
 	// set up the jcom.receive the listens to broadcast messages from the hub
 	if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_broadcast_fromHub, &x->obj_hub_broadcast))

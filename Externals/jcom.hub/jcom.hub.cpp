@@ -178,7 +178,9 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
-		x->container = (t_patcher *)gensym("#P")->s_thing;
+		object_obex_lookup(x, gensym("#P"), (t_object **)&x->container);
+		if(!x->container)
+			x->container = (t_patcher *)gensym("#P")->s_thing;
 		defer_low(x, (method)hub_examine_context, 0, 0, 0);
 		
 		x->jcom_send = NULL;
