@@ -726,6 +726,9 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	if (x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
 	else {
+		// new input - halt any ramping...
+		if (x->rampfunction)
+			x->rampfunction->stop(x->rampunit);
 		if(x->common.attr_repetitions == 0){
 			// If it's not a list this will perform the comparison as a 1 element list
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
