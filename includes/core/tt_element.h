@@ -4,50 +4,57 @@
  * Copyright © 2007 by Timothy Place
  */
 
-#ifndef TT_LINKEDLIST_HEADER
-#define TT_LINKEDLIST_HEADER
+#ifndef TT_ELEMENT_HEADER
+#define TT_ELEMENT_HEADER
 
 #include "tt_base.h"
 #include "tt_atom.h"
+#include "tt_tagged_atom.h"
 
 /****************************************************************************************************/
 // Class Specification
 
 class tt_element : tt_base {
-
-	protected:		
-		// Standard members for doubly-linked list
-		tt_tagged_atom	*values;			// values are stored as an array of elements
-		tt_uint16		 value_count;		// number of elements
-		tt_linkedlist	*next;
-		tt_linkedlist	*prev;
-
+	
 	public:
-		
+		// Standard members for doubly-linked list
+		tt_tagged_atom	**values;			// values are stored as an array of elements
+		tt_uint16		 value_count;		// number of elements
+		tt_element		*next;
+		tt_element		*prev;
+
+
 		// LIFE CYCLE
-		tt_linkedlist()
+		tt_element()
 		{
 			next = NULL;
 			prev = NULL;
 			values = NULL;
 			value_count = 0;
 		}		
-		
-		~tt_linkedlist()
+
+		~tt_element()
 		{
 			;
 		}
-		
-		
+
+
 		// DATA ACCESSORS
-		tt_err add_value(char *key, t_atom &value)
+		tt_err add_value(char *key, tt_atom &value)
 		{
-			// 1. Check for an existing key with this name, if there is one then we update it
-			;
-			// 2. Otherwise we grow our list and add it
-			;
+			tt_int16 	index = key_getindex(key);
+
+			// If this key doesn't already exist, then grow our list and add it
+			if(index < 0){
+				values = (tt_tagged_atom **)mem_resize(values, sizeof(tt_atom *) * (value_count + 1));
+				index = value_count;
+				value_count++;
+				values[index] = new tt_tagged_atom(key);
+			}
+			values[index]->set(value);
 		}
-		
+
+
 		/*
 			@param remove_all - by default we remove only the first existing element with this name
 								it is possible that there could be other keys with the same name
@@ -57,16 +64,41 @@ class tt_element : tt_base {
 			// 1. Look for key with this name, if it exists then we delete it and shrink the list 
 			// 		- ick maybe this list really needs to be a linked list itself?
 			//	 	- ideally this list would actually be a hashtab...
+			;
 		}
 
 
-		// bool does_value_exist(value);
-		// bool does_key_exist(key);
-		// tt_atom get_value_for_key(const tt_atom &key);
-		// tt_atom get_keys_for_value();
-		// etc.
+		/**
+			@param key - the key to look for 
+			@return - the index of this key if it exists, otherwise -1
+		*/
+		tt_int16 key_getindex(char *key)
+		{
+			short 		i;
+			tt_int16	index = -1;
+
+			for(i=0; i<value_count; i++){
+				if(!strcmp(values[i]->key, key)){
+					index = i;
+					break;
+				}
+			}
+			return index;
+		}
+
+
+		/**
+			@param key : the key to lookup our value
+			@param value : atom is returned here
+		*/
+		tt_err get_value(char *key, tt_atom &value)
+		{
+			tt_int16 	index = key_getindex(key);
+
+			value = values[index]->value;
+		}
+
 };
 
 
-
-#endif // TT_LINKEDLIST_HEADER
+#endif // TT_ELEMENT_HEADER

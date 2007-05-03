@@ -76,6 +76,17 @@ TT_INLINE tt_ptr tt_base::mem_alloc(long size)
 	#endif
 }
 
+
+TT_INLINE tt_ptr tt_base::mem_resize(tt_ptr ptr, long newsize)
+{
+	#ifdef TT_TARGET_MAX
+		return sysmem_resizeptr(ptr, newsize);
+	#else
+		return realloc(ptr, newsize);
+	#endif
+}
+
+
 TT_INLINE void tt_base::mem_free(void *my_ptr)
 {
 	if(my_ptr != 0){ 

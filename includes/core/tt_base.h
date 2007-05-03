@@ -117,6 +117,7 @@ class tt_base{
 
 		// Platform-independent Memory routines
 		tt_ptr mem_alloc(long size);
+		tt_ptr mem_resize(tt_ptr ptr, long newsize);
 		void mem_free(void *my_ptr);
 		
 		// rounding utility

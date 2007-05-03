@@ -15,6 +15,7 @@
 #include "tt_dcblock.h"				// TTBlue Interfaces...
 #include "tt_copy.h"
 
+#include "tt_linkedlist.h"
 
 // Data Structure for this object
 typedef struct _dcblock	{

@@ -19,10 +19,10 @@ class tt_linkedlist : tt_base {
 
 	protected:		
 		// Standard members for doubly-linked list
-		tt_linkedlist	*head;
-		tt_linkedlist	*tail;
-		tt_linkedlist	*current;
-		tt_uint16		count;		///< number of elements in the linked list
+		tt_element		*head;
+		tt_element		*tail;
+		tt_element		*current;
+		tt_uint16	 	 count;		///< number of elements in the linked list
 		
 	public:
 		
@@ -32,30 +32,66 @@ class tt_linkedlist : tt_base {
 			head = NULL;
 			tail = NULL;
 			current = NULL;
+			count = 0;
 		}		
 		
 		~tt_linkedlist()
 		{
-			;
+			clear();
 		}
 		
 
 		// LINKED LIST OPERATIONS
 		
-		
 		/**	remove all elements from the list
 		*/
 		void clear()
 		{
-			;
+			current = head;
+			while(current){
+				delete current;
+				current = current->next;
+			}
+			head = NULL;
+			tail = NULL;
+			current = NULL;
+			count = 0;
 		}
+		
 		
 		/**
 			add to the end of the linked list
 		*/
-		void append(tt_element &elem)
+		void append(tt_element *elem)
 		{
-			;
+			if(!head){	// head is null -- this is the first item
+				head = elem;
+				head->prev = NULL;
+				head->next = NULL;
+				tail = elem;
+				current = head;
+			}
+			else{
+				elem->next = NULL;
+				elem->prev = tail;
+				tail = elem;
+			}
+		}
+		
+		
+		tt_element *next()
+		{
+			tt_element *value = current;
+			current = current->next;
+			return value;
+		}
+
+
+		tt_element *prev()
+		{
+			tt_element *value = current;
+			current = current->prev;
+			return value;
 		}
 		
 		
@@ -74,15 +110,14 @@ class tt_linkedlist : tt_base {
 		}
 		
 		
-		tt_element* findbyindex(tt_uint index)
+		tt_element* findbyindex(tt_uint16 index)
 		{
 			;
 		}
 		
-		
+
 		// sort();
-		// do_function_on_all();
-		// etc.
+		// do_function_on_all();		
 };
 
 
