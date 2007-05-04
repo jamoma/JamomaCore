@@ -15,7 +15,7 @@ tt_modulo::~tt_modulo(void)		// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_modulo::set_attr(tt_selector sel, const tt_atom &val)			// Set Attributes
+tt_err tt_modulo::set_attr(tt_selector sel, const tt_value &val)			// Set Attributes
 {
 	switch (sel){
 		case k_modulo_argument:
@@ -31,7 +31,7 @@ tt_err tt_modulo::set_attr(tt_selector sel, const tt_atom &val)			// Set Attribu
 
 
 TT_INLINE 
-tt_err tt_modulo::get_attr(tt_selector sel, tt_atom &val)					// Get Attributes
+tt_err tt_modulo::get_attr(tt_selector sel, tt_value &val)					// Get Attributes
 {
 	switch(sel){
 		case k_modulo_argument:

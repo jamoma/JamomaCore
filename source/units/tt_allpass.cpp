@@ -19,7 +19,7 @@ tt_allpass::~tt_allpass()									// Destructor
 
 
 // ATTRIBUTES
-TT_INLINE tt_err tt_allpass::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+TT_INLINE tt_err tt_allpass::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	tt_float32 val = a;
 	
@@ -39,7 +39,7 @@ TT_INLINE tt_err tt_allpass::set_attr(tt_selector sel, const tt_atom &a)	// Set 
 	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_err tt_allpass::get_attr(tt_selector sel, tt_atom &val)				// Get Attributes
+TT_INLINE tt_err tt_allpass::get_attr(tt_selector sel, tt_value &val)				// Get Attributes
 {
 	switch (sel){
 		case k_delay_ms:

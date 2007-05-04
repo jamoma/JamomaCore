@@ -29,8 +29,8 @@ class tt_dcblock:public tt_audio_base{
 		tt_dcblock();				// Constructor		
 		~tt_dcblock();				// Destructor
 		
-		tt_err set_attr(tt_selector sel, const tt_atom &val);	// Set Attributes
-		tt_err get_attr(tt_selector sel, tt_atom &val);			// Get Attributes
+		tt_err set_attr(tt_selector sel, const tt_value &val);	// Set Attributes
+		tt_err get_attr(tt_selector sel, tt_value &val);			// Get Attributes
 		
 		// DSP LOOP - an algorithm that is frequently used in Max:
 		//		"biquad~ 1.0 -1.0 -0.9997 0.0"

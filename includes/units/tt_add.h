@@ -28,9 +28,9 @@ class tt_add:public tt_audio_base{
 		tt_add(void);												// Constructor		
 		~tt_add(void);												// Destructor
 		// tt_add operator = (const tt_add &tt_add_source)			// use the generic c++ copy constructor
-		tt_err 		set_attr(tt_selector sel, const tt_atom &val)
+		tt_err 		set_attr(tt_selector sel, const tt_value &val)
 		{return TT_ERR_NONE;}
-		tt_err		get_attr(tt_selector sel, tt_atom &value)
+		tt_err		get_attr(tt_selector sel, tt_value &value)
 		{return TT_ERR_NONE;}
 				
 		void dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out);

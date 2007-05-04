@@ -53,8 +53,8 @@ class tt_ramp:public tt_audio_base{
 		~tt_ramp();									// Destructor
 
 		// ATTRIBUTES
-		tt_err 		set_attr(tt_selector sel, const tt_atom &val);
-		tt_err		get_attr(tt_selector sel, tt_atom &value);
+		tt_err 		set_attr(tt_selector sel, const tt_value &val);
+		tt_err		get_attr(tt_selector sel, tt_value &value);
 		
 		// halt the ramp
 		void stop();

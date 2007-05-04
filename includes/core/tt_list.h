@@ -1,4 +1,4 @@
-/* tt_linkedlist
+/* tt_list
  *
  * A base class for linked lists
  * It may be used as is, or it may be subclassed for specific functionality
@@ -10,24 +10,24 @@
 #define TT_LINKEDLIST_HEADER
 
 #include "tt_base.h"
-#include "tt_element.h"
+#include "tt_list_element.h"
 
 /****************************************************************************************************/
 // Class Specification
 
-class tt_linkedlist : tt_base {
+class tt_list : tt_base {
 
 	protected:		
 		// Standard members for doubly-linked list
-		tt_element		*head;
-		tt_element		*tail;
-		tt_element		*current;
+		tt_list_element		*head;
+		tt_list_element		*tail;
+		tt_list_element		*current;
 		tt_uint16	 	 count;		///< number of elements in the linked list
 		
 	public:
 		
 		// LIFE CYCLE
-		tt_linkedlist()
+		tt_list()
 		{
 			head = NULL;
 			tail = NULL;
@@ -35,7 +35,7 @@ class tt_linkedlist : tt_base {
 			count = 0;
 		}		
 		
-		~tt_linkedlist()
+		~tt_list()
 		{
 			clear();
 		}
@@ -62,7 +62,7 @@ class tt_linkedlist : tt_base {
 		/**
 			add to the end of the linked list
 		*/
-		void append(tt_element *elem)
+		void append(tt_list_element *elem)
 		{
 			if(!head){	// head is null -- this is the first item
 				head = elem;
@@ -79,17 +79,17 @@ class tt_linkedlist : tt_base {
 		}
 		
 		
-		tt_element *next()
+		tt_list_element *next()
 		{
-			tt_element *value = current;
+			tt_list_element *value = current;
 			current = current->next;
 			return value;
 		}
 
 
-		tt_element *prev()
+		tt_list_element *prev()
 		{
-			tt_element *value = current;
+			tt_list_element *value = current;
 			current = current->prev;
 			return value;
 		}
@@ -98,19 +98,19 @@ class tt_linkedlist : tt_base {
 		/**
 			@param previous_elem : the key after which to insert this element
 		*/
-		void insert_after(tt_element &previous_elem, tt_element &elem)
+		void insert_after(tt_list_element &previous_elem, tt_list_element &elem)
 		{
 			;
 		}
 		
 		
-		void remove(tt_element &elem)
+		void remove(tt_list_element &elem)
 		{
 			;
 		}
 		
 		
-		tt_element* findbyindex(tt_uint16 index)
+		tt_list_element* findbyindex(tt_uint16 index)
 		{
 			;
 		}

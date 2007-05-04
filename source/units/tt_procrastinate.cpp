@@ -5,7 +5,7 @@
 tt_procrastinate::tt_procrastinate()										// Constructor		
 {
 	short	i;
-	tt_atom	temp_atom;
+	tt_value	temp_atom;
 	
 	for(i=0; i < k_num_temp_signals; i++)
 		temp[i] = new tt_audio_signal(vectorsize);		// allocate temp signals
@@ -115,12 +115,12 @@ tt_procrastinate::~tt_procrastinate()									// Destructor
 
 // ATTRIBUTES ************************************************************
 TT_INLINE 
-tt_err tt_procrastinate::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_procrastinate::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	tt_uint8	index;
 	tt_float32	low;
 	tt_float32	high;
-	tt_atom		temp_atom;
+	tt_value		temp_atom;
 	
 	a.get(0, index);
 	a.get(1, low);
@@ -202,7 +202,7 @@ tt_err tt_procrastinate::set_attr(tt_selector sel, const tt_atom &a)	// Set Attr
 
 
 TT_INLINE 
-tt_err tt_procrastinate::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_procrastinate::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	tt_uint8 index = a;
 	
@@ -225,7 +225,7 @@ void tt_procrastinate::randomize_parameters()
 {
 	short	i;
 	float	tempval[4];
-	tt_atom	temp_atom;
+	tt_value	temp_atom;
 	
 	temp_atom.set_num_values(2);
 	

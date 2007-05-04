@@ -30,9 +30,9 @@ class tt_copy:public tt_audio_base{
 		tt_copy(void);	// Constructor		
 		~tt_copy(void);		// Destructor
 		
-		tt_err set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
+		tt_err set_attr(tt_selector sel, const tt_value &val)	// Set Attributes
 		{return TT_ERR_NONE;}
-		tt_err get_attr(tt_selector sel, tt_atom &val)			// Get Attributes
+		tt_err get_attr(tt_selector sel, tt_value &val)			// Get Attributes
 		{return TT_ERR_NONE;}
 
 		// DSP LOOP

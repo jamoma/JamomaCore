@@ -9,7 +9,7 @@
 tt_verb::tt_verb()										// Constructor		
 {
 	short	i;
-	tt_atom	temp_atom;
+	tt_value	temp_atom;
 	
 	temp_atom.set_num_values(2);
 	
@@ -113,7 +113,7 @@ tt_verb::~tt_verb()									// Destructor
 
 // ATTRIBUTES ************************************************************
 TT_INLINE 
-tt_err tt_verb::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_verb::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	short		i;
 	tt_float32	val = a;
@@ -174,7 +174,7 @@ tt_err tt_verb::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 
 
 TT_INLINE 
-tt_err tt_verb::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_verb::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {	
 	switch(sel){
 		case k_mix:

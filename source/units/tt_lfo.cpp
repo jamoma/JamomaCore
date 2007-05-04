@@ -23,10 +23,10 @@ TT_INLINE tt_lfo::~tt_lfo()											// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_lfo::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_lfo::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	tt_float32	val = a;
-	tt_atom		buflen;
+	tt_value		buflen;
 	
 	switch (sel){
 		case k_frequency:
@@ -98,7 +98,7 @@ tt_err tt_lfo::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 }
 
 TT_INLINE 
-tt_err tt_lfo::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_lfo::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:

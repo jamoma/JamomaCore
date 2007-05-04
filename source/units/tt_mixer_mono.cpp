@@ -18,9 +18,9 @@ tt_mixer_mono::~tt_mixer_mono(void)								// Destructor
 
 // ATTRIBUTES - TWO ARGUMENTS
 TT_INLINE
-tt_err tt_mixer_mono::set_attr(tt_selector sel, const tt_atom &a)		// Set Attributes
+tt_err tt_mixer_mono::set_attr(tt_selector sel, const tt_value &a)		// Set Attributes
 {
-//	tt_atom		temp_atom;
+//	tt_value		temp_atom;
 //	
 //	temp_atom.set_num_items(2);
 //	temp_atom.set(0, );
@@ -44,7 +44,7 @@ tt_err tt_mixer_mono::set_attr(tt_selector sel, const tt_atom &a)		// Set Attrib
 }
 
 
-tt_err tt_mixer_mono::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_mixer_mono::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	tt_uint16	chan;
 

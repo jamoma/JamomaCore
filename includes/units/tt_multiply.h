@@ -36,9 +36,9 @@ class tt_multiply:public tt_audio_base{
 			;
 		}
 
-		tt_err 		set_attr(tt_selector sel, const tt_atom &val)
+		tt_err 		set_attr(tt_selector sel, const tt_value &val)
 		{return TT_ERR_NONE;}
-		tt_err		get_attr(tt_selector sel, tt_atom &value)
+		tt_err		get_attr(tt_selector sel, tt_value &value)
 		{return TT_ERR_NONE;}
 		
 		// DSP LOOP

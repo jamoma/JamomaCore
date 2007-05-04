@@ -22,10 +22,10 @@ TT_INLINE tt_multitap::~tt_multitap()										// Instance Destructor
 
 // OVER-RIDEN SR METHOD ***************************
 TT_INLINE 
-void tt_multitap::set_sr(const tt_atom &a)
+void tt_multitap::set_sr(const tt_value &a)
 {
 	tt_int32	value = a;
-	tt_atom		temp_atom;
+	tt_value		temp_atom;
 	
 	if(value != sr){		// Do this only if the SR has changed
 		short i;
@@ -47,10 +47,10 @@ void tt_multitap::set_sr(const tt_atom &a)
 
 // OVER-RIDEN VS METHOD ***************************
 TT_INLINE 
-void tt_multitap::set_vectorsize(const tt_atom &a)
+void tt_multitap::set_vectorsize(const tt_value &a)
 {
 	tt_int16	value = a;
-	tt_atom		temp_atom;
+	tt_value		temp_atom;
 	
 	if(value != vectorsize){
 		short i;
@@ -75,7 +75,7 @@ void tt_multitap::set_vectorsize(const tt_atom &a)
 
 // IN THIS METHOD, SOME ATTRIBUTES REQUIRE AN ATOM WITH 2 VALUES
 TT_INLINE 
-tt_err tt_multitap::set_attr(tt_selector sel, const tt_atom &a)				// "GLOBAL" ATTRIBUTES FOR THIS OBJECT...
+tt_err tt_multitap::set_attr(tt_selector sel, const tt_value &a)				// "GLOBAL" ATTRIBUTES FOR THIS OBJECT...
 {
 	tt_float32	val;
 	tt_int16	tap;
@@ -135,9 +135,9 @@ tt_err tt_multitap::set_attr(tt_selector sel, const tt_atom &a)				// "GLOBAL" A
 
 
 // THE FOLLOWING IS NOT NORMAL
-// You pass in a tt_atom, and it is replaced on return
+// You pass in a tt_value, and it is replaced on return
 TT_INLINE 
-tt_err tt_multitap::get_attr(tt_selector sel, tt_atom &a)
+tt_err tt_multitap::get_attr(tt_selector sel, tt_value &a)
 {
 	tt_uint16 tap;
 	

@@ -39,9 +39,9 @@ class tt_audio_signal:public tt_audio_base{
 		// SET A REFERENCE TO AN EXTERNAL VECTOR
 		void set_vector(tt_sample_vector ext_vector);
 		
-		tt_err set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
+		tt_err set_attr(tt_selector sel, const tt_value &val)	// Set Attributes
 		{return TT_ERR_NONE;}
-		tt_err get_attr(tt_selector sel, tt_atom &value)		// Get Attributes
+		tt_err get_attr(tt_selector sel, tt_value &value)		// Get Attributes
 		{return TT_ERR_NONE;}
 		
 		// ALLOCATE A VECTOR - SET ITS SIZE

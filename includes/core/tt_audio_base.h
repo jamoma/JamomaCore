@@ -4,7 +4,7 @@
 #define TT_AUDIO_BASE_HEADER
 
 #include "tt_base.h"
-#include "tt_atom.h"
+#include "tt_value.h"
 
 #define TT_MAX_NUM_CHANNELS 16
 
@@ -40,31 +40,31 @@ class tt_audio_base:public tt_base{
 
 		
 		// ATTRIBUTES
-		static void 		set_global_sr(const tt_atom &value);			// sets the global sample rate for the library
-		static void			get_global_sr(tt_atom &value);			// return the global sample rate
-		virtual void 		set_sr(const tt_atom &value);					// sets the local sample rate for the object
-		virtual void		get_sr(tt_atom &value);										// return the local sample rate
+		static void 		set_global_sr(const tt_value &value);			// sets the global sample rate for the library
+		static void			get_global_sr(tt_value &value);			// return the global sample rate
+		virtual void 		set_sr(const tt_value &value);					// sets the local sample rate for the object
+		virtual void		get_sr(tt_value &value);										// return the local sample rate
 		
-		static void 		set_global_vectorsize(const tt_atom &value);
-		static void			get_global_vectorsize(tt_atom &value);
-		virtual void 		set_vectorsize(const tt_atom &value);
-		virtual void		get_vectorsize(tt_atom &value);
+		static void 		set_global_vectorsize(const tt_value &value);
+		static void			get_global_vectorsize(tt_value &value);
+		virtual void 		set_vectorsize(const tt_value &value);
+		virtual void		get_vectorsize(tt_value &value);
 		
 		// ATTRIBUTES: pure virtual functions -- must define these in derived classes!
 		// FUTURE VERSIONS: MAY CHANGE THIS TO SIMPLY VIRTUAL, AS IT MAY BE USED TO SET GLOBAL SR, VS, ETC.
-		virtual tt_err 		set_attr(tt_selector sel, const tt_atom &val)	= 0;	// Set Attributes
-		virtual tt_err		get_attr(tt_selector sel, tt_atom &value)		= 0;	// Get Attributes
+		virtual tt_err 		set_attr(tt_selector sel, const tt_value &val)	= 0;	// Set Attributes
+		virtual tt_err		get_attr(tt_selector sel, tt_value &value)		= 0;	// Get Attributes
 
 		// ATTRIBUTE 'shortcuts'
 		tt_err set_attr(tt_selector sel, tt_float32 val)
 		{
-			tt_atom a(val);
+			tt_value a(val);
 			return set_attr(sel, a);
 		}
 		
 		tt_err set_attr(tt_selector sel, tt_int32 val)
 		{
-			tt_atom a(val);
+			tt_value a(val);
 			return set_attr(sel, a);
 		}
 

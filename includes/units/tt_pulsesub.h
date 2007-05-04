@@ -55,8 +55,8 @@ class tt_pulsesub:public tt_audio_base{
 		~tt_pulsesub();									// Destructor
 
 		// ATTRIBUTES ************************************************************
-		tt_err 		set_attr(tt_selector sel, const tt_atom &val);
-		tt_err		get_attr(tt_selector sel, tt_atom &value);
+		tt_err 		set_attr(tt_selector sel, const tt_value &val);
+		tt_err		get_attr(tt_selector sel, tt_value &value);
 		
 		void set_trigger(bool value);
 		

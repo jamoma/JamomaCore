@@ -15,7 +15,7 @@
 #include "tt_dcblock.h"				// TTBlue Interfaces...
 #include "tt_copy.h"
 
-#include "tt_linkedlist.h"
+#include "tt_list.h"
 
 // Data Structure for this object
 typedef struct _dcblock	{
@@ -77,7 +77,7 @@ int main(void)
 void *dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 {
     t_dcblock *x;
-	tt_atom	sr(sys_getsr());
+	tt_value	sr(sys_getsr());
     
     x = (t_dcblock *)object_alloc(dcblock_class);
     if(x){
@@ -154,7 +154,7 @@ t_int *dcblock_perform(t_int *w)
 // DSP Method
 void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 {
-	tt_atom a;
+	tt_value a;
 	
 	if(count[1] && count[3])
 		x->num_active_channels = 2;

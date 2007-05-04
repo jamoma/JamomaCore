@@ -1,4 +1,4 @@
-/* tt_element
+/* tt_list_element
  *
  * An element which is used by tt_linklist
  * Copyright © 2007 by Timothy Place
@@ -8,24 +8,24 @@
 #define TT_ELEMENT_HEADER
 
 #include "tt_base.h"
-#include "tt_atom.h"
-#include "tt_tagged_atom.h"
+#include "tt_value.h"
+#include "tt_value_named.h"
 
 /****************************************************************************************************/
 // Class Specification
 
-class tt_element : tt_base {
+class tt_list_element : tt_base {
 	
 	public:
 		// Standard members for doubly-linked list
-		tt_tagged_atom	**values;			// values are stored as an array of elements
+		tt_value_named	**values;			// values are stored as an array of elements
 		tt_uint16		 value_count;		// number of elements
-		tt_element		*next;
-		tt_element		*prev;
+		tt_list_element		*next;
+		tt_list_element		*prev;
 
 
 		// LIFE CYCLE
-		tt_element()
+		tt_list_element()
 		{
 			next = NULL;
 			prev = NULL;
@@ -33,23 +33,23 @@ class tt_element : tt_base {
 			value_count = 0;
 		}		
 
-		~tt_element()
+		~tt_list_element()
 		{
 			;
 		}
 
 
 		// DATA ACCESSORS
-		tt_err add_value(char *key, tt_atom &value)
+		tt_err add_value(char *key, tt_value &value)
 		{
 			tt_int16 	index = key_getindex(key);
 
 			// If this key doesn't already exist, then grow our list and add it
 			if(index < 0){
-				values = (tt_tagged_atom **)mem_resize(values, sizeof(tt_atom *) * (value_count + 1));
+				values = (tt_value_named **)mem_resize(values, sizeof(tt_value *) * (value_count + 1));
 				index = value_count;
 				value_count++;
-				values[index] = new tt_tagged_atom(key);
+				values[index] = new tt_value_named(key);
 			}
 			values[index]->set(value);
 		}
@@ -91,7 +91,7 @@ class tt_element : tt_base {
 			@param key : the key to lookup our value
 			@param value : atom is returned here
 		*/
-		tt_err get_value(char *key, tt_atom &value)
+		tt_err get_value(char *key, tt_value &value)
 		{
 			tt_int16 	index = key_getindex(key);
 

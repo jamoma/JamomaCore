@@ -15,7 +15,7 @@ tt_rms::~tt_rms()				// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_rms::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
+tt_err tt_rms::set_attr(tt_selector sel, const tt_value &val)	// Set Attributes
 {
 	switch (sel){
 		case k_feedback_coefficient:
@@ -28,7 +28,7 @@ tt_err tt_rms::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
 }
 
 TT_INLINE 
-tt_err tt_rms::get_attr(tt_selector sel, tt_atom &val)				// Get Attributes
+tt_err tt_rms::get_attr(tt_selector sel, tt_value &val)				// Get Attributes
 {
 	switch (sel){
 		case k_feedback_coefficient:

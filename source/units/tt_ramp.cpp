@@ -19,7 +19,7 @@ tt_ramp::~tt_ramp()									// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_ramp::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_ramp::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	tt_float32	val;
 	
@@ -71,7 +71,7 @@ tt_err tt_ramp::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 
 
 TT_INLINE 
-tt_err tt_ramp::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_ramp::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	switch (sel){
 		case k_current_value:

@@ -12,12 +12,12 @@ TT_INLINE tt_dcblock::~tt_dcblock()				// Destructor
 }
 
 
-TT_INLINE tt_err tt_dcblock::set_attr(tt_selector sel, const tt_atom &val)		// Set Attributes
+TT_INLINE tt_err tt_dcblock::set_attr(tt_selector sel, const tt_value &val)		// Set Attributes
 {
 	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_err tt_dcblock::get_attr(tt_selector sel, tt_atom &val)			// Get Attributes
+TT_INLINE tt_err tt_dcblock::get_attr(tt_selector sel, tt_value &val)			// Get Attributes
 {
 	return TT_ERR_NONE;
 }

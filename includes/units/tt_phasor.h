@@ -49,8 +49,8 @@ class tt_phasor:public tt_audio_base{
 		void set_sr(int value);
 
 		// ATTRIBUTES
-		tt_err 		set_attr(tt_selector sel, const tt_atom &val);
-		tt_err		get_attr(tt_selector sel, tt_atom &value);
+		tt_err 		set_attr(tt_selector sel, const tt_value &val);
+		tt_err		get_attr(tt_selector sel, tt_value &value);
 				
 		// DSP LOOP
 		void dsp_vector_calc(tt_audio_signal *out);

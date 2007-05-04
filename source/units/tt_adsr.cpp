@@ -4,7 +4,7 @@
 // Constructor
 tt_adsr::tt_adsr()
 {
-	tt_atom a;
+	tt_value a;
 	
 	output = 0.0;
 	output_db = NOISE_FLOOR;
@@ -25,7 +25,7 @@ tt_adsr::~tt_adsr()
 }
 
 
-TT_INLINE tt_err tt_adsr::set_attr(tt_selector sel, const tt_atom &aval)	// Set Attributes
+TT_INLINE tt_err tt_adsr::set_attr(tt_selector sel, const tt_value &aval)	// Set Attributes
 {
 	float	val = aval;
 	
@@ -74,7 +74,7 @@ TT_INLINE tt_err tt_adsr::set_attr(tt_selector sel, const tt_atom &aval)	// Set 
 	return TT_ERR_NONE;
 }
 
-TT_INLINE tt_err tt_adsr::get_attr(tt_selector sel, tt_atom &val)				// Get Attributes
+TT_INLINE tt_err tt_adsr::get_attr(tt_selector sel, tt_value &val)				// Get Attributes
 {
 	switch (sel){
 		case k_attack:

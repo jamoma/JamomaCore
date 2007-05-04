@@ -11,7 +11,7 @@
 #define TT_ATTRIBUTE_HEADER
 
 #include "tt_base.h"
-#include "tt_atom.h"
+#include "tt_value.h"
 
 /****************************************************************************************************/
 // Class Specification
@@ -19,7 +19,7 @@
 class tt_attribute : tt_base {
 
 	private:
-		tt_atom		value;
+		tt_value		value;
 		//			setter;	// pointer to setter
 		//			getter; // pointer to getter
 
@@ -38,12 +38,12 @@ class tt_attribute : tt_base {
 		
 		// ACCESSORS
 		// function pointers call the actual setter and getter
-		set(tt_atom arg&) const
+		set(tt_value arg&) const
 		{
 			return default_setter(arg);
 		}
 		
-		tt_atom& get()
+		tt_value& get()
 		{
 			return default_getter();
 		}
@@ -51,12 +51,12 @@ class tt_attribute : tt_base {
 		
 		// DEFAULT ACCESSORS
 		// trailing const -- this method can be used on const variables
-		default_setter(tt_atom arg&) const
+		default_setter(tt_value arg&) const
 		{
 			value = arg;
 		}
 		
-		tt_atom& default_getter()
+		tt_value& default_getter()
 		{
 			return &value;
 		}

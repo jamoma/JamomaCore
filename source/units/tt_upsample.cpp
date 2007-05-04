@@ -15,7 +15,7 @@ tt_upsample::~tt_upsample()									// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_upsample::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_upsample::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	switch (sel){
 		case k_factor:
@@ -28,7 +28,7 @@ tt_err tt_upsample::set_attr(tt_selector sel, const tt_atom &a)	// Set Attribute
 }
 
 TT_INLINE 
-tt_err tt_upsample::get_attr(tt_selector sel, tt_atom &a)			// Get Attributes
+tt_err tt_upsample::get_attr(tt_selector sel, tt_value &a)			// Get Attributes
 {
 	switch (sel){
 		case k_factor:

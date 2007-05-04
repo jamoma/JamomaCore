@@ -37,7 +37,7 @@ TT_INLINE tt_comb::~tt_comb(void)							// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_comb::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_comb::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	tt_float32	val = a;
 	double		radians;
@@ -75,7 +75,7 @@ tt_err tt_comb::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 }
 
 TT_INLINE 
-tt_err tt_comb::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_comb::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	switch (sel){
 		case k_cutoff_frequency:

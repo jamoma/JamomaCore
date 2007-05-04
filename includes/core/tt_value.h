@@ -1,4 +1,4 @@
-/* tt_atom
+/* tt_value
  *
  * A class that represents a data element
  * The atom can be a container that holds other atoms, and thus atoms may form trees
@@ -7,8 +7,8 @@
  * Copyright © 2007 by Timothy Place
  */
 
-#ifndef TT_ATOM_HEADER
-#define TT_ATOM_HEADER
+#ifndef tt_value_HEADER
+#define tt_value_HEADER
 
 #include "tt_base.h"
 
@@ -59,7 +59,7 @@
 /****************************************************************************************************/
 // Class Specification
 
-class tt_atom : tt_base {
+class tt_value : tt_base {
 	public:
 		enum data_type{
 			type_pointer = 0,
@@ -101,7 +101,7 @@ class tt_atom : tt_base {
 	public:
 		
 		// LIFE CYCLE
-		tt_atom()
+		tt_value()
 		{
 			data = new data_value;
 			data->val_float32 = 0;
@@ -110,7 +110,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 		
-		tt_atom(tt_char value)
+		tt_value(tt_char value)
 		{
 			data = new data_value;
 			data->val_char = value;
@@ -119,7 +119,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 
-		tt_atom(tt_int8 value)
+		tt_value(tt_int8 value)
 		{
 			data = new data_value;
 			data->val_int8 = value;
@@ -128,7 +128,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 
-		tt_atom(tt_int16 value)
+		tt_value(tt_int16 value)
 		{
 			data = new data_value;
 			data->val_int16 = value;
@@ -137,7 +137,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 
-		tt_atom(tt_int32 value)
+		tt_value(tt_int32 value)
 		{
 			data = new data_value;
 			data->val_int32 = value;
@@ -145,7 +145,7 @@ class tt_atom : tt_base {
 			*type = type_int32;
 			num_values = 1;
 		}
-		tt_atom(int value)				// WARNING -- THIS SHOULD BE DONE DIFFERENTLY???
+		tt_value(int value)				// WARNING -- THIS SHOULD BE DONE DIFFERENTLY???
 		{
 			data = new data_value;
 			data->val_int32 = value;
@@ -154,7 +154,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 		
-		tt_atom(tt_int64 value)
+		tt_value(tt_int64 value)
 		{
 			data = new data_value;
 			data->val_int64 = value;
@@ -164,7 +164,7 @@ class tt_atom : tt_base {
 		}
 		
 		
-		tt_atom(tt_uint8 value)
+		tt_value(tt_uint8 value)
 		{
 			data = new data_value;
 			data->val_uint8 = value;
@@ -173,7 +173,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 
-		tt_atom(tt_uint16 value)
+		tt_value(tt_uint16 value)
 		{
 			data = new data_value;
 			data->val_uint16 = value;
@@ -182,7 +182,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 
-		tt_atom(tt_uint32 value)
+		tt_value(tt_uint32 value)
 		{
 			data = new data_value;
 			data->val_uint32 = value;
@@ -191,7 +191,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 		
-		tt_atom(tt_uint64 value)
+		tt_value(tt_uint64 value)
 		{
 			data = new data_value;
 			data->val_uint64 = value;
@@ -201,7 +201,7 @@ class tt_atom : tt_base {
 		}
 		
 
-		tt_atom(tt_float32 value)
+		tt_value(tt_float32 value)
 		{
 			data = new data_value;
 			data->val_float32 = value;
@@ -210,7 +210,7 @@ class tt_atom : tt_base {
 			num_values = 1;
 		}
 		
-		tt_atom(tt_float64 value)
+		tt_value(tt_float64 value)
 		{
 			data = new data_value;
 			data->val_float64 = value;
@@ -220,7 +220,7 @@ class tt_atom : tt_base {
 		}
 		
 		
-		~tt_atom()
+		~tt_value()
 		{
 			delete []type;
 			delete []data;
@@ -260,7 +260,7 @@ class tt_atom : tt_base {
 
 
 
-		tt_atom& operator = (const tt_atom &a){
+		tt_value& operator = (const tt_value &a){
 			type = a.type;
 			data = a.data;
 			return *this;
@@ -275,7 +275,7 @@ class tt_atom : tt_base {
 		#pragma mark Methods for assignment using =
 
 		// INT8
-		tt_atom& operator = (tt_int8 value)
+		tt_value& operator = (tt_int8 value)
 		{
 			*type = type_int8;
 			data->val_int8 = value;
@@ -295,7 +295,7 @@ class tt_atom : tt_base {
 		}
 
 		// INT16
-		tt_atom& operator = (tt_int16 value)
+		tt_value& operator = (tt_int16 value)
 		{
 			*type = type_int16;
 			data->val_int16 = value;
@@ -315,7 +315,7 @@ class tt_atom : tt_base {
 		}
 		
 		// INT32
-		tt_atom& operator = (tt_int32 value)
+		tt_value& operator = (tt_int32 value)
 		{
 			*type = type_int32;
 			data->val_int32 = value;
@@ -334,7 +334,7 @@ class tt_atom : tt_base {
 			}
 		}
 
-		tt_atom& operator = (int value)
+		tt_value& operator = (int value)
 		{
 			*type = type_int32;
 			data->val_int32 = value;
@@ -354,7 +354,7 @@ class tt_atom : tt_base {
 		}
 
 		// INT64
-		tt_atom& operator = (tt_int64 value)
+		tt_value& operator = (tt_int64 value)
 		{
 			*type = type_int64;
 			data->val_int64 = value;
@@ -374,7 +374,7 @@ class tt_atom : tt_base {
 		}
 
 		// UINT8
-		tt_atom& operator = (tt_uint8 value)
+		tt_value& operator = (tt_uint8 value)
 		{
 			*type = type_uint8;
 			data->val_uint8 = value;
@@ -393,7 +393,7 @@ class tt_atom : tt_base {
 			}
 		}
 
-		tt_atom& operator = (bool value)
+		tt_value& operator = (bool value)
 		{
 			*type = type_uint8;
 			data->val_uint8 = value;
@@ -413,7 +413,7 @@ class tt_atom : tt_base {
 		}
 
 		// UINT16
-		tt_atom& operator = (tt_uint16 value)
+		tt_value& operator = (tt_uint16 value)
 		{
 			*type = type_uint16;
 			data->val_uint16 = value;
@@ -433,7 +433,7 @@ class tt_atom : tt_base {
 		}
 
 		// UINT32
-		tt_atom& operator = (tt_uint32 value)
+		tt_value& operator = (tt_uint32 value)
 		{
 			*type = type_uint32;
 			data->val_uint32 = value;
@@ -453,7 +453,7 @@ class tt_atom : tt_base {
 		}
 
 		// UINT64
-		tt_atom& operator = (tt_uint64 value)
+		tt_value& operator = (tt_uint64 value)
 		{
 			*type = type_uint64;
 			data->val_uint64 = value;
@@ -473,7 +473,7 @@ class tt_atom : tt_base {
 		}
 
 		// FLOAT32
-		tt_atom& operator = (tt_float32 value) 
+		tt_value& operator = (tt_float32 value) 
 		{
 			*type = type_float32;
 			data->val_float32 = value;
@@ -493,7 +493,7 @@ class tt_atom : tt_base {
 		}
 
 		// FLOAT64
-		tt_atom& operator = (tt_float64 value)
+		tt_value& operator = (tt_float64 value)
 		{
 			*type = type_float64;
 			data->val_float64 = value;
@@ -679,7 +679,7 @@ class tt_atom : tt_base {
 
 
 		// make sure this is a friend so that it can access the private members of the other atom
-		friend bool operator == (const tt_atom &a1, const tt_atom &a2){
+		friend bool operator == (const tt_value &a1, const tt_value &a2){
 			short 	i;
 			
 			if(a1.num_values != a2.num_values)
@@ -777,4 +777,4 @@ class tt_atom : tt_base {
 
 
 
-#endif // TT_ATOM_HEADER
+#endif // tt_value_HEADER

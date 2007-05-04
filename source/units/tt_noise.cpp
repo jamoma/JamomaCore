@@ -19,7 +19,7 @@ tt_noise::~tt_noise()									// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_noise::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_noise::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	switch(sel){
 		case k_mode:
@@ -40,7 +40,7 @@ tt_err tt_noise::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
 }
 
 TT_INLINE 
-tt_err tt_noise::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_noise::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	switch (sel){
 		case k_mode:

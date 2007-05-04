@@ -20,7 +20,7 @@ tt_polar::~tt_polar()									// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_polar::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
+tt_err tt_polar::set_attr(tt_selector sel, const tt_value &val)	// Set Attributes
 {
 	switch (sel){
 		case k_mode:
@@ -37,7 +37,7 @@ tt_err tt_polar::set_attr(tt_selector sel, const tt_atom &val)	// Set Attributes
 }
 
 TT_INLINE 
-tt_err tt_polar::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_polar::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	switch(sel){
 		case k_mode:

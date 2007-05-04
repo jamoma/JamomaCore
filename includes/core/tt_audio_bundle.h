@@ -32,7 +32,7 @@ class tt_audio_bundle:public tt_audio_base{
 		// creates wrapped signals (i.e. they all reference external memory)
 		tt_audio_bundle(tt_uint8 num_signals)
 		{
-			tt_atom a(num_signals);
+			tt_value a(num_signals);
 
 			m_signal = NULL;
 			m_num_signals = 0;
@@ -44,7 +44,7 @@ class tt_audio_bundle:public tt_audio_base{
 		// CREATE AN INSTANCE WITH internal memory
 		tt_audio_bundle(tt_uint8 num_signals, tt_uint16 init_vector_size)
 		{
-			tt_atom a;
+			tt_value a;
 			
 			m_signal = NULL;
 			m_num_signals = 0;
@@ -68,7 +68,7 @@ class tt_audio_bundle:public tt_audio_base{
 	maybe there is then a way to override by pushing the various inherited calls onto a stack or something
 !!!
 */
-		tt_err set_attr(tt_selector sel, const tt_atom &value)		// Set Attributes
+		tt_err set_attr(tt_selector sel, const tt_value &value)		// Set Attributes
 		{
 			tt_uint8	numchans = value;
 			tt_uint16	vs;
@@ -104,7 +104,7 @@ class tt_audio_bundle:public tt_audio_base{
 		}
 		
 		
-		tt_err get_attr(tt_selector sel, tt_atom &value)			// Get Attributes
+		tt_err get_attr(tt_selector sel, tt_value &value)			// Get Attributes
 		{
 			switch(sel){
 				case k_num_channels: 

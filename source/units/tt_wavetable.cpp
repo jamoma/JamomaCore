@@ -22,10 +22,10 @@ tt_wavetable::~tt_wavetable()									// Destructor
 
 // ATTRIBUTES
 TT_INLINE 
-tt_err tt_wavetable::set_attr(tt_selector sel, const tt_atom &a)	// Set Attributes
+tt_err tt_wavetable::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 {
 	tt_float32	val = a;
-	tt_atom		temp;
+	tt_value		temp;
 	
 	switch (sel){
 		case k_frequency:
@@ -75,7 +75,7 @@ tt_err tt_wavetable::set_attr(tt_selector sel, const tt_atom &a)	// Set Attribut
 
 
 TT_INLINE
-tt_err tt_wavetable::get_attr(tt_selector sel, tt_atom &a)				// Get Attributes
+tt_err tt_wavetable::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
 {
 	switch (sel){
 		case k_frequency:
