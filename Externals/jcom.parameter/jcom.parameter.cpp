@@ -840,7 +840,7 @@ void param_ramp_callback_float(void *v, float value)
 	t_param *x = (t_param *)v;
 	float	oldval = atom_getfloat(&x->attr_value);
 	
-	if(value != oldval){
+	if(x->common.attr_repetitions || value != oldval){
 		atom_setfloat(&x->attr_value, value);
 		param_output_float(x);
 	}
@@ -853,7 +853,7 @@ void param_ramp_callback_int(void *v, float value)
 	long	val	= value, oldval;
 
 	oldval = atom_getlong(&x->attr_value);
-	if(val != oldval){
+	if (x->common.attr_repetitions || val != oldval){
 		atom_setlong(&x->attr_value, value);
 		param_output_int(x);
 	}
