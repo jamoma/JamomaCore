@@ -809,6 +809,16 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 				return;	// nothing to do
 		}
 		
+		// Avoid copying more than one atom if the type only can have one argument
+		if (x->common.attr_type == ps_msg_float && argc > 1)
+			argc = 1;
+		else if (x->common.attr_type == ps_msg_int && argc > 1)
+			argc = 1;
+		else if (x->common.attr_type == ps_msg_toggle && argc > 1)
+			argc = 1;
+		else if (x->common.attr_type == ps_msg_symbol && argc > 1)
+			argc = 1;
+		
 		for(int i = 0; i < argc; i++) {
 			switch(argv[i].a_type) 
 			{
