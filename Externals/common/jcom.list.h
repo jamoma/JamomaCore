@@ -18,8 +18,11 @@ class jcomList {
 public:
 	
 	jcomList() { };
-	~jcomList() { };
+	jcomList(const T& rhs) // copy constructor
+	{ ll.insert(ll.begin(), rhs.begin(), rhs.end()); }
 	
+	~jcomList() { };
+		
 	typedef typename list<T>::iterator jcomListIterator;
 
 	/** Put an item at the front of the list
@@ -48,9 +51,14 @@ public:
 		return find(ll.begin(), ll.end(), x) != ll.end();
 	}
 	template<typename Predicate>
-	jcomListIterator find_if(jcomListIterator first, jcomListIterator last, Predicate pred)
+	T& find_if(jcomListIterator first, jcomListIterator last, Predicate pred)
 	{
-		return find_if(first, last, pred);
+		jcomListIterator result;
+		while(first != last) {
+			result = pred(first, last);
+			++first;
+		}
+		return result != ll.end() ? result : NULL;
 	}
 	
 	T& element(const T& x) 
@@ -93,7 +101,6 @@ private:
 	list<T> ll;
 
 };
-
 
 
 #endif // __JCOM_LIST_H__
