@@ -78,6 +78,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_preset_write,		"/preset/write",			A_DEFSYM, 0L);
 	class_addmethod(c, (method)hub_preset_recall,		"preset/recall",			A_GIMME, 0L);	// number or name
 	class_addmethod(c, (method)hub_preset_recall,		"/preset/recall",			A_GIMME, 0L);	// number or name
+	class_addmethod(c, (method)hub_preset_copy,		"preset/copy",			A_GIMME, 0L);	// number or name
+	class_addmethod(c, (method)hub_preset_copy,		"/preset/copy",			A_GIMME, 0L);	// number or name
 	class_addmethod(c, (method)hub_preset_store,		"preset/store",				A_GIMME, 0L);	// number & optional name
 	class_addmethod(c, (method)hub_preset_store,		"/preset/store",			A_GIMME, 0L);	// number & optional name
 	class_addmethod(c, (method)hub_preset_default,		"preset/default",			0L);
@@ -481,6 +483,8 @@ void hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 			hub_preset_read(x, userpath);
 		else if (private_message == ps_slash_preset_slash_recall)		// 	/preset/load
 			hub_preset_recall(x, _sym_list, 1, argv);
+		else if (private_message == ps_slash_preset_slash_copy)		// 	/preset/load
+			hub_preset_copy(x, _sym_list, 1, argv);
 		else if (private_message == ps_slash_preset_slash_write)			//	/preset/save
 			hub_preset_write(x, userpath);
 		else if (private_message == ps_slash_module_view_internals)		//	/module/view_internals

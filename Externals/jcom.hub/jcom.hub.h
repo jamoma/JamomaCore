@@ -190,6 +190,14 @@ void 		hub_preset_dowrite(t_hub *x, t_symbol *userpath);
  * @see hub_preset_store
  */
 void 		hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv);	// number or name
+/** Copies a preset by number or name.
+* @param x the hub containing the preset
+* @param msg
+* @param argc the argument count for argv
+* @param argv the number or name of the preset to recall
+* @see hub_preset_store
+*/
+void 		hub_preset_copy(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
 /** Recalls a preset by number or name.
  * @param x the hub containing the preset
  * @param msg

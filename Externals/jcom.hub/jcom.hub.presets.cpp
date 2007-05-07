@@ -14,9 +14,9 @@
 using namespace std;
 #define value value_list[0]
 
-struct _byName : binary_function<t_preset*, t_symbol*, bool> {
-	bool operator()(const t_preset* p, const t_symbol* q)
-		{	return p->name == q; }
+struct _byName : binary_function<t_preset*, t_preset*, bool> {
+	bool operator()(const t_preset* p, const t_preset* q)
+		{	return p->name == q->name; }
 } presetByName;
  
 struct _byNum : binary_function<t_preset*, long, bool> {
@@ -32,6 +32,62 @@ struct _presetIsLess : binary_function<t_preset*, t_preset*, bool> {
 		{	return p->number < q->number; }
 } presetIsLess;
 
+void hub_preset_copy(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// number or name
+{
+	presetList		*preset = x->preset;
+	
+	if(argc < 1){
+		error("jcom.hub (%s module): preset.recall requires a valid argument", x->attr_name);
+		return;
+	}
+	
+	presetListIterator pIter;
+	bool found = false;
+	if(argv->a_type == A_SYM) {
+		for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if((*pIter)->name == argv->a_w.w_sym) {
+				found = true;
+				break;
+			}
+		}
+	} else {
+		long presetNum = atom_getlong(argv);
+		for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+			if((*pIter)->number == presetNum) {
+				found = true;
+				break;
+			}
+		}			
+	}
+	/*	
+		t_preset *pitem = preset->find_if(preset->begin(), preset->end(),
+			presetByName);
+		if(!pitem) {
+			t_preset *piCopy = (t_preset*)sysmem_newptr(sizeof(t_preset));
+			piCopy->name = pitem->name;
+	
+		}
+		
+		*/
+		
+	if(found) {
+		critical_enter(0);
+		t_preset *presetCopy = (t_preset*)sysmem_newptr((sizeof(t_preset)));
+		sysmem_copyptr(*pIter, presetCopy, sizeof(t_preset));
+		presetItemList	*item = (*pIter)->item;
+		presetCopy->number = preset->size() + 1;  // place copied preset at end of preset list
+		presetCopy->item = new presetItemList(*item);
+		preset->merge(presetCopy, presetIsLess);  // add to list of presets
+		critical_exit(0);
+		hub_preset_buildmenu(x);
+	} else {
+		error("jcom.hub (%s module): preset to copy not found", x->attr_name);
+	}
+	
+}
+			
+	
+	
 void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// number or name
 {
 	presetList		*preset = x->preset;
