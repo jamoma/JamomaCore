@@ -531,7 +531,7 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 	long 		attrflags = 0;
 	long		attroffset;
 
-	jcom_core_subscriber_classinit_common(c, attr, offset);
+	jcom_core_subscriber_classinit_common(c, attr, offset, define_name);
 
 	// ATTRIBUTE: range <low, high>
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
@@ -576,9 +576,12 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	x->hub = NULL;
 	x->obj_hub_broadcast = NULL;
 	x->module_name = _sym_nothing;
+
+	// we call the function directly here rather than use object_attr_setvalueof() 
+	// because parameters with pattr bindings don't actually have their own 'name' attribute
 	atom_setsym(&a, name);
-	object_attr_setvalueof(x, ps_name, 1, &a);
-	
+	jcom_core_subscriber_attribute_common_setname(x, NULL, 1, &a);
+ 	
 	object_obex_lookup(x, gensym("#P"), (t_object **)&x->container);
 	if(!x->container)
 		x->container = (t_patcher *)gensym("#P")->s_thing;
@@ -605,7 +608,6 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 }
 
 
-//t_max_err return_setname(t_return *x, void *attr, long argc, t_atom *argv)
 // COMMON ATTRIBUTE: name
 t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_common *x, void *attr, long argc, t_atom *argv)
 {	
@@ -623,7 +625,6 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 
 
 // function for registering with the jcom.hub object
-//void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x, t_symbol *subscriber_type)
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
 	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
@@ -667,5 +668,4 @@ void jcom_core_broadcast_callback(void *z, t_symbol *msg, short argc, t_atom *ar
 	
 	if(msg == gensym("hub.changed"))
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
-//		jcom_core_subscriber_subscribe(x);
 }
