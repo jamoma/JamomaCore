@@ -41,7 +41,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 {
 	long 		attrflags = 0;
 	t_class 	*c;
-	t_object 	*attr;
+	t_object 	*attr = NULL;
 	long		offset;
 	
 	common_symbols_init();
@@ -332,7 +332,8 @@ void out_dispatched(t_out *x, t_symbol *msg, short argc, t_atom *argv)
 // messages received from jcom.in
 void out_sendbypassedvalue(t_out *x, short inletnum, t_symbol *msg, short argc, t_atom *argv)
 {
-	outlet_anything(x->outlet[inletnum], msg, argc, argv);
+	if(inletnum < x->num_outputs)
+		outlet_anything(x->outlet[inletnum], msg, argc, argv);
 }
 
 
