@@ -59,24 +59,22 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// numbe
 			}
 		}			
 	}
-	/*	
-		t_preset *pitem = preset->find_if(preset->begin(), preset->end(),
-			presetByName);
-		if(!pitem) {
-			t_preset *piCopy = (t_preset*)sysmem_newptr(sizeof(t_preset));
-			piCopy->name = pitem->name;
 	
-		}
-		
-		*/
-		
+	t_symbol* presetsName = NULL;
 	if(found) {
-		critical_enter(0);
 		t_preset *presetCopy = (t_preset*)sysmem_newptr((sizeof(t_preset)));
+		// Get name to use for the newly created preset
+		if(argc > 1) 
+			presetsName = atom_getsym(argv+1);
+		else 
+ 			presetsName = symbol_unique();  // make one up
+
+		critical_enter(0);
 		sysmem_copyptr(*pIter, presetCopy, sizeof(t_preset));
 		presetItemList	*item = (*pIter)->item;
 		presetCopy->number = preset->size() + 1;  // place copied preset at end of preset list
 		presetCopy->item = new presetItemList(*item);
+		presetCopy->name = presetsName;
 		preset->merge(presetCopy, presetIsLess);  // add to list of presets
 		critical_exit(0);
 		hub_preset_buildmenu(x);
@@ -643,7 +641,7 @@ void hub_presets_dump(t_hub *x)
 
 void hub_preset_write(t_hub *x, t_symbol *userpath)
 {
-	if(!x->preset){	// no presets have been stored, so store the current state as the default
+	if(x->preset->empty()){	// no presets have been stored, so store the current state as the default
 		t_atom	a[2];
 
 		atom_setlong(&a[0], 1);
