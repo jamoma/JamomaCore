@@ -5,6 +5,8 @@
 tt_overdrive::tt_overdrive()								// Constructor		
 {
 	mode = 0;
+	preamp_db = 0;
+	preamp_linear = 1.;
 	set_attr(k_drive, 3.0);	
 	set_attr(k_defeat_dcblocker, 0.0);
 	clear();
@@ -46,6 +48,10 @@ tt_err tt_overdrive::set_attr(tt_selector sel, const tt_value &a)	// Set Attribu
 			break;
 		case k_defeat_dcblocker:
 			defeat_dcblocker = a;
+			break;
+		case k_preamp:
+			preamp_db = val;
+			preamp_linear = decibels_to_amplitude(preamp_db);
 			break;
 		default:
 			return TT_ERR_ATTR_INVALID;	// really should make this throw and exception (applies to all objects)!
@@ -119,7 +125,7 @@ void tt_overdrive::dsp_vector_calc_mono(tt_audio_signal *in, tt_audio_signal *ou
 	temp_vs = in->vectorsize;
 	
 	while(temp_vs--){
-		temp = *in->vector++;
+		temp = *in->vector++ * preamp_linear;
 
 		// Integrated DC Blocker:
 		last_output1 = temp - last_input1 + (last_output1 * 0.9997);
@@ -155,8 +161,8 @@ void tt_overdrive::dsp_vector_calc_stereo(tt_audio_signal *in1, tt_audio_signal 
 	float sign_left, sign_right;
 	
 	while(temp_vs--){
-		temp_left = *in1->vector++;
-		temp_right = *in2->vector++;
+		temp_left = *in1->vector++ * preamp_linear;
+		temp_right = *in2->vector++ * preamp_linear;
 		
 		// Integrated DC Blocker:
 		last_output1 = temp_left - last_input1 + (last_output1 * 0.9997);
@@ -205,7 +211,7 @@ void tt_overdrive::dsp_vector_calc_mono_nodcblock(tt_audio_signal *in, tt_audio_
 	temp_vs = in->vectorsize;
 	
 	while(temp_vs--){
-		temp = *in->vector++;
+		temp = *in->vector++ * preamp_linear;
 
 		float sign = 1.0;
 		
@@ -235,8 +241,8 @@ void tt_overdrive::dsp_vector_calc_stereo_nodcblock(tt_audio_signal *in1, tt_aud
 	float sign_left, sign_right;
 	
 	while(temp_vs--){
-		temp_left = *in1->vector++;
-		temp_right = *in2->vector++;
+		temp_left = *in1->vector++ * preamp_linear;
+		temp_right = *in2->vector++ * preamp_linear;
 		sign_left = 1.0;
 		sign_right = 1.0;
 		
@@ -274,7 +280,7 @@ void tt_overdrive::dsp_vector_calc_mono_sine_nodcblock(tt_audio_signal *in, tt_a
 	temp_vs = in->vectorsize;
 	
 	while(temp_vs--){
-		temp = *in->vector++;
+		temp = *in->vector++ * preamp_linear;
 		
 		if(temp > b) 
 			temp = 1.;
@@ -294,8 +300,8 @@ void tt_overdrive::dsp_vector_calc_stereo_sine_nodcblock(tt_audio_signal *in1, t
 	temp_vs = in1->vectorsize;
 	
 	while(temp_vs--){
-		temp_left = *in1->vector++;
-		temp_right = *in2->vector++;
+		temp_left = *in1->vector++ * preamp_linear;
+		temp_right = *in2->vector++ * preamp_linear;
 		
 		if(temp_left > b) 
 			temp_left = 1.;
@@ -324,7 +330,7 @@ void tt_overdrive::dsp_vector_calc_mono_sine(tt_audio_signal *in, tt_audio_signa
 	temp_vs = in->vectorsize;
 	
 	while(temp_vs--){
-		temp = *in->vector++;
+		temp = *in->vector++ * preamp_linear;
 
 		// Integrated DC Blocker:
 		last_output1 = temp - last_input1 + (last_output1 * 0.9997);
@@ -350,8 +356,8 @@ void tt_overdrive::dsp_vector_calc_stereo_sine(tt_audio_signal *in1, tt_audio_si
 	temp_vs = in1->vectorsize;
 	
 	while(temp_vs--){
-		temp_left = *in1->vector++;
-		temp_right = *in2->vector++;
+		temp_left = *in1->vector++ * preamp_linear;
+		temp_right = *in2->vector++ * preamp_linear;
 
 		// Integrated DC Blocker:
 		last_output1 = temp_left - last_input1 + (last_output1 * 0.9997);

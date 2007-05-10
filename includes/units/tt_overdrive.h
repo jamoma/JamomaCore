@@ -41,12 +41,15 @@ class tt_overdrive:public tt_audio_base{
 		double	 						last_input2;
 		double							last_output2;
 		float							s, b, nb, z, scale;
+		float							preamp_db;
+		float							preamp_linear;
 	
 	public:
 		enum selectors{								
 			k_drive,												// Attribute Selectors
 			k_defeat_dcblocker,
 			k_mode,
+			k_preamp,
 		};
 		
 		// OBJECT LIFE					
