@@ -24,7 +24,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	short		err = 0;
 	long		attrflags = 0;
 	t_class		*c;
-	t_object	*attr;
+	t_object	*attr = NULL;
 	long		offset;
 	
 	// Initialize Globals
@@ -412,17 +412,21 @@ void param_output_generic(void *z)
 {
 	t_param *x = (t_param *)z;
 	
-	param_clip_generic(x);
-	if(x->list_size > 1){
-		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
-	} 
-	else{
+	if(x->list_size == 1){
+		param_clip_generic(x);
 		if(x->attr_value.a_type == A_LONG)
 			outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
 		else if(x->attr_value.a_type == A_FLOAT)
 			outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
 		else if(x->attr_value.a_type == A_SYM)
 			outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
+	}
+	else if(x->list_size > 1){
+		param_clip_generic(x);
+		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+	} 
+	else{	// zero args
+		param_output_none(x);
 	}
 	param_send_feedback(x);
 }
@@ -467,7 +471,6 @@ void param_output_list(void *z)
 }
 
 
-#ifdef JMOD_MESSAGE
 void param_output_none(void *z)
 {
 	t_param *x = (t_param *)z;
@@ -484,7 +487,6 @@ void param_output_none(void *z)
 		object_method_typed(x->common.hub, ps_feedback, 1, out, NULL);
 	}
 }
-#endif // JMOD_MESSAGE
 
 
 // INC & DEC
@@ -729,12 +731,14 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		// new input - halt any ramping...
 		if (x->rampfunction)
 			x->rampfunction->stop(x->rampunit);
+		
 		if(x->common.attr_repetitions == 0){
 			// If it's not a list this will perform the comparison as a 1 element list
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;
 		}
 		if(argc == 1){
+			x->list_size = 1;
 			jcom_core_atom_copy(&x->attr_value, argv);
 			x->param_output(x);
 		}
@@ -742,6 +746,11 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			param_list(x, msg, argc, argv);
 		}
 		else{ 	// no args
+#ifndef JMOD_MESSAGE
+			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
+			if(x->common.attr_type == ps_msg_generic)
+				x->list_size = 0;
+#endif			
 			x->param_output(x);
 		}
 	}
