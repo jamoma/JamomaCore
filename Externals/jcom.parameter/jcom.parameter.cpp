@@ -21,7 +21,6 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	short		err = 0;
 	long		attrflags = 0;
 	t_class		*c;
 	t_object	*attr = NULL;
@@ -31,6 +30,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	g_pattr_valid = false;
 	common_symbols_init();
 #ifndef JMOD_MESSAGE
+	short		err = 0;
 	err = ext_pattr_setup();
 	if(err){
 		post("Jamoma: pattr integration is not available - could not init pattr-bundle");
@@ -732,17 +732,17 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		if (x->rampfunction)
 			x->rampfunction->stop(x->rampunit);
 		
-		if(x->common.attr_repetitions == 0){
-			// If it's not a list this will perform the comparison as a 1 element list
-			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
+		if(argc == 1 ){
+			// If repetitions are disabled, we check for a repetition by treating
+			// this as a 1 element list
+			if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
+				x->list_size, argv, argc)) 
 				return;
-		}
-		if(argc == 1){
-			x->list_size = 1;
+
+			x->list_size = 1;				
 			jcom_core_atom_copy(&x->attr_value, argv);
 			x->param_output(x);
-		}
-		else if(argc > 1){
+		} else if(argc > 1) {
 			param_list(x, msg, argc, argv);
 		}
 		else{ 	// no args
@@ -819,15 +819,14 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 		
 		// Avoid copying more than one atom if the type only can have one argument
-		if (x->common.attr_type == ps_msg_float && argc > 1)
+		if(x->common.attr_type != ps_msg_list || x->common.attr_type != ps_msg_generic
+			|| x->common.attr_type != ps_msg_none) {
+			// If attr_type is != to anyone of the above values then we know 
+			// that it must be == to a scalar type.  This ensures it will behave
+			// as a scalar and not a list.
 			argc = 1;
-		else if (x->common.attr_type == ps_msg_int && argc > 1)
-			argc = 1;
-		else if (x->common.attr_type == ps_msg_toggle && argc > 1)
-			argc = 1;
-		else if (x->common.attr_type == ps_msg_symbol && argc > 1)
-			argc = 1;
-		
+		}
+			
 		for(int i = 0; i < argc; i++) {
 			switch(argv[i].a_type) 
 			{
