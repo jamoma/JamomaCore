@@ -11,7 +11,7 @@
 #include "linear.sched.h"
 
 
-t_linear_sched*	create(ramplib_method_callback in_callback, void *in_baton)
+t_linear_sched*	create(rampunit_method_callback_type in_callback, void *in_baton)
 {
 	t_linear_sched *rampunit = (t_linear_sched *)malloc(sizeof(t_linear_sched));
 	if(rampunit){
@@ -33,26 +33,32 @@ void destroy(t_linear_sched *rampunit)
 }
 
 
-void attrset(t_linear_sched *rampunit, int selector, double value)
+ramp_err attrset(t_linear_sched *rampunit, int selector, double value)
 {
 	switch(selector){			
 		case k_granularity:
 			rampunit->granularity = value;	
 			break;
+		default:
+			return RAMP_ERR_ATTR_INVALID;
 	}
+	return RAMP_ERR_NONE;
 }
 
 
-double attrget(t_linear_sched *rampunit, int selector)
+ramp_err attrget(t_linear_sched *rampunit, int selector, double *value)
 {
 	switch(selector){
 		case k_granularity:
-			return rampunit->granularity;
+			*value = rampunit->granularity;
+			break;
 		//case k_datatype:
-		//	return ramp->datatype;
+		//	*value = ramp->datatype;
+		//	break;
 		default:
-			return 0;
+			return RAMP_ERR_ATTR_INVALID;
 	}
+	return RAMP_ERR_NONE;
 }
 
 

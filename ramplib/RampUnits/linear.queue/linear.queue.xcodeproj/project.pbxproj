@@ -8,18 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		221425F50BCD10C30030C642 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221425F40BCD10C30030C642 /* MaxAPI.framework */; };
-		22D76DC50BFBEBC00090548D /* linear.sched.c in Sources */ = {isa = PBXBuildFile; fileRef = 22D76DC40BFBEBC00090548D /* linear.sched.c */; };
+		22D76DC50BFBEBC00090548D /* linear.queue.c in Sources */ = {isa = PBXBuildFile; fileRef = 22D76DC40BFBEBC00090548D /* linear.queue.c */; };
 		22D76E850BFBFC730090548D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D76E840BFBFC730090548D /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		221425D30BCC7F080030C642 /* linear.sched.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linear.sched.h; sourceTree = "<group>"; };
+		221425D30BCC7F080030C642 /* linear.queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linear.queue.h; sourceTree = "<group>"; };
 		221425F40BCD10C30030C642 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
-		22D76DC40BFBEBC00090548D /* linear.sched.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = linear.sched.c; sourceTree = "<group>"; };
+		22D76DC40BFBEBC00090548D /* linear.queue.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = linear.queue.c; sourceTree = "<group>"; };
 		22D76DEE0BFBF2040090548D /* ramplib.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib.h; path = ../../ramplib_api/ramplib.h; sourceTree = SOURCE_ROOT; };
 		22D76E840BFBFC730090548D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22D76E860BFBFC840090548D /* ramplib_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib_prefix.pch; path = ../../common/ramplib_prefix.pch; sourceTree = SOURCE_ROOT; };
-		8D5B49B6048680CD000E48DA /* linear.sched.rampunit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = linear.sched.rampunit; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* linear.queue.rampunit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = linear.queue.rampunit; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +34,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		089C166AFE841209C02AAC07 /* LinearSched */ = {
+		089C166AFE841209C02AAC07 /* Linearqueue */ = {
 			isa = PBXGroup;
 			children = (
 				08FB77AFFE84173DC02AAC07 /* Sources */,
@@ -42,7 +42,7 @@
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 			);
-			name = LinearSched;
+			name = Linearqueue;
 			sourceTree = "<group>";
 		};
 		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
@@ -56,8 +56,8 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				22D76DC40BFBEBC00090548D /* linear.sched.c */,
-				221425D30BCC7F080030C642 /* linear.sched.h */,
+				22D76DC40BFBEBC00090548D /* linear.queue.c */,
+				221425D30BCC7F080030C642 /* linear.queue.h */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -73,7 +73,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* linear.sched.rampunit */,
+				8D5B49B6048680CD000E48DA /* linear.queue.rampunit */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,9 +91,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* linear.sched */ = {
+		8D5B49AC048680CD000E48DA /* linear.queue */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "linear.sched" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "linear.queue" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
@@ -104,10 +104,10 @@
 			);
 			dependencies = (
 			);
-			name = linear.sched;
+			name = linear.queue;
 			productInstallPath = "$(HOME)/Library/Bundles";
-			productName = LinearSched;
-			productReference = 8D5B49B6048680CD000E48DA /* linear.sched.rampunit */;
+			productName = Linearqueue;
+			productReference = 8D5B49B6048680CD000E48DA /* linear.queue.rampunit */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -115,12 +115,12 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "linear.sched" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "linear.queue" */;
 			hasScannedForEncodings = 1;
-			mainGroup = 089C166AFE841209C02AAC07 /* LinearSched */;
+			mainGroup = 089C166AFE841209C02AAC07 /* Linearqueue */;
 			projectDirPath = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* linear.sched */,
+				8D5B49AC048680CD000E48DA /* linear.queue */,
 			);
 		};
 /* End PBXProject section */
@@ -157,7 +157,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22D76DC50BFBEBC00090548D /* linear.sched.c in Sources */,
+				22D76DC50BFBEBC00090548D /* linear.queue.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +178,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = ../../common/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_NAME = linear.sched;
+				PRODUCT_NAME = linear.queue;
 				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/headers;
 				WRAPPER_EXTENSION = rampunit;
 				ZERO_LINK = YES;
@@ -200,7 +200,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = ../../common/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_NAME = linear.sched;
+				PRODUCT_NAME = linear.queue;
 				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/headers;
 				WRAPPER_EXTENSION = rampunit;
 			};
@@ -229,7 +229,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "linear.sched" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "linear.queue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Development */,
@@ -238,7 +238,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "linear.sched" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "linear.queue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Development */,
