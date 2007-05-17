@@ -72,7 +72,8 @@ long ext_pattr_setup(void)
 		// these are not really important
 		pattr_obex_getb 	= (pattr_obex_getb_type)	GetProcAddress((HMODULE)hLib, "pattr_obex_getb");
 		pattr_obex_getp 	= (pattr_obex_getp_type)	GetProcAddress((HMODULE)hLib, "pattr_obex_getp");
-	}	pattr_obex_getn 	= (pattr_obex_getn_type)	GetProcAddress((HMODULE)hLib, "pattr_obex_getn");
+		pattr_obex_getn 	= (pattr_obex_getn_type)	GetProcAddress((HMODULE)hLib, "pattr_obex_getn");
+	}
 #endif	
 	if(pattr_obex_init == NULL) {
 		error("pattr_setup: could not create get function pointers for pattr-bundle");
