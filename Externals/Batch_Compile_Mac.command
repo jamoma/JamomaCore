@@ -41,5 +41,7 @@ fi
 ./Compile_Object_Mac.command jcom.xfade~ "$config"
 ./Compile_Object_Mac.command jcom.zerox~ "$config"
 
-./Compile_Object_Mac.command ../ramplib/RampUnits/LinearSched "$config"
+./Compile_Object_Mac.command ../ramplib/RampUnits/linear.queue "$config"
+./Compile_Object_Mac.command ../ramplib/RampUnits/linear.sched "$config"
+./Compile_Object_Mac.command ../ramplib/RampUnits/none "$config"
 
