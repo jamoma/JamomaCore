@@ -179,6 +179,8 @@ void ramp_granularity(t_ramp *x, double value)
 
 void ramp_granularity_get(t_ramp *x)
 {
-	float value = x->my_ramp->attrget(k_granularity);
+	double value;
+	
+	x->my_ramp->attrget(k_granularity, &value);
 	outlet_float(x->outlets[k_outlet_dumpout], value);
 }

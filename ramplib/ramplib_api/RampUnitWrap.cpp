@@ -97,15 +97,15 @@ rampunit::~rampunit(void)
 
 
 // Attribute Accessors
-void rampunit::attrset(int selector, double value)
+ramp_err rampunit::attrset(int selector, double value)
 {
 	rampunit_method_attrset(rampunit_instance, selector, value);
 }
 
 
-double rampunit::attrget(int selector)
+ramp_err rampunit::attrget(int selector, double *value)
 {
-	return rampunit_method_attrget(rampunit_instance, selector);
+	return rampunit_method_attrget(rampunit_instance, selector, value);
 }
 
 

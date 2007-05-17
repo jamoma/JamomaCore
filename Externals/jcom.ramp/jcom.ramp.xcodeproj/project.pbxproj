@@ -14,7 +14,6 @@
 		22D76E660BFBF9190090548D /* RampUnitWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D76E650BFBF9190090548D /* RampUnitWrap.cpp */; };
 		22FA631A0BCD58B5002C8695 /* RampUnitWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA63190BCD58B5002C8695 /* RampUnitWrap.h */; };
 		22FA63DE0BCD61BE002C8695 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FA63DD0BCD61BE002C8695 /* Cocoa.framework */; };
-		22FA64790BCD707A002C8695 /* RampUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FA64780BCD707A002C8695 /* RampUnit.h */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		22D76E650BFBF9190090548D /* RampUnitWrap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = RampUnitWrap.cpp; path = ../../ramplib/ramplib_api/RampUnitWrap.cpp; sourceTree = SOURCE_ROOT; };
 		22FA63190BCD58B5002C8695 /* RampUnitWrap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RampUnitWrap.h; path = ../../ramplib/ramplib_api/RampUnitWrap.h; sourceTree = SOURCE_ROOT; };
 		22FA63DD0BCD61BE002C8695 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		22FA64780BCD707A002C8695 /* RampUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RampUnit.h; path = ../../ramplib/ramplib_api/RampUnit.h; sourceTree = SOURCE_ROOT; };
 		542ED84F09C02A0000DBC7EB /* jcom.ramp.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.ramp.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -99,7 +97,6 @@
 				22B26BC60A8BFEA20051DB98 /* ramplib.h */,
 				22FA63190BCD58B5002C8695 /* RampUnitWrap.h */,
 				22D76E650BFBF9190090548D /* RampUnitWrap.cpp */,
-				22FA64780BCD707A002C8695 /* RampUnit.h */,
 			);
 			name = RampLib;
 			sourceTree = "<group>";
@@ -113,7 +110,6 @@
 			files = (
 				22B26BC80A8BFEA20051DB98 /* ramplib.h in Headers */,
 				22FA631A0BCD58B5002C8695 /* RampUnitWrap.h in Headers */,
-				22FA64790BCD707A002C8695 /* RampUnit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

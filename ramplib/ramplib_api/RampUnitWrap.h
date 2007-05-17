@@ -31,8 +31,8 @@ public:
 	~rampunit(void);	
 
 	// Attribute Accessors
-	void attrset(int selector, double value);
-	double attrget(int selector);
+	ramp_err attrset(int selector, double value);
+	ramp_err attrget(int selector, double *value);
 
 	// RampUnit Methods
 	void go(float value, double time);
