@@ -1,8 +1,6 @@
 /* 
  * Jamoma RampUnit Glue & Wrapper
- * RampUnits are implemented as Objective-C objects
- * This glue code loads the objective-c class from a plug-in and 
- * wraps access to with a C++ API
+ * This glue code wraps access to a RampUnit with a C++ API
  *
  * By Tim Place, Copyright © 2007
  * 
@@ -17,8 +15,16 @@
 
 class rampunit{
 private:
-	void	*rampunitInstance;	// This is really an Objective-C 'id' representing the relevant rampunit object
-	
+	void							*rampunit_instance;
+	rampunit_method_create_type		rampunit_method_create;	
+	rampunit_method_destroy_type	rampunit_method_destroy;
+	rampunit_method_attrset_type	rampunit_method_attrset;
+	rampunit_method_attrget_type	rampunit_method_attrget;
+	rampunit_method_go_type			rampunit_method_go;
+	rampunit_method_set_type		rampunit_method_set;
+	rampunit_method_stop_type		rampunit_method_stop;
+	rampunit_method_tick_type		rampunit_method_tick;
+
 public:
 	// Life Cycle
 	rampunit(char *filename, ramplib_method_callback pf_callback, void *baton);

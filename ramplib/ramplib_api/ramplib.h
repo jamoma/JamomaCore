@@ -19,6 +19,16 @@ typedef void	(*ramplib_method_set)		(void *, double);
 typedef void	(*ramplib_method_stop)		(void *);
 typedef void	(*ramplib_method_tick)		(void *);
 
+typedef void  	(*rampunit_method_callback_type)	(void *, float);
+typedef void* 	(*rampunit_method_create_type)	(ramplib_method_callback, void *);
+typedef void	(*rampunit_method_destroy_type)	(void *);
+typedef void	(*rampunit_method_attrset_type)	(void *, int, double);
+typedef double	(*rampunit_method_attrget_type)	(void *, int);
+typedef void	(*rampunit_method_go_type)		(void *, float, double);
+typedef void	(*rampunit_method_set_type)		(void *, double);
+typedef void	(*rampunit_method_stop_type)		(void *);
+typedef void	(*rampunit_method_tick_type)		(void *);
+
 
 // Selectors shared by many ramp units
 enum _ramplib_common_selector{

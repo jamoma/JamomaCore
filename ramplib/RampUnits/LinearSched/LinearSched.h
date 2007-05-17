@@ -8,10 +8,17 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#import "RampUnit.h"
+
+#ifndef __LINEARSCHED_H__
+#define __LINEARSCHED_H__
+
+#include "ramplib.h"		// Common definitions used by the RampLib
+#include "ext.h"			// This unit requires Max headers because we use its scheduler
 
 
-@interface LinearSched : RampUnit {
+typedef struct LinearSched {
+	ramplib_method_callback		callback;	///< usually a function in a Max external
+	void						*baton;		///< usually a pointer to the Max external's instance
 	void						*max_clock;		// pointer to a Max clock instance
 	float						ramptime;		// in ms
 	double						value_target;
@@ -19,21 +26,18 @@
 	float						granularity;	// in ms
 	double						stepsize;		// size of the steps we need to take
 	long						numgrains;		// number of steps left to take in this ramp
-}
+} t_linear_sched;
 
 
-// instance methods
-- initWithCallback:(ramplib_method_callback)in_callback baton:(void *)in_baton;
-- (void)	release;
-- (void)	attrset:(int)selector:(double)value;
-- (double)	attrget:(int)selector;
-- (void)	go:(float)value:(double)time;
-- (void)	set:(double)value;
-- (void)	stop;
-- (void)	tick;
-
-@end
+// prototypes
+t_linear_sched*	create	(ramplib_method_callback in_callback, void *in_baton);
+void			destroy	(t_linear_sched *rampunit);
+void			attrset	(t_linear_sched *rampunit, int selector, double value);
+double			attrget	(t_linear_sched *rampunit, int selector);
+void			go		(t_linear_sched *rampunit, float value, double time);
+void			set		(t_linear_sched *rampunit, double value);
+void			stop	(t_linear_sched *rampunit);
+void			tick	(t_linear_sched *rampunit);
 
 
-// C interface for the tick method -- used for callbacks from the Max scheduler
-void ctick(LinearSched *obj);
+#endif // #ifndef __LINEARSCHED_H__
