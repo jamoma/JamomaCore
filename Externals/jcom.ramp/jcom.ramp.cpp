@@ -20,11 +20,10 @@ enum outlets{
 
 
 typedef struct _ramp{
-	t_object				 ob;
-	void					*obex;
-	void					*outlets[num_outlets];
-//	t_ramplib_linear_max	*ramper;				// data structure for a ramp unit
-	rampunit				*my_ramp;
+	t_object	 ob;
+	void		*obex;
+	void		*outlets[num_outlets];
+	rampunit	*my_ramp;
 } t_ramp;
 
 
@@ -50,9 +49,7 @@ t_class		*ramp_class;				// Required: Global pointer for our class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-//	long attrflags = 0;
 	t_class *c;
-//	t_object *attr;
 	
 	// Initialize Globals
 	common_symbols_init();
@@ -86,17 +83,13 @@ int main(void)				// main recieves a copy of the Max function macros table
 void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_ramp	*x = (t_ramp *)object_alloc(ramp_class);
-//	char	rampunitname[256];
-	
-//	strcpy(rampunitname, "linearsched.bundle");
 
 	if(x){
 		x->outlets[k_outlet_dumpout] = outlet_new(x, 0L);
 		x->outlets[k_outlet_value]   = outlet_new(x, 0L);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 
-//		x->my_ramp = new rampunit(rampunitname, ramp_callback, (void *)x);						// create ramp unit
-		x->my_ramp = new rampunit("linear.sched", ramp_callback, (void *)x);						// create ramp unit
+		x->my_ramp = new rampunit("linear.sched", ramp_callback, (void *)x);		// create ramp unit
 		
 		attr_args_process(x, argc, argv);	// handle attribute args
 	}
