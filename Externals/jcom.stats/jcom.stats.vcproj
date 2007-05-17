@@ -179,7 +179,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="C:\Program Files\Cycling &apos;74\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\common\commonsyms.c">
+				RelativePath="c:\Program Files\Cycling &apos;74\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
 				RelativePath=".\jcom.stats.cpp">
