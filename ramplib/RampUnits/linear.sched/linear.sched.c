@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "LinearSched.h"
+#include "linear.sched.h"
 
 
 t_linear_sched*	create(ramplib_method_callback in_callback, void *in_baton)

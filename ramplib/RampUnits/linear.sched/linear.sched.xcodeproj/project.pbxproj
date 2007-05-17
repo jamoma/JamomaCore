@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		221425F50BCD10C30030C642 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221425F40BCD10C30030C642 /* MaxAPI.framework */; };
-		22D76DC50BFBEBC00090548D /* LinearSched.c in Sources */ = {isa = PBXBuildFile; fileRef = 22D76DC40BFBEBC00090548D /* LinearSched.c */; };
+		22D76DC50BFBEBC00090548D /* linear.sched.c in Sources */ = {isa = PBXBuildFile; fileRef = 22D76DC40BFBEBC00090548D /* linear.sched.c */; };
 		22D76E850BFBFC730090548D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D76E840BFBFC730090548D /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		221425D30BCC7F080030C642 /* LinearSched.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearSched.h; sourceTree = "<group>"; };
+		221425D30BCC7F080030C642 /* linear.sched.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linear.sched.h; sourceTree = "<group>"; };
 		221425F40BCD10C30030C642 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
-		22D76DC40BFBEBC00090548D /* LinearSched.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LinearSched.c; sourceTree = "<group>"; };
+		22D76DC40BFBEBC00090548D /* linear.sched.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = linear.sched.c; sourceTree = "<group>"; };
 		22D76DEE0BFBF2040090548D /* ramplib.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib.h; path = ../../ramplib_api/ramplib.h; sourceTree = SOURCE_ROOT; };
 		22D76E840BFBFC730090548D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22D76E860BFBFC840090548D /* ramplib_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib_prefix.pch; path = ../../common/ramplib_prefix.pch; sourceTree = SOURCE_ROOT; };
@@ -56,8 +56,8 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				22D76DC40BFBEBC00090548D /* LinearSched.c */,
-				221425D30BCC7F080030C642 /* LinearSched.h */,
+				22D76DC40BFBEBC00090548D /* linear.sched.c */,
+				221425D30BCC7F080030C642 /* linear.sched.h */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -114,7 +114,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "LinearSched" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "linear.sched" */;
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* LinearSched */;
 			projectDirPath = "";
@@ -140,7 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22D76DC50BFBEBC00090548D /* LinearSched.c in Sources */,
+				22D76DC50BFBEBC00090548D /* linear.sched.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +221,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "LinearSched" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "linear.sched" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Development */,
