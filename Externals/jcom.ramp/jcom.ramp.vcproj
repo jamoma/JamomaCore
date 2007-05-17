@@ -197,19 +197,7 @@
 				RelativePath=".\jcom.ramp.cpp">
 			</File>
 			<File
-				RelativePath=".\jcom.ramp.def">
-			</File>
-			<File
-				RelativePath="..\..\ramplib\ramplib_api\ramplib.linear.max.c">
-			</File>
-			<File
-				RelativePath="..\..\ramplib\ramplib_api\ramplib.linear.maxq.c">
-			</File>
-			<File
-				RelativePath="..\..\ramplib\ramplib_api\ramplib.none.c">
-			</File>
-			<File
-				RelativePath="..\..\ramplib\ramplib_api\rampunit.c">
+				RelativePath="..\..\ramplib\ramplib_api\RampUnitWrap.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -222,21 +210,15 @@
 				RelativePath="..\..\ramplib\ramplib_api\ramplib.h">
 			</File>
 			<File
-				RelativePath="..\..\ramplib\ramplib_api\ramplib.linear.max.h">
-			</File>
-			<File
-				RelativePath="..\..\ramplib\ramplib_api\ramplib.linear.maxq.h">
-			</File>
-			<File
-				RelativePath="..\..\ramplib\ramplib_api\ramplib.none.h">
-			</File>
-			<File
-				RelativePath="..\..\ramplib\ramplib_api\rampunit.h">
+				RelativePath="..\..\ramplib\ramplib_api\RampUnitWrap.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<File
+				RelativePath=".\jcom.ramp.def">
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

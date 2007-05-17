@@ -1,0 +1,14 @@
+; linear.sched.def : Declares the module parameters for the DLL.
+
+LIBRARY      "linear.sched"
+
+EXPORTS
+
+create
+destroy
+attrset
+attrget
+go
+stop
+set
+tick

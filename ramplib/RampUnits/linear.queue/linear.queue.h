@@ -20,7 +20,7 @@ typedef struct _linear_queue {
 	rampunit_method_callback_type	callback;		///< usually a function in a Max external
 	void							*baton;			///< usually a pointer to the Max external's instance
 	void							*max_qelem;		///< pointer to a Max queue element instance
-	bool							active;			///< is the ramp running?
+	char							active;			///< is the ramp running?
 	float							ramptime;		///< in ms
 	float							value_start;
 	float							value_target;
