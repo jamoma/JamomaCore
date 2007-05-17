@@ -4,7 +4,7 @@ config="$1"
 
 if [ "$1" != "Development" ]; then
 	config='Deployment'
-	echo "if'd"
+	echo "Building Deployment"
 fi
 
 ./Compile_Object_Mac.command jcom.change "$config"
