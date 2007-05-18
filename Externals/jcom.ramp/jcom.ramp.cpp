@@ -23,21 +23,23 @@ typedef struct _ramp{
 	t_object	 ob;
 	void		*obex;
 	void		*outlets[num_outlets];
-	rampunit	*my_ramp;
+	t_symbol	*attr_rampunit;			///< name of the current rampunit
+	rampunit	*my_ramp;				///< instance of the current rampunit
 } t_ramp;
 
 
 // Prototypes
-void*	ramp_new(t_symbol *s, long argc, t_atom *argv);
-void	ramp_free(t_ramp *x);
-void	ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
-void	ramp_int(t_ramp *x, long n);
-void	ramp_float(t_ramp *x, double f);
-void	ramp_set(t_ramp *x, double value);
-void	ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
-void	ramp_callback(void *v, float value);
-void 	ramp_granularity(t_ramp *x, double value);
-void 	ramp_granularity_get(t_ramp *x);
+void*		ramp_new(t_symbol *s, long argc, t_atom *argv);
+void		ramp_free(t_ramp *x);
+void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
+t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
+void		ramp_int(t_ramp *x, long n);
+void		ramp_float(t_ramp *x, double f);
+void		ramp_set(t_ramp *x, double value);
+void		ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
+void		ramp_callback(void *v, float value);
+void 		ramp_granularity(t_ramp *x, double value);
+void 		ramp_granularity_get(t_ramp *x);
 
 
 // Globals
@@ -69,6 +71,11 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT,		0);
 
+	// ATTRIBUTE: rampunit
+	class_addattr(c, 
+		attr_offset_new("rampunit", _sym_symbol, 0,
+		(method)0, (method)ramp_setrampunit, calcoffset(t_ramp, attr_rampunit)));
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	ramp_class = c;
@@ -83,15 +90,21 @@ int main(void)				// main recieves a copy of the Max function macros table
 void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_ramp	*x = (t_ramp *)object_alloc(ramp_class);
+	t_atom	a;
 
 	if(x){
 		x->outlets[k_outlet_dumpout] = outlet_new(x, 0L);
 		x->outlets[k_outlet_value]   = outlet_new(x, 0L);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 
-		x->my_ramp = new rampunit("linear.sched", ramp_callback, (void *)x);		// create ramp unit
-		
+		x->my_ramp = NULL;
+		x->attr_rampunit = _sym_nothing;		
 		attr_args_process(x, argc, argv);	// handle attribute args
+		
+		if(x->attr_rampunit == _sym_nothing){
+			atom_setsym(&a, gensym("linear.sched"));
+			object_attr_setvalueof(x, gensym("rampunit"), 1, &a);
+		}
 	}
 	return (x);		// return the pointer to our new instantiation
 }
@@ -122,6 +135,20 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 					break;
 		}
  	}		
+}
+
+
+// ATTRIBUTE: set rampunit
+t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
+{
+	x->attr_rampunit = atom_getsym(argv);
+	
+	if(x->my_ramp)
+		delete x->my_ramp;
+	x->my_ramp = new rampunit(x->attr_rampunit->s_name, ramp_callback, (void *)x);		// create ramp unit
+	
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
 }
 
 
