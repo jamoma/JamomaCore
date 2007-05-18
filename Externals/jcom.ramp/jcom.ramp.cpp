@@ -38,8 +38,8 @@ void		ramp_float(t_ramp *x, double f);
 void		ramp_set(t_ramp *x, double value);
 void		ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
 void		ramp_callback(void *v, float value);
-void 		ramp_granularity(t_ramp *x, double value);
-void 		ramp_granularity_get(t_ramp *x);
+void 		ramp_attrset(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
+void 		ramp_attrget(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
 
 
 // Globals
@@ -65,8 +65,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)ramp_float,				"float",		A_DEFFLOAT,	0);
  	class_addmethod(c, (method)ramp_list,				"list",			A_GIMME,	0);
 	class_addmethod(c, (method)ramp_set,				"set",			A_DEFFLOAT,	0);
-	class_addmethod(c, (method)ramp_granularity,		"granularity",	A_DEFFLOAT, 0);
-	class_addmethod(c, (method)ramp_granularity_get,	"granularity_get",			0);
+	class_addmethod(c, (method)ramp_attrset,			"attrset",		A_GIMME, 	0);
+	class_addmethod(c, (method)ramp_attrget,			"attrget",		A_GIMME,	0);
 	class_addmethod(c, (method)ramp_assist,				"assist",		A_CANT,		0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT,		0);
@@ -191,16 +191,34 @@ void ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 
 
 // RAMP UNIT ATTRIBUTES
-void ramp_granularity(t_ramp *x, double value)
+void ramp_attrset(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	x->my_ramp->attrset(k_granularity, value);
+	short 	err = 0;
+	
+	if(argc != 2){
+		error("jcom.ramp::attrset -- bad arguments");
+		return;
+	}
+	err = x->my_ramp->attrset(atom_getsym(argv), atom_getfloat(argv+1));
+	if(err)
+		error("jcom.ramp::attrset error %i", err);
 }
 
 
-void ramp_granularity_get(t_ramp *x)
+void ramp_attrget(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 {
+	short 	err = 0;
+	
+	if(argc != 1){
+		error("jcom.ramp::attrset -- bad arguments");
+		return;
+	}
+
 	double value;
 	
-	x->my_ramp->attrget(k_granularity, &value);
-	outlet_float(x->outlets[k_outlet_dumpout], value);
+	err = x->my_ramp->attrget(atom_getsym(argv), &value);
+	if(err)
+		error("jcom.ramp::attrget error %i", err);
+	else
+		outlet_float(x->outlets[k_outlet_dumpout], value);
 }

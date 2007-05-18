@@ -1,6 +1,6 @@
 /* 
- * Jamoma RampUnit: LinearSched (linear.sched) 
- * Linear ramping function using the Max scheduler
+ * Jamoma RampUnit: linear.queue
+ * Linear ramping function using the Max queue
  *
  * By Tim Place, Copyright © 2006, 2007
  * 
@@ -32,13 +32,13 @@ void destroy(t_linear_queue *rampunit)
 }
 
 
-ramp_err attrset(t_linear_queue *rampunit, int selector, double value)
+ramp_err attrset(t_linear_queue *rampunit, t_symbol *attrname, double value)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }
 
 
-ramp_err attrget(t_linear_queue *rampunit, int selector, double *value)
+ramp_err attrget(t_linear_queue *rampunit, t_symbol *attrname, double *value)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }

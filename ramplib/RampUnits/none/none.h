@@ -8,7 +8,6 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-
 #ifndef __NONE_H__
 #define __NONE_H__
 
@@ -31,8 +30,8 @@ typedef struct _none {
 // prototypes
 t_none*		create	(rampunit_method_callback_type in_callback, void *in_baton);
 void		destroy	(t_none *rampunit);
-ramp_err	attrset	(t_none *rampunit, int selector, double value);
-ramp_err	attrget	(t_none *rampunit, int selector, double *value);
+ramp_err	attrset	(t_none *rampunit, t_symbol *attrname, double value);
+ramp_err	attrget	(t_none *rampunit, t_symbol *attrname, double *value);
 void		go		(t_none *rampunit, float value, double time);
 void		set		(t_none *rampunit, double value);
 void		stop	(t_none *rampunit);

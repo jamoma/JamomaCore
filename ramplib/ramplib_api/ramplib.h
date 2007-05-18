@@ -5,6 +5,7 @@
 
 #include <math.h>		// Standard Math library
 #include <stdlib.h>
+#include "ext.h"		// Standard MaxMSP header (used for symbol definition, among others)
 
 // error definitions
 enum{
@@ -32,8 +33,8 @@ typedef void	(*ramplib_method_tick)		(void *);
 typedef void		(*rampunit_method_callback_type)	(void *, float);
 typedef void*		(*rampunit_method_create_type)		(ramplib_method_callback, void *);
 typedef void		(*rampunit_method_destroy_type)		(void *);
-typedef ramp_err	(*rampunit_method_attrset_type)		(void *, int, double);
-typedef ramp_err	(*rampunit_method_attrget_type)		(void *, int, double *);
+typedef ramp_err	(*rampunit_method_attrset_type)		(void *, t_symbol *, double);
+typedef ramp_err	(*rampunit_method_attrget_type)		(void *, t_symbol *, double *);
 typedef void		(*rampunit_method_go_type)			(void *, float, double);
 typedef void		(*rampunit_method_set_type)			(void *, double);
 typedef void		(*rampunit_method_stop_type)		(void *);

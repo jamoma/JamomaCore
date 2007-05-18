@@ -92,20 +92,21 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 // Destructor
 rampunit::~rampunit(void)
 {
-	rampunit_method_destroy(rampunit_instance);
+	if(rampunit_instance)
+		rampunit_method_destroy(rampunit_instance);
 }
 
 
 // Attribute Accessors
-ramp_err rampunit::attrset(int selector, double value)
+ramp_err rampunit::attrset(t_symbol *attrname, double value)
 {
-	return rampunit_method_attrset(rampunit_instance, selector, value);
+	return rampunit_method_attrset(rampunit_instance, attrname, value);
 }
 
 
-ramp_err rampunit::attrget(int selector, double *value)
+ramp_err rampunit::attrget(t_symbol *attrname, double *value)
 {
-	return rampunit_method_attrget(rampunit_instance, selector, value);
+	return rampunit_method_attrget(rampunit_instance, attrname, value);
 }
 
 

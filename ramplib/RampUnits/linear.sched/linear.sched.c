@@ -10,16 +10,20 @@
 
 #include "linear.sched.h"
 
+static t_symbol *ps_granularity;
+
 
 t_linear_sched*	create(rampunit_method_callback_type in_callback, void *in_baton)
 {
 	t_linear_sched *rampunit = (t_linear_sched *)malloc(sizeof(t_linear_sched));
 	if(rampunit){
+		ps_granularity = gensym("granularity");							// cache attr names for speed
+
 		rampunit->callback = in_callback;
 		rampunit->baton = in_baton;
 		rampunit->max_clock = clock_new(rampunit, (method)&tick);		// install the max timer
 		rampunit->value_current = 0;
-		attrset(rampunit, k_granularity, 20.0);
+		attrset(rampunit, ps_granularity, 20.0);
 	}
 	return rampunit;
 }
@@ -33,31 +37,24 @@ void destroy(t_linear_sched *rampunit)
 }
 
 
-ramp_err attrset(t_linear_sched *rampunit, int selector, double value)
+ramp_err attrset(t_linear_sched *rampunit, t_symbol *attrname, double value)
 {
-	switch(selector){			
-		case k_granularity:
-			rampunit->granularity = value;	
-			break;
-		default:
-			return RAMP_ERR_ATTR_INVALID;
-	}
+	if(attrname = ps_granularity)
+		rampunit->granularity = value;	
+	else
+		return RAMP_ERR_ATTR_INVALID;
+
 	return RAMP_ERR_NONE;
 }
 
 
-ramp_err attrget(t_linear_sched *rampunit, int selector, double *value)
+ramp_err attrget(t_linear_sched *rampunit, t_symbol *attrname, double *value)
 {
-	switch(selector){
-		case k_granularity:
-			*value = rampunit->granularity;
-			break;
-		//case k_datatype:
-		//	*value = ramp->datatype;
-		//	break;
-		default:
-			return RAMP_ERR_ATTR_INVALID;
-	}
+	if(attrname = ps_granularity)
+		*value = rampunit->granularity;
+	else
+		return RAMP_ERR_ATTR_INVALID;
+
 	return RAMP_ERR_NONE;
 }
 

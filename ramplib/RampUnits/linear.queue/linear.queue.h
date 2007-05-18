@@ -8,12 +8,10 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-
 #ifndef __LINEARQUEUE_H__
 #define __LINEARQUEUE_H__
 
 #include "ramplib.h"		// Common definitions used by the RampLib
-#include "ext.h"			// This unit requires Max headers because we use its queue
 
 
 typedef struct _linear_queue {
@@ -33,8 +31,8 @@ typedef struct _linear_queue {
 // prototypes
 t_linear_queue*	create	(rampunit_method_callback_type in_callback, void *in_baton);
 void			destroy	(t_linear_queue *rampunit);
-ramp_err		attrset	(t_linear_queue *rampunit, int selector, double value);
-ramp_err		attrget	(t_linear_queue *rampunit, int selector, double *value);
+ramp_err		attrset	(t_linear_queue *rampunit, t_symbol *attrname, double value);
+ramp_err		attrget	(t_linear_queue *rampunit, t_symbol *attrname, double *value);
 void			go		(t_linear_queue *rampunit, float value, double time);
 void			set		(t_linear_queue *rampunit, double value);
 void			stop	(t_linear_queue *rampunit);

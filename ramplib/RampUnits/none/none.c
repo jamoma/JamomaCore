@@ -1,6 +1,6 @@
 /* 
- * Jamoma RampUnit: LinearSched (linear.sched) 
- * Linear ramping function using the Max scheduler
+ * Jamoma RampUnit: none
+ * A non-ramping function -- just sets the value immediately
  *
  * By Tim Place, Copyright © 2006, 2007
  * 
@@ -29,13 +29,13 @@ void destroy(t_none *rampunit)
 }
 
 
-ramp_err attrset(t_none *rampunit, int selector, double value)
+ramp_err attrset(t_none *rampunit, t_symbol *attrname, double value)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }
 
 
-ramp_err attrget(t_none *rampunit, int selector, double *value)
+ramp_err attrget(t_none *rampunit, t_symbol *attrname, double *value)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }

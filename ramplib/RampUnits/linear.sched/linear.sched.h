@@ -8,12 +8,10 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-
 #ifndef __LINEARSCHED_H__
 #define __LINEARSCHED_H__
 
 #include "ramplib.h"		// Common definitions used by the RampLib
-#include "ext.h"			// This unit requires Max headers because we use its scheduler
 
 
 typedef struct _linear_sched {
@@ -32,8 +30,8 @@ typedef struct _linear_sched {
 // prototypes
 t_linear_sched*	create	(rampunit_method_callback_type in_callback, void *in_baton);
 void			destroy	(t_linear_sched *rampunit);
-ramp_err		attrset	(t_linear_sched *rampunit, int selector, double value);
-ramp_err		attrget	(t_linear_sched *rampunit, int selector, double *value);
+ramp_err		attrset	(t_linear_sched *rampunit, t_symbol *attrname, double value);
+ramp_err		attrget	(t_linear_sched *rampunit, t_symbol *attrname, double *value);
 void			go		(t_linear_sched *rampunit, float value, double time);
 void			set		(t_linear_sched *rampunit, double value);
 void			stop	(t_linear_sched *rampunit);
