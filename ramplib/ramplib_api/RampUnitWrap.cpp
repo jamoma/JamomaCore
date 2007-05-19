@@ -37,7 +37,7 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 #endif
 	if(locatefile_extended(extended_filename, &path, &outtype, NULL, 0)){	// Returns 0 if successful
 		error("rampunit: ramp unit not found");
-		return;														// Not found
+		goto out;												// Not found
 	}	
 	path_topathname(path, extended_filename, fullpath);
 #ifdef MAC_VERSION
@@ -47,14 +47,14 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 	url = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault, (UInt8 *)temppath, strlen(temppath), true);
 	if(!url){
 		error("pattr_setup: could not create URL for pattr-bundle");
-		return;
+		goto out;
 	}
 	
 	bun = CFBundleCreate(kCFAllocatorDefault, url);
 	CFRelease(url);
 	if(!bun){
 		error("pattr_setup: could not create BundleRef for pattr-bundle");
-		return;
+		goto out;
 	}
 	rampunit_method_create 	= (rampunit_method_create_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("create"));
 	rampunit_method_destroy	= (rampunit_method_destroy_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("destroy"));
@@ -83,6 +83,7 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 	if(rampunit_method_create)
 		rampunit_instance = rampunit_method_create(pf_callback, baton);
 	else{
+out:	
 		error("RampUnit creation failed!");
 		rampunit_instance = NULL;
 	}
@@ -100,37 +101,59 @@ rampunit::~rampunit(void)
 // Attribute Accessors
 ramp_err rampunit::attrset(t_symbol *attrname, double value)
 {
-	return rampunit_method_attrset(rampunit_instance, attrname, value);
+	if(rampunit_instance)
+		return rampunit_method_attrset(rampunit_instance, attrname, value);
+	else{
+		error("bad rampunit, cannot call attrset");
+		return RAMP_ERR_GENERIC;
+	}
 }
 
 
 ramp_err rampunit::attrget(t_symbol *attrname, double *value)
 {
-	return rampunit_method_attrget(rampunit_instance, attrname, value);
+	if(rampunit_instance)
+		return rampunit_method_attrget(rampunit_instance, attrname, value);
+	else{
+		error("bad rampunit, cannot call attrget");
+		return RAMP_ERR_GENERIC;
+	}
 }
 
 
 // RampUnit Methods
 void rampunit::go(float value, double time)
 {
-	rampunit_method_go(rampunit_instance, value, time);
+	if(rampunit_instance)
+		rampunit_method_go(rampunit_instance, value, time);
+	else
+		error("bad rampunit, cannot call go");
 }
 
 
 void rampunit::set(float value)
 {
-	rampunit_method_set(rampunit_instance, value);
+	if(rampunit_instance)
+		rampunit_method_set(rampunit_instance, value);
+	else
+		error("bad rampunit, cannot call set");
 }
 
 
 void rampunit::stop()
 {
-	rampunit_method_stop(rampunit_instance);
+	if(rampunit_instance)
+		rampunit_method_stop(rampunit_instance);
+	else
+		error("bad rampunit, cannot call stop");
 }
 
 
 void rampunit::tick()
 {
-	rampunit_method_tick(rampunit_instance);
+	if(rampunit_instance)
+		rampunit_method_tick(rampunit_instance);
+	else
+		error("bad rampunit, cannot call tick");
 }
 
