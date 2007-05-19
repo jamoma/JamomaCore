@@ -10,7 +10,11 @@
 
 
 #include "ext.h"
+#include "ext_obex.h"
+#include "ext_hashtab.h"
 #include "RampUnitWrap.h"
+
+static t_hashtab	*rampunit_cache = NULL;		// cache of all previously loaded rampunit bundles
 
 
 rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *baton)
@@ -27,6 +31,20 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 	HANDLE			hLib = NULL;
 	char			winpath[512];
 #endif
+	
+	// 0. Look for the rampunit in the cache
+	if(rampunit_cache){
+#ifdef MAC_VERSION
+		hashtab_lookup(rampunit_cache, gensym(filename), (t_object **)&bun);
+		if(bun)
+#else // WIN_VERSION
+		hashtab_lookup(rampunit_cache, gensym("filename"), (t_object **)&hLib);
+		if(hLib)
+#endif
+			goto fetchpointers;
+	}
+	else
+		rampunit_cache = hashtab_new(17);
 
 	// 1. Find and open the RampUnit plug-in from the searchpath
 	strcpy(extended_filename, filename);
@@ -56,6 +74,12 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 		error("pattr_setup: could not create BundleRef for pattr-bundle");
 		goto out;
 	}
+	
+	CFBundleLoadExecutable(bun);	// this makes sure that the OS doesn't close our bundle automatically 
+									// we want to keep it open for the hastab/cache optimization
+	hashtab_store(rampunit_cache, gensym(filename), (t_object *)bun);
+	
+fetchpointers:
 	rampunit_method_create 	= (rampunit_method_create_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("create"));
 	rampunit_method_destroy	= (rampunit_method_destroy_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("destroy"));
 	rampunit_method_attrset	= (rampunit_method_attrset_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("attrset"));
@@ -68,7 +92,11 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 #else // WIN_VERSION
 	path_nameconform(fullpath, winpath, PATH_STYLE_NATIVE, PATH_TYPE_ABSOLUTE);
 	hLib = LoadLibrary(winpath);
+	
+	hashtab_store(rampunit_cache, gensym(filename), (t_object *)hLib);	
+	
 	if(hLib){
+fetchpointers:
 		rampunit_method_create 	= (rampunit_method_create_type)		GetProcAddress((HMODULE)hLib, "create");
 		rampunit_method_destroy	= (rampunit_method_destroy_type)	GetProcAddress((HMODULE)hLib, "destroy");
 		rampunit_method_attrset	= (rampunit_method_attrset_type)	GetProcAddress((HMODULE)hLib, "attrset");
