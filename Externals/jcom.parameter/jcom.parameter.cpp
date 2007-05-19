@@ -145,10 +145,10 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			x->outlets[i-1] = outlet_new(x, 0);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 
-		x->attr_ramp = ps_none;						// set defaults...	
-		x->rampunit = NULL;
-		x->rampfunction = NULL;
-		
+		// set defaults...
+		x->attr_ramp = NULL;
+		x->ramper = NULL;
+
 		// defaulted to one long above, set list to be of size 1
 		x->list_size = 1;
 		for(i = 0; i < LISTSIZE; i++)	
@@ -179,6 +179,11 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setsym(&a, ps_msg_generic);
 			object_attr_setvalueof(x, ps_type, 1, &a);
 		}
+		if(x->attr_ramp == NULL){
+			t_atom a;
+			atom_setsym(&a, ps_none);
+			object_attr_setvalueof(x, ps_ramp, 1, &a);
+		}
 		
 		x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
 	}
@@ -189,12 +194,9 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 void param_free(t_param *x)
 {	
 	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common *)x);
-
-	if(x->rampfunction != NULL){
-		x->rampfunction->destroy(x->rampunit);
-		sysmem_freeptr(x->rampfunction);
-	}	
 	qelem_free(x->ui_qelem);
+	if(x->ramper)
+		delete x->ramper;
 }
 
 
@@ -283,6 +285,8 @@ t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 		x->param_output = &param_output_generic;
 	}
 
+// THIS IS ALSO CALLED WHEN THE ATTR IS SET IN NEW...  SO IT TRIGGERS TWICE
+// CAN PREVENT THIS BY SWITCHING TO CALL IT IN A QELEM:
 	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
 
 	return MAX_ERR_NONE;
@@ -533,8 +537,8 @@ void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	if(x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
 	else{
-		if(x->rampfunction)
-			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
+		if(x->ramper)
+			x->ramper->stop();
 			
 		if(x->common.attr_type == ps_msg_int)
 			atom_setlong(a, x->attr_value.a_w.w_long + (x->attr_stepsize * stepmult));
@@ -600,8 +604,8 @@ void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	if(x->attr_slavemode)
 		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
 	else{
-		if(x->rampfunction)
-			x->rampfunction->stop(x->rampunit);				// new input - halt any ramping...
+		if(x->ramper)
+			x->ramper->stop();
 			
 		if(x->common.attr_type == ps_msg_int)
 			atom_setlong(a, x->attr_value.a_w.w_long - (x->attr_stepsize * stepmult));
@@ -636,8 +640,8 @@ void param_int(t_param *x, long value)
 				return;
 		}
 		// new input - halt any ramping...
-		if (x->rampfunction)
-			x->rampfunction->stop(x->rampunit);
+		if(x->ramper)
+			x->ramper->stop();
 		atom_setlong(&x->attr_value, value);
 		x->param_output(x);
 	}
@@ -656,8 +660,8 @@ void param_float(t_param *x, double value)
 				return;
 		}
 		// new input - halt any ramping...
-		if(x->rampfunction)
-			x->rampfunction->stop(x->rampunit);
+		if(x->ramper)
+			x->ramper->stop();
 	
 		atom_setfloat(&x->attr_value, value);
 		x->param_output(x);
@@ -729,8 +733,8 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
 	else {
 		// new input - halt any ramping...
-		if (x->rampfunction)
-			x->rampfunction->stop(x->rampunit);
+		if(x->ramper)
+			x->ramper->stop();
 		
 		if(argc == 1 ){
 			// If repetitions are disabled, we check for a repetition by treating
@@ -809,9 +813,10 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;	// nothing to do
 		}
-		x->rampfunction->set(x->rampunit, atom_getfloat(&x->attr_value));
-		x->rampfunction->go(x->rampunit, value, time);
-	} else {
+		x->ramper->set(atom_getfloat(&x->attr_value));
+		x->ramper->go(value, time);
+	} 
+	else{
 		// Don't output if the input data is identical
 		if(!x->common.attr_repetitions) {
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
@@ -880,61 +885,21 @@ void param_ramp_callback_int(void *v, float value)
 
 void param_ramp_setup(t_param *x)
 {
-	// 1. check and free memory
-	if(x->rampunit != NULL && x->rampfunction != NULL)
-		x->rampfunction->destroy(x->rampunit);
-	if(x->rampunit != NULL)
-		x->rampunit = NULL;
-	if(x->rampfunction != NULL){
-		sysmem_freeptr(x->rampfunction);
-		x->rampfunction = NULL;
-	}
-
-	// 2. allocate memory for function pointers
-	x->rampfunction = (t_rampunit_functions *)sysmem_newptr(sizeof(t_rampunit_functions));
-	if(!x->rampfunction){
-		error("jcom.parameter / jcom.message failed to create the required rampunit");
-		return;
-	}
-
-	// 3. setup function pointers
-	if(x->attr_ramp == ps_linear){
-		x->rampfunction->create 	= ramplib_linear_max_create;
-		x->rampfunction->destroy 	= ramplib_linear_max_free;
-		x->rampfunction->attrset 	= &ramplib_linear_max_attrset;
-		x->rampfunction->attrget 	= &ramplib_linear_max_attrget;
-		x->rampfunction->go 		= &ramplib_linear_max_go;
-		x->rampfunction->set 		= &ramplib_linear_max_set;
-		x->rampfunction->stop 		= &ramplib_linear_max_stop;
-		x->rampfunction->tick 		= &ramplib_linear_max_tick;
-	}
-	else if(x->attr_ramp == ps_linear_q){
-		x->rampfunction->create 	= &ramplib_linear_maxq_create;
-		x->rampfunction->destroy 	= &ramplib_linear_maxq_free;
-		x->rampfunction->attrset 	= &ramplib_linear_maxq_attrset;
-		x->rampfunction->attrget 	= &ramplib_linear_maxq_attrget;
-		x->rampfunction->go 		= &ramplib_linear_maxq_go;
-		x->rampfunction->set 		= &ramplib_linear_maxq_set;
-		x->rampfunction->stop 		= &ramplib_linear_maxq_stop;
-		x->rampfunction->tick 		= &ramplib_linear_maxq_tick;
-	}
-	else{
-		x->rampfunction->create 	= &ramplib_none_create;
-		x->rampfunction->destroy 	= &ramplib_none_free;
-		x->rampfunction->attrset 	= &ramplib_none_attrset;
-		x->rampfunction->attrget 	= &ramplib_none_attrget;
-		x->rampfunction->go 		= &ramplib_none_go;
-		x->rampfunction->set 		= &ramplib_none_set;
-		x->rampfunction->stop 		= &ramplib_none_stop;
-		x->rampfunction->tick 		= &ramplib_none_tick;
-	}
-	
-	// 4. allocate and create ramp unit
-	if((x->common.attr_type == ps_msg_int) || (x->common.attr_type == ps_msg_toggle))
-		x->rampunit = x->rampfunction->create(param_ramp_callback_int, (void *)x);
-	else	// assume float type
-		x->rampunit = x->rampfunction->create(param_ramp_callback_float, (void *)x);
+	// 1. destroy the old rampunit
+	if(x->ramper != NULL)
+		delete x->ramper;
 		
-	if(x->rampunit == NULL)
+	// 2. create the new rampunit
+	// For backwards compatibility, we still accept 'linear' as an input value for @ramp
+	// but we need to convert that to the actual name of the rampunit...
+	if(x->attr_ramp == ps_linear)
+		x->attr_ramp = gensym("linear.sched");
+		
+	if((x->common.attr_type == ps_msg_int) || (x->common.attr_type == ps_msg_toggle))
+		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_int, (void *)x);
+	else	// assume float type
+		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_float, (void *)x);
+		
+	if(x->ramper == NULL)
 		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
 }

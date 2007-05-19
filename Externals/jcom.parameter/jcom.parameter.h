@@ -20,13 +20,8 @@
 #define OBJECT_CLASS_NAME "jcom.parameter"
 #endif
 
-#include "jcom.core.h"			// OBJECT_CLASS_NAME must defined before this
-
-// Ramp Unit interfaces
-#include "ext_ramplib.h"
-#include "ramplib.linear.max.h"
-#include "ramplib.linear.maxq.h"
-#include "ramplib.none.h"
+#include "jcom.core.h"			// OBJECT_CLASS_NAME must be defined before this
+#include "RampUnitWrap.h"
 
 #define LISTSIZE 512
 
@@ -54,8 +49,7 @@ typedef struct _param{						// Data Structure for this object
 	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
 	t_symbol				*name;					// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
 	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
-	t_rampunit_functions	*rampfunction;			// function pointers for this objects rampunit interface
-	void					*rampunit;				// a pointer to our ramp unit data structure
+	rampunit				*ramper;				///< rampunit object to perform ramping of input values
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
 } t_param;
 

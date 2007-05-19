@@ -13,15 +13,6 @@
 		221EA2040A8984AF001799B2 /* jcom.parameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 221EA2010A8984AF001799B2 /* jcom.parameter.h */; };
 		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
 		2251CEB30A8E397300C41535 /* ramplib.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251CEAC0A8E397300C41535 /* ramplib.h */; };
-		2251CEB40A8E397300C41535 /* ramplib.linear.max.c in Sources */ = {isa = PBXBuildFile; fileRef = 2251CEAD0A8E397300C41535 /* ramplib.linear.max.c */; };
-		2251CEB50A8E397300C41535 /* ramplib.linear.max.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251CEAE0A8E397300C41535 /* ramplib.linear.max.h */; };
-		2251CEB60A8E397300C41535 /* ramplib.linear.maxq.c in Sources */ = {isa = PBXBuildFile; fileRef = 2251CEAF0A8E397300C41535 /* ramplib.linear.maxq.c */; };
-		2251CEB70A8E397300C41535 /* ramplib.linear.maxq.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251CEB00A8E397300C41535 /* ramplib.linear.maxq.h */; };
-		2251CEB80A8E397300C41535 /* ramplib.none.c in Sources */ = {isa = PBXBuildFile; fileRef = 2251CEB10A8E397300C41535 /* ramplib.none.c */; };
-		2251CEB90A8E397300C41535 /* ramplib.none.h in Headers */ = {isa = PBXBuildFile; fileRef = 2251CEB20A8E397300C41535 /* ramplib.none.h */; };
-		2251CEBB0A8E397300C41535 /* ramplib.linear.max.c in Sources */ = {isa = PBXBuildFile; fileRef = 2251CEAD0A8E397300C41535 /* ramplib.linear.max.c */; };
-		2251CEBD0A8E397300C41535 /* ramplib.linear.maxq.c in Sources */ = {isa = PBXBuildFile; fileRef = 2251CEAF0A8E397300C41535 /* ramplib.linear.maxq.c */; };
-		2251CEBF0A8E397300C41535 /* ramplib.none.c in Sources */ = {isa = PBXBuildFile; fileRef = 2251CEB10A8E397300C41535 /* ramplib.none.c */; };
 		228714E20A6B3A8D001EDF38 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
 		228714E60A6B3A8D001EDF38 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 		228714E70A6B3A8D001EDF38 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
@@ -34,6 +25,9 @@
 		22D663720AD1AD45008364C4 /* ext_pattr_bundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D663700AD1AD45008364C4 /* ext_pattr_bundle.h */; };
 		22D663730AD1AD45008364C4 /* ext_pattr_bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 22D6636F0AD1AD45008364C4 /* ext_pattr_bundle.c */; };
 		22D663740AD1AD45008364C4 /* ext_pattr_bundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D663700AD1AD45008364C4 /* ext_pattr_bundle.h */; };
+		22D772080BFE640E0090548D /* RampUnitWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D772060BFE640E0090548D /* RampUnitWrap.cpp */; };
+		22D772090BFE640E0090548D /* RampUnitWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D772070BFE640E0090548D /* RampUnitWrap.h */; };
+		22D772150BFE647A0090548D /* RampUnitWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D772060BFE640E0090548D /* RampUnitWrap.cpp */; };
 		22E902990A6558CE0014CFB9 /* tt_audio_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E902980A6558CE0014CFB9 /* tt_audio_base.h */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
@@ -47,17 +41,13 @@
 		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		2251CEAC0A8E397300C41535 /* ramplib.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib.h; path = ../../ramplib/ramplib_api/ramplib.h; sourceTree = SOURCE_ROOT; };
-		2251CEAD0A8E397300C41535 /* ramplib.linear.max.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = ramplib.linear.max.c; path = ../../ramplib/ramplib_api/ramplib.linear.max.c; sourceTree = SOURCE_ROOT; };
-		2251CEAE0A8E397300C41535 /* ramplib.linear.max.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib.linear.max.h; path = ../../ramplib/ramplib_api/ramplib.linear.max.h; sourceTree = SOURCE_ROOT; };
-		2251CEAF0A8E397300C41535 /* ramplib.linear.maxq.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = ramplib.linear.maxq.c; path = ../../ramplib/ramplib_api/ramplib.linear.maxq.c; sourceTree = SOURCE_ROOT; };
-		2251CEB00A8E397300C41535 /* ramplib.linear.maxq.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib.linear.maxq.h; path = ../../ramplib/ramplib_api/ramplib.linear.maxq.h; sourceTree = SOURCE_ROOT; };
-		2251CEB10A8E397300C41535 /* ramplib.none.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = ramplib.none.c; path = ../../ramplib/ramplib_api/ramplib.none.c; sourceTree = SOURCE_ROOT; };
-		2251CEB20A8E397300C41535 /* ramplib.none.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib.none.h; path = ../../ramplib/ramplib_api/ramplib.none.h; sourceTree = SOURCE_ROOT; };
 		228714EE0A6B3A8D001EDF38 /* jcom.message.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.message.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A391120A8AA87900A164F2 /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.core.cpp; path = ../common/jcom.core.cpp; sourceTree = SOURCE_ROOT; };
 		22A391160A8AA87E00A164F2 /* jcom.core.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jcom.core.h; path = ../common/jcom.core.h; sourceTree = SOURCE_ROOT; };
 		22D6636F0AD1AD45008364C4 /* ext_pattr_bundle.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ext_pattr_bundle.c; sourceTree = "<group>"; };
 		22D663700AD1AD45008364C4 /* ext_pattr_bundle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ext_pattr_bundle.h; sourceTree = "<group>"; };
+		22D772060BFE640E0090548D /* RampUnitWrap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = RampUnitWrap.cpp; path = ../../ramplib/ramplib_api/RampUnitWrap.cpp; sourceTree = SOURCE_ROOT; };
+		22D772070BFE640E0090548D /* RampUnitWrap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RampUnitWrap.h; path = ../../ramplib/ramplib_api/RampUnitWrap.h; sourceTree = SOURCE_ROOT; };
 		22E902980A6558CE0014CFB9 /* tt_audio_base.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_audio_base.h; path = ../../externals_3rd_party/ttblue/dsplib/tt_audio_base.h; sourceTree = SOURCE_ROOT; };
 		542ED84F09C02A0000DBC7EB /* jcom.parameter.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.parameter.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,13 +130,9 @@
 		2251CEA50A8E395800C41535 /* RampLib */ = {
 			isa = PBXGroup;
 			children = (
+				22D772060BFE640E0090548D /* RampUnitWrap.cpp */,
+				22D772070BFE640E0090548D /* RampUnitWrap.h */,
 				2251CEAC0A8E397300C41535 /* ramplib.h */,
-				2251CEAD0A8E397300C41535 /* ramplib.linear.max.c */,
-				2251CEAE0A8E397300C41535 /* ramplib.linear.max.h */,
-				2251CEAF0A8E397300C41535 /* ramplib.linear.maxq.c */,
-				2251CEB00A8E397300C41535 /* ramplib.linear.maxq.h */,
-				2251CEB10A8E397300C41535 /* ramplib.none.c */,
-				2251CEB20A8E397300C41535 /* ramplib.none.h */,
 			);
 			name = RampLib;
 			sourceTree = "<group>";
@@ -179,10 +165,8 @@
 				221EA2040A8984AF001799B2 /* jcom.parameter.h in Headers */,
 				22A391170A8AA87E00A164F2 /* jcom.core.h in Headers */,
 				2251CEB30A8E397300C41535 /* ramplib.h in Headers */,
-				2251CEB50A8E397300C41535 /* ramplib.linear.max.h in Headers */,
-				2251CEB70A8E397300C41535 /* ramplib.linear.maxq.h in Headers */,
-				2251CEB90A8E397300C41535 /* ramplib.none.h in Headers */,
 				22D663720AD1AD45008364C4 /* ext_pattr_bundle.h in Headers */,
+				22D772090BFE640E0090548D /* RampUnitWrap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,13 +299,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22D772150BFE647A0090548D /* RampUnitWrap.cpp in Sources */,
 				22A390A00A8A886900A164F2 /* jcom.parameter.cpp in Sources */,
 				22A390A10A8A886900A164F2 /* jcom.parameter.clip.cpp in Sources */,
 				228714E20A6B3A8D001EDF38 /* commonsyms.c in Sources */,
 				22A391140A8AA87900A164F2 /* jcom.core.cpp in Sources */,
-				2251CEBB0A8E397300C41535 /* ramplib.linear.max.c in Sources */,
-				2251CEBD0A8E397300C41535 /* ramplib.linear.maxq.c in Sources */,
-				2251CEBF0A8E397300C41535 /* ramplib.none.c in Sources */,
 				22D663730AD1AD45008364C4 /* ext_pattr_bundle.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,10 +316,8 @@
 				221EA2020A8984AF001799B2 /* jcom.parameter.clip.cpp in Sources */,
 				221EA2030A8984AF001799B2 /* jcom.parameter.cpp in Sources */,
 				22A391130A8AA87900A164F2 /* jcom.core.cpp in Sources */,
-				2251CEB40A8E397300C41535 /* ramplib.linear.max.c in Sources */,
-				2251CEB60A8E397300C41535 /* ramplib.linear.maxq.c in Sources */,
-				2251CEB80A8E397300C41535 /* ramplib.none.c in Sources */,
 				22D663710AD1AD45008364C4 /* ext_pattr_bundle.c in Sources */,
+				22D772080BFE640E0090548D /* RampUnitWrap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
