@@ -200,8 +200,6 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 		return;
 	}
 	err = x->my_ramp->attrset(atom_getsym(argv), atom_getfloat(argv+1));
-	if(err)
-		error("jcom.ramp::attrset error %i", err);
 }
 
 
@@ -217,8 +215,6 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 	double value;
 	
 	err = x->my_ramp->attrget(atom_getsym(argv), &value);
-	if(err)
-		error("jcom.ramp::attrget error %i", err);
-	else
+	if(!err)
 		outlet_float(x->outlets[k_outlet_dumpout], value);
 }

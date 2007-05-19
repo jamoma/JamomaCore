@@ -101,23 +101,41 @@ rampunit::~rampunit(void)
 // Attribute Accessors
 ramp_err rampunit::attrset(t_symbol *attrname, double value)
 {
-	if(rampunit_instance)
-		return rampunit_method_attrset(rampunit_instance, attrname, value);
-	else{
-		error("bad rampunit, cannot call attrset");
-		return RAMP_ERR_GENERIC;
+	ramp_err err = RAMP_ERR_GENERIC;
+	
+	if(rampunit_instance){
+		err = rampunit_method_attrset(rampunit_instance, attrname, value);
+		if(err){
+			if(err == RAMP_ERR_ATTR_INVALID)
+				error("invalid attr specified for this rampunit");
+			else
+				error("rampunit::attrset error %i", err);
+		}
 	}
+	else
+		error("bad rampunit, cannot call attrset");
+	
+	return err;
 }
 
 
 ramp_err rampunit::attrget(t_symbol *attrname, double *value)
 {
-	if(rampunit_instance)
-		return rampunit_method_attrget(rampunit_instance, attrname, value);
-	else{
-		error("bad rampunit, cannot call attrget");
-		return RAMP_ERR_GENERIC;
+	ramp_err err = RAMP_ERR_GENERIC;
+	
+	if(rampunit_instance){
+		err = rampunit_method_attrget(rampunit_instance, attrname, value);
+		if(err){
+			if(err == RAMP_ERR_ATTR_INVALID)
+				error("invalid attr specified for this rampunit");
+			else
+				error("rampunit::attrget error %i", err);
+		}
 	}
+	else
+		error("bad rampunit, cannot call attrget");
+	
+	return err;
 }
 
 
