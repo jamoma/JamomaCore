@@ -51,6 +51,7 @@ typedef struct _param{						// Data Structure for this object
 	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
 	rampunit				*ramper;				///< rampunit object to perform ramping of input values
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
+	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
 } t_param;
 
 

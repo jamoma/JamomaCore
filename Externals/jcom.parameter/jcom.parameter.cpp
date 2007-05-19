@@ -144,6 +144,9 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		for(i=num_outlets; i > 0; i--)
 			x->outlets[i-1] = outlet_new(x, 0);
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
+		
+		x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
+		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
 
 		// set defaults...
 		x->attr_ramp = NULL;
@@ -184,8 +187,6 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setsym(&a, ps_none);
 			object_attr_setvalueof(x, ps_ramp, 1, &a);
 		}
-		
-		x->ui_qelem = qelem_new(x, (method)param_ui_queuefn);
 	}
 	return (x);										// return the pointer to our new instantiation
 }
@@ -195,6 +196,7 @@ void param_free(t_param *x)
 {	
 	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common *)x);
 	qelem_free(x->ui_qelem);
+	qelem_free(x->ramp_qelem);
 	if(x->ramper)
 		delete x->ramper;
 }
@@ -285,9 +287,7 @@ t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 		x->param_output = &param_output_generic;
 	}
 
-// THIS IS ALSO CALLED WHEN THE ATTR IS SET IN NEW...  SO IT TRIGGERS TWICE
-// CAN PREVENT THIS BY SWITCHING TO CALL IT IN A QELEM:
-	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
+	qelem_set(x->ramp_qelem);	// set up the rampunit with callbacks appropriate to this data type
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
@@ -301,7 +301,7 @@ t_max_err param_setramp(t_param *x, void *attr, long argc, t_atom *argv)
 	t_symbol *arg = atom_getsym(argv);
 	x->attr_ramp = arg;
 	
-	defer_low(x, (method)param_ramp_setup, 0, 0, 0);
+	qelem_set(x->ramp_qelem);	// place a call to param_ramp_setup() at the end of the low-priority queue
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
