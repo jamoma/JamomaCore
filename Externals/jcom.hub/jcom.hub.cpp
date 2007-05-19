@@ -321,6 +321,7 @@ void hub_free(t_hub *x)
 		object_free(x->jcom_receive);
 	if(x->jcom_send_broadcast)
 		object_free(x->jcom_send_broadcast);
+	x->subscriber->clear();
 	delete x->subscriber;
 	delete x->preset;
 }

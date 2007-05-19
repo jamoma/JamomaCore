@@ -96,6 +96,8 @@ public:
 	jcomListIterator begin() { return ll.begin(); }
 	/** @return an iterator to one past the end of the list */
 	jcomListIterator end() { return ll.end(); }
+	/** Removes all list items */
+	void clear() { ll.clear(); }
 	
 private:
 	list<T> ll;

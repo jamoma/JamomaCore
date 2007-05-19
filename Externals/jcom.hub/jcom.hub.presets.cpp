@@ -587,7 +587,7 @@ void hub_presets_clear(t_hub *x)
 		thePreset = *pli;
 		itemList = thePreset->item;  // The list of items in the preset
 		// Delete all the items in the preset
-		while(itemList->empty()) {
+		while(!itemList->empty()) {
 			nextItem = itemList->begin();
 			sysmem_freeptr(*nextItem);
 			itemList->remove(nextItem);
