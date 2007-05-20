@@ -38,7 +38,7 @@ rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *ba
 		hashtab_lookup(rampunit_cache, gensym(filename), (t_object **)&bun);
 		if(bun)
 #else // WIN_VERSION
-		hashtab_lookup(rampunit_cache, gensym("filename"), (t_object **)&hLib);
+		hashtab_lookup(rampunit_cache, gensym(filename), (t_object **)&hLib);
 		if(hLib)
 #endif
 			goto fetchpointers;
