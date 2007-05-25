@@ -33,6 +33,7 @@ t_symbol	*ps_done,
 			*ps_jcom_hub, 
 			*ps_feedback,
 			*ps_module_name_get,		// common OSC messages according to the JIG
+			*ps_core_module_name_get,
 			*ps_dumpout,
 			*ps_audio, 
 			*ps_video, 
@@ -155,8 +156,6 @@ t_symbol	*ps_done,
 			*ps_sendbypassedvalue,
 			*ps_star,
 			*ps_priority;
-			
-
 
 void jcom_core_init(void)
 {
@@ -183,6 +182,7 @@ void jcom_core_init(void)
     ps_feedback					= gensym("feedback");
 	// common OSC messages according to the JIG
 	ps_module_name_get			= gensym("/module_name/get");
+	ps_core_module_name_get		= gensym("core_module_name/get");
 	ps_dumpout					= gensym("dumpout");
 	ps_audio					= gensym("audio");
 	ps_video					= gensym("video");
@@ -312,7 +312,6 @@ void jcom_core_init(void)
 	ps_priority					= gensym("priority");
 }
 
-
 #pragma mark -
 #pragma mark Hub Bindings
 
@@ -344,7 +343,6 @@ again:
 	}
 	return hub;
 }
-
 
 // Unregister from the jcom.hub object
 //void jcom_core_unsubscribe(void *hub, t_symbol *name)
@@ -623,14 +621,13 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 	#pragma unused(attr)
 }
 
-
 // function for registering with the jcom.hub object
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
 	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
 		x->hub = jcom_core_subscribe(x, x->attr_name, x->container, x->subscriber_type);
-		if(x->hub)
-			x->module_name = (t_symbol *)object_method(x->hub, ps_module_name_get);
+		if(x->hub) 
+			x->module_name = (t_symbol *)object_method(x->hub, ps_core_module_name_get);
 		if(x->custom_subscribe)
 			x->custom_subscribe(x);
 	}

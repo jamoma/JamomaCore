@@ -64,6 +64,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	class_addmethod(c, (method)hub_modulename_get,		"module_name/get",			0L);
 	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			0L);
+	class_addmethod(c, (method)core_modulename_get,		"core_module_name/get",			0L);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type/get",		A_CANT);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type/get",		A_CANT);
 	class_addmethod(c, (method)hub_init,				"init",						0L);
@@ -576,6 +577,10 @@ t_symbol *hub_modulename_get(t_hub *x)
 	return x->attr_name;
 }
 
+t_symbol* core_modulename_get(t_hub *x)
+{
+	return x->attr_name;
+}
 
 t_symbol *hub_algorithmtype_get(t_hub *x)
 {

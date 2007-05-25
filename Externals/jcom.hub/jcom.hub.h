@@ -125,6 +125,11 @@ void		hub_returnnames_get(t_hub *x);
 void		hub_paramvalues_get(t_hub *x);
 void		hub_allnames_get(t_hub *x);
 t_symbol*	hub_modulename_get(t_hub *x);
+/** Returns the name of the module.  Only really used by jcom.core.cpp
+ * @return the name of the module 
+ */
+t_symbol*	core_modulename_get(t_hub *x);
+t_symbol*	hub_modulename_get(t_hub *x);
 t_symbol*	hub_algorithmtype_get(t_hub *x);
 /** Initializes any jcom.init objects that are subscribed to the hub by sending them
  * a 'bang'.
