@@ -824,8 +824,8 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 		
 		// Avoid copying more than one atom if the type only can have one argument
-		if(x->common.attr_type != ps_msg_list || x->common.attr_type != ps_msg_generic
-			|| x->common.attr_type != ps_msg_none) {
+		if(x->common.attr_type != ps_msg_list && x->common.attr_type != ps_msg_generic
+			&& x->common.attr_type != ps_msg_none) {
 			// If attr_type is != to anyone of the above values then we know 
 			// that it must be == to a scalar type.  This ensures it will behave
 			// as a scalar and not a list.
