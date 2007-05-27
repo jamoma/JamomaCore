@@ -729,8 +729,25 @@ void param_ui_queuefn(t_param *x)
 // messages received from jcom.hub
 void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	if (x->attr_slavemode)
-		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
+	if (x->attr_slavemode) {
+		if (argc==1) {		
+			switch(argv[0].a_type) 
+				{
+					case A_LONG:
+						outlet_int(x->outlets[k_outlet_direct], atom_getlong(argv));
+						break;
+					case A_FLOAT:
+						outlet_float(x->outlets[k_outlet_direct], atom_getfloat(argv));
+						break;
+
+					default:
+						outlet_anything(x->outlets[k_outlet_direct], msg, argc, argv);
+						break;
+				}
+		}
+		else
+			outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
+	}
 	else {
 		// new input - halt any ramping...
 		if(x->ramper)
