@@ -38,7 +38,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> acceleration </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> speed of acceleration </td>
@@ -47,7 +47,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> attract </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> strength of attraction to 'attractpoint' </td>
@@ -57,7 +57,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Current position of the point of attraction in xyz-coordinates </td>
 		<tr>
@@ -65,7 +65,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> avoid </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> strength of neighbor avoidance instinct </td>
@@ -74,25 +74,16 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> center </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> strength of centering instinct </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> dump </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> parameter dump out second outlet </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> edgedist </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> distance of vision for avoiding wall edges </td>
@@ -102,7 +93,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> linear </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> bounding box (walls) in which to fly (left/top/right/bottom/front/back) </td>
 		<tr>
@@ -110,7 +101,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> inertia </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> willingness to change speed and direction </td>
@@ -119,7 +110,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> match </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> strength of neighbor speed matching instinct </td>
@@ -128,7 +119,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> maxspeed </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> maximum speed of speed range </td>
@@ -137,15 +128,15 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> minspeed </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> minimum speed of speed range </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> mode </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -155,7 +146,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> neighbors </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> number of neighbors each boid consults when flocking </td>
@@ -164,7 +155,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> number </td>
 			<td class ="instructionType"> msg_int </td>
 			<td class ="instructionRange"> 0 32 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> number of boids </td>
@@ -182,7 +173,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> prefdist </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> preferred distance from neighbors </td>
@@ -191,7 +182,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> repel </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> strengh of wall avoidance instinct </td>
@@ -200,7 +191,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class="instructionName"> speed </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> overall speed </td>
@@ -313,7 +304,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -322,7 +313,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> preset/store </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -657,15 +648,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> returns a position of boid number aed/<n> in aed (azimut-elevation-distance) </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> dumpout </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> returns the state of all parameter </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> flock </td>

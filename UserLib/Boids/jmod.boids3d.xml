@@ -7,17 +7,16 @@
   <preset number='1' name='default'>
     <item name='acceleration' type='msg_float' priority='0'>2.000000</item>
     <item name='attract' type='msg_float' priority='0'>4.560000</item>
-    <item name='attractpoint/xyz' type='msg_list' priority='0'>0</item>
+    <item name='attractpoint/xyz' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='avoid' type='msg_float' priority='0'>3.000000</item>
     <item name='center' type='msg_float' priority='0'>1.960000</item>
-    <item name='dump' type='msg_generic' priority='0'>0</item>
     <item name='edgedist' type='msg_float' priority='0'>0.300000</item>
     <item name='flyrect' type='msg_list' priority='0'>-1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 </item>
     <item name='inertia' type='msg_float' priority='0'>6.000000</item>
     <item name='match' type='msg_float' priority='0'>2.270000</item>
     <item name='maxspeed' type='msg_float' priority='0'>5.000000</item>
     <item name='minspeed' type='msg_float' priority='0'>0.260000</item>
-    <item name='mode' type='msg_generic' priority='0'>0</item>
+    <item name='mode' type='msg_int' priority='0'>0</item>
     <item name='neighbors' type='msg_float' priority='0'>4.000000</item>
     <item name='number' type='msg_int' priority='0'>32</item>
     <item name='on' type='msg_toggle' priority='0'>0</item>
