@@ -534,8 +534,10 @@ void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 	}
 
-	if(x->attr_slavemode)
+	if(x->attr_slavemode) {
 		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
+		return;
+	}
 	else{
 		if(x->ramper)
 			x->ramper->stop();
@@ -601,8 +603,10 @@ void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 	}
 
-	if(x->attr_slavemode)
+	if(x->attr_slavemode) {
 		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
+		return;
+	}
 	else{
 		if(x->ramper)
 			x->ramper->stop();
