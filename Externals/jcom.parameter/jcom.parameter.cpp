@@ -730,7 +730,9 @@ void param_ui_queuefn(t_param *x)
 void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	if (x->attr_slavemode) {
-		if (argc==1) {		
+		if (argc==0)
+			outlet_bang(x->outlets[k_outlet_direct]);
+		else if (argc==1) {		
 			switch(argv[0].a_type) 
 				{
 					case A_LONG:
@@ -739,7 +741,9 @@ void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 					case A_FLOAT:
 						outlet_float(x->outlets[k_outlet_direct], atom_getfloat(argv));
 						break;
-
+					case A_SYM:
+						outlet_anything(x->outlets[k_outlet_direct], atom_getsym(argv), 0, 0L);
+						break;
 					default:
 						outlet_anything(x->outlets[k_outlet_direct], msg, argc, argv);
 						break;
