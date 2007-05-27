@@ -169,6 +169,19 @@ void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 	outlet_list(x->outlet_overflow, _sym_list, argc , argv);
 }
 
+char* matchesWildcard(const char *msg, const char *arg, unsigned long len)
+{
+	if(strncmp(msg, arg, len) == 0) 
+		return strstr(msg, "/");	
+
+	return NULL;
+}
+
+inline int wildCardOffset(unsigned int numberOfWc)
+{
+	return 2 * numberOfWc;
+}
+
 // SYMBOL INPUT
 void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 {
@@ -197,21 +210,11 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 
 	message = gensym(input);
 	
+	char *wc, *c;
+	int wcCount = 0;  // wild card count
+	bool overFlow = true;
 	for (i=0; i < x->num_args; i++) {
-		// wildcard handling
-		if(strstr(x->arguments[i]->s_name, "/*")) {
-			if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1)==0) {
-				char* c = strstr(msg->s_name+1, "/");	
-				output = gensym(c);
-				outlet_anything(x->outlets[i], output, argc, argv);
-				return;
-			} else {
-				// We break here because if the strncmp() fails it means we have a wildcard following an OSC message
-				// i.e. /robot/* but the incoming message doesn't begin with /robot
-				break;
-			}
-		}
-		// Do we have an exact match?
+		// Look for exact matches first.
 		if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i])==0) {
 			// If incoming message is longer than argument...
 			if (strlen(msg->s_name) > x->arglen[i]){
@@ -219,7 +222,8 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 				if (input[x->arglen[i]] == '/') {
 					output = gensym(msg->s_name + x->arglen[i]);
 					outlet_anything(x->outlets[i], output, argc , argv);
-					return;
+					overFlow = false;
+					break;
 				}
 			}
 			// If the incoming message is no longer we know that we have a match
@@ -229,24 +233,26 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 				// The message received has no arguments:
 				if (argc == 0) {
 					outlet_bang(x->outlets[i]);
-					return;
+					overFlow = false;
+					break;
 				}
 				// The message received has one argument only:
 				else if (argc==1) {
+					overFlow = false;
 					// int argument
 					if (argv->a_type==A_LONG) {
 						outlet_int(x->outlets[i],argv->a_w.w_long);
-						return;
+						break;
 					}				
 					// float argument
 					else if (argv->a_type==A_FLOAT) {
 						outlet_float(x->outlets[i],argv->a_w.w_float);
-						return;
+						break;
 					}
 					// something else
 					else if (argv->a_type==A_SYM) {
 						outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
-						return;
+						break;
 					}				
 				}		
 				// There are two or more arguments: check if first is A_SYM	
@@ -259,11 +265,51 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
 					else
 						output = _sym_list;
 					outlet_anything(x->outlets[i], output, argc , argv);
-					return;
+					overFlow = false;
+					break;
 				}
 			}
 		}
 	}
+	// If no exact matches, look for wildcards.
+	for (i=0; i < x->num_args; i++) {		
+		// Check to see if this argument has a wildcard
+		if(wc = strstr(x->arguments[i]->s_name, "/*")) {
+			if(*(wc+2) == '\0') {
+				// Wildcard follows parameter names, i.e. /fifth/moon/of/aragon/*
+				if(c = matchesWildcard(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1)) {
+					// Need to strip off preceeding part of message
+					outlet_anything(x->outlets[i], gensym(strstr(c+1, "/")), argc, argv);
+					return;
+				} else {
+					// We break here because if the strncmp() fails it means we have a wildcard following an 
+					// OSC message i.e. /robot/* but the incoming message doesn't begin with /robot
+			//		break;
+				}
+			} else {
+				
+				while(wc && *(wc + 2) == '/') {
+					wcCount++;
+					// Skip to next potential wildcard
+					wc += 2;
+					wc = strstr(wc, "/*");
+				}
+				c = msg->s_name + 1;
+				for(int skipCnt = 0; skipCnt < wcCount; ++skipCnt) {
+					c = strstr(c + 1, "/");
+				}
+				
+				if(c = matchesWildcard(c, x->arguments[i]->s_name + wildCardOffset(wcCount), strlen(c))) {
+					outlet_anything(x->outlets[i], gensym(c), argc, argv);
+					return;
+				} else {
+					wcCount = 0;
+				}
+			}
+		} 
+	}
+
 	// the message was never reckognised
-	outlet_anything(x->outlet_overflow, msg, argc , argv);
+	if(overFlow)
+		outlet_anything(x->outlet_overflow, msg, argc , argv);
 }
