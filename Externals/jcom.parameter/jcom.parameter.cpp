@@ -501,6 +501,12 @@ void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	t_atom	a[3];				// value, 'ramp', value
 	short	a_len = 1;
 	
+	// Check for slave mode
+	if(x->attr_slavemode) {
+		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
+		return;
+	}
+	
 	// Check for Arguments...
 	if(argc){
 		// Look for arg to specify the number of steps to move
@@ -533,32 +539,27 @@ void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			}
 		}
 	}
-
-	if(x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
+	
+	if(x->ramper)
+		x->ramper->stop();
+		
+	if(x->common.attr_type == ps_msg_int)
+		atom_setlong(a, x->attr_value.a_w.w_long + (x->attr_stepsize * stepmult));
+	else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
+		atom_setfloat(a, x->attr_value.a_w.w_float + (x->attr_stepsize * stepmult));
+	else if(x->common.attr_type == ps_msg_toggle){
+		if(x->attr_value.a_w.w_long == 1)
+			x->attr_value.a_w.w_long = 0;
+		else
+			x->attr_value.a_w.w_long = 1;
+		param_output_int(x);
 		return;
 	}
 	else{
-		if(x->ramper)
-			x->ramper->stop();
-			
-		if(x->common.attr_type == ps_msg_int)
-			atom_setlong(a, x->attr_value.a_w.w_long + (x->attr_stepsize * stepmult));
-		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
-			atom_setfloat(a, x->attr_value.a_w.w_float + (x->attr_stepsize * stepmult));
-		else if(x->common.attr_type == ps_msg_toggle){
-			if(x->attr_value.a_w.w_long == 1)
-				x->attr_value.a_w.w_long = 0;
-			else
-				x->attr_value.a_w.w_long = 1;
-			param_output_int(x);
-			return;
-		}
-		else{
-			error("%s parameter (in the %s module) is an inappropriate type for the 'inc' message.");
-			return;
-		}
+		error("%s parameter (in the %s module) is an inappropriate type for the 'inc' message.");
+		return;
 	}
+
 	param_dispatched(x, msg, a_len, a);
 }
 
@@ -569,6 +570,12 @@ void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 	long	ramptime = 0;		// ms
 	t_atom	a[3];				// value, 'ramp', value
 	short	a_len = 1;
+
+	// Check for slave mode
+	if(x->attr_slavemode) {
+		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
+		return;
+	}
 	
 	// Check for Arguments...
 	if(argc){
@@ -603,31 +610,27 @@ void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 		}
 	}
 
-	if(x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
+	// new input - halt any ramping...
+	if(x->ramper)
+		x->ramper->stop();
+		
+	if(x->common.attr_type == ps_msg_int)
+		atom_setlong(a, x->attr_value.a_w.w_long - (x->attr_stepsize * stepmult));
+	else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
+		atom_setfloat(a, x->attr_value.a_w.w_float - (x->attr_stepsize * stepmult));
+	else if(x->common.attr_type == ps_msg_toggle){
+		if(x->attr_value.a_w.w_long == 1)
+			x->attr_value.a_w.w_long = 0;
+		else
+			x->attr_value.a_w.w_long = 1;
+		param_output_int(x);
 		return;
 	}
 	else{
-		if(x->ramper)
-			x->ramper->stop();
-			
-		if(x->common.attr_type == ps_msg_int)
-			atom_setlong(a, x->attr_value.a_w.w_long - (x->attr_stepsize * stepmult));
-		else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
-			atom_setfloat(a, x->attr_value.a_w.w_float - (x->attr_stepsize * stepmult));
-		else if(x->common.attr_type == ps_msg_toggle){
-			if(x->attr_value.a_w.w_long == 1)
-				x->attr_value.a_w.w_long = 0;
-			else
-				x->attr_value.a_w.w_long = 1;
-			param_output_int(x);
-			return;
-		}
-		else{
-			error("%s parameter (in the %s module) is an inappropriate type for the 'dec' message.");
-			return;
-		}
+		error("%s parameter (in the %s module) is an inappropriate type for the 'dec' message.");
+		return;
 	}
+
 	param_dispatched(x, msg, a_len, a);
 }
 
@@ -635,58 +638,64 @@ void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 // INT INPUT
 void param_int(t_param *x, long value)
 {
-	if (x->attr_slavemode)
+	// Check for slave mode
+	if (x->attr_slavemode) {
 		outlet_int(x->outlets[k_outlet_direct], value);
-	else {	
-		x->list_size = 1;
-		if(x->common.attr_repetitions == 0){
-			if(value == atom_getlong(&x->attr_value))
-				return;
-		}
-		// new input - halt any ramping...
-		if(x->ramper)
-			x->ramper->stop();
-		atom_setlong(&x->attr_value, value);
-		x->param_output(x);
+		return;
 	}
+	x->list_size = 1;
+	if(x->common.attr_repetitions == 0){
+		if(value == atom_getlong(&x->attr_value))
+			return;
+	}
+	// new input - halt any ramping...
+	if(x->ramper)
+		x->ramper->stop();
+	atom_setlong(&x->attr_value, value);
+	x->param_output(x);
 }
 
 
 // FLOAT INPUT
 void param_float(t_param *x, double value)
 {
-	if (x->attr_slavemode)
+	// Check for slave mode
+	if (x->attr_slavemode) {
 		outlet_float(x->outlets[k_outlet_direct], value);
-	else {
-		x->list_size = 1;
-		if(x->common.attr_repetitions == 0){
-			if(value == atom_getfloat(&x->attr_value))
-				return;
-		}
-		// new input - halt any ramping...
-		if(x->ramper)
-			x->ramper->stop();
-	
-		atom_setfloat(&x->attr_value, value);
-		x->param_output(x);
+		return;
 	}
+	
+	x->list_size = 1;
+	if(x->common.attr_repetitions == 0){
+		if(value == atom_getfloat(&x->attr_value))
+			return;
+	}
+	// new input - halt any ramping...
+	if(x->ramper)
+		x->ramper->stop();
+
+	atom_setfloat(&x->attr_value, value);
+	x->param_output(x);
 }
 
 
 // SYMBOL INPUT
 void param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	if (x->attr_slavemode)
+	// Check for slave mode
+	if (x->attr_slavemode) {
 		outlet_anything(x->outlets[k_outlet_direct], msg, argc, argv);
-	else {	
-		x->list_size = 1;
-		if(x->common.attr_repetitions == 0){
-			if(jcom_core_atom_compare(x->common.attr_type, &x->attr_value, argv))
-				return;
-		}
-		atom_setsym(&x->attr_value, msg);
-		x->param_output(x);
+		return;
 	}
+	
+	x->list_size = 1;
+	if(x->common.attr_repetitions == 0){
+		if(jcom_core_atom_compare(x->common.attr_type, &x->attr_value, argv))
+			return;
+	}
+	atom_setsym(&x->attr_value, msg);
+	x->param_output(x);
+
 }
 
 
@@ -818,8 +827,10 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
 	float	value, time;
 	
-	if (x->attr_slavemode)
+	if (x->attr_slavemode) {
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
+		return;
+	}
 		
 	// Check the second to last item in the list first, which when ramping should == the string ramp
 	t_atom* ramp = argv + (argc - 2);
