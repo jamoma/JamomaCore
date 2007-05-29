@@ -27,7 +27,7 @@ private:
 
 public:
 	// Life Cycle
-	rampunit(char *filename, ramplib_method_callback pf_callback, void *baton);
+	rampunit(char *filename, rampunit_method_callback_type pf_callback, void *baton);
 	~rampunit(void);	
 
 	// Attribute Accessors
@@ -35,8 +35,8 @@ public:
 	ramp_err attrget(t_symbol *attrname, double *value);
 
 	// RampUnit Methods
-	void go(float value, double time);
-	void set(float value);
+	void go(short numvalues, double *values, double time);
+	void set(short numvalues, double *values);
 	void stop();
 	void tick();
 };

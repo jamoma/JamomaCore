@@ -20,23 +20,27 @@ typedef struct _linear_queue {
 	void							*max_qelem;		///< pointer to a Max queue element instance
 	char							active;			///< is the ramp running?
 	float							ramptime;		///< in ms
-	float							value_start;
-	float							value_target;
-	float							value_current;
+	double							*value_start;
+	double							*value_target;
+	double							*value_current;
+	short							numvalues;
 	unsigned long					time_start;
 	unsigned long					time_target;
 } t_linear_queue;
 
 
-// prototypes
+// public prototypes
 t_linear_queue*	create	(rampunit_method_callback_type in_callback, void *in_baton);
 void			destroy	(t_linear_queue *rampunit);
 ramp_err		attrset	(t_linear_queue *rampunit, t_symbol *attrname, double value);
 ramp_err		attrget	(t_linear_queue *rampunit, t_symbol *attrname, double *value);
-void			go		(t_linear_queue *rampunit, float value, double time);
-void			set		(t_linear_queue *rampunit, double value);
+void			go		(t_linear_queue *rampunit, short numvalues, double *values, double time);
+void			set		(t_linear_queue *rampunit, short numvalues, double *values);
 void			stop	(t_linear_queue *rampunit);
 void			tick	(t_linear_queue *rampunit);
+
+// private prototypes
+void setnumvalues(t_linear_queue *rampunit, short numvalues);
 
 
 #endif // __LINEARQUEUE_H__

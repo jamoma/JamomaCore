@@ -825,7 +825,7 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	float	value, time;
+	double	start, value, time;
 	
 	if (x->attr_slavemode) {
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
@@ -849,8 +849,9 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;	// nothing to do
 		}
-		x->ramper->set(atom_getfloat(&x->attr_value));
-		x->ramper->go(value, time);
+		start = atom_getfloat(&x->attr_value);
+		x->ramper->set(1, &start);
+		x->ramper->go(1, &value, time);
 	} 
 	else{
 		// Don't output if the input data is identical
@@ -894,26 +895,27 @@ void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 #pragma mark -
 #pragma mark Ramp Units
 
-void param_ramp_callback_float(void *v, float value)
+void param_ramp_callback_float(void *v, short, double *value)
 {
 	t_param *x = (t_param *)v;
 	float	oldval = atom_getfloat(&x->attr_value);
 	
-	if(x->common.attr_repetitions || value != oldval){
-		atom_setfloat(&x->attr_value, value);
+	if(x->common.attr_repetitions || *value != oldval){
+		atom_setfloat(&x->attr_value, *value);
 		param_output_float(x);
 	}
 }
 
 
-void param_ramp_callback_int(void *v, float value)
+void param_ramp_callback_int(void *v, short, double *value)
 {
 	t_param	*x= (t_param *)v;
-	long	val	= value, oldval;
+	long	val	= *value;
+	long	oldval;
 
 	oldval = atom_getlong(&x->attr_value);
 	if (x->common.attr_repetitions || val != oldval){
-		atom_setlong(&x->attr_value, value);
+		atom_setlong(&x->attr_value, val);
 		param_output_int(x);
 	}
 }

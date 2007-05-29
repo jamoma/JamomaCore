@@ -17,7 +17,10 @@ t_none*	create(rampunit_method_callback_type in_callback, void *in_baton)
 	if(rampunit){
 		rampunit->callback = in_callback;
 		rampunit->baton = in_baton;
-		rampunit->value_current = 0;
+		rampunit->value_current = NULL;
+		rampunit->value_target = NULL;
+		setnumvalues(rampunit, 1);
+		rampunit->value_current[0] = 0;
 	}
 	return rampunit;
 }
@@ -25,6 +28,8 @@ t_none*	create(rampunit_method_callback_type in_callback, void *in_baton)
 
 void destroy(t_none *rampunit)
 {
+	free(rampunit->value_current);
+	free(rampunit->value_target);
 	free(rampunit);
 }
 
@@ -41,16 +46,25 @@ ramp_err attrget(t_none *rampunit, t_symbol *attrname, double *value)
 }
 
 
-void go(t_none *rampunit, float value, double time)
+void go(t_none *rampunit, short numvalues, double *values, double time)
 {
-	rampunit->value_target = value;
+	short i;
+	
+	setnumvalues(rampunit, numvalues);
+	for(i=0; i<numvalues; i++)
+		rampunit->value_target[i] = values[i];
+	
 	tick(rampunit);						// no ramping, just call tick() directly
 }
 
 
-void set(t_none *rampunit, double value)
+void set(t_none *rampunit, short numvalues, double *values)
 {
-	rampunit->value_current = value;
+	short i;
+
+	setnumvalues(rampunit, numvalues);
+	for(i=0; i<numvalues; i++)
+		rampunit->value_current[i] = values[i];
 }
 
 
@@ -62,7 +76,27 @@ void stop(t_none *rampunit)
 
 void tick(t_none *rampunit)
 {
-	rampunit->value_current = rampunit->value_target;					// set the current value
-	(rampunit->callback)(rampunit->baton, rampunit->value_current);		// send the value to the host
+	short i;
+
+	for(i=0; i < rampunit->numvalues; i++)
+		rampunit->value_current[i] = rampunit->value_target[i];								// set the current value
+	(rampunit->callback)(rampunit->baton, rampunit->numvalues, rampunit->value_current);	// send the value to the host
+}
+
+
+// PRIVATE METHOD: memory allocation
+void setnumvalues(t_none *rampunit, short numvalues)
+{
+	if(numvalues != rampunit->numvalues){
+		if(rampunit->numvalues == 0){
+			rampunit->value_current = (double *)malloc(numvalues * sizeof(double));
+			rampunit->value_target = (double *)malloc(numvalues * sizeof(double));
+		}
+		else{
+			rampunit->value_current = (double *)realloc(rampunit->value_current, numvalues * sizeof(double));
+			rampunit->value_target = (double *)realloc(rampunit->value_target, numvalues * sizeof(double));
+		}
+		rampunit->numvalues = numvalues;
+	}	
 }
 

@@ -35,9 +35,9 @@ void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
 t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
 void		ramp_int(t_ramp *x, long n);
 void		ramp_float(t_ramp *x, double f);
-void		ramp_set(t_ramp *x, double value);
+void		ramp_set(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
 void		ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
-void		ramp_callback(void *v, float value);
+void		ramp_callback(void *v, short numvalues, double *values);
 void 		ramp_attrset(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
 void 		ramp_attrget(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
 
@@ -64,7 +64,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)ramp_int,				"int",			A_DEFLONG,	0);
 	class_addmethod(c, (method)ramp_float,				"float",		A_DEFFLOAT,	0);
  	class_addmethod(c, (method)ramp_list,				"list",			A_GIMME,	0);
-	class_addmethod(c, (method)ramp_set,				"set",			A_DEFFLOAT,	0);
+	class_addmethod(c, (method)ramp_set,				"set",			A_GIMME,	0);
 	class_addmethod(c, (method)ramp_attrset,			"attrset",		A_GIMME, 	0);
 	class_addmethod(c, (method)ramp_attrget,			"attrget",		A_GIMME,	0);
 	class_addmethod(c, (method)ramp_assist,				"assist",		A_CANT,		0); 
@@ -153,17 +153,28 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 
 
 // Triggered by our Ramp Unit's tick function
-void ramp_callback(void *v, float value)
+void ramp_callback(void *v, short numvalues, double *values)
 {	
-	t_ramp *x = (t_ramp *)v;
-	outlet_float(x->outlets[k_outlet_value], value);
+	t_ramp	*x = (t_ramp *)v;
+	t_atom	*a = (t_atom *)malloc(numvalues * sizeof(t_atom));
+	short	i;
+	
+	for(i=0; i<numvalues; i++)
+		atom_setfloat(a+i, values[i]);
+		
+	if(numvalues == 1)
+		outlet_float(x->outlets[k_outlet_value], values[0]);
+	else
+		outlet_anything(x->outlets[k_outlet_value], _sym_list, numvalues, a);
 }
 
 
 // INT INPUT
 void ramp_int(t_ramp *x, long value)
 {
-	x->my_ramp->set(value);
+	double dval = value;
+	
+	x->my_ramp->set(1, &dval);
 	outlet_float(x->outlets[k_outlet_value], value);
 }
 
@@ -171,22 +182,58 @@ void ramp_int(t_ramp *x, long value)
 // FLOAT INPUT
 void ramp_float(t_ramp *x, double value)
 {
-	x->my_ramp->set(value);
+	x->my_ramp->set(1, &value);
 	outlet_float(x->outlets[k_outlet_value], value);
 }
 
 
 // SET FLOAT INPUT
-void ramp_set(t_ramp *x, double value)
+void ramp_set(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	x->my_ramp->set(value);
+	double	*values;
+	short	i;
+	
+	values = (double *)malloc(argc * sizeof(double));
+
+	for(i=0; i<argc; i++)
+		values[i] = atom_getfloat(argv+i);
+
+	x->my_ramp->set(argc, values);
+	free(values);
 }
 
 
 // LIST INPUT <value, ramptime>
 void ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 {
-	x->my_ramp->go(atom_getfloat(argv), atom_getfloat(argv+1));
+	short 	i;
+	short	ramp_keyword_index = -1;
+	double	*values;
+	
+	if(argc < 3){
+		error("invalid syntax -- not enough args to ramp");
+		return;
+	}
+
+	values = (double *)malloc((argc-2) * sizeof(double));
+	
+	for(i=0; i<argc; i++){
+		if(argv[i].a_type == A_SYM){
+			if(atom_getsym(argv+i) == gensym("ramp")){
+				ramp_keyword_index = i;
+				break;
+			}
+		}
+		values[i] = atom_getfloat(argv+i);
+	}
+	
+	if(argc != (ramp_keyword_index + 2)){
+		error("invalid syntax -- missing 'ramp' keyword or wrong args following the 'ramp' keyword");
+		return;
+	}
+	
+	x->my_ramp->go(argc-2, values, atom_getfloat(argv+ramp_keyword_index+1));
+	free(values);
 }
 
 
@@ -218,3 +265,5 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 	if(!err)
 		outlet_float(x->outlets[k_outlet_dumpout], value);
 }
+
+

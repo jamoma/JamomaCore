@@ -17,7 +17,7 @@
 static t_hashtab	*rampunit_cache = NULL;		// cache of all previously loaded rampunit bundles
 
 
-rampunit::rampunit(char *filename, ramplib_method_callback pf_callback, void *baton)
+rampunit::rampunit(char *filename, rampunit_method_callback_type pf_callback, void *baton)
 {			
 	char 			*temppath;
 	short 			path;					// pathID#
@@ -168,19 +168,19 @@ ramp_err rampunit::attrget(t_symbol *attrname, double *value)
 
 
 // RampUnit Methods
-void rampunit::go(float value, double time)
+void rampunit::go(short numvalues, double *values, double time)
 {
 	if(rampunit_instance)
-		rampunit_method_go(rampunit_instance, value, time);
+		rampunit_method_go(rampunit_instance, numvalues, values, time);
 	else
 		error("bad rampunit, cannot call go");
 }
 
 
-void rampunit::set(float value)
+void rampunit::set(short numvalues, double *values)
 {
 	if(rampunit_instance)
-		rampunit_method_set(rampunit_instance, value);
+		rampunit_method_set(rampunit_instance, numvalues, values);
 	else
 		error("bad rampunit, cannot call set");
 }
