@@ -166,6 +166,8 @@ void ramp_callback(void *v, short numvalues, double *values)
 		outlet_float(x->outlets[k_outlet_value], values[0]);
 	else
 		outlet_anything(x->outlets[k_outlet_value], _sym_list, numvalues, a);
+		
+	free(a);
 }
 
 
