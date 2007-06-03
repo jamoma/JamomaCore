@@ -19,6 +19,7 @@ t_none*	create(rampunit_method_callback_type in_callback, void *in_baton)
 		rampunit->baton = in_baton;
 		rampunit->value_current = NULL;
 		rampunit->value_target = NULL;
+		rampunit->numvalues = 0;
 		setnumvalues(rampunit, 1);
 		rampunit->value_current[0] = 0;
 	}
