@@ -30,7 +30,7 @@ typedef struct _zerox {
 } t_zerox;
 
 // Prototypes for methods: need a method for each incoming message type
-void *zerox_new(t_symbol *msg, short argc, t_atom *argv);			// New Object Creation Method
+void *zerox_new(t_symbol *msg, long argc, t_atom *argv);			// New Object Creation Method
 t_int *zerox_perform(t_int *w);										// An MSP Perform (signal) Method
 void zerox_dsp(t_zerox *x, t_signal **sp, short *count);			// DSP Method
 void zerox_assist(t_zerox *x, void *b, long m, long a, char *s);	// Assistance Method
@@ -74,7 +74,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *zerox_new(t_symbol *msg, short argc, t_atom *argv)
+void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_zerox *x = (t_zerox *)object_alloc(zerox_class);
 	short i;

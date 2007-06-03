@@ -66,13 +66,13 @@ t_symbol	*ps_split, *ps_packed;
 
 
 // Prototypes for methods: need a method for each incoming message
-void *cs_new(Symbol *msg, short argc, Atom *argv);			// object creation method  
+void *cs_new(Symbol *msg, long argc, Atom *argv);			// object creation method  
 void cs_free(t_cs *x);
 void cs_bang(t_cs *x);										// method for "bang" message 
 void cs_float(t_cs *x, double value);				// method for "float" message
 void cs_int(t_cs *x, long value);					// method for "int" message
 void cs_assist(t_cs *x, void *b, long m, long a, char *s); 	// assistance messages
-void cs_list(t_cs *x, Symbol *msg, short argc, Atom *argv);	// method for "list" message
+void cs_list(t_cs *x, Symbol *msg, long argc, Atom *argv);	// method for "list" message
 
 void no_transform(t_cs *x);
 void rgb2cmy (t_cs *x, int r, int g, int b);	
@@ -179,7 +179,7 @@ int main(void)			//main receives a copy of the Max function macros table
 /*********************************************************/
 //Object Creation Function
 
-void *cs_new(Symbol *msg, short argc, Atom *argv)
+void *cs_new(Symbol *msg, long argc, Atom *argv)
 {
 	t_cs 	*x;								// Declare an object (based on our struct)
 	int	i;
@@ -268,7 +268,7 @@ void cs_float(t_cs *x, double value)
 
 
 // LIST INPUT
-void cs_list(t_cs *x, Symbol *msg, short argc, Atom *argv)
+void cs_list(t_cs *x, Symbol *msg, long argc, Atom *argv)
 {
 	int	i;	
 

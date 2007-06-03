@@ -59,7 +59,7 @@ typedef struct {
 } t_meter;
 
 // Prototypes for our methods:
-void *meter_new(t_symbol *s, short argc, t_atom *argv);					// Object life...
+void *meter_new(t_symbol *s, long argc, t_atom *argv);					// Object life...
 void *meter_menu(void *p, long x, long y, long font);
 void meter_free(t_meter *x);
 void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst);	// Max Methods...
@@ -119,7 +119,7 @@ int main(void)
 // Object Life
 
 // when the UI external is read-in from a patcher file...
-void *meter_new(t_symbol *s, short argc, t_atom *argv)
+void *meter_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_meter *x;
 	void *patcher;

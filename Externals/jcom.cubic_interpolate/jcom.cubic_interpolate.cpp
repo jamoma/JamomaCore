@@ -26,7 +26,7 @@ typedef struct _cubic_interp{	// Data structure for this object
 } t_cubic_interp;
 
 // Prototypes for methods: need a method for each incoming message
-void *cubic_interpolate_new(t_symbol *msg, short argc, t_atom *argv);
+void *cubic_interpolate_new(t_symbol *msg, long argc, t_atom *argv);
 t_max_err cubic_interpolation_setstep(t_cubic_interp *x, void *attr, long argc, t_atom *argv);
 void cubic_interpolate_bang(t_cubic_interp *x);
 void cubic_interpolate_int(t_cubic_interp *x, long n);
@@ -83,7 +83,7 @@ int main(void)
 /************************************************************************************/
 // Object Life
 
-void *cubic_interpolate_new(t_symbol *msg, short argc, t_atom *argv)
+void *cubic_interpolate_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_cubic_interp *x;
 	

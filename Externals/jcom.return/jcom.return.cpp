@@ -33,8 +33,8 @@ void	return_assist(t_return *x, void *b, long msg, long arg, char *dst);
 void	return_bang(t_return *x);
 void	return_int(t_return *x, long n);
 void	return_float(t_return *x, double f);
-void	return_symbol(t_return *x, t_symbol *msg, short argc, t_atom *argv);
-void	return_list(t_return *x, t_symbol *msg, short argc, t_atom *argv);
+void	return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv);
+void	return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv);
 void	return_send_feedback(t_return *x);
 
 
@@ -180,7 +180,7 @@ void return_float(t_return *x, double value)
 
 
 // SYMBOL INPUT
-void return_symbol(t_return *x, t_symbol *msg, short argc, t_atom *argv)
+void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short i;
 
@@ -197,7 +197,7 @@ void return_symbol(t_return *x, t_symbol *msg, short argc, t_atom *argv)
 }
 
 // LIST INPUT 
-void return_list(t_return *x, t_symbol *msg, short argc, t_atom *argv)
+void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short i;
 	

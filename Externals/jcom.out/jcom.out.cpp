@@ -103,7 +103,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *out_new(t_symbol *s, short argc, t_atom *argv)
+void *out_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_out 		*x = (t_out *)object_alloc(out_class);
@@ -245,7 +245,7 @@ void out_assist(t_out *x, void *b, long msg, long arg, char *dst)
 
 
 // messages received from jcom.hub for the algorithm
-void out_algorithm_message(t_out *x, t_symbol *msg, short argc, t_atom *argv)
+void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	if(argc < 2)
 		return;
@@ -323,14 +323,14 @@ void out_register_preview(t_out *x, void *preview_object)
 
 
 // messages received from jcom.hub
-void out_dispatched(t_out *x, t_symbol *msg, short argc, t_atom *argv)
+void out_dispatched(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	;
 }
 
 
 // messages received from jcom.in
-void out_sendbypassedvalue(t_out *x, short inletnum, t_symbol *msg, short argc, t_atom *argv)
+void out_sendbypassedvalue(t_out *x, short inletnum, t_symbol *msg, long argc, t_atom *argv)
 {
 	if(inletnum < x->num_outputs)
 		outlet_anything(x->outlet[inletnum], msg, argc, argv);
@@ -351,7 +351,7 @@ void out_sendlastvalue(t_out *x)
 }
 
 
-void out_anything(t_out *x, t_symbol *msg, short argc, t_atom *argv)
+void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short inletnum = proxy_getinlet((t_object *)x);
 	x->last_msg[inletnum] = msg;

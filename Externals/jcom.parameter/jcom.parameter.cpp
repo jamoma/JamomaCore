@@ -494,7 +494,7 @@ void param_output_none(void *z)
 
 
 // INC & DEC
-void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
+void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	float	stepmult = 1.0;
 	long	ramptime = 0;		// ms
@@ -564,7 +564,7 @@ void param_inc(t_param *x, t_symbol *msg, short argc, t_atom *argv)
 }
 
 
-void param_dec(t_param *x, t_symbol *msg, short argc, t_atom *argv)
+void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	float	stepmult = 1.0;
 	long	ramptime = 0;		// ms
@@ -680,7 +680,7 @@ void param_float(t_param *x, double value)
 
 
 // SYMBOL INPUT
-void param_symbol(t_param *x, t_symbol *msg, short argc, t_atom *argv)
+void param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	// Check for slave mode
 	if (x->attr_slavemode) {
@@ -740,7 +740,7 @@ void param_ui_queuefn(t_param *x)
 
 
 // messages received from jcom.hub
-void param_dispatched(t_param *x, t_symbol *msg, short argc, t_atom *argv)
+void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	if (x->attr_slavemode) {
 		if (argc==0)
@@ -823,7 +823,7 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 }
 
 // LIST INPUT <value, ramptime>
-void param_list(t_param *x, t_symbol *msg, short argc, t_atom *argv)
+void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	double	start, value, time;
 	

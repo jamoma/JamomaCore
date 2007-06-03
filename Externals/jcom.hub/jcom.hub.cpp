@@ -145,8 +145,9 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 {
 	short			i;
 	long			attrstart = attr_args_offset(argc, argv);
-	t_hub	*x = (t_hub *)object_alloc(hub_class);
+	t_hub			*x = (t_hub *)object_alloc(hub_class);
 	t_symbol		*name = _sym_nothing;
+	t_atom			a;
 	
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
@@ -189,14 +190,17 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
 		x->jcom_send_broadcast = NULL;
-		if(!jcom_core_loadextern(ps_jcom_send, ps_jcom_remote_fromModule, &x->jcom_send))
+		atom_setsym(&a, ps_jcom_remote_fromModule);
+		if(!jcom_core_loadextern(ps_jcom_send, 1, &a, &x->jcom_send))
 			error("jcom.hub: loading jcom.send extern failed!");
-		if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_remote_toModule, &x->jcom_receive))
+		atom_setsym(&a, ps_jcom_remote_toModule);
+		if(!jcom_core_loadextern(ps_jcom_receive, 1, &a, &x->jcom_receive))
 			error("jcom.hub: loading jcom.receive extern failed!");
 		else
 			object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
 			
-		if(!jcom_core_loadextern(ps_jcom_send, ps_jcom_broadcast_fromHub, &x->jcom_send_broadcast))
+		atom_setsym(&a, ps_jcom_broadcast_fromHub);
+		if(!jcom_core_loadextern(ps_jcom_send, 1, &a, &x->jcom_send_broadcast))
 			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
 	}
 	return (x);										// return the pointer to our new instantiation
@@ -445,13 +449,15 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 
 
 // Receive parameter values from jcom.parameter
-void hub_receive(t_hub *x, t_symbol *name, short argc, t_atom *argv)
+void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
 	char		namestring[256];
 	t_symbol	*osc;
 	
 	strcpy(namestring, "/");						// perhaps we could optimize this operation
-	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
+//	if(argv->a_type == A_SYM)
+//		strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
+	strcat(namestring, name->s_name);
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 
 	if(x->in_object != NULL)
@@ -464,7 +470,7 @@ void hub_receive(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 
 
 // Receive private messages from jcom.remote
-void hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv)
+void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
 	t_symbol		*private_id = _sym_nothing;	
 	t_symbol		*private_message = _sym_nothing;
@@ -505,7 +511,7 @@ void hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 
 
 // Receive messages from jcom.return - don't send messages back to the algorithm
-void hub_return(t_hub *x, t_symbol *name, short argc, t_atom *argv)
+void hub_return(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
 	char		namestring[256];
 	t_symbol	*osc;
@@ -518,7 +524,7 @@ void hub_return(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 
 
 // A version of the above that performs wilcard substitution
-void hub_return_extended(t_hub *x, t_symbol *name, short argc, t_atom *argv)
+void hub_return_extended(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 {
 	char		namestring[256];
 	t_symbol	*osc;
@@ -544,7 +550,7 @@ void hub_return_extended(t_hub *x, t_symbol *name, short argc, t_atom *argv)
 
 
 // All messages being returned from the module should be funneled through this function!
-void hub_outlet_return(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
+void hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlets[k_outlet_return], msg, argc, argv);
 
@@ -799,7 +805,7 @@ void hub_allnames_get(t_hub *x)
 
 
 // SYMBOL INPUT
-void hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv)
+void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	bool			found = false;
 	subscriberList	*subscriber = x->subscriber;
@@ -920,7 +926,7 @@ void hub_ui_refresh(t_hub *x)
 
 
 // receive messages from our internal jcom.receive external
-void hub_receive_callback(void *z, t_symbol *msg, short argc, t_atom *argv)
+void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_hub		*x = (t_hub *)z;
 	char		mess[256];

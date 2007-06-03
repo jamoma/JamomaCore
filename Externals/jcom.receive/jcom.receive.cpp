@@ -14,11 +14,11 @@
 #include "jcom.sendreceive.h"
 
 // Prototypes
-void		*receive_new(t_symbol *s, short argc, t_atom *argv);
+void		*receive_new(t_symbol *s, long argc, t_atom *argv);
 void		receive_free(t_receive *x);
 void		receive_assist(t_receive *x, void *b, long msg, long arg, char *dst);
 t_max_err 	receive_setname(t_receive *x, void *attr, long argc, t_atom *argv);
-void 		receive_callback(t_symbol *name, t_symbol *msg, short argc, t_atom *argv);
+void 		receive_callback(t_symbol *name, t_symbol *msg, long argc, t_atom *argv);
 void 		receive_set_obex_callback(t_receive *x, void *callback, void *arg);
 void		receive_bind(t_receive *x);
 void		receive_insert(t_receive *x);
@@ -95,7 +95,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *receive_new(t_symbol *s, short argc, t_atom *argv)
+void *receive_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_receive	*x = (t_receive *)object_alloc(receive_class);
@@ -229,7 +229,7 @@ void receive_remove(t_receive *x)
 
 // This method is called by jcom.send through a function pointer
 // In reponse, we figure out if we should send the data to our outlet
-void receive_callback(t_symbol *name, t_symbol *msg, short argc, t_atom *argv)
+void receive_callback(t_symbol *name, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_receive 	*x;
 	t_receiver	*receiver = s_receiver_list;

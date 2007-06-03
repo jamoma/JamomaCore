@@ -22,7 +22,7 @@ typedef struct _init{
 } t_init;
 
 // Prototypes for methods
-void *init_new(t_symbol *s, short argc, t_atom *argv);			// New Object Creation Method
+void *init_new(t_symbol *s, long argc, t_atom *argv);			// New Object Creation Method
 void init_assist(t_init *x, void *b, long m, long a, char *s);	// Assistance Method
 void init_go(t_init *x);
 void init_bang(t_init *x);
@@ -68,7 +68,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *init_new(t_symbol *s, short argc, t_atom *argv)
+void *init_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_init 		*x = (t_init *)object_alloc(g_init_class);

@@ -31,8 +31,8 @@ typedef struct _route{				// Data Structure for this object
 // Prototypes for our methods:
 void *route_new(t_symbol *s, long argc, t_atom *argv);
 void route_assist(t_route *x, void *b, long msg, long arg, char *dst);
-void route_symbol(t_route *x, t_symbol *msg, short argc, t_atom *argv);
-void route_list(t_route *x, t_symbol *msg, short argc, t_atom *argv);
+void route_symbol(t_route *x, t_symbol *msg, long argc, t_atom *argv);
+void route_list(t_route *x, t_symbol *msg, long argc, t_atom *argv);
 void route_bang(t_route *x);
 char find_match(t_route *x, t_symbol *input, short position);
 
@@ -182,7 +182,7 @@ char find_match(t_route *x, t_symbol *input, short position)
 
 
 // SYMBOL INPUT
-void route_symbol(t_route *x, t_symbol *msg, short argc, t_atom *argv)
+void route_symbol(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short		i;
 	char		matched;
@@ -223,7 +223,7 @@ void route_symbol(t_route *x, t_symbol *msg, short argc, t_atom *argv)
 
 
 // LIST INPUT
-void route_list(t_route *x, t_symbol *msg, short argc, t_atom *argv)
+void route_list(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short		i;
 	char		matched;

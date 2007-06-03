@@ -20,8 +20,8 @@ typedef struct _mkdir
 void mkdir_bang(t_mkdir *x);
 void mkdir_assist(t_mkdir *x, void *b, long m, long a, char *s);
 void doReport();
-void mkdir_makeFolder(t_mkdir *x, t_symbol *s, short argc, t_atom *argv);
-void mkdir_make(t_mkdir *x, t_symbol *s, short argc, t_atom *argv);
+void mkdir_makeFolder(t_mkdir *x, t_symbol *s, long argc, t_atom *argv);
+void mkdir_make(t_mkdir *x, t_symbol *s, long argc, t_atom *argv);
 void *mkdir_new(void);
 void mkdir_free(t_mkdir *x);
 
@@ -69,7 +69,7 @@ void mkdir_bang(t_mkdir *x)
 	doReport();
 }
 
-void mkdir_makeFolder(t_mkdir *x, t_symbol *s, short argc, t_atom *argv)
+void mkdir_makeFolder(t_mkdir *x, t_symbol *s, long argc, t_atom *argv)
 {
 
 	PATH_SPEC *fs;
@@ -117,7 +117,7 @@ void mkdir_makeFolder(t_mkdir *x, t_symbol *s, short argc, t_atom *argv)
 
 }
 
-void mkdir_make(t_mkdir *x, t_symbol *s, short argc, t_atom *argv)
+void mkdir_make(t_mkdir *x, t_symbol *s, long argc, t_atom *argv)
 {
 
 	//mkdir_makeFolder(x, s, argc, argv);

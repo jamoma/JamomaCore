@@ -34,9 +34,9 @@ void oscroute_assist(t_oscroute *x, void *b, long msg, long arg, char *dst);
 void oscroute_bang(t_oscroute *x);
 void oscroute_int(t_oscroute *x, long n);
 void oscroute_float(t_oscroute *x, double f);
-void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv);
-void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv);
-//void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv);
+void oscroute_list(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv);
+void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv);
+//void oscroute_list(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
 t_class		*oscroute_class;				// Required: Global pointer for our class
@@ -164,7 +164,7 @@ void oscroute_float(t_oscroute *x, double f)
 }
 
 // LIST INPUT: STRAIGHT TO OVERFLOW
-void oscroute_list(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
+void oscroute_list(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_list(x->outlet_overflow, _sym_list, argc , argv);
 }
@@ -183,7 +183,7 @@ inline int wildCardOffset(unsigned int numberOfWc)
 }
 
 // SYMBOL INPUT
-void oscroute_symbol(t_oscroute *x, t_symbol *msg, short argc, t_atom *argv)
+void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short		i;
 	t_symbol	*message;				// our input message to match

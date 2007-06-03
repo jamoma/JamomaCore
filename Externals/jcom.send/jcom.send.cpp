@@ -14,13 +14,13 @@
 #include "jcom.sendreceive.h"
 
 // Prototypes
-void *send_new(t_symbol *s, short argc, t_atom *argv);
+void *send_new(t_symbol *s, long argc, t_atom *argv);
 void send_free(t_send *x);
 void send_assist(t_send *x, void *b, long msg, long arg, char *dst);
 void send_bang(t_send *x);
 void send_int(t_send *x, long value);
 void send_float(t_send *x, double value);
-void send_list(t_send *x, t_symbol *msg, short argc, t_atom *argv);
+void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
 t_class		*send_class;				// Required: Global pointer for our class
@@ -68,7 +68,7 @@ int main(void)
 // Object Life
 
 // Create
-void *send_new(t_symbol *s, short argc, t_atom *argv)
+void *send_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 	attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_send 	*x = (t_send *)object_alloc(send_class);
@@ -123,7 +123,7 @@ void send_float(t_send *x, double value)
 }
 
 
-void send_list(t_send *x, t_symbol *msg, short argc, t_atom *argv)
+void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_jcom_callback		*receive;
 	t_receive_callback	receive_callback;

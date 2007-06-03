@@ -26,8 +26,8 @@ typedef struct _round{				// Data structure for this object
 void *round_new(void);
 void round_float(t_round *x, double value);
 void round_int(t_round *x, long value);
-void round_list(t_round *x, t_symbol *msg, short argc, t_atom *argv);
-void round_symbol(t_round *x, t_symbol *msg, short argc, t_atom *argv);
+void round_list(t_round *x, t_symbol *msg, long argc, t_atom *argv);
+void round_symbol(t_round *x, t_symbol *msg, long argc, t_atom *argv);
 void round_assist(t_round *round, void *b, long m, long a, char *s);
 
 // Globals
@@ -113,7 +113,7 @@ void round_float(t_round *x, double value)
 
 
 // LIST method
-void round_list(t_round *x, t_symbol *msg, short argc, t_atom *argv)
+void round_list(t_round *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	long i, out;
 	double value;
@@ -142,7 +142,7 @@ void round_list(t_round *x, t_symbol *msg, short argc, t_atom *argv)
 
 
 // ANYTHING method
-void round_symbol(t_round *x, t_symbol *msg, short argc, t_atom *argv)
+void round_symbol(t_round *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	long i, out;
 	double value;

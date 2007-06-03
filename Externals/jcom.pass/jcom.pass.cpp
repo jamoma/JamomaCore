@@ -31,8 +31,8 @@ void *pass_new(t_symbol *s, long argc, t_atom *argv);
 void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst);
 void pass_int(t_pass *x, long n);
 void pass_float(t_pass *x, double f);
-void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv);
-void pass_list(t_pass *x, t_symbol *msg, short argc, t_atom *argv);
+void pass_symbol(t_pass *x, t_symbol *msg, long argc, t_atom *argv);
+void pass_list(t_pass *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
 t_class		*pass_class;				// Required: Global pointer for our class
@@ -193,7 +193,7 @@ void pass_float(t_pass *x, double f)
 
 
 // SYMBOL INPUT
-void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
+void pass_symbol(t_pass *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short		i;
 	t_symbol	*message;
@@ -222,7 +222,7 @@ void pass_symbol(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
 
 
 // LIST INPUT
-void pass_list(t_pass *x, t_symbol *msg, short argc, t_atom *argv)
+void pass_list(t_pass *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short		i;
 	t_symbol	*message;

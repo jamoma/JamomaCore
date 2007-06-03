@@ -109,7 +109,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *in_new(t_symbol *s, short argc, t_atom *argv)
+void *in_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_in 		*x = (t_in *)object_alloc(in_class);
@@ -244,7 +244,7 @@ void in_assist(t_in *x, void *b, long msg, long arg, char *dst)
 
 
 // messages received from jcom.hub for the algorithm
-void in_algorithm_message(t_in *x, t_symbol *msg, short argc, t_atom *argv)
+void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	char		namestring[256];
 	t_symbol	*osc;
@@ -268,14 +268,14 @@ void in_algorithm_message(t_in *x, t_symbol *msg, short argc, t_atom *argv)
 }
 
 
-void in_view_internals(t_in *x, t_symbol *msg, short argc, t_atom *argv)
+void in_view_internals(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->algout, ps_open, 0, 0L);
 }
 
 
 // messages received from jcom.hub for various reasons
-void in_dispatched(t_in *x, t_symbol *msg, short argc, t_atom *argv)
+void in_dispatched(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	;
 }
@@ -374,7 +374,7 @@ void in_float(t_in *x, double value)
 }
 
 
-void in_anything(t_in *x, t_symbol *msg, short argc, t_atom *argv)
+void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	if(x->attr_mute)
 		;

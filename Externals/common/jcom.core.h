@@ -18,7 +18,7 @@
 #define snprintf _snprintf
 #endif
 
-typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, short argc, t_atom *argv);
+typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, long argc, t_atom *argv);
 typedef void (*t_subscribe_method)(void *x);
 
 /** shared common subscriber data members
@@ -270,11 +270,13 @@ bool jcom_core_string_compare(char *s1, char *s2);
 
 /** Load obex externals for use within other externals
  * @param objectname the object name (i.e. gensym("jcom.send"))
- * @param argument arguments to the external to be loaded
+ * @param argc number of arguments to the external to be loaded
+ * @param argv pointer to the first of an array of atom arguments to the external that is to be loaded
  * @param object if successful pointer to the object pointer
  * @return true if successfully loaded, otherwise false
  */
-bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **object);
+bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_object **object);
+//bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **object);
 
 
 /** Translates a Max path+filename combo into a correct absolutepath.
@@ -339,6 +341,6 @@ void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x);
 
 /** This method is called when the jcom.receive in a subscriber receives the hub's broadcast messages.
  */
-void jcom_core_broadcast_callback(void *z, t_symbol *msg, short argc, t_atom *argv);
+void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *argv);
 
 #endif // #ifndef __JMOD_CORE_H__

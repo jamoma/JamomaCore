@@ -40,10 +40,10 @@ typedef struct _change			// Data Structure for this object
 void change_assist(t_change *x, void *b, long m, long a, char *s);		// Assistance Method
 void *change_new(void);													// New Object Creation Method
 void change_free(t_change *x);
-void change_anything(t_change *x, Symbol *msg, short argc, Atom *argv);	// Symbol method
+void change_anything(t_change *x, Symbol *msg, long argc, Atom *argv);	// Symbol method
 void change_int(t_change *x, long value);
 void change_float(t_change *x, double value);
-float atom_getvalue(long index, short argc, t_atom *argv);
+float atom_getvalue(long index, long argc, t_atom *argv);
 void atom_copy(t_atom *dst, t_atom *src);
 bool atom_compare(Atom *in1, Atom *in2);
 
@@ -160,7 +160,7 @@ void change_float(t_change *x, double value)
 
 
 // INPUT: LIST/SYMBOL
-void change_anything(t_change *x, t_symbol *msg, short argc, t_atom *argv)
+void change_anything(t_change *x, t_symbol *msg, long argc, t_atom *argv)
 {	
 	short 	i;
 	bool	match = false;

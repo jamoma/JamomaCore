@@ -33,7 +33,7 @@ typedef struct _fade{					// Data Structure for this object
 } t_fade;
 
 // Prototypes for methods
-void *fade_new(t_symbol *s, short argc, t_atom *argv);				// New Object Creation Method
+void *fade_new(t_symbol *s, long argc, t_atom *argv);				// New Object Creation Method
 t_int *fade_perform1(t_int *w);										// An MSP Perform (signal) Method
 t_int *fade_perform2(t_int *w);										// An MSP Perform (signal) Method
 void fade_dsp(t_fade *x, t_signal **sp, short *count);				// DSP Method
@@ -106,7 +106,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *fade_new(t_symbol *s, short argc, t_atom *argv)
+void *fade_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short i;

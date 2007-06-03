@@ -35,11 +35,11 @@ void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
 t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
 void		ramp_int(t_ramp *x, long n);
 void		ramp_float(t_ramp *x, double f);
-void		ramp_set(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
-void		ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
+void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
+void		ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 void		ramp_callback(void *v, short numvalues, double *values);
-void 		ramp_attrset(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
-void 		ramp_attrget(t_ramp *x, t_symbol *msg, short argc, t_atom *argv);
+void 		ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
+void 		ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
 
 // Globals
@@ -190,7 +190,7 @@ void ramp_float(t_ramp *x, double value)
 
 
 // SET FLOAT INPUT
-void ramp_set(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
+void ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	double	*values;
 	short	i;
@@ -206,7 +206,7 @@ void ramp_set(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 
 
 // LIST INPUT <value, ramptime>
-void ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
+void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short 	i;
 	short	ramp_keyword_index = -1;
@@ -240,7 +240,7 @@ void ramp_list(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 
 
 // RAMP UNIT ATTRIBUTES
-void ramp_attrset(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
+void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short 	err = 0;
 	
@@ -252,7 +252,7 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
 }
 
 
-void ramp_attrget(t_ramp *x, t_symbol *msg, short argc, t_atom *argv)
+void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short 	err = 0;
 	

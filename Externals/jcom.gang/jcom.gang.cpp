@@ -29,12 +29,12 @@ typedef struct _gang{
 } t_gang;
 
 // Prototypes for methods: need a method for each incoming message type:
-void *gang_new(t_symbol *msg, short argc, t_atom *argv);
+void *gang_new(t_symbol *msg, long argc, t_atom *argv);
 void gang_free(t_gang *x);
 void gang_assist(t_gang *x, void *b, long msg, long arg, char *dst);
 void gang_int(t_gang *x, long value);
 void gang_float(t_gang *x, double value);
-void gang_list(t_gang *x, t_symbol *msg, short argc, t_atom *argv);
+void gang_list(t_gang *x, t_symbol *msg, long argc, t_atom *argv);
 void gang_qfn_send_pp(t_gang *x);
 void gang_qfn_send_ui(t_gang *x);
 void gang_qfn_send_pattr(t_gang *x);
@@ -75,7 +75,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 /************************************************************************************/
 // Object Creation Method
 
-void *gang_new(t_symbol *msg, short argc, t_atom *argv)
+void *gang_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_gang *x;
 	short i;
@@ -192,7 +192,7 @@ void gang_float(t_gang *x, double value)
 
 
 // METHOD: list input
-void gang_list(t_gang *x, t_symbol *msg, short argc, t_atom *argv)
+void gang_list(t_gang *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	long inletnum = proxy_getinlet((object *)x);
 	short i,n;

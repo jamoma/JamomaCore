@@ -32,7 +32,7 @@ struct _presetIsLess : binary_function<t_preset*, t_preset*, bool> {
 		{	return p->number < q->number; }
 } presetIsLess;
 
-void hub_preset_copy(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// number or name
+void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number or name
 {
 	presetList		*preset = x->preset;
 	
@@ -86,7 +86,7 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// numbe
 			
 	
 	
-void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// number or name
+void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number or name
 {
 	presetList		*preset = x->preset;
 	presetItemList	*item;
@@ -172,7 +172,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv)	// num
 }
 
 
-void hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv)		// number & optional name
+void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// number & optional name
 {
 	long			preset_num = 0;
 	t_symbol		*preset_name = NULL;

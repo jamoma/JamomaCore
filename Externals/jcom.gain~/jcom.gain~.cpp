@@ -36,7 +36,7 @@ typedef struct _gain{
 } t_gain;
 
 // Prototypes for methods
-void *gain_new(t_symbol *s, short argc, t_atom *argv);				// New Object Creation Method
+void *gain_new(t_symbol *s, long argc, t_atom *argv);				// New Object Creation Method
 void gain_free(t_gain *x);											// Object Deletion Method
 void gain_dsp(t_gain *x, t_signal **sp, short *count);				// DSP Method
 void gain_assist(t_gain *x, void *b, long m, long a, char *s);		// Assistance Method
@@ -104,7 +104,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *gain_new(t_symbol *s, short argc, t_atom *argv)
+void *gain_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short i;

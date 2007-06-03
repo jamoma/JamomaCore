@@ -10,7 +10,7 @@
 #ifndef __JCOM_SENDRECEIVE_H__
 #define __JCOM_SENDRECEIVE_H__
 
-typedef void (*t_receive_callback)(t_symbol *name, t_symbol *msg, short argc, t_atom *argv);
+typedef void (*t_receive_callback)(t_symbol *name, t_symbol *msg, long argc, t_atom *argv);
 
 /** Receive Object */
 typedef struct _receive{

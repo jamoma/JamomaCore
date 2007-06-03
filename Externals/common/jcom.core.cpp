@@ -451,13 +451,12 @@ bool jcom_core_string_compare(char *s1, char *s2)
 
 // Load an external for internal use
 // returns true if successful
-bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **object)
+bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_object **object)
 {
-	t_atom		a;
 	t_class 	*c = NULL;
 	t_object	*p = NULL;
 
-	c = class_findbyname(ps_box, objectname);	// presumably ps_jcom_send or ps_jcom_receive
+	c = class_findbyname(ps_box, objectname);
 	if(!c){
 		p = (t_object *)newinstance(objectname, 0, NULL);
 		if(p){
@@ -471,11 +470,12 @@ bool jcom_core_loadextern(t_symbol *objectname, t_symbol *argument, t_object **o
 		}
 	}
 
-	if(*object != NULL)			// if there was an object set previously, free it first...
-		object_free(object);
+	if(*object != NULL){			// if there was an object set previously, free it first...
+		object_free(*object);
+		*object = NULL;
+	}
 
-	atom_setsym(&a, argument);
-	*object = (t_object *)object_new_typed(CLASS_BOX, objectname, 1, &a);
+	*object = (t_object *)object_new_typed(CLASS_BOX, objectname, argc, argv);
 	return true;
 }
 
@@ -585,7 +585,8 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 		x->container = (t_patcher *)gensym("#P")->s_thing;
 	
 	// set up the jcom.receive the listens to broadcast messages from the hub
-	if(!jcom_core_loadextern(ps_jcom_receive, ps_jcom_broadcast_fromHub, &x->obj_hub_broadcast))
+	atom_setsym(&a, ps_jcom_broadcast_fromHub);
+	if(!jcom_core_loadextern(ps_jcom_receive, 1, &a, &x->obj_hub_broadcast))
 		error("jcom.core: loading jcom.receive extern failed");
 	else
 		object_method(x->obj_hub_broadcast, ps_setcallback, &jcom_core_broadcast_callback, x);
@@ -659,7 +660,7 @@ void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x)
 
 
 // receive messages from our internal jcom.receive external
-void jcom_core_broadcast_callback(void *z, t_symbol *msg, short argc, t_atom *argv)
+void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_jcom_core_subscriber_common	*x = (t_jcom_core_subscriber_common *)z;
 	

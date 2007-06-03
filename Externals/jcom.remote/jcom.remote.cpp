@@ -24,15 +24,15 @@ typedef struct _remote{
 
 
 // Prototypes for methods
-void *remote_new(t_symbol *s, short argc, t_atom *argv);			// New Object Creation Method
+void *remote_new(t_symbol *s, long argc, t_atom *argv);			// New Object Creation Method
 void remote_assist(t_remote *x, void *b, long m, long a, char *s);		// Assistance Method
-void remote_dispatched(t_remote *x, t_symbol *msg, short argc, t_atom *argv);
-void remote_jit_matrix(t_remote *x, t_symbol *msg, short argc, t_atom *argv);
+void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
+void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
 void remote_send_feedback(t_remote *x);
 void remote_int(t_remote *x, long value);
 void remote_float(t_remote *x, double value);
-void remote_symbol(t_remote *x, t_symbol *msg, short argc, t_atom *argv);
-void remote_list(t_remote *x, t_symbol *msg, short argc, t_atom *argv);
+void remote_symbol(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
+void remote_list(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
 
 
 // Globals
@@ -81,7 +81,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Object Life
 
 // Create
-void *remote_new(t_symbol *s, short argc, t_atom *argv)
+void *remote_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_remote 	*x = (t_remote *)object_alloc(remote_class);
@@ -124,14 +124,14 @@ void remote_assist(t_remote *x, void *b, long msg, long arg, char *dst)
 
 
 // messages received from jcom.hub
-void remote_dispatched(t_remote *x, t_symbol *msg, short argc, t_atom *argv)
+void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, atom_getsym(argv), argc-1, argv+1);
 }
 
 
 // messages received from jcom.out
-void remote_jit_matrix(t_remote *x, t_symbol *msg, short argc, t_atom *argv)
+void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, msg, argc, argv);
 }
@@ -164,7 +164,7 @@ void remote_float(t_remote *x, double value)
 
 
 // SYMBOL INPUT
-void remote_symbol(t_remote *x, t_symbol *msg, short argc, t_atom *argv)
+void remote_symbol(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short i;
 
@@ -181,7 +181,7 @@ void remote_symbol(t_remote *x, t_symbol *msg, short argc, t_atom *argv)
 
 
 // LIST INPUT 
-void remote_list(t_remote *x, t_symbol *msg, short argc, t_atom *argv)
+void remote_list(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short i;
 	

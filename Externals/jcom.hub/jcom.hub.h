@@ -97,7 +97,7 @@ void		hub_examine_context(t_hub *x);
  * @see hub_free */
 void		hub_free(t_hub *x);
 void		hub_assist(t_hub *x, void *b, long msg, long arg, char *dst);
-void		hub_symbol(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
+void		hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 /** This is called by clients who wish to register their parameters with the hub.  Meaning
  * these is typically called by jcom.parameter 
  * @param x the hub the client wants to subscribe to
@@ -114,11 +114,11 @@ t_symbol*	hub_subscribe(t_hub *x, t_symbol *name, void *param_object, t_symbol *
  * @see hub_subscribe
  */
 void		hub_unsubscribe(t_hub *x, void *subscriber_object);
-void		hub_receive(t_hub *x, t_symbol *name, short argc, t_atom *argv);
-void		hub_private(t_hub *x, t_symbol *name, short argc, t_atom *argv);
-void 		hub_return(t_hub *x, t_symbol *name, short argc, t_atom *argv);
-void		hub_return_extended(t_hub *x, t_symbol *name, short argc, t_atom *argv);
-void 		hub_outlet_return(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
+void		hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+void		hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+void 		hub_return(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+void		hub_return_extended(t_hub *x, t_symbol *name, long argc, t_atom *argv);
+void 		hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 void		hub_paramnames_get(t_hub *x);
 void		hub_messagenames_get(t_hub *x);
 void		hub_returnnames_get(t_hub *x);
@@ -148,7 +148,7 @@ void 		hub_ui_freeze(t_hub *x, long value);
  * @param x a pointer to the hub 
  * @see hub_ui_freeze */
 void 		hub_ui_refresh(t_hub *x);
-void		hub_receive_callback(void *x, t_symbol *msg, short argc, t_atom *argv);
+void		hub_receive_callback(void *x, t_symbol *msg, long argc, t_atom *argv);
 // These are in jcom.hub.autodoc.cpp
 void		hub_autodoc(t_hub *x, t_symbol *userpath);
 void		hub_doautodoc(t_hub *x, t_symbol *userpath);
@@ -194,7 +194,7 @@ void 		hub_preset_dowrite(t_hub *x, t_symbol *userpath);
  * @param argv the number or name of the preset to recall
  * @see hub_preset_store
  */
-void 		hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv);	// number or name
+void 		hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number or name
 /** Copies a preset by number or name.
 * @param x the hub containing the preset
 * @param msg
@@ -202,7 +202,7 @@ void 		hub_preset_recall(t_hub *x, t_symbol *msg, short argc, t_atom *argv);	// 
 * @param argv the number or name of the preset to recall
 * @see hub_preset_store
 */
-void 		hub_preset_copy(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
+void 		hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 /** Recalls a preset by number or name.
  * @param x the hub containing the preset
  * @param msg
@@ -210,7 +210,7 @@ void 		hub_preset_copy(t_hub *x, t_symbol *msg, short argc, t_atom *argv);
  * @param argv the number of the preset with an optional name
  * @see hub_preset_recall
  */
-void 		hub_preset_store(t_hub *x, t_symbol *msg, short argc, t_atom *argv);	// number & optional name
+void 		hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number & optional name
 /** Recall the default file and recall the first preset
  * @param x the hub whose default preset should be recalled */
 void 		hub_preset_default(t_hub *x);
