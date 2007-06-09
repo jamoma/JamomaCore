@@ -365,7 +365,7 @@ void param_dump(t_param *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
 		atom_setfloat(&a[2], x->common.attr_range[1]);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, ps_feedback, 3, a, NULL);
 
 		sprintf(s, "dump/%s:repetitions", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
