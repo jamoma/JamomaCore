@@ -141,7 +141,11 @@ class tt_audio_bundle:public tt_audio_base{
 			m_signal[channel]->set_vector(ext_vector);
 		}
 		
-		
+		void get_vector(tt_uint8 channel, tt_sample_vector *ext_vector)
+		{
+			m_signal[channel]->get_vector(ext_vector);
+		}
+				
 		
 		// RESET: Call reset on all members
 		void reset()

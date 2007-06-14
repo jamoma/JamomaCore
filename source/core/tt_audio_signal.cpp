@@ -41,6 +41,11 @@ TT_INLINE void tt_audio_signal::set_vector(tt_sample_vector ext_vector)
 	vector = vector_start = ext_vector;
 }
 
+TT_INLINE void tt_audio_signal::get_vector(tt_sample_vector *ext_vector)
+{
+	*ext_vector = vector_start;
+}
+
 
 // ALLOCATE A VECTOR - SET ITS SIZE
 TT_INLINE tt_err tt_audio_signal::alloc(short new_vector_size)
