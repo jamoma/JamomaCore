@@ -13,7 +13,7 @@
 
 // Include appropriate headers
 #include "tt_audio_base.h"
-#include "tt_audio_signal.h"
+#include "tt_audio_bundle.h"
 
 
 /********************************************************
@@ -44,7 +44,11 @@ class tt_zerox:public tt_audio_base{
 		tt_err		get_attr(tt_selector sel, tt_value &value);
 				
 		// DSP LOOP
-		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2);
+//		void dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out1, tt_audio_signal *out2);
+		/**
+		 	WARNING: this unit requires 1 input and 2 outputs -- it does not yet configure itself for other arrangements!
+		 */
+		void process(tt_audio_bundle *in, tt_audio_bundle *out);
 
 		// clear
 		void clear();
