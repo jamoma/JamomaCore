@@ -84,6 +84,7 @@ t_symbol	*ps_done,
 			*ps_default,
 			*ps_jitter,
 			*ps_1U,
+			*ps_1U_half,
 			*ps_algorithm_message,
 			*ps_private,
 			*ps__gui__,
@@ -237,7 +238,8 @@ void jcom_core_init(void)
 	ps_poly						= gensym("poly");
 	ps_default					= gensym("default");
 	ps_jitter					= gensym("jitter");
-	ps_1U						= gensym("ps_1U");
+	ps_1U						= gensym("1U");
+	ps_1U_half					= gensym("1U-half");
 	ps_algorithm_message		= gensym("algorithm_message");
 	ps_private					= gensym("private");		// method called in the hub by jcom.remote
 	ps__gui__					= gensym("__GUI__");		// name of jcom.remote in the gui
