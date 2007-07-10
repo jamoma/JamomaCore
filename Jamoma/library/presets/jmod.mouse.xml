@@ -5,7 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='mouse_menu' type='msg_int'>0</item>
+    <item name='reference' type='msg_generic'>screen</item>
     <item name='mouse_on' type='msg_int'>0</item>
   </preset>
 </jamoma>
