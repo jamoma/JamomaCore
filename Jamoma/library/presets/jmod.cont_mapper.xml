@@ -1,1 +1,36 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?><jamoma version="0.4" 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd">		<preset number="1" name="default">		<item name="module_out_nr" type="msg_int">1</item>		<item name="module_in_nr" type="msg_int">0</item>		<item name="in_min" type="msg_float">0.</item>		<item name="in_max" type="msg_float">1.</item>		<item name="out_min" type="msg_float">0.</item>		<item name="out_max" type="msg_float">1.</item>		<item name="curve" type="msg_float">-0.</item>		<item name="ramp" type="msg_int">0</item>		<item name="slide_up" type="msg_int">0</item>		<item name="slide_down" type="msg_int">0</item>	</preset>	<preset number="2" name ="foo">		<item name="module_out_nr" type="msg_int">1</item>		<item name="module_in" type="msg_symbol">/mouse</item>		<item name="module_in_nr" type="msg_int">1</item>		<item name="module_out_function" type="msg_symbol">/audio/gain/midi</item>		<item name="module_in_function" type="msg_symbol">/position_x</item>		<item name="in_min" type="msg_float">0.</item>		<item name="in_max" type="msg_float">1.</item>		<item name="out_min" type="msg_float">0.</item>		<item name="out_max" type="msg_float">158.</item>		<item name="curve" type="msg_float">-0.</item>		<item name="ramp" type="msg_int">0</item>		<item name="slide_up" type="msg_int">0</item>		<item name="slide_down" type="msg_int">0</item>    </preset></jamoma>
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='module_out_nr' type='msg_int' priority='0'>1</item>
+    <item name='module_in_nr' type='msg_int' priority='0'>0</item>
+    <item name='in_min' type='msg_float' priority='0'>0.000000</item>
+    <item name='in_max' type='msg_float' priority='0'>1.000000</item>
+    <item name='out_min' type='msg_float' priority='0'>0.000000</item>
+    <item name='out_max' type='msg_float' priority='0'>1.000000</item>
+    <item name='curve' type='msg_float' priority='0'>-0.000000</item>
+    <item name='ramp' type='msg_int' priority='0'>0</item>
+    <item name='slide_up' type='msg_int' priority='0'>0</item>
+    <item name='slide_down' type='msg_int' priority='0'>0</item>
+  </preset>
+  <preset number='2' name='help'>
+    <item name='curve' type='msg_float' priority='0'>-0.000000</item>
+    <item name='in_max' type='msg_float' priority='0'>1.000000</item>
+    <item name='in_min' type='msg_float' priority='0'>0.000000</item>
+    <item name='module_in_function' type='msg_symbol' priority='6'>position/x</item>
+    <item name='module_in_nr' type='msg_int' priority='2'>1</item>
+    <item name='module_in' type='msg_symbol' priority='1'>/mouse</item>
+    <item name='module_out_function' type='msg_symbol' priority='5'>audio/gain/midi</item>
+    <item name='module_out_nr' type='msg_int' priority='4'>1</item>
+    <item name='module_out' type='msg_symbol' priority='3'>/limiter</item>
+    <item name='out_max' type='msg_float' priority='0'>158.000000</item>
+    <item name='out_min' type='msg_float' priority='0'>0.000000</item>
+    <item name='ramp' type='msg_int' priority='0'>0</item>
+    <item name='slide_down' type='msg_float' priority='0'>0.000000</item>
+    <item name='slide_up' type='msg_float' priority='0'>0.000000</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+</jamoma>
