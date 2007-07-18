@@ -10,6 +10,9 @@
 #ifndef __JCOM_SENDRECEIVE_H__
 #define __JCOM_SENDRECEIVE_H__
 
+#include "ext_linklist.h"
+#include "ext_hashtab.h"
+
 typedef void (*t_receive_callback)(t_symbol *name, t_symbol *msg, long argc, t_atom *argv);
 
 /** Receive Object */
@@ -44,5 +47,13 @@ typedef struct _jcom_callback{
 	void					*obex;
 	t_receive_callback		receive_master_callback;	///< These all point to the same shared function
 } t_jcom_callback;
+
+/** ReceiveMaster Object
+  * This is an internal object that manages message dispatching to jcom.receive instances */
+typedef struct _jcom_receivemaster{
+	t_object	obj;			///< REQUIRED: Object "base class"
+	void		*obex;			///< REQUIRED: Object Extensions Hash
+	t_hashtab	*receive_lists;	///< hash full of linked lists, keyed on the name of the jcom.receive instances
+} t_jcom_receivemaster;
 
 #endif // #ifndef __JCOM_SENDRECEIVE_H__

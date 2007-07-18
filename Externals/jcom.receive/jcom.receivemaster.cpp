@@ -32,8 +32,8 @@ void receivemaster_initclass()
 {
 	// Define our class
 	s_receivemaster_class = class_new(	"jcom.receivemaster", 
-										(method)jcom_receivemaster_new, 
-										(method)jcom_receivemaster_free, 
+										(method)receivemaster_new, 
+										(method)receivemaster_free, 
 										(short)sizeof(t_jcom_receivemaster), 
 										(method)0L, 
 										A_GIMME, 
@@ -41,9 +41,9 @@ void receivemaster_initclass()
 	class_obexoffset_set(s_receivemaster_class, calcoffset(t_jcom_receivemaster, obex));
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)receivemaster_dispatch,	"dispatch",	A_CANT, 0L);
-	class_addmethod(c, (method)receivemaster_add,		"add",		A_CANT, 0L);
-	class_addmethod(c, (method)receivemaster_remove,	"remove",	A_CANT, 0L);
+	class_addmethod(s_receivemaster_class, (method)receivemaster_dispatch,	"dispatch",	A_CANT, 0L);
+	class_addmethod(s_receivemaster_class, (method)receivemaster_add,		"add",		A_CANT, 0L);
+	class_addmethod(s_receivemaster_class, (method)receivemaster_remove,	"remove",	A_CANT, 0L);
 
 	// Finalize our class
 	class_register(CLASS_NOBOX, s_receivemaster_class);
@@ -74,24 +74,30 @@ void receivemaster_free(t_jcom_receivemaster *x)
 
 void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *msg, long argc, t_atom *argv)
 {
-	// 1. Look up the correct linklist in the hashtab
-	// 2. Iterate over the linklist sending the message to all of them
-	;
+	t_linklist	*list;												// linklist of receives with this name
+
+	hashtab_lookup(x->receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab	
+	linklist_methodall(list, msg, argc, argv);						// 2. Call method on every object in the linklist
 }
 
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 {
-	// 1. Look for the name in the hashtab
-	// 2. If it exists, add this to the fetched linklist
-	// 3. If it does not exist, create a new linklist, store it in the hastab, and add this obj to it
-	;
-}
+	t_linklist	*list;
 
+	hashtab_lookup(x->receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
+	if(!list){
+		list = linklist_new();										// if there isn't a linklist for this name yet,
+		hashtab_store(x->receive_lists, name, (t_object *)list);	//	then we make one and store it in the hashtab
+	}
+	linklist_append(list, obj);										// 2. We add the object to the appropriate linklist
+}
 
 void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 {
-	// 1. Look for the name in the hashtab
-	// 2. Remove this obj from the fetched linklist
-	// 3. If the linklist size is zero, then free the linklist and chuck the key from the hashtab
-	;
+	t_linklist	*list;
+
+	hashtab_lookup(x->receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
+	linklist_chuckobject(list, obj);								//	TODO: should this be chuckobject or delete object?
+	if(!linklist_getsize(list))
+		hashtab_chuckkey(x->receive_lists, name);					// 2. Chuck the key if there are no more objects with this name
 }
