@@ -77,7 +77,8 @@ void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *m
 	t_linklist	*list;												// linklist of receives with this name
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
-	linklist_methodall(list, ps_dispatch, msg, argc, argv);			// 2. Call method on every object in the linklist
+	if(list)
+		linklist_methodall(list, ps_dispatch, msg, argc, argv);			// 2. Call method on every object in the linklist
 }
 
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
@@ -116,7 +117,7 @@ void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj
 	t_linklist	*list;
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
-	linklist_chuckobject(list, obj);								//	TODO: should this be chuckobject or delete object?
+	linklist_chuckobject(list, obj);
 	if(!linklist_getsize(list))
 		hashtab_chuckkey(s_receive_lists, name);					// 2. Chuck the key if there are no more objects with this name
 }
