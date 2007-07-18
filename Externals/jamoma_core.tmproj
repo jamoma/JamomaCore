@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>jcom.receive/jcom.receive.cpp</string>
+	<string>jcom.receive/jcom.receivemaster.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -263,7 +263,7 @@
 					<key>filename</key>
 					<string>jcom.send/jcom.send.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-07-02T22:23:55Z</date>
+					<date>2007-07-18T11:39:01Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -278,7 +278,13 @@
 					<key>filename</key>
 					<string>jcom.receive/jcom.receive.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-07-02T22:23:55Z</date>
+					<date>2007-07-18T12:04:40Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>jcom.receive/jcom.receivemaster.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-07-18T12:04:59Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -343,42 +349,56 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>322</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>623</integer>
+			<integer>301</integer>
 		</dict>
 		<key>common/jcom.core.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>12</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>84</integer>
+				<integer>222</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>60</integer>
+			<integer>187</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>5</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>84</integer>
+				<integer>219</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>19</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>84</integer>
+				<integer>222</integer>
 			</dict>
+		</dict>
+		<key>common/jcom.sendreceive.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>52</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>7</integer>
 		</dict>
 		<key>jcom.hub/jcom.hub.cpp</key>
 		<dict>
@@ -561,9 +581,23 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>42</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>26</integer>
+		</dict>
+		<key>jcom.receive/jcom.receivemaster.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>55</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -589,31 +623,24 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>29</integer>
 				<key>line</key>
-				<integer>127</integer>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>38</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>common/jcom.core.h</string>
-		<string>jcom.hub/jcom.hub.cpp</string>
-		<string>jcom.remote/jcom.remote.cpp</string>
-		<string>jcom.in/jcom.in.cpp</string>
-		<string>jcom.out/jcom.out.cpp</string>
-		<string>jcom.init/jcom.init.cpp</string>
+		<string>common/jcom.core.cpp</string>
+		<string>common/jcom.sendreceive.h</string>
 		<string>jcom.send/jcom.send.cpp</string>
 		<string>jcom.receive/jcom.receive.cpp</string>
-		<string>common/jcom.core.cpp</string>
-		<string>jcom.hub/jcom.hub.h</string>
-		<string>jcom.parameter/jcom.parameter.cpp</string>
-		<string>jcom.parameter/jcom.parameter.h</string>
-		<string>jcom.in/jcom.in.pch</string>
+		<string>jcom.receive/jcom.receivemaster.cpp</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>

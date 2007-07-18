@@ -18,6 +18,7 @@
 
 #define MAX_STRING_LEN 2048
 #define LISTSIZE 512
+//#define CREATE_INTERNALS
 
 enum outlets{
 	k_outlet_return = 0,
@@ -85,6 +86,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*jcom_send_broadcast;		///< jcom.send object used to broadcast to subscribers that they should subscribe now
 	t_symbol		*osc_name;					///< the OSC name of this module for remote communication
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
+	t_linklist		*ll_internals;				///< use Max's linklist implementation for tracking internals objects
 } t_hub;
 
 
@@ -154,6 +156,34 @@ void		hub_autodoc(t_hub *x, t_symbol *userpath);
 void		hub_doautodoc(t_hub *x, t_symbol *userpath);
 void		hub_autodoc_css(t_filehandle *file_handle, long *myEof);
 void 		table_heading(t_filehandle *file_handle, long *myEof);
+
+
+#ifdef CREATE_INTERNALS
+// These are in jcom.hub.internals.cpp
+/** Create parameters, messages, and other internal subscribers to the hub.
+ * @param x the hub
+ * @see hub_internals_destroy
+ */
+void hub_internals_create(t_hub *x);
+
+/** Destroy (free) parameters, messages, etc. that are internal to hub.
+ * @param x the hub
+ * @see hub_internals_create
+ */
+void hub_internals_destroy(t_hub *x);
+
+/** Create an object internal to the hub -- used by hub_internals_create()
+ * @param x the hub
+ */
+void hub_internals_createone(t_hub *x, char *classname, char *subscribername, char *subscribertype, char *ramptype);
+
+/** Receive notifications, including notifications from our internals (which we listen to)
+ * @param x the hub
+ */
+void hub_internals_notify(t_hub *x);
+#endif // CREATE_INTERNALS
+
+
 // These are in jcom.hub.presets.cpp
 /** Read an XML preset file.
  * @param x the hub to the preset file should be loaded for

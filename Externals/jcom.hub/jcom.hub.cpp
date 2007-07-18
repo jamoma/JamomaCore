@@ -202,6 +202,10 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(&a, ps_jcom_broadcast_fromHub);
 		if(!jcom_core_loadextern(ps_jcom_send, 1, &a, &x->jcom_send_broadcast))
 			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
+		
+#ifdef CREATE_INTERNALS
+		hub_internals_create(x);
+#endif
 	}
 	return (x);										// return the pointer to our new instantiation
 }
@@ -327,6 +331,9 @@ void hub_free(t_hub *x)
 	if(x->jcom_send_broadcast)
 		object_free(x->jcom_send_broadcast);
 	x->subscriber->clear();
+#ifdef CREATE_INTERNALS
+	hub_internals_destroy(x);
+#endif
 	delete x->subscriber;
 	delete x->preset;
 }

@@ -12,6 +12,7 @@
 		220A6C7F0A8AC7650079CD80 /* jcom.core.h in Headers */ = {isa = PBXBuildFile; fileRef = 220A6C7E0A8AC7650079CD80 /* jcom.core.h */; };
 		22261CE30A28C1C100329D95 /* jcom.hub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jcom.hub.cpp */; };
 		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
+		225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */; };
 		226ACDB10AAB596E0011C786 /* xmlreader.h in Headers */ = {isa = PBXBuildFile; fileRef = 226ACDB00AAB596E0011C786 /* xmlreader.h */; };
 		226ACDB30AAB59770011C786 /* schematron.h in Headers */ = {isa = PBXBuildFile; fileRef = 226ACDB20AAB59770011C786 /* schematron.h */; };
 		226ACF3A0AAB9F3A0011C786 /* libxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226ACF390AAB9F3A0011C786 /* libxml2.a */; };
@@ -30,6 +31,7 @@
 		22261CE20A28C1C100329D95 /* jcom.hub.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.cpp; sourceTree = "<group>"; };
 		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
+		225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.internals.cpp; sourceTree = "<group>"; };
 		226ACDB00AAB596E0011C786 /* xmlreader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = xmlreader.h; path = ../../externals_3rd_party/libxml2/include/libxml/xmlreader.h; sourceTree = SOURCE_ROOT; };
 		226ACDB20AAB59770011C786 /* schematron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = schematron.h; path = ../../externals_3rd_party/libxml2/include/libxml/schematron.h; sourceTree = SOURCE_ROOT; };
 		226ACF390AAB9F3A0011C786 /* libxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxml2.a; path = ../../externals_3rd_party/libxml2/build/universal/libxml2.a; sourceTree = SOURCE_ROOT; };
@@ -91,6 +93,7 @@
 				22A2E01A0A93F1F40004A1F5 /* jcom.hub.h */,
 				22261CE20A28C1C100329D95 /* jcom.hub.cpp */,
 				22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */,
+				225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */,
 				22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */,
 				220A6C7E0A8AC7650079CD80 /* jcom.core.h */,
 				220A6C7C0A8AC7600079CD80 /* jcom.core.cpp */,
@@ -218,6 +221,7 @@
 				220A6C7D0A8AC7600079CD80 /* jcom.core.cpp in Sources */,
 				22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */,
 				22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */,
+				225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
