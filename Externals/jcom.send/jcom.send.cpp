@@ -131,6 +131,5 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-post("list: %s   (name: %s)", msg->s_name, x->attr_name->s_name);
 	object_method(s_receivemaster_object, ps_dispatch, x->attr_name, msg, argc, argv);
 }
