@@ -303,10 +303,8 @@ void hub_examine_context(t_hub *x)
 		x->osc_name = gensym("/editing_this_module");
 		
 	// Finally, we now tell subscribers (parameters, etc.) to subscribe
-	if(x->jcom_send_broadcast){
-		if(ps_jcom_broadcast_fromHub->s_thing)
-			object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
-	}
+	if(x->jcom_send_broadcast)
+		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
 }
 
 void hub_free(t_hub *x)
@@ -563,8 +561,6 @@ void hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 
 	if(x->osc_name == NULL)					// it's possible for this method to be called before osc_name is valid
 		return;								//	...
-	if(!ps_jcom_remote_fromModule->s_thing)	// we check this so jcom.send doesn't give us errors
-		return;								//	because there may be no matching jcom.receives, and that's okay...
 	if(x->jcom_send){
 		char		mess[256];
 		t_symbol	*osc;
