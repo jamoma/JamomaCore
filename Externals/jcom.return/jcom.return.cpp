@@ -36,7 +36,7 @@ void	return_float(t_return *x, double f);
 void	return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv);
 void	return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv);
 void	return_send_feedback(t_return *x);
-
+void 	return_dump(t_return *x);
 
 // Globals
 t_class		*return_class;				// Required: Global pointer for our class
@@ -68,8 +68,8 @@ long obexoffset;
 	class_addmethod(c, (method)return_float,				"float",		A_DEFFLOAT,	0L);
  	class_addmethod(c, (method)return_list,					"list",			A_GIMME, 0L);
  	class_addmethod(c, (method)return_symbol,				"anything",		A_GIMME, 0L);
+	class_addmethod(c, (method)return_dump,					"dump",			0L);
 	class_addmethod(c, (method)return_assist,				"assist",		A_CANT, 0L); 
-	class_addmethod(c, (method)param_dump,					"dump",			0L);
 
 	jcom_core_subscriber_classinit_extended(c, attr, offset);
 	
@@ -134,7 +134,7 @@ void return_assist(t_return *x, void *b, long msg, long arg, char *dst)
 }
 
 // DUMP: use for debugging - dump state to the Max window
-void param_dump(t_param *x)
+void return_dump(t_return *x)
 {
 	char	s[256];
 	t_atom	a[4];
@@ -149,17 +149,12 @@ void param_dump(t_param *x)
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_description);
 		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
-
-		sprintf(s, "%s:priority", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setlong(&a[1], x->attr_priority);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
-
+/* TODO: Should we add ramping ability to this object?
 		sprintf(s, "%s:ramp", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
 		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
-
+*/
 		sprintf(s, "%s:range", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
@@ -174,16 +169,6 @@ void param_dump(t_param *x)
 		sprintf(s, "%s:type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_type);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
-
-		sprintf(s, "%s:ui/freeze", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setlong(&a[1], x->attr_ui_freeze);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
-
-		sprintf(s, "%s:value", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		jcom_core_atom_copy(&a[1], &x->attr_value);
 		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
 	}
 }
