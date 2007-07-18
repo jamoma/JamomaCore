@@ -12,7 +12,8 @@
 #define value value_list[0]
 
 // Globals
-t_class		*hub_class;				// Required: Global pointer for our class
+static t_class		*s_hub_class;						// Required: Global pointer for our class
+static t_object		*s_jcom_send_notifications = NULL;	// Shared instance for communicating about module instantiation and deletion
 
 /** A function object for determining if one t_subscriber object should follow another t_subscriber.
  * This is determined by the alphabetical ordering of the names of the two t_subscribers.
@@ -131,7 +132,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
-	hub_class = c;
+	s_hub_class = c;
 	
 	jcom_core_init();
 	return 0;
@@ -145,9 +146,9 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 {
 	short			i;
 	long			attrstart = attr_args_offset(argc, argv);
-	t_hub			*x = (t_hub *)object_alloc(hub_class);
+	t_hub			*x = (t_hub *)object_alloc(s_hub_class);
 	t_symbol		*name = _sym_nothing;
-	t_atom			a;
+	t_atom			a[2];
 	
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
@@ -190,18 +191,23 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
 		x->jcom_send_broadcast = NULL;
-		atom_setsym(&a, ps_jcom_remote_fromModule);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, &a, &x->jcom_send))
+		atom_setsym(a, ps_jcom_remote_fromModule);
+		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send))
 			error("jcom.hub: loading jcom.send extern failed!");
-		atom_setsym(&a, ps_jcom_remote_toModule);
-		if(!jcom_core_loadextern(ps_jcom_receive, 1, &a, &x->jcom_receive))
+		atom_setsym(a, ps_jcom_remote_toModule);
+		if(!jcom_core_loadextern(ps_jcom_receive, 1, a, &x->jcom_receive))
 			error("jcom.hub: loading jcom.receive extern failed!");
 		else
 			object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
 			
-		atom_setsym(&a, ps_jcom_broadcast_fromHub);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, &a, &x->jcom_send_broadcast))
+		atom_setsym(a, ps_jcom_broadcast_fromHub);
+		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send_broadcast))
 			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
+		
+		if(!s_jcom_send_notifications){
+			atom_setsym(a, gensym("notifications"));
+			jcom_core_loadextern(ps_jcom_send, 1, a, &s_jcom_send_notifications);
+		}
 		
 #ifdef CREATE_INTERNALS
 		hub_internals_create(x);
@@ -241,6 +247,7 @@ void hub_examine_context(t_hub *x)
 	char		name[256];
 	char		*nametest;
 	unsigned short		i;
+	t_atom		a[2];
 
 	if(p->p_vnewobj != NULL){							// THIS SHOULD INDICATE WE ARE NOT AT THE TOP LEVEL (i.e. not editing)						//	go up one level to look at how the module is instantiated
 		box = (t_box *)p->p_vnewobj;
@@ -305,12 +312,22 @@ void hub_examine_context(t_hub *x)
 	// Finally, we now tell subscribers (parameters, etc.) to subscribe
 	if(x->jcom_send_broadcast)
 		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
+	
+	// And send a notification to the environment
+	atom_setsym(a, x->attr_name);
+	atom_setsym(a+1, x->osc_name);
+	object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 }
 
 void hub_free(t_hub *x)
 {
 	subscriberIterator i;
 	subscriberList *subscriber = x->subscriber;
+	t_atom a[2];
+
+	atom_setsym(a, x->attr_name);
+	atom_setsym(a+1, x->osc_name);
+	object_method_typed(s_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
 
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
