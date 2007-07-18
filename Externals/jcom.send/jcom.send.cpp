@@ -23,7 +23,9 @@ void send_float(t_send *x, double value);
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
-t_class		*send_class;				// Required: Global pointer for our class
+static t_class		*s_send_class;					// Required: Global pointer for our class
+static t_object		*s_receivemaster_object = NULL;	// An instance of the jcom.receivemaster class
+
 
 /************************************************************************************/
 // Main() Function
@@ -58,7 +60,7 @@ int main(void)
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
-	send_class = c;
+	s_send_class = c;
 	
 	return 0;
 }
@@ -71,7 +73,7 @@ int main(void)
 void *send_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 	attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	t_send 	*x = (t_send *)object_alloc(send_class);
+	t_send 	*x = (t_send *)object_alloc(s_send_class);
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
 
@@ -80,7 +82,10 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 		else
 			x->attr_name = gensym("jcom.send no arg specified");
 			
-		attr_args_process(x, argc, argv);					// handle attribute args				
+		attr_args_process(x, argc, argv);					// handle attribute args
+		
+		if(!s_receivemaster_object)
+			s_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
 	}
 	return x;
 }
@@ -93,7 +98,7 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 void send_assist(t_send *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1) 			// Inlets
-		strcpy(dst, "(signal) input to the module");
+		strcpy(dst, "input to dispatch to jcom.receive objects");
 	else if(msg==2)		// Outlets
 		strcpy(dst, "dumpout");
 }
@@ -107,7 +112,7 @@ void send_bang(t_send *x)
 
 void send_int(t_send *x, long value)
 {
-	t_atom				a;
+	t_atom a;
 	
 	atom_setlong(&a, value);
 	send_list(x, _sym_int, 1, &a);
@@ -116,7 +121,7 @@ void send_int(t_send *x, long value)
 
 void send_float(t_send *x, double value)
 {
-	t_atom				a;
+	t_atom a;
 	
 	atom_setfloat(&a, value);
 	send_list(x, _sym_float, 1, &a);
@@ -125,14 +130,5 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_jcom_callback		*receive;
-	t_receive_callback	receive_callback;
-	
-	if(object_classname_compare(x->attr_name->s_thing, gensym("jcom.callback"))){
-		receive = (t_jcom_callback *)x->attr_name->s_thing;
-		receive_callback = receive->receive_master_callback;
-		receive_callback(x->attr_name, msg, argc, argv);
-	}
-	else
-		error("jcom.send (%s), no valid destination", x->attr_name->s_name);
+	object_method(s_receivemaster_object, ps_dispatch, x->attr_name, msg, argc, argv);
 }

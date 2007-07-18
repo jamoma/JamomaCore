@@ -156,7 +156,11 @@ t_symbol	*ps_done,
 			*ps_sendlastvalue,
 			*ps_sendbypassedvalue,
 			*ps_star,
-			*ps_priority;
+			*ps_priority,
+			*ps_add,							// used for calling methods on jcom.receivemaster
+			*ps_remove,
+			*ps_dispatch
+			;
 
 void jcom_core_init(void)
 {
@@ -312,6 +316,9 @@ void jcom_core_init(void)
 	ps_sendbypassedvalue		= gensym("sendbypassedvalue");
 	ps_star						= gensym("*");
 	ps_priority					= gensym("priority");
+	ps_add						= gensym("add");					// used for calling methods on jcom.receivemaster
+	ps_remove					= gensym("remove");
+	ps_dispatch					= gensym("dispatch");
 }
 
 #pragma mark -

@@ -21,16 +21,9 @@ typedef struct _receive{
 	void						*obex;			///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void						*outlet;		///< Need one for each outlet
 	t_symbol					*attr_name;		///< ATTRIBUTE: name
-	t_receive_obex_callback		receive_obex_callback;
-	void						*receive_obex_callback_arg;
+	t_receive_obex_callback		callback;		/// < Function pointer to call if we instantiated inside of another extern
+	void						*baton;			/// < Baton to hand back to the callee of the callback when it is called
 } t_receive;
-
-/** A linked list for maintaining pointers to each instance of the jcom.receive 
- * external */
-typedef struct _receiver{
-	t_receive		*object;
-	_receiver		*next;
-} t_receiver;
 
 /** Send Object */
 typedef struct _send{
@@ -53,7 +46,10 @@ typedef struct _jcom_callback{
 typedef struct _jcom_receivemaster{
 	t_object	obj;			///< REQUIRED: Object "base class"
 	void		*obex;			///< REQUIRED: Object Extensions Hash
-	t_hashtab	*receive_lists;	///< hash full of linked lists, keyed on the name of the jcom.receive instances
 } t_jcom_receivemaster;
+
+
+void receive_initclass();
+void receivemaster_initclass();
 
 #endif // #ifndef __JCOM_SENDRECEIVE_H__

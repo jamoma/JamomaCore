@@ -216,7 +216,11 @@ extern t_symbol	*ps_none,
 				*ps_sendlastvalue,
 				*ps_sendbypassedvalue,
 				*ps_star,
-				*ps_priority;
+				*ps_priority,
+				*ps_add,							// used for calling methods on jcom.receivemaster
+				*ps_remove,
+				*ps_dispatch
+				;
 				
 				
 
