@@ -92,6 +92,25 @@ void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 	linklist_append(list, obj);										// 2. We add the object to the appropriate linklist
 }
 
+
+// TODO: When we switch to Max5 then remove these function definitions
+#if 1
+long linklist_match(void *a, void *b)
+{
+	return a == b;
+}
+
+void linklist_chuckobject(t_linklist *x, void *o)
+{
+	void *obj;
+	
+	long index = linklist_findfirst(x, &obj, linklist_match, o);
+	if(index != -1)
+		linklist_chuckindex(x, index);
+}
+#endif
+
+
 void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 {
 	t_linklist	*list;
