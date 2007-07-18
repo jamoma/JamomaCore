@@ -76,7 +76,7 @@ void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *m
 {
 	t_linklist	*list;												// linklist of receives with this name
 
-	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab	
+	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	linklist_methodall(list, ps_dispatch, msg, argc, argv);			// 2. Call method on every object in the linklist
 }
 

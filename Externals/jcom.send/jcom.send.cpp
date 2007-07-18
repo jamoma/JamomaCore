@@ -37,6 +37,7 @@ int main(void)
 	t_object *attr;
 	
 	common_symbols_init();
+	jcom_core_init();
 
 	// Define our class
 	c = class_new("jcom.send", (method)send_new, (method)0L, (short)sizeof(t_send), (method)0L, A_GIMME, 0);

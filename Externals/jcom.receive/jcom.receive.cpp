@@ -34,6 +34,7 @@ static t_object		*s_receivemaster_object = NULL;		// An instance of the jcom.rec
 int main(void)				// main recieves a copy of the Max function macros table
 {
 	common_symbols_init();
+	jcom_core_init();
 	receivemaster_initclass();
 	receive_initclass();
 	return 0;
