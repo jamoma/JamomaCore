@@ -74,16 +74,16 @@ void receivemaster_free(t_jcom_receivemaster *x)
 
 void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_linklist	*list;												// linklist of receives with this name
+	t_linklist	*list = NULL;										// linklist of receives with this name
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	if(list)
-		linklist_methodall(list, ps_dispatch, msg, argc, argv);			// 2. Call method on every object in the linklist
+		linklist_methodall(list, ps_dispatch, msg, argc, argv);		// 2. Call method on every object in the linklist
 }
 
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 {
-	t_linklist	*list;
+	t_linklist	*list = NULL;
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	if(!list){
@@ -114,7 +114,7 @@ void linklist_chuckobject(t_linklist *x, void *o)
 
 void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 {
-	t_linklist	*list;
+	t_linklist	*list = NULL;
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	linklist_chuckobject(list, obj);

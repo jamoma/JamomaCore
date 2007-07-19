@@ -92,13 +92,13 @@
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-07-18T14:13:27Z</date>
+					<date>2007-07-19T20:05:18Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.h</string>
 					<key>lastUsed</key>
-					<date>2007-07-18T14:05:23Z</date>
+					<date>2007-07-18T22:45:53Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -268,8 +268,6 @@
 					<string>jcom.send/jcom.send.cpp</string>
 					<key>lastUsed</key>
 					<date>2007-07-18T18:32:54Z</date>
-					<key>selected</key>
-					<true/>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -284,7 +282,7 @@
 					<key>filename</key>
 					<string>jcom.receive/jcom.receive.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-07-18T18:32:54Z</date>
+					<date>2007-07-19T20:05:18Z</date>
 					<key>selected</key>
 					<true/>
 				</dict>
@@ -427,28 +425,44 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>10</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>206</integer>
+				<integer>249</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>181</integer>
+			<integer>236</integer>
 		</dict>
 		<key>jcom.hub/jcom.hub.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>164</integer>
+				<integer>86</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>148</integer>
+			<integer>55</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>12</integer>
+				<key>line</key>
+				<integer>86</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>20</integer>
+				<key>line</key>
+				<integer>86</integer>
+			</dict>
 		</dict>
 		<key>jcom.hub/jcom.hub.presets.cpp</key>
 		<dict>
@@ -585,14 +599,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>150</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>105</integer>
+			<integer>0</integer>
 		</dict>
 		<key>jcom.receive/jcom.receivemaster.cpp</key>
 		<dict>
@@ -645,8 +659,6 @@
 		<string>jcom.send/jcom.send.cpp</string>
 		<string>jcom.receive/jcom.receive.cpp</string>
 		<string>jcom.receive/jcom.receivemaster.cpp</string>
-		<string>jcom.hub/jcom.hub.autodoc.cpp</string>
-		<string>jcom.hub/jcom.hub.presets.cpp</string>
 		<string>jcom.hub/jcom.hub.h</string>
 		<string>jcom.hub/jcom.hub.cpp</string>
 	</array>

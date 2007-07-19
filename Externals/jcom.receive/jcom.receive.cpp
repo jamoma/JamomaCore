@@ -90,6 +90,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 		if(!s_receivemaster_object)
 			s_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
 
+		x->callback = NULL;
 		x->attr_name = NULL;
 		attr_args_process(x, argc, argv);					// handle attribute args				
 
