@@ -267,7 +267,6 @@ class tt_value : tt_base {
 		}
 		
 
-
 		#pragma mark -
 		#pragma mark VALUE ACCESSORS
 
