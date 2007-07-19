@@ -672,8 +672,6 @@ class tt_value : tt_base {
 
 
 
-
-
 		// make sure this is a friend so that it can access the private members of the other atom
 		friend bool operator == (const tt_value &a1, const tt_value &a2){
 			short 	i;
