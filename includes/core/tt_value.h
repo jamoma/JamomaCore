@@ -258,8 +258,6 @@ class tt_value : tt_base {
 		}
 		
 
-
-
 		tt_value& operator = (const tt_value &a){
 			type = a.type;
 			data = a.data;
