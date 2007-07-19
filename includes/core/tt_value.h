@@ -579,7 +579,6 @@ class tt_value : tt_base {
 		}
 
 
-
 		#pragma mark -
 		#pragma mark set() methods
 		// THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
