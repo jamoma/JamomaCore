@@ -1,0 +1,1 @@
+max v2;#N vpatcher 174 488 551 715;#P window setfont "Sans Serif" 9.;#P window linecount 1;#P newex 47 114 56 196617 print $1in;#P newex 31 85 120 196617 udpsend localhost 9000;#P newex 31 61 94 196617 r $1_net_in;#P connect 0 0 1 0;#P connect 0 0 2 0;#P pop;
