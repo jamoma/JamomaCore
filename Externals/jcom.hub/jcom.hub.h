@@ -64,8 +64,8 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		ob;							///< REQUIRED: Our object
 	void			*obex;						///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void			*outlets[k_num_outlets];	///< outlet array
-	t_patcher		*container;					///< the owning patcher
-	subscriberList	*subscriber;		///< top of the linked list of parameters
+	t_object		*container;					///< the owning patcher
+	subscriberList	*subscriber;				///< top of the linked list of parameters
 	presetList		*preset;					///< top of the linked list of presets
 	long			num_parameters;				///< count used for working with presets
 	void			*init_qelem;				///< qelem used for initialization messages

@@ -31,7 +31,7 @@ typedef struct _jcom_core_subscriber_common{
 	t_object			ob;						///< base object
 #endif
 	void				*obex;					///< object extensions
-	t_patcher			*container;				///< pointer to the patcher containing this object
+	t_object			*container;				///< pointer to the patcher containing this object
 	void				*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
 	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
@@ -53,7 +53,7 @@ typedef struct _jcom_core_subscriber_extended{
 	t_object			ob;						///< base object
 #endif
 	void				*obex;					///< object extensions
-	t_patcher			*container;				///< pointer to the patcher containing this object
+	t_object			*container;				///< pointer to the patcher containing this object
 	void				*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
 	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
@@ -236,7 +236,7 @@ void jcom_core_init(void);
  * @param container pointer to patcher containg the parameter, in, out, etc.
  * @return a pointer to the hub object
  */
-void *jcom_core_subscribe(void *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
+void *jcom_core_subscribe(void *x, t_symbol *name, t_object *container, t_symbol *object_type);
 
 
 /** Unsubscribe a client from the hub.
