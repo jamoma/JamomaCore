@@ -192,17 +192,23 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_receive = NULL;
 		x->jcom_send_broadcast = NULL;
 		atom_setsym(a, ps_jcom_remote_fromModule);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send))
+		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send)) {
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
 			error("jcom.hub: loading jcom.send extern failed!");
+		}
 		atom_setsym(a, ps_jcom_remote_toModule);
-		if(!jcom_core_loadextern(ps_jcom_receive, 1, a, &x->jcom_receive))
+		if(!jcom_core_loadextern(ps_jcom_receive, 1, a, &x->jcom_receive)) {
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
 			error("jcom.hub: loading jcom.receive extern failed!");
+		}
 		else
 			object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
 			
 		atom_setsym(a, ps_jcom_broadcast_fromHub);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send_broadcast))
+		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send_broadcast)) {
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
 			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
+		}
 		
 		if(!s_jcom_send_notifications){
 			atom_setsym(a, gensym("notifications"));
@@ -363,6 +369,10 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 	t_subscriber	*new_subscriber;
 	
 	if(subscriber_object == NULL){
+		if (x->osc_name == gensym("/editing_this_module"))
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+		else	
+			post("Jamoma: Module %s complains:", x->osc_name->s_name);
 		error("Null object cannot subscribe to jcom.hub");
 		return _sym_nothing;
 	}
@@ -888,8 +898,13 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		else{
 			// if we got here through the use a remote message to modules named by a wildcard
 			// then we need don't post annoying errors to the Max window
-			if(!x->using_wildcard)
+			if(!x->using_wildcard) {
+				if (x->osc_name == gensym("/editing_this_module"))
+					post("Jamoma: Module %s complains:", x->attr_name->s_name);
+				else	
+					post("Jamoma: Module %s complains:", x->osc_name->s_name);
 				error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
+			}
 		}
 	}
 	critical_exit(0);
@@ -960,6 +975,10 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		
 	split = strchr(in, '/');		// get the OSC message for the module
 	if(split == NULL){
+		if (x->osc_name == gensym("/editing_this_module"))
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+		else	
+			post("Jamoma: Module %s complains:", x->osc_name->s_name);
 		error("jcom.hub (%s module) received message from jcom.send with problematic or missing OSC namespace (%s)", x->attr_name->s_name, mess);
 		return;
 	}
