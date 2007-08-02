@@ -161,6 +161,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 		x->init_qelem = qelem_new(x, (method)hub_qfn_init);
 
+		// set default attributes
 		x->attr_name = name;
 		x->osc_name = _sym_nothing;
 		x->attr_type = ps_control;
@@ -178,8 +179,8 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 			x->meter_object[i] = NULL;
 		x->preview_object = NULL;
 		
-		x->preset = new presetList;							// begin with no presets
-		x->subscriber = new subscriberList;						// ... and no subscribers
+		x->preset = new presetList;					// begin with no presets
+		x->subscriber = new subscriberList;			// ... and no subscribers
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
@@ -282,19 +283,21 @@ void hub_examine_context(t_hub *x)
 			else{	
 				// try to invent something intelligent for a name
 				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);				
-				strcpy(name, "/");
+				//strcpy(name, "/");
 				strcat(name, x->attr_name->s_name);
 			}
 		}
-		// the name must begin with a /
+		// the name is autoprepended with a /
 		if(name[0] != '/'){
 			char newname[256];
 			
 			strcpy(newname, "/");
 			strcat(newname, name);
 			strcpy(name, newname);
-			error("%s: name arguments for modules must begin with a slash!  inserting one automatically", x->attr_name->s_name);
+			// error("%s: name arguments for modules must begin with a slash!  inserting one automatically", x->attr_name->s_name);
 		}
+		else
+			post("%s: I can fill in the leading slash of the module name for you (but no harm done).", x->attr_name->s_name);
 		
 		// search for illegal characters as specified by the OSC standard and replace them
 		for(i=0; i<strlen(name); i++){
