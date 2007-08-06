@@ -294,10 +294,8 @@ void hub_examine_context(t_hub *x)
 			strcpy(newname, "/");
 			strcat(newname, name);
 			strcpy(name, newname);
-			// error("%s: name arguments for modules must begin with a slash!  inserting one automatically", x->attr_name->s_name);
-		}
-		else
 			post("%s: I can fill in the leading slash of the module name for you (but no harm done).", x->attr_name->s_name);
+		}
 		
 		// search for illegal characters as specified by the OSC standard and replace them
 		for(i=0; i<strlen(name); i++){
@@ -899,14 +897,20 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 				object_method_typed(t->object, osc, argc, argv, NULL);
 		}
 		else{
-			// if we got here through the use a remote message to modules named by a wildcard
-			// then we need don't post annoying errors to the Max window
-			if(!x->using_wildcard) {
+			// Check to see if it's a message we need to forward to jcom.out
+			if(name == ps_slash_audio_meters_freeze || name == ps_audio_meters_freeze) {
+				t_atom msg[2];
+				atom_setsym(msg, name);
+				jcom_core_atom_copy(msg+1, argv);
+				if(x->out_object != NULL)
+					object_method_typed(x->out_object, ps_algorithm_message, 2, msg, NULL);	
+			} else if(!x->using_wildcard) {
+				// if we got here through the use a remote message to modules named by a wildcard
+				// then we need don't post annoying errors to the Max window
 				if (x->osc_name == gensym("/editing_this_module"))
 					post("Jamoma: Module %s complains:", x->attr_name->s_name);
 				else	
 					post("Jamoma: Module %s complains:", x->osc_name->s_name);
-				error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
 			}
 		}
 	}
