@@ -378,6 +378,9 @@ void jcom_core_atom_copy(t_atom *dst, t_atom *src)
 
 bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 {
+	if(!a1 || !a2)
+		return 0;
+		
 	if(type == ps_msg_float){				// float is first so that it gets process the most quickly
 		if(atom_getfloat(a1) == atom_getfloat(a2))
 			return 1;
