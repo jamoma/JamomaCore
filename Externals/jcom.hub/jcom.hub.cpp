@@ -294,7 +294,6 @@ void hub_examine_context(t_hub *x)
 			strcpy(newname, "/");
 			strcat(newname, name);
 			strcpy(name, newname);
-			post("%s: I can fill in the leading slash of the module name for you (but no harm done).", x->attr_name->s_name);
 		}
 		
 		// search for illegal characters as specified by the OSC standard and replace them
