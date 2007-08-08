@@ -182,6 +182,9 @@
 				RelativePath="C:\Program Files\Cycling &apos;74\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
+				RelativePath="..\common\jcom.core.cpp">
+			</File>
+			<File
 				RelativePath=".\jcom.send.cpp">
 			</File>
 			<File

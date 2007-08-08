@@ -14,6 +14,7 @@ var mytextoff = "off";
 var mybrgb = [0.8,0.8,0.8];
 var myfrgb = [0.,0.,0.];
 var myrgb1 = [0.6,0.6,0.6];
+var myrgb2 = [0.,0.,0.];
 var myfont = "Sans Serif";  // Geneva on Mac, Arial on PC
 var myfontsize = 0.5; // relative to height
 var mybevel = 0.25;
@@ -23,36 +24,54 @@ var mousedown = 0;
 var inbox = 0;
 
 // process arguments
+
+// Text off/on
 if (jsarguments.length>1)
 	mytextoff = jsarguments[1];
 if (jsarguments.length>2)
 	mytexton = jsarguments[2];
+
+// bgcolor when off
 if (jsarguments.length>3)
 	mybrgb[0] = jsarguments[3]/255.;
 if (jsarguments.length>4)
 	mybrgb[1] = jsarguments[4]/255.;
 if (jsarguments.length>5)
 	mybrgb[2] = jsarguments[5]/255.;
+	
+// fgcolor when off
 if (jsarguments.length>6)
 	myfrgb[0] = jsarguments[6]/255.;
 if (jsarguments.length>7)
 	myfrgb[1] = jsarguments[7]/255.;
 if (jsarguments.length>8)
 	myfrgb[2] = jsarguments[8]/255.
+	
+// bgcolor when on	
 if (jsarguments.length>9)
 	myrgb1[0] = jsarguments[9]/255.;
 if (jsarguments.length>10)
 	myrgb1[1] = jsarguments[10]/255.;
 if (jsarguments.length>11)
 	myrgb1[2] = jsarguments[11]/255.
+
+// fgcolor when on
 if (jsarguments.length>12)
-	myfont = jsarguments[12];
+	myrgb2[0] = jsarguments[12]/255.;
 if (jsarguments.length>13)
-	myfontsize = jsarguments[13];
+	myrgb2[1] = jsarguments[13]/255.;
 if (jsarguments.length>14)
-	mybevel = jsarguments[14];
+	myrgb2[2] = jsarguments[14]/255.
+	
+// more stuff to be set
 if (jsarguments.length>15)
-	mysmooth = jsarguments[15];
+	myfont = jsarguments[15];
+if (jsarguments.length>16)
+	myfontsize = jsarguments[16];
+if (jsarguments.length>17)
+	mybevel = jsarguments[17];
+if (jsarguments.length>18)
+	mysmooth = jsarguments[18];
 
 draw();
 refresh();
@@ -314,7 +333,10 @@ function draw()
 			glvertex(-aspect+mybevel,-1+mybevel);
 		glend();
 		}
-		glcolor(myfrgb);		
+		if (myval)
+			glcolor(myrgb2);
+		else
+			glcolor(myfrgb);
 		if (myval)
 			moveto(0.02*aspect,-0.02 );
 		else

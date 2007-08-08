@@ -87,8 +87,8 @@ void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	if(!list){
-		list = linklist_new();										// if there isn't a linklist for this name yet,
-		hashtab_store(s_receive_lists, name, (t_object *)list);	//	then we make one and store it in the hashtab
+		list = (t_linklist *)linklist_new();						// if there isn't a linklist for this name yet,
+		hashtab_store(s_receive_lists, name, (t_object *)list);		//	then we make one and store it in the hashtab
 	}
 	linklist_append(list, obj);										// 2. We add the object to the appropriate linklist
 }

@@ -325,24 +325,30 @@ void jcom_core_init(void)
 #pragma mark Hub Bindings
 
 // Registering with the jcom.hub object
-void *jcom_core_subscribe(void *x, t_symbol *name, t_object *container, t_symbol *object_type)
+void *jcom_core_subscribe(void *x, t_symbol *name, t_patcher *container, t_symbol *object_type)
 {
-	t_object	*patcher = container;
-	t_object	*box = NULL;
-	t_object	*theobject = NULL;	
+	t_patcher	*p = container;
+	t_box		*b;
+	t_class		*theclass;
 	void		*hub = NULL;
 	
-	box = object_attr_getobj(patcher, gensym("firstobject"));
-	if(!box)
-		object_error((t_object *)x, "subscription failure: couldn't get first object");
-	while(box){
-		theobject = (t_object *)object_attr_getobj(box, _sym_object);
-		if(object_classname(theobject) == ps_jcom_hub){
-			object_method(theobject, ps_subscribe, name, x, object_type);
-			hub = theobject;
-			break;		
-		}	
-		box = (t_object *)object_attr_getobj(box, gensym("nextobject"));
+again:	
+	for(b = p->p_box; b; b = b->b_next){							// traverse the linked list of boxes in the patch
+		theclass = object_class(b->b_firstin);
+		if(object_classname_compare(b->b_firstin, ps_jcom_hub)){	// if this is a jcom.hub...
+			object_method(b->b_firstin, ps_subscribe, name, x, object_type);
+			hub = b->b_firstin;										// store the pointer
+			break;													// then stop looking
+		}
+	}
+	if(hub == NULL){							// failed to find a hub in the patch...
+		if(p->p_vnewobj != NULL){				//	go one level higher and search there
+			b = (t_box *)p->p_vnewobj;
+			p = b->b_patcher;
+			goto again;
+		}
+		else
+			error("object named '%s' could not find a jcom.hub for subscribing", name->s_name);
 	}
 	return hub;
 }
@@ -372,6 +378,9 @@ void jcom_core_atom_copy(t_atom *dst, t_atom *src)
 
 bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 {
+	if(!a1 || !a2)
+		return 0;
+		
 	if(type == ps_msg_float){				// float is first so that it gets process the most quickly
 		if(atom_getfloat(a1) == atom_getfloat(a2))
 			return 1;
@@ -584,6 +593,8 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	jcom_core_subscriber_attribute_common_setname(x, NULL, 1, &a);
  	
 	object_obex_lookup(x, gensym("#P"), (t_object **)&x->container);
+	if(!x->container)
+		x->container = (t_patcher *)gensym("#P")->s_thing;
 	
 	// set up the jcom.receive the listens to broadcast messages from the hub
 	atom_setsym(&a, ps_jcom_broadcast_fromHub);

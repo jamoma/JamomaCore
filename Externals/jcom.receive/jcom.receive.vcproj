@@ -182,10 +182,16 @@
 				RelativePath="C:\Program Files\Cycling &apos;74\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\common\commonsyms.c">
 			</File>
 			<File
+				RelativePath="..\common\jcom.core.cpp">
+			</File>
+			<File
 				RelativePath=".\jcom.receive.cpp">
 			</File>
 			<File
 				RelativePath=".\jcom.receive.def">
+			</File>
+			<File
+				RelativePath=".\jcom.receivemaster.cpp">
 			</File>
 			<File
 				RelativePath="..\..\externals_3rd_party\ttblue\dsplib\tt_audio_base.cpp">

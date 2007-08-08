@@ -161,6 +161,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 		x->init_qelem = qelem_new(x, (method)hub_qfn_init);
 
+		// set default attributes
 		x->attr_name = name;
 		x->osc_name = _sym_nothing;
 		x->attr_type = ps_control;
@@ -178,29 +179,37 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 			x->meter_object[i] = NULL;
 		x->preview_object = NULL;
 		
-		x->preset = new presetList;							// begin with no presets
-		x->subscriber = new subscriberList;						// ... and no subscribers
+		x->preset = new presetList;					// begin with no presets
+		x->subscriber = new subscriberList;			// ... and no subscribers
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
 		object_obex_lookup(x, gensym("#P"), (t_object **)&x->container);
+		if(!x->container)
+			x->container = (t_patcher *)gensym("#P")->s_thing;
 		defer_low(x, (method)hub_examine_context, 0, 0, 0);
 		
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
 		x->jcom_send_broadcast = NULL;
 		atom_setsym(a, ps_jcom_remote_fromModule);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send))
+		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send)) {
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
 			error("jcom.hub: loading jcom.send extern failed!");
+		}
 		atom_setsym(a, ps_jcom_remote_toModule);
-		if(!jcom_core_loadextern(ps_jcom_receive, 1, a, &x->jcom_receive))
+		if(!jcom_core_loadextern(ps_jcom_receive, 1, a, &x->jcom_receive)) {
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
 			error("jcom.hub: loading jcom.receive extern failed!");
+		}
 		else
 			object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
 			
 		atom_setsym(a, ps_jcom_broadcast_fromHub);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send_broadcast))
+		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send_broadcast)) {
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
 			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
+		}
 		
 		if(!s_jcom_send_notifications){
 			atom_setsym(a, gensym("notifications"));
@@ -236,55 +245,55 @@ typedef struct bpatcher {
 
 void hub_examine_context(t_hub *x)
 {
-	t_object		*patcher = x->container;
-	t_object		*parentpatcher = NULL;
-	t_object		*box = NULL;
-	long			numargs = 0;
-	t_atom			*args = NULL;
-	t_symbol		*s = NULL;
-	char			name[256];
-	char			*nametest;
-	unsigned short	i;	
+	t_patcher	*p = x->container;
+	t_box		*box = p->p_box;
+	t_symbol	*s = NULL;
+	t_atombuf	*atoms = NULL;
+	long		size = 0;
+	t_atom		*argv = NULL;
+	char		name[256];
+	char		*nametest;
+	unsigned short		i;
 	t_atom		a[2];
 
-	parentpatcher = object_attr_getobj(patcher, gensym("parentpatcher"));
-	if(parentpatcher){
-		box = object_attr_getobj(patcher, gensym("box"));
-		s = object_classname(box);	// possible values: bpatcher, newobj, _sym_nothing
+	if(p->p_vnewobj != NULL){							// THIS SHOULD INDICATE WE ARE NOT AT THE TOP LEVEL (i.e. not editing)						//	go up one level to look at how the module is instantiated
+		box = (t_box *)p->p_vnewobj;
+		atoms = (t_atombuf *)box->b_binbuf;
+		if(!atoms){
+			if(ob_sym(box) == gensym("bpatcher")){
+				t_bpatcher *bp = (t_bpatcher *)box;
+				size = bp->b_argc;
+				argv = bp->b_argv;
+				x->osc_name = atom_getsym(argv);
+				strcpy(name, x->osc_name->s_name);
+			}
+		} 
+		else{
+			size = atoms->a_argc - 1;
+			argv = atoms->a_argv + 1;		
+			x->osc_name = atom_getsym(argv);
+			strcpy(name, x->osc_name->s_name);
+		}
 		
-		if(s == gensym("bpatcher")){
-			object_attr_getvalueof(box, gensym("args"), &numargs, &args);
-			if(numargs)
-				x->osc_name = atom_getsym(args);
-		}
-		else if(s == gensym("newobj")){
-			//print (*(t_atombuf *)((t_jbox*)box)->b_binbuf).a_argv[1].a_w.w_sym->s_name
-			//$11 = 0x199a74ff "/misterbear"
-			;
-		}
-		else
-			object_error((t_object *)x, "this type of patcher context is not current supported for jcom.hub");
-				
 		// if no arg is present, then try to use the scripting name of the object
 		if(x->osc_name == _sym_nothing){
-			s = object_attr_getsym(box, gensym("varname"));
-			if(s)
+			p = box->b_patcher;	
+			if(patcher_boxname(p, box, &s))
 				strcpy(name, s->s_name);
 			else{	
 				// try to invent something intelligent for a name
 				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);				
-				strcpy(name, "/");
+				//strcpy(name, "/");
 				strcat(name, x->attr_name->s_name);
 			}
 		}
-		// the name must begin with a /
+		// the name is autoprepended with a /
 		if(name[0] != '/'){
 			char newname[256];
 			
 			strcpy(newname, "/");
 			strcat(newname, name);
 			strcpy(name, newname);
-			error("%s: name arguments for modules must begin with a slash!  inserting one automatically", x->attr_name->s_name);
 		}
 		
 		// search for illegal characters as specified by the OSC standard and replace them
@@ -315,7 +324,6 @@ void hub_examine_context(t_hub *x)
 	atom_setsym(a+1, x->osc_name);
 	object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 }
-
 
 void hub_free(t_hub *x)
 {
@@ -361,6 +369,10 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 	t_subscriber	*new_subscriber;
 	
 	if(subscriber_object == NULL){
+		if (x->osc_name == gensym("/editing_this_module"))
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+		else	
+			post("Jamoma: Module %s complains:", x->osc_name->s_name);
 		error("Null object cannot subscribe to jcom.hub");
 		return _sym_nothing;
 	}
@@ -884,10 +896,21 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 				object_method_typed(t->object, osc, argc, argv, NULL);
 		}
 		else{
-			// if we got here through the use a remote message to modules named by a wildcard
-			// then we need don't post annoying errors to the Max window
-			if(!x->using_wildcard)
-				error("jcom.hub cannot find a parameter by that name (%s)", name->s_name);
+			// Check to see if it's a message we need to forward to jcom.out
+			if(name == ps_slash_audio_meters_freeze || name == ps_audio_meters_freeze) {
+				t_atom msg[2];
+				atom_setsym(msg, name);
+				jcom_core_atom_copy(msg+1, argv);
+				if(x->out_object != NULL)
+					object_method_typed(x->out_object, ps_algorithm_message, 2, msg, NULL);	
+			} else if(!x->using_wildcard) {
+				// if we got here through the use a remote message to modules named by a wildcard
+				// then we need don't post annoying errors to the Max window
+				if (x->osc_name == gensym("/editing_this_module"))
+					post("Jamoma: Module %s complains:", x->attr_name->s_name);
+				else	
+					post("Jamoma: Module %s complains:", x->osc_name->s_name);
+			}
 		}
 	}
 	critical_exit(0);
@@ -958,6 +981,10 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		
 	split = strchr(in, '/');		// get the OSC message for the module
 	if(split == NULL){
+		if (x->osc_name == gensym("/editing_this_module"))
+			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+		else	
+			post("Jamoma: Module %s complains:", x->osc_name->s_name);
 		error("jcom.hub (%s module) received message from jcom.send with problematic or missing OSC namespace (%s)", x->attr_name->s_name, mess);
 		return;
 	}
