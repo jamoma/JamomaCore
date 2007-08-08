@@ -19,6 +19,10 @@
 	This all means that we need this object to subscribe to the hub.
 */
 
+#ifdef JCOM_IN_TILDE
+#define JCOM_AUDIO_OBJECT
+#endif
+
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header
 #include "ext_strings.h"			// String Functions
