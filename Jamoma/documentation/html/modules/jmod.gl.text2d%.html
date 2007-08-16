@@ -39,7 +39,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> 3D origin as xyz coordinates. </td>
 		<tr>
@@ -48,7 +48,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> 3D rotation as angle and xyz rotation axis coordinates. </td>
 		<tr>
@@ -57,7 +57,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> 3D scaling factor as xyz coordinates. </td>
 		<tr>
@@ -100,7 +100,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> color/inherit </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -111,7 +111,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Object color as red, green, blue (0.-1.). </td>
 		<tr>
@@ -127,7 +127,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> depth/enable </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -174,9 +174,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Fog color (RGBA), density,start and end. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> fontsize </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 1 72 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Specifies the size in which to draw. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> font </td>
@@ -190,7 +199,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> interp </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -208,7 +217,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> material/automatic </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -217,7 +226,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> material/inherit </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -228,7 +237,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> The ambient light material property as red, green, blue, alpha (0.-1.). </td>
 		<tr>
@@ -237,7 +246,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> The diffuse light material property as red, green, blue, alpha (0.-1.). </td>
 		<tr>
@@ -246,14 +255,14 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> The material emission property as red, green, blue, alpha (0.-1.). </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> material/light/enable </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -264,7 +273,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> The specular light material property as red, green, blue, alpha (0.-1.). </td>
 		<tr>
@@ -280,7 +289,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> render/antialias </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -307,7 +316,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> render/enable </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -325,7 +334,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> screenmode </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -365,16 +374,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Offset of shadow position. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> size </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 1 72 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Specifies the size in which to draw. </td>
+			<td class ="instructionDescription"> Offset of shadow position (%). </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> tracking </td>
@@ -397,7 +397,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> video/bypass </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
@@ -406,7 +406,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> video/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
@@ -424,7 +424,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> video/preview </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -484,7 +484,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> open_inspector </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -520,7 +520,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/recall </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -529,7 +529,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/store </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -547,7 +547,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> read </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -598,7 +598,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preview_dumpout </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
