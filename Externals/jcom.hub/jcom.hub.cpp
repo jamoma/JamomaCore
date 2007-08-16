@@ -910,6 +910,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 					post("Jamoma: Module %s complains:", x->attr_name->s_name);
 				else	
 					post("Jamoma: Module %s complains:", x->osc_name->s_name);
+				error("No message or parameter named %s.", name->s_name);
 			}
 		}
 	}
