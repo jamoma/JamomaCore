@@ -1,5 +1,12 @@
 #import "qamoDataSource.h"
 
+/*
+	This is the Outline Source Controller (and should probably have been named as such).
+	It acts as a DataSource for the NSOutline object as well as a delegate, and a controller
+	for other actions such as the buttons that create new cues and events.
+*/
+
+
 @implementation qamoDataSource
 
 
@@ -91,6 +98,9 @@
 }
 
 
+
+#pragma mark -
+#pragma mark datasource methods
 
 
 // Data source methods get called automatically
@@ -192,6 +202,25 @@
 	
     // Brute force reload to update sums
     [outlineView reloadItem:item reloadChildren:YES];
+}
+
+
+#pragma mark -
+#pragma mark delegate methods
+
+- (void)outlineView:(NSOutlineView *)outlineView
+	willDisplayCell:(id)cell 
+	forTableColumn:(NSTableColumn *)tableColumn
+	item:(id)item
+{
+    NSString *identifier = [tableColumn identifier];    // identifier of the columns is set in IB's inspector
+
+	if([identifier isEqual:@"col_cue"] || [identifier isEqual:@"col_target"]){
+		if([item isKindOfClass:[cue class]])
+			[cell setFont:[NSFont boldSystemFontOfSize:11]];
+		else
+			[cell setFont:[NSFont systemFontOfSize:11]];	
+	}
 }
 
 

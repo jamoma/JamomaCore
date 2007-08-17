@@ -12,4 +12,11 @@
 - (IBAction)addEvent:(id)sender;
 - (IBAction)addCue:(id)sender;
 
+
+- (void)outlineView:(NSOutlineView *)outlineView
+	willDisplayCell:(id)cell 
+	forTableColumn:(NSTableColumn *)tableColumn
+	item:(id)item;
+
+
 @end
