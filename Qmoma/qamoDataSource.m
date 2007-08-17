@@ -17,6 +17,9 @@
     [super init];
 	cues = [[NSMutableArray alloc] initWithCapacity:10];
 	[self addCue:nil];
+	
+	//[outlineView registeredDraggedTypes:];
+	
     return self;
 }
 
@@ -203,6 +206,30 @@
     // Brute force reload to update sums
     [outlineView reloadItem:item reloadChildren:YES];
 }
+
+
+#pragma mark dragging
+/*
+// This looks like it will be some work.  Check this reference to start:
+//	http://developer.apple.com/documentation/Cocoa/Conceptual/DragandDrop/index.html
+
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView 
+	validateDrop:(id <NSDraggingInfo>)info 
+	proposedItem:(id)item 
+	proposedChildIndex:(int)index
+{
+	return NSDragOperationMove;
+}
+
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView 
+	acceptDrop:(id <NSDraggingInfo>)info 
+	item:(id)item 
+	childIndex:(int)index
+{
+	return true;
+}
+*/
 
 
 #pragma mark -
