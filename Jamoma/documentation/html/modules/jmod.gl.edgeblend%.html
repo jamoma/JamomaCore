@@ -20,7 +20,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<h3> Configuration </h3>
 	<p> Module Type: <code> video </code> <br>
 	Algorithm Type: <code> jitter </code> </p>
-	<p>Interface Size: <code> 2U-half </code> </p>
+	<p>Interface Size: <code> 1U-half </code> </p>
 	<p>Number of signal inlets: <code> 1 </ code> <br/>
 	Number of signal outlets: <code> 1 </code> </p>
 	<h3> Parameters </h3>
@@ -91,7 +91,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> color/inherit </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -172,7 +172,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> edgeblend/invert </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -280,7 +280,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> render/antialias </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -323,6 +323,42 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Object layer number. Only valid when /render/automatic is enabled. </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> slab/adapt </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Enables or disables adapting and resizing to input source dimensions (default = 1). </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> slab/dim </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> The dimensions of the output jit.gl.texture object when adapt is disabled (default = 720 480). </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> slab/rect </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> The extent or rectangular coordinates bounding the slab geometry (default = 0 0 1 1). </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> slab/texrect </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> The extent or rectangular coordinates bounding the texture coordinates for the slab geometry (default = 0 0 1 1). </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> ui/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
@@ -361,7 +397,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> video/preview </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -526,7 +562,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preview_dumpout </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>

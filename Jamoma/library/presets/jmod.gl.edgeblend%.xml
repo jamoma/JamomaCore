@@ -37,6 +37,10 @@
     <item name='render/context' type='msg_symbol' priority='0'>none</item>
     <item name='render/enable' type='msg_toggle' priority='0'>1</item>
     <item name='render/layer' type='msg_int' priority='0'>0</item>
+    <item name='slab/adapt' type='msg_toggle' priority='0'>1</item>
+    <item name='slab/dim' type='msg_list' priority='0'>720 480 </item>
+    <item name='slab/rect' type='msg_list' priority='0'>0 0 1 1 </item>
+    <item name='slab/texrect' type='msg_list' priority='0'>0 0 1 1 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='video/bypass' type='msg_toggle' priority='0'>0</item>
     <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
