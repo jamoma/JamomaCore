@@ -7,6 +7,7 @@ tt_dcblock::tt_dcblock()				// Constructor
 	clear();
 }
 
+
 TT_INLINE 
 tt_dcblock::~tt_dcblock()				// Destructor
 {
@@ -19,6 +20,7 @@ tt_err tt_dcblock::set_attr(tt_selector sel, const tt_value &val)		// Set Attrib
 {
 	return TT_ERR_NONE;
 }
+
 
 TT_INLINE 
 tt_err tt_dcblock::get_attr(tt_selector sel, tt_value &val)			// Get Attributes
