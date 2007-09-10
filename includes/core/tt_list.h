@@ -112,7 +112,9 @@ class tt_list : tt_base {
 		
 		tt_list_element* findbyindex(tt_uint16 index)
 		{
-			;
+			tt_list_element *x;
+			//TODO: implement!
+			return x;
 		}
 		
 

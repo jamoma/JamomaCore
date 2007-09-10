@@ -52,6 +52,7 @@ class tt_list_element : tt_base {
 				values[index] = new tt_value_named(key);
 			}
 			values[index]->set(value);
+			return TT_ERR_NONE;
 		}
 
 
@@ -64,7 +65,7 @@ class tt_list_element : tt_base {
 			// 1. Look for key with this name, if it exists then we delete it and shrink the list 
 			// 		- ick maybe this list really needs to be a linked list itself?
 			//	 	- ideally this list would actually be a hashtab...
-			;
+			return TT_ERR_NONE;
 		}
 
 
@@ -96,6 +97,7 @@ class tt_list_element : tt_base {
 			tt_int16 	index = key_getindex(key);
 
 			value = values[index]->value;
+			return TT_ERR_NONE;
 		}
 
 };
