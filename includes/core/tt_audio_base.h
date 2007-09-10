@@ -1,4 +1,4 @@
-// taptools base header file
+// tt base class for audio objects
 
 #ifndef TT_AUDIO_BASE_HEADER
 #define TT_AUDIO_BASE_HEADER

@@ -1,4 +1,4 @@
-// taptools base header file
+// tt base header file
 
 #ifndef TT_BASE_HEADER
 #define TT_BASE_HEADER

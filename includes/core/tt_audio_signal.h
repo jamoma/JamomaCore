@@ -1,4 +1,4 @@
-// Interface for audio signal objects used by other Tap.Tools objects.
+// Interface for audio signal objects used by other tt objects.
 // Copyright © 2004 by Electrotap. All Rights Reserved.
 
 #ifndef TT_AUDIO_SIGNAL_HEADER
