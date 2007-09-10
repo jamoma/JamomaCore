@@ -7,31 +7,38 @@
 
 
 // OBJECT LIFE
-TT_INLINE tt_base::tt_base()
+TT_INLINE 
+tt_base::tt_base()
 { 
 	init(); 
 }		
 
-TT_INLINE tt_base::~tt_base()
+TT_INLINE 
+tt_base::~tt_base()
 {
 	;
 }
 
-TT_INLINE void tt_base::init()
+TT_INLINE 
+void tt_base::init()
 {	
 	is_initialized = true;	
 }
 
 
 // Platform-independent Message Logging
-TT_INLINE void tt_base::log_post(char *message){
+TT_INLINE 
+void tt_base::log_post(char *message){
 	#ifdef TT_TARGET_MAX
 		post(message);
 	#else
 		fprintf(stdout, message);
 	#endif
 }
-TT_INLINE void tt_base::log_error(char *message){
+
+
+TT_INLINE 
+void tt_base::log_error(char *message){
 	#ifdef TT_TARGET_MAX
 		error(message);
 	#else
@@ -41,7 +48,8 @@ TT_INLINE void tt_base::log_error(char *message){
 
 
 // Platform-independent Memory routines
-TT_INLINE tt_ptr tt_base::mem_alloc(long size)
+TT_INLINE 
+tt_ptr tt_base::mem_alloc(long size)
 {
 	tt_ptr alloc;
 
@@ -77,7 +85,8 @@ TT_INLINE tt_ptr tt_base::mem_alloc(long size)
 }
 
 
-TT_INLINE tt_ptr tt_base::mem_resize(tt_ptr ptr, long newsize)
+TT_INLINE 
+tt_ptr tt_base::mem_resize(tt_ptr ptr, long newsize)
 {
 	#ifdef TT_TARGET_MAX
 		return sysmem_resizeptr(ptr, newsize);
@@ -87,7 +96,8 @@ TT_INLINE tt_ptr tt_base::mem_resize(tt_ptr ptr, long newsize)
 }
 
 
-TT_INLINE void tt_base::mem_free(void *my_ptr)
+TT_INLINE 
+void tt_base::mem_free(void *my_ptr)
 {
 	if(my_ptr != 0){ 
 		// Cycling '74 Max
@@ -108,14 +118,18 @@ TT_INLINE void tt_base::mem_free(void *my_ptr)
 
 
 // rounding utility
-TT_INLINE long tt_base::round(float value)
+TT_INLINE 
+long tt_base::round(float value)
 {
 	if(value > 0)
 		return((long)(value + 0.5));
 	else
 		return((long)(value - 0.5));
 }
-TT_INLINE long tt_base::round(double value)
+
+
+TT_INLINE 
+long tt_base::round(double value)
 {
 	if(value > 0)
 		return((long)(value + 0.5));

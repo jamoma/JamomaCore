@@ -38,7 +38,6 @@ class tt_audio_base:public tt_base{
 		tt_audio_base();									// constructor
 		virtual ~tt_audio_base();							// destructor - free memory, etc.
 
-		
 		// ATTRIBUTES
 		static void 		set_global_sr(const tt_value &value);			// sets the global sample rate for the library
 		static void			get_global_sr(tt_value &value);			// return the global sample rate

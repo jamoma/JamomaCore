@@ -109,7 +109,7 @@ class tt_base{
 		
 		// OBJECT LIFE
 		tt_base();
-		~tt_base();
+		virtual ~tt_base();
 
 		// Platform-independent Message Logging
 		void log_post(char *message);
