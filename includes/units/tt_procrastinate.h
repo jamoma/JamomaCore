@@ -4,7 +4,7 @@
  *		Originally created for Jim Mobberley's
  *		"Voices: In Memoriam"
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2000-2004 by Timothy A. Place
  *
  */

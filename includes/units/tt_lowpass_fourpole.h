@@ -3,7 +3,7 @@
  *		FOUR POLE LOWPASS FILTER
  *		based on moog-variation2, musicdsp.org
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2003 by Timothy A. Place
  *
  */

@@ -2,7 +2,7 @@
  *******************************************************
  *		MIXER (N INPUTS / 1 OUTPUT)
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2003 by Timothy A. Place
  *
  */

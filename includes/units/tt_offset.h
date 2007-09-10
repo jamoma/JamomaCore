@@ -2,7 +2,7 @@
  *******************************************************
  *		OFFSET A VECTOR (ADD A CONSTANT)
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		copyright © 2003 by Timothy A. Place
  *
  */

@@ -5,7 +5,7 @@
  *		y = 1 - (1 - x)^n (positive quadrant only) 
  *		to shape the input signal.
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2003 by Timothy A. Place
  *
  */

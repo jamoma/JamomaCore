@@ -3,7 +3,7 @@
  *		WAVETABLE LOW-FREQUENCY OSCILLATOR
  *		intended only to be used at the vector-rate
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2003 by Timothy A. Place
  *
  */

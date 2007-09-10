@@ -3,7 +3,7 @@
  *		UPSAMPLE A SIGNAL - USE WHEN A SIGNAL HAS BEEN 
  *		DOWNSAMPLED AND NEEDS TO BE RECONSTITUTED
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2003 by Timothy A. Place
  *
  */

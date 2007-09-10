@@ -2,7 +2,7 @@
  *******************************************************
  *		PITCH SHIFTER
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2000-2004 by Timothy A. Place
  *
  */
@@ -37,7 +37,7 @@ class tt_shift:public tt_audio_base{
 		tt_attribute_value		window_size;				// size of the delay window in ms
 		tt_attribute_value		shift_ratio;				// amount of pitch shift
 		
-		tt_delay				*delay1, *delay2;			// member tap.tools objects
+		tt_delay				*delay1, *delay2;			// member TT objects
 		tt_phasor				*phasor;
 		tt_buffer				*window;
 		tt_buffer_window		*wave1, *wave2;

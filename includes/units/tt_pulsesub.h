@@ -2,7 +2,7 @@
  *******************************************************
  *		PULSE-BASED ENVELOPE SUBSTITUTION
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2000-2004 by Timothy A. Place
  *
  */
@@ -31,7 +31,7 @@ class tt_pulsesub:public tt_audio_base{
 			k_num_temp_signals = 2,
 		};
 
-		tt_offset				*offset;					// member tap.tools objects
+		tt_offset				*offset;					// member TT objects
 		tt_phasor				*phasor;
 		tt_adsr					*env_gen;
 		tt_multiply				*scaler;	

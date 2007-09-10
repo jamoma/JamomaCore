@@ -2,7 +2,7 @@
  *******************************************************
  *		REVERBERATION SIMULATOR
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2001-2004 by Timothy A. Place
  *
  */

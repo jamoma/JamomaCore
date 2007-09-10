@@ -3,7 +3,7 @@
  *		TWO POLE LOWPASS FILTER
  *		based on Hal Chamberlin
  *******************************************************
- *		Tap.Tools Blue Object
+ *		TT Object
  *		copyright © 2003 by Timothy A. Place
  *
  */

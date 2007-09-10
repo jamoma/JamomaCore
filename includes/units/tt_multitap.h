@@ -2,7 +2,7 @@
  ********************************************************
  *		FIXED MULTITAP DELAY UNIT
  ********************************************************
- * 		TTBlue Object
+ * 		TT Object
  *		Copyright © 2003, 2004 by Timothy A. Place
  *
  */

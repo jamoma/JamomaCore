@@ -2,7 +2,7 @@
  *******************************************************
  *		VECTOR MULTIPLIER
  *******************************************************
- *		Tap.Tools Blue Object
+ *		TT Object
  *		copyright © 2003 by Timothy A. Place
  *
  */

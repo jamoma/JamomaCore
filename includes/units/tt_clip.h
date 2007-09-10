@@ -2,7 +2,7 @@
  *******************************************************
  *		HARD CLIP AN AUDIO SIGNAL
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2003 by Timothy A. Place
  *
  */

@@ -2,7 +2,7 @@
  *******************************************************
  *		ZERO CROSSING DETECTOR / COUNTER
  *******************************************************
- *		TTBlue Object
+ *		TT Object
  *		Copyright © 2003 by Timothy A. Place
  *
  */
