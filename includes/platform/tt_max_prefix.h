@@ -4,5 +4,8 @@
 
 #ifdef __MWERKS__
 #include "MacHeadersCarbon.h"
+#else`// Xcode`
+#include <Carbon/Carbon.h>
+#include <QuickTime/QuickTime.h>
 #endif
 

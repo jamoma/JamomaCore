@@ -71,51 +71,9 @@
 		22F20A700B953464008211F4 /* tt_verb.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3C0B953464008211F4 /* tt_verb.h */; };
 		22F20A710B953464008211F4 /* tt_wavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3D0B953464008211F4 /* tt_wavetable.h */; };
 		22F20A720B953464008211F4 /* tt_zerox.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3E0B953464008211F4 /* tt_zerox.h */; };
-		22F20AF00B953741008211F4 /* tt_add.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AC30B953740008211F4 /* tt_add.cpp */; };
-		22F20AF10B953741008211F4 /* tt_adsr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AC40B953740008211F4 /* tt_adsr.cpp */; };
-		22F20AF20B953741008211F4 /* tt_allpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AC50B953740008211F4 /* tt_allpass.cpp */; };
-		22F20AF30B953741008211F4 /* tt_average.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AC60B953740008211F4 /* tt_average.cpp */; };
-		22F20AF40B953741008211F4 /* tt_buffer_play.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AC70B953740008211F4 /* tt_buffer_play.cpp */; };
-		22F20AF50B953741008211F4 /* tt_buffer_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AC80B953740008211F4 /* tt_buffer_record.cpp */; };
-		22F20AF60B953741008211F4 /* tt_buffer_window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AC90B953740008211F4 /* tt_buffer_window.cpp */; };
-		22F20AF70B953741008211F4 /* tt_clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ACA0B953740008211F4 /* tt_clip.cpp */; };
-		22F20AF80B953741008211F4 /* tt_comb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ACB0B953740008211F4 /* tt_comb.cpp */; };
-		22F20AF90B953741008211F4 /* tt_copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ACC0B953740008211F4 /* tt_copy.cpp */; };
-		22F20AFA0B953741008211F4 /* tt_crossfade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ACD0B953740008211F4 /* tt_crossfade.cpp */; };
 		22F20AFB0B953741008211F4 /* tt_dcblock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ACE0B953740008211F4 /* tt_dcblock.cpp */; };
-		22F20AFC0B953741008211F4 /* tt_degrade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ACF0B953740008211F4 /* tt_degrade.cpp */; };
-		22F20AFD0B953741008211F4 /* tt_delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD00B953740008211F4 /* tt_delay.cpp */; };
-		22F20AFE0B953741008211F4 /* tt_downsample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD10B953740008211F4 /* tt_downsample.cpp */; };
-		22F20AFF0B953741008211F4 /* tt_fivecomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD20B953740008211F4 /* tt_fivecomb.cpp */; };
-		22F20B000B953741008211F4 /* tt_gain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD30B953740008211F4 /* tt_gain.cpp */; };
-		22F20B010B953741008211F4 /* tt_lfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD40B953740008211F4 /* tt_lfo.cpp */; };
-		22F20B020B953741008211F4 /* tt_limiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD50B953740008211F4 /* tt_limiter.cpp */; };
-		22F20B030B953741008211F4 /* tt_lowpass_fourpole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD60B953740008211F4 /* tt_lowpass_fourpole.cpp */; };
-		22F20B040B953741008211F4 /* tt_lowpass_onepole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD70B953740008211F4 /* tt_lowpass_onepole.cpp */; };
-		22F20B050B953741008211F4 /* tt_lowpass_twopole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD80B953740008211F4 /* tt_lowpass_twopole.cpp */; };
-		22F20B060B953741008211F4 /* tt_mixer_mono.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AD90B953741008211F4 /* tt_mixer_mono.cpp */; };
-		22F20B070B953741008211F4 /* tt_modulo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ADA0B953741008211F4 /* tt_modulo.cpp */; };
-		22F20B080B953741008211F4 /* tt_multiply.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ADB0B953741008211F4 /* tt_multiply.cpp */; };
-		22F20B090B953741008211F4 /* tt_multitap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ADC0B953741008211F4 /* tt_multitap.cpp */; };
-		22F20B0A0B953741008211F4 /* tt_noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ADD0B953741008211F4 /* tt_noise.cpp */; };
-		22F20B0B0B953741008211F4 /* tt_offset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ADE0B953741008211F4 /* tt_offset.cpp */; };
-		22F20B0C0B953741008211F4 /* tt_onewrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ADF0B953741008211F4 /* tt_onewrap.cpp */; };
-		22F20B0D0B953741008211F4 /* tt_overdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE00B953741008211F4 /* tt_overdrive.cpp */; };
-		22F20B0E0B953741008211F4 /* tt_pan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE10B953741008211F4 /* tt_pan.cpp */; };
-		22F20B0F0B953741008211F4 /* tt_phasor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE20B953741008211F4 /* tt_phasor.cpp */; };
-		22F20B100B953741008211F4 /* tt_polar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE30B953741008211F4 /* tt_polar.cpp */; };
-		22F20B110B953741008211F4 /* tt_procrastinate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE40B953741008211F4 /* tt_procrastinate.cpp */; };
-		22F20B120B953741008211F4 /* tt_pulsesub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE50B953741008211F4 /* tt_pulsesub.cpp */; };
-		22F20B130B953741008211F4 /* tt_ramp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE60B953741008211F4 /* tt_ramp.cpp */; };
-		22F20B140B953741008211F4 /* tt_rms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE70B953741008211F4 /* tt_rms.cpp */; };
-		22F20B150B953741008211F4 /* tt_shift.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE80B953741008211F4 /* tt_shift.cpp */; };
-		22F20B160B953741008211F4 /* tt_subtract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AE90B953741008211F4 /* tt_subtract.cpp */; };
-		22F20B170B953741008211F4 /* tt_svf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AEA0B953741008211F4 /* tt_svf.cpp */; };
-		22F20B180B953741008211F4 /* tt_switch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AEB0B953741008211F4 /* tt_switch.cpp */; };
-		22F20B190B953741008211F4 /* tt_upsample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AEC0B953741008211F4 /* tt_upsample.cpp */; };
-		22F20B1A0B953741008211F4 /* tt_verb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AED0B953741008211F4 /* tt_verb.cpp */; };
-		22F20B1B0B953741008211F4 /* tt_wavetable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AEE0B953741008211F4 /* tt_wavetable.cpp */; };
-		22F20B1C0B953741008211F4 /* tt_zerox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20AEF0B953741008211F4 /* tt_zerox.cpp */; };
+		22F547A00C975CE1006D3016 /* tt_max_prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F5479F0C975CE1006D3016 /* tt_max_prefix.h */; };
+		22F547C70C975EEC006D3016 /* tt_copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F547C60C975EEC006D3016 /* tt_copy.cpp */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -185,51 +143,9 @@
 		22F20A3C0B953464008211F4 /* tt_verb.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_verb.h; sourceTree = "<group>"; };
 		22F20A3D0B953464008211F4 /* tt_wavetable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_wavetable.h; sourceTree = "<group>"; };
 		22F20A3E0B953464008211F4 /* tt_zerox.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_zerox.h; sourceTree = "<group>"; };
-		22F20AC30B953740008211F4 /* tt_add.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_add.cpp; sourceTree = "<group>"; };
-		22F20AC40B953740008211F4 /* tt_adsr.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_adsr.cpp; sourceTree = "<group>"; };
-		22F20AC50B953740008211F4 /* tt_allpass.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_allpass.cpp; sourceTree = "<group>"; };
-		22F20AC60B953740008211F4 /* tt_average.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_average.cpp; sourceTree = "<group>"; };
-		22F20AC70B953740008211F4 /* tt_buffer_play.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_buffer_play.cpp; sourceTree = "<group>"; };
-		22F20AC80B953740008211F4 /* tt_buffer_record.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_buffer_record.cpp; sourceTree = "<group>"; };
-		22F20AC90B953740008211F4 /* tt_buffer_window.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_buffer_window.cpp; sourceTree = "<group>"; };
-		22F20ACA0B953740008211F4 /* tt_clip.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_clip.cpp; sourceTree = "<group>"; };
-		22F20ACB0B953740008211F4 /* tt_comb.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_comb.cpp; sourceTree = "<group>"; };
-		22F20ACC0B953740008211F4 /* tt_copy.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_copy.cpp; sourceTree = "<group>"; };
-		22F20ACD0B953740008211F4 /* tt_crossfade.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_crossfade.cpp; sourceTree = "<group>"; };
 		22F20ACE0B953740008211F4 /* tt_dcblock.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_dcblock.cpp; sourceTree = "<group>"; };
-		22F20ACF0B953740008211F4 /* tt_degrade.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_degrade.cpp; sourceTree = "<group>"; };
-		22F20AD00B953740008211F4 /* tt_delay.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_delay.cpp; sourceTree = "<group>"; };
-		22F20AD10B953740008211F4 /* tt_downsample.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_downsample.cpp; sourceTree = "<group>"; };
-		22F20AD20B953740008211F4 /* tt_fivecomb.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_fivecomb.cpp; sourceTree = "<group>"; };
-		22F20AD30B953740008211F4 /* tt_gain.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_gain.cpp; sourceTree = "<group>"; };
-		22F20AD40B953740008211F4 /* tt_lfo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_lfo.cpp; sourceTree = "<group>"; };
-		22F20AD50B953740008211F4 /* tt_limiter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_limiter.cpp; sourceTree = "<group>"; };
-		22F20AD60B953740008211F4 /* tt_lowpass_fourpole.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_lowpass_fourpole.cpp; sourceTree = "<group>"; };
-		22F20AD70B953740008211F4 /* tt_lowpass_onepole.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_lowpass_onepole.cpp; sourceTree = "<group>"; };
-		22F20AD80B953740008211F4 /* tt_lowpass_twopole.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_lowpass_twopole.cpp; sourceTree = "<group>"; };
-		22F20AD90B953741008211F4 /* tt_mixer_mono.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_mixer_mono.cpp; sourceTree = "<group>"; };
-		22F20ADA0B953741008211F4 /* tt_modulo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_modulo.cpp; sourceTree = "<group>"; };
-		22F20ADB0B953741008211F4 /* tt_multiply.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_multiply.cpp; sourceTree = "<group>"; };
-		22F20ADC0B953741008211F4 /* tt_multitap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_multitap.cpp; sourceTree = "<group>"; };
-		22F20ADD0B953741008211F4 /* tt_noise.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_noise.cpp; sourceTree = "<group>"; };
-		22F20ADE0B953741008211F4 /* tt_offset.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_offset.cpp; sourceTree = "<group>"; };
-		22F20ADF0B953741008211F4 /* tt_onewrap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_onewrap.cpp; sourceTree = "<group>"; };
-		22F20AE00B953741008211F4 /* tt_overdrive.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_overdrive.cpp; sourceTree = "<group>"; };
-		22F20AE10B953741008211F4 /* tt_pan.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_pan.cpp; sourceTree = "<group>"; };
-		22F20AE20B953741008211F4 /* tt_phasor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_phasor.cpp; sourceTree = "<group>"; };
-		22F20AE30B953741008211F4 /* tt_polar.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_polar.cpp; sourceTree = "<group>"; };
-		22F20AE40B953741008211F4 /* tt_procrastinate.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_procrastinate.cpp; sourceTree = "<group>"; };
-		22F20AE50B953741008211F4 /* tt_pulsesub.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_pulsesub.cpp; sourceTree = "<group>"; };
-		22F20AE60B953741008211F4 /* tt_ramp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_ramp.cpp; sourceTree = "<group>"; };
-		22F20AE70B953741008211F4 /* tt_rms.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_rms.cpp; sourceTree = "<group>"; };
-		22F20AE80B953741008211F4 /* tt_shift.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_shift.cpp; sourceTree = "<group>"; };
-		22F20AE90B953741008211F4 /* tt_subtract.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_subtract.cpp; sourceTree = "<group>"; };
-		22F20AEA0B953741008211F4 /* tt_svf.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_svf.cpp; sourceTree = "<group>"; };
-		22F20AEB0B953741008211F4 /* tt_switch.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_switch.cpp; sourceTree = "<group>"; };
-		22F20AEC0B953741008211F4 /* tt_upsample.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_upsample.cpp; sourceTree = "<group>"; };
-		22F20AED0B953741008211F4 /* tt_verb.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_verb.cpp; sourceTree = "<group>"; };
-		22F20AEE0B953741008211F4 /* tt_wavetable.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_wavetable.cpp; sourceTree = "<group>"; };
-		22F20AEF0B953741008211F4 /* tt_zerox.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_zerox.cpp; sourceTree = "<group>"; };
+		22F5479F0C975CE1006D3016 /* tt_max_prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_max_prefix.h; path = ../../includes/platform/tt_max_prefix.h; sourceTree = SOURCE_ROOT; };
+		22F547C60C975EEC006D3016 /* tt_copy.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_copy.cpp; sourceTree = "<group>"; };
 		542ED84F09C02A0000DBC7EB /* tt.dcblock~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.dcblock~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -251,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				22F207270B946D2A008211F4 /* TTBlue */,
+				22F207270B946D2A008211F4 /* TT */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -294,13 +210,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		22F207270B946D2A008211F4 /* TTBlue */ = {
+		22F207270B946D2A008211F4 /* TT */ = {
 			isa = PBXGroup;
 			children = (
+				22F5479F0C975CE1006D3016 /* tt_max_prefix.h */,
 				22F20A040B953434008211F4 /* Includes */,
 				22F20A050B953441008211F4 /* Source */,
 			);
-			name = TTBlue;
+			name = TT;
 			sourceTree = "<group>";
 		};
 		22F20A040B953434008211F4 /* Includes */ = {
@@ -415,51 +332,8 @@
 		22F20AC20B953740008211F4 /* units */ = {
 			isa = PBXGroup;
 			children = (
-				22F20AC30B953740008211F4 /* tt_add.cpp */,
-				22F20AC40B953740008211F4 /* tt_adsr.cpp */,
-				22F20AC50B953740008211F4 /* tt_allpass.cpp */,
-				22F20AC60B953740008211F4 /* tt_average.cpp */,
-				22F20AC70B953740008211F4 /* tt_buffer_play.cpp */,
-				22F20AC80B953740008211F4 /* tt_buffer_record.cpp */,
-				22F20AC90B953740008211F4 /* tt_buffer_window.cpp */,
-				22F20ACA0B953740008211F4 /* tt_clip.cpp */,
-				22F20ACB0B953740008211F4 /* tt_comb.cpp */,
-				22F20ACC0B953740008211F4 /* tt_copy.cpp */,
-				22F20ACD0B953740008211F4 /* tt_crossfade.cpp */,
+				22F547C60C975EEC006D3016 /* tt_copy.cpp */,
 				22F20ACE0B953740008211F4 /* tt_dcblock.cpp */,
-				22F20ACF0B953740008211F4 /* tt_degrade.cpp */,
-				22F20AD00B953740008211F4 /* tt_delay.cpp */,
-				22F20AD10B953740008211F4 /* tt_downsample.cpp */,
-				22F20AD20B953740008211F4 /* tt_fivecomb.cpp */,
-				22F20AD30B953740008211F4 /* tt_gain.cpp */,
-				22F20AD40B953740008211F4 /* tt_lfo.cpp */,
-				22F20AD50B953740008211F4 /* tt_limiter.cpp */,
-				22F20AD60B953740008211F4 /* tt_lowpass_fourpole.cpp */,
-				22F20AD70B953740008211F4 /* tt_lowpass_onepole.cpp */,
-				22F20AD80B953740008211F4 /* tt_lowpass_twopole.cpp */,
-				22F20AD90B953741008211F4 /* tt_mixer_mono.cpp */,
-				22F20ADA0B953741008211F4 /* tt_modulo.cpp */,
-				22F20ADB0B953741008211F4 /* tt_multiply.cpp */,
-				22F20ADC0B953741008211F4 /* tt_multitap.cpp */,
-				22F20ADD0B953741008211F4 /* tt_noise.cpp */,
-				22F20ADE0B953741008211F4 /* tt_offset.cpp */,
-				22F20ADF0B953741008211F4 /* tt_onewrap.cpp */,
-				22F20AE00B953741008211F4 /* tt_overdrive.cpp */,
-				22F20AE10B953741008211F4 /* tt_pan.cpp */,
-				22F20AE20B953741008211F4 /* tt_phasor.cpp */,
-				22F20AE30B953741008211F4 /* tt_polar.cpp */,
-				22F20AE40B953741008211F4 /* tt_procrastinate.cpp */,
-				22F20AE50B953741008211F4 /* tt_pulsesub.cpp */,
-				22F20AE60B953741008211F4 /* tt_ramp.cpp */,
-				22F20AE70B953741008211F4 /* tt_rms.cpp */,
-				22F20AE80B953741008211F4 /* tt_shift.cpp */,
-				22F20AE90B953741008211F4 /* tt_subtract.cpp */,
-				22F20AEA0B953741008211F4 /* tt_svf.cpp */,
-				22F20AEB0B953741008211F4 /* tt_switch.cpp */,
-				22F20AEC0B953741008211F4 /* tt_upsample.cpp */,
-				22F20AED0B953741008211F4 /* tt_verb.cpp */,
-				22F20AEE0B953741008211F4 /* tt_wavetable.cpp */,
-				22F20AEF0B953741008211F4 /* tt_zerox.cpp */,
 			);
 			name = units;
 			path = ../../source/units;
@@ -527,6 +401,7 @@
 				224DFE030BE9621600FC5429 /* tt_list_element.h in Headers */,
 				224DFE040BE9621600FC5429 /* tt_list.h in Headers */,
 				224DFE050BE9621600FC5429 /* tt_value_named.h in Headers */,
+				22F547A00C975CE1006D3016 /* tt_max_prefix.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,51 +492,8 @@
 				22F209F10B9533B2008211F4 /* tt_audio_signal.cpp in Sources */,
 				22F209F20B9533B2008211F4 /* tt_base.cpp in Sources */,
 				22F209F30B9533B2008211F4 /* tt_buffer.cpp in Sources */,
-				22F20AF00B953741008211F4 /* tt_add.cpp in Sources */,
-				22F20AF10B953741008211F4 /* tt_adsr.cpp in Sources */,
-				22F20AF20B953741008211F4 /* tt_allpass.cpp in Sources */,
-				22F20AF30B953741008211F4 /* tt_average.cpp in Sources */,
-				22F20AF40B953741008211F4 /* tt_buffer_play.cpp in Sources */,
-				22F20AF50B953741008211F4 /* tt_buffer_record.cpp in Sources */,
-				22F20AF60B953741008211F4 /* tt_buffer_window.cpp in Sources */,
-				22F20AF70B953741008211F4 /* tt_clip.cpp in Sources */,
-				22F20AF80B953741008211F4 /* tt_comb.cpp in Sources */,
-				22F20AF90B953741008211F4 /* tt_copy.cpp in Sources */,
-				22F20AFA0B953741008211F4 /* tt_crossfade.cpp in Sources */,
 				22F20AFB0B953741008211F4 /* tt_dcblock.cpp in Sources */,
-				22F20AFC0B953741008211F4 /* tt_degrade.cpp in Sources */,
-				22F20AFD0B953741008211F4 /* tt_delay.cpp in Sources */,
-				22F20AFE0B953741008211F4 /* tt_downsample.cpp in Sources */,
-				22F20AFF0B953741008211F4 /* tt_fivecomb.cpp in Sources */,
-				22F20B000B953741008211F4 /* tt_gain.cpp in Sources */,
-				22F20B010B953741008211F4 /* tt_lfo.cpp in Sources */,
-				22F20B020B953741008211F4 /* tt_limiter.cpp in Sources */,
-				22F20B030B953741008211F4 /* tt_lowpass_fourpole.cpp in Sources */,
-				22F20B040B953741008211F4 /* tt_lowpass_onepole.cpp in Sources */,
-				22F20B050B953741008211F4 /* tt_lowpass_twopole.cpp in Sources */,
-				22F20B060B953741008211F4 /* tt_mixer_mono.cpp in Sources */,
-				22F20B070B953741008211F4 /* tt_modulo.cpp in Sources */,
-				22F20B080B953741008211F4 /* tt_multiply.cpp in Sources */,
-				22F20B090B953741008211F4 /* tt_multitap.cpp in Sources */,
-				22F20B0A0B953741008211F4 /* tt_noise.cpp in Sources */,
-				22F20B0B0B953741008211F4 /* tt_offset.cpp in Sources */,
-				22F20B0C0B953741008211F4 /* tt_onewrap.cpp in Sources */,
-				22F20B0D0B953741008211F4 /* tt_overdrive.cpp in Sources */,
-				22F20B0E0B953741008211F4 /* tt_pan.cpp in Sources */,
-				22F20B0F0B953741008211F4 /* tt_phasor.cpp in Sources */,
-				22F20B100B953741008211F4 /* tt_polar.cpp in Sources */,
-				22F20B110B953741008211F4 /* tt_procrastinate.cpp in Sources */,
-				22F20B120B953741008211F4 /* tt_pulsesub.cpp in Sources */,
-				22F20B130B953741008211F4 /* tt_ramp.cpp in Sources */,
-				22F20B140B953741008211F4 /* tt_rms.cpp in Sources */,
-				22F20B150B953741008211F4 /* tt_shift.cpp in Sources */,
-				22F20B160B953741008211F4 /* tt_subtract.cpp in Sources */,
-				22F20B170B953741008211F4 /* tt_svf.cpp in Sources */,
-				22F20B180B953741008211F4 /* tt_switch.cpp in Sources */,
-				22F20B190B953741008211F4 /* tt_upsample.cpp in Sources */,
-				22F20B1A0B953741008211F4 /* tt_verb.cpp in Sources */,
-				22F20B1B0B953741008211F4 /* tt_wavetable.cpp in Sources */,
-				22F20B1C0B953741008211F4 /* tt_zerox.cpp in Sources */,
+				22F547C70C975EEC006D3016 /* tt_copy.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,7 +518,7 @@
 				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Library/Frameworks/MaxAPI.framework/Headers/macho-prefix.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/tt_max_prefix.h";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -743,7 +575,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Library/Frameworks/MaxAPI.framework/Headers/macho-prefix.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/tt_max_prefix.h";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -780,55 +612,6 @@
 			};
 			name = Deployment;
 		};
-		0FFBB95B09731BB700D78707 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
-				GCC_ALTIVEC_EXTENSIONS = YES;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_ENABLE_TRIGRAPHS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Library/Frameworks/MaxAPI.framework/Headers/macho-prefix.pch";
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-				);
-				INFOPLIST_FILE = "../common/Externs-Info.plist";
-				INSTALL_PATH = "/../../Build_Mac/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
-				LIBRARY_STYLE = Bundle;
-				LINKER_DISPLAYS_MANGLED_NAMES = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.3;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "tt.dcblock~";
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"-Wno-conversion",
-				);
-				WRAPPER_EXTENSION = mxo;
-			};
-			name = Default;
-		};
 		0FFBB95D09731BB700D78707 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -841,12 +624,6 @@
 			};
 			name = Deployment;
 		};
-		0FFBB95F09731BB700D78707 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Default;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -855,20 +632,18 @@
 			buildConfigurations = (
 				0FFBB95909731BB700D78707 /* Development */,
 				0FFBB95A09731BB700D78707 /* Deployment */,
-				0FFBB95B09731BB700D78707 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "tap_dcblock~" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FFBB95D09731BB700D78707 /* Development */,
 				0FFBB95E09731BB700D78707 /* Deployment */,
-				0FFBB95F09731BB700D78707 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
 	};
