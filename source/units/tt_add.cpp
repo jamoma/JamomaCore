@@ -32,13 +32,29 @@ tt_err tt_add::get_attr(tt_selector sel, tt_value &val)			// Get Attributes
 }
 
 
+// NOTE:  This object many have N inputs, but only one output
 TT_INLINE 
-void tt_add::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
+void tt_add::process(tt_audio_bundle *in, tt_audio_bundle *out)
 {
-	temp_vs = in1->vectorsize;
-	while(temp_vs--)
-		*out->vector++ = (*in1->vector++) + (*in2->vector++);
-	in1->reset(); in2->reset(); out->reset();
+	tt_value		channel;
+	tt_uint8		currentchannel;  
+	tt_uint16		vs		= tt_audio_bundle::get_min_vs(in, out);
+	tt_sample_value	temp;
+	
+	in->get_attr(tt_audio_bundle::k_num_channels, channel);
+	currentchannel = channel;
+	out->use_signal(0);
+	
+	while(vs--){
+		temp = 0.0;
+		while(currentchannel--){
+			in->use_signal(currentchannel);
+			temp += *in->vector;
+		}
+		*out->vector++ = temp;
+		in->vector++;
+	}
+
+	in->reset();
+	out->reset();
 }
-
-
