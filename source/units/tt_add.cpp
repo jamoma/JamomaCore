@@ -19,6 +19,20 @@ tt_add::~tt_add(void)		// Destructor
 
 
 TT_INLINE 
+tt_err tt_add::set_attr(tt_selector sel, const tt_value &val)		// Set Attributes
+{
+	return TT_ERR_ATTR_INVALID;
+}
+
+
+TT_INLINE 
+tt_err tt_add::get_attr(tt_selector sel, tt_value &val)			// Get Attributes
+{
+	return TT_ERR_NONE;
+}
+
+
+TT_INLINE 
 void tt_add::dsp_vector_calc(tt_audio_signal *in1, tt_audio_signal *in2, tt_audio_signal *out)
 {
 	temp_vs = in1->vectorsize;
