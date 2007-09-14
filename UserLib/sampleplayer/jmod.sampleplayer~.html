@@ -18,7 +18,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	</div>
 
 	<h3> Configuration </h3>
-	<p> Module Type: <code> audio </code> <br>
+	<p> Module Type: <code> audio.ambisonic </code> <br>
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 2U-half </code> </p>
 	<p>Number of signal inlets: <code> 0 </ code> <br/>
@@ -35,20 +35,11 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> Description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/bypass </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> When active, this attribute bypasses the module's processing.mxtorithm, letting audio pass through unaffected. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> audio/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 158.000000 </td>
 			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> linear </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Set gain as MIDI value. </td>
 		<tr>
@@ -62,31 +53,13 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> When active, this attribute turns off the signal level meters in the module to conserve CPU. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/mix </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 100.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Controls the wet/dry mix of the module's processing routine in percent. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> audio/mute </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing.mxtorithm to save CPU </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> load_file </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> load a specific soundfile </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> loop </td>
@@ -98,20 +71,11 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Loop soundfile. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> play </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Play sound file. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> sample/displaylength </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 1000000.000000 </td>
 			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp">  </td>
+			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> @repetitions </td>
 		<tr>
@@ -120,7 +84,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> non </td>
-			<td class ="instructionRamp">  </td>
+			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> @repetitions </td>
 		<tr>
@@ -129,50 +93,41 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 1000000.000000 </td>
 			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp">  </td>
+			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> @repetitions </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> sample/name </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> name of the loaded soundfile </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> sample/start </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 1000000.000000 </td>
 			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp">  </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> @repetitions </td>
+			<td class ="instructionDescription"> start time in ms </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> sample/stop </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 1000000.000000 </td>
 			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp">  </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> @repetitions </td>
+			<td class ="instructionDescription"> stoptime time in ms </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> sample/vzoom </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> non </td>
-			<td class ="instructionRamp">  </td>
+			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> @repetitions </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
@@ -194,22 +149,22 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td> Description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -144.000000 18.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Set gain as dB value. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/meters/clear </td>
+			<td class="instructionName"> /audio/meters/clear </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> audio/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Set gain as dB value. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
@@ -239,6 +194,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Open the online html reference for this module. </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> load_file </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> load a specific soundfile </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> module/view_internals </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -255,6 +219,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open this module's inspector window to gain access to additional information or parameters. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> play </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Play sound file. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
@@ -320,6 +293,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> sample/name </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> name of the loaded soundfile </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> sample/size </td>
 			<td class ="instructionType"> msg_int </td>
 			<td class ="instructionRange"> 0 0 </td>
@@ -331,7 +313,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> sf_open </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -340,7 +322,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> sf_record </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>

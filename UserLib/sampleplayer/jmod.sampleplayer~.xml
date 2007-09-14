@@ -5,21 +5,16 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='sample/vzoom' type='msg_float' priority='0'>0</item>
-    <item name='sample/stop' type='msg_float' priority='0'>22.653061</item>
-    <item name='sample/start' type='msg_float' priority='0'>0</item>
-    <item name='sample/name' type='msg_symbol' priority='0'>0</item>
-    <item name='sample/displaystart' type='msg_float' priority='0'>0</item>
-    <item name='sample/displaystart' type='msg_list' priority='0'>0 15225 </item>
-    <item name='sample/displaylength' type='msg_float' priority='0'>22.675737</item>
-    <item name='play' type='msg_toggle' priority='0'>0</item>
-    <item name='loop' type='msg_toggle' priority='0'>0</item>
-    <item name='load_file' type='msg_symbol' priority='0'>0</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/mix' type='msg_float' priority='0'>0</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='loop' type='msg_toggle' priority='0'>0</item>
+    <item name='sample/displaylength' type='msg_float' priority='0'>22.675737</item>
+    <item name='sample/displaystart' type='msg_list' priority='0'>0</item>
+    <item name='sample/displaystart' type='msg_float' priority='0'>0</item>
+    <item name='sample/start' type='msg_float' priority='0'>0</item>
+    <item name='sample/stop' type='msg_float' priority='0'>22.653061</item>
+    <item name='sample/vzoom' type='msg_float' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
