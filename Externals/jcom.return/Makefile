@@ -1,10 +1,10 @@
 include ../projekt.mk
 
-SOURCES = ${JCOM_FORWARD_SOURCE}
-OBJS = $(filter-out $(SOURCES),${JCOM_FORWARD_OBJS})
+SOURCES = ${JCOM_RETURN_SOURCE}
+OBJS = $(filter-out $(SOURCES),${JCOM_RETURN_OBJS})
 LOCAL_INCLUDES = -I.
-OUTPUT = jcom.forward.mxe
-LINK_INPUT = $(OBJS) jcom.forward.def $(CORE_OBJS)
+OUTPUT = jcom.return.mxe
+LINK_INPUT = $(OBJS) jcom.return.def $(CORE_OBJS)
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
