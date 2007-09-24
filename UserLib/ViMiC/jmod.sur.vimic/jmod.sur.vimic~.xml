@@ -5,10 +5,12 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
+	<item name='reflections/order' type='msg_int' priority='1'>1</item>
+	<item name='microphones/amount' type='msg_int' priority='2'>8</item>
     <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
     <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='direct/gain' type='msg_float' priority='0'>0.000000</item>
+    <item name='direct/gain/midi' type='msg_float' priority='0'>nan</item>
     <item name='microphones/1/angle' type='msg_list' priority='3'>0</item>
     <item name='microphones/1/directivity/ratio' type='msg_float' priority='3'>0</item>
     <item name='microphones/1/position' type='msg_list' priority='3'>0</item>
@@ -33,15 +35,13 @@
     <item name='microphones/8/angle' type='msg_list' priority='24'>0</item>
     <item name='microphones/8/directivity/ratio' type='msg_float' priority='24'>0</item>
     <item name='microphones/8/position' type='msg_list' priority='17'>0</item>
-    <item name='microphones/amount' type='msg_int' priority='0'>8</item>
     <item name='microphones/direct/power' type='msg_int' priority='0'>1</item>
-    <item name='reflections/gain' type='msg_float' priority='0'>0.000000</item>
+    <item name='reflections/gain/midi' type='msg_float' priority='0'>nan</item>
     <item name='reflections/lowpass/frequency' type='msg_int' priority='0'>1000</item>
-    <item name='reflections/order' type='msg_int' priority='0'>1</item>
     <item name='rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='room/distance/power' type='msg_int' priority='0'>1</item>
     <item name='room/size' type='msg_list' priority='0'>20.000000 30.000000 8.000000 </item>
-    <item name='source/position/absolute' type='msg_list' priority='0'>0. 0. 0.</item>
+    <item name='source/position/absolute' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>

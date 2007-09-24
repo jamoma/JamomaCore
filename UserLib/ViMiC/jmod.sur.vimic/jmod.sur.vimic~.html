@@ -62,9 +62,9 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing.mxtorithm to save CPU </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> direct/gain </td>
+			<td class="instructionName"> direct/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -305,9 +305,9 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> power law for attenuation due to microphone directivity </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> reflections/gain </td>
+			<td class="instructionName"> reflections/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -319,7 +319,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRange"> 0 16000 </td>
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> damping frequency of the early reflections </td>
 		<tr>
 		<tr>
@@ -410,6 +410,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Set gain as dB value. </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> direct/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> gain of the direct sound component </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> documentation/generate </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -448,7 +457,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> open_inspector </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -507,6 +516,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reflections/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> gain of the early reflections </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> report_all </td>
