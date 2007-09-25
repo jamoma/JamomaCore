@@ -20,12 +20,12 @@ MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
 
 OPTIMIZATION_FLAGS = -O2
 # c compiler flags
-RELEASE_CFLAGS = ${OPTIMIZATION_FLAGS} -Wall -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
+RELEASE_CFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
 # c++ compiler flags
-RELEASE_CXXFLAGS = ${OPTIMIZATION_FLAGS} -Wall -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
+RELEASE_CXXFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
 
-DEBUG_CFLAGS = -g -Wall -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
-DEBUG_CXXFLAGS = -g -Wall -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
+DEBUG_CFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
+DEBUG_CXXFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES)
 
 INSTALL_DIR = ../../Jamoma/library/externals/windows
 
