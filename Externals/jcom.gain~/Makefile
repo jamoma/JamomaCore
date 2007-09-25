@@ -4,7 +4,8 @@ SOURCES = ${JCOM_GAIN~_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_GAIN~_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.gain~.mxe
-LINK_INPUT = $(OBJS) jcom.gain~.def $(CORE_OBJS)
+LINK_INPUT = $(OBJS) jcom.gain~.def $(CORE_OBJS) $(TT_OBJS)
+
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
