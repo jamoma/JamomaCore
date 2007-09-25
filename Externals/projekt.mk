@@ -2,7 +2,8 @@ COMMON_INCLUDES = -I../common
 
 MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
    -I/maxmspsdk/c74support/msp-includes \
-   -I/maxmspsdk/c74support/common
+   -I/maxmspsdk/c74support/common \
+   -I../Externals_3rd_Party/ttblue/dsplib
 
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
@@ -11,7 +12,11 @@ MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
 COMMON_SOURCE = jcom.core.cpp /maxmspsdk/c74support/max-includes/common/commonsyms.c
 JCOM_CORE_OBJS = jcom.core.o commonsyms.o
 CORE_OBJS = ../common/jcom.core.o ../common/commonsyms.o
-			
+
+TT_SOURCE = ../../../Externals_3rd_Party/ttblue/dsplib/tt_audio_base.cpp
+TT_CORE_OBJS = tt_audio_base.o
+TT_OBJS = ../../Externals_3rd_Party/ttblue/dsplib/tt_audio_base.o
+
 # projects to be built
 JCOM_CHANGE_SOURCE = jcom.change.cpp jcom.change.def
 JCOM_CHANGE_OBJS = ${JCOM_CHANGE_SOURCE:.cpp=.o}
@@ -31,7 +36,7 @@ JCOM_DELTA2_OBJS = ${JCOM_DELTA2_SOURCE:.cpp=.o}
 JCOM_EQUALS_SOURCE = jcom.equals.cpp jcom.equals.def
 JCOM_EQUALS_OBJS = ${JCOM_EQUALS_SOURCE:.cpp=.o}
 
-JCOM_GAIN~_SOURCE = jcom.gain~.cpp jcom.gain~.def
+JCOM_GAIN~_SOURCE = jcom.gain~.cpp ../../Externals_3rd_Party/ttblue/dsplib/tt_audio_base.cpp jcom.gain~.def
 JCOM_GAIN~_OBJS = ${JCOM_GAIN~_SOURCE:.cpp=.o}
 
 JCOM_GANG_SOURCE = jcom.gang.cpp jcom.gang.def
