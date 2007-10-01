@@ -243,6 +243,7 @@ function inspector_button(value)
 		if(width == 1){
 			outlet(0, "script", "offset", "inspector_button", -255, 0)
 		}
+		outlet(0, "script", "bringtofront", "inspector_button");
 	}			
 }
 inspector_button.local = 1;
