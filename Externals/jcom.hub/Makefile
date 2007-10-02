@@ -5,8 +5,13 @@ OBJS = $(filter-out $(SOURCES),${JCOM_HUB_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.hub.mxe
 LINK_INPUT = $(OBJS) jcom.hub.def $(CORE_OBJS)
+LIBXML = -L../../Externals_3rd_Party/libxml2/win32/bin 
+LIBXML += -L../../Externals_3rd_Party/libxml2/win32/lib 
+#LIBXML = -L/usr/bin 
+LIBICONV = -L../../Externals_3rd_Party/libiconv/bin
 
-EXTRA_CFLAGS = ${LOCAL_INCLUDES}
+
+EXTRA_CXXFLAGS = ${LOCAL_INCLUDES} -DLIBXML_STATIC -DLIBXSLT_STATIC -DLIBEXSLT_STATIC -DXMLSEC_STATIC -DLIBXML_THREAD_ENABLED
 
 include ../infra/common.mk
 include ../infra/makedep.mk
@@ -18,7 +23,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LIBICONV) $(LIBXML) -lMaxAPI -lMaxAudio -llibiconv -llibxml2
 
 clean:
 	rm -f $(OBJS)
