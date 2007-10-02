@@ -4,7 +4,7 @@ SOURCES = ${JCOM_GAIN~_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_GAIN~_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.gain~.mxe
-LINK_INPUT = $(OBJS) jcom.gain~.def $(CORE_OBJS) $(TT_OBJS)
+LINK_INPUT = $(OBJS) jcom.gain~.def $(CORE_OBJS) 
 
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
@@ -19,7 +19,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -Xlinker --allow-multiple-definition  -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
 
 clean:
 	rm -f $(OBJS)
