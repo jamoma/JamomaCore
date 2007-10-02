@@ -48,6 +48,10 @@ JCOM_HUB_OBJS = ${JCOM_HUB_SOURCE:.cpp=.o}
 JCOM_IN_SOURCE = jcom.in.cpp jcom.in.def
 JCOM_IN_OBJS = ${JCOM_IN_SOURCE:.cpp=.o}
 
+JCOM_IN~_SOURCE = jcom.in.cpp jcom.in~.def
+JCOM_IN~_OBJS = ${JCOM_IN~_SOURCE:.cpp=.o}
+
+
 JCOM_INIT_SOURCE = jcom.init.cpp jcom.init.def
 JCOM_INIT_OBJS = ${JCOM_INIT_SOURCE:.cpp=.o}
 
