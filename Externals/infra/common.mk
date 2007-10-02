@@ -2,7 +2,7 @@
 
 # compilers
 CC	= gcc
-CXX = gcc
+CXX = g++
 
 LOCAL_DEPS = -MM
 ALL_DEPS = -M
@@ -18,17 +18,27 @@ MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
    -L/maxmspsdk/c74support/common
 
+COMMON_INCLUDES = -I../common
+LIBXML_INCLUDES = -I../../Externals_3rd_Party/libxml2/include
+#LIBXML_INCLUDES = -I/usr/include/libxml2 -I/usr/include
+TT_BLUE_INCLUDES = -I../../Externals_3rd_Party/ttblue/dsplib
+LIBICONV_INCLUDES = -I../../Externals_3rd_Party/libiconv/include
+
+INCLUDES = $(MAX_INCLUDES) $(COMMON_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
+    $(LIBICONV_INCLUDES)
+
+
 TT_INCLUDES = -I../../Externals_3rd_Party/ttblue/dsplib
 
 OPTIMIZATION_FLAGS = -O2
 # c compiler flags
-RELEASE_CFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES) $(TT_INCLUDES)
+RELEASE_CFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(INCLUDES)
 
 # c++ compiler flags
-RELEASE_CXXFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES) $(TT_INCLUDES)
+RELEASE_CXXFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(INCLUDES)
 
-DEBUG_CFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES) $(TT_INCLUDES)
-DEBUG_CXXFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(MAX_INCLUDES) $(TT_INCLUDES)
+DEBUG_CFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(INCLUDES)
+DEBUG_CXXFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(INCLUDES)
 
 INSTALL_DIR = ../../Jamoma/library/externals/windows
 
@@ -42,6 +52,7 @@ ifeq "$(MAKECMDGOALS)" "debug"
 	CFLAGS ?= $(DEBUG_CFLAGS)
 	CXXFLAGS ?= $(DEBUG_CXXFLAGS)
 endif
+
 
 
 # suffix rules
