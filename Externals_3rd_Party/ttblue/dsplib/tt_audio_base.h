@@ -436,4 +436,8 @@ class tt_audio_base{
 };
 
 
+#ifdef TT_INCLUDE_CPP
+  #include "tt_audio_base.cpp"
+#endif
+
 #endif // TT_AUDIO_BASE_HEADER
