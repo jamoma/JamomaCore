@@ -19,7 +19,7 @@ MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/common
 
 COMMON_INCLUDES = -I../common
-LIBXML_INCLUDES = -I../../Externals_3rd_Party/libxml2/include
+LIBXML_INCLUDES = -I../../Externals_3rd_Party/libxml2/win32/include
 #LIBXML_INCLUDES = -I/usr/include/libxml2 -I/usr/include
 TT_BLUE_INCLUDES = -I../../Externals_3rd_Party/ttblue/dsplib
 LIBICONV_INCLUDES = -I../../Externals_3rd_Party/libiconv/include
