@@ -36,7 +36,7 @@ JCOM_DELTA2_OBJS = ${JCOM_DELTA2_SOURCE:.cpp=.o}
 JCOM_EQUALS_SOURCE = jcom.equals.cpp jcom.equals.def
 JCOM_EQUALS_OBJS = ${JCOM_EQUALS_SOURCE:.cpp=.o}
 
-JCOM_GAIN~_SOURCE = jcom.gain~.cpp ../../Externals_3rd_Party/ttblue/dsplib/tt_audio_base.cpp jcom.gain~.def
+JCOM_GAIN~_SOURCE = jcom.gain~.cpp jcom.gain~.def
 JCOM_GAIN~_OBJS = ${JCOM_GAIN~_SOURCE:.cpp=.o}
 
 JCOM_GANG_SOURCE = jcom.gang.cpp jcom.gang.def
