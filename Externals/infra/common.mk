@@ -19,12 +19,13 @@ MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/common
 
 COMMON_INCLUDES = -I../common
+RAMPLIB_INCLUDES = -I../../ramplib/ramplib_api
 LIBXML_INCLUDES = -I../../Externals_3rd_Party/libxml2/win32/include
 #LIBXML_INCLUDES = -I/usr/include/libxml2 -I/usr/include
 TT_BLUE_INCLUDES = -I../../Externals_3rd_Party/ttblue/dsplib
 LIBICONV_INCLUDES = -I../../Externals_3rd_Party/libiconv/include
 
-INCLUDES = $(MAX_INCLUDES) $(COMMON_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
+INCLUDES = $(MAX_INCLUDES) $(COMMON_INCLUDES) $(RAMPLIB_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
     $(LIBICONV_INCLUDES)
 
 

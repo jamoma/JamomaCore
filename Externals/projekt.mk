@@ -3,7 +3,8 @@ COMMON_INCLUDES = -I../common
 MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
    -I/maxmspsdk/c74support/msp-includes \
    -I/maxmspsdk/c74support/common \
-   -I../Externals_3rd_Party/ttblue/dsplib
+   -I../Externals_3rd_Party/ttblue/dsplib \
+   -I../../ramplib/ramplib_api
 
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
