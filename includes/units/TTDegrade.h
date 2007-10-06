@@ -19,7 +19,7 @@
 		@private
 		short				bit_shift;
 		float				accumulator;
-		tt_sample_value		output;
+		TTSampleValue		output;
 	}
 
 	- (id)		init;								// Constructor

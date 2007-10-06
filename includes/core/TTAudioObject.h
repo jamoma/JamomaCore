@@ -4,7 +4,7 @@
 //	License: GNU LGPL
 	
 #import "TTObject.h"
-
+#import "TTAudioSignal.h"
 
 @interface TTAudioObject : TTObject {
 	// because this code is used in audio-contexts, with high-performance demands, all members

@@ -6,6 +6,35 @@
 #import "TTObject.h"
 
 
+// TODO: evaluate how to handle some of these utilities.  At the very least they should be in a different file.
+
+/*
+// clip utility that doesn't use branching
+template<class T>
+static TT_INLINE T tt_base::clip(T value, T low_bound, T high_bound)
+{
+	#ifdef MAC_VERSION
+		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
+	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
+		value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
+	#endif
+	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
+	return value;
+}
+*/
+
+long ttclip(long value, long low_bound, long high_bound)
+{
+	#ifdef TT_TARGET_MAC
+		value = ((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound);
+	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
+		value = ((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound));
+	#endif
+	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
+	return value;
+}
+
+
 @implementation TTObject
 
 

@@ -29,7 +29,7 @@
 
 - (TTErr) bitdepthAttributeSetLongValue:(long)value
 {
-	bitdepthAttribute = clip(int(value), 1, 24);
+	bitdepthAttribute = ttclip(value, 1, 24);
 	return TT_ERR_NONE;
 }
 
@@ -49,14 +49,14 @@
 		
 		while(vs--){
 			// SR Reduction
-			accumulator += sr_ratio;
+			accumulator += srRatioAttribute;
 			if (accumulator >= 1.0){
 				output = *in++;
 				accumulator -= 1.0;
 			}
 		
 			// Bit Depth Reduction
-			l = long(output * BIG_INT);				// change float to long int
+			l = (long)(output * BIG_INT);				// change float to long int
 			l >>= bit_shift;						// shift away the least-significant bits
 			l <<= bit_shift;						// shift back to the correct registers
 			*out++ = (float) l * ONE_OVER_BIG_INT;	// back to float
