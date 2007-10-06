@@ -1,14 +1,12 @@
-/*
- *		TTDegradeObject
- *		sample-rate and bit-depth reduction 
- *		Copyright © 2007 by Timothy A. Place
- *		License: GNU LGPL
- */
+//	TTDegradeObject
+//	sample-rate and bit-depth reduction 
+//	Copyright © 2007 by Timothy A. Place
+//	License: GNU LGPL
 
 #import "TTDegrade.h"
 
-@implementation TTDegradeObject
 
+@implementation TTDegradeObject
 
 - (id)init
 {
@@ -29,10 +27,6 @@
 }
 
 
-// we want to clip the bitdepth, so we define a custom accessor for it
-// TODO: research more here: http://developer.apple.com/Documentation/Cocoa/Conceptual/KeyValueCoding/Concepts/basicprinciples.html
-//	how much support for key-value coding is in the GNUstep environment on Windows?
-// ALTERNATIVELY, the TTBase class can know to look for the custom accessor...
 - (TTErr) bitdepthAttributeSetLongValue:(long)value
 {
 	bitdepthAttribute = clip(int(value), 1, 24);

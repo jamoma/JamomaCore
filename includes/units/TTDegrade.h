@@ -1,9 +1,8 @@
-/*
- *		TTDegradeObject
- *		sample-rate and bit-depth reduction 
- *		Copyright © 2007 by Timothy A. Place
- *		License: GNU LGPL
- */
+//	TTDegradeObject
+//	sample-rate and bit-depth reduction 
+//	Copyright © 2007 by Timothy A. Place
+//	License: GNU LGPL
+
 
 #import "TTAudioObject.h"
 
