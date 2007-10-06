@@ -2,10 +2,12 @@
 #define TT_TARGET_MAX 1
 #endif
 
-#ifdef __MWERKS__
-#include "MacHeadersCarbon.h"
-#else`// Xcode`
-#include <Carbon/Carbon.h>
-#include <QuickTime/QuickTime.h>
+#ifndef TT_TARGET_MAC
+#define TT_TARGET_MAC 1
 #endif
+
+#include <Carbon/Carbon.h>
+
+#define TTOBJECT_BASE_CLASS MaxObject
+#define TTOBJECT_BASE_CLASS_HEADER "MaxObject.h"
 
