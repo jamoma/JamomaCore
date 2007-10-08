@@ -27,6 +27,7 @@ static TT_INLINE T tt_base::clip(T value, T low_bound, T high_bound)
 }
 */
 
+
 long ttclip(long value, long low_bound, long high_bound)
 {
 	#ifdef TT_TARGET_MAC
@@ -39,10 +40,9 @@ long ttclip(long value, long low_bound, long high_bound)
 }
 
 
-// Attempt to knock out denormalized floats; TT_INLINEd here for speed
 double ttantidenormal(double value)
 {
-#ifndef TT_DISABLE_DENORMAL_FIX		// Define this to test code without denormal fixing
+#ifndef TT_DISABLE_DENORMAL_FIX
 	value += TTAntiDenormalValue;
 	value -= TTAntiDenormalValue;
 #endif

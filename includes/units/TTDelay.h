@@ -16,9 +16,22 @@
 		long				interpolationAttribute;
 
 		@private
+			
 		// Function pointers for the DSP Loops (use this instead of branching for speed)
 		typedef void (tt_delay::*function_ptr_1in_1out)(tt_audio_signal *, tt_audio_signal *);
+		
+		/*! 
+		 @typedef simpleCallback 
+		 @abstract Abstract for this API. 
+		 @param inFirstParameter Description of the callback's first parameter. 
+		 @param outSecondParameter Description of the callback's second parameter. 
+		 @result Returns what it can when it is possible to do so. 
+		 @discussion Discussion that applies to the entire callback. 
+		 Lorem ipsum... 
+		*/ 
+		typedef long (*simpleCallback)(short inFirstParameter, unsigned long long *outSecondParameter); 
 		typedef void (tt_delay::*function_ptr_2in_1out)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
+
 		function_ptr_1in_1out		dsp_executor;
 		function_ptr_2in_1out		dsp_executor2;
 
