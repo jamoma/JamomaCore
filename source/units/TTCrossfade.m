@@ -1,18 +1,54 @@
-#include "tt_crossfade.h"
+//	TTCrossfadeObject
+//	Crossfader 
+//	Copyright © 2007 by Timothy A. Place
+//	License: GNU LGPL
+
+#import "TTCrossfade.h"
 
 
-// OBJECT LIFE					
-TT_INLINE tt_crossfade::tt_crossfade(void)									// Constructor		
+@implementation TTCrossfadeObject
+
+- (id)init
 {
-	position = 0.5;
-	shape = k_shape_equalpower;
-	set_attr(k_mode, k_mode_lookup);
+	self = [super init];
+	if(self){
+		positionAttribute = 0.5;
+		shapeAttribute = k_shape_equalpower;
+		set_attr(k_mode, k_mode_lookup);
+	}
+	return self;
+}	
+
+
+- (void) dealloc
+{
+	[super dealloc];
 }
 
-TT_INLINE tt_crossfade::~tt_crossfade(void)								// Destructor
+
+- (TTErr) processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out
 {
-	;
+	short			vs = signals_in->vs;
+	float			*in,
+					*out;
+	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:signals_in andAnotherSignal:signals_out];
+	short			channel;
+	TTSampleValue	temp;
+	
+	for(channel=0; channel<numchannels; channel++){
+		in = signals_in->vectors[channel];
+		out = signals_out->vectors[channel];
+		
+		while(vs--){
+			temp = *in++;
+			*out++ = last_output[channel] = ttantidenormal(temp - last_input[channel] + (last_output[channel] * 0.9997));
+			last_input[channel] = temp;
+		}
+	}
 }
+
+
+@end
 
 
 // ATTRIBUTES
@@ -45,24 +81,6 @@ tt_err tt_crossfade::set_attr(tt_selector sel, const tt_value &a)	// Set Attribu
 	return TT_ERR_NONE;	
 }
 
-TT_INLINE 
-tt_err tt_crossfade::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
-{
-	switch (sel){
-		case k_position:
-			a = position;
-			break;
-		case k_shape:
-			a = shape;
-			break;
-		case k_mode:
-			a = mode;
-			break;
-		default:
-			return TT_ERR_ATTR_INVALID;
-	}
-	return TT_ERR_NONE;
-}
 
 
 /*****************************************************

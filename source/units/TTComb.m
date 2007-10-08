@@ -1,3 +1,75 @@
+//	TTCombObject
+//	IIR Comb Filter
+//	Copyright © 2007 by Timothy A. Place
+//	License: GNU LGPL
+
+#import "TTComb.h"
+
+
+@implementation TTCombObject
+
+- (id)init
+{
+	self = [super init];
+	if(self){
+		[self clear];
+	}
+	return self;
+}	
+
+
+- (void) dealloc
+{
+	free(alloc);
+	[super dealloc];
+}
+
+
+- (TTErr) clear
+{
+	long i;
+	for (i=0; i<(buffersize_in_samples + 4); i++) 
+		alloc[i] = 0.0;
+	lowpass_feedback = 0.0;	
+	return TT_ERR_NONE;
+}
+
+
+- (TTErr) srAttributeSetLongValue:(long)value
+{
+	if(value != sr){
+		[super srAttributeSetLongValue:value];
+		set_attr(k_cutoff_frequency, lowpass_frequency);
+		set_attr(k_delay, msdelay);
+	}
+	return TT_ERR_NONE;
+}
+
+
+- (TTErr) processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out
+{
+	short			vs = signals_in->vs;
+	float			*in,
+					*out;
+	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:signals_in andAnotherSignal:signals_out];
+	short			channel;
+	TTSampleValue	temp;
+	
+	for(channel=0; channel<numchannels; channel++){
+		in = signals_in->vectors[channel];
+		out = signals_out->vectors[channel];
+		
+		while(vs--){
+			temp = *in++;
+			*out++ = last_output[channel] = ttantidenormal(temp - last_input[channel] + (last_output[channel] * 0.9997));
+			last_input[channel] = temp;
+		}
+	}
+}
+
+
+@end
+
 #include "tt_comb.h"
 
 
@@ -28,12 +100,6 @@ TT_INLINE tt_comb::tt_comb(tt_attribute_value arg)				// Constructor
 	delay = clip(buffersize_in_samples - 4, long(1), buffersize_in_samples);
 	memwriteptr = memory + delay;
 }
-
-TT_INLINE tt_comb::~tt_comb(void)							// Destructor
-{
-	mem_free(alloc);
-}
-
 
 // ATTRIBUTES
 TT_INLINE 
@@ -67,31 +133,6 @@ tt_err tt_comb::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 		case k_decay:
 			decay = val;
 			comb_fb_coef = decay_to_feedback(decay, msdelay);
-			break;
-		default:
-			return TT_ERR_ATTR_INVALID;
-	}
-	return TT_ERR_NONE;
-}
-
-TT_INLINE 
-tt_err tt_comb::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
-{
-	switch (sel){
-		case k_cutoff_frequency:
-			a = lowpass_frequency;
-			break;
-		case k_feedback:
-			a = comb_fb_coef;
-			break;
-		case k_clip:
-			a = clipping;
-			break;
-		case k_delay:
-			a = msdelay;
-			break;
-		case k_decay:
-			a = decay;
 			break;
 		default:
 			return TT_ERR_ATTR_INVALID;
@@ -138,24 +179,3 @@ void tt_comb::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
 }
 
 
-// ADDITIONAL METHODS ****************************************************
-
-// clear
-TT_INLINE void tt_comb::clear()
-{
-	long i;
-	for (i=0; i<(buffersize_in_samples + 4); i++) 
-		alloc[i] = 0.0;
-	lowpass_feedback = 0.0;	
-}
-
-// set sample-rate (override the inherited method)
-TT_INLINE void tt_comb::set_sr(int	value)
-{
-	sr = value;
-	r_sr = 1.0 / value;
-	m_sr = sr * 0.001;
-	
-	set_attr(k_cutoff_frequency, 	lowpass_frequency);
-	set_attr(k_delay, 				msdelay);
-}		
