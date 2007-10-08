@@ -14,7 +14,16 @@
 	// because this code is used in audio-contexts, with high-performance demands, all members
 	// are made public for direct access in audio processing loops
 	@public
+		
+	@protected
+	long	srAttribute;
+	double	srr;
+	double	srm;
+		
+	@private
+		
 }
 
+- (TTErr) srAttributeSetLongValue:(long)value;
 
 @end

@@ -1,28 +1,46 @@
-#include "tt_delay.h"
+//	TTDelayObject
+//	Delay unit 
+//	Copyright © 2007 by Timothy A. Place
+//	License: GNU LGPL
+
+#import "TTDelay.h"
 
 
-// OBJECT LIFE					
-TT_INLINE tt_delay::tt_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
+@implementation TTDelayObject
+
+- (id) init
 {
-	init(max);
+	self = [self init initWithSizeInSamples:256];
+	return self;
+}	
+
+- (id) initWithSizeInMS:(float)max_ms
+{
+	long numSamples = TTMSToSamples(max_ms);				// Uses global sample rate for calculation
+	self = [self init initWithSizeInSamples:numSamples];
+	return self;
 }
 
-TT_INLINE tt_delay::tt_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
+- (id) initWithSizeInSamples:(long)max_samples
 {
-	long max = long(max_ms * m_sr);
-	init(max);
+	self = [super init];
+	if(self){
+		[self setupBuffersForNumSamples:max_samples];
+	}
+	return self;
 }
 
-// Internal method which is called by the constructors
-TT_INLINE void tt_delay::init(long max_samples)
-{			
+
+- (TTErr) setupBuffersForNumSamples:(long)max_samples
+{
 	short i;
 	
-	buffer = in_ptr = out_ptr = end_ptr = 0;
+	in_ptr = out_ptr = end_ptr = 0;
 	output[0] = output[1] = output[2] = output[3] = 0;		
 
-	mem_free(buffer);
-	buffer = (tt_sample_value *)mem_alloc((max_samples + 4) * sizeof(tt_sample_value));
+	if(buffer)
+		free(buffer);
+	buffer = (TTSampleValue *)malloc((max_samples + 4) * sizeof(TTSampleValue));
 	
 	in_ptr = buffer;
 	delay_samples_max = max_samples;
@@ -33,31 +51,92 @@ TT_INLINE void tt_delay::init(long max_samples)
 	for(i=0;i<4;i++)
 		output[i] = 0;
 			
-	reset();
+	[self reset];
 }
 
 
-TT_INLINE tt_delay::~tt_delay()										// Destructor
+- (void) dealloc
 {
-	mem_free(buffer);
+	free(buffer);	
+	[super dealloc];
 }
 
 
-// OVER-RIDE THE INHERITED SET SR METHOD
-TT_INLINE 
-void tt_delay::set_sr(int value)
+// Reset the pointers
+- (void) reset
+{
+	end_ptr = buffer + delay_samples;
+	out_ptr = in_ptr - delay_samples;
+	if(out_ptr < buffer)
+		out_ptr = end_ptr + (out_ptr - buffer) + 1;
+	else if(out_ptr > end_ptr)
+		out_ptr = buffer + (out_ptr - end_ptr);
+		
+	[self clear];
+}
+
+
+// clear
+- (TTErr) clear
+{
+	float *i;
+	long j = 0;
+				
+	for(i = buffer; i< end_ptr; i++, j++)
+		buffer[j] = 0.0;
+}
+
+
+#pragma mark Attributes
+
+
+- (TTErr) srAttributeSetLongValue:(long)value
 {
 	if(value != sr){
-		sr = value;					// These first three need to be called to do the standard stuff from the base class
-		r_sr = 1.0 / value;			// 	THERE SHOULD BE A MORE ELEGANT WAY OF DOING THIS, NO ?!?!?!?!?
-		m_sr = (float)sr * 0.001;	//		...
+		long	numsamples;
+		
+		[super srAttributeSetLongValue:value];
+		
+		numsamples = srm * delay_ms;
+		[self setupBuffersForNumSamples:numsamples];	// allocate a larger delay buffer if neccessary
+		set_attr(k_delay_ms, delay_ms);		// hold the delay_length in ms constant, despite the change of sr (but should only do this if the time was specified in ms...)
+	}
+
+}
+
+
+- (TTErr) processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out
+{
+	long	l;
+	short	vs = signals_in->vs;
+	float	*in,
+			*out;
+	short	numchannels = [TTAudioSignal GetMinNumChannelsForASignal:signals_in andAnotherSignal:signals_out];
+	short	channel;
 	
-		// This is the SR setting stuff that is specific to this object.
-//		if((m_sr * delay_ms) > delay_samples_max)
-			init(long(m_sr * delay_ms));	// allocate a larger delay buffer if neccessary
-		set_attr(k_delay_ms, delay_ms);		// hold the delay_length in ms constant, despite the change of sr
+	for(channel=0; channel<numchannels; channel++){
+		in = signals_in->vectors[channel];
+		out = signals_out->vectors[channel];
+		
+		while(vs--){
+			// SR Reduction
+			accumulator += srRatioAttribute;
+			if (accumulator >= 1.0){
+				output = *in++;
+				accumulator -= 1.0;
+			}
+		
+			// Bit Depth Reduction
+			l = (long)(output * BIG_INT);				// change float to long int
+			l >>= bit_shift;						// shift away the least-significant bits
+			l <<= bit_shift;						// shift back to the correct registers
+			*out++ = (float) l * ONE_OVER_BIG_INT;	// back to float
+		}
 	}
 }
+
+
+@end
 
 
 // ATTRIBUTES
@@ -351,29 +430,3 @@ tt_sample_value interpolation_polynomial(tt_sample_value y0, tt_sample_value y1,
 }
 */
 
-
-// Reset the pointers
-TT_INLINE void tt_delay::reset()
-{
-	end_ptr = buffer + delay_samples;
-	out_ptr = in_ptr - delay_samples;
-	if(out_ptr < buffer)
-		out_ptr = end_ptr + (out_ptr - buffer) + 1;
-	else if(out_ptr > end_ptr)
-		out_ptr = buffer + (out_ptr - end_ptr);
-		
-	clear();
-}
-
-
-// clear
-TT_INLINE void tt_delay::clear(void)
-{
-	float * i;
-	long j = 0;
-				
-	for(i = buffer; i< end_ptr; i++, j++)
-		//buffer[i] = 0.0;
-		buffer[j] = 0.0;
-		//*(buffer+i) = 0.0;
-}
