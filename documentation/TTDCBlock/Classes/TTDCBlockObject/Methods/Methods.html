@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
+<html>
+<head>
+<title>Methods</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="HeaderDoc">
+<style type="text/css"><!--a:link {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:active {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}h4 {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: tiny; font-weight: bold;}body {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: 10pt;}--></style>
+</head>
+<body bgcolor="#ffffff">
+<h1><font face="Geneva,Arial,Helvtica">Methods</font></h1>
+<br><a name="HeaderDoc_methods"></a><dl>
+<dt><tt><a href="CompositePage.html#//apple_ref/occ/instm/TTDCBlockObject/clear" target="doc">-clear</a></tt></dt>
+<dd>Resets the DC-Blocking filter.
+</dd>
+<dt><tt><a href="CompositePage.html#//apple_ref/occ/instm/TTDCBlockObject/processAudioWithInput:andOutput:" target="doc">-processAudioWithInput:andOutput:</a></tt></dt>
+<dd>Standard audio processing method for TTBlue objects.
+</dd>
+</dl>
+<hr>
+<!-- headerDoc=instm;  uid=//apple_ref/occ/instm/TTDCBlockObject/clear;  name=TTDCBlockObject::clear --><a name="//apple_ref/occ/instm/TTDCBlockObject/clear"></a><table border="0" cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5">
+<h3><a name="clear">clear</a></h3>
+</td></tr></table>
+<hr>
+<dl></dl>
+<p>Resets the DC-Blocking filter.
+</p>
+<blockquote><pre>- (<a href="../../../../../documentation/TTObject/CompositePage.html#//apple_ref/c/tdef/TTErr" logicalPath="//apple_ref/occ/cl/TTErr //apple_ref/occ/cl/TTErr //apple_ref/occ/tdef/TTErr"><font class="type">TTErr</font></a>) <font class="param">clear</font>;</pre></blockquote>
+<dl>
+<dt><i>method result</i></dt>
+<dd>Returns a TTBlue Error Code.
+ </dd>
+<h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<p>This algorithm uses an IIR filter, meaning that it relies on feedback. If the filter should
+not be producing any signal (such as turning audio off and then back on in a host) or if the
+feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
+neccesary to clear the filter by calling this method.
+</p>
+</dl>
+<hr>
+<!-- headerDoc=instm;  uid=//apple_ref/occ/instm/TTDCBlockObject/processAudioWithInput:andOutput:;  name=TTDCBlockObject::processAudioWithInput:andOutput: --><a name="//apple_ref/occ/instm/TTDCBlockObject/processAudioWithInput:andOutput:"></a><table border="0" cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5">
+<h3><a name="processAudioWithInput:andOutput:">processAudioWithInput:andOutput:</a></h3>
+</td></tr></table>
+<hr>
+<dl></dl>
+<p>Standard audio processing method for TTBlue objects.
+</p>
+<blockquote><pre>- (<a href="../../../../../documentation/TTObject/CompositePage.html#//apple_ref/c/tdef/TTErr" logicalPath="//apple_ref/occ/cl/TTErr //apple_ref/occ/cl/TTErr //apple_ref/occ/tdef/TTErr"><font class="type">TTErr</font></a>) <!-- a logicalPath="//apple_ref/occ/instm/processAudioWithInput //apple_ref/occ/clm/processAudioWithInput //apple_ref/occ/intfcm/processAudioWithInput //apple_ref/occ/func/processAudioWithInput //apple_ref/occ/ftmplt/processAudioWithInput //apple_ref/occ/defn/processAudioWithInput //apple_ref/occ/macro/processAudioWithInput" --><font class="function">processAudioWithInput</font><!-- /a -->:(<!-- a logicalPath="//apple_ref/occ/cl/TTAudioSignal //apple_ref/occ/cl/TTAudioSignal //apple_ref/occ/tdef/TTAudioSignal //apple_ref/occ/tag/TTAudioSignal //apple_ref/occ/econst/TTAudioSignal //apple_ref/occ/struct/TTAudioSignal //apple_ref/occ/clconst/TTAudioSignal" --><font class="type">TTAudioSignal</font><!-- /a --> <font class="type">*</font>)<font class="param">signals_in</font> 
+        <!-- a logicalPath="//apple_ref/occ/instm/andOutput //apple_ref/occ/clm/andOutput //apple_ref/occ/intfcm/andOutput //apple_ref/occ/func/andOutput //apple_ref/occ/ftmplt/andOutput //apple_ref/occ/defn/andOutput //apple_ref/occ/macro/andOutput" --><font class="function">andOutput</font><!-- /a -->:(<!-- a logicalPath="//apple_ref/occ/cl/TTAudioSignal //apple_ref/occ/cl/TTAudioSignal //apple_ref/occ/tdef/TTAudioSignal //apple_ref/occ/tag/TTAudioSignal //apple_ref/occ/econst/TTAudioSignal //apple_ref/occ/struct/TTAudioSignal //apple_ref/occ/clconst/TTAudioSignal" --><font class="type">TTAudioSignal</font><!-- /a --> <font class="type">*</font>)<font class="param">signals_out</font>;</pre></blockquote>
+<h5><font face="Lucida Grande,Helvetica,Arial">Parameter Descriptions</font></h5>
+<blockquote>
+<dl>
+<dt><code><i>signals_in</i></code></dt>
+<dd>A pointer to a TTAudioSignal object that may contain any number of channels.
+This signal is considered the master, and thus it provides the vectorsize
+and number of channels should the two signals not be matched.</dd>
+<dt><code><i>signals_out</i></code></dt>
+<dd>A pointer to a TTAudioSignal object that has the output sample vectors.</dd>
+</dl>
+</blockquote>
+<dl>
+<dt><i>method result</i></dt>
+<dd>Returns a TTBlue Error Code. TODO: Perhaps we should check if the signals are matched and then
+return an error if they aren't? Currently we are just returning TT_ERR_NONE all the time.
+ </dd>
+<h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
+<p>This object can process N parallel channels of audio. It is assumed that the number
+of inputs and outputs are the same, as are the vector sizes of those inputs and outputs.
+</p>
+</dl>
+<p>(Last Updated October 08, 2007)
+</p>
+</body>
+</html>
