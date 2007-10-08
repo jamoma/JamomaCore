@@ -6,6 +6,10 @@
 #import "TTObject.h"
 #import "TTAudioSignal.h"
 
+
+#define TT_MAX_NUM_CHANNELS 32
+
+
 @interface TTAudioObject : TTObject {
 	// because this code is used in audio-contexts, with high-performance demands, all members
 	// are made public for direct access in audio processing loops

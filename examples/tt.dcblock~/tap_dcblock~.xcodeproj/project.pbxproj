@@ -9,71 +9,15 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
-		224DFE030BE9621600FC5429 /* tt_list_element.h in Headers */ = {isa = PBXBuildFile; fileRef = 224DFE000BE9621500FC5429 /* tt_list_element.h */; };
-		224DFE040BE9621600FC5429 /* tt_list.h in Headers */ = {isa = PBXBuildFile; fileRef = 224DFE010BE9621500FC5429 /* tt_list.h */; };
-		224DFE050BE9621600FC5429 /* tt_value_named.h in Headers */ = {isa = PBXBuildFile; fileRef = 224DFE020BE9621500FC5429 /* tt_value_named.h */; };
-		22A5AD6109FD79BC00FBA44E /* dcblock_tilde.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A5AD6009FD79BC00FBA44E /* dcblock_tilde.cpp */; };
+		223F3EBE0CB7D41100E43AC1 /* MaxObject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223F3EBD0CB7D41100E43AC1 /* MaxObject.framework */; };
+		223F3EC90CB7D41D00E43AC1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */; };
+		223F3EE60CB7D4C900E43AC1 /* TTAudioObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F3EE30CB7D4C900E43AC1 /* TTAudioObject.m */; };
+		223F3EE70CB7D4C900E43AC1 /* TTAudioSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F3EE40CB7D4C900E43AC1 /* TTAudioSignal.m */; };
+		223F3EE80CB7D4C900E43AC1 /* TTObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F3EE50CB7D4C900E43AC1 /* TTObject.m */; };
+		223F406B0CB7DC4500E43AC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F406A0CB7DC4500E43AC1 /* main.m */; };
+		229825070CB9C26C00919B67 /* TTDCBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 229825060CB9C26C00919B67 /* TTDCBlock.h */; };
+		229825090CB9C27800919B67 /* TTDCBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 229825080CB9C27800919B67 /* TTDCBlock.m */; };
 		22C01EDA09CE6CDB00177B81 /* Externs-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C01ED909CE6CDB00177B81 /* Externs-Info.plist */; };
-		22CA3C520BAB1534006A9BAC /* tt_audio_bundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CA3C510BAB1534006A9BAC /* tt_audio_bundle.h */; };
-		22F2072B0B946D56008211F4 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22F2072A0B946D56008211F4 /* commonsyms.c */; };
-		22F209F00B9533B2008211F4 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F209EC0B9533B2008211F4 /* tt_audio_base.cpp */; };
-		22F209F10B9533B2008211F4 /* tt_audio_signal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F209ED0B9533B2008211F4 /* tt_audio_signal.cpp */; };
-		22F209F20B9533B2008211F4 /* tt_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F209EE0B9533B2008211F4 /* tt_base.cpp */; };
-		22F209F30B9533B2008211F4 /* tt_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F209EF0B9533B2008211F4 /* tt_buffer.cpp */; };
-		22F20A3F0B953464008211F4 /* tt_value.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A090B953464008211F4 /* tt_value.h */; };
-		22F20A400B953464008211F4 /* tt_audio_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0A0B953464008211F4 /* tt_audio_base.h */; };
-		22F20A410B953464008211F4 /* tt_audio_signal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0B0B953464008211F4 /* tt_audio_signal.h */; };
-		22F20A430B953464008211F4 /* tt_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0D0B953464008211F4 /* tt_base.h */; };
-		22F20A440B953464008211F4 /* tt_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A0E0B953464008211F4 /* tt_buffer.h */; };
-		22F20A450B953464008211F4 /* tt_max_prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A100B953464008211F4 /* tt_max_prefix.h */; };
-		22F20A460B953464008211F4 /* tt_add.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A120B953464008211F4 /* tt_add.h */; };
-		22F20A470B953464008211F4 /* tt_adsr.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A130B953464008211F4 /* tt_adsr.h */; };
-		22F20A480B953464008211F4 /* tt_allpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A140B953464008211F4 /* tt_allpass.h */; };
-		22F20A490B953464008211F4 /* tt_average.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A150B953464008211F4 /* tt_average.h */; };
-		22F20A4A0B953464008211F4 /* tt_buffer_play.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A160B953464008211F4 /* tt_buffer_play.h */; };
-		22F20A4B0B953464008211F4 /* tt_buffer_record.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A170B953464008211F4 /* tt_buffer_record.h */; };
-		22F20A4C0B953464008211F4 /* tt_buffer_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A180B953464008211F4 /* tt_buffer_window.h */; };
-		22F20A4D0B953464008211F4 /* tt_clip.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A190B953464008211F4 /* tt_clip.h */; };
-		22F20A4E0B953464008211F4 /* tt_comb.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A1A0B953464008211F4 /* tt_comb.h */; };
-		22F20A4F0B953464008211F4 /* tt_copy.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A1B0B953464008211F4 /* tt_copy.h */; };
-		22F20A500B953464008211F4 /* tt_crossfade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A1C0B953464008211F4 /* tt_crossfade.h */; };
-		22F20A510B953464008211F4 /* tt_dcblock.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A1D0B953464008211F4 /* tt_dcblock.h */; };
-		22F20A520B953464008211F4 /* tt_degrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A1E0B953464008211F4 /* tt_degrade.h */; };
-		22F20A530B953464008211F4 /* tt_delay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A1F0B953464008211F4 /* tt_delay.h */; };
-		22F20A540B953464008211F4 /* tt_downsample.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A200B953464008211F4 /* tt_downsample.h */; };
-		22F20A550B953464008211F4 /* tt_fivecomb.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A210B953464008211F4 /* tt_fivecomb.h */; };
-		22F20A560B953464008211F4 /* tt_gain.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A220B953464008211F4 /* tt_gain.h */; };
-		22F20A570B953464008211F4 /* tt_lfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A230B953464008211F4 /* tt_lfo.h */; };
-		22F20A580B953464008211F4 /* tt_limiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A240B953464008211F4 /* tt_limiter.h */; };
-		22F20A590B953464008211F4 /* tt_lowpass_fourpole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A250B953464008211F4 /* tt_lowpass_fourpole.h */; };
-		22F20A5A0B953464008211F4 /* tt_lowpass_onepole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A260B953464008211F4 /* tt_lowpass_onepole.h */; };
-		22F20A5B0B953464008211F4 /* tt_lowpass_twopole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A270B953464008211F4 /* tt_lowpass_twopole.h */; };
-		22F20A5C0B953464008211F4 /* tt_mixer_mono.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A280B953464008211F4 /* tt_mixer_mono.h */; };
-		22F20A5D0B953464008211F4 /* tt_modulo.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A290B953464008211F4 /* tt_modulo.h */; };
-		22F20A5E0B953464008211F4 /* tt_multiply.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A2A0B953464008211F4 /* tt_multiply.h */; };
-		22F20A5F0B953464008211F4 /* tt_multitap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A2B0B953464008211F4 /* tt_multitap.h */; };
-		22F20A600B953464008211F4 /* tt_noise.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A2C0B953464008211F4 /* tt_noise.h */; };
-		22F20A610B953464008211F4 /* tt_offset.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A2D0B953464008211F4 /* tt_offset.h */; };
-		22F20A620B953464008211F4 /* tt_onewrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A2E0B953464008211F4 /* tt_onewrap.h */; };
-		22F20A630B953464008211F4 /* tt_overdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A2F0B953464008211F4 /* tt_overdrive.h */; };
-		22F20A640B953464008211F4 /* tt_pan.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A300B953464008211F4 /* tt_pan.h */; };
-		22F20A650B953464008211F4 /* tt_phasor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A310B953464008211F4 /* tt_phasor.h */; };
-		22F20A660B953464008211F4 /* tt_polar.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A320B953464008211F4 /* tt_polar.h */; };
-		22F20A670B953464008211F4 /* tt_procrastinate.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A330B953464008211F4 /* tt_procrastinate.h */; };
-		22F20A680B953464008211F4 /* tt_pulsesub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A340B953464008211F4 /* tt_pulsesub.h */; };
-		22F20A690B953464008211F4 /* tt_ramp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A350B953464008211F4 /* tt_ramp.h */; };
-		22F20A6A0B953464008211F4 /* tt_rms.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A360B953464008211F4 /* tt_rms.h */; };
-		22F20A6B0B953464008211F4 /* tt_shift.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A370B953464008211F4 /* tt_shift.h */; };
-		22F20A6C0B953464008211F4 /* tt_subtract.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A380B953464008211F4 /* tt_subtract.h */; };
-		22F20A6D0B953464008211F4 /* tt_svf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A390B953464008211F4 /* tt_svf.h */; };
-		22F20A6E0B953464008211F4 /* tt_switch.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3A0B953464008211F4 /* tt_switch.h */; };
-		22F20A6F0B953464008211F4 /* tt_upsample.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3B0B953464008211F4 /* tt_upsample.h */; };
-		22F20A700B953464008211F4 /* tt_verb.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3C0B953464008211F4 /* tt_verb.h */; };
-		22F20A710B953464008211F4 /* tt_wavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3D0B953464008211F4 /* tt_wavetable.h */; };
-		22F20A720B953464008211F4 /* tt_zerox.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F20A3E0B953464008211F4 /* tt_zerox.h */; };
-		22F20AFB0B953741008211F4 /* tt_dcblock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F20ACE0B953740008211F4 /* tt_dcblock.cpp */; };
-		22F547A00C975CE1006D3016 /* tt_max_prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F5479F0C975CE1006D3016 /* tt_max_prefix.h */; };
-		22F547C70C975EEC006D3016 /* tt_copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F547C60C975EEC006D3016 /* tt_copy.cpp */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,72 +25,20 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
-		224DFE000BE9621500FC5429 /* tt_list_element.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_list_element.h; sourceTree = "<group>"; };
-		224DFE010BE9621500FC5429 /* tt_list.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_list.h; sourceTree = "<group>"; };
-		224DFE020BE9621500FC5429 /* tt_value_named.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_value_named.h; sourceTree = "<group>"; };
-		22A5AD6009FD79BC00FBA44E /* dcblock_tilde.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dcblock_tilde.cpp; sourceTree = "<group>"; };
+		223F3EBD0CB7D41100E43AC1 /* MaxObject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxObject.framework; path = /Library/Frameworks/MaxObject.framework; sourceTree = "<absolute>"; };
+		223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		223F3EDC0CB7D4A400E43AC1 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
+		223F3EDD0CB7D4A400E43AC1 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
+		223F3EDE0CB7D4A400E43AC1 /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = ../../includes/core/TTObject.h; sourceTree = SOURCE_ROOT; };
+		223F3EE30CB7D4C900E43AC1 /* TTAudioObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTAudioObject.m; path = ../../source/core/TTAudioObject.m; sourceTree = SOURCE_ROOT; };
+		223F3EE40CB7D4C900E43AC1 /* TTAudioSignal.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTAudioSignal.m; path = ../../source/core/TTAudioSignal.m; sourceTree = SOURCE_ROOT; };
+		223F3EE50CB7D4C900E43AC1 /* TTObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTObject.m; path = ../../source/core/TTObject.m; sourceTree = SOURCE_ROOT; };
+		223F3F240CB7D75D00E43AC1 /* TTMaxPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTMaxPrefix.pch; path = ../../includes/platform/TTMaxPrefix.pch; sourceTree = SOURCE_ROOT; };
+		223F406A0CB7DC4500E43AC1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		229825060CB9C26C00919B67 /* TTDCBlock.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTDCBlock.h; path = ../../includes/units/TTDCBlock.h; sourceTree = SOURCE_ROOT; };
+		229825080CB9C27800919B67 /* TTDCBlock.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTDCBlock.m; path = ../../source/units/TTDCBlock.m; sourceTree = SOURCE_ROOT; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
-		22CA3C510BAB1534006A9BAC /* tt_audio_bundle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_audio_bundle.h; sourceTree = "<group>"; };
-		22F2072A0B946D56008211F4 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
-		22F209EC0B9533B2008211F4 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../source/core/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
-		22F209ED0B9533B2008211F4 /* tt_audio_signal.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_signal.cpp; path = ../../source/core/tt_audio_signal.cpp; sourceTree = SOURCE_ROOT; };
-		22F209EE0B9533B2008211F4 /* tt_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_base.cpp; path = ../../source/core/tt_base.cpp; sourceTree = SOURCE_ROOT; };
-		22F209EF0B9533B2008211F4 /* tt_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_buffer.cpp; path = ../../source/core/tt_buffer.cpp; sourceTree = SOURCE_ROOT; };
-		22F20A090B953464008211F4 /* tt_value.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_value.h; sourceTree = "<group>"; };
-		22F20A0A0B953464008211F4 /* tt_audio_base.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_audio_base.h; sourceTree = "<group>"; };
-		22F20A0B0B953464008211F4 /* tt_audio_signal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_audio_signal.h; sourceTree = "<group>"; };
-		22F20A0D0B953464008211F4 /* tt_base.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_base.h; sourceTree = "<group>"; };
-		22F20A0E0B953464008211F4 /* tt_buffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_buffer.h; sourceTree = "<group>"; };
-		22F20A100B953464008211F4 /* tt_max_prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_max_prefix.h; sourceTree = "<group>"; };
-		22F20A120B953464008211F4 /* tt_add.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_add.h; sourceTree = "<group>"; };
-		22F20A130B953464008211F4 /* tt_adsr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_adsr.h; sourceTree = "<group>"; };
-		22F20A140B953464008211F4 /* tt_allpass.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_allpass.h; sourceTree = "<group>"; };
-		22F20A150B953464008211F4 /* tt_average.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_average.h; sourceTree = "<group>"; };
-		22F20A160B953464008211F4 /* tt_buffer_play.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_buffer_play.h; sourceTree = "<group>"; };
-		22F20A170B953464008211F4 /* tt_buffer_record.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_buffer_record.h; sourceTree = "<group>"; };
-		22F20A180B953464008211F4 /* tt_buffer_window.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_buffer_window.h; sourceTree = "<group>"; };
-		22F20A190B953464008211F4 /* tt_clip.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_clip.h; sourceTree = "<group>"; };
-		22F20A1A0B953464008211F4 /* tt_comb.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_comb.h; sourceTree = "<group>"; };
-		22F20A1B0B953464008211F4 /* tt_copy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_copy.h; sourceTree = "<group>"; };
-		22F20A1C0B953464008211F4 /* tt_crossfade.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_crossfade.h; sourceTree = "<group>"; };
-		22F20A1D0B953464008211F4 /* tt_dcblock.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_dcblock.h; sourceTree = "<group>"; };
-		22F20A1E0B953464008211F4 /* tt_degrade.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_degrade.h; sourceTree = "<group>"; };
-		22F20A1F0B953464008211F4 /* tt_delay.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_delay.h; sourceTree = "<group>"; };
-		22F20A200B953464008211F4 /* tt_downsample.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_downsample.h; sourceTree = "<group>"; };
-		22F20A210B953464008211F4 /* tt_fivecomb.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_fivecomb.h; sourceTree = "<group>"; };
-		22F20A220B953464008211F4 /* tt_gain.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_gain.h; sourceTree = "<group>"; };
-		22F20A230B953464008211F4 /* tt_lfo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_lfo.h; sourceTree = "<group>"; };
-		22F20A240B953464008211F4 /* tt_limiter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_limiter.h; sourceTree = "<group>"; };
-		22F20A250B953464008211F4 /* tt_lowpass_fourpole.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_lowpass_fourpole.h; sourceTree = "<group>"; };
-		22F20A260B953464008211F4 /* tt_lowpass_onepole.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_lowpass_onepole.h; sourceTree = "<group>"; };
-		22F20A270B953464008211F4 /* tt_lowpass_twopole.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_lowpass_twopole.h; sourceTree = "<group>"; };
-		22F20A280B953464008211F4 /* tt_mixer_mono.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_mixer_mono.h; sourceTree = "<group>"; };
-		22F20A290B953464008211F4 /* tt_modulo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_modulo.h; sourceTree = "<group>"; };
-		22F20A2A0B953464008211F4 /* tt_multiply.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_multiply.h; sourceTree = "<group>"; };
-		22F20A2B0B953464008211F4 /* tt_multitap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_multitap.h; sourceTree = "<group>"; };
-		22F20A2C0B953464008211F4 /* tt_noise.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_noise.h; sourceTree = "<group>"; };
-		22F20A2D0B953464008211F4 /* tt_offset.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_offset.h; sourceTree = "<group>"; };
-		22F20A2E0B953464008211F4 /* tt_onewrap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_onewrap.h; sourceTree = "<group>"; };
-		22F20A2F0B953464008211F4 /* tt_overdrive.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_overdrive.h; sourceTree = "<group>"; };
-		22F20A300B953464008211F4 /* tt_pan.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_pan.h; sourceTree = "<group>"; };
-		22F20A310B953464008211F4 /* tt_phasor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_phasor.h; sourceTree = "<group>"; };
-		22F20A320B953464008211F4 /* tt_polar.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_polar.h; sourceTree = "<group>"; };
-		22F20A330B953464008211F4 /* tt_procrastinate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_procrastinate.h; sourceTree = "<group>"; };
-		22F20A340B953464008211F4 /* tt_pulsesub.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_pulsesub.h; sourceTree = "<group>"; };
-		22F20A350B953464008211F4 /* tt_ramp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_ramp.h; sourceTree = "<group>"; };
-		22F20A360B953464008211F4 /* tt_rms.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_rms.h; sourceTree = "<group>"; };
-		22F20A370B953464008211F4 /* tt_shift.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_shift.h; sourceTree = "<group>"; };
-		22F20A380B953464008211F4 /* tt_subtract.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_subtract.h; sourceTree = "<group>"; };
-		22F20A390B953464008211F4 /* tt_svf.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_svf.h; sourceTree = "<group>"; };
-		22F20A3A0B953464008211F4 /* tt_switch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_switch.h; sourceTree = "<group>"; };
-		22F20A3B0B953464008211F4 /* tt_upsample.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_upsample.h; sourceTree = "<group>"; };
-		22F20A3C0B953464008211F4 /* tt_verb.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_verb.h; sourceTree = "<group>"; };
-		22F20A3D0B953464008211F4 /* tt_wavetable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_wavetable.h; sourceTree = "<group>"; };
-		22F20A3E0B953464008211F4 /* tt_zerox.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tt_zerox.h; sourceTree = "<group>"; };
-		22F20ACE0B953740008211F4 /* tt_dcblock.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_dcblock.cpp; sourceTree = "<group>"; };
-		22F5479F0C975CE1006D3016 /* tt_max_prefix.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_max_prefix.h; path = ../../includes/platform/tt_max_prefix.h; sourceTree = SOURCE_ROOT; };
-		22F547C60C975EEC006D3016 /* tt_copy.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tt_copy.cpp; sourceTree = "<group>"; };
-		542ED84F09C02A0000DBC7EB /* tt.dcblock~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.dcblock~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.degrade~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +49,8 @@
 				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
 				0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */,
+				223F3EBE0CB7D41100E43AC1 /* MaxObject.framework in Frameworks */,
+				223F3EC90CB7D41D00E43AC1 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				22F207270B946D2A008211F4 /* TT */,
+				22F207270B946D2A008211F4 /* TTBlue Foundation */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -178,8 +72,10 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				223F3EBD0CB7D41100E43AC1 /* MaxObject.framework */,
 				0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
+				223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */,
 				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -188,6 +84,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				223F3F240CB7D75D00E43AC1 /* TTMaxPrefix.pch */,
 				22C01ED909CE6CDB00177B81 /* Externs-Info.plist */,
 			);
 			name = Resources;
@@ -196,8 +93,9 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22A5AD6009FD79BC00FBA44E /* dcblock_tilde.cpp */,
-				22F2072A0B946D56008211F4 /* commonsyms.c */,
+				223F406A0CB7DC4500E43AC1 /* main.m */,
+				229825060CB9C26C00919B67 /* TTDCBlock.h */,
+				229825080CB9C27800919B67 /* TTDCBlock.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -205,139 +103,23 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				542ED84F09C02A0000DBC7EB /* tt.dcblock~.mxo */,
+				542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		22F207270B946D2A008211F4 /* TT */ = {
+		22F207270B946D2A008211F4 /* TTBlue Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				22F5479F0C975CE1006D3016 /* tt_max_prefix.h */,
-				22F20A040B953434008211F4 /* Includes */,
-				22F20A050B953441008211F4 /* Source */,
+				223F3EDE0CB7D4A400E43AC1 /* TTObject.h */,
+				223F3EE50CB7D4C900E43AC1 /* TTObject.m */,
+				223F3EDC0CB7D4A400E43AC1 /* TTAudioObject.h */,
+				223F3EE30CB7D4C900E43AC1 /* TTAudioObject.m */,
+				223F3EDD0CB7D4A400E43AC1 /* TTAudioSignal.h */,
+				223F3EE40CB7D4C900E43AC1 /* TTAudioSignal.m */,
 			);
-			name = TT;
+			name = "TTBlue Foundation";
 			sourceTree = "<group>";
-		};
-		22F20A040B953434008211F4 /* Includes */ = {
-			isa = PBXGroup;
-			children = (
-				22F20A080B953464008211F4 /* core */,
-				22F20A0F0B953464008211F4 /* platform */,
-				22F20A110B953464008211F4 /* units */,
-			);
-			name = Includes;
-			sourceTree = "<group>";
-		};
-		22F20A050B953441008211F4 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				22F20AC20B953740008211F4 /* units */,
-				22F20ABD0B95370D008211F4 /* core */,
-			);
-			name = Source;
-			sourceTree = "<group>";
-		};
-		22F20A080B953464008211F4 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				224DFE000BE9621500FC5429 /* tt_list_element.h */,
-				224DFE010BE9621500FC5429 /* tt_list.h */,
-				224DFE020BE9621500FC5429 /* tt_value_named.h */,
-				22F20A090B953464008211F4 /* tt_value.h */,
-				22F20A0A0B953464008211F4 /* tt_audio_base.h */,
-				22F20A0B0B953464008211F4 /* tt_audio_signal.h */,
-				22CA3C510BAB1534006A9BAC /* tt_audio_bundle.h */,
-				22F20A0D0B953464008211F4 /* tt_base.h */,
-				22F20A0E0B953464008211F4 /* tt_buffer.h */,
-			);
-			name = core;
-			path = ../../includes/core;
-			sourceTree = SOURCE_ROOT;
-		};
-		22F20A0F0B953464008211F4 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				22F20A100B953464008211F4 /* tt_max_prefix.h */,
-			);
-			name = platform;
-			path = ../../includes/platform;
-			sourceTree = SOURCE_ROOT;
-		};
-		22F20A110B953464008211F4 /* units */ = {
-			isa = PBXGroup;
-			children = (
-				22F20A120B953464008211F4 /* tt_add.h */,
-				22F20A130B953464008211F4 /* tt_adsr.h */,
-				22F20A140B953464008211F4 /* tt_allpass.h */,
-				22F20A150B953464008211F4 /* tt_average.h */,
-				22F20A160B953464008211F4 /* tt_buffer_play.h */,
-				22F20A170B953464008211F4 /* tt_buffer_record.h */,
-				22F20A180B953464008211F4 /* tt_buffer_window.h */,
-				22F20A190B953464008211F4 /* tt_clip.h */,
-				22F20A1A0B953464008211F4 /* tt_comb.h */,
-				22F20A1B0B953464008211F4 /* tt_copy.h */,
-				22F20A1C0B953464008211F4 /* tt_crossfade.h */,
-				22F20A1D0B953464008211F4 /* tt_dcblock.h */,
-				22F20A1E0B953464008211F4 /* tt_degrade.h */,
-				22F20A1F0B953464008211F4 /* tt_delay.h */,
-				22F20A200B953464008211F4 /* tt_downsample.h */,
-				22F20A210B953464008211F4 /* tt_fivecomb.h */,
-				22F20A220B953464008211F4 /* tt_gain.h */,
-				22F20A230B953464008211F4 /* tt_lfo.h */,
-				22F20A240B953464008211F4 /* tt_limiter.h */,
-				22F20A250B953464008211F4 /* tt_lowpass_fourpole.h */,
-				22F20A260B953464008211F4 /* tt_lowpass_onepole.h */,
-				22F20A270B953464008211F4 /* tt_lowpass_twopole.h */,
-				22F20A280B953464008211F4 /* tt_mixer_mono.h */,
-				22F20A290B953464008211F4 /* tt_modulo.h */,
-				22F20A2A0B953464008211F4 /* tt_multiply.h */,
-				22F20A2B0B953464008211F4 /* tt_multitap.h */,
-				22F20A2C0B953464008211F4 /* tt_noise.h */,
-				22F20A2D0B953464008211F4 /* tt_offset.h */,
-				22F20A2E0B953464008211F4 /* tt_onewrap.h */,
-				22F20A2F0B953464008211F4 /* tt_overdrive.h */,
-				22F20A300B953464008211F4 /* tt_pan.h */,
-				22F20A310B953464008211F4 /* tt_phasor.h */,
-				22F20A320B953464008211F4 /* tt_polar.h */,
-				22F20A330B953464008211F4 /* tt_procrastinate.h */,
-				22F20A340B953464008211F4 /* tt_pulsesub.h */,
-				22F20A350B953464008211F4 /* tt_ramp.h */,
-				22F20A360B953464008211F4 /* tt_rms.h */,
-				22F20A370B953464008211F4 /* tt_shift.h */,
-				22F20A380B953464008211F4 /* tt_subtract.h */,
-				22F20A390B953464008211F4 /* tt_svf.h */,
-				22F20A3A0B953464008211F4 /* tt_switch.h */,
-				22F20A3B0B953464008211F4 /* tt_upsample.h */,
-				22F20A3C0B953464008211F4 /* tt_verb.h */,
-				22F20A3D0B953464008211F4 /* tt_wavetable.h */,
-				22F20A3E0B953464008211F4 /* tt_zerox.h */,
-			);
-			name = units;
-			path = ../../includes/units;
-			sourceTree = SOURCE_ROOT;
-		};
-		22F20ABD0B95370D008211F4 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				22F209EC0B9533B2008211F4 /* tt_audio_base.cpp */,
-				22F209ED0B9533B2008211F4 /* tt_audio_signal.cpp */,
-				22F209EE0B9533B2008211F4 /* tt_base.cpp */,
-				22F209EF0B9533B2008211F4 /* tt_buffer.cpp */,
-			);
-			name = core;
-			sourceTree = "<group>";
-		};
-		22F20AC20B953740008211F4 /* units */ = {
-			isa = PBXGroup;
-			children = (
-				22F547C60C975EEC006D3016 /* tt_copy.cpp */,
-				22F20ACE0B953740008211F4 /* tt_dcblock.cpp */,
-			);
-			name = units;
-			path = ../../source/units;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -346,71 +128,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22F20A3F0B953464008211F4 /* tt_value.h in Headers */,
-				22F20A400B953464008211F4 /* tt_audio_base.h in Headers */,
-				22F20A410B953464008211F4 /* tt_audio_signal.h in Headers */,
-				22F20A430B953464008211F4 /* tt_base.h in Headers */,
-				22F20A440B953464008211F4 /* tt_buffer.h in Headers */,
-				22F20A450B953464008211F4 /* tt_max_prefix.h in Headers */,
-				22F20A460B953464008211F4 /* tt_add.h in Headers */,
-				22F20A470B953464008211F4 /* tt_adsr.h in Headers */,
-				22F20A480B953464008211F4 /* tt_allpass.h in Headers */,
-				22F20A490B953464008211F4 /* tt_average.h in Headers */,
-				22F20A4A0B953464008211F4 /* tt_buffer_play.h in Headers */,
-				22F20A4B0B953464008211F4 /* tt_buffer_record.h in Headers */,
-				22F20A4C0B953464008211F4 /* tt_buffer_window.h in Headers */,
-				22F20A4D0B953464008211F4 /* tt_clip.h in Headers */,
-				22F20A4E0B953464008211F4 /* tt_comb.h in Headers */,
-				22F20A4F0B953464008211F4 /* tt_copy.h in Headers */,
-				22F20A500B953464008211F4 /* tt_crossfade.h in Headers */,
-				22F20A510B953464008211F4 /* tt_dcblock.h in Headers */,
-				22F20A520B953464008211F4 /* tt_degrade.h in Headers */,
-				22F20A530B953464008211F4 /* tt_delay.h in Headers */,
-				22F20A540B953464008211F4 /* tt_downsample.h in Headers */,
-				22F20A550B953464008211F4 /* tt_fivecomb.h in Headers */,
-				22F20A560B953464008211F4 /* tt_gain.h in Headers */,
-				22F20A570B953464008211F4 /* tt_lfo.h in Headers */,
-				22F20A580B953464008211F4 /* tt_limiter.h in Headers */,
-				22F20A590B953464008211F4 /* tt_lowpass_fourpole.h in Headers */,
-				22F20A5A0B953464008211F4 /* tt_lowpass_onepole.h in Headers */,
-				22F20A5B0B953464008211F4 /* tt_lowpass_twopole.h in Headers */,
-				22F20A5C0B953464008211F4 /* tt_mixer_mono.h in Headers */,
-				22F20A5D0B953464008211F4 /* tt_modulo.h in Headers */,
-				22F20A5E0B953464008211F4 /* tt_multiply.h in Headers */,
-				22F20A5F0B953464008211F4 /* tt_multitap.h in Headers */,
-				22F20A600B953464008211F4 /* tt_noise.h in Headers */,
-				22F20A610B953464008211F4 /* tt_offset.h in Headers */,
-				22F20A620B953464008211F4 /* tt_onewrap.h in Headers */,
-				22F20A630B953464008211F4 /* tt_overdrive.h in Headers */,
-				22F20A640B953464008211F4 /* tt_pan.h in Headers */,
-				22F20A650B953464008211F4 /* tt_phasor.h in Headers */,
-				22F20A660B953464008211F4 /* tt_polar.h in Headers */,
-				22F20A670B953464008211F4 /* tt_procrastinate.h in Headers */,
-				22F20A680B953464008211F4 /* tt_pulsesub.h in Headers */,
-				22F20A690B953464008211F4 /* tt_ramp.h in Headers */,
-				22F20A6A0B953464008211F4 /* tt_rms.h in Headers */,
-				22F20A6B0B953464008211F4 /* tt_shift.h in Headers */,
-				22F20A6C0B953464008211F4 /* tt_subtract.h in Headers */,
-				22F20A6D0B953464008211F4 /* tt_svf.h in Headers */,
-				22F20A6E0B953464008211F4 /* tt_switch.h in Headers */,
-				22F20A6F0B953464008211F4 /* tt_upsample.h in Headers */,
-				22F20A700B953464008211F4 /* tt_verb.h in Headers */,
-				22F20A710B953464008211F4 /* tt_wavetable.h in Headers */,
-				22F20A720B953464008211F4 /* tt_zerox.h in Headers */,
-				22CA3C520BAB1534006A9BAC /* tt_audio_bundle.h in Headers */,
-				224DFE030BE9621600FC5429 /* tt_list_element.h in Headers */,
-				224DFE040BE9621600FC5429 /* tt_list.h in Headers */,
-				224DFE050BE9621600FC5429 /* tt_value_named.h in Headers */,
-				22F547A00C975CE1006D3016 /* tt_max_prefix.h in Headers */,
+				229825070CB9C26C00919B67 /* TTDCBlock.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D01CCC60486CAD60068D4B7 /* tt.dcblock~ */ = {
+		8D01CCC60486CAD60068D4B7 /* MaxObject External */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "tt.dcblock~" */;
+			buildConfigurationList = 0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "MaxObject External" */;
 			buildPhases = (
 				8D01CCC70486CAD60068D4B7 /* Headers */,
 				8D01CCC90486CAD60068D4B7 /* Resources */,
@@ -423,10 +150,10 @@
 			);
 			dependencies = (
 			);
-			name = "tt.dcblock~";
+			name = "MaxObject External";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = MSPExternal;
-			productReference = 542ED84F09C02A0000DBC7EB /* tt.dcblock~.mxo */;
+			productReference = 542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -439,7 +166,7 @@
 			mainGroup = 089C166AFE841209C02AAC07 /* abs~ */;
 			projectDirPath = "";
 			targets = (
-				8D01CCC60486CAD60068D4B7 /* tt.dcblock~ */,
+				8D01CCC60486CAD60068D4B7 /* MaxObject External */,
 			);
 		};
 /* End PBXProject section */
@@ -486,14 +213,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A5AD6109FD79BC00FBA44E /* dcblock_tilde.cpp in Sources */,
-				22F2072B0B946D56008211F4 /* commonsyms.c in Sources */,
-				22F209F00B9533B2008211F4 /* tt_audio_base.cpp in Sources */,
-				22F209F10B9533B2008211F4 /* tt_audio_signal.cpp in Sources */,
-				22F209F20B9533B2008211F4 /* tt_base.cpp in Sources */,
-				22F209F30B9533B2008211F4 /* tt_buffer.cpp in Sources */,
-				22F20AFB0B953741008211F4 /* tt_dcblock.cpp in Sources */,
-				22F547C70C975EEC006D3016 /* tt_copy.cpp in Sources */,
+				223F3EE60CB7D4C900E43AC1 /* TTAudioObject.m in Sources */,
+				223F3EE70CB7D4C900E43AC1 /* TTAudioSignal.m in Sources */,
+				223F3EE80CB7D4C900E43AC1 /* TTObject.m in Sources */,
+				223F406B0CB7DC4500E43AC1 /* main.m in Sources */,
+				229825090CB9C27800919B67 /* TTDCBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,10 +239,10 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/tt_max_prefix.h";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/TTMaxPrefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -530,18 +254,19 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
+					/Library/Frameworks/MaxObject.framework/Headers,
 				);
 				INFOPLIST_FILE = "../common/Externs-Info.plist";
 				INSTALL_PATH = "/../../Build_Mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				LINKER_DISPLAYS_MANGLED_NAMES = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "tt.dcblock~";
+				PRODUCT_NAME = "tt.degrade~";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -573,9 +298,9 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/tt_max_prefix.h";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/TTMaxPrefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -587,17 +312,18 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
+					/Library/Frameworks/MaxObject.framework/Headers,
 				);
 				INFOPLIST_FILE = "../common/Externs-Info.plist";
 				INSTALL_PATH = "/../../Build_Mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				LINKER_DISPLAYS_MANGLED_NAMES = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "tt.dcblock~";
+				PRODUCT_NAME = "tt.degrade~";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -627,7 +353,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "tt.dcblock~" */ = {
+		0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "MaxObject External" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FFBB95909731BB700D78707 /* Development */,

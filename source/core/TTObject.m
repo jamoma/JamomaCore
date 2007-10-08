@@ -5,6 +5,10 @@
 	
 #import "TTObject.h"
 
+/****************************************************************************************************/
+// Constants
+const double TTAntiDenormalValue = 1e-18;		// Used by the anti_denormal functions
+
 
 // TODO: evaluate how to handle some of these utilities.  At the very least they should be in a different file.
 
@@ -33,6 +37,18 @@ long ttclip(long value, long low_bound, long high_bound)
 	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
 	return value;
 }
+
+
+// Attempt to knock out denormalized floats; TT_INLINEd here for speed
+double ttantidenormal(double value)
+{
+#ifndef TT_DISABLE_DENORMAL_FIX		// Define this to test code without denormal fixing
+	value += TTAntiDenormalValue;
+	value -= TTAntiDenormalValue;
+#endif
+	return(value);
+}
+
 
 
 @implementation TTObject

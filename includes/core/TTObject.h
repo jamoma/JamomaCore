@@ -45,11 +45,15 @@ enum{
 
 
 /****************************************************************************************************/
+// Constants
+extern const double TTAntiDenormalValue;		// Used by the anti_denormal functions
 
+
+/****************************************************************************************************/
 
 // TODO: evaluate how to handle some of these utilities.  At the very least they should be in a different file.
-long ttclip(long value, long low_bound, long high_bound);
-
+long	ttclip(long value, long low_bound, long high_bound);
+double	ttantidenormal(double value);
 
 
 /****************************************************************************************************/
