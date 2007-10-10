@@ -8,7 +8,7 @@ LOCAL_DEPS = -MM
 ALL_DEPS = -M
 DEP_CHECK_TYPE = ${ALL_DEPS}
 
-WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DTT_INCLUDE_CPP
+WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DTT_INCLUDE_CPP -DWIN_EXT_VERSION
 
 MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
    -I/maxmspsdk/c74support/msp-includes \
@@ -17,6 +17,10 @@ MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
    -L/maxmspsdk/c74support/common
+
+
+JITTER_INCLUDES = -I/maxmspsdk/c74support/jit-includes
+JITTER_LIB_INCLUDES = -L/maxmspsdk/c74support/jit-includes
 
 COMMON_INCLUDES = -I../common
 RAMPLIB_INCLUDES = -I../../ramplib/ramplib_api
@@ -44,6 +48,7 @@ DEBUG_CXXFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygw
 INSTALL_DIR = ../../Jamoma/library/externals/windows
 
 MAX_LIBS = -lMaxAPI -lMaxAudio
+JITTER_LIB = -ljitlib
 
 ifeq "$(MAKECMDGOALS)" "release"
 	CFLAGS ?= $(RELEASE_CFLAGS)
