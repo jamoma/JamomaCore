@@ -19,7 +19,7 @@
 include infra/common.mk
 
 
-release:  
+release: ramplib_release
 	@echo "Making release..."
 	@${MAKE} -C common release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.change release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
@@ -52,7 +52,7 @@ release:
 
 	
 
-debug:  
+debug: ramplib_debug 
 	@echo "Making debug..."
 	@${MAKE} -C common debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.change debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
@@ -82,6 +82,15 @@ debug:
 	@${MAKE} -C jcom.send debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.stats debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.sum% debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
+
+
+ramplib_release:
+	@${MAKE} -C ../ramplib release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+
+
+
+ramplib_debug:
+	@${MAKE} -C ../ramplib debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 
 
 clean:
