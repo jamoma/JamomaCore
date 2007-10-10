@@ -74,6 +74,15 @@ JCOM_OUT_OBJS = ${JCOM_OUT_SOURCE:.cpp=.o}
 JCOM_PARAMETER_SOURCE = jcom.parameter.cpp jcom.parameter.clip.cpp jcom.parameter.def
 JCOM_PARAMETER_OBJS = ${JCOM_PARAMETER_SOURCE:.cpp=.o}
 
+JCOM_PASS_SOURCE = jcom.pass.cpp jcom.pass.def
+JCOM_PASS_OBJS = ${JCOM_PASS_SOURCE:.cpp=.o}
+
+JCOM_RAMP_SOURCE = jcom.ramp.cpp ../../ramplib/ramplib_api/RampUnitWrap.cpp jcom.ramp.def
+JCOM_RAMP_OBJS = ${JCOM_RAMP_SOURCE:.cpp=.o}
+
+JCOM_RECEIVE_SOURCE = jcom.receive.cpp jcom.receivemaster.cpp jcom.receive.def
+JCOM_RECEIVE_OBJS = ${JCOM_RECEIVE_SOURCE:.cpp=.o}
+
 JCOM_ROUTE_SOURCE = jcom.route.cpp jcom.route.def
 JCOM_ROUTE_OBJS = ${JCOM_ROUTE_SOURCE:.cpp=.o}
 
