@@ -11,7 +11,7 @@ JCOM_OUT~_OUTPUT = jcom.out~.mxe
 OUTPUT = $(JCOM_OUT_OUTPUT)
 
 JCOM_OUT_LINK_INPUT = $(OBJS) jcom.out.def $(CORE_OBJS)
-JCOM_OUT~_LINK_INPUT = jcom.out~.o jcom.out~.def $(CORE_OBJS)
+JCOM_OUT~_LINK_INPUT = jcom.out~.o jcom.out~.def $(JCOM_CORE_AUDIO_OBJS)
 
 EXTRA_CXXFLAGS = ${LOCAL_INCLUDES}
 
