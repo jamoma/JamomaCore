@@ -13,6 +13,7 @@ MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
 COMMON_SOURCE = jcom.core.cpp /maxmspsdk/c74support/max-includes/common/commonsyms.c
 JCOM_CORE_OBJS = jcom.core.o commonsyms.o
 CORE_OBJS = ../common/jcom.core.o ../common/commonsyms.o
+JCOM_CORE_AUDIO_OBJS = ../common/jcom.core~.o ../common/commonsyms.o
 
 TT_SOURCE = ../../../Externals_3rd_Party/ttblue/dsplib/tt_audio_base.cpp
 TT_CORE_OBJS = tt_audio_base.o
@@ -49,7 +50,7 @@ JCOM_HUB_OBJS = ${JCOM_HUB_SOURCE:.cpp=.o}
 JCOM_IN_SOURCE = jcom.in.cpp jcom.in.def
 JCOM_IN_OBJS = ${JCOM_IN_SOURCE:.cpp=.o}
 
-JCOM_IN~_SOURCE = jcom.in.cpp jcom.in~.def
+JCOM_IN~_SOURCE = jcom.in~.cpp jcom.in~.def
 JCOM_IN~_OBJS = ${JCOM_IN~_SOURCE:.cpp=.o}
 
 
