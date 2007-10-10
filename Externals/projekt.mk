@@ -50,7 +50,7 @@ JCOM_HUB_OBJS = ${JCOM_HUB_SOURCE:.cpp=.o}
 JCOM_IN_SOURCE = jcom.in.cpp jcom.in.def
 JCOM_IN_OBJS = ${JCOM_IN_SOURCE:.cpp=.o}
 
-JCOM_IN~_SOURCE = jcom.in~.cpp jcom.in~.def
+JCOM_IN~_SOURCE = jcom.in.cpp jcom.in~.def
 JCOM_IN~_OBJS = ${JCOM_IN~_SOURCE:.cpp=.o}
 
 
@@ -75,6 +75,9 @@ JCOM_OUT_OBJS = ${JCOM_OUT_SOURCE:.cpp=.o}
 JCOM_PARAMETER_SOURCE = jcom.parameter.cpp jcom.parameter.clip.cpp jcom.parameter.def
 JCOM_PARAMETER_OBJS = ${JCOM_PARAMETER_SOURCE:.cpp=.o}
 
+JCOM_MESSAGE_SOURCE = jcom.parameter.clip.cpp jcom.message.def
+JCOM_MESSAGE_OBJS = ${JCOM_MESSAGE_SOURCE:.cpp=.o}
+
 JCOM_PASS_SOURCE = jcom.pass.cpp jcom.pass.def
 JCOM_PASS_OBJS = ${JCOM_PASS_SOURCE:.cpp=.o}
 
@@ -86,6 +89,15 @@ JCOM_RECEIVE_OBJS = ${JCOM_RECEIVE_SOURCE:.cpp=.o}
 
 JCOM_ROUTE_SOURCE = jcom.route.cpp jcom.route.def
 JCOM_ROUTE_OBJS = ${JCOM_ROUTE_SOURCE:.cpp=.o}
+
+JCOM_RETURN_SOURCE = jcom.return.cpp jcom.return.def
+JCOM_RETURN_OBJS = ${JCOM_RETURN_SOURCE:.cpp=.o}
+
+JCOM_REMOTE_SOURCE = jcom.remote.cpp jcom.remote.def
+JCOM_REMOTE_OBJS = ${JCOM_REMOTE_SOURCE:.cpp=.o}
+
+JCOM_ROUND_SOURCE = jcom.round.cpp jcom.round.def
+JCOM_ROUND_OBJS = ${JCOM_ROUND_SOURCE:.cpp=.o}
 
 JCOM_SATURATION~_SOURCE = jcom.saturation~.cpp jcom.saturation~.def
 JCOM_SATURATION~_OBJS = ${JCOM_SATURATION~_SOURCE:.cpp=.o}
@@ -99,6 +111,24 @@ JCOM_STATS_OBJS = ${JCOM_STATS_SOURCE:.cpp=.o}
 JCOM_SUM%_SOURCE = jcom.sum%.cpp jcom.sum%.def
 JCOM_SUM%_OBJS = ${JCOM_SUM%_SOURCE:.cpp=.o}
 
+JCOM_TB_BITS_SOURCE = jcom.teabox.bits~.cpp jcom.teabox.bits~.def
+JCOM_TB_BITS_OBJS = ${JCOM_TB_BITS_SOURCE:.cpp=.o}
+
+JCOM_TB_COUNT_SOURCE = jcom.teabox.count~.cpp jcom.teabox.count~.def
+JCOM_TB_COUNT_OBJS = ${JCOM_TB_COUNT_SOURCE:.cpp=.o}
+
+JCOM_TEABOX_SOURCE = jcom.teabox~.cpp jcom.teabox~.def
+JCOM_TEABOX_OBJS = ${JCOM_TEABOX_SOURCE:.cpp=.o}
+
+JCOM_VELOCITY_SOURCE = jcom.velocity.cpp jcom.velocity.def
+JCOM_VELOCITY_OBJS = ${JCOM_VELOCITY_SOURCE:.cpp=.o}
+
+JCOM_XFADE~_SOURCE = jcom.xfade~.cpp jcom.xfade~.def
+JCOM_XFADE~_OBJS = ${JCOM_XFADE~_SOURCE:.cpp=.o}
+
+JCOM_ZEROX~_SOURCE = jcom.zerox~.cpp jcom.zerox~.def
+JCOM_ZEROX~_OBJS = ${JCOM_ZEROX~_SOURCE:.cpp=.o}
+
 
 ALL_OBJECTS = ${JCOM_CHANGE_OBJS} ${JCOM_COLORCHANGE_OBJS} ${JCOM_CUBIC_INTERPOLATE_OBJS} \
 			  ${JCOM_DELTA_OBJS} ${JCOM_DELTA2_OBJS} ${JCOM_GAIN~_OBJS} ${JCOM_GANG_OBJS} \
@@ -106,5 +136,5 @@ ALL_OBJECTS = ${JCOM_CHANGE_OBJS} ${JCOM_COLORCHANGE_OBJS} ${JCOM_CUBIC_INTERPOL
 			  ${JCOM_METER~_OBJS} ${JCOM_MKDIR_OBJS} ${JCOM_OSCROUTE_OBJS} ${JCOM_OUT_OBJS} \
 			  ${JCOM_PARAMETER_OBJS} ${JCOM_ROUTE_OBJS} \
 			  ${JCOM_SATURATION~_OBJS} ${JCOM_SEND_OBJS} ${JCOM_STATS_OBJS} \
-			  ${JCOM_SUM%_SOURCE}
+			  ${JCOM_SUM%_OBJS}
 
