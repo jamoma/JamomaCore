@@ -1,6 +1,6 @@
 //	TTAudioObject
 //	Base class for audio objects in TTBlue 
-//	Copyright Â© 2007 by Timothy A. Place
+//	Copyright © 2007 by Timothy A. Place
 //	License: GNU LGPL
 	
 #import "TTAudioObject.h"
@@ -12,7 +12,7 @@
 - (TTErr) srAttributeSetLongValue:(long)value
 {
 	if(value != sr){
-		srAttribute = value;
+		sr = value;
 		srr = 1.0 / value;
 		srm = (double)sr * 0.001;
 	}

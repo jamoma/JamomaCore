@@ -30,7 +30,7 @@
 	@public
 
 	@protected
-	long	srAttribute;
+	long	sr;
 	double	srr;
 	double	srm;
 		
