@@ -10,10 +10,13 @@
 
 - (id)init
 {
-	self = [super init];
-	if(self){
-		[self clear];
-	}
+	[super init];
+	
+	// TODO: Stuff...
+	
+	
+	
+	[self clear];
 	return self;
 }	
 

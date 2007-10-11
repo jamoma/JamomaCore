@@ -10,12 +10,11 @@
 
 - (id)init
 {
-	self = [super init];
-	if(self){
-		positionAttribute = 0.5;
+	[super init];
+	[self setFloat:0.5 forKey:@"positionAttribute"]
 		shapeAttribute = k_shape_equalpower;
 		set_attr(k_mode, k_mode_lookup);
-	}
+
 	return self;
 }	
 

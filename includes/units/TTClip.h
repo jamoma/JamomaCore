@@ -7,13 +7,14 @@
 
 
 @interface TTClipObject : TTAudioObject 
-	{
-		@public
-			TTSampleValue	highLimitAttribute;
-			TTSampleValue	lowLimitAttribute;
-	}
+{
+	@public
+		TTSampleValue	highLimitAttribute;
+		TTSampleValue	lowLimitAttribute;
+}
 
-	- (id)		init;								// Constructor
-	- (void)	dealloc;							// Destructor
-	- (TTErr)	processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out;
+- (id)		init;								// Constructor
+- (void)	dealloc;							// Destructor
+- (TTErr)	processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out;
+
 @end

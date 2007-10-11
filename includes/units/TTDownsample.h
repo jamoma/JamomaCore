@@ -9,7 +9,7 @@
 @interface TTDownsample : TTAudioObject
 {
 	@public		
-	long		factorAttribute;
+		long		factorAttribute;
 }
 
 - (id)		init;								// Constructor

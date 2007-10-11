@@ -10,23 +10,19 @@
 
 - (id) init
 {
-	self = [self init initWithSizeInSamples:256];
-	return self;
+	return [self init initWithSizeInSamples:256];
 }	
 
 - (id) initWithSizeInMS:(float)max_ms
 {
 	long numSamples = TTMSToSamples(max_ms);				// Uses global sample rate for calculation
-	self = [self init initWithSizeInSamples:numSamples];
-	return self;
+	return [self init initWithSizeInSamples:numSamples];
 }
 
 - (id) initWithSizeInSamples:(long)max_samples
 {
-	self = [super init];
-	if(self){
-		[self setupBuffersForNumSamples:max_samples];
-	}
+	[super init];
+	[self setupBuffersForNumSamples:max_samples];
 	return self;
 }
 

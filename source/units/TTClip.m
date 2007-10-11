@@ -10,13 +10,11 @@
 
 - (id)init
 {
-	self = [super init];
-	if(self){
-		lowLimitAttribute = -1.0;
-		highLimitAttribute = 1.0;
-	}
+	[super init];
+	[self setFloat:-1.0 forKey:@"lowLimitAttribute"];
+	[self setFloat:1.0 forKey:@"highLimitAttribute"];
 	return self;
-}	
+}
 
 
 - (void) dealloc

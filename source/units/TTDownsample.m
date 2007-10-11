@@ -10,12 +10,10 @@
 
 - (id)init
 {
-	self = [super init];
-	if(self){
-		factorAttribute = 1;
-	}
+	[super init];
+	[self setLong:1 forKey:@"factorAttribute"];
 	return self;
-}	
+}
 
 
 - (void) dealloc

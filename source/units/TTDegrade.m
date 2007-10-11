@@ -1,6 +1,6 @@
 //	TTDegradeObject
 //	sample-rate and bit-depth reduction 
-//	Copyright Â© 2007 by Timothy A. Place
+//	Copyright © 2007 by Timothy A. Place
 //	License: GNU LGPL
 
 #import "TTDegrade.h"
@@ -10,13 +10,12 @@
 
 - (id)init
 {
-	self = [super init];
-	if(self){
-		bitdepthAttribute = 24;
-		srRatioAttribute = 1.0;
-		accumulator = 0.0;
-		output = 0.0;
-	}
+	[super init];
+	[self setLong:24 forKey:@"bitdepthAttribute"];
+	[self setFloat:1.0 forKey:@"srRatioAttribute"];
+
+	accumulator = 0.0;
+	output = 0.0;
 	return self;
 }	
 

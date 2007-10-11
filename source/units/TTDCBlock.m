@@ -10,10 +10,8 @@
 
 - (id)init
 {
-	self = [super init];
-	if(self){
-		[self clear];
-	}
+	[super init];
+	[self clear];
 	return self;
 }	
 
