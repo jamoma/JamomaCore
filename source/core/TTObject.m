@@ -53,6 +53,15 @@ double ttantidenormal(double value)
 
 @implementation TTObject
 
+// NOTE: this method is also mirrored in the MaxObject framework
+- (void) setLong:(long)value forKey:(NSString *)key
+{
+	[self setValue:[NSNumber numberWithLong:value] forKey:key];
+}
 
+- setFloat:(float)value forKey:(NSString *)key;
+{
+	[self setValue:[NSNumber numberWithFloat:value] forKey:key];
+}
 
 @end
