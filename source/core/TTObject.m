@@ -59,9 +59,22 @@ double ttantidenormal(double value)
 	[self setValue:[NSNumber numberWithLong:value] forKey:key];
 }
 
-- setFloat:(float)value forKey:(NSString *)key;
+- (void) setFloat:(float)value forKey:(NSString *)key
 {
 	[self setValue:[NSNumber numberWithFloat:value] forKey:key];
 }
+
+// TODO: These next two!  They are written based on theory alone...
+
+- (long) getLongForKey:(NSString *)key
+{
+	return [[self getValueForKey:key] longValue];
+}
+
+- (float) getFloatForKey:(NSString *)key
+{
+	return [[self getValueForKey:key] floatValue];
+}
+
 
 @end
