@@ -38,7 +38,7 @@
 }
 
 
-- (TTErr) srAttributeSetLongValue:(long)value
+- (void) setSr:(long)value
 {
 	if(value != sr){
 		[super srAttributeSetLongValue:value];

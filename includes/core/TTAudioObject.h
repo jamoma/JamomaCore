@@ -38,6 +38,6 @@
 		
 }
 
-- (TTErr) srAttributeSetLongValue:(long)value;
+- (void) setSr:(long)value;
 
 @end

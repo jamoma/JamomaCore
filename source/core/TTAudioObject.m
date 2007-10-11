@@ -9,14 +9,13 @@
 @implementation TTAudioObject
 
 
-- (TTErr) srAttributeSetLongValue:(long)value
+- (void) setSr:(long)value
 {
 	if(value != sr){
 		sr = value;
 		srr = 1.0 / value;
 		srm = (double)sr * 0.001;
 	}
-	return TT_ERR_NONE;
 }
 
 

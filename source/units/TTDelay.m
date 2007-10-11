@@ -86,7 +86,7 @@
 #pragma mark Attributes
 
 
-- (TTErr) srAttributeSetLongValue:(long)value
+- (void) setSr:(long)value
 {
 	if(value != sr){
 		long	numsamples;
