@@ -139,7 +139,9 @@ double	ttantidenormal(double value);
 	@public
 }
 
-- setLong:(long)value forKey:(NSString *)key;
-- setFloat:(float)value forKey:(NSString *)key;
+- (void)	setLong:		(long)value			forKey:(NSString *)key;
+- (long)	longForKey:		(NSString *)key
+- (void)	setFloat:		(float)value		forKey:(NSString *)key;
+- (float)	floatForKey:	(NSString *)key
 
 @end

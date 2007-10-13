@@ -66,12 +66,12 @@ double ttantidenormal(double value)
 
 // TODO: These next two!  They are written based on theory alone...
 
-- (long) getLongForKey:(NSString *)key
+- (long) longForKey:(NSString *)key
 {
 	return [[self getValueForKey:key] longValue];
 }
 
-- (float) getFloatForKey:(NSString *)key
+- (float) floatForKey:(NSString *)key
 {
 	return [[self getValueForKey:key] floatValue];
 }
