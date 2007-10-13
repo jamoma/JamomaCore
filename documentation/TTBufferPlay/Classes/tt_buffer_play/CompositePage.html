@@ -1,19 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
-<html>
-<head>
-<title>tt_buffer_play</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="HeaderDoc">
-<style type="text/css"><!--a:link {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:active {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}h4 {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: tiny; font-weight: bold;}body {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: 10pt;}--></style>
-</head>
-<body bgcolor="#ffffff">
-<h1><font face="Geneva,Arial,Helvtica">tt_buffer_play</font></h1>
-<br><a name="//apple_ref/doc/class/tt_buffer_play" title="tt_buffer_play"></a><h2>Abstract</h2>
-<p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+    "http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
+<html><head>
+    <title>tt_buffer_play</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta name="generator" content="HeaderDoc">
+<style type="text/css"><!--a:link {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:active {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}h4 {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: tiny; font-weight: bold;}body {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: 10pt;}--></style></head><body bgcolor="#ffffff">
+<h1><font face="Geneva,Arial,Helvtica">tt_buffer_play</font></h1><br>
+<a name="//apple_ref/doc/class/tt_buffer_play" title="tt_buffer_play"></a>
+<h2>Abstract</h2>
 	The required base-class from which all TTBlue objects must inherit.
-<b>Superclass:</b> <!-- a logicalPath="//apple_ref/cpp/cl/tt_audio_base //apple_ref/cpp/cl/tt_audio_base //apple_ref/cpp/tdef/tt_audio_base //apple_ref/cpp/tag/tt_audio_base //apple_ref/cpp/econst/tt_audio_base //apple_ref/cpp/struct/tt_audio_base //apple_ref/cpp/data/tt_audio_base //apple_ref/cpp/clconst/tt_audio_base //apple_ref/cpp/instm/tt_audio_base //apple_ref/cpp/clm/tt_audio_base //apple_ref/cpp/intfcm/tt_audio_base //apple_ref/cpp/func/tt_audio_base //apple_ref/cpp/ftmplt/tt_audio_base //apple_ref/cpp/defn/tt_audio_base //apple_ref/cpp/macro/tt_audio_base" -->tt_audio_base<!-- /a --><br></p>
+<b>Superclass:</b> <!-- a logicalPath="//apple_ref/cpp/cl/tt_audio_base //apple_ref/cpp/cl/tt_audio_base //apple_ref/cpp/tdef/tt_audio_base //apple_ref/cpp/tag/tt_audio_base //apple_ref/cpp/econst/tt_audio_base //apple_ref/cpp/struct/tt_audio_base //apple_ref/cpp/data/tt_audio_base //apple_ref/cpp/clconst/tt_audio_base //apple_ref/cpp/instm/tt_audio_base //apple_ref/cpp/clm/tt_audio_base //apple_ref/cpp/intfcm/tt_audio_base //apple_ref/cpp/func/tt_audio_base //apple_ref/cpp/ftmplt/tt_audio_base //apple_ref/cpp/defn/tt_audio_base //apple_ref/cpp/macro/tt_audio_base" -->tt_audio_base<!-- /a --><br>
 <h2>Discussion</h2>
-<p>
  This object is the primary base-class for all TTBlue objects.  It does not 
 define any core audio functionality.  For audio functionality, the TTAudioObject
 (itself a subclass of TTObject) should be subclassed.
@@ -22,13 +19,10 @@ By default, TTObject inherits directly from NSObject.  If, for whatever reason, 
 wish for TTObject to inherit from a different base class, then define TTOBJECT_BASE_CLASS
 in the preprocessor before TTObject.h is processed, and a different base class will be used.
 For instance, this is done in the examples for compiling MaxMSP externals.
-<br><br><br></p>
-<hr>
-<br><h2>Member Functions</h2>
+<br><br><br>
+<hr><br><h2>Member Functions</h2>
 <hr>
 <h2>Member Data</h2>
 <hr>
-<p>(Last Updated October 08, 2007)
-</p>
-</body>
-</html>
+<p>(Last Updated October 13, 2007)
+</p></body></html>

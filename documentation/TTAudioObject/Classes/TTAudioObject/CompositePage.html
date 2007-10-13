@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+    "http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
+<html><head>
+    <title>TTAudioObject</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta name="generator" content="HeaderDoc">
+<style type="text/css"><!--a:link {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:active {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}h4 {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: tiny; font-weight: bold;}body {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: 10pt;}--></style></head><body bgcolor="#ffffff">
+<h1><font face="Geneva,Arial,Helvtica">TTAudioObject</font></h1><br>
+<a name="//apple_ref/doc/class/TTAudioObject" title="TTAudioObject"></a>
+<h2>Abstract</h2>
+	The required base-class from which all TTBlue audio processing objects must inherit.
+<h2>Discussion</h2>
+ This object is the base-class for all TTBlue audio processing objects.  It includes 
+audio-specific functionality common to many/all audio processing contexts.  This includes
+maintaining an object's sample-rate (which may differ from the global sample-rate).
+<hr><br><h2>Methods</h2>
+<a name="HeaderDoc_methods"></a>
+<dl>
+<dt><tt><a href="CompositePage.html#//apple_ref/occ/instm/TTAudioObject/setSr:" target="_top">-setSr:</a></tt></dt>
+<dd>The accessor for setting the sample-rate.
+</dd>
+</dl>
+<hr><!-- headerDoc=instm;  uid=//apple_ref/occ/instm/TTAudioObject/setSr:;  name=TTAudioObject::setSr: -->
+<a name="//apple_ref/occ/instm/TTAudioObject/setSr:"></a>
+<table border="0"  cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5"><h3><a name="setSr:">setSr:</a></h3>
+</td></tr></table><hr><dl></dl><p>The accessor for setting the sample-rate.
+</p>
+<blockquote><pre>- (<!-- a logicalPath="//apple_ref/occ/cl/void //apple_ref/occ/cl/void //apple_ref/occ/tdef/void //apple_ref/occ/tag/void //apple_ref/occ/econst/void //apple_ref/occ/struct/void //apple_ref/occ/clconst/void" --><font class="type">void</font><!-- /a -->) <!-- a logicalPath="//apple_ref/occ/instm/setSr //apple_ref/occ/clm/setSr //apple_ref/occ/intfcm/setSr //apple_ref/occ/func/setSr //apple_ref/occ/ftmplt/setSr //apple_ref/occ/defn/setSr //apple_ref/occ/macro/setSr" --><font class="function">setSr</font><!-- /a -->:(<!-- a logicalPath="//apple_ref/occ/cl/long //apple_ref/occ/cl/long //apple_ref/occ/tdef/long //apple_ref/occ/tag/long //apple_ref/occ/econst/long //apple_ref/occ/struct/long //apple_ref/occ/clconst/long" --><font class="type">long</font><!-- /a -->)<font class="param">value</font>;</pre></blockquote>
+<h5><font face="Lucida Grande,Helvetica,Arial">Parameter Descriptions</font></h5>
+<blockquote>
+<dl>
+<dt><code><i>value</i></code></dt><dd>The sample-rate in hertz.</dd>
+</dl>
+</blockquote>
+<dl><h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5><p>This method can be called directly, or it can be called by using the KVC setLong:forKey: method.
+</p>
+</dl>
+<h2>Variables</h2>
+<hr><!-- headerDoc=data;  uid=//apple_ref/occ/data/TTAudioObject/sr;  name=TTAudioObject::sr -->
+<a name="//apple_ref/occ/data/TTAudioObject/sr"></a>
+<table border="0"  cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5"><h3><a name="sr">sr</a></h3>
+</td></tr></table><hr><dl></dl><blockquote><pre><!-- a logicalPath="//apple_ref/occ/cl/long //apple_ref/occ/cl/long //apple_ref/occ/tdef/long //apple_ref/occ/tag/long //apple_ref/occ/econst/long //apple_ref/occ/struct/long //apple_ref/occ/clconst/long" --><font class="type">long</font><!-- /a --> <!-- a logicalPath="//apple_ref/occ/cl/sr //apple_ref/occ/cl/sr //apple_ref/occ/tdef/sr //apple_ref/occ/tag/sr //apple_ref/occ/econst/sr //apple_ref/occ/struct/sr //apple_ref/occ/clconst/sr" --><font class="type">sr</font><!-- /a --> </pre></blockquote>
+<dl><h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5><p>The sample-rate for this object in hertz.</p>
+</dl>
+<hr><!-- headerDoc=data;  uid=//apple_ref/occ/data/TTAudioObject/srm;  name=TTAudioObject::srm -->
+<a name="//apple_ref/occ/data/TTAudioObject/srm"></a>
+<table border="0"  cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5"><h3><a name="srm">srm</a></h3>
+</td></tr></table><hr><dl></dl><b>See Also:</b><br><blockquote><dl>
+<dt><!-- a logicalPath="//apple_ref/occ/data/TTAudioObject/srr" -->srr<!-- /a --></dt><dd></dd></dl></blockquote>
+<blockquote><pre><!-- a logicalPath="//apple_ref/occ/cl/double //apple_ref/occ/cl/double //apple_ref/occ/tdef/double //apple_ref/occ/tag/double //apple_ref/occ/econst/double //apple_ref/occ/struct/double //apple_ref/occ/clconst/double" --><font class="type">double</font><!-- /a --> <font class="var">srm</font>;</pre></blockquote>
+<dl><h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5><p>The sample-rate for this object in samples/ms. In other words, sr/1000. This is set automatically when the sr is set via the accessor.</p>
+</dl>
+<hr><!-- headerDoc=data;  uid=//apple_ref/occ/data/TTAudioObject/srr;  name=TTAudioObject::srr -->
+<a name="//apple_ref/occ/data/TTAudioObject/srr"></a>
+<table border="0"  cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5"><h3><a name="srr">srr</a></h3>
+</td></tr></table><hr><dl></dl><blockquote><pre><!-- a logicalPath="//apple_ref/occ/cl/double //apple_ref/occ/cl/double //apple_ref/occ/tdef/double //apple_ref/occ/tag/double //apple_ref/occ/econst/double //apple_ref/occ/struct/double //apple_ref/occ/clconst/double" --><font class="type">double</font><!-- /a --> <!-- a logicalPath="//apple_ref/occ/cl/srr //apple_ref/occ/cl/srr //apple_ref/occ/tdef/srr //apple_ref/occ/tag/srr //apple_ref/occ/econst/srr //apple_ref/occ/struct/srr //apple_ref/occ/clconst/srr" --><font class="type">srr</font><!-- /a --></pre></blockquote>
+<dl><h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5><p>The reciprocal of the sample-rate (1/sr). This is set automatically when the sr is set via the accessor.</p>
+</dl>
+<hr><!-- headerDoc=data;  uid=//apple_ref/occ/data/TTAudioObject/srr;  name=TTAudioObject::srr -->
+<a name="//apple_ref/occ/data/TTAudioObject/srr"></a>
+<table border="0"  cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5"><h3><a name="srr">srr</a></h3>
+</td></tr></table><hr><dl></dl><b>See Also:</b><br><blockquote><dl>
+<dt><!-- a logicalPath="//apple_ref/occ/data/TTAudioObject/srm" -->srm<!-- /a --></dt><dd></dd></dl></blockquote>
+<blockquote><pre><!-- a logicalPath="//apple_ref/occ/cl/double //apple_ref/occ/cl/double //apple_ref/occ/tdef/double //apple_ref/occ/tag/double //apple_ref/occ/econst/double //apple_ref/occ/struct/double //apple_ref/occ/clconst/double" --><font class="type">double</font><!-- /a --> <font class="var">srm</font>;</pre></blockquote>
+<dl><h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5><p>The sample-rate for this object in samples/ms. In other words, sr/1000. This is set automatically when the sr is set via the accessor.</p>
+</dl>
+<p>(Last Updated October 13, 2007)
+</p></body></html>

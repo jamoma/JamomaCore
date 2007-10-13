@@ -1,43 +1,30 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
-<html>
-<head>
-<title>Defined Types</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="generator" content="HeaderDoc">
-<style type="text/css"><!--a:link {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:active {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}h4 {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: tiny; font-weight: bold;}body {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: 10pt;}--></style>
-</head>
-<body bgcolor="#ffffff">
-<h1><font face="Geneva,Arial,Helvtica">Defined Types</font></h1>
-<br><hr>
-<!-- headerDoc=tdef;  uid=//apple_ref/c/tdef/simpleCallback;  name=simpleCallback --><a name="//apple_ref/c/tdef/simpleCallback"></a><table border="0" cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5">
-<h3><a name="simpleCallback">simpleCallback</a></h3>
-</td></tr></table>
-<hr>
-<dl></dl>
-<p>Abstract for this API. 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+    "http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
+<html><head>
+    <title>Defined Types</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta name="generator" content="HeaderDoc">
+<style type="text/css"><!--a:link {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:active {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}h4 {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: tiny; font-weight: bold;}body {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: 10pt;}--></style></head><body bgcolor="#ffffff">
+<h1><font face="Geneva,Arial,Helvtica">Defined Types</font></h1><br>
+<hr><!-- headerDoc=tdef;  uid=//apple_ref/c/tdef/simpleCallback;  name=simpleCallback -->
+<a name="//apple_ref/c/tdef/simpleCallback"></a>
+<table border="0"  cellpadding="2" cellspacing="2" width="300"><tr><td valign="top" height="12" colspan="5"><h3><a name="simpleCallback">simpleCallback</a></h3>
+</td></tr></table><hr><dl></dl><p>Abstract for this API. 
 </p>
 <blockquote><pre><font class="keyword">typedef</font> <!-- a logicalPath="//apple_ref/c/cl/long //apple_ref/c/cl/long //apple_ref/c/tdef/long //apple_ref/c/tag/long //apple_ref/c/econst/long //apple_ref/c/struct/long //apple_ref/c/clconst/long" --><font class="type">long</font><!-- /a --> (*<!-- a logicalPath="//apple_ref/c/instm/simpleCallback //apple_ref/c/clm/simpleCallback //apple_ref/c/intfcm/simpleCallback //apple_ref/c/func/simpleCallback //apple_ref/c/ftmplt/simpleCallback //apple_ref/c/defn/simpleCallback //apple_ref/c/macro/simpleCallback" --><font class="function">simpleCallback</font><!-- /a -->)(
     <!-- a logicalPath="//apple_ref/c/cl/short //apple_ref/c/cl/short //apple_ref/c/tdef/short //apple_ref/c/tag/short //apple_ref/c/econst/short //apple_ref/c/struct/short //apple_ref/c/clconst/short" --><font class="type">short</font><!-- /a --> <font class="param">inFirstParameter</font>,
     <font class="keyword">unsigned</font> <!-- a logicalPath="//apple_ref/c/cl/long //apple_ref/c/cl/long //apple_ref/c/tdef/long //apple_ref/c/tag/long //apple_ref/c/econst/long //apple_ref/c/struct/long //apple_ref/c/clconst/long" --><font class="type">long</font><!-- /a --> <!-- a logicalPath="//apple_ref/c/cl/long //apple_ref/c/cl/long //apple_ref/c/tdef/long //apple_ref/c/tag/long //apple_ref/c/econst/long //apple_ref/c/struct/long //apple_ref/c/clconst/long" --><font class="type">long</font><!-- /a --> *<font class="param">outSecondParameter</font>); </pre></blockquote>
 <h5><font face="Lucida Grande,Helvetica,Arial">Parameter Descriptions</font></h5>
 <blockquote>
-<dl>
-<dt><code>inFirstParameter</code></dt>
-<dd>Description of the callback's first parameter.</dd>
-<dt><code>outSecondParameter</code></dt>
-<dd>Description of the callback's second parameter.</dd>
+<dl><dt><code>inFirstParameter</code></dt><dd>Description of the callback's first parameter.</dd>
+<dt><code>outSecondParameter</code></dt><dd>Description of the callback's second parameter.</dd>
 </dl>
 </blockquote>
-<dl>
-<dt><i> result</i></dt>
-<dd>Returns what it can when it is possible to do so. 
+<dl><dt><i> result</i></dt><dd>Returns what it can when it is possible to do so. 
 </dd>
-<h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5>
-<p>Discussion that applies to the entire callback. 
+<h5><font face="Lucida Grande,Helvetica,Arial">Discussion</font></h5><p>Discussion that applies to the entire callback. 
 Lorem ipsum... 
 		</p>
 </dl>
-<p>(Last Updated October 08, 2007)
-</p>
-</body>
-</html>
+<p>(Last Updated October 13, 2007)
+</p></body></html>
