@@ -5,6 +5,8 @@
 
 #import "TTDegrade.h"
 
+#define BIG_INT	0x00800000
+#define ONE_OVER_BIG_INT 1.1920928955E-7
 
 @implementation TTDegradeObject
 
@@ -26,10 +28,10 @@
 }
 
 
-- (TTErr) setBitdepthAttribute:(long)value
+- (TTErr) setBitDepthAttribute:(long)value
 {
-	bitdepthAttribute = ttclip(value, 1, 24);
-	bit_shift = 24 - bitdepthAttribute;
+	bitDepthAttribute = ttclip(value, 1, 24);
+	bit_shift = 24 - bitDepthAttribute;
 	return TT_ERR_NONE;
 }
 

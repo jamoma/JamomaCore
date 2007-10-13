@@ -3,7 +3,7 @@
 				The basis for all audio processing objects in the TTBlue API.
 				TTBlue is licensed under the terms of the GNU LGPL.
 	@copyright	Timothy Place
-	@updated	2007-10-08	
+	@updated	2007-10-13	
 */
 
 #import "TTAudioSignal.h"
@@ -24,20 +24,37 @@
 #define TT_MAX_NUM_CHANNELS 32
 
 
+/*!
+	@class		TTAudioObject
+	@abstract	The required base-class from which all TTBlue audio processing objects must inherit.
+	@discussion This object is the base-class for all TTBlue audio processing objects.  It includes 
+				audio-specific functionality common to many/all audio processing contexts.  This includes
+				maintaining an object's sample-rate (which may differ from the global sample-rate).
+*/
 @interface TTAudioObject : TTObject {
-	// because this code is used in audio-contexts, with high-performance demands, all members
-	// are made public for direct access in audio processing loops
 	@public
 
 	@protected
-	long	sr;
-	double	srr;
-	double	srm;
+
+		/*! @var sr		The sample-rate for this object in hertz. */
+		long	sr;
+
+		/*! @var srr	The reciprocal of the sample-rate (1/sr).  This is set automatically when the sr is set via the accessor. */
+		double	srr;
+
+		/*! @var srr	The sample-rate for this object in samples/ms.  In other words, sr/1000.  This is set automatically when the sr is set via the accessor. */
+		double	srm;
 		
 	@private
 		
 }
 
+/*!
+	@method 	setSr:
+	@abstract	The accessor for setting the sample-rate.
+	@discussion	This method can be called directly, or it can be called by using the KVC setLong:forKey: method.
+	@param		value			The sample-rate in hertz.
+*/
 - (void) setSr:(long)value;
 
 @end

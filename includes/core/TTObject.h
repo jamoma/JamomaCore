@@ -3,7 +3,7 @@
 				The basis of the entire TTBlue API.
 				TTBlue is licensed under the terms of the GNU LGPL.
 	@copyright	Timothy Place
-	@updated	2007-10-08	
+	@updated	2007-10-13	
 */
 
 #import <stdio.h>
@@ -139,9 +139,40 @@ double	ttantidenormal(double value);
 	@public
 }
 
+/*!
+	@method 	setLong:forKey:
+	@abstract	Set attribute values.
+	@discussion	This is a convenience wrapper around the standard ObjC method setValue:forKey:.
+	@param		value			A long int value.
+	@param		key				The name of the attribute to set as an NSString.
+*/
 - (void)	setLong:		(long)value			forKey:(NSString *)key;
+
+/*!
+	@method 	longForKey:
+	@abstract	Get attribute values.
+	@discussion	This is a convenience wrapper around the standard ObjC method valueForKey:.
+	@param		key				The name of the attribute to get as an NSString.
+	@result		A long int -- the value of the named key.
+*/
 - (long)	longForKey:		(NSString *)key;
+
+/*!
+	@method 	setFloat:forKey:
+	@abstract	Set attribute values.
+	@discussion	This is a convenience wrapper around the standard ObjC method setValue:forKey:.
+	@param		value			A float value.
+	@param		key				The name of the attribute to set as an NSString.
+*/
 - (void)	setFloat:		(float)value		forKey:(NSString *)key;
+
+/*!
+	@method 	floatForKey:
+	@abstract	Get attribute values.
+	@discussion	This is a convenience wrapper around the standard ObjC method valueForKey:.
+	@param		key				The name of the attribute to get as an NSString.
+	@result		A float -- the value of the named key.
+*/
 - (float)	floatForKey:	(NSString *)key;
 
 @end

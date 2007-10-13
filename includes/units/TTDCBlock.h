@@ -25,9 +25,6 @@
 		double		last_output[TT_MAX_NUM_CHANNELS];
 }
 
-- (id)		init;								// Constructor
-- (void)	dealloc;							// Destructor
-
 /*!
 	@method 	clear
 	@abstract	Resets the DC-Blocking filter.
