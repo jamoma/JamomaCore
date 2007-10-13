@@ -23,12 +23,10 @@ int main(void)
 
 - (id) initWithObject:(t_object *)x name:(t_symbol *)s numArgs:(long)argc andValues:(t_atom *)argv
 {
-	self = [super init];
-	if(self != nil){
-		maxobject = x;
-		[self createInletWithIndex:0	named:"signalIn"	withAssistanceMessage:"(signal) Input"];
-		[self createOutletWithIndex:0	named:"signalOut"	withAssistanceMessage:"(signal) Output"];
-	}
+	[super init];
+	maxObjectBridge = x;
+	[self createInletWithIndex:0	named:"signalIn"	withAssistanceMessage:"(signal) Input"];
+	[self createOutletWithIndex:0	named:"signalOut"	withAssistanceMessage:"(signal) Output"];
 	return self;
 }
 

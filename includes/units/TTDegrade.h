@@ -24,6 +24,6 @@
 
 	- (id)		init;								// Constructor
 	- (void)	dealloc;							// Destructor
-	- (TTErr)	bitdepthAttributeSetLongValue:(long)value;
+	- (TTErr)	setBitdepthAttribute:(long)value;
 	- (TTErr)	processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out;
 @end

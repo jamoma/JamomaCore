@@ -13,14 +13,12 @@
 @implementation TTAudioSignal
 
 
-- (id) initWithMaxNumChannels:(long)howmany
+- (id) initWithMaxNumChannels:(long)howMany
 {
-	self = [super init];
-	if(self != nil){
-		self->maxnumchannels = howmany;
-		vectors = (float **)malloc(sizeof(float *) * howmany);
-		//TODO: should I need to zero the vectors here?  probably...
-	}
+	[super init];
+	self->maxNumChannels = howMany;
+	vectors = (float **)malloc(sizeof(float *) * howMany);
+	//TODO: should I need to zero the vectors here?  probably...
 	return self;
 }
 
@@ -32,25 +30,34 @@
 }
 
 
-- (t_max_err) setVectorSize:(long)numsamples
+- (TTErr) setVectorSize:(long)numsamples
 {
 	vs = numsamples;
-	return MAX_ERR_NONE;
+	return TT_ERR_NONE;
 }
 
 
-- (t_max_err) setSampleRate:(long)frequency
+- (TTErr) setSampleRate:(long)frequency
 {
 	sr = frequency;
-	return MAX_ERR_NONE;
+	return TT_ERR_NONE;
 }
 
 
-- (t_max_err) setSamplesForChannel:(long)channel withVector:(float *)vector
+- (TTErr) setSamplesForChannel:(long)channel withVector:(float *)vector
 {
 	// could check against maxnumchannels here
 	vectors[channel] = vector;
-	return MAX_ERR_NONE;
+	return TT_ERR_NONE;
+}
+
+
++ (short) GetMinNumChannelsForASignal:(TTAudioSignal*)audioIn andAnotherSignal:(TTAudioSignal*)audioOut
+{
+	if(audioIn->numChannels > audioOut->numChannels)
+		return audioOut->numChannels;
+	else
+		return audioIn->numChannels;
 }
 
 

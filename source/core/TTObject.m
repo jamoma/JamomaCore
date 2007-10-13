@@ -33,7 +33,7 @@ long ttclip(long value, long low_bound, long high_bound)
 	#ifdef TT_TARGET_MAC
 		value = ((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound);
 	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
-		value = ((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound));
+		value = ((fabs((double)(value - low_bound))) + (low_bound + high_bound)) - fabs((double)(value - high_bound));
 	#endif
 	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
 	return value;
@@ -68,12 +68,12 @@ double ttantidenormal(double value)
 
 - (long) longForKey:(NSString *)key
 {
-	return [[self getValueForKey:key] longValue];
+	return [[self valueForKey:key] longValue];
 }
 
 - (float) floatForKey:(NSString *)key
 {
-	return [[self getValueForKey:key] floatValue];
+	return [[self valueForKey:key] floatValue];
 }
 
 

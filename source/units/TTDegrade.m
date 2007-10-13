@@ -26,25 +26,26 @@
 }
 
 
-- (TTErr) bitdepthAttributeSetLongValue:(long)value
+- (TTErr) setBitdepthAttribute:(long)value
 {
 	bitdepthAttribute = ttclip(value, 1, 24);
+	bit_shift = 24 - bitdepthAttribute;
 	return TT_ERR_NONE;
 }
 
 
-- (TTErr) processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out
+- (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
 	long	l;
-	short	vs = signals_in->vs;
+	short	vs = audioIn->vs;
 	float	*in,
 			*out;
-	short	numchannels = [TTAudioSignal GetMinNumChannelsForASignal:signals_in andAnotherSignal:signals_out];
+	short	numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
 	short	channel;
 	
 	for(channel=0; channel<numchannels; channel++){
-		in = signals_in->vectors[channel];
-		out = signals_out->vectors[channel];
+		in = audioIn->vectors[channel];
+		out = audioOut->vectors[channel];
 		
 		while(vs--){
 			// SR Reduction
@@ -61,6 +62,7 @@
 			*out++ = (float) l * ONE_OVER_BIG_INT;	// back to float
 		}
 	}
+	return TT_ERR_NONE;
 }
 
 

@@ -6,8 +6,8 @@
 	@updated	2007-10-08	
 */
 
-#import "TTObject.h"
 #import "TTAudioSignal.h"
+#import "TTObject.h"
 
 
 /*! @define		TT_MAX_NUM_CHANNELS 

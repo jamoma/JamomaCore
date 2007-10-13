@@ -12,9 +12,6 @@
 		223F3EBE0CB7D41100E43AC1 /* MaxObject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223F3EBD0CB7D41100E43AC1 /* MaxObject.framework */; };
 		223F3EC90CB7D41D00E43AC1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */; };
 		223F3ED00CB7D46100E43AC1 /* TTDegrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F3ECF0CB7D46100E43AC1 /* TTDegrade.m */; };
-		223F3EE60CB7D4C900E43AC1 /* TTAudioObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F3EE30CB7D4C900E43AC1 /* TTAudioObject.m */; };
-		223F3EE70CB7D4C900E43AC1 /* TTAudioSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F3EE40CB7D4C900E43AC1 /* TTAudioSignal.m */; };
-		223F3EE80CB7D4C900E43AC1 /* TTObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F3EE50CB7D4C900E43AC1 /* TTObject.m */; };
 		223F406B0CB7DC4500E43AC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 223F406A0CB7DC4500E43AC1 /* main.m */; };
 		22C01EDA09CE6CDB00177B81 /* Externs-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C01ED909CE6CDB00177B81 /* Externs-Info.plist */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
@@ -28,12 +25,6 @@
 		223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		223F3ECF0CB7D46100E43AC1 /* TTDegrade.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTDegrade.m; path = ../../source/units/TTDegrade.m; sourceTree = SOURCE_ROOT; };
 		223F3ED60CB7D49500E43AC1 /* TTDegrade.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = ../../includes/units/TTDegrade.h; sourceTree = SOURCE_ROOT; };
-		223F3EDC0CB7D4A400E43AC1 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
-		223F3EDD0CB7D4A400E43AC1 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
-		223F3EDE0CB7D4A400E43AC1 /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = ../../includes/core/TTObject.h; sourceTree = SOURCE_ROOT; };
-		223F3EE30CB7D4C900E43AC1 /* TTAudioObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTAudioObject.m; path = ../../source/core/TTAudioObject.m; sourceTree = SOURCE_ROOT; };
-		223F3EE40CB7D4C900E43AC1 /* TTAudioSignal.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTAudioSignal.m; path = ../../source/core/TTAudioSignal.m; sourceTree = SOURCE_ROOT; };
-		223F3EE50CB7D4C900E43AC1 /* TTObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TTObject.m; path = ../../source/core/TTObject.m; sourceTree = SOURCE_ROOT; };
 		223F3F240CB7D75D00E43AC1 /* TTMaxPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTMaxPrefix.pch; path = ../../includes/platform/TTMaxPrefix.pch; sourceTree = SOURCE_ROOT; };
 		223F406A0CB7DC4500E43AC1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -60,7 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				22F207270B946D2A008211F4 /* TTBlue Foundation */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -105,19 +95,6 @@
 				542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		22F207270B946D2A008211F4 /* TTBlue Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				223F3EDE0CB7D4A400E43AC1 /* TTObject.h */,
-				223F3EE50CB7D4C900E43AC1 /* TTObject.m */,
-				223F3EDC0CB7D4A400E43AC1 /* TTAudioObject.h */,
-				223F3EE30CB7D4C900E43AC1 /* TTAudioObject.m */,
-				223F3EDD0CB7D4A400E43AC1 /* TTAudioSignal.h */,
-				223F3EE40CB7D4C900E43AC1 /* TTAudioSignal.m */,
-			);
-			name = "TTBlue Foundation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,9 +189,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				223F3ED00CB7D46100E43AC1 /* TTDegrade.m in Sources */,
-				223F3EE60CB7D4C900E43AC1 /* TTAudioObject.m in Sources */,
-				223F3EE70CB7D4C900E43AC1 /* TTAudioSignal.m in Sources */,
-				223F3EE80CB7D4C900E43AC1 /* TTObject.m in Sources */,
 				223F406B0CB7DC4500E43AC1 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,7 +219,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
@@ -303,7 +277,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
 				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
