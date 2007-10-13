@@ -7,53 +7,37 @@
 
 
 @interface TTDelayObject : TTAudioObject 
-	{
-		@public
-		long				delayMaxSamplesAttribute;		// Attributes
-		float				delayMaxMSAttribute;			//	...
+{
+	@public
+		long				delayMaxSamplesAttribute;	// Attributes
+		float				delayMaxMSAttribute;		//	...
 		long				delaySamplesAttribute;
 		float				delayMSAttribute;
 		long				interpolationAttribute;
 
-		@private
-			
-		// Function pointers for the DSP Loops (use this instead of branching for speed)
-		typedef void (tt_delay::*function_ptr_1in_1out)(tt_audio_signal *, tt_audio_signal *);
-		
-		/*! 
-		 @typedef simpleCallback 
-		 @abstract Abstract for this API. 
-		 @param inFirstParameter Description of the callback's first parameter. 
-		 @param outSecondParameter Description of the callback's second parameter. 
-		 @result Returns what it can when it is possible to do so. 
-		 @discussion Discussion that applies to the entire callback. 
-		 Lorem ipsum... 
-		*/ 
-		typedef long (*simpleCallback)(short inFirstParameter, unsigned long long *outSecondParameter); 
-		typedef void (tt_delay::*function_ptr_2in_1out)(tt_audio_signal *, tt_audio_signal *, tt_audio_signal *);
+	@private
+		TTSampleValue		*buffer;
+		TTSampleValue		*in_ptr;					// "write" pointer for buffer
+		TTSampleValue		*out_ptr;					// "read" pointer
+		TTSampleValue		*end_ptr;					// points to last sample in buffer (for speed)
 
-		function_ptr_1in_1out		dsp_executor;
-		function_ptr_2in_1out		dsp_executor2;
+		TTSampleValue		output[4];
 
-		tt_sample_vector				buffer;
-		tt_sample_vector				in_ptr;				// "write" pointer for buffer
-		tt_sample_vector				out_ptr;			// "read" pointer
-		tt_sample_vector				end_ptr;			// points to last sample in buffer (for speed)
+		double				fractional_delay;			// used in interpolated dsp loops
+		double 				fdelay_samples;
 
-		tt_sample_value					output[4];
-
-		double							fractional_delay;	// used in interpolated dsp loops
-		double 							fdelay_samples;
-		
 		// TODO: use this...
-		char				delaySpecifiedInMS;				// defaults to false, but if true we can have the numsamples slip if the sr changes
-	}
+		char				delaySpecifiedInMS;			// defaults to false, but if true we can have the numsamples slip if the sr changes
+}
 
-	- (id)		init;										// Constructors
-	- (id)		initWithSizeInSamples:(long)max_samples;
-	- (id)		initWithSizeInMS:(float)max_ms;
-	- (void)	dealloc;									// Destructor
-	- (TTErr)	clear;
-	- (TTErr)	srAttributeSetLongValue:(long)value;		// Override the in inherited method...
-	- (TTErr)	processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out;
-@end				
+- (id)		init;										// Constructors
+- (id)		initWithSizeInSamples:(long)max_samples;
+- (id)		initWithSizeInMS:(float)max_ms;
+
+- (TTErr)	clear;
+- (TTErr)	setSr:(long)value;							// Override the in inherited method...
+
+// Important note:  this object currently only works in mono!
+// TODO: make it multichannel friendly...
+- (TTErr)	processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut;
+@end

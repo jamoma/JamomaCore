@@ -56,6 +56,7 @@ typedef float				TTSampleValue;
 typedef long				TTErr;				// used for returning error codes
 
 
+
 /****************************************************************************************************/
 // Error Codes
 

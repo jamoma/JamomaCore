@@ -37,18 +37,18 @@
 // DSP LOOP
 // Note: an algorithm that is frequently used in Max:
 //		"biquad~ 1.0 -1.0 -0.9997 0.0"
-- (TTErr) processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out
+- (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
-	short			vs = signals_in->vs;
+	short			vs = audioIn->vs;
 	float			*in,
 					*out;
-	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:signals_in andAnotherSignal:signals_out];
+	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
 	short			channel;
 	TTSampleValue	temp;
 	
 	for(channel=0; channel<numchannels; channel++){
-		in = signals_in->vectors[channel];
-		out = signals_out->vectors[channel];
+		in = audioIn->vectors[channel];
+		out = audioOut->vectors[channel];
 		
 		while(vs--){
 			temp = *in++;

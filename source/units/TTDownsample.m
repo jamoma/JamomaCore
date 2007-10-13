@@ -22,26 +22,26 @@
 }
 
 
-- (TTErr) processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out
+- (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
-	short			vs = signals_in->vs;
+	short			vs = audioIn->vs;
 	float			*in,
 					*out;
-	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:signals_in andAnotherSignal:signals_out];
+	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
 	short			channel;
 	TTSampleValue	temp;
 	short			downSize;
 	
 	for(channel=0; channel<numchannels; channel++){
-		in = signals_in->vectors[channel];
-		out = signals_out->vectors[channel];
+		in = audioIn->vectors[channel];
+		out = audioOut->vectors[channel];
 		
 		while(vs){
-			down_size = factor;
+			down_size = factorAttribute;
 			while(down_size--)				// simple SAH technique -- TODO: Add interpolation options
 				temp = *in++;
 			*out++ = temp;
-			vs -= factor;
+			vs -= factorAttribute;
 		}
 	}
 }
