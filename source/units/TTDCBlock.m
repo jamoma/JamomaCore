@@ -56,6 +56,7 @@
 			last_input[channel] = temp;
 		}
 	}
+	return TT_ERR_NONE;
 }
 
 

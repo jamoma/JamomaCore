@@ -20,8 +20,7 @@
 		/*! @var bitdepthAttribute 		Use a range of 1 to 24 to emulate the specified bitdepth. */ 			
 		long				bitDepthAttribute;
 
-		/*! @var srRatioAttribute		Use a range of 0.0 to 1.0 to specify a ratio of the current 
-										sample-rate to emulate in order to intentional aliasing artifacts. */ 			
+		/*! @var srRatioAttribute		Use a range of 0.0 to 1.0 to specify a ratio of the current sample-rate to emulate in order to intentional aliasing artifacts. */ 			
 		float				srRatioAttribute;
 		
 		@private
