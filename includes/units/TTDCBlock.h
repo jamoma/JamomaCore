@@ -12,12 +12,16 @@
 	@class			TTDCBlockObject
 	@abstract		Audio processor that filters out DC Offsets from an input.
 	@discussion 	This class is a good example of a very simple audio filter that can process any 
-					number of parallel audio channels.  It has no attributes.
+					number of parallel audio channels.
 	@classdesign	This class implements the pseudo-standard 'clear' method.
 */
 
 @interface TTDCBlockObject : TTAudioObject 
 {
+	@public
+		/*! @var bypassAttribute		pass audio through unprocessed. */
+		long	bypassAttribute;
+
 	@private
 		/*! @var last_input Feedback values used for the audio filter */ 			
 		double	 	last_input[TT_MAX_NUM_CHANNELS];

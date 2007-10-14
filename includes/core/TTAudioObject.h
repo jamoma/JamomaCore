@@ -32,7 +32,7 @@
 				maintaining an object's sample-rate (which may differ from the global sample-rate).
 */
 @interface TTAudioObject : TTObject {
-	@public
+	@public		
 
 	@protected
 
@@ -56,5 +56,21 @@
 	@param		value			The sample-rate in hertz.
 */
 - (void) setSr:(long)value;
+
+/*!
+	@method 	processAudioWithInput:andOutput:
+	@abstract	Pass audio through unprocessed.
+	@discussion	This object can process N parallel channels of audio.  It is assumed that the number
+				of inputs and outputs are the same, as are the vector sizes of those inputs and outputs.
+				This method serves as the default audio processing method if one isn't defined in a subclass.
+				It may also be used for bypassing the processing in a subclass.
+	@param		audioIn			A pointer to a TTAudioSignal object that may contain any number of channels.
+								This signal is considered the master, and thus it provides the vectorsize
+								and number of channels should the two signals not be matched.
+	@param		audioOut		A pointer to a TTAudioSignal object that has the output sample vectors.
+	@result		Returns a TTBlue Error Code.  TODO: Perhaps we should check if the signals are matched and then
+				return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.
+*/
+- (TTErr)	processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut;
 
 @end

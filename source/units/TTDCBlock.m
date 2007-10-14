@@ -45,6 +45,9 @@
 	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
 	short			channel;
 	TTSampleValue	temp;
+
+	if(bypassAttribute)
+		return [super processAudioWithInput:audioIn andOutput:audioOut];
 	
 	for(channel=0; channel<numchannels; channel++){
 		in = audioIn->vectors[channel];
