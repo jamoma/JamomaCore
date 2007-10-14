@@ -11,3 +11,6 @@
 #define TTOBJECT_BASE_CLASS MaxObject
 #define TTOBJECT_BASE_CLASS_HEADER "MaxObject.h"
 
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

@@ -138,7 +138,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "tap_dcblock~" */;
+			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "tt.dcblock~" */;
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* abs~ */;
 			projectDirPath = "";
@@ -336,7 +336,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "tap_dcblock~" */ = {
+		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "tt.dcblock~" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FFBB95D09731BB700D78707 /* Development */,
