@@ -8,7 +8,9 @@
 	@updated	2007-10-13
 */
 
-//#import "TTObject.h"
+#ifdef WIN_VERSION
+#import <Foundation/Foundation.h>
+#endif
 
 
 /*!
