@@ -26,20 +26,20 @@
 }
 
 
-- (TTErr) setSamplesForChannel:(long)channel withVector:(float *)vector
+- (long) setSamplesForChannel:(long)channel withVector:(float *)vector
 {
 	// could check against maxnumchannels here
 	vectors[channel] = vector;
-	return TT_ERR_NONE;
+	return 0;
 }
 
 
 + (short) GetMinNumChannelsForASignal:(TTAudioSignal*)signal1 andAnotherSignal:(TTAudioSignal*)signal2
 {
-	if(audioIn->numChannels > audioOut->numChannels)
-		return audioOut->numChannels;
+	if(signal1->numChannels > signal2->numChannels)
+		return signal1->numChannels;
 	else
-		return audioIn->numChannels;
+		return signal2->numChannels;
 }
 
 

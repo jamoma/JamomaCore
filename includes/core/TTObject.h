@@ -6,6 +6,8 @@
 	@updated	2007-10-13	
 */
 
+#ifndef __TTOBJECT_H__
+
 #import <stdio.h>
 #ifdef TT_TARGET_MAC
 #import <Cocoa/Cocoa.h>
@@ -177,3 +179,6 @@ double	ttantidenormal(double value);
 - (float)	floatForKey:	(NSString *)key;
 
 @end
+
+#define __TTOBJECT_H__
+#endif // __TTOBJECT_H__

@@ -1,12 +1,14 @@
 /*!
 	@header		TTAudioSignal
 				The basis for all audio passing in the TTBlue API.
+				This class is kept free from any dependencies so that it can be used in a 
+				variety of contexts without creating problems.
 				TTBlue is licensed under the terms of the GNU LGPL.
 	@copyright	Timothy Place
 	@updated	2007-10-13
 */
 
-#import "TTObject.h"
+//#import "TTObject.h"
 
 
 /*!
@@ -33,7 +35,7 @@
 		short			numChannels;
 
 		/*! @var vectors		An array of pointers to the first sample in each vector */
-		TTSampleValue	**vectors;
+		float			**vectors;
 }
 
 /*!
@@ -59,7 +61,7 @@
 	@param		vector			A pointer to the first sample in a vector of samples.
 	@result		An error code.
 */
-- (TTErr)		setSamplesForChannel:(long)channel withVector:(TTSampleValue *)vector;
+- (long)		setSamplesForChannel:(long)channel withVector:(float *)vector;
 
 /*!
 	@method 	GetMinNumChannelsForASignal:andAnotherSignal:
@@ -74,3 +76,7 @@
 + (short)		GetMinNumChannelsForASignal:(TTAudioSignal*)signal1 andAnotherSignal:(TTAudioSignal*)signal2;
 
 @end
+
+
+
+#define __TTAUDIOSIGNAL_H__
