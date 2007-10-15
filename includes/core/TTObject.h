@@ -107,7 +107,7 @@ extern const double TTAntiDenormalValue;
 	@param			low_bound	Defines the lower limit to which the input should be clipped.
 	@param			high_bound	Defines the upper limit to which the input should be clipped.
 */
-long	ttclip(long value, long low_bound, long high_bound);
+long	TTClip(long value, long low_bound, long high_bound);
 
 
 /*! 
@@ -119,7 +119,7 @@ long	ttclip(long value, long low_bound, long high_bound);
 					easy to cause in recursive algorithms such as audio filters.
 					If TT_DISABLE_DENORMAL_FIX is #defined, then this function will pass all input through unfettered.
 */
-double	ttantidenormal(double value);
+double	TTAntiDenormal(double value);
 
 
 /****************************************************************************************************/

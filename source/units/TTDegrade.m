@@ -30,7 +30,7 @@
 
 - (TTErr) setBitDepthAttribute:(long)value
 {
-	bitDepthAttribute = ttclip(value, 1, 24);
+	bitDepthAttribute = TTClip(value, 1, 24);
 	bit_shift = 24 - bitDepthAttribute;
 	return TT_ERR_NONE;
 }

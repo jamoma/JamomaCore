@@ -28,7 +28,7 @@ static TT_INLINE T tt_base::clip(T value, T low_bound, T high_bound)
 */
 
 
-long ttclip(long value, long low_bound, long high_bound)
+long TTClip(long value, long low_bound, long high_bound)
 {
 	#ifdef TT_TARGET_MAC
 		value = ((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound);
@@ -40,7 +40,7 @@ long ttclip(long value, long low_bound, long high_bound)
 }
 
 
-double ttantidenormal(double value)
+double TTAntiDenormal(double value)
 {
 #ifndef TT_DISABLE_DENORMAL_FIX
 	value += TTAntiDenormalValue;

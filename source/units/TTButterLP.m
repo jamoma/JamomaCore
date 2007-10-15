@@ -61,7 +61,7 @@
 		
 		while(vs--){
 			x0 = *in++;
-			y0 = ttantidenormal(a0*x0 - a1*x1[channel] + a2*x2[channel] - b1*y1[channel] - b2*y2[channel]);
+			y0 = TTAntiDenormal(a0*x0 - a1*x1[channel] + a2*x2[channel] - b1*y1[channel] - b2*y2[channel]);
 			x2[channel] = x1[channel];
 			x1[channel] = x0;
 			y2[channel] = y1[channel];
