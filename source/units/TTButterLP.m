@@ -48,7 +48,7 @@
 	if(bypassAttribute)
 		return [super processAudioWithInput:audioIn andOutput:audioOut];
 
-	c = 1 / ( tan( PI*(cutoff/x->sr ) ) );		// What is the ttblue method for retrieving sample rate?
+	c = 1 / ( tan( PI*(cutoff*srr ) ) );		// srr is the reciprocal of the sample-rate (1/sr)
 	a0 = 1 / (1 + sqrt2*c + c*c);
 	a1 = 2*a0;
 	a2 = a0;
