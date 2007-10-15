@@ -149,7 +149,7 @@ double	TTAntiDenormal(double value);
 	@param		value			A long int value.
 	@param		key				The name of the attribute to set as an NSString.
 */
-- (void)	setLong:		(long)value			forKey:(NSString *)key;
+- (void)	setLong:		(long)newValue		forKey:(NSString *)key;
 
 /*!
 	@method 	longForKey:
@@ -167,7 +167,7 @@ double	TTAntiDenormal(double value);
 	@param		value			A float value.
 	@param		key				The name of the attribute to set as an NSString.
 */
-- (void)	setFloat:		(float)value		forKey:(NSString *)key;
+- (void)	setFloat:		(float)newValue		forKey:(NSString *)key;
 
 /*!
 	@method 	floatForKey:

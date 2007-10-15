@@ -9,7 +9,7 @@
 @implementation TTAudioObject
 
 
-- (void) setSr:(long)value
+- (void) setSr:(long)newValue
 {
 	if(value != sr){
 		sr = value;

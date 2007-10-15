@@ -13,21 +13,21 @@
 	return [self init initWithSizeInSamples:256];
 }	
 
-- (id) initWithSizeInMS:(float)max_ms
+- (id) initWithSizeInMS:(float)maxMs
 {
-	long numSamples = TTMSToSamples(max_ms);				// Uses global sample rate for calculation
+	long numSamples = TTMSToSamples(maxMs);				// Uses global sample rate for calculation
 	return [self init initWithSizeInSamples:numSamples];
 }
 
-- (id) initWithSizeInSamples:(long)max_samples
+- (id) initWithSizeInSamples:(long)maxSamples
 {
 	[super init];
-	[self setupBuffersForNumSamples:max_samples];
+	[self setupBuffersForNumSamples:maxSamples];
 	return self;
 }
 
 
-- (TTErr) setupBuffersForNumSamples:(long)max_samples
+- (TTErr) setupBuffersForNumSamples:(long)newMaxSamples
 {
 	short i;
 	
@@ -36,13 +36,13 @@
 
 	if(buffer)
 		free(buffer);
-	buffer = (TTSampleValue *)malloc((max_samples + 4) * sizeof(TTSampleValue));
+	buffer = (TTSampleValue *)malloc((newMaxSamples + 4) * sizeof(TTSampleValue));
 	
 	in_ptr = buffer;
-	delay_samples_max = max_samples;
+	delay_samples_max = newMaxSamples;
 	delay_ms_max = delay_samples_max / m_sr;
 	//log_post("INIT: delay_ms_max: %f    delay_samps_max: %i", delay_ms_max, delay_samples_max);			
-	set_attr(k_delay_samples, max_samples - 1);
+	set_attr(k_delay_samples, newMaxSamples - 1);
 	set_attr(k_interpolation, k_interpolation_linear);
 	for(i=0;i<4;i++)
 		output[i] = 0;
@@ -86,12 +86,12 @@
 #pragma mark Attributes
 
 
-- (void) setSr:(long)value
+- (void) setSr:(long)newValue
 {
 	if(value != sr){
 		long	numsamples;
 		
-		[super setLong:value forKey:@"sr"];
+		[super setLong:newValue forKey:@"sr"];
 		numsamples = srm * delay_ms;
 
 		// allocate a larger delay buffer if neccessary
@@ -103,9 +103,9 @@
 }
 
 
-- (void) setDelayMSAttribute:(float)value
+- (void) setDelayMSAttribute:(float)newValue
 {
-	delayMSAttribute = value;
+	delayMSAttribute = newValue;
 	fdelay_samples = delay_ms * m_sr;
 	delay_samples = (tt_attribute_value_discrete)fdelay_samples;
 	fractional_delay = fdelay_samples - delay_samples;
@@ -113,20 +113,20 @@
 	[self reset];
 }
 
-- (void) setDelaySamplesAttribute:(long)value
+- (void) setDelaySamplesAttribute:(long)newValue
 {
 	//	case k_delay_samples:
-	fdelay_samples = delay_samples = clip(long(val), long(0), delay_samples_max);
+	fdelay_samples = delay_samples = clip(long(newValue), long(0), delay_samples_max);
 	delay_ms = (float)delay_samples * 1000.0 / (float)sr;
 	fractional_delay = 0;
 	
 	[self reset];
 }
 
-- (void) setInterpolationAttribute:(long)value
+- (void) setInterpolationAttribute:(long)newValue
 {
 	//	case k_interpolation:
-	interpolation = (tt_attribute_value_discrete)val;
+	interpolation = (tt_attribute_value_discrete)newValue;
 	if(interpolation == k_interpolation_linear){
 		dsp_executor = &tt_delay::dsp_vector_calc_linear;
 		dsp_executor2 = &tt_delay::dsp_vector_calc_linear_2in;

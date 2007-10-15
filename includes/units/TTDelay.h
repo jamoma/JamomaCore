@@ -31,11 +31,11 @@
 }
 
 - (id)		init;										// Constructors
-- (id)		initWithSizeInSamples:(long)max_samples;
-- (id)		initWithSizeInMS:(float)max_ms;
+- (id)		initWithSizeInSamples:(long)maxSamples;
+- (id)		initWithSizeInMS:(float)maxMS;
 
 - (TTErr)	clear;
-- (TTErr)	setSr:(long)value;							// Override the in inherited method...
+- (TTErr)	setSr:(long)newValue;							// Override the in inherited method...
 
 // Important note:  this object currently only works in mono!
 // TODO: make it multichannel friendly...

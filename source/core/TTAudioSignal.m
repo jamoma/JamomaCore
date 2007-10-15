@@ -26,10 +26,10 @@
 }
 
 
-- (long) setSamplesForChannel:(long)channel withVector:(float *)vector
+- (long) setSamplesForChannel:(long)channel withVector:(float *)newVector
 {
 	// could check against maxnumchannels here
-	vectors[channel] = vector;
+	vectors[channel] = newVector;
 	return 0;
 }
 

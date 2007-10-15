@@ -28,9 +28,9 @@
 }
 
 
-- (TTErr) setBitDepthAttribute:(long)value
+- (TTErr) setBitDepthAttribute:(long)newValue
 {
-	bitDepthAttribute = TTClip(value, 1, 24);
+	bitDepthAttribute = TTClip(newValue, 1, 24);
 	bit_shift = 24 - bitDepthAttribute;
 	return TT_ERR_NONE;
 }

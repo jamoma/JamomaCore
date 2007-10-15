@@ -63,7 +63,7 @@
 	@param		vector			A pointer to the first sample in a vector of samples.
 	@result		An error code.
 */
-- (long)		setSamplesForChannel:(long)channel withVector:(float *)vector;
+- (long)		setSamplesForChannel:(long)channel withVector:(float *)newVector;
 
 /*!
 	@method 	GetMinNumChannelsForASignal:andAnotherSignal:

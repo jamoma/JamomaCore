@@ -55,7 +55,7 @@
 	@discussion	This method can be called directly, or it can be called by using the KVC setLong:forKey: method.
 	@param		value			The sample-rate in hertz.
 */
-- (void) setSr:(long)value;
+- (void) setSr:(long)newValue;
 
 /*!
 	@method 	processAudioWithInput:andOutput:

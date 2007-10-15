@@ -54,14 +54,14 @@ double TTAntiDenormal(double value)
 @implementation TTObject
 
 // NOTE: this method is also mirrored in the MaxObject framework
-- (void) setLong:(long)value forKey:(NSString *)key
+- (void) setLong:(long)newValue forKey:(NSString *)key
 {
-	[self setValue:[NSNumber numberWithLong:value] forKey:key];
+	[self setValue:[NSNumber numberWithLong:newValue] forKey:key];
 }
 
-- (void) setFloat:(float)value forKey:(NSString *)key
+- (void) setFloat:(float)newValue forKey:(NSString *)key
 {
-	[self setValue:[NSNumber numberWithFloat:value] forKey:key];
+	[self setValue:[NSNumber numberWithFloat:newValue] forKey:key];
 }
 
 // TODO: These next two!  They are written based on theory alone...
