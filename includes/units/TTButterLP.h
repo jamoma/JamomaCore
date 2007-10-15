@@ -1,7 +1,7 @@
 /*!
 	@header		TTButterLP
 				Licensed under the terms of the GNU LGPL.
-	@copyright	Trond Lossius/Timothy Place
+	@copyright	Trond Lossius
 	@updated	2007-10-15	
 */
 
@@ -11,8 +11,8 @@
 /*!
 	@class			TTButterLP
 	@abstract		2nd order Butterworth low pass filter.
-	@discussion 	This class is a good example of a very simple audio filter that can process any 
-					number of parallel audio channels.
+	@discussion 	This class is a good example of a multichannel parallel process 
+					with an additional (optional) control signal
 	@classdesign	This class implements the pseudo-standard 'clear' method.
 */
 
@@ -22,8 +22,8 @@
 		/*! @var bypassAttribute		pass audio through unprocessed. */
 		long		bypassAttribute;
 		
-		/*! @var freqAttribute		Low pass filter cut off frequency. */ 			
-		float		freqAttribute;
+		/*! @var frequencyAttribute		Low pass filter cut off frequency. */ 			
+		float		frequencyAttribute;
 
 	@private
 		/*! @var x1 Feedback values used for the audio filter */ 			
@@ -34,6 +34,8 @@
 		double		y1[TT_MAX_NUM_CHANNELS];
 		/*! @var y2 Feedback values used for the audio filter */ 			
 		double		y2[TT_MAX_NUM_CHANNELS];
+		// filter coefficients
+		double		a0, a1, a2, b1, b2, c;
 }
 
 /*!
@@ -50,14 +52,14 @@
 /*!
 	@method 	processAudioWithInput:andOutput:
 	@abstract	Standard audio processing method for TTBlue objects.
-	@discussion	This object can process N parallel channels of audio.  It is assumed that the number
-				of inputs and outputs are the same, as are the vector sizes of those inputs and outputs.
+	@discussion	This object can process N parallel channels of audio.  Each matching pair of inlets and outlets
+				are filtered.  If an additional input is received, with no matching output, that input will be
+				used as a control signal set the frequency attribute.
 	@param		audioIn			A pointer to a TTAudioSignal object that may contain any number of channels.
 								This signal is considered the master, and thus it provides the vectorsize
 								and number of channels should the two signals not be matched.
 	@param		audioOut		A pointer to a TTAudioSignal object that has the output sample vectors.
-	@result		Returns a TTBlue Error Code.  TODO: Perhaps we should check if the signals are matched and then
-				return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.
+	@result		Returns a TTBlue Error Code.
 */
 - (TTErr)	processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut;
 

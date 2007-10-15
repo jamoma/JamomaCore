@@ -12,6 +12,7 @@
 {
 	[super init];
 	[self clear];
+	[self setFloat:1000.0 forKey:@"frequencyAttribute"];
 	return self;
 }	
 
@@ -33,27 +34,45 @@
 }
 
 
-// DSP LOOP - currently assumes static (control rate) cutoff frequency
+// accessor for frequencyAttribute
+- (void) setFrequencyAttribute:(float)newValue
+{
+	frequencyAttribute = newValue;
+	c = 1 / ( tan( PI*(frequencyAttribute*srr ) ) );		// srr is the reciprocal of the sample-rate (1/sr)
+	a0 = 1 / (1 + sqrt2*c + c*c);
+	a1 = 2*a0;
+	a2 = a0;
+	b1 = 2*a0*( 1 - c*c );
+	b2 = a0 * (1 - sqrt2*c + c*c);		
+}
 
+
+// override the inherited sample-rate setter so we can update the cutoff frequency if needed
+- (void) setSr:(long)newValue
+{
+	if(newValue != sr){
+		[super setLong:newValue forKey:@"sr"];				// manually call the inherited accessor, since we still want it
+		[self setFrequencyAttribute:frequencyAttribute];	// send the same frequency to ourself, but with a new SR it will update the coefficients
+	}
+}
+
+
+// DSP LOOP
 - (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
 	short			vs = audioIn->vs;
 	float			*in,
 					*out;
-	float			a0, a1, a2, b1, b2, c;
-	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
+	short			numChannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
 	short			channel;
 	TTSampleValue	x0, y0;
 
 	if(bypassAttribute)
 		return [super processAudioWithInput:audioIn andOutput:audioOut];
 
-	c = 1 / ( tan( PI*(cutoff*srr ) ) );		// srr is the reciprocal of the sample-rate (1/sr)
-	a0 = 1 / (1 + sqrt2*c + c*c);
-	a1 = 2*a0;
-	a2 = a0;
-	b1 = 2*a0*( 1 - c*c );
-	b2 = a0 * (1 - sqrt2*c + c*c);	
+	// If there are more inputs than outputs, use the last input to set the frequency
+	if(audioIn->numChannels > numChannels)
+		[self setFrequencyAttribute:audioIn->vector[audioIn->numChannels - 1]];
 	
 	for(channel=0; channel<numchannels; channel++){
 		in = audioIn->vectors[channel];
