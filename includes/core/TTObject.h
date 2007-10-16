@@ -90,7 +90,19 @@ enum{
 	@functiongroup	TTBlue Utilities
 	@discussion		constant used by the ttantidenormal function
 */ 
-extern const double TTAntiDenormalValue;
+extern const double TTSqrt2;
+
+/*! @constant 		TTSqrt2 
+	@functiongroup	TTBlue Utilities
+	@discussion		pre-calculated square-root of 2
+*/ 
+extern const double TTSqrt2;
+
+/*! @constant 		TTPi 
+	@functiongroup	TTBlue Utilities
+	@discussion		pre-calculated value of pi
+*/ 
+extern const double TTPi;
 
 
 /****************************************************************************************************/

@@ -37,9 +37,9 @@
 + (short) GetMinNumChannelsForASignal:(TTAudioSignal*)signal1 andAnotherSignal:(TTAudioSignal*)signal2
 {
 	if(signal1->numChannels > signal2->numChannels)
-		return signal1->numChannels;
-	else
 		return signal2->numChannels;
+	else
+		return signal1->numChannels;
 }
 
 

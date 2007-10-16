@@ -5,15 +5,31 @@
 	
 #import "TTAudioObject.h"
 
+// Globals
+long TTGlobalSampleRate = TT_DEFAULT_SAMPLERATE;
+
+
 
 @implementation TTAudioObject
 
 
+- (id) init
+{
+	[super init];
+
+	sr = TTGlobalSampleRate;
+	srr = 1.0 / TTGlobalSampleRate;
+	srm = (double)sr * 0.001;
+
+	return self;
+}
+
+
 - (void) setSr:(long)newValue
 {
-	if(value != sr){
-		sr = value;
-		srr = 1.0 / value;
+	if(newValue != sr){
+		sr = newValue;
+		srr = 1.0 / newValue;
 		srm = (double)sr * 0.001;
 	}
 }

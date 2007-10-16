@@ -8,6 +8,8 @@
 /****************************************************************************************************/
 // Constants
 const double TTAntiDenormalValue = 1e-18;		// Used by the anti_denormal functions
+const double TTSqrt2 = 1.414213562;
+const double TTPi = 3.141592654;
 
 
 // TODO: evaluate how to handle some of these utilities.  At the very least they should be in a different file.

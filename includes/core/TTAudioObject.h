@@ -24,6 +24,18 @@
 #define TT_MAX_NUM_CHANNELS 32
 
 
+/*! @define		TT_DEFAULT_SAMPLERATE 
+	@abstract	Defines a default sample-rate in the case that none is set by clients of the library.
+	@discussion	In general, clients should be setting the sample-rate rather than simply relying on the default.
+*/ 
+#define TT_DEFAULT_SAMPLERATE 44100
+
+
+
+// TODO: need to write accessors for the global sample rate!
+extern long TTGlobalSampleRate;
+
+
 /*!
 	@class		TTAudioObject
 	@abstract	The required base-class from which all TTBlue audio processing objects must inherit.
