@@ -24,7 +24,7 @@
 
 - (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
-	short			vs = audioIn->vs;
+	short			vs;
 	float			*in,
 					*out;
 	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
@@ -35,6 +35,7 @@
 	for(channel=0; channel<numchannels; channel++){
 		in = audioIn->vectors[channel];
 		out = audioOut->vectors[channel];
+		vs = audioIn->vs;
 		
 		while(vs){
 			down_size = factorAttribute;

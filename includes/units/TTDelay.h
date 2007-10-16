@@ -34,7 +34,7 @@
 - (id)		initWithSizeInSamples:(long)maxSamples;
 - (id)		initWithSizeInMS:(float)maxMS;
 
-- (TTErr)	clear;
+- (TTErr)	clearMessage;
 - (TTErr)	setSr:(long)newValue;							// Override the in inherited method...
 
 // Important note:  this object currently only works in mono!

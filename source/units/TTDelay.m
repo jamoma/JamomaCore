@@ -73,7 +73,7 @@
 
 
 // clear
-- (TTErr) clear
+- (TTErr) clearMessage
 {
 	float *i;
 	long j = 0;

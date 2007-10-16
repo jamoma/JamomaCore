@@ -16,7 +16,7 @@
 	
 	
 	
-	[self clear];
+	[self clearMessage];
 	return self;
 }	
 
@@ -28,7 +28,7 @@
 }
 
 
-- (TTErr) clear
+- (TTErr) clearMessage
 {
 	long i;
 	for (i=0; i<(buffersize_in_samples + 4); i++) 
@@ -51,7 +51,7 @@
 
 - (TTErr) processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out
 {
-	short			vs = signals_in->vs;
+	short			vs;
 	float			*in,
 					*out;
 	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:signals_in andAnotherSignal:signals_out];
@@ -61,6 +61,7 @@
 	for(channel=0; channel<numchannels; channel++){
 		in = signals_in->vectors[channel];
 		out = signals_out->vectors[channel];
+		vs = audioIn->vs;
 		
 		while(vs--){
 			temp = *in++;

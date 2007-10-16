@@ -11,7 +11,7 @@
 - (id)init
 {
 	[super init];
-	[self clear];
+	[self clearMessage];
 	return self;
 }	
 
@@ -22,7 +22,7 @@
 }
 
 
-- (TTErr) clear
+- (TTErr) clearMessage
 {
 	short i;
 
@@ -39,7 +39,7 @@
 //		"biquad~ 1.0 -1.0 -0.9997 0.0"
 - (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
-	short			vs = audioIn->vs;
+	short			vs;
 	float			*in,
 					*out;
 	short			numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
@@ -52,6 +52,7 @@
 	for(channel=0; channel<numchannels; channel++){
 		in = audioIn->vectors[channel];
 		out = audioOut->vectors[channel];
+		vs = audioIn->vs;
 		
 		while(vs--){
 			temp = *in++;

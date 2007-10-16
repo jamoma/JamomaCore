@@ -30,7 +30,7 @@
 }
 
 /*!
-	@method 	clear
+	@method 	clearMessage
 	@abstract	Resets the DC-Blocking filter.
 	@discussion	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 				not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -38,7 +38,7 @@
 				neccesary to clear the filter by calling this method.
 	@result		Returns a TTBlue Error Code.
 */
-- (TTErr)	clear;
+- (TTErr)	clearMessage;
 
 /*!
 	@method 	processAudioWithInput:andOutput:

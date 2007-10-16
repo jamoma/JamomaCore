@@ -40,7 +40,7 @@ enum selectors{									// Attribute Selectors
 	- (id)		init;										// Constructor
 	- (id)		initWithSizeInMS:(float)max_ms;
 	- (void)	dealloc;									// Destructor
-	- (TTErr)	clear;
+	- (TTErr)	clearMessage;
 	- (TTErr)	srAttributeSetLongValue:(long)value;		// Override the in inherited method...
 	- (TTErr)	processAudioWithInput:(TTAudioSignal *)signals_in andOutput:(TTAudioSignal *)signals_out;
 @end

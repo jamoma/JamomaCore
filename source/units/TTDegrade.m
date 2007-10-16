@@ -39,7 +39,7 @@
 - (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
 	long	l;
-	short	vs = audioIn->vs;
+	short	vs;
 	float	*in,
 			*out;
 	short	numchannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
@@ -48,6 +48,7 @@
 	for(channel=0; channel<numchannels; channel++){
 		in = audioIn->vectors[channel];
 		out = audioOut->vectors[channel];
+		vs = audioIn->vs;
 		
 		while(vs--){
 			// SR Reduction
