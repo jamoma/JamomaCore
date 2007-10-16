@@ -11,7 +11,7 @@
 - (id)init
 {
 	[super init];
-	[self clear];
+	[self clearMessage];
 	[self setFloat:1000.0 forKey:@"frequencyAttribute"];
 	return self;
 }	
@@ -23,7 +23,7 @@
 }
 
 
-- (TTErr) clear
+- (TTErr) clearMessage
 {
 	short i;
 
@@ -38,12 +38,12 @@
 - (void) setFrequencyAttribute:(float)newValue
 {
 	frequencyAttribute = newValue;
-	c = 1 / ( tan( PI*(frequencyAttribute*srr ) ) );		// srr is the reciprocal of the sample-rate (1/sr)
-	a0 = 1 / (1 + sqrt2*c + c*c);
+	c = 1 / ( tan( TTPi*(frequencyAttribute*srr ) ) );		// srr is the reciprocal of the sample-rate (1/sr)
+	a0 = 1 / (1 + TTSqrt2*c + c*c);
 	a1 = 2*a0;
 	a2 = a0;
 	b1 = 2*a0*( 1 - c*c );
-	b2 = a0 * (1 - sqrt2*c + c*c);		
+	b2 = a0 * (1 - TTSqrt2*c + c*c);		
 }
 
 
@@ -60,7 +60,7 @@
 // DSP LOOP
 - (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
 {
-	short			vs = audioIn->vs;
+	short			vs;
 	float			*in,
 					*out;
 	short			numChannels = [TTAudioSignal GetMinNumChannelsForASignal:audioIn andAnotherSignal:audioOut];
@@ -72,11 +72,12 @@
 
 	// If there are more inputs than outputs, use the last input to set the frequency
 	if(audioIn->numChannels > numChannels)
-		[self setFrequencyAttribute:audioIn->vector[audioIn->numChannels - 1]];
-	
-	for(channel=0; channel<numchannels; channel++){
+		[self setFrequencyAttribute:(*audioIn->vectors[audioIn->numChannels - 1]) ];
+
+	for(channel=0; channel<numChannels; channel++){
 		in = audioIn->vectors[channel];
 		out = audioOut->vectors[channel];
+		vs = audioIn->vs;
 		
 		while(vs--){
 			x0 = *in++;

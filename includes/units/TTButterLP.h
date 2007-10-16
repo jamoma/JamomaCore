@@ -13,10 +13,10 @@
 	@abstract		2nd order Butterworth low pass filter.
 	@discussion 	This class is a good example of a multichannel parallel process 
 					with an additional (optional) control signal
-	@classdesign	This class implements the pseudo-standard 'clear' method.
+	@classdesign	This class implements the pseudo-standard 'clearMessage'.
 */
 
-@interface TTDCBlockObject : TTAudioObject 
+@interface TTButterLPObject : TTAudioObject 
 {
 	@public
 		/*! @var bypassAttribute		pass audio through unprocessed. */
@@ -39,7 +39,7 @@
 }
 
 /*!
-	@method 	clear
+	@method 	clearMessage
 	@abstract	Resets the Butterworth filter.
 	@discussion	This algorithm uses a 2nd order IIR filter, meaning that it relies on feedback.  If the filter should
 				not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -47,7 +47,7 @@
 				neccesary to clear the filter by calling this method.
 	@result		Returns a TTBlue Error Code.
 */
-- (TTErr)	clear;
+- (TTErr)	clearMessage;
 
 /*!
 	@method 	processAudioWithInput:andOutput:
