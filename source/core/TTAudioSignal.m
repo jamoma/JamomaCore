@@ -6,6 +6,20 @@
 #import "TTAudioSignal.h"
 
 
+// TODO: The old tt audio signal could point to external memory, or allocate its own for the vectors
+// This enum was used to keep trac of which was the case:
+// enum selectors{
+//	k_mode_local = 1,
+//	k_mode_external = 0,
+//};
+
+
+// TODO: implement clear() method -- ZERO OUT A VECTOR'S CONTENTS
+		
+// TODO: implement fill() method --- SET ALL VALUES IN THE SIGNAL TO A CONSTANT
+
+
+
 @implementation TTAudioSignal
 
 
