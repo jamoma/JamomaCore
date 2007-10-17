@@ -36,6 +36,44 @@
 extern long TTGlobalSampleRate;
 
 
+
+// CONSTANTS
+extern const float TTLookupEqualPower[];			// 512 point equal-power table
+
+extern const float TTLookupHalfPaddedWelch[]; 		// 256 point window table
+
+extern const float TTLookupQuarterSine[];			// 128 point quarter sine wave table
+
+
+
+
+// Utility Functions
+
+// TODO: evaluate all of these!  For types, but also for things like SR-dependency -- in which case they should be member functions
+
+double	TTHertzToRadians(const double hz);	// NOTE: Be sure to set the sr before calling this function
+double	TTRadiansToHertz(const double radians);	// NOTE: Be sure to set the sr before calling this function
+double	TTDegreesToRadians(const double degrees);
+double	TTRadiansToDegrees(const double radians);
+float	TTDecayToFeedback(const float decay_time, float delay);
+float	TTFeedbackToDecay(const float feedback, const float delay);
+float	TTAmplitudeToDecibels(const float value);
+float	TTDecibelsToAmplitude(float value);
+float	TTDecibelsToMillimeters(float value);
+float	TTMillimetersToDecibels(float value);
+float	TTMillimetersToAmplitude(float value);
+float 	TTAmplitudeToMillimeters(float value);
+float	TTMidiToDecibels(float value);
+float	TTDecibelsToMidi(float value);
+float	TTDeviate(float value);
+long	TTPrime(long value);
+
+
+
+
+
+
+
 /*!
 	@class		TTAudioObject
 	@abstract	The required base-class from which all TTBlue audio processing objects must inherit.

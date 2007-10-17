@@ -119,6 +119,12 @@ extern const double TTSqrt2;
 */ 
 extern const double TTPi;
 
+/*! @constant 		TTTwoPi 
+	@functiongroup	TTBlue Utilities
+	@discussion		pre-calculated value of pi * 2
+*/ 
+extern const double TTTwoPi;
+
 
 /****************************************************************************************************/
 
