@@ -50,6 +50,7 @@
 */ 
 typedef float				TTSampleValue;
 
+typedef float*				TTSampleVector;
 
 /*! @typedef 	TTErr 
 	@abstract	The primary return type for TTBlue methods.
@@ -57,6 +58,20 @@ typedef float				TTSampleValue;
 */ 
 typedef long				TTErr;				// used for returning error codes
 
+// Copied over from TTBlue 0.3
+typedef void*				TTPtr;
+typedef char				TTChar;
+typedef char*				TTString;
+typedef signed char			TTInt8;
+typedef signed short		TTInt16;
+typedef signed long			TTInt32;
+typedef signed long long	TTInt64;
+typedef unsigned char		TTUInt8;
+typedef unsigned short		TTUInt16;
+typedef unsigned long		TTUInt32;
+typedef unsigned long long	TTUInt64;
+typedef float				TTFloat32;
+typedef double				TTFloat64;
 
 
 /****************************************************************************************************/
@@ -109,8 +124,21 @@ extern const double TTPi;
 
 // TODO: evaluate how to handle some of these utilities.  At the very least they should be in a different file.
 
+
+long	TTLongLimitMin(long value, long lowBound);
+
+
+long	TTLongLimitMax(long value, long highBound);
+
+
+long	TTLongOneWrap(long value, long LowBound, long HighBound);
+
+
+long	TTLongScale(long value, long inLow, long inHigh, long outLow, long outHigh);
+
+
 /*! 
-	@function		ttclip
+	@function		TTLongClip
 	@functiongroup	TTBlue Utilities
 	@abstract		limits the range of an input number between a low_bound and high_bound
 	@discussion		All three args for the ttclip function (and the return value) must be of the same type.
@@ -119,11 +147,13 @@ extern const double TTPi;
 	@param			low_bound	Defines the lower limit to which the input should be clipped.
 	@param			high_bound	Defines the upper limit to which the input should be clipped.
 */
-long	TTClip(long value, long low_bound, long high_bound);
+long	TTLongClip(long value, long lowBound, long highBound);
 
+
+long	TTRound(float value);
 
 /*! 
-	@function 		ttantidenormal 
+	@function 		TTAntiDenormal 
 	@functiongroup	TTBlue Utilities
 	@abstract		process floats to ensure that they are not denormals
 	@discussion		It is important on Intel processors (though not on PPC processors) to filter out denormal
@@ -132,6 +162,11 @@ long	TTClip(long value, long low_bound, long high_bound);
 					If TT_DISABLE_DENORMAL_FIX is #defined, then this function will pass all input through unfettered.
 */
 double	TTAntiDenormal(double value);
+
+
+void	TTLogMessage(char *message);
+void	TTLogError(char *message);
+
 
 
 /****************************************************************************************************/
