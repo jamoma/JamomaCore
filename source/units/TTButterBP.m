@@ -1,18 +1,19 @@
-//	TTButterHPObject
-//	2nd order IIR Butterworth high pass filter
-//	Copyright © 2007 by Trond Lossius & Timothy A. Place
+//	TTButterBPObject
+//	2nd order IIR Butterworth band pass filter
+//	Copyright © 2007 by Trond Lossius & Timothy Place
 //	License: GNU LGPL
 
-#import "TTButterHP.h"
+#import "TTButterBP.h"
 
 
-@implementation TTButterHPObject
+@implementation TTButterBPObject
 
 - (id)init
 {
 	[super init];
 	[self clearMessage];
-	[self setFloat:20.0 forKey:@"frequencyAttribute"];
+	[self setFloat:441.0 forKey:@"frequencyAttribute"];
+	[self setFloat:100.0 forKey:@"qAttribute"];
 	return self;
 }	
 
@@ -30,31 +31,46 @@
 	for(i=0; i<TT_MAX_NUM_CHANNELS; i++){
 		x1[i] = x2[i] = y1[i] = y2[i] = 0;
 	}
-	return TT_ERR_NONE;
 }
 
 
 // accessor for frequencyAttribute
 - (void) setFrequencyAttribute:(float)newValue
 {
-	double c;
-	
 	frequencyAttribute = newValue;
-	c = tan( TTPi*frequencyAttribute*srr );		// srr is the reciprocal of the sample-rate (1/sr)
-	a0 = 1 / (1 + TTSqrt2*c + c*c);
-	a1 = -2*a0;
-	a2 = a0;
-	b1 = 2*a0*( c*c - 1 );
-	b2 = a0 * (1 - TTSqrt2*c + c*c);	
+	[self calculateCoefficients];
 }
 
+// accessor for qAttribute
+- (void) setQAttribute:(float)newValue
+{
+	qAttribute = newValue;
+	[self calculateCoefficients];
+}
+
+
+
+// Calculate new coefficients:
+- (void) calculateCoefficients
+{
+	double bw, c, d;
+	
+	bw = frequencyAttribute/qAttribute;
+	c = 1. / tan( TTPi*bw*srr );		// srr is the reciprocal of the sample-rate (1/sr)
+	d = 2. * cos( 2*TTPi*(frequencyAttribute*srr) );
+	a0 = 1. / (1. + c);
+	// a1 = 0;
+	a2 = -a0;
+	b1 = -1*a0*c*d;
+	b2 = a0 * (c-1.);
+}
 
 // override the inherited sample-rate setter so we can update the cutoff frequency if needed
 - (void) setSr:(long)newValue
 {
 	if(newValue != sr){
 		[super setLong:newValue forKey:@"sr"];				// manually call the inherited accessor, since we still want it
-		[self setFrequencyAttribute:frequencyAttribute];	// send the same frequency to ourself, but with a new SR it will update the coefficients
+		[self calculateCoefficients];						// recalculate
 	}
 }
 
@@ -83,7 +99,7 @@
 		
 		while(vs--){
 			x0 = *in++;
-			y0 = TTAntiDenormal(a0*x0 - a1*x1[channel] + a2*x2[channel] - b1*y1[channel] - b2*y2[channel]);
+			y0 = TTAntiDenormal(a0*x0 + a2*x2[channel] - b1*y1[channel] - b2*y2[channel]);
 			x2[channel] = x1[channel];
 			x1[channel] = x0;
 			y2[channel] = y1[channel];

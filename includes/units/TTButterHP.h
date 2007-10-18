@@ -1,15 +1,15 @@
 /*!
-	@header		TTButterLHP
+	@header		TTButterHP
 				Licensed under the terms of the GNU LGPL.
 	@copyright	Trond Lossius
-	@updated	2007-10-15
+	@updated	2007-10-18
 */
 
 #import "TTAudioObject.h"
 
 
 /*!
-	@class			TTButterLP
+	@class			TTButterHP
 	@abstract		2nd order Butterworth high pass filter.
 	@discussion 	This class is a good example of a multichannel parallel process 
 					with an additional (optional) control signal
@@ -35,7 +35,7 @@
 		/*! @var y2 Feedback values used for the audio filter */ 			
 		double		y2[TT_MAX_NUM_CHANNELS];
 		// filter coefficients
-		double		a0, a1, a2, b1, b2, c;
+		double		a0, a1, a2, b1, b2;
 }
 
 /*!

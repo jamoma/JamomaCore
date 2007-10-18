@@ -1,29 +1,32 @@
 /*!
-	@header		TTButterLP
+	@header		TTButterBP
 				Licensed under the terms of the GNU LGPL.
 	@copyright	Trond Lossius
-	@updated	2007-10-15
+	@updated	2007-10-18
 */
 
 #import "TTAudioObject.h"
 
 
 /*!
-	@class			TTButterLP
-	@abstract		2nd order Butterworth low pass filter.
+	@class			TTButterBP
+	@abstract		2nd order Butterworth band pass filter.
 	@discussion 	This class is a good example of a multichannel parallel process 
 					with an additional (optional) control signal
 	@classdesign	This class implements the pseudo-standard 'clearMessage'.
 */
 
-@interface TTButterLPObject : TTAudioObject 
+@interface TTButterBPObject : TTAudioObject 
 {
 	@public
 		/*! @var bypassAttribute		pass audio through unprocessed. */
 		long		bypassAttribute;
 		
-		/*! @var frequencyAttribute		Low pass filter cut off frequency. */ 			
+		/*! @var frequencyAttribute		Center frequency. */ 			
 		float		frequencyAttribute;
+		
+		/*! @var qAttribute				Filter resonance. */ 			
+		float		qAttribute;
 
 	@private
 		/*! @var x1 Feedback values used for the audio filter */ 			
@@ -35,7 +38,7 @@
 		/*! @var y2 Feedback values used for the audio filter */ 			
 		double		y2[TT_MAX_NUM_CHANNELS];
 		// filter coefficients
-		double		a0, a1, a2, b1, b2;
+		double		a0, a2, b1, b2;
 }
 
 /*!
@@ -61,6 +64,18 @@
 	@param		audioOut		A pointer to a TTAudioSignal object that has the output sample vectors.
 	@result		Returns a TTBlue Error Code.
 */
+
+- (void) calculateCoefficients
+
+/*!
+	@method 	calculateCoefficients
+	@abstract	Calculate filter coefficients.
+	@discussion	This object recalculates the coefficients to use in the 2nd order IIR filter depending on current
+				center frequency, resonance and sample rate.
+	@result		Should it return a TTBlue Error Code?
+*/
+
+
 - (TTErr)	processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut;
 
 @end

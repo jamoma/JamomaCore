@@ -37,6 +37,8 @@
 // accessor for frequencyAttribute
 - (void) setFrequencyAttribute:(float)newValue
 {
+	double c;
+	
 	frequencyAttribute = newValue;
 	c = 1 / ( tan( TTPi*(frequencyAttribute*srr ) ) );		// srr is the reciprocal of the sample-rate (1/sr)
 	a0 = 1 / (1 + TTSqrt2*c + c*c);
