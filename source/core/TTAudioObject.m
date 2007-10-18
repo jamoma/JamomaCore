@@ -120,32 +120,6 @@ const float TTLookupQuarterSine[] = {		// 128 point quarter sine wave table
 
 
 
-// RADIANS CONVERSIONS: cannot make static because of access to a member data element
-// hz-to-radians conversion
-double TTHertzToRadians(const double hz)	// NOTE: Be sure to set the sr before calling this function
-{
-	return(hz * (pi / (sr * 0.5)));
-}
-
-// radians-to-hz conversion
-double TTRadiansToHertz(const double radians)	// NOTE: Be sure to set the sr before calling this function
-{
-	return((radians * sr) / twopi);
-}
-
-// degrees-to-radians conversion
-double TTDegreesToRadians(const double degrees)
-{
-	return((degrees * pi) / 180.);
-}
-
-// radians-to-degrees conversion
-double TTRadiansToDegrees(const double radians)
-{
-	return((radians * 180.) / pi);	
-}
-
-
 // Decay Time (seconds) to feedback coefficient conversion
 float TTDecayToFeedback(const float decay_time, float delay)
 {
@@ -244,15 +218,15 @@ float TTMillimetersToDecibels(float value)
 // Millimeters to amplitude
 float TTMillimetersToAmplitude(float value)
 {
-	value = millimeters_to_decibels(value);
-	return decibels_to_amplitude(value);
+	value = TTMillimetersToDecibels(value);
+	return TTDecibelsToAmplitude(value);
 }
 
 // Amplitude to millimeters
 float TTAmplitudeToMillimeters(float value)
 {
-	value = amplitude_to_decibels(value);
-	return decibels_to_millimeters(value);
+	value = TTAmplitudeToDecibels(value);
+	return TTDecibelsToMillimeters(value);
 }
 
 
@@ -268,16 +242,6 @@ float TTDecibelsToMidi(float value)
 	return (value * 1.66666667) + 127;
 }
 
-
-float TTDeviate(float value)
-{
-	value += (2.0 * (float(rand()) / float(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
-	value = value * 0.001 * sr;									// convert from ms to samples
-	value = (float)prime(long(value));										// find the nearest prime number (in samples)
-	value = (value / sr) * 1000.0;								// convert back to ms
-	
-	return value;
-}
 
 
 long TTPrime(long value)
@@ -295,7 +259,7 @@ long TTPrime(long value)
 		do{
 			isPrime = true;								// Assume glorious success
 			candidate += 2;               				// Bump to the next number to test
-			last = long(sqrt((float)candidate));      				// We'll check to see if candidate has any factors, from 2 to last
+			last = (long)(sqrt((float)candidate));      				// We'll check to see if candidate has any factors, from 2 to last
 			for (i=3; (i <= last) && isPrime; i+=2){	// Loop through odd numbers only
 				if((candidate % i) == 0)
 				isPrime = false;
@@ -335,7 +299,7 @@ long TTPrime(long value)
 }
 
 
-- (TTErr)	processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut;
+- (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut;
 {
 	short			vs;
 	float			*in,
@@ -353,5 +317,43 @@ long TTPrime(long value)
 	}
 	return TT_ERR_NONE;
 }
+
+
+// RADIANS CONVERSIONS: cannot make static because of access to a member data element
+// hz-to-radians conversion
+- (double) TTHertzToRadians:(const double)hz	// NOTE: Be sure to set the sr before calling this function
+{
+	return(hz * (pi / (sr * 0.5)));
+}
+
+// radians-to-hz conversion
+- (double) TTRadiansToHertz:(const double)radians	// NOTE: Be sure to set the sr before calling this function
+{
+	return((radians * sr) / TTTwoPi);
+}
+
+// degrees-to-radians conversion
+- (double) TTDegreesToRadians:(const double)degrees
+{
+	return((degrees * TTPi) / 180.);
+}
+
+// radians-to-degrees conversion
+- (double) TTRadiansToDegrees:(const double)radians
+{
+	return((radians * 180.) / TTPi);	
+}
+
+
+- (float) TTDeviate:(float)value
+{
+	value += (2.0 * ((float)(rand()) / (float)(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
+	value = value * 0.001 * sr;									// convert from ms to samples
+	value = (float)TTPrime((long)(value));										// find the nearest prime number (in samples)
+	value = (value / sr) * 1000.0;								// convert back to ms
+	
+	return value;
+}
+
 
 @end
