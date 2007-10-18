@@ -56,7 +56,7 @@
 		
 		while(vs--){
 			temp = *in++;
-			*out++ = last_output[channel] = TTAntidenormal(temp - last_input[channel] + (last_output[channel] * 0.9997));
+			*out++ = last_output[channel] = TTAntiDenormal(temp - last_input[channel] + (last_output[channel] * 0.9997));
 			last_input[channel] = temp;
 		}
 	}
