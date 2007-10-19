@@ -1,23 +1,53 @@
-#include "tt_buffer.h"
+//	TTDCBlockObject
+//	dc offset filter / blocker 
+//	Copyright © 2007 by Timothy A. Place
+//	License: GNU LGPL
+
+#import "TTAudioBuffer.h"
 
 
-// OBJECT LIFE					
-TT_INLINE tt_buffer::tt_buffer(long val)								// Constructor
+- (id) initWithNumSamples:(TTUInt32 numSamples)
 {
-	init();
+	[super init];
+	[self setupBuffer];
+
+	local_contents = true;
+	contents = 0;
+	length_ms = 0;
+	length_samples = 0;		
+
 	set_attr(k_length_samples, val);
 }
 
-/*BECAUSE THE ABOVE HAS A DEFAULT VALUE, THAT DEFAULT VALUE WILL BE USED IF NOTHING IS SUPPLIED
-tt_buffer()										// Constructor
+- (id) init
 {
-	init();
+	return [self initWithNumSamples:512];
 }
-*/
-TT_INLINE 
-tt_buffer::~tt_buffer()										// Destructor
+
+- (id) dealloc
 {
-	buffer_free();
+	[self freeBuffer];
+	[super dealloc];
+}
+
+
+- (void) freeBuffer
+{
+	if(localContents){
+		free(contents);
+		contents = 0;
+	}
+}
+
+
+- (void) clear
+{
+	TTUInt32	i;
+	
+	if(contents){
+		for(i=0; i < lengthSamples; i++)
+			contents[i] = 0.0;
+	}
 }
 
 
@@ -44,179 +74,117 @@ tt_err tt_buffer::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
 	return TT_ERR_NONE;
 }
 
-TT_INLINE
-tt_err tt_buffer::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
+
+- (void) setBuffer:(TTAudioBuffer*)newBuffer
 {
-	switch (sel){
-		case k_length_ms:
-			a = length_ms;
-			break;
-		case k_length_samples:
-			a = length_samples;
-			break;
-		default:
-			return TT_ERR_ATTR_INVALID;
+	[self freeBuffer];
+	contents = newBuffer->contents;			// point our contents-pointer to the external one
+	lengthSamples = newBuffer->lengthSamples;
+	lengthMs = newBuffer->lengthMs;
+
+	localContents = false;
+}
+
+- (TTSampleValue) peekAt:(TTUInt32)index
+{
+	return contents[TTUInt32Clip(index, 0, lengthSamples - 1)];
+}
+
+
+- (void) pokeAt:(TTUInt32)index value:(TTSampleValue)newValue
+{
+	contents[TTUInt32Clip(index, 0, lengthSamples - 1)] = newValue;
+}
+
+
+- (void) fillWithFunction:(NSString*)functionName
+{
+	[self fillWithFunction:functionName usingFirstParameter:0.0 andSecondParameter:1.0];
+}
+
+- (void) fillWithFunction:(NSString*)functionName usingFirstParameter:(TTFloat64)param1 andSecondParameter:(TTFloat64)param2
+{
+	TTUInt32	i;
+	TTFloat64	temp;
+
+	if(functionName == @"Gaussian"){
+		for(i=0; i < lengthSamples; i++){
+			temp = double(i) / (double(lengthSamples) - 1);
+			contents[i] = ((-1.0 * (temp - param2) * (temp - param2)) / (2 * param1 * param1)) / (param1 * sqrt(TTTwoPi));
+			contents[i] = contents[i] * 0.3133;	// scale it
+			//TTLogMessage("FILL: %f", contents[i]);
+		}
 	}
-	return TT_ERR_NONE;
-}
-
-
-// METHOD: SET_BUFFER
-TT_INLINE 
-void tt_buffer::set_buffer(tt_buffer *newbuffer)
-{
-	buffer_free();								// release the internal buffer if appropriate
-	contents = newbuffer->contents;		// point our contents-pointer to the external one
-	length_samples = newbuffer->length_samples;
-	length_ms = newbuffer->length_ms;
-
-	local_contents = false;
-}
-
-
-// METHOD: PEEK
-TT_INLINE tt_sample_value tt_buffer::peek(unsigned long index)
-{
-	return contents[clip(index, 0UL, length_samples - 1)];
-}
-		
-// METHOD: POKE
-TT_INLINE void tt_buffer::poke(unsigned long index, tt_sample_value val)
-{
-	contents[clip(index, 0UL, length_samples - 1)] = val;
-}
-
-
-// METHOD: FILL
-TT_INLINE void tt_buffer::fill(tt_selector sel)
-{
-	unsigned long i, j;
-
-	switch(sel){
-		case k_sine:							// SINE WAVE
-			for(i=0; i < length_samples; i++){
-				contents[i] = sin(twopi * (double(i) / (double(length_samples) - 1.0)));
-				// log_post("FILL: %f", contents[i]);		
-			}			
-			break;				
-		case k_sine_mod:							// (modulator version: ranges from 0 to 1)
-			for(i=0; i < length_samples; i++){
-				contents[i] = 0.5 + (0.5 * sin(twopi * (double(i) / (double(length_samples) - 1.0))));
-			}
-			break;
-			
-		case k_cos:								// COSINE WAVE
-			for(i=0; i < length_samples; i++)
-				contents[i] = cos(twopi * (double(i) / (double(length_samples) - 1.0)));
-			break;					
-		case k_cos_mod:								// (modulator version)
-			for(i=0; i < length_samples; i++)
-				contents[i] = 0.5 + (0.5 * cos(twopi * (double(i) / (double(length_samples) - 1.0))));
-			break;
-			
-		case k_square:							// SQUARE WAVE (not band-limited)
-			for(i=0; i < (length_samples / 2); i++)
-				contents[i] = 1.0;				
-			for(i=i; i < length_samples; i++)
-				contents[i] = -1.0;	
-			break;					
-		case k_square_mod:							// (modulator version)
-			for(i=0; i < (length_samples / 2); i++)
-				contents[i] = 1.0;				
-			for(i=i; i < length_samples; i++)
-				contents[i] = 0.0;	
-			break;
-			
-		case k_triangle:						// TRIANGLE WAVE (not band-limited)
-			for (i=0; i < (length_samples / 4); i++) 
-				contents[i] = float(i) / (length_samples / 4);
-			for (j=i-1; i < (length_samples / 2); i++, j--) 
-				contents[i] = contents[j];
-			for (j=0; i < length_samples; i++, j++)	
-				contents[i] = 0.0 - contents[j];
-			break;				
-		case k_triangle_mod:						// (modulator version)
-			for (i=0; i < (length_samples / 4); i++) 
-				contents[i] = 0.5 + float(i) / (length_samples / 2);
-			for (j=i-1; i < (length_samples / 2); i++, j--) 
-				contents[i] = contents[j];
-			for (j=0; i < length_samples; i++, j++)	
-				contents[i] = 1.0 - contents[j];
-			break;				
-			
-		case k_ramp:							// RAMP WAVE
-			for (i=0; i < length_samples; i++) 
-				contents[i] = -1.0 + (2.0 * (float(i) / length_samples));
-			break;
-		case k_ramp_mod:							// (modulator version)
-			for (i=0; i < length_samples; i++) 
-				contents[i] = float(i) / length_samples;
-			break;
-
-		case k_sawtooth:							// SAWTOOTH WAVE
-			for(i=0, j=length_samples-1; i < length_samples; i++)
-				contents[j--] = -1.0 + (2.0 * (float(i) / length_samples));
-			break;
-		case k_sawtooth_mod:							// (modulator version)
-			for(i=0, j=length_samples-1; i < length_samples; i++)
-				contents[j--] = float(i) / length_samples;
-			break;
-
-		case k_padded_welch_512:				// FIXED 512 POINT WINDOW OF THE PADDED WELCH TYPE
-			for(i=0; i < 256; i++)
-				contents[i] = tt_audio_base::lookup_half_paddedwelch[i];
-			for(j=i-1; i < 512;i++, j--){
-				contents[i] = tt_audio_base::lookup_half_paddedwelch[j];
-			}	
-			break;
+	else if(functionName == @"Sine"){
+		for(i=0; i < length_samples; i++){
+			contents[i] = sin(twopi * (double(i) / (double(length_samples) - 1.0)));
+			// log_post("FILL: %f", contents[i]);		
+		}			
+	}				
+	else if(functionName == @"SineMod"){	// modulator version
+		for(i=0; i < length_samples; i++){
+			contents[i] = 0.5 + (0.5 * sin(twopi * (double(i) / (double(length_samples) - 1.0))));
+		}
 	}
-}
-
-// METHOD: FILL
-TT_INLINE void tt_buffer::fill(tt_selector sel, tt_attribute_value param1, tt_attribute_value param2)
-{
-	unsigned long	i;
-	double	temp;
-	
-	switch(sel){
-		case k_gauss:							// GAUSSIAN
-			for(i=0; i < length_samples; i++){
-				temp = double(i) / (double(length_samples) - 1);
-				contents[i] = ((-1.0 * (temp - param2) * (temp - param2)) / (2 * param1 * param1)) / (param1 * sqrt(twopi));
-				contents[i] = contents[i] * 0.3133;	// scale it
-				//log_post("FILL: %f", contents[i]);
-			}
-			break;
-
-	}
-}
-
-// METHOD: INIT
-TT_INLINE void tt_buffer::init()
-{
-	local_contents = true;
-	contents = 0;
-	length_ms = 0;
-	length_samples = 0;		
-}
-
-
-// METHOD: BUFFER_FREE
-TT_INLINE void tt_buffer::buffer_free()
-{
-	if(local_contents){
-		mem_free(contents);
-		contents = 0;
-	}	
-}
-
-
-// METHOD: CLEAR
-TT_INLINE void tt_buffer::clear()
-{
-	unsigned long i;
-	if(contents){
+	else if(functionName == @"Cosine"){
 		for(i=0; i < length_samples; i++)
-			contents[i] = 0.0;
+			contents[i] = cos(twopi * (double(i) / (double(length_samples) - 1.0)));
+	}				
+	else if(functionName == @"CosineMod"){
+		for(i=0; i < length_samples; i++)
+			contents[i] = 0.5 + (0.5 * cos(twopi * (double(i) / (double(length_samples) - 1.0))));
 	}
+	else if(functionName == @"Square"){
+		for(i=0; i < (length_samples / 2); i++)
+			contents[i] = 1.0;				
+		for(i=i; i < length_samples; i++)
+			contents[i] = -1.0;	
+	}				
+	else if(functionName == @"SquareMod"){
+		for(i=0; i < (length_samples / 2); i++)
+			contents[i] = 1.0;				
+		for(i=i; i < length_samples; i++)
+			contents[i] = 0.0;	
+	}
+	else if(functionName == @"Triangle"){
+		for (i=0; i < (length_samples / 4); i++) 
+			contents[i] = float(i) / (length_samples / 4);
+		for (j=i-1; i < (length_samples / 2); i++, j--) 
+			contents[i] = contents[j];
+		for (j=0; i < length_samples; i++, j++)	
+			contents[i] = 0.0 - contents[j];
+	}			
+	else if(functionName == @"TriangleMod"){
+		for (i=0; i < (length_samples / 4); i++) 
+			contents[i] = 0.5 + float(i) / (length_samples / 2);
+		for (j=i-1; i < (length_samples / 2); i++, j--) 
+			contents[i] = contents[j];
+		for (j=0; i < length_samples; i++, j++)	
+			contents[i] = 1.0 - contents[j];
+	}		
+	else if(functionName == @"Ramp"){
+		for (i=0; i < length_samples; i++) 
+			contents[i] = -1.0 + (2.0 * (float(i) / length_samples));
+	}
+	else if(functionName == @"RampMod"){
+		for (i=0; i < length_samples; i++) 
+			contents[i] = float(i) / length_samples;
+	}
+	else if(functionName == @"Sawtooth"){
+		for(i=0, j=length_samples-1; i < length_samples; i++)
+			contents[j--] = -1.0 + (2.0 * (float(i) / length_samples));
+	}
+	else if(functionName == @"SawtoothMod"){
+		for(i=0, j=length_samples-1; i < length_samples; i++)
+			contents[j--] = float(i) / length_samples;
+	}
+	else if(functionName == @"PaddedWelch512"){
+		for(i=0; i < 256; i++)
+			contents[i] = tt_audio_base::lookup_half_paddedwelch[i];
+		for(j=i-1; i < 512;i++, j--){
+			contents[i] = tt_audio_base::lookup_half_paddedwelch[j];
+		}	
+	}
+	else
+		[self errorMessage:"TTAudioBuffer: Bad fill type specified"];
 }

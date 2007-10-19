@@ -1,83 +1,44 @@
-/*
- *******************************************************
- *		AUDIO BUFFER
- *******************************************************
- *		tt Object
- *		Copyright © 2003 by Timothy A. Place
- *
- */
+/*!
+	@header		TTAudioBuffer
+				A shared buffer object for audio.
+				TTBlue is licensed under the terms of the GNU LGPL.
+	@copyright	Timothy Place
+	@updated	2007-10-19
+*/
 
-// Check against redundant including
-#ifndef TT_BUFFER_H
-#define TT_BUFFER_H
-
-// Include appropriate headers
-#include "tt_audio_base.h"
+#import "TTAudioSignal.h"
 
 
-/********************************************************
-	CLASS INTERFACE
- ********************************************************/
+// The TTAudioBuffer class is not intended to be directly exposed to a user, but rather included
+// and referenced from within other TTBlue classes
 
-class tt_buffer:public tt_audio_base{
+// TODO:
+// extern hash table, "bufferName" : "bufferObject"
 
-	private:
-		tt_attribute_value			length_ms;				// length of the buffer in milliseconds
-		bool						local_contents;			// flags true if we are using the internal buffer
-				
-	public:
-		tt_sample_vector			contents;				// made public so it can be accessed with speed
-		unsigned long				length_samples;			// length of the buffer in samples (also available for speed)
+
+@interface TTAudioBuffer : TTAudioObject 
+{
+	@public
+		TTSampleVector		contents;				// made public so it can be accessed with speed
+		TTUInt32			lengthSamples;			// length of the buffer in samples (also available for speed)
 		// short					channels;
 		// attribute_value_discrete	loop_start_file;		// loop start indicated in file
 		// attribute_value_discrete	loop_end_file;			// loop end indicated in file
-		
-		enum selectors{										// Attribute Selectors
-			k_length_ms,
-			k_length_samples,
-			
-			// waveform selectors
-			k_sine,
-			k_sine_mod,
-			k_cos,
-			k_cos_mod,
-			k_square,
-			k_square_mod,
-			k_triangle,
-			k_triangle_mod,
-			k_ramp,
-			k_ramp_mod,
-			k_sawtooth,
-			k_sawtooth_mod,
-			// window selectors
-			k_padded_welch_512,
-			k_gauss
-		};
-			
-		// OBJECT LIFE					
-		tt_buffer(long val = 0);							// Constructor
-		~tt_buffer();										// Destructor
+	@private
+		TTFloat64			lengthMs;			// length of the buffer in milliseconds
+		TTBoolean			localContents;		// flags true if we are using the internal buffer
+}
 
-		// ATTRIBUTES
-		tt_err set_attr(tt_selector sel, const tt_value &a);	// Set Attributes
-		tt_err get_attr(tt_selector sel, tt_value &a);		// Get Attributes
-		
-		// METHOD: SET_BUFFER
-		void set_buffer(tt_buffer *newbuffer);
-		// METHOD: PEEK
-		tt_sample_value peek(unsigned long index);				
-		// METHOD: POKE
-		void poke(unsigned long index, tt_sample_value val);
-		// METHOD: FILL
-		void fill(tt_selector sel);
-		// METHOD: FILL
-		void fill(tt_selector sel, tt_attribute_value param1, tt_attribute_value param2);
-		// METHOD: INIT
-		void init();
-		// METHOD: BUFFER_FREE
-		void buffer_free();
-		// METHOD: CLEAR
-		void clear();
-};
+- (id)				init;								// Constructor
+- (id)				initWithNumSamples:(TTUInt32)numSamples;
+- (void)			dealloc;							// Destructor
 
-#endif		// TT_BUFFER_H
+- (void)			setBuffer:(TTAudioBuffer*)newBuffer;
+- (TTSampleValue)	peekAt:(TTUInt32)index;
+- (void)			pokeAt:(TTUInt32)index value:(TTSampleValue)newValue;
+- (void)			fillWithFunction:(NSString*)functionName;
+- (void)			fillWithFunction:(NSString*)functionName usingFirstParameter:(TTFloat64)param1 andSecondParameter:(TTFloat64)param2;
+- (void)			clear;
+
+@end
+
