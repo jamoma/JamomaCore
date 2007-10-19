@@ -6,7 +6,7 @@
 	@updated	2007-10-19
 */
 
-#import "TTAudioSignal.h"
+#import "TTAudioObject.h"
 
 
 // The TTAudioBuffer class is not intended to be directly exposed to a user, but rather included
@@ -26,7 +26,7 @@
 		// attribute_value_discrete	loop_end_file;			// loop end indicated in file
 	@private
 		TTFloat64			lengthMs;			// length of the buffer in milliseconds
-		TTBoolean			localContents;		// flags true if we are using the internal buffer
+		Boolean				localContents;		// flags true if we are using the internal buffer
 }
 
 - (id)				init;								// Constructor

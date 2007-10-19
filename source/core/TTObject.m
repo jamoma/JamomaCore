@@ -80,6 +80,12 @@ long TTLongClip(long value, long low_bound, long high_bound)
 	return value;
 }
 
+TTUInt32 TTUInt32Clip(TTUInt32 value, TTUInt32 lowBound, TTUInt32 highBound)
+{
+	value = ((abs(value - lowBound)) + (lowBound + highBound)) - abs(value - highBound);
+	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
+	return value;
+}
 
 
 // rounding utility

@@ -153,10 +153,11 @@ long	TTLongScale(long value, long inLow, long inHigh, long outLow, long outHigh)
 	@param			low_bound	Defines the lower limit to which the input should be clipped.
 	@param			high_bound	Defines the upper limit to which the input should be clipped.
 */
-long	TTLongClip(long value, long lowBound, long highBound);
+long		TTLongClip(long value, long lowBound, long highBound);
 
+TTUInt32	TTUInt32Clip(TTUInt32 value, TTUInt32 lowBound, TTUInt32 highBound);
 
-long	TTRound(float value);
+long		TTRound(float value);
 
 /*! 
 	@function 		TTAntiDenormal 
