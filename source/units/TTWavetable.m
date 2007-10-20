@@ -1,23 +1,73 @@
-#include "tt_wavetable.h"
+//	TTDCBlockObject
+//	dc offset filter / blocker 
+//	Copyright © 2007 by Timothy A. Place
+//	License: GNU LGPL
+
+#import "TTWavetable.h"
 
 
-// OBJECT LIFE					
-tt_wavetable::tt_wavetable()									// Constructor		
+@implementation TTWavetableObject
+
+- (id)init
 {
-	index = index_delta = 0.0;
-	wavetable = new tt_buffer(512);
-	//wavetable->set_attr(tt_buffer::k_length_samples, 512);
+	[super init];
+
+	// create a buffer
+	wavetable = [[TTAudioBuffer alloc] initWithNumSamples:512];
 
 	// set defaults
+	[self setFloat:1.0 forKey:@"gainValue"];
+	[self setFloat:1.0 forKey:@"frequencyAttribute"];
+	
 	set_attr(k_mode, k_mode_sine);
-	set_attr(k_gain, 0.0);
-	set_attr(k_frequency, 1.0);
+
+	return self;
+}	
+
+
+- (void) dealloc
+{
+	[wavetable release];
+	[super dealloc];
 }
 
-tt_wavetable::~tt_wavetable()									// Destructor
+
+- (void) setWavetableBuffer(TTAudioBuffer*)newBuffer
 {
-	delete wavetable;
+	[wavetable setBuffer:newBuffer];
 }
+
+
+- (void) setFrequencyAttribute:(TTFloat32)newFrequency
+{
+	long size = [wavetable getLongforKey:@"lengthSamples"];
+	
+	frequencyAttribute = TTFloatClip(newFrequency, 0.0, sr/2.0);
+	index_delta = frequencyAttribute * size / sr;
+}
+
+
+- (void) setGainValue:(TTFloat32)newGain
+{
+	gain = newGain;
+	gainInDB = TTAmplitudeToDecibels(newGain);	
+}
+			
+
+- (void) setGainAttribute:(TTFloat32)newGain
+{
+	gainInDB = newGain;
+	gain = TTDecibelsToAmplitude(newGain);
+}
+
+
+- (void) setWaveformAttribute:(NSString*)newWaveformName
+{
+	waveformAttribute = newWaveformName;
+	[wavetable fill:waveformAttribute];
+}
+
+@end
 
 
 // ATTRIBUTES
@@ -29,76 +79,10 @@ tt_err tt_wavetable::set_attr(tt_selector sel, const tt_value &a)	// Set Attribu
 	
 	switch (sel){
 		case k_frequency:
-			frequency = clip(double(val), 0.0, sr/2.0);
-			wavetable->get_attr(tt_buffer::k_length_samples, temp);
-			val = temp;
-			index_delta = frequency * val / sr;
 			break;
 			
-		case k_mode:
-			mode = a;
-
-			if(val == k_mode_sine)
-				wavetable->fill(tt_buffer::k_sine);
-			if(val == k_mode_sine_mod)
-				wavetable->fill(tt_buffer::k_sine_mod);
-
-			if(val == k_mode_cos)
-				wavetable->fill(tt_buffer::k_cos);
-			if(val == k_mode_cos_mod)
-				wavetable->fill(tt_buffer::k_cos_mod);
-
-			if(val == k_mode_square)
-				wavetable->fill(tt_buffer::k_square);
-			if(val == k_mode_square_mod)
-				wavetable->fill(tt_buffer::k_square_mod);
-
-			if(val == k_mode_triangle)
-				wavetable->fill(tt_buffer::k_triangle);
-			if(val == k_mode_triangle_mod)
-				wavetable->fill(tt_buffer::k_triangle_mod);
-
-			if(val == k_mode_ramp)
-				wavetable->fill(tt_buffer::k_ramp);
-			if(val == k_mode_ramp_mod)
-				wavetable->fill(tt_buffer::k_ramp_mod);
-			break;
-			
-		case k_gain:
-			gain = decibels_to_amplitude(val);
-			break;
-		default:
-			return TT_ERR_ATTR_INVALID;
 	}
 	return TT_ERR_NONE;
-}
-
-
-TT_INLINE
-tt_err tt_wavetable::get_attr(tt_selector sel, tt_value &a)				// Get Attributes
-{
-	switch (sel){
-		case k_frequency:
-			a = frequency;
-			break;
-		case k_mode:
-			a = mode;
-			break;
-		case k_gain:
-			a = amplitude_to_decibels(gain);
-			break;
-		default:
-			return TT_ERR_ATTR_INVALID;
-	}
-	return TT_ERR_NONE;
-}
-
-
-// METHOD: SET_WAVETABLE
-TT_INLINE 
-void tt_wavetable::set_wavetable(tt_buffer *newbuffer)
-{
-	wavetable->set_buffer(newbuffer);
 }
 
 
