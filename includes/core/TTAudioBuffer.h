@@ -26,7 +26,7 @@
 		// attribute_value_discrete	loop_end_file;			// loop end indicated in file
 	@private
 		TTFloat64			lengthMs;			// length of the buffer in milliseconds
-		Boolean				localContents;		// flags true if we are using the internal buffer
+		TTBoolean			localContents;		// flags true if we are using the internal buffer
 }
 
 - (id)				init;								// Constructor

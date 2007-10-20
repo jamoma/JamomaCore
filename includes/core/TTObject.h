@@ -59,6 +59,9 @@ typedef float*				TTSampleVector;
 */ 
 typedef long				TTErr;				// used for returning error codes
 
+
+typedef unsigned char		TTBoolean;			// same as Boolean on the Mac
+
 // Copied over from TTBlue 0.3
 typedef void*				TTPtr;
 typedef char				TTChar;
