@@ -1,12 +1,12 @@
 //	TTDCBlockObject
 //	dc offset filter / blocker 
-//	Copyright Â© 2007 by Timothy A. Place
+//	Copyright © 2007 by Timothy A. Place
 //	License: GNU LGPL
 
 #import "TTWavetable.h"
 
 
-@implementation TTWavetableObject
+@implementation TTWavetable
 
 - (id)init
 {
@@ -18,8 +18,7 @@
 	// set defaults
 	[self setFloat:1.0 forKey:@"gainValue"];
 	[self setFloat:1.0 forKey:@"frequencyAttribute"];
-	
-	set_attr(k_mode, k_mode_sine);
+	[self setValue:@"Sine" forKey:@"waveformAttribute"];
 
 	return self;
 }	
@@ -32,7 +31,7 @@
 }
 
 
-- (void) setWavetableBuffer(TTAudioBuffer*)newBuffer
+- (void) setWavetableBuffer:(TTAudioBuffer*)newBuffer
 {
 	[wavetable setBuffer:newBuffer];
 }
@@ -40,112 +39,113 @@
 
 - (void) setFrequencyAttribute:(TTFloat32)newFrequency
 {
-	long size = [wavetable getLongforKey:@"lengthSamples"];
+	long size = [wavetable longForKey:@"lengthSamples"];
 	
-	frequencyAttribute = TTFloatClip(newFrequency, 0.0, sr/2.0);
+	frequencyAttribute = TTFloat32Clip(newFrequency, 0.0, sr/2.0);
 	index_delta = frequencyAttribute * size / sr;
 }
 
 
 - (void) setGainValue:(TTFloat32)newGain
 {
-	gain = newGain;
-	gainInDB = TTAmplitudeToDecibels(newGain);	
+	gainValue = newGain;
+	gainAttribute = TTAmplitudeToDecibels(newGain);	
 }
 			
 
 - (void) setGainAttribute:(TTFloat32)newGain
 {
-	gainInDB = newGain;
-	gain = TTDecibelsToAmplitude(newGain);
+	gainAttribute = newGain;
+	gainValue = TTDecibelsToAmplitude(newGain);
 }
 
 
 - (void) setWaveformAttribute:(NSString*)newWaveformName
 {
 	waveformAttribute = newWaveformName;
-	[wavetable fill:waveformAttribute];
+	[wavetable fillWithFunction:waveformAttribute];
 }
 
-@end
 
-
-// ATTRIBUTES
-TT_INLINE 
-tt_err tt_wavetable::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
+// override the inherited sample-rate setter so we can update the cutoff frequency if needed
+- (void) setSr:(long)newValue
 {
-	tt_float32	val = a;
-	tt_value		temp;
-	
-	switch (sel){
-		case k_frequency:
-			break;
-			
+	if(newValue != sr){
+		[super setLong:newValue forKey:@"sr"];				// manually call the inherited accessor, since we still want it
+		[self setFrequencyAttribute:frequencyAttribute];	// send the same frequency to ourself, but we have a new SR...
+	}
+}
+
+
+// If there is an input, then it is a frequency modulation signal
+// All outputs are the oscillator output
+- (TTErr) processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut
+{
+	short			vs;
+	short			channel;
+	TTSampleVector	in,
+					out;
+	TTUInt32		p1, 
+					p2;
+	float 			diff;
+	double 			wavetableLength = (double)(wavetable->lengthSamples); 	//512.0
+
+	if(audioIn->numChannels)
+		in = audioIn->vectors[0];
+	else
+		in = NULL;
+
+	for(channel=0; channel < audioOut->numChannels; channel++){
+		out = audioOut->vectors[channel];
+		vs = audioIn->vs;
+		
+		if(in){			// modulated
+		    while(vs--){
+				// Move the play head
+				index += index_delta;
+
+				// Apply modulation to the play head **
+				index += *in++ * wavetableLength / sr;
+
+				// Wrap the play head
+				if(index >= wavetableLength)	    		
+					index -= wavetableLength;
+				else if(index < 0)	    		
+					index += wavetableLength;
+
+				// table lookup (linear interpolation)	
+				p1 = (TTUInt32)index;
+				p2 = p1 + 1;
+				diff = index - p1;	
+				p2 &= ((wavetable->lengthSamples) - 1);	// fast modulo
+
+		    	*out++ = ((wavetable->contents[p2] * diff) + (wavetable->contents[p1] * (1.0 - diff))) * gainValue;
+		    }
+			in = audioIn->vectors[0];	// reset for next iteration
+		}
+		else{			// non-modulated
+			while(vs--){
+				// Move the play head
+				index += index_delta;
+		
+				// Wrap the play head
+				if(index >= wavetableLength)	    		
+					index -= wavetableLength;
+				else if(index < 0)	    		
+					index += wavetableLength;
+
+				// table lookup (linear interpolation)	
+				p1 = (TTUInt32)index;
+				p2 = p1 + 1;
+				diff = index - p1;	
+				p2 &= ((wavetable->lengthSamples) - 1);	// fast modulo
+								
+		    	*out++ = ((wavetable->contents[p2] * diff) + (wavetable->contents[p1] * (1.0 - diff))) * gainValue;
+			}
+		}
 	}
 	return TT_ERR_NONE;
 }
 
 
-// DSP LOOP - WITHOUT MODULATION
-TT_INLINE 
-void tt_wavetable::dsp_vector_calc(tt_audio_signal *out)
-{
-	unsigned long p1, p2;
-	float diff;
-	double wavetable_length = double(wavetable->length_samples); //512.0
-	temp_vs = out->vectorsize;
-							
-    while(temp_vs--){
-
-		// Move the play head
-		index += index_delta;
-		
-		// Wrap the play head
-		if(index >= wavetable_length)	    		
-			index -= wavetable_length;
-		else if(index < 0)	    		
-			index += wavetable_length;
-		
-		// table lookup (linear interpolation)	
-		p1 = (unsigned long)index;
-		p2 = p1 + 1;
-		diff = index - p1;	
-		p2 &= ((wavetable->length_samples) - 1);	// fast modulo
-								
-    	*out->vector++ = ((wavetable->contents[p2] * diff) + (wavetable->contents[p1] * (1.0 - diff))) * gain;
-    }
-    out->reset();
-}
-
-
-// DSP LOOP - WITH MODULATION INPUT
-TT_INLINE void tt_wavetable::dsp_vector_calc(tt_audio_signal *in, tt_audio_signal *out)
-{
-	unsigned long p1, p2;
-	float diff, wavetable_length = float(wavetable->length_samples);
-	temp_vs = in->vectorsize;
-										
-    while(temp_vs--){
-
-		// Move the play head
-		index += index_delta;
-		
-		// Apply modulation to the play head **
-		index += *in->vector++ * wavetable_length / sr;
-		
-		// Wrap the play head
-		if(index >= wavetable_length)	    		
-			index -= wavetable_length;
-		else if(index < 0)	    		
-			index += wavetable_length;
-		
-		// table lookup (linear interpolation)	
-		p1 = (unsigned long)index;
-		p2 = p1 + 1;
-		diff = index - p1;	
-		p2 &= ((wavetable->length_samples) - 1);	// fast modulo
-								
-    	*out->vector++ = ((wavetable->contents[p2] * diff) + (wavetable->contents[p1] * (1.0 - diff))) * gain;
-    }
-    in->reset(); out->reset();
-}
+@end

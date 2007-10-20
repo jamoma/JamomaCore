@@ -5,7 +5,8 @@
 	@updated	2007-10-08	
 */
 
-#include "TTAudioObject.h"
+#import "TTAudioObject.h"
+#import "TTAudioBuffer.h"
 
 /*!
 	@class			TTWavetable
@@ -15,23 +16,6 @@
 @interface TTWavetable : TTAudioObject 
 {
 	@public
-/*		enum selectors{									// Attribute Selectors
-			k_frequency,
-			k_gain,
-			k_mode,
-			k_mode_sine,
-			k_mode_sine_mod,
-			k_mode_cos,
-			k_mode_cos_mod,
-			k_mode_square,
-			k_mode_square_mod,
-			k_mode_triangle,
-			k_mode_triangle_mod,
-			k_mode_ramp,
-			k_mode_ramp_mod,
-		};
-*/
-
 		/*! @var frequencyAttribute		Frequency of the oscillator in Hertz. */
 		TTFloat32						frequencyAttribute;
 		/*! @var gainAttribute			Amplitude of the oscillator specified in decibels. */
@@ -47,15 +31,11 @@
 		/*! @var last_output Feedback values used for the audio filter */ 			
 		double		last_output[TT_MAX_NUM_CHANNELS];
 
-
-		tt_attribute_value_discrete 	mode;
-		TTAudioBuffer					*wavetable;
+		TTAudioBuffer*					wavetable;
 		double							index_delta;
 		double							index;
 }
 
-
-void set_wavetable(tt_buffer *newbuffer);
 		
 /*!
 	@method 	processAudioWithInput:andOutput:

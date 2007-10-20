@@ -3,20 +3,30 @@
 //	Copyright © 2007 by Timothy Place
 //	License: GNU LGPL
 
+// This object used to be distributed as a part of Tap.Tools under the name tap.waveform~
+
 #import "TTWavetable.h"
 
 // Entry Point when loaded by Max
 int main(void)
 {
-	[MaxObject createMaxClassWithName:"tt.wavetable~" fromObjcClassWithName:"TTWavetableMax"];
+	t_class *c;
+	
+	 c = [MaxObject createMaxClassWithName:"tt.wavetable~" fromObjcClassWithName:"TTWavetableMax"];
+	
+	// waveformAttribute is an NSString, so we shouldn't expose it directly to Max
+	CLASS_ATTR_INVISIBLE(c, "waveform", 0);
+	
 	return 0;
 }
 
 
 // Max Wrapper Class
 
-@interface TTWavetableMax : TTWavetableObject
-{}
+@interface TTWavetableMax : TTWavetable
+{
+	t_symbol*	waveshapeAttribute;
+}
 @end
 
 @implementation TTWavetableMax
@@ -25,9 +35,24 @@ int main(void)
 {
 	[super init];
 	maxObjectBridge = x;
-	[self createInletWithIndex:0	named:"signalIn"	withAssistanceMessage:"(signal) Input"];
+	[self createInletWithIndex:0	named:"signalIn"	withAssistanceMessage:"(signal) Frequency Modulator"];
 	[self createOutletWithIndex:0	named:"signalOut"	withAssistanceMessage:"(signal) Output"];
+	[self setSymbol:gensym("Sine") forKey:@"waveshapeAttribute"];
 	return self;
 }
+
+
+// Max does not send NSStrings, but t_symbol's.  So in this case we need to override the waveform setter
+// in order to translate.
+- (void) setWaveshapeAttribute:(t_symbol*)newWaveshape
+{
+	NSString *newWaveformName;
+	
+	waveshapeAttribute = newWaveshape;
+	newWaveformName  = [[NSString alloc] initWithUTF8String:newWaveshape->s_name];
+
+	[super setValue:newWaveformName forKey:@"waveformAttribute"];
+}
+
 
 @end

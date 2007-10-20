@@ -11,14 +11,14 @@
 - (id) initWithNumSamples:(TTUInt32)numSamples
 {
 	[super init];
-	[self setupBuffer];
 
 	localContents = YES;
 	contents = 0;
 	lengthMs = 0;
 	lengthSamples = 0;		
 
-	[self setLong:numSamples forKey:@"lengthSamples"]; 
+	[self setLong:numSamples forKey:@"lengthSamples"];
+	return self;
 }
 
 - (id) init
@@ -102,7 +102,7 @@
 	TTUInt32	i, j;
 	TTFloat64	temp;
 
-	if(functionName == @"Gaussian"){
+	if([functionName isEqualToString:@"Gaussian"]){
 		for(i=0; i < lengthSamples; i++){
 			temp = (double)(i) / ((double)(lengthSamples) - 1);
 			contents[i] = ((-1.0 * (temp - param2) * (temp - param2)) / (2 * param1 * param1)) / (param1 * sqrt(TTTwoPi));
@@ -110,38 +110,38 @@
 			//TTLogMessage("FILL: %f", contents[i]);
 		}
 	}
-	else if(functionName == @"Sine"){
+	else if([functionName isEqualToString:@"Sine"]){
 		for(i=0; i < lengthSamples; i++){
 			contents[i] = sin(TTTwoPi * ((double)(i) / ((double)(lengthSamples) - 1.0)));
 			// log_post("FILL: %f", contents[i]);		
 		}			
 	}				
-	else if(functionName == @"SineMod"){	// modulator version
+	else if([functionName isEqualToString:@"SineMod"]){	// modulator version
 		for(i=0; i < lengthSamples; i++){
 			contents[i] = 0.5 + (0.5 * sin(TTTwoPi * ((double)(i) / ((double)(lengthSamples) - 1.0))));
 		}
 	}
-	else if(functionName == @"Cosine"){
+	else if([functionName isEqualToString:@"Cosine"]){
 		for(i=0; i < lengthSamples; i++)
 			contents[i] = cos(TTTwoPi * ((double)(i) / ((double)(lengthSamples) - 1.0)));
 	}				
-	else if(functionName == @"CosineMod"){
+	else if([functionName isEqualToString:@"CosineMod"]){
 		for(i=0; i < lengthSamples; i++)
 			contents[i] = 0.5 + (0.5 * cos(TTTwoPi * ((double)(i) / ((double)(lengthSamples) - 1.0))));
 	}
-	else if(functionName == @"Square"){
+	else if([functionName isEqualToString:@"Square"]){
 		for(i=0; i < (lengthSamples / 2); i++)
 			contents[i] = 1.0;				
 		for(i=i; i < lengthSamples; i++)
 			contents[i] = -1.0;	
 	}				
-	else if(functionName == @"SquareMod"){
+	else if([functionName isEqualToString:@"SquareMod"]){
 		for(i=0; i < (lengthSamples / 2); i++)
 			contents[i] = 1.0;				
 		for(i=i; i < lengthSamples; i++)
 			contents[i] = 0.0;	
 	}
-	else if(functionName == @"Triangle"){
+	else if([functionName isEqualToString:@"Triangle"]){
 		for (i=0; i < (lengthSamples / 4); i++) 
 			contents[i] = (float)(i) / (lengthSamples / 4);
 		for (j=i-1; i < (lengthSamples / 2); i++, j--) 
@@ -149,7 +149,7 @@
 		for (j=0; i < lengthSamples; i++, j++)	
 			contents[i] = 0.0 - contents[j];
 	}			
-	else if(functionName == @"TriangleMod"){
+	else if([functionName isEqualToString:@"TriangleMod"]){
 		for (i=0; i < (lengthSamples / 4); i++) 
 			contents[i] = 0.5 + (float)(i) / (lengthSamples / 2);
 		for (j=i-1; i < (lengthSamples / 2); i++, j--) 
@@ -157,23 +157,23 @@
 		for (j=0; i < lengthSamples; i++, j++)	
 			contents[i] = 1.0 - contents[j];
 	}		
-	else if(functionName == @"Ramp"){
+	else if([functionName isEqualToString:@"Ramp"]){
 		for (i=0; i < lengthSamples; i++) 
 			contents[i] = -1.0 + (2.0 * ((float)(i) / lengthSamples));
 	}
-	else if(functionName == @"RampMod"){
+	else if([functionName isEqualToString:@"RampMod"]){
 		for (i=0; i < lengthSamples; i++) 
 			contents[i] = (float)(i) / lengthSamples;
 	}
-	else if(functionName == @"Sawtooth"){
+	else if([functionName isEqualToString:@"Sawtooth"]){
 		for(i=0, j=lengthSamples-1; i < lengthSamples; i++)
 			contents[j--] = -1.0 + (2.0 * ((float)(i) / lengthSamples));
 	}
-	else if(functionName == @"SawtoothMod"){
+	else if([functionName isEqualToString:@"SawtoothMod"]){
 		for(i=0, j=lengthSamples-1; i < lengthSamples; i++)
 			contents[j--] = (float)(i) / lengthSamples;
 	}
-	else if(functionName == @"PaddedWelch512"){
+	else if([functionName isEqualToString:@"PaddedWelch512"]){
 		for(i=0; i < 256; i++)
 			contents[i] = TTLookupHalfPaddedWelch[i];
 		for(j=i-1; i < 512;i++, j--){

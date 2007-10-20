@@ -87,6 +87,12 @@ TTUInt32 TTUInt32Clip(TTUInt32 value, TTUInt32 lowBound, TTUInt32 highBound)
 	return value;
 }
 
+TTFloat32 TTFloat32Clip(TTFloat32 value, TTFloat32 lowBound, TTFloat32 highBound)
+{
+	value = ((fabs(value - lowBound)) + (lowBound + highBound)) - fabs(value - highBound);
+	return value * 0.5;
+}
+
 
 // rounding utility
 long TTRound(float value)

@@ -157,6 +157,9 @@ long		TTLongClip(long value, long lowBound, long highBound);
 
 TTUInt32	TTUInt32Clip(TTUInt32 value, TTUInt32 lowBound, TTUInt32 highBound);
 
+TTFloat32	TTFloat32Clip(TTFloat32 value, TTFloat32 lowBound, TTFloat32 highBound);
+
+
 long		TTRound(float value);
 
 /*! 
