@@ -257,12 +257,12 @@ long TTPrime(long value)
 		if (candidate % 2 == 0)    						// Test only odd numbers
 			candidate--;
 		do{
-			isPrime = true;								// Assume glorious success
+			isPrime = YES;								// Assume glorious success
 			candidate += 2;               				// Bump to the next number to test
 			last = (long)(sqrt((float)candidate));      				// We'll check to see if candidate has any factors, from 2 to last
 			for (i=3; (i <= last) && isPrime; i+=2){	// Loop through odd numbers only
 				if((candidate % i) == 0)
-				isPrime = false;
+				isPrime = NO;
 			}
 		} 
 		while (!isPrime);
@@ -323,7 +323,7 @@ long TTPrime(long value)
 // hz-to-radians conversion
 - (double) TTHertzToRadians:(const double)hz	// NOTE: Be sure to set the sr before calling this function
 {
-	return(hz * (pi / (sr * 0.5)));
+	return(hz * (TTPi / (sr * 0.5)));
 }
 
 // radians-to-hz conversion

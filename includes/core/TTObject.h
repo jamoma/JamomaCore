@@ -9,6 +9,7 @@
 #ifndef __TTOBJECT_H__
 
 #import <stdio.h>
+#import <math.h>
 #ifdef TT_TARGET_MAC
 #import <Cocoa/Cocoa.h>
 #import <objc/objc.h>
