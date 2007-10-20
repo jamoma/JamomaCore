@@ -17,6 +17,13 @@ int main(void)
 	// waveformAttribute is an NSString, so we shouldn't expose it directly to Max
 	CLASS_ATTR_INVISIBLE(c, "waveform", 0);
 	
+	// waveshapeAttribute is the one we define (in the class below) for the Max interface
+	// here we constrain the options to be legitimate values (and build the menu in Max inspector)
+	CLASS_ATTR_ENUM(c, "waveshape", 0, "Sine SineMod Cosine CosineMod Sawtooth SawToothMod");
+
+	// label this attr so when it is viewed in the inspector, it is obvious what units to use
+	CLASS_ATTR_LABEL(c, "gain", 0, "Gain (in Decibels)");
+
 	return 0;
 }
 
