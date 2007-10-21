@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tap.dcblock~"
+LIBRARY "tt.dcblock~"
 
 EXPORTS
 	main
