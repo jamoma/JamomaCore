@@ -109,7 +109,7 @@ enum{
 	@functiongroup	TTBlue Utilities
 	@discussion		constant used by the ttantidenormal function
 */ 
-extern const double TTSqrt2;
+extern const double TTAntiDenormalValue;
 
 /*! @constant 		TTSqrt2 
 	@functiongroup	TTBlue Utilities
