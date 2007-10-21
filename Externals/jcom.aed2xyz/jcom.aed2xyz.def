@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.aed2xyz"
+
+EXPORTS
+	main
