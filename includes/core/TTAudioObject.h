@@ -49,12 +49,7 @@ extern const float TTLookupQuarterSine[];			// 128 point quarter sine wave table
 
 // Utility Functions
 
-// TODO: evaluate all of these!  For types, but also for things like SR-dependency -- in which case they should be member functions
 
-double	TTHertzToRadians(const double hz);	// NOTE: Be sure to set the sr before calling this function
-double	TTRadiansToHertz(const double radians);	// NOTE: Be sure to set the sr before calling this function
-double	TTDegreesToRadians(const double degrees);
-double	TTRadiansToDegrees(const double radians);
 float	TTDecayToFeedback(const float decay_time, float delay);
 float	TTFeedbackToDecay(const float feedback, const float delay);
 float	TTAmplitudeToDecibels(const float value);
@@ -65,7 +60,6 @@ float	TTMillimetersToAmplitude(float value);
 float 	TTAmplitudeToMillimeters(float value);
 float	TTMidiToDecibels(float value);
 float	TTDecibelsToMidi(float value);
-float	TTDeviate(float value);
 long	TTPrime(long value);
 
 
@@ -122,5 +116,14 @@ long	TTPrime(long value);
 				return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.
 */
 - (TTErr)	processAudioWithInput:(TTAudioSignal *)audioIn andOutput:(TTAudioSignal *)audioOut;
+
+
+// These utilities must be members because they need to know about sample-rate etc.
+// TODO: For consistency, should other utilities be moved here too?
+- (double)	TTHertzToRadians:(const double)hz;		// NOTE: Be sure to set the sr before calling this function
+- (double)	TTRadiansToHertz:(const double)radians;	// NOTE: Be sure to set the sr before calling this function
+- (double)	TTDegreesToRadians:(const double)degrees;
+- (double)	TTRadiansToDegrees:(const double)radians;
+
 
 @end
