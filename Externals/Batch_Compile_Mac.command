@@ -47,6 +47,7 @@ elif [ "$1" != "Development" ]; then
 fi
 
 
+./Compile_Object_Mac.command jcom.aed2yz "$config" &&
 ./Compile_Object_Mac.command jcom.change "$config" &&
 ./Compile_Object_Mac.command jcom.colorspace "$config" && 
 ./Compile_Object_Mac.command jcom.cubic_interpolate "$config" &&
@@ -79,6 +80,7 @@ fi
 ./Compile_Object_Mac.command jcom.teabox.count~ "$config" &&
 ./Compile_Object_Mac.command jcom.velocity "$config" &&
 ./Compile_Object_Mac.command jcom.xfade~ "$config" &&
+./Compile_Object_Mac.command jcom.xyz2aed "$config" &&
 ./Compile_Object_Mac.command jcom.zerox~ "$config" &&
 ./Compile_Object_Mac.command ../ramplib/RampUnits/linear.queue "$config"
 ./Compile_Object_Mac.command ../ramplib/RampUnits/linear.sched "$config"
