@@ -5,8 +5,8 @@ endif
 include $(GNUSTEP_MAKEFILES)/common.make
 
 
-LIBRARY_NAME = DoctorOpTilde
-DoctorOpTilde_OBJC_FILES = main.m TTDCBlock.m
+LIBRARY_NAME = TTDCBlockTilde
+TTDCBlockTilde_OBJC_FILES = main.m TTDCBlock.m
 ADDITIONAL_LDFLAGS += tt.dcblock~.def
 
 

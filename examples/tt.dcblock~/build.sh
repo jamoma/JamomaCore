@@ -4,4 +4,4 @@ cp -v ../../source/units/TTDCBlock.m .
 
 make clean
 make
-cp obj/DoctorOpTilde-0.dll dr.op~.mxe
+cp obj/TTDCBlockTilde-0.dll tt.dcblock~.mxe
