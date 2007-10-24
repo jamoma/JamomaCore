@@ -50,7 +50,7 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/rendermode 0
 	/jmod.sur.vimic~/room/distance/power 1
 	/jmod.sur.vimic~/room/size 20.000 30.000 8.000
-	/jmod.sur.vimic~/source/position/absolute 1.308 7.472 0.000
+	/jmod.sur.vimic~/source/position/absolute/xyz 1.308 7.472 0.000
 	/jmod.sur.vimic~/updaterate 10
 # Module /microphone_setup
     /microphone_setup/voices 8
