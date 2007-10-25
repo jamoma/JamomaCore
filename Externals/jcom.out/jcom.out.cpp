@@ -314,7 +314,7 @@ void out_register_meter(t_out *x, int meternum, void *meter_object)
 void out_remove_meters(t_out *x)
 {
 	short i;
-	for(i=0; i<16; i++)
+	for(i=0; i<MAX_NUM_CHANNELS; i++)
 		x->meter_object[i] = NULL;
 	x->num_meter_objects = 0;
 }
