@@ -46,7 +46,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> audio/meters/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -77,7 +77,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/1/directivity/ratio </td>
@@ -86,16 +86,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/1/gain </td>
+			<td class="instructionName"> microphones/1/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/1/mute </td>
@@ -104,7 +104,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/1/position </td>
@@ -113,7 +113,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/10/angle </td>
@@ -122,7 +122,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/10/directivity/ratio </td>
@@ -131,16 +131,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/10/gain </td>
+			<td class="instructionName"> microphones/10/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/10/mute </td>
@@ -149,7 +149,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/10/position </td>
@@ -158,7 +158,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/11/angle </td>
@@ -167,7 +167,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/11/directivity/ratio </td>
@@ -176,16 +176,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/11/gain </td>
+			<td class="instructionName"> microphones/11/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/11/mute </td>
@@ -194,7 +194,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/11/position </td>
@@ -203,7 +203,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/12/angle </td>
@@ -212,7 +212,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/12/directivity/ratio </td>
@@ -221,16 +221,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/12/gain </td>
+			<td class="instructionName"> microphones/12/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/12/mute </td>
@@ -239,7 +239,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/12/position </td>
@@ -248,7 +248,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/13/angle </td>
@@ -257,7 +257,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/13/directivity/ratio </td>
@@ -266,16 +266,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/13/gain </td>
+			<td class="instructionName"> microphones/13/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/13/mute </td>
@@ -284,7 +284,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/13/position </td>
@@ -293,7 +293,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/14/angle </td>
@@ -302,7 +302,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/14/directivity/ratio </td>
@@ -311,16 +311,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/14/gain </td>
+			<td class="instructionName"> microphones/14/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/14/mute </td>
@@ -329,7 +329,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/14/position </td>
@@ -338,7 +338,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/15/angle </td>
@@ -347,7 +347,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/15/directivity/ratio </td>
@@ -356,16 +356,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/15/gain </td>
+			<td class="instructionName"> microphones/15/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/15/mute </td>
@@ -374,7 +374,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/15/position </td>
@@ -383,7 +383,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/16/angle </td>
@@ -392,7 +392,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/16/directivity/ratio </td>
@@ -401,16 +401,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/16/gain </td>
+			<td class="instructionName"> microphones/16/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/16/mute </td>
@@ -419,7 +419,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/16/position </td>
@@ -428,7 +428,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/2/angle </td>
@@ -437,7 +437,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/2/directivity/ratio </td>
@@ -446,16 +446,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/2/gain </td>
+			<td class="instructionName"> microphones/2/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/2/mute </td>
@@ -464,7 +464,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/2/position </td>
@@ -473,7 +473,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/3/angle </td>
@@ -482,7 +482,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/3/directivity/ratio </td>
@@ -491,16 +491,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/3/gain </td>
+			<td class="instructionName"> microphones/3/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/3/mute </td>
@@ -509,7 +509,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/3/position </td>
@@ -518,7 +518,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/4/angle </td>
@@ -527,7 +527,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/4/directivity/ratio </td>
@@ -536,16 +536,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/4/gain </td>
+			<td class="instructionName"> microphones/4/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/4/mute </td>
@@ -554,7 +554,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/4/position </td>
@@ -563,7 +563,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/5/angle </td>
@@ -572,7 +572,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/5/directivity/ratio </td>
@@ -581,16 +581,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/5/gain </td>
+			<td class="instructionName"> microphones/5/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/5/mute </td>
@@ -599,7 +599,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/5/position </td>
@@ -608,7 +608,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/6/angle </td>
@@ -617,7 +617,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/6/directivity/ratio </td>
@@ -626,16 +626,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/6/gain </td>
+			<td class="instructionName"> microphones/6/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/6/mute </td>
@@ -644,7 +644,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/6/position </td>
@@ -653,7 +653,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/7/angle </td>
@@ -662,7 +662,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/7/directivity/ratio </td>
@@ -671,16 +671,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/7/gain </td>
+			<td class="instructionName"> microphones/7/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/7/mute </td>
@@ -689,7 +689,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/7/position </td>
@@ -698,7 +698,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/8/angle </td>
@@ -707,7 +707,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/8/directivity/ratio </td>
@@ -716,16 +716,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/8/gain </td>
+			<td class="instructionName"> microphones/8/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/8/mute </td>
@@ -734,7 +734,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/8/position </td>
@@ -743,7 +743,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/9/angle </td>
@@ -752,7 +752,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> angular </td>
+			<td class ="instructionDescription"> orientation_[azimut&elevation]_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/9/directivity/ratio </td>
@@ -761,16 +761,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Directivity </td>
+			<td class ="instructionDescription"> Directivity_value_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/9/gain </td>
+			<td class="instructionName"> microphones/9/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Gain </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/9/mute </td>
@@ -779,7 +779,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> active </td>
+			<td class ="instructionDescription"> Muting_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/9/position </td>
@@ -788,7 +788,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Position </td>
+			<td class ="instructionDescription"> Position_in_xyz_coodinate_of_the_microphone </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/amount </td>
@@ -977,6 +977,150 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Open the online html reference for this module. </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> microphones/1/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/10/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/11/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/12/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/13/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/14/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/15/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/16/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/2/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/3/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/4/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/5/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/6/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/7/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/8/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones/9/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> module/view_internals </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -988,7 +1132,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> open_inspector </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -1024,7 +1168,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/recall </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -1033,7 +1177,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/store </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -1069,7 +1213,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> source/position/absolute/a </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -1078,7 +1222,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> source/position/absolute/d </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -1087,7 +1231,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> source/position/absolute/e </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -1096,7 +1240,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> source/position/absolute/x </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -1123,7 +1267,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> source/position/absolute/z </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
