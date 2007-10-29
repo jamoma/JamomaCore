@@ -12,82 +12,82 @@
     <item name='microphones/1/angle' type='msg_list' priority='3'>0</item>
     <item name='microphones/1/directivity/ratio' type='msg_float' priority='3'>0.500000</item>
     <item name='microphones/1/gain/midi' type='msg_float' priority='3'>127.000000</item>
-    <item name='microphones/1/mute' type='msg_int' priority='3'>1</item>
+    <item name='microphones/1/mute' type='msg_int' priority='3'>0</item>
     <item name='microphones/1/position' type='msg_list' priority='3'>0</item>
     <item name='microphones/10/angle' type='msg_list' priority='30'>0</item>
     <item name='microphones/10/directivity/ratio' type='msg_float' priority='30'>0</item>
     <item name='microphones/10/gain/midi' type='msg_float' priority='30'>127.000000</item>
-    <item name='microphones/10/mute' type='msg_int' priority='30'>0</item>
+    <item name='microphones/10/mute' type='msg_int' priority='30'>1</item>
     <item name='microphones/10/position' type='msg_list' priority='21'>0</item>
     <item name='microphones/11/angle' type='msg_list' priority='33'>0</item>
     <item name='microphones/11/directivity/ratio' type='msg_float' priority='33'>0</item>
     <item name='microphones/11/gain/midi' type='msg_float' priority='33'>127.000000</item>
-    <item name='microphones/11/mute' type='msg_int' priority='33'>0</item>
+    <item name='microphones/11/mute' type='msg_int' priority='33'>1</item>
     <item name='microphones/11/position' type='msg_list' priority='23'>0</item>
     <item name='microphones/12/angle' type='msg_list' priority='36'>0</item>
     <item name='microphones/12/directivity/ratio' type='msg_float' priority='36'>0</item>
     <item name='microphones/12/gain/midi' type='msg_float' priority='36'>127.000000</item>
-    <item name='microphones/12/mute' type='msg_int' priority='36'>0</item>
+    <item name='microphones/12/mute' type='msg_int' priority='36'>1</item>
     <item name='microphones/12/position' type='msg_list' priority='25'>0</item>
     <item name='microphones/13/angle' type='msg_list' priority='39'>0</item>
     <item name='microphones/13/directivity/ratio' type='msg_float' priority='39'>0</item>
     <item name='microphones/13/gain/midi' type='msg_float' priority='39'>127.000000</item>
-    <item name='microphones/13/mute' type='msg_int' priority='39'>0</item>
+    <item name='microphones/13/mute' type='msg_int' priority='39'>1</item>
     <item name='microphones/13/position' type='msg_list' priority='27'>0</item>
     <item name='microphones/14/angle' type='msg_list' priority='42'>0</item>
     <item name='microphones/14/directivity/ratio' type='msg_float' priority='42'>0</item>
     <item name='microphones/14/gain/midi' type='msg_float' priority='42'>127.000000</item>
-    <item name='microphones/14/mute' type='msg_int' priority='42'>0</item>
+    <item name='microphones/14/mute' type='msg_int' priority='42'>1</item>
     <item name='microphones/14/position' type='msg_list' priority='29'>0</item>
     <item name='microphones/15/angle' type='msg_list' priority='45'>0</item>
     <item name='microphones/15/directivity/ratio' type='msg_float' priority='45'>0</item>
     <item name='microphones/15/gain/midi' type='msg_float' priority='45'>127.000000</item>
-    <item name='microphones/15/mute' type='msg_int' priority='45'>0</item>
+    <item name='microphones/15/mute' type='msg_int' priority='45'>1</item>
     <item name='microphones/15/position' type='msg_list' priority='31'>0</item>
     <item name='microphones/16/angle' type='msg_list' priority='48'>0</item>
     <item name='microphones/16/directivity/ratio' type='msg_float' priority='48'>0</item>
     <item name='microphones/16/gain/midi' type='msg_float' priority='48'>127.000000</item>
-    <item name='microphones/16/mute' type='msg_int' priority='48'>0</item>
+    <item name='microphones/16/mute' type='msg_int' priority='48'>1</item>
     <item name='microphones/16/position' type='msg_list' priority='33'>0</item>
     <item name='microphones/2/angle' type='msg_list' priority='6'>0</item>
     <item name='microphones/2/directivity/ratio' type='msg_float' priority='6'>0.500000</item>
     <item name='microphones/2/gain/midi' type='msg_float' priority='6'>127.000000</item>
-    <item name='microphones/2/mute' type='msg_int' priority='6'>1</item>
+    <item name='microphones/2/mute' type='msg_int' priority='6'>0</item>
     <item name='microphones/2/position' type='msg_list' priority='5'>0</item>
     <item name='microphones/3/angle' type='msg_list' priority='9'>0</item>
     <item name='microphones/3/directivity/ratio' type='msg_float' priority='9'>0.500000</item>
     <item name='microphones/3/gain/midi' type='msg_float' priority='9'>127.000000</item>
-    <item name='microphones/3/mute' type='msg_int' priority='9'>1</item>
+    <item name='microphones/3/mute' type='msg_int' priority='9'>0</item>
     <item name='microphones/3/position' type='msg_list' priority='7'>0</item>
     <item name='microphones/4/angle' type='msg_list' priority='12'>0</item>
     <item name='microphones/4/directivity/ratio' type='msg_float' priority='12'>0.500000</item>
     <item name='microphones/4/gain/midi' type='msg_float' priority='12'>127.000000</item>
-    <item name='microphones/4/mute' type='msg_int' priority='12'>1</item>
+    <item name='microphones/4/mute' type='msg_int' priority='12'>0</item>
     <item name='microphones/4/position' type='msg_list' priority='9'>0</item>
     <item name='microphones/5/angle' type='msg_list' priority='15'>0</item>
     <item name='microphones/5/directivity/ratio' type='msg_float' priority='15'>0.500000</item>
     <item name='microphones/5/gain/midi' type='msg_float' priority='15'>127.000000</item>
-    <item name='microphones/5/mute' type='msg_int' priority='15'>1</item>
+    <item name='microphones/5/mute' type='msg_int' priority='15'>0</item>
     <item name='microphones/5/position' type='msg_list' priority='11'>0</item>
     <item name='microphones/6/angle' type='msg_list' priority='18'>0</item>
     <item name='microphones/6/directivity/ratio' type='msg_float' priority='18'>0.500000</item>
     <item name='microphones/6/gain/midi' type='msg_float' priority='18'>127.000000</item>
-    <item name='microphones/6/mute' type='msg_int' priority='18'>1</item>
+    <item name='microphones/6/mute' type='msg_int' priority='18'>0</item>
     <item name='microphones/6/position' type='msg_list' priority='13'>0</item>
     <item name='microphones/7/angle' type='msg_list' priority='21'>0</item>
     <item name='microphones/7/directivity/ratio' type='msg_float' priority='21'>0.500000</item>
     <item name='microphones/7/gain/midi' type='msg_float' priority='21'>127.000000</item>
-    <item name='microphones/7/mute' type='msg_int' priority='21'>1</item>
+    <item name='microphones/7/mute' type='msg_int' priority='21'>0</item>
     <item name='microphones/7/position' type='msg_list' priority='15'>0</item>
     <item name='microphones/8/angle' type='msg_list' priority='24'>0</item>
     <item name='microphones/8/directivity/ratio' type='msg_float' priority='24'>0.500000</item>
     <item name='microphones/8/gain/midi' type='msg_float' priority='24'>127.000000</item>
-    <item name='microphones/8/mute' type='msg_int' priority='24'>1</item>
+    <item name='microphones/8/mute' type='msg_int' priority='24'>0</item>
     <item name='microphones/8/position' type='msg_list' priority='17'>0</item>
     <item name='microphones/9/angle' type='msg_list' priority='27'>0</item>
     <item name='microphones/9/directivity/ratio' type='msg_float' priority='27'>0</item>
     <item name='microphones/9/gain/midi' type='msg_float' priority='27'>127.000000</item>
-    <item name='microphones/9/mute' type='msg_int' priority='27'>0</item>
+    <item name='microphones/9/mute' type='msg_int' priority='27'>1</item>
     <item name='microphones/9/position' type='msg_list' priority='19'>0</item>
     <item name='microphones/amount' type='msg_int' priority='2'>8</item>
     <item name='microphones/direct/power' type='msg_float' priority='0'>1.000000</item>
