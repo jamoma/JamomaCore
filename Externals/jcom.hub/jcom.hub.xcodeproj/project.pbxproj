@@ -21,6 +21,8 @@
 		22A4C0210AA915D800FA3F11 /* tree.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A4C01F0AA915D800FA3F11 /* tree.h */; };
 		22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		A78BD1920CD7A94C003F6506 /* jcom.io.h in Headers */ = {isa = PBXBuildFile; fileRef = A78BD1910CD7A94C003F6506 /* jcom.io.h */; };
+		A78BD1980CD7A97B003F6506 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78BD1970CD7A97B003F6506 /* tt_audio_base.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		22A4C01F0AA915D800FA3F11 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tree.h; path = ../../externals_3rd_party/libxml2/include/libxml/tree.h; sourceTree = SOURCE_ROOT; };
 		22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.presets.cpp; sourceTree = "<group>"; };
 		542ED84F09C02A0000DBC7EB /* jcom.hub.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.hub.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		A78BD1910CD7A94C003F6506 /* jcom.io.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jcom.io.h; path = ../common/jcom.io.h; sourceTree = SOURCE_ROOT; };
+		A78BD1970CD7A97B003F6506 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../externals_3rd_party/ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +99,11 @@
 				22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */,
 				225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */,
 				22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */,
+				A78BD1910CD7A94C003F6506 /* jcom.io.h */,
 				220A6C7E0A8AC7650079CD80 /* jcom.core.h */,
 				220A6C7C0A8AC7600079CD80 /* jcom.core.cpp */,
 				22261D720A28C44900329D95 /* commonsyms.c */,
+				A78BD1970CD7A97B003F6506 /* tt_audio_base.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -133,6 +139,7 @@
 				22A4C0210AA915D800FA3F11 /* tree.h in Headers */,
 				226ACDB10AAB596E0011C786 /* xmlreader.h in Headers */,
 				226ACDB30AAB59770011C786 /* schematron.h in Headers */,
+				A78BD1920CD7A94C003F6506 /* jcom.io.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +229,7 @@
 				22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */,
 				22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */,
 				225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */,
+				A78BD1980CD7A97B003F6506 /* tt_audio_base.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,8 @@
 
 #include "jcom.hub.h"
 #include <functional>
+
+
 #define value value_list[0]
 
 // Globals
@@ -80,8 +82,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_preset_write,		"/preset/write",			A_DEFSYM, 0L);
 	class_addmethod(c, (method)hub_preset_recall,		"preset/recall",			A_GIMME, 0L);	// number or name
 	class_addmethod(c, (method)hub_preset_recall,		"/preset/recall",			A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_copy,		"preset/copy",			A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_copy,		"/preset/copy",			A_GIMME, 0L);	// number or name
+	class_addmethod(c, (method)hub_preset_copy,			"preset/copy",				A_GIMME, 0L);	// number or name
+	class_addmethod(c, (method)hub_preset_copy,			"/preset/copy",				A_GIMME, 0L);	// number or name
 	class_addmethod(c, (method)hub_preset_store,		"preset/store",				A_GIMME, 0L);	// number & optional name
 	class_addmethod(c, (method)hub_preset_store,		"/preset/store",			A_GIMME, 0L);	// number & optional name
 	class_addmethod(c, (method)hub_preset_default,		"preset/default",			0L);
@@ -175,7 +177,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->out_object = NULL;						// the jcom.out object is optional
 		x->gui_object = NULL;						// jcom.remote in the gui
 		x->num_parameters = 0;
-		for(i=0; i<16; i++)
+		for(i=0; i<MAX_NUM_CHANNELS; i++)
 			x->meter_object[i] = NULL;
 		x->preview_object = NULL;
 		
@@ -401,7 +403,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 			object_method(x->in_object, ps_link_out, x->out_object);
 			object_method(x->out_object, ps_link_in, x->in_object);
 		}
-		for(int i=0; i<16; i++)
+		for(int i=0; i<MAX_NUM_CHANNELS; i++)
 			object_method(x->out_object, ps_register_meter, i, x->meter_object[i]);
 		object_method(x->out_object, ps_register_preview, x->preview_object);
 	}
@@ -455,7 +457,7 @@ void hub_unsubscribe(t_hub *x, void *subscriber_object)
 			}
 			else if(t->type == ps_subscribe_remote){
 				char temp[32];
-				for(short i=0; i<16; i++) {
+				for(short i=0; i<MAX_NUM_CHANNELS; i++) {
 					snprintf(temp, 32, "__meter__%i", i);
 					if(t->name == gensym(temp)) {
 						if(x->out_object)
