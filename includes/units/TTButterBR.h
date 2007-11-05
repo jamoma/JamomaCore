@@ -38,7 +38,7 @@
 		/*! @var y2 Feedback values used for the audio filter */ 			
 		double		y2[TT_MAX_NUM_CHANNELS];
 		// filter coefficients
-		double		a0, a2, b1, b2;
+		double		a0, a1, a2, b1, b2;
 }
 
 /*!
