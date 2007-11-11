@@ -96,48 +96,8 @@ CUE 2_fadein_Direct_Sound
 /jmod.sur.vimic~/audio/gain/midi 127.0 ramp 2000
 
 
-
-###############################################################
-CUE 3_move_in_square
-###############################################################
-/jmod.sur.vimic~/source/position/absolute 9.0 9.0 0.0
-/jmod.sur.vimic~/source/position/absolute 9.0 -9.0 0.0 ramp 2000
-
-WAIT 2000
-
-/jmod.sur.vimic~/source/position/absolute -9.0 -9.0 0.0 ramp 2000
-
-WAIT 2000
-
-/jmod.sur.vimic~/source/position/absolute -9.0 9.0 0.0 ramp 2000
-
-WAIT 2000
-
-/jmod.sur.vimic~/source/position/absolute 9.0 9.0 0.0 ramp 2000
-
-
-###############################################################
-CUE 3.1_move_in_line
-###############################################################
-/jmod.sur.vimic~/source/position/absolute/xyz 9.0 9.0 0.0
-/jmod.sur.vimic~/source/position/absolute/xyz -9.0 9.0 0.0 ramp 10000
-
-WAIT 10000
-
-/jmod.sur.vimic~/source/position/absolute/xyz 9.0 9.0 0.0 ramp 10000
-
-
-#WAIT 2000
-
-#/jmod.sur.vimic~/source/position/absolute/xyz -9.0 9.0 0.0 ramp 10000
-
-#WAIT 2000
-
-#/jmod.sur.vimic~/source/position/absolute/xyz 9.0 9.0 0.0 ramp 10000
-
-
 ############################################################
-CUE 4_include_late_reverb
+CUE 3_include_late_reverb
 ############################################################
 /jmod.multi.aux/aux1/gain/midi 0.0
 /jmod.multi.aux/aux1/active 1
