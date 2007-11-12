@@ -825,7 +825,8 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	double	start, value, time;
+	double	start[LISTSIZE], values[LISTSIZE], time;
+	int i;
 	
 	if (x->attr_slavemode) {
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
@@ -834,10 +835,23 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		
 	// Check the second to last item in the list first, which when ramping should == the string ramp
 	t_atom* ramp = argv + (argc - 2);
-	if(ramp->a_type == A_SYM && ramp->a_w.w_sym == ps_ramp) {
-		// XXX this currently doesn't handle ramping with lists
-		value = atom_getfloat(argv);
+	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == ps_ramp) {
+
 		time = atom_getfloat(argv+(argc-1));
+
+		// Only one list member if @type is msg_int of msg_float
+		if ( x->common.attr_type == ps_msg_int || x->common.attr_type == ps_msg_float)
+			argc = 1;
+		else
+			argc = argc - 2;
+		
+		for (i=0; i<argc; i++) {
+			values[i] = atom_getfloat(argv+i);
+			if (i<=x->list_size)
+				start[i] = atom_getfloat(&x->atom_list[i]);
+			else
+				start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
+		}
 
 		if(time <= 0){
 			jcom_core_atom_copy(&x->attr_value, argv);
@@ -849,11 +863,12 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
 				return;	// nothing to do
 		}
-		start = atom_getfloat(&x->attr_value);
-		x->ramper->set(1, &start);
-		x->ramper->go(1, &value, time);
+
+		x->list_size = argc;
+		x->ramper->set(argc, start);
+		x->ramper->go(argc, values, time);
 	} 
-	else{
+	else {
 		// Don't output if the input data is identical
 		if(!x->common.attr_repetitions) {
 			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
@@ -869,7 +884,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			argc = 1;
 		}
 			
-		for(int i = 0; i < argc; i++) {
+		for(i = 0; i < argc; i++) {
 			switch(argv[i].a_type) 
 			{
 				case A_LONG:
@@ -920,6 +935,18 @@ void param_ramp_callback_int(void *v, short, double *value)
 	}
 }
 
+void param_ramp_callback_list(void *v, short argc, double *value)
+{
+	long i;
+	t_param *x = (t_param *)v;
+	
+	// we won't bother about avoiding repetitions for list, so never mind oldval
+
+	for (i=0; i<argc; i++)
+		atom_setfloat(&x->atom_list[i], value[i]);
+	param_output_list(x);	
+}
+
 
 void param_ramp_setup(t_param *x)
 {
@@ -933,11 +960,18 @@ void param_ramp_setup(t_param *x)
 	if(x->attr_ramp == ps_linear)
 		x->attr_ramp = gensym("linear.sched");
 		
+
+	// For some types ramping doesn't make sense, so they will be set to none
+	if((x->common.attr_type == ps_msg_none) || (x->common.attr_type == ps_msg_symbol) || (x->common.attr_type == ps_msg_generic))
+		x->attr_ramp = gensym("none");
+		
 	if((x->common.attr_type == ps_msg_int) || (x->common.attr_type == ps_msg_toggle))
 		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_int, (void *)x);
-	else	// assume float type
+	else if (x->common.attr_type == ps_msg_list)
+		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_list, (void *)x);
+	else
 		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_float, (void *)x);
-		
+
 	if(x->ramper == NULL)
 		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
 }

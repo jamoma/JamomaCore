@@ -44,6 +44,15 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> speed of acceleration </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> attractpoint/aed </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Current position of the point of attraction in xyz-coordinates </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> attract </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 100.000000 </td>
@@ -51,15 +60,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> strength of attraction to 'attractpoint' </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> attractpoint/xyz </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Current position of the point of attraction in xyz-coordinates </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> avoid </td>
@@ -136,7 +136,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> mode </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -163,7 +163,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> on </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -230,6 +230,69 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> Description </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> attractpoint/azimuth </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Set azimuth. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> attractpoint/distance </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Set distance. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> attractpoint/elevation </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Set elevation. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> attractpoint/x </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Change x coordinate only. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> attractpoint/xyz </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Current position of the point of attraction in xyz-coordinates </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> attractpoint/y </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Change y coordinate only. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> attractpoint/z </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Change z coordinate only. </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> documentation/generate </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -268,7 +331,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> open_inspector </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -345,6 +408,15 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> update </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> updates boids from external clock </td>
 		<tr>
 	</table>
 

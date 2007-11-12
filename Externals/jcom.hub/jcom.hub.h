@@ -15,6 +15,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "jcom.core.h"
 #include "jcom.list.h"
+#include "jcom.io.h"
 
 #define MAX_STRING_LEN 2048
 #define LISTSIZE 512
@@ -71,7 +72,7 @@ typedef struct _hub{							///< Data Structure for this object
 	void			*init_qelem;				///< qelem used for initialization messages
 	void			*in_object;					///< cache the jcom.in object directly for quick access
 	void			*out_object;				///< cache the jcom.out object directly for quick access
-	void			*meter_object[16];			///< cache any meter objects so they can be handed to jcom.out
+	void			*meter_object[MAX_NUM_CHANNELS];	///< cache any meter objects so they can be handed to jcom.out
 	void			*preview_object;			///< cache the remote for sending jitter matrix preview frames
 	void			*gui_object;				///< cache the jcom.remote object in the gui for quick access
 	t_symbol		*attr_name;					///< ATTRIBUTE: module name

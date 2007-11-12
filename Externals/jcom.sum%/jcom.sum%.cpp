@@ -14,6 +14,24 @@
 #include "ext_path.h"		// Includes READ_PERM define   
 #include "jit.common.h"		// Required for all Max External Objects
 
+#ifdef WIN_VERSION
+ #ifdef __GNUC__
+ t_symbol *_jit_sym_register;
+ t_symbol *_jit_sym_char;
+ t_symbol *_jit_sym_long;
+ t_symbol *_jit_sym_float32;
+ t_symbol *_jit_sym_float64;
+ t_symbol *_jit_sym_list;
+ t_symbol *_jit_sym_jit_matrix;
+ t_symbol *_jit_sym_class_jit_matrix;
+ t_symbol *_jit_sym_lock;
+ t_symbol *_jit_sym_setinfo;
+ t_symbol *_jit_sym_getinfo;
+ t_symbol *_jit_sym_getdata;
+ t_symbol *_jit_sym_clear;
+ t_symbol *_jit_sym_err_calculate;
+ #endif //__GNUC__
+#endif //WIN_VERSION
 
 #define MATRIX_GET_CHAR_2D(bp,info,plane,x,y) \
 	(*(((uchar *)(bp))+(plane)+((info)->dimstride[0]*(x))+((info)->dimstride[1]*(y))))
@@ -39,6 +57,27 @@
 #define MATRIX_SET_FLOAT64_2D(bp,info,plane,x,y,val) \
 	(*(double *)(((uchar *)(bp))+(plane*8)+((info)->dimstride[0]*(x))+((info)->dimstride[1]*(y)))=(val))
 
+#ifdef WIN_VERSION
+#ifdef __GNUC__
+ void init_jit_symbols(void)
+ {
+	 _jit_sym_register = gensym("register");
+	 _jit_sym_char = gensym("char");
+	 _jit_sym_long = gensym("long");
+	 _jit_sym_float32 = gensym("float32");
+	 _jit_sym_float64 = gensym("float64");
+	 _jit_sym_list = gensym("list");
+	 _jit_sym_jit_matrix = gensym("jit_matrix");
+	 _jit_sym_class_jit_matrix = gensym("class_jit_matrix");
+	 _jit_sym_lock = gensym("lock");
+	 _jit_sym_setinfo = gensym("setinfo");
+	 _jit_sym_getinfo = gensym("getinfo");
+	 _jit_sym_getdata = gensym("getdata");
+	 _jit_sym_clear = gensym("clear");
+	 _jit_sym_err_calculate = gensym("err_calculate");
+ }
+#endif //__GNUC__
+#endif //WIN_VERSION
 
 typedef struct _jit_sum 
 {
@@ -74,6 +113,11 @@ int main(void)
 	t_object *attr;
 	
 	common_symbols_init();
+#ifdef WIN_VERSION 
+#ifdef __GNUC__
+	init_jit_symbols();
+#endif
+#endif
 
 	c = class_new("tap.jit.sum", (method)jit_sum_new, (method)jit_sum_free, (short)sizeof(t_jit_sum), 
 		(method)0L, A_GIMME, 0);

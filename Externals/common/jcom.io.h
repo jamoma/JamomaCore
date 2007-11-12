@@ -15,7 +15,7 @@
 #include "tt_crossfade.h"
 #include "tt_gain.h"
 #include "tt_ramp.h"
-#define MAX_NUM_CHANNELS 16
+#define MAX_NUM_CHANNELS 32
 
 
 /** JCOM.IN -- Data Structure */

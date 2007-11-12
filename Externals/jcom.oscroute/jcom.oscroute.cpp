@@ -172,7 +172,7 @@ void oscroute_list(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 char* matchesWildcard(const char *msg, const char *arg, unsigned long len)
 {
 	if(strncmp(msg, arg, len) == 0) 
-		return strstr(msg, "/");	
+		return strstr((char*)msg, "/");	
 
 	return NULL;
 }

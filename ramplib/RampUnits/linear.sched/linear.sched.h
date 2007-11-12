@@ -13,7 +13,6 @@
 
 #include "ramplib.h"		// Common definitions used by the RampLib
 
-
 typedef struct _linear_sched {
 	rampunit_method_callback_type	callback;		///< usually a function in a Max external
 	void							*baton;			///< usually a pointer to the Max external's instance
@@ -24,6 +23,8 @@ typedef struct _linear_sched {
 	short							numvalues;
 	double							*value_target;
 	double							*value_current;
+	t_atom							list_target;
+	t_atom							list_current;
 	double							*stepsize;		// size of the steps we need to take
 } t_linear_sched;
 
