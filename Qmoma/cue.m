@@ -78,7 +78,7 @@
 
 - (BOOL)expandable
 {
-    return true;
+    return YES;
 }
 
 
