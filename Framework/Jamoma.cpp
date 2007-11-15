@@ -69,6 +69,7 @@ t_object* jamoma_time_new(t_symbol *s, long argc, t_atom *argv)
 		jamoma_time_rewind(x);
 		
 		dsp_setup((t_pxobject *)x, 1);
+		x->obj.z_misc = Z_PUT_LAST;			// ... because our perform routine advances time to the next frame
 		attr_args_process(x, argc, argv);
 	}
 	return (t_object*)x;
@@ -98,24 +99,14 @@ void jamoma_time_free(t_jamoma_time *x)
 void jamoma_time_doevents(t_jamoma_time *x)
 {
 	t_jamoma_timeevent	*event = x->event_head;
-	method				callback;
-	t_object			*client;
 
 	//JAMOMA_TIME_LOCK
 	while(event){
-		if(event->targettime < x->current_time){
-			callback = event->callback;
-			client = event->client;
-			if(event->repeating)
-				jamoma_time_moveevent(x, event, event->targettime + event->delaytime);
-			else
-				jamoma_time_removeevent(x, (t_object*)event);
-			callback(client);
-		}
+		if(event->targettime < x->current_time)
+			jamoma_timeevent_send(event);
 		else
 			break;
 
-		// if there are more events, we need to process them
 		event = event->next;
 	}
 	//JAMOMA_TIME_UNLOCK
@@ -126,7 +117,7 @@ void jamoma_time_doevents(t_jamoma_time *x)
 t_int* jamoma_time_perform(t_int *w)
 {
 	t_jamoma_time *x = (t_jamoma_time *)(w[1]);
-	
+		
 	// Move the clocks ahead for the next cycle
 	x->current_samples += x->samples_per_block;
 	x->current_time = ((x->current_samples * x->one_over_sr) * DEFAULT_TICKS_PER_SECOND);
@@ -134,7 +125,7 @@ t_int* jamoma_time_perform(t_int *w)
 	// Is there anything that now needs to be fired off?
 	if(x->event_head && (x->event_head->targettime < x->current_time))
 		jamoma_time_doevents(x);
-	
+
 	// reset the hack that we use in the dsp method to make sure this method isn't called multiple times
 	dsp_called = false;
 	
@@ -354,6 +345,12 @@ t_jamoma_timeevent* jamoma_timeevent_new(t_jamoma_time *owner, t_object *client,
 	event->targettime = owner->current_time + event->delaytime;
 	event->repeating = repeating;
 	event->priority = priority;
+	if(priority == JCOM_TIME_PRIORITY_SCHEDULER)
+		event->transfer_mechanism = clock_new(event, (method)jamoma_timeevent_dosend);
+	else if(priority == JCOM_TIME_PRIORITY_QUEUE)
+		event->transfer_mechanism = qelem_new(event, (method)jamoma_timeevent_dosend);
+	else // JCOM_TIME_PRIORITY_AUDIO
+		event->transfer_mechanism = NULL;
 	
 	event->next = NULL;
 	event->prev = NULL;
@@ -361,8 +358,33 @@ t_jamoma_timeevent* jamoma_timeevent_new(t_jamoma_time *owner, t_object *client,
 	return event;
 }
 
+
 void jamoma_timeevent_free(t_jamoma_timeevent *event)
 {
+	if(event->priority == JCOM_TIME_PRIORITY_SCHEDULER)
+		object_free(event->transfer_mechanism);
+	else if(event->priority == JCOM_TIME_PRIORITY_QUEUE)
+		qelem_free(event->transfer_mechanism);
 	sysmem_freeptr(event);
 }
 
+
+void jamoma_timeevent_send(t_jamoma_timeevent *event)
+{
+	if(event->priority == JCOM_TIME_PRIORITY_AUDIO)
+		jamoma_timeevent_dosend(event);
+	else if(event->priority == JCOM_TIME_PRIORITY_SCHEDULER)
+		clock_delay(event->transfer_mechanism, 0);
+	else
+		qelem_set(event->transfer_mechanism);
+}
+
+
+void jamoma_timeevent_dosend(t_jamoma_timeevent *event)
+{
+	event->callback(event->client);
+	if(event->repeating)
+		jamoma_time_moveevent((t_jamoma_time*)event->owner, event, event->targettime + event->delaytime);
+	else
+		jamoma_time_removeevent((t_jamoma_time*)event->owner, (t_object*)event);
+}

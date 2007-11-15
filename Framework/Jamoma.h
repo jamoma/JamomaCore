@@ -34,6 +34,7 @@ typedef struct _jamoma_timeevent{
 	double				targettime;
 	long				repeating;
 	long				priority;
+	void				*transfer_mechanism;
 	_jamoma_timeevent	*next;
 	_jamoma_timeevent	*prev;
 } t_jamoma_timeevent;
@@ -66,6 +67,8 @@ void		jamoma_time_moveevent(t_jamoma_time *x, t_jamoma_timeevent *event, double 
 
 t_jamoma_timeevent*	jamoma_timeevent_new(t_jamoma_time *owner, t_object *client, method callback, double *timevalue, long repeating, long priority);
 void				jamoma_timeevent_free(t_jamoma_timeevent *event);
+void				jamoma_timeevent_send(t_jamoma_timeevent *event);
+void				jamoma_timeevent_dosend(t_jamoma_timeevent *event);
 
 
 #endif __JAMOMA_H__
