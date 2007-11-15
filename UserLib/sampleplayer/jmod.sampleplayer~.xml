@@ -9,12 +9,15 @@
     <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='loop' type='msg_toggle' priority='0'>0</item>
+    <item name='reverse' type='msg_toggle' priority='0'>0</item>
     <item name='sample/displaylength' type='msg_float' priority='0'>22.675737</item>
     <item name='sample/displaystart' type='msg_list' priority='0'>0</item>
     <item name='sample/displaystart' type='msg_float' priority='0'>0</item>
     <item name='sample/start' type='msg_float' priority='0'>0</item>
     <item name='sample/stop' type='msg_float' priority='0'>22.653061</item>
     <item name='sample/vzoom' type='msg_float' priority='0'>0</item>
+    <item name='speed/active' type='msg_toggle' priority='0'>0</item>
+    <item name='speed/ratio' type='msg_float' priority='0'>1.0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>

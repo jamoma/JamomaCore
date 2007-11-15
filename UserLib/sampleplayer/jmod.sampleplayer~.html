@@ -13,7 +13,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<div id="jmod_header">
 	<img src="../images/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.sampleplayer~ </h1>
-	<h2> This module doesn't do much yet </h2>
+	<h2> simple monophonic sampleplayer </h2>
 	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
@@ -22,7 +22,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 2U-half </code> </p>
 	<p>Number of signal inlets: <code> 0 </ code> <br/>
-	Number of signal outlets: <code> 1 </code> </p>
+	Number of signal outlets: <code> 2 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
@@ -46,7 +46,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> audio/meters/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -64,11 +64,20 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> loop </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Loop soundfile. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reverse </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> whether sample is played forward or backward </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> sample/displaylength </td>
@@ -118,11 +127,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> sample/vzoom </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionRange"> 0.000000 0.000000 </td>
 			<td class ="instructionClipmode"> non </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> @repetitions </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speed/active </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> turn on/off vari-speed. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speed/ratio </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 2.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> whether sample is played forward or backward </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
@@ -214,7 +241,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> open_inspector </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -259,7 +286,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/recall </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 0.000000 </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -268,7 +295,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> preset/store </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -304,7 +331,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> sample/size </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 0 </td>
+			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
