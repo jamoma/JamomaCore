@@ -15,6 +15,7 @@ typedef struct _jcom_metro{
 	void		*outlet;
 	double		attr_period;
 	long		attr_active;
+	t_object	*event;
 } t_jcom_metro;
 
 // Prototypes for methods
@@ -75,12 +76,12 @@ void *jcom_metro_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, _sym_dumpout, (t_object*)outlet_new(x, NULL));
 		dsp_setup((t_pxobject *)x, 1);			// Create Object and Inlets
 		x->outlet = outlet_new(x, 0L);
+		x->event = NULL;
 
 		if(attrstart && argv)
 			x->attr_period = atom_getlong(argv);
 		else
 			x->attr_period = 1000.0;
-
 		attr_args_process(x, argc, argv);		
 	}
 	return x;
@@ -89,7 +90,8 @@ void *jcom_metro_new(t_symbol *s, long argc, t_atom *argv)
 // Destroy
 void jcom_metro_free(t_jcom_metro *x)
 {	
-	;
+	if(x->event)
+		jamoma_time_removeevent(NULL, x->event);
 }
 
 
@@ -99,9 +101,11 @@ void jcom_metro_free(t_jcom_metro *x)
 void jcom_metro_int(t_jcom_metro *x, long toggle)
 {
 	if(toggle && (x->attr_active != toggle))
-		jamoma_time_delay((t_object*)x, NULL, (method)jcom_metro_tick, &x->attr_period, JCOM_TIME_PRIORITY_SCHEDULER);	// schedule a tick
-	else if(!toggle && (x->attr_active != toggle))
-		;	// remove the scheduled tick
+		x->event = jamoma_time_delay((t_object*)x, NULL, (method)jcom_metro_tick, &x->attr_period, true, JCOM_TIME_PRIORITY_SCHEDULER);
+	else if(!toggle && (x->attr_active != toggle)){
+		jamoma_time_removeevent(NULL, x->event);
+		x->event = NULL;
+	}
 
 	x->attr_active = toggle;
 }
@@ -109,8 +113,6 @@ void jcom_metro_int(t_jcom_metro *x, long toggle)
 
 void jcom_metro_tick(t_jcom_metro *x)
 {
-	if(x->attr_active)
-		jamoma_time_delay((t_object*)x, NULL, (method)jcom_metro_tick, &x->attr_period, JCOM_TIME_PRIORITY_SCHEDULER);	// schedule another tick
 	outlet_bang(x->outlet);
 }
 
