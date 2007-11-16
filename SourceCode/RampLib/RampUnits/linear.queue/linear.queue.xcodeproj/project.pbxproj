@@ -116,9 +116,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "linear.queue" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* Linearqueue */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D5B49AC048680CD000E48DA /* linear.queue */,
 			);
@@ -148,7 +150,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "perl ../../../Externals/common/infoplist_versionmaker.pl";
+			shellScript = "perl ../../../MaxObjects/common/infoplist_versionmaker.pl";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -167,7 +169,7 @@
 		1DEB913B08733D840010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/../../../../Jamoma/library/externals/ramplib_mac/$(CONFIGURATION)";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/../../../../../Jamoma/library/externals/ramplib_mac";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -192,7 +194,7 @@
 					ppc,
 					i386,
 				);
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/../../../../Jamoma/library/externals/ramplib_mac";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/../../../../../Jamoma/library/externals/ramplib_mac";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

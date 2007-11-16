@@ -18,7 +18,7 @@
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
-		542ED84F09C02A0000DBC7EB /* mkdir.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mkdir.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		542ED84F09C02A0000DBC7EB /* jcom.mkdir.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.mkdir.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		A79B14F00A77FDCE00A56BB8 /* mkdir.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = mkdir.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,7 +75,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				542ED84F09C02A0000DBC7EB /* mkdir.mxo */,
+				542ED84F09C02A0000DBC7EB /* jcom.mkdir.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,9 +93,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D01CCC60486CAD60068D4B7 /* mkdir */ = {
+		8D01CCC60486CAD60068D4B7 /* jcom.mkdir */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "mkdir" */;
+			buildConfigurationList = 0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "jcom.mkdir" */;
 			buildPhases = (
 				8D01CCC70486CAD60068D4B7 /* Headers */,
 				8D01CCC90486CAD60068D4B7 /* Resources */,
@@ -108,10 +108,10 @@
 			);
 			dependencies = (
 			);
-			name = mkdir;
+			name = jcom.mkdir;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = MSPExternal;
-			productReference = 542ED84F09C02A0000DBC7EB /* mkdir.mxo */;
+			productReference = 542ED84F09C02A0000DBC7EB /* jcom.mkdir.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -120,11 +120,13 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "mkdir" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* abs~ */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
-				8D01CCC60486CAD60068D4B7 /* mkdir */,
+				8D01CCC60486CAD60068D4B7 /* jcom.mkdir */,
 			);
 		};
 /* End PBXProject section */
@@ -193,7 +195,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jmod.prefix.pch;
+				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -208,14 +210,14 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = mkdir;
+				PRODUCT_NAME = jcom.mkdir;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
@@ -246,7 +248,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jmod.prefix.pch;
+				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -261,13 +263,13 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = /../../Jamoma/library/externals/mac;
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = mkdir;
+				PRODUCT_NAME = jcom.mkdir;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = (
@@ -296,7 +298,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "mkdir" */ = {
+		0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "jcom.mkdir" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FFBB95909731BB700D78707 /* Development */,

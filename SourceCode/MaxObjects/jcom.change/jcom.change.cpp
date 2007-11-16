@@ -55,9 +55,7 @@ t_class		*change_class;			// Required. Global pointing to this class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
 	common_symbols_init();
 

@@ -182,9 +182,6 @@ int main(void)			//main receives a copy of the Max function macros table
 void *cs_new(Symbol *msg, long argc, Atom *argv)
 {
 	t_cs 	*x;								// Declare an object (based on our struct)
-	int	i;
-	long attrstart = attr_args_offset(argc, argv);
-	long argument = 0;
 
 	x = (t_cs *)object_alloc(this_class);		// Create object, store pointer to it (get 1 inlet free)
 	if (x) {
@@ -270,7 +267,6 @@ void cs_float(t_cs *x, double value)
 // LIST INPUT
 void cs_list(t_cs *x, Symbol *msg, long argc, Atom *argv)
 {
-	int	i;	
 
 	x->val1 = argv->a_w.w_long; argv++;
 	x->val2 = argv->a_w.w_long; argv++;
@@ -616,7 +612,7 @@ void lab2rgb(t_cs *x, int ls, int as, int bs)
 	long	red, green, blue;
 	double ltemp,xtemp,ytemp,ztemp, l, a, b;
 	double X0 = 0.982, Y0 = 1.000, Z0 = 1.183;
-	double X,Y,Z,R,G,B;
+	double X,Y,Z;
 	double input[3],output[3];
 	double XYZ_RnGnBn[9]    = /* inverted from the above, almost same as Pratt, 67 */
 	                        { 1.91036, -0.53375, -0.28929,   
@@ -930,7 +926,7 @@ double hls_value(double n1,double n2,double hue)
 // tristimulus product used for matrix conversions
 void tristimulus_product(double *matrix,double *input,double *output)
 {
-	int f,g;
+	int f;
 	for(f=0;f<3;f++)
 		output[f] = input[0]*matrix[f*3+0]+input[1]*matrix[f*3+1]+input[2]*matrix[f*3+2];
 }

@@ -22,7 +22,6 @@
 		22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 		A78BD1920CD7A94C003F6506 /* jcom.io.h in Headers */ = {isa = PBXBuildFile; fileRef = A78BD1910CD7A94C003F6506 /* jcom.io.h */; };
-		A78BD1980CD7A97B003F6506 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A78BD1970CD7A97B003F6506 /* tt_audio_base.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,17 +33,16 @@
 		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.internals.cpp; sourceTree = "<group>"; };
-		226ACDB00AAB596E0011C786 /* xmlreader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = xmlreader.h; path = ../../externals_3rd_party/libxml2/include/libxml/xmlreader.h; sourceTree = SOURCE_ROOT; };
-		226ACDB20AAB59770011C786 /* schematron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = schematron.h; path = ../../externals_3rd_party/libxml2/include/libxml/schematron.h; sourceTree = SOURCE_ROOT; };
-		226ACF390AAB9F3A0011C786 /* libxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxml2.a; path = ../../externals_3rd_party/libxml2/build/universal/libxml2.a; sourceTree = SOURCE_ROOT; };
+		226ACDB00AAB596E0011C786 /* xmlreader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = xmlreader.h; path = ../../ThirdParty/libxml2/include/libxml/xmlreader.h; sourceTree = SOURCE_ROOT; };
+		226ACDB20AAB59770011C786 /* schematron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = schematron.h; path = ../../ThirdParty/libxml2/include/libxml/schematron.h; sourceTree = SOURCE_ROOT; };
+		226ACF390AAB9F3A0011C786 /* libxml2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxml2.a; path = ../../ThirdParty/libxml2/build/universal/libxml2.a; sourceTree = SOURCE_ROOT; };
 		22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.autodoc.cpp; sourceTree = "<group>"; };
 		22A2E01A0A93F1F40004A1F5 /* jcom.hub.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jcom.hub.h; sourceTree = "<group>"; };
-		22A4C01E0AA915D800FA3F11 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = parser.h; path = ../../externals_3rd_party/libxml2/include/libxml/parser.h; sourceTree = SOURCE_ROOT; };
-		22A4C01F0AA915D800FA3F11 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tree.h; path = ../../externals_3rd_party/libxml2/include/libxml/tree.h; sourceTree = SOURCE_ROOT; };
+		22A4C01E0AA915D800FA3F11 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = parser.h; path = ../../ThirdParty/libxml2/include/libxml/parser.h; sourceTree = SOURCE_ROOT; };
+		22A4C01F0AA915D800FA3F11 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tree.h; path = ../../ThirdParty/libxml2/include/libxml/tree.h; sourceTree = SOURCE_ROOT; };
 		22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.presets.cpp; sourceTree = "<group>"; };
 		542ED84F09C02A0000DBC7EB /* jcom.hub.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.hub.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		A78BD1910CD7A94C003F6506 /* jcom.io.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jcom.io.h; path = ../common/jcom.io.h; sourceTree = SOURCE_ROOT; };
-		A78BD1970CD7A97B003F6506 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../../externals_3rd_party/ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +101,6 @@
 				220A6C7E0A8AC7650079CD80 /* jcom.core.h */,
 				220A6C7C0A8AC7600079CD80 /* jcom.core.cpp */,
 				22261D720A28C44900329D95 /* commonsyms.c */,
-				A78BD1970CD7A97B003F6506 /* tt_audio_base.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -173,9 +170,11 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "jcom.hub" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* abs~ */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D01CCC60486CAD60068D4B7 /* jcom.hub */,
 			);
@@ -229,7 +228,6 @@
 				22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */,
 				22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */,
 				225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */,
-				A78BD1980CD7A97B003F6506 /* tt_audio_base.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +260,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
@@ -271,11 +269,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/ppc\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/universal\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/i386\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_5 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/universal\"";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
@@ -284,14 +277,14 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../common ../../Externals_3rd_Party/libxml2/include";
+				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ../../ThirdParty/libxml2/include";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
 				);
 				WRAPPER_EXTENSION = mxo;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
@@ -323,7 +316,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = /../../Jamoma/library/externals/mac;
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
@@ -332,11 +325,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/ppc\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/universal\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/i386\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_5 = "\"$(SRCROOT)/../../externals_3rd_party/libxml2/build/universal\"";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
@@ -344,7 +332,7 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../common ../../Externals_3rd_Party/libxml2/include";
+				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ../../ThirdParty/libxml2/include";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

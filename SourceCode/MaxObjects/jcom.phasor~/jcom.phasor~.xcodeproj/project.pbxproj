@@ -224,7 +224,7 @@
 					/Library/Frameworks/Jamoma.framework/Headers,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
@@ -283,7 +283,7 @@
 					/Library/Frameworks/Jamoma.framework/Headers,
 				);
 				INFOPLIST_FILE = ../common/Info.plist;
-				INSTALL_PATH = /../../Jamoma/library/externals/mac;
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
