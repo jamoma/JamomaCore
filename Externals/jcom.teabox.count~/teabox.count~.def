@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "teabox.count~"
-
-EXPORTS
-	main

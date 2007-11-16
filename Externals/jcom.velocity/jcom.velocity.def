@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jcom.velocity"
-
-EXPORTS
-	main
