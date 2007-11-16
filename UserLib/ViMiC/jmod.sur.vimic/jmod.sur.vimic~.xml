@@ -8,7 +8,7 @@
     <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
     <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='direct/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='direct/gain/midi' type='msg_float' priority='0'>111.382629</item>
     <item name='microphones/1/angle' type='msg_list' priority='3'>0</item>
     <item name='microphones/1/directivity/ratio' type='msg_float' priority='3'>0.500000</item>
     <item name='microphones/1/gain/midi' type='msg_float' priority='3'>127.000000</item>
@@ -91,7 +91,7 @@
     <item name='microphones/9/position' type='msg_list' priority='19'>0</item>
     <item name='microphones/amount' type='msg_int' priority='2'>8</item>
     <item name='microphones/direct/power' type='msg_float' priority='0'>1.000000</item>
-    <item name='reflections/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='reflections/gain/midi' type='msg_float' priority='0'>105.080757</item>
     <item name='reflections/lowpass/frequency' type='msg_int' priority='0'>10000</item>
     <item name='reflections/order' type='msg_int' priority='1'>1</item>
     <item name='rendermode/xfade/fadefunction' type='msg_symbol' priority='0'>linear</item>
@@ -99,10 +99,28 @@
     <item name='rendermode/xfade/threshold' type='msg_int' priority='0'>128</item>
     <item name='rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='report' type='msg_int' priority='0'>0</item>
+    <item name='room/absorption/ceiling/high' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/ceiling/low' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/ceiling/mid' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/floor/high' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/floor/low' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/floor/mid' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/front/high' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/front/low' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/front/mid' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/left/high' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/left/low' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/left/mid' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/rear/high' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/rear/low' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/rear/mid' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/right/high' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/right/low' type='msg_float' priority='0'>0</item>
+    <item name='room/absorption/right/mid' type='msg_float' priority='0'>0</item>
     <item name='room/distance/power' type='msg_float' priority='0'>1.000000</item>
     <item name='room/size' type='msg_list' priority='0'>20.000000 30.000000 8.000000 </item>
-    <item name='source/orientation/azimuth' type='msg_float' priority='0'>0</item>
-    <item name='source/orientation/elevation' type='msg_float' priority='0'>0</item>
+    <item name='source/orientation/azimuth' type='msg_float' priority='0'>0.000000</item>
+    <item name='source/orientation/elevation' type='msg_float' priority='0'>0.000000</item>
     <item name='source/position/absolute/aed' type='msg_list' priority='0'>0.000000 0.000000 3.000000 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='updaterate' type='msg_int' priority='0'>10</item>

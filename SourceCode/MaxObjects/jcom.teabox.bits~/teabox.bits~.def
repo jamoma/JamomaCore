@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "teabox.bits~"
+
+EXPORTS
+	main
