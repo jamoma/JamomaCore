@@ -5,10 +5,10 @@ OBJS = $(filter-out $(SOURCES),${JCOM_HUB_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.hub.mxe
 LINK_INPUT = $(OBJS) jcom.hub.def $(CORE_OBJS)
-LIBXML = -L../../Externals_3rd_Party/libxml2/win32/bin 
-LIBXML += -L../../Externals_3rd_Party/libxml2/win32/lib 
+LIBXML = -L../../ThirdParty/libxml2/win32/bin 
+LIBXML += -L../../ThirdParty/libxml2/win32/lib 
 #LIBXML = -L/usr/bin 
-LIBICONV = -L../../Externals_3rd_Party/libiconv/bin
+LIBICONV = -L../../ThirdParty/libiconv/bin
 
 
 EXTRA_CXXFLAGS = ${LOCAL_INCLUDES} -DLIBXML_STATIC -DLIBXSLT_STATIC -DLIBEXSLT_STATIC -DXMLSEC_STATIC -DLIBXML_THREAD_ENABLED

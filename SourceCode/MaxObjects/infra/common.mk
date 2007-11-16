@@ -23,17 +23,17 @@ JITTER_INCLUDES = -I/maxmspsdk/c74support/jit-includes
 JITTER_LIB_INCLUDES = -L/maxmspsdk/c74support/jit-includes
 
 COMMON_INCLUDES = -I../common
-RAMPLIB_INCLUDES = -I../../ramplib/ramplib_api
-LIBXML_INCLUDES = -I../../Externals_3rd_Party/libxml2/win32/include
+RAMPLIB_INCLUDES = -I../../RampLib/ramplib_api
+LIBXML_INCLUDES = -I../../ThirdParty/libxml2/win32/include
 #LIBXML_INCLUDES = -I/usr/include/libxml2 -I/usr/include
-TT_BLUE_INCLUDES = -I../../Externals_3rd_Party/ttblue/dsplib
-LIBICONV_INCLUDES = -I../../Externals_3rd_Party/libiconv/include
+TT_BLUE_INCLUDES = -I../../ThirdParty/ttblue/dsplib
+LIBICONV_INCLUDES = -I../../ThirdParty/libiconv/include
 
 INCLUDES = $(MAX_INCLUDES) $(COMMON_INCLUDES) $(RAMPLIB_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
     $(LIBICONV_INCLUDES)
 
 
-TT_INCLUDES = -I../../Externals_3rd_Party/ttblue/dsplib
+TT_INCLUDES = -I../../ThirdParty/ttblue/dsplib
 
 OPTIMIZATION_FLAGS = -O2
 # c compiler flags
@@ -45,7 +45,7 @@ RELEASE_CXXFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-convers
 DEBUG_CFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(INCLUDES)
 DEBUG_CXXFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(WIN_DEFINES) $(INCLUDES)
 
-INSTALL_DIR = ../../Jamoma/library/externals/windows
+INSTALL_DIR = ../../../Jamoma/library/externals/windows
 
 MAX_LIBS = -lMaxAPI -lMaxAudio
 JITTER_LIB = -ljitlib

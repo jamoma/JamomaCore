@@ -22,9 +22,9 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(JCOM_MESSAGE_OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -DWIN_VERSION c74/ext_pattr_bundle.c ../../ramplib/ramplib_api/RampUnitWrap.cpp -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -DWIN_VERSION c74/ext_pattr_bundle.c ../../RampLib/ramplib_api/RampUnitWrap.cpp -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
 	$(CXX) -DWIN_VERSION -DJMOD_MESSAGE $(CXXFLAGS) $(EXTRA_CXXFLAGS) -c jcom.parameter.cpp -shared -mno-cygwin -o jcom.message.o $(MAX_INCLUDES)
-	$(CXX) -DWIN_VERSION -DJMOD_MESSAGE c74/ext_pattr_bundle.c ../../ramplib/ramplib_api/RampUnitWrap.cpp -shared -mno-cygwin -o jcom.message.mxe $(JCOM_MESSAGE_LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -DWIN_VERSION -DJMOD_MESSAGE c74/ext_pattr_bundle.c ../../RampLib/ramplib_api/RampUnitWrap.cpp -shared -mno-cygwin -o jcom.message.mxe $(JCOM_MESSAGE_LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
 
 clean:
 	rm -f $(OBJS)
