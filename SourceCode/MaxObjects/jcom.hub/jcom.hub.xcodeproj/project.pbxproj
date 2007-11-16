@@ -14,11 +14,7 @@
 		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
 		22287BC90CEE340700DF50BB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22287BC80CEE340700DF50BB /* libxml2.dylib */; };
 		225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */; };
-		226ACDB10AAB596E0011C786 /* xmlreader.h in Headers */ = {isa = PBXBuildFile; fileRef = 226ACDB00AAB596E0011C786 /* xmlreader.h */; };
-		226ACDB30AAB59770011C786 /* schematron.h in Headers */ = {isa = PBXBuildFile; fileRef = 226ACDB20AAB59770011C786 /* schematron.h */; };
 		22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */; };
-		22A4C0200AA915D800FA3F11 /* parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A4C01E0AA915D800FA3F11 /* parser.h */; };
-		22A4C0210AA915D800FA3F11 /* tree.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A4C01F0AA915D800FA3F11 /* tree.h */; };
 		22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 		A78BD1920CD7A94C003F6506 /* jcom.io.h in Headers */ = {isa = PBXBuildFile; fileRef = A78BD1910CD7A94C003F6506 /* jcom.io.h */; };
@@ -34,12 +30,8 @@
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22287BC80CEE340700DF50BB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.internals.cpp; sourceTree = "<group>"; };
-		226ACDB00AAB596E0011C786 /* xmlreader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = xmlreader.h; path = ../../ThirdParty/libxml2/include/libxml/xmlreader.h; sourceTree = SOURCE_ROOT; };
-		226ACDB20AAB59770011C786 /* schematron.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = schematron.h; path = ../../ThirdParty/libxml2/include/libxml/schematron.h; sourceTree = SOURCE_ROOT; };
 		22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.autodoc.cpp; sourceTree = "<group>"; };
 		22A2E01A0A93F1F40004A1F5 /* jcom.hub.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jcom.hub.h; sourceTree = "<group>"; };
-		22A4C01E0AA915D800FA3F11 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = parser.h; path = ../../ThirdParty/libxml2/include/libxml/parser.h; sourceTree = SOURCE_ROOT; };
-		22A4C01F0AA915D800FA3F11 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tree.h; path = ../../ThirdParty/libxml2/include/libxml/tree.h; sourceTree = SOURCE_ROOT; };
 		22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.presets.cpp; sourceTree = "<group>"; };
 		542ED84F09C02A0000DBC7EB /* jcom.hub.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.hub.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		A78BD1910CD7A94C003F6506 /* jcom.io.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jcom.io.h; path = ../common/jcom.io.h; sourceTree = SOURCE_ROOT; };
@@ -62,7 +54,6 @@
 		089C166AFE841209C02AAC07 /* abs~ */ = {
 			isa = PBXGroup;
 			children = (
-				22A4C0130AA9158C00FA3F11 /* libxml */,
 				08FB77ADFE841716C02AAC07 /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
@@ -113,17 +104,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		22A4C0130AA9158C00FA3F11 /* libxml */ = {
-			isa = PBXGroup;
-			children = (
-				22A4C01E0AA915D800FA3F11 /* parser.h */,
-				22A4C01F0AA915D800FA3F11 /* tree.h */,
-				226ACDB00AAB596E0011C786 /* xmlreader.h */,
-				226ACDB20AAB59770011C786 /* schematron.h */,
-			);
-			name = libxml;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -132,10 +112,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				220A6C7F0A8AC7650079CD80 /* jcom.core.h in Headers */,
-				22A4C0200AA915D800FA3F11 /* parser.h in Headers */,
-				22A4C0210AA915D800FA3F11 /* tree.h in Headers */,
-				226ACDB10AAB596E0011C786 /* xmlreader.h in Headers */,
-				226ACDB30AAB59770011C786 /* schematron.h in Headers */,
 				A78BD1920CD7A94C003F6506 /* jcom.io.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,7 +253,7 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ../../ThirdParty/libxml2/include";
+				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ${SDKROOT}/usr/include/libxml2";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -332,7 +308,7 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ../../ThirdParty/libxml2/include";
+				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ${SDKROOT}/usr/include/libxml2";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
