@@ -7,10 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"					// Max Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
+#include "Jamoma.h"
 
 #define MAX_ARGCOUNT 100
 #define MAX_MESS_SIZE 2048
@@ -52,7 +49,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object *attr;
 	
 	// Initialize Globals
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.oscroute",(method)oscroute_new, (method)oscroute_free, (short)sizeof(t_oscroute), (method)0L, A_GIMME, 0);

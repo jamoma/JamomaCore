@@ -8,7 +8,6 @@
  */
 
 #include "jcom.parameter.h"		// everything we need is in here
-#include "ext_pattr_bundle.h"	// pattr definitions
 
 // Globals
 t_class		*param_class;		// Required: Global pointer for our class
@@ -28,7 +27,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	g_pattr_valid = false;
-	common_symbols_init();
+	jamoma_init();
 #ifndef JMOD_MESSAGE
 	short		err = 0;
 	err = ext_pattr_setup();

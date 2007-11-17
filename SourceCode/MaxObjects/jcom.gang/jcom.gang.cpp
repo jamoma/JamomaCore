@@ -1,9 +1,7 @@
 // gang multiple objects together
 // © 2005 by Tim Place
 
-#include "ext.h"			// Required for all TapTools Objects
-#include "ext_common.h"		// includes the MIN macro
-#include "ext_obex.h"
+#include "Jamoma.h"
 
 #define NUM_INLETS 4
 #define NUM_OUTLETS 4
@@ -50,11 +48,9 @@ t_class 	*gang_class;						// Required. Global pointing to this class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	c = class_new("jcom.gang",(method)gang_new, (method)gang_free, (short)sizeof(t_gang), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_gang, obex));

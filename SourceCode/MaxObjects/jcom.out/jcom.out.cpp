@@ -19,17 +19,8 @@
 	This all means that we need this object to subscribe to the hub.
 */
 
-#ifdef JCOM_OUT_TILDE
-#define JCOM_AUDIO_OBJECT
-#endif
 
-#include "ext.h"					// Max Header
-#include "z_dsp.h"					// MSP Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include "jcom.core.h"
-#include "jcom.io.h"
+#include "Jamoma.h"
 #include "jcom.out.h"
 
 #define POLL_INTERVAL	150			// metro time
@@ -48,7 +39,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object 	*attr = NULL;
 	long		offset;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 #ifdef JCOM_OUT_TILDE

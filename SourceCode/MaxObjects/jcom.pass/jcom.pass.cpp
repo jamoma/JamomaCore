@@ -7,10 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"					// Max Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
+#include "Jamoma.h"
 
 #define MAX_ARGCOUNT 100
 #define MAX_MESS_SIZE 2048
@@ -47,8 +44,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_class *c;
 	t_object *attr;
 	
-	// Initialize Globals
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.pass",(method)pass_new, (method)0L, (short)sizeof(t_pass), (method)0L, A_GIMME, 0);
@@ -139,7 +135,7 @@ void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst)
 			char		tempstring[200];
 			switch(x->arguments[arg].a_type){
 				case A_LONG:
-					sprintf(tempstring, "%i", atom_getlong(&x->arguments[arg]));
+					sprintf(tempstring, "%ld", atom_getlong(&x->arguments[arg]));
 					strcpy(dst, tempstring);
 					break;
 				case A_FLOAT:

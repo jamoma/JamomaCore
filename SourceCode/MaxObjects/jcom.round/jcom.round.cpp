@@ -7,10 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"					// Max Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
+#include "Jamoma.h"
 
 #define MAX_LISTLENGTH 256
 
@@ -40,7 +37,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class *c;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.round",(method)round_new, (method)0L, (short)sizeof(t_round), (method)0L, 0, 0);

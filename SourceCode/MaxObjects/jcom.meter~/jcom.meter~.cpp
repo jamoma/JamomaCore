@@ -13,13 +13,9 @@
 #define USE_QTML
 #endif
 
-#include "ext.h"				// Max Header
+#include "Jamoma.h"
 #include "ext_user.h"
 #include "ext_common.h"			// includes the MIN macro
-#include "z_dsp.h"				// MSP Header
-#include "ext_strings.h"		// String Functions
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
 #include <math.h>
 
 #ifdef USE_QTML
@@ -88,7 +84,7 @@ int main(void)
 	t_class *c;
 	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	c = class_new("jcom.meter~",(method)meter_new, (method)meter_free, (short)sizeof(t_meter), (method)meter_menu, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_meter, obex));

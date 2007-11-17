@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		22261CE30A28C1C100329D95 /* jcom.hub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jcom.hub.cpp */; };
-		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
 		22287BC90CEE340700DF50BB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22287BC80CEE340700DF50BB /* libxml2.dylib */; };
 		225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */; };
 		22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */; };
@@ -22,8 +21,6 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22261CE20A28C1C100329D95 /* jcom.hub.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.cpp; sourceTree = "<group>"; };
-		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
-		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22287BC80CEE340700DF50BB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.internals.cpp; sourceTree = "<group>"; };
 		22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.autodoc.cpp; sourceTree = "<group>"; };
@@ -52,7 +49,6 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
 			);
@@ -70,14 +66,6 @@
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
-		089C167CFE841241C02AAC07 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				22261CE40A28C20600329D95 /* Info.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,7 +74,6 @@
 				22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */,
 				225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */,
 				22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */,
-				22261D720A28C44900329D95 /* commonsyms.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -182,7 +169,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "perl ../common/infoplist_versionmaker.pl\n";
+			shellScript = "perl /Library/Frameworks/Jamoma.framework/Headers/infoplist_versionmaker.pl\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -191,7 +178,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22261D730A28C44900329D95 /* commonsyms.c in Sources */,
 				22261CE30A28C1C100329D95 /* jcom.hub.cpp in Sources */,
 				22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */,
 				22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */,
@@ -228,6 +214,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					/Library/Frameworks/Jamoma.framework/Headers,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
@@ -287,6 +274,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					/Library/Frameworks/Jamoma.framework/Headers,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;

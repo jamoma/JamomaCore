@@ -33,6 +33,7 @@ void jamoma_init(void)
 {
 	if(!initialized){
 		common_symbols_init();
+		jcom_core_init();
 		jamoma_time_initclass();
 	
 		obj_jamoma_time = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma_time"), 0, NULL);

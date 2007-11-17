@@ -24,10 +24,8 @@
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22261CE20A28C1C100329D95 /* jcom.teabox~.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.teabox~.cpp"; sourceTree = "<group>"; };
-		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		226DB4710A7BAEA4008AD126 /* teabox~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "teabox~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
-		226DB4720A7BAEA4008AD126 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = "<group>"; };
 		542ED84F09C02A0000DBC7EB /* jcom.teabox~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.teabox~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -59,7 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
 			);
@@ -74,15 +71,6 @@
 				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		089C167CFE841241C02AAC07 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				22261CE40A28C20600329D95 /* Info.plist */,
-				226DB4720A7BAEA4008AD126 /* Info.plist */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		08FB77ADFE841716C02AAC07 /* Source */ = {
@@ -229,7 +217,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "perl ../common/infoplist_versionmaker.pl\n";
+			shellScript = "perl /Library/Frameworks/Jamoma.framework/Headers/infoplist_versionmaker.pl\n";
 		};
 		22C01EDC09CE6D2900177B81 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -242,7 +230,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "perl ../common/infoplist_versionmaker.pl\n";
+			shellScript = "perl /Library/Frameworks/Jamoma.framework/Headers/infoplist_versionmaker.pl\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -283,7 +271,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -297,7 +285,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
-				INFOPLIST_FILE = ../common/Info.plist;
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
@@ -336,7 +324,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -350,7 +338,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
-				INFOPLIST_FILE = ../common/Info.plist;
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
@@ -398,7 +386,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -412,7 +400,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
-				INFOPLIST_FILE = ../common/Info.plist;
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
@@ -451,7 +439,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -465,7 +453,7 @@
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
-				INFOPLIST_FILE = ../common/Info.plist;
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = "/../Teabox-Externals";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;

@@ -7,11 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"						// Max Header
-#include "ext_obex.h"					// Max Object Extensions (attributes) Header
-#include "commonsyms.h"					// Common symbols used by the Max 4.5 API
-#include "jcom.core.h"
-#include "jcom.sendreceive.h"
+#include "Jamoma.h"
 
 // Prototypes
 void *send_new(t_symbol *s, long argc, t_atom *argv);
@@ -36,8 +32,7 @@ int main(void)
 	t_class *c;
 	t_object *attr;
 	
-	common_symbols_init();
-	jcom_core_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.send", (method)send_new, (method)0L, (short)sizeof(t_send), (method)0L, A_GIMME, 0);

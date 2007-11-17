@@ -7,11 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"				// Max Header
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-#include "jcom.core.h"
-#include "jcom.sendreceive.h"
+#include "Jamoma.h"
 
 // Prototypes
 void		*receive_new(t_symbol *s, long argc, t_atom *argv);
@@ -46,6 +42,8 @@ void receive_initclass()
 	long attrflags = 0;
 	t_class *c;
 	t_object *attr;
+	
+	jamoma_init();
 	
 	// Define our class
 	c = class_new(	"jcom.receive", 

@@ -10,12 +10,7 @@
 #ifndef __jcom_HUB_H__
 #define __jcom_HUB_H__
 
-#include "ext.h"					// Max Header
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "jcom.core.h"
-#include "jcom.list.h"
-#include "jcom.io.h"
+#include "Jamoma.h"					// Max Header
 
 #define MAX_STRING_LEN 2048
 #define LISTSIZE 512

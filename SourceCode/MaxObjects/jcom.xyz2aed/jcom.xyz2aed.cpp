@@ -13,13 +13,7 @@
  * 20070905: icst.3Dcartopol.c released: Based on code from ICST ambisonics modules
  */ 
 
-
-#include "ext.h"					// Max Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-// #include <math.h>
-// #include <stdlib.h>
+#include "Jamoma.h"
 
 double deg2rad;
 double rad2deg;
@@ -50,11 +44,9 @@ void xyz2aed_list(t_xyz2aed *x, Symbol *msg, long argc, t_atom *argv);	// method
 
 int main(void)			//main receives a copy of the Max function macros table 
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.xyz2aed",(method)xyz2aed_new, (method)0L, (short)sizeof(t_xyz2aed), (method)0L, 0, 0);

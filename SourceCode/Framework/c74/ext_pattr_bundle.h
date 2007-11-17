@@ -20,6 +20,8 @@ t_patcher *pattr_obex_getp(void *x);
 t_symbol *pattr_obex_getn(void *x);
 */
 
+BEGIN_USING_C_LINKAGE
+
 typedef void 		(*pattr_obex_init_type)(t_class *c);
 typedef void 		(*pattr_obex_setup_type)(void *x, t_symbol *n);
 typedef void 		(*pattr_obex_notify_type)(void *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
@@ -40,5 +42,7 @@ extern pattr_obex_getn_type		pattr_obex_getn;
 extern t_symbol *ps_pattr_obex;
 
 long ext_pattr_setup(void);
+
+END_USING_C_LINKAGE
 
 #endif // __EXT_PATTR_BUNDLE_H__

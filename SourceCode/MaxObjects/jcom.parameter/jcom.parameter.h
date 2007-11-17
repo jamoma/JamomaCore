@@ -10,18 +10,14 @@
 #ifndef __JMOD_PARAM_H__
 #define __JMOD_PARAM_H__
 
-#include "ext.h"				// Max Header
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-
 #ifdef JMOD_MESSAGE
 #define OBJECT_CLASS_NAME "jcom.message"
 #else
 #define OBJECT_CLASS_NAME "jcom.parameter"
 #endif
+// OBJECT_CLASS_NAME must be defined before this
+#include "Jamoma.h"
 
-#include "jcom.core.h"			// OBJECT_CLASS_NAME must be defined before this
-#include "RampUnitWrap.h"
 
 #define LISTSIZE 512
 

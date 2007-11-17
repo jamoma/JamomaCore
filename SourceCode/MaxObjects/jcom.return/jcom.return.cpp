@@ -7,10 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"				// Max Header
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-#include "jcom.core.h"
+#include "Jamoma.h"
 
 enum outlets{
 	k_outlet_thru = 0,
@@ -51,9 +48,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_class 	*c;
 	t_object 	*attr = NULL;
 	long		offset;
-long obexoffset;	
-	// Initialize Globals
-	common_symbols_init();
+	long		obexoffset;	
+
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.return",(method)return_new, (method)jcom_core_subscriber_common_free, 

@@ -7,14 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"					// Max Header
-#include "z_dsp.h"					// MSP Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include "tt_audio_base.h"			// Tap.Tools Blue Headers...
-#include "tt_audio_signal.h"
-#include "tt_zerox.h"	
+#include "Jamoma.h"
 
 #define NUM_INPUTS 1
 #define NUM_OUTPUTS 2
@@ -50,7 +43,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_class *c;
 	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	c = class_new("tap.zerox~",(method)zerox_new, (method)zerox_free, (short)sizeof(t_zerox), 
 		(method)0L, A_GIMME, 0);

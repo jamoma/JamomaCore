@@ -7,10 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"					// Max Header
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "RampUnitWrap.h"
+#include "Jamoma.h"
 
 enum outlets{
 	k_outlet_value = 0,
@@ -53,8 +50,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class *c;
 	
-	// Initialize Globals
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.ramp",(method)ramp_new, (method)ramp_free, (short)sizeof(t_ramp), (method)0L, A_GIMME, 0);

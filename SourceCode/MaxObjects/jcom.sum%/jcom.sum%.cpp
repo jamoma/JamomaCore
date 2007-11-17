@@ -7,11 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"			// Required for all Max External Objects
-#include "ext_strings.h"	// Used for the assistance strings
-#include "ext_obex.h"		// Object extensions for Max 4.5 (Attributes)
-#include "commonsyms.h"		// ... new in Max 4.5 API
-#include "ext_path.h"		// Includes READ_PERM define   
+#include "jamoma.h"			// Required for all Max External Objects
+//#include "ext_path.h"		// Includes READ_PERM define   
 #include "jit.common.h"		// Required for all Max External Objects
 
 #ifdef WIN_VERSION
@@ -112,7 +109,7 @@ int main(void)
 	t_class *c;
 	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 #ifdef WIN_VERSION 
 #ifdef __GNUC__
 	init_jit_symbols();
@@ -202,7 +199,7 @@ void jit_sum_assist(t_jit_sum *x, void *b, long m, long a, char *s)
 void jit_sum_jit_matrix(t_jit_sum *x, t_symbol *s, long argc, t_atom *argv)
 {
 	void *matrix;
-	long err,i,dimcount,dim[JIT_MATRIX_MAX_DIMCOUNT];
+	long i,dimcount,dim[JIT_MATRIX_MAX_DIMCOUNT];
 	long in_savelock;
 	t_jit_matrix_info in_minfo;
 	char *in_mdata;
@@ -252,7 +249,7 @@ out:
 void jit_sum_calculate_ndim(t_jit_sum *x, long dimcount, long *dim, t_atom *a_coord, t_jit_matrix_info *in_minfo, char *bip)
 {
 	t_atom a_val[JIT_MATRIX_MAX_PLANECOUNT];
-	long i,j,k,n,maxsize;
+	long i,j,k,n;
 	long rowstride;
 	uchar *ip;
 	double	mySum, myRowAccum, myColAccum;

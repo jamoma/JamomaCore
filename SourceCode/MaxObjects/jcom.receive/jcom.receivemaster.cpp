@@ -7,11 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"				// Max Header
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-#include "jcom.core.h"
-#include "jcom.sendreceive.h"
+#include "Jamoma.h"
 
 
 // Prototypes
@@ -31,6 +27,8 @@ static t_hashtab	*s_receive_lists;			///< hash full of linked lists, keyed on th
 
 void receivemaster_initclass()
 {
+	jamoma_init();
+
 	// Define our class
 	s_receivemaster_class = class_new(	"jcom.receivemaster", 
 										(method)receivemaster_new, 

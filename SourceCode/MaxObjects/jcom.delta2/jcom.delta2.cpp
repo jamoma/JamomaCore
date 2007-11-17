@@ -14,12 +14,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-
-
-#include "ext.h"				// Max Header
-#include "ext_strings.h"		// String Functions
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
+#include "Jamoma.h"
 
 typedef struct _delta2{			// Data structure for this object 
 	struct	object ob;			// Must always be the first field; used by Max
@@ -53,7 +48,7 @@ int main(void)
 {
 	t_class *c;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.delta2",(method)delta2_new, (method)0L, (short)sizeof(t_delta2), (method)0L, 0, 0);

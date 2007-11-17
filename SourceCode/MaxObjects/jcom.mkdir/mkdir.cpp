@@ -1,15 +1,6 @@
 /* mkdir.c -- make a folder ------- */
 
-
-#include "ext.h"					// Max Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-
-//#include "ext.h"
-//#include <math.h>
-//#include <string.h>
-//#include <stdlib.h>
+#include "Jamoma.h"
 
 typedef struct _mkdir
 {
@@ -29,11 +20,9 @@ t_class *mkdir_class;					// Required. Global pointing to this class
 
 int main(void)
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 	
 	// Define our class
 	c = class_new("mkdir",(method)mkdir_new, (method)mkdir_free, (short)sizeof(t_mkdir), (method)0L, 0L, 0);

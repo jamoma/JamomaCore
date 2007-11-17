@@ -29,12 +29,7 @@
  */ 
 
 
-#include "ext.h"					// Max Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-#include <math.h>
-#include <stdlib.h>
+#include "Jamoma.h"
 
 typedef struct x					// Data structure for this object 
 {
@@ -111,7 +106,7 @@ int main(void)			//main receives a copy of the Max function macros table
 	t_class *c;
 	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.colorspace",(method)cs_new, (method)cs_free, (short)sizeof(t_cs), (method)0L, A_GIMME, 0);

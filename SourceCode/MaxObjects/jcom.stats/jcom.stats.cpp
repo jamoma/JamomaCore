@@ -7,12 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-
-
-#include "ext.h"				// Max Header
-#include "ext_strings.h"		// String Functions
-#include "commonsyms.h"			// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"			// Max Object Extensions (attributes) Header
+#include "Jamoma.h"
 
 typedef struct _stats{			// Data structure for this object 
 	struct	object ob;			// Must always be the first field; used by Max
@@ -62,7 +57,7 @@ int main(void)
 	t_class *c;
 	t_object *attr;
 	
-	common_symbols_init();
+	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.stats",(method)stats_new, (method)stats_free, (short)sizeof(t_stats), (method)0L, A_GIMME, 0);
