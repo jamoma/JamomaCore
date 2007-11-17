@@ -8,23 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
-		220A6C7D0A8AC7600079CD80 /* jcom.core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220A6C7C0A8AC7600079CD80 /* jcom.core.cpp */; };
-		220A6C7F0A8AC7650079CD80 /* jcom.core.h in Headers */ = {isa = PBXBuildFile; fileRef = 220A6C7E0A8AC7650079CD80 /* jcom.core.h */; };
 		22261CE30A28C1C100329D95 /* jcom.hub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jcom.hub.cpp */; };
 		22261D730A28C44900329D95 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22261D720A28C44900329D95 /* commonsyms.c */; };
 		22287BC90CEE340700DF50BB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22287BC80CEE340700DF50BB /* libxml2.dylib */; };
 		225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */; };
 		22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */; };
 		22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */; };
+		22FD2DFF0CEE5D2A0039C226 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD2DFE0CEE5D2A0039C226 /* Jamoma.framework */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
-		A78BD1920CD7A94C003F6506 /* jcom.io.h in Headers */ = {isa = PBXBuildFile; fileRef = A78BD1910CD7A94C003F6506 /* jcom.io.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
-		220A6C7C0A8AC7600079CD80 /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.core.cpp; path = ../common/jcom.core.cpp; sourceTree = SOURCE_ROOT; };
-		220A6C7E0A8AC7650079CD80 /* jcom.core.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jcom.core.h; path = ../common/jcom.core.h; sourceTree = SOURCE_ROOT; };
 		22261CE20A28C1C100329D95 /* jcom.hub.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.cpp; sourceTree = "<group>"; };
 		22261CE40A28C20600329D95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22261D720A28C44900329D95 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
@@ -33,8 +29,8 @@
 		22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.autodoc.cpp; sourceTree = "<group>"; };
 		22A2E01A0A93F1F40004A1F5 /* jcom.hub.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jcom.hub.h; sourceTree = "<group>"; };
 		22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.presets.cpp; sourceTree = "<group>"; };
+		22FD2DFE0CEE5D2A0039C226 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = /Library/Frameworks/Jamoma.framework; sourceTree = "<absolute>"; };
 		542ED84F09C02A0000DBC7EB /* jcom.hub.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.hub.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
-		A78BD1910CD7A94C003F6506 /* jcom.io.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = jcom.io.h; path = ../common/jcom.io.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +41,7 @@
 				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
 				22287BC90CEE340700DF50BB /* libxml2.dylib in Frameworks */,
+				22FD2DFF0CEE5D2A0039C226 /* Jamoma.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +62,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22FD2DFE0CEE5D2A0039C226 /* Jamoma.framework */,
 				22287BC80CEE340700DF50BB /* libxml2.dylib */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
 				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
@@ -88,9 +86,6 @@
 				22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */,
 				225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */,
 				22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */,
-				A78BD1910CD7A94C003F6506 /* jcom.io.h */,
-				220A6C7E0A8AC7650079CD80 /* jcom.core.h */,
-				220A6C7C0A8AC7600079CD80 /* jcom.core.cpp */,
 				22261D720A28C44900329D95 /* commonsyms.c */,
 			);
 			name = Source;
@@ -111,8 +106,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				220A6C7F0A8AC7650079CD80 /* jcom.core.h in Headers */,
-				A78BD1920CD7A94C003F6506 /* jcom.io.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +193,6 @@
 			files = (
 				22261D730A28C44900329D95 /* commonsyms.c in Sources */,
 				22261CE30A28C1C100329D95 /* jcom.hub.cpp in Sources */,
-				220A6C7D0A8AC7600079CD80 /* jcom.core.cpp in Sources */,
 				22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */,
 				22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */,
 				225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */,
@@ -225,7 +217,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = NO;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -234,8 +226,11 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
-				INFOPLIST_FILE = ../common/Info.plist;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/Jamoma.framework/Headers,
+				);
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -253,7 +248,7 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ${SDKROOT}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ${SDKROOT}/usr/include/libxml2";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -281,7 +276,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ../common/jcom.prefix.pch;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -290,8 +285,11 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/Headers;
-				INFOPLIST_FILE = ../common/Info.plist;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/Jamoma.framework/Headers,
+				);
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -308,7 +306,7 @@
 				PRODUCT_NAME = jcom.hub;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ../common ${SDKROOT}/usr/include/libxml2";
+				USER_HEADER_SEARCH_PATHS = "../../ThirdParty/ttblue/dsplib ${SDKROOT}/usr/include/libxml2";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

@@ -46,8 +46,17 @@ elif [ "$1" != "Development" ]; then
 	echo "Building Deployment"
 fi
 
+# Build the framework -- must build it clean every time
+cd "../SourceCode/Framework"
+xcodebuild -alltargets -configuration Deployment clean
+xcodebuild -alltargets -configuration Development clean
+xcodebuild -alltargets -configuration "$config" build
+cd ../../Tools
+rm -rf ../Jamoma/library/externals/Jamoma.framework
+cp -r /Library/Frameworks/Jamoma.framework ../Jamoma/library/externals/Jamoma.framework
 
-./Compile_Object_Mac.command jcom.aed2yz "$config" &&
+# Now we can build the objects
+./Compile_Object_Mac.command jcom.aed2xyz "$config" &&
 ./Compile_Object_Mac.command jcom.change "$config" &&
 ./Compile_Object_Mac.command jcom.colorspace "$config" && 
 ./Compile_Object_Mac.command jcom.cubic_interpolate "$config" &&
@@ -82,7 +91,9 @@ fi
 ./Compile_Object_Mac.command jcom.xfade~ "$config" &&
 ./Compile_Object_Mac.command jcom.xyz2aed "$config" &&
 ./Compile_Object_Mac.command jcom.zerox~ "$config" &&
-./Compile_Object_Mac.command ../ramplib/RampUnits/linear.queue "$config"
-./Compile_Object_Mac.command ../ramplib/RampUnits/linear.sched "$config"
-./Compile_Object_Mac.command ../ramplib/RampUnits/none "$config"
+
+# And the ramp libraries
+./Compile_RampLib.command linear.queue "$config"
+./Compile_RampLib.command linear.sched "$config"
+./Compile_RampLib.command none "$config"
 

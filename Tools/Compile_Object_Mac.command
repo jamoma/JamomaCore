@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$1"
+cd "../SourceCode/MaxObjects/$1"
 
 # clean only if requested
 if [ "$2" = "clean_all" ]; then
@@ -26,4 +26,4 @@ else
 	xcodebuild -alltargets -configuration "$2" build
 fi
 
-cd ..
+cd ../../../Tools
