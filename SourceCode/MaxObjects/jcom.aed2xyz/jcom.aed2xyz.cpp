@@ -13,16 +13,10 @@
  * 20070905: icst.3Dcartopol.c released: Based on code from ICST ambisonics modules
  */ 
 
+#include "jamoma.h"
 
-#include "ext.h"					// Max Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
-// #include <math.h>
-// #include <stdlib.h>
-
-double deg2rad;
-double rad2deg;
+const double rad2deg = 180.0 / 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
+const double deg2rad = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068 / 180.0;
 
 typedef struct x					// Data structure for this object 
 {
@@ -50,9 +44,7 @@ void aed2xyz_list(t_aed2xyz *x, Symbol *msg, long argc, t_atom *argv);	// method
 
 int main(void)			//main receives a copy of the Max function macros table 
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
 	common_symbols_init();
 
@@ -67,10 +59,6 @@ int main(void)			//main receives a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 	A_CANT,0);      
     class_addmethod(c, (method)object_obex_quickref, 	"quickref", A_CANT, 0);
 
-	// Used for calculations:
-	rad2deg = 180.0 / 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
-	deg2rad = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068 / 180.0;
-	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	this_class = c;
