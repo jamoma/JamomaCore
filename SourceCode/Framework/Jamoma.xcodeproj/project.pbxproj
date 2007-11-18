@@ -539,10 +539,13 @@
 				GCC_PREFIX_HEADER = JamomaPrefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/headers;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/MaxAPI.framework/headers,
+					/Library/Frameworks/MaxAudioAPI.framework/headers,
+				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				PRODUCT_NAME = MaxObject;
+				PRODUCT_NAME = Jamoma;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Deployment;
