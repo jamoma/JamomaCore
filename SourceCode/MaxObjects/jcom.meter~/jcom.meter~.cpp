@@ -13,10 +13,12 @@
 #define USE_QTML
 #endif
 
-#include "Jamoma.h"
+
+#include "ext.h"
+#include "ext_obex.h"
 #include "ext_user.h"
-#include "ext_common.h"			// includes the MIN macro
-#include <math.h>
+#include "ext_common.h"
+#include "Jamoma.h"			// For UI objects the run audio, the above must be declared first
 
 #ifdef USE_QTML
 #include "ext_qtstubs.h"
@@ -73,7 +75,7 @@ void meter_draw(t_meter *x);
 t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv);
 
 // Globals
-t_class *meter_class;
+static t_class *meter_class;
 
 /************************************************************************************/
 // Main() Function
