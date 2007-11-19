@@ -1,23 +1,33 @@
-/* mkdir.c -- make a folder ------- */
+/* 
+ * jcom.mkdir
+ * External for Jamoma: create a directory on the filesystem
+ * Original By Bill Orcutt
+ * Re-write for Max5 by Tim Place, 2007
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
 #include "Jamoma.h"
 
-typedef struct _mkdir
-{
-	t_object		s_ob;
-	void			*obex;
+
+typedef struct _mkdir{
+	t_object	obj;
+	void		*obex;
 } t_mkdir;
 
-void mkdir_bang(t_mkdir *x);
-void mkdir_assist(t_mkdir *x, void *b, long m, long a, char *s);
-void doReport();
-void mkdir_makeFolder(t_mkdir *x, t_symbol *s, long argc, t_atom *argv);
-void mkdir_make(t_mkdir *x, t_symbol *s, long argc, t_atom *argv);
+
 void *mkdir_new(void);
 void mkdir_free(t_mkdir *x);
+void mkdir_assist(t_mkdir *x, void *b, long m, long a, char *s);
+void mkdir_make(t_mkdir *x, t_symbol *s, long argc, t_atom *argv);
+void mkdir_domake(t_mkdir *x, t_symbol *s, long argc, t_atom *argv);
 
-t_class *mkdir_class;					// Required. Global pointing to this class
 
+static t_class *mkdir_class;
+
+
+/************************************************************************************/
 int main(void)
 {
 	t_class *c;
@@ -25,22 +35,13 @@ int main(void)
 	jamoma_init();
 	
 	// Define our class
-	c = class_new("mkdir",(method)mkdir_new, (method)mkdir_free, (short)sizeof(t_mkdir), (method)0L, 0L, 0);
+	c = class_new("jcom.mkdir",(method)mkdir_new, (method)mkdir_free, (short)sizeof(t_mkdir), (method)0L, 0L, 0);
 	class_obexoffset_set(c, calcoffset(t_mkdir, obex));
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)mkdir_bang,				"bang",		A_CANT, 0L);
-	class_addmethod(c, (method)mkdir_make,				"anything", A_GIMME, 0L);
-    class_addmethod(c, (method)mkdir_assist, 			"assist",	A_CANT, 0L); 
-	class_addmethod(c, (method)doReport,				"dblclick", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
+	class_addmethod(c, (method)mkdir_make,			"anything", A_GIMME, 0L);
+    class_addmethod(c, (method)mkdir_assist, 		"assist",	A_CANT, 0L); 
 
-	/* Old obsolete way of doing it
-	addbang((method)mkdir_bang);
-	addmess((method)mkdir_make, "anything", A_GIMME,0);
-	addmess((method)mkdir_assist,"assist",	A_CANT,0);
-	addmess((method)doReport, "dblclick", 	A_CANT,0);
-	*/
 	post("Tjotlandotte");
 
 	// Finalize our class
@@ -49,86 +50,8 @@ int main(void)
 	return 0;
 }
 
-void doReport()
-{
-	post("mkdir	 _   bill orcutt (user@publicbeta.cx)    _    09/13/2002",0);
-}
-void mkdir_bang(t_mkdir *x)
-{
-	doReport();
-}
 
-void mkdir_makeFolder(t_mkdir *x, t_symbol *s, long argc, t_atom *argv)
-{
-
-	PATH_SPEC *fs;
-	short path;
-	char *fakename;
-	char filename[256];
-	char fullpath[256];
-	long i,z,err;
-	
-	strcpy(fullpath,s->s_name);
-	
-	for (i=strlen(fullpath)-1;fullpath[i]!=':';i--); //one liner to position i @ the last colon.
-	for (i++,z=0;fullpath[i];i++,z++) {
-	
-		filename[z]=fullpath[i];
-	
-	}
-		
-	fullpath[(i-z)]='\0';
-	filename[z++]='\0';		
-			
-	if (path_frompathname(fullpath,&path,fakename)!=0) {
-	
-		error("mkdir:Invalid pathname. Full path required.");
-	
-	} else {
-	
-		 if (path_tospec (path,filename,fs)!=0) {
-		
-			error("mkdir:Invalid pathname.  Full path required.");
-		
-		} else {
-		
-			err=FSpDirCreate (fs, smSystemScript,0);
-			
-			if (!(err == 0 || err == -43)) {
-			
-				error("mkdir: couldn't create folder. Already exits?");
-			
-			}
-		
-		}
-	
-	}	
-
-}
-
-void mkdir_make(t_mkdir *x, t_symbol *s, long argc, t_atom *argv)
-{
-
-	//mkdir_makeFolder(x, s, argc, argv);
-	defer(x, (method)mkdir_makeFolder,s,0,0);
-
-}
-
-void mkdir_assist(t_mkdir *x, void *b, long msg, long arg, char *dst)
-{
-
-	if (msg == 1) {
-	
-		switch (arg) {
-			case 0:
-				strcpy(dst, "path to folder to be created.");
-				break;
-		} 
-	
-	}
-
-}
-
+/************************************************************************************/
 void *mkdir_new(void)
 {	
 	t_mkdir *x;
@@ -138,11 +61,55 @@ void *mkdir_new(void)
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 	}
-	return (x);									// Return pointer to our instance
+	return (x);
 }
+
 
 void mkdir_free(t_mkdir *x)
 {
-	//nada
+	;
 }			
 
+
+/************************************************************************************/
+void mkdir_assist(t_mkdir *x, void *b, long msg, long arg, char *dst)
+{
+	if(msg == 1){
+		switch (arg){
+			case 0:
+				strcpy(dst, "path to folder to be created.");
+				break;
+		}
+	}
+}	
+
+
+void mkdir_make(t_mkdir *x, t_symbol *s, long argc, t_atom *argv)
+{
+	defer_low(x, (method)mkdir_domake, s, 0, 0);
+}
+
+
+void mkdir_domake(t_mkdir *x, t_symbol *s, long argc, t_atom *argv)
+{
+	short	path = 0;				// parent folder, which we supply
+	short	createdPath = 0;		// the new folder after it is created
+	char	*folderName;			// the name of the new folder
+	char	fullpath[4096];
+	short	err = 0;
+	char	temp[256];
+	
+	path_nameconform(s->s_name, fullpath, PATH_STYLE_MAX, PATH_TYPE_ABSOLUTE);
+	folderName = strrchr(fullpath, '/');
+	
+	if(folderName){
+		*folderName = 0;
+		folderName++;
+		
+		err = path_frompathname(fullpath, &path, temp);
+		if(!err)
+			err = path_createfolder(path, folderName, &createdPath);
+		if(err)
+			error("mkdir: error %hd trying to create folder", err);
+	}
+}
