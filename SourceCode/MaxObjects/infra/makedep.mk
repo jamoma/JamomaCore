@@ -4,8 +4,8 @@ DEPENDS = $(filter-out $(SOURCES),$(TEMP_DEPENDS))
 # include the header file dependencies for the project
 # source file. 
 ifeq "${MAKECMDGOALS}" "release"
-    include $(DEPENDS)
+    -include $(DEPENDS)
 endif
 ifeq "${MAKECMDGOALS}" "debug"
-    include $(DEPENDS)
+    -include $(DEPENDS)
 endif
