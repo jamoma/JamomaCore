@@ -93,7 +93,7 @@
     <item name='microphones/direct/power' type='msg_float' priority='0'>1.000000</item>
     <item name='reflections/1st/gain/midi' type='msg_float' priority='0'>0.000000</item>
     <item name='reflections/2nd/gain/midi' type='msg_float' priority='0'>0</item>
-    <item name='reflections/airfilter' type='msg_int' priority='0'>0</item>
+    <item name='reflections/airfilter' type='msg_int' priority='0'>10000</item>
     <item name='reflections/order' type='msg_int' priority='1'>1</item>
     <item name='renderintervall' type='msg_int' priority='0'>50</item>
     <item name='rendermode/xfade/fadefunction' type='msg_symbol' priority='0'>linear</item>
