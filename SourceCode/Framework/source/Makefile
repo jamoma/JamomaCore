@@ -49,6 +49,8 @@ release:
 debug: 
 	${MAKE} ${JAMOMA_LIB_NAME}
 
+clean:
+	rm -f $(JAMOMA_LIB_OBJS) $(JAMOMA_LIB_NAME)
 
 
 ${JAMOMA_LIB_NAME}: ${JAMOMA_LIB_OBJS}
