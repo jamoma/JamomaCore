@@ -91,8 +91,9 @@
     <item name='microphones/9/position' type='msg_list' priority='19'>0</item>
     <item name='microphones/amount' type='msg_int' priority='2'>8</item>
     <item name='microphones/direct/power' type='msg_float' priority='0'>1.000000</item>
-    <item name='reflections/gain/midi' type='msg_float' priority='0'>0.000000</item>
-    <item name='reflections/lowpass/frequency' type='msg_int' priority='0'>10000</item>
+    <item name='reflections/1st/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='reflections/2nd/gain/midi' type='msg_float' priority='0'>0</item>
+    <item name='reflections/airfilter' type='msg_int' priority='0'>0</item>
     <item name='reflections/order' type='msg_int' priority='1'>1</item>
     <item name='renderintervall' type='msg_int' priority='0'>50</item>
     <item name='rendermode/xfade/fadefunction' type='msg_symbol' priority='0'>linear</item>
@@ -123,6 +124,7 @@
     <item name='source/orientation/azimuth' type='msg_float' priority='0'>0.000000</item>
     <item name='source/orientation/elevation' type='msg_float' priority='0'>0.000000</item>
     <item name='source/position/absolute/aed' type='msg_list' priority='0'>0.000000 0.000000 3.000000 </item>
+    <item name='temperature' type='msg_float' priority='0'>21.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='updaterate' type='msg_int' priority='0'>10</item>
     <item name='warning' type='msg_int' priority='0'>0</item>

@@ -46,7 +46,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> audio/meters/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionRange"> 0 0 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
@@ -809,18 +809,27 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> power law for attenuation due to microphone directivity </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> reflections/gain/midi </td>
+			<td class="instructionName"> reflections/1st/gain/midi </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 158.000000 </td>
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> gain of the early reflections </td>
+			<td class ="instructionDescription"> gain of the early reflections 1st order </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> reflections/lowpass/frequency </td>
+			<td class="instructionName"> reflections/2nd/gain/midi </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> gain of the early reflections 2nd order </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reflections/airfilter </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 16000 </td>
+			<td class ="instructionRange"> 0 17000 </td>
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
@@ -1095,6 +1104,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> Sourceposition in the virtual room - spatDIF compliant </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> temperature </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -20.000000 30.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Temperature in Celsius to calculate the speed of sound </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
@@ -1562,13 +1580,22 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> reflections/gain </td>
+			<td class="instructionName"> reflections/1st/gain </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -144.000000 18.000000 </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> linear.sched </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> gain of the early reflections </td>
+			<td class ="instructionDescription"> gain of the early reflections 1st order </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> reflections/2nd/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> gain of the early reflections 2nd order </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> report_all </td>
