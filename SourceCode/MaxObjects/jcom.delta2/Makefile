@@ -4,7 +4,7 @@ SOURCES = ${JCOM_DELTA2_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_DELTA2_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.delta2.mxe
-LINK_INPUT = $(OBJS) jcom.delta2.def $(CORE_OBJS)
+LINK_INPUT = $(OBJS) jcom.delta2.def 
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
@@ -18,7 +18,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LIBS)
 
 clean:
 	rm -f $(OBJS)

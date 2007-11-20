@@ -19,9 +19,9 @@
 include infra/common.mk
 
 
-release: ramplib_release
+release: ramplib_release jamoma_framework_release
 	@echo "Making release..."
-	@${MAKE} -C common release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+#	@${MAKE} -C common release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.change release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.colorspace release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.cubic_interpolate release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
@@ -61,9 +61,9 @@ release: ramplib_release
 
 	
 
-debug: ramplib_debug 
+debug: ramplib_debug jamoma_framework_debug
 	@echo "Making debug..."
-	@${MAKE} -C common debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
+#	@${MAKE} -C common debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.change debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.colorspace debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.cubic_interpolate debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
@@ -109,10 +109,16 @@ ramplib_release:
 ramplib_debug:
 	@${MAKE} -C ../RampLib debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 
+jamoma_framework_release:
+	@${MAKE} -C ../Framework/source release
+
+jamoma_framework_debug:
+	@${MAKE} -C ../Framework/source debug
+
 
 clean:
 	@echo "Making clean..."
-	@${MAKE} -C common clean
+#	@${MAKE} -C common clean
 	@${MAKE} -C jcom.change clean
 	@${MAKE} -C jcom.colorspace clean
 	@${MAKE} -C jcom.cubic_interpolate clean

@@ -4,7 +4,7 @@ SOURCES = ${JCOM_XFADE~_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_XFADE~_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.xfade~.mxe
-LINK_INPUT = $(OBJS) jcom.xfade~.def $(JCOM_CORE_AUDIO_OBJS)
+LINK_INPUT = $(OBJS) jcom.xfade~.def 
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
@@ -18,7 +18,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -Xlinker --allow-multiple-definition -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -Xlinker --allow-multiple-definition -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LIBS)
 
 clean:
 	rm -f $(OBJS)

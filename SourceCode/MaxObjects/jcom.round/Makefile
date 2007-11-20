@@ -4,7 +4,7 @@ SOURCES = ${JCOM_ROUND_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_ROUND_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.round.mxe
-LINK_INPUT = $(OBJS) jcom.round.def $(CORE_OBJS)
+LINK_INPUT = $(OBJS) jcom.round.def 
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
@@ -18,7 +18,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LIBS)
 
 clean:
 	rm -f $(OBJS)

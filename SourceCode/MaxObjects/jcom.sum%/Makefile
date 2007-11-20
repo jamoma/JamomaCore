@@ -4,7 +4,7 @@ SOURCES = ${JCOM_SUM%_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_SUM%_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.sum%.mxe
-LINK_INPUT = $(OBJS) jcom.sum%.def $(CORE_OBJS)
+LINK_INPUT = $(OBJS) jcom.sum%.def 
 
 EXTRA_CXXFLAGS = ${LOCAL_INCLUDES}
 
@@ -20,7 +20,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -Xlinker --allow-multiple-definition -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(JITTER_LIB_INCLUDES) $(JITTER_LIB) -lMaxAPI 
+	$(CXX) -Xlinker --allow-multiple-definition -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(JITTER_LIB_INCLUDES) $(JITTER_LIB) $(LIBS)
 
 clean:
 	rm -f $(OBJS)

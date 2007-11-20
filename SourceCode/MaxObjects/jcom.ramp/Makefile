@@ -4,7 +4,7 @@ SOURCES = ${JCOM_RAMP_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_RAMP_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.ramp.mxe
-LINK_INPUT = $(OBJS) jcom.ramp.def $(CORE_OBJS)
+LINK_INPUT = $(OBJS) jcom.ramp.def 
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
@@ -18,7 +18,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LIBS)
 
 clean:
 	rm -f $(OBJS)

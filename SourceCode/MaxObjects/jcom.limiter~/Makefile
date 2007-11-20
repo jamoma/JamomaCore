@@ -4,9 +4,9 @@ SOURCES = ${JCOM_LIMITER~_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_LIMITER~_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.limiter~.mxe
-LINK_INPUT = $(OBJS) jcom.limiter~.def $(CORE_OBJS)
+LINK_INPUT = $(OBJS) jcom.limiter~.def
 
-EXTRA_CFLAGS = ${LOCAL_INCLUDES}
+EXTRA_CXXFLAGS = ${LOCAL_INCLUDES}
 
 include ../infra/common.mk
 include ../infra/makedep.mk
@@ -18,7 +18,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -Xlinker --allow-multiple-definition -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -Xlinker --allow-multiple-definition -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(INCLUDES) $(MAX_LIB_INCLUDES) $(LIBS)
 
 clean:
 	rm -f $(OBJS)

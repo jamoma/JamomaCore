@@ -10,8 +10,8 @@ JCOM_OUT_OUTPUT = jcom.out.mxe
 JCOM_OUT~_OUTPUT = jcom.out~.mxe
 OUTPUT = $(JCOM_OUT_OUTPUT)
 
-JCOM_OUT_LINK_INPUT = $(OBJS) jcom.out.def $(CORE_OBJS)
-JCOM_OUT~_LINK_INPUT = jcom.out~.o jcom.out~.def $(JCOM_CORE_AUDIO_OBJS)
+JCOM_OUT_LINK_INPUT = $(OBJS) jcom.out.def 
+JCOM_OUT~_LINK_INPUT = jcom.out~.o jcom.out~.def
 
 EXTRA_CXXFLAGS = ${LOCAL_INCLUDES}
 
@@ -27,9 +27,9 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(JCOM_OUT~_OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT): 
-	$(CXX) -shared -mno-cygwin -o $(JCOM_OUT_OUTPUT) $(JCOM_OUT_LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -shared -mno-cygwin -o $(JCOM_OUT_OUTPUT) $(JCOM_OUT_LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LIBS)
 	$(CXX) -DJCOM_OUT_TILDE $(CXXFLAGS) $(EXTRA_CXXFLAGS) -c jcom.out.cpp -o jcom.out~.o
-	$(CXX) -shared -mno-cygwin -o $(JCOM_OUT~_OUTPUT) $(JCOM_OUT~_LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
+	$(CXX) -shared -mno-cygwin -o $(JCOM_OUT~_OUTPUT) $(JCOM_OUT~_LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LIBS)
 
 clean:
 	rm -f $(OBJS)

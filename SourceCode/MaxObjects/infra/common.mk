@@ -8,29 +8,40 @@ LOCAL_DEPS = -MM
 ALL_DEPS = -M
 DEP_CHECK_TYPE = ${ALL_DEPS}
 
-WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DTT_INCLUDE_CPP -DWIN_EXT_VERSION
+WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DTT_INCLUDE_CPP 
+#WIN_DEFINES = -DWIN_VERSION -DTT_TARGET_MAX -DWIN_EXT_VERSION 
+
+
 
 MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
    -I/maxmspsdk/c74support/msp-includes \
    -I/maxmspsdk/c74support/common
 
+
+JAMOMA_LIB_INCLUDES = -L../../Framework/source
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
-   -L/maxmspsdk/c74support/common
+   -L/maxmspsdk/c74support/common \
+   ${JAMOMA_LIB_INCLUDES}
+
 
 
 JITTER_INCLUDES = -I/maxmspsdk/c74support/jit-includes
 JITTER_LIB_INCLUDES = -L/maxmspsdk/c74support/jit-includes
 
-COMMON_INCLUDES = -I../common
+#COMMON_INCLUDES = -I../common
 RAMPLIB_INCLUDES = -I../../RampLib/ramplib_api
 LIBXML_INCLUDES = -I../../ThirdParty/libxml2/win32/include
 #LIBXML_INCLUDES = -I/usr/include/libxml2 -I/usr/include
 TT_BLUE_INCLUDES = -I../../ThirdParty/ttblue/dsplib
 LIBICONV_INCLUDES = -I../../ThirdParty/libiconv/include
+JAMOMA_INCLUDES = -I../../Framework/source
+PATTR_INCLUDES = -I../../Framework/c74
 
-INCLUDES = $(MAX_INCLUDES) $(COMMON_INCLUDES) $(RAMPLIB_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
-    $(LIBICONV_INCLUDES)
+#INCLUDES = $(MAX_INCLUDES) $(COMMON_INCLUDES) $(RAMPLIB_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
+
+INCLUDES = $(MAX_INCLUDES) $(RAMPLIB_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
+    $(LIBICONV_INCLUDES) $(JAMOMA_INCLUDES) $(PATTR_INCLUDES)
 
 
 TT_INCLUDES = -I../../ThirdParty/ttblue/dsplib
@@ -47,8 +58,11 @@ DEBUG_CXXFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygw
 
 INSTALL_DIR = ../../../Jamoma/library/externals/windows
 
-MAX_LIBS = -lMaxAPI -lMaxAudio
+JAMOMA_LIB = -lJamomaFramework
+MAX_LIBS = -lMaxAPI -lMaxAudio 
 JITTER_LIB = -ljitlib
+
+LIBS = ${JAMOMA_LIB} ${MAX_LIBS} 
 
 ifeq "$(MAKECMDGOALS)" "release"
 	CFLAGS ?= $(RELEASE_CFLAGS)
