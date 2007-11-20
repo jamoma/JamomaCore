@@ -1,7 +1,7 @@
 /* 
  * jcom.core
  * shared code used by the jamoma core externals
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -11,9 +11,9 @@
 #define __JMOD_CORE_H__
 
 #include "ext_critical.h"
-#ifdef JCOM_AUDIO_OBJECT
+//#ifdef JCOM_AUDIO_OBJECT
 #include "z_dsp.h"							// MSP Header
-#endif
+//#endif
 #ifdef WIN_VERSION
 #define snprintf _snprintf
 #endif
@@ -23,13 +23,16 @@ typedef void (*t_subscribe_method)(void *x);
 
 /** shared common subscriber data members
  *	!!! WARNING !!! This struct MUST be the first member of the object in which it is contained !!!
- */
+ *
+ *	Further note: We always use t_pxobject, even in non-audio objects, because it is larger and
+ *	we want our data members to have consistency memory offsets across all objects.
+ */ 
 typedef struct _jcom_core_subscriber_common{
-#ifdef JCOM_AUDIO_OBJECT
+//#ifdef JCOM_AUDIO_OBJECT
 	t_pxobject			ob;						///< base object for audio externs
-#else
-	t_object			ob;						///< base object
-#endif
+//#else
+//	t_object			ob;						///< base object
+//#endif
 	void				*obex;					///< object extensions
 	t_patcher			*container;				///< pointer to the patcher containing this object
 	void				*hub;					///< the jcom.hub object that we subscribe to
@@ -47,11 +50,11 @@ typedef struct _jcom_core_subscriber_common{
  *	!!! WARNING !!! This struct MUST be the first member of the object in which it is contained !!!
  */
 typedef struct _jcom_core_subscriber_extended{
-#ifdef JCOM_AUDIO_OBJECT
+//#ifdef JCOM_AUDIO_OBJECT
 	t_pxobject			ob;						///< base object for audio externs
-#else
-	t_object			ob;						///< base object
-#endif
+//#else
+//	t_object			ob;						///< base object
+//#endif
 	void				*obex;					///< object extensions
 	t_patcher			*container;				///< pointer to the patcher containing this object
 	void				*hub;					///< the jcom.hub object that we subscribe to
