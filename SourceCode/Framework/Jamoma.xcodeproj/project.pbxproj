@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		22097AD70CEA5F880053C8D2 /* JamomaPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		226C9AB90CF3D591003F0935 /* JamomaTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C9AB70CF3D591003F0935 /* JamomaTime.cpp */; };
-		226C9ABA0CF3D591003F0935 /* JamomaTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 226C9AB80CF3D591003F0935 /* JamomaTime.h */; };
+		226C9ABA0CF3D591003F0935 /* JamomaTime.h in Headers */ = {isa = PBXBuildFile; fileRef = 226C9AB80CF3D591003F0935 /* JamomaTime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22A403980CAD7C5100E5299E /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A403970CAD7C5100E5299E /* commonsyms.c */; };

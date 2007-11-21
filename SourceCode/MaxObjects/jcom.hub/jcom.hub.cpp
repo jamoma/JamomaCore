@@ -325,6 +325,7 @@ void hub_examine_context(t_hub *x)
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
 	object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
+	jamoma_hub_register(x->osc_name, (t_object *)x);
 }
 
 void hub_free(t_hub *x)
@@ -332,6 +333,8 @@ void hub_free(t_hub *x)
 	subscriberIterator i;
 	subscriberList *subscriber = x->subscriber;
 	t_atom a[2];
+
+	jamoma_hub_remove(x->osc_name);
 
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);

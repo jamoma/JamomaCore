@@ -12,7 +12,7 @@
 // statics and globals
 static long		initialized = false;
 t_object		*obj_jamoma_time = NULL;	// a shared global instance of the time class
-
+t_hashtab		*hash_modules = NULL;		// a hashtab of all modules (jcom.hubs) currently instantiated
 
 /************************************************************************************/
 // Init the framework
@@ -25,7 +25,28 @@ void jamoma_init(void)
 		jamoma_time_initclass();
 	
 		obj_jamoma_time = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma_time"), 0, NULL);
+		hash_modules = (t_hashtab*)hashtab_new(0);
 		initialized = true;
 	}
 }
 
+
+void jamoma_hub_register(t_symbol *name, t_object *hub)
+{
+	hashtab_store(hash_modules, name, hub);
+}
+
+
+void jamoma_hub_remove(t_symbol *name)
+{
+	hashtab_chuckkey(hash_modules, name);
+}
+
+
+t_object* jamoma_get_hub_for_module_named(t_symbol *name)
+{
+	t_object *hub = NULL;
+	
+	hashtab_lookup(hash_modules, name, &hub);
+	return hub;
+}
