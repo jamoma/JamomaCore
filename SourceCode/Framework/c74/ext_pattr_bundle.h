@@ -46,3 +46,4 @@ long ext_pattr_setup(void);
 END_USING_C_LINKAGE
 
 #endif // __EXT_PATTR_BUNDLE_H__
+
