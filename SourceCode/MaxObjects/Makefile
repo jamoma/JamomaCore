@@ -59,6 +59,8 @@ release: ramplib_release jamoma_framework_release
 	@${MAKE} -C jcom.xfade~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.zerox~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.mkdir release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+	@${MAKE} -C jcom.aed2xyz release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+	@${MAKE} -C jcom.xyz2aed release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 
 #	@${MAKE} -C jcom.metro release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 
@@ -104,6 +106,8 @@ debug: ramplib_debug jamoma_framework_debug
 	@${MAKE} -C jcom.xfade~ debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.zerox~ debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.mkdir debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
+	@${MAKE} -C jcom.aed2xyz debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
+	@${MAKE} -C jcom.xyz2aed debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 
 #	@${MAKE} -C jcom.metro debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 
@@ -162,6 +166,8 @@ clean:
 	@${MAKE} -C jcom.xfade~ clean
 	@${MAKE} -C jcom.zerox~ clean
 	@${MAKE} -C jcom.mkdir clean
+	@${MAKE} -C jcom.aed2xyz clean
+	@${MAKE} -C jcom.xyz2aed clean
 
 #	@${MAKE} -C jcom.metro clean
 

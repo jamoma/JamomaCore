@@ -4,7 +4,7 @@ SOURCES = ${JCOM_AED2XYZ_SOURCE}
 OBJS = $(filter-out $(SOURCES),${JCOM_AED2XYZ_OBJS})
 LOCAL_INCLUDES = -I.
 OUTPUT = jcom.aed2xyz.mxe
-LINK_INPUT = $(OBJS) jcom.aed2xyz.def $(CORE_OBJS)
+LINK_INPUT = $(OBJS) jcom.aed2xyz.def 
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
