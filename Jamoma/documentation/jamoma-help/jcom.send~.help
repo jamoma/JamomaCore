@@ -1,0 +1,1 @@
+max v2;#N vpatcher 62 74 662 474;#P user ezdac~ 307 112 351 145 0;#P user gain~ 137 93 24 100 158 0 1.071519 7.94321 10.;#P window setfont "Sans Serif" 9.;#P window linecount 1;#P newex 153 51 55 196617 saw~ 220;#P newex 106 237 111 196617 jcom.send~ /degrade~;#P connect 2 0 0 0;#P connect 1 0 2 0;#P pop;

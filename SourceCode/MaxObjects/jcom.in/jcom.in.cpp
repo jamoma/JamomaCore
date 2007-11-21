@@ -57,6 +57,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)in_unlink,				"unlink_out",			0L);
 #ifdef JCOM_IN_TILDE
 	class_addmethod(c, (method)in_dsp,					"dsp", 					A_GIMME, 0L);
+	class_addmethod(c, (method)in_remoteaudio,			"remoteaudio",			A_CANT, 0);
 #else
 	class_addmethod(c, (method)in_bang,					"bang", 				0L);
 	class_addmethod(c, (method)in_int,					"int", 					A_LONG, 0L);
@@ -381,7 +382,6 @@ void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-
 // Perform Method - just pass the whole vector straight through
 // (the work is all done in the dsp method)
 t_int *in_perform(t_int *w)
@@ -416,6 +416,27 @@ t_int *in_perform_zero(t_int *w)
 		j++;
 	}
 	return(w+5);
+}
+
+
+// TODO: We are not guaranteed that this will be called after in_perform, right?
+// If that is so then our mixing is bogus, and perform needs to perform mixing too...
+void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
+{
+	short	i, j;
+	float	*vector;
+	long	n;
+	
+	for(i=0; i<numAudioVectors; i++){
+		vector = audioVectors[i];
+		n = x->vector_size;
+		j = 0;
+		
+		while(n--){
+			x->signal_in[i]->vector[j] += *vector++;
+			j++;
+		}
+	}
 }
 
 

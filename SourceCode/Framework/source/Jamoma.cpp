@@ -10,9 +10,9 @@
 #include "Jamoma.h"
 
 // statics and globals
-static long		initialized = false;
-t_object		*obj_jamoma_time = NULL;	// a shared global instance of the time class
-t_hashtab		*hash_modules = NULL;		// a hashtab of all modules (jcom.hubs) currently instantiated
+static long			initialized = false;
+static t_hashtab	*hash_modules = NULL;		// a hashtab of all modules (jcom.hubs) currently instantiated
+t_object			*obj_jamoma_time = NULL;	// a shared global instance of the time class
 
 /************************************************************************************/
 // Init the framework

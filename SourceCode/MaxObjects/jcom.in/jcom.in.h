@@ -1,7 +1,7 @@
 /* 
  * jcom.in~
  * External for Jamoma: manage audio inputs for a module
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -34,6 +34,7 @@ void in_dsp(t_in *x, t_signal **sp, short *count);
 void in_assist(t_in *x, void *b, long m, long a, char *s);			// Assistance Method
 /** jcom.in~ MSP perform method */
 t_int *in_perform(t_int *w);
+void in_remoteaudio(t_in *x, float **audioVectors, long numAudioVectors);
 void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv);
 void in_view_internals(t_in *x, t_symbol *msg, long argc, t_atom *argv);	// Message /module/view_internals
 void in_alloc(t_in *x, int vector_size);
