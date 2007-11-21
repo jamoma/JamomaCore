@@ -81,10 +81,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addattr(c, attr);	
 
 #ifdef JCOM_IN_TILDE
-	// ATTRIBUTE: manage_channels
-	attr = attr_offset_new("manage_channels", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_in, attr_manage_channels));
-	class_addattr(c, attr);
+//	// ATTRIBUTE: manage_channels
+//	attr = attr_offset_new("manage_channels", _sym_long, attrflags,
+//		(method)0, (method)0, calcoffset(t_in, attr_manage_channels));
+//	class_addattr(c, attr);
 	
 	// Setup our class to work with MSP
 	class_dspinit(c);
@@ -117,7 +117,6 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
 		x->num_inputs = 0;
-		x->attr_manage_channels = 0;
 		x->attr_algorithm_type = _sym_nothing;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
@@ -192,8 +191,6 @@ void in_subscribe(void *z)
 		else
 			x->attr_algorithm_type = result;
 	}
-	if(x->attr_algorithm_type == ps_poly && x->attr_manage_channels)
-		outlet_anything(x->algout, ps_target, 1, &ga_zero);
 }
 
 
@@ -277,7 +274,7 @@ void in_dispatched(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 
 
 // set pointer to the out object so we can forward messages to it 
-void in_link(t_in *x, void *y)
+void in_link(t_in *x, t_object *y)
 {
 	x->out_object = y;
 }
@@ -289,39 +286,6 @@ void in_unlink(t_in *x)
 }
 
 
-// NOTE: only called by the dsp() method at this point in time
-void in_send_to_algorithm(t_in *x)
-{
-	short	i;
-	t_atom 	a[MAX_NUM_CHANNELS];
-	t_atom	aNumChans;
-	t_atom	aMute[2];		// mute channel, mute state
-
-	atom_setlong(&aNumChans, x->sigcount);
-	outlet_anything(x->dumpout, ps_sigcount, 1, &aNumChans);
-
-	for(i=0; i < x->num_inputs; i++)
-		atom_setlong(&a[i], x->siglist[i]);
-
-	outlet_anything(x->dumpout, ps_siglist, x->num_inputs, &a[0]);
-	outlet_anything(x->dumpout, ps_config_changed, 0, NULL);
-
-	// poly~ control
-	if(x->attr_algorithm_type == ps_poly && x->attr_manage_channels){
-		// set the number of voices in the poly~
-		outlet_anything(x->algout, ps_voices, 1, &aNumChans);
-		
-		// control the muting of the voices
-		for(i=0; i < x->num_inputs; i++){
-			atom_setlong(&aMute[0], i+1);					// channel num
-			atom_setlong(&aMute[1], (x->siglist[i] == 0));	// mute state
-			outlet_anything(x->algout, ps_mute, 2, aMute);
-		}
-		// notify poly~ voices
-		outlet_anything(x->algout, ps_target, 1, &ga_zero);
-		outlet_anything(x->algout, ps_config_changed, 0, NULL);
-	}
-}
 
 
 void in_bang(t_in *x)
@@ -441,43 +405,20 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 
 
 // DSP Method
-/* Our strategy here is to figure out which signals have connections
- * Knowing which signals have connections, we then count them and
- * send the number of signals to dumpout (which can presumably then be
- * used to make the algorithm or patch do the right thing)
- * 
- * At some point we may want to look for other patterns of things to.
- * For example, what should really happen if it is only inputs 1 and 3 
- * that are connected?
- */
 void in_dsp(t_in *x, t_signal **sp, short *count)
 {
 	short 	i;
-	long	connection[MAX_NUM_CHANNELS];
-	bool	connection_changed = false;
 	int 	vs = sp[0]->s_n;			// Vector Size
-//	int		sr = sp[0]->s_sr;			// Sample Rate	
 
 	in_alloc(x, vs);	
-	x->sigcount = 0;					// reset
 
 	for(i=0; i < x->num_inputs; i++){	//take a look at each
-		connection[i] = count[i];
-		if(connection[i] != x->siglist[i])
-			connection_changed = true;
 		if(count[i]){
-			x->sigcount++;
 			dsp_add(in_perform, 5, x, i, sp[i]->s_vec, sp[x->num_inputs + i]->s_vec, sp[i]->s_n);
 		}
 		else
 			dsp_add(in_perform_zero, 4, x, i, sp[x->num_inputs + i]->s_vec, sp[i]->s_n);
 	}
-
-	if(connection_changed){				// notify the module
-		for(i=0; i < x->num_inputs; i++)
-			x->siglist[i] = connection[i];
-		in_send_to_algorithm(x);
-	}	
 }
 
 

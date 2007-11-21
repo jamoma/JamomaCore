@@ -362,22 +362,6 @@ void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-void out_send_to_algorithm(t_out *x)
-{
-	short	i;
-	t_atom 	a[MAX_NUM_CHANNELS];
-
-	atom_setlong(&a[0], x->sigcount);
-	outlet_anything(x->dumpout, ps_sigcount, 1, &a[0]);
-
-	for(i=0; i < x->num_outputs; i++)
-		atom_setlong(&a[i], x->siglist[i]);
-
-	outlet_anything(x->dumpout, ps_siglist, x->num_outputs, &a[0]);
-	outlet_anything(x->dumpout, ps_config_changed, 0, NULL);
-}
-
-
 void update_meters(t_out *x)
 {
 	short	i;
@@ -456,20 +440,9 @@ t_int *out_perform_zero(t_int *w)
 
 
 // DSP Method
-/* Our strategy here is to figure out which signals have connections
- * Knowing which signals have connections, we then count them and
- * send the number of signals to dumpout (which can presumably then be
- * used to make the algorithm or patch do the right thing)
- * 
- * At some point we may want to look for other patterns of things to.
- * For example, what should really happen if it is only inputs 1 and 3 
- * that are connected?
- */
 void out_dsp(t_out *x, t_signal **sp, short *count)
 {
 	short 	i;
-	long	connection[MAX_NUM_CHANNELS];
-	bool	connection_changed = false;
 	int 	vs = sp[0]->s_n;			// Vector Size
 	int		sr = sp[0]->s_sr;			// Sample Rate	
 
@@ -477,24 +450,12 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	x->ramp_xfade->set_sr(sr);
 	out_alloc(x, vs);
 
-	x->sigcount = 0;					// reset
 	for(i=0; i < x->num_outputs; i++){	//take a look at each
-		connection[i] = count[i];
-		if(connection[i] != x->siglist[i])
-			connection_changed = true;
-		if(count[i]){
-			x->sigcount++;
+		if(count[i])
 			dsp_add(out_perform, 5, x, i, sp[i]->s_vec, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
-		}
 		else
 			dsp_add(out_perform_zero, 2, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
 	}
-
-	if(connection_changed){				// notify the module
-		for(i=0; i < x->num_outputs; i++)
-			x->siglist[i] = connection[i];
-		out_send_to_algorithm(x);
-	}	
 }
 
 

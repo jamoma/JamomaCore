@@ -15,7 +15,7 @@
 void *in_new(t_symbol *s, long argc, t_atom *argv);
 /** Method for subscribing to jcom.hub */
 void in_subscribe(void *z);
-void in_link(t_in *x, void *y);
+void in_link(t_in *x, t_object *y);
 void in_unlink(t_in *x);
 /** Dispatch method for communication with the hub */
 void in_dispatched(t_in *x, t_symbol *msg, long argc, t_atom *argv);
