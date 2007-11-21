@@ -69,4 +69,5 @@ void				jamoma_timeevent_send(t_jamoma_timeevent *event);
 void				jamoma_timeevent_dosend(t_jamoma_timeevent *event);
 
 
-#endif __JAMOMA_TIME_H__
+#endif //__JAMOMA_TIME_H__
+

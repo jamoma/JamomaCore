@@ -47,4 +47,5 @@ void		jamoma_hub_register(t_symbol *name, t_object *hub);
 void		jamoma_hub_remove(t_symbol *name);
 t_object*	jamoma_get_hub_for_module_named(t_symbol *name);
 
-#endif __JAMOMA_H__
+#endif //__JAMOMA_H__
+
