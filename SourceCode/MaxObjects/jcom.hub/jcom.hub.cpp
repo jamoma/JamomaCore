@@ -50,6 +50,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_private,				"private", 					A_GIMME, 0L);	// internal communications such as jcom.remote
 	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
+
+	class_addmethod(c, (method)hub_getobj_audioin,		"getobj_audioin",			A_CANT, 0);		// return a pointer to the jcom.in~ object
+	class_addmethod(c, (method)hub_getobj_audioout,		"getobj_audioout",			A_CANT, 0);		// return a pointer to the jcom.out~ object
+
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
     class_addmethod(c, (method)object_obex_quickref,	"quickref",					A_CANT, 0);
@@ -394,14 +398,14 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 
 	// special cases and other caching
 	if(new_subscriber->type == ps_subscribe_in){
-		x->in_object = subscriber_object;
+		x->in_object = (t_object*)subscriber_object;
 		if(x->out_object){		// set up pointers between jcom.in and jcom.out
 			object_method(x->in_object, ps_link_out, x->out_object);
 			object_method(x->out_object, ps_link_in, x->in_object);
 		}
 	}
 	if(new_subscriber->type == ps_subscribe_out){
-		x->out_object = subscriber_object;
+		x->out_object = (t_object*)subscriber_object;
 		if(x->in_object){		// set up pointers between jcom.in and jcom.out
 			object_method(x->in_object, ps_link_out, x->out_object);
 			object_method(x->out_object, ps_link_in, x->in_object);
@@ -415,7 +419,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 		int meternum = 0;
 		sscanf( new_subscriber->name->s_name, "__meter__%i", &meternum);
 		if(meternum > 0){
-			x->meter_object[meternum-1] = new_subscriber->object;
+			x->meter_object[meternum-1] = (t_object*)new_subscriber->object;
 			if(x->out_object)
 				object_method(x->out_object, ps_register_meter, meternum-1, x->meter_object[meternum-1]);
 		}
@@ -736,6 +740,26 @@ void hub_assist(t_hub *x, void *b, long msg, long arg, char *dst)
 					break;
 		}
  	}		
+}
+
+
+// return a pointer to the jcom.in~ object
+t_object* hub_getobj_audioin(t_hub *x)
+{
+	if(x->attr_type == ps_audio)
+		return x->in_object;
+	else
+		return NULL;
+}
+
+
+// return a pointer to the jcom.out~ object
+t_object* hub_getobj_audioout(t_hub *x)
+{
+	if(x->attr_type == ps_audio)
+		return x->out_object;
+	else
+		return NULL;
 }
 
 

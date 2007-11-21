@@ -65,9 +65,9 @@ typedef struct _hub{							///< Data Structure for this object
 	presetList		*preset;					///< top of the linked list of presets
 	long			num_parameters;				///< count used for working with presets
 	void			*init_qelem;				///< qelem used for initialization messages
-	void			*in_object;					///< cache the jcom.in object directly for quick access
-	void			*out_object;				///< cache the jcom.out object directly for quick access
-	void			*meter_object[MAX_NUM_CHANNELS];	///< cache any meter objects so they can be handed to jcom.out
+	t_object		*in_object;					///< cache the jcom.in object directly for quick access
+	t_object		*out_object;				///< cache the jcom.out object directly for quick access
+	t_object		*meter_object[MAX_NUM_CHANNELS];	///< cache any meter objects so they can be handed to jcom.out
 	void			*preview_object;			///< cache the remote for sending jitter matrix preview frames
 	void			*gui_object;				///< cache the jcom.remote object in the gui for quick access
 	t_symbol		*attr_name;					///< ATTRIBUTE: module name
@@ -95,6 +95,10 @@ void		hub_examine_context(t_hub *x);
  * @see hub_free */
 void		hub_free(t_hub *x);
 void		hub_assist(t_hub *x, void *b, long msg, long arg, char *dst);
+
+t_object*	hub_getobj_audioin(t_hub *x);
+t_object*	hub_getobj_audioout(t_hub *x);
+
 void		hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 /** This is called by clients who wish to register their parameters with the hub.  Meaning
  * these is typically called by jcom.parameter 
