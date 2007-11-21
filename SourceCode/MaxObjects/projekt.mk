@@ -63,6 +63,9 @@ JCOM_LIMITER~_OBJS = ${JCOM_LIMITER~_SOURCE:.cpp=.o}
 JCOM_METER~_SOURCE = jcom.meter~.cpp jcom.meter~.def
 JCOM_METER~_OBJS = ${JCOM_METER~_SOURCE:.cpp=.o}
 
+JCOM_METRO_SOURCE = jcom.metro.cpp jcom.metro.def
+JCOM_METRO_OBJS = ${JCOM_METRO_SOURCE:.cpp=.o}
+
 JCOM_MKDIR_SOURCE = jcom.mkdir.cpp jcom.mkdir.def
 JCOM_MKDIR_OBJS = ${JCOM_MKDIR_SOURCE:.cpp=.o}
 
@@ -77,6 +80,9 @@ JCOM_PARAMETER_OBJS = ${JCOM_PARAMETER_SOURCE:.cpp=.o}
 
 JCOM_MESSAGE_SOURCE = jcom.parameter.clip.cpp jcom.message.def
 JCOM_MESSAGE_OBJS = ${JCOM_MESSAGE_SOURCE:.cpp=.o}
+
+JCOM_MKDIR_SOURCE = mkdir.cpp mkdir.def
+JCOM_MKDIR_OBJS = ${JCOM_MKDIR_SOURCE:.cpp=.o}
 
 JCOM_PASS_SOURCE = jcom.pass.cpp jcom.pass.def
 JCOM_PASS_OBJS = ${JCOM_PASS_SOURCE:.cpp=.o}
