@@ -5,7 +5,6 @@ AR  = ar
 
 ARFLAGS = cr
 
-
 JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp 
 JAMOMA_LIB_OBJS = ${JAMOMA_LIB_SOURCE:.cpp=.o}
 JAMOMA_LIB_OBJS += commonsyms.o
@@ -40,8 +39,30 @@ RELEASE_CXXFLAGS = -O2 -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-c
 
 CXXFLAGS = ${RELEASE_CXXFLAGS}
 
+%.d: %.c
+	@set -e; rm -f $@; \
+	$(CC) -M $(CFLAGS) $(EXTRA_CFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
+
+%.d: %.cpp
+	@set -e; rm -f $@; \
+	$(CXX) -M $(CXXFLAGS) $(EXTRA_CXXFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
 
 
+SOURCES = ${JAMOMA_LIB_SOURCE}
+TEMP_DEPENDS = $(SOURCES:.C=.d) $(SOURCES:.c=.d) $(SOURCES:.cpp=.d)
+# This ensures that we don't rm -f source files when we do a make clean
+DEPENDS = $(filter-out $(SOURCES),$(TEMP_DEPENDS))
+# include the header file dependencies for the project
+# source file.
+
+include $(DEPENDS)
+
+
+# release
 release: 
 	${MAKE} ${JAMOMA_LIB_NAME}
 
@@ -51,6 +72,7 @@ debug:
 
 clean:
 	rm -f $(JAMOMA_LIB_OBJS) $(JAMOMA_LIB_NAME)
+	rm -f $(DEPENDS)
 
 
 ${JAMOMA_LIB_NAME}: ${JAMOMA_LIB_OBJS}
