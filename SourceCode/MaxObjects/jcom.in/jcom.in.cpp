@@ -140,8 +140,10 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		
 		for(i=0; i < (x->num_inputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet   		
-		for(i=0; i < MAX_NUM_CHANNELS; i++)
+		for(i=0; i < MAX_NUM_CHANNELS; i++){
 			x->signal_in[i] = new tt_audio_signal;			// Storage for the signal (accessed by jcom.out~)
+			x->remote_vectors[i] = NULL;
+		}
 		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 #else
 		for(i = x->num_inputs-1; i >= 1; i--)
@@ -169,11 +171,7 @@ void in_subscribe(void *z)
 	t_symbol	*modtype;
 	t_in		*x = (t_in *)z;
 	
-	//x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_in);
 	if(x->common.hub != NULL){
-		//object_attr_getvalueof(x->common.hub, ps_name, &argc, &argv);
-		//x->common.module_name = atom_getsym(argv);
-		
 		// Find out what type of algorithm this is supposed to control
 		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
 		result = atom_getsym(argv);
@@ -286,8 +284,6 @@ void in_unlink(t_in *x)
 }
 
 
-
-
 void in_bang(t_in *x)
 {
 	if(x->attr_mute)
@@ -350,36 +346,36 @@ void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 // (the work is all done in the dsp method)
 t_int *in_perform(t_int *w)
 {
-  	t_in 	*x 		= (t_in *)(w[1]);		// Instance
-	short	i		= (short)(w[2]);		// Channel Number
-	t_float *in 	= (t_float *)(w[3]);	// Input
-	t_float *out 	= (t_float *)(w[4]);	// Output
-	long	n		= (long)(w[5]);			// vectorsize 
-	short	j		= 0;
-
-	while(n--){
-		x->signal_in[i]->vector[j] = *in;
-		*out++ = *in++;
-		j++;
+  	t_in 	*x = (t_in *)(w[1]);		// Instance
+	short	n;
+	short	chan = x->num_inputs;
+	short	i, j;
+	float	*out, *remote;
+	
+	for(i=0; i < chan; i++){
+		n = x->vector_size;
+		remote = x->remote_vectors[i];
+		out = x->out_vectors[i];
+		j = 0;
+		if(out && x->signal_in[i]->vector){
+			if(remote){
+				while(n--){
+					x->signal_in[i]->vector[j] += *remote;
+					*out++ = x->signal_in[i]->vector[j];
+					*remote = 0.0;
+					remote++;
+					j++;
+				} 
+			}
+			else{
+				while(n--){
+					*out++ = x->signal_in[i]->vector[j];
+					j++;
+				} 
+			}
+		}
 	}
-	return(w+6);
-}
-
-
-t_int *in_perform_zero(t_int *w)
-{
-  	t_in 	*x 		= (t_in *)(w[1]);		// Instance
-	short	i		= (short)(w[2]);		// Channel Number
-  	t_float *out 	= (t_float *)(w[3]);	// Output
-	long	n		= (long)(w[4]);			// vectorsize
-	short	j		= 0;
-
-	while(n--){
-		x->signal_in[i]->vector[j] = 0;	
-		*out++ = 0;
-		j++;
-	}
-	return(w+5);
+	return(w+2);
 }
 
 
@@ -387,19 +383,16 @@ t_int *in_perform_zero(t_int *w)
 // If that is so then our mixing is bogus, and perform needs to perform mixing too...
 void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 {
-	short	i, j;
-	float	*vector;
+	short	i;
+	float	*vector, *out;
 	long	n;
 	
 	for(i=0; i<numAudioVectors; i++){
 		vector = audioVectors[i];
 		n = x->vector_size;
-		j = 0;
-		
-		while(n--){
-			x->signal_in[i]->vector[j] += *vector++;
-			j++;
-		}
+		out = x->remote_vectors[i];
+		while(n--)
+			*out++ += *vector++;
 	}
 }
 
@@ -407,18 +400,25 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 // DSP Method
 void in_dsp(t_in *x, t_signal **sp, short *count)
 {
-	short 	i;
-	int 	vs = sp[0]->s_n;			// Vector Size
+	short 	i, j;
 
-	in_alloc(x, vs);	
+	in_alloc(x, sp[0]->s_n);		// Vector Size
 
 	for(i=0; i < x->num_inputs; i++){	//take a look at each
-		if(count[i]){
-			dsp_add(in_perform, 5, x, i, sp[i]->s_vec, sp[x->num_inputs + i]->s_vec, sp[i]->s_n);
-		}
+		if(count[i])
+			x->signal_in[i]->set_vector(sp[i]->s_vec);
 		else
-			dsp_add(in_perform_zero, 4, x, i, sp[x->num_inputs + i]->s_vec, sp[i]->s_n);
+			x->signal_in[i]->set_vector(NULL);
 	}
+	
+	j=i;
+	for(i=0; i < x->num_inputs; i++, j++){
+		if(count[i])
+			x->out_vectors[i] = sp[j]->s_vec;
+		else
+			x->out_vectors[i] = NULL;
+	}
+	dsp_add(in_perform, 1, x);
 }
 
 
@@ -428,10 +428,12 @@ void in_alloc(t_in *x, int vector_size)
 	
 	if(vector_size != x->vector_size) {
 		x->vector_size = vector_size;
-		for(i=0; i < MAX_NUM_CHANNELS; i++) {
+		for(i=0; i < MAX_NUM_CHANNELS; i++){
 			x->signal_in[i]->alloc(vector_size);
+			if(x->remote_vectors[i])
+				sysmem_freeptr(x->remote_vectors[i]);
+			x->remote_vectors[i] = (float*)sysmem_newptr(sizeof(float) * x->vector_size);
 		}
 	}
 }
-
 

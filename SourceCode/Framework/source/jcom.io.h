@@ -1,7 +1,7 @@
 /* 
  * jcom.io.h
  * shared code for jcom.in and jcom.out objects
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -28,12 +28,11 @@ typedef struct _in{
 	void			*algout;						///< alogorithm outlet         
 	t_symbol		*attr_algorithm_type;			///< the algorithm type
 	long			num_inputs;						///< spec'd as an argument
-	long			attr_manage_channels;			///< do we poly~ voices to implement processing of each channel?
-	long			sigcount;						///< number of connected signals for each channel?
-	long			siglist[MAX_NUM_CHANNELS];		///< a list of states for each input/output
 	long			vector_size;					///< cached vector_size of the audio signals
 	long			last_target;					///< for poly~-based algorithms, the last target number used
 	tt_audio_signal	*signal_in[MAX_NUM_CHANNELS];	///< last vector of audio samples for each channel (used by jcom.out~)
+	float			*out_vectors[MAX_NUM_CHANNELS];
+	float			*remote_vectors[MAX_NUM_CHANNELS];
 	long			attr_bypass;					///< bypass flag for the module
 	long			attr_mute;						///< mute flag for the module
 	long			attr_freeze;					///< freeze flag for video modules
@@ -53,8 +52,6 @@ typedef struct _out{
 	void			*dumpout;						///< dumpout outlet
 	t_symbol		*attr_algorithm_type;			///< default is 'poly', also we need a 'blue' type (maybe a better name?)
 	long			num_outputs;					///< spec'd as an argument
-	long			sigcount;						///< number of connected signals for each channel?
-	long			siglist[MAX_NUM_CHANNELS];		///< a list of states for each input/output
 	long			vector_size;					///< cached vector_size of the audio signals
 
 	tt_audio_signal	*signal_in;
