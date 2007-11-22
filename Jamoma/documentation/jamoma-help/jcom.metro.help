@@ -1,0 +1,1 @@
+max v2;#N vpatcher 52 59 652 459;#P user ezdac~ 288 147 332 180 0;#P button 114 182 15 0;#P toggle 98 76 15 0;#P window setfont "Sans Serif" 9.;#P window linecount 1;#P newex 110 125 83 196617 jcom.metro 500;#P comment 257 133 122 196617 dsp has to be turned on;#P connect 2 0 1 0;#P connect 1 0 3 0;#P pop;
