@@ -36,7 +36,6 @@ static t_class*	jcom_metro_class;
 int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class	*c;
-	long	offset;
 	
 	jamoma_init();
 
@@ -44,8 +43,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.metro", (method)jcom_metro_new, (method)jcom_metro_free, 
 		sizeof(t_jcom_metro), (method)NULL, A_GIMME, 0);
 
-	offset = calcoffset(t_in, common);
-	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
+	class_obexoffset_set(c, calcoffset(t_jcom_metro, obex));
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)jcom_metro_int,			"int",		A_FLOAT,	0);
