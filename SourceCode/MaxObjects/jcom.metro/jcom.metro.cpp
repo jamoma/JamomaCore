@@ -12,6 +12,7 @@
 // Data Structure for this object
 typedef struct _jcom_metro{
 	t_pxobject 	obj;
+	void		*obex;
 	void		*outlet;
 	double		attr_period;
 	long		attr_active;
@@ -34,7 +35,8 @@ static t_class*	jcom_metro_class;
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	t_class *c;
+	t_class	*c;
+	long	offset;
 	
 	jamoma_init();
 
@@ -42,15 +44,19 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.metro", (method)jcom_metro_new, (method)jcom_metro_free, 
 		sizeof(t_jcom_metro), (method)NULL, A_GIMME, 0);
 
+	offset = calcoffset(t_in, common);
+	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
+
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)jcom_metro_int,			"int",		A_FLOAT,	0);
  	class_addmethod(c, (method)jamoma_time_dsp,			"dsp",		A_CANT,		0L);
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",	A_CANT,		0);
 
 	// Add attributes to our class:
-	CLASS_ATTR_DOUBLE(c,	"period",	0, t_jcom_metro, attr_period);
-	CLASS_ATTR_ACCESSORS(c,	"period",	0, metro_attr_setperiod);
-	CLASS_ATTR_LABEL(c,		"period",	0, "Interval");
+	class_addattr(c, 
+		attr_offset_new("interval", _sym_float64, 0,
+		(method)0, (method)metro_attr_setperiod, calcoffset(t_jcom_metro, attr_period))
+	);	
 	
 	// Setup our class to work with MSP
 	class_dspinit(c);
