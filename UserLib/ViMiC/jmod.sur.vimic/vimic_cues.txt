@@ -21,28 +21,28 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/audio/mute 0
 	/jmod.sur.vimic~/direct/gain/midi 0
 	/jmod.sur.vimic~/microphones/1/angle -0.000 0.000
-	/jmod.sur.vimic~/microphones/1/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/1/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/1/position -0.000 2.500 0.000
 	/jmod.sur.vimic~/microphones/2/angle -45.000 0.000
-	/jmod.sur.vimic~/microphones/2/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/2/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/2/position -1.768 1.768 0.000
 	/jmod.sur.vimic~/microphones/3/angle -90.000 0.000
-	/jmod.sur.vimic~/microphones/3/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/3/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/3/position -2.500 -0.000 0.000
 	/jmod.sur.vimic~/microphones/4/angle -135.000 0.000
-	/jmod.sur.vimic~/microphones/4/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/4/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/4/position -1.768 -1.768 0.000
 	/jmod.sur.vimic~/microphones/5/angle 180.000 0.000
-	/jmod.sur.vimic~/microphones/5/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/5/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/5/position 0.000 -2.500 0.000
 	/jmod.sur.vimic~/microphones/6/angle 135.000 0.000
-	/jmod.sur.vimic~/microphones/6/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/6/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/6/position 1.768 -1.768 0.000
 	/jmod.sur.vimic~/microphones/7/angle 90.000 0.000
-	/jmod.sur.vimic~/microphones/7/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/7/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/7/position 2.500 0.000 0.000
 	/jmod.sur.vimic~/microphones/8/angle 45.000 0.000
-	/jmod.sur.vimic~/microphones/8/directivity/ratio 0.5
+	/jmod.sur.vimic~/microphones/8/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/8/position 1.768 1.768 0.000
 	/jmod.sur.vimic~/microphones/direct/power 1
 	/jmod.sur.vimic~/reflections/1st/gain/midi 0.
@@ -53,6 +53,12 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/room/size 20.000 30.000 8.000
 	/jmod.sur.vimic~/source/position/absolute/xyz 1.308 7.472 0.000
 	/jmod.sur.vimic~/updaterate 10
+	/jmod.sur.vimic~/room/absorption/ceiling/preset full
+	/jmod.sur.vimic~/room/absorption/floor/preset full
+	/jmod.sur.vimic~/room/absorption/left/preset full
+	/jmod.sur.vimic~/room/absorption/right/preset full
+	/jmod.sur.vimic~/room/absorption/rear/preset full
+	/jmod.sur.vimic~/room/absorption/front/preset full
 # Module /microphone_setup
     /microphone_setup/voices 8
 	/microphone_setup/aed/1 -0.000 0.000 2.500
