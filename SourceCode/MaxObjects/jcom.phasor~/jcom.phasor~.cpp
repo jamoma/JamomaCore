@@ -13,6 +13,7 @@
 // Data Structure for this object
 typedef struct _phasor{
 	t_pxobject 	obj;
+	void		*obex;
 	double		attr_period;
 	double		frequency;
 	double		one_over_sr;
@@ -45,13 +46,17 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.phasor~", (method)phasor_new, (method)phasor_free, 
 		sizeof(t_phasor), (method)NULL, A_GIMME, 0);
 
+	class_obexoffset_set(c, calcoffset(t_phasor, obex));
+
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)phasor_dsp, 				"dsp",		A_CANT, 0L);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,0);  
 
 	// Add attributes to our class:
-	CLASS_ATTR_DOUBLE(c,	"period",	0, t_phasor, attr_period);
-	CLASS_ATTR_ACCESSORS(c,	"period",	0, phasor_attr_setperiod);
+	class_addattr(c, 
+		attr_offset_new("interval", _sym_float64, 0,
+		(method)0, (method)phasor_attr_setperiod, calcoffset(t_phasor, attr_period))
+	);	
 	
 	// Setup our class to work with MSP
 	class_dspinit(c);

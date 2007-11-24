@@ -12,6 +12,7 @@
 // Data Structure for this object
 typedef struct _jcom_time{
 	t_object 	obj;
+	void		*obex;
 } t_jcom_time;
 
 // Prototypes for methods
@@ -37,13 +38,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 	c = class_new("jcom.time", (method)jcom_time_new, (method)jcom_time_free, 
 		sizeof(t_jcom_time), (method)NULL, A_GIMME, 0);
 
+	class_obexoffset_set(c, calcoffset(t_jcom_time, obex));
+
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)jcom_time_rewind,		"rewind",	0);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT, 0);
-
-	// Add attributes to our class:
-	//CLASS_ATTR_DOUBLE(c,	"period",	0, t_phasor, attr_period);
-	//CLASS_ATTR_ACCESSORS(c,	"period",	0, phasor_attr_setperiod);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);

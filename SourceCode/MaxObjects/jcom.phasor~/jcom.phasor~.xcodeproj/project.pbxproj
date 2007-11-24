@@ -20,7 +20,7 @@
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22097B000CEA73F00053C8D2 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = ../../Framework/build/Debug/Jamoma.framework; sourceTree = SOURCE_ROOT; };
 		22261CE20A28C1C100329D95 /* jcom.phasor~.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.phasor~.cpp"; sourceTree = "<group>"; };
-		542ED84F09C02A0000DBC7EB /* jcom.gain~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.gain~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		542ED84F09C02A0000DBC7EB /* jcom.phasor~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.phasor~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				542ED84F09C02A0000DBC7EB /* jcom.gain~.mxo */,
+				542ED84F09C02A0000DBC7EB /* jcom.phasor~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,7 +106,7 @@
 			name = "jcom.phasor~";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = MSPExternal;
-			productReference = 542ED84F09C02A0000DBC7EB /* jcom.gain~.mxo */;
+			productReference = 542ED84F09C02A0000DBC7EB /* jcom.phasor~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
