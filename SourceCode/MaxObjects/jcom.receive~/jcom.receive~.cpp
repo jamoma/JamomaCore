@@ -33,6 +33,7 @@ void	audioreceive_assist(t_audioreceive *x, void *b, long msg, long arg, char *d
 void	audioreceive_bang(t_audioreceive *x);
 t_int*	audioreceive_perform(t_int *w);
 void	audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count);
+t_max_err	audioreceive_attr_settarget(t_audioreceive *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
@@ -64,7 +65,7 @@ int main(void)
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("target", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_audioreceive, attr_target));
+		(method)0, (method)audioreceive_attr_settarget, calcoffset(t_audioreceive, attr_target));
 	class_addattr(c, attr);
 
 
@@ -207,5 +208,21 @@ void audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count)
 			dsp_add(audioreceive_perform, 2, x, numOutputs);
 		}
 	}
+}
+
+
+/************************************************************************************/
+
+t_max_err audioreceive_attr_settarget(t_audioreceive *x, void *attr, long argc, t_atom *argv)
+{
+	t_object	*hub;
+
+	x->attr_target = atom_getsym(argv);
+	hub = jamoma_get_hub_for_module_named(x->attr_target);
+	if(hub){
+		x->obj_target = hub;
+		x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioout"));
+	}
+	return MAX_ERR_NONE;
 }
 

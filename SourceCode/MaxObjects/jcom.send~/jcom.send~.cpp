@@ -47,6 +47,7 @@ void	audiosend_assist(t_audiosend *x, void *b, long msg, long arg, char *dst);
 void	audiosend_bang(t_audiosend *x);
 t_int*	audiosend_perform(t_int *w);
 void	audiosend_dsp(t_audiosend *x, t_signal **sp, short *count);
+t_max_err	audiosend_attr_settarget(t_audiosend *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
@@ -78,7 +79,7 @@ int main(void)
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("target", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_audiosend, attr_target));
+		(method)0, (method)audiosend_attr_settarget, calcoffset(t_audiosend, attr_target));
 	class_addattr(c, attr);
 
 
@@ -204,3 +205,18 @@ void audiosend_dsp(t_audiosend *x, t_signal **sp, short *count)
 	}
 }
 
+
+/************************************************************************************/
+
+t_max_err audiosend_attr_settarget(t_audiosend *x, void *attr, long argc, t_atom *argv)
+{
+	t_object	*hub;
+
+	x->attr_target = atom_getsym(argv);
+	hub = jamoma_get_hub_for_module_named(x->attr_target);
+	if(hub){
+		x->obj_target = hub;
+		x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioin"));
+	}
+	return MAX_ERR_NONE;
+}
