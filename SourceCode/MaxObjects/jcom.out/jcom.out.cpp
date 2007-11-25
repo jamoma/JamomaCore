@@ -60,6 +60,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)out_remove_meters,		"remove_meters",		A_CANT, 0L);
 	class_addmethod(c, (method)out_register_preview,	"register_preview",		A_CANT, 0L);
 #ifdef JCOM_OUT_TILDE
+	class_addmethod(c, (method)out_getAudioForChannel,	"getAudioForChannel",	A_CANT, 0);
 	class_addmethod(c, (method)out_dsp,					"dsp", 					A_CANT, 0L);
 #else
 	class_addmethod(c, (method)out_anything,			"anything",				A_GIMME, 0L);
@@ -439,6 +440,12 @@ t_int *out_perform_zero(t_int *w)
 }
 
 
+void out_getAudioForChannel(t_out *x, int channel, float **vector)
+{
+	*vector = x->out_vectors[channel];
+}
+
+
 // DSP Method
 void out_dsp(t_out *x, t_signal **sp, short *count)
 {
@@ -450,7 +457,8 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	x->ramp_xfade->set_sr(sr);
 	out_alloc(x, vs);
 
-	for(i=0; i < x->num_outputs; i++){	//take a look at each
+	for(i=0; i < x->num_outputs; i++){			// take a look at each
+		x->out_vectors[i] = sp[i]->s_vec;		// +1 because 0 is the input, right?
 		if(count[i])
 			dsp_add(out_perform, 5, x, i, sp[i]->s_vec, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
 		else

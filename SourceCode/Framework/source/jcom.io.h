@@ -62,6 +62,7 @@ typedef struct _out{
 													   because the object's don't need an independent state and do not
 													   rely internally on any history.  
 													*/
+	float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
 	tt_crossfade	*xfade;							///< implements the 'mix' and 'bypass' params
 	tt_gain			*gain;							///< implements the 'gain' param
 	tt_ramp			*ramp_gain;						///< ramps to drive smooth audio for the above params

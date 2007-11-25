@@ -9,47 +9,34 @@
 
 #include "Jamoma.h"
 
-/*
-	The way this should work is that we have a jcom.send object with N inlets and one outlet (dumpout)
-	When the object receives a 'gettargets' message then it fills a menu via dumpout with all of the targets.
-	The target is the OSC name of the target module.
-	
-	There is then an @target attribute, which is the jcom.in~ that this sends to.  
-	
-	The number of inlets are defined by an argument.  We need to check at the time that dsp is started to 
-	make sure the target actually has the number of audio signals we are sending though...
-	
-	QUESTION:
-	What about Jitter or other 'signals'?  Should they be implemented via a special mode or additions to 
-	the plain vanilla jcom.send?
-	
-	Argument in that case will need to be type-checked: int = number of inputs, symbol = OSCname
-*/
 
-typedef struct _audiosend{	
+typedef struct _audioreceive{	
 	t_pxobject		obj;
+	void			*obex;
 	void			*dumpout;						///< dumpout outlet
 
 	t_symbol		*attr_target;					///< name of the module we are sending to
 	t_object		*obj_target;					///< the hub of the module we are sending to
 	t_object		*obj_direct_target;				///< the jcom.in~ object in the module we are sending to
 	
-	long			num_inputs;						///< spec'd as an argument
-	float			*audio_in[MAX_NUM_CHANNELS];	///< pointers to the audio vectors
-} t_audiosend;
+	long			num_outputs;					///< spec'd as an argument
+	float			*audio_out[MAX_NUM_CHANNELS];	///< pointers to the audio vectors
+	void			*outlets[MAX_NUM_CHANNELS];
+	int				vs;								///< cached vector-size for audio
+} t_audioreceive;
 
 
 // Prototypes
-void	*audiosend_new(t_symbol *s, long argc, t_atom *argv);
-void	audiosend_free(t_audiosend *x);
-void	audiosend_assist(t_audiosend *x, void *b, long msg, long arg, char *dst);
-void	audiosend_bang(t_audiosend *x);
-t_int*	audiosend_perform(t_int *w);
-void	audiosend_dsp(t_audiosend *x, t_signal **sp, short *count);
+void	*audioreceive_new(t_symbol *s, long argc, t_atom *argv);
+void	audioreceive_free(t_audioreceive *x);
+void	audioreceive_assist(t_audioreceive *x, void *b, long msg, long arg, char *dst);
+void	audioreceive_bang(t_audioreceive *x);
+t_int*	audioreceive_perform(t_int *w);
+void	audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count);
 
 
 // Globals
-static t_class		*s_audiosend_class;					// Required: Global pointer for our class
+static t_class		*s_audioreceive_class;
 
 
 /************************************************************************************/
@@ -63,21 +50,21 @@ int main(void)
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.send~", (method)audiosend_new, (method)audiosend_free, 
-		sizeof(t_audiosend), (method)NULL, A_GIMME, 0);
+	c = class_new("jcom.receive~", (method)audioreceive_new, (method)audioreceive_free, 
+		sizeof(t_audioreceive), (method)NULL, A_GIMME, 0);
 
-	class_obexoffset_set(c, calcoffset(t_send, obex));
+	class_obexoffset_set(c, calcoffset(t_audioreceive, obex));
 
 	// Make methods accessible for our class:
-	class_addmethod(c, (method)audiosend_bang,			"bang",			0);
-	class_addmethod(c, (method)audiosend_dsp,			"dsp", 			A_CANT, 0);
-    class_addmethod(c, (method)audiosend_assist,		"assist", 		A_CANT, 0);
+	class_addmethod(c, (method)audioreceive_bang,		"bang",			0);
+	class_addmethod(c, (method)audioreceive_dsp,		"dsp", 			A_CANT, 0);
+    class_addmethod(c, (method)audioreceive_assist,		"assist", 		A_CANT, 0);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 		A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", 	A_CANT, 0);
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("target", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_audiosend, attr_target));
+		(method)0, (method)0, calcoffset(t_audioreceive, attr_target));
 	class_addattr(c, attr);
 
 
@@ -86,7 +73,7 @@ int main(void)
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
-	s_audiosend_class = c;
+	s_audioreceive_class = c;
 	
 	return 0;
 }
@@ -96,10 +83,12 @@ int main(void)
 // Object Life
 
 // Create
-void *audiosend_new(t_symbol *s, long argc, t_atom *argv)
+void *audioreceive_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long			attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	t_audiosend 	*x = (t_audiosend *)object_alloc(s_audiosend_class);
+	t_audioreceive 	*x = (t_audioreceive *)object_alloc(s_audioreceive_class);
+	short			i;
+	
 	if(x){
 		x->dumpout = outlet_new(x, NULL);
 		object_obex_store(x, _sym_dumpout, (t_object *)x->dumpout);
@@ -108,8 +97,11 @@ void *audiosend_new(t_symbol *s, long argc, t_atom *argv)
 			x->attr_target = atom_getsym(argv);
 		else
 			x->attr_target = _sym_nothing;
-		x->num_inputs = 2;		// TODO: make this dynamic from args
-		dsp_setup((t_pxobject *)x, x->num_inputs);
+		x->num_outputs = 2;		// TODO: make this dynamic from args
+		dsp_setup((t_pxobject *)x, 1);
+		for(i=0; i < x->num_outputs; i++)
+			x->outlets[i] = outlet_new(x, "signal");
+		
 		x->obj.z_misc = Z_NO_INPLACE;
 		attr_args_process(x, argc, argv);					// handle attribute args
 	}
@@ -117,7 +109,7 @@ void *audiosend_new(t_symbol *s, long argc, t_atom *argv)
 }
 
 
-void audiosend_free(t_audiosend *x)
+void audioreceive_free(t_audioreceive *x)
 {
 	dsp_free((t_pxobject *)x);
 }
@@ -127,7 +119,7 @@ void audiosend_free(t_audiosend *x)
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
-void audiosend_assist(t_audiosend *x, void *b, long msg, long arg, char *dst)
+void audioreceive_assist(t_audioreceive *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1) 			// Inlets
 		strcpy(dst, "input to send to a named module");
@@ -136,24 +128,38 @@ void audiosend_assist(t_audiosend *x, void *b, long msg, long arg, char *dst)
 }
 
 
-void audiosend_bang(t_audiosend *x)
+void audioreceive_bang(t_audioreceive *x)
 {
 	;// fill a menu with potential targets?
 }
 
 
-t_int* audiosend_perform(t_int *w)
+t_int* audioreceive_perform(t_int *w)
 {
-	t_audiosend	*x = (t_audiosend*)(w[1]);
+	t_audioreceive	*x = (t_audioreceive*)(w[1]);
+	int				channel;
+	int				n;
+	float			*vector = NULL;
+	float			*out;
 	
-	object_method(x->obj_direct_target, gensym("remoteaudio"), x->audio_in, (long)(w[2]));
+	//object_method(x->obj_direct_target, gensym("remoteaudio"), x->audio_out, (long)(w[2]));
+	for(channel = 0; channel < x->num_outputs; channel++){
+		n = x->vs;
+		object_method(x->obj_direct_target, gensym("getAudioForChannel"), channel, &vector);
+		out = x->audio_out[channel];
+		if(vector){
+			while(n--)
+				*out++ = *vector++;
+		}
+	}
+	
 	return(w+3);
 }
 
 
-void audiosend_dsp(t_audiosend *x, t_signal **sp, short *count)
+void audioreceive_dsp(t_audioreceive *x, t_signal **sp, short *count)
 {
-	long		numInputs = x->num_inputs;
+	long		numOutputs = x->num_outputs;
 	short		i, j;
 	t_object	*hub;
 	
@@ -164,18 +170,19 @@ void audiosend_dsp(t_audiosend *x, t_signal **sp, short *count)
 				x->obj_target = hub;
 				// we could attach to the hub here to listen for free notifications
 				// but freeing it will restart the dsp anyway, so I don't think there is any need [tap]
-				x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioin"));
+				x->obj_direct_target = (t_object*)object_method(hub, gensym("getobj_audioout"));
 			}
 		}
 		if(x->obj_target){
-			for(i=0, j=0; i<numInputs; i++){
-				if(count[i])
+			for(i=0, j=0; i<numOutputs; i++){
+				if(count[i+1])		// the +1 is to account for the inlet in this object
 					j=i;
-				x->audio_in[i] = sp[i]->s_vec;
+				x->audio_out[i] = sp[i+1]->s_vec;
 			}
-			numInputs = j+1;
-
-			dsp_add(audiosend_perform, 2, x, numInputs);
+			numOutputs = j+1;
+			
+			x->vs = sp[0]->s_n;
+			dsp_add(audioreceive_perform, 2, x, numOutputs);
 		}
 	}
 }
