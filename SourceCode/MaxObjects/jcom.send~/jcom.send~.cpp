@@ -66,7 +66,7 @@ int main(void)
 	c = class_new("jcom.send~", (method)audiosend_new, (method)audiosend_free, 
 		sizeof(t_audiosend), (method)NULL, A_GIMME, 0);
 
-	class_obexoffset_set(c, calcoffset(t_send, obex));
+	class_obexoffset_set(c, calcoffset(t_audiosend, obex));
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)audiosend_bang,			"bang",			0);
