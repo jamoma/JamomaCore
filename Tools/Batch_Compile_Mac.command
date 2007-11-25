@@ -78,12 +78,14 @@ cp -r /Library/Frameworks/Jamoma.framework ../Jamoma/library/externals/Jamoma.fr
 ./Compile_Object_Mac.command jcom.phasor~ "$config" &&
 ./Compile_Object_Mac.command jcom.ramp "$config" &&
 ./Compile_Object_Mac.command jcom.receive "$config" &&
+./Compile_Object_Mac.command jcom.receive~ "$config" &&
 ./Compile_Object_Mac.command jcom.remote "$config" &&
 ./Compile_Object_Mac.command jcom.return "$config" &&
 ./Compile_Object_Mac.command jcom.round "$config" &&
 ./Compile_Object_Mac.command jcom.route "$config" &&
 ./Compile_Object_Mac.command jcom.saturation~ "$config" &&
 ./Compile_Object_Mac.command jcom.send "$config" &&
+./Compile_Object_Mac.command jcom.send~ "$config" &&
 ./Compile_Object_Mac.command jcom.stats "$config" &&
 ./Compile_Object_Mac.command jcom.sum% "$config" &&
 ./Compile_Object_Mac.command jcom.teabox~ "$config" &&
