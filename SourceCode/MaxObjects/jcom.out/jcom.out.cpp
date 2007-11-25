@@ -458,7 +458,7 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	out_alloc(x, vs);
 
 	for(i=0; i < x->num_outputs; i++){			// take a look at each
-		x->out_vectors[i] = sp[i]->s_vec;		// +1 because 0 is the input, right?
+		x->out_vectors[i] = sp[i]->s_vec;
 		if(count[i])
 			dsp_add(out_perform, 5, x, i, sp[i]->s_vec, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
 		else
