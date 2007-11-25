@@ -50,3 +50,10 @@ t_object* jamoma_get_hub_for_module_named(t_symbol *name)
 	hashtab_lookup(hash_modules, name, &hub);
 	return hub;
 }
+
+
+void jamoma_get_all_module_names(long *numModules, t_symbol ***moduleNames)
+{
+	hashtab_getkeys(hash_modules, numModules, moduleNames);
+}
+

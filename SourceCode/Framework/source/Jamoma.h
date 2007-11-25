@@ -46,6 +46,7 @@ void		jamoma_init(void);
 void		jamoma_hub_register(t_symbol *name, t_object *hub);
 void		jamoma_hub_remove(t_symbol *name);
 t_object*	jamoma_get_hub_for_module_named(t_symbol *name);
+void		jamoma_get_all_module_names(long *numModules, t_symbol ***moduleNames);
 
 #endif //__JAMOMA_H__
 
