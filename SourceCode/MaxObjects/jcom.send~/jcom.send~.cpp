@@ -28,6 +28,7 @@
 
 typedef struct _audiosend{	
 	t_pxobject		obj;
+	void			*obex;
 	void			*dumpout;						///< dumpout outlet
 
 	t_symbol		*attr_target;					///< name of the module we are sending to
