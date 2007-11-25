@@ -15,11 +15,12 @@ typedef struct _jcom_time{
 	void		*obex;
 } t_jcom_time;
 
+
 // Prototypes for methods
 void*	jcom_time_new(t_symbol *s, long argc, t_atom *argv);
 void	jcom_time_free(t_jcom_time *x);
 void	jcom_time_rewind(t_jcom_time *x);
-//t_max_err	phasor_attr_setperiod(t_phasor *x, void *attr, long argc, t_atom *argv);
+
 
 // Globals
 static t_class*	jcom_time_class;
@@ -77,16 +78,6 @@ void jcom_time_free(t_jcom_time *x)
 
 void jcom_time_rewind(t_jcom_time *x)
 {
-	jamoma_time_rewind(NULL);
+	jamoma_scheduler_rewind(NULL);
 }
 
-
-/*
-t_max_err phasor_attr_setperiod(t_phasor *x, void *attr, long argc, t_atom *argv)
-{
-	x->attr_period = atom_getfloat(argv);
-	x->frequency = DEFAULT_TICKS_PER_SECOND / x->attr_period;
-	
-	return MAX_ERR_NONE;
-}
-*/

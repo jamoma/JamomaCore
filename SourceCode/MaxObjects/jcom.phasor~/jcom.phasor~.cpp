@@ -118,7 +118,7 @@ t_int *phasor_perform(t_int *w)
 	if(x->obj.z_disabled)
 		goto exit;
 	
-	jamoma_time_getphase(x->attr_period, &phase, &slope);
+	jamoma_scheduler_getphase(x->attr_period, &phase, &slope);
 
 	while(n--){
 		if(phase > 1.0)
@@ -138,7 +138,7 @@ exit:
 // DSP Method
 void phasor_dsp(t_phasor *x, t_signal **sp, short *count)
 {
-	jamoma_time_dsp(NULL, sp, count);
+	jamoma_scheduler_dsp(NULL, sp, count);
 
 	x->one_over_sr = 1.0 / (double)sp[0]->s_sr;
 	dsp_add(phasor_perform, 3, x, sp[1]->s_vec, sp[1]->s_n);

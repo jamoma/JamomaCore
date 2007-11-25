@@ -33,14 +33,14 @@
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
 #include "RampUnitWrap.h"
-#include "JamomaTime.h"
+#include "JamomaScheduler.h"
 
 
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__
 
 
-extern t_object	*obj_jamoma_time;	// a shared global instance of the time class
+extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the time class
 
 void		jamoma_init(void);
 void		jamoma_hub_register(t_symbol *name, t_object *hub);

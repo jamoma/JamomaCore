@@ -47,7 +47,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)jcom_metro_int,			"int",		A_FLOAT,	0);
- 	class_addmethod(c, (method)jamoma_time_dsp,			"dsp",		A_CANT,		0L);
+ 	class_addmethod(c, (method)jamoma_scheduler_dsp,	"dsp",		A_CANT,		0L);
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",	A_CANT,		0);
 
 	// Add attributes to our class:
@@ -94,7 +94,7 @@ void *jcom_metro_new(t_symbol *s, long argc, t_atom *argv)
 void jcom_metro_free(t_jcom_metro *x)
 {	
 	if(x->event)
-		jamoma_time_removeevent(NULL, x->event);
+		jamoma_scheduler_removeevent(NULL, x->event);
 }
 
 
@@ -104,9 +104,9 @@ void jcom_metro_free(t_jcom_metro *x)
 void jcom_metro_int(t_jcom_metro *x, long toggle)
 {
 	if(toggle && (x->attr_active != toggle))
-		x->event = jamoma_time_delay((t_object*)x, NULL, (method)jcom_metro_tick, &x->attr_period, true, JCOM_TIME_PRIORITY_SCHEDULER);
+		x->event = jamoma_scheduler_delay((t_object*)x, NULL, (method)jcom_metro_tick, &x->attr_period, true, JCOM_EVENT_PRIORITY_MEDIUM);
 	else if(!toggle && (x->attr_active != toggle)){
-		jamoma_time_removeevent(NULL, x->event);
+		jamoma_scheduler_removeevent(NULL, x->event);
 		x->event = NULL;
 	}
 

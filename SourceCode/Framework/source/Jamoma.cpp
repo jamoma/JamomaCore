@@ -11,8 +11,8 @@
 
 // statics and globals
 static long			initialized = false;
-static t_hashtab	*hash_modules = NULL;		// a hashtab of all modules (jcom.hubs) currently instantiated
-t_object			*obj_jamoma_time = NULL;	// a shared global instance of the time class
+static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated
+t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class
 
 /************************************************************************************/
 // Init the framework
@@ -22,9 +22,9 @@ void jamoma_init(void)
 	if(!initialized){
 		common_symbols_init();
 		jcom_core_init();
-		jamoma_time_initclass();
+		jamoma_scheduler_initclass();
 	
-		obj_jamoma_time = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma_time"), 0, NULL);
+		obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
 		initialized = true;
 	}
