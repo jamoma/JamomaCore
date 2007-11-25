@@ -1,6 +1,7 @@
 /* 
- * Jamoma Shared Library
- * Functions and resources used by Jamoma objects.
+ * Jamoma Scheduler
+ * Schedule and manage time-based events
+ * Driven by the Jamoma Clock
  * By Tim Place, Copyright © 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -15,13 +16,10 @@
 #define JAMOMA_SCHEDULER_LOCK critical_enter(0);
 #define JAMOMA_SCHEDULER_UNLOCK critical_exit(0);
 
-
-// TODO: figure a method for updating the time when dsp isn't running
 // TODO: add a "dump" method to post a list of everything that is currently scheduled
 
 // statics and globals
 static t_class	*class_jamoma_scheduler = NULL;	// the time class
-static long		dsp_called = false;
 
 
 /************************************************************************************/
@@ -36,9 +34,6 @@ void jamoma_scheduler_initclass(void)
 							(method)NULL, 
 							A_GIMME, 0);
 
-	class_addmethod(c, (method)jamoma_scheduler_dsp,	"dsp",		A_CANT, 0L);
-	
-	class_dspinit(c);
 	class_register(CLASS_NOBOX, c);	
 	class_jamoma_scheduler = c;
 }
@@ -51,13 +46,8 @@ t_object* jamoma_scheduler_new(t_symbol *s, long argc, t_atom *argv)
 		x->event_head = NULL;
 		x->event_tail = NULL;
 
-		x->sr = DEFAULT_SAMPLE_RATE;
-		x->one_over_sr = 1.0 / DEFAULT_SAMPLE_RATE;
-		x->samples_per_block = 64;
 		jamoma_scheduler_rewind(x);
 		
-		dsp_setup((t_pxobject *)x, 1);
-		x->obj.z_misc = Z_PUT_LAST;			// ... because our perform routine advances time to the next frame
 		attr_args_process(x, argc, argv);
 	}
 	return (t_object*)x;
@@ -67,8 +57,6 @@ t_object* jamoma_scheduler_new(t_symbol *s, long argc, t_atom *argv)
 void jamoma_scheduler_free(t_jamoma_scheduler *x)
 {
 	t_jamoma_event	*event = x->event_head;
-
-	dsp_free((t_pxobject *)x);
 	
 	while(event){
 		sysmem_freeptr(event);
@@ -79,6 +67,13 @@ void jamoma_scheduler_free(t_jamoma_scheduler *x)
 
 /************************************************************************************/
 // Methods
+
+void jamoma_scheduler_update(t_jamoma_scheduler *x, double *newTime)
+{
+	x->current_time = *newTime;
+	if(x->event_head && (x->event_head->targettime < x->current_time))
+		jamoma_scheduler_doevents(x);
+}
 
 // TODO: evaluate this method for thread-safety and performance
 // This is doing stuff with linklists in realtime dsp code -- that could be bad
@@ -99,45 +94,8 @@ void jamoma_scheduler_doevents(t_jamoma_scheduler *x)
 		event = event->next;
 	}
 	//JAMOMA_TIME_UNLOCK
+
 	return;
-}
-
-
-t_int* jamoma_scheduler_perform(t_int *w)
-{
-	t_jamoma_scheduler *x = (t_jamoma_scheduler *)(w[1]);
-		
-	// Move the clocks ahead for the next cycle
-	x->current_samples += x->samples_per_block;
-	x->current_time = ((x->current_samples * x->one_over_sr) * DEFAULT_TICKS_PER_SECOND);
-	
-	// Is there anything that now needs to be fired off?
-	if(x->event_head && (x->event_head->targettime < x->current_time))
-		jamoma_scheduler_doevents(x);
-
-	// TODO: is there another way to this:
-	// reset the hack that we use in the dsp method to make sure this method isn't called multiple times
-	dsp_called = false;
-	
-	return(w+2);
-}
-
-
-void jamoma_scheduler_dsp(t_jamoma_scheduler *x, t_signal **sp, short *count)
-{
-	if(!dsp_called){
-		if(object_classname(x) != gensym("jamoma_scheduler"))
-			x = (t_jamoma_scheduler*)obj_jamoma_scheduler;
-
-		if(sp){
-			x->sr = (double)sp[0]->s_sr;
-			x->one_over_sr = 1.0 / (double)sp[0]->s_sr;
-			x->samples_per_block = sp[0]->s_n;
-		}
-		
-		dsp_add(jamoma_scheduler_perform, 1, x);
-		dsp_called = true;
-	}
 }
 
 
@@ -151,13 +109,6 @@ void jamoma_scheduler_rewind(t_jamoma_scheduler *x)
 	// if something is a time-static *event*, then is should not be offset here
 
 	x->current_time = 0.0;
-	x->current_samples = 0;
-}
-
-
-unsigned long long jamoma_scheduler_tickstosamples(t_jamoma_scheduler *x, double period)
-{
-	return x->sr * (period / DEFAULT_TICKS_PER_SECOND);
 }
 
 
@@ -172,7 +123,7 @@ void jamoma_scheduler_getphase(double period, double* phase, double* slope)
 		// TODO: do we want to deal with a transport on this level?
 		// or should that be something up at a meta-level where meters and notes and tempos are?
 		//if(transport is not running){
-			double samples_per_iter = jamoma_scheduler_tickstosamples(x, period);
+			double samples_per_iter = jamoma_clock_tickstosamples(obj_jamoma_clock, period);
 			*slope = 1.0 / samples_per_iter;
 		//}
 		//else

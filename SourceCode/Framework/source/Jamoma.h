@@ -33,20 +33,23 @@
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
 #include "RampUnitWrap.h"
+#include "JamomaClock.h"
 #include "JamomaScheduler.h"
 
 
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__
 
+extern t_object *obj_jamoma_clock;		// the jamoma master clock object
+extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
 
-extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the time class
 
 void		jamoma_init(void);
 void		jamoma_hub_register(t_symbol *name, t_object *hub);
 void		jamoma_hub_remove(t_symbol *name);
 t_object*	jamoma_get_hub_for_module_named(t_symbol *name);
 void		jamoma_get_all_module_names(long *numModules, t_symbol ***moduleNames);
+void		jamoma_dsp(t_object *, t_signal **sp, short *count);
 
 #endif //__JAMOMA_H__
 

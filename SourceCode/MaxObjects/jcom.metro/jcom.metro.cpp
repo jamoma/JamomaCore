@@ -47,7 +47,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)jcom_metro_int,			"int",		A_FLOAT,	0);
- 	class_addmethod(c, (method)jamoma_scheduler_dsp,	"dsp",		A_CANT,		0L);
+ 	class_addmethod(c, (method)jamoma_dsp,				"dsp",		A_CANT,		0L);
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",	A_CANT,		0);
 
 	// Add attributes to our class:

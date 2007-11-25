@@ -40,14 +40,10 @@ typedef struct _jamoma_event{
 
 
 typedef struct _jamoma_scheduler{
-	t_pxobject			obj;
+	t_object			obj;
 	t_jamoma_event		*event_head;
 	t_jamoma_event		*event_tail;
-	unsigned long		sr;
-	double				one_over_sr;
-	unsigned long		samples_per_block;
-	double				current_time;		// in ticks
-	unsigned long long	current_samples;	
+	double				current_time;	// cached from the jamoma clock
 	// TODO: some sort of accessor that would set tick period by saying 1000 ticks per second or something
 } t_jamoma_scheduler;
 
@@ -57,10 +53,11 @@ t_object*		jamoma_scheduler_new(t_symbol *s, long argc, t_atom *argv);
 void			jamoma_scheduler_free(t_jamoma_scheduler *x);
 void			jamoma_scheduler_getphase(double period, double* phase, double* slope);
 void			jamoma_scheduler_rewind(t_jamoma_scheduler *x);
-void			jamoma_scheduler_dsp(t_jamoma_scheduler *x, t_signal **sp, short *count);
 t_object*		jamoma_scheduler_delay(t_object *client, t_object *jamoma_scheduler_obj, method callback, double *timevalue, long repeating, long priority);
 void			jamoma_scheduler_removeevent(t_jamoma_scheduler *x, t_object *event);
 void			jamoma_scheduler_moveevent(t_jamoma_scheduler *x, t_jamoma_event *event, double newtime);
+void			jamoma_scheduler_update(t_jamoma_scheduler *x, double *newTime);
+void			jamoma_scheduler_doevents(t_jamoma_scheduler *x);
 
 t_jamoma_event*	jamoma_event_new(t_jamoma_scheduler *owner, t_object *client, method callback, double *timevalue, long repeating, long priority);
 void			jamoma_event_free(t_jamoma_event *event);

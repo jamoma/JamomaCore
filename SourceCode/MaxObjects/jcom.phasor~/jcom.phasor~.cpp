@@ -138,7 +138,7 @@ exit:
 // DSP Method
 void phasor_dsp(t_phasor *x, t_signal **sp, short *count)
 {
-	jamoma_scheduler_dsp(NULL, sp, count);
+	jamoma_dsp(NULL, sp, count);
 
 	x->one_over_sr = 1.0 / (double)sp[0]->s_sr;
 	dsp_add(phasor_perform, 3, x, sp[1]->s_vec, sp[1]->s_n);
