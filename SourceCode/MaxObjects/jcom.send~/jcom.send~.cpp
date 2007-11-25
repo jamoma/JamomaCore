@@ -101,15 +101,22 @@ void *audiosend_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long			attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_audiosend 	*x = (t_audiosend *)object_alloc(s_audiosend_class);
+	short			i;
+	
 	if(x){
 		x->dumpout = outlet_new(x, NULL);
 		object_obex_store(x, _sym_dumpout, (t_object *)x->dumpout);
 
-		if(attrstart > 0)
-			x->attr_target = atom_getsym(argv);
-		else
-			x->attr_target = _sym_nothing;
+		x->attr_target = _sym_nothing;
 		x->num_inputs = 2;		// TODO: make this dynamic from args
+
+		for(i=0; i<attrstart; i++){
+			if(argv[i].a_type == A_LONG)
+				x->num_inputs = atom_getlong(argv+i);
+			else if(argv[i].a_type == A_SYM)
+				x->attr_target = atom_getsym(argv+i);
+		}
+		
 		dsp_setup((t_pxobject *)x, x->num_inputs);
 		x->obj.z_misc = Z_NO_INPLACE;
 		attr_args_process(x, argc, argv);					// handle attribute args

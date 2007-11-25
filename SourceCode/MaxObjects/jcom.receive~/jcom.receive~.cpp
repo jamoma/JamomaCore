@@ -93,11 +93,16 @@ void *audioreceive_new(t_symbol *s, long argc, t_atom *argv)
 		x->dumpout = outlet_new(x, NULL);
 		object_obex_store(x, _sym_dumpout, (t_object *)x->dumpout);
 
-		if(attrstart > 0)
-			x->attr_target = atom_getsym(argv);
-		else
-			x->attr_target = _sym_nothing;
+		x->attr_target = _sym_nothing;
 		x->num_outputs = 2;		// TODO: make this dynamic from args
+
+		for(i=0; i<attrstart; i++){
+			if(argv[i].a_type == A_LONG)
+				x->num_outputs = atom_getlong(argv+i);
+			else if(argv[i].a_type == A_SYM)
+				x->attr_target = atom_getsym(argv+i);
+		}
+		
 		dsp_setup((t_pxobject *)x, 1);
 		for(i=0; i < x->num_outputs; i++)
 			x->outlets[i] = outlet_new(x, "signal");
