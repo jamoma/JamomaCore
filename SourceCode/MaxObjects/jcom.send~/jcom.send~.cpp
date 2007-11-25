@@ -146,7 +146,23 @@ void audiosend_assist(t_audiosend *x, void *b, long msg, long arg, char *dst)
 
 void audiosend_bang(t_audiosend *x)
 {
-	;// fill a menu with potential targets?
+	t_atom		a[2];
+	t_symbol	**moduleNames = NULL;
+	long		numModules = 0;
+	long		i;
+
+	jamoma_get_all_module_names(&numModules, &moduleNames);
+
+	atom_setsym(a+0, gensym("clear"));
+	outlet_anything(x->dumpout, gensym("menu"), 1, a);
+	
+	atom_setsym(a+0, gensym("append"));
+	for(i=0; i<numModules; i++){
+		atom_setsym(a+1, moduleNames[i]);
+		outlet_anything(x->dumpout, gensym("menu"), 2, a);
+	}
+	if(moduleNames)
+		sysmem_freeptr(moduleNames);
 }
 
 
