@@ -16,6 +16,7 @@
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22A403980CAD7C5100E5299E /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A403970CAD7C5100E5299E /* commonsyms.c */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
+		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		22FD2DC60CEE5B6F0039C226 /* Jamoma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */; };
 		22FD2DC70CEE5B6F0039C226 /* Jamoma.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FD2DC80CEE5B6F0039C226 /* jcom.core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */; };
@@ -99,6 +100,7 @@
 		22A403850CAD7BA000E5299E /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22A403970CAD7C5100E5299E /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
+		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
 		22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = source/Jamoma.h; sourceTree = "<group>"; };
 		22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.core.cpp; path = source/jcom.core.cpp; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */,
 				22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */,
 				22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */,
+				22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				22F4249C0CFA79820088332F /* CoreAudio.framework */,
 				D2F7E79907B2D74100F64583 /* CoreData.framework */,
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);

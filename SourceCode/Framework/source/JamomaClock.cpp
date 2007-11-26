@@ -8,8 +8,7 @@
  */
 
 #include "Jamoma.h"
-
-// TODO: figure a method for updating the time when dsp isn't running
+//#define USE_COREAUDIO
 
 static t_class	*class_jamoma_clock = NULL;
 static long		dsp_called = false;
@@ -46,6 +45,13 @@ t_object* jamoma_clock_new(t_symbol *s, long argc, t_atom *argv)
 		dsp_setup((t_pxobject *)x, 1);
 		x->obj.z_misc = Z_PUT_LAST;			// ... because our perform routine advances time to the next frame
 		attr_args_process(x, argc, argv);
+		
+#ifdef MAC_VERSION
+#ifdef USE_COREAUDIO
+		jamoma_clock_setup_coreaudio(x);
+		start(x);
+#endif
+#endif
 	}
 	return (t_object*)x;
 }
@@ -54,11 +60,13 @@ t_object* jamoma_clock_new(t_symbol *s, long argc, t_atom *argv)
 void jamoma_clock_free(t_jamoma_clock *x)
 {
 	dsp_free((t_pxobject *)x);
+	stop(x);
 }
 
 
 /************************************************************************************/
-// Methods
+#pragma mark -
+#pragma mark Methods -- MSP Master
 
 t_int* jamoma_clock_perform(t_int *w)
 {
@@ -70,7 +78,6 @@ t_int* jamoma_clock_perform(t_int *w)
 
 	// TODO: do this for each scheduler -- but for now we just service the global scheduler
 	jamoma_scheduler_update((t_jamoma_scheduler*)obj_jamoma_scheduler, &x->current_time);
-//	jamoma_scheduler_doevents((t_jamoma_scheduler*)obj_jamoma_scheduler);
 
 	// TODO: is there another way to this:
 	// reset the hack that we use in the dsp method to make sure this method isn't called multiple times
@@ -97,6 +104,133 @@ void jamoma_clock_dsp(t_jamoma_clock *x, t_signal **sp, short *count)
 	}
 }
 
+
+/************************************************************************************/
+#ifdef MAC_VERSION
+#pragma mark -
+#pragma mark Methods -- CoreAudio Master
+
+// this is the audio processing callback
+OSStatus jamoma_clock_coreaudio_callback (AudioDeviceID			inDevice, 
+										const AudioTimeStamp*	inNow, 
+										const AudioBufferList*	inInputData, 
+										const AudioTimeStamp*	inInputTime, 
+										AudioBufferList*		outOutputData, 
+										const AudioTimeStamp*	inOutputTime, 
+										void*					baton)
+{    
+    t_jamoma_clock *x = (t_jamoma_clock*)baton;
+    
+    // load instance vars into registers    
+    int numSamples = x->deviceBufferSize / x->deviceFormat.mBytesPerFrame;
+// NOTE: in my initial testing, the above statement indicates that we are being called 
+// with a block size of 256 samples (5.8 ms) -- do we want to use something smaller, like 64 samples (1.4 ms)?
+// Should be able to do this with a call to AudioHardwareSetProperty(), or is there a better way?
+
+     return kAudioHardwareNoError;     
+}
+
+
+void jamoma_clock_setup_coreaudio(t_jamoma_clock *x)
+{
+    OSStatus	err = kAudioHardwareNoError;
+    UInt32		count;    
+
+	x->device = kAudioDeviceUnknown;
+
+    x->initialized = NO;
+
+    // get the default output device for the HAL
+    count = sizeof(x->device);		// it is required to pass the size of the data to be returned
+    err = AudioHardwareGetProperty(kAudioHardwarePropertyDefaultOutputDevice, &count, (void*)&x->device);
+    if(err != kAudioHardwareNoError){
+    	fprintf(stderr, "get kAudioHardwarePropertyDefaultOutputDevice error %ld\n", err);
+        return;
+    }
+
+    // get the buffersize that the default device uses for IO
+    count = sizeof(x->deviceBufferSize);	// it is required to pass the size of the data to be returned
+    err = AudioDeviceGetProperty(x->device, 0, false, kAudioDevicePropertyBufferSize, &count, &x->deviceBufferSize);
+    if(err != kAudioHardwareNoError){
+    	fprintf(stderr, "get kAudioDevicePropertyBufferSize error %ld\n", err);
+        return;
+    }
+    fprintf(stderr, "deviceBufferSize = %ld\n", x->deviceBufferSize);
+   
+    // get a description of the data format used by the default device
+    count = sizeof(x->deviceFormat);	// it is required to pass the size of the data to be returned
+    err = AudioDeviceGetProperty(x->device, 0, false, kAudioDevicePropertyStreamFormat, &count, &x->deviceFormat);
+    if(err != kAudioHardwareNoError){
+    	fprintf(stderr, "get kAudioDevicePropertyStreamFormat error %ld\n", err);
+        return;
+    }
+    if(x->deviceFormat.mFormatID != kAudioFormatLinearPCM){
+    	fprintf(stderr, "mFormatID !=  kAudioFormatLinearPCM\n");
+        return;
+    }
+    if(!(x->deviceFormat.mFormatFlags & kLinearPCMFormatFlagIsFloat)){
+    	fprintf(stderr, "Sorry, currently only works with float format....\n");
+        return;
+    }
+    
+    x->initialized = YES;
+
+    fprintf(stderr, "mSampleRate = %g\n", x->deviceFormat.mSampleRate);
+    fprintf(stderr, "mFormatFlags = %08lX\n", x->deviceFormat.mFormatFlags);
+    fprintf(stderr, "mBytesPerPacket = %ld\n", x->deviceFormat.mBytesPerPacket);
+    fprintf(stderr, "mFramesPerPacket = %ld\n", x->deviceFormat.mFramesPerPacket);
+    fprintf(stderr, "mChannelsPerFrame = %ld\n", x->deviceFormat.mChannelsPerFrame);
+    fprintf(stderr, "mBytesPerFrame = %ld\n", x->deviceFormat.mBytesPerFrame);
+    fprintf(stderr, "mBitsPerChannel = %ld\n", x->deviceFormat.mBitsPerChannel);
+}
+
+
+void start(t_jamoma_clock *x)
+{
+	OSStatus		err = kAudioHardwareNoError;
+
+    if(!x->initialized)
+		return;
+    if(x->soundPlaying)
+		return;
+
+    err = AudioDeviceAddIOProc(x->device, jamoma_clock_coreaudio_callback, (void*)x);	// setup our device with an IO proc
+    if(err != kAudioHardwareNoError)
+		return;
+    
+    err = AudioDeviceStart(x->device, jamoma_clock_coreaudio_callback);				// start playing sound through the device
+    if(err != kAudioHardwareNoError)
+		return;
+
+    x->soundPlaying = true;									// set the playing status global to true
+}
+
+
+void stop(t_jamoma_clock *x)
+{
+    OSStatus 	err = kAudioHardwareNoError;
+    
+    if(!x->initialized)
+		return;
+    if(!x->soundPlaying)
+		return;
+    
+    err = AudioDeviceStop(x->device, jamoma_clock_coreaudio_callback);				// stop playing sound through the device
+    if(err != kAudioHardwareNoError)
+		return;
+
+    err = AudioDeviceRemoveIOProc(x->device, jamoma_clock_coreaudio_callback);			// remove the IO proc from the device
+    if(err != kAudioHardwareNoError)
+		return;
+    
+    x->soundPlaying = false;						// set the playing status global to false
+}
+
+
+#endif // MAC_VERSION
+/************************************************************************************/
+#pragma mark -
+#pragma mark Utilities
 
 unsigned long long jamoma_clock_tickstosamples(t_object *o, double period)
 {
