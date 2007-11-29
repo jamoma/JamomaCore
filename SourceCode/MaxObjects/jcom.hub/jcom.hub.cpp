@@ -642,7 +642,7 @@ void hub_init(t_hub *x)
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		if((*i)->type == ps_subscribe_init)
-			object_method((*i)->object, ps_go);
+			object_method((*i)->object, ps_go);		// TODO: This is an exceptionally bad thing to do inside of the critical region
 	}
 	
 	critical_exit(0);
