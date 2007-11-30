@@ -190,9 +190,6 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
-		x->container = jamoma_object_getpatcher((t_object*)x);
-		defer_low(x, (method)hub_examine_context, 0, 0, 0);
-		
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
 		x->jcom_send_broadcast = NULL;
@@ -223,6 +220,9 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 #ifdef CREATE_INTERNALS
 		hub_internals_create(x);
 #endif
+
+		x->container = jamoma_object_getpatcher((t_object*)x);
+		defer_low(x, (method)hub_examine_context, 0, 0, 0);		
 	}
 	return x;
 }
@@ -400,9 +400,10 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	if(new_subscriber->name == ps__gui__)
 		x->gui_object = subscriber_object;
 	critical_exit(0);
-		
-	qelem_set(x->init_qelem);			// flag the queue for initialization
-	return x->attr_name;				// return the module name to the parameter
+	
+	qelem_unset(x->init_qelem);		// clear the last thing to make sure we don't call into this a bunch of times
+	qelem_set(x->init_qelem);		// flag the queue for initialization
+	return x->attr_name;			// return the module name to the parameter
 }
 
 
@@ -439,6 +440,8 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 			}
 			item = subscribers->erase(item);
 			sysmem_freeptr(t);
+			
+			// TODO: Does the following note from Dave apply anymore now that we use GCC on Windows? [TAP]
 			/** XXX why does this need to be here?  It seems Microsoft's compiler is generating code 
 			 * that will preincrement (++) the item iterator in the for loop despite the fact that 
 			 * the for loops if condition has been met and following conditional statement shouldn't
@@ -449,7 +452,7 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 
 		}
 	}
-
+	// TODO: We really need to use our own mutex instead of the global critical region [TAP]
 	critical_exit(0);
 }
 
@@ -461,6 +464,7 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	t_symbol	*osc;
 	
 	strcpy(namestring, "/");						// perhaps we could optimize this operation
+// TODO: Why is this safety check removed?  Is it really safe to remove it? [TAP]
 //	if(argv->a_type == A_SYM)
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
 	//strcat(namestring, name->s_name);
@@ -489,8 +493,7 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	private_message = atom_getsym(argv);
 	argc--;
 	argv++;
-	if (private_id == ps__gui__)
-	{
+	if(private_id == ps__gui__){
 		if (private_message == ps_slash_preset_slash_default)			// 	/preset/default
 			hub_preset_default(x);
 		else if (private_message == ps_slash_preset_slash_load)			// 	/preset/load
@@ -587,6 +590,8 @@ t_symbol *hub_modulename_get(t_hub *x)
 	return x->attr_name;
 }
 
+
+// TODO: Can we remove these?  I think so and that we should use attr accessors to get this info [TAP]
 t_symbol* core_modulename_get(t_hub *x)
 {
 	return x->attr_name;
@@ -702,7 +707,7 @@ void hub_assist(t_hub *x, void *b, long msg, long arg, char *dst)
 					strcpy(dst, "return: connect to return outlet");
 					break;
 			case k_outlet_dumpout:
-					strcpy(dst, "psto: connect to dumpout");
+					strcpy(dst, "dumpout");
 					break;
 		}
  	}		
