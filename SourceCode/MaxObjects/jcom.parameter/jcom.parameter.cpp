@@ -29,6 +29,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	g_pattr_valid = false;
 	jamoma_init();
 #ifndef JMOD_MESSAGE
+	// TODO: move this into the framework [TAP]
 	short		err = 0;
 	err = ext_pattr_setup();
 	if(err){
