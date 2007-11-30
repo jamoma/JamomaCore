@@ -297,28 +297,3 @@ float gang_bitsafe(double in)
 		temp = 0;
 	return(temp);
 }
-
-
-/***
-
-
-#P window setfont "Sans Serif" 9.;
-#P flonum 224 79 62 9 0 0 0 3 0 0 0 221 221 221 222 222 222 0 0 0;
-#P flonum 151 62 60 9 0 0 0 3 0 0 0 221 221 221 222 222 222 0 0 0;
-#P flonum 90 77 51 9 0 0 0 3 0 0 0 221 221 221 222 222 222 0 0 0;
-#P flonum 32 104 53 9 0 0 0 3 0 0 0 221 221 221 222 222 222 0 0 0;
-#P window linecount 1;
-#P newex 95 112 66 196617 jcom.gang;
-#P connect 0 3 4 0;
-#P connect 4 0 0 3;
-#P connect 0 2 3 0;
-#P connect 3 0 0 2;
-#P connect 0 1 2 0;
-#P connect 2 0 0 1;
-#P connect 0 0 1 0;
-#P connect 1 0 0 0;
-#P window clipboard copycount 5;
-
-
-
-*/
