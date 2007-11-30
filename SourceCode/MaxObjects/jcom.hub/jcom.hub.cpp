@@ -190,9 +190,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		
-		object_obex_lookup(x, gensym("#P"), (t_object **)&x->container);
-		if(!x->container)
-			x->container = (t_patcher *)gensym("#P")->s_thing;
+		x->container = jamoma_object_getpatcher((t_object*)x);
 		defer_low(x, (method)hub_examine_context, 0, 0, 0);
 		
 		x->jcom_send = NULL;
@@ -251,7 +249,7 @@ typedef struct bpatcher {
 
 void hub_examine_context(t_hub *x)
 {
-	t_patcher	*p = x->container;
+	t_patcher	*p = (t_patcher*)x->container;
 	t_box		*box = p->p_box;
 	t_symbol	*s = NULL;
 	t_atombuf	*atoms = NULL;
@@ -373,7 +371,7 @@ void hub_free(t_hub *x)
 // Communication with jcom.param objects
 
 // This method is called from clients such as jcom.parameter to register it with this hub
-t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_symbol *type)
+t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t_symbol *type)
 {
 	t_subscriber	*new_subscriber;
 	
@@ -441,7 +439,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, void *subscriber_object, t_sym
 }
 
 
-void hub_unsubscribe(t_hub *x, void *subscriber_object)
+void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 {
 	subscriberList	*subscribers = x->subscriber;
 	

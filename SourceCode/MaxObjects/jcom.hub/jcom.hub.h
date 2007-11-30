@@ -24,7 +24,7 @@ enum outlets{
 
 /** Data structure for storing information about objects subscribed to the hub. */
 typedef struct _subscriber{
-	void			*object;	///< the max object instance that represents this subscriber
+	t_object		*object;	///< the max object instance that represents this subscriber
 	t_symbol		*name;		///< name of the parameter/message/return/remote
 	t_symbol		*type;		///< examples: subscribe_parameter, subscribe_message, subscribe_in, subscribe_out, subscribe_remote, subscribe_return
 } t_subscriber;
@@ -60,7 +60,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		ob;							///< REQUIRED: Our object
 	void			*obex;						///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void			*outlets[k_num_outlets];	///< outlet array
-	t_patcher		*container;					///< the owning patcher
+	t_object		*container;					///< the owning patcher
 	subscriberList	*subscriber;				///< top of the linked list of parameters
 	presetList		*preset;					///< top of the linked list of presets
 	long			num_parameters;				///< count used for working with presets
@@ -68,8 +68,8 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*in_object;					///< cache the jcom.in object directly for quick access
 	t_object		*out_object;				///< cache the jcom.out object directly for quick access
 	t_object		*meter_object[MAX_NUM_CHANNELS];	///< cache any meter objects so they can be handed to jcom.out
-	void			*preview_object;			///< cache the remote for sending jitter matrix preview frames
-	void			*gui_object;				///< cache the jcom.remote object in the gui for quick access
+	t_object		*preview_object;			///< cache the remote for sending jitter matrix preview frames
+	t_object		*gui_object;				///< cache the jcom.remote object in the gui for quick access
 	t_symbol		*attr_name;					///< ATTRIBUTE: module name
 	t_symbol		*attr_type;					///< ATTRIBUTE: what kind of module is this?  (audio, video, control, etc.)
 	t_symbol		*attr_size;					///< ATTRIBUTE: gui size
@@ -109,13 +109,13 @@ void		hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
  * @return the name of the hub subscribed to 
  * @see hub_unsubscribe
  */
-t_symbol*	hub_subscribe(t_hub *x, t_symbol *name, void *param_object, t_symbol *type);
+t_symbol*	hub_subscribe(t_hub *x, t_symbol *name, t_object *param_object, t_symbol *type);
 /** Unsubscribe a client from the hub.
  * @param x the hub to be unsubscribed from
  * @param subscriber_object the object to unsubscribe
  * @see hub_subscribe
  */
-void		hub_unsubscribe(t_hub *x, void *subscriber_object);
+void		hub_unsubscribe(t_hub *x, t_object *subscriber_object);
 void		hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv);
 void		hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv);
 void 		hub_return(t_hub *x, t_symbol *name, long argc, t_atom *argv);
