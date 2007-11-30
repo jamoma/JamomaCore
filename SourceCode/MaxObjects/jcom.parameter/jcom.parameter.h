@@ -16,10 +16,11 @@
 #define OBJECT_CLASS_NAME "jcom.parameter"
 #endif
 // OBJECT_CLASS_NAME must be defined before this
+// TODO: Does this actually work now with the headers in the frameworks? [TAP]
 #include "Jamoma.h"
 
 
-#define LISTSIZE 512
+#define LISTSIZE 512	// TODO: Discuss longer list support for Max 5
 
 enum outlets{
 	k_outlet_set = 0,
