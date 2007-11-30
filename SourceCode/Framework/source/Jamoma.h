@@ -48,6 +48,7 @@
 #define YES 1
 #endif
 
+
 extern t_object *obj_jamoma_clock;		// the jamoma master clock object
 extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
 
@@ -58,6 +59,9 @@ void		jamoma_hub_remove(t_symbol *name);
 t_object*	jamoma_get_hub_for_module_named(t_symbol *name);
 void		jamoma_get_all_module_names(long *numModules, t_symbol ***moduleNames);
 t_object*	jamoma_object_getpatcher(t_object *obj);
+t_symbol*	jamoma_patcher_getcontext(t_object *patcher);
+void		jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv);
+t_symbol*	jamoma_patcher_getvarname(t_object *patcher);
 void		jamoma_dsp(t_object *, t_signal **sp, short *count);
 
 #endif //__JAMOMA_H__

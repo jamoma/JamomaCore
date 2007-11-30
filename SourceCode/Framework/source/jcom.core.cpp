@@ -326,7 +326,7 @@ void jcom_core_init(void)
 #pragma mark Hub Bindings
 
 // Registering with the jcom.hub object
-t_object *jcom_core_subscribe(void *x, t_symbol *name, t_object *container, t_symbol *object_type)
+t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type)
 {
 	t_patcher	*p = (t_patcher*)container;
 	t_box		*b;
@@ -335,6 +335,11 @@ t_object *jcom_core_subscribe(void *x, t_symbol *name, t_object *container, t_sy
 	
 again:	
 	for(b = p->p_box; b; b = b->b_next){							// traverse the linked list of boxes in the patch
+		if(b->b_firstin && ((t_object*)(b->b_firstin))->o_magic != 1758379419){
+			error("jamoma_core_subscribe: something has gone terribly wrong");
+			post("maybe you have multiple modules with the same OSC name?");
+			return NULL;
+		}
 		theclass = object_class(b->b_firstin);
 		if(object_classname_compare(b->b_firstin, ps_jcom_hub)){	// if this is a jcom.hub...
 			object_method(b->b_firstin, ps_subscribe, name, x, object_type);
@@ -356,7 +361,7 @@ again:
 
 // Unregister from the jcom.hub object
 //void jcom_core_unsubscribe(void *hub, t_symbol *name)
-void jcom_core_unsubscribe(void *hub, void *object)
+void jcom_core_unsubscribe(t_object *hub, void *object)
 {
 	if(hub)
 		object_method(hub, ps_unsubscribe, object);
@@ -637,7 +642,7 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
 	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
-		x->hub = jcom_core_subscribe(x, x->attr_name, x->container, x->subscriber_type);
+		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type);
 		if(x->hub) 
 			x->module_name = (t_symbol *)object_method(x->hub, ps_core_module_name_get);
 		if(x->custom_subscribe)

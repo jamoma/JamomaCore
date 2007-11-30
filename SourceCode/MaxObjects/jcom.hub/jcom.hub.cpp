@@ -1,6 +1,6 @@
 /* 
  * jcom.hub
- * External for Jamoma: dispatch messages to jcom.param objects (a potential replacement for jcom.hub)
+ * External for Jamoma: the main control center
  * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -224,101 +224,67 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		hub_internals_create(x);
 #endif
 	}
-	return (x);										// return the pointer to our new instantiation
+	return x;
 }
 
 
-
-
-typedef struct bpatcher {
-	t_box b_box;
-	short a,b;
-	short c,d;
-	short e,f;
-	short g,h;
-	short i,j;
-	short k,l;
-	short m,n;
-	short o;
-	Symbol *b_name;
-	Atom b_argv[10];
-	short b_argc;
-} t_bpatcher;
-
-
-
+// TODO: When running in the debugger, it seems like we are iterating through this function a whole bunch of times!
+// Can we put it in a qelem or something so that it only gets called once? [TAP]
+// But actually, maybe it is just a Max 4.6 funky Runtime thing?  Let's take a look again when we get to Max 5
 void hub_examine_context(t_hub *x)
 {
-	t_patcher	*p = (t_patcher*)x->container;
-	t_box		*box = p->p_box;
-	t_symbol	*s = NULL;
-	t_atombuf	*atoms = NULL;
-	long		size = 0;
-	t_atom		*argv = NULL;
-	char		name[256];
-	char		*nametest;
-	unsigned short		i;
-	t_atom		a[2];
+	long			argc = 0;
+	t_atom			*argv = NULL;
+	char			name[256];
+	char			*nametest;
+	unsigned short	i;
+	t_atom			a[2];
+	t_symbol		*context = jamoma_patcher_getcontext(x->container);
 
-	if(p->p_vnewobj != NULL){							// THIS SHOULD INDICATE WE ARE NOT AT THE TOP LEVEL (i.e. not editing)						//	go up one level to look at how the module is instantiated
-		box = (t_box *)p->p_vnewobj;
-		atoms = (t_atombuf *)box->b_binbuf;
-		if(!atoms){
-			if(ob_sym(box) == gensym("bpatcher")){
-				t_bpatcher *bp = (t_bpatcher *)box;
-				size = bp->b_argc;
-				argv = bp->b_argv;
-				x->osc_name = atom_getsym(argv);
-				strcpy(name, x->osc_name->s_name);
-			}
-		} 
-		else{
-			size = atoms->a_argc - 1;
-			argv = atoms->a_argv + 1;		
-			x->osc_name = atom_getsym(argv);
-			strcpy(name, x->osc_name->s_name);
-		}
-		
-		// if no arg is present, then try to use the scripting name of the object
-		if(x->osc_name == _sym_nothing){
-			p = box->b_patcher;	
-			if(patcher_boxname(p, box, &s))
-				strcpy(name, s->s_name);
-			else{	
-				// try to invent something intelligent for a name
-				post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);				
-				//strcpy(name, "/");
-				strcat(name, x->attr_name->s_name);
-			}
-		}
-		// the name is autoprepended with a /
-		if(name[0] != '/'){
-			char newname[256];
-			
-			strcpy(newname, "/");
-			strcat(newname, name);
-			strcpy(name, newname);
-		}
-		
-		// search for illegal characters as specified by the OSC standard and replace them
-		for(i=0; i<strlen(name); i++){
-			if(name[i] == '[')
-				name[i] = '.';
-			else if(name[i] == ']')
-				name[i] = 0;
-		}
-		
-		// if arg contains a slash then we must complain
-		nametest = name + 1;
-		if(strchr(nametest, '/')){
-			error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
-		}
+	// Try to get OSC Name of module from an argument
+	jamoma_patcher_getargs(x->container, &argc, &argv);
+	x->osc_name = atom_getsym(argv);
+	
+	// Try to get OSC Name of module from scripting name
+	if(x->osc_name == _sym_nothing)
+		x->osc_name = jamoma_patcher_getvarname(x->container);
 
-		x->osc_name = gensym(name);
-	}
-	else
+	// In this case we overwrite whatever happened above
+	if(context == gensym("toplevel"))
 		x->osc_name = gensym("/editing_this_module");
+			
+	// No arg is present -- try to invent something intelligent for a name
+	if(x->osc_name == _sym_nothing){
+		post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);				
+		x->osc_name = x->attr_name;
+	}
+
+	strcpy(name, x->osc_name->s_name);
+	
+	// the name is autoprepended with a /
+	if(name[0] != '/'){
+		char newname[256];
 		
+		strcpy(newname, "/");
+		strcat(newname, name);
+		strcpy(name, newname);
+	}
+		
+	// search for illegal characters as specified by the OSC standard and replace them
+	for(i=0; i<strlen(name); i++){
+		if(name[i] == '[')
+			name[i] = '.';
+		else if(name[i] == ']')
+			name[i] = 0;
+	}
+		
+	// if arg contains a slash then we must complain
+	nametest = name + 1;
+	if(strchr(nametest, '/'))
+		error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
+
+	x->osc_name = gensym(name);
+	
 	// Finally, we now tell subscribers (parameters, etc.) to subscribe
 	if(x->jcom_send_broadcast)
 		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
@@ -329,6 +295,7 @@ void hub_examine_context(t_hub *x)
 	object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 	jamoma_hub_register(x->osc_name, (t_object *)x);
 }
+
 
 void hub_free(t_hub *x)
 {
@@ -641,6 +608,7 @@ void hub_init(t_hub *x)
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		if((*i)->type == ps_subscribe_init)
 			object_method((*i)->object, ps_go);		// TODO: This is an exceptionally bad thing to do inside of the critical region
+													// It could result in a deadlock
 	}
 	
 	critical_exit(0);
@@ -853,6 +821,7 @@ void hub_returnnames_get(t_hub *x)
 }
 
 
+// TODO: Should this be removed and replaced by a call to the Jamoma object in the framework?
 void hub_allnames_get(t_hub *x)
 {
 	hub_paramnames_get(x);

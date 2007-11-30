@@ -27,11 +27,7 @@ typedef void (*t_subscribe_method)(void *x);
  *	we want our data members to have consistency memory offsets across all objects.
  */ 
 typedef struct _jcom_core_subscriber_common{
-//#ifdef JCOM_AUDIO_OBJECT
 	t_pxobject			ob;						///< base object for audio externs
-//#else
-//	t_object			ob;						///< base object
-//#endif
 	void				*obex;					///< object extensions
 	t_object			*container;				///< pointer to the patcher containing this object
 	t_object			*hub;					///< the jcom.hub object that we subscribe to
@@ -235,14 +231,14 @@ void jcom_core_init(void);
  * @param container pointer to patcher containg the parameter, in, out, etc.
  * @return a pointer to the hub object
  */
-void *jcom_core_subscribe(void *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
+void *jcom_core_subscribe(t_object *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
 
 
 /** Unsubscribe a client from the hub.
  * @param hub pointer to the hub
  * @param object pointer to the parameter/message/in/out/etc object that we are removing
  */
-void jcom_core_unsubscribe(void *hub, void *object);
+void jcom_core_unsubscribe(t_object *hub, void *object);
 
 
 /** Utility function to perform an atom copy.
