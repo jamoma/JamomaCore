@@ -1,7 +1,7 @@
 /* 
  * jcom.core
  * shared code used by the jamoma core externals
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -10,6 +10,7 @@
 #include "ext.h"		// Max externals header
 #include "ext_obex.h"	// Obex header
 #include "jcom.core.h"
+#include "Jamoma.h"
 
 #pragma mark -
 #pragma mark Globals/Init/Etc.
@@ -325,19 +326,19 @@ void jcom_core_init(void)
 #pragma mark Hub Bindings
 
 // Registering with the jcom.hub object
-void *jcom_core_subscribe(void *x, t_symbol *name, t_patcher *container, t_symbol *object_type)
+t_object *jcom_core_subscribe(void *x, t_symbol *name, t_object *container, t_symbol *object_type)
 {
-	t_patcher	*p = container;
+	t_patcher	*p = (t_patcher*)container;
 	t_box		*b;
 	t_class		*theclass;
-	void		*hub = NULL;
+	t_object	*hub = NULL;
 	
 again:	
 	for(b = p->p_box; b; b = b->b_next){							// traverse the linked list of boxes in the patch
 		theclass = object_class(b->b_firstin);
 		if(object_classname_compare(b->b_firstin, ps_jcom_hub)){	// if this is a jcom.hub...
 			object_method(b->b_firstin, ps_subscribe, name, x, object_type);
-			hub = b->b_firstin;										// store the pointer
+			hub = (t_object*)b->b_firstin;							// store the pointer
 			break;													// then stop looking
 		}
 	}
@@ -592,9 +593,7 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	atom_setsym(&a, name);
 	jcom_core_subscriber_attribute_common_setname(x, NULL, 1, &a);
  	
-	object_obex_lookup(x, gensym("#P"), (t_object **)&x->container);
-	if(!x->container)
-		x->container = (t_patcher *)gensym("#P")->s_thing;
+	x->container = jamoma_object_getpatcher((t_object*)x);
 	
 	// set up the jcom.receive the listens to broadcast messages from the hub
 	atom_setsym(&a, ps_jcom_broadcast_fromHub);

@@ -11,9 +11,8 @@
 #define __JMOD_CORE_H__
 
 #include "ext_critical.h"
-//#ifdef JCOM_AUDIO_OBJECT
 #include "z_dsp.h"							// MSP Header
-//#endif
+
 #ifdef WIN_VERSION
 #define snprintf _snprintf
 #endif
@@ -34,8 +33,8 @@ typedef struct _jcom_core_subscriber_common{
 //	t_object			ob;						///< base object
 //#endif
 	void				*obex;					///< object extensions
-	t_patcher			*container;				///< pointer to the patcher containing this object
-	void				*hub;					///< the jcom.hub object that we subscribe to
+	t_object			*container;				///< pointer to the patcher containing this object
+	t_object			*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
 	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
 	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
@@ -52,12 +51,9 @@ typedef struct _jcom_core_subscriber_common{
 typedef struct _jcom_core_subscriber_extended{
 //#ifdef JCOM_AUDIO_OBJECT
 	t_pxobject			ob;						///< base object for audio externs
-//#else
-//	t_object			ob;						///< base object
-//#endif
 	void				*obex;					///< object extensions
-	t_patcher			*container;				///< pointer to the patcher containing this object
-	void				*hub;					///< the jcom.hub object that we subscribe to
+	t_object			*container;				///< pointer to the patcher containing this object
+	t_object				*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
 	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
 	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)

@@ -62,6 +62,17 @@ void jamoma_get_all_module_names(long *numModules, t_symbol ***moduleNames)
 }
 
 
+t_object* jamoma_object_getpatcher(t_object *obj)
+{
+	t_object *patcher = NULL;
+	
+	object_obex_lookup(obj, gensym("#P"), &patcher);
+	if(!patcher)
+		patcher = (t_object*)gensym("#P")->s_thing;
+	return patcher;
+}
+
+
 // When the DSP is started, we make sure the Jamoma Clock and Scheduler 
 // are updated if needed
 void jamoma_dsp(t_object *, t_signal **sp, short *count)
