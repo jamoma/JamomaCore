@@ -39,6 +39,8 @@
 #include "RampUnitWrap.h"
 #include "JamomaClock.h"
 #include "JamomaScheduler.h"
+#include "JamomaSymbols.h"
+
 
 #ifndef NO
 #define NO 0

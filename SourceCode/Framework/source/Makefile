@@ -5,7 +5,7 @@ AR  = ar
 
 ARFLAGS = cr
 
-JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp JamomaScheduler.cpp JamomaClock.cpp
+JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp JamomaScheduler.cpp JamomaClock.cpp JamomaSymbols.cpp
 JAMOMA_LIB_OBJS = ${JAMOMA_LIB_SOURCE:.cpp=.o}
 JAMOMA_LIB_OBJS += commonsyms.o
 JAMOMA_LIB_OBJS += ../c74/ext_pattr_bundle.o

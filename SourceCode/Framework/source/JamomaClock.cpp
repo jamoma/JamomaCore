@@ -8,7 +8,7 @@
  */
 
 #include "Jamoma.h"
-//#define USE_COREAUDIO
+#define USE_COREAUDIO
 
 static t_class	*class_jamoma_clock = NULL;
 static long		dsp_called = false;
@@ -25,10 +25,10 @@ void jamoma_clock_initclass()
 							sizeof(t_jamoma_clock), 
 							(method)NULL, 
 							A_GIMME, 0);
-
+#ifndef USE_COREAUDIO
 	class_addmethod(c, (method)jamoma_clock_dsp,	"dsp",		A_CANT, 0L);
-	
 	class_dspinit(c);
+#endif
 	class_register(CLASS_NOBOX, c);	
 	class_jamoma_clock = c;
 }
@@ -122,10 +122,16 @@ OSStatus jamoma_clock_coreaudio_callback (AudioDeviceID			inDevice,
     t_jamoma_clock *x = (t_jamoma_clock*)baton;
     
     // load instance vars into registers    
-    int numSamples = x->deviceBufferSize / x->deviceFormat.mBytesPerFrame;
-// NOTE: in my initial testing, the above statement indicates that we are being called 
-// with a block size of 256 samples (5.8 ms) -- do we want to use something smaller, like 64 samples (1.4 ms)?
-// Should be able to do this with a call to AudioHardwareSetProperty(), or is there a better way?
+    int numSamples = (x->deviceBufferSize / x->deviceFormat.mBytesPerFrame) * x->deviceFormat.mChannelsPerFrame;
+		// currently using the default of 512 samples per frame
+		
+	// Move the clocks ahead for the next cycle
+//	x->current_samples += x->samples_per_block;
+	x->current_samples += numSamples;
+	x->current_time = ((x->current_samples * x->one_over_sr) * DEFAULT_TICKS_PER_SECOND);
+
+	// TODO: do this for each scheduler -- but for now we just service the global scheduler
+	jamoma_scheduler_update((t_jamoma_scheduler*)obj_jamoma_scheduler, &x->current_time);
 
      return kAudioHardwareNoError;     
 }
@@ -135,6 +141,8 @@ void jamoma_clock_setup_coreaudio(t_jamoma_clock *x)
 {
     OSStatus	err = kAudioHardwareNoError;
     UInt32		count;    
+	UInt32		vs;
+//	AudioStreamBasicDescription	stream;
 
 	x->device = kAudioDeviceUnknown;
 
@@ -172,7 +180,52 @@ void jamoma_clock_setup_coreaudio(t_jamoma_clock *x)
     	fprintf(stderr, "Sorry, currently only works with float format....\n");
         return;
     }
-    
+	
+// TODO: Test this!
+	// set vector size for callbacks
+	vs = x->samples_per_block = 64;
+	count = sizeof(UInt32);
+		err = AudioDeviceGetProperty(x->device, 0, false, kAudioDevicePropertyBufferFrameSize, &count, &vs);
+/*
+	count = sizeof(AudioStreamBasicDescription);
+	err = AudioDeviceGetProperty(x->device, 0, true, kAudioDevicePropertyStreamFormat, &count, &stream);
+	if(err != kAudioHardwareNoError){
+		fprintf(stderr, "bummer\n");
+		return;
+	}
+*/
+	//stream.mSampleRate = sr;
+	//status =  AudioDeviceSetProperty(x->ca_inputDevice->dev_id, NULL, 0, true, kAudioDevicePropertyStreamFormat, size, &stream);
+	vs = x->samples_per_block = 64;
+
+	err = AudioDeviceSetProperty(x->device, NULL, 0, true, kAudioDevicePropertyBufferFrameSize, count, &vs);
+	if(err != kAudioHardwareNoError){		// the device might not support our current size...
+		AudioValueRange bufRange;
+
+		count = sizeof(AudioValueRange);
+		err = AudioDeviceGetProperty(x->device, 0, false, kAudioDevicePropertyBufferFrameSizeRange, &count, &bufRange);
+		if(bufRange.mMinimum > vs)
+			vs = bufRange.mMinimum;
+		else
+			vs = bufRange.mMaximum;
+		
+		//kAudioDevice
+		
+		err = AudioDeviceSetProperty(x->device, NULL, 0, true, kAudioDevicePropertyBufferFrameSize, sizeof(UInt32), &vs);
+		if(err != kAudioHardwareNoError){
+			fprintf(stderr, "big bummer d00d");
+			return;
+		}
+	}
+
+// TODO: We really want an input instead of an output -- among others, it won't try to mix or clip any samples (which we aren't using anyway)
+		
+//	err = AudioDeviceSetProperty(x->device, NULL, 0, false, kAudioDevicePropertyBufferFrameSize, sizeof(UInt32), &vs);
+//	if(err != kAudioHardwareNoError){
+//		fprintf(stderr, "Set output buffer framesize error\n");
+//		return ;
+//	}
+
     x->initialized = YES;
 
     fprintf(stderr, "mSampleRate = %g\n", x->deviceFormat.mSampleRate);
