@@ -79,7 +79,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_register(CLASS_BOX, c);
 	return_class = c;
 	
-	jcom_core_init();
 	return 0;
 }
 

@@ -94,7 +94,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_register(CLASS_BOX, c);
 	in_class = c;
 
-	jcom_core_init();
 	atom_setlong(&ga_zero, 0);
 	return 0;
 }
