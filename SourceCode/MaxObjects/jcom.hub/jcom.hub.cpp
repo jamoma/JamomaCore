@@ -140,7 +140,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_register(CLASS_BOX, c);
 	s_hub_class = c;
 	
-	jcom_core_init();
 	return 0;
 }
 
@@ -240,6 +239,8 @@ void hub_examine_context(t_hub *x)
 	unsigned short	i;
 	t_atom			a[2];
 	t_symbol		*context = jamoma_patcher_getcontext(x->container);
+	t_max_err		err = MAX_ERR_NONE;
+	int				instance = 0;
 
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);
@@ -282,18 +283,33 @@ void hub_examine_context(t_hub *x)
 	nametest = name + 1;
 	if(strchr(nametest, '/'))
 		error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
-
+again:
 	x->osc_name = gensym(name);
 	
-	// Finally, we now tell subscribers (parameters, etc.) to subscribe
-	if(x->jcom_send_broadcast)
-		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
+	// Register with the framework, and making sure this name hasn't already been used...
+	err = jamoma_hub_register(x->osc_name, (t_object *)x);
+	if(err){
+		if(instance){
+			nametest = strrchr(name, '.');
+			if(nametest)
+				*nametest = 0;
+		}
+		instance++;
+		nametest = name;
+		sprintf(name, "%s.%i", name, instance);
+		post("Jamoma cannot create multiple modules with the same OSC identifier (%s).  Trying %s instead.", x->osc_name->s_name, name);
+		err = MAX_ERR_NONE;
+		goto again;
+	}
 	
 	// And send a notification to the environment
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
 	object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
-	jamoma_hub_register(x->osc_name, (t_object *)x);
+
+	// Finally, we now tell subscribers (parameters, etc.) to subscribe
+	if(x->jcom_send_broadcast)
+		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
 }
 
 
