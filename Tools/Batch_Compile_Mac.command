@@ -71,6 +71,7 @@ cp -r /Library/Frameworks/Jamoma.framework ../Jamoma/library/externals/Jamoma.fr
 ./Compile_Object_Mac.command jcom.limiter~ "$config" &&
 ./Compile_Object_Mac.command jcom.meter~ "$config" &&
 ./Compile_Object_Mac.command jcom.metro "$config" &&
+./Compile_Object_Mac.command jcom.mkdir "$config" &&
 ./Compile_Object_Mac.command jcom.oscroute "$config" &&
 ./Compile_Object_Mac.command jcom.out "$config" &&
 ./Compile_Object_Mac.command jcom.parameter "$config" &&
