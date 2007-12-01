@@ -328,35 +328,40 @@ void jcom_core_init(void)
 // Registering with the jcom.hub object
 t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type)
 {
-	t_patcher	*p = (t_patcher*)container;
-	t_box		*b;
-	t_class		*theclass;
-	t_object	*hub = NULL;
-	
-again:	
-	for(b = p->p_box; b; b = b->b_next){							// traverse the linked list of boxes in the patch
-		if(b->b_firstin && ((t_object*)(b->b_firstin))->o_magic != 1758379419){
-			error("jamoma_core_subscribe: something has gone terribly wrong");
-			post("maybe you have multiple modules with the same OSC name?");
-			return NULL;
-		}
-		theclass = object_class(b->b_firstin);
-		if(object_classname_compare(b->b_firstin, ps_jcom_hub)){	// if this is a jcom.hub...
-			object_method(b->b_firstin, ps_subscribe, name, x, object_type);
-			hub = (t_object*)b->b_firstin;							// store the pointer
-			break;													// then stop looking
-		}
+	if(max5){
+		return NULL;
 	}
-	if(hub == NULL){							// failed to find a hub in the patch...
-		if(p->p_vnewobj != NULL){				//	go one level higher and search there
-			b = (t_box *)p->p_vnewobj;
-			p = b->b_patcher;
-			goto again;
+	else{
+		t_patcher	*p = (t_patcher*)container;
+		t_box		*b;
+		t_class		*theclass;
+		t_object	*hub = NULL;
+		
+	again:	
+		for(b = p->p_box; b; b = b->b_next){							// traverse the linked list of boxes in the patch
+			if(b->b_firstin && ((t_object*)(b->b_firstin))->o_magic != 1758379419){
+				error("jamoma_core_subscribe: something has gone terribly wrong");
+				post("maybe you have multiple modules with the same OSC name?");
+				return NULL;
+			}
+			theclass = object_class(b->b_firstin);
+			if(object_classname_compare(b->b_firstin, ps_jcom_hub)){	// if this is a jcom.hub...
+				object_method(b->b_firstin, ps_subscribe, name, x, object_type);
+				hub = (t_object*)b->b_firstin;							// store the pointer
+				break;													// then stop looking
+			}
 		}
-		else
-			error("object named '%s' could not find a jcom.hub for subscribing", name->s_name);
+		if(hub == NULL){							// failed to find a hub in the patch...
+			if(p->p_vnewobj != NULL){				//	go one level higher and search there
+				b = (t_box *)p->p_vnewobj;
+				p = b->b_patcher;
+				goto again;
+			}
+			else
+				error("object named '%s' could not find a jcom.hub for subscribing", name->s_name);
+		}
+		return hub;
 	}
-	return hub;
 }
 
 // Unregister from the jcom.hub object
@@ -375,10 +380,7 @@ void jcom_core_unsubscribe(t_object *hub, void *object)
 //	(that's the theory anyway...)
 void jcom_core_atom_copy(t_atom *dst, t_atom *src)
 {
-	dst->a_type = src->a_type;
-	dst->a_w.w_long = src->a_w.w_long;
-	dst->a_w.w_float = src->a_w.w_float;
-	dst->a_w.w_sym = src->a_w.w_sym;
+	memcpy(dst, src, sizeof(t_atom));
 }
 
 
@@ -419,10 +421,8 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 	}
 	else
 		error("atom_compare: cannot do comparison on this data type");
-		
 	return 0;
 }
-
 
 
 void jcom_core_file_writeline(t_filehandle *fh, long *the_eof, char *the_text)
@@ -499,25 +499,29 @@ bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_objec
 
 
 // Function the translates a Max path+filename combo into a correct absolutepath
+// TODO: remove this function once we've completed the transition to Max5, as path_topathname() is fixed for Max5
 void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 {
-	char	path[512];
+	char	path[4096];
 	
 	path_topathname(in_path, in_filename, path);
 
-	#ifdef MAC_VERSION
+#ifdef MAC_VERSION
+	if(max5)
+		strcpy(out_filepath, path);
+	else{
 		char *temppath;
 		temppath = strchr(path, ':');
 		*temppath = '\0';
 		temppath += 1;
-		
+	
 		// at this point temppath points to the path after the volume, and out_filepath points to the volume
 		sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
-	#else // WIN_VERSION
-		strcpy(out_filepath, path);
-	#endif
+	}
+#else // WIN_VERSION
+	strcpy(out_filepath, path);
+#endif
 }
-
 
 
 // Add attributes that are common to many subscribers (such as parameter, message, and return)

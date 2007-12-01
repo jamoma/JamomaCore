@@ -14,6 +14,7 @@ static long			initialized = false;
 static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated
 t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
 t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
+bool				max5 = false;
 
 
 /************************************************************************************/
@@ -22,6 +23,8 @@ t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the sche
 void jamoma_init(void)
 {
 	if(!initialized){
+		if(maxversion() >= 0x0500)
+			max5 = true;
 		common_symbols_init();
 		jcom_core_init();
 		jamoma_clock_initclass();
@@ -75,18 +78,23 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 
 t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 {
-	t_patcher	*p = (t_patcher*)patcher;
-	t_box		*box = p->p_box;
-
-	if(p->p_vnewobj != NULL){
-		box = (t_box *)p->p_vnewobj;
-		if(ob_sym(box) == gensym("bpatcher"))
-			return gensym("bpatcher");
-		else
-			return gensym("subpatcher");
+	if(max5){
+		return _sym_nothing;
 	}
-	else
-		return gensym("toplevel");
+	else{
+		t_patcher	*p = (t_patcher*)patcher;
+		t_box		*box = p->p_box;
+
+		if(p->p_vnewobj != NULL){
+			box = (t_box *)p->p_vnewobj;
+			if(ob_sym(box) == gensym("bpatcher"))
+				return gensym("bpatcher");
+			else
+				return gensym("subpatcher");
+		}
+		else
+			return gensym("toplevel");
+	}
 }
 
 
@@ -108,45 +116,55 @@ typedef struct bpatcher {
 // This returns pointers to args, not copies, so don't free them...
 void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 {
-	t_patcher	*p = (t_patcher*)patcher;
-	t_symbol	*context = jamoma_patcher_getcontext(patcher);
-	t_bpatcher	*bp;
-	t_box		*box = (t_box *)p->p_vnewobj;
-	t_atombuf	*atoms = NULL;
-		
-	if(context == gensym("bpatcher")){
-		box = (t_box *)p->p_vnewobj;
-		bp = (t_bpatcher *)box;
-		
-		*argc = bp->b_argc;
-		*argv = bp->b_argv;
-	}
-	else if(context == gensym("subpatcher")){
-		atoms = (t_atombuf *)box->b_binbuf;
-		*argc = atoms->a_argc - 1;
-		*argv = atoms->a_argv + 1;
+	if(max5){
+		;
 	}
 	else{
-		*argc = 0;
-		*argv = NULL;
+		t_patcher	*p = (t_patcher*)patcher;
+		t_symbol	*context = jamoma_patcher_getcontext(patcher);
+		t_bpatcher	*bp;
+		t_box		*box = (t_box *)p->p_vnewobj;
+		t_atombuf	*atoms = NULL;
+			
+		if(context == gensym("bpatcher")){
+			box = (t_box *)p->p_vnewobj;
+			bp = (t_bpatcher *)box;
+			
+			*argc = bp->b_argc;
+			*argv = bp->b_argv;
+		}
+		else if(context == gensym("subpatcher")){
+			atoms = (t_atombuf *)box->b_binbuf;
+			*argc = atoms->a_argc - 1;
+			*argv = atoms->a_argv + 1;
+		}
+		else{
+			*argc = 0;
+			*argv = NULL;
+		}
 	}
 }
 
 
 t_symbol* jamoma_patcher_getvarname(t_object *patcher)
 {
-	t_patcher	*p = (t_patcher*)patcher;
-	t_box		*box = (t_box *)p->p_vnewobj;
-	t_symbol	*s = _sym_nothing;
-	
-	if(!box)
+	if(max5){
 		return _sym_nothing;
+	}
+	else{
+		t_patcher	*p = (t_patcher*)patcher;
+		t_box		*box = (t_box *)p->p_vnewobj;
+		t_symbol	*s = _sym_nothing;
 		
-	p = box->b_patcher;	
-	if(patcher_boxname(p, box, &s))
-		return s;
-	else
-		return _sym_nothing;
+		if(!box)
+			return _sym_nothing;
+			
+		p = box->b_patcher;	
+		if(patcher_boxname(p, box, &s))
+			return s;
+		else
+			return _sym_nothing;
+	}
 }
 
 

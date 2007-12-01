@@ -51,6 +51,7 @@
 
 extern t_object *obj_jamoma_clock;		// the jamoma master clock object
 extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
+extern bool		max5;					// are we in max5?
 
 
 void		jamoma_init(void);
