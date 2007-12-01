@@ -38,9 +38,17 @@ void jamoma_init(void)
 }
 
 
-void jamoma_hub_register(t_symbol *name, t_object *hub)
+t_max_err jamoma_hub_register(t_symbol *name, t_object *hub)
 {
-	hashtab_store(hash_modules, name, hub);
+	t_object *test = NULL;
+	
+	hashtab_lookup(hash_modules, name, &test);
+	if(test)
+		return MAX_ERR_GENERIC;
+	else{
+		hashtab_store(hash_modules, name, hub);
+		return MAX_ERR_NONE;
+	}
 }
 
 
