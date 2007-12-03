@@ -121,7 +121,9 @@ typedef struct bpatcher {
 	short b_argc;
 } t_bpatcher;
 
-// This returns pointers to args, not copies, so don't free them...
+
+// Don't pass memory in for this function!  It will allocate what it needs
+// -- then the caller is responsible for freeing
 void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 {
 	if(max5){
@@ -133,7 +135,9 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 		t_bpatcher	*bp;
 		t_box		*box = (t_box *)p->p_vnewobj;
 		t_atombuf	*atoms = NULL;
-			
+		long		ac = 0;
+		t_atom		*av = NULL;
+
 		if(context == gensym("bpatcher")){
 			box = (t_box *)p->p_vnewobj;
 			bp = (t_bpatcher *)box;
@@ -145,6 +149,12 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 			atoms = (t_atombuf *)box->b_binbuf;
 			*argc = atoms->a_argc - 1;
 			*argv = atoms->a_argv + 1;
+		}
+		
+		if(ac && av){
+			*argc = ac;
+			*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * ac);
+			memcpy(*argv, av, sizeof(*argv));
 		}
 		else{
 			*argc = 0;

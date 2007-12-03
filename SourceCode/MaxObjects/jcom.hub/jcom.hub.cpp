@@ -243,8 +243,10 @@ void hub_examine_context(t_hub *x)
 	int				instance = 0;
 
 	// Try to get OSC Name of module from an argument
-	jamoma_patcher_getargs(x->container, &argc, &argv);
+	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
 	x->osc_name = atom_getsym(argv);
+	if(argc)
+		sysmem_freeptr(argv);
 	
 	// Try to get OSC Name of module from scripting name
 	if(x->osc_name == _sym_nothing)
