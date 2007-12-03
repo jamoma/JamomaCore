@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22097AD70CEA5F880053C8D2 /* JamomaPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
+		2236907B0D00DFBA002D560B /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */; };
+		2236907D0D00DFC3002D560B /* JamomaSymbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 2236907C0D00DFC3002D560B /* JamomaSymbols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2259E6150CF9D55A0044E6DE /* JamomaClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259E6110CF9D55A0044E6DE /* JamomaClock.cpp */; };
 		2259E6160CF9D55A0044E6DE /* JamomaClock.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259E6120CF9D55A0044E6DE /* JamomaClock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2259E6170CF9D55A0044E6DE /* JamomaScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */; };
@@ -92,6 +94,8 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaPrefix.pch; sourceTree = "<group>"; };
+		2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
+		2236907C0D00DFC3002D560B /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
 		2259E6110CF9D55A0044E6DE /* JamomaClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaClock.cpp; path = source/JamomaClock.cpp; sourceTree = "<group>"; };
 		2259E6120CF9D55A0044E6DE /* JamomaClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaClock.h; path = source/JamomaClock.h; sourceTree = "<group>"; };
 		2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaScheduler.cpp; path = source/JamomaScheduler.cpp; sourceTree = "<group>"; };
@@ -233,6 +237,7 @@
 				22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */,
 				2259E6110CF9D55A0044E6DE /* JamomaClock.cpp */,
 				2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */,
+				2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */,
 				22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */,
 				22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */,
 			);
@@ -266,12 +271,13 @@
 			children = (
 				22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */,
 				2259E6120CF9D55A0044E6DE /* JamomaClock.h */,
+				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
 				2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */,
+				2236907C0D00DFC3002D560B /* JamomaSymbols.h */,
 				22FD2DC10CEE5B6F0039C226 /* jcom.core.h */,
 				22FD2DC20CEE5B6F0039C226 /* jcom.io.h */,
 				22FD2DC30CEE5B6F0039C226 /* jcom.list.h */,
 				22FD2DC50CEE5B6F0039C226 /* jcom.sendreceive.h */,
-				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -423,6 +429,7 @@
 				22FD31920CEE8EC30039C226 /* ext_pattr_bundle.h in Headers */,
 				2259E6160CF9D55A0044E6DE /* JamomaClock.h in Headers */,
 				2259E6180CF9D55A0044E6DE /* JamomaScheduler.h in Headers */,
+				2236907D0D00DFC3002D560B /* JamomaSymbols.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +515,7 @@
 				22FD31910CEE8EC30039C226 /* ext_pattr_bundle.c in Sources */,
 				2259E6150CF9D55A0044E6DE /* JamomaClock.cpp in Sources */,
 				2259E6170CF9D55A0044E6DE /* JamomaScheduler.cpp in Sources */,
+				2236907B0D00DFBA002D560B /* JamomaSymbols.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
