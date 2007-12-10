@@ -113,7 +113,7 @@
 		22FD2DC30CEE5B6F0039C226 /* jcom.list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.list.h; path = source/jcom.list.h; sourceTree = "<group>"; };
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
 		22FD2DC50CEE5B6F0039C226 /* jcom.sendreceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.sendreceive.h; path = source/jcom.sendreceive.h; sourceTree = "<group>"; };
-		22FD2DD80CEE5BB50039C226 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resources/Info.plist; sourceTree = "<group>"; };
+		22FD2DD80CEE5BB50039C226 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Info.plist; path = resources/Info.plist; sourceTree = "<group>"; };
 		22FD2DD90CEE5BB50039C226 /* infoplist_versionmaker.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; name = infoplist_versionmaker.pl; path = resources/infoplist_versionmaker.pl; sourceTree = "<group>"; };
 		22FD2FBB0CEE86CC0039C226 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../ThirdParty/ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
 		22FD2FCB0CEE875B0039C226 /* tt_add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_add.h; path = ../ThirdParty/ttblue/dsplib/tt_add.h; sourceTree = SOURCE_ROOT; };
@@ -462,7 +462,6 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Jamoma" */;
-			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -498,7 +497,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ /Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION ]\n\tthen /bin/rm -rf /Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\nfi\n\n/bin/cp -R $TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION /Library/Frameworks/\n";
+			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
