@@ -8,7 +8,7 @@
  */
 
 #include "Jamoma.h"
-#define USE_COREAUDIO
+//#define USE_COREAUDIO
 
 static t_class	*class_jamoma_clock = NULL;
 static long		dsp_called = false;
