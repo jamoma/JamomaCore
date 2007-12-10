@@ -47,6 +47,7 @@ void				jamoma_clock_free(t_jamoma_clock *x);
 t_int*				jamoma_clock_perform(t_int *w);
 void				jamoma_clock_dsp(t_jamoma_clock *x, t_signal **sp, short *count);
 //
+#ifdef MAC_VERSION
 OSStatus jamoma_clock_coreaudio_callback (AudioDeviceID			inDevice, 
 										const AudioTimeStamp*	inNow, 
 										const AudioBufferList*	inInputData, 
@@ -54,6 +55,7 @@ OSStatus jamoma_clock_coreaudio_callback (AudioDeviceID			inDevice,
 										AudioBufferList*		outOutputData, 
 										const AudioTimeStamp*	inOutputTime, 
 										void*					baton);
+#endif // MAC_VERSION
 void jamoma_clock_setup_coreaudio(t_jamoma_clock *x);
 void start(t_jamoma_clock *x);
 void stop(t_jamoma_clock *x);

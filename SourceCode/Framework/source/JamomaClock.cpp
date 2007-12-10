@@ -60,7 +60,9 @@ t_object* jamoma_clock_new(t_symbol *s, long argc, t_atom *argv)
 void jamoma_clock_free(t_jamoma_clock *x)
 {
 	dsp_free((t_pxobject *)x);
+#ifdef MAC_VERSION
 	stop(x);
+#endif // MAC_VERSION
 }
 
 
