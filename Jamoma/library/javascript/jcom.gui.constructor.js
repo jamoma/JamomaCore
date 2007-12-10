@@ -152,6 +152,8 @@ function bang()
 			menu_add("Open Online Reference");
 			menu_add("Open Help Patch");
 			menu_add("View Internal Components");
+			menu_add("-");	
+			menu_add("Store Current Preset");
 			
 		}		
 	}
@@ -182,6 +184,8 @@ function bang()
 			menu_add("Open Online Reference");
 			menu_add("Open Help Patch");
 			menu_add("View Internal Components");
+			menu_add("-");	
+			menu_add("Store Current Preset");
 			
 			// Handle the Inspector Button
 			inspector_button(attr_inspector);
@@ -207,6 +211,8 @@ function bang()
 			menu_add("Open Online Reference");
 			menu_add("Open Help Patch");
 			menu_add("View Internal Components");
+			menu_add("-");	
+			menu_add("Store Current Preset");
 			
 			// Handle the Inspector Button
 			inspector_button(attr_inspector);
@@ -276,6 +282,7 @@ function msg_int(value)
 			case 9: outlet(4, "/documentation/html"); break;
 			case 10: outlet(4, "/documentation/help"); break;
 			case 11: outlet(4, "/module/view_internals"); break;
+			case 13: outlet(4, "/preset/store"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}
@@ -327,7 +334,8 @@ function msg_int(value)
 			case 11: outlet(4, "/preset/default"); break;
 			case 13: outlet(4, "/documentation/html"); break;
 			case 14: outlet(4, "/documentation/help"); break;
-			case 15: outlet(4, "/module/view_internals"); break;		
+			case 15: outlet(4, "/module/view_internals"); break;
+			case 17: outlet(4, "/preset/store"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 		outlet(3, "checkitem", 5, attr_bypass);
@@ -348,7 +356,8 @@ function msg_int(value)
 			case 5: outlet(4, "/preset/default"); break;
 			case 7: outlet(4, "/documentation/html"); break;
 			case 8: outlet(4, "/documentation/help"); break;
-			case 9: outlet(4, "/module/view_internals"); break;			
+			case 9: outlet(4, "/module/view_internals"); break;	
+			case 11: outlet(4, "/preset/store"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}
