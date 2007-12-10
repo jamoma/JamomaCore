@@ -19,12 +19,12 @@
 // Specification of our base class
 class LinearFunction : FunctionLib{
 	public:
-		LinearFunction();				///< constructor
-		~LinearFunction();				///< destructor - free memory, etc.
+		LinearFunction();					///< constructor
+		~LinearFunction();					///< destructor - free memory, etc.
 		
 		// ATTRIBUTES
-		double mapValue(double x) = 0;	///< map x to y
-		// double lookupValue(double x);///< map x to y using lookup table
+		double mapValue(double x);			///< map x to y
+		// double lookupValue(double x);	///< map x to y using lookup table
 		JamomaError setParameter(t_symbol *parameterName, double value);
 		JamomaError getParameter(t_symbol *parameterName, double &value);
 };

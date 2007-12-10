@@ -20,12 +20,11 @@
 // Specification of our base class
 class FunctionLib{
 	public:
-		FunctionLib();						///< constructor
-		virtual ~FunctionLib();				///< destructor - free memory, etc.
+		FunctionLib();							///< constructor
+		virtual ~FunctionLib();					///< destructor - free memory, etc.
 		
-		// ATTRIBUTES
-		virtual double mapValue(double x) = 0;			///< map x to y
-		// double lookupValue(double x);	///< map x to y using lookup table
+		virtual double mapValue(double x) = 0;	///< map x to y
+		// double lookupValue(double x);		///< map x to y using lookup table
 		virtual JamomaError setParameter(t_symbol *parameterName, double value) = 0;
 		virtual JamomaError getParameter(t_symbol *parameterName, double &value) = 0;
 };
