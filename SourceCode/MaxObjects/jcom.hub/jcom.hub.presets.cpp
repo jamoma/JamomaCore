@@ -132,6 +132,10 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 		return;
 	}
 	
+	// Store the number of the preset we recalled last in the first preset (the one being recalled now)
+	(*(x->preset->begin()))->last_preset_num = (*pIter)->number;
+	// Store the name as well
+	(*(x->preset->begin()))->last_preset_name = (*pIter)->name;
 	// Now take our preset items and send them out!
 	item = (*pIter)->item;
 	presetItemListIterator itemIterator;
@@ -231,6 +235,10 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	p = (t_preset *)sysmem_newptr(sizeof(t_preset));
 	p->number = preset_num;
 	p->name = preset_name;
+	// Store the number of the preset we recalled last in the first preset (the one being recalled now)
+	(*(x->preset->begin()))->last_preset_num = preset_num;
+	// Store the name as well
+	(*(x->preset->begin()))->last_preset_name = preset_name;
 	/* XXX Probably also need to delete this in hub_free() when deleting a preset */
 	p->item = new presetItemList;			// start with no items in the preset
 
@@ -641,13 +649,24 @@ void hub_presets_dump(t_hub *x)
 
 void hub_preset_write(t_hub *x, t_symbol *userpath)
 {
+
 	if(x->preset->empty()){	// no presets have been stored, so store the current state as the default
 		t_atom	a[2];
 
 		atom_setlong(&a[0], 1);
 		atom_setsym(&a[1], ps_default);
 		hub_preset_store(x, gensym("/preset/store"), 2, a);
+	} else {
+		// recall the number of the preset we recalled last in the first preset (the one being recalled now)
+		long num = (*(x->preset->begin()))->last_preset_num;
+		// recall the name as well
+		t_symbol *name = (*(x->preset->begin()))->last_preset_name;
+		t_atom b[2];
+		atom_setlong(&b[0], num);
+		atom_setsym(&b[1], name);
+		hub_preset_store(x, gensym("/preset/store"), 2, b);
 	}
+	
 	defer_low(x, (method)hub_preset_dowrite, userpath, 0, 0L);
 }
 

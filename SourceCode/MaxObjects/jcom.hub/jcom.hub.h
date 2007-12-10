@@ -48,6 +48,8 @@ typedef struct _preset{
 	long			number;
 	t_symbol		*name;
 	presetItemList	*item;		///< a preset may have N items (stored as a linked list)
+	long			last_preset_num;
+	t_symbol		*last_preset_name;
 } t_preset;
 
 typedef jcomList<t_preset*> presetList;
