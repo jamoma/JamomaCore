@@ -150,7 +150,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "perl ../../../MaxObjects/common/infoplist_versionmaker.pl";
+			shellScript = "perl /Library/Frameworks/Jamoma.framework/Headers/infoplist_versionmaker.pl";
 		};
 /* End PBXShellScriptBuildPhase section */
 
