@@ -8,7 +8,7 @@ LINK_INPUT = $(OBJS) jcom.hub.def
 LIBXML = -L../../ThirdParty/libxml2/win32/bin 
 LIBXML += -L../../ThirdParty/libxml2/win32/lib 
 #LIBXML = -L/usr/bin 
-LIBICONV = -L../../ThirdParty/libiconv/bin
+LIBICONV = -L../../ThirdParty/libiconv
 
 
 EXTRA_CXXFLAGS = ${LOCAL_INCLUDES} -DLIBXML_STATIC -DLIBXSLT_STATIC -DLIBEXSLT_STATIC -DXMLSEC_STATIC -DLIBXML_THREAD_ENABLED
