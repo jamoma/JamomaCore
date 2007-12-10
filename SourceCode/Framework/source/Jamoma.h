@@ -37,10 +37,11 @@
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
 #include "RampUnitWrap.h"
+#include "JamomaTypes.h"
 #include "JamomaClock.h"
 #include "JamomaScheduler.h"
 #include "JamomaSymbols.h"
-
+#include "FunctionLib.h"
 
 #ifndef NO
 #define NO 0

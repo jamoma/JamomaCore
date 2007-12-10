@@ -17,6 +17,13 @@
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22A403980CAD7C5100E5299E /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A403970CAD7C5100E5299E /* commonsyms.c */; };
+		22AEF3260D0DB77900F7762D /* FunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3200D0DB77900F7762D /* FunctionLib.cpp */; };
+		22AEF3270D0DB77900F7762D /* FunctionLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3210D0DB77900F7762D /* FunctionLib.h */; };
+		22AEF3280D0DB77900F7762D /* LinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3220D0DB77900F7762D /* LinearFunction.cpp */; };
+		22AEF3290D0DB77900F7762D /* LinearFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3230D0DB77900F7762D /* LinearFunction.h */; };
+		22AEF32A0D0DB77900F7762D /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3240D0DB77900F7762D /* TanhFunction.cpp */; };
+		22AEF32B0D0DB77900F7762D /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3250D0DB77900F7762D /* TanhFunction.h */; };
+		22AEF32D0D0DB98500F7762D /* JamomaTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF32C0D0DB98500F7762D /* JamomaTypes.h */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
 		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		22FD2DC60CEE5B6F0039C226 /* Jamoma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */; };
@@ -103,6 +110,13 @@
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22A403850CAD7BA000E5299E /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22A403970CAD7C5100E5299E /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
+		22AEF3200D0DB77900F7762D /* FunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionLib.cpp; sourceTree = "<group>"; };
+		22AEF3210D0DB77900F7762D /* FunctionLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionLib.h; sourceTree = "<group>"; };
+		22AEF3220D0DB77900F7762D /* LinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinearFunction.cpp; sourceTree = "<group>"; };
+		22AEF3230D0DB77900F7762D /* LinearFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearFunction.h; sourceTree = "<group>"; };
+		22AEF3240D0DB77900F7762D /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhFunction.cpp; sourceTree = "<group>"; };
+		22AEF3250D0DB77900F7762D /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
+		22AEF32C0D0DB98500F7762D /* JamomaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaTypes.h; path = source/JamomaTypes.h; sourceTree = "<group>"; };
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
@@ -203,6 +217,7 @@
 			children = (
 				22FD2DCF0CEE5B770039C226 /* Headers */,
 				08FB77AEFE84172EC02AAC07 /* Sources */,
+				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
 				22FD2FCA0CEE87380039C226 /* TTBlue */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
@@ -266,10 +281,24 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		22AEF31F0D0DB77900F7762D /* FunctionLib */ = {
+			isa = PBXGroup;
+			children = (
+				22AEF3200D0DB77900F7762D /* FunctionLib.cpp */,
+				22AEF3210D0DB77900F7762D /* FunctionLib.h */,
+				22AEF3220D0DB77900F7762D /* LinearFunction.cpp */,
+				22AEF3230D0DB77900F7762D /* LinearFunction.h */,
+				22AEF3240D0DB77900F7762D /* TanhFunction.cpp */,
+				22AEF3250D0DB77900F7762D /* TanhFunction.h */,
+			);
+			path = FunctionLib;
+			sourceTree = "<group>";
+		};
 		22FD2DCF0CEE5B770039C226 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
 				22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */,
+				22AEF32C0D0DB98500F7762D /* JamomaTypes.h */,
 				2259E6120CF9D55A0044E6DE /* JamomaClock.h */,
 				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
 				2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */,
@@ -430,6 +459,10 @@
 				2259E6160CF9D55A0044E6DE /* JamomaClock.h in Headers */,
 				2259E6180CF9D55A0044E6DE /* JamomaScheduler.h in Headers */,
 				2236907D0D00DFC3002D560B /* JamomaSymbols.h in Headers */,
+				22AEF3270D0DB77900F7762D /* FunctionLib.h in Headers */,
+				22AEF3290D0DB77900F7762D /* LinearFunction.h in Headers */,
+				22AEF32B0D0DB77900F7762D /* TanhFunction.h in Headers */,
+				22AEF32D0D0DB98500F7762D /* JamomaTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +549,9 @@
 				2259E6150CF9D55A0044E6DE /* JamomaClock.cpp in Sources */,
 				2259E6170CF9D55A0044E6DE /* JamomaScheduler.cpp in Sources */,
 				2236907B0D00DFBA002D560B /* JamomaSymbols.cpp in Sources */,
+				22AEF3260D0DB77900F7762D /* FunctionLib.cpp in Sources */,
+				22AEF3280D0DB77900F7762D /* LinearFunction.cpp in Sources */,
+				22AEF32A0D0DB77900F7762D /* TanhFunction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
