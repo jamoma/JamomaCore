@@ -61,14 +61,14 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/room/absorption/front/preset full
 # Module /microphone_setup
     /microphone_setup/voices 8
-	/microphone_setup/aed/1 -0.000 0.000 2.500
-	/microphone_setup/aed/2 -45.000 0.000 2.500
-	/microphone_setup/aed/3 -90.000 0.000 2.500
-	/microphone_setup/aed/4 -135.000 0.000 2.500
-	/microphone_setup/aed/5 180.000 0.000 2.500
-	/microphone_setup/aed/6 135.000 0.000 2.500
-	/microphone_setup/aed/7 90.000 0.000 2.500
-	/microphone_setup/aed/8 45.000 0.000 2.500
+	/microphone_setup/aed/1 -0.000 0.000 2.000
+	/microphone_setup/aed/2 -45.000 0.000 2.000
+	/microphone_setup/aed/3 -90.000 0.000 2.000
+	/microphone_setup/aed/4 -135.000 0.000 2.000
+	/microphone_setup/aed/5 180.000 0.000 2.000
+	/microphone_setup/aed/6 135.000 0.000 2.000
+	/microphone_setup/aed/7 90.000 0.000 2.000
+	/microphone_setup/aed/8 45.000 0.000 2.000
 # Module /output~
 	/output~/channel_offset 0
 	/output~/ui/freeze 0
