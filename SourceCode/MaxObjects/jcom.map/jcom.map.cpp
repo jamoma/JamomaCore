@@ -219,7 +219,7 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 
 void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	double		value = 0.0;
+	//double		value = 0.0;
 	t_symbol	*parameterName;
 	
 	if(argc < 2){
@@ -228,7 +228,6 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	}
 	
 	parameterName = atom_getsym(argv);
-	value = atom_getfloat(argv+1);
 	obj->function->setParameter(parameterName, argc-1, argv+1);
 }
 
