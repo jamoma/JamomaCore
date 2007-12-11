@@ -42,8 +42,6 @@ int main(void)
 	class_addmethod(c, (method)mkdir_make,			"anything", A_GIMME, 0L);
     class_addmethod(c, (method)mkdir_assist, 		"assist",	A_CANT, 0L); 
 
-	post("Tjotlandotte");
-
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	mkdir_class = c;
