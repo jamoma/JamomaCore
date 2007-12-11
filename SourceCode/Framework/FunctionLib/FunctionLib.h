@@ -13,6 +13,9 @@
 #include "ext_obex.h"
 #include "JamomaTypes.h"
 
+extern const double k_pi;
+extern const double k_twopi;
+extern const double k_anti_denormal_value;
 
 /****************************************************************************************************/
 // Class Specification

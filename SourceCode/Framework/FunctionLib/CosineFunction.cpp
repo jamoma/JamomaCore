@@ -9,6 +9,7 @@
 #include "CosineFunction.h"
 #include <math.h>
 
+
 CosineFunction::CosineFunction()
 {
 	;
@@ -23,7 +24,7 @@ CosineFunction::~CosineFunction()
 
 double CosineFunction::mapValue(double x)
 {
-	return cos(x);
+	return (-0.5*cos(x*k_pi)+0.5);
 }
 
 
