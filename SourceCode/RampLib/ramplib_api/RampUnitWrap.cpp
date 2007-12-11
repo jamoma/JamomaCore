@@ -2,7 +2,7 @@
  * Jamoma RampUnit Glue & Wrapper
  * This glue code wraps access to a RampUnit with a C++ API
  *
- * By Tim Place, Copyright © 2007
+ * By Tim Place, Copyright ï¿½ 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -84,6 +84,8 @@ fetchpointers:
 	rampunit_method_destroy	= (rampunit_method_destroy_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("destroy"));
 	rampunit_method_attrset	= (rampunit_method_attrset_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("attrset"));
 	rampunit_method_attrget	= (rampunit_method_attrget_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("attrget"));
+	rampunit_method_setfunction	= (rampunit_method_setfunction_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("setFunction"));
+	rampunit_method_getfunction	= (rampunit_method_getfunction_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("getFunction"));
 	rampunit_method_go		= (rampunit_method_go_type)			CFBundleGetFunctionPointerForName(bun, CFSTR("go"));
 	rampunit_method_set		= (rampunit_method_set_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("set"));
 	rampunit_method_stop	= (rampunit_method_stop_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("stop"));
@@ -101,6 +103,8 @@ fetchpointers:
 		rampunit_method_destroy	= (rampunit_method_destroy_type)	GetProcAddress((HMODULE)hLib, "destroy");
 		rampunit_method_attrset	= (rampunit_method_attrset_type)	GetProcAddress((HMODULE)hLib, "attrset");
 		rampunit_method_attrget	= (rampunit_method_attrget_type)	GetProcAddress((HMODULE)hLib, "attrget");
+	rampunit_method_setfunction;
+	rampunit_method_getfunction;
 		rampunit_method_go		= (rampunit_method_go_type)			GetProcAddress((HMODULE)hLib, "go");
 		rampunit_method_set		= (rampunit_method_set_type)		GetProcAddress((HMODULE)hLib, "set");
 		rampunit_method_stop	= (rampunit_method_stop_type)		GetProcAddress((HMODULE)hLib, "stop");
@@ -164,6 +168,18 @@ ramp_err rampunit::attrget(t_symbol *attrname, double *value)
 		error("bad rampunit, cannot call attrget");
 	
 	return err;
+}
+
+
+ramp_err rampunit::setFunction(t_symbol *functionName)
+{
+	return rampunit_method_setfunction(rampunit_instance, functionName);
+}
+
+
+ramp_err rampunit::getFunction(t_symbol **functionName)
+{
+	return rampunit_method_getfunction(rampunit_instance, functionName);
 }
 
 

@@ -2,12 +2,13 @@
  * Jamoma RampUnit: LinearSched (linear.sched) 
  * Linear ramping function using the Max scheduler
  *
- * By Tim Place, Copyright © 2006, 2007
+ * By Tim Place, Copyright ï¿½ 2006, 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "Jamoma.h"
 #include "linear.sched.h"
 
 static t_symbol *ps_granularity;
@@ -44,22 +45,30 @@ void destroy(t_linear_sched *rampunit)
 	freeobject((t_object *)rampunit->max_clock);
 	free(rampunit->value_current);
 	free(rampunit->value_target);
-	free(rampunit->stepsize);
+	free(rampunit->value_start);
+	if(rampunit->function)
+		delete rampunit->function;
 	free(rampunit);
 }
 
 
 JamomaError setFunction(t_linear_sched *rampunit, t_symbol *functionName)
 {
+	JamomaError	err = JAMOMA_ERR_NONE;
 	if(functionName != rampunit->functionName){
-	
+		err = jamoma_getFunction(functionName, &rampunit->function);
+		if(!err){
+			rampunit->functionName = functionName;
+		}
 	}
+	return err;
 }
 
 
 JamomaError getFunction(t_linear_sched *rampunit, t_symbol **functionName)
 {
-	;
+	*functionName = rampunit->functionName;
+	return JAMOMA_ERR_NONE;
 }
 
 
@@ -88,19 +97,15 @@ ramp_err attrget(t_linear_sched *rampunit, t_symbol *attrname, double *value)
 //void go(t_linear_sched *rampunit, float value, double time)
 void go(t_linear_sched *rampunit, short numvalues, double *values, double time)
 {
-	double	traversal = 0;
 	short	i;
 
 	rampunit->ramptime = time;
 	rampunit->numgrains = rampunit->ramptime / rampunit->granularity;
+	rampunit->stepsize = 1.0 / rampunit->numgrains;
 
 	setnumvalues(rampunit, numvalues);
-
-	for(i=0; i<numvalues; i++){
+	for(i=0; i<numvalues; i++)
 		rampunit->value_target[i] = values[i];
-		traversal = rampunit->value_target[i] - rampunit->value_current[i];	// distance to go
-		rampunit->stepsize[i] = traversal / rampunit->numgrains;
-	}
 
 	setclock_fdelay(NULL, rampunit->max_clock, 0); // start now
 }
@@ -114,7 +119,8 @@ void set(t_linear_sched *rampunit, short numvalues, double *values)
 	clock_unset(rampunit->max_clock);
 	setnumvalues(rampunit, numvalues);
 	for(i=0; i<numvalues; i++)
-		rampunit->value_current[i] = values[i];
+		rampunit->value_current[i] = rampunit->value_start[i] = values[i];
+	rampunit->value = 0.0;
 }
 
 
@@ -135,9 +141,11 @@ void tick(t_linear_sched *rampunit)
 			rampunit->value_current[i] = rampunit->value_target[i];
 	}
 	else{
-		//rampunit->value_current += rampunit->stepsize;
+		rampunit->value += rampunit->stepsize;
 		for(i=0; i < rampunit->numvalues; i++)
-			rampunit->value_current[i] += rampunit->stepsize[i];
+// TODO: local variables for putting in registers
+// Other speed improvements?		
+			rampunit->value_current[i] = rampunit->value_start[i] + ((rampunit->value_target[i] - rampunit->value_start[i]) * rampunit->function->mapValue(rampunit->value));
 	}
 	
 	// 2. send the value to the host
@@ -154,14 +162,14 @@ void setnumvalues(t_linear_sched *rampunit, short numvalues)
 {
 	if(numvalues != rampunit->numvalues){
 		if(rampunit->numvalues == 0){
+			rampunit->value_start = (double *)malloc(numvalues * sizeof(double));
 			rampunit->value_current = (double *)malloc(numvalues * sizeof(double));
 			rampunit->value_target = (double *)malloc(numvalues * sizeof(double));
-			rampunit->stepsize = (double *)malloc(numvalues * sizeof(double));
 		}
 		else{
+			rampunit->value_start = (double *)realloc(rampunit->value_start, numvalues * sizeof(double));
 			rampunit->value_current = (double *)realloc(rampunit->value_current, numvalues * sizeof(double));
 			rampunit->value_target = (double *)realloc(rampunit->value_target, numvalues * sizeof(double));
-			rampunit->stepsize = (double *)realloc(rampunit->stepsize, numvalues * sizeof(double));
 		}
 		rampunit->numvalues = numvalues;
 	}	

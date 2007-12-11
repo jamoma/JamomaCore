@@ -30,6 +30,7 @@ void*		ramp_new(t_symbol *s, long argc, t_atom *argv);
 void		ramp_free(t_ramp *x);
 void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
 t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
+void		ramp_setFunction(t_ramp *x, t_symbol *functionName);
 void		ramp_int(t_ramp *x, long n);
 void		ramp_float(t_ramp *x, double f);
 void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
@@ -63,6 +64,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)ramp_set,				"set",			A_GIMME,	0);
 	class_addmethod(c, (method)ramp_attrset,			"attrset",		A_GIMME, 	0);
 	class_addmethod(c, (method)ramp_attrget,			"attrget",		A_GIMME,	0);
+	class_addmethod(c, (method)ramp_setFunction,		"setFunction",	A_SYM,		0);
 	class_addmethod(c, (method)ramp_assist,				"assist",		A_CANT,		0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT,		0);
@@ -131,6 +133,12 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 					break;
 		}
  	}		
+}
+
+
+void ramp_setFunction(t_ramp *x, t_symbol *functionName)
+{
+	x->my_ramp->setFunction(functionName);
 }
 
 

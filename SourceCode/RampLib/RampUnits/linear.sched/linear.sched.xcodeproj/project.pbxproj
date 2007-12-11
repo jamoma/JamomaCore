@@ -8,14 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		221425F50BCD10C30030C642 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221425F40BCD10C30030C642 /* MaxAPI.framework */; };
-		22D76DC50BFBEBC00090548D /* linear.sched.c in Sources */ = {isa = PBXBuildFile; fileRef = 22D76DC40BFBEBC00090548D /* linear.sched.c */; };
+		22AEF7780D0EDCC300F7762D /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AEF7770D0EDCC300F7762D /* Jamoma.framework */; };
+		22AEF7BD0D0EDCD200F7762D /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AEF7BC0D0EDCD200F7762D /* MaxAudioAPI.framework */; };
+		22AEF7C70D0EE01F00F7762D /* linear.sched.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF7C60D0EE01F00F7762D /* linear.sched.cpp */; };
 		22D76E850BFBFC730090548D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22D76E840BFBFC730090548D /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		221425D30BCC7F080030C642 /* linear.sched.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linear.sched.h; sourceTree = "<group>"; };
 		221425F40BCD10C30030C642 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
-		22D76DC40BFBEBC00090548D /* linear.sched.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = linear.sched.c; sourceTree = "<group>"; };
+		22AEF7770D0EDCC300F7762D /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = /Library/Frameworks/Jamoma.framework; sourceTree = "<absolute>"; };
+		22AEF7BC0D0EDCD200F7762D /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
+		22AEF7C60D0EE01F00F7762D /* linear.sched.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linear.sched.cpp; sourceTree = "<group>"; };
 		22D76DEE0BFBF2040090548D /* ramplib.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib.h; path = ../../ramplib_api/ramplib.h; sourceTree = SOURCE_ROOT; };
 		22D76E840BFBFC730090548D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22D76E860BFBFC840090548D /* ramplib_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib_prefix.pch; path = ../../common/ramplib_prefix.pch; sourceTree = SOURCE_ROOT; };
@@ -28,6 +32,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				221425F50BCD10C30030C642 /* MaxAPI.framework in Frameworks */,
+				22AEF7780D0EDCC300F7762D /* Jamoma.framework in Frameworks */,
+				22AEF7BD0D0EDCD200F7762D /* MaxAudioAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +54,9 @@
 		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+				22AEF7770D0EDCC300F7762D /* Jamoma.framework */,
+				221425F40BCD10C30030C642 /* MaxAPI.framework */,
+				22AEF7BC0D0EDCD200F7762D /* MaxAudioAPI.framework */,
 			);
 			name = "Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -56,18 +64,10 @@
 		08FB77AFFE84173DC02AAC07 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				22D76DC40BFBEBC00090548D /* linear.sched.c */,
+				22AEF7C60D0EE01F00F7762D /* linear.sched.cpp */,
 				221425D30BCC7F080030C642 /* linear.sched.h */,
 			);
 			name = Sources;
-			sourceTree = "<group>";
-		};
-		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				221425F40BCD10C30030C642 /* MaxAPI.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
@@ -159,7 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22D76DC50BFBEBC00090548D /* linear.sched.c in Sources */,
+				22AEF7C70D0EE01F00F7762D /* linear.sched.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,7 +181,7 @@
 				INFOPLIST_FILE = ../../common/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = linear.sched;
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/MaxAPI.framework/headers /Library/Frameworks/MaxAudioAPI.framework/headers /Library/Frameworks/Jamoma.framework/headers";
 				WRAPPER_EXTENSION = rampunit;
 				ZERO_LINK = YES;
 			};
@@ -203,7 +203,7 @@
 				INFOPLIST_FILE = ../../common/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				PRODUCT_NAME = linear.sched;
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/MaxAPI.framework/headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/MaxAPI.framework/headers /Library/Frameworks/MaxAudioAPI.framework/headers /Library/Frameworks/Jamoma.framework/headers";
 				WRAPPER_EXTENSION = rampunit;
 			};
 			name = Deployment;

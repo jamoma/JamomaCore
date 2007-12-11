@@ -2,7 +2,7 @@
  * Jamoma RampUnit Glue & Wrapper
  * This glue code wraps access to a RampUnit with a C++ API
  *
- * By Tim Place, Copyright © 2007
+ * By Tim Place, Copyright ï¿½ 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -20,6 +20,8 @@ private:
 	rampunit_method_destroy_type	rampunit_method_destroy;
 	rampunit_method_attrset_type	rampunit_method_attrset;
 	rampunit_method_attrget_type	rampunit_method_attrget;
+	rampunit_method_setfunction_type	rampunit_method_setfunction;
+	rampunit_method_getfunction_type	rampunit_method_getfunction;
 	rampunit_method_go_type			rampunit_method_go;
 	rampunit_method_set_type		rampunit_method_set;
 	rampunit_method_stop_type		rampunit_method_stop;
@@ -33,6 +35,8 @@ public:
 	// Attribute Accessors
 	ramp_err attrset(t_symbol *attrname, double value);
 	ramp_err attrget(t_symbol *attrname, double *value);
+	ramp_err setFunction(t_symbol *functionName);
+	ramp_err getFunction(t_symbol **functionName);
 
 	// RampUnit Methods
 	void go(short numvalues, double *values, double time);

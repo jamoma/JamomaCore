@@ -20,24 +20,33 @@ typedef struct _linear_sched {
 	float							ramptime;		// in ms
 	float							granularity;	// in ms
 	long							numgrains;		// number of steps left to take in this ramp
+	
 	short							numvalues;
-	double							*value_target;
+	double							*value_target;	/// < Destination values
 	double							*value_current;
-	t_atom							list_target;
-	t_atom							list_current;
-	double							*stepsize;		// size of the steps we need to take
+	double							*value_start;	/// < the original starting value(s)
+	
+	double							value;			// current value of the ramp in a normalized range
+	double							stepsize;		// size of the steps we need to take in the normalized range
+	
+	t_symbol						*functionName;	// FunctionLib stuff
+	FunctionLib						*function;		// ...
 } t_linear_sched;
 
 
 // public prototypes
+extern "C" {
 t_linear_sched*	create	(rampunit_method_callback_type in_callback, void *in_baton);
 void			destroy	(t_linear_sched *rampunit);
+JamomaError		setFunction(t_linear_sched *rampunit, t_symbol *functionName);
+JamomaError		getFunction(t_linear_sched *rampunit, t_symbol **functionName);
 ramp_err		attrset	(t_linear_sched *rampunit, t_symbol *attrname, double value);
 ramp_err		attrget	(t_linear_sched *rampunit, t_symbol *attrname, double *value);
 void			go		(t_linear_sched *rampunit, short numvalues, double *values, double time);
 void			set		(t_linear_sched *rampunit, short numvalues, double *values);
 void			stop	(t_linear_sched *rampunit);
 void			tick	(t_linear_sched *rampunit);
+}
 
 // private prototypes
 void setnumvalues(t_linear_sched *rampunit, short numvalues);
