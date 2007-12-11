@@ -41,6 +41,8 @@ JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 		*function = (FunctionLib*) new TanhFunction;
 	else if(functionName == gensym("cos"))
 		*function = (FunctionLib*) new CosineFunction;
+	else if(functionName == gensym("pow"))
+		*function = (FunctionLib *) new PowerFunction:
 	else 
 		// Invalid function specified default to linear
 		*function = (FunctionLib*) new LinearFunction;
@@ -58,6 +60,7 @@ void jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames)
 		*(*functionNames+0) = gensym("linear");
 		*(*functionNames+1) = gensym("tanh");
 		*(*functionNames+2) = gensym("cos");
+		*(*functionNames+3) = gensym("power");
 	}
 }
 
