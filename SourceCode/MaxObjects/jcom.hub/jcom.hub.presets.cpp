@@ -188,19 +188,29 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	long			ac;						// ...
 	
 	if(argc < 1){
-		error("jcom.hub (%s module): preset.store requires at least one argument", x->attr_name);
-		return;
-	}
-	if(argv->a_type != A_LONG){
-		error("jcom.hub (%s module): preset.store requires first argument to be an int", x->attr_name);
-		return;
-	}
+		// write over the last preset recalled
+			
+		if(preset->empty()) {
+			error("jcom.hub (%s module): no preset specified active", x->attr_name);
+			return;
+		}
+		// Recall the number of the preset we recalled last	
+		preset_num = (*(preset->begin()))->last_preset_num;
+		// Recall the name as well
+		preset_name = (*(preset->begin()))->last_preset_name;
+	} else {
 	
-	preset_num = atom_getlong(argv);
-	if(argc > 1)
-		preset_name = atom_getsym(argv+1);
-	else
-		preset_name = symbol_unique();
+		if(argv->a_type != A_LONG){
+			error("jcom.hub (%s module): first argument must be an int if a name is specified", x->attr_name);
+			return;
+		}
+		
+		preset_num = atom_getlong(argv);
+		if(argc > 1)
+			preset_name = atom_getsym(argv+1);
+		else
+			preset_name = symbol_unique();
+	}
 	
 	// Search the linked list for this preset (if it already exists) and remove it
 	//	also remove any items that are members of the preset
