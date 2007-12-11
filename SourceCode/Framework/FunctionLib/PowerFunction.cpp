@@ -1,40 +1,52 @@
 /* 
- * Jamoma FunctionLib: LinearFunction
+ * Jamoma FunctionLib: PowerFunction
  * Copyright © 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "LinearFunction.h"
+#include "PowerFunction.h"
 
 
-LinearFunction::LinearFunction()
+PowerFunction::PowerFunction()
+{
+	powerValue=0;
+	k = 1;
+}
+
+
+PowerFunction::~PowerFunction()
 {
 	;
 }
 
 
-LinearFunction::~LinearFunction()
+double PowerFunction::mapValue(double x)
 {
-	;
+	return pow(x,k);
 }
 
 
-double LinearFunction::mapValue(double x)
+JamomaError PowerFunction::setParameter(t_symbol *parameterName, double value)
 {
-	return pow(x,pow(2,powerValue));
+	if (parameterName==gensym("powerValue")) {
+		powerValue = value;
+		k = pow(2,value);
+		return JAMOMA_ERR_NONE;
+	}
+	else	
+		return JAMOMA_ERR_INVALID_PARAMETER;
 }
 
 
-JamomaError LinearFunction::setParameter(t_symbol *parameterName, double value)
+JamomaError PowerFunction::getParameter(t_symbol *parameterName, double &value)
 {
-	return JAMOMA_ERR_INVALID_PARAMETER;
-}
-
-
-JamomaError LinearFunction::getParameter(t_symbol *parameterName, double &value)
-{
-	return JAMOMA_ERR_INVALID_PARAMETER;
+	if (parameterName==gensym("powerValue")) {
+		value = powerValue;
+		return JAMOMA_ERR_NONE;
+	}
+	else	
+		return JAMOMA_ERR_INVALID_PARAMETER;
 }
 

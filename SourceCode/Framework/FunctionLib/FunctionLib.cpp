@@ -25,9 +25,11 @@ FunctionLib::~FunctionLib()
 	Interface for Instantiating any FunctionLib
  ***************************************************************************/
 
-#include "LinearFunction.h"
-#include "TanhFunction.h"
 #include "CosineFunction.h"
+#include "LinearFunction.h"
+#include "PowerFunction.h"
+#include "TanhFunction.h"
+
 
 
 JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
@@ -36,12 +38,12 @@ JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 		delete *function;
 
 	// These should be alphabetized
-	if(functionName == gensym("cos"))
+	if(functionName == gensym("cosine"))
 		*function = (FunctionLib*) new CosineFunction;
-	if(functionName == gensym("linear"))
+	else if(functionName == gensym("linear"))
 		*function = (FunctionLib*) new LinearFunction;
-	else if(functionName == gensym("pow"))
-		*function = (FunctionLib *) new PowerFunction:
+	else if(functionName == gensym("power"))
+		*function = (FunctionLib*) new PowerFunction;
 	else if(functionName == gensym("tanh"))
 		*function = (FunctionLib*) new TanhFunction;
 
@@ -56,12 +58,12 @@ JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 // This function allocates memory -- caller must free it!
 void jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames)
 {
-	*numFunctions = 3;
+	*numFunctions = 4;
 	*functionNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numFunctions);
 	
 	// These should be alphabetized
 	if(*functionNames){
-		*(*functionNames+0) = gensym("cos");
+		*(*functionNames+0) = gensym("cosine");
 		*(*functionNames+1) = gensym("linear");
 		*(*functionNames+2) = gensym("power");
 		*(*functionNames+3) = gensym("tanh");

@@ -6,8 +6,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __LINEARFUNCTION_H__
-#define __LINEARFUNCTION_H__
+#ifndef __POWERFUNCTION_H__
+#define __POWERFUNCTION_H__
 
 #include "FunctionLib.h"
 
@@ -25,10 +25,15 @@ class PowerFunction : FunctionLib{
 		// ATTRIBUTES
 		double mapValue(double x);			///< map x to y
 		// double lookupValue(double x);	///< map x to y using lookup table
-		double powerValue(double x);		///< Parameter for function: y pow(x,pow(2,powerValue))
+
 		JamomaError setParameter(t_symbol *parameterName, double value);
 		JamomaError getParameter(t_symbol *parameterName, double &value);
+		
+	private:
+		
+		double powerValue;					///< Parameter for function: y pow(x,pow(2,powerValue))	
+		double k;							///< k = pow(2,powerValue)	
 };
 
 
-#endif // __LINEARFUNCTION_H__
+#endif // __POWERFUNCTION_H__
