@@ -191,8 +191,8 @@
 		55FE54220D0EAC0000683625 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CosineFunction.cpp; sourceTree = "<group>"; };
 		55FE54230D0EAC0000683625 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CosineFunction.h; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Jamoma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Jamoma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PowerFunction.h; path = /Users/lossius/Developer/Jamoma/active/SourceCode/Framework/FunctionLib/PowerFunction.h; sourceTree = "<absolute>"; };
-		A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PowerFunction.cpp; path = /Users/lossius/Developer/Jamoma/active/SourceCode/Framework/FunctionLib/PowerFunction.cpp; sourceTree = "<absolute>"; };
+		A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PowerFunction.h; path = FunctionLib/PowerFunction.h; sourceTree = SOURCE_ROOT; };
+		A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PowerFunction.cpp; path = FunctionLib/PowerFunction.cpp; sourceTree = SOURCE_ROOT; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
