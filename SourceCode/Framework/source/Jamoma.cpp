@@ -80,8 +80,9 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 {
 	t_object *patcher = NULL;
 	
-	object_obex_lookup(obj, gensym("#P"), &patcher);
-	if(!patcher)
+	if(max5)
+		object_obex_lookup(obj, gensym("#P"), &patcher);
+	else
 		patcher = (t_object*)gensym("#P")->s_thing;
 	return patcher;
 }
@@ -145,19 +146,19 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 			box = (t_box *)p->p_vnewobj;
 			bp = (t_bpatcher *)box;
 			
-			*argc = bp->b_argc;
-			*argv = bp->b_argv;
+			ac = bp->b_argc;
+			av = bp->b_argv;
 		}
 		else if(context == gensym("subpatcher")){
 			atoms = (t_atombuf *)box->b_binbuf;
-			*argc = atoms->a_argc - 1;
-			*argv = atoms->a_argv + 1;
+			ac = atoms->a_argc - 1;
+			av = atoms->a_argv + 1;
 		}
 		
 		if(ac && av){
 			*argc = ac;
 			*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * ac);
-			memcpy(*argv, av, sizeof(*argv));
+			sysmem_copyptr(av, *argv, sizeof(t_atom) * ac);
 		}
 		else{
 			*argc = 0;
