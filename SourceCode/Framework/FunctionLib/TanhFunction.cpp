@@ -27,13 +27,13 @@ double TanhFunction::mapValue(double x)
 }
 
 
-JamomaError TanhFunction::setParameter(t_symbol *parameterName, double value)
+JamomaError TanhFunction::setParameter(t_symbol *parameterName, long argc, t_atom *argv)
 {
 	return JAMOMA_ERR_INVALID_PARAMETER;
 }
 
 
-JamomaError TanhFunction::getParameter(t_symbol *parameterName, double &value)
+JamomaError TanhFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
 {
 	return JAMOMA_ERR_INVALID_PARAMETER;
 }

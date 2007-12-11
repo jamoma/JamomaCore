@@ -28,11 +28,18 @@ double PowerFunction::mapValue(double x)
 }
 
 
-JamomaError PowerFunction::setParameter(t_symbol *parameterName, double value)
+JamomaError PowerFunction::setParameter(t_symbol *parameterName, long argc, t_atom *argv)
 {
 	if (parameterName==gensym("powerValue")) {
-		powerValue = value;
-		k = pow(2,value);
+		powerValue = atom_getfloat(argv);
+		k = pow(2,powerValue);
+		return JAMOMA_ERR_NONE;
+	}
+	else if (parameterName==gensym("symmetry")) {
+		symmetryMode = atom_getsym(argv);
+		// Default mode is "none"
+		if((atom_getsym(argv) != gensym("point")) && (atom_getsym(argv) != gensym("axis")))
+			symmetryMode = gensym("none");
 		return JAMOMA_ERR_NONE;
 	}
 	else	
@@ -40,13 +47,24 @@ JamomaError PowerFunction::setParameter(t_symbol *parameterName, double value)
 }
 
 
-JamomaError PowerFunction::getParameter(t_symbol *parameterName, double &value)
+JamomaError PowerFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
 {
 	if (parameterName==gensym("powerValue")) {
-		value = powerValue;
+		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
+		atom_setfloat(*argv, powerValue);
+		*argc = 1;
 		return JAMOMA_ERR_NONE;
 	}
-	else	
+	else if (parameterName==gensym("symmetry")) {
+		// This memory needs to be freed by the method callong this one
+		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
+		atom_setsym(*argv, symmetryMode);
+		*argc = 1;
+		return JAMOMA_ERR_NONE;
+	}
+	else
+	{	
+		*argc = 0;
 		return JAMOMA_ERR_INVALID_PARAMETER;
+	}
 }
-

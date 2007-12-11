@@ -188,9 +188,10 @@ void map_bang(t_map *obj)
 
 void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	double		value = 0.0;
 	t_symbol	*parameterName;
-	t_atom		a[2];
+	t_atom		*a;
+	long		ac = 0;
+	t_atom		*av = NULL;
 	
 	if(!argc){
 		error("jcom.map: not enough arguments to getParameter");
@@ -198,11 +199,21 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	}
 	
 	parameterName = atom_getsym(argv);
-	obj->function->getParameter(parameterName, value);
+	obj->function->getParameter(parameterName, &ac, &av);
+	if(ac) {
+		//atom_setsym(a+0, parameterName);
+		//atom_setfloat(a+1, av);
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
+		// Forst list item is name of parameter
+		atom_setsym(a, parameterName);
+		// Next the whole shebang is copied
+		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
+		object_obex_dumpout(obj, gensym("getParameter"), ac+1, av);
 	
-	atom_setsym(a+0, parameterName);
-	atom_setfloat(a+1, value);
-	object_obex_dumpout(obj, gensym("getParameter"), 2, a);
+		// The pointer to an atom assign in the getParameter method needs to be freed.
+		sysmem_freeptr(av);
+		sysmem_freeptr(a);
+	}
 }
 
 
@@ -218,7 +229,7 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	
 	parameterName = atom_getsym(argv);
 	value = atom_getfloat(argv+1);
-	obj->function->setParameter(parameterName, value);
+	obj->function->setParameter(parameterName, argc-1, argv+1);
 }
 
 

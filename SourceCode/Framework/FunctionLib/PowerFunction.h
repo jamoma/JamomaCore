@@ -26,13 +26,14 @@ class PowerFunction : FunctionLib{
 		double mapValue(double x);			///< map x to y
 		// double lookupValue(double x);	///< map x to y using lookup table
 
-		JamomaError setParameter(t_symbol *parameterName, double value);
-		JamomaError getParameter(t_symbol *parameterName, double &value);
+		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
+		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
 		
 	private:
 		
 		double powerValue;					///< Parameter for function: y pow(x,pow(2,powerValue))	
-		double k;							///< k = pow(2,powerValue)	
+		double k;							///< k = pow(2,powerValue)
+		t_symbol *symmetryMode;				///< Mode: none, point or axis
 };
 
 
