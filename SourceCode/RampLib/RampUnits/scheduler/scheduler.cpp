@@ -9,7 +9,7 @@
  */
 
 #include "Jamoma.h"
-#include "linear.sched.h"
+#include "scheduler.h"
 
 static t_symbol *ps_granularity;
 
