@@ -18,9 +18,10 @@ typedef struct _map{
 	t_symbol		*attr_function;
 	double			attr_inputMin;
 	double			attr_inputMax;
-	//double			attr_outputMin;
-	//double			attr_outputMax;
+	double			attr_outputMin;
+	double			attr_outputMax;
 	double 			a, b;				// Coefficients used for normalizing input
+	double			c, d;				// Coefficients used for scaling normalized output
 	FunctionLib		*function;
 } t_map;
 
@@ -38,6 +39,9 @@ t_max_err	map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv);
 t_max_err	map_setInputMin(t_map *obj, void *attr, long argc, t_atom *argv);
 t_max_err	map_setInputMax(t_map *obj, void *attr, long argc, t_atom *argv);
 void 		map_scaleInput(t_map *obj);
+t_max_err	map_setOutputMin(t_map *obj, void *attr, long argc, t_atom *argv);
+t_max_err	map_setOutputMax(t_map *obj, void *attr, long argc, t_atom *argv);
+void 		map_scaleOutput(t_map *obj);
 
 
 // Globals
@@ -80,12 +84,14 @@ int main(void)				// main recieves a copy of the Max function macros table
 		attr_offset_new("inputMax", _sym_float64, 0,
 		(method)0, (method)map_setInputMax, calcoffset(t_map, attr_inputMax)));	
 		
-	/*
-	// ATTRIBUTE: set the output range to use
+	// ATTRIBUTE: set the output minimum value
 	class_addattr(c,
-		attr_offset_array_new("outputRange", _sym_float32, 2) 
-		(method)0, (method)0, calcoffset(outputRangeLength), calcoffset(t_map, attr_outputRange));
-	*/
+		attr_offset_new("outputMin", _sym_float64, 0,
+		(method)0, (method)map_setOutputMin, calcoffset(t_map, attr_outputMin)));
+	// ATTRIBUTE: set the output maximum value
+	class_addattr(c,
+		attr_offset_new("outputMax", _sym_float64, 0,
+		(method)0, (method)map_setOutputMax, calcoffset(t_map, attr_outputMax)));
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -108,8 +114,8 @@ void *map_new(t_symbol *name, long argc, t_atom *argv)
 		obj->attr_function = _sym_nothing;
 		obj->attr_inputMin = 0;
 		obj->attr_inputMax = 1;
-		//obj->attr_outputMin = 0;
-		//obj->attr_outputMax = 1;
+		obj->attr_outputMin = 0;
+		obj->attr_outputMax = 1;
 		obj->function = NULL;
 		attr_args_process(obj, argc, argv);
 		if(!obj->function)
@@ -153,7 +159,7 @@ void map_float(t_map *obj, double x)
 {
 	double y;
 	
-	y = obj->function->mapValue(obj->a*x + obj->b);
+	y = obj->c*obj->function->mapValue(obj->a*x + obj->b) + obj->d;
 	outlet_float(obj->outlet, y);
 }
 
@@ -254,4 +260,31 @@ void map_scaleInput(t_map *obj)
 	else
 		obj->a = 1./(obj->attr_inputMax - obj->attr_inputMin);
 	obj->b = -1 * obj->a * obj->attr_inputMin;
+}
+
+
+// ATTRIBUTE: Set output minimum
+t_max_err map_setOutputMin(t_map *obj, void *attr, long argc, t_atom *argv)
+{
+	obj->attr_outputMin = atom_getfloat(argv);
+	map_scaleOutput(obj);
+	return MAX_ERR_NONE;
+
+}
+
+
+// ATTRIBUTE: Set output maximum
+t_max_err map_setOutputMax(t_map *obj, void *attr, long argc, t_atom *argv)
+{
+	obj->attr_outputMax = atom_getfloat(argv);
+	map_scaleOutput(obj);
+	return MAX_ERR_NONE;
+}
+
+
+// Recalculate values to use for scaling of output values
+void map_scaleOutput(t_map *obj)
+{
+	obj->c = obj->attr_outputMax - obj->attr_outputMin;
+	obj->d = obj->attr_outputMin;
 }
