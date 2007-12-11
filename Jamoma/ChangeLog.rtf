@@ -2,7 +2,7 @@
 {\fonttbl\f0\fswiss\fcharset77 Arial-BoldMT;\f1\fswiss\fcharset77 ArialMT;\f2\fswiss\fcharset77 Helvetica;
 \f3\fnil\fcharset77 LucidaGrande;}
 {\colortbl;\red255\green255\blue255;}
-\paperw11900\paperh16840\vieww14000\viewh14580\viewkind0
+\paperw11905\paperh16837\vieww14000\viewh14580\viewkind0
 \deftab720
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
 
@@ -11,6 +11,68 @@
 \
 
 \f0\b Version 0.4
+\f1\b0 .
+\f0\b 5 (
+\f1\b0 rev 2562)\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
+\cf0 \
+	\'a5	New Modules:\
+			- jmod.vst~: a module for VST effects / instruments\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+\cf0 		- jmod.tremolo~: stereo tremolo module with phase offset between channels\
+		- jmod.condition: module for signal conditioning \
+		- jmod.bcf2000: module for interfacing with the Behringer BCF2000 MIDI fader\
+		- jmod.continuum: module for interfacing with the Haken Continuum fingerboard\
+		- jmod.cue_trigger: an interface for triggering cues from jmod.cuescript\
+		- jmod.uc-33: module for interfacing with Edirol UC-33 MIDI fader\
+		- jmod.wi-microdig: module for working with the wi-microdig\
+		- jmod.background%: background subtraction video module\
+		- jmod.gl.alphamixer%: OpenGL module using a slab to mix four video streams with alpha channels\
+		- jmod.gl.edgeblend%: OpenGL module using a slab to perform edge blending with alpha channel\
+		- jmod.gl.text2d%: OpenGL module for 2D text\
+		- jmod.gl.td.rota%: OpenGL slab based rotation and repositioning \
+		- jmod.movie_player%: QuickTime movie player with additional control parameters and external clocking	\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
+\cf0 \
+	\'a5	Module Bug Fixes and Updates:\
+			- surround modules such as jmod.sur.ambi.decode~ now accept up to 32 channels\
+			- jmod.oscnet no longer causes a stack overflow and reliability has been enhanced\
+			- jmod.file_browser now lets you change the folder displayed with a /folder <folder>  message\
+			- jmod.cont_mapper has been updated for the new core and now works\
+			- jmod.mapper update button now works correctly\
+			- jmod.fluoride% allows you to control the saturation now\
+			- jmod.gl.videoplane% now works again\
+			- jmod.motion%.mxt now draws a windowed contraction box around the motion image\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+\cf0 \
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
+\cf0 	\'a5	New Components:\
+			- jcom.send~: send audio to a named module without patch cords\
+			- jcom.receive~: receive audio from a named module without patch cords\
+			- jcom.metro: a metro that doesn't drift \
+			- jcom.phasor~: a phasor that doesn't drift\
+			- jcom.aed2xyz and jcom.xyz2aed convert between Cartesian and spherical coordinates according to SpatDIF\
+				conventions\
+			- jcom.map: component for mapping x to y using various different functions (linear, tanh, cos)\
+			- jcom.mkdir: component for making directories on the hard disk\
+			- jcom.stats: calculates running statistical values: minimum, maximum, mean, standard deviation similar to lp.stacey\
+				from the Litter power package.  Statistics can be windowed or run ad infinitum. \
+			\
+	\'a5	Core Bug Fixes and improvements:\
+			- reorganized folder structure, all modules are self contained in their own folder, including help file, preset file etc.\
+			- common code moved to it's own library\
+			- Windows externals are now built using GCC under cygwin\
+			- modules are now maintained and looked up by storing their OSC name in a hash table (faster!)\
+			- /preset/store with no arguments now resaves the current settings as the last selected preset\
+			- added a /preset/copy\
+			- fixed memory leak in jcom.hub\
+			- optional arguments to inc and dec methods /degrade~/bitdepth:+ 4 will no increment by 4\
+			- jcom.parameter performance enhancements, particularly when working with lists\
+			- ramping with lists now works\
+			\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+
+\f0\b \cf0 Version 0.4
 \f1\b0 .
 \f0\b 3
 \f1\b0  \
