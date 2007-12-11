@@ -401,7 +401,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
-				INSTALL_PATH = "/../../Jamoma/library/externals/mac/$(CONFIGURATION)";
+				INSTALL_PATH = /../teabox;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OPTIMIZATION_CFLAGS = "-O0";
@@ -454,7 +454,7 @@
 					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
-				INSTALL_PATH = "/../Teabox-Externals";
+				INSTALL_PATH = /../teabox;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
 				OTHER_CFLAGS = "";
