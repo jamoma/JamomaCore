@@ -96,6 +96,8 @@
 		55FE54240D0EAC0000683625 /* CosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FE54220D0EAC0000683625 /* CosineFunction.cpp */; };
 		55FE54250D0EAC0000683625 /* CosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FE54230D0EAC0000683625 /* CosineFunction.h */; settings = {ATTRIBUTES = (); }; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		A7E8800E0D0EFA2F00F0F3D3 /* PowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */; };
+		A7E8800F0D0EFA2F00F0F3D3 /* PowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -189,6 +191,8 @@
 		55FE54220D0EAC0000683625 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CosineFunction.cpp; sourceTree = "<group>"; };
 		55FE54230D0EAC0000683625 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CosineFunction.h; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Jamoma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Jamoma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PowerFunction.h; path = /Users/lossius/Developer/Jamoma/active/SourceCode/Framework/FunctionLib/PowerFunction.h; sourceTree = "<absolute>"; };
+		A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PowerFunction.cpp; path = /Users/lossius/Developer/Jamoma/active/SourceCode/Framework/FunctionLib/PowerFunction.cpp; sourceTree = "<absolute>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -294,6 +298,8 @@
 				55FE54230D0EAC0000683625 /* CosineFunction.h */,
 				22AEF3220D0DB77900F7762D /* LinearFunction.cpp */,
 				22AEF3230D0DB77900F7762D /* LinearFunction.h */,
+				A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */,
+				A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */,
 				22AEF3240D0DB77900F7762D /* TanhFunction.cpp */,
 				22AEF3250D0DB77900F7762D /* TanhFunction.h */,
 			);
@@ -470,6 +476,7 @@
 				22AEF32B0D0DB77900F7762D /* TanhFunction.h in Headers */,
 				22AEF32D0D0DB98500F7762D /* JamomaTypes.h in Headers */,
 				55FE54250D0EAC0000683625 /* CosineFunction.h in Headers */,
+				A7E8800E0D0EFA2F00F0F3D3 /* PowerFunction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +567,7 @@
 				22AEF3280D0DB77900F7762D /* LinearFunction.cpp in Sources */,
 				22AEF32A0D0DB77900F7762D /* TanhFunction.cpp in Sources */,
 				55FE54240D0EAC0000683625 /* CosineFunction.cpp in Sources */,
+				A7E8800F0D0EFA2F00F0F3D3 /* PowerFunction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
