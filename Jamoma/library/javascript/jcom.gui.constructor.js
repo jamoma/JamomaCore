@@ -154,6 +154,7 @@ function bang()
 			menu_add("View Internal Components");
 			menu_add("-");	
 			menu_add("Store Current Preset");
+			menu_add("Open Preset Interface");
 			
 		}		
 	}
@@ -186,6 +187,7 @@ function bang()
 			menu_add("View Internal Components");
 			menu_add("-");	
 			menu_add("Store Current Preset");
+			menu_add("Open Preset Interface");
 			
 			// Handle the Inspector Button
 			inspector_button(attr_inspector);
@@ -213,6 +215,7 @@ function bang()
 			menu_add("View Internal Components");
 			menu_add("-");	
 			menu_add("Store Current Preset");
+			menu_add("Open Preset Interface");
 			
 			// Handle the Inspector Button
 			inspector_button(attr_inspector);
@@ -283,6 +286,7 @@ function msg_int(value)
 			case 10: outlet(4, "/documentation/help"); break;
 			case 11: outlet(4, "/module/view_internals"); break;
 			case 13: outlet(4, "/preset/store"); break;
+			case 14: outlet(4, "/preset/interface"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}
@@ -336,6 +340,7 @@ function msg_int(value)
 			case 14: outlet(4, "/documentation/help"); break;
 			case 15: outlet(4, "/module/view_internals"); break;
 			case 17: outlet(4, "/preset/store"); break;
+			case 18: outlet(4, "/preset/interface"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 		outlet(3, "checkitem", 5, attr_bypass);
@@ -358,6 +363,7 @@ function msg_int(value)
 			case 8: outlet(4, "/documentation/help"); break;
 			case 9: outlet(4, "/module/view_internals"); break;	
 			case 11: outlet(4, "/preset/store"); break;
+			case 12: outlet(4, "/preset/interface"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}
