@@ -2,82 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>jcom.receive/jcom.receive.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
-			<string>common</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>common</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>dsplib</string>
+			<string>Framework</string>
 			<key>regexFolderFilter</key>
 			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
 			<key>sourceDirectory</key>
-			<string>../externals_3rd_party/ttblue/dsplib</string>
+			<string>../Framework</string>
 		</dict>
 		<dict>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/HowToUseRampUnitsInMaxExternals.txt</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/ramplib.h</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/ramplib.linear.max.c</string>
-					<key>lastUsed</key>
-					<date>2006-09-19T13:48:26Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/ramplib.linear.max.h</string>
-					<key>lastUsed</key>
-					<date>2006-09-18T15:06:00Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/ramplib.linear.maxq.c</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/ramplib.linear.maxq.h</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/ramplib.none.c</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/ramplib.none.h</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/rampunit.c</string>
-					<key>lastUsed</key>
-					<date>2006-08-13T02:20:30Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../ramplib/ramplib_api/rampunit.h</string>
-					<key>lastUsed</key>
-					<date>2006-08-13T02:20:29Z</date>
-				</dict>
-			</array>
 			<key>name</key>
 			<string>RampLib</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>../RampLib</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>UnitLib</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>../UnitLib</string>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -92,13 +41,13 @@
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-07-19T20:05:18Z</date>
+					<date>2007-12-10T18:36:20Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>jcom.hub/jcom.hub.h</string>
 					<key>lastUsed</key>
-					<date>2007-07-18T22:45:53Z</date>
+					<date>2007-12-11T11:52:10Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -111,8 +60,6 @@
 					<string>jcom.hub/jcom.hub.internals.cpp</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>hub</string>
 		</dict>
@@ -121,8 +68,81 @@
 			<array>
 				<dict>
 					<key>filename</key>
-					<string>jcom.parameter/jcom.message.pch</string>
+					<string>jcom.in/jcom.in.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-07-02T22:23:33Z</date>
 				</dict>
+				<dict>
+					<key>filename</key>
+					<string>jcom.in/jcom.in.h</string>
+					<key>lastUsed</key>
+					<date>2007-04-07T03:50:23Z</date>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>in</string>
+			<key>selected</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.init/jcom.init.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-07-02T22:23:50Z</date>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>init</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.map/jcom.map.cpp</string>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>map</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.meter~/jcom.meter~.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-04-06T23:34:29Z</date>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>meter~</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.out/jcom.out.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-07-02T22:23:43Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>jcom.out/jcom.out.h</string>
+					<key>lastUsed</key>
+					<date>2007-04-07T03:49:05Z</date>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>out</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
 				<dict>
 					<key>filename</key>
 					<string>jcom.parameter/jcom.parameter.clip.cpp</string>
@@ -141,15 +161,61 @@
 					<key>lastUsed</key>
 					<date>2007-05-18T02:53:16Z</date>
 				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.parameter/jcom.parameter.pch</string>
-				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>parameter</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.phasor~/jcom.phasor~.cpp</string>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>phasor~</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.ramp/jcom.ramp.cpp</string>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>ramp</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.receive/jcom.receive.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-10T18:05:41Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>jcom.receive/jcom.receivemaster.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-10T18:05:42Z</date>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>receive</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>jcom.receive~/jcom.receive~.cpp</string>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>receive~</string>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -161,8 +227,6 @@
 					<date>2007-07-02T22:23:28Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>remote</string>
 		</dict>
@@ -176,8 +240,6 @@
 					<date>2007-07-18T18:29:31Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>return</string>
 		</dict>
@@ -186,226 +248,19 @@
 			<array>
 				<dict>
 					<key>filename</key>
-					<string>jcom.in/jcom.in.cpp</string>
-					<key>lastUsed</key>
-					<date>2007-07-02T22:23:33Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.in/jcom.in.pch</string>
-					<key>lastUsed</key>
-					<date>2007-05-11T13:49:04Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.in/jcom.in~.pch</string>
-					<key>lastUsed</key>
-					<date>2007-04-06T19:46:48Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.in/jcom.in.h</string>
-					<key>lastUsed</key>
-					<date>2007-04-07T03:50:23Z</date>
-				</dict>
-			</array>
-			<key>expanded</key>
-			<true/>
-			<key>name</key>
-			<string>in</string>
-		</dict>
-		<dict>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>filename</key>
-					<string>jcom.out/jcom.out.cpp</string>
-					<key>lastUsed</key>
-					<date>2007-07-02T22:23:43Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.out/jcom.out.pch</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.out/jcom.out~.pch</string>
-					<key>lastUsed</key>
-					<date>2007-04-06T19:47:03Z</date>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.out/jcom.out.h</string>
-					<key>lastUsed</key>
-					<date>2007-04-07T03:49:05Z</date>
-				</dict>
-			</array>
-			<key>expanded</key>
-			<true/>
-			<key>name</key>
-			<string>out</string>
-		</dict>
-		<dict>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>filename</key>
-					<string>jcom.init/jcom.init.cpp</string>
-					<key>lastUsed</key>
-					<date>2007-07-02T22:23:50Z</date>
-				</dict>
-			</array>
-			<key>expanded</key>
-			<true/>
-			<key>name</key>
-			<string>init</string>
-		</dict>
-		<dict>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>filename</key>
 					<string>jcom.send/jcom.send.cpp</string>
 					<key>lastUsed</key>
-					<date>2007-07-18T18:32:54Z</date>
+					<date>2007-12-10T18:05:42Z</date>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>send</string>
-		</dict>
-		<dict>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>filename</key>
-					<string>jcom.receive/jcom.receive.cpp</string>
-					<key>lastUsed</key>
-					<date>2007-07-19T20:05:18Z</date>
-					<key>selected</key>
-					<true/>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>jcom.receive/jcom.receivemaster.cpp</string>
-					<key>lastUsed</key>
-					<date>2007-07-18T18:32:15Z</date>
-					<key>selected</key>
-					<true/>
-				</dict>
-			</array>
-			<key>expanded</key>
-			<true/>
-			<key>name</key>
-			<string>receive</string>
-		</dict>
-		<dict>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>filename</key>
-					<string>jcom.meter~/jcom.meter~.cpp</string>
-					<key>lastUsed</key>
-					<date>2007-04-06T23:34:29Z</date>
-				</dict>
-			</array>
-			<key>expanded</key>
-			<true/>
-			<key>name</key>
-			<string>meter~</string>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>197</integer>
 	<key>metaData</key>
 	<dict>
-		<key>../ramplib/ramplib_api/rampunit.c</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>11</integer>
-		</dict>
-		<key>../ramplib/ramplib_api/rampunit.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>common/jcom.core.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>322</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>301</integer>
-		</dict>
-		<key>common/jcom.core.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>222</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>187</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>219</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>222</integer>
-			</dict>
-		</dict>
-		<key>common/jcom.sendreceive.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>4</integer>
-				<key>line</key>
-				<integer>52</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>7</integer>
-		</dict>
 		<key>jcom.hub/jcom.hub.autodoc.cpp</key>
 		<dict>
 			<key>caret</key>
@@ -419,50 +274,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>jcom.hub/jcom.hub.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>249</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>236</integer>
-		</dict>
-		<key>jcom.hub/jcom.hub.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>17</integer>
-				<key>line</key>
-				<integer>86</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>55</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>12</integer>
-				<key>line</key>
-				<integer>86</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>20</integer>
-				<key>line</key>
-				<integer>86</integer>
-			</dict>
 		</dict>
 		<key>jcom.hub/jcom.hub.presets.cpp</key>
 		<dict>
@@ -491,20 +302,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>63</integer>
-		</dict>
-		<key>jcom.in/jcom.in.pch</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
 		</dict>
 		<key>jcom.init/jcom.init.cpp</key>
 		<dict>
@@ -594,34 +391,6 @@
 			<key>firstVisibleLine</key>
 			<integer>48</integer>
 		</dict>
-		<key>jcom.receive/jcom.receive.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>jcom.receive/jcom.receivemaster.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>82</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>75</integer>
-		</dict>
 		<key>jcom.remote/jcom.remote.cpp</key>
 		<dict>
 			<key>caret</key>
@@ -636,35 +405,10 @@
 			<key>firstVisibleLine</key>
 			<integer>39</integer>
 		</dict>
-		<key>jcom.send/jcom.send.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>33</integer>
-				<key>line</key>
-				<integer>109</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>87</integer>
-		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>common/jcom.core.h</string>
-		<string>common/jcom.core.cpp</string>
-		<string>common/jcom.sendreceive.h</string>
-		<string>jcom.send/jcom.send.cpp</string>
-		<string>jcom.receive/jcom.receive.cpp</string>
-		<string>jcom.receive/jcom.receivemaster.cpp</string>
-		<string>jcom.hub/jcom.hub.h</string>
-		<string>jcom.hub/jcom.hub.cpp</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{255, 1}, {972, 877}}</string>
+	<string>{{158, 27}, {899, 851}}</string>
 </dict>
 </plist>
