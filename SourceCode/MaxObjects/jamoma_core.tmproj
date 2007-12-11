@@ -5,28 +5,160 @@
 	<key>documents</key>
 	<array>
 		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/JamomaTypes.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/jcom.sendreceive.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/jcom.prefix.pch</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/jcom.io.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/jcom.core.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/Jamoma.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/Jamoma.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/JamomaSymbols.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/JamomaSymbols.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/jcom.list.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/JamomaScheduler.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/JamomaClock.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/jcom.core.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/JamomaClock.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/source/JamomaScheduler.cpp</string>
+				</dict>
+			</array>
 			<key>name</key>
-			<string>Framework</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>../Framework</string>
+			<string>_Framework</string>
 		</dict>
 		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/FunctionLib.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/CosineFunction.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/FunctionLib.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/CosineFunction.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/TanhFunction.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/LinearFunction.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/LinearFunction.cpp</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/TanhFunction.h</string>
+				</dict>
+			</array>
 			<key>name</key>
-			<string>RampLib</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>../RampLib</string>
+			<string>_FunctionLib</string>
 		</dict>
 		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/ramplib_api/ramplib.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/ramplib_api/RampUnitWrap.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/ramplib_api/RampUnitWrap.cpp</string>
+				</dict>
+			</array>
 			<key>name</key>
-			<string>UnitLib</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>../UnitLib</string>
+			<string>_RampLib</string>
+		</dict>
+		<dict>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/RampUnits/linear.queue/linear.queue.c</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/RampUnits/linear.queue/linear.queue.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/RampUnits/linear.sched/linear.sched.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/RampUnits/linear.sched/linear.sched.c</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/RampUnits/none/none.h</string>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../RampLib/RampUnits/none/none.c</string>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>_UnitLib</string>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -62,6 +194,8 @@
 			</array>
 			<key>name</key>
 			<string>hub</string>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -81,8 +215,6 @@
 			</array>
 			<key>name</key>
 			<string>in</string>
-			<key>selected</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -396,7 +528,7 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>56</integer>
+				<integer>0</integer>
 				<key>line</key>
 				<integer>104</integer>
 			</dict>
@@ -409,6 +541,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{158, 27}, {899, 851}}</string>
+	<string>{{43, 27}, {899, 851}}</string>
 </dict>
 </plist>
