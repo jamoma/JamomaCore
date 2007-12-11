@@ -30,7 +30,7 @@ FunctionLib::~FunctionLib()
 #include "CosineFunction.h"
 
 
-t_max_err jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
+JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 {	
 	if(*function)
 		delete *function;
@@ -45,7 +45,7 @@ t_max_err jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 		// Invalid function specified default to linear
 		*function = (FunctionLib*) new LinearFunction;
 	
-	return MAX_ERR_NONE;
+	return JAMOMA_ERR_NONE;
 }
 
 

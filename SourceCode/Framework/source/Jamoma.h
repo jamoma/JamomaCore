@@ -72,9 +72,6 @@ t_symbol*	jamoma_patcher_getcontext(t_object *patcher);
 void		jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv);
 t_symbol*	jamoma_patcher_getvarname(t_object *patcher);
 
-t_max_err	jamoma_getFunction(t_symbol *functionName, FunctionLib **function);
-void		jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames);
-
 void		jamoma_dsp(t_object *, t_signal **sp, short *count);
 
 #endif //__JAMOMA_H__
