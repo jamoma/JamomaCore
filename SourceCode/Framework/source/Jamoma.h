@@ -43,8 +43,6 @@
 #include "JamomaSymbols.h"
 
 #include "FunctionLib.h"
-#include "LinearFunction.h"
-#include "TanhFunction.h"
 
 #ifndef NO
 #define NO 0
