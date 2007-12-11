@@ -104,10 +104,12 @@ void go(t_linear_sched *rampunit, short numvalues, double *values, double time)
 	rampunit->stepsize = 1.0 / rampunit->numgrains;
 
 	setnumvalues(rampunit, numvalues);
-	for(i=0; i<numvalues; i++)
+	for(i=0; i<numvalues; i++){
 		rampunit->value_target[i] = values[i];
-
-	setclock_fdelay(NULL, rampunit->max_clock, 0); // start now
+		rampunit->value_start[i] = rampunit->value_current[i];
+	}
+	rampunit->value = 0.0;							// set the ramp to the beginning
+	setclock_fdelay(NULL, rampunit->max_clock, 0);	// start now
 }
 
 
@@ -120,7 +122,6 @@ void set(t_linear_sched *rampunit, short numvalues, double *values)
 	setnumvalues(rampunit, numvalues);
 	for(i=0; i<numvalues; i++)
 		rampunit->value_current[i] = rampunit->value_start[i] = values[i];
-	rampunit->value = 0.0;
 }
 
 
@@ -132,7 +133,11 @@ void stop(t_linear_sched *rampunit)
 
 void tick(t_linear_sched *rampunit)
 {
-	short i;
+	short	i;
+	double	mapped;
+	double	*current = rampunit->value_current;
+	double	*target = rampunit->value_target;
+	double	*start = rampunit->value_start;
 
 	// 1. go to the the next step in our ramp
 	rampunit->numgrains--;
@@ -142,10 +147,9 @@ void tick(t_linear_sched *rampunit)
 	}
 	else{
 		rampunit->value += rampunit->stepsize;
+		mapped = rampunit->function->mapValue(rampunit->value);
 		for(i=0; i < rampunit->numvalues; i++)
-// TODO: local variables for putting in registers
-// Other speed improvements?		
-			rampunit->value_current[i] = rampunit->value_start[i] + ((rampunit->value_target[i] - rampunit->value_start[i]) * rampunit->function->mapValue(rampunit->value));
+			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 	}
 	
 	// 2. send the value to the host
