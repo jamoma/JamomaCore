@@ -52,6 +52,10 @@
 #define YES 1
 #endif
 
+extern const double k_pi;
+extern const double k_twopi;
+extern const double k_anti_denormal_value;
+
 
 extern t_object *obj_jamoma_clock;		// the jamoma master clock object
 extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
