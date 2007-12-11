@@ -8,6 +8,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "Jamoma.h"
 #include "none.h"
 
 
@@ -44,6 +45,26 @@ ramp_err attrset(t_none *rampunit, t_symbol *attrname, double value)
 ramp_err attrget(t_none *rampunit, t_symbol *attrname, double *value)
 {
 	return RAMP_ERR_ATTR_INVALID;
+}
+
+
+JamomaError setFunction(t_linear_sched *rampunit, t_symbol *functionName)
+{
+	JamomaError	err = JAMOMA_ERR_NONE;
+	if(functionName != rampunit->functionName){
+		err = jamoma_getFunction(functionName, &rampunit->function);
+		if(!err){
+			rampunit->functionName = functionName;
+		}
+	}
+	return err;
+}
+
+
+JamomaError getFunction(t_linear_sched *rampunit, t_symbol **functionName)
+{
+	*functionName = rampunit->functionName;
+	return JAMOMA_ERR_NONE;
 }
 
 

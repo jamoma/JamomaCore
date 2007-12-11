@@ -8,7 +8,7 @@ max v2;
 #P hidden inlet 366 175 15 0;
 #P hidden newex 497 167 69 196617 pvar OpValue;
 #P window linecount 2;
-#P hidden newex 497 192 312 196617 jcom.parameter op_value @type msg_float @ramp linear.sched @repetitions 0 @description "Number to associate with operation.";
+#P hidden newex 497 192 312 196617 jcom.parameter op_value @type msg_float @ramp.drive scheduler @repetitions 0 @description "Number to associate with operation.";
 #P objectname op_value;
 #P flonum 136 29 35 9 0 0 8224 3 181 181 181 221 221 221 255 255 255 0 0 0;
 #P objectname OpValue;

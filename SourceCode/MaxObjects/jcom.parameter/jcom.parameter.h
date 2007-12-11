@@ -49,6 +49,7 @@ typedef struct _param{						// Data Structure for this object
 	rampunit				*ramper;				///< rampunit object to perform ramping of input values
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
 	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
+	t_symbol				*attr_rampfunction;		///< Attribute for setting the function used by the ramping
 } t_param;
 
 
@@ -86,6 +87,7 @@ void		param_ui_queuefn(t_param *x);
 t_max_err 	param_setvalueof(t_param *x, long argc, t_atom *argv);
 t_max_err 	param_getvalueof(t_param *x, long *argc, t_atom **argv);
 #endif
+t_max_err	param_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
 
 // Defined in jcom.parameter.clip.c
 void 		param_clip_generic(t_param *x);

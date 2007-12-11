@@ -28,7 +28,7 @@ max v2;
 #P hidden newex 74 78 277 196617 jcom.parameter shape @type msg_symbol @description "Choose the shape of the crossfade: linear or equal-power";
 #P objectname shape[1];
 #P window linecount 3;
-#P hidden newex 74 156 390 196617 jcom.parameter position @type msg_float @range 1. 2. @ramp linear.sched @description "set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.";
+#P hidden newex 74 156 390 196617 jcom.parameter position @type msg_float @range 1. 2. @ramp.drive scheduler @description "set the position of the crossfade.  1 is entirely source 1 - 2 is entirely source 2 - positions in the middle are a location between source one and two.";
 #P objectname position;
 #P window linecount 1;
 #P comment 116 26 37 196617 shape:;

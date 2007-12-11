@@ -21,7 +21,7 @@ max v2;
 #P hidden newex 170 182 43 9109513 jcom.in;
 #P hidden newex 475 177 90 9109513 pvar sample_rate;
 #P window linecount 2;
-#P hidden newex 475 199 340 9109513 jcom.parameter sample_rate @type msg_int @ramp linear.sched @repetitions 0 @range -1 1000 @clipmode low @description "Sample rate in ms";
+#P hidden newex 475 199 340 9109513 jcom.parameter sample_rate @type msg_int @ramp.drive scheduler @repetitions 0 @range -1 1000 @clipmode low @description "Sample rate in ms";
 #P objectname sample_rate[1];
 #P number 85 21 35 9 -1 0 8225 139 181 181 181 221 221 221 222 222 222 0 0 0;
 #P objectname sample_rate;

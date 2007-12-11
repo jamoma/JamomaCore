@@ -26,18 +26,25 @@ typedef struct _linear_queue {
 	short							numvalues;
 	unsigned long					time_start;
 	unsigned long					time_target;
+	
+	t_symbol						*functionName;	// FunctionLib stuff
+	FunctionLib						*function;		// ...
 } t_linear_queue;
 
 
 // public prototypes
+extern "C" {
 t_linear_queue*	create	(rampunit_method_callback_type in_callback, void *in_baton);
 void			destroy	(t_linear_queue *rampunit);
+JamomaError		setFunction(t_linear_queue *rampunit, t_symbol *functionName);
+JamomaError		getFunction(t_linear_queue *rampunit, t_symbol **functionName);
 ramp_err		attrset	(t_linear_queue *rampunit, t_symbol *attrname, double value);
 ramp_err		attrget	(t_linear_queue *rampunit, t_symbol *attrname, double *value);
 void			go		(t_linear_queue *rampunit, short numvalues, double *values, double time);
 void			set		(t_linear_queue *rampunit, short numvalues, double *values);
 void			stop	(t_linear_queue *rampunit);
 void			tick	(t_linear_queue *rampunit);
+};
 
 // private prototypes
 void setnumvalues(t_linear_queue *rampunit, short numvalues);

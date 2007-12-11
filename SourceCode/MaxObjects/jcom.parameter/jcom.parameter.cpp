@@ -80,8 +80,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 		jcom_core_subscriber_classinit_extended(c, attr, offset, true);		// define a name attr
 		
 	// ATTRIBUTE: ramp
-	attr = attr_offset_new("ramp", _sym_symbol, attrflags,
+	attr = attr_offset_new("ramp.drive", _sym_symbol, attrflags,
 		(method)0, (method)param_setramp, calcoffset(t_param, attr_ramp));
+	class_addattr(c, attr);
+
+	attr = attr_offset_new("ramp.function", _sym_symbol, attrflags,
+		(method)0, (method)param_setrampfunction, calcoffset(t_param, attr_rampfunction));
 	class_addattr(c, attr);
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
@@ -148,7 +152,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
 
 		// set defaults...
-		x->attr_ramp = NULL;
+		x->attr_ramp = _sym_nothing;
 		x->ramper = NULL;
 
 		// defaulted to one long above, set list to be of size 1
@@ -181,10 +185,10 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setsym(&a, ps_msg_generic);
 			object_attr_setvalueof(x, ps_type, 1, &a);
 		}
-		if(x->attr_ramp == NULL){
+		if(x->attr_ramp == _sym_nothing){
 			t_atom a;
 			atom_setsym(&a, ps_none);
-			object_attr_setvalueof(x, ps_ramp, 1, &a);
+			object_attr_setvalueof(x, gensym("ramp.drive"), 1, &a);
 		}
 	}
 	return (x);										// return the pointer to our new instantiation
@@ -301,6 +305,18 @@ t_max_err param_setramp(t_param *x, void *attr, long argc, t_atom *argv)
 	x->attr_ramp = arg;
 	
 	qelem_set(x->ramp_qelem);	// place a call to param_ramp_setup() at the end of the low-priority queue
+
+	return MAX_ERR_NONE;
+	#pragma unused(attr)
+}
+
+
+t_max_err param_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol *arg = atom_getsym(argv);
+	x->attr_rampfunction = arg;
+
+	x->ramper->setFunction(x->attr_rampfunction);
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
@@ -934,6 +950,7 @@ void param_ramp_callback_int(void *v, short, double *value)
 	}
 }
 
+
 void param_ramp_callback_list(void *v, short argc, double *value)
 {
 	long i;
@@ -956,9 +973,8 @@ void param_ramp_setup(t_param *x)
 	// 2. create the new rampunit
 	// For backwards compatibility, we still accept 'linear' as an input value for @ramp
 	// but we need to convert that to the actual name of the rampunit...
-	if(x->attr_ramp == ps_linear)
-		x->attr_ramp = gensym("linear.sched");
-		
+	if(x->attr_ramp == ps_linear || x->attr_ramp == gensym("linear.sched"))
+		x->attr_ramp = gensym("scheduler");
 
 	// For some types ramping doesn't make sense, so they will be set to none
 	if((x->common.attr_type == ps_msg_none) || (x->common.attr_type == ps_msg_symbol) || (x->common.attr_type == ps_msg_generic))

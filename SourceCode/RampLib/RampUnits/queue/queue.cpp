@@ -2,13 +2,14 @@
  * Jamoma RampUnit: linear.queue
  * Linear ramping function using the Max queue
  *
- * By Tim Place, Copyright © 2006, 2007
+ * By Tim Place, Copyright ï¿½ 2006, 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "linear.queue.h"
+#include "Jamoma.h"
+#include "queue.h"
 
 
 t_linear_queue*	create(rampunit_method_callback_type in_callback, void *in_baton)
@@ -37,6 +38,26 @@ void destroy(t_linear_queue *rampunit)
 	free(rampunit->value_target);
 	free(rampunit->value_start);
 	free(rampunit);
+}
+
+
+JamomaError setFunction(t_linear_queue *rampunit, t_symbol *functionName)
+{
+	JamomaError	err = JAMOMA_ERR_NONE;
+	if(functionName != rampunit->functionName){
+		err = jamoma_getFunction(functionName, &rampunit->function);
+		if(!err){
+			rampunit->functionName = functionName;
+		}
+	}
+	return err;
+}
+
+
+JamomaError getFunction(t_linear_queue *rampunit, t_symbol **functionName)
+{
+	*functionName = rampunit->functionName;
+	return JAMOMA_ERR_NONE;
 }
 
 
