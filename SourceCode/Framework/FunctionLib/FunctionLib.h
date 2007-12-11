@@ -10,6 +10,7 @@
 #define __FUNCTIONLIB_H__
 
 #include "ext.h"
+#include "ext_obex.h"
 #include "JamomaTypes.h"
 
 

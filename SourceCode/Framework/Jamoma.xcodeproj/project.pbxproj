@@ -288,10 +288,10 @@
 		22AEF31F0D0DB77900F7762D /* FunctionLib */ = {
 			isa = PBXGroup;
 			children = (
-				55FE54220D0EAC0000683625 /* CosineFunction.cpp */,
-				55FE54230D0EAC0000683625 /* CosineFunction.h */,
 				22AEF3200D0DB77900F7762D /* FunctionLib.cpp */,
 				22AEF3210D0DB77900F7762D /* FunctionLib.h */,
+				55FE54220D0EAC0000683625 /* CosineFunction.cpp */,
+				55FE54230D0EAC0000683625 /* CosineFunction.h */,
 				22AEF3220D0DB77900F7762D /* LinearFunction.cpp */,
 				22AEF3230D0DB77900F7762D /* LinearFunction.h */,
 				22AEF3240D0DB77900F7762D /* TanhFunction.cpp */,
