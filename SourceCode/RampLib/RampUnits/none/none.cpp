@@ -2,7 +2,7 @@
  * Jamoma RampUnit: none
  * A non-ramping function -- just sets the value immediately
  *
- * By Tim Place, Copyright © 2006, 2007
+ * By Tim Place, Copyright ï¿½ 2006, 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -48,22 +48,14 @@ ramp_err attrget(t_none *rampunit, t_symbol *attrname, double *value)
 }
 
 
-JamomaError setFunction(t_linear_sched *rampunit, t_symbol *functionName)
+JamomaError setFunction(t_none *rampunit, t_symbol *functionName)
 {
-	JamomaError	err = JAMOMA_ERR_NONE;
-	if(functionName != rampunit->functionName){
-		err = jamoma_getFunction(functionName, &rampunit->function);
-		if(!err){
-			rampunit->functionName = functionName;
-		}
-	}
-	return err;
+	return JAMOMA_ERR_NONE;
 }
 
 
-JamomaError getFunction(t_linear_sched *rampunit, t_symbol **functionName)
+JamomaError getFunction(t_none *rampunit, t_symbol **functionName)
 {
-	*functionName = rampunit->functionName;
 	return JAMOMA_ERR_NONE;
 }
 
