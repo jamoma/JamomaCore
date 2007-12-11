@@ -186,6 +186,32 @@ t_symbol* jamoma_patcher_getvarname(t_object *patcher)
 }
 
 
+t_max_err jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
+{	
+	if(*function)
+		delete *function;
+	
+	if(functionName == gensym("linear"))
+		*function = (FunctionLib*) new LinearFunction;
+	else if(functionName == gensym("tanh"))
+		*function = (FunctionLib*) new TanhFunction;
+	
+	return MAX_ERR_NONE;
+}
+
+
+// This function allocates memory -- caller must free it!
+void jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames)
+{
+	*numFunctions = 2;
+	*functionNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numFunctions);
+	if(*functionNames){
+		*(*functionNames+0) = gensym("linear");
+		*(*functionNames+1) = gensym("tanh");
+	}
+}
+
+
 // When the DSP is started, we make sure the Jamoma Clock and Scheduler 
 // are updated if needed
 void jamoma_dsp(t_object *, t_signal **sp, short *count)

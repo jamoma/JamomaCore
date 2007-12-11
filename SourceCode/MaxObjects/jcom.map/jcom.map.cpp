@@ -26,6 +26,7 @@ void		map_free(t_map *obj);
 void		map_assist(t_map *obj, void *b, long m, long a, char *s);
 void		map_int(t_map *obj, long x);
 void		map_float(t_map *obj, double x);
+void		map_bang(t_map *obj);
 t_max_err	map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv);
 
 
@@ -49,6 +50,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)map_int,					"int", A_GIMME, 0L);
 	class_addmethod(c, (method)map_float,				"float", A_GIMME, 0L);
+	class_addmethod(c, (method)map_bang,				"bang", 0);
     class_addmethod(c, (method)map_assist,				"assist", A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
@@ -125,19 +127,31 @@ void map_float(t_map *obj, double x)
 }
 
 
+void map_bang(t_map *obj)
+{
+	t_atom		a[2];
+	t_symbol	**functionNames = NULL;
+	long		numFunctions = 0;
+	long		i;
+	
+	atom_setsym(a+0, gensym("clear"));
+	object_obex_dumpout(obj, gensym("menu"), 1, a);
+	
+	jamoma_getFunctionList(&numFunctions, &functionNames);
+	
+	for(i=0; i<numFunctions; i++){
+		atom_setsym(a+0, gensym("append"));
+		atom_setsym(a+1, functionNames[i]);
+		object_obex_dumpout(obj, gensym("menu"), 2, a);
+	}
+}
+
+
 // ATTRIBUTE: set rampunit
 t_max_err map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->attr_function = atom_getsym(argv);
-	
-	if(obj->function)
-		delete obj->function;
-	
-	if(obj->attr_function == gensym("linear"))
-		obj->function = (FunctionLib*) new LinearFunction;
-	else if(obj->attr_function == gensym("tanh"))
-		obj->function = (FunctionLib*) new TanhFunction;
-	
+	jamoma_getFunction(obj->attr_function, &obj->function);
 	return MAX_ERR_NONE;
 }
 
