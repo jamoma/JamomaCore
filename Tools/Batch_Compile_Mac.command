@@ -100,7 +100,7 @@ cp -r /Library/Frameworks/Jamoma.framework ../Jamoma/library/externals/Jamoma.fr
 ./Compile_Object_Mac.command jcom.zerox~ "$config" &&
 
 # And the ramp libraries
-./Compile_RampLib.command linear.queue "$config"
-./Compile_RampLib.command linear.sched "$config"
+./Compile_RampLib.command queue "$config"
+./Compile_RampLib.command scheduler "$config"
 ./Compile_RampLib.command none "$config"
 
