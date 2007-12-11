@@ -136,6 +136,7 @@ t_symbol	*ps_done,
 			*ps_slash_module_view_internals,	//	/module/view_internals
 			*ps_slash_preset_slash_default,		// 	/preset/default
 			*ps_slash_preset_slash_load,		// 	/preset/load
+			*ps_slash_preset_slash_store,
 			*ps_slash_preset_slash_recall,
 			*ps_slash_preset_slash_write,		// 	/preset/save
 			*ps_slash_preset_slash_copy,		// 	/preset/save
@@ -298,7 +299,8 @@ void jamoma_symbols_init(void)
 	ps_slash_preset_slash_default = gensym("/preset/default");
 	ps_slash_preset_slash_load	= gensym("/preset/load");
 	ps_slash_preset_slash_recall	= gensym("/preset/recall");
-	ps_slash_preset_slash_write	= gensym("/preset/write");		
+	ps_slash_preset_slash_write	= gensym("/preset/write");
+	ps_slash_preset_slash_store	= gensym("/preset/store");		
 	ps_slash_preset_slash_copy	= gensym("/preset/copy");		
 	ps_ui_slash_freeze			= gensym("ui/freeze");
 	ps_slash_ui_slash_freeze	= gensym("/ui/freeze");
