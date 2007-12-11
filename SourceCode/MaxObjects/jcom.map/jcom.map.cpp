@@ -118,6 +118,8 @@ void *map_new(t_symbol *name, long argc, t_atom *argv)
 		obj->attr_outputMax = 1;
 		obj->function = NULL;
 		attr_args_process(obj, argc, argv);
+		map_scaleInput(obj);
+		map_scaleOutput(obj);
 		if(!obj->function)
 			object_attr_setsym(obj, gensym("function"), gensym("linear"));
 	}
