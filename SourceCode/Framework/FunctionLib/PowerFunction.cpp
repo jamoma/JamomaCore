@@ -24,7 +24,20 @@ PowerFunction::~PowerFunction()
 
 double PowerFunction::mapValue(double x)
 {
-	return pow(x,k);
+	double y, sign;	
+	
+	if (symmetryMode==gensym("point")) {
+		y = 2*x-1;
+		if (y<0)
+			sign=-1;
+		else
+			sign=1;
+		return 0.5*(sign*pow(fabs(y),k)+1);
+	}
+	else if (symmetryMode==gensym("axis"))
+		return pow(fabs(2*x-1),k);
+	else 
+		return pow(x,k);
 }
 
 
