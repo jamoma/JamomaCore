@@ -27,6 +27,8 @@ void		map_assist(t_map *obj, void *b, long m, long a, char *s);
 void		map_int(t_map *obj, long x);
 void		map_float(t_map *obj, double x);
 void		map_bang(t_map *obj);
+void		map_getParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
+void		map_setParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 t_max_err	map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv);
 
 
@@ -51,7 +53,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)map_int,					"int", A_GIMME, 0L);
 	class_addmethod(c, (method)map_float,				"float", A_GIMME, 0L);
 	class_addmethod(c, (method)map_bang,				"bang", 0);
-    class_addmethod(c, (method)map_assist,				"assist", A_CANT, 0L); 
+ 	class_addmethod(c, (method)map_getParameter,		"getParameter", A_GIMME, 0);
+ 	class_addmethod(c, (method)map_setParameter,		"setParameter", A_GIMME, 0);
+	class_addmethod(c, (method)map_assist,				"assist", A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
 
@@ -144,6 +148,42 @@ void map_bang(t_map *obj)
 		atom_setsym(a+1, functionNames[i]);
 		object_obex_dumpout(obj, gensym("menu"), 2, a);
 	}
+}
+
+
+void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	double		value = 0.0;
+	t_symbol	*parameterName;
+	t_atom		a[2];
+	
+	if(!argc){
+		error("jcom.map: not enough arguments to getParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv);
+	obj->function->getParameter(parameterName, value);
+	
+	atom_setsym(a+0, parameterName);
+	atom_setfloat(a+1, value);
+	object_obex_dumpout(obj, gensym("getParameter"), 2, a);
+}
+
+
+void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	double		value = 0.0;
+	t_symbol	*parameterName;
+	
+	if(argc < 2){
+		error("jcom.map: not enough arguments to setParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv);
+	value = atom_getfloat(argv+1);
+	obj->function->setParameter(parameterName, value);
 }
 
 
