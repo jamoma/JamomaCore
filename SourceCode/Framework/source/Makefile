@@ -6,6 +6,9 @@ AR  = ar
 ARFLAGS = cr
 
 JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp JamomaScheduler.cpp JamomaClock.cpp JamomaSymbols.cpp
+FUNCTION_LIB_SOURCE = ../FunctionLib/FunctionLib.cpp ../FunctionLib/LinearFunction.cpp ../FunctionLib/TanhFunction.cpp
+JAMOMA_LIB_SOURCE += ${FUNCTION_LIB_SOURCE}
+
 JAMOMA_LIB_OBJS = ${JAMOMA_LIB_SOURCE:.cpp=.o}
 JAMOMA_LIB_OBJS += commonsyms.o
 JAMOMA_LIB_OBJS += ../c74/ext_pattr_bundle.o
@@ -24,13 +27,14 @@ MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
 TT_BLUE_INCLUDES = -I../../ThirdParty/ttblue/dsplib
 RAMPLIB_INCLUDES = -I../../RampLib/ramplib_api
 PATTR_INCLUDES = -I../c74
+FUNC_LIB_INCLUDES = -I../FunctionLib -I./
 
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
    -L/maxmspsdk/c74support/common
 
 
-INCLUDES = ${MAX_INCLUDES} ${TT_BLUE_INCLUDES} ${RAMPLIB_INCLUDES} ${PATTR_INCLUDES}
+INCLUDES = ${MAX_INCLUDES} ${TT_BLUE_INCLUDES} ${RAMPLIB_INCLUDES} ${PATTR_INCLUDES} ${FUNC_LIB_INCLUDES}
 #WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DWIN_EXT_VERSION -DTT_INCLUDE_CPP
 WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DWIN_EXT_VERSION 
 
@@ -83,5 +87,8 @@ commonsyms.o:
 
 ../c74/ext_pattr_bundle.o:
 	$(CC) -c -shared -mno-cygwin -o ../c74/ext_pattr_bundle.o $(MAX_INCLUDES) $(WIN_DEFINES) ../c74/ext_pattr_bundle.c 
+
+function_lib:
+	$(CXX) -c -shared -mno-cygwin -o ../c74/ext_pattr_bundle.o $(MAX_INCLUDES) $(WIN_DEFINES) ../c74/ext_pattr_bundle.c 
 
 

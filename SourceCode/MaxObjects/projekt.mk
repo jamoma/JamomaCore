@@ -111,6 +111,9 @@ JCOM_SATURATION~_OBJS = ${JCOM_SATURATION~_SOURCE:.cpp=.o}
 JCOM_SEND_SOURCE = jcom.send.cpp jcom.send.def
 JCOM_SEND_OBJS = ${JCOM_SEND_SOURCE:.cpp=.o}
 
+JCOM_SEND~_SOURCE = jcom.send~.cpp jcom.send~.def
+JCOM_SEND~_OBJS = ${JCOM_SEND~_SOURCE:.cpp=.o}
+
 JCOM_STATS_SOURCE = jcom.stats.cpp jcom.stats.def
 JCOM_STATS_OBJS = ${JCOM_STATS_SOURCE:.cpp=.o}
 
@@ -140,6 +143,13 @@ JCOM_AED2XYZ_OBJS = ${JCOM_AED2XYZ_SOURCE:.cpp=.o}
 
 JCOM_XYZ2AED_SOURCE = jcom.xyz2aed.cpp jcom.xyz2aed.def
 JCOM_XYZ2AED_OBJS = ${JCOM_XYZ2AED_SOURCE:.cpp=.o}
+
+JCOM_MAP_SOURCE = jcom.map.cpp jcom.map.def
+JCOM_MAP_OBJS = ${JCOM_MAP_SOURCE:.cpp=.o}
+
+
+#JCOM_PHASOR~_SOURCE = jcom.phasor~.cpp jcom.phasor~.def
+#JCOM_PHASOR~_OBJS = ${JCOM_PHASOR~_SOURCE:.cpp=.o}
 
 
 ALL_OBJECTS = ${JCOM_CHANGE_OBJS} ${JCOM_COLORCHANGE_OBJS} ${JCOM_CUBIC_INTERPOLATE_OBJS} \

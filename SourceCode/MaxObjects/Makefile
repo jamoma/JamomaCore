@@ -36,8 +36,6 @@ release: ramplib_release jamoma_framework_release
 	@${MAKE} -C jcom.limiter~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 # [TAP] jcom.meter~ should remain commented out until Max5 is released
 #	@${MAKE} -C jcom.meter~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
-# [TAP] we still need to port mkdir
-#	@${MAKE} -C jcom.mkdir release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.oscroute release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.out release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.parameter release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
@@ -50,6 +48,7 @@ release: ramplib_release jamoma_framework_release
 	@${MAKE} -C jcom.route release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.saturation~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.send release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+	@${MAKE} -C jcom.send~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.stats release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.sum% release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.teabox.bits~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
@@ -61,6 +60,7 @@ release: ramplib_release jamoma_framework_release
 	@${MAKE} -C jcom.mkdir release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.aed2xyz release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.xyz2aed release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+	@${MAKE} -C jcom.map release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 
 #	@${MAKE} -C jcom.metro release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 
@@ -83,8 +83,6 @@ debug: ramplib_debug jamoma_framework_debug
 	@${MAKE} -C jcom.limiter~ debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 # [TAP] jcom.meter~ should remain commented out until Max5 is released
 #	@${MAKE} -C jcom.meter~ debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
-# [TAP] we still need to port mkdir
-#	@${MAKE} -C jcom.mkdir debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.oscroute debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.out debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.parameter debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
@@ -108,6 +106,7 @@ debug: ramplib_debug jamoma_framework_debug
 	@${MAKE} -C jcom.mkdir debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.aed2xyz debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.xyz2aed debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
+	@${MAKE} -C jcom.map debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 
 #	@${MAKE} -C jcom.metro debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 
@@ -143,8 +142,6 @@ clean:
 	@${MAKE} -C jcom.limiter~ clean
 # [TAP] jcom.meter~ should remain commented out until Max5 is released
 #	@${MAKE} -C jcom.meter~ clean
-# [TAP] we still need to port mkdir
-#	@${MAKE} -C jcom.mkdir clean
 	@${MAKE} -C jcom.oscroute clean
 	@${MAKE} -C jcom.out clean
 	@${MAKE} -C jcom.parameter clean
@@ -157,6 +154,7 @@ clean:
 	@${MAKE} -C jcom.route clean
 	@${MAKE} -C jcom.saturation~ clean
 	@${MAKE} -C jcom.send clean
+	@${MAKE} -C jcom.send~ clean
 	@${MAKE} -C jcom.stats clean
 	@${MAKE} -C jcom.sum% clean
 	@${MAKE} -C jcom.teabox.bits~ clean
@@ -168,6 +166,7 @@ clean:
 	@${MAKE} -C jcom.mkdir clean
 	@${MAKE} -C jcom.aed2xyz clean
 	@${MAKE} -C jcom.xyz2aed clean
+	@${MAKE} -C jcom.map clean
 
 #	@${MAKE} -C jcom.metro clean
 
