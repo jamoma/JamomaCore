@@ -37,4 +37,7 @@ class FunctionLib{
 JamomaError	jamoma_getFunction(t_symbol *functionName, FunctionLib **function);
 void		jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames);
 
+
+double		jamoma_anti_denormal(double value);
+
 #endif // __FUNCTIONLIB_H__

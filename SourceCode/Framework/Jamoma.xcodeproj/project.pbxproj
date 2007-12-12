@@ -25,6 +25,8 @@
 		22AEF32B0D0DB77900F7762D /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3250D0DB77900F7762D /* TanhFunction.h */; settings = {ATTRIBUTES = (); }; };
 		22AEF32D0D0DB98500F7762D /* JamomaTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF32C0D0DB98500F7762D /* JamomaTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
+		22C891E20D0FF87C00E68801 /* LowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C891E00D0FF87C00E68801 /* LowpassFunction.cpp */; };
+		22C891E30D0FF87C00E68801 /* LowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C891E10D0FF87C00E68801 /* LowpassFunction.h */; };
 		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		22FD2DC60CEE5B6F0039C226 /* Jamoma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */; };
 		22FD2DC70CEE5B6F0039C226 /* Jamoma.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,7 +36,6 @@
 		22FD2DCB0CEE5B6F0039C226 /* jcom.list.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DC30CEE5B6F0039C226 /* jcom.list.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FD2DCC0CEE5B6F0039C226 /* jcom.prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FD2DCD0CEE5B6F0039C226 /* jcom.sendreceive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DC50CEE5B6F0039C226 /* jcom.sendreceive.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD2DDA0CEE5BB50039C226 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22FD2DD80CEE5BB50039C226 /* Info.plist */; };
 		22FD2DDB0CEE5BB50039C226 /* infoplist_versionmaker.pl in Resources */ = {isa = PBXBuildFile; fileRef = 22FD2DD90CEE5BB50039C226 /* infoplist_versionmaker.pl */; };
 		22FD2DE20CEE5C690039C226 /* Info.plist in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DD80CEE5BB50039C226 /* Info.plist */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FD2DE30CEE5C690039C226 /* infoplist_versionmaker.pl in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DD90CEE5BB50039C226 /* infoplist_versionmaker.pl */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,6 +123,8 @@
 		22AEF3250D0DB77900F7762D /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
 		22AEF32C0D0DB98500F7762D /* JamomaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaTypes.h; path = source/JamomaTypes.h; sourceTree = "<group>"; };
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
+		22C891E00D0FF87C00E68801 /* LowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LowpassFunction.cpp; sourceTree = "<group>"; };
+		22C891E10D0FF87C00E68801 /* LowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LowpassFunction.h; sourceTree = "<group>"; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
 		22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = source/Jamoma.h; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				55FE54230D0EAC0000683625 /* CosineFunction.h */,
 				22AEF3220D0DB77900F7762D /* LinearFunction.cpp */,
 				22AEF3230D0DB77900F7762D /* LinearFunction.h */,
+				22C891E00D0FF87C00E68801 /* LowpassFunction.cpp */,
+				22C891E10D0FF87C00E68801 /* LowpassFunction.h */,
 				A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */,
 				A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */,
 				22AEF3240D0DB77900F7762D /* TanhFunction.cpp */,
@@ -477,6 +482,7 @@
 				22AEF32D0D0DB98500F7762D /* JamomaTypes.h in Headers */,
 				55FE54250D0EAC0000683625 /* CosineFunction.h in Headers */,
 				A7E8800E0D0EFA2F00F0F3D3 /* PowerFunction.h in Headers */,
+				22C891E30D0FF87C00E68801 /* LowpassFunction.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,7 +532,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22FD2DDA0CEE5BB50039C226 /* Info.plist in Resources */,
 				22FD2DDB0CEE5BB50039C226 /* infoplist_versionmaker.pl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -568,6 +573,7 @@
 				22AEF32A0D0DB77900F7762D /* TanhFunction.cpp in Sources */,
 				55FE54240D0EAC0000683625 /* CosineFunction.cpp in Sources */,
 				A7E8800F0D0EFA2F00F0F3D3 /* PowerFunction.cpp in Sources */,
+				22C891E20D0FF87C00E68801 /* LowpassFunction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
