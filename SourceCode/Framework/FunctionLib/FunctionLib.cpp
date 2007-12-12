@@ -44,7 +44,7 @@ JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 	else if(functionName == gensym("linear"))
 		*function = (FunctionLib*) new LinearFunction;
 	else if(functionName == gensym("lowpass"))
-		*function = (FunctionLib*) new LinearFunction;
+		*function = (FunctionLib*) new LowpassFunction;
 	else if(functionName == gensym("power"))
 		*function = (FunctionLib*) new PowerFunction;
 	else if(functionName == gensym("tanh"))
