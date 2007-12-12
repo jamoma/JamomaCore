@@ -25,7 +25,7 @@ LowpassFunction::~LowpassFunction()
 
 double LowpassFunction::mapValue(double x)
 {
-	feedback = jamoma_anti_denormal((x * coefficient) + (feedback * one_minus_coefficient));
+	feedback = jamoma_anti_denormal((feedback * coefficient) + (x * one_minus_coefficient));
 	return feedback;
 }
 
