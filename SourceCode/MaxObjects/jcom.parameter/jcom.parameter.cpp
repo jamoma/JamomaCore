@@ -59,6 +59,8 @@ int main(void)				// main recieves a copy of the Max function macros table
  	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
 	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp.function.setParameter",	A_GIMME,	0);
 	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp.function.getParameter",	A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp.drive.setParameter",		A_GIMME,	0);
+	class_addmethod(c, (method)param_getRampDriveParameter,		"ramp.drive.getParameter",		A_GIMME,	0);
 	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
 	class_addmethod(c, (method)param_inc,						"inc",							A_GIMME,	0);
 	class_addmethod(c, (method)param_dec,						"dec",							A_GIMME,	0);
@@ -348,7 +350,7 @@ void param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_at
 		atom_setsym(a, parameterName);
 		// Next the whole shebang is copied
 		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("getParameter"), ac+1, av);
+		object_obex_dumpout(obj, gensym("ramp.function.getParameter"), ac+1, av);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
 		sysmem_freeptr(av);
@@ -370,6 +372,42 @@ void param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_at
 	parameterName = atom_getsym(argv);
 	//obj->function->setParameter(parameterName, argc-1, argv+1);
 	obj->ramper->setFunctionParameter(parameterName, argc-1, argv+1);
+}
+
+
+void param_getRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_symbol	*parameterName;
+	t_atom		a[2];
+	double		value = 0.0;
+	
+	if(!argc){
+		error("jcom.map: not enough arguments to getParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv);
+	
+	obj->ramper->attrget(parameterName, &value);
+	atom_setsym(a+0, parameterName);
+	atom_setfloat(a+1, value);
+	object_obex_dumpout(obj, gensym("ramp.drive.getParameter"), 2, a);
+}
+
+
+void param_setRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	double		value = 0.0;
+	t_symbol	*parameterName;
+	
+	if(argc < 2){
+		error("jcom.map: not enough arguments to setParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv+0);
+	value = atom_getfloat(argv+1);
+	obj->ramper->attrset(parameterName, value);
 }
 
 
