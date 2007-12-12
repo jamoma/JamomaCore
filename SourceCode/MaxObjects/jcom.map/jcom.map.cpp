@@ -185,6 +185,9 @@ void map_bang(t_map *obj)
 		atom_setsym(a+1, functionNames[i]);
 		object_obex_dumpout(obj, gensym("menu"), 2, a);
 	}
+	
+	if(numFunctions)
+		sysmem_freeptr(functionNames);
 }
 
 
