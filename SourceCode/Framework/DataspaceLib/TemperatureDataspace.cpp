@@ -108,3 +108,17 @@ TemperatureDataspace::~TemperatureDataspace()
 	;
 }
 
+
+void TemperatureDataspace::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
+{
+	*numUnits = 3;
+	*unitNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numUnits);
+	
+	// These should be alphabetized
+	if(*unitNames){
+		*(*unitNames+0) = gensym("celsius");
+		*(*unitNames+1) = gensym("fahrenheit");
+		*(*unitNames+2) = gensym("kelvin");
+	}
+}
+

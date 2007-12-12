@@ -64,7 +64,7 @@ class TemperatureDataspace : DataspaceLib{
 		TemperatureDataspace();					///< constructor
 		~TemperatureDataspace();				///< destructor - free memory, etc.
 		
-//		getAvailableUnits(long *numNames, t_symbol ***unitNames);
+		void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
 };
 
 

@@ -40,19 +40,21 @@ DataspaceLib::~DataspaceLib()
 		delete outUnit;
 }
 
-		
+
+// remember, we are relying on memory passed in for the outputAtoms		
 JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
 {
 	double	value;
 	long	numvalues;
 	
-//	if(inUnit->name == outUnit->name){
-//		
-//	}
-//	else{
+	if(inUnit->name == outUnit->name){
+		*outputNumArgs = inputNumArgs;
+		sysmem_copyptr(inputAtoms, *outputAtoms, sizeof(t_atom) * inputNumArgs);
+	}
+	else{
 		inUnit->convertToNeutral(inputNumArgs, inputAtoms, &numvalues, &value);
 		outUnit->convertFromNeutral(1, &value, outputNumArgs, outputAtoms);
-//	}
+	}
 	return JAMOMA_ERR_NONE;
 }
 

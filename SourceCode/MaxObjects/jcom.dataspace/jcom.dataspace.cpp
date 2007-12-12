@@ -31,6 +31,8 @@ void		dataspace_free(t_dataspace *obj);
 void		dataspace_assist(t_dataspace *obj, void *b, long m, long a, char *s);
 void		dataspace_int(t_dataspace *obj, long x);
 void		dataspace_float(t_dataspace *obj, double x);
+void		dataspace_getDataspaces(t_dataspace *obj);
+void		dataspace_getUnits(t_dataspace *obj);
 t_max_err	dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv);
 t_max_err	dataspace_setDataspaceActive(t_dataspace *obj, void *attr, long argc, t_atom *argv);
 t_max_err	dataspace_setDataspaceNative(t_dataspace *obj, void *attr, long argc, t_atom *argv);
@@ -57,12 +59,8 @@ int main(void)
 
 	class_addmethod(c, (method)dataspace_int,			"int",			A_GIMME, 0L);
 	class_addmethod(c, (method)dataspace_float,			"float",		A_GIMME, 0L);
-
-	/*
-	class_addmethod(c, (method)map_bang,				"bang", 0);
- 	class_addmethod(c, (method)map_getParameter,		"getParameter", A_GIMME, 0);
- 	class_addmethod(c, (method)map_setParameter,		"setParameter", A_GIMME, 0);
-	*/
+	class_addmethod(c, (method)dataspace_getDataspaces,	"getDataspaces", 0);
+ 	class_addmethod(c, (method)dataspace_getUnits,		"getUnits",		A_GIMME, 0);
 	class_addmethod(c, (method)dataspace_assist,		"assist",		A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
@@ -150,75 +148,53 @@ void dataspace_float(t_dataspace *obj, double x)
 	outlet_anything(obj->outlet_native, _sym_float, obj->ac, obj->av);
 	outlet_float(obj->outlet_active, x);
 }
+	
 
-
-/*
-void map_bang(t_map *obj)
+void dataspace_getDataspaces(t_dataspace *obj)
 {
 	t_atom		a[2];
-	t_symbol	**functionNames = NULL;
-	long		numFunctions = 0;
+	t_symbol	**dataspaceNames = NULL;
+	long		numDataspaces = 0;
 	long		i;
 	
 	atom_setsym(a+0, gensym("clear"));
-	object_obex_dumpout(obj, gensym("menu"), 1, a);
+	object_obex_dumpout(obj, gensym("DataspacesMenu"), 1, a);
 	
-	jamoma_getFunctionList(&numFunctions, &functionNames);
+	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
 	
-	for(i=0; i<numFunctions; i++){
+	for(i=0; i<numDataspaces; i++){
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, functionNames[i]);
-		object_obex_dumpout(obj, gensym("menu"), 2, a);
+		atom_setsym(a+1, dataspaceNames[i]);
+		object_obex_dumpout(obj, gensym("DataspacesMenu"), 2, a);
 	}
+	
+	if(numDataspaces)
+		sysmem_freeptr(dataspaceNames);
 }
 
 
-void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
+void dataspace_getUnits(t_dataspace *obj)
 {
-	t_symbol	*parameterName;
-	t_atom		*a;
-	long		ac = 0;
-	t_atom		*av = NULL;
+	t_atom		a[2];
+	t_symbol	**unitNames = NULL;
+	long		numUnits = 0;
+	long		i;
 	
-	if(!argc){
-		error("jcom.map: not enough arguments to getParameter");
-		return;
+	atom_setsym(a+0, gensym("clear"));
+	object_obex_dumpout(obj, gensym("UnitMenu"), 1, a);
+	
+	obj->dataspace->getAvailableUnits(&numUnits, &unitNames);
+	
+	for(i=0; i<numUnits; i++){
+		atom_setsym(a+0, gensym("append"));
+		atom_setsym(a+1, unitNames[i]);
+		object_obex_dumpout(obj, gensym("UnitMenu"), 2, a);
 	}
 	
-	parameterName = atom_getsym(argv);
-	obj->function->getParameter(parameterName, &ac, &av);
-	if(ac) {
-		//atom_setsym(a+0, parameterName);
-		//atom_setfloat(a+1, av);
-		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
-		// Forst list item is name of parameter
-		atom_setsym(a, parameterName);
-		// Next the whole shebang is copied
-		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("getParameter"), ac+1, av);
-	
-		// The pointer to an atom assign in the getParameter method needs to be freed.
-		sysmem_freeptr(av);
-		sysmem_freeptr(a);
-	}
+	if(numUnits)
+		sysmem_freeptr(unitNames);
 }
 
-
-void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
-{
-	//double		value = 0.0;
-	t_symbol	*parameterName;
-	
-	if(argc < 2){
-		error("jcom.map: not enough arguments to setParameter");
-		return;
-	}
-	
-	parameterName = atom_getsym(argv);
-	obj->function->setParameter(parameterName, argc-1, argv+1);
-}
-
-*/
 
 // ATTRIBUTE:
 t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv)
@@ -247,9 +223,4 @@ t_max_err dataspace_setDataspaceNative(t_dataspace *obj, void *attr, long argc, 
 	obj->dataspace->setOutputUnit(obj->attr_dataspace_native);
 	return MAX_ERR_NONE;
 }
-
-
-
-
-
 

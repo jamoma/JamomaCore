@@ -42,9 +42,10 @@ class DataspaceLib{
 	private:
 		DataspaceUnit	*inUnit;
 		DataspaceUnit	*outUnit;
-		t_symbol		*nativeUnit;
 
 	public:
+		t_symbol		*nativeUnit;
+
 		DataspaceLib(char *cNativeUnit);							///< constructor
 		virtual ~DataspaceLib();				///< destructor - free memory, etc.
 		
@@ -69,6 +70,8 @@ class DataspaceLib{
 		
 		JamomaError setInputUnit(t_symbol *inputDataspace);
 		JamomaError setOutputUnit(t_symbol *outputDataspace);
+		
+		virtual void getAvailableUnits(long *numUnits, t_symbol ***unitNames) = 0;
 };
 
 
