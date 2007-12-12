@@ -283,6 +283,13 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	hub_preset_buildmenu(x);
 }
 
+void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	
+{
+	t_atom b[2];
+	atom_setlong(&b[0], x->preset->size() + 1);
+	atom_setsym(&b[1], atom_getsym(argv));
+	hub_preset_store(x, gensym("/preset/store"), 2, b);
+}
 
 // read the default file and recall the first preset
 void hub_preset_default(t_hub *x)

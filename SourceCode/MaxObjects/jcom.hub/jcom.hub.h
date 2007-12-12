@@ -235,7 +235,7 @@ void 		hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// n
 * @see hub_preset_store
 */
 void 		hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
-/** Recalls a preset by number or name.
+/** Stores a preset by number or name.
  * @param x the hub containing the preset
  * @param msg
  * @param argc the argument count for argv
@@ -243,6 +243,14 @@ void 		hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
  * @see hub_preset_recall
  */
 void 		hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number & optional name
+/** Stores a preset in the next slot by name.
+ * @param x the hub containing the preset
+ * @param msg
+ * @param argc the argument count for argv
+ * @param argv the number of the preset with an optional name
+ * @see hub_preset_recall
+ */
+void 		hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number & optional name
 /** Recall the default file and recall the first preset
  * @param x the hub whose default preset should be recalled */
 void 		hub_preset_default(t_hub *x);
