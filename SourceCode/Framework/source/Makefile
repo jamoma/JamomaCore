@@ -6,7 +6,7 @@ AR  = ar
 ARFLAGS = cr
 
 JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp JamomaScheduler.cpp JamomaClock.cpp JamomaSymbols.cpp
-FUNCTION_LIB_SOURCE = ../FunctionLib/FunctionLib.cpp ../FunctionLib/LinearFunction.cpp ../FunctionLib/TanhFunction.cpp ../FunctionLib/CosineFunction.cpp ../FunctionLib/PowerFunction.cpp
+FUNCTION_LIB_SOURCE = ../FunctionLib/FunctionLib.cpp ../FunctionLib/LinearFunction.cpp ../FunctionLib/TanhFunction.cpp ../FunctionLib/CosineFunction.cpp ../FunctionLib/PowerFunction.cpp ../FunctionLib/LowpassFunction.cpp
 JAMOMA_LIB_SOURCE += ${FUNCTION_LIB_SOURCE}
 
 JAMOMA_LIB_OBJS = ${JAMOMA_LIB_SOURCE:.cpp=.o}
