@@ -14,7 +14,11 @@
 typedef struct _dataspace{
 	t_object		ob;	
 	void			*obex;
-	void			*outlet;
+	void			*outlet_active;
+	void			*outlet_native;
+	DataspaceLib	*dataspace;
+	long			ac;				// for return values from the dataspace conversion
+	t_atom			*av;			//	...
 /*	t_symbol		*attr_function;
 	double			attr_inputMin;
 	double			attr_inputMax;
@@ -31,9 +35,9 @@ typedef struct _dataspace{
 void*		dataspace_new(t_symbol *name, long argc, t_atom *argv);
 void		dataspace_free(t_dataspace *obj);
 void		dataspace_assist(t_dataspace *obj, void *b, long m, long a, char *s);
+void		dataspace_int(t_dataspace *obj, long x);
+void		dataspace_float(t_dataspace *obj, double x);
 /*
-void		map_int(t_map *obj, long x);
-void		map_float(t_map *obj, double x);
 void		map_bang(t_map *obj);
 void		map_getParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 void		map_setParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
@@ -64,16 +68,17 @@ int main(void)
 	class_obexoffset_set(c, calcoffset(t_dataspace, obex));
 
 	// Make methods accessible for our class: 
+
+	class_addmethod(c, (method)dataspace_int,			"int",			A_GIMME, 0L);
+	class_addmethod(c, (method)dataspace_float,			"float",		A_GIMME, 0L);
 	/*
-	class_addmethod(c, (method)map_int,					"int", A_GIMME, 0L);
-	class_addmethod(c, (method)map_float,				"float", A_GIMME, 0L);
 	class_addmethod(c, (method)map_bang,				"bang", 0);
  	class_addmethod(c, (method)map_getParameter,		"getParameter", A_GIMME, 0);
  	class_addmethod(c, (method)map_setParameter,		"setParameter", A_GIMME, 0);
 	*/
-	class_addmethod(c, (method)dataspace_assist,		"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
+	class_addmethod(c, (method)dataspace_assist,		"assist",		A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,0);  
+    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
 /*
 	// ATTRIBUTE: set the function to use
 	class_addattr(c, 
@@ -114,7 +119,8 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 	obj = (t_dataspace *)object_alloc(dataspace_class);		// Create object, store pointer to it (get 1 inlet free)
 	if(obj){
 		object_obex_store((void *)obj, _sym_dumpout, (object *)outlet_new(obj,NULL));
-	    obj->outlet = outlet_new(obj, 0);
+	    obj->outlet_native = outlet_new(obj, 0);
+	    obj->outlet_active = outlet_new(obj, 0);
 
 /*		obj->attr_function = _sym_nothing;
 		obj->attr_inputMin = 0;
@@ -123,11 +129,14 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 		obj->attr_outputMax = 1;
 		obj->function = NULL;
 */
+
+		jamoma_getDataspace(gensym("temperature"), &obj->dataspace);
 		attr_args_process(obj, argc, argv);
 
 /*		if(!obj->function)
 			object_attr_setsym(obj, gensym("function"), gensym("linear"));
 */
+		obj->av = (t_atom*)sysmem_newptr(sizeof(t_atom));	// just allocating one for now -- no list support
 	}
 	return obj;										// Return pointer to our instance
 }
@@ -135,10 +144,9 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 
 void dataspace_free(t_dataspace *obj)
 {
-/*
-	if(obj->function)
-		delete obj->function;
-*/
+	sysmem_freeptr(obj->av);
+	if(obj->dataspace)
+		delete obj->dataspace;
 }
 
 
@@ -158,22 +166,25 @@ void dataspace_assist(t_dataspace *x, void *b, long msg, long arg, char *dst)
  	}
 }
 
-/*
-void map_int(t_map *obj, long x)
+
+void dataspace_int(t_dataspace *obj, long x)
 {
-	map_float(obj, (double)x);
+	dataspace_float(obj, (double)x);
 }
 
 
-void map_float(t_map *obj, double x)
+void dataspace_float(t_dataspace *obj, double x)
 {
-	double y;
+	t_atom	a[1];
 	
-	y = obj->c*obj->function->mapValue(obj->a*x + obj->b) + obj->d;
-	outlet_float(obj->outlet, y);
+	atom_setfloat(a, x);
+	obj->dataspace->convert(1, a, &obj->ac, &obj->av);
+	outlet_anything(obj->outlet_native, _sym_float, obj->ac, obj->av);
+	outlet_float(obj->outlet_active, x);
 }
 
 
+/*
 void map_bang(t_map *obj)
 {
 	t_atom		a[2];

@@ -43,6 +43,7 @@
 #include "JamomaSymbols.h"
 
 #include "FunctionLib.h"
+#include "DataspaceLib.h"
 
 #ifndef NO
 #define NO 0

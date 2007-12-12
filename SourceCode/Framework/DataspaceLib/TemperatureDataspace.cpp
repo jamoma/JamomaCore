@@ -10,7 +10,7 @@
 
 
 CelsiusUnit::CelsiusUnit()
-	: DataspaceUnit::DataspaceUnit("Celsius")
+	: DataspaceUnit::DataspaceUnit("celsius")
 {
 	;
 }
@@ -39,7 +39,7 @@ void CelsiusUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 /***********************************************************************************************/
 
 FahrenheitUnit::FahrenheitUnit()
-	: DataspaceUnit::DataspaceUnit("Fahrenheit")
+	: DataspaceUnit::DataspaceUnit("fahrenheit")
 {
 	;
 }
@@ -68,7 +68,7 @@ void FahrenheitUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 /***********************************************************************************************/
 
 KelvinUnit::KelvinUnit()
-	: DataspaceUnit::DataspaceUnit("Kelvin")
+	: DataspaceUnit::DataspaceUnit("kelvin")
 {
 	;
 }
@@ -97,6 +97,7 @@ void KelvinUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 /***********************************************************************************************/
 
 TemperatureDataspace::TemperatureDataspace()
+	: DataspaceLib::DataspaceLib("kelvin")
 {
 	;
 }

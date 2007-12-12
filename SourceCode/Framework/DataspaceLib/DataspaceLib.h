@@ -28,7 +28,7 @@ class DataspaceUnit{
 	public:
 		t_symbol *name;	/// < name of this unit
 
-		DataspaceUnit(char *cname);
+		DataspaceUnit(char *cName);
 		virtual ~DataspaceUnit();
 		
 		virtual void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output) = 0;
@@ -42,9 +42,10 @@ class DataspaceLib{
 	private:
 		DataspaceUnit	*inUnit;
 		DataspaceUnit	*outUnit;
+		t_symbol		*nativeUnit;
 
 	public:
-		DataspaceLib();							///< constructor
+		DataspaceLib(char *cNativeUnit);							///< constructor
 		virtual ~DataspaceLib();				///< destructor - free memory, etc.
 		
 /*		JamomaError convert(long		inputNumArgs, 
@@ -70,5 +71,8 @@ class DataspaceLib{
 		JamomaError setOutputUnit(t_symbol *outputDataspace);
 };
 
+
+JamomaError		jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace);
+void			jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames);
 
 #endif // __DATASPACELIB_H__
