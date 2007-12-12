@@ -34,6 +34,7 @@ void		map_int(t_map *obj, long x);
 void		map_float(t_map *obj, double x);
 void		map_bang(t_map *obj);
 void		map_getParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
+void		map_getFunctionParameters(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 void		map_setParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 t_max_err	map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv);
 t_max_err	map_setInputMin(t_map *obj, void *attr, long argc, t_atom *argv);
@@ -66,6 +67,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)map_float,				"float", A_GIMME, 0L);
 	class_addmethod(c, (method)map_bang,				"bang", 0);
  	class_addmethod(c, (method)map_getParameter,		"getParameter", A_GIMME, 0);
+	class_addmethod(c, (method)map_getFunctionParameters, "getFunctionParameters", A_GIMME, 0);
  	class_addmethod(c, (method)map_setParameter,		"setParameter", A_GIMME, 0);
 	class_addmethod(c, (method)map_assist,				"assist", A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
@@ -208,13 +210,19 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 		atom_setsym(a, parameterName);
 		// Next the whole shebang is copied
 		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("getParameter"), ac+1, av);
+		object_obex_dumpout(obj, gensym("getParameter"), ac, av);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
 		sysmem_freeptr(av);
 		sysmem_freeptr(a);
 	}
 }
+
+void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	
+}
+
 
 
 void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
