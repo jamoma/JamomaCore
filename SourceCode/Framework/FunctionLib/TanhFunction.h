@@ -28,12 +28,16 @@ class TanhFunction : FunctionLib{
 		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
 		
 	private:
+		
+		void calculateOutputScaling(void);
 
 		// ATTRIBUTES and private coefficients
 		double width;					///< Parameter for function: y pow(x,pow(2,powerValue))	
 		double offset;					///< k = pow(2,powerValue)
 		double a;						///< Internal coefficient
 		double b;						///< Internal coefficient
+		double alpha;					///< Internal coefficient
+		double beta;					///< Internal coefficient
 };
 
 
