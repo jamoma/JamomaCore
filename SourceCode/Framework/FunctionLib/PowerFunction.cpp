@@ -62,13 +62,14 @@ JamomaError PowerFunction::setParameter(t_symbol *parameterName, long argc, t_at
 JamomaError PowerFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
 {
 	if (parameterName==gensym("powerValue")) {
+		// This memory needs to be freed by the method calling this one
 		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
 		atom_setfloat(*argv, powerValue);
 		*argc = 1;
 		return JAMOMA_ERR_NONE;
 	}
 	else if (parameterName==gensym("symmetry")) {
-		// This memory needs to be freed by the method callong this one
+		// This memory needs to be freed by the method calling this one
 		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
 		atom_setsym(*argv, symmetryMode);
 		*argc = 1;
