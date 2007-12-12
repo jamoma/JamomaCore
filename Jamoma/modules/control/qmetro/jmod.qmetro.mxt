@@ -83,7 +83,7 @@ max v2;
 #P objectname jcom.hub;
 #P hidden inlet 16 90 13 0;
 #P hidden outlet 16 316 13 0;
-#P hidden newex 401 103 314 196617 jcom.parameter toggle @type msg_toggle @ramp none @repetitions 0 @range 0 1 @clipmode both @description "Toggle qmetro on/off";
+#P hidden newex 401 103 314 196617 jcom.parameter toggle @type msg_toggle  @repetitions 0 @range 0 1 @clipmode both @description "Toggle qmetro on/off";
 #P objectname toggle;
 #P window linecount 1;
 #P hidden message 175 266 118 196617 /documentation/html;
