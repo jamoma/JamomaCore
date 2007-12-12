@@ -18,7 +18,7 @@ MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
    -I/maxmspsdk/c74support/common
 
 
-JAMOMA_LIB_INCLUDES = -L../../Framework/source
+JAMOMA_LIB_INCLUDES = -L../../Framework/source 
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
    -L/maxmspsdk/c74support/common \
@@ -37,11 +37,12 @@ TT_BLUE_INCLUDES = -I../../ThirdParty/ttblue/dsplib
 LIBICONV_INCLUDES = -I../../ThirdParty/libiconv/include
 JAMOMA_INCLUDES = -I../../Framework/source
 PATTR_INCLUDES = -I../../Framework/c74
+FUNCTION_LIB_INCLUDES = -I../../Framework/FunctionLib
 
 #INCLUDES = $(MAX_INCLUDES) $(COMMON_INCLUDES) $(RAMPLIB_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
 
 INCLUDES = $(MAX_INCLUDES) $(RAMPLIB_INCLUDES) $(LIBXML_INCLUDES) $(TT_BLUE_INCLUDES) \
-    $(LIBICONV_INCLUDES) $(JAMOMA_INCLUDES) $(PATTR_INCLUDES)
+    $(LIBICONV_INCLUDES) $(JAMOMA_INCLUDES) $(PATTR_INCLUDES) $(FUNCTION_LIB_INCLUDES)
 
 
 TT_INCLUDES = -I../../ThirdParty/ttblue/dsplib
