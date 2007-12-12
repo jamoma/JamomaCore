@@ -140,6 +140,7 @@ extern t_symbol	*ps_none,
 				*ps_slash_preset_slash_default,		// 	/preset/default
 				*ps_slash_preset_slash_load,		// 	/preset/load
 				*ps_slash_preset_slash_store,		// /preset/store
+				*ps_slash_preset_slash_storenext,	// /preset/storenext
 				*ps_slash_preset_slash_recall,
 				*ps_slash_preset_slash_write,		// 	/preset/save
 				*ps_slash_preset_slash_copy,		// 	/preset/save
