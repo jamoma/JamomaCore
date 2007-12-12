@@ -31,6 +31,9 @@ void		ramp_free(t_ramp *x);
 void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
 t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
 void		ramp_setFunction(t_ramp *x, t_symbol *functionName);
+void		ramp_getFunction(t_ramp *x);
+void		ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
+void		ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
 void		ramp_int(t_ramp *x, long n);
 void		ramp_float(t_ramp *x, double f);
 void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
@@ -58,16 +61,18 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_ramp, obex));
 	
 	// Make methods accessible for our class:
-	class_addmethod(c, (method)ramp_int,				"int",			A_DEFLONG,	0);
-	class_addmethod(c, (method)ramp_float,				"float",		A_DEFFLOAT,	0);
- 	class_addmethod(c, (method)ramp_list,				"list",			A_GIMME,	0);
-	class_addmethod(c, (method)ramp_set,				"set",			A_GIMME,	0);
-	class_addmethod(c, (method)ramp_attrset,			"attrset",		A_GIMME, 	0);
-	class_addmethod(c, (method)ramp_attrget,			"attrget",		A_GIMME,	0);
-	class_addmethod(c, (method)ramp_setFunction,		"setFunction",	A_SYM,		0);
-	class_addmethod(c, (method)ramp_assist,				"assist",		A_CANT,		0); 
-    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT,		0);
+	class_addmethod(c, (method)ramp_int,					"int",					A_DEFLONG,	0);
+	class_addmethod(c, (method)ramp_float,					"float",				A_DEFFLOAT,	0);
+ 	class_addmethod(c, (method)ramp_list,					"list",					A_GIMME,	0);
+	class_addmethod(c, (method)ramp_set,					"set",					A_GIMME,	0);
+	class_addmethod(c, (method)ramp_attrset,				"attrset",				A_GIMME, 	0);
+	class_addmethod(c, (method)ramp_attrget,				"attrget",				A_GIMME,	0);
+	class_addmethod(c, (method)ramp_setFunction,			"setFunction",			A_SYM,		0);
+	class_addmethod(c, (method)ramp_getFunctionParameter,	"getFunctionParameter",	A_GIMME,	0);
+	class_addmethod(c, (method)ramp_setFunctionParameter,	"setFunctionParameter",	A_GIMME,	0);
+	class_addmethod(c, (method)ramp_assist,					"assist",				A_CANT,		0); 
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);  
+    class_addmethod(c, (method)object_obex_quickref,		"quickref",				A_CANT,		0);
 
 	// ATTRIBUTE: rampunit
 	class_addattr(c, 
@@ -140,6 +145,55 @@ void ramp_setFunction(t_ramp *x, t_symbol *functionName)
 {
 	x->my_ramp->setFunction(functionName);
 }
+
+
+void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_symbol	*parameterName;
+	t_atom		*a;
+	long		ac = 0;
+	t_atom		*av = NULL;
+	
+	if(!argc){
+		error("jcom.map: not enough arguments to getParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv);
+	//obj->function->getParameter(parameterName, &ac, &av);
+	obj->my_ramp->getFunctionParameter(parameterName, &ac, &av);
+	if(ac) {
+		//atom_setsym(a+0, parameterName);
+		//atom_setfloat(a+1, av);
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
+		// Forst list item is name of parameter
+		atom_setsym(a, parameterName);
+		// Next the whole shebang is copied
+		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
+		object_obex_dumpout(obj, gensym("getParameter"), ac+1, av);
+	
+		// The pointer to an atom assign in the getParameter method needs to be freed.
+		sysmem_freeptr(av);
+		sysmem_freeptr(a);
+	}
+}
+
+
+void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	//double		value = 0.0;
+	t_symbol	*parameterName;
+	
+	if(argc < 2){
+		error("jcom.map: not enough arguments to setParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv);
+	//obj->function->setParameter(parameterName, argc-1, argv+1);
+	obj->my_ramp->setFunctionParameter(parameterName, argc-1, argv+1);
+}
+
 
 
 // ATTRIBUTE: set rampunit
