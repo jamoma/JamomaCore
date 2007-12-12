@@ -1,10 +1,10 @@
 include ../projekt.mk
 
-SOURCES = ${JCOM_MAP_SOURCE}
-OBJS = $(filter-out $(SOURCES),${JCOM_MAP_OBJS})
+SOURCES = ${JCOM_DATASPACE_SOURCE}
+OBJS = $(filter-out $(SOURCES),${JCOM_DATASPACE_OBJS})
 LOCAL_INCLUDES = -I.
-OUTPUT = jcom.map.mxe
-LINK_INPUT = $(OBJS) jcom.map.def
+OUTPUT = jcom.dataspace.mxe
+LINK_INPUT = $(OBJS) jcom.dataspace.def
 
 EXTRA_CFLAGS = ${LOCAL_INCLUDES}
 
