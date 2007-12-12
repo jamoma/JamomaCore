@@ -196,13 +196,24 @@ puts "Building Framework..."
   build_project("SourceCode/Framework","Jamoma.xcodeproj","Jamoma",configuration,true)
 puts ""
 
+
+###################################################################
+# RAMPLIB
+###################################################################
+puts "Building RampLib..."
+
+zero_count
+build_externs("SourceCode/RampLib/RampUnits",configuration,clean,nil,nil)
+ex_total, ex_count = get_count
+puts ""
+
+
 ###################################################################
 # EXTERNALS
 ###################################################################
 puts "Building Externals..."
 
 zero_count
-build_externs("SourceCode/RampLib/RampUnits",configuration,clean,nil,nil)
 build_externs("SourceCode/MaxObjects",configuration,clean,nil,nil)  
 ex_total, ex_count = get_count
 puts ""
