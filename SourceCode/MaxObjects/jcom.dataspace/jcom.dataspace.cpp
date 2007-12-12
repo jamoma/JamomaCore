@@ -17,17 +17,11 @@ typedef struct _dataspace{
 	void			*outlet_active;
 	void			*outlet_native;
 	DataspaceLib	*dataspace;
-	long			ac;				// for return values from the dataspace conversion
-	t_atom			*av;			//	...
-/*	t_symbol		*attr_function;
-	double			attr_inputMin;
-	double			attr_inputMax;
-	double			attr_outputMin;
-	double			attr_outputMax;
-	double 			a, b;				// Coefficients used for normalizing input
-	double			c, d;				// Coefficients used for scaling normalized output
-	FunctionLib		*function;
-*/
+	long			ac;						// for return values from the dataspace conversion
+	t_atom			*av;					//	...
+	t_symbol		*attr_dataspace;		// name of the dataspace -- e.g. "temperature"
+	t_symbol		*attr_dataspace_active;	// name of the current unit within the dataspace -- e.g. "celsius"
+	t_symbol		*attr_dataspace_native;	// name of the desired native unit within the dataspace -- e.g. "celsius"
 } t_dataspace;
 
 
@@ -37,18 +31,10 @@ void		dataspace_free(t_dataspace *obj);
 void		dataspace_assist(t_dataspace *obj, void *b, long m, long a, char *s);
 void		dataspace_int(t_dataspace *obj, long x);
 void		dataspace_float(t_dataspace *obj, double x);
-/*
-void		map_bang(t_map *obj);
-void		map_getParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
-void		map_setParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
-t_max_err	map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv);
-t_max_err	map_setInputMin(t_map *obj, void *attr, long argc, t_atom *argv);
-t_max_err	map_setInputMax(t_map *obj, void *attr, long argc, t_atom *argv);
-void 		map_scaleInput(t_map *obj);
-t_max_err	map_setOutputMin(t_map *obj, void *attr, long argc, t_atom *argv);
-t_max_err	map_setOutputMax(t_map *obj, void *attr, long argc, t_atom *argv);
-void 		map_scaleOutput(t_map *obj);
-*/
+t_max_err	dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv);
+t_max_err	dataspace_setDataspaceActive(t_dataspace *obj, void *attr, long argc, t_atom *argv);
+t_max_err	dataspace_setDataspaceNative(t_dataspace *obj, void *attr, long argc, t_atom *argv);
+
 
 // Globals
 t_class		*dataspace_class;
@@ -71,6 +57,7 @@ int main(void)
 
 	class_addmethod(c, (method)dataspace_int,			"int",			A_GIMME, 0L);
 	class_addmethod(c, (method)dataspace_float,			"float",		A_GIMME, 0L);
+
 	/*
 	class_addmethod(c, (method)map_bang,				"bang", 0);
  	class_addmethod(c, (method)map_getParameter,		"getParameter", A_GIMME, 0);
@@ -79,29 +66,17 @@ int main(void)
 	class_addmethod(c, (method)dataspace_assist,		"assist",		A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
-/*
-	// ATTRIBUTE: set the function to use
+
 	class_addattr(c, 
-		attr_offset_new("function", _sym_symbol, 0,
-		(method)0, (method)map_setFunction, calcoffset(t_map, attr_function)));
-	// ATTRIBUTE: set the input minimum value
-	class_addattr(c,
-		attr_offset_new("inputMin", _sym_float64, 0,
-		(method)0, (method)map_setInputMin, calcoffset(t_map, attr_inputMin)));
-	// ATTRIBUTE: set the input maximum value
-	class_addattr(c,
-		attr_offset_new("inputMax", _sym_float64, 0,
-		(method)0, (method)map_setInputMax, calcoffset(t_map, attr_inputMax)));	
-		
-	// ATTRIBUTE: set the output minimum value
-	class_addattr(c,
-		attr_offset_new("outputMin", _sym_float64, 0,
-		(method)0, (method)map_setOutputMin, calcoffset(t_map, attr_outputMin)));
-	// ATTRIBUTE: set the output maximum value
-	class_addattr(c,
-		attr_offset_new("outputMax", _sym_float64, 0,
-		(method)0, (method)map_setOutputMax, calcoffset(t_map, attr_outputMax)));
-*/
+		attr_offset_new("dataspace", _sym_symbol, 0,
+		(method)0, (method)dataspace_setDataspace, calcoffset(t_dataspace, attr_dataspace)));
+	class_addattr(c, 
+		attr_offset_new("dataspace.active", _sym_symbol, 0,
+		(method)0, (method)dataspace_setDataspaceActive, calcoffset(t_dataspace, attr_dataspace_active)));
+	class_addattr(c, 
+		attr_offset_new("dataspace.native", _sym_symbol, 0,
+		(method)0, (method)dataspace_setDataspaceNative, calcoffset(t_dataspace, attr_dataspace_native)));
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	dataspace_class = c;
@@ -121,21 +96,14 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 		object_obex_store((void *)obj, _sym_dumpout, (object *)outlet_new(obj,NULL));
 	    obj->outlet_native = outlet_new(obj, 0);
 	    obj->outlet_active = outlet_new(obj, 0);
+		obj->dataspace = NULL;
+		obj->attr_dataspace_active = _sym_nothing;
+		obj->attr_dataspace_native = _sym_nothing;
 
-/*		obj->attr_function = _sym_nothing;
-		obj->attr_inputMin = 0;
-		obj->attr_inputMax = 1;
-		obj->attr_outputMin = 0;
-		obj->attr_outputMax = 1;
-		obj->function = NULL;
-*/
-
-		jamoma_getDataspace(gensym("temperature"), &obj->dataspace);
 		attr_args_process(obj, argc, argv);
+		if(!obj->dataspace)
+			object_attr_setsym(obj, gensym("dataspace"), gensym("temperature"));
 
-/*		if(!obj->function)
-			object_attr_setsym(obj, gensym("function"), gensym("linear"));
-*/
 		obj->av = (t_atom*)sysmem_newptr(sizeof(t_atom));	// just allocating one for now -- no list support
 	}
 	return obj;										// Return pointer to our instance
@@ -250,74 +218,38 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	obj->function->setParameter(parameterName, argc-1, argv+1);
 }
 
-
-// ATTRIBUTE: set rampunit
-t_max_err map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv)
-{
-	obj->attr_function = atom_getsym(argv);
-	jamoma_getFunction(obj->attr_function, &obj->function);
-	return MAX_ERR_NONE;
-}
-
-
-// ATTRIBUTE: Set input minimum
-t_max_err map_setInputMin(t_map *obj, void *attr, long argc, t_atom *argv)
-{
-	obj->attr_inputMin = atom_getfloat(argv);
-	map_scaleInput(obj);
-	return MAX_ERR_NONE;
-
-}
-
-
-// ATTRIBUTE: Set input maximum
-t_max_err map_setInputMax(t_map *obj, void *attr, long argc, t_atom *argv)
-{
-	obj->attr_inputMax = atom_getfloat(argv);
-	map_scaleInput(obj);
-	return MAX_ERR_NONE;
-}
-
-
-// Recalculate values to use for scaling of input values
-void map_scaleInput(t_map *obj)
-{
-	// Prevent dividing by 0
-	if (obj->attr_inputMin == obj->attr_inputMax)
-		{
-			obj->a = 1;
-			post("jcom.map: Same value used for input min and max.");
-		}
-	else
-		obj->a = 1./(obj->attr_inputMax - obj->attr_inputMin);
-	obj->b = -1 * obj->a * obj->attr_inputMin;
-}
-
-
-// ATTRIBUTE: Set output minimum
-t_max_err map_setOutputMin(t_map *obj, void *attr, long argc, t_atom *argv)
-{
-	obj->attr_outputMin = atom_getfloat(argv);
-	map_scaleOutput(obj);
-	return MAX_ERR_NONE;
-
-}
-
-
-// ATTRIBUTE: Set output maximum
-t_max_err map_setOutputMax(t_map *obj, void *attr, long argc, t_atom *argv)
-{
-	obj->attr_outputMax = atom_getfloat(argv);
-	map_scaleOutput(obj);
-	return MAX_ERR_NONE;
-}
-
-
-// Recalculate values to use for scaling of output values
-void map_scaleOutput(t_map *obj)
-{
-	obj->c = obj->attr_outputMax - obj->attr_outputMin;
-	obj->d = obj->attr_outputMin;
-}
 */
+
+// ATTRIBUTE:
+t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv)
+{
+	obj->attr_dataspace = atom_getsym(argv);
+	jamoma_getDataspace(obj->attr_dataspace, &obj->dataspace);
+	obj->attr_dataspace_active = obj->dataspace->nativeUnit;
+	obj->attr_dataspace_native = obj->dataspace->nativeUnit;
+	return MAX_ERR_NONE;
+}
+
+
+// ATTRIBUTE:
+t_max_err dataspace_setDataspaceActive(t_dataspace *obj, void *attr, long argc, t_atom *argv)
+{
+	obj->attr_dataspace_active = atom_getsym(argv);
+	obj->dataspace->setInputUnit(obj->attr_dataspace_active);
+	return MAX_ERR_NONE;
+}
+
+
+// ATTRIBUTE:
+t_max_err dataspace_setDataspaceNative(t_dataspace *obj, void *attr, long argc, t_atom *argv)
+{
+	obj->attr_dataspace_native = atom_getsym(argv);
+	obj->dataspace->setOutputUnit(obj->attr_dataspace_native);
+	return MAX_ERR_NONE;
+}
+
+
+
+
+
 
