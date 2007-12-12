@@ -10,12 +10,10 @@
 
 
 LowpassFunction::LowpassFunction()
+: coefficient(0.75), one_minus_coefficient(0.25), feedback(0.0)
 {
-	coefficient = 0.75;
-	one_minus_coefficient = 0.25;
-	feedback = 0.0;
-}
 
+}
 
 LowpassFunction::~LowpassFunction()
 {

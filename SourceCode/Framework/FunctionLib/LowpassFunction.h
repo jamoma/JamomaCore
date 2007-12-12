@@ -1,5 +1,5 @@
 /* 
- * Jamoma FunctionLib: LinearFunction
+ * Jamoma FunctionLib: LowpassFunction
  * Copyright © 2007 by Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
