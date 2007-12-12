@@ -1,6 +1,9 @@
 ###############################################################
 CUE 1_init_8_microphones
 ###############################################################
+# Module /jmod.control
+/jmod.control/audio 0
+
 # Module /jmod.multi.aux
 	/jmod.multi.aux/aux1/active 0
 	/jmod.multi.aux/aux1/description "to /reverb~"
@@ -16,6 +19,11 @@ CUE 1_init_8_microphones
 	/jmod.multi.aux/ui/freeze 0
 	/jmod.multi.aux/voices 8
 # Module /jmod.sur.vimic~
+    /jmod.sur.vimic~/microphones/amount 8
+	/jmod.sur.vimic~/reflections/order 1
+
+	WAIT 1000
+	
 	/jmod.sur.vimic~/audio/gain/midi 0
 	/jmod.sur.vimic~/audio/meters/freeze 0
 	/jmod.sur.vimic~/audio/mute 0
@@ -44,6 +52,22 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/microphones/8/angle 45.000 0.000
 	/jmod.sur.vimic~/microphones/8/directivity/preset cardioid
 	/jmod.sur.vimic~/microphones/8/position 1.768 1.768 0.000
+	/jmod.sur.vimic~/microphones/9/mute 1
+	/jmod.sur.vimic~/microphones/10/mute 1
+	/jmod.sur.vimic~/microphones/11/mute 1
+	/jmod.sur.vimic~/microphones/12/mute 1
+	/jmod.sur.vimic~/microphones/13/mute 1
+	/jmod.sur.vimic~/microphones/14/mute 1
+	/jmod.sur.vimic~/microphones/15/mute 1
+	/jmod.sur.vimic~/microphones/16/mute 1
+	/jmod.sur.vimic~/microphones/17/mute 1
+	/jmod.sur.vimic~/microphones/18/mute 1
+	/jmod.sur.vimic~/microphones/19/mute 1
+	/jmod.sur.vimic~/microphones/20/mute 1
+	/jmod.sur.vimic~/microphones/21/mute 1
+	/jmod.sur.vimic~/microphones/22/mute 1
+	/jmod.sur.vimic~/microphones/23/mute 1
+	/jmod.sur.vimic~/microphones/24/mute 1	
 	/jmod.sur.vimic~/microphones/direct/power 1
 	/jmod.sur.vimic~/reflections/1st/gain/midi 0.
 	/jmod.sur.vimic~/reflections/2nd/gain/midi 0.
@@ -53,6 +77,9 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/room/size 20.000 30.000 8.000
 	/jmod.sur.vimic~/source/position/absolute/xyz 1.308 7.472 0.000
 	/jmod.sur.vimic~/updaterate 10
+	/jmod.sur.vimic~/rendermode/xfade/fadefunction linear
+	/jmod.sur.vimic~/rendermode/xfade/fadelength 512
+	/jmod.sur.vimic~/rendermode/xfade/threshold 10
 	/jmod.sur.vimic~/room/absorption/ceiling/preset full
 	/jmod.sur.vimic~/room/absorption/floor/preset full
 	/jmod.sur.vimic~/room/absorption/left/preset full
@@ -94,6 +121,11 @@ CUE 1_init_8_microphones
 	/reverb~/predelay 0.000
 	/reverb~/t60 2.300	
 	/reverb~/ui/freeze 0
+	
+	WAIT 200
+
+# Module /jmod.control
+	/jmod.control/audio 1
 	
 #####################################################
 CUE 2_24_speakers
@@ -250,8 +282,8 @@ WAIT 1000
 	/jmod.sur.vimic~/reflections/airfilter 10000	
 	/jmod.sur.vimic~/renderintervall 50
 	/jmod.sur.vimic~/rendermode/xfade/fadefunction linear
-	/jmod.sur.vimic~/rendermode/xfade/fadelength 64
-	/jmod.sur.vimic~/rendermode/xfade/threshold 128
+	/jmod.sur.vimic~/rendermode/xfade/fadelength 512
+	/jmod.sur.vimic~/rendermode/xfade/threshold 10
 	/jmod.sur.vimic~/rendermode 0
 	/jmod.sur.vimic~/report 0
 	/jmod.sur.vimic~/room/distance/power 1.000
@@ -262,6 +294,12 @@ WAIT 1000
 	/jmod.sur.vimic~/ui/freeze 0
 	/jmod.sur.vimic~/updaterate 10
 	/jmod.sur.vimic~/warning 0
+	/jmod.sur.vimic~/room/absorption/ceiling/preset full
+	/jmod.sur.vimic~/room/absorption/floor/preset full
+	/jmod.sur.vimic~/room/absorption/left/preset full
+	/jmod.sur.vimic~/room/absorption/right/preset full
+	/jmod.sur.vimic~/room/absorption/rear/preset full
+	/jmod.sur.vimic~/room/absorption/front/preset full
 # Module /microphone_setup
     /microphone_setup/voices 24
 	/microphone_setup/aed/1 0.000 0.000 1.000
@@ -288,10 +326,32 @@ WAIT 1000
 	/microphone_setup/aed/7 90.000 0.000 1.000
 	/microphone_setup/aed/8 105.000 0.000 1.000
 	/microphone_setup/aed/9 120.000 0.000 1.000
-
+# Module /reverb~
+	/reverb~/audio/gain/midi 0.000
+	/reverb~/audio/meters/freeze 0
+	/reverb~/audio/mute 1
+	/reverb~/delaylength 30.000 76.000
+	/reverb~/fdn_eq/cf 732.239
+	/reverb~/fdn_eq/filtergain 0.000
+	/reverb~/fdn_eq/filtertype bandpass
+	/reverb~/fdn_eq/q 0.054
+	/reverb~/input_eq/cf 2444.000
+	/reverb~/input_eq/filtergain 0.000
+	/reverb~/input_eq/filtertype lowpass
+	/reverb~/input_eq/q 0.607
+	/reverb~/inputs 16
+	/reverb~/interpolationtime 20.000
+	/reverb~/modulation/active 1
+	/reverb~/modulation/amplitude 0.350 5.060
+	/reverb~/modulation/frequency 0.320 1.400
+	/reverb~/outputs 16
+	/reverb~/predelay 0.000
+	/reverb~/t60 2.300	
+	/reverb~/ui/freeze 0
+	
 WAIT 200
 
-	# Module /jmod.control
+# Module /jmod.control
 	/jmod.control/audio 1
 ######################################################
 CUE 3_fadein_Direct_Sound
