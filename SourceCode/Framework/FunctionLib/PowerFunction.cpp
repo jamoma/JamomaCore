@@ -10,9 +10,8 @@
 
 
 PowerFunction::PowerFunction()
+: powerValue(0.), k(1.)
 {
-	powerValue=0;
-	k = 1;
 }
 
 

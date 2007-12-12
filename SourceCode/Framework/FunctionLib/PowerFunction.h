@@ -1,5 +1,5 @@
 /* 
- * Jamoma FunctionLib: LinearFunction
+ * Jamoma FunctionLib: PowerFunction
  * Copyright © 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
