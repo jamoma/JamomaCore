@@ -27,6 +27,10 @@
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
 		22C891E20D0FF87C00E68801 /* LowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C891E00D0FF87C00E68801 /* LowpassFunction.cpp */; };
 		22C891E30D0FF87C00E68801 /* LowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C891E10D0FF87C00E68801 /* LowpassFunction.h */; };
+		22D7F5F30D105827009E4AF4 /* TemperatureDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */; };
+		22D7F5F40D105827009E4AF4 /* DataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */; };
+		22D7F5F50D105827009E4AF4 /* DataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D7F5F10D105827009E4AF4 /* DataspaceLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22D7F5F60D105827009E4AF4 /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */; };
 		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		22FD2DC60CEE5B6F0039C226 /* Jamoma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */; };
 		22FD2DC70CEE5B6F0039C226 /* Jamoma.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,6 +129,10 @@
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22C891E00D0FF87C00E68801 /* LowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LowpassFunction.cpp; sourceTree = "<group>"; };
 		22C891E10D0FF87C00E68801 /* LowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LowpassFunction.h; sourceTree = "<group>"; };
+		22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemperatureDataspace.h; path = DataspaceLib/TemperatureDataspace.h; sourceTree = "<group>"; };
+		22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataspaceLib.cpp; path = DataspaceLib/DataspaceLib.cpp; sourceTree = "<group>"; };
+		22D7F5F10D105827009E4AF4 /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataspaceLib.h; path = DataspaceLib/DataspaceLib.h; sourceTree = "<group>"; };
+		22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.cpp; path = DataspaceLib/TemperatureDataspace.cpp; sourceTree = "<group>"; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
 		22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = source/Jamoma.h; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 				08FB77AEFE84172EC02AAC07 /* Sources */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
+				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
 				22FD2FCA0CEE87380039C226 /* TTBlue */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -309,6 +318,17 @@
 				22AEF3250D0DB77900F7762D /* TanhFunction.h */,
 			);
 			path = FunctionLib;
+			sourceTree = "<group>";
+		};
+		22D7F5EA0D10576E009E4AF4 /* DataspaceLib */ = {
+			isa = PBXGroup;
+			children = (
+				22D7F5F10D105827009E4AF4 /* DataspaceLib.h */,
+				22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */,
+				22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */,
+				22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */,
+			);
+			name = DataspaceLib;
 			sourceTree = "<group>";
 		};
 		22FD2DCF0CEE5B770039C226 /* Headers */ = {
@@ -483,6 +503,8 @@
 				55FE54250D0EAC0000683625 /* CosineFunction.h in Headers */,
 				A7E8800E0D0EFA2F00F0F3D3 /* PowerFunction.h in Headers */,
 				22C891E30D0FF87C00E68801 /* LowpassFunction.h in Headers */,
+				22D7F5F30D105827009E4AF4 /* TemperatureDataspace.h in Headers */,
+				22D7F5F50D105827009E4AF4 /* DataspaceLib.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +596,8 @@
 				55FE54240D0EAC0000683625 /* CosineFunction.cpp in Sources */,
 				A7E8800F0D0EFA2F00F0F3D3 /* PowerFunction.cpp in Sources */,
 				22C891E20D0FF87C00E68801 /* LowpassFunction.cpp in Sources */,
+				22D7F5F40D105827009E4AF4 /* DataspaceLib.cpp in Sources */,
+				22D7F5F60D105827009E4AF4 /* TemperatureDataspace.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
