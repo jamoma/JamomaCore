@@ -21,8 +21,8 @@ include infra/common.mk
 
 release:  
 	@echo "Making release..."
-	@${MAKE} -C RampUnits/linear.queue release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
-	@${MAKE} -C RampUnits/linear.sched release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+	@${MAKE} -C RampUnits/queue release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+	@${MAKE} -C RampUnits/scheduler release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C RampUnits/none release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 
 	

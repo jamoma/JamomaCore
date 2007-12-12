@@ -1,6 +1,6 @@
 ; linear.sched.def : Declares the module parameters for the DLL.
 
-LIBRARY      "linear.sched"
+LIBRARY      "scheduler"
 
 EXPORTS
 
@@ -12,3 +12,7 @@ go
 stop
 set
 tick
+setFunction
+getFunction
+setFunctionParameter
+getFunctionParameter

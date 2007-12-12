@@ -1,13 +1,13 @@
 include ../../projekt.mk
 
-SOURCES = ${LINEAR_SCHED_SOURCE}
-OBJS = $(filter-out $(SOURCES),${LINEAR_SCHED_OBJS})
-LOCAL_INCLUDES = -I.
-OUTPUT = linear.sched.rampdll
-LINK_INPUT = $(OBJS) linear.sched.def
+SOURCES = ${SCHEDULER_SOURCE}
+OBJS = $(filter-out $(SOURCES),${SCHEDULER_OBJS})
+LOCAL_INCLUDES = -I. -I../../../Framework/source -I../../../ThirdParty/ttblue/dsplib -I../../../Framework/c74 -I../../../Framework/FunctionLib -L../../../Framework/source
+OUTPUT = scheduler.rampdll
+LINK_INPUT = $(OBJS) scheduler.def
 
 
-EXTRA_CFLAGS = ${LOCAL_INCLUDES}
+EXTRA_CXXFLAGS = ${LOCAL_INCLUDES}
 
 include ../../infra/common.mk
 include ../../infra/makedep.mk
@@ -19,8 +19,7 @@ debug: $(OBJS) $(OUTPUT)
 	@cp $(OUTPUT) $(INSTALL_DIR)
 
 $(OUTPUT):
-	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) -lMaxAPI -lMaxAudio
-
+	$(CXX) -shared -mno-cygwin -o $(OUTPUT) $(LINK_INPUT) $(MAX_INCLUDES) $(MAX_LIB_INCLUDES) $(LOCAL_INCLUDES) -lJamomaFramework -lMaxAPI -lMaxAudio 
 clean:
 	rm -f $(OBJS)
 	rm -f $(DEPENDS)

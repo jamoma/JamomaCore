@@ -1,6 +1,6 @@
 ; linear.queue.def : Declares the module parameters for the DLL.
 
-LIBRARY      "linear.queue"
+LIBRARY      "queue"
 
 EXPORTS
 
@@ -12,3 +12,7 @@ go
 stop
 set
 tick
+setFunction
+getFunction
+setFunctionParameter
+getFunctionParameter

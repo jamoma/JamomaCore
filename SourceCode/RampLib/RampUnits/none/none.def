@@ -12,3 +12,7 @@ go
 stop
 set
 tick
+setFunction
+getFunction
+setFunctionParameter
+getFunctionParameter

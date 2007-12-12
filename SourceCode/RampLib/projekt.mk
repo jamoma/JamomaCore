@@ -19,15 +19,15 @@ TT_CORE_OBJS = tt_audio_base.o
 TT_OBJS = ../../ThirdParty/ttblue/dsplib/tt_audio_base.o
 
 # projects to be built
-LINEAR_QUEUE_SOURCE = linear.queue.c linear.queue.def
-LINEAR_QUEUE_OBJS = ${LINEAR_QUEUE_SOURCE:.c=.o}
+QUEUE_SOURCE = queue.cpp queue.def
+QUEUE_OBJS = ${QUEUE_SOURCE:.cpp=.o}
 
-LINEAR_SCHED_SOURCE = linear.sched.c linear.sched.def
-LINEAR_SCHED_OBJS = ${LINEAR_SCHED_SOURCE:.c=.o}
+SCHEDULER_SOURCE = scheduler.cpp scheduler.def
+SCHEDULER_OBJS = ${SCHEDULER_SOURCE:.cpp=.o}
 
-NONE_SOURCE = none.c none.def
-NONE_OBJS = ${NONE_SOURCE:.c=.o}
+NONE_SOURCE = none.cpp none.def
+NONE_OBJS = ${NONE_SOURCE:.cpp=.o}
 
 
-ALL_OBJECTS = ${LINEAR_QUEUE_OBJS} ${LINEAR_SCHED_OBJS} ${NONE_OBJS} 
+ALL_OBJECTS = ${QUEUE_OBJS} ${SCHEDULER_OBJS} ${NONE_OBJS} 
 
