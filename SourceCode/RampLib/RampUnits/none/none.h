@@ -27,6 +27,10 @@ typedef struct _none {
 extern "C" {
 t_none*		create	(rampunit_method_callback_type in_callback, void *in_baton);
 void		destroy	(t_none *rampunit);
+JamomaError	setFunction(t_none *rampunit, t_symbol *functionName);
+JamomaError	getFunction(t_none *rampunit, t_symbol **functionName);
+JamomaError	getFunctionParameter(t_none *rampunit, t_symbol *parameterName, long argc, t_atom *argv);
+JamomaError	setFunctionParameter(t_none *rampunit, t_symbol *parameterName, long *argc, t_atom **argv);
 ramp_err	attrset	(t_none *rampunit, t_symbol *attrname, double value);
 ramp_err	attrget	(t_none *rampunit, t_symbol *attrname, double *value);
 void		go		(t_none *rampunit, short numvalues, double *values, double time);

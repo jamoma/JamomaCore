@@ -15,17 +15,19 @@
 
 class rampunit{
 private:
-	void							*rampunit_instance;
-	rampunit_method_create_type		rampunit_method_create;	
-	rampunit_method_destroy_type	rampunit_method_destroy;
-	rampunit_method_attrset_type	rampunit_method_attrset;
-	rampunit_method_attrget_type	rampunit_method_attrget;
-	rampunit_method_setfunction_type	rampunit_method_setfunction;
-	rampunit_method_getfunction_type	rampunit_method_getfunction;
-	rampunit_method_go_type			rampunit_method_go;
-	rampunit_method_set_type		rampunit_method_set;
-	rampunit_method_stop_type		rampunit_method_stop;
-	rampunit_method_tick_type		rampunit_method_tick;
+	void										*rampunit_instance;
+	rampunit_method_create_type					rampunit_method_create;	
+	rampunit_method_destroy_type				rampunit_method_destroy;
+	rampunit_method_attrset_type				rampunit_method_attrset;
+	rampunit_method_attrget_type				rampunit_method_attrget;
+	rampunit_method_setFunction_type			rampunit_method_setFunction;
+	rampunit_method_getFunction_type			rampunit_method_getFunction;
+	rampunit_method_setFunctionParameter_type	rampunit_method_setFunctionParameter;
+	rampunit_method_getFunctionParameter_type	rampunit_method_getFunctionParameter;
+	rampunit_method_go_type						rampunit_method_go;
+	rampunit_method_set_type					rampunit_method_set;
+	rampunit_method_stop_type					rampunit_method_stop;
+	rampunit_method_tick_type					rampunit_method_tick;
 
 public:
 	// Life Cycle
@@ -37,6 +39,8 @@ public:
 	ramp_err attrget(t_symbol *attrname, double *value);
 	ramp_err setFunction(t_symbol *functionName);
 	ramp_err getFunction(t_symbol **functionName);
+	ramp_err setFunctionParameter(t_symbol *parameterName, long argc, t_atom *argv);
+	ramp_err getFunctionParameter(t_symbol *parameterName, long *argc, t_atom **argv);
 
 	// RampUnit Methods
 	void go(short numvalues, double *values, double time);

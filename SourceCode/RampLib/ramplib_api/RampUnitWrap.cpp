@@ -80,16 +80,18 @@ rampunit::rampunit(char *filename, rampunit_method_callback_type pf_callback, vo
 	hashtab_store(rampunit_cache, gensym(filename), (t_object *)bun);
 	
 fetchpointers:
-	rampunit_method_create 	= (rampunit_method_create_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("create"));
-	rampunit_method_destroy	= (rampunit_method_destroy_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("destroy"));
-	rampunit_method_attrset	= (rampunit_method_attrset_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("attrset"));
-	rampunit_method_attrget	= (rampunit_method_attrget_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("attrget"));
-	rampunit_method_setfunction	= (rampunit_method_setfunction_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("setFunction"));
-	rampunit_method_getfunction	= (rampunit_method_getfunction_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("getFunction"));
-	rampunit_method_go		= (rampunit_method_go_type)			CFBundleGetFunctionPointerForName(bun, CFSTR("go"));
-	rampunit_method_set		= (rampunit_method_set_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("set"));
-	rampunit_method_stop	= (rampunit_method_stop_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("stop"));
-	rampunit_method_tick	= (rampunit_method_tick_type)		CFBundleGetFunctionPointerForName(bun, CFSTR("tick"));
+	rampunit_method_create					= (rampunit_method_create_type)					CFBundleGetFunctionPointerForName(bun, CFSTR("create"));
+	rampunit_method_destroy					= (rampunit_method_destroy_type)				CFBundleGetFunctionPointerForName(bun, CFSTR("destroy"));
+	rampunit_method_attrset					= (rampunit_method_attrset_type)				CFBundleGetFunctionPointerForName(bun, CFSTR("attrset"));
+	rampunit_method_attrget					= (rampunit_method_attrget_type)				CFBundleGetFunctionPointerForName(bun, CFSTR("attrget"));
+	rampunit_method_setFunction				= (rampunit_method_setFunction_type)			CFBundleGetFunctionPointerForName(bun, CFSTR("setFunction"));
+	rampunit_method_getFunction				= (rampunit_method_getFunction_type)			CFBundleGetFunctionPointerForName(bun, CFSTR("getFunction"));
+	rampunit_method_setFunctionParameter	= (rampunit_method_setFunctionParameter_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("setFunctionParameter"));
+	rampunit_method_getFunctionParameter	= (rampunit_method_getFunctionParameter_type)	CFBundleGetFunctionPointerForName(bun, CFSTR("getFunctionParameter"));
+	rampunit_method_go						= (rampunit_method_go_type)						CFBundleGetFunctionPointerForName(bun, CFSTR("go"));
+	rampunit_method_set						= (rampunit_method_set_type)					CFBundleGetFunctionPointerForName(bun, CFSTR("set"));
+	rampunit_method_stop					= (rampunit_method_stop_type)					CFBundleGetFunctionPointerForName(bun, CFSTR("stop"));
+	rampunit_method_tick					= (rampunit_method_tick_type)					CFBundleGetFunctionPointerForName(bun, CFSTR("tick"));
 
 #else // WIN_VERSION
 	path_nameconform(fullpath, winpath, PATH_STYLE_NATIVE, PATH_TYPE_ABSOLUTE);
@@ -99,16 +101,18 @@ fetchpointers:
 	
 	if(hLib){
 fetchpointers:
-		rampunit_method_create 	= (rampunit_method_create_type)		GetProcAddress((HMODULE)hLib, "create");
-		rampunit_method_destroy	= (rampunit_method_destroy_type)	GetProcAddress((HMODULE)hLib, "destroy");
-		rampunit_method_attrset	= (rampunit_method_attrset_type)	GetProcAddress((HMODULE)hLib, "attrset");
-		rampunit_method_attrget	= (rampunit_method_attrget_type)	GetProcAddress((HMODULE)hLib, "attrget");
-	rampunit_method_setfunction;
-	rampunit_method_getfunction;
-		rampunit_method_go		= (rampunit_method_go_type)			GetProcAddress((HMODULE)hLib, "go");
-		rampunit_method_set		= (rampunit_method_set_type)		GetProcAddress((HMODULE)hLib, "set");
-		rampunit_method_stop	= (rampunit_method_stop_type)		GetProcAddress((HMODULE)hLib, "stop");
-		rampunit_method_tick	= (rampunit_method_tick_type)		GetProcAddress((HMODULE)hLib, "tick");
+		rampunit_method_create					= (rampunit_method_create_type)					GetProcAddress((HMODULE)hLib, "create");
+		rampunit_method_destroy					= (rampunit_method_destroy_type)				GetProcAddress((HMODULE)hLib, "destroy");
+		rampunit_method_attrset					= (rampunit_method_attrset_type)				GetProcAddress((HMODULE)hLib, "attrset");
+		rampunit_method_attrget					= (rampunit_method_attrget_type)				GetProcAddress((HMODULE)hLib, "attrget");
+		rampunit_method_setFunction				= (rampunit_method_setFunction_type)			GetProcAddress((HMODULE)hLib, "setFunction");
+		rampunit_method_getFunction				= (rampunit_method_getFunction_type)			GetProcAddress((HMODULE)hLib, "getFunction");
+		rampunit_method_setFunctionParameter	= (rampunit_method_setFunctionParameter_type)	GetProcAddress((HMODULE)hLib, "setFunctionParameter");
+		rampunit_method_getFunctionParameter	= (rampunit_method_getFunctionParameter_type)	GetProcAddress((HMODULE)hLib, "getFunctionParameter");
+		rampunit_method_go						= (rampunit_method_go_type)						GetProcAddress((HMODULE)hLib, "go");
+		rampunit_method_set						= (rampunit_method_set_type)					GetProcAddress((HMODULE)hLib, "set");
+		rampunit_method_stop					= (rampunit_method_stop_type)					GetProcAddress((HMODULE)hLib, "stop");
+		rampunit_method_tick					= (rampunit_method_tick_type)					GetProcAddress((HMODULE)hLib, "tick");
 	}
 #endif
 
@@ -173,13 +177,25 @@ ramp_err rampunit::attrget(t_symbol *attrname, double *value)
 
 ramp_err rampunit::setFunction(t_symbol *functionName)
 {
-	return rampunit_method_setfunction(rampunit_instance, functionName);
+	return rampunit_method_setFunction(rampunit_instance, functionName);
 }
 
 
 ramp_err rampunit::getFunction(t_symbol **functionName)
 {
-	return rampunit_method_getfunction(rampunit_instance, functionName);
+	return rampunit_method_getFunction(rampunit_instance, functionName);
+}
+
+
+ramp_err rampunit::setFunctionParameter(t_symbol *parameterName, long argc, t_atom *argv)
+{
+	return rampunit_method_setFunctionParameter(rampunit_instance, parameterName, argc, argv);
+}
+
+
+ramp_err rampunit::getFunctionParameter(t_symbol *parameterName, long *argc, t_atom **argv)
+{
+	return rampunit_method_getFunctionParameter(rampunit_instance, parameterName, argc, argv);
 }
 
 

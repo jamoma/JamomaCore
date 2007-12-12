@@ -18,18 +18,20 @@ enum{
 // Type definitions
 typedef short	ramp_err;
 
-//typedef void		(*rampunit_method_callback_type)	(void *, float);
-typedef void		(*rampunit_method_callback_type)	(void *, short, double *);
-typedef void*		(*rampunit_method_create_type)		(rampunit_method_callback_type, void *);
-typedef void		(*rampunit_method_destroy_type)		(void *);
-typedef ramp_err	(*rampunit_method_attrset_type)		(void *, t_symbol *, double);
-typedef ramp_err	(*rampunit_method_attrget_type)		(void *, t_symbol *, double *);
-typedef	ramp_err	(*rampunit_method_setfunction_type)	(void *, t_symbol *);
-typedef ramp_err	(*rampunit_method_getfunction_type)	(void *, t_symbol **);
-typedef void		(*rampunit_method_go_type)			(void *, short, double *, double);
-typedef void		(*rampunit_method_set_type)			(void *, short, double *);
-typedef void		(*rampunit_method_stop_type)		(void *);
-typedef void		(*rampunit_method_tick_type)		(void *);
+//typedef void		(*rampunit_method_callback_type)				(void *, float);
+typedef void		(*rampunit_method_callback_type)				(void *, short, double *);
+typedef void*		(*rampunit_method_create_type)					(rampunit_method_callback_type, void *);
+typedef void		(*rampunit_method_destroy_type)					(void *);
+typedef ramp_err	(*rampunit_method_attrset_type)					(void *, t_symbol *, double);
+typedef ramp_err	(*rampunit_method_attrget_type)					(void *, t_symbol *, double *);
+typedef	ramp_err	(*rampunit_method_setFunction_type)				(void *, t_symbol *);
+typedef ramp_err	(*rampunit_method_getFunction_type)				(void *, t_symbol **);
+typedef	ramp_err	(*rampunit_method_setFunctionParameter_type)	(void *, t_symbol *, long, t_atom*);
+typedef ramp_err	(*rampunit_method_getFunctionParameter_type)	(void *, t_symbol *, long*, t_atom**);
+typedef void		(*rampunit_method_go_type)						(void *, short, double *, double);
+typedef void		(*rampunit_method_set_type)						(void *, short, double *);
+typedef void		(*rampunit_method_stop_type)					(void *);
+typedef void		(*rampunit_method_tick_type)					(void *);
 
 
 // Selectors shared by many ramp units

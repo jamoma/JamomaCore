@@ -23,6 +23,7 @@ typedef struct _linear_queue {
 	double							*value_start;
 	double							*value_target;
 	double							*value_current;
+	double							value;			///< normalized progress in the ramp
 	short							numvalues;
 	unsigned long					time_start;
 	unsigned long					time_target;
@@ -38,6 +39,8 @@ t_linear_queue*	create	(rampunit_method_callback_type in_callback, void *in_bato
 void			destroy	(t_linear_queue *rampunit);
 JamomaError		setFunction(t_linear_queue *rampunit, t_symbol *functionName);
 JamomaError		getFunction(t_linear_queue *rampunit, t_symbol **functionName);
+JamomaError		getFunctionParameter(t_linear_queue *rampunit, t_symbol *parameterName, long argc, t_atom *argv);
+JamomaError		setFunctionParameter(t_linear_queue *rampunit, t_symbol *parameterName, long *argc, t_atom **argv);
 ramp_err		attrset	(t_linear_queue *rampunit, t_symbol *attrname, double value);
 ramp_err		attrget	(t_linear_queue *rampunit, t_symbol *attrname, double *value);
 void			go		(t_linear_queue *rampunit, short numvalues, double *values, double time);

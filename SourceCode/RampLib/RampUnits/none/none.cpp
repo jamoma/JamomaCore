@@ -60,6 +60,18 @@ JamomaError getFunction(t_none *rampunit, t_symbol **functionName)
 }
 
 
+JamomaError	getFunctionParameter(t_none *rampunit, t_symbol *parameterName, long argc, t_atom *argv)
+{
+	return JAMOMA_ERR_NONE;
+}
+
+
+JamomaError	setFunctionParameter(t_none *rampunit, t_symbol *parameterName, long *argc, t_atom **argv)
+{
+	return JAMOMA_ERR_NONE;
+}
+
+
 void go(t_none *rampunit, short numvalues, double *values, double time)
 {
 	short i;

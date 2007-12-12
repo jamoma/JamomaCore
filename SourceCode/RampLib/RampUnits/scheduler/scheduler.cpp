@@ -72,6 +72,18 @@ JamomaError getFunction(t_linear_sched *rampunit, t_symbol **functionName)
 }
 
 
+JamomaError setFunctionParameter(t_linear_sched *rampunit, t_symbol *parameterName, long argc, t_atom *argv)
+{
+	return rampunit->function->setParameter(parameterName, argc, argv);
+}
+
+
+JamomaError getFunctionParameter(t_linear_sched *rampunit, t_symbol *parameterName, long *argc, t_atom **argv)
+{
+	return rampunit->function->getParameter(parameterName, argc, argv);
+}
+
+
 ramp_err attrset(t_linear_sched *rampunit, t_symbol *attrname, double value)
 {
 	if(attrname == ps_granularity)
@@ -121,7 +133,7 @@ void set(t_linear_sched *rampunit, short numvalues, double *values)
 	clock_unset(rampunit->max_clock);
 	setnumvalues(rampunit, numvalues);
 	for(i=0; i<numvalues; i++)
-		rampunit->value_current[i] = rampunit->value_start[i] = values[i];
+		rampunit->value_current[i] = values[i];
 }
 
 
