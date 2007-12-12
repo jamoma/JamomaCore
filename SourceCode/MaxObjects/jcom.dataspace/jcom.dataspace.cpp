@@ -1,5 +1,5 @@
 /* 
- * jcom.map
+ * jcom.dataspace
  * External for Jamoma: map input to output: y=f(x)
  * Copyright © 2007
  * 
@@ -11,11 +11,11 @@
 
 
 // Data Structure for this object
-typedef struct _map{
+typedef struct _dataspace{
 	t_object		ob;	
 	void			*obex;
 	void			*outlet;
-	t_symbol		*attr_function;
+/*	t_symbol		*attr_function;
 	double			attr_inputMin;
 	double			attr_inputMax;
 	double			attr_outputMin;
@@ -23,13 +23,15 @@ typedef struct _map{
 	double 			a, b;				// Coefficients used for normalizing input
 	double			c, d;				// Coefficients used for scaling normalized output
 	FunctionLib		*function;
-} t_map;
+*/
+} t_dataspace;
 
 
 // Prototypes for methods
-void*		map_new(t_symbol *name, long argc, t_atom *argv);
-void		map_free(t_map *obj);
-void		map_assist(t_map *obj, void *b, long m, long a, char *s);
+void*		dataspace_new(t_symbol *name, long argc, t_atom *argv);
+void		dataspace_free(t_dataspace *obj);
+void		dataspace_assist(t_dataspace *obj, void *b, long m, long a, char *s);
+/*
 void		map_int(t_map *obj, long x);
 void		map_float(t_map *obj, double x);
 void		map_bang(t_map *obj);
@@ -42,35 +44,37 @@ void 		map_scaleInput(t_map *obj);
 t_max_err	map_setOutputMin(t_map *obj, void *attr, long argc, t_atom *argv);
 t_max_err	map_setOutputMax(t_map *obj, void *attr, long argc, t_atom *argv);
 void 		map_scaleOutput(t_map *obj);
-
+*/
 
 // Globals
-t_class		*map_class;			// Required. Global pointing to this class
+t_class		*dataspace_class;
 
 
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int main(void)
 {
 	t_class *c;
 	
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.map",(method)map_new, (method)map_free, (short)sizeof(t_map), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_map, obex));
+	c = class_new("jcom.dataspace",(method)dataspace_new, (method)dataspace_free, (short)sizeof(t_dataspace), (method)0L, A_GIMME, 0);
+	class_obexoffset_set(c, calcoffset(t_dataspace, obex));
 
 	// Make methods accessible for our class: 
+	/*
 	class_addmethod(c, (method)map_int,					"int", A_GIMME, 0L);
 	class_addmethod(c, (method)map_float,				"float", A_GIMME, 0L);
 	class_addmethod(c, (method)map_bang,				"bang", 0);
  	class_addmethod(c, (method)map_getParameter,		"getParameter", A_GIMME, 0);
  	class_addmethod(c, (method)map_setParameter,		"setParameter", A_GIMME, 0);
-	class_addmethod(c, (method)map_assist,				"assist", A_CANT, 0L); 
+	*/
+	class_addmethod(c, (method)dataspace_assist,		"assist", A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
-
+/*
 	// ATTRIBUTE: set the function to use
 	class_addattr(c, 
 		attr_offset_new("function", _sym_symbol, 0,
@@ -92,10 +96,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addattr(c,
 		attr_offset_new("outputMax", _sym_float64, 0,
 		(method)0, (method)map_setOutputMax, calcoffset(t_map, attr_outputMax)));
-
+*/
 	// Finalize our class
 	class_register(CLASS_BOX, c);
-	map_class = c;
+	dataspace_class = c;
 	return 0;
 }
 
@@ -103,34 +107,38 @@ int main(void)				// main recieves a copy of the Max function macros table
 /************************************************************************************/
 // Object Life
 
-void *map_new(t_symbol *name, long argc, t_atom *argv)
+void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 {
-	t_map *obj;									// Declare an object (based on our struct)
+	t_dataspace *obj;									// Declare an object (based on our struct)
 
-	obj = (t_map *)object_alloc(map_class);		// Create object, store pointer to it (get 1 inlet free)
+	obj = (t_dataspace *)object_alloc(dataspace_class);		// Create object, store pointer to it (get 1 inlet free)
 	if(obj){
 		object_obex_store((void *)obj, _sym_dumpout, (object *)outlet_new(obj,NULL));
 	    obj->outlet = outlet_new(obj, 0);
-		obj->attr_function = _sym_nothing;
+
+/*		obj->attr_function = _sym_nothing;
 		obj->attr_inputMin = 0;
 		obj->attr_inputMax = 1;
 		obj->attr_outputMin = 0;
 		obj->attr_outputMax = 1;
 		obj->function = NULL;
+*/
 		attr_args_process(obj, argc, argv);
-		map_scaleInput(obj);
-		map_scaleOutput(obj);
-		if(!obj->function)
+
+/*		if(!obj->function)
 			object_attr_setsym(obj, gensym("function"), gensym("linear"));
+*/
 	}
 	return obj;										// Return pointer to our instance
 }
 
 
-void map_free(t_map *obj)
+void dataspace_free(t_dataspace *obj)
 {
+/*
 	if(obj->function)
 		delete obj->function;
+*/
 }
 
 
@@ -138,7 +146,7 @@ void map_free(t_map *obj)
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
-void map_assist(t_map *x, void *b, long msg, long arg, char *dst)
+void dataspace_assist(t_dataspace *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1) 							// Inlets
 		strcpy(dst, "x");
@@ -150,7 +158,7 @@ void map_assist(t_map *x, void *b, long msg, long arg, char *dst)
  	}
 }
 
-
+/*
 void map_int(t_map *obj, long x)
 {
 	map_float(obj, (double)x);
@@ -300,3 +308,5 @@ void map_scaleOutput(t_map *obj)
 	obj->c = obj->attr_outputMax - obj->attr_outputMin;
 	obj->d = obj->attr_outputMin;
 }
+*/
+
