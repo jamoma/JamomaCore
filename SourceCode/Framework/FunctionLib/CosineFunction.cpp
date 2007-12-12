@@ -28,14 +28,3 @@ double CosineFunction::mapValue(double x)
 }
 
 
-JamomaError CosineFunction::setParameter(t_symbol *parameterName, long argc, t_atom *argv)
-{
-	return JAMOMA_ERR_INVALID_PARAMETER;
-}
-
-
-JamomaError CosineFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
-{
-	return JAMOMA_ERR_INVALID_PARAMETER;
-}
-

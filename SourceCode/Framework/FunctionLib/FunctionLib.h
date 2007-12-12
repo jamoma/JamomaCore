@@ -29,8 +29,15 @@ class FunctionLib{
 		
 		virtual double mapValue(double x) = 0;	///< map x to y
 		// double lookupValue(double x);		///< map x to y using lookup table
-		virtual JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv) = 0;
-		virtual JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv) = 0;
+		virtual JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv)
+		{	return JAMOMA_ERR_INVALID_PARAMETER; }
+		virtual JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
+		{ 
+			// We do this here to ensure that any calling function won't actually free
+			// random memory
+			*argc = 0; *argv = NULL;
+			return JAMOMA_ERR_INVALID_PARAMETER;
+		}
 };
 
 

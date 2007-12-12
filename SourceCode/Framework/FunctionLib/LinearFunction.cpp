@@ -25,16 +25,3 @@ double LinearFunction::mapValue(double x)
 {
 	return x;
 }
-
-
-JamomaError LinearFunction::setParameter(t_symbol *parameterName, long argc, t_atom *argv)
-{
-	return JAMOMA_ERR_INVALID_PARAMETER;
-}
-
-
-JamomaError LinearFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
-{
-	return JAMOMA_ERR_INVALID_PARAMETER;
-}
-
