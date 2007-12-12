@@ -202,6 +202,7 @@ puts ""
 puts "Building Externals..."
 
 zero_count
+build_externs("SourceCode/RampLib/RampUnits",configuration,clean,nil,nil)
 build_externs("SourceCode/MaxObjects",configuration,clean,nil,nil)  
 ex_total, ex_count = get_count
 puts ""
