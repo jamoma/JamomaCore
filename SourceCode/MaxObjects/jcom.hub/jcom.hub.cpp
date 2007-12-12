@@ -522,9 +522,9 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		else if (private_message == ps_slash_preset_slash_recall)		// 	/preset/load
 			hub_preset_recall(x, _sym_list, 1, argv);
 		else if (private_message == ps_slash_preset_slash_store)
-			hub_preset_store(x, _sym_list, 0, 0);
+			hub_preset_store(x, _sym_list, argc, argv);
 		else if (private_message == ps_slash_preset_slash_copy)		// 	/preset/load
-			hub_preset_copy(x, _sym_list, 1, argv);
+			hub_preset_copy(x, _sym_list, argc, argv);
 		else if (private_message == ps_slash_preset_slash_write)			//	/preset/save
 			hub_preset_write(x, userpath);
 		else if (private_message == ps_slash_module_view_internals)		//	/module/view_internals
