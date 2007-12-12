@@ -66,9 +66,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)map_int,					"int", A_GIMME, 0L);
 	class_addmethod(c, (method)map_float,				"float", A_GIMME, 0L);
 	class_addmethod(c, (method)map_bang,				"bang", 0);
- 	class_addmethod(c, (method)map_getParameter,		"getParameter", A_GIMME, 0);
-	class_addmethod(c, (method)map_getFunctionParameters, "getFunctionParameters", A_GIMME, 0);
- 	class_addmethod(c, (method)map_setParameter,		"setParameter", A_GIMME, 0);
+ 	class_addmethod(c, (method)map_getParameter,		"parameter.get", A_GIMME, 0);
+	class_addmethod(c, (method)map_getFunctionParameters, "function.parameters.get", A_GIMME, 0);
+ 	class_addmethod(c, (method)map_setParameter,		"parameter", A_GIMME, 0);
 	class_addmethod(c, (method)map_assist,				"assist", A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);

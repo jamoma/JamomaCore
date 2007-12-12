@@ -57,10 +57,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
  	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
  	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
-	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp.function.setParameter",	A_GIMME,	0);
-	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp.function.getParameter",	A_GIMME,	0);
-	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp.drive.setParameter",		A_GIMME,	0);
-	class_addmethod(c, (method)param_getRampDriveParameter,		"ramp.drive.getParameter",		A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp.function.parameter",	A_GIMME,	0);
+	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp.function.parameter.get",	A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp.drive.parameter",		A_GIMME,	0);
+	class_addmethod(c, (method)param_getRampDriveParameter,		"ramp.drive.parameter.get",		A_GIMME,	0);
 	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
 	class_addmethod(c, (method)param_inc,						"inc",							A_GIMME,	0);
 	class_addmethod(c, (method)param_dec,						"dec",							A_GIMME,	0);

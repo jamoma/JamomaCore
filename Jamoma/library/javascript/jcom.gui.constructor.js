@@ -156,6 +156,7 @@ function bang()
 			menu_add("Store Current Preset");
 			menu_add("Store as next Preset");
 			menu_add("Open Preset Interface");
+			menu_add("Get Current State as Text");
 			
 		}		
 	}
@@ -190,6 +191,7 @@ function bang()
 			menu_add("Store Current Preset");
 			menu_add("Store as next Preset");
 			menu_add("Open Preset Interface");
+			menu_add("Get Current State as Text");
 			
 			// Handle the Inspector Button
 			inspector_button(attr_inspector);
@@ -219,6 +221,7 @@ function bang()
 			menu_add("Store Current Preset");
 			menu_add("Store as next Preset");
 			menu_add("Open Preset Interface");
+			menu_add("Get Current State as Text");
 			
 			// Handle the Inspector Button
 			inspector_button(attr_inspector);
@@ -291,6 +294,7 @@ function msg_int(value)
 			case 13: outlet(4, "/preset/store"); break;
 			case 14: outlet(4, "/preset/storenext"); break;
 			case 15: outlet(4, "/preset/interface"); break;
+			case 16: outlet(4, "/getstate"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}
@@ -346,6 +350,7 @@ function msg_int(value)
 			case 17: outlet(4, "/preset/store"); break;
 			case 18: outlet(4, "/preset/storenext"); break;
 			case 19: outlet(4, "/preset/interface"); break;
+			case 20: outlet(4, "/getstate"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 		outlet(3, "checkitem", 5, attr_bypass);
@@ -370,6 +375,7 @@ function msg_int(value)
 			case 11: outlet(4, "/preset/store"); break;
 			case 12: outlet(4, "/preset/storenext"); break;
 			case 13: outlet(4, "/preset/interface"); break;
+			case 14: outlet(4, "/getstate"); break;
 			default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
 		}
 	}

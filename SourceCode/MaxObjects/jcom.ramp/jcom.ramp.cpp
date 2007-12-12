@@ -50,7 +50,7 @@ t_class		*ramp_class;				// Required: Global pointer for our class
 /************************************************************************************/
 // Class Definition
 
-int main(void)				// main recieves a copy of the Max function macros table
+int main(void)				// main receives a copy of the Max function macros table
 {
 	t_class *c;
 	
@@ -67,16 +67,16 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)ramp_set,					"set",					A_GIMME,	0);
 	class_addmethod(c, (method)ramp_attrset,				"attrset",				A_GIMME, 	0);
 	class_addmethod(c, (method)ramp_attrget,				"attrget",				A_GIMME,	0);
-	class_addmethod(c, (method)ramp_setFunction,			"setFunction",			A_SYM,		0);
-	class_addmethod(c, (method)ramp_getFunctionParameter,	"getFunctionParameter",	A_GIMME,	0);
-	class_addmethod(c, (method)ramp_setFunctionParameter,	"setFunctionParameter",	A_GIMME,	0);
+	class_addmethod(c, (method)ramp_setFunction,			"function",				A_SYM,		0);
+	class_addmethod(c, (method)ramp_getFunctionParameter,	"function.parameter.get",	A_GIMME,	0);
+	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",	A_GIMME,	0);
 	class_addmethod(c, (method)ramp_assist,					"assist",				A_CANT,		0); 
     class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,		"quickref",				A_CANT,		0);
 
 	// ATTRIBUTE: rampunit
 	class_addattr(c, 
-		attr_offset_new("rampunit", _sym_symbol, 0,
+		attr_offset_new("drive", _sym_symbol, 0,
 		(method)0, (method)ramp_setrampunit, calcoffset(t_ramp, attr_rampunit)));
 
 	// Finalize our class
@@ -106,7 +106,7 @@ void *ramp_new(t_symbol *s, long argc, t_atom *argv)
 
 		if(x->attr_rampunit == _sym_nothing){
 			atom_setsym(&a, gensym("scheduler"));
-			object_attr_setvalueof(x, gensym("rampunit"), 1, &a);
+			object_attr_setvalueof(x, gensym("drive"), 1, &a);
 		}
 	}
 	return (x);		// return the pointer to our new instantiation
