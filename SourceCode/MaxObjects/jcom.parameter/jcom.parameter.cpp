@@ -52,19 +52,21 @@ int main(void)				// main recieves a copy of the Max function macros table
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
 	//	because the function pointer is in out struct, which hasn't been defined yet
-	class_addmethod(c, (method)param_dispatched,			"dispatched",	A_GIMME, 0L);
-	class_addmethod(c, (method)param_int,					"int",			A_DEFLONG,	0L);
-	class_addmethod(c, (method)param_float,					"float",		A_DEFFLOAT,	0L);
- 	class_addmethod(c, (method)param_list,					"list",			A_GIMME, 0L);
- 	class_addmethod(c, (method)param_symbol,				"anything",		A_GIMME, 0L);
-	class_addmethod(c, (method)param_ui_refresh,			"ui/refresh",	0L);
-	class_addmethod(c, (method)param_inc,					"inc",			A_GIMME, 0L);
-	class_addmethod(c, (method)param_dec,					"dec",			A_GIMME, 0L);
-	class_addmethod(c, (method)param_inc,					"+",			A_GIMME, 0L);
-	class_addmethod(c, (method)param_dec,					"-",			A_GIMME, 0L);
-	class_addmethod(c, (method)param_dump,					"dump",			0L);
-	class_addmethod(c, (method)param_bang,					"bang",			0L);
-	class_addmethod(c, (method)param_assist,				"assist",		A_CANT, 0L); 
+	class_addmethod(c, (method)param_dispatched,				"dispatched",					A_GIMME,	0);
+	class_addmethod(c, (method)param_int,						"int",							A_DEFLONG,	0);
+	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
+ 	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
+ 	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp.function.setParameter",	A_GIMME,	0);
+	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp.function.getParameter",	A_GIMME,	0);
+	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
+	class_addmethod(c, (method)param_inc,						"inc",							A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,						"dec",							A_GIMME,	0);
+	class_addmethod(c, (method)param_inc,						"+",							A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,						"-",							A_GIMME,	0);
+	class_addmethod(c, (method)param_dump,						"dump",							0);
+	class_addmethod(c, (method)param_bang,						"bang",							0);
+	class_addmethod(c, (method)param_assist,					"assist",						A_CANT,		0); 
 #ifndef JMOD_MESSAGE
 	if(g_pattr_valid == true){
 		// required to manually add because of our pattr-wrapping for parameters
@@ -320,6 +322,54 @@ t_max_err param_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv)
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
+}
+
+
+void param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_symbol	*parameterName;
+	t_atom		*a;
+	long		ac = 0;
+	t_atom		*av = NULL;
+	
+	if(!argc){
+		error("jcom.map: not enough arguments to getParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv);
+	//obj->function->getParameter(parameterName, &ac, &av);
+	obj->ramper->getFunctionParameter(parameterName, &ac, &av);
+	if(ac) {
+		//atom_setsym(a+0, parameterName);
+		//atom_setfloat(a+1, av);
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
+		// Forst list item is name of parameter
+		atom_setsym(a, parameterName);
+		// Next the whole shebang is copied
+		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
+		object_obex_dumpout(obj, gensym("getParameter"), ac+1, av);
+	
+		// The pointer to an atom assign in the getParameter method needs to be freed.
+		sysmem_freeptr(av);
+		sysmem_freeptr(a);
+	}
+}
+
+
+void param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	//double		value = 0.0;
+	t_symbol	*parameterName;
+	
+	if(argc < 2){
+		error("jcom.map: not enough arguments to setParameter");
+		return;
+	}
+	
+	parameterName = atom_getsym(argv);
+	//obj->function->setParameter(parameterName, argc-1, argv+1);
+	obj->ramper->setFunctionParameter(parameterName, argc-1, argv+1);
 }
 
 
