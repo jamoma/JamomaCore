@@ -2,7 +2,7 @@ include ../../projekt.mk
 
 SOURCES = ${QUEUE_SOURCE}
 OBJS = $(filter-out $(SOURCES),${QUEUE_OBJS})
-LOCAL_INCLUDES = -I. -I../../../Framework/source -I../../../ThirdParty/ttblue/dsplib -I../../../Framework/c74 -I../../../Framework/FunctionLib -L../../../Framework/source
+LOCAL_INCLUDES = -I. -I../../../Framework/source -I../../../ThirdParty/ttblue/dsplib -I../../../Framework/c74 -I../../../Framework/FunctionLib -I../../../Framework/DataspaceLib -L../../../Framework/source
 OUTPUT = queue.rampdll
 LINK_INPUT = $(OBJS) queue.def
 
