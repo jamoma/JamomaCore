@@ -45,7 +45,7 @@ class DataspaceLib{
 		void registerUnit(void *unit, t_symbol *unitName);
 		
 	public:
-		t_symbol		*nativeUnit;
+		t_symbol		*neutralUnit;
 		t_symbol		*name;
 
 		DataspaceLib(char *cName, char *cNativeUnit);		///< constructor

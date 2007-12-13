@@ -27,7 +27,7 @@ DataspaceLib::DataspaceLib(char *cName, char *cNativeUnit)
 {
 	unitHash = hashtab_new(0);
 	name = gensym(cName);
-	nativeUnit = gensym(cNativeUnit);
+	neutralUnit = gensym(cNativeUnit);
 }
 
 

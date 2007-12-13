@@ -93,8 +93,8 @@ TemperatureDataspace::TemperatureDataspace()
 	registerUnit(new KelvinUnit,		gensym("Kelvin"));
 	
 	// Now that the cache is created, we can create a set of default units
-	setInputUnit(nativeUnit);
-	setOutputUnit(nativeUnit);
+	setInputUnit(neutralUnit);
+	setOutputUnit(neutralUnit);
 }
 
 
