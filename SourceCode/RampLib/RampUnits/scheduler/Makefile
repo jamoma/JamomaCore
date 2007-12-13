@@ -2,7 +2,7 @@ include ../../projekt.mk
 
 SOURCES = ${SCHEDULER_SOURCE}
 OBJS = $(filter-out $(SOURCES),${SCHEDULER_OBJS})
-LOCAL_INCLUDES = -I. -I../../../Framework/source -I../../../ThirdParty/ttblue/dsplib -I../../../Framework/c74 -I../../../Framework/FunctionLib -L../../../Framework/source
+LOCAL_INCLUDES = -I. -I../../../Framework/source -I../../../ThirdParty/ttblue/dsplib -I../../../Framework/c74 -I../../../Framework/FunctionLib -I../../../Framework/DataspaceLib -L../../../Framework/source
 OUTPUT = scheduler.rampdll
 LINK_INPUT = $(OBJS) scheduler.def
 
