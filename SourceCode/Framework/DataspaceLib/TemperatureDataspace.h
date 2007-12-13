@@ -12,11 +12,6 @@
 #include "DataspaceLib.h"
 
 
-/*
-	The neutral unit for the TemperatureDataspace is Kelvin, because that is an SI Base Unit
-*/
-
-
 /****************************************************************************************************/
 // Class Specifications
 
