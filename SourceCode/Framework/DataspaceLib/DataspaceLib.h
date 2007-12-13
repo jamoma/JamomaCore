@@ -42,8 +42,8 @@ class DataspaceLib{
 		t_hashtab		*unitHash;
 
 	protected:
-		void registerUnit(void *unit, t_symbol *name);
-		void registerUnit(void *unit, t_symbol *name, t_symbol *abbreviation);
+		void registerUnit(void *unit, t_symbol *unitName);
+		void registerUnit(void *unit, t_symbol *unitName, t_symbol *abbreviation);
 		
 	public:
 		t_symbol		*nativeUnit;
