@@ -29,6 +29,9 @@ JCOM_COLORSPACE_OBJS = ${JCOM_COLORSPACE_SOURCE:.cpp=.o}
 JCOM_CUBIC_INTERPOLATE_SOURCE = jcom.cubic_interpolate.cpp jcom.cubic_interpolate.def
 JCOM_CUBIC_INTERPOLATE_OBJS = ${JCOM_CUBIC_INTERPOLATE_SOURCE:.cpp=.o}
 
+JCOM_DATASPACE_SOURCE = jcom.dataspace.cpp jcom.dataspace.def
+JCOM_DATASPACE_OBJS = ${JCOM_DATASPACE_SOURCE:.cpp=.o}
+
 JCOM_DELTA_SOURCE = jcom.delta.cpp jcom.delta.def
 JCOM_DELTA_OBJS = ${JCOM_DELTA_SOURCE:.cpp=.o}
 
