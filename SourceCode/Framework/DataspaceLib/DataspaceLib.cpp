@@ -22,30 +22,30 @@ DataspaceUnit::~DataspaceUnit()
 
 /***********************************************************************************/
 
-DataspaceLib::DataspaceLib(char *cNativeUnit)
+DataspaceLib::DataspaceLib(char *cName, char *cNativeUnit)
 	: inUnit(NULL), outUnit(NULL)
 {
 	unitHash = hashtab_new(0);
+	name = gensym(cName);
 	nativeUnit = gensym(cNativeUnit);
 }
 
 
 DataspaceLib::~DataspaceLib()
 {
-	t_symbol		**keys;
-	long			numKeys;
+	t_symbol		**keys = NULL;
+	long			numKeys = 0;
 	long			i;
 	DataspaceUnit	*unit;
+	long			flags = 0;
 
-	if(inUnit)
-		delete inUnit;
-	if(outUnit)
-		delete outUnit;
-	
 	hashtab_getkeys(unitHash, &numKeys, &keys);
 	for(i=0; i<numKeys; i++){
-		hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
-		delete unit;
+		flags = (long)object_method(unitHash, gensym("getkeyflags"), keys[i]);
+		if(!flags){
+			hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
+			delete unit;
+		}
 	}
 	hashtab_chuck(unitHash);
 }
@@ -87,9 +87,17 @@ JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
 }
 
 
-void DataspaceLib::registerUnit(t_symbol *name, void *unit)
+void DataspaceLib::registerUnit(void *unit, t_symbol *name)
 {
 	hashtab_store(unitHash, name, (t_object*)unit);
+}
+
+
+void DataspaceLib::registerUnit(void *unit, t_symbol *name, t_symbol *abbreviation)
+{
+	hashtab_store(unitHash, name, (t_object*)unit);
+	hashtab_store(unitHash, abbreviation, (t_object*)unit);
+	object_method(unitHash, gensym("keyflags"), abbreviation, 1);	// add a flag of 1 to indicate an abbreviation
 }
 
 
@@ -110,8 +118,14 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 
 JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace)
 {	
-	if(*dataspace)
-		delete *dataspace;
+	if(*dataspace){
+		if(dataspaceName == (*dataspace)->name)
+			return JAMOMA_ERR_NONE;	// already have this one, do nothing...
+		else{
+			delete *dataspace;
+			*dataspace = NULL;
+		}
+	}
 
 	// These should be alphabetized
 	if(dataspaceName == gensym("temperature"))

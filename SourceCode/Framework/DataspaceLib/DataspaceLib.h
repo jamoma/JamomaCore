@@ -42,13 +42,15 @@ class DataspaceLib{
 		t_hashtab		*unitHash;
 
 	protected:
-		void registerUnit(t_symbol *name, void *unit);
+		void registerUnit(void *unit, t_symbol *name);
+		void registerUnit(void *unit, t_symbol *name, t_symbol *abbreviation);
 		
 	public:
 		t_symbol		*nativeUnit;
+		t_symbol		*name;
 
-		DataspaceLib(char *cNativeUnit);							///< constructor
-		virtual ~DataspaceLib();				///< destructor - free memory, etc.
+		DataspaceLib(char *cName, char *cNativeUnit);		///< constructor
+		virtual ~DataspaceLib();							///< destructor - free memory, etc.
 		
 /*		JamomaError convert(long		inputNumArgs, 
 							t_atom		*inputAtoms, 

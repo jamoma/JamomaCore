@@ -10,7 +10,7 @@
 
 
 CelsiusUnit::CelsiusUnit()
-	: DataspaceUnit::DataspaceUnit("celsius")
+	: DataspaceUnit::DataspaceUnit("Celsius")
 {;}
 
 
@@ -34,7 +34,7 @@ void CelsiusUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 
 /***********************************************************************************************/
 FahrenheitUnit::FahrenheitUnit()
-	: DataspaceUnit::DataspaceUnit("fahrenheit")
+	: DataspaceUnit::DataspaceUnit("Fahrenheit")
 {;}
 
 
@@ -58,7 +58,7 @@ void FahrenheitUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 
 /***********************************************************************************************/
 KelvinUnit::KelvinUnit()
-	: DataspaceUnit::DataspaceUnit("kelvin")
+	: DataspaceUnit::DataspaceUnit("Kelvin")
 {;}
 
 
@@ -82,12 +82,12 @@ void KelvinUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 TemperatureDataspace::TemperatureDataspace()
-	: DataspaceLib::DataspaceLib("kelvin")
+	: DataspaceLib::DataspaceLib("temperature", "Kelvin")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(gensym("celsius"),		new CelsiusUnit);
-	registerUnit(gensym("fahrenheit"),	new FahrenheitUnit);
-	registerUnit(gensym("kelvin"),		new KelvinUnit);
+	registerUnit(new CelsiusUnit,		gensym("Celsius"),		gensym("C"));
+	registerUnit(new FahrenheitUnit,	gensym("Fahrenheit"),	gensym("F"));
+	registerUnit(new KelvinUnit,		gensym("Kelvin"),		gensym("K"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(nativeUnit);
