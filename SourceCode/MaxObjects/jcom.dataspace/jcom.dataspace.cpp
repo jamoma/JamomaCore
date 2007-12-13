@@ -201,8 +201,8 @@ t_max_err dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom
 {
 	obj->attr_dataspace = atom_getsym(argv);
 	jamoma_getDataspace(obj->attr_dataspace, &obj->dataspace);
-	obj->attr_dataspace_active = obj->dataspace->nativeUnit;
-	obj->attr_dataspace_native = obj->dataspace->nativeUnit;
+	obj->attr_dataspace_active = obj->dataspace->neutralUnit;
+	obj->attr_dataspace_native = obj->dataspace->neutralUnit;
 	return MAX_ERR_NONE;
 }
 
