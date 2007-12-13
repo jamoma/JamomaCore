@@ -18,7 +18,6 @@ enum{
 // Type definitions
 typedef short	ramp_err;
 
-//typedef void		(*rampunit_method_callback_type)				(void *, float);
 typedef void		(*rampunit_method_callback_type)				(void *, short, double *);
 typedef void*		(*rampunit_method_create_type)					(rampunit_method_callback_type, void *);
 typedef void		(*rampunit_method_destroy_type)					(void *);
