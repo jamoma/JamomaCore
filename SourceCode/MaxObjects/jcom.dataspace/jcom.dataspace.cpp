@@ -59,8 +59,8 @@ int main(void)
 
 	class_addmethod(c, (method)dataspace_int,			"int",			A_GIMME, 0L);
 	class_addmethod(c, (method)dataspace_float,			"float",		A_GIMME, 0L);
-	class_addmethod(c, (method)dataspace_getDataspaces,	"getDataspaces", 0);
- 	class_addmethod(c, (method)dataspace_getUnits,		"getUnits",		A_GIMME, 0);
+	class_addmethod(c, (method)dataspace_getDataspaces,	"dataspaces.get", 0);
+ 	class_addmethod(c, (method)dataspace_getUnits,		"units.get",		A_GIMME, 0);
 	class_addmethod(c, (method)dataspace_assist,		"assist",		A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,0);  
     class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
@@ -69,10 +69,10 @@ int main(void)
 		attr_offset_new("dataspace", _sym_symbol, 0,
 		(method)0, (method)dataspace_setDataspace, calcoffset(t_dataspace, attr_dataspace)));
 	class_addattr(c, 
-		attr_offset_new("dataspace.active", _sym_symbol, 0,
+		attr_offset_new("unit.active", _sym_symbol, 0,
 		(method)0, (method)dataspace_setDataspaceActive, calcoffset(t_dataspace, attr_dataspace_active)));
 	class_addattr(c, 
-		attr_offset_new("dataspace.native", _sym_symbol, 0,
+		attr_offset_new("unit.native", _sym_symbol, 0,
 		(method)0, (method)dataspace_setDataspaceNative, calcoffset(t_dataspace, attr_dataspace_native)));
 
 	// Finalize our class
