@@ -93,6 +93,9 @@ JCOM_RAMP_OBJS = ${JCOM_RAMP_SOURCE:.cpp=.o}
 JCOM_RECEIVE_SOURCE = jcom.receive.cpp jcom.receivemaster.cpp jcom.receive.def
 JCOM_RECEIVE_OBJS = ${JCOM_RECEIVE_SOURCE:.cpp=.o}
 
+JCOM_RECEIVE~_SOURCE = jcom.receive~.cpp jcom.receive~.def
+JCOM_RECEIVE~_OBJS = ${JCOM_RECEIVE~_SOURCE:.cpp=.o}
+
 JCOM_ROUTE_SOURCE = jcom.route.cpp jcom.route.def
 JCOM_ROUTE_OBJS = ${JCOM_ROUTE_SOURCE:.cpp=.o}
 
