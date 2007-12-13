@@ -213,7 +213,8 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 		atom_setsym(a, parameterName);
 		// Next the whole shebang is copied
 		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("getParameter"), ac, av);
+		//object_obex_dumpout(obj, gensym("getParameter"), ac, av);
+		object_obex_dumpout(obj, gensym("getParameter"), ac+1, a);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
 		sysmem_freeptr(av);
