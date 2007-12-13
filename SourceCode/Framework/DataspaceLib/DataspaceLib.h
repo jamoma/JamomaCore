@@ -13,9 +13,6 @@
 #include "ext_obex.h"
 #include "JamomaTypes.h"
 
-extern const double k_pi;
-extern const double k_twopi;
-extern const double k_anti_denormal_value;
 
 /****************************************************************************************************/
 // Class Specification
@@ -42,7 +39,11 @@ class DataspaceLib{
 	private:
 		DataspaceUnit	*inUnit;
 		DataspaceUnit	*outUnit;
+		t_hashtab		*unitHash;
 
+	protected:
+		void registerUnit(t_symbol *name, void *unit);
+		
 	public:
 		t_symbol		*nativeUnit;
 
@@ -68,10 +69,10 @@ class DataspaceLib{
 		// could also create a class that wraps a unit with it's dataspace information and args and whateverelse
 		// and then have an alternative (overridden) version of the convert method
 		
-		JamomaError setInputUnit(t_symbol *inputDataspace);
-		JamomaError setOutputUnit(t_symbol *outputDataspace);
+		JamomaError setInputUnit(t_symbol *inUnitName);
+		JamomaError setOutputUnit(t_symbol *outUnitName);
 		
-		virtual void getAvailableUnits(long *numUnits, t_symbol ***unitNames) = 0;
+		void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
 };
 
 

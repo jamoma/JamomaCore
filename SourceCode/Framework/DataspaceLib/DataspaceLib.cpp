@@ -7,7 +7,6 @@
  */
 
 #include "DataspaceLib.h"
-#include "TemperatureDataspace.h"
 
 DataspaceUnit::DataspaceUnit(char *cName)
 {
@@ -26,18 +25,29 @@ DataspaceUnit::~DataspaceUnit()
 DataspaceLib::DataspaceLib(char *cNativeUnit)
 	: inUnit(NULL), outUnit(NULL)
 {
+	unitHash = hashtab_new(0);
 	nativeUnit = gensym(cNativeUnit);
-	setInputUnit(nativeUnit);
-	setOutputUnit(nativeUnit);
 }
 
 
 DataspaceLib::~DataspaceLib()
 {
+	t_symbol		**keys;
+	long			numKeys;
+	long			i;
+	DataspaceUnit	*unit;
+
 	if(inUnit)
 		delete inUnit;
 	if(outUnit)
 		delete outUnit;
+	
+	hashtab_getkeys(unitHash, &numKeys, &keys);
+	for(i=0; i<numKeys; i++){
+		hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
+		delete unit;
+	}
+	hashtab_chuck(unitHash);
 }
 
 
@@ -59,63 +69,40 @@ JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *o
 }
 
 		
-JamomaError DataspaceLib::setInputUnit(t_symbol *inputUnit)
+JamomaError DataspaceLib::setInputUnit(t_symbol *inUnitName)
 {
-	if(inUnit && inputUnit == inUnit->name)	// already have this one loaded
+	if(inUnit && inUnitName == inUnit->name)	// already have this one loaded
 		return JAMOMA_ERR_NONE;
-	else if(inputUnit == gensym("celsius")){
-		if(inUnit)
-			delete inUnit;
-		inUnit = (DataspaceUnit*) new CelsiusUnit;
-		return JAMOMA_ERR_NONE;
-	}
-	else if(inputUnit == gensym("fahrenheit")){
-		if(inUnit)
-			delete inUnit;
-		inUnit = (DataspaceUnit*) new FahrenheitUnit;
-		return JAMOMA_ERR_NONE;
-	}
-	else if(inputUnit == gensym("kelvin")){
-		if(inUnit)
-			delete inUnit;
-		inUnit = (DataspaceUnit*) new KelvinUnit;
-		return JAMOMA_ERR_NONE;
-	}
 	else
-		return JAMOMA_ERR_GENERIC;
+		return (JamomaError)hashtab_lookup(unitHash, inUnitName, (t_object**)&inUnit);
 }
 
 
-JamomaError DataspaceLib::setOutputUnit(t_symbol *outputUnit)
+JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
 {
-	if(outUnit && outputUnit == outUnit->name)	// already have this one loaded
+	if(outUnit && outUnitName == outUnit->name)	// already have this one loaded
 		return JAMOMA_ERR_NONE;
-	else if(outputUnit == gensym("celsius")){
-		if(outUnit)
-			delete outUnit;
-		outUnit = (DataspaceUnit*) new CelsiusUnit;
-		return JAMOMA_ERR_NONE;
-	}
-	else if(outputUnit == gensym("fahrenheit")){
-		if(outUnit)
-			delete outUnit;
-		outUnit = (DataspaceUnit*) new FahrenheitUnit;
-		return JAMOMA_ERR_NONE;
-	}
-	else if(outputUnit == gensym("kelvin")){
-		if(outUnit)
-			delete outUnit;
-		outUnit = (DataspaceUnit*) new KelvinUnit;
-		return JAMOMA_ERR_NONE;
-	}
 	else
-		return JAMOMA_ERR_GENERIC;
+		return (JamomaError)hashtab_lookup(unitHash, outUnitName, (t_object**)&outUnit);
 }
+
+
+void DataspaceLib::registerUnit(t_symbol *name, void *unit)
+{
+	hashtab_store(unitHash, name, (t_object*)unit);
+}
+
+
+void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
+{
+	hashtab_getkeys(unitHash, numUnits, unitNames);
+}
+
 
 
 
 /***************************************************************************
-	Interface for Instantiating any FunctionLib
+	Interface for Instantiating any DataspaceLib
  ***************************************************************************/
 
 #include "TemperatureDataspace.h"
@@ -130,7 +117,7 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 	if(dataspaceName == gensym("temperature"))
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
 	else 
-		// Invalid function specified default to linear
+		// Invalid -- default to temperature
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
 	
 	return JAMOMA_ERR_NONE;

@@ -18,5 +18,10 @@ enum JamomaError{
 };
 
 
+extern const double k_pi;
+extern const double k_twopi;
+extern const double k_anti_denormal_value;
+
+
 #endif //__JAMOMA_TYPES_H__
 

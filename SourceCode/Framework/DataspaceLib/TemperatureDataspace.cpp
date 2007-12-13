@@ -11,15 +11,11 @@
 
 CelsiusUnit::CelsiusUnit()
 	: DataspaceUnit::DataspaceUnit("celsius")
-{
-	;
-}
+{;}
 
 
 CelsiusUnit::~CelsiusUnit()
-{
-	;
-}
+{;}
 		
 
 void CelsiusUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
@@ -37,18 +33,13 @@ void CelsiusUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 
 
 /***********************************************************************************************/
-
 FahrenheitUnit::FahrenheitUnit()
 	: DataspaceUnit::DataspaceUnit("fahrenheit")
-{
-	;
-}
+{;}
 
 
 FahrenheitUnit::~FahrenheitUnit()
-{
-	;
-}
+{;}
 		
 		
 void FahrenheitUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
@@ -66,19 +57,14 @@ void FahrenheitUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 
 
 /***********************************************************************************************/
-
 KelvinUnit::KelvinUnit()
 	: DataspaceUnit::DataspaceUnit("kelvin")
-{
-	;
-}
+{;}
 
 
 KelvinUnit::~KelvinUnit()
-{
-	;
-}
-		
+{;}
+
 		
 void KelvinUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
@@ -95,11 +81,17 @@ void KelvinUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 
 /***********************************************************************************************/
-
 TemperatureDataspace::TemperatureDataspace()
 	: DataspaceLib::DataspaceLib("kelvin")
 {
-	;
+	// Create one of each kind of unit, and cache them in a hash
+	registerUnit(gensym("celsius"),		new CelsiusUnit);
+	registerUnit(gensym("fahrenheit"),	new FahrenheitUnit);
+	registerUnit(gensym("kelvin"),		new KelvinUnit);
+	
+	// Now that the cache is created, we can create a set of default units
+	setInputUnit(nativeUnit);
+	setOutputUnit(nativeUnit);
 }
 
 
@@ -107,18 +99,3 @@ TemperatureDataspace::~TemperatureDataspace()
 {
 	;
 }
-
-
-void TemperatureDataspace::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
-{
-	*numUnits = 3;
-	*unitNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numUnits);
-	
-	// These should be alphabetized
-	if(*unitNames){
-		*(*unitNames+0) = gensym("celsius");
-		*(*unitNames+1) = gensym("fahrenheit");
-		*(*unitNames+2) = gensym("kelvin");
-	}
-}
-

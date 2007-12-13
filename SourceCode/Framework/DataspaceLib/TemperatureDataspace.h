@@ -18,8 +18,7 @@
 
 
 /****************************************************************************************************/
-// Class Specification
-
+// Class Specifications
 
 class CelsiusUnit : DataspaceUnit{
 	public:
@@ -49,22 +48,11 @@ class KelvinUnit : DataspaceUnit{
 };
 
 
-
-
-
 // Specification of our base class
 class TemperatureDataspace : DataspaceLib{
-	/* INHERITED
-	private:
-		DataspaceUnit	*inUnit;
-		DataspaceUnit	*outUnit;
-	*/
-
 	public:
 		TemperatureDataspace();					///< constructor
 		~TemperatureDataspace();				///< destructor - free memory, etc.
-		
-		void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
 };
 
 
