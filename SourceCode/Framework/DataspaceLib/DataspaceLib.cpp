@@ -37,15 +37,11 @@ DataspaceLib::~DataspaceLib()
 	long			numKeys = 0;
 	long			i;
 	DataspaceUnit	*unit;
-	long			flags = 0;
 
 	hashtab_getkeys(unitHash, &numKeys, &keys);
 	for(i=0; i<numKeys; i++){
-		flags = (long)object_method(unitHash, gensym("getkeyflags"), keys[i]);
-		if(!flags){
-			hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
-			delete unit;
-		}
+		hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
+		delete unit;
 	}
 	hashtab_chuck(unitHash);
 }
@@ -90,14 +86,6 @@ JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
 void DataspaceLib::registerUnit(void *unit, t_symbol *unitName)
 {
 	hashtab_store(unitHash, unitName, (t_object*)unit);
-}
-
-
-void DataspaceLib::registerUnit(void *unit, t_symbol *unitName, t_symbol *abbreviation)
-{
-	hashtab_store(unitHash, unitName, (t_object*)unit);
-	hashtab_store(unitHash, abbreviation, (t_object*)unit);
-	object_method(unitHash, gensym("keyflags"), abbreviation, 1);	// add a flag of 1 to indicate an abbreviation
 }
 
 
