@@ -53,7 +53,17 @@ JamomaError LowpassFunction::getParameter(t_symbol *parameterName, long *argc, t
 		return JAMOMA_ERR_NONE;
 	}
 	else{	
-		*argc = 0;
+		*argc = 0; *argv = NULL;
 		return JAMOMA_ERR_INVALID_PARAMETER;
 	}
+}
+
+JamomaError LowpassFunction::getFunctionParameters(long *argc, t_atom **argv)
+{
+	
+	int n = *argc = 2;
+	*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * n);
+	atom_setsym(*argv, gensym("coefficient")); atom_setsym(*argv+1, gensym("feedback"));
+	return JAMOMA_ERR_NONE;
+	
 }

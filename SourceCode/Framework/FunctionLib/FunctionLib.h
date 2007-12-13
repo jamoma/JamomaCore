@@ -35,6 +35,11 @@ class FunctionLib{
 			*argc = 0; *argv = NULL;
 			return JAMOMA_ERR_INVALID_PARAMETER;
 		}
+		virtual JamomaError getFunctionParameters(long *argc, t_atom **argv)
+		{
+			*argc = 0; *argv = NULL;
+			return JAMOMA_ERR_INVALID_PARAMETER;
+		}
 };
 
 
