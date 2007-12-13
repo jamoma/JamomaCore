@@ -7,7 +7,8 @@ ARFLAGS = cr
 
 JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp JamomaScheduler.cpp JamomaClock.cpp JamomaSymbols.cpp
 FUNCTION_LIB_SOURCE = ../FunctionLib/FunctionLib.cpp ../FunctionLib/LinearFunction.cpp ../FunctionLib/TanhFunction.cpp ../FunctionLib/CosineFunction.cpp ../FunctionLib/PowerFunction.cpp ../FunctionLib/LowpassFunction.cpp
-JAMOMA_LIB_SOURCE += ${FUNCTION_LIB_SOURCE}
+DATASPACE_LIB_SOURCE = ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/TemperatureDataspace.cpp
+JAMOMA_LIB_SOURCE += ${FUNCTION_LIB_SOURCE} ${DATASPACE_LIB_SOURCE}
 
 JAMOMA_LIB_OBJS = ${JAMOMA_LIB_SOURCE:.cpp=.o}
 JAMOMA_LIB_OBJS += commonsyms.o
@@ -28,13 +29,14 @@ TT_BLUE_INCLUDES = -I../../ThirdParty/ttblue/dsplib
 RAMPLIB_INCLUDES = -I../../RampLib/ramplib_api
 PATTR_INCLUDES = -I../c74
 FUNC_LIB_INCLUDES = -I../FunctionLib -I./
+DATASPACE_LIB_INCLUDES = -I../DataspaceLib -I./
 
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
    -L/maxmspsdk/c74support/common
 
 
-INCLUDES = ${MAX_INCLUDES} ${TT_BLUE_INCLUDES} ${RAMPLIB_INCLUDES} ${PATTR_INCLUDES} ${FUNC_LIB_INCLUDES}
+INCLUDES = ${MAX_INCLUDES} ${TT_BLUE_INCLUDES} ${RAMPLIB_INCLUDES} ${PATTR_INCLUDES} ${FUNC_LIB_INCLUDES} ${DATASPACE_LIB_INCLUDES}
 #WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DWIN_EXT_VERSION -DTT_INCLUDE_CPP
 WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DWIN_EXT_VERSION 
 
@@ -68,6 +70,7 @@ include $(DEPENDS)
 
 # release
 release: 
+	echo ${INCLUDES}
 	${MAKE} ${JAMOMA_LIB_NAME}
 
 # debug symbols currently aren't being enabled when you build this lib as debug
@@ -89,6 +92,6 @@ commonsyms.o:
 	$(CC) -c -shared -mno-cygwin -o ../c74/ext_pattr_bundle.o $(MAX_INCLUDES) $(WIN_DEFINES) ../c74/ext_pattr_bundle.c 
 
 function_lib:
-	$(CXX) -c -shared -mno-cygwin -o ../c74/ext_pattr_bundle.o $(MAX_INCLUDES) $(WIN_DEFINES) ../c74/ext_pattr_bundle.c 
+	$(CXX) -c -shared -mno-cygwin -o ../c74/ext_pattr_bundle.o $(INCLUDES) $(WIN_DEFINES) ../c74/ext_pattr_bundle.c 
 
 
