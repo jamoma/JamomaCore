@@ -223,8 +223,18 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 
 void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	
+	long n; t_atom *av;
+	obj->function->getFunctionParameters(&n, &av);
+	if(n) {
+		object_obex_dumpout(obj, gensym("function.parameters.get"), n, av);
+		sysmem_freeptr(av);
+	} else {
+		// no parameters
+		object_obex_dumpout(obj, gensym("function.parameters.get"), 0, 0);
+	}
+		
 }
+
 
 
 
