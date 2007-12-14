@@ -71,9 +71,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jcom_core_subscriber_classinit_extended(c, attr, offset);
 	
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
-	attr = attr_offset_new("type", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_jcom_core_subscriber_extended, attr_type));
-	class_addattr(c, attr);
+	jamoma_class_attr_new(c, "type", _sym_symbol,
+		(method)0, (method)0,
+		calcoffset(t_jcom_core_subscriber_extended, attr_type));
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
