@@ -20,7 +20,6 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long		attrflags = 0;
 	t_class		*c;
 	t_object	*attr = NULL;
 	long		offset;
@@ -92,34 +91,34 @@ int main(void)				// main recieves a copy of the Max function macros table
 		calcoffset(t_param, attr_rampfunction));
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
-	attr = attr_offset_new("type", _sym_symbol, attrflags,
-		(method)0, (method)param_settype, calcoffset(t_jcom_core_subscriber_extended, attr_type));
-	class_addattr(c, attr);
+	jamoma_class_attr_new(c, "type", _sym_symbol,
+		(method)param_settype, (method)0,
+		calcoffset(t_jcom_core_subscriber_extended, attr_type));
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	attr = attr_offset_new("ui/freeze", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_ui_freeze));
-	class_addattr(c, attr);
+	jamoma_class_attr_new(c, "ui/freeze", _sym_long,
+		(method)0, (method)0,
+		calcoffset(t_param, attr_ui_freeze));
 	
 	// ATTRIBUTE: slavemode - indicates that the instance is slave to another parameter/message
-	attr = attr_offset_new("slave", _sym_long, attrflags,
-	 	(method)0, (method)0, calcoffset(t_param, attr_slavemode));
-	class_addattr(c, attr);
+	jamoma_class_attr_new(c, "slave", _sym_long,
+		(method)0, (method)0,
+		calcoffset(t_param, attr_slavemode));
 
 	// ATTRIBUTE: stepsize - how much increment or decrement by
-	attr = attr_offset_new("stepsize", _sym_float32, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_stepsize));
-	class_addattr(c, attr);
+	jamoma_class_attr_new(c, "stepsize", _sym_float32,
+		(method)0, (method)0,
+		calcoffset(t_param, attr_stepsize));
 
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
-	attr = attr_offset_new("priority", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_param, attr_priority));
-	class_addattr(c, attr);
+	jamoma_class_attr_new(c, "priority", _sym_long,
+		(method)0, (method)0,
+		calcoffset(t_param, attr_priority));
 
 	// ATTRIBUTE: value
-	attr = attr_offset_array_new("value", _sym_atom, LISTSIZE, attrflags,
-		   (method)0, (method)0, calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
-	class_addattr(c, attr);
+	jamoma_class_attr_array_new(c, "value", _sym_atom, LISTSIZE,
+		(method)0, (method)0,
+		calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);

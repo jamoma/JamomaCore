@@ -221,6 +221,21 @@ void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, metho
 }
 
 
+void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter, long sizeOffset, long offset)
+{
+	t_object	*attr = NULL;
+	char		getterName[256];
+	
+	strcpy(getterName, attrName);
+	strcat(getterName, "/get");
+
+	attr = attr_offset_array_new(attrName, _sym_atom, list_size, 0, getter, setter, sizeOffset, offset);
+	class_addattr(c, attr);
+
+	class_addmethod(c, (method)jamoma_class_attr_get, getterName, A_GIMME, 0);
+}
+
+
 void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 {
 	char		cAttrName[256];
