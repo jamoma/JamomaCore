@@ -198,14 +198,36 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 	t_preset_item *item1, *item2;
 	float value;
 	t_atom newValue;
+	bool found = false;
 	
 	presetItemListIterator i1, i2;
 	for(i1 = itemOneList->begin(), i2 = itemTwoList->begin(); i1 != itemOneList->end() 
 		&& i2 != itemTwoList->end(); ++i1, ++i2) {
 		
 		item1 = *i1; item2 = *i2;
-		if(item1->param_name != item2->param_name)
+
+		if(item1->param_name != item2->param_name) {
+			// parameter names don't match find the parameter
+			found = false;
+			for(i2 = itemTwoList->begin(); i2 != itemTwoList->end(); ++i2) {
+				item2 = *i2;
+				if(item1->param_name != item2->param_name)
+					continue;
+				else {
+					found = true;
+					// if params are out of order we need reset list two to the beginning
+					i2 = itemTwoList->begin();
+					break;
+				}
+			}
+		} else
+			found = true;
+		
+		// couldn't find parameter, skip it
+		if(!found) {
+			i2 = itemTwoList->begin();
 			continue;
+		}
 		
 		// we can assume item1 and item2 are the same type if they are the same parameter (see above)
 		if(item1->type == ps_msg_int) {
@@ -220,7 +242,7 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 		} else if(item1->type == ps_msg_list) {
 			
 		} else if(item1->type == ps_msg_symbol) {
-			
+			atom_setsym(&newValue, position == 0. ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
 		}
 		hub_symbol(x, item1->param_name, item1->list_size, &newValue);
 			
