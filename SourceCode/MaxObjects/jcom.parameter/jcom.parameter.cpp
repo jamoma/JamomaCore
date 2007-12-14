@@ -825,6 +825,8 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 void param_rampUpdate(t_param *x)
 {
 	//post("Requested to update.");
+	
+	x->ramper->tick();
 }
 
 

@@ -19,7 +19,6 @@ t_async*	create(rampunit_method_callback_type in_callback, void *in_baton)
 	if(rampunit){
 		rampunit->callback = in_callback;
 		rampunit->baton = in_baton;
-		rampunit->max_qelem = qelem_new(rampunit, (method)tick);	// install the queue element
 		rampunit->value_current = NULL;
 		rampunit->value_target = NULL;
 		rampunit->value_start = NULL;
@@ -37,8 +36,6 @@ t_async*	create(rampunit_method_callback_type in_callback, void *in_baton)
 
 void destroy(t_async *rampunit)
 {
-	qelem_unset(rampunit->max_qelem);
-	qelem_free(rampunit->max_qelem);
 	free(rampunit->value_current);
 	free(rampunit->value_target);
 	free(rampunit->value_start);
@@ -106,8 +103,7 @@ void go(t_async *rampunit, short numvalues, double *values, double time)
 		rampunit->value_start[i] = rampunit->value_current[i];
 	}
 	rampunit->value = 0.0;							// set the ramp to the beginning
-	rampunit->active = 1;	
-	qelem_set(rampunit->max_qelem);					// Start the ramp!	
+	rampunit->active = 1;		
 }
 
 
@@ -115,7 +111,6 @@ void set(t_async *rampunit, short numvalues, double *values)
 {
 	short i;
 	
-	qelem_unset(rampunit->max_qelem);
 	setnumvalues(rampunit, numvalues);
 	for(i=0; i<numvalues; i++)
 		rampunit->value_current[i] = values[i];
@@ -124,7 +119,8 @@ void set(t_async *rampunit, short numvalues, double *values)
 
 void stop(t_async *rampunit)
 {
-	qelem_unset(rampunit->max_qelem);
+	// Nada.	
+	rampunit->active=0;
 }
 
 
@@ -138,19 +134,22 @@ void tick(t_async *rampunit)
 	double			*start = rampunit->value_start;
 	float			ratio;
 	
-	if(current_time > rampunit->time_target){
-		rampunit->active = 0;
-		for(i=0; i < rampunit->numvalues; i++)
-			rampunit->value_current[i] = rampunit->value_target[i];
+	if (rampunit->active)
+	{
+		if(current_time > rampunit->time_target){
+			rampunit->active = 0;
+			for(i=0; i < rampunit->numvalues; i++)
+				rampunit->value_current[i] = rampunit->value_target[i];
+		}
+		else{
+			ratio = (current_time - rampunit->time_start) / (float)rampunit->ramptime;
+			mapped = rampunit->function->mapValue(rampunit->value);
+			for(i=0; i < rampunit->numvalues; i++)
+				current[i] = (target[i] * mapped) + (start[i] * (1 - mapped));
+			//qelem_set(rampunit->max_qelem);							// set the qelem element to run again
+		}
+		(rampunit->callback)(rampunit->baton, rampunit->numvalues, rampunit->value_current);		// send the value to the host
 	}
-	else{
-		ratio = (current_time - rampunit->time_start) / (float)rampunit->ramptime;
-		mapped = rampunit->function->mapValue(rampunit->value);
-		for(i=0; i < rampunit->numvalues; i++)
-			current[i] = (target[i] * mapped) + (start[i] * (1 - mapped));
-		qelem_set(rampunit->max_qelem);							// set the qelem element to run again
-	}
-	(rampunit->callback)(rampunit->baton, rampunit->numvalues, rampunit->value_current);		// send the value to the host
 }
 
 

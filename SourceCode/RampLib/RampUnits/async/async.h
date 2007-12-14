@@ -10,7 +10,7 @@
  */
 
 #ifndef __ASYNC_H__
-#define __ASYNCH_H__
+#define __ASYNC_H__
 
 #include "ramplib.h"		// Common definitions used by the RampLib
 
@@ -18,7 +18,6 @@
 typedef struct _async {
 	rampunit_method_callback_type	callback;		///< usually a function in a Max external
 	void							*baton;			///< usually a pointer to the Max external's instance
-	void							*max_qelem;		///< pointer to a Max queue element instance
 	char							active;			///< is the ramp running?
 	float							ramptime;		///< in ms
 	double							*value_start;
