@@ -951,7 +951,7 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 	else {
 		//ps_ramp_update				= gensym("ramp_update");
-		if (atom_getsym(argv)==ps_ramp_update)
+		if (atom_getsym(argv)==gensym("ramp_update"))
 		{
 			post("Update!");
 			// Send som message to 
