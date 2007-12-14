@@ -124,11 +124,30 @@ Communication in and between Jamoma modules is being handled through the Open So
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Open Sound Control}
 
+Open Sound Control (OSC) was developed in the late 1990s at CNMAT and has emerged as the de facto standard for communication among computers, sound synthesizers, and other multimedia devices in the computer music research community \cite{Wright:2003}. 
+
+
+The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:2003}. Oppositely to the well-defined structure of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the "implementor’s idea of how these features should be organized." 
+
+
+
+“/voices/3/freq” 
+
+This open approach has made OSC useful in a number of different situations, but it is also probably the major reason that OSC has not gained a more widespread usage outside the computer music research community. 
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Integra}
 
-Integra\footnote{http://www.integralive.org} \cite{Bullock:2007} 
+The Integra\footnote{http://www.integralive.org} project is a EU Culture 2000 project aiming at developing "a new software environment to make music with live electronics," and to modernise works that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a client/server model 
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Iannix}
+
+
 
 
 
@@ -141,6 +160,7 @@ Developers of the Lemur multitouch interface presented a draft for a 2.0 version
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{UPF}
 
+The MTG at Pompeu Fabra has developed TUIO, an OSC address space for handling data from the Reactable \cite{Kaltenbrunner:2005}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%
