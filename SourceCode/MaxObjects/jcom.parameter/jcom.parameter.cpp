@@ -57,10 +57,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
  	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
  	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
-	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp.function.parameter",	A_GIMME,	0);
-	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp.function.parameter.get",	A_GIMME,	0);
-	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp.drive.parameter",		A_GIMME,	0);
-	class_addmethod(c, (method)param_getRampDriveParameter,		"ramp.drive.parameter.get",		A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp/function/parameter",	A_GIMME,	0);
+	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp/function/parameter/get",	A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp/drive/parameter",		A_GIMME,	0);
+	class_addmethod(c, (method)param_getRampDriveParameter,		"ramp/drive/parameter/get",		A_GIMME,	0);
 	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
 	class_addmethod(c, (method)param_inc,						"inc",							A_GIMME,	0);
 	class_addmethod(c, (method)param_dec,						"dec",							A_GIMME,	0);
@@ -83,14 +83,13 @@ int main(void)				// main recieves a copy of the Max function macros table
 	else
 		jcom_core_subscriber_classinit_extended(c, attr, offset, true);		// define a name attr
 		
-	// ATTRIBUTE: ramp
-	attr = attr_offset_new("ramp.drive", _sym_symbol, attrflags,
-		(method)0, (method)param_setramp, calcoffset(t_param, attr_ramp));
-	class_addattr(c, attr);
-
-	attr = attr_offset_new("ramp.function", _sym_symbol, attrflags,
-		(method)0, (method)param_setrampfunction, calcoffset(t_param, attr_rampfunction));
-	class_addattr(c, attr);
+	// ATTRIBUTE: ramp	
+	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol,
+		(method)param_attr_setramp, (method)param_attr_getramp,
+		calcoffset(t_param, attr_ramp));
+	jamoma_class_attr_new(c, "ramp/function", _sym_symbol,
+		(method)param_attr_setrampfunction, (method)param_attr_getrampfunction,
+		calcoffset(t_param, attr_rampfunction));
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
@@ -156,6 +155,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
 
 		// set defaults...
+		x->attr_rampfunction = _sym_nothing;
 		x->attr_ramp = _sym_nothing;
 		x->ramper = NULL;
 
@@ -192,7 +192,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		if(x->attr_ramp == _sym_nothing){
 			t_atom a;
 			atom_setsym(&a, ps_none);
-			object_attr_setvalueof(x, gensym("ramp.drive"), 1, &a);
+			object_attr_setvalueof(x, gensym("ramp/drive"), 1, &a);
 		}
 	}
 	return (x);										// return the pointer to our new instantiation
@@ -303,7 +303,7 @@ t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
 
 // ATTRIBUTE: RAMP
 // This is crucial because it sets function pointers
-t_max_err param_setramp(t_param *x, void *attr, long argc, t_atom *argv)
+t_max_err param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	t_symbol *arg = atom_getsym(argv);
 	x->attr_ramp = arg;
@@ -314,8 +314,19 @@ t_max_err param_setramp(t_param *x, void *attr, long argc, t_atom *argv)
 	#pragma unused(attr)
 }
 
+t_max_err param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_ramp);
+	
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
 
-t_max_err param_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv)
+
+t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	t_symbol *arg = atom_getsym(argv);
 	x->attr_rampfunction = arg;
@@ -324,6 +335,17 @@ t_max_err param_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv)
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
+}
+
+t_max_err param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_rampfunction);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
 }
 
 

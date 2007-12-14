@@ -79,7 +79,10 @@ void		param_ramp_callback_list(void *v, short argc, double *value);
 void		atom_clip(t_param *x, t_atom *a);
 void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 t_max_err 	param_settype(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_setramp(t_param *x, void *attr, long argc, t_atom *argv);
+
+t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv);
+
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);
 void		param_ui_queuefn(t_param *x);
@@ -87,7 +90,8 @@ void		param_ui_queuefn(t_param *x);
 t_max_err 	param_setvalueof(t_param *x, long argc, t_atom *argv);
 t_max_err 	param_getvalueof(t_param *x, long *argc, t_atom **argv);
 #endif
-t_max_err	param_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv);
 void		param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
 void		param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
 void		param_getRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);

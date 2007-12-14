@@ -70,5 +70,9 @@ t_symbol*	jamoma_patcher_getvarname(t_object *patcher);
 
 void		jamoma_dsp(t_object *, t_signal **sp, short *count);
 
+void		jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter, long offset);
+void		jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *);
+void		jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *argv);
+
 #endif //__JAMOMA_H__
 

@@ -200,4 +200,60 @@ void jamoma_dsp(t_object *, t_signal **sp, short *count)
 }
 
 
+// This is the default attribute getter for Jamoma's core
+// It sends the data out not only the parameter dumpout, but also
+// out the feedback outlet from the module
+// for example:
+// 	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol, (method)param_setramp, 
+//		calcoffset(t_param, attr_ramp));
+void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter, long offset)
+{
+	t_object	*attr = NULL;
+	char		getterName[256];
+	
+	strcpy(getterName, attrName);
+	strcat(getterName, "/get");
 
+	attr = attr_offset_new(attrName, attrType, 0, getter, setter, offset);
+	class_addattr(c, attr);
+
+	class_addmethod(c, (method)jamoma_class_attr_get, getterName, A_GIMME, 0);
+}
+
+
+void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
+{
+	char		cAttrName[256];
+	t_symbol	*sAttrName;
+	char		*temp;
+	long		ac = 0;
+	t_atom		*av = NULL;
+	
+	strcpy(cAttrName, attrName->s_name);
+	temp = strrchr(cAttrName, '/');
+	if(temp)
+		*temp = 0;
+	sAttrName = gensym(cAttrName);
+
+	object_attr_getvalueof(o, sAttrName, &ac, &av);
+	object_obex_dumpout(o, sAttrName, ac, av);
+	if(ac)
+		sysmem_freeptr(av);
+}
+
+
+void jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *argv)
+{
+	t_jcom_core_subscriber_common *x = (t_jcom_core_subscriber_common*)o;
+
+	if(x->hub != NULL){
+		t_symbol	*attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));
+		char		s[256];
+		t_atom		a[4];
+	
+		sprintf(s, "%s:%s", x->attr_name->s_name, attrName->s_name);
+		atom_setsym(a+0, gensym(s));
+		sysmem_copyptr(argv, a+1, sizeof(t_atom) * argc);
+		object_method_typed(x->hub, ps_feedback, argc + 1, a, NULL);
+	}
+}
