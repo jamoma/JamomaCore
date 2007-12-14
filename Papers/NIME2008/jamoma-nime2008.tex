@@ -118,7 +118,7 @@ Communication in and between Jamoma modules is being handled through the Open So
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
-\section{Related Work}
+\section{Literature Review}
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -135,32 +135,71 @@ The original idea of OSC is that it is tree-structured into a hierarchy called t
 
 This open approach has made OSC useful in a number of different situations, but it is also probably the major reason that OSC has not gained a more widespread usage outside the computer music research community. 
 
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Occam}
 
 
+Occam takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcats the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).
+
+http://www.mat.ucsb.edu/~c.ramakr/illposed/occam.html
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{liboscqs}
+
+LIBOSCQS\footnote{http://liboscqs.sourceforge.net/} is a library to provide a Query System and Service Discovery for applications using the Open Sound Control (OSC) protocol. This page contains an introduction to LIBOSCQS.
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{McGill Mapper}
+
+\cite{Malloch:2007}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{OSCQS}
+
+\cite{Habets:2005}
 
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Integra}
 
-The Integra\footnote{http://www.integralive.org} project is a EU Culture 2000 project aiming at developing "a new software environment to make music with live electronics," and to modernise works that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a client/server model 
+The Integra\footnote{http://www.integralive.org} project is a EU Culture 2000 project aiming at developing "a new software environment to make music with live electronics," and to modernise works that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a client/server model. 
+
+The Integra OSC address space suggests using the : (colon) to only set messages without outputting, to avoid feedback. 
+
+They also include a .get message to query for values. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{SuperCollider}
+
+The text based computer music programming language SuperCollider is using OSC for internal communication in its client/server model. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Iannix}
 
+"Iannix \footnote{http://sourceforge.net/projects/iannix} is a graphical editor of multidimensional and multi-formal scores, a kind of poly-temporal meta-sequencer, based on the former UPIC created by Iannis Xenakis." The current implementation is built around a client/server model where all communication is handled using OSC. 
+
+\cite{Coduys:2004}
 
 
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{TUIO}
 
+The MTG at Pompeu Fabra has developed TUIO, an OSC address space for handling data from the Reactable \cite{Kaltenbrunner:2005}.
+
+Copperlan
 
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Open Sound Control 2.0 suggestion}
 
-Developers of the Lemur multitouch interface presented a draft for a 2.0 version of Open Sound Control during an OSC developer meeting at NIME 2006 \cite{Jazzmutant:2006}, and has later changed the suggestion slightly \cite{Jazzmutant:2007}.
+Developers of the Lemur multitouch interface presented a draft for a 2.0 version of Open Sound Control during an OSC developer meeting at NIME 2006 \cite{Jazzmutant:2006}, and has later changed the suggestion slightly \cite{Jazzmutant:2007}. 
+
+The topic of query has been brought up and been suggested as follows: 
 
 
-%%%%%%%%%%%%%%%%%%%%%%
-\subsection{UPF}
-
-The MTG at Pompeu Fabra has developed TUIO, an OSC address space for handling data from the Reactable \cite{Kaltenbrunner:2005}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -169,13 +208,92 @@ The MTG at Pompeu Fabra has developed TUIO, an OSC address space for handling da
 \section{A Structured Approach}
 
 
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Separating addresses and parameters}
+
+We suggest a model where it is possible to separate the recipient of addresses from the parameters to be used by the recipient (i.e. a module in Jamoma). 
+
+This could lead to a general address space like: 
+
+\begin{small}
+\begin{verbatim}
+/computer/module.N/parameter:/
+\end{verbatim}
+\end{small}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Classes}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 \section{Prototype Implementation}
 
+Our discussion and testing has happened within the Jamoma framework for Max/MSP
 
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Separators}
+
+
+Having discussed different ways of designing a message like this one, we seem to have agreed that the meaning of the different separating signs used need to be precisely defined:
+
+\begin{itemize}
+
+	\item. (dot): Used to indicate instances of a specific class.
+	\item / (slash): Used to indicate branching according to the OSC specification.
+	\item : (colon): Colon is used to split the total OSC message into two parts. The first part is describing where you want to go. The second part describe what you want to access there.
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Namespace structure}
+
+
+%% This should probably be in a table if included, but just adding it here as a draft
+
+		Message                                               Category       Description
+
+		- [ ] /module/parameter
+		    - [ ] General for the module
+		        - [ ] :namespace/dump
+		        - [ ] :dump/values
+		    - [ ] value stuff                                                These ones are not fixed.
+		        - [ ] :value/get                              value          get the value of the parameter
+		        - [ ] :value                                  value          set the value (why would you want to do it this way?)
+		        - [ ] :value/range                            range
+		        - [ ] :value/range/get                        range
+		        - [ ] :value/range/clipmode                   range
+		        - [ ] :value/range/clipmode/get               range
+		        - [ ] :value/step/inc                         value          Increase by one step
+		        - [ ] :value/step/dec                         value          Decrease by one step
+		        - [ ] :value/step/size                        value          Set the step size
+		        - [ ] :value/step/size/get                    value          Get the step size
+		        - [ ] :value/unit
+		        - [ ] :value/type                             type
+		        - [ ] :value/type/get                         type
+		    - [ ] Conditioning
+		        - [ ] :repetitions                            repetitions
+		        - [ ] :repetitions/get                        repetitions
+		    - [ ] ramp stuff - including drive and function
+		        - [ ] :ramp/drive                             ramp/drive     Select what mechanism is driving the ramp
+		        - [ ] :ramp/drive/get                         ramp/drive
+		        - [ ] :ramp/drive/parameter                   ramp/drive     Pass additional parameters to the driving mechanism
+		        - [ ] :ramp/drive/parameter/get               ramp/drive
+		        - [ ] :ramp/function                          ramp/drive     Select what mapping function to use for the ramp
+		        - [ ] :ramp/function/get                      ramp/function
+		        - [ ] :ramp/function/parameter                ramp/function  Pass additional parameters to the function
+		        - [ ] :ramp/function/parameter/get            ramp/function
+		        - [ ] :ramp/function/parameter/names/dump     ramp/function  Get the name of all parameters for the currently used function
+		        - [ ] :ramp/function/parameter width          ramp/function  This is an example (valid for the tanh function)
+		        - [ ] :ramp/function/parameter/get width      ramp/function  This is an example (valid for the tanh function)
+		    - [ ] ui
+		        - [ ] :ui/freeze                              ui
+		        - [ ] :ui/freeze/get                          ui
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
@@ -185,6 +303,7 @@ The MTG at Pompeu Fabra has developed TUIO, an OSC address space for handling da
 
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Future Work}
+
 
 
 %\end{document}  % This is where a 'short' article might terminate
