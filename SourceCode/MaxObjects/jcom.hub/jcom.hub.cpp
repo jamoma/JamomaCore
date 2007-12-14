@@ -58,49 +58,27 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
     class_addmethod(c, (method)object_obex_quickref,	"quickref",					A_CANT, 0);
 
-	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names/dump", 	0L);
 	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names/dump", 	0L);
-	class_addmethod(c, (method)hub_messagenames_get,	"message_names/dump", 		0L);
 	class_addmethod(c, (method)hub_messagenames_get,	"/message_names/dump",		0L);
-	class_addmethod(c, (method)hub_returnnames_get,		"return_names/dump", 		0L);
 	class_addmethod(c, (method)hub_returnnames_get,		"/return_names/dump",		0L);
-	class_addmethod(c, (method)hub_allnames_get,		"*_names/dump",				0L);
 	class_addmethod(c, (method)hub_allnames_get,		"/*_names/dump",			0L);
-	class_addmethod(c, (method)hub_paramvalues_get,		"parameter_values/dump",	0L);
 	class_addmethod(c, (method)hub_paramvalues_get,		"/parameter_values/dump",	0L);
-	
-	class_addmethod(c, (method)hub_modulename_get,		"module_name/get",			0L);
 	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			0L);
 	class_addmethod(c, (method)core_modulename_get,		"core_module_name/get",			0L);
-	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type/get",		A_CANT);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type/get",		A_CANT);
-	class_addmethod(c, (method)hub_init,				"init",						0L);
 	class_addmethod(c, (method)hub_init,				"/init",					0L);
-	class_addmethod(c, (method)hub_autodoc,				"documentation/generate",	A_DEFSYM, 0L);
 	class_addmethod(c, (method)hub_autodoc,				"/documentation/generate",	A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_module_view_alg,		"module/view_internals",	0L);
 	class_addmethod(c, (method)hub_module_view_alg,		"/module/view_internals",	0L);
-	class_addmethod(c, (method)hub_preset_read,			"preset/read",				A_DEFSYM, 0L);
 	class_addmethod(c, (method)hub_preset_read,			"/preset/read",				A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_preset_write,		"preset/write",				A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_preset_write,		"/preset/write",			A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_preset_recall,		"preset/recall",			A_GIMME, 0L);	// number or name
+	class_addmethod(c, (method)hub_preset_write,		"/preset/write",			A_DEFSYM, 0L);	// number or name
 	class_addmethod(c, (method)hub_preset_recall,		"/preset/recall",			A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_copy,			"preset/copy",				A_GIMME, 0L);	// number or name
 	class_addmethod(c, (method)hub_preset_copy,			"/preset/copy",				A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_store,		"preset/store",				A_GIMME, 0L);	// number & optional name
 	class_addmethod(c, (method)hub_preset_store,		"/preset/store",			A_GIMME, 0L);	// number & optional name
-	class_addmethod(c, (method)hub_preset_store_next,		"preset/storenext",			A_GIMME, 0L);
-	class_addmethod(c, (method)hub_preset_store_next,		"/preset/storenext",		A_GIMME, 0L);
-	class_addmethod(c, (method)hub_preset_default,		"preset/default",			0L);
+	class_addmethod(c, (method)hub_preset_store_next,	"/preset/storenext",		A_GIMME, 0L);
 	class_addmethod(c, (method)hub_preset_default,		"/preset/default",			0L);
-	class_addmethod(c, (method)hub_preset_default,		"presets/clear",			0L);
 	class_addmethod(c, (method)hub_preset_default,		"/presets/clear",			0L);
-	class_addmethod(c, (method)hub_presets_dump,		"preset/post",				0L);
 	class_addmethod(c, (method)hub_presets_dump,		"/preset/post",				0L);
-	class_addmethod(c, (method)hub_ui_freeze,			"ui/freeze", 				A_LONG, 0L);
 	class_addmethod(c, (method)hub_ui_freeze,			"/ui/freeze", 				A_LONG, 0L);
-	class_addmethod(c, (method)hub_ui_refresh,			"ui/refresh",				0L);
 	class_addmethod(c, (method)hub_ui_refresh,			"/ui/refresh",				0L);
 
 	// ATTRIBUTE: name
