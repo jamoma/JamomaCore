@@ -1022,6 +1022,8 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 // 'bang' method for user input
 void hub_bang(t_hub *x)
 {	
+	subscriberList *subscriber = x->subscriber;	// head of the linked list
+
 	t_atom				a;
 	subscriberIterator	i;
 	t_subscriber		*t;
@@ -1029,11 +1031,8 @@ void hub_bang(t_hub *x)
 	
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i; 
-		type = t->type;
-		
-		if(type == ps_subscribe_parameter || type == ps_subscribe_message){
-			if(osc == NULL)
-				object_method(t->object, gensym("/ramp/update"));
-		}
+		type = t->type;		
+		if(type == ps_subscribe_parameter || type == ps_subscribe_message)
+			object_method(t->object, gensym("/ramp/update"));
 	}	
 }

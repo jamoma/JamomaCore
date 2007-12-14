@@ -950,13 +950,6 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
 	}
 	else {
-		//ps_ramp_update				= gensym("ramp_update");
-		if (atom_getsym(argv)==gensym("ramp_update"))
-		{
-			post("Update!");
-			// Send som message to 
-		}
-		else {
 			// new input - halt any ramping...
 			if(x->ramper)
 				x->ramper->stop();
@@ -974,7 +967,7 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			} else if(argc > 1) {
 				param_list(x, msg, argc, argv);
 			}
-			else{ 	// no args
+			else { 	// no args
 #ifndef JMOD_MESSAGE
 				// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
 				if(x->common.attr_type == ps_msg_generic)
@@ -983,8 +976,6 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				x->param_output(x);
 			}
 		}
-		
-	}
 }
 
 // Returns true if lists are identical
