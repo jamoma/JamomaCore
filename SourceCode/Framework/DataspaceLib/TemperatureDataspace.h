@@ -46,8 +46,8 @@ class KelvinUnit : DataspaceUnit{
 // Specification of our base class
 class TemperatureDataspace : DataspaceLib{
 	public:
-		TemperatureDataspace();					///< constructor
-		~TemperatureDataspace();				///< destructor - free memory, etc.
+		TemperatureDataspace();
+		~TemperatureDataspace();
 };
 
 
