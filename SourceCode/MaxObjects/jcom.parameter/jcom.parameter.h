@@ -68,6 +68,10 @@ void 		param_output_list(void *z);
 void		param_output_none(void *z);
 void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+
+
+/** If the hub receives a bang, it's passed on to this method, and used to update value if @/ramp/drive is set to "async". */
+void		param_rampUpdate(t_param *x);
 void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);
 void		param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv);

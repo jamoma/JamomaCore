@@ -67,6 +67,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_dec,						"-",							A_GIMME,	0);
 	class_addmethod(c, (method)param_dump,						"dump",							0);
 	class_addmethod(c, (method)param_bang,						"bang",							0);
+	class_addmethod(c, (method)param_rampUpdate,				"/ramp/update",					0);
 	class_addmethod(c, (method)param_assist,					"assist",						A_CANT,		0); 
 #ifndef JMOD_MESSAGE
 	if(g_pattr_valid == true){
@@ -816,6 +817,14 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 
 	param_dispatched(x, msg, a_len, a);
+}
+
+
+// /ramp/update INPUT
+
+void param_rampUpdate(t_param *x)
+{
+	//post("Requested to update.");
 }
 
 
