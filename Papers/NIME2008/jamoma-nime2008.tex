@@ -97,7 +97,9 @@
 %%%%%%%%%%%%%%%%
 \maketitle
 \begin{abstract}
-The current specification of Open Sound Control (OSC) is 
+
+The paper suggests an approach to create structured OSC messages, separating the addressing of computers and modules, from the parameters and attributes of the modules. This includes a system for querying values and parameters for creating flexible communication in modular systems. A prototype implementation is presented and discussed.
+
 \end{abstract}
 
 \keywords{Jamoma, OSC, standardization}
@@ -108,21 +110,61 @@ The current specification of Open Sound Control (OSC) is
 %%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
+Jamoma\footnote{http://www.jamoma.org} is a system for developing high-level modules in the Max/MSP/Jitter environment, consisting of a recommendation and an implementation of that recommendation  \cite{Place:2006}. Most of the recent development of Jamoma has focused on improving core functionality, including flexible mapping between modules and adding ramping, function and unit conversion possibilities. 
 
-%%%%%%%%%%%%%%%%%%%%%%
-\section{Jamoma}
+Communication in and between Jamoma modules is being handled through the Open Sound Control (OSC)\footnote{http://www.opensoundcontrol.org} protocol. As the messaging between has grown more complex we have found that the current messaging structure of OSC is not ideal for our usage. The paper will start with an overview of some related research into development of the OSC protocol. This is followed by a suggestion for a structured approach to extending the current suggestions for OSC namespace creation. Finally, a prototype implementation in Jamoma is presented and discussed.
 
-Jamoma is a system for developing high-level modules in the Max/MSP/Jitter environment. Jamoma consists of two parts: A recommendation and an implementation of that recommendation. Jamoma offers a compelling set of benefits to users.  These benefits include fast and flexible interchange of modules, patch-building, and module construction, as well as possibilities of advanced control for the modules in performance. Jamoma modules may encapsulate any type of functionality that can be performed by Max, MSP, Jitter, its components (such as Java or JavaScript), or any third-party objects. \cite{Place:2006}
-
-
-Integra \cite{Bullock:2007}
-
-SuperCollider
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusions}
+\section{Related Work}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Open Sound Control}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Integra}
+
+Integra\footnote{http://www.integralive.org} \cite{Bullock:2007} 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Open Sound Control 2.0 suggestion}
+
+Developers of the Lemur multitouch interface presented a draft for a 2.0 version of Open Sound Control during an OSC developer meeting at NIME 2006 \cite{Jazzmutant:2006}, and has later changed the suggestion slightly \cite{Jazzmutant:2007}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{UPF}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{A Structured Approach}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Prototype Implementation}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Future Work}
 
 
 %\end{document}  % This is where a 'short' article might terminate
