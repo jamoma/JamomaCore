@@ -144,7 +144,7 @@ void tick(t_linear_queue *rampunit)
 	}
 	else{
 		ratio = (current_time - rampunit->time_start) / (float)rampunit->ramptime;
-		mapped = rampunit->function->mapValue(rampunit->value);
+		mapped = rampunit->function->mapValue(ratio);
 		for(i=0; i < rampunit->numvalues; i++)
 			current[i] = (target[i] * mapped) + (start[i] * (1 - mapped));
 		qelem_set(rampunit->max_qelem);							// set the qelem element to run again
