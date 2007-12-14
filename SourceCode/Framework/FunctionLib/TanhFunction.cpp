@@ -56,14 +56,12 @@ JamomaError TanhFunction::setParameter(t_symbol *parameterName, long argc, t_ato
 JamomaError TanhFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
 {
 	if (parameterName==gensym("width")) {
-		// This memory needs to be freed by the method calling this one
 		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
 		atom_setfloat(*argv, width);
 		*argc = 1;
 		return JAMOMA_ERR_NONE;
 	}
 	else if (parameterName==gensym("offset")) {
-		// This memory needs to be freed by the method calling this one
 		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
 		atom_setfloat(*argv, offset);
 		*argc = 1;

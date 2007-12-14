@@ -58,7 +58,6 @@ JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 }
 
 
-// This function allocates memory -- caller must free it!
 void jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames)
 {
 	*numFunctions = 5;
@@ -80,7 +79,6 @@ void jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames)
 	Utilities shared by various members of the FunctionLib
  ***************************************************************************/
 
-// Attempt to knock out denormaled floats
 double jamoma_anti_denormal(double value)
 {
 	value += k_anti_denormal_value;

@@ -19,12 +19,12 @@
 // Specification of our base class
 class LinearFunction : FunctionLib{
 	public:
-		LinearFunction();					///< constructor
-		~LinearFunction();					///< destructor - free memory, etc.
+		LinearFunction();
+		~LinearFunction();
 		
 		// ATTRIBUTES
-		double mapValue(double x);			///< map x to y
-		// double lookupValue(double x);	///< map x to y using lookup table
+		double mapValue(double x);
+		// double lookupValue(double x);
 };
 
 

@@ -35,7 +35,7 @@ JamomaError LowpassFunction::setParameter(t_symbol *parameterName, long argc, t_
 		one_minus_coefficient = 1.0 - coefficient;
 		return JAMOMA_ERR_NONE;
 	}
-	else if (parameterName==gensym("feedback")) {	// use this one to 'clear' the filter history by sending a 0.0
+	else if (parameterName==gensym("feedback")) {
 		feedback = atom_getfloat(argv);
 		return JAMOMA_ERR_NONE;
 	}

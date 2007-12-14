@@ -19,13 +19,18 @@
 // Specification of our base class
 class TanhFunction : FunctionLib{
 	public:
-		TanhFunction();						///< constructor
-		~TanhFunction();					///< destructor - free memory, etc.
+		TanhFunction();
+		~TanhFunction();
 		
-		double mapValue(double x);			///< map x to y
-		// double lookupValue(double x);	///< map x to y using lookup table
+		double mapValue(double x);
+		// double lookupValue(double x);
+
 		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
+
+		/** This memory needs to be freed by the method calling this one */
 		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
+
+		/** This memory needs to be freed by the method calling this one */
 		JamomaError getFunctionParameters(long *argc, t_atom **argv);
 		
 	private:

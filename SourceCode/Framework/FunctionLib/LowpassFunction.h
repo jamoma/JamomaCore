@@ -19,13 +19,14 @@
 // Specification of our base class
 class LowpassFunction : FunctionLib{
 	public:
-		LowpassFunction();					///< constructor
-		~LowpassFunction();					///< destructor - free memory, etc.
+		LowpassFunction();
+		~LowpassFunction();
 		
 		// ATTRIBUTES
-		double mapValue(double x);			///< map x to y
-		// double lookupValue(double x);	///< map x to y using lookup table
+		double mapValue(double x);
+		// double lookupValue(double x);
 
+		/** use the 'feedback' parameter to 'clear' the filter history by sending a 0.0 */
 		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
 		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
 		JamomaError getFunctionParameters(long *argc, t_atom **argv);

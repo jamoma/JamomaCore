@@ -49,7 +49,6 @@ JamomaError PowerFunction::setParameter(t_symbol *parameterName, long argc, t_at
 	}
 	else if (parameterName==gensym("symmetry")) {
 		symmetryMode = atom_getsym(argv);
-		// Default mode is "none"
 		if((atom_getsym(argv) != gensym("point")) && (atom_getsym(argv) != gensym("axis")))
 			symmetryMode = gensym("none");
 		return JAMOMA_ERR_NONE;
@@ -62,14 +61,12 @@ JamomaError PowerFunction::setParameter(t_symbol *parameterName, long argc, t_at
 JamomaError PowerFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
 {
 	if (parameterName==gensym("powerValue")) {
-		// This memory needs to be freed by the method calling this one
 		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
 		atom_setfloat(*argv, powerValue);
 		*argc = 1;
 		return JAMOMA_ERR_NONE;
 	}
 	else if (parameterName==gensym("symmetry")) {
-		// This memory needs to be freed by the method calling this one
 		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
 		atom_setsym(*argv, symmetryMode);
 		*argc = 1;

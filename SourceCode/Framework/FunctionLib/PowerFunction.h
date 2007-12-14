@@ -19,14 +19,19 @@
 // Specification of our base class
 class PowerFunction : FunctionLib{
 	public:
-		PowerFunction();					///< constructor
-		~PowerFunction();					///< destructor - free memory, etc.
+		PowerFunction();
+		~PowerFunction();
 		
-		double mapValue(double x);			///< map x to y
-		// double lookupValue(double x);	///< map x to y using lookup table
+		double mapValue(double x);
+		// double lookupValue(double x);
 
+		/** Default mode for symmetry is "none" */
 		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
+
+		/** This memory needs to be freed by the method calling this one */
 		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
+
+		/** This memory needs to be freed by the method calling this one */
 		JamomaError getFunctionParameters(long *argc, t_atom **argv);
 		
 	private:
