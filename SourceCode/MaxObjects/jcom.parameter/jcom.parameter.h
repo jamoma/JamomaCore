@@ -78,10 +78,15 @@ void		param_ramp_callback_int(void *v, float value);
 void		param_ramp_callback_list(void *v, short argc, double *value);
 void		atom_clip(t_param *x, t_atom *a);
 void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
-t_max_err 	param_settype(t_param *x, void *attr, long argc, t_atom *argv);
 
 t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err 	param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);

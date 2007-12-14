@@ -92,12 +92,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
 	jamoma_class_attr_new(c, "type", _sym_symbol,
-		(method)param_settype, (method)0,
+		(method)param_attr_settype, (method)param_attr_gettype,
 		calcoffset(t_jcom_core_subscriber_extended, attr_type));
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
 	jamoma_class_attr_new(c, "ui/freeze", _sym_long,
-		(method)0, (method)0,
+		(method)0, (method)param_attr_getfreeze,
 		calcoffset(t_param, attr_ui_freeze));
 	
 	// ATTRIBUTE: slavemode - indicates that the instance is slave to another parameter/message
@@ -107,17 +107,17 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// ATTRIBUTE: stepsize - how much increment or decrement by
 	jamoma_class_attr_new(c, "stepsize", _sym_float32,
-		(method)0, (method)0,
+		(method)0, (method)param_attr_getstepsize,
 		calcoffset(t_param, attr_stepsize));
 
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
 	jamoma_class_attr_new(c, "priority", _sym_long,
-		(method)0, (method)0,
+		(method)0, (method)param_attr_getpriority,
 		calcoffset(t_param, attr_priority));
 
 	// ATTRIBUTE: value
 	jamoma_class_attr_array_new(c, "value", _sym_atom, LISTSIZE,
-		(method)0, (method)0,
+		(method)0, (method)param_attr_getvalue,
 		calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
 
 	// Finalize our class
@@ -255,7 +255,7 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 
 // ATTRIBUTE: TYPE
 // This is crucial because it sets function pointers for the optimized clipping, bang, and other functions
-t_max_err param_settype(t_param *x, void *attr, long argc, t_atom *argv)
+t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	t_symbol *arg = atom_getsym(argv);
 	x->common.attr_type = arg;
@@ -342,6 +342,66 @@ t_max_err param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom 
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_rampfunction);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->common.attr_type);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+	
+t_max_err param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setlong(*argv, x->attr_ui_freeze);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+	
+t_max_err param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setfloat(*argv, x->attr_stepsize);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setlong(*argv, x->attr_priority);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = x->list_size;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->list_size);
+	sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * x->list_size);
 
 	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
