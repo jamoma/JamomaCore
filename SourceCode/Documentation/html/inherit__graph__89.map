@@ -1,0 +1,3 @@
+base referer
+rect $class_dataspace_lib.html 7,5 111,32
+rect $class_temperature_dataspace.html 162,5 324,32

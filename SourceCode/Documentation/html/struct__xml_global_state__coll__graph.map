@@ -1,0 +1,4 @@
+base referer
+rect $struct__xml_s_a_x_locator.html 5,5 128,32
+rect $struct__xml_error.html 195,5 277,32
+rect $struct__xml_s_a_x_handler_v1.html 301,5 443,32

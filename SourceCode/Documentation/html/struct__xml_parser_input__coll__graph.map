@@ -1,0 +1,4 @@
+base referer
+rect $struct__xml_parser_input_buffer.html 51,112 208,139
+rect $struct__xml_buffer.html 5,6 93,32
+rect $struct__xml_char_encoding_handler.html 117,6 304,32

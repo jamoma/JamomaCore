@@ -1,0 +1,5 @@
+base referer
+rect $class_dataspace_unit.html 6,56 118,83
+rect $class_celsius_unit.html 176,6 267,32
+rect $class_fahrenheit_unit.html 166,56 278,83
+rect $class_kelvin_unit.html 180,107 263,134
