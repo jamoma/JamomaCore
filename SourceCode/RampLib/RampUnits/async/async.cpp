@@ -1,20 +1,21 @@
 /* 
- * Jamoma RampUnit: linear.queue
- * Linear ramping function using the Max queue
+ * Jamoma RampUnit: async
+ * Asyncronuous ramping driven by bangs passed to module (hub) 
+ * or Max messages passed to leftmost signal inlet.
  *
- * By Tim Place, Copyright � 2006, 2007
+ * By Trond Lossius, (c) 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
 #include "Jamoma.h"
-#include "queue.h"
+#include "async.h"
 
 
-t_linear_queue*	create(rampunit_method_callback_type in_callback, void *in_baton)
+t_async*	create(rampunit_method_callback_type in_callback, void *in_baton)
 {
-	t_linear_queue *rampunit = (t_linear_queue *)malloc(sizeof(t_linear_queue));
+	t_async *rampunit = (t_async *)malloc(sizeof(t_async));
 	if(rampunit){
 		rampunit->callback = in_callback;
 		rampunit->baton = in_baton;
@@ -34,7 +35,7 @@ t_linear_queue*	create(rampunit_method_callback_type in_callback, void *in_baton
 }
 
 
-void destroy(t_linear_queue *rampunit)
+void destroy(t_async *rampunit)
 {
 	qelem_unset(rampunit->max_qelem);
 	qelem_free(rampunit->max_qelem);
@@ -47,7 +48,7 @@ void destroy(t_linear_queue *rampunit)
 }
 
 
-JamomaError setFunction(t_linear_queue *rampunit, t_symbol *functionName)
+JamomaError setFunction(t_async *rampunit, t_symbol *functionName)
 {
 	JamomaError	err = JAMOMA_ERR_NONE;
 	if(functionName != rampunit->functionName){
@@ -60,38 +61,38 @@ JamomaError setFunction(t_linear_queue *rampunit, t_symbol *functionName)
 }
 
 
-JamomaError getFunction(t_linear_queue *rampunit, t_symbol **functionName)
+JamomaError getFunction(t_async *rampunit, t_symbol **functionName)
 {
 	*functionName = rampunit->functionName;
 	return JAMOMA_ERR_NONE;
 }
 
 
-JamomaError setFunctionParameter(t_linear_queue *rampunit, t_symbol *parameterName, long argc, t_atom *argv)
+JamomaError setFunctionParameter(t_async *rampunit, t_symbol *parameterName, long argc, t_atom *argv)
 {
 	return rampunit->function->setParameter(parameterName, argc, argv);
 }
 
 
-JamomaError getFunctionParameter(t_linear_queue *rampunit, t_symbol *parameterName, long *argc, t_atom **argv)
+JamomaError getFunctionParameter(t_async *rampunit, t_symbol *parameterName, long *argc, t_atom **argv)
 {
 	return rampunit->function->getParameter(parameterName, argc, argv);
 }
 
 
-ramp_err attrset(t_linear_queue *rampunit, t_symbol *attrname, double value)
+ramp_err attrset(t_async *rampunit, t_symbol *attrname, double value)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }
 
 
-ramp_err attrget(t_linear_queue *rampunit, t_symbol *attrname, double *value)
+ramp_err attrget(t_async *rampunit, t_symbol *attrname, double *value)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }
 
 
-void go(t_linear_queue *rampunit, short numvalues, double *values, double time)
+void go(t_async *rampunit, short numvalues, double *values, double time)
 {
 	short i;
 	
@@ -110,7 +111,7 @@ void go(t_linear_queue *rampunit, short numvalues, double *values, double time)
 }
 
 
-void set(t_linear_queue *rampunit, short numvalues, double *values)
+void set(t_async *rampunit, short numvalues, double *values)
 {
 	short i;
 	
@@ -121,13 +122,13 @@ void set(t_linear_queue *rampunit, short numvalues, double *values)
 }
 
 
-void stop(t_linear_queue *rampunit)
+void stop(t_async *rampunit)
 {
 	qelem_unset(rampunit->max_qelem);
 }
 
 
-void tick(t_linear_queue *rampunit)
+void tick(t_async *rampunit)
 {
 	unsigned long 	current_time = systime_ms();
 	short			i;
@@ -155,7 +156,7 @@ void tick(t_linear_queue *rampunit)
 
 
 // PRIVATE METHOD: memory allocation
-void setnumvalues(t_linear_queue *rampunit, short numvalues)
+void setnumvalues(t_async *rampunit, short numvalues)
 {
 	if(numvalues != rampunit->numvalues){
 		if(rampunit->numvalues == 0){
