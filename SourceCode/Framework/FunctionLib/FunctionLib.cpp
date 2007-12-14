@@ -50,9 +50,11 @@ JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
 	else if(functionName == gensym("tanh"))
 		*function = (FunctionLib*) new TanhFunction;
 
-	else 
+	else {
 		// Invalid function specified default to linear
+		error("rampLib: Invalid function: %s", functionName->s_name);
 		*function = (FunctionLib*) new LinearFunction;
+	}
 	
 	return JAMOMA_ERR_NONE;
 }

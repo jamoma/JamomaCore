@@ -27,7 +27,7 @@ t_async*	create(rampunit_method_callback_type in_callback, void *in_baton)
 		rampunit->functionName = NULL;
 		setnumvalues(rampunit, 1);
 		rampunit->value_current[0] = 0;
-		
+		rampunit->active = 0;		
 		setFunction(rampunit, gensym("linear"));
 	}
 	return rampunit;
