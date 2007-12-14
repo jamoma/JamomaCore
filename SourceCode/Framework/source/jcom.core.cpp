@@ -228,7 +228,7 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
 	if(define_name){
 		attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
 		jamoma_class_attr_new(c, "name", _sym_symbol,
-			(method)jcom_core_subscriber_attribute_common_setname, (method)0,
+			(method)jcom_core_subscriber_attribute_common_setname, (method)jcom_core_attr_getname,
 			attroffset);
 	}
 }
@@ -243,15 +243,14 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 	// ATTRIBUTE: range <low, high>
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
 	jamoma_class_attr_array_new(c, "range", _sym_float32, 2,
-		(method)0, (method)0,
+		(method)0, (method)jcom_core_attr_getrange,
 		offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len), attroffset);
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_repetitions);
 	jamoma_class_attr_new(c, "repetitions", _sym_long,
-		(method)0, (method)0,
+		(method)0, (method)jcom_core_attr_getrepetitions,
 		attroffset);
-	class_addattr(c, attr);
 
 	// ATTRIBUTE: type 
 	// this is not defined here because some objects (i.e jcom.parameter) need to treat this in different ways
@@ -259,15 +258,14 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_clipmode);
 	jamoma_class_attr_new(c, "clipmode", _sym_symbol,
-		(method)0, (method)0,
+		(method)0, (method)jcom_core_attr_getclipmode,
 		attroffset);
 
 	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_description);
 	jamoma_class_attr_new(c, "description", _sym_symbol,
-		(method)0, (method)0,
+		(method)0, (method)jcom_core_attr_getdescription,
 		attroffset);
-	class_addattr(c, attr);	
 }
 
 
@@ -372,3 +370,70 @@ void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *arg
 	if(msg == gensym("hub.changed"))
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 }
+
+
+t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_name);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 2;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_description);
+
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);
+	//sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * 2);
+	atom_setfloat(*argv, x->attr_range[0]);
+	atom_setfloat(*argv+1, x->attr_range[1]);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setlong(*argv, x->attr_repetitions);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_clipmode);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_description);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+

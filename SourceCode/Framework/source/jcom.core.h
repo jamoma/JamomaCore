@@ -187,4 +187,14 @@ void jcom_core_subscriber_common_free(t_jcom_core_subscriber_common *x);
  */
 void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *argv);
 
+
+
+t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+
+
+
 #endif // #ifndef __JMOD_CORE_H__
