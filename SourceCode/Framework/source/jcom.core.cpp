@@ -217,7 +217,6 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 // Add attributes that are common to many subscribers (such as parameter, message, and return)
 void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset, bool define_name)
 {
-	long 		attrflags = 0;
 	long		attroffset;
 
 	// METHODS
@@ -228,32 +227,29 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
 	// ATTRIBUTE: name
 	if(define_name){
 		attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
-		attr = attr_offset_new("name", _sym_symbol, attrflags,
-			(method)0, (method)jcom_core_subscriber_attribute_common_setname,
-	 		attroffset);
-		class_addattr(c, attr);	
+		jamoma_class_attr_new(c, "name", _sym_symbol,
+			(method)jcom_core_subscriber_attribute_common_setname, (method)0,
+			attroffset);
 	}
 }
 
 
 void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset, bool define_name)
 {
-	long 		attrflags = 0;
 	long		attroffset;
 
 	jcom_core_subscriber_classinit_common(c, attr, offset, define_name);
 
 	// ATTRIBUTE: range <low, high>
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
-	attr = attr_offset_array_new("range", _sym_float32, 2, attrflags,
-		(method)0, (method)0, 
+	jamoma_class_attr_array_new(c, "range", _sym_float32, 2,
+		(method)0, (method)0,
 		offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len), attroffset);
-	class_addattr(c, attr);
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_repetitions);
-	attr = attr_offset_new("repetitions", _sym_long, attrflags,
-		(method)0, (method)0, 
+	jamoma_class_attr_new(c, "repetitions", _sym_long,
+		(method)0, (method)0,
 		attroffset);
 	class_addattr(c, attr);
 
@@ -262,15 +258,14 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 	
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_clipmode);
-	attr = attr_offset_new("clipmode", _sym_symbol, attrflags,
-		(method)0, (method)0, 
+	jamoma_class_attr_new(c, "clipmode", _sym_symbol,
+		(method)0, (method)0,
 		attroffset);
-	class_addattr(c, attr);
 
 	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_description);
-	attr = attr_offset_new("description", _sym_symbol, attrflags,
-		(method)0, (method)0, 
+	jamoma_class_attr_new(c, "description", _sym_symbol,
+		(method)0, (method)0,
 		attroffset);
 	class_addattr(c, attr);	
 }
