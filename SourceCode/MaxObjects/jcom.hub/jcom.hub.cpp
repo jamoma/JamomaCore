@@ -74,6 +74,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_preset_copy,			"/preset/copy",				A_GIMME, 0L);	// number or name
 	class_addmethod(c, (method)hub_preset_store,		"/preset/store",			A_GIMME, 0L);	// number & optional name
 	class_addmethod(c, (method)hub_preset_store_next,	"/preset/storenext",		A_GIMME, 0L);
+	class_addmethod(c, (method)hub_preset_interpolate,	"/preset/interpolate",		A_GIMME, 0L);
 	class_addmethod(c, (method)hub_preset_default,		"/preset/default",			0L);
 	class_addmethod(c, (method)hub_preset_default,		"/presets/clear",			0L);
 	class_addmethod(c, (method)hub_presets_dump,		"/preset/post",				0L);

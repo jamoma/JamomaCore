@@ -175,6 +175,89 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	critical_exit(0);
 }
 
+t_preset* find_preset(presetList *presetll, t_symbol* name)
+{
+	presetListIterator pIter;
+	presetItemListIterator itemIterator;
+	t_preset* p;
+	//presetList *presetll = x->preset;
+		
+	for(pIter = presetll->begin(); pIter != presetll->end(); ++pIter) {
+		p = *pIter;
+		if(p->name == name)
+			return p;
+	}
+	
+	return NULL;
+}
+
+void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
+{
+	presetItemList *itemOneList, *itemTwoList;
+	itemOneList = p1->item; itemTwoList = p2->item;
+	t_preset_item *item1, *item2;
+	float value;
+	t_atom newValue;
+	
+	presetItemListIterator i1, i2;
+	for(i1 = itemOneList->begin(), i2 = itemTwoList->begin(); i1 != itemOneList->end() 
+		&& i2 != itemTwoList->end(); ++i1, ++i2) {
+		
+		item1 = *i1; item2 = *i2;
+		if(item1->param_name != item2->param_name)
+			continue;
+		
+		// we can assume item1 and item2 are the same type if they are the same parameter (see above)
+		if(item1->type == ps_msg_int) {
+			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
+			atom_setfloat(&newValue, value);
+		} else if(item1->type == ps_msg_float) {
+			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
+			atom_setfloat(&newValue, value);
+		} else if(item1->type == ps_msg_toggle) {
+			value = position == 0. ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
+			atom_setlong(&newValue, value);
+		} else if(item1->type == ps_msg_list) {
+			
+		} else if(item1->type == ps_msg_symbol) {
+			
+		}
+		hub_symbol(x, item1->param_name, item1->list_size, &newValue);
+			
+	}
+	
+}
+
+void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	t_preset *p1, *p2;
+	presetList *presetll = x->preset;
+	t_symbol *p1Name, *p2Name;
+	float position;
+	
+	if(argc < 3) {
+		error("jcom.hub (%s module): interpolation requires three arguments", x->attr_name);
+		return;
+	}
+
+	p1Name = atom_getsym(argv); p2Name = atom_getsym(argv+1);
+	position = atom_getfloat(argv+2);
+	
+	p1 = find_preset(presetll, p1Name);
+	if(!p1) {
+		error("can't find preset %s", p1Name);
+		return;
+	}
+	
+	p2 = find_preset(presetll, p2Name);
+	if(!p2) {
+		error("can't find preset %s", p1Name);
+		return;
+	}
+	
+	interpolate_presets(x, p1, p2, position);
+	
+}
 
 void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// number & optional name
 {
