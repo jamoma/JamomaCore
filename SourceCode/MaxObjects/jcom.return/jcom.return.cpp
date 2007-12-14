@@ -25,15 +25,17 @@ typedef struct _return{							// Data Structure for this object
 
 
 // Prototypes
-void*	return_new(t_symbol *s, long argc, t_atom *argv);
-void	return_assist(t_return *x, void *b, long msg, long arg, char *dst);
-void	return_bang(t_return *x);
-void	return_int(t_return *x, long n);
-void	return_float(t_return *x, double f);
-void	return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv);
-void	return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv);
-void	return_send_feedback(t_return *x);
-void 	return_dump(t_return *x);
+void*		return_new(t_symbol *s, long argc, t_atom *argv);
+void		return_assist(t_return *x, void *b, long msg, long arg, char *dst);
+void		return_bang(t_return *x);
+void		return_int(t_return *x, long n);
+void		return_float(t_return *x, double f);
+void		return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv);
+void		return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv);
+void		return_send_feedback(t_return *x);
+void		return_dump(t_return *x);
+t_max_err	return_attr_gettype(t_return *x, void *attr, long *argc, t_atom **argv);
+
 
 // Globals
 t_class		*return_class;				// Required: Global pointer for our class
@@ -44,7 +46,6 @@ t_class		*return_class;				// Required: Global pointer for our class
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long 		attrflags = 0;
 	t_class 	*c;
 	t_object 	*attr = NULL;
 	long		offset;
@@ -72,7 +73,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
 	jamoma_class_attr_new(c, "type", _sym_symbol,
-		(method)0, (method)0,
+		(method)0, (method)return_attr_gettype,
 		calcoffset(t_jcom_core_subscriber_extended, attr_type));
 	
 	// Finalize our class
@@ -169,6 +170,17 @@ void return_dump(t_return *x)
 	}
 }
 
+
+t_max_err return_attr_gettype(t_return *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->common.attr_type);
+
+	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
 
 
 // Return values to the hub (so it can return them to the outside world)
