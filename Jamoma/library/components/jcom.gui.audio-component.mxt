@@ -233,7 +233,7 @@ max v2;
 #P hidden newex 300 317 439 196617 jcom.parameter audio/bypass @type msg_toggle @range 0 1 @description "When active\\\, this attribute bypasses the module's processing algtorithm\\\, letting audio pass through unaffected.";
 #P objectname audio/bypass;
 #P window linecount 3;
-#P hidden newex 300 411 305 196617 jcom.parameter audio/mix @repetitions 0 @ramp.drive scheduler @type msg_float @range 0 100 @description "Controls the wet/dry mix of the module's processing routine in percent.";
+#P hidden newex 300 411 305 196617 jcom.parameter audio/mix @repetitions 0 @ramp/drive scheduler @type msg_float @range 0 100 @description "Controls the wet/dry mix of the module's processing routine in percent.";
 #P objectname audio/mix;
 #P window linecount 2;
 #P hidden newex 53 75 433 196617 jcom.parameter audio/meters/freeze @type msg_toggle @range 0 1 @description "When active\\\, this attribute turns off the signal level meters in the module to conserve CPU.";
