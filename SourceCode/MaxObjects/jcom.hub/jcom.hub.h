@@ -89,9 +89,12 @@ typedef struct _hub{							///< Data Structure for this object
 
 
 // Prototypes for our methods:
+
 /** The jcom.hub constructor */
 void*		hub_new(t_symbol *s, long argc, t_atom *argv);
 void		hub_examine_context(t_hub *x);
+
+
 /** The hub deconstructor, free's any memory used by the hub
  * @param x the hub who's memory should be freed
  * @see hub_free */
@@ -101,7 +104,14 @@ void		hub_assist(t_hub *x, void *b, long msg, long arg, char *dst);
 t_object*	hub_getobj_audioin(t_hub *x);
 t_object*	hub_getobj_audioout(t_hub *x);
 
+
+/** When the hub receives a bang, it ask all parameters and messages using @ramp/drive async to update. */
+void hub_bang(hub *x);
+
+
 void		hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
+
+
 /** This is called by clients who wish to register their parameters with the hub.  Meaning
  * these is typically called by jcom.parameter 
  * @param x the hub the client wants to subscribe to
@@ -112,6 +122,8 @@ void		hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
  * @see hub_unsubscribe
  */
 t_symbol*	hub_subscribe(t_hub *x, t_symbol *name, t_object *param_object, t_symbol *type);
+
+
 /** Unsubscribe a client from the hub.
  * @param x the hub to be unsubscribed from
  * @param subscriber_object the object to unsubscribe
@@ -129,12 +141,18 @@ void		hub_returnnames_get(t_hub *x);
 void		hub_paramvalues_get(t_hub *x);
 void		hub_allnames_get(t_hub *x);
 t_symbol*	hub_modulename_get(t_hub *x);
+
+
 /** Returns the name of the module.  Only really used by jcom.core.cpp
  * @return the name of the module 
  */
 t_symbol*	core_modulename_get(t_hub *x);
+
+
 t_symbol*	hub_modulename_get(t_hub *x);
 t_symbol*	hub_algorithmtype_get(t_hub *x);
+
+
 /** Initializes any jcom.init objects that are subscribed to the hub by sending them
  * a 'bang'.
  * @param x the hub who's subscribed jcom.init objects should be banged
@@ -143,15 +161,21 @@ void 		hub_init(t_hub *x);
 void 		hub_qfn_init(t_hub *x);
 void 		hub_gui_build(t_hub *x);
 void		hub_module_view_alg(t_hub *x);
+
+
 /** Freeze updating of the UI
  * @param x a pointer to the hub
  * @param value non-zero to freeze UI updates, 0 to enable updating the UI 
  * @see hub_ui_refresh */
 void 		hub_ui_freeze(t_hub *x, long value);
+
+
 /** Refresh the UI
  * @param x a pointer to the hub 
  * @see hub_ui_freeze */
 void 		hub_ui_refresh(t_hub *x);
+
+
 void		hub_receive_callback(void *x, t_symbol *msg, long argc, t_atom *argv);
 // These are in jcom.hub.autodoc.cpp
 void		hub_autodoc(t_hub *x, t_symbol *userpath);
@@ -161,6 +185,8 @@ void 		table_heading(t_filehandle *file_handle, long *myEof);
 
 
 #ifdef CREATE_INTERNALS
+
+
 // These are in jcom.hub.internals.cpp
 /** Create parameters, messages, and other internal subscribers to the hub.
  * @param x the hub
@@ -168,57 +194,74 @@ void 		table_heading(t_filehandle *file_handle, long *myEof);
  */
 void hub_internals_create(t_hub *x);
 
+
 /** Destroy (free) parameters, messages, etc. that are internal to hub.
  * @param x the hub
  * @see hub_internals_create
  */
 void hub_internals_destroy(t_hub *x);
 
+
 /** Create an object internal to the hub -- used by hub_internals_create()
  * @param x the hub
  */
 void hub_internals_createone(t_hub *x, char *classname, char *subscribername, char *subscribertype, char *ramptype);
 
+
 /** Receive notifications, including notifications from our internals (which we listen to)
  * @param x the hub
  */
 void hub_internals_notify(t_hub *x);
+
 #endif // CREATE_INTERNALS
 
 
 // These are in jcom.hub.presets.cpp
+
 /** Read an XML preset file.
  * @param x the hub to the preset file should be loaded for
  * @param userpath path to the XML file to load
  * @see hub_preset_doread hub_preset_write hub_preset_dowrite
  */
 void 		hub_preset_read(t_hub *x, t_symbol *userpath);
+
+
 /** This does the actual work for @ref hub_preset_read since the actual
  * act of reading the file is defered to the low priority thread
  * @see hub_preset_read */
 void 		hub_preset_doread(t_hub *x, t_symbol *userpath);
+
+
 /** Reads in and parses an XML file of presets 
  * @param x the hub to which the loaded presets should be attached
  * @param path the path the XML file to read
  */
 void 		hub_preset_parse(t_hub *x, char *path);
+
+
 /** Given a path to an XML file it validates that it is a valid XML file 
  * @param x the hub for which the XML preset file should be validated for
  * @param xml_path the path to the XML file
  * @return 0 if succesfully validated, non-zero otherwise
  */
 short		hub_preset_validate(t_hub *x, char *xml_path);
+
+
 /** Writes an XML preset file.
  * @param x the hub whose presets should be written to disk
  * @param userpath path to the XML file to write
  * @see  hub_preset_dowrite hub_preset_read hub_preset_doread 
  */
 void 		hub_preset_write(t_hub *x, t_symbol *userpath);
+
+
 /** This does the actual work for @ref hub_preset_write since the actual
  * act of writing the file is defered to the low priority thread 
  * @see hub_preset_write 
  */
 void 		hub_preset_dowrite(t_hub *x, t_symbol *userpath);
+
+
 /** Recalls a preset by number or name.
  * @param x the hub containing the preset
  * @param msg
@@ -227,6 +270,8 @@ void 		hub_preset_dowrite(t_hub *x, t_symbol *userpath);
  * @see hub_preset_store
  */
 void 		hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number or name
+
+
 /** Copies a preset by number or name.
 * @param x the hub containing the preset
 * @param msg
@@ -235,6 +280,8 @@ void 		hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// n
 * @see hub_preset_store
 */
 void 		hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
+
+
 /** Stores a preset by number or name.
  * @param x the hub containing the preset
  * @param msg
@@ -243,6 +290,8 @@ void 		hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
  * @see hub_preset_recall
  */
 void 		hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number & optional name
+
+
 /** Stores a preset in the next slot by name.
  * @param x the hub containing the preset
  * @param msg
@@ -251,16 +300,24 @@ void 		hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// nu
  * @see hub_preset_recall
  */
 void 		hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number & optional name
+
+
 /** Recall the default file and recall the first preset
  * @param x the hub whose default preset should be recalled */
 void 		hub_preset_default(t_hub *x);
+
+
 /** Clears all presets loaded in memory.
  * @param x the hub whose presets should be cleared 
  */
 void 		hub_presets_clear(t_hub *x);
+
+
 /** Dump all presets
  * @param x a pointer to the hub whose presets should be dumped */
 void 		hub_presets_dump(t_hub *x);
+
+
 /** Adds presets to the GUI menu
  * @param x a pointer to the hub whose preset menu will be updated*/
 void		hub_preset_buildmenu(t_hub *x);

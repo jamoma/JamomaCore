@@ -29,7 +29,7 @@ class tt_lowpass_twopole:public tt_audio_base{
 		tt_attribute_value 		resonance;
 		tt_attribute_value		frequency;
 		double					coef_a, coef_b, coef_c;
-		double					feedback[2][2];
+		double					feedback[2][2];		// First is vhannel, 2nd is x or y
 		double 					radians, minus_one_over_resonance;
 	
 		enum constants{

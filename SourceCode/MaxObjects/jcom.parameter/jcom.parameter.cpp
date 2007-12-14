@@ -56,9 +56,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
  	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
  	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
-	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp/function/parameter",	A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp/function/parameter",		A_GIMME,	0);
 	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp/function/parameter/get",	A_GIMME,	0);
-	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp/drive/parameter",		A_GIMME,	0);
+	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp/drive/parameter",			A_GIMME,	0);
 	class_addmethod(c, (method)param_getRampDriveParameter,		"ramp/drive/parameter/get",		A_GIMME,	0);
 	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
 	class_addmethod(c, (method)param_inc,						"inc",							A_GIMME,	0);
@@ -950,31 +950,40 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
 	}
 	else {
-		// new input - halt any ramping...
-		if(x->ramper)
-			x->ramper->stop();
+		//ps_ramp_update				= gensym("ramp_update");
+		if (atom_getsym(argv)==ps_ramp_update)
+		{
+			post("Update!");
+			// Send som message to 
+		}
+		else {
+			// new input - halt any ramping...
+			if(x->ramper)
+				x->ramper->stop();
 		
-		if(argc == 1 ){
-			// If repetitions are disabled, we check for a repetition by treating
-			// this as a 1 element list
-			if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
-				x->list_size, argv, argc)) 
-				return;
+			if(argc == 1 ){
+				// If repetitions are disabled, we check for a repetition by treating
+				// this as a 1 element list
+				if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
+					x->list_size, argv, argc)) 
+					return;
 
-			x->list_size = 1;				
-			jcom_core_atom_copy(&x->attr_value, argv);
-			x->param_output(x);
-		} else if(argc > 1) {
-			param_list(x, msg, argc, argv);
-		}
-		else{ 	// no args
+				x->list_size = 1;				
+				jcom_core_atom_copy(&x->attr_value, argv);
+				x->param_output(x);
+			} else if(argc > 1) {
+				param_list(x, msg, argc, argv);
+			}
+			else{ 	// no args
 #ifndef JMOD_MESSAGE
-			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-			if(x->common.attr_type == ps_msg_generic)
-				x->list_size = 0;
+				// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
+				if(x->common.attr_type == ps_msg_generic)
+					x->list_size = 0;
 #endif			
-			x->param_output(x);
+				x->param_output(x);
+			}
 		}
+		
 	}
 }
 

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>../Framework/FunctionLib/LinearFunction.h</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,14 +28,20 @@
 				<dict>
 					<key>filename</key>
 					<string>../Framework/source/jcom.core.h</string>
+					<key>lastUsed</key>
+					<date>2007-12-11T16:57:57Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>../Framework/source/Jamoma.h</string>
+					<key>lastUsed</key>
+					<date>2007-12-11T16:57:56Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>../Framework/source/Jamoma.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-11T16:57:57Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
@@ -77,34 +85,62 @@
 				<dict>
 					<key>filename</key>
 					<string>../Framework/FunctionLib/FunctionLib.h</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../Framework/FunctionLib/CosineFunction.h</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:14:56Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>../Framework/FunctionLib/FunctionLib.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:14:56Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/CosineFunction.h</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:14:58Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>../Framework/FunctionLib/CosineFunction.cpp</string>
-				</dict>
-				<dict>
-					<key>filename</key>
-					<string>../Framework/FunctionLib/TanhFunction.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:15:00Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>../Framework/FunctionLib/LinearFunction.h</string>
+					<key>lastUsed</key>
+					<date>2007-12-13T09:34:23Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>../Framework/FunctionLib/LinearFunction.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:15:03Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/PowerFunction.h</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:15:06Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/PowerFunction.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:15:26Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>../Framework/FunctionLib/TanhFunction.h</string>
+					<key>lastUsed</key>
+					<date>2007-12-12T16:20:13Z</date>
+				</dict>
+				<dict>
+					<key>filename</key>
+					<string>../Framework/FunctionLib/TanhFunction.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-13T09:33:34Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -194,8 +230,6 @@
 			</array>
 			<key>name</key>
 			<string>hub</string>
-			<key>selected</key>
-			<true/>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -235,8 +269,12 @@
 				<dict>
 					<key>filename</key>
 					<string>jcom.map/jcom.map.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-13T09:34:23Z</date>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>map</string>
 		</dict>
@@ -314,6 +352,8 @@
 				<dict>
 					<key>filename</key>
 					<string>jcom.ramp/jcom.ramp.cpp</string>
+					<key>lastUsed</key>
+					<date>2007-12-11T20:48:02Z</date>
 				</dict>
 			</array>
 			<key>name</key>
@@ -393,6 +433,162 @@
 	<integer>197</integer>
 	<key>metaData</key>
 	<dict>
+		<key>../Framework/FunctionLib/CosineFunction.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>18</integer>
+				<key>line</key>
+				<integer>36</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>../Framework/FunctionLib/CosineFunction.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>79</integer>
+				<key>line</key>
+				<integer>28</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>../Framework/FunctionLib/FunctionLib.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>24</integer>
+		</dict>
+		<key>../Framework/FunctionLib/FunctionLib.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>../Framework/FunctionLib/LinearFunction.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>89</integer>
+				<key>line</key>
+				<integer>29</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>66</integer>
+				<key>line</key>
+				<integer>29</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>89</integer>
+				<key>line</key>
+				<integer>29</integer>
+			</dict>
+		</dict>
+		<key>../Framework/FunctionLib/LinearFunction.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>28</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>../Framework/FunctionLib/PowerFunction.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>28</integer>
+		</dict>
+		<key>../Framework/FunctionLib/PowerFunction.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>../Framework/FunctionLib/TanhFunction.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>8</integer>
+				<key>line</key>
+				<integer>86</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>35</integer>
+		</dict>
+		<key>../Framework/FunctionLib/TanhFunction.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>34</integer>
+				<key>line</key>
+				<integer>31</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>jcom.hub/jcom.hub.autodoc.cpp</key>
 		<dict>
 			<key>caret</key>
@@ -538,9 +734,22 @@
 			<integer>39</integer>
 		</dict>
 	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>../Framework/FunctionLib/PowerFunction.cpp</string>
+		<string>../Framework/FunctionLib/TanhFunction.h</string>
+		<string>../Framework/FunctionLib/TanhFunction.cpp</string>
+		<string>../Framework/FunctionLib/PowerFunction.h</string>
+		<string>../Framework/FunctionLib/FunctionLib.h</string>
+		<string>../Framework/FunctionLib/CosineFunction.h</string>
+		<string>../Framework/FunctionLib/CosineFunction.cpp</string>
+		<string>../Framework/FunctionLib/LinearFunction.h</string>
+		<string>../Framework/FunctionLib/LinearFunction.cpp</string>
+		<string>../Framework/FunctionLib/FunctionLib.cpp</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{43, 27}, {899, 851}}</string>
+	<string>{{11, 21}, {899, 851}}</string>
 </dict>
 </plist>

@@ -13,6 +13,7 @@ t_symbol	*ps_done,
 			*ps_none,					// ramp stuff
 			*ps_linear,
 			*ps_linear_q,
+			*ps_ramp_update,
 			*ps_low, 
 			*ps_high, 
 			*ps_both, 
@@ -166,6 +167,7 @@ void jamoma_symbols_init(void)
 	ps_none						= gensym("none");
 	ps_linear					= gensym("linear");
 	ps_linear_q					= gensym("linear.q");
+	ps_ramp_update				= gensym("ramp_update");
 	ps_low						= gensym("low"); 
 	ps_high						= gensym("high"); 
 	ps_both						= gensym("both");
