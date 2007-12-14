@@ -25,6 +25,7 @@ class CosineFunction : FunctionLib{
 		// ATTRIBUTES
 		double mapValue(double x);			///< map x to y
 		// double lookupValue(double x);	///< map x to y using lookup table
+		
 };
 
 

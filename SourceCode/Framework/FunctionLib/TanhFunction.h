@@ -26,6 +26,7 @@ class TanhFunction : FunctionLib{
 		// double lookupValue(double x);	///< map x to y using lookup table
 		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
 		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
+		JamomaError getFunctionParameters(long *argc, t_atom **argv);
 		
 	private:
 		

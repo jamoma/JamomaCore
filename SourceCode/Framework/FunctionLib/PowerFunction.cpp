@@ -81,3 +81,13 @@ JamomaError PowerFunction::getParameter(t_symbol *parameterName, long *argc, t_a
 		return JAMOMA_ERR_INVALID_PARAMETER;
 	}
 }
+
+JamomaError PowerFunction::getFunctionParameters(long *argc, t_atom **argv)
+{
+	
+	int n = *argc = 2;
+	*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * n);
+	atom_setsym(*argv, gensym("powerValue")); atom_setsym(*argv+1, gensym("symmetry"));
+	return JAMOMA_ERR_NONE;
+	
+}

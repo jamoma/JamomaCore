@@ -87,3 +87,12 @@ void TanhFunction::calculateOutputScaling(void)
 	beta = f0;
 }
 
+JamomaError TanhFunction::getFunctionParameters(long *argc, t_atom **argv)
+{
+	
+	int n = *argc = 2;
+	*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * n);
+	atom_setsym(*argv, gensym("width")); atom_setsym(*argv+1, gensym("offset"));
+	return JAMOMA_ERR_NONE;
+	
+}
