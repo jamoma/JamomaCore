@@ -48,7 +48,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_getobj_audioin,		"getobj_audioin",			A_CANT, 0);		// return a pointer to the jcom.in~ object
 	class_addmethod(c, (method)hub_getobj_audioout,		"getobj_audioout",			A_CANT, 0);		// return a pointer to the jcom.out~ object
 
-	class_addmethod(c, (method)param_bang,				"bang",						0);				// bang is used by one of the ramp driving mechanisms to calculate values
+	class_addmethod(c, (method)hub_bang,				"bang",						0);				// bang is used by one of the ramp driving mechanisms to calculate values
 
 	class_addmethod(c, (method)hub_subscribe,			"subscribe",				A_CANT, 0L);	// client object subscribing
 	class_addmethod(c, (method)hub_unsubscribe,			"unsubscribe",				A_CANT, 0L);	// client object unsubscribing
@@ -1020,10 +1020,10 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 
 
 // 'bang' method for user input
-void hub_bang(hub *x)
+void hub_bang(t_hub *x)
 {	
 	t_atom a;
 	
-	atom_setsym(&a, ps_ramp_update);
-	object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);	
+	atom_setsym(&a, gensym("ramp_update"));
+	object_method_typed(x->gui_object, ps_dispatched, 1, &a, NULL);	
 }

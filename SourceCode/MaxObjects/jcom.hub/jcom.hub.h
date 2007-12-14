@@ -106,7 +106,7 @@ t_object*	hub_getobj_audioout(t_hub *x);
 
 
 /** When the hub receives a bang, it ask all parameters and messages using @ramp/drive async to update. */
-void hub_bang(hub *x);
+void hub_bang(t_hub *x);
 
 
 void		hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
