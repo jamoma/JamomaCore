@@ -70,7 +70,8 @@ void jcom_core_unsubscribe(t_object *hub, void *object)
 //	(that's the theory anyway...)
 void jcom_core_atom_copy(t_atom *dst, t_atom *src)
 {
-	memcpy(dst, src, sizeof(t_atom));
+	//	memcpy(dst, src, sizeof(t_atom));
+	sysmem_copyptr(src, dst, sizeof(t_atom));
 }
 
 
@@ -243,7 +244,7 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 	// ATTRIBUTE: range <low, high>
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
 	jamoma_class_attr_array_new(c, "range", _sym_float32, 2,
-		(method)0, (method)jcom_core_attr_getrange,
+		(method)jcom_core_attr_setrange, (method)jcom_core_attr_getrange,
 		offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len), attroffset);
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
@@ -310,21 +311,6 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 }
 
 
-// COMMON ATTRIBUTE: name
-t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_common *x, void *attr, long argc, t_atom *argv)
-{	
-	t_symbol *arg = atom_getsym(argv);
-	x->attr_name = arg;
-
-	if(arg->s_name[strlen(arg->s_name)-1] == '*')
-		x->has_wildcard = true;
-	else
-		x->has_wildcard = false;
-
-	return MAX_ERR_NONE;
-	#pragma unused(attr)
-}
-
 // function for registering with the jcom.hub object
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
@@ -372,6 +358,20 @@ void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *arg
 }
 
 
+// COMMON ATTRIBUTE: name
+t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_common *x, void *attr, long argc, t_atom *argv)
+{	
+	t_symbol *arg = atom_getsym(argv);
+	x->attr_name = arg;
+
+	if(arg->s_name[strlen(arg->s_name)-1] == '*')
+		x->has_wildcard = true;
+	else
+		x->has_wildcard = false;
+
+	return MAX_ERR_NONE;
+}
+
 t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 1;
@@ -384,10 +384,22 @@ t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr,
 }
 
 
+// We are using a custom setter here because relying on the offset seemed to cause memory corruption
+// This was the easiest way to avoid that.
+t_max_err jcom_core_attr_setrange(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
+{	
+	if(argc)
+		x->attr_range[0] = atom_getfloat(argv+0);
+	if(argc > 1)
+		x->attr_range[1] = atom_getfloat(argv+1);
+	
+	return MAX_ERR_NONE;
+}
+
 t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 2;
-	if (!(*argv)) // otherwise use memory passed in
+	if(!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_description);
 
