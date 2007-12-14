@@ -331,7 +331,8 @@ t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *
 	t_symbol *arg = atom_getsym(argv);
 	x->attr_rampfunction = arg;
 
-	x->ramper->setFunction(x->attr_rampfunction);
+	if(x->ramper)
+		x->ramper->setFunction(x->attr_rampfunction);
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
@@ -1151,11 +1152,6 @@ void param_ramp_setup(t_param *x)
 		delete x->ramper;
 		
 	// 2. create the new rampunit
-	// For backwards compatibility, we still accept 'linear' as an input value for @ramp
-	// but we need to convert that to the actual name of the rampunit...
-	if(x->attr_ramp == ps_linear || x->attr_ramp == gensym("linear.sched"))
-		x->attr_ramp = gensym("scheduler");
-
 	// For some types ramping doesn't make sense, so they will be set to none
 	if((x->common.attr_type == ps_msg_none) || (x->common.attr_type == ps_msg_symbol) || (x->common.attr_type == ps_msg_generic))
 		x->attr_ramp = gensym("none");
@@ -1169,4 +1165,7 @@ void param_ramp_setup(t_param *x)
 
 	if(x->ramper == NULL)
 		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);
+		
+	if(x->attr_rampfunction && x->attr_rampfunction != _sym_nothing && x->attr_rampfunction != gensym("linear"))
+		object_attr_setsym(x, gensym("ramp/function"), x->attr_rampfunction);
 }
