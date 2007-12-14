@@ -32,26 +32,26 @@
 <a name="l00019"></a>00019 <span class="comment">// Specification of our base class</span>
 <a name="l00020"></a><a class="code" href="class_lowpass_function.html">00020</a> <span class="keyword">class </span><a class="code" href="class_lowpass_function.html">LowpassFunction</a> : <a class="code" href="class_function_lib.html">FunctionLib</a>{
 <a name="l00021"></a>00021         <span class="keyword">public</span>:
-<a name="l00022"></a>00022                 <a class="code" href="class_lowpass_function.html#7da7c137109a8a50a5a99a2098840b4d">LowpassFunction</a>();                                      
-<a name="l00023"></a>00023                 <a class="code" href="class_lowpass_function.html#2f4580e0eedcb2228e50b82eb39fa21e">~LowpassFunction</a>();                                     
+<a name="l00022"></a>00022                 <a class="code" href="class_lowpass_function.html#7da7c137109a8a50a5a99a2098840b4d">LowpassFunction</a>();
+<a name="l00023"></a>00023                 <a class="code" href="class_lowpass_function.html#2f4580e0eedcb2228e50b82eb39fa21e">~LowpassFunction</a>();
 <a name="l00024"></a>00024                 
 <a name="l00025"></a>00025                 <span class="comment">// ATTRIBUTES</span>
-<a name="l00026"></a>00026                 <span class="keywordtype">double</span> <a class="code" href="class_lowpass_function.html#d12f6c919463aa1760288d3537c68c9a">mapValue</a>(<span class="keywordtype">double</span> <a class="code" href="structx.html">x</a>);                      
-<a name="l00027"></a>00027                 <span class="comment">// double lookupValue(double x);        ///&lt; map x to y using lookup table</span>
+<a name="l00026"></a>00026                 <span class="keywordtype">double</span> <a class="code" href="class_lowpass_function.html#d12f6c919463aa1760288d3537c68c9a">mapValue</a>(<span class="keywordtype">double</span> <a class="code" href="structx.html">x</a>);
+<a name="l00027"></a>00027                 <span class="comment">// double lookupValue(double x);</span>
 <a name="l00028"></a>00028 
-<a name="l00029"></a>00029                 JamomaError <a class="code" href="class_lowpass_function.html#c038dae970899a832fbb2ccba677933e">setParameter</a>(t_symbol *parameterName, <span class="keywordtype">long</span> argc, t_atom *argv);
-<a name="l00030"></a>00030                 JamomaError <a class="code" href="class_lowpass_function.html#bec73e0eacbfb6d1402e3470d6ae482d">getParameter</a>(t_symbol *parameterName, <span class="keywordtype">long</span> *argc, t_atom **argv);
-<a name="l00031"></a>00031                 JamomaError <a class="code" href="class_lowpass_function.html#8faa41a1a0fd2d58394755df01b3ce7e">getFunctionParameters</a>(<span class="keywordtype">long</span> *argc, t_atom **argv);
-<a name="l00032"></a>00032                 
-<a name="l00033"></a>00033         <span class="keyword">private</span>:
-<a name="l00034"></a>00034                 <span class="keywordtype">double</span>          coefficient;
-<a name="l00035"></a>00035                 <span class="keywordtype">double</span>          one_minus_coefficient;
-<a name="l00036"></a>00036                 <span class="keywordtype">double</span>          feedback;
-<a name="l00037"></a>00037 };
-<a name="l00038"></a>00038 
+<a name="l00030"></a>00030                 JamomaError <a class="code" href="class_lowpass_function.html#c038dae970899a832fbb2ccba677933e">setParameter</a>(t_symbol *parameterName, <span class="keywordtype">long</span> argc, t_atom *argv);
+<a name="l00031"></a>00031                 JamomaError <a class="code" href="class_lowpass_function.html#bec73e0eacbfb6d1402e3470d6ae482d">getParameter</a>(t_symbol *parameterName, <span class="keywordtype">long</span> *argc, t_atom **argv);
+<a name="l00032"></a>00032                 JamomaError <a class="code" href="class_lowpass_function.html#8faa41a1a0fd2d58394755df01b3ce7e">getFunctionParameters</a>(<span class="keywordtype">long</span> *argc, t_atom **argv);
+<a name="l00033"></a>00033                 
+<a name="l00034"></a>00034         <span class="keyword">private</span>:
+<a name="l00035"></a>00035                 <span class="keywordtype">double</span>          coefficient;
+<a name="l00036"></a>00036                 <span class="keywordtype">double</span>          one_minus_coefficient;
+<a name="l00037"></a>00037                 <span class="keywordtype">double</span>          feedback;
+<a name="l00038"></a>00038 };
 <a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="preprocessor">#endif // __LOWPASSFUNCTION_H__</span>
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:02:54 2007 for Jamoma by&nbsp;
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="preprocessor">#endif // __LOWPASSFUNCTION_H__</span>
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:46 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

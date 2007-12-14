@@ -963,225 +963,216 @@
 <a name="l00950"></a>00950                         outlet_anything(x-&gt;<a class="code" href="struct__param.html#cb12a7d2fe412461cb2680d57d1b047f">outlets</a>[k_outlet_direct], _sym_list, argc, argv);
 <a name="l00951"></a>00951         }
 <a name="l00952"></a>00952         <span class="keywordflow">else</span> {
-<a name="l00953"></a>00953                 <span class="comment">//ps_ramp_update                                = gensym("ramp_update");</span>
-<a name="l00954"></a>00954                 <span class="keywordflow">if</span> (atom_getsym(argv)==gensym(<span class="stringliteral">"ramp_update"</span>))
-<a name="l00955"></a>00955                 {
-<a name="l00956"></a>00956                         post(<span class="stringliteral">"Update!"</span>);
-<a name="l00957"></a>00957                         <span class="comment">// Send som message to </span>
-<a name="l00958"></a>00958                 }
-<a name="l00959"></a>00959                 <span class="keywordflow">else</span> {
-<a name="l00960"></a>00960                         <span class="comment">// new input - halt any ramping...</span>
-<a name="l00961"></a>00961                         <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>)
-<a name="l00962"></a>00962                                 x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>-&gt;<a class="code" href="classrampunit.html#c2eb7b72fdfc2917ca6e0d3904bd36e6">stop</a>();
-<a name="l00963"></a>00963                 
-<a name="l00964"></a>00964                         <span class="keywordflow">if</span>(argc == 1 ){
-<a name="l00965"></a>00965                                 <span class="comment">// If repetitions are disabled, we check for a repetition by treating</span>
-<a name="l00966"></a>00966                                 <span class="comment">// this as a 1 element list</span>
-<a name="l00967"></a>00967                                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> == 0 &amp;&amp; param_list_compare(x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>, 
-<a name="l00968"></a>00968                                         x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>, argv, argc)) 
-<a name="l00969"></a>00969                                         <span class="keywordflow">return</span>;
-<a name="l00970"></a>00970 
-<a name="l00971"></a>00971                                 x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = 1;                               
-<a name="l00972"></a>00972                                 jcom_core_atom_copy(&amp;x-&gt;attr_value, argv);
-<a name="l00973"></a>00973                                 x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
-<a name="l00974"></a>00974                         } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(argc &gt; 1) {
-<a name="l00975"></a>00975                                 param_list(x, msg, argc, argv);
-<a name="l00976"></a>00976                         }
-<a name="l00977"></a>00977                         <span class="keywordflow">else</span>{   <span class="comment">// no args</span>
-<a name="l00978"></a>00978 <span class="preprocessor">#ifndef JMOD_MESSAGE</span>
-<a name="l00979"></a>00979 <span class="preprocessor"></span>                                <span class="comment">// generic parameters may have no arg -- i.e. to open a dialog that defines the arg</span>
-<a name="l00980"></a>00980                                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> == ps_msg_generic)
-<a name="l00981"></a>00981                                         x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = 0;
-<a name="l00982"></a>00982 <span class="preprocessor">#endif                  </span>
-<a name="l00983"></a>00983 <span class="preprocessor"></span>                                x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
-<a name="l00984"></a>00984                         }
-<a name="l00985"></a>00985                 }
-<a name="l00986"></a>00986                 
-<a name="l00987"></a>00987         }
-<a name="l00988"></a>00988 }
-<a name="l00989"></a>00989 
-<a name="l00990"></a>00990 <span class="comment">// Returns true if lists are identical</span>
-<a name="l00991"></a>00991 <span class="keywordtype">int</span> param_list_compare(t_atom *x, <span class="keywordtype">long</span> lengthx, t_atom *y, <span class="keywordtype">long</span> lengthy)
-<a name="l00992"></a>00992 {
-<a name="l00993"></a>00993         <span class="comment">// If lists differ in length they're obviously not the same</span>
-<a name="l00994"></a>00994         <span class="keywordflow">if</span>(lengthx == lengthy) {
-<a name="l00995"></a>00995                 <span class="keywordtype">short</span> type;
-<a name="l00996"></a>00996                 <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; lengthx; i++) {
-<a name="l00997"></a>00997                         <span class="keywordflow">if</span>((x-&gt;a_type) != (y-&gt;a_type))
-<a name="l00998"></a>00998                                 <span class="keywordflow">return</span> 0; <span class="comment">// not identical, types differ</span>
-<a name="l00999"></a>00999                         
-<a name="l01000"></a>01000                         type = x-&gt;a_type;
-<a name="l01001"></a>01001                         <span class="keywordflow">if</span>((type == A_FLOAT) &amp;&amp; (x-&gt;a_w.w_float != y-&gt;a_w.w_float))
-<a name="l01002"></a>01002                                 <span class="keywordflow">return</span> 0;
-<a name="l01003"></a>01003                         <span class="keywordflow">else</span> <span class="keywordflow">if</span>((type == A_LONG) &amp;&amp; (x-&gt;a_w.w_long != y-&gt;a_w.w_long))
-<a name="l01004"></a>01004                                 <span class="keywordflow">return</span> 0;
-<a name="l01005"></a>01005                         <span class="keywordflow">else</span> <span class="keywordflow">if</span>((type == A_SYM) &amp;&amp; (x-&gt;a_w.w_sym != y-&gt;a_w.w_sym))
-<a name="l01006"></a>01006                                 <span class="keywordflow">return</span> 0;
-<a name="l01007"></a>01007                         
-<a name="l01008"></a>01008                         x++; y++;  <span class="comment">// keep going</span>
-<a name="l01009"></a>01009                 }
-<a name="l01010"></a>01010         } 
-<a name="l01011"></a>01011         <span class="keywordflow">else</span> {
-<a name="l01012"></a>01012                 <span class="keywordflow">return</span> 0; <span class="comment">// list lengths differ</span>
-<a name="l01013"></a>01013         }
+<a name="l00953"></a>00953                         <span class="comment">// new input - halt any ramping...</span>
+<a name="l00954"></a>00954                         <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>)
+<a name="l00955"></a>00955                                 x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>-&gt;<a class="code" href="classrampunit.html#c2eb7b72fdfc2917ca6e0d3904bd36e6">stop</a>();
+<a name="l00956"></a>00956                 
+<a name="l00957"></a>00957                         <span class="keywordflow">if</span>(argc == 1 ){
+<a name="l00958"></a>00958                                 <span class="comment">// If repetitions are disabled, we check for a repetition by treating</span>
+<a name="l00959"></a>00959                                 <span class="comment">// this as a 1 element list</span>
+<a name="l00960"></a>00960                                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> == 0 &amp;&amp; param_list_compare(x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>, 
+<a name="l00961"></a>00961                                         x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>, argv, argc)) 
+<a name="l00962"></a>00962                                         <span class="keywordflow">return</span>;
+<a name="l00963"></a>00963 
+<a name="l00964"></a>00964                                 x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = 1;                               
+<a name="l00965"></a>00965                                 jcom_core_atom_copy(&amp;x-&gt;attr_value, argv);
+<a name="l00966"></a>00966                                 x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
+<a name="l00967"></a>00967                         } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(argc &gt; 1) {
+<a name="l00968"></a>00968                                 param_list(x, msg, argc, argv);
+<a name="l00969"></a>00969                         }
+<a name="l00970"></a>00970                         <span class="keywordflow">else</span> {  <span class="comment">// no args</span>
+<a name="l00971"></a>00971 <span class="preprocessor">#ifndef JMOD_MESSAGE</span>
+<a name="l00972"></a>00972 <span class="preprocessor"></span>                                <span class="comment">// generic parameters may have no arg -- i.e. to open a dialog that defines the arg</span>
+<a name="l00973"></a>00973                                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> == ps_msg_generic)
+<a name="l00974"></a>00974                                         x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = 0;
+<a name="l00975"></a>00975 <span class="preprocessor">#endif                  </span>
+<a name="l00976"></a>00976 <span class="preprocessor"></span>                                x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
+<a name="l00977"></a>00977                         }
+<a name="l00978"></a>00978                 }
+<a name="l00979"></a>00979 }
+<a name="l00980"></a>00980 
+<a name="l00981"></a>00981 <span class="comment">// Returns true if lists are identical</span>
+<a name="l00982"></a>00982 <span class="keywordtype">int</span> param_list_compare(t_atom *x, <span class="keywordtype">long</span> lengthx, t_atom *y, <span class="keywordtype">long</span> lengthy)
+<a name="l00983"></a>00983 {
+<a name="l00984"></a>00984         <span class="comment">// If lists differ in length they're obviously not the same</span>
+<a name="l00985"></a>00985         <span class="keywordflow">if</span>(lengthx == lengthy) {
+<a name="l00986"></a>00986                 <span class="keywordtype">short</span> type;
+<a name="l00987"></a>00987                 <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; lengthx; i++) {
+<a name="l00988"></a>00988                         <span class="keywordflow">if</span>((x-&gt;a_type) != (y-&gt;a_type))
+<a name="l00989"></a>00989                                 <span class="keywordflow">return</span> 0; <span class="comment">// not identical, types differ</span>
+<a name="l00990"></a>00990                         
+<a name="l00991"></a>00991                         type = x-&gt;a_type;
+<a name="l00992"></a>00992                         <span class="keywordflow">if</span>((type == A_FLOAT) &amp;&amp; (x-&gt;a_w.w_float != y-&gt;a_w.w_float))
+<a name="l00993"></a>00993                                 <span class="keywordflow">return</span> 0;
+<a name="l00994"></a>00994                         <span class="keywordflow">else</span> <span class="keywordflow">if</span>((type == A_LONG) &amp;&amp; (x-&gt;a_w.w_long != y-&gt;a_w.w_long))
+<a name="l00995"></a>00995                                 <span class="keywordflow">return</span> 0;
+<a name="l00996"></a>00996                         <span class="keywordflow">else</span> <span class="keywordflow">if</span>((type == A_SYM) &amp;&amp; (x-&gt;a_w.w_sym != y-&gt;a_w.w_sym))
+<a name="l00997"></a>00997                                 <span class="keywordflow">return</span> 0;
+<a name="l00998"></a>00998                         
+<a name="l00999"></a>00999                         x++; y++;  <span class="comment">// keep going</span>
+<a name="l01000"></a>01000                 }
+<a name="l01001"></a>01001         } 
+<a name="l01002"></a>01002         <span class="keywordflow">else</span> {
+<a name="l01003"></a>01003                 <span class="keywordflow">return</span> 0; <span class="comment">// list lengths differ</span>
+<a name="l01004"></a>01004         }
+<a name="l01005"></a>01005         
+<a name="l01006"></a>01006         <span class="keywordflow">return</span> 1;
+<a name="l01007"></a>01007 }
+<a name="l01008"></a>01008 
+<a name="l01009"></a>01009 <span class="comment">// LIST INPUT &lt;value, ramptime&gt;</span>
+<a name="l01010"></a>01010 <span class="keywordtype">void</span> param_list(t_param *x, t_symbol *msg, <span class="keywordtype">long</span> argc, t_atom *argv)
+<a name="l01011"></a>01011 {
+<a name="l01012"></a>01012         <span class="keywordtype">double</span>  start[LISTSIZE], values[LISTSIZE], time;
+<a name="l01013"></a>01013         <span class="keywordtype">int</span> i;
 <a name="l01014"></a>01014         
-<a name="l01015"></a>01015         <span class="keywordflow">return</span> 1;
-<a name="l01016"></a>01016 }
-<a name="l01017"></a>01017 
-<a name="l01018"></a>01018 <span class="comment">// LIST INPUT &lt;value, ramptime&gt;</span>
-<a name="l01019"></a>01019 <span class="keywordtype">void</span> param_list(t_param *x, t_symbol *msg, <span class="keywordtype">long</span> argc, t_atom *argv)
-<a name="l01020"></a>01020 {
-<a name="l01021"></a>01021         <span class="keywordtype">double</span>  start[LISTSIZE], values[LISTSIZE], time;
-<a name="l01022"></a>01022         <span class="keywordtype">int</span> i;
-<a name="l01023"></a>01023         
-<a name="l01024"></a>01024         <span class="keywordflow">if</span> (x-&gt;<a class="code" href="struct__param.html#457d58aa553494bbd6cc0353bbdce241">attr_slavemode</a>) {
-<a name="l01025"></a>01025                 outlet_anything(x-&gt;<a class="code" href="struct__param.html#cb12a7d2fe412461cb2680d57d1b047f">outlets</a>[k_outlet_direct], _sym_list, argc, argv);
-<a name="l01026"></a>01026                 <span class="keywordflow">return</span>;
-<a name="l01027"></a>01027         }
-<a name="l01028"></a>01028                 
-<a name="l01029"></a>01029         <span class="comment">// Check the second to last item in the list first, which when ramping should == the string ramp</span>
-<a name="l01030"></a>01030         t_atom* ramp = argv + (argc - 2);
-<a name="l01031"></a>01031         <span class="keywordflow">if</span> (ramp-&gt;a_type == A_SYM &amp;&amp; ramp-&gt;a_w.w_sym == ps_ramp) {
-<a name="l01032"></a>01032 
-<a name="l01033"></a>01033                 time = atom_getfloat(argv+(argc-1));
-<a name="l01034"></a>01034 
-<a name="l01035"></a>01035                 <span class="comment">// Only one list member if @type is msg_int of msg_float</span>
-<a name="l01036"></a>01036                 <span class="keywordflow">if</span> ( x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> == ps_msg_int || x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> == ps_msg_float)
-<a name="l01037"></a>01037                         argc = 1;
-<a name="l01038"></a>01038                 <span class="keywordflow">else</span>
-<a name="l01039"></a>01039                         argc = argc - 2;
-<a name="l01040"></a>01040                 
-<a name="l01041"></a>01041                 <span class="keywordflow">for</span> (i=0; i&lt;argc; i++) {
-<a name="l01042"></a>01042                         values[i] = atom_getfloat(argv+i);
-<a name="l01043"></a>01043                         <span class="keywordflow">if</span> (i&lt;=x-&gt;list_size)
-<a name="l01044"></a>01044                                 start[i] = atom_getfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i]);
-<a name="l01045"></a>01045                         <span class="keywordflow">else</span>
-<a name="l01046"></a>01046                                 start[i] = atom_getfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[(x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>)-1]);
-<a name="l01047"></a>01047                 }
-<a name="l01048"></a>01048 
-<a name="l01049"></a>01049                 <span class="keywordflow">if</span>(time &lt;= 0){
-<a name="l01050"></a>01050                         jcom_core_atom_copy(&amp;x-&gt;attr_value, argv);
-<a name="l01051"></a>01051                         x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
-<a name="l01052"></a>01052                         <span class="keywordflow">return</span>;
-<a name="l01053"></a>01053                 }       
-<a name="l01054"></a>01054 
-<a name="l01055"></a>01055                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> == 0){
-<a name="l01056"></a>01056                         <span class="keywordflow">if</span>(param_list_compare(x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>, x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>, argv, argc))
-<a name="l01057"></a>01057                                 <span class="keywordflow">return</span>; <span class="comment">// nothing to do</span>
-<a name="l01058"></a>01058                 }
-<a name="l01059"></a>01059 
-<a name="l01060"></a>01060                 x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = argc;
-<a name="l01061"></a>01061                 x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>-&gt;<a class="code" href="classrampunit.html#86acf07d8992faf93a28d0c6dbd73e1f">set</a>(argc, start);
-<a name="l01062"></a>01062                 x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>-&gt;<a class="code" href="classrampunit.html#7d78002c2c2260a7b8c76f2c54c3331a">go</a>(argc, values, time);
-<a name="l01063"></a>01063         } 
-<a name="l01064"></a>01064         <span class="keywordflow">else</span> {
-<a name="l01065"></a>01065                 <span class="comment">// Don't output if the input data is identical</span>
-<a name="l01066"></a>01066                 <span class="keywordflow">if</span>(!x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a>) {
-<a name="l01067"></a>01067                         <span class="keywordflow">if</span>(param_list_compare(x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>, x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>, argv, argc))
-<a name="l01068"></a>01068                                 <span class="keywordflow">return</span>; <span class="comment">// nothing to do</span>
+<a name="l01015"></a>01015         <span class="keywordflow">if</span> (x-&gt;<a class="code" href="struct__param.html#457d58aa553494bbd6cc0353bbdce241">attr_slavemode</a>) {
+<a name="l01016"></a>01016                 outlet_anything(x-&gt;<a class="code" href="struct__param.html#cb12a7d2fe412461cb2680d57d1b047f">outlets</a>[k_outlet_direct], _sym_list, argc, argv);
+<a name="l01017"></a>01017                 <span class="keywordflow">return</span>;
+<a name="l01018"></a>01018         }
+<a name="l01019"></a>01019                 
+<a name="l01020"></a>01020         <span class="comment">// Check the second to last item in the list first, which when ramping should == the string ramp</span>
+<a name="l01021"></a>01021         t_atom* ramp = argv + (argc - 2);
+<a name="l01022"></a>01022         <span class="keywordflow">if</span> (ramp-&gt;a_type == A_SYM &amp;&amp; ramp-&gt;a_w.w_sym == ps_ramp) {
+<a name="l01023"></a>01023 
+<a name="l01024"></a>01024                 time = atom_getfloat(argv+(argc-1));
+<a name="l01025"></a>01025 
+<a name="l01026"></a>01026                 <span class="comment">// Only one list member if @type is msg_int of msg_float</span>
+<a name="l01027"></a>01027                 <span class="keywordflow">if</span> ( x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> == ps_msg_int || x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> == ps_msg_float)
+<a name="l01028"></a>01028                         argc = 1;
+<a name="l01029"></a>01029                 <span class="keywordflow">else</span>
+<a name="l01030"></a>01030                         argc = argc - 2;
+<a name="l01031"></a>01031                 
+<a name="l01032"></a>01032                 <span class="keywordflow">for</span> (i=0; i&lt;argc; i++) {
+<a name="l01033"></a>01033                         values[i] = atom_getfloat(argv+i);
+<a name="l01034"></a>01034                         <span class="keywordflow">if</span> (i&lt;=x-&gt;list_size)
+<a name="l01035"></a>01035                                 start[i] = atom_getfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i]);
+<a name="l01036"></a>01036                         <span class="keywordflow">else</span>
+<a name="l01037"></a>01037                                 start[i] = atom_getfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[(x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>)-1]);
+<a name="l01038"></a>01038                 }
+<a name="l01039"></a>01039 
+<a name="l01040"></a>01040                 <span class="keywordflow">if</span>(time &lt;= 0){
+<a name="l01041"></a>01041                         jcom_core_atom_copy(&amp;x-&gt;attr_value, argv);
+<a name="l01042"></a>01042                         x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
+<a name="l01043"></a>01043                         <span class="keywordflow">return</span>;
+<a name="l01044"></a>01044                 }       
+<a name="l01045"></a>01045 
+<a name="l01046"></a>01046                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> == 0){
+<a name="l01047"></a>01047                         <span class="keywordflow">if</span>(param_list_compare(x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>, x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>, argv, argc))
+<a name="l01048"></a>01048                                 <span class="keywordflow">return</span>; <span class="comment">// nothing to do</span>
+<a name="l01049"></a>01049                 }
+<a name="l01050"></a>01050 
+<a name="l01051"></a>01051                 x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = argc;
+<a name="l01052"></a>01052                 x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>-&gt;<a class="code" href="classrampunit.html#86acf07d8992faf93a28d0c6dbd73e1f">set</a>(argc, start);
+<a name="l01053"></a>01053                 x-&gt;<a class="code" href="struct__param.html#0f122b070205baa9e1f7e53cf66952b2">ramper</a>-&gt;<a class="code" href="classrampunit.html#7d78002c2c2260a7b8c76f2c54c3331a">go</a>(argc, values, time);
+<a name="l01054"></a>01054         } 
+<a name="l01055"></a>01055         <span class="keywordflow">else</span> {
+<a name="l01056"></a>01056                 <span class="comment">// Don't output if the input data is identical</span>
+<a name="l01057"></a>01057                 <span class="keywordflow">if</span>(!x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a>) {
+<a name="l01058"></a>01058                         <span class="keywordflow">if</span>(param_list_compare(x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>, x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a>, argv, argc))
+<a name="l01059"></a>01059                                 <span class="keywordflow">return</span>; <span class="comment">// nothing to do</span>
+<a name="l01060"></a>01060                 }
+<a name="l01061"></a>01061                 
+<a name="l01062"></a>01062                 <span class="comment">// Avoid copying more than one atom if the type only can have one argument</span>
+<a name="l01063"></a>01063                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> != ps_msg_list &amp;&amp; x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> != ps_msg_generic
+<a name="l01064"></a>01064                         &amp;&amp; x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> != ps_msg_none) {
+<a name="l01065"></a>01065                         <span class="comment">// If attr_type is != to anyone of the above values then we know </span>
+<a name="l01066"></a>01066                         <span class="comment">// that it must be == to a scalar type.  This ensures it will behave</span>
+<a name="l01067"></a>01067                         <span class="comment">// as a scalar and not a list.</span>
+<a name="l01068"></a>01068                         argc = 1;
 <a name="l01069"></a>01069                 }
-<a name="l01070"></a>01070                 
-<a name="l01071"></a>01071                 <span class="comment">// Avoid copying more than one atom if the type only can have one argument</span>
-<a name="l01072"></a>01072                 <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> != ps_msg_list &amp;&amp; x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> != ps_msg_generic
-<a name="l01073"></a>01073                         &amp;&amp; x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#e1efda49c7404667da71bc7862dd1db9">attr_type</a> != ps_msg_none) {
-<a name="l01074"></a>01074                         <span class="comment">// If attr_type is != to anyone of the above values then we know </span>
-<a name="l01075"></a>01075                         <span class="comment">// that it must be == to a scalar type.  This ensures it will behave</span>
-<a name="l01076"></a>01076                         <span class="comment">// as a scalar and not a list.</span>
-<a name="l01077"></a>01077                         argc = 1;
-<a name="l01078"></a>01078                 }
-<a name="l01079"></a>01079                         
-<a name="l01080"></a>01080                 <span class="keywordflow">for</span>(i = 0; i &lt; argc; i++) {
-<a name="l01081"></a>01081                         <span class="keywordflow">switch</span>(argv[i].a_type) 
-<a name="l01082"></a>01082                         {
-<a name="l01083"></a>01083                                 <span class="keywordflow">case</span> A_LONG:
-<a name="l01084"></a>01084                                         atom_setlong(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], atom_getlong(argv + i));
+<a name="l01070"></a>01070                         
+<a name="l01071"></a>01071                 <span class="keywordflow">for</span>(i = 0; i &lt; argc; i++) {
+<a name="l01072"></a>01072                         <span class="keywordflow">switch</span>(argv[i].a_type) 
+<a name="l01073"></a>01073                         {
+<a name="l01074"></a>01074                                 <span class="keywordflow">case</span> A_LONG:
+<a name="l01075"></a>01075                                         atom_setlong(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], atom_getlong(argv + i));
+<a name="l01076"></a>01076                                         <span class="keywordflow">break</span>;
+<a name="l01077"></a>01077                                 <span class="keywordflow">case</span> A_FLOAT:
+<a name="l01078"></a>01078                                         atom_setfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], atom_getfloat(argv + i));
+<a name="l01079"></a>01079                                         <span class="keywordflow">break</span>;
+<a name="l01080"></a>01080                                 <span class="keywordflow">case</span> A_SYM:
+<a name="l01081"></a>01081                                         atom_setsym(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], atom_getsym(argv + i));
+<a name="l01082"></a>01082                                         <span class="keywordflow">break</span>;
+<a name="l01083"></a>01083                                 <span class="keywordflow">default</span>:
+<a name="l01084"></a>01084                                         error(<span class="stringliteral">"param_list: no type specification"</span>);
 <a name="l01085"></a>01085                                         <span class="keywordflow">break</span>;
-<a name="l01086"></a>01086                                 <span class="keywordflow">case</span> A_FLOAT:
-<a name="l01087"></a>01087                                         atom_setfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], atom_getfloat(argv + i));
-<a name="l01088"></a>01088                                         <span class="keywordflow">break</span>;
-<a name="l01089"></a>01089                                 <span class="keywordflow">case</span> A_SYM:
-<a name="l01090"></a>01090                                         atom_setsym(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], atom_getsym(argv + i));
-<a name="l01091"></a>01091                                         <span class="keywordflow">break</span>;
-<a name="l01092"></a>01092                                 <span class="keywordflow">default</span>:
-<a name="l01093"></a>01093                                         error(<span class="stringliteral">"param_list: no type specification"</span>);
-<a name="l01094"></a>01094                                         <span class="keywordflow">break</span>;
-<a name="l01095"></a>01095                         }
-<a name="l01096"></a>01096                 }
-<a name="l01097"></a>01097                 x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = argc;
-<a name="l01098"></a>01098                 x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
-<a name="l01099"></a>01099         }
-<a name="l01100"></a>01100 }
-<a name="l01101"></a>01101 
-<a name="l01102"></a>01102 
-<a name="l01103"></a>01103 <span class="preprocessor">#pragma mark -</span>
-<a name="l01104"></a>01104 <span class="preprocessor"></span><span class="preprocessor">#pragma mark Ramp Units</span>
-<a name="l01105"></a>01105 <span class="preprocessor"></span>
-<a name="l01106"></a>01106 <span class="keywordtype">void</span> param_ramp_callback_float(<span class="keywordtype">void</span> *v, <span class="keywordtype">short</span>, <span class="keywordtype">double</span> *value)
-<a name="l01107"></a>01107 {
-<a name="l01108"></a>01108         t_param *x = (t_param *)v;
-<a name="l01109"></a>01109         <span class="keywordtype">float</span>   oldval = atom_getfloat(&amp;x-&gt;attr_value);
-<a name="l01110"></a>01110         
-<a name="l01111"></a>01111         <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> || *value != oldval){
-<a name="l01112"></a>01112                 atom_setfloat(&amp;x-&gt;attr_value, *value);
-<a name="l01113"></a>01113                 param_output_float(x);
-<a name="l01114"></a>01114         }
-<a name="l01115"></a>01115 }
-<a name="l01116"></a>01116 
-<a name="l01117"></a>01117 
-<a name="l01118"></a>01118 <span class="keywordtype">void</span> param_ramp_callback_int(<span class="keywordtype">void</span> *v, <span class="keywordtype">short</span>, <span class="keywordtype">double</span> *value)
-<a name="l01119"></a>01119 {
-<a name="l01120"></a>01120         t_param *x= (t_param *)v;
-<a name="l01121"></a>01121         <span class="keywordtype">long</span>    val     = *value;
-<a name="l01122"></a>01122         <span class="keywordtype">long</span>    oldval;
-<a name="l01123"></a>01123 
-<a name="l01124"></a>01124         oldval = atom_getlong(&amp;x-&gt;attr_value);
-<a name="l01125"></a>01125         <span class="keywordflow">if</span> (x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> || val != oldval){
-<a name="l01126"></a>01126                 atom_setlong(&amp;x-&gt;attr_value, val);
-<a name="l01127"></a>01127                 param_output_int(x);
-<a name="l01128"></a>01128         }
-<a name="l01129"></a>01129 }
-<a name="l01130"></a>01130 
-<a name="l01131"></a>01131 
-<a name="l01132"></a>01132 <span class="keywordtype">void</span> param_ramp_callback_list(<span class="keywordtype">void</span> *v, <span class="keywordtype">short</span> argc, <span class="keywordtype">double</span> *value)
-<a name="l01133"></a>01133 {
-<a name="l01134"></a>01134         <span class="keywordtype">long</span> i;
-<a name="l01135"></a>01135         t_param *x = (t_param *)v;
-<a name="l01136"></a>01136         
-<a name="l01137"></a>01137         <span class="comment">// we won't bother about avoiding repetitions for list, so never mind oldval</span>
-<a name="l01138"></a>01138 
-<a name="l01139"></a>01139         <span class="keywordflow">for</span> (i=0; i&lt;argc; i++)
-<a name="l01140"></a>01140                 atom_setfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], value[i]);
-<a name="l01141"></a>01141         param_output_list(x);   
-<a name="l01142"></a>01142 }
-<a name="l01143"></a>01143 
-<a name="l01144"></a>01144 
-<a name="l01145"></a>01145 <span class="keywordtype">void</span> param_ramp_setup(t_param *x)
-<a name="l01146"></a>01146 {
-<a name="l01147"></a>01147         <span class="comment">// 1. destroy the old rampunit</span>
-<a name="l01148"></a>01148         <span class="keywordflow">if</span>(x-&gt;ramper != NULL)
-<a name="l01149"></a>01149                 <span class="keyword">delete</span> x-&gt;ramper;
-<a name="l01150"></a>01150                 
-<a name="l01151"></a>01151         <span class="comment">// 2. create the new rampunit</span>
-<a name="l01152"></a>01152         <span class="comment">// For backwards compatibility, we still accept 'linear' as an input value for @ramp</span>
-<a name="l01153"></a>01153         <span class="comment">// but we need to convert that to the actual name of the rampunit...</span>
-<a name="l01154"></a>01154         <span class="keywordflow">if</span>(x-&gt;attr_ramp == ps_linear || x-&gt;attr_ramp == gensym(<span class="stringliteral">"linear.sched"</span>))
-<a name="l01155"></a>01155                 x-&gt;attr_ramp = gensym(<span class="stringliteral">"scheduler"</span>);
-<a name="l01156"></a>01156 
-<a name="l01157"></a>01157         <span class="comment">// For some types ramping doesn't make sense, so they will be set to none</span>
-<a name="l01158"></a>01158         <span class="keywordflow">if</span>((x-&gt;common.attr_type == ps_msg_none) || (x-&gt;common.attr_type == ps_msg_symbol) || (x-&gt;common.attr_type == ps_msg_generic))
-<a name="l01159"></a>01159                 x-&gt;attr_ramp = gensym(<span class="stringliteral">"none"</span>);
-<a name="l01160"></a>01160                 
-<a name="l01161"></a>01161         <span class="keywordflow">if</span>((x-&gt;common.attr_type == ps_msg_int) || (x-&gt;common.attr_type == ps_msg_toggle))
-<a name="l01162"></a>01162                 x-&gt;ramper = <span class="keyword">new</span> <a class="code" href="classrampunit.html">rampunit</a>(x-&gt;attr_ramp-&gt;s_name, param_ramp_callback_int, (<span class="keywordtype">void</span> *)x);
-<a name="l01163"></a>01163         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (x-&gt;common.attr_type == ps_msg_list)
-<a name="l01164"></a>01164                 x-&gt;ramper = <span class="keyword">new</span> <a class="code" href="classrampunit.html">rampunit</a>(x-&gt;attr_ramp-&gt;s_name, param_ramp_callback_list, (<span class="keywordtype">void</span> *)x);
-<a name="l01165"></a>01165         <span class="keywordflow">else</span>
-<a name="l01166"></a>01166                 x-&gt;ramper = <span class="keyword">new</span> <a class="code" href="classrampunit.html">rampunit</a>(x-&gt;attr_ramp-&gt;s_name, param_ramp_callback_float, (<span class="keywordtype">void</span> *)x);
-<a name="l01167"></a>01167 
-<a name="l01168"></a>01168         <span class="keywordflow">if</span>(x-&gt;ramper == NULL)
-<a name="l01169"></a>01169                 error(<span class="stringliteral">"jcom.parameter (%s module): could not allocate memory for ramp unit!"</span>, x-&gt;common.module_name);
-<a name="l01170"></a>01170 }
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:02:59 2007 for Jamoma by&nbsp;
+<a name="l01086"></a>01086                         }
+<a name="l01087"></a>01087                 }
+<a name="l01088"></a>01088                 x-&gt;<a class="code" href="struct__param.html#7622aa2eaced72ac242f4c580f3d3f49">list_size</a> = argc;
+<a name="l01089"></a>01089                 x-&gt;<a class="code" href="struct__param.html#4b75480da467f3fdce2b4b250fdb3a4b">param_output</a>(x);
+<a name="l01090"></a>01090         }
+<a name="l01091"></a>01091 }
+<a name="l01092"></a>01092 
+<a name="l01093"></a>01093 
+<a name="l01094"></a>01094 <span class="preprocessor">#pragma mark -</span>
+<a name="l01095"></a>01095 <span class="preprocessor"></span><span class="preprocessor">#pragma mark Ramp Units</span>
+<a name="l01096"></a>01096 <span class="preprocessor"></span>
+<a name="l01097"></a>01097 <span class="keywordtype">void</span> param_ramp_callback_float(<span class="keywordtype">void</span> *v, <span class="keywordtype">short</span>, <span class="keywordtype">double</span> *value)
+<a name="l01098"></a>01098 {
+<a name="l01099"></a>01099         t_param *x = (t_param *)v;
+<a name="l01100"></a>01100         <span class="keywordtype">float</span>   oldval = atom_getfloat(&amp;x-&gt;attr_value);
+<a name="l01101"></a>01101         
+<a name="l01102"></a>01102         <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> || *value != oldval){
+<a name="l01103"></a>01103                 atom_setfloat(&amp;x-&gt;attr_value, *value);
+<a name="l01104"></a>01104                 param_output_float(x);
+<a name="l01105"></a>01105         }
+<a name="l01106"></a>01106 }
+<a name="l01107"></a>01107 
+<a name="l01108"></a>01108 
+<a name="l01109"></a>01109 <span class="keywordtype">void</span> param_ramp_callback_int(<span class="keywordtype">void</span> *v, <span class="keywordtype">short</span>, <span class="keywordtype">double</span> *value)
+<a name="l01110"></a>01110 {
+<a name="l01111"></a>01111         t_param *x= (t_param *)v;
+<a name="l01112"></a>01112         <span class="keywordtype">long</span>    val     = *value;
+<a name="l01113"></a>01113         <span class="keywordtype">long</span>    oldval;
+<a name="l01114"></a>01114 
+<a name="l01115"></a>01115         oldval = atom_getlong(&amp;x-&gt;attr_value);
+<a name="l01116"></a>01116         <span class="keywordflow">if</span> (x-&gt;<a class="code" href="struct__param.html#140428ea6b9bb33e1baee2f9d8837af2">common</a>.<a class="code" href="struct__jcom__core__subscriber__extended.html#8f36ad56a82a410cd6e8bd6e2895720a">attr_repetitions</a> || val != oldval){
+<a name="l01117"></a>01117                 atom_setlong(&amp;x-&gt;attr_value, val);
+<a name="l01118"></a>01118                 param_output_int(x);
+<a name="l01119"></a>01119         }
+<a name="l01120"></a>01120 }
+<a name="l01121"></a>01121 
+<a name="l01122"></a>01122 
+<a name="l01123"></a>01123 <span class="keywordtype">void</span> param_ramp_callback_list(<span class="keywordtype">void</span> *v, <span class="keywordtype">short</span> argc, <span class="keywordtype">double</span> *value)
+<a name="l01124"></a>01124 {
+<a name="l01125"></a>01125         <span class="keywordtype">long</span> i;
+<a name="l01126"></a>01126         t_param *x = (t_param *)v;
+<a name="l01127"></a>01127         
+<a name="l01128"></a>01128         <span class="comment">// we won't bother about avoiding repetitions for list, so never mind oldval</span>
+<a name="l01129"></a>01129 
+<a name="l01130"></a>01130         <span class="keywordflow">for</span> (i=0; i&lt;argc; i++)
+<a name="l01131"></a>01131                 atom_setfloat(&amp;x-&gt;<a class="code" href="struct__param.html#93ae0c798448ac0faca262e1f8f14300">atom_list</a>[i], value[i]);
+<a name="l01132"></a>01132         param_output_list(x);   
+<a name="l01133"></a>01133 }
+<a name="l01134"></a>01134 
+<a name="l01135"></a>01135 
+<a name="l01136"></a>01136 <span class="keywordtype">void</span> param_ramp_setup(t_param *x)
+<a name="l01137"></a>01137 {
+<a name="l01138"></a>01138         <span class="comment">// 1. destroy the old rampunit</span>
+<a name="l01139"></a>01139         <span class="keywordflow">if</span>(x-&gt;ramper != NULL)
+<a name="l01140"></a>01140                 <span class="keyword">delete</span> x-&gt;ramper;
+<a name="l01141"></a>01141                 
+<a name="l01142"></a>01142         <span class="comment">// 2. create the new rampunit</span>
+<a name="l01143"></a>01143         <span class="comment">// For backwards compatibility, we still accept 'linear' as an input value for @ramp</span>
+<a name="l01144"></a>01144         <span class="comment">// but we need to convert that to the actual name of the rampunit...</span>
+<a name="l01145"></a>01145         <span class="keywordflow">if</span>(x-&gt;attr_ramp == ps_linear || x-&gt;attr_ramp == gensym(<span class="stringliteral">"linear.sched"</span>))
+<a name="l01146"></a>01146                 x-&gt;attr_ramp = gensym(<span class="stringliteral">"scheduler"</span>);
+<a name="l01147"></a>01147 
+<a name="l01148"></a>01148         <span class="comment">// For some types ramping doesn't make sense, so they will be set to none</span>
+<a name="l01149"></a>01149         <span class="keywordflow">if</span>((x-&gt;common.attr_type == ps_msg_none) || (x-&gt;common.attr_type == ps_msg_symbol) || (x-&gt;common.attr_type == ps_msg_generic))
+<a name="l01150"></a>01150                 x-&gt;attr_ramp = gensym(<span class="stringliteral">"none"</span>);
+<a name="l01151"></a>01151                 
+<a name="l01152"></a>01152         <span class="keywordflow">if</span>((x-&gt;common.attr_type == ps_msg_int) || (x-&gt;common.attr_type == ps_msg_toggle))
+<a name="l01153"></a>01153                 x-&gt;ramper = <span class="keyword">new</span> <a class="code" href="classrampunit.html">rampunit</a>(x-&gt;attr_ramp-&gt;s_name, param_ramp_callback_int, (<span class="keywordtype">void</span> *)x);
+<a name="l01154"></a>01154         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (x-&gt;common.attr_type == ps_msg_list)
+<a name="l01155"></a>01155                 x-&gt;ramper = <span class="keyword">new</span> <a class="code" href="classrampunit.html">rampunit</a>(x-&gt;attr_ramp-&gt;s_name, param_ramp_callback_list, (<span class="keywordtype">void</span> *)x);
+<a name="l01156"></a>01156         <span class="keywordflow">else</span>
+<a name="l01157"></a>01157                 x-&gt;ramper = <span class="keyword">new</span> <a class="code" href="classrampunit.html">rampunit</a>(x-&gt;attr_ramp-&gt;s_name, param_ramp_callback_float, (<span class="keywordtype">void</span> *)x);
+<a name="l01158"></a>01158 
+<a name="l01159"></a>01159         <span class="keywordflow">if</span>(x-&gt;ramper == NULL)
+<a name="l01160"></a>01160                 error(<span class="stringliteral">"jcom.parameter (%s module): could not allocate memory for ramp unit!"</span>, x-&gt;common.module_name);
+<a name="l01161"></a>01161 }
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:47 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

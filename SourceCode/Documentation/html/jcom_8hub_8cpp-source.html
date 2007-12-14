@@ -865,8 +865,8 @@
 <a name="l00860"></a>00860 
 <a name="l00861"></a>00861         split = strchr(input2, <span class="charliteral">':'</span>);    <span class="comment">// remove (and store) the param name</span>
 <a name="l00862"></a>00862         <span class="keywordflow">if</span>(split != NULL){
-<a name="l00863"></a>00863                 *split = NULL;
-<a name="l00864"></a>00864                 split++;                                        <span class="comment">// now input2 = param name; split = a message for the parameter object          </span>
+<a name="l00863"></a>00863                 *split = NULL;                          <span class="comment">// now input2 = param name; split = a message for the parameter object</span>
+<a name="l00864"></a>00864                 split += 2;                                     <span class="comment">// this will jump the pointer past the :/ to the actual name</span>
 <a name="l00865"></a>00865                 osc = gensym(split);
 <a name="l00866"></a>00866         }
 <a name="l00867"></a>00867         name = gensym(input2);
@@ -1027,22 +1027,19 @@
 <a name="l01022"></a>01022 <span class="comment">// 'bang' method for user input</span>
 <a name="l01023"></a>01023 <span class="keywordtype">void</span> hub_bang(t_hub *x)
 <a name="l01024"></a>01024 {       
-<a name="l01025"></a>01025         t_atom                          a;
+<a name="l01025"></a>01025         <a class="code" href="classjcom_list.html">subscriberList</a>          *subscriber = x-&gt;<a class="code" href="struct__hub.html#e73d9981a42c664e81712b9bcbf4c418">subscriber</a>;    <span class="comment">// head of the linked list</span>
 <a name="l01026"></a>01026         subscriberIterator      i;
 <a name="l01027"></a>01027         t_subscriber            *t;
 <a name="l01028"></a>01028         t_symbol                        *type;
 <a name="l01029"></a>01029         
 <a name="l01030"></a>01030         <span class="keywordflow">for</span>(i = subscriber-&gt;<a class="code" href="classjcom_list.html#4eb40ba6033bea4f69cf2df42a8f9ce4">begin</a>(); i != subscriber-&gt;<a class="code" href="classjcom_list.html#fc5ce7cc9b8f020ae4a289d203f7c938">end</a>(); ++i) {
 <a name="l01031"></a>01031                 t = *i; 
-<a name="l01032"></a>01032                 type = t-&gt;<a class="code" href="struct__subscriber.html#efa7aef3548ecae6d48e50ca59d0f0f2">type</a>;
-<a name="l01033"></a>01033                 
-<a name="l01034"></a>01034                 <span class="keywordflow">if</span>(type == ps_subscribe_parameter || type == ps_subscribe_message){
-<a name="l01035"></a>01035                         <span class="keywordflow">if</span>(osc == NULL)
-<a name="l01036"></a>01036                                 object_method(t-&gt;<a class="code" href="struct__subscriber.html#2127a6e6206510ad8b61a25373443754">object</a>, gensym(<span class="stringliteral">"/ramp/update"</span>));
-<a name="l01037"></a>01037                 }
-<a name="l01038"></a>01038         }       
-<a name="l01039"></a>01039 }
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:02:55 2007 for Jamoma by&nbsp;
+<a name="l01032"></a>01032                 type = t-&gt;<a class="code" href="struct__subscriber.html#efa7aef3548ecae6d48e50ca59d0f0f2">type</a>;         
+<a name="l01033"></a>01033                 <span class="keywordflow">if</span>(type == ps_subscribe_parameter || type == ps_subscribe_message)
+<a name="l01034"></a>01034                         object_method(t-&gt;<a class="code" href="struct__subscriber.html#2127a6e6206510ad8b61a25373443754">object</a>, gensym(<span class="stringliteral">"/ramp/update"</span>));
+<a name="l01035"></a>01035         }       
+<a name="l01036"></a>01036 }
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:46 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

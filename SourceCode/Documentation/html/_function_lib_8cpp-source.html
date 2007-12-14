@@ -71,37 +71,35 @@
 <a name="l00058"></a>00058 }
 <a name="l00059"></a>00059 
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061 <span class="comment">// This function allocates memory -- caller must free it!</span>
-<a name="l00062"></a>00062 <span class="keywordtype">void</span> jamoma_getFunctionList(<span class="keywordtype">long</span> *numFunctions, t_symbol ***functionNames)
-<a name="l00063"></a>00063 {
-<a name="l00064"></a>00064         *numFunctions = 5;
-<a name="l00065"></a>00065         *functionNames = (t_symbol**)sysmem_newptr(<span class="keyword">sizeof</span>(t_symbol*) * *numFunctions);
-<a name="l00066"></a>00066         
-<a name="l00067"></a>00067         <span class="comment">// These should be alphabetized</span>
-<a name="l00068"></a>00068         <span class="keywordflow">if</span>(*functionNames){
-<a name="l00069"></a>00069                 *(*functionNames+0) = gensym(<span class="stringliteral">"cosine"</span>);
-<a name="l00070"></a>00070                 *(*functionNames+1) = gensym(<span class="stringliteral">"linear"</span>);
-<a name="l00071"></a>00071                 *(*functionNames+2) = gensym(<span class="stringliteral">"lowpass"</span>);
-<a name="l00072"></a>00072                 *(*functionNames+3) = gensym(<span class="stringliteral">"power"</span>);
-<a name="l00073"></a>00073                 *(*functionNames+4) = gensym(<span class="stringliteral">"tanh"</span>);
-<a name="l00074"></a>00074         }
-<a name="l00075"></a>00075 }
+<a name="l00061"></a>00061 <span class="keywordtype">void</span> jamoma_getFunctionList(<span class="keywordtype">long</span> *numFunctions, t_symbol ***functionNames)
+<a name="l00062"></a>00062 {
+<a name="l00063"></a>00063         *numFunctions = 5;
+<a name="l00064"></a>00064         *functionNames = (t_symbol**)sysmem_newptr(<span class="keyword">sizeof</span>(t_symbol*) * *numFunctions);
+<a name="l00065"></a>00065         
+<a name="l00066"></a>00066         <span class="comment">// These should be alphabetized</span>
+<a name="l00067"></a>00067         <span class="keywordflow">if</span>(*functionNames){
+<a name="l00068"></a>00068                 *(*functionNames+0) = gensym(<span class="stringliteral">"cosine"</span>);
+<a name="l00069"></a>00069                 *(*functionNames+1) = gensym(<span class="stringliteral">"linear"</span>);
+<a name="l00070"></a>00070                 *(*functionNames+2) = gensym(<span class="stringliteral">"lowpass"</span>);
+<a name="l00071"></a>00071                 *(*functionNames+3) = gensym(<span class="stringliteral">"power"</span>);
+<a name="l00072"></a>00072                 *(*functionNames+4) = gensym(<span class="stringliteral">"tanh"</span>);
+<a name="l00073"></a>00073         }
+<a name="l00074"></a>00074 }
+<a name="l00075"></a>00075 
 <a name="l00076"></a>00076 
 <a name="l00077"></a>00077 
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 <span class="comment">/***************************************************************************</span>
-<a name="l00080"></a>00080 <span class="comment">        Utilities shared by various members of the FunctionLib</span>
-<a name="l00081"></a>00081 <span class="comment"> ***************************************************************************/</span>
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="comment">// Attempt to knock out denormaled floats</span>
-<a name="l00084"></a>00084 <span class="keywordtype">double</span> jamoma_anti_denormal(<span class="keywordtype">double</span> value)
-<a name="l00085"></a>00085 {
-<a name="l00086"></a>00086         value += k_anti_denormal_value;
-<a name="l00087"></a>00087         value -= k_anti_denormal_value;
-<a name="l00088"></a>00088         <span class="keywordflow">return</span>(value);
-<a name="l00089"></a>00089 }
-<a name="l00090"></a>00090 
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:02:54 2007 for Jamoma by&nbsp;
+<a name="l00078"></a>00078 <span class="comment">/***************************************************************************</span>
+<a name="l00079"></a>00079 <span class="comment">        Utilities shared by various members of the FunctionLib</span>
+<a name="l00080"></a>00080 <span class="comment"> ***************************************************************************/</span>
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082 <span class="keywordtype">double</span> jamoma_anti_denormal(<span class="keywordtype">double</span> value)
+<a name="l00083"></a>00083 {
+<a name="l00084"></a>00084         value += k_anti_denormal_value;
+<a name="l00085"></a>00085         value -= k_anti_denormal_value;
+<a name="l00086"></a>00086         <span class="keywordflow">return</span>(value);
+<a name="l00087"></a>00087 }
+<a name="l00088"></a>00088 
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:46 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

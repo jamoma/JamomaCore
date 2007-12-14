@@ -27,19 +27,19 @@
 <a name="l00014"></a>00014 <span class="preprocessor">#include "ramplib.h"</span>            <span class="comment">// Common definitions used by the RampLib</span>
 <a name="l00015"></a>00015 
 <a name="l00016"></a>00016 
-<a name="l00017"></a><a class="code" href="struct__linear__queue.html">00017</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__linear__queue.html">_linear_queue</a> {
-<a name="l00018"></a><a class="code" href="struct__linear__queue.html#adb368ecabdb359a205fa3ebd54cdde2">00018</a>         rampunit_method_callback_type   <a class="code" href="struct__linear__queue.html#adb368ecabdb359a205fa3ebd54cdde2">callback</a>;               
+<a name="l00017"></a>00017 <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__linear__queue.html">_linear_queue</a> {
+<a name="l00018"></a>00018         rampunit_method_callback_type   <a class="code" href="struct__linear__queue.html#adb368ecabdb359a205fa3ebd54cdde2">callback</a>;               
 <a name="l00019"></a><a class="code" href="struct__linear__queue.html#c9d649ad4bf2fc2e0ce4114e376a0b2f">00019</a>         <span class="keywordtype">void</span>                                                    *<a class="code" href="struct__linear__queue.html#c9d649ad4bf2fc2e0ce4114e376a0b2f">baton</a>;                 
 <a name="l00020"></a><a class="code" href="struct__linear__queue.html#1b901aabedff2578a0c18f848e91e930">00020</a>         <span class="keywordtype">void</span>                                                    *<a class="code" href="struct__linear__queue.html#1b901aabedff2578a0c18f848e91e930">max_qelem</a>;             
-<a name="l00021"></a><a class="code" href="struct__linear__queue.html#cc12415ae59891d660fc446b975ae6ca">00021</a>         <span class="keywordtype">char</span>                                                    <a class="code" href="struct__linear__queue.html#cc12415ae59891d660fc446b975ae6ca">active</a>;                 
-<a name="l00022"></a><a class="code" href="struct__linear__queue.html#3e0cd4addce7829b56b5189c502b5ef3">00022</a>         <span class="keywordtype">float</span>                                                   <a class="code" href="struct__linear__queue.html#3e0cd4addce7829b56b5189c502b5ef3">ramptime</a>;               
+<a name="l00021"></a>00021         <span class="keywordtype">char</span>                                                    <a class="code" href="struct__linear__queue.html#cc12415ae59891d660fc446b975ae6ca">active</a>;                 
+<a name="l00022"></a>00022         <span class="keywordtype">float</span>                                                   <a class="code" href="struct__linear__queue.html#3e0cd4addce7829b56b5189c502b5ef3">ramptime</a>;               
 <a name="l00023"></a><a class="code" href="struct__linear__queue.html#9ae6f8f3182f665493a7165102becf54">00023</a>         <span class="keywordtype">double</span>                                                  *<a class="code" href="struct__linear__queue.html#9ae6f8f3182f665493a7165102becf54">value_start</a>;
 <a name="l00024"></a><a class="code" href="struct__linear__queue.html#44d50abd0776482d1fabcd085734dcb4">00024</a>         <span class="keywordtype">double</span>                                                  *<a class="code" href="struct__linear__queue.html#44d50abd0776482d1fabcd085734dcb4">value_target</a>;
 <a name="l00025"></a><a class="code" href="struct__linear__queue.html#1bc43629be6b297efaafb7cc07712ffb">00025</a>         <span class="keywordtype">double</span>                                                  *<a class="code" href="struct__linear__queue.html#1bc43629be6b297efaafb7cc07712ffb">value_current</a>;
-<a name="l00026"></a><a class="code" href="struct__linear__queue.html#c75a6a2b418bbe28d66cbb89edb94d9e">00026</a>         <span class="keywordtype">double</span>                                                  <a class="code" href="struct__linear__queue.html#c75a6a2b418bbe28d66cbb89edb94d9e">value</a>;                  
-<a name="l00027"></a><a class="code" href="struct__linear__queue.html#cbc2c6aecf38425e7bd54b4dfd090009">00027</a>         <span class="keywordtype">short</span>                                                   <a class="code" href="struct__linear__queue.html#cbc2c6aecf38425e7bd54b4dfd090009">numvalues</a>;
-<a name="l00028"></a><a class="code" href="struct__linear__queue.html#dca0070ec515204550e96a1602153982">00028</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>                                   <a class="code" href="struct__linear__queue.html#dca0070ec515204550e96a1602153982">time_start</a>;
-<a name="l00029"></a><a class="code" href="struct__linear__queue.html#fdc0a6607e99dd4703858ccc2e66005b">00029</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>                                   <a class="code" href="struct__linear__queue.html#fdc0a6607e99dd4703858ccc2e66005b">time_target</a>;
+<a name="l00026"></a>00026         <span class="keywordtype">double</span>                                                  <a class="code" href="struct__linear__queue.html#c75a6a2b418bbe28d66cbb89edb94d9e">value</a>;                  
+<a name="l00027"></a>00027         <span class="keywordtype">short</span>                                                   <a class="code" href="struct__linear__queue.html#cbc2c6aecf38425e7bd54b4dfd090009">numvalues</a>;
+<a name="l00028"></a>00028         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>                                   <a class="code" href="struct__linear__queue.html#dca0070ec515204550e96a1602153982">time_start</a>;
+<a name="l00029"></a>00029         <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>                                   <a class="code" href="struct__linear__queue.html#fdc0a6607e99dd4703858ccc2e66005b">time_target</a>;
 <a name="l00030"></a>00030         
 <a name="l00031"></a><a class="code" href="struct__linear__queue.html#275da0e9e540e1a11a20ff0b9d5f71a7">00031</a>         t_symbol                                                *<a class="code" href="struct__linear__queue.html#275da0e9e540e1a11a20ff0b9d5f71a7">functionName</a>;  <span class="comment">// FunctionLib stuff</span>
 <a name="l00032"></a><a class="code" href="struct__linear__queue.html#e68eb0fca2f2fca204a1a64a5f36fe1e">00032</a>         <a class="code" href="class_function_lib.html">FunctionLib</a>                                             *<a class="code" href="struct__linear__queue.html#e68eb0fca2f2fca204a1a64a5f36fe1e">function</a>;              <span class="comment">// ...</span>
@@ -67,7 +67,7 @@
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055 
 <a name="l00056"></a>00056 <span class="preprocessor">#endif // __LINEARQUEUE_H__</span>
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:02:59 2007 for Jamoma by&nbsp;
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:48 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

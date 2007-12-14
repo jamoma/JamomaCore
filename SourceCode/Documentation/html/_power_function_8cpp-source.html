@@ -62,49 +62,46 @@
 <a name="l00049"></a>00049         }
 <a name="l00050"></a>00050         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"symmetry"</span>)) {
 <a name="l00051"></a>00051                 symmetryMode = atom_getsym(argv);
-<a name="l00052"></a>00052                 <span class="comment">// Default mode is "none"</span>
-<a name="l00053"></a>00053                 <span class="keywordflow">if</span>((atom_getsym(argv) != gensym(<span class="stringliteral">"point"</span>)) &amp;&amp; (atom_getsym(argv) != gensym(<span class="stringliteral">"axis"</span>)))
-<a name="l00054"></a>00054                         symmetryMode = gensym(<span class="stringliteral">"none"</span>);
-<a name="l00055"></a>00055                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
-<a name="l00056"></a>00056         }
-<a name="l00057"></a>00057         <span class="keywordflow">else</span>    
-<a name="l00058"></a>00058                 <span class="keywordflow">return</span> JAMOMA_ERR_INVALID_PARAMETER;
-<a name="l00059"></a>00059 }
+<a name="l00052"></a>00052                 <span class="keywordflow">if</span>((atom_getsym(argv) != gensym(<span class="stringliteral">"point"</span>)) &amp;&amp; (atom_getsym(argv) != gensym(<span class="stringliteral">"axis"</span>)))
+<a name="l00053"></a>00053                         symmetryMode = gensym(<span class="stringliteral">"none"</span>);
+<a name="l00054"></a>00054                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
+<a name="l00055"></a>00055         }
+<a name="l00056"></a>00056         <span class="keywordflow">else</span>    
+<a name="l00057"></a>00057                 <span class="keywordflow">return</span> JAMOMA_ERR_INVALID_PARAMETER;
+<a name="l00058"></a>00058 }
+<a name="l00059"></a>00059 
 <a name="l00060"></a>00060 
-<a name="l00061"></a>00061 
-<a name="l00062"></a><a class="code" href="class_power_function.html#83b44fe928fda50562b8d8b8948774ef">00062</a> JamomaError <a class="code" href="class_power_function.html#83b44fe928fda50562b8d8b8948774ef">PowerFunction::getParameter</a>(t_symbol *parameterName, <span class="keywordtype">long</span> *argc, t_atom **argv)
-<a name="l00063"></a>00063 {
-<a name="l00064"></a>00064         <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"powerValue"</span>)) {
-<a name="l00065"></a>00065                 <span class="comment">// This memory needs to be freed by the method calling this one</span>
-<a name="l00066"></a>00066                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
-<a name="l00067"></a>00067                 atom_setfloat(*argv, powerValue);
-<a name="l00068"></a>00068                 *argc = 1;
-<a name="l00069"></a>00069                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
-<a name="l00070"></a>00070         }
-<a name="l00071"></a>00071         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"symmetry"</span>)) {
-<a name="l00072"></a>00072                 <span class="comment">// This memory needs to be freed by the method calling this one</span>
-<a name="l00073"></a>00073                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
-<a name="l00074"></a>00074                 atom_setsym(*argv, symmetryMode);
-<a name="l00075"></a>00075                 *argc = 1;
-<a name="l00076"></a>00076                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
-<a name="l00077"></a>00077         }
-<a name="l00078"></a>00078         <span class="keywordflow">else</span>
-<a name="l00079"></a>00079         {       
-<a name="l00080"></a>00080                 *argc = 0;
-<a name="l00081"></a>00081                 <span class="keywordflow">return</span> JAMOMA_ERR_INVALID_PARAMETER;
-<a name="l00082"></a>00082         }
-<a name="l00083"></a>00083 }
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="class_power_function.html#da7f546e9a4c72a69998c15529e2c50b">00085</a> JamomaError <a class="code" href="class_power_function.html#da7f546e9a4c72a69998c15529e2c50b">PowerFunction::getFunctionParameters</a>(<span class="keywordtype">long</span> *argc, t_atom **argv)
-<a name="l00086"></a>00086 {
-<a name="l00087"></a>00087         
-<a name="l00088"></a>00088         <span class="keywordtype">int</span> n = *argc = 2;
-<a name="l00089"></a>00089         *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom) * n);
-<a name="l00090"></a>00090         atom_setsym(*argv, gensym(<span class="stringliteral">"powerValue"</span>)); atom_setsym(*argv+1, gensym(<span class="stringliteral">"symmetry"</span>));
-<a name="l00091"></a>00091         <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
-<a name="l00092"></a>00092         
-<a name="l00093"></a>00093 }
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:02:54 2007 for Jamoma by&nbsp;
+<a name="l00061"></a><a class="code" href="class_power_function.html#83b44fe928fda50562b8d8b8948774ef">00061</a> JamomaError <a class="code" href="class_power_function.html#83b44fe928fda50562b8d8b8948774ef">PowerFunction::getParameter</a>(t_symbol *parameterName, <span class="keywordtype">long</span> *argc, t_atom **argv)
+<a name="l00062"></a>00062 {
+<a name="l00063"></a>00063         <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"powerValue"</span>)) {
+<a name="l00064"></a>00064                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
+<a name="l00065"></a>00065                 atom_setfloat(*argv, powerValue);
+<a name="l00066"></a>00066                 *argc = 1;
+<a name="l00067"></a>00067                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
+<a name="l00068"></a>00068         }
+<a name="l00069"></a>00069         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"symmetry"</span>)) {
+<a name="l00070"></a>00070                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
+<a name="l00071"></a>00071                 atom_setsym(*argv, symmetryMode);
+<a name="l00072"></a>00072                 *argc = 1;
+<a name="l00073"></a>00073                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
+<a name="l00074"></a>00074         }
+<a name="l00075"></a>00075         <span class="keywordflow">else</span>
+<a name="l00076"></a>00076         {       
+<a name="l00077"></a>00077                 *argc = 0;
+<a name="l00078"></a>00078                 <span class="keywordflow">return</span> JAMOMA_ERR_INVALID_PARAMETER;
+<a name="l00079"></a>00079         }
+<a name="l00080"></a>00080 }
+<a name="l00081"></a>00081 
+<a name="l00082"></a><a class="code" href="class_power_function.html#da7f546e9a4c72a69998c15529e2c50b">00082</a> JamomaError <a class="code" href="class_power_function.html#da7f546e9a4c72a69998c15529e2c50b">PowerFunction::getFunctionParameters</a>(<span class="keywordtype">long</span> *argc, t_atom **argv)
+<a name="l00083"></a>00083 {
+<a name="l00084"></a>00084         
+<a name="l00085"></a>00085         <span class="keywordtype">int</span> n = *argc = 2;
+<a name="l00086"></a>00086         *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom) * n);
+<a name="l00087"></a>00087         atom_setsym(*argv, gensym(<span class="stringliteral">"powerValue"</span>)); atom_setsym(*argv+1, gensym(<span class="stringliteral">"symmetry"</span>));
+<a name="l00088"></a>00088         <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
+<a name="l00089"></a>00089         
+<a name="l00090"></a>00090 }
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:46 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

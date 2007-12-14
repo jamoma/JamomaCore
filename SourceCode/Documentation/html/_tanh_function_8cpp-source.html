@@ -69,47 +69,45 @@
 <a name="l00056"></a><a class="code" href="class_tanh_function.html#1b7bfed9151de1bb07e1221451713004">00056</a> JamomaError <a class="code" href="class_tanh_function.html#1b7bfed9151de1bb07e1221451713004">TanhFunction::getParameter</a>(t_symbol *parameterName, <span class="keywordtype">long</span> *argc, t_atom **argv)
 <a name="l00057"></a>00057 {
 <a name="l00058"></a>00058         <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"width"</span>)) {
-<a name="l00059"></a>00059                 <span class="comment">// This memory needs to be freed by the method calling this one</span>
-<a name="l00060"></a>00060                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
-<a name="l00061"></a>00061                 atom_setfloat(*argv, width);
-<a name="l00062"></a>00062                 *argc = 1;
-<a name="l00063"></a>00063                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
-<a name="l00064"></a>00064         }
-<a name="l00065"></a>00065         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"offset"</span>)) {
-<a name="l00066"></a>00066                 <span class="comment">// This memory needs to be freed by the method calling this one</span>
-<a name="l00067"></a>00067                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
-<a name="l00068"></a>00068                 atom_setfloat(*argv, offset);
-<a name="l00069"></a>00069                 *argc = 1;
-<a name="l00070"></a>00070                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
-<a name="l00071"></a>00071         }
-<a name="l00072"></a>00072         <span class="keywordflow">else</span>
-<a name="l00073"></a>00073         {       
-<a name="l00074"></a>00074                 *argc = 0;
-<a name="l00075"></a>00075                 <span class="keywordflow">return</span> JAMOMA_ERR_INVALID_PARAMETER;
-<a name="l00076"></a>00076         }
-<a name="l00077"></a>00077 }
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 <span class="keywordtype">void</span> TanhFunction::calculateOutputScaling(<span class="keywordtype">void</span>)
-<a name="l00080"></a>00080 {
-<a name="l00081"></a>00081         <span class="keywordtype">double</span> f0, f1;
-<a name="l00082"></a>00082         
-<a name="l00083"></a>00083         f0=tanh(a*(-b));
-<a name="l00084"></a>00084         f1=tanh(a*(1-b));
-<a name="l00085"></a>00085         <span class="comment">// This will never be division by zero, due to the fact that we always have width &gt; 0</span>
-<a name="l00086"></a>00086         alpha = 1/(f1-f0);
-<a name="l00087"></a>00087         beta = f0;
-<a name="l00088"></a>00088 }
-<a name="l00089"></a>00089 
-<a name="l00090"></a><a class="code" href="class_tanh_function.html#cb410cb208f16d59f0f3d68c9107ce58">00090</a> JamomaError <a class="code" href="class_tanh_function.html#cb410cb208f16d59f0f3d68c9107ce58">TanhFunction::getFunctionParameters</a>(<span class="keywordtype">long</span> *argc, t_atom **argv)
-<a name="l00091"></a>00091 {
-<a name="l00092"></a>00092         
-<a name="l00093"></a>00093         <span class="keywordtype">int</span> n = *argc = 2;
-<a name="l00094"></a>00094         *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom) * n);
-<a name="l00095"></a>00095         atom_setsym(*argv, gensym(<span class="stringliteral">"width"</span>)); atom_setsym(*argv+1, gensym(<span class="stringliteral">"offset"</span>));
-<a name="l00096"></a>00096         <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
-<a name="l00097"></a>00097         
-<a name="l00098"></a>00098 }
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:02:54 2007 for Jamoma by&nbsp;
+<a name="l00059"></a>00059                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
+<a name="l00060"></a>00060                 atom_setfloat(*argv, width);
+<a name="l00061"></a>00061                 *argc = 1;
+<a name="l00062"></a>00062                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
+<a name="l00063"></a>00063         }
+<a name="l00064"></a>00064         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parameterName==gensym(<span class="stringliteral">"offset"</span>)) {
+<a name="l00065"></a>00065                 *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom));
+<a name="l00066"></a>00066                 atom_setfloat(*argv, offset);
+<a name="l00067"></a>00067                 *argc = 1;
+<a name="l00068"></a>00068                 <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
+<a name="l00069"></a>00069         }
+<a name="l00070"></a>00070         <span class="keywordflow">else</span>
+<a name="l00071"></a>00071         {       
+<a name="l00072"></a>00072                 *argc = 0;
+<a name="l00073"></a>00073                 <span class="keywordflow">return</span> JAMOMA_ERR_INVALID_PARAMETER;
+<a name="l00074"></a>00074         }
+<a name="l00075"></a>00075 }
+<a name="l00076"></a>00076 
+<a name="l00077"></a>00077 <span class="keywordtype">void</span> TanhFunction::calculateOutputScaling(<span class="keywordtype">void</span>)
+<a name="l00078"></a>00078 {
+<a name="l00079"></a>00079         <span class="keywordtype">double</span> f0, f1;
+<a name="l00080"></a>00080         
+<a name="l00081"></a>00081         f0=tanh(a*(-b));
+<a name="l00082"></a>00082         f1=tanh(a*(1-b));
+<a name="l00083"></a>00083         <span class="comment">// This will never be division by zero, due to the fact that we always have width &gt; 0</span>
+<a name="l00084"></a>00084         alpha = 1/(f1-f0);
+<a name="l00085"></a>00085         beta = f0;
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="class_tanh_function.html#cb410cb208f16d59f0f3d68c9107ce58">00088</a> JamomaError <a class="code" href="class_tanh_function.html#cb410cb208f16d59f0f3d68c9107ce58">TanhFunction::getFunctionParameters</a>(<span class="keywordtype">long</span> *argc, t_atom **argv)
+<a name="l00089"></a>00089 {
+<a name="l00090"></a>00090         
+<a name="l00091"></a>00091         <span class="keywordtype">int</span> n = *argc = 2;
+<a name="l00092"></a>00092         *argv = (t_atom*)sysmem_newptr(<span class="keyword">sizeof</span>(t_atom) * n);
+<a name="l00093"></a>00093         atom_setsym(*argv, gensym(<span class="stringliteral">"width"</span>)); atom_setsym(*argv+1, gensym(<span class="stringliteral">"offset"</span>));
+<a name="l00094"></a>00094         <span class="keywordflow">return</span> JAMOMA_ERR_NONE;
+<a name="l00095"></a>00095         
+<a name="l00096"></a>00096 }
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:46 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

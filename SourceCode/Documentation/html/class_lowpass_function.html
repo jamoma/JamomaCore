@@ -33,23 +33,19 @@ Inheritance diagram for LowpassFunction:<p><center><img src="class_lowpass_funct
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="7da7c137109a8a50a5a99a2098840b4d"></a><!-- doxytag: member="LowpassFunction::LowpassFunction" ref="7da7c137109a8a50a5a99a2098840b4d" args="()" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#7da7c137109a8a50a5a99a2098840b4d">LowpassFunction</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">constructor <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="2f4580e0eedcb2228e50b82eb39fa21e"></a><!-- doxytag: member="LowpassFunction::~LowpassFunction" ref="2f4580e0eedcb2228e50b82eb39fa21e" args="()" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#2f4580e0eedcb2228e50b82eb39fa21e">~LowpassFunction</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">destructor - free memory, etc. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="d12f6c919463aa1760288d3537c68c9a"></a><!-- doxytag: member="LowpassFunction::mapValue" ref="d12f6c919463aa1760288d3537c68c9a" args="(double x)" -->
 double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#d12f6c919463aa1760288d3537c68c9a">mapValue</a> (double <a class="el" href="structx.html">x</a>)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">map x to y <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="c038dae970899a832fbb2ccba677933e"></a><!-- doxytag: member="LowpassFunction::setParameter" ref="c038dae970899a832fbb2ccba677933e" args="(t_symbol *parameterName, long argc, t_atom *argv)" -->
-JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#c038dae970899a832fbb2ccba677933e">setParameter</a> (t_symbol *parameterName, long argc, t_atom *argv)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#c038dae970899a832fbb2ccba677933e">setParameter</a> (t_symbol *parameterName, long argc, t_atom *argv)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="bec73e0eacbfb6d1402e3470d6ae482d"></a><!-- doxytag: member="LowpassFunction::getParameter" ref="bec73e0eacbfb6d1402e3470d6ae482d" args="(t_symbol *parameterName, long *argc, t_atom **argv)" -->
 JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#bec73e0eacbfb6d1402e3470d6ae482d">getParameter</a> (t_symbol *parameterName, long *argc, t_atom **argv)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="8faa41a1a0fd2d58394755df01b3ce7e"></a><!-- doxytag: member="LowpassFunction::getFunctionParameters" ref="8faa41a1a0fd2d58394755df01b3ce7e" args="(long *argc, t_atom **argv)" -->
-JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#8faa41a1a0fd2d58394755df01b3ce7e">getFunctionParameters</a> (long *argc, t_atom **argv)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lowpass_function.html#8faa41a1a0fd2d58394755df01b3ce7e">getFunctionParameters</a> (long *argc, t_atom **argv)</td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -57,9 +53,82 @@ JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <p>
 
 <p>
-Definition at line <a class="el" href="_lowpass_function_8h-source.html#l00020">20</a> of file <a class="el" href="_lowpass_function_8h-source.html">LowpassFunction.h</a>.<hr>The documentation for this class was generated from the following files:<ul>
+Definition at line <a class="el" href="_lowpass_function_8h-source.html#l00020">20</a> of file <a class="el" href="_lowpass_function_8h-source.html">LowpassFunction.h</a>.<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="c038dae970899a832fbb2ccba677933e"></a><!-- doxytag: member="LowpassFunction::setParameter" ref="c038dae970899a832fbb2ccba677933e" args="(t_symbol *parameterName, long argc, t_atom *argv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JamomaError LowpassFunction::setParameter           </td>
+          <td>(</td>
+          <td class="paramtype">t_symbol *&nbsp;</td>
+          <td class="paramname"> <em>parameterName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom *&nbsp;</td>
+          <td class="paramname"> <em>argv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+use the 'feedback' parameter to 'clear' the filter history by sending a 0.0 
+<p>
+Reimplemented from <a class="el" href="class_function_lib.html#1af83166ff30618d7566e57cadf5052f">FunctionLib</a>.
+<p>
+Definition at line <a class="el" href="_lowpass_function_8cpp-source.html#l00031">31</a> of file <a class="el" href="_lowpass_function_8cpp-source.html">LowpassFunction.cpp</a>.
+</div>
+</div><p>
+<a class="anchor" name="8faa41a1a0fd2d58394755df01b3ce7e"></a><!-- doxytag: member="LowpassFunction::getFunctionParameters" ref="8faa41a1a0fd2d58394755df01b3ce7e" args="(long *argc, t_atom **argv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JamomaError LowpassFunction::getFunctionParameters           </td>
+          <td>(</td>
+          <td class="paramtype">long *&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom **&nbsp;</td>
+          <td class="paramname"> <em>argv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+return a list of names of the available functionParameters 
+<p>
+Reimplemented from <a class="el" href="class_function_lib.html#830ecc5e4ac98aa89b057b0ef8bfb8b2">FunctionLib</a>.
+<p>
+Definition at line <a class="el" href="_lowpass_function_8cpp-source.html#l00061">61</a> of file <a class="el" href="_lowpass_function_8cpp-source.html">LowpassFunction.cpp</a>.
+</div>
+</div><p>
+<hr>The documentation for this class was generated from the following files:<ul>
 <li>/Users/tim/dev/Jamoma/SourceCode/Framework/FunctionLib/<a class="el" href="_lowpass_function_8h-source.html">LowpassFunction.h</a><li>/Users/tim/dev/Jamoma/SourceCode/Framework/FunctionLib/<a class="el" href="_lowpass_function_8cpp-source.html">LowpassFunction.cpp</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 15:03:07 2007 for Jamoma by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:51 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>
