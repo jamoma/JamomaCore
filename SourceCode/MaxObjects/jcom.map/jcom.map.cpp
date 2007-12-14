@@ -212,7 +212,7 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 		// Forst list item is name of parameter
 		atom_setsym(a, parameterName);
 		// Next the whole shebang is copied
-		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
+		sysmem_copyptr(a+1, av, sizeof(t_atom)*ac);
 		object_obex_dumpout(obj, gensym("current.parameter"), ac+1, a);
 		//object_obex_dumpout(obj, gensym("getParameter"), ac, av);
 		//object_obex_dumpout(obj, gensym("getParameter"), ac+1, a);
