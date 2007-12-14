@@ -44,19 +44,18 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Make methods accessible for our class:
  	class_addmethod(c, (method)hub_symbol,				"anything",					A_GIMME, 0L);
+
+	class_addmethod(c, (method)hub_getobj_audioin,		"getobj_audioin",			A_CANT, 0);		// return a pointer to the jcom.in~ object
+	class_addmethod(c, (method)hub_getobj_audioout,		"getobj_audioout",			A_CANT, 0);		// return a pointer to the jcom.out~ object
+
+	class_addmethod(c, (method)param_bang,				"bang",						0);				// bang is used by one of the ramp driving mechanisms to calculate values
+
 	class_addmethod(c, (method)hub_subscribe,			"subscribe",				A_CANT, 0L);	// client object subscribing
 	class_addmethod(c, (method)hub_unsubscribe,			"unsubscribe",				A_CANT, 0L);	// client object unsubscribing
 	class_addmethod(c, (method)hub_receive,				"feedback",					A_GIMME, 0L);	// feedback from parameters and such
 	class_addmethod(c, (method)hub_private,				"private", 					A_GIMME, 0L);	// internal communications such as jcom.remote
 	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
-
-	class_addmethod(c, (method)hub_getobj_audioin,		"getobj_audioin",			A_CANT, 0);		// return a pointer to the jcom.in~ object
-	class_addmethod(c, (method)hub_getobj_audioout,		"getobj_audioout",			A_CANT, 0);		// return a pointer to the jcom.out~ object
-
-	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",					A_CANT, 0);
 
 	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names/dump", 	0L);
 	class_addmethod(c, (method)hub_messagenames_get,	"/message_names/dump",		0L);
@@ -80,6 +79,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_presets_dump,		"/preset/post",				0L);
 	class_addmethod(c, (method)hub_ui_freeze,			"/ui/freeze", 				A_LONG, 0L);
 	class_addmethod(c, (method)hub_ui_refresh,			"/ui/refresh",				0L);
+	
+	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
+    class_addmethod(c, (method)object_obex_quickref,	"quickref",					A_CANT, 0);
 
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
@@ -1012,4 +1015,15 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		osc = gensym(split);
 		object_method_typed(x, osc, argc, argv, NULL);		// call the method on this hub object
 	}
+}
+
+
+
+// 'bang' method for user input
+void hub_bang(hub *x)
+{	
+	t_atom a;
+	
+	atom_setsym(&a, ps_ramp_update);
+	object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);	
 }
