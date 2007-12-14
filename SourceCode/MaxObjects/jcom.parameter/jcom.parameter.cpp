@@ -1,7 +1,7 @@
 /* 
  * jcom.paramater
  * External for Jamoma: parameter definition using pattr
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -10,7 +10,9 @@
 #include "jcom.parameter.h"		// everything we need is in here
 
 // Globals
-t_class		*param_class;		// Required: Global pointer for our class
+t_class		*parameter_class;		// Required: Global pointer for our class
+t_class		*message_class;
+
 bool		g_pattr_valid;		// Did pattr init successfully?
 	
 int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
@@ -123,8 +125,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
-	param_class = c;
-	
+#ifdef JMOD_MESSAGE
+	message_class = c;
+#else
+	parameter_class = c;
+#endif
 	return 0;
 }
 
@@ -138,7 +143,11 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 {
 	short		i;
 	long		attrstart = attr_args_offset(argc, argv);
-	t_param		*x = (t_param *)object_alloc(param_class);
+#ifdef JMOD_MESSAGE
+	t_param		*x = (t_param *)object_alloc(message_class);
+#else
+	t_param		*x = (t_param *)object_alloc(parameter_class);
+#endif
 	t_symbol	*name = _sym_nothing;
 
 	if(attrstart && argv)
