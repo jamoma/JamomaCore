@@ -22,8 +22,8 @@
 		22D76E840BFBFC730090548D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = Info.plist; path = ../../common/Info.plist; sourceTree = SOURCE_ROOT; };
 		22D76E860BFBFC840090548D /* ramplib_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ramplib_prefix.pch; path = ../../common/ramplib_prefix.pch; sourceTree = SOURCE_ROOT; };
 		8D5B49B6048680CD000E48DA /* async.rampunit */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = async.rampunit; sourceTree = BUILT_PRODUCTS_DIR; };
-		A728EEB50D12D3FD00C69D02 /* async.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = async.h; path = /Users/lossius/Developer/Jamoma/active/SourceCode/RampLib/RampUnits/async/async.h; sourceTree = "<absolute>"; };
-		A728EEB60D12D3FD00C69D02 /* async.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = async.cpp; path = /Users/lossius/Developer/Jamoma/active/SourceCode/RampLib/RampUnits/async/async.cpp; sourceTree = "<absolute>"; };
+		A728EEB50D12D3FD00C69D02 /* async.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = async.h; sourceTree = SOURCE_ROOT; };
+		A728EEB60D12D3FD00C69D02 /* async.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = async.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
