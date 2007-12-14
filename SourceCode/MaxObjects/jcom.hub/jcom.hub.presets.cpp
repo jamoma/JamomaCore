@@ -245,10 +245,13 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	p = (t_preset *)sysmem_newptr(sizeof(t_preset));
 	p->number = preset_num;
 	p->name = preset_name;
-	// Store the number of the preset we recalled last in the first preset (the one being recalled now)
-	(*(x->preset->begin()))->last_preset_num = preset_num;
-	// Store the name as well
-	(*(x->preset->begin()))->last_preset_name = preset_name;
+	// If there are no presets yet don't mess up the list
+	if(!x->preset->empty()) {
+		// Store the number of the preset we recalled last in the first preset (the one being recalled now)
+		(*(x->preset->begin()))->last_preset_num = preset_num;
+		// Store the name as well
+		(*(x->preset->begin()))->last_preset_name = preset_name;
+	}
 	/* XXX Probably also need to delete this in hub_free() when deleting a preset */
 	p->item = new presetItemList;			// start with no items in the preset
 
@@ -278,7 +281,14 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 			p->item->push_back(newItem);
 		}
 	}
+				
 	preset->merge(p, presetIsLess);
+	if(x->preset->size() == 1) {
+		// If there is only 1 preset it's possible it was the first one added, in which case
+		// we need to ensure that the first preset has the last preset number and name saved as well
+		(*(x->preset->begin()))->last_preset_num = preset_num;
+		(*(x->preset->begin()))->last_preset_name = preset_name;
+	}
 	critical_exit(0);	
 	hub_preset_buildmenu(x);
 }
