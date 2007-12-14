@@ -379,7 +379,7 @@ t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr,
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_name);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -409,7 +409,7 @@ t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr
 	atom_setfloat(*argv, x->attr_range[0]);
 	atom_setfloat(*argv+1, x->attr_range[1]);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -421,7 +421,7 @@ t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setlong(*argv, x->attr_repetitions);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -433,7 +433,7 @@ t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *a
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_clipmode);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -445,7 +445,7 @@ t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_description);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 

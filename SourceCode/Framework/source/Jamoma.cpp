@@ -243,6 +243,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	char		*temp;
 	long		ac = 0;
 	t_atom		*av = NULL;
+	t_jcom_core_subscriber_common *x = (t_jcom_core_subscriber_common*)o;
 	
 	strcpy(cAttrName, attrName->s_name);
 	temp = strrchr(cAttrName, '/');
@@ -252,11 +253,22 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 
 	object_attr_getvalueof(o, sAttrName, &ac, &av);
 	object_obex_dumpout(o, sAttrName, ac, av);
+	if(x->hub != NULL){
+//		t_symbol	*attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));
+		char		s[256];
+		t_atom		a[4];
+	
+		sprintf(s, "%s:/%s", x->attr_name->s_name, attrName->s_name);
+		atom_setsym(a+0, gensym(s));
+		sysmem_copyptr(av, a+1, sizeof(t_atom) * ac);
+		object_method_typed(x->hub, ps_feedback, ac + 1, a, NULL);
+	}
+
 	if(ac)
 		sysmem_freeptr(av);
 }
 
-
+/*
 void jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *argv)
 {
 	t_jcom_core_subscriber_common *x = (t_jcom_core_subscriber_common*)o;
@@ -266,9 +278,10 @@ void jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *ar
 		char		s[256];
 		t_atom		a[4];
 	
-		sprintf(s, "%s:%s", x->attr_name->s_name, attrName->s_name);
+		sprintf(s, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, gensym(s));
 		sysmem_copyptr(argv, a+1, sizeof(t_atom) * argc);
 		object_method_typed(x->hub, ps_feedback, argc + 1, a, NULL);
 	}
 }
+*/

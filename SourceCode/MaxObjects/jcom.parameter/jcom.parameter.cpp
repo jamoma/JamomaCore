@@ -330,7 +330,7 @@ t_max_err param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv)
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_ramp);
 	
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -354,7 +354,7 @@ t_max_err param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom 
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_rampfunction);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -366,7 +366,7 @@ t_max_err param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv)
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->common.attr_type);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -378,7 +378,7 @@ t_max_err param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setlong(*argv, x->attr_ui_freeze);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -390,7 +390,7 @@ t_max_err param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **ar
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setfloat(*argv, x->attr_stepsize);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -402,7 +402,7 @@ t_max_err param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **ar
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setlong(*argv, x->attr_priority);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -414,7 +414,7 @@ t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->list_size);
 	sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * x->list_size);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
