@@ -860,8 +860,8 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 
 	split = strchr(input2, ':');	// remove (and store) the param name
 	if(split != NULL){
-		*split = NULL;
-		split++;					// now input2 = param name; split = a message for the parameter object		
+		*split = NULL;				// now input2 = param name; split = a message for the parameter object
+		split += 2;					// this will jump the pointer past the :/ to the actual name
 		osc = gensym(split);
 	}
 	name = gensym(input2);
@@ -1022,9 +1022,7 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 // 'bang' method for user input
 void hub_bang(t_hub *x)
 {	
-	subscriberList *subscriber = x->subscriber;	// head of the linked list
-
-	t_atom				a;
+	subscriberList		*subscriber = x->subscriber;	// head of the linked list
 	subscriberIterator	i;
 	t_subscriber		*t;
 	t_symbol			*type;
