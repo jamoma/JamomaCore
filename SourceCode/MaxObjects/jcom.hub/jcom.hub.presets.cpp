@@ -237,12 +237,12 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
 			atom_setfloat(&newValue, value);
 		} else if(item1->type == ps_msg_toggle) {
-			value = position == 0. ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
+			value = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
 			atom_setlong(&newValue, value);
 		} else if(item1->type == ps_msg_list) {
 			
 		} else if(item1->type == ps_msg_symbol) {
-			atom_setsym(&newValue, position == 0. ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
+			atom_setsym(&newValue, position <= 0.5 ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
 		}
 		hub_symbol(x, item1->param_name, item1->list_size, &newValue);
 			
