@@ -178,7 +178,6 @@ t_max_err return_attr_gettype(t_return *x, void *attr, long *argc, t_atom **argv
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->common.attr_type);
 
-	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
