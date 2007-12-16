@@ -16,9 +16,6 @@ include REXML
 libdir = "."
 Dir.chdir libdir        # change to libdir so that requires work
 
-cleandefault = true #turn off for dirty-building of frameworks, should only be used for debugging
-
-
 if(ARGV.length == 0)
   puts "usage: "
   puts "build.rb <required:configuration> <optional:clean>"
@@ -26,16 +23,26 @@ if(ARGV.length == 0)
 end
 
 configuration = ARGV[0];
+clean = false;
+@debug = false;
+
 if(ARGV.length > 1)
-  clean = ARGV[1];
-else
-  clean = 0;
+  if(ARGV[1] != "0" || ARGV[1] != "false")
+    clean = true;
+  end
+end
+
+if(ARGV.length > 2)
+  if(ARGV[2] != "0" || ARGV[2] != "false")
+    @debug = true;
+  end
 end
 
 puts "Building Jamoma"
 puts "==================================================="
 puts "  configuration: #{configuration}"
 puts "  clean: #{clean}"
+#puts "  debug the build script: #{debug}"
 puts "  "
 
 
@@ -93,90 +100,66 @@ def get_count
 end
 
 
-
-def find_project(projectdir, style, clean, target_prepend)
-  rgx = /.xcodeproj$/
-  Dir.foreach(projectdir) do |file|
-    if rgx.match(file)
-        targ = target_prepend == nil ? nil : "#{target_prepend}#{file.gsub(rgx, "")}"
-        do_build_project(projectdir, file, targ, style, clean)
-    end
-  end
-end
-private :find_project
-
-
-def do_build_project(projectdir, projectname, target, style, clean)
-  if FileTest.exist?("#{projectdir}/#{projectname}")
-    @cur_total+=1
-    olddir = Dir.getwd
-    Dir.chdir(projectdir)
-    
-    @cur_count += do_build_xcode_project(projectdir, projectname, target, style, clean)
-
-    Dir.chdir(olddir)
-  end
-end
-private :do_build_project
-
-
-def build_project(projectdir, projectname, target, style, clean)
-  projectdir = "#{@svn_root}/#{projectdir}"
-  do_build_project(projectdir, projectname, target, style, clean)
-end
-
-
-def do_build_xcode_project(projectdir, projectname, target, style, clean)
+def build_xcode_project(projectdir, projectname, configuration, clean)
   out = ""
   err = ""
 
-  if target == nil
-    targetinfo = `xcodebuild -project #{projectname} -list`
-    if /\s*(\w.*?) \(Active\)/.match(targetinfo)
-      activetarget = $1
+  Open3.popen3("nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build") do |stdin, stdout, stderr|
+    if(@debug)
+      puts "nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build"
     end
-  else 
-    activetarget = target
-  end      
-
-  Open3.popen3("nice xcodebuild -project #{projectname} -target #{activetarget} -configuration #{style} ZERO_LINK=#{@zerolink == true ? "YES" : "NO"} #{"clean" if clean == true} build") do |stdin, stdout, stderr|
     out = stdout.read
     err = stderr.read
   end
 
   if /BUILD SUCCEEDED/.match(out)
     @cur_count+=1
-    puts "#{projectname}: BUILD SUCCEEDED (target '#{activetarget}')"
+    puts "#{projectname}: BUILD SUCCEEDED')"
     log_build(out)
     return 1
   else
-    @fail_array.push("#{projectdir}/#{projectname} : #{activetarget}")
-    puts "#{projectname}: BUILD FAILED (target '#{activetarget}')"
+    @fail_array.push("#{projectdir}/#{projectname}")
+    puts "#{projectname}: BUILD FAILED')"
     log_error(out)
     log_error(err)
   end
   return 0
 end
-private :do_build_xcode_project
 
 
+def build_project(projectdir, projectname, configuration, clean)
+  if FileTest.exist?("#{projectdir}/#{projectname}")
+    @cur_total+=1
+    olddir = Dir.getwd
+    Dir.chdir(projectdir)
+    
+    @cur_count += build_xcode_project(projectdir, projectname, configuration, clean)
 
-def build_externs(externdir, style, clean, select, target_prepend)
-  externdir = "#{@svn_root}/#{externdir}"
-  return if !FileTest.exist?(externdir) || !FileTest.directory?(externdir)
-
-  if select == nil
-    Dir.foreach(externdir) do |subf|
-      next if /^\./.match(subf)
-      next if !FileTest.directory?("#{externdir}/#{subf}")
-      find_project("#{externdir}/#{subf}", style, clean, target_prepend)
-    end
+    Dir.chdir(olddir)
   else
-    select.each do |sel|
-      if FileTest.exist?("#{externdir}/#{sel}") && FileTest.directory?("#{externdir}/#{sel}")
-        find_project("#{externdir}/#{sel}", style, clean, target_prepend)
-      end
+    puts"File Does not exist: #{projectdir}/#{projectname}"
+  end
+end
+
+
+def find_and_build_project(projectdir, configuration, clean)
+  rgx = /.xcodeproj$/
+  Dir.foreach(projectdir) do |file|
+    if rgx.match(file)
+        build_project(projectdir, file, configuration, clean)
     end
+  end
+end
+
+
+def build_dir(dir, configuration, clean)
+  dir = "#{@svn_root}/#{dir}"
+  return if !FileTest.exist?(dir) || !FileTest.directory?(dir)
+
+  Dir.foreach(dir) do |subf|
+    next if /^\./.match(subf)
+    next if !FileTest.directory?("#{dir}/#{subf}")
+    find_and_build_project("#{dir}/#{subf}", configuration, clean)
   end
 end
 
@@ -193,7 +176,9 @@ zero_count
 # FRAMEWORK
 ###################################################################
 puts "Building Framework..."
-  build_project("SourceCode/Framework","Jamoma.xcodeproj","Jamoma",configuration,true)
+zero_count
+build_project("#{@svn_root}/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
+ex_total, ex_count = get_count
 puts ""
 
 
@@ -203,7 +188,7 @@ puts ""
 puts "Building RampLib..."
 
 zero_count
-build_externs("SourceCode/RampLib/RampUnits",configuration,clean,nil,nil)
+build_dir("SourceCode/RampLib/RampUnits", configuration, clean)
 ex_total, ex_count = get_count
 puts ""
 
@@ -214,7 +199,7 @@ puts ""
 puts "Building Externals..."
 
 zero_count
-build_externs("SourceCode/MaxObjects",configuration,clean,nil,nil)  
+build_dir("SourceCode/MaxObjects", configuration, clean)  
 ex_total, ex_count = get_count
 puts ""
 
