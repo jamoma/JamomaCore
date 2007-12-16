@@ -1,7 +1,5 @@
 base referer
-rect $class_function_lib.html 5,107 99,133
-rect $class_cosine_function.html 152,5 269,32
-rect $class_linear_function.html 155,56 267,83
-rect $class_lowpass_function.html 147,107 275,133
-rect $class_power_function.html 155,157 267,184
-rect $class_tanh_function.html 157,208 264,235
+rect $class_dataspace_unit.html 6,56 118,83
+rect $class_celsius_unit.html 176,6 267,32
+rect $class_fahrenheit_unit.html 166,56 278,83
+rect $class_kelvin_unit.html 180,107 263,134

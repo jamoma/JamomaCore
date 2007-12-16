@@ -36,12 +36,9 @@ Inheritance diagram for TanhFunction:<p><center><img src="class_tanh_function__i
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="cd652d21fb2351d8fe1366270558bb63"></a><!-- doxytag: member="TanhFunction::~TanhFunction" ref="cd652d21fb2351d8fe1366270558bb63" args="()" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tanh_function.html#cd652d21fb2351d8fe1366270558bb63">~TanhFunction</a> ()</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="69baf6a91d68c1263c0dca4bf6b48d1d"></a><!-- doxytag: member="TanhFunction::mapValue" ref="69baf6a91d68c1263c0dca4bf6b48d1d" args="(double x)" -->
-double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tanh_function.html#69baf6a91d68c1263c0dca4bf6b48d1d">mapValue</a> (double <a class="el" href="structx.html">x</a>)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tanh_function.html#69baf6a91d68c1263c0dca4bf6b48d1d">mapValue</a> (double <a class="el" href="structx.html">x</a>)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">map x to y <br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="afbef7ca0681e661e8196173f2b103eb"></a><!-- doxytag: member="TanhFunction::setParameter" ref="afbef7ca0681e661e8196173f2b103eb" args="(t_symbol *parameterName, long argc, t_atom *argv)" -->
-JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tanh_function.html#afbef7ca0681e661e8196173f2b103eb">setParameter</a> (t_symbol *parameterName, long argc, t_atom *argv)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tanh_function.html#afbef7ca0681e661e8196173f2b103eb">setParameter</a> (t_symbol *parameterName, long argc, t_atom *argv)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tanh_function.html#1b7bfed9151de1bb07e1221451713004">getParameter</a> (t_symbol *parameterName, long *argc, t_atom **argv)</td></tr>
 
@@ -54,6 +51,69 @@ JamomaError&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 
 <p>
 Definition at line <a class="el" href="_tanh_function_8h-source.html#l00020">20</a> of file <a class="el" href="_tanh_function_8h-source.html">TanhFunction.h</a>.<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="69baf6a91d68c1263c0dca4bf6b48d1d"></a><!-- doxytag: member="TanhFunction::mapValue" ref="69baf6a91d68c1263c0dca4bf6b48d1d" args="(double x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double TanhFunction::mapValue           </td>
+          <td>(</td>
+          <td class="paramtype">double&nbsp;</td>
+          <td class="paramname"> <em>x</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+map x to y 
+<p>
+Implements <a class="el" href="class_function_lib.html#0991b57138f1c8850646d0e8e894d080">FunctionLib</a>.
+<p>
+Definition at line <a class="el" href="_tanh_function_8cpp-source.html#l00028">28</a> of file <a class="el" href="_tanh_function_8cpp-source.html">TanhFunction.cpp</a>.
+</div>
+</div><p>
+<a class="anchor" name="afbef7ca0681e661e8196173f2b103eb"></a><!-- doxytag: member="TanhFunction::setParameter" ref="afbef7ca0681e661e8196173f2b103eb" args="(t_symbol *parameterName, long argc, t_atom *argv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JamomaError TanhFunction::setParameter           </td>
+          <td>(</td>
+          <td class="paramtype">t_symbol *&nbsp;</td>
+          <td class="paramname"> <em>parameterName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom *&nbsp;</td>
+          <td class="paramname"> <em>argv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+setParameter method for the base class is only called if there are no parameters 
+<p>
+Reimplemented from <a class="el" href="class_function_lib.html#1af83166ff30618d7566e57cadf5052f">FunctionLib</a>.
+<p>
+Definition at line <a class="el" href="_tanh_function_8cpp-source.html#l00034">34</a> of file <a class="el" href="_tanh_function_8cpp-source.html">TanhFunction.cpp</a>.
+</div>
+</div><p>
 <a class="anchor" name="1b7bfed9151de1bb07e1221451713004"></a><!-- doxytag: member="TanhFunction::getParameter" ref="1b7bfed9151de1bb07e1221451713004" args="(t_symbol *parameterName, long *argc, t_atom **argv)" -->
 <div class="memitem">
 <div class="memproto">
@@ -128,7 +188,7 @@ Definition at line <a class="el" href="_tanh_function_8cpp-source.html#l00088">8
 </div><p>
 <hr>The documentation for this class was generated from the following files:<ul>
 <li>/Users/tim/dev/Jamoma/SourceCode/Framework/FunctionLib/<a class="el" href="_tanh_function_8h-source.html">TanhFunction.h</a><li>/Users/tim/dev/Jamoma/SourceCode/Framework/FunctionLib/<a class="el" href="_tanh_function_8cpp-source.html">TanhFunction.cpp</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:51 2007 for Jamoma by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Sun Dec 16 17:57:18 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

@@ -256,36 +256,49 @@
 <a name="l00243"></a>00243         <span class="keywordtype">char</span>            *temp;
 <a name="l00244"></a>00244         <span class="keywordtype">long</span>            ac = 0;
 <a name="l00245"></a>00245         t_atom          *av = NULL;
-<a name="l00246"></a>00246         
-<a name="l00247"></a>00247         strcpy(cAttrName, attrName-&gt;s_name);
-<a name="l00248"></a>00248         temp = strrchr(cAttrName, <span class="charliteral">'/'</span>);
-<a name="l00249"></a>00249         <span class="keywordflow">if</span>(temp)
-<a name="l00250"></a>00250                 *temp = 0;
-<a name="l00251"></a>00251         sAttrName = gensym(cAttrName);
-<a name="l00252"></a>00252 
-<a name="l00253"></a>00253         object_attr_getvalueof(o, sAttrName, &amp;ac, &amp;av);
-<a name="l00254"></a>00254         object_obex_dumpout(o, sAttrName, ac, av);
-<a name="l00255"></a>00255         <span class="keywordflow">if</span>(ac)
-<a name="l00256"></a>00256                 sysmem_freeptr(av);
-<a name="l00257"></a>00257 }
-<a name="l00258"></a>00258 
-<a name="l00259"></a>00259 
-<a name="l00260"></a>00260 <span class="keywordtype">void</span> jamoma_class_attr_get_sender(t_object *o, <span class="keywordtype">void</span> *attr, <span class="keywordtype">long</span> argc, t_atom *argv)
-<a name="l00261"></a>00261 {
-<a name="l00262"></a>00262         <a class="code" href="struct__jcom__core__subscriber__common.html">t_jcom_core_subscriber_common</a> *<a class="code" href="structx.html">x</a> = (<a class="code" href="struct__jcom__core__subscriber__common.html">t_jcom_core_subscriber_common</a>*)o;
-<a name="l00263"></a>00263 
-<a name="l00264"></a>00264         <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__jcom__core__subscriber__common.html#5baf1e5f9d2460a2a1631bedaeb1153a">hub</a> != NULL){
-<a name="l00265"></a>00265                 t_symbol        *attrName = (t_symbol *)object_method((t_object *)attr, gensym(<span class="stringliteral">"getname"</span>));
-<a name="l00266"></a>00266                 <span class="keywordtype">char</span>            s[256];
-<a name="l00267"></a>00267                 t_atom          a[4];
-<a name="l00268"></a>00268         
-<a name="l00269"></a>00269                 sprintf(s, <span class="stringliteral">"%s:%s"</span>, x-&gt;<a class="code" href="struct__jcom__core__subscriber__common.html#6577f8a66cc98d17563200ae27993956">attr_name</a>-&gt;s_name, attrName-&gt;s_name);
-<a name="l00270"></a>00270                 atom_setsym(a+0, gensym(s));
-<a name="l00271"></a>00271                 sysmem_copyptr(argv, a+1, <span class="keyword">sizeof</span>(t_atom) * argc);
-<a name="l00272"></a>00272                 object_method_typed(x-&gt;<a class="code" href="struct__jcom__core__subscriber__common.html#5baf1e5f9d2460a2a1631bedaeb1153a">hub</a>, ps_feedback, argc + 1, a, NULL);
-<a name="l00273"></a>00273         }
-<a name="l00274"></a>00274 }
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:46 2007 for Jamoma by&nbsp;
+<a name="l00246"></a>00246         <a class="code" href="struct__jcom__core__subscriber__common.html">t_jcom_core_subscriber_common</a> *<a class="code" href="structx.html">x</a> = (<a class="code" href="struct__jcom__core__subscriber__common.html">t_jcom_core_subscriber_common</a>*)o;
+<a name="l00247"></a>00247         
+<a name="l00248"></a>00248         strcpy(cAttrName, attrName-&gt;s_name);
+<a name="l00249"></a>00249         temp = strrchr(cAttrName, <span class="charliteral">'/'</span>);
+<a name="l00250"></a>00250         <span class="keywordflow">if</span>(temp)
+<a name="l00251"></a>00251                 *temp = 0;
+<a name="l00252"></a>00252         sAttrName = gensym(cAttrName);
+<a name="l00253"></a>00253 
+<a name="l00254"></a>00254         object_attr_getvalueof(o, sAttrName, &amp;ac, &amp;av);
+<a name="l00255"></a>00255         object_obex_dumpout(o, sAttrName, ac, av);
+<a name="l00256"></a>00256         <span class="keywordflow">if</span>(x-&gt;<a class="code" href="struct__jcom__core__subscriber__common.html#5baf1e5f9d2460a2a1631bedaeb1153a">hub</a> != NULL){
+<a name="l00257"></a>00257 <span class="comment">//              t_symbol        *attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));</span>
+<a name="l00258"></a>00258                 <span class="keywordtype">char</span>            s[256];
+<a name="l00259"></a>00259                 t_atom          a[4];
+<a name="l00260"></a>00260         
+<a name="l00261"></a>00261                 sprintf(s, <span class="stringliteral">"%s:/%s"</span>, x-&gt;<a class="code" href="struct__jcom__core__subscriber__common.html#6577f8a66cc98d17563200ae27993956">attr_name</a>-&gt;s_name, attrName-&gt;s_name);
+<a name="l00262"></a>00262                 atom_setsym(a+0, gensym(s));
+<a name="l00263"></a>00263                 sysmem_copyptr(av, a+1, <span class="keyword">sizeof</span>(t_atom) * ac);
+<a name="l00264"></a>00264                 object_method_typed(x-&gt;<a class="code" href="struct__jcom__core__subscriber__common.html#5baf1e5f9d2460a2a1631bedaeb1153a">hub</a>, ps_feedback, ac + 1, a, NULL);
+<a name="l00265"></a>00265         }
+<a name="l00266"></a>00266 
+<a name="l00267"></a>00267         <span class="keywordflow">if</span>(ac)
+<a name="l00268"></a>00268                 sysmem_freeptr(av);
+<a name="l00269"></a>00269 }
+<a name="l00270"></a>00270 
+<a name="l00271"></a>00271 <span class="comment">/*</span>
+<a name="l00272"></a>00272 <span class="comment">void jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *argv)</span>
+<a name="l00273"></a>00273 <span class="comment">{</span>
+<a name="l00274"></a>00274 <span class="comment">        t_jcom_core_subscriber_common *x = (t_jcom_core_subscriber_common*)o;</span>
+<a name="l00275"></a>00275 <span class="comment"></span>
+<a name="l00276"></a>00276 <span class="comment">        if(x-&gt;hub != NULL){</span>
+<a name="l00277"></a>00277 <span class="comment">                t_symbol        *attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));</span>
+<a name="l00278"></a>00278 <span class="comment">                char            s[256];</span>
+<a name="l00279"></a>00279 <span class="comment">                t_atom          a[4];</span>
+<a name="l00280"></a>00280 <span class="comment">        </span>
+<a name="l00281"></a>00281 <span class="comment">                sprintf(s, "%s:/%s", x-&gt;attr_name-&gt;s_name, attrName-&gt;s_name);</span>
+<a name="l00282"></a>00282 <span class="comment">                atom_setsym(a+0, gensym(s));</span>
+<a name="l00283"></a>00283 <span class="comment">                sysmem_copyptr(argv, a+1, sizeof(t_atom) * argc);</span>
+<a name="l00284"></a>00284 <span class="comment">                object_method_typed(x-&gt;hub, ps_feedback, argc + 1, a, NULL);</span>
+<a name="l00285"></a>00285 <span class="comment">        }</span>
+<a name="l00286"></a>00286 <span class="comment">}</span>
+<a name="l00287"></a>00287 <span class="comment">*/</span>
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Sun Dec 16 17:56:35 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

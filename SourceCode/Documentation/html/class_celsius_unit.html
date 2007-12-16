@@ -36,11 +36,9 @@ Inheritance diagram for CelsiusUnit:<p><center><img src="class_celsius_unit__inh
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="ca66d50e45d39ba66e3560ed86bce9d9"></a><!-- doxytag: member="CelsiusUnit::~CelsiusUnit" ref="ca66d50e45d39ba66e3560ed86bce9d9" args="()" -->
 &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_celsius_unit.html#ca66d50e45d39ba66e3560ed86bce9d9">~CelsiusUnit</a> ()</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="30f000f5590e1a6951edd0a6db4fb3c2"></a><!-- doxytag: member="CelsiusUnit::convertToNeutral" ref="30f000f5590e1a6951edd0a6db4fb3c2" args="(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_celsius_unit.html#30f000f5590e1a6951edd0a6db4fb3c2">convertToNeutral</a> (long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_celsius_unit.html#30f000f5590e1a6951edd0a6db4fb3c2">convertToNeutral</a> (long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="0af85ea020487fbefe035f26e8ad005c"></a><!-- doxytag: member="CelsiusUnit::convertFromNeutral" ref="0af85ea020487fbefe035f26e8ad005c" args="(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)" -->
-void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_celsius_unit.html#0af85ea020487fbefe035f26e8ad005c">convertFromNeutral</a> (long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_celsius_unit.html#0af85ea020487fbefe035f26e8ad005c">convertFromNeutral</a> (long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)</td></tr>
 
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
@@ -48,9 +46,100 @@ void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>
 
 <p>
-Definition at line <a class="el" href="_temperature_dataspace_8h-source.html#l00018">18</a> of file <a class="el" href="_temperature_dataspace_8h-source.html">TemperatureDataspace.h</a>.<hr>The documentation for this class was generated from the following files:<ul>
+Definition at line <a class="el" href="_temperature_dataspace_8h-source.html#l00018">18</a> of file <a class="el" href="_temperature_dataspace_8h-source.html">TemperatureDataspace.h</a>.<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="30f000f5590e1a6951edd0a6db4fb3c2"></a><!-- doxytag: member="CelsiusUnit::convertToNeutral" ref="30f000f5590e1a6951edd0a6db4fb3c2" args="(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CelsiusUnit::convertToNeutral           </td>
+          <td>(</td>
+          <td class="paramtype">long&nbsp;</td>
+          <td class="paramname"> <em>inputNumArgs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom *&nbsp;</td>
+          <td class="paramname"> <em>inputAtoms</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long *&nbsp;</td>
+          <td class="paramname"> <em>outputNumArgs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&nbsp;</td>
+          <td class="paramname"> <em>output</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Converts from an actual unit to a 'neutral' unit that can be interpreted by other units within this dataspace. This must be defined by a sub-class. 
+<p>
+Implements <a class="el" href="class_dataspace_unit.html#58f4c9e229c34c87062c95547df91644">DataspaceUnit</a>.
+<p>
+Definition at line <a class="el" href="_temperature_dataspace_8cpp-source.html#l00021">21</a> of file <a class="el" href="_temperature_dataspace_8cpp-source.html">TemperatureDataspace.cpp</a>.
+</div>
+</div><p>
+<a class="anchor" name="0af85ea020487fbefe035f26e8ad005c"></a><!-- doxytag: member="CelsiusUnit::convertFromNeutral" ref="0af85ea020487fbefe035f26e8ad005c" args="(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CelsiusUnit::convertFromNeutral           </td>
+          <td>(</td>
+          <td class="paramtype">long&nbsp;</td>
+          <td class="paramname"> <em>inputNumArgs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&nbsp;</td>
+          <td class="paramname"> <em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long *&nbsp;</td>
+          <td class="paramname"> <em>outputNumArgs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">t_atom **&nbsp;</td>
+          <td class="paramname"> <em>outputAtoms</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Converts from a neutral unit back to an actual unit. This must be defined by a sub-class. 
+<p>
+Implements <a class="el" href="class_dataspace_unit.html#8ab70d7091104c2a3946c47da5dcc836">DataspaceUnit</a>.
+<p>
+Definition at line <a class="el" href="_temperature_dataspace_8cpp-source.html#l00028">28</a> of file <a class="el" href="_temperature_dataspace_8cpp-source.html">TemperatureDataspace.cpp</a>.
+</div>
+</div><p>
+<hr>The documentation for this class was generated from the following files:<ul>
 <li>/Users/tim/dev/Jamoma/SourceCode/Framework/DataspaceLib/<a class="el" href="_temperature_dataspace_8h-source.html">TemperatureDataspace.h</a><li>/Users/tim/dev/Jamoma/SourceCode/Framework/DataspaceLib/<a class="el" href="_temperature_dataspace_8cpp-source.html">TemperatureDataspace.cpp</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:51 2007 for Jamoma by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Sun Dec 16 17:57:15 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

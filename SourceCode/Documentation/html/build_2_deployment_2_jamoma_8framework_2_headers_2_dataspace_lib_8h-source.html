@@ -36,65 +36,69 @@
 <a name="l00023"></a>00023 <span class="comment">// and is used by a DataspaceLib to do a conversion</span>
 <a name="l00024"></a><a class="code" href="class_dataspace_unit.html">00024</a> <span class="keyword">class </span><a class="code" href="class_dataspace_unit.html">DataspaceUnit</a>{
 <a name="l00025"></a>00025         <span class="keyword">public</span>:
-<a name="l00026"></a><a class="code" href="class_dataspace_unit.html#0616ba44d48a24042727afa3bc2dc766">00026</a>                 t_symbol *<a class="code" href="class_dataspace_unit.html#0616ba44d48a24042727afa3bc2dc766">name</a>; 
+<a name="l00026"></a><a class="code" href="class_dataspace_unit.html#0616ba44d48a24042727afa3bc2dc766">00026</a>                 t_symbol *<a class="code" href="class_dataspace_unit.html#0616ba44d48a24042727afa3bc2dc766">name</a>;                         
 <a name="l00027"></a>00027 
-<a name="l00028"></a>00028                 <a class="code" href="class_dataspace_unit.html#72a283645615fce753a7ecec35bc6488">DataspaceUnit</a>(<span class="keywordtype">char</span> *cName);
-<a name="l00029"></a>00029                 <span class="keyword">virtual</span> <a class="code" href="class_dataspace_unit.html#f06acc6a38bc2c1902da08d2323af4bb">~DataspaceUnit</a>();
+<a name="l00029"></a>00029                 <a class="code" href="class_dataspace_unit.html#72a283645615fce753a7ecec35bc6488">DataspaceUnit</a>(<span class="keywordtype">char</span> *cName);
 <a name="l00030"></a>00030                 
-<a name="l00031"></a>00031                 <span class="keyword">virtual</span> <span class="keywordtype">void</span> convertToNeutral(<span class="keywordtype">long</span> inputNumArgs, t_atom *inputAtoms, <span class="keywordtype">long</span> *outputNumArgs, <span class="keywordtype">double</span> *output) = 0;
-<a name="l00032"></a>00032                 <span class="keyword">virtual</span> <span class="keywordtype">void</span> convertFromNeutral(<span class="keywordtype">long</span> inputNumArgs, <span class="keywordtype">double</span> *input, <span class="keywordtype">long</span> *outputNumArgs, t_atom **outputAtoms) = 0;
-<a name="l00033"></a>00033 };
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037 <span class="comment">// Specification of our base class</span>
-<a name="l00038"></a><a class="code" href="class_dataspace_lib.html">00038</a> <span class="keyword">class </span><a class="code" href="class_dataspace_lib.html">DataspaceLib</a>{
-<a name="l00039"></a>00039         <span class="keyword">private</span>:
-<a name="l00040"></a>00040                 <a class="code" href="class_dataspace_unit.html">DataspaceUnit</a>   *inUnit;
-<a name="l00041"></a>00041                 <a class="code" href="class_dataspace_unit.html">DataspaceUnit</a>   *outUnit;
-<a name="l00042"></a>00042                 t_hashtab               *unitHash;
+<a name="l00032"></a>00032                 <span class="keyword">virtual</span> <a class="code" href="class_dataspace_unit.html#f06acc6a38bc2c1902da08d2323af4bb">~DataspaceUnit</a>();
+<a name="l00033"></a>00033                 
+<a name="l00036"></a>00036                 <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_dataspace_unit.html#58f4c9e229c34c87062c95547df91644">convertToNeutral</a>(<span class="keywordtype">long</span> inputNumArgs, t_atom *inputAtoms, <span class="keywordtype">long</span> *outputNumArgs, <span class="keywordtype">double</span> *output) = 0;
+<a name="l00037"></a>00037 
+<a name="l00040"></a>00040                 <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_dataspace_unit.html#8ab70d7091104c2a3946c47da5dcc836">convertFromNeutral</a>(<span class="keywordtype">long</span> inputNumArgs, <span class="keywordtype">double</span> *input, <span class="keywordtype">long</span> *outputNumArgs, t_atom **outputAtoms) = 0;
+<a name="l00041"></a>00041 };
+<a name="l00042"></a>00042 
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044         <span class="keyword">protected</span>:
-<a name="l00045"></a>00045                 <span class="keywordtype">void</span> <a class="code" href="class_dataspace_lib.html#3f6a9be83eeea59d6a0c0e0a1db3c0c4">registerUnit</a>(<span class="keywordtype">void</span> *unit, t_symbol *<a class="code" href="class_dataspace_lib.html#51f613d11b0f5219d467259bb1161f84">name</a>);
-<a name="l00046"></a>00046                 <span class="keywordtype">void</span> <a class="code" href="class_dataspace_lib.html#3f6a9be83eeea59d6a0c0e0a1db3c0c4">registerUnit</a>(<span class="keywordtype">void</span> *unit, t_symbol *name, t_symbol *abbreviation);
-<a name="l00047"></a>00047                 
-<a name="l00048"></a>00048         <span class="keyword">public</span>:
-<a name="l00049"></a><a class="code" href="class_dataspace_lib.html#c84b3c81b3c79f65f970da015a2ddc6b">00049</a>                 t_symbol                *<a class="code" href="class_dataspace_lib.html#c84b3c81b3c79f65f970da015a2ddc6b">nativeUnit</a>;
-<a name="l00050"></a>00050 
-<a name="l00051"></a>00051                 <a class="code" href="class_dataspace_lib.html#93e4d077ef4c3ac21ada466c9a5dd72a">DataspaceLib</a>(<span class="keywordtype">char</span> *cNativeUnit);                                                        
-<a name="l00052"></a>00052                 <span class="keyword">virtual</span> <a class="code" href="class_dataspace_lib.html#b92dcab88d8bab3323141e9274b7e51e">~DataspaceLib</a>();                                
-<a name="l00053"></a>00053                 
-<a name="l00054"></a>00054 <span class="comment">/*              JamomaError convert(long                inputNumArgs, </span>
-<a name="l00055"></a>00055 <span class="comment">                                                        t_atom          *inputAtoms, </span>
-<a name="l00056"></a>00056 <span class="comment">                                                        t_symbol        *inputDataspace, </span>
-<a name="l00057"></a>00057 <span class="comment">                                                        long            *outputNumArgs, </span>
-<a name="l00058"></a>00058 <span class="comment">                                                        t_atom          **outputAtoms, </span>
-<a name="l00059"></a>00059 <span class="comment">                                                        t_symbol        *outputDataspace, </span>
-<a name="l00060"></a>00060 <span class="comment">                                                        );</span>
-<a name="l00061"></a>00061 <span class="comment">*/</span>
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063                 <span class="comment">// EXTREMELY IMPORTANT: We are expecting that **output atoms has its memory passed in already - we are not allocating it</span>
-<a name="l00064"></a>00064                 <span class="comment">// due to performance considerations</span>
-<a name="l00065"></a>00065                 JamomaError <a class="code" href="class_dataspace_lib.html#9854f35c66f84d39b4f181764fb611a2">convert</a>(<span class="keywordtype">long</span>                inputNumArgs,
-<a name="l00066"></a>00066                                                         t_atom          *inputAtoms,
-<a name="l00067"></a>00067                                                         <span class="keywordtype">long</span>            *outputNumArgs,
-<a name="l00068"></a>00068                                                         t_atom          **outputAtoms
-<a name="l00069"></a>00069                                                         );
-<a name="l00070"></a>00070                 <span class="comment">// could also create a class that wraps a unit with it's dataspace information and args and whateverelse</span>
-<a name="l00071"></a>00071                 <span class="comment">// and then have an alternative (overridden) version of the convert method</span>
-<a name="l00072"></a>00072                 
-<a name="l00073"></a>00073                 JamomaError <a class="code" href="class_dataspace_lib.html#e90d4bb722c138271e77edd3f729af1f">setInputUnit</a>(t_symbol *inUnitName);
-<a name="l00074"></a>00074                 JamomaError <a class="code" href="class_dataspace_lib.html#9d7e18c085598d429928d785821f3453">setOutputUnit</a>(t_symbol *outUnitName);
-<a name="l00075"></a>00075                 
-<a name="l00076"></a>00076                 <span class="keywordtype">void</span> <a class="code" href="class_dataspace_lib.html#84842b51dab43195305960a903b432e4">getAvailableUnits</a>(<span class="keywordtype">long</span> *numUnits, t_symbol ***unitNames);
-<a name="l00077"></a>00077 };
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 <span class="comment">// Specification of our base class</span>
+<a name="l00046"></a><a class="code" href="class_dataspace_lib.html">00046</a> <span class="keyword">class </span><a class="code" href="class_dataspace_lib.html">DataspaceLib</a>{
+<a name="l00047"></a>00047         <span class="keyword">private</span>:
+<a name="l00048"></a>00048                 <a class="code" href="class_dataspace_unit.html">DataspaceUnit</a>   *inUnit;
+<a name="l00049"></a>00049                 <a class="code" href="class_dataspace_unit.html">DataspaceUnit</a>   *outUnit;
+<a name="l00050"></a>00050                 t_hashtab               *unitHash;
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052         <span class="keyword">protected</span>:
+<a name="l00053"></a>00053                 <span class="keywordtype">void</span> <a class="code" href="class_dataspace_lib.html#a73dcc38c1513ee95b165b4177ad2c2c">registerUnit</a>(<span class="keywordtype">void</span> *unit, t_symbol *unitName);
+<a name="l00054"></a>00054                 
+<a name="l00055"></a>00055         <span class="keyword">public</span>:
+<a name="l00056"></a><a class="code" href="class_dataspace_lib.html#0096d2ec036dc03294c65acd42a172e7">00056</a>                 t_symbol                *<a class="code" href="class_dataspace_lib.html#0096d2ec036dc03294c65acd42a172e7">neutralUnit</a>;
+<a name="l00057"></a><a class="code" href="class_dataspace_lib.html#51f613d11b0f5219d467259bb1161f84">00057</a>                 t_symbol                *<a class="code" href="class_dataspace_lib.html#51f613d11b0f5219d467259bb1161f84">name</a>;
+<a name="l00058"></a>00058 
+<a name="l00065"></a>00065                 <a class="code" href="class_dataspace_lib.html#57df4c71e7c30e9a5c3c09627e51b87b">DataspaceLib</a>(<span class="keywordtype">char</span> *cName, <span class="keywordtype">char</span> *cNeutralUnit);
+<a name="l00066"></a>00066                 
+<a name="l00068"></a>00068                 <span class="keyword">virtual</span> <a class="code" href="class_dataspace_lib.html#b92dcab88d8bab3323141e9274b7e51e">~DataspaceLib</a>();
+<a name="l00069"></a>00069                 
+<a name="l00070"></a>00070 <span class="comment">/*              JamomaError convert(long                inputNumArgs, </span>
+<a name="l00071"></a>00071 <span class="comment">                                                        t_atom          *inputAtoms, </span>
+<a name="l00072"></a>00072 <span class="comment">                                                        t_symbol        *inputDataspace, </span>
+<a name="l00073"></a>00073 <span class="comment">                                                        long            *outputNumArgs, </span>
+<a name="l00074"></a>00074 <span class="comment">                                                        t_atom          **outputAtoms, </span>
+<a name="l00075"></a>00075 <span class="comment">                                                        t_symbol        *outputDataspace, </span>
+<a name="l00076"></a>00076 <span class="comment">                                                        );</span>
+<a name="l00077"></a>00077 <span class="comment">*/</span>
 <a name="l00078"></a>00078 
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 JamomaError             jamoma_getDataspace(t_symbol *dataspaceName, <a class="code" href="class_dataspace_lib.html">DataspaceLib</a> **dataspace);
-<a name="l00081"></a>00081 <span class="keywordtype">void</span>                    jamoma_getDataspaceList(<span class="keywordtype">long</span> *numDataspaces, t_symbol ***dataspaceNames);
-<a name="l00082"></a>00082 
-<a name="l00083"></a>00083 <span class="preprocessor">#endif // __DATASPACELIB_H__</span>
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:34 2007 for Jamoma by&nbsp;
+<a name="l00082"></a>00082                 JamomaError <a class="code" href="class_dataspace_lib.html#9854f35c66f84d39b4f181764fb611a2">convert</a>(<span class="keywordtype">long</span>                inputNumArgs,
+<a name="l00083"></a>00083                                                         t_atom          *inputAtoms,
+<a name="l00084"></a>00084                                                         <span class="keywordtype">long</span>            *outputNumArgs,
+<a name="l00085"></a>00085                                                         t_atom          **outputAtoms
+<a name="l00086"></a>00086                                                         );
+<a name="l00087"></a>00087                 <span class="comment">// could also create a class that wraps a unit with it's dataspace information and args and whateverelse</span>
+<a name="l00088"></a>00088                 <span class="comment">// and then have an alternative (overridden) version of the convert method</span>
+<a name="l00089"></a>00089                 
+<a name="l00091"></a>00091                 JamomaError <a class="code" href="class_dataspace_lib.html#e90d4bb722c138271e77edd3f729af1f">setInputUnit</a>(t_symbol *inUnitName);
+<a name="l00092"></a>00092 
+<a name="l00094"></a>00094                 JamomaError <a class="code" href="class_dataspace_lib.html#9d7e18c085598d429928d785821f3453">setOutputUnit</a>(t_symbol *outUnitName);
+<a name="l00095"></a>00095                 
+<a name="l00097"></a>00097                 <span class="keywordtype">void</span> <a class="code" href="class_dataspace_lib.html#84842b51dab43195305960a903b432e4">getAvailableUnits</a>(<span class="keywordtype">long</span> *numUnits, t_symbol ***unitNames);
+<a name="l00098"></a>00098 };
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 
+<a name="l00102"></a>00102 JamomaError             jamoma_getDataspace(t_symbol *dataspaceName, <a class="code" href="class_dataspace_lib.html">DataspaceLib</a> **dataspace);
+<a name="l00103"></a>00103 
+<a name="l00106"></a>00106 <span class="keywordtype">void</span>                    jamoma_getDataspaceList(<span class="keywordtype">long</span> *numDataspaces, t_symbol ***dataspaceNames);
+<a name="l00107"></a>00107 
+<a name="l00108"></a>00108 
+<a name="l00109"></a>00109 <span class="preprocessor">#endif // __DATASPACELIB_H__</span>
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Sun Dec 16 17:56:26 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>

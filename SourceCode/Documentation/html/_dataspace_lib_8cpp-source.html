@@ -35,7 +35,7 @@
 <a name="l00022"></a>00022 
 <a name="l00023"></a>00023 <span class="comment">/***********************************************************************************/</span>
 <a name="l00024"></a>00024 
-<a name="l00025"></a><a class="code" href="class_dataspace_lib.html#11db750a99d316fdbecdb5997d67b55a">00025</a> <a class="code" href="class_dataspace_lib.html#93e4d077ef4c3ac21ada466c9a5dd72a">DataspaceLib::DataspaceLib</a>(<span class="keywordtype">char</span> *cName, <span class="keywordtype">char</span> *cNativeUnit)
+<a name="l00025"></a><a class="code" href="class_dataspace_lib.html#57df4c71e7c30e9a5c3c09627e51b87b">00025</a> <a class="code" href="class_dataspace_lib.html#57df4c71e7c30e9a5c3c09627e51b87b">DataspaceLib::DataspaceLib</a>(<span class="keywordtype">char</span> *cName, <span class="keywordtype">char</span> *cNativeUnit)
 <a name="l00026"></a>00026         : inUnit(NULL), outUnit(NULL)
 <a name="l00027"></a>00027 {
 <a name="l00028"></a>00028         unitHash = hashtab_new(0);
@@ -96,7 +96,7 @@
 <a name="l00083"></a>00083 }
 <a name="l00084"></a>00084 
 <a name="l00085"></a>00085 
-<a name="l00086"></a><a class="code" href="class_dataspace_lib.html#3f6a9be83eeea59d6a0c0e0a1db3c0c4">00086</a> <span class="keywordtype">void</span> <a class="code" href="class_dataspace_lib.html#3f6a9be83eeea59d6a0c0e0a1db3c0c4">DataspaceLib::registerUnit</a>(<span class="keywordtype">void</span> *unit, t_symbol *unitName)
+<a name="l00086"></a><a class="code" href="class_dataspace_lib.html#a73dcc38c1513ee95b165b4177ad2c2c">00086</a> <span class="keywordtype">void</span> <a class="code" href="class_dataspace_lib.html#a73dcc38c1513ee95b165b4177ad2c2c">DataspaceLib::registerUnit</a>(<span class="keywordtype">void</span> *unit, t_symbol *unitName)
 <a name="l00087"></a>00087 {
 <a name="l00088"></a>00088         hashtab_store(unitHash, unitName, (t_object*)unit);
 <a name="l00089"></a>00089 }
@@ -151,7 +151,7 @@
 <a name="l00138"></a>00138         }
 <a name="l00139"></a>00139 }
 <a name="l00140"></a>00140 
-</pre></div><hr size="1"><address style="align: right;"><small>Generated on Fri Dec 14 17:02:46 2007 for Jamoma by&nbsp;
+</pre></div><hr size="1"><address style="align: right;"><small>Generated on Sun Dec 16 17:56:35 2007 for Jamoma by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.1 </small></address>
 </body>
