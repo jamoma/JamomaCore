@@ -114,12 +114,12 @@ def build_xcode_project(projectdir, projectname, configuration, clean)
 
   if /BUILD SUCCEEDED/.match(out)
     @cur_count+=1
-    puts "#{projectname}: BUILD SUCCEEDED')"
+    puts "#{projectname}: BUILD SUCCEEDED"
     log_build(out)
     return 1
   else
     @fail_array.push("#{projectdir}/#{projectname}")
-    puts "#{projectname}: BUILD FAILED')"
+    puts "#{projectname}: BUILD FAILED **************************************"
     log_error(out)
     log_error(err)
   end
