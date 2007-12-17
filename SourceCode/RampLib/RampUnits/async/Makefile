@@ -1,10 +1,10 @@
 include ../../projekt.mk
 
-SOURCES = ${QUEUE_SOURCE}
-OBJS = $(filter-out $(SOURCES),${QUEUE_OBJS})
+SOURCES = ${ASYNC_SOURCE}
+OBJS = $(filter-out $(SOURCES),${ASYNC_OBJS})
 LOCAL_INCLUDES = -I. -I../../../Framework/source -I../../../ThirdParty/ttblue/dsplib -I../../../Framework/c74 -I../../../Framework/FunctionLib -I../../../Framework/DataspaceLib -L../../../Framework/source
-OUTPUT = queue.rampdll
-LINK_INPUT = $(OBJS) queue.def
+OUTPUT = async.rampdll
+LINK_INPUT = $(OBJS) async.def
 
 
 EXTRA_CXXFLAGS = ${LOCAL_INCLUDES}

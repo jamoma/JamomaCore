@@ -24,6 +24,7 @@ release:
 	@${MAKE} -C RampUnits/queue release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C RampUnits/scheduler release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C RampUnits/none release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+	@${MAKE} -C RampUnits/async release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 
 	
 
@@ -35,7 +36,7 @@ debug:
 
 clean:
 	@echo "Making clean..."
-	@${MAKE} -C RampUnits/linear.queue clean
-	@${MAKE} -C RampUnits/linear.sched clean
+	@${MAKE} -C RampUnits/queue clean
+	@${MAKE} -C RampUnits/scheduler clean
 	@${MAKE} -C RampUnits/none clean
-
+	@${MAKE} -C RampUnits/async clean

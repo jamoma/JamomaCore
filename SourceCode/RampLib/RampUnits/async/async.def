@@ -1,6 +1,6 @@
-; linear.queue.def : Declares the module parameters for the DLL.
+; async.def : Declares the module parameters for the DLL.
 
-LIBRARY      "queue"
+LIBRARY      "async"
 
 EXPORTS
 
