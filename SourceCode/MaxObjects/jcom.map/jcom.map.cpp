@@ -226,22 +226,23 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_atom		a[2];
-	long n; t_atom *av;
+	long		n;
+	t_atom		*av;
+
+	atom_setsym(a+0, gensym("clear"));
+	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
+
 	obj->function->getFunctionParameters(&n, &av);
-	if(n) {
-		atom_setsym(a+0, gensym("clear"));
-		object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
-			for(int i=0; i<n; i++){
-				atom_setsym(a+0, gensym("append"));
-				atom_setsym(a+1, atom_getsym(av+i));
-				object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
+	if(n){
+		for(int i=0; i<n; i++){
+			atom_setsym(a+0, gensym("append"));
+			atom_setsym(a+1, atom_getsym(av+i));
+			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}
 		sysmem_freeptr(av);
-	} else {
-		// no parameters
-		object_obex_dumpout(obj, gensym("function.parameters.get"), 0, 0);
 	}
-		
+	else
+		object_obex_dumpout(obj, gensym("function.parameters.get"), 0, 0);		// no parameters
 }
 
 
