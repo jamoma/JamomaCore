@@ -12,8 +12,8 @@
 	<div id="jmod_header">
 	<img src="documentation/html/images/jmod.icon.mod.png" width="128" height="128" />
 	<h1>jamoma readme </h1>
-	<h2>version 0.4.2<br />
-		31 march 2007</h2>
+	<h2>version 0.4.5<br />
+		17 december 2007</h2>
 
 	<h6><a href="documentation/html/index.html">Table of Contents</a> | <a href="documentation/html/modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 </div>
@@ -52,15 +52,19 @@
 			<li>
 				If you checked Jamoma out using <a 
 				href="http://sourceforge.net/svn/?group_id=78108">SVN</A> 
-				(rather than downloading a release from the website):
+				(if you downloaded a release from the website, 
+				these will already be unzipped but many still need to be moved or copied):
 				<ul>
 					<li>
 						Unzip (double-click) the 
-						<code>build_mac.zip</code>, <code>pattr-bundle.bundle.zip</code>, and <code>ramplib_mac.zip</code> archives located in the
+						<code>build_mac.zip</code>, <code>pattr-bundle.bundle.zip</code>, and <code>ramplib_mac.zip</code> 
+						archives located in the
 						<code>Jamoma/library/externals</code> folder.
 					</li>
 					<li>
-						Copy the <code>Jamoma.framework.zip</code> (also located in <code>Jamoma/library/externals</code>) into <code>/Library/Frameworks</code> on your computer and unzip it there.
+						Copy the <code>Jamoma.framework.zip</code> 
+						(also located in <code>Jamoma/library/externals</code>) into <code>/Library/Frameworks</code> 
+						on your computer and unzip it there (replacing a previous version if necessary).
 					</li>
 					<li>
 						Unzip any archives located inside the various subfolders
@@ -69,11 +73,6 @@
 					</li>
 				</ul>
 			</li>	
-			<li>
-				If you downloaded a release from the <a 
-				href="http://www.jamoma.org">website</A>, ignore the steps
-				above.
-			</li>
 		</ul>
 	</li>	
 	<li>
@@ -108,7 +107,6 @@
 
 
 <h3>  Requirements</h3>
-
 <ul>
 	<li>
 		Jamoma requires <a href="http://www.cycling74.com/">Cycling '74's</a> 
@@ -157,7 +155,7 @@
 		problem.
 	</li>
 	<li>
-		The internal architecture of Jamoma version 0.4 represents a very big 
+		The internal architecture of Jamoma version 0.4.x represents a very big 
 		departure from previous versions.  This means that all modules that rely 
 		on Jamoma will need to be updated to use this version.  The vast majority of 
 		modules in this distribution have been updated to the new architecture.  
