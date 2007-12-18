@@ -44,7 +44,7 @@ rampunit::rampunit(char *filename, rampunit_method_callback_type pf_callback, vo
 			goto fetchpointers;
 	}
 	else
-		rampunit_cache = hashtab_new(17);
+		rampunit_cache = hashtab_new(7);
 
 	// 1. Find and open the RampUnit plug-in from the searchpath
 	strcpy(extended_filename, filename);
