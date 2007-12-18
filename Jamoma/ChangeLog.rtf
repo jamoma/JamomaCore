@@ -2,26 +2,36 @@
 {\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 LucidaGrande;
 }
 {\colortbl;\red255\green255\blue255;}
-\paperw11900\paperh16840\vieww14000\viewh11120\viewkind0
+\paperw11900\paperh16840\vieww16880\viewh15840\viewkind0
 \deftab720
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
 
 \f0\b\fs34 \cf0 Change Log
 \b0\fs24 \
 \
-NOTE: 0.4.5 was actually released at Rev. 2755, but that information is not yet updated in this file!\
+
+\b Version 0.4
+\b0 .
+\b 5
+\b0  (17 December 2007 - rev 2772)\
+\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
+\cf0 	\'95	FunctionLib: a new library of mathematical functions that are accessible throughout the Jamoma system.  A new jcom.map object uses this functionality to create a sort-of "super scale object" swiss-army-knife for patching.  The functions are also used by jcom.ramp and jcom.message/jcom.parameter's ramping.\
+	\'95	RampLib: the ramp library has been re-written so that the shape of the ramp is function from the FunctionLib, as defined by the user.  The RampUnit then defines the mechanism for driving ramps.  In addition to scheduler-based and queue-based RampUnits we also created an async unit, which is particularly well-suited to Jitter modules.\
+	\'95	DataspaceLib: A new library that will eventually be integrated into the rest of Jamoma (currently only used by the new jcom.dataspace external).  This is not yet implemented in parameters and messages, but we have a working prototype.  It allows to say that a parameter or message belongs to a dataspace such as 'gain' and then that parameter or message will be able to handle input values in various formats (e.g. decibels, midi, linear, etc.).\
+	\'95	Refining the OpenSoundControl namespace.  In general we are making the namespace more consistent and rational.  We also discussed a variety of issues in terms of OSC syntax and began preparing some papers on the subject.  Of particular focus is the use in Jamoma of the ':' character to denote that we are addressing the metadata of a node instead of the node value itself.\
+	\'95	Interpolation between presets in each module.  Also a variety of other features and improvements to the preset system.\
+	\'95	 Implemented setting and getting parameters of attributes of parameters (for example: the power parameter of the ramp/function attribute of the bitdepth module-parameter).\
+	\'95	Lots of bug fixes (and probably the introduction of some new bugs too ;-)\
+	\'95	New 'Oblique Strategies' component to help with decision making when working on patches.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
+\cf0 \
 \
 
 \b Version 0.4
 \b0 .
-\b 5 (
-\b0 rev ?)\
-\
-
-\b Version 0.4
-\b0 .
-\b 4 (
-\b0 rev 2562)\
+\b 4
+\b0  (10 December 2007 - rev 2562)\
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 \
 	\'95	New Modules:\
@@ -83,7 +93,7 @@ NOTE: 0.4.5 was actually released at Rev. 2755, but that information is not yet 
 \b \cf0 Version 0.4
 \b0 .
 \b 3
-\b0  \
+\b0  (not officially released)\
 \
 \pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
 \cf0 	\'95	Other Improvements:\
