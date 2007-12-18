@@ -34,6 +34,7 @@ void		ramp_setFunction(t_ramp *x, t_symbol *functionName);
 void		ramp_getFunction(t_ramp *x);
 void		ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
 void		ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
+void		ramp_bang(t_ramp *x);
 void		ramp_int(t_ramp *x, long n);
 void		ramp_float(t_ramp *x, double f);
 void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
@@ -61,6 +62,7 @@ int main(void)				// main receives a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_ramp, obex));
 	
 	// Make methods accessible for our class:
+	class_addmethod(c, (method)ramp_bang,					"bang",					0);
 	class_addmethod(c, (method)ramp_int,					"int",					A_DEFLONG,	0);
 	class_addmethod(c, (method)ramp_float,					"float",				A_DEFFLOAT,	0);
  	class_addmethod(c, (method)ramp_list,					"list",					A_GIMME,	0);
@@ -226,6 +228,13 @@ void ramp_callback(void *v, short numvalues, double *values)
 		outlet_anything(x->outlets[k_outlet_value], _sym_list, numvalues, a);
 		
 	free(a);
+}
+
+
+// BANG -- fire an output -- useful for the async unit
+void ramp_bang(t_ramp *x)
+{
+	x->my_ramp->tick();
 }
 
 
