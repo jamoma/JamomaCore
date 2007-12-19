@@ -15,7 +15,7 @@ open(FH, "$INFO") or die "$0: $INFO: $!";
 my $info = join("", <FH>);
 close(FH);
 
-$info =~ s/VERSION/0\.4\.5/g;
+$info =~ s/VERSION/0\.4\.6/g;
 $info =~ s/SVNREV/$version/g;
 
 open(FH, ">$INFO") or die "$0: $INFO: $!";
