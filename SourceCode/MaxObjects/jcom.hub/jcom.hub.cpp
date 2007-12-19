@@ -67,42 +67,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_allnames_get,		"/*_names/dump",			0L);
 	class_addmethod(c, (method)hub_paramvalues_get,		"parameter_values/dump",	0L);
 	class_addmethod(c, (method)hub_paramvalues_get,		"/parameter_values/dump",	0L);
-	class_addmethod(c, (method)hub_modulename_get, "module_name/get", 0L);
+	class_addmethod(c, (method)hub_modulename_get,		"module_name/get", 0L);
 	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			0L);
 	class_addmethod(c, (method)core_modulename_get,		"core_module_name/get",			0L);
-	class_addmethod(c, (method)hub_algorithmtype_get, "algorithm_type/get", A_CANT);
+	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type/get", A_CANT);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type/get",		A_CANT);
-	class_addmethod(c, (method)hub_init, 				"init", 0L);
-	class_addmethod(c, (method)hub_init,				"/init",					0L);
-	class_addmethod(c, (method)hub_autodoc, "documentation/generate", A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_autodoc,				"/documentation/generate",	A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_module_view_alg, "module/view_internals", 0L);
-	class_addmethod(c, (method)hub_module_view_alg,		"/module/view_internals",	0L);
-	class_addmethod(c, (method)hub_preset_read, "preset/read", A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_preset_read,			"/preset/read",				A_DEFSYM, 0L);
-	class_addmethod(c, (method)hub_preset_write,		"/preset/write",			A_DEFSYM, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_write,		"preset/write",			A_DEFSYM, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_recall,		"/preset/recall",			A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_recall,		"preset/recall",			A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_copy,			"preset/copy",				A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_copy,			"/preset/copy",				A_GIMME, 0L);	// number or name
-	class_addmethod(c, (method)hub_preset_store,		"/preset/store",			A_GIMME, 0L);	// number & optional name
-	class_addmethod(c, (method)hub_preset_store,		"preset/store",			A_GIMME, 0L);	// number & optional name
-	class_addmethod(c, (method)hub_preset_store_next,	"/preset/storenext",		A_GIMME, 0L);
-	class_addmethod(c, (method)hub_preset_store_next,	"preset/storenext",		A_GIMME, 0L);
-	class_addmethod(c, (method)hub_preset_interpolate,	"/preset/interpolate",		A_GIMME, 0L);
-	class_addmethod(c, (method)hub_preset_interpolate,	"preset/interpolate",		A_GIMME, 0L);
-	class_addmethod(c, (method)hub_preset_default,		"/preset/default",			0L);
-	class_addmethod(c, (method)hub_preset_default,		"preset/default",			0L);
-	class_addmethod(c, (method)hub_preset_default,		"/presets/clear",			0L);
-	class_addmethod(c, (method)hub_preset_default,		"presets/clear",			0L);
-	class_addmethod(c, (method)hub_presets_dump,		"/preset/post",				0L);
-	class_addmethod(c, (method)hub_presets_dump,		"preset/post",				0L);
-	class_addmethod(c, (method)hub_ui_freeze,			"/ui/freeze", 				A_LONG, 0L);
-	class_addmethod(c, (method)hub_ui_freeze,			"ui/freeze", 				A_LONG, 0L);
-	class_addmethod(c, (method)hub_ui_refresh,			"/ui/refresh",				0L);
-	class_addmethod(c, (method)hub_ui_refresh,			"ui/refresh",				0L);
-	
+
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
     class_addmethod(c, (method)object_obex_quickref,	"quickref",					A_CANT, 0);
@@ -222,9 +192,7 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 			jcom_core_loadextern(ps_jcom_send, 1, a, &s_jcom_send_notifications);
 		}
 		
-#ifdef CREATE_INTERNALS
 		hub_internals_create(x);
-#endif
 
 		x->container = jamoma_object_getpatcher((t_object*)x);
 		defer_low(x, (method)hub_examine_context, 0, 0, 0);		
@@ -344,7 +312,8 @@ void hub_free(t_hub *x)
 	}
 	critical_exit(0);	
 
- 	hub_presets_clear(x);
+	hub_internals_destroy(x);
+ 	hub_presets_clear(x, NULL, 0, NULL);
 	qelem_free(x->init_qelem);
 	if(x->jcom_send)
 		object_free(x->jcom_send);
@@ -353,9 +322,6 @@ void hub_free(t_hub *x)
 	if(x->jcom_send_broadcast)
 		object_free(x->jcom_send_broadcast);
 	x->subscriber->clear();
-#ifdef CREATE_INTERNALS
-	hub_internals_destroy(x);
-#endif
 	delete x->subscriber;
 	delete x->preset;
 }
@@ -502,6 +468,7 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	if(x->out_object != NULL)
 		object_method_typed(x->out_object, ps_algorithm_message, argc, argv, NULL);	// send to jcom.out
 
+	hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
 	hub_outlet_return(x, osc, argc-1, argv+1);
 }
 
@@ -513,6 +480,7 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	t_symbol		*private_message = _sym_nothing;
 	t_symbol		*userpath = _sym_nothing;
 	long			n = 0;
+	t_atom			a;
 	
 	private_id = atom_getsym(argv);
 	argc--;
@@ -522,28 +490,33 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	argv++;
 	if(private_id == ps__gui__){
 		if (private_message == ps_slash_preset_slash_default)			// 	/preset/default
-			hub_preset_default(x);
-		else if (private_message == ps_slash_preset_slash_load)			// 	/preset/load
-			hub_preset_read(x, userpath);
+			hub_preset_default(x, NULL, 0, NULL);
+		else if (private_message == ps_slash_preset_slash_load){		// 	/preset/load
+			atom_setsym(&a, userpath);
+			hub_preset_read(x, NULL, 1, &a);
+		}
 		else if (private_message == ps_slash_preset_slash_recall)		// 	/preset/load
 			hub_preset_recall(x, _sym_list, 1, argv);
 		else if (private_message == ps_slash_preset_slash_store)
 			hub_preset_store(x, _sym_list, argc, argv);
 		else if (private_message == ps_slash_preset_slash_storenext) 
 			hub_preset_store_next(x, _sym_list, argc, argv);
-		else if (private_message == ps_slash_preset_slash_copy)		// 	/preset/load
+		else if (private_message == ps_slash_preset_slash_copy)			// 	/preset/load
 			hub_preset_copy(x, _sym_list, argc, argv);
-		else if (private_message == ps_slash_preset_slash_write)			//	/preset/save
-			hub_preset_write(x, userpath);
+		else if (private_message == ps_slash_preset_slash_write){		//	/preset/save
+			atom_setsym(&a, userpath);
+			hub_preset_write(x, NULL, 1, &a);
+		}
 		else if (private_message == ps_slash_module_view_internals)		//	/module/view_internals
-			hub_module_view_alg(x);
+			hub_module_view_alg(x, NULL, 0, NULL);
 		else if (private_message == ps_slash_ui_slash_freeze) {			// 	/ui/freeze
 			if (argc>0)
 				n = atom_getlong(argv);
-			hub_ui_freeze(x, n);
+			atom_setlong(&a, n);
+			hub_ui_freeze(x, NULL, 1, &a);
 		}
 		else if ( private_message == ps_slash_ui_slash_refresh )		//	/ui/refresh
-			hub_ui_refresh(x);
+			hub_ui_refresh(x, NULL, 0, NULL);
 		else
 			hub_symbol(x, private_message, argc, argv);
 	}
@@ -634,7 +607,7 @@ t_symbol *hub_algorithmtype_get(t_hub *x)
 }
 
 
-void hub_init(t_hub *x)
+void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 {
 	subscriberList	*subscriber = x->subscriber;
 	subscriberIterator i;
@@ -950,7 +923,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-void hub_module_view_alg(t_hub *x)
+void hub_module_view_alg(t_hub *x, t_symbol*, long, t_atom*)
 {
 	if(x->in_object != NULL)
 		object_method_typed(x->in_object, ps_open, 0, 0L, NULL);					// send "open" to jcom.in
@@ -959,15 +932,9 @@ void hub_module_view_alg(t_hub *x)
 
 
 // FREEZE UI for all parameters
-void hub_ui_freeze(t_hub *x, long val)
+void hub_ui_freeze(t_hub *x, t_symbol*, long argc, t_atom *argv)
 {
 	subscriberList *subscriber = x->subscriber;	// head of the linked list
-	t_atom a;
-
-	atom_setlong(&a, val);	
-	
-	// Update stored parameter value for module/freeze
-	hub_symbol(x, ps_ui_slash_freeze, 1, &a);
 	
 	// Change freeze status for all messages and parameters	
 	subscriberIterator i;
@@ -976,14 +943,14 @@ void hub_ui_freeze(t_hub *x, long val)
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if(t->type == ps_subscribe_parameter)
-			object_method_typed(t->object, ps_ui_slash_freeze, 1, &a, NULL);
+			object_method_typed(t->object, ps_ui_slash_freeze, 1, argv, NULL);
 	}
 	critical_exit(0);
 }
 
 
 // REFRESH UI for all parameters
-void hub_ui_refresh(t_hub *x)
+void hub_ui_refresh(t_hub *x, t_symbol*, long, t_atom*)
 {
 	subscriberList *subscriber = x->subscriber;	// head of the linked list
 	

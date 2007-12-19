@@ -14,7 +14,6 @@
 
 #define MAX_STRING_LEN 2048
 #define LISTSIZE 512
-//#define CREATE_INTERNALS
 
 enum outlets{
 	k_outlet_return = 0,
@@ -84,7 +83,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*jcom_send_broadcast;		///< jcom.send object used to broadcast to subscribers that they should subscribe now
 	t_symbol		*osc_name;					///< the OSC name of this module for remote communication
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
-	t_linklist		*ll_internals;				///< use Max's linklist implementation for tracking internals objects
+	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
 } t_hub;
 
 
@@ -157,23 +156,23 @@ t_symbol*	hub_algorithmtype_get(t_hub *x);
  * a 'bang'.
  * @param x the hub who's subscribed jcom.init objects should be banged
  */
-void 		hub_init(t_hub *x);
+void		hub_init(t_hub *x, t_symbol*, long, t_atom*);
 void 		hub_qfn_init(t_hub *x);
 void 		hub_gui_build(t_hub *x);
-void		hub_module_view_alg(t_hub *x);
+void		hub_module_view_alg(t_hub *x, t_symbol*, long, t_atom*);
 
 
 /** Freeze updating of the UI
  * @param x a pointer to the hub
  * @param value non-zero to freeze UI updates, 0 to enable updating the UI 
  * @see hub_ui_refresh */
-void 		hub_ui_freeze(t_hub *x, long value);
+void 		hub_ui_freeze(t_hub *x, t_symbol*, long argc, t_atom *argv);
 
 
 /** Refresh the UI
  * @param x a pointer to the hub 
  * @see hub_ui_freeze */
-void 		hub_ui_refresh(t_hub *x);
+void 		hub_ui_refresh(t_hub *x, t_symbol*, long, t_atom*);
 
 
 void		hub_receive_callback(void *x, t_symbol *msg, long argc, t_atom *argv);
@@ -182,9 +181,6 @@ void		hub_autodoc(t_hub *x, t_symbol *userpath);
 void		hub_doautodoc(t_hub *x, t_symbol *userpath);
 void		hub_autodoc_css(t_filehandle *file_handle, long *myEof);
 void 		table_heading(t_filehandle *file_handle, long *myEof);
-
-
-#ifdef CREATE_INTERNALS
 
 
 // These are in jcom.hub.internals.cpp
@@ -202,18 +198,13 @@ void hub_internals_create(t_hub *x);
 void hub_internals_destroy(t_hub *x);
 
 
-/** Create an object internal to the hub -- used by hub_internals_create()
- * @param x the hub
+/** Send a message to the appropriate internal parameter or message
+ * @param x			the hub
+ * @param osc_name	the osc name of the parameter or message
+ * @param argc		the number of values to send to the parameter or message
+ * @param argv		the actual values to send to the parameter or message
  */
-void hub_internals_createone(t_hub *x, char *classname, char *subscribername, char *subscribertype, char *ramptype);
-
-
-/** Receive notifications, including notifications from our internals (which we listen to)
- * @param x the hub
- */
-void hub_internals_notify(t_hub *x);
-
-#endif // CREATE_INTERNALS
+void hub_internals_dispatch(t_hub * x, t_symbol * osc_name, long argc, t_atom * argv);
 
 
 // These are in jcom.hub.presets.cpp
@@ -223,7 +214,7 @@ void hub_internals_notify(t_hub *x);
  * @param userpath path to the XML file to load
  * @see hub_preset_doread hub_preset_write hub_preset_dowrite
  */
-void 		hub_preset_read(t_hub *x, t_symbol *userpath);
+void 		hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 
 
 /** This does the actual work for @ref hub_preset_read since the actual
@@ -252,7 +243,7 @@ short		hub_preset_validate(t_hub *x, char *xml_path);
  * @param userpath path to the XML file to write
  * @see  hub_preset_dowrite hub_preset_read hub_preset_doread 
  */
-void 		hub_preset_write(t_hub *x, t_symbol *userpath);
+void 		hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 
 
 /** This does the actual work for @ref hub_preset_write since the actual
@@ -306,18 +297,18 @@ void 		hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	
 
 /** Recall the default file and recall the first preset
  * @param x the hub whose default preset should be recalled */
-void 		hub_preset_default(t_hub *x);
+void 		hub_preset_default(t_hub *x, t_symbol*, long, t_atom*);
 
 
 /** Clears all presets loaded in memory.
  * @param x the hub whose presets should be cleared 
  */
-void 		hub_presets_clear(t_hub *x);
+void 		hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*);
 
 
 /** Dump all presets
  * @param x a pointer to the hub whose presets should be dumped */
-void 		hub_presets_dump(t_hub *x);
+void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 
 
 /** Adds presets to the GUI menu

@@ -9,86 +9,129 @@
 
 #include "jcom.hub.h"
 
-#ifdef CREATE_INTERNALS
 
-void hub_internals_createone(t_hub *x, char *classname, char *subscribername, char *subscribertype, char *ramptype)
-{
-	t_object	*obj = NULL;
-	t_atom		a[5];
+class hubInternalObject {
+	private:
+	t_object	*theObject;
 	
-	atom_setsym(a+0, gensym(subscribername));
-	atom_setsym(a+1, gensym("@type"));
-	atom_setsym(a+2, gensym(subscribertype));
-	atom_setsym(a+3, gensym("@ramp"));
-	atom_setsym(a+4, gensym(ramptype));
-	jcom_core_loadextern(gensym(classname), 5, a, &obj);
-//	obj = (t_object *)object_register(CLASS_BOX, symbol_unique(), obj);			// register the class so we can attach to it
-	linklist_append(x->ll_internals, obj);							// keep track of all our internals using a linklist
-//	object_attach_byptr(x, obj);									// listen to the object (will send us info through our "notify" method)
-}
+	public:
+	method		action;
+	
+	hubInternalObject(char *classname, char *subscribername, char *subscribertype, char *ramptype, char *description)
+	{
+		t_atom		a[7];
+	
+		theObject = NULL;
+		atom_setsym(a+0, gensym(subscribername));
+		atom_setsym(a+1, gensym("@type"));
+		atom_setsym(a+2, gensym(subscribertype));
+		atom_setsym(a+3, gensym("@ramp/drive"));
+		atom_setsym(a+4, gensym(ramptype));
+		atom_setsym(a+5, gensym("@description"));
+		atom_setsym(a+6, gensym(description));
+		jcom_core_loadextern(gensym(classname), 7, a, &theObject);
+	}
+	
+	~hubInternalObject()
+	{
+		object_free(theObject);
+	}
+};
 
 
 void hub_internals_create(t_hub *x)
 {
-	
-	x->ll_internals = linklist_new();
+	hubInternalObject	*anObject;
 
-	hub_internals_createone(x, "jcom.parameter", "testparam", "msg_float", "linear.sched");
+	x->hash_internals = hashtab_new(0);
 
+	anObject = new hubInternalObject("jcom.message", 	"init",						"msg_none",		"none",	"Initialize a module completely to the original state.");
+	anObject->action = (method)hub_init;
+	hashtab_store(x->hash_internals, gensym("init"), (t_object*)anObject);
 
-/*
-	// CURRENTLY A PROBLEM WITH PARAMETERS: pattr cannot find it's box from inside of here...
+	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	"msg_none",		"none",	"Generate a documentation page for this module and save it to disk.");
+	anObject->action = (method)hub_autodoc;
+	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 
+	anObject = new hubInternalObject("jcom.message", 	"module/view_internals",	"msg_none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.");
+	anObject->action = (method)hub_module_view_alg;
+	hashtab_store(x->hash_internals, gensym("module/view_internals"), (t_object*)anObject);
 
-	// EXCEPT FOR THE ui/freeze WHICH IS USED TO SET THE MENU (i think)
-	// ALL OF THE MESSAGES TO THE HUB FOR THESE ARE HANDLED MANUALLY IN THE HUB
-	// THESE ARE HERE FOR DOCUMENTATION PURPOSES ONLY
-	// WE SHOULD CHAN?GE THAT AND MAKE THEM FUNCTIONAL FOR RECEIVING MESSAGES AND THEN LISTEN TO THEM
+	anObject = new hubInternalObject("jcom.message", 	"preset/read",				"msg_symbol",	"none",	"Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.");
+	anObject->action = (method)hub_preset_read;
+	hashtab_store(x->hash_internals, gensym("preset/read"), (t_object*)anObject);
 
+	anObject = new hubInternalObject("jcom.message", 	"preset/write",				"msg_symbol",	"none",	"Write an xml-preset file to disk.  An optional argument defines the file to open.");
+	anObject->action = (method)hub_preset_write;
+	hashtab_store(x->hash_internals, gensym("preset/write"), (t_object*)anObject);
 
-	/// THESE ARE IN THE GUI CURRENTLY:
+	anObject = new hubInternalObject("jcom.message", 	"preset/recall",			"msg_generic",	"none",	"Recall a preset by number - you can also choose presets from the module menu.");
+	anObject->action = (method)hub_preset_recall;
+	hashtab_store(x->hash_internals, gensym("preset/recall"), (t_object*)anObject);
 
-	hub_internals_createone(x, "jcom.message", 	"preset/post",	 			@type msg_none @description "Post all presets to the Max window.";
-	hub_internals_createone(x, "jcom.message", 	"ui/refresh",	 			@type msg_none @description "Update displayed values for module to reflect current state.";
+	anObject = new hubInternalObject("jcom.message", 	"preset/copy",				"msg_list",		"none",	"Create a new preset (2nd argument) by copying the contents of another preset (1st argument)");
+	anObject->action = (method)hub_preset_copy;
+	hashtab_store(x->hash_internals, gensym("preset/copy"), (t_object*)anObject);
 
-	/// THIS ONE WE CURRENTLY LISTEN TO (2nd outlet) TO UPDATE THE MODULE MENU
-	hub_internals_createone(x, "jcom.parameter","ui/freeze",				@type msg_toggle @repetitions 0 @description "Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.";
+	anObject = new hubInternalObject("jcom.message", 	"preset/store",				"msg_list",		"none",	"Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.");
+	anObject->action = (method)hub_preset_store;
+	hashtab_store(x->hash_internals, gensym("preset/store"), (t_object*)anObject);
 
-	hub_internals_createone(x, "jcom.message", 	"module/view_internals",	@type msg_none @description "Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.";
-	hub_internals_createone(x, "jcom.message", 	"preset/default",			@type msg_none @description "Open the default preset file and recall the first preset in that file.";
-	hub_internals_createone(x, "jcom.message", 	"preset/write",				@type msg_symbol @description "Write an xml-preset file to disk.  An optional argument defines the file to open.";
-	hub_internals_createone(x, "jcom.message", 	"preset/read",				@type msg_symbol @description "Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.";
-	hub_internals_createone(x, "jcom.message", 	"preset/recall",			@type msg_float @description "Recall a preset by number - you can also choose presets from the module menu.";
-	hub_internals_createone(x, "jcom.message", 	"preset/store",				@type msg_int @description "Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.";
+	anObject = new hubInternalObject("jcom.message", 	"preset/storenext",			"msg_list",		"none",	"Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually.");
+	anObject->action = (method)hub_preset_store_next;
+	hashtab_store(x->hash_internals, gensym("preset/storenext"), (t_object*)anObject);
 
-	// ONE POTENTIAL WAY TO RE-WRITE THE PRESET IMPLEMENTATION IS TO MAKE THE FILE REFERENCE AN ATTRIBUTE
-	// THEN WE JUST read (re-read), save (re-save), etc.  Maybe this is a dumb idea though...
-*/
+	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		"msg_list",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.");
+	anObject->action = (method)hub_preset_interpolate;
+	hashtab_store(x->hash_internals, gensym("preset/interpolate"), (t_object*)anObject);
 
-	
-//	atom_setsym(a+0, gensym("testatoob"));
-//	atom_setsym(a+1, gensym("@ramp"));
-//	atom_setsym(a+2, gensym("linear.sched"));
-//	atom_setsym(a+3, gensym("@type"));
-//	atom_setsym(a+4, gensym("msg_float"));
-//	jcom_core_loadextern(gensym("jcom.message"), 5, a, &obj);
-//	obj = object_register(CLASS_BOX, symbol_unique(), obj);			// register the class so we can attach to it
-//	linklist_append(x->ll_internals, obj);							// keep track of all our internals using a linklist
-//	object_attach_byptr(x, obj);									// listen to the object (will send us info through our "notify" method)
+	anObject = new hubInternalObject("jcom.message", 	"preset/default",			"msg_none",		"none",	"Open the default preset file and recall the first preset in that file.");
+	anObject->action = (method)hub_preset_default;
+	hashtab_store(x->hash_internals, gensym("preset/default"), (t_object*)anObject);
+
+	anObject = new hubInternalObject("jcom.message", 	"preset/clear",				"msg_none",		"none",	"This is the same preset/default.");
+	anObject->action = (method)hub_preset_default;
+	hashtab_store(x->hash_internals, gensym("preset/clear"), (t_object*)anObject);
+
+	anObject = new hubInternalObject("jcom.message", 	"preset/post",				"msg_none",		"none",	"Post all presets to the Max window.");
+	anObject->action = (method)hub_presets_dump;
+	hashtab_store(x->hash_internals, gensym("preset/post"), (t_object*)anObject);
+
+	anObject = new hubInternalObject("jcom.parameter",	"ui/freeze",				"msg_toggle",	"none",	"Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.");
+	anObject->action = (method)hub_ui_freeze;
+	hashtab_store(x->hash_internals, gensym("ui/freeze"), (t_object*)anObject);
+
+	anObject = new hubInternalObject("jcom.message", 	"ui/refresh",				"msg_none",		"none",	"Update displayed values for module to reflect current state.");
+	anObject->action = (method)hub_ui_refresh;
+	hashtab_store(x->hash_internals, gensym("ui/refresh"), (t_object*)anObject);
 }
 
 
 void hub_internals_destroy(t_hub *x)
 {
-	linklist_clear(x->ll_internals);
-	object_free(x->ll_internals);
-	x->ll_internals = NULL;
+	long				i;
+	long				numKeys;
+	t_symbol			**keys;
+	hubInternalObject	*anObject;
+	t_max_err			err;
+	
+	hashtab_getkeys(x->hash_internals, &numKeys, &keys);
+	for(i=0; i<numKeys; i++){
+		err = hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
+		if(!err)
+			delete anObject;
+	}
+	hashtab_chuck(x->hash_internals);
 }
 
 
-void hub_internals_notify(t_hub *x)
+void hub_internals_dispatch(t_hub *x, t_symbol *osc_name, long argc, t_atom *argv)
 {
-	;
+	hubInternalObject	*theObject;
+	t_max_err			err;
+	
+	err = hashtab_lookup(x->hash_internals, osc_name, (t_object**)&theObject);
+	if(!err)
+		theObject->action(x, osc_name, argc, argv);
 }
 
-#endif // CREATE_INTERNALS

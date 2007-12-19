@@ -407,7 +407,7 @@ void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 // read the default file and recall the first preset
-void hub_preset_default(t_hub *x)
+void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 {
 	char	default_file_name[256];
 	t_atom	a;
@@ -424,8 +424,16 @@ void hub_preset_default(t_hub *x)
 
 
 
-void hub_preset_read(t_hub *x, t_symbol *userpath)
+//void hub_preset_read(t_hub *x, t_symbol *userpath)
+void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
+	t_symbol	*userpath;
+
+	if(argc)
+		userpath = atom_getsym(argv);
+	else
+		userpath = _sym_nothing;
+
 	defer_low(x, (method)hub_preset_doread, userpath, 0, 0L);
 }
 
@@ -510,7 +518,7 @@ void hub_preset_parse(t_hub *x, char *path)
 	reader = xmlReaderForFile(path, NULL, 0);
 
 	if(reader != NULL){
-		hub_presets_clear(x);
+		hub_presets_clear(x, NULL, 0, NULL);
 		ret = xmlTextReaderRead(reader);
 		
 		presetListIterator pli = presetLL->begin();
@@ -713,7 +721,7 @@ out:
 
 
 // Erase all presets from memory
-void hub_presets_clear(t_hub *x)
+void hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*)
 {
 	presetList		*presetList = x->preset;
 	presetItemList	*itemList;
@@ -743,7 +751,7 @@ void hub_presets_clear(t_hub *x)
 
 
 // dump the preset info to the Max window for debugging
-void hub_presets_dump(t_hub *x)
+void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
 {
 	presetList		*preset = x->preset;
 	presetItemList	*item;
@@ -779,8 +787,14 @@ void hub_presets_dump(t_hub *x)
 }
 
 
-void hub_preset_write(t_hub *x, t_symbol *userpath)
+void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
+	t_symbol	*userpath;
+
+	if(argc)
+		userpath = atom_getsym(argv);
+	else
+		userpath = _sym_nothing;
 
 	if(x->preset->empty()){	// no presets have been stored, so store the current state as the default
 		t_atom	a[2];
