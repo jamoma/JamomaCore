@@ -31,6 +31,7 @@ void		dataspace_free(t_dataspace *obj);
 void		dataspace_assist(t_dataspace *obj, void *b, long m, long a, char *s);
 void		dataspace_int(t_dataspace *obj, long x);
 void		dataspace_float(t_dataspace *obj, double x);
+void		dataspace_list(t_dataspace *obj, t_symbol *msg, long argc, t_atom *argv);
 void		dataspace_getDataspaces(t_dataspace *obj);
 void		dataspace_getUnits(t_dataspace *obj);
 t_max_err	dataspace_setDataspace(t_dataspace *obj, void *attr, long argc, t_atom *argv);
@@ -55,15 +56,15 @@ int main(void)
 	c = class_new("jcom.dataspace",(method)dataspace_new, (method)dataspace_free, (short)sizeof(t_dataspace), (method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_dataspace, obex));
 
-	// Make methods accessible for our class: 
-
-	class_addmethod(c, (method)dataspace_int,			"int",			A_GIMME, 0L);
-	class_addmethod(c, (method)dataspace_float,			"float",		A_GIMME, 0L);
-	class_addmethod(c, (method)dataspace_getDataspaces,	"dataspaces.get", 0);
+	// Make methods accessible for our class:
+	class_addmethod(c, (method)dataspace_int,			"int",				A_GIMME, 0);
+	class_addmethod(c, (method)dataspace_float,			"float",			A_GIMME, 0);
+	class_addmethod(c, (method)dataspace_list,			"list",				A_GIMME, 0);
+	class_addmethod(c, (method)dataspace_getDataspaces,	"dataspaces.get",	0);
  	class_addmethod(c, (method)dataspace_getUnits,		"units.get",		A_GIMME, 0);
-	class_addmethod(c, (method)dataspace_assist,		"assist",		A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
+	class_addmethod(c, (method)dataspace_assist,		"assist",			A_CANT, 0); 
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0);  
+    class_addmethod(c, (method)object_obex_quickref,	"quickref",			A_CANT, 0);
 
 	class_addattr(c, 
 		attr_offset_new("dataspace", _sym_symbol, 0,
@@ -102,7 +103,7 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 		if(!obj->dataspace)
 			object_attr_setsym(obj, gensym("dataspace"), gensym("temperature"));
 
-		obj->av = (t_atom*)sysmem_newptr(sizeof(t_atom));	// just allocating one for now -- no list support
+		obj->av = (t_atom*)sysmem_newptr(sizeof(t_atom) * 3);	// just allocating three for now -- limited list support
 	}
 	return obj;										// Return pointer to our instance
 }
@@ -147,6 +148,14 @@ void dataspace_float(t_dataspace *obj, double x)
 	obj->dataspace->convert(1, a, &obj->ac, &obj->av);
 	outlet_anything(obj->outlet_native, _sym_float, obj->ac, obj->av);
 	outlet_float(obj->outlet_active, x);
+}
+
+
+void dataspace_list(t_dataspace *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	obj->dataspace->convert(argc, argv, &obj->ac, &obj->av);
+	outlet_anything(obj->outlet_native, _sym_list, obj->ac, obj->av);
+	outlet_anything(obj->outlet_active, _sym_list, argc, argv);
 }
 	
 

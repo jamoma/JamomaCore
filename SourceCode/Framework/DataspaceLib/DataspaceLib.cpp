@@ -50,7 +50,7 @@ DataspaceLib::~DataspaceLib()
 // remember, we are relying on memory passed in for the outputAtoms		
 JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, t_atom **outputAtoms)
 {
-	double	value;
+	double	value[3];	// right now we only handle a maximum of 3 values in the neutral unit passing
 	long	numvalues;
 	
 	if(inUnit->name == outUnit->name){
@@ -58,8 +58,8 @@ JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *o
 		sysmem_copyptr(inputAtoms, *outputAtoms, sizeof(t_atom) * inputNumArgs);
 	}
 	else{
-		inUnit->convertToNeutral(inputNumArgs, inputAtoms, &numvalues, &value);
-		outUnit->convertFromNeutral(1, &value, outputNumArgs, outputAtoms);
+		inUnit->convertToNeutral(inputNumArgs, inputAtoms, &numvalues, value);
+		outUnit->convertFromNeutral(numvalues, value, outputNumArgs, outputAtoms);
 	}
 	return JAMOMA_ERR_NONE;
 }
@@ -101,8 +101,9 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 	Interface for Instantiating any DataspaceLib
  ***************************************************************************/
 
-#include "TemperatureDataspace.h"
+#include "ColorDataspace.h"
 #include "DistanceDataspace.h"
+#include "TemperatureDataspace.h"
 
 JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace)
 {	
@@ -116,10 +117,12 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 	}
 
 	// These should be alphabetized
-	if(dataspaceName == gensym("temperature"))
-		*dataspace = (DataspaceLib*) new TemperatureDataspace;
+	if(dataspaceName == gensym("color"))
+		*dataspace = (DataspaceLib*) new ColorDataspace;
 	else if(dataspaceName == gensym("distance"))
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
+	else if(dataspaceName == gensym("temperature"))
+		*dataspace = (DataspaceLib*) new TemperatureDataspace;
 	else 
 		// Invalid -- default to temperature
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
@@ -131,13 +134,14 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 // This function allocates memory -- caller must free it!
 void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 {
-	*numDataspaces = 2;
+	*numDataspaces = 3;
 	*dataspaceNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numDataspaces);
 	
 	// These should be alphabetized
 	if(*numDataspaces){
-		*(*dataspaceNames+0) = gensym("temperature");
-		*(*dataspaceNames+1) = gensym("distance");
+		*(*dataspaceNames+0) = gensym("distance");
+		*(*dataspaceNames+1) = gensym("temperature");
+		*(*dataspaceNames+2) = gensym("color");
 	}
 }
 

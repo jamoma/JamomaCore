@@ -16,6 +16,8 @@
 		2259E6180CF9D55A0044E6DE /* JamomaScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225C90A20D1A1D5A00BDA981 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */; };
 		225C90A30D1A1D5A00BDA981 /* DistanceDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */; };
+		225C91B20D1B2E9100BDA981 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */; };
+		225C91B30D1B2E9100BDA981 /* ColorDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C91B10D1B2E9100BDA981 /* ColorDataspace.h */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22A403980CAD7C5100E5299E /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A403970CAD7C5100E5299E /* commonsyms.c */; };
@@ -120,6 +122,8 @@
 		2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaScheduler.h; path = source/JamomaScheduler.h; sourceTree = "<group>"; };
 		225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceDataspace.cpp; path = DataspaceLib/DistanceDataspace.cpp; sourceTree = "<group>"; };
 		225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistanceDataspace.h; path = DataspaceLib/DistanceDataspace.h; sourceTree = "<group>"; };
+		225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorDataspace.cpp; path = DataspaceLib/ColorDataspace.cpp; sourceTree = "<group>"; };
+		225C91B10D1B2E9100BDA981 /* ColorDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorDataspace.h; path = DataspaceLib/ColorDataspace.h; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22A403850CAD7BA000E5299E /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22A403970CAD7C5100E5299E /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
@@ -329,6 +333,8 @@
 			children = (
 				22D7F5F10D105827009E4AF4 /* DataspaceLib.h */,
 				22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */,
+				225C91B10D1B2E9100BDA981 /* ColorDataspace.h */,
+				225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */,
 				225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */,
 				225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */,
 				22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */,
@@ -512,6 +518,7 @@
 				22D7F5F30D105827009E4AF4 /* TemperatureDataspace.h in Headers */,
 				22D7F5F50D105827009E4AF4 /* DataspaceLib.h in Headers */,
 				225C90A30D1A1D5A00BDA981 /* DistanceDataspace.h in Headers */,
+				225C91B30D1B2E9100BDA981 /* ColorDataspace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,6 +613,7 @@
 				22D7F5F40D105827009E4AF4 /* DataspaceLib.cpp in Sources */,
 				22D7F5F60D105827009E4AF4 /* TemperatureDataspace.cpp in Sources */,
 				225C90A20D1A1D5A00BDA981 /* DistanceDataspace.cpp in Sources */,
+				225C91B20D1B2E9100BDA981 /* ColorDataspace.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
