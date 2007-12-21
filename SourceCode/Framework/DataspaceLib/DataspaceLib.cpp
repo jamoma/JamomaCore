@@ -104,6 +104,7 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 #include "ColorDataspace.h"
 #include "DistanceDataspace.h"
 #include "TemperatureDataspace.h"
+#include "TimeDataspace.h"
 
 JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace)
 {	
@@ -123,6 +124,8 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
 	else if(dataspaceName == gensym("temperature"))
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
+	else if(dataspaceName == gensym("time"))
+		*dataspace = (DataspaceLib*) new TimeDataspace;
 	else 
 		// Invalid -- default to temperature
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
@@ -134,14 +137,15 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 // This function allocates memory -- caller must free it!
 void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 {
-	*numDataspaces = 3;
+	*numDataspaces = 4;
 	*dataspaceNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numDataspaces);
 	
 	// These should be alphabetized
 	if(*numDataspaces){
-		*(*dataspaceNames+0) = gensym("distance");
-		*(*dataspaceNames+1) = gensym("temperature");
-		*(*dataspaceNames+2) = gensym("color");
+		*(*dataspaceNames+0) = gensym("color");
+		*(*dataspaceNames+1) = gensym("distance");
+		*(*dataspaceNames+2) = gensym("temperature");
+		*(*dataspaceNames+3) = gensym("time");
 	}
 }
 
