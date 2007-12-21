@@ -18,6 +18,8 @@
 		225C90A30D1A1D5A00BDA981 /* DistanceDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */; };
 		225C91B20D1B2E9100BDA981 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */; };
 		225C91B30D1B2E9100BDA981 /* ColorDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C91B10D1B2E9100BDA981 /* ColorDataspace.h */; };
+		225C92750D1BEFFF00BDA981 /* JamomaObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */; };
+		225C92760D1BEFFF00BDA981 /* JamomaObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C92740D1BEFFF00BDA981 /* JamomaObject.h */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22A403980CAD7C5100E5299E /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22A403970CAD7C5100E5299E /* commonsyms.c */; };
@@ -124,6 +126,8 @@
 		225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistanceDataspace.h; path = DataspaceLib/DistanceDataspace.h; sourceTree = "<group>"; };
 		225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorDataspace.cpp; path = DataspaceLib/ColorDataspace.cpp; sourceTree = "<group>"; };
 		225C91B10D1B2E9100BDA981 /* ColorDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorDataspace.h; path = DataspaceLib/ColorDataspace.h; sourceTree = "<group>"; };
+		225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaObject.cpp; path = source/JamomaObject.cpp; sourceTree = "<group>"; };
+		225C92740D1BEFFF00BDA981 /* JamomaObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaObject.h; path = source/JamomaObject.h; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22A403850CAD7BA000E5299E /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22A403970CAD7C5100E5299E /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
@@ -279,6 +283,7 @@
 			children = (
 				22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */,
 				2259E6110CF9D55A0044E6DE /* JamomaClock.cpp */,
+				225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */,
 				2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */,
 				2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */,
 				22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */,
@@ -347,11 +352,12 @@
 			isa = PBXGroup;
 			children = (
 				22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */,
-				22AEF32C0D0DB98500F7762D /* JamomaTypes.h */,
 				2259E6120CF9D55A0044E6DE /* JamomaClock.h */,
+				225C92740D1BEFFF00BDA981 /* JamomaObject.h */,
 				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
 				2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */,
 				2236907C0D00DFC3002D560B /* JamomaSymbols.h */,
+				22AEF32C0D0DB98500F7762D /* JamomaTypes.h */,
 				22FD2DC10CEE5B6F0039C226 /* jcom.core.h */,
 				22FD2DC20CEE5B6F0039C226 /* jcom.io.h */,
 				22FD2DC30CEE5B6F0039C226 /* jcom.list.h */,
@@ -519,6 +525,7 @@
 				22D7F5F50D105827009E4AF4 /* DataspaceLib.h in Headers */,
 				225C90A30D1A1D5A00BDA981 /* DistanceDataspace.h in Headers */,
 				225C91B30D1B2E9100BDA981 /* ColorDataspace.h in Headers */,
+				225C92760D1BEFFF00BDA981 /* JamomaObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +621,7 @@
 				22D7F5F60D105827009E4AF4 /* TemperatureDataspace.cpp in Sources */,
 				225C90A20D1A1D5A00BDA981 /* DistanceDataspace.cpp in Sources */,
 				225C91B20D1B2E9100BDA981 /* ColorDataspace.cpp in Sources */,
+				225C92750D1BEFFF00BDA981 /* JamomaObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
