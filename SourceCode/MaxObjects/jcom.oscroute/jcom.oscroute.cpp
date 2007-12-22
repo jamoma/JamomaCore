@@ -276,7 +276,9 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 				// Wildcard follows parameter names, i.e. /fifth/moon/of/aragon/*
 				if(c = matchesWildcard(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1)) {
 					// Need to strip off preceeding part of message
-					outlet_anything(x->outlets[i], gensym(strstr(c+1, "/")), argc, argv);
+					char *temp = strstr(c+1, "/");
+					if(temp)
+						outlet_anything(x->outlets[i], gensym(temp), argc, argv);
 					return;
 				} else {
 					// We break here because if the strncmp() fails it means we have a wildcard following an 
