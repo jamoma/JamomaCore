@@ -157,7 +157,7 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	t_atom		*av = NULL;
 	
 	if(!argc){
-		error("jcom.map: not enough arguments to getParameter");
+		error("jcom.ramp: not enough arguments to function.parameter.get");
 		return;
 	}
 	
@@ -172,7 +172,7 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 		atom_setsym(a, parameterName);
 		// Next the whole shebang is copied
 		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("getParameter"), ac+1, av);
+		object_obex_dumpout(obj, gensym("function.parameter.get"), ac+1, a);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
 		sysmem_freeptr(av);
@@ -187,7 +187,7 @@ void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	t_symbol	*parameterName;
 	
 	if(argc < 2){
-		error("jcom.map: not enough arguments to setParameter");
+		error("jcom.ramp: not enough arguments to function.parameter");
 		return;
 	}
 	
