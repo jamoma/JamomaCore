@@ -135,6 +135,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->signal_out = new tt_audio_signal;
 		x->signal_temp = new tt_audio_signal;
 		x->xfade = new tt_crossfade;
+		x->copy = new tt_copy;
 		x->gain = new tt_gain;
 		x->ramp_gain = new tt_ramp;
 		x->ramp_xfade = new tt_ramp;
@@ -202,6 +203,7 @@ void out_free(t_out *x)
 	delete x->signal_out;
 	delete x->signal_temp;
 	delete x->xfade;
+	delete x->copy;
 	delete x->gain;
 	delete x->ramp_gain;
 	delete x->ramp_xfade;
@@ -404,8 +406,10 @@ t_int *out_perform(t_int *w)
 		goto out;
 	}
 
-	if(x->in_object)
+	if(x->in_object && x->in_object->signal_in[i]->vector)
 		x->xfade->dsp_vector_calc(x->in_object->signal_in[i], x->signal_in, x->signal_temp);	// perform bypass/mix control
+	else
+		x->copy->dsp_vector_calc(x->signal_in, x->signal_temp);
 	x->gain->dsp_vector_calc(x->signal_temp, x->signal_out);								// perform gain control
 
 	if(x->attr_defeat_meters == 0){

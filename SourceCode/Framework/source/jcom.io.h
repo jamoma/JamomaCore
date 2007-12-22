@@ -64,6 +64,7 @@ typedef struct _out{
 													*/
 	float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
 	tt_crossfade	*xfade;							///< implements the 'mix' and 'bypass' params
+	tt_copy			*copy;							///< simple vector copy
 	tt_gain			*gain;							///< implements the 'gain' param
 	tt_ramp			*ramp_gain;						///< ramps to drive smooth audio for the above params
 	tt_ramp			*ramp_xfade;					///< The type of xfade to use
