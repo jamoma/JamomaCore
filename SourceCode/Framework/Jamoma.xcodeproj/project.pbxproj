@@ -14,6 +14,7 @@
 		2259E6160CF9D55A0044E6DE /* JamomaClock.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259E6120CF9D55A0044E6DE /* JamomaClock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2259E6170CF9D55A0044E6DE /* JamomaScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */; };
 		2259E6180CF9D55A0044E6DE /* JamomaScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		225AC96F0D1EC37C00F3F92F /* JamomaThreading.h in Headers */ = {isa = PBXBuildFile; fileRef = 225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */; };
 		225C90A20D1A1D5A00BDA981 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */; };
 		225C90A30D1A1D5A00BDA981 /* DistanceDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */; };
 		225C91B20D1B2E9100BDA981 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */; };
@@ -124,6 +125,7 @@
 		2259E6120CF9D55A0044E6DE /* JamomaClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaClock.h; path = source/JamomaClock.h; sourceTree = "<group>"; };
 		2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaScheduler.cpp; path = source/JamomaScheduler.cpp; sourceTree = "<group>"; };
 		2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaScheduler.h; path = source/JamomaScheduler.h; sourceTree = "<group>"; };
+		225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaThreading.h; path = source/JamomaThreading.h; sourceTree = "<group>"; };
 		225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DistanceDataspace.cpp; path = DataspaceLib/DistanceDataspace.cpp; sourceTree = "<group>"; };
 		225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistanceDataspace.h; path = DataspaceLib/DistanceDataspace.h; sourceTree = "<group>"; };
 		225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColorDataspace.cpp; path = DataspaceLib/ColorDataspace.cpp; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
 				2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */,
 				2236907C0D00DFC3002D560B /* JamomaSymbols.h */,
+				225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */,
 				22AEF32C0D0DB98500F7762D /* JamomaTypes.h */,
 				22FD2DC10CEE5B6F0039C226 /* jcom.core.h */,
 				22FD2DC20CEE5B6F0039C226 /* jcom.io.h */,
@@ -533,6 +536,7 @@
 				225C91B30D1B2E9100BDA981 /* ColorDataspace.h in Headers */,
 				225C92760D1BEFFF00BDA981 /* JamomaObject.h in Headers */,
 				225C931D0D1C45CC00BDA981 /* TimeDataspace.h in Headers */,
+				225AC96F0D1EC37C00F3F92F /* JamomaThreading.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
