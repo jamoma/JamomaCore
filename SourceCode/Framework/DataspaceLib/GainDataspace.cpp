@@ -91,7 +91,7 @@ void DecibelUnit::convertFromNeutral(long inputNumArgs, double *input, long *out
 
 /***********************************************************************************************/
 GainDataspace::GainDataspace()
-	: DataspaceLib::DataspaceLib("distance", "meter")
+	: DataspaceLib::DataspaceLib("gain", "linear")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new LinearAmplitudeUnit,	gensym("linear"));
