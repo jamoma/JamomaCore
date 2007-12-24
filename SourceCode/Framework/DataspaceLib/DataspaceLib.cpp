@@ -103,6 +103,7 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 
 #include "ColorDataspace.h"
 #include "DistanceDataspace.h"
+#include "GainDataspace.h"
 #include "PitchDataspace.h"
 #include "TemperatureDataspace.h"
 #include "TimeDataspace.h"
@@ -123,6 +124,8 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 		*dataspace = (DataspaceLib*) new ColorDataspace;
 	else if(dataspaceName == gensym("distance"))
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
+	else if(dataspaceName == gensym("gain"))
+		*dataspace = (DataspaceLib*) new GainDataspace;
 	else if(dataspaceName == gensym("pitch"))
 		*dataspace = (DataspaceLib*) new PitchDataspace;
 	else if(dataspaceName == gensym("temperature"))
@@ -147,9 +150,10 @@ void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 	if(*numDataspaces){
 		*(*dataspaceNames+0) = gensym("color");
 		*(*dataspaceNames+1) = gensym("distance");
-		*(*dataspaceNames+2) = gensym("pitch");
-		*(*dataspaceNames+3) = gensym("temperature");
-		*(*dataspaceNames+4) = gensym("time");
+		*(*dataspaceNames+2) = gensym("gain");
+		*(*dataspaceNames+3) = gensym("pitch");
+		*(*dataspaceNames+4) = gensym("temperature");
+		*(*dataspaceNames+5) = gensym("time");
 	}
 }
 
