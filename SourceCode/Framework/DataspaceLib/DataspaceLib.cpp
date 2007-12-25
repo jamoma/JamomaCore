@@ -149,7 +149,7 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 // This function allocates memory -- caller must free it!
 void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 {
-	*numDataspaces = 5;
+	*numDataspaces = 7;
 	*dataspaceNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numDataspaces);
 	
 	// These should be alphabetized
