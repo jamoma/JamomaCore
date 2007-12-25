@@ -10,8 +10,12 @@
 #include "jcom.hub.h"
 
 
-void hub_autodoc(t_hub *x, t_symbol *userpath)
+void hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
+	t_symbol *userpath = _sym_nothing;
+	
+	if(argc)
+		userpath = atom_getsym(argv);
 	defer_low(x, (method)hub_doautodoc, userpath, 0, 0L);
 }
 
