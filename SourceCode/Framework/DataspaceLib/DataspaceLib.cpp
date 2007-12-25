@@ -100,13 +100,15 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 /***************************************************************************
 	Interface for Instantiating any DataspaceLib
  ***************************************************************************/
-
+#include "AngleDataspace.h"
 #include "ColorDataspace.h"
 #include "DistanceDataspace.h"
 #include "GainDataspace.h"
 #include "PitchDataspace.h"
+//#include "PositionDataspace.h" //TODO: finish me
 #include "TemperatureDataspace.h"
 #include "TimeDataspace.h"
+
 
 JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace)
 {	
@@ -120,7 +122,9 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 	}
 
 	// These should be alphabetized
-	if(dataspaceName == gensym("color"))
+	if(dataspaceName == gensym("angle"))
+		*dataspace = (DataspaceLib*) new AngleDataspace;
+	else if(dataspaceName == gensym("color"))
 		*dataspace = (DataspaceLib*) new ColorDataspace;
 	else if(dataspaceName == gensym("distance"))
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
@@ -128,6 +132,8 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 		*dataspace = (DataspaceLib*) new GainDataspace;
 	else if(dataspaceName == gensym("pitch"))
 		*dataspace = (DataspaceLib*) new PitchDataspace;
+	//else if(dataspaceName == gensym("position")) //TODO: finish me
+	//	*dataspace = (DataspaceLib*) new PositionDataspace; //TODO: finish me
 	else if(dataspaceName == gensym("temperature"))
 		*dataspace = (DataspaceLib*) new TemperatureDataspace;
 	else if(dataspaceName == gensym("time"))
@@ -148,12 +154,14 @@ void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 	
 	// These should be alphabetized
 	if(*numDataspaces){
-		*(*dataspaceNames+0) = gensym("color");
-		*(*dataspaceNames+1) = gensym("distance");
-		*(*dataspaceNames+2) = gensym("gain");
-		*(*dataspaceNames+3) = gensym("pitch");
-		*(*dataspaceNames+4) = gensym("temperature");
-		*(*dataspaceNames+5) = gensym("time");
+		*(*dataspaceNames+0) = gensym("angle");
+		*(*dataspaceNames+1) = gensym("color");
+		*(*dataspaceNames+2) = gensym("distance");
+		*(*dataspaceNames+3) = gensym("gain");
+		*(*dataspaceNames+4) = gensym("pitch");
+		//*(*dataspaceNames+3) = gensym("position"); //TODO: finish me
+		*(*dataspaceNames+5) = gensym("temperature");
+		*(*dataspaceNames+6) = gensym("time");
 	}
 }
 
