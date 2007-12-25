@@ -58,7 +58,7 @@ void DegreeUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 AngleDataspace::AngleDataspace()
-	: DataspaceLib::DataspaceLib("angle", "angles") //would "<" be possible ??
+	: DataspaceLib::DataspaceLib("angle", "radian") //would "<" be possible ??
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new RadianUnit,	gensym("radian"));
