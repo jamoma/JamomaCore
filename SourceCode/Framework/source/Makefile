@@ -7,8 +7,11 @@ ARFLAGS = cr
 
 JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp JamomaScheduler.cpp JamomaClock.cpp JamomaSymbols.cpp
 FUNCTION_LIB_SOURCE = ../FunctionLib/FunctionLib.cpp ../FunctionLib/LinearFunction.cpp ../FunctionLib/TanhFunction.cpp ../FunctionLib/CosineFunction.cpp ../FunctionLib/PowerFunction.cpp ../FunctionLib/LowpassFunction.cpp
-DATASPACE_LIB_SOURCE = ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/ColorDataspace.cpp
+DATASPACE_LIB_SOURCE = ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/AngleDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/ColorDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/DistanceDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/GainDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/PitchDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/TemperatureDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/TimeDataspace.cpp
 JAMOMA_LIB_SOURCE += ${FUNCTION_LIB_SOURCE} ${DATASPACE_LIB_SOURCE}
