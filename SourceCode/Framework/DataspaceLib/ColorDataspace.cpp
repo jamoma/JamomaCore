@@ -1,6 +1,6 @@
 /* 
  * Jamoma DataspaceLib: ColorDataspace
- * Copyright © 2007
+ * Copyright © 2007, Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
