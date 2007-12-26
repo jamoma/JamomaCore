@@ -69,8 +69,8 @@ HSLUnit::~HSLUnit()
 void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	long	h = atom_getfloat(inputAtoms+0);
-	long	s = atom_getfloat(inputAtoms+0);
-	long	l = atom_getfloat(inputAtoms+0);
+	long	s = atom_getfloat(inputAtoms+1);
+	long	l = atom_getfloat(inputAtoms+2);
 	long	red, green, blue;
 	double	m1,m2,tr,tg,tb, hue, lightness, saturation;
 
