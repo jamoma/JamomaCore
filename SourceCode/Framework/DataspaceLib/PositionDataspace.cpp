@@ -139,6 +139,35 @@ void PolarUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 /***********************************************************************************************/
 
+OpenGlUnit::OpenGlUnit()
+	: DataspaceUnit::DataspaceUnit("openGl")
+{;}
+
+
+OpenGlUnit::~OpenGlUnit()
+{;}
+		
+
+void OpenGlUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	*outputNumArgs = 3;
+	*(output+0) = atom_getfloat(inputAtoms+0); //x 
+	*(output+1) = -1.0 * atom_getfloat(inputAtoms+2); //y
+	*(output+2) = atom_getfloat(inputAtoms+1); //z
+}
+
+
+void OpenGlUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	*outputNumArgs = 3;
+	atom_setfloat(*outputAtoms+0, *(input+0));//x
+	atom_setfloat(*outputAtoms+1, *(input+2));//y
+	atom_setfloat(*outputAtoms+2, *(input+1) * -1.0);//z
+}
+
+
+/***********************************************************************************************/
+
 
 PositionDataspace::PositionDataspace()
 	: DataspaceLib::DataspaceLib("position", "xyz")
@@ -152,6 +181,7 @@ PositionDataspace::PositionDataspace()
 	registerUnit(new SphericalUnit,		gensym("aed"));
 	registerUnit(new PolarUnit,			gensym("polar"));
 	registerUnit(new PolarUnit,			gensym("ad"));
+	registerUnit(new OpenGlUnit,		gensym("openGL"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
