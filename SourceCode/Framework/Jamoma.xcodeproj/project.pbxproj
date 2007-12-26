@@ -111,6 +111,8 @@
 		22FD31920CEE8EC30039C226 /* ext_pattr_bundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD31900CEE8EC30039C226 /* ext_pattr_bundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55FE54240D0EAC0000683625 /* CosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FE54220D0EAC0000683625 /* CosineFunction.cpp */; };
 		55FE54250D0EAC0000683625 /* CosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FE54230D0EAC0000683625 /* CosineFunction.h */; settings = {ATTRIBUTES = (); }; };
+		66D9A1F70D21F49300A16E9A /* PositionDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */; };
+		66D9A1F80D21F49300A16E9A /* PositionDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D9A1F60D21F49300A16E9A /* PositionDataspace.h */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		A7CA9C880D1F21FD0099D8CA /* PitchDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */; };
 		A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */; };
@@ -227,6 +229,8 @@
 		22FD31900CEE8EC30039C226 /* ext_pattr_bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ext_pattr_bundle.h; path = c74/ext_pattr_bundle.h; sourceTree = "<group>"; };
 		55FE54220D0EAC0000683625 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CosineFunction.cpp; sourceTree = "<group>"; };
 		55FE54230D0EAC0000683625 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CosineFunction.h; sourceTree = "<group>"; };
+		66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PositionDataspace.cpp; path = DataspaceLib/PositionDataspace.cpp; sourceTree = "<group>"; };
+		66D9A1F60D21F49300A16E9A /* PositionDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PositionDataspace.h; path = DataspaceLib/PositionDataspace.h; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* Jamoma.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Jamoma.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PitchDataspace.cpp; path = DataspaceLib/PitchDataspace.cpp; sourceTree = SOURCE_ROOT; };
 		A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PitchDataspace.h; path = DataspaceLib/PitchDataspace.h; sourceTree = SOURCE_ROOT; };
@@ -366,6 +370,8 @@
 				A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */,
 				A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */,
 				A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */,
+				66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */,
+				66D9A1F60D21F49300A16E9A /* PositionDataspace.h */,
 				22D7F5EF0D105827009E4AF4 /* TemperatureDataspace.h */,
 				22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */,
 				225C931B0D1C45CC00BDA981 /* TimeDataspace.h */,
@@ -558,6 +564,7 @@
 				A7CA9C890D1F21FD0099D8CA /* PitchDataspace.h in Headers */,
 				A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */,
 				22C1B29E0D20C1B0008BB574 /* AngleDataspace.h in Headers */,
+				66D9A1F80D21F49300A16E9A /* PositionDataspace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +665,7 @@
 				A7CA9C880D1F21FD0099D8CA /* PitchDataspace.cpp in Sources */,
 				A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */,
 				22C1B29D0D20C1B0008BB574 /* AngleDataspace.cpp in Sources */,
+				66D9A1F70D21F49300A16E9A /* PositionDataspace.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
