@@ -197,7 +197,7 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 	itemOneList = p1->item; itemTwoList = p2->item;
 	t_preset_item *item1, *item2;
 	float value;
-	t_atom newValue;
+	t_atom newValue[LISTSIZE];
 	bool found = false;
 	
 	presetItemListIterator i1, i2;
@@ -232,19 +232,22 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 		// we can assume item1 and item2 are the same type if they are the same parameter (see above)
 		if(item1->type == ps_msg_int) {
 			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
-			atom_setfloat(&newValue, value);
+			atom_setfloat(&newValue[0], value);
 		} else if(item1->type == ps_msg_float) {
 			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
-			atom_setfloat(&newValue, value);
+			atom_setfloat(&newValue[0], value);
 		} else if(item1->type == ps_msg_toggle) {
 			value = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
-			atom_setlong(&newValue, value);
-		} else if(item1->type == ps_msg_list) {
-			
+			atom_setlong(&newValue[0], value);
+		} else if(item1->type == ps_msg_list || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
+			for(int i = 0; i < item1->list_size; i++) {
+				value = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
+				atom_setfloat(&newValue[i], value);
+			}
 		} else if(item1->type == ps_msg_symbol) {
-			atom_setsym(&newValue, position <= 0.5 ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
+			atom_setsym(&newValue[0], position <= 0.5 ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
 		}
-		hub_symbol(x, item1->param_name, item1->list_size, &newValue);
+		hub_symbol(x, item1->param_name, item1->list_size, &newValue[0]);
 			
 	}
 	
