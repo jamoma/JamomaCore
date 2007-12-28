@@ -50,6 +50,9 @@ typedef struct _param{						// Data Structure for this object
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
 	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
 	t_symbol				*attr_rampfunction;		///< Attribute for setting the function used by the ramping
+	t_symbol				*attr_dataspace;		///< The dataspace that this parameter uses (default is 'none')
+	t_symbol				*attr_unitActive;		///< The active unit within the dataspace -- the type of values a user is sending
+	t_symbol				*attr_unitNative;		///< The native unit within the dataspace -- the type of values sent to the algorithm
 } t_param;
 
 

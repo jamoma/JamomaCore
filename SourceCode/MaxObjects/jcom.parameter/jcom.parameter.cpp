@@ -123,6 +123,21 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)param_attr_getvalue,
 		calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
 
+	// ATTRIBUTE:
+	jamoma_class_attr_new(c, "dataspace", _sym_symbol,
+		(method)0, (method)0,
+		calcoffset(t_param, attr_dataspace));
+	
+	// ATTRIBUTE:
+	jamoma_class_attr_new(c, "unit/active", _sym_symbol,
+		(method)0, (method)0,
+		calcoffset(t_param, attr_unitActive));
+
+	// ATTRIBUTE:
+	jamoma_class_attr_new(c, "unit/native", _sym_symbol,
+		(method)0, (method)0,
+		calcoffset(t_param, attr_unitNative));
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 #ifdef JMOD_MESSAGE
@@ -179,6 +194,9 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;		// set function pointer to default
+		x->attr_dataspace = ps_none;
+		x->attr_unitActive = ps_none;
+		x->attr_unitNative = ps_none;
 		
 #ifdef JMOD_MESSAGE
 		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_message);
