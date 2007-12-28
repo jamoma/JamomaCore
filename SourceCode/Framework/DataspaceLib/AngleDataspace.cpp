@@ -46,14 +46,14 @@ DegreeUnit::~DegreeUnit()
 void DegreeUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
 	*outputNumArgs = 1;
-	*output = atom_getfloat(inputAtoms) * DEG2RAD; //DEG2RAD defined in DataspaceLib.h
+	*output = atom_getfloat(inputAtoms) * kDegreesToRadians; //kDegreesToRadians defined in DataspaceLib.h
 }
 
 
 void DegreeUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
 	*outputNumArgs = 1;
-	atom_setfloat(*outputAtoms, (*input * RAD2DEG));//RAD2DEG defined in DataspaceLib.h
+	atom_setfloat(*outputAtoms, (*input * kRadiansToDegrees));//kRadiansToDegrees defined in DataspaceLib.h
 }
 
 /***********************************************************************************************/

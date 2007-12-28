@@ -76,9 +76,9 @@ SphericalUnit::~SphericalUnit()
 		
 		
 void SphericalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{   //double deg2rad = DEG2RAD;
-	double aa = (90. - atom_getfloat(inputAtoms+0)) *  DEG2RAD; //a
-	double ee = atom_getfloat(inputAtoms+1) *  DEG2RAD; //e
+{   //double kDegreesToRadians = kDegreesToRadians;
+	double aa = (90. - atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a
+	double ee = atom_getfloat(inputAtoms+1) *  kDegreesToRadians; //e
 	double dd = atom_getfloat(inputAtoms+2); //d
 	
 	*outputNumArgs = 3;
@@ -97,8 +97,8 @@ void SphericalUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 	double temp = (xx * xx) + (yy * yy);
 
 	*outputNumArgs = 3;	
-	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * RAD2DEG); 
-	atom_setfloat(*outputAtoms+1, atan2(zz, (pow((temp), 0.5))) * RAD2DEG);
+	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * kRadiansToDegrees); 
+	atom_setfloat(*outputAtoms+1, atan2(zz, (pow((temp), 0.5))) * kRadiansToDegrees);
 	atom_setfloat(*outputAtoms+2, pow((temp + (zz * zz)), 0.5));
 }
 
@@ -115,13 +115,14 @@ PolarUnit::~PolarUnit()
 		
 void PolarUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
-    *outputNumArgs = 2;	
+    *outputNumArgs = 2;
 	
-	double aa = (90. - atom_getfloat(inputAtoms+0)) * DEG2RAD; //a
+	double aa = (90. - atom_getfloat(inputAtoms+0)) * kDegreesToRadians; //a
 	double dd = atom_getfloat(inputAtoms+1); //d
 				
 	*(output+0) = cos(aa)  * dd; //x
 	*(output+1) = sin(aa) * dd; //y
+	
 		
 }
 
@@ -133,8 +134,8 @@ void PolarUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 	*outputNumArgs = 2;
 	
-	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * RAD2DEG); //a
-	atom_setfloat(*outputAtoms+1, pow(((xx * xx) + (yy * yy)), 0.5)); //distance
+	atom_setfloat(*outputAtoms+0, atan2(xx, yy) * kRadiansToDegrees); //a
+	atom_setfloat(*outputAtoms+1, pow(((xx * xx) + (yy * yy)), 0.5)); //distance	
 }
 
 /***********************************************************************************************/
@@ -169,6 +170,46 @@ void OpenGlUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 /***********************************************************************************************/
 
 
+CylindricalUnit::CylindricalUnit()
+	: DataspaceUnit::DataspaceUnit("cylindrical")
+{;}
+
+
+CylindricalUnit::~CylindricalUnit()
+{;}
+		
+
+void CylindricalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	// Cylindrical coordinate System (according to ISO 31-11 http://en.wikipedia.org/wiki/ISO_31-11#Coordinate_systems )  = radius azimut hight
+	
+	*outputNumArgs = 3;
+	double dd = atom_getfloat(inputAtoms+0); //d
+	double aa = (90. - atom_getfloat(inputAtoms+1)) * kDegreesToRadians; //a
+	
+				
+	*(output+0) = cos(aa)  * dd; //x
+	*(output+1) = sin(aa) * dd; //y
+	*(output+2) = atom_getfloat(inputAtoms+2); //z
+}
+
+
+void CylindricalUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	 
+	 *outputNumArgs = 3;
+	 
+	 double xx = *(input+0);
+     double yy = *(input+1);	
+	
+	// d a z
+	atom_setfloat(*outputAtoms+0, pow(((xx * xx) + (yy * yy)), 0.5)); //distance
+	atom_setfloat(*outputAtoms+1, atan2(xx, yy) * kRadiansToDegrees); //a
+	atom_setfloat(*outputAtoms+2, *(input+2));//z
+}
+
+
+/***********************************************************************************************/
 PositionDataspace::PositionDataspace()
 	: DataspaceLib::DataspaceLib("position", "xyz")
 {
@@ -182,6 +223,8 @@ PositionDataspace::PositionDataspace()
 	registerUnit(new PolarUnit,			gensym("polar"));
 	registerUnit(new PolarUnit,			gensym("ad"));
 	registerUnit(new OpenGlUnit,		gensym("openGL"));
+	registerUnit(new CylindricalUnit,	gensym("cylindrical"));
+	registerUnit(new CylindricalUnit,	gensym("daz"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
