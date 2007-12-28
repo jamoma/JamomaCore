@@ -13,8 +13,18 @@
 #include "ext_obex.h"
 #include "JamomaTypes.h"
 
+// Coeffs used for trigonometric cinvertions:
+
 static const double RAD2DEG = 180.0 / 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
 static const double DEG2RAD = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068 / 180.0;
+
+// This coeff is used in GainDataspace mapping MIDI to and from linear gain 
+// so that MIDI=100 equals 0 dB and MIDI = 127 equals +10 dB
+// Calculated as expr log(atodb(10))/log(127./100.)
+static const double GAINMIDIPOWER = 4.816783;
+// static const double GAINMIDIPOWERINV = 1./GAINMIDIPOWER;
+static const double GAINMIDIPOWERINV = 0.2076074219;
+
 
 /****************************************************************************************************/
 // Class Specification
