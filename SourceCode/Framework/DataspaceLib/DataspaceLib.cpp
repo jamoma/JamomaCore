@@ -104,6 +104,7 @@ void DataspaceLib::getAvailableUnits(long *numUnits, t_symbol ***unitNames)
 #include "ColorDataspace.h"
 #include "DistanceDataspace.h"
 #include "GainDataspace.h"
+#include "NoneDataspace.h"
 #include "PitchDataspace.h"
 #include "PositionDataspace.h" 
 #include "TemperatureDataspace.h"
@@ -130,6 +131,8 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 		*dataspace = (DataspaceLib*) new DistanceDataspace;
 	else if(dataspaceName == gensym("gain"))
 		*dataspace = (DataspaceLib*) new GainDataspace;
+	else if(dataspaceName == gensym("none"))
+		*dataspace = (DataspaceLib*) new NoneDataspace;
 	else if(dataspaceName == gensym("pitch"))
 		*dataspace = (DataspaceLib*) new PitchDataspace;
 	else if(dataspaceName == gensym("position")) 
@@ -149,7 +152,7 @@ JamomaError jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspac
 // This function allocates memory -- caller must free it!
 void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 {
-	*numDataspaces = 8; // must be the length of the Dataspace
+	*numDataspaces = 9; // must be the length of the Dataspace
 	*dataspaceNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numDataspaces);
 	
 	// These should be alphabetized
@@ -158,10 +161,11 @@ void jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames)
 		*(*dataspaceNames+1) = gensym("color");
 		*(*dataspaceNames+2) = gensym("distance");
 		*(*dataspaceNames+3) = gensym("gain");
-		*(*dataspaceNames+4) = gensym("pitch");
-		*(*dataspaceNames+5) = gensym("position"); 
-		*(*dataspaceNames+6) = gensym("temperature");
-		*(*dataspaceNames+7) = gensym("time");
+		*(*dataspaceNames+4) = gensym("none");
+		*(*dataspaceNames+5) = gensym("pitch");
+		*(*dataspaceNames+6) = gensym("position"); 
+		*(*dataspaceNames+7) = gensym("temperature");
+		*(*dataspaceNames+8) = gensym("time");
 	}
 }
 

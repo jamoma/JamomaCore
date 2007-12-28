@@ -33,6 +33,8 @@
 		22AEF32A0D0DB77900F7762D /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AEF3240D0DB77900F7762D /* TanhFunction.cpp */; };
 		22AEF32B0D0DB77900F7762D /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF3250D0DB77900F7762D /* TanhFunction.h */; settings = {ATTRIBUTES = (); }; };
 		22AEF32D0D0DB98500F7762D /* JamomaTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AEF32C0D0DB98500F7762D /* JamomaTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22BF45A50D2564F2001FAA14 /* NoneDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */; };
+		22BF45A60D2564F2001FAA14 /* NoneDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BF45A40D2564F2001FAA14 /* NoneDataspace.h */; };
 		22C1B29D0D20C1B0008BB574 /* AngleDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */; };
 		22C1B29E0D20C1B0008BB574 /* AngleDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
@@ -152,6 +154,8 @@
 		22AEF3240D0DB77900F7762D /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhFunction.cpp; sourceTree = "<group>"; };
 		22AEF3250D0DB77900F7762D /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
 		22AEF32C0D0DB98500F7762D /* JamomaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaTypes.h; path = source/JamomaTypes.h; sourceTree = "<group>"; };
+		22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoneDataspace.cpp; path = DataspaceLib/NoneDataspace.cpp; sourceTree = "<group>"; };
+		22BF45A40D2564F2001FAA14 /* NoneDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoneDataspace.h; path = DataspaceLib/NoneDataspace.h; sourceTree = "<group>"; };
 		22C1B29B0D20C1B0008BB574 /* AngleDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AngleDataspace.cpp; path = DataspaceLib/AngleDataspace.cpp; sourceTree = "<group>"; };
 		22C1B29C0D20C1B0008BB574 /* AngleDataspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AngleDataspace.h; path = DataspaceLib/AngleDataspace.h; sourceTree = "<group>"; };
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
@@ -368,6 +372,8 @@
 				225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */,
 				A7CA9C950D1FD9960099D8CA /* GainDataspace.h */,
 				A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */,
+				22BF45A30D2564F2001FAA14 /* NoneDataspace.cpp */,
+				22BF45A40D2564F2001FAA14 /* NoneDataspace.h */,
 				A7CA9C860D1F21FD0099D8CA /* PitchDataspace.cpp */,
 				A7CA9C870D1F21FD0099D8CA /* PitchDataspace.h */,
 				66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */,
@@ -565,6 +571,7 @@
 				A7CA9C970D1FD9960099D8CA /* GainDataspace.h in Headers */,
 				22C1B29E0D20C1B0008BB574 /* AngleDataspace.h in Headers */,
 				66D9A1F80D21F49300A16E9A /* PositionDataspace.h in Headers */,
+				22BF45A60D2564F2001FAA14 /* NoneDataspace.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,6 +673,7 @@
 				A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */,
 				22C1B29D0D20C1B0008BB574 /* AngleDataspace.cpp in Sources */,
 				66D9A1F70D21F49300A16E9A /* PositionDataspace.cpp in Sources */,
+				22BF45A50D2564F2001FAA14 /* NoneDataspace.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
