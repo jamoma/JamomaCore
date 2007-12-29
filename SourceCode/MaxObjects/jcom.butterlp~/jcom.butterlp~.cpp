@@ -8,6 +8,7 @@
  */
 
 #include "Jamoma.h"
+#include "tt_lowpass_butterworth.h"
 #define NUM_INPUTS 1
 #define NUM_OUTPUTS 1
 
@@ -213,7 +214,7 @@ t_int *butterlp_perform(t_int *w)
 	//	goto out;
 
 	//if(x->attr_bypass == 0)
-		x->myFilter->dsp_vector_calc(x->signal_in, x->signal_out);
+		x->myFilter->dsp_vector_calc(x->signal_in[0], x->signal_out[0]);
 	//else
 	//	x->copy->dsp_vector_calc(x->signal_in, x->signal_out);
 	//out:

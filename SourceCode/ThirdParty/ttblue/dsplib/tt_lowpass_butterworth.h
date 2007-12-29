@@ -17,6 +17,8 @@
 // Include appropriate headers
 #include "tt_audio_base.h"
 
+static const double kSquareRoot2 = sqrt(2);
+
 
 /********************************************************
 	CLASS INTERFACE/IMPLEMENTATION
@@ -60,11 +62,11 @@ class tt_lowpass_butterworth:public tt_audio_base{
 					frequency = val;
 					// calculations
 					c = 1 / ( tan( PI*(frequency/sr) ) );
-					a0 = 1 / (1 + sqrt2*c + c*c);
+					a0 = 1 / (1 + kSquareRoot2*c + c*c);
 					a1 = 2*a0;
 					a2 = a0;
 					b1 = 2*a0*( 1 - c*c );
-					b2 = a0 * (1 - sqrt2*c + c*c);					
+					b2 = a0 * (1 - kSquareRoot2*c + c*c);					
 					break;
 			}
 		}
@@ -88,10 +90,10 @@ class tt_lowpass_butterworth:public tt_audio_base{
 			
 			while(temp_vs--){
 				temp = *input->vector++;
-				*output->vector++ = anti_denormal(a0*tem + a1*xm1 + a2*xm2 - b1*ym1 - b2*ym2);
+				*output->vector++ = anti_denormal(a0*temp + a1*xm1 + a2*xm2 - b1*ym1 - b2*ym2);
 				xm2 = xm1;
-				xm1 = temp:
-				ym2 = ym1:
+				xm1 = temp;
+				ym2 = ym1;
 				ym1 = *output;
 			}
 			input->reset(); output->reset();
