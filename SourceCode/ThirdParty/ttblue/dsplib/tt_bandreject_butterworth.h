@@ -1,6 +1,6 @@
 /*
  *******************************************************
- *		2ND ORDER BUTTERWORTH LOWPASS FILTER
+ *		2ND ORDER BUTTERWORTH BANDREJECT FILTER
  *		based on an algorithm from Dodge & Jerse (1997): 
  * 		Computer Music Synthesis, Composition, and Performance 2nd edition
  *		Schirmer
@@ -11,8 +11,8 @@
  */
 
 // Check against redundant including
-#ifndef TT_LOWPASS_BUTTERWORTH_H
-#define TT_LOWPASS_BUTTERWORTH_H
+#ifndef TT_BANDREJECT_BUTTERWORTH_H
+#define TT_BANDREJECT_BUTTERWORTH_H
 
 // Include appropriate headers
 #include "tt_audio_base.h"
@@ -24,29 +24,32 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tt_lowpass_butterworth:public tt_audio_base{
+class tt_bandreject_butterworth:public tt_audio_base{
 
 	private:
-		tt_attribute_value		frequency;						// filter cutoff frequency
-		double					c, a0, a1, a2, b1, b2;			// filter coefficients
+		tt_attribute_value 		resonance;						// filter resonance
+		tt_attribute_value		frequency;						// center frequency
+		double					c, d, bw, a0, a1, a2, b1, b2;	// filter coefficients
 		double					xm1, xm2, ym1, ym2;				// previous input and output samples
 		double 					f, fb;
 	
 	
 	public:
 		enum selectors{															
-			k_frequency											// Attribute Selectors
+			k_frequency,
+			k_resonance											// Attribute Selectors
 		};
 		
 
 		// OBJECT LIFE					
-		tt_lowpass_butterworth()								// Constructor		
+		tt_bandreject_butterworth()								// Constructor		
 		{
-			set_attr(k_frequency, 4000.0);	
+			set_attr(k_frequency, 440.0);
+			set_attr(k_resonance, 100.)	
 			clear();
 		}
 
-		~tt_lowpass_butterworth()								// Destructor
+		~tt_bandreject_butterworth()							// Destructor
 		{
 			;
 		}
@@ -58,15 +61,23 @@ class tt_lowpass_butterworth:public tt_audio_base{
 			switch (sel){			
 				case k_frequency:
 					frequency = val;
-					// calculations
-					c = 1 / ( tan( PI*(frequency/sr) ) );
-					a0 = 1 / (1 + sqrt2*c + c*c);
-					a1 = 2*a0;
-					a2 = a0;
-					b1 = 2*a0*( 1 - c*c );
-					b2 = a0 * (1 - sqrt2*c + c*c);					
-					break;
+					break;				
+				case k_resonance:
+					resonance = val;
+					// Avoid dividing by zero
+					if (resonance<=0)
+						resonance = 1;
+					break;				
 			}
+				
+			bw = center/resonance;
+			c = tan( PI*(bw/x->sr) );
+			d = 2.0 * cos( 2.0*PI*(center/sr) );
+			a0 = 1.0 / (1.0 + c);
+			a1 = -1.0 * a0 * d;
+			a2 = a0;
+			b1 = a1;
+			b2 = a0 * (1.0 - c);
 		}
 
 		tt_attribute_value get_attr(tt_selector sel)				// Get Attributes
@@ -110,4 +121,4 @@ class tt_lowpass_butterworth:public tt_audio_base{
 };
 
 
-#endif	// TT_LOWPASS_BUTTERWORTH_H
+#endif	// TT_BANDREJECT_BUTTERWORTH_H

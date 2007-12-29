@@ -1,6 +1,6 @@
 /*
  *******************************************************
- *		2ND ORDER BUTTERWORTH LOWPASS FILTER
+ *		2ND ORDER BUTTERWORTH HIGHPASS FILTER
  *		based on an algorithm from Dodge & Jerse (1997): 
  * 		Computer Music Synthesis, Composition, and Performance 2nd edition
  *		Schirmer
@@ -11,8 +11,8 @@
  */
 
 // Check against redundant including
-#ifndef TT_LOWPASS_BUTTERWORTH_H
-#define TT_LOWPASS_BUTTERWORTH_H
+#ifndef TT_HIGHPASS_BUTTERWORTH_H
+#define TT_HIGHPASS_BUTTERWORTH_H
 
 // Include appropriate headers
 #include "tt_audio_base.h"
@@ -24,7 +24,7 @@
 	The entire class is implemented inline for speed.
  ********************************************************/
 
-class tt_lowpass_butterworth:public tt_audio_base{
+class tt_highpass_butterworth:public tt_audio_base{
 
 	private:
 		tt_attribute_value		frequency;						// filter cutoff frequency
@@ -40,13 +40,13 @@ class tt_lowpass_butterworth:public tt_audio_base{
 		
 
 		// OBJECT LIFE					
-		tt_lowpass_butterworth()								// Constructor		
+		tt_highpass_butterworth()								// Constructor		
 		{
-			set_attr(k_frequency, 4000.0);	
+			set_attr(k_frequency, 200.0);	
 			clear();
 		}
 
-		~tt_lowpass_butterworth()								// Destructor
+		~tt_highpass_butterworth()								// Destructor
 		{
 			;
 		}
@@ -58,13 +58,14 @@ class tt_lowpass_butterworth:public tt_audio_base{
 			switch (sel){			
 				case k_frequency:
 					frequency = val;
-					// calculations
-					c = 1 / ( tan( PI*(frequency/sr) ) );
+					
+					// calculations					
+					c = tan( PI*(cutoff/x->sr ) );
 					a0 = 1 / (1 + sqrt2*c + c*c);
-					a1 = 2*a0;
+					a1 = -2*a0;
 					a2 = a0;
-					b1 = 2*a0*( 1 - c*c );
-					b2 = a0 * (1 - sqrt2*c + c*c);					
+					b1 = 2*a0*( c*c - 1 );
+					b2 = a0 * (1 - sqrt2*c + c*c);									
 					break;
 			}
 		}
@@ -110,4 +111,4 @@ class tt_lowpass_butterworth:public tt_audio_base{
 };
 
 
-#endif	// TT_LOWPASS_BUTTERWORTH_H
+#endif	// TT_HIGHPASS_BUTTERWORTH_H
