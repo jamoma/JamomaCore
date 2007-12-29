@@ -100,7 +100,7 @@ class tt_bandpass_butterworth:public tt_audio_base{
 			
 			while(temp_vs--){
 				temp = *input->vector++;
-				*output->vector++ = a0*tem + a2*xm2 - b1*ym1 - b2*ym2;
+				*output->vector++ = anti_denormal(a0*tem + a2*xm2 - b1*ym1 - b2*ym2);
 				xm2 = xm1;
 				xm1 = temp:
 				ym2 = ym1:
