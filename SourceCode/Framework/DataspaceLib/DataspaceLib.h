@@ -19,8 +19,8 @@ static const double kDegreesToRadians = 3.14159265358979323846264338327950288419
 
 // This coeff is used in GainDataspace mapping MIDI to and from linear gain 
 // so that MIDI=100 equals 0 dB and MIDI = 127 equals +10 dB
-static const double GAINMIDIPOWER = log(pow(10.,10./20.))/log(127./100.);
-static const double GAINMIDIPOWERINV = 1./GAINMIDIPOWER;
+static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
+static const double kGainMidiPowerInv = 1./kGainMidiPower;
 
 
 /****************************************************************************************************/

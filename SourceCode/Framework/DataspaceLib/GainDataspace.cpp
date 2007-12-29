@@ -57,7 +57,7 @@ void MidiGainUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long 
 	// This is the old formula behaving the same as the gain~ object:
 	// *output =  pow(10., (atom_getfloat(inputAtoms)-127.)*0.03);
 	// Now substituted for:
-	*output = pow(atom_getfloat(inputAtoms)*0.01,GAINMIDIPOWER);
+	*output = pow(atom_getfloat(inputAtoms)*0.01,kGainMidiPower);
 }
 
 
@@ -67,7 +67,7 @@ void MidiGainUnit::convertFromNeutral(long inputNumArgs, double *input, long *ou
 	// This is the old formula behaving the same as the gain~ object:
 	// atom_setfloat(*outputAtoms, log10(*input)*33.333333333333+127.);
 	// Now substituted for:
-	atom_setfloat(*outputAtoms, 100.*pow((*input),GAINMIDIPOWERINV));
+	atom_setfloat(*outputAtoms, 100.*pow((*input),kGainMidiPowerInv));
 }
 
 
