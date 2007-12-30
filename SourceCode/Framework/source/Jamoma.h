@@ -26,8 +26,12 @@
 #include "tt_audio_base.h"			// Tap.Tools Blue Headers...
 #include "tt_audio_signal.h"
 #include "tt_copy.h"
+#include "tt_bandpass_butterworth.h"
+#include "tt_bandreject_butterworth.h"
 #include "tt_crossfade.h"	
 #include "tt_gain.h"
+#include "tt_highpass_butterworth.h"
+#include "tt_lowpass_butterworth.h"
 #include "tt_limiter.h"
 #include "tt_overdrive.h"
 #include "tt_zerox.h"

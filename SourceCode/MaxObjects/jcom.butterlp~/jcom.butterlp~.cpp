@@ -8,7 +8,6 @@
  */
 
 #include "Jamoma.h"
-#include "tt_lowpass_butterworth.h"
 #define NUM_INPUTS 1
 #define NUM_OUTPUTS 1
 
