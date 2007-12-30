@@ -1,7 +1,7 @@
 /* 
  * jcom.butterlp
- * External for Jamoma: add harmonic distortion (overdrive/butterlp) to a signal
- * By Tim Place, Copyright © 2005
+ * External for Jamoma: 2nd order Butterworth lowpass filter
+ * By Trond Lossius, Copyright © 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -17,13 +17,11 @@ typedef struct _butterlp{
     t_pxobject				x_obj;					// Required by MSP (must be first)
     void					*obex;
 	tt_lowpass_butterworth	*myFilter;
-    //tt_copy				*copy;
     tt_audio_signal			*signal_in[NUM_INPUTS];
     tt_audio_signal			*signal_out[NUM_OUTPUTS];
     float					attr_frequency;			// ATTRIBUTE: filter cutoff frequency
-    //long					attr_bypass;
-	//long					attr_mute;
 } t_butterlp;
+
 
 // Prototypes for methods: need a method for each incoming message type:
 void *butterlp_new(t_symbol *s, long argc, t_atom *argv);
@@ -34,12 +32,6 @@ void butterlp_free(t_butterlp *x);
 void butterlp_clear(t_butterlp *x);
 t_max_err butterlp_setfrequency(t_butterlp *x, void *attr, long argc, t_atom *argv);
 
-//t_max_err butterlp_setbypass_overdrive(t_butterlp *x, void *attr, long argc, t_atom *argv);
-//t_max_err butterlp_setmute(t_butterlp *x, void *attr, long argc, t_atom *argv);
-//void butterlp_anything(t_butterlp *x, t_symbol *msg, long argc, t_atom *argv);
-//void set_bypass(t_butterlp *x);
-
-
 
 // Globals
 t_class		*butterlp_class;					// Required. Global pointing to this class
@@ -48,6 +40,7 @@ t_symbol	*ps_symbol;
 t_symbol	*ps_long;
 t_symbol	*ps_float32;
 t_symbol	*ps_dumpout;
+
 
 /************************************************************************************/
 // Main() Function
@@ -77,21 +70,11 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_quickref,			"quickref", 			A_CANT, 0);
 	class_addmethod(c, (method)butterlp_setfrequency,			"/frequency",			A_GIMME, 0);
 
-	//class_addmethod(c, (method)butterlp_setmute,				"/audio/mute",			A_GIMME, 0);
-	//class_addmethod(c, (method)butterlp_anything,				"anything",				A_GIMME, 0);
-
 	// Add attributes to our class:
-	// ATTRIBUTE: overdrive
+	// ATTRIBUTE: frequency
 	attr = attr_offset_new("frequency", ps_float32, attrflags,
 		(method)0L, (method)butterlp_setfrequency, calcoffset(t_butterlp, attr_frequency));
 	class_addattr(c, attr);
-
-	/*
-	// ATTRIBUTE: bypass_overdrive (toggle)
-	attr = attr_offset_new("bypass", ps_long, attrflags,
-		(method)0L, (method)0L, calcoffset(t_butterlp, attr_bypass));
-	class_addattr(c, attr);
-	*/
 
 	// Setup our class to work with MSP
 	class_dspinit(c);
@@ -116,20 +99,15 @@ void *butterlp_new(t_symbol *s, long argc, t_atom *argv)
 		dsp_setup((t_pxobject *)x, 2);							// Create object with 2 inlets
 	    x->x_obj.z_misc = Z_NO_INPLACE;  						// ESSENTIAL!   		
 		outlet_new((t_object *)x, "signal");					// Create signal outlet
-		//outlet_new((t_object *)x, "signal");					// Create signal outlet	
 
 		tt_audio_base::set_global_sr((int)sys_getsr());			// Set Tap.Tools global SR...
 		tt_audio_base::set_global_vectorsize(sys_getblksize());	// Set Tap.Tools global vector size...
 		x->myFilter = new tt_lowpass_butterworth;				// Tap.Tools Blue Objects
-		// x->copy = new tt_copy;
-
 
 		x->signal_in[0] = new tt_audio_signal;
 		x->signal_out[0] = new tt_audio_signal;
 
 		x->attr_frequency = 4000.;								// Defaults
-	    // x->attr_bypass = 0;
-		// x->attr_mute = 0;
 
 		attr_args_process(x,argc,argv);							// Handle attribute args					
 	}
@@ -142,7 +120,6 @@ void butterlp_free(t_butterlp *x)
 	
 	dsp_free((t_pxobject *)x);					// Always call dsp_free first in this routine
 	delete x->myFilter;
-	// delete x->copy;
 
 	delete x->signal_in[0];
 	delete x->signal_out[1];
@@ -159,7 +136,6 @@ void butterlp_assist(t_butterlp *x, void *b, long msg, long arg, char *dst)
 	else if(msg==2){ 	// Outlet
 		switch(arg){
 			case 0: strcpy(dst, "(signal) output"); break;
-			// case 1: strcpy(dst, "(signal) output"); break;
 			case 1: strcpy(dst, "dumpout"); break;
 		}
 	}
@@ -184,25 +160,7 @@ t_max_err butterlp_setfrequency(t_butterlp *x, void *attr, long argc, t_atom *ar
 }
 
 
-/*
-t_max_err butterlp_setmute(t_butterlp *x, void *attr, long argc, t_atom *argv)
-{
-	x->attr_mute = atom_getlong(argv);
-	return MAX_ERR_NONE;
-}
-*/
-
-
-/*
-// when used as the algorithm for a module, we use this to suppress errors for unhandles messages
-void butterlp_anything(t_butterlp *x, t_symbol *msg, long argc, t_atom *argv)
-{
-	//post("anything: %s", msg->s_name);
-}
-*/
-
-
-// Perform Method: mono
+// Perform Method: Mono
 t_int *butterlp_perform(t_int *w)
 {
 	t_butterlp *x = (t_butterlp *)(w[1]);		
@@ -210,14 +168,8 @@ t_int *butterlp_perform(t_int *w)
 	x->signal_out[0]->set_vector((t_float *)(w[3]));
 	x->signal_in[0]->vectorsize = (int)(w[4]);
 
-	//if(x->x_obj.z_disabled || x->attr_mute) 
-	//	goto out;
+	x->myFilter->dsp_vector_calc(x->signal_in[0], x->signal_out[0]);
 
-	//if(x->attr_bypass == 0)
-		x->myFilter->dsp_vector_calc(x->signal_in[0], x->signal_out[0]);
-	//else
-	//	x->copy->dsp_vector_calc(x->signal_in, x->signal_out);
-	//out:
 	return (w+5);
 }
 
@@ -230,4 +182,3 @@ void butterlp_dsp(t_butterlp *x, t_signal **sp, short *count)
 	
 	dsp_add(butterlp_perform, 4, x, sp[0]->s_vec, sp[2]->s_vec, sp[0]->s_n);
 }
-

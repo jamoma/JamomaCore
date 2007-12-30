@@ -1,13 +1,15 @@
 /*
  *******************************************************
  *		2ND ORDER BUTTERWORTH LOWPASS FILTER
- *		based on an algorithm from Dodge & Jerse (1997): 
- * 		Computer Music Synthesis, Composition, and Performance 2nd edition
- *		Schirmer
- *******************************************************
+ *		Butterworth filters have maximum flat frequency responce in the pass band.
+ *
+ *		Based on an algorithm from Dodge & Jerse (1997): Computer Music -
+ * 		Synthesis, Composition, and Performance. 2nd edition. Schirmer.
+ *
  *		Tap.Tools Blue Object
  *		copyright © 2007 by Trond Lossius
  *
+ *******************************************************
  */
 
 // Check against redundant including
