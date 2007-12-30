@@ -34,7 +34,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	short		err = 0;
 	err = ext_pattr_setup();
 	if(err){
-		post("Jamoma: pattr integration is not available - could not init pattr-bundle");
+		//post("Jamoma: pattr integration is not available - could not init pattr-bundle");
 		g_pattr_valid = false;
 	}
 	else
@@ -971,7 +971,7 @@ void param_send_feedback(t_param *x)
 			sysmem_copyptr(&x->atom_list[1], out + 2, sizeof(t_atom) * (x->list_size - 1));
 		object_method_typed(x->common.hub, ps_feedback, x->list_size + 1, out, NULL);
 	}
-	// notify pattr that we have modified data
+	// notify listeners (pattr or jcom.paramui) that we have modified data
 #ifndef JMOD_MESSAGE
 	object_notify(x, _sym_modified, NULL);
 #endif
