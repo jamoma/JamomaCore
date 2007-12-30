@@ -31,14 +31,17 @@ enum outlets{
 			
 typedef void (*pf_noargs)(void *x);			// pointer to a function with only the struct pointer given
 											// must be defined so the struct will know what to do, but can't define it as requiring the struct
-#define attr_value	atom_list[0]
+#define attr_value			atom_list[0]
+#define attr_valueDefault	atom_listDefault[0]
 
 typedef struct _param{						// Data Structure for this object
 	t_jcom_core_subscriber_extended	common;
 	pf_noargs				param_output;				// bang method for the instance points to an optimized function
 	void 					*outlets[num_outlets];	// my outlet array
 	t_atom					atom_list[LISTSIZE];	// was "t_atom attr_value;"	// ATTRIBUTE: The parameter's value
+	t_atom					atom_listDefault[LISTSIZE];
 	long					list_size;
+	long					listDefault_size;
 	t_symbol				*attr_ramp;				// ATTRIBUTE: ramp mode 
 	long					attr_slavemode;			// ATTRIBUTE: This instance is a slave of another instance, and simply forward anything recieved
 	long					attr_ui_freeze;
@@ -72,7 +75,6 @@ void		param_output_none(void *z);
 void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 
-
 /** If the hub receives a bang, it's passed on to this method, and used to update value if @/ramp/drive is set to "async". */
 void		param_rampUpdate(t_param *x);
 void		param_int(t_param *x, long n);
@@ -101,6 +103,7 @@ void		param_ui_queuefn(t_param *x);
 #ifndef JMOD_MESSAGE
 t_max_err 	param_setvalueof(t_param *x, long argc, t_atom *argv);
 t_max_err 	param_getvalueof(t_param *x, long *argc, t_atom **argv);
+void		param_reset(t_param *x);
 #endif
 t_max_err	param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv);

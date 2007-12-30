@@ -69,9 +69,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_dec,						"-",							A_GIMME,	0);
 	class_addmethod(c, (method)param_dump,						"dump",							0);
 	class_addmethod(c, (method)param_bang,						"bang",							0);
-	class_addmethod(c, (method)param_rampUpdate,				"/ramp/update",					0);
+	class_addmethod(c, (method)param_rampUpdate,				"ramp/update",					0);
 	class_addmethod(c, (method)param_assist,					"assist",						A_CANT,		0); 
 #ifndef JMOD_MESSAGE
+	class_addmethod(c, (method)param_reset,						"reset",						0);
 	if(g_pattr_valid == true){
 		// required to manually add because of our pattr-wrapping for parameters
 		class_addmethod(c, (method)param_getvalueof,			"getvalueof",	A_CANT, 0);
@@ -122,6 +123,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jamoma_class_attr_array_new(c, "value", _sym_atom, LISTSIZE,
 		(method)0, (method)param_attr_getvalue,
 		calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
+
+	// ATTRIBUTE: value/default
+	jamoma_class_attr_array_new(c, "default", _sym_atom, LISTSIZE,
+		(method)0, (method)0,
+		calcoffset(t_param, listDefault_size), calcoffset(t_param, attr_valueDefault));
 
 	// ATTRIBUTE:
 	jamoma_class_attr_new(c, "dataspace", _sym_symbol,
@@ -185,8 +191,11 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 
 		// defaulted to one long above, set list to be of size 1
 		x->list_size = 1;
-		for(i = 0; i < LISTSIZE; i++)	
-			atom_setlong(&x->atom_list[i], 0); // atom_setlong(&x->attr_value, 0);
+		x->listDefault_size = 0;
+		for(i = 0; i < LISTSIZE; i++){
+			atom_setlong(&x->atom_list[i], 0);
+			atom_setlong(&x->atom_listDefault[i], 0);
+		}
 		x->name = name;
 		atom_setsym(&x->name_atom, name);
 		x->attr_ui_freeze = 0;
@@ -207,6 +216,9 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		if(g_pattr_valid == true)
 			pattr_obex_setup(x, name);				// set up out internal pattr instance
 
+#ifndef JMOD_MESSAGE
+		param_reset(x);	
+#endif
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 		
 		// If no type was specified by the user we call the accessor here
@@ -280,6 +292,17 @@ t_max_err param_getvalueof(t_param *x, long *argc, t_atom **argv)
 // Methods bound to input/inlets
 #pragma mark -
 #pragma mark attribute accessors
+
+
+// resets to default value
+void param_reset(t_param *x)
+{
+	if(x->listDefault_size){						// copy the default values to the current value
+		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(t_atom) * x->listDefault_size);
+		x->list_size = x->listDefault_size;
+	}
+}
+
 
 // ATTRIBUTE: TYPE
 // This is crucial because it sets function pointers for the optimized clipping, bang, and other functions
