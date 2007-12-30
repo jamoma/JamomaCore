@@ -85,16 +85,19 @@ class tt_lowpass_butterworth:public tt_audio_base{
 		// DSP LOOP
 		void dsp_vector_calc(tt_audio_signal *input, tt_audio_signal *output)
 		{
-			tt_sample_value temp;
+			tt_sample_value tempx;
+			tt_sample_value tempy;
+
 			temp_vs = input->vectorsize;
 			
 			while(temp_vs--){
-				temp = *input->vector++;
-				*output->vector++ = anti_denormal(a0*temp + a1*xm1 + a2*xm2 - b1*ym1 - b2*ym2);
+				tempx = *input->vector++;
+				tempy = anti_denormal(a0*tempx + a1*xm1 + a2*xm2 - b1*ym1 - b2*ym2);
 				xm2 = xm1;
-				xm1 = temp;
+				xm1 = tempx;
 				ym2 = ym1;
-				ym1 = *output;
+				ym1 = tempy;
+				*output->vector++ = tempy;
 			}
 			input->reset(); output->reset();
 		}
