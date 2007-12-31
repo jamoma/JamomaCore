@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "tap.dcblock~"
-
-EXPORTS
-	main
