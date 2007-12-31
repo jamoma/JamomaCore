@@ -8,14 +8,24 @@
 
 #include "TTSymbol.h"
 
+TTSymbol*	TTSymbol::symbolTable = NULL;
+TTUInt32	TTSymbol::symbolTableSize = 0;
 
 
 /****************************************************************************************************/
 
-TTSymbol::TTSymbol(char *newString)
+TTSymbol::TTSymbol(TTString newString)
 {
 	strcpy(string, name);
-	id = 0; // TODO: use a hash function to generate this from the string -- or is it just an index?
+	id = symbolTableSize;
+	
+	if(symbolTableSize)
+		symbolTable = realloc(symbolTable, sizeof(TTSymbol) * (symbolTableSize + 1));
+	else
+		symbolTable = (TTString*)malloc(sizeof(TTSymbol));
+	symbolTableSize++;
+	
+	symbolTable[symbolTableSize-1] = this;	
 }
 
 
@@ -25,33 +35,40 @@ TTSymbol::~TTSymbol()
 }
 
 
-const char* TTSymbol::getString()
+const TTString TTSymbol::getString()
 {
-	;
+	return string;
 }
 
 
 const TTUInt32 TTSymbol::getId()
 {
-	;
+	return id;
 }
 
 
-TTBoolean TTSymbol::compare(TTString &anotherString)
+TTBoolean TTSymbol::compare(TTSymbol &anotherString)
 {
-	;
+	;	// TODO: implement this
 }
 
 
 /****************************************************************************************************/
 // Shared (static) Methods
 
-const TTUInt32 TTSymbol::lookup(char *string)
+const TTUInt32 TTSymbol::lookup(TTString string)
 {
-	// 1. Hash the string
-	// 2. Look for an existing string with this id in the table
-	// 3. If it doesn't exist, then create it
-	// 4. Return the id
-	return 0;
+	TTUInt32	i;
+	TTSymbol	*aSymbol;
+	
+	for(i=0; i<symbolTableSize; i++){
+		if(!strcmp(string, symbolTable[i]->getString())){
+			return i;	// we found it, so return the id
+		}
+	}
+	
+	// If we are here then the symbol wasn't found, so we need to create it
+	aSymbol = new TTSymbol(string);
+	return aSymbol->getId();
 }
 

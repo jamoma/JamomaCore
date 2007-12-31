@@ -18,6 +18,7 @@
 // Type Definitions
 
 typedef unsigned char		TTBoolean;			// same as Boolean on the Mac
+typedef unsigned char*		TTString;
 
 typedef signed char			TTInt8;
 typedef unsigned char		TTUInt8;

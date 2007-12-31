@@ -14,23 +14,32 @@
 /****************************************************************************************************/
 // Class Specification
 
+
+/**
+	The TTSymbol class is used to represent a string and efficiently pass and compare that string.
+	At the moment the implementation is somewhat crude and really slow and it should be improved in the future.
+
+	This current implementation has an internal table that is implemented as a fixed array.
+	Each symbol is identified by its index in this array.
+*/
 class TTSymbol : TTBase {
 private:
-	char		*string;	///< the actual string represented by this symbol
-	TTUInt32	id;			///< a unique identifier for the given string
-//	static 					// TODO: This will be the shared symbol table for the class
+	TTString				string;				///< the actual string represented by this symbol
+	TTUInt32				id;					///< a unique identifier for the given string
+	static TTSymbol*		symbolTable;		///< The shared symbol table for the class
+	static TTUInt32			symbolTableSize;	///< The size of the symbol table
 
 public:
-	TTSymbol(char *newString);
-	virtual ~TTSymbol();
+	TTSymbol(TTString newString);
+	virtual	~TTSymbol();
 
-	const char*				getString();
+	const TTString			getString();
 	const TTUInt32			getId();
 	TTBoolean				compare(TTString &anotherString);
 
 	/** Look in the symbol table for this string.  If it exists then return its id.  
 	 *	If it does not exist then it is created, added to the symbol table and this new symbol's id is returned. */
-	static const TTUInt32	lookup(char *string);
+	static const TTUInt32	lookup(TTString string);
 };
 
 
