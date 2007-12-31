@@ -57,6 +57,14 @@
 #define YES 1
 #endif
 
+#define JAMOMA_UNIT_HEIGHT 70.0
+#define JAMOMA_UNIT_WIDTH 150.0
+#define JAMOMA_MENU_FONT "Arial"
+#define JAMOMA_MENU_FONTSIZE 10.0
+#define JAMOMA_DEFAULT_FONT "Verdana"
+#define JAMOMA_DEFAULT_FONTSIZE 8.0
+#define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
+
 extern t_object *obj_jamoma_clock;		// the jamoma master clock object
 extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
 extern bool		max5;					// are we in max5?

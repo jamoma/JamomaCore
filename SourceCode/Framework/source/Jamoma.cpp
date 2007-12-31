@@ -268,20 +268,3 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 		sysmem_freeptr(av);
 }
 
-/*
-void jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *argv)
-{
-	t_jcom_core_subscriber_common *x = (t_jcom_core_subscriber_common*)o;
-
-	if(x->hub != NULL){
-		t_symbol	*attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));
-		char		s[256];
-		t_atom		a[4];
-	
-		sprintf(s, "%s:/%s", x->attr_name->s_name, attrName->s_name);
-		atom_setsym(a+0, gensym(s));
-		sysmem_copyptr(argv, a+1, sizeof(t_atom) * argc);
-		object_method_typed(x->hub, ps_feedback, argc + 1, a, NULL);
-	}
-}
-*/

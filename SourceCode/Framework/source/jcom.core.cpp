@@ -198,17 +198,13 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 	path_topathname(in_path, in_filename, path);
 
 #ifdef MAC_VERSION
-	if(max5)
-		strcpy(out_filepath, path);
-	else{
-		char *temppath;
-		temppath = strchr(path, ':');
-		*temppath = '\0';
-		temppath += 1;
-	
-		// at this point temppath points to the path after the volume, and out_filepath points to the volume
-		sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
-	}
+	char *temppath;
+	temppath = strchr(path, ':');
+	*temppath = '\0';
+	temppath += 1;
+
+	// at this point temppath points to the path after the volume, and out_filepath points to the volume
+	sprintf(out_filepath, "/Volumes/%s%s", path, temppath);
 #else // WIN_VERSION
 	strcpy(out_filepath, path);
 #endif
