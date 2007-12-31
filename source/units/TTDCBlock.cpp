@@ -28,8 +28,8 @@ TTErr TTDCBlock::clear()
 	short i;
 
 	for(i=0; i<TT_MAX_NUM_CHANNELS; i++){
-		last_input[i] = 0;
-		last_output[i] = 0;
+		lastInput[i] = 0;
+		lastOutput[i] = 0;
 	}
 	return TT_ERR_NONE;
 }
