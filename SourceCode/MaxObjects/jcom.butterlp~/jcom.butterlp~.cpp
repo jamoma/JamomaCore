@@ -33,12 +33,7 @@ t_max_err butterlp_setfrequency(t_butterlp *x, void *attr, long argc, t_atom *ar
 
 
 // Globals
-t_class		*butterlp_class;					// Required. Global pointing to this class
-
-t_symbol	*ps_symbol;
-t_symbol	*ps_long;
-t_symbol	*ps_float32;
-t_symbol	*ps_dumpout;
+static t_class	*butterlp_class;
 
 
 /************************************************************************************/
@@ -51,10 +46,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object *attr;
 	
 	jamoma_init();
-	ps_symbol = gensym("symbol");
-	ps_long = gensym("long");
-	ps_float32 = gensym("float32");
-	ps_dumpout = gensym("dumpout");
 
 	// Define our class
 	c = class_new("jcom.butterlp~",(method)butterlp_new, (method)butterlp_free, (short)sizeof(t_butterlp), 
@@ -71,7 +62,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	// Add attributes to our class:
 	// ATTRIBUTE: frequency
-	attr = attr_offset_new("frequency", ps_float32, attrflags,
+	attr = attr_offset_new("frequency", _sym_float32, attrflags,
 		(method)0L, (method)butterlp_setfrequency, calcoffset(t_butterlp, attr_frequency));
 	class_addattr(c, attr);
 
@@ -94,7 +85,7 @@ void *butterlp_new(t_symbol *s, long argc, t_atom *argv)
 	t_butterlp *x = (t_butterlp *)object_alloc(butterlp_class);
 	
 	if(x){
-   		object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
+   		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 		dsp_setup((t_pxobject *)x, 2);							// Create object with 2 inlets
 	    x->x_obj.z_misc = Z_NO_INPLACE;  						// ESSENTIAL!   		
 		outlet_new((t_object *)x, "signal");					// Create signal outlet
