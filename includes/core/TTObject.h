@@ -9,13 +9,14 @@
 #ifndef __TT_OBJECT_H__
 #define __TT_OBJECT_H__
 
-#include "stdlib.h"
-
+#include "TTBase.h"
+#include "TTList.h"
+//#include "TTHash.h"
 
 /****************************************************************************************************/
 // Class Specification
 
-class TTObject {
+class TTObject : TTBase {
 public:
 	TTObject();
 	~TTObject();
