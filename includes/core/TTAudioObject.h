@@ -26,18 +26,6 @@ public:
 	TTAudioObject();
 	~TTAudioObject();
 		
-	/*
-		The theory on parameters is that the subclass calls registerParameter()
-		and the base class manages a list of all registered parameters.
-		
-		The the end-user calls setParameter() on the object (which is defined in 
-		the base class only) and it dispatches the message as appropriate.
-	*/
-	registerParameter(TTSymbol& name, TTSymbol& type, long offset);
-	registerParameter(TTSymbol& name, TTSymbol& type, long offset, TTGetterType getter, TTSetterType setter);
-	setParameterValue(TTSymbol& name, TTValue& value);
-	getParameterValue(TTSymbol& name, TTValue& value);
-	
 	
 	/*	The theory on audio processing is that the base class will define
 		a function pointer to a 'process; function.  By default, this will be
