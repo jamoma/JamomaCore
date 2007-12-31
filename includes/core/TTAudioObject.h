@@ -24,7 +24,7 @@ private:
 
 public:
 	TTAudioObject();
-	~TTAudioObject();
+	virtual ~TTAudioObject();
 		
 	
 	/*	The theory on audio processing is that the base class will define

@@ -17,7 +17,7 @@
 class TTList : TTBase {
 public:
 	TTList();
-	~TTList();	
+	virtual ~TTList();	
 };
 
 

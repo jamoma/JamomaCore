@@ -17,7 +17,7 @@
 class TTValue : TTValue {
 public:
 	TTValue();
-	~TTValue();
+	virtual ~TTValue();
 		
 };
 

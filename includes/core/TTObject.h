@@ -19,7 +19,7 @@
 class TTObject : TTBase {
 public:
 	TTObject();
-	~TTObject();
+	virtual ~TTObject();
 	
 	/*
 		The theory on parameters is that the subclass calls registerParameter()
@@ -32,6 +32,10 @@ public:
 	registerParameter(TTSymbol& name, TTSymbol& type, long offset, TTGetterType getter, TTSetterType setter);
 	setParameterValue(TTSymbol& name, TTValue& value);
 	getParameterValue(TTSymbol& name, TTValue& value);
+	//setParameterValue(TTSymbol& name, TTUInt32& value);	// convenience wrappers?
+	//getParameterValue(TTSymbol& name, TTUInt32& value);
+	//setParameterValue(TTSymbol& name, TTFloat32& value);
+	//getParameterValue(TTSymbol& name, TTFloat32& value);
 	
 	registerMessage(TTSymbol& name, TTMethod method);
 	

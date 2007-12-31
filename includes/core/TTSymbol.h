@@ -9,16 +9,21 @@
 #ifndef __TT_SYMBOL_H__
 #define __TT_SYMBOL_H__
 
-#include "TTObject.h"
+#include "TTBase.h"
 
 /****************************************************************************************************/
 // Class Specification
 
-class TTSymbol : TTObject {
+class TTSymbol : TTBase {
+private:
+	char	*string;
+
 public:
-	TTSymbol();
-	~TTSymbol();
-		
+	TTSymbol(char *name);
+	virtual ~TTSymbol();
+
+	const char*	getString();
+	TTBoolean	compare(TTString &anotherString);
 };
 
 
