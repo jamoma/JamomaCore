@@ -13,7 +13,7 @@
 
 
 /** A type that can be used to store a pointer to a message */
-typedef TTErr (TTMessage)(TTSymbol& name, TTValue& value);
+typedef TTErr (TTMessageMethod)(TTSymbol& name, TTValue& value);
 
 // macro for converting from one type to another regardless of type
 #define	CONVERT switch(*(type+index)){\
