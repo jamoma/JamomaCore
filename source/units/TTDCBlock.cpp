@@ -43,7 +43,7 @@ TTErr TTDCBlock::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	short			vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = getMinChannelCount(in, out);
+	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	short			channel;
 	TTSampleValue	temp;
 
