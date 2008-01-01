@@ -9,12 +9,12 @@
 #ifndef __TT_LIST_H__
 #define __TT_LIST_H__
 
-#include "TTBase.h"
+#include "TTElement.h"
 
 /****************************************************************************************************/
 // Class Specification
 
-class TTList : TTBase {
+class TTList : TTElement {
 public:
 	TTList();
 	virtual ~TTList();	

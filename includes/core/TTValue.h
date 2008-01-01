@@ -9,12 +9,12 @@
 #ifndef __TT_VALUE_H__
 #define __TT_VALUE_H__
 
-#include "TTObject.h"
+#include "TTElement.h"
 
 /****************************************************************************************************/
 // Class Specification
 
-class TTValue : TTValue {
+class TTValue : TTElement {
 public:
 	TTValue();
 	virtual ~TTValue();

@@ -9,7 +9,7 @@
 #ifndef __TT_SYMBOL_H__
 #define __TT_SYMBOL_H__
 
-#include "TTBase.h"
+#include "TTElement.h"
 
 /****************************************************************************************************/
 // Class Specification
@@ -22,7 +22,7 @@
 	This current implementation has an internal table that is implemented as a fixed array.
 	Each symbol is identified by its index in this array.
 */
-class TTSymbol : TTBase {
+class TTSymbol : TTElement {
 private:
 	TTString				string;				///< the actual string represented by this symbol
 	TTUInt32				id;					///< a unique identifier for the given string

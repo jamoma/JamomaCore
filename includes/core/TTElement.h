@@ -6,8 +6,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_BASE_H__
-#define __TT_BASE_H__
+#ifndef __TT_ELEMENT_H__
+#define __TT_ELEMENT_H__
 
 #include <math.h>
 #include <stdlib.h>
@@ -64,7 +64,7 @@ enum TTErrorCodes{
  *	It does not define any core audio, parameter, or other high-level functionality.  For
  *	these refer to TTObject and TTAudioObject.
  */
-class TTBase {
+class TTElement {
 public:
 	static const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
 	static const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
@@ -75,10 +75,10 @@ public:
 	static const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
 
 	/** Constructor. */
-	TTBase();
+	TTElement();
 	
 	/** Destructor. */
-	virtual ~TTBase();
+	virtual ~TTElement();
 	
 	/** Filter out denormaled values, which can make processing extremely slow when they are present. */
 	TTFloat64		antiDenormal(TTFloat64 value);
@@ -168,5 +168,5 @@ public:
 };
 
 
-#endif // __TT_BASE_H__
+#endif // __TT_ELEMENT_H__
 

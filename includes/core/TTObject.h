@@ -9,14 +9,14 @@
 #ifndef __TT_OBJECT_H__
 #define __TT_OBJECT_H__
 
-#include "TTBase.h"
+#include "TTElement.h"
 #include "TTList.h"
 //#include "TTHash.h"
 
 /****************************************************************************************************/
 // Class Specification
 
-class TTObject : TTBase {
+class TTObject : TTElement {
 public:
 	TTObject();
 	virtual ~TTObject();

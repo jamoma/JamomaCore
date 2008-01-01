@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBase.h"
+#include "TTElement.h"
 
 
 const TTFloat64 TTBase::kTTPi = 3.1415926535897932;
@@ -121,29 +121,29 @@ const TTFloat32 TTBase::kTTLookupQuarterSine[] = {		// 128 point quarter sine wa
 
 /****************************************************************************************************/
 
-TTBase::TTBase()
+TTElement::TTElement()
 {
 	;
 }
 
 
-TTBase::~TTBase()
+TTElement::~TTElement()
 {
 	;
 }
 
 
-void TTBase::logMessage(char *message){
+void TTElement::logMessage(char *message){
 	fprintf(stdout, message);
 }
 
 
-void TTBase::logError(char *message){
+void TTElement::logError(char *message){
 	fprintf(stderr, message);
 }
 
 
-long TTBase::round(float value)
+long TTElement::round(float value)
 {
 	if(value > 0)
 		return((long)(value + 0.5));
@@ -152,7 +152,7 @@ long TTBase::round(float value)
 }
 
 
-long TTBase::round(double value)
+long TTElement::round(double value)
 {
 	if(value > 0)
 		return((long)(value + 0.5));
