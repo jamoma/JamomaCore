@@ -12,6 +12,9 @@
 #include "TTElement.h"
 
 
+/** A type that can be used to store a pointer to a message */
+typedef TTErr (TTMessage)(TTSymbol& name, TTValue& value);
+
 // macro for converting from one type to another regardless of type
 #define	CONVERT switch(*(type+index)){\
 			case kTypeFloat32:\
@@ -58,7 +61,8 @@ public:
 		kTypeInt64,
 		kTypeUInt64,
 		kTypeObject,
-		kTypeBoolean
+		kTypeBoolean,
+		kTypeMessage
 	};
 
 private:
@@ -71,6 +75,7 @@ private:
 		TTUInt64	uint64;
 		TTObject	*object;
 		TTBoolean	boolean;
+		TTMessage	message;
 	};
 		
 	DataType	*type;			///< array of types
