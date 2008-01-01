@@ -14,41 +14,24 @@
 
 // macro for converting from one type to another regardless of type
 #define	CONVERT switch(*(type+index)){\
-			case type_int8:\
-				value = (data+index)->val_int8;\
+			case kTypeFloat32:\
+				value = (data+index)->float32;\
 				break;\
-			case type_int16:\
-				value = (data+index)->val_int16;\
+			case kTypeFloat64:\
+				value = (data+index)->float64;\
 				break;\
-			case type_int32:\
-				value = (data+index)->val_int32;\
+			case kTypeInt32:\
+				value = (data+index)->int32;\
 				break;\
-			case type_int64:\
-				value = (data+index)->val_int64;\
+			case kTypeUInt32:\
+				value = (data+index)->uint32;\
 				break;\
-			case type_uint8:\
-				value = (data+index)->val_uint8;\
+			case kTypeInt64:\
+				value = (data+index)->int64;\
 				break;\
-			case type_uint16:\
-				value = (data+index)->val_uint16;\
+			case kTypeUInt64:\
+				value = (data+index)->uint64;\
 				break;\
-			case type_uint32:\
-				value = (data+index)->val_uint32;\
-				break;\
-			case type_uint64:\
-				value = (data+index)->val_uint64;\
-				break;\
-			case type_float32:\
-				value = (data+index)->val_float32;\
-				break;\
-			case type_float64:\
-				value = (data+index)->val_float64;\
-				break;\
-			case type_char:\
-				value = (data+index)->val_char;\
-				break;\
-			case type_pointer:\
-			case type_string:\
 			default:\
 				value = -1;\
 				break;\
