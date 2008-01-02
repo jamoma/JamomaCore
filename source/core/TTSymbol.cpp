@@ -16,6 +16,7 @@ TTUInt32	TTSymbol::symbolTableSize = 0;
 
 TTSymbol::TTSymbol(TTString newString)
 {
+	string = (char*)malloc(sizeof(char) * (strlen(newString)+1));
 	strcpy(string, newString);
 	id = symbolTableSize;
 	

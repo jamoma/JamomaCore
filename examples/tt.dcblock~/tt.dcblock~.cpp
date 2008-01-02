@@ -164,8 +164,7 @@ void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 	x->audio_in->numChannels = (TTUInt32)a;
 	x->audio_out->numChannels = (TTUInt32)a;
 	
-//	x->dcblock->set_sr(sp[0]->s_sr);
-	x->dcblock->setParameterValue(*TTSymbol::lookup("sr"), sp[0]->s_sr);
+	x->dcblock->setParameterValue("sr", sp[0]->s_sr);
 	
 	// We add the dsp routine for the maximum number of channels
 	dsp_add(dcblock_perform, 6, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[3]->s_vec, sp[0]->s_n);
