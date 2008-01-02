@@ -14,19 +14,26 @@
 #include "TTValue.h"
 #include "TTAudioSignal.h"
 
+#define TT_MAX_NUM_CHANNELS 32	// TODO: make this obsolete
+
+
+class TTAudioObject;
+
 /** A type that can be used to store a pointer to a process method */
-typedef TTErr (TTProcessMethod)(TTAudioSignal& in, TTAudioSignal& out);
+typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal& out);
+
 
 /****************************************************************************************************/
 // Class Specification
 
-class TTAudioObject : TTObject {
+class TTAudioObject : public TTObject {
 private:	
 	/*! @var bypassAttribute		pass audio through unprocessed. */
 	//long	bypassAttribute;
-	TTProcessMethod		process;	///< This function pointer always points to the current processing routine
 
 public:
+	TTProcessMethod		processMethod;	///< This function pointer always points to the current processing routine
+
 	TTAudioObject();
 	virtual ~TTAudioObject();
 		
@@ -42,12 +49,13 @@ public:
 		process(), which is in the base-class and the details are all taken
 		care of without worries.
 	 */
-	bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
 	
 	
 	/** Set the audio processing routine to point to a method that is defined as an arg to this function. */
-	setProcess(TTProcessMethod processMethod);
+	TTErr setProcess(TTProcessMethod processMethod);
 
+	TTErr process(TTAudioSignal& in, TTAudioSignal& out);
 };
 
 

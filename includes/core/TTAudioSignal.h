@@ -14,9 +14,6 @@
 #include "TTValue.h"
 
 
-/** A type that can be used to store a pointer to a process method */
-typedef TTErr (TTProcessMethod)(TTAudioSignal& in, TTAudioSignal& out);
-
 /****************************************************************************************************/
 // Class Specification
 

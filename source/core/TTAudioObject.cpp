@@ -13,7 +13,7 @@
 
 TTAudioObject::TTAudioObject()
 {
-	setProcess(bypassProcess);
+	setProcess(&TTAudioObject::bypassProcess);
 }
 
 
@@ -30,21 +30,28 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 					*outSample;
 	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	short			channel;
-	TTSampleValue	temp;
 
 	for(channel=0; channel<numchannels; channel++){
-		inSample = in->vectors[channel];
-		outSample = out->vectors[channel];
-		vs = in->vs;
+		inSample = in.sampleVectors[channel];
+		outSample = out.sampleVectors[channel];
+		vs = in.vs;
 
 		while(vs--)
 			*outSample++ = *inSample++;
 	}
-	return TT_ERR_NONE;
+	return kTTErrNone;
 }
 
 
-TTErr TTAudioObject::setProcess(TTProcessMethod processMethod)
+TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 {
-	process = processMethod;
+	processMethod = newProcessMethod;
+	return kTTErrNone;
 }
+
+
+TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
+{
+	return (this->*processMethod)(in, out);
+}
+

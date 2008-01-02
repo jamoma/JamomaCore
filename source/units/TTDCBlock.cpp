@@ -11,9 +11,9 @@
 
 TTDCBlock::TTDCBlock()
 {
-	registerMessage("clear", clear);	// make the clear method public
-	setProcess(processAudio);			// tell the base class what routine to use for processing audio
-	clear();							// clear our feedback storage variables
+	registerMessage(*TTSymbol::lookup("clear"), (TTMethod)&TTDCBlock::clear);	// make the clear method public
+	setProcess((TTProcessMethod)&TTDCBlock::processAudio);						// tell the base class what routine to use for processing audio
+	clear();																	// clear our feedback storage variables
 }
 
 
@@ -31,7 +31,7 @@ TTErr TTDCBlock::clear()
 		lastInput[i] = 0;
 		lastOutput[i] = 0;
 	}
-	return TT_ERR_NONE;
+	return kTTErrNone;
 }
 
 
@@ -47,21 +47,17 @@ TTErr TTDCBlock::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	short			channel;
 	TTSampleValue	temp;
 
-	//	TODO: this should be implmenented in the base class as an attr which switches the function pointer
-	//	if(bypassAttribute)
-	//		return [super processAudioWithInput:audioIn andOutput:audioOut];
-
 	for(channel=0; channel<numchannels; channel++){
-		inSample = in->vectors[channel];
-		outSample = out->vectors[channel];
-		vs = in->vs;
+		inSample = in.sampleVectors[channel];
+		outSample = out.sampleVectors[channel];
+		vs = in.vs;
 		
 		while(vs--){
 			temp = *inSample++;
-			*outSample++ = lastOutput[channel] = TTAntiDenormal(temp - lastInput[channel] + (lastOutput[channel] * 0.9997));
+			*outSample++ = lastOutput[channel] = antiDenormal(temp - lastInput[channel] + (lastOutput[channel] * 0.9997));
 			lastInput[channel] = temp;
 		}
 	}
-	return TT_ERR_NONE;
+	return kTTErrNone;
 }
 

@@ -14,20 +14,21 @@
 TTAudioSignal::TTAudioSignal(TTUInt16 howMany)
 {
 	maxNumChannels = howMany;
-	vectors = (TTSampleVector *)calloc(sizeof(TTSampleVector) * howMany);
+	sampleVectors = (TTSampleVector *)malloc(sizeof(TTSampleVector) * howMany);
+	// should we zero the buffer here?  call a clear method?
 }
 
 
 TTAudioSignal::~TTAudioSignal()
 {
-	free(vectors);
+	free(sampleVectors);
 }
 
 
 TTErr TTAudioSignal::setVector(TTUInt8 channel, TTSampleVector newVector)
 {
 	// could check against maxnumchannels here
-	vectors[channel] = newVector;
+	sampleVectors[channel] = newVector;
 	return 0;
 }
 

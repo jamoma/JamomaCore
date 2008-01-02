@@ -13,7 +13,7 @@
  *	number of parallel audio channels.
  */ 
 
-class TTDCBlock : TTAudioObject {
+class TTDCBlock : public TTAudioObject {
 private:
 	double	 	lastInput[TT_MAX_NUM_CHANNELS];		///<  Feedback values used for the audio filter			
 	double		lastOutput[TT_MAX_NUM_CHANNELS];	///< Feedback values used for the audio filter
@@ -47,4 +47,5 @@ public:
 	 */
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 
-@end
+};
+

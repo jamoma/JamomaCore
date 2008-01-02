@@ -13,65 +13,65 @@
 
 TTValue::TTValue()
 {
-	data = new data;
+	data = new DataValue;
 	data->float64 = 0.0;
-	type = new type;
+	type = new DataType;
 	*type = kTypeNone;
-	num_values = 1;
+	numValues = 1;
 }
 
 TTValue::TTValue(TTFloat32 initialValue)
 {
-	data = new data;
-	data->val_float32 = initialValue;
-	type = new type;
+	data = new DataValue;
+	data->float32 = initialValue;
+	type = new DataType;
 	*type = kTypeFloat32;
-	num_values = 1;
+	numValues = 1;
 }
 
 TTValue::TTValue(TTFloat64 initialValue)
 {
-	data = new data;
-	data->val_float32 = initialValue;
-	type = new type;
+	data = new DataValue;
+	data->float32 = initialValue;
+	type = new DataType;
 	*type = kTypeFloat64;
-	num_values = 1;
+	numValues = 1;
 }
 
 TTValue::TTValue(TTInt32 initialValue)
 {
-	data = new data;
-	data->val_int32 = initialValue;
-	type = new type;
+	data = new DataValue;
+	data->int32 = initialValue;
+	type = new DataType;
 	*type = kTypeInt32;
-	num_values = 1;
+	numValues = 1;
 }
 
 TTValue::TTValue(TTUInt32 initialValue)
 {
-	data = new data;
-	data->val_uint32 = initialValue;
-	type = new type;
+	data = new DataValue;
+	data->uint32 = initialValue;
+	type = new DataType;
 	*type = kTypeUInt32;
-	num_values = 1;
+	numValues = 1;
 }
 
 TTValue::TTValue(TTInt64 initialValue)
 {
-	data = new data;
-	data->val_int64 = initialValue;
-	type = new type;
+	data = new DataValue;
+	data->int64 = initialValue;
+	type = new DataType;
 	*type = kTypeInt64;
-	num_values = 1;
+	numValues = 1;
 }
 
 TTValue::TTValue(TTUInt64 initialValue)
 {
-	data = new data;
-	data->val_uint64 = initialValue;
-	type = new type;
+	data = new DataValue;
+	data->uint64 = initialValue;
+	type = new DataType;
 	*type = kTypeUInt64;
-	num_values = 1;
+	numValues = 1;
 }
 
 TTValue::TTValue(TTObject& anObject)
@@ -92,32 +92,32 @@ TTValue::~TTValue()
 }
 
 	
-data_type TTValue::getType() const
+TTValue::DataType TTValue::getType() const
 {
 	return *type;
 }
 
 
-tt_uint16 TTValue::getNumValues() const
+TTUInt16 TTValue::getNumValues() const
 {
 	return numValues;
 }
 
 
 
-void TTValue::setType(data_type arg)
+void TTValue::setType(DataType arg)
 {
 	*type = arg;
 }
 
 
-void TTValue::setNumValues(const tt_uint16 arg)
+void TTValue::setNumValues(const TTUInt16 arg)
 {
 	if(arg > numValues){
 		delete []type;
 		delete []data;
-		type = new type[arg];
-		data = new data[arg];
+		type = new DataType[arg];
+		data = new DataValue[arg];
 	}
 	numValues = arg;
 }
@@ -215,14 +215,14 @@ TTValue::operator int() const
 
 
 // UINT32
-TTValue& TTValue::operator = (tt_uint32 value)
+TTValue& TTValue::operator = (TTUInt32 value)
 {
 	*type = kTypeUInt32;
 	data->uint32 = value;
 	return *this;
 }
 
-TTValue::operator tt_uint32() const
+TTValue::operator TTUInt32() const
 {
 	if(*type == kTypeUInt32)
 		return data->uint32;
@@ -236,14 +236,14 @@ TTValue::operator tt_uint32() const
 
 
 // INT64
-TTValue& TTValue::operator = (int64 value)
+TTValue& TTValue::operator = (TTInt64 value)
 {
 	*type = kTypeInt64;
-	data->val_int64 = value;
+	data->int64 = value;
 	return *this;
 }
 
-TTValue::operator tt_int64() const
+TTValue::operator TTInt64() const
 {
 	if(*type == kTypeInt64)
 		return data->int64;
@@ -257,7 +257,7 @@ TTValue::operator tt_int64() const
 
 
 // UINT64
-TTValue& TTValue::operator = (tt_uint64 value)
+TTValue& TTValue::operator = (TTUInt64 value)
 {
 	*type = kTypeUInt64;
 	data->uint64 = value;
@@ -379,35 +379,4 @@ void TTValue::get(TTUInt16 index, TTUInt64 &value) const
 }
 
 
-// make sure this is a friend so that it can access the private members of the other atom
-friend bool TTValue::operator == (const TTValue &a1, const TTValue &a2){
-	short 	i;
-
-	if(a1.numValues != a2.numValues)
-		return false;
-
-	for(i=0; i < a1.numValues; i++){
-		if(a1.type[i] != a2.type[i])
-			return false;
-		else{
-			switch(a1.type[i]){
-				case kTypeInt32:
-					if( (a1.data+i)->int32 == (a1.data+i)->int32 )
-						return false;
-				case kTypeUInt32:
-					if( (a1.data+i)->uint32 == (a1.data+i)->uint32 )
-						return false;
-				case kTypeFloat32:
-					if( (a1.data+i)->float32 == (a1.data+i)->float32 )
-						return false;
-				case kTypeFloat64:
-					if( (a1.data+i)->float64 == (a1.data+i)->float64 )
-						return false;
-				default:
-					return false;
-			}
-		}
-	}
-	return true;
-}
 

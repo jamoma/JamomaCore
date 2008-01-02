@@ -10,10 +10,11 @@
 #define __TT_VALUE_H__
 
 #include "TTElement.h"
+#include "TTSymbol.h"
 
 
-/** A type that can be used to store a pointer to a message */
-typedef TTErr (TTMessageMethod)(TTSymbol& name, TTValue& value);
+class TTObject;
+
 
 // macro for converting from one type to another regardless of type
 #define	CONVERT switch(*(type+index)){\
@@ -61,21 +62,19 @@ public:
 		kTypeInt64,
 		kTypeUInt64,
 		kTypeObject,
-		kTypeBoolean,
-		kTypeMessage
-	};
+		kTypeBoolean
+};
 
 private:
 	union DataValue{
-		TTFloat32	float32;
-		TTFloat64	float64;
-		TTInt32		int32;
-		TTUInt32	uint32;
-		TTInt64		int64;
-		TTUInt64	uint64;
-		TTObject	*object;
-		TTBoolean	boolean;
-		TTMessage	message;
+		TTFloat32		float32;
+		TTFloat64		float64;
+		TTInt32			int32;
+		TTUInt32		uint32;
+		TTInt64			int64;
+		TTUInt64		uint64;
+		TTObject		*object;
+		TTBoolean		boolean;
 	};
 		
 	DataType	*type;			///< array of types
@@ -100,17 +99,17 @@ public:
 
 	
 	/** Return the type of this value. */
-	data_type getType() const;		// trailing const -- this method can be used on const variables
+	DataType getType() const;		// trailing const -- this method can be used on const variables
 	
 	/** Return the number of values of this instance. */
-	tt_uint16 getNumValues() const;
+	TTUInt16 getNumValues() const;
 	
 private:
 	/** Internal method for setting the type of a value. */
-	void setType(data_type arg);
+	void setType(DataType arg);
 	
 	/** Internal method for setting the number of values, and allocating any needed memory. */	
-	void setNumValues(const tt_uint16 arg);
+	void setNumValues(const TTUInt16 arg);
 	
 public:
 	TTValue& operator = (const TTValue &newValue);
@@ -130,15 +129,15 @@ public:
 	operator int() const;
 
 	// UINT32
-	TTValue& operator = (tt_uint32 value);
-	operator tt_uint32() const;
+	TTValue& operator = (TTUInt32 value);
+	operator TTUInt32() const;
 
 	// INT64
-	TTValue& operator = (int64 value);
-	operator tt_int64() const;
+	TTValue& operator = (TTInt64 value);
+	operator TTInt64() const;
 
 	// UINT64
-	TTValue& operator = (tt_uint64 value);
+	TTValue& operator = (TTUInt64 value);
 	operator TTUInt64() const;
 
 
@@ -163,7 +162,37 @@ public:
 
 
 	// make sure this is a friend so that it can access the private members of the other atom
-	friend bool operator == (const TTValue &a1, const TTValue &a2);
+	friend bool operator == (const TTValue &a1, const TTValue &a2)
+	{
+		short 	i;
+
+		if(a1.numValues != a2.numValues)
+			return false;
+
+		for(i=0; i < a1.numValues; i++){
+			if(a1.type[i] != a2.type[i])
+				return false;
+			else{
+				switch(a1.type[i]){
+					case kTypeInt32:
+						if( (a1.data+i)->int32 == (a1.data+i)->int32 )
+							return false;
+					case kTypeUInt32:
+						if( (a1.data+i)->uint32 == (a1.data+i)->uint32 )
+							return false;
+					case kTypeFloat32:
+						if( (a1.data+i)->float32 == (a1.data+i)->float32 )
+							return false;
+					case kTypeFloat64:
+						if( (a1.data+i)->float64 == (a1.data+i)->float64 )
+							return false;
+					default:
+						return false;
+				}
+			}
+		}
+		return true;
+	}
 	
 /*
 		// This method is the basis of the macro at the top of this file

@@ -22,24 +22,38 @@
 	This current implementation has an internal table that is implemented as a fixed array.
 	Each symbol is identified by its index in this array.
 */
-class TTSymbol : TTElement {
+class TTSymbol : public TTElement {
 private:
 	TTString				string;				///< the actual string represented by this symbol
 	TTUInt32				id;					///< a unique identifier for the given string
-	static TTSymbol*		symbolTable;		///< The shared symbol table for the class
+	static TTSymbol**		symbolTable;		///< The shared symbol table for the class
 	static TTUInt32			symbolTableSize;	///< The size of the symbol table
 
 public:
 	TTSymbol(TTString newString);
 	virtual	~TTSymbol();
+	
+	/** Copy Constructor */
+	TTSymbol(const TTSymbol& oldSymbol);
 
 	const TTString			getString();
 	const TTUInt32			getId();
-	TTBoolean				compare(TTString &anotherString);
+	TTBoolean				compare(TTSymbol& anotherSymbol);
+	
+	// make sure this is a friend so that it can access the private members of the other atom
+	friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
+	{
+		if(symbol1.id == symbol2.id)
+			return true;
+		else
+			return false;
+	}
+
+	//friend bool operator == (const TTValue& a1, const TTValue& a2);
 
 	/** Look in the symbol table for this string.  If it exists then return its id.  
 	 *	If it does not exist then it is created, added to the symbol table and this new symbol's id is returned. */
-	static const TTUInt32	lookup(TTString string);
+	static const TTSymbol*	lookup(const TTString string);
 };
 
 

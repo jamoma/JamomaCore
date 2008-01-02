@@ -8,7 +8,7 @@
 
 #include "TTSymbol.h"
 
-TTSymbol*	TTSymbol::symbolTable = NULL;
+TTSymbol**	TTSymbol::symbolTable = NULL;
 TTUInt32	TTSymbol::symbolTableSize = 0;
 
 
@@ -16,22 +16,30 @@ TTUInt32	TTSymbol::symbolTableSize = 0;
 
 TTSymbol::TTSymbol(TTString newString)
 {
-	strcpy(string, name);
+	strcpy(string, newString);
 	id = symbolTableSize;
 	
 	if(symbolTableSize)
-		symbolTable = realloc(symbolTable, sizeof(TTSymbol) * (symbolTableSize + 1));
+		symbolTable = (TTSymbol**)realloc(symbolTable, sizeof(TTSymbol*) * (symbolTableSize + 1));
 	else
-		symbolTable = (TTString*)malloc(sizeof(TTSymbol));
+		symbolTable = (TTSymbol**)malloc(sizeof(TTSymbol*));
 	symbolTableSize++;
 	
-	symbolTable[symbolTableSize-1] = this;	
+	symbolTable[symbolTableSize-1] = this;
 }
 
 
 TTSymbol::~TTSymbol()
 {
 	;
+}
+
+
+// Copy Constructor
+TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
+{
+	id = oldSymbol.id;
+	strcpy(string, oldSymbol.string);
 }
 
 
@@ -47,28 +55,38 @@ const TTUInt32 TTSymbol::getId()
 }
 
 
-TTBoolean TTSymbol::compare(TTSymbol &anotherString)
+TTBoolean TTSymbol::compare(TTSymbol &anotherSymbol)
 {
-	;	// TODO: implement this
+	return kTTErrNone;	// TODO: implement this
 }
+
+/*
+// make sure this is a friend so that it can access the private members of the other atom
+//friend bool TTValue::operator == (const TTValue &a1, const TTValue &a2)
+friend bool TTSymbol::operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
+{
+	if(symbol1.id == symbol2.id)
+		return true;
+	else
+		return false;
+}
+*/
 
 
 /****************************************************************************************************/
 // Shared (static) Methods
 
-const TTUInt32 TTSymbol::lookup(TTString string)
+const TTSymbol* TTSymbol::lookup(const TTString string)
 {
 	TTUInt32	i;
-	TTSymbol	*aSymbol;
 	
 	for(i=0; i<symbolTableSize; i++){
 		if(!strcmp(string, symbolTable[i]->getString())){
-			return i;	// we found it, so return the id
+			return symbolTable[i];	// we found it
 		}
 	}
 	
 	// If we are here then the symbol wasn't found, so we need to create it
-	aSymbol = new TTSymbol(string);
-	return aSymbol->getId();
+	return new TTSymbol(string);
 }
 

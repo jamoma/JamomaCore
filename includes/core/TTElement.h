@@ -18,7 +18,7 @@
 // Type Definitions
 
 typedef unsigned char		TTBoolean;			// same as Boolean on the Mac
-typedef unsigned char*		TTString;
+typedef char*				TTString;
 
 typedef signed char			TTInt8;
 typedef unsigned char		TTUInt8;
@@ -47,11 +47,11 @@ typedef short				TTErr;
  *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.
  */
 enum TTErrorCodes{
-	TT_ERR_NONE = 0,		///< No Error.
-	TT_ERR_GENERIC,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
-	TT_ERR_ALLOC_FAILED,	///< Couldn't get memory -- TODO: perhaps this error num or description should change?
-	TT_ERR_FREE_FAILED,		///< Couldn't free memory -- TODO: perhaps this error num or description should change?
-	TT_ERR_ATTR_INVALID		///< This is left-over from TTBlue version 0.3.x where attribute handling was done manually. It is unclear whether or not this still serves a purpose.
+	kTTErrNone = 0,			///< No Error.
+	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
+	kTTErrAllocFailed,		///< Couldn't get memory -- TODO: perhaps this error num or description should change?
+	kTTErrFreeFailed,		///< Couldn't free memory -- TODO: perhaps this error num or description should change?
+	kTTErrAttrInvalid		///< This is left-over from TTBlue version 0.3.x where attribute handling was done manually. It is unclear whether or not this still serves a purpose.
 };
 
 
@@ -96,7 +96,7 @@ public:
 	
 	/** A fast routine for clipping a number to a range.  This routine does not use branching. */
 	template<class T>
-	static T tt_base::clip(T value, T low_bound, T high_bound)
+	static T TTElement::clip(T value, T low_bound, T high_bound)
 	{
 		#ifdef MAC_VERSION
 			value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
@@ -109,7 +109,7 @@ public:
 
 	/** A fast routine for clipping a number to a maximum range.  The bottom end of the range is not checked.  This routine does not use branching. */
 	template<class T>
-	static T tt_base::limit_max(T value, T high_bound)
+	static T TTElement::limit_max(T value, T high_bound)
 	{
 		value = high_bound - value;
 		#ifdef MAC_VERSION
@@ -125,7 +125,7 @@ public:
 	/** A fast routine for clipping a number on it's low range.  The high end of the range is not checked.  
 		This routine does not use branching. */
 	template<class T>
-	static T tt_base::limit_min(T value, T low_bound)
+	static T TTElement::limit_min(T value, T low_bound)
 	{
 		value -= low_bound;
 		#ifdef MAC_VERSION
@@ -141,7 +141,7 @@ public:
 	/** A fast routine for wrapping around the range once.  This is faster than doing an expensive module, where you know the range of the input
 	 	will not equal or exceed twice the range. */
 	template<class T>
-	static T tt_base::onewrap(T value, T low_bound, T high_bound)
+	static T TTElement::onewrap(T value, T low_bound, T high_bound)
 	{
 		if((value >= low_bound) && (value < high_bound)) 
 			return value;
@@ -153,7 +153,7 @@ public:
 
 	/** A utility for scaling one range of values onto another range of values. */
 	template<class T>
-	static T tt_base::scale(T value, T inlow, T inhigh, T outlow, T outhigh)
+	static T TTElement::scale(T value, T inlow, T inhigh, T outlow, T outhigh)
 	{
 		double inscale, outdiff;
 		 
