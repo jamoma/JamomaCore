@@ -59,7 +59,7 @@
 		22BFF6820D2AF40F00BD97E5 /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = ../../includes/core/TTValue.h; sourceTree = SOURCE_ROOT; };
 		22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
-		542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.degrade~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		542ED84F09C02A0000DBC7EB /* tt.dcblock~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.dcblock~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +123,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */,
+				542ED84F09C02A0000DBC7EB /* tt.dcblock~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,7 +206,7 @@
 			name = "MaxObject External";
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = MSPExternal;
-			productReference = 542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */;
+			productReference = 542ED84F09C02A0000DBC7EB /* tt.dcblock~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -326,7 +326,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "tt.degrade~";
+				PRODUCT_NAME = "tt.dcblock~";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -383,7 +383,7 @@
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "tt.degrade~";
+				PRODUCT_NAME = "tt.dcblock~";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
 				USER_HEADER_SEARCH_PATHS = "";
