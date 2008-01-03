@@ -1,6 +1,6 @@
 /* 
  * TTBlue Object Base Class
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -25,7 +25,32 @@ typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
 
 
 /****************************************************************************************************/
-// Class Specification
+// Class Specifications
+
+
+
+/**
+	This class represents a single parameter, as used by the TTObject class.
+*/
+class TTParameter : TTElement {
+private:
+public:
+	// Should make this group private, but to get things working initially, we're leaving them public...
+	const TTSymbol*		name;		///< the name of the parameter
+	TTDataType			type;		///< the data type of the parameter value
+	TTUInt32			offset;		///< offset into the class/struct of the parameter value
+	TTMethod			getter;		///< method to fetch the parameter value
+	TTMethod			setter;		///< method to set the parameter value
+
+
+	TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset);
+	TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset, TTMethod newGetter, TTMethod newSetter);
+	virtual ~TTParameter();
+
+	TTErr defaultGetter(const TTSymbol& name, TTValue& value);
+	TTErr defaultSetter(const TTSymbol& name, TTValue& value);
+};
+
 
 /**
 	At the moment this class uses really lame associative arrays to keep track of messages and 
@@ -34,13 +59,14 @@ typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
 */
 class TTObject : public TTElement {
 private:
-	const TTSymbol	*messageNames[10];
-	TTMethod	messageTargets[10];
+	const TTSymbol*	messageNames[10];
+	TTMethod		messageTargets[10];
 	TTUInt8			messageCount;
-	const TTSymbol	*parameterNames[10];
-	TTMethod	parameterTargets[10];
+	const TTSymbol*	parameterNames[10];
+//	TTMethod		parameterTargets[10];
+	TTParameter*	parameterObjects[10];
 	TTUInt8			parameterCount;
-	
+
 public:
 	TTObject();
 	virtual ~TTObject();
@@ -52,8 +78,8 @@ public:
 		The the end-user calls setParameter() on the object (which is defined in 
 		the base class only) and it dispatches the message as appropriate.
 	*/
-	TTErr registerParameter(const TTSymbol& name, TTSymbol& type, long offset);
-	TTErr registerParameter(const TTSymbol& name, TTSymbol& type, long offset, TTMethod getter, TTMethod setter);
+	TTErr registerParameter(const TTSymbol& name, TTDataType type, long offset);
+	TTErr registerParameter(const TTSymbol& name, TTDataType type, long offset, TTMethod getter, TTMethod setter);
 	TTErr setParameterValue(const TTSymbol& name, TTValue& value);
 	TTErr getParameterValue(const TTSymbol& name, TTValue& value);
 	TTErr setParameterValue(const TTSymbol& name, TTUInt32& value);	// convenience wrappers...

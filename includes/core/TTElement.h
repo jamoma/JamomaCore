@@ -43,10 +43,30 @@ typedef short				TTErr;
 
 /****************************************************************************************************/
 
-/**	TapTools Error Codes
- *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.
- */
-enum TTErrorCodes{
+/**	TTBlue Data Types
+ *	Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
+ *	TTParameter objects.																			*/
+enum TTDataType{
+	kTypeNone = 0,
+	kTypeFloat32,
+	kTypeFloat64,
+	kTypeInt8,
+	kTypeUInt8,
+	kTypeInt16,
+	kTypeUInt16,
+	kTypeInt32,
+	kTypeUInt32,
+	kTypeInt64,
+	kTypeUInt64,
+	kTypeSymbol,
+	kTypeObject,
+	kTypeBoolean
+};
+
+
+/**	TTBlue Error Codes
+ *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
+enum TTErrorCode{
 	kTTErrNone = 0,			///< No Error.
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
 	kTTErrAllocFailed,		///< Couldn't get memory -- TODO: perhaps this error num or description should change?
@@ -55,15 +75,13 @@ enum TTErrorCodes{
 };
 
 
-
 /****************************************************************************************************/
 // Class Specification
 
 /**	The required base-class from which all TTBlue objects must inherit.
  *	This object is the primary base-class for all TTBlue objects, including TTObject.  
  *	It does not define any core audio, parameter, or other high-level functionality.  For
- *	these refer to TTObject and TTAudioObject.
- */
+ *	these refer to TTObject and TTAudioObject.														*/
 class TTElement {
 public:
 	static const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table

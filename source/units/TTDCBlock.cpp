@@ -11,9 +11,15 @@
 
 TTDCBlock::TTDCBlock()
 {
-	registerMessage(*TTSymbol::lookup("clear"), (TTMethod)&TTDCBlock::clear);	// make the clear method public
-	setProcess((TTProcessMethod)&TTDCBlock::processAudio);						// tell the base class what routine to use for processing audio
-	clear();																	// clear our feedback storage variables
+	TTValue		v;
+	TTSymbol	s("");
+
+	registerMessage("clear", (TTMethod)&TTDCBlock::clear);		// make the clear method public
+	registerParameter("bypass", kTypeInt32, 0, (TTMethod)NULL, (TTMethod)&TTDCBlock::setBypass);
+
+	clear();					// clear our feedback storage variables
+	v=0;
+	setBypass(s, v);			// set default and the process method
 }
 
 
@@ -31,6 +37,17 @@ TTErr TTDCBlock::clear()
 		lastInput[i] = 0;
 		lastOutput[i] = 0;
 	}
+	return kTTErrNone;
+}
+
+
+TTErr TTDCBlock::setBypass(TTSymbol& name, TTValue& value)
+{
+	attrBypass = value;
+	if(attrBypass)
+		setProcess((TTProcessMethod)&TTAudioObject::bypassProcess);
+	else
+		setProcess((TTProcessMethod)&TTDCBlock::processAudio);
 	return kTTErrNone;
 }
 

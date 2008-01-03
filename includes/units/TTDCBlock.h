@@ -17,6 +17,7 @@ class TTDCBlock : public TTAudioObject {
 private:
 	double	 	lastInput[TT_MAX_NUM_CHANNELS];		///<  Feedback values used for the audio filter			
 	double		lastOutput[TT_MAX_NUM_CHANNELS];	///< Feedback values used for the audio filter
+	TTUInt32	attrBypass;
 
 public:
 
@@ -34,6 +35,9 @@ public:
 	 *	@return Returns a TTErr error code.
 	 */
 	TTErr clear();
+	
+	/**	Setter for the bypass attribute. */
+	TTErr setBypass(TTSymbol& name, TTValue& value);
 
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number

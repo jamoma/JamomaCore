@@ -31,12 +31,13 @@ typedef struct _dcblock	{
 
 
 // Prototypes for methods: need a method for each incoming message type
-void *dcblock_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
-void dcblock_free(t_dcblock *x);
-void dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst);	// Assistance Method
-t_int *dcblock_perform(t_int *w);											// An MSP Perform (signal) Method
-void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count);				// DSP Method
-void dcblock_clear(t_dcblock *x);
+void*		dcblock_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
+void		dcblock_free(t_dcblock *x);
+void		dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst);	// Assistance Method
+t_int*		dcblock_perform(t_int *w);											// An MSP Perform (signal) Method
+void		dcblock_dsp(t_dcblock *x, t_signal **sp, short *count);				// DSP Method
+void		dcblock_clear(t_dcblock *x);
+t_max_err	dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv);
 
 // Globals
 t_class *dcblock_class;				// Required. Global pointing to this class
@@ -62,7 +63,7 @@ int main(void)
 	class_addmethod(c, (method)dcblock_assist, 			"assist",	A_CANT, 0L); 
 
 	attr = attr_offset_new("bypass", _sym_long, attrflags,
-		(method)0L,(method)0L, calcoffset(t_dcblock, attr_bypass));
+		(method)0L,(method)dcblock_setBypass, calcoffset(t_dcblock, attr_bypass));
 	class_addattr(c, attr);	
 
 	class_dspinit(c);						// Setup object's class to work with MSP
@@ -76,7 +77,7 @@ int main(void)
 /************************************************************************************/
 // Object Creation Method
 
-void *dcblock_new(t_symbol *msg, short argc, t_atom *argv)
+void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 {
     t_dcblock	*x;
 	TTValue		sr(sys_getsr());
@@ -176,4 +177,17 @@ void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 	
 	// We add the dsp routine for the maximum number of channels
 	dsp_add(dcblock_perform, 6, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[3]->s_vec, sp[0]->s_n);
+}
+
+
+t_max_err dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv)
+{
+	TTSymbol	name("bypass");
+	TTValue		value;
+
+	if(argc){
+		value = x->attr_bypass = atom_getlong(argv);
+		x->dcblock->setParameterValue(name, value);
+	}
+	return MAX_ERR_NONE;
 }

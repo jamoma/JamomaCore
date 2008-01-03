@@ -52,19 +52,6 @@ class TTObject;
  */
 
 class TTValue : TTElement {
-public:
-	enum DataType{
-		kTypeNone = 0,
-		kTypeFloat32,
-		kTypeFloat64,
-		kTypeInt32,
-		kTypeUInt32,
-		kTypeInt64,
-		kTypeUInt64,
-		kTypeObject,
-		kTypeBoolean
-};
-
 private:
 	union DataValue{
 		TTFloat32		float32;
@@ -77,7 +64,7 @@ private:
 		TTBoolean		boolean;
 	};
 		
-	DataType	*type;			///< array of types
+	TTDataType	*type;			///< array of types
 	DataValue	*data;			///< array of values
 	TTUInt16	numValues;		///< number of values
 	
@@ -99,14 +86,14 @@ public:
 
 	
 	/** Return the type of this value. */
-	DataType getType() const;		// trailing const -- this method can be used on const variables
+	TTDataType getType() const;		// trailing const -- this method can be used on const variables
 	
 	/** Return the number of values of this instance. */
 	TTUInt16 getNumValues() const;
 	
 private:
 	/** Internal method for setting the type of a value. */
-	void setType(DataType arg);
+	void setType(TTDataType arg);
 	
 	/** Internal method for setting the number of values, and allocating any needed memory. */	
 	void setNumValues(const TTUInt16 arg);

@@ -15,7 +15,7 @@ TTValue::TTValue()
 {
 	data = new DataValue;
 	data->float64 = 0.0;
-	type = new DataType;
+	type = new TTDataType;
 	*type = kTypeNone;
 	numValues = 1;
 }
@@ -24,7 +24,7 @@ TTValue::TTValue(TTFloat32 initialValue)
 {
 	data = new DataValue;
 	data->float32 = initialValue;
-	type = new DataType;
+	type = new TTDataType;
 	*type = kTypeFloat32;
 	numValues = 1;
 }
@@ -33,7 +33,7 @@ TTValue::TTValue(TTFloat64 initialValue)
 {
 	data = new DataValue;
 	data->float32 = initialValue;
-	type = new DataType;
+	type = new TTDataType;
 	*type = kTypeFloat64;
 	numValues = 1;
 }
@@ -42,7 +42,7 @@ TTValue::TTValue(TTInt32 initialValue)
 {
 	data = new DataValue;
 	data->int32 = initialValue;
-	type = new DataType;
+	type = new TTDataType;
 	*type = kTypeInt32;
 	numValues = 1;
 }
@@ -51,7 +51,7 @@ TTValue::TTValue(TTUInt32 initialValue)
 {
 	data = new DataValue;
 	data->uint32 = initialValue;
-	type = new DataType;
+	type = new TTDataType;
 	*type = kTypeUInt32;
 	numValues = 1;
 }
@@ -60,7 +60,7 @@ TTValue::TTValue(TTInt64 initialValue)
 {
 	data = new DataValue;
 	data->int64 = initialValue;
-	type = new DataType;
+	type = new TTDataType;
 	*type = kTypeInt64;
 	numValues = 1;
 }
@@ -69,7 +69,7 @@ TTValue::TTValue(TTUInt64 initialValue)
 {
 	data = new DataValue;
 	data->uint64 = initialValue;
-	type = new DataType;
+	type = new TTDataType;
 	*type = kTypeUInt64;
 	numValues = 1;
 }
@@ -92,7 +92,7 @@ TTValue::~TTValue()
 }
 
 	
-TTValue::DataType TTValue::getType() const
+TTDataType TTValue::getType() const
 {
 	return *type;
 }
@@ -105,7 +105,7 @@ TTUInt16 TTValue::getNumValues() const
 
 
 
-void TTValue::setType(DataType arg)
+void TTValue::setType(TTDataType arg)
 {
 	*type = arg;
 }
@@ -116,7 +116,7 @@ void TTValue::setNumValues(const TTUInt16 arg)
 	if(arg > numValues){
 		delete []type;
 		delete []data;
-		type = new DataType[arg];
+		type = new TTDataType[arg];
 		data = new DataValue[arg];
 	}
 	numValues = arg;

@@ -11,6 +11,51 @@
 
 /****************************************************************************************************/
 
+TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset)
+{
+	name = &newName;
+	type = newType;
+	offset = newOffset;
+	getter = (TTMethod)&TTParameter::defaultGetter;
+	setter = (TTMethod)&TTParameter::defaultSetter;
+}
+
+
+TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset, TTMethod newGetter, TTMethod newSetter)
+{
+	name = &newName;
+	type = newType;
+	offset = newOffset;
+	if(getter)
+		getter = newGetter;
+	else
+		getter = (TTMethod)&TTParameter::defaultGetter;	
+	if(setter)
+		setter = newSetter;
+	else
+		setter = (TTMethod)&TTParameter::defaultSetter;
+}
+
+
+TTParameter::~TTParameter()
+{
+	;
+}
+
+
+TTErr TTParameter::defaultGetter(const TTSymbol& name, TTValue& value)
+{
+	return kTTErrNone;
+}
+
+
+TTErr TTParameter::defaultSetter(const TTSymbol& name, TTValue& value)
+{
+	return kTTErrNone;
+}
+
+
+
 TTObject::TTObject()
 {
 	messageCount = 0;
@@ -20,24 +65,43 @@ TTObject::TTObject()
 
 TTObject::~TTObject()
 {
-	;
+	TTUInt16	i;
+
+	for(i=0; i<parameterCount; i++)
+		delete parameterObjects[i];
 }
 
 
-TTErr TTObject::registerParameter(const TTSymbol& name, TTSymbol& type, long offset)
+TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, long offset)
 {
+	parameterNames[parameterCount] = &name;
+	parameterObjects[parameterCount] = new TTParameter(name, type, offset);
+	parameterCount++;
 	return kTTErrNone;
 }
 
 
-TTErr TTObject::registerParameter(const TTSymbol& name, TTSymbol& type, long offset, TTMethod getter, TTMethod setter)
+TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, long offset, TTMethod getter, TTMethod setter)
 {
+	parameterNames[parameterCount] = &name;
+	parameterObjects[parameterCount] = new TTParameter(name, type, offset, getter, setter);
+	parameterCount++;
 	return kTTErrNone;
 }
 
 
 TTErr TTObject::setParameterValue(const TTSymbol& name, TTValue& value)
 {
+	TTUInt8		i;
+	TTParameter	*parameter;
+	
+	for(i=0; i<parameterCount; i++){
+		if(*parameterNames[i] == name){
+			parameter = parameterObjects[i];
+			(this->*parameter->setter)(name, value);
+			break;
+		}
+	}
 	return kTTErrNone;
 }
 

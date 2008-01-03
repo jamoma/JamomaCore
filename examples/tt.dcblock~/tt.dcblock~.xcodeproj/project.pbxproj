@@ -140,6 +140,7 @@
 		22BFF6630D2AB51200BD97E5 /* TTBlue-Units */ = {
 			isa = PBXGroup;
 			children = (
+				22BFF67A0D2AF40600BD97E5 /* TTDCBlock.h */,
 				22BFF6700D2AF3C800BD97E5 /* TTDCBlock.cpp */,
 			);
 			name = "TTBlue-Units";
@@ -155,7 +156,6 @@
 				22BFF6800D2AF40F00BD97E5 /* TTObject.h */,
 				22BFF6810D2AF40F00BD97E5 /* TTSymbol.h */,
 				22BFF6820D2AF40F00BD97E5 /* TTValue.h */,
-				22BFF67A0D2AF40600BD97E5 /* TTDCBlock.h */,
 			);
 			name = "TTBlue-Headers";
 			sourceTree = "<group>";
