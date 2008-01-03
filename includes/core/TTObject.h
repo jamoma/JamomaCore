@@ -13,14 +13,10 @@
 #include "TTSymbol.h"
 #include "TTValue.h"
 #include "TTValueCache.h"
-//#include "TTList.h"
-//#include "TTHash.h"
 
 
-/** A type that can be used to store a pointer to an arbitrary message */
-//typedef TTErr (*TTMethod)(const void *target, const TTSymbol& methodName, TTValue& value);
-
-class TTParameter;	// forward declaration of TTParameter so the compiler is okay with the following typedefs
+// forward declaration of TTParameter so the compiler is okay with the following typedefs
+class TTParameter;
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(TTValue& value, const TTSymbol& methodName);
@@ -46,17 +42,17 @@ public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
 	const TTSymbol*		name;		///< the name of the parameter
 	TTDataType			type;		///< the data type of the parameter value
-	TTUInt32			offset;		///< offset into the class/struct of the parameter value
+	void*				address;	///< pointer to the memory holding the parameter value
 	TTGetterMethod		getter;		///< method to fetch the parameter value
 	TTSetterMethod		setter;		///< method to set the parameter value
 
 
-	TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset);
-	TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset, TTGetterMethod newGetter, TTSetterMethod newSetter);
+	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress);
+	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	virtual ~TTParameter();
 
-	TTErr defaultGetter(const TTSymbol& name, TTValue& value);
-	TTErr defaultSetter(const TTSymbol& name, TTValue& value);
+	TTErr defaultGetter(TTValue& value, const TTParameter& parameter);
+	TTErr defaultSetter(const TTValue& value, const TTParameter& parameter);
 };
 
 
@@ -85,13 +81,14 @@ public:
 		The the end-user calls setParameter() on the object (which is defined in 
 		the base class only) and it dispatches the message as appropriate.
 	*/
-	TTErr registerParameter(const TTSymbol& name, TTDataType type, long offset);
-	TTErr registerParameter(const TTSymbol& name, TTDataType type, long offset, TTGetterMethod getter, TTSetterMethod setter);
-	TTErr setParameterValue(const TTSymbol& name, TTValue& value);
+	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address);
+	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	
+	TTErr setParameterValue(const TTSymbol& name, const TTValue& value);
 	TTErr getParameterValue(const TTSymbol& name, TTValue& value);
-	TTErr setParameterValue(const TTSymbol& name, TTUInt32& value);	// convenience wrappers...
+	TTErr setParameterValue(const TTSymbol& name, const TTUInt32& value);	// convenience wrappers...
 	TTErr getParameterValue(const TTSymbol& name, TTUInt32& value);
-	TTErr setParameterValue(const TTSymbol& name, TTFloat32& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTFloat32& value);
 	TTErr getParameterValue(const TTSymbol& name, TTFloat32& value);
 	
 	static TTErr setGlobalParameterValue(const TTSymbol& name, TTValue& value);

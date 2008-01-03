@@ -34,8 +34,8 @@ typedef struct _dcblock	{
 void*		dcblock_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
 void		dcblock_free(t_dcblock *x);
 void		dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst);	// Assistance Method
-t_int*		dcblock_perform(t_int *w);											// An MSP Perform (signal) Method
-void		dcblock_dsp(t_dcblock *x, t_signal **sp, short *count);				// DSP Method
+t_int*		dcblock_perform(t_int *w);												// An MSP Perform (signal) Method
+void		dcblock_dsp(t_dcblock *x, t_signal **sp, short *count);					// DSP Method
 void		dcblock_clear(t_dcblock *x);
 t_max_err	dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv);
 
@@ -98,7 +98,7 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 //		TTAudioObject::set_global_sr(sr);			// update Tap.Tool's global sr field
 		TTAudioObject::setGlobalParameterValue("sr", sr);
 	
-		x->dcblock = new TTDCBlock;
+		x->dcblock = new TTDCBlock(2);
 		x->audio_in = new TTAudioSignal(2);		// assume stereo initially
 		x->audio_out = new TTAudioSignal(2);
 	}

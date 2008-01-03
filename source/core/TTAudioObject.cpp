@@ -9,10 +9,20 @@
 #include "TTAudioObject.h"
 
 
+TTUInt32 TTAudioObject::globalSr = 44100;
+
+
 /****************************************************************************************************/
 
-TTAudioObject::TTAudioObject()
+TTAudioObject::TTAudioObject(TTUInt8 newMaxNumChannels)
 {
+	registerParameter(TT("maxNumChannels"), kTypeUInt8, &maxNumChannels);
+	registerParameter(TT("sr"),				kTypeUInt32, &sr, (TTGetterMethod)NULL, (TTSetterMethod)&TTAudioObject::setSr);
+
+	maxNumChannels = newMaxNumChannels;
+	setSr(globalSr);
+	//setParameterValue(TT("maxNumChannels"), newMaxNumChannels);
+	//setParameterValue(TT("sr"), globalSr);
 	setProcess(&TTAudioObject::bypassProcess);
 }
 
@@ -22,7 +32,23 @@ TTAudioObject::~TTAudioObject()
 	;
 }
 		
-	
+
+TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
+{
+	maxNumChannels = newValue;
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioObject::setSr(const TTValue& newValue)
+{
+	sr = newValue;
+	srInv = 1.0/sr;
+	srMill = sr * 0.0001;
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
