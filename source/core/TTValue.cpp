@@ -38,6 +38,42 @@ TTValue::TTValue(TTFloat64 initialValue)
 	numValues = 1;
 }
 
+TTValue::TTValue(TTInt8 initialValue)
+{
+	data = new DataValue;
+	data->int8 = initialValue;
+	type = new TTDataType;
+	*type = kTypeInt8;
+	numValues = 1;
+}
+
+TTValue::TTValue(TTUInt8 initialValue)
+{
+	data = new DataValue;
+	data->uint8 = initialValue;
+	type = new TTDataType;
+	*type = kTypeUInt8;
+	numValues = 1;
+}
+
+TTValue::TTValue(TTInt16 initialValue)
+{
+	data = new DataValue;
+	data->int16 = initialValue;
+	type = new TTDataType;
+	*type = kTypeInt16;
+	numValues = 1;
+}
+
+TTValue::TTValue(TTUInt16 initialValue)
+{
+	data = new DataValue;
+	data->uint16 = initialValue;
+	type = new TTDataType;
+	*type = kTypeUInt16;
+	numValues = 1;
+}
+
 TTValue::TTValue(TTInt32 initialValue)
 {
 	data = new DataValue;
@@ -174,6 +210,90 @@ TTValue::operator TTFloat64() const
 }
 
 
+// INT8
+TTValue& TTValue::operator = (TTInt8 value)
+{
+	*type = kTypeInt8;
+	data->int8 = value;
+	return *this;
+}
+
+TTValue::operator TTInt8() const
+{
+	if(*type == kTypeInt8)
+		return data->int8;
+	else{
+		TTUInt16 index = 0;
+		TTInt8 value;
+		CONVERT
+		return value;
+	}
+}
+
+
+// UINT8
+TTValue& TTValue::operator = (TTUInt8 value)
+{
+	*type = kTypeUInt8;
+	data->uint8 = value;
+	return *this;
+}
+
+TTValue::operator TTUInt8() const
+{
+	if(*type == kTypeUInt8)
+		return data->uint8;
+	else{
+		TTUInt16 index = 0;
+		TTUInt8 value;
+		CONVERT
+		return value;
+	}
+}
+
+
+// INT16
+TTValue& TTValue::operator = (TTInt16 value)
+{
+	*type = kTypeInt16;
+	data->int16 = value;
+	return *this;
+}
+
+TTValue::operator TTInt16() const
+{
+	if(*type == kTypeInt16)
+		return data->int16;
+	else{
+		TTUInt16 index = 0;
+		TTInt16 value;
+		CONVERT
+		return value;
+	}
+}
+
+
+// UINT16
+TTValue& TTValue::operator = (TTUInt16 value)
+{
+	*type = kTypeUInt16;
+	data->uint16 = value;
+	return *this;
+}
+
+TTValue::operator TTUInt16() const
+{
+	if(*type == kTypeUInt16)
+		return data->uint16;
+	else{
+		TTUInt16 index = 0;
+		TTUInt16 value;
+		CONVERT
+		return value;
+	}
+}
+
+
 // INT32
 TTValue& TTValue::operator = (TTInt32 value)
 {
@@ -193,7 +313,7 @@ TTValue::operator TTInt32() const
 		return value;
 	}
 }
-
+/*
 TTValue& TTValue::operator = (int value)
 {
 	*type = kTypeInt32;
@@ -212,7 +332,7 @@ TTValue::operator int() const
 		return value;
 	}
 }
-
+*/
 
 // UINT32
 TTValue& TTValue::operator = (TTUInt32 value)
@@ -289,18 +409,42 @@ void TTValue::set(TTUInt16 index, const TTFloat64 value)
 	data->float64 = value;
 }
 
+void TTValue::set(TTUInt16 index, const TTInt8 value)
+{
+	*type = kTypeInt8;
+	data->int8 = value;
+}
+
+void TTValue::set(TTUInt16 index, const TTUInt8 value)
+{
+	*type = kTypeUInt8;
+	data->uint8 = value;
+}
+
+void TTValue::set(TTUInt16 index, const TTInt16 value)
+{
+	*type = kTypeInt16;
+	data->int16 = value;
+}
+
+void TTValue::set(TTUInt16 index, const TTUInt16 value)
+{
+	*type = kTypeUInt16;
+	data->uint16 = value;
+}
+
 void TTValue::set(TTUInt16 index, const TTInt32 value)
 {
 	*type = kTypeInt32;
 	data->int32 = value;
 }
-
+/*
 void TTValue::set(TTUInt16 index, const int value)
 {
 	*type = kTypeInt32;
 	data->int32 = value;
 }
-
+*/
 void TTValue::set(TTUInt16 index, const TTUInt32 value)
 {
 	*type = kTypeUInt32;
@@ -338,6 +482,38 @@ void TTValue::get(TTUInt16 index, TTFloat64 &value) const
 		CONVERT
 }
 
+void TTValue::get(TTUInt16 index, TTInt8 &value) const
+{
+	if(*type == kTypeInt8)
+		value = (data+index)->int8;
+	else
+		CONVERT
+}
+
+void TTValue::get(TTUInt16 index, TTUInt8 &value) const
+{
+	if(*type == kTypeUInt8)
+		value = (data+index)->uint8;
+	else
+		CONVERT
+}
+
+void TTValue::get(TTUInt16 index, TTInt16 &value) const
+{
+	if(*type == kTypeInt16)
+		value = (data+index)->int16;
+	else
+		CONVERT
+}
+
+void TTValue::get(TTUInt16 index, TTUInt16 &value) const
+{
+	if(*type == kTypeUInt16)
+		value = (data+index)->uint16;
+	else
+		CONVERT
+}
+
 void TTValue::get(TTUInt16 index, TTInt32 &value) const
 {
 	if(*type == kTypeInt32)
@@ -345,7 +521,7 @@ void TTValue::get(TTUInt16 index, TTInt32 &value) const
 	else
 		CONVERT
 }
-
+/*
 void TTValue::get(TTUInt16 index, int &value) const
 {
 	if(*type == kTypeInt32)
@@ -353,7 +529,7 @@ void TTValue::get(TTUInt16 index, int &value) const
 	else
 		CONVERT
 }
-
+*/
 void TTValue::get(TTUInt16 index, TTUInt32 &value) const
 {
 	if(*type == kTypeUInt32)

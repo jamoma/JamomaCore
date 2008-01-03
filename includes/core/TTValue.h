@@ -18,6 +18,18 @@ class TTObject;
 
 // macro for converting from one type to another regardless of type
 #define	CONVERT switch(*(type+index)){\
+			case kTypeInt8:\
+				value = (data+index)->int8;\
+				break;\
+			case kTypeUInt8:\
+				value = (data+index)->uint8;\
+				break;\
+			case kTypeInt16:\
+				value = (data+index)->int16;\
+				break;\
+			case kTypeUInt16:\
+				value = (data+index)->uint16;\
+				break;\
 			case kTypeFloat32:\
 				value = (data+index)->float32;\
 				break;\
@@ -56,6 +68,10 @@ private:
 	union DataValue{
 		TTFloat32		float32;
 		TTFloat64		float64;
+		TTInt8			int8;
+		TTUInt8			uint8;
+		TTInt16			int16;
+		TTUInt16		uint16;
 		TTInt32			int32;
 		TTUInt32		uint32;
 		TTInt64			int64;
@@ -74,6 +90,10 @@ public:
 	TTValue();
 	TTValue(TTFloat32 initialValue);
 	TTValue(TTFloat64 initialValue);
+	TTValue(TTInt8 initialValue);
+	TTValue(TTUInt8 initialValue);
+	TTValue(TTInt16 initialValue);
+	TTValue(TTUInt16 initialValue);
 	TTValue(TTInt32 initialValue);
 	TTValue(TTUInt32 initialValue);
 	TTValue(TTInt64 initialValue);
@@ -109,11 +129,27 @@ public:
 	TTValue& operator = (TTFloat64 value);
 	operator TTFloat64() const;
 
+	// INT8
+	TTValue& operator = (TTInt8 value);
+	operator TTInt8() const;
+
+	// UINT8
+	TTValue& operator = (TTUInt8 value);
+	operator TTUInt8() const;
+
+	// INT16
+	TTValue& operator = (TTInt16 value);
+	operator TTInt16() const;
+
+	// UINT16
+	TTValue& operator = (TTUInt16 value);
+	operator TTUInt16() const;
+
 	// INT32
 	TTValue& operator = (TTInt32 value);
 	operator TTInt32() const;
-	TTValue& operator = (int value);
-	operator int() const;
+//	TTValue& operator = (int value);
+//	operator int() const;
 
 	// UINT32
 	TTValue& operator = (TTUInt32 value);
@@ -130,8 +166,12 @@ public:
 
 	void set(TTUInt16 index, const TTFloat32 value);
 	void set(TTUInt16 index, const TTFloat64 value);
+	void set(TTUInt16 index, const TTInt8 value);
+	void set(TTUInt16 index, const TTUInt8 value);
+	void set(TTUInt16 index, const TTInt16 value);
+	void set(TTUInt16 index, const TTUInt16 value);
 	void set(TTUInt16 index, const TTInt32 value);
-	void set(TTUInt16 index, const int value);
+//	void set(TTUInt16 index, const int value);
 	void set(TTUInt16 index, const TTUInt32 value);
 	void set(TTUInt16 index, const TTInt64 value);
 	void set(TTUInt16 index, const TTUInt64 value);
@@ -141,8 +181,12 @@ public:
 	// Should an error be returned on failure?
 	void get(TTUInt16 index, TTFloat32 &value) const;
 	void get(TTUInt16 index, TTFloat64 &value) const;
+	void get(TTUInt16 index, TTInt8 &value) const;
+	void get(TTUInt16 index, TTUInt8 &value) const;
+	void get(TTUInt16 index, TTInt16 &value) const;
+	void get(TTUInt16 index, TTUInt16 &value) const;
 	void get(TTUInt16 index, TTInt32 &value) const;
-	void get(TTUInt16 index, int &value) const;
+//	void get(TTUInt16 index, int &value) const;
 	void get(TTUInt16 index, TTUInt32 &value) const;
 	void get(TTUInt16 index, TTInt64 &value) const;
 	void get(TTUInt16 index, TTUInt64 &value) const;
@@ -161,11 +205,29 @@ public:
 				return false;
 			else{
 				switch(a1.type[i]){
+					case kTypeInt8:
+						if( (a1.data+i)->int8 == (a1.data+i)->int8 )
+							return false;
+					case kTypeUInt8:
+						if( (a1.data+i)->uint8 == (a1.data+i)->uint8 )
+							return false;
+					case kTypeInt16:
+						if( (a1.data+i)->int16 == (a1.data+i)->int16 )
+							return false;
+					case kTypeUInt16:
+						if( (a1.data+i)->uint16 == (a1.data+i)->uint16 )
+							return false;
 					case kTypeInt32:
 						if( (a1.data+i)->int32 == (a1.data+i)->int32 )
 							return false;
 					case kTypeUInt32:
 						if( (a1.data+i)->uint32 == (a1.data+i)->uint32 )
+							return false;
+					case kTypeInt64:
+						if( (a1.data+i)->int64 == (a1.data+i)->int64 )
+							return false;
+					case kTypeUInt64:
+						if( (a1.data+i)->uint64 == (a1.data+i)->uint64 )
 							return false;
 					case kTypeFloat32:
 						if( (a1.data+i)->float32 == (a1.data+i)->float32 )
@@ -180,50 +242,6 @@ public:
 		}
 		return true;
 	}
-	
-/*
-		// This method is the basis of the macro at the top of this file
-		// substitute this method for the macro if it needs to be debugged...
-		
-		void get_converted_value(tt_uint8 &value, tt_uint16 index) const
-		{
-			switch(*(type+index)){
-				case type_int8:
-					value = (data+index)->val_int8;
-					break;
-				case type_int16:
-					value = (data+index)->val_int16;
-					break;
-				case type_int32:
-					value = (data+index)->val_int32;
-					break;
-				case type_uint8:
-					value = (data+index)->val_uint8;
-					break;
-				case type_uint16:
-					value = (data+index)->val_uint16;
-					break;
-				case type_uint32:
-					value = (data+index)->val_uint32;
-					break;
-				case type_float32:
-					value = (data+index)->val_float32;
-					break;
-				case type_float64:
-					value = (data+index)->val_float64;
-					break;
-				// we don't cast the pointer to other types...
-				//case type_pointer:
-				//	value = (data+index)->val_pointer;
-				//	break;
-				case type_char:
-					value = (data+index)->val_char;
-					break;
-			}
-		}
-*/
-
-	
 };
 
 
