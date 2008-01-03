@@ -10,8 +10,9 @@
 #define __TT_OBJECT_H__
 
 #include "TTElement.h"
-#include "TTValue.h"
 #include "TTSymbol.h"
+#include "TTValue.h"
+#include "TTValueCache.h"
 //#include "TTList.h"
 //#include "TTHash.h"
 
@@ -31,6 +32,8 @@ typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
 
 /**
 	This class represents a single parameter, as used by the TTObject class.
+	At the moment we define it in the same file because we are sharing the typedef
+	for TTMethod.
 */
 class TTParameter : TTElement {
 private:
@@ -63,7 +66,6 @@ private:
 	TTMethod		messageTargets[10];
 	TTUInt8			messageCount;
 	const TTSymbol*	parameterNames[10];
-//	TTMethod		parameterTargets[10];
 	TTParameter*	parameterObjects[10];
 	TTUInt8			parameterCount;
 

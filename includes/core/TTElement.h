@@ -14,6 +14,15 @@
 #include <iostream>
 
 
+#ifndef NO
+#define NO 0
+#endif
+
+#ifndef YES
+#define YES 1
+#endif
+
+
 /****************************************************************************************************/
 // Type Definitions
 

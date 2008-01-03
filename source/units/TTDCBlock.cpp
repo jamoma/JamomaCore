@@ -11,14 +11,11 @@
 
 TTDCBlock::TTDCBlock()
 {
-	TTValue		v;
-
 	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear);		// make the clear method public
 	registerParameter(TT("bypass"), kTypeInt32, 0, (TTMethod)NULL, (TTMethod)&TTDCBlock::setBypass);
 
-	clear();					// clear our feedback storage variables
-	v=0;
-	setBypass(TT(""), v);		// set default and the process method
+	clear();						// clear our feedback storage variables
+	setBypass(TT(""), kTTVal0);		// set default and the process method
 }
 
 
@@ -44,16 +41,13 @@ TTErr TTDCBlock::setBypass(const TTSymbol& name, TTValue& value)
 {
 	attrBypass = value;
 	if(attrBypass)
-		setProcess((TTProcessMethod)&TTAudioObject::bypassProcess);
+		return setProcess((TTProcessMethod)&TTAudioObject::bypassProcess);
 	else
-		setProcess((TTProcessMethod)&TTDCBlock::processAudio);
-	return kTTErrNone;
+		return setProcess((TTProcessMethod)&TTDCBlock::processAudio);
 }
 
 
 // DSP LOOP
-// Note: an algorithm that is frequently used in Max:
-//		"biquad~ 1.0 -1.0 -0.9997 0.0"
 TTErr TTDCBlock::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;

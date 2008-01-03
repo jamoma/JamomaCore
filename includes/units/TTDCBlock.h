@@ -11,7 +11,10 @@
 /**	TTDCBlock in an audio processor that filters out DC Offsets from an input.
  *	This class is a good example of a very simple audio filter that can process any 
  *	number of parallel audio channels.
- */ 
+ *
+ *	The algorithm is based on one that frequently used in Max:
+ *	"biquad~ 1.0 -1.0 -0.9997 0.0"
+ */
 
 class TTDCBlock : public TTAudioObject {
 private:
