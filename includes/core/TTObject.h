@@ -1,6 +1,6 @@
 /* 
  * TTBlue Object Base Class
- * Copyright © 2008, Timothy Place
+ * Copyright ï¿½ 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -20,15 +20,20 @@
 /** A type that can be used to store a pointer to an arbitrary message */
 //typedef TTErr (*TTMethod)(const void *target, const TTSymbol& methodName, TTValue& value);
 
-/** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
+class TTParameter;	// forward declaration of TTParameter so the compiler is okay with the following typedefs
 
+/** A type that can be used to store a pointer to a message for an object */
+typedef TTErr (TTObject::*TTMethod)(TTValue& value, const TTSymbol& methodName);
+
+/** A type that can be used to store a pointer to a message for an object */
+typedef TTErr (TTObject::*TTGetterMethod)(TTValue& value, const TTParameter& parameter);
+
+/** A type that can be used to store a pointer to a message for an object */
+typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTParameter& parameter);
 
 
 /****************************************************************************************************/
 // Class Specifications
-
-
 
 /**
 	This class represents a single parameter, as used by the TTObject class.
@@ -42,12 +47,12 @@ public:
 	const TTSymbol*		name;		///< the name of the parameter
 	TTDataType			type;		///< the data type of the parameter value
 	TTUInt32			offset;		///< offset into the class/struct of the parameter value
-	TTMethod			getter;		///< method to fetch the parameter value
-	TTMethod			setter;		///< method to set the parameter value
+	TTGetterMethod		getter;		///< method to fetch the parameter value
+	TTSetterMethod		setter;		///< method to set the parameter value
 
 
 	TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset);
-	TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset, TTMethod newGetter, TTMethod newSetter);
+	TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	virtual ~TTParameter();
 
 	TTErr defaultGetter(const TTSymbol& name, TTValue& value);
@@ -81,7 +86,7 @@ public:
 		the base class only) and it dispatches the message as appropriate.
 	*/
 	TTErr registerParameter(const TTSymbol& name, TTDataType type, long offset);
-	TTErr registerParameter(const TTSymbol& name, TTDataType type, long offset, TTMethod getter, TTMethod setter);
+	TTErr registerParameter(const TTSymbol& name, TTDataType type, long offset, TTGetterMethod getter, TTSetterMethod setter);
 	TTErr setParameterValue(const TTSymbol& name, TTValue& value);
 	TTErr getParameterValue(const TTSymbol& name, TTValue& value);
 	TTErr setParameterValue(const TTSymbol& name, TTUInt32& value);	// convenience wrappers...

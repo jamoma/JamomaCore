@@ -40,7 +40,7 @@ public:
 	TTErr clear();
 	
 	/**	Setter for the bypass attribute. */
-	TTErr setBypass(const TTSymbol& name, TTValue& value);
+	TTErr setBypass(TTValue& value);
 
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number

@@ -19,13 +19,5 @@ extern TTValue	kTTVal0;
 extern TTValue	kTTVal1;
 
 
-/*
-void TTValueCacheInit()
-{
-	
-	
-}
-*/
-
 #endif // __TT_VALUE_CACHE_H__
 

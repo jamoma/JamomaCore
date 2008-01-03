@@ -39,6 +39,7 @@ void		dcblock_dsp(t_dcblock *x, t_signal **sp, short *count);				// DSP Method
 void		dcblock_clear(t_dcblock *x);
 t_max_err	dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv);
 
+
 // Globals
 t_class *dcblock_class;				// Required. Global pointing to this class
 

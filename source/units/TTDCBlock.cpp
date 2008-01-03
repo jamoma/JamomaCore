@@ -12,10 +12,10 @@
 TTDCBlock::TTDCBlock()
 {
 	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear);		// make the clear method public
-	registerParameter(TT("bypass"), kTypeInt32, 0, (TTMethod)NULL, (TTMethod)&TTDCBlock::setBypass);
+	registerParameter(TT("bypass"), kTypeInt32, 0, (TTGetterMethod)NULL, (TTSetterMethod)&TTDCBlock::setBypass);
 
 	clear();						// clear our feedback storage variables
-	setBypass(TT(""), kTTVal0);		// set default and the process method
+	setBypass(kTTVal0);				// set default (bypass=no) and the process method
 }
 
 
@@ -37,7 +37,7 @@ TTErr TTDCBlock::clear()
 }
 
 
-TTErr TTDCBlock::setBypass(const TTSymbol& name, TTValue& value)
+TTErr TTDCBlock::setBypass(TTValue& value)
 {
 	attrBypass = value;
 	if(attrBypass)

@@ -16,12 +16,12 @@ TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, long newOf
 	name = &newName;
 	type = newType;
 	offset = newOffset;
-	getter = (TTMethod)&TTParameter::defaultGetter;
-	setter = (TTMethod)&TTParameter::defaultSetter;
+	getter = (TTGetterMethod)&TTParameter::defaultGetter;
+	setter = (TTSetterMethod)&TTParameter::defaultSetter;
 }
 
 
-TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset, TTMethod newGetter, TTMethod newSetter)
+TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, long newOffset, TTGetterMethod newGetter, TTSetterMethod newSetter)
 {
 	name = &newName;
 	type = newType;
@@ -29,11 +29,11 @@ TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, long newOf
 	if(getter)
 		getter = newGetter;
 	else
-		getter = (TTMethod)&TTParameter::defaultGetter;	
+		getter = (TTGetterMethod)&TTParameter::defaultGetter;	
 	if(setter)
 		setter = newSetter;
 	else
-		setter = (TTMethod)&TTParameter::defaultSetter;
+		setter = (TTSetterMethod)&TTParameter::defaultSetter;
 }
 
 
@@ -81,7 +81,7 @@ TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, long of
 }
 
 
-TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, long offset, TTMethod getter, TTMethod setter)
+TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, long offset, TTGetterMethod getter, TTSetterMethod setter)
 {
 	parameterNames[parameterCount] = &name;
 	parameterObjects[parameterCount] = new TTParameter(name, type, offset, getter, setter);
@@ -98,7 +98,7 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, TTValue& value)
 	for(i=0; i<parameterCount; i++){
 		if(*parameterNames[i] == name){
 			parameter = parameterObjects[i];
-			(this->*parameter->setter)(name, value);
+			(this->*parameter->setter)(value, *parameter);
 			break;
 		}
 	}
@@ -164,7 +164,7 @@ TTErr TTObject::sendMessage(const TTSymbol& name)
 	
 	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
-			(this->*messageTargets[i])(name, *foo);
+			(this->*messageTargets[i])(*foo, name);
 			break;
 		}
 	}
@@ -178,7 +178,7 @@ TTErr TTObject::sendMessage(const TTSymbol& name, TTValue& value)
 	
 	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
-			(this->*messageTargets[i])(name, value);
+			(this->*messageTargets[i])(value, name);
 			break;
 		}
 	}

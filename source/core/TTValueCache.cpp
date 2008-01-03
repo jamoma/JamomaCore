@@ -16,11 +16,3 @@ TTValue	kTTVal0(TTInt32(0));
 TTValue kTTVal1(TTInt32(1));
 
 
-/*
-void TTValueCacheInit()
-{
-	
-	
-}
-*/
-

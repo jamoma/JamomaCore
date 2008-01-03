@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>source/core/TTObject.cpp</string>
+	<string>examples/tt.dcblock~/tt.dcblock~.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -41,6 +41,20 @@
 	<integer>210</integer>
 	<key>metaData</key>
 	<dict>
+		<key>examples/tt.dcblock~/tt.dcblock~.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>18</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>includes/core/TTAudioObject.h</key>
 		<dict>
 			<key>caret</key>
@@ -53,7 +67,7 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>14</integer>
+			<integer>0</integer>
 		</dict>
 		<key>includes/core/TTElement.h</key>
 		<dict>
@@ -62,26 +76,26 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>45</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>13</integer>
+			<integer>0</integer>
 		</dict>
 		<key>includes/core/TTObject.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>108</integer>
 				<key>line</key>
-				<integer>28</integer>
+				<integer>88</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>9</integer>
+			<integer>0</integer>
 		</dict>
 		<key>includes/core/TTSymbol.h</key>
 		<dict>
@@ -111,19 +125,33 @@
 			<key>firstVisibleLine</key>
 			<integer>156</integer>
 		</dict>
+		<key>includes/core/TTValueCache.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>20</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>includes/units/TTDCBlock.h</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>25</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>15</integer>
+				<integer>9</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>3</integer>
+			<integer>0</integer>
 		</dict>
 		<key>source/core/TTAudioObject.cpp</key>
 		<dict>
@@ -158,30 +186,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>line</key>
-				<integer>39</integer>
+				<integer>160</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>13</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>39</integer>
-			</dict>
 		</dict>
 		<key>source/core/TTSymbol.cpp</key>
 		<dict>
@@ -211,14 +223,28 @@
 			<key>firstVisibleLine</key>
 			<integer>365</integer>
 		</dict>
+		<key>source/core/TTValueCache.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>source/units/TTDCBlock.cpp</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>44</integer>
+				<integer>2</integer>
 				<key>line</key>
-				<integer>45</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -228,14 +254,20 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
+		<string>examples/tt.dcblock~/tt.dcblock~.cpp</string>
+		<string>includes/units/TTDCBlock.h</string>
+		<string>source/units/TTDCBlock.cpp</string>
 		<string>includes/core/TTElement.h</string>
 		<string>source/core/TTElement.cpp</string>
 		<string>includes/core/TTObject.h</string>
+		<string>includes/core/TTAudioObject.h</string>
 		<string>source/core/TTObject.cpp</string>
+		<string>includes/core/TTValueCache.h</string>
+		<string>source/core/TTValueCache.cpp</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{294, 1}, {1143, 877}}</string>
+	<string>{{274, 1}, {1143, 877}}</string>
 </dict>
 </plist>
