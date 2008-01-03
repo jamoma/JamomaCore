@@ -26,7 +26,7 @@
 /****************************************************************************************************/
 // Type Definitions
 
-typedef unsigned char		TTBoolean;			// same as Boolean on the Mac
+typedef bool				TTBoolean;			// same as Boolean on the Mac
 typedef char*				TTString;
 
 typedef signed char			TTInt8;
@@ -80,7 +80,7 @@ enum TTErrorCode{
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
 	kTTErrAllocFailed,		///< Couldn't get memory -- TODO: perhaps this error num or description should change?
 	kTTErrFreeFailed,		///< Couldn't free memory -- TODO: perhaps this error num or description should change?
-	kTTErrAttrInvalid		///< This is left-over from TTBlue version 0.3.x where attribute handling was done manually. It is unclear whether or not this still serves a purpose.
+	kTTErrInvalidType		///< Bad DataType for the context
 };
 
 
