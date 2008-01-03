@@ -98,7 +98,7 @@ TTErr TTObject::sendMessage(const TTSymbol& name)
 	TTUInt8	i;
 	TTValue *foo = NULL;
 	
-	for(i=0; i<10; i++){
+	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
 			(this->*messageTargets[i])(name, *foo);
 			break;
@@ -112,7 +112,7 @@ TTErr TTObject::sendMessage(const TTSymbol& name, TTValue& value)
 {
 	TTUInt8	i;
 	
-	for(i=0; i<10; i++){
+	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
 			(this->*messageTargets[i])(name, value);
 			break;

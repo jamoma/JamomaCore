@@ -36,6 +36,7 @@ void dcblock_free(t_dcblock *x);
 void dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst);	// Assistance Method
 t_int *dcblock_perform(t_int *w);											// An MSP Perform (signal) Method
 void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count);				// DSP Method
+void dcblock_clear(t_dcblock *x);
 
 // Globals
 t_class *dcblock_class;				// Required. Global pointing to this class
@@ -56,8 +57,9 @@ int main(void)
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_dcblock, obex));
 
- 	class_addmethod(c, (method)dcblock_dsp, 			"dsp", A_CANT, 0L);		
-	class_addmethod(c, (method)dcblock_assist, 			"assist", A_CANT, 0L); 
+ 	class_addmethod(c, (method)dcblock_clear, 			"clear",	0L);		
+ 	class_addmethod(c, (method)dcblock_dsp, 			"dsp",		A_CANT, 0L);		
+	class_addmethod(c, (method)dcblock_assist, 			"assist",	A_CANT, 0L); 
 
 	attr = attr_offset_new("bypass", _sym_long, attrflags,
 		(method)0L,(method)0L, calcoffset(t_dcblock, attr_bypass));
@@ -124,6 +126,12 @@ void dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst)
 	#pragma unused(x)
 	#pragma unused(b)
 	#pragma unused(arg)
+}
+
+
+void dcblock_clear(t_dcblock *x)
+{
+	x->dcblock->sendMessage("clear");
 }
 
 

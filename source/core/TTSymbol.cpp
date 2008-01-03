@@ -16,23 +16,40 @@ TTUInt32	TTSymbol::symbolTableSize = 0;
 
 TTSymbol::TTSymbol(TTString newString)
 {
+	TTSymbol	*existingSymbol = NULL;
+	TTUInt32	i;
+
+	for(i=0; i<symbolTableSize; i++){
+		if(!strcmp(newString, symbolTable[i]->getString())){
+			existingSymbol = symbolTable[i];	// we found it
+			break;
+		}
+	}
+
 	string = (char*)malloc(sizeof(char) * (strlen(newString)+1));
 	strcpy(string, newString);
-	id = symbolTableSize;
-	
-	if(symbolTableSize)
-		symbolTable = (TTSymbol**)realloc(symbolTable, sizeof(TTSymbol*) * (symbolTableSize + 1));
-	else
-		symbolTable = (TTSymbol**)malloc(sizeof(TTSymbol*));
-	symbolTableSize++;
-	
-	symbolTable[symbolTableSize-1] = this;
+
+	if(existingSymbol)
+		id = existingSymbol->id;
+	else{
+		id = symbolTableSize;
+		
+		if(symbolTableSize)
+			symbolTable = (TTSymbol**)realloc(symbolTable, sizeof(TTSymbol*) * (symbolTableSize + 1));
+		else
+			symbolTable = (TTSymbol**)malloc(sizeof(TTSymbol*));
+		symbolTableSize++;
+		
+		symbolTable[symbolTableSize-1] = this;
+	}
 }
 
 
 TTSymbol::~TTSymbol()
 {
-	;
+	//should free this to prevent memory leaks, but is it safe to do so?
+	// maybe we need to reference count...
+	//free(string);
 }
 
 
@@ -56,31 +73,16 @@ const TTUInt32 TTSymbol::getId()
 }
 
 
-TTBoolean TTSymbol::compare(TTSymbol &anotherSymbol)
-{
-	return kTTErrNone;	// TODO: implement this
-}
-
-/*
-// make sure this is a friend so that it can access the private members of the other atom
-//friend bool TTValue::operator == (const TTValue &a1, const TTValue &a2)
-friend bool TTSymbol::operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
-{
-	if(symbol1.id == symbol2.id)
-		return true;
-	else
-		return false;
-}
-*/
-
-
 /****************************************************************************************************/
 // Shared (static) Methods
 
 const TTSymbol* TTSymbol::lookup(const TTString string)
 {
 	TTUInt32	i;
-	
+
+	// NOTE: This lookup is also done up in the constructor
+	// That allows us to call methods expecting a TTSymbol by
+	// passing them simple c strings.	
 	for(i=0; i<symbolTableSize; i++){
 		if(!strcmp(string, symbolTable[i]->getString())){
 			return symbolTable[i];	// we found it
