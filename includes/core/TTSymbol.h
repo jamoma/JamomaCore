@@ -11,6 +11,9 @@
 
 #include "TTElement.h"
 
+/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
+#define TT *TTSymbol::lookup
+
 /****************************************************************************************************/
 // Class Specification
 
