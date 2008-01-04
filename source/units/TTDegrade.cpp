@@ -12,20 +12,39 @@
 #define ONE_OVER_BIG_INT 1.1920928955E-7
 
 
-TTDegrade::TTDegrade()
+TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
+	: TTAudioObject::TTAudioObject(newMaxNumChannels)
 {
-	registerParameter(TT("bypass"),		kTypeInt32, &attrBypass, (TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBypass);
-	registerParameter(TT("bitdepth"),	kTypeInt32, &attrBitdepth, (TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBitdepth);
-	registerParameter(TT("srRatio"),	kTypeInt32, &attrSrRatio);
+	registerParameter(TT("bypass"),		kTypeInt32,		&attrBypass,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBypass);
+	registerParameter(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBitdepth);
+	registerParameter(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
 
-	setBypass(kTTBoolNo);			// set default (bypass=no) and the process method
-	setBitdepth(24);
+//	setMaxNumChannels(maxNumChannels);	// set the max num channels
+//	setBypass(kTTBoolNo);				// set default (bypass=no) and the process method
+//	setBitdepth(24);
+//	attrSrRatio = 0.1;
+	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setParameterValue(TT("bypass"),			kTTBoolNo);
+	setParameterValue(TT("bitdepth"),		24);
+	setParameterValue(TT("srRatio"),		1.0);
 }
 
 
 TTDegrade::~TTDegrade()
 {
-	;
+	free(output);
+}
+
+
+TTErr TTDegrade::setMaxNumChannels(const TTValue& newValue)
+{
+	short i;
+	
+	maxNumChannels = newValue;
+	output = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
+	for(i=0; i<maxNumChannels; i++)
+		output[i] = 0.0;				// clear the values
+	return kTTErrNone;
 }
 
 
@@ -41,7 +60,7 @@ TTErr TTDegrade::setBypass(TTValue& newValue)
 
 TTErr TTDegrade::setBitdepth(TTValue& newValue)
 {
-	attrBitdepth = clip(newValue, 1, 24);
+	attrBitdepth = clip((int)newValue, 1, 24);
 	bitShift = 24 - attrBitdepth;
 	return kTTErrNone;
 }
@@ -55,7 +74,7 @@ TTErr TTDegrade::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 					*outSample;
 	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	short			channel;
-	TTSampleValue	temp;
+	long			l;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -64,16 +83,16 @@ TTErr TTDegrade::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		
 		while(vs--){
 			// SampeRate Reduction
-			accumulator += srRatioAttribute;
+			accumulator += attrSrRatio;
 			if(accumulator >= 1.0){
 				output[channel] = *inSample++;
 				accumulator -= 1.0;
 			}
 		
 			// BitDepth Reduction
-			l = (long)(output[channel] * BIG_INT);					// change float to long int
-			l >>= bit_shift;								// shift away the least-significant bits
-			l <<= bit_shift;								// shift back to the correct registers
+			l = (long)(output[channel] * BIG_INT);			// change float to long int
+			l >>= bitShift;									// shift away the least-significant bits
+			l <<= bitShift;									// shift back to the correct registers
 			*outSample++ = (float) l * ONE_OVER_BIG_INT;	// back to float
 		}
 	}

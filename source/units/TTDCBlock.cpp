@@ -9,20 +9,33 @@
 #include "TTDCBlock.h"
 
 
-TTDCBlock::TTDCBlock(TTUInt8 maxNumChannels)
-	: TTAudioObject::TTAudioObject(maxNumChannels)
+TTDCBlock::TTDCBlock(TTUInt8 newMaxNumChannels)
+	: TTAudioObject::TTAudioObject(newMaxNumChannels)
 {
 	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear);		// make the clear method public
 	registerParameter(TT("bypass"), kTypeInt32, &attrBypass, (TTGetterMethod)NULL, (TTSetterMethod)&TTDCBlock::setBypass);
 
-	setMaxNumChannels(maxNumChannels);	// set the max num channels
-	setBypass(kTTVal0);					// set default (bypass=no) and the process method
+//	setMaxNumChannels(newMaxNumChannels);	// set the max num channels
+//	setBypass(kTTVal0);					// set default (bypass=no) and the process method
+	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setParameterValue(TT("bypass"),			kTTBoolNo);
 }
 
 
 TTDCBlock::~TTDCBlock()
 {
-	;
+	free(lastInput);
+	free(lastOutput);
+}
+
+
+TTErr TTDCBlock::setMaxNumChannels(const TTValue& newValue)
+{
+	maxNumChannels = newValue;
+	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
+	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
+	clear();
+	return kTTErrNone;
 }
 
 
@@ -45,16 +58,6 @@ TTErr TTDCBlock::setBypass(TTValue& value)
 		return setProcess((TTProcessMethod)&TTAudioObject::bypassProcess);
 	else
 		return setProcess((TTProcessMethod)&TTDCBlock::processAudio);
-}
-
-
-TTErr TTDCBlock::setMaxNumChannels(const TTValue& newValue)
-{
-	maxNumChannels = newValue;
-	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	clear();
-	return kTTErrNone;
 }
 
 
