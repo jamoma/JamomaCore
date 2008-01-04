@@ -15,8 +15,9 @@
 #include "TTValueCache.h"
 
 
-// forward declaration of TTParameter so the compiler is okay with the following typedefs
+// forward declarations needed by the compiler
 class TTParameter;
+class TTGlobal;
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(TTValue& value, const TTSymbol& methodName);
@@ -26,6 +27,9 @@ typedef TTErr (TTObject::*TTGetterMethod)(TTValue& value, const TTParameter& par
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTParameter& parameter);
+
+/** The instance that manages access to global parameters and settings in the TTBlue environment. */
+extern TTGlobal	ttGlobalObject;
 
 
 /****************************************************************************************************/
@@ -63,12 +67,12 @@ public:
 */
 class TTObject : public TTElement {
 private:
-	const TTSymbol*	messageNames[10];
-	TTMethod		messageTargets[10];
-	TTUInt8			messageCount;
-	const TTSymbol*	parameterNames[10];
-	TTParameter*	parameterObjects[10];
-	TTUInt8			parameterCount;
+	const TTSymbol*			messageNames[10];
+	TTMethod				messageTargets[10];
+	TTUInt8					messageCount;
+	const TTSymbol*			parameterNames[10];
+	TTParameter*			parameterObjects[10];
+	TTUInt8					parameterCount;
 
 public:
 	TTObject();
@@ -108,15 +112,17 @@ public:
 	TTErr setParameterValue(const TTSymbol& name, const TTUInt64& value);
 	TTErr getParameterValue(const TTSymbol& name, TTUInt64& value);
 	
+	// These are not registered as static, even though they are operating only on statics.
+	// This is because the function pointers for the parameter getter/setter require a valid 'this' member.
+	// The result however, is that you can't call static methods from anywhere for these...
+	// So instead we create a "ttGlobalObject" instance just for this purpose.
+	static TTErr registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	static TTErr setGlobalParameterValue(const TTSymbol& name, TTValue& value);
 	static TTErr getGlobalParameterValue(const TTSymbol& name, TTValue& value);
 	
 	TTErr registerMessage(const TTSymbol& name, TTMethod method);
-	
 	TTErr sendMessage(const TTSymbol& name);
 	TTErr sendMessage(const TTSymbol& name, TTValue& value);
-	
-	static TTErr method(const void *self, const TTSymbol& messageName, TTValue& value);
 	
 	// getMessageNames()
 	// getParameterNames()

@@ -7,6 +7,7 @@
  */
 
 #include "TTObject.h"
+#include "TTGlobal.h"
 
 
 /****************************************************************************************************/
@@ -159,6 +160,9 @@ TTObject::~TTObject()
 }
 
 
+#pragma mark -
+#pragma mark Object Parameters
+	
 TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, void* address)
 {
 	parameterNames[parameterCount] = &name;
@@ -166,7 +170,6 @@ TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, void* a
 	parameterCount++;
 	return kTTErrNone;
 }
-
 
 TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
@@ -191,7 +194,6 @@ TTErr TTObject::getParameterValue(const TTSymbol& name, TTValue& value)
 	return kTTErrInvalidParameter;
 }
 
-
 TTErr TTObject::setParameterValue(const TTSymbol& name, const TTValue& value)
 {
 	TTUInt8		i;
@@ -205,7 +207,6 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTValue& value)
 	}
 	return kTTErrInvalidParameter;
 }
-
 
 
 TTErr TTObject::getParameterValue(const TTSymbol& name, TTFloat32& value)
@@ -224,6 +225,7 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTFloat32& value)
 	return setParameterValue(name, v);
 }
 
+
 TTErr TTObject::getParameterValue(const TTSymbol& name, TTFloat64& value)
 {
 	TTValue	v;
@@ -240,6 +242,7 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTFloat64& value)
 	return setParameterValue(name, v);
 }
 
+
 TTErr TTObject::getParameterValue(const TTSymbol& name, TTInt8& value)
 {
 	TTValue	v;
@@ -255,6 +258,7 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt8& value)
 	TTValue	v(value);
 	return setParameterValue(name, v);
 }
+
 
 TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt8& value)
 {
@@ -289,6 +293,7 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt16& value)
 	return setParameterValue(name, v);
 }
 
+
 TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt16& value)
 {
 	TTValue	v;
@@ -321,6 +326,7 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt32& value)
 	TTValue	v(value);
 	return setParameterValue(name, v);
 }
+
 
 TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt32& value)
 {
@@ -355,6 +361,7 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt64& value)
 	return setParameterValue(name, v);
 }
 
+
 TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt64& value)
 {
 	TTValue	v;
@@ -372,20 +379,27 @@ TTErr TTObject::setParameterValue(const TTSymbol& name, const TTUInt64& value)
 }
 
 
+#pragma mark -
+#pragma mark Global Parameters
 
-TTErr TTObject::setGlobalParameterValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
-	return kTTErrNone;
+	return ttGlobalObject.registerParameter(name, type, address, getter, setter);
 }
 
 TTErr TTObject::getGlobalParameterValue(const TTSymbol& name, TTValue& value)
 {
-	return kTTErrNone;
+	return ttGlobalObject.getParameterValue(name, value);
+}
+
+TTErr TTObject::setGlobalParameterValue(const TTSymbol& name, TTValue& value)
+{
+	return ttGlobalObject.setParameterValue(name, value);
 }
 
 
-
-
+#pragma mark -
+#pragma mark Object Messages
 	
 TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod message)
 {
@@ -422,16 +436,5 @@ TTErr TTObject::sendMessage(const TTSymbol& name, TTValue& value)
 		}
 	}
 	return kTTErrNone;
-}
-
-
-TTErr method(const void *object, const TTSymbol& messageName, TTValue& value)
-{
-	TTObject* self = (TTObject*)object;
-	
-	if(&value)
-		return self->sendMessage(messageName, value);
-	else
-		return self->sendMessage(messageName);
 }
 

@@ -33,9 +33,11 @@ typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal
  *	own process() method(s) as needed.
  */
 class TTAudioObject : public TTObject {
+private:
+	static TTBoolean	initialized;		///< Flag to indicate whether we've initialized globals or not
+
 protected:
-	static TTUInt32		globalSr;
-		
+	static TTUInt32		globalSr;			///< Current sample rate as understood by the environment as a whole
 	TTUInt32			sr;					///< Current sample rate being used by this object
 	TTFloat32			srInv;				///< 1.0 over the current sample rate (inverse)
 	TTFloat32			srMill;				///< 1/1000 of the current sample rate (samples per millisecond)

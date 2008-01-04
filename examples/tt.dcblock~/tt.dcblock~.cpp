@@ -102,6 +102,7 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 		x->obj.z_misc = Z_NO_INPLACE;
 
 		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);
+//		TTObject::globalObject.setGlobalParameterValue(TT("sr"), sr);
 		
 		x->dcblock = new TTDCBlock(x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
