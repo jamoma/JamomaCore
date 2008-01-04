@@ -67,9 +67,9 @@ enum TTDataType{
 	kTypeUInt32,
 	kTypeInt64,
 	kTypeUInt64,
+	kTypeBoolean,
 	kTypeSymbol,
-	kTypeObject,
-	kTypeBoolean
+	kTypeObject
 };
 
 
@@ -80,7 +80,8 @@ enum TTErrorCode{
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
 	kTTErrAllocFailed,		///< Couldn't get memory -- TODO: perhaps this error num or description should change?
 	kTTErrFreeFailed,		///< Couldn't free memory -- TODO: perhaps this error num or description should change?
-	kTTErrInvalidType		///< Bad DataType for the context
+	kTTErrInvalidType,		///< Bad DataType for the context
+	kTTErrInvalidParameter	///< Bad Parameter specified
 };
 
 
