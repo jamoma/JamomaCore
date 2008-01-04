@@ -110,14 +110,31 @@ TTValue::TTValue(TTUInt64 initialValue)
 	numValues = 1;
 }
 
-TTValue::TTValue(TTObject& anObject)
-{
-	;
-}
-
 TTValue::TTValue(TTBoolean initialValue)
 {
-	;
+	data = new DataValue;
+	data->boolean = initialValue;
+	type = new TTDataType;
+	*type = kTypeBoolean;
+	numValues = 1;
+}
+
+TTValue::TTValue(TTSymbol& initialValue)
+{
+	data = new DataValue;
+	data->sym = &initialValue;
+	type = new TTDataType;
+	*type = kTypeSymbol;
+	numValues = 1;
+}
+
+TTValue::TTValue(TTObject& initialValue)
+{
+	data = new DataValue;
+	data->object = &initialValue;
+	type = new TTDataType;
+	*type = kTypeObject;
+	numValues = 1;
 }
 
 
@@ -313,26 +330,7 @@ TTValue::operator TTInt32() const
 		return value;
 	}
 }
-/*
-TTValue& TTValue::operator = (int value)
-{
-	*type = kTypeInt32;
-	data->int32 = value;
-	return *this;
-}
 
-TTValue::operator int() const
-{
-	if(*type == kTypeInt32)
-		return data->int32;
-	else{
-		TTUInt16 index = 0;
-		TTInt32 value;
-		CONVERT
-		return value;
-	}
-}
-*/
 
 // UINT32
 TTValue& TTValue::operator = (TTUInt32 value)
@@ -397,6 +395,64 @@ TTValue::operator TTUInt64() const
 }
 
 
+// BOOLEAN
+TTValue& TTValue::operator = (TTBoolean value)
+{
+	*type = kTypeBoolean;
+	data->boolean = value;
+	return *this;
+}
+
+TTValue::operator TTBoolean() const
+{
+	if(*type == kTypeBoolean)
+		return data->boolean;
+	else{
+		TTUInt16 index = 0;
+		TTBoolean value;
+		CONVERT
+		return value;
+	}
+}
+
+
+// SYMBOL
+TTValue& TTValue::operator = (TTSymbol& value)
+{
+	*type = kTypeSymbol;
+	data->sym = &value;
+	return *this;
+}
+
+TTValue::operator TTSymbol&() const
+{
+	if(*type == kTypeSymbol)
+		return *data->sym;
+	else{
+		return (TTSymbol&)TT("");
+	}
+}
+
+
+// OBJECT
+TTValue& TTValue::operator = (TTObject& value)
+{
+	*type = kTypeObject;
+	data->object = &value;
+	return *this;
+}
+
+TTValue::operator TTObject&() const
+{
+	if(*type == kTypeObject)
+		return *data->object;
+	else{
+		// TODO: This is an error, not sure what to do...
+		return *data->object;
+	}
+}
+
+
 void TTValue::set(TTUInt16 index, const TTFloat32 value)
 {
 	*type = kTypeFloat32;
@@ -438,13 +494,7 @@ void TTValue::set(TTUInt16 index, const TTInt32 value)
 	*type = kTypeInt32;
 	data->int32 = value;
 }
-/*
-void TTValue::set(TTUInt16 index, const int value)
-{
-	*type = kTypeInt32;
-	data->int32 = value;
-}
-*/
+
 void TTValue::set(TTUInt16 index, const TTUInt32 value)
 {
 	*type = kTypeUInt32;
@@ -461,6 +511,24 @@ void TTValue::set(TTUInt16 index, const TTUInt64 value)
 {
 	*type = kTypeUInt64;
 	data->uint64 = value;
+}
+
+void TTValue::set(TTUInt16 index, const TTBoolean value)
+{
+	*type = kTypeBoolean;
+	data->boolean = value;
+}
+
+void TTValue::set(TTUInt16 index, const TTSymbol& value)
+{
+	*type = kTypeSymbol;
+	data->sym = (TTSymbol*)&value;
+}
+
+void TTValue::set(TTUInt16 index, const TTObject& value)
+{
+	*type = kTypeObject;
+	data->object = (TTObject*)&value;
 }
 
 
@@ -521,15 +589,7 @@ void TTValue::get(TTUInt16 index, TTInt32 &value) const
 	else
 		CONVERT
 }
-/*
-void TTValue::get(TTUInt16 index, int &value) const
-{
-	if(*type == kTypeInt32)
-		value = (data+index)->int32;
-	else
-		CONVERT
-}
-*/
+
 void TTValue::get(TTUInt16 index, TTUInt32 &value) const
 {
 	if(*type == kTypeUInt32)
@@ -554,5 +614,24 @@ void TTValue::get(TTUInt16 index, TTUInt64 &value) const
 		CONVERT
 }
 
+void TTValue::get(TTUInt16 index, TTBoolean &value) const
+{
+	if(*type == kTypeUInt64)
+		value = (data+index)->uint64;
+	else
+		CONVERT
+}
 
+void TTValue::get(TTUInt16 index, TTSymbol &value) const
+{
+	if(*type == kTypeUInt64)
+		value = *(data+index)->sym;
+}
+
+void TTValue::get(TTUInt16 index, TTObject &value) const
+{
+//	TODO: The method won't compile because of the lack of a proper definition of the TTObject class in this context
+//	if(*type == kTypeUInt64)
+//		value = *(data+index)->object;
+}
 

@@ -48,6 +48,9 @@ class TTObject;
 			case kTypeUInt64:\
 				value = (data+index)->uint64;\
 				break;\
+			case kTypeBoolean:\
+				value = (data+index)->boolean;\
+				break;\
 			default:\
 				value = -1;\
 				break;\
@@ -76,8 +79,9 @@ private:
 		TTUInt32		uint32;
 		TTInt64			int64;
 		TTUInt64		uint64;
-		TTObject		*object;
 		TTBoolean		boolean;
+		TTSymbol		*sym;
+		TTObject		*object;
 	};
 		
 	TTDataType	*type;			///< array of types
@@ -98,8 +102,9 @@ public:
 	TTValue(TTUInt32 initialValue);
 	TTValue(TTInt64 initialValue);
 	TTValue(TTUInt64 initialValue);
-	TTValue(TTObject& anObject);
 	TTValue(TTBoolean initialValue);
+	TTValue(TTSymbol& initialValue);
+	TTValue(TTObject& initialValue);
 
 	/** Destructors */
 	virtual ~TTValue();
@@ -148,8 +153,6 @@ public:
 	// INT32
 	TTValue& operator = (TTInt32 value);
 	operator TTInt32() const;
-//	TTValue& operator = (int value);
-//	operator int() const;
 
 	// UINT32
 	TTValue& operator = (TTUInt32 value);
@@ -163,6 +166,18 @@ public:
 	TTValue& operator = (TTUInt64 value);
 	operator TTUInt64() const;
 
+	// BOOLEAN
+	TTValue& operator = (TTBoolean value);
+	operator TTBoolean() const;
+
+	// SYMBOL
+	TTValue& operator = (TTSymbol& value);
+	operator TTSymbol&() const;
+
+	// OBJECT
+	TTValue& operator = (TTObject& value);
+	operator TTObject&() const;
+
 
 	void set(TTUInt16 index, const TTFloat32 value);
 	void set(TTUInt16 index, const TTFloat64 value);
@@ -171,10 +186,12 @@ public:
 	void set(TTUInt16 index, const TTInt16 value);
 	void set(TTUInt16 index, const TTUInt16 value);
 	void set(TTUInt16 index, const TTInt32 value);
-//	void set(TTUInt16 index, const int value);
 	void set(TTUInt16 index, const TTUInt32 value);
 	void set(TTUInt16 index, const TTInt64 value);
 	void set(TTUInt16 index, const TTUInt64 value);
+	void set(TTUInt16 index, const TTBoolean value);
+	void set(TTUInt16 index, const TTSymbol& value);
+	void set(TTUInt16 index, const TTObject& value);
 
 
 	// THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
@@ -186,10 +203,12 @@ public:
 	void get(TTUInt16 index, TTInt16 &value) const;
 	void get(TTUInt16 index, TTUInt16 &value) const;
 	void get(TTUInt16 index, TTInt32 &value) const;
-//	void get(TTUInt16 index, int &value) const;
 	void get(TTUInt16 index, TTUInt32 &value) const;
 	void get(TTUInt16 index, TTInt64 &value) const;
 	void get(TTUInt16 index, TTUInt64 &value) const;
+	void get(TTUInt16 index, TTBoolean &value) const;
+	void get(TTUInt16 index, TTSymbol &value) const;
+	void get(TTUInt16 index, TTObject &value) const;
 
 
 	// make sure this is a friend so that it can access the private members of the other atom
@@ -234,6 +253,15 @@ public:
 							return false;
 					case kTypeFloat64:
 						if( (a1.data+i)->float64 == (a1.data+i)->float64 )
+							return false;
+					case kTypeBoolean:
+						if( (a1.data+i)->boolean == (a1.data+i)->boolean )
+							return false;
+					case kTypeSymbol:
+						if( (a1.data+i)->sym == (a1.data+i)->sym )
+							return false;
+					case kTypeObject:
+						if( (a1.data+i)->object == (a1.data+i)->object )
 							return false;
 					default:
 						return false;

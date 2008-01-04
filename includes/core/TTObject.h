@@ -86,10 +86,27 @@ public:
 	
 	TTErr setParameterValue(const TTSymbol& name, const TTValue& value);
 	TTErr getParameterValue(const TTSymbol& name, TTValue& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTUInt32& value);	// convenience wrappers...
-	TTErr getParameterValue(const TTSymbol& name, TTUInt32& value);
+	// convenience wrappers...
 	TTErr setParameterValue(const TTSymbol& name, const TTFloat32& value);
 	TTErr getParameterValue(const TTSymbol& name, TTFloat32& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTFloat64& value);
+	TTErr getParameterValue(const TTSymbol& name, TTFloat64& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTInt8& value);
+	TTErr getParameterValue(const TTSymbol& name, TTInt8& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTUInt8& value);
+	TTErr getParameterValue(const TTSymbol& name, TTUInt8& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTInt16& value);
+	TTErr getParameterValue(const TTSymbol& name, TTInt16& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTUInt16& value);
+	TTErr getParameterValue(const TTSymbol& name, TTUInt16& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTInt32& value);
+	TTErr getParameterValue(const TTSymbol& name, TTInt32& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTUInt32& value);
+	TTErr getParameterValue(const TTSymbol& name, TTUInt32& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTInt64& value);
+	TTErr getParameterValue(const TTSymbol& name, TTInt64& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTUInt64& value);
+	TTErr getParameterValue(const TTSymbol& name, TTUInt64& value);
 	
 	static TTErr setGlobalParameterValue(const TTSymbol& name, TTValue& value);
 	static TTErr getGlobalParameterValue(const TTSymbol& name, TTValue& value);
