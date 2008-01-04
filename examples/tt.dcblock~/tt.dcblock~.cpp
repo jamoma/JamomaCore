@@ -23,10 +23,10 @@ typedef struct _dcblock	{
     t_pxobject 		obj;
     void			*obex;
 	TTDCBlock		*dcblock;
-	TTAudioSignal	*audio_in;
-	TTAudioSignal	*audio_out;
-	long			attr_bypass;
-	long			num_active_channels;
+	TTAudioSignal	*audioIn;
+	TTAudioSignal	*audioOut;
+	long			attrBypass;
+	long			maxNumChannels;
 } t_dcblock;
 
 
@@ -64,7 +64,7 @@ int main(void)
 	class_addmethod(c, (method)dcblock_assist, 			"assist",	A_CANT, 0L); 
 
 	attr = attr_offset_new("bypass", _sym_long, attrflags,
-		(method)0L,(method)dcblock_setBypass, calcoffset(t_dcblock, attr_bypass));
+		(method)0L,(method)dcblock_setBypass, calcoffset(t_dcblock, attrBypass));
 	class_addattr(c, attr);	
 
 	class_dspinit(c);						// Setup object's class to work with MSP
@@ -82,25 +82,30 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 {
     t_dcblock	*x;
 	TTValue		sr(sys_getsr());
-    
+ 	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
+	short		i;
+   
     x = (t_dcblock *)object_alloc(dcblock_class);
     if(x){
-		x->attr_bypass = 0;
+		x->attrBypass = 0;
+		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
+		if(attrstart && argv)
+			x->maxNumChannels = atom_getlong(argv);
+
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-	    dsp_setup((t_pxobject *)x, 2);												// inlets
-		outlet_new((t_pxobject *)x, "signal");										// outlets
-		outlet_new((t_pxobject *)x, "signal");
+	    dsp_setup((t_pxobject *)x, x->maxNumChannels);								// inlets
+		for(i=0; i < x->maxNumChannels; i++)
+			outlet_new((t_pxobject *)x, "signal");									// outlets
 		
 		x->obj.z_misc = Z_NO_INPLACE;
 
-//		TTAudioObject::set_global_sr(sr);			// update Tap.Tool's global sr field
-		TTAudioObject::setGlobalParameterValue("sr", sr);
-	
-		x->dcblock = new TTDCBlock(2);
-		x->audio_in = new TTAudioSignal(2);		// assume stereo initially
-		x->audio_out = new TTAudioSignal(2);
+		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);
+		
+		x->dcblock = new TTDCBlock(x->maxNumChannels);
+		x->audioIn = new TTAudioSignal(x->maxNumChannels);
+		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 	}
 	return (x);										// Return the pointer
 }
@@ -110,8 +115,8 @@ void dcblock_free(t_dcblock *x)
 {
 	dsp_free((t_pxobject *)x);
 	delete x->dcblock;
-	delete x->audio_in;
-	delete x->audio_out;
+	delete x->audioIn;
+	delete x->audioOut;
 }
 
 
@@ -138,46 +143,54 @@ void dcblock_clear(t_dcblock *x)
 
 
 // Perform (signal) Method
-// handles both mono and stereo configurations
 t_int *dcblock_perform(t_int *w)
 {
-   	t_dcblock *x = (t_dcblock *)(w[1]);						// pointer to this instance
-	x->audio_in->setVector(0, (t_float *)(w[2]));			// left Channel
-	x->audio_out->setVector(0, (t_float *)(w[4]));			//	...
-	if(x->num_active_channels > 1){							// Optional Right Channel
-		x->audio_in->setVector(1, (t_float *)(w[3]));		//	...
-		x->audio_out->setVector(1, (t_float *)(w[5]));		//	...
+   	t_dcblock	*x = (t_dcblock *)(w[1]);
+	short		i, j;
+	
+	for(i=0; i < x->audioIn->numChannels; i++){
+		j = (i*2) + 1;
+		x->audioIn->setVector(i, (t_float *)(w[j+1]));
+		x->audioOut->setVector(i, (t_float *)(w[j+2]));
 	}
-	x->audio_in->vs = ((int)(w[6]));
-	x->audio_out->vs = ((int)(w[6]));
 
 	if(!x->obj.z_disabled)									// if we are not muted...
-		x->dcblock->process(*x->audio_in, *x->audio_out);	// Actual DC-Blocker process
+		x->dcblock->process(*x->audioIn, *x->audioOut);		// Actual DC-Blocker process
 
-    return w+7;												// Return a pointer to the NEXT object in the DSP call chain
+	return w + ((x->audioIn->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
 // DSP Method
 void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 {
-	TTValue a;
+	short	i, j, k=0;
+	void	**audioVectors = NULL;
 	
-	if(count[1] && count[3])
-		x->num_active_channels = 2;
-	else
-		x->num_active_channels = 1;
-
-	a = x->num_active_channels;
-	//x->audio_in->set_attr(tt_audio_bundle::k_num_channels, a);
-	//x->audio_out->set_attr(tt_audio_bundle::k_num_channels, a);
-	x->audio_in->numChannels = (TTUInt32)a;
-	x->audio_out->numChannels = (TTUInt32)a;
+	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (x->maxNumChannels + 1));
+	audioVectors[k] = x;
+	k++;
 	
-	x->dcblock->setParameterValue("sr", sp[0]->s_sr);
+	x->audioIn->numChannels = 0;
+	x->audioOut->numChannels = 0;	
+	for(i=0; i < x->maxNumChannels; i++){
+		j = x->maxNumChannels + i;
+		if(count[i] && count[j]){
+			audioVectors[k] = sp[i]->s_vec;
+			x->audioIn->numChannels++;
+			x->audioIn->vs = sp[i]->s_n;
+			k++;
+			audioVectors[k] = sp[j]->s_vec;
+			x->audioOut->numChannels++;
+			x->audioIn->vs = sp[j]->s_n;
+			k++;
+		}
+	}
 	
-	// We add the dsp routine for the maximum number of channels
-	dsp_add(dcblock_perform, 6, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[3]->s_vec, sp[0]->s_n);
+	x->dcblock->setParameterValue(TT("sr"), sp[0]->s_sr);
+	
+	dsp_addv(dcblock_perform, k, audioVectors);
+	sysmem_freeptr(audioVectors);
 }
 
 
@@ -187,7 +200,7 @@ t_max_err dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv)
 	TTValue		value;
 
 	if(argc){
-		value = x->attr_bypass = atom_getlong(argv);
+		value = x->attrBypass = atom_getlong(argv);
 		x->dcblock->setParameterValue(name, value);
 	}
 	return MAX_ERR_NONE;
