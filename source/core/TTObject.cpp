@@ -462,15 +462,15 @@ TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod message)
 TTErr TTObject::sendMessage(const TTSymbol& name)
 {
 	TTUInt8	i;
-	TTValue *foo = NULL;
+	TTValue foo;
 	
 	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
-			(this->*messageTargets[i])(*foo, name);
-			break;
+			(this->*messageTargets[i])(foo, name);
+			return kTTErrNone;
 		}
 	}
-	return kTTErrNone;
+	return kTTErrMethodNotFound;
 }
 
 

@@ -20,7 +20,7 @@ TTDCBlock::TTDCBlock(TTUInt8 newMaxNumChannels)
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels);
 	
 	// this parameter has a custom setter so that we can switch the perform method that is used
-	registerParameter(TT("bypass"), kTypeInt32, &attrBypass, (TTSetterMethod)&TTDCBlock::setBypass);
+	registerParameter(TT("bypass"), kTypeBoolean, &attrBypass, (TTSetterMethod)&TTDCBlock::setBypass);
 
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);

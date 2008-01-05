@@ -7,7 +7,7 @@
  */
 
 #include "TTGlobal.h"
-
+#include "TTAudioObject.h"
 
 // The global instance of this class
 TTGlobal	ttGlobalObject;
@@ -18,12 +18,9 @@ TTGlobal	ttGlobalObject;
 TTGlobal::TTGlobal()
 {
 	registerMessage(TT("getVersion"), (TTMethod)&TTGlobal::getVersion);
-//	registerParameter(TT("bypass"), kTypeInt32, &attrBypass, (TTGetterMethod)NULL, (TTSetterMethod)&TTDCBlock::setBypass);
+	registerParameter(TT("sr"), kTypeUInt32, &TTAudioObject::globalSr);
 
-//	setMaxNumChannels(newMaxNumChannels);	// set the max num channels
-//	setBypass(kTTVal0);					// set default (bypass=no) and the process method
-//	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
-//	setParameterValue(TT("bypass"),			kTTBoolNo);
+	setParameterValue(TT("sr"), 44100);
 }
 
 

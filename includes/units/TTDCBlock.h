@@ -22,8 +22,8 @@
 
 class TTDCBlock : public TTAudioObject {
 private:
-	TTSampleValue	 	*lastInput;		///< Feedback values used for the audio filter			
-	TTSampleValue		*lastOutput;	///< Feedback values used for the audio filter
+	TTSampleValue*		lastInput;		///< Feedback values used for the audio filter			
+	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter
 	TTUInt32			attrBypass;
 
 	/**	This method gets called when the inherited maxNumChannels parameter is changed. */

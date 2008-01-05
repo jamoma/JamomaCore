@@ -15,10 +15,12 @@ TTBoolean	TTAudioObject::initialized = NO;
 
 TTAudioObject::TTAudioObject(TTUInt8 newMaxNumChannels)
 {
-	if(!initialized){
-		registerGlobalParameter("sr", kTypeUInt32, &TTAudioObject::globalSr);
-		initialized = YES;
-	}
+	// The global object, and calls for setting the global SR, may come before any TTAudioObject is
+	// instantiated.  So the parameter definition has been moved into the TTGlobal class itself.
+	//if(!initialized){
+	//	registerGlobalParameter("sr", kTypeUInt32, &TTAudioObject::globalSr);
+	//	initialized = YES;
+	//}
 
 	registerParameter(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerParameter(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);

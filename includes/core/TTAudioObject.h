@@ -34,6 +34,7 @@ typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal
  */
 class TTAudioObject : public TTObject {
 private:
+	friend class TTGlobal;					///< Declare that the global object is friend so it can access the globalSr member
 	static TTBoolean	initialized;		///< Flag to indicate whether we've initialized globals or not
 
 protected:

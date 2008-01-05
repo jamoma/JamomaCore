@@ -20,6 +20,7 @@
 */
 class TTGlobal : public TTObject {
 private:
+	
 
 public:
 	TTGlobal();

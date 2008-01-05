@@ -168,7 +168,7 @@ void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 	short	i, j, k=0;
 	void	**audioVectors = NULL;
 	
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * (x->maxNumChannels + 1));
+	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1));
 	audioVectors[k] = x;
 	k++;
 	

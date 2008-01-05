@@ -81,7 +81,8 @@ enum TTErrorCode{
 	kTTErrAllocFailed,		///< Couldn't get memory -- TODO: perhaps this error num or description should change?
 	kTTErrFreeFailed,		///< Couldn't free memory -- TODO: perhaps this error num or description should change?
 	kTTErrInvalidType,		///< Bad DataType for the context
-	kTTErrInvalidParameter	///< Bad Parameter specified
+	kTTErrInvalidParameter,	///< Bad Parameter specified
+	kTTErrMethodNotFound	///< Method not found.  Typically returned by the TTObject::sendMessage() function.
 };
 
 
