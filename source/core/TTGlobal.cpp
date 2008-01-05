@@ -18,8 +18,10 @@ TTGlobal	ttGlobalObject;
 TTGlobal::TTGlobal()
 {
 	registerMessage(TT("getVersion"), (TTMethod)&TTGlobal::getVersion);
-	registerParameter(TT("sr"), kTypeUInt32, &TTAudioObject::globalSr);
 
+	// The global object, and calls for setting the global SR, may come before any TTAudioObject is
+	// instantiated.  So the parameter definition has been moved into the TTGlobal class itself.
+	registerParameter(TT("sr"), kTypeUInt32, &TTAudioObject::globalSr);
 	setParameterValue(TT("sr"), 44100);
 }
 

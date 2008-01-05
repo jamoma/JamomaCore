@@ -16,7 +16,7 @@ TTCrossfade::TTCrossfade(TTUInt8 newMaxNumChannels)
 	registerParameter(TT("shape"),		kTypeSymbol,	&attrShape,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setShape);
 	registerParameter(TT("mode"),		kTypeSymbol,	&attrMode,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setMode);
 
-	// Set Defaults...
+	// Set Defaults (the parameter setters will set the process method for us)...
 	setParameterValue(TT("position"),	0.5);
 	setParameterValue(TT("shape"),		TT("equalPower"));
 	setParameterValue(TT("mode"),		TT("lookup"));

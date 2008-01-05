@@ -26,11 +26,8 @@ private:
 	TTUInt32		attrBitdepth;		///< Use a range of 1 to 24 to emulate the specified bitdepth.
 	TTFloat32		attrSrRatio;		///< Use a range of 0.0 to 1.0 to specify a ratio of the current sample-rate to emulate in order to intentional aliasing artifacts.
 
-	/**	Setter for the inherited maxNumChannels parameter.												*/
-	TTErr setMaxNumChannels(const TTValue& newValue);
-
-	/**	Setter for the bypass attribute. */
-	TTErr setBypass(const TTValue& value);
+	/**	Setter for the inherited maxNumChannels parameter.		*/
+	TTErr updateMaxNumChannels();
 
 	/**	Setter for the bitdepth attribute. */
 	TTErr setBitdepth(const TTValue& value);

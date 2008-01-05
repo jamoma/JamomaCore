@@ -9,26 +9,21 @@
 #include "TTAudioObject.h"
 
 TTUInt32	TTAudioObject::globalSr = 44100;
-TTBoolean	TTAudioObject::initialized = NO;
+
 
 /****************************************************************************************************/
 
 TTAudioObject::TTAudioObject(TTUInt8 newMaxNumChannels)
 {
-	// The global object, and calls for setting the global SR, may come before any TTAudioObject is
-	// instantiated.  So the parameter definition has been moved into the TTGlobal class itself.
-	//if(!initialized){
-	//	registerGlobalParameter("sr", kTypeUInt32, &TTAudioObject::globalSr);
-	//	initialized = YES;
-	//}
-
 	registerParameter(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerParameter(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
+	registerParameter(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
 
 	// Set Defaults...
-	setParameterValue(TT("maxNumChannels"), newMaxNumChannels);
-	setParameterValue(TT("sr"), globalSr);
+	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setParameterValue(TT("sr"),				globalSr);
 	setProcess(&TTAudioObject::bypassProcess);
+	setParameterValue(TT("bypass"),			kTTBoolNo);
 }
 
 
@@ -79,13 +74,26 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 {
 	processMethod = newProcessMethod;
+	if(!attrBypass)
+		currentProcessMethod = processMethod;
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioObject::setBypass(const TTValue& value)
+{
+	attrBypass = value;
+	if(attrBypass)
+		currentProcessMethod = &TTAudioObject::bypassProcess;
+	else
+		currentProcessMethod = processMethod;
 	return kTTErrNone;
 }
 
 
 TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 {
-	return (this->*processMethod)(in, out);
+	return (this->*currentProcessMethod)(in, out);
 }
 
 

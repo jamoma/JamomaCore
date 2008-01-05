@@ -16,15 +16,13 @@ TTDCBlock::TTDCBlock(TTUInt8 newMaxNumChannels)
 {
 	// make the clear method available to be called:
 	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear);
+	
 	// this next one is called by the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels);
-	
-	// this parameter has a custom setter so that we can switch the perform method that is used
-	registerParameter(TT("bypass"), kTypeBoolean, &attrBypass, (TTSetterMethod)&TTDCBlock::setBypass);
 
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setParameterValue(TT("bypass"),			kTTBoolNo);
+	setProcess((TTProcessMethod)&TTDCBlock::processAudio);
 }
 
 
@@ -57,16 +55,6 @@ TTErr TTDCBlock::clear()
 		lastOutput[i] = 0;
 	}
 	return kTTErrNone;
-}
-
-
-TTErr TTDCBlock::setBypass(const TTValue& value)
-{
-	attrBypass = value;
-	if(attrBypass)
-		return setProcess((TTProcessMethod)&TTAudioObject::bypassProcess);
-	else
-		return setProcess((TTProcessMethod)&TTDCBlock::processAudio);
 }
 
 

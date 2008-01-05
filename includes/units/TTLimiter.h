@@ -26,7 +26,6 @@ private:
 	TTUInt32			samps;
 	TTSampleValue		last;
 
-	TTBoolean			attrBypass;				///< If toggled to YES, the input signal will pass through unmodified.
 	TTBoolean			attrDefeatDCBlocker;	///< If toggled to YES, the internal DC Blocker will be turned off.
 	TTFloat32			attrThreshold;			///< linear amplitude threshold at which the limiting should kick in (attr setter used dB).
 	TTSymbol*			attrMode;				///< may be one of two symbols: "linear" or "exponential".
@@ -42,10 +41,7 @@ private:
 	
 
 	/**	Override the setter for the inherited maxNumChannels parameter.					*/
-	TTErr setMaxNumChannels(const TTValue& newValue);
-
-	/**	Setter for the bypass attribute. */
-	TTErr setBypass(TTValue& value);
+	TTErr updateMaxNumChannels();
 
 	/**	Setter for the bitdepth attribute. */
 	TTErr setDefeatDCBlocker(TTValue& value);

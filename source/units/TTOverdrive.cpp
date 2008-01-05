@@ -12,14 +12,20 @@
 TTOverdrive::TTOverdrive(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels)
 {
+	// register parameters
 	registerParameter(TT("bypass"),		kTypeInt32,		&attrBypass,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBypass);
 	registerParameter(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBitdepth);
 	registerParameter(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
+
+	// register for notifications from the parent class so we can allocate memory as required
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels);
 
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setParameterValue(TT("bypass"),			kTTBoolNo);
 	setParameterValue(TT("bitdepth"),		24);
 	setParameterValue(TT("srRatio"),		1.0);
+		setProcess((TTProcessMethod)&TTDCBlock::processAudio);
+
 }
 
 
@@ -29,11 +35,10 @@ TTOverdrive::~TTOverdrive()
 }
 
 
-TTErr TTOverdrive::setMaxNumChannels(const TTValue& newValue)
+TTErr TTOverdrive::updateMaxNumChannels()
 {
 	short i;
 	
-	maxNumChannels = newValue;
 	output = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
 	for(i=0; i<maxNumChannels; i++)
 		output[i] = 0.0;				// clear the values
@@ -59,7 +64,6 @@ TTErr TTOverdrive::setBitdepth(TTValue& newValue)
 }
 
 
-// DSP LOOP
 TTErr TTOverdrive::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;

@@ -18,7 +18,6 @@
  */
 class TTLowpassButterworth : public TTAudioObject {
 private:
-	TTBoolean		attrBypass;					///< Whether or not to bypass the filter
 	TTFloat32		attrFrequency;				///< filter cutoff frequency
 	double			c, a0, a1, a2, b1, b2;		///< filter coefficients
 	TTFloat64		*xm1;
@@ -26,13 +25,10 @@ private:
 	TTFloat64		*ym1;
 	TTFloat64		*ym2;						// previous input and output samples
 
-	/**	Setter for the inherited maxNumChannels parameter.	
-		This allocates memory for xm1, xm2, ym1, and ym2 so that each channel's 
-		previous values are remembered.		*/
-	TTErr setMaxNumChannels(const TTValue& newValue);
-
-	/**	Setter for the bypass attribute.	*/
-	TTErr setBypass(TTValue& value);
+	/**	Receives notifications when there are changes to the inherited 
+		maxNumChannels parameter.  This allocates memory for xm1, xm2, ym1, and ym2 
+		so that each channel's previous values are remembered.		*/
+	TTErr updateMaxNumChannels();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setFrequency(TTValue& value);

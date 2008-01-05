@@ -10,15 +10,21 @@
 
 
 TTLowpassButterworth::TTLowpassButterworth(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels)
+	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
-	registerParameter(TT("bypass"),		kTypeInt32,		&attrBypass,	(TTGetterMethod)NULL, (TTSetterMethod)&TTLowpassButterworth::setBypass);
+	// register parameters
 	registerParameter(TT("frequency"),	kTypeInt32,		&attrFrequency,	(TTGetterMethod)NULL, (TTSetterMethod)&TTLowpassButterworth::setFrequency);
 
+	// register for notifications from the parent class so we can allocate memory as required
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassButterworth::updateMaxNumChannels);
+	// make the clear method available to the outside world
+	registerMessage(TT("clear"), (TTMethod)&TTLowpassButterworth::clear);
+
 	// Set Defaults...
-	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);		// This parameter is not declared here because it is inherited
-	setParameterValue(TT("bypass"),			kTTBoolNo);
+	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
 	setParameterValue(TT("frequency"),		4000.0);
+	setProcess((TTProcessMethod)&TTLowpassButterworth::processAudio);
 }
 
 
@@ -31,15 +37,23 @@ TTLowpassButterworth::~TTLowpassButterworth()
 }
 
 
-TTErr TTLowpassButterworth::setMaxNumChannels(const TTValue& newValue)
+TTErr TTLowpassButterworth::updateMaxNumChannels()
 {
-	maxNumChannels = newValue;
+	if(xm1)
+		free(xm1);
+	if(xm2)
+		free(xm2);
+	if(ym1)
+		free(ym1);
+	if(ym2)
+		free(ym2);
+	
 	xm1 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
 	xm2 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
 	ym1 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
 	ym2 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	clear();
 	
+	clear();
 	return kTTErrNone;
 }
 
@@ -58,16 +72,6 @@ TTErr TTLowpassButterworth::clear()
 }
 
 
-TTErr TTLowpassButterworth::setBypass(TTValue& newValue)
-{
-	attrBypass = newValue;
-	if(attrBypass)
-		return setProcess((TTProcessMethod)&TTAudioObject::bypassProcess);
-	else
-		return setProcess((TTProcessMethod)&TTLowpassButterworth::processAudio);
-}
-
-
 TTErr TTLowpassButterworth::setFrequency(TTValue& newValue)
 {
 	attrFrequency = newValue;
@@ -81,7 +85,6 @@ TTErr TTLowpassButterworth::setFrequency(TTValue& newValue)
 }
 
 
-// DSP LOOP
 TTErr TTLowpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
@@ -92,11 +95,13 @@ TTErr TTLowpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	short			channel;
 
+	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
 		vs = in.vs;
 		
+		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempx = *inSample++;
 			tempy = antiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);

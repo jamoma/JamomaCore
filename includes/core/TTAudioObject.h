@@ -34,25 +34,29 @@ typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal
  */
 class TTAudioObject : public TTObject {
 private:
-	friend class TTGlobal;					///< Declare that the global object is friend so it can access the globalSr member
-	static TTBoolean	initialized;		///< Flag to indicate whether we've initialized globals or not
+	friend class TTGlobal;						///< Declare that the global object is friend so it can access the globalSr member
 
 protected:
-	static TTUInt32		globalSr;			///< Current sample rate as understood by the environment as a whole
-	TTUInt32			sr;					///< Current sample rate being used by this object
-	TTFloat32			srInv;				///< 1.0 over the current sample rate (inverse)
-	TTFloat32			srMill;				///< 1/1000 of the current sample rate (samples per millisecond)
-	TTUInt8				maxNumChannels;		///< This is the maximum number of channels that can be guaranteed to work
-	TTProcessMethod		processMethod;		///< This function pointer always points to the current processing routine
+	static TTUInt32		globalSr;				///< Current sample rate as understood by the environment as a whole
+	TTUInt32			sr;						///< Current sample rate being used by this object
+	TTFloat32			srInv;					///< 1.0 over the current sample rate (inverse)
+	TTFloat32			srMill;					///< 1/1000 of the current sample rate (samples per millisecond)
+	TTUInt8				maxNumChannels;			///< This is the maximum number of channels that can be guaranteed to work
+	TTBoolean			attrBypass;				///< Are we bypassing the processMethod?
+	TTProcessMethod		processMethod;			///< This function pointer points to the active (non-bypass) processing routine
+	TTProcessMethod		currentProcessMethod;	///< This function pointer always points to the current processing routine
 
-	/** Set the audio processing routine to point to a method that is defined as an arg to this function.		*/
+	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
 	TTErr setProcess(TTProcessMethod processMethod);
 
-	/**	Setter for the maxNumChannels parameter.  Declared virtual so it can be overriden by subclasses.		*/
-	/*virtual*/ TTErr setMaxNumChannels(const TTValue& newValue);
+	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
+	TTErr setBypass(const TTValue& value);
 
-	/**	Setter for the sample-rate parameter.  Declared virtual so it can be overriden by subclasses.			*/
-	/*virtual*/ TTErr setSr(const TTValue& newValue);
+	/**	Setter for the maxNumChannels parameter. 	*/
+	TTErr setMaxNumChannels(const TTValue& newValue);
+
+	/**	Setter for the sample-rate parameter.		*/
+	TTErr setSr(const TTValue& newValue);
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/

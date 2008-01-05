@@ -17,6 +17,7 @@ TTGain::TTGain(TTUInt8 newMaxNumChannels)
 
 	// Set Defaults...
 	setParameterValue(TT("linearGain"),	1.0);
+	setProcess((TTProcessMethod)&TTGain::processAudio);
 }
 
 
@@ -40,7 +41,6 @@ TTErr TTGain::getGain(TTValue& value)
 }
 
 
-// DSP LOOP
 TTErr TTGain::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
