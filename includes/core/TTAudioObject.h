@@ -48,10 +48,10 @@ protected:
 	TTErr setProcess(TTProcessMethod processMethod);
 
 	/**	Setter for the maxNumChannels parameter.  Declared virtual so it can be overriden by subclasses.		*/
-	virtual TTErr setMaxNumChannels(const TTValue& newValue);
+	/*virtual*/ TTErr setMaxNumChannels(const TTValue& newValue);
 
 	/**	Setter for the sample-rate parameter.  Declared virtual so it can be overriden by subclasses.			*/
-	virtual TTErr setSr(const TTValue& newValue);
+	/*virtual*/ TTErr setSr(const TTValue& newValue);
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
@@ -69,6 +69,44 @@ public:
 	
 	/**	The default audio processing method, which simply copies a signal through with no modifications.		*/
 	TTErr bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
+	
+	
+	// UTILITIES
+	
+	/**	Convert Hertz to radians.
+	 *
+	 *	NOTE: Be sure to set the sr for this object before calling this function   */
+	TTFloat64 hertzToRadians(const TTFloat64 hz);
+
+	/**	Convert radians into Hertz.
+	 *
+	 *	NOTE: Be sure to set the sr for this object before calling this function   */
+	TTFloat64 radiansToHertz(const TTFloat64 radians);
+
+	/** degrees-to-radians conversion */
+	TTFloat64 degreesToRadians(const TTFloat64 degrees);
+
+	/** radians-to-degrees conversion */
+	TTFloat64 radiansToDegrees(const TTFloat64 radians);
+
+	/** Decay Time (seconds) to feedback coefficient conversion */
+	TTFloat32 decayToFeedback(const TTFloat32 decay_time, TTFloat32 delay);
+
+	/** Return the decay time based on the feedback coefficient */
+	TTFloat32 feedbackToDecay(const TTFloat32 feedback, const TTFloat32 delay);
+
+	/** Convert linear amplitude into deciBels.*/
+	TTFloat32 linearToDb(const TTFloat32 value);
+
+	/** Convert deciBels into linear ampliude.*/
+	TTFloat32 dbToLinear(TTFloat32 value);
+
+	/** An idiosyncratic utility for slightly randomizing a number. 
+		Specifically this is used in applications such as randoming delay times for a reverb. */
+	TTFloat32 deviate(TTFloat32 value);
+
+	/** Generate the next prime number higher than the value passed in.*/
+	TTUInt32 prime(TTUInt32 value);
 
 };
 

@@ -52,6 +52,8 @@ public:
 
 
 	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress);
+	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
+	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
 	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	virtual ~TTParameter();
 
@@ -86,6 +88,8 @@ public:
 		the base class only) and it dispatches the message as appropriate.
 	*/
 	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address);
+	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter);
+	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	
 	TTErr setParameterValue(const TTSymbol& name, const TTValue& value);
@@ -111,11 +115,14 @@ public:
 	TTErr getParameterValue(const TTSymbol& name, TTInt64& value);
 	TTErr setParameterValue(const TTSymbol& name, const TTUInt64& value);
 	TTErr getParameterValue(const TTSymbol& name, TTUInt64& value);
+	TTErr setParameterValue(const TTSymbol& name, const TTSymbol& value);
+	TTErr getParameterValue(const TTSymbol& name, TTSymbol& value);
 	
 	// These are not registered as static, even though they are operating only on statics.
 	// This is because the function pointers for the parameter getter/setter require a valid 'this' member.
 	// The result however, is that you can't call static methods from anywhere for these...
 	// So instead we create a "ttGlobalObject" instance just for this purpose.
+	static TTErr registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address);
 	static TTErr registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	static TTErr setGlobalParameterValue(const TTSymbol& name, TTValue& value);
 	static TTErr getGlobalParameterValue(const TTSymbol& name, TTValue& value);

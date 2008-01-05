@@ -26,8 +26,8 @@ private:
 	TTSampleValue		*lastOutput;	///< Feedback values used for the audio filter
 	TTUInt32			attrBypass;
 
-	/**	Setter for the inherited maxNumChannels parameter.												*/
-	TTErr setMaxNumChannels(const TTValue& newValue);
+	/**	This method gets called when the inherited maxNumChannels parameter is changed. */
+	TTErr updateMaxNumChannels();
 
 	/**	Resets the DC-Blocking filter.
 	 *	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
@@ -38,7 +38,7 @@ private:
 	TTErr clear();
 	
 	/**	Setter for the bypass attribute.																*/
-	TTErr setBypass(TTValue& value);
+	TTErr setBypass(const TTValue& value);
 
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number

@@ -9,8 +9,8 @@
 #include "TTElement.h"
 
 
-const TTFloat64 TTElement::kTTPi = 3.1415926535897932;
-const TTFloat64 TTElement::kTTTwoPi = 6.2831853071795864;
+const TTFloat64 TTElement::kTTPi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
+const TTFloat64 TTElement::kTTTwoPi = kTTPi * 2.0;
 const TTFloat64 TTElement::kTTAntiDenormalValue = 1e-18;
 const TTFloat64	TTElement::kTTSqrt2 = sqrt(2.0);
 

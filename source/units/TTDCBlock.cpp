@@ -10,13 +10,19 @@
 
 
 TTDCBlock::TTDCBlock(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels)
+	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	lastInput(NULL),
+	lastOutput(NULL)
 {
-	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear);		// make the clear method public
-	registerParameter(TT("bypass"), kTypeInt32, &attrBypass, (TTGetterMethod)NULL, (TTSetterMethod)&TTDCBlock::setBypass);
+	// make the clear method available to be called:
+	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear);
+	// this next one is called by the parent class so we can allocate memory as required
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels);
+	
+	// this parameter has a custom setter so that we can switch the perform method that is used
+	registerParameter(TT("bypass"), kTypeInt32, &attrBypass, (TTSetterMethod)&TTDCBlock::setBypass);
 
-//	setMaxNumChannels(newMaxNumChannels);	// set the max num channels
-//	setBypass(kTTVal0);					// set default (bypass=no) and the process method
+	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setParameterValue(TT("bypass"),			kTTBoolNo);
 }
@@ -29,9 +35,12 @@ TTDCBlock::~TTDCBlock()
 }
 
 
-TTErr TTDCBlock::setMaxNumChannels(const TTValue& newValue)
+TTErr TTDCBlock::updateMaxNumChannels()
 {
-	maxNumChannels = newValue;
+	if(lastInput)
+		free(lastInput);
+	if(lastOutput)
+		free(lastOutput);
 	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
 	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
 	clear();
@@ -51,7 +60,7 @@ TTErr TTDCBlock::clear()
 }
 
 
-TTErr TTDCBlock::setBypass(TTValue& value)
+TTErr TTDCBlock::setBypass(const TTValue& value)
 {
 	attrBypass = value;
 	if(attrBypass)

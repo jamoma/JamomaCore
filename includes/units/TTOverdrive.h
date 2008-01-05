@@ -1,13 +1,13 @@
 /* 
- * TTBlue Degrade Object
+ * TTBlue Overdrive Object
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_DEGRADE_H__
-#define __TT_DEGRADE_H__
+#ifndef __TT_OVERDRIVE_H__
+#define __TT_OVERDRIVE_H__
 
 
 #include "TTAudioObject.h"
@@ -17,7 +17,7 @@
  *	number of parallel audio channels, with just a couple of attributes.
  */
 
-class TTDegrade : public TTAudioObject {
+class TTOverdrive : public TTAudioObject {
 private:
 	TTUInt16		bitShift;
 	TTFloat32		accumulator;
@@ -30,10 +30,10 @@ private:
 	TTErr setMaxNumChannels(const TTValue& newValue);
 
 	/**	Setter for the bypass attribute. */
-	TTErr setBypass(const TTValue& value);
+	TTErr setBypass(TTValue& value);
 
 	/**	Setter for the bitdepth attribute. */
-	TTErr setBitdepth(const TTValue& value);
+	TTErr setBitdepth(TTValue& value);
 
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number
@@ -50,10 +50,10 @@ private:
 public:
 
 	/**	Constructor. */
-	TTDegrade(TTUInt8 newMaxNumChannels);
+	TTOverdrive(TTUInt8 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTDegrade();
+	~TTOverdrive();
 };
 
 
