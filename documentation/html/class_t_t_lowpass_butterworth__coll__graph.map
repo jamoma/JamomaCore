@@ -1,0 +1,6 @@
+base referer
+rect $class_t_t_audio_object.html 31,347 143,373
+rect $class_t_t_object.html 48,269 126,296
+rect $class_t_t_element.html 38,5 126,32
+rect $class_t_t_parameter.html 67,176 168,203
+rect $class_t_t_symbol.html 119,83 202,109
