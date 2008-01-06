@@ -18,27 +18,43 @@
 #include "TTLowpassButterworth.h"	// TTBlue Interfaces...
 
 
-// Data Structure for this object
-typedef struct _filter	{
-    t_pxobject 		obj;
-    void			*obex;
-	TTLowpassButterworth		*filter;
-	TTAudioSignal	*audioIn;
-	TTAudioSignal	*audioOut;
-	long			attrBypass;
-	long			maxNumChannels;
-	TTFloat64		attrFrequency;
+/** Data structure for the filter module. */
+typedef struct _filter	{								///< Data Structure for this object
+    t_pxobject 				obj;						///< REQUIRED: Our object
+    void					*obex;						///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
+	TTLowpassButterworth	*filter;					///< Pointer to the TTBlue filter unit used
+	TTAudioSignal			*audioIn;					///< Array of pointers to the audio inlets
+	TTAudioSignal			*audioOut;					///< Array of pointers to the audio outlets
+	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
+	long					maxNumChannels;				///< The maximum number of audio channels permitted
+	TTFloat64				attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
 } t_filter;
 
 
 // Prototypes for methods: need a method for each incoming message type
-void*		filter_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
+
+/** New object create method. */
+void*		filter_new(t_symbol *msg, short argc, t_atom *argv);
+
+/** Free memory etc. when an object is destroyed. */
 void		filter_free(t_filter *x);
-void		filter_assist(t_filter *x, void *b, long msg, long arg, char *dst);		// Assistance Method
-t_int*		filter_perform(t_int *w);												// An MSP Perform (signal) Method
-void		filter_dsp(t_filter *x, t_signal **sp, short *count);					// DSP Method
+
+/** Assist strings for object inlets and outlets. */
+void		filter_assist(t_filter *x, void *b, long msg, long arg, char *dst);
+
+/** This method is called on each audio vector. */
+t_int*		filter_perform(t_int *w);
+
+/** This method is called when audio is started in order to compile the audio chain. */
+void		filter_dsp(t_filter *x, t_signal **sp, short *count);
+
+/** Clear the filter in case it has blown up (NaN) */
 void		filter_clear(t_filter *x);
+
+/** Method setting the value of the bypass attribute. */
 t_max_err	filter_setBypass(t_filter *x, void *attr, long argc, t_atom *argv);
+
+/** Method setting the value of the frequency attribute. */
 t_max_err 	filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv);
 
 
