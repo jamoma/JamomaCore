@@ -85,7 +85,7 @@ TTErr TTBandRejectButterworth::clear()
 
 TTErr TTBandRejectButterworth::setFrequency(TTValue& newValue)
 {
-	attrFrequency = newValue;
+	attrFrequency = clip((double)newValue, 10., (sr*0.45));
 	
 	return calculateCoefficients();
 }

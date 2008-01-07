@@ -83,7 +83,8 @@ TTErr TTLowpassButterworth::clear()
 
 TTErr TTLowpassButterworth::setFrequency(TTValue& newValue)
 {
-	attrFrequency = newValue;
+	attrFrequency = clip((double)newValue, 10., (sr*0.45));
+
 	c = 1 / ( tan( kTTPi*(attrFrequency/sr) ) );
 	a0 = 1 / (1 + kTTSqrt2*c + c*c);
 	a1 = 2*a0;
