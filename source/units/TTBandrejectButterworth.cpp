@@ -26,7 +26,7 @@ TTBandRejectButterworth::TTBandRejectButterworth(TTUInt8 newMaxNumChannels)
 
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
-	setParameterValue(TT("frequency"),		4000.0);
+	setParameterValue(TT("frequency"),		1000.0);
 	setParameterValue(TT("q"),				50.0);
 	setProcess((TTProcessMethod)&TTBandRejectButterworth::processAudio);
 }

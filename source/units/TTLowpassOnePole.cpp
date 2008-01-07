@@ -23,10 +23,9 @@ TTLowpassOnePole::TTLowpassOnePole(TTUInt8 newMaxNumChannels)
 	// make the clear method available to the outside world
 	registerMessage(TT("clear"), (TTMethod)&TTLowpassOnePole::clear);
 
-
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
-	setParameterValue(TT("frequency"),		4000.0);
+	setParameterValue(TT("frequency"),		1000.0);
 	setProcess((TTProcessMethod)&TTLowpassOnePole::processAudio);
 }
 
@@ -73,12 +72,6 @@ TTErr TTLowpassOnePole::setFrequency(TTValue& newValue)
 	return kTTErrNone;
 }
 
-
-TTErr TTLowpassOnePole::setQ(TTValue& newValue)
-{
-	// This filter doesn't have any resonance.		
-	return kTTErrNone;
-}
 
 TTErr TTLowpassOnePole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
