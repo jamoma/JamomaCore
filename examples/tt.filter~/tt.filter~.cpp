@@ -86,19 +86,21 @@ int main(void)
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_filter, obex));
 
- 	class_addmethod(c, (method)filter_clear, 			"clear",	0L);		
- 	class_addmethod(c, (method)filter_dsp, 				"dsp",		A_CANT, 0L);		
-	class_addmethod(c, (method)filter_assist, 			"assist",	A_CANT, 0L); 
+ 	class_addmethod(c, (method)filter_clear, 			"clear",		0L);		
+ 	class_addmethod(c, (method)filter_dsp, 				"dsp",			A_CANT, 0L);		
+	class_addmethod(c, (method)filter_assist, 			"assist",		A_CANT, 0L); 
+	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT, 0);  
+	class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
 
 	attr = attr_offset_new("bypass", _sym_long, attrflags,
 		(method)0L,(method)filter_setBypass, calcoffset(t_filter, attrBypass));
 	class_addattr(c, attr);
 	
-	attr = attr_offset_new("frequency", _sym_float, attrflags,
+	attr = attr_offset_new("frequency", _sym_float32, attrflags,
 		(method)0L,(method)filter_setFrequency, calcoffset(t_filter, attrFrequency));
 	class_addattr(c, attr);
 	
-	attr = attr_offset_new("q", _sym_float, attrflags,
+	attr = attr_offset_new("q", _sym_float32, attrflags,
 		(method)0L,(method)filter_setQ, calcoffset(t_filter, attrQ));
 	class_addattr(c, attr);
 
@@ -256,7 +258,7 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrQ = atom_getfloat(argv);
-		x->filter->setParameterValue(TT("q"), x->attrFrequency);
+		x->filter->setParameterValue(TT("q"), x->attrQ);
 	}
 	return MAX_ERR_NONE;
 }
@@ -282,6 +284,7 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			}
 			// Now that we have our new filter, update it with the current state of the external:
 			x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
+			x->filter->setParameterValue(TT("q"), x->attrQ);
 			x->filter->setParameterValue(TT("bypass"), x->attrBypass);
 		}
 	}
