@@ -154,9 +154,6 @@ void filter_assist(t_filter *x, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "(signal) input, control messages");		
 	else if(msg==2) // Outlets
 		strcpy(dst, "(signal) Filtered output");
-	#pragma unused(x)
-	#pragma unused(b)
-	#pragma unused(arg)
 }
 
 
@@ -179,7 +176,7 @@ t_int *filter_perform(t_int *w)
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
-		x->filter->process(*x->audioIn, *x->audioOut);		// Actual DC-Blocker process
+		x->filter->process(*x->audioIn, *x->audioOut);		// Actual Filter process
 
 	return w + ((x->audioIn->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
@@ -220,24 +217,18 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 
 t_max_err filter_setBypass(t_filter *x, void *attr, long argc, t_atom *argv)
 {
-	TTSymbol	name("bypass");
-	TTValue		value;
-
 	if(argc){
-		value = x->attrBypass = atom_getlong(argv);
-		x->filter->setParameterValue(name, value);
+		x->attrBypass = atom_getlong(argv);
+		x->filter->setParameterValue(TT("bypass"), x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
 
 t_max_err filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv)
 {
-	TTSymbol	name("frequency");
-	TTValue		value;
-
 	if(argc){
-		value = x->attrFrequency = atom_getfloat(argv);
-		x->filter->setParameterValue(name, value);
+		x->attrFrequency = atom_getfloat(argv);
+		x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
