@@ -1,25 +1,25 @@
 /* 
- * TTBlue Butterworth Lowpass Filter Object
+ * TTBlue Butterworth Bandpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_LOWPASS_BUTTERWORTH_H__
-#define __TT_LOWPASS_BUTTERWORTH_H__
+#ifndef __TT_BANDPASS_BUTTERWORTH_H__
+#define __TT_BANDPASS_BUTTERWORTH_H__
 
 
 #include "TTAudioObject.h"
 
-/**	2nd order Butterworth lowpass filter; Butterworth filters have maximum flat frequency response in the pass band.
+/**	2nd order Butterworth bandpass filter; Butterworth filters have maximum flat frequency response in the pass band.
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-class TTLowpassButterworth : public TTAudioObject {
+class TTBandpassButterworth : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;				///< filter cutoff frequency
-	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients
+	TTFloat64		c, a0, a2, b1, b2;			///< filter coefficients. a1=0 and hence ignored
 	TTFloat64		*xm1;
 	TTFloat64		*xm2;
 	TTFloat64		*ym1;
@@ -36,6 +36,12 @@ private:
 
 	/**	Setter for the frequency attribute. */
 	TTErr setFrequency(TTValue& value);
+	
+	/**	Setter for the q (resonance) attribute. */
+	TTErr setQ(TTValue& value);
+	
+	/** Recalculate coefficients whenever frequency or q are updated */
+	TTErr calculateCoefficients();
 
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -50,11 +56,11 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassButterworth(TTUInt8 newMaxNumChannels);
+	TTBandpassButterworth(TTUInt8 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTLowpassButterworth();
+	~TTBandpassButterworth();
 };
 
 
-#endif // __TT_LOWPASS_BUTTERWORTH_H__
+#endif // __TT_BANDPASS_BUTTERWORTH_H__

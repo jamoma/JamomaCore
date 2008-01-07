@@ -1,36 +1,36 @@
 /* 
- * TTBlue Butterworth Lowpass Filter Object
+ * TTBlue Butterworth Bandpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTLowpassButterworth.h"
+#include "TTBandpassButterworth.h"
 
 
-TTLowpassButterworth::TTLowpassButterworth(TTUInt8 newMaxNumChannels)
+TTBandpassButterworth::TTBandpassButterworth(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassButterworth::setFrequency);
+	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBandpassButterworth::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassButterworth::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandpassButterworth::updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassButterworth::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTBandpassButterworth::updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTLowpassButterworth::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTBandpassButterworth::clear);
 
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
 	setParameterValue(TT("frequency"),		4000.0);
-	setProcess((TTProcessMethod)&TTLowpassButterworth::processAudio);
+	setProcess((TTProcessMethod)&TTBandpassButterworth::processAudio);
 }
 
 
-TTLowpassButterworth::~TTLowpassButterworth()
+TTBandpassButterworth::~TTBandpassButterworth()
 {
 	free(xm1);
 	free(xm2);
@@ -39,7 +39,7 @@ TTLowpassButterworth::~TTLowpassButterworth()
 }
 
 
-TTErr TTLowpassButterworth::updateMaxNumChannels()
+TTErr TTBandpassButterworth::updateMaxNumChannels()
 {
 	if(xm1)
 		free(xm1);
@@ -60,14 +60,14 @@ TTErr TTLowpassButterworth::updateMaxNumChannels()
 }
 
 
-TTErr TTLowpassButterworth::updateSr()
+TTErr TTBandpassButterworth::updateSr()
 {
 	TTValue	v(attrFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTLowpassButterworth::clear()
+TTErr TTBandpassButterworth::clear()
 {
 	short i;
 
@@ -81,20 +81,37 @@ TTErr TTLowpassButterworth::clear()
 }
 
 
-TTErr TTLowpassButterworth::setFrequency(TTValue& newValue)
+TTErr TTBandpassButterworth::setFrequency(TTValue& newValue)
 {
 	attrFrequency = newValue;
-	c = 1 / ( tan( kTTPi*(attrFrequency/sr) ) );
-	a0 = 1 / (1 + kTTSqrt2*c + c*c);
-	a1 = 2*a0;
-	a2 = a0;
-	b1 = 2*a0*( 1 - c*c );
-	b2 = a0 * (1 - kTTSqrt2*c + c*c);
-	return kTTErrNone;
+	
+	return calculateCoefficients();
 }
 
 
-TTErr TTLowpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTBandpassButterworth::setQ(TTValue& newValue)
+{
+	attrQ = newValue;
+	
+	return calculateCoefficients();
+}
+
+
+TTErr TTBandpassButterworth::calculateCoefficients()
+{
+	float bw = attrFrequency/attrQ;
+	c = 1. / tan( kTTPi*(bw/sr) );
+	d = 2. * cos( 2*kTTPi*(attrFrequency/sr) );
+	a0 = 1. / (1. + c);
+	// a1 = 0.
+	a2 = -a0;
+	b1 = -1. * a0 * c * d;
+	b2 = a0 * (c - 1.);
+	
+	return kTTErrNone;
+}
+
+TTErr TTBandpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
 	TTSampleValue	*inSample,
@@ -113,7 +130,7 @@ TTErr TTLowpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempx = *inSample++;
-			tempy = antiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
+			tempy = antiDenormal(a0*tempx + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
 			xm2[channel] = xm1[channel];
 			xm1[channel] = tempx;
 			ym2[channel] = ym1[channel];
