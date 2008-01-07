@@ -85,7 +85,7 @@ TTErr TTBandpassButterworth::clear()
 
 TTErr TTBandpassButterworth::setFrequency(TTValue& newValue)
 {
-	attrFrequency = newValue;
+	attrFrequency = clip(newValue, 10., sr*0.45);
 	
 	return calculateCoefficients();
 }
