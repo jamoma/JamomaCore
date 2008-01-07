@@ -354,7 +354,7 @@ t_int *filter_perform_q(t_int *w)
 		x->audioIn->setVector(i, (t_float *)(w[j+1]));
 		x->audioOut->setVector(i, (t_float *)(w[j+2]));
 	}
-	q = (t_float*)w[(i*2) + 1];
+	q = (t_float*)w[(i*2) + 2];
 
 	if(!x->obj.z_disabled){
 		x->attrQ = *q;
@@ -378,8 +378,8 @@ t_int *filter_perform_freq_q(t_int *w)
 		x->audioIn->setVector(i, (t_float *)(w[j+1]));
 		x->audioOut->setVector(i, (t_float *)(w[j+2]));
 	}
-	freq = (t_float*)w[(i*2) + 1];
-	q = (t_float*)w[(i*2) + 2];
+	freq = (t_float*)w[(i*2) + 2];
+	q = (t_float*)w[(i*2) + 3];
 
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
