@@ -83,7 +83,7 @@ TTErr TTBandpassButterworth::clear()
 }
 
 
-TTErr TTBandpassButterworth::setFrequency(TTValue& newValue)
+TTErr TTBandpassButterworth::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = clip((double)newValue, 10., (sr*0.45));
 	
@@ -91,7 +91,7 @@ TTErr TTBandpassButterworth::setFrequency(TTValue& newValue)
 }
 
 
-TTErr TTBandpassButterworth::setQ(TTValue& newValue)
+TTErr TTBandpassButterworth::setQ(const TTValue& newValue)
 {
 
 	attrQ = newValue;

@@ -61,7 +61,7 @@ TTErr TTLowpassOnePole::clear()
 }
 
 
-TTErr TTLowpassOnePole::setFrequency(TTValue& newValue)
+TTErr TTLowpassOnePole::setFrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 

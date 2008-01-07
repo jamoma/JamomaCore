@@ -36,10 +36,10 @@ private:
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(TTValue& value);
+	TTErr setFrequency(const TTValue& value);
 	
 	/**	Setter for the q (resonance) attribute. */
-	TTErr setQ(TTValue& value);
+	TTErr setQ(const TTValue& value);
 	
 	/** Recalculate coefficients whenever frequency or q are updated */
 	TTErr calculateCoefficients();

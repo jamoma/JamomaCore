@@ -81,7 +81,7 @@ TTErr TTLowpassButterworth::clear()
 }
 
 
-TTErr TTLowpassButterworth::setFrequency(TTValue& newValue)
+TTErr TTLowpassButterworth::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = clip((double)newValue, 10., (sr*0.45));
 
