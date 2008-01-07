@@ -32,8 +32,6 @@
 		22BFF6890D2AF40F00BD97E5 /* TTValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF6820D2AF40F00BD97E5 /* TTValue.h */; };
 		22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */; };
 		22C01EDA09CE6CDB00177B81 /* Externs-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C01ED909CE6CDB00177B81 /* Externs-Info.plist */; };
-		22E000A50D3046530000F850 /* TTMaxObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E000A40D3046530000F850 /* TTMaxObject.h */; };
-		22E000A70D30465C0000F850 /* TTMaxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E000A60D30465C0000F850 /* TTMaxObject.cpp */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,8 +63,6 @@
 		22BFF6820D2AF40F00BD97E5 /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = ../../includes/core/TTValue.h; sourceTree = SOURCE_ROOT; };
 		22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
-		22E000A40D3046530000F850 /* TTMaxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMaxObject.h; path = ../../includes/platform/TTMaxObject.h; sourceTree = SOURCE_ROOT; };
-		22E000A60D30465C0000F850 /* TTMaxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMaxObject.cpp; path = ../../source/platform/TTMaxObject.cpp; sourceTree = SOURCE_ROOT; };
 		542ED84F09C02A0000DBC7EB /* tt.degrade~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.degrade~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -89,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				22E000A00D3046300000F850 /* TTBlue-MaxLayer */,
 				22BFF6630D2AB51200BD97E5 /* TTBlue-Units */,
 				22BFF6620D2AB4FC00BD97E5 /* TTBlue-Core */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -123,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				22059DDC0D2D3F5D00DDA5FC /* tt.degrade~.cpp */,
+				22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -168,16 +164,6 @@
 			name = "TTBlue-Units";
 			sourceTree = "<group>";
 		};
-		22E000A00D3046300000F850 /* TTBlue-MaxLayer */ = {
-			isa = PBXGroup;
-			children = (
-				22E000A40D3046530000F850 /* TTMaxObject.h */,
-				22E000A60D30465C0000F850 /* TTMaxObject.cpp */,
-				22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */,
-			);
-			name = "TTBlue-MaxLayer";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -195,7 +181,6 @@
 				22059D460D2D39B400DDA5FC /* TTValueCache.h in Headers */,
 				225C46CE0D2DD3E1002DB72E /* TTDegrade.h in Headers */,
 				223A5A1B0D2E7837001FE801 /* TTGlobal.h in Headers */,
-				22E000A50D3046530000F850 /* TTMaxObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +278,6 @@
 				22059DDD0D2D3F5D00DDA5FC /* tt.degrade~.cpp in Sources */,
 				225C46CC0D2DD3D8002DB72E /* TTDegrade.cpp in Sources */,
 				223A5A190D2E782E001FE801 /* TTGlobal.cpp in Sources */,
-				22E000A70D30465C0000F850 /* TTMaxObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

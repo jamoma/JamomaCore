@@ -13,11 +13,11 @@
 
 
 TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels)
+	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	accumulator(NULL), output(NULL)
 {
 	// register parameters
-	registerParameter(TT("bypass"),		kTypeInt32,		&attrBypass,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBypass);
-	registerParameter(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBitdepth);
+	registerParameter(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTSetterMethod)&TTDegrade::setBitdepth);
 	registerParameter(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
 
 	// register for notifications from the parent class so we can allocate memory as required
@@ -33,6 +33,7 @@ TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
 
 TTDegrade::~TTDegrade()
 {
+	free(accumulator);
 	free(output);
 }
 
@@ -41,9 +42,17 @@ TTErr TTDegrade::updateMaxNumChannels()
 {
 	short i;
 	
+	if(accumulator)
+		free(accumulator);
+	if(output)
+		free(output);
+	
+	accumulator = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
 	output = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	for(i=0; i<maxNumChannels; i++)
+	for(i=0; i<maxNumChannels; i++){
+		accumulator[i] = 0.0;
 		output[i] = 0.0;				// clear the values
+	}
 	return kTTErrNone;
 }
 
@@ -72,10 +81,10 @@ TTErr TTDegrade::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		
 		while(vs--){
 			// SampeRate Reduction
-			accumulator += attrSrRatio;
-			if(accumulator >= 1.0){
+			accumulator[channel] += attrSrRatio;
+			if(accumulator[channel] >= 1.0){
 				output[channel] = *inSample++;
-				accumulator -= 1.0;
+				accumulator[channel] -= 1.0;
 			}
 		
 			// BitDepth Reduction
