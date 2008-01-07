@@ -27,9 +27,11 @@ typedef struct _filter	{								///< Data Structure for this object
     t_pxobject 				obj;						///< REQUIRED: Our object
     void					*obex;						///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	TTAudioObject			*filter;					///< Pointer to the TTBlue filter unit used
+	TTAudioObject			*oldFilter;					///< Pointer to a previous filter that needs to be freed
 	TTAudioSignal			*audioIn;					///< Array of pointers to the audio inlets
 	TTAudioSignal			*audioOut;					///< Array of pointers to the audio outlets
 	long					maxNumChannels;				///< The maximum number of audio channels permitted
+	long					sr;							///< The sample-rate
 	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
 	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
 	float					attrQ;						///< ATTRIBUTE: Rilter resonance
@@ -138,11 +140,13 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 		x->attrBypass = 0;
 		x->attrFrequency = 1000.0;
 		x->attrQ = 1.;
+		x->oldFilter = NULL;
 		
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
+		x->sr = sr;
 		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);
 		object_attr_setsym(x, _sym_type, gensym("lowpass/butterworth"));
 
@@ -166,6 +170,8 @@ void filter_free(t_filter *x)
 {
 	dsp_free((t_pxobject *)x);
 	delete x->filter;
+	if(x->oldFilter)
+		delete x->oldFilter;
 	delete x->audioIn;
 	delete x->audioOut;
 }
@@ -320,7 +326,8 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 		k++;
 		hasQ = true;
 	}
-	
+
+	x->sr = sp[0]->s_sr;	
 	x->filter->setParameterValue(TT("sr"), sp[0]->s_sr);
 	
 	if(hasFreq && hasQ)
@@ -363,47 +370,63 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 	return MAX_ERR_NONE;
 }
 
+
+/**	Some notes on how this setter works:
+ *	
+ *	First, we need to understand that this function is called in the low-priority queue thread,
+ *	at which time the audio thread may be calling the perform method simultaneously on another
+ *	processor.  So we need to take care when switching filters.
+ *	
+ *	To deal with this, we completely set up the new filter before switching (including setting the
+ *	parameters of the filter).  Then we switch, but we don't free the old filter yet -- because the
+ *	perform routine could be in the middle of a vector running the old filter still.  So we switch
+ *	the pointer in the struct, but instead of deleting the old filter we simply cache its pointer
+ *	in an "oldFilter" member.
+ *	
+ *	We could attempt to delete this filter the next time the audio perform method is called,
+ *	but that would incur an expense in the perform routine and the we would also need to 
+ *	manage qelem and other machinery to make that happen.  Instead, we just delete the old filter
+ *	the next time we switch filters, or when the object itself is freed.  It isn't very much
+ *	memory to keep the old one around and this makes things both simple and fast.
+ */
 t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 {
+	TTAudioObject	*newFilter = NULL;
+	
+	if(x->oldFilter){
+		delete x->oldFilter;
+		x->oldFilter = NULL;
+	}
+	
 	if(argc){
 		if(x->attrType != atom_getsym(argv)){	// if it hasn't changed, then jump to the end...
 			x->attrType = atom_getsym(argv);
 			
 			// These should be sorted alphabetically
-			if(x->attrType == gensym("bandpass/butterworth")){
-				if(x->filter)
-					delete x->filter;
-				x->filter = new TTBandpassButterworth(x->maxNumChannels);
-			}
-			else if(x->attrType == gensym("bandreject/butterworth")){
-				if(x->filter)
-					delete x->filter;
-				x->filter = new TTBandRejectButterworth(x->maxNumChannels);
-			}
-			else if(x->attrType == gensym("highpass/butterworth")){
-				if(x->filter)
-					delete x->filter;
-				x->filter = new TTHighpassButterworth(x->maxNumChannels);
-			}
-			else if(x->attrType == gensym("lowpass/butterworth")){
-				if(x->filter)
-					delete x->filter;
-				x->filter = new TTLowpassButterworth(x->maxNumChannels);
-			}
-			else if(x->attrType == gensym("lowpass/onepole")){
-				if(x->filter)
-					delete x->filter;
-				x->filter = new TTLowpassOnePole(x->maxNumChannels);
-			}
-			
+			if(x->attrType == gensym("bandpass/butterworth"))
+				newFilter = new TTBandpassButterworth(x->maxNumChannels);
+			else if(x->attrType == gensym("bandreject/butterworth"))
+				newFilter = new TTBandRejectButterworth(x->maxNumChannels);
+			else if(x->attrType == gensym("highpass/butterworth"))
+				newFilter = new TTHighpassButterworth(x->maxNumChannels);
+			else if(x->attrType == gensym("lowpass/butterworth"))
+				newFilter = new TTLowpassButterworth(x->maxNumChannels);
+			else if(x->attrType == gensym("lowpass/onepole"))
+				newFilter = new TTLowpassOnePole(x->maxNumChannels);
 			else{
 				error("invalid filter type specified to tt.filter~");
 				return MAX_ERR_GENERIC;
 			}
+
 			// Now that we have our new filter, update it with the current state of the external:
-			x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
-			x->filter->setParameterValue(TT("q"), x->attrQ);
-			x->filter->setParameterValue(TT("bypass"), x->attrBypass);
+			newFilter->setParameterValue(TT("frequency"), x->attrFrequency);
+			newFilter->setParameterValue(TT("q"), x->attrQ);
+			newFilter->setParameterValue(TT("bypass"), x->attrBypass);
+			newFilter->setParameterValue(TT("sr"), x->sr);
+			
+			// Finally, swap the old filter out for the new one
+			x->oldFilter = x->filter;
+			x->filter = newFilter;
 		}
 	}
 	return MAX_ERR_NONE;
