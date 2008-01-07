@@ -32,7 +32,7 @@ TTValue::TTValue(TTFloat32 initialValue)
 TTValue::TTValue(TTFloat64 initialValue)
 {
 	data = new DataValue;
-	data->float32 = initialValue;
+	data->float64 = initialValue;
 	type = new TTDataType;
 	*type = kTypeFloat64;
 	numValues = 1;
