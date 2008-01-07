@@ -16,18 +16,20 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
 #include "TTLowpassButterworth.h"	// TTBlue Interfaces...
+#include "TTLowpassOnePole.h"
 
 
 /** Data structure for the filter module. */
 typedef struct _filter	{								///< Data Structure for this object
     t_pxobject 				obj;						///< REQUIRED: Our object
     void					*obex;						///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
-	TTLowpassButterworth	*filter;					///< Pointer to the TTBlue filter unit used
+	TTAudioObject			*filter;					///< Pointer to the TTBlue filter unit used
 	TTAudioSignal			*audioIn;					///< Array of pointers to the audio inlets
 	TTAudioSignal			*audioOut;					///< Array of pointers to the audio outlets
 	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
 	long					maxNumChannels;				///< The maximum number of audio channels permitted
-	TTFloat64				attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
+	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
+	t_symbol				*attrType;					///< ATTRIBUTE: what kind of filter to use
 } t_filter;
 
 
@@ -56,6 +58,9 @@ t_max_err	filter_setBypass(t_filter *x, void *attr, long argc, t_atom *argv);
 
 /** Method setting the value of the frequency attribute. */
 t_max_err 	filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv);
+
+/** Method setting the type of the filter to use. */
+t_max_err 	filter_setType(t_filter *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
@@ -89,6 +94,10 @@ int main(void)
 		(method)0L,(method)filter_setFrequency, calcoffset(t_filter, attrFrequency));
 	class_addattr(c, attr);
 
+	attr = attr_offset_new("type", _sym_symbol, attrflags,
+		(method)0L,(method)filter_setType, calcoffset(t_filter, attrType));
+	class_addattr(c, attr);
+
 	class_dspinit(c);						// Setup object's class to work with MSP
 	class_register(CLASS_BOX, c);
 	filter_class = c;
@@ -110,12 +119,14 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
     x = (t_filter *)object_alloc(filter_class);
     if(x){
 		x->attrBypass = 0;
+		x->attrFrequency = 4000.0;
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);
-		x->filter = new TTLowpassButterworth(x->maxNumChannels);
+		object_attr_setsym(x, _sym_type, gensym("lowpass/butterworth"));
+
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
@@ -229,6 +240,33 @@ t_max_err filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv)
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
 		x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
+	}
+	return MAX_ERR_NONE;
+}
+
+t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc){
+		if(x->attrType != atom_getsym(argv)){	// if it hasn't changed, then jump to the end...
+			x->attrType = atom_getsym(argv);
+			if(x->attrType == gensym("lowpass/butterworth")){
+				if(x->filter)
+					delete x->filter;
+				x->filter = new TTLowpassButterworth(x->maxNumChannels);
+			}
+			else if(x->attrType == gensym("lowpass/onepole")){
+				if(x->filter)
+					delete x->filter;
+				x->filter = new TTLowpassOnePole(x->maxNumChannels);
+			}
+			else{
+				error("invalid filter type specified to tt.filter~");
+				return MAX_ERR_GENERIC;
+			}
+			// Now that we have our new filter, update it with the current state of the external:
+			x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
+			x->filter->setParameterValue(TT("bypass"), x->attrBypass);
+		}
 	}
 	return MAX_ERR_NONE;
 }
