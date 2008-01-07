@@ -93,8 +93,8 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/room/size 20.000 30.000 8.000
 	/jmod.sur.vimic~/source/position/absolute/xyz 1.308 7.472 0.000
 	/jmod.sur.vimic~/updaterate 10
-	/jmod.sur.vimic~/rendermode/xfade/fadefunction linear
-	/jmod.sur.vimic~/rendermode/xfade/fadelength 256
+	/jmod.sur.vimic~/rendermode/xfade/fadefunction cosine
+	/jmod.sur.vimic~/rendermode/xfade/fadelength 3200
 	/jmod.sur.vimic~/rendermode/xfade/threshold 23
 	/jmod.sur.vimic~/room/absorption/ceiling/preset full
 	/jmod.sur.vimic~/room/absorption/floor/preset full
@@ -297,9 +297,9 @@ WAIT 1000
 	/jmod.sur.vimic~/reflections/2nd/gain/midi 0.000
 	/jmod.sur.vimic~/reflections/airfilter 10000	
 	/jmod.sur.vimic~/renderintervall 50
-	/jmod.sur.vimic~/rendermode/xfade/fadefunction linear
-	/jmod.sur.vimic~/rendermode/xfade/fadelength 256
-	/jmod.sur.vimic~/rendermode/xfade/threshold 23
+	/jmod.sur.vimic~/rendermode/xfade/fadefunction cosine
+	/jmod.sur.vimic~/rendermode/xfade/fadelength 3200
+	/jmod.sur.vimic~/rendermode/xfade/threshold 10
 	/jmod.sur.vimic~/rendermode 0
 	/jmod.sur.vimic~/report 0
 	/jmod.sur.vimic~/room/distance/power 1.000
