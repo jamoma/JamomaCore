@@ -1,36 +1,36 @@
 /* 
- * TTBlue Butterworth Bandpass Filter Object
+ * TTBlue Butterworth Band Reject Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBandpassButterworth.h"
+#include "TTBandRejectButterworth.h"
 
 
-TTBandpassButterworth::TTBandpassButterworth(TTUInt8 newMaxNumChannels)
+TTBandRejectButterworth::TTBandRejectButterworth(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBandpassButterworth::setFrequency);
+	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBandRejectButterworth::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandpassButterworth::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandRejectButterworth::updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTBandpassButterworth::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTBandRejectButterworth::updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTBandpassButterworth::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTBandRejectButterworth::clear);
 
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
 	setParameterValue(TT("frequency"),		4000.0);
-	setProcess((TTProcessMethod)&TTBandpassButterworth::processAudio);
+	setProcess((TTProcessMethod)&TTBandRejectButterworth::processAudio);
 }
 
 
-TTBandpassButterworth::~TTBandpassButterworth()
+TTBandRejectButterworth::~TTBandRejectButterworth()
 {
 	free(xm1);
 	free(xm2);
@@ -39,7 +39,7 @@ TTBandpassButterworth::~TTBandpassButterworth()
 }
 
 
-TTErr TTBandpassButterworth::updateMaxNumChannels()
+TTErr TTBandRejectButterworth::updateMaxNumChannels()
 {
 	if(xm1)
 		free(xm1);
@@ -60,14 +60,14 @@ TTErr TTBandpassButterworth::updateMaxNumChannels()
 }
 
 
-TTErr TTBandpassButterworth::updateSr()
+TTErr TTBandRejectButterworth::updateSr()
 {
 	TTValue	v(attrFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTBandpassButterworth::clear()
+TTErr TTBandRejectButterworth::clear()
 {
 	short i;
 
@@ -81,36 +81,36 @@ TTErr TTBandpassButterworth::clear()
 }
 
 
-TTErr TTBandpassButterworth::setFrequency(TTValue& newValue)
+TTErr TTBandRejectButterworth::setFrequency(TTValue& newValue)
 {
 	attrFrequency = newValue;
-	
 	return calculateCoefficients();
 }
 
 
-TTErr TTBandpassButterworth::setQ(TTValue& newValue)
+TTErr TTBandRejectButterworth::setQ(TTValue& newValue)
 {
+	// This filter doesn't have any resonance.
 	attrQ = newValue;
-	
 	return calculateCoefficients();
 }
 
 
-TTErr TTBandpassButterworth::calculateCoefficients()
+TTErr TTBandRejectButterworth::calculateCoefficients()
 {
-	c = 1. / tan( kTTPi*((attrFrequency/attrQ)/sr) );
-	d = 2. * cos( 2*kTTPi*(attrFrequency/sr) );
-	a0 = 1. / (1. + c);
-	// a1 = 0.
-	a2 = -a0;
-	b1 = -1. * a0 * c * d;
-	b2 = a0 * (c - 1.);
+	c = tan( PI*((attrFrequency/attrQ)/sr) );
+	d = 2.0 * cos( 2.0*PI*(attrFrequency/sr) );
+	a0 = 1.0 / (1.0 + c);
+	a1 = -1.0 * a0 * d;
+	a2 = a0;
+	b1 = a1;
+	b2 = a0 * (1.0 - c);
 	
-	return kTTErrNone;
+	return kTTErrNone
 }
 
-TTErr TTBandpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+
+TTErr TTBandRejectButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
 	TTSampleValue	*inSample,
@@ -129,7 +129,7 @@ TTErr TTBandpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempx = *inSample++;
-			tempy = antiDenormal(a0*tempx + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
+			tempy = antiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
 			xm2[channel] = xm1[channel];
 			xm1[channel] = tempx;
 			ym2[channel] = ym1[channel];
