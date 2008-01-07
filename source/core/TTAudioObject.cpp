@@ -45,7 +45,7 @@ TTErr TTAudioObject::setSr(const TTValue& newValue)
 {
 	sr = newValue;
 	srInv = 1.0/sr;
-	srMill = sr * 0.0001;
+	srMill = sr * 0.001;
 	sendMessage(TT("updateSr"));
 	return kTTErrNone;
 }
