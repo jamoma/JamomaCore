@@ -18,6 +18,8 @@ TTLowpassButterworth::TTLowpassButterworth(TTUInt8 newMaxNumChannels)
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassButterworth::updateMaxNumChannels);
+	// register for notifications from the parent class so we can recalculate coefficients as required
+	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassButterworth::updateSr);
 	// make the clear method available to the outside world
 	registerMessage(TT("clear"), (TTMethod)&TTLowpassButterworth::clear);
 
@@ -55,6 +57,13 @@ TTErr TTLowpassButterworth::updateMaxNumChannels()
 	
 	clear();
 	return kTTErrNone;
+}
+
+
+TTErr TTLowpassButterworth::updateSr()
+{
+	TTValue	v(attrFrequency);
+	return setFrequency(v);
 }
 
 

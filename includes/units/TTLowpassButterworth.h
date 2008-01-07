@@ -30,6 +30,10 @@ private:
 		so that each channel's previous values are remembered.		*/
 	TTErr updateMaxNumChannels();
 
+	/** Receives notifications when there are changes to the inherited 
+		sr parameter.						*/
+	TTErr updateSr();
+
 	/**	Setter for the frequency attribute. */
 	TTErr setFrequency(TTValue& value);
 
