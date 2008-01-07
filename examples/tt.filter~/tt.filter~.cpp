@@ -21,6 +21,9 @@
 #include "TTLowpassButterworth.h"
 #include "TTLowpassOnePole.h"
 
+#define DEFAULT_F 1000
+#define DEFAULT_Q 50
+
 
 /** Data structure for the filter module. */
 typedef struct _filter	{								///< Data Structure for this object
@@ -138,8 +141,8 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
     if(x){
 		// Setting default attribute values
 		x->attrBypass = 0;
-		x->attrFrequency = 1000.0;
-		x->attrQ = 1.;
+		x->attrFrequency = DEFAULT_F;
+		x->attrQ = DEFAULT_Q;
 		x->oldFilter = NULL;
 		
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
