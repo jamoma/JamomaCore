@@ -35,6 +35,12 @@
 		22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */; };
 		22C01EDA09CE6CDB00177B81 /* Externs-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C01ED909CE6CDB00177B81 /* Externs-Info.plist */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		A75C22660D327894006BFA63 /* TTBandrejectButterworth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C22600D327894006BFA63 /* TTBandrejectButterworth.cpp */; };
+		A75C22670D327894006BFA63 /* TTBandpassButterworth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C22610D327894006BFA63 /* TTBandpassButterworth.cpp */; };
+		A75C22680D327894006BFA63 /* TTHighpassButterworth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A75C22620D327894006BFA63 /* TTHighpassButterworth.cpp */; };
+		A75C22690D327894006BFA63 /* TTHighpassButterworth.h in Headers */ = {isa = PBXBuildFile; fileRef = A75C22630D327894006BFA63 /* TTHighpassButterworth.h */; };
+		A75C226A0D327894006BFA63 /* TTBandrejectButterworth.h in Headers */ = {isa = PBXBuildFile; fileRef = A75C22640D327894006BFA63 /* TTBandrejectButterworth.h */; };
+		A75C226B0D327894006BFA63 /* TTBandpassButterworth.h in Headers */ = {isa = PBXBuildFile; fileRef = A75C22650D327894006BFA63 /* TTBandpassButterworth.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +74,12 @@
 		22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
 		542ED84F09C02A0000DBC7EB /* tt.filter~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.filter~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A75C22600D327894006BFA63 /* TTBandrejectButterworth.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandrejectButterworth.cpp; path = ../../source/units/TTBandrejectButterworth.cpp; sourceTree = SOURCE_ROOT; };
+		A75C22610D327894006BFA63 /* TTBandpassButterworth.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandpassButterworth.cpp; path = ../../source/units/TTBandpassButterworth.cpp; sourceTree = SOURCE_ROOT; };
+		A75C22620D327894006BFA63 /* TTHighpassButterworth.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth.cpp; path = ../../source/units/TTHighpassButterworth.cpp; sourceTree = SOURCE_ROOT; };
+		A75C22630D327894006BFA63 /* TTHighpassButterworth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth.h; path = ../../includes/units/TTHighpassButterworth.h; sourceTree = SOURCE_ROOT; };
+		A75C22640D327894006BFA63 /* TTBandrejectButterworth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTBandrejectButterworth.h; path = ../../includes/units/TTBandrejectButterworth.h; sourceTree = SOURCE_ROOT; };
+		A75C22650D327894006BFA63 /* TTBandpassButterworth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTBandpassButterworth.h; path = ../../includes/units/TTBandpassButterworth.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +174,12 @@
 		22BFF6630D2AB51200BD97E5 /* TTBlue-Units */ = {
 			isa = PBXGroup;
 			children = (
+				A75C22650D327894006BFA63 /* TTBandpassButterworth.h */,
+				A75C22610D327894006BFA63 /* TTBandpassButterworth.cpp */,
+				A75C22640D327894006BFA63 /* TTBandrejectButterworth.h */,
+				A75C22600D327894006BFA63 /* TTBandrejectButterworth.cpp */,
+				A75C22630D327894006BFA63 /* TTHighpassButterworth.h */,
+				A75C22620D327894006BFA63 /* TTHighpassButterworth.cpp */,
 				222814AE0D2F2F2B00302542 /* TTLowpassButterworth.h */,
 				222814AF0D2F2F2B00302542 /* TTLowpassButterworth.cpp */,
 				2289092F0D31CC6E006C057C /* TTLowpassOnePole.h */,
@@ -188,6 +206,9 @@
 				223A5A290D2E7889001FE801 /* TTGlobal.h in Headers */,
 				222814B00D2F2F2B00302542 /* TTLowpassButterworth.h in Headers */,
 				228909300D31CC6E006C057C /* TTLowpassOnePole.h in Headers */,
+				A75C22690D327894006BFA63 /* TTHighpassButterworth.h in Headers */,
+				A75C226A0D327894006BFA63 /* TTBandrejectButterworth.h in Headers */,
+				A75C226B0D327894006BFA63 /* TTBandpassButterworth.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +307,9 @@
 				223A5A2A0D2E7889001FE801 /* TTGlobal.cpp in Sources */,
 				222814B10D2F2F2B00302542 /* TTLowpassButterworth.cpp in Sources */,
 				2289092E0D31CC57006C057C /* TTLowpassOnePole.cpp in Sources */,
+				A75C22660D327894006BFA63 /* TTBandrejectButterworth.cpp in Sources */,
+				A75C22670D327894006BFA63 /* TTBandpassButterworth.cpp in Sources */,
+				A75C22680D327894006BFA63 /* TTHighpassButterworth.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

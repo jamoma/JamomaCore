@@ -84,29 +84,30 @@ TTErr TTBandRejectButterworth::clear()
 TTErr TTBandRejectButterworth::setFrequency(TTValue& newValue)
 {
 	attrFrequency = newValue;
+	
 	return calculateCoefficients();
 }
 
 
 TTErr TTBandRejectButterworth::setQ(TTValue& newValue)
 {
-	// This filter doesn't have any resonance.
 	attrQ = newValue;
+	
 	return calculateCoefficients();
 }
 
 
 TTErr TTBandRejectButterworth::calculateCoefficients()
 {
-	c = tan( PI*((attrFrequency/attrQ)/sr) );
-	d = 2.0 * cos( 2.0*PI*(attrFrequency/sr) );
+	c = tan( kTTPi*((attrFrequency/attrQ)/sr) );
+	d = 2.0 * cos( 2.0*kTTPi*(attrFrequency/sr) );
 	a0 = 1.0 / (1.0 + c);
 	a1 = -1.0 * a0 * d;
 	a2 = a0;
 	b1 = a1;
 	b2 = a0 * (1.0 - c);
 	
-	return kTTErrNone
+	return kTTErrNone;
 }
 
 

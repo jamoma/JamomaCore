@@ -9,13 +9,16 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"					// Max Header
-#include "z_dsp.h"					// MSP Header
-#include "ext_strings.h"			// String Functions
-#include "commonsyms.h"				// Common symbols used by the Max 4.5 API
-#include "ext_obex.h"				// Max Object Extensions (attributes) Header
+#include "ext.h"						// Max Header
+#include "z_dsp.h"						// MSP Header
+#include "ext_strings.h"				// String Functions
+#include "commonsyms.h"					// Common symbols used by the Max 4.5 API
+#include "ext_obex.h"					// Max Object Extensions (attributes) Header
 
-#include "TTLowpassButterworth.h"	// TTBlue Interfaces...
+#include "TTBandpassButterworth.h"		// TTBlue Interfaces...
+#include "TTBandrejectButterworth.h"
+#include "TTHighpassButterworth.h"
+#include "TTLowpassButterworth.h"
 #include "TTLowpassOnePole.h"
 
 
@@ -130,7 +133,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
     if(x){
 		// Setting default attribute values
 		x->attrBypass = 0;
-		x->attrFrequency = 4000.0;
+		x->attrFrequency = 1000.0;
 		x->attrQ = 1.;
 		
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
@@ -268,7 +271,24 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 	if(argc){
 		if(x->attrType != atom_getsym(argv)){	// if it hasn't changed, then jump to the end...
 			x->attrType = atom_getsym(argv);
-			if(x->attrType == gensym("lowpass/butterworth")){
+			
+			// These should be sorted alphabetically
+			if(x->attrType == gensym("bandpass/butterworth")){
+				if(x->filter)
+					delete x->filter;
+				x->filter = new TTBandpassButterworth(x->maxNumChannels);
+			}
+			else if(x->attrType == gensym("bandreject/butterworth")){
+				if(x->filter)
+					delete x->filter;
+				x->filter = new TTBandRejectButterworth(x->maxNumChannels);
+			}
+			else if(x->attrType == gensym("highpass/butterworth")){
+				if(x->filter)
+					delete x->filter;
+				x->filter = new TTHighpassButterworth(x->maxNumChannels);
+			}
+			else if(x->attrType == gensym("lowpass/butterworth")){
 				if(x->filter)
 					delete x->filter;
 				x->filter = new TTLowpassButterworth(x->maxNumChannels);
@@ -278,6 +298,7 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 					delete x->filter;
 				x->filter = new TTLowpassOnePole(x->maxNumChannels);
 			}
+			
 			else{
 				error("invalid filter type specified to tt.filter~");
 				return MAX_ERR_GENERIC;
