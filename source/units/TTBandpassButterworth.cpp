@@ -26,6 +26,7 @@ TTBandpassButterworth::TTBandpassButterworth(TTUInt8 newMaxNumChannels)
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
 	setParameterValue(TT("frequency"),		4000.0);
+	setParameterValue(TT("q"),				50.0);
 	setProcess((TTProcessMethod)&TTBandpassButterworth::processAudio);
 }
 
@@ -91,6 +92,7 @@ TTErr TTBandpassButterworth::setFrequency(TTValue& newValue)
 
 TTErr TTBandpassButterworth::setQ(TTValue& newValue)
 {
+
 	attrQ = newValue;
 	
 	return calculateCoefficients();
@@ -98,8 +100,13 @@ TTErr TTBandpassButterworth::setQ(TTValue& newValue)
 
 
 TTErr TTBandpassButterworth::calculateCoefficients()
-{
-	c = 1. / tan( kTTPi*((attrFrequency/attrQ)/sr) );
+{	
+	// Avoid dividing by 0
+	if (attrQ < 1.)
+		bw = attrFrequency;
+	else
+		bw = attrFrequency/attrQ;
+	c = 1. / tan( kTTPi*(bw/sr) );
 	d = 2. * cos( 2*kTTPi*(attrFrequency/sr) );
 	a0 = 1. / (1. + c);
 	// a1 = 0.

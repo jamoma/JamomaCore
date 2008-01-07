@@ -20,7 +20,7 @@ class TTBandpassButterworth : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;				///< filter cutoff frequency
 	TTFloat64		attrQ;						///< filter resonance
-	TTFloat64		c, d, a0, a2, b1, b2;		///< filter coefficients. a1=0 and hence ignored
+	TTFloat64		c, d, bw, a0, a2, b1, b2;	///< filter coefficients. a1=0 and hence ignored
 	TTFloat64		*xm1;
 	TTFloat64		*xm2;
 	TTFloat64		*ym1;
