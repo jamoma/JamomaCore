@@ -92,6 +92,11 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
+		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);		
+		x->dcblock = new TTDCBlock(x->maxNumChannels);
+		x->audioIn = new TTAudioSignal(x->maxNumChannels);
+		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
@@ -100,13 +105,6 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 			outlet_new((t_pxobject *)x, "signal");									// outlets
 		
 		x->obj.z_misc = Z_NO_INPLACE;
-
-		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);
-//		TTObject::globalObject.setGlobalParameterValue(TT("sr"), sr);
-		
-		x->dcblock = new TTDCBlock(x->maxNumChannels);
-		x->audioIn = new TTAudioSignal(x->maxNumChannels);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 	}
 	return (x);										// Return the pointer
 }
