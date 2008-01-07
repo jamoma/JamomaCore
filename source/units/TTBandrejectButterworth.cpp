@@ -14,7 +14,8 @@ TTBandRejectButterworth::TTBandRejectButterworth(TTUInt8 newMaxNumChannels)
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBandRejectButterworth::setFrequency);
+	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandRejectButterworth::setFrequency);
+	registerParameter(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandRejectButterworth::setQ);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandRejectButterworth::updateMaxNumChannels);
@@ -26,6 +27,7 @@ TTBandRejectButterworth::TTBandRejectButterworth(TTUInt8 newMaxNumChannels)
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
 	setParameterValue(TT("frequency"),		4000.0);
+	setParameterValue(TT("q"),				50.0);
 	setProcess((TTProcessMethod)&TTBandRejectButterworth::processAudio);
 }
 
@@ -99,7 +101,12 @@ TTErr TTBandRejectButterworth::setQ(TTValue& newValue)
 
 TTErr TTBandRejectButterworth::calculateCoefficients()
 {
-	c = tan( kTTPi*((attrFrequency/attrQ)/sr) );
+	// Avoid dividing by zero
+	if (attrQ < 0.1)
+		bw = attrFrequency/0.1;
+	else
+		bw = attrFrequency/attrQ;
+	c = tan( kTTPi*(bw/sr) );
 	d = 2.0 * cos( 2.0*kTTPi*(attrFrequency/sr) );
 	a0 = 1.0 / (1.0 + c);
 	a1 = -1.0 * a0 * d;

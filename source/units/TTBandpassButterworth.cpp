@@ -14,7 +14,8 @@ TTBandpassButterworth::TTBandpassButterworth(TTUInt8 newMaxNumChannels)
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBandpassButterworth::setFrequency);
+	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandpassButterworth::setFrequency);
+	registerParameter(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandpassButterworth::setQ);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandpassButterworth::updateMaxNumChannels);
@@ -102,7 +103,7 @@ TTErr TTBandpassButterworth::setQ(TTValue& newValue)
 TTErr TTBandpassButterworth::calculateCoefficients()
 {	
 	// Avoid dividing by 0
-	if (attrQ < 1.)
+	if (attrQ < 0.1)
 		bw = attrFrequency;
 	else
 		bw = attrFrequency/attrQ;
