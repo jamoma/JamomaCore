@@ -74,6 +74,12 @@ TTErr TTLowpassOnePole::setFrequency(TTValue& newValue)
 }
 
 
+TTErr TTLowpassOnePole::setQ(TTValue& newValue)
+{
+	// This filter doesn't have any resonance.		
+	return kTTErrNone;
+}
+
 TTErr TTLowpassOnePole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;

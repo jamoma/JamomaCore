@@ -26,9 +26,10 @@ typedef struct _filter	{								///< Data Structure for this object
 	TTAudioObject			*filter;					///< Pointer to the TTBlue filter unit used
 	TTAudioSignal			*audioIn;					///< Array of pointers to the audio inlets
 	TTAudioSignal			*audioOut;					///< Array of pointers to the audio outlets
-	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
 	long					maxNumChannels;				///< The maximum number of audio channels permitted
+	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
 	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
+	float					attrQ;						///< ATTRIBUTE: Rilter resonance
 	t_symbol				*attrType;					///< ATTRIBUTE: what kind of filter to use
 } t_filter;
 
@@ -50,7 +51,7 @@ t_int*		filter_perform(t_int *w);
 /** This method is called when audio is started in order to compile the audio chain. */
 void		filter_dsp(t_filter *x, t_signal **sp, short *count);
 
-/** Clear the filter in case it has blown up (NaN) */
+/** Clear the filter in case it has blown up (NaN). */
 void		filter_clear(t_filter *x);
 
 /** Method setting the value of the bypass attribute. */
@@ -58,6 +59,9 @@ t_max_err	filter_setBypass(t_filter *x, void *attr, long argc, t_atom *argv);
 
 /** Method setting the value of the frequency attribute. */
 t_max_err 	filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv);
+
+/** Method setting the value of the resonance (Q) attribute. */
+t_max_err 	filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv);
 
 /** Method setting the type of the filter to use. */
 t_max_err 	filter_setType(t_filter *x, void *attr, long argc, t_atom *argv);
@@ -93,6 +97,10 @@ int main(void)
 	attr = attr_offset_new("frequency", _sym_float, attrflags,
 		(method)0L,(method)filter_setFrequency, calcoffset(t_filter, attrFrequency));
 	class_addattr(c, attr);
+	
+	attr = attr_offset_new("q", _sym_float, attrflags,
+		(method)0L,(method)filter_setQ, calcoffset(t_filter, attrQ));
+	class_addattr(c, attr);
 
 	attr = attr_offset_new("type", _sym_symbol, attrflags,
 		(method)0L,(method)filter_setType, calcoffset(t_filter, attrType));
@@ -118,8 +126,11 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
    
     x = (t_filter *)object_alloc(filter_class);
     if(x){
+		// Setting default attribute values
 		x->attrBypass = 0;
 		x->attrFrequency = 4000.0;
+		x->attrQ = 1.;
+		
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
@@ -129,9 +140,6 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
-
-		// Setting default attribute values
-		x->attrFrequency = 4000;
 		
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -240,6 +248,15 @@ t_max_err filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv)
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
 		x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
+	}
+	return MAX_ERR_NONE;
+}
+
+t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc){
+		x->attrQ = atom_getfloat(argv);
+		x->filter->setParameterValue(TT("q"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }

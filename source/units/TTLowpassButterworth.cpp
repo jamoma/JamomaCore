@@ -94,6 +94,13 @@ TTErr TTLowpassButterworth::setFrequency(TTValue& newValue)
 }
 
 
+TTErr TTLowpassButterworth::setQ(TTValue& newValue)
+{
+	// This filter doesn't have any resonance.
+	return kTTErrNone;
+}
+
+
 TTErr TTLowpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
