@@ -15,50 +15,59 @@
 /**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. */
 class TTLimiter : public TTAudioObject {
 private:
-	TTSampleValue*		lastInput;
-	TTSampleValue*		last_output1;
-	TTFloat64			recover;
-	TTFloat64			recip;
-	TTSampleVector*		buf1
-	TTSampleVector*		buf2
+	TTSampleValue*		lastInput;				///< keep the last input for each channel
+	TTSampleValue*		lastOutput;				///< keep the last output for each channel
+	TTFloat64			recover;				///< 
+	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead parameter
+	TTUInt32			lookaheadBufferIndex;
+	TTSampleVector*		lookaheadBuffer;		///< keep a lookahead buffer for each channel
 	TTSampleVector*		gain;
-	TTUInt32			bp;
 	TTUInt32			samps;
 	TTSampleValue		last;
+	TTUInt32			maxBufferSize;			///< TODO: make this settable
+	TTBoolean			isLinear;				///< is attrMode set to linear?
 
-	TTBoolean			attrDefeatDCBlocker;	///< If toggled to YES, the internal DC Blocker will be turned off.
-	TTFloat32			attrThreshold;			///< linear amplitude threshold at which the limiting should kick in (attr setter used dB).
+	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.
 	TTSymbol*			attrMode;				///< may be one of two symbols: "linear" or "exponential".
-	TTFloat32			attrRelease;			///< number of milliseconds for the release.
+	TTFloat32			attrRelease;			///< number of seconds for the release to recover after a peak in the audio signal.
 	TTUInt32			attrLookahead;			///< number of samples by which to look forward.
+	TTFloat32			attrThreshold;			///< linear amplitude threshold at which the limiting should kick in (attr setter used dB).
 	TTFloat32			attrPreamp;				///< linear gain scaling factor prior to limiting (attr setter used dB).
 	TTFloat32			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
-
-	/** Constants used internal to this object. */
-	enum{
-		kMaxSamples = 256
-	};
-	
 
 	/**	Override the setter for the inherited maxNumChannels parameter.					*/
 	TTErr updateMaxNumChannels();
 
-	/**	Setter for the bitdepth attribute. */
-	TTErr setDefeatDCBlocker(TTValue& value);
+	/** Receives notifications when there are changes to the inherited sr parameter.	*/
+	TTErr updateSr();
 
-	/**	Setter for the bitdepth attribute. */
-	TTErr setDefeatDCBlocker(TTValue& value);
+	/**	Setter for the mode parameter. */
+	TTErr setMode(TTValue& value);
 
-	/**	Setter for the bitdepth attribute. */
-	TTErr setThreshold(TTValue& value);
+	/**	Setter for the release parameter. */
+	TTErr setRelease(TTValue& value);
 
-	/**	Setter for the bitdepth attribute. */
-	TTErr setPostamp(TTValue& value);
+	/**	Setter for the dcblocker parameter. */
+	TTErr setDCBlocker(TTValue& value);
 
+	/**	Setter for the threshold parameter. */
+	TTErr setPreamp(const TTValue& value);
+	/**	Getter for the threshold parameter. */
+	TTErr getPreamp(TTValue& value);
 
+	/**	Setter for the threshold parameter. */
+	TTErr setPostamp(const TTValue& value);
+	/**	Getter for the threshold parameter. */
+	TTErr getPostamp(TTValue& value);
+
+	/**	Setter for the threshold parameter. */
+	TTErr setThreshold(const TTValue& value);
+	/**	Getter for the threshold parameter. */
+	TTErr getThreshold(TTValue& value);
+	
 
 	/** Private utility used by the audio processing routine. */
-	void set_recover();
+	void setRecover();
 
 	/**	Standard audio processing method as used by TTBlue objects.	 */
 	TTErr processNormal(TTAudioSignal& in, TTAudioSignal& out);
