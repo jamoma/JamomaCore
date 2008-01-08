@@ -1,38 +1,38 @@
 /* 
- * TTBlue Butterworth Bandpass Filter Object
+ * TTBlue 2nd order Butterworth Band Reject Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTBandpassButterworth.h"
+#include "TTBandRejectButterworth2.h"
 
 
-TTBandpassButterworth::TTBandpassButterworth(TTUInt8 newMaxNumChannels)
+TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandpassButterworth::setFrequency);
-	registerParameter(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandpassButterworth::setQ);
+	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandRejectButterworth2::setFrequency);
+	registerParameter(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandRejectButterworth2::setQ);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandpassButterworth::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandRejectButterworth2::updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTBandpassButterworth::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTBandRejectButterworth2::updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTBandpassButterworth::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTBandRejectButterworth2::clear);
 
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
 	setParameterValue(TT("frequency"),		1000.0);
 	setParameterValue(TT("q"),				50.0);
-	setProcess((TTProcessMethod)&TTBandpassButterworth::processAudio);
+	setProcess((TTProcessMethod)&TTBandRejectButterworth2::processAudio);
 }
 
 
-TTBandpassButterworth::~TTBandpassButterworth()
+TTBandRejectButterworth2::~TTBandRejectButterworth2()
 {
 	free(xm1);
 	free(xm2);
@@ -41,7 +41,7 @@ TTBandpassButterworth::~TTBandpassButterworth()
 }
 
 
-TTErr TTBandpassButterworth::updateMaxNumChannels()
+TTErr TTBandRejectButterworth2::updateMaxNumChannels()
 {
 	if(xm1)
 		free(xm1);
@@ -62,14 +62,14 @@ TTErr TTBandpassButterworth::updateMaxNumChannels()
 }
 
 
-TTErr TTBandpassButterworth::updateSr()
+TTErr TTBandRejectButterworth2::updateSr()
 {
 	TTValue	v(attrFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTBandpassButterworth::clear()
+TTErr TTBandRejectButterworth2::clear()
 {
 	short i;
 
@@ -83,7 +83,7 @@ TTErr TTBandpassButterworth::clear()
 }
 
 
-TTErr TTBandpassButterworth::setFrequency(const TTValue& newValue)
+TTErr TTBandRejectButterworth2::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = clip((double)newValue, 10., (sr*0.45));
 	
@@ -91,34 +91,34 @@ TTErr TTBandpassButterworth::setFrequency(const TTValue& newValue)
 }
 
 
-TTErr TTBandpassButterworth::setQ(const TTValue& newValue)
+TTErr TTBandRejectButterworth2::setQ(const TTValue& newValue)
 {
-
 	attrQ = newValue;
 	
 	return calculateCoefficients();
 }
 
 
-TTErr TTBandpassButterworth::calculateCoefficients()
-{	
-	// Avoid dividing by 0
+TTErr TTBandRejectButterworth2::calculateCoefficients()
+{
+	// Avoid dividing by zero
 	if (attrQ < 0.1)
-		bw = attrFrequency;
+		bw = attrFrequency/0.1;
 	else
 		bw = attrFrequency/attrQ;
-	c = 1. / tan( kTTPi*(bw/sr) );
-	d = 2. * cos( 2*kTTPi*(attrFrequency/sr) );
-	a0 = 1. / (1. + c);
-	// a1 = 0.
-	a2 = -a0;
-	b1 = -1. * a0 * c * d;
-	b2 = a0 * (c - 1.);
+	c = tan( kTTPi*(bw/sr) );
+	d = 2.0 * cos( 2.0*kTTPi*(attrFrequency/sr) );
+	a0 = 1.0 / (1.0 + c);
+	a1 = -1.0 * a0 * d;
+	a2 = a0;
+	b1 = a1;
+	b2 = a0 * (1.0 - c);
 	
 	return kTTErrNone;
 }
 
-TTErr TTBandpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+
+TTErr TTBandRejectButterworth2::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
 	TTSampleValue	*inSample,
@@ -137,7 +137,7 @@ TTErr TTBandpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempx = *inSample++;
-			tempy = antiDenormal(a0*tempx + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
+			tempy = antiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] - b1*ym1[channel] - b2*ym2[channel]);
 			xm2[channel] = xm1[channel];
 			xm1[channel] = tempx;
 			ym2[channel] = ym1[channel];

@@ -1,36 +1,36 @@
 /* 
- * TTBlue Butterworth Highpass Filter Object
+ * TTBlue 2nd order Butterworth Highpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTHighpassButterworth.h"
+#include "TTHighpassButterworth2.h"
 
 
-TTHighpassButterworth::TTHighpassButterworth(TTUInt8 newMaxNumChannels)
+TTHighpassButterworth2::TTHighpassButterworth2(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassButterworth::setFrequency);
+	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassButterworth2::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassButterworth::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassButterworth2::updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassButterworth::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassButterworth2::updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTHighpassButterworth::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTHighpassButterworth2::clear);
 
 	// Set Defaults...
 	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
 	setParameterValue(TT("frequency"),		1000.0);
-	setProcess((TTProcessMethod)&TTHighpassButterworth::processAudio);
+	setProcess((TTProcessMethod)&TTHighpassButterworth2::processAudio);
 }
 
 
-TTHighpassButterworth::~TTHighpassButterworth()
+TTHighpassButterworth2::~TTHighpassButterworth2()
 {
 	free(xm1);
 	free(xm2);
@@ -39,7 +39,7 @@ TTHighpassButterworth::~TTHighpassButterworth()
 }
 
 
-TTErr TTHighpassButterworth::updateMaxNumChannels()
+TTErr TTHighpassButterworth2::updateMaxNumChannels()
 {
 	if(xm1)
 		free(xm1);
@@ -60,14 +60,14 @@ TTErr TTHighpassButterworth::updateMaxNumChannels()
 }
 
 
-TTErr TTHighpassButterworth::updateSr()
+TTErr TTHighpassButterworth2::updateSr()
 {
 	TTValue	v(attrFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTHighpassButterworth::clear()
+TTErr TTHighpassButterworth2::clear()
 {
 	short i;
 
@@ -81,7 +81,7 @@ TTErr TTHighpassButterworth::clear()
 }
 
 
-TTErr TTHighpassButterworth::setFrequency(const TTValue& newValue)
+TTErr TTHighpassButterworth2::setFrequency(const TTValue& newValue)
 {	
 	attrFrequency = clip((double)newValue, 10., (sr*0.45));
 
@@ -95,7 +95,7 @@ TTErr TTHighpassButterworth::setFrequency(const TTValue& newValue)
 }
 
 
-TTErr TTHighpassButterworth::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTHighpassButterworth2::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
 	TTSampleValue	*inSample,

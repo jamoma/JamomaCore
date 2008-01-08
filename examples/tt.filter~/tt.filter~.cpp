@@ -15,10 +15,10 @@
 #include "commonsyms.h"					// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"					// Max Object Extensions (attributes) Header
 
-#include "TTBandpassButterworth.h"		// TTBlue Interfaces...
-#include "TTBandrejectButterworth.h"
-#include "TTHighpassButterworth.h"
-#include "TTLowpassButterworth.h"
+#include "TTBandpassButterworth2.h"		// TTBlue Interfaces...
+#include "TTBandrejectButterworth2.h"
+#include "TTHighpassButterworth2.h"
+#include "TTLowpassButterworth2.h"
 #include "TTLowpassOnePole.h"
 
 #define DEFAULT_F 1000
@@ -157,7 +157,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 
 		x->sr = sr;
 		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);
-		object_attr_setsym(x, _sym_type, gensym("lowpass/butterworth"));
+		object_attr_setsym(x, _sym_type, gensym("lowpass/butterworth2"));
 
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
@@ -265,14 +265,14 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			x->attrType = atom_getsym(argv);
 			
 			// These should be sorted alphabetically
-			if(x->attrType == gensym("bandpass/butterworth"))
-				newFilter = new TTBandpassButterworth(x->maxNumChannels);
-			else if(x->attrType == gensym("bandreject/butterworth"))
-				newFilter = new TTBandRejectButterworth(x->maxNumChannels);
-			else if(x->attrType == gensym("highpass/butterworth"))
-				newFilter = new TTHighpassButterworth(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/butterworth"))
-				newFilter = new TTLowpassButterworth(x->maxNumChannels);
+			if(x->attrType == gensym("bandpass/butterworth2"))
+				newFilter = new TTBandpassButterworth2(x->maxNumChannels);
+			else if(x->attrType == gensym("bandreject/butterworth2"))
+				newFilter = new TTBandRejectButterworth2(x->maxNumChannels);
+			else if(x->attrType == gensym("highpass/butterworth2"))
+				newFilter = new TTHighpassButterworth2(x->maxNumChannels);
+			else if(x->attrType == gensym("lowpass/butterworth2"))
+				newFilter = new TTLowpassButterworth2(x->maxNumChannels);
 			else if(x->attrType == gensym("lowpass/onepole"))
 				newFilter = new TTLowpassOnePole(x->maxNumChannels);
 			else{

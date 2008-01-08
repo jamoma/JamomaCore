@@ -1,13 +1,13 @@
 /* 
- * TTBlue Butterworth Lowpass Filter Object
+ * TTBlue 2nd order Butterworth Lowpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_LOWPASS_BUTTERWORTH_H__
-#define __TT_LOWPASS_BUTTERWORTH_H__
+#ifndef __TT_LOWPASS_BUTTERWORTH_2_H__
+#define __TT_LOWPASS_BUTTERWORTH_2_H__
 
 
 #include "TTAudioObject.h"
@@ -16,7 +16,7 @@
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-class TTLowpassButterworth : public TTAudioObject {
+class TTLowpassButterworth2 : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;				///< filter cutoff frequency
 	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients
@@ -50,11 +50,11 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassButterworth(TTUInt8 newMaxNumChannels);
+	TTLowpassButterworth2(TTUInt8 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTLowpassButterworth();
+	~TTLowpassButterworth2();
 };
 
 
-#endif // __TT_LOWPASS_BUTTERWORTH_H__
+#endif // __TT_LOWPASS_BUTTERWORTH_2_H__
