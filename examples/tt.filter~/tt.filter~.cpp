@@ -18,6 +18,7 @@
 #include "TTBandpassButterworth2.h"		// TTBlue Interfaces...
 #include "TTBandrejectButterworth2.h"
 #include "TTHighpassButterworth2.h"
+#include "TTHighpassLinkwitzRiley4.h"
 #include "TTLowpassButterworth2.h"
 #include "TTLowpassLinkwitzRiley4.h"
 #include "TTLowpassOnePole.h"
@@ -268,16 +269,25 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			// These should be sorted alphabetically
 			if(x->attrType == gensym("bandpass/butterworth2"))
 				newFilter = new TTBandpassButterworth2(x->maxNumChannels);
+				
 			else if(x->attrType == gensym("bandreject/butterworth2"))
 				newFilter = new TTBandRejectButterworth2(x->maxNumChannels);
+				
 			else if(x->attrType == gensym("highpass/butterworth2"))
 				newFilter = new TTHighpassButterworth2(x->maxNumChannels);
+
+			else if(x->attrType == gensym("highpass/linkwitzRiley4"))
+				newFilter = new TTHighpassLinkwitzRiley4(x->maxNumChannels);
+				
 			else if(x->attrType == gensym("lowpass/butterworth2"))
 				newFilter = new TTLowpassButterworth2(x->maxNumChannels);
+				
 			else if(x->attrType == gensym("lowpass/linkwitzRiley4"))
 				newFilter = new TTLowpassLinkwitzRiley4(x->maxNumChannels);
+				
 			else if(x->attrType == gensym("lowpass/onepole"))
 				newFilter = new TTLowpassOnePole(x->maxNumChannels);
+				
 			else{
 				error("invalid filter type specified to tt.filter~");
 				return MAX_ERR_GENERIC;
