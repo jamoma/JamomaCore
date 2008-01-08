@@ -69,11 +69,11 @@ public:
 */
 class TTObject : public TTElement {
 private:
-	const TTSymbol*			messageNames[10];
-	TTMethod				messageTargets[10];
+	const TTSymbol*			messageNames[16];
+	TTMethod				messageTargets[16];
 	TTUInt8					messageCount;
-	const TTSymbol*			parameterNames[10];
-	TTParameter*			parameterObjects[10];
+	const TTSymbol*			parameterNames[16];
+	TTParameter*			parameterObjects[16];
 	TTUInt8					parameterCount;
 
 public:
