@@ -11,6 +11,7 @@
     <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='ch_1' type='msg_int' priority='0'>1</item>
     <item name='ch_2' type='msg_int' priority='0'>2</item>
+    <item name='dcblocker/active' type='msg_toggle' priority='0'>1</item>
     <item name='limiter/active' type='msg_toggle' priority='0'>1</item>
     <item name='limiter/lookahead' type='msg_int' priority='0'>64</item>
     <item name='limiter/mode' type='msg_symbol' priority='0'>exponential</item>

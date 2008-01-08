@@ -39,7 +39,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Turn on/off the enveloppe follower for track 1 of this module </td>
 		<tr>
@@ -48,7 +48,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Turn on/off the enveloppe follower for track 2 of this module </td>
 		<tr>
@@ -57,7 +57,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 158.000000 </td>
 			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> master gain </td>
 		<tr>
@@ -66,7 +66,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> When active, this attribute turns off the signal level meters in the module to conserve CPU. </td>
 		<tr>
@@ -75,7 +75,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_int </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  Set logical output for left channel. </td>
 		<tr>
@@ -84,16 +84,25 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_int </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  Set logical output for right channel. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> dcblocker/active </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> DC Blocker: Active or bypassed - works only if limiter is active </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> limiter/active </td>
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Limiter: Active or bypassed. </td>
 		<tr>
@@ -102,7 +111,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_int </td>
 			<td class ="instructionRange"> 0 256 </td>
 			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Limiter: The number of samples to look ahead. </td>
 		<tr>
@@ -111,7 +120,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Limiter: Set the function to be used for calculating the scaling. </td>
 		<tr>
@@ -120,7 +129,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -24.000000 48.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Limiter: Postamp as dB. </td>
 		<tr>
@@ -129,7 +138,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 48.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Limiter: Preamp as dB. </td>
 		<tr>
@@ -138,7 +147,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 3000.000000 </td>
 			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Limiter: Set release time as ms. </td>
 		<tr>
@@ -147,7 +156,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -24.000000 48.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Limiter: Set threshold as dB. </td>
 		<tr>
@@ -156,7 +165,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  </td>
 		<tr>
@@ -165,7 +174,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Recording: Set file type for sound files. </td>
 		<tr>
@@ -174,7 +183,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Recording: Set sample type for sound files. </td>
 		<tr>
@@ -183,7 +192,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Saturation: Active or bypassed. </td>
 		<tr>
@@ -192,7 +201,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> 0.000000 99.000000 </td>
 			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> Saturation: Depth. </td>
 		<tr>
@@ -201,8 +210,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		<tr>
 	</table>
@@ -225,7 +234,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -144.000000 18.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> master gain </td>
 		<tr>
@@ -234,7 +243,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_generic </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  </td>
 		<tr>
@@ -243,16 +252,16 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Generate html documentation for the module. </td>
+			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/help </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open the help patch for the module. </td>
 		<tr>
@@ -261,7 +270,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open the online html reference for this module. </td>
 		<tr>
@@ -270,34 +279,70 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_generic </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription">  Open DSP Status window. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> init </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/clear </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> This is the same preset/default. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/copy </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/interpolate </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/post </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Post all presets to the Max window. </td>
 		<tr>
@@ -306,34 +351,43 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionType"> msg_generic </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/storenext </td>
+			<td class ="instructionType"> msg_list </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp">  </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
@@ -342,7 +396,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRamp">  </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
