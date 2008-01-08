@@ -19,6 +19,7 @@
 #include "TTBandrejectButterworth2.h"
 #include "TTHighpassButterworth2.h"
 #include "TTLowpassButterworth2.h"
+#include "TTLowpassLinkwitzRiley4.h"
 #include "TTLowpassOnePole.h"
 
 #define DEFAULT_F 1000
@@ -273,6 +274,8 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 				newFilter = new TTHighpassButterworth2(x->maxNumChannels);
 			else if(x->attrType == gensym("lowpass/butterworth2"))
 				newFilter = new TTLowpassButterworth2(x->maxNumChannels);
+			else if(x->attrType == gensym("lowpass/linkwitzRiley4"))
+				newFilter = new TTLowpassLinkwitzRiley4(x->maxNumChannels);
 			else if(x->attrType == gensym("lowpass/onepole"))
 				newFilter = new TTLowpassOnePole(x->maxNumChannels);
 			else{
