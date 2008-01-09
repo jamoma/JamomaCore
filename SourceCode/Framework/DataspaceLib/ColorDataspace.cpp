@@ -68,9 +68,9 @@ HSLUnit::~HSLUnit()
 		
 void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
-	long	h = atom_getfloat(inputAtoms+0);
-	long	s = atom_getfloat(inputAtoms+1);
-	long	l = atom_getfloat(inputAtoms+2);
+	long	h = atom_getlong(inputAtoms+0);
+	long	s = atom_getlong(inputAtoms+1);
+	long	l = atom_getlong(inputAtoms+2);
 	long	red, green, blue;
 	double	m1,m2,tr,tg,tb, hue, lightness, saturation;
 
@@ -108,9 +108,9 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 
 void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
-	long	red = *(input+0);
-	long	green = *(input+1);
-	long	blue = *(input+2);
+	long	red = long(*(input+0));
+	long	green = long(*(input+1));
+	long	blue = long(*(input+2));
 	long	hue, lightness, saturation;
 	double	max,min,delta;
 	double	r,g,b;
@@ -142,9 +142,9 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 		else if (b == max) H = 4.0+(r-g)/delta;
 	}
 	H *= 60.; if (H < 0) H += 360.;
-	hue = (int)H;
-	saturation = S*100.;
-	lightness = L*100.;
+	hue = long(H);
+	saturation = long(S*100.0);
+	lightness = long(L*100.0);
 
 	*outputNumArgs = 3;	
 	atom_setfloat(*outputAtoms+0, hue);
@@ -165,9 +165,9 @@ HSVUnit::~HSVUnit()
 		
 void HSVUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
-	long	hue = atom_getfloat(inputAtoms+0);
-	long	saturation = atom_getfloat(inputAtoms+1);
-	long	value = atom_getfloat(inputAtoms+2);
+	long	hue = atom_getlong(inputAtoms+0);
+	long	saturation = atom_getlong(inputAtoms+1);
+	long	value = atom_getlong(inputAtoms+2);
 	long	red, green, blue;
 	double	h,s,v,h1, a[7], tr, tg, tb, q, f;                             
 
@@ -214,9 +214,9 @@ void HSVUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 {
     long    /*i, j, roubitez, pix, red, green, blue,*/ hue, saturation, value;
     double	y,h,s,v, r,g,b, r1,g1,b1; 
-	long	red = *(input+0);
-	long	green = *(input+1);
-	long	blue = *(input+2);
+	long	red = long(*(input+0));
+	long	green = long(*(input+1));
+	long	blue = long(*(input+2));
 
 	// first thing, convert them to 0-1
 	r = red/255.0;

@@ -37,7 +37,7 @@ SampleUnit::SampleUnit()
 	: DataspaceUnit::DataspaceUnit("sample")
 {
 	// TODO: Do something a bit more legit with the sample rate -- need to actually know the real sample rate!
-	sample_rate = DEFAULT_SAMPLE_RATE;
+	sample_rate = (long)DEFAULT_SAMPLE_RATE;
 	msr = double(sample_rate) / 1000.0;
 	rmsr = 1.0 / msr;
 }

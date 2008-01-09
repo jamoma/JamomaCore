@@ -1,7 +1,7 @@
 /* 
  * Jamoma Shared Library
  * Functions and resources used by Jamoma objects.
- * By Tim Place, Copyright Â© 2007
+ * By Tim Place, Copyright © 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -16,7 +16,9 @@
 #include "ext_common.h"
 #include "ext_strings.h"			// String Functions
 #include "ext_critical.h"
+#ifdef MAC_VERSION
 #include "ext_pattr_bundle.h"
+#endif
 #include "z_dsp.h"
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 
