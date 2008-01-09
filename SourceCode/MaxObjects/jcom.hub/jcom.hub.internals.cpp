@@ -90,7 +90,7 @@ void hub_internals_create(t_hub *x)
 	hashtab_store(x->hash_internals, gensym("preset/default"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/clear",				"msg_none",		"none",	"This is the same preset/default.");
-	anObject->action = (method)hub_preset_default;
+	anObject->action = (method)hub_presets_clear;
 	hashtab_store(x->hash_internals, gensym("preset/clear"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/post",				"msg_none",		"none",	"Post all presets to the Max window.");
