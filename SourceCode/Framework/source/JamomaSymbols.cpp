@@ -224,7 +224,7 @@ void jamoma_symbols_init(void)
 	ps_type						= gensym("type");
 	ps_range					= gensym("range");
 	ps_clipmode					= gensym("clipmode");
-	ps_ramp						= gensym("ramp");
+	ps_ramp						= gensym("ramp/drive");
 	ps_repetitions				= gensym("repetitions");
 	ps_description				= gensym("description");
 	ps_value					= gensym("value");
