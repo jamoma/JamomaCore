@@ -18,7 +18,9 @@ DATASPACE_LIB_SOURCE += ../DataspaceLib/AngleDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/ColorDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/DistanceDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/GainDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/NoneDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/PitchDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/PositionDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/TemperatureDataspace.cpp
 DATASPACE_LIB_SOURCE += ../DataspaceLib/TimeDataspace.cpp
 
