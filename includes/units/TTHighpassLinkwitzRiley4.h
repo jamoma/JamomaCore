@@ -49,12 +49,12 @@ private:
 	TTFloat64		*ym4;						///< Output sample n-4
 
 	/**	Receives notifications when there are changes to the inherited 
-		maxNumChannels parameter.  This allocates memory for xm1, xm2, ym1, and ym2 
+		maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
 		so that each channel's previous values are remembered.		*/
 	TTErr updateMaxNumChannels();
 
 	/** Receives notifications when there are changes to the inherited 
-		sr parameter.						*/
+		sr attribute.						*/
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute. */

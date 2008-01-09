@@ -21,11 +21,11 @@ private:
 	TTFloat64		*feedback;			///< previous output sample for each channel
 
 	/**	Receives notifications when there are changes to the inherited 
-		maxNumChannels parameter.			*/
+		maxNumChannels attribute.			*/
 	TTErr updateMaxNumChannels();
 
 	/** Receives notifications when there are changes to the inherited 
-		sr parameter.						*/
+		sr attribute.						*/
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute. */

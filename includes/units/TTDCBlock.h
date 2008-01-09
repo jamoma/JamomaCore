@@ -15,7 +15,7 @@
 /**	TTDCBlock in an audio processor that filters out DC Offsets from an input.
  *	This class is a good example of a very simple audio filter that can process any 
  *	number of parallel audio channels.  It has a couple of simple messages, but 
- *	defines no parameters beyond those that are inherited by all TTAudioObjects.
+ *	defines no attributes beyond those that are inherited by all TTAudioObjects.
  *
  *	The algorithm is based on one that frequently used in Max:
  *	"biquad~ 1.0 -1.0 -0.9997 0.0"
@@ -26,7 +26,7 @@ private:
 	TTSampleValue*		lastInput;		///< Feedback values used for the audio filter			
 	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter
 
-	/**	This method gets called when the inherited maxNumChannels parameter is changed. */
+	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels();
 
 	/**	Resets the DC-Blocking filter.

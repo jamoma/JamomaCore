@@ -12,90 +12,90 @@
 
 /****************************************************************************************************/
 
-TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress)
+TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress)
 {
 	name = &newName;
 	type = newType;
 	address = newAddress;
-	getter = (TTGetterMethod)&TTParameter::defaultGetter;
-	setter = (TTSetterMethod)&TTParameter::defaultSetter;
+	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
+	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
-TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
-{
-	name = &newName;
-	type = newType;
-	address = newAddress;
-	getter = newGetter;
-	setter = (TTSetterMethod)&TTParameter::defaultSetter;
-}
-
-TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
-{
-	name = &newName;
-	type = newType;
-	address = newAddress;
-	getter = (TTGetterMethod)&TTParameter::defaultGetter;
-	setter = newSetter;
-}
-
-TTParameter::TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
+TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
 {
 	name = &newName;
 	type = newType;
 	address = newAddress;
 	getter = newGetter;
+	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
+}
+
+TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
+{
+	name = &newName;
+	type = newType;
+	address = newAddress;
+	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
+	setter = newSetter;
+}
+
+TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
+{
+	name = &newName;
+	type = newType;
+	address = newAddress;
+	getter = newGetter;
 	setter = newSetter;
 }
 
 
-TTParameter::~TTParameter()
+TTAttribute::~TTAttribute()
 {
 	;
 }
 
 
-TTErr TTParameter::defaultGetter(TTValue& value, const TTParameter& parameter)
+TTErr TTAttribute::defaultGetter(TTValue& value, const TTAttribute& attribute)
 {
-	switch(parameter.type){
+	switch(attribute.type){
 		case kTypeFloat32:
-			value = *((TTFloat32*)parameter.address);
+			value = *((TTFloat32*)attribute.address);
 			return kTTErrNone;
 		case kTypeFloat64:
-			value = *((TTFloat64*)parameter.address);
+			value = *((TTFloat64*)attribute.address);
 			return kTTErrNone;
 		case kTypeInt8:
-			value = *((TTInt8*)parameter.address);
+			value = *((TTInt8*)attribute.address);
 			return kTTErrNone;
 		case kTypeUInt8:
-			value = *((TTUInt8*)parameter.address);
+			value = *((TTUInt8*)attribute.address);
 			return kTTErrNone;
 		case kTypeInt16:
-			value = *((TTInt16*)parameter.address);
+			value = *((TTInt16*)attribute.address);
 			return kTTErrNone;
 		case kTypeUInt16:
-			value = *((TTUInt16*)parameter.address);
+			value = *((TTUInt16*)attribute.address);
 			return kTTErrNone;
 		case kTypeInt32:
-			value = *((TTInt32*)parameter.address);
+			value = *((TTInt32*)attribute.address);
 			return kTTErrNone;
 		case kTypeUInt32:
-			value = *((TTUInt32*)parameter.address);
+			value = *((TTUInt32*)attribute.address);
 			return kTTErrNone;
 		case kTypeInt64:
-			value = *((TTInt64*)parameter.address);
+			value = *((TTInt64*)attribute.address);
 			return kTTErrNone;
 		case kTypeUInt64:
-			value = *((TTUInt64*)parameter.address);
+			value = *((TTUInt64*)attribute.address);
 			return kTTErrNone;
 		case kTypeBoolean:
-			value = *((TTBoolean*)parameter.address);
+			value = *((TTBoolean*)attribute.address);
 			return kTTErrNone;
 		case kTypeSymbol:
-			value = *((TTSymbol*)parameter.address);
+			value = *((TTSymbol*)attribute.address);
 			return kTTErrNone;
 		case kTypeObject:
-			value = *((TTObject*)parameter.address);
+			value = *((TTObject*)attribute.address);
 			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
@@ -104,47 +104,47 @@ TTErr TTParameter::defaultGetter(TTValue& value, const TTParameter& parameter)
 }
 
 
-TTErr TTParameter::defaultSetter(const TTValue& value, const TTParameter& parameter)
+TTErr TTAttribute::defaultSetter(const TTValue& value, const TTAttribute& attribute)
 {
-	switch(parameter.type){
+	switch(attribute.type){
 		case kTypeFloat32:
-			*((TTFloat32*)parameter.address) = value;
+			*((TTFloat32*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeFloat64:
-			*((TTFloat64*)parameter.address) = value;
+			*((TTFloat64*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeInt8:
-			*((TTInt8*)parameter.address) = value;
+			*((TTInt8*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeUInt8:
-			*((TTUInt8*)parameter.address) = value;
+			*((TTUInt8*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeInt16:
-			*((TTInt16*)parameter.address) = value;
+			*((TTInt16*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeUInt16:
-			*((TTUInt16*)parameter.address) = value;
+			*((TTUInt16*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeInt32:
-			*((TTInt32*)parameter.address) = value;
+			*((TTInt32*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeUInt32:
-			*((TTUInt32*)parameter.address) = value;
+			*((TTUInt32*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeInt64:
-			*((TTInt64*)parameter.address) = value;
+			*((TTInt64*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeUInt64:
-			*((TTUInt64*)parameter.address) = value;
+			*((TTUInt64*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeBoolean:
-			*((TTBoolean*)parameter.address) = value;
+			*((TTBoolean*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeSymbol:
-			*((TTSymbol*)parameter.address) = value;
+			*((TTSymbol*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeObject:
-			*((TTObject*)parameter.address) = value;
+			*((TTObject*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeNone:
 			return kTTErrNone;
@@ -158,7 +158,7 @@ TTErr TTParameter::defaultSetter(const TTValue& value, const TTParameter& parame
 TTObject::TTObject()
 {
 	messageCount = 0;
-	parameterCount = 0;
+	attributeCount = 0;
 }
 
 
@@ -166,284 +166,284 @@ TTObject::~TTObject()
 {
 	TTUInt16	i;
 
-	for(i=0; i<parameterCount; i++)
-		delete parameterObjects[i];
+	for(i=0; i<attributeCount; i++)
+		delete attributeObjects[i];
 }
 
 
 #pragma mark -
-#pragma mark Object Parameters
+#pragma mark Object Attributes
 	
-TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, void* address)
+TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address)
 {
-	parameterNames[parameterCount] = &name;
-	parameterObjects[parameterCount] = new TTParameter(name, type, address);
-	parameterCount++;
+	attributeNames[attributeCount] = &name;
+	attributeObjects[attributeCount] = new TTAttribute(name, type, address);
+	attributeCount++;
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter)
+TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter)
 {
-	parameterNames[parameterCount] = &name;
-	parameterObjects[parameterCount] = new TTParameter(name, type, address, getter);
-	parameterCount++;
+	attributeNames[attributeCount] = &name;
+	attributeObjects[attributeCount] = new TTAttribute(name, type, address, getter);
+	attributeCount++;
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, void* address, TTSetterMethod setter)
+TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTSetterMethod setter)
 {
-	parameterNames[parameterCount] = &name;
-	parameterObjects[parameterCount] = new TTParameter(name, type, address, setter);
-	parameterCount++;
+	attributeNames[attributeCount] = &name;
+	attributeObjects[attributeCount] = new TTAttribute(name, type, address, setter);
+	attributeCount++;
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
-	parameterNames[parameterCount] = &name;
-	parameterObjects[parameterCount] = new TTParameter(name, type, address, getter, setter);
-	parameterCount++;
+	attributeNames[attributeCount] = &name;
+	attributeObjects[attributeCount] = new TTAttribute(name, type, address, getter, setter);
+	attributeCount++;
 	return kTTErrNone;
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
 {
 	TTUInt8		i;
-	TTParameter	*parameter;
+	TTAttribute	*attribute;
 	
-	for(i=0; i<parameterCount; i++){
-		if(*parameterNames[i] == name){
-			parameter = parameterObjects[i];
-			return (this->*parameter->getter)(value, *parameter);
+	for(i=0; i<attributeCount; i++){
+		if(*attributeNames[i] == name){
+			attribute = attributeObjects[i];
+			return (this->*attribute->getter)(value, *attribute);
 		}
 	}
-	return kTTErrInvalidParameter;
+	return kTTErrInvalidAttribute;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTValue& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTValue& value)
 {
 	TTUInt8		i;
-	TTParameter	*parameter;
+	TTAttribute	*attribute;
 	
-	for(i=0; i<parameterCount; i++){
-		if(*parameterNames[i] == name){
-			parameter = parameterObjects[i];
-			return (this->*parameter->setter)(value, *parameter);
+	for(i=0; i<attributeCount; i++){
+		if(*attributeNames[i] == name){
+			attribute = attributeObjects[i];
+			return (this->*attribute->setter)(value, *attribute);
 		}
 	}
-	return kTTErrInvalidParameter;
+	return kTTErrInvalidAttribute;
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTFloat32& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTFloat32& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTFloat32& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTFloat32& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTFloat64& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTFloat64& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTFloat64& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTFloat64& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTInt8& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt8& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt8& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt8& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt8& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt8& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTUInt8& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt8& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTInt16& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt16& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt16& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt16& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt16& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt16& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTUInt16& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt16& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTInt32& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt32& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt32& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt32& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt32& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt32& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTUInt32& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt32& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTInt64& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt64& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTInt64& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt64& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTUInt64& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt64& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTUInt64& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt64& value)
 {
 	TTValue	v(value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getParameterValue(const TTSymbol& name, TTSymbol& value)
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTSymbol& value)
 {
 	TTValue	v;
 	TTErr	err;
 	
-	err = getParameterValue(name, v);
+	err = getAttributeValue(name, v);
 	value = v;
 	return err;
 }
 
-TTErr TTObject::setParameterValue(const TTSymbol& name, const TTSymbol& value)
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTSymbol& value)
 {
 	TTValue	v((TTSymbol&)value);
-	return setParameterValue(name, v);
+	return setAttributeValue(name, v);
 }
 
 
 #pragma mark -
-#pragma mark Global Parameters
+#pragma mark Global Attributes
 
-TTErr TTObject::registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address)
+TTErr TTObject::registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address)
 {
-	return ttGlobalObject.registerParameter(name, type, address);
+	return ttGlobalObject.registerAttribute(name, type, address);
 }
 
-TTErr TTObject::registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObject::registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
-	return ttGlobalObject.registerParameter(name, type, address, getter, setter);
+	return ttGlobalObject.registerAttribute(name, type, address, getter, setter);
 }
 
-TTErr TTObject::getGlobalParameterValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::getGlobalAttributeValue(const TTSymbol& name, TTValue& value)
 {
-	return ttGlobalObject.getParameterValue(name, value);
+	return ttGlobalObject.getAttributeValue(name, value);
 }
 
-TTErr TTObject::setGlobalParameterValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::setGlobalAttributeValue(const TTSymbol& name, TTValue& value)
 {
-	return ttGlobalObject.setParameterValue(name, value);
+	return ttGlobalObject.setAttributeValue(name, value);
 }
 
 

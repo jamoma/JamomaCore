@@ -13,8 +13,8 @@ TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
-	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassLinkwitzRiley4::setFrequency);
+	// register attributes
+	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassLinkwitzRiley4::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassLinkwitzRiley4::updateMaxNumChannels);
@@ -24,8 +24,8 @@ TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt8 newMaxNumChannels)
 	registerMessage(TT("clear"), (TTMethod)&TTLowpassLinkwitzRiley4::clear);
 
 	// Set Defaults...
-	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
-	setParameterValue(TT("frequency"),		1000.0);
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("frequency"),		1000.0);
 	setProcess((TTProcessMethod)&TTLowpassLinkwitzRiley4::processAudio);
 }
 

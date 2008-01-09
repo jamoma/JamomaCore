@@ -104,7 +104,7 @@ void* degrade_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);		
+		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
 		x->degrade = new TTDegrade(x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
@@ -198,7 +198,7 @@ void degrade_dsp(t_degrade *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->degrade->setParameterValue(TT("sr"), sp[0]->s_sr);
+	x->degrade->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(degrade_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -209,7 +209,7 @@ t_max_err degrade_setBypass(t_degrade *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);
-		x->degrade->setParameterValue(TT("bypass"), x->attrBypass);
+		x->degrade->setAttributeValue(TT("bypass"), x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
@@ -219,7 +219,7 @@ t_max_err degrade_setBitdepth(t_degrade *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBitdepth = atom_getlong(argv);
-		x->degrade->setParameterValue(TT("bitdepth"), x->attrBitdepth);
+		x->degrade->setAttributeValue(TT("bitdepth"), x->attrBitdepth);
 	}
 	return MAX_ERR_NONE;
 }
@@ -229,7 +229,7 @@ t_max_err degrade_setSrRatio(t_degrade *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrSrRatio = atom_getfloat(argv);
-		x->degrade->setParameterValue(TT("srRatio"), x->attrSrRatio);
+		x->degrade->setAttributeValue(TT("srRatio"), x->attrSrRatio);
 	}
 	return MAX_ERR_NONE;
 }

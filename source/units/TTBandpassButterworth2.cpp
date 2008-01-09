@@ -13,9 +13,9 @@ TTBandpassButterworth2::TTBandpassButterworth2(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
-	// register parameters
-	registerParameter(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandpassButterworth2::setFrequency);
-	registerParameter(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandpassButterworth2::setQ);
+	// register attributes
+	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandpassButterworth2::setFrequency);
+	registerAttribute(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandpassButterworth2::setQ);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandpassButterworth2::updateMaxNumChannels);
@@ -25,9 +25,9 @@ TTBandpassButterworth2::TTBandpassButterworth2(TTUInt8 newMaxNumChannels)
 	registerMessage(TT("clear"), (TTMethod)&TTBandpassButterworth2::clear);
 
 	// Set Defaults...
-	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);			// This parameter is inherited
-	setParameterValue(TT("frequency"),		1000.0);
-	setParameterValue(TT("q"),				50.0);
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("frequency"),		1000.0);
+	setAttributeValue(TT("q"),				50.0);
 	setProcess((TTProcessMethod)&TTBandpassButterworth2::processAudio);
 }
 

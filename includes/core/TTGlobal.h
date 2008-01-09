@@ -16,7 +16,7 @@
 // Class Specifications
 
 /**
-	The global object maintains all global parameters/settings for the TTBlue environment.
+	The global object maintains all global attributes/settings for the TTBlue environment.
 */
 class TTGlobal : public TTObject {
 private:

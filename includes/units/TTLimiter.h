@@ -18,7 +18,7 @@ private:
 	TTSampleValue*		lastInput;				///< keep the last input for each channel
 	TTSampleValue*		lastOutput;				///< keep the last output for each channel
 	TTFloat64			recover;				///< 
-	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead parameter
+	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
 	TTUInt32			lookaheadBufferIndex;
 	TTSampleVector*		lookaheadBuffer;		///< keep a lookahead buffer for each channel
 	TTSampleVector*		gain;
@@ -26,6 +26,8 @@ private:
 	TTSampleValue		last;
 	TTUInt32			maxBufferSize;			///< TODO: make this settable
 	TTBoolean			isLinear;				///< is attrMode set to linear?
+	TTDCBlock			*dcBlocker;				///< DCBlocker object
+	TTGain				*preamp;				///< Gain object to apply preamp
 
 	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.
 	TTSymbol*			attrMode;				///< may be one of two symbols: "linear" or "exponential".
@@ -35,34 +37,34 @@ private:
 	TTFloat32			attrPreamp;				///< linear gain scaling factor prior to limiting (attr setter used dB).
 	TTFloat32			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
-	/**	Override the setter for the inherited maxNumChannels parameter.					*/
+	/**	Override the setter for the inherited maxNumChannels attribute.					*/
 	TTErr updateMaxNumChannels();
 
-	/** Receives notifications when there are changes to the inherited sr parameter.	*/
+	/** Receives notifications when there are changes to the inherited sr attribute.	*/
 	TTErr updateSr();
 
-	/**	Setter for the mode parameter. */
+	/**	Setter for the mode attribute. */
 	TTErr setMode(TTValue& value);
 
-	/**	Setter for the release parameter. */
+	/**	Setter for the release attribute. */
 	TTErr setRelease(TTValue& value);
 
-	/**	Setter for the dcblocker parameter. */
+	/**	Setter for the dcblocker attribute. */
 	TTErr setDCBlocker(TTValue& value);
 
-	/**	Setter for the threshold parameter. */
+	/**	Setter for the threshold attribute. */
 	TTErr setPreamp(const TTValue& value);
-	/**	Getter for the threshold parameter. */
+	/**	Getter for the threshold attribute. */
 	TTErr getPreamp(TTValue& value);
 
-	/**	Setter for the threshold parameter. */
+	/**	Setter for the threshold attribute. */
 	TTErr setPostamp(const TTValue& value);
-	/**	Getter for the threshold parameter. */
+	/**	Getter for the threshold attribute. */
 	TTErr getPostamp(TTValue& value);
 
-	/**	Setter for the threshold parameter. */
+	/**	Setter for the threshold attribute. */
 	TTErr setThreshold(const TTValue& value);
-	/**	Getter for the threshold parameter. */
+	/**	Getter for the threshold attribute. */
 	TTErr getThreshold(TTValue& value);
 	
 

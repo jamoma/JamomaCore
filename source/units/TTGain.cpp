@@ -12,11 +12,11 @@
 TTGain::TTGain(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels)
 {
-	registerParameter(TT("linearGain"),	kTypeFloat32,	&gain);
-	registerParameter(TT("gain"),		kTypeInt32,		NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
+	registerAttribute(TT("linearGain"),	kTypeFloat32,	&gain);
+	registerAttribute(TT("gain"),		kTypeInt32,		NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
 
 	// Set Defaults...
-	setParameterValue(TT("linearGain"),	1.0);
+	setAttributeValue(TT("linearGain"),	1.0);
 	setProcess((TTProcessMethod)&TTGain::processAudio);
 }
 

@@ -158,7 +158,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		x->sr = sr;
-		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);
+		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);
 		object_attr_setsym(x, _sym_type, gensym("lowpass/butterworth2"));
 
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
@@ -211,7 +211,7 @@ t_max_err filter_setBypass(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);
-		x->filter->setParameterValue(TT("bypass"), x->attrBypass);
+		x->filter->setAttributeValue(TT("bypass"), x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
@@ -220,7 +220,7 @@ t_max_err filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
-		x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
@@ -229,7 +229,7 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrQ = atom_getfloat(argv);
-		x->filter->setParameterValue(TT("q"), x->attrQ);
+		x->filter->setAttributeValue(TT("q"), x->attrQ);
 	}
 	return MAX_ERR_NONE;
 }
@@ -242,7 +242,7 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
  *	processor.  So we need to take care when switching filters.
  *	
  *	To deal with this, we completely set up the new filter before switching (including setting the
- *	parameters of the filter).  Then we switch, but we don't free the old filter yet -- because the
+ *	attributes of the filter).  Then we switch, but we don't free the old filter yet -- because the
  *	perform routine could be in the middle of a vector running the old filter still.  So we switch
  *	the pointer in the struct, but instead of deleting the old filter we simply cache its pointer
  *	in an "oldFilter" member.
@@ -294,10 +294,10 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			}
 
 			// Now that we have our new filter, update it with the current state of the external:
-			newFilter->setParameterValue(TT("frequency"), x->attrFrequency);
-			newFilter->setParameterValue(TT("q"), x->attrQ);
-			newFilter->setParameterValue(TT("bypass"), x->attrBypass);
-			newFilter->setParameterValue(TT("sr"), x->sr);
+			newFilter->setAttributeValue(TT("frequency"), x->attrFrequency);
+			newFilter->setAttributeValue(TT("q"), x->attrQ);
+			newFilter->setAttributeValue(TT("bypass"), x->attrBypass);
+			newFilter->setAttributeValue(TT("sr"), x->sr);
 			
 			// Finally, swap the old filter out for the new one
 			x->oldFilter = x->filter;
@@ -348,7 +348,7 @@ t_int *filter_perform_freq(t_int *w)
 
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
-		x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
 		x->filter->process(*x->audioIn, *x->audioOut);
 	}
 	return w + ((x->audioIn->numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
@@ -371,7 +371,7 @@ t_int *filter_perform_q(t_int *w)
 
 	if(!x->obj.z_disabled){
 		x->attrQ = *q;
-		x->filter->setParameterValue(TT("q"), x->attrQ);
+		x->filter->setAttributeValue(TT("q"), x->attrQ);
 		x->filter->process(*x->audioIn, *x->audioOut);
 	}
 	return w + ((x->audioIn->numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
@@ -397,8 +397,8 @@ t_int *filter_perform_freq_q(t_int *w)
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
 		x->attrQ = *q;
-		x->filter->setParameterValue(TT("frequency"), x->attrFrequency);
-		x->filter->setParameterValue(TT("q"), x->attrQ);
+		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+		x->filter->setAttributeValue(TT("q"), x->attrQ);
 		x->filter->process(*x->audioIn, *x->audioOut);
 	}
 	return w + ((x->audioIn->numChannels*2)+4);				// +2 = +1 for the x pointer and +1 to point to the next object
@@ -450,7 +450,7 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 	}
 
 	x->sr = sp[0]->s_sr;	
-	x->filter->setParameterValue(TT("sr"), sp[0]->s_sr);
+	x->filter->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	if(hasFreq && hasQ)
 		dsp_addv(filter_perform_freq_q, k, audioVectors);

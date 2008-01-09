@@ -15,15 +15,15 @@ TTUInt32	TTAudioObject::globalSr = 44100;
 
 TTAudioObject::TTAudioObject(TTUInt8 newMaxNumChannels)
 {
-	registerParameter(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
-	registerParameter(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
-	registerParameter(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
+	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
+	registerAttribute(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
+	registerAttribute(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
 
 	// Set Defaults...
-	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setParameterValue(TT("sr"),				globalSr);
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("sr"),				globalSr);
 	setProcess(&TTAudioObject::bypassProcess);
-	setParameterValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue(TT("bypass"),			kTTBoolNo);
 }
 
 

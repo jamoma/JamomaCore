@@ -16,17 +16,17 @@ TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	accumulator(NULL), output(NULL)
 {
-	// register parameters
-	registerParameter(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTSetterMethod)&TTDegrade::setBitdepth);
-	registerParameter(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
+	// register attributes
+	registerAttribute(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTSetterMethod)&TTDegrade::setBitdepth);
+	registerAttribute(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDegrade::updateMaxNumChannels);
 
 	// Set Defaults...
-	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setParameterValue(TT("bitdepth"),		24);
-	setParameterValue(TT("srRatio"),		1.0);
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("bitdepth"),		24);
+	setAttributeValue(TT("srRatio"),		1.0);
 	setProcess((TTProcessMethod)&TTDegrade::processAudio);
 }
 

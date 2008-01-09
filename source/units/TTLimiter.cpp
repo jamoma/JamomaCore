@@ -13,14 +13,14 @@ TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
 	maxBufferSize(256), lookaheadBuffer(NULL), gain(NULL), lastInput(NULL), lastOutput(NULL)
 {
-	// register our parameters
-	registerParameter(TT("preamp"),		kTypeFloat32,	&attrPreamp,	(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
-	registerParameter(TT("postamp"),	kTypeFloat32,	&attrPostamp,	(TTGetterMethod)&TTLimiter::getPostamp,		(TTSetterMethod)&TTLimiter::setPostamp);
-	registerParameter(TT("threshold"),	kTypeFloat32,	&attrThreshold,	(TTGetterMethod)&TTLimiter::getThreshold,	(TTSetterMethod)&TTLimiter::setThreshold);
-	registerParameter(TT("lookahead"),	kTypeUInt32,	&attrLookahead, (TTSetterMethod)&TTLimiter::setLookahead);
-	registerParameter(TT("release"),	kTypeFloat32,	&attrRelease,	(TTSetterMethod)&TTLimiter::setRelease);
-	registerParameter(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTLimiter::setMode);
-	registerParameter(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
+	// register our attributes
+	registerAttribute(TT("preamp"),		kTypeFloat32,	&attrPreamp,	(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
+	registerAttribute(TT("postamp"),	kTypeFloat32,	&attrPostamp,	(TTGetterMethod)&TTLimiter::getPostamp,		(TTSetterMethod)&TTLimiter::setPostamp);
+	registerAttribute(TT("threshold"),	kTypeFloat32,	&attrThreshold,	(TTGetterMethod)&TTLimiter::getThreshold,	(TTSetterMethod)&TTLimiter::setThreshold);
+	registerAttribute(TT("lookahead"),	kTypeUInt32,	&attrLookahead, (TTSetterMethod)&TTLimiter::setLookahead);
+	registerAttribute(TT("release"),	kTypeFloat32,	&attrRelease,	(TTSetterMethod)&TTLimiter::setRelease);
+	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTLimiter::setMode);
+	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLimiter::updateMaxNumChannels);
@@ -29,16 +29,19 @@ TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	// clear the history
 	registerMessage(TT("clear"), (TTMethod)&TTLimiter::clear);
 
+	dcBlocker = new TTDCBlock(maxNumChannels);
+	preamp = new TTGain(maxNumChannels);
+
 	// Set Defaults...
-	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setParameterValue(TT("threshold"),		0.0);
-	setParameterValue(TT("preamp"),			0.0);
-	setParameterValue(TT("postamp"),		0.0);
-	setParameterValue(TT("lookahead"),		100);
-	setParameterValue(TT("mode"),			TT("exponential"));
-	setParameterValue(TT("release"),		1000.0);
-	setParameterValue(TT("dcBlocker"),		kTTBoolYes);
-	setParameterValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("threshold"),		0.0);
+	setAttributeValue(TT("preamp"),			0.0);
+	setAttributeValue(TT("postamp"),		0.0);
+	setAttributeValue(TT("lookahead"),		100);
+	setAttributeValue(TT("mode"),			TT("exponential"));
+	setAttributeValue(TT("release"),		1000.0);
+	setAttributeValue(TT("dcBlocker"),		kTTBoolYes);
+	setAttributeValue(TT("bypass"),			kTTBoolNo);
 	clear();
 }
 
@@ -54,6 +57,8 @@ TTLimiter::~TTLimiter()
 	free(gain);
 	free(lastInput);
 	free(lastOutput);
+	delete dcBlocker;
+	delete preamp;
 }
 
 
@@ -81,20 +86,22 @@ TTErr TTLimiter::updateMaxNumChannels()
 		lookaheadBuffer[i] = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
 
 	clear();
+	
+	dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	copy->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	
 	return kTTErrNone;
 }
 
 
 TTErr TTLimiter::setPreamp(const TTValue& newValue)
 {
-	attrPreamp = dbToLinear(newValue);
-	return kTTErrNone;
+	return preamp->setAttributeValue(TT("gain"), newValue);
 }
 
 TTErr TTLimiter::getPreamp(TTValue& value)
 {
-	value = linearToDb(attrPreamp);
-	return kTTErrNone;
+	return preamp->setAttributeValue(TT("gain"), newValue);
 }
 
 
@@ -152,10 +159,7 @@ TTErr TTLimiter::setMode(TTValue& newValue)
 TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 {
 	attrDCBlocker = newValue;
-	if(attrDCBlocker)
-		setProcess((TTProcessMethod)&TTLimiter::processAudio);
-	else
-		setProcess((TTProcessMethod)&TTLimiter::processNoDCBlocking);		
+		dcBlocker->setAttributeValue(TT("bypass"), attrDCBlocker);
 }
 
 
@@ -178,7 +182,8 @@ TTErr TTLimiter::clear()
 		lastInput[channel] = 0.0;
 		lastOutput[channel] = 0.0;
 	}
-
+	
+	dcBlocker->sendMessage(TT("clear"));
 	return kTTErrNone;
 }
 
@@ -197,7 +202,7 @@ void TTLimiter::setRecover()
 
 /*	How is this supposed to work?
 	
-	First, we work on a buffer of samples.  The size of this buffer is determined by the lookahead parameter.
+	First, we work on a buffer of samples.  The size of this buffer is determined by the lookahead attribute.
 	
 	1. Apply preamp
 	2. DC Block
@@ -226,6 +231,10 @@ TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	2. process stage
 	
 */
+	dcBlocker->process(in, out);	// filter out DC-Offsets (unless it is bypassed)
+	preamp->process(out, in);			// copy the output back to the input for the rest of this process.
+
+
 
 	for(i=0; i<vs; i++){
 		for(channel=0; channel<numchannels; channel++){

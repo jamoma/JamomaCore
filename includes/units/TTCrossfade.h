@@ -33,15 +33,15 @@ private:
 	/** Utility used by the setters for setting up the process routine. */
 	TTErr setProcessPointers();
 
-	/**	The process method used when the shape parameter is set to "linear"	
+	/**	The process method used when the shape attribute is set to "linear"	
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processLinear(TTAudioSignal& in, TTAudioSignal& out);
 	
-	/** The process method used when the shape parameter is set to "equalPower" and the mode is set to "lookup"
+	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "lookup"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processLookup(TTAudioSignal& in, TTAudioSignal& out);
 	
-	/** The process method used when the shape parameter is set to "equalPower" and the mode is set to "calculate"
+	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "calculate"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processCalc(TTAudioSignal& in, TTAudioSignal& out);
 

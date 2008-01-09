@@ -16,19 +16,19 @@
 
 
 // forward declarations needed by the compiler
-class TTParameter;
+class TTAttribute;
 class TTGlobal;
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(TTValue& value, const TTSymbol& methodName);
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTGetterMethod)(TTValue& value, const TTParameter& parameter);
+typedef TTErr (TTObject::*TTGetterMethod)(TTValue& value, const TTAttribute& attribute);
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTParameter& parameter);
+typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTAttribute& attribute);
 
-/** The instance that manages access to global parameters and settings in the TTBlue environment. */
+/** The instance that manages access to global attributes and settings in the TTBlue environment. */
 extern TTGlobal	ttGlobalObject;
 
 
@@ -36,35 +36,35 @@ extern TTGlobal	ttGlobalObject;
 // Class Specifications
 
 /**
-	This class represents a single parameter, as used by the TTObject class.
+	This class represents a single attribute, as used by the TTObject class.
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTParameter : TTElement {
+class TTAttribute : TTElement {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbol*		name;		///< the name of the parameter
-	TTDataType			type;		///< the data type of the parameter value
-	void*				address;	///< pointer to the memory holding the parameter value
-	TTGetterMethod		getter;		///< method to fetch the parameter value
-	TTSetterMethod		setter;		///< method to set the parameter value
+	const TTSymbol*		name;		///< the name of the attribute
+	TTDataType			type;		///< the data type of the attribute value
+	void*				address;	///< pointer to the memory holding the attribute value
+	TTGetterMethod		getter;		///< method to fetch the attribute value
+	TTSetterMethod		setter;		///< method to set the attribute value
 
 
-	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress);
-	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
-	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
-	TTParameter(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
-	virtual ~TTParameter();
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress);
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
+	virtual ~TTAttribute();
 
-	TTErr defaultGetter(TTValue& value, const TTParameter& parameter);
-	TTErr defaultSetter(const TTValue& value, const TTParameter& parameter);
+	TTErr defaultGetter(TTValue& value, const TTAttribute& attribute);
+	TTErr defaultSetter(const TTValue& value, const TTAttribute& attribute);
 };
 
 
 /**
 	At the moment this class uses really lame associative arrays to keep track of messages and 
-	parameters.  Even lamer is that we statically limit it to 10 of each right now.  
+	attributes.  Even lamer is that we statically limit it to 10 of each right now.  
 	Eventually we will do this with something way better...
 */
 class TTObject : public TTElement {
@@ -72,67 +72,67 @@ private:
 	const TTSymbol*			messageNames[16];
 	TTMethod				messageTargets[16];
 	TTUInt8					messageCount;
-	const TTSymbol*			parameterNames[16];
-	TTParameter*			parameterObjects[16];
-	TTUInt8					parameterCount;
+	const TTSymbol*			attributeNames[16];
+	TTAttribute*			attributeObjects[16];
+	TTUInt8					attributeCount;
 
 public:
 	TTObject();
 	virtual ~TTObject();
 	
 	/*
-		The theory on parameters is that the subclass calls registerParameter()
-		and the base class manages a list of all registered parameters.
+		The theory on attributes is that the subclass calls registerAttribute()
+		and the base class manages a list of all registered attributes.
 		
-		The the end-user calls setParameter() on the object (which is defined in 
+		The the end-user calls setAttribute() on the object (which is defined in 
 		the base class only) and it dispatches the message as appropriate.
 	*/
-	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address);
-	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter);
-	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address, TTSetterMethod setter);
-	TTErr registerParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbol& name, TTDataType type, void* address);
+	TTErr registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter);
+	TTErr registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	
-	TTErr setParameterValue(const TTSymbol& name, const TTValue& value);
-	TTErr getParameterValue(const TTSymbol& name, TTValue& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTValue& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTValue& value);
 	// convenience wrappers...
-	TTErr setParameterValue(const TTSymbol& name, const TTFloat32& value);
-	TTErr getParameterValue(const TTSymbol& name, TTFloat32& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTFloat64& value);
-	TTErr getParameterValue(const TTSymbol& name, TTFloat64& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTInt8& value);
-	TTErr getParameterValue(const TTSymbol& name, TTInt8& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTUInt8& value);
-	TTErr getParameterValue(const TTSymbol& name, TTUInt8& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTInt16& value);
-	TTErr getParameterValue(const TTSymbol& name, TTInt16& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTUInt16& value);
-	TTErr getParameterValue(const TTSymbol& name, TTUInt16& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTInt32& value);
-	TTErr getParameterValue(const TTSymbol& name, TTInt32& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTUInt32& value);
-	TTErr getParameterValue(const TTSymbol& name, TTUInt32& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTInt64& value);
-	TTErr getParameterValue(const TTSymbol& name, TTInt64& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTUInt64& value);
-	TTErr getParameterValue(const TTSymbol& name, TTUInt64& value);
-	TTErr setParameterValue(const TTSymbol& name, const TTSymbol& value);
-	TTErr getParameterValue(const TTSymbol& name, TTSymbol& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTFloat32& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTFloat32& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTFloat64& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTFloat64& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTInt8& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTInt8& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTUInt8& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTUInt8& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTInt16& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTInt16& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTUInt16& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTUInt16& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTInt32& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTInt32& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTUInt32& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTUInt32& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTInt64& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTInt64& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTUInt64& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTUInt64& value);
+	TTErr setAttributeValue(const TTSymbol& name, const TTSymbol& value);
+	TTErr getAttributeValue(const TTSymbol& name, TTSymbol& value);
 	
 	// These are not registered as static, even though they are operating only on statics.
-	// This is because the function pointers for the parameter getter/setter require a valid 'this' member.
+	// This is because the function pointers for the attribute getter/setter require a valid 'this' member.
 	// The result however, is that you can't call static methods from anywhere for these...
 	// So instead we create a "ttGlobalObject" instance just for this purpose.
-	static TTErr registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address);
-	static TTErr registerGlobalParameter(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
-	static TTErr setGlobalParameterValue(const TTSymbol& name, TTValue& value);
-	static TTErr getGlobalParameterValue(const TTSymbol& name, TTValue& value);
+	static TTErr registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address);
+	static TTErr registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	static TTErr setGlobalAttributeValue(const TTSymbol& name, TTValue& value);
+	static TTErr getGlobalAttributeValue(const TTSymbol& name, TTValue& value);
 	
 	TTErr registerMessage(const TTSymbol& name, TTMethod method);
 	TTErr sendMessage(const TTSymbol& name);
 	TTErr sendMessage(const TTSymbol& name, TTValue& value);
 	
 	// getMessageNames()
-	// getParameterNames()
+	// getAttributeNames()
 	
 };
 

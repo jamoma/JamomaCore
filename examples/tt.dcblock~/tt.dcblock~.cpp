@@ -92,7 +92,7 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		TTAudioObject::setGlobalParameterValue(TT("sr"), sr);		
+		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
 		x->dcblock = new TTDCBlock(x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
@@ -186,7 +186,7 @@ void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->dcblock->setParameterValue(TT("sr"), sp[0]->s_sr);
+	x->dcblock->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(dcblock_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
@@ -200,7 +200,7 @@ t_max_err dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv)
 
 	if(argc){
 		value = x->attrBypass = atom_getlong(argv);
-		x->dcblock->setParameterValue(name, value);
+		x->dcblock->setAttributeValue(name, value);
 	}
 	return MAX_ERR_NONE;
 }

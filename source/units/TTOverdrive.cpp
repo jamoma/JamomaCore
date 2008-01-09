@@ -12,18 +12,18 @@
 TTOverdrive::TTOverdrive(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels)
 {
-	// register parameters
-	registerParameter(TT("bypass"),		kTypeInt32,		&attrBypass,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBypass);
-	registerParameter(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBitdepth);
-	registerParameter(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
+	// register attributes
+	registerAttribute(TT("bypass"),		kTypeInt32,		&attrBypass,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBypass);
+	registerAttribute(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTGetterMethod)NULL, (TTSetterMethod)&TTDegrade::setBitdepth);
+	registerAttribute(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels);
 
-	setParameterValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setParameterValue(TT("bypass"),			kTTBoolNo);
-	setParameterValue(TT("bitdepth"),		24);
-	setParameterValue(TT("srRatio"),		1.0);
+	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue(TT("bitdepth"),		24);
+	setAttributeValue(TT("srRatio"),		1.0);
 		setProcess((TTProcessMethod)&TTDCBlock::processAudio);
 
 }

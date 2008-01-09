@@ -52,10 +52,10 @@ protected:
 	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
 	TTErr setBypass(const TTValue& value);
 
-	/**	Setter for the maxNumChannels parameter. 	*/
+	/**	Setter for the maxNumChannels attribute. 	*/
 	TTErr setMaxNumChannels(const TTValue& newValue);
 
-	/**	Setter for the sample-rate parameter.		*/
+	/**	Setter for the sample-rate attribute.		*/
 	TTErr setSr(const TTValue& newValue);
 
 public:

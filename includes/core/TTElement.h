@@ -54,7 +54,7 @@ typedef short				TTErr;
 
 /**	TTBlue Data Types
  *	Enumeration of data types used through out TTBlue, including the TTValue class and declaring the types of
- *	TTParameter objects.																			*/
+ *	TTAttribute objects.																			*/
 enum TTDataType{
 	kTypeNone = 0,
 	kTypeFloat32,
@@ -81,7 +81,7 @@ enum TTErrorCode{
 	kTTErrAllocFailed,		///< Couldn't get memory -- TODO: perhaps this error num or description should change?
 	kTTErrFreeFailed,		///< Couldn't free memory -- TODO: perhaps this error num or description should change?
 	kTTErrInvalidType,		///< Bad DataType for the context
-	kTTErrInvalidParameter,	///< Bad Parameter specified
+	kTTErrInvalidAttribute,	///< Bad Attribute specified
 	kTTErrMethodNotFound	///< Method not found.  Typically returned by the TTObject::sendMessage() function.
 };
 
@@ -91,7 +91,7 @@ enum TTErrorCode{
 
 /**	The required base-class from which all TTBlue objects must inherit.
  *	This object is the primary base-class for all TTBlue objects, including TTObject.  
- *	It does not define any core audio, parameter, or other high-level functionality.  For
+ *	It does not define any core audio, attribute, or other high-level functionality.  For
  *	these refer to TTObject and TTAudioObject.														*/
 class TTElement {
 public:
