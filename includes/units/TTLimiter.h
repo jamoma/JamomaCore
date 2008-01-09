@@ -44,13 +44,13 @@ private:
 	TTErr updateSr();
 
 	/**	Setter for the mode attribute. */
-	TTErr setMode(TTValue& value);
+	TTErr setMode(const TTValue& value);
 
 	/**	Setter for the release attribute. */
-	TTErr setRelease(TTValue& value);
+	TTErr setRelease(const TTValue& value);
 
 	/**	Setter for the dcblocker attribute. */
-	TTErr setDCBlocker(TTValue& value);
+	TTErr setDCBlocker(const TTValue& value);
 
 	/**	Setter for the threshold attribute. */
 	TTErr setPreamp(const TTValue& value);

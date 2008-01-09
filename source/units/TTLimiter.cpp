@@ -135,6 +135,7 @@ TTErr TTLimiter::setLookahead(TTValue& newValue)
 {
 	attrLookahead = clip(newValue, 1, maxBufferSize-1);
     lookaheadInv = 1.0 / TTFloat64(attrLookahead);
+	return kTTErrNone;
 }
 
 
@@ -142,6 +143,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 {
 	attrRelease = newValue;
 	setRecover();
+	return kTTErrNone;
 }
 
 
@@ -153,13 +155,14 @@ TTErr TTLimiter::setMode(TTValue& newValue)
 	else
 		isLinear = false;
 	setRecover();
+	return kTTErrNone;
 }
 
 
 TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 {
 	attrDCBlocker = newValue;
-		dcBlocker->setAttributeValue(TT("bypass"), attrDCBlocker);
+	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);
 }
 
 

@@ -1,5 +1,5 @@
 /* 
- * TTBlue Overdrive Object
+ * TTBlue Overdrive / Soft Saturation Effect 
  * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -11,46 +11,57 @@
 
 
 #include "TTAudioObject.h"
+#include "TTDCBlock.h"
 
-/**	TTDegrade in an audio processor that distorts a signal in ugly digital ways.
- *	This class is a good example of a very simple audio filter that can process any 
- *	number of parallel audio channels, with just a couple of attributes.
- */
-
+/**	TTOverdrive is an audio processor that provides a soft saturation
+ *	or overdrive effect to "warm" a sound up.
+ */ 
 class TTOverdrive : public TTAudioObject {
 private:
-	TTUInt16		bitShift;
-	TTFloat32		accumulator;
-	TTSampleValue	*output;	
-	TTUInt32		attrBitdepth;		///< Use a range of 1 to 24 to emulate the specified bitdepth.
-	TTFloat32		attrSrRatio;		///< Use a range of 0.0 to 1.0 to specify a ratio of the current sample-rate to emulate in order to intentional aliasing artifacts.
+	TTFloat32			attrDrive;		///< 
+	TTBoolean			attrDCBlocker;	///< 
+	TTUInt8				attrMode;		///< 
+	TTFloat32			attrPreamp;		///< linear gain for preamp (attr setter sets it in dB)
+	TTFloat32			s, 
+						b, 
+						nb, 
+						z, 
+						scale;
+	TTDCBlock*			dcBlocker;
 
-	/**	Setter for the inherited maxNumChannels attribute.												*/
-	TTErr updateMaxNumChannels(const TTValue& newValue);
+	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
+	TTErr updateMaxNumChannels();
 
-	/**	Setter for the bitdepth attribute. */
-	TTErr setBitdepth(TTValue& value);
+	/**	Setter for the mode attribute. */
+	TTErr setDrive(const TTValue& value);
 
-	/**	Standard audio processing method as used by TTBlue objects.
-	 *	This object can process N parallel channels of audio.  It is assumed that the number
-	 *	of inputs and outputs are the same, as are the vector sizes of those inputs and outputs.
-	 *	@param	in		A pointer to a TTAudioSignal object that may contain any number of channels.
-	 *					This signal is considered the master, and thus it provides the vectorsize
-	 *					and number of channels should the two signals not be matched.
-	 *	@param	out		A pointer to a TTAudioSignal object that has the output sample vectors.
-	 *	@return	Returns a TTBlue Error Code.  TODO: Perhaps we should check if the signals are matched and then
-	 *			return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.
-	 */
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	/**	Setter for the mode attribute. */
+	TTErr setDCBlocker(const TTValue& value);
+
+	/**	Setter for the mode attribute. */
+	TTErr setMode(const TTValue& value);
+
+	/**	Getter for the mode attribute. */
+	TTErr getPreamp(TTValue& value);
+	/**	Setter for the mode attribute. */
+	TTErr setPreamp(const TTValue& value);
+
+	/**	Reset the DC Blocker.			*/
+	TTErr clear();
+	
+	/**	Process method when mode == 0	*/
+	TTErr processMode0(TTAudioSignal& in, TTAudioSignal& out);
+
+	/**	Process method when mode == 1	*/
+	TTErr processMode1(TTAudioSignal& in, TTAudioSignal& out);
 
 public:
-
 	/**	Constructor. */
-	TTOverdrive(TTUInt8 newMaxNumChannels);
+	TTOverdrive(TTUInt8 maxNumChannels);
 
 	/**	Destructor. */
 	~TTOverdrive();
 };
 
 
-#endif // __TT_DEGRADE_H__
+#endif // __TT_OVERDRIVE_H__
