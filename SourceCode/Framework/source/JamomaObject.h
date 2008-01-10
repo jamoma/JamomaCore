@@ -26,11 +26,17 @@ typedef struct _jamoma_object
 	t_object		obj;	
 } t_jamoma_object;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void		jamoma_object_initclass(void);
 t_object*	jamoma_object_new();
 void		jamoma_object_free(t_jamoma_object *obj);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif //__JAMOMA_OBJECT_H__
 

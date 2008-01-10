@@ -67,6 +67,9 @@ typedef struct _jcom_core_subscriber_extended{
 				
 
 // Prototypes
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
  * with the jcom.hub object
@@ -196,6 +199,8 @@ t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void
 t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
 t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif // #ifndef __JMOD_CORE_H__

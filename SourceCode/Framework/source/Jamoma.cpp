@@ -31,7 +31,7 @@ void jamoma_init(void)
 		if(maxversion() >= 0x0500)
 			max5 = true;
 		common_symbols_init();
-		jamoma_symbols_init();
+		jamomaSymbolsInit();
 		jamoma_clock_initclass();
 		jamoma_scheduler_initclass();
 

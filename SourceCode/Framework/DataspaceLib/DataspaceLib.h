@@ -106,6 +106,9 @@ class DataspaceLib{
 		void getAvailableUnits(long *numUnits, t_symbol ***unitNames);
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /** Create a dataspace object by specifying the name of the dataspace you want as a symbol. */
 JamomaError		jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspace);
@@ -114,5 +117,8 @@ JamomaError		jamoma_getDataspace(t_symbol *dataspaceName, DataspaceLib **dataspa
 	The caller of this function is responsible for freeing memory allocated by this call. */
 void			jamoma_getDataspaceList(long *numDataspaces, t_symbol ***dataspaceNames);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif // __DATASPACELIB_H__

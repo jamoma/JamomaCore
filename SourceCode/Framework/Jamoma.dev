@@ -7,12 +7,12 @@ Ver=1
 ObjFiles=
 Includes=E:\Jamoma\SourceCode\Framework\DataspaceLib;E:\Jamoma\SourceCode\Framework\FunctionLib;E:\Jamoma\SourceCode\Framework\source;C:\cygwin\maxmspsdk\c74support\max-includes;C:\cygwin\maxmspsdk\c74support\msp-includes;E:\Jamoma\SourceCode\ThirdParty\ttblue\dsplib;E:\Jamoma\SourceCode\RampLib\ramplib_api
 Libs=C:\cygwin\maxmspsdk\c74support\max-includes;C:\cygwin\maxmspsdk\c74support\msp-includes
-PrivateResource=
+PrivateResource=Jamoma_private.rc
 ResourceIncludes=
 MakeIncludes=
 Compiler=-DBUILDING_DLL=1_@@_
-CppCompiler=-DBUILDING_DLL=1_@@_-DWIN_VERSION_@@_-DEXT_WIN_VERSION_@@_-DTT_TARGET_MAX_@@_
-Linker=--export-all-symbols --add-stdcall-alias_@@_C:\cygwin\maxmspsdk\c74support\max-includes\MaxAPI.lib_@@_C:\cygwin\maxmspsdk\c74support\msp-includes\MaxAudio.lib_@@_
+CppCompiler=-DBUILDING_DLL=1_@@_-DWIN_VERSION_@@_-DEXT_WIN_VERSION_@@_-DTT_TARGET_MAX_@@_-mno-cygwin_@@_
+Linker=C:\cygwin\maxmspsdk\c74support\max-includes\MaxAPI.lib_@@_C:\cygwin\maxmspsdk\c74support\msp-includes\MaxAudio.lib_@@_--add-stdcall-alias_@@_--no-export-all-symbols_@@_--def jamoma.def_@@_
 IsCpp=1
 Icon=
 ExeOutput=..\Framework\build
@@ -24,7 +24,7 @@ Folders=c74,Core,DataspaceLib,FunctionLib,RampLib
 CommandLine=
 UseCustomMakefile=0
 CustomMakefile=
-IncludeVersionInfo=0
+IncludeVersionInfo=1
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000001000000
@@ -521,21 +521,21 @@ BuildCmd=
 
 [VersionInfo]
 Major=0
-Minor=1
-Release=1
-Build=1
-LanguageID=1033
+Minor=4
+Release=6
+Build=36
+LanguageID=4105
 CharsetID=1252
 CompanyName=
 FileVersion=
-FileDescription=Developed using the Dev-C++ IDE
+FileDescription=Jamoma Shared Library
 InternalName=
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
-ProductName=
-ProductVersion=
-AutoIncBuildNr=0
+ProductName=Jamoma
+ProductVersion=0.4.6
+AutoIncBuildNr=1
 
 [Unit50]
 FileName=..\RampLib\ramplib_api\ramplib.h

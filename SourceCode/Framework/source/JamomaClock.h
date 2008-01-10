@@ -39,6 +39,9 @@ typedef struct _jamoma_clock{
 	#endif // MAC_VERSION
 } t_jamoma_clock;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void				jamoma_clock_initclass(void);
 t_object*			jamoma_clock_new(t_symbol *s, long argc, t_atom *argv);
@@ -61,5 +64,9 @@ void start(t_jamoma_clock *x);
 void stop(t_jamoma_clock *x);
 //
 unsigned long long	jamoma_clock_tickstosamples(t_object *o, double period);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // __JAMOMA_CLOCK_H__

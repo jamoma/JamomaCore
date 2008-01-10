@@ -10,6 +10,7 @@
 #ifndef __JAMOMA_SYMBOLS_H__
 #define __JAMOMA_SYMBOLS_H__
 
+#include "ext.h"
 
 extern t_symbol	*ps_none,
 				*ps_done,
@@ -162,7 +163,7 @@ extern t_symbol	*ps_none,
 				*ps_dispatch
 				;
 
-void jamoma_symbols_init(void);
+void jamomaSymbolsInit();
 
 #endif // #ifndef __JAMOMA_SYMBOLS_H__
 

@@ -160,7 +160,7 @@ t_symbol	*ps_done,
 			*ps_dispatch
 			;
 
-void jamoma_symbols_init(void)
+void jamomaSymbolsInit()
 {
 	ps_done						= gensym("done");
 	// ramp stuff

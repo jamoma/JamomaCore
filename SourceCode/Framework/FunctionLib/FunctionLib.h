@@ -56,6 +56,11 @@ class FunctionLib{
 		}
 };
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+       
 /** Instantiate a function by name */
 JamomaError	jamoma_getFunction(t_symbol *functionName, FunctionLib **function);
 
@@ -65,5 +70,9 @@ void		jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames);
 
 /** Attempt to knock out denormaled floats*/
 double		jamoma_anti_denormal(double value);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // __FUNCTIONLIB_H__

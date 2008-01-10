@@ -49,7 +49,15 @@ typedef struct _jcom_receivemaster{
 } t_jcom_receivemaster;
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void receive_initclass();
 void receivemaster_initclass();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // #ifndef __JCOM_SENDRECEIVE_H__
