@@ -60,8 +60,8 @@ OSStatus jamoma_clock_coreaudio_callback (AudioDeviceID			inDevice,
 										void*					baton);
 #endif // MAC_VERSION
 void jamoma_clock_setup_coreaudio(t_jamoma_clock *x);
-void start(t_jamoma_clock *x);
-void stop(t_jamoma_clock *x);
+void jamoma_clock_start(t_jamoma_clock *x);
+void jamoma_clock_stop(t_jamoma_clock *x);
 //
 unsigned long long	jamoma_clock_tickstosamples(t_object *o, double period);
 

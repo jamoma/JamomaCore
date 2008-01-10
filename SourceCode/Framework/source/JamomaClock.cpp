@@ -240,7 +240,7 @@ void jamoma_clock_setup_coreaudio(t_jamoma_clock *x)
 }
 
 
-void start(t_jamoma_clock *x)
+void jamoma_clock_start(t_jamoma_clock *x)
 {
 	OSStatus		err = kAudioHardwareNoError;
 
@@ -261,7 +261,7 @@ void start(t_jamoma_clock *x)
 }
 
 
-void stop(t_jamoma_clock *x)
+void jamoma_clock_stop(t_jamoma_clock *x)
 {
     OSStatus 	err = kAudioHardwareNoError;
     
