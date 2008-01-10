@@ -78,7 +78,7 @@ extern "C" {
  * @param container pointer to patcher containg the parameter, in, out, etc.
  * @return a pointer to the hub object
  */
-void *jcom_core_subscribe(t_object *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
+t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type);
 
 
 /** Unsubscribe a client from the hub.

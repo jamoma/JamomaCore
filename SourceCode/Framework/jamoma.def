@@ -2,8 +2,102 @@
 LIBRARY "jamoma"
 
 EXPORTS
-	jamoma_init
+	; Globals
+		k_anti_denormal_value
+		k_pi
+		k_twopi
+		max5
+		obj_jamoma_clock
+		obj_jamoma_scheduler
+
+	; Core
+		jamoma_init
 	
+		jcom_core_atom_compare
+		jcom_core_atom_copy
+		jcom_core_attr_getclipmode
+		jcom_core_attr_getdescription
+		jcom_core_attr_getname
+		jcom_core_attr_getrange
+		jcom_core_attr_getrepetitions
+		jcom_core_attr_setrange
+		jcom_core_broadcast_callback
+		jcom_core_file_writeline
+		jcom_core_getfilepath
+		jcom_core_loadextern
+		jcom_core_string_compare
+		jcom_core_subscriber_attribute_common_setname
+		jcom_core_subscriber_classinit_common
+		jcom_core_subscriber_classinit_extended
+		jcom_core_subscriber_common_free
+		jcom_core_subscriber_hubrelease
+		jcom_core_subscriber_new_common
+		jcom_core_subscriber_new_extended
+		jcom_core_subscriber_setcustomsubscribe_method
+		jcom_core_subscriber_subscribe
+		jcom_core_subscribe
+		jcom_core_unsubscribe
+	
+
+	; Misc
+		jamoma_anti_denormal
+		jamoma_class_attr_array_new
+		jamoma_class_attr_get
+		jamoma_class_attr_new
+	
+		jamoma_get_all_module_names
+		jamoma_get_hub_for_module_named
+		jamoma_hub_register
+		jamoma_hub_remove
+	
+		jamoma_object_free
+		jamoma_object_getpatcher
+		jamoma_object_initclass
+		jamoma_object_new
+		jamoma_patcher_getargs
+		jamoma_patcher_getcontext
+		jamoma_patcher_getvarname
+
+
+	; Scheduler
+		jamoma_event_dosend
+		jamoma_event_free
+		jamoma_event_new
+		jamoma_event_send
+	
+		jamoma_scheduler_delay
+		jamoma_scheduler_doevents
+		jamoma_scheduler_free
+		jamoma_scheduler_getphase
+		jamoma_scheduler_initclass
+		jamoma_scheduler_moveevent
+		jamoma_scheduler_new
+		jamoma_scheduler_removeevent
+		jamoma_scheduler_rewind
+		jamoma_scheduler_update
+
+		jamoma_clock_dsp
+		jamoma_clock_free
+		jamoma_clock_initclass
+		jamoma_clock_new
+		jamoma_clock_perform
+		jamoma_clock_tickstosamples
+		jamoma_dsp
+		
+
+	; FunctionLib
+		jamoma_getFunction
+		jamoma_getFunctionList
+
+		; FunctionLib::getParameter(symbol*, long*, atom**)
+		_ZN11FunctionLib12getParameterEP6symbolPlPP4atom @ 60
+
+		; FunctionLib::setParameter(symbol*, long, atom*)
+		_ZN11FunctionLib12setParameterEP6symbollP4atom @ 61
+
+		; FunctionLib::getFunctionParameters(long*, atom**)
+		_ZN11FunctionLib21getFunctionParametersEPlPP4atom @ 62
+
 
 	; DataspaceLib
 		jamoma_getDataspace
@@ -323,3 +417,9 @@ EXPORTS
 
 	; pattr
 		ext_pattr_setup
+		pattr_obex_init
+		pattr_obex_setup
+		pattr_obex_notify
+		pattr_obex_getb
+		pattr_obex_getp
+		pattr_obex_getn
