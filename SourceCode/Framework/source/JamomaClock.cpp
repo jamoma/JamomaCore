@@ -61,7 +61,7 @@ void jamoma_clock_free(t_jamoma_clock *x)
 {
 	dsp_free((t_pxobject *)x);
 #ifdef MAC_VERSION
-	stop(x);
+	jamoma_clock_stop(x);
 #endif // MAC_VERSION
 }
 
