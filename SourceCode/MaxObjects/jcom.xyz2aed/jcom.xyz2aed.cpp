@@ -113,16 +113,17 @@ void xyz2aed_assist(t_xyz2aed *x, void *b, long msg, long arg, char *dst)
 // LIST INPUT - calculate and output
 void xyz2aed_list(t_xyz2aed *x, Symbol *msg, long argc, t_atom *argv)
 {
-	double xx, yy, zz;
+	double xx, yy, zz, xxsqr_plus_yysqr;
 	
 	if (argc=3) {
 		xx = atom_getfloat(argv);
 		yy = atom_getfloat(argv+1);
 		zz = atom_getfloat(argv+2);
+		xxsqr_plus_yysqr = (xx * xx) + (yy * yy);
 	
 		atom_setfloat( &x->outlist[0], atan2(xx, yy) * rad2deg );
-		atom_setfloat( &x->outlist[1], atan2(zz, (pow(((yy * yy) + (xx * xx)), 0.5))) * rad2deg );
-		atom_setfloat( &x->outlist[2], pow(((xx * xx) + (yy * yy) + (zz * zz)), 0.5) );
+		atom_setfloat( &x->outlist[1], atan2(zz, (pow((xxsqr_plus_yysqr), 0.5))) * rad2deg );
+		atom_setfloat( &x->outlist[2], pow((xxsqr_plus_yysqr + (zz * zz)), 0.5) );
 		
 		xyz2aed_bang(x);
 	}

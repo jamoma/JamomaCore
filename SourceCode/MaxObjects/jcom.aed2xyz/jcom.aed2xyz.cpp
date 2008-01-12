@@ -109,15 +109,16 @@ void aed2xyz_assist(t_aed2xyz *x, void *b, long msg, long arg, char *dst)
 // LIST INPUT - calculate and output
 void aed2xyz_list(t_aed2xyz *x, Symbol *msg, long argc, t_atom *argv)
 {
-	double a, e, d;
+	double a, e, d, dcoselev;
 	
 	if (argc=3) {
 		a = (90. - atom_getfloat(argv)) * deg2rad;
 		e = (atom_getfloat(argv+1) * deg2rad);
 		d = atom_getfloat(argv+2);
-	
-		atom_setfloat(&x->outlist[0], cos(a) * cos(e) * d);
-		atom_setfloat(&x->outlist[1], sin(a) * cos(e) * d);
+	    dcoselev = cos(e) * d;
+		
+		atom_setfloat(&x->outlist[0], cos(a) * dcoselev);
+		atom_setfloat(&x->outlist[1], sin(a) * dcoselev);
 		atom_setfloat(&x->outlist[2], sin(e) * d);
 		
 		aed2xyz_bang(x);
