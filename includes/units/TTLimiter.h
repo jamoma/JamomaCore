@@ -11,6 +11,8 @@
 
 
 #include "TTAudioObject.h"
+#include "TTDCBlock.h"
+#include "TTGain.h"
 
 /**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. */
 class TTLimiter : public TTAudioObject {
@@ -21,7 +23,7 @@ private:
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
 	TTUInt32			lookaheadBufferIndex;
 	TTSampleVector*		lookaheadBuffer;		///< keep a lookahead buffer for each channel
-	TTSampleVector*		gain;
+	TTSampleValue*		gain;
 	TTUInt32			samps;
 	TTSampleValue		last;
 	TTUInt32			maxBufferSize;			///< TODO: make this settable
@@ -39,18 +41,9 @@ private:
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
 	TTErr updateMaxNumChannels();
-
+	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
 	TTErr updateSr();
-
-	/**	Setter for the mode attribute. */
-	TTErr setMode(const TTValue& value);
-
-	/**	Setter for the release attribute. */
-	TTErr setRelease(const TTValue& value);
-
-	/**	Setter for the dcblocker attribute. */
-	TTErr setDCBlocker(const TTValue& value);
 
 	/**	Setter for the threshold attribute. */
 	TTErr setPreamp(const TTValue& value);
@@ -66,7 +59,21 @@ private:
 	TTErr setThreshold(const TTValue& value);
 	/**	Getter for the threshold attribute. */
 	TTErr getThreshold(TTValue& value);
-	
+
+	/** Setter for the lookahead attribute, value is in samples. */
+	TTErr setLookahead(TTValue& newValue);
+
+	/**	Setter for the mode attribute. */
+	TTErr setMode(TTValue& newValue);
+
+	/**	Setter for the release attribute. */
+	TTErr setRelease(TTValue& newValue);
+
+	/**	Setter for the dcblocker attribute. */
+	TTErr setDCBlocker(TTValue& newValue);
+
+	/** Clear the history: reset the limiter. */
+	TTErr clear();
 
 	/** Private utility used by the audio processing routine. */
 	void setRecover();

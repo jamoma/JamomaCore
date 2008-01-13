@@ -11,7 +11,7 @@
 
 TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
-	maxBufferSize(256), lookaheadBuffer(NULL), gain(NULL), lastInput(NULL), lastOutput(NULL)
+	lastInput(NULL), lastOutput(NULL), lookaheadBuffer(NULL), gain(NULL), maxBufferSize(256)
 {
 	// register our attributes
 	registerAttribute(TT("preamp"),		kTypeFloat32,	&attrPreamp,	(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
@@ -88,10 +88,14 @@ TTErr TTLimiter::updateMaxNumChannels()
 	clear();
 	
 	dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
-	copy->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	preamp->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 	
 	return kTTErrNone;
 }
+
+
+TTErr updateSr();
+
 
 
 TTErr TTLimiter::setPreamp(const TTValue& newValue)
@@ -101,7 +105,7 @@ TTErr TTLimiter::setPreamp(const TTValue& newValue)
 
 TTErr TTLimiter::getPreamp(TTValue& value)
 {
-	return preamp->setAttributeValue(TT("gain"), newValue);
+	return preamp->getAttributeValue(TT("gain"), value);
 }
 
 
@@ -133,7 +137,7 @@ TTErr TTLimiter::getThreshold(TTValue& value)
 
 TTErr TTLimiter::setLookahead(TTValue& newValue)
 {
-	attrLookahead = clip(newValue, 1, maxBufferSize-1);
+	attrLookahead = clip(TTUInt32(newValue), TTUInt32(1), maxBufferSize-1);
     lookaheadInv = 1.0 / TTFloat64(attrLookahead);
 	return kTTErrNone;
 }
@@ -150,7 +154,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 TTErr TTLimiter::setMode(TTValue& newValue)
 {
 	attrMode = &(TTSymbol&)newValue;
-	if(attrMode == TT("linear"))
+	if(attrMode == &TT("linear"))
 		isLinear = true;
 	else
 		isLinear = false;
@@ -196,7 +200,7 @@ TTErr TTLimiter::clear()
 void TTLimiter::setRecover()
 {
 	recover = 1000.0 / (attrRelease * sr);		
-	if(attrMode == TT("linear"))
+	if(attrMode == &TT("linear"))
 		recover = recover * 0.5;
 	else 
 		recover = recover * 0.707;
