@@ -18,12 +18,14 @@ TTAudioObject::TTAudioObject(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerAttribute(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
 	registerAttribute(TT("bypass"),			kTypeBoolean,	&attrBypass,		(TTSetterMethod)&TTAudioObject::setBypass);
+	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setAttributeValue(TT("sr"),				globalSr);
 	setProcess(&TTAudioObject::bypassProcess);
 	setAttributeValue(TT("bypass"),			kTTBoolNo);
+	setAttributeValue(TT("processInPlace"), kTTBoolNo);
 }
 
 
