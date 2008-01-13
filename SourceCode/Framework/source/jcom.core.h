@@ -10,11 +10,18 @@
 #ifndef __JMOD_CORE_H__
 #define __JMOD_CORE_H__
 
+#include "ext.h"
+#include "ext_obex.h"
 #include "ext_critical.h"
-#include "z_dsp.h"							// MSP Header
+#include "z_dsp.h"
 
 #ifdef WIN_VERSION
 #define snprintf _snprintf
+#endif
+
+// Prototypes
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, long argc, t_atom *argv);
@@ -65,11 +72,6 @@ typedef struct _jcom_core_subscriber_extended{
 	t_symbol			*attr_type;				///< ATTRIBUTE: what kind of data doers this object define?	
 } t_jcom_core_subscriber_extended;
 				
-
-// Prototypes
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
  * with the jcom.hub object

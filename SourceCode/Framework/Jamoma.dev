@@ -19,7 +19,7 @@ ExeOutput=..\Framework\build
 ObjectOutput=..\Framework\temp
 OverrideOutput=0
 OverrideOutputName=Jamoma.dll
-HostApplication=
+HostApplication=C:\Documents and Settings\Tim\Desktop\trunk\sysbuild\win_debug\Max.exe
 Folders=c74,Core,DataspaceLib,FunctionLib,RampLib
 CommandLine=
 UseCustomMakefile=0
@@ -27,7 +27,7 @@ CustomMakefile=
 IncludeVersionInfo=1
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=0000000000000001000000
+CompilerSettings=0000000010000101010000
 
 [Unit1]
 FileName=source\jcom.sendreceive.h
@@ -523,7 +523,7 @@ BuildCmd=
 Major=0
 Minor=4
 Release=6
-Build=46
+Build=61
 LanguageID=4105
 CharsetID=1252
 CompanyName=
