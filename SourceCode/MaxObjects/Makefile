@@ -19,7 +19,8 @@
 include infra/common.mk
 
 
-release: jamoma_framework_release ramplib_release
+#release: jamoma_framework_release ramplib_release
+release: ramplib_release
 	@echo "Making release..."
 #	@${MAKE} -C common release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.change release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
@@ -68,7 +69,8 @@ release: jamoma_framework_release ramplib_release
 
 	
 
-debug: jamoma_framework_debug ramplib_debug
+#debug: jamoma_framework_debug ramplib_debug
+debug: ramplib_debug
 	@echo "Making debug..."
 #	@${MAKE} -C common debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.change debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug

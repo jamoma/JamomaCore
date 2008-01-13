@@ -9,7 +9,6 @@ ALL_DEPS = -M
 DEP_CHECK_TYPE = ${ALL_DEPS}
 
 WIN_DEFINES = -DWIN_VERSION -DWIN_EXT_VERSION -DTT_TARGET_MAX -DTT_INCLUDE_CPP 
-#WIN_DEFINES = -DWIN_VERSION -DTT_TARGET_MAX -DWIN_EXT_VERSION 
 
 
 
@@ -18,7 +17,7 @@ MAX_INCLUDES = -I/maxmspsdk/c74support/max-includes \
    -I/maxmspsdk/c74support/common
 
 
-JAMOMA_LIB_INCLUDES = -L../../Framework/source 
+JAMOMA_LIB_INCLUDES = -L../../Framework/build 
 MAX_LIB_INCLUDES = -L/maxmspsdk/c74support/max-includes \
    -L/maxmspsdk/c74support/msp-includes \
    -L/maxmspsdk/c74support/common \
@@ -60,8 +59,8 @@ DEBUG_CXXFLAGS = -g -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygw
 
 INSTALL_DIR = ../../../Jamoma/library/externals/windows
 
-JAMOMA_LIB = -lJamomaFramework
-MAX_LIBS = -lMaxAPI -lMaxAudio 
+JAMOMA_LIB = -lJamoma
+MAX_LIBS = -lMaxAPI -lMaxAudio
 JITTER_LIB = -ljitlib
 
 LIBS = ${JAMOMA_LIB} ${MAX_LIBS} 
