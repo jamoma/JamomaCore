@@ -11,7 +11,7 @@
 
 TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	: TTAudioObject::TTAudioObject(newMaxNumChannels),
-	lastInput(NULL), lastOutput(NULL), lookaheadBuffer(NULL), gain(NULL), maxBufferSize(256)
+	lookaheadBuffer(NULL), gain(NULL), maxBufferSize(256)
 {
 	// register our attributes
 	registerAttribute(TT("preamp"),		kTypeFloat32,	&attrPreamp,	(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
@@ -43,6 +43,7 @@ TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	setAttributeValue(TT("dcBlocker"),		kTTBoolYes);
 	setAttributeValue(TT("bypass"),			kTTBoolNo);
 	clear();
+	setProcess((TTProcessMethod)&TTLimiter::processNormal);
 }
 
 
@@ -55,8 +56,6 @@ TTLimiter::~TTLimiter()
 	free(gain);
 	free(lookaheadBuffer);
 	free(gain);
-	free(lastInput);
-	free(lastOutput);
 	delete dcBlocker;
 	delete preamp;
 }
@@ -73,14 +72,8 @@ TTErr TTLimiter::updateMaxNumChannels()
 	}
 	if(gain)
 		free(gain);
-	if(lastInput)
-		free(lastInput);
-	if(lastOutput)
-		free(lastOutput);
 
-	gain 			= (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
-	lastInput 		= (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	lastOutput 		= (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
+	gain = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
 	lookaheadBuffer = (TTSampleVector*)malloc(sizeof(TTSampleVector) * maxNumChannels);
 	for(i=0; i<maxNumChannels; i++)
 		lookaheadBuffer[i] = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
@@ -94,8 +87,11 @@ TTErr TTLimiter::updateMaxNumChannels()
 }
 
 
-TTErr updateSr();
-
+TTErr TTLimiter::updateSr()
+{
+	setRecover();
+	return kTTErrNone;
+}
 
 
 TTErr TTLimiter::setPreamp(const TTValue& newValue)
@@ -172,8 +168,8 @@ TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 
 TTErr TTLimiter::clear()
 {
-	short i;
-	short channel;
+	TTUInt32	i;
+	TTUInt32	channel;
 	
 	for(i=0; i<maxBufferSize; i++){
 		for(channel=0; channel < maxNumChannels; channel++)
@@ -182,14 +178,9 @@ TTErr TTLimiter::clear()
     }
 
 	lookaheadBufferIndex = 0;	// was bp
-	last = 1.;
+	last = 1.0;
 	setRecover();
 
-	for(channel=0; channel < maxNumChannels; channel++){
-		lastInput[channel] = 0.0;
-		lastOutput[channel] = 0.0;
-	}
-	
 	dcBlocker->sendMessage(TT("clear"));
 	return kTTErrNone;
 }
@@ -220,42 +211,37 @@ void TTLimiter::setRecover()
 	6. figure out gain to apply
 	7. 
 */
-TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTLimiter::processNormal(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs = in.vs;
-	short			i;
+	TTUInt32		vs = in.vs;
+	TTUInt32		i;
 	TTSampleValue	*inSample,
 					*outSample;
 	TTSampleValue	tempSample;
 	TTSampleValue	hotSample = 0.0;
+	TTFloat64		maybe,
+					curgain,
+					newgain,
+					inc,
+					acc;
+	long			flag,
+					bpp,
+					ind;
 	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	short			channel;
 
-/*
-	I think we need to re-write this in two stages:
-	0. preprocess stage (DCBlocker + Preamp)
-	1. analysis stage
-	2. process stage
-	
-*/
+	// Pre-Process the input
 	dcBlocker->process(in, out);	// filter out DC-Offsets (unless it is bypassed)
-	preamp->process(out, in);			// copy the output back to the input for the rest of this process.
+	preamp->process(out, in);		// copy the output back to the input for the rest of this process.
 
-
-
+	// Process Stage
 	for(i=0; i<vs; i++){
 		for(channel=0; channel<numchannels; channel++){
 			inSample = in.sampleVectors[channel];
 			outSample = out.sampleVectors[channel];
-
-			// Integrated DC Blocker, with preamp applied
-			tempSample = *inSample++ * attrPreamp;
-			lastOutput[channel] = antiDenormal((tempSample * preamp) - lastInput[channel] + (lastOutput[channel] * 0.9997));
-			lastInput[channel] = tempSample;
-			tempSample = lastOutput[channel];
+			tempSample = *inSample++;
 			
-			// Now the actual limiter
-			lookaheadBuffer[channel][i] = tempSample * postamp;
+			lookaheadBuffer[channel][i] = tempSample * attrPostamp;
 			tempSample = fabs(tempSample);
 			if(tempSample > hotSample)
 				hotSample = tempSample;
@@ -265,16 +251,16 @@ TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 			else
 				tempSample = last + recover * ((last > 0.01) ? last : 1.0);
 			
-			maybe = ((tempSample > attrThreshold) ? Threshold : tempSample);
-			gain[lookaheadBufferIndex] = gain;
+			maybe = ((tempSample > attrThreshold) ? attrThreshold : tempSample);
+			gain[lookaheadBufferIndex] = maybe;
 			
-			if(hotSample * maybe > attrThreshold)){
+			if(hotSample * (maybe > attrThreshold)){
 				curgain = attrThreshold / hotSample;
 				inc = (attrThreshold - curgain);
 				acc = 0;
 				flag = 0;
 				for(i=0; flag==0 && i<attrLookahead; i++){
-					ind = bp - i;
+					ind = lookaheadBufferIndex - i;
 					if(ind<0)
 						ind += maxBufferSize;
 						
@@ -295,39 +281,13 @@ TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 			if(bpp<0)
 				bpp += maxBufferSize;
 				
-			*outSample++ = lookaheadBuffer[bpp] * gain[bpp];
+			*outSample++ = lookaheadBuffer[channel][bpp] * gain[bpp];
 			last = gain[lookaheadBufferIndex];
 			lookaheadBufferIndex++;
 			if(lookaheadBufferIndex >= maxBufferSize)
 				lookaheadBufferIndex = 0;
-			
 		}
 	}
-	
-
-
-/*
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.vs;
-		
-		while(vs--){
-			// SampeRate Reduction
-			accumulator += attrSrRatio;
-			if(accumulator >= 1.0){
-				output[channel] = *inSample++;
-				accumulator -= 1.0;
-			}
-		
-			// BitDepth Reduction
-			l = (long)(output[channel] * BIG_INT);			// change float to long int
-			l >>= bitShift;									// shift away the least-significant bits
-			l <<= bitShift;									// shift back to the correct registers
-			*outSample++ = (float) l * ONE_OVER_BIG_INT;	// back to float
-		}
-	}
-*/
 	return kTTErrNone;
 }
 

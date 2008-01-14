@@ -17,20 +17,18 @@
 /**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. */
 class TTLimiter : public TTAudioObject {
 private:
-	TTSampleValue*		lastInput;				///< keep the last input for each channel
-	TTSampleValue*		lastOutput;				///< keep the last output for each channel
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
 	TTUInt32			lookaheadBufferIndex;
 	TTSampleVector*		lookaheadBuffer;		///< keep a lookahead buffer for each channel
 	TTSampleValue*		gain;
-	TTUInt32			samps;
 	TTSampleValue		last;
-	TTUInt32			maxBufferSize;			///< TODO: make this settable
 	TTBoolean			isLinear;				///< is attrMode set to linear?
+
 	TTDCBlock			*dcBlocker;				///< DCBlocker object
 	TTGain				*preamp;				///< Gain object to apply preamp
 
+	TTUInt32			maxBufferSize;			///< TODO: make this settable
 	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.
 	TTSymbol*			attrMode;				///< may be one of two symbols: "linear" or "exponential".
 	TTFloat32			attrRelease;			///< number of seconds for the release to recover after a peak in the audio signal.
