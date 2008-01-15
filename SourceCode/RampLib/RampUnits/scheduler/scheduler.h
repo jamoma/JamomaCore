@@ -14,23 +14,23 @@
 #include "ramplib.h"		// Common definitions used by the RampLib
 
 typedef struct _linear_sched {
-	rampunit_method_callback_type	callback;		///< usually a function in a Max external
+	rampunit_method_callback_type	callback;		///< Pointer til a function, usually a function in a Max external that the ramp is feeding values back to
 	void							*baton;			///< usually a pointer to the Max external's instance
-	void							*max_clock;		// pointer to a Max clock instance
-	float							ramptime;		// in ms
-	float							granularity;	// in ms
-	long							numgrains;		// number of steps left to take in this ramp
+	void							*max_clock;		///< Pointer to a Max clock instance
+	float							ramptime;		///< The ramp time in ms
+	float							granularity;	///< The granularity or time intervals between successive values in ms
+	long							numgrains;		///< The number of steps left to take in this ramp
 	
 	short							numvalues;
-	double							*value_target;	/// < Destination values
-	double							*value_current;
-	double							*value_start;	/// < the original starting value(s)
+	double							*value_target;	///< Destination value(s)
+	double							*value_current; ///< The current value(s)
+	double							*value_start;	///< The original starting value(s) of the ramp
 	
-	double							value;			// current value of the ramp in a normalized range
-	double							stepsize;		// size of the steps we need to take in the normalized range
+	double							value;			///< The current value of the ramp in a normalized range [0,1]
+	double							stepsize;		///< The size of the steps we need to take in the normalized range
 	
-	t_symbol						*functionName;	// FunctionLib stuff
-	FunctionLib						*function;		// ...
+	t_symbol						*functionName;	///< FunctionLib stuff
+	FunctionLib						*function;		///< ...
 } t_linear_sched;
 
 
