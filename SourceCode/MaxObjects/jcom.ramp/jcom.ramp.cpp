@@ -16,31 +16,66 @@ enum outlets{
 };
 
 
+/** The Ramp. jcom.ramp can be considered an extended object comapred to of a line object,
+  * making of the RampLib to drive values in different ways as well as the Function Lib to
+  * do the ramp to new values according to an extendable set of functions.  */
 typedef struct _ramp{
-	t_object	 ob;
-	void		*obex;
-	void		*outlets[num_outlets];
-	t_symbol	*attr_rampunit;			///< name of the current rampunit
-	rampunit	*my_ramp;				///< instance of the current rampunit
+	t_object	 ob;					///< Data Structure for this object
+	void		*obex;					///< REQUIRED: Our object
+	void		*outlets[num_outlets];	///< Outlet array
+	t_symbol	*attr_rampunit;			///< Name of the current rampunit
+	rampunit	*my_ramp;				///< Instance of the current rampunit
 } t_ramp;
 
 
 // Prototypes
+
+/** The jcom.ramp constructor */
 void*		ramp_new(t_symbol *s, long argc, t_atom *argv);
+
+/** The ramp deconstructor, free's any memory used by the object */
 void		ramp_free(t_ramp *x);
+
+/** Method for Assistance Messages */
 void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);
+
+/** Set what mechanism (RampUnit) is used to drive the ramp. */
 t_max_err 	ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv);
+
+/** Set the function to use when ramping. */
 void		ramp_setFunction(t_ramp *x, t_symbol *functionName);
+
+/** Get the function currently used when ramping. */
 void		ramp_getFunction(t_ramp *x);
+
+/** Get value of an additional parameter used for the function. */
 void		ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
+
+/** Set additional parameters for the function currently used. */
 void		ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
+
+/** Get a new value now. */
 void		ramp_bang(t_ramp *x);
+
+/* Method for int input, instantly updates current value of the object. */
 void		ramp_int(t_ramp *x, long n);
+
+/* Method for float input, instantly updates current value of the object. */ 
 void		ramp_float(t_ramp *x, double f);
+
+/* Set current value while surpressing new value(s from being output. */
 void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
+
+/* Method for list input <value(s), "ramp", ramptime> */
 void		ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
+
+/** Triggered by our Ramp Unit's tick function */
 void		ramp_callback(void *v, short numvalues, double *values);
+
+/** Set attribute value. */
 void 		ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
+
+/** Get attribute value. */
 void 		ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
 
