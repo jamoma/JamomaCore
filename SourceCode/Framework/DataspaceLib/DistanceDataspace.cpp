@@ -10,7 +10,7 @@
 
 
 CentimeterUnit::CentimeterUnit()
-	: DataspaceUnit::DataspaceUnit("centimeter")
+	: DataspaceUnit("centimeter")
 {;}
 
 
@@ -34,7 +34,7 @@ void CentimeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *
 
 /***********************************************************************************************/
 FootUnit::FootUnit()
-	: DataspaceUnit::DataspaceUnit("foot")
+	: DataspaceUnit("foot")
 {;}
 
 
@@ -58,7 +58,7 @@ void FootUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 /***********************************************************************************************/
 InchUnit::InchUnit()
-	: DataspaceUnit::DataspaceUnit("inch")
+	: DataspaceUnit("inch")
 {;}
 
 
@@ -82,7 +82,7 @@ void InchUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 /***********************************************************************************************/
 MeterUnit::MeterUnit()
-	: DataspaceUnit::DataspaceUnit("meter")
+	: DataspaceUnit("meter")
 {;}
 
 
@@ -106,7 +106,7 @@ void MeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 /***********************************************************************************************/
 DistanceDataspace::DistanceDataspace()
-	: DataspaceLib::DataspaceLib("distance", "meter")
+	: DataspaceLib("distance", "meter")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CentimeterUnit,	gensym("cm"));

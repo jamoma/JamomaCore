@@ -30,7 +30,7 @@ double hls_value(double n1, double n2, double hue)
 // Actual Colorspace Units
 
 CMYUnit::CMYUnit()
-	: DataspaceUnit::DataspaceUnit("cmy")
+	: DataspaceUnit("cmy")
 {;}
 
 
@@ -58,7 +58,7 @@ void CMYUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 /***********************************************************************************************/
 HSLUnit::HSLUnit()
-	: DataspaceUnit::DataspaceUnit("hsl")
+	: DataspaceUnit("hsl")
 {;}
 
 
@@ -155,7 +155,7 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 /***********************************************************************************************/
 HSVUnit::HSVUnit()
-	: DataspaceUnit::DataspaceUnit("hsv")
+	: DataspaceUnit("hsv")
 {;}
 
 
@@ -284,7 +284,7 @@ setit:
 
 /***********************************************************************************************/
 RGBUnit::RGBUnit()
-	: DataspaceUnit::DataspaceUnit("rgb")
+	: DataspaceUnit("rgb")
 {;}
 
 
@@ -312,7 +312,7 @@ void RGBUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 
 /***********************************************************************************************/
 ColorDataspace::ColorDataspace()
-	: DataspaceLib::DataspaceLib("color", "rgb")
+	: DataspaceLib("color", "rgb")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CMYUnit,		gensym("cmy"));

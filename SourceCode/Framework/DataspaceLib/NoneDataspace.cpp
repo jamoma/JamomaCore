@@ -10,7 +10,7 @@
 
 
 NoneUnit::NoneUnit()
-	: DataspaceUnit::DataspaceUnit("none")
+	: DataspaceUnit("none")
 {;}
 
 
@@ -34,7 +34,7 @@ void NoneUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 
 /***********************************************************************************************/
 NoneDataspace::NoneDataspace()
-	: DataspaceLib::DataspaceLib("none", "none")
+	: DataspaceLib("none", "none")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new NoneUnit,	gensym("none"));

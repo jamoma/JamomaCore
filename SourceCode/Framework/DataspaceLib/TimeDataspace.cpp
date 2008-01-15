@@ -10,7 +10,7 @@
 
 
 MillisecondUnit::MillisecondUnit()
-	: DataspaceUnit::DataspaceUnit("millisecond")
+	: DataspaceUnit("millisecond")
 {;}
 
 
@@ -34,7 +34,7 @@ void MillisecondUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 
 /***********************************************************************************************/
 SampleUnit::SampleUnit()
-	: DataspaceUnit::DataspaceUnit("sample")
+	: DataspaceUnit("sample")
 {
 	// TODO: Do something a bit more legit with the sample rate -- need to actually know the real sample rate!
 	sample_rate = (long)DEFAULT_SAMPLE_RATE;
@@ -63,7 +63,7 @@ void SampleUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 SecondUnit::SecondUnit()
-	: DataspaceUnit::DataspaceUnit("second")
+	: DataspaceUnit("second")
 {;}
 
 
@@ -87,7 +87,7 @@ void SecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 
 /***********************************************************************************************/
 TimeDataspace::TimeDataspace()
-	: DataspaceLib::DataspaceLib("time", "millisecond")
+	: DataspaceLib("time", "millisecond")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new MillisecondUnit,	gensym("ms"));

@@ -90,30 +90,29 @@ EXPORTS
 		jamoma_getFunctionList
 
 		; FunctionLib::getParameter(symbol*, long*, atom**)
-		_ZN11FunctionLib12getParameterEP6symbolPlPP4atom @ 60
+		?getParameter@FunctionLib@@UAE?AW4JamomaError@@PAUsymbol@@PAJPAPAUatom@@@Z 
 
 		; FunctionLib::setParameter(symbol*, long, atom*)
-		_ZN11FunctionLib12setParameterEP6symbollP4atom @ 61
+		?setParameter@FunctionLib@@UAE?AW4JamomaError@@PAUsymbol@@JPAUatom@@@Z
 
 		; FunctionLib::getFunctionParameters(long*, atom**)
-		_ZN11FunctionLib21getFunctionParametersEPlPP4atom @ 62
-
+		?getFunctionParameters@FunctionLib@@UAE?AW4JamomaError@@PAJPAPAUatom@@@Z
 
 	; DataspaceLib
 		jamoma_getDataspace
 		jamoma_getDataspaceList
 
 		; DataspaceLib::convert(long, atom*, long*, atom**)
-		_ZN12DataspaceLib7convertElP4atomPlPS1_ @ 72
+		?convert@DataspaceLib@@QAE?AW4JamomaError@@JPAUatom@@PAJPAPAU3@@Z
 
 		; DataspaceLib::getAvailableUnits(long*, symbol***)
-		_ZN12DataspaceLib17getAvailableUnitsEPlPPP6symbol @ 71
+		?getAvailableUnits@DataspaceLib@@QAEXPAJPAPAPAUsymbol@@@Z
 
 		; DataspaceLib::setInputUnit(symbol*)
-		_ZN12DataspaceLib12setInputUnitEP6symbol @ 69
+		?setInputUnit@DataspaceLib@@QAE?AW4JamomaError@@PAUsymbol@@@Z
 
 		; DataspaceLib::setOutputUnit(symbol*)
-		_ZN12DataspaceLib13setOutputUnitEP6symbol @ 70
+		?setOutputUnit@DataspaceLib@@QAE?AW4JamomaError@@PAUsymbol@@@Z
 
 	; JamomaSymbols
 		ps_1U

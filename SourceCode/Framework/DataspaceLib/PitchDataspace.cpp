@@ -13,7 +13,7 @@
 
 
 MidiPitchUnit::MidiPitchUnit()
-	: DataspaceUnit::DataspaceUnit("centimeter")
+	: DataspaceUnit("centimeter")
 {;}
 
 
@@ -40,7 +40,7 @@ void MidiPitchUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 
 /***********************************************************************************************/
 FrequencyUnit::FrequencyUnit()
-	: DataspaceUnit::DataspaceUnit("foot")
+	: DataspaceUnit("foot")
 {;}
 
 
@@ -64,7 +64,7 @@ void FrequencyUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 
 /***********************************************************************************************/
 PitchDataspace::PitchDataspace()
-	: DataspaceLib::DataspaceLib("distance", "meter")
+	: DataspaceLib("distance", "meter")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new MidiPitchUnit,		gensym("midi"));
