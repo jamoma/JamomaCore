@@ -176,6 +176,7 @@ void tick(t_scheduler *rampunit)
 void setclock(t_scheduler *rampunit, t_symbol *clockName)
 {
 	// This one does nothing yet.
+	post("Tutten betutten");
 }
 
 // PRIVATE METHOD: memory allocation

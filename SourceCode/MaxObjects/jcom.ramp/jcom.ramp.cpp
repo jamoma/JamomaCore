@@ -55,7 +55,7 @@ void		ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *a
 void		ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
 
 /** Connect to a setclock object. */
-void		ramp_clock(t_ramp *x, t_symbol *functionName);
+void		ramp_clock(t_ramp *x, t_symbol *clockName);
 
 /** Get a new value now. */
 void		ramp_bang(t_ramp *x);
@@ -252,9 +252,9 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 
 
 
-void ramp_clock(t_ramp *x, t_symbol *functionName)
+void ramp_clock(t_ramp *x, t_symbol *clockName)
 {
-	
+	x->my_ramp->setclock(clockName);
 }
 
 // Triggered by our Ramp Unit's tick function
