@@ -31,6 +31,7 @@ typedef void		(*rampunit_method_go_type)						(void *, short, double *, double);
 typedef void		(*rampunit_method_set_type)						(void *, short, double *);
 typedef void		(*rampunit_method_stop_type)					(void *);
 typedef void		(*rampunit_method_tick_type)					(void *);
+typedef void		(*rampunit_method_setclock_type)				(void *, t_symbol *);
 
 
 // Selectors shared by many ramp units

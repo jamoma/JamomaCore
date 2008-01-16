@@ -92,6 +92,7 @@ fetchpointers:
 	rampunit_method_set						= (rampunit_method_set_type)					CFBundleGetFunctionPointerForName(bun, CFSTR("set"));
 	rampunit_method_stop					= (rampunit_method_stop_type)					CFBundleGetFunctionPointerForName(bun, CFSTR("stop"));
 	rampunit_method_tick					= (rampunit_method_tick_type)					CFBundleGetFunctionPointerForName(bun, CFSTR("tick"));
+	rampunit_method_setclock				= (rampunit_method_setclock_type)				CFBundleGetFunctionPointerForName(bun, CFSTR("setclock"));
 
 #else // WIN_VERSION
 	path_nameconform(fullpath, winpath, PATH_STYLE_NATIVE, PATH_TYPE_ABSOLUTE);
@@ -113,6 +114,7 @@ fetchpointers:
 		rampunit_method_set						= (rampunit_method_set_type)					GetProcAddress((HMODULE)hLib, "set");
 		rampunit_method_stop					= (rampunit_method_stop_type)					GetProcAddress((HMODULE)hLib, "stop");
 		rampunit_method_tick					= (rampunit_method_tick_type)					GetProcAddress((HMODULE)hLib, "tick");
+		rampunit_method_setclock				= (rampunit_method_setclock_type)				GetProcAddress((HMODULE)hLib, "setclock");
 	}
 #endif
 
@@ -235,3 +237,10 @@ void rampunit::tick()
 		error("bad rampunit, cannot call tick");
 }
 
+void rampunit::setclock(t_symbol *clockName)
+{
+	if(rampunit_instance)
+		rampunit_method_setclock(rampunit_instance, clockName);
+	else
+		error("bad rampunit, cannot set clock");
+}

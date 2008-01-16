@@ -16,8 +16,8 @@ enum outlets{
 };
 
 
-/** The Ramp. jcom.ramp can be considered an extended object comapred to of a line object,
-  * making of the RampLib to drive values in different ways as well as the Function Lib to
+/** The Ramp. jcom.ramp can be considered an extended object comapred to of a line object.
+  * It use the RampLib to drive values in different ways, as well as the Function Lib to
   * do the ramp to new values according to an extendable set of functions.  */
 typedef struct _ramp{
 	t_object	 ob;					///< Data Structure for this object
@@ -53,6 +53,9 @@ void		ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *a
 
 /** Set additional parameters for the function currently used. */
 void		ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
+
+/** Connect to a setclock object. */
+void		ramp_clock(t_ramp *x, t_symbol *functionName);
 
 /** Get a new value now. */
 void		ramp_bang(t_ramp *x);
@@ -107,6 +110,7 @@ int main(void)				// main receives a copy of the Max function macros table
 	class_addmethod(c, (method)ramp_setFunction,			"function",				A_SYM,		0);
 	class_addmethod(c, (method)ramp_getFunctionParameter,	"function.parameter.get",	A_GIMME,	0);
 	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",	A_GIMME,	0);
+	class_addmethod(c, (method)ramp_clock,					"clock",				A_SYM,		0);
 	class_addmethod(c, (method)ramp_assist,					"assist",				A_CANT,		0); 
     class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);  
     class_addmethod(c, (method)object_obex_quickref,		"quickref",				A_CANT,		0);
@@ -246,6 +250,12 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 	#pragma unused(attr)
 }
 
+
+
+void ramp_clock(t_ramp *x, t_symbol *functionName)
+{
+	
+}
 
 // Triggered by our Ramp Unit's tick function
 void ramp_callback(void *v, short numvalues, double *values)

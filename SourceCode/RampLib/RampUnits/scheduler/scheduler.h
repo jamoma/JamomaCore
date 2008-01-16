@@ -48,6 +48,7 @@ void			go		(t_linear_sched *rampunit, short numvalues, double *values, double ti
 void			set		(t_linear_sched *rampunit, short numvalues, double *values);
 void			stop	(t_linear_sched *rampunit);
 void			tick	(t_linear_sched *rampunit);
+void			setclock(t_linear_sched *rampunit, t_symbol *clockName);
 }
 
 // private prototypes
