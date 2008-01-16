@@ -13,7 +13,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<div id="jmod_header">
 	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.sur.vimic~ </h1>
-	<h2> Virtual Microphone Control (ViMiC) </h2>
+	<h2> This is Virtual Microphone Control (ViMiC) for Max/MSP </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
@@ -1153,11 +1153,11 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 		<tr>
 			<td class="instructionName"> microphones/amount </td>
 			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 1 32 </td>
+			<td class ="instructionRange"> 1 24 </td>
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> Number of used virtual microphones </td>
+			<td class ="instructionDescription"> Number of rendered virtual microphones </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/direct/power </td>
@@ -1169,43 +1169,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> power law for attenuation due to microphone directivity </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> reflections/1st/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 158.000000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> scheduler </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> gain of the early reflections 1st order </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> reflections/2nd/gain/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 158.000000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> scheduler </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> gain of the early reflections 2nd order </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> reflections/airfilter </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 500 19000 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> damping frequency of the early reflections due to air absorption </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> reflections/order </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 2 </td>
-			<td class ="instructionClipmode"> both </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> order of early reflections </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> renderintervall </td>
+			<td class="instructionName"> rendermode/intervall </td>
 			<td class ="instructionType"> msg_int </td>
 			<td class ="instructionRange"> 1 100 </td>
 			<td class ="instructionClipmode"> low </td>
@@ -1457,13 +1421,58 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> power law for attenuation due to distance </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> room/size </td>
+			<td class="instructionName"> room/reflection/1/gain/midi </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> scheduler </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> gain of the early reflections 1st order </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> room/reflection/2/gain/midi </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 158.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> scheduler </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> gain of the early reflections 2nd order </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> room/reflection/airfilter </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 500 19000 </td>
+			<td class ="instructionClipmode"> both </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> damping frequency of the early reflections due to air absorption </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> room/reflection/order </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 2 </td>
+			<td class ="instructionClipmode"> both </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> order of early reflections </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> room/size/xyz </td>
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> both </td>
 			<td class ="instructionRamp"> scheduler </td>
 			<td class ="instructionRepetitions"> 0 </td>
 			<td class ="instructionDescription"> Size of the virtual room in XYZ </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> room/temperature </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -20.000000 30.000000 </td>
+			<td class ="instructionClipmode"> low </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Temperature in Celsius to calculate the speed of sound </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source/orientation/active </td>
@@ -1475,7 +1484,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> when ticked, source directivity is calculated </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source/orientation/azimuth </td>
+			<td class="instructionName"> source/orientation/azimuth/degree </td>
 			<td class ="instructionType"> msg_int </td>
 			<td class ="instructionRange"> -180 180 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -1502,33 +1511,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Sourceposition in the virtual room - spatDIF compliant </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> temperature </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -20.000000 30.000000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Temperature in Celsius to calculate the speed of sound </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> ui/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
 			<td class ="instructionRange"> 0 1 </td>
@@ -1544,7 +1526,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionClipmode"> low </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> vimic updaterate - tells how often the parameter settings are getting updated </td>
+			<td class ="instructionDescription"> vimic internal updaterate in [Hz]- tells how often new parameter are getting updated </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> warning </td>
@@ -1616,24 +1598,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> documentation/generate </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> documentation/generate </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> documentation/help </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -1650,24 +1614,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open the online html reference for this module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> init </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> init </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>
@@ -1697,7 +1643,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/1/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/1/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -1742,7 +1688,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/10/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/10/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -1787,7 +1733,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/11/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/11/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -1832,7 +1778,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/12/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/12/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -1877,7 +1823,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/13/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/13/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -1922,7 +1868,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/14/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/14/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -1967,7 +1913,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/15/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/15/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2012,7 +1958,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/16/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/16/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2057,7 +2003,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/17/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/17/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2102,7 +2048,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/18/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/18/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2147,7 +2093,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/19/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/19/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2192,7 +2138,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/2/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/2/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2237,7 +2183,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/20/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/20/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2282,7 +2228,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/21/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/21/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2327,7 +2273,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/22/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/22/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2372,7 +2318,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/23/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/23/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2417,7 +2363,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/24/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/24/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2462,7 +2408,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/3/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/3/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2507,7 +2453,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/4/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/4/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2552,7 +2498,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/5/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/5/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2597,7 +2543,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/6/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/6/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2642,7 +2588,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/7/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/7/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2687,7 +2633,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/8/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/8/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2732,7 +2678,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Gain_of_of_the_microphone </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> microphones/9/orientation/azimuthal </td>
+			<td class="instructionName"> microphones/9/orientation/azimuth </td>
 			<td class ="instructionType"> msg_float </td>
 			<td class ="instructionRange"> -180.000000 180.000000 </td>
 			<td class ="instructionClipmode"> both </td>
@@ -2768,24 +2714,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> module/view_internals </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> module/view_internals </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> open_inspector </td>
 			<td class ="instructionType"> msg_generic </td>
 			<td class ="instructionRange"> 0.000000 1.000000 </td>
@@ -2804,24 +2732,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/clear </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/clear </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> preset/copy </td>
 			<td class ="instructionType"> msg_list </td>
 			<th class = "instructionRange"> N/A </td>
@@ -2829,42 +2739,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/default </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/default </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
@@ -2885,42 +2759,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/post </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Post all presets to the Max window. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/post </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Post all presets to the Max window. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> preset/post </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
@@ -2937,42 +2775,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
@@ -3002,42 +2804,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> msg_list </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> preset/write </td>
 			<td class ="instructionType"> msg_symbol </td>
 			<th class = "instructionRange"> N/A </td>
@@ -3045,42 +2811,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> reflections/1st/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -144.000000 18.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> scheduler </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> gain of the early reflections 1st order </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> reflections/2nd/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -144.000000 18.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> scheduler </td>
-			<td class ="instructionRepetitions"> 0 </td>
-			<td class ="instructionDescription"> gain of the early reflections 2nd order </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> report_all </td>
@@ -3144,6 +2874,42 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
 			<td class ="instructionDescription"> absorption presets for the right wall </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> room/reflection/1/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> scheduler </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> gain of the early reflections 1st order </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> room/reflection/2/gain </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> -144.000000 18.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> scheduler </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> gain of the early reflections 2nd order </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> source/directivity/azimuth/load_file </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> sound source directivity preset </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> source/directivity/azimuth/preset </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> sound source directivity preset </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source/position/absolute/a </td>
@@ -3218,31 +2984,13 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> ui/refresh </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> ui/refresh </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> update </td>
 			<td class ="instructionType"> msg_none </td>
 			<th class = "instructionRange"> N/A </td>
 			<td class ="instructionClipmode"> none </td>
 			<td class ="instructionRamp"> none </td>
 			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> update from external clock </td>
+			<td class ="instructionDescription"> updates ViMiC manually (e.g. through an external clock), rather than automatically each time set with /updaterate </td>
 		<tr>
 	</table>
 
