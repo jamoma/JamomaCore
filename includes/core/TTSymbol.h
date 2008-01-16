@@ -33,6 +33,7 @@ private:
 	static TTUInt32			symbolTableSize;	///< The size of the symbol table
 
 public:
+	TTSymbol();
 	TTSymbol(TTString newString);
 	virtual	~TTSymbol();
 	

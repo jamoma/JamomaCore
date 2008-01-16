@@ -14,6 +14,11 @@ TTUInt32	TTSymbol::symbolTableSize = 0;
 
 /****************************************************************************************************/
 
+TTSymbol::TTSymbol()
+{
+	TTSymbol::TTSymbol("");
+}
+
 TTSymbol::TTSymbol(TTString newString)
 {
 	TTSymbol	*existingSymbol = NULL;
