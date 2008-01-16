@@ -8,12 +8,12 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __LINEARSCHED_H__
-#define __LINEARSCHED_H__
+#ifndef __SCHEDULER_H__
+#define __SCHEDULER_H__
 
 #include "ramplib.h"		// Common definitions used by the RampLib
 
-typedef struct _linear_sched {
+typedef struct _scheduler {
 	rampunit_method_callback_type	callback;		///< Pointer til a function, usually a function in a Max external that the ramp is feeding values back to
 	void							*baton;			///< usually a pointer to the Max external's instance
 	void							*max_clock;		///< Pointer to a Max clock instance
@@ -31,28 +31,28 @@ typedef struct _linear_sched {
 	
 	t_symbol						*functionName;	///< FunctionLib stuff
 	FunctionLib						*function;		///< ...
-} t_linear_sched;
+} t_scheduler;
 
 
 // public prototypes
 extern "C" {
-t_linear_sched*	create	(rampunit_method_callback_type in_callback, void *in_baton);
-void			destroy	(t_linear_sched *rampunit);
-JamomaError		setFunction(t_linear_sched *rampunit, t_symbol *functionName);
-JamomaError		getFunction(t_linear_sched *rampunit, t_symbol **functionName);
-JamomaError		setFunctionParameter(t_linear_sched *rampunit, t_symbol *parameterName, long argc, t_atom *argv);
-JamomaError		getFunctionParameter(t_linear_sched *rampunit, t_symbol *parameterName, long *argc, t_atom **argv);
-ramp_err		attrset	(t_linear_sched *rampunit, t_symbol *attrname, double value);
-ramp_err		attrget	(t_linear_sched *rampunit, t_symbol *attrname, double *value);
-void			go		(t_linear_sched *rampunit, short numvalues, double *values, double time);
-void			set		(t_linear_sched *rampunit, short numvalues, double *values);
-void			stop	(t_linear_sched *rampunit);
-void			tick	(t_linear_sched *rampunit);
-void			setclock(t_linear_sched *rampunit, t_symbol *clockName);
+t_scheduler*	create	(rampunit_method_callback_type in_callback, void *in_baton);
+void			destroy	(t_scheduler *rampunit);
+JamomaError		setFunction(t_scheduler *rampunit, t_symbol *functionName);
+JamomaError		getFunction(t_scheduler *rampunit, t_symbol **functionName);
+JamomaError		setFunctionParameter(t_scheduler *rampunit, t_symbol *parameterName, long argc, t_atom *argv);
+JamomaError		getFunctionParameter(t_scheduler *rampunit, t_symbol *parameterName, long *argc, t_atom **argv);
+ramp_err		attrset	(t_scheduler *rampunit, t_symbol *attrname, double value);
+ramp_err		attrget	(t_scheduler *rampunit, t_symbol *attrname, double *value);
+void			go		(t_scheduler *rampunit, short numvalues, double *values, double time);
+void			set		(t_scheduler *rampunit, short numvalues, double *values);
+void			stop	(t_scheduler *rampunit);
+void			tick	(t_scheduler *rampunit);
+void			setclock(t_scheduler *rampunit, t_symbol *clockName);
 }
 
 // private prototypes
-void setnumvalues(t_linear_sched *rampunit, short numvalues);
+void setnumvalues(t_scheduler *rampunit, short numvalues);
 
 
-#endif // __LINEARSCHED_H__
+#endif // __SCHEDULER_H__

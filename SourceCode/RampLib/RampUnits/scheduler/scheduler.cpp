@@ -1,6 +1,6 @@
 /* 
- * Jamoma RampUnit: LinearSched (linear.sched) 
- * Linear ramping function using the Max scheduler
+ * Jamoma RampUnit: scheduler
+ * Ramping function using the Max scheduler
  *
  * By Tim Place, Copyright � 2006, 2007
  * 
@@ -14,9 +14,9 @@
 static t_symbol *ps_granularity;
 
 
-t_linear_sched*	create(rampunit_method_callback_type in_callback, void *in_baton)
+t_scheduler*	create(rampunit_method_callback_type in_callback, void *in_baton)
 {
-	t_linear_sched *rampunit = (t_linear_sched *)malloc(sizeof(t_linear_sched));
+	t_scheduler *rampunit = (t_scheduler *)malloc(sizeof(t_scheduler));
 	if(rampunit){
 		ps_granularity = gensym("granularity");							// cache attr names for speed
 
@@ -39,7 +39,7 @@ t_linear_sched*	create(rampunit_method_callback_type in_callback, void *in_baton
 }
 
 
-void destroy(t_linear_sched *rampunit)
+void destroy(t_scheduler *rampunit)
 {
 	clock_unset(rampunit->max_clock);
 	freeobject((t_object *)rampunit->max_clock);
@@ -52,7 +52,7 @@ void destroy(t_linear_sched *rampunit)
 }
 
 
-JamomaError setFunction(t_linear_sched *rampunit, t_symbol *functionName)
+JamomaError setFunction(t_scheduler *rampunit, t_symbol *functionName)
 {
 	JamomaError	err = JAMOMA_ERR_NONE;
 	if(functionName != rampunit->functionName){
@@ -65,26 +65,26 @@ JamomaError setFunction(t_linear_sched *rampunit, t_symbol *functionName)
 }
 
 
-JamomaError getFunction(t_linear_sched *rampunit, t_symbol **functionName)
+JamomaError getFunction(t_scheduler *rampunit, t_symbol **functionName)
 {
 	*functionName = rampunit->functionName;
 	return JAMOMA_ERR_NONE;
 }
 
 
-JamomaError setFunctionParameter(t_linear_sched *rampunit, t_symbol *parameterName, long argc, t_atom *argv)
+JamomaError setFunctionParameter(t_scheduler *rampunit, t_symbol *parameterName, long argc, t_atom *argv)
 {
 	return rampunit->function->setParameter(parameterName, argc, argv);
 }
 
 
-JamomaError getFunctionParameter(t_linear_sched *rampunit, t_symbol *parameterName, long *argc, t_atom **argv)
+JamomaError getFunctionParameter(t_scheduler *rampunit, t_symbol *parameterName, long *argc, t_atom **argv)
 {
 	return rampunit->function->getParameter(parameterName, argc, argv);
 }
 
 
-ramp_err attrset(t_linear_sched *rampunit, t_symbol *attrname, double value)
+ramp_err attrset(t_scheduler *rampunit, t_symbol *attrname, double value)
 {
 	if(attrname == ps_granularity)
 		rampunit->granularity = value;
@@ -95,7 +95,7 @@ ramp_err attrset(t_linear_sched *rampunit, t_symbol *attrname, double value)
 }
 
 
-ramp_err attrget(t_linear_sched *rampunit, t_symbol *attrname, double *value)
+ramp_err attrget(t_scheduler *rampunit, t_symbol *attrname, double *value)
 {
 	if(attrname = ps_granularity)
 		*value = rampunit->granularity;
@@ -106,8 +106,8 @@ ramp_err attrget(t_linear_sched *rampunit, t_symbol *attrname, double *value)
 }
 
 
-//void go(t_linear_sched *rampunit, float value, double time)
-void go(t_linear_sched *rampunit, short numvalues, double *values, double time)
+//void go(t_scheduler *rampunit, float value, double time)
+void go(t_scheduler *rampunit, short numvalues, double *values, double time)
 {
 	short	i;
 
@@ -125,8 +125,8 @@ void go(t_linear_sched *rampunit, short numvalues, double *values, double time)
 }
 
 
-//void set(t_linear_sched *rampunit, double value)
-void set(t_linear_sched *rampunit, short numvalues, double *values)
+//void set(t_scheduler *rampunit, double value)
+void set(t_scheduler *rampunit, short numvalues, double *values)
 {
 	short i;
 
@@ -137,13 +137,13 @@ void set(t_linear_sched *rampunit, short numvalues, double *values)
 }
 
 
-void stop(t_linear_sched *rampunit)
+void stop(t_scheduler *rampunit)
 {
 	clock_unset(rampunit->max_clock);
 }
 
 
-void tick(t_linear_sched *rampunit)
+void tick(t_scheduler *rampunit)
 {
 	short	i;
 	double	mapped;
@@ -173,13 +173,13 @@ void tick(t_linear_sched *rampunit)
 }
 
 
-void setclock(t_linear_sched *rampunit, t_symbol *clockName)
+void setclock(t_scheduler *rampunit, t_symbol *clockName)
 {
 	// This one does nothing yet.
 }
 
 // PRIVATE METHOD: memory allocation
-void setnumvalues(t_linear_sched *rampunit, short numvalues)
+void setnumvalues(t_scheduler *rampunit, short numvalues)
 {
 	if(numvalues != rampunit->numvalues){
 		if(rampunit->numvalues == 0){
