@@ -1,7 +1,7 @@
 /* 
  * jcom.receive
  * External for Jamoma: receive messages from remote
- * By Trond Lossius & Tim Place, Copyright © 2006
+ * By Trond Lossius & Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -25,15 +25,6 @@ static t_object		*s_receivemaster_object = NULL;		// An instance of the jcom.rec
 
 
 /************************************************************************************/
-// Main() Function
-
-int main(void)				// main recieves a copy of the Max function macros table
-{
-	receivemaster_initclass();
-	receive_initclass();
-	return 0;
-}
-
 
 void receive_initclass()
 {

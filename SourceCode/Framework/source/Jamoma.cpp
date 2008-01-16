@@ -34,7 +34,9 @@ void jamoma_init(void)
 		jamomaSymbolsInit();
 		jamoma_clock_initclass();
 		jamoma_scheduler_initclass();
-		
+		receivemaster_initclass();
+		receive_initclass();
+		send_initclass();
 
 		obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
 		obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
