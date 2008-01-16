@@ -110,6 +110,12 @@ void tick(t_none *rampunit)
 }
 
 
+void setclock(t_none_sched *rampunit, t_symbol *clockName)
+{
+	// This one does nothing yet.
+}
+
+
 // PRIVATE METHOD: memory allocation
 void setnumvalues(t_none *rampunit, short numvalues)
 {

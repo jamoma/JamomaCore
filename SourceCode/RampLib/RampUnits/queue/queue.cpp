@@ -153,6 +153,11 @@ void tick(t_linear_queue *rampunit)
 }
 
 
+void setclock(t_queue *rampunit, t_symbol *clockName)
+{
+	// This one does nothing yet.
+}
+
 
 // PRIVATE METHOD: memory allocation
 void setnumvalues(t_linear_queue *rampunit, short numvalues)

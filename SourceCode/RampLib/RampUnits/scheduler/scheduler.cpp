@@ -175,7 +175,7 @@ void tick(t_linear_sched *rampunit)
 
 void setclock(t_linear_sched *rampunit, t_symbol *clockName)
 {
-	
+	// This one does nothing yet.
 }
 
 // PRIVATE METHOD: memory allocation
