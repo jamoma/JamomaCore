@@ -165,8 +165,11 @@ bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_objec
 	t_class 	*c = NULL;
 	t_object	*p = NULL;
 	
-//cpost("JCOM incoming %x\n", *object);
-//cpost("JCOM incoming\n");
+cpost("JCOM incoming %x\n", *object);
+cpost("JCOM incoming\n");
+	if(objectname == ps_jcom_receive || objectname == ps_jcom_send)
+		goto loadit;
+
 	c = class_findbyname(ps_box, objectname);
 	if(!c){
 		p = (t_object *)newinstance(objectname, 0, NULL);
@@ -187,13 +190,15 @@ bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_objec
 	}
 
 post("class: %s", c->c_filename->s_name);
-
+loadit:
 if(objectname && objectname->s_name[0])
 post("there is an objectname: %s (object: %x) withArgs: %ld - %s", objectname->s_name, *object, argc, argv->a_w.w_sym->s_name);
 
 
 	*object = (t_object *)object_new_typed(CLASS_BOX, objectname, argc, argv);
 //	object_new_typed(CLASS_BOX, objectname, argc, argv);
+if(!object)
+error("TOTALLY BOGUS");
 	return true;
 }
 
