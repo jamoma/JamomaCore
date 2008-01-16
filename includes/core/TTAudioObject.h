@@ -73,6 +73,13 @@ public:
 	 *	@return 	A TTBlue error code.							*/
 	TTErr process(TTAudioSignal& in, TTAudioSignal& out);
 	
+	/** Process the an output signal only, e.g. for a signal generator. This method wraps the actual process method
+	 *	that will be called.
+	 *	@param in	The input signal.
+	 *	@param out	The output signal.
+	 *	@return 	A TTBlue error code.							*/
+	TTErr process(TTAudioSignal& out);
+	
 	/**	The default audio processing method, which simply copies a signal through with no modifications.		*/
 	TTErr bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
 	

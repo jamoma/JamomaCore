@@ -99,6 +99,12 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
+TTErr TTAudioObject::process(TTAudioSignal& out)
+{
+	return (this->*currentProcessMethod)(out, out);
+}
+
+
 #pragma mark -
 #pragma mark Utilities
 
