@@ -1,7 +1,7 @@
 /* 
  * jcom.receivemaster
  * Manage jcom.receive instances
- * By Tim Place, Copyright © 2007
+ * By Tim Place, Copyright ï¿½ 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -27,8 +27,6 @@ static t_hashtab	*s_receive_lists = NULL;		///< hash full of linked lists, keyed
 
 void receivemaster_initclass()
 {
-	jamoma_init();
-
 	// Define our class
 	s_receivemaster_class = class_new(	"jcom.receivemaster", 
 										(method)receivemaster_new, 

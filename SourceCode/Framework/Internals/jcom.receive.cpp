@@ -32,8 +32,6 @@ void receive_initclass()
 	t_class *c;
 	t_object *attr;
 	
-	jamoma_init();
-	
 	// Define our class
 	c = class_new(	"jcom.receive", 
 					(method)receive_new, 
