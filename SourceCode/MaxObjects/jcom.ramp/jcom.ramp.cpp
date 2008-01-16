@@ -251,11 +251,14 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 }
 
 
-
 void ramp_clock(t_ramp *x, t_symbol *clockName)
 {
-	x->my_ramp->setclock(clockName);
+	short 	err = 0;
+	
+	//x->my_ramp->setclock(clockName);
+	err = x->my_ramp->attrset(gensym("clock"), 0.);
 }
+
 
 // Triggered by our Ramp Unit's tick function
 void ramp_callback(void *v, short numvalues, double *values)

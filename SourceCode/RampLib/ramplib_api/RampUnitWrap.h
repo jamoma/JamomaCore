@@ -28,7 +28,6 @@ private:
 	rampunit_method_set_type					rampunit_method_set;
 	rampunit_method_stop_type					rampunit_method_stop;
 	rampunit_method_tick_type					rampunit_method_tick;
-	rampunit_method_setclock_type				rampunit_method_setclock;
 
 public:
 	// Life Cycle
@@ -48,7 +47,6 @@ public:
 	void set(short numvalues, double *values);
 	void stop();
 	void tick();
-	void setclock(t_symbol *clockName);
 };
 
 

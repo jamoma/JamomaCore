@@ -37,8 +37,6 @@ void		go		(t_none *rampunit, short numvalues, double *values, double time);
 void		set		(t_none *rampunit, short numvalues, double *values);
 void		stop	(t_none *rampunit);
 void		tick	(t_none *rampunit);
-void		setclock(t_none *rampunit, t_symbol *clockName);
-
 };
 
 // private prototypes

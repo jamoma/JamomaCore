@@ -12,6 +12,7 @@
 #include "scheduler.h"
 
 static t_symbol *ps_granularity;
+static t_symbol *ps_clock;
 
 
 t_scheduler*	create(rampunit_method_callback_type in_callback, void *in_baton)
@@ -19,6 +20,7 @@ t_scheduler*	create(rampunit_method_callback_type in_callback, void *in_baton)
 	t_scheduler *rampunit = (t_scheduler *)malloc(sizeof(t_scheduler));
 	if(rampunit){
 		ps_granularity = gensym("granularity");							// cache attr names for speed
+		ps_clock = gensym("clock");
 
 		rampunit->callback = in_callback;
 		rampunit->baton = in_baton;
@@ -88,6 +90,10 @@ ramp_err attrset(t_scheduler *rampunit, t_symbol *attrname, double value)
 {
 	if(attrname == ps_granularity)
 		rampunit->granularity = value;
+	else if (attrname == ps_clock) {
+		post("Tutten betutten");
+	}
+		
 	else
 		return RAMP_ERR_ATTR_INVALID;
 
@@ -172,12 +178,6 @@ void tick(t_scheduler *rampunit)
 		setclock_fdelay(NULL, rampunit->max_clock, rampunit->granularity);
 }
 
-
-void setclock(t_scheduler *rampunit, t_symbol *clockName)
-{
-	// This one does nothing yet.
-	post("Tutten betutten");
-}
 
 // PRIVATE METHOD: memory allocation
 void setnumvalues(t_scheduler *rampunit, short numvalues)

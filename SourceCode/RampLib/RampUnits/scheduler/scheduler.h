@@ -48,7 +48,6 @@ void			go		(t_scheduler *rampunit, short numvalues, double *values, double time)
 void			set		(t_scheduler *rampunit, short numvalues, double *values);
 void			stop	(t_scheduler *rampunit);
 void			tick	(t_scheduler *rampunit);
-void			setclock(t_scheduler *rampunit, t_symbol *clockName);
 }
 
 // private prototypes

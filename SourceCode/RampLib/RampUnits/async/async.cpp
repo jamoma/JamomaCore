@@ -152,12 +152,6 @@ void tick(t_async *rampunit)
 }
 
 
-void setclock(t_async *rampunit, t_symbol *clockName)
-{
-	// This one does nothing yet.
-}
-
-
 // PRIVATE METHOD: memory allocation
 void setnumvalues(t_async *rampunit, short numvalues)
 {
