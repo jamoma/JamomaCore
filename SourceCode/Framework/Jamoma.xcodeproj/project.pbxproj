@@ -10,6 +10,9 @@
 		22097AD70CEA5F880053C8D2 /* JamomaPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		2236907B0D00DFBA002D560B /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */; };
 		2236907D0D00DFC3002D560B /* JamomaSymbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 2236907C0D00DFC3002D560B /* JamomaSymbols.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		225697C90D3D83AF00328864 /* jcom.receive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225697C60D3D83AF00328864 /* jcom.receive.cpp */; };
+		225697CA0D3D83AF00328864 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225697C70D3D83AF00328864 /* jcom.receivemaster.cpp */; };
+		225697CB0D3D83AF00328864 /* jcom.send.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225697C80D3D83AF00328864 /* jcom.send.cpp */; };
 		2259E6150CF9D55A0044E6DE /* JamomaClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259E6110CF9D55A0044E6DE /* JamomaClock.cpp */; };
 		2259E6160CF9D55A0044E6DE /* JamomaClock.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259E6120CF9D55A0044E6DE /* JamomaClock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2259E6170CF9D55A0044E6DE /* JamomaScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */; };
@@ -135,6 +138,9 @@
 		22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaPrefix.pch; sourceTree = "<group>"; };
 		2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
 		2236907C0D00DFC3002D560B /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
+		225697C60D3D83AF00328864 /* jcom.receive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receive.cpp; sourceTree = "<group>"; };
+		225697C70D3D83AF00328864 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
+		225697C80D3D83AF00328864 /* jcom.send.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.send.cpp; sourceTree = "<group>"; };
 		2259E6110CF9D55A0044E6DE /* JamomaClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaClock.cpp; path = source/JamomaClock.cpp; sourceTree = "<group>"; };
 		2259E6120CF9D55A0044E6DE /* JamomaClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaClock.h; path = source/JamomaClock.h; sourceTree = "<group>"; };
 		2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaScheduler.cpp; path = source/JamomaScheduler.cpp; sourceTree = "<group>"; };
@@ -281,7 +287,8 @@
 			isa = PBXGroup;
 			children = (
 				22FD2DCF0CEE5B770039C226 /* Headers */,
-				08FB77AEFE84172EC02AAC07 /* Sources */,
+				08FB77AEFE84172EC02AAC07 /* Core */,
+				225697C50D3D83AF00328864 /* Internals */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
 				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
@@ -312,18 +319,23 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		08FB77AEFE84172EC02AAC07 /* Sources */ = {
+		08FB77AEFE84172EC02AAC07 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */,
 				22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */,
+				2259E6120CF9D55A0044E6DE /* JamomaClock.h */,
 				2259E6110CF9D55A0044E6DE /* JamomaClock.cpp */,
+				225C92740D1BEFFF00BDA981 /* JamomaObject.h */,
 				225C92730D1BEFFF00BDA981 /* JamomaObject.cpp */,
+				2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */,
 				2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */,
+				2236907C0D00DFC3002D560B /* JamomaSymbols.h */,
 				2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */,
+				22FD2DC10CEE5B6F0039C226 /* jcom.core.h */,
 				22FD2DC00CEE5B6F0039C226 /* jcom.core.cpp */,
-				22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */,
 			);
-			name = Sources;
+			name = Core;
 			sourceTree = "<group>";
 		};
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
@@ -346,6 +358,16 @@
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		225697C50D3D83AF00328864 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				225697C60D3D83AF00328864 /* jcom.receive.cpp */,
+				225697C70D3D83AF00328864 /* jcom.receivemaster.cpp */,
+				225697C80D3D83AF00328864 /* jcom.send.cpp */,
+			);
+			path = Internals;
 			sourceTree = "<group>";
 		};
 		22AEF31F0D0DB77900F7762D /* FunctionLib */ = {
@@ -397,15 +419,10 @@
 		22FD2DCF0CEE5B770039C226 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */,
-				2259E6120CF9D55A0044E6DE /* JamomaClock.h */,
-				225C92740D1BEFFF00BDA981 /* JamomaObject.h */,
 				22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */,
-				2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */,
-				2236907C0D00DFC3002D560B /* JamomaSymbols.h */,
+				22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */,
 				225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */,
 				22AEF32C0D0DB98500F7762D /* JamomaTypes.h */,
-				22FD2DC10CEE5B6F0039C226 /* jcom.core.h */,
 				22FD2DC20CEE5B6F0039C226 /* jcom.io.h */,
 				22FD2DC30CEE5B6F0039C226 /* jcom.list.h */,
 				22FD2DC50CEE5B6F0039C226 /* jcom.sendreceive.h */,
@@ -690,6 +707,9 @@
 				22C1B29D0D20C1B0008BB574 /* AngleDataspace.cpp in Sources */,
 				66D9A1F70D21F49300A16E9A /* PositionDataspace.cpp in Sources */,
 				22BF45A50D2564F2001FAA14 /* NoneDataspace.cpp in Sources */,
+				225697C90D3D83AF00328864 /* jcom.receive.cpp in Sources */,
+				225697CA0D3D83AF00328864 /* jcom.receivemaster.cpp in Sources */,
+				225697CB0D3D83AF00328864 /* jcom.send.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
