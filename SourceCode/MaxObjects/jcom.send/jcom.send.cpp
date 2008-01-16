@@ -1,7 +1,7 @@
 /* 
  * jcom.send
  * External for Jamoma: send messages from remote
- * By Trond Lossius & Tim Place, Copyright ï¿½ 2006
+ * By Trond Lossius & Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -26,12 +26,14 @@ static t_object		*s_receivemaster_object = NULL;	// An instance of the jcom.rece
 /************************************************************************************/
 // Main() Function
 
-void send_initclass()
+int main(void)
 {
 	long attrflags = 0;
 	t_class *c;
 	t_object *attr;
 	
+	jamoma_init();
+
 	// Define our class
 	c = class_new("jcom.send", (method)send_new, (method)0L, (short)sizeof(t_send), (method)0L, A_GIMME, 0);
 
@@ -55,6 +57,8 @@ void send_initclass()
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	s_send_class = c;
+	
+	return 0;
 }
 
 

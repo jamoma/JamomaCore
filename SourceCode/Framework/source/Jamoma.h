@@ -1,7 +1,7 @@
 /* 
  * Jamoma Shared Library
  * Functions and resources used by Jamoma objects.
- * By Tim Place, Copyright © 2007
+ * By Tim Place, Copyright Â© 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -69,9 +69,6 @@ extern t_object *obj_jamoma_clock;		// the jamoma master clock object
 extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
 extern bool		max5;					// are we in max5?
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 void		jamoma_init(void);
 t_max_err	jamoma_hub_register(t_symbol *name, t_object *hub);
@@ -89,10 +86,6 @@ void		jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, meth
 void		jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter, long sizeOffset, long offset);
 void		jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *);
 //void		jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *argv);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif //__JAMOMA_H__
 

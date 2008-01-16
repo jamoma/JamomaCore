@@ -1,7 +1,7 @@
 /* 
  * jcom.receivemaster
  * Manage jcom.receive instances
- * By Tim Place, Copyright ï¿½ 2007
+ * By Tim Place, Copyright © 2007
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -19,14 +19,16 @@ void receivemaster_remove(t_jcom_receivemaster *x, t_symbol *name, t_object *obj
 
 
 // Globals
-static t_class		*s_receivemaster_class = NULL;	///< Required: Global pointer the jcom.receivemaster class
-static t_hashtab	*s_receive_lists = NULL;		///< hash full of linked lists, keyed on the name of the jcom.receive instances
+static t_class		*s_receivemaster_class;		///< Required: Global pointer the jcom.receivemaster class
+static t_hashtab	*s_receive_lists;			///< hash full of linked lists, keyed on the name of the jcom.receive instances
 
 
 /************************************************************************************/
 
 void receivemaster_initclass()
 {
+	jamoma_init();
+
 	// Define our class
 	s_receivemaster_class = class_new(	"jcom.receivemaster", 
 										(method)receivemaster_new, 
@@ -80,7 +82,7 @@ void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *m
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 {
 	t_linklist	*list = NULL;
-post("ADD: hastbab - %x", s_receive_lists);
+
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	if(!list){
 		list = (t_linklist *)linklist_new();						// if there isn't a linklist for this name yet,

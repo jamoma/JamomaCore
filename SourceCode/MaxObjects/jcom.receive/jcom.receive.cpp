@@ -1,7 +1,7 @@
 /* 
  * jcom.receive
  * External for Jamoma: receive messages from remote
- * By Trond Lossius & Tim Place, Copyright ï¿½ 2006
+ * By Trond Lossius & Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -25,6 +25,15 @@ static t_object		*s_receivemaster_object = NULL;		// An instance of the jcom.rec
 
 
 /************************************************************************************/
+// Main() Function
+
+int main(void)				// main recieves a copy of the Max function macros table
+{
+	receivemaster_initclass();
+	receive_initclass();
+	return 0;
+}
+
 
 void receive_initclass()
 {
@@ -32,11 +41,13 @@ void receive_initclass()
 	t_class *c;
 	t_object *attr;
 	
+	jamoma_init();
+	
 	// Define our class
 	c = class_new(	"jcom.receive", 
 					(method)receive_new, 
 					(method)receive_free, 
-					sizeof(t_receive), 
+					(short)sizeof(t_receive), 
 					(method)0L, 
 					A_GIMME, 
 					0);
@@ -68,20 +79,16 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_receive	*x = (t_receive *)object_alloc(s_receive_class);
-	t_atom		a;
-
-post("have x: %x", x);
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
 		x->outlet = outlet_new(x, NULL);
 
 		if(!s_receivemaster_object)
-//			s_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
-			s_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, gensym("jcom.receivemaster"), 0, NULL);
-post("have master: %x", s_receivemaster_object);
+			s_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
+
 		x->callback = NULL;
 		x->attr_name = NULL;
-//		attr_args_process(x, argc, argv);					// handle attribute args				
+		attr_args_process(x, argc, argv);					// handle attribute args				
 
 		// If no name was specified as an attribute
 		if(x->attr_name == NULL){
@@ -89,7 +96,7 @@ post("have master: %x", s_receivemaster_object);
 				x->attr_name = atom_getsym(argv);
 			else
 				x->attr_name = gensym("jcom.receive no arg specified");
-//			receive_bind(x);
+			receive_bind(x);
 		}
 	}
 	return x;
@@ -137,8 +144,7 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 // 
 void receive_bind(t_receive *x)
 {
-//	if(!NOGOOD(s_receivemaster_object))
-//		object_method(s_receivemaster_object, ps_add, x->attr_name, x);
+	object_method(s_receivemaster_object, ps_add, x->attr_name, x);
 }
 
 

@@ -31,12 +31,9 @@ void jamoma_init(void)
 		if(maxversion() >= 0x0500)
 			max5 = true;
 		common_symbols_init();
-		jamomaSymbolsInit();
+		jamoma_symbols_init();
 		jamoma_clock_initclass();
 		jamoma_scheduler_initclass();
-		receivemaster_initclass();
-		receive_initclass();
-		send_initclass();
 
 		obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
 		obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);

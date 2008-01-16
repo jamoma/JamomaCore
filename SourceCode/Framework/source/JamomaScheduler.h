@@ -47,9 +47,6 @@ typedef struct _jamoma_scheduler{
 	// TODO: some sort of accessor that would set tick period by saying 1000 ticks per second or something
 } t_jamoma_scheduler;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 void			jamoma_scheduler_initclass(void);
 t_object*		jamoma_scheduler_new(t_symbol *s, long argc, t_atom *argv);
@@ -67,9 +64,6 @@ void			jamoma_event_free(t_jamoma_event *event);
 void			jamoma_event_send(t_jamoma_event *event);
 void			jamoma_event_dosend(t_jamoma_event *event);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif //__JAMOMA_SCHEDULER_H__
 

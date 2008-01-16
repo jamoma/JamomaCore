@@ -1,7 +1,7 @@
 /* 
  * jcom.sendreceive.h
  * shared code for jcom.send and jcom.receive objects
- * By Tim Place, Copyright ï¿½ 2006
+ * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -49,10 +49,7 @@ typedef struct _jcom_receivemaster{
 } t_jcom_receivemaster;
 
 
-
 void receive_initclass();
 void receivemaster_initclass();
-void send_initclass();
-
 
 #endif // #ifndef __JCOM_SENDRECEIVE_H__

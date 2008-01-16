@@ -10,18 +10,11 @@
 #ifndef __JMOD_CORE_H__
 #define __JMOD_CORE_H__
 
-#include "ext.h"
-#include "ext_obex.h"
 #include "ext_critical.h"
-#include "z_dsp.h"
+#include "z_dsp.h"							// MSP Header
 
 #ifdef WIN_VERSION
 #define snprintf _snprintf
-#endif
-
-// Prototypes
-#ifdef __cplusplus
-extern "C" {
 #endif
 
 typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, long argc, t_atom *argv);
@@ -73,6 +66,8 @@ typedef struct _jcom_core_subscriber_extended{
 } t_jcom_core_subscriber_extended;
 				
 
+// Prototypes
+
 /** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
  * with the jcom.hub object
  * @param x pointer to the object that is subscribing
@@ -80,7 +75,7 @@ typedef struct _jcom_core_subscriber_extended{
  * @param container pointer to patcher containg the parameter, in, out, etc.
  * @return a pointer to the hub object
  */
-t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type);
+void *jcom_core_subscribe(t_object *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
 
 
 /** Unsubscribe a client from the hub.
@@ -201,8 +196,6 @@ t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void
 t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
 t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
 
-#ifdef __cplusplus
-}
-#endif
+
 
 #endif // #ifndef __JMOD_CORE_H__
