@@ -284,7 +284,8 @@ again:
 	// And send a notification to the environment
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
-	object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
+	if(s_jcom_send_notifications)
+		object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 
 	// Finally, we now tell subscribers (parameters, etc.) to subscribe
 	if(x->jcom_send_broadcast)
@@ -302,7 +303,8 @@ void hub_free(t_hub *x)
 
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
-	object_method_typed(s_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
+	if(s_jcom_send_notifications)
+		object_method_typed(s_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
 
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
