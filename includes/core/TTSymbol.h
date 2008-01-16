@@ -32,6 +32,9 @@ private:
 	static TTSymbol**		symbolTable;		///< The shared symbol table for the class
 	static TTUInt32			symbolTableSize;	///< The size of the symbol table
 
+	/** used by the constructors to create the new symbol */
+	void init(TTString newString);
+
 public:
 	TTSymbol();
 	TTSymbol(TTString newString);

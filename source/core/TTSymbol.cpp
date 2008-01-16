@@ -16,10 +16,32 @@ TTUInt32	TTSymbol::symbolTableSize = 0;
 
 TTSymbol::TTSymbol()
 {
-	TTSymbol::TTSymbol("");
+	init("");
 }
 
 TTSymbol::TTSymbol(TTString newString)
+{
+	init(newString);
+}
+
+
+TTSymbol::~TTSymbol()
+{
+	//should free this to prevent memory leaks, but is it safe to do so?
+	// maybe we need to reference count...
+	//free(string);
+}
+
+
+// Copy Constructor
+TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
+{
+	id = oldSymbol.id;
+	strcpy(string, oldSymbol.string);
+}
+
+
+void TTSymbol::init(TTString newString)
 {
 	TTSymbol	*existingSymbol = NULL;
 	TTUInt32	i;
@@ -47,22 +69,6 @@ TTSymbol::TTSymbol(TTString newString)
 		
 		symbolTable[symbolTableSize-1] = this;
 	}
-}
-
-
-TTSymbol::~TTSymbol()
-{
-	//should free this to prevent memory leaks, but is it safe to do so?
-	// maybe we need to reference count...
-	//free(string);
-}
-
-
-// Copy Constructor
-TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
-{
-	id = oldSymbol.id;
-	strcpy(string, oldSymbol.string);
 }
 
 

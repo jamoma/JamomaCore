@@ -1,5 +1,5 @@
 /* 
- *	tt.overdrive~
+ *	tt.ramp~
  *	External object for Max/MSP
  *	
  *	Example project for TTBlue
@@ -15,44 +15,35 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTOverdrive.h"				// TTBlue Interfaces...
+#include "TTRamp.h"					// TTBlue Interfaces...
 
 
 // Data Structure for this object
-typedef struct _overdrive	{
+typedef struct _ramp	{
     t_pxobject 		obj;
     void			*obex;
-	TTOverdrive		*overdrive;
-	TTAudioSignal	*audioIn;
+	TTRamp			*ramp;
 	TTAudioSignal	*audioOut;
-    float			attrOverdrive;			// ATTRIBUTE: amount of overdrive
-    long			attrBypassDCBlocker;
-    long			attrBypass;
-	long			attrMode;
-	long			attrMute;
-	float			attrPreamp;				// ATTRIBUTE: in dB
+	t_symbol*		attrMode;
 	long			maxNumChannels;
-} t_overdrive;
+} t_ramp;
 
 
 // Prototypes for methods: need a method for each incoming message type
-void*		overdrive_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
-void		overdrive_free(t_overdrive *x);
-void		overdrive_assist(t_overdrive *x, void *b, long msg, long arg, char *dst);	// Assistance Method
-t_int*		overdrive_perform(t_int *w);												// An MSP Perform (signal) Method
-void		overdrive_dsp(t_overdrive *x, t_signal **sp, short *count);					// DSP Method
-void		overdrive_clear(t_overdrive *x);
-void		overdrive_anything(t_overdrive *x, t_symbol *msg, long argc, t_atom *argv);
-t_max_err	overdrive_setBypass(t_overdrive *x, void *attr, long argc, t_atom *argv);
-t_max_err	overdrive_setPreamp(t_overdrive *x, void *attr, long argc, t_atom *argv);
-t_max_err	overdrive_setSaturation(t_overdrive *x, void *attr, long argc, t_atom *argv);
-t_max_err	overdrive_setMode(t_overdrive *x, void *attr, long argc, t_atom *argv);
-t_max_err	overdrive_setBypassDCBlocker(t_overdrive *x, void *attr, long argc, t_atom *argv);
-t_max_err	overdrive_setMute(t_overdrive *x, void *attr, long argc, t_atom *argv);
+void*		ramp_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
+void		ramp_free(t_ramp *x);
+void		ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst);	// Assistance Method
+t_int*		ramp_perform(t_int *w);												// An MSP Perform (signal) Method
+void		ramp_dsp(t_ramp *x, t_signal **sp, short *count);					// DSP Method
+void		ramp_stop(t_ramp *x);
+void		ramp_int(t_ramp *x, long newCurrentValue);
+void		ramp_float(t_ramp *x, double newCurrentValue);
+void		ramp_list(t_ramp *x, double endValue, double time);
+t_max_err	ramp_setMode(t_ramp *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
-t_class *overdrive_class;				// Required. Global pointing to this class
+t_class *ramp_class;				// Required. Global pointing to this class
 
 
 /************************************************************************************/
@@ -66,45 +57,26 @@ int main(void)
 	
 	common_symbols_init();
 
-	c = class_new("tt.overdrive~",(method)overdrive_new, (method)overdrive_free, (short)sizeof(t_overdrive), 
+	c = class_new("tt.ramp~",(method)ramp_new, (method)ramp_free, (short)sizeof(t_ramp), 
 		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_overdrive, obex));
+	class_obexoffset_set(c, calcoffset(t_ramp, obex));
 
-	class_addmethod(c, (method)overdrive_setPreamp,				"/preamp",				A_GIMME, 0);
-	class_addmethod(c, (method)overdrive_setSaturation,			"/saturation",			A_GIMME, 0);
-	class_addmethod(c, (method)overdrive_setMode,				"/mode",				A_GIMME, 0);
-	class_addmethod(c, (method)overdrive_setBypassDCBlocker,	"/dcblocker/bypass",	A_GIMME, 0);
-	class_addmethod(c, (method)overdrive_setMute,				"/audio/mute",			A_GIMME, 0);
-	class_addmethod(c, (method)overdrive_anything,				"anything",				A_GIMME, 0);
- 	class_addmethod(c, (method)overdrive_clear,					"clear",				0L);		
- 	class_addmethod(c, (method)overdrive_dsp,					"dsp",					A_CANT, 0L);		
-	class_addmethod(c, (method)overdrive_assist,				"assist",				A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,				"dumpout", 				A_CANT, 0);  
-    class_addmethod(c, (method)object_obex_quickref,			"quickref", 			A_CANT, 0);
+    class_addmethod(c, (method)ramp_int,				"int",		A_FLOAT, 0L);
+    class_addmethod(c, (method)ramp_float,				"float",	A_FLOAT, 0L);
+    class_addmethod(c, (method)ramp_list,				"list",		A_FLOAT, A_FLOAT);
+ 	class_addmethod(c, (method)ramp_stop,				"stop",		0L);		
+ 	class_addmethod(c, (method)ramp_dsp,				"dsp",		A_CANT, 0L);		
+	class_addmethod(c, (method)ramp_assist,				"assist",	A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout,		"dumpout", 	A_CANT, 0);  
+    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
 
-	attr = attr_offset_new("bypass", _sym_long, attrflags,
-		(method)0L,(method)overdrive_setBypass, calcoffset(t_overdrive, attrBypass));
-	class_addattr(c, attr);	
-
-	attr = attr_offset_new("overdrive", _sym_float32, attrflags,
-		(method)0L, (method)overdrive_setSaturation, calcoffset(t_overdrive, attrOverdrive));
-	class_addattr(c, attr);
-
-	attr = attr_offset_new("bypass_dcblocker", _sym_long, attrflags,
-		(method)0L, (method)overdrive_setBypassDCBlocker, calcoffset(t_overdrive, attrBypassDCBlocker));
-	class_addattr(c, attr);
-
-	attr = attr_offset_new("mode", _sym_long, attrflags,
-		(method)0L, (method)overdrive_setMode, calcoffset(t_overdrive, attrMode));
+	attr = attr_offset_new("mode", _sym_symbol, attrflags,
+		(method)0L, (method)ramp_setMode, calcoffset(t_ramp, attrMode));
 	class_addattr(c, attr);
 	
-	attr = attr_offset_new("preamp", _sym_float32, attrflags,
-		(method)0L, (method)overdrive_setPreamp, calcoffset(t_overdrive, attrPreamp));
-	class_addattr(c, attr);
-
 	class_dspinit(c);						// Setup object's class to work with MSP
 	class_register(CLASS_BOX, c);
-	overdrive_class = c;
+	ramp_class = c;
 	return 0;
 }
 
@@ -112,24 +84,23 @@ int main(void)
 /************************************************************************************/
 // Object Creation Method
 
-void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
+void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 {
-    t_overdrive	*x;
+    t_ramp	*x;
 	TTValue		sr(sys_getsr());
  	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short		i;
    
-    x = (t_overdrive *)object_alloc(overdrive_class);
+    x = (t_ramp *)object_alloc(ramp_class);
     if(x){
-		x->attrBypass = 0;
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
-		x->overdrive = new TTOverdrive(x->maxNumChannels);
-		x->audioIn = new TTAudioSignal(x->maxNumChannels);
+		x->ramp = new TTRamp(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+		x->audioOut->numChannels = 1;
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -144,11 +115,10 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 }
 
 // Memory Deallocation
-void overdrive_free(t_overdrive *x)
+void ramp_free(t_ramp *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->overdrive;
-	delete x->audioIn;
+	delete x->ramp;
 	delete x->audioOut;
 }
 
@@ -157,7 +127,7 @@ void overdrive_free(t_overdrive *x)
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
-void overdrive_assist(t_overdrive *x, void *b, long msg, long arg, char *dst)
+void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1) 	// Inlets
 		strcpy(dst, "(signal) input, control messages");		
@@ -166,125 +136,60 @@ void overdrive_assist(t_overdrive *x, void *b, long msg, long arg, char *dst)
 }
 
 
-void overdrive_clear(t_overdrive *x)
+void ramp_stop(t_ramp *x)
 {
-	x->overdrive->sendMessage("clear");
+	x->ramp->sendMessage("stop");
 }
 
 
-// when used as the algorithm for a module, we use this to suppress errors for unhandles messages
-void overdrive_anything(t_overdrive *x, t_symbol *msg, long argc, t_atom *argv)
+void ramp_int(t_ramp *x, long newCurrentValue)
 {
-	//post("anything: %s", msg->s_name);
+	ramp_float(x, newCurrentValue);
+}
+
+void ramp_float(t_ramp *x, double newCurrentValue)
+{
+	x->ramp->setAttributeValue(TT("currentValue"), newCurrentValue);
+}
+
+void ramp_list(t_ramp *x, double endValue, double time)
+{
+	x->ramp->setAttributeValue(TT("destinationValue"), endValue);
+	x->ramp->setAttributeValue(TT("rampTime"), time);
 }
 
 
 // Perform (signal) Method
-t_int *overdrive_perform(t_int *w)
-{
-   	t_overdrive	*x = (t_overdrive *)(w[1]);
-	short		i, j;
-	
-	for(i=0; i < x->audioIn->numChannels; i++){
-		j = (i*2) + 1;
-		x->audioIn->setVector(i, (t_float *)(w[j+1]));
-		x->audioOut->setVector(i, (t_float *)(w[j+2]));
-	}
+t_int *ramp_perform(t_int *w)
+{	
+	t_ramp *x = (t_ramp *)(w[1]);
+	x->audioOut->setVector(0, (t_float *)(w[2]));
+	x->audioOut->vs = (int)(w[3]);
+			
+	if(!(x->obj.z_disabled))
+		x->ramp->process(*x->audioOut);
 
-	if(!x->obj.z_disabled && !x->attrMute)
-		x->overdrive->process(*x->audioIn, *x->audioOut);
+    return (w + 4);						// Return a pointer to the NEXT object in the DSP call chain
 
-	return w + ((x->audioIn->numChannels*2)+2);
 }
 
 
 // DSP Method
-void overdrive_dsp(t_overdrive *x, t_signal **sp, short *count)
+void ramp_dsp(t_ramp *x, t_signal **sp, short *count)
 {
-	short	i, j, k=0;
-	void	**audioVectors = NULL;
-	
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1));
-	audioVectors[k] = x;
-	k++;
-	
-	x->audioIn->numChannels = 0;
-	x->audioOut->numChannels = 0;	
-	for(i=0; i < x->maxNumChannels; i++){
-		j = x->maxNumChannels + i;
-		if(count[i] && count[j]){
-			audioVectors[k] = sp[i]->s_vec;
-			x->audioIn->numChannels++;
-			x->audioIn->vs = sp[i]->s_n;
-			k++;
-			audioVectors[k] = sp[j]->s_vec;
-			x->audioOut->numChannels++;
-			x->audioIn->vs = sp[j]->s_n;
-			k++;
-		}
-	}
-	
-	x->overdrive->setAttributeValue(TT("sr"), sp[0]->s_sr);
-	
-	dsp_addv(overdrive_perform, k, audioVectors);
-	sysmem_freeptr(audioVectors);
+	x->ramp->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	dsp_add(ramp_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
 }
 
 
-t_max_err overdrive_setBypass(t_overdrive *x, void *attr, long argc, t_atom *argv)
+t_max_err ramp_setMode(t_ramp *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
-		x->attrBypass = atom_getlong(argv);
-		x->overdrive->setAttributeValue(TT("bypass"), x->attrBypass);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err overdrive_setPreamp(t_overdrive *x, void *attr, long argc, t_atom *argv)
-{
-	if(argc){
-		x->attrPreamp = atom_getlong(argv);
-		x->overdrive->setAttributeValue(TT("preamp"), x->attrPreamp);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err overdrive_setSaturation(t_overdrive *x, void *attr, long argc, t_atom *argv)
-{
-	if(argc){
-		x->attrOverdrive = atom_getlong(argv);
-		x->overdrive->setAttributeValue(TT("drive"), x->attrOverdrive);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err overdrive_setMode(t_overdrive *x, void *attr, long argc, t_atom *argv)
-{
-	if(argc){
-		x->attrMode = atom_getlong(argv);
-		x->overdrive->setAttributeValue(TT("mode"), x->attrMode);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err overdrive_setBypassDCBlocker(t_overdrive *x, void *attr, long argc, t_atom *argv)
-{
-	if(argc){
-		x->attrBypassDCBlocker = atom_getlong(argv);
-		x->overdrive->setAttributeValue(TT("dcBlocker"), !x->attrBypassDCBlocker);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err overdrive_setMute(t_overdrive *x, void *attr, long argc, t_atom *argv)
-{
-	if(argc){
-		x->attrMute = atom_getlong(argv);
+		x->attrMode = atom_getsym(argv);
+		if(x->attrMode == gensym("sample_accurate"))
+			x->ramp->setAttributeValue(TT("mode"), TT("sample"));
+		else if(x->attrMode == gensym("vector_accurate"))
+			x->ramp->setAttributeValue(TT("mode"), TT("vector"));
 	}
 	return MAX_ERR_NONE;
 }

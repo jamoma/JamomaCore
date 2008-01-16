@@ -19,7 +19,7 @@ private:
 	enum{
 		kUP = 0,
 		kDOWN
-	}
+	};
 	
 	TTSymbol			attrMode;				///< mode: sample_accurate or vector_accurate
 	TTFloat32 			attrRampTime;			///< ramp time in milliseconds
@@ -32,6 +32,11 @@ private:
 	/**	Setter for the mode attribute.  The options are 'sample' and 'vector' which determine 
 		the desired accuracy of the ramp that is generated. */
 	TTErr setMode(const TTValue& value);
+
+	/** Trigger a ramp with a time set in samples */
+	TTErr rampInSamples(const TTValue& newValue);
+	/** Trigger a ramp with a time set in milliseconds */
+	TTErr setRampTime(const TTValue& newValue);
 
 	/**	Stop the current ramp.			*/
 	TTErr stop();

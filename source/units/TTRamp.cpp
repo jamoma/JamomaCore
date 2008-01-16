@@ -51,7 +51,7 @@ TTErr TTRamp::rampInSamples(const TTValue& newValue)
 TTErr TTRamp::setRampTime(const TTValue& newValue)
 {
 	attrRampTime = newValue;
-	if((attrRampTime <= 0.0 + TTAntiDenormalValue) && (attrRampTime >= 0.0 - TTAntiDenormalValue)){
+	if((attrRampTime <= 0.0 + kTTAntiDenormalValue) && (attrRampTime >= 0.0 - kTTAntiDenormalValue)){
 		step = 0;
 		attrCurrentValue = attrDestinationValue;
 		direction = 0;
@@ -82,11 +82,11 @@ TTErr TTRamp::stop()
 
 void TTRamp::setupProcess()
 {
-	if((mode == TT("sample")) && (direction == kUP))
+	if((attrMode == TT("sample")) && (direction == kUP))
 		setProcess((TTProcessMethod)&TTRamp::processSampleAccurateUp);
-	else if((mode == TT("sample")) && (direction == kDOWN))
+	else if((attrMode == TT("sample")) && (direction == kDOWN))
 		setProcess((TTProcessMethod)&TTRamp::processSampleAccurateDown);
-	else if((mode == TT("vector")) && (direction == kUP))
+	else if((attrMode == TT("vector")) && (direction == kUP))
 		setProcess((TTProcessMethod)&TTRamp::processVectorAccurateUp);
 	else
 		setProcess((TTProcessMethod)&TTRamp::processVectorAccurateDown);
@@ -95,7 +95,7 @@ void TTRamp::setupProcess()
 
 void TTRamp::setStep()
 {
-	step = (attrDestinationValue - attrCurrentValue) / double(ramp_samps);
+	step = (attrDestinationValue - attrCurrentValue) / double(rampSamples);
 	direction = (step < 0);
 }
 
@@ -109,7 +109,7 @@ TTErr TTRamp::processVectorAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		outSample = out.sampleVectors[channel];
 		if(step){
-			attrCurrentValue += (step * out->vectorsize);
+			attrCurrentValue += (step * out.vs);
 			if(attrCurrentValue <= attrDestinationValue){
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
@@ -130,7 +130,7 @@ TTErr TTRamp::processVectorAccurateUp(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		outSample = out.sampleVectors[channel];
 		if(step){
-			attrCurrentValue += (step * out->vectorsize);
+			attrCurrentValue += (step * out.vs);
 			if(attrCurrentValue >= attrDestinationValue){
 				step = 0;
 				attrCurrentValue = attrDestinationValue;	// clamp
