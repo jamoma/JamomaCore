@@ -14,10 +14,7 @@ TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt8 newMaxNumChannels)
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register attributes
-	void *v;
-	long l;
-	v = &TTBandRejectButterworth2::setFrequency;
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)reinterpret_cast<long*>(&TTBandRejectButterworth2::setFrequency));
+	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandRejectButterworth2::setFrequency);
 	registerAttribute(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandRejectButterworth2::setQ);
 
 	// register for notifications from the parent class so we can allocate memory as required

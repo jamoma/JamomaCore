@@ -54,14 +54,14 @@ TTErr TTOverdrive::setDrive(const TTValue& newValue)
 
 	// These calculations really only apply to mode 1...
 	f = (attrDrive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
-	z = pi * f;
+	z = kTTPi * f;
 	s = 1.0 / sin(z);
 	b = 1.0 / f;
 	b = clip(b, 0.0f, 1.0f);
 	nb = b * -1;
 	i = int(f);
 	if(f-i > 0.5) 
-		scale = sin(f * pi);
+		scale = sin(f * kTTPi);
 	else 
 		scale = 1.0;
 
