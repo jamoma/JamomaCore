@@ -88,9 +88,30 @@ JamomaError getFunctionParameter(t_scheduler *rampunit, t_symbol *parameterName,
 
 ramp_err attrset(t_scheduler *rampunit, t_symbol *attrname, double value)
 {
+	/*
+	void *old = x->m_setclock->s_thing; 
+	void *c = 0;
+	*/
+
 	if(attrname == ps_granularity)
 		rampunit->granularity = value;
 	else if (attrname == ps_clock) {
+		// The below copied from the SDK
+		/* the line below can be restated as: 
+		if s is the empty symbol 
+		or s->s_thing is zero 
+		or s->s_thing is non-zero and a setclock object 
+		*/ 
+		/*
+		if ((s == gensym("")) || ((c = s->s_thing) && zgetfn(c,&s_unset))) 
+		{ 
+			if (old) 
+				setclock_unset(old,x->m_clock); 
+			x->m_setclock = s; 						// s is a t_symbol *
+			if (x->m_running) 
+				setclock_delay(c,x->m_clock,0L); 
+		}
+		*/
 		post("Tutten betutten");
 	}
 		

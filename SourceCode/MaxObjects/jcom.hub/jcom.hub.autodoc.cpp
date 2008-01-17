@@ -175,7 +175,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// ramp
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, ps_ramp, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_ramp_drive, &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRamp\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -259,7 +259,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// ramp
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, ps_ramp, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_ramp_drive, &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRamp\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -343,7 +343,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// ramp
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, ps_ramp, &argc, &argv);
+			object_attr_getvalueof(t->object, ps_ramp_drive, &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRamp\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
