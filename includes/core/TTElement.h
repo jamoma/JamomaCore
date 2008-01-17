@@ -122,79 +122,80 @@ public:
 	/** Rounding utility. */
 	static TTInt32	round(TTFloat64 value);
 	
-	
-	/** A fast routine for clipping a number to a range.  This routine does not use branching. */
-	template<class T>
-	static T TTElement::clip(T value, T low_bound, T high_bound)
-	{
-		#ifdef MAC_VERSION
-			value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
-		#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
-			value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
-		#endif
-		value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
-		return value;
-	}
-
-	/** A fast routine for clipping a number to a maximum range.  The bottom end of the range is not checked.  This routine does not use branching. */
-	template<class T>
-	static T TTElement::limit_max(T value, T high_bound)
-	{
-		value = high_bound - value;
-		#ifdef MAC_VERSION
-			value += fabs(value);
-		#else
-			value += fabs((double)value);
-		#endif
-		value *= 0.5;
-		value = high_bound - value;
-		return value; 
-	}
-
-	/** A fast routine for clipping a number on it's low range.  The high end of the range is not checked.  
-		This routine does not use branching. */
-	template<class T>
-	static T TTElement::limit_min(T value, T low_bound)
-	{
-		value -= low_bound;
-		#ifdef MAC_VERSION
-			value += fabs(value);
-		#else
-			value += fabs((double)value);
-		#endif
-		value *= 0.5;
-		value += low_bound;
-		return value; 
-	}
-
-	/** A fast routine for wrapping around the range once.  This is faster than doing an expensive module, where you know the range of the input
-	 	will not equal or exceed twice the range. */
-	template<class T>
-	static T TTElement::onewrap(T value, T low_bound, T high_bound)
-	{
-		if((value >= low_bound) && (value < high_bound)) 
-			return value;
-		else if(value >= high_bound)
-			return((low_bound - 1) + (value - high_bound));	
-		else
-			return((high_bound + 1) - (low_bound - value));
-	}
-
-	/** A utility for scaling one range of values onto another range of values. */
-	template<class T>
-	static T TTElement::scale(T value, T inlow, T inhigh, T outlow, T outhigh)
-	{
-		double inscale, outdiff;
-		 
-		inscale = 1 / (inhigh - inlow);
-		outdiff = outhigh - outlow;
-		
-		value = (value - inlow) * inscale;
-		value = (value * outdiff) + outlow;
-		return(value);											
-	}
-	
 };
+
+
+/** A fast routine for clipping a number to a range.  This routine does not use branching. */
+template<class T>
+static T TTClip(T value, T low_bound, T high_bound)
+{
+	#ifdef MAC_VERSION
+		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
+	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
+		value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
+	#endif
+	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
+	return value;
+}
+
+/** A fast routine for clipping a number to a maximum range.  The bottom end of the range is not checked.  This routine does not use branching. */
+template<class T>
+static T TTLimitMax(T value, T high_bound)
+{
+	value = high_bound - value;
+	#ifdef MAC_VERSION
+		value += fabs(value);
+	#else
+		value += fabs((double)value);
+	#endif
+	value *= 0.5;
+	value = high_bound - value;
+	return value; 
+}
+
+/** A fast routine for clipping a number on it's low range.  The high end of the range is not checked.  
+	This routine does not use branching. */
+template<class T>
+static T TTLimitMin(T value, T low_bound)
+{
+	value -= low_bound;
+	#ifdef MAC_VERSION
+		value += fabs(value);
+	#else
+		value += fabs((double)value);
+	#endif
+	value *= 0.5;
+	value += low_bound;
+	return value; 
+}
+
+/** A fast routine for wrapping around the range once.  This is faster than doing an expensive module, where you know the range of the input
+ 	will not equal or exceed twice the range. */
+template<class T>
+static T TTOneWrap(T value, T low_bound, T high_bound)
+{
+	if((value >= low_bound) && (value < high_bound)) 
+		return value;
+	else if(value >= high_bound)
+		return((low_bound - 1) + (value - high_bound));	
+	else
+		return((high_bound + 1) - (low_bound - value));
+}
+
+/** A utility for scaling one range of values onto another range of values. */
+template<class T>
+static T TTScale(T value, T inlow, T inhigh, T outlow, T outhigh)
+{
+	double inscale, outdiff;
+	 
+	inscale = 1 / (inhigh - inlow);
+	outdiff = outhigh - outlow;
+	
+	value = (value - inlow) * inscale;
+	value = (value * outdiff) + outlow;
+	return(value);											
+}
+
 
 
 #endif // __TT_ELEMENT_H__
