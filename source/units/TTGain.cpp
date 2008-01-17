@@ -10,7 +10,7 @@
 
 
 TTGain::TTGain(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels)
+	: TTAudioObject(newMaxNumChannels)
 {
 	registerAttribute(TT("linearGain"),	kTypeFloat32,	&gain);
 	registerAttribute(TT("gain"),		kTypeInt32,		NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);

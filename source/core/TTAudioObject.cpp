@@ -105,14 +105,16 @@ TTErr TTAudioObject::process(TTAudioSignal& out)
 }
 
 
+#if 0
 #pragma mark -
 #pragma mark Utilities
+#endif
 
 // RADIANS CONVERSIONS: cannot make static because of access to a member data element
 // hz-to-radians conversion
 TTFloat64 TTAudioObject::hertzToRadians(const TTFloat64 hz)			// NOTE: Be sure to set the sr before calling this function
 {
-	return(hz * (pi / (sr * 0.5)));
+	return(hz * (kTTPi / (sr * 0.5)));
 }
 
 // radians-to-hz conversion

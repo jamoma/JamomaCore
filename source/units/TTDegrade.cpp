@@ -13,7 +13,7 @@
 
 
 TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	: TTAudioObject(newMaxNumChannels),
 	accumulator(NULL), output(NULL)
 {
 	// register attributes

@@ -171,9 +171,11 @@ TTObject::~TTObject()
 }
 
 
+#if 0
 #pragma mark -
 #pragma mark Object Attributes
-	
+#endif
+
 TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address)
 {
 	attributeNames[attributeCount] = &name;
@@ -423,8 +425,10 @@ TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTSymbol& value)
 }
 
 
+#if 0
 #pragma mark -
 #pragma mark Global Attributes
+#endif
 
 TTErr TTObject::registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address)
 {
@@ -447,9 +451,11 @@ TTErr TTObject::setGlobalAttributeValue(const TTSymbol& name, TTValue& value)
 }
 
 
+#if 0
 #pragma mark -
 #pragma mark Object Messages
-	
+#endif
+
 TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod message)
 {
 	messageNames[messageCount] = &name;

@@ -10,7 +10,7 @@
 
 
 TTLowpassOnePole::TTLowpassOnePole(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	: TTAudioObject(newMaxNumChannels),
 	feedback(NULL)
 {
 	// register attributes

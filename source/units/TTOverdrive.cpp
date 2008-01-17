@@ -10,7 +10,7 @@
 
 
 TTOverdrive::TTOverdrive(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels)
+	: TTAudioObject(newMaxNumChannels)
 {
 	registerAttribute(TT("drive"),		kTypeFloat32,	&attrDrive,		(TTSetterMethod)&TTOverdrive::setDrive);
 	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker, (TTSetterMethod)&TTOverdrive::setDCBlocker);

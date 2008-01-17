@@ -10,7 +10,7 @@
 
 
 TTHighpassLinkwitzRiley4::TTHighpassLinkwitzRiley4(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	: TTAudioObject(newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register attributes

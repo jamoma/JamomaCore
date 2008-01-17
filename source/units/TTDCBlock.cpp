@@ -10,7 +10,7 @@
 
 
 TTDCBlock::TTDCBlock(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	: TTAudioObject(newMaxNumChannels),
 	lastInput(NULL),
 	lastOutput(NULL)
 {

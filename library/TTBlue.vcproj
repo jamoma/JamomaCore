@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="Jamoma"
+	Name="TTBlue"
 	ProjectGUID="{84BC06EA-DF69-4CC6-A527-BEE704F3E458}"
 	RootNamespace="Jamoma"
 	Keyword="ManagedCProj"
@@ -42,12 +42,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\..\maxmspsdk\c74support\max-includes&quot;;&quot;..\..\maxmspsdk\c74support\msp-includes&quot;;&quot;..\..\maxmspsdk\c74support\jit-includes&quot;;.\source;.\DataspaceLib;.\FunctionLib;.\c74;..\ThirdParty\ttblue\dsplib;..\RampLib\ramplib_api"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories="..\includes\core;..\includes\units"
 				PreprocessorDefinitions="WIN_VERSION;EXT_WIN_VERSION"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -60,11 +62,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="..\..\maxmspsdk\c74support\max-includes\MaxAPI.lib ..\..\maxmspsdk\c74support\msp-includes\MaxAudio.lib $(NOINHERIT)"
+				AdditionalDependencies="$(NOINHERIT)"
 				LinkIncremental="2"
-				ModuleDefinitionFile="jamoma.def"
+				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
+				GenerateMapFile="true"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -115,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;..\..\maxmspsdk\c74support\max-includes&quot;;&quot;..\..\maxmspsdk\c74support\msp-includes&quot;;&quot;..\..\maxmspsdk\c74support\jit-includes&quot;;.\source;.\DataspaceLib;.\FunctionLib;.\c74"
+				AdditionalIncludeDirectories="..\includes\core;..\includes\units"
 				PreprocessorDefinitions="WIN_VERSION EXT_WIN_VERSION"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -181,265 +184,201 @@
 	</References>
 	<Files>
 		<Filter
-			Name="DataspaceLib"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Core-Source"
 			>
 			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.cpp"
+				RelativePath="..\source\core\TTAudioObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\AngleDataspace.h"
+				RelativePath="..\source\core\TTAudioSignal.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.cpp"
+				RelativePath="..\source\core\TTElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\ColorDataspace.h"
+				RelativePath="..\source\core\TTGlobal.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.cpp"
+				RelativePath="..\source\core\TTObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\DataspaceLib.h"
+				RelativePath="..\source\core\TTSymbol.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.cpp"
+				RelativePath="..\source\core\TTValue.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DataspaceLib\DistanceDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\GainDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\NoneDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PitchDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\PositionDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TemperatureDataspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\DataspaceLib\TimeDataspace.h"
+				RelativePath="..\source\core\TTValueCache.cpp"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Source"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			Name="Unit-Source"
 			>
 			<File
-				RelativePath=".\source\Jamoma.cpp"
+				RelativePath="..\source\units\TTBandpassButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\Jamoma.h"
+				RelativePath="..\source\units\TTBandrejectButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaClock.cpp"
+				RelativePath="..\source\units\TTCrossfade.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaClock.h"
+				RelativePath="..\source\units\TTDCBlock.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaObject.cpp"
+				RelativePath="..\source\units\TTDegrade.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaObject.h"
+				RelativePath="..\source\units\TTGain.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaScheduler.cpp"
+				RelativePath="..\source\units\TTHighpassButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaScheduler.h"
+				RelativePath="..\source\units\TTHighpassLinkwitzRiley4.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaSymbols.cpp"
+				RelativePath="..\source\units\TTLimiter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaSymbols.h"
+				RelativePath="..\source\units\TTLowpassButterworth2.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaThreading.h"
+				RelativePath="..\source\units\TTLowpassLinkwitzRiley4.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\JamomaTypes.h"
+				RelativePath="..\source\units\TTLowpassOnePole.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\jcom.core.cpp"
+				RelativePath="..\source\units\TTOverdrive.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\source\jcom.core.h"
-				>
-			</File>
-			<File
-				RelativePath=".\source\jcom.io.h"
-				>
-			</File>
-			<File
-				RelativePath=".\source\jcom.list.h"
-				>
-			</File>
-			<File
-				RelativePath=".\source\jcom.prefix.pch"
-				>
-			</File>
-			<File
-				RelativePath=".\source\jcom.sendreceive.h"
+				RelativePath="..\source\units\TTRamp.cpp"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="FunctionLib"
+			Name="Unit-Headers"
 			>
 			<File
-				RelativePath=".\FunctionLib\CosineFunction.cpp"
+				RelativePath="..\includes\units\TTBandpassButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\CosineFunction.h"
+				RelativePath="..\includes\units\TTBandrejectButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\FunctionLib.cpp"
+				RelativePath="..\includes\units\TTCrossfade.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\FunctionLib.h"
+				RelativePath="..\includes\units\TTDCBlock.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\LinearFunction.cpp"
+				RelativePath="..\includes\units\TTDegrade.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\LinearFunction.h"
+				RelativePath="..\includes\units\TTGain.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\LowpassFunction.cpp"
+				RelativePath="..\includes\units\TTHighpassButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\LowpassFunction.h"
+				RelativePath="..\includes\units\TTHighpassLinkwitzRiley4.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\PowerFunction.cpp"
+				RelativePath="..\includes\units\TTLimiter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\PowerFunction.h"
+				RelativePath="..\includes\units\TTLowpassButterworth2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\TanhFunction.cpp"
+				RelativePath="..\includes\units\TTLowpassLinkwitzRiley4.h"
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\TanhFunction.h"
+				RelativePath="..\includes\units\TTLowpassOnePole.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\units\TTOverdrive.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\units\TTRamp.h"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="RampLib"
+			Name="Core-Headers"
 			>
 			<File
-				RelativePath="..\RampLib\ramplib_api\ramplib.h"
+				RelativePath="..\includes\core\TTAudioObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\RampLib\ramplib_api\RampUnitWrap.cpp"
+				RelativePath="..\includes\core\TTAudioSignal.h"
 				>
 			</File>
 			<File
-				RelativePath="..\RampLib\ramplib_api\RampUnitWrap.h"
+				RelativePath="..\includes\core\TTElement.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\core\TTGlobal.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\core\TTList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\core\TTObject.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\core\TTSymbol.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\core\TTValue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\core\TTValueCache.h"
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="C74"
-			>
-			<File
-				RelativePath="..\..\maxmspsdk\c74support\max-includes\common\commonsyms.c"
-				>
-			</File>
-			<File
-				RelativePath=".\c74\ext_pattr_bundle.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\c74\ext_pattr_bundle.h"
-				>
-			</File>
-		</Filter>
-		<File
-			RelativePath=".\jamoma.def"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

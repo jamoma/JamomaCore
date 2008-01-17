@@ -10,7 +10,7 @@
 
 
 TTRamp::TTRamp(TTUInt8 newMaxNumChannels)
-	: TTAudioObject::TTAudioObject(newMaxNumChannels),
+	: TTAudioObject(newMaxNumChannels),
 	attrCurrentValue(0), attrDestinationValue(0), step(0), direction(0)
 {
 	registerAttribute(TT("rampTime"),			kTypeFloat32,	&attrRampTime,	(TTSetterMethod)&TTRamp::setRampTime);

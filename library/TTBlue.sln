@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jamoma", "Jamoma.vcproj", "{84BC06EA-DF69-4CC6-A527-BEE704F3E458}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTBlue", "TTBlue.vcproj", "{84BC06EA-DF69-4CC6-A527-BEE704F3E458}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
