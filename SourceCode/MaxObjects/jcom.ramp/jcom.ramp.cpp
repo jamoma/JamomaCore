@@ -49,10 +49,10 @@ void		ramp_setFunction(t_ramp *x, t_symbol *functionName);
 void		ramp_getFunction(t_ramp *x);
 
 /** Get value of an additional parameter used for the function. */
-void		ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
+void		ramp_getFunctionParameter(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Set additional parameters for the function currently used. */
-void		ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv);
+void		ramp_setFunctionParameter(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Connect to a setclock object. */
 void		ramp_clock(t_ramp *x, t_symbol *clockName);
@@ -188,7 +188,7 @@ void ramp_setFunction(t_ramp *x, t_symbol *functionName)
 }
 
 
-void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
+void ramp_getFunctionParameter(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_symbol	*parameterName;
 	t_atom		*a;
@@ -201,8 +201,8 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	}
 	
 	parameterName = atom_getsym(argv);
-	//obj->function->getParameter(parameterName, &ac, &av);
-	obj->my_ramp->getFunctionParameter(parameterName, &ac, &av);
+	//x->function->getParameter(parameterName, &ac, &av);
+	x->my_ramp->getFunctionParameter(parameterName, &ac, &av);
 	if(ac) {
 		//atom_setsym(a+0, parameterName);
 		//atom_setfloat(a+1, av);
@@ -211,7 +211,7 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 		atom_setsym(a, parameterName);
 		// Next the whole shebang is copied
 		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("function.parameter.get"), ac+1, a);
+		object_obex_dumpout(x, gensym("function.parameter.get"), ac+1, a);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
 		sysmem_freeptr(av);
@@ -220,7 +220,7 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 }
 
 
-void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
+void ramp_setFunctionParameter(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	//double		value = 0.0;
 	t_symbol	*parameterName;
@@ -231,8 +231,8 @@ void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 	}
 	
 	parameterName = atom_getsym(argv);
-	//obj->function->setParameter(parameterName, argc-1, argv+1);
-	obj->my_ramp->setFunctionParameter(parameterName, argc-1, argv+1);
+	//x->function->setParameter(parameterName, argc-1, argv+1);
+	x->my_ramp->setFunctionParameter(parameterName, argc-1, argv+1);
 }
 
 
@@ -254,9 +254,11 @@ t_max_err ramp_setrampunit(t_ramp *x, void *attr, long argc, t_atom *argv)
 void ramp_clock(t_ramp *x, t_symbol *clockName)
 {
 	short 	err = 0;
+	atom	a;
 	
+	atom_setsym(&a, clockName);
 	//x->my_ramp->setclock(clockName);
-	err = x->my_ramp->attrset(gensym("clock"), 0.);
+	err = x->my_ramp->attrset(gensym("clock"), 1, &a);
 }
 
 
@@ -359,11 +361,11 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short 	err = 0;
 	
-	if(argc != 2){
+	if(argc < 2){
 		error("jcom.ramp::attrset -- bad arguments");
 		return;
 	}
-	err = x->my_ramp->attrset(atom_getsym(argv), atom_getfloat(argv+1));
+	err = x->my_ramp->attrset(atom_getsym(argv), argc-1, argv+1);
 }
 
 
@@ -371,16 +373,31 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	short 	err = 0;
 	
+	t_symbol	*parameterName;
+	t_atom		*a;
+	long	ac = 0;
+	t_atom	*av = NULL;
+	
 	if(argc != 1){
 		error("jcom.ramp::attrset -- bad arguments");
 		return;
 	}
 
-	double value;
+	parameterName = atom_getsym(argv);	
+	err = x->my_ramp->attrget(parameterName, ac, av);
+	if(!err && ac) {
+		// Assign memory so that attr values can be copied
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
+		// First list item is name of parameter
+		atom_setsym(a, parameterName);
+		// Next the whole shebang is copied
+		sysmem_copyptr(a+1, av, sizeof(t_atom)*ac);
+		object_obex_dumpout(x, gensym("current.parameter"), ac+1, a);
 	
-	err = x->my_ramp->attrget(atom_getsym(argv), &value);
-	if(!err)
-		outlet_float(x->outlets[k_outlet_dumpout], value);
+		// The pointer to an atom assign in the getParameter method needs to be freed.
+		sysmem_freeptr(av);
+		sysmem_freeptr(a);
+	}
 }
 
 

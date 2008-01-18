@@ -136,12 +136,12 @@ rampunit::~rampunit(void)
 
 
 // Attribute Accessors
-ramp_err rampunit::attrset(t_symbol *attrname, double value)
+ramp_err rampunit::attrset(t_symbol *attrname, long argc, t_atom *argv)
 {
 	ramp_err err = RAMP_ERR_GENERIC;
 	
 	if(rampunit_instance){
-		err = rampunit_method_attrset(rampunit_instance, attrname, value);
+		err = rampunit_method_attrset(rampunit_instance, attrname, argc, argv);
 		if(err){
 			if(err == RAMP_ERR_ATTR_INVALID)
 				error("invalid attr specified for this rampunit");
@@ -156,12 +156,12 @@ ramp_err rampunit::attrset(t_symbol *attrname, double value)
 }
 
 
-ramp_err rampunit::attrget(t_symbol *attrname, double *value)
+ramp_err rampunit::attrget(t_symbol *attrname, long argc, t_atom *argv)
 {
 	ramp_err err = RAMP_ERR_GENERIC;
 	
 	if(rampunit_instance){
-		err = rampunit_method_attrget(rampunit_instance, attrname, value);
+		err = rampunit_method_attrget(rampunit_instance, attrname, argc, argv);
 		if(err){
 			if(err == RAMP_ERR_ATTR_INVALID)
 				error("invalid attr specified for this rampunit");

@@ -36,13 +36,13 @@ void destroy(t_none *rampunit)
 }
 
 
-ramp_err attrset(t_none *rampunit, t_symbol *attrname, double value)
+ramp_err attrset(t_none *rampunit, t_symbol *attrname, long argc, t_atom *argv)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }
 
 
-ramp_err attrget(t_none *rampunit, t_symbol *attrname, double *value)
+ramp_err attrget(t_none *rampunit, t_symbol *attrname, long argc, t_atom *argv)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }

@@ -34,9 +34,9 @@ public:
 	rampunit(char *filename, rampunit_method_callback_type pf_callback, void *baton);
 	~rampunit(void);	
 
-	// Attribute Accessors
-	ramp_err attrset(t_symbol *attrname, double value);
-	ramp_err attrget(t_symbol *attrname, double *value);
+	// Attribute Accessors	
+	ramp_err attrset(t_symbol *attrname, long argc, t_atom *argv);
+	ramp_err attrget(t_symbol *attrname, long argc, t_atom *argv);
 	ramp_err setFunction(t_symbol *functionName);
 	ramp_err getFunction(t_symbol **functionName);
 	ramp_err setFunctionParameter(t_symbol *parameterName, long argc, t_atom *argv);

@@ -17,6 +17,8 @@ static t_symbol *ps_clock;
 
 t_scheduler*	create(rampunit_method_callback_type in_callback, void *in_baton)
 {
+	t_atom	*argv;
+	
 	t_scheduler *rampunit = (t_scheduler *)malloc(sizeof(t_scheduler));
 	if(rampunit){
 		ps_granularity = gensym("granularity");							// cache attr names for speed
@@ -33,8 +35,9 @@ t_scheduler*	create(rampunit_method_callback_type in_callback, void *in_baton)
 		rampunit->functionName = NULL;
 		setnumvalues(rampunit, 1);
 		rampunit->value_current[0] = 0;
-		
-		attrset(rampunit, ps_granularity, 20.0);
+
+		atom_setfloat(argv,20.0);
+		attrset(rampunit, ps_granularity, 1, argv);
 		setFunction(rampunit, gensym("linear"));
 	}
 	return rampunit;
@@ -86,17 +89,22 @@ JamomaError getFunctionParameter(t_scheduler *rampunit, t_symbol *parameterName,
 }
 
 
-ramp_err attrset(t_scheduler *rampunit, t_symbol *attrname, double value)
+ramp_err attrset(t_scheduler *rampunit, t_symbol *attrname, long argc, t_atom *argv)
 {
-	/*
-	void *old = x->m_setclock->s_thing; 
-	void *c = 0;
-	*/
-
 	if(attrname == ps_granularity)
-		rampunit->granularity = value;
+		{
+			if (argc)
+				rampunit->granularity = atom_getfloat(argv);
+			// Should there be a minimum threshold for granularity?
+		}
 	else if (attrname == ps_clock) {
 		// The below copied from the SDK
+		
+		/*
+		void *old = x->m_setclock->s_thing; 
+		void *c = 0;
+		*/
+
 		/* the line below can be restated as: 
 		if s is the empty symbol 
 		or s->s_thing is zero 
@@ -122,12 +130,20 @@ ramp_err attrset(t_scheduler *rampunit, t_symbol *attrname, double value)
 }
 
 
-ramp_err attrget(t_scheduler *rampunit, t_symbol *attrname, double *value)
+ramp_err attrget(t_scheduler *rampunit, t_symbol *attrname, long *argc, t_atom **argv)
 {
-	if(attrname = ps_granularity)
-		*value = rampunit->granularity;
-	else
+	if(attrname == ps_granularity) {
+		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
+		*argc = 1;
+		atom_setfloat(*argv,rampunit->granularity);	
+	}		
+	else if (attrname == ps_clock) {
+		// something
+	}
+	else {
+		*argc = 0;
 		return RAMP_ERR_ATTR_INVALID;
+	}
 
 	return RAMP_ERR_NONE;
 }

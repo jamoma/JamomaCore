@@ -77,13 +77,13 @@ JamomaError getFunctionParameter(t_async *rampunit, t_symbol *parameterName, lon
 }
 
 
-ramp_err attrset(t_async *rampunit, t_symbol *attrname, double value)
+ramp_err attrset(t_async *rampunit, t_symbol *attrname, long argc, t_atom *argv)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }
 
 
-ramp_err attrget(t_async *rampunit, t_symbol *attrname, double *value)
+ramp_err attrget(t_async *rampunit, t_symbol *attrname, long argc, t_atom *argv)
 {
 	return RAMP_ERR_ATTR_INVALID;
 }

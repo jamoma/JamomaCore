@@ -460,7 +460,7 @@ t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
 }
 
 
-void param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+void param_getRampFunctionParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_symbol	*parameterName;
 	t_atom		*a;
@@ -473,8 +473,8 @@ void param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_at
 	}
 	
 	parameterName = atom_getsym(argv);
-	//obj->function->getParameter(parameterName, &ac, &av);
-	obj->ramper->getFunctionParameter(parameterName, &ac, &av);
+	//x->function->getParameter(parameterName, &ac, &av);
+	x->ramper->getFunctionParameter(parameterName, &ac, &av);
 	if(ac) {
 		//atom_setsym(a+0, parameterName);
 		//atom_setfloat(a+1, av);
@@ -483,7 +483,7 @@ void param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_at
 		atom_setsym(a, parameterName);
 		// Next the whole shebang is copied
 		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("ramp.function.getParameter"), ac+1, av);
+		object_obex_dumpout(x, gensym("ramp.function.getParameter"), ac+1, av);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
 		sysmem_freeptr(av);
@@ -492,7 +492,7 @@ void param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_at
 }
 
 
-void param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+void param_setRampFunctionParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	//double		value = 0.0;
 	t_symbol	*parameterName;
@@ -503,34 +503,48 @@ void param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_at
 	}
 	
 	parameterName = atom_getsym(argv);
-	//obj->function->setParameter(parameterName, argc-1, argv+1);
-	obj->ramper->setFunctionParameter(parameterName, argc-1, argv+1);
+	//x->function->setParameter(parameterName, argc-1, argv+1);
+	x->ramper->setFunctionParameter(parameterName, argc-1, argv+1);
 }
 
 
-void param_getRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+void param_getRampDriveParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol	*parameterName;
-	t_atom		a[2];
-	double		value = 0.0;
+	short err = 0;
 	
-	if(!argc){
-		error("jcom.map: not enough arguments to getParameter");
+	t_symbol	*parameterName;
+	t_atom		*a;
+	long		ac = 0;
+	t_atom	*av = NULL;
+
+	
+	if(!argc != 1){
+		error("jcom.ramp::attrset -- bad arguments");
 		return;
 	}
 	
 	parameterName = atom_getsym(argv);
+	err = x->ramper->attrget(parameterName, ac, av);
 	
-	obj->ramper->attrget(parameterName, &value);
-	atom_setsym(a+0, parameterName);
-	atom_setfloat(a+1, value);
-	object_obex_dumpout(obj, gensym("ramp.drive.getParameter"), 2, a);
+	if(!err && ac) {
+		// Assign memory so that attr values can be copied
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
+		// First list item is name of parameter
+		atom_setsym(a, parameterName);
+		// Next the whole shebang is copied
+		sysmem_copyptr(a+1, av, sizeof(t_atom)*ac);
+		object_obex_dumpout(x, gensym("current.parameter"), ac+1, a);
+	
+		// The pointer to an atom assign in the getParameter method needs to be freed.
+		sysmem_freeptr(av);
+		sysmem_freeptr(a);
+	}
 }
 
 
-void param_setRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
+void param_setRampDriveParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	double		value = 0.0;
+	//double		value = 0.0;
 	t_symbol	*parameterName;
 	
 	if(argc < 2){
@@ -538,9 +552,9 @@ void param_setRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom 
 		return;
 	}
 	
-	parameterName = atom_getsym(argv+0);
-	value = atom_getfloat(argv+1);
-	obj->ramper->attrset(parameterName, value);
+	parameterName = atom_getsym(argv);
+	//value = atom_getfloat(argv+1);
+	x->ramper->attrset(parameterName, argc-1, argv+1);
 }
 
 
