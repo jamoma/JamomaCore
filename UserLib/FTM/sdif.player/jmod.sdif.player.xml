@@ -11,5 +11,4 @@
     <item name='stream' type='msg_int' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
-
 </jamoma>
