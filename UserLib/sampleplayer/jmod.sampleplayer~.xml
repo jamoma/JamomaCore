@@ -17,7 +17,8 @@
     <item name='sample/stop' type='msg_float' priority='0'>22.653061</item>
     <item name='sample/vzoom' type='msg_float' priority='0'>0</item>
     <item name='speed/active' type='msg_toggle' priority='0'>0</item>
-    <item name='speed/ratio' type='msg_float' priority='0'>1.0</item>
+    <item name='speed/ratio' type='msg_float' priority='0'>1.000000</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
