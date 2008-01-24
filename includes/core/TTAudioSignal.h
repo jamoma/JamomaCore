@@ -29,7 +29,7 @@ public:
 	TTSampleVector	*sampleVectors;		///< An array of pointers to the first sample in each vector.
 
 	/** Constructor.  Defines a maximum number of audio channels that can be used. */
-	TTAudioSignal(TTUInt8 howMany);
+	TTAudioSignal(TTUInt8 initialMaxNumChannels);
 	
 	/** Destructor */
 	virtual ~TTAudioSignal();

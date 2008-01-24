@@ -11,12 +11,12 @@
 
 /****************************************************************************************************/
 
-TTAudioSignal::TTAudioSignal(TTUInt8 howMany)
+TTAudioSignal::TTAudioSignal(TTUInt8 initialMaxNumChannels)
 	: vs(0), maxNumChannels(0), numChannels(0), sampleVectors(NULL)
 {
 	TTUInt8	i;
 
-	maxNumChannels = howMany;
+	maxNumChannels = initialMaxNumChannels;
 	sampleVectors = (TTSampleVector *)malloc(sizeof(TTSampleVector) * maxNumChannels);
 	for(i=0; i<maxNumChannels; i++)
 		sampleVectors[i] = NULL;
