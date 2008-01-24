@@ -133,7 +133,7 @@ TTErr TTLimiter::getThreshold(TTValue& value)
 
 TTErr TTLimiter::setLookahead(TTValue& newValue)
 {
-	attrLookahead = clip(TTUInt32(newValue), TTUInt32(1), maxBufferSize-1);
+	attrLookahead = TTClip(TTUInt32(newValue), TTUInt32(1), maxBufferSize-1);
     lookaheadInv = 1.0 / TTFloat64(attrLookahead);
 	return kTTErrNone;
 }

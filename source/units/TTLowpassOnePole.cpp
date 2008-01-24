@@ -67,7 +67,7 @@ TTErr TTLowpassOnePole::setFrequency(const TTValue& newValue)
 
 	attrFrequency = newValue;
 	radians = hertzToRadians(attrFrequency);
-	coefficient = clip(radians / kTTPi, 0.0, 1.0);
+	coefficient = TTClip(radians / kTTPi, 0.0, 1.0);
 	
 	return kTTErrNone;
 }

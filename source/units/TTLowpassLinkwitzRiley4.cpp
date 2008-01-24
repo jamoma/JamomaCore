@@ -103,7 +103,7 @@ TTErr TTLowpassLinkwitzRiley4::clear()
 
 TTErr TTLowpassLinkwitzRiley4::setFrequency(const TTValue& newValue)
 {
-	attrFrequency = clip((double)newValue, 10., (sr*0.475));
+	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
 
 	wc = 2*kTTPi*attrFrequency;
 	k = 2*kTTPi*attrFrequency/tan(kTTPi*attrFrequency/sr);

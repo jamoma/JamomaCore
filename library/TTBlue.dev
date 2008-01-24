@@ -10,9 +10,9 @@ Libs=
 PrivateResource=TTBlue_private.rc
 ResourceIncludes=
 MakeIncludes=
-Compiler=-DBUILDING_DLL=1_@@_
-CppCompiler=-DBUILDING_DLL=1_@@_
-Linker=--export-all-symbols --add-stdcall-alias_@@_
+Compiler=-DBUILDING_DLL=1_@@_-mno-cygwin_@@_-mrtd_@@_
+CppCompiler=-DBUILDING_DLL=1_@@_-mno-cygwin_@@_-mrtd_@@_
+Linker=--export-all-symbols_@@_-mno-cygwin_@@_-mrtd_@@_
 IsCpp=1
 Icon=
 ExeOutput=..\library\build

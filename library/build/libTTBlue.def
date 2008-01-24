@@ -1,4 +1,4 @@
-; dlltool --base-file C:\DOCUME~1\Tim\LOCALS~1\Temp/cca01976.base --output-exp TTBlue.exp --dllname TTBlue.dll --output-def build/libTTBlue.def --add-stdcall-alias --exclude-symbol=DllMainCRTStartup@12 --def C:\DOCUME~1\Tim\LOCALS~1\Temp/cca01976.def --output-lib build/libTTBlue.a
+; dlltool --base-file C:\DOCUME~1\Tim\LOCALS~1\Temp/cca00672.base --output-exp TTBlue.exp --dllname TTBlue.dll --output-def build/libTTBlue.def --exclude-symbol=DllMainCRTStartup@12 --def C:\DOCUME~1\Tim\LOCALS~1\Temp/cca00672.def --output-lib build/libTTBlue.a
 EXPORTS
 ;	TTAttribute::defaultGetter(TTValue&, TTAttribute const&)
 	_ZN11TTAttribute13defaultGetterER7TTValueRKS_ @ 1
@@ -620,274 +620,266 @@ EXPORTS
 	_ZN9TTElement20kTTLookupQuarterSineE @ 309 DATA
 ;	TTElement::kTTLookupHalfPaddedwWelch
 	_ZN9TTElement25kTTLookupHalfPaddedwWelchE @ 310 DATA
-;	double TTElement::clip<double>(double, double, double)
-	_ZN9TTElement4clipIdEET_S1_S1_S1_ @ 311
-;	float TTElement::clip<float>(float, float, float)
-	_ZN9TTElement4clipIfEET_S1_S1_S1_ @ 312
-;	int TTElement::clip<int>(int, int, int)
-	_ZN9TTElement4clipIiEET_S1_S1_S1_ @ 313
-;	unsigned long TTElement::clip<unsigned long>(unsigned long, unsigned long, unsigned long)
-	_ZN9TTElement4clipImEET_S1_S1_S1_ @ 314
 ;	TTElement::kTTPi
-	_ZN9TTElement5kTTPiE @ 315 DATA
+	_ZN9TTElement5kTTPiE @ 311 DATA
 ;	TTElement::round(double)
-	_ZN9TTElement5roundEd @ 316
+	_ZN9TTElement5roundEd @ 312
 ;	TTElement::round(float)
-	_ZN9TTElement5roundEf @ 317
+	_ZN9TTElement5roundEf @ 313
 ;	TTElement::kTTSqrt2
-	_ZN9TTElement8kTTSqrt2E @ 318 DATA
+	_ZN9TTElement8kTTSqrt2E @ 314 DATA
 ;	TTElement::kTTTwoPi
-	_ZN9TTElement8kTTTwoPiE @ 319 DATA
+	_ZN9TTElement8kTTTwoPiE @ 315 DATA
 ;	TTElement::logError(char*)
-	_ZN9TTElement8logErrorEPc @ 320
+	_ZN9TTElement8logErrorEPc @ 316
 ;	TTElement::TTElement()
-	_ZN9TTElementC1Ev @ 321
+	_ZN9TTElementC1Ev @ 317
 ;	TTElement::TTElement()
-	_ZN9TTElementC2Ev @ 322
+	_ZN9TTElementC2Ev @ 318
 ;	TTElement::~TTElement()
-	_ZN9TTElementD0Ev @ 323
+	_ZN9TTElementD0Ev @ 319
 ;	TTElement::~TTElement()
-	_ZN9TTElementD1Ev @ 324
+	_ZN9TTElementD1Ev @ 320
 ;	TTElement::~TTElement()
-	_ZN9TTElementD2Ev @ 325
+	_ZN9TTElementD2Ev @ 321
 ;	TTElement::operator=(TTElement const&)
-	_ZN9TTElementaSERKS_ @ 326
+	_ZN9TTElementaSERKS_ @ 322
 ;	TTLimiter::getPostamp(TTValue&)
-	_ZN9TTLimiter10getPostampER7TTValue @ 327
+	_ZN9TTLimiter10getPostampER7TTValue @ 323
 ;	TTLimiter::setPostamp(TTValue const&)
-	_ZN9TTLimiter10setPostampERK7TTValue @ 328
+	_ZN9TTLimiter10setPostampERK7TTValue @ 324
 ;	TTLimiter::setRecover()
-	_ZN9TTLimiter10setRecoverEv @ 329
+	_ZN9TTLimiter10setRecoverEv @ 325
 ;	TTLimiter::setRelease(TTValue&)
-	_ZN9TTLimiter10setReleaseER7TTValue @ 330
+	_ZN9TTLimiter10setReleaseER7TTValue @ 326
 ;	TTLimiter::getThreshold(TTValue&)
-	_ZN9TTLimiter12getThresholdER7TTValue @ 331
+	_ZN9TTLimiter12getThresholdER7TTValue @ 327
 ;	TTLimiter::setDCBlocker(TTValue&)
-	_ZN9TTLimiter12setDCBlockerER7TTValue @ 332
+	_ZN9TTLimiter12setDCBlockerER7TTValue @ 328
 ;	TTLimiter::setLookahead(TTValue&)
-	_ZN9TTLimiter12setLookaheadER7TTValue @ 333
+	_ZN9TTLimiter12setLookaheadER7TTValue @ 329
 ;	TTLimiter::setThreshold(TTValue const&)
-	_ZN9TTLimiter12setThresholdERK7TTValue @ 334
+	_ZN9TTLimiter12setThresholdERK7TTValue @ 330
 ;	TTLimiter::processNormal(TTAudioSignal&, TTAudioSignal&)
-	_ZN9TTLimiter13processNormalER13TTAudioSignalS1_ @ 335
+	_ZN9TTLimiter13processNormalER13TTAudioSignalS1_ @ 331
 ;	TTLimiter::processNoDCBlocking(TTAudioSignal&, TTAudioSignal&)
-	_ZN9TTLimiter19processNoDCBlockingER13TTAudioSignalS1_ @ 336
+	_ZN9TTLimiter19processNoDCBlockingER13TTAudioSignalS1_ @ 332
 ;	TTLimiter::updateMaxNumChannels()
-	_ZN9TTLimiter20updateMaxNumChannelsEv @ 337
+	_ZN9TTLimiter20updateMaxNumChannelsEv @ 333
 ;	TTLimiter::clear()
-	_ZN9TTLimiter5clearEv @ 338
+	_ZN9TTLimiter5clearEv @ 334
 ;	TTLimiter::setMode(TTValue&)
-	_ZN9TTLimiter7setModeER7TTValue @ 339
+	_ZN9TTLimiter7setModeER7TTValue @ 335
 ;	TTLimiter::updateSr()
-	_ZN9TTLimiter8updateSrEv @ 340
+	_ZN9TTLimiter8updateSrEv @ 336
 ;	TTLimiter::getPreamp(TTValue&)
-	_ZN9TTLimiter9getPreampER7TTValue @ 341
+	_ZN9TTLimiter9getPreampER7TTValue @ 337
 ;	TTLimiter::setPreamp(TTValue const&)
-	_ZN9TTLimiter9setPreampERK7TTValue @ 342
+	_ZN9TTLimiter9setPreampERK7TTValue @ 338
 ;	TTLimiter::TTLimiter(unsigned char)
-	_ZN9TTLimiterC1Eh @ 343
+	_ZN9TTLimiterC1Eh @ 339
 ;	TTLimiter::TTLimiter(unsigned char)
-	_ZN9TTLimiterC2Eh @ 344
+	_ZN9TTLimiterC2Eh @ 340
 ;	TTLimiter::~TTLimiter()
-	_ZN9TTLimiterD0Ev @ 345
+	_ZN9TTLimiterD0Ev @ 341
 ;	TTLimiter::~TTLimiter()
-	_ZN9TTLimiterD1Ev @ 346
+	_ZN9TTLimiterD1Ev @ 342
 ;	TTLimiter::~TTLimiter()
-	_ZN9TTLimiterD2Ev @ 347
+	_ZN9TTLimiterD2Ev @ 343
 ;	TTValue::getNumValues() const
-	_ZNK7TTValue12getNumValuesEv @ 348
+	_ZNK7TTValue12getNumValuesEv @ 344
 ;	TTValue::get(unsigned short, TTObject&) const
-	_ZNK7TTValue3getEtR8TTObject @ 349
+	_ZNK7TTValue3getEtR8TTObject @ 345
 ;	TTValue::get(unsigned short, TTSymbol&) const
-	_ZNK7TTValue3getEtR8TTSymbol @ 350
+	_ZNK7TTValue3getEtR8TTSymbol @ 346
 ;	TTValue::get(unsigned short, signed char&) const
-	_ZNK7TTValue3getEtRa @ 351
+	_ZNK7TTValue3getEtRa @ 347
 ;	TTValue::get(unsigned short, bool&) const
-	_ZNK7TTValue3getEtRb @ 352
+	_ZNK7TTValue3getEtRb @ 348
 ;	TTValue::get(unsigned short, double&) const
-	_ZNK7TTValue3getEtRd @ 353
+	_ZNK7TTValue3getEtRd @ 349
 ;	TTValue::get(unsigned short, float&) const
-	_ZNK7TTValue3getEtRf @ 354
+	_ZNK7TTValue3getEtRf @ 350
 ;	TTValue::get(unsigned short, unsigned char&) const
-	_ZNK7TTValue3getEtRh @ 355
+	_ZNK7TTValue3getEtRh @ 351
 ;	TTValue::get(unsigned short, int&) const
-	_ZNK7TTValue3getEtRi @ 356
+	_ZNK7TTValue3getEtRi @ 352
 ;	TTValue::get(unsigned short, long&) const
-	_ZNK7TTValue3getEtRl @ 357
+	_ZNK7TTValue3getEtRl @ 353
 ;	TTValue::get(unsigned short, unsigned long&) const
-	_ZNK7TTValue3getEtRm @ 358
+	_ZNK7TTValue3getEtRm @ 354
 ;	TTValue::get(unsigned short, unsigned short&) const
-	_ZNK7TTValue3getEtRt @ 359
+	_ZNK7TTValue3getEtRt @ 355
 ;	TTValue::get(unsigned short, long long&) const
-	_ZNK7TTValue3getEtRx @ 360
+	_ZNK7TTValue3getEtRx @ 356
 ;	TTValue::get(unsigned short, unsigned long long&) const
-	_ZNK7TTValue3getEtRy @ 361
+	_ZNK7TTValue3getEtRy @ 357
 ;	TTValue::getType() const
-	_ZNK7TTValue7getTypeEv @ 362
+	_ZNK7TTValue7getTypeEv @ 358
 ;	TTValue::operator TTObject&() const
-	_ZNK7TTValuecvR8TTObjectEv @ 363
+	_ZNK7TTValuecvR8TTObjectEv @ 359
 ;	TTValue::operator TTSymbol&() const
-	_ZNK7TTValuecvR8TTSymbolEv @ 364
+	_ZNK7TTValuecvR8TTSymbolEv @ 360
 ;	TTValue::operator signed char() const
-	_ZNK7TTValuecvaEv @ 365
+	_ZNK7TTValuecvaEv @ 361
 ;	TTValue::operator bool() const
-	_ZNK7TTValuecvbEv @ 366
+	_ZNK7TTValuecvbEv @ 362
 ;	TTValue::operator double() const
-	_ZNK7TTValuecvdEv @ 367
+	_ZNK7TTValuecvdEv @ 363
 ;	TTValue::operator float() const
-	_ZNK7TTValuecvfEv @ 368
+	_ZNK7TTValuecvfEv @ 364
 ;	TTValue::operator unsigned char() const
-	_ZNK7TTValuecvhEv @ 369
+	_ZNK7TTValuecvhEv @ 365
 ;	TTValue::operator int() const
-	_ZNK7TTValuecviEv @ 370
+	_ZNK7TTValuecviEv @ 366
 ;	TTValue::operator long() const
-	_ZNK7TTValuecvlEv @ 371
+	_ZNK7TTValuecvlEv @ 367
 ;	TTValue::operator unsigned long() const
-	_ZNK7TTValuecvmEv @ 372
+	_ZNK7TTValuecvmEv @ 368
 ;	TTValue::operator unsigned short() const
-	_ZNK7TTValuecvtEv @ 373
+	_ZNK7TTValuecvtEv @ 369
 ;	TTValue::operator long long() const
-	_ZNK7TTValuecvxEv @ 374
+	_ZNK7TTValuecvxEv @ 370
 ;	TTValue::operator unsigned long long() const
-	_ZNK7TTValuecvyEv @ 375
+	_ZNK7TTValuecvyEv @ 371
 ;	unsigned int const& std::min<unsigned int>(unsigned int const&, unsigned int const&)
-	_ZSt3minIjERKT_S2_S2_ @ 376
+	_ZSt3minIjERKT_S2_S2_ @ 372
 ;	typeinfo for TTAttribute
-	_ZTI11TTAttribute @ 377 DATA
+	_ZTI11TTAttribute @ 373 DATA
 ;	typeinfo for TTCrossfade
-	_ZTI11TTCrossfade @ 378 DATA
+	_ZTI11TTCrossfade @ 374 DATA
 ;	typeinfo for TTOverdrive
-	_ZTI11TTOverdrive @ 379 DATA
+	_ZTI11TTOverdrive @ 375 DATA
 ;	typeinfo for TTAudioObject
-	_ZTI13TTAudioObject @ 380 DATA
+	_ZTI13TTAudioObject @ 376 DATA
 ;	typeinfo for TTAudioSignal
-	_ZTI13TTAudioSignal @ 381 DATA
+	_ZTI13TTAudioSignal @ 377 DATA
 ;	typeinfo for TTLowpassOnePole
-	_ZTI16TTLowpassOnePole @ 382 DATA
+	_ZTI16TTLowpassOnePole @ 378 DATA
 ;	typeinfo for TTLowpassButterworth2
-	_ZTI21TTLowpassButterworth2 @ 383 DATA
+	_ZTI21TTLowpassButterworth2 @ 379 DATA
 ;	typeinfo for TTBandpassButterworth2
-	_ZTI22TTBandpassButterworth2 @ 384 DATA
+	_ZTI22TTBandpassButterworth2 @ 380 DATA
 ;	typeinfo for TTHighpassButterworth2
-	_ZTI22TTHighpassButterworth2 @ 385 DATA
+	_ZTI22TTHighpassButterworth2 @ 381 DATA
 ;	typeinfo for TTLowpassLinkwitzRiley4
-	_ZTI23TTLowpassLinkwitzRiley4 @ 386 DATA
+	_ZTI23TTLowpassLinkwitzRiley4 @ 382 DATA
 ;	typeinfo for TTBandRejectButterworth2
-	_ZTI24TTBandRejectButterworth2 @ 387 DATA
+	_ZTI24TTBandRejectButterworth2 @ 383 DATA
 ;	typeinfo for TTHighpassLinkwitzRiley4
-	_ZTI24TTHighpassLinkwitzRiley4 @ 388 DATA
+	_ZTI24TTHighpassLinkwitzRiley4 @ 384 DATA
 ;	typeinfo for TTGain
-	_ZTI6TTGain @ 389 DATA
+	_ZTI6TTGain @ 385 DATA
 ;	typeinfo for TTRamp
-	_ZTI6TTRamp @ 390 DATA
+	_ZTI6TTRamp @ 386 DATA
 ;	typeinfo for TTValue
-	_ZTI7TTValue @ 391 DATA
+	_ZTI7TTValue @ 387 DATA
 ;	typeinfo for TTGlobal
-	_ZTI8TTGlobal @ 392 DATA
+	_ZTI8TTGlobal @ 388 DATA
 ;	typeinfo for TTObject
-	_ZTI8TTObject @ 393 DATA
+	_ZTI8TTObject @ 389 DATA
 ;	typeinfo for TTSymbol
-	_ZTI8TTSymbol @ 394 DATA
+	_ZTI8TTSymbol @ 390 DATA
 ;	typeinfo for TTDCBlock
-	_ZTI9TTDCBlock @ 395 DATA
+	_ZTI9TTDCBlock @ 391 DATA
 ;	typeinfo for TTDegrade
-	_ZTI9TTDegrade @ 396 DATA
+	_ZTI9TTDegrade @ 392 DATA
 ;	typeinfo for TTElement
-	_ZTI9TTElement @ 397 DATA
+	_ZTI9TTElement @ 393 DATA
 ;	typeinfo for TTLimiter
-	_ZTI9TTLimiter @ 398 DATA
+	_ZTI9TTLimiter @ 394 DATA
 ;	typeinfo name for TTAttribute
-	_ZTS11TTAttribute @ 399 DATA
+	_ZTS11TTAttribute @ 395 DATA
 ;	typeinfo name for TTCrossfade
-	_ZTS11TTCrossfade @ 400 DATA
+	_ZTS11TTCrossfade @ 396 DATA
 ;	typeinfo name for TTOverdrive
-	_ZTS11TTOverdrive @ 401 DATA
+	_ZTS11TTOverdrive @ 397 DATA
 ;	typeinfo name for TTAudioObject
-	_ZTS13TTAudioObject @ 402 DATA
+	_ZTS13TTAudioObject @ 398 DATA
 ;	typeinfo name for TTAudioSignal
-	_ZTS13TTAudioSignal @ 403 DATA
+	_ZTS13TTAudioSignal @ 399 DATA
 ;	typeinfo name for TTLowpassOnePole
-	_ZTS16TTLowpassOnePole @ 404 DATA
+	_ZTS16TTLowpassOnePole @ 400 DATA
 ;	typeinfo name for TTLowpassButterworth2
-	_ZTS21TTLowpassButterworth2 @ 405 DATA
+	_ZTS21TTLowpassButterworth2 @ 401 DATA
 ;	typeinfo name for TTBandpassButterworth2
-	_ZTS22TTBandpassButterworth2 @ 406 DATA
+	_ZTS22TTBandpassButterworth2 @ 402 DATA
 ;	typeinfo name for TTHighpassButterworth2
-	_ZTS22TTHighpassButterworth2 @ 407 DATA
+	_ZTS22TTHighpassButterworth2 @ 403 DATA
 ;	typeinfo name for TTLowpassLinkwitzRiley4
-	_ZTS23TTLowpassLinkwitzRiley4 @ 408 DATA
+	_ZTS23TTLowpassLinkwitzRiley4 @ 404 DATA
 ;	typeinfo name for TTBandRejectButterworth2
-	_ZTS24TTBandRejectButterworth2 @ 409 DATA
+	_ZTS24TTBandRejectButterworth2 @ 405 DATA
 ;	typeinfo name for TTHighpassLinkwitzRiley4
-	_ZTS24TTHighpassLinkwitzRiley4 @ 410 DATA
+	_ZTS24TTHighpassLinkwitzRiley4 @ 406 DATA
 ;	typeinfo name for TTGain
-	_ZTS6TTGain @ 411 DATA
+	_ZTS6TTGain @ 407 DATA
 ;	typeinfo name for TTRamp
-	_ZTS6TTRamp @ 412 DATA
+	_ZTS6TTRamp @ 408 DATA
 ;	typeinfo name for TTValue
-	_ZTS7TTValue @ 413 DATA
+	_ZTS7TTValue @ 409 DATA
 ;	typeinfo name for TTGlobal
-	_ZTS8TTGlobal @ 414 DATA
+	_ZTS8TTGlobal @ 410 DATA
 ;	typeinfo name for TTObject
-	_ZTS8TTObject @ 415 DATA
+	_ZTS8TTObject @ 411 DATA
 ;	typeinfo name for TTSymbol
-	_ZTS8TTSymbol @ 416 DATA
+	_ZTS8TTSymbol @ 412 DATA
 ;	typeinfo name for TTDCBlock
-	_ZTS9TTDCBlock @ 417 DATA
+	_ZTS9TTDCBlock @ 413 DATA
 ;	typeinfo name for TTDegrade
-	_ZTS9TTDegrade @ 418 DATA
+	_ZTS9TTDegrade @ 414 DATA
 ;	typeinfo name for TTElement
-	_ZTS9TTElement @ 419 DATA
+	_ZTS9TTElement @ 415 DATA
 ;	typeinfo name for TTLimiter
-	_ZTS9TTLimiter @ 420 DATA
+	_ZTS9TTLimiter @ 416 DATA
 ;	vtable for TTAttribute
-	_ZTV11TTAttribute @ 421 DATA
+	_ZTV11TTAttribute @ 417 DATA
 ;	vtable for TTCrossfade
-	_ZTV11TTCrossfade @ 422 DATA
+	_ZTV11TTCrossfade @ 418 DATA
 ;	vtable for TTOverdrive
-	_ZTV11TTOverdrive @ 423 DATA
+	_ZTV11TTOverdrive @ 419 DATA
 ;	vtable for TTAudioObject
-	_ZTV13TTAudioObject @ 424 DATA
+	_ZTV13TTAudioObject @ 420 DATA
 ;	vtable for TTAudioSignal
-	_ZTV13TTAudioSignal @ 425 DATA
+	_ZTV13TTAudioSignal @ 421 DATA
 ;	vtable for TTLowpassOnePole
-	_ZTV16TTLowpassOnePole @ 426 DATA
+	_ZTV16TTLowpassOnePole @ 422 DATA
 ;	vtable for TTLowpassButterworth2
-	_ZTV21TTLowpassButterworth2 @ 427 DATA
+	_ZTV21TTLowpassButterworth2 @ 423 DATA
 ;	vtable for TTBandpassButterworth2
-	_ZTV22TTBandpassButterworth2 @ 428 DATA
+	_ZTV22TTBandpassButterworth2 @ 424 DATA
 ;	vtable for TTHighpassButterworth2
-	_ZTV22TTHighpassButterworth2 @ 429 DATA
+	_ZTV22TTHighpassButterworth2 @ 425 DATA
 ;	vtable for TTLowpassLinkwitzRiley4
-	_ZTV23TTLowpassLinkwitzRiley4 @ 430 DATA
+	_ZTV23TTLowpassLinkwitzRiley4 @ 426 DATA
 ;	vtable for TTBandRejectButterworth2
-	_ZTV24TTBandRejectButterworth2 @ 431 DATA
+	_ZTV24TTBandRejectButterworth2 @ 427 DATA
 ;	vtable for TTHighpassLinkwitzRiley4
-	_ZTV24TTHighpassLinkwitzRiley4 @ 432 DATA
+	_ZTV24TTHighpassLinkwitzRiley4 @ 428 DATA
 ;	vtable for TTGain
-	_ZTV6TTGain @ 433 DATA
+	_ZTV6TTGain @ 429 DATA
 ;	vtable for TTRamp
-	_ZTV6TTRamp @ 434 DATA
+	_ZTV6TTRamp @ 430 DATA
 ;	vtable for TTValue
-	_ZTV7TTValue @ 435 DATA
+	_ZTV7TTValue @ 431 DATA
 ;	vtable for TTGlobal
-	_ZTV8TTGlobal @ 436 DATA
+	_ZTV8TTGlobal @ 432 DATA
 ;	vtable for TTObject
-	_ZTV8TTObject @ 437 DATA
+	_ZTV8TTObject @ 433 DATA
 ;	vtable for TTSymbol
-	_ZTV8TTSymbol @ 438 DATA
+	_ZTV8TTSymbol @ 434 DATA
 ;	vtable for TTDCBlock
-	_ZTV9TTDCBlock @ 439 DATA
+	_ZTV9TTDCBlock @ 435 DATA
 ;	vtable for TTDegrade
-	_ZTV9TTDegrade @ 440 DATA
+	_ZTV9TTDegrade @ 436 DATA
 ;	vtable for TTElement
-	_ZTV9TTElement @ 441 DATA
+	_ZTV9TTElement @ 437 DATA
 ;	vtable for TTLimiter
-	_ZTV9TTLimiter @ 442 DATA
+	_ZTV9TTLimiter @ 438 DATA
 ;	operator==(TTSymbol const&, TTSymbol const&)
-	_ZeqRK8TTSymbolS1_ @ 443
-	kTTBoolNo @ 444 DATA
-	kTTBoolYes @ 445 DATA
-	kTTVal0 @ 446 DATA
-	kTTVal1 @ 447 DATA
-	ttGlobalObject @ 448 DATA
+	_ZeqRK8TTSymbolS1_ @ 439
+	kTTBoolNo @ 440 DATA
+	kTTBoolYes @ 441 DATA
+	kTTVal0 @ 442 DATA
+	kTTVal1 @ 443 DATA
+	ttGlobalObject @ 444 DATA

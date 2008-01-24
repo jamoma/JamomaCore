@@ -50,14 +50,14 @@ TTErr TTOverdrive::setDrive(const TTValue& newValue)
 	float 	f;
 	int		i;
 		
-	attrDrive = clip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
+	attrDrive = TTClip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
 
 	// These calculations really only apply to mode 1...
 	f = (attrDrive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
 	z = kTTPi * f;
 	s = 1.0 / sin(z);
 	b = 1.0 / f;
-	b = clip(b, 0.0f, 1.0f);
+	b = TTClip(b, 0.0f, 1.0f);
 	nb = b * -1;
 	i = int(f);
 	if(f-i > 0.5) 
@@ -136,7 +136,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
 				sign = 1.0;
 
 			if(temp > 1.0)		// clip signal if it's out of range
-				*outSample++ = clip(temp * sign, TTSampleValue(-1.0), TTSampleValue(1.0));
+				*outSample++ = TTClip(temp * sign, TTSampleValue(-1.0), TTSampleValue(1.0));
 			else
 				*outSample++ = sign * (1.0 - exp(attrDrive * log(1.0 - temp)));
 		}
