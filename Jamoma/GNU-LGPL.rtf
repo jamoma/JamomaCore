@@ -1,855 +1,507 @@
-{\rtf1\ansi\ansicpg1252\cocoartf949
-{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 LucidaGrande;
+{\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\fswiss\fcharset0 Arial;}}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\pard\lang1033\f0\fs20\tab\tab   GNU LESSER GENERAL PUBLIC LICENSE\par
+\tab\tab        Version 2.1, February 1999\par
+\par
+ Copyright (C) 1991, 1999 Free Software Foundation, Inc.\par
+     59 Temple Place, Suite 330, Boston, MA  02111-1307  USA\par
+ Everyone is permitted to copy and distribute verbatim copies\par
+ of this license document, but changing it is not allowed.\par
+\par
+[This is the first released version of the Lesser GPL.  It also counts\par
+ as the successor of the GNU Library Public License, version 2, hence\par
+ the version number 2.1.]\par
+\par
+\tab\tab\tab     Preamble\par
+\par
+  The licenses for most software are designed to take away your\par
+freedom to share and change it.  By contrast, the GNU General Public\par
+Licenses are intended to guarantee your freedom to share and change\par
+free software--to make sure the software is free for all its users.\par
+\par
+  This license, the Lesser General Public License, applies to some\par
+specially designated software packages--typically libraries--of the\par
+Free Software Foundation and other authors who decide to use it.  You\par
+can use it too, but we suggest you first think carefully about whether\par
+this license or the ordinary General Public License is the better\par
+strategy to use in any particular case, based on the explanations below.\par
+\par
+  When we speak of free software, we are referring to freedom of use,\par
+not price.  Our General Public Licenses are designed to make sure that\par
+you have the freedom to distribute copies of free software (and charge\par
+for this service if you wish); that you receive source code or can get\par
+it if you want it; that you can change the software and use pieces of\par
+it in new free programs; and that you are informed that you can do\par
+these things.\par
+\par
+  To protect your rights, we need to make restrictions that forbid\par
+distributors to deny you these rights or to ask you to surrender these\par
+rights.  These restrictions translate to certain responsibilities for\par
+you if you distribute copies of the library or if you modify it.\par
+\par
+  For example, if you distribute copies of the library, whether gratis\par
+or for a fee, you must give the recipients all the rights that we gave\par
+you.  You must make sure that they, too, receive or can get the source\par
+code.  If you link other code with the library, you must provide\par
+complete object files to the recipients, so that they can relink them\par
+with the library after making changes to the library and recompiling\par
+it.  And you must show them these terms so they know their rights.\par
+\par
+  We protect your rights with a two-step method: (1) we copyright the\par
+library, and (2) we offer you this license, which gives you legal\par
+permission to copy, distribute and/or modify the library.\par
+\par
+  To protect each distributor, we want to make it very clear that\par
+there is no warranty for the free library.  Also, if the library is\par
+modified by someone else and passed on, the recipients should know\par
+that what they have is not the original version, so that the original\par
+author's reputation will not be affected by problems that might be\par
+introduced by others.\par
+\page\par
+  Finally, software patents pose a constant threat to the existence of\par
+any free program.  We wish to make sure that a company cannot\par
+effectively restrict the users of a free program by obtaining a\par
+restrictive license from a patent holder.  Therefore, we insist that\par
+any patent license obtained for a version of the library must be\par
+consistent with the full freedom of use specified in this license.\par
+\par
+  Most GNU software, including some libraries, is covered by the\par
+ordinary GNU General Public License.  This license, the GNU Lesser\par
+General Public License, applies to certain designated libraries, and\par
+is quite different from the ordinary General Public License.  We use\par
+this license for certain libraries in order to permit linking those\par
+libraries into non-free programs.\par
+\par
+  When a program is linked with a library, whether statically or using\par
+a shared library, the combination of the two is legally speaking a\par
+combined work, a derivative of the original library.  The ordinary\par
+General Public License therefore permits such linking only if the\par
+entire combination fits its criteria of freedom.  The Lesser General\par
+Public License permits more lax criteria for linking other code with\par
+the library.\par
+\par
+  We call this license the "Lesser" General Public License because it\par
+does Less to protect the user's freedom than the ordinary General\par
+Public License.  It also provides other free software developers Less\par
+of an advantage over competing non-free programs.  These disadvantages\par
+are the reason we use the ordinary General Public License for many\par
+libraries.  However, the Lesser license provides advantages in certain\par
+special circumstances.\par
+\par
+  For example, on rare occasions, there may be a special need to\par
+encourage the widest possible use of a certain library, so that it becomes\par
+a de-facto standard.  To achieve this, non-free programs must be\par
+allowed to use the library.  A more frequent case is that a free\par
+library does the same job as widely used non-free libraries.  In this\par
+case, there is little to gain by limiting the free library to free\par
+software only, so we use the Lesser General Public License.\par
+\par
+  In other cases, permission to use a particular library in non-free\par
+programs enables a greater number of people to use a large body of\par
+free software.  For example, permission to use the GNU C Library in\par
+non-free programs enables many more people to use the whole GNU\par
+operating system, as well as its variant, the GNU/Linux operating\par
+system.\par
+\par
+  Although the Lesser General Public License is Less protective of the\par
+users' freedom, it does ensure that the user of a program that is\par
+linked with the Library has the freedom and the wherewithal to run\par
+that program using a modified version of the Library.\par
+\par
+  The precise terms and conditions for copying, distribution and\par
+modification follow.  Pay close attention to the difference between a\par
+"work based on the library" and a "work that uses the library".  The\par
+former contains code derived from the library, whereas the latter must\par
+be combined with the library in order to run.\par
+\page\par
+\tab\tab   GNU LESSER GENERAL PUBLIC LICENSE\par
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION\par
+\par
+  0. This License Agreement applies to any software library or other\par
+program which contains a notice placed by the copyright holder or\par
+other authorized party saying it may be distributed under the terms of\par
+this Lesser General Public License (also called "this License").\par
+Each licensee is addressed as "you".\par
+\par
+  A "library" means a collection of software functions and/or data\par
+prepared so as to be conveniently linked with application programs\par
+(which use some of those functions and data) to form executables.\par
+\par
+  The "Library", below, refers to any such software library or work\par
+which has been distributed under these terms.  A "work based on the\par
+Library" means either the Library or any derivative work under\par
+copyright law: that is to say, a work containing the Library or a\par
+portion of it, either verbatim or with modifications and/or translated\par
+straightforwardly into another language.  (Hereinafter, translation is\par
+included without limitation in the term "modification".)\par
+\par
+  "Source code" for a work means the preferred form of the work for\par
+making modifications to it.  For a library, complete source code means\par
+all the source code for all modules it contains, plus any associated\par
+interface definition files, plus the scripts used to control compilation\par
+and installation of the library.\par
+\par
+  Activities other than copying, distribution and modification are not\par
+covered by this License; they are outside its scope.  The act of\par
+running a program using the Library is not restricted, and output from\par
+such a program is covered only if its contents constitute a work based\par
+on the Library (independent of the use of the Library in a tool for\par
+writing it).  Whether that is true depends on what the Library does\par
+and what the program that uses the Library does.\par
+  \par
+  1. You may copy and distribute verbatim copies of the Library's\par
+complete source code as you receive it, in any medium, provided that\par
+you conspicuously and appropriately publish on each copy an\par
+appropriate copyright notice and disclaimer of warranty; keep intact\par
+all the notices that refer to this License and to the absence of any\par
+warranty; and distribute a copy of this License along with the\par
+Library.\par
+\par
+  You may charge a fee for the physical act of transferring a copy,\par
+and you may at your option offer warranty protection in exchange for a\par
+fee.\par
+\page\par
+  2. You may modify your copy or copies of the Library or any portion\par
+of it, thus forming a work based on the Library, and copy and\par
+distribute such modifications or work under the terms of Section 1\par
+above, provided that you also meet all of these conditions:\par
+\par
+    a) The modified work must itself be a software library.\par
+\par
+    b) You must cause the files modified to carry prominent notices\par
+    stating that you changed the files and the date of any change.\par
+\par
+    c) You must cause the whole of the work to be licensed at no\par
+    charge to all third parties under the terms of this License.\par
+\par
+    d) If a facility in the modified Library refers to a function or a\par
+    table of data to be supplied by an application program that uses\par
+    the facility, other than as an argument passed when the facility\par
+    is invoked, then you must make a good faith effort to ensure that,\par
+    in the event an application does not supply such function or\par
+    table, the facility still operates, and performs whatever part of\par
+    its purpose remains meaningful.\par
+\par
+    (For example, a function in a library to compute square roots has\par
+    a purpose that is entirely well-defined independent of the\par
+    application.  Therefore, Subsection 2d requires that any\par
+    application-supplied function or table used by this function must\par
+    be optional: if the application does not supply it, the square\par
+    root function must still compute square roots.)\par
+\par
+These requirements apply to the modified work as a whole.  If\par
+identifiable sections of that work are not derived from the Library,\par
+and can be reasonably considered independent and separate works in\par
+themselves, then this License, and its terms, do not apply to those\par
+sections when you distribute them as separate works.  But when you\par
+distribute the same sections as part of a whole which is a work based\par
+on the Library, the distribution of the whole must be on the terms of\par
+this License, whose permissions for other licensees extend to the\par
+entire whole, and thus to each and every part regardless of who wrote\par
+it.\par
+\par
+Thus, it is not the intent of this section to claim rights or contest\par
+your rights to work written entirely by you; rather, the intent is to\par
+exercise the right to control the distribution of derivative or\par
+collective works based on the Library.\par
+\par
+In addition, mere aggregation of another work not based on the Library\par
+with the Library (or with a work based on the Library) on a volume of\par
+a storage or distribution medium does not bring the other work under\par
+the scope of this License.\par
+\par
+  3. You may opt to apply the terms of the ordinary GNU General Public\par
+License instead of this License to a given copy of the Library.  To do\par
+this, you must alter all the notices that refer to this License, so\par
+that they refer to the ordinary GNU General Public License, version 2,\par
+instead of to this License.  (If a newer version than version 2 of the\par
+ordinary GNU General Public License has appeared, then you can specify\par
+that version instead if you wish.)  Do not make any other change in\par
+these notices.\par
+\page\par
+  Once this change is made in a given copy, it is irreversible for\par
+that copy, so the ordinary GNU General Public License applies to all\par
+subsequent copies and derivative works made from that copy.\par
+\par
+  This option is useful when you wish to copy part of the code of\par
+the Library into a program that is not a library.\par
+\par
+  4. You may copy and distribute the Library (or a portion or\par
+derivative of it, under Section 2) in object code or executable form\par
+under the terms of Sections 1 and 2 above provided that you accompany\par
+it with the complete corresponding machine-readable source code, which\par
+must be distributed under the terms of Sections 1 and 2 above on a\par
+medium customarily used for software interchange.\par
+\par
+  If distribution of object code is made by offering access to copy\par
+from a designated place, then offering equivalent access to copy the\par
+source code from the same place satisfies the requirement to\par
+distribute the source code, even though third parties are not\par
+compelled to copy the source along with the object code.\par
+\par
+  5. A program that contains no derivative of any portion of the\par
+Library, but is designed to work with the Library by being compiled or\par
+linked with it, is called a "work that uses the Library".  Such a\par
+work, in isolation, is not a derivative work of the Library, and\par
+therefore falls outside the scope of this License.\par
+\par
+  However, linking a "work that uses the Library" with the Library\par
+creates an executable that is a derivative of the Library (because it\par
+contains portions of the Library), rather than a "work that uses the\par
+library".  The executable is therefore covered by this License.\par
+Section 6 states terms for distribution of such executables.\par
+\par
+  When a "work that uses the Library" uses material from a header file\par
+that is part of the Library, the object code for the work may be a\par
+derivative work of the Library even though the source code is not.\par
+Whether this is true is especially significant if the work can be\par
+linked without the Library, or if the work is itself a library.  The\par
+threshold for this to be true is not precisely defined by law.\par
+\par
+  If such an object file uses only numerical parameters, data\par
+structure layouts and accessors, and small macros and small inline\par
+functions (ten lines or less in length), then the use of the object\par
+file is unrestricted, regardless of whether it is legally a derivative\par
+work.  (Executables containing this object code plus portions of the\par
+Library will still fall under Section 6.)\par
+\par
+  Otherwise, if the work is a derivative of the Library, you may\par
+distribute the object code for the work under the terms of Section 6.\par
+Any executables containing that work also fall under Section 6,\par
+whether or not they are linked directly with the Library itself.\par
+\page\par
+  6. As an exception to the Sections above, you may also combine or\par
+link a "work that uses the Library" with the Library to produce a\par
+work containing portions of the Library, and distribute that work\par
+under terms of your choice, provided that the terms permit\par
+modification of the work for the customer's own use and reverse\par
+engineering for debugging such modifications.\par
+\par
+  You must give prominent notice with each copy of the work that the\par
+Library is used in it and that the Library and its use are covered by\par
+this License.  You must supply a copy of this License.  If the work\par
+during execution displays copyright notices, you must include the\par
+copyright notice for the Library among them, as well as a reference\par
+directing the user to the copy of this License.  Also, you must do one\par
+of these things:\par
+\par
+    a) Accompany the work with the complete corresponding\par
+    machine-readable source code for the Library including whatever\par
+    changes were used in the work (which must be distributed under\par
+    Sections 1 and 2 above); and, if the work is an executable linked\par
+    with the Library, with the complete machine-readable "work that\par
+    uses the Library", as object code and/or source code, so that the\par
+    user can modify the Library and then relink to produce a modified\par
+    executable containing the modified Library.  (It is understood\par
+    that the user who changes the contents of definitions files in the\par
+    Library will not necessarily be able to recompile the application\par
+    to use the modified definitions.)\par
+\par
+    b) Use a suitable shared library mechanism for linking with the\par
+    Library.  A suitable mechanism is one that (1) uses at run time a\par
+    copy of the library already present on the user's computer system,\par
+    rather than copying library functions into the executable, and (2)\par
+    will operate properly with a modified version of the library, if\par
+    the user installs one, as long as the modified version is\par
+    interface-compatible with the version that the work was made with.\par
+\par
+    c) Accompany the work with a written offer, valid for at\par
+    least three years, to give the same user the materials\par
+    specified in Subsection 6a, above, for a charge no more\par
+    than the cost of performing this distribution.\par
+\par
+    d) If distribution of the work is made by offering access to copy\par
+    from a designated place, offer equivalent access to copy the above\par
+    specified materials from the same place.\par
+\par
+    e) Verify that the user has already received a copy of these\par
+    materials or that you have already sent this user a copy.\par
+\par
+  For an executable, the required form of the "work that uses the\par
+Library" must include any data and utility programs needed for\par
+reproducing the executable from it.  However, as a special exception,\par
+the materials to be distributed need not include anything that is\par
+normally distributed (in either source or binary form) with the major\par
+components (compiler, kernel, and so on) of the operating system on\par
+which the executable runs, unless that component itself accompanies\par
+the executable.\par
+\par
+  It may happen that this requirement contradicts the license\par
+restrictions of other proprietary libraries that do not normally\par
+accompany the operating system.  Such a contradiction means you cannot\par
+use both them and the Library together in an executable that you\par
+distribute.\par
+\page\par
+  7. You may place library facilities that are a work based on the\par
+Library side-by-side in a single library together with other library\par
+facilities not covered by this License, and distribute such a combined\par
+library, provided that the separate distribution of the work based on\par
+the Library and of the other library facilities is otherwise\par
+permitted, and provided that you do these two things:\par
+\par
+    a) Accompany the combined library with a copy of the same work\par
+    based on the Library, uncombined with any other library\par
+    facilities.  This must be distributed under the terms of the\par
+    Sections above.\par
+\par
+    b) Give prominent notice with the combined library of the fact\par
+    that part of it is a work based on the Library, and explaining\par
+    where to find the accompanying uncombined form of the same work.\par
+\par
+  8. You may not copy, modify, sublicense, link with, or distribute\par
+the Library except as expressly provided under this License.  Any\par
+attempt otherwise to copy, modify, sublicense, link with, or\par
+distribute the Library is void, and will automatically terminate your\par
+rights under this License.  However, parties who have received copies,\par
+or rights, from you under this License will not have their licenses\par
+terminated so long as such parties remain in full compliance.\par
+\par
+  9. You are not required to accept this License, since you have not\par
+signed it.  However, nothing else grants you permission to modify or\par
+distribute the Library or its derivative works.  These actions are\par
+prohibited by law if you do not accept this License.  Therefore, by\par
+modifying or distributing the Library (or any work based on the\par
+Library), you indicate your acceptance of this License to do so, and\par
+all its terms and conditions for copying, distributing or modifying\par
+the Library or works based on it.\par
+\par
+  10. Each time you redistribute the Library (or any work based on the\par
+Library), the recipient automatically receives a license from the\par
+original licensor to copy, distribute, link with or modify the Library\par
+subject to these terms and conditions.  You may not impose any further\par
+restrictions on the recipients' exercise of the rights granted herein.\par
+You are not responsible for enforcing compliance by third parties with\par
+this License.\par
+\page\par
+  11. If, as a consequence of a court judgment or allegation of patent\par
+infringement or for any other reason (not limited to patent issues),\par
+conditions are imposed on you (whether by court order, agreement or\par
+otherwise) that contradict the conditions of this License, they do not\par
+excuse you from the conditions of this License.  If you cannot\par
+distribute so as to satisfy simultaneously your obligations under this\par
+License and any other pertinent obligations, then as a consequence you\par
+may not distribute the Library at all.  For example, if a patent\par
+license would not permit royalty-free redistribution of the Library by\par
+all those who receive copies directly or indirectly through you, then\par
+the only way you could satisfy both it and this License would be to\par
+refrain entirely from distribution of the Library.\par
+\par
+If any portion of this section is held invalid or unenforceable under any\par
+particular circumstance, the balance of the section is intended to apply,\par
+and the section as a whole is intended to apply in other circumstances.\par
+\par
+It is not the purpose of this section to induce you to infringe any\par
+patents or other property right claims or to contest validity of any\par
+such claims; this section has the sole purpose of protecting the\par
+integrity of the free software distribution system which is\par
+implemented by public license practices.  Many people have made\par
+generous contributions to the wide range of software distributed\par
+through that system in reliance on consistent application of that\par
+system; it is up to the author/donor to decide if he or she is willing\par
+to distribute software through any other system and a licensee cannot\par
+impose that choice.\par
+\par
+This section is intended to make thoroughly clear what is believed to\par
+be a consequence of the rest of this License.\par
+\par
+  12. If the distribution and/or use of the Library is restricted in\par
+certain countries either by patents or by copyrighted interfaces, the\par
+original copyright holder who places the Library under this License may add\par
+an explicit geographical distribution limitation excluding those countries,\par
+so that distribution is permitted only in or among countries not thus\par
+excluded.  In such case, this License incorporates the limitation as if\par
+written in the body of this License.\par
+\par
+  13. The Free Software Foundation may publish revised and/or new\par
+versions of the Lesser General Public License from time to time.\par
+Such new versions will be similar in spirit to the present version,\par
+but may differ in detail to address new problems or concerns.\par
+\par
+Each version is given a distinguishing version number.  If the Library\par
+specifies a version number of this License which applies to it and\par
+"any later version", you have the option of following the terms and\par
+conditions either of that version or of any later version published by\par
+the Free Software Foundation.  If the Library does not specify a\par
+license version number, you may choose any version ever published by\par
+the Free Software Foundation.\par
+\page\par
+  14. If you wish to incorporate parts of the Library into other free\par
+programs whose distribution conditions are incompatible with these,\par
+write to the author to ask for permission.  For software which is\par
+copyrighted by the Free Software Foundation, write to the Free\par
+Software Foundation; we sometimes make exceptions for this.  Our\par
+decision will be guided by the two goals of preserving the free status\par
+of all derivatives of our free software and of promoting the sharing\par
+and reuse of software generally.\par
+\par
+\tab\tab\tab     NO WARRANTY\par
+\par
+  15. BECAUSE THE LIBRARY IS LICENSED FREE OF CHARGE, THERE IS NO\par
+WARRANTY FOR THE LIBRARY, TO THE EXTENT PERMITTED BY APPLICABLE LAW.\par
+EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR\par
+OTHER PARTIES PROVIDE THE LIBRARY "AS IS" WITHOUT WARRANTY OF ANY\par
+KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE\par
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\par
+PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE\par
+LIBRARY IS WITH YOU.  SHOULD THE LIBRARY PROVE DEFECTIVE, YOU ASSUME\par
+THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.\par
+\par
+  16. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN\par
+WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY\par
+AND/OR REDISTRIBUTE THE LIBRARY AS PERMITTED ABOVE, BE LIABLE TO YOU\par
+FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR\par
+CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE\par
+LIBRARY (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING\par
+RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A\par
+FAILURE OF THE LIBRARY TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF\par
+SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH\par
+DAMAGES.\par
+\par
+\tab\tab      END OF TERMS AND CONDITIONS\par
+\page\par
+           How to Apply These Terms to Your New Libraries\par
+\par
+  If you develop a new library, and you want it to be of the greatest\par
+possible use to the public, we recommend making it free software that\par
+everyone can redistribute and change.  You can do so by permitting\par
+redistribution under these terms (or, alternatively, under the terms of the\par
+ordinary General Public License).\par
+\par
+  To apply these terms, attach the following notices to the library.  It is\par
+safest to attach them to the start of each source file to most effectively\par
+convey the exclusion of warranty; and each file should have at least the\par
+"copyright" line and a pointer to where the full notice is found.\par
+\par
+    <one line to give the library's name and a brief idea of what it does.>\par
+    Copyright (C) <year>  <name of author>\par
+\par
+    This library is free software; you can redistribute it and/or\par
+    modify it under the terms of the GNU Lesser General Public\par
+    License as published by the Free Software Foundation; either\par
+    version 2.1 of the License, or (at your option) any later version.\par
+\par
+    This library is distributed in the hope that it will be useful,\par
+    but WITHOUT ANY WARRANTY; without even the implied warranty of\par
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\par
+    Lesser General Public License for more details.\par
+\par
+    You should have received a copy of the GNU Lesser General Public\par
+    License along with this library; if not, write to the Free Software\par
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA\par
+\par
+Also add information on how to contact you by electronic and paper mail.\par
+\par
+You should also get your employer (if you work as a programmer) or your\par
+school, if any, to sign a "copyright disclaimer" for the library, if\par
+necessary.  Here is a sample; alter the names:\par
+\par
+  Yoyodyne, Inc., hereby disclaims all copyright interest in the\par
+  library `Frob' (a library for tweaking knobs) written by James Random Hacker.\par
+\par
+  <signature of Ty Coon>, 1 April 1990\par
+  Ty Coon, President of Vice\par
+\par
+That's all there is to it!\par
+\par
+\par
 }
-{\colortbl;\red255\green255\blue255;}
-\paperw11900\paperh16840\vieww16880\viewh15840\viewkind0
-\deftab720
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-
-\f0\b\fs34 \cf0 Change Log
-\b0\fs24 \
-\
-
-\b Version 0.4
-\b0 .
-\b 6
-\b0  (? January 2008 - rev ?)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Parameters and messages in the gui are now built-in to the hub.  This disables pattr support for the relevant parameters and messages.\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-\
-
-\b Version 0.4
-\b0 .
-\b 5
-\b0  (17 December 2007 - rev 2772)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	FunctionLib: a new library of mathematical functions that are accessible throughout the Jamoma system.  A new jcom.map object uses this functionality to create a sort-of "super scale object" swiss-army-knife for patching.  The functions are also used by jcom.ramp and jcom.message/jcom.parameter's ramping.\
-	\'95	RampLib: the ramp library has been re-written so that the shape of the ramp is function from the FunctionLib, as defined by the user.  The RampUnit then defines the mechanism for driving ramps.  In addition to scheduler-based and queue-based RampUnits we also created an async unit, which is particularly well-suited to Jitter modules.\
-	\'95	DataspaceLib: A new library that will eventually be integrated into the rest of Jamoma (currently only used by the new jcom.dataspace external).  This is not yet implemented in parameters and messages, but we have a working prototype.  It allows to say that a parameter or message belongs to a dataspace such as 'gain' and then that parameter or message will be able to handle input values in various formats (e.g. decibels, midi, linear, etc.).\
-	\'95	Refining the OpenSoundControl namespace.  In general we are making the namespace more consistent and rational.  We also discussed a variety of issues in terms of OSC syntax and began preparing some papers on the subject.  Of particular focus is the use in Jamoma of the ':' character to denote that we are addressing the metadata of a node instead of the node value itself.\
-	\'95	Interpolation between presets in each module.  Also a variety of other features and improvements to the preset system.\
-	\'95	 Implemented setting and getting parameters of attributes of parameters (for example: the power parameter of the ramp/function attribute of the bitdepth module-parameter).\
-	\'95	Lots of bug fixes (and probably the introduction of some new bugs too ;-)\
-	\'95	New 'Oblique Strategies' component to help with decision making when working on patches.\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-\
-
-\b Version 0.4
-\b0 .
-\b 4
-\b0  (10 December 2007 - rev 2562)\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 \
-	\'95	New Modules:\
-			- jmod.vst~: a module for VST effects / instruments\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- jmod.tremolo~: stereo tremolo module with phase offset between channels\
-		- jmod.condition: module for signal conditioning \
-		- jmod.bcf2000: module for interfacing with the Behringer BCF2000 MIDI fader\
-		- jmod.continuum: module for interfacing with the Haken Continuum fingerboard\
-		- jmod.cue_trigger: an interface for triggering cues from jmod.cuescript\
-		- jmod.uc-33: module for interfacing with Edirol UC-33 MIDI fader\
-		- jmod.wi-microdig: module for working with the wi-microdig\
-		- jmod.background%: background subtraction video module\
-		- jmod.gl.alphamixer%: OpenGL module using a slab to mix four video streams with alpha channels\
-		- jmod.gl.edgeblend%: OpenGL module using a slab to perform edge blending with alpha channel\
-		- jmod.gl.text2d%: OpenGL module for 2D text\
-		- jmod.gl.td.rota%: OpenGL slab based rotation and repositioning \
-		- jmod.movie_player%: QuickTime movie player with additional control parameters and external clocking	\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 \
-	\'95	Module Bug Fixes and Updates:\
-			- surround modules such as jmod.sur.ambi.decode~ now accept up to 32 channels\
-			- jmod.oscnet no longer causes a stack overflow and reliability has been enhanced\
-			- jmod.file_browser now lets you change the folder displayed with a /folder <folder>  message\
-			- jmod.cont_mapper has been updated for the new core and now works\
-			- jmod.mapper update button now works correctly\
-			- jmod.fluoride% allows you to control the saturation now\
-			- jmod.gl.videoplane% now works again\
-			- jmod.motion%.mxt now draws a windowed contraction box around the motion image\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New Components:\
-			- jcom.send~: send audio to a named module without patch cords\
-			- jcom.receive~: receive audio from a named module without patch cords\
-			- jcom.metro: a metro that doesn't drift \
-			- jcom.phasor~: a phasor that doesn't drift\
-			- jcom.aed2xyz and jcom.xyz2aed convert between Cartesian and spherical coordinates according to SpatDIF\
-				conventions\
-			- jcom.map: component for mapping x to y using various different functions (linear, tanh, cos)\
-			- jcom.mkdir: component for making directories on the hard disk\
-			- jcom.stats: calculates running statistical values: minimum, maximum, mean, standard deviation similar to lp.stacey\
-				from the Litter power package.  Statistics can be windowed or run ad infinitum. \
-			\
-	\'95	Core Bug Fixes and improvements:\
-			- reorganized folder structure, all modules are self contained in their own folder, including help file, preset file etc.\
-			- common code moved to it's own library\
-			- Windows externals are now built using GCC under cygwin\
-			- modules are now maintained and looked up by storing their OSC name in a hash table (faster!)\
-			- /preset/store with no arguments now resaves the current settings as the last selected preset\
-			- added a /preset/copy\
-			- fixed memory leak in jcom.hub\
-			- optional arguments to inc and dec methods /degrade~/bitdepth:+ 4 will no increment by 4\
-			- jcom.parameter performance enhancements, particularly when working with lists\
-			- ramping with lists now works\
-			\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-
-\b \cf0 Version 0.4
-\b0 .
-\b 3
-\b0  (not officially released)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Other Improvements:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- jmod.autosize%: adding argument to specify height or width\
-		- fixed multiple video modules so that they can work with any matrix size\
-\
-\
-
-\b Version 0.4
-\b0 .
-\b 2
-\b0  (31 March 2007 - rev 1860)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New Modules:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- jmod.blur%: spatial blurring\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New Components:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- jcom.char2float%: convert a matrix from char to float32, keeping planecount and dimensions\
-		- jcom.float2char%: convert a matrix from float32 to char, keeping planecount and dimensions\
-		- jcom.spray%: distribute a video matrix to multiple (8) windows on bang\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 \
-	\'95	Core Bug Fixes:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- fixed problems with 
-\f1 jcom.send and jcom.receive binding getting corrupted\
-		- fixed problems on Windows with many crashes (caused by receiver list corruption in jcom.receive)
-\f0 \
-		- fixed file reading (including presets) on Windows -- this was crashing and failing to read files\
-		- fixed crashes on Windows caused by RampUnits being set in some parameters\
-		- fixed incorrect offset of the ambisonic panel in half-width modules\
-		- 
-\f1 Ramping now works again when changing gain parameters using dB.
-\f0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Module Bug Fixes:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- jmod.file_browser: fixing problems with various file types \
-		- fixed init problems in jmod.mouse\
-		- mapper.mod: 
-\f1 fixed bug where the algorithm would not be created in the mapping \
-			if the ui of the module was used to create it\
-		- updates to jmod.equalizer~ and jmod.multidelay~ to bring them up to date with the new core.\
-			(jmod.equalizer~ is still not ready for use though)\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ql\qnatural\pardirnatural
-\cf0 		- jmod.limiter~ and jmod.saturation~ now directly use an external for their algorithms\
-
-\f0 		- 
-\f1 added /preamp and /mode parameters to jmod.saturation
-\f0 \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Other Improvements:\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- miscellaneous cleanup and fixes throughout\
-		- help patch updates\
-		- overview updated \
-\
-\
-
-\b Version 0.4
-\b0 .
-\b 1
-\b0  (23 March 2007 - rev 1805)
-\b \
-
-\b0 \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New Modules:\
-			- jmod.file_browser: browse a list of files and pass on to audio and video players\
-			- jmod.noise~: playing various types of noise\
-			- jmod.sine~: playing various simple waveforms, including sine, square, sawtooth, etc.\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- jmod.fluidsynth~: synthesizer using soundfonts\
-		- jmod.similarity%: creating similarity matrices from video\
-		- jmod.background%: doing simple background subtraction\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Changes to the Core:\
-			- osc names given to modules should now happen as an argument (not scripting name)\
-			- alternative sample-rate processing for modules has been removed\
-			- move away from poly~ for wrapping simple audio algorithms\
-			- algorithms re-structured to be more consistent with the module structure\
-			- default skin changed to provide a cleaner basic gui to begin with\
-			- made 
-\f1 /module_name/get message to modules available in Max patches\
-			- added /parameter_values/dump message to modules\
-			- improved thread-safety\
-			- XML presets now read correctly off of hard drives other than the boot drive\
-			- removed @type msg_menu
-\f0 \
-	\'95	Bug Fixes:\
-			- many many modules have been fixed, including the cuelist module\
-			- fixed broken audio bypass when a module was also muted\
-			- fixed some internal initialization problems which led sometimes to crashes\
-			- fixed problems with jcom.out~ sending to meters that don't exist\
-				(fixes crashes and many errors in the Max window)\
-			- proper syntax used for ramp specification in help patches and examples\
-			- fixed bang implementation for jcom.message with @type msg_none\
-			- fixed the display of presets in the module menu\
-	\'95	Other Improvements:\
-			- implementation of wildcards in jcom.oscroute\
-			- added syntax checking of osc used for module names\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 		- namespace improvements in several modules including jmod.input%\
-		- initial doxygen commenting added to the source code\
-		- addition of standardizing the default colors used for most text in a module interface\
-\
-\
-\
-
-\b Version 0.4
-\b0  (7 March 2007 - rev 1640)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Entire core infrastructure (except for the gui) re-written in C.  Please check the wiki @ jamoma.org for information on how to re-write modules from 0.3 to be compatible with the new core.\
-			- created a ramplib for implementing various types of ramp units\
-			- new preset system and XML format\
-			- new i/o management that allows flexibile channel configurations with poly~ \
-				and will allow remote communication of audio & video signals in the future\
-			- improved usability, clarity, speed, and structural definition\
-			- ability to address parameter properties, in addition to the parameter values\
-			- easier/improved debugging\
-			- updates to the OSC namespace\
-			- all data types now begin with msg_\
-			- jcom.message now supports @type msg_none\
-			- jcom.init is scoped, meaning it can operate locally or globally. \
-				 modules perform local init automatically when they load\
-			- meter changes for better performance on Windows, and to make more configurations available\
-	\'95	Changed file naming conventions to eliminate ambiguity, erratic behavior, and other problems.  \
-			- jcom.* denotes a Jamoma component \
-			- jalg.* denotes a Jamoma algorithm\
-			- jmod.* is not reserved only for use to denote a module\
-			- all patches now use the .mxt (or .help) extensions\
-	\'95	New Modules:\
-			- jmod.chromakey%\
-			- jmod.equalizer~\
-			- jmod.gl.videoplane%\
-			- jmod.keyscreen%\
-			- jmod.palette\
-			- jmod.record%\
-			- jmod.yfade%\
-			- jmod.motiongram%\
-			- jmod.polhemus\
-			- jmod.trig_mapper\
-			- jmod.wacom\
-			- jmod.phidgets.accelerometer\
-			- jmod.phidgets.interfacekit\
-			- jmod.mouse.gdif\
-	\'95	New Externals (in addition to those that are a part of the new core):\
-			- jcom.mkdir\
-			- jcom.colorspace\
-			- jcom.cubic_interpolate\
-			- jcom.delta / jcom.delta2\
-			- jcom.gang\
-			- jcom.stats\
-			- jcom.teabox.*\
-			- jcom.velocity\
-			- jcom.zerox\
-	\'95	New Components:\
-			- added background sizes for additional sizes of module ui\
-			- jcom.slider jsui\
-			- jcom.op : similar to jit.op but for flotas\
-			- jcom.fullscreen%\
-			- jcom.fullscreen\
-			- jcom.rgb2luma%: similar to jit.rgb2luma but with planechecking\
-			- jcom.luma2rgb% : similar to jit.luma2rgb but with planechecking\
-			\
-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-
-\b \cf0 \
-Version 0.3.4
-\b0  (Not Released - branch @ rev 1382)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	n/a\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-
-\b \cf0 \
-\
-Version 0.3.3
-\b0  (November 13 2006 - rev 1274)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Miscellaneous fixes, additions, and updates\
-\
-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-
-\b \cf0 Version 0.3.2
-\b0  (28 July 2006 - rev 825)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Core/Hub/Gui:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - Added new message /ui/refresh that will work with all modules: If display update has been frozen, this message will update displayed values. It do not cause any output, change of parameters, etc. It is simply a message to bring the displayed values back in sync with the real values used by the module.\
-- Added new message that will be understood by all modules: /documentaion/help. This message opens the help patch for the module.\
-- New system for communication between jmod.parameter and jmod.hub which uses dedicated send-receive links to vastly improve efficiency.\
-- global send and receive uses dedicate connections for improved efficiency\
-- Various name changes in the parameters in standard components (especially the gui component) to reflect a more consistent and structured namespace\
-- the pop-up menu in the module toolbar display all messages in alphabetic order\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Externals:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi270\ql\qnatural
-\cf0 - new jmod.dispatcher, jmod.param, jmod.mess, jmod.ret externs are preliminary prototype for future replacement of core components\
-- preliminary verson of jmod.mkdir for creating directories: code donated by Bill Orcutt from the mkdir external (thanks Bill!)\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Modules:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - new vbap module \
-- Fixed bugs in the jmod.noisegate~ modules introduced when jmod.return was implemented.\
-- new control module that can be used for testing CPU efficiency in parameter handling (intended for testing/development only)\
-- Fixed bug in jmod.crossfade.mod reported by Guy Levesque at the user list with float number box displaying mix position not being properly updated when the module is receiving /crossfade messages from remote or in left inlet.\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	components:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - new lcd-based widget: slider with text display on top of it (may be replaced by jsui in the future)\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Documentation:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - misc updates to help patches, html docs, and the overview patch\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-
-\b \cf0 \
-\
-Version 0.3.1
-\b0  (23 June 2006 - rev 764)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Core/Hub/Gui:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - Many tweaks and fixes to the OSC namespace implementation\
-- fixed problems with initialization of psto caused by receiving bangs at loadbang time rather than init time\
-- made the implementation of "View internal components" consistent across all modules\
-- preview item in the module menu is no longer on by default in video modules\
-- module communication now happens using dedicated sends and receives rather than listening to global broadcasts\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Externals:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi270\ql\qnatural
-\cf0 - Mac versions compiled as Universal Binary for Max 4.6\
-- updated Jasch/ICST 3rd party externals\
-- jmod.saturation has a new 'mode' parameter that changes the algorithm it uses internally\
-- bug fix for jmod.change where it would filter messages that it shouldn't have\
-- fixed erratic behavior in jmod.xfade~ on windows\
-- fixed bug in jmod.oscroute, jmod.change, and jmod.equals where the inlet calls were not thread safe\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Modules:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - new ambisonic modules: jmod.ambi.speaker.delay~, jmod.ambi.doppler~, jmod.sur.multi.in~, jmod.sur.multi.out~, jmod.sur.speaker.setup\
-- cuelist module now builds a menu with all cues; format for specifying cues in the textfile has changed; comment handling improved\
-- new jmod.midiin module for midi input\
-- various improvements to the jmod.mapper module\
-- new jmod.mouse module for handling mouse input\
-- new jmod.input% module provides video input from a device or a quicktime movie.\
-- new jmod.output% module creates a rendering context for Jitter OpenGL patches\
-- new jmod.xfade% module crossfades between two video sources\
-- a series of "new" video filters that wrap Jitter externals (ported to Jamoma from Jade): jmod.plur%, jmod.avg4%, jmod.emboss%, jmod.fluoride%\
-- added randomness parameter to jmod.qmetro\
-- new sample-accurate jmod.delay~ and jmod.scope~ modules ported from Jade\
-- jmod.echo~ module now has filtering and limiting built into the feedback loop\
-- new jmod.phidgets module for working with Phidgets devices\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	components:\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - new jmod.autocrop% automatically crops source material\
-- jmod.jsui_multigain.js acts as a visualizer/multislider/gain controller (used in ambisonic modules)\
-- added jmod.thru which does nothing :-)\
-- added a series of components for various trigonometric conversions\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Documentation:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - jmod.hub is better documented\
-- cleaned up all of the help patches\
-- examples are now fully implemented in the OSC namespace\
-- pluggo example now works with menu selections\
-- tutorials split into 2 tracks: "Using Jamoma" and "Making Jamoma Modules"\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Misc:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li990\ql\qnatural
-\cf0 - added  the 'j3' skin as an example for how to make your own skins for modules\
-- skin graphics now handled as 'knob' type by pictslider so that the graphic sizes could be reduced by half.\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-
-\b \cf0 \
-\
-Version 0.3
-\b0  (9 April 2006)\
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Jamoma now uses OpenSoundControl for communication. All modules have been updated accordingly. \
-	\'95	Added templates for creating various kinds of modules and algorithms.\
-	\'95	Modules now automatically resize their containers (bpatcher frame or window dimensions) when loaded\
-	\'95	Hub/Gui Changes:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Module size can now be queried using the /getmodulesize message, returning e.g. /modulesize 1U-half. \
-	
-\f2 -
-\f0  @library_type attribute renamed to @algorithm_type.  This attribute also uses more intelligent defaults based on the module_type that is specified.\
-	
-\f2 -
-\f0  The @options attribute has been eliminated.  In its place, we are now using more precise @module_type attributes with class-like nomenclature.  For example:\
-\pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li2160\fi-2160\ql\qnatural
-\cf0 	
-\f2 -
-\f0  audio\
-	
-\f2 -
-\f0  audio.no_panel\
-	
-\f2 -
-\f0  audio.ambisonic\
-	
-\f2 -
-\f0  control\
-	
-\f2 -
-\f0  video\
-	
-\f2 -
-\f0  video.gl (not implemented, but reserved for future usage)\
-\pard\tx940\tx1440\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Added @inspector attribute.  If 1 it will add an inspector button to the upper-right corner of the gui.  The default is 0.  To use an inspector in your module you must define this, then capture the message from the second outlet of jmod.hub to open your custom inspector window.\
-	
-\f2 -
-\f0  jmod.gui now sports panels dedicated for ambisonic and video modules (not just audio modules).  The video panel provides a more immediate interface for previewing, bypassing, muting, and freezing video output from a module.  \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Added new folder for 3rd part libraries and externals\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Added zipped version of 3rd part GNU LGPL externals made by jasch/ICST (http://www.icst.net/downloads/) in new folder /library/externals_3rd_part:\
-\pard\tx1660\tx2160\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li2160\fi-2160\ql\qnatural
-\cf0 	
-\f2 -
-\f0  ambiencode~: Ambisonic encoding\
-	
-\f2 -
-\f0  ambidecode~: Ambisonic decoding\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Added ttblue library (http://sourceforge.net/projects/ttblue). Used for compiling jmod.limiter~ and jmod.saturation~.\
-\pard\tx220\tx720\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Documentation:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Change log is now a separate rich text format file.\
-	
-\f2 -
-\f0  Further work on JIG, both to reflect the change to OpenSoundControl, and to provide more details. Removed some restrictions that are no longer required. \
-	
-\f2 -
-\f0  Added a new overview patch\
-	
-\f2 -
-\f0  New example added from the Teatrix workshop @ BEK\
-	
-\f2 -
-\f0  New example added that re-generates all HTML for the modules using scripting\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Externals: \
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.oscroute: new external for Routing of OpenSoundControl messages. \
-	
-\f2 -
-\f0  jmod.equals: new external for comparing symbols \
-	
-\f2 -
-\f0  jmod.sum%: new external sums the pixels in a Jitter matrix and returns the center of gravity for them\
-	
-\f2 -
-\f0  Several audio externals moved from blue to being Jamoma-native, and renamed accordingly. \
-	
-\f2 -
-\f0  On Mac OSX platform all externals are now compiled as Mach-O using Xcode \
-	
-\f2 -
-\f0  jmod.pass has implemented several new features for dealing with messages starting with a "/", required when passing and routing OSC messages. \
-	
-\f2 -
-\f0  jmod.bridge has been incorporated into jmod.hub and no longer exists.  This have some important implications: jmod.bridge is no longer required in main patches. Instead it is required to provide an unique OSC-compatible name (starting with "/") for each module. \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New components: \
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.autoscale.mxt - autoscaling of control values \
-	
-\f2 -
-\f0  jmod.filewatcher - used for opening files and watching them for changes in external editors\
-	
-\f2 -
-\f0  jmod.filesaver - a standardized abstraction for throwing a file dialog and managing consecutive saves\
-	
-\f2 -
-\f0  jmod.return - returns data from a module (the opposite of jmod.message); accepts many attributes that are in common with jmod.parameter and jmod.message.  This should be used for things like analysis results or flagging when a soundfile is done playing, etc.\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New ambisonic modules:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.ambi.encodeM~: Encode up to 16 mono ambisonic sources\
-	
-\f2 -
-\f0  jmod.ambi.decode~: Decode 1st - 3rd order ambisonic signals for up to 16 loudspeakers.\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New audio modules: \
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.saturation~-mod: Stereo saturation \
-	
-\f2 -
-\f0  jmod.noisegate~.mod: Stereo noise gate. \
-	
-\f2 -
-\f0  jmod.noisegateM~.mod: Mono noise gate \
-	
-\f2 -
-\f0  jmod.echo~.mod: Stereo echo module\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New control modules (and algorithms):\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.mappings: create relationships between module parameters, returns, and messages\
-	
-\f2 -
-\f0  jmod.oscnet: send and receive OpenSoundControl messages over a network \
-	
-\f2 -
-\f0  jmod.hi: module for using human interface devices (game controllers, tablets, etc.)\
-	
-\f2 -
-\f0  New jmod.transformation.alg: can be used to manipulate the data in mappings.\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	New video modules:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.brcosa%.mod: change brigthness, contrast, saturation and b/w \
-	
-\f2 -
-\f0  jmod.motion%.mod: calculating motion based on simple frame difference \
-	
-\f2 -
-\f0  jmod.orsize%.mod: change orientation and size of incoming matrices \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Bug fixes in modules (and algorithms)\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Increased reliability in the calls to jmod.init from the jmod.contro module.\
-	
-\f2 -
-\f0  Implemented new WAIT command in jmod.cuelist.mod. \
-	
-\f2 -
-\f0  jmod.limi~ renamed to jmod.limiter~\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Bug fixes to components\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.message now uses @clipmode none as the default rather than @clipmode both\
-	
-\f2 -
-\f0  Fixed bug in jmod.line \
-	
-\f2 -
-\f0  Fixed bug in jmod.cuelist.mod. Can still be developed further for elegancy, functions and efficiency. Maybe for 0.4. \
-	
-\f2 -
-\f0  Fixed bug in jmod.filter~.mod. \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.2.1
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	documentation proof-reading and expansion, holes in the JIG filled in with some basic material \
-	\'95	bug fixes in the externs (most notably in jmod.meter~ and blue.limiter~) \
-	\'95	batch building helpers for the externs on both platforms \
-	\'95	added jmod.cuelist module for automating modules and getting state information. \
-	\'95	added default presets to modules that were lacking them \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.2
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	clean up of all existing documentation \
-	\'95	fixed problems with checking out objects on Windows \
-	\'95	fixed broken loading of html references from the module menu \
-	\'95	fixed broken save settings/load settings items in the module menu \
-	\'95	removed the old 'enable' message from modules \
-	\'95	added qlim to defer loadbangs in example patches \
-	\'95	removed quirky support of sd2 format soundfiles \
-	\'95	new template files added \
-	\'95	new tutorials added to html doc \
-	\'95	added many help patches, even if in rough form \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.9 
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	completed all help files \
-	\'95	jmod.parameter.mxt: Changes to attributes (some new, some removed, some renamed) \
-	\'95	clean up of patch layout for jmod.hub.mxt \
-	\'95	introduced "autodoc" message to autogenerate html documentation of modules. \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.8
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	jmod.meter~ is now compiled for Windows as well as Mac \
-	\'95	jmod.meter~ is now placed in the max-startup folder by the Mac installer \
-	\'95	new examples:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Scripting Example: Jade-like module loading\
-	
-\f2 -
-\f0  Pluggo Simple: Wraps a single module as a Pluggo Plugin\
-	
-\f2 -
-\f0  Pluggo Complex: Wraps multiple modules into a Pluggo Plugin \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	blue externs for windows freshly compiled \
-	\'95	improvements to the way soft fade in/out is done when audio is turned on/off \
-	\'95	new component for internal communication: jmod.gui_message.mxt \
-	\'95	bug fixes and improvements to various modules:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.input~\
-	
-\f2 -
-\f0  jmod.output~\
-	
-\f2 -
-\f0  jmod.control \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.7
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	parameter name listing can be queried \
-	\'95	major change to jmod.parameter.mxt: Left outlet now returns a qlim-ed "set" message for display. This solves a problem with parameter ramps not being killed by user interaction. Also added second outlet, returning non-filtered values. \
-	\'95	Reorganization of files and folder structure \
-	\'95	gui component now rewritten as one dynamic bpatcher! (old static files have been archived) \
-	\'95	New .pct file: jmod.button.link_toggle.pct \
-	\'95	Changes to jmod.jsui_texttoggle.js so that background colors for on and off can be set separately \
-	\'95	Altered the default preset for jmod.edge% module \
-	\'95	jmod.input~.mod: channel gains can be linked, name of sound file displayed, play button green when on \
-	\'95	jmod.input~.mod: changed syntax for adc~ channels to "set_ch_1 $1" and "set_ch_2 $1" \
-	\'95	removed Tap.Tools dependency \
-	\'95	removed Jitter dependency \
-	\'95	Added modules:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  crossfade~\
-	
-\f2 -
-\f0  filter~\
-	
-\f2 -
-\f0  filterM~\
-	
-\f2 -
-\f0  mblur%\
-	
-\f2 -
-\f0  op%\
-	
-\f2 -
-\f0  output~\
-	
-\f2 -
-\f0  wake%\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Added external projects folder with the following objects:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  blue.limiter~\
-	
-\f2 -
-\f0  blue.xfade~\
-	
-\f2 -
-\f0  jmod.change\
-	
-\f2 -
-\f0  jmod.meter~ [still needs a windows version]\
-	
-\f2 -
-\f0  jmod.pass\
-	
-\f2 -
-\f0  jmod.round\
-	
-\f2 -
-\f0  jmod.route\
-	
-\f2 -
-\f0  jmod.usurp\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Added Javascript objects:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  jmod.js_link.js: for dealing with linked gains\
-	
-\f2 -
-\f0  jmod.jsui_sr.js: new sample-rate jsui widget: \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Documentation:\
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  Added new classes to CSS for HTML documentation, all documenation now based on the CSS\
-	
-\f2 -
-\f0  Added initial documentation (really just moving HTML files from Jade)\
-	
-\f2 -
-\f0  Added basic video module demo patch\
-	
-\f2 -
-\f0  added some new help files for modules, and expanded existing ones. \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.5
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Added externals folder \
-	\'95	Eliminated dependency on Tap.Tools \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.4
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Misc bug fixes \
-	\'95	implemented the new gain mechanism in all audio module gui components \
-	\'95	changes param name "gain_m" to simply "gain" \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.3
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	new module for audio input: jmod.input~.mod, as well as default preset and example patch \
-	\'95	new module for controlling audio in Jamoma: jmod.control.mod. Very rough sketch at the time being. Incorporates: \
-\pard\tx940\tx1440\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li1440\fi-1440\ql\qnatural
-\cf0 	
-\f2 -
-\f0  audio on/off with quick fade in/fade out \
-	
-\f2 -
-\f0  panic button \
-	
-\f2 -
-\f0  screen refresh \
-	
-\f2 -
-\f0  initialization of Jamoma \
-	
-\f2 -
-\f0  CPU monitor \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	new scheme for gain handling, solving prior problems of ramps not being killed by new gain messages \
-	\'95	most important: jmod.parameter.gain.mxt \
-	\'95	jmod.core.sr.mxt \
-	\'95	jmod.hmeters~.mxt \
-	\'95	jmod.receiveamp.mxt \
-	\'95	added Javascript text toggle: jmod.jsui_texttoggle.js with help file \
-	\'95	added jamoma-help folder \
-	\'95	added gainparameter bpatcher to be used by example patches (jmod.gain_params.mxt) \
-	\'95	added a number of graphics used by the input module \
-	\'95	added file endings to all abstractions used in components to speed up loading of Jamoma modules \
-	\'95	major rewrite of jmod.parameter.mxt. Should be easier to read, but behave the same as before. \
-	\'95	added @autorestore 0 attribute to the pattr used in jmod.parameter.mxt \
-	\'95	did the same to the pattr used in jmod.parameter.gain.mxt pattr \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.2\
-
-\b0 \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Misc bug fixes \
-	\'95	changed tag for video modules to the % symbol \
-	\'95	added example patch for using pattrstorage to store and recall attributes \
-	\'95	added example patch for using qlist to automate modules \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1.1
-\b0 \
-\
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Misc bug fixes \
-	\'95	Resolved some discrepancies in the documentation \
-	\'95	File format for the Style Sheet changed to HTML \
-	\'95	file name formats change and adjusted for modules, algorithms, and defaults \
-	\'95	added edge@ module (video edge detection in Jitter) \
-	\'95	updated the example patch and formatted the file properly as text \
-	\'95	set pattrstorage attributes correctly in the existing modules \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-
-\b Version 0.1\
-
-\b0 \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Initial Developer Release, as extracted from the Jade 2.0 beta \
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
-}
+ 
