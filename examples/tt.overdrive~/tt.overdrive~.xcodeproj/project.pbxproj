@@ -9,31 +9,11 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
-		22059D440D2D39A600DDA5FC /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22059D430D2D39A600DDA5FC /* TTValueCache.cpp */; };
-		22059D460D2D39B400DDA5FC /* TTValueCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22059D450D2D39B400DDA5FC /* TTValueCache.h */; };
-		223A5A190D2E782E001FE801 /* TTGlobal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223A5A180D2E782E001FE801 /* TTGlobal.cpp */; };
-		223A5A1B0D2E7837001FE801 /* TTGlobal.h in Headers */ = {isa = PBXBuildFile; fileRef = 223A5A1A0D2E7837001FE801 /* TTGlobal.h */; };
-		223F3EC90CB7D41D00E43AC1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */; };
-		228908EF0D31CA65006C057C /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 228908EB0D31CA65006C057C /* TTOverdrive.h */; };
-		228908FB0D31CA8D006C057C /* TTOverdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228908F70D31CA8D006C057C /* TTOverdrive.cpp */; };
-		22BFF66A0D2AF3C100BD97E5 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF6640D2AF3C100BD97E5 /* TTAudioObject.cpp */; };
-		22BFF66B0D2AF3C100BD97E5 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF6650D2AF3C100BD97E5 /* TTAudioSignal.cpp */; };
-		22BFF66C0D2AF3C100BD97E5 /* TTElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF6660D2AF3C100BD97E5 /* TTElement.cpp */; };
-		22BFF66D0D2AF3C100BD97E5 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF6670D2AF3C100BD97E5 /* TTObject.cpp */; };
-		22BFF66E0D2AF3C100BD97E5 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF6680D2AF3C100BD97E5 /* TTSymbol.cpp */; };
-		22BFF66F0D2AF3C100BD97E5 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF6690D2AF3C100BD97E5 /* TTValue.cpp */; };
-		22BFF6830D2AF40F00BD97E5 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF67C0D2AF40F00BD97E5 /* TTAudioObject.h */; };
-		22BFF6840D2AF40F00BD97E5 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF67D0D2AF40F00BD97E5 /* TTAudioSignal.h */; };
-		22BFF6850D2AF40F00BD97E5 /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF67E0D2AF40F00BD97E5 /* TTElement.h */; };
-		22BFF6860D2AF40F00BD97E5 /* TTList.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF67F0D2AF40F00BD97E5 /* TTList.h */; };
-		22BFF6870D2AF40F00BD97E5 /* TTObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF6800D2AF40F00BD97E5 /* TTObject.h */; };
-		22BFF6880D2AF40F00BD97E5 /* TTSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF6810D2AF40F00BD97E5 /* TTSymbol.h */; };
-		22BFF6890D2AF40F00BD97E5 /* TTValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BFF6820D2AF40F00BD97E5 /* TTValue.h */; };
+		22BFF61C0D2AB4D700BD97E5 /* tt.overdrive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF61B0D2AB4D700BD97E5 /* tt.overdrive~.cpp */; };
 		22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */; };
 		22C01EDA09CE6CDB00177B81 /* Externs-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22C01ED909CE6CDB00177B81 /* Externs-Info.plist */; };
-		22F25E030D3469DF00AC435B /* tt.overdrive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25E020D3469DF00AC435B /* tt.overdrive~.cpp */; };
-		22F25E220D346AD100AC435B /* TTDCBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F25E210D346AD100AC435B /* TTDCBlock.h */; };
-		22F25E240D346AD900AC435B /* TTDCBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22F25E230D346AD900AC435B /* TTDCBlock.cpp */; };
+		22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F229A50D48CA460018534E /* TTBlue.framework */; };
+		22F229C20D48CA9C0018534E /* TTBluePrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22F229C10D48CA9C0018534E /* TTBluePrefix.pch */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,32 +21,11 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
-		22059D430D2D39A600DDA5FC /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = ../../source/core/TTValueCache.cpp; sourceTree = SOURCE_ROOT; };
-		22059D450D2D39B400DDA5FC /* TTValueCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValueCache.h; path = ../../includes/core/TTValueCache.h; sourceTree = SOURCE_ROOT; };
-		223A5A180D2E782E001FE801 /* TTGlobal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGlobal.cpp; path = ../../source/core/TTGlobal.cpp; sourceTree = SOURCE_ROOT; };
-		223A5A1A0D2E7837001FE801 /* TTGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGlobal.h; path = ../../includes/core/TTGlobal.h; sourceTree = SOURCE_ROOT; };
-		223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		223F3F240CB7D75D00E43AC1 /* TTMaxPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTMaxPrefix.pch; path = ../../includes/platform/TTMaxPrefix.pch; sourceTree = SOURCE_ROOT; };
-		228908EB0D31CA65006C057C /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = ../../includes/units/TTOverdrive.h; sourceTree = SOURCE_ROOT; };
-		228908F70D31CA8D006C057C /* TTOverdrive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOverdrive.cpp; path = ../../source/units/TTOverdrive.cpp; sourceTree = SOURCE_ROOT; };
-		22BFF6640D2AF3C100BD97E5 /* TTAudioObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObject.cpp; path = ../../source/core/TTAudioObject.cpp; sourceTree = SOURCE_ROOT; };
-		22BFF6650D2AF3C100BD97E5 /* TTAudioSignal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioSignal.cpp; path = ../../source/core/TTAudioSignal.cpp; sourceTree = SOURCE_ROOT; };
-		22BFF6660D2AF3C100BD97E5 /* TTElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTElement.cpp; path = ../../source/core/TTElement.cpp; sourceTree = SOURCE_ROOT; };
-		22BFF6670D2AF3C100BD97E5 /* TTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = ../../source/core/TTObject.cpp; sourceTree = SOURCE_ROOT; };
-		22BFF6680D2AF3C100BD97E5 /* TTSymbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbol.cpp; path = ../../source/core/TTSymbol.cpp; sourceTree = SOURCE_ROOT; };
-		22BFF6690D2AF3C100BD97E5 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = ../../source/core/TTValue.cpp; sourceTree = SOURCE_ROOT; };
-		22BFF67C0D2AF40F00BD97E5 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
-		22BFF67D0D2AF40F00BD97E5 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
-		22BFF67E0D2AF40F00BD97E5 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = ../../includes/core/TTElement.h; sourceTree = SOURCE_ROOT; };
-		22BFF67F0D2AF40F00BD97E5 /* TTList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTList.h; path = ../../includes/core/TTList.h; sourceTree = SOURCE_ROOT; };
-		22BFF6800D2AF40F00BD97E5 /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = ../../includes/core/TTObject.h; sourceTree = SOURCE_ROOT; };
-		22BFF6810D2AF40F00BD97E5 /* TTSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbol.h; path = ../../includes/core/TTSymbol.h; sourceTree = SOURCE_ROOT; };
-		22BFF6820D2AF40F00BD97E5 /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = ../../includes/core/TTValue.h; sourceTree = SOURCE_ROOT; };
+		22BFF61B0D2AB4D700BD97E5 /* tt.overdrive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "tt.overdrive~.cpp"; sourceTree = "<group>"; };
 		22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
-		22F25E020D3469DF00AC435B /* tt.overdrive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "tt.overdrive~.cpp"; sourceTree = "<group>"; };
-		22F25E210D346AD100AC435B /* TTDCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDCBlock.h; path = ../../includes/units/TTDCBlock.h; sourceTree = SOURCE_ROOT; };
-		22F25E230D346AD900AC435B /* TTDCBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDCBlock.cpp; path = ../../source/units/TTDCBlock.cpp; sourceTree = SOURCE_ROOT; };
+		22F229A50D48CA460018534E /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
+		22F229C10D48CA9C0018534E /* TTBluePrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBluePrefix.pch; path = ../../library/TTBluePrefix.pch; sourceTree = SOURCE_ROOT; };
 		542ED84F09C02A0000DBC7EB /* tt.overdrive~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.overdrive~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -78,7 +37,7 @@
 				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
 				0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */,
-				223F3EC90CB7D41D00E43AC1 /* Cocoa.framework in Frameworks */,
+				22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,8 +48,6 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				22BFF6630D2AB51200BD97E5 /* TTBlue-Units */,
-				22BFF6620D2AB4FC00BD97E5 /* TTBlue-Core */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -101,9 +58,9 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22F229A50D48CA460018534E /* TTBlue.framework */,
 				0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
-				223F3EC80CB7D41D00E43AC1 /* Cocoa.framework */,
 				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -112,7 +69,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				223F3F240CB7D75D00E43AC1 /* TTMaxPrefix.pch */,
+				22F229C10D48CA9C0018534E /* TTBluePrefix.pch */,
 				22C01ED909CE6CDB00177B81 /* Externs-Info.plist */,
 			);
 			name = Resources;
@@ -121,7 +78,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22F25E020D3469DF00AC435B /* tt.overdrive~.cpp */,
+				22BFF61B0D2AB4D700BD97E5 /* tt.overdrive~.cpp */,
 				22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */,
 			);
 			name = Source;
@@ -135,41 +92,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		22BFF6620D2AB4FC00BD97E5 /* TTBlue-Core */ = {
-			isa = PBXGroup;
-			children = (
-				22BFF67C0D2AF40F00BD97E5 /* TTAudioObject.h */,
-				22BFF6640D2AF3C100BD97E5 /* TTAudioObject.cpp */,
-				22BFF67D0D2AF40F00BD97E5 /* TTAudioSignal.h */,
-				22BFF6650D2AF3C100BD97E5 /* TTAudioSignal.cpp */,
-				22BFF67E0D2AF40F00BD97E5 /* TTElement.h */,
-				22BFF6660D2AF3C100BD97E5 /* TTElement.cpp */,
-				223A5A1A0D2E7837001FE801 /* TTGlobal.h */,
-				223A5A180D2E782E001FE801 /* TTGlobal.cpp */,
-				22BFF67F0D2AF40F00BD97E5 /* TTList.h */,
-				22BFF6800D2AF40F00BD97E5 /* TTObject.h */,
-				22BFF6670D2AF3C100BD97E5 /* TTObject.cpp */,
-				22BFF6810D2AF40F00BD97E5 /* TTSymbol.h */,
-				22BFF6680D2AF3C100BD97E5 /* TTSymbol.cpp */,
-				22BFF6820D2AF40F00BD97E5 /* TTValue.h */,
-				22BFF6690D2AF3C100BD97E5 /* TTValue.cpp */,
-				22059D450D2D39B400DDA5FC /* TTValueCache.h */,
-				22059D430D2D39A600DDA5FC /* TTValueCache.cpp */,
-			);
-			name = "TTBlue-Core";
-			sourceTree = "<group>";
-		};
-		22BFF6630D2AB51200BD97E5 /* TTBlue-Units */ = {
-			isa = PBXGroup;
-			children = (
-				22F25E210D346AD100AC435B /* TTDCBlock.h */,
-				22F25E230D346AD900AC435B /* TTDCBlock.cpp */,
-				228908EB0D31CA65006C057C /* TTOverdrive.h */,
-				228908F70D31CA8D006C057C /* TTOverdrive.cpp */,
-			);
-			name = "TTBlue-Units";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -177,17 +99,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22BFF6830D2AF40F00BD97E5 /* TTAudioObject.h in Headers */,
-				22BFF6840D2AF40F00BD97E5 /* TTAudioSignal.h in Headers */,
-				22BFF6850D2AF40F00BD97E5 /* TTElement.h in Headers */,
-				22BFF6860D2AF40F00BD97E5 /* TTList.h in Headers */,
-				22BFF6870D2AF40F00BD97E5 /* TTObject.h in Headers */,
-				22BFF6880D2AF40F00BD97E5 /* TTSymbol.h in Headers */,
-				22BFF6890D2AF40F00BD97E5 /* TTValue.h in Headers */,
-				22059D460D2D39B400DDA5FC /* TTValueCache.h in Headers */,
-				223A5A1B0D2E7837001FE801 /* TTGlobal.h in Headers */,
-				228908EF0D31CA65006C057C /* TTOverdrive.h in Headers */,
-				22F25E220D346AD100AC435B /* TTDCBlock.h in Headers */,
+				22F229C20D48CA9C0018534E /* TTBluePrefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,18 +186,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22BFF66A0D2AF3C100BD97E5 /* TTAudioObject.cpp in Sources */,
-				22BFF66B0D2AF3C100BD97E5 /* TTAudioSignal.cpp in Sources */,
-				22BFF66C0D2AF3C100BD97E5 /* TTElement.cpp in Sources */,
-				22BFF66D0D2AF3C100BD97E5 /* TTObject.cpp in Sources */,
-				22BFF66E0D2AF3C100BD97E5 /* TTSymbol.cpp in Sources */,
-				22BFF66F0D2AF3C100BD97E5 /* TTValue.cpp in Sources */,
+				22BFF61C0D2AB4D700BD97E5 /* tt.overdrive~.cpp in Sources */,
 				22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */,
-				22059D440D2D39A600DDA5FC /* TTValueCache.cpp in Sources */,
-				223A5A190D2E782E001FE801 /* TTGlobal.cpp in Sources */,
-				228908FB0D31CA8D006C057C /* TTOverdrive.cpp in Sources */,
-				22F25E030D3469DF00AC435B /* tt.overdrive~.cpp in Sources */,
-				22F25E240D346AD900AC435B /* TTDCBlock.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +212,7 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/TTMaxPrefix.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../library/TTBluePrefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -322,7 +224,7 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					/Library/Frameworks/MaxObject.framework/Headers,
+					/Library/Frameworks/TTBlue.framework/Headers,
 				);
 				INFOPLIST_FILE = "../common/Externs-Info.plist";
 				INSTALL_PATH = "/../../Build_Mac/$(CONFIGURATION)";
@@ -368,7 +270,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../includes/platform/TTMaxPrefix.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../library/TTBluePrefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -380,7 +282,7 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					/Library/Frameworks/MaxObject.framework/Headers,
+					/Library/Frameworks/TTBlue.framework/Headers,
 				);
 				INFOPLIST_FILE = "../common/Externs-Info.plist";
 				INSTALL_PATH = "/../../Build_Mac/$(CONFIGURATION)";
