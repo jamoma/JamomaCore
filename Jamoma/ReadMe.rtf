@@ -1,0 +1,144 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fnil\fcharset0 LucidaGrande;\f2\fmodern\fcharset0 Courier;
+\f3\fmodern\fcharset0 CourierNewPSMT;}
+{\colortbl;\red255\green255\blue255;\red85\green85\blue85;\red136\green136\blue136;\red0\green31\blue232;
+\red77\green35\blue136;\red235\green222\blue221;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'02\'05.;}{\levelnumbers\'01;}}{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid2\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc2\leveljcn2\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid0\'02\'05.;}{\levelnumbers\'01;}}{\listname ;}\listid4}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}}
+\paperw11900\paperh16840\vieww16880\viewh15840\viewkind0
+\deftab720
+\pard\pardeftab720\ql\qnatural
+
+\f0\fs48 \cf0 Jamoma ReadMe\
+\pard\pardeftab720\ql\qnatural
+
+\fs36 \cf2 version 0.4.6 
+\f1 \uc0\u8232 
+\f0 ? january 2008\
+\
+
+\fs24 \cf0 \
+\pard\pardeftab720\li280\ri-60\sa200\ql\qnatural
+
+\fs36 \cf3 Installing\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
+\ls1\ilvl0
+\fs24 \cf0 {\listtext	1.	}Place the 
+\f2 Jamoma
+\f0  folder in your Max searchpath (such as in the Cycling '74 folder).\
+{\listtext	2.	}If you are using Windows:\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ql\qnatural
+\ls1\ilvl1\cf0 {\listtext	\'95	}Three DLL files are required. They must be placed into the "support" folder in your Max application's folder. These three files are located deep in the Jamoma folder and must be moved. They are located in the 
+\b Jamoma\\library\\externals_3rd_party\\libiconv\\win-support
+\b0  folder.\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ql\qnatural
+\ls1\ilvl2\cf0 {\listtext	\'95	}iconv.dll\
+{\listtext	\'95	}zlib1.dll\
+{\listtext	\'95	}libxml2.dll\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ql\qnatural
+\ls1\ilvl1\cf0 {\listtext	\'95	}If you have installed previous versions of Jamoma, please check if there is a file named 
+\f2 jamoma-init.txt
+\f0  in your 
+\f2 init
+\f0  folder (inside of the Cycling '74 folder). If so, delete this.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
+\ls1\ilvl0\cf0 {\listtext	3.	}If you are using Mac:\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\ql\qnatural
+\ls1\ilvl1\cf0 {\listtext	\'95	}If you checked Jamoma out using {\field{\*\fldinst{HYPERLINK "http://sourceforge.net/svn/?group_id=78108"}}{\fldrslt \cf4 \ul \ulc4 SVN}} (if you downloaded a release from the website, these will already be unzipped but many still need to be moved or copied):\
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\ql\qnatural
+\ls1\ilvl2\cf0 {\listtext	\'95	}Unzip (double-click) the 
+\f2 build_mac.zip
+\f0 , 
+\f2 pattr-bundle.bundle.zip
+\f0 , and 
+\f2 ramplib_mac.zip
+\f0  archives located in the 
+\f2 Jamoma/library/externals
+\f0  folder.\
+{\listtext	\'95	}Copy the 
+\f2 Jamoma.framework.zip
+\f0  (also located in 
+\f2 Jamoma/library/externals
+\f0 ) into 
+\f2 /Library/Frameworks
+\f0  on your computer and unzip it there (replacing a previous version if necessary).\
+{\listtext	\'95	}Unzip any archives located inside the various subfolders of the 
+\f2 Jamoma/library/externals_3rd_party
+\f0  folder.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
+\ls1\ilvl0\cf0 {\listtext	4.	}Move the 
+\f2 jcom.meter~
+\f0  external (in 
+\f2 /library/externals/build_mac
+\f0  or 
+\f2 /library/externals/build_win
+\f0  depending on your platform) into your 
+\f2 max-startup
+\f0  folder (inside of the Cycling '74 folder)\
+{\listtext	5.	}Check out the Jamoma {\field{\*\fldinst{HYPERLINK "file:///Users/tim/dev/Jamoma/Jamoma/documentation/html/index.html"}}{\fldrslt \cf5 \ul \ulc5 documentation}}.\
+\pard\pardeftab720\li280\ri-60\sa100\ql\qnatural
+\cf0 Optional customization you may want to do for your install might include the following:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
+\ls2\ilvl0\cf0 {\listtext	1.	}The overview patch (
+\f2 Jamoma/documentation/jamoma-overview.mxt
+\f0 ) may be copied to the max-startup folder or in Max's patches/extras folder.\
+{\listtext	2.	}The templates (patches located in 
+\f2 Jamoma/documentation/templates
+\f0 ) are most effective when copied to Max's patches/templates folder.\
+\pard\pardeftab720\li280\ri-60\sa100\ql\qnatural
+\cf0 The Jamoma distribution depend on certain 3rd party externals. For simplicity we have chosen to include these externals as part of the distribution. If you already have installed some or all of these externals, make sure that that the Jamoma distribution do not introduce older versions of the externals than you have already. All such externals can be found in the 
+\f2 Jamoma/library/externals_3rd_party
+\f0  folder.\
+\pard\pardeftab720\li280\ri-60\sa200\ql\qnatural
+
+\fs36 \cf3 \
+Requirements\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
+\ls3\ilvl0
+\fs24 \cf0 {\listtext	\'95	}Jamoma requires {\field{\*\fldinst{HYPERLINK "http://www.cycling74.com/"}}{\fldrslt \cf5 \ul \ulc5 Cycling '74's}} Max version 4.6.2 or newer.\
+{\listtext	\'95	}Audio modules require Cycling '74's MSP.\
+{\listtext	\'95	}Video modules require Cycling '74's Jitter (version 1.6.2 or higher).\
+{\listtext	\'95	}Some ambisonic modules require both Cycling '74's MSP and Jitter.\
+\pard\pardeftab720\li280\ri-60\sa200\ql\qnatural
+
+\fs36 \cf3 \
+Examples\
+\pard\pardeftab720\li280\ri-60\sa100\ql\qnatural
+
+\fs24 \cf0 To get started, there is an examples folder in the Jamoma/documentation folder. Trond Lossius has also created some excellent {\field{\*\fldinst{HYPERLINK "file:///Users/tim/dev/Jamoma/Jamoma/documentation/html/tutorials/"}}{\fldrslt \cf4 \ul \ulc4 tutorials}}. Also, if you are interested in creating your own modules, be sure to check out the {\field{\*\fldinst{HYPERLINK "file:///Users/tim/dev/Jamoma/Jamoma/documentation/html/interface_guidelines.html"}}{\fldrslt \cf4 \ul \ulc4 JIG (Jamoma Interface Guidelines)}} which is in the documentation folder.\
+\pard\pardeftab720\li280\ri-60\sa200\ql\qnatural
+
+\fs36 \cf3 \
+Licensing\
+\pard\pardeftab720\li280\ri-60\sa100\ql\qnatural
+
+\fs24 \cf0 Jamoma is open source software. It is licensed under the terms of the GNU LGPL. Please see the file "{\field{\*\fldinst{HYPERLINK "file:///Users/tim/dev/Jamoma/Jamoma/GNU-LGPL.txt"}}{\fldrslt \cf4 \ul \ulc4 GNU-LGPL.txt}}" in the Jamoma folder to review the terms of this license.\
+\pard\pardeftab720\li280\ri-60\sa200\ql\qnatural
+
+\fs36 \cf3 \
+Interested in Developing or Contributing to Jamoma?\
+\pard\pardeftab720\li280\ri-60\sa100\ql\qnatural
+
+\fs24 \cf0 If you are interested in developing/contributing to Jamoma, contact us via the sourceforge project page. You can access this page via the following url:\
+\pard\pardeftab720\li280\ri-60\sa100\ql\qnatural
+{\field{\*\fldinst{HYPERLINK "http://sourceforge.net/projects/jamoma/"}}{\fldrslt \cf5 \ul \ulc5 http://sourceforge.net/projects/jamoma/}}\
+\pard\pardeftab720\li280\ri-60\sa200\ql\qnatural
+
+\fs36 \cf3 \
+Known Issues\
+\pard\pardeftab720\li280\ri-60\sa100\ql\qnatural
+
+\fs24 \cf0 The following are the problems of which we are currently aware:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\ql\qnatural
+\ls4\ilvl0\cf0 {\listtext	\'95	}When a patch is first drawn, the modules may appear block. Refreshing the screen by sending the
+\f3 \cb6  ;max refresh
+\f0 \cb1  message or unlocking the patch will resolve the problem.\
+{\listtext	\'95	}The internal architecture of Jamoma version 0.4.x represents a very big departure from previous versions. This means that all modules that rely on Jamoma will need to be updated to use this version. The vast majority of modules in this distribution have been updated to the new architecture. However, some may not yet be updated! Please be aware that this is a known issue. These modules will be brought up to speed in subsequent updates.\
+\pard\tx560\pardeftab720\ql\qnatural
+\cf0 \
+\
+\
+}
