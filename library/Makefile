@@ -77,19 +77,10 @@ OBJ += ../source/units/TTOverdrive.o
 OBJ += ../source/units/TTRamp.o
 
 
-DEF = $(NAME).def
-
-
 #########################################
 
 all:
-
-#$(NAME).o: $(NAME).c
-#	$(CC) $(CFLAGS) $(SRC)
-#	$(CC) -o $(OBJ) $(DEF) $(LDFLAGS)
-#	$(CC) -shared -mno-cygwin -o $(NAME).mxe $(OBJ) $(DEF) $(LDFLAGS)
-#	$(CC) $(CFLAGS) $(SRC) -o $(NAME).dll $(DEF) $(LDFLAGS)
-	$(CC) $(CFLAGS) $(SRC) -o $(NAME).dll -export-all-symbols $(LDFLAGS)
+	$(CC) $(CFLAGS) $(SRC) -o build/TTBlue.dll -export-all-symbols $(LDFLAGS)
 
 
 clean:
