@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "tt.ramp~"
+
+EXPORTS
+	main
