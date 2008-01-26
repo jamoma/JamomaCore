@@ -15,11 +15,13 @@ TTUInt32	TTSymbol::symbolTableSize = 0;
 /****************************************************************************************************/
 
 TTSymbol::TTSymbol()
+	: string(NULL)
 {
 	init("");
 }
 
 TTSymbol::TTSymbol(TTString newString)
+	: string(NULL)
 {
 	init(newString);
 }
@@ -41,10 +43,13 @@ TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 }
 
 
-void TTSymbol::init(TTString newString)
+void TTSymbol::init(const char* newString)
 {
 	TTSymbol	*existingSymbol = NULL;
 	TTUInt32	i;
+
+	if(string)
+		free(string);
 
 	for(i=0; i<symbolTableSize; i++){
 		if(!strcmp(newString, symbolTable[i]->getString())){

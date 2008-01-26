@@ -13,7 +13,8 @@ TTUInt32	TTAudioObject::globalSr = 44100;
 
 /****************************************************************************************************/
 
-TTAudioObject::TTAudioObject(TTUInt8 newMaxNumChannels)
+TTAudioObject::TTAudioObject(const char* name, TTUInt8 newMaxNumChannels)
+	: TTObject(name)
 {
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerAttribute(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);

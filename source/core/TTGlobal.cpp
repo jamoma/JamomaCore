@@ -16,6 +16,7 @@ TTGlobal	ttGlobalObject;
 /****************************************************************************************************/
 
 TTGlobal::TTGlobal()
+	: TTObject("global")
 {
 	registerMessage(TT("getVersion"), (TTMethod)&TTGlobal::getVersion);
 

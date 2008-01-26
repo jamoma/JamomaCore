@@ -10,7 +10,7 @@
 
 
 TTCrossfade::TTCrossfade(TTUInt8 newMaxNumChannels)
-	: TTAudioObject(newMaxNumChannels)
+	: TTAudioObject("audio.crossfade", newMaxNumChannels)
 {
 	registerAttribute(TT("position"),	kTypeFloat32,	&attrPosition);
 	registerAttribute(TT("shape"),		kTypeSymbol,	&attrShape,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setShape);

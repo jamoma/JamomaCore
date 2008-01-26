@@ -61,7 +61,7 @@ protected:
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
-	TTAudioObject(TTUInt8 maxNumChannels);
+	TTAudioObject(const char* name, TTUInt8 maxNumChannels);
 	
 	/** Destructor. */
 	virtual ~TTAudioObject();

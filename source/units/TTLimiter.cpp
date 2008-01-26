@@ -10,7 +10,7 @@
 
 
 TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
-	: TTAudioObject(newMaxNumChannels),
+	: TTAudioObject("audio.limiter", newMaxNumChannels),
 	lookaheadBuffer(NULL), gain(NULL), maxBufferSize(256)
 {
 	// register our attributes

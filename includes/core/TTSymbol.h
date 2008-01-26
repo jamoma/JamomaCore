@@ -33,7 +33,7 @@ private:
 	static TTUInt32			symbolTableSize;	///< The size of the symbol table
 
 	/** used by the constructors to create the new symbol */
-	void init(TTString newString);
+	void init(const char* newString);
 
 public:
 	TTSymbol();
@@ -54,6 +54,12 @@ public:
 			return true;
 		else
 			return false;
+	}
+	
+	TTSymbol& TTSymbol::operator = (const char* aString)
+	{
+		init(aString);
+		return *this;
 	}
 
 	//friend bool operator == (const TTValue& a1, const TTValue& a2);

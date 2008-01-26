@@ -69,6 +69,7 @@ public:
 */
 class TTObject : public TTElement {
 private:
+	TTSymbol				objectName;
 	const TTSymbol*			messageNames[16];
 	TTMethod				messageTargets[16];
 	TTUInt8					messageCount;
@@ -77,7 +78,7 @@ private:
 	TTUInt8					attributeCount;
 
 public:
-	TTObject();
+	TTObject(const char* name);
 	virtual ~TTObject();
 	
 	/*
