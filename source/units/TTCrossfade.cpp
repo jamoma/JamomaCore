@@ -31,14 +31,14 @@ TTCrossfade::~TTCrossfade()
 
 TTErr TTCrossfade::setShape(const TTValue& newValue)
 {
-	attrShape = &(TTSymbol&)newValue;
+	attrShape = newValue;
 	return setProcessPointers();
 }
 
 
 TTErr TTCrossfade::setMode(const TTValue& newValue)
 {
-	attrMode = &(TTSymbol&)newValue;
+	attrMode = newValue;
 	return setProcessPointers();
 }
 

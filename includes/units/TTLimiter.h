@@ -30,7 +30,7 @@ private:
 
 	TTUInt32			maxBufferSize;			///< TODO: make this settable
 	TTBoolean			attrDCBlocker;			///< If toggled to NO, the internal DC Blocker will be turned off.
-	TTSymbol*			attrMode;				///< may be one of two symbols: "linear" or "exponential".
+	TTSymbol			attrMode;				///< may be one of two symbols: "linear" or "exponential".
 	TTFloat32			attrRelease;			///< number of seconds for the release to recover after a peak in the audio signal.
 	TTUInt32			attrLookahead;			///< number of samples by which to look forward.
 	TTFloat32			attrThreshold;			///< linear amplitude threshold at which the limiting should kick in (attr setter used dB).

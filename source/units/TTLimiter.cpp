@@ -149,7 +149,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 
 TTErr TTLimiter::setMode(TTValue& newValue)
 {
-	attrMode = &(TTSymbol&)newValue;
+	attrMode = newValue;
 	if(attrMode == &TT("linear"))
 		isLinear = true;
 	else
