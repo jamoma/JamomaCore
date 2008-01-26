@@ -426,6 +426,16 @@ TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTSymbol& value)
 }
 
 
+void TTObject::getAttributeNames(TTValue& attributeNameList)
+{
+	TTUInt8		i;
+
+	attributeNameList.clear();	
+	for(i=0; i<attributeCount; i++)
+		attributeNameList.append(attributeNames[i]);
+}
+
+
 #if 0
 #pragma mark -
 #pragma mark Global Attributes
