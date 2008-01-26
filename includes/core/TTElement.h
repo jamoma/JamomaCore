@@ -112,9 +112,9 @@ public:
 	/** Filter out denormaled values, which can make processing extremely slow when they are present. */
 	TTFloat64		antiDenormal(TTFloat64 value);
 	
-	/** Platform and host independent method for posting messages. */
+	/** Post messages associated with this element. */
 	void			logMessage(char *message);
-	/** Platform and host independent method for posting errors. */
+	/** Posting errors associated with this element. */
 	void			logError(char *message);
 	
 	/** Rounding utility. */
@@ -123,6 +123,13 @@ public:
 	static TTInt32	round(TTFloat64 value);
 	
 };
+
+
+/** Platform and host independent method for posting messages. */
+void TTLogMessage(char *message, ...);
+
+/** Platform and host independent method for posting errors. */
+void TTLogError(char *message, ...);
 
 
 /** A fast routine for clipping a number to a range.  This routine does not use branching. */

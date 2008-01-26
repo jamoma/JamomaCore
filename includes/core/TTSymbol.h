@@ -62,6 +62,12 @@ public:
 		return *this;
 	}
 
+	operator TTString() const
+	{
+		return string;
+	}
+
+
 	//friend bool operator == (const TTValue& a1, const TTValue& a2);
 
 	/** Look in the symbol table for this string.  If it exists then return its id.  

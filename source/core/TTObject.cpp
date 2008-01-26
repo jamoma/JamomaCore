@@ -436,6 +436,12 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 }
 
 
+void TTObject::getName(TTSymbol& thisObjectName)
+{
+	thisObjectName = objectName;
+}
+
+
 #if 0
 #pragma mark -
 #pragma mark Global Attributes

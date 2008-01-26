@@ -145,13 +145,13 @@ TTFloat64 TTElement::antiDenormal(TTFloat64 value)
 
 void TTElement::logMessage(char *message)
 {
-	fprintf(stdout, message);
+	TTLogMessage(message);
 }
 
 
 void TTElement::logError(char *message)
 {
-	fprintf(stderr, message);
+	TTLogError(message);
 }
 
 
@@ -171,4 +171,17 @@ long TTElement::round(double value)
 	else
 		return((long)(value - 0.5));
 }
+
+
+void TTLogMessage(char *message, ...)
+{
+	fprintf(stdout, message);
+}
+
+
+void TTLogError(char *message, ...)
+{
+	fprintf(stderr, message);
+}
+
 
