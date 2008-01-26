@@ -110,6 +110,9 @@ public:
 	virtual ~TTValue();
 
 	
+	/** Return this value to NULL state (no values) */
+	void clear();
+	
 	/** Return the type of this value. */
 	TTDataType getType() const;		// trailing const -- this method can be used on const variables
 	
@@ -117,6 +120,9 @@ public:
 	TTUInt16 getNumValues() const;
 	
 private:
+	/** Internal method used by the constructors. */
+	void init();
+
 	/** Internal method for setting the type of a value. */
 	void setType(TTDataType arg);
 	
@@ -179,19 +185,19 @@ public:
 	operator TTObject&() const;
 
 
-	void set(TTUInt16 index, const TTFloat32 value);
-	void set(TTUInt16 index, const TTFloat64 value);
-	void set(TTUInt16 index, const TTInt8 value);
-	void set(TTUInt16 index, const TTUInt8 value);
-	void set(TTUInt16 index, const TTInt16 value);
+	void set(TTUInt16 index, const TTFloat32 newValue);
+	void set(TTUInt16 index, const TTFloat64 newValue);
+	void set(TTUInt16 index, const TTInt8 newValue);
+	void set(TTUInt16 index, const TTUInt8 newValue);
+	void set(TTUInt16 index, const TTInt16 newValue);
 	void set(TTUInt16 index, const TTUInt16 value);
-	void set(TTUInt16 index, const TTInt32 value);
-	void set(TTUInt16 index, const TTUInt32 value);
-	void set(TTUInt16 index, const TTInt64 value);
-	void set(TTUInt16 index, const TTUInt64 value);
-	void set(TTUInt16 index, const TTBoolean value);
-	void set(TTUInt16 index, const TTSymbol& value);
-	void set(TTUInt16 index, const TTObject& value);
+	void set(TTUInt16 index, const TTInt32 newValue);
+	void set(TTUInt16 index, const TTUInt32 newValue);
+	void set(TTUInt16 index, const TTInt64 newValue);
+	void set(TTUInt16 index, const TTUInt64 newValue);
+	void set(TTUInt16 index, const TTBoolean newValue);
+	void set(TTUInt16 index, const TTSymbol& newValue);
+	void set(TTUInt16 index, const TTObject& newValue);
 
 
 	// THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
@@ -209,6 +215,21 @@ public:
 	void get(TTUInt16 index, TTBoolean &value) const;
 	void get(TTUInt16 index, TTSymbol &value) const;
 	void get(TTUInt16 index, TTObject &value) const;
+
+
+	void append(const TTFloat32 newValue);
+	void append(const TTFloat64 newValue);
+	void append(const TTInt8 newValue);
+	void append(const TTUInt8 newValue);
+	void append(const TTInt16 newValue);
+	void append(const TTUInt16 value);
+	void append(const TTInt32 newValue);
+	void append(const TTUInt32 newValue);
+	void append(const TTInt64 newValue);
+	void append(const TTUInt64 newValue);
+	void append(const TTBoolean newValue);
+	void append(const TTSymbol& newValue);
+	void append(const TTObject& newValue);
 
 
 	// make sure this is a friend so that it can access the private members of the other atom

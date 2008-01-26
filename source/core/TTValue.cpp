@@ -12,139 +12,124 @@
 /****************************************************************************************************/
 
 TTValue::TTValue()
+	: data(NULL), type(NULL)
 {
-	data = new DataValue;
-	data->float64 = 0.0;
-	type = new TTDataType;
-	*type = kTypeNone;
-	numValues = 1;
+	clear();
 }
 
 TTValue::TTValue(TTFloat32 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->float32 = initialValue;
-	type = new TTDataType;
 	*type = kTypeFloat32;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTFloat64 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->float64 = initialValue;
-	type = new TTDataType;
 	*type = kTypeFloat64;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTInt8 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->int8 = initialValue;
-	type = new TTDataType;
 	*type = kTypeInt8;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTUInt8 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->uint8 = initialValue;
-	type = new TTDataType;
 	*type = kTypeUInt8;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTInt16 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->int16 = initialValue;
-	type = new TTDataType;
 	*type = kTypeInt16;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTUInt16 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->uint16 = initialValue;
-	type = new TTDataType;
 	*type = kTypeUInt16;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTInt32 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->int32 = initialValue;
-	type = new TTDataType;
 	*type = kTypeInt32;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTUInt32 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->uint32 = initialValue;
-	type = new TTDataType;
 	*type = kTypeUInt32;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTInt64 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->int64 = initialValue;
-	type = new TTDataType;
 	*type = kTypeInt64;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTUInt64 initialValue)
 {
-	data = new DataValue;
+	init();
 	data->uint64 = initialValue;
-	type = new TTDataType;
 	*type = kTypeUInt64;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTBoolean initialValue)
 {
-	data = new DataValue;
+	init();
 	data->boolean = initialValue;
-	type = new TTDataType;
 	*type = kTypeBoolean;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTSymbol& initialValue)
 {
-	data = new DataValue;
+	init();
 	data->sym = &initialValue;
-	type = new TTDataType;
 	*type = kTypeSymbol;
-	numValues = 1;
 }
 
 TTValue::TTValue(TTObject& initialValue)
 {
-	data = new DataValue;
+	init();
 	data->object = &initialValue;
-	type = new TTDataType;
 	*type = kTypeObject;
-	numValues = 1;
 }
 
 
 TTValue::~TTValue()
 {
-	delete []type;
-	delete []data;
+	free(type);
+	free(data);
 }
 
-	
+
+void TTValue::clear()
+{
+	if(data)
+		free(data);
+	if(type)
+		free(type);
+
+	init();
+	data->float64 = 0.0;
+	*type = kTypeNone;
+	numValues = 0;
+}
+
+
 TTDataType TTValue::getType() const
 {
 	return *type;
@@ -157,6 +142,13 @@ TTUInt16 TTValue::getNumValues() const
 }
 
 
+void TTValue::init()
+{
+	type = (TTDataType*)malloc(sizeof(TTDataType));
+	data = (DataValue*)malloc(sizeof(DataValue));
+	numValues = 1;
+}
+
 
 void TTValue::setType(TTDataType arg)
 {
@@ -167,10 +159,8 @@ void TTValue::setType(TTDataType arg)
 void TTValue::setNumValues(const TTUInt16 arg)
 {
 	if(arg > numValues){
-		delete []type;
-		delete []data;
-		type = new TTDataType[arg];
-		data = new DataValue[arg];
+		type = (TTDataType*)realloc(type, sizeof(TTDataType) * arg);
+		data = (DataValue*)realloc(data, sizeof(DataValue) * arg);
 	}
 	numValues = arg;
 }
@@ -453,82 +443,82 @@ TTValue::operator TTObject&() const
 }
 
 
-void TTValue::set(TTUInt16 index, const TTFloat32 value)
+void TTValue::set(TTUInt16 index, const TTFloat32 newValue)
 {
-	*type = kTypeFloat32;
-	data->float32 = value;
+	type[numValues] = kTypeFloat32;
+	data[numValues].float32 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTFloat64 value)
+void TTValue::set(TTUInt16 index, const TTFloat64 newValue)
 {
-	*type = kTypeFloat64;
-	data->float64 = value;
+	type[numValues] = kTypeFloat64;
+	data[numValues].float64 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt8 value)
+void TTValue::set(TTUInt16 index, const TTInt8 newValue)
 {
-	*type = kTypeInt8;
-	data->int8 = value;
+	type[numValues] = kTypeInt8;
+	data[numValues].int8 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt8 value)
+void TTValue::set(TTUInt16 index, const TTUInt8 newValue)
 {
-	*type = kTypeUInt8;
-	data->uint8 = value;
+	type[numValues] = kTypeUInt8;
+	data[numValues].uint8 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt16 value)
+void TTValue::set(TTUInt16 index, const TTInt16 newValue)
 {
-	*type = kTypeInt16;
-	data->int16 = value;
+	type[numValues] = kTypeInt16;
+	data[numValues].int16 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt16 value)
+void TTValue::set(TTUInt16 index, const TTUInt16 newValue)
 {
-	*type = kTypeUInt16;
-	data->uint16 = value;
+	type[numValues] = kTypeUInt16;
+	data[numValues].uint16 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt32 value)
+void TTValue::set(TTUInt16 index, const TTInt32 newValue)
 {
-	*type = kTypeInt32;
-	data->int32 = value;
+	type[numValues] = kTypeInt32;
+	data[numValues].int32 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt32 value)
+void TTValue::set(TTUInt16 index, const TTUInt32 newValue)
 {
-	*type = kTypeUInt32;
-	data->uint32 = value;
+	type[numValues] = kTypeUInt32;
+	data[numValues].uint32 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTInt64 value)
+void TTValue::set(TTUInt16 index, const TTInt64 newValue)
 {
-	*type = kTypeInt64;
-	data->int64 = value;
+	type[numValues] = kTypeInt64;
+	data[numValues].int64 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTUInt64 value)
+void TTValue::set(TTUInt16 index, const TTUInt64 newValue)
 {
-	*type = kTypeUInt64;
-	data->uint64 = value;
+	type[numValues] = kTypeUInt64;
+	data[numValues].uint64 = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTBoolean value)
+void TTValue::set(TTUInt16 index, const TTBoolean newValue)
 {
-	*type = kTypeBoolean;
-	data->boolean = value;
+	type[numValues] = kTypeBoolean;
+	data[numValues].boolean = newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTSymbol& value)
+void TTValue::set(TTUInt16 index, const TTSymbol& newValue)
 {
-	*type = kTypeSymbol;
-	data->sym = (TTSymbol*)&value;
+	type[numValues] = kTypeSymbol;
+	data[numValues].sym = (TTSymbol*)&newValue;
 }
 
-void TTValue::set(TTUInt16 index, const TTObject& value)
+void TTValue::set(TTUInt16 index, const TTObject& newValue)
 {
-	*type = kTypeObject;
-	data->object = (TTObject*)&value;
+	type[numValues] = kTypeObject;
+	data[numValues].object = (TTObject*)&newValue;
 }
 
 
@@ -634,4 +624,86 @@ void TTValue::get(TTUInt16 index, TTObject &value) const
 //	if(*type == kTypeUInt64)
 //		value = *(data+index)->object;
 }
+
+
+void TTValue::append(const TTFloat32 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTFloat64 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTInt8 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTUInt8 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTInt16 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTUInt16 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTInt32 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTUInt32 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTInt64 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTUInt64 newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTBoolean newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTSymbol& newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+void TTValue::append(const TTObject& newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues, newValue);
+}
+
+
+
 
