@@ -451,80 +451,80 @@ TTValue::operator TTObject&() const
 
 void TTValue::set(TTUInt16 index, const TTFloat32 newValue)
 {
-	type[numValues] = kTypeFloat32;
-	data[numValues].float32 = newValue;
+	type[index] = kTypeFloat32;
+	data[index].float32 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTFloat64 newValue)
 {
-	type[numValues] = kTypeFloat64;
-	data[numValues].float64 = newValue;
+	type[index] = kTypeFloat64;
+	data[index].float64 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTInt8 newValue)
 {
-	type[numValues] = kTypeInt8;
-	data[numValues].int8 = newValue;
+	type[index] = kTypeInt8;
+	data[index].int8 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTUInt8 newValue)
 {
-	type[numValues] = kTypeUInt8;
-	data[numValues].uint8 = newValue;
+	type[index] = kTypeUInt8;
+	data[index].uint8 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTInt16 newValue)
 {
-	type[numValues] = kTypeInt16;
-	data[numValues].int16 = newValue;
+	type[index] = kTypeInt16;
+	data[index].int16 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTUInt16 newValue)
 {
-	type[numValues] = kTypeUInt16;
-	data[numValues].uint16 = newValue;
+	type[index] = kTypeUInt16;
+	data[index].uint16 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTInt32 newValue)
 {
-	type[numValues] = kTypeInt32;
-	data[numValues].int32 = newValue;
+	type[index] = kTypeInt32;
+	data[index].int32 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTUInt32 newValue)
 {
-	type[numValues] = kTypeUInt32;
-	data[numValues].uint32 = newValue;
+	type[index] = kTypeUInt32;
+	data[index].uint32 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTInt64 newValue)
 {
-	type[numValues] = kTypeInt64;
-	data[numValues].int64 = newValue;
+	type[index] = kTypeInt64;
+	data[index].int64 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTUInt64 newValue)
 {
-	type[numValues] = kTypeUInt64;
-	data[numValues].uint64 = newValue;
+	type[index] = kTypeUInt64;
+	data[index].uint64 = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTBoolean newValue)
 {
-	type[numValues] = kTypeBoolean;
-	data[numValues].boolean = newValue;
+	type[index] = kTypeBoolean;
+	data[index].boolean = newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTSymbol& newValue)
 {
-	type[numValues] = kTypeSymbol;
-	data[numValues].sym = (TTSymbol*)&newValue;
+	type[index] = kTypeSymbol;
+	data[index].sym = (TTSymbol*)&newValue;
 }
 
 void TTValue::set(TTUInt16 index, const TTObject& newValue)
 {
-	type[numValues] = kTypeObject;
-	data[numValues].object = (TTObject*)&newValue;
+	type[index] = kTypeObject;
+	data[index].object = (TTObject*)&newValue;
 }
 
 
@@ -635,79 +635,79 @@ void TTValue::get(TTUInt16 index, TTObject &value) const
 void TTValue::append(const TTFloat32 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTFloat64 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt8 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt8 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt16 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt16 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt32 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt32 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt64 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt64 newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTBoolean newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTSymbol& newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTObject& newValue)
 {
 	setNumValues(numValues + 1);
-	set(numValues, newValue);
+	set(numValues-1, newValue);
 }
 
 
