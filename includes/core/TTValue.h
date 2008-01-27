@@ -115,7 +115,10 @@ public:
 	
 	/** Return the type of this value. */
 	TTDataType getType() const;		// trailing const -- this method can be used on const variables
-	
+
+	/** Return the type of a particular member of this value (assuming it is an array). */
+	TTDataType getType(TTUInt16 index) const;
+
 	/** Return the number of values of this instance. */
 	TTUInt16 getNumValues() const;
 	

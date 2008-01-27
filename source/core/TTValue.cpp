@@ -136,6 +136,12 @@ TTDataType TTValue::getType() const
 }
 
 
+TTDataType TTValue::getType(TTUInt16 index) const
+{
+	return type[index];
+}
+
+
 TTUInt16 TTValue::getNumValues() const
 {
 	return numValues;
