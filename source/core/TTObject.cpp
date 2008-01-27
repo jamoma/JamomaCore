@@ -432,7 +432,7 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 
 	attributeNameList.clear();	
 	for(i=0; i<attributeCount; i++)
-		attributeNameList.append(attributeNames[i]);
+		attributeNameList.append(*attributeNames[i]);
 }
 
 
