@@ -11,19 +11,13 @@
 
 #include "TTElement.h"
 
-/** This macro is defined as a shortcut for doing a lookup in the symbol table. */
-#define TT *TTSymbol::lookup
 
 /****************************************************************************************************/
 // Class Specification
 
-
 /**
 	The TTSymbol class is used to represent a string and efficiently pass and compare that string.
 	At the moment the implementation is somewhat crude and really slow and it should be improved in the future.
-
-	This current implementation has an internal table that is implemented as a fixed array.
-	Each symbol is identified by its index in this array.
 */
 class TTSymbol : public TTElement {
 private:
@@ -33,11 +27,16 @@ private:
 	static TTUInt32			symbolTableSize;	///< The size of the symbol table
 
 	/** used by the constructors to create the new symbol */
-	void init(const char* newString);
+	void init(const char* newString, TTInt32 newId);
 
 public:
 	TTSymbol();
 	TTSymbol(TTString newString);
+	
+	/** This constructor is intended only for use by the TTSymbolTable object when creating new symbols
+		in the table.  Perhaps this could be made private and then the class made a friend... */
+	TTSymbol(TTString newString, TTInt32 newId);
+
 	virtual	~TTSymbol();
 	
 	/** Copy Constructor */
@@ -58,7 +57,7 @@ public:
 	
 	TTSymbol& TTSymbol::operator = (const char* aString)
 	{
-		init(aString);
+		init(aString, -1);
 		return *this;
 	}
 
@@ -66,15 +65,7 @@ public:
 	{
 		return string;
 	}
-
-
-	//friend bool operator == (const TTValue& a1, const TTValue& a2);
-
-	/** Look in the symbol table for this string.  If it exists then return its id.  
-	 *	If it does not exist then it is created, added to the symbol table and this new symbol's id is returned. */
-	static const TTSymbol*	lookup(const TTString string);
 };
 
 
 #endif // __TT_SYMBOL_H__
-

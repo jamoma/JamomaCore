@@ -7,9 +7,7 @@
  */
 
 #include "TTSymbol.h"
-
-TTSymbol**	TTSymbol::symbolTable = NULL;
-TTUInt32	TTSymbol::symbolTableSize = 0;
+#include "TTSymbolTable.h"
 
 
 /****************************************************************************************************/
@@ -17,13 +15,20 @@ TTUInt32	TTSymbol::symbolTableSize = 0;
 TTSymbol::TTSymbol()
 	: string(NULL)
 {
-	init("");
+	init("", -1);
 }
 
 TTSymbol::TTSymbol(TTString newString)
 	: string(NULL)
 {
-	init(newString);
+	init(newString, -1);
+}
+
+
+TTSymbol::TTSymbol(TTString newString, TTInt32 newId)
+	: string(NULL)
+{
+	init(newString, newId);
 }
 
 
@@ -31,7 +36,7 @@ TTSymbol::~TTSymbol()
 {
 	//should free this to prevent memory leaks, but is it safe to do so?
 	// maybe we need to reference count...
-	//free(string);
+	free(string);
 }
 
 
@@ -43,37 +48,23 @@ TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 }
 
 
-void TTSymbol::init(const char* newString)
+void TTSymbol::init(const char* newString, TTInt32 newId)
 {
-	TTSymbol	*existingSymbol = NULL;
-	TTUInt32	i;
+	const TTSymbol	*existingSymbol = NULL;
 
+	// 1. Copy the string
 	if(string)
 		free(string);
-
-	for(i=0; i<symbolTableSize; i++){
-		if(!strcmp(newString, symbolTable[i]->getString())){
-			existingSymbol = symbolTable[i];	// we found it
-			break;
-		}
-	}
-
 	string = (char*)malloc(sizeof(char) * (strlen(newString)+1));
 	strcpy(string, newString);
 
-	if(existingSymbol)
+	// 2. Look for this symbol in the symbol table (it should already exist)
+	if(newId < 0){
+		existingSymbol = ttSymbolTable.lookup((TTString)newString);
 		id = existingSymbol->id;
-	else{
-		id = symbolTableSize;
-		
-		if(symbolTableSize)
-			symbolTable = (TTSymbol**)realloc(symbolTable, sizeof(TTSymbol*) * (symbolTableSize + 1));
-		else
-			symbolTable = (TTSymbol**)malloc(sizeof(TTSymbol*));
-		symbolTableSize++;
-		
-		symbolTable[symbolTableSize-1] = this;
 	}
+	else	// This symbol is being added to the symbol table with the given id
+		id = newId;
 }
 
 
@@ -87,25 +78,3 @@ const TTUInt32 TTSymbol::getId()
 {
 	return id;
 }
-
-
-/****************************************************************************************************/
-// Shared (static) Methods
-
-const TTSymbol* TTSymbol::lookup(const TTString string)
-{
-	TTUInt32	i;
-
-	// NOTE: This lookup is also done up in the constructor
-	// That allows us to call methods expecting a TTSymbol by
-	// passing them simple c strings.	
-	for(i=0; i<symbolTableSize; i++){
-		if(!strcmp(string, symbolTable[i]->getString())){
-			return symbolTable[i];	// we found it
-		}
-	}
-	
-	// If we are here then the symbol wasn't found, so we need to create it
-	return new TTSymbol(string);
-}
-

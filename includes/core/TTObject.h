@@ -11,6 +11,7 @@
 
 #include "TTElement.h"
 #include "TTSymbol.h"
+#include "TTSymbolTable.h"
 #include "TTValue.h"
 #include "TTValueCache.h"
 

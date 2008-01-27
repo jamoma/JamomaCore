@@ -9,8 +9,12 @@
 #include "TTGlobal.h"
 #include "TTAudioObject.h"
 
-// The global instance of this class
-TTGlobal	ttGlobalObject;
+
+// The global instance of the symbol table
+TTSymbolTable	ttSymbolTable;		///< The global table of symbols
+
+// The global instance of the global object
+TTGlobal		ttGlobalObject;
 
 
 /****************************************************************************************************/
