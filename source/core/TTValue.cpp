@@ -612,15 +612,15 @@ void TTValue::get(TTUInt16 index, TTUInt64 &value) const
 
 void TTValue::get(TTUInt16 index, TTBoolean &value) const
 {
-	if(*type == kTypeUInt64)
-		value = (data+index)->uint64;
+	if(*type == kTypeBoolean)
+		value = (data+index)->boolean;
 	else
 		CONVERT
 }
 
 void TTValue::get(TTUInt16 index, TTSymbol &value) const
 {
-	if(*type == kTypeUInt64)
+	if(*type == kTypeSymbol)
 		value = *(data+index)->sym;
 }
 
@@ -709,7 +709,4 @@ void TTValue::append(const TTObject& newValue)
 	setNumValues(numValues + 1);
 	set(numValues-1, newValue);
 }
-
-
-
 
