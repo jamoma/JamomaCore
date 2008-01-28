@@ -265,7 +265,41 @@ The topic of query has been brought up and been suggested as follows:
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Separators} % (fold)
+\label{sub:separators}
+
+
+Having discussed different ways of designing a message like this one, we seem to have agreed that the meaning of the different separating signs used need to be precisely defined:
+
+\begin{itemize}
+
+	\item. (dot): Used to indicate instances of a specific class.
+	\item / (slash): Used to indicate branching according to the OSC specification.
+	\item : (colon): Colon is used to split the total OSC message into two parts. The first part is describing where you want to go. The second part describe what you want to access there.
+\end{itemize}
+
+% subsection separators (end)
+
+
 % section address_and_properites_of_a_value (end)
+
+
+\subsection{The colon separator} % (fold)
+\label{sub:the_colon_separator}
+
+In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon "\texttt{:}" as a separator between the OSC address of the parameter and the namespace for accessing the properties of the parameter:
+
+\texttt{<parameter address> <value>}
+
+\texttt{<parameter address>:<property address> <value>}
+
+The former message sets the value itself, while the latter sets a property of the value. 
+
+Section~\ref{sec:prototype_implementation} provides an example of an implementation of the ideas suggested here. In following discussiom the address of the value will be omitted for the sake of brevity; e.g. \texttt{/computer/module/parameter:property} will be abbreviated as \texttt{:property}.
+
+% subsection the_colon_separator (end)
 
 
 
@@ -278,25 +312,31 @@ The topic of query has been brought up and been suggested as follows:
 
 The general concepts introduced in the previous section has formed the basis for the implementation of a standardized namespace addressing properties of values in the Jamoma framework for Max/MSP \cite{Place:2006}. The following description of the implementation is meant to serve as an illustration of the concept, as well as indicating how it might provide the user with extended and structured control of available values.
 
-Jamoma distinguish between module \emph{parameters} and \emph{messages}. Parameters alter the state of the module. When querying or setting the state of the module, parameter values need to be retrieved or set. In contrast messages are stateless. One example of a message would be a request to open a reference file for the module. Apart from the difference in terms of state, messages and parameters behave the same, and the following discussion is equally valid for both.
+Jamoma distinguish between module \emph{parameters} and \emph{messages}. Parameters alter the state of the module. When querying or setting the state of the module, parameter values need to be retrieved or set. In contrast messages are stateless. One example of a message would be a request to open a reference file for the module. Apart from the difference in terms of state, messages and parameters are implemented and behave the same way, and the following discussion is equally valid for both. In the following discussion a \emph{value} can be a module parameter or message.
 
-\subsection{The colon separator} % (fold)
-\label{sub:the_colon_separator}
 
-In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon "\texttt{:}" as a separator between the OSC address of the parameter and the namespace for accessing the properties of the parameter:
 
-\texttt{<parameter address> <value>}
+%%%%%%%%%%%%%%%%%%%%%%
 
-\texttt{<parameter address>:<property address> <value>}
+\subsection{Value type} % (fold)
+\label{sub:type}
 
-The former message sett the value itself, while the latter sets a property of the message. The address of the parameter will be omitted in the following examples for the sake of brevity; e.g. \texttt{/computer/module/parameter:property} will be abbreviated as \texttt{:property}.
+The type of the value can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float}, \emph{symbols} and \emph{list}. If one do not want to restrict the type of the value, it can be set to \emph{generic}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of values. The type property is accessed thus:
 
-% subsection the_colon_separator (end)
+\texttt{:type}
+
+\texttt{:type/get}
+
+% subsection type (end)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Controlling the value itself} % (fold)
 \label{sub:controlling_the_value_itself}
 
-In addition to setting the value directly, it can be set and retrieved as a property. Value can also be stepwise increased or decresed, and the size of the steps is itself a property:
+In addition to setting the value directly, it can be set and retrieved as a property. If the value is of integer, float or list type it can also be stepwise increased or decresed. If so the size of the steps is itself a property:
 
 \texttt{:value}
 
@@ -314,22 +354,12 @@ In addition to setting the value directly, it can be set and retrieved as a prop
 
 
 
-\subsection{Parameter or message type} % (fold)
-\label{sub:type}
-
-The type of the value can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float}, \emph{symbols} and \emph{lists}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of values. The type property is accessed thus:
-
-\texttt{:type}
-
-\texttt{:type/get}
-
-% subsection type (end)
-
+%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Controlling the range} % (fold)
 \label{sub:range}
 
-For integer, float and list values a range can be specified. This can be useful for setting up autoscaling mappings from one parameter value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
+For integer, float and list values a range can be specified. This can be useful for setting up autoscaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
 
 \texttt{:range}
 
@@ -342,10 +372,13 @@ For integer, float and list values a range can be specified. This can be useful 
 % subsection range (end)
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Filtering of repetitions} % (fold)
 \label{sub:filtering_of_repetitions}
 
-It is soemtimes useful to filter repetitions to avoid redundant processing. The \emph{boolean} repetitions property is accessed thus:
+It is smemtimes useful to filter repetitions to avoid redundant processing. The \emph{boolean} repetitions property is accessed thus:
 
 \texttt{:repetitions}
 
@@ -353,6 +386,9 @@ It is soemtimes useful to filter repetitions to avoid redundant processing. The 
 
 % subsection filtering_of_repetitions (end)
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Ramping to new values} % (fold)
 \label{sub:ramping_to_new_values}
@@ -365,14 +401,16 @@ will set the parameter value to $1.0$ immediately, the message
 
 \texttt{/myComputer/myModule/myParameter 1.0 ramp 2000}
 
-will cause the parameter to ramp to $1.0$ over 2000 milliseconds. Ramping in Jamoma works with messages and parameters of type integer, float and list.
+will cause the value to ramp to $1.0$ over 2000 milliseconds. Ramping in Jamoma works with messages and parameters of type integer, float and list.
 
-Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is split into two components: A driving mechanism forcing calculations of new values during the ramp, and a set of functions describing the curve of the ramping. Both components are implemented as C++ APIs, and can easily be extended with new functionalities.
+Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes.
+
+
 
 \subsubsection{The Jamoma RampLib API} % (fold)
 \label{ssub:the_ramp_lib}
 
-The Jamoma RampLib API provides a means by which to create and use \emph{Ramp Units} in Jamoma.  A Ramp Unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each Rasmp Unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such Ramp Units are implemented:
+The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
 
 \begin{itemize}
 
@@ -386,8 +424,7 @@ The Jamoma RampLib API provides a means by which to create and use \emph{Ramp Un
 	
 \end{itemize}
 
-When a new ramp is started, the Ramp Unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the Ramp Unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
-
+When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
 
 % subsubsection the_ramp_lib (end)
 
@@ -409,12 +446,11 @@ Currently five functions are implemented:
 
 	\item Power function: $ y = x^{k} $, where the parameter $k$ can be set.
 
-	\item Hyperbolic tangens: $ y = c * (tanh(a*(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
+	\item Hyperbolic tangent: $ y = c * (tanh(a*(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
 	
 \end{itemize}
 
 There are plans to introduce exponential functions.
-
 
 % subsubsection the_function_lib (end)
 
@@ -423,21 +459,26 @@ There are plans to introduce exponential functions.
 \subsubsection{OSC namespace for ramping properties} % (fold)
 \label{ssub:osc_namespace_for_ramping_properties}
 
+Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/function} OSC nameclasses. In addition to the ablity of setting or getting current ramp driving mechanism, it might be useful to have the module return a list of all available ramp units. This can be done by means of a \texttt{/dump} message:
+
 \texttt{:ramp/drive}
 
 \texttt{:ramp/drive/get}
 
 \texttt{:ramp/drive/dump}
 
+Some ramp units might have additional parameters that can be controlled by the user. For instance the user can control how often the \emph{scheduler} ramp unit is to update; the granularity of the ramp.  In general a ramp unit parameter \texttt{/foo} might be accessed thus:
 
 
-\texttt{:ramp/drive/parameter}
+\texttt{:ramp/drive/parameter/foo}
 
-\texttt{:ramp/drive/parameter/get}
+\texttt{:ramp/drive/parameter/foo/get}
+
+If the current ramp unit do not have a \texttt{/foo} parameter, the message will be ignored by the ramp unit. It is possible to query what parameters are available for the current ramp unit with the \texttt{/dump} message:
 
 \texttt{:ramp/drive/parameter/dump}
 
-
+The function used for the ramp can be set or queried in much the same way. It is also possible to request information on available function units with the \texttt{/dump} message:
 
 \texttt{:ramp/function}
 
@@ -445,29 +486,42 @@ There are plans to introduce exponential functions.
 
 \texttt{:ramp/function/dump}
 
+Some function units might have additional coefficients influencing the shape of the curve, e.g. the exponent of the \emph{power} function unit can be set. In general a function unit parameter \texttt{/bar} might be accessed thus:
 
+\texttt{:ramp/function/parameter/bar}
 
-\texttt{:ramp/function/parameter}
+\texttt{:ramp/function/parameter/bar/get}
 
-\texttt{:ramp/function/parameter/get}
+If the current function unit do not have a \texttt{/bar} parameter, the message will be ignored by the function unit. It is possible to query what coefficients are available for the current function unit with the \texttt{/dump} message:
 
 \texttt{:ramp/function/parameter/dump}
-
-
-
-\texttt{:ramp/function/parameter/names/dump}
-
-\texttt{:ramp/function/parameter width}
-
-\texttt{:ramp/function/parameter/get width}
-
-
-
 
 % subsubsection osc_namespace_for_ramping_properties (end)
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Controlling the user interface} % (fold)
+\label{sub:controlling_the_user_interface}
+
+In certain applications the CPU overhead of continuously updating the graphical user interface whenever parameter or message values change might become a burdon, competing for CPU with e.g. video processing algorithms. If the user do not need continuous visual feedback on updated values of parameters or messages, the GUI for the parameter or message can be frozen, freeing up the processor and GPU for tasks considered more important:
+
+\texttt{:ui/freeze}
+
+\texttt{:ui/freeze/get}
+
+A parameter or message that has its GUI frozen can be forced to update and refresh the displayed value once by means of the message:
+
+\texttt{:ui/refresh}
+
+% subsection controlling_the_user_interface (end)
+
 % subsection ramping_to_new_values (end)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Description} % (fold)
 \label{sub:description}
@@ -484,79 +538,18 @@ The description property is a string providing a text description of the paramet
 
 %%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Separators} % (fold)
-\label{sub:separators}
+\subsection{Retrieving all properties of a value} % (fold)
+\label{sub:retrieving_all_properties_of_a_value}
 
+The discussion so far has illustrated what properties are available for values in Jamoma, and how the can be accessed one by one. Jamoma also offers the possibility of retrieving the total namespace for one value with the message: 
 
-Having discussed different ways of designing a message like this one, we seem to have agreed that the meaning of the different separating signs used need to be precisely defined:
+\texttt{:namespace/dump}
 
-\begin{itemize}
+In addition current settings for all properties can be retrived by the message:
 
-	\item. (dot): Used to indicate instances of a specific class.
-	\item / (slash): Used to indicate branching according to the OSC specification.
-	\item : (colon): Colon is used to split the total OSC message into two parts. The first part is describing where you want to go. The second part describe what you want to access there.
-\end{itemize}
+\texttt{:properties/dump}
 
-% subsection separators (end)
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Namespace structure}
-\texttt{:value/get}
-
-%% This should probably be in a table if included, but just adding it here as a draft
-
-		Message                                               Category       Description
-
-		- [ ] /module/parameter
-		    - [ ] General for the module
-		        - [ ] :namespace/dump
-		        - [ ] :dump/values
-		    - [ ] value stuff                                                These ones are not fixed.
-		        - [X] :value/get                              value          get the value of the parameter
-		        - [X] :value                                  value          set the value (why would you want to do it this way?)
-		        - [x] :value/range                            range
-		        - [x] :value/range/get                        range
-		        - [x] :value/range/clipmode                   range
-		        - [x] :value/range/clipmode/get               range
-		        - [X] :value/step/inc                         value          Increase by one step
-		        - [X] :value/step/dec                         value          Decrease by one step
-		        - [X] :value/step/size                        value          Set the step size
-		        - [X] :value/step/size/get                    value          Get the step size
-		        - [ ] :value/unit
-		        - [x] :value/type                             type
-		        - [x] :value/type/get                         type
-		    - [ ] Conditioning
-		        - [x] :repetitions                            repetitions
-		        - [x] :repetitions/get                        repetitions
-		    - [ ] ramp stuff - including drive and function
-		
-		        - [x] :ramp/drive                             ramp/drive     Select what mechanism is driving the ramp
-		        - [x] :ramp/drive/get                         ramp/drive
-		        - [x] :ramp/drive/dump                        ramp/drive	 Dump all possible driving mechanisms available
-		
-		        - [x] :ramp/drive/parameter                   ramp/drive     Pass additional parameters to the driving mechanism
-		        - [x] :ramp/drive/parameter/get               ramp/drive
-		        - [x] :ramp/drive/parameter/dump              ramp/drive	
-		
-		        - [x] :ramp/function                          ramp/drive     Select what mapping function to use for the ramp
-		        - [x] :ramp/function/get                      ramp/function
-		        - [x] :ramp/function/dump                     ramp/function	 
-		
-		        - [x] :ramp/function/parameter                ramp/function  Pass additional parameters to the function
-		        - [x] :ramp/function/parameter/get            ramp/function
-		        - [x] :ramp/function/parameter/dump           ramp/function	
-
-		        - [x] :ramp/function/parameter/names/dump     ramp/function  Get the name of all parameters for the currently used function
-		        - [x] :ramp/function/parameter width          ramp/function  This is an example (valid for the tanh function)
-		        - [x] :ramp/function/parameter/get width      ramp/function  This is an example (valid for the tanh function)
-		    - [ ] ui
-		        - [ ] :ui/freeze                              ui
-		        - [ ] :ui/freeze/get                          ui
-				- [ ] :ui/refresh	                          ui
-
-
+% subsection retrieving_all_properties_of_a_value (end)
 
 % section prototype_implementation (end)
 
@@ -569,19 +562,27 @@ Having discussed different ways of designing a message like this one, we seem to
 \section{Discussion and further work} % (fold)
 \label{sec:discussion_and_further_work}
 
-% section discussion_and_further_work (end)
+4 ramp units times 5 function units = 20 ramping modes
 
-4 Ramp Units times 5 Function Units = 20 ramping modes
+ramp units can be used for other scheduled processes as well
 
-Ramp Units can be used for other scheduled processes as well
+Possibility of expanding ramp units as low frequency oscillators
 
-Possibility of expanding Ramp Units as low frequency oscillators
-
-Function Units can be used elsewhere, e.g. for mapping
+function units can be used elsewhere, e.g. for mapping
 
 Audio rate ramp unit.
 
 DataspaceLib
+
+Querying - we propose a different system to the Lemur OSC2 draft
+
+Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
+
+
+
+% section discussion_and_further_work (end)
+
+
 
 
 %\end{document}  % This is where a 'short' article might terminate
@@ -597,6 +598,7 @@ DataspaceLib
 \label{sec:acknowledgments}
 
 All Jamoma developers and users for valuable contributions. 
+iMAL
 
 % section acknowledgments (end)
 
