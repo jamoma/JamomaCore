@@ -269,6 +269,11 @@ The former message sets the value of the node just as it would using the existin
 
 \texttt{/path/to/the/temperature 212}
 
+This usage of the colon has precedent in POSIX paths when addressing remote filesystems.  For example, scp uses the following format to locate a file on a remote server:
+
+\texttt{user@host.com:/path/to/file}
+
+In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.
 
 Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the value will be omitted for the sake of brevity; e.g. \texttt{/computer/module/parameter:property} will be abbreviated as \texttt{:property}.
 
