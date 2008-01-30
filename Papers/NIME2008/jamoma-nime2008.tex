@@ -52,7 +52,9 @@
 % Comments at top of file (end) 
 
 \documentclass{sig-alternate}
-\usepackage{listings}
+\usepackage{listings}      
+\usepackage{hyperref}
+\usepackage{url}
 
 \begin{document}
 \lstset{language=XML, basicstyle=\small, stringstyle=\ttfamily}
@@ -131,9 +133,9 @@ The paper suggests an approach for creating structured Open Sound Control (OSC) 
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Open Sound Control \footnote{http://www.opensoundcontrol.org} is a protocol for transmitting messages that address nodes using a familiar "slash" notation.  It has been adopted by the computer music community as a de facto standard for communication both within a single process and between separate processes.  OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
+Open Sound Control \footnote{\url{http://www.opensoundcontrol.org}} is a protocol for transmitting messages that address nodes using a familiar "slash" notation.  It has been adopted by the computer music community as a de facto standard for communication both within a single process and between separate processes.  OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
 
-The authors are involved in developing OSC namespaces for the Jamoma\footnote{http://www.jamoma.org} project.
+The authors are involved in developing OSC namespaces for the Jamoma\footnote{\url{http://www.jamoma.org}} project.
 Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment \cite{Place:2006}.  Communication within and between Jamoma modules is handled using the Open Sound Control protocol. 
 
 As Jamoma's modular structures grew more complex, the authors found the flat namespace conventions of OSC to be inadequate for addressing our constructs.  Specifically, we found OSC to be ideal for specifying an address to a node.  However, it became increasing unclear what to do once the address reached this said node.  The problem is exacerbated when the node itself implements its own OSC namespace.
@@ -163,37 +165,22 @@ This open approach has made OSC useful in a number of different situations and a
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{OSC Namespace Standardization}
 
-There are a number of projects ongoing which attempt to standardize namespaces for various uses of Open Sound Control. A partial listing of these follow.
+There are a number of projects ongoing which attempt to standardize namespaces for various uses of Open Sound Control. A partial listing of these follow.\\
 
-\begin{itemize}
 
-	\item 	Occam\footnote{http://www.mat.ucsb.edu/$\sim$c.ramakr/illposed/occam.html} takes OSC messages and converts 
-		them to 	MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that 
-		accepts MIDI. It broadcats the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).
-	\item 	LIBOSCQS\footnote{http://liboscqs.sourceforge.net/} is a library to provide a Query System and 
-		Service Discovery for applications using the Open Sound Control (OSC) protocol\cite{Schmeder:2004oscqs}. 
-		This page contains an introduction to LIBOSCQS.
-	\item 	The Integra\footnote{http://www.integralive.org} project is a EU Culture 2000 project aiming at 
-		developing "a new software environment to make music with live electronics," and to modernize works 
-		that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a 
-		client/server model.  The Integra OSC address space suggests using the : (colon) to only set 
-		messages without outputting, to avoid feedback. They also include a .get message to query for values. 
-	\item	The text based computer music programming language SuperCollider is using OSC for internal 
-		communication in its client/server model. 
-	\item 	"Iannix \footnote{http://sourceforge.net/projects/iannix} is a graphical editor of 
-		multidimensional and multi-formal scores, a kind of poly-temporal meta-sequencer, based on the former 
-		UPIC created by Iannis Xenakis." The current implementation is built around a client/server model 
-		where all communication is handled using OSC. \cite{Coduys:2004}
-	\item	Open Sound Control 2.0 suggestion -- Developers of the Lemur multitouch interface presented a draft 
-		for a 2.0 version of Open Sound Control during an OSC developer meeting at 
-		NIME 2006 \cite{Jazzmutant:2006}, and has later changed the suggestion slightly \cite{Jazzmutant:2007}. 
-	\item   OSCQS \cite{Habets:2005}
-	\item	The MTG at Pompeu Fabra has developed TUIO, an OSC address space for handling data from 
-		the Reactable \cite{Kaltenbrunner:2005}.
-	\item    Copperlan
-	\item   McGill Mapper \cite{Malloch:2007}
 
-\end{itemize}
+\noindent \textbf{Occam} \footnote{\url{www.mat.ucsb.edu/$\sim$c.ramakr/illposed/occam.html}} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcats the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
+\textbf{LIBOSCQS}\footnote{\url{http://liboscqs.sourceforge.net}} is a library to provide a Query System and Service Discovery for applications using the Open Sound Control (OSC) protocol\cite{Schmeder:2004oscqs}. This page contains an introduction to LIBOSCQS. \\
+\textbf{Integra}, an EU Culture 2000 project\footnote{\url{http://www.integralive.org}}  aiming at developing "a new software environment to make music with live electronics," and to modernize works that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a client/server model.  The Integra OSC address space suggests using the : (colon) to only set messages without outputting, to avoid feedback. They also include a .get message to query for values.\\ 
+\textbf{SuperCollider}, a text based audio synthesis programming language is using OSC for internal communication in its client/server model.\\ 
+\textbf{Iannix} \footnote{\url{http://sourceforge.net/projects/iannix}} is a graphical editor of 
+multidimensional and multi-formal scores, a kind of poly-temporal meta-sequencer, based on the former UPIC created by Iannis Xenakis." The current implementation is built around a client/server model where all communication is handled using OSC. \cite{Coduys:2004}\\
+\textbf{Open Sound Control 2.0 proposal} -- Developers of the Lemur multitouch interface presented a draft for a 2.0 version of Open Sound Control during an OSC developer meeting at 
+NIME 2006 \cite{Jazzmutant:2006}, and has later changed the suggestion slightly \cite{Jazzmutant:2007}.\\ 
+\textbf{OSCQS} \cite{Habets:2005}\\
+\textbf{TUIO}, an OSC address space for handling data from the Reactable \cite{Kaltenbrunner:2005} was been developed at MTG at Pompeu Fabra.\\
+\textbf{Copperlan} TODO:WHAT IS THAT?\\
+\textbf{McGill Mapper} \cite{Malloch:2007}\\
 
 
 \subsection{Syntactic Definitions} % (fold)
@@ -219,9 +206,9 @@ This problem of accessing properties of a node, as opposed to the value of a nod
 \subsection{XML} % (fold)
 \label{sub:xml}
 
-Extensible Markup Language (XML)\footnote{http://www.w3.org/XML/} is a particularly relevant analogue to Open Sound Control.  XML defines a means for formatting data, but not the data or the anything specific to the dataspace itself CITATION OF THE XML SPEC http://www.w3.org/TR/2006/REC-xml-20060816/ .  
+Extensible Markup Language (XML)\footnote{\url{http://www.w3.org/XML/}} is a particularly relevant analogue to Open Sound Control.  XML defines a means for formatting data, but not the data or the anything specific to the dataspace itself CITATION OF THE XML SPEC http://www.w3.org/TR/2006/REC-xml-20060816/ .  
 
-A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{http://www.w3.org/Graphics/SVG/}, XHTML\footnote{http://www.w3.org/TR/xhtml1/} and SOAP\footnote{http://www.w3.org/TR/soap/}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
+A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/Graphics/SVG/}}, XHTML\footnote{\url{http://www.w3.org/TR/xhtml1/}} and SOAP\footnote{\url{http://www.w3.org/TR/soap/}}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
 
 Using XML, information is encapsulated into elements.  These elements could be structured such that they are analogous to an OSC message. For the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent the above temperature example is thus:
 
@@ -275,8 +262,8 @@ This usage of the colon has precedent in POSIX paths when addressing remote file
 
 In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.
 
-Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the value will be omitted for the sake of brevity; e.g. 
-\texttt{/computer/module/parameter:property} 
+Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the value will be omitted for the sake of brevity; e.g.\\ 
+\texttt{/computer/module/parameter:property}  
 will be abbreviated as \texttt{:property}.
 
 
@@ -423,13 +410,13 @@ Currently five functions are implemented:
 
 	\item Linear: $y = x$.
 
-	\item Cosine: $y = - \frac{1}{2} * cos(x * \pi ) + \frac{1}{2} $.
+	\item Cosine: $y = - \frac{1}{2} \cdot cos(x \cdot \pi ) + \frac{1}{2} $.
 
-	\item Lowpass series: $y[n] = y[n-1] * k + x[n] * (1-k)$, \\ where $k$ is a feedback coefficient.
+	\item Lowpass series: $y[n] = y[n-1] \cdot k + x[n] \cdot (1-k)$, \\ where $k$ is a feedback coefficient.
 
 	\item Power function: $ y = x^{k} $, where the parameter $k$ can be set.
 
-	\item Hyperbolic tangent: $ y = c * (tanh(a*(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
+	\item Hyperbolic tangent: $ y = c \cdot (tanh(a\cdot(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
 	
 \end{itemize}
 
@@ -488,7 +475,7 @@ If the current function unit do not have a \texttt{/bar} parameter, the message 
 \subsection{Controlling the user interface} % (fold)
 \label{sub:controlling_the_user_interface}
 
-In certain applications the CPU overhead of continuously updating the graphical user interface whenever parameter or message values change might become a burdon, competing for CPU with e.g. video processing algorithms. If the user do not need continuous visual feedback on updated values of parameters or messages, the GUI for the parameter or message can be frozen, freeing up the processor and GPU for tasks considered more important:
+In certain applications the CPU overhead of continuously updating the graphical user interface whenever parameter or message values change might become a burden, competing for CPU with e.g. video processing algorithms. If the user do not need continuous visual feedback on updated values of parameters or messages, the GUI for the parameter or message can be frozen, freeing up the processor and GPU for tasks considered more important:
 
 \texttt{:ui/freeze}
 
@@ -528,7 +515,7 @@ The discussion so far has illustrated what properties are available for values i
 
 \texttt{:namespace/dump}
 
-In addition current settings for all properties can be retrived by the message:
+In addition current settings for all properties can be retrieved by the message:
 
 \texttt{:properties/dump}
 
