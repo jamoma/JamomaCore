@@ -17,9 +17,17 @@
 
 #include "TTBandpassButterworth2.h"		// TTBlue Interfaces...
 #include "TTBandrejectButterworth2.h"
+#include "TTHighpassButterworth1.h"
 #include "TTHighpassButterworth2.h"
+#include "TTHighpassButterworth3.h"
+#include "TTHighpassButterworth4.h"
+#include "TTHighpassLinkwitzRiley2.h"
 #include "TTHighpassLinkwitzRiley4.h"
+#include "TTLowpassButterworth1.h"
 #include "TTLowpassButterworth2.h"
+#include "TTLowpassButterworth3.h"
+#include "TTLowpassButterworth4.h"
+#include "TTLowpassLinkwitzRiley2.h"
 #include "TTLowpassLinkwitzRiley4.h"
 #include "TTLowpassOnePole.h"
 
@@ -273,15 +281,39 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			else if(x->attrType == gensym("bandreject/butterworth2"))
 				newFilter = new TTBandRejectButterworth2(x->maxNumChannels);
 				
+			else if(x->attrType == gensym("highpass/butterworth1"))
+				newFilter = new TTHighpassButterworth1(x->maxNumChannels);
+
 			else if(x->attrType == gensym("highpass/butterworth2"))
 				newFilter = new TTHighpassButterworth2(x->maxNumChannels);
+
+			else if(x->attrType == gensym("highpass/butterworth3"))
+				newFilter = new TTHighpassButterworth3(x->maxNumChannels);
+
+			else if(x->attrType == gensym("highpass/butterworth4"))
+				newFilter = new TTHighpassButterworth4(x->maxNumChannels);
+								
+			else if(x->attrType == gensym("highpass/linkwitzRiley2"))
+				newFilter = new TTHighpassLinkwitzRiley2(x->maxNumChannels);
 
 			else if(x->attrType == gensym("highpass/linkwitzRiley4"))
 				newFilter = new TTHighpassLinkwitzRiley4(x->maxNumChannels);
 				
+			else if(x->attrType == gensym("lowpass/butterworth1"))
+				newFilter = new TTLowpassButterworth1(x->maxNumChannels);
+
 			else if(x->attrType == gensym("lowpass/butterworth2"))
 				newFilter = new TTLowpassButterworth2(x->maxNumChannels);
+
+			else if(x->attrType == gensym("lowpass/butterworth3"))
+				newFilter = new TTLowpassButterworth3(x->maxNumChannels);
 				
+			else if(x->attrType == gensym("lowpass/butterworth4"))
+				newFilter = new TTLowpassButterworth4(x->maxNumChannels);
+				
+			else if(x->attrType == gensym("lowpass/linkwitzRiley2"))
+				newFilter = new TTLowpassLinkwitzRiley2(x->maxNumChannels);
+								
 			else if(x->attrType == gensym("lowpass/linkwitzRiley4"))
 				newFilter = new TTLowpassLinkwitzRiley4(x->maxNumChannels);
 				

@@ -59,6 +59,22 @@
 		22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		A779B3D00D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B3D20D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B3D40D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */; };
+		A779B3D60D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */; };
+		A779B4380D507FB700EAD135 /* TTLowpassButterworth1.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4370D507FB700EAD135 /* TTLowpassButterworth1.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B43A0D507FC100EAD135 /* TTHighpassButterworth1.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B43C0D507FD300EAD135 /* TTHighpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */; };
+		A779B43E0D507FDD00EAD135 /* TTLowpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */; };
+		A779B4A80D508E5200EAD135 /* TTLowpassButterworth3.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4A60D508E5200EAD135 /* TTLowpassButterworth3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B4A90D508E5200EAD135 /* TTHighpassButterworth3.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4A70D508E5200EAD135 /* TTHighpassButterworth3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B4AC0D508E6900EAD135 /* TTLowpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */; };
+		A779B4AD0D508E6900EAD135 /* TTHighpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */; };
+		A779B4C00D509B6F00EAD135 /* TTLowpassButterworth4.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4BE0D509B6F00EAD135 /* TTLowpassButterworth4.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A779B4C40D509BB100EAD135 /* TTHighpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */; };
+		A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +133,22 @@
 		22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = ../includes/core/TTSymbolTable.h; sourceTree = SOURCE_ROOT; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		8DC2EF5B0486A6940098B216 /* TTBlue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TTBlue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassLinkwitzRiley2.h; path = ../includes/units/TTHighpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
+		A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassLinkwitzRiley2.h; path = ../includes/units/TTLowpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
+		A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley2.cpp; path = ../source/units/TTHighpassLinkwitzRiley2.cpp; sourceTree = SOURCE_ROOT; };
+		A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassLinkwitzRiley2.cpp; path = ../source/units/TTLowpassLinkwitzRiley2.cpp; sourceTree = SOURCE_ROOT; };
+		A779B4370D507FB700EAD135 /* TTLowpassButterworth1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth1.h; path = ../includes/units/TTLowpassButterworth1.h; sourceTree = SOURCE_ROOT; };
+		A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth1.h; path = ../includes/units/TTHighpassButterworth1.h; sourceTree = SOURCE_ROOT; };
+		A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth1.cpp; path = ../source/units/TTHighpassButterworth1.cpp; sourceTree = SOURCE_ROOT; };
+		A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth1.cpp; path = ../source/units/TTLowpassButterworth1.cpp; sourceTree = SOURCE_ROOT; };
+		A779B4A60D508E5200EAD135 /* TTLowpassButterworth3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth3.h; path = ../includes/units/TTLowpassButterworth3.h; sourceTree = SOURCE_ROOT; };
+		A779B4A70D508E5200EAD135 /* TTHighpassButterworth3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth3.h; path = ../includes/units/TTHighpassButterworth3.h; sourceTree = SOURCE_ROOT; };
+		A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth3.cpp; path = ../source/units/TTLowpassButterworth3.cpp; sourceTree = SOURCE_ROOT; };
+		A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth3.cpp; path = ../source/units/TTHighpassButterworth3.cpp; sourceTree = SOURCE_ROOT; };
+		A779B4BE0D509B6F00EAD135 /* TTLowpassButterworth4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth4.h; path = ../includes/units/TTLowpassButterworth4.h; sourceTree = SOURCE_ROOT; };
+		A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth4.h; path = ../includes/units/TTHighpassButterworth4.h; sourceTree = SOURCE_ROOT; };
+		A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth4.cpp; path = ../source/units/TTHighpassButterworth4.cpp; sourceTree = SOURCE_ROOT; };
+		A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth4.cpp; path = ../source/units/TTLowpassButterworth4.cpp; sourceTree = SOURCE_ROOT; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -222,10 +254,18 @@
 				22569C440D3E419300328864 /* TTDCBlock.cpp */,
 				22569C450D3E419300328864 /* TTDegrade.cpp */,
 				22569C460D3E419300328864 /* TTGain.cpp */,
+				A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */,
 				22569C470D3E419300328864 /* TTHighpassButterworth2.cpp */,
+				A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */,
+				A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */,
+				A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */,
 				22569C480D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp */,
 				22569C490D3E419300328864 /* TTLimiter.cpp */,
+				A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */,
+				A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */,
 				22569C4A0D3E419300328864 /* TTLowpassButterworth2.cpp */,
+				A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */,
+				A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */,
 				22569C4B0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp */,
 				22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */,
 				22569C4D0D3E419300328864 /* TTOverdrive.cpp */,
@@ -243,10 +283,18 @@
 				22569C170D3E416F00328864 /* TTDCBlock.h */,
 				22569C180D3E416F00328864 /* TTDegrade.h */,
 				22569C190D3E416F00328864 /* TTGain.h */,
+				A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */,
 				22569C1A0D3E416F00328864 /* TTHighpassButterworth2.h */,
+				A779B4A70D508E5200EAD135 /* TTHighpassButterworth3.h */,
+				A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */,
+				A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */,
 				22569C1B0D3E416F00328864 /* TTHighpassLinkwitzRiley4.h */,
 				22569C1C0D3E416F00328864 /* TTLimiter.h */,
+				A779B4370D507FB700EAD135 /* TTLowpassButterworth1.h */,
 				22569C1D0D3E416F00328864 /* TTLowpassButterworth2.h */,
+				A779B4A60D508E5200EAD135 /* TTLowpassButterworth3.h */,
+				A779B4BE0D509B6F00EAD135 /* TTLowpassButterworth4.h */,
+				A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */,
 				22569C1E0D3E416F00328864 /* TTLowpassLinkwitzRiley4.h */,
 				22569C1F0D3E416F00328864 /* TTLowpassOnePole.h */,
 				22569C200D3E416F00328864 /* TTOverdrive.h */,
@@ -286,6 +334,14 @@
 				22569C2E0D3E416F00328864 /* TTOverdrive.h in Headers */,
 				22569C2F0D3E416F00328864 /* TTRamp.h in Headers */,
 				22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */,
+				A779B3D00D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h in Headers */,
+				A779B3D20D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h in Headers */,
+				A779B4380D507FB700EAD135 /* TTLowpassButterworth1.h in Headers */,
+				A779B43A0D507FC100EAD135 /* TTHighpassButterworth1.h in Headers */,
+				A779B4A80D508E5200EAD135 /* TTLowpassButterworth3.h in Headers */,
+				A779B4A90D508E5200EAD135 /* TTHighpassButterworth3.h in Headers */,
+				A779B4C00D509B6F00EAD135 /* TTLowpassButterworth4.h in Headers */,
+				A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +440,14 @@
 				22569C5C0D3E419300328864 /* TTOverdrive.cpp in Sources */,
 				22569C5D0D3E419300328864 /* TTRamp.cpp in Sources */,
 				22E6CDEF0D4D067A00DA75EE /* TTSymbolTable.cpp in Sources */,
+				A779B3D40D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp in Sources */,
+				A779B3D60D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp in Sources */,
+				A779B43C0D507FD300EAD135 /* TTHighpassButterworth1.cpp in Sources */,
+				A779B43E0D507FDD00EAD135 /* TTLowpassButterworth1.cpp in Sources */,
+				A779B4AC0D508E6900EAD135 /* TTLowpassButterworth3.cpp in Sources */,
+				A779B4AD0D508E6900EAD135 /* TTHighpassButterworth3.cpp in Sources */,
+				A779B4C40D509BB100EAD135 /* TTHighpassButterworth4.cpp in Sources */,
+				A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

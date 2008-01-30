@@ -11,7 +11,7 @@
 
 TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.linkwitzRiley4", newMaxNumChannels),
-	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
+	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
 	// register attributes
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassLinkwitzRiley4::setFrequency);

@@ -1,36 +1,36 @@
-/* 
- * TTBlue 4th order Linkwitz Riley Highpass filter
+/*TTLowpassButterworth4/* 
+ * TTBlue 4rth order Butterworth Lowpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTHighpassLinkwitzRiley4.h"
+#include "TTLowpassButterworth4.h"
 
 
-TTHighpassLinkwitzRiley4::TTHighpassLinkwitzRiley4(TTUInt8 newMaxNumChannels)
-	: TTAudioObject("filter.highpass.linkwitzRiley4", newMaxNumChannels),
+TTLowpassButterworth4::TTLowpassButterworth4(TTUInt8 newMaxNumChannels)
+	: TTAudioObject("filter.lowpass.butterworth", newMaxNumChannels),
 	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassLinkwitzRiley4::setFrequency);
+	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassButterworth4::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassLinkwitzRiley4::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassButterworth4::updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassLinkwitzRiley4::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassButterworth4::updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTHighpassLinkwitzRiley4::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTLowpassButterworth4::clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
-	setProcess((TTProcessMethod)&TTHighpassLinkwitzRiley4::processAudio);
+	setProcess((TTProcessMethod)&TTLowpassButterworth4::processAudio);
 }
 
 
-TTHighpassLinkwitzRiley4::~TTHighpassLinkwitzRiley4()
+TTLowpassButterworth4::~TTLowpassButterworth4()
 {
 	free(xm1);
 	free(xm2);
@@ -39,11 +39,11 @@ TTHighpassLinkwitzRiley4::~TTHighpassLinkwitzRiley4()
 	free(ym1);
 	free(ym2);
 	free(ym3);
-	free(ym4);
+	free(xm4);
 }
 
 
-TTErr TTHighpassLinkwitzRiley4::updateMaxNumChannels()
+TTErr TTLowpassButterworth4::updateMaxNumChannels()
 {
 	if(xm1)
 		free(xm1);
@@ -76,14 +76,14 @@ TTErr TTHighpassLinkwitzRiley4::updateMaxNumChannels()
 }
 
 
-TTErr TTHighpassLinkwitzRiley4::updateSr()
+TTErr TTLowpassButterworth4::updateSr()
 {
 	TTValue	v(attrFrequency);
 	return setFrequency(v);
 }
 
 
-TTErr TTHighpassLinkwitzRiley4::clear()
+TTErr TTLowpassButterworth4::clear()
 {
 	short i;
 
@@ -101,29 +101,39 @@ TTErr TTHighpassLinkwitzRiley4::clear()
 }
 
 
-TTErr TTHighpassLinkwitzRiley4::setFrequency(const TTValue& newValue)
+TTErr TTLowpassButterworth4::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
 
 	wc = 2*kTTPi*attrFrequency;
-	k = 2*kTTPi*attrFrequency/tan(kTTPi*attrFrequency/sr);
+	wc2 = wc*wc;
+	wc3 = wc2*wc;
+	wc4 = wc3*wc;
 
-	a0 = pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a1 = -4*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a2 = 6*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a3 = -4*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a4 = pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	
-	b1 = (4*pow(wc,4)+4*sqrt(2)*pow(wc,3)*k-4*pow(k,4)-4*sqrt(2)*wc*pow(k,3))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	b2 = (6*pow(wc,4)-8*pow(wc,2)*pow(k,2)+6*pow(k,4))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	b3 = (-4*sqrt(2)*pow(wc,3)*k+4*pow(wc,4)+4*sqrt(2)*wc*pow(k,3)-4*pow(k,4))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	b4 = (pow(k,4)-2*sqrt(2)*pow(wc,3)*k+pow(wc,4)-2*sqrt(2)*wc*pow(k,3)+4*pow(wc,2)*pow(k,2))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));	
-	
+	k = 2*kTTPi*attrFrequency/tan(kTTPi*attrFrequency/sr);
+	k2 = k*k;
+	k3 = k2 * k;
+	k4 = k3 * k;
+
+	a = 2*(cos(kTTPi/8)+cos(3*kTTPi/8)); 
+	b = 2*(1+2*cos(kTTPi/8)*cos(3*kTTPi/8)); 
+
+	a0 = (wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+	a1 = (4*wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+	a2 = (6*wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+	a3 = (4*wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+	a4 = (wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+
+	b1 = (-4*k4 - 2*a*wc*k3 + 2*a*wc3*k + 4*wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+	b2 = (6*k4 - 2*b*wc2*k2 + 6*wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+	b3 = (-4*k4 + 2*a*wc*k3 - 2*a*wc3*k + 4*wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4); 
+	b4 = (k4 - a*wc*k3 + b*wc2*k2 - a*wc3*k + wc4) / (k4 + a*wc*k3 + b*wc2*k2 + a*wc3*k + wc4);;
+
 	return kTTErrNone;
 }
 
 
-TTErr TTHighpassLinkwitzRiley4::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTLowpassButterworth4::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
 	TTSampleValue	*inSample,
@@ -143,7 +153,7 @@ TTErr TTHighpassLinkwitzRiley4::processAudio(TTAudioSignal& in, TTAudioSignal& o
 		while(vs--){
 			tempx = *inSample++;
 			tempy = antiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] + a3*xm3[channel] + a4*xm4[channel]
-				- b1*ym1[channel] - b2*ym2[channel] -b3*ym3[channel] - b4*ym4[channel]);
+			 	- b1*ym1[channel] - b2*ym2[channel] - b3*ym3[channel] - b4*ym4[channel]);
 			xm4[channel] = xm3[channel];
 			xm3[channel] = xm2[channel];
 			xm2[channel] = xm1[channel];
@@ -157,4 +167,3 @@ TTErr TTHighpassLinkwitzRiley4::processAudio(TTAudioSignal& in, TTAudioSignal& o
 	}
 	return kTTErrNone;
 }
-
