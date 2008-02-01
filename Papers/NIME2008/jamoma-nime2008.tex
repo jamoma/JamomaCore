@@ -224,7 +224,7 @@ Using XML, information is encapsulated into elements.  These elements could be s
   </path>
 \end{lstlisting}
 
-This is clearly more cumbersome to manually type than the Open Sound Control message, it is more work for the receiving processor to parse, and it uses more bandwidth as well. However, XML elements are able not only to express a value (content in xml parlance) between the tags, but also they can provide properties (attributes) to the node. For example, we may provide the type of temperature we are specifying:
+This is clearly more cumbersome to manually type than the Open Sound Control message, it is more work for the receiving processor to parse, and it uses more bandwidth as well\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  http://www.w3.org/TR/2007/WD-exi-20071219/ }. However, XML elements are able not only to express a value (content in xml parlance) between the tags, but also they can provide properties (attributes) to the node. For example, we may provide the type of temperature we are specifying:
 
 \begin{lstlisting}
   <path>
@@ -260,11 +260,11 @@ This usage of the colon has precedent in POSIX paths when addressing remote file
 
 \texttt{user@host.com:/path/to/file}
 
-In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.
+In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.  By reserving the colon for this usage, we also make the strings both fast and easy to parse.
 
 Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the value will be omitted for the sake of brevity; e.g.\\ 
-\texttt{/computer/module/parameter:property}  
-will be abbreviated as \texttt{:property}.
+\texttt{/computer/module/parameter:/property}  
+will be abbreviated as \texttt{:/property}.
 
 
 
@@ -293,9 +293,9 @@ Jamoma distinguish between module \emph{parameters} and \emph{messages}. Paramet
 
 The type of the value can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float}, \emph{symbols} and \emph{list}. If one do not want to restrict the type of the value, it can be set to \emph{generic}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of values. The type property is accessed thus:
 
-\texttt{:type}
+\texttt{:/type}
 
-\texttt{:type/get}
+\texttt{:/type/get}
 
 % subsection type (end)
 
@@ -308,17 +308,17 @@ The type of the value can be specified. Possible types are \emph{none}, \emph{bo
 
 In addition to setting the value directly, it can be set and retrieved as a property. If the value is of integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
 
-\texttt{:value}
+\texttt{:/value}
 
-\texttt{:value/get}
+\texttt{:/value/get}
 
-\texttt{:inc}
+\texttt{:/inc}
 
-\texttt{:dec} 
+\texttt{:/dec} 
 
-\texttt{:value/stepsize}
+\texttt{:/value/stepsize}
 
-\texttt{:value/stepsize/get}
+\texttt{:/value/stepsize/get}
 
 % subsection controlling_the_value_itself (end)
 
@@ -331,13 +331,13 @@ In addition to setting the value directly, it can be set and retrieved as a prop
 
 For integer, float and list values a range can be specified. This can be useful for setting up autoscaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
 
-\texttt{:range}
+\texttt{:/range}
 
-\texttt{:range/get}
+\texttt{:/range/get}
 
-\texttt{:range/clipmode}
+\texttt{:/range/clipmode}
 
-\texttt{:range/clipmode/get}
+\texttt{:/range/clipmode/get}
 
 % subsection range (end)
 
@@ -350,9 +350,9 @@ For integer, float and list values a range can be specified. This can be useful 
 
 It is sometimes useful to filter repetitions to avoid redundant processing. The \emph{boolean} repetitions property is accessed thus:
 
-\texttt{:repetitions}
+\texttt{:/repetitions}
 
-\texttt{:repetitions/get}
+\texttt{:/repetitions/get}
 
 % subsection filtering_of_repetitions (end)
 
@@ -363,7 +363,7 @@ It is sometimes useful to filter repetitions to avoid redundant processing. The 
 \subsection{Ramping to new values} % (fold)
 \label{sub:ramping_to_new_values}
 
-The ability to smoothly move from one value to another is fundamental to any kind of transition ands transformation of musical or artistic material. Jamoma offers the possibilty of ramping from the current to a new value in a set amount of time. While the OSC message
+The ability to smoothly move from one value to another is fundamental to any kind of transition ands transformation of musical or artistic material. Jamoma offers the possibility of ramping from the current to a new value in a set amount of time. While the OSC message
 
 \texttt{/myComputer/myModule/myParameter 1.0}
 
@@ -431,40 +431,40 @@ There are plans to introduce exponential functions.
 
 Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/function} OSC nameclasses. In addition to the ablity of setting or getting current ramp driving mechanism, it might be useful to have the module return a list of all available ramp units. This can be done by means of a \texttt{/dump} message:
 
-\texttt{:ramp/drive}
+\texttt{:/ramp/drive}
 
-\texttt{:ramp/drive/get}
+\texttt{:/ramp/drive/get}
 
-\texttt{:ramp/drive/dump}
+\texttt{:/ramp/drive/dump}
 
 Some ramp units might have additional parameters that can be controlled by the user. For instance the user can control how often the \emph{scheduler} ramp unit is to update; the granularity of the ramp.  In general a ramp unit parameter \texttt{/foo} might be accessed thus:
 
 
-\texttt{:ramp/drive/parameter/foo}
+\texttt{:/ramp/drive:/foo}
 
-\texttt{:ramp/drive/parameter/foo/get}
+\texttt{:/ramp/drive:/foo/get}
 
 If the current ramp unit do not have a \texttt{/foo} parameter, the message will be ignored by the ramp unit. It is possible to query what parameters are available for the current ramp unit with the \texttt{/dump} message:
 
-\texttt{:ramp/drive/parameter/dump}
+\texttt{:/ramp/drive:/dump}
 
 The function used for the ramp can be set or queried in much the same way. It is also possible to request information on available function units with the \texttt{/dump} message:
 
-\texttt{:ramp/function}
+\texttt{:/ramp/function}
 
-\texttt{:ramp/function/get}
+\texttt{:/ramp/function/get}
 
-\texttt{:ramp/function/dump}
+\texttt{:/ramp/function:/dump}
 
 Some function units might have additional coefficients influencing the shape of the curve, e.g. the exponent of the \emph{power} function unit can be set. In general a function unit parameter \texttt{/bar} might be accessed thus:
 
-\texttt{:ramp/function/parameter/bar}
+\texttt{:/ramp/function:/bar}
 
-\texttt{:ramp/function/parameter/bar/get}
+\texttt{:/ramp/function:/bar/get}
 
 If the current function unit do not have a \texttt{/bar} parameter, the message will be ignored by the function unit. It is possible to query what coefficients are available for the current function unit with the \texttt{/dump} message:
 
-\texttt{:ramp/function/parameter/dump}
+\texttt{:/ramp/function:/dump}
 
 % subsubsection osc_namespace_for_ramping_properties (end)
 
@@ -477,13 +477,13 @@ If the current function unit do not have a \texttt{/bar} parameter, the message 
 
 In certain applications the CPU overhead of continuously updating the graphical user interface whenever parameter or message values change might become a burden, competing for CPU with e.g. video processing algorithms. If the user do not need continuous visual feedback on updated values of parameters or messages, the GUI for the parameter or message can be frozen, freeing up the processor and GPU for tasks considered more important:
 
-\texttt{:ui/freeze}
+\texttt{:/ui/freeze}
 
-\texttt{:ui/freeze/get}
+\texttt{:/ui/freeze/get}
 
 A parameter or message that has its GUI frozen can be forced to update and refresh the displayed value once by means of the message:
 
-\texttt{:ui/refresh}
+\texttt{:/ui/refresh}
 
 % subsection controlling_the_user_interface (end)
 
@@ -498,9 +498,9 @@ A parameter or message that has its GUI frozen can be forced to update and refre
 
 The description property is a string providing a text description of the parameter. In Jamoma this is used for auto-generating online documentation of the modules. It can also be used for building modules that retrieve the total namespace of all Jamoma modules used, and provide interactive documentation of available parameters. The descriptions property is accessed as:
 
-\texttt{:description}
+\texttt{:/description}
 
-\texttt{:description/get}
+\texttt{:/description/get}
 
 % subsection description (end)
 
@@ -513,11 +513,11 @@ The description property is a string providing a text description of the paramet
 
 The discussion so far has illustrated what properties are available for values in Jamoma, and how the can be accessed one by one. Jamoma also offers the possibility of retrieving the total namespace for one value with the message: 
 
-\texttt{:namespace/dump}
+\texttt{:/namespace/dump}
 
 In addition current settings for all properties can be retrieved by the message:
 
-\texttt{:properties/dump}
+\texttt{:/properties/dump}
 
 % subsection retrieving_all_properties_of_a_value (end)
 
@@ -568,7 +568,7 @@ Ramp Lib and Function Lib can be used outside the context of jcom.parameter and 
 \label{sec:acknowledgments}
 
 All Jamoma developers and users for valuable contributions. 
-iMAL
+iMAL, BEK, Electrotap
 
 % section acknowledgments (end)
 
