@@ -280,10 +280,9 @@ will be abbreviated as \texttt{:/property}.
 \section{Jamoma as a prototype implementation} % (fold)
 \label{sec:prototype_implementation}
 
-The general concepts introduced in the previous section has formed the basis for the implementation of a standardized namespace addressing properties of nodes in the Jamoma framework for Max/MSP \cite{Place:2006}. The following description of the implementation is meant to serve as an illustration of the concept, as well as indicating how it might provide the user with extended and structured control of available values.
+The general concepts of the previous section forms the basis of the standardized namespace for node properties in Jamoma, a modular framework for Max/MSP \cite{Place:2006}. The following serves as an illustration of the concept, demonstrating how it provides the user with extended and structured control of available nodes.
 
-Jamoma distinguish between module \emph{parameters} and \emph{messages}. Parameters alter the state of the module. When querying or setting the state of the module, parameter values need to be retrieved or set. In contrast messages are stateless. One example of a message would be a request to open a reference file for the module. Apart from the difference in terms of state, messages and parameters are implemented and behave the same way, and the following discussion is equally valid for both. In the following discussion a \emph{node} can be a module parameter or message.
-
+Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a module.  Both parameters and messages are addressed as OSC \emph{nodes}.  Parameters compose the state of the module.  They have a value and can be queried for that value. In contrast, messages are stateless. An example message is a node that opens a reference file for the module. Apart from the difference in state, both classes of nodes are implemented and behave the same way, and the following discussion is equally valid for both. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%
