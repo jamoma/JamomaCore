@@ -262,7 +262,7 @@ This usage of the colon has precedent in POSIX paths when addressing remote file
 
 In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.  By reserving the colon for this usage, we also make the strings both fast and easy to parse.
 
-Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the value will be omitted for the sake of brevity; e.g.\\ 
+Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the node will be omitted for the sake of brevity; e.g.\\ 
 \texttt{/computer/module/parameter:/property}  
 will be abbreviated as \texttt{:/property}.
 
@@ -280,18 +280,18 @@ will be abbreviated as \texttt{:/property}.
 \section{Jamoma as a prototype implementation} % (fold)
 \label{sec:prototype_implementation}
 
-The general concepts introduced in the previous section has formed the basis for the implementation of a standardized namespace addressing properties of values in the Jamoma framework for Max/MSP \cite{Place:2006}. The following description of the implementation is meant to serve as an illustration of the concept, as well as indicating how it might provide the user with extended and structured control of available values.
+The general concepts introduced in the previous section has formed the basis for the implementation of a standardized namespace addressing properties of nodes in the Jamoma framework for Max/MSP \cite{Place:2006}. The following description of the implementation is meant to serve as an illustration of the concept, as well as indicating how it might provide the user with extended and structured control of available values.
 
-Jamoma distinguish between module \emph{parameters} and \emph{messages}. Parameters alter the state of the module. When querying or setting the state of the module, parameter values need to be retrieved or set. In contrast messages are stateless. One example of a message would be a request to open a reference file for the module. Apart from the difference in terms of state, messages and parameters are implemented and behave the same way, and the following discussion is equally valid for both. In the following discussion a \emph{value} can be a module parameter or message.
+Jamoma distinguish between module \emph{parameters} and \emph{messages}. Parameters alter the state of the module. When querying or setting the state of the module, parameter values need to be retrieved or set. In contrast messages are stateless. One example of a message would be a request to open a reference file for the module. Apart from the difference in terms of state, messages and parameters are implemented and behave the same way, and the following discussion is equally valid for both. In the following discussion a \emph{node} can be a module parameter or message.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Value type} % (fold)
+\subsection{Node type} % (fold)
 \label{sub:type}
 
-The type of the value can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float}, \emph{symbols} and \emph{list}. If one do not want to restrict the type of the value, it can be set to \emph{generic}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of values. The type property is accessed thus:
+The type of the node can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float}, \emph{symbols} and \emph{list}. If one do not want to restrict the type of the node, it can be set to \emph{generic}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of nodes. The type property is accessed thus:
 
 \texttt{:/type}
 
@@ -303,10 +303,10 @@ The type of the value can be specified. Possible types are \emph{none}, \emph{bo
 
 %%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Controlling the value itself} % (fold)
-\label{sub:controlling_the_value_itself}
+\subsection{Controlling the node itself} % (fold)
+\label{sub:controlling_the_node_itself}
 
-In addition to setting the value directly, it can be set and retrieved as a property. If the value is of integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
+In addition to setting the node value directly, it can be set and retrieved as a property. If the node is an integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
 
 \texttt{:/value}
 
@@ -320,7 +320,7 @@ In addition to setting the value directly, it can be set and retrieved as a prop
 
 \texttt{:/value/stepsize/get}
 
-% subsection controlling_the_value_itself (end)
+% subsection controlling_the_node_itself (end)
 
 
 
@@ -329,7 +329,7 @@ In addition to setting the value directly, it can be set and retrieved as a prop
 \subsection{Controlling the range} % (fold)
 \label{sub:range}
 
-For integer, float and list values a range can be specified. This can be useful for setting up autoscaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
+For integer, float and list nodes a range can be specified. This can be useful for setting up autoscaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
 
 \texttt{:/range}
 
@@ -435,7 +435,7 @@ Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/fu
 
 \texttt{:/ramp/drive/get}
 
-\texttt{:/ramp/drive/dump}
+\texttt{:/ramp/drive:/dump}
 
 Some ramp units might have additional parameters that can be controlled by the user. For instance the user can control how often the \emph{scheduler} ramp unit is to update; the granularity of the ramp.  In general a ramp unit parameter \texttt{/foo} might be accessed thus:
 
@@ -511,7 +511,7 @@ The description property is a string providing a text description of the paramet
 \subsection{Retrieving all properties of a value} % (fold)
 \label{sub:retrieving_all_properties_of_a_value}
 
-The discussion so far has illustrated what properties are available for values in Jamoma, and how the can be accessed one by one. Jamoma also offers the possibility of retrieving the total namespace for one value with the message: 
+The discussion so far has illustrated what properties are available for nodes in Jamoma, and how the can be accessed one by one. Jamoma also offers the possibility of retrieving the total namespace for one node with the message: 
 
 \texttt{:/namespace/dump}
 
