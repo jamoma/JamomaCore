@@ -1,0 +1,204 @@
+% -----------------------------------------------
+% Template for ICMC 2005
+%     icmc.sty -> style file
+% By Eloi Batlle (eloi@iua.upf.es), changes for 
+% ICMC 2005 by Bram de Jong 
+% Adapted for the ICMC 2008 by Maarten van Walstijn
+% -----------------------------------------------
+
+\documentclass{article}
+\usepackage{icmc,amsmath}
+\usepackage{graphicx}
+
+% Title.
+% ------
+\title{Using Dynamically-Bound Structures to Manage Parameter Properties in Jamoma}
+
+% Single address
+% To use with only one author or several with the same address
+% ---------------
+%\oneauthor
+%  {Author} {School \\ Department}
+
+% Two addresses
+% --------------
+%\twoauthors
+%  {First author} {School \\ Department}
+%  {Second author} {Company \\ Address}
+
+% Three addresses
+% --------------
+\threeauthors
+  {First author} {School \\ Department}
+  {Second author} {Company \\ Address}
+  {Third author} {Company \\ Address}
+
+\begin{document}
+%
+\maketitle
+%
+\begin{abstract}
+%The abstract should be placed at the top left column and should contain
+%about 150-200 words.
+
+Fundamental to the development of musical or artistic material is the ability to transform raw materials.  This ability implies the facility to master many facets of the material, and to manipulate it with plasticity.  Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values.  It is the experience of the authors that this capability to control the values of parameters is inadequate for many artistic endeavors and does not reflect the analogous tools and methods of artists working with physical materials.  
+
+A possible partial solution to this problem is to treat parameters not as a single-value representing entity, but to treat a parameter as a multi-dimensional tool or object.  Thus the parameter, as a tool or object, has many facets itself in addition to the value it carries.  These many "properties" of the parameter define its behavior.  The authors have explored a prototype of these ideas in Jamoma, a modular framework for Max/MSP/Jitter.  In addition to defining behaviors, the behaviors are themselves interdependent upon each other requiring a flexible and dynamically bound code base for the implementation.
+
+\end{abstract}
+
+
+
+
+%
+\section{Introduction}\label{sec:introduction}
+
+Jamoma is a Model-View-Controller-based framework that provides a modular structure for the Max environment \cite{Place:2006}.  To be effective, it must use a messaging model that is dynamic, flexible, and efficient. The messaging model in Jamoma addresses modules using parameters (nodes with state) and messages (nodes which are stateless). In addition to providing values to parameters and messages, each node may also have its behavior defined or modified in real-time through the use of properties \cite{Place:2008}.  % Yes, this looks presumptuous.  I don't need to be the first author on that paper...
+These properties define the behavior for messages and parameters by setting a value range, repetition filtering, the type of units used to express values, and how automation is applied.
+
+Every node in Jamoma is addressable using Open Sound Control (OSC) \cite{Wright:1997}\cite{Wright:2003}. 
+%TODO: summarize OSC usaging colon syntax here
+
+The Jamoma Core comprises a number of external objects for the Max \cite{?} environment, and a shared library which is accessible by any of the externals.  Within the shared library, there are a series of "Libs" which provide key functionalities for developing multidimensional tools.  These are:
+\begin{itemize}
+	\item FunctionLib: a library of FunctionUnits which map an input value to an output value
+	\item RampLib: a library of driving mechanisms (RampUnits) which use the FunctionLib to automate value transformations over time.
+	\item DataspaceLib: a library by which a parameter or message can be given a class that describes the type of data it represents.  Values may then be set by any of a number of DataspaceUnits to allow control of a parameter in any of a number of ways.
+\end{itemize}
+
+
+
+\subsection{TTBlue}
+
+Talk about the basics that are provided by TTBlue in 1 paragraph.
+
+Talk about how the libs are built on that, and why, in a 2nd paragraph.
+
+
+
+
+\section{FunctionLib}\label{sec:functionlib}
+
+% TODO: The following is copy/pasted directly from the NIME Paper...
+The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. The FunctionLib can easily be expanded by introducing new functions in the form of two C++ files: a source file and a header file that provides an interface for the source file.
+
+Currently five functions are implemented: 
+
+\begin{itemize}
+	\item Linear: $y = x$.
+	\item Cosine: $y = - \frac{1}{2} * cos(x * \pi ) + \frac{1}{2} $.
+	\item Lowpass series: $y[n] = y[n-1] * k + x[n] * (1-k)$, \\ where $k$ is a feedback coefficient.
+	\item Power function: $ y = x^{k} $, where the parameter $k$ can be set.
+	\item Hyperbolic tangent: $ y = c * (tanh(a*(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
+\end{itemize}
+
+There are plans to introduce exponential functions.
+
+
+
+\section{RampLib}\label{sec:ramplib}
+
+% TODO: The following is copy/pasted directly from the NIME Paper...
+Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes.
+
+The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
+
+\begin{itemize}
+	\item \emph{none} - jumps immediately to the new value. Typically used for values where ramping do not make sense.
+	\item \emph{scheduler} - use the Max internal clock to generate new values at fixed time intervals.
+	\item \emph{queue} - ramping using the Max queue, updating values whenever the processor has free capacity to do so.
+	\item \emph{async} - only calculate new values when requested to do so. This might be used in video processing modules to calculate fresh values immediately before processing the next video image or matrix.
+\end{itemize}
+
+When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
+
+
+
+\section{DataspaceLib}\label{sec:dataspacelib}
+
+It will be good for us to try and explain all the interactions here ;-)
+
+\subsection{TemperatureDataspace}\label{subsec:temperature_dataspace}
+
+La de da...
+
+
+
+\section{Interdependencies}\label{sec:interdependencies}
+
+This paper discusses the structure and development of the interrelated libraries that are used to implement this system.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Discussion and further work} % (fold)
+\label{sec:discussion_and_further_work}
+
+4 ramp units times 5 function units = 20 ramping modes
+
+ramp units can be used for other scheduled processes as well
+
+Possibility of expanding ramp units as low frequency oscillators
+
+function units can be used elsewhere, e.g. for mapping
+
+Audio rate ramp unit.
+
+DataspaceLib
+
+Querying - we propose a different system to the Lemur OSC2 draft
+
+Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
+
+
+
+% section discussion_and_further_work (end)
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+String value & Numeric value \\
+\hline
+hello icmc  & 1073 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Table captions should be placed below the table}
+\label{tab:example}
+\end{table}
+
+\begin{figure}
+\centerline{\framebox{
+	\includegraphics[width=\columnwidth]{figure}}}
+\caption{Figure captions should be placed below the figure}
+\label{fig:example}
+\end{figure}
+
+
+\section{Citations}
+
+All bibliographical references should be listed at the
+end, inside a section named ``REFERENCES'', numbered
+and in alphabetic order. Also, all
+references listed should be cited in the text.
+When referring to a document, type the number in
+square brackets \cite{Author:00}
+
+\begin{thebibliography}{citations}
+
+\bibitem{Author:00} Author, E.
+''The title of the conference paper'',
+{\it Proceedings of the International Computer Music Conference}, Miami, USA, 2004.
+
+\bibitem{Someone:02} Someone, A.
+{\it  Title of the book}.
+Publisher, Belfast, 2007.
+
+\end{thebibliography}
+
+\end{document}
