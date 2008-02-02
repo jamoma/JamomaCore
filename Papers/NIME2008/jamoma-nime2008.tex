@@ -133,7 +133,7 @@ The paper suggests an approach for creating structured Open Sound Control (OSC) 
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Open Sound Control \footnote{\url{http://www.opensoundcontrol.org}} is a protocol for transmitting messages that address nodes using a familiar "slash" notation.  It has been adopted by the computer music community as a de facto standard for communication both within a single process and between separate processes.  OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
+Open Sound Control \footnote{\url{http://www.opensoundcontrol.org}} is a protocol for transmitting messages that address nodes using a familiar ``slash'' notation.  It has been adopted by the computer music community as a de facto standard for communication both within a single process and between separate processes.  OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
 
 The authors are involved in developing OSC namespaces for the Jamoma\footnote{\url{http://www.jamoma.org}} project.
 Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment \cite{Place:2006}.  Communication within and between Jamoma modules is handled using the Open Sound Control protocol. 
@@ -155,11 +155,11 @@ As Jamoma's modular structures grew more complex, the authors found the flat nam
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Open Sound Control}
 
-Open Sound Control was developed in the late 1990s at CNMAT and has emerged as the de facto standard for communication among computers, sound synthesizers, and other multimedia devices in the computer music research community \cite{Wright:2003}. The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:2003}. Oppositely to the well-defined structure of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the "implementor’s idea of how these features should be organized." For example:
+Open Sound Control was developed in the late 1990s at CNMAT and has emerged as the de facto standard for communication among computers, sound synthesizers, and other multimedia devices in the computer music research community \cite{Wright:2003}. The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:2003}. Oppositely to the well-defined structure of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized.'' For example:
 
 \texttt{/voices/3/freq 440.0}
 
-This open approach has made OSC useful in a number of different situations and adaptable to situations not foreseen by developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also probably a major reason that OSC has not gained a more widespread in commercial software applications.
+This open approach has made OSC useful in a number of different situations and adaptable to situations not foreseen by developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also probably a major reason that OSC has not gained more widespread use in commercial software applications.
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -170,7 +170,7 @@ There are a number of projects ongoing which attempt to standardize namespaces f
 
 \noindent \textbf{Occam} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcasts the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
 \textbf{LIBOSCQS}\footnote{\url{http://liboscqs.sourceforge.net}} is a library to provide a Query System and Service Discovery for applications using the Open Sound Control (OSC) protocol\cite{Schmeder:2004oscqs}. This page contains an introduction to LIBOSCQS. \\
-\textbf{Integra}, an EU Culture 2000 project\footnote{\url{http://www.integralive.org}}  aiming at developing "a new software environment to make music with live electronics," and to modernize works that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a client/server model.  The Integra OSC address space suggests using the : (colon) to only set messages without outputting, to avoid feedback. They also include a .get message to query for values.\\ 
+\textbf{Integra}, an EU Culture 2000 project\footnote{\url{http://www.integralive.org}}  aiming at developing ``a new software environment to make music with live electronics,'' and to modernize works that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a client/server model.  The Integra OSC address space suggests using the : (colon) to only set messages without outputting, to avoid feedback. They also include a .get message to query for values.\\ 
 \textbf{SuperCollider}, a text based audio synthesis programming language is using OSC for internal communication in its client/server model.\\ 
 \textbf{Iannix} \footnote{\url{http://sourceforge.net/projects/iannix}} is a graphical editor of multidimensional and multi-formal scores, a kind of poly-temporal meta-sequencer, based on the former UPIC created by Iannis Xenakis." The current implementation is built around a client/server model where all communication is handled using OSC. \cite{Coduys:2004}\\
 \textbf{Open Sound Control 2.0 proposal} -- Developers of the Lemur multi-touch interface presented a draft for a 2.0 version of Open Sound Control during an OSC developer meeting at NIME 2006 \cite{Jazzmutant:2006}, and has later changed the suggestion slightly \cite{Jazzmutant:2007}.\\ 
@@ -240,7 +240,7 @@ We suggest a model where it is possible to fork an OSC address to access not onl
 \subsection{The colon separator} % (fold)
 \label{sub:the_colon_separator}
 
-In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon "\texttt{:}" as a separator between the OSC address of a node and the namespace for accessing the properties of the node:
+In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon ``\texttt{:}'' as a separator between the OSC address of a node and the namespace for accessing the properties of the node:
 
 \texttt{<parameter address> <value>}
 
