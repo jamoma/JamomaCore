@@ -162,7 +162,7 @@ As Jamoma's modular structures grow more complex, the authors find the bi-dimens
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-\section{Representing complex structures in an OSC namespace} % (fold)
+\section{Representing complex structures with OSC} % (fold)
 \label{sec:representing_complex_structures_in_an_OSC_namespace}
 
 
@@ -261,7 +261,7 @@ In addition to the ASCII symbols already reserved for specific purposes within t
 
 \texttt{<parameter address>:<property address> <value>}
 
-The former message sets the value of the node just as it would using the existing OSC conventions. The latter sets a property of the value.  Again using temperature as an example, we can send two messages: one for setting the unit property, and one for setting the value.
+The former message sets the value of the node just as it would using the existing OSC conventions. The latter sets a property of the value.  The property itself is addressed using a fully-qualified OSC namespace. Again using temperature as an example, we can send two messages: one for setting the unit property and one for setting the value.
 
 \texttt{/path/to/the/temperature:/unit Fahrenheit}
 
@@ -273,7 +273,7 @@ This usage of the colon has precedent in POSIX paths when addressing remote file
 
 In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.  By reserving the colon for this usage, we also make the strings both fast and easy to parse.
 
-Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the node will be omitted for the sake of brevity; e.g.\\ 
+Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the remainder of the discussion, the address of the node will be omitted for the sake of brevity; e.g.\\ 
 \texttt{/computer/module/parameter:/property}  
 will be abbreviated as \texttt{:/property}.
 
@@ -298,7 +298,8 @@ In addition to using the colon for setting and getting properties of a node in g
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-\section{Jamoma as a prototype implementation} % (fold)
+% [TAP] removed the word "implementation" from the following section to save space in the paper to try and squeeze into 4 pages
+\section{Jamoma as a prototype} % (fold)
 \label{sec:prototype_implementation}
 
 The general concepts of the previous section forms the basis of the standardized namespace for node properties in Jamoma, a modular framework for Max/MSP \cite{Place:2006}. The following serves as an illustration of the concept, demonstrating how it provides the user with extended and structured control of available nodes.
@@ -311,7 +312,7 @@ Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a modu
 \subsection{Node type} % (fold)
 \label{sub:type}
 
-The type of the node can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float}, \emph{symbols} and \emph{list}. If one do not want to restrict the type of the node, it can be set to \emph{generic}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of nodes. The type property is accessed thus:
+The type of the node can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float32}, \emph{symbol} and \emph{list}. If one do not want to restrict the type of the node, it can be set to \emph{generic}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of nodes. The type property is accessed thus:
 
 \texttt{:/type}
 
@@ -351,13 +352,14 @@ In addition to setting the node value directly, it can be set and retrieved as a
 
 For integer, float and list nodes a range can be specified. This can be useful for setting up autoscaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
 
-\texttt{:/range}
+% TODO: Tim notes that because we discussed (or maybe if we discuss above more extensively) that :/get is standardized, we don't need to specify them in every case?  Or maybe we can use a chart with 2 columns?  Either way, we should be able to make this information take less vertical space in the paper.
+\texttt{:/range/bound}
 
-\texttt{:/range/get}
+\texttt{:/range/bound:/get}
 
 \texttt{:/range/clipmode}
 
-\texttt{:/range/clipmode/get}
+\texttt{:/range/clipmode:/get}
 
 % subsection range (end)
 
@@ -400,7 +402,7 @@ Jamoma offers vastly extended possibilities in how ramping can be done as compar
 \subsubsection{The Jamoma RampLib API} % (fold)
 \label{ssub:the_ramp_lib}
 
-The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
+The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm interpolates from an existing value to a new value over a specified amount of time using one of several timing mechanisms. Currently four such ramp units are implemented:
 
 \begin{itemize}
 
@@ -414,7 +416,7 @@ The Jamoma RampLib API provides a means by which to create and use \emph{ramp un
 	
 \end{itemize}
 
-When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
+When a new ramp is started, the ramp unit internally uses a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and passes it to a Function Unit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and the parameter is updated in the module.
 
 % subsubsection the_ramp_lib (end)
 
@@ -422,10 +424,9 @@ When a new ramp is started, the ramp unit internally use a normalized ramping va
 \subsubsection{The Jamoma FunctionLib API} % (fold)
 \label{ssub:the_function_lib}
 
-The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. The FunctionLib can easily be expanded by introducing new functions in the form of two C++ files: a source file and a header file that provides an interface for the source file.
+The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: 
 
-Currently five functions are implemented: 
-
+% TODO: eliminate this list with the details and try to condense it to 1 sentence, or two.
 \begin{itemize}
 
 	\item Linear: $y = x$.
@@ -548,6 +549,7 @@ function units can be used elsewhere, e.g. for mapping
 
 Audio rate ramp unit.
 
+% TODO: The DataspaceLib needs particular emphasis, probably, because units play such a large role in the discussion of section 2
 DataspaceLib
 
 Querying - we propose a different system to the JazzMutant OSC2 draft
