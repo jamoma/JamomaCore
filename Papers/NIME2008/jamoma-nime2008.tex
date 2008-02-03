@@ -201,7 +201,7 @@ While such an approach may be beneficial in some contexts, we find that a more s
 
 A review of the myriad of attempts at creating standardized OSC schemas, and standardized means of discovering and querying namespaces, indicates that additional syntax is needed for clarifying function, address, or both when working with a complex OSC system.  Integra, JazzMutant, and Jamoma are all examples where additional symbols, such as the colon, have reserved (if different) meanings.
 
-% TODO: The following seems obsolete now because of the mzed citation.  Figure out if we need this somewhere.  If not, delete. Alexander: Since we include the temperature example in the XML section, it could be good to keep it here.
+% TODO: The following seems obsolete now because of the mzed citation.  Figure out if we need this somewhere.  If not, delete. Alexander: Since we include the temperature example in the XML section, it could be good to keep it here?
 %In Jamoma, a wide variety of cases exist where a value may be set for a given node in the OSC namespace. However, the node also has additional properties which define the behavior of that node.  For example, a node may represent the temperature such as:
 %
 %\texttt{/path/to/the/temperature 32}
@@ -257,10 +257,10 @@ It is more work for the receiving processor to parse, and it uses more bandwidth
   </path>
 \end{lstlisting}
 
-We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC is JSON (http://www.json.org}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
+We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC, is JSON (http://www.json.org)}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
 
 
-\subsection{The colon separator}
+\subsection{Introducing the colon separator}
 \label{sub:the_colon_separator}
 
 In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon ``\texttt{:}'' as a separator between the OSC address of a node and the namespace for accessing the properties of the node:
@@ -306,13 +306,12 @@ In addition to using the colon for setting and getting properties of a node in g
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-% [TAP] removed the word "implementation" from the following section to save space in the paper to try and squeeze into 4 pages
-\section{Jamoma as a prototype} % (fold)
+\section{A prototype implementation} % (fold)
 \label{sec:prototype_implementation}
 
-The general concepts of the previous section forms the basis of the standardized namespace for node properties in Jamoma, a modular framework for Max/MSP \cite{Place:2006}. The following serves as an illustration of the concept, demonstrating how it provides the user with extended and structured control of available nodes.
+The general concepts introduced in the previous section form the basis of the standardized namespace for node properties used in Jamoma. The following serves as an illustration of the concept, demonstrating how it provides the user with extended and structured control of available nodes.
 
-Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a module.  Both parameters and messages are addressed as OSC \emph{nodes}.  Parameters compose the state of the module.  They have a value and can be queried for that value. In contrast, messages are stateless. An example message is a node that opens a reference file for the module. Apart from the difference in state, both classes of nodes are implemented and behave the same way, and the following discussion is equally valid for both. 
+Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a module.  Both parameters and messages are addressed as OSC \emph{nodes}.  Parameters compose the state of the module, they have a value and can be queried for that value. Messages, on the other hand, are stateless, such as a node that opens a reference file for the module. Apart from the difference in state, both classes of nodes are implemented and behave the same way, and the following discussion is equally valid for both. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -397,10 +396,12 @@ The ability to smoothly move from one value to another is fundamental to any kin
 
 \texttt{/myComputer/myModule/myParameter 1.0}
 
+\noindent
 will set the parameter value to $1.0$ immediately, the message
 
 \texttt{/myComputer/myModule/myParameter 1.0 ramp 2000}
 
+\noindent
 will cause the value to ramp to $1.0$ over 2000 milliseconds. Ramping in Jamoma works with messages and parameters of type integer, float and list.
 
 Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes.
@@ -434,7 +435,7 @@ When a new ramp is started, the ramp unit internally uses a normalized ramping v
 
 The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: 
 
-% TODO: eliminate this list with the details and try to condense it to 1 sentence, or two.
+% TODO: eliminate this list with the details and try to condense it to 1 sentence, or two. Alexander: This could be included in the ICMC paper instead. 
 \begin{itemize}
 
 	\item Linear: $y = x$.
