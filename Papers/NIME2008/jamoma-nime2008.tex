@@ -51,11 +51,11 @@
 
 \documentclass{NIME-alternate}
 \usepackage{listings}
-\usepackage{hyperref}
-\usepackage{url}
+%\usepackage{hyperref}
+%\usepackage{url}
 
 \begin{document}
-\lstset{language=XML, basicstyle=\small, stringstyle=\ttfamily}
+%\lstset{language=XML, basicstyle=\small, stringstyle=\ttfamily}
 
 % Title part (fold) 
 %
@@ -67,7 +67,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Differentiating Values and Properties in an Open Sound Control Namespace}
+\title{Differentiating Values and Properties in OSC}
 \subtitle{}
 %
 % You need the command \numberofauthors to handle the "boxing"
@@ -111,8 +111,8 @@
 	\email{lossius@bek.no}
 \alignauthor Alexander Refsum Jensenius \\
 	\affaddr{University of Oslo}\\
-	\affaddr{6920 N. Mercier Street}\\
-	\affaddr{Oslo, Norway}\\
+	\affaddr{PB 1017 Blindern}\\
+	\affaddr{0315 Oslo, Norway}\\
 	\email{a.r.jensenius@imv.uio.no}
 % TODO: correct the author information above
 }
@@ -134,11 +134,11 @@
 
 \begin{abstract}
 
-This paper suggests an approach for creating structured Open Sound Control (OSC) messages by separating the addressing of node values and node properties.  This includes a mechanism for querying values and properties.  As a result, it is possible to address complex nodes inside of more complex tree structures using an OSC namespace.  This is particularly useful for creating flexible communication in modular systems.  A prototype implementation is presented and discussed.
+An approach for creating structured Open Sound Control (OSC) messages by separating the addressing of node \emph{values} and node \emph{properties} is suggested. This includes a method for querying values and properties. As a result, it is possible to address complex nodes inside of more complex tree structures using an OSC namespace. This is particularly useful for creating flexible communication in modular systems.  A prototype implementation is presented and discussed.
 
 \end{abstract}
 
-\keywords{Jamoma, OSC, Open Sound Control, standardization}
+\keywords{OSC, Jamoma, standardization}
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -148,12 +148,15 @@ This paper suggests an approach for creating structured Open Sound Control (OSC)
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-OSC \footnote{\url{http://www.opensoundcontrol.org}} is a protocol for transmitting messages that address nodes using a familiar ``slash'' notation.  It has been adopted by the computer music community as a de facto standard for communication both within a single process and between separate processes in a number of contexts \cite{Wright:2003}.  OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
+Open Sound Control (OSC)\footnote{www.opensoundcontrol.org} has evolved into the de facto standard in the computer music community for communication in and between controllers and sound engines \cite{Wright:2003}. OSC is a protocol for transmitting messages both within a single process and between separate processes in a number of contexts, where the addressing of nodes is based on a ``slash'' notation similar to URLs. 
 
-The authors are involved in developing OSC namespaces for the Jamoma\footnote{\url{http://www.jamoma.org}} project.
-Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment \cite{Place:2006}.  Communication within and between Jamoma modules is handled using the OSC protocol. 
+One of the challenges OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
 
-As Jamoma's modular structures grow more complex, the authors find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  While we find OSC to be ideal in specifying an address to a node, it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
+The authors are involved in developing OSC namespaces for the Jamoma\footnote{www.jamoma.org} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment, and uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures have grown more complex, we have found the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  While we find the addressing of a node, it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
+
+In this paper we suggest to extend OSC by differentiating between \emph{values} and \emph{properties} in OSC namespaces. Value is here denoting ... Property is used to denote ...
+
+The paper starts by reviewing various approaches to creating more complex communication using OSC. This is followed by a presentation and discussion of our suggested approach, including using a colon for separating between values and properties. Finally, a prototype built in Jamoma is presented and discussed. 
 
 % section introduction (end)
 
@@ -163,12 +166,9 @@ As Jamoma's modular structures grow more complex, the authors find the bi-dimens
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-\section{Representing complex structures with OSC} % (fold)
+\section{Complex structures in OSC} % (fold)
 \label{sec:representing_complex_structures_in_an_OSC_namespace}
 
-
-%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Open Sound Control}
 
 The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In constrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized.'' For example: 
 
@@ -177,11 +177,12 @@ The original idea of OSC is that it is tree-structured into a hierarchy called t
 This open approach has made OSC useful in a broad range of applications, and adaptable to situations not foreseen by its developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also likely a major reason that OSC has not gained more widespread use in commercial software applications.
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{OSC Namespace Standardization}
 
-The need for standardization is pressing. A growing expanse of projects, including the gestural mapping work at McGill University, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{\url{http://liboscqs.sourceforge.net}} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
+The need for standardization is pressing. A growing expanse of projects, including the gestural mapping work at McGill University, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{http://liboscqs.sourceforge.net} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
 
 %\noindent \textbf{Occam} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcasts the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
 
@@ -579,7 +580,7 @@ Ramp Lib and Function Lib can be used outside the context of jcom.parameter and 
 \label{sec:acknowledgments}
 
 All Jamoma developers and users for valuable contributions. 
-iMAL
+iMAL for organizing a workshop where the issues presented in this paper were discussed.
 
 % section acknowledgments (end)
 
@@ -594,8 +595,10 @@ iMAL
 % The following two commands are all you need in the
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
+\begin{small}
 \bibliographystyle{abbrv}
 \bibliography{jamoma-nime2008}  % the name of the Bibliography in this case
+\end{small}
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
