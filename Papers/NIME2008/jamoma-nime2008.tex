@@ -50,24 +50,23 @@
 % Comments at top of file (end) 
 
 \documentclass{NIME-alternate}
-\usepackage{listings}
+
 % TODO: Nils added the \url{} thing for URLS, then Alexander removed them -- I don't know enough to understand either.  It was nice having the links active, though they also did look ugly. [TAP]
 % NP: This is not the case here, however, it seems that this is a matter of the pdf viewer. There is an optino to make all links look black.
-%\usepackage{hyperref}
-%\usepackage{url}
+\usepackage{hyperref}
+\usepackage{url}
 \usepackage{color}
 %\definecolor{darkred}{rgb}{0.5,0,0}
 %\definecolor{darkgreen}{rgb}{0,0.5,0}
 %\definecolor{darkblue}{rgb}{0,0,0.5}
-%\definecolor{black}{rgb}{0,0,0}
-%\hypersetup{colorlinks
-%,linkcolor=black
-%,filecolor=black
-%,urlcolor=black
-%,citecolor=black}
+\definecolor{black}{rgb}{0,0,0}
+\hypersetup{colorlinks
+,linkcolor=black
+,filecolor=black
+,urlcolor=black
+,citecolor=black}
 
 \begin{document}
-%\lstset{language=XML, basicstyle=\small, stringstyle=\ttfamily}
 
 % Title part (fold) 
 %
@@ -115,16 +114,15 @@
 	\affaddr{Kansas City, Missouri 64118}\\
 	\affaddr{USA}\\
 	\email{tim@electrotap.com}
-% FIXME: correct Trond's author information
 \alignauthor Trond Lossius \\
-	\affaddr{BEK}\\
-	\affaddr{6920 N. Mercier Street}\\
-	\affaddr{Bergen, Norway}\\
+	\affaddr{BEK - Bergen Center for Electronic Arts}\\
+	\affaddr{C. Sundtsgt. 55}\\
+	\affaddr{N-5004 Bergen, Norway}\\
 	\email{lossius@bek.no}
 \alignauthor Alexander Refsum Jensenius \\
 	\affaddr{University of Oslo}\\
 	\affaddr{PB 1017 Blindern}\\
-	\affaddr{0315 Oslo, Norway}\\
+	\affaddr{N-0315 Oslo, Norway}\\
 	\email{a.r.jensenius@imv.uio.no}
 }
 % FIXME: the additional authors are not showing up in the paper -- why?
@@ -150,6 +148,7 @@ An approach for creating structured Open Sound Control (OSC) messages by separat
 \end{abstract}
 
 \keywords{OSC, Jamoma, standardization}
+% should'nt we add namespace as a  ?
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -159,7 +158,7 @@ An approach for creating structured Open Sound Control (OSC) messages by separat
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Open Sound Control (OSC)\footnote{http://www.opensoundcontrol.org} has evolved into the de facto standard in the computer music community for communication in and between controllers and sound engines \cite{Wright:2003}. OSC is a protocol for transmitting messages both within a single process and between separate processes in a number of contexts, where the addressing of nodes is based on a ``slash'' notation similar to URLs. As such, OSC is focused on standardizing the communication of messages, but there is no prescribed standardization of the namespaces and the structure of these namespaces. 
+Open Sound Control (OSC)\footnote{\url{http://www.opensoundcontrol.org}} has evolved into the de facto standard in the computer music community for communication in and between controllers and sound engines \cite{Wright:2003}. OSC is a protocol for transmitting messages both within a single process and between separate processes in a number of contexts, where the addressing of nodes is based on a ``slash'' notation similar to URLs. As such, OSC is focused on standardizing the communication of messages, but there is no prescribed standardization of the namespaces and the structure of these namespaces. 
 
 The authors are involved in developing OSC namespaces for the Jamoma\footnote{http://www.jamoma.org} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment, and uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures grow more complex, we find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  OSC standardizes the addressing of a node, but it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
 
@@ -192,7 +191,7 @@ This open approach has made OSC useful in a broad range of applications, and ada
 
 \subsection{OSC Namespace Standardization}
 
-A growing expanse of projects, including the research on mapping betwen controllers and sound engines, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{http://liboscqs.sourceforge.net} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
+A growing expanse of projects, including the research on mapping between controllers and sound engines, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{http://liboscqs.sourceforge.net} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
 
 %\noindent \textbf{Occam} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcasts the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
 
@@ -207,8 +206,8 @@ A primary concern in many of these efforts is the ability to query a node for it
 \cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
 
 \subsubsection{Specifying Additional Information}
-The standardization of OSC namespaces for interfacing with VST Plug-ins was suggested in \cite{Zbyszynski:2005}, where units may be specified for the value that is being sent to/from a node.  In this proposal the units are specified within the namespace.  For example, \texttt{/low/output} and \texttt{/low/dBoutput} are two ways of controlling the same thing but specified in different units. This is a similar approach as to how we have previously been using different types of units in Jamoma, e.g. for specifying gain in either MIDI (\texttt{audio/gain/midi}) or dB (\texttt{audio/gain}).\\ 
-While such an approach may be beneficial in some contexts, we find that a more structure approach could be beneficial in more complex setups. We therefore propose that the units should be specified as a property of that node rather than contaminating the namespace itself.
+The standardization of OSC namespaces for interfacing with VST Plug-ins was suggested in \cite{Zbyszynski:2005}, where units may be specified for the value that is being sent to or from a node.  In this proposal the units are specified within the namespace.  For example, \texttt{/low/output} and \texttt{/low/dBoutput} are two ways of controlling the same thing but specified in different units. This is a similar approach as to how we have previously been using different types of units in Jamoma, e.g. for specifying gain in either MIDI (\texttt{/audio/gain/midi}) or dB (\texttt{/audio/gain}).\\ 
+While such an approach may be beneficial in some contexts, we find that a more structured approach could be beneficial in more complex setups. We therefore propose that the units should be specified as a property of that node rather than contaminating the namespace itself.
 
 \subsubsection{Augmented Syntax}
 
@@ -229,46 +228,44 @@ A review of the myriad of attempts at creating standardized OSC schemas, and sta
 \subsection{XML}
 \label{sub:xml}
 
-Extensible Markup Language (XML)\footnote{http://www.w3.org/XML/} is a particularly relevant analogue to OSC.  XML defines a means for formatting data, but not the data or anything specific to the dataspace itself.
-
-% TODO This citation lacks a BibTeX-entry. Not sure if it is necessary to include, either, since we already have a link to the XML web page.
-% \cite{xml:2006}.  
+Extensible Markup Language (XML)\footnote{http://www.w3.org/XML/} is a particularly relevant analogue to OSC.  XML defines a means for formatting data, but not the data or anything specific to the dataspace itself \cite{xml:2006}. 
 
 A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{http://www.w3.org/Graphics/SVG/}, XHTML\footnote{http://www.w3.org/TR/xhtml1/} and SOAP\footnote{http://www.w3.org/TR/soap/}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
-%TODO: [NP] I think we should spend at least one sentence that (and why) we are going to use temperature as an symbolic example. Just to start with this big XML-code is a bit awkward. 
-Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message, and for the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent temperature is thus:
-%TODO: 
-% TODO Not sure we should use the listing package here since it is not defined in the template. Might be better to use regular texttt?
-\begin{lstlisting}
+
+Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message, and for the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent the preceeding audio gain example is thus:
+\begin{small}
+\begin{verbatim}
   <path>
     <to>
       <the>
-        <temperature> 
-          32
-        </temperature>
+        <gain> 
+          0
+        </gain>
       </the>
     </to>
   </path>
-\end{lstlisting}
+\end{verbatim}
+\end{small}
 
-This is clearly more cumbersome to manually type than the equivalent OSC message:
+This is clearly more cumbersome to manually type this XML than the equivalent OSC message:
 
 \noindent
-\texttt{/path/to/the/temperature 32}
+\texttt{/path/to/the/gain 0}
 
-It is more work for the receiving processor to parse, and it uses more bandwidth as well.\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  http://www.w3.org/TR/2007/WD-exi-20071219/} However, XML elements are able not only to express a value (\emph{content} in xml parlance) between the tags, but also they can provide properties (attributes) to the node. For example, we may provide the type of temperature we are specifying:
-
-\begin{lstlisting}
+It is also more work for the receiving processor to parse, and it uses more bandwidth as well.\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  http://www.w3.org/TR/2007/WD-exi-20071219/} However, XML elements are able not only to express a value (\emph{content} in xml parlance) between the tags, but also they can provide properties (\emph{attributes}) to the node. For example, we may provide the unit for specifying the gain:
+\begin{small}
+\begin{verbatim}
   <path>
     <to>
       <the>
-        <temperature unit='Kelvin'>
-          32
-        </temperature>
+        <gain unit=`dB'>
+          0
+        </gain>
       </the>
     </to>
   </path>
-\end{lstlisting}
+\end{verbatim}
+\end{small}
 
 We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC, is JSON (http://www.json.org)}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
 
@@ -282,14 +279,15 @@ In addition to the ASCII symbols already reserved for specific purposes within t
 
 \texttt{<parameter address>:<property address> <value>}
 
-The former message sets the value of the node just as it would using the existing OSC conventions. The latter sets a property of the value.  The property itself is addressed using a fully-qualified OSC namespace. Again using temperature as an example, we can send two messages: one for setting the unit property and one for setting the value.
+The former message sets the value of the node just as it would using the existing OSC conventions. The latter sets a property of the value.  The property itself is addressed using a fully-qualified OSC namespace. Again using gain as an example, we can send two messages: one for setting the unit property and one for setting the value.
 
-\texttt{/path/to/the/temperature:/unit Fahrenheit}  %FIXME: "Fahrenheit" Do we want to allow capitals in the namespace or not...maybe its better not to decide this now and write "fahrenheit" instead. [NP]
+\texttt{/path/to/the/gain:/unit midi}
 
-\texttt{/path/to/the/temperature 212}
+\texttt{/path/to/the/gain 120}
 
 This usage of the colon has precedent in POSIX paths when addressing remote filesystems.  For example, scp uses the following format to locate a file on a remote server:
 
+% TODO: This is actually weakening our argument, we aren't using the colon like this at all.  It's better to use the diagram with / traversing horizontally and the colon to traverse vertically. [TAP]
 \texttt{user@host.com:/path/to/file}
 
 In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.  By reserving the colon for this usage, we also make the strings both fast and easy to parse.
@@ -326,6 +324,8 @@ The general concepts introduced in the previous section form the basis of the st
 
 Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a module.  Both parameters and messages are addressed as OSC \emph{nodes}.  Parameters compose the state of the module, they have a value and can be queried for that value. Messages, on the other hand, are stateless, such as a node that opens a reference file for the module. Apart from the difference in state, both classes of nodes are implemented and behave the same way, and the following discussion is equally valid for both. 
 
+% Pascal : Is the distinction between message and parameter relevant to the topic of this paper, or does it add confusion to the reader, if he doesn't know/use Jamoma ???
+
 
 %%%%%%%%%%%%%%%%%%%%%%
 
@@ -352,6 +352,7 @@ In addition to setting the node value directly, it can be set and retrieved as a
 \texttt{:/value}
 
 \texttt{:/value/get}
+% or :/value:/get ??
 
 \texttt{:/inc}
 
@@ -360,6 +361,7 @@ In addition to setting the node value directly, it can be set and retrieved as a
 \texttt{:/value/stepsize}
 
 \texttt{:/value/stepsize/get}
+% or :/value/stepsize:/get
 
 % subsection controlling_the_node_itself (end)
 
@@ -472,9 +474,9 @@ There are plans to introduce exponential functions.
 \subsubsection{OSC namespace for ramping properties} % (fold)
 \label{ssub:osc_namespace_for_ramping_properties}
 
-Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/function} OSC nameclasses. In addition to the ablity of setting or getting current ramp driving mechanism, it might be useful to have the module return a list of all available ramp units. 
-TODO : explanation of the introduction of a second colon : we are addressing a property of property 
-This can be done by means of a \texttt{/dump} message:
+Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/function} OSC nameclasses. In addition to the ablity of setting or getting current ramp driving mechanism, it might be useful to have the module return a list of all available ramp units. This can be done by means of a \texttt{/dump} message:
+% TODO : explanation of the introduction of a second colon : we are addressing a property of property 
+% we use here the term ramp drive, while, in the section 3.5.1, we use ramp unit
 
 \texttt{:/ramp/drive}
 
@@ -561,15 +563,16 @@ The description property is a string providing a text description of the paramet
 \section{Discussion and further work} % (fold)
 \label{sec:discussion_and_further_work}   
 
-4 ramp units times 5 function units = 20 ramping modes
-
-ramp units can be used for other scheduled processes as well
-
-Possibility of expanding ramp units as low frequency oscillators
-
-function units can be used elsewhere, e.g. for mapping
-
-Audio rate ramp unit.
+% CHANGED: Save for ICMC:
+% 4 ramp units times 5 function units = 20 ramping modes
+%
+%ramp units can be used for other scheduled processes as well
+%
+%Possibility of expanding ramp units as low frequency oscillators function units can be used elsewhere, e.g. for mapping
+%
+%Audio rate ramp unit.
+%
+% Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
 
 % TODO: The DataspaceLib needs particular emphasis, probably, because units play such a large role in the discussion of section 2
 DataspaceLib
@@ -577,8 +580,6 @@ DataspaceLib
 Querying - we propose a different system to the JazzMutant OSC2 draft
 
 Expanding :/dump for namespace discovery
-
-Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
 
 
 
@@ -612,12 +613,10 @@ iMAL for organizing a workshop where the issues presented in this paper were dis
 
 % Bibliography (fold)
 %
-% The following two commands are all you need in the
-% initial runs of your .tex file to
+% The following two commands are all you need in the initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
 \begin{small}
-\bibliographystyle{abbrv} %TODO: the references might be shrinked. eg. "Proc."  for Proceedings etc.; I am also not sure about naming the publisher; "NIME ’03: Proceedings of the 2003 International Conference on New Interfaces for Musical Expression," takes 3 lines..... can we shrink that to "Proc. of 2003 International Conference on New Interfaces for Musical Expression" ? [NP]
-
+\bibliographystyle{abbrv}
 \bibliography{jamoma-nime2008}  % the name of the Bibliography in this case
 \end{small}
 % You must have a proper ".bib" file
