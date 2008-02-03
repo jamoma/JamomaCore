@@ -1,7 +1,5 @@
 % Comments at top of file (fold) 
 
-%% Alexander: Using the template from NIME 2007, since the new one is not available yet.
-
 % This is "sig-alternate.tex" V1.3 OCTOBER 2002
 % This file should be compiled with V1.6 of "sig-alternate.cls" OCTOBER 2002
 %
@@ -51,8 +49,8 @@
 
 % Comments at top of file (end) 
 
-\documentclass{sig-alternate}
-\usepackage{listings}      
+\documentclass{NIME-alternate}
+\usepackage{listings}
 \usepackage{hyperref}
 \usepackage{url}
 
@@ -62,7 +60,7 @@
 % Title part (fold) 
 %
 % --- Author Metadata here ---
-\CopyrightYear{2008}   %will cause 2005 to appear in the copyright line.
+\CopyrightYear{2008}   %will cause 2008 to appear in the copyright line.
 \crdata{Copyright remains with the author(s).}
 \conferenceinfo{NIME08,}{ Genova, Italy}
 %\CopyrightYear{2001} % Allows default copyright year (2000) to be over-ridden - IF NEED BE.
@@ -84,7 +82,7 @@
 % part as the last section in the body of your article BEFORE
 % References or any Appendices.
 
-\numberofauthors{1}
+\numberofauthors{5}
 %
 % You can go ahead and credit authors number 4+ here;
 % their names will appear in a section called
@@ -100,30 +98,46 @@
 % e-mail address. Additionally, tag each line of
 % affiliation/address with \affaddr, and tag the
 %% e-mail address with \email.
-\alignauthor Authors... \\
-       \affaddr{institutions...}\\
+\alignauthor Timothy Place \\
+	\affaddr{Electrotap}\\
+	\affaddr{6920 N. Mercier Street}\\
+	\affaddr{Kansas City, Missouri 64152}\\
+	\email{tim@electrotap.com}
+\alignauthor Trond Lossius \\
+	\affaddr{BEK}\\
+	\affaddr{6920 N. Mercier Street}\\
+	\affaddr{Bergen, Norway}\\
+	\email{lossius@bek.no}
+\alignauthor Alexander Refsum Jensenius \\
+	\affaddr{University of Oslo}\\
+	\affaddr{6920 N. Mercier Street}\\
+	\affaddr{Oslo, Norway}\\
+	\email{a.r.jensenius@imv.uio.no}
+% TODO: correct the author information above
 }
+% TODO: the additional authors are not showing up in the paper -- why?
+\additionalauthors{
+	Additional authors: Nils Peters (McGill University, email: {\texttt{nils.peters@mcgill.ca}}) 
+	and Pascal Baltazar (GMEA, email: {\texttt{bltzr@zkrx.org}}).
+}
+
 
 %%%%%%%%%%%%%%%%
 \maketitle
 
-
 % Title part (end) 
 
-
 % Hyphenations (fold)
-
 \hyphenation{ja-mo-ma}
 % Hyphenations (end)
 
 \begin{abstract}
 
-The paper suggests an approach for creating structured Open Sound Control (OSC) messages by separating the addressing of node values and node properties.  This includes a mechanism for querying values and properties.  As a result, it is possible to address complex nodes inside of more complex tree structures using an OSC namespace.  This is particularly useful for creating flexible communication in modular systems.  A prototype implementation is presented and discussed.
+This paper suggests an approach for creating structured Open Sound Control (OSC) messages by separating the addressing of node values and node properties.  This includes a mechanism for querying values and properties.  As a result, it is possible to address complex nodes inside of more complex tree structures using an OSC namespace.  This is particularly useful for creating flexible communication in modular systems.  A prototype implementation is presented and discussed.
 
 \end{abstract}
 
 \keywords{Jamoma, OSC, Open Sound Control, standardization}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -133,12 +147,12 @@ The paper suggests an approach for creating structured Open Sound Control (OSC) 
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Open Sound Control \footnote{\url{http://www.opensoundcontrol.org}} is a protocol for transmitting messages that address nodes using a familiar ``slash'' notation.  It has been adopted by the computer music community as a de facto standard for communication both within a single process and between separate processes.  OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
+OSC \footnote{\url{http://www.opensoundcontrol.org}} is a protocol for transmitting messages that address nodes using a familiar ``slash'' notation.  It has been adopted by the computer music community as a de facto standard for communication both within a single process and between separate processes in a number of contexts \cite{Wright:2003}.  OSC does not prescribe any particular namespace standardization, only a message formatting standardization.
 
 The authors are involved in developing OSC namespaces for the Jamoma\footnote{\url{http://www.jamoma.org}} project.
-Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment \cite{Place:2006}.  Communication within and between Jamoma modules is handled using the Open Sound Control protocol. 
+Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment \cite{Place:2006}.  Communication within and between Jamoma modules is handled using the OSC protocol. 
 
-As Jamoma's modular structures grew more complex, the authors found the flat namespace conventions of OSC to be inadequate for addressing our constructs.  Specifically, we found OSC to be ideal for specifying an address to a node.  However, it became increasing unclear what to do once the address reached this said node.  The problem is exacerbated when the node itself implements its own OSC namespace.
+As Jamoma's modular structures grow more complex, the authors find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  While we find OSC to be ideal in specifying an address to a node, it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
 
 % section introduction (end)
 
@@ -155,58 +169,55 @@ As Jamoma's modular structures grew more complex, the authors found the flat nam
 %%%%%%%%%%%%%%%%%%%%%%
 \subsection{Open Sound Control}
 
-Open Sound Control was developed in the late 1990s at CNMAT and has emerged as the de facto standard for communication among computers, sound synthesizers, and other multimedia devices in the computer music research community \cite{Wright:2003}. The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:2003}. Oppositely to the well-defined structure of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized.'' For example:
+The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In constrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized.'' For example: 
 
 \texttt{/voices/3/freq 440.0}
 
-This open approach has made OSC useful in a number of different situations and adaptable to situations not foreseen by developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also probably a major reason that OSC has not gained more widespread use in commercial software applications.
+This open approach has made OSC useful in a broad range of applications, and adaptable to situations not foreseen by its developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also likely a major reason that OSC has not gained more widespread use in commercial software applications.
 
 
 %%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{OSC Namespace Standardization}
 
-There are a number of projects ongoing which attempt to standardize namespaces for various uses of Open Sound Control. A partial listing of these follow.\\
+The need for standardization is pressing. A growing expanse of projects, including the gestural mapping work at McGill University, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{\url{http://liboscqs.sourceforge.net}} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
+
+%\noindent \textbf{Occam} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcasts the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
+
+%\textbf{Iannix} \footnote{\url{http://sourceforge.net/projects/iannix}} is a graphical editor of multidimensional and multi-formal scores, a kind of poly-temporal meta-sequencer, based on the former UPIC created by Iannis Xenakis." The current implementation is built around a client/server model where all communication is handled using OSC. \cite{Coduys:2004}\\
+
+A number of projects have undertaken a standardization of OSC messages, and OSC syntax, for different purposes. In actual practice, these various independent efforts at standardizing namespaces incorporate syntactic elements with conflicting meanings as compared to each other. However, there are some commonalities to these efforts and the problems that they try to address.
+
+\subsubsection{Querying Nodes}
+A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{\url{http://www.integralive.org}} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node \cite{Jazzmutant:2006}\cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
+
+\subsubsection{Specifying Additional Information}
+Michael Zbyszyński Adrian Freed have suggested standardized namespaces for interfacing with VST Plug-ins \cite{Zbyszynski:2005}. Their proposal includes examples where units may be specified for the value that is being sent to/from a node.  In their proposal the units are specified within the namespace.  For example, \texttt{/low/output} and \texttt{/low/dBoutput} are two ways of controlling the same thing but specified in different units. We propose that they should be represented with one node, and thus one address, and that the units should be specified as a property of that node rather than contaminating the namespace itself.
+
+\subsubsection{Augmented Syntax}
+
+A review of the myriad of attempts at creating standardized OSC schemas, and standardized means of discovering and querying namespaces, indicates that additional syntax is needed for clarifying function, address, or both when working with a complex OSC system.  Integra, JazzMutant, and Jamoma are all examples where additional symbols, such as the colon, have reserved (if different) meanings.
+
+% TODO: The following seems obsolete now because of the mzed citation.  Figure out if we need this somewhere.  If not, delete.
+%In Jamoma, a wide variety of cases exist where a value may be set for a given node in the OSC namespace. However, the node also has additional properties which define the behavior of that node.  For example, a node may represent the temperature such as:
+%
+%\texttt{/path/to/the/temperature 32}
+%
+%However, we may wish to set a property of the node so that it knows how to interpret the temperature.  Is it specified in Celsius or Fahrenheit?  Is this a shift from an existing value, or is setting the value directly?  Before we send the value, perhaps we should query the node to find out what an acceptable range is for this node.
+%
+%This problem of accessing properties of a node, as opposed to the value of a node, is particularly troublesome using the standard OSC addressing conventions (using only slashes to navigate the tree).  One example of a system parallel to OSC for representing and sending data over a network is XML.
 
 
-\noindent \textbf{Occam} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcasts the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
-\textbf{LIBOSCQS}\footnote{\url{http://liboscqs.sourceforge.net}} is a library to provide a Query System and Service Discovery for applications using the Open Sound Control (OSC) protocol\cite{Schmeder:2004oscqs}. This page contains an introduction to LIBOSCQS. \\
-\textbf{Integra}, an EU Culture 2000 project\footnote{\url{http://www.integralive.org}}  aiming at developing ``a new software environment to make music with live electronics,'' and to modernize works that use old technology \cite{Bullock:2007}. Part of the development has been concerning creating a client/server model.  The Integra OSC address space suggests using the : (colon) to only set messages without outputting, to avoid feedback. They also include a .get message to query for values.\\ 
-\textbf{SuperCollider}, a text based audio synthesis programming language is using OSC for internal communication in its client/server model.\\ 
-\textbf{Iannix} \footnote{\url{http://sourceforge.net/projects/iannix}} is a graphical editor of multidimensional and multi-formal scores, a kind of poly-temporal meta-sequencer, based on the former UPIC created by Iannis Xenakis." The current implementation is built around a client/server model where all communication is handled using OSC. \cite{Coduys:2004}\\
-\textbf{Open Sound Control 2.0 proposal} -- Developers of JazzMutant presented a draft for a 2.0 version of Open Sound Control during an OSC developer meeting at NIME 2006 \cite{Jazzmutant:2006}, and has later changed the suggestion slightly \cite{Jazzmutant:2007}.\\ 
-\textbf{OSCQS} \cite{Habets:2005}\\
-\textbf{TUIO}, an OSC address space for handling data from the Reactable \cite{Kaltenbrunner:2005} was been developed at MTG at Pompeu Fabra.\\
-\textbf{McGill Mapper} \cite{Malloch:2007}\\
+%%%%%%%%%%%%%%%%%%%%%%
 
-
-\subsection{Syntactic Definitions} % (fold)
-\label{sub:litterature_review}
-   
-In actual practice, these various independent efforts at standardizing namespaces incorporate syntactic elements with conflicting meanings as compared to each other.  There are some commonalities to these efforts and the problems that they try to address.  Specifically:
-\begin{itemize}
-	\item How to get the value of a node (vs. setting the value of a node) 
-	\item How to access properties of a node (as opposed to the value of the node)
-\end{itemize}
-
-It is clear from a review of these sundry efforts that additional syntax is needed for clarifying function, address, or both when developing a complex OSC namespace.
-
-In Jamoma, there are a wide variety of cases where a value may be set for a given node in the OSC namespace.  However, the node also has additional properties which define the behavior of that node.  For example, a node may represent the temperature such as:
-
-\texttt{/path/to/the/temperature 32}
-
-However, we may wish to set a property of the node so that it knows how to interpret the temperature.  Is it specified in Celsius or Fahrenheit?  Is this a shift from an existing value, or is setting the value directly?  Before we send the value, perhaps we should query the node to find out what an acceptable range is for this node.
-
-This problem of accessing properties of a node, as opposed to the value of a node, is particularly troublesome using the standard OSC addressing conventions (using only slashes to navigate the tree).  One example of a system parallel to OSC for representing and sending data over a network is XML.
-
-
-\subsection{XML} % (fold)
+\subsection{XML}
 \label{sub:xml}
 
-Extensible Markup Language (XML)\footnote{\url{http://www.w3.org/XML/}} is a particularly relevant analogue to Open Sound Control.  XML defines a means for formatting data, but not the data or the anything specific to the dataspace itself CITATION OF THE XML SPEC http://www.w3.org/TR/2006/REC-xml-20060816/ .  
+Extensible Markup Language (XML)\footnote{\url{http://www.w3.org/XML/}} is a particularly relevant analogue to OSC.  XML defines a means for formatting data, but not the data or the anything specific to the dataspace itself \cite{xml:2006}.  
 
 A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/Graphics/SVG/}}, XHTML\footnote{\url{http://www.w3.org/TR/xhtml1/}} and SOAP\footnote{\url{http://www.w3.org/TR/soap/}}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
 
-Using XML, information is encapsulated into elements.  These elements could be structured such that they are analogous to an OSC message. For the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent the above temperature example is thus:
+Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message. For the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent temperature is thus:
 
 \begin{lstlisting}
   <path>
@@ -220,7 +231,11 @@ Using XML, information is encapsulated into elements.  These elements could be s
   </path>
 \end{lstlisting}
 
-This is clearly more cumbersome to manually type than the Open Sound Control message, it is more work for the receiving processor to parse, and it uses more bandwidth as well\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  http://www.w3.org/TR/2007/WD-exi-20071219/ }. However, XML elements are able not only to express a value (content in xml parlance) between the tags, but also they can provide properties (attributes) to the node. For example, we may provide the type of temperature we are specifying:
+This is clearly more cumbersome to manually type than the equivalent OSC message:
+
+\texttt{/path/to/the/temperature 32}
+
+It is more work for the receiving processor to parse, and it uses more bandwidth as well\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  \url{http://www.w3.org/TR/2007/WD-exi-20071219/ }}. However, XML elements are able not only to express a value (content in xml parlance) between the tags, but also they can provide properties (attributes) to the node. For example, we may provide the type of temperature we are specifying:
 
 \begin{lstlisting}
   <path>
@@ -234,10 +249,10 @@ This is clearly more cumbersome to manually type than the Open Sound Control mes
   </path>
 \end{lstlisting}
 
-We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
+We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC is JSON \url{http://www.json.org}}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
 
 
-\subsection{The colon separator} % (fold)
+\subsection{The colon separator}
 \label{sub:the_colon_separator}
 
 In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon ``\texttt{:}'' as a separator between the OSC address of a node and the namespace for accessing the properties of the node:
@@ -261,6 +276,13 @@ In our case, we are indeed using the colon to separate OSC namespaces, one of wh
 Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the following discussion the address of the node will be omitted for the sake of brevity; e.g.\\ 
 \texttt{/computer/module/parameter:/property}  
 will be abbreviated as \texttt{:/property}.
+
+
+\subsection{Standardizing Accessors}
+
+:/get
+:/dump
+:/namespace
 
 
 
@@ -501,22 +523,6 @@ The description property is a string providing a text description of the paramet
 
 % subsection description (end)
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Retrieving all properties of a value} % (fold)
-\label{sub:retrieving_all_properties_of_a_value}
-
-The discussion so far has illustrated what properties are available for nodes in Jamoma, and how the can be accessed one by one. Jamoma also offers the possibility of retrieving the total namespace for one node with the message: 
-
-\texttt{:/namespace/dump}
-
-In addition current settings for all properties can be retrieved by the message:
-
-\texttt{:/properties/dump}
-
-% subsection retrieving_all_properties_of_a_value (end)
 
 % section prototype_implementation (end)
 
