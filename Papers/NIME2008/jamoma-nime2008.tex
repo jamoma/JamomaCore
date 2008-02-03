@@ -51,6 +51,7 @@
 
 \documentclass{NIME-alternate}
 \usepackage{listings}
+% TODO: Nils added the \url{} thing for URLS, then Alexander removed them -- I don't know enough to understand either.  It was nice having the links active, though they also did look ugly. [TAP]
 %\usepackage{hyperref}
 %\usepackage{url}
 
@@ -104,6 +105,7 @@
 	\affaddr{Kansas City, Missouri 64118}\\
 	\affaddr{USA}\\
 	\email{tim@electrotap.com}
+% FIXME: correct Trond's author information
 \alignauthor Trond Lossius \\
 	\affaddr{BEK}\\
 	\affaddr{6920 N. Mercier Street}\\
@@ -114,9 +116,8 @@
 	\affaddr{PB 1017 Blindern}\\
 	\affaddr{0315 Oslo, Norway}\\
 	\email{a.r.jensenius@imv.uio.no}
-% TODO: correct the author information above
 }
-% TODO: the additional authors are not showing up in the paper -- why?
+% FIXME: the additional authors are not showing up in the paper -- why?
 \additionalauthors{
 	Additional authors: Nils Peters (McGill University, email: {\texttt{nils.peters@mcgill.ca}}) 
 	and Pascal Baltazar (GMEA, email: {\texttt{pb@gmea.net}}).
@@ -150,9 +151,10 @@ An approach for creating structured Open Sound Control (OSC) messages by separat
 
 Open Sound Control (OSC)\footnote{http://www.opensoundcontrol.org} has evolved into the de facto standard in the computer music community for communication in and between controllers and sound engines \cite{Wright:2003}. OSC is a protocol for transmitting messages both within a single process and between separate processes in a number of contexts, where the addressing of nodes is based on a ``slash'' notation similar to URLs. As such, OSC is focused on standardizing the communication of messages, but there is no prescribed standardization of the namespaces and the structure of these namespaces. 
 
-The authors are involved in developing OSC namespaces for the Jamoma\footnote{http://www.jamoma.org} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment, and uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures have grown more complex, we have found the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  OSC standardizes the addressing of a node, but it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
+The authors are involved in developing OSC namespaces for the Jamoma\footnote{http://www.jamoma.org} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment, and uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures grow more complex, we find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  OSC standardizes the addressing of a node, but it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
 
-In this paper we suggest to extend OSC by differentiating between \emph{values} and \emph{properties} in OSC namespaces. Value is here denoting ... Property is used to denote ...
+%TODO: flesh this out
+In this paper we suggest extending OSC by differentiating between \emph{values} and \emph{properties} in OSC namespaces. Value is here denoting ... Property is used to denote ...
 
 The paper starts by reviewing various approaches to creating more complex communication using OSC. This is followed by a presentation and discussion of our suggested approach, including using a colon for separating between values and properties. Finally, a prototype implementation built in Jamoma is presented and discussed. 
 
@@ -189,7 +191,8 @@ A growing expanse of projects, including the research on mapping betwen controll
 Several projects have undertaken a standardization of OSC messages, and OSC syntax, for different purposes. In actual practice, these various independent efforts at standardizing namespaces incorporate syntactic elements with conflicting meanings as compared to each other. However, there are some commonalities to these efforts and the problems that they try to address.
 
 \subsubsection{Querying Nodes}
-% TODO Not sure if we should mix in the Integra colon in this paragraph. Probably better to leave that for later.
+% TODO: Not sure if we should mix in the Integra colon in this paragraph. Probably better to leave that for later. [ARJ]
+% TODO: I Think that there won't be a later, and so it is better to footnote it here and then move on?  Or forget it altogether? [TAP] 
 A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{http://www.integralive.org} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node \cite{Jazzmutant:2006}\cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
 
 \subsubsection{Specifying Additional Information}
