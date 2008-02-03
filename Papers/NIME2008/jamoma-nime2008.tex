@@ -52,8 +52,19 @@
 \documentclass{NIME-alternate}
 \usepackage{listings}
 % TODO: Nils added the \url{} thing for URLS, then Alexander removed them -- I don't know enough to understand either.  It was nice having the links active, though they also did look ugly. [TAP]
+% NP: This is not the case here, however, it seems that this is a matter of the pdf viewer. There is an optino to make all links look black.
 %\usepackage{hyperref}
 %\usepackage{url}
+\usepackage{color}
+%\definecolor{darkred}{rgb}{0.5,0,0}
+%\definecolor{darkgreen}{rgb}{0,0.5,0}
+%\definecolor{darkblue}{rgb}{0,0,0.5}
+%\definecolor{black}{rgb}{0,0,0}
+%\hypersetup{colorlinks
+%,linkcolor=black
+%,filecolor=black
+%,urlcolor=black
+%,citecolor=black}
 
 \begin{document}
 %\lstset{language=XML, basicstyle=\small, stringstyle=\ttfamily}
@@ -93,7 +104,6 @@
 
 % Put no more than the first THREE authors in the \author command
 \author{
-%
 % The command \alignauthor (no curly braces needed) should
 % precede each author name, affiliation/snail-mail address and
 % e-mail address. Additionally, tag each line of
@@ -120,7 +130,7 @@
 % FIXME: the additional authors are not showing up in the paper -- why?
 \additionalauthors{
 	Additional authors: Nils Peters (McGill University, email: {\texttt{nils.peters@mcgill.ca}}) 
-	and Pascal Baltazar (GMEA, email: {\texttt{pb@gmea.net}}).
+   and Pascal Baltazar (GMEA, email: {\texttt{pb@gmea.net}}).
 }
 
 
@@ -193,11 +203,11 @@ Several projects have undertaken a standardization of OSC messages, and OSC synt
 \subsubsection{Querying Nodes}
 % TODO: Not sure if we should mix in the Integra colon in this paragraph. Probably better to leave that for later. [ARJ]
 % TODO: I Think that there won't be a later, and so it is better to footnote it here and then move on?  Or forget it altogether? [TAP] 
-A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{http://www.integralive.org} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node \cite{Jazzmutant:2006}\cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
+A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{http://www.integralive.org} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} CHANGED: by NP: I took the first jazzmutant cite out, because it is not very neccesary and just needs spacce at the end.
+\cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
 
 \subsubsection{Specifying Additional Information}
-The standardization of OSC namespaces for interfacing with VST Plug-ins was suggested in \cite{Zbyszynski:2005}, where units may be specified for the value that is being sent to/from a node.  In this proposal the units are specified within the namespace.  For example, \texttt{/low/output} and \texttt{/low/dBoutput} are two ways of controlling the same thing but specified in different units. This is a similar approach as to how we have previously been using different types of units in Jamoma, e.g. for specifying gain in either MIDI or dB. 
-
+The standardization of OSC namespaces for interfacing with VST Plug-ins was suggested in \cite{Zbyszynski:2005}, where units may be specified for the value that is being sent to/from a node.  In this proposal the units are specified within the namespace.  For example, \texttt{/low/output} and \texttt{/low/dBoutput} are two ways of controlling the same thing but specified in different units. This is a similar approach as to how we have previously been using different types of units in Jamoma, e.g. for specifying gain in either MIDI (\texttt{audio/gain/midi}) or dB (\texttt{audio/gain}).\\ 
 While such an approach may be beneficial in some contexts, we find that a more structure approach could be beneficial in more complex setups. We therefore propose that the units should be specified as a property of that node rather than contaminating the namespace itself.
 
 \subsubsection{Augmented Syntax}
@@ -225,9 +235,9 @@ Extensible Markup Language (XML)\footnote{http://www.w3.org/XML/} is a particula
 % \cite{xml:2006}.  
 
 A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{http://www.w3.org/Graphics/SVG/}, XHTML\footnote{http://www.w3.org/TR/xhtml1/} and SOAP\footnote{http://www.w3.org/TR/soap/}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
-
+%TODO: [NP] I think we should spend at least one sentence that (and why) we are going to use temperature as an symbolic example. Just to start with this big XML-code is a bit awkward. 
 Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message, and for the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent temperature is thus:
-
+%TODO: 
 % TODO Not sure we should use the listing package here since it is not defined in the template. Might be better to use regular texttt?
 \begin{lstlisting}
   <path>
@@ -274,7 +284,7 @@ In addition to the ASCII symbols already reserved for specific purposes within t
 
 The former message sets the value of the node just as it would using the existing OSC conventions. The latter sets a property of the value.  The property itself is addressed using a fully-qualified OSC namespace. Again using temperature as an example, we can send two messages: one for setting the unit property and one for setting the value.
 
-\texttt{/path/to/the/temperature:/unit Fahrenheit}
+\texttt{/path/to/the/temperature:/unit Fahrenheit}  %FIXME: "Fahrenheit" Do we want to allow capitals in the namespace or not...maybe its better not to decide this now and write "fahrenheit" instead. [NP]
 
 \texttt{/path/to/the/temperature 212}
 
@@ -549,7 +559,7 @@ The description property is a string providing a text description of the paramet
 %%%%%%%%%%%%%%%%%%%%%%
 
 \section{Discussion and further work} % (fold)
-\label{sec:discussion_and_further_work}
+\label{sec:discussion_and_further_work}   
 
 4 ramp units times 5 function units = 20 ramping modes
 
@@ -606,7 +616,8 @@ iMAL for organizing a workshop where the issues presented in this paper were dis
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
 \begin{small}
-\bibliographystyle{abbrv}
+\bibliographystyle{abbrv} %TODO: the references might be shrinked. eg. "Proc."  for Proceedings etc.; I am also not sure about naming the publisher; "NIME ’03: Proceedings of the 2003 International Conference on New Interfaces for Musical Expression," takes 3 lines..... can we shrink that to "Proc. of 2003 International Conference on New Interfaces for Musical Expression" ? [NP]
+
 \bibliography{jamoma-nime2008}  % the name of the Bibliography in this case
 \end{small}
 % You must have a proper ".bib" file
