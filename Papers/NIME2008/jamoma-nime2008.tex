@@ -277,16 +277,19 @@ Section~\ref{sec:prototype_implementation} provides an illustration of the ideas
 \texttt{/computer/module/parameter:/property}  
 will be abbreviated as \texttt{:/property}.
 
+% subsection the_colon_separator (end)
+
 
 \subsection{Standardizing Accessors}
 
-:/get
-:/dump
-:/namespace
+In addition to using the colon for setting and getting properties of a node in general, we have reserved a limited number of symbols for specific tasks:
+\begin{itemize}
+	\item \texttt{:/get} returns the value of the node.
+	\item \texttt{:/dump} returns the state of the node, which is to say the values of all of the properties including the value itself.
+	\item \texttt{:/namespace} returns the namespace implemented at this node.
+\end{itemize}
 
 
-
-% subsection the_colon_separator (end)
 
 % section representing_complex_structures_in_an_OSC_namespace (end)
 
