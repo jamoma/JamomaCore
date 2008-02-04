@@ -162,10 +162,14 @@ Open Sound Control (OSC)\footnote{\url{http://www.opensoundcontrol.org}} has evo
 
 The authors are involved in developing OSC namespaces for the Jamoma\footnote{http://www.jamoma.org} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment, and uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures grow more complex, we find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  OSC standardizes the addressing of a node, but it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
 
-%TODO: flesh this out
-In this paper we suggest extending OSC by differentiating between \emph{values} and \emph{properties} in OSC namespaces. Value is here denoting ... Property is used to denote ...
+%CHANGED: Attempt at fleshing this out [TL]
+%In this paper we suggest extending OSC by differentiating between \emph{values} and \emph{properties} in OSC namespaces. Value is here denoting ... Property is used to denote ...
 
-The paper starts by reviewing various approaches to creating more complex communication using OSC. This is followed by a presentation and discussion of our suggested approach, including using a colon for separating between values and properties. Finally, a prototype implementation built in Jamoma is presented and discussed. 
+The OSC 1.0 specification consider nodes only in terms of their methods: "OSC Methods are the potential destinations of OSC messages received by the OSC server and correspond to each of the points of control that the application makes available. `Invoking' an OSC method is analogous to a procedure call; it means supplying the method with arguments and causing the method's effect to take place."
+
+This paper extends current OSC concepts by considering nodes to be OSC elements that contains one or more methods and/or properties. Properties provide additional information concerning how the node behaves and responds to methods, e.g. by specifying \emph{how} a parameter ramp to a new value. A node might or might not have a value, and the value if existing is itself an implicit property. A node may branch out to additional nodes.
+
+The paper starts by reviewing various approaches to creating more complex communication using OSC. This is followed by a presentation and discussion of our suggested approach, introducing the use of a colon for separating between values and properties. Finally, a prototype implementation built in Jamoma is presented and discussed. 
 
 % section introduction (end)
 
@@ -179,10 +183,14 @@ The paper starts by reviewing various approaches to creating more complex commun
 \label{sec:representing_complex_structures_in_an_OSC_namespace}
 
 
-The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In contrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized'' \cite[p153]{Wright:2003}. For example: 
+The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In contrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized'' \cite[p153]{Wright:2003}.
 
-\noindent
-\texttt{/voices/3/freq 440.0}
+%CHANGED: Don't really see what the example adds to the discussion, so it's commented out. [TL]
+
+%For example: 
+%
+%\noindent
+%\texttt{/voices/3/freq 440.0}
 
 This open approach has made OSC useful in a broad range of applications, and adaptable to situations not foreseen by its developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also likely a major reason that OSC has not gained more widespread use in commercial software applications.
 
@@ -201,7 +209,8 @@ Several projects have undertaken a standardization of OSC messages, and OSC synt
 
 \subsubsection{Querying Nodes}
 % TODO: Not sure if we should mix in the Integra colon in this paragraph. Probably better to leave that for later. [ARJ]
-% TODO: I Think that there won't be a later, and so it is better to footnote it here and then move on?  Or forget it altogether? [TAP] 
+% TODO: I Think that there won't be a later, and so it is better to footnote it here and then move on?  Or forget it altogether? [TAP]
+% TODO: I think this would be more appropriate in the discussion. [TL]
 A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{http://www.integralive.org} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} CHANGED: by NP: I took the first jazzmutant cite out, because it is not very neccesary and just needs spacce at the end.
 \cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
 
@@ -285,12 +294,13 @@ The former message sets the value of the node just as it would using the existin
 
 \texttt{/path/to/the/gain 120}
 
-This usage of the colon has precedent in POSIX paths when addressing remote filesystems.  For example, scp uses the following format to locate a file on a remote server:
+%This usage of the colon has precedent in POSIX paths when addressing remote filesystems.  For example, scp uses the following format to locate a file on a remote server:
 
 % TODO: This is actually weakening our argument, we aren't using the colon like this at all.  It's better to use the diagram with / traversing horizontally and the colon to traverse vertically. [TAP]
-\texttt{user@host.com:/path/to/file}
+% CHANGED: Agrees with Tim, commenting it out. [TL]
+%\texttt{user@host.com:/path/to/file}
 
-In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.  By reserving the colon for this usage, we also make the strings both fast and easy to parse.
+%In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.  By reserving the colon for this usage, we also make the strings both fast and easy to parse.
 
 Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the remainder of the discussion, the address of the node will be omitted for the sake of brevity; e.g.\\ 
 \texttt{/computer/module/parameter:/property}  
@@ -448,24 +458,25 @@ When a new ramp is started, the ramp unit internally uses a normalized ramping v
 \subsubsection{The Jamoma FunctionLib API} % (fold)
 \label{ssub:the_function_lib}
 
-The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: 
+The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: Linear, cosine, lowpass series, power function and hyperbolic tangent. There are planes to expand this further with w.g. exponential functions.
 
-% TODO: eliminate this list with the details and try to condense it to 1 sentence, or two. Alexander: This could be included in the ICMC paper instead. 
-\begin{itemize}
-
-	\item Linear: $y = x$.
-
-	\item Cosine: $y = - \frac{1}{2} \cdot cos(x \cdot \pi ) + \frac{1}{2} $.
-
-	\item Lowpass series: $y[n] = y[n-1] \cdot k + x[n] \cdot (1-k)$, \\ where $k$ is a feedback coefficient.
-
-	\item Power function: $ y = x^{k} $, where the parameter $k$ can be set.
-
-	\item Hyperbolic tangent: $ y = c \cdot (tanh(a\cdot(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
-	
-\end{itemize}
-
-There are plans to introduce exponential functions.
+% CHANGED: eliminated this list with the details and condensed it to one sentence, or two. [TL]
+%Alexander: This could be included in the ICMC paper instead. 
+%\begin{itemize}
+%
+%	\item Linear: $y = x$.
+%
+%	\item Cosine: $y = - \frac{1}{2} \cdot cos(x \cdot \pi ) + \frac{1}{2} $.
+%
+%	\item Lowpass series: $y[n] = y[n-1] \cdot k + x[n] \cdot (1-k)$, \\ where $k$ is a feedback coefficient.
+%
+%	\item Power function: $ y = x^{k} $, where the parameter $k$ can be set.
+%
+%	\item Hyperbolic tangent: $ y = c \cdot (tanh(a\cdot(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on %the width and offset of the curve.
+%	
+%\end{itemize}
+%
+%There are plans to introduce exponential functions.
 
 % subsubsection the_function_lib (end)
 
@@ -600,8 +611,7 @@ Expanding :/dump for namespace discovery
 \section{Acknowledgments} % (fold)
 \label{sec:acknowledgments}
 
-All Jamoma developers and users for valuable contributions. 
-iMAL for organizing a workshop where the issues presented in this paper were discussed.
+The authors would like to thank all Jamoma developers and users for valuable contributions, and iMAL Center for Digital Cultures and Technology for organizing a workshop where the issues presented in this paper were discussed.
 
 % section acknowledgments (end)
 
