@@ -245,18 +245,18 @@ Extensible Markup Language (XML)\footnote{\url{http://www.w3.org/XML/}} is a par
 
 A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/Graphics/SVG/}}, XHTML\footnote{\url{http://www.w3.org/TR/xhtml1/}} and SOAP\footnote{\url{http://www.w3.org/TR/soap/}}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
 
-Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message, and for the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent the preceeding audio gain example is thus:
+Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message, and for the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent the preceding audio gain example is thus:
 %\begin{small}
 %\begin{verbatim}
 %<path><to><gain> 0 </gain></to></path>
 %\end{verbatim}
 %\end{small}
 
-\texttt{<path><to><gain> 0 </gain></to></path>}
+\texttt{<amodule><audio><gain> 0 </gain></audio></amodule>}
 
 This is clearly more cumbersome to manually type this XML than the equivalent OSC message:
 
-\texttt{/path/to/gain 0}
+\texttt{/amodule/audio/gain 0}
 
 It is also more work for the receiving processor to parse, and it uses more bandwidth as well.\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  \url{http://www.w3.org/TR/2007/WD-exi-20071219/}} However, XML elements are able not only to express a value (\emph{content} in xml parlance) between the tags, but also they can provide properties (\emph{attributes}) to the node. For example, we may provide the unit for specifying the gain:
 %\begin{small}
@@ -265,25 +265,46 @@ It is also more work for the receiving processor to parse, and it uses more band
 %\end{verbatim}
 %\end{small}
 
-\texttt{<path><to><gain unit=`dB'> 0 </gain></to></path>}
+\texttt{<amodule><audio><gain unit=`dB'> 0 </gain></audio></amodule>}
 
-We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC, is JSON (\url{http://www.json.org})}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
+We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{A more concise option than XML, albeit with less clarity and interoperability than OSC, is JSON (\url{http://www.json.org})}.  
+
+% CHANGED: I'm not sure if we really need this, so I'm commenting out for now [TAP]
+%Different than XML, we will propose that they can be addressed independently rather than simultaneously in.
 
 
-\subsection{Introducing the colon separator}
+\subsection{OSC Nodes as Classes} % (fold)
+\label{sub:osc_nodes_as_classes}
+
+In the introduction we made reference to the OSC 1.0 Specification, which states an OSC node represents a function call on a server. We propose that OSC nodes may represent more complex classes, and thus require a mechanism to address the members of these classes. A class \emph{member} may be a \emph{property} or a \emph{method}.
+
+% TODO: How do we link properly to figure 1, and also display the correct text for it? [TAP]
+In the Figure~\ref{fig:paths}, the OSC namespace from the previous examples is shown across the x-axis. Traversing the OSC namespace is an action making a horizontal traversal across the figure.  In the next section, we will suggest a new syntax for traversing this diagram on the y-axis to address the members inside of these nodes.
+
+\begin{figure}
+\centerline{\framebox{
+	\includegraphics[width=\columnwidth]{figure-paths}}}
+\caption{An OSC address tree, with some nodes as classes}
+\label{fig:paths}
+\end{figure}
+
+% subsection osc_nodes_as_classes (end)
+
+
+\subsection{Introducing the colon separator} % (fold)
 \label{sub:the_colon_separator}
 
-In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon ``\texttt{:}'' as a separator between the OSC address of a node and the namespace for accessing the properties of the node:
+In addition to the ASCII symbols already reserved for specific purposes within the OSC protocol \cite{Wright:1997}, we introduce the colon ``\texttt{:}'' as a separator between the OSC address of a node and the namespace for accessing the members of the node:
 
-\texttt{<parameter address> <value>}
+\texttt{<node address> <value>}
 
-\texttt{<parameter address>:<property address> <value>}
+\texttt{<node address>:<member address> <value>}
 
-The former message sets the value of the node just as it would using the existing OSC conventions. The latter sets a property of the value.  The property itself is addressed using a fully-qualified OSC namespace. Again using gain as an example, we can send two messages: one for setting the unit property and one for setting the value.
+The former message sets the value of the node just as it would using the existing OSC conventions. This is because a property named \emph{value} is considered to be implicitly addressed if there is no specific member address given. The latter form calls or sets a member of the node.  The member itself is addressed using a fully-qualified OSC namespace. Again using gain as an example, we can send two messages: one for setting the unit property and one for setting the value.
 
-\texttt{/path/to/the/gain:/unit midi}
+\texttt{/amodule/audio/gain:/unit midi}
 
-\texttt{/path/to/the/gain 120}
+\texttt{/amodule/audio/gain 120}
 
 %This usage of the colon has precedent in POSIX paths when addressing remote filesystems.  For example, scp uses the following format to locate a file on a remote server:
 
