@@ -331,6 +331,7 @@ To make working with classes in OSC practical, it is important to have some stan
 	\item \texttt{:/get} returns the value of the node.
 	\item \texttt{:/dump} returns the state of the node, which is to say the values of all of the properties including the value itself.
 	\item \texttt{:/namespace} returns the namespace implemented at this node.
+	\item \texttt{:/catalog} returns an enumeration of available options for a node, if relevant.
 \end{packed_item}%\end{itemize}
 
 % subsection standardizing_members (end)
@@ -451,51 +452,30 @@ The ramp function in Jamoma is handled by the Jamoma \emph{FunctionLib}.  The Fu
 % subsubsection the_function_lib (end)
 
 
-
 \subsubsection{OSC Namespace for Ramping Properties} % (fold)
 \label{ssub:osc_namespace_for_ramping_properties}
 
-Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/function} OSC nameclasses. In addition to the ablity of setting or getting current ramp driving mechanism, it might be useful to have the module return a list of all available ramp units. This can be done by means of a \texttt{/dump} message:
-% TODO : explanation of the introduction of a second colon : we are addressing a property of property 
-% we use here the term ramp drive, while, in the section 3.5.1, we use ramp unit
+Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/function} OSC name classes. The ramping case provides an example of a node class which contains other node classes. In to setting or getting the current ramp drive mechanism, the ramp drive mechanism may itself have parameters. It is also possible to have the module return a list of all available ramp units, implemented with the standardized \texttt{:/catalog} message.
 
 \begin{tabular}{ll}
 	\texttt{:/ramp/drive} & \texttt{:/ramp/drive:/get} \\
+	\texttt{:/ramp/drive:/catalog} \\
+	\texttt{:/ramp/drive:/dump} \\
+	\texttt{:/ramp/drive:/namespace} \\
+	\texttt{:/ramp/drive:/catalog} \\
 	\texttt{:/ramp/function}  & \texttt{:/ramp/function:/get} \\
+	\texttt{:/ramp/function:/catalog} \\
+	\texttt{:/ramp/function:/dump} \\
+	\texttt{:/ramp/function:/namespace} \\
 \end{tabular}
 
-\texttt{:/ramp/drive:/dump}
+RampUnits that have additional parameters can be investigated with the \texttt{:/namespace} method. Those parameters are then addressed as properties of the ramp/drive or ramp/function nodes.  For instance the user can control how often the \emph{scheduler} RampUnit is to update by setting the \texttt{:/granularity} property of the ramp:
 
-\texttt{:/ramp/drive:/namespace}
+\texttt{:/ramp/drive:/granularity}
 
-Some ramp units might have additional parameters that can be controlled by the user. For instance the user can control how often the \emph{scheduler} ramp unit is to update; the granularity of the ramp.  In general a ramp unit parameter \texttt{/foo} might be accessed thus:
+\texttt{:/ramp/drive:/granularity:/get}
 
-
-\texttt{:/ramp/drive:/foo}
-
-\texttt{:/ramp/drive:/foo/get}
-
-If the current ramp unit do not have a \texttt{/foo} parameter, the message will be ignored by the ramp unit. It is possible to query what parameters are available for the current ramp unit with the \texttt{/dump} message:
-
-\texttt{:/ramp/drive:/dump}
-
-The function used for the ramp can be set or queried in much the same way. It is also possible to request information on available function units with the \texttt{/dump} message:
-
-\texttt{:/ramp/function}
-
-\texttt{:/ramp/function/get}
-
-\texttt{:/ramp/function:/dump}
-
-Some function units might have additional coefficients influencing the shape of the curve, e.g. the exponent of the \emph{power} function unit can be set. In general a function unit parameter \texttt{/bar} might be accessed thus:
-
-\texttt{:/ramp/function:/bar}
-
-\texttt{:/ramp/function:/bar/get}
-
-If the current function unit do not have a \texttt{/bar} parameter, the message will be ignored by the function unit. It is possible to query what coefficients are available for the current function unit with the \texttt{/dump} message:
-
-\texttt{:/ramp/function:/dump}
+The same principles apply to the function used for ramping. 
 
 % subsubsection osc_namespace_for_ramping_properties (end)
 
