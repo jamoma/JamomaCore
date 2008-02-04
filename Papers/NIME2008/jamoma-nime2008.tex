@@ -306,9 +306,9 @@ In addition to the ASCII symbols already reserved for specific purposes within t
 
 The former message sets the value of the node just as it would using the existing OSC conventions. This is because a property named \emph{value} is considered to be implicitly addressed if there is no specific member address given. The latter form calls or sets a member of the node.  The member itself is addressed using a fully-qualified OSC namespace. Again using gain as an example, we can send two messages: one for setting the unit property and one for setting the value.
 
-\texttt{/amodule/audio/gain:/unit midi}
+\texttt{/module/audio/gain:/unit midi}
 
-\texttt{/amodule/audio/gain 120}
+\texttt{/module/audio/gain 120}
 
 %This usage of the colon has precedent in POSIX paths when addressing remote filesystems.  For example, scp uses the following format to locate a file on a remote server:
 
