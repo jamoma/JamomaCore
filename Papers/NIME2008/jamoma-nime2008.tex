@@ -82,7 +82,9 @@
 % --- End of Author Metadata ---
 
 \title{Differentiating Values and Properties in OSC}
-\subtitle{}
+% CHANGED: Added subTitle [TAP]
+\subtitle{Addressing Classes with Open Sound Control}
+
 %
 % You need the command \numberofauthors to handle the "boxing"
 % and alignment of the authors under the title, and to add
@@ -207,19 +209,22 @@ A growing expanse of projects, including the research on mapping between control
 Several projects have undertaken a standardization of OSC messages, and OSC syntax, for different purposes. In actual practice, these various independent efforts at standardizing namespaces incorporate syntactic elements with conflicting meanings as compared to each other. However, there are some commonalities to these efforts and the problems that they try to address.
 
 \subsubsection{Querying Nodes}
-% TODO: Not sure if we should mix in the Integra colon in this paragraph. Probably better to leave that for later. [ARJ]
-% TODO: I Think that there won't be a later, and so it is better to footnote it here and then move on?  Or forget it altogether? [TAP]
-% TODO: I think this would be more appropriate in the discussion. [TL]
-A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{\url{http://www.integralive.org}} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} CHANGED: by NP: I took the first jazzmutant cite out, because it is not very neccesary and just needs spacce at the end.
+A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{\url{http://www.integralive.org}} uses a \texttt{.get} appended to the node's address
+% CHANGED: This does not build our argument, so I cut it as previously discussed [TAP]
+%\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. 
+Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} 
+%CHANGED: I took the first jazzmutant cite out, because it is not very neccesary and just needs spacce at the end. [NP]
 \cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
 
 \subsubsection{Specifying Additional Information}
-The standardization of OSC namespaces for interfacing with VST Plug-ins was suggested in \cite{Zbyszynski:2005}, where units may be specified for the value that is being sent to or from a node.  In this proposal the units are specified within the namespace.  For example, \texttt{/low/output} and \texttt{/low/dBoutput} are two ways of controlling the same thing but specified in different units. This is a similar approach as to how we have previously been using different types of units in Jamoma, e.g. for specifying gain in either MIDI (\texttt{/audio/gain/midi}) or dB (\texttt{/audio/gain}).\\ 
+The standardization of OSC namespaces for interfacing with VST Plug-ins was suggested in \cite{Zbyszynski:2005}, where units may be specified for the value that is being sent to or from a node.  In this proposal the units are specified within the namespace.  For example, \texttt{/low/output} and \texttt{/low/dBoutput} are two ways of controlling the same thing (gain) but specified using different units. This is a similar approach as to how we have previously addressed different types of units in Jamoma, e.g. for specifying gain in either MIDI (\texttt{/audio/gain/midi}) or dB (\texttt{/audio/gain}).\\ 
 While such an approach may be beneficial in some contexts, we find that a more structured approach could be beneficial in more complex setups. We therefore propose that the units should be specified as a property of that node rather than contaminating the namespace itself.
 
 \subsubsection{Augmented Syntax}
 
 A review of the myriad of attempts at creating standardized OSC schemas, and standardized means of discovering and querying namespaces, indicates that additional syntax is needed for clarifying function, address, or both when working with a complex OSC system.  Integra, JazzMutant, and Jamoma are all examples where additional symbols, such as the colon, have reserved (if different) meanings.
+
+To investigate possible alternatives for sending this structured information, it is useful to observe the fundamentals of other existing methodologies for representing and sending data over a network.
 
 % TODO: The following seems obsolete now because of the mzed citation.  Figure out if we need this somewhere.  If not, delete. Alexander: Since we include the temperature example in the XML section, it could be good to keep it here?
 %In Jamoma, a wide variety of cases exist where a value may be set for a given node in the OSC namespace. However, the node also has additional properties which define the behavior of that node.  For example, a node may represent the temperature such as:
@@ -241,39 +246,26 @@ Extensible Markup Language (XML)\footnote{\url{http://www.w3.org/XML/}} is a par
 A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/Graphics/SVG/}}, XHTML\footnote{\url{http://www.w3.org/TR/xhtml1/}} and SOAP\footnote{\url{http://www.w3.org/TR/soap/}}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
 
 Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message, and for the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent the preceeding audio gain example is thus:
-\begin{small}
-\begin{verbatim}
-  <path>
-    <to>
-      <the>
-        <gain> 
-          0
-        </gain>
-      </the>
-    </to>
-  </path>
-\end{verbatim}
-\end{small}
+%\begin{small}
+%\begin{verbatim}
+%<path><to><gain> 0 </gain></to></path>
+%\end{verbatim}
+%\end{small}
+
+\texttt{<path><to><gain> 0 </gain></to></path>}
 
 This is clearly more cumbersome to manually type this XML than the equivalent OSC message:
 
-\noindent
-\texttt{/path/to/the/gain 0}
+\texttt{/path/to/gain 0}
 
 It is also more work for the receiving processor to parse, and it uses more bandwidth as well.\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  \url{http://www.w3.org/TR/2007/WD-exi-20071219/}} However, XML elements are able not only to express a value (\emph{content} in xml parlance) between the tags, but also they can provide properties (\emph{attributes}) to the node. For example, we may provide the unit for specifying the gain:
-\begin{small}
-\begin{verbatim}
-  <path>
-    <to>
-      <the>
-        <gain unit=`dB'>
-          0
-        </gain>
-      </the>
-    </to>
-  </path>
-\end{verbatim}
-\end{small}
+%\begin{small}
+%\begin{verbatim}
+%<path><to><gain unit=`dB'> 0 </gain></to></path>
+%\end{verbatim}
+%\end{small}
+
+\texttt{<path><to><gain unit=`dB'> 0 </gain></to></path>}
 
 We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC, is JSON (\url{http://www.json.org})}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
 
