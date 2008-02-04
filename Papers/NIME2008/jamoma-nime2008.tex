@@ -59,6 +59,15 @@
 ,filecolor=black
 ,urlcolor=black
 ,citecolor=black}
+%reduces the space between the items in the itemize-environment 
+\newenvironment{packed_item}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+
 
 \begin{document}
 
@@ -305,11 +314,11 @@ will be abbreviated as \texttt{:/property}.
 \subsection{Standardizing Accessors}
 
 In addition to using the colon for setting and getting properties of a node in general, we have reserved a limited number of symbols for specific tasks:
-\begin{itemize}
+\begin{packed_item}%\begin{itemize}
 	\item \texttt{:/get} returns the value of the node.
 	\item \texttt{:/dump} returns the state of the node, which is to say the values of all of the properties including the value itself.
 	\item \texttt{:/namespace} returns the namespace implemented at this node.
-\end{itemize}
+\end{packed_item}%\end{itemize}
 
 
 
