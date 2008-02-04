@@ -161,17 +161,17 @@ An approach for creating structured Open Sound Control (OSC) messages by separat
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Open Sound Control (OSC)\footnote{\url{http://www.opensoundcontrol.org}} has evolved into the de facto standard in the computer music community for communication in and between controllers and sound engines \cite{Wright:2003}. OSC is a protocol for transmitting messages where the addressing of nodes is based on a ``slash'' notation similar to URLs. As such, OSC is focused on standardizing the communication of messages, but there is no prescribed standardization of the namespaces or the structure of these namespaces. 
+Open Sound Control (OSC)\footnote{\url{http://www.opensoundcontrol.org}} has evolved into the de facto standard in the computer music community for communication in and between controllers and sound engines \cite{Wright:2003}. OSC is a protocol for transmitting messages where the addressing of nodes is based on a ``slash'' notation similar to URLs. As such, OSC is focused on standardizing the communication of messages. There is, however, no prescribed standardization of the namespaces or the structure of these namespaces. 
 
 The authors are involved in developing OSC namespaces for the Jamoma\footnote{\url{http://www.jamoma.org}} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment. It uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures grow more complex, we find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  OSC standardizes the addressing of a node, but it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
 
 % CHANGED: Added Bibdesk reference to the spec itself, and cite it. [TL]
 
-The OSC 1.0 specification \cite{Wright:2002} consider nodes only in terms of their methods: ``OSC Methods are the potential destinations of OSC messages received by the OSC server and correspond to each of the points of control that the application makes available. `Invoking' an OSC method is analogous to a procedure call; it means supplying the method with arguments and causing the method's effect to take place.'' 
+The OSC 1.0 specification \cite{Wright:2002} considers nodes only in terms of their methods: ``OSC Methods are the potential destinations of OSC messages received by the OSC server and correspond to each of the points of control that the application makes available. `Invoking' an OSC method is analogous to a procedure call; it means supplying the method with arguments and causing the method's effect to take place.'' 
 
-This paper extends current OSC concepts by considering nodes to represent classes in an object-oriented sense, rather than simple methods.  For the purposes of this discussion, we will be considering only nodes that contain one or more methods and/or properties.   Properties provide additional information concerning how the node behaves and responds to methods, e.g. by specifying \emph{how} a parameter interpolates to a new value. A node might or might not have a value. If it does possess a value property, that value may be set directly, as it is considered an implicit property of the node. A node may branch out to additional nodes, as in existing OSC practice.
+Our proposal extends current OSC concepts by considering nodes to represent classes in an object-oriented sense, rather than simple methods.  For the purposes of this discussion, we will be considering only nodes that contain one or more methods and/or properties.   Properties provide additional information concerning how the node behaves and responds to methods, e.g. by specifying \emph{how} a parameter interpolates to a new value. A node might or might not have a value. If it does possess a value property, that value may be set directly, as it is considered an implicit property of the node. A node may branch out to additional nodes, as in existing OSC practice.
 
-The paper starts by reviewing various approaches to creating more complex communication using OSC. This is followed by a presentation and discussion of our suggested approach, introducing the use of a colon for separating between values and properties. Finally, a prototype implementation built in Jamoma is presented and discussed. 
+This paper starts by reviewing various approaches to creating more complex communication using OSC. This is followed by a presentation and discussion of our suggested approach, introducing the use of a colon for differentiating between values and properties. Finally, a prototype implementation built in Jamoma is presented and discussed. 
 
 % section introduction (end)
 
@@ -185,14 +185,7 @@ The paper starts by reviewing various approaches to creating more complex commun
 \label{sec:complex_structures_in_OSC}
 
 
-The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In contrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized'' \cite[p153]{Wright:2003}.
-
-%CHANGED: Don't really see what the example adds to the discussion, so it's commented out. [TL]
-
-%For example: 
-%
-%\noindent
-%\texttt{/voices/3/freq 440.0}
+The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space}, where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In contrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized'' \cite[p153]{Wright:2003}.
 
 This open approach has made OSC useful in a broad range of applications, and adaptable to situations not foreseen by its developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also likely a major reason that OSC has not gained more widespread use in commercial software applications.
 
@@ -461,7 +454,7 @@ The ramp function in Jamoma is handled by the Jamoma \emph{FunctionLib}.  The Fu
 
 \subsubsection{OSC Namespace for Ramping Properties} % (fold)
 \label{ssub:osc_namespace_for_ramping_properties}
-Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/function} OSC name classes. The ramping case provides an example of a node class which contains other node classes, as illustrated in Figure~\ref{fig:embedded}. In to setting or getting the current ramp drive mechanism, the ramp drive mechanism may itself have parameters. It is also possible to have the module return a list of all available ramp units, implemented with the standardized \texttt{:/catalog} message.
+Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/function} OSC name classes. The ramping case provides an example of a node class which contains other node classes, as illustrated in Figure~\ref{fig:embedded}. It is also possible to have the module return a list of all available ramp units, implemented with the standardized \texttt{:/catalog} message.
 
 \begin{figure}
 \centerline{\framebox{
