@@ -202,6 +202,8 @@ A growing expanse of projects, including the research on mapping between control
 Several projects have undertaken a standardization of OSC messages, and OSC syntax, for different purposes. In actual practice, these various independent efforts at standardizing namespaces incorporate syntactic elements with conflicting meanings as compared to each other. However, there are some commonalities to these efforts and the problems that they try to address.
 
 \subsubsection{Querying Nodes}
+\label{ssub:querying_nodes}
+
 A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{\url{http://www.integralive.org}} uses a \texttt{.get} appended to the node's address.
 % CHANGED: This does not build our argument, so I cut it as previously discussed [TAP]
 %\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. 
@@ -362,7 +364,7 @@ The type of the node can be specified. Possible types are \emph{none}, \emph{boo
 \subsection{Controlling the Node Itself} % (fold)
 \label{sub:controlling_the_node_itself}
 
-As the node value is concidered an implicit property, it can be set and retrieved as such. If the node is an integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
+As the node value is considered an implicit property, it can be set and retrieved as such. If the node is an integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
 
 \begin{tabular}{ll}
 	\texttt{:/value} & \texttt{:/value:/get} \\
@@ -380,7 +382,7 @@ As the node value is concidered an implicit property, it can be set and retrieve
 \subsection{Controlling the Range} % (fold)
 \label{sub:range}
 
-For integer, float and list nodes a range can be specified. This can be useful for setting up autoscaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
+For integer, float and list nodes a range can be specified. This can be useful for setting up auto-scaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
 
 \begin{tabular}{ll}
 	\texttt{:/range/bound} & \texttt{:/range/bound:/get} \\
@@ -512,6 +514,17 @@ The same principles apply to the function units used for ramping.
 % subsection description (end)
 
 
+%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{DataspaceLib} % (fold)
+\label{sub:dataspacelib}
+
+In addition to the current RampLib and FunctionLib, work has started on the implementation of a DataspaceLib.  The DataspaceLib will enable nodes to be addressed using one of several interchangeable measurement units. For example a gain parameter can be set using MIDI, dB or linear amplitude depending on the context and preferences of the user. The OSC representation of this will be implemented as a set of properties to the node. The DataspaceLib is also meant to offer mapping between more complex interrelated coordinate systems, so that e.g. Cartesian and spherical coordinates can be used interchangeably for description of points in space.
+
+%TODO: Insert bib ref to the SpatDIF paper by Nils Peters
+
+% subsection dataspacelib (end)
+
 % section prototype_implementation (end)
 
 
@@ -520,31 +533,16 @@ The same principles apply to the function units used for ramping.
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%
 
-\section{Discussion and Further Work} % (fold)
-\label{sec:discussion_and_further_work}   
+\section{Discussion} % (fold)
+\label{sec:discussion}   
 
 
-\subsection{DataspaceLib} % (fold)
-\label{sub:dataspacelib}
+As discussed in Section~\ref{ssub:querying_nodes} other projects have also proposed standardizing the means of querying values of OSC nodes and the OSC namespace in general.  They propose syntax that differs or conflicts with the suggestions put forward in this paper as well as each other. The authors call on the OSC developer community to work towards a standardized query system to extend the current OSC 1.0 specification, resolving these conflicts in the process. 
 
-In addition to the current RampLib and FunctionLib, work has started on the implementation of a DataspaceLib.  The DataspaceLib enables nodes to be addressed using one of several interchangeable measuring units. For example a gain parameter can be set using MIDI, dB or linear amplitude depending on the context and preferences of the user. The OSC representation of this is implemented as a set of properties to the node. The DataspaceLib is also meant to offer mapping between more complex interrelated coordinate systems, so that e.g. cartesian and spherical coordinates can be used interchangeably for description of points in space.
-
-%TODO: Insert bib ref to the SpatDIF paper by Nils Peters
-
-% subsection dataspacelib (end)
+At the same time we would like to point out that the proposal put forward in this paper broadens the scopes of the Integra project and Jazzmutant OSC 2 proposals by integrating a querying system with the notion of nodes as classes. The proposal set forward in this paper could thus be considered one step in the direction of a more object oriented approach to Open Sound Control.
 
 
-Querying - we propose a different system to the JazzMutant OSC2 draft
-
-Expanding :/dump for namespace discovery
-
-In the figure the slash equals stepping in the right direction, to the next branch of the OSC namespace, while the colon indicates stepping downwards in order to access the inner properties of the current node.
-
-Use analogy: what we are doing is really similar to C++ classes.
-
-The proposal set forward in this paper could be cosidered one step in the direction of a more object oriented approach to Open Sound Control
-
-% section discussion_and_further_work (end)
+% section discussion (end)
 
 
 
