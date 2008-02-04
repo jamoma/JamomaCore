@@ -43,7 +43,7 @@
 
 Fundamental to the development of musical or artistic material is the ability to transform raw materials.  This ability implies the facility to master many facets of the material, and to manipulate it with plasticity.  Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values.  It is the experience of the authors that this capability to control the values of parameters is inadequate for many artistic endeavors and does not reflect the analogous tools and methods of artists working with physical materials.  
 
-A possible partial solution to this problem is to treat parameters not as a single-value representing entity, but to treat a parameter as a multi-dimensional tool or object.  Thus the parameter, as a tool or object, has many facets itself in addition to the value it carries.  These many "properties" of the parameter define its behavior.  The authors have explored a prototype of these ideas in Jamoma, a modular framework for Max/MSP/Jitter.  In addition to defining behaviors, the behaviors are themselves interdependent upon each other requiring a flexible and dynamically bound code base for the implementation.
+A possible partial solution to this problem is to treat a parameter not as a single-value representing entity, but to treat a parameter as a multi-dimensional tool or object.  Thus the parameter, as a tool or object, has many facets itself in addition to the value it renders.  These many \emph{properties} of the parameter define its behavior.  The authors have explored a prototype of these ideas in Jamoma, a modular framework for Max/MSP/Jitter.  In addition to defining behaviors, the behaviors are themselves interdependent upon each other requiring a flexible and dynamically bound code base for the implementation.
 
 \end{abstract}
 
@@ -59,7 +59,7 @@ These properties define the behavior for messages and parameters by setting a va
 Every node in Jamoma is addressable using Open Sound Control (OSC) \cite{Wright:1997}\cite{Wright:2003}. 
 %TODO: summarize OSC usaging colon syntax here
 
-The Jamoma Core comprises a number of external objects for the Max \cite{?} environment, and a shared library which is accessible by any of the externals.  Within the shared library, there are a series of "Libs" which provide key functionalities for developing multidimensional tools.  These are:
+The Jamoma Core comprises a number of external objects for the Max \cite{?} environment, and a shared library which is accessible by any of the externals.  Within the shared library, there are a series of ``Libs'' which provide key functionalities for developing multidimensional tools.  These are:
 \begin{itemize}
 	\item FunctionLib: a library of FunctionUnits which map an input value to an output value
 	\item RampLib: a library of driving mechanisms (RampUnits) which use the FunctionLib to automate value transformations over time.
@@ -127,6 +127,25 @@ La de da...
 \section{Interdependencies}\label{sec:interdependencies}
 
 This paper discusses the structure and development of the interrelated libraries that are used to implement this system.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% TODO: This may have no place here, who knows...  We cut it from the NIME paper [TAP]
+\subsection{Controlling the User Interface} % (fold)
+\label{sub:controlling_the_user_interface}
+
+In certain applications the CPU overhead of continuously updating the graphical user interface whenever parameter or message values change might become a burden, competing for CPU with e.g. video processing algorithms. If the user does not need continuous visual feedback on updated values of parameters or messages, the GUI for the parameter or message can be frozen, freeing up the processor and GPU for tasks considered more important:
+
+\texttt{:/ui/freeze}
+
+\texttt{:/ui/freeze/get}
+
+A parameter or message that has its GUI frozen can be forced to update and refresh the displayed value once by means of the message:
+
+\texttt{:/ui/refresh}
+
+% subsection controlling_the_user_interface (end)
 
 
 

@@ -523,23 +523,6 @@ If the current function unit do not have a \texttt{/bar} parameter, the message 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Controlling the User Interface} % (fold)
-\label{sub:controlling_the_user_interface}
-
-In certain applications the CPU overhead of continuously updating the graphical user interface whenever parameter or message values change might become a burden, competing for CPU with e.g. video processing algorithms. If the user does not need continuous visual feedback on updated values of parameters or messages, the GUI for the parameter or message can be frozen, freeing up the processor and GPU for tasks considered more important:
-
-\texttt{:/ui/freeze}
-
-\texttt{:/ui/freeze/get}
-
-A parameter or message that has its GUI frozen can be forced to update and refresh the displayed value once by means of the message:
-
-\texttt{:/ui/refresh}
-
-% subsection controlling_the_user_interface (end)
-
 % subsection ramping_to_new_values (end)
 
 
