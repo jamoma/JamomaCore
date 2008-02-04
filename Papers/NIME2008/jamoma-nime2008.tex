@@ -50,15 +50,9 @@
 % Comments at top of file (end) 
 
 \documentclass{NIME-alternate}
-
-% TODO: Nils added the \url{} thing for URLS, then Alexander removed them -- I don't know enough to understand either.  It was nice having the links active, though they also did look ugly. [TAP]
-% NP: This is not the case here, however, it seems that this is a matter of the pdf viewer. There is an optino to make all links look black.
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{color}
-%\definecolor{darkred}{rgb}{0.5,0,0}
-%\definecolor{darkgreen}{rgb}{0,0.5,0}
-%\definecolor{darkblue}{rgb}{0,0,0.5}
 \definecolor{black}{rgb}{0,0,0}
 \hypersetup{colorlinks
 ,linkcolor=black
@@ -147,8 +141,7 @@ An approach for creating structured Open Sound Control (OSC) messages by separat
 
 \end{abstract}
 
-\keywords{OSC, Jamoma, standardization}
-% should'nt we add namespace as a  ?
+\keywords{OSC, namespace, Jamoma, standardization}
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -160,12 +153,12 @@ An approach for creating structured Open Sound Control (OSC) messages by separat
 
 Open Sound Control (OSC)\footnote{\url{http://www.opensoundcontrol.org}} has evolved into the de facto standard in the computer music community for communication in and between controllers and sound engines \cite{Wright:2003}. OSC is a protocol for transmitting messages both within a single process and between separate processes in a number of contexts, where the addressing of nodes is based on a ``slash'' notation similar to URLs. As such, OSC is focused on standardizing the communication of messages, but there is no prescribed standardization of the namespaces and the structure of these namespaces. 
 
-The authors are involved in developing OSC namespaces for the Jamoma\footnote{http://www.jamoma.org} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment, and uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures grow more complex, we find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  OSC standardizes the addressing of a node, but it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
+The authors are involved in developing OSC namespaces for the Jamoma\footnote{\url{http://www.jamoma.org}} project. Jamoma is a modular system for developing high-level modules in the Max/MSP/Jitter environment, and uses OSC for internal and external communication \cite{Place:2006}.  As Jamoma's modular structures grow more complex, we find the bi-dimensional namespace conventions of OSC to be inadequate for addressing our constructs.  OSC standardizes the addressing of a node, but it becomes increasingly unclear what to do once we reach the node.  The problem is exacerbated when the node itself implements its own OSC namespace, as is the case with Jamoma.
 
 %CHANGED: Attempt at fleshing this out [TL]
 %In this paper we suggest extending OSC by differentiating between \emph{values} and \emph{properties} in OSC namespaces. Value is here denoting ... Property is used to denote ...
 
-The OSC 1.0 specification consider nodes only in terms of their methods: "OSC Methods are the potential destinations of OSC messages received by the OSC server and correspond to each of the points of control that the application makes available. `Invoking' an OSC method is analogous to a procedure call; it means supplying the method with arguments and causing the method's effect to take place."
+The OSC 1.0 specification consider nodes only in terms of their methods: ``OSC Methods are the potential destinations of OSC messages received by the OSC server and correspond to each of the points of control that the application makes available. `Invoking' an OSC method is analogous to a procedure call; it means supplying the method with arguments and causing the method's effect to take place.''
 
 This paper extends current OSC concepts by considering nodes to be OSC elements that contains one or more methods and/or properties. Properties provide additional information concerning how the node behaves and responds to methods, e.g. by specifying \emph{how} a parameter ramp to a new value. A node might or might not have a value, and the value if existing is itself an implicit property. A node may branch out to additional nodes.
 
@@ -199,7 +192,7 @@ This open approach has made OSC useful in a broad range of applications, and ada
 
 \subsection{OSC Namespace Standardization}
 
-A growing expanse of projects, including the research on mapping between controllers and sound engines, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{http://liboscqs.sourceforge.net} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
+A growing expanse of projects, including the research on mapping between controllers and sound engines, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{\url{http://liboscqs.sourceforge.net}} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
 
 %\noindent \textbf{Occam} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcasts the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
 
@@ -211,7 +204,7 @@ Several projects have undertaken a standardization of OSC messages, and OSC synt
 % TODO: Not sure if we should mix in the Integra colon in this paragraph. Probably better to leave that for later. [ARJ]
 % TODO: I Think that there won't be a later, and so it is better to footnote it here and then move on?  Or forget it altogether? [TAP]
 % TODO: I think this would be more appropriate in the discussion. [TL]
-A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{http://www.integralive.org} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} CHANGED: by NP: I took the first jazzmutant cite out, because it is not very neccesary and just needs spacce at the end.
+A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{\url{http://www.integralive.org}} uses a \texttt{.get} appended to the node's address\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. Meanwhile JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} CHANGED: by NP: I took the first jazzmutant cite out, because it is not very neccesary and just needs spacce at the end.
 \cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
 
 \subsubsection{Specifying Additional Information}
@@ -237,9 +230,9 @@ A review of the myriad of attempts at creating standardized OSC schemas, and sta
 \subsection{XML}
 \label{sub:xml}
 
-Extensible Markup Language (XML)\footnote{http://www.w3.org/XML/} is a particularly relevant analogue to OSC.  XML defines a means for formatting data, but not the data or anything specific to the dataspace itself \cite{xml:2006}. 
+Extensible Markup Language (XML)\footnote{\url{http://www.w3.org/XML/}} is a particularly relevant analogue to OSC.  XML defines a means for formatting data, but not the data or anything specific to the dataspace itself \cite{xml:2006}. 
 
-A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{http://www.w3.org/Graphics/SVG/}, XHTML\footnote{http://www.w3.org/TR/xhtml1/} and SOAP\footnote{http://www.w3.org/TR/soap/}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
+A number of standardized namespaces using XML have gained wide adoption, including Scalable Vector Graphics (SVG)\footnote{\url{http://www.w3.org/Graphics/SVG/}}, XHTML\footnote{\url{http://www.w3.org/TR/xhtml1/}} and SOAP\footnote{\url{http://www.w3.org/TR/soap/}}.  SOAP is of particular interest because it is designed as a protocol for exchanging structured information.
 
 Using XML, information is encapsulated into elements.  These elements form a tree structure analogous to an OSC message, and for the purpose of this discussion we will treat them as such.  Using XML elements, one way to represent the preceeding audio gain example is thus:
 \begin{small}
@@ -261,7 +254,7 @@ This is clearly more cumbersome to manually type this XML than the equivalent OS
 \noindent
 \texttt{/path/to/the/gain 0}
 
-It is also more work for the receiving processor to parse, and it uses more bandwidth as well.\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  http://www.w3.org/TR/2007/WD-exi-20071219/} However, XML elements are able not only to express a value (\emph{content} in xml parlance) between the tags, but also they can provide properties (\emph{attributes}) to the node. For example, we may provide the unit for specifying the gain:
+It is also more work for the receiving processor to parse, and it uses more bandwidth as well.\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  \url{http://www.w3.org/TR/2007/WD-exi-20071219/}} However, XML elements are able not only to express a value (\emph{content} in xml parlance) between the tags, but also they can provide properties (\emph{attributes}) to the node. For example, we may provide the unit for specifying the gain:
 \begin{small}
 \begin{verbatim}
   <path>
@@ -276,7 +269,7 @@ It is also more work for the receiving processor to parse, and it uses more band
 \end{verbatim}
 \end{small}
 
-We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC, is JSON (http://www.json.org)}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
+We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{An attractive option with more brevity than XML, though still less clarity and interoperability than OSC, is JSON (\url{http://www.json.org})}.  Different than XML, we will propose that they can be addressed independently rather than simultaneously.
 
 
 \subsection{Introducing the colon separator}
@@ -458,25 +451,7 @@ When a new ramp is started, the ramp unit internally uses a normalized ramping v
 \subsubsection{The Jamoma FunctionLib API} % (fold)
 \label{ssub:the_function_lib}
 
-The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: Linear, cosine, lowpass series, power function and hyperbolic tangent. There are planes to expand this further with w.g. exponential functions.
-
-% CHANGED: eliminated this list with the details and condensed it to one sentence, or two. [TL]
-%Alexander: This could be included in the ICMC paper instead. 
-%\begin{itemize}
-%
-%	\item Linear: $y = x$.
-%
-%	\item Cosine: $y = - \frac{1}{2} \cdot cos(x \cdot \pi ) + \frac{1}{2} $.
-%
-%	\item Lowpass series: $y[n] = y[n-1] \cdot k + x[n] \cdot (1-k)$, \\ where $k$ is a feedback coefficient.
-%
-%	\item Power function: $ y = x^{k} $, where the parameter $k$ can be set.
-%
-%	\item Hyperbolic tangent: $ y = c \cdot (tanh(a\cdot(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on %the width and offset of the curve.
-%	
-%\end{itemize}
-%
-%There are plans to introduce exponential functions.
+The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: Linear, cosine, lowpass series, power function and hyperbolic tangent. There are plans to expand this further with w.g. exponential functions.
 
 % subsubsection the_function_lib (end)
 
