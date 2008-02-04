@@ -207,7 +207,7 @@ Several projects have undertaken a standardization of OSC messages, and OSC synt
 A primary concern in many of these efforts is the ability to query a node for it's value. The Integra project\footnote{\url{http://www.integralive.org}} uses a \texttt{.get} appended to the node's address.
 % CHANGED: This does not build our argument, so I cut it as previously discussed [TAP]
 %\footnote{Integra also suggests using the : (colon) to set messages without outputting, to avoid feedback.}. 
-Meanwhile, JazzMutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} 
+Meanwhile, Jazzmutant's OSC 2.0 Draft Proposal suggests repurposing the reserved \texttt{?} to query for the value of a node %\cite{Jazzmutant:2006} 
 %CHANGED: I took the first jazzmutant cite out, because it is not very neccesary and just needs spacce at the end. [NP]
 \cite{Jazzmutant:2007}. We agree that this functionality is needed, and that a standardized way of doing it is essential.  However, we propose that users are interested not only in querying the value of the node, but other properties of that node as well.
 
@@ -217,7 +217,7 @@ While such an approach may be beneficial in some contexts, we find that a more s
 
 \subsubsection{Augmented Syntax}
 
-A review of the myriad of attempts at creating standardized OSC schemas, and standardized means of discovering and querying namespaces, indicates that additional syntax is needed for clarifying function, address, or both when working with a complex OSC system.  Integra, JazzMutant, and Jamoma are all examples where additional symbols, such as the colon, have reserved (if different) meanings.
+A review of the myriad of attempts at creating standardized OSC schemas, and standardized means of discovering and querying namespaces, indicates that additional syntax is needed for clarifying function, address, or both when working with a complex OSC system.  Integra, Jazzmutant, and Jamoma are all examples where additional symbols, such as the colon, have reserved (if different) meanings.
 
 To investigate possible alternatives for sending this structured information, it is useful to observe how existing methodologies  represent and send data over a network.
 
