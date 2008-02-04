@@ -459,9 +459,10 @@ Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/fu
 % TODO : explanation of the introduction of a second colon : we are addressing a property of property 
 % we use here the term ramp drive, while, in the section 3.5.1, we use ramp unit
 
-\texttt{:/ramp/drive}
-
-\texttt{:/ramp/drive:/get}
+\begin{tabular}{ll}
+	\texttt{:/ramp/drive} & \texttt{:/ramp/drive:/get} \\
+	\texttt{:/ramp/function}  & \texttt{:/ramp/function:/get} \\
+\end{tabular}
 
 \texttt{:/ramp/drive:/dump}
 
@@ -511,9 +512,9 @@ If the current function unit do not have a \texttt{/bar} parameter, the message 
 
 The description property is a string providing a text description of the parameter. In Jamoma this is used for auto-generating online documentation of the modules. It can also be used for building modules that retrieve the total namespace of all Jamoma modules used, and provide interactive documentation of available parameters. The descriptions property is accessed as:
 
-\texttt{:/description}
-
-\texttt{:/description/get}
+\begin{tabular}{ll}
+	\texttt{:/description} & \texttt{:/description:/get} \\
+\end{tabular}
 
 % subsection description (end)
 
@@ -528,20 +529,6 @@ The description property is a string providing a text description of the paramet
 
 \section{Discussion and Further Work} % (fold)
 \label{sec:discussion_and_further_work}   
-
-% CHANGED: Save for ICMC:
-% 4 ramp units times 5 function units = 20 ramping modes
-%
-%ramp units can be used for other scheduled processes as well
-
-% The implementation of ramping functionalities as libraries for driving mechanisms and functions have several benefits. Both libraries are easily extendable, and any extension to one library can immedeately be combined with all units of the other library. With the current set of 4 ramp units and 5 function units, a total of 20 combinations are possible.
-%
-%Possibility of expanding ramp units as low frequency oscillators function units can be used elsewhere, e.g. for mapping
-%
-%Audio rate ramp unit.
-%
-% Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
-
 
 
 \subsection{DataspaceLib} % (fold)
