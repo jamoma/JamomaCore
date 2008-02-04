@@ -371,7 +371,7 @@ The type of the node can be specified. Possible types are \emph{none}, \emph{boo
 \subsection{Controlling the Node Itself} % (fold)
 \label{sub:controlling_the_node_itself}
 
-In addition to setting the node value directly, it can be set and retrieved as a property. If the node is an integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
+As the node value is concidered an implicit property, it can be set and retrieved as such. If the node is an integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
 
 \begin{tabular}{ll}
 	\texttt{:/value} & \texttt{:/value:/get} \\
@@ -401,6 +401,8 @@ For integer, float and list nodes a range can be specified. This can be useful f
 
 
 %%%%%%%%%%%%%%%%%%%%%%
+
+% TODO: If we need to save space, this subsection could be left out.
 
 \subsection{Filtering of Repetitions} % (fold)
 \label{sub:filtering_of_repetitions}
@@ -439,6 +441,8 @@ Jamoma offers vastly extended possibilities in how ramping can be done as compar
 \label{ssub:the_ramp_lib}
 
 The ramp drive in Jamoma is implemented as a library of self-contained classes, coined \emph{RampUnits}.  The existing classes include a \emph{scheduler} drive using the Max scheduler, a \emph{queue} drive running in the Max queue, and an \emph{async} drive which calculates output only when an update is requested.
+
+% TODO: If we need to save space, this could be shortened, the details left for the ICMC paper.
 
 When a new ramp is started, the \emph{RampUnit} internally uses a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. When the RampUnit is to provide a new value, it updates the normalized ramping value, and passes it to a FunctionUnit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and the node's value is updated.
 
