@@ -452,7 +452,7 @@ The ramp function in Jamoma is handled by the Jamoma \emph{FunctionLib}.  The Fu
 
 \subsubsection{OSC Namespace for Ramping Properties} % (fold)
 \label{ssub:osc_namespace_for_ramping_properties}
-Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/function} OSC name classes. The ramping case provides an example of a node class which contains other node classes, as illustrated in Figure~\ref{fig:embedded}. It is also possible to have the module return a list of all available ramp units, implemented with the standardized \texttt{:/catalog} message.
+Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/function} OSC name classes.
 
 \begin{figure}
 \centerline{\framebox{
@@ -461,6 +461,7 @@ Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/
 \label{fig:embedded}
 \end{figure}
 
+The ramping case provides an example of a node class which contains other node classes, as illustrated in Figure~\ref{fig:embedded}. As discussed in Section~\ref{sub:standardizing_members} information on all available ramp units or functions can be requested with the standardized \texttt{:/catalog} method. If the current function or ramp unit contains additional parameters, the namespace of the unit can be retrieved by the \texttt{:/namespace} method, while \texttt{:/dump} returns the state of the node:
 
 \begin{tabular}{ll}
 	\texttt{:/ramp/drive} & \texttt{:/ramp/drive:/get} \\
@@ -474,13 +475,18 @@ Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/
 	\texttt{:/ramp/function:/namespace} \\
 \end{tabular}
 
-RampUnits that have additional parameters can be investigated with the \texttt{:/namespace} method. Those parameters are then addressed as properties of the ramp/drive or ramp/function nodes.  For instance the user can control how often the \emph{scheduler} RampUnit is to update by setting the \texttt{:/granularity} property of the ramp:
+For instance the user can control how often the \emph{scheduler} RampUnit is to update by setting the \texttt{:/granularity} property of the ramp:
 
 \texttt{:/ramp/drive:/granularity}
 
 \texttt{:/ramp/drive:/granularity:/get}
 
-The same principles apply to the function used for ramping. 
+The same principles apply to the function units used for ramping. 
+
+
+
+
+
 
 % subsubsection osc_namespace_for_ramping_properties (end)
 
