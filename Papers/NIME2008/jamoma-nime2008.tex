@@ -345,11 +345,9 @@ To make working with classes in OSC practical, it is important to have some stan
 \section{A Prototype Implementation} % (fold)
 \label{sec:prototype_implementation}
 
-The general concepts introduced in the previous section form the basis of the standardized namespace for node properties used in Jamoma. The following serves as an illustration of the concept, demonstrating how it provides the user with extended and structured control of available nodes.
+The general concepts introduced in this paper form the basis of the standardized namespace for node members used in Jamoma. The following uses select aspects of the Jamoma node namespace to illustrate how class-oriented addressing in OSC can provide users with extended and structured control of available nodes.
 
-Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a module.  Both parameters and messages are addressed as OSC \emph{nodes}.  Parameters compose the state of the module, they have a value and can be queried for that value. Messages, on the other hand, are stateless, such as a node that opens a reference file for the module. Apart from the difference in state, both classes of nodes are implemented and behave the same way, and the following discussion is equally valid for both. 
-
-% Pascal : Is the distinction between message and parameter relevant to the topic of this paper, or does it add confusion to the reader, if he doesn't know/use Jamoma ???
+Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a module.  Both parameters and messages are addressed as OSC \emph{nodes}. The primary difference is that parameter nodes implement a value property.  The remaining properties of these nodes are shared.
 
 
 %%%%%%%%%%%%%%%%%%%%%%
