@@ -357,12 +357,11 @@ Jamoma distinguishes between the \emph{parameters} and \emph{messages} of a modu
 
 The type of the node can be specified. Possible types are \emph{none}, \emph{boolean}, \emph{integer}, \emph{float32}, \emph{symbol} and \emph{list}. If one do not want to restrict the type of the node, it can be set to \emph{generic}. The \emph{none} type is only valid for messages. Some of the properties below will only be valid for certain types of nodes. The type property is accessed thus:
 
-\texttt{:/type}
-
-\texttt{:/type/get}
+\begin{tabular}{ll}
+	\texttt{:/type} & \texttt{:/type:/get} \\
+\end{tabular}
 
 % subsection type (end)
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -372,19 +371,12 @@ The type of the node can be specified. Possible types are \emph{none}, \emph{boo
 
 In addition to setting the node value directly, it can be set and retrieved as a property. If the node is an integer, float or list type it can also be stepwise increased or decreased. If so the size of the steps is itself a property:
 
-\texttt{:/value}
-
-\texttt{:/value/get}
-% or :/value:/get ??
-
-\texttt{:/inc}
-
-\texttt{:/dec} 
-
-\texttt{:/value/stepsize}
-
-\texttt{:/value/stepsize/get}
-% or :/value/stepsize:/get
+\begin{tabular}{ll}
+	\texttt{:/value} & \texttt{:/value:/get} \\
+	\texttt{:/value/stepsize}  & \texttt{:/value/stepsize:/get} \\
+	\texttt{:/value/inc} \\
+	\texttt{:/value/dec} \\
+\end{tabular}
 
 % subsection controlling_the_node_itself (end)
 
@@ -397,14 +389,10 @@ In addition to setting the node value directly, it can be set and retrieved as a
 
 For integer, float and list nodes a range can be specified. This can be useful for setting up autoscaling mappings from one value to another, or for clipping the output range. The clipping property can be \emph{none}, \emph{low}, \emph{high} or \emph{both}. The range properties are accessed thus:
 
-% TODO: Tim notes that because we discussed (or maybe if we discuss above more extensively) that :/get is standardized, we don't need to specify them in every case?  Or maybe we can use a chart with 2 columns?  Either way, we should be able to make this information take less vertical space in the paper.
-\texttt{:/range/bound}
-
-\texttt{:/range/bound:/get}
-
-\texttt{:/range/clipmode}
-
-\texttt{:/range/clipmode:/get}
+\begin{tabular}{ll}
+	\texttt{:/range/bound} & \texttt{:/range/bound:/get} \\
+	\texttt{:/range/clipmode}  & \texttt{:/range/clipmode:/get} \\
+\end{tabular}
 
 % subsection range (end)
 
@@ -417,9 +405,9 @@ For integer, float and list nodes a range can be specified. This can be useful f
 
 It is sometimes useful to filter repetitions to avoid redundant processing. The \emph{boolean} repetitions property is accessed thus:
 
-\texttt{:/repetitions}
-
-\texttt{:/repetitions/get}
+\begin{tabular}{ll}
+	\texttt{:/repetitions} & \texttt{:/repetitions:/get} \\
+\end{tabular}
 
 % subsection filtering_of_repetitions (end)
 
@@ -473,9 +461,11 @@ Ramping properties are addressed using \texttt{:ramp/drive} and \texttt{:ramp/fu
 
 \texttt{:/ramp/drive}
 
-\texttt{:/ramp/drive/get}
+\texttt{:/ramp/drive:/get}
 
 \texttt{:/ramp/drive:/dump}
+
+\texttt{:/ramp/drive:/namespace}
 
 Some ramp units might have additional parameters that can be controlled by the user. For instance the user can control how often the \emph{scheduler} ramp unit is to update; the granularity of the ramp.  In general a ramp unit parameter \texttt{/foo} might be accessed thus:
 
