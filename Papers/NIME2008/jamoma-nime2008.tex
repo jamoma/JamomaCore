@@ -578,6 +578,8 @@ The description property is a string providing a text description of the paramet
 % 4 ramp units times 5 function units = 20 ramping modes
 %
 %ramp units can be used for other scheduled processes as well
+
+% The implementation of ramping functionalities as libraries for driving mechanisms and functions have several benefits. Both libraries are easily extendable, and any extension to one library can immedeately be combined with all units of the other library. With the current set of 4 ramp units and 5 function units, a total of 20 combinations are possible.
 %
 %Possibility of expanding ramp units as low frequency oscillators function units can be used elsewhere, e.g. for mapping
 %
@@ -585,14 +587,30 @@ The description property is a string providing a text description of the paramet
 %
 % Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
 
-% TODO: The DataspaceLib needs particular emphasis, probably, because units play such a large role in the discussion of section 2
-DataspaceLib
+
+
+\subsection{DataspaceLib} % (fold)
+\label{sub:dataspacelib}
+
+In addition  to the current RampLib and FunctionLib APIs work has started on implementation of a Datasbape Lib, for the purpose of enabling nodes to be address using several different interchangeable measuring units. For example a gain parameter can be set using MIDI, dB or linear amplitude depending on the context and preferences of the user. The DataspaceLib is also meant to offer mapping between more complex interrelated coordinate systems, so that e.g. cartecian and spherical coordinates can be used interchangeably for description of points in space.
+
+%TODO: Insert bib ref to the SpatDIF paper by Nils Peters
+
+% subsection dataspacelib (end)
+
+
+
+%TODO: Introduce the figure Tim made.
 
 Querying - we propose a different system to the JazzMutant OSC2 draft
 
 Expanding :/dump for namespace discovery
 
+In the figure the slash equals stepping in the right direction, to the next branch of the OSC namespace, while the colon indicates stepping downwards in order to access the inner properties of the current node.
 
+Use analogy: what we are doing is really similar to C++ classes.
+
+The proposal set forward in this paper could be cosidered one step in the direction of a more object oriented approach to Open Sound Control
 
 % section discussion_and_further_work (end)
 
