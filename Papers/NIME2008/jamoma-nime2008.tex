@@ -430,7 +430,7 @@ It is sometimes useful to filter repetitions to avoid redundant processing. The 
 \subsection{Ramping to New Values} % (fold)
 \label{sub:ramping_to_new_values}
 
-The ability to smoothly move from one value to another is fundamental to any kind of transition and transformation of musical or artistic material. Jamoma offers the possibility of ramping from the current to a new value in a set amount of time. While the OSC message
+The ability to smoothly move from one value to another is fundamental to any kind of transition and transformation of musical or artistic material. Jamoma offers the possibility of interpolating from the current to a new value in a set amount of time. While the OSC message
 
 \texttt{/myComputer/myModule/myParameter 1.0}
 
@@ -440,38 +440,25 @@ will set the parameter value to $1.0$ immediately, the message
 \texttt{/myComputer/myModule/myParameter 1.0 ramp 2000}
 
 \noindent
-will cause the value to ramp to $1.0$ over 2000 milliseconds. Ramping in Jamoma works with messages and parameters of type integer, float and list.
+will cause the value to interpolate, or ramp, to $1.0$ over 2000 milliseconds. Ramping in Jamoma works with messages and parameters of type integer, float and list.
 
-Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes.
+Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A \emph{drive} mechanism triggers calculations of new values at desired intervals during the ramp, while a set of \emph{functions} offers a set of curves for the ramping. Libraries for both components are implemented as C++ APIs, and can easily be extended.
 
 
-
-\subsubsection{The Jamoma RampLib API} % (fold)
+\subsubsection{Ramp Drive} % (fold)
 \label{ssub:the_ramp_lib}
 
-The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm interpolates from an existing value to a new value over a specified amount of time using one of several timing mechanisms. Currently four such ramp units are implemented:
+The ramp drive in Jamoma is implemented as a library of self-contained classes.  The existing classes include a \emph{scheduler} drive using the Max scheduler, a \emph{queue} drive running in the Max queue, and an \emph{async} drive which calculates output only when an update is requested.
 
-\begin{itemize}
-
-	\item \emph{none} - jumps immediately to the new value. Typically used for values where ramping does not make sense.
-
-	\item \emph{scheduler} - uses the Max internal clock to generate new values at fixed time intervals.
-
-	\item \emph{queue} - ramping using the Max queue, updating values whenever the processor has free capacity to do so.
-
-	\item \emph{async} - only calculate new values when requested to do so. This might be used in video processing modules to calculate fresh values immediately before processing the next video image or matrix.
-	
-\end{itemize}
-
-When a new ramp is started, the ramp unit internally uses a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and passes it to a Function Unit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and the parameter is updated in the module.
+When a new ramp is started, the \emph{RampUnit} internally uses a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. When the RampUnit is to provide a new value, it updates the normalized ramping value, and passes it to a FunctionUnit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and the node's value is updated.
 
 % subsubsection the_ramp_lib (end)
 
 
-\subsubsection{The Jamoma FunctionLib API} % (fold)
+\subsubsection{Ramp Function} % (fold)
 \label{ssub:the_function_lib}
 
-The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: Linear, cosine, lowpass series, power function and hyperbolic tangent. There are plans to expand this further with w.g. exponential functions.
+The ramp function in Jamoma is handled by the Jamoma \emph{FunctionLib}.  The FunctionLib provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five \emph{FunctionUnits} are implemented: Linear, cosine, lowpass series, power function and hyperbolic tangent. There are plans to expand this additional functions.
 
 % subsubsection the_function_lib (end)
 
