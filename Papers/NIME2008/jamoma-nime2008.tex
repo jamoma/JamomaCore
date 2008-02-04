@@ -197,7 +197,8 @@ This open approach has made OSC useful in a broad range of applications, and ada
 
 %%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{OSC Namespace Standardization}
+\subsection{OSC Namespace Standardization} % (fold)
+\label{sub:namespace_standardization}
 
 A growing expanse of projects, including the research on mapping between controllers and sound engines, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{\url{http://liboscqs.sourceforge.net}} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
 
@@ -234,10 +235,11 @@ To investigate possible alternatives for sending this structured information, it
 %
 %This problem of accessing properties of a node, as opposed to the value of a node, is particularly troublesome using the standard OSC addressing conventions (using only slashes to navigate the tree).  One example of a system parallel to OSC for representing and sending data over a network is XML.
 
+% subsection namespace_standardization (end)
 
 %%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{XML}
+\subsection{XML} % (fold)
 \label{sub:xml}
 
 Extensible Markup Language (XML)\footnote{\url{http://www.w3.org/XML/}} is a particularly relevant analogue to OSC.  XML defines a means for formatting data, but not the data or anything specific to the dataspace itself \cite{xml:2006}. 
@@ -321,7 +323,8 @@ will be abbreviated as \texttt{:/member}.
 % subsection the_colon_separator (end)
 
 
-\subsection{Standardizing Members}
+\subsection{Standardizing Members} % (fold)
+\label{sub:standardizing_members}
 
 To make working with classes in OSC practical, it is important to have some standard members in place. At present we recommend standardizing the following member methods, and reserving their syntax:
 \begin{packed_item}%\begin{itemize}
@@ -330,7 +333,7 @@ To make working with classes in OSC practical, it is important to have some stan
 	\item \texttt{:/namespace} returns the namespace implemented at this node.
 \end{packed_item}%\end{itemize}
 
-
+% subsection standardizing_members (end)
 
 % section complex_structures_in_OSC (end)
 
