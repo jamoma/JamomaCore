@@ -68,7 +68,6 @@
 }{\end{itemize}}
 
 
-
 \begin{document}
 
 % Title part (fold) 
@@ -181,7 +180,7 @@ The paper starts by reviewing various approaches to creating more complex commun
 %%%%%%%%%%%%%%%%%%%%%%
 
 \section{Complex Structures in OSC} % (fold)
-\label{sec:representing_complex_structures_in_an_OSC_namespace}
+\label{sec:complex_structures_in_OSC}
 
 
 The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space} where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In contrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor’s idea of how these features should be organized'' \cite[p153]{Wright:2003}.
@@ -272,6 +271,7 @@ We suggest a model where it is possible to fork an OSC address to access not onl
 % CHANGED: I'm not sure if we really need this, so I'm commenting out for now [TAP]
 %Different than XML, we will propose that they can be addressed independently rather than simultaneously in.
 
+% subsection xml (end)
 
 \subsection{OSC Nodes as Classes} % (fold)
 \label{sub:osc_nodes_as_classes}
@@ -315,15 +315,15 @@ The former message sets the value of the node just as it would using the existin
 %In our case, we are indeed using the colon to separate OSC namespaces, one of which is the address to a node and one of which is the address within that remote node.  By reserving the colon for this usage, we also make the strings both fast and easy to parse.
 
 Section~\ref{sec:prototype_implementation} provides an illustration of the ideas suggested here. In the remainder of the discussion, the address of the node will be omitted for the sake of brevity; e.g.\\ 
-\texttt{/computer/module/parameter:/property}  
-will be abbreviated as \texttt{:/property}.
+\texttt{/computer/module/parameter:/member}  
+will be abbreviated as \texttt{:/member}.
 
 % subsection the_colon_separator (end)
 
 
-\subsection{Standardizing Accessors}
+\subsection{Standardizing Members}
 
-In addition to using the colon for setting and getting properties of a node in general, we have reserved a limited number of symbols for specific tasks:
+To make working with classes in OSC practical, it is important to have some standard members in place. At present we recommend standardizing the following member methods, and reserving their syntax:
 \begin{packed_item}%\begin{itemize}
 	\item \texttt{:/get} returns the value of the node.
 	\item \texttt{:/dump} returns the state of the node, which is to say the values of all of the properties including the value itself.
@@ -332,7 +332,7 @@ In addition to using the colon for setting and getting properties of a node in g
 
 
 
-% section representing_complex_structures_in_an_OSC_namespace (end)
+% section complex_structures_in_OSC (end)
 
 
 %%%%%%%%%%%%%%%%%%%%%%
