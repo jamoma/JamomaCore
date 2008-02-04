@@ -446,7 +446,7 @@ The ramp drive in Jamoma is implemented as a library of self-contained classes, 
 
 % When a new ramp is started, the \emph{RampUnit} internally uses a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. When the RampUnit is to provide a new value, it updates the normalized ramping value, and passes it to a FunctionUnit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and the node's value is updated.
 
-The ramp units internally perform normalized linear ramps. The values are then mapped and scaled using the appropriate FunctionUnit as discussed in Section~\ref{ssub:the_function_lib}. 
+The ramp units internally perform normalized linear ramps. The values are then mapped using the appropriate FunctionUnit as discussed in Section~\ref{ssub:the_function_lib} and scaled to the appropriate range. 
 
 % subsubsection the_ramp_lib (end)
 
@@ -454,7 +454,7 @@ The ramp units internally perform normalized linear ramps. The values are then m
 \subsubsection{Ramp Function} % (fold)
 \label{ssub:the_function_lib}
 
-The ramp function in Jamoma is handled by the Jamoma \emph{FunctionLib}.  The FunctionLib provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five \emph{FunctionUnits} are implemented: Linear, cosine, lowpass series, power function and hyperbolic tangent. There are plans to expand this additional functions.
+The ramp function in Jamoma is handled by the Jamoma \emph{FunctionLib}.  The FunctionLib provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five \emph{FunctionUnits} are implemented: Linear, cosine, lowpass series, power function and hyperbolic tangent. There are plans to expand the FunctionLib with additional functions.
 
 % subsubsection the_function_lib (end)
 
