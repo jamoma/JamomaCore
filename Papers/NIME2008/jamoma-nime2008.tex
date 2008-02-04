@@ -251,11 +251,11 @@ Using XML, information is encapsulated into elements.  These elements form a tre
 %\end{verbatim}
 %\end{small}
 
-\texttt{<amodule><audio><gain> 0 </gain></audio></amodule>}
+\texttt{<audio><gain> 0 </gain></audio>}
 
 This is clearly more cumbersome to manually type this XML than the equivalent OSC message:
 
-\texttt{/amodule/audio/gain 0}
+\texttt{/audio/gain 0}
 
 It is also more work for the receiving processor to parse, and it uses more bandwidth as well.\footnote{The Efficient XML Interchange (EXI) Format solves many of these concerns with XML, but at the expense of human readability because it is a binary format.  \url{http://www.w3.org/TR/2007/WD-exi-20071219/}} However, XML elements are able not only to express a value (\emph{content} in xml parlance) between the tags, but also they can provide properties (\emph{attributes}) to the node. For example, we may provide the unit for specifying the gain:
 %\begin{small}
@@ -264,7 +264,7 @@ It is also more work for the receiving processor to parse, and it uses more band
 %\end{verbatim}
 %\end{small}
 
-\texttt{<amodule><audio><gain unit=`dB'> 0 </gain></audio></amodule>}
+\texttt{<audio><gain unit=`dB'> 0 </gain></audio>}
 
 We suggest a model where it is possible to fork an OSC address to access not only the value of the node, but also the properties of that node, much like what is possible in other existing models such as XML\footnote{A more concise option than XML, albeit with less clarity and interoperability than OSC, is JSON (\url{http://www.json.org})}.  
 
