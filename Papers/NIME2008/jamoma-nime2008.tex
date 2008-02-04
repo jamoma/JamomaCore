@@ -282,7 +282,6 @@ We suggest a model where it is possible to fork an OSC address to access not onl
 
 In the introduction we made reference to the OSC 1.0 Specification, which states an OSC node represents a function call on a server. We propose that OSC nodes may represent more complex classes, and thus require a mechanism to address the members of these classes. A class \emph{member} may be a \emph{property} or a \emph{method}.
 
-% TODO: How do we link properly to figure 1, and also display the correct text for it? [TAP]
 In the Figure~\ref{fig:paths}, the OSC namespace from the previous examples is shown across the x-axis. Traversing the OSC namespace is an action making a horizontal traversal across the figure.  In the next section, we will suggest a new syntax for traversing this diagram on the y-axis to address the members inside of these nodes.
 
 \begin{figure}
@@ -456,8 +455,15 @@ The ramp function in Jamoma is handled by the Jamoma \emph{FunctionLib}.  The Fu
 
 \subsubsection{OSC Namespace for Ramping Properties} % (fold)
 \label{ssub:osc_namespace_for_ramping_properties}
+Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/function} OSC name classes. The ramping case provides an example of a node class which contains other node classes, as illustrated in Figure~\ref{fig:embedded}. In to setting or getting the current ramp drive mechanism, the ramp drive mechanism may itself have parameters. It is also possible to have the module return a list of all available ramp units, implemented with the standardized \texttt{:/catalog} message.
 
-Ramping properties are addressed using \texttt{:/ramp/drive} and \texttt{:/ramp/function} OSC name classes. The ramping case provides an example of a node class which contains other node classes. In to setting or getting the current ramp drive mechanism, the ramp drive mechanism may itself have parameters. It is also possible to have the module return a list of all available ramp units, implemented with the standardized \texttt{:/catalog} message.
+\begin{figure}
+\centerline{\framebox{
+	\includegraphics[width=\columnwidth]{figure-embedded}}}
+\caption{An example OSC address tree to nodes within another node}
+\label{fig:embedded}
+\end{figure}
+
 
 \begin{tabular}{ll}
 	\texttt{:/ramp/drive} & \texttt{:/ramp/drive:/get} \\
@@ -522,9 +528,6 @@ In addition to the current RampLib and FunctionLib, work has started on the impl
 
 % subsection dataspacelib (end)
 
-
-
-%TODO: Introduce the figure Tim made.
 
 Querying - we propose a different system to the JazzMutant OSC2 draft
 
