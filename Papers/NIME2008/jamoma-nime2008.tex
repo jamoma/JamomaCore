@@ -115,7 +115,7 @@
 	\affaddr{$^{a}$ Electrotap, tim@electrotap.com}\\
 	\affaddr{$^{b}$ BEK - Bergen Center for Electronic Arts, lossius@bek.no}\\
 	\affaddr{$^{c}$ University of Oslo, a.r.jensenius@imv.uio.no}\\
-	\affaddr{$^{d}$ McGill University, nils.peters@mcgill.ca}\\ 
+	\affaddr{$^{d}$ McGill University, Montr\'eal, nils.peters@mcgill.ca}\\ 
   \affaddr{$^{e}$ GMEA, pb@gmea.net}\\
 }
 
@@ -169,7 +169,7 @@ This paper starts by reviewing various approaches to creating more complex commu
 \label{sec:complex_structures_in_OSC}
 
 
-The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space}, where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In contrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor\char"13s idea of how these features should be organized'' \cite[p153]{Wright:2003}.
+The original idea of OSC is that it is tree-structured into a hierarchy called the \emph{address space}, where each of the nodes has a symbolic name and is a potential destination of OSC messages \cite{Wright:1997}. In contrast to the static schema of MIDI, the \emph{open} nature of OSC means that the address space is defined and created by the ``implementor\char"13s idea of how these features should be organized'' \cite[p.~153]{Wright:2003}.
 
 This open approach has made OSC useful in a broad range of applications, and adaptable to situations not foreseen by its developers \cite{Wright:2005}.  However, this lack of standardization in namespace schemas is also likely a major reason that OSC has not gained more widespread use in commercial software applications.
 
@@ -505,9 +505,8 @@ The same principles apply to the function units used for ramping.
 \subsection{DataspaceLib} % (fold)
 \label{sub:dataspacelib}
 
-In addition to the current RampLib and FunctionLib, work has started on the implementation of a DataspaceLib.  The DataspaceLib will enable nodes to be addressed using one of several interchangeable measurement units. For example a gain parameter can be set using MIDI, dB or linear amplitude depending on the context and preferences of the user. The OSC representation of this will be implemented as a set of properties to the node. The DataspaceLib is also meant to offer mapping between more complex interrelated coordinate systems, so that e.g. Cartesian and spherical coordinates can be used interchangeably for description of points in space.
-
-%TODO: Insert bib ref to the SpatDIF paper by Nils Peters
+In addition to the current RampLib and FunctionLib, work has started on the implementation of a DataspaceLib.  The DataspaceLib will enable nodes to be addressed using one of several interchangeable measurement units. For example a gain parameter can be set using MIDI, dB or linear amplitude depending on the context and preferences of the user. The OSC representation of this will be implemented as a set of properties to the node. The DataspaceLib is also meant to offer mapping between more complex interrelated coordinate systems, so that e.g. Cartesian and spherical coordinates can be used interchangeably for description of points in space, as it was proposed for SpatDIF \cite{peters_caa07}.
+%FIXME: Insert SpatDIF paper -> done, but I'm not sure how to integrate this.[NP]
 
 % subsection dataspacelib (end)
 
