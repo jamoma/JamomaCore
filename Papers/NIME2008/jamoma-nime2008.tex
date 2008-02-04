@@ -202,7 +202,7 @@ This open approach has made OSC useful in a broad range of applications, and ada
 \subsection{OSC Namespace Standardization} % (fold)
 \label{sub:namespace_standardization}
 
-A growing expanse of projects, including the research on mapping between controllers and sound engines, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{\url{http://liboscqs.sourceforge.net}} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol\cite{Habets:2005}\cite{Schmeder:2004oscqs}.
+A growing expanse of projects, including the research on mapping between controllers and sound engines, require the ability to discover and query namespaces using a known and common syntax \cite{Malloch:2007}. Other projects, such as LIBOSCQS\footnote{\url{http://liboscqs.sourceforge.net}} attempt to solve the problem of disparate namespaces by providing a query system and service discovery for applications using the OSC protocol \cite{Habets:2005, Schmeder:2004oscqs}.
 
 %\noindent \textbf{Occam} takes OSC messages and converts them to MIDI. It exports a MIDI source to CoreMIDI which can be used in any Mac OS X application that accepts MIDI. It broadcasts the existence of this OSC-to-MIDI service using Rendezvous (Zero-Conf).\\    
 
@@ -439,7 +439,7 @@ Jamoma offers vastly extended possibilities in how ramping can be done as compar
 \subsubsection{Ramp Drive} % (fold)
 \label{ssub:the_ramp_lib}
 
-The ramp drive in Jamoma is implemented as a library of self-contained classes.  The existing classes include a \emph{scheduler} drive using the Max scheduler, a \emph{queue} drive running in the Max queue, and an \emph{async} drive which calculates output only when an update is requested.
+The ramp drive in Jamoma is implemented as a library of self-contained classes, coined \emph{RampUnits}.  The existing classes include a \emph{scheduler} drive using the Max scheduler, a \emph{queue} drive running in the Max queue, and an \emph{async} drive which calculates output only when an update is requested.
 
 When a new ramp is started, the \emph{RampUnit} internally uses a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. When the RampUnit is to provide a new value, it updates the normalized ramping value, and passes it to a FunctionUnit as described in Section~\ref{ssub:the_function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and the node's value is updated.
 
