@@ -9,6 +9,22 @@
 \documentclass{article}
 \usepackage{icmc,amsmath}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{color}
+\definecolor{black}{rgb}{0,0,0}
+\hypersetup{colorlinks
+,linkcolor=black
+,filecolor=black
+,urlcolor=black
+,citecolor=black}
+%reduces the space between the items in the itemize-environment 
+\newenvironment{packed_item}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
 
 % Title.
 % ------
@@ -48,20 +64,53 @@ A possible partial solution to this problem is to treat a parameter not as a sin
 \end{abstract}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} % (fold)
+\label{sec:introduction}
 
+Jamoma is a Model-View-Controller\footnote{\url{http://en.wikipedia.org/wiki/Model-view-controller}} framework that provides a modular structure for the Max\footnote{\url{http://www.cycling74.com/products/maxmsp}} environment \cite{Place:2006}.  To be effective, it must use a messaging model that is dynamic, flexible, and efficient. The messaging model in Jamoma addresses modules using parameters (nodes with state) and messages (nodes which are stateless). For the duration of this paper we will often refer only to parameters, but the concepts generally apply to both parameters and messages.
 
-%
-\section{Introduction}\label{sec:introduction}
+In addition to providing values to parameters, each node may also have its behavior defined or modified in real-time through the use of properties and methods \cite{Place:2008}.  These properties define the behavior for parameters by setting a value range, repetition filtering, the type of units used to express values, and how automation is applied.  Following is a list of the properties and methods of a parameter.
 
-Jamoma is a Model-View-Controller-based framework that provides a modular structure for the Max environment \cite{Place:2006}.  To be effective, it must use a messaging model that is dynamic, flexible, and efficient. The messaging model in Jamoma addresses modules using parameters (nodes with state) and messages (nodes which are stateless). In addition to providing values to parameters and messages, each node may also have its behavior defined or modified in real-time through the use of properties \cite{Place:2008}.  % Yes, this looks presumptuous.  I don't need to be the first author on that paper...
-These properties define the behavior for messages and parameters by setting a value range, repetition filtering, the type of units used to express values, and how automation is applied.
+\begin{tabular}{ll}
+	\texttt{:/value} & The value of the parameter. \\
+	\texttt{:/value/stepsize} & The size of the step taken by the inc and dec messages. \\
+	\texttt{:/value/inc} & Increase the value of the parameter by the stepsize. \\
+	\texttt{:/value/dec} & Decrease the value of the parameter by the stepsize. \\
+	\texttt{:/value/default} & The initial value of a parameter when the module is first created. \\
+	\texttt{:/type} & The type of data represented by the parameter. \\
+	\texttt{:/priority} & The value of the parameter. \\
+	\texttt{:/ui/freeze} & The value of the parameter. \\
+	\texttt{:/ui/refresh} & The value of the parameter. \\
+	\texttt{:/ramp/drive} & The value of the parameter. \\
+	\texttt{:/ramp/function} & The value of the parameter. \\
+	\texttt{:/repetitions} & The value of the parameter. \\
+	\texttt{:/range/bounds} & The value of the parameter. \\
+	\texttt{:/range/clip} & The value of the parameter. \\
+	\texttt{:/description} & The value of the parameter. \\
+	\texttt{:/node/type} & The value of the parameter. \\
+	\texttt{:/node/name} & The value of the parameter. \\
+	\texttt{:/dataspace} & The value of the parameter. \\
+	\texttt{:/dataspace/unit/active} & The value of the parameter. \\
+	\texttt{:/dataspace/unit/native} & The value of the parameter. \\
+\end{tabular}
+% section introduction (end)
 
-\cite{Momeni:2003}
+\section{Dynamic Binding in Jamoma}
 
-Every node in Jamoma is addressable using Open Sound Control (OSC) \cite{Wright:1997}\cite{Wright:2003}. 
-%TODO: summarize OSC usaging colon syntax here
+\subsection{The Subscription System}
 
-The Jamoma Core comprises a number of external objects for the Max \cite{?} environment, and a shared library which is accessible by any of the externals.  Within the shared library, there are a series of ``Libs'' which provide key functionalities for developing multidimensional tools.  These are:
+Parameters are bound dynamically to a module.  When a Max patcher loads a module, that module creates a \emph{hub} object which acts as the controller for everything in the module.  Then as parameters are created they subscribe to the hub to form a bi-directional connection for exchanging data.  The existence of parameters may even change through the use of scripting over the course of time, and in response to changes in other parameters.
+
+\subsection{Parameter Components}
+
+In Jamoma, the parameter is implemented as a Max external called \emph{jcom.parameter}.  Within this jcom.parameter the ramp and dataspace properties are implemented internally as dynamically bound objects using the TTBlue framework\footnote{\url{http://www.electrotap.com/ttblue/}}.  The TTBlue framework is a C++ library that implements a dynamic messaging layer rather than using statically-linked C/C++ function calls \cite{Place:2008ttblue}.  
+
+By using dynamically linked components inside of the parameter, it is possible to switch between many different options for a give parameter property, while each option may implement an entirely different set of methods.  This will be demonstrated in upcoming sections.
+
+\subsection{The Jamoma ``Libs''}
+
+The functionality we refer to within a parameter is implemented in a shared library. Within the shared library the different functionalities are grouped in a series of ``Libs''.  These libraries provide the key functionalities for developing multidimensional tools.  To date, the libs are composed of:
 \begin{itemize}
 	\item FunctionLib: a library of FunctionUnits which map an input value to an output value
 	\item RampLib: a library of driving mechanisms (RampUnits) which use the FunctionLib to automate value transformations over time.
@@ -70,18 +119,8 @@ The Jamoma Core comprises a number of external objects for the Max \cite{?} envi
 
 
 
-\subsection{TTBlue}
-
-Talk about the basics that are provided by TTBlue in 1 paragraph.
-
-Talk about how the libs are built on that, and why, in a 2nd paragraph.
-
-
-
-
 \section{FunctionLib}\label{sec:functionlib}
 
-% TODO: The following is copy/pasted directly from the NIME Paper...
 The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. The FunctionLib can easily be expanded by introducing new functions in the form of two C++ files: a source file and a header file that provides an interface for the source file.
 
 Currently five functions are implemented: 
@@ -100,7 +139,6 @@ There are plans to introduce exponential functions.
 
 \section{RampLib}\label{sec:ramplib}
 
-% TODO: The following is copy/pasted directly from the NIME Paper...
 Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes.
 
 The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
@@ -178,6 +216,9 @@ Ramp Lib and Function Lib can be used outside the context of jcom.parameter and 
 
 % section discussion_and_further_work (end)
 
+\cite{Momeni:2003}
+
+
 
 \begin{table}
 \begin{center}
@@ -200,25 +241,36 @@ Async	  &        &        &         &       & \\
 \end{table}
 
 
-\section{Citations}
 
-All bibliographical references should be listed at the
-end, inside a section named ``REFERENCES'', numbered
-and in alphabetic order. Also, all
-references listed should be cited in the text.
-When referring to a document, type the number in
-square brackets \cite{Author:00}
 
-\begin{thebibliography}{citations}
+%\begin{thebibliography}{citations}
+%
+%\bibitem{Author:00} Author, E.
+%''The title of the conference paper'',
+%{\it Proceedings of the International Computer Music Conference}, Miami, USA, 2004.
+%
+%\bibitem{Someone:02} Someone, A.
+%{\it  Title of the book}.
+%Publisher, Belfast, 2007.
+%
+%\end{thebibliography}
 
-\bibitem{Author:00} Author, E.
-''The title of the conference paper'',
-{\it Proceedings of the International Computer Music Conference}, Miami, USA, 2004.
+% Bibliography (fold)
+%
+% The following two commands are all you need in the initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+% CHANGED: I remove the small again for the bibliography, since this isn't used in the template.
+%\begin{small}
+\bibliographystyle{abbrv}
+\bibliography{jamoma-icmc2008}  % the name of the Bibliography in this case
+%\end{small}
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex latex
+% to resolve all references
+%
+% Bibliography (end)
 
-\bibitem{Someone:02} Someone, A.
-{\it  Title of the book}.
-Publisher, Belfast, 2007.
 
-\end{thebibliography}
 
 \end{document}
