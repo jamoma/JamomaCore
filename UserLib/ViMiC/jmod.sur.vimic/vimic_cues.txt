@@ -27,7 +27,7 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/audio/gain/midi 0
 	/jmod.sur.vimic~/audio/meters/freeze 0
 	/jmod.sur.vimic~/audio/mute 0
-	/jmod.sur.vimic~/direct/gain/midi 0
+	/jmod.sur.vimic~/room/reflection/0/gain/midi 0
 	/jmod.sur.vimic~/microphones/1/mute 0
 	/jmod.sur.vimic~/microphones/2/mute 0
 	/jmod.sur.vimic~/microphones/3/mute 0
@@ -36,37 +36,37 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/microphones/6/mute 0
 	/jmod.sur.vimic~/microphones/7/mute 0
 	/jmod.sur.vimic~/microphones/8/mute 0
-	/jmod.sur.vimic~/microphones/1/angle -0.000 0.000
+	/jmod.sur.vimic~/microphones/1/orientation -0.000 0.000
 	/jmod.sur.vimic~/microphones/1/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/1/position -0.000 2.500 0.000
+	/jmod.sur.vimic~/microphones/1/position/xyz -0.000 2.500 0.000
 	/jmod.sur.vimic~/microphones/1/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/2/angle -45.000 0.000
+	/jmod.sur.vimic~/microphones/2/orientation -45.000 0.000
 	/jmod.sur.vimic~/microphones/2/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/2/position -1.768 1.768 0.000
+	/jmod.sur.vimic~/microphones/2/position/xyz -1.768 1.768 0.000
 	/jmod.sur.vimic~/microphones/2/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/3/angle -90.000 0.000
+	/jmod.sur.vimic~/microphones/3/orientation -90.000 0.000
 	/jmod.sur.vimic~/microphones/3/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/3/position -2.500 -0.000 0.000
+	/jmod.sur.vimic~/microphones/3/position/xyz -2.500 -0.000 0.000
 	/jmod.sur.vimic~/microphones/3/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/4/angle -135.000 0.000
+	/jmod.sur.vimic~/microphones/4/orientation -135.000 0.000
 	/jmod.sur.vimic~/microphones/4/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/4/position -1.768 -1.768 0.000
+	/jmod.sur.vimic~/microphones/4/position/xyz -1.768 -1.768 0.000
 	/jmod.sur.vimic~/microphones/4/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/5/angle 180.000 0.000
+	/jmod.sur.vimic~/microphones/5/orientation 180.000 0.000
 	/jmod.sur.vimic~/microphones/5/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/5/position 0.000 -2.500 0.000
+	/jmod.sur.vimic~/microphones/5/position/xyz 0.000 -2.500 0.000
 	/jmod.sur.vimic~/microphones/5/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/6/angle 135.000 0.000
+	/jmod.sur.vimic~/microphones/6/orientation 135.000 0.000
 	/jmod.sur.vimic~/microphones/6/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/6/position 1.768 -1.768 0.000
+	/jmod.sur.vimic~/microphones/6/position/xyz 1.768 -1.768 0.000
 	/jmod.sur.vimic~/microphones/6/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/7/angle 90.000 0.000
+	/jmod.sur.vimic~/microphones/7/orientation 90.000 0.000
 	/jmod.sur.vimic~/microphones/7/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/7/position 2.500 0.000 0.000
+	/jmod.sur.vimic~/microphones/7/position/xyz 2.500 0.000 0.000
 	/jmod.sur.vimic~/microphones/7/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/8/angle 45.000 0.000
+	/jmod.sur.vimic~/microphones/8/orientation 45.000 0.000
 	/jmod.sur.vimic~/microphones/8/directivity/preset cardioid
-	/jmod.sur.vimic~/microphones/8/position 1.768 1.768 0.000
+	/jmod.sur.vimic~/microphones/8/position/xyz 1.768 1.768 0.000
 	/jmod.sur.vimic~/microphones/8/gain/midi 127.000
 	/jmod.sur.vimic~/microphones/9/mute 1
 	/jmod.sur.vimic~/microphones/10/mute 1
@@ -84,12 +84,12 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/microphones/22/mute 1
 	/jmod.sur.vimic~/microphones/23/mute 1
 	/jmod.sur.vimic~/microphones/24/mute 1	
-	/jmod.sur.vimic~/microphones/direct/power 1
+	/jmod.sur.vimic~/microphones/directivity/power 1
 	/jmod.sur.vimic~/room/reflection/1/gain/midi 0.
 	/jmod.sur.vimic~/room/reflection/2/gain/midi 0.
 	/jmod.sur.vimic~/room/reflection/airfilter 10000
 	/jmod.sur.vimic~/rendermode 0
-	/jmod.sur.vimic~/room/distance/power 1
+	/jmod.sur.vimic~/room/distance/power 1.0
 	/jmod.sur.vimic~/room/size/xyz 20.000 30.000 8.000
 	/jmod.sur.vimic~/source/position/absolute/xyz 1.308 7.472 0.000
 	/jmod.sur.vimic~/updaterate 10
@@ -171,132 +171,132 @@ WAIT 1000
 	/jmod.sur.vimic~/audio/gain/midi 0.000
 	/jmod.sur.vimic~/audio/meters/freeze 0
 	/jmod.sur.vimic~/audio/mute 0
-	/jmod.sur.vimic~/direct/gain/midi 0.000
-	/jmod.sur.vimic~/microphones/1/angle -0.000 0.000
+	/jmod.sur.vimic~/room/reflection/0/gain/midi 0.000
+	/jmod.sur.vimic~/microphones/1/orientation -0.000 0.000
 	/jmod.sur.vimic~/microphones/1/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/1/mute 0
 	/jmod.sur.vimic~/microphones/1/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/1/position 0.000 1.000 0.000
-	/jmod.sur.vimic~/microphones/10/angle 135.000 0.000
+	/jmod.sur.vimic~/microphones/1/position/xyz 0.000 1.000 0.000
+	/jmod.sur.vimic~/microphones/10/orientation 135.000 0.000
 	/jmod.sur.vimic~/microphones/10/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/10/mute 0
 	/jmod.sur.vimic~/microphones/10/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/10/position 0.707 -0.707 0.000
-	/jmod.sur.vimic~/microphones/11/angle 150.000 0.000
+	/jmod.sur.vimic~/microphones/10/position/xyz 0.707 -0.707 0.000
+	/jmod.sur.vimic~/microphones/11/orientation 150.000 0.000
 	/jmod.sur.vimic~/microphones/11/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/11/mute 0
 	/jmod.sur.vimic~/microphones/11/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/11/position 0.500 -0.866 0.000
-	/jmod.sur.vimic~/microphones/12/angle 165.000 0.000
+	/jmod.sur.vimic~/microphones/11/position/xyz 0.500 -0.866 0.000
+	/jmod.sur.vimic~/microphones/12/orientation 165.000 0.000
 	/jmod.sur.vimic~/microphones/12/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/12/mute 0
 	/jmod.sur.vimic~/microphones/12/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/12/position 0.259 -0.966 0.000
-	/jmod.sur.vimic~/microphones/13/angle 180.000 0.000
+	/jmod.sur.vimic~/microphones/12/position/xyz 0.259 -0.966 0.000
+	/jmod.sur.vimic~/microphones/13/orientation 180.000 0.000
 	/jmod.sur.vimic~/microphones/13/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/13/mute 0
 	/jmod.sur.vimic~/microphones/13/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/13/position -0.000 -1.000 0.000
-	/jmod.sur.vimic~/microphones/14/angle 195.000 0.000
+	/jmod.sur.vimic~/microphones/13/position/xyz -0.000 -1.000 0.000
+	/jmod.sur.vimic~/microphones/14/orientation 195.000 0.000
 	/jmod.sur.vimic~/microphones/14/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/14/mute 0
 	/jmod.sur.vimic~/microphones/14/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/14/position -0.259 -0.966 0.000
-	/jmod.sur.vimic~/microphones/15/angle 210.000 0.000
+	/jmod.sur.vimic~/microphones/14/position/xyz -0.259 -0.966 0.000
+	/jmod.sur.vimic~/microphones/15/orientation 210.000 0.000
 	/jmod.sur.vimic~/microphones/15/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/15/mute 0
 	/jmod.sur.vimic~/microphones/15/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/15/position -0.500 -0.866 0.000
-	/jmod.sur.vimic~/microphones/16/angle 225.000 0.000
+	/jmod.sur.vimic~/microphones/15/position/xyz -0.500 -0.866 0.000
+	/jmod.sur.vimic~/microphones/16/orientation 225.000 0.000
 	/jmod.sur.vimic~/microphones/16/directivity/ratio 0.510
     /jmod.sur.vimic~/microphones/16/mute 0
 	/jmod.sur.vimic~/microphones/16/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/16/position -0.707 -0.707 0.000
-	/jmod.sur.vimic~/microphones/17/angle 240.000 0.000
+	/jmod.sur.vimic~/microphones/16/position/xyz -0.707 -0.707 0.000
+	/jmod.sur.vimic~/microphones/17/orientation 240.000 0.000
 	/jmod.sur.vimic~/microphones/17/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/17/mute 0
 	/jmod.sur.vimic~/microphones/17/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/17/position -0.866 -0.500 0.000
-	/jmod.sur.vimic~/microphones/18/angle 255.000 0.000
+	/jmod.sur.vimic~/microphones/17/position/xyz -0.866 -0.500 0.000
+	/jmod.sur.vimic~/microphones/18/orientation 255.000 0.000
 	/jmod.sur.vimic~/microphones/18/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/18/mute 0
 	/jmod.sur.vimic~/microphones/18/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/18/position -0.966 -0.259 0.000
-	/jmod.sur.vimic~/microphones/19/angle 270.000 0.000
+	/jmod.sur.vimic~/microphones/18/position/xyz -0.966 -0.259 0.000
+	/jmod.sur.vimic~/microphones/19/orientation 270.000 0.000
 	/jmod.sur.vimic~/microphones/19/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/19/mute 0
 	/jmod.sur.vimic~/microphones/19/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/19/position -1.000 0.000 0.000
-	/jmod.sur.vimic~/microphones/2/angle 15.000 0.000
+	/jmod.sur.vimic~/microphones/19/position/xyz -1.000 0.000 0.000
+	/jmod.sur.vimic~/microphones/2/orientation 15.000 0.000
 	/jmod.sur.vimic~/microphones/2/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/2/mute 0
 	/jmod.sur.vimic~/microphones/2/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/2/position 0.259 0.966 0.000
-	/jmod.sur.vimic~/microphones/20/angle 285.000 0.000
+	/jmod.sur.vimic~/microphones/2/position/xyz 0.259 0.966 0.000
+	/jmod.sur.vimic~/microphones/20/orientation 285.000 0.000
 	/jmod.sur.vimic~/microphones/20/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/20/mute 0
 	/jmod.sur.vimic~/microphones/20/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/20/position -0.966 0.259 0.000
-	/jmod.sur.vimic~/microphones/21/angle 300.000 0.000
+	/jmod.sur.vimic~/microphones/20/position/xyz -0.966 0.259 0.000
+	/jmod.sur.vimic~/microphones/21/orientation 300.000 0.000
 	/jmod.sur.vimic~/microphones/21/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/21/mute 0
 	/jmod.sur.vimic~/microphones/21/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/21/position -0.866 0.500 0.000
-	/jmod.sur.vimic~/microphones/22/angle 315.000 0.000
+	/jmod.sur.vimic~/microphones/21/position/xyz -0.866 0.500 0.000
+	/jmod.sur.vimic~/microphones/22/orientation 315.000 0.000
 	/jmod.sur.vimic~/microphones/22/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/22/mute 0
 	/jmod.sur.vimic~/microphones/22/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/22/position -0.707 0.707 0.000
-	/jmod.sur.vimic~/microphones/23/angle 330.000 0.000
+	/jmod.sur.vimic~/microphones/22/position/xyz -0.707 0.707 0.000
+	/jmod.sur.vimic~/microphones/23/orientation 330.000 0.000
 	/jmod.sur.vimic~/microphones/23/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/23/mute 0
 	/jmod.sur.vimic~/microphones/23/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/23/position -0.500 0.866 0.000
-	/jmod.sur.vimic~/microphones/24/angle 345.000 0.000
+	/jmod.sur.vimic~/microphones/23/position/xyz -0.500 0.866 0.000
+	/jmod.sur.vimic~/microphones/24/orientation 345.000 0.000
 	/jmod.sur.vimic~/microphones/24/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/24/mute 0
 	/jmod.sur.vimic~/microphones/24/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/24/position -0.259 0.966 0.000
-	/jmod.sur.vimic~/microphones/3/angle 30.000 0.000
+	/jmod.sur.vimic~/microphones/24/position/xyz -0.259 0.966 0.000
+	/jmod.sur.vimic~/microphones/3/orientation 30.000 0.000
 	/jmod.sur.vimic~/microphones/3/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/3/mute 0
 	/jmod.sur.vimic~/microphones/3/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/3/position 0.500 0.866 0.000
-	/jmod.sur.vimic~/microphones/4/angle 45.000 0.000
+	/jmod.sur.vimic~/microphones/3/position/xyz 0.500 0.866 0.000
+	/jmod.sur.vimic~/microphones/4/orientation 45.000 0.000
 	/jmod.sur.vimic~/microphones/4/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/4/mute 0
 	/jmod.sur.vimic~/microphones/4/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/4/position 0.707 0.707 0.000
-	/jmod.sur.vimic~/microphones/5/angle 60.000 0.000
+	/jmod.sur.vimic~/microphones/4/position/xyz 0.707 0.707 0.000
+	/jmod.sur.vimic~/microphones/5/orientation 60.000 0.000
 	/jmod.sur.vimic~/microphones/5/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/5/mute 0
 	/jmod.sur.vimic~/microphones/5/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/5/position 0.866 0.500 0.000
-	/jmod.sur.vimic~/microphones/6/angle 75.000 0.000
+	/jmod.sur.vimic~/microphones/5/position/xyz 0.866 0.500 0.000
+	/jmod.sur.vimic~/microphones/6/orientation 75.000 0.000
 	/jmod.sur.vimic~/microphones/6/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/6/mute 0
 	/jmod.sur.vimic~/microphones/6/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/6/position 0.966 0.259 0.000
-	/jmod.sur.vimic~/microphones/7/angle 90.000 0.000
+	/jmod.sur.vimic~/microphones/6/position/xyz 0.966 0.259 0.000
+	/jmod.sur.vimic~/microphones/7/orientation 90.000 0.000
 	/jmod.sur.vimic~/microphones/7/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/7/mute 0
 	/jmod.sur.vimic~/microphones/7/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/7/position 1.000 -0.000 0.000
-	/jmod.sur.vimic~/microphones/8/angle 105.000 0.000
+	/jmod.sur.vimic~/microphones/7/position/xyz 1.000 -0.000 0.000
+	/jmod.sur.vimic~/microphones/8/orientation 105.000 0.000
 	/jmod.sur.vimic~/microphones/8/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/8/mute 0
 	/jmod.sur.vimic~/microphones/8/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/8/position 0.966 -0.259 0.000
-	/jmod.sur.vimic~/microphones/9/angle 120.000 0.000
+	/jmod.sur.vimic~/microphones/8/position/xyz 0.966 -0.259 0.000
+	/jmod.sur.vimic~/microphones/9/orientation 120.000 0.000
 	/jmod.sur.vimic~/microphones/9/directivity/ratio 0.510
 	/jmod.sur.vimic~/microphones/9/mute 0
 	/jmod.sur.vimic~/microphones/9/gain/midi 127.000
-	/jmod.sur.vimic~/microphones/9/position 0.866 -0.500 0.000	
-	/jmod.sur.vimic~/microphones/direct/power 1.000
+	/jmod.sur.vimic~/microphones/9/position/xyz 0.866 -0.500 0.000	
+	/jmod.sur.vimic~/microphones/directivity/power 1
 	/jmod.sur.vimic~/room/reflection/1/gain/midi 0.000
 	/jmod.sur.vimic~/room/reflection/2/gain/midi 0.000
 	/jmod.sur.vimic~/room/reflection/airfilter 10000	
-	/jmod.sur.vimic~/rendermode/intervall 50
+	/jmod.sur.vimic~/rendermode/interval 50
 	/jmod.sur.vimic~/rendermode/xfade/fadefunction cosine
 	/jmod.sur.vimic~/rendermode/xfade/fadelength 3200
 	/jmod.sur.vimic~/rendermode/xfade/threshold 10
@@ -304,7 +304,7 @@ WAIT 1000
 	/jmod.sur.vimic~/report 0
 	/jmod.sur.vimic~/room/distance/power 1.000
 	/jmod.sur.vimic~/room/size/xyz 20.000 30.000 8.000
-	/jmod.sur.vimic~/source/orientation/azimuth/degree 0.000
+	/jmod.sur.vimic~/source/orientation/yaw 0.000
 	/jmod.sur.vimic~/room/temperature 21.000
 	/jmod.sur.vimic~/ui/freeze 0
 	/jmod.sur.vimic~/updaterate 10
@@ -372,7 +372,7 @@ WAIT 200
 CUE 3_fadein_Direct_Sound
 ######################################################
 /jmod.control/audio 1
-/jmod.sur.vimic~/direct/gain/midi 127.0
+/jmod.sur.vimic~/room/reflection/0/gain/midi 127.0
 /jmod.sur.vimic~/audio/gain/midi 127.0 ramp 2000
 
 
