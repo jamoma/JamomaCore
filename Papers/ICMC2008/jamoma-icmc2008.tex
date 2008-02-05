@@ -19,6 +19,12 @@
 ,urlcolor=black
 ,citecolor=black}
 %reduces the space between the items in the itemize-environment 
+\newenvironment{packed_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
 \newenvironment{packed_item}{
 \begin{itemize}
   \setlength{\itemsep}{1pt}
@@ -84,7 +90,7 @@ A possible partial solution is to treat a parameter not as a single-value repres
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Terminology}
-% TODO [ARJ] Probably better to link to a publication rather than Wikipedia. I took the first I found on google scholar, but there might be a more relevant publication.
+% TODO [ARJ] Probably better to link to a publication rather than Wikipedia. I took the first I found on google scholar, but there might be a more relevant publication. [NP] is this definition so important? Instead I would just include a screenshot of a small Jamoma patch and then briefly explain the Jamoma concept by refering to them. 
 Before moving on we see the need to clarify some of the terminology being used...
 
 Jamoma is a \emph{Model-View-Controller}\footnote{\url{http://en.wikipedia.org/wiki/Model-view-controller}} framework \cite{Krasner:1988}, that provides a modular structure for the Max/MSP environment. To be effective, it must use a messaging model that is dynamic, flexible, and efficient. The messaging model in Jamoma addresses modules using \emph{parameters} (i.e. nodes with state) and \emph{messages} (i.e. nodes which are stateless). For the duration of this paper we will often refer only to parameters, but the concepts generally apply to both parameters and messages.
@@ -94,9 +100,10 @@ In addition to providing values to parameters, each node may also have its behav
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Properties and Methods in Jamoma}
-
+%TODO: I think this is to early in the paper, I would put it after the Jamoma Libs.
 Following is a list of the properties and methods of a parameter.
-
+\begin{center} 
+{\footnotesize
 \begin{tabular}{ll}
 	\texttt{:/value} & The value of the parameter. \\
 	\texttt{:/value/stepsize} & The size of the step taken by the inc and dec messages. \\
@@ -118,7 +125,8 @@ Following is a list of the properties and methods of a parameter.
 	\texttt{:/dataspace} & The value of the parameter. \\
 	\texttt{:/dataspace/unit/active} & The value of the parameter. \\
 	\texttt{:/dataspace/unit/native} & The value of the parameter. \\
-\end{tabular}
+\end{tabular} } 
+\end{center}  
 % section introduction (end)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,13 +168,13 @@ Currently five functions are implemented:
 
 \begin{itemize}
 	\item Linear: $y = x$.
-	\item Cosine: $y = - \frac{1}{2} * cos(x * \pi ) + \frac{1}{2} $.
-	\item Lowpass series: $y[n] = y[n-1] * k + x[n] * (1-k)$, \\ where $k$ is a feedback coefficient.
-	\item Power function: $ y = x^{k} $, where the parameter $k$ can be set.
-	\item Hyperbolic tangent: $ y = c * (tanh(a*(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
+	\item Cosine: $y = - \frac{1}{2} \cdot cos(x \cdot \pi ) + \frac{1}{2} $.
+	\item Lowpass series: $y[n] = y[n-1] \cdot k + x[n] \cdot (1-k)$, \\ where $k$ is a feedback coefficient.
+	\item Power function: $ y = x^{k} $, parameter $k$ can be set.
+	\item Hyperbolic tangent: $ y = c \cdot (\tanh(a\cdot(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
 \end{itemize}
 
-There are plans to introduce exponential functions.
+
 
 
 
@@ -175,7 +183,7 @@ There are plans to introduce exponential functions.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Ramp Library}\label{sec:ramplib}
 
-Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes.
+Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes. %TODO: Is this important for the ICMC audience that the Ramplib API is made with C++ and that it be can easily extended? [NP]
 
 The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
 
@@ -193,13 +201,25 @@ When a new ramp is started, the ramp unit internally use a normalized ramping va
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Dataspace Library}\label{sec:dataspacelib}
 
-It will be good for us to try and explain all the interactions here ;-)
+It will be good for us to try and explain all the interactions here ;-) 
+\begin{packed_item}
+	\item AngleDataspace
+	\item NoneDataspace
+	\item ColorDataspace
+	\item PitchDataspace
+	\item PositionDataspace
+	\item DistanceDataspace
+    \item TemperatureDataspace
+    \item GainDataspace
+	\item TimeDataspace
+\end{packed_item}
+	
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{TemperatureDataspace}\label{subsec:temperature_dataspace}
 
-La de da...
+La de da...right now 1ºC in Montreal %TODO: not necessary, or should go to the Dataspace subsection [NP]
 
 
 
@@ -251,7 +271,7 @@ Querying - we propose a different system to the Lemur OSC2 draft
 Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
 
 
-
+Plans to extend the FunctionLib by introducing exponential functions are under discussion. %CHANGED: move this from the FunctionLib to Future Work [NP] 
 % section discussion_and_further_work (end)
 
 \cite{Momeni:2003}
@@ -275,7 +295,7 @@ Async	  &        &        &         &       & \\
 \end{tabular}
 \end{center}
 \caption{Table captions should be placed below the table}
-\label{tab:example}
+\label{tab:example} %FIXME: this table has no reference to the text
 \end{table}
 
 
