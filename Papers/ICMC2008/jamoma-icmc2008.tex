@@ -13,11 +13,7 @@
 \usepackage{url}
 \usepackage{color}
 \definecolor{black}{rgb}{0,0,0}
-\hypersetup{colorlinks
-,linkcolor=black
-,filecolor=black
-,urlcolor=black
-,citecolor=black}
+\hypersetup{colorlinks,urlcolor=black,linkcolor=black,citecolor=black}  
 %reduces the space between the items in the itemize-environment 
 \newenvironment{packed_enumerate}{
 \begin{enumerate}
@@ -60,7 +56,7 @@
 %
 \maketitle
 %
-
+\sloppy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,7 +101,7 @@ A possible partial solution is to treat a parameter not as a single-value repres
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{MVC} %(fold)
+\section{Model-View-Controller} %(fold)
 % TODO [ARJ] Probably better to link to a publication rather than Wikipedia. I took the first I found on google scholar, but there might be a more relevant publication. [NP] is this definition so important? Instead I would just include a screenshot of a small Jamoma patch and then briefly explain the Jamoma concept by refering to them. 
 
 Jamoma is a Model-View-Controller (MVC) framework that supplies a modular structure for the Max/MSP environment. ``MVC programming is the application of [a] three-way factoring, whereby objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller).'' \cite{Krasner:1988}  In Jamoma, the model is represented as a Max patcher or external object called the \emph{algorithm}.  The user interface, embedded in a patcher or bpatcher is the view.  The controller is composed of a collection of interacting and dynamically-bound objects, which we refer to as the \emph{Jamoma Core}.
@@ -123,10 +119,11 @@ The messaging model in Jamoma addresses modules using \emph{parameters} (i.e. no
 \section{Dynamic Binding} % (fold)
 \label{sec:dynamic_binding}
 
-% TODO: Yes, I made up the word audiomusical.  Is there a real word we could use instead? [TAP]
-For our purposes we will assume the \emph{materials} we are working with to audiomusical information, such as audio samples or midi representations of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
+% Changed: Changed "audiomusical" to using the term "time-based art". See e.g. http://www.pica.org/tba/ for examples of the use of this term. [TL]
+For our purposes we will assume the \emph{materials} we are working with to be media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
 
-Current practice for many users of computer music software is predicated on static relationships and the use of static presets. This is certainly true for many DAW systems whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tools behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
+% TODO: Move this type of stuff up to section 1 so we are more clear about stating the problem.
+Current practice for many users of computer music software is predicated on static relationships and the use of static presets. This is certainly true for many Digital Audio Workstations (DAWs) whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tools behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
 
 Many of these systems, Max/MSP in particular, have provisions for breaking out of sets of static relationships through scripting. For the vast majority of users, however, mastering this task is onerous at best. By keeping these relationships fixed, the expressivity available to the user is inherently limited.
 
@@ -154,9 +151,13 @@ Dynamic binding in Jamoma takes place on several levels.  At the highest level, 
 \section{The Parameter} %(fold)
 \label{sec:the_parameter}
 
+% TODO: Add a figure showing the structure of the parameter, methods, properties, etc. -- put it in more conceptual section
+% TODO: This paragraph belongs in the conceptual section
 The parameter is the primary interface for a user manipulating the state of a module. In most systems, the parameter has a single task: to set a variable or coefficient. While it is straightforward to understand such a simple 1-dimensional control, it does not offer the degree of nuance that, say, a sculptor has when working with clay.
 
 In Jamoma, the parameter is made multi-dimensional through the use of \emph{properties} and \emph{methods} in addition to maintaining the state of a value \cite{Place:2008}. These properties define the behavior for parameters by setting a value range, repetition filtering, the type of units used to express values, and how automation is applied. The following is list of available properties and methods for any given parameter.
+
+% TODO: Here begins specific Jamoma stuff that is a prototype
 
 Following is a list of the properties and methods of a parameter.
 \begin{center} 
@@ -251,6 +252,31 @@ So that we have a library
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Ramp Library} % (fold)
+\label{sec:ramplib}
+
+% TODO: gear this more towards artistic, and less toward technical implementation. Try to explain the motivation for the design decisions we've made.
+
+Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes. %TODO: Is this important for the ICMC audience that the Ramplib API is made with C++ and that it be can easily extended? [NP]
+
+The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
+
+\begin{itemize}
+	\item \emph{none} - jumps immediately to the new value. Typically used for values where ramping do not make sense.
+	\item \emph{scheduler} - use the Max internal clock to generate new values at fixed time intervals.
+	\item \emph{queue} - ramping using the Max queue, updating values whenever the processor has free capacity to do so.
+	\item \emph{async} - only calculate new values when requested to do so. This might be used in video processing modules to calculate fresh values immediately before processing the next video image or matrix.
+\end{itemize}
+
+When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{sec:function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
+
+
+% subsection ramplib (end)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Function Library} % (fold)
 \label{sec:functionlib}
 The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. The FunctionLib can easily be expanded by introducing new functions in the form of two C++ files: a source file and a header file that provides an interface for the source file.
@@ -266,27 +292,6 @@ Currently five functions are implemented:
 \end{itemize}
 
 
-% section functionlib (end)
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Ramp Library} % (fold)
-\label{sec:ramplib}
-
-Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes. %TODO: Is this important for the ICMC audience that the Ramplib API is made with C++ and that it be can easily extended? [NP]
-
-The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
-
-\begin{itemize}
-	\item \emph{none} - jumps immediately to the new value. Typically used for values where ramping do not make sense.
-	\item \emph{scheduler} - use the Max internal clock to generate new values at fixed time intervals.
-	\item \emph{queue} - ramping using the Max queue, updating values whenever the processor has free capacity to do so.
-	\item \emph{async} - only calculate new values when requested to do so. This might be used in video processing modules to calculate fresh values immediately before processing the next video image or matrix.
-\end{itemize}
-
-When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{sec:function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
 
 \begin{table}
 \begin{center}
@@ -308,7 +313,8 @@ Async	  &        &        &         &       & \\
 \label{tab:ramp_possibilities} %FIXME: this table has no reference to the text
 \end{table}
 
-% subsection ramplib (end)
+% section functionlib (end)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Dataspace Library} %(fold)
