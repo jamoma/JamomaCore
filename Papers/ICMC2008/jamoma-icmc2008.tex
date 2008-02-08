@@ -63,10 +63,7 @@
 \begin{abstract}
 %The abstract should be placed at the top left column and should contain
 %about 150-200 words.
-
-A prototype implementation in Jamoma is presented and discussed.
-
-
+The authors propose a expanded notion of how we work with parameters in computer-based environments for time-based art. Rather than viewing parameters a single points of control, the authors argue that parameters must become more multifaceted and dynamic in order to serve the needs of artists. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma, where these properties are themselves dynamic and interdependent upon each other.
 \end{abstract}
 
 
@@ -76,24 +73,21 @@ A prototype implementation in Jamoma is presented and discussed.
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-% CHANGED [ARJ] This looked more like an introduction than an abstract. Parts of it could probably be moved to the introduction instead?
-% TODO [ARJ] It is good to have a more conceptual start, but right now it feels a bit too conceptual. "materials" and "plasticity" should probably be outlined some more.
-Fundamental to the development of musical or artistic material is the ability to transform raw materials.  This ability implies the facility to master many facets of the material, and to manipulate it with plasticity.  Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. However, we find that this capability to control the values of parameters is inadequate for many of our artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials. For this reason we have started to explore alternative ways of working with dynamic structures.
+Fundamental to the development of musical or artistic material is the ability to transform raw materials.  This ability implies the facility to master many facets of the material, and to manipulate it with plasticity.  Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. However, we find that this capability to control the values of parameters is inadequate for many of our artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials. 
 
-A possible partial solution is to treat a parameter not as a single-value representing entity, but to treat a parameter as a multi-dimensional tool or object.  Thus the parameter, as a tool or object, has many facets itself in addition to the value it renders.  These many \emph{properties} of the parameter define its behavior. This paper presents a prototype of these ideas, implemented in Jamoma, a modular framework for Max/MSP \cite{Place:2006}. In addition to defining behaviors, the behaviors are themselves interdependent upon each other requiring a flexible and dynamically bound code base for the implementation.
+% Changed: Changed "audiomusical" to using the term "time-based art". See e.g. http://www.pica.org/tba/ for examples of the use of this term. [TL]
+For our purposes we will assume the \emph{materials} we are working with to be media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
 
-% TODO: Main question:
-% We've done quite a lot of work, and here is what we've done.
-% Why did we do this?
-% What's the point?
 
-% How do we transition from this stuff to the more concrete?
-% Conceptual idea: 
-% - materials
-% - plasticity
-% 
-% (model and work with..., living entity)
+\subsection{The Struggle to be Dynamic} % (fold)
 
+Current practice for many users of computer music software is predicated on static relationships and the use of static presets. This is certainly true for many Digital Audio Workstations (DAWs) whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tool's behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
+
+Many of these systems, Max/MSP in particular, have provisions for breaking out of sets of static relationships through scripting. For the vast majority of users, however, mastering this task is onerous at best. By keeping these relationships fixed, the expressivity available to the user is inherently limited. 
+
+To address this need for systems which are more dynamic, a possible partial solution is to treat parameters not as a single-value representing entities, but to treat parameters as a multi-dimensional tools or objects.  Thus the parameter, as a tool or object, has many facets itself in addition to the value it renders.  These many \emph{properties} of the parameter define its behavior. This paper presents a prototype of these ideas, implemented in Jamoma, a modular framework for Max/MSP \cite{Place:2006}. In addition to defining behaviors, the behaviors are themselves interdependent upon each other requiring a flexible and dynamically bound code base for the implementation.
+
+% subsection dynamism (end)
 % section introduction (end)
 
 
@@ -101,116 +95,75 @@ A possible partial solution is to treat a parameter not as a single-value repres
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Model-View-Controller} %(fold)
-% TODO [ARJ] Probably better to link to a publication rather than Wikipedia. I took the first I found on google scholar, but there might be a more relevant publication. [NP] is this definition so important? Instead I would just include a screenshot of a small Jamoma patch and then briefly explain the Jamoma concept by refering to them. 
+\section{Design and Concepts} %(fold)
+\label{sec:design_and_concepts}
 
-Jamoma is a Model-View-Controller (MVC) framework that supplies a modular structure for the Max/MSP environment. ``MVC programming is the application of [a] three-way factoring, whereby objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller).'' \cite{Krasner:1988}  In Jamoma, the model is represented as a Max patcher or external object called the \emph{algorithm}.  The user interface, embedded in a patcher or bpatcher is the view.  The controller is composed of a collection of interacting and dynamically-bound objects, which we refer to as the \emph{Jamoma Core}.
+\subsection{Model-View-Controller} %(fold)
+\label{sec:mvc}
 
-% TODO: Tie the above paragraph to the below paragraph.  If the paragraph above is split up, it could be that each of the M, the V, and C are given their own paragraphs, and the paragraph below is in the discussion of the controller.  This allows us to still provide our definitions up front, while not boringly saying "here are a bunch of definitions".
+Jamoma is a Model-View-Controller (MVC) framework that provides a modular structure for the Max/MSP environment. ``MVC programming is the application of [a] three-way factoring, whereby objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller).'' \cite{Krasner:1988}  
 
-The messaging model in Jamoma addresses modules using \emph{parameters} (i.e. nodes with state) and \emph{messages} (i.e. nodes which are stateless). For the duration of this paper we will often refer only to parameters, but the concepts generally apply to both parameters and messages.
+\subsubsection{Model / Algorithm} %(fold)
+In Jamoma, the model is represented as a Max patcher or external object called the \emph{algorithm}. The algorithm is a standalone abstraction which performs the task of a module, but has no user interface and does not manage its own state.
+% subsubsection (end)
 
-% (end)
+\subsubsection{View / GUI} %(fold)
+The user interface may consist of one or more objects in the module. These are made visible to the user by embedding the module in a bpatcher, or by opening a view of the patcher in Max. Much of the GUI is automated. Those parts which aren't are tied to the controller through various objects in the JamomaCore.
+% subsubsection (end)
+
+\subsubsection{Controller / JamomaCore} %(fold)
+The controller layer is responsible for managing all of the relationships in a module, and as such plays the most important role in creating a dynamic system.  
+The controller is composed of a collection of interacting and dynamically-bound objects, which we refer to as \emph{JamomaCore}. At the heart of JamomaCore is the \emph{hub}. The hub acts as a dispatcher, and it coordinates all of the activity in a module. 
+
+The messaging model in Jamoma addresses modules using \emph{parameters} (nodes with state) and \emph{messages} (nodes which are stateless). For the duration of this paper we will often refer only to parameters, but the concepts generally apply to both parameters and messages.
+
+% subsubsection (end)
+% subsection mvc (end)
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Dynamic Binding} % (fold)
+\subsection{Dynamic Binding} %(fold)
 \label{sec:dynamic_binding}
-
-% Changed: Changed "audiomusical" to using the term "time-based art". See e.g. http://www.pica.org/tba/ for examples of the use of this term. [TL]
-For our purposes we will assume the \emph{materials} we are working with to be media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
-
-% TODO: Move this type of stuff up to section 1 so we are more clear about stating the problem.
-Current practice for many users of computer music software is predicated on static relationships and the use of static presets. This is certainly true for many Digital Audio Workstations (DAWs) whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tools behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
-
-Many of these systems, Max/MSP in particular, have provisions for breaking out of sets of static relationships through scripting. For the vast majority of users, however, mastering this task is onerous at best. By keeping these relationships fixed, the expressivity available to the user is inherently limited.
 
 % TODO: How to cite the thing in the footnote below? [TAP]
 % NOTE: I've done a lot of searching for something more 'academic' on dynamic binding, but was not able to turn up anything good. [TAP]
-Jamoma aims to address this through the use of \emph{dynamic binding}. One prevalent example of dynamic binding is the Objective-C language. Static binding ``constraints are limiting because they force issues to be decided from information found in the programmer’s source code, rather than from information obtained from the user as the program runs.''\footnote{\url{http://developer.apple.com/documentation/Cocoa/Conceptual/OOP_ObjC/Articles/chapter_5_section_6.html}}
+To implement a controller layer of the MVC framework in a way that makes it able to easily handle continuously changing relationships among the components, it is important to use a method of \emph{dynamic binding}. Dynamic binding can be used on conceptual levels, or as meaning something specific in a variety of contexts. One prevalent example of a dynamically bound environment is the Objective-C language. Objective-C documentation discusses static binding, stating that the ``constraints are limiting because they force issues to be decided from information found in the programmer’s source code, rather than from information obtained from the user as the program runs.''\footnote{\url{http://developer.apple.com/documentation/Cocoa/Conceptual/OOP_ObjC/Articles/chapter_5_section_6.html}}
 
 Dynamic binding in Jamoma takes place on several levels.  At the highest level, a module's parameters are bound to its hub dynamically to form the Controller layer of the MVC paradigm.  Then dynamic binding takes place inside of the parameters as its properties are changed.
 
-% CHANGED: I don't think we really need this. The focus of this paper is really on the parameter itself, not on the module as a whole...  [TAP]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{The Subscription System}
-%
-%Parameters are bound dynamically to a module.  When a Max patcher loads a module, that module creates a \emph{hub} object which acts as the controller for everything in the module. As parameters are created they subscribe to the hub to form a bi-directional connection for exchanging data.  The existence of parameters may even change over the course of time, and in response to changes in other parameters.
-%
-%\subsection{Parameter Components}
+% subsection dynamic_binding (end)
 
-% section dynamic_binding (end)
+\subsection{A Multidimensional Parameter} %(fold)
+
+The parameter is the primary interface for a user manipulating the state of a module. In most systems, the parameter has a single task: to set a variable or coefficient. While it is straightforward to understand such a simple 1-dimensional control, it does not offer the degree of nuance that, say, a sculptor has when working with clay.  
+
+In Jamoma, the parameter is made multi-dimensional through the use of \emph{properties} and \emph{methods} in addition to maintaining the state of a value \cite{Place:2008}. A property is an aspect of the parameter which has a state. A method is simply a mechanism for doing something, such as refreshing the user interface for the parameter. These properties define the behavior for parameters by setting a value range, repetition filtering, the type of units used to express values, and how automation is applied.
+
+Figure~\ref{fig:structure} shows a parameter in context. Within an environment, there may be many modules. Each module may have many parameters, the number of which may change dynamically. Each parameter may have many properties. These properties may address static or dynamic entities. The properties may point to a dynamic entity which itself has properties, and so on.
 
 \begin{figure}
 \centerline{\framebox{
 	\includegraphics[width=\columnwidth]{figure-structure}}}
-\caption{An OSC address tree, with some nodes as classes}
+\caption{Parameter structure in context.}
 \label{fig:structure}
 \end{figure}
 
+The example given in Figure~\ref{fig:structure} shows a number of properties. A common need is for a parameter to interpolate from its existing value to a new value.  In Jamoma we call this \emph{ramping}. Ramping is implemented in a parameter using two components: a driving mechanism and a function (shape). The driving mechanism performed by a RampUnit (discussed in Section~\ref{sec:ramplib}) which may have properties and methods of its own. The shape of the ramp is performed by using a FunctionUnit (discussed in Section~\ref{sec:functionlib}) which also may have properties and methods of its own. All of these are reconfigurable on-the-fly during performance.
+
+% subsection the_parameter (end)
+% section design_and_concepts (end)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Parameter} %(fold)
-\label{sec:the_parameter}
+\section{Parameter Implementation} %(fold)
+\label{sec:param_implementation}
 
-% TODO: Add a figure showing the structure of the parameter, methods, properties, etc. -- put it in more conceptual section
-% TODO: This paragraph belongs in the conceptual section
-The parameter is the primary interface for a user manipulating the state of a module. In most systems, the parameter has a single task: to set a variable or coefficient. While it is straightforward to understand such a simple 1-dimensional control, it does not offer the degree of nuance that, say, a sculptor has when working with clay.
-
-In Jamoma, the parameter is made multi-dimensional through the use of \emph{properties} and \emph{methods} in addition to maintaining the state of a value \cite{Place:2008}. These properties define the behavior for parameters by setting a value range, repetition filtering, the type of units used to express values, and how automation is applied. The following is list of available properties and methods for any given parameter.
-
-% TODO: Here begins specific Jamoma stuff that is a prototype
-
-Following is a list of the properties and methods of a parameter.
-\begin{center} 
-{\footnotesize
-\begin{tabular}{ll}
-	\texttt{:/value} & The value of the parameter. \\
-	\texttt{:/value/stepsize} & The size of the step taken by the inc and dec messages. \\
-	\texttt{:/value/inc} & Increase the value of the parameter by the stepsize. \\
-	\texttt{:/value/dec} & Decrease the value of the parameter by the stepsize. \\
-	\texttt{:/value/default} & The initial value of a parameter when the module is first created. \\
-	\texttt{:/type} & The type of data represented by the parameter. \\
-	\texttt{:/priority} & The value of the parameter. \\
-	\texttt{:/ui/freeze} & The value of the parameter. \\
-	\texttt{:/ui/refresh} & The value of the parameter. \\
-	\texttt{:/ramp/drive} & The value of the parameter. \\
-	\texttt{:/ramp/function} & The value of the parameter. \\
-	\texttt{:/repetitions} & The value of the parameter. \\
-	\texttt{:/range/bounds} & The value of the parameter. \\
-	\texttt{:/range/clip} & The value of the parameter. \\
-	\texttt{:/description} & The value of the parameter. \\
-	\texttt{:/node/type} & The value of the parameter. \\
-	\texttt{:/node/name} & The value of the parameter. \\
-	\texttt{:/dataspace} & The value of the parameter. \\
-	\texttt{:/dataspace/unit/active} & The value of the parameter. \\
-	\texttt{:/dataspace/unit/native} & The value of the parameter. \\
-\end{tabular} } 
-\end{center}  
-
-A parameter's behavior is ultimately determined by a compendium of these properties. Some properties are simple values, such as the \texttt{:/repetitions} property. Other properties may be a dynamic object which itself possesses a number of properties.  Such properties include the \texttt{:/ramp/drive}, \texttt{:/ramp/function}, and various \texttt{:/dataspace} properties.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Implementation} % (fold)
-
-% subsection properties_and_methods (end)
-
-% TODO: Tie this subsection into the previous paragraph better [TAP]
-
-The parameter is implemented as a Max external called \emph{jcom.parameter}. Within jcom.parameter, the ramp and dataspace properties are implemented internally as dynamically bound objects using the TTBlue framework\footnote{\url{http://www.electrotap.com/ttblue/}}.  The TTBlue framework is a C++ library that implements a dynamic messaging layer rather than using statically-linked C/C++ function calls \cite{Place:2008ttblue}.  
-
-By using dynamically linked components inside of the parameter, it is possible to switch between many different options for a give parameter property, while each option may implement an entirely different set of methods.  This will be demonstrated in upcoming sections.
-
-% section implementation (end)
-
-
+At this time, the parameter object in Jamoma implements a variety of both static and dynamic properties. A parameter's behavior is ultimately determined by a compendium of these properties. %Some properties are simple values, such as the \texttt{:/repetitions} property. Other properties may be a dynamic object which itself possesses a number of properties.  Such properties include the \texttt{:/ramp/drive}, \texttt{:/ramp/function}, and various \texttt{:/dataspace} properties.
+Table~\ref{tab:parameter_properties} is a brief summary of these.
 
 %%%%%%%%%%%%%%%%%%%%%%
-% TODO: This may have no place here, who knows...  We cut it from the NIME paper [TAP]  It depends on how detailed we want to be with all of the various properties...  It doesn't really pertain to the topic of the dynamic components in a parameter.
+% CHANGED: There isn't room for this kind of detail...
 %\subsection{Controlling the User Interface} % (fold)
 %\label{sub:controlling_the_user_interface}
 %
@@ -226,6 +179,60 @@ By using dynamically linked components inside of the parameter, it is possible t
 
 % subsection controlling_the_user_interface (end)
 
+The parameter is implemented as a Max external called \emph{jcom.parameter}. Within jcom.parameter, the ramp and dataspace properties are implemented internally as dynamically bound objects located in a set of shared libraries.  These shared libraries are called the FunctionLib, RampLib, and DataspaceLib respectively.
+
+
+\begin{table}
+\begin{center}
+\footnotesize\noindent
+\begin{tabular}{| l | p{3cm} |}
+	\hline
+	\texttt{:/value}			& Value of the parameter \\
+	\hline
+	\texttt{:/value/stepsize}	& Size of step taken \texttt{inc} and \texttt{dec} \\
+	\hline
+	\texttt{:/value/inc}		& Increase the value \\
+	\hline
+	\texttt{:/value/dec}		& Decrease the value \\
+	\hline
+	\texttt{:/value/default}	& Initial value \\
+	\hline
+	\texttt{:/type} 			& Type of data \\
+	\hline
+	\texttt{:/priority} 		& Order for recalling values from a preset \\
+	\hline
+	\texttt{:/ui/freeze} 		& Stops GUI updates to save CPU \\
+	\hline
+	\texttt{:/ui/refresh} 		& Updates the GUI \\
+	\hline
+	\texttt{:/ramp/drive} 		& Timing mechanism for ramps \\
+	\hline
+	\texttt{:/ramp/function} 	& Interpolation shape for ramps \\
+	\hline
+	\texttt{:/repetitions} 		& Filter out repeated values \\
+	\hline
+	\texttt{:/range/bounds} 	& Set a low and high range \\
+	\hline
+	\texttt{:/range/clip} 		& What to do when the range is exceeded \\
+	\hline
+	\texttt{:/description} 		& Documentation \\
+	\hline
+	\texttt{:/node/type} 		& ``parameter'' or ``message'' \\
+	\hline
+	\texttt{:/node/name} 		& Parameter's name \\
+	\hline
+	\texttt{:/dataspace} 		& Class of values being controlled. \\
+	\hline
+	\texttt{:/dataspace/unit/active} 	& The measurement unit used when values are sent \\
+	\hline
+	\texttt{:/dataspace/unit/native} 	& The measurement unit used by the internal algorithm \\
+	\hline
+\end{tabular}
+\end{center}
+\caption{Parameter properties in Jamoma}
+\label{tab:parameter_properties}
+\end{table}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -234,26 +241,18 @@ By using dynamically linked components inside of the parameter, it is possible t
 \section{The Jamoma Libraries} % (fold)
 \label{sec:the_jamoma_libraries}
 
-The functionality we refer to within a parameter is implemented in a shared library. Within the shared library the different functionalities are grouped in a series of ``Libs''.  These libraries provide the key functionalities for developing multidimensional tools.  To date, the libs are composed of:
+The Jamoma libraries deliver a shared resource to all of the Jamoma framework for applying mathematical functions, converting units, and ramping. For example, the ramping functionality is not only implemented in parameters, but also in messages, special ramping objects, and in other places. The tools implemented in the libraries are pervasive throughout the environment.
+
+Each of the libraries furnish a clear programming interface so that they are easily extendable. The dynamic binding implementation in the Jamoma framework means that by simply creating one \emph{unit} (object), it is immediately available to the rest of the Jamoma environment with no additional upkeep or maintenance elsewhere in the code.
+
+The libraries can also be queried to find out what functionalities exist. This happens at several levels.  For example, a user may wish to find out what functions exist for doing a mathematical mapping. The FunctionLib can provide a list of available FunctionUnits. Having chosen a FunctionUnit, the user can then query to find out what additional properties (if any) the FunctionUnit has published for access. A good user interface will automate all of this querying to simply provide updated selections and options.
+
+Currently there are three libraries in the Jamoma framework:
 \begin{itemize}
 	\item FunctionLib: a library of FunctionUnits which map an input value to an output value
 	\item RampLib: a library of driving mechanisms (RampUnits) which use the FunctionLib to automate value transformations over time.
 	\item DataspaceLib: a library by which a parameter or message can be given a class that describes the type of data it represents.  Values may then be set by any of a number of DataspaceUnits to allow control of a parameter in any of a number of ways.
 \end{itemize}
-
-
-
-Why do we need to work with Functions and Ramps and Dataspaces:
-- we have ramps everywhere -> dynamic (reconfigurable) non-static
-    - different functions
-    - much more flexible than pattr
-    
-
-Things in Common among the 3:
-So that we have a library
-- shared so that everywhere we need it we can access it
-- easily extendable
-- queryable
 
 
 
@@ -276,7 +275,7 @@ The Jamoma RampLib API provides a means by which to create and use \emph{ramp un
 	\item \emph{async} - only calculate new values when requested to do so. This might be used in video processing modules to calculate fresh values immediately before processing the next video image or matrix.
 \end{itemize}
 
-When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{sec:function_lib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
+When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{sec:functionlib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
 
 
 % subsection ramplib (end)
@@ -301,6 +300,7 @@ Currently five functions are implemented:
 
 \begin{table}
 \begin{center}
+\footnotesize\noindent
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
           & Cosine & Linear & Lowpass & Power & Tanh \\
@@ -346,15 +346,17 @@ It will be good for us to try and explain all the interactions here ;-)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{TemperatureDataspace}\label{subsec:temperature_dataspace}
+\subsubsection{TemperatureDataspace}\label{subsec:temperature_dataspace}
 
 La de da...right now 1ºC in Montreal %TODO: not necessary, or should go to the Dataspace subsection [NP]
 
 
 
-\section{Interdependencies}\label{sec:interdependencies}
+\subsection{Interdependencies}\label{sec:interdependencies}
 
-This paper discusses the structure and development of the interrelated libraries that are used to implement this system.
+One of the largest potentials of the system we have outlined is that these dynamically bound libraries can be used together. One simple example of this is how a ramp drive mechanism can be paired with a function that determines the ramp's shape, and a dataspace determining what kind of unit to use for ramping.  This provides for many possibilities.
+% TODO: should we just stick the above statement into the Discussion and cut this subsection? [TAP]
+
 
 % subsection dataspacelib (end)
 % section the_jamoma_libraries (end)
