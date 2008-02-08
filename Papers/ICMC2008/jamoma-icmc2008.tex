@@ -30,7 +30,7 @@
 
 % Title.
 % ------
-\title{The Development of a Multidimensional Parameter Model in Max/MSP}
+\title{Flexible Control of Composite Parameters in Max/MSP}
 
 % Single address
 % To use with only one author or several with the same address
@@ -62,15 +62,18 @@
 %
 \maketitle
 %
-% CHANGED: Trond commented out \sloppy as it avoided Ltypesetting in TextMate.
-%\sloppy
+\sloppy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 %The abstract should be placed at the top left column and should contain
 %about 150-200 words.
-The authors propose a expanded notion of how we work with parameters in computer-based environments for time-based art. Rather than viewing parameters as single points of control, the authors argue that parameters must become more multifaceted and dynamic in order to serve the needs of artists. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma, where these properties are themselves dynamic and interdependent upon each other.
+
+Fundamental to the development of musical or artistic material is the ability to transform raw materials. This ability implies the facility to master many facets of the material, and to shape it with plasticity. Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. This capability to control the values of parameters is inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
+
+Rather than viewing parameters as single points of control, the authors posit that parameters must become more multifaceted and dynamic in order to serve the needs of artists. The authors propose a expanded notion of how to work with parameters in computer-based environments for time-based art. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma, where these properties are themselves. 
+
 \end{abstract}
 
 
@@ -80,10 +83,10 @@ The authors propose a expanded notion of how we work with parameters in computer
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Fundamental to the development of musical or artistic material is the ability to transform raw materials.  This ability implies the facility to master many facets of the material, and to manipulate it with plasticity.  Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. However, we find that this capability to control the values of parameters is inadequate for many of our artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials. 
 
-% Changed: Changed "audiomusical" to using the term "time-based art". See e.g. http://www.pica.org/tba/ for examples of the use of this term. [TL]
-For our purposes we will assume the \emph{materials} we are working with to be media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
+% Changed:Commented this out. [TL]
+
+% For our purposes we will assume the \emph{materials} we are working with to be media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
 
 
 \subsection{The Struggle to be Dynamic} % (fold)
@@ -323,7 +326,7 @@ The FunctionLib can easily be expanded by introducing new functions as C++ files
 \hline
           & Cosine & Linear & Lowpass & Power & Tanh \\
 \hline
-Scheduler &        &   x    &         &       & \\
+Scheduler &        &        &         &       & \\
 \hline
 Queue	  &        &        &         &       & \\
 \hline
@@ -393,7 +396,7 @@ No one wants to have to manually do all of the house-keeping to get this functio
 
 
 
-4 ramp units times 5 function units = 20 ramping modes
+4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{tab:ramp_possibilities}).
 
 ramp units can be used for other scheduled processes as well
 
