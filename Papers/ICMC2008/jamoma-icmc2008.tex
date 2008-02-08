@@ -30,14 +30,20 @@
 
 % Title.
 % ------
-% CHANGED: New title -- this paper is really about what we are doing with parameters
-\title{The Development of a Multifaceted Parameter Model in Jamoma}
+\title{The Development of a Multidimensional Parameter Model in Max/MSP}
 
 % Single address
 % To use with only one author or several with the same address
 % ---------------
-%\oneauthor
+% TODO: This is causing a TEX error.  Not sure why or what to do about it.  [TAP]
+\oneauthor
 %  {Author} {School \\ Department}
+    { Timothy Place,$^{a}$ Trond Lossius,$^{b}$ Alexander Refsum Jensenius,$^{c}$ Nils Peters,$^{d}$ }
+	{\affaddr{$^{a}$ Electrotap, tim@electrotap.com}\\
+	\affaddr{$^{b}$ BEK - Bergen Center for Electronic Arts, lossius@bek.no}\\
+	\affaddr{$^{c}$ University of Oslo, a.r.jensenius@imv.uio.no}\\
+	\affaddr{$^{d}$ CIRMMT, McGill University, Montr\'eal, nils.peters@mcgill.ca} } 
+
 
 % Two addresses
 % --------------
@@ -47,23 +53,24 @@
 
 % Three addresses
 % --------------
-\threeauthors
-  {First author} {School \\ Department}
-  {Second author} {Company \\ Address}
-  {Third author} {Company \\ Address}
+%\threeauthors
+%  {First author} {School \\ Department}
+%  {Second author} {Company \\ Address}
+%  {Third author} {Company \\ Address}
 
 \begin{document}
 %
 \maketitle
 %
-\sloppy
+% CHANGED: Trond commented out \sloppy as it avoided Ltypesetting in TextMate.
+%\sloppy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 %The abstract should be placed at the top left column and should contain
 %about 150-200 words.
-The authors propose a expanded notion of how we work with parameters in computer-based environments for time-based art. Rather than viewing parameters a single points of control, the authors argue that parameters must become more multifaceted and dynamic in order to serve the needs of artists. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma, where these properties are themselves dynamic and interdependent upon each other.
+The authors propose a expanded notion of how we work with parameters in computer-based environments for time-based art. Rather than viewing parameters as single points of control, the authors argue that parameters must become more multifaceted and dynamic in order to serve the needs of artists. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma, where these properties are themselves dynamic and interdependent upon each other.
 \end{abstract}
 
 
@@ -95,8 +102,8 @@ To address this need for systems which are more dynamic, a possible partial solu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Design and Concepts} %(fold)
-\label{sec:design_and_concepts}
+\section{Jamoma} %(fold)
+\label{sec:jamoma}
 
 \subsection{Model-View-Controller} %(fold)
 \label{sec:mvc}
@@ -115,7 +122,7 @@ The user interface may consist of one or more objects in the module. These are m
 The controller layer is responsible for managing all of the relationships in a module, and as such plays the most important role in creating a dynamic system.  
 The controller is composed of a collection of interacting and dynamically-bound objects, which we refer to as \emph{JamomaCore}. At the heart of JamomaCore is the \emph{hub}. The hub acts as a dispatcher, and it coordinates all of the activity in a module. 
 
-The messaging model in Jamoma addresses modules using \emph{parameters} (nodes with state) and \emph{messages} (nodes which are stateless). For the duration of this paper we will often refer only to parameters, but the concepts generally apply to both parameters and messages.
+The messaging model in Jamoma addresses modules using \emph{parameters} (nodes with state) and \emph{messages} (nodes which are stateless), using the Open Sound Control (OSC) protocol \cite{Wright:2003}. For the duration of this paper we will often refer only to parameters, but the concepts generally apply to both parameters and messages.
 
 % subsubsection (end)
 % subsection mvc (end)
@@ -128,7 +135,7 @@ The messaging model in Jamoma addresses modules using \emph{parameters} (nodes w
 % NOTE: I've done a lot of searching for something more 'academic' on dynamic binding, but was not able to turn up anything good. [TAP]
 To implement a controller layer of the MVC framework in a way that makes it able to easily handle continuously changing relationships among the components, it is important to use a method of \emph{dynamic binding}. Dynamic binding can be used on conceptual levels, or as meaning something specific in a variety of contexts. One prevalent example of a dynamically bound environment is the Objective-C language. Objective-C documentation discusses static binding, stating that the ``constraints are limiting because they force issues to be decided from information found in the programmer’s source code, rather than from information obtained from the user as the program runs.''\footnote{\url{http://developer.apple.com/documentation/Cocoa/Conceptual/OOP_ObjC/Articles/chapter_5_section_6.html}}
 
-Dynamic binding in Jamoma takes place on several levels.  At the highest level, a module's parameters are bound to its hub dynamically to form the Controller layer of the MVC paradigm.  Then dynamic binding takes place inside of the parameters as its properties are changed.
+Dynamic binding in Jamoma takes place on several levels.  At the highest level, a module's parameters are bound to its hub dynamically to form the Controller layer of the MVC paradigm. Then dynamic binding takes place inside of the parameters as its properties are changed.
 
 % subsection dynamic_binding (end)
 
@@ -147,10 +154,10 @@ Figure~\ref{fig:structure} shows a parameter in context. Within an environment, 
 \label{fig:structure}
 \end{figure}
 
-The example given in Figure~\ref{fig:structure} shows a number of properties. A common need is for a parameter to interpolate from its existing value to a new value.  In Jamoma we call this \emph{ramping}. Ramping is implemented in a parameter using two components: a driving mechanism and a function (shape). The driving mechanism performed by a RampUnit (discussed in Section~\ref{sec:ramplib}) which may have properties and methods of its own. The shape of the ramp is performed by using a FunctionUnit (discussed in Section~\ref{sec:functionlib}) which also may have properties and methods of its own. All of these are reconfigurable on-the-fly during performance.
+The example given in Figure~\ref{fig:structure} shows a number of properties. A common need is for a parameter to interpolate from its existing value to a new value.  In Jamoma we call this \emph{ramping}. Ramping is implemented in a parameter using two components: a driving mechanism and a function (shape). The driving mechanism performed by a RampUnit (discussed in Section~\ref{ssec:ramplib}) which may have properties and methods of its own. The shape of the ramp is performed by using a FunctionUnit (discussed in Section~\ref{ssec:functionlib}) which also may have properties and methods of its own. All of these are reconfigurable on-the-fly during performance.
 
 % subsection the_parameter (end)
-% section design_and_concepts (end)
+% section jamoma (end)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -185,7 +192,9 @@ The parameter is implemented as a Max external called \emph{jcom.parameter}. Wit
 \begin{table}
 \begin{center}
 \footnotesize\noindent
-\begin{tabular}{| l | p{3cm} |}
+\begin{tabular}{| l | p{4.5cm} |}
+    \hline
+    \textbf{Property}          & \textbf{Description}\\ 
 	\hline
 	\texttt{:/value}			& Value of the parameter \\
 	\hline
@@ -221,12 +230,12 @@ The parameter is implemented as a Max external called \emph{jcom.parameter}. Wit
 	\hline
 	\texttt{:/node/name} 		& Parameter's name \\
 	\hline
-	\texttt{:/dataspace} 		& Class of values being controlled. \\
-	\hline
-	\texttt{:/dataspace/unit/active} 	& The measurement unit used when values are sent \\
-	\hline
-	\texttt{:/dataspace/unit/native} 	& The measurement unit used by the internal algorithm \\
-	\hline
+	%\texttt{:/dataspace} 		& Class of values being controlled. \\
+	%\hline
+	%\texttt{:/dataspace/unit/active} 	& The measurement unit used when values are sent \\
+	%\hline
+	%\texttt{:/dataspace/unit/native} 	& The measurement unit used by the internal algorithm \\
+	%\hline
 \end{tabular}
 \end{center}
 \caption{Parameter properties in Jamoma}
@@ -241,18 +250,14 @@ The parameter is implemented as a Max external called \emph{jcom.parameter}. Wit
 \section{The Jamoma Libraries} % (fold)
 \label{sec:the_jamoma_libraries}
 
-The Jamoma libraries deliver a shared resource to all of the Jamoma framework for applying mathematical functions, converting units, and ramping. For example, the ramping functionality is not only implemented in parameters, but also in messages, special ramping objects, and in other places. The tools implemented in the libraries are pervasive throughout the environment.
+% CHANGED: Trond is trying a different approach to this material, giving a more intuitive introduction to it, or not...
 
-Each of the libraries furnish a clear programming interface so that they are easily extendable. The dynamic binding implementation in the Jamoma framework means that by simply creating one \emph{unit} (object), it is immediately available to the rest of the Jamoma environment with no additional upkeep or maintenance elsewhere in the code.
+Presets and automation can be considered archetypes of strategies for dynamic controll of material. Presets in their purest form is a vertical-only approach; all values are instantly set to a certain state. On the other hand automation in its purest form is a horizontal-only approach; a fixed stream of timetagged values progressing over a limited amount of time to control the state of one parameter, often with interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
 
-The libraries can also be queried to find out what functionalities exist. This happens at several levels.  For example, a user may wish to find out what functions exist for doing a mathematical mapping. The FunctionLib can provide a list of available FunctionUnits. Having chosen a FunctionUnit, the user can then query to find out what additional properties (if any) the FunctionUnit has published for access. A good user interface will automate all of this querying to simply provide updated selections and options.
+One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Momeni:2003, Bencina:2005metasurface}. The former has been extensively used by one of the authors for developing the Hipno audio plugins \cite{Place:2005hipno}.
 
-Currently there are three libraries in the Jamoma framework:
-\begin{itemize}
-	\item FunctionLib: a library of FunctionUnits which map an input value to an output value
-	\item RampLib: a library of driving mechanisms (RampUnits) which use the FunctionLib to automate value transformations over time.
-	\item DataspaceLib: a library by which a parameter or message can be given a class that describes the type of data it represents.  Values may then be set by any of a number of DataspaceUnits to allow control of a parameter in any of a number of ways.
-\end{itemize}
+Recent development of Jamoma has aimed at expanding the possibilities for complex transitions of parameters in time. While Jamoma previously offered possibilities of ramping to a new value over a certain amount of time by means of linear interpolation, this has recently been expanded by reimplementing ramping as a combination of two libraries. 
+
 
 
 
@@ -260,13 +265,18 @@ Currently there are three libraries in the Jamoma framework:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Ramp Library} % (fold)
-\label{sec:ramplib}
+\label{ssec:ramplib}
 
 % TODO: gear this more towards artistic, and less toward technical implementation. Try to explain the motivation for the design decisions we've made.
 
-Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes. %TODO: Is this important for the ICMC audience that the Ramplib API is made with C++ and that it be can easily extended? [NP]
+Depending on the circumstance it might be desirable to generate new interpolated values in different ways during the ramp: Several real-time signal processing environments distinguish between audio rate and control rate signals. Depending on the transients of the ramping signal it might sometimes be desireable to perform interpolation at audio rate, at other time it might be sufficient to update at  control rate. If the parameter is controlling a video processing algorithm it might be sufficient to update the value once per video frame processed.
 
-The Jamoma RampLib API provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Each ramp unit is implemented in the form of two C++ files: a source file and a header file that provides an interface for the source file. Currently four such ramp units are implemented:
+% Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes. %TODO: Is this important for the ICMC audience that the Ramplib API is made with C++ and that it be can easily extended? [NP]
+
+% TODO: Tim notes that the 'c++ API' and maybe other parts are common to all of the libs, and so maybe should go in the section rather than this subsection. Trond thinks that I'd like to start out with a more descriptive approach, focusing on the use of it, before delving into the technical issues. I just mention the c++ in passing.
+
+
+The Jamoma RampLib, implemented as a C++ API, provides a means by which to create and use \emph{ramp units} in Jamoma.  A ramp unit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to different timing mechanisms. Currently four such ramp units are implemented:
 
 \begin{itemize}
 	\item \emph{none} - jumps immediately to the new value. Typically used for values where ramping do not make sense.
@@ -275,18 +285,18 @@ The Jamoma RampLib API provides a means by which to create and use \emph{ramp un
 	\item \emph{async} - only calculate new values when requested to do so. This might be used in video processing modules to calculate fresh values immediately before processing the next video image or matrix.
 \end{itemize}
 
-When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{sec:functionlib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
+The RampLib can easily be extended with more ramp units, and one planned extension is the implementation of audio rate ramping.
+
+When a new ramp is started, the ramp unit internally use a normalized ramping value, increasing linearly from $0.0$ to $1.0$ over the duration of the ramp. Whenever the ramp unit is to provide a new value, it updates the normalized ramping value, and pass it to a Function Unit as described in Section~\ref{ssec:functionlib}. The normalized value returned is then scaled to the range defined by the start and end values for the ramp, and passed on to the module.
 
 
 % subsection ramplib (end)
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Function Library} % (fold)
-\label{sec:functionlib}
-The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. The FunctionLib can easily be expanded by introducing new functions in the form of two C++ files: a source file and a header file that provides an interface for the source file.
+\label{ssec:functionlib}
 
-Currently five functions are implemented: 
+The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ to $y \in [0,1]$ according to functions $y = f(x)$. Currently five functions are implemented: 
 
 \begin{itemize}
 	\item Linear: $y = x$.
@@ -296,7 +306,15 @@ Currently five functions are implemented:
 	\item Hyperbolic tangent: $ y = c \cdot (\tanh(a\cdot(x-b)) - d) $, \\ where coefficients $a$, $b$, $c$, $d$ depends on the width and offset of the curve.
 \end{itemize}
 
+The FunctionLib can easily be expanded by introducing new functions as C++ files. There are immediate plans for introducing additional exponential functions.
+ 
+% TODO: Would it be useful with a figure here?
 
+
+
+
+
+% TODO: I don't understand the purpose of this table, and suggest we get rid of it. - TL
 
 \begin{table}
 \begin{center}
@@ -319,38 +337,28 @@ Async	  &        &        &         &       & \\
 \label{tab:ramp_possibilities} %FIXME: this table has no reference to the text
 \end{table}
 
+
+
+
+The Jamoma libraries deliver a shared resource to all of the Jamoma framework for applying mathematical functions, converting units, and ramping. For example, the ramping functionality is not only implemented in parameters, but also in messages, special ramping objects, and in other places. The tools implemented in the libraries are pervasive throughout the environment.
+
+Each of the libraries furnish a clear programming interface so that they are easily extendable. The dynamic binding implementation in the Jamoma framework means that by simply creating one \emph{unit} (object), it is immediately available to the rest of the Jamoma environment with no additional upkeep or maintenance elsewhere in the code.
+
+The libraries can also be queried to find out what functionalities exist. This happens at several levels.  For example, a user may wish to find out what functions exist for doing a mathematical mapping. The FunctionLib can provide a list of available FunctionUnits. Having chosen a FunctionUnit, the user can then query to find out what additional properties (if any) the FunctionUnit has published for access. A good user interface will automate all of this querying to simply provide updated selections and options.
+
+Currently there are three libraries in the Jamoma framework:
+\begin{itemize}
+	\item FunctionLib: a library of FunctionUnits which map an input value to an output value
+	\item RampLib: a library of driving mechanisms (RampUnits) which use the FunctionLib to automate value transformations over time.
+	\item DataspaceLib: a library by which a parameter or message can be given a class that describes the type of data it represents.  Values may then be set by any of a number of DataspaceUnits to allow control of a parameter in any of a number of ways.
+\end{itemize}
+
+
+
+
+
+
 % section functionlib (end)
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The Dataspace Library} %(fold)
-\label{sec:dataspacelib}
-The DataspaceLib is important because...
-using different unit types and moving toward more perceptual/semantic representations instead of being chained to technical terms.
-
-
-
-It will be good for us to try and explain all the interactions here ;-) 
-\begin{packed_item}
-	\item AngleDataspace
-	\item NoneDataspace
-	\item ColorDataspace
-	\item PitchDataspace
-	\item PositionDataspace
-	\item DistanceDataspace
-    \item TemperatureDataspace
-    \item GainDataspace
-	\item TimeDataspace
-\end{packed_item}
-	
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{TemperatureDataspace}\label{subsec:temperature_dataspace}
-
-La de da...right now 1ºC in Montreal %TODO: not necessary, or should go to the Dataspace subsection [NP]
-
-
 
 \subsection{Interdependencies}\label{sec:interdependencies}
 
@@ -358,7 +366,6 @@ One of the largest potentials of the system we have outlined is that these dynam
 % TODO: should we just stick the above statement into the Discussion and cut this subsection? [TAP]
 
 
-% subsection dataspacelib (end)
 % section the_jamoma_libraries (end)
 
 
@@ -396,7 +403,7 @@ function units can be used elsewhere, e.g. for mapping
 
 Audio rate ramp unit.
 
-DataspaceLib
+
 
 Querying - we propose a different system to the Lemur OSC2 draft
 
@@ -408,6 +415,37 @@ Plans to extend the FunctionLib by introducing exponential functions are under d
 
 * ramping with our own scheduler to take the burden off of the Max scheduler.
 
+
+\subsection{DataspaceLib} %(fold)
+\label{sec:dataspacelib}
+
+When sending values to a parameter, it is important to know what kind of value the parameter expects.
+
+Depending on the circumstance it might be desirable to generate new interpolated values in different ways during the ramp: Several real-time signal processing environments distinguish between audio rate and control rate signals. Depending on the transients of the ramping signal it might sometimes be desireable to perform interpolation at audio rate, at other time it might be sufficient to update at  control rate. If the parameter is controlling a video processing algorithm it might be sufficient to update the value once per video frame processed.
+
+%The DataspaceLib is important because...
+%using different unit types and moving toward more perceptual/semantic representations instead of being chained to technical terms.
+%
+%It will be good for us to try and explain all the interactions here ;-) 
+%\begin{packed_item}
+%	\item AngleDataspace
+%	\item NoneDataspace
+%	\item ColorDataspace
+%	\item PitchDataspace
+%	\item PositionDataspace
+%	\item DistanceDataspace
+%   \item TemperatureDataspace
+%    \item GainDataspace
+%	\item TimeDataspace
+%\end{packed_item}
+%	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsubsection{TemperatureDataspace}\label{subsec:temperature_dataspace}
+%
+%La de da...right now 1ºC in Montreal %TODO: not necessary, or should go to the Dataspace subsection [NP]
+
+
+% subsection dataspacelib (end)
 
 
 % section discussion_and_further_work (end)
