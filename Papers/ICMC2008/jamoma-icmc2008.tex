@@ -36,30 +36,13 @@
 % Single address
 % To use with only one author or several with the same address
 % ---------------
-% TODO: This is causing a TEX error.  Not sure why or what to do about it.  [TAP]
 \oneauthor
-%  {Author} {School \\ Department}
-    { Timothy Place,$^{a}$ Trond Lossius,$^{b}$ Alexander Refsum Jensenius,$^{c}$ Nils Peters,$^{d}$ }
-	{\affaddr{$^{a}$ Electrotap, tim@electrotap.com}\\
-	\affaddr{$^{b}$ BEK - Bergen Center for Electronic Arts, lossius@bek.no}\\
-	\affaddr{$^{c}$ University of Oslo, a.r.jensenius@imv.uio.no}\\
-	\affaddr{$^{d}$ CIRMMT, McGill University, Montr\'eal, nils.peters@mcgill.ca} } 
+    { Timothy Place,$^{a}$ Trond Lossius,$^{b}$ Alexander Refsum Jensenius,$^{c}$ Nils Peters$^{d}$ }
+	{	$^{a}$ Electrotap, tim@electrotap.com\\
+		$^{b}$ BEK - Bergen Center for Electronic Arts, lossius@bek.no\\
+		$^{c}$ University of Oslo, a.r.jensenius@imv.uio.no\\
+		$^{d}$ CIRMMT, McGill University, Montr\'eal, nils.peters@mcgill.ca } 
 
-
-% Two addresses
-% --------------
-%\twoauthors
-%  {First author} {School \\ Department}
-%  {Second author} {Company \\ Address}
-
-% Three addresses
-% --------------
-%\threeauthors
-%  {First author} {School \\ Department}
-%  {Second author} {Company \\ Address}
-%  {Third author} {Company \\ Address}
-
-% front matter (end)
 
 \begin{document}
 %
@@ -73,10 +56,7 @@
 \begin{abstract}
 %The abstract should be placed at the top left column and should contain
 %about 150-200 words.
-
-Fundamental to the development of musical or artistic material is the ability to transform raw materials. This ability implies the facility to master many facets of the material, and to shape it with plasticity. Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. This capability to control the values of parameters is inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
-
-Rather than viewing parameters as single points of control, the authors posit that parameters must become more multifaceted and dynamic in order to serve the needs of artists. The authors propose an expanded notion of how to work with parameters in computer-centric environments for time-based art. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma. 
+Rather than viewing parameters in computer-based systems as single points of control, the authors posit that parameters must become more multifaceted and dynamic in order to serve the needs of artists. The authors propose an expanded notion of how to work with parameters in computer-centric environments for time-based art. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma. 
 
 \end{abstract}
 
@@ -87,11 +67,15 @@ Rather than viewing parameters as single points of control, the authors posit th
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-Presets and automation can be considered archetypes of strategies for dynamic control of material. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. On the other hand automation in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
+% CHANGED [ARJ] I think this paragraph is much too vague to be in the abstract and have moved it to the introduction instead. 
+% NOTE [ARJ] Material and plasticity is mentioned several times, but I may be somewhat confusing what is implied by the terms.
+Fundamental to the development of musical or artistic content is the ability to transform raw \emph{materials}. This ability implies the facility to master many facets of the material, and to shape it with plasticity. Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. This capability to control the values of parameters is inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
 
-% TODO: In passing mention mapping as a third archetype, and throw in a reference to a recent paper reviewing research on mapping. This should not be more than one sentence, elseway we start sidestepping.
+\emph{Presets} and \emph{automation} in computer music systems can be considered archetypes of strategies for dynamic control of material. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. Automation, on the other hand, in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with some sort of interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
 
-One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Momeni:2003, Bencina:2005metasurface}. The former has been extensively used by one of the authors for developing the Hipno audio plugins \cite{Place:2005hipno}.
+Both presents and automation rely on the \emph{mappings} between parameters in the system, which typically need to be both horizontal and vertical to work efficiently \cite{Hunt:2003,Nort:2006}.
+
+One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Dahlstedt:2001,Momeni:2003, Bencina:2005metasurface}. The former has been extensively used by one of the authors for developing the Hipno audio plugins \cite{Place:2005hipno}.
 
 % CHANGED: Added the \cite{Krasner:1988} back in, I think it is appropriate to have here.
 
