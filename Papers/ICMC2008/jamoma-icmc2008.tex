@@ -241,10 +241,10 @@ Table~\ref{tab:parameter_properties} lists the currently implemented properties 
 \label{sec:param_implementation}
 
 At this time, the parameter object in Jamoma implements a variety of both static and dynamic properties. A parameter's behavior is ultimately determined by a compendium of these properties. %Some properties are simple values, such as the \texttt{:/repetitions} property. Other properties may be a dynamic object which itself possesses a number of properties.  Such properties include the \texttt{:/ramp/drive}, \texttt{:/ramp/function}, and various \texttt{:/dataspace} properties.
-Table~\ref{tab:parameter_properties} is a brief summary of these.
+%Table~\ref{tab:parameter_properties} is a brief summary of these. CHANGED: The table has been mentioned in the previous paragraph already, so it seems superfluous to mention it again here. - TL
 
-
-The parameter is implemented as a Max external called \emph{jcom.parameter}. Within jcom.parameter, the ramp and dataspace properties are implemented internally as dynamically bound objects located in a set of shared libraries.  These shared libraries are called the FunctionLib, RampLib, and DataspaceLib respectively.
+% CHANGED: Removed the mentioning of DataspaceLib from the following paragraph. - TL
+The parameter is implemented as a Max external called \emph{jcom.parameter}. Within jcom.parameter, the ramping properties are implemented internally as dynamically bound objects located in two shared libraries, called the \emph{RampLib} and \emph{FunctionLib}.
 
 
 \begin{figure}
@@ -257,7 +257,7 @@ The parameter is implemented as a Max external called \emph{jcom.parameter}. Wit
 
 Figure~\ref{fig:structure} shows a parameter in context. Within an environment, there may be many modules. Each module may have many parameters, the number of which may change dynamically. Each parameter may have many properties. These properties may address static or dynamic entities. The properties may point to a dynamic entity which itself has properties, and so on.
 
-The example given in Figure~\ref{fig:structure} shows a number of properties. A common need is for a parameter to interpolate from its existing value to a new value.  In Jamoma we call this \emph{ramping}. Ramping is implemented in a parameter using two components: a driving mechanism and a function (shape). The driving mechanism performed by a RampUnit (discussed in Section~\ref{ssec:ramplib}) which may have properties and methods of its own. The shape of the ramp is performed by using a FunctionUnit (discussed in Section~\ref{ssec:functionlib}) which also may have properties and methods of its own. All of these are reconfigurable on-the-fly during performance.
+The example given in Figure~\ref{fig:structure} shows a number of properties. A common need is for a parameter to interpolate from its existing value to a new value.  In Jamoma we call this \emph{ramping}. Ramping is implemented in a parameter using two components: a driving mechanism and a function or shape. The driving mechanism is performed by a \emph{RampUnit} (discussed in Section~\ref{ssec:ramplib}) which may have properties and methods of its own. The shape of the ramp is performed by using a \emph{FunctionUnit} (discussed in Section~\ref{ssec:functionlib}) which also may have properties and methods of its own. All of these are reconfigurable on-the-fly during performance.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
