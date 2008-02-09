@@ -69,7 +69,20 @@ Rather than viewing parameters in computer-based systems as single points of con
 
 % CHANGED [ARJ] I think this paragraph is much too vague to be in the abstract and have moved it to the introduction instead. 
 % NOTE [ARJ] Material and plasticity is mentioned several times, but I may be somewhat confusing what is implied by the terms.
-Fundamental to the development of musical or artistic content is the ability to transform raw \emph{materials}. This ability implies the facility to master many facets of the material, and to shape it with plasticity. Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. This capability to control the values of parameters is inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
+Fundamental to the development of musical or artistic content is the ability to transform raw \emph{materials}. This ability implies the facility to master many facets of the material, and to shape it with plasticity. In our contexts, the \emph{materials} we are working with are media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
+
+Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. This capability to control the values of parameters is inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
+
+
+Current practice for many users of computer music software is predicated on static relationships and the use of static presets. This is certainly true for many Digital Audio Workstations (DAWs) whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tool's behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
+
+Many of these systems, Max/MSP in particular, have provisions for breaking out of sets of static relationships through scripting. For the vast majority of users, however, mastering this task is onerous at best. By keeping these relationships fixed, the expressivity available to the user is inherently limited. 
+
+To address this need for systems which are more dynamic, a possible partial solution is to treat parameters not as a single-value representing entities, but to treat parameters as a multi-dimensional tools or objects.  Thus the parameter, as a tool or object, has many facets itself in addition to the value it renders.  These many \emph{properties} of the parameter define its behavior. This paper presents a prototype of these ideas, implemented in Jamoma, a modular framework for Max/MSP \cite{Place:2006}. In addition to defining behaviors, the behaviors are themselves interdependent upon each other requiring a flexible and dynamically bound code base for the implementation.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Struggle to be Dynamic}
 
 \emph{Presets} and \emph{automation} in computer music systems can be considered archetypes of strategies for dynamic control of material. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. Automation, on the other hand, in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with some sort of interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
 
@@ -83,18 +96,7 @@ Jamoma\footnote{\url{http://www.jamoma.org}} is a modular framwork for the Max/M
 
 In Jamoma we are currently working towards more complex transitions of parameters in time that integrate both vertical and horizontal qualities. This is achieved through the integration of a cuelist system which (vertical), and ramping with a number of different curves (horizontal). Previously Jamoma offered possibilities of ramping to a new value over a certain amount of time by means of linear interpolation. Recently this has been expanded by re-implementing ramping as a combination of two new libraries. 
 
-% For our purposes we will assume the \emph{materials} we are working with to be media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. The plasticity we refer to means we want to easily shape and mold our materials into a final sonic or visual output.
 
-%\subsection{The Struggle to be Dynamic} % (fold)
-%
-%Current practice for many users of computer music software is predicated on static relationships and the use of static presets. This is certainly true for many Digital Audio Workstations (DAWs) whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tool's behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
-%
-%Many of these systems, Max/MSP in particular, have provisions for breaking out of sets of static relationships through scripting. For the vast majority of users, however, mastering this task is onerous at best. By keeping these relationships fixed, the expressivity available to the user is inherently limited. 
-%
-%To address this need for systems which are more dynamic, a possible partial solution is to treat parameters not as a single-value representing entities, but to treat parameters as a multi-dimensional tools or objects.  Thus the parameter, as a tool or object, has many facets itself in addition to the value it renders.  These many \emph{properties} of the parameter define its behavior. This paper presents a prototype of these ideas, implemented in Jamoma, a modular framework for Max/MSP \cite{Place:2006}. In addition to defining behaviors, the behaviors are themselves interdependent upon each other requiring a flexible and dynamically bound code base for the implementation.
-
-% subsection dynamism (end)
-% section introduction (end)
 
 
 
@@ -349,47 +351,31 @@ One of the largest potentials of the system we have outlined is that these dynam
 \section{Discussion and further work} % (fold)
 \label{sec:discussion_and_further_work}
 
-The problem: 
-It has been too static
-    - too difficult to create dynamic setups
-    - for example, dynamic setups in Max using scripting: ick!
+The main challenge we are dealing with in current artistic and technological development is related to flexible and dynamic control of parameters. This was based on our experiences of hiting a wall in the more static and preset-based approach we had previously pursued. Splitting up and identifying the way we handle structures in Max has helped in improving the situation. Through the ideas presented in this paper we have come a long way further in pursuing this goal, but there are still lots of work to be done: 
 
-Trying to create something that is more flexible, but also easier to work with at the same time.
+\begin{itemize}
+	\item Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
+	\vspace{-8pt}
+	\item Querying - we propose a different system to the Lemur OSC2 draft
+	\vspace{-8pt}
+	\item ramp units can be used for other scheduled processes as well
+	\vspace{-8pt}
+	\item Extend the FunctionLib by introducing exponential functions are under discussion. 
+	\vspace{-8pt}
+	\item Ramping with our own scheduler (possibly at audio rate) to take the burden off of the Max scheduler.
+	\vspace{-8pt}
+	\item Possibility of expanding ramp units as low frequency oscillators
+	\vspace{-8pt}
+	\item Finalize the DataspaceLib which will help in working with different types of dataspaces and units. 
+	\vspace{-8pt}
+\end{itemize}
 
-Splitting up and identify the way we handle structures in Max and put them together.  It has been very static and preset-based.
+% 4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{tab:ramp_possibilities}).
 
-As we've been working on this for along, we hit a wall and needed to move forward, and did so by creating these libs to extend Max.  
+%\subsection{DataspaceLib} %(fold)
+%\label{sec:dataspacelib}
 
-No one wants to have to manually do all of the house-keeping to get this functionality, so we've made it largely encapsulated behind the scenes.
-
-
-4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{tab:ramp_possibilities}).
-
-ramp units can be used for other scheduled processes as well
-
-Possibility of expanding ramp units as low frequency oscillators
-
-function units can be used elsewhere, e.g. for mapping
-
-Audio rate ramp unit.
-
-
-
-Querying - we propose a different system to the Lemur OSC2 draft
-
-Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
-
-
-Plans to extend the FunctionLib by introducing exponential functions are under discussion. %CHANGED: move this from the FunctionLib to Future Work [NP] 
-
-
-* ramping with our own scheduler to take the burden off of the Max scheduler.
-
-
-\subsection{DataspaceLib} %(fold)
-\label{sec:dataspacelib}
-
-When sending values to a parameter, it is important to know what kind of value the parameter expects.
+%When sending values to a parameter, it is important to know what kind of value the parameter expects.
 
 %The DataspaceLib is important because...
 %using different unit types and moving toward more perceptual/semantic representations instead of being chained to technical terms.
@@ -419,18 +405,16 @@ When sending values to a parameter, it is important to know what kind of value t
 % section discussion_and_further_work (end)
 
 
-%\begin{thebibliography}{citations}
-%
-%\bibitem{Author:00} Author, E.
-%''The title of the conference paper'',
-%{\it Proceedings of the International Computer Music Conference}, Miami, USA, 2004.
-%
-%\bibitem{Someone:02} Someone, A.
-%{\it  Title of the book}.
-%Publisher, Belfast, 2007.
-%
-%\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Acknowledgments} % (fold)
 
+Jamoma developers and users for valuable feedback.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography (fold)
 %
 % The following two commands are all you need in the initial runs of your .tex file to
