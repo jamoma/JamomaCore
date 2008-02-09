@@ -76,7 +76,7 @@
 
 Fundamental to the development of musical or artistic material is the ability to transform raw materials. This ability implies the facility to master many facets of the material, and to shape it with plasticity. Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. This capability to control the values of parameters is inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
 
-Rather than viewing parameters as single points of control, the authors posit that parameters must become more multifaceted and dynamic in order to serve the needs of artists. The authors propose a expanded notion of how to work with parameters in computer-centric environments for time-based art. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma. 
+Rather than viewing parameters as single points of control, the authors posit that parameters must become more multifaceted and dynamic in order to serve the needs of artists. The authors propose an expanded notion of how to work with parameters in computer-centric environments for time-based art. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma. 
 
 \end{abstract}
 
@@ -89,9 +89,13 @@ Rather than viewing parameters as single points of control, the authors posit th
 
 Presets and automation can be considered archetypes of strategies for dynamic control of material. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. On the other hand automation in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
 
+% TODO: In passing mention mapping as a third archetype, and throw in a reference to a recent paper reviewing research on mapping. This should not be more than one sentence, elseway we start sidestepping.
+
 One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Momeni:2003, Bencina:2005metasurface}. The former has been extensively used by one of the authors for developing the Hipno audio plugins \cite{Place:2005hipno}.
 
-Jamoma is a Model-View-Controller (MVC) framework that provides a modular structure for the Max/MSP environment \cite{Place:2006}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a module and between modules.
+% CHANGED: Added the \cite{Krasner:1988} back in, I think it is appropriate to have here.
+
+Jamoma is a Model-View-Controller (MVC) framework \cite{Krasner:1988} that provides a modular structure for the Max/MSP environment \cite{Place:2006}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a module and between modules.
 
 % TODO: The last sentence of the above paragraph is partly intended to introduce the term 'module' before we get to the next section.  Is this a convincing way to do that though?
 
@@ -121,16 +125,19 @@ In Jamoma we are currently working towards more complex transitions of parameter
 \section{The Composite Parameter} %(fold)
 \label{sec:the_composite_parameter}
 
+% TODO: We need to consider if we have to be more stringent when using the terms "parameter" and "message". Would it be better to use "node" than parameter throughout, so that terms are consistent between this paper and the NIME paper?
+
 The parameter is the primary interface for a user manipulating the state of a module. In most systems, the parameter has a single task: to set a variable or coefficient. While it is straightforward to understand such a simple one-dimensional control, it does not offer the degree of nuance that, say, a sculptor has when working with clay.
 
-In Jamoma, the parameter is expanded by adding \emph{properties} and \emph{methods} to the parameter that further refine or change its behavior \cite{Place:2008}. These behaviors themselves can be in constant fluid motion together with the value of the parameter. Some examples of parameter properties include setting a value range, filtering out repetitions, determining the type of units used to express values, and how automation is applied.  The result is a composite parameter, made up of many constituent parts rather than representing only a single value. As such it is more like a multi-dimensional tool than a single point of control.
+In Jamoma, the parameter is expanded by adding \emph{properties} and \emph{methods} to the parameter that further refine or change its behavior \cite{Place:2008}. These behaviors themselves can be in constant fluid motion together with the value of the parameter. Some examples of parameter properties include setting a value range, filtering out repetitions, determining the type of units used to express values, and how automation is applied.  The result is a composite parameter or \emph{node}, made up of many constituent parts rather than representing only a single value. As such it is more like a multi-dimensional tool than a single point of control.
 
 \subsection{Properties and Methods} %(fold)
 \label{sec:properties_and_methods}
 
 We have stated that a parameter may be enhanced by the addition of properties and methods. 
 
-A property is an aspect of the parameter which itself has a state. For example, if repetition filtering is turned on or turned off. A method is simply a mechanism for doing something, such as refreshing the user interface for the parameter, but does not have any value to maintain. Often when we refer to properties, we are collectively referring to both the properties and the methods of a parameter.
+A \emph{property} is an aspect of the parameter which itself has a state. For example, filtering of repeating values can be turned on or off. A \emph{method} is simply a mechanism for doing something, such as refreshing the user interface for the parameter, but the method itself does not have any value to maintain. Often when we refer to properties, we are collectively referring to both the properties and the methods of a parameter.
+% TODO: The last sentence is logically BAD: Often when we refer to apples, we refer to both apples and oranges. If we need to talk about properties and methods as a collective, we need a separate word for it, similar to fruit. 
 
 One interesting aspect of properties that does not apply to methods is that properties may themselves have properties. For example, a property that sets a type of filter may then have additional properties that control the coefficients specific to the type of filter selected.
 
@@ -138,7 +145,7 @@ One interesting aspect of properties that does not apply to methods is that prop
 
 \subsection{Parameter Properties in Jamoma} %(fold)
 
-Jamoma's parameter object is an implementation of the idea that properties and methods can meaningfully extend parametric control. Table~\ref{tab:parameter_properties} lists the currently implemented properties of this parameter object as addressed using the Open Sound Control protocol \cite{Wright:2003}. The underlying details of how this is implemented are detailed in Section~\ref{ssec:ramplib}.
+% CHANGED: Moved the table to come before the text discussing it. Sometimes give a better flow of figures in the layout of the text whewre they are displayed closer to the text discussing them. - TL
 
 \begin{table}
 \begin{center}
@@ -192,6 +199,18 @@ Jamoma's parameter object is an implementation of the idea that properties and m
 \caption{Parameter properties in Jamoma}
 \label{tab:parameter_properties}
 \end{table}
+
+Jamoma's parameter object is an implementation of the idea that properties and methods can meaningfully extend parametric control. When communicating to and from modules using the Open Sound Control protocol \cite{Wright:2003} we use the colon separator to access the properties of the parameter as proposed in \cite{Place:2008}:
+
+\begin{small}
+\begin{verbatim}
+/path/to/parameter <value>
+/path/to/parameter:/property <value>
+\end{verbatim}
+\end{small}
+
+Table~\ref{tab:parameter_properties} lists the currently implemented properties of the parameter object, with the path to the parameter omitted. The underlying details of how this is implemented are detailed in Section~\ref{ssec:ramplib}.
+
 
 % subsection parameter_properties_in_jamoma (end)
 
