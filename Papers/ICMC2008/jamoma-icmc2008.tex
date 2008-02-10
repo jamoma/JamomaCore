@@ -43,20 +43,24 @@
 		$^{c}$ University of Oslo, a.r.jensenius@imv.uio.no\\
 		$^{d}$ CIRMMT, McGill University, Montr\'eal, nils.peters@mcgill.ca } 
 
+% front matter (end)
 
 \begin{document}
-%
 \maketitle
-%
 \sloppy
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-%The abstract should be placed at the top left column and should contain
-%about 150-200 words.
-Rather than viewing parameters in computer-based systems as single points of control, we posit that parameters must become more multifaceted and dynamic in order to serve the needs of artists. We propose an expanded notion of how to work with parameters in computer-centric environments for time-based art. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma. 
+%The abstract should be placed at the top left column and should contain about 150-200 words.
+
+% CHANGED - TL: Added first paragraph back in. The first paragraph is to me not at all philosophical, but points to a fundamental and very real problem when working creatively with computer based media systems. This is, to me at least, the fundamental motivation why we have spent so much energy on development of how to do ramping in Jamoma.
+
+Fundamental to the development of musical or artistic creative work is the ability to transform raw materials. This ability implies the facility to master many facets of the material, and to shape it with plasticity. Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. This capability to control the values of parameters is inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
+
+% CHANGED [TAP] The abstract should be in the third person.
+Rather than viewing parameters in computer-based systems as single points of control, the authors posit that parameters must become more multifaceted and dynamic in order to serve the needs of artists. The authors propose an expanded notion of how to work with parameters in computer-centric environments for time-based art. A proposed partial solution to this problem is to give parameters additional properties that define their behavior. An example implementation of these ideas is presented in Jamoma. 
 
 \end{abstract}
 
@@ -67,36 +71,30 @@ Rather than viewing parameters in computer-based systems as single points of con
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-% CHANGED [ARJ] I think it is good that the introduction is conceptual, but we need to also clearly state the problem, define key terms, and explain what is the purpose of the paper. 
-Fundamental to the development of musical or artistic content is the ability to transform and shape raw \emph{materials}. In our contexts, the materials are media related to time-based art, such as real-time processing of audio, video, midi or other kinds of data as part of a performance. We want to easily shape and mold our materials into a final sonic or visual output. 
+% CHANGED [TL] We want the main subject of the paper to be how to create more advanced and flexible ways of controlling parameters. The discussion of static vs. dynamic parameters is less improtant, and I also feel that it is misleading, we are only partly doing it at the moment. We are doing it at low level (jcom.parameter but we are not currenlty doing it consistently at higher levels, with exception for the mapping modules. E.g. a way of dynamically route audio signals in different directions would be required in order for us to make the claim of truly being able to create dynamic networks of modules.
 
-Computer music environments typically provide points of control to manipulate material by providing parameters with controllable values. However, often this type of control is based on static relationships and the use of static presets. This makes the control possibilities inadequate for many artistic endeavors, and does not reflect the analogous tools and methods of artists working with physical materials.
+% The problem of static paramater control is true for many Digital Audio Workstations (DAWs) whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tool's behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
 
-% NOTE [ARJ] I think these reflections are important to explain what we are doing, so I have added them back in.
-The problem of static paramater control is true for many Digital Audio Workstations (DAWs) whose overall structure is fixed. It is, however, also true of open-ended systems, such as PureData or Max/MSP. In a graphical environment, the relationships between objects and their interconnections form the algorithm that determines a tool's behavior. Within this algorithm there is typically some freedom to modify its behavior by e.g. changing coefficients. However, the objects and connections generally do not change on-the-fly as a performance is executed.
+% Many of these systems, Max/MSP in particular, have provisions for breaking out of sets of static relationships through scripting. For the vast majority of users, however, mastering this task is onerous at best. By keeping these relationships fixed, the expressivity available to the user is inherently limited. 
 
-Many of these systems, Max/MSP in particular, have provisions for breaking out of sets of static relationships through scripting. For the vast majority of users, however, mastering this task is onerous at best. By keeping these relationships fixed, the expressivity available to the user is inherently limited. 
-
-To address the needs for systems which are more dynamic, a possible partial solution is to treat parameters as multi-dimensional tools or objects. This paper presents the ideas of such a dynamic turn, and a prototype implemented in Jamoma,\footnote{\url{http://www.jamoma.org}} a modular framework for Max/MSP \cite{Place:2006}. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Struggle to be Dynamic}
-
-\emph{Presets} and \emph{automation} in computer music systems can be considered archetypes of strategies for dynamic control of material. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. Automation, on the other hand, in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with some sort of interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
-
-Both presets and automation rely on the \emph{mappings} between parameters in the system, which typically need to be both horizontal and vertical to work efficiently \cite{Hunt:2003,Nort:2006}.
-
-One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Dahlstedt:2001,Momeni:2003, Bencina:2005metasurface}. This has also been extensively used by one of the authors for developing the Hipno audio plugins.\footnote{\url{http://www.cycling74.com/products/hipno}}
-
-% CHANGED: Added the \cite{Krasner:1988} back in, I think it is appropriate to have here.
-
-Jamoma may be seen as a \emph{Model-View-Controller} (MVC) framework, where "objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller)."\cite[p26]{Krasner:1988}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a \emph{module}, i.e. a high-level unit with a graphical user interfance, and between different modules.
-
-In Jamoma we are currently working towards more complex transitions of parameters in time that integrate both vertical and horizontal qualities. This is achieved through the integration of a cuelist system which (vertical), and ramping with a number of different curves (horizontal). Previously Jamoma offered possibilities of ramping to a new value over a certain amount of time by means of linear interpolation. Recently this has been expanded by re-implementing ramping as a combination of two new libraries. 
+% To address the needs for systems which are more dynamic, a possible partial solution is to treat parameters as multi-dimensional tools or objects. This paper presents the ideas of such a dynamic turn, and a prototype implemented in Jamoma,\footnote{\url{http://www.jamoma.org}} a modular framework for Max/MSP \cite{Place:2006}. 
 
 
+\emph{Presets} and \emph{automation} in computer music systems can be considered archetypes of strategies for dynamic control of a system. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. Automation on the other hand, in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
 
+% TODO: We might have to develop the horizontal/vertical a bit in the following paragraph, so that it's not retorically kicking the feet under the rest of the paper...
 
+A third archetype for controlling a system is the use of mappings.
+
+Both presets and automation rely on the \emph{mappings} between parameters in the system.  Mappings typically need to be both horizontal and vertical to work effectively \cite{Hunt:2003,Nort:2006}.
+
+One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Bencina:2005metasurface, Dahlstedt:2001, Momeni:2003}. This has also been extensively used by one of the authors for developing the Hipno audio plug-ins \cite{Place:2005hipno}.
+
+Jamoma\footnote{\url{http://www.jamoma.org}} is a system for developing high-level \emph{modules} in the Max/MSP/Jitter environment \cite{Place:2006}. It implements a \emph{Model-View-Controller} (MVC) strategy, where "objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller)." \cite[p26]{Krasner:1988}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a module and between different modules.
+
+In Jamoma we are currently working towards more complex transitions of parameters in time that integrate both vertical and horizontal qualities.  This is achieved through the integration of a cuelist system. This system permits instant updates to parameters, or scripting of complex transitional progressions, introducing horizontal aspects. 
+
+Previously Jamoma offered possibilities of \emph{ramping} to a new value over a certain amount of time by means of linear interpolation only. Recently this has been expanded by re-implementing ramping as a combination of two new libraries.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -349,26 +347,59 @@ One of the largest potentials of the system we have outlined is that these dynam
 \section{Discussion and further work} % (fold)
 \label{sec:discussion_and_further_work}
 
-The main challenge we are dealing with in current artistic and technological development is related to flexible and dynamic control of parameters. This was based on our experiences of hiting a wall in the more static and preset-based approach we had previously pursued. Splitting up and identifying the way we handle structures in Max has helped in improving the situation. Through the ideas presented in this paper we have come a long way further in pursuing this goal, but there are still lots of work to be done: 
+The problem: 
+It has been too static
+    - too difficult to create dynamic setups
+    - for example, dynamic setups in Max using scripting: ick!
+
+Trying to create something that is more flexible, but also easier to work with at the same time.
+
+main challenge we are dealing with in current artistic and technological development is related to flexible and dynamic control of parameters. This was based on our experiences of hiting a wall in the more static and Splitting up and identifypreset-based approach we had previously pursued. Splitting up and identifying the way we handle structures in Max and put them together.  It has been very static and preset-based.
+has helped in improving the situation. Through the ideas presented in this paper we have come a long way further 
+As we've been working on this for along, we hit a wall and needed to move forward, and did so by creating these libs to extend Max.  
+
+No one wants to have to manually do all of the house-keeping to get this functionality, so we've made it largely encapsulated behind the scenes.
+
+in pursuing this goal, but there are still lots of work to be done: 
 
 \begin{itemize}
+    \item 4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{tab:ramp_possibilities}).
+	\vspace{-8pt}
 	\item Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
 	\vspace{-8pt}
 	\item Querying - we propose a different system to the Lemur OSC2 draft
 	\vspace{-8pt}
+
 	\item ramp units can be used for other scheduled processes as well
 	\vspace{-8pt}
 	\item Extend the FunctionLib by introducing exponential functions are under discussion. 
+
 	\vspace{-8pt}
+
 	\item Ramping with our own scheduler (possibly at audio rate) to take the burden off of the Max scheduler.
+
 	\vspace{-8pt}
+
 	\item Possibility of expanding ramp units as low frequency oscillators
-	\vspace{-8pt}
+
+function units can be used elsewhere, e.g. for mapping
+
+Audio rate ramp unit.
+
+Querying - we propose a different system to the Lemur OSC2 draft
+
+
+
+Plans to extend %CHANGED: move this from the FunctionLib to Future Work [NP] 
+
+
+* ramping 	\vspace{-8pt}
 	\item Finalize the DataspaceLib which will help in working with different types of dataspaces and units. 
 	\vspace{-8pt}
 \end{itemize}
 
 % 4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{tab:ramp_possibilities}).
+
 
 %\subsection{DataspaceLib} %(fold)
 %\label{sec:dataspacelib}
@@ -394,7 +425,7 @@ The main challenge we are dealing with in current artistic and technological dev
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsubsection{TemperatureDataspace}\label{subsec:temperature_dataspace}
 %
-%La de da...right now 1ºC in Montreal %TODO: not necessary, or should go to the Dataspace subsection [NP]
+%La de da...right now 1¬∫C in Montreal %TODO: not necessary, or should go to the Dataspace subsection [NP]
 
 
 % subsection dataspacelib (end)
