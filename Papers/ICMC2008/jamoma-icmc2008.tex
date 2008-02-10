@@ -80,17 +80,11 @@ Rather than viewing parameters in computer-based systems as single points of con
 % To address the needs for systems which are more dynamic, a possible partial solution is to treat parameters as multi-dimensional tools or objects. This paper presents the ideas of such a dynamic turn, and a prototype implemented in Jamoma,\footnote{\url{http://www.jamoma.org}} a modular framework for Max/MSP \cite{Place:2006}. 
 
 
-\emph{Presets} and \emph{automation} in computer music systems can be considered archetypes of strategies for dynamic control of a system. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. Automation on the other hand, in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
-
-% TODO: We might have to develop the horizontal/vertical a bit in the following paragraph, so that it's not retorically kicking the feet under the rest of the paper...
-
-A third archetype for controlling a system is the use of mappings.
-
-Both presets and automation rely on the \emph{mappings} between parameters in the system.  Mappings typically need to be both horizontal and vertical to work effectively \cite{Hunt:2003,Nort:2006}.
+\emph{Presets} and \emph{automation} in computer music systems can be considered possible archetypes of strategies for dynamic control of a system. Presets in their purest form are a vertical-only approach; all values are instantly set to a certain state. Automation on the other hand, in its purest form is a horizontal-only approach; a fixed stream of time-tagged values progressing over a limited amount of time to control the state of one parameter, often with interpolation from one value to the next. While presets are widely used in real-time signal processing environments, the use of automation is fundamental to linear time-based media software such as digital audio workstations and video editing software.
 
 One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Bencina:2005metasurface, Dahlstedt:2001, Momeni:2003}. This has also been extensively used by one of the authors for developing the Hipno audio plug-ins \cite{Place:2005hipno}.
 
-Jamoma\footnote{\url{http://www.jamoma.org}} is a system for developing high-level \emph{modules} in the Max/MSP/Jitter environment \cite{Place:2006}. It implements a \emph{Model-View-Controller} (MVC) strategy, where "objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller)." \cite[p26]{Krasner:1988}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a module and between different modules.
+Jamoma\footnote{\url{http://www.jamoma.org}} is a system for developing high-level \emph{modules} in the Max/MSP/Jitter environment \cite{Place:2006}. It implements a \emph{Model-View-Controller} (MVC) strategy, where ``objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller).'' \cite[p26]{Krasner:1988}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a module and between different modules.
 
 In Jamoma we are currently working towards more complex transitions of parameters in time that integrate both vertical and horizontal qualities.  This is achieved through the integration of a cuelist system. This system permits instant updates to parameters, or scripting of complex transitional progressions, introducing horizontal aspects. 
 
@@ -112,12 +106,16 @@ In Jamoma, the parameter is expanded by adding \emph{properties} and \emph{metho
 \subsection{Properties and Methods} %(fold)
 \label{sec:properties_and_methods}
 
-We have stated that a parameter may be enhanced by the addition of properties and methods. 
+We have stated that a parameter may be enhanced by the addition of \emph{properties} and \emph{methods}. A property is an aspect of the parameter which itself has a state. For example, filtering of repeating values can be turned on or off. A method is simply a mechanism for doing something, such as refreshing the user interface for the parameter, but the method itself does not have any value to maintain.
 
-A \emph{property} is an aspect of the parameter which itself has a state. For example, filtering of repeating values can be turned on or off. A \emph{method} is simply a mechanism for doing something, such as refreshing the user interface for the parameter, but the method itself does not have any value to maintain. Often when we refer to properties, we are collectively referring to both the properties and the methods of a parameter.
-% TODO: The last sentence is logically BAD: Often when we refer to apples, we refer to both apples and oranges. If we need to talk about properties and methods as a collective, we need a separate word for it, similar to fruit. 
+One interesting aspect of properties that does not apply to methods is that properties may themselves have properties, as illustrated in Figure~\ref{fig:structure}.
 
-One interesting aspect of properties that does not apply to methods is that properties may themselves have properties. For example, a property that sets a type of filter may then have additional properties that control the coefficients specific to the type of filter selected.
+\begin{figure}
+\centerline{\framebox{
+	\includegraphics[width=\columnwidth]{figure-structure}}}
+\caption{Parameter structure in context: Within an environment, there may be many modules. Each module may have many parameters. Each parameter may have many properties. The properties may point to a dynamic entity which itself has properties, and so on.}
+\label{fig:structure}
+\end{figure}
 
 % subsection properties_and_methods (end)
 
@@ -130,7 +128,7 @@ One interesting aspect of properties that does not apply to methods is that prop
 \footnotesize\noindent
 \begin{tabular}{| l | p{4.5cm} |}
     \hline
-    \textbf{Property}          & \textbf{Description}\\ 
+    \textbf{Property or Method}          & \textbf{Description}\\ 
 	\hline
 	\texttt{:/value}			& Value of the parameter \\
 	\hline
@@ -142,7 +140,7 @@ One interesting aspect of properties that does not apply to methods is that prop
 	\hline
 	\texttt{:/value/default}	& Initial value \\
 	\hline
-	\texttt{:/type} 			& Type of data \\
+	\texttt{:/type} 			& Type of data (int, float, etc.) \\
 	\hline
 	\texttt{:/priority} 		& Order for recalling values from a preset \\
 	\hline
@@ -162,10 +160,10 @@ One interesting aspect of properties that does not apply to methods is that prop
 	\hline
 	\texttt{:/description} 		& Documentation \\
 	\hline
-	\texttt{:/node/type} 		& ``parameter'' or ``message'' \\
-	\hline
-	\texttt{:/node/name} 		& Parameter's name \\
-	\hline
+	%\texttt{:/node/type} 		& ``parameter'' or ``message'' \\
+	%\hline
+	%\texttt{:/node/name} 		& Parameter's name \\
+	%\hline
 	%\texttt{:/dataspace} 		& Class of values being controlled. \\
 	%\hline
 	%\texttt{:/dataspace/unit/active} 	& The measurement unit used when values are sent \\
@@ -174,7 +172,7 @@ One interesting aspect of properties that does not apply to methods is that prop
 	%\hline
 \end{tabular}
 \end{center}
-\caption{Parameter properties in Jamoma}
+\caption{Selected parameter properties and methods in Jamoma}
 \label{tab:parameter_properties}
 \end{table}
 
@@ -187,64 +185,29 @@ Jamoma's parameter object is an implementation of the idea that properties and m
 \end{verbatim}
 \end{small}
 
-Table~\ref{tab:parameter_properties} lists the currently implemented properties of the parameter object, with the path to the parameter omitted. The underlying details of how this is implemented are detailed in Section~\ref{ssec:ramplib}.
-
+Table~\ref{tab:parameter_properties} lists the currently implemented properties of the parameter object, with the path to the parameter omitted.
 
 % subsection parameter_properties_in_jamoma (end)
-
-%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Controlling the User Interface} % (fold)
-%\label{sub:controlling_the_user_interface}
-%
-%In certain applications the CPU overhead of continuously updating the graphical user interface whenever parameter or message values change might become a burden, competing for CPU with e.g. video processing algorithms. If the user does not need continuous visual feedback on updated values of parameters or messages, the GUI for the parameter or message can be frozen, freeing up the processor and GPU for tasks considered more important:
-%
-%\texttt{:/ui/freeze}
-%
-%\texttt{:/ui/freeze/get}
-%
-%A parameter or message that has its GUI frozen can be forced to update and refresh the displayed value once by means of the message:
-%
-%\texttt{:/ui/refresh}
-
-% subsection controlling_the_user_interface (end)
-
-
 % section the_composite_parameter (end)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TODO: Can we come up with a more informative title for this section?
 \section{Implementation} %(fold)
 \label{sec:param_implementation}
 
-At this time, the parameter object in Jamoma implements a variety of both static and dynamic properties. A parameter's behavior is ultimately determined by a compendium of these properties. %Some properties are simple values, such as the \texttt{:/repetitions} property. Other properties may be a dynamic object which itself possesses a number of properties.  Such properties include the \texttt{:/ramp/drive}, \texttt{:/ramp/function}, and various \texttt{:/dataspace} properties.
-%Table~\ref{tab:parameter_properties} is a brief summary of these. CHANGED: The table has been mentioned in the previous paragraph already, so it seems superfluous to mention it again here. - TL
-
-% CHANGED: Removed the mentioning of DataspaceLib from the following paragraph. - TL
-The parameter is implemented as a Max external called \emph{jcom.parameter}. Within jcom.parameter, the ramping properties are implemented internally as dynamically bound objects located in two shared libraries, called the \emph{RampLib} and \emph{FunctionLib}.
-
-
-\begin{figure}
-\centerline{\framebox{
-	\includegraphics[width=\columnwidth]{figure-structure}}}
-\caption{Parameter structure in context.}
-\label{fig:structure}
-\end{figure}
-
-
-Figure~\ref{fig:structure} shows a parameter in context. Within an environment, there may be many modules. Each module may have many parameters, the number of which may change dynamically. Each parameter may have many properties. These properties may address static or dynamic entities. The properties may point to a dynamic entity which itself has properties, and so on.
-
-The example given in Figure~\ref{fig:structure} shows a number of properties. A common need is for a parameter to interpolate from its existing value to a new value.  In Jamoma we call this \emph{ramping}. Ramping is implemented in a parameter using two components: a driving mechanism and a function or shape. The driving mechanism is performed by a \emph{RampUnit} (discussed in Section~\ref{ssec:ramplib}) which may have properties and methods of its own. The shape of the ramp is performed by using a \emph{FunctionUnit} (discussed in Section~\ref{ssec:functionlib}) which also may have properties and methods of its own. All of these are reconfigurable on-the-fly during performance.
+In Jamoma, the parameter is implemented as a Max external called \emph{jcom.parameter}. Within jcom.parameter, the ramping properties are implemented internally as a combination of two shared libraries called the \emph{RampLib} and \emph{FunctionLib}. The RambLib determines \emph{when} a new value is required during a ramp, while the FunctionLib determines \emph{what} the new value will be. Both of these are reconfigurable on-the-fly during performance.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Ramp Library} % (fold)
 \label{ssec:ramplib}
 
-% TODO: gear this more towards artistic, and less toward technical implementation. Try to explain the motivation for the design decisions we've made.
+% TODO: Citation of Csound, SC, ChucK or maybe CMJ article by Jones and Nevile for this control rate notion.
 
-Depending on the circumstance it might be desirable to generate new interpolated values in different ways during the ramp: Several real-time signal processing environments distinguish between audio rate and control rate signals. Depending on the transients of the ramping signal it might sometimes be desirable to perform interpolation at audio rate, at other time it might be sufficient to update at  control rate. If the parameter is controlling a video processing algorithm it might be sufficient to update the value once per video frame processed.
+Depending on the circumstance it might be desirable to generate new interpolated values in different ways during the ramp. Several real-time signal processing environments distinguish between audio rate and control rate signals, e.g. Csound and SuperCollider. Depending on the transients of the ramping signal it might sometimes be desirable to perform interpolation at audio rate, at other time it might be sufficient to update at  control rate. If the parameter is controlling a video processing algorithm it might be sufficient to update the value once per video frame processed.
 
 % Jamoma offers vastly extended possibilities in how ramping can be done as compared to Max. In Jamoma the process of ramping is made up from the combination of two components: A driving mechanism cause calculations of new values at desired intervals during the ramp, while a set of functions offers a set of curves for the ramping. Both components are implemented as C++ APIs, and can easily be extended with new ramp or function \emph{units}, expanding the range of possible ramping modes. %TODO: Is this important for the ICMC audience that the Ramplib API is made with C++ and that it be can easily extended? [NP]
 
@@ -287,28 +250,12 @@ The FunctionLib can easily be expanded by introducing new functions as C++ files
 
 
 
-
-\begin{table}
-\begin{center}
-\footnotesize\noindent
-\begin{tabular}{|l|l|l|l|l|l|}
-\hline
-          & Cosine & Linear & Lowpass & Power & Tanh \\
-\hline
-Scheduler &        &        &         &       & \\
-\hline
-Queue	  &        &        &         &       & \\
-\hline
-None	  &        &        &         &       & \\
-\hline
-Async	  &        &        &         &       & \\
-\hline
-\end{tabular}
-\end{center}
-\caption{The possible ramping configurations in Jamoma}
-\label{tab:ramp_possibilities}
-\end{table}
-
+\begin{figure}
+\centerline{\framebox{
+	\includegraphics[width=\columnwidth]{figure-combinations}}}
+\caption{The possible ramping configurations in Jamoma can be represented as the intersection of a choice on each of the x and the y axes.}
+\label{fig:combinations}
+\end{figure}
 
 
 
@@ -347,6 +294,10 @@ One of the largest potentials of the system we have outlined is that these dynam
 \section{Discussion and further work} % (fold)
 \label{sec:discussion_and_further_work}
 
+A third possible archetype for controlling a system is the use of mappings. Mappings define relationships between various components in a system that interact with each other. This creates a complex and dynamic methodology for generating not only vertical transmogrifications but gestures which develop over time \cite{Hunt:2003,Nort:2006}.
+
+
+
 The problem: 
 It has been too static
     - too difficult to create dynamic setups
@@ -363,7 +314,7 @@ No one wants to have to manually do all of the house-keeping to get this functio
 in pursuing this goal, but there are still lots of work to be done: 
 
 \begin{itemize}
-    \item 4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{tab:ramp_possibilities}).
+    \item 4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{fig:combinations}).
 	\vspace{-8pt}
 	\item Ramp Lib and Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map and jcom.ramp
 	\vspace{-8pt}
@@ -398,7 +349,7 @@ Plans to extend %CHANGED: move this from the FunctionLib to Future Work [NP]
 	\vspace{-8pt}
 \end{itemize}
 
-% 4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{tab:ramp_possibilities}).
+% 4 ramp units times 5 function units = 20 ramping modes (see Figure \ref{fig:combinations}).
 
 
 %\subsection{DataspaceLib} %(fold)
