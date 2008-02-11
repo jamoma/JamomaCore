@@ -282,28 +282,35 @@ One of the advantages of implenenting ramping as a combination of two libraries,
 \section{Discussion and further work} % (fold)
 \label{sec:discussion_and_further_work}
 
-The implementation presented for performing ramps provides a simple way of creating complex developments in time from  ...   ADSR - combining simplicity of access with complexity of the result.
+The proposed system for ramping of parameter values can be understood as an extension of the well-established ADSR (attack - decay - sustain - release) envelope used in classic synthesizers in order to create more complex developments in time. Ramps are initiated and controlled by simple OSC messages, thus combining simplicity of access with complexity and expressivity of the result.
 
+\begin{figure}
+\begin{small}
+\begin{verbatim}
+#######################################
+CUE upAndDown
+#######################################
+	/path/to/parameter 0.
+	/path/to/parameter:/ramp/function linear
+	/path/to/parameter 1. ramp 2000
+	WAIT 2000
+	/path/to/parameter:/ramp/function cosine
+	/path/to/parameter 0. ramp 4000
+\end{verbatim}
+\end{small}
+\caption{A simple cuescript. The parameter first traverse linearly from 0. to 1. in two seconds, and then returns to 0 in four seconds according to a cosine function}
+\label{fig:cuescript}
+\end{figure}
 
+One Jamoma module, \emph{jmod.cuelist}, loads a text-based script of \emph{event cues}, and is able to control all other modules \cite{Place:2006}. A \texttt{WAIT} syntax can set the execution of a cue on hold for a specified amount of time. Thus more complex auditive events can be created by combining parallell ramps for several parameters. Simultaneously the transitional curve for each of the parameters can be made more complex by building compond curves splicing several ramp segments, where different functions can be used for each segment, as illustrated in Figure~\ref{fig:cuescript}.
 
-Discuss how this can be combined with the WAIT syntax so that one might compose complex curves as combination of the elementary ones.
+In the discussion so far ramps have been implicitly understood to be \emph{goal-directed}, that is moving towards a final destination in a fixed and limited amount of time. If this assumption is relaxed, the RampLib and FunctionLib implementations can be expanded further to provide even more possibilities for continuous drift of parameter values. For instance low frequency oscillators can be implemented as a sequence of repeating and possibly reversed ramps. If the FunctionLib is expanded by introducing stochastic functions, and ramps are permitted to be of infinite duration, the RampLib can be used to trigger new random values when required, leading to different kinds of stochastic drifts and processes in time.
 
+Presets and automation has been mentioned in Section~\ref{sec:introduction} as archetypes of strategies for dynamic control of a system. A third possible archetype for controlling a system is the use of mappings. Mappings define relationships between various components in a system that interact with each other. This creates a complex and dynamic methodology for generating not only vertical transmogrifications but gestures which develop over time \cite{Hunt:2003,Nort:2006}.
 
-EXPANDING THE IDEA OF DYNAMICALLY CHANGING VALUES OF PARAMETERS
+The Function Lib can be used outside the context of jcom.parameter. The \emph{jcom.map} Max external maps values in the input range $[a,b]$ to values in the output range $[c,d]$. The FunctionLib is used to determine what curve the mapping is performed according to, and the curve can be changed on-the-fly by switching between all available FunctionUnits. 
 
-- LFO
-- Stochastic processes
-
-
-
-
-MAPPING
-
-A third possible archetype for controlling a system is the use of mappings. Mappings define relationships between various components in a system that interact with each other. This creates a complex and dynamic methodology for generating not only vertical transmogrifications but gestures which develop over time \cite{Hunt:2003,Nort:2006}.
-
-Function Lib can be used outside the context of jcom.parameter and jcom.value: jcom.map
-
-Similarly the Ramp Lib can be used outside the context of jcom.parameter for other scheduled tasks.
+In a similar way the RampLib can be used outside the context of jcom.parameter for other scheduled tasks.
 
 
 
@@ -318,7 +325,7 @@ Similarly the Ramp Lib can be used outside the context of jcom.parameter for oth
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments} % (fold)
 
-The authors would like to thank all Jamoma developers, in particular Pascal Baltazar, for valuable contributions. A workshop hosted by iMAL Center for Digital Cultures and Technology\footnote{\url{http://imal.org/}}, Brussels, with additional support from GMEA, Centre National de Création Musicale\footnote{\url{http://www.gmea.net}} was of particular importance in the process of developing the issues presented in this paper.
+The authors would like to thank all Jamoma developers, in particular Pascal Baltazar, for valuable contributions. A workshop hosted by iMAL Center for Digital Cultures and Technology\footnote{\url{http://imal.org/}}, Brussels, with additional support from GMEA, Centre National de Cr\'eation Musicale\footnote{\url{http://www.gmea.net}} was of particular importance in the process of developing the issues presented in this paper.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
