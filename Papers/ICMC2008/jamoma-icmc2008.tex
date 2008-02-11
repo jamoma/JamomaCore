@@ -89,7 +89,7 @@ Rather than viewing parameters in computer-based systems as single points of con
 
 One obvious way of expanding the flexibility of presets is by implementing a cross-fade or gradual transition to the new preset by means of interpolation. Several works have expanded this further by presenting the set of presets as points in a dataspace and develop strategies of traversing that dataspace, creating dynamic interpolations between two or more presets \cite{Bencina:2005metasurface, Dahlstedt:2001, Momeni:2003}. This has also been extensively used by one of the authors for developing the Hipno audio plug-ins \cite{Place:2005hipno}.
 
-Jamoma\footnote{\url{http://www.jamoma.org}} is a system for developing high-level \emph{modules} in the Max/MSP/Jitter environment \cite{Place:2006}. It implements a \emph{Model-View-Controller} (MVC) strategy, where ``objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller).'' \cite[p26]{Krasner:1988}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a module and between different modules.
+Jamoma\footnote{\url{http://www.jamoma.org}} is a system for developing high-level \emph{modules} in the Max/MSP/Jitter environment \cite{Place:2006}. It implements a \emph{Model-View-Controller} (MVC) strategy, where ``objects of different classes take over the operations related to the application domain (the model), the display of the application's state (the view), and the user interaction with the model and the view (the controller).'' \cite[p.~26]{Krasner:1988}. All state management, parametric control, and automation for Jamoma is handled within the controller layer of the MVC paradigm. This forms the basis of all relationships both within a module and between different modules.
 
 In Jamoma we are currently working towards more complex transitions of parameters in time that integrate both vertical and horizontal qualities.  This is achieved through the integration of a cuelist system. This system permits instant updates to parameters, or scripting of complex transitional progressions, introducing horizontal aspects. 
 
@@ -265,7 +265,7 @@ The FunctionLib can easily be expanded by introducing new functions as C++ class
 \caption{The possible ramping configurations in Jamoma can be represented as the intersection of a choice on each of the x and the y axes.}
 \label{fig:combinations}
 \end{figure}
-
+%TODO: why is there no graphic for the "tanh" function ?
 One of the advantages of implementing ramping as a combination of two libraries, is that any RambUnit can be combined with any FunctionUnit. Currently, with 4 RampUnits and 5 FunctionUnits implemented, this provides a total of 20 options for how to perform ramping, as illustrated in Figure~\ref{fig:combinations}.
 
 % subsection combinations (end)
@@ -304,10 +304,10 @@ In the discussion so far ramps have been implicitly understood to be \emph{goal-
 
 Presets and automation have been mentioned in Section~\ref{sec:introduction} as archetypes for strategies of dynamic control in a system. A third possible archetype for controlling a system is the use of mappings. Mappings define relationships between various components in a system that interact with each other. This creates a complex and dynamic methodology for generating not only vertical transmogrifications but gestures which develop over time \cite{Hunt:2003,Nort:2006}.
 
-The FunctionLib can also be used outside the context of jcom.parameter. The \emph{jcom.map} Max external maps values in the input range $[a,b]$ to values in the output range $[c,d]$. The FunctionLib is used to determine the curve used for performing the mapping, and the curve can be changed on-the-fly by switching between any of the available FunctionUnits. 
+The FunctionLib can also be used outside the context of jcom.parameter. The \emph{jcom.map} Max external maps values in the input range $[a,b]$ to values in the output range $[c,d]$. The FunctionLib is used to determine the curve which shapes the mapping. This curve can be changed on-the-fly by switching between any of the available FunctionUnits. %CHAMGED: "The FunctionLib is used to determine the curve used to perform the mapping."   to "The FunctionLib is used to determine the curve which shapes the mapping." [NP]
 
-In a similar way the RampLib can be used outside the context of jcom.parameter for other scheduled tasks.
-
+In a similar way the RampLib can be applied outside the context of jcom.parameter for other scheduled tasks.
+%CHANGED: "In a similar way the RampLib can be used outside the context of jcom.parameter for other scheduled tasks."  to "In a similar way the RampLib can be applied outside the context of jcom.parameter for other scheduled tasks."
 % section discussion_and_further_work (end)
 
 
