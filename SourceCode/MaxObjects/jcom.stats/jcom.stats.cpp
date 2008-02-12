@@ -159,16 +159,27 @@ void stats_setwindowed(t_stats *x, void *attr, long argc, t_atom *argv)
 void stats_bang(t_stats *x)
 {
 	double mean, standardDeviation;
-
-	if (x->valueCount < 0)
+   
+/*	if (x->valueCount < 0)
 		mean = 0;
 	else 
 		mean = x->sumOfValues / x->valueCount;
 	if (x->valueCount > 1)
 		standardDeviation = sqrt((x->sumOfSquaredValues - ((x->sumOfValues*x->sumOfValues) / x->valueCount)) / (x->valueCount - 1));
 	else
-		standardDeviation = 0;
+		standardDeviation = 0;*/
 
+/////small optimization by Nils Peters////
+
+	if (x->valueCount >= 0)
+		mean = x->sumOfValues / x->valueCount;  
+	else
+		mean = 0;
+    if (x->valueCount > 1)
+        standardDeviation = sqrt((x->sumOfSquaredValues - (x->sumOfValues*mean)) / (x->valueCount - 1));  /* i just simplified the equation by using the mean which was already calculated before*/
+    else
+        standardDeviation = 0;
+///// end of small optimization by Nils Peters////  
 	outlet_float(x->outlet5, standardDeviation);
 	outlet_float(x->outlet4, mean);
 	outlet_float(x->outlet3, x->max);
