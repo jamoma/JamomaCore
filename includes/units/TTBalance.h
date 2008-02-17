@@ -20,8 +20,8 @@ class TTBalance : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;					///< filter cutoff frequency of inherent lowpass filter
 	TTFloat64		c, a0, a1, a2, b1, b2;			///< filter coefficients
-	TTFloat64		*xm1L, *xm2L, *ym1L, *ym2L;		///< previous input and output values of signal to be balanced
-	TTFloat64		*xm1R, *xm2R, *ym1R, *ym2R;		///< previous input and output values of signal to be compared with
+	TTFloat64		*xm1A, *xm2A, *ym1A, *ym2A;		///< previous input and output values of signal to be balanced
+	TTFloat64		*xm1B, *xm2B, *ym1B, *ym2B;		///< previous input and output values of signal to be compared with
 	
 
 	/**	Receives notifications when there are changes to the inherited 

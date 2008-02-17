@@ -11,7 +11,7 @@
 
 TTBalance::TTBalance(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.butterworth", newMaxNumChannels),
-	xm1L(NULL), xm2L(NULL), ym1L(NULL), ym2L(NULL), xm1R(NULL), xm2R(NULL), ym1R(NULL), ym2R(NULL)
+	xm1A(NULL), xm2A(NULL), ym1A(NULL), ym2A(NULL), xm1B(NULL), xm2B(NULL), ym1B(NULL), ym2B(NULL)
 {
 	// register attributes
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBalance::setFrequency);
@@ -32,44 +32,44 @@ TTBalance::TTBalance(TTUInt8 newMaxNumChannels)
 
 TTBalance::~TTBalance()
 {
-	free(xm1L);
-	free(xm2L);
-	free(ym1L);
-	free(ym2L);
-	free(xm1R);
-	free(xm2R);
-	free(ym1R);
-	free(ym2R);
+	free(xm1A);
+	free(xm2A);
+	free(ym1A);
+	free(ym2A);
+	free(xm1B);
+	free(xm2B);
+	free(ym1B);
+	free(ym2B);
 }
 
 
 TTErr TTBalance::updateMaxNumChannels()
 {
-	if(xm1L)
-		free(xm1L);
-	if(xm2L)
-		free(xm2L);
-	if(ym1L)
-		free(ym1L);
-	if(ym2L)
-		free(ym2L);
-	if(xm1R)
-		free(xm1R);
-	if(xm2R)
-		free(xm2R);
-	if(ym1R)
-		free(ym1R);
-	if(ym2R)
-		free(ym2R);
+	if(xm1A)
+		free(xm1A);
+	if(xm2A)
+		free(xm2A);
+	if(ym1A)
+		free(ym1A);
+	if(ym2A)
+		free(ym2A);
+	if(xm1B)
+		free(xm1B);
+	if(xm2B)
+		free(xm2B);
+	if(ym1B)
+		free(ym1B);
+	if(ym2B)
+		free(ym2B);
 	
-	xm1L = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm2L = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym1L = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym2L = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm1R = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm2R = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym1R = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym2R = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	xm1A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	xm2A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	ym1A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	ym2A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	xm1B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	xm2B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	ym1B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	ym2B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
 	
 	clear();
 	return kTTErrNone;
@@ -88,14 +88,14 @@ TTErr TTBalance::clear()
 	short i;
 
 	for(i=0; i<maxNumChannels; i++){
-		xm1L[i] = 0.0;
-		xm2L[i] = 0.0;
-		ym1L[i] = 0.0;
-		ym2L[i] = 0.0;
-		xm1R[i] = 0.0;
-		xm2R[i] = 0.0;
-		ym1R[i] = 0.0;
-		ym2R[i] = 0.0;
+		xm1A[i] = 0.0;
+		xm2A[i] = 0.0;
+		ym1A[i] = 0.0;
+		ym2A[i] = 0.0;
+		xm1B[i] = 0.0;
+		xm2B[i] = 0.0;
+		ym1B[i] = 0.0;
+		ym2B[i] = 0.0;
 	}
 	return kTTErrNone;
 }
@@ -118,13 +118,13 @@ TTErr TTBalance::setFrequency(const TTValue& newValue)
 TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
-	TTSampleValue	*inSampleL,
-					*inSampleR,
+	TTSampleValue	*inSampleA,
+					*inSampleB,
 					*outSample;
-	TTFloat64		tempxL,
-					tempxR,
-					tempyL,
-					tempyR;											
+	TTFloat64		tempxA,
+					tempxB,
+					tempyA,
+					tempyB;											
 	short			i;
 	short			channel;
 	short			numChannels;
@@ -138,32 +138,32 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numChannels; channel++){
 		// Input channels are expected to come in pairs: left[0], right[0], left[1], right[1],...
 		i = 2*channel;
-		inSampleL = in.sampleVectors[i];
-		inSampleR = in.sampleVectors[i+1];
+		inSampleA = in.sampleVectors[i];
+		inSampleB = in.sampleVectors[i+1];
 		outSample = out.sampleVectors[channel];
 		vs = in.vs;
 		
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
-			tempxL = *inSampleL++;
-			tempxR = *inSampleR++;
+			tempxA = *inSampleA++;
+			tempxB = *inSampleB++;
 			// Lopass filter left and right signals
-			tempyL = antiDenormal(a0*tempxL + a1*xm1L[channel] + a2*xm2L[channel] - b1*ym1L[channel] - b2*ym2L[channel]);
-			tempyR = antiDenormal(a0*tempxR + a1*xm1R[channel] + a2*xm2R[channel] - b1*ym1R[channel] - b2*ym2R[channel]);		
+			tempyA = antiDenormal(a0*tempxA + a1*xm1A[channel] + a2*xm2A[channel] - b1*ym1A[channel] - b2*ym2A[channel]);
+			tempyB = antiDenormal(a0*tempxB + a1*xm1B[channel] + a2*xm2B[channel] - b1*ym1B[channel] - b2*ym2B[channel]);		
 			// Scale left input to produce output, avoid dividing by zero
-			if (tempyL)
-				*outSample++ = tempxL * (tempyR/tempyL);
+			if (tempyA)
+				*outSample++ = tempxA * (tempyB/tempyA);
 			else
 				*outSample++ = 0.;
 			// Update filter values
-			xm2L[channel] = xm1L[channel];
-			xm1L[channel] = tempxL;
-			ym2L[channel] = ym1L[channel];
-			ym1L[channel] = tempyL;
-			xm2R[channel] = xm1R[channel];
-			xm1R[channel] = tempxR;
-			ym2R[channel] = ym1R[channel];
-			ym1R[channel] = tempyR;
+			xm2A[channel] = xm1A[channel];
+			xm1A[channel] = tempxA;
+			ym2A[channel] = ym1A[channel];
+			ym1A[channel] = tempyA;
+			xm2B[channel] = xm1B[channel];
+			xm1B[channel] = tempxB;
+			ym2B[channel] = ym1B[channel];
+			ym1B[channel] = tempyB;
 		}
 	}
 	return kTTErrNone;
