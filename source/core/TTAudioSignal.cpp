@@ -46,6 +46,12 @@ TTUInt16 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal
 }
 
 
+TTUInt16 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
+{
+	return signal.numChannels;
+}
+
+
 
 // TODO: The old tt audio signal could point to external memory, or allocate its own for the vectors
 // This enum was used to keep trac of which was the case:

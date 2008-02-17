@@ -75,6 +75,8 @@
 		A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A779B4C40D509BB100EAD135 /* TTHighpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */; };
 		A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */; };
+		A77FB4480D685CF60095A7FD /* TTBalance.h in Headers */ = {isa = PBXBuildFile; fileRef = A77FB4470D685CF60095A7FD /* TTBalance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A77FB44A0D685D020095A7FD /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77FB4490D685D020095A7FD /* TTBalance.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +151,8 @@
 		A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth4.h; path = ../includes/units/TTHighpassButterworth4.h; sourceTree = SOURCE_ROOT; };
 		A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth4.cpp; path = ../source/units/TTHighpassButterworth4.cpp; sourceTree = SOURCE_ROOT; };
 		A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth4.cpp; path = ../source/units/TTLowpassButterworth4.cpp; sourceTree = SOURCE_ROOT; };
+		A77FB4470D685CF60095A7FD /* TTBalance.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = ../includes/units/TTBalance.h; sourceTree = SOURCE_ROOT; };
+		A77FB4490D685D020095A7FD /* TTBalance.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTBalance.cpp; path = ../source/units/TTBalance.cpp; sourceTree = SOURCE_ROOT; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -248,6 +252,7 @@
 		22D7F5EA0D10576E009E4AF4 /* Unit-Source */ = {
 			isa = PBXGroup;
 			children = (
+				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
 				22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */,
 				22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */,
 				22569C420D3E419300328864 /* TTCrossfade.cpp */,
@@ -277,6 +282,7 @@
 		22FD31840CEE8EA80039C226 /* Unit-Headers */ = {
 			isa = PBXGroup;
 			children = (
+				A77FB4470D685CF60095A7FD /* TTBalance.h */,
 				22569C140D3E416F00328864 /* TTBandpassButterworth2.h */,
 				22569C150D3E416F00328864 /* TTBandrejectButterworth2.h */,
 				22569C160D3E416F00328864 /* TTCrossfade.h */,
@@ -342,6 +348,7 @@
 				A779B4A90D508E5200EAD135 /* TTHighpassButterworth3.h in Headers */,
 				A779B4C00D509B6F00EAD135 /* TTLowpassButterworth4.h in Headers */,
 				A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */,
+				A77FB4480D685CF60095A7FD /* TTBalance.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +455,7 @@
 				A779B4AD0D508E6900EAD135 /* TTHighpassButterworth3.cpp in Sources */,
 				A779B4C40D509BB100EAD135 /* TTHighpassButterworth4.cpp in Sources */,
 				A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */,
+				A77FB44A0D685D020095A7FD /* TTBalance.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
