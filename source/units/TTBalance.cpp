@@ -125,7 +125,6 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 					tempxB,
 					tempyA,
 					tempyB;											
-	short			i;
 	short			channel;
 	short			numChannels;
 
@@ -136,10 +135,9 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numChannels; channel++){
-		// Input channels are expected to come in pairs: left[0], right[0], left[1], right[1],...
-		i = 2*channel;
-		inSampleA = in.sampleVectors[i];
-		inSampleB = in.sampleVectors[i+1];
+		// We first expect all channels of inputSignalA, then all channels of inputSignalB
+		inSampleA = in.sampleVectors[channel];
+		inSampleB = in.sampleVectors[numChannels+channel];
 		outSample = out.sampleVectors[channel];
 		vs = in.vs;
 		
@@ -152,7 +150,7 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 			tempyB = antiDenormal(a0*tempxB + a1*xm1B[channel] + a2*xm2B[channel] - b1*ym1B[channel] - b2*ym2B[channel]);		
 			// Scale left input to produce output, avoid dividing by zero
 			if (tempyA)
-				*outSample++ = tempxA * (tempyB/tempyA);
+				*outSample++ = antiDenormal(tempxA * (tempyB/tempyA));
 			else
 				*outSample++ = 0.;
 			// Update filter values
