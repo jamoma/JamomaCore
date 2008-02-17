@@ -103,7 +103,7 @@ TTErr TTBalance::clear()
 
 TTErr TTBalance::setFrequency(const TTValue& newValue)
 {
-	attrFrequency = TTClip((double)newValue, 10., (sr*0.45));
+	attrFrequency = TTClip((double)newValue, 1., (sr*0.45));
 
 	c = 1 / ( tan( kTTPi*(attrFrequency/sr) ) );
 	a0 = 1 / (1 + kTTSqrt2*c + c*c);
@@ -122,7 +122,9 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 					*inSampleB,
 					*outSample;
 	TTFloat64		tempxA,
+					absTempxA,
 					tempxB,
+					absTempxB,
 					tempyA,
 					tempyB;											
 	short			channel;
@@ -137,29 +139,31 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numChannels; channel++){
 		// We first expect all channels of inputSignalA, then all channels of inputSignalB
 		inSampleA = in.sampleVectors[channel];
-		inSampleB = in.sampleVectors[numChannels+channel];
+		inSampleB = in.sampleVectors[channel+numChannels];
 		outSample = out.sampleVectors[channel];
 		vs = in.vs;
 		
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempxA = *inSampleA++;
+			absTempxA = fabs(tempxA);
 			tempxB = *inSampleB++;
+			absTempxB = fabs(tempxB);
 			// Lopass filter left and right signals
-			tempyA = antiDenormal(a0*tempxA + a1*xm1A[channel] + a2*xm2A[channel] - b1*ym1A[channel] - b2*ym2A[channel]);
-			tempyB = antiDenormal(a0*tempxB + a1*xm1B[channel] + a2*xm2B[channel] - b1*ym1B[channel] - b2*ym2B[channel]);		
+			tempyA = antiDenormal(a0*absTempxA + a1*xm1A[channel] + a2*xm2A[channel] - b1*ym1A[channel] - b2*ym2A[channel]);
+			tempyB = antiDenormal(a0*absTempxB + a1*xm1B[channel] + a2*xm2B[channel] - b1*ym1B[channel] - b2*ym2B[channel]);		
 			// Scale left input to produce output, avoid dividing by zero
 			if (tempyA)
-				*outSample++ = antiDenormal(tempxA * (tempyB/tempyA));
+				*outSample++ = tempxA * (tempyB/tempyA);
 			else
 				*outSample++ = 0.;
 			// Update filter values
 			xm2A[channel] = xm1A[channel];
-			xm1A[channel] = tempxA;
+			xm1A[channel] = absTempxA;
 			ym2A[channel] = ym1A[channel];
 			ym1A[channel] = tempyA;
 			xm2B[channel] = xm1B[channel];
-			xm1B[channel] = tempxB;
+			xm1B[channel] = absTempxB;
 			ym2B[channel] = ym1B[channel];
 			ym1B[channel] = tempyB;
 		}
