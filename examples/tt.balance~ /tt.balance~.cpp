@@ -156,14 +156,15 @@ void balance_clear(t_balance *x)
 t_int *balance_perform(t_int *w)
 {
    	t_balance	*x = (t_balance *)(w[1]);
-	short		i, j, k;
-	
-	for(i=0; i < x->audioOut->numChannels; i++){
-		j = i*2;
-		k = (i*3) + 1;
-		x->audioIn->setVector(j, 	(t_float *)(w[k+1]));
-		x->audioIn->setVector(j+1, 	(t_float *)(w[k+2]));
-		x->audioOut->setVector(i, 	(t_float *)(w[k+3]));
+	short		i, j;
+	short		numChannels = x->audioOut->numChannels;
+
+	// We sort audioIn so that all channels of signalA comes first, then all channels of signalB
+	for(i=0; i < numChannels; i++){
+		j = (i*3) + 1;
+		x->audioIn->setVector(i, 				(t_float *)(w[j+1]));
+		x->audioIn->setVector(i+numChannels,	(t_float *)(w[j+2]));
+		x->audioOut->setVector(i, 				(t_float *)(w[j+3]));
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
