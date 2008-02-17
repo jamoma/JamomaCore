@@ -12,9 +12,13 @@
 
 #include "TTAudioObject.h"
 
-/**	2nd order Butterworth lowpass filter; Butterworth filters have maximum flat frequency response in the pass band.
+/**	Use signal B to balance gain levels of signal A
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
+
+ *	In fact, this processor can work on a number of channels, provided that the number of input
+ *	channels is twice the number of output channels.  In this case the first N/2 input channels are
+ *	considered as the A source and the last N/2 input channels are considered the B source.
  */
 class TTBalance : public TTAudioObject {
 private:
