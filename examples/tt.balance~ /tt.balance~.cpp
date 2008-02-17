@@ -170,7 +170,7 @@ t_int *balance_perform(t_int *w)
 	if(!x->obj.z_disabled)									// if we are not muted...
 		x->balance->process(*x->audioIn, *x->audioOut);		// Actual balance process
 
-	return w + ((x->audioIn->numChannels*3)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return w + ((x->audioOut->numChannels*3)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
