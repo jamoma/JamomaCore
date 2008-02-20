@@ -31,7 +31,8 @@ extern TTSymbolTable ttSymbolTable;		///< The global table of symbols
 class TTSymbolTable : public TTElement {
 private:
 	TTSymbol**	symbolTable;
-	TTUInt32	symbolTableSize;
+	TTUInt32	symbolTableLength;	///< Number of symbols stored in the table
+	TTUInt32	symbolTableSize;	///< Maximum number of symbols for which there is room in the table
 
 public:
 	TTSymbolTable();
@@ -43,7 +44,7 @@ public:
 	 * This lookup is called directly, but also from the TTSymbol constructor, which allows 
 	 * us to call methods expecting a TTSymbol by passing them simple c strings.
 	 */
-	const TTSymbol* lookup(const TTString string);
+	const TTSymbol* lookup(const char* string);
 };
 
 

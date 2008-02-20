@@ -13,20 +13,20 @@
 /****************************************************************************************************/
 
 TTSymbol::TTSymbol()
-	: string(NULL)
+	: string(NULL)//, inTable(false)
 {
 	init("", -1);
 }
 
-TTSymbol::TTSymbol(TTString newString)
-	: string(NULL)
+TTSymbol::TTSymbol(const char* newString)
+	: string(NULL)//, inTable(false)
 {
 	init(newString, -1);
 }
 
 
-TTSymbol::TTSymbol(TTString newString, TTInt32 newId)
-	: string(NULL)
+TTSymbol::TTSymbol(const char* newString, TTInt32 newId)
+	: string(NULL)//, inTable(false)
 {
 	init(newString, newId);
 }
@@ -34,9 +34,11 @@ TTSymbol::TTSymbol(TTString newString, TTInt32 newId)
 
 TTSymbol::~TTSymbol()
 {
-	//should free this to prevent memory leaks, but is it safe to do so?
-	// maybe we need to reference count...
-	free(string);
+	//if(inTable){
+	//	printf("TTBLUE -- BAD -- DELETING SYMBOL TABLE ITEM\n");
+	//}
+	if(string)
+		free(string);
 }
 
 
@@ -60,11 +62,13 @@ void TTSymbol::init(const char* newString, TTInt32 newId)
 
 	// 2. Look for this symbol in the symbol table (it should already exist)
 	if(newId < 0){
-		existingSymbol = ttSymbolTable.lookup((TTString)newString);
+		existingSymbol = ttSymbolTable.lookup(newString);
 		id = existingSymbol->id;
 	}
-	else	// This symbol is being added to the symbol table with the given id
+	else{	// This symbol is being added to the symbol table with the given id
 		id = newId;
+		//inTable = true;
+	}
 }
 
 

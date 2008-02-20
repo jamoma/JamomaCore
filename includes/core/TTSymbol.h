@@ -23,28 +23,27 @@ class TTSymbol : public TTElement {
 private:
 	TTString				string;				///< the actual string represented by this symbol
 	TTUInt32				id;					///< a unique identifier for the given string
-	static TTSymbol**		symbolTable;		///< The shared symbol table for the class
-	static TTUInt32			symbolTableSize;	///< The size of the symbol table
+	//bool					inTable;			///< This particular instance is stored in the symbol table
 
 	/** used by the constructors to create the new symbol */
 	void init(const char* newString, TTInt32 newId);
 
 public:
 	TTSymbol();
-	TTSymbol(TTString newString);
+	TTSymbol(const char* newString);
 	
 	/** This constructor is intended only for use by the TTSymbolTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbol(TTString newString, TTInt32 newId);
+	TTSymbol(const char*, TTInt32 newId);
 
 	virtual	~TTSymbol();
 	
 	/** Copy Constructor */
 	TTSymbol(const TTSymbol& oldSymbol);
 
-	const TTString			getString();
-	const TTUInt32			getId();
-	TTBoolean				compare(TTSymbol& anotherSymbol);
+	const TTString getString();
+	const TTUInt32 getId();
+	TTBoolean compare(TTSymbol& anotherSymbol);
 	
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
@@ -53,12 +52,6 @@ public:
 			return true;
 		else
 			return false;
-	}
-	
-	TTSymbol& TTSymbol::operator = (const char* aString)
-	{
-		init(aString, -1);
-		return *this;
 	}
 
 	operator TTString() const

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		221DED1D0D6BC722000799BA /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 221DED1C0D6BC722000799BA /* TTMutex.h */; };
+		221DED1D0D6BC722000799BA /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 221DED1C0D6BC722000799BA /* TTMutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221DED1E0D6BC739000799BA /* TTMutex.cpp */; };
 		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C030D3E416200328864 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
