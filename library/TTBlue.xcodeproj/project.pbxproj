@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221DED1D0D6BC722000799BA /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 221DED1C0D6BC722000799BA /* TTMutex.h */; };
+		221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221DED1E0D6BC739000799BA /* TTMutex.cpp */; };
 		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C030D3E416200328864 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0D0D3E416200328864 /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C040D3E416200328864 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -83,6 +85,8 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		221DED1C0D6BC722000799BA /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = ../includes/core/TTMutex.h; sourceTree = SOURCE_ROOT; };
+		221DED1E0D6BC739000799BA /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = ../source/core/TTMutex.cpp; sourceTree = SOURCE_ROOT; };
 		22569C020D3E416200328864 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
 		22569C030D3E416200328864 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
 		22569C040D3E416200328864 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = ../includes/core/TTElement.h; sourceTree = SOURCE_ROOT; };
@@ -213,6 +217,8 @@
 				22569C050D3E416200328864 /* TTGlobal.h */,
 				22569C330D3E417E00328864 /* TTGlobal.cpp */,
 				22569C060D3E416200328864 /* TTList.h */,
+				221DED1C0D6BC722000799BA /* TTMutex.h */,
+				221DED1E0D6BC739000799BA /* TTMutex.cpp */,
 				22569C070D3E416200328864 /* TTObject.h */,
 				22569C340D3E417E00328864 /* TTObject.cpp */,
 				22569C080D3E416200328864 /* TTSymbol.h */,
@@ -349,6 +355,7 @@
 				A779B4C00D509B6F00EAD135 /* TTLowpassButterworth4.h in Headers */,
 				A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */,
 				A77FB4480D685CF60095A7FD /* TTBalance.h in Headers */,
+				221DED1D0D6BC722000799BA /* TTMutex.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +463,7 @@
 				A779B4C40D509BB100EAD135 /* TTHighpassButterworth4.cpp in Sources */,
 				A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */,
 				A77FB44A0D685D020095A7FD /* TTBalance.cpp in Sources */,
+				221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
