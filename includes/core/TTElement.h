@@ -13,13 +13,19 @@
 #include <stdlib.h>
 #include <iostream>
 
-
 #ifndef NO
 #define NO 0
 #endif
 
 #ifndef YES
 #define YES 1
+#endif
+
+// Platform Sniffing
+#ifdef WIN_VERSION
+#define TT_PLATFORM_WIN
+#else
+#define TT_PLATFORM_MAC
 #endif
 
 
@@ -136,7 +142,7 @@ void TTLogError(char *message, ...);
 template<class T>
 static T TTClip(T value, T low_bound, T high_bound)
 {
-	#ifdef MAC_VERSION
+	#ifdef TT_PLATFORM_MAC
 		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
 	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
 		value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
@@ -150,7 +156,7 @@ template<class T>
 static T TTLimitMax(T value, T high_bound)
 {
 	value = high_bound - value;
-	#ifdef MAC_VERSION
+	#ifdef TT_PLATFORM_MAC
 		value += fabs(value);
 	#else
 		value += fabs((double)value);
@@ -166,7 +172,7 @@ template<class T>
 static T TTLimitMin(T value, T low_bound)
 {
 	value -= low_bound;
-	#ifdef MAC_VERSION
+	#ifdef TT_PLATFORM_MAC
 		value += fabs(value);
 	#else
 		value += fabs((double)value);
