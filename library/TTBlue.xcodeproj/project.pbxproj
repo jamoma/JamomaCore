@@ -57,6 +57,8 @@
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
+		22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9B3C20D6F5429007A2946 /* TTDataObject.h */; };
+		22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */; };
 		22E6CDEF0D4D067A00DA75EE /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */; };
 		22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
@@ -135,6 +137,8 @@
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22A403850CAD7BA000E5299E /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
+		22C9B3C20D6F5429007A2946 /* TTDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataObject.h; path = ../includes/core/TTDataObject.h; sourceTree = SOURCE_ROOT; };
+		22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataObject.cpp; path = ../source/core/TTDataObject.cpp; sourceTree = SOURCE_ROOT; };
 		22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolTable.cpp; path = ../source/core/TTSymbolTable.cpp; sourceTree = SOURCE_ROOT; };
 		22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = ../includes/core/TTSymbolTable.h; sourceTree = SOURCE_ROOT; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
@@ -212,6 +216,8 @@
 				22569C300D3E417E00328864 /* TTAudioObject.cpp */,
 				22569C030D3E416200328864 /* TTAudioSignal.h */,
 				22569C310D3E417E00328864 /* TTAudioSignal.cpp */,
+				22C9B3C20D6F5429007A2946 /* TTDataObject.h */,
+				22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */,
 				22569C040D3E416200328864 /* TTElement.h */,
 				22569C320D3E417E00328864 /* TTElement.cpp */,
 				22569C050D3E416200328864 /* TTGlobal.h */,
@@ -356,6 +362,7 @@
 				A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */,
 				A77FB4480D685CF60095A7FD /* TTBalance.h in Headers */,
 				221DED1D0D6BC722000799BA /* TTMutex.h in Headers */,
+				22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +471,7 @@
 				A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */,
 				A77FB44A0D685D020095A7FD /* TTBalance.cpp in Sources */,
 				221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */,
+				22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
