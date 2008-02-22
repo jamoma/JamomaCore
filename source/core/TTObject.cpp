@@ -167,6 +167,8 @@ TTObject::~TTObject()
 {
 	TTUInt16	i;
 
+//	sendNotification(TT("objectDeleted"));
+
 	for(i=0; i<attributeCount; i++)
 		delete attributeObjects[i];
 }

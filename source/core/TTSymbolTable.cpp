@@ -19,8 +19,8 @@ TTSymbolTable::TTSymbolTable()
 	symbolTableSize = 1024;
 	symbolTable = (TTSymbol**)malloc(sizeof(TTSymbol*) * (symbolTableSize + 1));
 	// always start off with 1 symbol -- the empty string
+	symbolTable[0] = new TTSymbol("", 0);
 	symbolTableLength++;
-	symbolTable[symbolTableLength-1] = new TTSymbol("", 0);
 }
 
 
