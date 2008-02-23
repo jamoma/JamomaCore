@@ -25,8 +25,14 @@
 /****************************************************************************************************/
 // Class Specification
 
-/**	TTAudioObject is the base class for all audio generating and processing objects in TTBlue.
+/**	TTDataObject is the base class for all asynchronous data generating and processing objects in TTBlue.
  *	
+	The object processes messages and attributes like any other TTObject.
+	However, this notion is extended by adding the concept of additional inlets and outlets.
+	Inlets and outlets are registered in the constructor.
+ 
+ 
+ 
  *	The theory of operation is that this class handles the public interface to any subclass,
  *	including the main processing method, which calls an appropriate method through a function pointer.
  *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
@@ -34,18 +40,11 @@
  */
 class TTDataObject : public TTObject {
 private:
-	friend class TTGlobal;						///< Declare that the global object is friend so it can access the globalSr member
+	friend class TTGlobal;				///< Declare that the global object is friend so it can access the globalSr member
 
 protected:
-	static TTUInt32		globalSr;				///< Current sample rate as understood by the environment as a whole
-	TTUInt32			sr;						///< Current sample rate being used by this object
-	TTFloat32			srInv;					///< 1.0 over the current sample rate (inverse)
-	TTFloat32			srMill;					///< 1/1000 of the current sample rate (samples per millisecond)
-//	TTUInt8				maxNumChannels;			///< This is the maximum number of channels that can be guaranteed to work
-//	TTBoolean			attrProcessInPlace;		///< This flag indicates that the object should process the samples "in-place", such that the processed samples are actually in the input
-//	TTBoolean			attrBypass;				///< Are we bypassing the processMethod?
-//	TTProcessMethod		processMethod;			///< This function pointer points to the active (non-bypass) processing routine
-//	TTProcessMethod		currentProcessMethod;	///< This function pointer always points to the current processing routine
+	TTUInt16		numInlets;			///< Current number of inlets
+	TTUInt16		numOutlets;			///< Current number of outlets
 
 	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
 //	TTErr setProcess(TTProcessMethod processMethod);
@@ -82,6 +81,15 @@ public:
 	
 	/**	The default audio processing method, which simply copies a signal through with no modifications.		*/
 	TTErr bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
+	
+	
+	
+	/** Registers an outlet handler (pointer to a method).  The outlet handler is the thing that does something
+		with any values sent to outlets.  This is generally called by a host environment for building a 
+		network of objects, and not called by the object itself.
+	*/
+//	???
+	
 };
 
 
