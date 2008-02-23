@@ -10,6 +10,8 @@
 		2207735B0D70B71300AE077B /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207735A0D70B71300AE077B /* TTList.cpp */; };
 		221DED1D0D6BC722000799BA /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 221DED1C0D6BC722000799BA /* TTMutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221DED1E0D6BC739000799BA /* TTMutex.cpp */; };
+		225384840D70DCA200E5E5FB /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 225384830D70DCA200E5E5FB /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225384850D70DCB600E5E5FB /* TTThread.cpp */; };
 		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C030D3E416200328864 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0D0D3E416200328864 /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C040D3E416200328864 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,7 +60,7 @@
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
-		22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9B3C20D6F5429007A2946 /* TTDataObject.h */; };
+		22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9B3C20D6F5429007A2946 /* TTDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */; };
 		22E6CDEF0D4D067A00DA75EE /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */; };
 		22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -91,6 +93,8 @@
 		2207735A0D70B71300AE077B /* TTList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTList.cpp; path = ../source/core/TTList.cpp; sourceTree = SOURCE_ROOT; };
 		221DED1C0D6BC722000799BA /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = ../includes/core/TTMutex.h; sourceTree = SOURCE_ROOT; };
 		221DED1E0D6BC739000799BA /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = ../source/core/TTMutex.cpp; sourceTree = SOURCE_ROOT; };
+		225384830D70DCA200E5E5FB /* TTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTThread.h; path = ../includes/core/TTThread.h; sourceTree = SOURCE_ROOT; };
+		225384850D70DCB600E5E5FB /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = ../source/core/TTThread.cpp; sourceTree = SOURCE_ROOT; };
 		22569C020D3E416200328864 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
 		22569C030D3E416200328864 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
 		22569C040D3E416200328864 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = ../includes/core/TTElement.h; sourceTree = SOURCE_ROOT; };
@@ -234,6 +238,8 @@
 				22569C350D3E417E00328864 /* TTSymbol.cpp */,
 				22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */,
 				22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */,
+				225384830D70DCA200E5E5FB /* TTThread.h */,
+				225384850D70DCB600E5E5FB /* TTThread.cpp */,
 				22569C090D3E416200328864 /* TTValue.h */,
 				22569C360D3E417E00328864 /* TTValue.cpp */,
 				22569C0A0D3E416200328864 /* TTValueCache.h */,
@@ -366,6 +372,7 @@
 				A77FB4480D685CF60095A7FD /* TTBalance.h in Headers */,
 				221DED1D0D6BC722000799BA /* TTMutex.h in Headers */,
 				22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */,
+				225384840D70DCA200E5E5FB /* TTThread.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +483,7 @@
 				221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */,
 				22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */,
 				2207735B0D70B71300AE077B /* TTList.cpp in Sources */,
+				225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
