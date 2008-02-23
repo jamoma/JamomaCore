@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2207735B0D70B71300AE077B /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207735A0D70B71300AE077B /* TTList.cpp */; };
 		221DED1D0D6BC722000799BA /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 221DED1C0D6BC722000799BA /* TTMutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221DED1E0D6BC739000799BA /* TTMutex.cpp */; };
 		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -87,6 +88,7 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		2207735A0D70B71300AE077B /* TTList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTList.cpp; path = ../source/core/TTList.cpp; sourceTree = SOURCE_ROOT; };
 		221DED1C0D6BC722000799BA /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = ../includes/core/TTMutex.h; sourceTree = SOURCE_ROOT; };
 		221DED1E0D6BC739000799BA /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = ../source/core/TTMutex.cpp; sourceTree = SOURCE_ROOT; };
 		22569C020D3E416200328864 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
@@ -192,8 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				08FB77AEFE84172EC02AAC07 /* Core */,
-				22FD31840CEE8EA80039C226 /* Unit-Headers */,
-				22D7F5EA0D10576E009E4AF4 /* Unit-Source */,
+				22FD31840CEE8EA80039C226 /* Units-Audio */,
+				22D7F5EA0D10576E009E4AF4 /* Units-Data */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -223,6 +225,7 @@
 				22569C050D3E416200328864 /* TTGlobal.h */,
 				22569C330D3E417E00328864 /* TTGlobal.cpp */,
 				22569C060D3E416200328864 /* TTList.h */,
+				2207735A0D70B71300AE077B /* TTList.cpp */,
 				221DED1C0D6BC722000799BA /* TTMutex.h */,
 				221DED1E0D6BC739000799BA /* TTMutex.cpp */,
 				22569C070D3E416200328864 /* TTObject.h */,
@@ -261,64 +264,64 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		22D7F5EA0D10576E009E4AF4 /* Unit-Source */ = {
+		22D7F5EA0D10576E009E4AF4 /* Units-Data */ = {
 			isa = PBXGroup;
 			children = (
-				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
-				22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */,
-				22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */,
-				22569C420D3E419300328864 /* TTCrossfade.cpp */,
-				22569C440D3E419300328864 /* TTDCBlock.cpp */,
-				22569C450D3E419300328864 /* TTDegrade.cpp */,
-				22569C460D3E419300328864 /* TTGain.cpp */,
-				A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */,
-				22569C470D3E419300328864 /* TTHighpassButterworth2.cpp */,
-				A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */,
-				A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */,
-				A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */,
-				22569C480D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp */,
-				22569C490D3E419300328864 /* TTLimiter.cpp */,
-				A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */,
-				A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */,
-				22569C4A0D3E419300328864 /* TTLowpassButterworth2.cpp */,
-				A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */,
-				A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */,
-				22569C4B0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp */,
-				22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */,
-				22569C4D0D3E419300328864 /* TTOverdrive.cpp */,
-				22569C4E0D3E419300328864 /* TTRamp.cpp */,
 			);
-			name = "Unit-Source";
+			name = "Units-Data";
 			sourceTree = "<group>";
 		};
-		22FD31840CEE8EA80039C226 /* Unit-Headers */ = {
+		22FD31840CEE8EA80039C226 /* Units-Audio */ = {
 			isa = PBXGroup;
 			children = (
 				A77FB4470D685CF60095A7FD /* TTBalance.h */,
+				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
+				22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */,
 				22569C140D3E416F00328864 /* TTBandpassButterworth2.h */,
+				22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */,
 				22569C150D3E416F00328864 /* TTBandrejectButterworth2.h */,
 				22569C160D3E416F00328864 /* TTCrossfade.h */,
+				22569C420D3E419300328864 /* TTCrossfade.cpp */,
 				22569C170D3E416F00328864 /* TTDCBlock.h */,
+				22569C440D3E419300328864 /* TTDCBlock.cpp */,
 				22569C180D3E416F00328864 /* TTDegrade.h */,
+				22569C450D3E419300328864 /* TTDegrade.cpp */,
 				22569C190D3E416F00328864 /* TTGain.h */,
+				22569C460D3E419300328864 /* TTGain.cpp */,
 				A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */,
+				A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */,
 				22569C1A0D3E416F00328864 /* TTHighpassButterworth2.h */,
+				22569C470D3E419300328864 /* TTHighpassButterworth2.cpp */,
 				A779B4A70D508E5200EAD135 /* TTHighpassButterworth3.h */,
+				A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */,
 				A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */,
+				A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */,
 				A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */,
+				A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */,
 				22569C1B0D3E416F00328864 /* TTHighpassLinkwitzRiley4.h */,
+				22569C480D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp */,
 				22569C1C0D3E416F00328864 /* TTLimiter.h */,
+				22569C490D3E419300328864 /* TTLimiter.cpp */,
 				A779B4370D507FB700EAD135 /* TTLowpassButterworth1.h */,
+				A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */,
 				22569C1D0D3E416F00328864 /* TTLowpassButterworth2.h */,
+				22569C4A0D3E419300328864 /* TTLowpassButterworth2.cpp */,
 				A779B4A60D508E5200EAD135 /* TTLowpassButterworth3.h */,
+				A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */,
 				A779B4BE0D509B6F00EAD135 /* TTLowpassButterworth4.h */,
+				A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */,
 				A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */,
+				A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */,
 				22569C1E0D3E416F00328864 /* TTLowpassLinkwitzRiley4.h */,
+				22569C4B0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp */,
 				22569C1F0D3E416F00328864 /* TTLowpassOnePole.h */,
+				22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */,
 				22569C200D3E416F00328864 /* TTOverdrive.h */,
+				22569C4D0D3E419300328864 /* TTOverdrive.cpp */,
 				22569C210D3E416F00328864 /* TTRamp.h */,
+				22569C4E0D3E419300328864 /* TTRamp.cpp */,
 			);
-			name = "Unit-Headers";
+			name = "Units-Audio";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,6 +475,7 @@
 				A77FB44A0D685D020095A7FD /* TTBalance.cpp in Sources */,
 				221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */,
 				22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */,
+				2207735B0D70B71300AE077B /* TTList.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
