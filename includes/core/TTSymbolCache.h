@@ -6,19 +6,19 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#ifndef __TT_VALUE_CACHE_H__
-#define __TT_VALUE_CACHE_H__
+#ifndef __TT_SYMBOL_CACHE_H__
+#define __TT_SYMBOL_CACHE_H__
 
-#include "TTValue.h"
-
-
-extern TTValue	kTTSym_processInPlace;
-extern TTValue	kTTSym_bypass;
-extern TTValue	kTTSym_sr;
-extern TTValue	kTTSym_maxNumChannels;
-extern TTValue	kTTSym_updateMaxNumChannels;
-extern TTValue	kTTSym_updateSr;
+#include "TTSymbol.h"
 
 
-#endif // __TT_VALUE_CACHE_H__
+extern TTSymbol	kTTSym_processInPlace;
+extern TTSymbol	kTTSym_bypass;
+extern TTSymbol	kTTSym_sr;
+extern TTSymbol	kTTSym_maxNumChannels;
+extern TTSymbol	kTTSym_updateMaxNumChannels;
+extern TTSymbol	kTTSym_updateSr;
+
+
+#endif // __TT_SYMBOL_CACHE_H__
 

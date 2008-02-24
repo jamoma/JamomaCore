@@ -9,10 +9,10 @@
 #include "TTValueCache.h"
 
 
-TTValue	kTTSym_processInPlace("processInPlace");
-TTValue	kTTSym_bypass("bypass");
-TTValue	kTTSym_sr("sr");
-TTValue	kTTSym_maxNumChannels("maxNumChannels");
-TTValue	kTTSym_updateMaxNumChannels("updateMaxNumChannels");
-TTValue	kTTSym_updateSr("updateSr");
+TTSymbol	kTTSym_processInPlace("processInPlace");
+TTSymbol	kTTSym_bypass("bypass");
+TTSymbol	kTTSym_sr("sr");
+TTSymbol	kTTSym_maxNumChannels("maxNumChannels");
+TTSymbol	kTTSym_updateMaxNumChannels("updateMaxNumChannels");
+TTSymbol	kTTSym_updateSr("updateSr");
 

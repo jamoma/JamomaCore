@@ -12,6 +12,12 @@
 		221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221DED1E0D6BC739000799BA /* TTMutex.cpp */; };
 		225384840D70DCA200E5E5FB /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 225384830D70DCA200E5E5FB /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225384850D70DCB600E5E5FB /* TTThread.cpp */; };
+		225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */; };
+		2253854A0D710FAF00E5E5FB /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385470D710FAF00E5E5FB /* TTQueue.cpp */; };
+		2253854B0D710FAF00E5E5FB /* TTBlue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385480D710FAF00E5E5FB /* TTBlue.cpp */; };
+		225385570D710FFF00E5E5FB /* TTSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385540D710FFF00E5E5FB /* TTSymbolCache.h */; };
+		225385580D710FFF00E5E5FB /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385550D710FFF00E5E5FB /* TTQueue.h */; };
+		225385590D710FFF00E5E5FB /* TTBlue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385560D710FFF00E5E5FB /* TTBlue.h */; };
 		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C030D3E416200328864 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0D0D3E416200328864 /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C040D3E416200328864 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -95,6 +101,12 @@
 		221DED1E0D6BC739000799BA /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = ../source/core/TTMutex.cpp; sourceTree = SOURCE_ROOT; };
 		225384830D70DCA200E5E5FB /* TTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTThread.h; path = ../includes/core/TTThread.h; sourceTree = SOURCE_ROOT; };
 		225384850D70DCB600E5E5FB /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = ../source/core/TTThread.cpp; sourceTree = SOURCE_ROOT; };
+		225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolCache.cpp; path = ../source/core/TTSymbolCache.cpp; sourceTree = SOURCE_ROOT; };
+		225385470D710FAF00E5E5FB /* TTQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTQueue.cpp; path = ../source/core/TTQueue.cpp; sourceTree = SOURCE_ROOT; };
+		225385480D710FAF00E5E5FB /* TTBlue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBlue.cpp; path = ../source/core/TTBlue.cpp; sourceTree = SOURCE_ROOT; };
+		225385540D710FFF00E5E5FB /* TTSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolCache.h; path = ../includes/core/TTSymbolCache.h; sourceTree = SOURCE_ROOT; };
+		225385550D710FFF00E5E5FB /* TTQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTQueue.h; path = ../includes/core/TTQueue.h; sourceTree = SOURCE_ROOT; };
+		225385560D710FFF00E5E5FB /* TTBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlue.h; path = ../includes/core/TTBlue.h; sourceTree = SOURCE_ROOT; };
 		22569C020D3E416200328864 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
 		22569C030D3E416200328864 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
 		22569C040D3E416200328864 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = ../includes/core/TTElement.h; sourceTree = SOURCE_ROOT; };
@@ -222,6 +234,8 @@
 				22569C300D3E417E00328864 /* TTAudioObject.cpp */,
 				22569C030D3E416200328864 /* TTAudioSignal.h */,
 				22569C310D3E417E00328864 /* TTAudioSignal.cpp */,
+				225385560D710FFF00E5E5FB /* TTBlue.h */,
+				225385480D710FAF00E5E5FB /* TTBlue.cpp */,
 				22C9B3C20D6F5429007A2946 /* TTDataObject.h */,
 				22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */,
 				22569C040D3E416200328864 /* TTElement.h */,
@@ -234,8 +248,12 @@
 				221DED1E0D6BC739000799BA /* TTMutex.cpp */,
 				22569C070D3E416200328864 /* TTObject.h */,
 				22569C340D3E417E00328864 /* TTObject.cpp */,
+				225385550D710FFF00E5E5FB /* TTQueue.h */,
+				225385470D710FAF00E5E5FB /* TTQueue.cpp */,
 				22569C080D3E416200328864 /* TTSymbol.h */,
 				22569C350D3E417E00328864 /* TTSymbol.cpp */,
+				225385540D710FFF00E5E5FB /* TTSymbolCache.h */,
+				225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */,
 				22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */,
 				22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */,
 				225384830D70DCA200E5E5FB /* TTThread.h */,
@@ -373,6 +391,9 @@
 				221DED1D0D6BC722000799BA /* TTMutex.h in Headers */,
 				22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */,
 				225384840D70DCA200E5E5FB /* TTThread.h in Headers */,
+				225385570D710FFF00E5E5FB /* TTSymbolCache.h in Headers */,
+				225385580D710FFF00E5E5FB /* TTQueue.h in Headers */,
+				225385590D710FFF00E5E5FB /* TTBlue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +505,9 @@
 				22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */,
 				2207735B0D70B71300AE077B /* TTList.cpp in Sources */,
 				225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */,
+				225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */,
+				2253854A0D710FAF00E5E5FB /* TTQueue.cpp in Sources */,
+				2253854B0D710FAF00E5E5FB /* TTBlue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
