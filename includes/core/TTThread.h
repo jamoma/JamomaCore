@@ -14,6 +14,9 @@
 
 /****************************************************************************************************/
 // Class Specification
+// Note, a good resource is here: https://computing.llnl.gov/tutorials/pthreads/#CreatingThreads
+
+typedef void*(*TTThreadCallbackType)(void* arg);
 
 /**
 	The TTThread class implements a cross-platform thread manager.
@@ -21,13 +24,29 @@
 */
 class TTThread : public TTElement {
 private:
-
+	pthread_t				thread;
+	TTThreadCallbackType	callback;	///< method called in the new thread when it starts
+	void*					argument;	///< argument passed to the callback
+	void*					status;
+	
 public:
-	TTThread();
+	TTThread(TTThreadCallbackType aCallback, void* anArgument);
 	virtual	~TTThread();
 
-	/** Tells the thread to go dormant for an amount of time specified in milliseconds */
+	/** Tells the calling thread to go dormant for an amount of time specified in milliseconds. */
 	static void sleep(TTUInt32 millisecondsToSleep);
+	
+	/** Tells the calling thread to wait for this thread to terminate before moving on.*/
+	void wait();
+	
+	/** This method is called in the new thread when the thread is created. */
+	void* doCallbackMethod();
+	
+	// make sure this is a friend so that it can access the private members of the other atom
+	friend bool operator == (const TTThread& thread1, const TTThread& thread2)
+	{
+		return pthread_equal(thread1.thread, thread2.thread);
+	}
 };
 
 
