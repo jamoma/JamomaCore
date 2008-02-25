@@ -33,20 +33,22 @@ TTUInt32 TTList::getSize()
 	
 
 /** return the number of values in the list. */
-TTValue* TTList::getHead()
+TTListItem* TTList::getHead(TTValue& headValue)
 {
-	return head->value;
+	headValue = head->value;
+	return head;
 }
 
 
 /** return the number of values in the list. */
-TTValue* TTList::getTail()
+TTListItem* TTList::getTail(TTValue& tailValue)
 {
-	return tail->value;
+	tailValue = tail->value;
+	return tail;
 }
-	
 
-void TTList::append(TTValue* newValue)
+
+void TTList::append(TTValue& newValue)
 {
 	;
 }
@@ -55,12 +57,12 @@ void TTList::append(TTValue* newValue)
 //	void insert(TTValue* newItem);
 
 /** remove a specified item. */
-void TTList::remove(TTValue* value)
+void TTList::remove(TTValue& value)
 {
 	TTListItem *item = NULL;
 
 	sListMutex.lock();
-	item = findFirst(value);
+	item = findFirst(&value);
 	if(item)
 		doRemove(item);
 	sListMutex.unlock();

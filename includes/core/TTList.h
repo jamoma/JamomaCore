@@ -41,19 +41,19 @@ public:
 	TTUInt32 getSize();
 	
 	/** return the number of values in the list. */
-	TTValue* getHead();
+	TTListItem* getHead(TTValue& headValue);
 	
 	/** return the number of values in the list. */
-	TTValue* getTail();
+	TTListItem* getTail(TTValue& tailValue);
 	
 	/** appends a value to the list. */
-	void append(TTValue* newValue);
+	void append(TTValue& newValue);
 
 // how to know where to insert it?	
 //	void insert(TTValue* newItem);
 
 	/** remove a specified item. */
-	void remove(TTValue* value);
+	void remove(TTValue& value);
 	void remove(TTListItem* item);
 	
 	/** remove all items from the list */

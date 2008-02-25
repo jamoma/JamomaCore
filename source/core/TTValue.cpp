@@ -448,6 +448,23 @@ TTValue::operator TTObject&() const
 	}
 }
 
+TTValue& TTValue::operator = (TTObject* value)
+{
+	*type = kTypeObject;
+	data->object = value;
+	return *this;
+}
+
+TTValue::operator TTObject*() const
+{
+	if(*type == kTypeObject)
+		return data->object;
+	else{
+		// TODO: This is an error, not sure what to do...
+		return data->object;
+	}
+}
+
 
 void TTValue::set(TTUInt16 index, const TTFloat32 newValue)
 {

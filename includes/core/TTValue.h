@@ -186,7 +186,8 @@ public:
 	// OBJECT
 	TTValue& operator = (TTObject& value);
 	operator TTObject&() const;
-
+	TTValue& operator = (TTObject* value);
+	operator TTObject*() const;
 
 	void set(TTUInt16 index, const TTFloat32 newValue);
 	void set(TTUInt16 index, const TTFloat64 newValue);
