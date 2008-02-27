@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf949
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf270
 {\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 LucidaGrande;
 }
 {\colortbl;\red255\green255\blue255;}
@@ -13,12 +13,30 @@
 \b Version 0.4
 \b0 .
 \b 6
-\b0  (? January 2008 - rev ?)\
+\b0  (26 February 2008 - rev 3080)\
 \
-\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\li720\fi-720\ql\qnatural
-\cf0 	\'95	Parameters and messages in the gui are now built-in to the hub.  This disables pattr support for the relevant parameters and messages.\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ql\qnatural
-\cf0 \
+* improvements to menu building functionality of jcom.map and jcom.ramp\
+* new rampunit: async \
+* new startup object: jcom.loader -- used to load the framework before anything else is loaded\
+* internal parameters and messages for the hub, that were previously in the gui for technical reasons, are now built-in to the hub. \
+* new dataspace libraries: distance, color, time, pitch, gain, angle, 3D position, none\
+* new gain mapping from midi to linear and db; MIDI mapping now have a headroom of +10dB, 100MIDI = 0dB, and MIDI is most sensitive at the top of the range.\
+* reactivation of the VBAP module \
+* fix for a crash found by Joseph during the Brussels workshop when you tried to turn on audio and un-mute a module with no audio inputs connected\
+* no longer crashes as per bug #1854416 reported by Pascal\
+* fix for SF#1850188 reported by Pascal\
+* new audio signal generator that use additive synthesis to create a signal with 10 harmonic partials.\
+* fixes for autodoc with regards to the new rampunit implementation in 0.4.5\
+* new Risset/Shepard glissando module \
+* /preset/interpolate now works with lists\
+* new 'default' attribute to jcom.parameter.  Everything still works the way it always has, but now we can define attributes in the parameter too.  In the event of a conflict between the parameter attribute and the default preset, the preset wins.\
+* removed error post if pattr-bundle isn't present.  use of pattr support is still functioning, but it is deprecated.\
+* added DC-blocker option to jmod.output~\
+* /preset/clear now calls the clear method rather than the default method, and thus does the right thing\
+* various optimizations\
+* added a help file for the doppler module\
+* Bug fix: Bug #1874189 -- audio/meter/clear should now work properly.\
+\
 \
 
 \b Version 0.4
