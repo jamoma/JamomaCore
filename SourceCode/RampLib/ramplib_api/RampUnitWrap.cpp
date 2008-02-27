@@ -113,7 +113,7 @@ fetchpointers:
 		rampunit_method_set						= (rampunit_method_set_type)					GetProcAddress((HMODULE)hLib, "set");
 		rampunit_method_stop					= (rampunit_method_stop_type)					GetProcAddress((HMODULE)hLib, "stop");
 		rampunit_method_tick					= (rampunit_method_tick_type)					GetProcAddress((HMODULE)hLib, "tick");
-		rampunit_method_setclock				= (rampunit_method_setclock_type)				GetProcAddress((HMODULE)hLib, "setclock");
+//		rampunit_method_setclock				= (rampunit_method_setclock_type)				GetProcAddress((HMODULE)hLib, "setclock");
 	}
 #endif
 
