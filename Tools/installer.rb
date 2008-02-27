@@ -115,6 +115,7 @@ cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/ramplib_windows\"")
 cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/Phidgets_win\"")
 cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/win-support\"")
 cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.zip")
+cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.dmg")
 
 puts "  Moving things around (framework, loader, templates, etc)..."
 cmd("cp \"#{@c74}/Jamoma/documentation/templates/\"* \"#{@max}/patches/templates\"")
