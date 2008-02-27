@@ -131,7 +131,7 @@ cmd("cp \"#{@svn_root}/Jamoma/GNU-LGPL.rtf\" \"#{@svn_root}/Installers/Jamoma/Li
 
 puts "  Building Package -- this could take a while..."
 cmd("rm -rfv \"#{@svn_root}/Installers/MacInstaller/Jamoma.pkg\"")
-cmd("/Developer/usr/bin/packagemaker --root \"#{@svn_root}/Installers/temp\" --id org.jamoma.jamoma --out \"#{@svn_root}/Installers/Jamoma/Jamoma.pkg\" --version #{@version} --title Jamoma --resources \"#{@svn_root}/Installers/resources\" --target 10.4 --domain system --root-volume-only")
+cmd("/Developer/usr/bin/packagemaker --verbose --root \"#{@svn_root}/Installers/temp\" --id org.jamoma.jamoma --out \"#{@svn_root}/Installers/Jamoma/Jamoma.pkg\" --version #{@version} --title Jamoma --resources \"#{@svn_root}/Installers/resources\" --target 10.4 --domain system --root-volume-only")
 
 # Warning: the zip thing seems to be a real problem on the Mac using OS 10.5 at least...  Renaming the zip ends up causing the install to fail
 #puts "  Zipping the Installer..."
