@@ -124,10 +124,10 @@ cmd("mv \"#{@c74}/Jamoma/library/externals/Jamoma.framework\" \"#{@temp}/Library
 cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/max-startup/\"")
 
 puts "  Copying readme, license, etc...."
-cmd("cp \"#{@svn_root}/Jamoma/ReadMe.html\" \"#{@svn_root}/Installers/resources\"")
-cmd("cp \"#{@svn_root}/Jamoma/ReadMe.html\" \"#{@svn_root}/Installers/Jamoma\"")
-cmd("cp \"#{@svn_root}/Jamoma/GNU-LGPL.txt\" \"#{@svn_root}/Installers/resources/License.txt\"")
-cmd("cp \"#{@svn_root}/Jamoma/GNU-LGPL.txt\" \"#{@svn_root}/Installers/Jamoma/License.txt\"")
+cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/resources\"")
+cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/Jamoma\"")
+cmd("cp \"#{@svn_root}/Jamoma/GNU-LGPL.rtf\" \"#{@svn_root}/Installers/resources/License.rtf\"")
+cmd("cp \"#{@svn_root}/Jamoma/GNU-LGPL.rtf\" \"#{@svn_root}/Installers/Jamoma/License.rtf\"")
 
 puts "  Building Package -- this could take a while..."
 cmd("rm -rfv \"#{@svn_root}/Installers/MacInstaller/Jamoma.pkg\"")
