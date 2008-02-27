@@ -26,7 +26,7 @@
       </Directory>
     </Directory>
 
-    <Feature Id='Complete' Title='Jamoma 0.4.2' Level='1' Description='Jamoma 0.4.2 for Max 4.6.x'
+    <Feature Id='Complete' Title='Jamoma 0.4.6' Level='1' Description='Jamoma 0.4.6 for Max 4.6.x'
 		>
 <!-- Display='expand' ConfigurableDirectory='INSTALLDIR' -->
         <ComponentGroupRef Id='group_JamomaC74'/>
