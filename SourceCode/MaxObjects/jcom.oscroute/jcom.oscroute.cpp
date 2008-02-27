@@ -166,17 +166,36 @@ void oscroute_list(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	outlet_list(x->outlet_overflow, _sym_list, argc , argv);
 }
 
-char* matchesWildcard(const char *msg, const char *arg, unsigned long len)
+void output_msg(t_oscroute *x, char *msg, int outlet, long argc, t_atom *argv)
 {
-	if(strncmp(msg, arg, len) == 0) 
-		return strstr((char*)msg, "/");	
-
-	return NULL;
-}
-
-inline int wildCardOffset(unsigned int numberOfWc)
-{
-	return 2 * numberOfWc;
+	t_symbol *output;
+	if(msg == '\0') {
+		
+		if (argc == 0) {
+			outlet_bang(x->outlets[outlet]);
+		} else if (argc==1) {
+		
+			if (argv->a_type==A_LONG) 
+				outlet_int(x->outlets[outlet],argv->a_w.w_long);				
+			else if (argv->a_type==A_FLOAT) 
+				outlet_float(x->outlets[outlet],argv->a_w.w_float);
+			else if (argv->a_type==A_SYM) 
+				outlet_anything(x->outlets[outlet],argv->a_w.w_sym,0,0);
+				
+		} else {
+			if (argv->a_type==A_SYM) {
+				output = argv->a_w.w_sym;
+				argc--;
+				argv++;
+			} else {
+				output = _sym_list;
+			}
+					
+			outlet_anything(x->outlets[outlet], output, argc, argv);
+		}				
+	} else 
+		outlet_anything(x->outlets[outlet], gensym(msg), argc, argv);
+	
 }
 
 // SYMBOL INPUT
@@ -208,7 +227,6 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	message = gensym(input);
 	
 	char *wc, *c;
-	int wcCount = 0;  // wild card count
 	bool overFlow = true;
 	for (i=0; i < x->num_args; i++) {
 		// Look for exact matches first.
@@ -268,41 +286,44 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 			}
 		}
 	}
+	
 	// If no exact matches, look for wildcards.
-	for (i=0; i < x->num_args; i++) {		
-		// Check to see if this argument has a wildcard
-		if(wc = strstr(x->arguments[i]->s_name, "/*")) {
-			if(*(wc+2) == '\0') {
-				// Wildcard follows parameter names, i.e. /fifth/moon/of/aragon/*
-				if(c = matchesWildcard(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1)) {
-					// Need to strip off preceeding part of message
-					char *temp = strstr(c+1, "/");
-					if(temp)
-						outlet_anything(x->outlets[i], gensym(temp), argc, argv);
+	for (i=0; i < x->num_args; i++) {	
+
+		if(wc = strstr(x->arguments[i]->s_name, "*")) {
+			// Does the argument have anything following the wildcard?
+			if(*(wc+1) == '\0') {
+				// Now compare the argument up to the asterisk to the message
+				if(strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1) == 0) {
+
+					// Increment string past everything that matches including the asterisk
+					char *temp = msg->s_name + (x->arglen[i] - 1);
+					// Check for a slash, an asterisk causes us to strip off everything up to the next slash
+					char *outMsg = strstr(temp, "/");
+					if(outMsg)
+						output_msg(x, outMsg, i, argc, argv);
+					else {
+						// no slash, output everything following the message
+						output_msg(x, NULL, i, argc, argv);
+					}
 					return;
 				} else {
 					// We break here because if the strncmp() fails it means we have a wildcard following an 
 					// OSC message i.e. /robot/* but the incoming message doesn't begin with /robot
-			//		break;
+					//break;
 				}
 			} else {
-				
-				while(wc && *(wc + 2) == '/') {
-					wcCount++;
-					// Skip to next potential wildcard
-					wc += 2;
-					wc = strstr(wc, "/*");
+				// There is no NULL char after asterisk
+				c = msg->s_name;
+				while(wc && *(wc) == '*') {
+					wc++;
+					c++;
 				}
-				c = msg->s_name + 1;
-				for(int skipCnt = 0; skipCnt < wcCount; ++skipCnt) {
-					c = strstr(c + 1, "/");
-				}
-				
-				if(c = matchesWildcard(c, x->arguments[i]->s_name + wildCardOffset(wcCount), strlen(c))) {
-					outlet_anything(x->outlets[i], gensym(c), argc, argv);
+					
+				c += strlen(c) - strlen(wc);
+				if(strncmp(c, wc, strlen(c)) == 0) {
+					output_msg(x, c, i, argc, argv);
 					return;
-				} else {
-					wcCount = 0;
 				}
 			}
 		} 
