@@ -17,7 +17,7 @@ static t_symbol *ps_clock;
 
 t_scheduler*	create(rampunit_method_callback_type in_callback, void *in_baton)
 {
-	t_atom	*argv;
+	t_atom argv;
 	
 	t_scheduler *rampunit = (t_scheduler *)malloc(sizeof(t_scheduler));
 	if(rampunit){
@@ -36,8 +36,8 @@ t_scheduler*	create(rampunit_method_callback_type in_callback, void *in_baton)
 		setnumvalues(rampunit, 1);
 		rampunit->value_current[0] = 0;
 
-		atom_setfloat(argv,20.0);
-		attrset(rampunit, ps_granularity, 1, argv);
+		atom_setfloat(&argv,20.0);
+		attrset(rampunit, ps_granularity, 1, &argv);
 		setFunction(rampunit, gensym("linear"));
 	}
 	return rampunit;
