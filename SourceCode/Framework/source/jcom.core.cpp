@@ -395,6 +395,7 @@ t_max_err jcom_core_attr_setrange(t_jcom_core_subscriber_extended *x, void *attr
 t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 2;
+	// FIXME: This checks if we have memory passed in, good, but how do we know if it is enough memory for 2 atoms? [TAP]
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);
 	//sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * 2);
