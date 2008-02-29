@@ -942,19 +942,8 @@ void hub_ui_freeze(t_hub *x, t_symbol*, long argc, t_atom *argv)
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == ps_subscribe_parameter) {
-			/* XXX 
-			 * Why is this if here?  Because it prevents crashes from occuring when you open and close
-			 * a module help patch a couple of times.  
-			 * 
-			 * Why it actually prevents us from crashing isn't completely clear though.  We really should
-			 * understand why this line prevents us from crashing.  Especially considering the
-			 * strangeness of the crash.  In the meantime, this will stop the crashes, but ultimately 
-			 * why should be understood since this crash may be indicative of some other bug.
-			 */
-			if(t->name != ps_ui_slash_freeze)
-				object_method_typed(t->object, ps_ui_slash_freeze, 1, argv, NULL);
-		}
+		if(t->type == ps_subscribe_parameter)
+			object_method_typed(t->object, ps_ui_slash_freeze, 1, argv, NULL);
 	}
 	critical_exit(0);
 }

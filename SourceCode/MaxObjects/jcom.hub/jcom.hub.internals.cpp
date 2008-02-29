@@ -110,8 +110,8 @@ void hub_internals_create(t_hub *x)
 void hub_internals_destroy(t_hub *x)
 {
 	long				i;
-	long				numKeys;
-	t_symbol			**keys;
+	long				numKeys = 0;
+	t_symbol			**keys = NULL;
 	hubInternalObject	*anObject;
 	t_max_err			err;
 	
@@ -121,6 +121,10 @@ void hub_internals_destroy(t_hub *x)
 		if(!err)
 			delete anObject;
 	}
+	/* XXX Should we free keys here since it's memory must have been alloced in hashtab_getkeys()?? */
+	//if(keys)
+	//	sysmem_freeptr(keys);
+		
 	hashtab_chuck(x->hash_internals);
 }
 
