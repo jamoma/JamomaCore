@@ -121,9 +121,9 @@ void hub_internals_destroy(t_hub *x)
 		if(!err)
 			delete anObject;
 	}
-	/* XXX Should we free keys here since it's memory must have been alloced in hashtab_getkeys()?? */
-	//if(keys)
-	//	sysmem_freeptr(keys);
+
+	if(keys)
+		sysmem_freeptr(keys);
 		
 	hashtab_chuck(x->hash_internals);
 }
