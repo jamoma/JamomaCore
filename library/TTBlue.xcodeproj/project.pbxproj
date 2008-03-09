@@ -300,10 +300,10 @@
 			children = (
 				A77FB4470D685CF60095A7FD /* TTBalance.h */,
 				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
-				22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */,
 				22569C140D3E416F00328864 /* TTBandpassButterworth2.h */,
-				22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */,
+				22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */,
 				22569C150D3E416F00328864 /* TTBandrejectButterworth2.h */,
+				22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */,
 				22569C160D3E416F00328864 /* TTCrossfade.h */,
 				22569C420D3E419300328864 /* TTCrossfade.cpp */,
 				22569C170D3E416F00328864 /* TTDCBlock.h */,

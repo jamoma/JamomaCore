@@ -150,7 +150,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 TTErr TTLimiter::setMode(TTValue& newValue)
 {
 	attrMode = newValue;
-	if(attrMode == &TT("linear"))
+	if(attrMode == TT("linear"))
 		isLinear = true;
 	else
 		isLinear = false;
@@ -191,7 +191,7 @@ TTErr TTLimiter::clear()
 void TTLimiter::setRecover()
 {
 	recover = 1000.0 / (attrRelease * sr);		
-	if(attrMode == &TT("linear"))
+	if(attrMode == TT("linear"))
 		recover = recover * 0.5;
 	else 
 		recover = recover * 0.707;

@@ -45,9 +45,9 @@ TTErr TTCrossfade::setMode(const TTValue& newValue)
 
 TTErr TTCrossfade::setProcessPointers()
 {
-	if(attrShape == &TT("equalPower") && attrMode == &TT("lookup"))
+	if(attrShape == TT("equalPower") && attrMode == TT("lookup"))
 		return setProcess((TTProcessMethod)&TTCrossfade::processLookup);
-	else if(attrShape == &TT("equalPower") && attrMode == &TT("calculate"))
+	else if(attrShape == TT("equalPower") && attrMode == TT("calculate"))
 		return setProcess((TTProcessMethod)&TTCrossfade::processCalc);
 	else
 		return setProcess((TTProcessMethod)&TTCrossfade::processLinear);
