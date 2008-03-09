@@ -12,7 +12,7 @@
 /****************************************************************************************************/
 
 TTAudioSignal::TTAudioSignal(TTUInt8 initialMaxNumChannels)
-	: vs(0), maxNumChannels(0), numChannels(0), sampleVectors(NULL)
+	: isLocallyOwned(false), vs(0), maxNumChannels(0), numChannels(0), sampleVectors(NULL)
 {
 	TTUInt8	i;
 
@@ -25,15 +25,51 @@ TTAudioSignal::TTAudioSignal(TTUInt8 initialMaxNumChannels)
 
 TTAudioSignal::~TTAudioSignal()
 {
+	TTUInt32	i;
+
+	if(isLocallyOwned){
+		for(i=0; i<maxNumChannels; i++){
+			free(sampleVectors[i]);
+			sampleVectors[i] = NULL;
+		}
+		isLocallyOwned = false;
+	}
 	free(sampleVectors);
 }
 
 
 TTErr TTAudioSignal::setVector(TTUInt8 channel, TTSampleVector newVector)
 {
+	TTUInt32	i;
+	
 	// could check against maxnumchannels here
+
+	if(isLocallyOwned){
+		for(i=0; i<maxNumChannels; i++){
+			free(sampleVectors[i]);
+			sampleVectors[i] = NULL;
+		}
+		isLocallyOwned = false;
+	}
 	sampleVectors[channel] = newVector;
-	return 0;
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioSignal::alloc()
+{
+	TTUInt32	i;
+
+	if(isLocallyOwned){
+		for(i=0; i<maxNumChannels; i++){
+			free(sampleVectors[i]);
+			sampleVectors[i] = NULL;
+		}
+	}
+	for(i=0; i<maxNumChannels; i++)
+		sampleVectors[i] = (TTSampleVector)malloc(sizeof(TTSampleValue) * vs);
+	isLocallyOwned = true;
+	return kTTErrNone;
 }
 
 

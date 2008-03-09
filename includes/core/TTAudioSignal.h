@@ -22,9 +22,18 @@
  *	speed in cases where efficiency is of the utmost importance.
 */
 class TTAudioSignal : TTElement {
-public:
-	TTUInt16		vs;					///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
+private:
+	enum{
+		kExternallyOwned = 0,
+		kLocallyOwned = 1
+	};
+
+	TTBoolean		isLocallyOwned;
 	TTUInt16		maxNumChannels;		///< The number of audio channels for which memory has been allocated.
+
+public:
+
+	TTUInt16		vs;					///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
 	TTUInt16		numChannels;		///< The number of audio channels that have valid sample values stored in them.
 	TTSampleVector	*sampleVectors;		///< An array of pointers to the first sample in each vector.
 
@@ -46,6 +55,10 @@ public:
 	 *	@param		newVector		A pointer to the first sample in a vector of samples.
 	 *	@result		An error code.																 */
 	TTErr setVector(TTUInt8 channel, TTSampleVector newVector);
+	
+	/**	Allocate memory for all channels at the current vectorsize.
+	*/
+	TTErr alloc();
 	
 	/** Use this class method to determine the least number of channels the two signals have in common.
 	 *	In cases where a processAudio method expects to have a matching number of audio inputs and outputs,
