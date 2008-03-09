@@ -5,7 +5,7 @@ use strict;
 die "$0: Must be run from Xcode" unless $ENV{"BUILT_PRODUCTS_DIR"};
 
 # Get the current subversion revision number and use it to set the CFBundleVersion value
-my $REV = `/usr/local/bin/svnversion -n ./`;
+my $REV = `svnversion -n ./`;
 my $INFO = "$ENV{BUILT_PRODUCTS_DIR}/$ENV{WRAPPER_NAME}/Contents/Info.plist";
 
 my $version = $REV;
