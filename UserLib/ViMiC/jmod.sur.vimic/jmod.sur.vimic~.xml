@@ -130,6 +130,7 @@
     <item name='microphones/9/position/xyz' type='msg_list' priority='81'>0.000000 0.000000 0.000000 </item>
     <item name='microphones/amount' type='msg_int' priority='301'>8</item>
     <item name='microphones/directivity/power' type='msg_int' priority='0'>1</item>
+	<item name='microphones/polarity' type='msg_toggle' priority='0'>1</item> 
     <item name='rendermode/interval' type='msg_int' priority='0'>50</item>
     <item name='rendermode/normalization/active' type='msg_toggle' priority='0'>0</item>
     <item name='rendermode/threshold/active' type='msg_toggle' priority='0'>0</item>
