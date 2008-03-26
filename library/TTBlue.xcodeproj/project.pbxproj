@@ -71,6 +71,8 @@
 		22E6CDEF0D4D067A00DA75EE /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */; };
 		22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
+		55332A6D0D9264AD00597792 /* TTAdsr.h in Headers */ = {isa = PBXBuildFile; fileRef = 55332A6C0D9264AD00597792 /* TTAdsr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		55332A6F0D9264B700597792 /* TTAdsr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55332A6E0D9264B700597792 /* TTAdsr.cpp */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		A779B3D00D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A779B3D20D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -160,6 +162,8 @@
 		22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolTable.cpp; path = ../source/core/TTSymbolTable.cpp; sourceTree = SOURCE_ROOT; };
 		22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = ../includes/core/TTSymbolTable.h; sourceTree = SOURCE_ROOT; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		55332A6C0D9264AD00597792 /* TTAdsr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAdsr.h; path = ../includes/units/TTAdsr.h; sourceTree = SOURCE_ROOT; };
+		55332A6E0D9264B700597792 /* TTAdsr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAdsr.cpp; path = ../source/units/TTAdsr.cpp; sourceTree = SOURCE_ROOT; };
 		8DC2EF5B0486A6940098B216 /* TTBlue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TTBlue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassLinkwitzRiley2.h; path = ../includes/units/TTHighpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
 		A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassLinkwitzRiley2.h; path = ../includes/units/TTLowpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
@@ -298,6 +302,8 @@
 		22FD31840CEE8EA80039C226 /* Units-Audio */ = {
 			isa = PBXGroup;
 			children = (
+				55332A6E0D9264B700597792 /* TTAdsr.cpp */,
+				55332A6C0D9264AD00597792 /* TTAdsr.h */,
 				A77FB4470D685CF60095A7FD /* TTBalance.h */,
 				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
 				22569C140D3E416F00328864 /* TTBandpassButterworth2.h */,
@@ -394,6 +400,7 @@
 				225385570D710FFF00E5E5FB /* TTSymbolCache.h in Headers */,
 				225385580D710FFF00E5E5FB /* TTQueue.h in Headers */,
 				225385590D710FFF00E5E5FB /* TTBlue.h in Headers */,
+				55332A6D0D9264AD00597792 /* TTAdsr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +515,7 @@
 				225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */,
 				2253854A0D710FAF00E5E5FB /* TTQueue.cpp in Sources */,
 				2253854B0D710FAF00E5E5FB /* TTBlue.cpp in Sources */,
+				55332A6F0D9264B700597792 /* TTAdsr.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
