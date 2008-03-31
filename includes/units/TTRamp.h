@@ -22,10 +22,10 @@ private:
 	};
 	
 	TTSymbol			attrMode;				///< mode: sample_accurate or vector_accurate
-	TTFloat32 			attrRampTime;			///< ramp time in milliseconds
+	TTFloat64 			attrRampTime;			///< ramp time in milliseconds
 	TTUInt32			rampSamples;			///< ramp time in samples
-	TTFloat32			attrCurrentValue;		///< 
-	TTFloat32			attrDestinationValue;	///< 
+	TTFloat64			attrCurrentValue;		///< 
+	TTFloat64			attrDestinationValue;	///< 
 	TTFloat64			step;					///< 
 	TTBoolean			direction;				///< 0 = ramp up, 1 = ramp down
 

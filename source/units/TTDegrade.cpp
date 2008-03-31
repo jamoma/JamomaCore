@@ -18,7 +18,7 @@ TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
 {
 	// register attributes
 	registerAttribute(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTSetterMethod)&TTDegrade::setBitdepth);
-	registerAttribute(TT("srRatio"),	kTypeFloat32,	&attrSrRatio);
+	registerAttribute(TT("srRatio"),	kTypeFloat64,	&attrSrRatio);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDegrade::updateMaxNumChannels);
@@ -77,7 +77,7 @@ TTErr TTDegrade::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--){
 			// SampeRate Reduction

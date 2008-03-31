@@ -30,12 +30,12 @@ private:
 
 	TTBoolean		isLocallyOwned;
 	TTUInt16		maxNumChannels;		///< The number of audio channels for which memory has been allocated.
-
-public:
-
 	TTUInt16		vs;					///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
 	TTUInt16		numChannels;		///< The number of audio channels that have valid sample values stored in them.
-	TTSampleVector	*sampleVectors;		///< An array of pointers to the first sample in each vector.
+	TTUInt8			bitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
+
+public:
+	TTSampleVector	*sampleVectors;		///< An array of pointers to the first sample in each vector. Declared Public for fast access.
 
 	/** Constructor.  Defines a maximum number of audio channels that can be used. */
 	TTAudioSignal(TTUInt8 initialMaxNumChannels);
@@ -52,10 +52,25 @@ public:
 	 *	It is the responsibility of the user of this method to ensure that the sample-rate and vector-size
 	 *	are also set correctly.
 	 *	@param		channel			The channel number (zero-based) to assign the vector to.
+	 *	@param		vectorSize		The number of samples in the vector.
 	 *	@param		newVector		A pointer to the first sample in a vector of samples.
 	 *	@result		An error code.																 */
-	TTErr setVector(TTUInt8 channel, TTSampleVector newVector);
+	TTErr setVector(TTUInt8 channel, TTUInt16 vectorSize, TTSampleVector newVector);
 	
+	/**	This version handles vector assignments from 32-bit vectors.
+	*/
+	TTErr setVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32*		newVector);
+	
+	TTUInt16 getVectorSize()
+	{
+		return vs;
+	}
+	
+	TTUInt8 getNumChannels()
+	{
+		return numChannels;
+	}
+
 	/**	Allocate memory for all channels at the current vectorsize.
 	*/
 	TTErr alloc();
@@ -74,7 +89,7 @@ public:
 	 *  or required to have the same number of channels.
 	 *	@param		signal			The signal that we want to investigate.
 	 *	@return		The number of channels of the signal.		*/
-	static TTUInt16 getNumChannels(TTAudioSignal& signal);
+	static TTUInt8 getNumChannels(TTAudioSignal& signal);
 
 };
 

@@ -43,12 +43,15 @@ typedef signed long			TTInt32;
 typedef unsigned long		TTUInt32;
 typedef signed long long	TTInt64;
 typedef unsigned long long	TTUInt64;
+// NOTE: On Windows we might need to do the following if we want to compile with Visual Studio:
+//  typedef __int64				TTInt64;
+//  typedef unsigned __int64	TTUInt64;
 
 typedef float				TTFloat32;
 typedef double				TTFloat64;
 
 /** A value representing a single audio sample.  TTSampleValue should be used any place a sample value is what the value represents.  This will enable us to change the type in the future if needed.  For example, to use 64-bit floats. */
-typedef float				TTSampleValue;
+typedef TTFloat64			TTSampleValue;
 /** A TTSampleVector is simply a pointer to the first of an array of TTSampleValues. */
 typedef TTSampleValue*		TTSampleVector;
 

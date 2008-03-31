@@ -39,8 +39,8 @@ private:
 protected:
 	static TTUInt32		globalSr;				///< Current sample rate as understood by the environment as a whole
 	TTUInt32			sr;						///< Current sample rate being used by this object
-	TTFloat32			srInv;					///< 1.0 over the current sample rate (inverse)
-	TTFloat32			srMill;					///< 1/1000 of the current sample rate (samples per millisecond)
+	TTFloat64			srInv;					///< 1.0 over the current sample rate (inverse)
+	TTFloat64			srMill;					///< 1/1000 of the current sample rate (samples per millisecond)
 	TTUInt8				maxNumChannels;			///< This is the maximum number of channels that can be guaranteed to work
 	TTBoolean			attrProcessInPlace;		///< This flag indicates that the object should process the samples "in-place", such that the processed samples are actually in the input
 	TTBoolean			attrBypass;				///< Are we bypassing the processMethod?
@@ -103,20 +103,20 @@ public:
 	TTFloat64 radiansToDegrees(const TTFloat64 radians);
 
 	/** Decay Time (seconds) to feedback coefficient conversion */
-	TTFloat32 decayToFeedback(const TTFloat32 decay_time, TTFloat32 delay);
+	TTFloat32 decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay);
 
 	/** Return the decay time based on the feedback coefficient */
-	TTFloat32 feedbackToDecay(const TTFloat32 feedback, const TTFloat32 delay);
+	TTFloat32 feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay);
 
 	/** Convert linear amplitude into deciBels.*/
-	TTFloat32 linearToDb(const TTFloat32 value);
+	TTFloat32 linearToDb(const TTFloat64 value);
 
 	/** Convert deciBels into linear ampliude.*/
-	TTFloat32 dbToLinear(TTFloat32 value);
+	TTFloat32 dbToLinear(TTFloat64 value);
 
 	/** An idiosyncratic utility for slightly randomizing a number. 
 		Specifically this is used in applications such as randoming delay times for a reverb. */
-	TTFloat32 deviate(TTFloat32 value);
+	TTFloat32 deviate(TTFloat64 value);
 
 	/** Generate the next prime number higher than the value passed in.*/
 	TTUInt32 prime(TTUInt32 value);

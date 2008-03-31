@@ -141,7 +141,7 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		inSampleA = in.sampleVectors[channel];
 		inSampleB = in.sampleVectors[channel+numChannels];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){

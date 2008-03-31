@@ -71,7 +71,7 @@ TTErr TTDCBlock::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--){
 			temp = *inSample++;

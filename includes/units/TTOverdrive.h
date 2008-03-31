@@ -18,11 +18,11 @@
  */ 
 class TTOverdrive : public TTAudioObject {
 private:
-	TTFloat32			attrDrive;		///< 
+	TTFloat64			attrDrive;		///< 
 	TTBoolean			attrDCBlocker;	///< 
 	TTUInt8				attrMode;		///< 
-	TTFloat32			attrPreamp;		///< linear gain for preamp (attr setter sets it in dB)
-	TTFloat32			s, 
+	TTFloat64			attrPreamp;		///< linear gain for preamp (attr setter sets it in dB)
+	TTFloat64			s, 
 						b, 
 						nb, 
 						z, 

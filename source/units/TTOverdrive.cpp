@@ -12,10 +12,10 @@
 TTOverdrive::TTOverdrive(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("audio.overdrive", newMaxNumChannels)
 {
-	registerAttribute(TT("drive"),		kTypeFloat32,	&attrDrive,		(TTSetterMethod)&TTOverdrive::setDrive);
+	registerAttribute(TT("drive"),		kTypeFloat64,	&attrDrive,		(TTSetterMethod)&TTOverdrive::setDrive);
 	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker, (TTSetterMethod)&TTOverdrive::setDCBlocker);
 	registerAttribute(TT("mode"),		kTypeUInt8,		&attrMode,		(TTSetterMethod)&TTOverdrive::setMode);
-	registerAttribute(TT("preamp"),		kTypeFloat32,	&attrPreamp,	(TTGetterMethod)&TTOverdrive::getPreamp, (TTSetterMethod)&TTOverdrive::setPreamp);
+	registerAttribute(TT("preamp"),		kTypeFloat64,	&attrPreamp,	(TTGetterMethod)&TTOverdrive::getPreamp, (TTSetterMethod)&TTOverdrive::setPreamp);
 	
 	// make the clear method available to be called:
 	registerMessage(TT("clear"), (TTMethod)&TTOverdrive::clear);	
@@ -47,8 +47,8 @@ TTErr TTOverdrive::updateMaxNumChannels()
 
 TTErr TTOverdrive::setDrive(const TTValue& newValue)
 {
-	float 	f;
-	int		i;
+	TTFloat64 	f;
+	int			i;
 		
 	attrDrive = TTClip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
 
@@ -57,7 +57,7 @@ TTErr TTOverdrive::setDrive(const TTValue& newValue)
 	z = kTTPi * f;
 	s = 1.0 / sin(z);
 	b = 1.0 / f;
-	b = TTClip(b, 0.0f, 1.0f);
+	b = TTClip(b, 0.0, 1.0);
 	nb = b * -1;
 	i = int(f);
 	if(f-i > 0.5) 
@@ -121,7 +121,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--){
 			temp = *inSample++ * attrPreamp;
@@ -159,7 +159,7 @@ TTErr TTOverdrive::processMode1(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--){
 			temp = *inSample++ * attrPreamp;			

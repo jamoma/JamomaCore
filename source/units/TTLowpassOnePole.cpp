@@ -85,7 +85,7 @@ TTErr TTLowpassOnePole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){

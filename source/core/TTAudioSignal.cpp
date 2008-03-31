@@ -38,12 +38,15 @@ TTAudioSignal::~TTAudioSignal()
 }
 
 
-TTErr TTAudioSignal::setVector(TTUInt8 channel, TTSampleVector newVector)
+TTErr TTAudioSignal::setVector(TTUInt8 channel, TTUInt16 vectorSize, TTSampleVector newVector)
 {
 	TTUInt32	i;
 	
 	// could check against maxnumchannels here
-
+	
+	bitdepth = 64;
+	vs = vectorSize;
+	
 	if(isLocallyOwned){
 		for(i=0; i<maxNumChannels; i++){
 			free(sampleVectors[i]);
@@ -52,6 +55,40 @@ TTErr TTAudioSignal::setVector(TTUInt8 channel, TTSampleVector newVector)
 		isLocallyOwned = false;
 	}
 	sampleVectors[channel] = newVector;
+	return kTTErrNone;
+}
+
+
+/*
+	It sucks if someone sets a 32-bit audio vector, since we have translate it into a 64-bit buffer.
+	There may be a better way to do this...
+	
+	For now, we don't simply reference the data passed in.  Instead we allocate our own buffer and copy the data.
+	Unfortunately, this is very slow.
+	
+	Also note that we are relying on the vector size already being set!
+	
+	If we passed the vs in to this method, we could avoid having to realloc the memory every single time.
+	This would probably be a very good idea.
+*/
+TTErr TTAudioSignal::setVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* newVector)
+{
+	TTUInt32	i;
+	
+	// 1. could check against maxnumchannels here
+
+	// 2. allocate the vector if need be
+	if(bitdepth != 32 || !isLocallyOwned || vectorSize != vs)
+	{
+		bitdepth = 32;
+		vs = vectorSize;
+		alloc();
+	}
+	
+	// 3. copy the vector (from 32-bits to 64-bits)
+	for(i=0; i<vectorSize; i++)
+		sampleVectors[channel][i] = newVector[i];
+	
 	return kTTErrNone;
 }
 
@@ -82,7 +119,7 @@ TTUInt16 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal
 }
 
 
-TTUInt16 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
+TTUInt8 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
 {
 	return signal.numChannels;
 }

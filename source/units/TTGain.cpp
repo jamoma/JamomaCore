@@ -12,7 +12,7 @@
 TTGain::TTGain(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("audio.gain", newMaxNumChannels)
 {
-	registerAttribute(TT("linearGain"),	kTypeFloat32,	&gain);
+	registerAttribute(TT("linearGain"),	kTypeFloat64,	&gain);
 	registerAttribute(TT("gain"),		kTypeInt32,		NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
 
 	// Set Defaults...
@@ -52,7 +52,7 @@ TTErr TTGain::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--)
 			*outSample++ = (*inSample++) * gain;

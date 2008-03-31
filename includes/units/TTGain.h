@@ -15,7 +15,7 @@
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
 class TTGain : public TTAudioObject {
 private:
-	TTFloat32		gain;	///< linear gain to be applied to the input signal
+	TTFloat64		gain;	///< linear gain to be applied to the input signal
 
 	/** setter for converting gain input from db to linear. */
 	TTErr setGain(const TTValue& newValue);

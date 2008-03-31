@@ -6,15 +6,15 @@ TTAdsr::TTAdsr(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("audio.adsr", newMaxNumChannels), output(0.), output_db(NOISE_FLOOR), trigger(false), 
 	eg_state(k_eg_inactive)
 {
-	registerAttribute(TT("attack"), kTypeFloat32, NULL, (TTGetterMethod)&TTAdsr::getAttack, 
+	registerAttribute(TT("attack"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getAttack, 
 		(TTSetterMethod)&TTAdsr::setAttack);
-	registerAttribute(TT("decay"), kTypeFloat32, NULL, (TTGetterMethod)&TTAdsr::getDecay, 
+	registerAttribute(TT("decay"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getDecay, 
 		(TTSetterMethod)&TTAdsr::setDecay);
-	registerAttribute(TT("release"), kTypeFloat32, NULL, (TTGetterMethod)&TTAdsr::getRelease, 
+	registerAttribute(TT("release"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getRelease, 
 		(TTSetterMethod)&TTAdsr::setRelease);
-	registerAttribute(TT("sustain"), kTypeFloat32, NULL, (TTGetterMethod)&TTAdsr::getSustainAmp, 
+	registerAttribute(TT("sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainAmp, 
 		(TTSetterMethod)&TTAdsr::setSustainAmp);
-	registerAttribute(TT("sustain_db"), kTypeFloat32, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, 
+	registerAttribute(TT("sustain_db"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, 
 		(TTSetterMethod)&TTAdsr::setSustainDb);
 	registerAttribute(TT("trigger"), kTypeBoolean, &trigger);
 	
@@ -137,7 +137,7 @@ TTErr TTAdsr::processAudio(TTAudioSignal& out)
 TTErr TTAdsr::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue *inSample, *outSample;
-	short vs = in.vs;
+	short vs = in.getVectorSize();
 
 	inSample = in.sampleVectors[0];
 	outSample = out.sampleVectors[0];

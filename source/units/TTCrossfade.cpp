@@ -12,7 +12,7 @@
 TTCrossfade::TTCrossfade(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("audio.crossfade", newMaxNumChannels)
 {
-	registerAttribute(TT("position"),	kTypeFloat32,	&attrPosition);
+	registerAttribute(TT("position"),	kTypeFloat64,	&attrPosition);
 	registerAttribute(TT("shape"),		kTypeSymbol,	&attrShape,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setShape);
 	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setMode);
 
@@ -60,17 +60,17 @@ TTErr TTCrossfade::processLinear(TTAudioSignal& in, TTAudioSignal& out)
 	TTSampleValue	*inSampleA,
 					*inSampleB,
 					*outSample;
-	short			numchannels = out.numChannels;
+	short			numchannels = out.getNumChannels();
 	short			channel;
 	
-	if(in.numChannels != out.numChannels*2)
+	if(in.getNumChannels() != out.getNumChannels()*2)
 		return kTTErrGeneric;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSampleA = in.sampleVectors[channel];
 		inSampleB = in.sampleVectors[numchannels+channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--)
 			*outSample++ = (*inSampleB++ * attrPosition) + (*inSampleA++ * (1.0 - attrPosition));
@@ -85,18 +85,18 @@ TTErr TTCrossfade::processLookup(TTAudioSignal& in, TTAudioSignal& out)
 	TTSampleValue	*inSampleA,
 					*inSampleB,
 					*outSample;
-	short			numchannels = out.numChannels;
+	short			numchannels = out.getNumChannels();
 	short			channel;
 	int				index;
 	
-	if(in.numChannels != out.numChannels*2)
+	if(in.getNumChannels() != out.getNumChannels()*2)
 		return kTTErrGeneric;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSampleA = in.sampleVectors[channel];
 		inSampleB = in.sampleVectors[numchannels+channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--){
 			index = (int)(attrPosition * 511.0);
@@ -113,17 +113,17 @@ TTErr TTCrossfade::processCalc(TTAudioSignal& in, TTAudioSignal& out)
 	TTSampleValue	*inSampleA,
 					*inSampleB,
 					*outSample;
-	short			numchannels = out.numChannels;
+	short			numchannels = out.getNumChannels();
 	short			channel;
 	
-	if(in.numChannels != out.numChannels*2)
+	if(in.getNumChannels() != out.getNumChannels()*2)
 		return kTTErrGeneric;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSampleA = in.sampleVectors[channel];
 		inSampleB = in.sampleVectors[numchannels+channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
+		vs = in.getVectorSize();
 		
 		while(vs--)
 			*outSample++ = (*inSampleB++ * (sin(attrPosition * 1.5707963))) + (*inSampleA++ * (sin((1 - attrPosition) * 1.5707963)));

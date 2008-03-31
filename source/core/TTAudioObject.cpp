@@ -65,8 +65,7 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
-		vs = in.vs;
-
+		vs = in.getVectorSize();
 		while(vs--)
 			*outSample++ = *inSample++;
 	}
@@ -138,7 +137,7 @@ TTFloat64 TTAudioObject::radiansToDegrees(const TTFloat64 radians)
 
 
 // Decay Time (seconds) to feedback coefficient conversion
-TTFloat32 TTAudioObject::decayToFeedback(const TTFloat32 decay_time, TTFloat32 delay)
+TTFloat32 TTAudioObject::decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay)
 {
 	TTFloat32 	fb;
 		
@@ -158,7 +157,7 @@ TTFloat32 TTAudioObject::decayToFeedback(const TTFloat32 decay_time, TTFloat32 d
 }
 
 // return the decay time based on the feedback coefficient
-TTFloat32 TTAudioObject::feedbackToDecay(const TTFloat32 feedback, const TTFloat32 delay)
+TTFloat32 TTAudioObject::feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay)
 {
 	float 	decay_time;
 	
@@ -182,7 +181,7 @@ TTFloat32 TTAudioObject::feedbackToDecay(const TTFloat32 feedback, const TTFloat
 // ************* DECIBEL CONVERSIONS **************
 
 // Amplitude to decibels
-TTFloat32 TTAudioObject::linearToDb(const TTFloat32 value)
+TTFloat32 TTAudioObject::linearToDb(const TTFloat64 value)
 {
 	if(value >= 0) 
 		return(20. * (log10(value)));
@@ -191,14 +190,14 @@ TTFloat32 TTAudioObject::linearToDb(const TTFloat32 value)
 }
 
 // Decibels to amplitude
-TTFloat32 TTAudioObject::dbToLinear(TTFloat32 value)
+TTFloat32 TTAudioObject::dbToLinear(TTFloat64 value)
 {
 	return(pow(10., (value / 20.)));
 }
 
 
 // Deviate
-TTFloat32 TTAudioObject::deviate(TTFloat32 value)
+TTFloat32 TTAudioObject::deviate(TTFloat64 value)
 {
 	value += (2.0 * (TTFloat32(rand()) / TTFloat32(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
 	value = value * 0.001 * sr;											// convert from ms to samples

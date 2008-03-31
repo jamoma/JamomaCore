@@ -20,7 +20,7 @@
  */
 class TTCrossfade : public TTAudioObject {
 private:
-	TTFloat32		attrPosition;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
+	TTFloat64		attrPosition;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
 	TTSymbol		attrShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
 	TTSymbol		attrMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
 

@@ -14,11 +14,11 @@ TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	lookaheadBuffer(NULL), gain(NULL), maxBufferSize(256)
 {
 	// register our attributes
-	registerAttribute(TT("preamp"),		kTypeFloat32,	&attrPreamp,	(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
-	registerAttribute(TT("postamp"),	kTypeFloat32,	&attrPostamp,	(TTGetterMethod)&TTLimiter::getPostamp,		(TTSetterMethod)&TTLimiter::setPostamp);
-	registerAttribute(TT("threshold"),	kTypeFloat32,	&attrThreshold,	(TTGetterMethod)&TTLimiter::getThreshold,	(TTSetterMethod)&TTLimiter::setThreshold);
+	registerAttribute(TT("preamp"),		kTypeFloat64,	&attrPreamp,	(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
+	registerAttribute(TT("postamp"),	kTypeFloat64,	&attrPostamp,	(TTGetterMethod)&TTLimiter::getPostamp,		(TTSetterMethod)&TTLimiter::setPostamp);
+	registerAttribute(TT("threshold"),	kTypeFloat64,	&attrThreshold,	(TTGetterMethod)&TTLimiter::getThreshold,	(TTSetterMethod)&TTLimiter::setThreshold);
 	registerAttribute(TT("lookahead"),	kTypeUInt32,	&attrLookahead, (TTSetterMethod)&TTLimiter::setLookahead);
-	registerAttribute(TT("release"),	kTypeFloat32,	&attrRelease,	(TTSetterMethod)&TTLimiter::setRelease);
+	registerAttribute(TT("release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTLimiter::setRelease);
 	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTLimiter::setMode);
 	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
 
@@ -213,7 +213,7 @@ void TTLimiter::setRecover()
 */
 TTErr TTLimiter::processNormal(TTAudioSignal& in, TTAudioSignal& out)
 {
-	TTUInt32		vs = in.vs;
+	TTUInt32		vs = in.getVectorSize();
 	TTUInt32		i;
 	TTSampleValue	*inSample,
 					*outSample;
