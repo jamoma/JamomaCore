@@ -93,6 +93,23 @@ TTErr TTAudioSignal::setVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* 
 }
 
 
+TTErr TTAudioSignal::getVector(TTUInt8 channel, TTUInt16 vectorSize, TTSampleVector returnedVector)
+{
+	returnedVector = sampleVectors[channel];
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioSignal::getVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* returnedVector)
+{
+	TTUInt16 i;
+	
+	for(i=0; i<vectorSize; i++)
+		returnedVector[i] = sampleVectors[channel][i];
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioSignal::alloc()
 {
 	TTUInt32	i;

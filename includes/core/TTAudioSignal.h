@@ -29,7 +29,7 @@ private:
 	};
 
 	TTBoolean		isLocallyOwned;
-	TTUInt16		maxNumChannels;		///< The number of audio channels for which memory has been allocated.
+	TTUInt8			maxNumChannels;		///< The number of audio channels for which memory has been allocated.
 	TTUInt16		vs;					///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
 	TTUInt16		numChannels;		///< The number of audio channels that have valid sample values stored in them.
 	TTUInt8			bitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
@@ -59,16 +59,29 @@ public:
 	
 	/**	This version handles vector assignments from 32-bit vectors.
 	*/
-	TTErr setVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32*		newVector);
+	TTErr setVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* newVector);
+	
+	TTErr getVector(TTUInt8 channel, TTUInt16 vectorSize, TTSampleVector returnedVector);
+	TTErr getVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* returnedVector);
 	
 	TTUInt16 getVectorSize()
 	{
 		return vs;
 	}
 	
+	void setVectorSize(TTUInt16 newVectorSize)
+	{
+		vs = newVectorSize;
+	}
+	
 	TTUInt8 getNumChannels()
 	{
 		return numChannels;
+	}
+
+	void setNumChannels(TTUInt8 newNumChannels)
+	{
+		numChannels = TTClip(newNumChannels, (TTUInt8)0, maxNumChannels);
 	}
 
 	/**	Allocate memory for all channels at the current vectorsize.

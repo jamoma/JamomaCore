@@ -34,11 +34,10 @@ TTSymbol::TTSymbol(const char* newString, TTInt32 newId)
 
 TTSymbol::~TTSymbol()
 {
-	//if(inTable){
-	//	printf("TTBLUE -- BAD -- DELETING SYMBOL TABLE ITEM\n");
-	//}
-	if(string)
+	if(string){
 		free(string);
+		string = NULL;
+	}
 }
 
 
