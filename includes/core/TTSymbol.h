@@ -46,7 +46,7 @@ public:
 	TTBoolean compare(TTSymbol& anotherSymbol);
 	
 	// make sure this is a friend so that it can access the private members of the other atom
-	friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
+	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
 	{
 		if(symbol1.id == symbol2.id)
 			return true;
