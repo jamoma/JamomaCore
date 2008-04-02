@@ -10,7 +10,7 @@
 
 
 TTCrossfade::TTCrossfade(TTUInt8 newMaxNumChannels)
-	: TTAudioObject("audio.crossfade", newMaxNumChannels)
+	: TTAudioObject("audio.crossfade", newMaxNumChannels), attrShape((TTSymbol&)TT("equalPower"))
 {
 	registerAttribute(TT("position"),	kTypeFloat64,	&attrPosition);
 	registerAttribute(TT("shape"),		kTypeSymbol,	&attrShape,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setShape);
@@ -31,7 +31,7 @@ TTCrossfade::~TTCrossfade()
 
 TTErr TTCrossfade::setShape(const TTValue& newValue)
 {
-	attrShape = newValue;
+	//attrShape = newValue;
 	return setProcessPointers();
 }
 

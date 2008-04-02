@@ -9,10 +9,10 @@
 #include "TTValueCache.h"
 #include "TTSymbolTable.h"
 
-const TTSymbol*	kTTSym_processInPlace			= TT("processInPlace");
-const TTSymbol*	kTTSym_bypass					= TT("bypass");
-const TTSymbol*	kTTSym_sr						= TT("sr");
-const TTSymbol*	kTTSym_maxNumChannels			= TT("maxNumChannels");
-const TTSymbol*	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
-const TTSymbol*	kTTSym_updateSr					= TT("updateSr");
+const TTSymbol&	kTTSym_processInPlace			= TT("processInPlace");
+const TTSymbol&	kTTSym_bypass					= TT("bypass");
+const TTSymbol&	kTTSym_sr						= TT("sr");
+const TTSymbol&	kTTSym_maxNumChannels			= TT("maxNumChannels");
+const TTSymbol&	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
+const TTSymbol&	kTTSym_updateSr					= TT("updateSr");
 

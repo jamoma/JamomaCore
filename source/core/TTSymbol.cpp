@@ -61,7 +61,7 @@ void TTSymbol::init(const char* newString, TTInt32 newId)
 
 	// 2. Look for this symbol in the symbol table (it should already exist)
 	if(newId < 0){
-		existingSymbol = ttSymbolTable.lookup(newString);
+		existingSymbol = &ttSymbolTable.lookup(newString);
 		id = existingSymbol->id;
 	}
 	else{	// This symbol is being added to the symbol table with the given id
