@@ -40,6 +40,7 @@ SRC += ../source/core/TTQueue.cpp
 SRC += ../source/core/TTSymbol.cpp
 SRC += ../source/core/TTSymbolCache.cpp
 SRC += ../source/core/TTSymbolTable.cpp
+SRC += ../source/core/TTThread.cpp
 SRC += ../source/core/TTValue.cpp
 SRC += ../source/core/TTValueCache.cpp
 

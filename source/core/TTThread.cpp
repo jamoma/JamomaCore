@@ -24,6 +24,7 @@ static void* TTThreadCallback(void *ttTheadInstance)
 
 TTThread::TTThread(TTThreadCallbackType aCallback, void* anArgument)
 {
+#ifdef TT_PLATFORM_MAC
 	int				err = 0;
 	pthread_attr_t	attr;
 
@@ -34,28 +35,39 @@ TTThread::TTThread(TTThreadCallbackType aCallback, void* anArgument)
 	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 	err = pthread_create(&thread, &attr, TTThreadCallback, this);
 	pthread_attr_destroy(&attr);
+#else
+	// FIXME: Implement!	
+#endif
 }
 
 
 TTThread::~TTThread()
 {
+#ifdef TT_PLATFORM_MAC
 	pthread_cancel(thread);
+#else
+	// FIXME: Implement!	
+#endif
 }
 
 
 void TTThread::sleep(TTUInt32 millisecondsToSleep)
 {
-	#ifdef TT_PLATFORM_MAC
+#ifdef TT_PLATFORM_MAC
 	usleep(millisecondsToSleep * 1000);
-	#else	
+#else	
 	SleepEx(millisecondsToSleep,TRUE);
-	#endif
+#endif
 }
 
 
 void TTThread::wait()
 {
+#ifdef TT_PLATFORM_MAC
 	pthread_join(thread, &status);
+#else
+	// FIXME: Implement!
+#endif
 }
 
 

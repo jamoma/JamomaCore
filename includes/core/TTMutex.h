@@ -10,9 +10,7 @@
 #define __TT_MUTEX_H__
 
 #include "TTElement.h"
-#ifdef TT_PLATFORM_WIN
-#include "windows.h"
-#endif
+
 
 /****************************************************************************************************/
 // Class Specification

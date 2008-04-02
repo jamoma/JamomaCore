@@ -9,18 +9,6 @@
 #ifndef __TT_ELEMENT_H__
 #define __TT_ELEMENT_H__
 
-#include <math.h>
-#include <stdlib.h>
-#include <iostream>
-
-#ifndef NO
-#define NO 0
-#endif
-
-#ifndef YES
-#define YES 1
-#endif
-
 // Platform Sniffing
 // Ideally the platform would already be set with a -D option to gcc...
 #ifndef TT_PLATFORM_WIN
@@ -30,6 +18,23 @@
 	#define TT_PLATFORM_MAC
 	#endif
 #endif
+
+#include <math.h>
+#include <stdlib.h>
+#include <iostream>
+#ifdef TT_PLATFORM_WIN
+#include "windows.h"
+#endif
+
+
+#ifndef NO
+#define NO 0
+#endif
+
+#ifndef YES
+#define YES 1
+#endif
+
 
 
 /****************************************************************************************************/
