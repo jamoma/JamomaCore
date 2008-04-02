@@ -107,5 +107,5 @@ void TTList::clear()
 /** find the first item with this value, and return it. */
 TTListItem* TTList::findFirst(TTValue* value)
 {
-	currentItem;
+	return currentItem;
 }
