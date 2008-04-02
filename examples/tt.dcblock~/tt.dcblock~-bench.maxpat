@@ -18,13 +18,13 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "50 iterations = 27% peak",
-					"patching_rect" : [ 266.0, 567.0, 150.0, 18.0 ],
+					"text" : "50 iterations = 28% peak -- 64bit Deployment",
+					"patching_rect" : [ 531.0, 567.0, 251.0, 18.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
-					"id" : "obj-154",
-					"presentation_rect" : [ 266.0, 584.0, 0.0, 0.0 ],
+					"id" : "obj-156",
+					"presentation_rect" : [ 454.0, 619.0, 0.0, 0.0 ],
 					"fontsize" : 9.0
 				}
 
@@ -32,12 +32,25 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "50 iterations = 33% peak",
-					"patching_rect" : [ 266.0, 548.0, 150.0, 18.0 ],
+					"text" : "50 iterations = 47% peak -- 64bit Development",
+					"patching_rect" : [ 531.0, 548.0, 251.0, 18.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
-					"id" : "obj-153",
+					"id" : "obj-155",
+					"fontsize" : 9.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "50 iterations = 27% peak - 32 bit Depolyment",
+					"patching_rect" : [ 266.0, 567.0, 263.0, 18.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"fontname" : "Verdana",
+					"id" : "obj-154",
 					"fontsize" : 9.0
 				}
 
