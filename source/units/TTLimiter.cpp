@@ -11,7 +11,7 @@
 
 TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("audio.limiter", newMaxNumChannels),
-	lookaheadBuffer(NULL), gain(NULL), maxBufferSize(256), attrMode((TTSymbol&)TT("exponential"))
+	lookaheadBuffer(NULL), gain(NULL), maxBufferSize(256), attrMode(TT("exponential"))
 {
 	// register our attributes
 	registerAttribute(TT("preamp"),		kTypeFloat64,	&attrPreamp,	(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);

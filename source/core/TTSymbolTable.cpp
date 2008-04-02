@@ -33,7 +33,7 @@ TTSymbolTable::~TTSymbolTable()
 }
 
 
-const TTSymbol& TTSymbolTable::lookup(const char* string)
+TTSymbol& TTSymbolTable::lookup(const char* string)
 {
 	TTUInt32	i;
 	TTSymbol	*newSymbol;
