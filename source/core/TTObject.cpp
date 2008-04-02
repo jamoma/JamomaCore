@@ -145,7 +145,7 @@ TTErr TTAttribute::defaultSetter(const TTValue& value, const TTAttribute& attrib
 /****************************************************************************************************/
 
 TTObject::TTObject(const char* name)
-: messageCount(0), attributeCount(0), objectName(name)
+: objectName(name), messageCount(0), attributeCount(0)
 {
 }
 

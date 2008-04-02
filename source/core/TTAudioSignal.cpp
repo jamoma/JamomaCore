@@ -12,7 +12,7 @@
 /****************************************************************************************************/
 
 TTAudioSignal::TTAudioSignal(TTUInt8 initialMaxNumChannels)
-	: isLocallyOwned(false), vs(0), maxNumChannels(0), numChannels(0), sampleVectors(NULL)
+	: isLocallyOwned(false), maxNumChannels(0), vs(0), numChannels(0), sampleVectors(NULL)
 {
 	TTUInt8	i;
 

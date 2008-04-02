@@ -26,7 +26,7 @@ TTSymbolTable::TTSymbolTable()
 
 TTSymbolTable::~TTSymbolTable()
 {
-	for(int i = 0; i < symbolTableLength; i++)
+	for(TTUInt32 i = 0; i < symbolTableLength; i++)
 		delete symbolTable[i];
 	
 	free(symbolTable);		
