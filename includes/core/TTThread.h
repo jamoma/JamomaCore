@@ -24,7 +24,12 @@ typedef void*(*TTThreadCallbackType)(void* arg);
 */
 class TTThread : public TTElement {
 private:
+#ifdef TT_PLATFORM_MAC
 	pthread_t				thread;
+#else
+	// FIXME: We need to implement this!  The following is a place holder
+	void*					thread;
+#endif
 	TTThreadCallbackType	callback;	///< method called in the new thread when it starts
 	void*					argument;	///< argument passed to the callback
 	void*					status;
@@ -45,7 +50,12 @@ public:
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator == (const TTThread& thread1, const TTThread& thread2)
 	{
+#ifdef TT_PLATFORM_MAC
 		return pthread_equal(thread1.thread, thread2.thread);
+#else
+		// FIXME: We need to implement this!  The following is a place holder
+		return false;
+#endif
 	}
 };
 
