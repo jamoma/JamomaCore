@@ -21,7 +21,6 @@
 // Data Structure for this object
 typedef struct _ramp	{
     t_pxobject 		obj;
-    void			*obex;
 	TTRamp			*ramp;
 	TTAudioSignal	*audioOut;
 	t_symbol*		attrMode;
@@ -59,7 +58,6 @@ int main(void)
 
 	c = class_new("tt.ramp~",(method)ramp_new, (method)ramp_free, (short)sizeof(t_ramp), 
 		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_ramp, obex));
 
     class_addmethod(c, (method)ramp_int,				"int",		A_FLOAT, 0L);
     class_addmethod(c, (method)ramp_float,				"float",	A_FLOAT, 0L);
@@ -100,7 +98,6 @@ void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
 		x->ramp = new TTRamp(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
-		x->audioOut->numChannels = 1;
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -138,7 +135,7 @@ void ramp_assist(t_ramp *x, void *b, long msg, long arg, char *dst)
 
 void ramp_stop(t_ramp *x)
 {
-	x->ramp->sendMessage("stop");
+	x->ramp->sendMessage(TT("stop"));
 }
 
 
@@ -163,14 +160,12 @@ void ramp_list(t_ramp *x, double endValue, double time)
 t_int *ramp_perform(t_int *w)
 {	
 	t_ramp *x = (t_ramp *)(w[1]);
-	x->audioOut->setVector(0, (t_float *)(w[2]));
-	x->audioOut->vs = (int)(w[3]);
 			
 	if(!(x->obj.z_disabled))
 		x->ramp->process(*x->audioOut);
 
-    return (w + 4);						// Return a pointer to the NEXT object in the DSP call chain
-
+	x->audioOut->getVector(0, x->audioOut->getVectorSize(), (t_float *)(w[2]));
+    return w+3;
 }
 
 
@@ -178,7 +173,12 @@ t_int *ramp_perform(t_int *w)
 void ramp_dsp(t_ramp *x, t_signal **sp, short *count)
 {
 	x->ramp->setAttributeValue(TT("sr"), sp[0]->s_sr);
-	dsp_add(ramp_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
+
+	x->audioOut->setNumChannels(x->maxNumChannels);
+	x->audioOut->setVectorSize(sp[0]->s_n);
+	x->audioOut->alloc();
+
+	dsp_add(ramp_perform, 2, x, sp[0]->s_vec);
 }
 
 
