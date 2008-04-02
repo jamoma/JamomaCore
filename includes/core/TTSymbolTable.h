@@ -44,7 +44,7 @@ public:
 	 * This lookup is called directly, but also from the TTSymbol constructor, which allows 
 	 * us to call methods expecting a TTSymbol by passing them simple c strings.
 	 */
-	const TTSymbol* lookup(const char* string);
+	const TTSymbol& lookup(const char* string);
 };
 
 

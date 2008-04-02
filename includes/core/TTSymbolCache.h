@@ -12,12 +12,12 @@
 #include "TTSymbol.h"
 
 
-extern TTSymbol* kTTSym_processInPlace;
-extern TTSymbol* kTTSym_bypass;
-extern TTSymbol* kTTSym_sr;
-extern TTSymbol* kTTSym_maxNumChannels;
-extern TTSymbol* kTTSym_updateMaxNumChannels;
-extern TTSymbol* kTTSym_updateSr;
+extern const TTSymbol& kTTSym_processInPlace;
+extern const TTSymbol& kTTSym_bypass;
+extern const TTSymbol& kTTSym_sr;
+extern const TTSymbol& kTTSym_maxNumChannels;
+extern const TTSymbol& kTTSym_updateMaxNumChannels;
+extern const TTSymbol& kTTSym_updateSr;
 
 
 #endif // __TT_SYMBOL_CACHE_H__
