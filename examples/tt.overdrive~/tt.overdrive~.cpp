@@ -21,7 +21,6 @@
 // Data Structure for this object
 typedef struct _overdrive	{
     t_pxobject 		obj;
-    void			*obex;
 	TTOverdrive		*overdrive;
 	TTAudioSignal	*audioIn;
 	TTAudioSignal	*audioOut;
@@ -68,7 +67,6 @@ int main(void)
 
 	c = class_new("tt.overdrive~",(method)overdrive_new, (method)overdrive_free, (short)sizeof(t_overdrive), 
 		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_overdrive, obex));
 
 	class_addmethod(c, (method)overdrive_setPreamp,				"/preamp",				A_GIMME, 0);
 	class_addmethod(c, (method)overdrive_setSaturation,			"/saturation",			A_GIMME, 0);
@@ -168,7 +166,7 @@ void overdrive_assist(t_overdrive *x, void *b, long msg, long arg, char *dst)
 
 void overdrive_clear(t_overdrive *x)
 {
-	x->overdrive->sendMessage("clear");
+	x->overdrive->sendMessage(TT("clear"));
 }
 
 
@@ -184,45 +182,58 @@ t_int *overdrive_perform(t_int *w)
 {
    	t_overdrive	*x = (t_overdrive *)(w[1]);
 	short		i, j;
+	TTUInt8		numChannels = x->audioIn->getNumChannels();
+	TTUInt16	vs = x->audioIn->getVectorSize();
 	
-	for(i=0; i < x->audioIn->numChannels; i++){
+	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, (t_float *)(w[j+1]));
-		x->audioOut->setVector(i, (t_float *)(w[j+2]));
+		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
 	}
 
 	if(!x->obj.z_disabled && !x->attrMute)
 		x->overdrive->process(*x->audioIn, *x->audioOut);
 
-	return w + ((x->audioIn->numChannels*2)+2);
+	for(i=0; i<numChannels; i++){
+		j = (i*2) + 1;
+		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+	}
+
+	return w + ((numChannels*2)+2);
 }
 
 
 // DSP Method
 void overdrive_dsp(t_overdrive *x, t_signal **sp, short *count)
 {
-	short	i, j, k=0;
-	void	**audioVectors = NULL;
+	short		i, j, k=0;
+	void		**audioVectors = NULL;
+	TTUInt8		numChannels = 0;
+	TTUInt16	vs = 0;
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1));
 	audioVectors[k] = x;
 	k++;
 	
-	x->audioIn->numChannels = 0;
-	x->audioOut->numChannels = 0;	
 	for(i=0; i < x->maxNumChannels; i++){
 		j = x->maxNumChannels + i;
 		if(count[i] && count[j]){
+			numChannels++;
+			if(sp[i]->s_n > vs)
+				vs = sp[i]->s_n;
+				
 			audioVectors[k] = sp[i]->s_vec;
-			x->audioIn->numChannels++;
-			x->audioIn->vs = sp[i]->s_n;
 			k++;
 			audioVectors[k] = sp[j]->s_vec;
-			x->audioOut->numChannels++;
-			x->audioIn->vs = sp[j]->s_n;
 			k++;
 		}
 	}
+	
+	x->audioIn->setNumChannels(numChannels);
+	x->audioOut->setNumChannels(numChannels);
+	x->audioIn->setVectorSize(vs);
+	x->audioOut->setVectorSize(vs);
+	//audioIn will be set in the perform method
+	x->audioOut->alloc();
 	
 	x->overdrive->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
