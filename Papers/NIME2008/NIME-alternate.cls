@@ -96,8 +96,9 @@
 \typeout{Excerpts were taken from (Journal Style) 'esub2acm.cls'.}
 \typeout{****** Bugs/comments/suggestions/technicalities to Gerry Murray -- murray@hq.acm.org ******}
 \typeout{Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org}
-\oddsidemargin 4.5pc
-\evensidemargin 4.5pc
+
+\oddsidemargin 4pc
+\evensidemargin 4pc
 \advance\oddsidemargin by -1in  % Correct for LaTeX gratuitousness
 \advance\evensidemargin by -1in % Correct for LaTeX gratuitousness
 \marginparwidth 0pt             % Margin pars are not allowed.
@@ -123,8 +124,10 @@
 \headheight 12pt                % Height of box containing running head.
 \headsep 25pt                   % Space between running head and text.
 
-\textheight 666pt       % 9 1/4 column height
-\textwidth 42pc         % Width of text line.
+%original text height 9'' 1/4 "letter size" \textheight 666pt       % 9 1/4 column height
+\textheight 716pt       % 9 1/4 column height + 0.7 "for A4 pages"
+%original text width 7'' "letter size" \textwidth 42pc         % Width of text line.
+\textwidth 500pt        % 7'' Width of text line - 0.2'' "for A4 pages".
                         % For two-column mode:
 \columnsep 2pc          %    Space between columns
 \columnseprule 0pt      %    Width of rule between columns.
