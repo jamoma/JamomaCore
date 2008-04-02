@@ -21,7 +21,6 @@
 // Data Structure for this object
 typedef struct _dcblock	{
     t_pxobject 		obj;
-    void			*obex;
 	TTDCBlock		*dcblock;
 	TTAudioSignal	*audioIn;
 	TTAudioSignal	*audioOut;
@@ -57,7 +56,6 @@ int main(void)
 
 	c = class_new("tt.dcblock~",(method)dcblock_new, (method)dcblock_free, (short)sizeof(t_dcblock), 
 		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_dcblock, obex));
 
  	class_addmethod(c, (method)dcblock_clear, 			"clear",	0L);		
  	class_addmethod(c, (method)dcblock_dsp, 			"dsp",		A_CANT, 0L);		
@@ -129,9 +127,6 @@ void dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "(signal) input, control messages");		
 	else if(msg==2) // Outlets
 		strcpy(dst, "(signal) Filtered output");
-	#pragma unused(x)
-	#pragma unused(b)
-	#pragma unused(arg)
 }
 
 
@@ -152,7 +147,6 @@ t_int *dcblock_perform(t_int *w)
 	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
 		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
-		//x->audioOut->setVector(i, vs, (t_float *)(w[j+2]));
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
@@ -160,10 +154,8 @@ t_int *dcblock_perform(t_int *w)
 
 	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
-//		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
 		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
 	}
-
 
 	return w + ((numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }

@@ -3,7 +3,7 @@
  *	External object for Max/MSP
  *	
  *	Example project for TTBlue
- *	Copyright © 2008 by Timothy Place
+ *	Copyright © 2008 by Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -21,7 +21,6 @@
 // Data Structure for this object
 typedef struct _balance	{
     t_pxobject 		obj;
-    void			*obex;
 	TTBalance		*balance;
 	TTAudioSignal	*audioIn;
 	TTAudioSignal	*audioOut;
@@ -39,7 +38,6 @@ t_int*		balance_perform(t_int *w);												// An MSP Perform (signal) Method
 void		balance_dsp(t_balance *x, t_signal **sp, short *count);					// DSP Method
 void		balance_clear(t_balance *x);
 t_max_err	balance_setBypass(t_balance *x, void *attr, long argc, t_atom *argv);
-t_max_err	balance_setBitdepth(t_balance *x, void *attr, long argc, t_atom *argv);
 t_max_err	balance_setFrequency(t_balance *x, void *attr, long argc, t_atom *argv);
 
 
@@ -60,7 +58,6 @@ int main(void)
 
 	c = class_new("tt.balance~",(method)balance_new, (method)balance_free, (short)sizeof(t_balance), 
 		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_balance, obex));
 
  	class_addmethod(c, (method)balance_clear, 			"clear",	0L);		
  	class_addmethod(c, (method)balance_dsp, 			"dsp",		A_CANT, 0L);		
@@ -148,7 +145,7 @@ void balance_assist(t_balance *x, void *b, long msg, long arg, char *dst)
 
 void balance_clear(t_balance *x)
 {
-	x->balance->sendMessage("clear");
+	x->balance->sendMessage(TT("clear"));
 }
 
 
@@ -157,54 +154,64 @@ t_int *balance_perform(t_int *w)
 {
    	t_balance	*x = (t_balance *)(w[1]);
 	short		i, j;
-	short		numChannels = x->audioOut->numChannels;
+	TTUInt8		numChannels = x->audioOut->getNumChannels();
+	TTUInt16	vs = x->audioIn->getVectorSize();
 
 	// We sort audioIn so that all channels of signalA comes first, then all channels of signalB
 	for(i=0; i < numChannels; i++){
 		j = (i*3) + 1;
-		x->audioIn->setVector(i, 				(t_float *)(w[j+1]));
-		x->audioIn->setVector(i+numChannels,	(t_float *)(w[j+2]));
-		x->audioOut->setVector(i, 				(t_float *)(w[j+3]));
+		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		x->audioIn->setVector(i+numChannels, vs, (t_float *)(w[j+2]));
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
 		x->balance->process(*x->audioIn, *x->audioOut);		// Actual balance process
 
-	return w + ((x->audioOut->numChannels*3)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
+	for(i=0; i < numChannels; i++){
+		j = (i*3) + 1;
+		x->audioOut->getVector(i, vs, (t_float *)(w[j+3]));
+	}
+
+	return w + ((numChannels*3)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
 // DSP Method: Adds our perform method to the DSP call chain
 void balance_dsp(t_balance *x, t_signal **sp, short *count)
 {
-	short	i, j, k, l=0;
-	void	**audioVectors = NULL;
+	short		i, j, k, l=0;
+	void		**audioVectors = NULL;
+	TTUInt8		numChannels = 0;
+	TTUInt16	vs = 0;
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 3) + 1));
 	audioVectors[l] = x;
 	l++;
 	
-	x->audioIn->numChannels = 0;
-	x->audioOut->numChannels = 0;
 	// audioVectors[] passed to balance_perform() as {x, audioInL[0], audioInR[0], audioOut[0], audioInL[1], audioInR[1], audioOut[1],...}
 	for(i=0; i < x->maxNumChannels; i++){
 		j = x->maxNumChannels + i;
 		k = x->maxNumChannels*2 + i;
 		if(count[i] && count[j] && count[k]){
+			numChannels++;
+			if(sp[i]->s_n > vs)
+				vs = sp[i]->s_n;
+
 			audioVectors[l] = sp[i]->s_vec;
-			x->audioIn->numChannels++;
-			x->audioIn->vs = sp[i]->s_n;
 			l++;
 			audioVectors[l] = sp[j]->s_vec;
-			x->audioIn->numChannels++;
-			x->audioIn->vs = sp[j]->s_n;
 			l++;
 			audioVectors[l] = sp[k]->s_vec;
-			x->audioOut->numChannels++;
-			x->audioIn->vs = sp[k]->s_n;
 			l++;
 		}
 	}
+	
+	x->audioIn->setNumChannels(numChannels*2);
+	x->audioOut->setNumChannels(numChannels);
+	x->audioIn->setVectorSize(vs);
+	x->audioOut->setVectorSize(vs);
+	//audioIn will be set in the perform method
+	x->audioOut->alloc();	
 	
 	x->balance->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
@@ -217,7 +224,7 @@ t_max_err balance_setBypass(t_balance *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc){
 		x->attrBypass = atom_getlong(argv);
-		x->balance->setAttributeValue(TT("bypass"), x->attrBypass);
+		x->balance->setAttributeValue(kTTSym_bypass, x->attrBypass);
 	}
 	return MAX_ERR_NONE;
 }
@@ -227,7 +234,7 @@ t_max_err balance_setFrequency(t_balance *x, void *attr, long argc, t_atom *argv
 {
 	if(argc){
 		x->attrFrequency = atom_getfloat(argv);
-		x->balance->setAttributeValue(TT("srRatio"), x->attrFrequency);
+		x->balance->setAttributeValue(TT("frequency"), x->attrFrequency);
 	}
 	return MAX_ERR_NONE;
 }
