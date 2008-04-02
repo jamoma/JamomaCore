@@ -137,7 +137,7 @@ void dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst)
 
 void dcblock_clear(t_dcblock *x)
 {
-	x->dcblock->sendMessage("clear");
+	x->dcblock->sendMessage(TT("clear"));
 }
 
 
@@ -211,12 +211,11 @@ void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 
 t_max_err dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv)
 {
-	TTSymbol	name("bypass");
 	TTValue		value;
 
 	if(argc){
 		value = x->attrBypass = atom_getlong(argv);
-		x->dcblock->setAttributeValue(name, value);
+		x->dcblock->setAttributeValue(kTTSym_bypass, value);
 	}
 	return MAX_ERR_NONE;
 }

@@ -12,36 +12,36 @@
 
 /****************************************************************************************************/
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress)
+TTAttribute::TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress)
 {
-	name = &newName;
+	name = newName;
 	type = newType;
 	address = newAddress;
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
+TTAttribute::TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
 {
-	name = &newName;
+	name = newName;
 	type = newType;
 	address = newAddress;
 	getter = newGetter;
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
+TTAttribute::TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
 {
-	name = &newName;
+	name = newName;
 	type = newType;
 	address = newAddress;
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 	setter = newSetter;
 }
 
-TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
+TTAttribute::TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
 {
-	name = &newName;
+	name = newName;
 	type = newType;
 	address = newAddress;
 	getter = newGetter;
@@ -92,7 +92,7 @@ TTErr TTAttribute::defaultGetter(TTValue& value, const TTAttribute& attribute)
 			value = *((TTBoolean*)attribute.address);
 			return kTTErrNone;
 		case kTypeSymbol:
-			value = *((TTSymbol*)attribute.address);
+			value = ((TTSymbol*)attribute.address);
 			return kTTErrNone;
 		case kTypeObject:
 			value = *((TTObject*)attribute.address);
@@ -141,7 +141,7 @@ TTErr TTAttribute::defaultSetter(const TTValue& value, const TTAttribute& attrib
 			*((TTBoolean*)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeSymbol:
-			*((TTSymbol*)attribute.address) = value;
+			*((TTSymbol**)attribute.address) = value;
 			return kTTErrNone;
 		case kTypeObject:
 			*((TTObject*)attribute.address) = value;
@@ -179,46 +179,46 @@ TTObject::~TTObject()
 #pragma mark Object Attributes
 #endif
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address)
+TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address)
 {
-	attributeNames[attributeCount] = &name;
+	attributeNames[attributeCount] = name;
 	attributeObjects[attributeCount] = new TTAttribute(name, type, address);
 	attributeCount++;
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter)
+TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter)
 {
-	attributeNames[attributeCount] = &name;
+	attributeNames[attributeCount] = name;
 	attributeObjects[attributeCount] = new TTAttribute(name, type, address, getter);
 	attributeCount++;
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTSetterMethod setter)
+TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTSetterMethod setter)
 {
-	attributeNames[attributeCount] = &name;
+	attributeNames[attributeCount] = name;
 	attributeObjects[attributeCount] = new TTAttribute(name, type, address, setter);
 	attributeCount++;
 	return kTTErrNone;
 }
 
-TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
-	attributeNames[attributeCount] = &name;
+	attributeNames[attributeCount] = name;
 	attributeObjects[attributeCount] = new TTAttribute(name, type, address, getter, setter);
 	attributeCount++;
 	return kTTErrNone;
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTValue& value)
 {
 	TTUInt8		i;
 	TTAttribute	*attribute;
 	
 	for(i=0; i<attributeCount; i++){
-		if(*attributeNames[i] == name){
+		if(attributeNames[i] == name){
 			attribute = attributeObjects[i];
 			return (this->*attribute->getter)(value, *attribute);
 		}
@@ -226,13 +226,13 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
 	return kTTErrInvalidAttribute;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTValue& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTValue& value)
 {
 	TTUInt8		i;
 	TTAttribute	*attribute;
 	
 	for(i=0; i<attributeCount; i++){
-		if(*attributeNames[i] == name){
+		if(attributeNames[i] == name){
 			attribute = attributeObjects[i];
 			return (this->*attribute->setter)(value, *attribute);
 		}
@@ -241,7 +241,7 @@ TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTValue& value)
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTFloat32& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTFloat32& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -251,14 +251,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTFloat32& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTFloat32& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTFloat32& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTFloat64& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTFloat64& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -268,14 +268,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTFloat64& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTFloat64& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTFloat64& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt8& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTInt8& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -285,14 +285,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt8& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt8& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTInt8& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt8& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTUInt8& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -302,14 +302,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt8& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt8& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTUInt8& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt16& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTInt16& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -319,14 +319,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt16& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt16& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTInt16& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt16& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTUInt16& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -336,14 +336,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt16& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt16& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTUInt16& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt32& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTInt32& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -353,14 +353,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt32& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt32& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTInt32& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt32& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTUInt32& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -370,14 +370,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt32& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt32& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTUInt32& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt64& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTInt64& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -387,14 +387,14 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTInt64& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt64& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTInt64& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt64& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTUInt64& value)
 {
 	TTValue	v;
 	TTErr	err;
@@ -404,26 +404,26 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTUInt64& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTUInt64& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTUInt64& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTSymbol& value)
+TTErr TTObject::getAttributeValue(const TTSymbol* name, TTSymbol** value)
 {
 	TTValue	v;
 	TTErr	err;
 	
 	err = getAttributeValue(name, v);
-	value = v;
+	*value = v;
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTSymbol& value)
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTSymbol* value)
 {
-	TTValue	v((TTSymbol&)value);
+	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
@@ -438,9 +438,9 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 }
 
 
-void TTObject::getName(TTSymbol& thisObjectName)
+const TTSymbol* TTObject::getName()
 {
-	thisObjectName = objectName;
+	return objectName;
 }
 
 
@@ -449,22 +449,22 @@ void TTObject::getName(TTSymbol& thisObjectName)
 #pragma mark Global Attributes
 #endif
 
-TTErr TTObject::registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address)
+TTErr TTObject::registerGlobalAttribute(const TTSymbol* name, TTDataType type, void* address)
 {
 	return ttGlobalObject.registerAttribute(name, type, address);
 }
 
-TTErr TTObject::registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
+TTErr TTObject::registerGlobalAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
 	return ttGlobalObject.registerAttribute(name, type, address, getter, setter);
 }
 
-TTErr TTObject::getGlobalAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::getGlobalAttributeValue(const TTSymbol* name, TTValue& value)
 {
 	return ttGlobalObject.getAttributeValue(name, value);
 }
 
-TTErr TTObject::setGlobalAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::setGlobalAttributeValue(const TTSymbol* name, TTValue& value)
 {
 	return ttGlobalObject.setAttributeValue(name, value);
 }
@@ -475,22 +475,22 @@ TTErr TTObject::setGlobalAttributeValue(const TTSymbol& name, TTValue& value)
 #pragma mark Object Messages
 #endif
 
-TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod message)
+TTErr TTObject::registerMessage(const TTSymbol* name, TTMethod message)
 {
-	messageNames[messageCount] = &name;
+	messageNames[messageCount] = name;
 	messageTargets[messageCount] = message;
 	messageCount++;
 	return kTTErrNone;
 }
 
 
-TTErr TTObject::sendMessage(const TTSymbol& name)
+TTErr TTObject::sendMessage(const TTSymbol* name)
 {
 	TTUInt8	i;
 	TTValue foo;
 	
 	for(i=0; i<messageCount; i++){
-		if(*messageNames[i] == name){
+		if(messageNames[i] == name){
 			(this->*messageTargets[i])(foo, name);
 			return kTTErrNone;
 		}
@@ -499,12 +499,12 @@ TTErr TTObject::sendMessage(const TTSymbol& name)
 }
 
 
-TTErr TTObject::sendMessage(const TTSymbol& name, TTValue& value)
+TTErr TTObject::sendMessage(const TTSymbol* name, TTValue& value)
 {
 	TTUInt8	i;
 	
 	for(i=0; i<messageCount; i++){
-		if(*messageNames[i] == name){
+		if(messageNames[i] == name){
 			(this->*messageTargets[i])(value, name);
 			break;
 		}

@@ -15,9 +15,9 @@
 		225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */; };
 		2253854A0D710FAF00E5E5FB /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385470D710FAF00E5E5FB /* TTQueue.cpp */; };
 		2253854B0D710FAF00E5E5FB /* TTBlue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385480D710FAF00E5E5FB /* TTBlue.cpp */; };
-		225385570D710FFF00E5E5FB /* TTSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385540D710FFF00E5E5FB /* TTSymbolCache.h */; };
-		225385580D710FFF00E5E5FB /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385550D710FFF00E5E5FB /* TTQueue.h */; };
-		225385590D710FFF00E5E5FB /* TTBlue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385560D710FFF00E5E5FB /* TTBlue.h */; };
+		225385570D710FFF00E5E5FB /* TTSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385540D710FFF00E5E5FB /* TTSymbolCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		225385580D710FFF00E5E5FB /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385550D710FFF00E5E5FB /* TTQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		225385590D710FFF00E5E5FB /* TTBlue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385560D710FFF00E5E5FB /* TTBlue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C030D3E416200328864 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0D0D3E416200328864 /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C040D3E416200328864 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };

@@ -46,7 +46,7 @@ void* TTQueue::run()
 	TTListItem*	objectItem;
 	TTObject*	object;
 	TTListItem*	messageItem;
-	TTSymbol	message;
+	TTSymbol*	message;
 	TTListItem*	valueItem;
 	TTValue		value;
 	TTValue		tempValue;
