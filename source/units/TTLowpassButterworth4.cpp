@@ -1,4 +1,4 @@
-/*TTLowpassButterworth4/* 
+/*
  * TTBlue 4rth order Butterworth Lowpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 

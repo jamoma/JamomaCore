@@ -3,8 +3,8 @@
 #include "TTadsr.h"
 
 TTAdsr::TTAdsr(TTUInt8 newMaxNumChannels)
-	: TTAudioObject("audio.adsr", newMaxNumChannels), output(0.), output_db(NOISE_FLOOR), trigger(false), 
-	eg_state(k_eg_inactive)
+	: TTAudioObject("audio.adsr", newMaxNumChannels), output(0.), output_db(NOISE_FLOOR), 
+	eg_state(k_eg_inactive), trigger(false)
 {
 	registerAttribute(TT("attack"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getAttack, 
 		(TTSetterMethod)&TTAdsr::setAttack);

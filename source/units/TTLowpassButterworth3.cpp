@@ -1,4 +1,4 @@
-/*TTLowpassButterworth3/* 
+/*
  * TTBlue 3rd order Butterworth Lowpass Filter Object
  * Copyright © 2008, Trond Lossius
  * 
