@@ -55,7 +55,6 @@ TTLimiter::~TTLimiter()
 		free(lookaheadBuffer[i]);
 	free(gain);
 	free(lookaheadBuffer);
-	free(gain);
 	delete dcBlocker;
 	delete preamp;
 }
