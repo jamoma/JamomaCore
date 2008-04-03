@@ -87,7 +87,6 @@ private:
 	TTDataType	*type;			///< array of types
 	DataValue	*data;			///< array of values
 	TTUInt16	numValues;		///< number of values
-	
 
 public:
 	/** Constructors */
@@ -105,6 +104,9 @@ public:
 	TTValue(TTBoolean initialValue);
 	TTValue(TTSymbol& initialValue);
 	TTValue(TTObject& initialValue);
+
+	/** Copy constructor */
+	TTValue(const TTValue& obj);
 
 	/** Destructors */
 	virtual ~TTValue();
@@ -131,6 +133,21 @@ private:
 	
 	/** Internal method for setting the number of values, and allocating any needed memory. */	
 	void setNumValues(const TTUInt16 arg);
+
+	/** Performs a deep copy of the object */
+	void copy(const TTValue& obj)
+	{
+		numValues = obj.numValues;
+		TTDataType* t = new TTDataType[numValues];
+		DataValue* d = new DataValue[numValues];		
+		memcpy(t, obj.type, sizeof(TTDataType) * numValues);
+		memcpy(d, obj.data, sizeof(DataValue) * numValues);
+		delete [] type;
+		delete [] data;
+		type = t;
+		data = d;
+	}
+
 	
 public:
 	TTValue& operator = (const TTValue &newValue);

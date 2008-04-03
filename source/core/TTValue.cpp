@@ -108,20 +108,26 @@ TTValue::TTValue(TTObject& initialValue)
 	*type = kTypeObject;
 }
 
+TTValue::TTValue(const TTValue& obj)
+{
+	numValues = obj.numValues;
+ 	type = new TTDataType[numValues];
+	data = new DataValue[numValues];
+	memcpy(type, obj.type, sizeof(TTDataType) * numValues);
+	memcpy(data, obj.data, sizeof(DataValue) * numValues);
+}
 
 TTValue::~TTValue()
 {
-	free(type);
-	free(data);
+	delete [] type;
+	delete [] data;
 }
 
 
 void TTValue::clear()
 {
-	if(data)
-		free(data);
-	if(type)
-		free(type);
+	delete [] data;
+	delete [] type;
 
 	init();
 	data->float64 = 0.0;
@@ -150,8 +156,8 @@ TTUInt16 TTValue::getNumValues() const
 
 void TTValue::init()
 {
-	type = (TTDataType*)malloc(sizeof(TTDataType));
-	data = (DataValue*)malloc(sizeof(DataValue));
+	type = new TTDataType;
+	data = new DataValue;
 	numValues = 1;
 }
 
@@ -165,8 +171,7 @@ void TTValue::setType(TTDataType arg)
 void TTValue::setNumValues(const TTUInt16 arg)
 {
 	if(arg > numValues){
-		type = (TTDataType*)realloc(type, sizeof(TTDataType) * arg);
-		data = (DataValue*)realloc(data, sizeof(DataValue) * arg);
+		copy(this);
 	}
 	numValues = arg;
 }
@@ -174,12 +179,12 @@ void TTValue::setNumValues(const TTUInt16 arg)
 
 TTValue& TTValue::operator = (const TTValue &newValue)
 {
-	// TODO: what about freeing and allocating memory to hold the value(s)?
-	type = newValue.type;
-	data = newValue.data;
-	return *this;
-}
+	if(this != &newValue)
+		copy(newValue);
 	
+	return *this;
+}	
+
 
 // FLOAT32
 TTValue& TTValue::operator = (TTFloat32 value) 
@@ -415,8 +420,10 @@ TTValue::operator TTBoolean() const
 // SYMBOL
 TTValue& TTValue::operator = (TTSymbol& value)
 {
-	*type = kTypeSymbol;
-	data->sym = &value;
+	if((TTSymbol*)this != &value) {
+		*type = kTypeSymbol;
+		data->sym = &value;
+	}
 	return *this;
 }
 
