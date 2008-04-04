@@ -65,8 +65,8 @@
 		22569C5D0D3E419300328864 /* TTRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4E0D3E419300328864 /* TTRamp.cpp */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
-		22C1BEA40DA5A73E003747D3 /* TTLowpassFourPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */; };
-		22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */; };
+		22C1BEA40DA5A73E003747D3 /* TTLowpassFourPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C1BEA80DA5A769003747D3 /* TTLowpassFourPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */; };
 		22C1BEA90DA5A769003747D3 /* TTLowpassTwoPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA70DA5A769003747D3 /* TTLowpassTwoPole.cpp */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };

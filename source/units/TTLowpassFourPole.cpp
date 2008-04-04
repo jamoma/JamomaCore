@@ -93,11 +93,11 @@ TTErr TTLowpassFourPole::clear()
 
 TTErr TTLowpassFourPole::setFrequency(const TTValue& newValue)
 {	
-	TTFloat64	c;
+	TTFloat64	radians;
 
 	attrFrequency = newValue;
-	c = (attrFrequency * 2.0) / sr;
-	coefficientF = c * 1.16;
+	radians = hertzToRadians(attrFrequency);
+	coefficientF = radians * 1.16;
 	calculateCoefficients();
 	return kTTErrNone;
 }

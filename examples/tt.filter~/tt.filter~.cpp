@@ -30,9 +30,11 @@
 #include "TTLowpassLinkwitzRiley2.h"
 #include "TTLowpassLinkwitzRiley4.h"
 #include "TTLowpassOnePole.h"
+#include "TTLowpassTwoPole.h"
+#include "TTLowpassFourPole.h"
 
 #define DEFAULT_F 1000
-#define DEFAULT_Q 50
+#define DEFAULT_Q 18
 
 
 /** Data structure for the filter module. */
@@ -233,9 +235,13 @@ t_max_err filter_setFrequency(t_filter *x, void *attr, long argc, t_atom *argv)
 
 t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 {
+	TTErr err = kTTErrNone;
+	
 	if(argc){
 		x->attrQ = atom_getfloat(argv);
-		x->filter->setAttributeValue(TT("q"), x->attrQ);
+		err = x->filter->setAttributeValue(TT("q"), x->attrQ);
+		if(err == kTTErrInvalidAttribute)
+			err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
 	}
 	return MAX_ERR_NONE;
 }
@@ -262,6 +268,7 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 {
 	TTAudioObject	*newFilter = NULL;
+	TTErr			err = kTTErrNone;
 	
 	if(x->oldFilter){
 		delete x->oldFilter;
@@ -275,48 +282,38 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 			// These should be sorted alphabetically
 			if(x->attrType == gensym("bandpass/butterworth2"))
 				newFilter = new TTBandpassButterworth2(x->maxNumChannels);
-				
 			else if(x->attrType == gensym("bandreject/butterworth2"))
 				newFilter = new TTBandRejectButterworth2(x->maxNumChannels);
-				
 			else if(x->attrType == gensym("highpass/butterworth1"))
 				newFilter = new TTHighpassButterworth1(x->maxNumChannels);
-
 			else if(x->attrType == gensym("highpass/butterworth2"))
 				newFilter = new TTHighpassButterworth2(x->maxNumChannels);
-
 			else if(x->attrType == gensym("highpass/butterworth3"))
 				newFilter = new TTHighpassButterworth3(x->maxNumChannels);
-
 			else if(x->attrType == gensym("highpass/butterworth4"))
 				newFilter = new TTHighpassButterworth4(x->maxNumChannels);
-
 			else if(x->attrType == gensym("highpass/linkwitzRiley2"))
 				newFilter = new TTHighpassLinkwitzRiley2(x->maxNumChannels);
-
 			else if(x->attrType == gensym("highpass/linkwitzRiley4"))
 				newFilter = new TTHighpassLinkwitzRiley4(x->maxNumChannels);
-				
 			else if(x->attrType == gensym("lowpass/butterworth1"))
 				newFilter = new TTLowpassButterworth1(x->maxNumChannels);
-
 			else if(x->attrType == gensym("lowpass/butterworth2"))
 				newFilter = new TTLowpassButterworth2(x->maxNumChannels);
-
 			else if(x->attrType == gensym("lowpass/butterworth3"))
 				newFilter = new TTLowpassButterworth3(x->maxNumChannels);
-				
 			else if(x->attrType == gensym("lowpass/butterworth4"))
 				newFilter = new TTLowpassButterworth4(x->maxNumChannels);
-				
 			else if(x->attrType == gensym("lowpass/linkwitzRiley2"))
 				newFilter = new TTLowpassLinkwitzRiley2(x->maxNumChannels);
-								
 			else if(x->attrType == gensym("lowpass/linkwitzRiley4"))
 				newFilter = new TTLowpassLinkwitzRiley4(x->maxNumChannels);
-				
 			else if(x->attrType == gensym("lowpass/onepole"))
 				newFilter = new TTLowpassOnePole(x->maxNumChannels);
+			else if(x->attrType == gensym("lowpass/twopole"))
+				newFilter = new TTLowpassTwoPole(x->maxNumChannels);
+			else if(x->attrType == gensym("lowpass/fourpole"))
+				newFilter = new TTLowpassFourPole(x->maxNumChannels);
 				
 			else{
 				error("invalid filter type specified to tt.filter~");
@@ -325,7 +322,9 @@ t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
 
 			// Now that we have our new filter, update it with the current state of the external:
 			newFilter->setAttributeValue(TT("frequency"), x->attrFrequency);
-			newFilter->setAttributeValue(TT("q"), x->attrQ);
+			err = newFilter->setAttributeValue(TT("q"), x->attrQ);
+			if(err == kTTErrInvalidAttribute)
+				err = newFilter->setAttributeValue(TT("resonance"), x->attrQ);
 			newFilter->setAttributeValue(TT("bypass"), x->attrBypass);
 			newFilter->setAttributeValue(TT("sr"), x->sr);
 			
