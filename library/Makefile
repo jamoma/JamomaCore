@@ -66,6 +66,8 @@ SRC += ../source/units/TTLowpassButterworth4.cpp
 SRC += ../source/units/TTLowpassLinkwitzRiley2.cpp
 SRC += ../source/units/TTLowpassLinkwitzRiley4.cpp
 SRC += ../source/units/TTLowpassOnePole.cpp
+SRC += ../source/units/TTLowpassTwoPole.cpp
+SRC += ../source/units/TTLowpassFourPole.cpp
 SRC += ../source/units/TTOverdrive.cpp
 SRC += ../source/units/TTRamp.cpp
 
