@@ -108,16 +108,16 @@ TTErr TTHighpassLinkwitzRiley4::setFrequency(const TTValue& newValue)
 	wc = 2*kTTPi*attrFrequency;
 	k = 2*kTTPi*attrFrequency/tan(kTTPi*attrFrequency/sr);
 
-	a0 = pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a1 = -4*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a2 = 6*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a3 = -4*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	a4 = pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
+	a0 = pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
+	a1 = -4*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
+	a2 = 6*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
+	a3 = -4*pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
+	a4 = pow(k,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
 	
-	b1 = (4*pow(wc,4)+4*sqrt(2)*pow(wc,3)*k-4*pow(k,4)-4*sqrt(2)*wc*pow(k,3))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	b2 = (6*pow(wc,4)-8*pow(wc,2)*pow(k,2)+6*pow(k,4))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	b3 = (-4*sqrt(2)*pow(wc,3)*k+4*pow(wc,4)+4*sqrt(2)*wc*pow(k,3)-4*pow(k,4))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));
-	b4 = (pow(k,4)-2*sqrt(2)*pow(wc,3)*k+pow(wc,4)-2*sqrt(2)*wc*pow(k,3)+4*pow(wc,2)*pow(k,2))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2)*pow(wc,3)*k+pow(k,4)+2*sqrt(2)*wc*pow(k,3)+pow(wc,4));	
+	b1 = (4*pow(wc,4)+4*sqrt(2.)*pow(wc,3)*k-4*pow(k,4)-4*sqrt(2.)*wc*pow(k,3))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
+	b2 = (6*pow(wc,4)-8*pow(wc,2)*pow(k,2)+6*pow(k,4))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
+	b3 = (-4*sqrt(2.)*pow(wc,3)*k+4*pow(wc,4)+4*sqrt(2.)*wc*pow(k,3)-4*pow(k,4))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));
+	b4 = (pow(k,4)-2*sqrt(2.)*pow(wc,3)*k+pow(wc,4)-2*sqrt(2.)*wc*pow(k,3)+4*pow(wc,2)*pow(k,2))/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));	
 	
 	return kTTErrNone;
 }
