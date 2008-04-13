@@ -34,36 +34,8 @@ typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTAttribut
 /** The instance that manages access to global attributes and settings in the TTBlue environment. */
 extern TTGlobal	ttGlobalObject;
 
-
 /****************************************************************************************************/
 // Class Specifications
-
-/**
-	This class represents a single attribute, as used by the TTObject class.
-	At the moment we define it in the same file because we are sharing the typedef
-	for TTMethod.
-*/
-class TTAttribute : TTElement {
-private:
-public:
-	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbol&		name;		///< the name of the attribute
-	TTDataType			type;		///< the data type of the attribute value
-	void*				address;	///< pointer to the memory holding the attribute value
-	TTGetterMethod		getter;		///< method to fetch the attribute value
-	TTSetterMethod		setter;		///< method to set the attribute value
-
-
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress);
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
-	virtual ~TTAttribute();
-
-	TTErr defaultGetter(TTValue& value, const TTAttribute& attribute);
-	TTErr defaultSetter(const TTValue& value, const TTAttribute& attribute);
-};
-
 
 /**
 	At the moment this class uses really lame associative arrays to keep track of messages and 
@@ -146,6 +118,32 @@ public:
 	
 };
 
+
+/**
+	This class represents a single attribute, as used by the TTObject class.
+	At the moment we define it in the same file because we are sharing the typedef
+	for TTMethod.
+*/
+class TTAttribute : TTElement {
+private:
+public:
+	// Should make this group private, but to get things working initially, we're leaving them public...
+	const TTSymbol&		name;		///< the name of the attribute
+	TTDataType			type;		///< the data type of the attribute value
+	void*				address;	///< pointer to the memory holding the attribute value
+	TTGetterMethod		getter;		///< method to fetch the attribute value
+	TTSetterMethod		setter;		///< method to set the attribute value
+
+
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress);
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
+	virtual ~TTAttribute();
+
+	TTErr defaultGetter(TTValue& value, const TTAttribute& attribute);
+	TTErr defaultSetter(const TTValue& value, const TTAttribute& attribute);
+};
 
 #endif // __TT_OBJECT_H__
 
