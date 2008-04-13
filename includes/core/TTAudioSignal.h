@@ -76,7 +76,7 @@ public:
 	
 	TTUInt8 getNumChannels()
 	{
-		return numChannels;
+		return (TTUInt8)numChannels;
 	}
 
 	void setNumChannels(TTUInt8 newNumChannels)
