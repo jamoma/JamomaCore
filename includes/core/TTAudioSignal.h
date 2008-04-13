@@ -21,7 +21,7 @@
  *	All of the members are made public so that direct access to members can be used for
  *	speed in cases where efficiency is of the utmost importance.
 */
-class TTAudioSignal : TTElement {
+TTBLUE_CLASS TTAudioSignal : TTElement {
 private:
 	enum{
 		kExternallyOwned = 0,

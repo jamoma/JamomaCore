@@ -42,7 +42,7 @@ extern TTGlobal	ttGlobalObject;
 	attributes.  Even lamer is that we statically limit it to 10 of each right now.  
 	Eventually we will do this with something way better...
 */
-class TTObject : public TTElement {
+TTBLUE_CLASS TTObject : public TTElement {
 private:
 	TTSymbol				objectName;
 	const TTSymbol*			messageNames[16];
