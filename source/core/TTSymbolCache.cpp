@@ -9,19 +9,19 @@
 #include "TTValueCache.h"
 #include "TTSymbolTable.h"
 
-const TTSymbol& kTTSymEmpty						= TT("");
+const TTBLUE_DLL TTSymbol& kTTSymEmpty						= TT("");
 
-const TTSymbol&	kTTSym_both						= TT("both");
-const TTSymbol&	kTTSym_bypass					= TT("bypass");
-const TTSymbol&	kTTSym_clipmode					= TT("clipmode");
-const TTSymbol&	kTTSym_high						= TT("high");
-const TTSymbol&	kTTSym_maxNumChannels			= TT("maxNumChannels");
-const TTSymbol&	kTTSym_low						= TT("low");
-const TTSymbol&	kTTSym_processInPlace			= TT("processInPlace");
-const TTSymbol&	kTTSym_range					= TT("range");
-const TTSymbol&	kTTSym_resonance				= TT("resonance");
-const TTSymbol&	kTTSym_sr						= TT("sr");
-const TTSymbol&	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
-const TTSymbol&	kTTSym_updateSr					= TT("updateSr");
+const TTBLUE_DLL TTSymbol&	kTTSym_both						= TT("both");
+const TTBLUE_DLL TTSymbol&	kTTSym_bypass					= TT("bypass");
+const TTBLUE_DLL TTSymbol&	kTTSym_clipmode					= TT("clipmode");
+const TTBLUE_DLL TTSymbol&	kTTSym_high						= TT("high");
+const TTBLUE_DLL TTSymbol&	kTTSym_maxNumChannels			= TT("maxNumChannels");
+const TTBLUE_DLL TTSymbol&	kTTSym_low						= TT("low");
+const TTBLUE_DLL TTSymbol&	kTTSym_processInPlace			= TT("processInPlace");
+const TTBLUE_DLL TTSymbol&	kTTSym_range					= TT("range");
+const TTBLUE_DLL TTSymbol&	kTTSym_resonance				= TT("resonance");
+const TTBLUE_DLL TTSymbol&	kTTSym_sr						= TT("sr");
+const TTBLUE_DLL TTSymbol&	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
+const TTBLUE_DLL TTSymbol&	kTTSym_updateSr					= TT("updateSr");
 
 
