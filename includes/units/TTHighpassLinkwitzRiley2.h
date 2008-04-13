@@ -38,7 +38,7 @@ private:
 	TTFloat64		attrFrequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients
 	TTFloat64		a0, a1, a2;					///< filter coefficients for input samples
-	TTFloat64		b1, b2,;					///< filter coefficients for output samples
+	TTFloat64		b1, b2;					///< filter coefficients for output samples
 	TTFloat64		*xm1;						///< Input sample n-1
 	TTFloat64		*xm2;						///< Input sample n-2
 	TTFloat64		*ym1;						///< Output sample n-1
