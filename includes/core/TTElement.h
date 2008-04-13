@@ -13,9 +13,11 @@
 // Ideally the platform would already be set with a -D option to gcc...
 #ifndef TT_PLATFORM_WIN
 	#ifdef WIN_VERSION
-	#define TT_PLATFORM_WIN
+	 #define TT_PLATFORM_WIN
 	#else
-	#define TT_PLATFORM_MAC
+	 #define TT_PLATFORM_MAC
+	 #define TTBLUE_CLASS class
+	 #define TTBLUE_DLL
 	#endif
 #endif
 
@@ -23,7 +25,14 @@
 #include <stdlib.h>
 #include <iostream>
 #ifdef TT_PLATFORM_WIN
-#include "windows.h"
+ #include "windows.h"
+ #ifdef _DLL_EXPORT
+  #define TTBLUE_CLASS class __declspec(dllexport)
+  #define TTBLUE_DLL __declspec(dllexport)
+ #else
+  #define TTBLUE_CLASS class __declspec(dllimport)
+  #define TTBLUE_DLL __declspec(dllimport)
+ #endif // _DLL_EXPORT
 #endif
 
 
@@ -110,7 +119,7 @@ enum TTErrorCode{
  *	This object is the primary base-class for all TTBlue objects, including TTObject.  
  *	It does not define any core audio, attribute, or other high-level functionality.  For
  *	these refer to TTObject and TTAudioObject.														*/
-class TTElement {
+TTBLUE_CLASS TTElement {
 public:
 	static const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
 	static const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
