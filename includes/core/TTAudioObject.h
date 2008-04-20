@@ -103,20 +103,20 @@ public:
 	TTFloat64 radiansToDegrees(const TTFloat64 radians);
 
 	/** Decay Time (seconds) to feedback coefficient conversion */
-	TTFloat32 decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay);
+	TTFloat64 decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay);
 
 	/** Return the decay time based on the feedback coefficient */
-	TTFloat32 feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay);
+	TTFloat64 feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay);
 
 	/** Convert linear amplitude into deciBels.*/
-	TTFloat32 linearToDb(const TTFloat64 value);
+	TTFloat64 linearToDb(const TTFloat64 value);
 
 	/** Convert deciBels into linear ampliude.*/
-	TTFloat32 dbToLinear(TTFloat64 value);
+	TTFloat64 dbToLinear(TTFloat64 value);
 
 	/** An idiosyncratic utility for slightly randomizing a number. 
 		Specifically this is used in applications such as randoming delay times for a reverb. */
-	TTFloat32 deviate(TTFloat64 value);
+	TTFloat64 deviate(TTFloat64 value);
 
 	/** Generate the next prime number higher than the value passed in.*/
 	TTUInt32 prime(TTUInt32 value);

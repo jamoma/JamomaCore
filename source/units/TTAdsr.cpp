@@ -35,7 +35,7 @@ TTAdsr::~TTAdsr()
 /** Defines a setter function, the first parameter creates a function prefixed with the word set
  * in front of it.  The second parameter is the prefix for the variable that has been defined in the class */
 #define DEFINE_SETPARAM(functionName, prefix)	TTErr TTAdsr::set ## functionName (const TTValue& newValue) { \
-	prefix ## _ms = TTClip<TTFloat32>( prefix ## _ms, 1., 60000.); \
+	prefix ## _ms = TTClip<TTFloat64>( prefix ## _ms, 1., 60000.); \
 	prefix ## _samples = long(( prefix ## _ms / 1000.) * sr); \
 	prefix ## _step = 1.0 / prefix ## _samples; \
 	prefix ## _step_db = -(double(NOISE_FLOOR) / prefix ## _samples); \
@@ -142,7 +142,7 @@ TTErr TTAdsr::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	inSample = in.sampleVectors[0];
 	outSample = out.sampleVectors[0];
 	while(vs--) {
-		trigger = (bool)*inSample++ > 0.5;
+		trigger = (TTBoolean)(*inSample++ > 0.5);
 		
 		if(trigger) {
 			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
