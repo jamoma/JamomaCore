@@ -21,7 +21,7 @@ INCLUDES = $(MAX_INCLUDES) $(TT_INCLUDES)
 #########################################
 
 MAX_LIBS = -lMaxAPI -lMaxAudio
-TT_LIB = -lTTBlue
+TT_LIB = -llibTTBlue
 
 LIBS = ${TT_LIB} ${MAX_LIBS} 
 
