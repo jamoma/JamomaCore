@@ -175,12 +175,14 @@ long TTElement::round(double value)
 
 void TTLogMessage(char *message, ...)
 {
+	// TODO: need to handle va_arg stuff here
 	fprintf(stdout, message);
 }
 
 
 void TTLogError(char *message, ...)
 {
+	// TODO: need to handle va_arg stuff here
 	fprintf(stderr, message);
 }
 
