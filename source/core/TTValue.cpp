@@ -101,6 +101,13 @@ TTValue::TTValue(TTSymbol& initialValue)
 	*type = kTypeSymbol;
 }
 
+TTValue::TTValue(const TTSymbol& initialValue)
+{
+	init();
+	data->sym = (TTSymbol*)&initialValue;
+	*type = kTypeSymbol;
+}
+
 TTValue::TTValue(TTObject& initialValue)
 {
 	init();

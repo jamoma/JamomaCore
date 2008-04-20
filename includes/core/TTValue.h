@@ -102,6 +102,7 @@ public:
 	TTValue(TTUInt64 initialValue);
 	TTValue(TTBoolean initialValue);
 	TTValue(TTSymbol& initialValue);
+	TTValue(const TTSymbol& initialValue);
 	TTValue(TTObject& initialValue);
 
 	/** Copy constructor */
