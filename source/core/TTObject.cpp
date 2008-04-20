@@ -425,7 +425,7 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 }
 
 
-const TTSymbol& TTObject::getName()
+TTSymbol& TTObject::getName()
 {
 	return objectName;
 }

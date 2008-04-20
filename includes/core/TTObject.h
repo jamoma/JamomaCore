@@ -98,7 +98,7 @@ public:
 	void getAttributeNames(TTValue& attributeNameList);
 	
 	/** return the name of this class */
-	const TTSymbol& getName();
+	TTSymbol& getName();
 
 	// These are not registered as static, even though they are operating only on statics.
 	// This is because the function pointers for the attribute getter/setter require a valid 'this' member.
