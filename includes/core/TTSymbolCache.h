@@ -11,21 +11,23 @@
 
 #include "TTSymbol.h"
 
-extern const TTBLUE_DLL TTSymbol& kTTSymEmpty;
+extern const TTBLUE_DLL TTSymbol*	kTTSymEmpty;
 
-extern const TTBLUE_DLL TTSymbol&	kTTSym_both;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_bypass;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_clipmode;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_high;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_maxNumChannels;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_low;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_processInPlace;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_range;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_resonance;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_sr;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_updateMaxNumChannels;
-extern const TTBLUE_DLL TTSymbol&	kTTSym_updateSr;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_both;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_bypass;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_clipmode;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_high;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_maxNumChannels;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_low;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_processInPlace;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_range;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_resonance;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_sr;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_updateMaxNumChannels;
+extern const TTBLUE_DLL TTSymbol*	kTTSym_updateSr;
 
+
+void TTSymbolCacheInit();
 
 #endif // __TT_SYMBOL_CACHE_H__
 

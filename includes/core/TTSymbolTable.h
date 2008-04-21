@@ -13,10 +13,10 @@
 #include "TTSymbol.h"
 
 class TTSymbolTable;
-extern TTBLUE_DLL TTSymbolTable ttSymbolTable;		///< The global table of symbols
+extern TTBLUE_DLL TTSymbolTable* ttSymbolTable;		///< The global table of symbols
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
-#define TT ttSymbolTable.lookup
+#define TT ttSymbolTable->lookup
 
 /****************************************************************************************************/
 // Class Specification

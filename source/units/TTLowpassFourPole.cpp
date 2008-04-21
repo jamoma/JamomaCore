@@ -79,14 +79,14 @@ TTErr TTLowpassFourPole::updateSr()
 
 TTErr TTLowpassFourPole::clear()
 {
-	memset(x1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x2, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x3, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x4, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y2, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y3, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y4, 0.0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x2, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x3, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x4, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y2, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y3, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y4, 0, sizeof(TTFloat64) * maxNumChannels);
 	return kTTErrNone;
 }
 

@@ -23,17 +23,22 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
+#include <stdio.h>
+//#include <iostream>
 #ifdef TT_PLATFORM_WIN
  #include "windows.h"
  #ifdef _DLL_EXPORT
-  #define TTBLUE_CLASS class __declspec(dllexport)
-  #define TTBLUE_DLL __declspec(dllexport)
+  #define TTBLUE_CLASS class _declspec(dllexport) 
+  #define TTBLUE_DLL _declspec(dllexport) 
  #else
-  #define TTBLUE_CLASS class __declspec(dllimport)
-  #define TTBLUE_DLL __declspec(dllimport)
+  #define TTBLUE_CLASS class _declspec(dllimport)
+  #define TTBLUE_DLL _declspec(dllimport)
  #endif // _DLL_EXPORT
 #endif
+
+// TAP -- JUST HERE FOR TESTING...
+//#define TTBLUE_CLASS class
+//#define TTBLUE_DLL
 
 
 #ifndef NO

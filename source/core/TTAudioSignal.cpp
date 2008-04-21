@@ -105,7 +105,7 @@ TTErr TTAudioSignal::getVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* 
 	TTUInt16 i;
 	
 	for(i=0; i<vectorSize; i++)
-		returnedVector[i] = sampleVectors[channel][i];
+		returnedVector[i] = (TTFloat32)sampleVectors[channel][i];
 	return kTTErrNone;
 }
 

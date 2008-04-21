@@ -9,10 +9,18 @@
 #include "TTValueCache.h"
 
 
-TTValue	kTTBoolNo(TTBoolean(NO));
-TTValue kTTBoolYes(TTBoolean(YES));
+TTValue*	kTTBoolNo;
+TTValue*	kTTBoolYes;
 
-TTValue	kTTVal0(TTInt32(0));
-TTValue kTTVal1(TTInt32(1));
+TTValue*	kTTVal0;
+TTValue*	kTTVal1;
 
 
+void TTValueCacheInit()
+{
+	kTTBoolNo = new TTValue(TTBoolean(NO));
+	kTTBoolYes = new TTValue(TTBoolean(YES));
+
+	kTTVal0 = new TTValue(TTInt32(0));
+	kTTVal1 = new TTValue(TTInt32(1));
+}

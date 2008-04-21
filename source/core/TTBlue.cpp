@@ -7,12 +7,21 @@
  */
 
 #include "TTBlue.h"
-
+#include "TTSymbolTable.h"
+#include "TTGlobal.h"
+#include "TTSymbolCache.h"
+#include "TTValueCache.h"
 
 /****************************************************************************************************/
 
 void TTBlueInit()
 {
+	ttSymbolTable = new TTSymbolTable;
+	ttGlobalObject = new TTGlobal;
+
+	TTSymbolCacheInit();
+	TTValueCacheInit();
+
 	printf("TTBlue -- Version 0.5\n");
 	
 	// do we need to do anything with the global object?

@@ -15,7 +15,7 @@
 /****************************************************************************************************/
 // Class Specification
 
-typedef struct TTListItem {
+struct TTListItem {
 	TTValue*		value;
 	TTListItem*		prev;
 	TTListItem*		next;

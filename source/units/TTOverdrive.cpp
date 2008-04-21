@@ -29,7 +29,7 @@ TTOverdrive::TTOverdrive(TTUInt8 newMaxNumChannels)
 	setAttributeValue(TT("mode"), 1);
 	setAttributeValue(TT("preamp"), 0.0);
 	setAttributeValue(TT("drive"), 3.0);
-	setAttributeValue(TT("dcBlocker"), kTTBoolYes);
+	setAttributeValue(TT("dcBlocker"), *kTTBoolYes);
 }
 
 

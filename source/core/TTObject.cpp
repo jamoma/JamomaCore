@@ -438,22 +438,22 @@ TTSymbol& TTObject::getName()
 
 TTErr TTObject::registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address)
 {
-	return ttGlobalObject.registerAttribute(name, type, address);
+	return ttGlobalObject->registerAttribute(name, type, address);
 }
 
 TTErr TTObject::registerGlobalAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
-	return ttGlobalObject.registerAttribute(name, type, address, getter, setter);
+	return ttGlobalObject->registerAttribute(name, type, address, getter, setter);
 }
 
 TTErr TTObject::getGlobalAttributeValue(const TTSymbol& name, TTValue& value)
 {
-	return ttGlobalObject.getAttributeValue(name, value);
+	return ttGlobalObject->getAttributeValue(name, value);
 }
 
 TTErr TTObject::setGlobalAttributeValue(const TTSymbol& name, TTValue& value)
 {
-	return ttGlobalObject.setAttributeValue(name, value);
+	return ttGlobalObject->setAttributeValue(name, value);
 }
 
 

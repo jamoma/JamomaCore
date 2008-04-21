@@ -15,7 +15,8 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTDCBlock.h"				// TTBlue Interfaces...
+#include "TTBlue.h"
+#include "TTDCBlock.h"
 
 
 // Data Structure for this object
@@ -52,6 +53,7 @@ int main(void)
 	t_class *c;
 	t_object *attr;
 	
+	TTBlueInit();
 	common_symbols_init();
 
 	c = class_new("tt.dcblock~",(method)dcblock_new, (method)dcblock_free, (short)sizeof(t_dcblock), 
@@ -207,7 +209,7 @@ t_max_err dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv)
 
 	if(argc){
 		value = x->attrBypass = atom_getlong(argv);
-		x->dcblock->setAttributeValue(kTTSym_bypass, value);
+		x->dcblock->setAttributeValue(*kTTSym_bypass, value);
 	}
 	return MAX_ERR_NONE;
 }

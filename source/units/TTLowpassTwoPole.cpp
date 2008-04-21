@@ -60,8 +60,8 @@ TTErr TTLowpassTwoPole::updateSr()
 
 TTErr TTLowpassTwoPole::clear()
 {
-	memset(feedback1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(feedback2, 0.0, sizeof(TTFloat64) * maxNumChannels);
+	memset(feedback1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(feedback2, 0, sizeof(TTFloat64) * maxNumChannels);
 	return kTTErrNone;
 }
 
