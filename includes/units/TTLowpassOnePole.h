@@ -14,7 +14,7 @@
 
 /**	The simplest of lowpass filters: a single-pole, no-zero algorithm.
  */
-class TTLowpassOnePole : public TTAudioObject {
+TTCLASS TTLowpassOnePole : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;		///< filter cutoff frequency
 	TTFloat64		coefficient;		///< filter coefficients

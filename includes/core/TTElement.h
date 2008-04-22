@@ -31,9 +31,11 @@
  #ifdef _DLL_EXPORT
   #define TTCLASS class __declspec(dllexport cdecl)
   #define TTEXPORT __declspec(dllexport cdecl)
+  #define TTCALL __cdecl
  #else
   #define TTCLASS class __declspec(dllimport cdecl)
   #define TTEXPORT __declspec(dllimport cdecl)
+  #define TTCALL __cdecl
  #endif // _DLL_EXPORT
 #endif
 

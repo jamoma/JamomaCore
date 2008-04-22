@@ -41,7 +41,7 @@ private:
 	TTErr updateMaxNumChannels();
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
-	TTErr __cdecl updateSr();
+	TTErr updateSr();
 
 	/**	Setter for the threshold attribute. */
 	TTErr setPreamp(const TTValue& value);

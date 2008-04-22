@@ -18,7 +18,7 @@
  *	channels is twice the number of output channels.  In this case the first N/2 input channels are
  *	considered as the A source and the last N/2 input channels are considered the B source.
  */
-class TTCrossfade : public TTAudioObject {
+TTCLASS TTCrossfade : public TTAudioObject {
 private:
 	TTFloat64		attrPosition;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
 	TTSymbol&		attrShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"

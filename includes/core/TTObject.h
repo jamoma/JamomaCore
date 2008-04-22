@@ -124,7 +124,7 @@ public:
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTAttribute : TTElement {
+TTCLASS TTAttribute : TTElement {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...

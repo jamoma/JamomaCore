@@ -28,7 +28,7 @@ extern TTGlobal*	ttGlobalObject;
 /**
 	The global object maintains all global attributes/settings for the TTBlue environment.
 */
-class TTGlobal : public TTObject {
+TTCLASS TTGlobal : public TTObject {
 private:
 	
 

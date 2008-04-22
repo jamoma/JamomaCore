@@ -3,7 +3,7 @@
 
 #include "TTAudioObject.h"
 
-class TTAdsr : public TTAudioObject {
+TTCLASS TTAdsr : public TTAudioObject {
 private:
 	TTFloat64	attack_ms;
 	TTInt32		attack_samples;

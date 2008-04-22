@@ -13,7 +13,7 @@
 #include "TTAudioObject.h"
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
-class TTGain : public TTAudioObject {
+TTCLASS TTGain : public TTAudioObject {
 private:
 	TTFloat64		gain;	///< linear gain to be applied to the input signal
 

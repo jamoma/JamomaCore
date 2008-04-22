@@ -22,7 +22,7 @@ struct TTListItem {
 };
 	
 
-class TTList : TTElement {
+TTCLASS TTList : TTElement {
 private:
 	TTValue*		list;
 	TTUInt32		size;			///< number of items stored in the list
