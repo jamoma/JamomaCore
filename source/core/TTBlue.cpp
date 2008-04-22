@@ -12,22 +12,26 @@
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
 
+static bool TTBlueHasInitialized = false;
+
 /****************************************************************************************************/
 
 void TTBlueInit()
 {
-	ttSymbolTable = new TTSymbolTable;
-	ttGlobalObject = new TTGlobal;
+	if(!TTBlueHasInitialized){
+		ttSymbolTable = new TTSymbolTable;
+		ttGlobalObject = new TTGlobal;
 
-	TTSymbolCacheInit();
-	TTValueCacheInit();
+		TTSymbolCacheInit();
+		TTValueCacheInit();
 
-	printf("TTBlue -- Version 0.5\n");
+		printf("TTBlue -- Version 0.5\n");
+		
+		// do we need to do anything with the global object?
+		// init the queue -- runs in a new thread
 	
-	// do we need to do anything with the global object?
-	// init the queue -- runs in a new thread
-	
-	
+		TTBlueHasInitialized = true;
+	}
 }
 
 
