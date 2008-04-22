@@ -10,7 +10,7 @@
 #include "TTMutex.h"
 
 static TTMutex*				sMutex = NULL;
-TTBLUE_DLL TTSymbolTable*	ttSymbolTable = NULL;
+TTEXPORT TTSymbolTable*	ttSymbolTable = NULL;
 
 /****************************************************************************************************/
 

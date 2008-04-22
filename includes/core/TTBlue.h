@@ -16,7 +16,7 @@
 #include "TTValueCache.h"
 
 
-void TTBLUE_DLL TTBlueInit();
+void TTEXPORT TTBlueInit();
 
 
 #endif // __TT_BLUE_H__

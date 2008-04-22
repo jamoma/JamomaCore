@@ -32,7 +32,7 @@ typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal
  *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
  *	own process() method(s) as needed.
  */
-TTBLUE_CLASS TTAudioObject : public TTObject {
+TTCLASS TTAudioObject : public TTObject {
 private:
 	friend class TTGlobal;						///< Declare that the global object is friend so it can access the globalSr member
 

@@ -13,7 +13,7 @@
 #include "TTSymbol.h"
 
 class TTSymbolTable;
-extern TTBLUE_DLL TTSymbolTable* ttSymbolTable;		///< The global table of symbols
+extern TTEXPORT TTSymbolTable* ttSymbolTable;		///< The global table of symbols
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
 #define TT ttSymbolTable->lookup
@@ -28,7 +28,7 @@ extern TTBLUE_DLL TTSymbolTable* ttSymbolTable;		///< The global table of symbol
 	It has an internal table that is implemented as a fixed array.
 	Each symbol is identified by its index in this array.
 */
-TTBLUE_CLASS TTSymbolTable : public TTElement {
+TTCLASS TTSymbolTable : public TTElement {
 private:
 	TTSymbol**	symbolTable;
 	TTUInt32	symbolTableLength;	///< Number of symbols stored in the table

@@ -11,20 +11,20 @@
 #include "TTSymbolCache.h"
 
 
-const TTBLUE_DLL TTSymbol*	kTTSymEmpty;
+const TTEXPORT TTSymbol*	kTTSymEmpty;
 
-const TTBLUE_DLL TTSymbol*	kTTSym_both;
-const TTBLUE_DLL TTSymbol*	kTTSym_bypass;
-const TTBLUE_DLL TTSymbol*	kTTSym_clipmode;
-const TTBLUE_DLL TTSymbol*	kTTSym_high;
-const TTBLUE_DLL TTSymbol*	kTTSym_maxNumChannels;
-const TTBLUE_DLL TTSymbol*	kTTSym_low;
-const TTBLUE_DLL TTSymbol*	kTTSym_processInPlace;
-const TTBLUE_DLL TTSymbol*	kTTSym_range;
-const TTBLUE_DLL TTSymbol*	kTTSym_resonance;
-const TTBLUE_DLL TTSymbol*	kTTSym_sr;
-const TTBLUE_DLL TTSymbol*	kTTSym_updateMaxNumChannels;
-const TTBLUE_DLL TTSymbol*	kTTSym_updateSr;
+const TTEXPORT TTSymbol*	kTTSym_both;
+const TTEXPORT TTSymbol*	kTTSym_bypass;
+const TTEXPORT TTSymbol*	kTTSym_clipmode;
+const TTEXPORT TTSymbol*	kTTSym_high;
+const TTEXPORT TTSymbol*	kTTSym_maxNumChannels;
+const TTEXPORT TTSymbol*	kTTSym_low;
+const TTEXPORT TTSymbol*	kTTSym_processInPlace;
+const TTEXPORT TTSymbol*	kTTSym_range;
+const TTEXPORT TTSymbol*	kTTSym_resonance;
+const TTEXPORT TTSymbol*	kTTSym_sr;
+const TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
+const TTEXPORT TTSymbol*	kTTSym_updateSr;
 
 
 void TTSymbolCacheInit()

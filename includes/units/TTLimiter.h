@@ -15,7 +15,7 @@
 #include "TTGain.h"
 
 /**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. */
-TTBLUE_CLASS TTLimiter : public TTAudioObject {
+TTCLASS TTLimiter : public TTAudioObject {
 private:
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
