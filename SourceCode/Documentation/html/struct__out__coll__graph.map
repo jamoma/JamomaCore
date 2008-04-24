@@ -1,7 +1,2 @@
-base referer
-rect $classtt__ramp.html 5,107 72,133
-rect $classtt__gain.html 103,107 164,133
-rect $struct__jcom__core__subscriber__common.html 107,5 328,32
-rect $struct__in.html 289,107 329,133
-rect $classtt__crossfade.html 512,107 608,133
-rect $classtt__audio__signal.html 355,5 469,32
+<area shape="rect" href="$struct__jcom__core__subscriber__common.html" title="_jcom_core_subscriber_common" alt="" coords="5,6,227,32">
+<area shape="rect" href="$struct__in.html" title="_in" alt="" coords="159,96,199,123">
