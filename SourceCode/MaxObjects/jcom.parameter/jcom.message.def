@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.message"
+
+EXPORTS
+	main

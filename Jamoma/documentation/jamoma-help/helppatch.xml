@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='bear' type='msg_generic' priority='0'>3</item>
+    <item name='buba' type='msg_int' priority='0'>-7</item>
+    <item name='joe' type='msg_float' priority='0'>2.960000</item>
+  </preset>
+</jamoma>

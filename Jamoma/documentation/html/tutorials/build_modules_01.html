@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Building Modules 1: Introduction</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link href="../styles/jamoma.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="jmod_header">
+	<img src="../images/jmod.icon.mod.png" width="128" height="128">
+	
+  <h1> building modules - tutorial one</h1>
+  <h2>introduction to jamoma </h2>
+
+	<h6><a href="../index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
+</div>
+
+<h3>Fundamental concepts</h3>
+<p>Jamoma is a proposition for a standard set of guidelines for development of 
+  modules in <a href="http://cycling74.com/products/maxmsp">Max</a>. Jamoma consists of two parts: 
+  A <a href="../interface_guidelines.html">recommendation</a> and an implementation 
+  of those recommendations. Jamoma offers a number of posssble benefits:</p>
+<ul>
+  <li>Jamoma encourages reuse of modules from one project to the next.</li>
+  <li>Jamoma can simplify development in projects involving several artists/developers 
+    by offering a common protocol for modules.</li>
+  <li>Jamoma might simplify the creation of clear, flexible and screen-efficient 
+    GUI.</li>
+  <li>Jamoma offers a simple and flexible solution for remote control of the states 
+    of parameters in the various patches, including cue handling.</li>
+  <li>Since Jamoma integrates the <a href="http://www.opensoundcontrol.org">OpenSoundControl</a> protocol, it is relatively straight-forward 
+    to set up a network of several computers running Max/MSP/Jamoma with communication 
+    between the computers.</li>
+  <li>We hope that Jamoma might simplify exchange of patches and modules between 
+    Max users in a similar way to how 3rd party externals are currently being 
+    made available.</li>
+</ul>
+<p>Jamoma modules can roughly be subdivided into 3 categories, <em>control</em>, 
+  <em>audio</em> and <em>video</em>, in a similar way to the division between 
+  Max, MSP and Jitter. Of course, you can imagine modules dealing with audio <em>and</em> 
+  video, but let's stick to these three categories for the time being. The three 
+  different kinds of modules look a bit different, and we've adapted a naming 
+  scheme whereby tilde (~) is always part of the name for audio modules, while 
+  &quot;%&quot; indicate that you're dealing with a video module.</p>
+  
+<p>We'll start out with a very simple control module, and from there you might 
+  move on to audio or video modules, depending on your needs and interest.</p>
+<p><a href="build_modules_02a.html">Tutorial 2 A: jmod.qmetro.mod - A simple control 
+  module</a></p>
+</body>
+</html>

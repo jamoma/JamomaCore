@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+<title> jcom.output% </title>
+		<link href="../../../documentation/html/styles/jamoma.css" rel="stylesheet" type="text/css">
+	</head>
+
+<body>
+	<div id="jmod_header">
+	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
+	<h1> jcom.output% </h1>
+	<h2> Output to an OpenGL window </h2>
+	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
+	</div>
+
+	<h3> Configuration </h3>
+	<p> Module Type: <code> video </code> <br>
+	Algorithm Type: <code> default </code> </p>
+	<p>Interface Size: <code> 1U-half </code> </p>
+	<p>Number of signal inlets: <code> 1 </ code> <br/>
+Number of signal outlets: <code> 0 </code> </p>
+	<h3> Parameters </h3>
+	<table>
+		<tr class="tableHeading2">
+			<td> Name </td>
+			<td> Type </td>
+			<td> Range </td>
+			<td> Clipmode </td>
+			<td> Ramp Enabled </td>
+			<td> Repetitions </td>
+			<td> Description </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> fullscreen </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Toggle fullscreen - can be turned on and off with the ESC key. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> interpolate </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Interpolate the video output </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> video/bypass </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Bypasses the video processing algorithm in the module - allowing unaltered video through. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> video/freeze </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Freezes the last frame of output from the module's processing.mxtorithm. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> video/mute </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDescription"> Mutes (turns off) the module's.mxtorithm - generating no output. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> video/preview </td>
+			<td class ="instructionType"> msg_toggle </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Turns on/off the video display in the module's preview window. </td>
+		<tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3> Messages </h3>
+	<table>
+		<tr class="tableHeading2">
+			<td> Name </td>
+			<td> Type </td>
+			<td> Range </td>
+			<td> Clipmode </td>
+			<td> Ramp Enabled </td>
+			<td> Repetitions </td>
+			<td> Description </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> documentation/help </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open the help patch for the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> documentation/html </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open the online html reference for this module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> module/view_internals </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/default </td>
+			<td class ="instructionType"> msg_none </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/load </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/recall </td>
+			<td class ="instructionType"> msg_float </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/save </td>
+			<td class ="instructionType"> msg_symbol </td>
+			<th class = "instructionRange"> N/A </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/store </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionRange"> 0 1 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> video/direct </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Send messages directly to the jitter external embedded in the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> video/genframe </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionRange"> 0.000000 1.000000 </td>
+			<td class ="instructionClipmode"> none </td>
+			<td class ="instructionRamp"> none </td>
+			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDescription"> Forces a frame of output to be sent. </td>
+		<tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3> Return </h3>
+	<table>
+		<tr class="tableHeading2">
+			<td> Name </td>
+			<td> Type </td>
+			<td> Range </td>
+			<td> Clipmode </td>
+			<td> Ramp Enabled </td>
+			<td> Repetitions </td>
+			<td> Description </td>
+		<tr>
+	</table>
+
+	<p>&nbsp;</p>
+
+	<h3> About Jamoma </h3>
+	<p> Jamoma is a system for creating and exchanging structured Max patches. 
+	It consists of both a set of guidelines and an implementation of those guidelines. 
+	For more information please visit <a href="http://jamoma.org/">jamoma.org</a>. </p> 
+</body>
+</html>

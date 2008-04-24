@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.change"
+
+EXPORTS
+	main

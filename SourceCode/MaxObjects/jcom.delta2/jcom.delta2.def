@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.delta2"
+
+EXPORTS
+	main

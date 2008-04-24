@@ -1,0 +1,15 @@
+{
+	"boxes" : [ 		{
+			"box" : 			{
+				"maxclass" : "button",
+				"outlettype" : [ "bang" ],
+				"numinlets" : 1,
+				"patching_rect" : [ 320., 186., 18., 18. ],
+				"numoutlets" : 1,
+				"id" : "obj-8"
+			}
+
+		}
+ ],
+	"preview_image" : [ 697, "png", "IBkSG0fBZn....PCIgDQRA...HA...fDHX....fUN63U....DLmPIQEBHf.B7g.YHB..B.WRDEDU3zXiTuzRaDEE.G++Yx3LIwwflPRLpokh5BQW3iMtXVUneG7KPccoeU5pVncgqbeWUnKEE0JBsntPrZoO7NTzwLiOZpI2aWTmgHRDOqtv4b9w8b3xU.PoTUAVzXL9hHNKu7xOYkUV4wzkv22+aKrvBeE3ihHuqZ0pJKkRU0XLuB3ohHN.r1ZqUuaH.r5pqVGP.dlVqecPPvfV.OWDobmENyLy766CZ1Ym83jyhHELFyhhRodOfWRhCO7vwBCCGA.OOO777HSlLb5omxUWcE.TqVs8qUq1OS5wXLWY2IxQGczngggi355xTSMEUpT4V2jvvP1d6s43iOdbsVaM7vC+8atU4rRJJJJpuSN4jQbbbv22+NH.Lv.Cv7yOO4xkifffQaznQgjboPJk5whHxzSOMNNNcc+jOedlbxIAffffGcKn1saac94mWzyyiRkJ0Ujjnb4xjOedhiiK0tcaqTnlMalEvxyy6dA5L5u+9QDQto2+Co0ZAfLYx7fgDQnyds.Ha1r+Af333GLTTTD2zayTHaa61tttwQQQOHrFMZPbbLtttw111sRg.nb4x+.fc1YGZ0pUWQZ0pE6t6t.PoRkReTlBUoRkfBEJDDFFx5quNWd4k2A4hKtfM2bSN6ryn2d68jAGbPURNQoTe.vA.sVyAGbvDwwwUAnu95ihEKhwXHLLLcrykKW3XiM1N8zSOs.vXL+01XLeQDYN.rrrX7wGeukVZI6M1Xit9fx22OZhIlHc9EQ9rkwXdqwXZ1Ygas0VCz0kDoeijNwWe80uwZngFZOsV+BfOkjYt4l6W2GTx2HZsdSKKqWVud88+GvFBE.uArCVvC....PRE4DQtJDXBB" ]
+}

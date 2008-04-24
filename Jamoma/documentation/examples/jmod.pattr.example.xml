@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.pattr.example">
+	<slot number = "1">
+		<patcher name = "/another_degrade~">
+			<pattr name = "bitdepth" value = "24" />
+			<pattr name = "sr_ratio" value = "1." />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<pattr name = "audio/bypass" value = "0" />
+					<pattr name = "audio/meters/freeze" value = "0" />
+					<pattr name = "audio/mix" value = "100." />
+					<pattr name = "audio/mute" value = "0" />
+					<pattr name = "audio/sample_rate" value = "0" />
+					<patcher name = "pattr_gain">
+						<pattr name = "audio/gain/midi" value = "151." />
+					</patcher>
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "/degrade~">
+			<pattr name = "bitdepth" value = "24" />
+			<pattr name = "sr_ratio" value = "1." />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<pattr name = "audio/bypass" value = "1" />
+					<pattr name = "audio/meters/freeze" value = "0" />
+					<pattr name = "audio/mix" value = "100." />
+					<pattr name = "audio/mute" value = "1" />
+					<pattr name = "audio/sample_rate" value = "0" />
+					<patcher name = "pattr_gain">
+						<pattr name = "audio/gain/midi" value = "136." />
+					</patcher>
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "/edge%">
+			<pattr name = "algorithm" value = "Sobel" />
+			<pattr name = "thresh" value = "0.24" />
+			<patcher name = "jmod.gui">
+				<patcher name = "pwindow">
+					<pattr name = "video/bypass" value = "0" />
+					<pattr name = "video/freeze" value = "0" />
+					<pattr name = "video/mute" value = "0" />
+					<pattr name = "video/preview" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+	</slot>
+	<slot number = "2">
+		<patcher name = "/another_degrade~">
+			<pattr name = "bitdepth" value = "24" />
+			<pattr name = "sr_ratio" value = "1." />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<pattr name = "audio/bypass" value = "0" />
+					<pattr name = "audio/meters/freeze" value = "0" />
+					<pattr name = "audio/mix" value = "100." />
+					<pattr name = "audio/mute" value = "0" />
+					<pattr name = "audio/sample_rate" value = "0" />
+					<patcher name = "pattr_gain">	
+						<pattr name = "audio/gain/midi" value = "151." />
+					</patcher>
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "/degrade~">
+			<pattr name = "bitdepth" value = "10" />
+			<pattr name = "sr_ratio" value = "0.52" />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<pattr name = "audio/bypass" value = "0" />
+					<pattr name = "audio/meters/freeze" value = "0" />
+					<pattr name = "audio/mix" value = "53." />
+					<pattr name = "audio/mute" value = "0" />
+					<pattr name = "audio/sample_rate" value = "0" />
+					<patcher name = "pattr_gain">
+						<pattr name = "audio/gain/midi" value = "0." />
+					</patcher>
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "/edge%">
+			<pattr name = "algorithm" value = "Robcross" />
+			<pattr name = "thresh" value = "2.59" />
+			<patcher name = "jmod.gui">
+				<patcher name = "pwindow">
+					<pattr name = "video/bypass" value = "0" />
+					<pattr name = "video/freeze" value = "0" />
+					<pattr name = "video/mute" value = "0" />
+					<pattr name = "video/preview" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+	</slot>
+	<slot number = "3">
+		<patcher name = "/another_degrade~">
+			<pattr name = "bitdepth" value = "24" />
+			<pattr name = "sr_ratio" value = "1." />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<pattr name = "audio/bypass" value = "1" />
+					<pattr name = "audio/meters/freeze" value = "0" />
+					<pattr name = "audio/mix" value = "100." />
+					<pattr name = "audio/mute" value = "1" />
+					<pattr name = "audio/sample_rate" value = "-1" />
+					<patcher name = "pattr_gain">
+						<pattr name = "audio/gain/midi" value = "151." />
+					</patcher>
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "/degrade~">
+			<pattr name = "bitdepth" value = "10" />
+			<pattr name = "sr_ratio" value = "0.52" />
+			<patcher name = "jmod.gui.1Uh.a.stereo.mxt">
+				<patcher name = "controls">
+					<pattr name = "audio/bypass" value = "0" />
+					<pattr name = "audio/meters/freeze" value = "0" />
+					<pattr name = "audio/mix" value = "53." />
+					<pattr name = "audio/mute" value = "0" />
+					<pattr name = "audio/sample_rate" value = "0" />
+					<patcher name = "pattr_gain">
+						<pattr name = "audio/gain/midi" value = "0." />
+					</patcher>
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "/edge%">
+			<pattr name = "algorithm" value = "Robcross" />
+			<pattr name = "thresh" value = "2.59" />
+			<patcher name = "jmod.gui">
+				<patcher name = "pwindow">
+					<pattr name = "video/bypass" value = "1" />
+					<pattr name = "video/freeze" value = "0" />
+					<pattr name = "video/mute" value = "0" />
+					<pattr name = "video/preview" value = "1" />
+				</patcher>
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+

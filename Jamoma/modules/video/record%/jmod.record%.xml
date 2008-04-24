@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<pattrstorage name = "jmod.record%">
+	<slot number = "1">
+		<patcher name = "jmod.gui.1Uh.v.mxb">
+			<patcher name = "pwindow">
+				<patcher name = "pwindow_gate[1]">
+					<pattr name = "/video/preview" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[2]">
+					<pattr name = "/video/bypass" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[3]">
+					<pattr name = "/video/freeze" value = "0" />
+				</patcher>
+				<patcher name = "pwindow_gate[4]">
+					<pattr name = "/video/mute" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.parameter">
+			<pattr name = "/codec" value = "jpeg" />
+		</patcher>
+		<patcher name = "jmod.parameter[1]">
+			<pattr name = "/quality" value = "high" />
+		</patcher>
+		<patcher name = "jmod.parameter[2]">
+			<pattr name = "/framerate" value = "15." />
+		</patcher>
+		<patcher name = "jmod.parameter[3]">
+			<pattr name = "/interp" value = "0" />
+		</patcher>
+		<patcher name = "jmod.parameter[4]">
+			<pattr name = "/realtime" value = "0" />
+		</patcher>
+		<patcher name = "inspector">
+			<patcher name = "/matrix">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/matrix/dim" value = "320 240" />
+				</patcher>
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/matrix/adapt" value = "1" />
+				</patcher>
+				<patcher name = "jmod.parameter[2]">
+					<pattr name = "/matrix/name" value = "UID" />
+				</patcher>
+				<patcher name = "jmod.parameter[3]">
+					<pattr name = "/matrix/planecount" value = "4" />
+				</patcher>
+				<patcher name = "jmod.parameter[4]">
+					<pattr name = "/matrix/type" value = "char" />
+				</patcher>
+			</patcher>
+		</patcher>
+		<patcher name = "jmod.hub">
+			<patcher name = "sub patch[1]">
+				<patcher name = "jmod.parameter[1]">
+					<pattr name = "/clock/set" value = "" />
+				</patcher>
+			</patcher>
+			<patcher name = "sub patch">
+				<patcher name = "jmod.parameter">
+					<pattr name = "/ui/freeze" value = "0" />
+				</patcher>
+			</patcher>
+		</patcher>
+	</slot>
+</pattrstorage>
+
