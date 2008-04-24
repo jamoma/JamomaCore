@@ -1,1 +1,0 @@
-max v2;#N vpatcher 168 138 526 311;#P outlet 71 107 15 0;#P inlet 71 51 15 0;#P window setfont "Sans Serif" 9.;#P message 71 78 55 196617 3.141593;#P connect 1 0 0 0;#P connect 0 0 2 0;#P pop;
