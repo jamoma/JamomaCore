@@ -12,8 +12,6 @@
 #include "TTElement.h"
 #include "TTSymbol.h"
 
-class TTSymbolTable;
-extern TTEXPORT TTSymbolTable* ttSymbolTable;		///< The global table of symbols
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
 #define TT ttSymbolTable->lookup
@@ -47,6 +45,7 @@ public:
 	TTSymbol& lookup(const char* string);
 };
 
+extern TTEXPORT TTSymbolTable* ttSymbolTable;		///< The global table of symbols
 
 #endif // __TT_SYMBOLTABLE_H__
 
