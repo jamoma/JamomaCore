@@ -41,7 +41,7 @@ TTErr TTDCBlock::updateMaxNumChannels(TTValue& v, const TTSymbol& m)
 		free(lastOutput);
 	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
 	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	clear(TTValue(0), TT(""));
+	clear(v, TT(""));
 	return kTTErrNone;
 }
 
