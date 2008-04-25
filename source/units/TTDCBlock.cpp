@@ -33,7 +33,7 @@ TTDCBlock::~TTDCBlock()
 }
 
 
-TTErr TTDCBlock::updateMaxNumChannels()
+TTErr TTDCBlock::updateMaxNumChannels(TTValue& v, const TTSymbol& m)
 {
 	if(lastInput)
 		free(lastInput);
@@ -41,12 +41,12 @@ TTErr TTDCBlock::updateMaxNumChannels()
 		free(lastOutput);
 	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
 	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	clear();
+	clear(TTValue(0), TT(""));
 	return kTTErrNone;
 }
 
 
-TTErr TTDCBlock::clear()
+TTErr TTDCBlock::clear(TTValue& v, const TTSymbol& m)
 {
 	short i;
 
