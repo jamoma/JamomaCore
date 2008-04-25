@@ -38,40 +38,40 @@ private:
 	TTFloat64			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(TTValue&, const TTSymbol&);
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
-	TTErr updateSr();
+	TTErr updateSr(TTValue&, const TTSymbol&);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setPreamp(const TTValue& value);
+	TTErr setPreamp(const TTValue& value, const TTAttribute&);
 	/**	Getter for the threshold attribute. */
-	TTErr getPreamp(TTValue& value);
+	TTErr getPreamp(TTValue& value, const TTAttribute&);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setPostamp(const TTValue& value);
+	TTErr setPostamp(const TTValue& value, const TTAttribute&);
 	/**	Getter for the threshold attribute. */
-	TTErr getPostamp(TTValue& value);
+	TTErr getPostamp(TTValue& value, const TTAttribute&);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setThreshold(const TTValue& value);
+	TTErr setThreshold(const TTValue& value, const TTAttribute&);
 	/**	Getter for the threshold attribute. */
-	TTErr getThreshold(TTValue& value);
+	TTErr getThreshold(TTValue& value, const TTAttribute&);
 
 	/** Setter for the lookahead attribute, value is in samples. */
-	TTErr setLookahead(TTValue& newValue);
+	TTErr setLookahead(TTValue& newValue, const TTAttribute&);
 
 	/**	Setter for the mode attribute. */
-	TTErr setMode(TTValue& newValue);
+	TTErr setMode(TTValue& newValue, const TTAttribute&);
 
 	/**	Setter for the release attribute. */
-	TTErr setRelease(TTValue& newValue);
+	TTErr setRelease(TTValue& newValue, const TTAttribute&);
 
 	/**	Setter for the dcblocker attribute. */
-	TTErr setDCBlocker(TTValue& newValue);
+	TTErr setDCBlocker(TTValue& newValue, const TTAttribute&);
 
 	/** Clear the history: reset the limiter. */
-	TTErr clear();
+	TTErr clear(TTValue&, const TTSymbol&);
 
 	/** Private utility used by the audio processing routine. */
 	void setRecover();

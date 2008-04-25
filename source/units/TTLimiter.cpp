@@ -42,7 +42,8 @@ TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	setAttributeValue(TT("release"),		1000.0);
 	setAttributeValue(TT("dcBlocker"),		*kTTBoolYes);
 	setAttributeValue(TT("bypass"),			*kTTBoolNo);
-	clear();
+	TTValue v;
+	clear(v, TT(""));
 	setProcess((TTProcessMethod)&TTLimiter::processNormal);
 }
 
@@ -60,7 +61,7 @@ TTLimiter::~TTLimiter()
 }
 
 
-TTErr TTLimiter::updateMaxNumChannels()
+TTErr TTLimiter::updateMaxNumChannels(TTValue& v, const TTSymbol& s)
 {
 	short i;
 
@@ -77,7 +78,7 @@ TTErr TTLimiter::updateMaxNumChannels()
 	for(i=0; i<maxNumChannels; i++)
 		lookaheadBuffer[i] = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
 
-	clear();
+	clear(v, s);
 	
 	dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 	preamp->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
@@ -86,51 +87,51 @@ TTErr TTLimiter::updateMaxNumChannels()
 }
 
 
-TTErr TTLimiter::updateSr()
+TTErr TTLimiter::updateSr(TTValue&, const TTSymbol&)
 {
 	setRecover();
 	return kTTErrNone;
 }
 
 
-TTErr TTLimiter::setPreamp(const TTValue& newValue)
+TTErr TTLimiter::setPreamp(const TTValue& newValue, const TTAttribute&)
 {
 	return preamp->setAttributeValue(TT("gain"), newValue);
 }
 
-TTErr TTLimiter::getPreamp(TTValue& value)
+TTErr TTLimiter::getPreamp(TTValue& value, const TTAttribute&)
 {
 	return preamp->getAttributeValue(TT("gain"), value);
 }
 
 
-TTErr TTLimiter::setPostamp(const TTValue& newValue)
+TTErr TTLimiter::setPostamp(const TTValue& newValue, const TTAttribute&)
 {
 	attrPostamp = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
-TTErr TTLimiter::getPostamp(TTValue& value)
+TTErr TTLimiter::getPostamp(TTValue& value, const TTAttribute&)
 {
 	value = linearToDb(attrPostamp);
 	return kTTErrNone;
 }
 
 
-TTErr TTLimiter::setThreshold(const TTValue& newValue)
+TTErr TTLimiter::setThreshold(const TTValue& newValue, const TTAttribute&)
 {
 	attrThreshold = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
-TTErr TTLimiter::getThreshold(TTValue& value)
+TTErr TTLimiter::getThreshold(TTValue& value, const TTAttribute&)
 {
 	value = linearToDb(attrThreshold);
 	return kTTErrNone;
 }
 
 
-TTErr TTLimiter::setLookahead(TTValue& newValue)
+TTErr TTLimiter::setLookahead(TTValue& newValue, const TTAttribute&)
 {
 	attrLookahead = TTClip(TTUInt32(newValue), TTUInt32(1), maxBufferSize-1);
     lookaheadInv = 1.0 / TTFloat64(attrLookahead);
@@ -138,7 +139,7 @@ TTErr TTLimiter::setLookahead(TTValue& newValue)
 }
 
 
-TTErr TTLimiter::setRelease(TTValue& newValue)
+TTErr TTLimiter::setRelease(TTValue& newValue, const TTAttribute&)
 {
 	attrRelease = newValue;
 	setRecover();
@@ -146,7 +147,7 @@ TTErr TTLimiter::setRelease(TTValue& newValue)
 }
 
 
-TTErr TTLimiter::setMode(TTValue& newValue)
+TTErr TTLimiter::setMode(TTValue& newValue, const TTAttribute&)
 {
 	attrMode = newValue;
 	if(attrMode == TT("linear"))
@@ -158,14 +159,14 @@ TTErr TTLimiter::setMode(TTValue& newValue)
 }
 
 
-TTErr TTLimiter::setDCBlocker(TTValue& newValue)
+TTErr TTLimiter::setDCBlocker(TTValue& newValue, const TTAttribute&)
 {
 	attrDCBlocker = newValue;
 	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);
 }
 
 
-TTErr TTLimiter::clear()
+TTErr TTLimiter::clear(TTValue&, const TTSymbol&)
 {
 	TTUInt32	i;
 	TTUInt32	channel;
