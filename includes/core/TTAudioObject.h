@@ -51,13 +51,13 @@ protected:
 	TTErr setProcess(TTProcessMethod processMethod);
 
 	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
-	TTErr setBypass(const TTValue& value);
+	TTErr setBypass(const TTValue& value, const TTAttribute&);
 
 	/**	Setter for the maxNumChannels attribute. 	*/
-	TTErr setMaxNumChannels(const TTValue& newValue);
+	TTErr setMaxNumChannels(const TTValue& newValue, const TTAttribute&);
 
 	/**	Setter for the sample-rate attribute.		*/
-	TTErr setSr(const TTValue& newValue);
+	TTErr setSr(const TTValue& newValue, const TTAttribute&);
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/

@@ -36,7 +36,7 @@ TTAudioObject::~TTAudioObject()
 }
 		
 
-TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
+TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue, const TTAttribute&)
 {
 	maxNumChannels = newValue;
 	sendMessage(TT("updateMaxNumChannels"));
@@ -44,7 +44,7 @@ TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 }
 
 
-TTErr TTAudioObject::setSr(const TTValue& newValue)
+TTErr TTAudioObject::setSr(const TTValue& newValue, const TTAttribute&)
 {
 	sr = newValue;
 	srInv = 1.0/sr;
@@ -82,7 +82,7 @@ TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 }
 
 
-TTErr TTAudioObject::setBypass(const TTValue& value)
+TTErr TTAudioObject::setBypass(const TTValue& value, const TTAttribute&)
 {
 	attrBypass = value;
 	if(attrBypass)
