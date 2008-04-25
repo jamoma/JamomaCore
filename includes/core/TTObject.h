@@ -31,9 +31,6 @@ typedef TTErr (TTObject::*TTGetterMethod)(TTValue& value, const TTAttribute& att
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTAttribute& attribute);
 
-/** The instance that manages access to global attributes and settings in the TTBlue environment. */
-extern TTGlobal*	ttGlobalObject;
-
 /****************************************************************************************************/
 // Class Specifications
 
