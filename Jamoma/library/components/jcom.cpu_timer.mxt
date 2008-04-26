@@ -1,1 +1,0 @@
-max v2;#N vpatcher 30 89 253 292;#P outlet 52 144 15 0;#P window setfont "Sans Serif" 9.;#P window linecount 1;#P newex 52 107 27 196617 - 0.;#P inlet 132 34 15 0;#P inlet 69 34 15 0;#P newex 132 58 45 196617 cpuclock;#P newex 69 58 45 196617 cpuclock;#P connect 1 0 4 0;#P connect 4 0 5 0;#P connect 2 0 0 0;#P connect 0 0 4 1;#P connect 3 0 1 0;#P pop;

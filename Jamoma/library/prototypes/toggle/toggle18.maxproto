@@ -1,0 +1,15 @@
+{
+	"boxes" : [ 		{
+			"box" : 			{
+				"maxclass" : "toggle",
+				"outlettype" : [ "int" ],
+				"numinlets" : 1,
+				"patching_rect" : [ 263., 146., 18., 18. ],
+				"numoutlets" : 1,
+				"id" : "obj-2"
+			}
+
+		}
+ ],
+	"preview_image" : [ 373, "png", "IBkSG0fBZn....PCIgDQRA...HA...fDHX....fUN63U....DLmPIQEBHf.B7g.YHB..AvRRDEDU3zX6M2yRBFFFEG++kJQitDZgfNjzG.glDbonbo.axIIn4ZpOAAURgYQPTgyRKJMT6sTK8EHdHrHeKoEAws7zRYPziffKAcMdtOme2F.42M+78P6XlECfmq9DUaTE2tPSFhvghfjtASEZ2s8E9xkM2ZBN2v5Wrdy5th.Psl0HbnHXlk.rD9G2uWuKL2hmYlMUrYiwxqrDwSDmNc5fiiiqPISljLqlg260ilMZhfosCxlW.rwlqiYlqi+sSRb3dGA.d9JbXQ94FOCn2PciNHIoQBzn.4en+pP9.ZADv4AGhNST.nXwhTpTIWGkJUJRmNMUdrB.Ho27IwwlwVWc408Kd282Nveub4x75Ks9NvzodFS9NQnBRpyW4AlH3.gB946RpaOosswr8+.ASt1lT9BHvA....PRE4DQtJDXBB" ]
+}
