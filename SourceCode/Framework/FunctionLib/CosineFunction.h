@@ -1,6 +1,6 @@
 /* 
  * Jamoma FunctionLib: CosineFunction
- * Copyright Â© 2007
+ * Copyright © 2007 by Dave Watson
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -17,15 +17,13 @@
 
 
 // Specification of our base class
-class CosineFunction : FunctionLib{
-	public:
-		CosineFunction();
-		~CosineFunction();
-		
-		// ATTRIBUTES
-		double mapValue(double x);
-		// double lookupValue(double x);
-		
+class CosineFunction : public FunctionUnit{
+public:
+	CosineFunction();
+	~CosineFunction();
+
+	double map(double x);
+	// double lookupValue(double x);		
 };
 
 

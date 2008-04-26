@@ -1,0 +1,328 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		221DEAB50D6B21BC000799BA /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221DEAB40D6B21BC000799BA /* TTBlue.framework */; };
+		225AC97B0D1EC71A00F3F92F /* jcom.paramui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225AC97A0D1EC71A00F3F92F /* jcom.paramui.cpp */; };
+		22BF46370D273D23001FAA14 /* jcom.paramui.attrs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BF46350D273D23001FAA14 /* jcom.paramui.attrs.cpp */; };
+		22BF46380D273D23001FAA14 /* jcom.paramui.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BF46360D273D23001FAA14 /* jcom.paramui.h */; };
+		22FD36380CF09B5E0039C226 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		22FD36390CF09B5E0039C226 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
+		22FD363A0CF09B5E0039C226 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
+		22FD363B0CF09B5E0039C226 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD30A90CEE8BBB0039C226 /* Jamoma.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
+		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
+		221DEAB40D6B21BC000799BA /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
+		225AC97A0D1EC71A00F3F92F /* jcom.paramui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.paramui.cpp; sourceTree = "<group>"; };
+		22BF46350D273D23001FAA14 /* jcom.paramui.attrs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.paramui.attrs.cpp; sourceTree = "<group>"; };
+		22BF46360D273D23001FAA14 /* jcom.paramui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.paramui.h; sourceTree = "<group>"; };
+		22FD30A90CEE8BBB0039C226 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = /Library/Frameworks/Jamoma.framework; sourceTree = "<absolute>"; };
+		22FD36420CF09B5E0039C226 /* jcom.paramui.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.paramui.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		22FD36370CF09B5E0039C226 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22FD36380CF09B5E0039C226 /* Carbon.framework in Frameworks */,
+				22FD36390CF09B5E0039C226 /* MaxAPI.framework in Frameworks */,
+				22FD363A0CF09B5E0039C226 /* MaxAudioAPI.framework in Frameworks */,
+				22FD363B0CF09B5E0039C226 /* Jamoma.framework in Frameworks */,
+				221DEAB50D6B21BC000799BA /* TTBlue.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* abs~ */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77ADFE841716C02AAC07 /* Source */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = "abs~";
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				22FD30A90CEE8BBB0039C226 /* Jamoma.framework */,
+				221DEAB40D6B21BC000799BA /* TTBlue.framework */,
+				0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */,
+				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
+				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				22BF46360D273D23001FAA14 /* jcom.paramui.h */,
+				225AC97A0D1EC71A00F3F92F /* jcom.paramui.cpp */,
+				22BF46350D273D23001FAA14 /* jcom.paramui.attrs.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22FD36420CF09B5E0039C226 /* jcom.paramui.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		22FD36320CF09B5E0039C226 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22BF46380D273D23001FAA14 /* jcom.paramui.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		22FD36310CF09B5E0039C226 /* jcom.paramui */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22FD363F0CF09B5E0039C226 /* Build configuration list for PBXNativeTarget "jcom.paramui" */;
+			buildPhases = (
+				22FD36320CF09B5E0039C226 /* Headers */,
+				22FD36330CF09B5E0039C226 /* Resources */,
+				22FD36340CF09B5E0039C226 /* Sources */,
+				22FD36370CF09B5E0039C226 /* Frameworks */,
+				22FD363C0CF09B5E0039C226 /* Rez */,
+				22FD363E0CF09B5E0039C226 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = jcom.paramui;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = MSPExternal;
+			productReference = 22FD36420CF09B5E0039C226 /* jcom.paramui.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "jcom.paramui" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* abs~ */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22FD36310CF09B5E0039C226 /* jcom.paramui */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		22FD36330CF09B5E0039C226 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		22FD363C0CF09B5E0039C226 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		22FD363E0CF09B5E0039C226 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "perl /Library/Frameworks/Jamoma.framework/Headers/infoplist_versionmaker.pl\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22FD36340CF09B5E0039C226 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				225AC97B0D1EC71A00F3F92F /* jcom.paramui.cpp in Sources */,
+				22BF46370D273D23001FAA14 /* jcom.paramui.attrs.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0FFBB95D09731BB700D78707 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		0FFBB95E09731BB700D78707 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		22FD36400CF09B5E0039C226 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_ALTIVEC_EXTENSIONS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_TRIGRAPHS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/MaxAudioAPI.framework/Headers,
+				);
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = Bundle;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = jcom.paramui;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"-Wno-conversion",
+				);
+				WRAPPER_EXTENSION = mxo;
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		22FD36410CF09B5E0039C226 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_ALTIVEC_EXTENSIONS = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_TRIGRAPHS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/MaxAPI.framework/Headers,
+					/Library/Frameworks/MaxAudioAPI.framework/Headers,
+				);
+				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
+				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = Bundle;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = jcom.paramui;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"-Wno-conversion",
+				);
+				WRAPPER_EXTENSION = mxo;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "jcom.paramui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0FFBB95D09731BB700D78707 /* Development */,
+				0FFBB95E09731BB700D78707 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		22FD363F0CF09B5E0039C226 /* Build configuration list for PBXNativeTarget "jcom.paramui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22FD36400CF09B5E0039C226 /* Development */,
+				22FD36410CF09B5E0039C226 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

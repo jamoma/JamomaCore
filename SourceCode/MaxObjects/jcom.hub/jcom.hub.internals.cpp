@@ -121,7 +121,7 @@ void hub_internals_destroy(t_hub *x)
 		if(!err)
 			delete anObject;
 	}
-
+	
 	if(keys)
 		sysmem_freeptr(keys);
 		

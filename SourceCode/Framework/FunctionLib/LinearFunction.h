@@ -1,6 +1,6 @@
 /* 
  * Jamoma FunctionLib: LinearFunction
- * Copyright © 2007
+ * Copyright © 2007 by Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -17,14 +17,13 @@
 
 
 // Specification of our base class
-class LinearFunction : FunctionLib{
-	public:
-		LinearFunction();
-		~LinearFunction();
-		
-		// ATTRIBUTES
-		double mapValue(double x);
-		// double lookupValue(double x);
+class LinearFunction : public FunctionUnit{
+public:
+	LinearFunction();
+	~LinearFunction();
+
+	double map(double x);
+	// double lookupValue(double x);
 };
 
 

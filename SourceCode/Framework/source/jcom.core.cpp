@@ -7,8 +7,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "ext.h"		// Max externals header
-#include "ext_obex.h"	// Obex header
+//#include "ext.h"		// Max externals header
+//#include "ext_obex.h"	// Obex header
 #include "jcom.core.h"
 #include "Jamoma.h"
 
@@ -19,6 +19,26 @@
 t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type)
 {
 	if(max5){
+		t_object	*patcher = container;
+		t_object	*box;
+		t_symbol	*objclass = NULL;
+		t_object	*hub = NULL;
+		
+	again5:
+		box = object_attr_getobj(patcher, gensym("firstobject"));
+		while(box){
+			objclass = object_attr_getsym(box, gensym("maxclass"));
+			if(objclass == ps_jcom_hub){
+				hub = object_attr_getobj(box, _sym_object);
+				object_method(hub, ps_subscribe, name, x, object_type);
+				return hub;
+			}
+			box = object_attr_getobj(box, gensym("nextobject"));
+		}
+		patcher = object_attr_getobj(patcher, gensym("parentpatcher"));
+		if(patcher)
+			goto again5;
+
 		return NULL;
 	}
 	else{
@@ -239,7 +259,7 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 
 	// ATTRIBUTE: range <low, high>
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
-	jamoma_class_attr_array_new(c, "range", _sym_float32, 2,
+	jamoma_class_attr_array_new(c, "range/bounds", _sym_float32, 2,
 		(method)jcom_core_attr_setrange, (method)jcom_core_attr_getrange,
 		offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len), attroffset);
 
@@ -254,7 +274,7 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long of
 	
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_clipmode);
-	jamoma_class_attr_new(c, "clipmode", _sym_symbol,
+	jamoma_class_attr_new(c, "range/clipmode", _sym_symbol,
 		(method)0, (method)jcom_core_attr_getclipmode,
 		attroffset);
 
@@ -395,7 +415,10 @@ t_max_err jcom_core_attr_setrange(t_jcom_core_subscriber_extended *x, void *attr
 t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 2;
-	// FIXME: This checks if we have memory passed in, good, but how do we know if it is enough memory for 2 atoms? [TAP]
+	if(!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_description);
+
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);
 	//sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * 2);

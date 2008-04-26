@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>VERSION (SVNREV)</string>
 	<key>CFBundleLongVersionString</key>
-	<string>Jamoma VERSION (build SVNREV), Copyright 2005-2007 jamoma.org</string>
+	<string>Jamoma VERSION (build SVNREV), Copyright 2005-2008 jamoma.org</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 </dict>

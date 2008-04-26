@@ -188,7 +188,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -213,7 +213,7 @@
 				PRODUCT_NAME = jcom.stats;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -241,7 +241,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -265,7 +265,7 @@
 				PRODUCT_NAME = jcom.stats;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

@@ -5,26 +5,15 @@ AR  = ar
 
 ARFLAGS = cr
 
-
-FUNCTION_LIB_SOURCE = ../FunctionLib/FunctionLib.cpp
-FUNCTION_LIB_SOURCE += ../FunctionLib/LinearFunction.cpp
-FUNCTION_LIB_SOURCE += ../FunctionLib/TanhFunction.cpp
-FUNCTION_LIB_SOURCE += ../FunctionLib/CosineFunction.cpp
-FUNCTION_LIB_SOURCE += ../FunctionLib/PowerFunction.cpp
-FUNCTION_LIB_SOURCE += ../FunctionLib/LowpassFunction.cpp
-
-DATASPACE_LIB_SOURCE = ../DataspaceLib/DataspaceLib.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/AngleDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/ColorDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/DistanceDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/GainDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/NoneDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/PitchDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/PositionDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/TemperatureDataspace.cpp
-DATASPACE_LIB_SOURCE += ../DataspaceLib/TimeDataspace.cpp
-
-JAMOMA_LIB_SOURCE = Jamoma.cpp JamomaClock.cpp JamomaObject.cpp JamomaScheduler.cpp JamomaSymbols.cpp jcom.core.cpp 
+JAMOMA_LIB_SOURCE = Jamoma.cpp jcom.core.cpp JamomaScheduler.cpp JamomaClock.cpp JamomaSymbols.cpp
+FUNCTION_LIB_SOURCE = ../FunctionLib/FunctionLib.cpp ../FunctionLib/LinearFunction.cpp ../FunctionLib/TanhFunction.cpp ../FunctionLib/CosineFunction.cpp ../FunctionLib/PowerFunction.cpp ../FunctionLib/LowpassFunction.cpp
+DATASPACE_LIB_SOURCE = ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/AngleDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/ColorDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/DistanceDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/GainDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/PitchDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/TemperatureDataspace.cpp
+DATASPACE_LIB_SOURCE += ../DataspaceLib/DataspaceLib.cpp ../DataspaceLib/TimeDataspace.cpp
 JAMOMA_LIB_SOURCE += ${FUNCTION_LIB_SOURCE} ${DATASPACE_LIB_SOURCE}
 
 JAMOMA_LIB_OBJS = ${JAMOMA_LIB_SOURCE:.cpp=.o}

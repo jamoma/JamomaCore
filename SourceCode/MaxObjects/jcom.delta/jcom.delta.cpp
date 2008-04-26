@@ -8,6 +8,79 @@
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
+	
+
+/*
+	<---MAXREF
+	
+		/maxref/object/name
+			jcom.delta
+
+		/maxref/object/digest
+			Calculate difference between incomming numbers
+
+		/maxref/object/description
+			<o>jcom.delta</o> calculates the difference between the last incomming value x[n]
+			and the previous value received:<br/>
+			delta = x[n]-x[n-1] 
+
+
+
+		/maxref/metadata/author
+			Trond Lossius
+
+		/maxref/metadata/tag
+			Jamoma Max Math
+
+
+
+		/maxref/inletlist/0
+			Calculate Difference, int, float
+
+		/maxref/outletlist/0
+			Delta Value
+
+		/maxref/outletlist/1		
+			Dumpout
+
+
+
+		/maxref/argument/
+			None
+
+
+
+		/maxref/message/float
+			Caculate difference using between this and the previous number received.
+
+		/maxref/message/int
+			Converted to float
+
+
+		
+		/maxref/example/image	
+			jcom.delta.gif
+			
+		/maxref/example/caption
+			Calculate difference between the last two numbers received.
+
+
+		
+		/maxref/seealso/object/name
+			jcom.delta2
+		
+		/maxref/seealso/object/description
+			Calculate the 2nd order difference of incomming numbers.
+		
+		/maxref/seealso/object/name
+			jcom.velocity
+
+		/maxref/seealso/object/description
+			Calculate velocity (rate of change per second) for incomming values.		
+		
+	MAXREF--->
+*/
+
 
 #include "Jamoma.h"
 

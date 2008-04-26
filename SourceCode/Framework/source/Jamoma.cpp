@@ -28,16 +28,29 @@ bool				max5 = false;
 void jamoma_init(void)
 {
 	if(!initialized){
+		t_object	*max = gensym("max")->s_thing;
+		t_symbol	*meth = gensym("objectfile");
+	
 		if(maxversion() >= 0x0500)
 			max5 = true;
 		common_symbols_init();
-		jamoma_symbols_init();
+		jamomaSymbolsInit();
 		jamoma_clock_initclass();
 		jamoma_scheduler_initclass();
-
+		receivemaster_initclass();
+		receive_initclass();
+		send_initclass();
+		
+		// Setup Class Aliases for TTBlue
+		object_method(max, meth, gensym("jcom.limiter~"), gensym("tt.limiter~"), gensym("jcom.limiter~"));
+		object_method(max, meth, gensym("jcom.saturation~"), gensym("tt.overdrive~"), gensym("jcom.saturation~"));
+		
+		// Create Required Global Instances
 		obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
 		obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
+
+		post("Jamoma %s - www.jamoma.org", JAMOMA_VERSION);
 		initialized = true;
 	}
 }
@@ -93,6 +106,19 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 {
 	if(max5){
+		t_object	*box = object_attr_getobj(patcher, ps_box);
+		t_symbol	*objclass = NULL;
+		
+		if(box)
+			objclass = object_classname(box);
+		
+		if(objclass == gensym("bpatcher"))
+			return objclass;
+		else if(objclass == gensym("newobj"))
+			return gensym("subpatcher");
+		else
+			return gensym("toplevel");
+
 		return _sym_nothing;
 	}
 	else{
@@ -133,7 +159,23 @@ typedef struct bpatcher {
 void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 {
 	if(max5){
-		;
+		t_symbol		*context = jamoma_patcher_getcontext(patcher);
+		t_object		*box = object_attr_getobj(patcher, ps_box);
+		t_object		*textfield = NULL;
+		char			*text = NULL;
+		unsigned long	textlen = 0;
+
+		if(context == gensym("bpatcher"))
+			object_attr_getvalueof(box, gensym("args"), argc, argv);
+		else if(context == gensym("subpatcher")){
+			textfield = object_attr_getobj(box, gensym("textfield"));
+			object_method(textfield, gensym("gettextptr"), &text, &textlen);
+			atom_setparse(argc, argv, text);
+		}
+		else{
+			*argc = 0;
+			*argv = NULL;
+		}
 	}
 	else{
 		t_patcher	*p = (t_patcher*)patcher;

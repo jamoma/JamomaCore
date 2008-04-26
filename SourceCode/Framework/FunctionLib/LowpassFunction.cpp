@@ -10,9 +10,14 @@
 
 
 LowpassFunction::LowpassFunction()
-: coefficient(0.75), one_minus_coefficient(0.25), feedback(0.0)
+	: FunctionUnit("function.lowpass")
 {
-
+	registerAttribute(TT("coefficient"), kTypeFloat64, &attrCoefficient, (TTSetterMethod)&LowpassFunction::setCoefficient);	
+	registerMessage(TT("clear"), (TTMethod)&LowpassFunction::clear);
+	
+	// Set Defaults...
+	setAttributeValue(TT("coefficient"), 0.75);
+	sendMessage(TT("clear"));
 }
 
 LowpassFunction::~LowpassFunction()
@@ -21,49 +26,24 @@ LowpassFunction::~LowpassFunction()
 }
 
 
-double LowpassFunction::mapValue(double x)
+double LowpassFunction::map(double x)
 {
-	feedback = jamoma_anti_denormal((feedback * coefficient) + (x * one_minus_coefficient));
+	feedback = antiDenormal((feedback * attrCoefficient) + (x * one_minus_coefficient));
 	return feedback;
 }
 
 
-JamomaError LowpassFunction::setParameter(t_symbol *parameterName, long argc, t_atom *argv)
+TTErr LowpassFunction::clear()
 {
-	if (parameterName==gensym("coefficient")) {
-		coefficient = atom_getfloat(argv);
-		one_minus_coefficient = 1.0 - coefficient;
-		return JAMOMA_ERR_NONE;
-	}
-	else if (parameterName==gensym("feedback")) {
-		feedback = atom_getfloat(argv);
-		return JAMOMA_ERR_NONE;
-	}
-	else
-		return JAMOMA_ERR_INVALID_PARAMETER;
+	feedback = 0.0;
+	return kTTErrNone;
 }
 
 
-JamomaError LowpassFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
+TTErr LowpassFunction::setCoefficient(const TTValue& newValue)
 {
-	if (parameterName==gensym("coefficient")) {
-		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
-		atom_setfloat(*argv, coefficient);
-		*argc = 1;
-		return JAMOMA_ERR_NONE;
-	}
-	else{	
-		*argc = 0; *argv = NULL;
-		return JAMOMA_ERR_INVALID_PARAMETER;
-	}
+	attrCoefficient = newValue;
+	one_minus_coefficient = 1.0 - attrCoefficient;
+	return kTTErrNone;
 }
 
-JamomaError LowpassFunction::getFunctionParameters(long *argc, t_atom **argv)
-{
-	
-	int n = *argc = 2;
-	*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * n);
-	atom_setsym(*argv, gensym("coefficient")); atom_setsym(*argv+1, gensym("feedback"));
-	return JAMOMA_ERR_NONE;
-	
-}

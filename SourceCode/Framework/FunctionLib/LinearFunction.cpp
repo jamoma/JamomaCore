@@ -1,6 +1,6 @@
 /* 
  * Jamoma FunctionLib: LinearFunction
- * Copyright © 2007
+ * Copyright © 2007 by Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -10,6 +10,7 @@
 
 
 LinearFunction::LinearFunction()
+	: FunctionUnit("function.linear")
 {
 	;
 }
@@ -21,7 +22,8 @@ LinearFunction::~LinearFunction()
 }
 
 
-double LinearFunction::mapValue(double x)
+double LinearFunction::map(double x)
 {
 	return x;
 }
+

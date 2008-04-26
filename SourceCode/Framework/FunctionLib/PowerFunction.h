@@ -1,6 +1,6 @@
 /* 
  * Jamoma FunctionLib: PowerFunction
- * Copyright Â© 2007
+ * Copyright © 2007 by Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -17,29 +17,21 @@
 
 
 // Specification of our base class
-class PowerFunction : FunctionLib{
-	public:
-		PowerFunction();
-		~PowerFunction();
-		
-		double mapValue(double x);
-		// double lookupValue(double x);
+class PowerFunction : public FunctionUnit{
+private:
+	TTSymbol	attrSymmetry;		///< Mode: none, point or axis
+	double		attrPowerValue;		///< Parameter for function: y pow(x,pow(2,powerValue))	
+	double		k;					///< k = pow(2,powerValue)
 
-		/** Default mode for symmetry is "none" */
-		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
-
-		/** This memory needs to be freed by the method calling this one */
-		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
-
-		/** This memory needs to be freed by the method calling this one */
-		JamomaError getFunctionParameters(long *argc, t_atom **argv);
-		
-	private:
-
-		// ATTRIBUTES and internal coefficients		
-		double powerValue;					///< Parameter for function: y pow(x,pow(2,powerValue))	
-		double k;							///< k = pow(2,powerValue)
-		t_symbol *symmetryMode;				///< Mode: none, point or axis
+	/** Attribute setter. */
+	TTErr PowerFunction::setPowerValue(const TTValue& newValue);
+	
+public:
+	PowerFunction();
+	~PowerFunction();
+	
+	double map(double x);
+	// double lookupValue(double x);	
 };
 
 

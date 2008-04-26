@@ -43,6 +43,10 @@ DataspaceLib::~DataspaceLib()
 		hashtab_lookup(unitHash, keys[i], (t_object**)&unit);
 		delete unit;
 	}
+	
+	if(keys)
+		sysmem_freeptr(keys);
+		
 	hashtab_chuck(unitHash);
 }
 

@@ -124,7 +124,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
-			x->num_inputs = tt_audio_base::clip(argument, 0, MAX_NUM_CHANNELS);
+			x->num_inputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
 		} 
 		else
 			x->outlet[0] = x->algout;  // no arguments send any input out the first outlet
@@ -138,9 +138,10 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		x->common.ob.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 		
 		for(i=0; i < (x->num_inputs); i++)
-			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet   		
+			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet
+		
+		x->signal_in = new TTAudioSignal(MAX_NUM_CHANNELS);
 		for(i=0; i < MAX_NUM_CHANNELS; i++){
-			x->signal_in[i] = new tt_audio_signal;			// Storage for the signal (accessed by jcom.out~)
 			x->remote_vectors[i] = NULL;
 		}
 		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
@@ -195,11 +196,8 @@ void in_subscribe(void *z)
 void in_free(t_in *x)
 {
 #ifdef JCOM_IN_TILDE
-	short i;
-	
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
-	for(i=0; i < MAX_NUM_CHANNELS; i++)
-		delete x->signal_in[i];
+	delete x->signal_in;
 #endif
 	jcom_core_subscriber_common_free(&x->common);
 }
@@ -356,11 +354,11 @@ t_int *in_perform(t_int *w)
 		remote = x->remote_vectors[i];
 		out = x->out_vectors[i];
 		j = 0;
-		if(out && x->signal_in[i]->vector){
+		if(out && x->signal_in->sampleVectors[i]){
 			if(remote){
 				while(n--){
-					x->signal_in[i]->vector[j] += *remote;
-					*out++ = x->signal_in[i]->vector[j];
+					x->signal_in->sampleVectors[i][j] += *remote;
+					*out++ = x->signal_in->sampleVectors[i][j];
 					*remote = 0.0;
 					remote++;
 					j++;
@@ -368,7 +366,7 @@ t_int *in_perform(t_int *w)
 			}
 			else{
 				while(n--){
-					*out++ = x->signal_in[i]->vector[j];
+					*out++ = x->signal_in->sampleVectors[i][j];
 					j++;
 				} 
 			}
@@ -405,9 +403,9 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 
 	for(i=0; i < x->num_inputs; i++){	//take a look at each
 		if(count[i])
-			x->signal_in[i]->set_vector(sp[i]->s_vec);
+			x->signal_in->setVector(i, sp[i]->s_vec);
 		else
-			x->signal_in[i]->set_vector(NULL);
+			x->signal_in->setVector(i, NULL);
 	}
 	
 	j=i;
@@ -427,8 +425,11 @@ void in_alloc(t_in *x, int vector_size)
 	
 	if(vector_size != x->vector_size) {
 		x->vector_size = vector_size;
+		x->signal_in->numChannels = MAX_NUM_CHANNELS;
+		x->signal_in->vs = vector_size;
+		x->signal_in->alloc();
+
 		for(i=0; i < MAX_NUM_CHANNELS; i++){
-			x->signal_in[i]->alloc(vector_size);
 			if(x->remote_vectors[i])
 				sysmem_freeptr(x->remote_vectors[i]);
 			x->remote_vectors[i] = (float*)sysmem_newptr(sizeof(float) * x->vector_size);

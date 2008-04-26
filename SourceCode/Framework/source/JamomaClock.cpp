@@ -38,7 +38,7 @@ t_object* jamoma_clock_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_jamoma_clock *x = (t_jamoma_clock*)object_alloc(class_jamoma_clock);
 	if(x){
-		x->sr = DEFAULT_SAMPLE_RATE;
+		x->sr = (long unsigned int)DEFAULT_SAMPLE_RATE;
 		x->one_over_sr = 1.0 / DEFAULT_SAMPLE_RATE;
 		x->samples_per_block = 64;
 		
@@ -61,7 +61,7 @@ void jamoma_clock_free(t_jamoma_clock *x)
 {
 	dsp_free((t_pxobject *)x);
 #ifdef MAC_VERSION
-	stop(x);
+	jamoma_clock_stop(x);
 #endif // MAC_VERSION
 }
 
@@ -96,7 +96,7 @@ void jamoma_clock_dsp(t_jamoma_clock *x, t_signal **sp, short *count)
 			x = (t_jamoma_clock*)obj_jamoma_clock;
 
 		if(sp){
-			x->sr = (double)sp[0]->s_sr;
+			x->sr = (long unsigned int)sp[0]->s_sr;
 			x->one_over_sr = 1.0 / (double)sp[0]->s_sr;
 			x->samples_per_block = sp[0]->s_n;
 		}
@@ -240,7 +240,7 @@ void jamoma_clock_setup_coreaudio(t_jamoma_clock *x)
 }
 
 
-void start(t_jamoma_clock *x)
+void jamoma_clock_start(t_jamoma_clock *x)
 {
 	OSStatus		err = kAudioHardwareNoError;
 
@@ -261,7 +261,7 @@ void start(t_jamoma_clock *x)
 }
 
 
-void stop(t_jamoma_clock *x)
+void jamoma_clock_stop(t_jamoma_clock *x)
 {
     OSStatus 	err = kAudioHardwareNoError;
     
@@ -290,7 +290,7 @@ void stop(t_jamoma_clock *x)
 unsigned long long jamoma_clock_tickstosamples(t_object *o, double period)
 {
 	t_jamoma_clock *x = (t_jamoma_clock*)o;
-	return x->sr * (period / DEFAULT_TICKS_PER_SECOND);
+	return (long unsigned int)(x->sr * (period / DEFAULT_TICKS_PER_SECOND));
 }
 
 

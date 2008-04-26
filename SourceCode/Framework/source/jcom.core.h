@@ -10,11 +10,18 @@
 #ifndef __JMOD_CORE_H__
 #define __JMOD_CORE_H__
 
+#include "ext.h"
+#include "ext_obex.h"
 #include "ext_critical.h"
-#include "z_dsp.h"							// MSP Header
+#include "z_dsp.h"
 
 #ifdef WIN_VERSION
 #define snprintf _snprintf
+#endif
+
+// Prototypes
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 typedef void (*t_receive_obex_callback)(void *x, t_symbol *msg, long argc, t_atom *argv);
@@ -35,7 +42,7 @@ typedef struct _jcom_core_subscriber_common{
 	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
 	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
 	t_symbol			*subscriber_type;		///< the class of object this subscriber belongs to from the hub's perspective
-	t_subscribe_method	custom_subscribe;		///< function pointer to a custom subscribe method for doing addition work at subscription
+	t_subscribe_method	custom_subscribe;		///< function pointer to a custom subscribe method for doing additional work at subscription
 	t_object			*obj_hub_broadcast;		///< jcom.receive that listens to the hub's broadcast
 } t_jcom_core_subscriber_common;
 
@@ -49,7 +56,7 @@ typedef struct _jcom_core_subscriber_extended{
 	t_pxobject			ob;						///< base object for audio externs
 	void				*obex;					///< object extensions
 	t_object			*container;				///< pointer to the patcher containing this object
-	t_object				*hub;					///< the jcom.hub object that we subscribe to
+	t_object			*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
 	bool				has_wildcard;			///< does the name contain a '*' character? The jcom.return object uses this for special treatment.
 	t_symbol			*module_name;			///< the name of the module as reported when we subscribe to jcom.hub (used for contextual error message posting)
@@ -66,8 +73,6 @@ typedef struct _jcom_core_subscriber_extended{
 } t_jcom_core_subscriber_extended;
 				
 
-// Prototypes
-
 /** Register (or unregister) a client (such as jcom.parameter or jcom.in~) 
  * with the jcom.hub object
  * @param x pointer to the object that is subscribing
@@ -75,7 +80,7 @@ typedef struct _jcom_core_subscriber_extended{
  * @param container pointer to patcher containg the parameter, in, out, etc.
  * @return a pointer to the hub object
  */
-void *jcom_core_subscribe(t_object *x, t_symbol *name, t_patcher *container, t_symbol *object_type);
+t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type);
 
 
 /** Unsubscribe a client from the hub.
@@ -196,6 +201,8 @@ t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void
 t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
 t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif // #ifndef __JMOD_CORE_H__

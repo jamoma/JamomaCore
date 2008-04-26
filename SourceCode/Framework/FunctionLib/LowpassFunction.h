@@ -17,24 +17,22 @@
 
 
 // Specification of our base class
-class LowpassFunction : FunctionLib{
-	public:
-		LowpassFunction();
-		~LowpassFunction();
-		
-		// ATTRIBUTES
-		double mapValue(double x);
-		// double lookupValue(double x);
+class LowpassFunction : public FunctionUnit{
+private:
+	TTFloat64		attrCoefficient;
+	TTFloat64		one_minus_coefficient;
+	TTFloat64		feedback;
 
-		/** use the 'feedback' parameter to 'clear' the filter history by sending a 0.0 */
-		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
-		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
-		JamomaError getFunctionParameters(long *argc, t_atom **argv);
-		
-	private:
-		double		coefficient;
-		double		one_minus_coefficient;
-		double		feedback;
+	TTErr clear();
+	TTErr setCoefficient(const TTValue& newValue);
+
+public:
+	LowpassFunction();
+	~LowpassFunction();
+	
+	double map(double x);
+	// double lookupValue(double x);
+
 };
 
 

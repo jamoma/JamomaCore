@@ -1,6 +1,6 @@
 /* 
- * Jamoma FunctionLib: LinearFunction
- * Copyright © 2007
+ * Jamoma FunctionLib: TanhFunction
+ * Copyright © 2007 by Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -17,33 +17,33 @@
 
 
 // Specification of our base class
-class TanhFunction : FunctionLib{
-	public:
-		TanhFunction();
-		~TanhFunction();
-		
-		double mapValue(double x);
-		// double lookupValue(double x);
+class TanhFunction : public FunctionUnit{
+private: 
+	TTFloat64	attrWidth;		///< Parameter for function: y pow(x,pow(2,powerValue))	
+	TTFloat64	attrOffset;		///< k = pow(2,powerValue)
+	double		a;				///< Internal coefficient
+	double		b;				///< Internal coefficient
+	double		alpha;			///< Internal coefficient
+	double		beta;			///< Internal coefficient
+	
+	/** Calculate coefficients */
+	void calculateOutputScaling(void);
+	
+	/** Calculate coefficients when this attr is set */
+	TTErr setWidth(const TTValue& value);
+	
+	/** Calculate coefficients when this attr is set */
+	TTErr setOffset(const TTValue& value);
 
-		JamomaError setParameter(t_symbol *parameterName, long argc, t_atom *argv);
-
-		/** This memory needs to be freed by the method calling this one */
-		JamomaError getParameter(t_symbol *parameterName, long *argc, t_atom **argv);
-
-		/** This memory needs to be freed by the method calling this one */
-		JamomaError getFunctionParameters(long *argc, t_atom **argv);
-		
-	private:
-		
-		void calculateOutputScaling(void);
-
-		// ATTRIBUTES and private coefficients
-		double width;					///< Parameter for function: y pow(x,pow(2,powerValue))	
-		double offset;					///< k = pow(2,powerValue)
-		double a;						///< Internal coefficient
-		double b;						///< Internal coefficient
-		double alpha;					///< Internal coefficient
-		double beta;					///< Internal coefficient
+public:
+	//** Constructor. */
+	TanhFunction();
+	
+	/** Destructor. */
+	virtual ~TanhFunction();
+	
+	/** apply the function -- declared public so it can be called directly for efficiency */
+	double map(double x);	
 };
 
 

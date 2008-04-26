@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>jcom.ui/jcom.ui.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -16,8 +18,6 @@
 					<string>../Framework/source</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Framework</string>
 		</dict>
@@ -25,8 +25,6 @@
 			<key>children</key>
 			<array>
 				<dict>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>DataspaceLib</string>
 					<key>regexFolderFilter</key>
@@ -66,8 +64,6 @@
 					<string>RampLib</string>
 				</dict>
 			</array>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>Libs</string>
 		</dict>
@@ -216,6 +212,27 @@
 					<array>
 						<dict>
 							<key>filename</key>
+							<string>jcom.paramui/jcom.paramui.h</string>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>jcom.paramui/jcom.paramui.cpp</string>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>jcom.paramui/jcom.paramui.attrs.cpp</string>
+						</dict>
+					</array>
+					<key>expanded</key>
+					<true/>
+					<key>name</key>
+					<string>paramui</string>
+				</dict>
+				<dict>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>filename</key>
 							<string>jcom.phasor~/jcom.phasor~.cpp</string>
 						</dict>
 					</array>
@@ -304,6 +321,35 @@
 					<key>name</key>
 					<string>send</string>
 				</dict>
+				<dict>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>filename</key>
+							<string>jcom.ui/jcom.ui.internals.cpp</string>
+							<key>lastUsed</key>
+							<date>2008-03-22T10:44:53Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>jcom.ui/jcom.ui.h</string>
+							<key>lastUsed</key>
+							<date>2008-03-22T10:44:54Z</date>
+						</dict>
+						<dict>
+							<key>filename</key>
+							<string>jcom.ui/jcom.ui.cpp</string>
+							<key>lastUsed</key>
+							<date>2008-03-22T10:44:54Z</date>
+							<key>selected</key>
+							<true/>
+						</dict>
+					</array>
+					<key>expanded</key>
+					<true/>
+					<key>name</key>
+					<string>ui</string>
+				</dict>
 			</array>
 			<key>expanded</key>
 			<true/>
@@ -323,20 +369,6 @@
 				<integer>0</integer>
 				<key>line</key>
 				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>../RampLib/ramplib_api/ramplib.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>1</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -429,10 +461,58 @@
 			<key>firstVisibleLine</key>
 			<integer>39</integer>
 		</dict>
+		<key>jcom.ui/jcom.ui.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>146</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>172</integer>
+		</dict>
+		<key>jcom.ui/jcom.ui.h</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>60</integer>
+		</dict>
+		<key>jcom.ui/jcom.ui.internals.cpp</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>jcom.ui/jcom.ui.h</string>
+		<string>jcom.ui/jcom.ui.cpp</string>
+		<string>jcom.ui/jcom.ui.internals.cpp</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{138, 9}, {963, 868}}</string>
+	<string>{{5, 10}, {963, 868}}</string>
 </dict>
 </plist>

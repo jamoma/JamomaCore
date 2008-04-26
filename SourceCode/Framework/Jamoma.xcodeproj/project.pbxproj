@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2200FCAF0D3ECD3D0078B045 /* jcom.receive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2200FCAC0D3ECD3D0078B045 /* jcom.receive.cpp */; };
+		2200FCB00D3ECD3D0078B045 /* jcom.receivemaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */; };
+		2200FCB10D3ECD3D0078B045 /* jcom.send.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2200FCAE0D3ECD3D0078B045 /* jcom.send.cpp */; };
+		220780BD0D844A6600270C06 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220780BC0D844A6600270C06 /* TTBlue.framework */; };
 		22097AD70CEA5F880053C8D2 /* JamomaPrefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		2236907B0D00DFBA002D560B /* JamomaSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */; };
 		2236907D0D00DFC3002D560B /* JamomaSymbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 2236907C0D00DFC3002D560B /* JamomaSymbols.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -14,7 +18,7 @@
 		2259E6160CF9D55A0044E6DE /* JamomaClock.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259E6120CF9D55A0044E6DE /* JamomaClock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2259E6170CF9D55A0044E6DE /* JamomaScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259E6130CF9D55A0044E6DE /* JamomaScheduler.cpp */; };
 		2259E6180CF9D55A0044E6DE /* JamomaScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259E6140CF9D55A0044E6DE /* JamomaScheduler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		225AC96F0D1EC37C00F3F92F /* JamomaThreading.h in Headers */ = {isa = PBXBuildFile; fileRef = 225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */; };
+		225AC96F0D1EC37C00F3F92F /* JamomaThreading.h in Headers */ = {isa = PBXBuildFile; fileRef = 225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225C90A20D1A1D5A00BDA981 /* DistanceDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C90A00D1A1D5A00BDA981 /* DistanceDataspace.cpp */; };
 		225C90A30D1A1D5A00BDA981 /* DistanceDataspace.h in Headers */ = {isa = PBXBuildFile; fileRef = 225C90A10D1A1D5A00BDA981 /* DistanceDataspace.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225C91B20D1B2E9100BDA981 /* ColorDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C91B00D1B2E9100BDA981 /* ColorDataspace.cpp */; };
@@ -44,6 +48,16 @@
 		22D7F5F40D105827009E4AF4 /* DataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */; };
 		22D7F5F50D105827009E4AF4 /* DataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D7F5F10D105827009E4AF4 /* DataspaceLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D7F5F60D105827009E4AF4 /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */; };
+		22E6C7560D4AB21B00DA75EE /* AsyncRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */; };
+		22E6C7570D4AB21B00DA75EE /* AsyncRamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6C74C0D4AB21B00DA75EE /* AsyncRamp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22E6C7580D4AB21B00DA75EE /* NoneRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74D0D4AB21B00DA75EE /* NoneRamp.cpp */; };
+		22E6C7590D4AB21B00DA75EE /* NoneRamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6C74E0D4AB21B00DA75EE /* NoneRamp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22E6C75A0D4AB21B00DA75EE /* QueueRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74F0D4AB21B00DA75EE /* QueueRamp.cpp */; };
+		22E6C75B0D4AB21B00DA75EE /* QueueRamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6C7500D4AB21B00DA75EE /* QueueRamp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22E6C75D0D4AB21B00DA75EE /* RampLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C7520D4AB21B00DA75EE /* RampLib.cpp */; };
+		22E6C75E0D4AB21B00DA75EE /* RampLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6C7530D4AB21B00DA75EE /* RampLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22E6C75F0D4AB21B00DA75EE /* SchedulerRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C7540D4AB21B00DA75EE /* SchedulerRamp.cpp */; };
+		22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6C7550D4AB21B00DA75EE /* SchedulerRamp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F4249C0CFA79820088332F /* CoreAudio.framework */; };
 		22FD2DC60CEE5B6F0039C226 /* Jamoma.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */; };
 		22FD2DC70CEE5B6F0039C226 /* Jamoma.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,61 +70,6 @@
 		22FD2DDB0CEE5BB50039C226 /* infoplist_versionmaker.pl in Resources */ = {isa = PBXBuildFile; fileRef = 22FD2DD90CEE5BB50039C226 /* infoplist_versionmaker.pl */; };
 		22FD2DE20CEE5C690039C226 /* Info.plist in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DD80CEE5BB50039C226 /* Info.plist */; settings = {ATTRIBUTES = (Public, ); }; };
 		22FD2DE30CEE5C690039C226 /* infoplist_versionmaker.pl in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2DD90CEE5BB50039C226 /* infoplist_versionmaker.pl */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD2FBC0CEE86CC0039C226 /* tt_audio_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD2FBB0CEE86CC0039C226 /* tt_audio_base.cpp */; };
-		22FD2FFC0CEE875B0039C226 /* tt_add.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FCB0CEE875B0039C226 /* tt_add.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD2FFD0CEE875B0039C226 /* tt_adsr.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FCC0CEE875B0039C226 /* tt_adsr.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD2FFE0CEE875B0039C226 /* tt_allpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FCD0CEE875B0039C226 /* tt_allpass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD2FFF0CEE875B0039C226 /* tt_audio_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FCE0CEE875B0039C226 /* tt_audio_base.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30000CEE875B0039C226 /* tt_audio_signal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FCF0CEE875B0039C226 /* tt_audio_signal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30010CEE875B0039C226 /* tt_average.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD00CEE875B0039C226 /* tt_average.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30020CEE875B0039C226 /* tt_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD10CEE875B0039C226 /* tt_buffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30030CEE875B0039C226 /* tt_buffer_play.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD20CEE875B0039C226 /* tt_buffer_play.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30040CEE875B0039C226 /* tt_buffer_record.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD30CEE875B0039C226 /* tt_buffer_record.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30050CEE875B0039C226 /* tt_buffer_window.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD40CEE875B0039C226 /* tt_buffer_window.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30060CEE875B0039C226 /* tt_clip.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD50CEE875B0039C226 /* tt_clip.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30070CEE875B0039C226 /* tt_comb.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD60CEE875B0039C226 /* tt_comb.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30080CEE875B0039C226 /* tt_copy.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD70CEE875B0039C226 /* tt_copy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30090CEE875B0039C226 /* tt_crossfade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD80CEE875B0039C226 /* tt_crossfade.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD300A0CEE875B0039C226 /* tt_dcblock.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FD90CEE875B0039C226 /* tt_dcblock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD300B0CEE875B0039C226 /* tt_degrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FDA0CEE875B0039C226 /* tt_degrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD300C0CEE875B0039C226 /* tt_delay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FDB0CEE875B0039C226 /* tt_delay.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD300D0CEE875B0039C226 /* tt_downsample.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FDC0CEE875B0039C226 /* tt_downsample.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD300E0CEE875B0039C226 /* tt_fivecomb.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FDD0CEE875B0039C226 /* tt_fivecomb.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD300F0CEE875B0039C226 /* tt_gain.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FDE0CEE875B0039C226 /* tt_gain.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30100CEE875B0039C226 /* tt_lfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FDF0CEE875B0039C226 /* tt_lfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30110CEE875B0039C226 /* tt_limiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE00CEE875B0039C226 /* tt_limiter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30120CEE875B0039C226 /* tt_lowpass_fourpole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE10CEE875B0039C226 /* tt_lowpass_fourpole.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30130CEE875B0039C226 /* tt_lowpass_onepole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE20CEE875B0039C226 /* tt_lowpass_onepole.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30140CEE875B0039C226 /* tt_lowpass_twopole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE30CEE875B0039C226 /* tt_lowpass_twopole.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30150CEE875B0039C226 /* tt_max_prefix.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE40CEE875B0039C226 /* tt_max_prefix.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30160CEE875B0039C226 /* tt_mixer_mono.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE50CEE875B0039C226 /* tt_mixer_mono.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30170CEE875B0039C226 /* tt_modulo.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE60CEE875B0039C226 /* tt_modulo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30180CEE875B0039C226 /* tt_multiply.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE70CEE875B0039C226 /* tt_multiply.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30190CEE875B0039C226 /* tt_multitap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE80CEE875B0039C226 /* tt_multitap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD301A0CEE875B0039C226 /* tt_noise.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FE90CEE875B0039C226 /* tt_noise.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD301B0CEE875B0039C226 /* tt_offset.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FEA0CEE875B0039C226 /* tt_offset.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD301C0CEE875B0039C226 /* tt_onewrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FEB0CEE875B0039C226 /* tt_onewrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD301D0CEE875B0039C226 /* tt_overdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FEC0CEE875B0039C226 /* tt_overdrive.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD301E0CEE875B0039C226 /* tt_pan.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FED0CEE875B0039C226 /* tt_pan.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD301F0CEE875B0039C226 /* tt_phasor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FEE0CEE875B0039C226 /* tt_phasor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30200CEE875B0039C226 /* tt_polar.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FEF0CEE875B0039C226 /* tt_polar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30210CEE875B0039C226 /* tt_procrastinate.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF00CEE875B0039C226 /* tt_procrastinate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30220CEE875B0039C226 /* tt_pulsesub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF10CEE875B0039C226 /* tt_pulsesub.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30230CEE875B0039C226 /* tt_ramp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF20CEE875B0039C226 /* tt_ramp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30240CEE875B0039C226 /* tt_rms.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF30CEE875B0039C226 /* tt_rms.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30250CEE875B0039C226 /* tt_shift.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF40CEE875B0039C226 /* tt_shift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30260CEE875B0039C226 /* tt_subtract.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF50CEE875B0039C226 /* tt_subtract.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30270CEE875B0039C226 /* tt_svf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF60CEE875B0039C226 /* tt_svf.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30280CEE875B0039C226 /* tt_switch.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF70CEE875B0039C226 /* tt_switch.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD30290CEE875B0039C226 /* tt_upsample.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF80CEE875B0039C226 /* tt_upsample.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD302A0CEE875B0039C226 /* tt_verb.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FF90CEE875B0039C226 /* tt_verb.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD302B0CEE875B0039C226 /* tt_wavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FFA0CEE875B0039C226 /* tt_wavetable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD302C0CEE875B0039C226 /* tt_zerox.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD2FFB0CEE875B0039C226 /* tt_zerox.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD31880CEE8EA80039C226 /* RampUnitWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22FD31850CEE8EA80039C226 /* RampUnitWrap.cpp */; };
-		22FD31890CEE8EA80039C226 /* RampUnitWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD31860CEE8EA80039C226 /* RampUnitWrap.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD318A0CEE8EA80039C226 /* ramplib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD31870CEE8EA80039C226 /* ramplib.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22FD31910CEE8EC30039C226 /* ext_pattr_bundle.c in Sources */ = {isa = PBXBuildFile; fileRef = 22FD318F0CEE8EC30039C226 /* ext_pattr_bundle.c */; };
-		22FD31920CEE8EC30039C226 /* ext_pattr_bundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD31900CEE8EC30039C226 /* ext_pattr_bundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55FE54240D0EAC0000683625 /* CosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FE54220D0EAC0000683625 /* CosineFunction.cpp */; };
 		55FE54250D0EAC0000683625 /* CosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FE54230D0EAC0000683625 /* CosineFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		66D9A1F70D21F49300A16E9A /* PositionDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */; };
@@ -122,16 +81,27 @@
 		A7CA9C980D1FD9960099D8CA /* GainDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */; };
 		A7E8800E0D0EFA2F00F0F3D3 /* PowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7E8800F0D0EFA2F00F0F3D3 /* PowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */; };
-		A7E976100D26DB9900D7970D /* tt_highpass_butterworth.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E9760C0D26DB9900D7970D /* tt_highpass_butterworth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A7E976110D26DB9900D7970D /* tt_lowpass_butterworth.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E9760D0D26DB9900D7970D /* tt_lowpass_butterworth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A7E976120D26DB9900D7970D /* tt_bandpass_butterworth.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E9760E0D26DB9900D7970D /* tt_bandpass_butterworth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A7E976130D26DB9900D7970D /* tt_bandreject_butterworth.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E9760F0D26DB9900D7970D /* tt_bandreject_butterworth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22077FA30D84497600270C06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22077F9C0D84497600270C06 /* TTBlue.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = TTBlue;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		2200FCAC0D3ECD3D0078B045 /* jcom.receive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receive.cpp; sourceTree = "<group>"; };
+		2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
+		2200FCAE0D3ECD3D0078B045 /* jcom.send.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.send.cpp; sourceTree = "<group>"; };
+		22077F9C0D84497600270C06 /* TTBlue.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TTBlue.xcodeproj; path = ../ThirdParty/TTBlue/library/TTBlue.xcodeproj; sourceTree = SOURCE_ROOT; };
+		220780BC0D844A6600270C06 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaPrefix.pch; sourceTree = "<group>"; };
 		2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
 		2236907C0D00DFC3002D560B /* JamomaSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaSymbols.h; path = source/JamomaSymbols.h; sourceTree = "<group>"; };
@@ -169,6 +139,16 @@
 		22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataspaceLib.cpp; path = DataspaceLib/DataspaceLib.cpp; sourceTree = "<group>"; };
 		22D7F5F10D105827009E4AF4 /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataspaceLib.h; path = DataspaceLib/DataspaceLib.h; sourceTree = "<group>"; };
 		22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.cpp; path = DataspaceLib/TemperatureDataspace.cpp; sourceTree = "<group>"; };
+		22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AsyncRamp.cpp; path = RampLib/AsyncRamp.cpp; sourceTree = "<group>"; };
+		22E6C74C0D4AB21B00DA75EE /* AsyncRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncRamp.h; path = RampLib/AsyncRamp.h; sourceTree = "<group>"; };
+		22E6C74D0D4AB21B00DA75EE /* NoneRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoneRamp.cpp; path = RampLib/NoneRamp.cpp; sourceTree = "<group>"; };
+		22E6C74E0D4AB21B00DA75EE /* NoneRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoneRamp.h; path = RampLib/NoneRamp.h; sourceTree = "<group>"; };
+		22E6C74F0D4AB21B00DA75EE /* QueueRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QueueRamp.cpp; path = RampLib/QueueRamp.cpp; sourceTree = "<group>"; };
+		22E6C7500D4AB21B00DA75EE /* QueueRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueueRamp.h; path = RampLib/QueueRamp.h; sourceTree = "<group>"; };
+		22E6C7520D4AB21B00DA75EE /* RampLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RampLib.cpp; path = RampLib/RampLib.cpp; sourceTree = "<group>"; };
+		22E6C7530D4AB21B00DA75EE /* RampLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RampLib.h; path = RampLib/RampLib.h; sourceTree = "<group>"; };
+		22E6C7540D4AB21B00DA75EE /* SchedulerRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SchedulerRamp.cpp; path = RampLib/SchedulerRamp.cpp; sourceTree = "<group>"; };
+		22E6C7550D4AB21B00DA75EE /* SchedulerRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SchedulerRamp.h; path = RampLib/SchedulerRamp.h; sourceTree = "<group>"; };
 		22F4249C0CFA79820088332F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		22FD2DBE0CEE5B6F0039C226 /* Jamoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jamoma.cpp; path = source/Jamoma.cpp; sourceTree = "<group>"; };
 		22FD2DBF0CEE5B6F0039C226 /* Jamoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Jamoma.h; path = source/Jamoma.h; sourceTree = "<group>"; };
@@ -180,61 +160,6 @@
 		22FD2DC50CEE5B6F0039C226 /* jcom.sendreceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.sendreceive.h; path = source/jcom.sendreceive.h; sourceTree = "<group>"; };
 		22FD2DD80CEE5BB50039C226 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Info.plist; path = resources/Info.plist; sourceTree = "<group>"; };
 		22FD2DD90CEE5BB50039C226 /* infoplist_versionmaker.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; name = infoplist_versionmaker.pl; path = resources/infoplist_versionmaker.pl; sourceTree = "<group>"; };
-		22FD2FBB0CEE86CC0039C226 /* tt_audio_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tt_audio_base.cpp; path = ../ThirdParty/ttblue/dsplib/tt_audio_base.cpp; sourceTree = SOURCE_ROOT; };
-		22FD2FCB0CEE875B0039C226 /* tt_add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_add.h; path = ../ThirdParty/ttblue/dsplib/tt_add.h; sourceTree = SOURCE_ROOT; };
-		22FD2FCC0CEE875B0039C226 /* tt_adsr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_adsr.h; path = ../ThirdParty/ttblue/dsplib/tt_adsr.h; sourceTree = SOURCE_ROOT; };
-		22FD2FCD0CEE875B0039C226 /* tt_allpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_allpass.h; path = ../ThirdParty/ttblue/dsplib/tt_allpass.h; sourceTree = SOURCE_ROOT; };
-		22FD2FCE0CEE875B0039C226 /* tt_audio_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_audio_base.h; path = ../ThirdParty/ttblue/dsplib/tt_audio_base.h; sourceTree = SOURCE_ROOT; };
-		22FD2FCF0CEE875B0039C226 /* tt_audio_signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_audio_signal.h; path = ../ThirdParty/ttblue/dsplib/tt_audio_signal.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD00CEE875B0039C226 /* tt_average.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_average.h; path = ../ThirdParty/ttblue/dsplib/tt_average.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD10CEE875B0039C226 /* tt_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_buffer.h; path = ../ThirdParty/ttblue/dsplib/tt_buffer.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD20CEE875B0039C226 /* tt_buffer_play.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_buffer_play.h; path = ../ThirdParty/ttblue/dsplib/tt_buffer_play.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD30CEE875B0039C226 /* tt_buffer_record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_buffer_record.h; path = ../ThirdParty/ttblue/dsplib/tt_buffer_record.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD40CEE875B0039C226 /* tt_buffer_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_buffer_window.h; path = ../ThirdParty/ttblue/dsplib/tt_buffer_window.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD50CEE875B0039C226 /* tt_clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_clip.h; path = ../ThirdParty/ttblue/dsplib/tt_clip.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD60CEE875B0039C226 /* tt_comb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_comb.h; path = ../ThirdParty/ttblue/dsplib/tt_comb.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD70CEE875B0039C226 /* tt_copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_copy.h; path = ../ThirdParty/ttblue/dsplib/tt_copy.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD80CEE875B0039C226 /* tt_crossfade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_crossfade.h; path = ../ThirdParty/ttblue/dsplib/tt_crossfade.h; sourceTree = SOURCE_ROOT; };
-		22FD2FD90CEE875B0039C226 /* tt_dcblock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_dcblock.h; path = ../ThirdParty/ttblue/dsplib/tt_dcblock.h; sourceTree = SOURCE_ROOT; };
-		22FD2FDA0CEE875B0039C226 /* tt_degrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_degrade.h; path = ../ThirdParty/ttblue/dsplib/tt_degrade.h; sourceTree = SOURCE_ROOT; };
-		22FD2FDB0CEE875B0039C226 /* tt_delay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_delay.h; path = ../ThirdParty/ttblue/dsplib/tt_delay.h; sourceTree = SOURCE_ROOT; };
-		22FD2FDC0CEE875B0039C226 /* tt_downsample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_downsample.h; path = ../ThirdParty/ttblue/dsplib/tt_downsample.h; sourceTree = SOURCE_ROOT; };
-		22FD2FDD0CEE875B0039C226 /* tt_fivecomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_fivecomb.h; path = ../ThirdParty/ttblue/dsplib/tt_fivecomb.h; sourceTree = SOURCE_ROOT; };
-		22FD2FDE0CEE875B0039C226 /* tt_gain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_gain.h; path = ../ThirdParty/ttblue/dsplib/tt_gain.h; sourceTree = SOURCE_ROOT; };
-		22FD2FDF0CEE875B0039C226 /* tt_lfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_lfo.h; path = ../ThirdParty/ttblue/dsplib/tt_lfo.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE00CEE875B0039C226 /* tt_limiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_limiter.h; path = ../ThirdParty/ttblue/dsplib/tt_limiter.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE10CEE875B0039C226 /* tt_lowpass_fourpole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_lowpass_fourpole.h; path = ../ThirdParty/ttblue/dsplib/tt_lowpass_fourpole.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE20CEE875B0039C226 /* tt_lowpass_onepole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_lowpass_onepole.h; path = ../ThirdParty/ttblue/dsplib/tt_lowpass_onepole.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE30CEE875B0039C226 /* tt_lowpass_twopole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_lowpass_twopole.h; path = ../ThirdParty/ttblue/dsplib/tt_lowpass_twopole.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE40CEE875B0039C226 /* tt_max_prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_max_prefix.h; path = ../ThirdParty/ttblue/dsplib/tt_max_prefix.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE50CEE875B0039C226 /* tt_mixer_mono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_mixer_mono.h; path = ../ThirdParty/ttblue/dsplib/tt_mixer_mono.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE60CEE875B0039C226 /* tt_modulo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_modulo.h; path = ../ThirdParty/ttblue/dsplib/tt_modulo.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE70CEE875B0039C226 /* tt_multiply.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_multiply.h; path = ../ThirdParty/ttblue/dsplib/tt_multiply.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE80CEE875B0039C226 /* tt_multitap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_multitap.h; path = ../ThirdParty/ttblue/dsplib/tt_multitap.h; sourceTree = SOURCE_ROOT; };
-		22FD2FE90CEE875B0039C226 /* tt_noise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_noise.h; path = ../ThirdParty/ttblue/dsplib/tt_noise.h; sourceTree = SOURCE_ROOT; };
-		22FD2FEA0CEE875B0039C226 /* tt_offset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_offset.h; path = ../ThirdParty/ttblue/dsplib/tt_offset.h; sourceTree = SOURCE_ROOT; };
-		22FD2FEB0CEE875B0039C226 /* tt_onewrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_onewrap.h; path = ../ThirdParty/ttblue/dsplib/tt_onewrap.h; sourceTree = SOURCE_ROOT; };
-		22FD2FEC0CEE875B0039C226 /* tt_overdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_overdrive.h; path = ../ThirdParty/ttblue/dsplib/tt_overdrive.h; sourceTree = SOURCE_ROOT; };
-		22FD2FED0CEE875B0039C226 /* tt_pan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_pan.h; path = ../ThirdParty/ttblue/dsplib/tt_pan.h; sourceTree = SOURCE_ROOT; };
-		22FD2FEE0CEE875B0039C226 /* tt_phasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_phasor.h; path = ../ThirdParty/ttblue/dsplib/tt_phasor.h; sourceTree = SOURCE_ROOT; };
-		22FD2FEF0CEE875B0039C226 /* tt_polar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_polar.h; path = ../ThirdParty/ttblue/dsplib/tt_polar.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF00CEE875B0039C226 /* tt_procrastinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_procrastinate.h; path = ../ThirdParty/ttblue/dsplib/tt_procrastinate.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF10CEE875B0039C226 /* tt_pulsesub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_pulsesub.h; path = ../ThirdParty/ttblue/dsplib/tt_pulsesub.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF20CEE875B0039C226 /* tt_ramp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_ramp.h; path = ../ThirdParty/ttblue/dsplib/tt_ramp.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF30CEE875B0039C226 /* tt_rms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_rms.h; path = ../ThirdParty/ttblue/dsplib/tt_rms.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF40CEE875B0039C226 /* tt_shift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_shift.h; path = ../ThirdParty/ttblue/dsplib/tt_shift.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF50CEE875B0039C226 /* tt_subtract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_subtract.h; path = ../ThirdParty/ttblue/dsplib/tt_subtract.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF60CEE875B0039C226 /* tt_svf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_svf.h; path = ../ThirdParty/ttblue/dsplib/tt_svf.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF70CEE875B0039C226 /* tt_switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_switch.h; path = ../ThirdParty/ttblue/dsplib/tt_switch.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF80CEE875B0039C226 /* tt_upsample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_upsample.h; path = ../ThirdParty/ttblue/dsplib/tt_upsample.h; sourceTree = SOURCE_ROOT; };
-		22FD2FF90CEE875B0039C226 /* tt_verb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_verb.h; path = ../ThirdParty/ttblue/dsplib/tt_verb.h; sourceTree = SOURCE_ROOT; };
-		22FD2FFA0CEE875B0039C226 /* tt_wavetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_wavetable.h; path = ../ThirdParty/ttblue/dsplib/tt_wavetable.h; sourceTree = SOURCE_ROOT; };
-		22FD2FFB0CEE875B0039C226 /* tt_zerox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tt_zerox.h; path = ../ThirdParty/ttblue/dsplib/tt_zerox.h; sourceTree = SOURCE_ROOT; };
-		22FD31850CEE8EA80039C226 /* RampUnitWrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RampUnitWrap.cpp; path = ../ramplib/ramplib_api/RampUnitWrap.cpp; sourceTree = SOURCE_ROOT; };
-		22FD31860CEE8EA80039C226 /* RampUnitWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RampUnitWrap.h; path = ../ramplib/ramplib_api/RampUnitWrap.h; sourceTree = SOURCE_ROOT; };
-		22FD31870CEE8EA80039C226 /* ramplib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ramplib.h; path = ../ramplib/ramplib_api/ramplib.h; sourceTree = SOURCE_ROOT; };
-		22FD318F0CEE8EC30039C226 /* ext_pattr_bundle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ext_pattr_bundle.c; path = c74/ext_pattr_bundle.c; sourceTree = "<group>"; };
-		22FD31900CEE8EC30039C226 /* ext_pattr_bundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ext_pattr_bundle.h; path = c74/ext_pattr_bundle.h; sourceTree = "<group>"; };
 		55FE54220D0EAC0000683625 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CosineFunction.cpp; sourceTree = "<group>"; };
 		55FE54230D0EAC0000683625 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CosineFunction.h; sourceTree = "<group>"; };
 		66D9A1F50D21F49300A16E9A /* PositionDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PositionDataspace.cpp; path = DataspaceLib/PositionDataspace.cpp; sourceTree = "<group>"; };
@@ -246,10 +171,6 @@
 		A7CA9C960D1FD9960099D8CA /* GainDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GainDataspace.cpp; path = DataspaceLib/GainDataspace.cpp; sourceTree = SOURCE_ROOT; };
 		A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PowerFunction.h; path = FunctionLib/PowerFunction.h; sourceTree = SOURCE_ROOT; };
 		A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = PowerFunction.cpp; path = FunctionLib/PowerFunction.cpp; sourceTree = SOURCE_ROOT; };
-		A7E9760C0D26DB9900D7970D /* tt_highpass_butterworth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_highpass_butterworth.h; path = ../ThirdParty/ttblue/dsplib/tt_highpass_butterworth.h; sourceTree = SOURCE_ROOT; };
-		A7E9760D0D26DB9900D7970D /* tt_lowpass_butterworth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_lowpass_butterworth.h; path = ../ThirdParty/ttblue/dsplib/tt_lowpass_butterworth.h; sourceTree = SOURCE_ROOT; };
-		A7E9760E0D26DB9900D7970D /* tt_bandpass_butterworth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_bandpass_butterworth.h; path = ../ThirdParty/ttblue/dsplib/tt_bandpass_butterworth.h; sourceTree = SOURCE_ROOT; };
-		A7E9760F0D26DB9900D7970D /* tt_bandreject_butterworth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tt_bandreject_butterworth.h; path = ../ThirdParty/ttblue/dsplib/tt_bandreject_butterworth.h; sourceTree = SOURCE_ROOT; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -263,6 +184,7 @@
 				22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */,
 				22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */,
 				22F4249D0CFA79820088332F /* CoreAudio.framework in Frameworks */,
+				220780BD0D844A6600270C06 /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,12 +202,13 @@
 		0867D691FE84028FC02AAC07 /* MaxObject */ = {
 			isa = PBXGroup;
 			children = (
+				22077F9C0D84497600270C06 /* TTBlue.xcodeproj */,
 				22FD2DCF0CEE5B770039C226 /* Headers */,
 				08FB77AEFE84172EC02AAC07 /* Sources */,
+				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
-				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
-				22FD2FCA0CEE87380039C226 /* TTBlue */,
+				2200FCAB0D3ECD3D0078B045 /* Internals */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -297,7 +220,11 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				220780BC0D844A6600270C06 /* TTBlue.framework */,
+				22C561050CAD984B00353974 /* MaxAudioAPI.framework */,
+				22A403850CAD7BA000E5299E /* MaxAPI.framework */,
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+				22A403830CAD7B9400E5299E /* Carbon.framework */,
 				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
 			);
 			name = "External Frameworks and Libraries";
@@ -326,17 +253,6 @@
 			name = Sources;
 			sourceTree = "<group>";
 		};
-		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				22A403830CAD7B9400E5299E /* Carbon.framework */,
-				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
-				22A403850CAD7BA000E5299E /* MaxAPI.framework */,
-				22C561050CAD984B00353974 /* MaxAudioAPI.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
 		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,21 +264,39 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		2200FCAB0D3ECD3D0078B045 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				2200FCAC0D3ECD3D0078B045 /* jcom.receive.cpp */,
+				2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */,
+				2200FCAE0D3ECD3D0078B045 /* jcom.send.cpp */,
+			);
+			path = Internals;
+			sourceTree = "<group>";
+		};
+		22077F9D0D84497600270C06 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22077FA40D84497600270C06 /* TTBlue.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		22AEF31F0D0DB77900F7762D /* FunctionLib */ = {
 			isa = PBXGroup;
 			children = (
-				22AEF3200D0DB77900F7762D /* FunctionLib.cpp */,
 				22AEF3210D0DB77900F7762D /* FunctionLib.h */,
-				55FE54220D0EAC0000683625 /* CosineFunction.cpp */,
+				22AEF3200D0DB77900F7762D /* FunctionLib.cpp */,
 				55FE54230D0EAC0000683625 /* CosineFunction.h */,
-				22AEF3220D0DB77900F7762D /* LinearFunction.cpp */,
+				55FE54220D0EAC0000683625 /* CosineFunction.cpp */,
 				22AEF3230D0DB77900F7762D /* LinearFunction.h */,
-				22C891E00D0FF87C00E68801 /* LowpassFunction.cpp */,
+				22AEF3220D0DB77900F7762D /* LinearFunction.cpp */,
 				22C891E10D0FF87C00E68801 /* LowpassFunction.h */,
+				22C891E00D0FF87C00E68801 /* LowpassFunction.cpp */,
 				A7E8800C0D0EFA2F00F0F3D3 /* PowerFunction.h */,
 				A7E8800D0D0EFA2F00F0F3D3 /* PowerFunction.cpp */,
-				22AEF3240D0DB77900F7762D /* TanhFunction.cpp */,
 				22AEF3250D0DB77900F7762D /* TanhFunction.h */,
+				22AEF3240D0DB77900F7762D /* TanhFunction.cpp */,
 			);
 			path = FunctionLib;
 			sourceTree = "<group>";
@@ -413,73 +347,19 @@
 			name = Headers;
 			sourceTree = "<group>";
 		};
-		22FD2FCA0CEE87380039C226 /* TTBlue */ = {
-			isa = PBXGroup;
-			children = (
-				22FD2FCB0CEE875B0039C226 /* tt_add.h */,
-				22FD2FCC0CEE875B0039C226 /* tt_adsr.h */,
-				22FD2FCD0CEE875B0039C226 /* tt_allpass.h */,
-				22FD2FCE0CEE875B0039C226 /* tt_audio_base.h */,
-				22FD2FCF0CEE875B0039C226 /* tt_audio_signal.h */,
-				22FD2FD00CEE875B0039C226 /* tt_average.h */,
-				A7E9760E0D26DB9900D7970D /* tt_bandpass_butterworth.h */,
-				A7E9760F0D26DB9900D7970D /* tt_bandreject_butterworth.h */,
-				22FD2FD10CEE875B0039C226 /* tt_buffer.h */,
-				22FD2FD20CEE875B0039C226 /* tt_buffer_play.h */,
-				22FD2FD30CEE875B0039C226 /* tt_buffer_record.h */,
-				22FD2FD40CEE875B0039C226 /* tt_buffer_window.h */,
-				22FD2FD50CEE875B0039C226 /* tt_clip.h */,
-				22FD2FD60CEE875B0039C226 /* tt_comb.h */,
-				22FD2FD70CEE875B0039C226 /* tt_copy.h */,
-				22FD2FD80CEE875B0039C226 /* tt_crossfade.h */,
-				22FD2FD90CEE875B0039C226 /* tt_dcblock.h */,
-				22FD2FDA0CEE875B0039C226 /* tt_degrade.h */,
-				22FD2FDB0CEE875B0039C226 /* tt_delay.h */,
-				22FD2FDC0CEE875B0039C226 /* tt_downsample.h */,
-				22FD2FDD0CEE875B0039C226 /* tt_fivecomb.h */,
-				22FD2FDE0CEE875B0039C226 /* tt_gain.h */,
-				A7E9760C0D26DB9900D7970D /* tt_highpass_butterworth.h */,
-				22FD2FDF0CEE875B0039C226 /* tt_lfo.h */,
-				22FD2FE00CEE875B0039C226 /* tt_limiter.h */,
-				A7E9760D0D26DB9900D7970D /* tt_lowpass_butterworth.h */,
-				22FD2FE10CEE875B0039C226 /* tt_lowpass_fourpole.h */,
-				22FD2FE20CEE875B0039C226 /* tt_lowpass_onepole.h */,
-				22FD2FE30CEE875B0039C226 /* tt_lowpass_twopole.h */,
-				22FD2FE40CEE875B0039C226 /* tt_max_prefix.h */,
-				22FD2FE50CEE875B0039C226 /* tt_mixer_mono.h */,
-				22FD2FE60CEE875B0039C226 /* tt_modulo.h */,
-				22FD2FE70CEE875B0039C226 /* tt_multiply.h */,
-				22FD2FE80CEE875B0039C226 /* tt_multitap.h */,
-				22FD2FE90CEE875B0039C226 /* tt_noise.h */,
-				22FD2FEA0CEE875B0039C226 /* tt_offset.h */,
-				22FD2FEB0CEE875B0039C226 /* tt_onewrap.h */,
-				22FD2FEC0CEE875B0039C226 /* tt_overdrive.h */,
-				22FD2FED0CEE875B0039C226 /* tt_pan.h */,
-				22FD2FEE0CEE875B0039C226 /* tt_phasor.h */,
-				22FD2FEF0CEE875B0039C226 /* tt_polar.h */,
-				22FD2FF00CEE875B0039C226 /* tt_procrastinate.h */,
-				22FD2FF10CEE875B0039C226 /* tt_pulsesub.h */,
-				22FD2FF20CEE875B0039C226 /* tt_ramp.h */,
-				22FD2FF30CEE875B0039C226 /* tt_rms.h */,
-				22FD2FF40CEE875B0039C226 /* tt_shift.h */,
-				22FD2FF50CEE875B0039C226 /* tt_subtract.h */,
-				22FD2FF60CEE875B0039C226 /* tt_svf.h */,
-				22FD2FF70CEE875B0039C226 /* tt_switch.h */,
-				22FD2FF80CEE875B0039C226 /* tt_upsample.h */,
-				22FD2FF90CEE875B0039C226 /* tt_verb.h */,
-				22FD2FFA0CEE875B0039C226 /* tt_wavetable.h */,
-				22FD2FFB0CEE875B0039C226 /* tt_zerox.h */,
-				22FD2FBB0CEE86CC0039C226 /* tt_audio_base.cpp */,
-			);
-			name = TTBlue;
-			sourceTree = "<group>";
-		};
 		22FD31840CEE8EA80039C226 /* RampLib */ = {
 			isa = PBXGroup;
 			children = (
-				22FD31850CEE8EA80039C226 /* RampUnitWrap.cpp */,
-				22FD31860CEE8EA80039C226 /* RampUnitWrap.h */,
-				22FD31870CEE8EA80039C226 /* ramplib.h */,
+				22E6C7530D4AB21B00DA75EE /* RampLib.h */,
+				22E6C7520D4AB21B00DA75EE /* RampLib.cpp */,
+				22E6C74C0D4AB21B00DA75EE /* AsyncRamp.h */,
+				22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */,
+				22E6C74E0D4AB21B00DA75EE /* NoneRamp.h */,
+				22E6C74D0D4AB21B00DA75EE /* NoneRamp.cpp */,
+				22E6C7500D4AB21B00DA75EE /* QueueRamp.h */,
+				22E6C74F0D4AB21B00DA75EE /* QueueRamp.cpp */,
+				22E6C7550D4AB21B00DA75EE /* SchedulerRamp.h */,
+				22E6C7540D4AB21B00DA75EE /* SchedulerRamp.cpp */,
 			);
 			name = RampLib;
 			sourceTree = "<group>";
@@ -488,8 +368,6 @@
 			isa = PBXGroup;
 			children = (
 				22A403970CAD7C5100E5299E /* commonsyms.c */,
-				22FD318F0CEE8EC30039C226 /* ext_pattr_bundle.c */,
-				22FD31900CEE8EC30039C226 /* ext_pattr_bundle.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -510,62 +388,6 @@
 				22FD2DCB0CEE5B6F0039C226 /* jcom.list.h in Headers */,
 				22FD2DCC0CEE5B6F0039C226 /* jcom.prefix.pch in Headers */,
 				22FD2DCD0CEE5B6F0039C226 /* jcom.sendreceive.h in Headers */,
-				22FD2FFC0CEE875B0039C226 /* tt_add.h in Headers */,
-				22FD2FFD0CEE875B0039C226 /* tt_adsr.h in Headers */,
-				22FD2FFE0CEE875B0039C226 /* tt_allpass.h in Headers */,
-				22FD2FFF0CEE875B0039C226 /* tt_audio_base.h in Headers */,
-				22FD30000CEE875B0039C226 /* tt_audio_signal.h in Headers */,
-				22FD30010CEE875B0039C226 /* tt_average.h in Headers */,
-				A7E976120D26DB9900D7970D /* tt_bandpass_butterworth.h in Headers */,
-				A7E976130D26DB9900D7970D /* tt_bandreject_butterworth.h in Headers */,
-				22FD30020CEE875B0039C226 /* tt_buffer.h in Headers */,
-				22FD30030CEE875B0039C226 /* tt_buffer_play.h in Headers */,
-				22FD30040CEE875B0039C226 /* tt_buffer_record.h in Headers */,
-				22FD30050CEE875B0039C226 /* tt_buffer_window.h in Headers */,
-				22FD30060CEE875B0039C226 /* tt_clip.h in Headers */,
-				22FD30070CEE875B0039C226 /* tt_comb.h in Headers */,
-				22FD30080CEE875B0039C226 /* tt_copy.h in Headers */,
-				22FD30090CEE875B0039C226 /* tt_crossfade.h in Headers */,
-				22FD300A0CEE875B0039C226 /* tt_dcblock.h in Headers */,
-				22FD300B0CEE875B0039C226 /* tt_degrade.h in Headers */,
-				22FD300C0CEE875B0039C226 /* tt_delay.h in Headers */,
-				22FD300D0CEE875B0039C226 /* tt_downsample.h in Headers */,
-				22FD300E0CEE875B0039C226 /* tt_fivecomb.h in Headers */,
-				22FD300F0CEE875B0039C226 /* tt_gain.h in Headers */,
-				A7E976100D26DB9900D7970D /* tt_highpass_butterworth.h in Headers */,
-				22FD30100CEE875B0039C226 /* tt_lfo.h in Headers */,
-				22FD30110CEE875B0039C226 /* tt_limiter.h in Headers */,
-				A7E976110D26DB9900D7970D /* tt_lowpass_butterworth.h in Headers */,
-				22FD30120CEE875B0039C226 /* tt_lowpass_fourpole.h in Headers */,
-				22FD30130CEE875B0039C226 /* tt_lowpass_onepole.h in Headers */,
-				22FD30140CEE875B0039C226 /* tt_lowpass_twopole.h in Headers */,
-				22FD30150CEE875B0039C226 /* tt_max_prefix.h in Headers */,
-				22FD30160CEE875B0039C226 /* tt_mixer_mono.h in Headers */,
-				22FD30170CEE875B0039C226 /* tt_modulo.h in Headers */,
-				22FD30180CEE875B0039C226 /* tt_multiply.h in Headers */,
-				22FD30190CEE875B0039C226 /* tt_multitap.h in Headers */,
-				22FD301A0CEE875B0039C226 /* tt_noise.h in Headers */,
-				22FD301B0CEE875B0039C226 /* tt_offset.h in Headers */,
-				22FD301C0CEE875B0039C226 /* tt_onewrap.h in Headers */,
-				22FD301D0CEE875B0039C226 /* tt_overdrive.h in Headers */,
-				22FD301E0CEE875B0039C226 /* tt_pan.h in Headers */,
-				22FD301F0CEE875B0039C226 /* tt_phasor.h in Headers */,
-				22FD30200CEE875B0039C226 /* tt_polar.h in Headers */,
-				22FD30210CEE875B0039C226 /* tt_procrastinate.h in Headers */,
-				22FD30220CEE875B0039C226 /* tt_pulsesub.h in Headers */,
-				22FD30230CEE875B0039C226 /* tt_ramp.h in Headers */,
-				22FD30240CEE875B0039C226 /* tt_rms.h in Headers */,
-				22FD30250CEE875B0039C226 /* tt_shift.h in Headers */,
-				22FD30260CEE875B0039C226 /* tt_subtract.h in Headers */,
-				22FD30270CEE875B0039C226 /* tt_svf.h in Headers */,
-				22FD30280CEE875B0039C226 /* tt_switch.h in Headers */,
-				22FD30290CEE875B0039C226 /* tt_upsample.h in Headers */,
-				22FD302A0CEE875B0039C226 /* tt_verb.h in Headers */,
-				22FD302B0CEE875B0039C226 /* tt_wavetable.h in Headers */,
-				22FD302C0CEE875B0039C226 /* tt_zerox.h in Headers */,
-				22FD31890CEE8EA80039C226 /* RampUnitWrap.h in Headers */,
-				22FD318A0CEE8EA80039C226 /* ramplib.h in Headers */,
-				22FD31920CEE8EC30039C226 /* ext_pattr_bundle.h in Headers */,
 				2259E6160CF9D55A0044E6DE /* JamomaClock.h in Headers */,
 				2259E6180CF9D55A0044E6DE /* JamomaScheduler.h in Headers */,
 				2236907D0D00DFC3002D560B /* JamomaSymbols.h in Headers */,
@@ -588,6 +410,11 @@
 				22C1B29E0D20C1B0008BB574 /* AngleDataspace.h in Headers */,
 				66D9A1F80D21F49300A16E9A /* PositionDataspace.h in Headers */,
 				22BF45A60D2564F2001FAA14 /* NoneDataspace.h in Headers */,
+				22E6C7570D4AB21B00DA75EE /* AsyncRamp.h in Headers */,
+				22E6C7590D4AB21B00DA75EE /* NoneRamp.h in Headers */,
+				22E6C75B0D4AB21B00DA75EE /* QueueRamp.h in Headers */,
+				22E6C75E0D4AB21B00DA75EE /* RampLib.h in Headers */,
+				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,12 +452,28 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 22077F9D0D84497600270C06 /* Products */;
+					ProjectRef = 22077F9C0D84497600270C06 /* TTBlue.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* Jamoma */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		22077FA40D84497600270C06 /* TTBlue.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TTBlue.framework;
+			remoteRef = 22077FA30D84497600270C06 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8DC2EF520486A6940098B216 /* Resources */ = {
@@ -655,7 +498,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\nif [ \"../../Jamoma/library/externals/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"../../Jamoma/library/externals/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ../../Jamoma/library/externals\n";
+			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\nif [ \"../../Jamoma/library/externals/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"../../Jamoma/library/externals/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ../../Jamoma/library/externals\n/bin/rm -rf ../../Jamoma/library/externals/TTBlue.framework\n/bin/cp -R \"/Library/Frameworks/TTBlue.framework\" ../../Jamoma/library/externals\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -667,9 +510,6 @@
 				22A403980CAD7C5100E5299E /* commonsyms.c in Sources */,
 				22FD2DC60CEE5B6F0039C226 /* Jamoma.cpp in Sources */,
 				22FD2DC80CEE5B6F0039C226 /* jcom.core.cpp in Sources */,
-				22FD2FBC0CEE86CC0039C226 /* tt_audio_base.cpp in Sources */,
-				22FD31880CEE8EA80039C226 /* RampUnitWrap.cpp in Sources */,
-				22FD31910CEE8EC30039C226 /* ext_pattr_bundle.c in Sources */,
 				2259E6150CF9D55A0044E6DE /* JamomaClock.cpp in Sources */,
 				2259E6170CF9D55A0044E6DE /* JamomaScheduler.cpp in Sources */,
 				2236907B0D00DFBA002D560B /* JamomaSymbols.cpp in Sources */,
@@ -690,6 +530,14 @@
 				22C1B29D0D20C1B0008BB574 /* AngleDataspace.cpp in Sources */,
 				66D9A1F70D21F49300A16E9A /* PositionDataspace.cpp in Sources */,
 				22BF45A50D2564F2001FAA14 /* NoneDataspace.cpp in Sources */,
+				2200FCAF0D3ECD3D0078B045 /* jcom.receive.cpp in Sources */,
+				2200FCB00D3ECD3D0078B045 /* jcom.receivemaster.cpp in Sources */,
+				2200FCB10D3ECD3D0078B045 /* jcom.send.cpp in Sources */,
+				22E6C7560D4AB21B00DA75EE /* AsyncRamp.cpp in Sources */,
+				22E6C7580D4AB21B00DA75EE /* NoneRamp.cpp in Sources */,
+				22E6C75A0D4AB21B00DA75EE /* QueueRamp.cpp in Sources */,
+				22E6C75D0D4AB21B00DA75EE /* RampLib.cpp in Sources */,
+				22E6C75F0D4AB21B00DA75EE /* SchedulerRamp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,6 +563,7 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/headers,
 					/Library/Frameworks/MaxAudioAPI.framework/headers,
+					/Library/Frameworks/TTBlue.framework/headers,
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
@@ -742,8 +591,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/headers,
 					/Library/Frameworks/MaxAudioAPI.framework/headers,
+					/Library/Frameworks/MaxAPI.framework/headers,
+					/Library/Frameworks/TTBlue.framework/headers,
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";

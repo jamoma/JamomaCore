@@ -1,6 +1,6 @@
 /* 
- * Jamoma FunctionLib: LinearFunction
- * Copyright © 2007
+ * Jamoma FunctionLib: TanhFunction
+ * Copyright © 2007 by Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -9,13 +9,17 @@
 #include "TanhFunction.h"
 #include <math.h>
 
+
 TanhFunction::TanhFunction()
+	: FunctionUnit("function.tanh")
 {
-	offset = 0;
-	b = 0.5*(offset+1);
-	width = 1.;
-	a = log(7.)/width;
-	calculateOutputScaling();
+	// Register Attributes...
+	registerAttribute(TT("offset"),		kTypeFloat64,	&attrOffset,	(TTSetterMethod)&TanhFunction::setOffset);
+	registerAttribute(TT("width"),		kTypeFloat64,	&attrWidth,		(TTSetterMethod)&TanhFunction::setWidth);
+	
+	// Set Defaults...
+	setAttributeValue(TT("offset"),	0.0);
+	setAttributeValue(TT("width"), 1.0);
 }
 
 
@@ -25,54 +29,26 @@ TanhFunction::~TanhFunction()
 }
 
 
-double TanhFunction::mapValue(double x)
+TTErr TanhFunction::setOffset(const TTValue& newValue)
 {
-	return alpha*(tanh(a*(x-b)) - beta);
+	attrOffset = newValue;
+	b = 0.5*(attrOffset+1);
+	calculateOutputScaling();
+	return kTTErrNone;
 }
 
 
-JamomaError TanhFunction::setParameter(t_symbol *parameterName, long argc, t_atom *argv)
+TTErr TanhFunction::setWidth(const TTValue& newValue)
 {
-	if (parameterName==gensym("width")) {
-		width = atom_getfloat(argv);
-		if (width<=0)
-			a = log(7.);
-		else 
-			a = log(7.)/width;
-		calculateOutputScaling();
-		return JAMOMA_ERR_NONE;
-	}
-	else if (parameterName==gensym("offset")) {
-		offset = atom_getfloat(argv);
-		b = 0.5*(offset+1);
-		calculateOutputScaling();
-		return JAMOMA_ERR_NONE;
-	}
-	else	
-		return JAMOMA_ERR_INVALID_PARAMETER;
+	attrWidth = newValue;
+	if(attrWidth <= 0)
+		a = log(7.0);
+	else 
+		a = log(7.0)/attrWidth;
+	calculateOutputScaling();
+	return kTTErrNone;
 }
 
-
-JamomaError TanhFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
-{
-	if (parameterName==gensym("width")) {
-		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
-		atom_setfloat(*argv, width);
-		*argc = 1;
-		return JAMOMA_ERR_NONE;
-	}
-	else if (parameterName==gensym("offset")) {
-		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
-		atom_setfloat(*argv, offset);
-		*argc = 1;
-		return JAMOMA_ERR_NONE;
-	}
-	else
-	{	
-		*argc = 0;
-		return JAMOMA_ERR_INVALID_PARAMETER;
-	}
-}
 
 void TanhFunction::calculateOutputScaling(void)
 {
@@ -85,12 +61,9 @@ void TanhFunction::calculateOutputScaling(void)
 	beta = f0;
 }
 
-JamomaError TanhFunction::getFunctionParameters(long *argc, t_atom **argv)
+
+double TanhFunction::map(double x)
 {
-	
-	int n = *argc = 2;
-	*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * n);
-	atom_setsym(*argv, gensym("width")); atom_setsym(*argv+1, gensym("offset"));
-	return JAMOMA_ERR_NONE;
-	
+	return alpha*(tanh(a*(x-b)) - beta);
 }
+

@@ -49,13 +49,15 @@ typedef struct _param{						// Data Structure for this object
 	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
 	t_symbol				*name;					// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
 	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
-	rampunit				*ramper;				///< rampunit object to perform ramping of input values
+	RampUnit				*ramper;				///< rampunit object to perform ramping of input values
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
 	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
 	t_symbol				*attr_rampfunction;		///< Attribute for setting the function used by the ramping
 	t_symbol				*attr_dataspace;		///< The dataspace that this parameter uses (default is 'none')
 	t_symbol				*attr_unitActive;		///< The active unit within the dataspace -- the type of values a user is sending
 	t_symbol				*attr_unitNative;		///< The native unit within the dataspace -- the type of values sent to the algorithm
+	method					callback;				///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
+	t_object				*callbackArg;			///< The object for which the callback method should be applied
 } t_param;
 
 
@@ -105,12 +107,13 @@ t_max_err 	param_setvalueof(t_param *x, long argc, t_atom *argv);
 t_max_err 	param_getvalueof(t_param *x, long *argc, t_atom **argv);
 void		param_reset(t_param *x);
 #endif
+void		param_setcallback(t_param *x, method newCallback, t_object *callbackArg);
 t_max_err	param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv);
-void		param_getRampFunctionParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv);
-void		param_setRampFunctionParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv);
-void		param_getRampDriveParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv);
-void		param_setRampDriveParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void		param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
+void		param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
+void		param_getRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
+void		param_setRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
 
 
 // Defined in jcom.parameter.clip.c

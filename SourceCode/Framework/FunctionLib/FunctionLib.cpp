@@ -1,21 +1,21 @@
 /* 
  * Jamoma FunctionLib Base Class
- * Copyright © 2007
+ * Copyright © 2007 by Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
 #include "FunctionLib.h"
+#include "TTThread.h"
 
 
-FunctionLib::FunctionLib()
+FunctionUnit::FunctionUnit(const char* functionName)
+	: TTObject(functionName)
 {
-	;
 }
 
-
-FunctionLib::~FunctionLib()
+FunctionUnit::~FunctionUnit()
 {
 	;
 }
@@ -32,59 +32,67 @@ FunctionLib::~FunctionLib()
 #include "TanhFunction.h"
 
 
+// TODO: get rid of this MaxAPI include when we get rid of the defer_low() call
+#include "ext.h"
 
-JamomaError jamoma_getFunction(t_symbol *functionName, FunctionLib **function)
-{	
-	if(*function)
-		delete *function;
+static void delete_functionunit(FunctionUnit* functionUnit)
+{
+	delete functionUnit;
+	functionUnit = NULL;
+}
+
+JamomaError FunctionLib::createUnit(const TTSymbol& unitName, FunctionUnit **unit)
+{
+	FunctionUnit* oldUnit = NULL;
+	FunctionUnit* newUnit = NULL;
+	
+	if(*unit){
+		TTSymbol& existingFunctionName = (*unit)->getName();
+		if(unitName == existingFunctionName)
+			return JAMOMA_ERR_NONE;
+		else
+			oldUnit = *unit;
+	}
 
 	// These should be alphabetized
-	if(functionName == gensym("cosine"))
-		*function = (FunctionLib*) new CosineFunction;
-	else if(functionName == gensym("linear"))
-		*function = (FunctionLib*) new LinearFunction;
-	else if(functionName == gensym("lowpass"))
-		*function = (FunctionLib*) new LowpassFunction;
-	else if(functionName == gensym("power"))
-		*function = (FunctionLib*) new PowerFunction;
-	else if(functionName == gensym("tanh"))
-		*function = (FunctionLib*) new TanhFunction;
-
-	else {
+	if(unitName == TT("cosine"))
+		newUnit = (FunctionUnit*) new CosineFunction;
+	else if(unitName == TT("linear"))
+		newUnit = (FunctionUnit*) new LinearFunction;
+	else if(unitName == TT("lowpass"))
+		newUnit = (FunctionUnit*) new LowpassFunction;
+	else if(unitName == TT("power"))
+		newUnit = (FunctionUnit*) new PowerFunction;
+	else if(unitName == TT("tanh"))
+		newUnit = (FunctionUnit*) new TanhFunction;
+	else{
 		// Invalid function specified default to linear
-		error("rampLib: Invalid function: %s", functionName->s_name);
-		*function = (FunctionLib*) new LinearFunction;
+//		TTLogError("rampLib: Invalid function: %s", (TTString)unitName);
+		TTLogError("rampLib: Invalid function", (TTString)unitName);
+		newUnit = (FunctionUnit*) new LinearFunction;
 	}
 	
+	*unit = newUnit;
+	if(oldUnit){
+		// We can't sleep the main thread. So this is futile:
+		//	TTThread::sleep(100);
+		//	delete oldUnit;
+		// TTQueue is not all ironed out just yet.  We should use that... 
+		// Maybe through a delay on the TTScheduler, which isn't written at all.
+		// So we'll use this nasty hack in the Max API to delete the old unit safely:
+		defer_low(NULL, (method)delete_functionunit, (t_symbol*)oldUnit, 0, NULL);
+	}
 	return JAMOMA_ERR_NONE;
 }
 
 
-void jamoma_getFunctionList(long *numFunctions, t_symbol ***functionNames)
+void FunctionLib::getUnitNames(TTValue& unitNames)
 {
-	*numFunctions = 5;
-	*functionNames = (t_symbol**)sysmem_newptr(sizeof(t_symbol*) * *numFunctions);
-	
-	// These should be alphabetized
-	if(*functionNames){
-		*(*functionNames+0) = gensym("cosine");
-		*(*functionNames+1) = gensym("linear");
-		*(*functionNames+2) = gensym("lowpass");
-		*(*functionNames+3) = gensym("power");
-		*(*functionNames+4) = gensym("tanh");
-	}
-}
-
-
-
-/***************************************************************************
-	Utilities shared by various members of the FunctionLib
- ***************************************************************************/
-
-double jamoma_anti_denormal(double value)
-{
-	value += k_anti_denormal_value;
-	value -= k_anti_denormal_value;
-	return(value);
+	unitNames.clear();
+	unitNames.append(TT("cosine"));
+	unitNames.append(TT("linear"));
+	unitNames.append(TT("lowpass"));
+	unitNames.append(TT("power"));
+	unitNames.append(TT("tanh"));
 }
 

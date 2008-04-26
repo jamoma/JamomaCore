@@ -192,7 +192,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -202,7 +202,10 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/Jamoma.framework/Headers,
+					/Library/Frameworks/TTBlue.framework/headers,
+				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
@@ -242,7 +245,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -252,7 +255,10 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/Jamoma.framework/Headers,
+					/Library/Frameworks/TTBlue.framework/headers,
+				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";

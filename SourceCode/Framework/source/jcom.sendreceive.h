@@ -51,5 +51,7 @@ typedef struct _jcom_receivemaster{
 
 void receive_initclass();
 void receivemaster_initclass();
+void send_initclass();
+
 
 #endif // #ifndef __JCOM_SENDRECEIVE_H__

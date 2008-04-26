@@ -22,7 +22,8 @@ typedef struct _map{
 	double			attr_outputMax;
 	double 			a, b;				// Coefficients used for normalizing input
 	double			c, d;				// Coefficients used for scaling normalized output
-	FunctionLib		*function;
+	FunctionUnit	*functionUnit;
+	bool			valid;				// true if the functionUnit can be used
 } t_map;
 
 
@@ -63,15 +64,15 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_obexoffset_set(c, calcoffset(t_map, obex));
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)map_int,					"int", A_GIMME, 0L);
-	class_addmethod(c, (method)map_float,				"float", A_GIMME, 0L);
-	class_addmethod(c, (method)map_getFunctions,		"functions.get", A_GIMME, 0);
- 	class_addmethod(c, (method)map_getParameter,		"parameter.get", A_GIMME, 0);
-	class_addmethod(c, (method)map_getFunctionParameters, "function.parameters.get", A_GIMME, 0);
- 	class_addmethod(c, (method)map_setParameter,		"parameter", A_GIMME, 0);
-	class_addmethod(c, (method)map_assist,				"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
+	class_addmethod(c, (method)map_int,						"int", A_GIMME, 0L);
+	class_addmethod(c, (method)map_float,					"float", A_GIMME, 0L);
+	class_addmethod(c, (method)map_getFunctions,			"functions.get", A_GIMME, 0);
+ 	class_addmethod(c, (method)map_getParameter,			"parameter.get", A_GIMME, 0);
+	class_addmethod(c, (method)map_getFunctionParameters,	"function.parameters.get", A_GIMME, 0);
+ 	class_addmethod(c, (method)map_setParameter,			"parameter", A_GIMME, 0);
+	class_addmethod(c, (method)map_assist,					"assist", A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout", A_CANT,0);  
+    class_addmethod(c, (method)object_obex_quickref,		"quickref", A_CANT, 0);
 
 	// ATTRIBUTE: set the function to use
 	class_addattr(c, 
@@ -118,11 +119,12 @@ void *map_new(t_symbol *name, long argc, t_atom *argv)
 		obj->attr_inputMax = 1;
 		obj->attr_outputMin = 0;
 		obj->attr_outputMax = 1;
-		obj->function = NULL;
+		obj->functionUnit = NULL;
+		obj->valid = false;
 		attr_args_process(obj, argc, argv);
 		map_scaleInput(obj);
 		map_scaleOutput(obj);
-		if(!obj->function)
+		if(!obj->functionUnit)
 			object_attr_setsym(obj, gensym("function"), gensym("linear"));
 	}
 	return obj;										// Return pointer to our instance
@@ -131,8 +133,8 @@ void *map_new(t_symbol *name, long argc, t_atom *argv)
 
 void map_free(t_map *obj)
 {
-	if(obj->function)
-		delete obj->function;
+	if(obj->functionUnit)
+		delete obj->functionUnit;
 }
 
 
@@ -163,62 +165,75 @@ void map_float(t_map *obj, double x)
 {
 	double y;
 	
-	y = obj->c*obj->function->mapValue(obj->a*x + obj->b) + obj->d;
-	outlet_float(obj->outlet, y);
+	if(obj->valid){
+		y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
+		outlet_float(obj->outlet, y);
+	}
 }
 
 
 void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
 	t_atom		a[2];
-	t_symbol	**functionNames = NULL;
 	long		numFunctions = 0;
 	long		i;
+	TTValue		functionNames;
+	TTSymbol	aName;
 	
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("functions"), 1, a);
 	
-	jamoma_getFunctionList(&numFunctions, &functionNames);
-	
+	FunctionLib::getUnitNames(functionNames);
+	numFunctions = functionNames.getNumValues();
 	for(i=0; i<numFunctions; i++){
+		functionNames.get(i, aName);
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, functionNames[i]);
+		atom_setsym(a+1, gensym(aName));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
+		
+		atom_setsym(a, obj->attr_function);
+		object_obex_dumpout(obj, gensym("functions"), 1, a);
 	}
-	
-	if(numFunctions)
-		sysmem_freeptr(functionNames);
 }
 
 
 void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol	*parameterName;
 	t_atom		*a;
-	long		ac = 0;
-	t_atom		*av = NULL;
+	TTSymbol	parameterName;
+	TTValue		parameterValue;
+	int			numValues;
+	int			i;
+	TTSymbol	tempSymbol;
+	double		tempValue;
 	
 	if(!argc){
 		error("jcom.map: not enough arguments to parameter.get");
 		return;
 	}
 	
-	parameterName = atom_getsym(argv);
-	obj->function->getParameter(parameterName, &ac, &av);
-	if(ac) {
-		//atom_setsym(a+0, parameterName);
-		//atom_setfloat(a+1, av);
-		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
-		// Forst list item is name of parameter
-		atom_setsym(a, parameterName);
+	parameterName = atom_getsym(argv)->s_name;
+	obj->functionUnit->getAttributeValue(parameterName, parameterValue);
+	numValues = parameterValue.getNumValues();
+
+	if(numValues){
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
+		// First list item is name of parameter
+		atom_setsym(a, gensym(parameterName));
 		// Next the whole shebang is copied
-		sysmem_copyptr(a+1, av, sizeof(t_atom)*ac);
-		object_obex_dumpout(obj, gensym("current.parameter"), ac+1, a);
-		//object_obex_dumpout(obj, gensym("getParameter"), ac, av);
-		//object_obex_dumpout(obj, gensym("getParameter"), ac+1, a);
+		for(i=0; i<numValues; i++){
+			if(parameterValue.getType(i) == kTypeSymbol){
+				parameterValue.get(i, tempSymbol);
+				atom_setsym(a+i+1, gensym(tempSymbol));
+			}
+			else{
+				parameterValue.get(i, tempValue);
+				atom_setfloat(a+i+1, tempValue);
+			}
+		}
+		object_obex_dumpout(obj, gensym("current.parameter"), numValues+1, a);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
-		sysmem_freeptr(av);
 		sysmem_freeptr(a);
 	}
 }
@@ -227,19 +242,21 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 {
 	t_atom		a[2];
 	long		n;
-	t_atom		*av;
+	TTValue		names;
+	TTSymbol	aName;
 
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
 
-	obj->function->getFunctionParameters(&n, &av);
+	obj->functionUnit->getAttributeNames(names);
+	n = names.getNumValues();
 	if(n){
 		for(int i=0; i<n; i++){
 			atom_setsym(a+0, gensym("append"));
-			atom_setsym(a+1, atom_getsym(av+i));
+			names.get(i, aName);
+			atom_setsym(a+1, gensym(aName));
 			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}
-		sysmem_freeptr(av);
 	}
 	else
 		object_obex_dumpout(obj, gensym("function.parameters.get"), 0, 0);		// no parameters
@@ -250,24 +267,39 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 
 void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	//double		value = 0.0;
-	t_symbol	*parameterName;
+	TTSymbol	parameterName;
+	TTValue		newValue;
+	int			i;
 	
 	if(argc < 2){
 		error("jcom.map: not enough arguments to setParameter");
 		return;
 	}
 	
-	parameterName = atom_getsym(argv);
-	obj->function->setParameter(parameterName, argc-1, argv+1);
+	parameterName = atom_getsym(argv)->s_name;
+	for(i=1; i<=(argc-1); i++){
+		if(argv[i].a_type == A_SYM)
+			newValue.append(TT(atom_getsym(argv+1)->s_name));
+		else
+			newValue.append(atom_getfloat(argv+i));
+	}
+	obj->functionUnit->setAttributeValue(parameterName, newValue);
 }
 
 
-// ATTRIBUTE: set rampunit
+// ATTRIBUTE:
+void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
+{
+	obj->attr_function = newFunctionName;
+	FunctionLib::createUnit(TT(obj->attr_function->s_name), &obj->functionUnit);
+	obj->valid = true;
+}
+
 t_max_err map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv)
 {
-	obj->attr_function = atom_getsym(argv);
-	jamoma_getFunction(obj->attr_function, &obj->function);
+	obj->valid = false;	// prevent values from being processed by the function while it is in a state of flux
+//map_doSetFunction(obj, atom_getsym(argv));
+	defer_low(obj, (method)map_doSetFunction, atom_getsym(argv), 0, NULL);
 	return MAX_ERR_NONE;
 }
 
@@ -278,7 +310,6 @@ t_max_err map_setInputMin(t_map *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_inputMin = atom_getfloat(argv);
 	map_scaleInput(obj);
 	return MAX_ERR_NONE;
-
 }
 
 

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
+		222BDBBB0D3EEBD800A62D0A /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222BDBBA0D3EEBD800A62D0A /* TTBlue.framework */; };
+		222BDBBC0D3EEBD800A62D0A /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222BDBBA0D3EEBD800A62D0A /* TTBlue.framework */; };
 		2293DD630A8EFD0E00E22DBA /* jcom.in.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2293DD620A8EFD0E00E22DBA /* jcom.in.cpp */; };
 		2293DD6F0A8EFD1800E22DBA /* jcom.in.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2293DD620A8EFD0E00E22DBA /* jcom.in.cpp */; };
 		2293DD710A8EFD1800E22DBA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
@@ -23,6 +25,7 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
+		222BDBBA0D3EEBD800A62D0A /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		226C00F80CF4FC3C00AFF86F /* jcom.io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.io.h; path = ../../Framework/source/jcom.io.h; sourceTree = SOURCE_ROOT; };
 		226C9A460CF3CE61003F0935 /* jcom.in.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.in.h; sourceTree = "<group>"; };
 		2293DD620A8EFD0E00E22DBA /* jcom.in.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.in.cpp; sourceTree = "<group>"; };
@@ -40,6 +43,7 @@
 				2293DD720A8EFD1800E22DBA /* MaxAPI.framework in Frameworks */,
 				2293DD730A8EFD1800E22DBA /* MaxAudioAPI.framework in Frameworks */,
 				22FD2E140CEE5DC80039C226 /* Jamoma.framework in Frameworks */,
+				222BDBBB0D3EEBD800A62D0A /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +55,7 @@
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
 				0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */,
 				22FD2E130CEE5DC80039C226 /* Jamoma.framework in Frameworks */,
+				222BDBBC0D3EEBD800A62D0A /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +75,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				222BDBBA0D3EEBD800A62D0A /* TTBlue.framework */,
 				22FD2E120CEE5DC80039C226 /* Jamoma.framework */,
 				0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
@@ -274,7 +280,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = JCOM_IN;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -301,7 +307,7 @@
 				PRODUCT_NAME = jcom.in;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -329,7 +335,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = JCOM_IN;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
@@ -355,7 +361,7 @@
 				PRODUCT_NAME = jcom.in;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -395,7 +401,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					JCOM_IN_TILDE,
@@ -425,7 +431,7 @@
 				PRODUCT_NAME = "jcom.in~";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -453,7 +459,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					JCOM_IN_TILDE,
@@ -482,7 +488,7 @@
 				PRODUCT_NAME = "jcom.in~";
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",

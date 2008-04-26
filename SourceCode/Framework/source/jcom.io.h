@@ -10,11 +10,9 @@
 #ifndef __JCOM_IO_H__
 #define __JCOM_IO_H__
 
-#include "tt_audio_base.h"
-#include "tt_audio_signal.h"
-#include "tt_crossfade.h"
-#include "tt_gain.h"
-#include "tt_ramp.h"
+#include "TTAudioObject.h"
+#include "TTAudioSignal.h"
+
 #define MAX_NUM_CHANNELS 32
 
 
@@ -30,7 +28,7 @@ typedef struct _in{
 	long			num_inputs;						///< spec'd as an argument
 	long			vector_size;					///< cached vector_size of the audio signals
 	long			last_target;					///< for poly~-based algorithms, the last target number used
-	tt_audio_signal	*signal_in[MAX_NUM_CHANNELS];	///< last vector of audio samples for each channel (used by jcom.out~)
+	TTAudioSignal	*signal_in;						///< last vector of audio samples for each channel (used by jcom.out~)
 	float			*out_vectors[MAX_NUM_CHANNELS];
 	float			*remote_vectors[MAX_NUM_CHANNELS];
 	long			attr_bypass;					///< bypass flag for the module
@@ -54,20 +52,20 @@ typedef struct _out{
 	long			num_outputs;					///< spec'd as an argument
 	long			vector_size;					///< cached vector_size of the audio signals
 
-	tt_audio_signal	*signal_in;
-	tt_audio_signal *signal_out;
-	tt_audio_signal	*signal_temp;
+	TTAudioSignal	*signal_in;
+	TTAudioSignal	*signal_out;
+	TTAudioSignal	*signal_temp;
 	float			peakamp[MAX_NUM_CHANNELS];		///< The peak amplitude of the envelope for the meter from the last vector
 													/* The crossfade and gain objects can be shared for all channels
 													   because the object's don't need an independent state and do not
 													   rely internally on any history.  
 													*/
 	float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
-	tt_crossfade	*xfade;							///< implements the 'mix' and 'bypass' params
-	tt_copy			*copy;							///< simple vector copy
-	tt_gain			*gain;							///< implements the 'gain' param
-	tt_ramp			*ramp_gain;						///< ramps to drive smooth audio for the above params
-	tt_ramp			*ramp_xfade;					///< The type of xfade to use
+	TTAudioObject	*xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
+	TTAudioObject	*copy;							///< TTAudioObject does a simple vector copy
+	TTAudioObject	*gain;							///< TTGain implements the 'gain' param
+	TTAudioObject	*ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
+	TTAudioObject	*ramp_xfade;					///< TTRamp with the type of xfade to use
 	
 	float			attr_mix;						///< The mix percent, stored in percent
 	long			attr_bypass;					///< the bypass indicator for the module 

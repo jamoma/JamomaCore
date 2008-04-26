@@ -114,7 +114,8 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "mkdir" */;
+			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "jcom.mkdir" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* abs~ */;
 			projectDirPath = "";
@@ -187,7 +188,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -212,7 +213,7 @@
 				PRODUCT_NAME = jcom.mkdir;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -240,7 +241,7 @@
 				GCC_ENABLE_TRIGRAPHS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = /Library/Frameworks/Jamoma.framework/Headers/jcom.prefix.pch;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -264,7 +265,7 @@
 				PRODUCT_NAME = jcom.mkdir;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/Jamoma.framework/Headers /Library/Frameworks/TTBlue.framework/headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -300,7 +301,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "mkdir" */ = {
+		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "jcom.mkdir" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0FFBB95D09731BB700D78707 /* Development */,

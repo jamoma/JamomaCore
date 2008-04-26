@@ -1,6 +1,6 @@
 /* 
  * Jamoma FunctionLib: PowerFunction
- * Copyright © 2007
+ * Copyright © 2007 by Trond Lossius
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -10,8 +10,14 @@
 
 
 PowerFunction::PowerFunction()
-: powerValue(0.), k(1.)
+	: FunctionUnit("function.power")
 {
+	registerAttribute(TT("symmetry"),	kTypeSymbol, &attrSymmetry);	
+	registerAttribute(TT("powerValue"),	kTypeFloat64, &attrPowerValue, (TTSetterMethod)&PowerFunction::setPowerValue);	
+	
+	// Set Defaults...
+	setAttributeValue(TT("powerValue"), 0.0);
+	setAttributeValue(TT("symmetry"), TT("none"));
 }
 
 
@@ -21,11 +27,12 @@ PowerFunction::~PowerFunction()
 }
 
 
-double PowerFunction::mapValue(double x)
+double PowerFunction::map(double x)
 {
 	double y, sign;	
 	
-	if (symmetryMode==gensym("point")) {
+	if (attrSymmetry==TT("point")) {
+//	if(attrSymmetry == kTTSym_point){
 		y = 2*x-1;
 		if (y<0)
 			sign=-1;
@@ -33,58 +40,18 @@ double PowerFunction::mapValue(double x)
 			sign=1;
 		return 0.5*(sign*pow(fabs(y),k)+1);
 	}
-	else if (symmetryMode==gensym("axis"))
+	else if (attrSymmetry==TT("axis"))
+//	else if(attrSymmetry == kTTSym_axis)
 		return pow(fabs(2*x-1),k);
 	else 
 		return pow(x,k);
 }
 
 
-JamomaError PowerFunction::setParameter(t_symbol *parameterName, long argc, t_atom *argv)
+TTErr PowerFunction::setPowerValue(const TTValue& newValue)
 {
-	if (parameterName==gensym("powerValue")) {
-		powerValue = atom_getfloat(argv);
-		k = pow(2,powerValue);
-		return JAMOMA_ERR_NONE;
-	}
-	else if (parameterName==gensym("symmetry")) {
-		symmetryMode = atom_getsym(argv);
-		if((atom_getsym(argv) != gensym("point")) && (atom_getsym(argv) != gensym("axis")))
-			symmetryMode = gensym("none");
-		return JAMOMA_ERR_NONE;
-	}
-	else	
-		return JAMOMA_ERR_INVALID_PARAMETER;
+	attrPowerValue = newValue;
+	k = pow(2, attrPowerValue);
+	return kTTErrNone;
 }
 
-
-JamomaError PowerFunction::getParameter(t_symbol *parameterName, long *argc, t_atom **argv)
-{
-	if (parameterName==gensym("powerValue")) {
-		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
-		atom_setfloat(*argv, powerValue);
-		*argc = 1;
-		return JAMOMA_ERR_NONE;
-	}
-	else if (parameterName==gensym("symmetry")) {
-		*argv = (t_atom*)sysmem_newptr(sizeof(t_atom));
-		atom_setsym(*argv, symmetryMode);
-		*argc = 1;
-		return JAMOMA_ERR_NONE;
-	}
-	else
-	{	
-		*argc = 0;
-		return JAMOMA_ERR_INVALID_PARAMETER;
-	}
-}
-
-JamomaError PowerFunction::getFunctionParameters(long *argc, t_atom **argv)
-{
-	
-	int n = *argc = 2;
-	*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * n);
-	atom_setsym(*argv, gensym("powerValue")); atom_setsym(*argv+1, gensym("symmetry"));
-	return JAMOMA_ERR_NONE;
-	
-}

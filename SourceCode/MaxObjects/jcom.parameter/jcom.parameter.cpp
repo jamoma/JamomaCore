@@ -13,8 +13,6 @@
 t_class		*parameter_class;		// Required: Global pointer for our class
 t_class		*message_class;
 
-bool		g_pattr_valid;		// Did pattr init successfully?
-	
 int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
 
 /************************************************************************************/
@@ -27,28 +25,13 @@ int main(void)				// main recieves a copy of the Max function macros table
 	long		offset;
 	
 	// Initialize Globals
-	g_pattr_valid = false;
 	jamoma_init();
-#ifndef JMOD_MESSAGE
-	// TODO: move this into the framework [TAP]
-	short		err = 0;
-	err = ext_pattr_setup();
-	if(err){
-		//post("Jamoma: pattr integration is not available - could not init pattr-bundle");
-		g_pattr_valid = false;
-	}
-	else
-		g_pattr_valid = true;
-#endif
 
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, 
 		(short)sizeof(t_param), (method)0L, A_GIMME, 0);
 	offset = calcoffset(t_param, common);
 	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
-
-	if(g_pattr_valid == true)
-		pattr_obex_init(c);			// set up the pattr obex
 		
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
@@ -58,13 +41,16 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
  	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
  	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
+// TODO: Change this to line up with the NIME Paper.  For example:
+//		ramp/drive/parameter granularity 20.0   should be changed to...
+//		ramp/drive:/granularity 20.0
 	class_addmethod(c, (method)param_setRampFunctionParameter,	"ramp/function/parameter",		A_GIMME,	0);
 	class_addmethod(c, (method)param_getRampFunctionParameter,	"ramp/function/parameter/get",	A_GIMME,	0);
 	class_addmethod(c, (method)param_setRampDriveParameter,		"ramp/drive/parameter",			A_GIMME,	0);
 	class_addmethod(c, (method)param_getRampDriveParameter,		"ramp/drive/parameter/get",		A_GIMME,	0);
 	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
-	class_addmethod(c, (method)param_inc,						"inc",							A_GIMME,	0);
-	class_addmethod(c, (method)param_dec,						"dec",							A_GIMME,	0);
+	class_addmethod(c, (method)param_inc,						"value/inc",					A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,						"value/dec",					A_GIMME,	0);
 	class_addmethod(c, (method)param_inc,						"+",							A_GIMME,	0);
 	class_addmethod(c, (method)param_dec,						"-",							A_GIMME,	0);
 	class_addmethod(c, (method)param_dump,						"dump",							0);
@@ -73,18 +59,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)param_assist,					"assist",						A_CANT,		0); 
 #ifndef JMOD_MESSAGE
 	class_addmethod(c, (method)param_reset,						"reset",						0);
-	if(g_pattr_valid == true){
-		// required to manually add because of our pattr-wrapping for parameters
-		class_addmethod(c, (method)param_getvalueof,			"getvalueof",	A_CANT, 0);
-		class_addmethod(c, (method)param_setvalueof,			"setvalueof",	A_CANT, 0);
-		class_addmethod(c, (method)pattr_obex_notify,			"notify",		A_CANT, 0); 	
-	}
 #endif
+	class_addmethod(c, (method)param_setcallback,				"setcallback",					A_CANT,		0);
 
-	if(g_pattr_valid == true)
-		jcom_core_subscriber_classinit_extended(c, attr, offset, false);	// don't define name attr
-	else
-		jcom_core_subscriber_classinit_extended(c, attr, offset, true);		// define a name attr
+	jcom_core_subscriber_classinit_extended(c, attr, offset, true);		// define a name attr
 		
 	// ATTRIBUTE: ramp	
 	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol,
@@ -104,13 +82,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)param_attr_getfreeze,
 		calcoffset(t_param, attr_ui_freeze));
 	
-	// ATTRIBUTE: slavemode - indicates that the instance is slave to another parameter/message
-	jamoma_class_attr_new(c, "slave", _sym_long,
-		(method)0, (method)0,
-		calcoffset(t_param, attr_slavemode));
-
 	// ATTRIBUTE: stepsize - how much increment or decrement by
-	jamoma_class_attr_new(c, "stepsize", _sym_float32,
+	jamoma_class_attr_new(c, "value/stepsize", _sym_float32,
 		(method)0, (method)param_attr_getstepsize,
 		calcoffset(t_param, attr_stepsize));
 
@@ -125,7 +98,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 		calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
 
 	// ATTRIBUTE: value/default
-	jamoma_class_attr_array_new(c, "default", _sym_atom, LISTSIZE,
+	jamoma_class_attr_array_new(c, "value/default", _sym_atom, LISTSIZE,
 		(method)0, (method)0,
 		calcoffset(t_param, listDefault_size), calcoffset(t_param, attr_valueDefault));
 
@@ -213,8 +186,6 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_parameter);
 #endif
 		attr_args_process(x, argc, argv);			// handle attribute args
-		if(g_pattr_valid == true)
-			pattr_obex_setup(x, name);				// set up out internal pattr instance
 
 #ifndef JMOD_MESSAGE
 		param_reset(x);	
@@ -304,6 +275,13 @@ void param_reset(t_param *x)
 }
 
 
+void param_setcallback(t_param *x, method newCallback, t_object *callbackArg)
+{
+	x->callback = newCallback;
+	x->callbackArg = callbackArg;
+}
+
+
 // ATTRIBUTE: TYPE
 // This is crucial because it sets function pointers for the optimized clipping, bang, and other functions
 t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
@@ -382,7 +360,7 @@ t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *
 	x->attr_rampfunction = arg;
 
 	if(x->ramper)
-		x->ramper->setFunction(x->attr_rampfunction);
+		x->ramper->setAttributeValue(TT("function"), TT(x->attr_rampfunction->s_name));
 
 	return MAX_ERR_NONE;
 	#pragma unused(attr)
@@ -460,101 +438,131 @@ t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
 }
 
 
-void param_getRampFunctionParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol	*parameterName;
+	TTSymbol	parameterName;
+	TTValue		parameterValue;
+	int numValues;
 	t_atom		*a;
-	long		ac = 0;
-	t_atom		*av = NULL;
+	TTSymbol	tempSymbol;
+	double		tempValue;
 	
 	if(!argc){
 		error("jcom.map: not enough arguments to getParameter");
 		return;
 	}
 	
-	parameterName = atom_getsym(argv);
-	//x->function->getParameter(parameterName, &ac, &av);
-	x->ramper->getFunctionParameter(parameterName, &ac, &av);
-	if(ac) {
+	parameterName = atom_getsym(argv)->s_name;
+	//obj->function->getParameter(parameterName, &ac, &av);
+	obj->ramper->getFunctionParameterValue(parameterName, parameterValue);
+	numValues = parameterValue.getNumValues();
+	if(numValues) {
 		//atom_setsym(a+0, parameterName);
 		//atom_setfloat(a+1, av);
-		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(numValues+1));
 		// Forst list item is name of parameter
-		atom_setsym(a, parameterName);
+		atom_setsym(a, gensym(parameterName));
 		// Next the whole shebang is copied
-		sysmem_copyptr(av, a+1, sizeof(t_atom)*ac);
-		object_obex_dumpout(x, gensym("ramp.function.getParameter"), ac+1, av);
+		for(int i=0; i<numValues; i++){
+			if(parameterValue.getType(i) == kTypeSymbol){
+				parameterValue.get(i, tempSymbol);
+				atom_setsym(a+i+1, gensym(tempSymbol));
+			}
+			else{
+				parameterValue.get(i, tempValue);
+				atom_setfloat(a+i+1, tempValue);
+			}
+		}
+
+		object_obex_dumpout(obj, gensym("ramp.function.getParameter"), numValues+1, a);
 	
 		// The pointer to an atom assign in the getParameter method needs to be freed.
-		sysmem_freeptr(av);
 		sysmem_freeptr(a);
 	}
 }
 
 
-void param_setRampFunctionParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	//double		value = 0.0;
-	t_symbol	*parameterName;
+	TTSymbol	parameterName;
+	TTValue		newValue;
 	
 	if(argc < 2){
 		error("jcom.map: not enough arguments to setParameter");
 		return;
 	}
 	
-	parameterName = atom_getsym(argv);
-	//x->function->setParameter(parameterName, argc-1, argv+1);
-	x->ramper->setFunctionParameter(parameterName, argc-1, argv+1);
+	parameterName = atom_getsym(argv)->s_name;
+	for(int i=1; i<=(argc-1); i++){
+		if(argv[i].a_type == A_SYM)
+			newValue.append(TT(atom_getsym(argv+1)->s_name));
+		else
+			newValue.append(atom_getfloat(argv+i));
+	}
+	obj->ramper->setFunctionParameterValue(parameterName, newValue);	
+	
 }
 
 
-void param_getRampDriveParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_getRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	short err = 0;
-	
-	t_symbol	*parameterName;
 	t_atom		*a;
-	long		ac = 0;
-	t_atom	*av = NULL;
-
+	TTSymbol	parameterName;
+	TTValue		parameterValue;
+	int			numValues;
+	TTSymbol	tempSymbol;
+	double		tempValue;
 	
-	if(!argc != 1){
-		error("jcom.ramp::attrset -- bad arguments");
+	if(!argc){
+		error("jcom.map: not enough arguments to getParameter");
 		return;
 	}
 	
-	parameterName = atom_getsym(argv);
-	err = x->ramper->attrget(parameterName, ac, av);
+	parameterName = atom_getsym(argv)->s_name;
+	obj->ramper->getAttributeValue(parameterName, parameterValue);
+	numValues = parameterValue.getNumValues();
 	
-	if(!err && ac) {
-		// Assign memory so that attr values can be copied
-		a = (t_atom *)sysmem_newptr(sizeof(t_atom)*(ac+1));
+	if(numValues){
+		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, parameterName);
+		atom_setsym(a, gensym(parameterName));
 		// Next the whole shebang is copied
-		sysmem_copyptr(a+1, av, sizeof(t_atom)*ac);
-		object_obex_dumpout(x, gensym("current.parameter"), ac+1, a);
-	
-		// The pointer to an atom assign in the getParameter method needs to be freed.
-		sysmem_freeptr(av);
+		for(int i=0; i<numValues; i++){
+			if(parameterValue.getType(i) == kTypeSymbol){
+				parameterValue.get(i, tempSymbol);
+				atom_setsym(a+i+1, gensym(tempSymbol));
+			}
+			else{
+				parameterValue.get(i, tempValue);
+				atom_setfloat(a+i+1, tempValue);
+			}
+		}
+		object_obex_dumpout(obj, gensym("ramp.drive.getParameter"), numValues + 1, a);
 		sysmem_freeptr(a);
 	}
 }
 
 
-void param_setRampDriveParameter(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_setRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	//double		value = 0.0;
-	t_symbol	*parameterName;
+	TTSymbol	parameterName;
+	TTValue		newValue;
+	int			i;
 	
 	if(argc < 2){
 		error("jcom.map: not enough arguments to setParameter");
 		return;
 	}
-	
-	parameterName = atom_getsym(argv);
-	//value = atom_getfloat(argv+1);
-	x->ramper->attrset(parameterName, argc-1, argv+1);
+
+	parameterName = atom_getsym(argv)->s_name;
+	for(i=1; i<=(argc-1); i++){
+		if(argv[i].a_type == A_SYM)
+			newValue.append(TT(atom_getsym(argv+1)->s_name));
+		else
+			newValue.append(atom_getfloat(argv+i));
+	}
+
+	obj->ramper->setAttributeValue(parameterName, newValue);
 }
 
 
@@ -658,6 +666,8 @@ void param_bang(t_param *x)
 #else
 	x->param_output(x);
 #endif
+	if(x->callback)
+		x->callback(x, x->name, x->list_size, x->atom_list);
 }
 
 
@@ -975,6 +985,10 @@ void param_send_feedback(t_param *x)
 	// send to our ui outlet
 	if(x->attr_ui_freeze == 0)
 		qelem_set(x->ui_qelem);
+
+	// send to the object in which this parameter is embedded
+	if(x->callback)
+		x->callback(x->callbackArg, x->name, x->list_size, x->atom_list);
 	
 	// call on the hub to pass our data onward
 	if(x->common.hub != NULL){
@@ -1095,7 +1109,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		
 	// Check the second to last item in the list first, which when ramping should == the string ramp
 	t_atom* ramp = argv + (argc - 2);
-	if ( (ramp->a_type==A_SYM) && (ramp->a_w.w_sym==ps_ramp)) {
+	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == ps_ramp) {
 
 		time = atom_getfloat(argv+(argc-1));
 
@@ -1212,20 +1226,23 @@ void param_ramp_callback_list(void *v, short argc, double *value)
 void param_ramp_setup(t_param *x)
 {
 	// 1. destroy the old rampunit
-	if(x->ramper != NULL)
+	if(x->ramper != NULL) {
 		delete x->ramper;
+		x->ramper = NULL;
+	}
 		
 	// 2. create the new rampunit
 	// For some types ramping doesn't make sense, so they will be set to none
 	if((x->common.attr_type == ps_msg_none) || (x->common.attr_type == ps_msg_symbol) || (x->common.attr_type == ps_msg_generic))
 		x->attr_ramp = gensym("none");
 		
+		
 	if((x->common.attr_type == ps_msg_int) || (x->common.attr_type == ps_msg_toggle))
-		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_int, (void *)x);
+		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_int, (void *)x);
 	else if (x->common.attr_type == ps_msg_list)
-		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_list, (void *)x);
+		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_list, (void *)x);
 	else
-		x->ramper = new rampunit(x->attr_ramp->s_name, param_ramp_callback_float, (void *)x);
+		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_float, (void *)x);
 
 	if(x->ramper == NULL)
 		error("jcom.parameter (%s module): could not allocate memory for ramp unit!", x->common.module_name);

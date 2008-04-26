@@ -15,8 +15,10 @@ typedef struct _remote{
 	t_jcom_core_subscriber_common	common;
 	void							*outlet;
 	void							*dumpout;	
-	t_atom							output[512];	// buffer that gets sent to the hub
+	t_atom							output[512];	///< buffer that gets sent to the hub
 	short							output_len;
+	method							callback;		///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
+	t_object						*callbackArg;	///< The object for which the callback method should be applied
 } t_remote;
 
 
@@ -30,6 +32,8 @@ void remote_int(t_remote *x, long value);
 void remote_float(t_remote *x, double value);
 void remote_symbol(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
 void remote_list(t_remote *x, t_symbol *msg, long argc, t_atom *argv);
+void remote_setcallback(t_remote *x, method newCallback, t_object *callbackArg);
+void remote_subscribe(t_remote *x);
 
 
 // Globals
@@ -61,6 +65,7 @@ int main(void)				// main recieves a copy of the Max function macros table
  	class_addmethod(c, (method)remote_list,				"list",			A_GIMME, 0L);
  	class_addmethod(c, (method)remote_symbol,			"anything",		A_GIMME, 0L);
     class_addmethod(c, (method)remote_assist,			"assist",		A_CANT, 0L);
+	class_addmethod(c, (method)remote_setcallback,		"setcallback",	A_CANT, 0);
 
 	jcom_core_subscriber_classinit_common(c, attr, offset);	
 		
@@ -96,6 +101,8 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv)
 		x->output_len = 1;
 
 		jcom_core_subscriber_new_common(&x->common, name, ps_subscribe_remote);
+		jcom_core_subscriber_setcustomsubscribe_method(&x->common, (t_subscribe_method)remote_subscribe);
+
 		attr_args_process(x, argc, argv);					// handle attribute args				
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 	}
@@ -118,10 +125,20 @@ void remote_assist(t_remote *x, void *b, long msg, long arg, char *dst)
 }
 
 
+// this method is called when we have subscribed to the hub
+void remote_subscribe(t_remote *x)
+{
+	if(x->callback)
+		x->callback(x->callbackArg, ps_subscribe, 0, NULL);
+}
+
+
 // messages received from jcom.hub
 void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, atom_getsym(argv), argc-1, argv+1);
+	if(x->callback)
+		x->callback(x->callbackArg, x->common.attr_name, argc, argv);
 }
 
 
@@ -185,4 +202,11 @@ void remote_list(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 		x->output_len++;
 	}
 	remote_send_private(x);
+}
+
+
+void remote_setcallback(t_remote *x, method newCallback, t_object *callbackArg)
+{
+	x->callback = newCallback;
+	x->callbackArg = callbackArg;
 }
