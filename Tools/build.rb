@@ -100,6 +100,30 @@ def get_count
 end
 
 
+def copydir(sourcepath, dstpath)
+  out = ""
+  err = ""
+
+  puts "copy -v #{sourcepath}  -->  #{dstpath}"
+
+  Open3.popen3("rm -rf #{dstpath}") do |stdin, stdout, stderr|
+    out = stdout.read
+    err = stderr.read
+  end
+  log_build(out)
+  log_error(err)
+
+  Open3.popen3("cp -R #{sourcepath} #{dstpath}") do |stdin, stdout, stderr|
+    out = stdout.read
+    err = stderr.read
+  end
+  log_build(out)
+  log_error(err)
+
+  return 0  
+end
+
+
 def build_xcode_project(projectdir, projectname, configuration, clean)
   out = ""
   err = ""
@@ -158,6 +182,7 @@ def build_dir(dir, configuration, clean)
 
   Dir.foreach(dir) do |subf|
     next if /^\./.match(subf)
+    next if /common/.match(subf)
     next if !FileTest.directory?("#{dir}/#{subf}")
     find_and_build_project("#{dir}/#{subf}", configuration, clean)
   end
@@ -175,20 +200,10 @@ zero_count
 ###################################################################
 # FRAMEWORK
 ###################################################################
-puts "Building Framework..."
+puts "Building Frameworks..."
 zero_count
+build_project("#{@svn_root}/SourceCode/ThirdParty/TTBlue/library", "TTBlue.xcodeproj", configuration, true)
 build_project("#{@svn_root}/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
-ex_total, ex_count = get_count
-puts ""
-
-
-###################################################################
-# RAMPLIB
-###################################################################
-puts "Building RampLib..."
-
-zero_count
-build_dir("SourceCode/RampLib/RampUnits", configuration, clean)
 ex_total, ex_count = get_count
 puts ""
 
@@ -196,7 +211,32 @@ puts ""
 ###################################################################
 # EXTERNALS
 ###################################################################
-puts "Building Externals..."
+puts "Building TTBlue Externals..."
+
+zero_count
+build_dir("SourceCode/ThirdParty/TTBlue/examples", configuration, clean)  
+ex_total, ex_count = get_count
+if(configuration == "Development")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.balance~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.balance~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.dcblock~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.dcblock~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.degrade~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.degrade~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.filter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.filter~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.limiter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.limiter~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.overdrive~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.overdrive~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.ramp~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.ramp~.mxo")
+else
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.balance~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.balance~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.dcblock~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.dcblock~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.degrade~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.degrade~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.filter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.filter~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.limiter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.limiter~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.overdrive~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.overdrive~.mxo")
+  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.ramp~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.ramp~.mxo")
+end
+puts ""
+
+
+puts "Building Jamoma Externals..."
 
 zero_count
 build_dir("SourceCode/MaxObjects", configuration, clean)  
