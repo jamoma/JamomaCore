@@ -10,6 +10,10 @@
 #define __TT_THREAD_H__
 
 #include "TTElement.h"
+#ifdef TT_PLATFORM_MAC
+	#include <pthread.h>
+	#include <unistd.h>
+#endif
 
 
 /****************************************************************************************************/
