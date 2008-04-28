@@ -61,6 +61,7 @@ TTLimiter::~TTLimiter()
 }
 
 
+// TODO: These message receiver args should be reversed -- this is a change that should be applied throughout TTBlue
 TTErr TTLimiter::updateMaxNumChannels(TTValue& v, const TTSymbol& s)
 {
 	short i;
