@@ -23,7 +23,7 @@ TTCLASS TTSymbol : public TTElement {
 private:
 	TTString				string;				///< the actual string represented by this symbol
 	TTUInt32				id;					///< a unique identifier for the given string
-	//bool					inTable;			///< This particular instance is stored in the symbol table
+	TTUInt32				size;				///< how many chars in the string
 
 	/** used by the constructors to create the new symbol */
 	void init(const char* newString, TTInt32 newId);
