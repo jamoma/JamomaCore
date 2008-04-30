@@ -45,6 +45,7 @@ TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 	delete string; // TODO: TAP -- is this neccessary?
 	id = oldSymbol.id;
 	size = oldSymbol.size;
+	string = new char[size];
 	memcpy(string, oldSymbol.string, size);
 }
 
