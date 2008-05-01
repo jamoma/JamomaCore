@@ -31,8 +31,8 @@ private:
 	TTErr updateSr();
 
 	// Attributes
-	TTErr setFrequency(const TTValue& newValue);
-	TTErr setResonance(const TTValue& newValue);
+	TTErr setFrequency(const TTAttribute&, const TTValue& newValue);
+	TTErr setResonance(const TTAttribute&, const TTValue& newValue);
 	void calculateCoefficients();
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should

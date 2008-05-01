@@ -42,7 +42,7 @@ TTErr TTDataObject::setMaxNumChannels(const TTValue& newValue)
 }
 
 
-TTErr TTDataObject::setSr(const TTValue& newValue)
+TTErr TTDataObject::setSr(const TTAttribute&, const TTValue& newValue)
 {
 	sr = newValue;
 	srInv = 1.0/sr;

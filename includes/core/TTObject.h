@@ -23,13 +23,13 @@ class TTAttribute;
 class TTGlobal;
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTMethod)(TTValue& value, const TTSymbol& methodName);
+typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTGetterMethod)(TTValue& value, const TTAttribute& attribute);
+typedef TTErr (TTObject::*TTGetterMethod)(const TTAttribute& attribute, TTValue& value);
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTAttribute& attribute);
+typedef TTErr (TTObject::*TTSetterMethod)(const TTAttribute& attribute, const TTValue& value);
 
 /****************************************************************************************************/
 // Class Specifications
@@ -138,8 +138,8 @@ public:
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	virtual ~TTAttribute();
 
-	TTErr defaultGetter(TTValue& value, const TTAttribute& attribute);
-	TTErr defaultSetter(const TTValue& value, const TTAttribute& attribute);
+	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
+	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
 };
 
 #endif // __TT_OBJECT_H__

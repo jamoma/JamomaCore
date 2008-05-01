@@ -30,20 +30,20 @@ private:
 	TTBoolean	trigger;
 	
 	
-	TTErr setAttack(const TTValue& newValue);
-	TTErr getAttack(TTValue& value);
+	TTErr setAttack(const TTAttribute&, const TTValue& newValue);
+	TTErr getAttack(const TTAttribute&, TTValue& value);
 
-	TTErr setDecay(const TTValue& newValue);
-	TTErr getDecay(TTValue& value);
+	TTErr setDecay(const TTAttribute&, const TTValue& newValue);
+	TTErr getDecay(const TTAttribute&, TTValue& value);
 	
-	TTErr setSustainDb(const TTValue& newValue);
-	TTErr getSustainDb(TTValue& newValue);
+	TTErr setSustainDb(const TTAttribute&, const TTValue& newValue);
+	TTErr getSustainDb(const TTAttribute&, TTValue& newValue);
 	
-	TTErr setSustainAmp(const TTValue& value);
-	TTErr getSustainAmp(TTValue& value);
+	TTErr setSustainAmp(const TTAttribute&, const TTValue& value);
+	TTErr getSustainAmp(const TTAttribute&, TTValue& value);
 	
-	TTErr setRelease(const TTValue& newValue);
-	TTErr getRelease(TTValue& value);
+	TTErr setRelease(const TTAttribute&, const TTValue& newValue);
+	TTErr getRelease(const TTAttribute&, TTValue& value);
 	
 	//TTErr processAudio(TTAudioSignal& out);
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);

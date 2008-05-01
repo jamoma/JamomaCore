@@ -34,7 +34,7 @@ TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newA
 TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
 : name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter)
 {
-
+	;
 }
 
 
@@ -44,7 +44,7 @@ TTAttribute::~TTAttribute()
 }
 
 
-TTErr TTAttribute::defaultGetter(TTValue& value, const TTAttribute& attribute)
+TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 {
 	switch(attribute.type){
 		case kTypeFloat32:
@@ -93,7 +93,7 @@ TTErr TTAttribute::defaultGetter(TTValue& value, const TTAttribute& attribute)
 }
 
 
-TTErr TTAttribute::defaultSetter(const TTValue& value, const TTAttribute& attribute)
+TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& value)
 {
 	switch(attribute.type){
 		case kTypeFloat32:
@@ -147,6 +147,7 @@ TTErr TTAttribute::defaultSetter(const TTValue& value, const TTAttribute& attrib
 TTObject::TTObject(const char* name)
 : objectName(name), messageCount(0), attributeCount(0)
 {
+	;
 }
 
 
@@ -207,7 +208,7 @@ TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
 	for(i=0; i<attributeCount; i++){
 		if(*attributeNames[i] == name){
 			attribute = attributeObjects[i];
-			return (this->*attribute->getter)(value, *attribute);
+			return (this->*attribute->getter)(*attribute, value);
 		}
 	}
 	return kTTErrInvalidAttribute;
@@ -221,7 +222,7 @@ TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTValue& value)
 	for(i=0; i<attributeCount; i++){
 		if(*attributeNames[i] == name){
 			attribute = attributeObjects[i];
-			return (this->*attribute->setter)(value, *attribute);
+			return (this->*attribute->setter)(*attribute, value);
 		}
 	}
 	return kTTErrInvalidAttribute;
@@ -478,7 +479,7 @@ TTErr TTObject::sendMessage(const TTSymbol& name)
 	
 	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
-			(this->*messageTargets[i])(foo, name);
+			(this->*messageTargets[i])(name, foo);
 			return kTTErrNone;
 		}
 	}
@@ -492,7 +493,7 @@ TTErr TTObject::sendMessage(const TTSymbol& name, TTValue& value)
 	
 	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
-			(this->*messageTargets[i])(value, name);
+			(this->*messageTargets[i])(name, value);
 			break;
 		}
 	}

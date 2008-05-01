@@ -38,40 +38,40 @@ private:
 	TTFloat64			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
-	TTErr updateMaxNumChannels(TTValue&, const TTSymbol&);
+	TTErr updateMaxNumChannels(const TTSymbol&, TTValue&);
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
-	TTErr updateSr(TTValue&, const TTSymbol&);
+	TTErr updateSr(const TTSymbol&, TTValue&);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setPreamp(const TTValue& value, const TTAttribute&);
+	TTErr setPreamp(const TTAttribute&, const TTValue& value);
 	/**	Getter for the threshold attribute. */
-	TTErr getPreamp(TTValue& value, const TTAttribute&);
+	TTErr getPreamp(const TTAttribute&, TTValue& value);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setPostamp(const TTValue& value, const TTAttribute&);
+	TTErr setPostamp( const TTAttribute&, const TTValue& value);
 	/**	Getter for the threshold attribute. */
-	TTErr getPostamp(TTValue& value, const TTAttribute&);
+	TTErr getPostamp(const TTAttribute&, TTValue& value);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setThreshold(const TTValue& value, const TTAttribute&);
+	TTErr setThreshold(const TTAttribute&, const TTValue& value);
 	/**	Getter for the threshold attribute. */
-	TTErr getThreshold(TTValue& value, const TTAttribute&);
+	TTErr getThreshold(const TTAttribute&, TTValue& value);
 
 	/** Setter for the lookahead attribute, value is in samples. */
-	TTErr setLookahead(TTValue& newValue, const TTAttribute&);
+	TTErr setLookahead(const TTAttribute&, TTValue& newValue);
 
 	/**	Setter for the mode attribute. */
-	TTErr setMode(TTValue& newValue, const TTAttribute&);
+	TTErr setMode(const TTAttribute&, TTValue& newValue);
 
 	/**	Setter for the release attribute. */
-	TTErr setRelease(TTValue& newValue, const TTAttribute&);
+	TTErr setRelease(const TTAttribute&, TTValue& newValue);
 
 	/**	Setter for the dcblocker attribute. */
-	TTErr setDCBlocker(TTValue& newValue, const TTAttribute&);
+	TTErr setDCBlocker(const TTAttribute&, TTValue& newValue);
 
 	/** Clear the history: reset the limiter. */
-	TTErr clear(TTValue&, const TTSymbol&);
+	TTErr clear(const TTSymbol&, TTValue&);
 
 	/** Private utility used by the audio processing routine. */
 	void setRecover();

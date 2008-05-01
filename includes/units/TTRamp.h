@@ -31,7 +31,7 @@ private:
 
 	/**	Setter for the mode attribute.  The options are 'sample' and 'vector' which determine 
 		the desired accuracy of the ramp that is generated. */
-	TTErr setMode(const TTValue& value);
+	TTErr setMode(const TTAttribute&, const TTValue& value);
 
 	/** Trigger a ramp with a time set in samples */
 	TTErr rampInSamples(const TTValue& newValue);

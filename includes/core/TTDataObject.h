@@ -56,7 +56,7 @@ protected:
 //	TTErr setMaxNumChannels(const TTValue& newValue);
 
 	/**	Setter for the sample-rate attribute.		*/
-	TTErr setSr(const TTValue& newValue);
+	TTErr setSr(const TTAttribute&, const TTValue& newValue);
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/

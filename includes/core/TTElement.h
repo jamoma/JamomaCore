@@ -64,7 +64,7 @@ typedef signed long			TTInt32;
 typedef unsigned long		TTUInt32;
 typedef signed long long	TTInt64;
 typedef unsigned long long	TTUInt64;
-// NOTE: On Windows we might need to do the following if we want to compile with Visual Studio:
+// TODO: On Windows we might need to do the following if we want to compile with Visual Studio:
 //  typedef __int64				TTInt64;
 //  typedef unsigned __int64	TTUInt64;
 

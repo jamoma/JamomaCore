@@ -34,7 +34,7 @@ TTAdsr::~TTAdsr()
 
 /** Defines a setter function, the first parameter creates a function prefixed with the word set
  * in front of it.  The second parameter is the prefix for the variable that has been defined in the class */
-#define DEFINE_SETPARAM(functionName, prefix)	TTErr TTAdsr::set ## functionName (const TTValue& newValue) { \
+#define DEFINE_SETPARAM(functionName, prefix)	TTErr TTAdsr::set ## functionName (const TTAttribute&, const TTValue& newValue) { \
 	prefix ## _ms = TTClip<TTFloat64>( prefix ## _ms, 1., 60000.); \
 	prefix ## _samples = long(( prefix ## _ms / 1000.) * sr); \
 	prefix ## _step = 1.0 / prefix ## _samples; \
@@ -44,7 +44,7 @@ TTAdsr::~TTAdsr()
 
 /** Defines a getter function, the first parameter creates a function prefixed with the word get
  * in front of it.  The second parameter is the prefix for the variable that has been defined in the class */
-#define DEFINE_GETPARAM(functionName, prefix)	TTErr TTAdsr::get ## functionName (TTValue& value) { \
+#define DEFINE_GETPARAM(functionName, prefix)	TTErr TTAdsr::get ## functionName (const TTAttribute&, TTValue& value) { \
 	value = prefix ## _ms; \
 	return kTTErrNone; \
 	}
@@ -58,27 +58,27 @@ DEFINE_PARAM(Attack, attack);
 DEFINE_PARAM(Decay, decay);
 DEFINE_PARAM(Release, release);
 
-TTErr TTAdsr::setSustainAmp(const TTValue& newValue)
+TTErr TTAdsr::setSustainAmp(const TTAttribute&, const TTValue& newValue)
 {
 	sustain_amp = newValue;
 	sustain_db = linearToDb(sustain_amp);
 	return kTTErrNone;
 }
 
-TTErr TTAdsr::getSustainAmp(TTValue& value)
+TTErr TTAdsr::getSustainAmp(const TTAttribute&, TTValue& value)
 {
 	value = sustain_amp;
 	return kTTErrNone;
 }
 
-TTErr TTAdsr::setSustainDb(const TTValue& newValue)
+TTErr TTAdsr::setSustainDb(const TTAttribute&, const TTValue& newValue)
 {
 	sustain_db = newValue;
 	sustain_amp = dbToLinear(sustain_db);
 	return kTTErrNone;
 }
 
-TTErr TTAdsr::getSustainDb(TTValue& value)
+TTErr TTAdsr::getSustainDb(const TTAttribute&, TTValue& value)
 {
 	value = linearToDb(sustain_amp);
 	return kTTErrNone;

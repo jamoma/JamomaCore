@@ -25,10 +25,10 @@ private:
 	TTSymbol&		attrMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
 
 	/**	Setter for the shape attribute. */
-	TTErr setShape(const TTValue& value);
+	TTErr setShape(const TTAttribute&, const TTValue& value);
 	
 	/**	Setter for the mode attribute. */
-	TTErr setMode(const TTValue& value);
+	TTErr setMode(const TTAttribute&, const TTValue& value);
 	
 	/** Utility used by the setters for setting up the process routine. */
 	TTErr setProcessPointers();

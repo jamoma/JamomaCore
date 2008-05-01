@@ -65,7 +65,7 @@ TTErr TTRamp::setRampTime(const TTValue& newValue)
 }
 
 
-TTErr TTRamp::setMode(const TTValue& newValue)
+TTErr TTRamp::setMode(const TTAttribute&, const TTValue& newValue)
 {
 	attrMode = newValue;
 	setupProcess();

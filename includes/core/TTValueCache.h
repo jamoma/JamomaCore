@@ -11,13 +11,15 @@
 
 #include "TTValue.h"
 
+class TTAttribute;
+extern TTAttribute* kTTAttr;	///< bogus attribute for direct accessor calls
+#define TTATTR *kTTAttr
 
 extern TTValue*	kTTBoolNo;
 extern TTValue*	kTTBoolYes;
 
 extern TTValue*	kTTVal0;
 extern TTValue*	kTTVal1;
-
 
 
 void TTValueCacheInit();

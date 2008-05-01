@@ -49,7 +49,7 @@ TTErr TTLowpassOnePole::updateMaxNumChannels()
 TTErr TTLowpassOnePole::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	return setFrequency(TTATTR, v);
 }
 
 
@@ -61,7 +61,7 @@ TTErr TTLowpassOnePole::clear()
 }
 
 
-TTErr TTLowpassOnePole::setFrequency(const TTValue& newValue)
+TTErr TTLowpassOnePole::setFrequency(const TTAttribute&, const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
