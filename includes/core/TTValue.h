@@ -135,19 +135,7 @@ private:
 	void setNumValues(const TTUInt16 arg);
 
 	/** Performs a deep copy of the object */
-	void copy(const TTValue& obj)
-	{
-		numValues = obj.numValues;
-		TTDataType* t = new TTDataType[numValues];
-		DataValue* d = new DataValue[numValues];		
-		memcpy(t, obj.type, sizeof(TTDataType) * numValues);
-		memcpy(d, obj.data, sizeof(DataValue) * numValues);
-		delete [] type;
-		delete [] data;
-		type = t;
-		data = d;
-	}
-
+	inline void copy(const TTValue& obj);
 	
 public:
 	TTValue& operator = (const TTValue &newValue);
