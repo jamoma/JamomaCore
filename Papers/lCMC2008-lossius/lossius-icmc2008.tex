@@ -1,0 +1,152 @@
+% -----------------------------------------------
+% Template for ICMC 2005
+%     icmc.sty -> style file
+% By Eloi Batlle (eloi@iua.upf.es), changes for 
+% ICMC 2005 by Bram de Jong 
+% Adapted for the ICMC 2008 by Maarten van Walstijn
+% -----------------------------------------------
+
+\documentclass{article}
+\usepackage{icmc,amsmath}
+\usepackage{graphicx}
+
+% Title.
+% ------
+\title{Controlling spatial sound within an installation art context}
+
+% Single address
+% To use with only one author or several with the same address
+% ---------------
+\oneauthor
+  {Trond Lossius} {BEK - Bergen Center for Electronic Arts \\ C. Sundtsgt. 55, N-5004 Bergen, Norway}
+
+% Two addresses
+% --------------
+%\twoauthors
+%  {First author} {School \\ Department}
+%  {Second author} {Company \\ Address}
+
+% Three addresses
+% --------------
+%\threeauthors
+%  {First author} {School \\ Department}
+%  {Second author} {Company \\ Address}
+%  {Third author} {Company \\ Address}
+
+
+\hyphenation{vi-deo ne-eds} 
+
+
+\begin{document}
+%
+\maketitle
+%
+\begin{abstract}
+
+This paper summarize some of the experience gained from work on art installations including spatial sound, with particular emphasis on possible benefits and limitations of standardized solutions for interfacing with spatialisation techniques.
+
+\end{abstract}
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:introduction} % (fold)
+
+For a number of years the author has contributed to a series of art installations combining sound and visual elements such as video, paintings and objects. The use of multiple speakers for the creation of immersive sonic environments has been integral to the works. Through these projects a more or less systematic practical, theoretical and aesthetic survey has been carried out concerning various approaches to the use of sound spatialisation in installations \cite{lossius:2007sound_space_body}. The aim has not been to search for a specific optimal solution that could serve any project. Rather it has been an investigation of what solutions do exist, how, when and to what degree they work and in what situations and spaces they might or might not be of artistic use.
+
+% (end)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Positioning sound in space}\label{sec:coordinate} % (fold)
+
+
+The ability to describe position of sound sources is fundamental to spatialisation, and among the first parameters implemented in SpatDIF \cite{Peters:2008spatdif}. Numerical description of spatial position requires a coordinate system, and this inherently tends to introduce a set of technical, psychoacoustic and aesthetic assumptions and limitations that needs to be critically examined.
+
+
+\subsection{Limitations of the sweet spot}
+
+Several techniques for spatialisation such as the ITU 5:1 standard \cite{ITU:1993_surround_5:1}, vector-based amplitude panning \cite{Pulkki:1997vbap} and ambisonics \cite{Gerzon:1985ambi_broadcast,Gerzon:1992metatheory} assume the listnerer to be situated at the centre of a virtual acoustic space, with the head pointing in a fixed direction \cite{Wishart:1996sonic_art}. The sweet spot can be said to mimic or extrapolate the concert listening situation.
+
+For sound installations in gallery spaces this assumption might be inappropriate. Instead of being seated at a fixed position, the spectator is situated in a field, free or even encouraged to move around. The sweet spot can be considered an auditive equivalent of the Renaissance perspective model. With the rise of installation art in the late 1960s multiple perspectives were emphasized. The priviliged place was increasingly criticized as a hierarchical relationship between the viewer and the world of painting in front of him, rejected for a poststructuralist consideration of our condition as human subjects as being fragmented, multiple and decentred \cite{Bishop:2005installation}.
+
+
+\subsection{Adapting speaker layouts to the space}
+
+Most spatialisation techniques also makes assumptions concerning speaker layout that might be impractical or impossible to fulfill in a gallery setting, and even more so when the positioning of speakers have to negotiate not only architectual concerns, but also the visual integration of the speakers with other elements of the installation.
+
+The hard and reflective surfaces of gallery spaces tend to make them acoustically challenging, introducing reverberation interfering with the direct signal from the speakers, further reducing the ability to get precise results from spatialisation tecniques. The compromises involved might cause well-established techniques to only partly work even at what was supposed to be the sweet spot.
+
+Still there are good reasons for using multiple speakers in installations. The reverberation of the space can be counteracted by increasing the number of loudspeakers, resulting in a more even loudness distribution throughout the space. It also improves the ratio of direct signal to reverberated signal and signal to noise ratio. Even if it is not possible to create a fully controlled listening environment where sound sources are percived to come from exact locations or directions regardless of the position of the listener, spatialisation might be used for sculptural exploration and demarkation of space through sound, and the dependency of perceived localization on the position of the listener might itself have interesting artistic potential.
+
+In past projects of mine strategies for sound distribution generally falls in two categories. Either the speakers are used in conjunction to create illusions of sound coming from more or less specified positions or directions, or filters, granulation, delays, and other audio effects are used to distribute sound with some sort of temporal, spectral and amplitudal alterations between the speakers, producing artificial spacial effects with little or no connection to any real world processes. In the first case it is still meaningful to describe the position of sound in space, although the perceived illusion will depend on the listeners position and movement in the space.
+
+
+
+\subsection{Working at the site}
+
+When setting up an installation, it is common, at least in Norway, to move into the space at the beginning of the week, with opening the following weekend. This leaves less than a week for setting up the installation; making physical modifications to the space, mount paintings, video and other objects and rig speakers and technical equipment. 
+
+I have increasingly found that I can not move into the gallery space with a precomposed and completed work of sound. The positioning of speakers becomes an exploration of the space and interaction with other elements of the installation, and has to be done on site. The acoustics of the space further influence final decisions, in the process of creating sound that is specific to the site.
+
+A prerequisite for being able to work this way is a high degree of flexibility when entering the space. Jamoma offers a modular approach to construction of high level modules for real time processing of media, providing possibilities for rapid prototyping \cite{Place:2006jamoma}. In particular modules for spatialisation strives for a common interface. This makes it possible to rapidly switch between different techniques for spatialisation, and dynamically change the number of speakers used without any major changes to the underlaying Max patches. As a consequence of the prototyping of SpatDIF support in Jamoma \cite{Peters:2008spatdif}, positioning of sources is decoupled from positioning of speakers as well as from the actual spatialisation technique used.
+
+
+% (end)
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Documenting sound installations}\label{sec:documenting} % (fold)
+
+Documenting art installations is generally challenging \cite{Bishop:2005installation}, and sound installations no less so. In addition to the loss of immersive qualites when surround sound is reduced to stereo, background noise and reverberation appear more pronounced in recordings then when experiencing the installation in situ. The quality of recordings can be improved somewhat by boosting volumes for higher signal to noise ratio. Still it is often necsessary to rerender the sound of the installation for documentation purposes.
+
+A spatial interchange format can be of huge benefit for video documentation. If positions of all sources are described using a standardized format, and video camera position and direction is described using the same format, it is possible to render the sound so that it mimics the movement and position of the camera. Another possibility is to first render the sound for all channels used in the actual installation, provide description of speaker positions, and then mix these signals according to position and movement of the camera.
+
+If rendered sound is encoded as B-format or higher-order ambisonics, it can be decoded to several different formats, such as binaural, stereo and 5:1 surround, depending on the system used for playback.
+
+% (end)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}\label{sec:conclusions} % (fold)
+
+Standardised modular interfaces and interchange formats for spatial audio can improve possibilities for rapid prototyping of spatialised sound, increasing the ability for adapting sound to site in installation contexts. The use of interchange formats might also improve possibilities for capturing the spatial qualities of sound in audiovisual documentation of installations.
+
+An interchange format can simplify adjustment to the space at hand, but critical review will still be required. For instance scalability might pose challenges. Some spatialisation algorithms only really work outside the ring of speakers \cite{Wishart:1996sonic_art}, and require scaling. At the same time scaling can cause other processes such as Doppler effect to seriously alter the sounding result.
+
+The real challenges though will be to enhance the interchange format to describe more complex qualities of spatial sound, such as description of sources (masses or gasses) of extended size, reverberation, acoustics, and integration of real and virtual rooms in the sound.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+\bibliographystyle{abbrv}
+\bibliography{lossius-icmc2008}  % the name of the Bibliography in this case
+
+
+\end{document}
