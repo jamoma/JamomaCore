@@ -1,4 +1,0 @@
-base referer
-rect $class_celsius_unit.html 5,80 96,107
-rect $class_fahrenheit_unit.html 120,80 232,107
-rect $class_kelvin_unit.html 256,80 339,107

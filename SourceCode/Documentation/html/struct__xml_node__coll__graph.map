@@ -1,5 +1,0 @@
-base referer
-rect $struct__xml_attr.html 127,478 199,504
-rect $struct__xml_doc.html 215,243 289,270
-rect $struct__xml_dtd.html 375,384 447,411
-rect $struct__xml_ns.html 179,384 245,411

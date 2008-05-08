@@ -1,6 +1,0 @@
-base referer
-rect $class_cosine_function.html 6,80 123,107
-rect $class_linear_function.html 147,80 259,107
-rect $class_lowpass_function.html 283,80 411,107
-rect $class_power_function.html 435,80 547,107
-rect $class_tanh_function.html 571,80 678,107
