@@ -25,6 +25,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Delete old DLL from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -93,7 +95,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				Description="Copy TTBlue.dll to the Max 5 install."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -104,6 +107,8 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				Description="Delete old DLL from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -173,7 +178,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
+				Description="Copy TTBlue.dll to the Max 5 install."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
