@@ -84,7 +84,7 @@ void mkdir_assist(t_mkdir *x, void *b, long msg, long arg, char *dst)
 
 void mkdir_make(t_mkdir *x, t_symbol *s, long argc, t_atom *argv)
 {
-	defer_low(x, (method)mkdir_domake, s, 0, 0);
+	defer(x, (method)mkdir_domake, s, 0, 0);
 }
 
 

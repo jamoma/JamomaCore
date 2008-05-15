@@ -437,7 +437,7 @@ void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	else
 		userpath = _sym_nothing;
 
-	defer_low(x, (method)hub_preset_doread, userpath, 0, 0L);
+	defer(x, (method)hub_preset_doread, userpath, 0, 0L);
 }
 
 
@@ -816,7 +816,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		hub_preset_store(x, gensym("/preset/store"), 2, b);
 	}
 	
-	defer_low(x, (method)hub_preset_dowrite, userpath, 0, 0L);
+	defer(x, (method)hub_preset_dowrite, userpath, 0, 0L);
 }
 
 void writeList(t_filehandle *fh, long *eof, t_preset_item *item)

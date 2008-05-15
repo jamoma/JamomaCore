@@ -16,7 +16,7 @@ void hub_autodoc(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	if(argc)
 		userpath = atom_getsym(argv);
-	defer_low(x, (method)hub_doautodoc, userpath, 0, 0L);
+	defer(x, (method)hub_doautodoc, userpath, 0, 0L);
 }
 
 
