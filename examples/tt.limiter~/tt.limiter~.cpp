@@ -367,7 +367,7 @@ t_max_err limiter_setLookahead(t_limiter *x, void *attr, long argc, t_atom *argv
 {
 	if(argc){
 		x->attrLookahead = atom_getlong(argv);
-		x->limiter->setAttributeValue(TT("lookahead"), x->attrLookahead);
+		x->limiter->setAttributeValue(TT("lookahead"), x->attrLookahead / 1000.0);
 	}
 	return MAX_ERR_NONE;
 }

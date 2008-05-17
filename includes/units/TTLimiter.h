@@ -14,7 +14,19 @@
 #include "TTDCBlock.h"
 #include "TTGain.h"
 
-/**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. */
+/**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. 
+	
+	The way this works is by buffering the input, and delaying it by N samples.
+	That way we are able to see what the output will be some amount of time prior to actually outputting it,
+	and adjust the gain accordingly.
+	
+	After some preprocessing to adjust gain and filter DC offsets on the input, we have an analysis stage.
+	The analysis stage looks at the sample value for each channel at the input,
+	and then uses the hottest sample to calculate the gain adjust that needs to be applied.
+	
+	The release attribute (specified in seconds) determines how long it takes for a gain reduction to "wear off"
+	once the amplitude level of the input has been reduced.
+*/
 TTCLASS TTLimiter : public TTAudioObject {
 private:
 	TTFloat64			recover;				///< 
@@ -34,7 +46,7 @@ private:
 	TTFloat64			attrRelease;			///< number of seconds for the release to recover after a peak in the audio signal.
 	TTUInt32			attrLookahead;			///< number of samples by which to look forward.
 	TTFloat64			attrThreshold;			///< linear amplitude threshold at which the limiting should kick in (attr setter used dB).
-	TTFloat64			attrPreamp;				///< linear gain scaling factor prior to limiting (attr setter used dB).
+	//TTFloat64			attrPreamp;				///< linear gain scaling factor prior to limiting (attr setter used dB).
 	TTFloat64			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
@@ -77,11 +89,8 @@ private:
 	void setRecover();
 
 	/**	Standard audio processing method as used by TTBlue objects.	 */
-	TTErr processNormal(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 	
-	/**	This audio processing method is used when there is no internal DC Blocking .	 */
-	TTErr processNoDCBlocking(TTAudioSignal& in, TTAudioSignal& out);
-
 public:
 
 	/**	Constructor. */
