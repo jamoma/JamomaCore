@@ -166,11 +166,14 @@ void TTLogError(char *message, ...);
 template<class T>
 static T TTClip(T value, T low_bound, T high_bound)
 {
-	#ifdef TT_PLATFORM_MAC
-		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
-	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
-		value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
-	#endif
+//	TODO: need to benchmark this again now that we are doing this additional casting to a double before calling fabs().
+//	TODO: is there a way in a template to find out the actual type of the input so that we can handle unsigned types differently from signed types?
+//	CHANGED: on the Mac at least, a call to fabs() on an unsigned type like TTUInt32 will always return zero, thus making this template return bogus results [TAP]
+//	#ifdef TT_PLATFORM_MAC
+//		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
+//	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
+		value = T(((fabs(value - double(low_bound))) + (low_bound + high_bound)) - fabs(value - double(high_bound)));
+//	#endif
 	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
 	return value;
 }
