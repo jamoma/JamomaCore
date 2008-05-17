@@ -25,6 +25,7 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt8 newMaxNumChannels)
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setAttributeValue(TT("sr"),				globalSr);
 	setProcess(&TTAudioObject::bypassProcess);
+	setProcessWithSidechain(&TTAudioObject::bypassWithSidechainProcess);
 	setAttributeValue(TT("bypass"),			*kTTBoolNo);
 	setAttributeValue(TT("processInPlace"), *kTTBoolNo);
 }
@@ -73,6 +74,33 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
+TTErr TTAudioObject::bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
+{
+	TTUInt16		vs;
+	TTSampleValue	*inSample,
+					*outSample;
+	TTUInt8			numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
+	TTUInt8			numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
+	TTUInt8			channel;
+
+	for(channel=0; channel<numChannelsMain; channel++){
+		inSample = in1.sampleVectors[channel];
+		outSample = out1.sampleVectors[channel];
+		vs = in1.getVectorSize();
+		while(vs--)
+			*outSample++ = *inSample++;
+	}
+	for(channel=0; channel<numChannelsSidechain; channel++){
+		inSample = in2.sampleVectors[channel];
+		outSample = out2.sampleVectors[channel];
+		vs = in2.getVectorSize();
+		while(vs--)
+			*outSample++ = *inSample++;
+	}
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 {
 	processMethod = newProcessMethod;
@@ -82,13 +110,26 @@ TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 }
 
 
+TTErr TTAudioObject::setProcessWithSidechain(TTProcessWithSidechainsMethod newProcessMethod)
+{
+	processWithSidechainMethod = newProcessMethod;
+	if(!attrBypass)
+		currentProcessWithSidechainMethod = processWithSidechainMethod;
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioObject::setBypass(const TTAttribute&, const TTValue& value)
 {
 	attrBypass = value;
-	if(attrBypass)
+	if(attrBypass){
 		currentProcessMethod = &TTAudioObject::bypassProcess;
-	else
+		currentProcessWithSidechainMethod = &TTAudioObject::bypassWithSidechainProcess;
+	}
+	else{
 		currentProcessMethod = processMethod;
+		currentProcessWithSidechainMethod = processWithSidechainMethod;
+	}
 	return kTTErrNone;
 }
 
@@ -102,6 +143,18 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 TTErr TTAudioObject::process(TTAudioSignal& out)
 {
 	return (this->*currentProcessMethod)(out, out);
+}
+
+
+TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
+{
+	return (this->*currentProcessWithSidechainMethod)(in1, in2, out1, out2);
+}
+
+
+TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out)
+{
+	return (this->*currentProcessWithSidechainMethod)(in1, in2, out, out);
 }
 
 
