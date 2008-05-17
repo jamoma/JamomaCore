@@ -14,6 +14,9 @@ TTAdsr::TTAdsr(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("trigger"), kTypeBoolean, &trigger);
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 	
+	// register for notifications from the parent class so we can recalculate coefficients as required
+	registerMessage(TT("updateSr"),	(TTMethod)&TTAdsr::updateSr);
+
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
 	setAttributeValue(TT("sustain_db"), -6.);
@@ -25,6 +28,24 @@ TTAdsr::~TTAdsr()
 {
 	;
 }
+
+
+TTErr TTAdsr::updateSr()
+{
+	TTValue	v;
+
+	v = attack_ms;
+	setAttack(TTATTR, v);
+
+	v = decay_ms;
+	setDecay(TTATTR, v);
+
+	v = release_ms;
+	setRelease(TTATTR, v);
+
+	return kTTErrNone;
+}
+
 
 #ifdef USE_MACRO_ACCESSORS
 /** Defines a setter function, the first parameter creates a function prefixed with the word set
