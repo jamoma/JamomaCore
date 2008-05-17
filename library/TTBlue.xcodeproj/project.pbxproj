@@ -71,9 +71,9 @@
 		22C1BEA90DA5A769003747D3 /* TTLowpassTwoPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA70DA5A769003747D3 /* TTLowpassTwoPole.cpp */; };
 		22C1BF3E0DA5CA2F003747D3 /* TTSvf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BF3C0DA5CA2F003747D3 /* TTSvf.cpp */; };
 		22C1BF3F0DA5CA2F003747D3 /* TTAverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */; };
-		22C1BF420DA5CA43003747D3 /* TTAverage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF400DA5CA43003747D3 /* TTAverage.h */; };
-		22C1BF430DA5CA43003747D3 /* TTSvf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF410DA5CA43003747D3 /* TTSvf.h */; };
-		22C416370DDE75F7004AA836 /* TTPhasor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C416360DDE75F7004AA836 /* TTPhasor.h */; };
+		22C1BF420DA5CA43003747D3 /* TTAverage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF400DA5CA43003747D3 /* TTAverage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22C1BF430DA5CA43003747D3 /* TTSvf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF410DA5CA43003747D3 /* TTSvf.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22C416370DDE75F7004AA836 /* TTPhasor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C416360DDE75F7004AA836 /* TTPhasor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C416390DDE7614004AA836 /* TTPhasor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C416380DDE7614004AA836 /* TTPhasor.cpp */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
 		22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9B3C20D6F5429007A2946 /* TTDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
