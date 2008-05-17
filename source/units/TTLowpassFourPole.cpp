@@ -18,7 +18,11 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt8 newMaxNumChannels)
 
 	registerAttribute(*kTTSym_resonance,	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassFourPole::setResonance);
 //	setAttributeProperty(kTTSym_resonance, kTTSym_range, TTValue(0.0, 20000.0));
-//	setAttributeProperty(kTTSym_resonance, kTTSym_clipmode, kTTSym_both);		// clipping will happen before calling our custom accessor
+//	setAttributeProperty(kTTSym_resonance, kTTSym_clipmode, kTTSym_both);		// clipping will happen before calling our custom accessor, unless we set a flag
+	// TODO: flags
+//	setAttributeProperty(kTTSym_resonance ,kTTSym_flags, kTTSimpleAccessors); // <-- the default, doesn't pass the TTAttr object to accessors
+// 	or perhaps just chage it so we have two types: TTSetterMethod and TTExtentedSetterMethod 
+//		-- then override the registerAttribute & registerMethod methods
 
 	// register methods
 	registerMessage(TT("clear"), (TTMethod)&TTLowpassFourPole::clear);
