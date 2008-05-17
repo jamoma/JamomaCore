@@ -323,9 +323,9 @@
 			isa = PBXGroup;
 			children = (
 				55332A6C0D9264AD00597792 /* TTAdsr.h */,
+				55332A6E0D9264B700597792 /* TTAdsr.cpp */,
 				22C1BF400DA5CA43003747D3 /* TTAverage.h */,
 				22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */,
-				55332A6E0D9264B700597792 /* TTAdsr.cpp */,
 				A77FB4470D685CF60095A7FD /* TTBalance.h */,
 				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
 				22569C140D3E416F00328864 /* TTBandpassButterworth2.h */,

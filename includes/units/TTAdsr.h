@@ -29,27 +29,30 @@ private:
 	TTInt16		eg_state;
 	TTBoolean	trigger;
 	
+	TTSymbol&	attrMode;
 	
 	TTErr setAttack(const TTAttribute&, const TTValue& newValue);
-	TTErr getAttack(const TTAttribute&, TTValue& value);
+//	TTErr getAttack(const TTAttribute&, TTValue& value);
 
 	TTErr setDecay(const TTAttribute&, const TTValue& newValue);
-	TTErr getDecay(const TTAttribute&, TTValue& value);
+//	TTErr getDecay(const TTAttribute&, TTValue& value);
 	
 	TTErr setSustainDb(const TTAttribute&, const TTValue& newValue);
 	TTErr getSustainDb(const TTAttribute&, TTValue& newValue);
 	
 	TTErr setSustainAmp(const TTAttribute&, const TTValue& value);
-	TTErr getSustainAmp(const TTAttribute&, TTValue& value);
+//	TTErr getSustainAmp(const TTAttribute&, TTValue& value);
 	
 	TTErr setRelease(const TTAttribute&, const TTValue& newValue);
-	TTErr getRelease(const TTAttribute&, TTValue& value);
+//	TTErr getRelease(const TTAttribute&, TTValue& value);
+
+	TTErr setMode(const TTAttribute&, const TTValue& newValue);
 	
-	//TTErr processAudio(TTAudioSignal& out);
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudioLinear(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudioExponential(TTAudioSignal& in, TTAudioSignal& out);
 	
 	enum constants {
-		NOISE_FLOOR = 120
+		NOISE_FLOOR = -120
 	};
 	
 	enum eg_states {
