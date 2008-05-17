@@ -69,6 +69,12 @@
 		22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C1BEA80DA5A769003747D3 /* TTLowpassFourPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */; };
 		22C1BEA90DA5A769003747D3 /* TTLowpassTwoPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA70DA5A769003747D3 /* TTLowpassTwoPole.cpp */; };
+		22C1BF3E0DA5CA2F003747D3 /* TTSvf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BF3C0DA5CA2F003747D3 /* TTSvf.cpp */; };
+		22C1BF3F0DA5CA2F003747D3 /* TTAverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */; };
+		22C1BF420DA5CA43003747D3 /* TTAverage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF400DA5CA43003747D3 /* TTAverage.h */; };
+		22C1BF430DA5CA43003747D3 /* TTSvf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF410DA5CA43003747D3 /* TTSvf.h */; };
+		22C416370DDE75F7004AA836 /* TTPhasor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C416360DDE75F7004AA836 /* TTPhasor.h */; };
+		22C416390DDE7614004AA836 /* TTPhasor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C416380DDE7614004AA836 /* TTPhasor.cpp */; };
 		22C561060CAD984B00353974 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C561050CAD984B00353974 /* MaxAudioAPI.framework */; };
 		22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9B3C20D6F5429007A2946 /* TTDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */; };
@@ -164,6 +170,12 @@
 		22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassTwoPole.h; path = ../includes/units/TTLowpassTwoPole.h; sourceTree = SOURCE_ROOT; };
 		22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFourPole.cpp; path = ../source/units/TTLowpassFourPole.cpp; sourceTree = SOURCE_ROOT; };
 		22C1BEA70DA5A769003747D3 /* TTLowpassTwoPole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassTwoPole.cpp; path = ../source/units/TTLowpassTwoPole.cpp; sourceTree = SOURCE_ROOT; };
+		22C1BF3C0DA5CA2F003747D3 /* TTSvf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSvf.cpp; path = ../source/units/TTSvf.cpp; sourceTree = SOURCE_ROOT; };
+		22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAverage.cpp; path = ../source/units/TTAverage.cpp; sourceTree = SOURCE_ROOT; };
+		22C1BF400DA5CA43003747D3 /* TTAverage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAverage.h; path = ../includes/units/TTAverage.h; sourceTree = SOURCE_ROOT; };
+		22C1BF410DA5CA43003747D3 /* TTSvf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSvf.h; path = ../includes/units/TTSvf.h; sourceTree = SOURCE_ROOT; };
+		22C416360DDE75F7004AA836 /* TTPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPhasor.h; path = ../includes/units/TTPhasor.h; sourceTree = SOURCE_ROOT; };
+		22C416380DDE7614004AA836 /* TTPhasor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPhasor.cpp; path = ../source/units/TTPhasor.cpp; sourceTree = SOURCE_ROOT; };
 		22C561050CAD984B00353974 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22C9B3C20D6F5429007A2946 /* TTDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataObject.h; path = ../includes/core/TTDataObject.h; sourceTree = SOURCE_ROOT; };
 		22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataObject.cpp; path = ../source/core/TTDataObject.cpp; sourceTree = SOURCE_ROOT; };
@@ -311,6 +323,8 @@
 			isa = PBXGroup;
 			children = (
 				55332A6C0D9264AD00597792 /* TTAdsr.h */,
+				22C1BF400DA5CA43003747D3 /* TTAverage.h */,
+				22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */,
 				55332A6E0D9264B700597792 /* TTAdsr.cpp */,
 				A77FB4470D685CF60095A7FD /* TTBalance.h */,
 				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
@@ -360,8 +374,12 @@
 				22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */,
 				22569C200D3E416F00328864 /* TTOverdrive.h */,
 				22569C4D0D3E419300328864 /* TTOverdrive.cpp */,
+				22C416360DDE75F7004AA836 /* TTPhasor.h */,
+				22C416380DDE7614004AA836 /* TTPhasor.cpp */,
 				22569C210D3E416F00328864 /* TTRamp.h */,
 				22569C4E0D3E419300328864 /* TTRamp.cpp */,
+				22C1BF410DA5CA43003747D3 /* TTSvf.h */,
+				22C1BF3C0DA5CA2F003747D3 /* TTSvf.cpp */,
 			);
 			name = "Units-Audio";
 			sourceTree = "<group>";
@@ -415,6 +433,9 @@
 				55332A6D0D9264AD00597792 /* TTAdsr.h in Headers */,
 				22C1BEA40DA5A73E003747D3 /* TTLowpassFourPole.h in Headers */,
 				22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */,
+				22C1BF420DA5CA43003747D3 /* TTAverage.h in Headers */,
+				22C1BF430DA5CA43003747D3 /* TTSvf.h in Headers */,
+				22C416370DDE75F7004AA836 /* TTPhasor.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,6 +553,9 @@
 				55332A6F0D9264B700597792 /* TTAdsr.cpp in Sources */,
 				22C1BEA80DA5A769003747D3 /* TTLowpassFourPole.cpp in Sources */,
 				22C1BEA90DA5A769003747D3 /* TTLowpassTwoPole.cpp in Sources */,
+				22C1BF3E0DA5CA2F003747D3 /* TTSvf.cpp in Sources */,
+				22C1BF3F0DA5CA2F003747D3 /* TTAverage.cpp in Sources */,
+				22C416390DDE7614004AA836 /* TTPhasor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +586,6 @@
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
 				PRODUCT_NAME = TTBlue;
 				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
@@ -579,6 +602,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TTBluePrefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
