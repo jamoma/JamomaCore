@@ -136,13 +136,23 @@ TTErr TTAdsr::processAudio(TTAudioSignal& out)
 	
 TTErr TTAdsr::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	TTSampleValue *inSample, *outSample;
-	short vs = in.getVectorSize();
+	TTSampleValue*	inSample;
+	TTSampleValue*	outSample;
+	TTUInt16		vs = in.getVectorSize();
+	bool			checkAudioTrigger = false;
+
+	// If the two signals are the same instance, then we know that only an output signal has been passed
+	// So in that case we use the control-rate trigger instead of an audio-rate trigger.
+	// TODO: Is there a decent way to do this without having to check this every single vector?
+	if(&in != &out)
+		checkAudioTrigger = true;
 
 	inSample = in.sampleVectors[0];
 	outSample = out.sampleVectors[0];
+	
 	while(vs--) {
-		trigger = (TTBoolean)(*inSample++ > 0.5);
+		if(checkAudioTrigger)
+			trigger = (TTBoolean)(*inSample++ > 0.5);
 		
 		if(trigger) {
 			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
@@ -181,7 +191,6 @@ TTErr TTAdsr::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		}
 		*outSample++ = output;
 	}
-	
 	
 	return kTTErrNone;
 }
