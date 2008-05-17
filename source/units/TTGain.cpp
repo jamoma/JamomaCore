@@ -36,7 +36,7 @@ TTErr TTGain::setGain(const TTAttribute&, const TTValue& newValue)
 
 TTErr TTGain::getGain(const TTAttribute&, TTValue& value)
 {
-	value = linearToDb(gain);;
+	value = linearToDb(gain);
 	return kTTErrNone;
 }
 
