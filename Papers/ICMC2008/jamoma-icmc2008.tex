@@ -114,7 +114,7 @@ We have stated that a parameter may be enhanced by the addition of \emph{propert
 
 One interesting aspect of properties, which does not apply to methods, is that properties may themselves have properties, as illustrated in Figure~\ref{fig:structure}.
 
-\begin{figure}
+\begin{figure}[ht]
 \centerline{\framebox{
 	\includegraphics[width=\columnwidth]{figure-structure}}}
 \caption{Parameter structure in context: Within an environment, there may be many modules. Each module may have many parameters. Each parameter may have many properties. A property may point to a dynamic entity which itself has properties, and so on.}
@@ -125,7 +125,18 @@ One interesting aspect of properties, which does not apply to methods, is that p
 
 \subsection{Parameter Properties in Jamoma} %(fold)
 
-\begin{table}
+Jamoma's parameter object is an implementation of the idea that properties and methods can meaningfully extend parametric control. When communicating to and from modules using the Open Sound Control protocol \cite{Wright:2003}, we use the colon separator to access the properties of the parameter as proposed in \cite{Place:2008}:
+
+\begin{small}
+\begin{verbatim}
+/path/to/parameter <value>
+/path/to/parameter:/property <value>
+\end{verbatim}
+\end{small}
+
+Table~\ref{tab:parameter_properties} lists the currently implemented properties of the parameter object, with the path to the parameter omitted.
+
+\begin{table}[ht]
 \begin{center}
 \footnotesize\noindent
 \begin{tabular}{| l | p{4.5cm} |}
@@ -177,17 +188,6 @@ One interesting aspect of properties, which does not apply to methods, is that p
 \caption{Selected parameter properties and methods in Jamoma}
 \label{tab:parameter_properties}
 \end{table}
-
-Jamoma's parameter object is an implementation of the idea that properties and methods can meaningfully extend parametric control. When communicating to and from modules using the Open Sound Control protocol \cite{Wright:2003}, we use the colon separator to access the properties of the parameter as proposed in \cite{Place:2008}:
-
-\begin{small}
-\begin{verbatim}
-/path/to/parameter <value>
-/path/to/parameter:/property <value>
-\end{verbatim}
-\end{small}
-
-Table~\ref{tab:parameter_properties} lists the currently implemented properties of the parameter object, with the path to the parameter omitted.
 
 % subsection parameter_properties_in_jamoma (end)
 % section the_composite_parameter (end)
@@ -280,7 +280,9 @@ One of the advantages of implementing ramping as a combination of two libraries,
 
 The proposed system for the ramping of parameter values can be understood as an extension of the well-established ADSR (attack - decay - sustain - release) envelope used in classic synthesizers to create increasingly complex developments over time. Ramps are initiated and controlled by simple OSC messages, thus combining the simplicity of access with complexity and expressivity of the result.
 
-\begin{figure}
+One Jamoma module, \emph{jmod.cuelist}, loads a text-based script of \emph{event cues}, and is able to control all other modules \cite{Place:2006}. A \texttt{WAIT} syntax can set the execution of a cue on hold for a specified amount of time. Thus more complex auditive events can be created by combining parallel ramps for several parameters. Simultaneously the transitional curve for each of the parameters can be made more complex by building compound curves splicing together several ramp segments, where different functions can be used for each segment, as illustrated in Figure~\ref{fig:cuescript}.
+
+\begin{figure}[ht]
 \begin{small}
 \begin{verbatim}
 #######################################
@@ -297,8 +299,6 @@ CUE upAndDown
 \caption{A simple cue script. The parameter first traverses linearly from 0.0 to 1.0 in two seconds, and then returns to 0.0 in four seconds according to a cosine function}
 \label{fig:cuescript}
 \end{figure}
-
-One Jamoma module, \emph{jmod.cuelist}, loads a text-based script of \emph{event cues}, and is able to control all other modules \cite{Place:2006}. A \texttt{WAIT} syntax can set the execution of a cue on hold for a specified amount of time. Thus more complex auditive events can be created by combining parallel ramps for several parameters. Simultaneously the transitional curve for each of the parameters can be made more complex by building compound curves splicing together several ramp segments, where different functions can be used for each segment, as illustrated in Figure~\ref{fig:cuescript}.
 
 In the discussion so far ramps have been implicitly understood to be \emph{goal-directed}, that is moving towards a final destination in a fixed and limited amount of time. If this assumption is relaxed, the RampLib and FunctionLib implementations can be expanded further to provide even more possibilities for continuous movement of parameter values. For instance, low frequency oscillators can be implemented as a sequence of repeating and possibly reversed ramps. If the FunctionLib is expanded by introducing stochastic functions, and ramps are permitted to be of infinite duration, the RampLib can be used to trigger new random values when required. This leads to different types of stochastic drifts and processes in time.
 
