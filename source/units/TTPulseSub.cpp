@@ -18,8 +18,9 @@ TTPulseSub::TTPulseSub(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("trigger"), kTypeBoolean, &attrTrigger, (TTSetterMethod)&TTPulseSub::setTrigger);
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTPulseSub::setTrigger);
 
-	// registerMessage -- numChans
-	// registerMessage -- sr
+	// register for notifications
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTPulseSub::updateMaxNumChannels);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTPulseSub::updateSr);
 
 	env_gen = new TTAdsr(newMaxNumChannels);
 	phasor = new TTPhasor(newMaxNumChannels);
@@ -56,7 +57,14 @@ TTErr TTPulseSub::updateSr()
 }
 
 
-// TODO: what about the vectorsize issues?
+TTErr TTPulseSub::updateMaxNumChannels()
+{
+	phasor->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	offset->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	env_gen->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	scaler->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	return kTTErrNone;
+}
 
 
 TTErr TTPulseSub::setAttack(const TTAttribute&, const TTValue& newValue)
@@ -98,7 +106,6 @@ TTErr TTPulseSub::setTrigger(const TTAttribute&, const TTValue& newValue)
 }
 
 
-// TODO: make multichannel
 TTErr TTPulseSub::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue*	inSample;
