@@ -19,7 +19,7 @@ INCLUDES += -I../includes/units
 #########################################
 
 OPTIMIZATION_FLAGS = -O2
-DEFINES = -D__DEBUG__ -DTT_PLATFORM_WIN
+DEFINES = -D__DEBUG__ -DTT_PLATFORM_WIN -D_DLL_EXPORT
 
 CFLAGS = ${OPTIMIZATION_FLAGS} -Wall -Wno-unknown-pragmas -Wno-conversion -shared -mno-cygwin $(DEFINES) $(INCLUDES)
 LDFLAGS = $(INCLUDES) $(LIB_INCLUDES) $(LIBS)
@@ -66,6 +66,8 @@ SRC += ../source/units/TTLowpassButterworth4.cpp
 SRC += ../source/units/TTLowpassLinkwitzRiley2.cpp
 SRC += ../source/units/TTLowpassLinkwitzRiley4.cpp
 SRC += ../source/units/TTLowpassOnePole.cpp
+SRC += ../source/units/TTLowpassTwoPole.cpp
+SRC += ../source/units/TTLowpassFourPole.cpp
 SRC += ../source/units/TTOverdrive.cpp
 SRC += ../source/units/TTRamp.cpp
 
@@ -73,7 +75,7 @@ SRC += ../source/units/TTRamp.cpp
 #########################################
 
 all:
-	$(CC) $(CFLAGS) $(SRC) -o build/TTBlue.dll -export-all-symbols $(LDFLAGS)
+	$(CC) $(CFLAGS) $(SRC) -o build/libTTBlue.dll -export-all-symbols $(LDFLAGS)
 
 clean:
 	rm -f *.o

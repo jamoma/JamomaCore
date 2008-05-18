@@ -10,7 +10,9 @@
 #define __TT_MUTEX_H__
 
 #include "TTElement.h"
-
+#ifdef TT_PLATFORM_MAC
+	#include <pthread.h>
+#endif
 
 /****************************************************************************************************/
 // Class Specification
@@ -19,7 +21,7 @@
 	The TTMutex class maintains a mutual exclusion lock.
 	See http://en.wikipedia.org/wiki/Mutex for more details.
 */
-class TTMutex : public TTElement {
+TTCLASS TTMutex : public TTElement {
 private:
 	#ifdef TT_PLATFORM_MAC
 	pthread_mutex_t			pMutex;

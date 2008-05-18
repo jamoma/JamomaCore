@@ -13,15 +13,15 @@
 #include "TTAudioObject.h"
 
 /**	TTGain is an exceptionally simple audio processor scales an input audio signal */
-class TTGain : public TTAudioObject {
+TTCLASS TTGain : public TTAudioObject {
 private:
 	TTFloat64		gain;	///< linear gain to be applied to the input signal
 
 	/** setter for converting gain input from db to linear. */
-	TTErr setGain(const TTValue& newValue);
+	TTErr setGain(const TTAttribute&, const TTValue& newValue);
 
 	/** getter for converting gain input from linear to db. */
-	TTErr getGain(TTValue& value);
+	TTErr getGain(const TTAttribute&, TTValue& value);
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);

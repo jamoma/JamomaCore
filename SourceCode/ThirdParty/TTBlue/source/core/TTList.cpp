@@ -9,14 +9,15 @@
 #include "TTList.h"
 #include "TTMutex.h"
 
-static TTMutex sListMutex(false);
+static TTMutex* sListMutex=NULL;
 
 /****************************************************************************************************/
 
 TTList::TTList()
 	: list(NULL), size(0), head(0), tail(0), currentItem(NULL)
 {
-	;
+	if(!sListMutex)
+	sListMutex = new TTMutex(false);
 }
 
 
@@ -35,7 +36,7 @@ TTUInt32 TTList::getSize()
 /** return the number of values in the list. */
 TTListItem* TTList::getHead(TTValue& headValue)
 {
-	headValue = head->value;
+	headValue = *head->value;
 	return head;
 }
 
@@ -43,7 +44,7 @@ TTListItem* TTList::getHead(TTValue& headValue)
 /** return the number of values in the list. */
 TTListItem* TTList::getTail(TTValue& tailValue)
 {
-	tailValue = tail->value;
+	tailValue = *tail->value;
 	return tail;
 }
 
@@ -61,20 +62,20 @@ void TTList::remove(TTValue& value)
 {
 	TTListItem *item = NULL;
 
-	sListMutex.lock();
+	sListMutex->lock();
 	item = findFirst(&value);
 	if(item)
 		doRemove(item);
-	sListMutex.unlock();
+	sListMutex->unlock();
 }
 
 
 /** remove a specified item. */
 void TTList::remove(TTListItem* item)
 {
-	sListMutex.lock();
+	sListMutex->lock();
 	doRemove(item);
-	sListMutex.unlock();
+	sListMutex->unlock();
 }
 
 
@@ -93,14 +94,14 @@ void TTList::clear()
 {
 	TTListItem* next;
 
-	sListMutex.lock();
+	sListMutex->lock();
 	currentItem = head;
 	while(currentItem){
 		next = currentItem->next;
 		doRemove(currentItem);
 		currentItem = next;
 	}
-	sListMutex.unlock();
+	sListMutex->unlock();
 }
 
 

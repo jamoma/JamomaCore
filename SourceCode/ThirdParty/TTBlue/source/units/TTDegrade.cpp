@@ -17,7 +17,7 @@ TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
 	accumulator(NULL), output(NULL)
 {
 	// register attributes
-	registerAttribute(TT("bitdepth"),	kTypeInt32,		&attrBitdepth,	(TTSetterMethod)&TTDegrade::setBitdepth);
+	registerAttribute(TT("bitdepth"),	kTypeUInt8,		&attrBitdepth,	(TTSetterMethod)&TTDegrade::setBitdepth);
 	registerAttribute(TT("srRatio"),	kTypeFloat64,	&attrSrRatio);
 
 	// register for notifications from the parent class so we can allocate memory as required
@@ -57,7 +57,7 @@ TTErr TTDegrade::updateMaxNumChannels()
 }
 
 
-TTErr TTDegrade::setBitdepth(const TTValue& newValue)
+TTErr TTDegrade::setBitdepth(const TTAttribute&, const TTValue& newValue)
 {
 	attrBitdepth = TTClip((int)newValue, 1, 24);
 	bitShift = 24 - attrBitdepth;

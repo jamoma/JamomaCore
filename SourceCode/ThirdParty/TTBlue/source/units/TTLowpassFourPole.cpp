@@ -16,9 +16,13 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt8 newMaxNumChannels)
 	// register attributes
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassFourPole::setFrequency);
 
-	registerAttribute(kTTSym_resonance,	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassFourPole::setResonance);
+	registerAttribute(*kTTSym_resonance,	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassFourPole::setResonance);
 //	setAttributeProperty(kTTSym_resonance, kTTSym_range, TTValue(0.0, 20000.0));
-//	setAttributeProperty(kTTSym_resonance, kTTSym_clipmode, kTTSym_both);		// clipping will happen before calling our custom accessor
+//	setAttributeProperty(kTTSym_resonance, kTTSym_clipmode, kTTSym_both);		// clipping will happen before calling our custom accessor, unless we set a flag
+	// TODO: flags
+//	setAttributeProperty(kTTSym_resonance ,kTTSym_flags, kTTSimpleAccessors); // <-- the default, doesn't pass the TTAttr object to accessors
+// 	or perhaps just chage it so we have two types: TTSetterMethod and TTExtentedSetterMethod 
+//		-- then override the registerAttribute & registerMethod methods
 
 	// register methods
 	registerMessage(TT("clear"), (TTMethod)&TTLowpassFourPole::clear);
@@ -76,25 +80,25 @@ TTErr TTLowpassFourPole::updateMaxNumChannels()
 TTErr TTLowpassFourPole::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	return setFrequency(TTATTR, v);
 }
 
 
 TTErr TTLowpassFourPole::clear()
 {
-	memset(x1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x2, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x3, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x4, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y2, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y3, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y4, 0.0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x2, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x3, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x4, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y2, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y3, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y4, 0, sizeof(TTFloat64) * maxNumChannels);
 	return kTTErrNone;
 }
 
 
-TTErr TTLowpassFourPole::setFrequency(const TTValue& newValue)
+TTErr TTLowpassFourPole::setFrequency(const TTAttribute&, const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
@@ -106,7 +110,7 @@ TTErr TTLowpassFourPole::setFrequency(const TTValue& newValue)
 }
 
 
-TTErr TTLowpassFourPole::setResonance(const TTValue& newValue)
+TTErr TTLowpassFourPole::setResonance(const TTAttribute&, const TTValue& newValue)
 {
 	attrResonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
 	deciResonance = attrResonance * 0.1;

@@ -7,18 +7,31 @@
  */
 
 #include "TTBlue.h"
+#include "TTSymbolTable.h"
+#include "TTGlobal.h"
+#include "TTSymbolCache.h"
+#include "TTValueCache.h"
 
+static bool TTBlueHasInitialized = false;
 
 /****************************************************************************************************/
 
 void TTBlueInit()
 {
-	printf("TTBlue -- Version 0.5\n");
+	if(!TTBlueHasInitialized){
+		ttSymbolTable = new TTSymbolTable;
+		ttGlobalObject = new TTGlobal;
+
+		TTSymbolCacheInit();
+		TTValueCacheInit();
+
+		printf("TTBlue -- Version 0.5\n");
+		
+		// do we need to do anything with the global object?
+		// init the queue -- runs in a new thread
 	
-	// do we need to do anything with the global object?
-	// init the queue -- runs in a new thread
-	
-	
+		TTBlueHasInitialized = true;
+	}
 }
 
 

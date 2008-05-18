@@ -25,8 +25,9 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt8 newMaxNumChannels)
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setAttributeValue(TT("sr"),				globalSr);
 	setProcess(&TTAudioObject::bypassProcess);
-	setAttributeValue(TT("bypass"),			kTTBoolNo);
-	setAttributeValue(TT("processInPlace"), kTTBoolNo);
+	setProcessWithSidechain(&TTAudioObject::bypassWithSidechainProcess);
+	setAttributeValue(TT("bypass"),			*kTTBoolNo);
+	setAttributeValue(TT("processInPlace"), *kTTBoolNo);
 }
 
 
@@ -36,7 +37,7 @@ TTAudioObject::~TTAudioObject()
 }
 		
 
-TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
+TTErr TTAudioObject::setMaxNumChannels(const TTAttribute&, const TTValue& newValue)
 {
 	maxNumChannels = newValue;
 	sendMessage(TT("updateMaxNumChannels"));
@@ -44,7 +45,7 @@ TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 }
 
 
-TTErr TTAudioObject::setSr(const TTValue& newValue)
+TTErr TTAudioObject::setSr(const TTAttribute&, const TTValue& newValue)
 {
 	sr = newValue;
 	srInv = 1.0/sr;
@@ -73,6 +74,33 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
+TTErr TTAudioObject::bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
+{
+	TTUInt16		vs;
+	TTSampleValue	*inSample,
+					*outSample;
+	TTUInt8			numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
+	TTUInt8			numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
+	TTUInt8			channel;
+
+	for(channel=0; channel<numChannelsMain; channel++){
+		inSample = in1.sampleVectors[channel];
+		outSample = out1.sampleVectors[channel];
+		vs = in1.getVectorSize();
+		while(vs--)
+			*outSample++ = *inSample++;
+	}
+	for(channel=0; channel<numChannelsSidechain; channel++){
+		inSample = in2.sampleVectors[channel];
+		outSample = out2.sampleVectors[channel];
+		vs = in2.getVectorSize();
+		while(vs--)
+			*outSample++ = *inSample++;
+	}
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 {
 	processMethod = newProcessMethod;
@@ -82,13 +110,26 @@ TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 }
 
 
-TTErr TTAudioObject::setBypass(const TTValue& value)
+TTErr TTAudioObject::setProcessWithSidechain(TTProcessWithSidechainMethod newProcessMethod)
+{
+	processWithSidechainMethod = newProcessMethod;
+	if(!attrBypass)
+		currentProcessWithSidechainMethod = processWithSidechainMethod;
+	return kTTErrNone;
+}
+
+
+TTErr TTAudioObject::setBypass(const TTAttribute&, const TTValue& value)
 {
 	attrBypass = value;
-	if(attrBypass)
+	if(attrBypass){
 		currentProcessMethod = &TTAudioObject::bypassProcess;
-	else
+		currentProcessWithSidechainMethod = &TTAudioObject::bypassWithSidechainProcess;
+	}
+	else{
 		currentProcessMethod = processMethod;
+		currentProcessWithSidechainMethod = processWithSidechainMethod;
+	}
 	return kTTErrNone;
 }
 
@@ -102,6 +143,18 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 TTErr TTAudioObject::process(TTAudioSignal& out)
 {
 	return (this->*currentProcessMethod)(out, out);
+}
+
+
+TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
+{
+	return (this->*currentProcessWithSidechainMethod)(in1, in2, out1, out2);
+}
+
+
+TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out)
+{
+	return (this->*currentProcessWithSidechainMethod)(in1, in2, out, out);
 }
 
 
@@ -137,9 +190,9 @@ TTFloat64 TTAudioObject::radiansToDegrees(const TTFloat64 radians)
 
 
 // Decay Time (seconds) to feedback coefficient conversion
-TTFloat32 TTAudioObject::decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay)
+TTFloat64 TTAudioObject::decayToFeedback(const TTFloat64 decay_time, TTFloat64 delay)
 {
-	TTFloat32 	fb;
+	TTFloat64 	fb;
 		
 	delay = delay * 0.001;			// convert delay from milliseconds to seconds
 	if(decay_time < 0){
@@ -157,9 +210,9 @@ TTFloat32 TTAudioObject::decayToFeedback(const TTFloat64 decay_time, TTFloat64 d
 }
 
 // return the decay time based on the feedback coefficient
-TTFloat32 TTAudioObject::feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay)
+TTFloat64 TTAudioObject::feedbackToDecay(const TTFloat64 feedback, const TTFloat64 delay)
 {
-	float 	decay_time;
+	TTFloat64 	decay_time;
 	
 	if(feedback > 0){
 		decay_time = 20. * (log10(feedback));		
@@ -181,7 +234,7 @@ TTFloat32 TTAudioObject::feedbackToDecay(const TTFloat64 feedback, const TTFloat
 // ************* DECIBEL CONVERSIONS **************
 
 // Amplitude to decibels
-TTFloat32 TTAudioObject::linearToDb(const TTFloat64 value)
+TTFloat64 TTAudioObject::linearToDb(const TTFloat64 value)
 {
 	if(value >= 0) 
 		return(20. * (log10(value)));
@@ -190,14 +243,14 @@ TTFloat32 TTAudioObject::linearToDb(const TTFloat64 value)
 }
 
 // Decibels to amplitude
-TTFloat32 TTAudioObject::dbToLinear(TTFloat64 value)
+TTFloat64 TTAudioObject::dbToLinear(TTFloat64 value)
 {
 	return(pow(10., (value / 20.)));
 }
 
 
 // Deviate
-TTFloat32 TTAudioObject::deviate(TTFloat64 value)
+TTFloat64 TTAudioObject::deviate(TTFloat64 value)
 {
 	value += (2.0 * (TTFloat32(rand()) / TTFloat32(RAND_MAX))) - 1.0;	// randomize input with +1 to -1 ms
 	value = value * 0.001 * sr;											// convert from ms to samples

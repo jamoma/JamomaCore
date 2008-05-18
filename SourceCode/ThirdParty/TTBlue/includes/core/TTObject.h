@@ -23,16 +23,13 @@ class TTAttribute;
 class TTGlobal;
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTMethod)(TTValue& value, const TTSymbol& methodName);
+typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTGetterMethod)(TTValue& value, const TTAttribute& attribute);
+typedef TTErr (TTObject::*TTGetterMethod)(const TTAttribute& attribute, TTValue& value);
 
 /** A type that can be used to store a pointer to a message for an object */
-typedef TTErr (TTObject::*TTSetterMethod)(const TTValue& value, const TTAttribute& attribute);
-
-/** The instance that manages access to global attributes and settings in the TTBlue environment. */
-extern TTGlobal	ttGlobalObject;
+typedef TTErr (TTObject::*TTSetterMethod)(const TTAttribute& attribute, const TTValue& value);
 
 /****************************************************************************************************/
 // Class Specifications
@@ -42,7 +39,7 @@ extern TTGlobal	ttGlobalObject;
 	attributes.  Even lamer is that we statically limit it to 10 of each right now.  
 	Eventually we will do this with something way better...
 */
-TTBLUE_CLASS TTObject : public TTElement {
+TTCLASS TTObject : public TTElement {
 private:
 	TTSymbol				objectName;
 	const TTSymbol*			messageNames[16];
@@ -124,7 +121,7 @@ public:
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTAttribute : TTElement {
+TTCLASS TTAttribute : TTElement {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
@@ -141,8 +138,8 @@ public:
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	virtual ~TTAttribute();
 
-	TTErr defaultGetter(TTValue& value, const TTAttribute& attribute);
-	TTErr defaultSetter(const TTValue& value, const TTAttribute& attribute);
+	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
+	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
 };
 
 #endif // __TT_OBJECT_H__

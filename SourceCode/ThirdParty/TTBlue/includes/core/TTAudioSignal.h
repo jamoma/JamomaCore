@@ -21,7 +21,7 @@
  *	All of the members are made public so that direct access to members can be used for
  *	speed in cases where efficiency is of the utmost importance.
 */
-TTBLUE_CLASS TTAudioSignal : TTElement {
+TTCLASS TTAudioSignal : TTElement {
 private:
 	enum{
 		kExternallyOwned = 0,
@@ -31,7 +31,7 @@ private:
 	TTBoolean		isLocallyOwned;
 	TTUInt8			maxNumChannels;		///< The number of audio channels for which memory has been allocated.
 	TTUInt16		vs;					///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
-	TTUInt16		numChannels;		///< The number of audio channels that have valid sample values stored in them.
+	TTUInt8			numChannels;		///< The number of audio channels that have valid sample values stored in them.
 	TTUInt8			bitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
 
 public:

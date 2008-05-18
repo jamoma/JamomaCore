@@ -19,11 +19,11 @@
 	The TTSymbol class is used to represent a string and efficiently pass and compare that string.
 	At the moment the implementation is somewhat crude and really slow and it should be improved in the future.
 */
-TTBLUE_CLASS TTSymbol : public TTElement {
+TTCLASS TTSymbol : public TTElement {
 private:
 	TTString				string;				///< the actual string represented by this symbol
 	TTUInt32				id;					///< a unique identifier for the given string
-	//bool					inTable;			///< This particular instance is stored in the symbol table
+	TTUInt32				size;				///< how many chars in the string
 
 	/** used by the constructors to create the new symbol */
 	void init(const char* newString, TTInt32 newId);

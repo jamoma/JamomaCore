@@ -14,7 +14,7 @@
 
 /**	A resonant two-pole, no-zero, lowpass filter. Based on the Hal Chamberlin book.
  */
-class TTLowpassTwoPole : public TTAudioObject {
+TTCLASS TTLowpassTwoPole : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;			///< filter cutoff frequency
 	TTFloat64		attrResonance;			///< filter resonance
@@ -31,8 +31,8 @@ private:
 	TTErr updateSr();
 
 	// Attributes
-	TTErr setFrequency(const TTValue& newValue);
-	TTErr setResonance(const TTValue& newValue);
+	TTErr setFrequency(const TTAttribute&, const TTValue& newValue);
+	TTErr setResonance(const TTAttribute&, const TTValue& newValue);
 	void calculateCoefficients();
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should

@@ -54,19 +54,19 @@ TTErr TTLowpassTwoPole::updateMaxNumChannels()
 TTErr TTLowpassTwoPole::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	return setFrequency(TTATTR, v);
 }
 
 
 TTErr TTLowpassTwoPole::clear()
 {
-	memset(feedback1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(feedback2, 0.0, sizeof(TTFloat64) * maxNumChannels);
+	memset(feedback1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(feedback2, 0, sizeof(TTFloat64) * maxNumChannels);
 	return kTTErrNone;
 }
 
 
-TTErr TTLowpassTwoPole::setFrequency(const TTValue& newValue)
+TTErr TTLowpassTwoPole::setFrequency(const TTAttribute&, const TTValue& newValue)
 {	
 	attrFrequency = newValue;
 	radians = hertzToRadians(attrFrequency);	
@@ -75,7 +75,7 @@ TTErr TTLowpassTwoPole::setFrequency(const TTValue& newValue)
 }
 
 
-TTErr TTLowpassTwoPole::setResonance(const TTValue& newValue)
+TTErr TTLowpassTwoPole::setResonance(const TTAttribute&, const TTValue& newValue)
 {
 	attrResonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
 	negOneOverResonance = -1.0/attrResonance;

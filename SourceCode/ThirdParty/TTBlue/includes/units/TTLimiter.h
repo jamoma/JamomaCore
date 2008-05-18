@@ -14,8 +14,20 @@
 #include "TTDCBlock.h"
 #include "TTGain.h"
 
-/**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. */
-TTBLUE_CLASS TTLimiter : public TTAudioObject {
+/**	TTLimiter implements a lookahead limiter processor for controlling the dynamics of an input. 
+	
+	The way this works is by buffering the input, and delaying it by N samples.
+	That way we are able to see what the output will be some amount of time prior to actually outputting it,
+	and adjust the gain accordingly.
+	
+	After some preprocessing to adjust gain and filter DC offsets on the input, we have an analysis stage.
+	The analysis stage looks at the sample value for each channel at the input,
+	and then uses the hottest sample to calculate the gain adjust that needs to be applied.
+	
+	The release attribute (specified in seconds) determines how long it takes for a gain reduction to "wear off"
+	once the amplitude level of the input has been reduced.
+*/
+TTCLASS TTLimiter : public TTAudioObject {
 private:
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
@@ -34,54 +46,51 @@ private:
 	TTFloat64			attrRelease;			///< number of seconds for the release to recover after a peak in the audio signal.
 	TTUInt32			attrLookahead;			///< number of samples by which to look forward.
 	TTFloat64			attrThreshold;			///< linear amplitude threshold at which the limiting should kick in (attr setter used dB).
-	TTFloat64			attrPreamp;				///< linear gain scaling factor prior to limiting (attr setter used dB).
+	//TTFloat64			attrPreamp;				///< linear gain scaling factor prior to limiting (attr setter used dB).
 	TTFloat64			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTSymbol&, TTValue&);
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
-	TTErr updateSr();
+	TTErr updateSr(const TTSymbol&, TTValue&);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setPreamp(const TTValue& value);
+	TTErr setPreamp(const TTAttribute&, const TTValue& value);
 	/**	Getter for the threshold attribute. */
-	TTErr getPreamp(TTValue& value);
+	TTErr getPreamp(const TTAttribute&, TTValue& value);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setPostamp(const TTValue& value);
+	TTErr setPostamp( const TTAttribute&, const TTValue& value);
 	/**	Getter for the threshold attribute. */
-	TTErr getPostamp(TTValue& value);
+	TTErr getPostamp(const TTAttribute&, TTValue& value);
 
 	/**	Setter for the threshold attribute. */
-	TTErr setThreshold(const TTValue& value);
+	TTErr setThreshold(const TTAttribute&, const TTValue& value);
 	/**	Getter for the threshold attribute. */
-	TTErr getThreshold(TTValue& value);
+	TTErr getThreshold(const TTAttribute&, TTValue& value);
 
 	/** Setter for the lookahead attribute, value is in samples. */
-	TTErr setLookahead(TTValue& newValue);
+	TTErr setLookahead(const TTAttribute&, TTValue& newValue);
 
 	/**	Setter for the mode attribute. */
-	TTErr setMode(TTValue& newValue);
+	TTErr setMode(const TTAttribute&, TTValue& newValue);
 
 	/**	Setter for the release attribute. */
-	TTErr setRelease(TTValue& newValue);
+	TTErr setRelease(const TTAttribute&, TTValue& newValue);
 
 	/**	Setter for the dcblocker attribute. */
-	TTErr setDCBlocker(TTValue& newValue);
+	TTErr setDCBlocker(const TTAttribute&, TTValue& newValue);
 
 	/** Clear the history: reset the limiter. */
-	TTErr clear();
+	TTErr clear(const TTSymbol&, TTValue&);
 
 	/** Private utility used by the audio processing routine. */
 	void setRecover();
 
 	/**	Standard audio processing method as used by TTBlue objects.	 */
-	TTErr processNormal(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 	
-	/**	This audio processing method is used when there is no internal DC Blocking .	 */
-	TTErr processNoDCBlocking(TTAudioSignal& in, TTAudioSignal& out);
-
 public:
 
 	/**	Constructor. */

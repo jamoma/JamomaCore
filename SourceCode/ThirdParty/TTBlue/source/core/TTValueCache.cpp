@@ -7,12 +7,24 @@
  */
 
 #include "TTValueCache.h"
+#include "TTObject.h"
+
+TTValue*	kTTBoolNo;
+TTValue*	kTTBoolYes;
+
+TTValue*	kTTVal0;
+TTValue*	kTTVal1;
+
+TTAttribute* kTTAttr;
 
 
-TTValue	kTTBoolNo(TTBoolean(NO));
-TTValue kTTBoolYes(TTBoolean(YES));
+void TTValueCacheInit()
+{
+	kTTBoolNo = new TTValue(TTBoolean(NO));
+	kTTBoolYes = new TTValue(TTBoolean(YES));
 
-TTValue	kTTVal0(TTInt32(0));
-TTValue kTTVal1(TTInt32(1));
+	kTTVal0 = new TTValue(TTInt32(0));
+	kTTVal1 = new TTValue(TTInt32(1));
 
-
+	kTTAttr = new TTAttribute(*kTTSymEmpty, kTypeSymbol, NULL);
+}

@@ -79,7 +79,7 @@ TTErr TTLowpassLinkwitzRiley4::updateMaxNumChannels()
 TTErr TTLowpassLinkwitzRiley4::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	return setFrequency(TTATTR, v);
 }
 
 
@@ -101,7 +101,7 @@ TTErr TTLowpassLinkwitzRiley4::clear()
 }
 
 
-TTErr TTLowpassLinkwitzRiley4::setFrequency(const TTValue& newValue)
+TTErr TTLowpassLinkwitzRiley4::setFrequency(const TTAttribute&, const TTValue& newValue)
 {
 	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
 

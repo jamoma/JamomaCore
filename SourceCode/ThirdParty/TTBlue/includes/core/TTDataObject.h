@@ -38,7 +38,7 @@
  *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
  *	own process() method(s) as needed.
  */
-class TTDataObject : public TTObject {
+TTCLASS TTDataObject : public TTObject {
 private:
 	friend class TTGlobal;				///< Declare that the global object is friend so it can access the globalSr member
 
@@ -56,7 +56,7 @@ protected:
 //	TTErr setMaxNumChannels(const TTValue& newValue);
 
 	/**	Setter for the sample-rate attribute.		*/
-	TTErr setSr(const TTValue& newValue);
+	TTErr setSr(const TTAttribute&, const TTValue& newValue);
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/

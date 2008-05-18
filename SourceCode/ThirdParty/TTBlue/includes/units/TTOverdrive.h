@@ -16,7 +16,7 @@
 /**	TTOverdrive is an audio processor that provides a soft saturation
  *	or overdrive effect to "warm" a sound up.
  */ 
-TTBLUE_CLASS TTOverdrive : public TTAudioObject {
+TTCLASS TTOverdrive : public TTAudioObject {
 private:
 	TTFloat64			attrDrive;		///< 
 	TTBoolean			attrDCBlocker;	///< 
@@ -30,24 +30,24 @@ private:
 	TTDCBlock*			dcBlocker;
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTSymbol&, TTValue&);
 
 	/**	Setter for the mode attribute. */
-	TTErr setDrive(const TTValue& value);
+	TTErr setDrive(const TTAttribute&, const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setDCBlocker(const TTValue& value);
+	TTErr setDCBlocker(const TTAttribute&, const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setMode(const TTValue& value);
+	TTErr setMode(const TTAttribute&, const TTValue& value);
 
 	/**	Getter for the mode attribute. */
-	TTErr getPreamp(TTValue& value);
+	TTErr getPreamp(const TTAttribute&, TTValue& value);
 	/**	Setter for the mode attribute. */
-	TTErr setPreamp(const TTValue& value);
+	TTErr setPreamp(const TTAttribute&, const TTValue& value);
 
 	/**	Reset the DC Blocker.			*/
-	TTErr clear();
+	TTErr clear(const TTSymbol&, TTValue&);
 	
 	/**	Process method when mode == 0	*/
 	TTErr processMode0(TTAudioSignal& in, TTAudioSignal& out);

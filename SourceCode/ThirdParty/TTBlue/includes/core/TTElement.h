@@ -16,22 +16,26 @@
 	 #define TT_PLATFORM_WIN
 	#else
 	 #define TT_PLATFORM_MAC
-	 #define TTBLUE_CLASS class
-	 #define TTBLUE_DLL
+	 #define TTCLASS class
+	 #define TTEXPORT
+     #define TTCALL
 	#endif
 #endif
 
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
+#include <stdio.h>
+//#include <iostream>
 #ifdef TT_PLATFORM_WIN
  #include "windows.h"
  #ifdef _DLL_EXPORT
-  #define TTBLUE_CLASS class __declspec(dllexport)
-  #define TTBLUE_DLL __declspec(dllexport)
+  #define TTCLASS class __declspec(dllexport)
+  #define TTEXPORT __declspec(dllexport)
+  #define TTCALL __cdecl
  #else
-  #define TTBLUE_CLASS class __declspec(dllimport)
-  #define TTBLUE_DLL __declspec(dllimport)
+  #define TTCLASS class __declspec(dllimport)
+  #define TTEXPORT __declspec(dllimport)
+  #define TTCALL __cdecl
  #endif // _DLL_EXPORT
 #endif
 
@@ -60,7 +64,7 @@ typedef signed long			TTInt32;
 typedef unsigned long		TTUInt32;
 typedef signed long long	TTInt64;
 typedef unsigned long long	TTUInt64;
-// NOTE: On Windows we might need to do the following if we want to compile with Visual Studio:
+// TODO: On Windows we might need to do the following if we want to compile with Visual Studio:
 //  typedef __int64				TTInt64;
 //  typedef unsigned __int64	TTUInt64;
 
@@ -119,7 +123,7 @@ enum TTErrorCode{
  *	This object is the primary base-class for all TTBlue objects, including TTObject.  
  *	It does not define any core audio, attribute, or other high-level functionality.  For
  *	these refer to TTObject and TTAudioObject.														*/
-TTBLUE_CLASS TTElement {
+TTCLASS TTElement {
 public:
 	static const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
 	static const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
@@ -162,11 +166,14 @@ void TTLogError(char *message, ...);
 template<class T>
 static T TTClip(T value, T low_bound, T high_bound)
 {
-	#ifdef TT_PLATFORM_MAC
-		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
-	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
-		value = T(((fabs(double(value - low_bound))) + (low_bound + high_bound)) - fabs(double(value - high_bound)));
-	#endif
+//	TODO: need to benchmark this again now that we are doing this additional casting to a double before calling fabs().
+//	TODO: is there a way in a template to find out the actual type of the input so that we can handle unsigned types differently from signed types?
+//	CHANGED: on the Mac at least, a call to fabs() on an unsigned type like TTUInt32 will always return zero, thus making this template return bogus results [TAP]
+//	#ifdef TT_PLATFORM_MAC
+//		value = T(((fabs(value - low_bound)) + (low_bound + high_bound)) - fabs(value - high_bound));
+//	#else	// VC++ gens an ERROR because of the ambiguous call to fabs().  This is annoying...
+		value = T(((fabs(value - double(low_bound))) + (low_bound + high_bound)) - fabs(value - double(high_bound)));
+//	#endif
 	value /= 2;		// relying on the compiler to optimize this, chosen to reduce compiler errors in Xcode
 	return value;
 }

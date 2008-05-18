@@ -9,13 +9,16 @@
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
 
-static TTMutex sMutex(true);
+static TTMutex*				sMutex = NULL;
+TTEXPORT TTSymbolTable*	ttSymbolTable = NULL;
 
 /****************************************************************************************************/
 
 TTSymbolTable::TTSymbolTable()
 	: symbolTable(NULL), symbolTableLength(0), symbolTableSize(0)
 {
+	if(!sMutex)
+		sMutex = new TTMutex(true);
 	symbolTableSize = 1024;
 	symbolTable = (TTSymbol**)malloc(sizeof(TTSymbol*) * (symbolTableSize + 1));
 	// always start off with 1 symbol -- the empty string
@@ -29,7 +32,8 @@ TTSymbolTable::~TTSymbolTable()
 	for(TTUInt32 i = 0; i < symbolTableLength; i++)
 		delete symbolTable[i];
 	
-	free(symbolTable);		
+	free(symbolTable);
+	// TODO: we should reference count symbol tables and then free the mutex here, yes?
 }
 
 
@@ -38,10 +42,10 @@ TTSymbol& TTSymbolTable::lookup(const char* string)
 	TTUInt32	i;
 	TTSymbol	*newSymbol;
 
-	sMutex.lock();
+	sMutex->lock();
 	for(i=0; i<symbolTableLength; i++){
 		if(!strcmp(string, symbolTable[i]->getString())){
-			sMutex.unlock();
+			sMutex->unlock();
 			return *symbolTable[i];	// we found it
 		}
 	}
@@ -54,7 +58,7 @@ TTSymbol& TTSymbolTable::lookup(const char* string)
 	}
 	symbolTable[symbolTableLength] = newSymbol;
 	symbolTableLength++;
-	sMutex.unlock();
+	sMutex->unlock();
 	return *newSymbol;
 }
 

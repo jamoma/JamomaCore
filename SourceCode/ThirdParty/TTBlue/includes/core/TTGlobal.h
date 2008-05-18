@@ -11,6 +11,16 @@
 
 #include "TTObject.h"
 
+// Forward Declarations
+class TTSymbolTable;
+class TTGlobal;
+
+// The global instance of the symbol table
+//TTSymbolTable*	ttSymbolTable = NULL;		///< The global table of symbols
+
+// The global instance of the global object
+extern TTGlobal*	ttGlobalObject;
+
 
 /****************************************************************************************************/
 // Class Specifications
@@ -18,7 +28,7 @@
 /**
 	The global object maintains all global attributes/settings for the TTBlue environment.
 */
-class TTGlobal : public TTObject {
+TTCLASS TTGlobal : public TTObject {
 private:
 	
 
@@ -26,7 +36,7 @@ public:
 	TTGlobal();
 	virtual ~TTGlobal();
 
-	TTErr getVersion(TTValue &value);
+	TTErr getVersion(const TTSymbol&, TTValue &value);
 };
 
 

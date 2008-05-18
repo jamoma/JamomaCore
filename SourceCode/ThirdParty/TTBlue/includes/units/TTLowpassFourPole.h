@@ -14,7 +14,7 @@
 
 /**	A resonant two-pole, no-zero, lowpass filter.  Based on moog-variation2 @ musicdsp.org.
  */
-class TTLowpassFourPole : public TTAudioObject {
+TTCLASS TTLowpassFourPole : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;			///< filter cutoff frequency
 	TTFloat64		attrResonance;			///< filter resonance -- range is best between 1.0 and 16.0
@@ -36,8 +36,8 @@ private:
 	TTErr updateSr();
 
 	// Attributes
-	TTErr setFrequency(const TTValue& newValue);
-	TTErr setResonance(const TTValue& newValue);
+	TTErr setFrequency(const TTAttribute&, const TTValue& newValue);
+	TTErr setResonance(const TTAttribute&, const TTValue& newValue);
 	void calculateCoefficients();
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should

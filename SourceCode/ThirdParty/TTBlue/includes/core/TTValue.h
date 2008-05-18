@@ -17,42 +17,42 @@ class TTObject;
 
 
 // macro for converting from one type to another regardless of type
-#define	CONVERT switch(*(type+index)){\
+#define	CONVERT(dType) switch(*(type+index)){\
 			case kTypeInt8:\
-				value = (data+index)->int8;\
+				value = (dType)(data+index)->int8;\
 				break;\
 			case kTypeUInt8:\
-				value = (data+index)->uint8;\
+				value = (dType)(data+index)->uint8;\
 				break;\
 			case kTypeInt16:\
-				value = (data+index)->int16;\
+				value = (dType)(data+index)->int16;\
 				break;\
 			case kTypeUInt16:\
-				value = (data+index)->uint16;\
+				value = (dType)(data+index)->uint16;\
 				break;\
 			case kTypeFloat32:\
-				value = (data+index)->float32;\
+				value = (dType)(data+index)->float32;\
 				break;\
 			case kTypeFloat64:\
-				value = (data+index)->float64;\
+				value = (dType)(data+index)->float64;\
 				break;\
 			case kTypeInt32:\
-				value = (data+index)->int32;\
+				value = (dType)(data+index)->int32;\
 				break;\
 			case kTypeUInt32:\
-				value = (data+index)->uint32;\
+				value = (dType)(data+index)->uint32;\
 				break;\
 			case kTypeInt64:\
-				value = (data+index)->int64;\
+				value = (dType)(data+index)->int64;\
 				break;\
 			case kTypeUInt64:\
-				value = (data+index)->uint64;\
+				value = (dType)(data+index)->uint64;\
 				break;\
 			case kTypeBoolean:\
-				value = (data+index)->boolean;\
+				value = (dType)(data+index)->boolean;\
 				break;\
 			default:\
-				value = -1;\
+				value = (dType)-1;\
 				break;\
 		}
 
@@ -65,7 +65,7 @@ class TTObject;
  *	single value, or an array of homogenous values.  It maybe one of a number of types defined in the 
  *	DataType enumeration.
  */
-TTBLUE_CLASS TTValue : TTElement {
+TTCLASS TTValue : TTElement {
 private:
 	union DataValue{
 		TTFloat32		float32;
@@ -135,19 +135,7 @@ private:
 	void setNumValues(const TTUInt16 arg);
 
 	/** Performs a deep copy of the object */
-	void copy(const TTValue& obj)
-	{
-		numValues = obj.numValues;
-		TTDataType* t = new TTDataType[numValues];
-		DataValue* d = new DataValue[numValues];		
-		memcpy(t, obj.type, sizeof(TTDataType) * numValues);
-		memcpy(d, obj.data, sizeof(DataValue) * numValues);
-		delete [] type;
-		delete [] data;
-		type = t;
-		data = d;
-	}
-
+	inline void copy(const TTValue& obj);
 	
 public:
 	TTValue& operator = (const TTValue &newValue);
