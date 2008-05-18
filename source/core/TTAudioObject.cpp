@@ -110,7 +110,7 @@ TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 }
 
 
-TTErr TTAudioObject::setProcessWithSidechain(TTProcessWithSidechainsMethod newProcessMethod)
+TTErr TTAudioObject::setProcessWithSidechain(TTProcessWithSidechainMethod newProcessMethod)
 {
 	processWithSidechainMethod = newProcessMethod;
 	if(!attrBypass)

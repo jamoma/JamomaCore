@@ -22,7 +22,7 @@ class TTAudioObject;
 typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal& out);
 
 /** A type that can be used to store a pointer to a process method */
-typedef TTErr (TTAudioObject::*TTProcessWithSidechainsMethod)(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
+typedef TTErr (TTAudioObject::*TTProcessWithSidechainMethod)(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
 
 
 /****************************************************************************************************/
@@ -49,14 +49,14 @@ protected:
 	TTBoolean						attrBypass;							///< Are we bypassing the processMethod?
 	TTProcessMethod					processMethod;						///< This function pointer points to the active (non-bypass) processing routine
 	TTProcessMethod					currentProcessMethod;				///< This function pointer always points to the current processing routine
-	TTProcessWithSidechainsMethod	processWithSidechainMethod;			///< This function pointer points to the active (non-bypass) processing routine with sidechains, if applicable
-	TTProcessWithSidechainsMethod	currentProcessWithSidechainMethod;	///< This function pointer always points to the current processing routine with sidechains, if applicable
+	TTProcessWithSidechainMethod	processWithSidechainMethod;			///< This function pointer points to the active (non-bypass) processing routine with sidechains, if applicable
+	TTProcessWithSidechainMethod	currentProcessWithSidechainMethod;	///< This function pointer always points to the current processing routine with sidechains, if applicable
 
 	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
 	TTErr setProcess(TTProcessMethod processMethod);
 
 	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
-	TTErr setProcessWithSidechain(TTProcessWithSidechainsMethod processMethod);
+	TTErr setProcessWithSidechain(TTProcessWithSidechainMethod processMethod);
 
 	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
 	TTErr setBypass(const TTAttribute&, const TTValue& value);
