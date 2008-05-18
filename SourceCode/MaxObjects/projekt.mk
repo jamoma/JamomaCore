@@ -60,8 +60,9 @@ JCOM_IN~_OBJS = ${JCOM_IN~_SOURCE:.cpp=.o}
 JCOM_INIT_SOURCE = jcom.init.cpp jcom.init.def
 JCOM_INIT_OBJS = ${JCOM_INIT_SOURCE:.cpp=.o}
 
-JCOM_LIMITER~_SOURCE = jcom.limiter~.cpp jcom.limiter~.def
-JCOM_LIMITER~_OBJS = ${JCOM_LIMITER~_SOURCE:.cpp=.o}
+# jcom.limiter~ replaced by tt.limiter~
+# JCOM_LIMITER~_SOURCE = jcom.limiter~.cpp jcom.limiter~.def
+# JCOM_LIMITER~_OBJS = ${JCOM_LIMITER~_SOURCE:.cpp=.o}
 
 JCOM_METER~_SOURCE = jcom.meter~.cpp jcom.meter~.def
 JCOM_METER~_OBJS = ${JCOM_METER~_SOURCE:.cpp=.o}

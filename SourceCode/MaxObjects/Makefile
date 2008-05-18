@@ -34,7 +34,8 @@ release: jamoma_framework_release ramplib_release
 	@${MAKE} -C jcom.hub release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.in release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.init release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
-	@${MAKE} -C jcom.limiter~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
+# [TL] jcom.limiter~ replaced by tt.limiter~
+#	@${MAKE} -C jcom.limiter~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 # [TAP] jcom.meter~ should remain commented out until Max5 is released
 #	@${MAKE} -C jcom.meter~ release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
 	@${MAKE} -C jcom.oscroute release CFLAGS="${RELEASE_CFLAGS}" CXXFLAGS="${RELEASE_CXXFLAGS}" BUILD_TYPE=release
@@ -83,7 +84,8 @@ debug: jamoma_framework_debug ramplib_debug
 	@${MAKE} -C jcom.hub debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.in debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.init debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
-	@${MAKE} -C jcom.limiter~ debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
+# [TL] jcom.limiter~ replaced by tt.limiter~
+#	@${MAKE} -C jcom.limiter~ debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 # [TAP] jcom.meter~ should remain commented out until Max5 is released
 #	@${MAKE} -C jcom.meter~ debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
 	@${MAKE} -C jcom.oscroute debug CFLAGS="${DEBUG_CFLAGS}" CXXFLAGS="${DEBUG_CXXFLAGS}" BUILD_TYPE=debug
@@ -144,7 +146,8 @@ clean:
 	@${MAKE} -C jcom.hub clean
 	@${MAKE} -C jcom.in clean
 	@${MAKE} -C jcom.init clean
-	@${MAKE} -C jcom.limiter~ clean
+# [TL] jcom.limiter~ replaced by tt.limiter~
+#	@${MAKE} -C jcom.limiter~ clean
 # [TAP] jcom.meter~ should remain commented out until Max5 is released
 #	@${MAKE} -C jcom.meter~ clean
 	@${MAKE} -C jcom.oscroute clean
