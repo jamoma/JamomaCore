@@ -88,7 +88,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.limiter~",
+					"text" : "tt.limiter~",
 					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 278.0, 410.0, 209.0, 17.0 ],
 					"fontname" : "Verdana",

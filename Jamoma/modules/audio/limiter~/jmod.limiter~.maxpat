@@ -19,7 +19,7 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.limiter~",
+					"text" : "tt.limiter~",
 					"outlettype" : [ "", "" ],
 					"hidden" : 1,
 					"patching_rect" : [ 380.0, 118.0, 72.0, 17.0 ],

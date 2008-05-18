@@ -899,7 +899,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.limiter~ @preamp 0. @postamp 0.",
+					"text" : "tt.limiter~ @preamp 0. @postamp 0.",
 					"patching_rect" : [ 454.0, 289.0, 233.0, 18.0 ],
 					"numinlets" : 2,
 					"fontname" : "Verdana",
@@ -1181,7 +1181,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jcom.limiter~",
+					"text" : "tt.limiter~",
 					"patching_rect" : [ 13.0, 14.0, 309.0, 35.0 ],
 					"numinlets" : 1,
 					"fontname" : "Verdana",

@@ -4141,7 +4141,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.limiter~ @bypass_dcblocker 1",
+													"text" : "tt.limiter~ @bypass_dcblocker 1",
 													"linecount" : 2,
 													"fontname" : "Verdana",
 													"outlettype" : [ "", "" ],

@@ -3147,7 +3147,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "message",
-									"text" : "jcom.limiter~",
+									"text" : "tt.limiter~",
 									"outlettype" : [ "" ],
 									"fontsize" : 9.873845,
 									"presentation_rect" : [ 320.0, 160.0, 130.0, 16.0 ],
