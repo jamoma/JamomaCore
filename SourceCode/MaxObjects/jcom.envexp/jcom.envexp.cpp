@@ -142,7 +142,7 @@ int main(void)
 
 	//setup(&this_class, (method)envExp_new, 0L, (short)sizeof(t_envExp), 0L, A_GIMME, 0);
 	// Define our class
-	c = class_new("jcom.envexp~",(method)envExp_new, 0L, (short)sizeof(t_envExp), 
+	c = class_new("jcom.envexp",(method)envExp_new, 0L, (short)sizeof(t_envExp), 
 		(method)0L, A_GIMME, 0);
 	class_obexoffset_set(c, calcoffset(t_envExp, obex));
 
