@@ -25,6 +25,8 @@ private:
 	TTFloat64	attrRelease;
 	TTBoolean	attrTrigger;
 	TTSymbol&	attrMode;
+	TTFloat64	attrFrequency;
+	TTFloat64	attrLength;
 
 	TTOperator*		offset;
 	TTPhasor*		phasor;
@@ -43,6 +45,9 @@ private:
 	TTErr setSustain(const TTAttribute&, const TTValue& newValue);
 	TTErr setRelease(const TTAttribute&, const TTValue& newValue);
 	TTErr setMode(const TTAttribute&, const TTValue& newValue);
+
+	TTErr TTPulseSub::setFrequency(const TTAttribute&, const TTValue& newValue);
+	TTErr TTPulseSub::setLength(const TTAttribute&, const TTValue& newValue);
 	
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 	

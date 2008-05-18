@@ -11,12 +11,14 @@
 TTPulseSub::TTPulseSub(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("audio.pulsesub", newMaxNumChannels), attrMode(TT("linear"))
 {
-	registerAttribute(TT("attack"), kTypeFloat64, &attrAttack, (TTSetterMethod)&TTPulseSub::setAttack);
-	registerAttribute(TT("decay"), kTypeFloat64, &attrDecay, (TTSetterMethod)&TTPulseSub::setDecay);
-	registerAttribute(TT("release"), kTypeFloat64, &attrRelease, (TTSetterMethod)&TTPulseSub::setRelease);
-	registerAttribute(TT("sustain"), kTypeFloat64, &attrSustain, (TTSetterMethod)&TTPulseSub::setSustain);
-	registerAttribute(TT("trigger"), kTypeBoolean, &attrTrigger, (TTSetterMethod)&TTPulseSub::setTrigger);
-	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTPulseSub::setTrigger);
+	registerAttribute(TT("attack"),		kTypeFloat64,	&attrAttack,	(TTSetterMethod)&TTPulseSub::setAttack);
+	registerAttribute(TT("decay"),		kTypeFloat64,	&attrDecay,		(TTSetterMethod)&TTPulseSub::setDecay);
+	registerAttribute(TT("release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTPulseSub::setRelease);
+	registerAttribute(TT("sustain"),	kTypeFloat64,	&attrSustain,	(TTSetterMethod)&TTPulseSub::setSustain);
+	registerAttribute(TT("trigger"),	kTypeBoolean,	&attrTrigger,	(TTSetterMethod)&TTPulseSub::setTrigger);
+	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTPulseSub::setTrigger);
+	registerAttribute(TT("frequency"),	kTypeFloat64,	&attrFrequency,	(TTSetterMethod)&TTPulseSub::setFrequency);
+	registerAttribute(TT("length"),		kTypeFloat64,	&attrLength,	(TTSetterMethod)&TTPulseSub::setLength);
 
 	// register for notifications
 	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTPulseSub::updateMaxNumChannels);
@@ -28,14 +30,19 @@ TTPulseSub::TTPulseSub(TTUInt8 newMaxNumChannels)
 	offset->setAttributeValue(TT("operator"), TT("+"));
 	scaler = new TTOperator(newMaxNumChannels);
 	scaler->setAttributeValue(TT("operator"), TT("*"));
+	
 	sig1 = new TTAudioSignal(1);
+	sig1->setNumChannels(1);
 	sig2 = new TTAudioSignal(1);
+	sig2->setNumChannels(1);
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
 	setAttributeValue(TT("sustain_db"), -6.);
 	setAttributeValue(TT("release"), 500.);
 	setAttributeValue(TT("mode"), TT("linear"));	// <-- sets the process method
+	
+	setProcess((TTProcessMethod)&TTPulseSub::processAudio);
 }
 
 TTPulseSub::~TTPulseSub()
@@ -76,14 +83,14 @@ TTErr TTPulseSub::setAttack(const TTAttribute&, const TTValue& newValue)
 TTErr TTPulseSub::setDecay(const TTAttribute&, const TTValue& newValue)
 {
 	attrDecay = newValue;
-	return env_gen->setAttributeValue(TT("decay"), attrTrigger);
+	return env_gen->setAttributeValue(TT("decay"), attrDecay);
 }
 
 
 TTErr TTPulseSub::setSustain(const TTAttribute&, const TTValue& newValue)
 {
 	attrSustain = newValue;
-	return env_gen->setAttributeValue(TT("sustain"), newValue);
+	return env_gen->setAttributeValue(TT("sustain_db"), newValue);
 }
 
 TTErr TTPulseSub::setRelease(const TTAttribute&, const TTValue& newValue)
@@ -106,6 +113,19 @@ TTErr TTPulseSub::setTrigger(const TTAttribute&, const TTValue& newValue)
 }
 
 
+TTErr TTPulseSub::setFrequency(const TTAttribute&, const TTValue& newValue)
+{
+	attrFrequency = newValue;
+	return phasor->setAttributeValue(TT("frequency"), attrFrequency);
+}
+
+TTErr TTPulseSub::setLength(const TTAttribute&, const TTValue& newValue)
+{
+	attrLength = newValue;
+	return offset->setAttributeValue(TT("operand"), attrLength - 0.5);
+}
+
+
 TTErr TTPulseSub::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue*	inSample;
@@ -115,8 +135,8 @@ TTErr TTPulseSub::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	inSample = in.sampleVectors[0];
 	outSample = out.sampleVectors[0];
 	
-	sig1->setVectorSize(vs);
-	sig2->setVectorSize(vs);
+	sig1->allocWithSize(vs);
+	sig2->allocWithSize(vs);
 	
 	phasor->process(*sig1);					// ramp wave, stored in a temporary vector
 	offset->process(*sig1, *sig2);			// offset the ramp wave, effectively altering the duty cycle
