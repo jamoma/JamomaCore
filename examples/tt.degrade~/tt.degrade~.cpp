@@ -15,6 +15,8 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
+#include "TTBlue.h"
+
 #include "TTDegrade.h"				// TTBlue Interfaces...
 
 
@@ -57,6 +59,7 @@ int main(void)
 	t_object *attr;
 	
 	common_symbols_init();
+	TTBlueInit();
 
 	c = class_new("tt.degrade~",(method)degrade_new, (method)degrade_free, (short)sizeof(t_degrade), 
 		(method)0L, A_GIMME, 0);
