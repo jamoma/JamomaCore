@@ -88,6 +88,11 @@ public:
 	*/
 	TTErr alloc();
 	
+	/**	Allocate memory for all channels at the specified vectorsize, 
+		if the vectorsize is different from the current state.
+	*/
+	TTErr allocWithSize(TTUInt16 newVectorSize);
+	
 	/** Use this class method to determine the least number of channels the two signals have in common.
 	 *	In cases where a processAudio method expects to have a matching number of audio inputs and outputs,
 	 *	this method can be used to compare the two signals and return the number of channels for which
