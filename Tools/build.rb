@@ -216,8 +216,7 @@ puts "Building TTBlue Externals..."
 zero_count
 build_dir("SourceCode/ThirdParty/TTBlue/examples", configuration, clean)  
 ex_total, ex_count = get_count
-if(configuration == "Development")
-  # %TODO: The above test always fails. Instead the script attempts to copy deployment externals even if configuration is "Development" - TL
+if("#{configuration}" == "Development")
   puts "copying Development"
   copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.balance~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.balance~.mxo")
   copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.dcblock~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.dcblock~.mxo")
