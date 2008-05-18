@@ -1,7 +1,7 @@
 /* 
- *	tt.degrade~
+ *	tt.dcblock~
  *	External object for Max/MSP
- *	
+ *	Remove DC Offsets from a signal
  *	Example project for TTBlue
  *	Copyright © 2008 by Timothy Place
  * 
@@ -16,37 +16,32 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
 #include "TTBlue.h"
-
-#include "TTDegrade.h"				// TTBlue Interfaces...
+#include "TTDCBlock.h"
 
 
 // Data Structure for this object
-typedef struct _degrade	{
+typedef struct _dcblock	{
     t_pxobject 		obj;
-	TTDegrade		*degrade;
+	TTDCBlock		*dcblock;
 	TTAudioSignal	*audioIn;
 	TTAudioSignal	*audioOut;
 	long			attrBypass;
-	long			attrBitdepth;
-	float			attrSrRatio;
 	long			maxNumChannels;
-} t_degrade;
+} t_dcblock;
 
 
 // Prototypes for methods: need a method for each incoming message type
-void*		degrade_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
-void		degrade_free(t_degrade *x);
-void		degrade_assist(t_degrade *x, void *b, long msg, long arg, char *dst);	// Assistance Method
-t_int*		degrade_perform(t_int *w);												// An MSP Perform (signal) Method
-void		degrade_dsp(t_degrade *x, t_signal **sp, short *count);					// DSP Method
-void		degrade_clear(t_degrade *x);
-t_max_err	degrade_setBypass(t_degrade *x, void *attr, long argc, t_atom *argv);
-t_max_err	degrade_setBitdepth(t_degrade *x, void *attr, long argc, t_atom *argv);
-t_max_err	degrade_setSrRatio(t_degrade *x, void *attr, long argc, t_atom *argv);
+void*		dcblock_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
+void		dcblock_free(t_dcblock *x);
+void		dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst);	// Assistance Method
+t_int*		dcblock_perform(t_int *w);												// An MSP Perform (signal) Method
+void		dcblock_dsp(t_dcblock *x, t_signal **sp, short *count);					// DSP Method
+void		dcblock_clear(t_dcblock *x);
+t_max_err	dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
-t_class *degrade_class;				// Required. Global pointing to this class
+t_class *dcblock_class;				// Required. Global pointing to this class
 
 
 /************************************************************************************/
@@ -58,31 +53,23 @@ int main(void)
 	t_class *c;
 	t_object *attr;
 	
-	common_symbols_init();
 	TTBlueInit();
+	common_symbols_init();
 
-	c = class_new("tt.degrade~",(method)degrade_new, (method)degrade_free, (short)sizeof(t_degrade), 
+	c = class_new("tt.dcblock~",(method)dcblock_new, (method)dcblock_free, (short)sizeof(t_dcblock), 
 		(method)0L, A_GIMME, 0);
 
- 	class_addmethod(c, (method)degrade_clear, 			"clear",	0L);		
- 	class_addmethod(c, (method)degrade_dsp, 			"dsp",		A_CANT, 0L);		
-	class_addmethod(c, (method)degrade_assist, 			"assist",	A_CANT, 0L); 
+ 	class_addmethod(c, (method)dcblock_clear, 			"clear",	0L);		
+ 	class_addmethod(c, (method)dcblock_dsp, 			"dsp",		A_CANT, 0L);		
+	class_addmethod(c, (method)dcblock_assist, 			"assist",	A_CANT, 0L); 
 
 	attr = attr_offset_new("bypass", _sym_long, attrflags,
-		(method)0L,(method)degrade_setBypass, calcoffset(t_degrade, attrBypass));
-	class_addattr(c, attr);	
-
-	attr = attr_offset_new("bitdepth", _sym_long, attrflags,
-		(method)0L,(method)degrade_setBitdepth, calcoffset(t_degrade, attrBitdepth));
-	class_addattr(c, attr);	
-
-	attr = attr_offset_new("srRatio", _sym_float32, attrflags,
-		(method)0L,(method)degrade_setSrRatio, calcoffset(t_degrade, attrSrRatio));
+		(method)0L,(method)dcblock_setBypass, calcoffset(t_dcblock, attrBypass));
 	class_addattr(c, attr);	
 
 	class_dspinit(c);						// Setup object's class to work with MSP
 	class_register(CLASS_BOX, c);
-	degrade_class = c;
+	dcblock_class = c;
 
 	return 0;
 }
@@ -91,14 +78,14 @@ int main(void)
 /************************************************************************************/
 // Object Creation Method
 
-void* degrade_new(t_symbol *msg, short argc, t_atom *argv)
+void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 {
-    t_degrade	*x;
+    t_dcblock	*x;
 	TTValue		sr(sys_getsr());
  	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short		i;
    
-    x = (t_degrade *)object_alloc(degrade_class);
+    x = (t_dcblock *)object_alloc(dcblock_class);
     if(x){
 		x->attrBypass = 0;
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
@@ -106,7 +93,7 @@ void* degrade_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
-		x->degrade = new TTDegrade(x->maxNumChannels);
+		x->dcblock = new TTDCBlock(x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
@@ -123,10 +110,10 @@ void* degrade_new(t_symbol *msg, short argc, t_atom *argv)
 }
 
 // Memory Deallocation
-void degrade_free(t_degrade *x)
+void dcblock_free(t_dcblock *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->degrade;
+	delete x->dcblock;
 	delete x->audioIn;
 	delete x->audioOut;
 }
@@ -136,28 +123,25 @@ void degrade_free(t_degrade *x)
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
-void degrade_assist(t_degrade *x, void *b, long msg, long arg, char *dst)
+void dcblock_assist(t_dcblock *x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1) 	// Inlets
 		strcpy(dst, "(signal) input, control messages");		
 	else if(msg==2) // Outlets
 		strcpy(dst, "(signal) Filtered output");
-	#pragma unused(x)
-	#pragma unused(b)
-	#pragma unused(arg)
 }
 
 
-void degrade_clear(t_degrade *x)
+void dcblock_clear(t_dcblock *x)
 {
-	x->degrade->sendMessage(TT("clear"));
+	x->dcblock->sendMessage(TT("clear"));
 }
 
 
 // Perform (signal) Method
-t_int *degrade_perform(t_int *w)
+t_int *dcblock_perform(t_int *w)
 {
-   	t_degrade	*x = (t_degrade *)(w[1]);
+   	t_dcblock	*x = (t_dcblock *)(w[1]);
 	short		i, j;
 	TTUInt8		numChannels = x->audioIn->getNumChannels();
 	TTUInt16	vs = x->audioIn->getVectorSize();
@@ -168,7 +152,7 @@ t_int *degrade_perform(t_int *w)
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
-		x->degrade->process(*x->audioIn, *x->audioOut);		// Actual DC-Blocker process
+		x->dcblock->process(*x->audioIn, *x->audioOut);		// Actual DC-Blocker process
 
 	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
@@ -180,7 +164,7 @@ t_int *degrade_perform(t_int *w)
 
 
 // DSP Method
-void degrade_dsp(t_degrade *x, t_signal **sp, short *count)
+void dcblock_dsp(t_dcblock *x, t_signal **sp, short *count)
 {
 	short		i, j, k=0;
 	void		**audioVectors = NULL;
@@ -212,38 +196,20 @@ void degrade_dsp(t_degrade *x, t_signal **sp, short *count)
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();
 	
-	x->degrade->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->dcblock->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
-	dsp_addv(degrade_perform, k, audioVectors);
+	dsp_addv(dcblock_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
 }
 
 
-t_max_err degrade_setBypass(t_degrade *x, void *attr, long argc, t_atom *argv)
+t_max_err dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv)
 {
+	TTValue		value;
+
 	if(argc){
-		x->attrBypass = atom_getlong(argv);
-		x->degrade->setAttributeValue(TT("bypass"), x->attrBypass);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err degrade_setBitdepth(t_degrade *x, void *attr, long argc, t_atom *argv)
-{
-	if(argc){
-		x->attrBitdepth = atom_getlong(argv);
-		x->degrade->setAttributeValue(TT("bitdepth"), x->attrBitdepth);
-	}
-	return MAX_ERR_NONE;
-}
-
-
-t_max_err degrade_setSrRatio(t_degrade *x, void *attr, long argc, t_atom *argv)
-{
-	if(argc){
-		x->attrSrRatio = atom_getfloat(argv);
-		x->degrade->setAttributeValue(TT("srRatio"), x->attrSrRatio);
+		value = x->attrBypass = atom_getlong(argv);
+		x->dcblock->setAttributeValue(*kTTSym_bypass, value);
 	}
 	return MAX_ERR_NONE;
 }
