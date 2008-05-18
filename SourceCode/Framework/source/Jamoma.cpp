@@ -122,18 +122,8 @@ t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 		return _sym_nothing;
 	}
 	else{
-		t_patcher	*p = (t_patcher*)patcher;
-		t_box		*box = p->p_box;
-
-		if(p->p_vnewobj != NULL){
-			box = (t_box *)p->p_vnewobj;
-			if(ob_sym(box) == gensym("bpatcher"))
-				return gensym("bpatcher");
-			else
-				return gensym("subpatcher");
-		}
-		else
-			return gensym("toplevel");
+		error("This version of Jamoma requires Max 5");
+		return _sym_nothing;
 	}
 }
 
@@ -178,36 +168,7 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 		}
 	}
 	else{
-		t_patcher	*p = (t_patcher*)patcher;
-		t_symbol	*context = jamoma_patcher_getcontext(patcher);
-		t_bpatcher	*bp;
-		t_box		*box = (t_box *)p->p_vnewobj;
-		t_atombuf	*atoms = NULL;
-		long		ac = 0;
-		t_atom		*av = NULL;
-
-		if(context == gensym("bpatcher")){
-			box = (t_box *)p->p_vnewobj;
-			bp = (t_bpatcher *)box;
-			
-			ac = bp->b_argc;
-			av = bp->b_argv;
-		}
-		else if(context == gensym("subpatcher")){
-			atoms = (t_atombuf *)box->b_binbuf;
-			ac = atoms->a_argc - 1;
-			av = atoms->a_argv + 1;
-		}
-		
-		if(ac && av){
-			*argc = ac;
-			*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * ac);
-			sysmem_copyptr(av, *argv, sizeof(t_atom) * ac);
-		}
-		else{
-			*argc = 0;
-			*argv = NULL;
-		}
+		error("This version of Jamoma requires Max 5");
 	}
 }
 
@@ -218,18 +179,8 @@ t_symbol* jamoma_patcher_getvarname(t_object *patcher)
 		return _sym_nothing;
 	}
 	else{
-		t_patcher	*p = (t_patcher*)patcher;
-		t_box		*box = (t_box *)p->p_vnewobj;
-		t_symbol	*s = _sym_nothing;
-		
-		if(!box)
-			return _sym_nothing;
-			
-		p = box->b_patcher;	
-		if(patcher_boxname(p, box, &s))
-			return s;
-		else
-			return _sym_nothing;
+		error("This version of Jamoma requires Max 5");
+		return _sym_nothing;
 	}
 }
 

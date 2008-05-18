@@ -42,35 +42,8 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 		return NULL;
 	}
 	else{
-		t_patcher	*p = (t_patcher*)container;
-		t_box		*b;
-		t_class		*theclass;
-		t_object	*hub = NULL;
-		
-	again:	
-		for(b = p->p_box; b; b = b->b_next){							// traverse the linked list of boxes in the patch
-			if(b->b_firstin && ((t_object*)(b->b_firstin))->o_magic != 1758379419){
-				error("jamoma_core_subscribe: something has gone terribly wrong");
-				post("maybe you have multiple modules with the same OSC name?");
-				return NULL;
-			}
-			theclass = object_class(b->b_firstin);
-			if(object_classname_compare(b->b_firstin, ps_jcom_hub)){	// if this is a jcom.hub...
-				object_method(b->b_firstin, ps_subscribe, name, x, object_type);
-				hub = (t_object*)b->b_firstin;							// store the pointer
-				break;													// then stop looking
-			}
-		}
-		if(hub == NULL){							// failed to find a hub in the patch...
-			if(p->p_vnewobj != NULL){				//	go one level higher and search there
-				b = (t_box *)p->p_vnewobj;
-				p = b->b_patcher;
-				goto again;
-			}
-			else
-				error("object named '%s' could not find a jcom.hub for subscribing", name->s_name);
-		}
-		return hub;
+		error("This version of Jamoma requires Max 5");
+		return NULL;
 	}
 }
 
@@ -415,10 +388,9 @@ t_max_err jcom_core_attr_setrange(t_jcom_core_subscriber_extended *x, void *attr
 t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 2;
-	if(!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setsym(*argv, x->attr_description);
-
+	
+//sysmem_ptrsize(*argv)
+	// FIXME: This checks if we have memory passed in, good, but how do we know if it is enough memory for 2 atoms? [TAP]
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);
 	//sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * 2);
