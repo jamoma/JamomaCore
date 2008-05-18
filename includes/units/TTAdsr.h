@@ -3,6 +3,7 @@
 
 #include "TTAudioObject.h"
 
+/**	TTAdsr is an attack-decay-sustain-release envelope generator */
 TTCLASS TTAdsr : public TTAudioObject {
 private:
 	TTFloat64	attack_ms;
@@ -31,6 +32,8 @@ private:
 	
 	TTSymbol&	attrMode;
 	
+	TTErr updateSr();
+
 	TTErr setAttack(const TTAttribute&, const TTValue& newValue);
 //	TTErr getAttack(const TTAttribute&, TTValue& value);
 
