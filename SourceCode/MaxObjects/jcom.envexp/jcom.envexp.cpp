@@ -1,6 +1,6 @@
 /* 
- 	jcom.envexp (previously names tl.envexp)
-	create envelope with linear attack, exponential decay.	
+ 	jcom.envexp (previously named tl.envexp)
+	create envelope with linear attack and exponential decay.	
  	By Trond Lossius, Copyright © 2001-08
 	Change History (most recent first):
 
@@ -23,9 +23,10 @@
 								
 	License: This code is licensed under the terms of the GNU LGPL
 	http://www.gnu.org/licenses/lgpl.html 
- */
 
 
+/* **************************************************************************** */
+/*                                                                              */
 /* 	Input:																		*/
 /*			list:	Maximum amplitude, attack time, decay time					*/
 /*			bang:	Trigger new amplitude using stored values					*/
@@ -127,13 +128,15 @@ t_symbol	*ps_dumpout;
   */
 int main(void)
 {
+	post("main");
+	
 	long attrflags = 0;
 	t_class *c;
 	t_object *attr;
 
 	jamoma_init();
-	ps_symbol = gensym("symbol");
-	ps_long = gensym("long");
+	ps_symbol  = gensym("symbol");
+	ps_long    = gensym("long");
 	ps_float32 = gensym("float32");
 	ps_dumpout = gensym("dumpout");
 
@@ -179,6 +182,7 @@ int main(void)
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	this_class = c;
+	
 	return 0;
 }
 
@@ -193,7 +197,9 @@ void *envExp_new(Symbol *s, short argc, t_atom *argv)
 	//create the new instance and returns a pointer to it
 	t_envExp *x = (t_envExp *)object_alloc(this_class);
 	
+	post("new");
 	if (x) {
+			post("new_x");
 		// dumpout
 		object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x,NULL));
 		// create outlet
