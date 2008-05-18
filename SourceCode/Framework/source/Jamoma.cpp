@@ -30,6 +30,7 @@ void jamoma_init(void)
 	if(!initialized){
 		t_object	*max = gensym("max")->s_thing;
 		t_symbol	*meth = gensym("objectfile");
+		t_atom		a[4];
 	
 		if(maxversion() >= 0x0500)
 			max5 = true;
@@ -49,6 +50,22 @@ void jamoma_init(void)
 		obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
 		obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
+
+		// Add Jamoma Key Commands:
+		
+		// J -- a new object box with "jcom." in it
+		atom_setsym(a+0, gensym("J"));
+		atom_setsym(a+1, gensym("patcher"));
+		atom_setsym(a+2, gensym("inserttextobj"));
+		atom_setsym(a+3, gensym("jcom."));
+		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
+		
+		// M -- a new object box with "jmod." in it
+		atom_setsym(a+0, gensym("M"));
+		atom_setsym(a+1, gensym("patcher"));
+		atom_setsym(a+2, gensym("inserttextobj"));
+		atom_setsym(a+3, gensym("jmod."));
+		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
 
 		post("Jamoma %s - www.jamoma.org", JAMOMA_VERSION);
 		initialized = true;
