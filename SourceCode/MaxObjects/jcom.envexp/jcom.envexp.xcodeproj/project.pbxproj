@@ -213,7 +213,7 @@
 				PRODUCT_NAME = jcom.envexp;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/TTBlue.framework/headers /Library/Frameworks/Jamoma.framework/Headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -265,7 +265,7 @@
 				PRODUCT_NAME = jcom.envexp;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/Jamoma.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "/Library/Frameworks/TTBlue.framework/headers /Library/Frameworks/Jamoma.framework/Headers";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
