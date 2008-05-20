@@ -8,7 +8,7 @@
 {\author }
 {\*\company }
 {\*\copyright }
-{\keywords cursorLocation=1611}}\vieww12000\viewh17500\viewkind0\viewscale100
+{\keywords cursorLocation=1203}}\vieww15920\viewh17160\viewkind0\viewscale100
 \deftab720
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\ql\qnatural
 
@@ -48,24 +48,11 @@ License\
 \fs24 TTBlue is licensed as open source software under the terms of the GNU LPGL.\
 
 \fs32 \
-Known Issues & Wish List\
-
-\fs24 - set_sr() needs to be over-ridden in tap_delay, tap_comb, etc.\
-- sample-rate reduction in the degrade object doesn't sound quite right (compare to MSP's degrade~ which is what I'm trying to emulate).\
-- would like to add polyphonic handling\
-- would like some type of a scheduler\
-- The gaussian function in tap_buffer::fill() does not produce the correct results.\
-- Need to make a sah object (especially for granular applications)...\
-- implement Stephan's 64bit noise:\
-f(Pn) = Pn + K * Pn * (1 - Pn) = p(n+1)\
-n = nth value for p (initial value of p = 0.9)\
-k is a constant - e.g. 3.0\
-09 + 9 * 0.9 * (1.0 - 0.9)\
-- Need to implement multi-channel buffers\
-- Need to add file reading to tap_buffer\
-- Need to finish tap_buffer_record - in part so that tap.sustain~ can be made into an external (for reliable operation in general, and also at reduced sample rates).\
-- The polynomial interpolation in the tap_delay object doesn't work properly - just use linear (which is the default) for the time being.\
-- MUST add interpolation for downsampling / upsampling object\
+Known Issues & Wish List
+\fs24 \
+See the issue tracker at 
+\f1 http://code.google.com/p/ttblue/issues/list
+\f0 \
 
 \fs32 \
 More Information\
