@@ -138,7 +138,7 @@ TTErr TTAudioSignal::allocWithSize(TTUInt16 newVectorSize)
 }
 
 
-TTUInt16 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2)
+TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2)
 {
 	if(signal1.numChannels > signal2.numChannels)
 		return signal2.numChannels;

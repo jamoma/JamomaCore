@@ -100,7 +100,7 @@ public:
 	 *	@param		signal1			The first of the two signals to be compared.
 	 *	@param		signal2			The second of the two signals to be compared.
 	 *	@return		The number of channels that are valid for both signal1 and signal2.		*/
-	static TTUInt16 getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2);
+	static TTUInt8 getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2);
 
 	/** Use this class method to determine the number of channels of an input our output signal.
 	 *	This can be useful in circumstances where input and output signals are not necsessarily expected
