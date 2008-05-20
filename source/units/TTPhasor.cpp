@@ -50,7 +50,7 @@ TTErr TTPhasor::setFrequency(const TTAttribute&, const TTValue& newValue)
 		rampMilliseconds = 0;
 	}
 	else{
-		rampSamples = (1.0 / attrFrequency) * sr;
+		rampSamples = TTUInt32((1.0 / attrFrequency) * sr);
 		rampMilliseconds = 1000.0 * (rampSamples / TTFloat64(sr));
 	}
 	setStep();
