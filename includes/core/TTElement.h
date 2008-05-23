@@ -16,9 +16,7 @@
 	 #define TT_PLATFORM_WIN
 	#else
 	 #define TT_PLATFORM_MAC
-	 #define TTCLASS class
 	 #define TTEXPORT
-     #define TTCALL
 	#endif
 #endif
 
@@ -29,13 +27,9 @@
 #ifdef TT_PLATFORM_WIN
  #include "windows.h"
  #ifdef _DLL_EXPORT
-  #define TTCLASS class __declspec(dllexport)
   #define TTEXPORT __declspec(dllexport)
-  #define TTCALL __cdecl
  #else
-  #define TTCLASS class __declspec(dllimport)
   #define TTEXPORT __declspec(dllimport)
-  #define TTCALL __cdecl
  #endif // _DLL_EXPORT
 #endif
 
@@ -123,7 +117,7 @@ enum TTErrorCode{
  *	This object is the primary base-class for all TTBlue objects, including TTObject.  
  *	It does not define any core audio, attribute, or other high-level functionality.  For
  *	these refer to TTObject and TTAudioObject.														*/
-TTCLASS TTElement {
+class TTEXPORT TTElement {
 public:
 	static const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
 	static const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)

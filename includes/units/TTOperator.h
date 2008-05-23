@@ -14,7 +14,7 @@
 
 /**	TTOperator performs basic mathematical operations on an input signal, 
 	or a pair of input signals */
-TTCLASS TTOperator : public TTAudioObject {
+class TTEXPORT TTOperator : public TTAudioObject {
 private:
 	TTSymbol&		attrOperator;	///< The type of calculation to perform.
 	TTFloat64		attrOperand;	///< The right-hand value of the calculation.

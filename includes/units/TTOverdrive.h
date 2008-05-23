@@ -16,7 +16,7 @@
 /**	TTOverdrive is an audio processor that provides a soft saturation
  *	or overdrive effect to "warm" a sound up.
  */ 
-TTCLASS TTOverdrive : public TTAudioObject {
+class TTEXPORT TTOverdrive : public TTAudioObject {
 private:
 	TTFloat64			attrDrive;		///< 
 	TTBoolean			attrDCBlocker;	///< 

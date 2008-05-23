@@ -17,7 +17,7 @@
 
 /**	TTPulseSub generates a repeating ADSR envelope which is then applied to the gain of an input signal.
  */ 
-TTCLASS TTPulseSub : public TTAudioObject {
+class TTEXPORT TTPulseSub : public TTAudioObject {
 private:
 	TTFloat64	attrAttack;
 	TTFloat64	attrDecay;

@@ -21,7 +21,7 @@
  *	"biquad~ 1.0 -1.0 -0.9997 0.0"
  */
  
-TTCLASS TTDCBlock : public TTAudioObject {
+class TTEXPORT TTDCBlock : public TTAudioObject {
 private:
 	TTSampleValue*		lastInput;		///< Feedback values used for the audio filter			
 	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter

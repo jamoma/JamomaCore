@@ -4,7 +4,7 @@
 #include "TTAudioObject.h"
 
 /**	TTAdsr is an attack-decay-sustain-release envelope generator */
-TTCLASS TTAdsr : public TTAudioObject {
+class TTEXPORT TTAdsr : public TTAudioObject {
 private:
 	TTFloat64	attack_ms;
 	TTInt32		attack_samples;

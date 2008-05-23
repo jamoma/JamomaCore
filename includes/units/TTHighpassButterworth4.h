@@ -22,7 +22,7 @@
  * http://www.planetanalog.com/article/printableArticle.jhtml?articleID=12802683
  *
  */
-TTCLASS TTHighpassButterworth4 : public TTAudioObject {
+class TTEXPORT TTHighpassButterworth4 : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;								///< filter cutoff frequency
 	TTFloat64		k, k2, k3, k4, wc, wc2, wc3, wc4, a, b;		///< filter coefficients

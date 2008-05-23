@@ -39,7 +39,7 @@ typedef TTErr (TTObject::*TTSetterMethod)(const TTAttribute& attribute, const TT
 	attributes.  Even lamer is that we statically limit it to 10 of each right now.  
 	Eventually we will do this with something way better...
 */
-TTCLASS TTObject : public TTElement {
+class TTEXPORT TTObject : public TTElement {
 private:
 	TTSymbol				objectName;
 	const TTSymbol*			messageNames[16];
@@ -121,7 +121,7 @@ public:
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-TTCLASS TTAttribute : TTElement {
+class TTEXPORT TTAttribute : TTElement {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
