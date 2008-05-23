@@ -1,8 +1,0 @@
-base referer
-rect $class_t_t_d_c_block.html 96,464 187,491
-rect $class_t_t_audio_object.html 35,387 147,414
-rect $class_t_t_object.html 40,280 118,307
-rect $class_t_t_element.html 74,6 162,32
-rect $class_t_t_parameter.html 56,187 158,214
-rect $class_t_t_symbol.html 127,83 210,110
-rect $class_t_t_audio_signal.html 292,134 404,160
