@@ -207,7 +207,7 @@ In Jamoma, the parameter is implemented as a Max external called \emph{jcom.para
 
 Depending on the circumstance, it may be desirable to generate new interpolated values in different ways during the ramp. Several real-time signal processing environments distinguish between audio rate and control rate signals \cite{Boulanger:2000csound, McCartney:1996supercollider}. If the parameter is controlling a video processing algorithm it may be sufficient to update the value once per processed video frame \cite{Jones:2005jitter}.
 
-The Jamoma RampLib provides a means by which to create and use \emph{RampUnits} in Jamoma.  A RampUnit is a self-contained algorithm, implemented as a C++ class, that can slide from an existing value to a new value over a specified amount of time according to a timing mechanism. Currently four such RampUnits are implemented:
+The Jamoma RampLib provides a means by which to create and use \emph{RampUnits} in Jamoma.  A RampUnit is a self-contained algorithm that can slide from an existing value to a new value over a specified amount of time according to a timing mechanism. RampUnits are implemented in C++ using the TTBlue API\footnote{TTBlue is an object-oriented, reflective, application programming interface for C++, with an emphasis on real-time signal processing. \url{http://code.google.com/p/ttblue}}. Currently four such RampUnits are implemented:
 
 \begin{itemize}
 	\item \emph{none} - jumps immediately to the new value. Typically used for values where ramping is not relevant or desirable.
@@ -236,7 +236,7 @@ The Jamoma FunctionLib API provides normalized mappings of values $x \in [0,1]$ 
 	\item Hyperbolic tangent: $ y = c \cdot (\tanh(a\cdot(x-b)) - d) $ \\ The width and offset of the curve can be set as properties.  These in turn set the values of the coefficients $a$, $b$, $c$ and $d$.
 \end{itemize}
 
-The FunctionLib can easily be expanded by introducing new functions as C++ classes.
+The FunctionLib can easily be expanded by introducing new functions as C++ classes, also using the TTBlue API.
 
 % TODO: We should have exponensial functions implemented by the time the final version of the paper is completed.
 
