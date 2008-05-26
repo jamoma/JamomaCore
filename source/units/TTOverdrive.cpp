@@ -18,9 +18,9 @@ TTOverdrive::TTOverdrive(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("preamp"),		kTypeFloat64,	&attrPreamp,	(TTGetterMethod)&TTOverdrive::getPreamp, (TTSetterMethod)&TTOverdrive::setPreamp);
 	
 	// make the clear method available to be called:
-	registerMessage(TT("clear"), (TTMethod)&TTOverdrive::clear);	
+	registerMessage(TT("clear"), (TTMethod)&TTOverdrive::clear, kTTMessagePassNone);	
 	// this next one is called by the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTOverdrive::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTOverdrive::updateMaxNumChannels, kTTMessagePassNone);
 
 	dcBlocker = new TTDCBlock(maxNumChannels);
 
@@ -39,7 +39,7 @@ TTOverdrive::~TTOverdrive()
 }
 
 
-TTErr TTOverdrive::updateMaxNumChannels(const TTSymbol&, TTValue&)
+TTErr TTOverdrive::updateMaxNumChannels()
 {	
 	return dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 }
@@ -100,7 +100,7 @@ TTErr TTOverdrive::setPreamp(const TTAttribute&, const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::clear(const TTSymbol&, TTValue&)
+TTErr TTOverdrive::clear()
 {
 	return dcBlocker->sendMessage(TT("clear"));
 }

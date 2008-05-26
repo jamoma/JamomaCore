@@ -20,10 +20,18 @@
 
 // forward declarations needed by the compiler
 class TTAttribute;
+class TTMessage;
 class TTGlobal;
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
+
+/** A type that can be used to call a message for an object that does not declare the name argument. */
+typedef TTErr (TTObject::*TTMethodValue)(TTValue& value);
+
+/** A type that can be used to call a message for an object that does not declare any arguments. */
+typedef TTErr (TTObject::*TTMethodNone)();
+
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTGetterMethod)(const TTAttribute& attribute, TTValue& value);
@@ -31,19 +39,38 @@ typedef TTErr (TTObject::*TTGetterMethod)(const TTAttribute& attribute, TTValue&
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTSetterMethod)(const TTAttribute& attribute, const TTValue& value);
 
+
+/** Flags that determine the behavior of messages. */
+typedef enum TTMessageFlags {
+	kTTMessageDefaultFlags = 0,		///< The default set of flags will be used if this is specified.  At this time the default is #kTTMethodPassValue.
+	kTTMessagePassNone = 1,			///< Set this flag if the method you are binding to this message is prototyped to accept no arguments.
+	kTTMessagePassValue = 2,		///< Set this flag if the method you are binding to this message is prototyped with a single #TTValue& argument.
+	kTTMessagePassNameAndValue = 4	///< Set this flag if the method you are binding to this message is prototyped with two arguments: a const #TTSymbol& and a #TTValue&.
+};
+	
+/** Flags that determine the behavior of messages. */
+typedef enum TTAttributeFlags {
+	kTTAttrDefaultFlags = 0,		///< The default set of flags will be used if this is specified. At this time the default is #kTTAttrPassValueOnly.
+	kTTAttrPassValueOnly = 1,		///< Attribute accessors will only be passed a reference to the attribute's value.
+	kTTAttrPassObject = 2			///< Attribute accessors will first be passed a reference to the #TTAttribute object, then it will be passed  a reference to the attribute's value.
+};
+
+
+
 /****************************************************************************************************/
 // Class Specifications
 
 /**
 	At the moment this class uses really lame associative arrays to keep track of messages and 
-	attributes.  Even lamer is that we statically limit it to 10 of each right now.  
+	attributes.  Even lamer is that we statically limit it to 16 of each right now.  
 	Eventually we will do this with something way better...
 */
 class TTEXPORT TTObject : public TTElement {
 private:
 	TTSymbol				objectName;
 	const TTSymbol*			messageNames[16];
-	TTMethod				messageTargets[16];
+//	TTMethod				messageTargets[16];
+	TTMessage*				messageObjects[16];
 	TTUInt8					messageCount;
 	const TTSymbol*			attributeNames[16];
 	TTAttribute*			attributeObjects[16];
@@ -53,7 +80,7 @@ public:
 	TTObject(const char* name);
 	virtual ~TTObject();
 	
-	/*
+	/**
 		The theory on attributes is that the subclass calls registerAttribute()
 		and the base class manages a list of all registered attributes.
 		
@@ -107,9 +134,11 @@ public:
 	static TTErr getGlobalAttributeValue(const TTSymbol& name, TTValue& value);
 	
 	TTErr registerMessage(const TTSymbol& name, TTMethod method);
+	TTErr registerMessage(const TTSymbol& name, TTMethod method, TTMessageFlags flags);
 	TTErr sendMessage(const TTSymbol& name);
 	TTErr sendMessage(const TTSymbol& name, TTValue& value);
 	
+	//TODO: implement these
 	// getMessageNames()
 	// getAttributeNames()
 	
@@ -140,6 +169,24 @@ public:
 
 	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
 	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
+};
+
+
+/**
+	This class represents a single message, as used by the TTObject class.
+	At the moment we define it in the same file because we are sharing the typedef
+	for TTMethod.
+*/
+class TTEXPORT TTMessage : TTElement {
+private:
+public:
+	// Should make this group private, but to get things working initially, we're leaving them public...
+	const TTSymbol&		name;		///< the name of the message.
+	TTMessageFlags		flags;		///< define the behavior of the message.
+	TTMethod			method;		///< method associated with this message.
+
+	TTMessage(const TTSymbol& newName, TTMethod newMethod, TTMessageFlags newFlags);
+	virtual ~TTMessage();
 };
 
 #endif // __TT_OBJECT_H__

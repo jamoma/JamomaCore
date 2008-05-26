@@ -30,7 +30,7 @@ private:
 	TTDCBlock*			dcBlocker;
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels(const TTSymbol&, TTValue&);
+	TTErr updateMaxNumChannels();
 
 	/**	Setter for the mode attribute. */
 	TTErr setDrive(const TTAttribute&, const TTValue& value);
@@ -47,7 +47,7 @@ private:
 	TTErr setPreamp(const TTAttribute&, const TTValue& value);
 
 	/**	Reset the DC Blocker.			*/
-	TTErr clear(const TTSymbol&, TTValue&);
+	TTErr clear();
 	
 	/**	Process method when mode == 0	*/
 	TTErr processMode0(TTAudioSignal& in, TTAudioSignal& out);

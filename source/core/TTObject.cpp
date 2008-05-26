@@ -12,6 +12,22 @@
 
 /****************************************************************************************************/
 
+TTMessage::TTMessage(const TTSymbol& newName, TTMethod newMethod, TTMessageFlags newFlags)
+	: name(newName), method(newMethod), flags(newFlags)
+{
+	;
+}
+
+
+TTMessage::~TTMessage()
+{
+	;
+}
+
+
+
+/****************************************************************************************************/
+
 TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress)
 : name(newName), type(newType), address(newAddress)
 {
@@ -463,10 +479,22 @@ TTErr TTObject::setGlobalAttributeValue(const TTSymbol& name, TTValue& value)
 #pragma mark Object Messages
 #endif
 
-TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod message)
+TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod method)
 {
-	messageNames[messageCount] = &name;
-	messageTargets[messageCount] = message;
+//	messageNames[messageCount] = &name;
+//	messageTargets[messageCount] = message;
+//	messageCount++;
+	messageNames[attributeCount] = &name;
+	messageObjects[attributeCount] = new TTMessage(name, method, kTTMessageDefaultFlags);
+	messageCount++;
+	return kTTErrNone;
+}
+
+
+TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod method, TTMessageFlags flags)
+{
+	messageNames[attributeCount] = &name;
+	messageObjects[attributeCount] = new TTMessage(name, method, flags);
 	messageCount++;
 	return kTTErrNone;
 }
@@ -474,29 +502,85 @@ TTErr TTObject::registerMessage(const TTSymbol& name, TTMethod message)
 
 TTErr TTObject::sendMessage(const TTSymbol& name)
 {
-	TTUInt8	i;
-	TTValue foo;
+	TTUInt8		i;
+//	TTValue		foo;
+	TTMessage	*message;
+
+	for(i=0; i<messageCount; i++){
+		if(*messageNames[i] == name){
+			message = messageObjects[i];
+			if(message->flags & kTTMessagePassNone){
+				TTMethodNone	method = (TTMethodNone)message->method;
+				return (this->*method)();
+			}
+			else if(message->flags & kTTMessagePassNameAndValue){
+				TTValue foo;
+				return (this->*message->method)(name, foo);			
+			}
+			else{	// default or kTTMessagePassValueOnly
+				TTMethodValue method = (TTMethodValue)message->method;
+				TTValue foo;
+				return (this->*method)(foo);
+			}
+		}
+	}
+
 	
+	
+	/*
 	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
 			(this->*messageTargets[i])(name, foo);
 			return kTTErrNone;
 		}
 	}
+	*/
 	return kTTErrMethodNotFound;
 }
 
+/*
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTInt64& value)
+{
+	TTValue	v(value);
+	return setAttributeValue(name, v);
+}
+
+	for(i=0; i<attributeCount; i++){
+		if(*attributeNames[i] == name){
+			attribute = attributeObjects[i];
+			return (this->*attribute->getter)(*attribute, value);
+		}
+	}
+
+
+*/
 
 TTErr TTObject::sendMessage(const TTSymbol& name, TTValue& value)
 {
-	TTUInt8	i;
-	
+	TTUInt8		i;
+	TTMessage	*message;
+
 	for(i=0; i<messageCount; i++){
 		if(*messageNames[i] == name){
-			(this->*messageTargets[i])(name, value);
-			break;
+			message = messageObjects[i];
+			if(message->flags & kTTMessagePassNone){
+				TTMethodNone	method = (TTMethodNone)message->method;
+				return (this->*method)();
+			}
+			else if(message->flags & kTTMessagePassNameAndValue){
+				return (this->*message->method)(name, value);			
+			}
+			else{	// default or kTTMessagePassValueOnly
+				TTMethodValue method = (TTMethodValue)message->method;
+				return (this->*method)(value);
+			}
+
+//	for(i=0; i<messageCount; i++){
+//		if(*messageNames[i] == name){
+//			(this->*messageTargets[i])(name, value);
+//			break;
 		}
 	}
-	return kTTErrNone;
+	return kTTErrMethodNotFound;
 }
 

@@ -36,7 +36,7 @@ public:
 	TTGlobal();
 	virtual ~TTGlobal();
 
-	TTErr getVersion(const TTSymbol&, TTValue &value);
+	TTErr getVersion(TTValue &value);
 };
 
 

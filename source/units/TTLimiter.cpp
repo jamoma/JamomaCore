@@ -23,11 +23,11 @@ TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLimiter::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLimiter::updateMaxNumChannels, kTTMessagePassNone);
 	// register for notifications from the parent class so we can update the release/recover values
-	registerMessage(TT("updateSr"), (TTMethod)&TTLimiter::updateSr);
+	registerMessage(TT("updateSr"), (TTMethod)&TTLimiter::updateSr, kTTMessagePassNone);
 	// clear the history
-	registerMessage(TT("clear"), (TTMethod)&TTLimiter::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTLimiter::clear, kTTMessagePassNone);
 
 	dcBlocker = new TTDCBlock(maxNumChannels);
 	preamp = new TTGain(maxNumChannels);
@@ -43,7 +43,7 @@ TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
 	setAttributeValue(TT("dcBlocker"),		*kTTBoolYes);
 	setAttributeValue(TT("bypass"),			*kTTBoolNo);
 	TTValue v;
-	clear(*kTTSymEmpty, v);
+	clear();
 	setProcess((TTProcessMethod)&TTLimiter::processAudio);
 }
 
@@ -62,7 +62,7 @@ TTLimiter::~TTLimiter()
 
 
 // TODO: These message receiver args should be reversed -- this is a change that should be applied throughout TTBlue
-TTErr TTLimiter::updateMaxNumChannels(const TTSymbol& s, TTValue& v)
+TTErr TTLimiter::updateMaxNumChannels()
 {
 	short i;
 
@@ -79,7 +79,7 @@ TTErr TTLimiter::updateMaxNumChannels(const TTSymbol& s, TTValue& v)
 	for(i=0; i<maxNumChannels; i++)
 		lookaheadBuffer[i] = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
 
-	clear(s, v);
+	clear();
 	
 	dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 	preamp->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
@@ -88,7 +88,7 @@ TTErr TTLimiter::updateMaxNumChannels(const TTSymbol& s, TTValue& v)
 }
 
 
-TTErr TTLimiter::updateSr(const TTSymbol&, TTValue&)
+TTErr TTLimiter::updateSr()
 {
 	setRecover();
 	return kTTErrNone;
@@ -167,7 +167,7 @@ TTErr TTLimiter::setDCBlocker(const TTAttribute&, TTValue& newValue)
 }
 
 
-TTErr TTLimiter::clear(const TTSymbol&, TTValue&)
+TTErr TTLimiter::clear()
 {
 	TTUInt32	i;
 	TTUInt32	channel;

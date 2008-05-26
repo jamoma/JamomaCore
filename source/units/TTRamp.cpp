@@ -18,8 +18,8 @@ TTRamp::TTRamp(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("destinationValue"),	kTypeFloat64,	&attrDestinationValue);
 	registerAttribute(TT("mode"),				kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTRamp::setMode);
 	
-	registerMessage(TT("stop"), (TTMethod)&TTRamp::stop);	
-	registerMessage(TT("rampTimeInSamples"), (TTMethod)&TTRamp::rampInSamples);	
+	registerMessage(TT("stop"), (TTMethod)&TTRamp::stop, kTTMessagePassNone);	
+	registerMessage(TT("rampTimeInSamples"), (TTMethod)&TTRamp::rampInSamples, kTTMessagePassNone);	
 
 	setAttributeValue(TT("mode"), TT("vector"));
 }

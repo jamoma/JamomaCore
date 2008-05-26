@@ -50,10 +50,10 @@ private:
 	TTFloat64			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
-	TTErr updateMaxNumChannels(const TTSymbol&, TTValue&);
+	TTErr updateMaxNumChannels();
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
-	TTErr updateSr(const TTSymbol&, TTValue&);
+	TTErr updateSr();
 
 	/**	Setter for the threshold attribute. */
 	TTErr setPreamp(const TTAttribute&, const TTValue& value);
@@ -83,7 +83,7 @@ private:
 	TTErr setDCBlocker(const TTAttribute&, TTValue& newValue);
 
 	/** Clear the history: reset the limiter. */
-	TTErr clear(const TTSymbol&, TTValue&);
+	TTErr clear();
 
 	/** Private utility used by the audio processing routine. */
 	void setRecover();

@@ -21,7 +21,7 @@ TTPhasor::TTPhasor(TTUInt8 newMaxNumChannels)
 	//	period in ms
 	//	period in samples
 	
-	registerMessage(TT("updateSr"),	(TTMethod)&TTPhasor::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTPhasor::updateSr, kTTMessagePassNone);
 
 	setAttributeValue(TT("frequency"), 1.0);
 	setAttributeValue(TT("gain"), 0.0);

@@ -31,7 +31,7 @@ TTGlobal::~TTGlobal()
 }
 
 
-TTErr TTGlobal::getVersion(const TTSymbol&, TTValue &value)
+TTErr TTGlobal::getVersion(TTValue &value)
 {
 	value = "0.5.0";
 	return kTTErrNone;

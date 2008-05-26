@@ -15,10 +15,10 @@ TTDCBlock::TTDCBlock(TTUInt8 newMaxNumChannels)
 	lastOutput(NULL)
 {
 	// make the clear method available to be called:
-	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear, kTTMessagePassNone);
 	
 	// this next one is called by the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels, kTTMessagePassNone);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
@@ -33,7 +33,7 @@ TTDCBlock::~TTDCBlock()
 }
 
 
-TTErr TTDCBlock::updateMaxNumChannels(const TTSymbol& m, TTValue& v)
+TTErr TTDCBlock::updateMaxNumChannels()
 {
 	if(lastInput)
 		free(lastInput);
@@ -41,12 +41,12 @@ TTErr TTDCBlock::updateMaxNumChannels(const TTSymbol& m, TTValue& v)
 		free(lastOutput);
 	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
 	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	clear(TT(""), v);
+	clear();
 	return kTTErrNone;
 }
 
 
-TTErr TTDCBlock::clear(const TTSymbol& m, TTValue& v)
+TTErr TTDCBlock::clear()
 {
 	short i;
 
