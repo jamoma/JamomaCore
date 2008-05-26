@@ -394,6 +394,9 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 }
 
 
+#ifdef JCOM_IN_TILDE
+
+
 // DSP Method
 void in_dsp(t_in *x, t_signal **sp, short *count)
 {
@@ -437,3 +440,5 @@ void in_alloc(t_in *x, int vector_size)
 	}
 }
 
+
+#endif // JCOM_IN_TILDE

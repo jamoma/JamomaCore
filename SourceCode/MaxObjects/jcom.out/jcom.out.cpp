@@ -117,7 +117,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_algorithm_type = _sym_nothing;
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
-			x->num_outputs = tt_audio_base::clip(argument, 0, MAX_NUM_CHANNELS);
+			x->num_outputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
 		}
 #ifdef JCOM_OUT_TILDE
 		if(x->num_outputs > 0)
@@ -252,26 +252,34 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			// Do gain control here...
 			// Should be that the gain change triggers a short tt_ramp to the new value
 			x->attr_gain = atom_getfloat(argv+1);	// store as midi values
+#ifdef JCOM_OUT_TILDE
 			x->gain->set_attr(tt_gain::k_gain, (x->attr_gain - 127) * .6);		// convert midi to db for tap_gain			
+#endif
 		}
 		else if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute)){
 			x->attr_mute = atom_getlong(argv+1);
+#ifdef JCOM_OUT_TILDE
 			if(x->attr_mute)
 				x->gain->set_attr(tt_gain::k_gain_direct, 0.);
 			else 
 				x->gain->set_attr(tt_gain::k_gain, (x->attr_gain - 127)  * .6);			
+#endif
 		}
 		else if((argv->a_w.w_sym == ps_audio_bypass) || (argv->a_w.w_sym == ps_slash_audio_bypass)){
 			x->attr_bypass = atom_getlong(argv+1);
+#ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
 				x->xfade->set_attr(tt_crossfade::k_position, x->attr_mix * 0.01);
 			else
 				x->xfade->set_attr(tt_crossfade::k_position, 0.0);
+#endif
 		}
 		else if((argv->a_w.w_sym == ps_audio_mix) || (argv->a_w.w_sym == ps_slash_audio_mix)){
 			x->attr_mix = atom_getfloat(argv+1);
+#ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
 				x->xfade->set_attr(tt_crossfade::k_position, x->attr_mix * 0.01);			
+#endif
 		}
 		else if((argv->a_w.w_sym == ps_audio_sample_rate) || (argv->a_w.w_sym == ps_slash_audio_sample_rate)){
 			;
@@ -363,6 +371,8 @@ void out_anything(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 	outlet_anything(x->outlet[inletnum], msg, argc, argv);
 }
 
+
+#ifdef JCOM_OUT_TILDE
 
 void update_meters(t_out *x)
 {
@@ -479,3 +489,5 @@ void out_alloc(t_out *x, int vector_size)
 		x->ramp_xfade->set_vectorsize(vector_size);
 	}
 }
+
+#endif // JCOM_OUT_TILDE

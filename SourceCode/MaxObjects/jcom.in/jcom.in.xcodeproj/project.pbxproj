@@ -294,7 +294,6 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
@@ -349,7 +348,6 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
@@ -418,7 +416,6 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
@@ -476,7 +473,6 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
