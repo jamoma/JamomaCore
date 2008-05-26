@@ -13,7 +13,7 @@ LowpassFunction::LowpassFunction()
 	: FunctionUnit("function.lowpass")
 {
 	registerAttribute(TT("coefficient"), kTypeFloat64, &attrCoefficient, (TTSetterMethod)&LowpassFunction::setCoefficient);	
-	registerMessage(TT("clear"), (TTMethod)&LowpassFunction::clear);
+	registerMessage(TT("clear"), (TTMethod)&LowpassFunction::clear, kTTMessagePassNone);
 	
 	// Set Defaults...
 	setAttributeValue(TT("coefficient"), 0.75);
