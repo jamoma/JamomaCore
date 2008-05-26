@@ -17,11 +17,11 @@ TTBalance::TTBalance(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBalance::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBalance::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBalance::updateMaxNumChannels, kTTMessagePassNone);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTBalance::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTBalance::updateSr, kTTMessagePassNone);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTBalance::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTBalance::clear, kTTMessagePassNone);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
@@ -79,7 +79,7 @@ TTErr TTBalance::updateMaxNumChannels()
 TTErr TTBalance::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -101,7 +101,7 @@ TTErr TTBalance::clear()
 }
 
 
-TTErr TTBalance::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTBalance::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = TTClip((double)newValue, 1., (sr*0.45));
 

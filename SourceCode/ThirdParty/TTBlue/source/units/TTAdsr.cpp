@@ -15,7 +15,7 @@ TTAdsr::TTAdsr(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 	
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTAdsr::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTAdsr::updateSr, kTTMessagePassNone);
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
@@ -35,13 +35,13 @@ TTErr TTAdsr::updateSr()
 	TTValue	v;
 
 	v = attack_ms;
-	setAttack(TTATTR, v);
+	setAttack(v);
 
 	v = decay_ms;
-	setDecay(TTATTR, v);
+	setDecay(v);
 
 	v = release_ms;
-	setRelease(TTATTR, v);
+	setRelease(v);
 
 	return kTTErrNone;
 }
@@ -77,7 +77,7 @@ DEFINE_PARAM(Release, release);
 #else // using old fashioned not-generated-by-a-macro accessors
 
 
-TTErr TTAdsr::setAttack(const TTAttribute&, const TTValue& newValue)
+TTErr TTAdsr::setAttack(const TTValue& newValue)
 {
 	attack_ms = TTClip((TTFloat64)newValue, 1.0, 60000.0);
 	attack_samples = long((attack_ms / 1000.0) * sr);
@@ -87,7 +87,7 @@ TTErr TTAdsr::setAttack(const TTAttribute&, const TTValue& newValue)
 }
 
 
-TTErr TTAdsr::setDecay(const TTAttribute&, const TTValue& newValue)
+TTErr TTAdsr::setDecay(const TTValue& newValue)
 {
 	decay_ms = TTClip((TTFloat64)newValue, 1.0, 60000.0);
 	decay_samples = long((decay_ms / 1000.0) * sr);
@@ -97,7 +97,7 @@ TTErr TTAdsr::setDecay(const TTAttribute&, const TTValue& newValue)
 }
 
 
-TTErr TTAdsr::setRelease(const TTAttribute&, const TTValue& newValue)
+TTErr TTAdsr::setRelease(const TTValue& newValue)
 {
 	release_ms = TTClip((TTFloat64)newValue, 1.0, 60000.0);
 	release_samples = long((release_ms / 1000.0) * sr);
@@ -109,7 +109,7 @@ TTErr TTAdsr::setRelease(const TTAttribute&, const TTValue& newValue)
 #endif 
 
 
-TTErr TTAdsr::setSustainAmp(const TTAttribute&, const TTValue& newValue)
+TTErr TTAdsr::setSustainAmp(const TTValue& newValue)
 {
 	sustain_amp = newValue;
 	sustain_db = linearToDb(sustain_amp);
@@ -124,21 +124,21 @@ TTErr TTAdsr::getSustainAmp(const TTAttribute&, TTValue& value)
 }
 */
 
-TTErr TTAdsr::setSustainDb(const TTAttribute&, const TTValue& newValue)
+TTErr TTAdsr::setSustainDb(const TTValue& newValue)
 {
 	sustain_db = newValue;
 	sustain_amp = dbToLinear(sustain_db);
 	return kTTErrNone;
 }
 
-TTErr TTAdsr::getSustainDb(const TTAttribute&, TTValue& value)
+TTErr TTAdsr::getSustainDb(TTValue& value)
 {
 	value = linearToDb(sustain_amp);
 	return kTTErrNone;
 }
 
 
-TTErr TTAdsr::setMode(const TTAttribute&, const TTValue& newValue)
+TTErr TTAdsr::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;
 	if(attrMode == TT("exponential"))

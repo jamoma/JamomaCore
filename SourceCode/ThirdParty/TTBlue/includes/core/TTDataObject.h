@@ -38,7 +38,7 @@
  *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
  *	own process() method(s) as needed.
  */
-TTCLASS TTDataObject : public TTObject {
+class TTEXPORT TTDataObject : public TTObject {
 private:
 	friend class TTGlobal;				///< Declare that the global object is friend so it can access the globalSr member
 

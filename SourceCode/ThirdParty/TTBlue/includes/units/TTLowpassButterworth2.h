@@ -16,7 +16,7 @@
  *	Based on an algorithm from Dodge & Jerse (1997): Computer Music -
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
-TTCLASS TTLowpassButterworth2 : public TTAudioObject {
+class TTEXPORT TTLowpassButterworth2 : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;				///< filter cutoff frequency
 	TTFloat64		c, a0, a1, a2, b1, b2;		///< filter coefficients
@@ -35,7 +35,7 @@ private:
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTAttribute&, const TTValue& value);
+	TTErr setFrequency(const TTValue& value);
 
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the

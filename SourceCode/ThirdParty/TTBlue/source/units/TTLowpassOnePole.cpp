@@ -17,11 +17,11 @@ TTLowpassOnePole::TTLowpassOnePole(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassOnePole::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassOnePole::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassOnePole::updateMaxNumChannels, kTTMessagePassNone);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassOnePole::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassOnePole::updateSr, kTTMessagePassNone);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTLowpassOnePole::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTLowpassOnePole::clear, kTTMessagePassNone);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
@@ -49,7 +49,7 @@ TTErr TTLowpassOnePole::updateMaxNumChannels()
 TTErr TTLowpassOnePole::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -61,7 +61,7 @@ TTErr TTLowpassOnePole::clear()
 }
 
 
-TTErr TTLowpassOnePole::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTLowpassOnePole::setFrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 

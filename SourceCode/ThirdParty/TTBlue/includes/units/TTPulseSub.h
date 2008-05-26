@@ -17,7 +17,7 @@
 
 /**	TTPulseSub generates a repeating ADSR envelope which is then applied to the gain of an input signal.
  */ 
-TTCLASS TTPulseSub : public TTAudioObject {
+class TTEXPORT TTPulseSub : public TTAudioObject {
 private:
 	TTFloat64	attrAttack;
 	TTFloat64	attrDecay;
@@ -25,6 +25,8 @@ private:
 	TTFloat64	attrRelease;
 	TTBoolean	attrTrigger;
 	TTSymbol&	attrMode;
+	TTFloat64	attrFrequency;
+	TTFloat64	attrLength;
 
 	TTOperator*		offset;
 	TTPhasor*		phasor;
@@ -37,12 +39,15 @@ private:
 	TTErr updateSr();
 	TTErr updateMaxNumChannels();
 	
-	TTErr setTrigger(const TTAttribute&, const TTValue& newValue);
-	TTErr setAttack(const TTAttribute&, const TTValue& newValue);
-	TTErr setDecay(const TTAttribute&, const TTValue& newValue);
-	TTErr setSustain(const TTAttribute&, const TTValue& newValue);
-	TTErr setRelease(const TTAttribute&, const TTValue& newValue);
-	TTErr setMode(const TTAttribute&, const TTValue& newValue);
+	TTErr setTrigger(const TTValue& newValue);
+	TTErr setAttack(const TTValue& newValue);
+	TTErr setDecay(const TTValue& newValue);
+	TTErr setSustain(const TTValue& newValue);
+	TTErr setRelease(const TTValue& newValue);
+	TTErr setMode(const TTValue& newValue);
+
+	TTErr TTPulseSub::setFrequency(const TTValue& newValue);
+	TTErr TTPulseSub::setLength(const TTValue& newValue);
 	
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 	

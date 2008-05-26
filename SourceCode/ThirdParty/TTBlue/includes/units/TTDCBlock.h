@@ -21,13 +21,13 @@
  *	"biquad~ 1.0 -1.0 -0.9997 0.0"
  */
  
-TTCLASS TTDCBlock : public TTAudioObject {
+class TTEXPORT TTDCBlock : public TTAudioObject {
 private:
 	TTSampleValue*		lastInput;		///< Feedback values used for the audio filter			
 	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels(const TTSymbol& m, TTValue& v);
+	TTErr updateMaxNumChannels();
 
 	/**	Resets the DC-Blocking filter.
 	 *	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
@@ -35,7 +35,7 @@ private:
 	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.																*/
-	TTErr clear(const TTSymbol& m, TTValue& v);
+	TTErr clear();
 	
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number

@@ -20,7 +20,7 @@
  *	channels is twice the number of output channels.  In this case the first N/2 input channels are
  *	considered as the A source and the last N/2 input channels are considered the B source.
  */
-TTCLASS TTBalance : public TTAudioObject {
+class TTEXPORT TTBalance : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;					///< filter cutoff frequency of inherent lowpass filter
 	TTFloat64		c, a0, a1, a2, b1, b2;			///< filter coefficients
@@ -38,7 +38,7 @@ private:
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTAttribute&, const TTValue& value);
+	TTErr setFrequency(const TTValue& value);
 
 	/**	This algorithm depends on the use of an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the

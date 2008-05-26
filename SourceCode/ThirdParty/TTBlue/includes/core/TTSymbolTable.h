@@ -26,7 +26,7 @@
 	It has an internal table that is implemented as a fixed array.
 	Each symbol is identified by its index in this array.
 */
-TTCLASS TTSymbolTable : public TTElement {
+class TTEXPORT TTSymbolTable : public TTElement {
 private:
 	TTSymbol**	symbolTable;
 	TTUInt32	symbolTableLength;	///< Number of symbols stored in the table

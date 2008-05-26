@@ -17,11 +17,11 @@ TTHighpassLinkwitzRiley4::TTHighpassLinkwitzRiley4(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassLinkwitzRiley4::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassLinkwitzRiley4::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassLinkwitzRiley4::updateMaxNumChannels, kTTMessagePassNone);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassLinkwitzRiley4::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassLinkwitzRiley4::updateSr, kTTMessagePassNone);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTHighpassLinkwitzRiley4::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTHighpassLinkwitzRiley4::clear, kTTMessagePassNone);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
@@ -79,7 +79,7 @@ TTErr TTHighpassLinkwitzRiley4::updateMaxNumChannels()
 TTErr TTHighpassLinkwitzRiley4::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -101,7 +101,7 @@ TTErr TTHighpassLinkwitzRiley4::clear()
 }
 
 
-TTErr TTHighpassLinkwitzRiley4::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTHighpassLinkwitzRiley4::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
 

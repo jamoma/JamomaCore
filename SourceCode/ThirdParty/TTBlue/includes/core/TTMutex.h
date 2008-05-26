@@ -21,7 +21,7 @@
 	The TTMutex class maintains a mutual exclusion lock.
 	See http://en.wikipedia.org/wiki/Mutex for more details.
 */
-TTCLASS TTMutex : public TTElement {
+class TTEXPORT TTMutex : public TTElement {
 private:
 	#ifdef TT_PLATFORM_MAC
 	pthread_mutex_t			pMutex;

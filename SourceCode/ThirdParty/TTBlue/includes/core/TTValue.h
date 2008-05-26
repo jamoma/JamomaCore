@@ -65,7 +65,7 @@ class TTObject;
  *	single value, or an array of homogenous values.  It maybe one of a number of types defined in the 
  *	DataType enumeration.
  */
-TTCLASS TTValue : TTElement {
+class TTEXPORT TTValue : TTElement {
 private:
 	union DataValue{
 		TTFloat32		float32;

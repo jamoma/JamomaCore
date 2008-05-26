@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -267,6 +267,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\includes\units\TTAverage.h"
+					>
+				</File>
+				<File
 					RelativePath="..\includes\units\TTBalance.h"
 					>
 				</File>
@@ -359,11 +363,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\includes\units\TTOperator.h"
+					>
+				</File>
+				<File
 					RelativePath="..\includes\units\TTOverdrive.h"
 					>
 				</File>
 				<File
+					RelativePath="..\includes\units\TTPhasor.h"
+					>
+				</File>
+				<File
+					RelativePath="..\includes\units\TTPulseSub.h"
+					>
+				</File>
+				<File
 					RelativePath="..\includes\units\TTRamp.h"
+					>
+				</File>
+				<File
+					RelativePath="..\includes\units\TTSvf.h"
 					>
 				</File>
 			</Filter>
@@ -452,6 +472,10 @@
 				>
 				<File
 					RelativePath="..\source\units\TTAdsr.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\source\units\TTAverage.cpp"
 					>
 				</File>
 				<File
@@ -547,11 +571,27 @@
 					>
 				</File>
 				<File
+					RelativePath="..\source\units\TTOperator.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\source\units\TTOverdrive.cpp"
 					>
 				</File>
 				<File
+					RelativePath="..\source\units\TTPhasor.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\source\units\TTPulseSub.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\source\units\TTRamp.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\source\units\TTSvf.cpp"
 					>
 				</File>
 			</Filter>

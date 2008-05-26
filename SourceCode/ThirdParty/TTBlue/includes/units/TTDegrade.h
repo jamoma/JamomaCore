@@ -17,7 +17,7 @@
  *	number of parallel audio channels, with just a couple of attributes.
  */
 
-TTCLASS TTDegrade : public TTAudioObject {
+class TTEXPORT TTDegrade : public TTAudioObject {
 private:
 	TTUInt16		bitShift;			///< Amount of bits to shift away based on attrBitdepth.
 	TTSampleValue*	accumulator;		///< Holds values over from one vector to the next for each channel.
@@ -29,7 +29,7 @@ private:
 	TTErr updateMaxNumChannels();
 
 	/**	Setter for the bitdepth attribute. */
-	TTErr setBitdepth(const TTAttribute&, const TTValue& value);
+	TTErr setBitdepth(const TTValue& value);
 
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number

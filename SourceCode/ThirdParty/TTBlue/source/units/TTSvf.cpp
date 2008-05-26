@@ -18,11 +18,11 @@ TTSvf::TTSvf(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("resonance"),	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTSvf::setResonance);
 
 	// register methods
-	registerMessage(TT("clear"), (TTMethod)&TTSvf::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTSvf::clear, kTTMessagePassNone);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTSvf::updateMaxNumChannels);
-	registerMessage(TT("updateSr"),	(TTMethod)&TTSvf::updateSr);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTSvf::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTSvf::updateSr, kTTMessagePassNone);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
@@ -79,14 +79,14 @@ TTErr TTSvf::updateSr()
 
 TTErr TTSvf::clear()
 {
-	memset(x1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x2, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x3, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(x4, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y1, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y2, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y3, 0.0, sizeof(TTFloat64) * maxNumChannels);
-	memset(y4, 0.0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x2, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x3, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(x4, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y1, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y2, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y3, 0, sizeof(TTFloat64) * maxNumChannels);
+	memset(y4, 0, sizeof(TTFloat64) * maxNumChannels);
 	return kTTErrNone;
 }
 

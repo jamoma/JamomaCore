@@ -14,7 +14,7 @@
 
 /**	The simplest of lowpass filters: a single-pole, no-zero algorithm.
  */
-TTCLASS TTLowpassOnePole : public TTAudioObject {
+class TTEXPORT TTLowpassOnePole : public TTAudioObject {
 private:
 	TTFloat64		attrFrequency;		///< filter cutoff frequency
 	TTFloat64		coefficient;		///< filter coefficients
@@ -29,7 +29,7 @@ private:
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTAttribute&, const TTValue& value);
+	TTErr setFrequency(const TTValue& value);
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the

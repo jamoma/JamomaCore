@@ -25,11 +25,11 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt8 newMaxNumChannels)
 //		-- then override the registerAttribute & registerMethod methods
 
 	// register methods
-	registerMessage(TT("clear"), (TTMethod)&TTLowpassFourPole::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTLowpassFourPole::clear, kTTMessagePassNone);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassFourPole::updateMaxNumChannels);
-	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassFourPole::updateSr);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassFourPole::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassFourPole::updateSr, kTTMessagePassNone);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
@@ -80,7 +80,7 @@ TTErr TTLowpassFourPole::updateMaxNumChannels()
 TTErr TTLowpassFourPole::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -98,7 +98,7 @@ TTErr TTLowpassFourPole::clear()
 }
 
 
-TTErr TTLowpassFourPole::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTLowpassFourPole::setFrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
@@ -110,7 +110,7 @@ TTErr TTLowpassFourPole::setFrequency(const TTAttribute&, const TTValue& newValu
 }
 
 
-TTErr TTLowpassFourPole::setResonance(const TTAttribute&, const TTValue& newValue)
+TTErr TTLowpassFourPole::setResonance(const TTValue& newValue)
 {
 	attrResonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
 	deciResonance = attrResonance * 0.1;

@@ -35,7 +35,7 @@ typedef TTErr (TTAudioObject::*TTProcessWithSidechainMethod)(TTAudioSignal& in1,
  *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
  *	own process() method(s) as needed.
  */
-TTCLASS TTAudioObject : public TTObject {
+class TTEXPORT TTAudioObject : public TTObject {
 private:
 	friend class TTGlobal;						///< Declare that the global object is friend so it can access the globalSr member
 
@@ -59,13 +59,13 @@ protected:
 	TTErr setProcessWithSidechain(TTProcessWithSidechainMethod processMethod);
 
 	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
-	TTErr setBypass(const TTAttribute&, const TTValue& value);
+	TTErr setBypass(const TTValue& value);
 
 	/**	Setter for the maxNumChannels attribute. 	*/
-	TTErr setMaxNumChannels(const TTAttribute&, const TTValue& newValue);
+	TTErr setMaxNumChannels(const TTValue& newValue);
 
 	/**	Setter for the sample-rate attribute.		*/
-	TTErr setSr(const TTAttribute&, const TTValue& newValue);
+	TTErr setSr(const TTValue& newValue);
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/

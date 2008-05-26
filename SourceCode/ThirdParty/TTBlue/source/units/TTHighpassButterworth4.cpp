@@ -17,11 +17,11 @@ TTHighpassButterworth4::TTHighpassButterworth4(TTUInt8 newMaxNumChannels)
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassButterworth4::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassButterworth4::updateMaxNumChannels);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassButterworth4::updateMaxNumChannels, kTTMessagePassNone);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassButterworth4::updateSr);
+	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassButterworth4::updateSr, kTTMessagePassNone);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTHighpassButterworth4::clear);
+	registerMessage(TT("clear"), (TTMethod)&TTHighpassButterworth4::clear, kTTMessagePassNone);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
@@ -79,7 +79,7 @@ TTErr TTHighpassButterworth4::updateMaxNumChannels()
 TTErr TTHighpassButterworth4::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -101,7 +101,7 @@ TTErr TTHighpassButterworth4::clear()
 }
 
 
-TTErr TTHighpassButterworth4::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTHighpassButterworth4::setFrequency(const TTValue& newValue)
 {	
 	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
 

@@ -14,7 +14,7 @@
 /**	TTRamp is an audio processor that provides a soft saturation
  *	or overdrive effect to "warm" a sound up.
  */ 
-TTCLASS TTPhasor : public TTAudioObject {
+class TTEXPORT TTPhasor : public TTAudioObject {
 private:	
 	TTFloat64 			attrFrequency;			///< ramp time in milliseconds
 	TTFloat64			attrGain;				///< gain in dB
@@ -30,13 +30,13 @@ private:
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute in Hertz.   */
-	TTErr setFrequency(const TTAttribute&, const TTValue& newValue);
+	TTErr setFrequency(const TTValue& newValue);
 
 	/**	Setter the gain attribute in dB.   */
-	TTErr setGain(const TTAttribute&, const TTValue& newValue);
+	TTErr setGain(const TTValue& newValue);
 
 	/**	Getter for the gain attribute.		*/
-	TTErr getGain(const TTAttribute&, TTValue& value);
+	TTErr getGain(TTValue& value);
 
 	/**	Internal method called when the ramp is triggered (by setting the rampTime) */
 	void setStep();

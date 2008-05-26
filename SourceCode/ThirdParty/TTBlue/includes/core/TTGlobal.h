@@ -28,7 +28,7 @@ extern TTGlobal*	ttGlobalObject;
 /**
 	The global object maintains all global attributes/settings for the TTBlue environment.
 */
-TTCLASS TTGlobal : public TTObject {
+class TTEXPORT TTGlobal : public TTObject {
 private:
 	
 
@@ -36,7 +36,7 @@ public:
 	TTGlobal();
 	virtual ~TTGlobal();
 
-	TTErr getVersion(const TTSymbol&, TTValue &value);
+	TTErr getVersion(TTValue &value);
 };
 
 
