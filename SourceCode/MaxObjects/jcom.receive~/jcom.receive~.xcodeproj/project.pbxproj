@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
+		22022E1A0DEB3E5100267D40 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22022E190DEB3E5100267D40 /* TTBlue.framework */; };
 		226C02280CF8C4A900AFF86F /* jcom.receive~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226C02270CF8C4A900AFF86F /* jcom.receive~.cpp */; };
 		226C9AA00CF3D344003F0935 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 226C9A9F0CF3D344003F0935 /* MaxAudioAPI.framework */; };
 		22FD2E930CEE60480039C226 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD2E920CEE60480039C226 /* Jamoma.framework */; };
@@ -17,6 +18,7 @@
 /* Begin PBXFileReference section */
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
+		22022E190DEB3E5100267D40 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		226C02270CF8C4A900AFF86F /* jcom.receive~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.receive~.cpp"; sourceTree = "<group>"; };
 		226C9A9F0CF3D344003F0935 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		22FD2E920CEE60480039C226 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = /Library/Frameworks/Jamoma.framework; sourceTree = "<absolute>"; };
@@ -32,6 +34,7 @@
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
 				22FD2E930CEE60480039C226 /* Jamoma.framework in Frameworks */,
 				226C9AA00CF3D344003F0935 /* MaxAudioAPI.framework in Frameworks */,
+				22022E1A0DEB3E5100267D40 /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				226C9A9F0CF3D344003F0935 /* MaxAudioAPI.framework */,
+				22022E190DEB3E5100267D40 /* TTBlue.framework */,
 				22FD2E920CEE60480039C226 /* Jamoma.framework */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
 				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
@@ -201,7 +205,7 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
+					/Library/Frameworks/TTBlue.framework/Headers,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
@@ -255,7 +259,7 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					./../../externals_3rd_party/ttblue/dsplib,
+					/Library/Frameworks/TTBlue.framework/Headers,
 				);
 				INFOPLIST_FILE = /Library/Frameworks/Jamoma.framework/Headers/Info.plist;
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
