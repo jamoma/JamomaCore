@@ -69,7 +69,6 @@ class TTEXPORT TTObject : public TTElement {
 private:
 	TTSymbol				objectName;
 	const TTSymbol*			messageNames[16];
-//	TTMethod				messageTargets[16];
 	TTMessage*				messageObjects[16];
 	TTUInt8					messageCount;
 	const TTSymbol*			attributeNames[16];
