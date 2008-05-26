@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "tt.zerox~"
+
+EXPORTS
+	main
