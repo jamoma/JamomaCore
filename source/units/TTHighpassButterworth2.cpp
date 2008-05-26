@@ -63,7 +63,7 @@ TTErr TTHighpassButterworth2::updateMaxNumChannels()
 TTErr TTHighpassButterworth2::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -81,7 +81,7 @@ TTErr TTHighpassButterworth2::clear()
 }
 
 
-TTErr TTHighpassButterworth2::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTHighpassButterworth2::setFrequency(const TTValue& newValue)
 {	
 	attrFrequency = TTClip((double)newValue, 10., (sr*0.45));
 

@@ -20,10 +20,10 @@ private:
 	TTFloat64		attrOperand;	///< The right-hand value of the calculation.
 
 	/** setter for the operator attribute. */
-	TTErr setOperator(const TTAttribute&, const TTValue& newValue);
+	TTErr setOperator(const TTValue& newValue);
 
 	/** setter for the operand attribute. */
-	TTErr setOperand(const TTAttribute&, const TTValue& newValue);
+	TTErr setOperand(const TTValue& newValue);
 
 	/**	A standard audio processing method as used by TTBlue objects.
 		Performs the mathematical operation with a constant as defined using the 

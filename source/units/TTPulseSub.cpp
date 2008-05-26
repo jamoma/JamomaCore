@@ -74,52 +74,52 @@ TTErr TTPulseSub::updateMaxNumChannels()
 }
 
 
-TTErr TTPulseSub::setAttack(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setAttack(const TTValue& newValue)
 {
 	attrAttack = newValue;
 	return env_gen->setAttributeValue(TT("attack"), newValue);
 }
 
-TTErr TTPulseSub::setDecay(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setDecay(const TTValue& newValue)
 {
 	attrDecay = newValue;
 	return env_gen->setAttributeValue(TT("decay"), attrDecay);
 }
 
 
-TTErr TTPulseSub::setSustain(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setSustain(const TTValue& newValue)
 {
 	attrSustain = newValue;
 	return env_gen->setAttributeValue(TT("sustain_db"), newValue);
 }
 
-TTErr TTPulseSub::setRelease(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setRelease(const TTValue& newValue)
 {
 	attrRelease = newValue;
 	return env_gen->setAttributeValue(TT("release"), newValue);
 }
 
 
-TTErr TTPulseSub::setMode(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;
 	return env_gen->setAttributeValue(TT("mode"), newValue);
 }
 
-TTErr TTPulseSub::setTrigger(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setTrigger(const TTValue& newValue)
 {
 	attrTrigger = newValue;
 	return env_gen->setAttributeValue(TT("trigger"), newValue);
 }
 
 
-TTErr TTPulseSub::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = newValue;
 	return phasor->setAttributeValue(TT("frequency"), attrFrequency);
 }
 
-TTErr TTPulseSub::setLength(const TTAttribute&, const TTValue& newValue)
+TTErr TTPulseSub::setLength(const TTValue& newValue)
 {
 	attrLength = newValue;
 	return offset->setAttributeValue(TT("operand"), attrLength - 0.5);

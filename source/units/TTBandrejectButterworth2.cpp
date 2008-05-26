@@ -65,7 +65,7 @@ TTErr TTBandRejectButterworth2::updateMaxNumChannels()
 TTErr TTBandRejectButterworth2::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -83,7 +83,7 @@ TTErr TTBandRejectButterworth2::clear()
 }
 
 
-TTErr TTBandRejectButterworth2::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTBandRejectButterworth2::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = TTClip((double)newValue, 10., (sr*0.45));
 	
@@ -91,7 +91,7 @@ TTErr TTBandRejectButterworth2::setFrequency(const TTAttribute&, const TTValue& 
 }
 
 
-TTErr TTBandRejectButterworth2::setQ(const TTAttribute&, const TTValue& newValue)
+TTErr TTBandRejectButterworth2::setQ(const TTValue& newValue)
 {
 	attrQ = newValue;
 	

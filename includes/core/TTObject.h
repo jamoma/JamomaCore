@@ -29,6 +29,9 @@ typedef TTErr (TTObject::*TTMethod)(const TTSymbol& methodName, TTValue& value);
 /** A type that can be used to call a message for an object that does not declare the name argument. */
 typedef TTErr (TTObject::*TTMethodValue)(TTValue& value);
 
+/** A type that can be used to call a message for an object that does not declare the name argument. */
+typedef TTErr (TTObject::*TTMethodConstValue)(const TTValue& value);
+
 /** A type that can be used to call a message for an object that does not declare any arguments. */
 typedef TTErr (TTObject::*TTMethodNone)();
 
@@ -91,6 +94,8 @@ public:
 	TTErr registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTSetterMethod setter);
 	TTErr registerAttribute(const TTSymbol& name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	
+	TTErr findAttribute(const TTSymbol& name, TTAttribute** attr);
+
 	TTErr setAttributeValue(const TTSymbol& name, const TTValue& value);
 	TTErr getAttributeValue(const TTSymbol& name, TTValue& value);
 	// convenience wrappers...
@@ -116,6 +121,12 @@ public:
 	TTErr getAttributeValue(const TTSymbol& name, TTUInt64& value);
 	TTErr setAttributeValue(const TTSymbol& name, const TTSymbol& value);
 	TTErr getAttributeValue(const TTSymbol& name, TTSymbol& value);
+
+	TTErr TTObject::getAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value);
+	TTErr TTObject::setAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value);
+	TTErr TTObject::getAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value);
+	TTErr TTObject::setAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value);
+	
 
 	/** return a list of names of the available functionParameters */
 	void getAttributeNames(TTValue& attributeNameList);
@@ -153,18 +164,25 @@ class TTEXPORT TTAttribute : TTElement {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbol&		name;		///< the name of the attribute
-	TTDataType			type;		///< the data type of the attribute value
-	void*				address;	///< pointer to the memory holding the attribute value
-	TTGetterMethod		getter;		///< method to fetch the attribute value
-	TTSetterMethod		setter;		///< method to set the attribute value
-
+	const TTSymbol&		name;			///< the name of the attribute
+	TTDataType			type;			///< the data type of the attribute value
+	void*				address;		///< pointer to the memory holding the attribute value
+	TTGetterMethod		getter;			///< method to fetch the attribute value
+	TTSetterMethod		setter;			///< method to set the attribute value
+	TTAttributeFlags	getterFlags;	///< define the behavior of the attribute getter method
+	TTAttributeFlags	setterFlags;	///< define the behavior of the attribute setter method
 
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
 	TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	virtual ~TTAttribute();
+	
+	void setGetterFlags(TTAttributeFlags newFlags);
+	void getGetterFlags(TTAttributeFlags& currentFlags);
+
+	void setSetterFlags(TTAttributeFlags newFlags);
+	void getSetterFlags(TTAttributeFlags& currentFlags);
 
 	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
 	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);

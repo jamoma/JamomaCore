@@ -30,13 +30,13 @@ private:
 	TTErr updateSr();
 
 	/**	Setter for the frequency attribute in Hertz.   */
-	TTErr setFrequency(const TTAttribute&, const TTValue& newValue);
+	TTErr setFrequency(const TTValue& newValue);
 
 	/**	Setter the gain attribute in dB.   */
-	TTErr setGain(const TTAttribute&, const TTValue& newValue);
+	TTErr setGain(const TTValue& newValue);
 
 	/**	Getter for the gain attribute.		*/
-	TTErr getGain(const TTAttribute&, TTValue& value);
+	TTErr getGain(TTValue& value);
 
 	/**	Internal method called when the ramp is triggered (by setting the rampTime) */
 	void setStep();

@@ -38,11 +38,11 @@ TTPhasor::~TTPhasor()
 TTErr TTPhasor::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
-TTErr TTPhasor::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTPhasor::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = newValue;
 	if(attrFrequency == 0){
@@ -63,14 +63,14 @@ void TTPhasor::setStep()
 }
 
 
-TTErr TTPhasor::setGain(const TTAttribute&, const TTValue& newValue)
+TTErr TTPhasor::setGain(const TTValue& newValue)
 {
 	attrGain = newValue;
 	linearGain = dbToLinear(attrGain);
 	return kTTErrNone;
 }
 
-TTErr TTPhasor::getGain(const TTAttribute&, TTValue& value)
+TTErr TTPhasor::getGain(TTValue& value)
 {
 	value = linearToDb(linearGain);
 	return kTTErrNone;

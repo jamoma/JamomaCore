@@ -27,14 +27,14 @@ TTGain::~TTGain()
 }
 
 
-TTErr TTGain::setGain(const TTAttribute&, const TTValue& newValue)
+TTErr TTGain::setGain(const TTValue& newValue)
 {
 	gain = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
 
-TTErr TTGain::getGain(const TTAttribute&, TTValue& value)
+TTErr TTGain::getGain(TTValue& value)
 {
 	value = linearToDb(gain);
 	return kTTErrNone;

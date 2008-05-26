@@ -27,7 +27,7 @@ TTOperator::~TTOperator()
 }
 
 
-TTErr TTOperator::setOperator(const TTAttribute&, const TTValue& newValue)
+TTErr TTOperator::setOperator(const TTValue& newValue)
 {
 	attrOperator = newValue;
 	if(attrOperator == TT("+")){
@@ -53,7 +53,7 @@ TTErr TTOperator::setOperator(const TTAttribute&, const TTValue& newValue)
 }
 
 
-TTErr TTOperator::setOperand(const TTAttribute&, const TTValue& newValue)
+TTErr TTOperator::setOperand(const TTValue& newValue)
 {
 	attrOperand = newValue;
 	return kTTErrNone;

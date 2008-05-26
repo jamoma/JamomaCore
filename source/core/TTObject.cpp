@@ -29,26 +29,26 @@ TTMessage::~TTMessage()
 /****************************************************************************************************/
 
 TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress)
-: name(newName), type(newType), address(newAddress)
+: name(newName), type(newType), address(newAddress), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags)
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter)
-: name(newName), type(newType), address(newAddress), getter(newGetter)
+: name(newName), type(newType), address(newAddress), getter(newGetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags)
 {
 	setter = (TTSetterMethod)&TTAttribute::defaultSetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter)
-: name(newName), type(newType), address(newAddress), setter(newSetter)
+: name(newName), type(newType), address(newAddress), setter(newSetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags)
 {
 	getter = (TTGetterMethod)&TTAttribute::defaultGetter;
 }
 
 TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter)
-: name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter)
+: name(newName), type(newType), address(newAddress), getter(newGetter), setter(newSetter), getterFlags(kTTAttrDefaultFlags), setterFlags(kTTAttrDefaultFlags)
 {
 	;
 }
@@ -57,6 +57,27 @@ TTAttribute::TTAttribute(const TTSymbol& newName, TTDataType newType, void* newA
 TTAttribute::~TTAttribute()
 {
 	;
+}
+
+
+void TTAttribute::setGetterFlags(TTAttributeFlags newFlags)
+{
+	getterFlags = newFlags;
+}
+
+void TTAttribute::getGetterFlags(TTAttributeFlags& currentFlags)
+{
+	currentFlags = getterFlags;
+}
+
+void TTAttribute::setSetterFlags(TTAttributeFlags newFlags)
+{
+	setterFlags = newFlags;
+}
+
+void TTAttribute::getSetterFlags(TTAttributeFlags& currentFlags)
+{
+	currentFlags = setterFlags;
 }
 
 
@@ -187,6 +208,8 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* a
 {
 	attributeNames[attributeCount] = &name;
 	attributeObjects[attributeCount] = new TTAttribute(name, type, address);
+	attributeObjects[attributeCount]->setGetterFlags(kTTAttrPassObject);
+	attributeObjects[attributeCount]->setSetterFlags(kTTAttrPassObject);
 	attributeCount++;
 	return kTTErrNone;
 }
@@ -195,6 +218,7 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* a
 {
 	attributeNames[attributeCount] = &name;
 	attributeObjects[attributeCount] = new TTAttribute(name, type, address, getter);
+	attributeObjects[attributeCount]->setSetterFlags(kTTAttrPassObject);
 	attributeCount++;
 	return kTTErrNone;
 }
@@ -203,6 +227,7 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* a
 {
 	attributeNames[attributeCount] = &name;
 	attributeObjects[attributeCount] = new TTAttribute(name, type, address, setter);
+	attributeObjects[attributeCount]->setGetterFlags(kTTAttrPassObject);
 	attributeCount++;
 	return kTTErrNone;
 }
@@ -216,32 +241,53 @@ TTErr TTObject::registerAttribute(const TTSymbol& name, TTDataType type, void* a
 }
 
 
-TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
+TTErr TTObject::findAttribute(const TTSymbol& name, TTAttribute** attr)
 {
 	TTUInt8		i;
-	TTAttribute	*attribute;
 	
 	for(i=0; i<attributeCount; i++){
 		if(*attributeNames[i] == name){
-			attribute = attributeObjects[i];
-			return (this->*attribute->getter)(*attribute, value);
+			*attr = attributeObjects[i];
+			return kTTErrNone;
 		}
 	}
 	return kTTErrInvalidAttribute;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTValue& value)
+
+TTErr TTObject::getAttributeValue(const TTSymbol& name, TTValue& value)
 {
-	TTUInt8		i;
 	TTAttribute	*attribute;
+	TTErr		err;
 	
-	for(i=0; i<attributeCount; i++){
-		if(*attributeNames[i] == name){
-			attribute = attributeObjects[i];
-			return (this->*attribute->setter)(*attribute, value);
+	err = findAttribute(name, &attribute);
+	if(!err){
+		if(attribute->getterFlags & kTTAttrPassObject)
+			err = (this->*attribute->getter)(*attribute, value);
+		else{
+			TTMethodValue getter = (TTMethodValue)attribute->getter;
+			err = (this->*getter)(value);
 		}
 	}
-	return kTTErrInvalidAttribute;
+	
+	return err;
+}
+
+TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTValue& value)
+{
+	TTAttribute	*attribute;
+	TTErr		err;
+	
+	err = findAttribute(name, &attribute);
+	if(!err){
+		if(attribute->setterFlags & kTTAttrPassObject)
+			err = (this->*attribute->setter)(*attribute, value);
+		else{
+			TTMethodConstValue setter = (TTMethodConstValue)attribute->setter;
+			err = (this->*setter)(value);
+		}
+	}
+	return err;
 }
 
 
@@ -429,6 +475,56 @@ TTErr TTObject::setAttributeValue(const TTSymbol& name, const TTSymbol& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
+}
+
+
+TTErr TTObject::getAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+{
+	TTAttribute*	attribute;
+	TTErr			err;
+
+	err = findAttribute(name, &attribute);
+	if(!err)
+		attribute->getGetterFlags(value);
+	
+	return err;
+}
+
+TTErr TTObject::setAttributeGetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+{
+	TTAttribute*	attribute;
+	TTErr			err;
+
+	err = findAttribute(name, &attribute);
+	if(!err)
+		attribute->setGetterFlags(value);
+	
+	return err;
+}
+
+
+TTErr TTObject::getAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+{
+	TTAttribute*	attribute;
+	TTErr			err;
+
+	err = findAttribute(name, &attribute);
+	if(!err)
+		attribute->getSetterFlags(value);
+	
+	return err;
+}
+
+TTErr TTObject::setAttributeSetterFlags(const TTSymbol& name, TTAttributeFlags& value)
+{
+	TTAttribute*	attribute;
+	TTErr			err;
+
+	err = findAttribute(name, &attribute);
+	if(!err)
+		attribute->setSetterFlags(value);
+	
+	return err;
 }
 
 

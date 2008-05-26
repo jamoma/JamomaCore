@@ -79,7 +79,7 @@ TTErr TTBalance::updateMaxNumChannels()
 TTErr TTBalance::updateSr()
 {
 	TTValue	v(attrFrequency);
-	return setFrequency(TTATTR, v);
+	return setFrequency(v);
 }
 
 
@@ -101,7 +101,7 @@ TTErr TTBalance::clear()
 }
 
 
-TTErr TTBalance::setFrequency(const TTAttribute&, const TTValue& newValue)
+TTErr TTBalance::setFrequency(const TTValue& newValue)
 {
 	attrFrequency = TTClip((double)newValue, 1., (sr*0.45));
 

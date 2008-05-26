@@ -95,44 +95,44 @@ TTErr TTLimiter::updateSr()
 }
 
 
-TTErr TTLimiter::setPreamp(const TTAttribute&, const TTValue& newValue)
+TTErr TTLimiter::setPreamp(const TTValue& newValue)
 {
 	return preamp->setAttributeValue(TT("gain"), newValue);
 }
 
-TTErr TTLimiter::getPreamp(const TTAttribute&, TTValue& value)
+TTErr TTLimiter::getPreamp(TTValue& value)
 {
 	return preamp->getAttributeValue(TT("gain"), value);
 }
 
 
-TTErr TTLimiter::setPostamp(const TTAttribute&, const TTValue& newValue)
+TTErr TTLimiter::setPostamp(const TTValue& newValue)
 {
 	attrPostamp = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
-TTErr TTLimiter::getPostamp(const TTAttribute&, TTValue& value)
+TTErr TTLimiter::getPostamp(TTValue& value)
 {
 	value = linearToDb(attrPostamp);
 	return kTTErrNone;
 }
 
 
-TTErr TTLimiter::setThreshold(const TTAttribute&, const TTValue& newValue)
+TTErr TTLimiter::setThreshold(const TTValue& newValue)
 {
 	attrThreshold = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
-TTErr TTLimiter::getThreshold(const TTAttribute&, TTValue& value)
+TTErr TTLimiter::getThreshold(TTValue& value)
 {
 	value = linearToDb(attrThreshold);
 	return kTTErrNone;
 }
 
 
-TTErr TTLimiter::setLookahead(const TTAttribute&, TTValue& newValue)
+TTErr TTLimiter::setLookahead(TTValue& newValue)
 {
 	attrLookahead = TTClip(TTUInt32(newValue), TTUInt32(1), maxBufferSize-1);
     lookaheadInv = 1.0 / TTFloat64(attrLookahead);
@@ -140,7 +140,7 @@ TTErr TTLimiter::setLookahead(const TTAttribute&, TTValue& newValue)
 }
 
 
-TTErr TTLimiter::setRelease(const TTAttribute&, TTValue& newValue)
+TTErr TTLimiter::setRelease(TTValue& newValue)
 {
 	attrRelease = newValue;
 	setRecover();
@@ -148,7 +148,7 @@ TTErr TTLimiter::setRelease(const TTAttribute&, TTValue& newValue)
 }
 
 
-TTErr TTLimiter::setMode(const TTAttribute&, TTValue& newValue)
+TTErr TTLimiter::setMode(TTValue& newValue)
 {
 	attrMode = newValue;
 	if(attrMode == TT("linear"))
@@ -160,7 +160,7 @@ TTErr TTLimiter::setMode(const TTAttribute&, TTValue& newValue)
 }
 
 
-TTErr TTLimiter::setDCBlocker(const TTAttribute&, TTValue& newValue)
+TTErr TTLimiter::setDCBlocker(TTValue& newValue)
 {
 	attrDCBlocker = newValue;
 	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);

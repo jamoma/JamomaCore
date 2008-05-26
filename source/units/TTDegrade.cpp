@@ -57,7 +57,7 @@ TTErr TTDegrade::updateMaxNumChannels()
 }
 
 
-TTErr TTDegrade::setBitdepth(const TTAttribute&, const TTValue& newValue)
+TTErr TTDegrade::setBitdepth(const TTValue& newValue)
 {
 	attrBitdepth = TTClip((int)newValue, 1, 24);
 	bitShift = 24 - attrBitdepth;

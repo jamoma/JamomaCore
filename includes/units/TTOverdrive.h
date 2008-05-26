@@ -33,18 +33,18 @@ private:
 	TTErr updateMaxNumChannels();
 
 	/**	Setter for the mode attribute. */
-	TTErr setDrive(const TTAttribute&, const TTValue& value);
+	TTErr setDrive(const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setDCBlocker(const TTAttribute&, const TTValue& value);
+	TTErr setDCBlocker(const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setMode(const TTAttribute&, const TTValue& value);
+	TTErr setMode(const TTValue& value);
 
 	/**	Getter for the mode attribute. */
-	TTErr getPreamp(const TTAttribute&, TTValue& value);
+	TTErr getPreamp(TTValue& value);
 	/**	Setter for the mode attribute. */
-	TTErr setPreamp(const TTAttribute&, const TTValue& value);
+	TTErr setPreamp(const TTValue& value);
 
 	/**	Reset the DC Blocker.			*/
 	TTErr clear();

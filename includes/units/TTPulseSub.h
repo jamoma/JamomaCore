@@ -39,15 +39,15 @@ private:
 	TTErr updateSr();
 	TTErr updateMaxNumChannels();
 	
-	TTErr setTrigger(const TTAttribute&, const TTValue& newValue);
-	TTErr setAttack(const TTAttribute&, const TTValue& newValue);
-	TTErr setDecay(const TTAttribute&, const TTValue& newValue);
-	TTErr setSustain(const TTAttribute&, const TTValue& newValue);
-	TTErr setRelease(const TTAttribute&, const TTValue& newValue);
-	TTErr setMode(const TTAttribute&, const TTValue& newValue);
+	TTErr setTrigger(const TTValue& newValue);
+	TTErr setAttack(const TTValue& newValue);
+	TTErr setDecay(const TTValue& newValue);
+	TTErr setSustain(const TTValue& newValue);
+	TTErr setRelease(const TTValue& newValue);
+	TTErr setMode(const TTValue& newValue);
 
-	TTErr TTPulseSub::setFrequency(const TTAttribute&, const TTValue& newValue);
-	TTErr TTPulseSub::setLength(const TTAttribute&, const TTValue& newValue);
+	TTErr TTPulseSub::setFrequency(const TTValue& newValue);
+	TTErr TTPulseSub::setLength(const TTValue& newValue);
 	
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 	

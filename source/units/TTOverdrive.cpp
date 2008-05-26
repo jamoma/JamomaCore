@@ -45,7 +45,7 @@ TTErr TTOverdrive::updateMaxNumChannels()
 }
 
 
-TTErr TTOverdrive::setDrive(const TTAttribute&, const TTValue& newValue)
+TTErr TTOverdrive::setDrive(const TTValue& newValue)
 {
 	TTFloat64 	f;
 	int			i;
@@ -69,14 +69,14 @@ TTErr TTOverdrive::setDrive(const TTAttribute&, const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::setDCBlocker(const TTAttribute&, const TTValue& newValue)
+TTErr TTOverdrive::setDCBlocker(const TTValue& newValue)
 {
 	attrDCBlocker = newValue;
 	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);
 }
 
 
-TTErr TTOverdrive::setMode(const TTAttribute&, const TTValue& newValue)
+TTErr TTOverdrive::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;
 	if(attrMode == 0)
@@ -87,13 +87,13 @@ TTErr TTOverdrive::setMode(const TTAttribute&, const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::getPreamp(const TTAttribute&, TTValue& value)
+TTErr TTOverdrive::getPreamp(TTValue& value)
 {
 	value = linearToDb(attrPreamp);
 	return kTTErrNone;
 }
 
-TTErr TTOverdrive::setPreamp(const TTAttribute&, const TTValue& newValue)
+TTErr TTOverdrive::setPreamp(const TTValue& newValue)
 {
 	attrPreamp = dbToLinear(newValue);
 	return kTTErrNone;
