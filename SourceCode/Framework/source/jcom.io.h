@@ -25,10 +25,12 @@ typedef struct _in{
 	void			*dumpout;						///< dumpout outlet
 	void			*algout;						///< alogorithm outlet         
 	t_symbol		*attr_algorithm_type;			///< the algorithm type
-	long			num_inputs;						///< spec'd as an argument
+	long			numInputs;						///< spec'd as an argument
 	long			vector_size;					///< cached vector_size of the audio signals
 	long			last_target;					///< for poly~-based algorithms, the last target number used
-	TTAudioSignal	*signal_in;						///< last vector of audio samples for each channel (used by jcom.out~)
+	TTAudioSignal*	audioIn;
+	TTAudioSignal*	audioOut;						///< last vector of audio samples for each channel (used by jcom.out~)
+	TTAudioObject*	copier;							///< object to copy audio signals
 	float			*out_vectors[MAX_NUM_CHANNELS];
 	float			*remote_vectors[MAX_NUM_CHANNELS];
 	long			attr_bypass;					///< bypass flag for the module

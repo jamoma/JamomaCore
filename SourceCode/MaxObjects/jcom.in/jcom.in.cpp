@@ -77,7 +77,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// ATTRIBUTE: num_inputs
 	attr = attr_offset_new("num_inputs", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_in, num_inputs));
+		(method)0, (method)0, calcoffset(t_in, numInputs));
 	class_addattr(c, attr);	
 
 #ifdef JCOM_IN_TILDE
@@ -115,7 +115,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		
 		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		x->num_inputs = 0;
+		x->numInputs = 0;
 		x->attr_algorithm_type = _sym_nothing;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
@@ -124,24 +124,26 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
-			x->num_inputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
+			x->numInputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
 		} 
 		else
 			x->outlet[0] = x->algout;  // no arguments send any input out the first outlet
 
 #ifdef JCOM_IN_TILDE
-		if(x->num_inputs > 0)
-			dsp_setup((t_pxobject *)x, x->num_inputs);		// Create Object and Inlets
+		if(x->numInputs > 0)
+			dsp_setup((t_pxobject *)x, x->numInputs);		// Create Object and Inlets
 		else
 			dsp_setup((t_pxobject *)x, 1);					// Create Object and Inlet
 
 		x->common.ob.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 		
-		for(i=0; i < (x->num_inputs); i++)
+		for(i=0; i < (x->numInputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet
 		
-		x->signal_in = new TTAudioSignal(MAX_NUM_CHANNELS);
-		for(i=0; i < MAX_NUM_CHANNELS; i++){
+		x->copier = new TTAudioObject("jcom.in~ copier", x->numInputs);
+		x->audioIn = new TTAudioSignal(x->numInputs);
+		x->audioOut = new TTAudioSignal(x->numInputs);
+		for(i=0; i < x->numInputs; i++){
 			x->remote_vectors[i] = NULL;
 		}
 		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
@@ -150,8 +152,8 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 			x->inlet[i] = proxy_new(x, i, 0L);
 		for(i = x->num_inputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
-
 #endif
+
 		jcom_core_subscriber_new_common(&x->common, ps__jcom_in__, ps_subscribe_in);
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &in_subscribe);
 		attr_args_process(x, argc, argv);					// handle attribute args				
@@ -197,7 +199,9 @@ void in_free(t_in *x)
 {
 #ifdef JCOM_IN_TILDE
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
-	delete x->signal_in;
+	delete x->copier;
+	delete x->audioIn;
+	delete x->audioOut;
 #endif
 	jcom_core_subscriber_common_free(&x->common);
 }
@@ -220,9 +224,9 @@ void in_assist(t_in *x, void *b, long msg, long arg, char *dst)
 	if(msg==1) 	// Inlets
 		strcpy(dst, "(signal) input to the module");
 	else if(msg==2){ // Outlets
-		if(arg < x->num_inputs) 
+		if(arg < x->numInputs) 
 			strcpy(dst, "(signal) connect to the algorithm");
-		else if(arg == x->num_inputs) 
+		else if(arg == x->numInputs) 
 			strcpy(dst, "connect to algorithm");
 		else 
 			strcpy(dst, "dumpout");
@@ -343,6 +347,7 @@ void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 // (the work is all done in the dsp method)
 t_int *in_perform(t_int *w)
 {
+/*
   	t_in 	*x = (t_in *)(w[1]);		// Instance
 	short	n;
 	short	chan = x->num_inputs;
@@ -373,6 +378,29 @@ t_int *in_perform(t_int *w)
 		}
 	}
 	return(w+2);
+*/
+
+   	t_in		*x = (t_in *)(w[1]);
+	short		i, j;
+	TTUInt8		numChannels = x->audioIn->getNumChannels();
+	TTUInt16	vs = x->audioIn->getVectorSize();
+	
+	// Store the input from the inlets
+	for(i=0; i<numChannels; i++){
+		j = (i*2) + 1;
+		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+	}
+	
+	// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
+	x->copier->process(*x->audioIn, *x->audioOut);
+	
+	// Send the input on to the outlets for the algorithm
+	for(i=0; i<numChannels; i++){
+		j = (i*2) + 1;
+		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+	}
+
+	return w + ((numChannels*2)+2);
 }
 
 
@@ -400,6 +428,7 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 // DSP Method
 void in_dsp(t_in *x, t_signal **sp, short *count)
 {
+/*
 	short 	i, j;
 
 	in_alloc(x, sp[0]->s_n);		// Vector Size
@@ -419,17 +448,53 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 			x->out_vectors[i] = NULL;
 	}
 	dsp_add(in_perform, 1, x);
+*/
+
+	short	i, j, k=0;
+	void	**audioVectors = NULL;
+	TTUInt8		numChannels = 0;
+	TTUInt16	vs = 0;
+	
+	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->numInputs * 2) + 1));
+	audioVectors[k] = x;
+	k++;
+	
+	for(i=0; i < x->numInputs; i++){
+		j = x->numInputs + i;
+		if(count[i] && count[j]){
+			numChannels++;
+			if(sp[i]->s_n > vs)
+				vs = sp[i]->s_n;
+				
+			audioVectors[k] = sp[i]->s_vec;
+			k++;
+			audioVectors[k] = sp[j]->s_vec;
+			k++;
+		}
+	}
+	
+	x->audioIn->setNumChannels(numChannels);
+	x->audioOut->setNumChannels(numChannels);
+	x->audioIn->setVectorSize(vs);
+	x->audioOut->setVectorSize(vs);
+	//audioIn will be set in the perform method
+	x->audioOut->alloc();
+		
+	dsp_addv(in_perform, k, audioVectors);
+	sysmem_freeptr(audioVectors);
 }
 
 
 void in_alloc(t_in *x, int vector_size)
 {
+// TODO: Do we still need this?  The remote audio from jcom.send~ still needs to be re-implemented!
+/*
 	short i;
 	
 	if(vector_size != x->vector_size) {
 		x->vector_size = vector_size;
-		x->signal_in->numChannels = MAX_NUM_CHANNELS;
-		x->signal_in->vs = vector_size;
+		x->signal_in->setNumChannels(MAX_NUM_CHANNELS);
+		x->signal_in->setVectorSize(vector_size);
 		x->signal_in->alloc();
 
 		for(i=0; i < MAX_NUM_CHANNELS; i++){
@@ -438,6 +503,7 @@ void in_alloc(t_in *x, int vector_size)
 			x->remote_vectors[i] = (float*)sysmem_newptr(sizeof(float) * x->vector_size);
 		}
 	}
+*/
 }
 
 
