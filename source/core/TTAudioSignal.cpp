@@ -147,6 +147,19 @@ TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal&
 }
 
 
+TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
+{
+	TTUInt8	numChannels = signal1.numChannels;
+	
+	if(signal2.numChannels > numChannels)
+		numChannels = signal2.numChannels;
+	if(signal3.numChannels > numChannels)
+		 numChannels = signal3.numChannels;
+
+	return numChannels;
+}
+
+
 TTUInt8 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
 {
 	return signal.numChannels;
