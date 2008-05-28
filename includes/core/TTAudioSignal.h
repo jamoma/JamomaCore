@@ -92,6 +92,11 @@ public:
 		if the vectorsize is different from the current state.
 	*/
 	TTErr allocWithSize(TTUInt16 newVectorSize);
+
+	/**	Zero out all of the sample values in the audio signal.
+	*/
+	TTErr clear();
+
 	
 	/** Use this class method to determine the least number of channels the two signals have in common.
 	 *	In cases where a processAudio method expects to have a matching number of audio inputs and outputs,
