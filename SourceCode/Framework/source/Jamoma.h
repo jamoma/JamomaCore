@@ -24,10 +24,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "TTAudioObject.h"			// TTBlue Headers...
-#include "TTAudioSignal.h"
-#include "TTSymbol.h"
-#include "TTValue.h"
+#include "TTBlueAPI.h"				// TTBlue Headers...
 
 #include "jcom.core.h"
 #include "jcom.list.h"
@@ -42,13 +39,6 @@
 #include "FunctionLib.h"
 #include "RampLib.h"
 
-#ifndef NO
-#define NO 0
-#endif
-
-#ifndef YES
-#define YES 1
-#endif
 
 #define JAMOMA_UNIT_HEIGHT 70.0
 #define JAMOMA_UNIT_WIDTH 150.0

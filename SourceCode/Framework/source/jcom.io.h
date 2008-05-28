@@ -10,11 +10,7 @@
 #ifndef __JCOM_IO_H__
 #define __JCOM_IO_H__
 
-#include "TTAudioObject.h"
-#include "TTAudioSignal.h"
-#include "TTCrossfade.h"
-#include "TTGain.h"
-#include "TTRamp.h"
+#include "TTBlueAPI.h"
 
 #define MAX_NUM_CHANNELS 32
 
