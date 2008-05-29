@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jcom.receive~"
-
-EXPORTS
-	main
