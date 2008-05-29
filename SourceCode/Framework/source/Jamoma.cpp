@@ -36,8 +36,7 @@ void jamoma_init(void)
 			max5 = true;
 		common_symbols_init();
 		jamomaSymbolsInit();
-		jamoma_clock_initclass();
-		jamoma_scheduler_initclass();
+
 		receivemaster_initclass();
 		receive_initclass();
 		send_initclass();
@@ -206,7 +205,7 @@ t_symbol* jamoma_patcher_getvarname(t_object *patcher)
 // are updated if needed
 void jamoma_dsp(t_object *, t_signal **sp, short *count)
 {
-	jamoma_clock_dsp(NULL, sp, count);
+	//jamoma_clock_dsp(NULL, sp, count);
 }
 
 

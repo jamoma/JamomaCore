@@ -31,8 +31,6 @@
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
 #include "JamomaTypes.h"
-#include "JamomaClock.h"
-#include "JamomaScheduler.h"
 #include "JamomaSymbols.h"
 
 #include "DataspaceLib.h"
