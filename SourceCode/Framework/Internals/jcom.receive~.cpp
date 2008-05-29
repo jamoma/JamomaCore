@@ -42,7 +42,7 @@ static t_class		*s_audioreceive_class;
 
 /************************************************************************************/
 
-int main(void)
+void receive_tilde_initclass(void)
 {
 	long attrflags = 0;
 	t_class *c;
@@ -75,8 +75,6 @@ int main(void)
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	s_audioreceive_class = c;
-	
-	return 0;
 }
 
 

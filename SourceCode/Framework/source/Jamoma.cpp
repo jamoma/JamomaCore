@@ -40,6 +40,8 @@ void jamoma_init(void)
 		receivemaster_initclass();
 		receive_initclass();
 		send_initclass();
+		receive_tilde_initclass();
+		send_tilde_initclass();
 		
 		// Setup Class Aliases for TTBlue
 		object_method(max, meth, gensym("jcom.limiter~"), gensym("tt.limiter~"), gensym("jcom.limiter~"));

@@ -56,7 +56,7 @@ static t_class		*s_audiosend_class;					// Required: Global pointer for our clas
 
 /************************************************************************************/
 
-int main(void)
+void send_tilde_initclass(void)
 {
 	long attrflags = 0;
 	t_class *c;
@@ -89,8 +89,6 @@ int main(void)
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	s_audiosend_class = c;
-	
-	return 0;
 }
 
 
