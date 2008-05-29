@@ -154,7 +154,7 @@
 		22FD2DC30CEE5B6F0039C226 /* jcom.list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.list.h; path = source/jcom.list.h; sourceTree = "<group>"; };
 		22FD2DC40CEE5B6F0039C226 /* jcom.prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.prefix.pch; path = source/jcom.prefix.pch; sourceTree = "<group>"; };
 		22FD2DC50CEE5B6F0039C226 /* jcom.sendreceive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.sendreceive.h; path = source/jcom.sendreceive.h; sourceTree = "<group>"; };
-		22FD2DD80CEE5BB50039C226 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Info.plist; path = resources/Info.plist; sourceTree = "<group>"; };
+		22FD2DD80CEE5BB50039C226 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resources/Info.plist; sourceTree = "<group>"; };
 		22FD2DD90CEE5BB50039C226 /* infoplist_versionmaker.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; name = infoplist_versionmaker.pl; path = resources/infoplist_versionmaker.pl; sourceTree = "<group>"; };
 		55FE54220D0EAC0000683625 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CosineFunction.cpp; sourceTree = "<group>"; };
 		55FE54230D0EAC0000683625 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CosineFunction.h; sourceTree = "<group>"; };

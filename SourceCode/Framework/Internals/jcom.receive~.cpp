@@ -12,7 +12,6 @@
 
 typedef struct _audioreceive{	
 	t_pxobject		obj;
-	void			*obex;
 	void			*dumpout;						///< dumpout outlet
 
 	t_symbol		*attr_target;					///< name of the module we are sending to
@@ -47,21 +46,16 @@ void receive_tilde_initclass(void)
 	long attrflags = 0;
 	t_class *c;
 	t_object *attr;
-	
-	jamoma_init();
 
 	// Define our class
 	c = class_new("jcom.receive~", (method)audioreceive_new, (method)audioreceive_free, 
 		sizeof(t_audioreceive), (method)NULL, A_GIMME, 0);
-
-	class_obexoffset_set(c, calcoffset(t_audioreceive, obex));
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)audioreceive_bang,		"bang",			0);
 	class_addmethod(c, (method)audioreceive_dsp,		"dsp", 			A_CANT, 0);
     class_addmethod(c, (method)audioreceive_assist,		"assist", 		A_CANT, 0);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 		A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", 	A_CANT, 0);
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("target", _sym_symbol, attrflags,

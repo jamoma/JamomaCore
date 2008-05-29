@@ -28,7 +28,6 @@
 
 typedef struct _audiosend{	
 	t_pxobject		obj;
-	void			*obex;
 	void			*dumpout;						///< dumpout outlet
 
 	t_symbol		*attr_target;					///< name of the module we are sending to
@@ -62,20 +61,15 @@ void send_tilde_initclass(void)
 	t_class *c;
 	t_object *attr;
 	
-	jamoma_init();
-
 	// Define our class
 	c = class_new("jcom.send~", (method)audiosend_new, (method)audiosend_free, 
 		sizeof(t_audiosend), (method)NULL, A_GIMME, 0);
-
-	class_obexoffset_set(c, calcoffset(t_audiosend, obex));
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)audiosend_bang,			"bang",			0);
 	class_addmethod(c, (method)audiosend_dsp,			"dsp", 			A_CANT, 0);
     class_addmethod(c, (method)audiosend_assist,		"assist", 		A_CANT, 0);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 		A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", 	A_CANT, 0);
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("target", _sym_symbol, attrflags,
