@@ -78,19 +78,10 @@ def directory_of(pathstring)
 end
 
 
-#def progress_indicator(filename)
-#  print filename
-#  back = ""
-#  filename.each_byte { |c| back << "\b \b" }
-#  print back
-#end
-
-
 def processAllTestFiles(directory, suffix)
   count = 0
   Dir.foreach(directory) do |x| 
     filepath = directory + path_separator + x
- #   progress_indicator(x)
     if File.directory?(filepath) && iteratable_directory_name?(x)
       count = count + processAllTestFiles(filepath, suffix)
     elsif valid_test_file_name?(x, suffix)
@@ -102,6 +93,29 @@ def processAllTestFiles(directory, suffix)
       @oscReceiver.add_method('/test/finished', '') do |msg|
         @testDone = 1
       end
+      
+      @oscReceiver.add_method('/test/result', nil) do |msg|
+        if(msg.args[0] == "PASS")
+          puts "    PASSED: #{msg.args[1]}"
+          @passes = @passes + 1
+        else
+          if msg.args.size == 2
+            puts "    FAILED: #{msg.args[1]}     ****"
+          elsif msg.args.size == 3
+            puts "    FAILED: #{msg.args[1]} #{msg.args[2]}     ****"
+          else
+            puts "    FAILED: #{msg.args[1]} #{msg.args[2]} (#{msg.args[3]})    ****"
+          end
+          @failures = @failures + 1
+        end
+      end
+      
+      @oscReceiver.add_method('/test/log', nil) do |msg|
+        puts "    #{msg.args.to_s}"
+      end
+      
+      
+      
       
       m = OSC::Message.new("/test/open #{filepath}");
       @oscSender.send(m, 0, @host, @sendPort)
