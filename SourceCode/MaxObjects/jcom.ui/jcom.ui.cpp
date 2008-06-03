@@ -21,6 +21,8 @@ static t_jrgba		s_color_border_button		= {0.4,			0.4,		0.4,		1.0};
 static t_jrgba		s_color_text_button_on		= {0.7,			0.7,		0.7,		1.0};
 static t_jrgba		s_color_text_button_off		= {0.6,			0.6,		0.6,		1.0};
 static t_jrgba		s_color_blue_button			= {0.2,			0.2,		0.7,		1.0};
+static t_jrgba		s_color_blue_ring			= {0.4,			0.4,		0.9,		1.0};
+static t_jrgba		s_color_darkblue			= {0.1,			0.1,		0.4,		1.0};
 static t_jrgba		s_color_orange_button		= {0.8,			0.6,		0.2,		1.0};
 static t_jrgba		s_color_red_button			= {0.6,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_green_button		= {0.2,			0.7,		0.2,		1.0};
@@ -361,6 +363,12 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
 		jgraphics_stroke(g);
+		
+		
+		jgraphics_set_source_jrgba(g, &s_color_green_button);
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, 3.0); // angles are in radians
+		jgraphics_stroke(g);		
+		jgraphics_set_source_jrgba(g, &s_color_border_button);
 	}
 	
 	
@@ -394,7 +402,21 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_set_source_jrgba(g, &s_color_border_button);
 		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
 		jgraphics_stroke(g);
-				
+
+		jgraphics_set_source_jrgba(g, &s_color_darkblue);
+		
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((x->attr_mix / 100.0) * TWOPI) + (PI/2)); // angles are in radians
+		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
+		jgraphics_close_path(g);
+		jgraphics_fill(g);	
+
+		jgraphics_set_source_jrgba(g, &s_color_blue_ring);
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((x->attr_mix / 100.0) * TWOPI) + (PI/2));
+		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
+		jgraphics_stroke(g);
+		
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, TWOPI); // angles are in radians
+		jgraphics_fill(g);	
 	}
 
 
