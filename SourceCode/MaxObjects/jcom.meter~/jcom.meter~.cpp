@@ -1,206 +1,199 @@
 /* 
- * jcom.meter~
- * External for Jamoma: signal level meter
- * By Tim Place, Copyright © 2005
- * Modifications for Compiling on Windows by Thomas Grill, 2005
- * 
- * License: This code is licensed under the terms of the GNU LGPL
- * http://www.gnu.org/licenses/lgpl.html 
- */
-
-// define 
-#ifdef WIN_VERSION
-#define USE_QTML
-#endif
-
+	jcom.meter~
+	External for Jamoma: signal level meter
+	By Tim Place, Copyright © 2005
+	Modifications for Compiling on Windows by Thomas Grill, 2005
+	Re-write for Max 5 by Tim Place, 2008
+	
+	License: This code is licensed under the terms of the GNU LGPL
+	http://www.gnu.org/licenses/lgpl.html 
+  */
 
 #include "ext.h"
 #include "ext_obex.h"
 #include "ext_user.h"
 #include "ext_common.h"
-#include "Jamoma.h"			// For UI objects the run audio, the above must be declared first
+#include "jpatcher_api.h"	// jpatcher_api.h must come before z_dsp.h (in Jamoma.h)
+#include "jgraphics.h"
+#include "Jamoma.h"
+#include "TTBlue.h"
 
-#ifdef USE_QTML
-#include "ext_qtstubs.h"
-#define patcher_setport(x) (XQT_patcher_setport(x))
-#define box_nodraw(x) (XQT_box_nodraw(x))
-#define box_enddraw(x) (XQT_box_enddraw(x))
-#define SetPort(gp) (XQT_patcher_restoreport(gp))
-#define patcher_restoreport(gp) (XQT_patcher_restoreport(gp))
-#endif
 
-// Macros and Constants
-#define RES_ID			10120		// ID of our SICN resources
-#define MAXWIDTH 		1024L		// maximum width and height of user object in pixels
-#define MAXHEIGHT		512L		//		(defines maximum offscreen canvas allocation)
-#define MINWIDTH 		20L			// minimum width and height
-#define MINHEIGHT		2L			//		...
-#define DEFWIDTH 		100			// default width and height
-#define DEFHEIGHT		10			//		...
-#define POLL_INTERVAL	150			// metro time
+// Constants
+const double kPollIntervalDefault = 150;
+const double kPollIntervalMinimum = 50;
+const double kPollIntervalMaximum = 5000;
+const double kHeightDefault = 13;
+const double kHeightMinimum = 1;
+const double kHeightMaximum = 400;
+const double kWidthDefault = 80;
+const double kWidthMinimum = 1;
+const double kWidthMaximum = 1200;
+const double kOrientationVectical = 1;
+const double kOrientationHorizontal = 0;
+const double kMinimumChangeForRedraw = 0.00001;
 
-// Data Structure for our object
-typedef struct {
-	t_pxbox		my_box;				// required box structure for all audio ui externs
-	void		*obex;				// max 4.5 object extensions
-	void		*qelem;				// queue element to defer drawing commands
-	void		*clock;				// clock for polling the audio analysis results
-	
-	Rect 		rect;				// for comparing with x_box.b_rect in the update() method
-	
-	float		envelope;			// the result of the amplitude analysis [0.0, 1.0]
-	float		peak;				// the loudest sample since the last reset
-	short		peak_position;
-	short		peak_level;
-	
-	long		attr_defeat;		// turn off the meters
+
+// Instance definition
+typedef struct _meter{
+	t_pxjbox	obj;
+	t_symbol*	attrMode;			// TODO: options are 'fast' and 'pretty' -- fast mode doesn't scale properly when zooming a patcher, etc. but it's faster
+	char		attrDefeat;			// disable the meter
+	char		attrNumChannels;	// TODO: number of audio channels to display
+	float		attrInterval;		// TODO: make the polling interval dynamic
+	t_jrgba		attrBgColor;
+	t_jrgba		attrBorderColor;
+	TTFloat32	envelope;			// the result of the amplitude analysis [0.0, 1.0]
+	TTFloat32	newEnvelope;
+	TTFloat32	peak;				// the loudest sample since the last reset
+	t_jsurface*	gradientSurface;	///< precalculated and drawn gradient for the size of this instance
+	t_rect		gradientRect;
+	void*		clock;	
 } t_meter;
 
-// Prototypes for our methods:
-void *meter_new(t_symbol *s, long argc, t_atom *argv);					// Object life...
-void *meter_menu(void *p, long x, long y, long font);
-void meter_free(t_meter *x);
-void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst);	// Max Methods...
-void meter_bang(t_meter *x);
-void meter_float(t_meter *x, double value);
-void meter_int(t_meter *x, long value);
-void meter_tick(t_meter *x);
-t_int *meter_perform(t_int *w);
-void meter_dsp(t_meter *x, t_signal **sp, short *count);
-void meter_update(t_meter *x);											// UI Methods...
-void meter_click(t_meter *x, Point pt, short modifiers);
-void meter_psave(t_meter *x, void *w);
-void meter_qfn(t_meter *x);												// Draw Routines...
-void meter_draw(t_meter *x);
-t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv);
 
-// Globals
-static t_class *meter_class;
+// prototypes
+void*		meter_new(t_symbol *s, short argc, t_atom *argv);
+void		meter_free(t_meter *x);
+t_max_err	meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+void		meter_assist(t_meter *x, void *b, long m, long a, char *s);
+void		meter_bang(t_meter *x);
+void		meter_int(t_meter *x, long value);
+void		meter_float(t_meter *x, double value);
+void		meter_clock(t_meter *x);
+t_int*		meter_perform(t_int *w);
+void		meter_dsp(t_meter *x, t_signal **sp, short *count);
+void		meter_paint(t_meter *x, t_object *view);
+void*		meter_oksize(t_meter *x, t_rect *newrect);
+void		meterCacheSurface(t_meter* x);
 
-/************************************************************************************/
-// Main() Function
+
+// globals
+static t_class*	s_meter_class;
+
+
+// implementation
+#if 0
+#pragma mark -
+#pragma mark Class Definition
+#endif 0
 
 int main(void)
-{	
-	long attrflags = 0;
-	t_class *c;
-	t_object *attr;
+{
+	t_class *c = class_new("jcom.meter~", (method)meter_new, (method)meter_free, sizeof(t_meter), (method)NULL, A_GIMME, 0L);
 	
+	c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // use dictionary constructor
+	jbox_initclass(c, 0);
+	class_dspinitjbox(c);
+
 	jamoma_init();
-
-	c = class_new("jcom.meter~",(method)meter_new, (method)meter_free, (short)sizeof(t_meter), (method)meter_menu, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_meter, obex));
-
-	class_addmethod(c, (method)meter_click,		"click", A_CANT, 0L);
- 	class_addmethod(c, (method)meter_update, 	"update", A_CANT, 0L);
- 	class_addmethod(c, (method)meter_psave,		"psave", A_CANT, 0L);	
-	class_addmethod(c, (method)meter_assist, 	"assist", A_CANT, 0L); 
-	class_addmethod(c, (method)meter_bang, 		"bang", 0L);
-	class_addmethod(c, (method)meter_float,		"float", A_FLOAT, 0L);
-	class_addmethod(c, (method)meter_int,		"int", A_LONG, 0L);
- 	class_addmethod(c, (method)meter_dsp, 		"dsp", A_CANT, 0L);		
-
-	attr = attr_offset_new("defeat", _sym_long, attrflags,
-		(method)0L,(method)attr_set_defeat, calcoffset(t_meter, attr_defeat));
-	class_addattr(c, attr);
-
-	class_dspinitbox(c);									// Setup object's class to work with MSP
-
-	// Finalize our class
+	
+	class_addmethod(c, (method)meter_bang,		"bang",			0);
+	class_addmethod(c, (method)meter_int,		"int",			A_LONG, 0);
+	class_addmethod(c, (method)meter_float,		"float",		A_FLOAT, 0);	
+	class_addmethod(c, (method)meter_dsp,		"dsp",			A_CANT, 0);
+	class_addmethod(c, (method)meter_paint,		"paint",		A_CANT, 0);
+	class_addmethod(c, (method)meter_oksize,	"oksize",		A_CANT, 0);
+	class_addmethod(c, (method)meter_bang,		"mousedown",	A_CANT, 0);
+	class_addmethod(c, (method)meter_notify,	"notify",		A_CANT, 0);
+	class_addmethod(c, (method)meter_assist,	"assist",		A_CANT, 0);
+	
+//	CLASS_ATTR_FLOAT(c,					"interval",			0,	t_meter, attrInterval);
+//	CLASS_ATTR_FILTER_CLIP(c,			"interval",			kPollIntervalMinimum, kPollIntervalMaximum);
+//	CLASS_ATTR_DEFAULT_SAVE(c,			"interval",			0,	"150");
+//	CLASS_ATTR_LABEL(c,					"interval",			0,	"Refresh Interval in Milliseconds");
+		
+//	CLASS_ATTR_RGBA(c,					"bordercolor",		0,	t_meter, attrBorderColor);
+//	CLASS_ATTR_STYLE_LABEL(c,			"bordercolor",		0,	"rgba",	"Border Color");
+//	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,	"bordercolor",		0,	"0.2 0.2 0.2 1.");
+	
+	CLASS_ATTR_DEFAULT(c,				"patching_rect",	0,	"0. 0. 100. 12.");
+//	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,	"bgcolor",			0,	"0.1 0.1 0.1 1.0");
+	
 	class_register(CLASS_BOX, c);
-	meter_class = c;
+	s_meter_class = c;		
 	return 0;
 }
 
 
-/************************************************************************************/
-// Object Life
 
-// when the UI external is read-in from a patcher file...
-void *meter_new(t_symbol *s, long argc, t_atom *argv)
+
+#if 0
+#pragma mark -
+#pragma mark Life Cycle
+#endif 0
+
+void *meter_new(t_symbol *s, short argc, t_atom *argv)
 {
-	t_meter *x;
-	void *patcher;
-	long x_coord, y_coord, width, height;
-	//short bw, bh, flags;
-	short flags;
+	t_meter*	x;
+	t_jbox*		box;
+	long		flags;
 	
-	x = (t_meter*)object_alloc(meter_class);
-	if(x){
-		dsp_setupbox((t_pxbox *)x, 1);
+	t_dictionary *d=NULL;
 	
-		patcher = argv[0].a_w.w_obj;					// patcher
-		x_coord = argv[1].a_w.w_long;					// x coord
-		y_coord = argv[2].a_w.w_long;					// y coord
-		width = argv[3].a_w.w_long;						// width
-		height = argv[4].a_w.w_long;					// height
+	if (!(d=object_dictionaryarg(argc,argv)))
+		return NULL;
+	
+	x = (t_meter *)object_alloc(s_meter_class);
+	
+	flags = 0 
+		| JBOX_DRAWFIRSTIN 
+		| JBOX_NODRAWBOX
+		| JBOX_DRAWINLAST
+	//	| JBOX_TRANSPARENT	
+	//	| JBOX_NOGROW
+	//	| JBOX_GROWY
+		| JBOX_GROWBOTH
+	//	| JBOX_HILITE
+	//	| JBOX_BACKGROUND
+	//	| JBOX_DRAWBACKGROUND
+	//	| JBOX_NOFLOATINSPECTOR
+	//	| JBOX_TEXTFIELD
+	//	| JBOX_MOUSEDRAGDELTA
+	//	| JBOX_TEXTFIELD
+	;
+	
+	box = (t_jbox *)x;
+	jbox_new(box, flags, argc, argv);
+	x->obj.z_box.b_firstin = (t_object*)x;
+	dsp_setupjbox((t_pxjbox *)x, 1);
+	x->clock = clock_new(x, (method)meter_clock);
 			
-		width = CLIP(width, MINWIDTH, MAXWIDTH); 		// constrain to min and max size
-		height = CLIP(height, MINHEIGHT, MAXHEIGHT);	// constrain to min and max size
-		
-		// set flags with which our t_box struct will be initialized:
-		//	F_DRAWFIRSTIN - Draw the first inlet
-		//	F_NODRAWBOX - don't draw the box
-		//	F_GROWBOTH - can grow independently in both width and height
-		//	F_DRAWINLAST - draws inlets after box draws
-		//	F_SAVVY - tells Max any queue function you make calls box_enddraw()
-		flags = F_DRAWFIRSTIN | F_NODRAWBOX | F_GROWBOTH | F_DRAWINLAST | F_SAVVY;
-	
-		// now actually initialize the t_box structure
-		box_new((t_box *)x, (t_patcher *)patcher, flags, x_coord, y_coord, x_coord + width, y_coord + height);
-
-		// Reassign the box's firstin field to point to our new object
-		x->my_box.z_box.b_firstin = (void *)x;
-		
-		// Cache rect for comparisons when the user decides to re-size the object
-		x->rect = x->my_box.z_box.b_rect;
-
-		// Create our queue element for defering calls to the draw function
-		x->qelem = qelem_new(x, (method)meter_qfn);
-
-		// Create clock routine for polling the audio result
-		x->clock = clock_new(x, (method)meter_tick);
-
-		// Set defaults
-		x->envelope = 0;
-		x->peak = 0;
-		
-		// Finish it up...
-		box_ready((t_box *)x);
-	}
-	else
-		error("jcom.meter~ - could not create instance");
-	return(x);
+	attr_dictionary_process(x,d);
+	jbox_ready((t_jbox *)x);
+	return x;
 }
 
 
-// if the user selects our object from the toolbar/menu, we supply the _new method with default values
-void *meter_menu(void *p, long x, long y, long font)
-{
-	t_atom argv[5];		// reduced to 5 on 24 nov 2004
-	
-	SETOBJ(argv, (t_object *)p);				// patcher
-	SETLONG(argv+1, x);							// x coord
-	SETLONG(argv+2, y);							// y coord
-	SETLONG(argv+3, DEFWIDTH);					// width
-	SETLONG(argv+4, DEFHEIGHT);					// height
-	
-	return meter_new(gensym("jcom.meter~"), 5, argv);
-}
-
-
-// delete
 void meter_free(t_meter *x)
-{
-	dsp_freebox((t_pxbox *)x);			// a version of dsp_free() for ui objects
-	qelem_free(x->qelem);				// delete our qelem
-	freeobject((t_object *)x->clock);	// delete our clock
-	box_free((t_box *)x);				// free the ui box
+{	
+	notify_free((t_object *)x);
+	dsp_freejbox((t_pxjbox *)x);
+	jgraphics_surface_destroy(x->gradientSurface);
+	object_free((t_object *)x->clock);
+	jbox_free((t_jbox *)x);
 }
 
 
-/************************************************************************************/
-// Methods bound to input/inlets
+#if 0
+#pragma mark -
+#pragma mark Methods
+#endif 0
+
+t_max_err meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+{
+	t_symbol*	name;
+	
+	if(msg == _sym_attr_modified){
+		name = (t_symbol *)object_method((t_object *)data, _sym_getname);
+		if(name == _sym_bgcolor)
+			jbox_redraw((t_jbox*)x);
+	}
+	
+	jbox_notify((t_jbox *)x, s, msg, sender, data);
+	return MAX_ERR_NONE;
+}
+
 
 // Method for Assistance Messages
 void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst)
@@ -210,7 +203,7 @@ void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst)
 	else if(msg==2){ 				// Outlets
 		switch(arg){
 			case 0: strcpy(dst, "Output"); break;
-			//case 1: strcpy(dst, "Attribute Stuff"); break;
+				//case 1: strcpy(dst, "Attribute Stuff"); break;
  		}
  	}		
 }
@@ -219,265 +212,173 @@ void meter_assist(t_meter *x, void *b, long msg, long arg, char *dst)
 // Method: bang - clear the peak hold and redraw
 void meter_bang(t_meter *x)
 {
-	x->peak = 0;	// reset the peak hold
-	qelem_set(x->qelem);
+	x->peak = 0;
+	jbox_redraw((t_jbox*)x);
 }
 
 
-// Method: float - can be used instead of a signal
+void meter_int(t_meter *x, long value)
+{
+	meter_float(x,(double)value);
+}
+
 void meter_float(t_meter *x, double value)
 {
 	x->envelope = value;
-	qelem_set(x->qelem);
-}
-
-// cast to float...
-void meter_int(t_meter *x, long value)
-{
-	meter_float(x, (double)value);
-}
-
-// Attribute: defeat
-t_max_err attr_set_defeat(t_meter *x, void *attr, long argc, t_atom *argv)
-{
-	x->attr_defeat = atom_getlong(argv);
-	if(x->attr_defeat == 0) 
-		clock_delay(x->clock, POLL_INTERVAL); 	// start the clock
-
-	return MAX_ERR_NONE;
-	#pragma unused(attr)
+	jbox_redraw((t_jbox*)x);
 }
 
 
-// Method: triggered by our clock
-void meter_tick(t_meter *x)
-{
-	qelem_set(x->qelem); 							// draw the meters
+void meter_clock(t_meter *x)
+{	
+	double delta = fabs(x->newEnvelope - x->envelope);
+	
+	// Only re-draw if there was a change of some significance
+	if(delta > kMinimumChangeForRedraw){	
+		x->envelope = x->newEnvelope;
+		jbox_redraw((t_jbox *)x);
+	}
+	else
+		x->envelope = x->newEnvelope;
+
+	x->newEnvelope = 0;
 
 	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
-		if(x->attr_defeat == 0)
-			clock_delay(x->clock, POLL_INTERVAL); 	// schedule the clock
+		if(x->attrDefeat == 0)
+			clock_delay(x->clock, kPollIntervalDefault);
 	}
 }
 
 
-// Method: perform signal processing
+#if 0
+#pragma mark -
+#pragma mark Signal Processing
+#endif 0
+
 t_int *meter_perform(t_int *w)
 {
 	t_meter		*x = (t_meter *)(w[1]);
 	t_float		*input = (float *)(w[2]);
 	long 		n = (long)(w[3]);
 	float 		currentvalue;
+	
+	if(x->obj.z_disabled)
+		goto out;
 
 	while(n--){
 		currentvalue = ((*input) < 0)?-(*input):*input; // get the current sample's absolute value
-		if(currentvalue > x->envelope) 					// if it's a new peak amplitude...
-			x->envelope = currentvalue;
+		if(currentvalue > x->newEnvelope) 				// if it's a new peak amplitude...
+			x->newEnvelope = currentvalue;
 		input++; 										// increment pointer in the vector
 	}
-	return (w+4);
-}		
+out:
+	return w+4;
+}
 
 
-// Method: compile dsp chain
 void meter_dsp(t_meter *x, t_signal **sp, short *count)
-{		
+{
 	if(count[0]){
 		dsp_add(meter_perform, 3, x, sp[0]->s_vec, sp[0]->s_n);
-		clock_delay(x->clock, POLL_INTERVAL); 			// start the clock
+		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
 		x->peak = 0;
 	}
 }
 
 
-/************************************************************************************/
-// Required UI Object Methods
+#if 0
+#pragma mark -
+#pragma mark User Interface
+#endif 0
 
-// Sent when our object needs to be redrawn
-//	(this is already at low priority and does not need to be deferred)
-void meter_update(t_meter *x)
+void *meter_oksize(t_meter *x, t_rect *newrect)
 {
-	short width_old = x->rect.right - x->rect.left;
-	short height_old = x->rect.bottom - x->rect.top;
-	short width_new = x->my_box.z_box.b_rect.right - x->my_box.z_box.b_rect.left;
-	short height_new = x->my_box.z_box.b_rect.bottom - x->my_box.z_box.b_rect.top;
-
-	if(height_new != height_old || width_new != width_old) {
-		width_new = CLIP(width_new, MINWIDTH, MAXWIDTH); // constrain to min and max size
-		height_new = CLIP(height_new, MINHEIGHT, MAXHEIGHT);
-		box_size(&x->my_box, width_new, height_new);	// this function actually resizes out t_box structure
-		x->rect = x->my_box.z_box.b_rect;
-		
-		//xgui_allocoffscreen(x); // (existing offsceen is disposed inside)
-	}
-
-	GrafPtr	gp = patcher_setport(x->my_box.z_box.b_patcher);
-    meter_draw(x);
-    patcher_restoreport(gp); 
+	TTClip(newrect->width, kWidthMinimum, kWidthMaximum);
+	TTClip(newrect->height, kHeightMinimum, kHeightMaximum);
+	meterCacheSurface(x);	// Now draw the gradient and cache it in our surface
+	return (void*)1;
 }
 
 
-// If the user clicks on the object
-void meter_click(t_meter *x, Point pt, short modifiers)
-{ 
-	meter_bang(x);		// reset the peak hold
-}
-
-
-// Save our UI object's location and appearance with the patcher...
-void meter_psave(t_meter *x, void *w)
+void meterCacheSurface(t_meter* x)
 {
-	Rect r = x->my_box.z_box.b_rect;
-	t_atom argv[16];
-	short inc = 0;
+	t_jrgba	color;
+	t_jbox*	box = (t_jbox*)x;
+	int		i, j;
 	
-	SETSYM(argv,gensym("#P"));
-	if (x->my_box.z_box.b_hidden) {	// i.e. if it's hidden when the patcher is locked
-		SETSYM(argv+1,gensym("hidden"));
-		inc = 1;
+	x->gradientRect.x = 0;
+	x->gradientRect.y = 0;
+	x->gradientRect.width = box->b_patching_rect.width * 0.96;
+	x->gradientRect.height = box->b_patching_rect.height;	
+
+	if(x->gradientSurface)
+		jgraphics_surface_destroy(x->gradientSurface);
+	
+	x->gradientSurface = jgraphics_image_surface_create(JGRAPHICS_FORMAT_ARGB32, x->gradientRect.width, x->gradientRect.height);
+	
+	color.red = 0.0;
+	color.green = 1.0;
+	color.blue = 0.0;
+	color.alpha = 1.0;
+
+	//TODO: switch orientations
+	for(i=0; i < x->gradientRect.width; i++){
+		color.red = i / x->gradientRect.width;	
+		for(j=0; j < x->gradientRect.height; j++)
+			jgraphics_image_surface_set_pixel(x->gradientSurface, i, j, color);
 	}
-	SETSYM(argv+1+inc, gensym("user"));
-	SETSYM(argv+2+inc, ob_sym(x));
-	SETLONG(argv+3+inc, r.left);			// x
-	SETLONG(argv+4+inc, r.top);				// y
-	SETLONG(argv+5+inc, r.right - r.left);	// width
-	SETLONG(argv+6+inc, r.bottom - r.top);	// height
-	
-	binbuf_insert(w, 0L, 7+inc, argv);
 }
 
 
-/************************************************************************************/
-// Drawing Routines
-
-// The deferred routine called by our Qelem
-void meter_qfn(t_meter *x)
+void meter_paint(t_meter *x, t_object *view)
 {
-	GrafPtr gp = patcher_setport(x->my_box.z_box.b_patcher);
-
-	if(gp){				// if the pointer is valid...
-		if(!box_nodraw((t_box *)x)){
-			meter_draw(x);
-			box_enddraw((t_box *) x);
-		}
-	}
-	SetPort(gp);
-}
-
-
-// The actual drawing routine
-void meter_draw(t_meter *x)   
-{ 
-	GrafPtr		curPort;
-	GDHandle	curDevice; 
-	RGBColor	frgb, old_color; 
-	Rect		rect_ui = x->my_box.z_box.b_rect;
-	Rect		rect_temp;
-	short		i; 
-	short		width_ui = x->my_box.z_box.b_rect.right - x->my_box.z_box.b_rect.left;
-	short		height_ui = x->my_box.z_box.b_rect.bottom - x->my_box.z_box.b_rect.top;
-	short		width_green = 0.96 * width_ui;		// 96% of total width
-	short		width_red = width_ui - width_green;	// 4% of total width
-	short		left = x->my_box.z_box.b_rect.left;
-	float		level;
-	short		position;
-
-	GetGWorld((CGrafPtr *)&curPort, &curDevice);
-	GetForeColor(&old_color);
-	PenMode(srcCopy);
-
-	frgb.blue = 0;
-	frgb.green = 65535;
-
-	rect_temp.top = x->my_box.z_box.b_rect.top;
-	rect_temp.bottom = x->my_box.z_box.b_rect.bottom;
-
-	level = CLIP(x->envelope, 0.0, 1.0);		// get the amplitude
+	t_rect			rect;
+	t_jgraphics*	g;
+	double			level = TTClip(x->envelope, 0.0f, 1.0f);
+	double			position;
+	double			peakPosition;
+	t_jrgba			c;
 	
-	if(level >= 1.0){
-		x->peak = 1.0;
-		// Draw Green
-		for(i=0; i<width_green; i++){
-			rect_temp.left = left + i;
-			rect_temp.right = rect_temp.left + 1;
+	if(level > 0.0)
+		level = pow(level, kGainMidiPowerInv);	// this is taken from the midi conversion in the Gain Dataspace
+	
+	g = (t_jgraphics*) patcherview_get_jgraphics(view);		// obtain graphics context
+	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
+	rect.x = 0;
+	rect.y = 0;
+	position = rect.width * level * 0.96;
+	peakPosition = rect.width * x->peak * 0.96;
 
-			frgb.red = (i * 65535) / width_green;	
-			RGBForeColor(&frgb);
-			PaintRect(&rect_temp);
-		}
+	if(level > x->peak)
+		x->peak = level;
+						
+	// TODO: Can we export this from the kernel???	
+	//	jgraphics_image_surface_draw_fast(g, x->gradientSurface);
+	jgraphics_image_surface_draw(g, x->gradientSurface, x->gradientRect, rect);
+	
+	c.red = c.green = c.blue = 0.1;
+	c.alpha = 1.0;
+	jgraphics_set_source_jrgba(g, &c);
+	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);
 
-		rect_temp.left = left + i;
-		rect_temp.right = left + width_ui;
-
-		// Draw Red
-		frgb.green = 0;
-		RGBForeColor(&frgb);
-		PaintRect(&rect_temp);
-
-		goto out;
-	}
-	if(level >= 0.0) {
-		level = CLIP(20. * (log10(level)), -96.0, 0.0);	// convert to decibels
-		level = -(96 - (exp((level) * 0.0344014267) * 96));
-		position = (width_green) + (level * 0.0104166667 * width_green);
-
-		// Draw Green
-		for(i=0; i<position; i++){
-			frgb.red = (i * 65535) / width_green;	
-			RGBForeColor(&frgb);
-			MoveTo(left+i, rect_temp.top);
-			Line(0, height_ui);
-		}
-		rect_temp.left = left + i;
-		rect_temp.right = left + width_ui;
-
-		// Draw Gray
-		frgb.red = 8000;
-		frgb.green = 8000;
-		frgb.blue = 8000;
-		RGBForeColor(&frgb);
-		PaintRect(&rect_temp);
+	if(x->envelope > 1.0 || x->peak > 1.0){
+		c.red = 1.0;
+		c.green = c.blue = 0.0;
+		c.alpha = 1.0;
+		jgraphics_set_source_jrgba(g, &c);
+		jgraphics_rectangle_fill_fast(g, rect.width - (rect.width * .04), 0, rect.width * .04, rect.height);
 	}
 	else{
-		// Draw Gray
-		frgb.red = 8000;
-		frgb.green = 8000;
-		frgb.blue = 8000;
-		RGBForeColor(&frgb);
-		PaintRect(&rect_ui);
+		c.red = peakPosition / x->gradientRect.width;
+		c.green = 1.0;
+		c.blue = 0.0;
+		jgraphics_set_source_jrgba(g, &c);
+		// TODO: Can we export this from the kernel???	
+		// jgraphics_line_draw_fast(g, rect.width * level * 0.96, 0, rect.width * level * 0.96, rect.height, 1.0);
+		jgraphics_move_to(g, peakPosition, 0.0);
+		jgraphics_line_to(g, peakPosition, rect.height);
+		jgraphics_set_line_width(g, 1.0);
+		jgraphics_stroke(g);
 	}
-	
-	// Peak Hold
-	if(x->envelope > x->peak){
-		x->peak = x->envelope;
-		x->peak_position = position;
-		x->peak_level = level;
-	}
-
-	if((x->peak > 0) && (x->peak <1)){	// Green Range
-		rect_temp.left = x->peak_position + left;
-		rect_temp.right = rect_temp.left + 1;
-		frgb.green = 65535;
-		frgb.red = x->peak_level * 5653.5;
-		RGBForeColor(&frgb);
-		PaintRect(&rect_temp);
-	}
-	else if(x->peak > 0){				// Red Range
-		rect_temp.left = left + width_green;
-		rect_temp.right = x->my_box.z_box.b_rect.right;
-		frgb.red = 65535;
-		frgb.green = 0;
-		frgb.blue = 0;
-		RGBForeColor(&frgb);
-		PaintRect(&rect_temp);
-	}
-	
-out:
-	x->envelope = 0;								// reset the amplitude tracker
-
-	PenNormal();
-	RGBForeColor(&old_color);	
 }
-
-
 
