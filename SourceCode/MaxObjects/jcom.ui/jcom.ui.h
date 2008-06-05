@@ -62,12 +62,17 @@ typedef struct _ui{
 	long				attr_hasgain;
 	float				attr_gain;
 	t_rect				rect_gain;
+	bool				gainDragging;
 	
 	long				attr_hasmix;
 	float				attr_mix;
 	t_rect				rect_mix;
+	bool				mixDragging;
 
 	t_symbol			*attr_modulename;
+	
+	t_pt				anchor;				// used for dragging the dials
+	float				anchorValue;		//	...
 } t_ui;
 
 

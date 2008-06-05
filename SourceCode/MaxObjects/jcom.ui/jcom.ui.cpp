@@ -20,12 +20,18 @@ static t_jrgba		s_color_background_button	= {0.2,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_border_button		= {0.4,			0.4,		0.4,		1.0};
 static t_jrgba		s_color_text_button_on		= {0.7,			0.7,		0.7,		1.0};
 static t_jrgba		s_color_text_button_off		= {0.6,			0.6,		0.6,		1.0};
+
 static t_jrgba		s_color_blue_button			= {0.2,			0.2,		0.7,		1.0};
-static t_jrgba		s_color_blue_ring			= {0.4,			0.4,		0.9,		1.0};
-static t_jrgba		s_color_darkblue			= {0.1,			0.1,		0.4,		1.0};
+static t_jrgba		s_color_blue_ring			= {0.45,		0.45,		1.0,		1.0};
+static t_jrgba		s_color_darkblue			= {0.1,			0.1,		0.5,		1.0};
+
 static t_jrgba		s_color_orange_button		= {0.8,			0.6,		0.2,		1.0};
 static t_jrgba		s_color_red_button			= {0.6,			0.2,		0.2,		1.0};
+
 static t_jrgba		s_color_green_button		= {0.2,			0.7,		0.2,		1.0};
+static t_jrgba		s_color_green_ring			= {0.35,		0.85,		0.35,		1.0};
+static t_jrgba		s_color_darkgreen			= {0.1,			0.5,		0.1,		1.0};
+
 
 #pragma mark -
 #pragma mark life cycle
@@ -161,15 +167,11 @@ t_ui* ui_new(t_symbol *s, short argc, t_atom *argv)
 		flags = 0 
 				| JBOX_DRAWFIRSTIN
 				| JBOX_NODRAWBOX
-		//		| JBOX_DRAWINLAST
 				| JBOX_TRANSPARENT	
-		//		| JBOX_NOGROW
-		//		| JBOX_GROWY
 				| JBOX_GROWBOTH
-		//		| JBOX_IGNORELOCKCLICK
 				| JBOX_HILITE
 				| JBOX_BACKGROUND
-		//		| JBOX_NOFLOATINSPECTOR
+				| JBOX_MOUSEDRAGDELTA
 				| JBOX_TEXTFIELD
 				;
 
@@ -334,6 +336,7 @@ void ui_paint(t_ui *x, t_object *view)
 	// draw the gain knob
 	if(x->attr_hasgain){
 		long right_side = rect.width - 16.0;
+		float gain = TTClip(x->attr_gain, 0.0f, 127.0f);
 
 		if(x->attr_hasmix)
 			right_side -= 16.0;
@@ -348,10 +351,7 @@ void ui_paint(t_ui *x, t_object *view)
 		if(x->attr_hasinspector)
 			right_side -= 16.0;
 	
-		//if(x->attr_ismuted)
-		//	jgraphics_set_source_rgb(g, 0.6, 0.2, 0.2);
-		//else
-			jgraphics_set_source_jrgba(g, &s_color_background_button);
+		jgraphics_set_source_jrgba(g, &s_color_background_button);
 		
 		x->rect_gain.x = right_side;
 		x->rect_gain.width = 13.0;
@@ -364,17 +364,27 @@ void ui_paint(t_ui *x, t_object *view)
 		jgraphics_oval(g, right_side, 3.0, 13.0, 13.0);
 		jgraphics_stroke(g);
 		
+		jgraphics_set_source_jrgba(g, &s_color_darkgreen);
 		
-		jgraphics_set_source_jrgba(g, &s_color_green_button);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, 3.0); // angles are in radians
-		jgraphics_stroke(g);		
-		jgraphics_set_source_jrgba(g, &s_color_border_button);
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((gain / 127.0) * TWOPI) + (PI/2)); // angles are in radians
+		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
+		jgraphics_close_path(g);
+		jgraphics_fill(g);	
+		
+		jgraphics_set_source_jrgba(g, &s_color_green_ring);
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((gain / 127.0) * TWOPI) + (PI/2));
+		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
+		jgraphics_stroke(g);
+		
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 1.5, 0, TWOPI); // angles are in radians
+		jgraphics_fill(g);	
 	}
 	
 	
 	// draw the mix knob
 	if(x->attr_hasmix){
 		long right_side = rect.width - 16.0;
+		float mix = TTClip(x->attr_mix, 0.0f, 100.0f);
 
 		if(x->attr_hasmute)
 			right_side -= 16.0;
@@ -387,10 +397,7 @@ void ui_paint(t_ui *x, t_object *view)
 		if(x->attr_hasinspector)
 			right_side -= 16.0;
 	
-		//if(x->attr_ismuted)
-		//	jgraphics_set_source_rgb(g, 0.6, 0.2, 0.2);
-		//else
-			jgraphics_set_source_jrgba(g, &s_color_background_button);
+		jgraphics_set_source_jrgba(g, &s_color_background_button);
 		
 		x->rect_mix.x = right_side;
 		x->rect_mix.width = 13.0;
@@ -405,13 +412,13 @@ void ui_paint(t_ui *x, t_object *view)
 
 		jgraphics_set_source_jrgba(g, &s_color_darkblue);
 		
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((x->attr_mix / 100.0) * TWOPI) + (PI/2)); // angles are in radians
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((mix / 100.0) * TWOPI) + (PI/2)); // angles are in radians
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_close_path(g);
 		jgraphics_fill(g);	
 
 		jgraphics_set_source_jrgba(g, &s_color_blue_ring);
-		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((x->attr_mix / 100.0) * TWOPI) + (PI/2));
+		jgraphics_arc(g, right_side+6.5, 3.0+6.5, 6.5, PI / 2, ((mix / 100.0) * TWOPI) + (PI/2));
 		jgraphics_line_to(g, right_side+6.5, 3.0+6.5);
 		jgraphics_stroke(g);
 		
@@ -602,7 +609,7 @@ void ui_paint(t_ui *x, t_object *view)
 
 void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 {
-	t_rect rect;
+	t_rect	rect;
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
 	if(px.y > 20.0)	// we only handle clicks in the title bar
@@ -611,10 +618,14 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	if(px.x > (rect.width - 120)){
 		// we check the gain and mix knobs first because they are continuous parameters and should run as fast as possible
 		if(x->attr_hasgain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)){
-			post("mousedown for gain");
+			x->gainDragging = true;
+			x->anchor.x = x->anchor.y = 0.0;
+			x->anchorValue = x->attr_gain;			
 		}
 		else if(x->attr_hasmix && px.x >= x->rect_mix.x && px.x <= (x->rect_mix.x + x->rect_mix.width)){
-			post("mousedown for mix");
+			x->mixDragging = true;
+			x->anchor.x = x->anchor.y = 0.0;
+			x->anchorValue = x->attr_mix;			
 		}
 		else if(x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
 			; // TODO: send the /inspector message to the hub
@@ -634,101 +645,32 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 }
 
 
-/*
-void jdial_mousedown(t_jdial *x, t_object *patcherview, t_pt pt, long modifiers)
-{
-	t_rect rect;
-	Point p;
-	
-	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
-
-	if (! jdial_is_inside(x, &pt, &rect))
-		goto nodragdelta;
-	
-	p.h = (short)(pt.x+0.5);
-	p.v = (short)(pt.y+0.5);
-	
-	if (x->x_vtracking)
-		x->x_prevclick = p; // might only need mousedragdelta to do this
-	else {
-		Rect r;
-		Point center;
-		
-		qd_TRectToRectZero(&rect,&r);
-
-		center.h = r.left + (r.right-r.left)/2;
-		center.v = r.top + (r.bottom-r.top)/2;
-		
-		x->x_loc = pt;
-		x->x_val = DialPtToVal(x, p, center);
-	}
-	
-	//jdial_mouse(x, p);
-	jdial_output(x);
-	jbox_redraw((t_jbox *)x);
-	object_notify(x, ps_modified, NULL);
-	
-	jbox_set_mousedragdelta((t_object*) x, 1);
-	return;
-	
-nodragdelta:
-	jbox_set_mousedragdelta((t_object*) x, 0);	// stop mousedragdelta from happening
-	return; 
-}
-*/
-
-
 // mousedragdelta sends the amount the mouse moved in t_pt
 void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-/*	Point p;
-	long val;
-
-	x->x_loc.x += pt.x;
-	x->x_loc.y += pt.y;	
-	p.h = (short)(x->x_loc.x+0.5);
-	p.v = (short)(x->x_loc.y+0.5);
+	t_rect	rect;
+	double	factor = 1.0;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
 	
-	if (x->x_vtracking) {
-		val = x->x_val - (short)(pt.y+0.5);
-		x->x_val = (x->x_clip) ? CLIP(val, 0, x->x_size-1) : (val+x->x_size) % x->x_size;
-	}
-	else {		
-		t_rect rect;
-		Rect r;
-		Point center;
-		
-		jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
-		qd_TRectToRectZero(&rect,&r);
-		center.h = r.left + (r.right-r.left)/2;
-		center.v = r.top + (r.bottom-r.top)/2;
-		
-		// need to eventually implement clip with circular tracking
-		x->x_val = DialPtToVal(x, p, center);
-	}
+	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
-	//jdial_mouse(x, p);
-	jdial_output(x);
-	jbox_redraw((t_jbox *)x);
-	object_notify(x, ps_modified, NULL);
-*/
+	if(modifiers & eShiftKey)
+		factor = 50.0;
+	
+	if(x->mixDragging){
+		x->anchorValue = TTClip(x->anchorValue - (pt.y / factor), 0.0, 100.0);
+		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
+	}
+	else if(x->gainDragging){
+		x->anchorValue = TTClip(x->anchorValue - (pt.y / factor), 0.0, 127.0);
+		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
+	}
 }
 
 
 void ui_mouseup(t_ui *x, t_object *patcherview)
 {
-/*
-	t_rect rect;
-	t_pt pt;
-	double angle, inset;
-
-	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
-	angle = DialValToAngle(x,x->x_val);
-	inset = rect.width * .37;
-	DialPtFromAngleAmp(x, &rect, &pt, angle, inset);  // edge inset
-	
-	jmouse_setposition_box(patcherview, (t_object *)x, pt.x, pt.y); // move the cursor at a descent position
-*/
+	x->mixDragging = false;
+	x->gainDragging = false;
 }
 
 
