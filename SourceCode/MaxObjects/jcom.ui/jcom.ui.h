@@ -80,6 +80,7 @@ typedef struct _ui{
 t_ui*		ui_new(t_symbol *s, short argc, t_atom *argv);
 void 		ui_free(t_ui *x);
 void 		ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+void		ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv);
 void 		ui_bang(t_ui *x);
 // prototypes: drawing/ui
 void 		ui_paint(t_ui *x, t_object *view);

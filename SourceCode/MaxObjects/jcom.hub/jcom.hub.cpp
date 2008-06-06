@@ -77,6 +77,7 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
 
 	// ATTRIBUTE: name
+	// TODO: need a custom setter so that we can update the display of the module name in the ui
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_hub, attr_name));
 	class_addattr(c, attr);
@@ -91,11 +92,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0, (method)0, calcoffset(t_hub, attr_size));
 	class_addattr(c, attr);
 
-	// ATTRIBUTE: skin ['default', etc.]
-	attr = attr_offset_new("skin", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_hub, attr_skin));
-	class_addattr(c, attr);
-	
 	// ATTRIBUTE: algorithm_type [poly, blue, none, control, jitter, video, default, etc.]
 	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_hub, attr_algorithm_type));
@@ -147,7 +143,6 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_type = ps_control;
 		x->attr_description = _sym_nothing;
 		x->attr_algorithm_type = ps_default;		// poly for audio, jitter for video, control for control
-		x->attr_skin = ps_default;					// default tells the gui constructor js to choose for us
 		x->attr_size = ps_1U_half;
 		x->attr_inspector = 0;
 		x->using_wildcard = false;
@@ -638,60 +633,24 @@ void hub_gui_build(t_hub *x)
 	subscriberList 	*subscriber = x->subscriber;
 
 	if(x->gui_object != NULL){
-		t_atom a[3];
+		t_atom				a[3];
+		subscriberIterator	i;
+		t_subscriber*		t;
 		
-		atom_setsym(&a[0], ps_ATTRIBUTES);
-		if(x->attr_size){
-			atom_setsym(&a[1], ps_size);
-			atom_setsym(&a[2], x->attr_size);
-			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
-		}
-		if(x->attr_inspector){
-			atom_setsym(&a[1], ps_inspector);
-			atom_setlong(&a[2], x->attr_inspector);
-			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
-		}
-		if(x->attr_algorithm_type){
-			atom_setsym(&a[1], ps_algorithm_type);
-			atom_setsym(&a[2], x->attr_algorithm_type);
-			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
-		}
-		if(x->attr_type){
-			atom_setsym(&a[1], ps_module_type);
-			atom_setsym(&a[2], x->attr_type);
-			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
-		}
-		if(x->attr_skin){
-			atom_setsym(&a[1], ps_skin);
-			atom_setsym(&a[2], x->attr_skin);
-			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
-		}
-		if(x->osc_name){
-			atom_setsym(&a[1], ps_MODULE_TITLE);
-			atom_setsym(&a[2], x->osc_name);
-			object_method_typed(x->gui_object, ps_dispatched, 3, a, NULL);
-		}
-		if(x->attr_name){
-			atom_setsym(&a[0], ps_MODULE_NAME);
-			atom_setsym(&a[1], x->attr_name);
-			object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
-		}
-		
-		subscriberIterator i;
-		t_subscriber* t;
 		critical_enter(0);
 		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 			t = *i;
-			if((t->type == ps_subscribe_message) || t->type == ps_subscribe_parameter){
-				atom_setsym(&a[0], ps_PARAMETER);
-				atom_setsym(&a[1], t->name);
+			if((t->type == ps_subscribe_remote) && t->name == ps__gui__){
+				atom_setsym(&a[0], gensym("module_name"));
+				atom_setsym(&a[1], x->osc_name);
+				object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
+				
+				atom_setsym(&a[0], gensym("module_type"));
+				atom_setsym(&a[1], x->attr_type);
 				object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
 			}
 		}
 		critical_exit(0);
-
-		atom_setsym(&a[0], ps_BUILD);		
-		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
 	}
 }
 

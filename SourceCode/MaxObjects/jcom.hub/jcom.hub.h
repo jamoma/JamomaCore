@@ -75,7 +75,6 @@ typedef struct _hub{							///< Data Structure for this object
 	t_symbol		*attr_type;					///< ATTRIBUTE: what kind of module is this?  (audio, video, control, etc.)
 	t_symbol		*attr_size;					///< ATTRIBUTE: gui size
 	t_symbol		*attr_description;			///< ATTRIBUTE: textual description of this module
-	t_symbol		*attr_skin;					///< ATTRIBUTE: skin
 	t_symbol		*attr_algorithm_type;		///< ATTRIBUTE: control, jitter, etc.
 	long			attr_inspector;
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication

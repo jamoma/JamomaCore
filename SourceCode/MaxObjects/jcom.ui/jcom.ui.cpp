@@ -64,7 +64,7 @@ int main(void)
 
 	CLASS_ATTR_DEFAULT(c, 	"patching_rect",	0, "0. 0. 300. 70.");
 	CLASS_ATTR_DEFAULT(c, 	"fontname",			0, JAMOMA_DEFAULT_FONT);
-	CLASS_ATTR_DEFAULT(c, 	"fontsize",			0, "10");
+	CLASS_ATTR_DEFAULT(c, 	"fontsize",			0, "11");
 	
 	CLASS_ATTR_LONG(c,		"has_inspector",	0, t_ui, attr_hasinspector);
 	CLASS_ATTR_STYLE(c,		"has_inspector",	0, "onoff");
@@ -185,7 +185,7 @@ t_ui* ui_new(t_symbol *s, short argc, t_atom *argv)
 		
 		atom_setsym(a, ps__gui__);
 		jcom_core_loadextern(gensym("jcom.remote"), 1, a, &x->obj_remote);
-		
+		object_method(x->obj_remote, gensym("setcallback"), ui_remote_callback, x);
 /*		
 		textfield = jbox_get_textfield((t_object*) x); 
 		textfield_set_noactivate(textfield, 1);
@@ -255,6 +255,18 @@ void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 
 		jbox_redraw(&x->box);
 	}
+}
+
+
+void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
+{
+	t_symbol*	message = atom_getsym(argv);
+	
+	if(message == gensym("module_name") && argc == 2)
+		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
+	else if(message == gensym("module_type" && argc == 2))
+		; // TODO: Should do something here?
+	
 }
 
 
