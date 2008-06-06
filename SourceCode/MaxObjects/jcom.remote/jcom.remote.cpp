@@ -152,8 +152,12 @@ void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 // remote values to the hub
 void remote_send_private(t_remote *x)
 {
-	object_method_typed(x->common.hub, ps_private, x->output_len, x->output, NULL);
-	x->output_len = 1;	// truncate to just the name of this jcom.remote object
+	if(x->common.hub){
+		object_method_typed(x->common.hub, ps_private, x->output_len, x->output, NULL);
+		x->output_len = 1;	// truncate to just the name of this jcom.remote object
+	}
+	else
+		object_error((t_object*)x, "not subscribed to a valid hub object");
 }
 
 

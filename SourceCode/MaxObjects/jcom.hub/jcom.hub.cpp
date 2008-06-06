@@ -75,7 +75,6 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",					A_CANT, 0);
 
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,

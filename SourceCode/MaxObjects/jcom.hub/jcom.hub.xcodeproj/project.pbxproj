@@ -232,7 +232,6 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
 				);
 				LIBRARY_STYLE = Bundle;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";

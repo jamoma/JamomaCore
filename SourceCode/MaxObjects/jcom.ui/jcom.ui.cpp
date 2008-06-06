@@ -29,8 +29,8 @@ static t_jrgba		s_color_orange_button		= {0.8,			0.6,		0.2,		1.0};
 static t_jrgba		s_color_red_button			= {0.6,			0.2,		0.2,		1.0};
 
 static t_jrgba		s_color_green_button		= {0.2,			0.7,		0.2,		1.0};
-static t_jrgba		s_color_green_ring			= {0.35,		0.85,		0.35,		1.0};
-static t_jrgba		s_color_darkgreen			= {0.1,			0.5,		0.1,		1.0};
+static t_jrgba		s_color_green_ring			= {0.25,		0.75,		0.25,		1.0};
+static t_jrgba		s_color_darkgreen			= {0.05,		0.4,		0.05,		1.0};
 
 
 #pragma mark -
@@ -628,7 +628,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			x->anchorValue = x->attr_mix;			
 		}
 		else if(x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
-			; // TODO: send the /inspector message to the hub
+			object_method_typed(x->obj_remote, gensym("/panel/open"), 0, NULL, NULL);
 		else if(x->attr_haspreview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
 			object_attr_setlong(x, gensym("is_previewing"), !x->attr_ispreviewing);
 		else if(x->attr_hasfreeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
