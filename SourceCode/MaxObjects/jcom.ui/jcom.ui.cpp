@@ -7,6 +7,30 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+// TODO: Color of the gain know should change color over the range the same as the meter does?
+// TODO: When dragging dials, give a live read out of the current value in the ui object's textfield, the slip back to the module name
+// TODO: preset ui window: create a patcher, read a patcher file from disk, and then open this in a new window owned by the hub?
+
+/*
+	The UI sends the following to the hub (some are from the preset ui window?):
+		ps_slash_preset_slash_default
+		ps_slash_preset_slash_load
+		ps_slash_preset_slash_recall
+		ps_slash_preset_slash_store
+		ps_slash_preset_slash_storenext
+		ps_slash_preset_slash_copy
+		ps_slash_preset_slash_write
+ 
+		ps_slash_module_view_internals
+		ps_slash_ui_slash_freeze (toggle)
+		ps_slash_ui_slash_refresh
+ 
+	The UI receives the following from the hub:
+		ps_NEW_PRESETS_START
+		ps_NEW_PRESETS
+		ps_MENU_REBUILD
+*/
+
 #include "jcom.ui.h"
 
 // class variables
@@ -207,7 +231,7 @@ t_ui* ui_new(t_symbol *s, short argc, t_atom *argv)
 		x->menu_qelem = qelem_new(x, (method)ui_menu_qfn);
 
 		x->refmenu_items = (t_linklist *)linklist_new();
-		ui_refmenu_build(x);
+//		ui_refmenu_build(x);
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
 	}
 	return x;
@@ -264,7 +288,9 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 	
 	if(message == gensym("module_name") && argc == 2)
 		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
-	else if(message == gensym("module_type" && argc == 2))
+	else if(message == gensym("module_class") && argc == 2)
+		x->attrModuleClass = atom_getsym(argv+1);
+	else if(message == gensym("module_type") && argc == 2)
 		; // TODO: Should do something here?
 	
 }
@@ -708,6 +734,7 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
+	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, s_color_background_audio);
 	size = linklist_getsize(x->menu_items);
 	for(i=0; i<size; i++){
 		item = (t_symobject *)linklist_getindex(x->menu_items, i);
@@ -807,6 +834,8 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	int					coord_x=0, coord_y=0;
 	t_pt				pt;
 
+	ui_refmenu_build(x);	// TODO: would be better to not rebuild the menu every single time?  or not?  this uses less memory...
+	
 	jbox_set_mousedragdelta((t_object *)x, 0);
 	p = jpopupmenu_create();
 
@@ -816,13 +845,21 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
+	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, s_color_background_audio);
+	//	jpopupmenu_setheadercolor(<#t_jpopupmenu * menu#>, <#t_jrgba * hc#>)
 	size = linklist_getsize(x->refmenu_items);
 	for(i=0; i<size; i++){
 		item = (t_symobject *)linklist_getindex(x->refmenu_items, i);
 		if(!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
-		else
+		else{
 			jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
+		// TODO: use jpopupmenu_addheader instead -- requires that Max export this function though (which it currently doesn't)
+		//	if(item->flags)
+		//		jpopupmenu_addheader(p, item->sym->s_name);
+		//	else
+		//		jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
+		}
 	}
 
 	object_method(patcherview, gensym("canvastoscreen"), 0.0, 0.0, &coord_x, &coord_y);	
@@ -836,7 +873,6 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		x->refmenu_selection = selectedId -1;
 		qelem_set(x->refmenu_qelem);
 	}
-
 	jpopupmenu_destroy(p);
 }
 
@@ -856,44 +892,70 @@ void ui_refmenu_qfn(t_ui *x)
 void ui_refmenu_build(t_ui *x)
 {
 	t_symobject	*item = NULL;
+	char		tempStr[512];
+	t_linklist	*ll;
+	int			i;
 	
 	if(!x->refmenu_items)
 		return;
 	
 	linklist_clear(x->refmenu_items);
+
+	if(x->attrModuleClass && x->attrModuleClass->s_name[0])
+		snprintf(tempStr, 512, "Module: %s", x->attrModuleClass->s_name);
+	else
+		strncpy_zero(tempStr, "Module: ?", 512);
+	item = (t_symobject *)symobject_new(gensym(tempStr));
+	linklist_append(x->refmenu_items, item);
+	item->flags = 1;	// mark to disable this item (we use it as a label)
 	
-	item = (t_symobject *)symobject_new(gensym("Module: jmod.?~"));
-	linklist_append(x->refmenu_items, item);
-	item->flags = 1;	// mark to disable this item (we use it as a label)
+	ll = linklist_new();
+	object_method_obj(x->obj_remote, gensym("fetchParameterNamesInLinklist"), (t_object*)ll, NULL);
+	if(linklist_getsize(ll)){
+		item = (t_symobject *)symobject_new(gensym("-"));
+		linklist_append(x->refmenu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Parameters"));
+		linklist_append(x->refmenu_items, item);
+		item->flags = 1;	// mark to disable this item (we use it as a label)
 
-	item = (t_symobject *)symobject_new(gensym("-"));
-	linklist_append(x->refmenu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Parameters"));
-	linklist_append(x->refmenu_items, item);
-	item->flags = 1;	// mark to disable this item (we use it as a label)
+		for(i=0; i<linklist_getsize(ll); i++){
+			item = (t_symobject*)linklist_getindex(ll, i);
+			linklist_append(x->refmenu_items, item);
+		}
+		linklist_chuck(ll);
+	}
+	
+	ll = linklist_new();
+	object_method_obj(x->obj_remote, gensym("fetchMessageNamesInLinklist"), (t_object*)ll, NULL);
+	if(linklist_getsize(ll)){
+		item = (t_symobject *)symobject_new(gensym("-"));
+		linklist_append(x->refmenu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Messages"));
+		linklist_append(x->refmenu_items, item);
+		item->flags = 1;	// mark to disable this item (we use it as a label)
 
-	item = (t_symobject *)symobject_new(gensym("/foo"));
-	linklist_append(x->refmenu_items, item);
+		for(i=0; i<linklist_getsize(ll); i++){
+			item = (t_symobject*)linklist_getindex(ll, i);
+			linklist_append(x->refmenu_items, item);
+		}
+		linklist_chuck(ll);
+	}
+	
+	ll = linklist_new();
+	object_method_obj(x->obj_remote, gensym("fetchReturnNamesInLinklist"), (t_object*)ll, NULL);
+	if(linklist_getsize(ll)){
+		item = (t_symobject *)symobject_new(gensym("-"));
+		linklist_append(x->refmenu_items, item);
+		item = (t_symobject *)symobject_new(gensym("Returns"));
+		linklist_append(x->refmenu_items, item);
+		item->flags = 1;	// mark to disable this item (we use it as a label)
 
-
-	item = (t_symobject *)symobject_new(gensym("-"));
-	linklist_append(x->refmenu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Messages"));
-	linklist_append(x->refmenu_items, item);
-	item->flags = 1;	// mark to disable this item (we use it as a label)
-
-	item = (t_symobject *)symobject_new(gensym("/bar"));
-	linklist_append(x->refmenu_items, item);
-
-
-	item = (t_symobject *)symobject_new(gensym("-"));
-	linklist_append(x->refmenu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Returns"));
-	linklist_append(x->refmenu_items, item);
-	item->flags = 1;	// mark to disable this item (we use it as a label)
-
-	item = (t_symobject *)symobject_new(gensym("/tjottlanddotte"));
-	linklist_append(x->refmenu_items, item);
+		for(i=0; i<linklist_getsize(ll); i++){
+			item = (t_symobject*)linklist_getindex(ll, i);
+			linklist_append(x->refmenu_items, item);
+		}
+		linklist_chuck(ll);
+	}
 }
 
 

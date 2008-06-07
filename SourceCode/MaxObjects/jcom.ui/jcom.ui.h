@@ -70,6 +70,7 @@ typedef struct _ui{
 	bool				mixDragging;
 
 	t_symbol			*attr_modulename;
+	t_symbol			*attrModuleClass;
 	
 	t_pt				anchor;				// used for dragging the dials
 	float				anchorValue;		//	...

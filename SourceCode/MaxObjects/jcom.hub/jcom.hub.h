@@ -11,6 +11,7 @@
 #define __jcom_HUB_H__
 
 #include "Jamoma.h"					// Max Header
+#include "ext_symobject.h"
 
 #define MAX_STRING_LEN 2048
 #define LISTSIZE 512
@@ -139,6 +140,10 @@ void		hub_returnnames_get(t_hub *x);
 void		hub_paramvalues_get(t_hub *x);
 void		hub_allnames_get(t_hub *x);
 t_symbol*	hub_modulename_get(t_hub *x);
+
+void hub_paramnames_linklist(t_hub *x, t_linklist *linklist);
+void hub_messagenames_linklist(t_hub *x, t_linklist *linklist);
+void hub_returnnames_linklist(t_hub *x, t_linklist *linklist);
 
 
 /** Returns the name of the module.  Only really used by jcom.core.cpp

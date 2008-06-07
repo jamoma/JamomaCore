@@ -72,6 +72,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)core_modulename_get,		"core_module_name/get",			0L);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type/get", A_CANT);
 	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type/get",		A_CANT);
+	
+	class_addmethod(c, (method)hub_paramnames_linklist,		"fetchParameterNamesInLinklist",	A_CANT, 0); // used by the ui ref menu
+	class_addmethod(c, (method)hub_messagenames_linklist,	"fetchMessageNamesInLinklist",		A_CANT, 0); // used by the ui ref menu
+	class_addmethod(c, (method)hub_returnnames_linklist,	"fetchReturnNamesInLinklist",		A_CANT, 0); // used by the ui ref menu
 
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
@@ -511,6 +515,12 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		}
 		else if ( private_message == ps_slash_ui_slash_refresh )		//	/ui/refresh
 			hub_ui_refresh(x, NULL, 0, NULL);
+		else if(private_message == gensym("fetchParameterNamesInLinklist"))
+			hub_paramnames_linklist(x, (t_linklist*)atom_getobj(argv));
+		else if(private_message == gensym("fetchMessageNamesInLinklist"))
+			hub_messagenames_linklist(x, (t_linklist*)atom_getobj(argv));
+		else if(private_message == gensym("fetchReturnNamesInLinklist"))
+			hub_returnnames_linklist(x, (t_linklist*)atom_getobj(argv));
 		else
 			hub_symbol(x, private_message, argc, argv);
 	}
@@ -601,6 +611,60 @@ t_symbol *hub_algorithmtype_get(t_hub *x)
 }
 
 
+void hub_paramnames_linklist(t_hub *x, t_linklist *ll)
+{
+	subscriberList*		subscriber = x->subscriber;	// linked list of subscribers
+	subscriberIterator	i;
+	t_subscriber*		t;
+	t_symobject*		o;
+	
+	//	critical_enter(0);
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_parameter){
+			o = (t_symobject *)symobject_new(t->name);
+			linklist_append(ll, o);
+		}
+	}
+	//	critical_exit(0);
+}
+
+void hub_messagenames_linklist(t_hub *x, t_linklist *ll)
+{
+	subscriberList*		subscriber = x->subscriber;	// linked list of subscribers
+	subscriberIterator	i;
+	t_subscriber*		t;
+	t_symobject*		o;
+	
+//	critical_enter(0);
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_message){
+			o = (t_symobject *)symobject_new(t->name);
+			linklist_append(ll, o);
+		}
+	}
+//	critical_exit(0);
+}
+
+void hub_returnnames_linklist(t_hub *x, t_linklist *ll)
+{
+	subscriberList*		subscriber = x->subscriber;	// linked list of subscribers
+	subscriberIterator	i;
+	t_subscriber*		t;
+	t_symobject*		o;
+	
+	//	critical_enter(0);
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == ps_subscribe_return){
+			o = (t_symobject *)symobject_new(t->name);
+			linklist_append(ll, o);
+		}
+	}
+	//	critical_exit(0);
+}
+
 void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 {
 	subscriberList	*subscriber = x->subscriber;
@@ -643,6 +707,10 @@ void hub_gui_build(t_hub *x)
 			if((t->type == ps_subscribe_remote) && t->name == ps__gui__){
 				atom_setsym(&a[0], gensym("module_name"));
 				atom_setsym(&a[1], x->osc_name);
+				object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
+				
+				atom_setsym(&a[0], gensym("module_class"));
+				atom_setsym(&a[1], x->attr_name);
 				object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);			
 				
 				atom_setsym(&a[0], gensym("module_type"));

@@ -41,9 +41,9 @@
 #define JAMOMA_UNIT_HEIGHT 70.0
 #define JAMOMA_UNIT_WIDTH 150.0
 #define JAMOMA_MENU_FONT "Arial"
-#define JAMOMA_MENU_FONTSIZE 10.0
+#define JAMOMA_MENU_FONTSIZE 11.0
 #define JAMOMA_DEFAULT_FONT "Verdana"
-#define JAMOMA_DEFAULT_FONTSIZE 8.0
+#define JAMOMA_DEFAULT_FONTSIZE 9.0
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
 
 extern t_object *obj_jamoma_clock;		// the jamoma master clock object

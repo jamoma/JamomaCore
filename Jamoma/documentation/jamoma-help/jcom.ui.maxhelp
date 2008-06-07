@@ -18,6 +18,62 @@
 		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.return cow",
+					"patching_rect" : [ 490.0, 365.0, 93.0, 19.0 ],
+					"id" : "obj-39",
+					"fontname" : "Verdana",
+					"numinlets" : 1,
+					"fontsize" : 10.0,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.message messy",
+					"patching_rect" : [ 490.0, 315.0, 118.0, 19.0 ],
+					"id" : "obj-38",
+					"fontname" : "Verdana",
+					"numinlets" : 1,
+					"fontsize" : 10.0,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.parameter bar",
+					"patching_rect" : [ 490.0, 270.0, 111.0, 19.0 ],
+					"id" : "obj-37",
+					"fontname" : "Verdana",
+					"numinlets" : 1,
+					"fontsize" : 10.0,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.parameter foo",
+					"patching_rect" : [ 490.0, 245.0, 110.0, 19.0 ],
+					"id" : "obj-35",
+					"fontname" : "Verdana",
+					"numinlets" : 1,
+					"fontsize" : 10.0,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/init",
 					"patching_rect" : [ 140.0, 365.0, 32.5, 17.0 ],
@@ -26,7 +82,6 @@
 					"numinlets" : 2,
 					"fontsize" : 10.0,
 					"numoutlets" : 1,
-					"presentation_rect" : [ 139.0, 365.0, 0.0, 0.0 ],
 					"outlettype" : [ "" ]
 				}
 
@@ -435,19 +490,19 @@
 				"box" : 				{
 					"maxclass" : "jcom.ui",
 					"text" : "/editing_this_module",
-					"has_mix" : 1,
+					"has_bypass" : 1,
+					"has_freeze" : 1,
 					"patching_rect" : [ 166.0, 241.0, 300.0, 70.0 ],
 					"id" : "obj-2",
 					"color" : [ 0.545098, 0.85098, 0.592157, 1.0 ],
-					"has_mute" : 1,
-					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ],
 					"has_preview" : 1,
-					"numinlets" : 1,
+					"textcolor" : [ 0.65, 0.65, 0.65, 1.0 ],
 					"has_gain" : 1,
+					"numinlets" : 1,
 					"has_inspector" : 1,
 					"numoutlets" : 1,
-					"has_freeze" : 1,
-					"has_bypass" : 1,
+					"has_mute" : 1,
+					"has_mix" : 1,
 					"outlettype" : [ "" ]
 				}
 
