@@ -34,7 +34,7 @@ typedef struct _ui{
 	long				refmenu_selection;		// ...
 	t_linklist			*refmenu_items;			// ...
 	
-	t_linklist			*presets;				// list of presets as symobjects (flags=index, name=name)
+//	t_linklist			*presets;				// list of presets as symobjects (flags=index, name=name)
 	
 	long				attr_hasinspector;
 	t_rect				rect_inspector;

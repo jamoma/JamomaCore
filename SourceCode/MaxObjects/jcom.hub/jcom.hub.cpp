@@ -76,7 +76,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_paramnames_linklist,		"fetchParameterNamesInLinklist",	A_CANT, 0); // used by the ui ref menu
 	class_addmethod(c, (method)hub_messagenames_linklist,	"fetchMessageNamesInLinklist",		A_CANT, 0); // used by the ui ref menu
 	class_addmethod(c, (method)hub_returnnames_linklist,	"fetchReturnNamesInLinklist",		A_CANT, 0); // used by the ui ref menu
-
+	class_addmethod(c, (method)hub_presetnames_linklist,	"fetchPresetNamesInLinklist",		A_CANT, 0); // used by the ui menu
+	
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
 
@@ -521,6 +522,8 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 			hub_messagenames_linklist(x, (t_linklist*)atom_getobj(argv));
 		else if(private_message == gensym("fetchReturnNamesInLinklist"))
 			hub_returnnames_linklist(x, (t_linklist*)atom_getobj(argv));
+		else if(private_message == gensym("fetchPresetNamesInLinklist"))
+			hub_presetnames_linklist(x, (t_linklist*)atom_getobj(argv));
 		else
 			hub_symbol(x, private_message, argc, argv);
 	}

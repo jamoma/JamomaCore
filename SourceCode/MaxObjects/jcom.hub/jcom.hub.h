@@ -144,7 +144,7 @@ t_symbol*	hub_modulename_get(t_hub *x);
 void hub_paramnames_linklist(t_hub *x, t_linklist *linklist);
 void hub_messagenames_linklist(t_hub *x, t_linklist *linklist);
 void hub_returnnames_linklist(t_hub *x, t_linklist *linklist);
-
+void hub_presetnames_linklist(t_hub *x, t_linklist *ll);
 
 /** Returns the name of the module.  Only really used by jcom.core.cpp
  * @return the name of the module 
@@ -313,11 +313,6 @@ void 		hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*);
 /** Dump all presets
  * @param x a pointer to the hub whose presets should be dumped */
 void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
-
-
-/** Adds presets to the GUI menu
- * @param x a pointer to the hub whose preset menu will be updated*/
-void		hub_preset_buildmenu(t_hub *x);
 
 
 // Globals

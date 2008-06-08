@@ -32,9 +32,9 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 RampUnit::~RampUnit()
 {
 	delete functionUnit;
-	delete currentValue[];
-	delete targetValue[];
-	delete startValue[];
+	delete [] currentValue;
+	delete [] targetValue;
+	delete [] startValue;
 }
 
 
