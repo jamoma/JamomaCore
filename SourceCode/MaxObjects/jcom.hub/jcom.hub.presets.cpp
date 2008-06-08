@@ -1,7 +1,7 @@
 /* 
  * jcom.hub - presets
  * handle preset functions (including XML reading and writing)
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright Â© 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -77,11 +77,9 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 		presetCopy->name = presetsName;
 		preset->merge(presetCopy, presetIsLess);  // add to list of presets
 		critical_exit(0);
-		hub_preset_buildmenu(x);
-	} else {
+	} 
+	else
 		error("jcom.hub (%s module): preset to copy not found", x->attr_name);
-	}
-	
 }
 			
 	
@@ -398,7 +396,6 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		(*(x->preset->begin()))->last_preset_name = preset_name;
 	}
 	critical_exit(0);	
-	hub_preset_buildmenu(x);
 }
 
 void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	
@@ -465,7 +462,6 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 	jcom_core_getfilepath(path, filename, fullpath);
 	//post("path for xml preset file: %s", temppath);
 	hub_preset_parse(x, fullpath);
-	hub_preset_buildmenu(x);
 }
 
 
@@ -954,26 +950,19 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 }
 
 
-// Communicate with the gui to build the preset listing in the module menu
-void hub_preset_buildmenu(t_hub *x)
+void hub_presetnames_linklist(t_hub *x, t_linklist *ll)
 {
-	presetList		*preset = x->preset;
-	t_atom			a[3];
-
-	if(x->gui_object != NULL){
-		atom_setsym(&a[0], ps_NEW_PRESETS_START);
-		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
-		
-		presetListIterator i;
-		t_preset *p;
-		for(i = preset->begin(); i != preset->end(); ++i) {
-			p = *i;
-			atom_setsym(&a[0], ps_NEW_PRESETS);
-			atom_setsym(&a[1], p->name);
-			object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);
-		}
-
-		atom_setsym(&a[0], ps_MENU_REBUILD);		
-		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
+	presetList*			preset = x->preset;
+	presetListIterator	i;
+	t_preset*			p;
+	t_symobject*		item;
+	
+	//	critical_enter(0);
+	for(i = preset->begin(); i != preset->end(); ++i) {
+		p = *i;
+		item = (t_symobject*)symobject_new(p->name);
+		linklist_append(ll, item);
 	}
+	//	critical_exit(0);
 }
+

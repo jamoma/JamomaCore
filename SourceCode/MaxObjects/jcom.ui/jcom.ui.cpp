@@ -204,7 +204,6 @@ t_ui* ui_new(t_symbol *s, short argc, t_atom *argv)
 		x->outlet = outlet_new(x, 0L);
 		x->menu_items = NULL;
 		x->refmenu_items = NULL;
-		x->presets = linklist_new();
 		x->hash_internals = hashtab_new(0);
 		
 		atom_setsym(a, ps__gui__);
@@ -227,11 +226,9 @@ t_ui* ui_new(t_symbol *s, short argc, t_atom *argv)
 		object_attach_byptr(x, x); 						// sign up for notifications of changes to our attributes
 		
 		x->menu_items = (t_linklist *)linklist_new();
-		ui_menu_build(x);
 		x->menu_qelem = qelem_new(x, (method)ui_menu_qfn);
 
 		x->refmenu_items = (t_linklist *)linklist_new();
-//		ui_refmenu_build(x);
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
 	}
 	return x;
@@ -250,7 +247,6 @@ void ui_free(t_ui *x)
 	x->refmenu_qelem = NULL;
 	object_free(x->refmenu_items);
 	
-	object_free(x->presets);
 	object_free(x->obj_remote);
 	ui_internals_destroy(x);
 
@@ -274,8 +270,6 @@ void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 			textfield = jbox_get_textfield((t_object*) x); 
 			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
 		}
-		else
-			ui_menu_build(x);		// we don't really want this everytime -- make this conditional...
 
 		jbox_redraw(&x->box);
 	}
@@ -292,7 +286,6 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 		x->attrModuleClass = atom_getsym(argv+1);
 	else if(message == gensym("module_type") && argc == 2)
 		; // TODO: Should do something here?
-	
 }
 
 
@@ -725,6 +718,8 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	int					coord_x=0, coord_y=0;
 	t_pt				pt;
 
+	ui_menu_build(x);	// TODO: would be better to not rebuild the menu every single time?  or not?  this uses less memory...
+
 	jbox_set_mousedragdelta((t_object *)x, 0);
 	p = jpopupmenu_create();
 
@@ -781,11 +776,11 @@ void ui_menu_qfn(t_ui *x)
 
 void ui_menu_build(t_ui *x)
 {
-	t_symobject	*item = NULL;
-	int			numPresets = 0;
-	int			i;
+	t_symobject*	item = NULL;
+	int				i;
+	t_linklist*		ll;
 	
-	if(!x->refmenu_items)
+	if(!x->menu_items)
 		return;
 
 	linklist_clear(x->menu_items);
@@ -812,15 +807,18 @@ void ui_menu_build(t_ui *x)
 	item = (t_symobject *)symobject_new(gensym("View Internal Components"));
 	linklist_append(x->menu_items, item);
 	
-	numPresets = linklist_getsize(x->presets);
-	if(numPresets){
+	ll = linklist_new();
+	object_method_obj(x->obj_remote, gensym("fetchPresetNamesInLinklist"), (t_object*)ll, NULL);
+	if(linklist_getsize(ll)){
 		item = (t_symobject *)symobject_new(gensym("-"));
 		linklist_append(x->menu_items, item);
 		
-		for(i=0; i<numPresets; i++){
-			; // TODO: add presets to menu here
+		for(i=0; i<linklist_getsize(ll); i++){
+			item = (t_symobject*)linklist_getindex(ll, i);
+			linklist_append(x->menu_items, item);
 		}
 	}
+	linklist_chuck(ll);
 }
 
 
@@ -922,8 +920,8 @@ void ui_refmenu_build(t_ui *x)
 			item = (t_symobject*)linklist_getindex(ll, i);
 			linklist_append(x->refmenu_items, item);
 		}
-		linklist_chuck(ll);
 	}
+	linklist_chuck(ll);
 	
 	ll = linklist_new();
 	object_method_obj(x->obj_remote, gensym("fetchMessageNamesInLinklist"), (t_object*)ll, NULL);
@@ -938,8 +936,8 @@ void ui_refmenu_build(t_ui *x)
 			item = (t_symobject*)linklist_getindex(ll, i);
 			linklist_append(x->refmenu_items, item);
 		}
-		linklist_chuck(ll);
 	}
+	linklist_chuck(ll);
 	
 	ll = linklist_new();
 	object_method_obj(x->obj_remote, gensym("fetchReturnNamesInLinklist"), (t_object*)ll, NULL);
@@ -954,8 +952,8 @@ void ui_refmenu_build(t_ui *x)
 			item = (t_symobject*)linklist_getindex(ll, i);
 			linklist_append(x->refmenu_items, item);
 		}
-		linklist_chuck(ll);
 	}
+	linklist_chuck(ll);
 }
 
 
