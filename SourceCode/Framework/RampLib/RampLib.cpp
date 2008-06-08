@@ -32,9 +32,9 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 RampUnit::~RampUnit()
 {
 	delete functionUnit;
-	free(currentValue);
-	free(targetValue);
-	free(startValue);
+	delete currentValue[];
+	delete targetValue[];
+	delete startValue[];
 }
 
 
@@ -80,16 +80,23 @@ TTErr RampUnit::getFunctionParameterValue(TTSymbol& parameterName, TTValue& valu
 void RampUnit::setNumValues(TTUInt32 newNumValues)
 {
 	if(newNumValues != numValues){
-		if(numValues == 0){
-			currentValue = (TTFloat64*)malloc(newNumValues * sizeof(double));
-			targetValue = (TTFloat64*)malloc(newNumValues * sizeof(double));
-			startValue = (TTFloat64*)malloc(newNumValues * sizeof(double));
+		if(numValues != 0){
+			delete [] currentValue;
+			delete [] targetValue;
+			delete [] startValue;
 		}
-		else{
-			currentValue = (TTFloat64*)realloc(currentValue, newNumValues * sizeof(double));
-			targetValue = (TTFloat64*)realloc(targetValue, newNumValues * sizeof(double));
-			startValue = (TTFloat64*)realloc(startValue, newNumValues * sizeof(double));
-		}
+		
+//		if(numValues == 0){
+			currentValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
+			targetValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
+			startValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
+//		}
+//		else{
+			
+//			currentValue = // (TTFloat64*)realloc(currentValue, newNumValues * sizeof(double));
+//			targetValue = // (TTFloat64*)realloc(targetValue, newNumValues * sizeof(double));
+//			startValue = // (TTFloat64*)realloc(startValue, newNumValues * sizeof(double));
+//		}
 		numValues = newNumValues;
 	}
 	sendMessage(TT("numValuesChanged"));	// Notify sub-classes (if they respond to this message)
