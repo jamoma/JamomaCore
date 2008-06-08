@@ -7,6 +7,11 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+// TODO: get module name (by default) from the patcher name so it doesn't have to be specified manually
+// TODO: jcom.send, etc. is completely broken
+// TODO: idea from Adrian Freed is to use jit.cellblock for a documentation interface
+// TODO: AF suggested adding beta functions to the functionlib (lots of unpublished work and use previously by David Wessel)
+
 #include "jcom.hub.h"
 #include <functional>
 
