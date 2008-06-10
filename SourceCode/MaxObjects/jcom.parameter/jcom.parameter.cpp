@@ -22,16 +22,12 @@ int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class		*c;
 	t_object	*attr = NULL;
-	long		offset;
 	
 	// Initialize Globals
 	jamoma_init();
 
 	// Define our class
-	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, 
-		(short)sizeof(t_param), (method)0L, A_GIMME, 0);
-	offset = calcoffset(t_param, common);
-	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
+	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);
 		
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
@@ -1210,7 +1206,7 @@ void param_ramp_callback_int(void *v, short, double *value)
 }
 
 
-void param_ramp_callback_list(void *v, short argc, double *value)
+void param_ramp_callback_list(void *v, long argc, double *value)
 {
 	long i;
 	t_param *x = (t_param *)v;

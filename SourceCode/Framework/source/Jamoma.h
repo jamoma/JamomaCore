@@ -46,8 +46,8 @@
 #define JAMOMA_DEFAULT_FONTSIZE 9.0
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
 
-extern t_object *obj_jamoma_clock;		// the jamoma master clock object
-extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
+//extern t_object *obj_jamoma_clock;		// the jamoma master clock object
+//extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
 extern bool		max5;					// are we in max5?
 
 

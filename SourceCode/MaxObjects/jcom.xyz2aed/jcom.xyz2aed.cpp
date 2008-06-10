@@ -21,7 +21,6 @@ double rad2deg;
 typedef struct x					// Data structure for this object 
 {
 	Object		ob;					// Must always be the first field; used by Max
-	void		*obex;				// Pointer to object extensions (for attributes)
 	void 		*outlet;			// Pointer to outlet. need one for each outlet 
 	Atom 		outlist[3];			// used for sending lists out	
 }t_xyz2aed;
@@ -49,15 +48,13 @@ int main(void)			//main receives a copy of the Max function macros table
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.xyz2aed",(method)xyz2aed_new, (method)0L, (short)sizeof(t_xyz2aed), (method)0L, 0, 0);
-	class_obexoffset_set(c,calcoffset(t_xyz2aed, obex));
+	c = class_new("jcom.xyz2aed",(method)xyz2aed_new, (method)0L, sizeof(t_xyz2aed), (method)0L, 0, 0);
 	
 	// Make methods available for our class:
 	class_addmethod(c, (method)xyz2aed_bang,			"bang", 	0L);	
     class_addmethod(c, (method)xyz2aed_list,			"list", 	A_GIMME, 0L);
     class_addmethod(c, (method)xyz2aed_assist, 			"assist", 	A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 	A_CANT,0);      
-    class_addmethod(c, (method)object_obex_quickref, 	"quickref", A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 	A_CANT,0);
 
 	// Used for calculations:
 	rad2deg = 180.0 / 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;

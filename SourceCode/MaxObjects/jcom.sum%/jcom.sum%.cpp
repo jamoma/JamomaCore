@@ -79,7 +79,6 @@
 typedef struct _jit_sum 
 {
 	t_object			ob;
-	void				*obex;
 	void 				*valout;
 	char				mode; 			// mode 0: normal operation, mode 1: change notification
 	void				*matrix;		// pointer to the internal matrix used in change detection
@@ -116,9 +115,8 @@ int main(void)
 #endif
 #endif
 
-	c = class_new("tap.jit.sum", (method)jit_sum_new, (method)jit_sum_free, (short)sizeof(t_jit_sum), 
+	c = class_new("tap.jit.sum", (method)jit_sum_new, (method)jit_sum_free, sizeof(t_jit_sum), 
 		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_jit_sum, obex));
 
     class_addmethod(c, (method)jit_sum_jit_matrix,	"jit_matrix", A_GIMME, 0L);		//at beginning of messlist for speed
     class_addmethod(c, (method)jit_sum_assist,		"assist", A_CANT, 0L); 

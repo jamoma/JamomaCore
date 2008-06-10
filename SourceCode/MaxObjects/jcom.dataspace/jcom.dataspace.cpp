@@ -12,8 +12,7 @@
 
 // Data Structure for this object
 typedef struct _dataspace{
-	t_object		ob;	
-	void			*obex;
+	t_object		ob;
 	void			*outlet_active;
 	void			*outlet_native;
 	DataspaceLib	*dataspace;
@@ -53,8 +52,7 @@ int main(void)
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.dataspace",(method)dataspace_new, (method)dataspace_free, (short)sizeof(t_dataspace), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_dataspace, obex));
+	c = class_new("jcom.dataspace",(method)dataspace_new, (method)dataspace_free, sizeof(t_dataspace), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)dataspace_int,			"int",				A_GIMME, 0);
@@ -63,8 +61,7 @@ int main(void)
 	class_addmethod(c, (method)dataspace_getDataspaces,	"dataspaces.get",	0);
  	class_addmethod(c, (method)dataspace_getUnits,		"units.get",		A_GIMME, 0);
 	class_addmethod(c, (method)dataspace_assist,		"assist",			A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",			A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0);
 
 	class_addattr(c, 
 		attr_offset_new("dataspace", _sym_symbol, 0,

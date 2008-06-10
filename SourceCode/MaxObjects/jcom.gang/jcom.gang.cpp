@@ -11,7 +11,6 @@
 // Data Structure for this object
 typedef struct _gang{
 	t_object		ob;
-	void			*obex;
 	void			*outlets[NUM_OUTLETS];
 	void			*inlets[NUM_INLETS];		// for proxy inlets
 	bool			type_is_list;				// flag for the data type (false=float, true=list)
@@ -52,8 +51,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	jamoma_init();
 
-	c = class_new("jcom.gang",(method)gang_new, (method)gang_free, (short)sizeof(t_gang), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_gang, obex));
+	c = class_new("jcom.gang",(method)gang_new, (method)gang_free, sizeof(t_gang), (method)0L, A_GIMME, 0);
 
 	class_addmethod(c, (method)gang_float,	"float",	0L);
 	class_addmethod(c, (method)gang_int,	"int",		0L);

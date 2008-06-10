@@ -11,7 +11,6 @@
 
 typedef struct _stats{			// Data structure for this object 
 	struct	object ob;			// Must always be the first field; used by Max
-	void	*obex;
 	double	sumOfValues;		// Sum of values
 	double	sumOfSquaredValues;	// Sum of squared values
 	long	maxWindowSize;		// Maximum window size
@@ -60,8 +59,7 @@ int main(void)
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.stats",(method)stats_new, (method)stats_free, (short)sizeof(t_stats), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_stats, obex));			
+	c = class_new("jcom.stats",(method)stats_new, (method)stats_free, sizeof(t_stats), (method)0L, A_GIMME, 0);		
 		
 	// Make methods accessible for our class: 
 
@@ -72,8 +70,7 @@ int main(void)
     class_addmethod(c, (method)stats_set,				"set",			A_FLOAT,	0);
 	class_addmethod(c, (method)stats_window,			"window_size",	A_LONG,		0);
     class_addmethod(c, (method)stats_clear,				"clear",		0);
-	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT,		0);
+	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,		0);
 	
 	// ATTRIBUTE: windowed
 	attr = attr_offset_new("windowed", _sym_long, attrflags,

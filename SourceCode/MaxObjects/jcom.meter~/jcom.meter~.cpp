@@ -53,7 +53,7 @@ typedef struct _meter{
 
 
 // prototypes
-void*		meter_new(t_symbol *s, short argc, t_atom *argv);
+void*		meter_new(t_symbol *s, long argc, t_atom *argv);
 void		meter_free(t_meter *x);
 t_max_err	meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		meter_assist(t_meter *x, void *b, long m, long a, char *s);
@@ -123,7 +123,7 @@ int main(void)
 #pragma mark Life Cycle
 #endif 0
 
-void *meter_new(t_symbol *s, short argc, t_atom *argv)
+void *meter_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_meter*	x;
 	t_jbox*		box;

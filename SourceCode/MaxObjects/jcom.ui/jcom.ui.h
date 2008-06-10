@@ -78,7 +78,7 @@ typedef struct _ui{
 
 
 // prototypes: general
-t_ui*		ui_new(t_symbol *s, short argc, t_atom *argv);
+t_ui*		ui_new(t_symbol *s, long argc, t_atom *argv);
 void 		ui_free(t_ui *x);
 void 		ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv);

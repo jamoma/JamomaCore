@@ -18,7 +18,6 @@
 
 typedef struct _delta2{			// Data structure for this object 
 	struct	object ob;			// Must always be the first field; used by Max
-	void	*obex;
 	float	prev;				// Previous value
 	float	prev2;				// 2nd last value received
 	float	delta2;				// 2nd order differential
@@ -33,7 +32,7 @@ void delta2_bang(t_delta2 *x);
 void delta2_int(t_delta2 *x, long n);
 void delta2_float(t_delta2 *x, double f);
 void delta2_clear(t_delta2 *x);
-void delta2_set(t_delta2 *x, Symbol *s, short ac, Atom *setval);
+void delta2_set(t_delta2 *x, Symbol *s, long ac, Atom *setval);
 void delta2_assist(t_delta2 *x, void *b, long msg, long arg, char *dst);
 
 
@@ -51,8 +50,7 @@ int main(void)
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.delta2",(method)delta2_new, (method)0L, (short)sizeof(t_delta2), (method)0L, 0, 0);
-	class_obexoffset_set(c, calcoffset(t_delta2, obex));			
+	c = class_new("jcom.delta2",(method)delta2_new, (method)0L, sizeof(t_delta2), (method)0L, 0, 0);		
 		
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)delta2_bang,				"bang",		A_CANT,		0);
@@ -61,8 +59,7 @@ int main(void)
 	class_addmethod(c, (method)delta2_assist, 			"assist",	A_CANT,		0); 
     class_addmethod(c, (method)delta2_set,				"set",		A_GIMME,	0);  
     class_addmethod(c, (method)delta2_clear,			"clear",	0);
-	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
+	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0); 
 	
 	//finder_addclass("All Objects","jcom.delta2");	
 	//finder_addclass("Arith/Logic/Bitwise","jcom.delta2");
@@ -134,7 +131,7 @@ void delta2_float(t_delta2 *x, double f)
 
 
 // SET input
-void delta2_set(t_delta2 *x, Symbol *s, short ac, Atom *setval)
+void delta2_set(t_delta2 *x, Symbol *s, long ac, Atom *setval)
 {
 	float f;
 	

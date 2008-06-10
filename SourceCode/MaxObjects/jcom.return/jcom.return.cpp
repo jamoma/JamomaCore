@@ -48,17 +48,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class 	*c;
 	t_object 	*attr = NULL;
-	long		offset;
-	long		obexoffset;	
 
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.return",(method)return_new, (method)jcom_core_subscriber_common_free, 
-		(short)sizeof(t_return), (method)0L, A_GIMME, 0);
-	offset = calcoffset(t_return, common);
-	obexoffset = offset + calcoffset(t_jcom_core_subscriber_common, obex);
-	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
+	c = class_new("jcom.return",(method)return_new, (method)jcom_core_subscriber_common_free, sizeof(t_return), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)return_bang,					"bang",			A_CANT, 0L);

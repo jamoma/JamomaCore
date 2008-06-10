@@ -212,7 +212,6 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
 	// METHODS
 	class_addmethod(c, (method)jcom_core_subscriber_hubrelease,	"release",		A_CANT, 0);	// notification of hub being freed
 	class_addmethod(c, (method)object_obex_dumpout,				"dumpout",		A_CANT, 0);  
-	class_addmethod(c, (method)object_obex_quickref,			"quickref",		A_CANT, 0);
 
 	// ATTRIBUTE: name
 	if(define_name){

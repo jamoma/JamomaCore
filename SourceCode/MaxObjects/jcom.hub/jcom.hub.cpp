@@ -44,8 +44,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.hub",(method)hub_new, (method)hub_free, (short)sizeof(t_hub), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_hub, obex));
+	c = class_new("jcom.hub",(method)hub_new, (method)hub_free, sizeof(t_hub), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class:
  	class_addmethod(c, (method)hub_symbol,				"anything",					A_GIMME, 0L);

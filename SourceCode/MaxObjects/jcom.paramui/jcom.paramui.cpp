@@ -185,7 +185,7 @@ int main(void)
 }
 
 
-t_paramui* paramui_new(t_symbol *s, short argc, t_atom *argv)
+t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_paramui		*x = NULL;
 	t_dictionary 	*d = NULL;

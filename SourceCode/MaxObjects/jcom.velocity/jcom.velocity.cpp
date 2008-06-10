@@ -15,7 +15,6 @@
 
 typedef struct _velocity{		// Data structure for this object 
 	t_object	ob;				// Must always be the first field; used by Max
-	void		*obex;
 	float xn;					// Most recent value received
 	float xn1;					// Previous value received
 	long lasttime;				// Time code for previous value received
@@ -24,11 +23,11 @@ typedef struct _velocity{		// Data structure for this object
 
 
 // Prototypes for methods: need a method for each incoming message
-void *velocity_new(Symbol *s, short ac, Atom *arg);
+void *velocity_new(Symbol *s, long ac, Atom *arg);
 void velocity_bang(t_velocity *x);
 void velocity_int(t_velocity *x, long n);
 void velocity_float(t_velocity *x, double f);
-void velocity_set(t_velocity *x, Symbol *s, short ac, Atom *setval);
+void velocity_set(t_velocity *x, Symbol *s, long ac, Atom *setval);
 void velocity_assist(t_velocity *x, void *b, long m, long a, char *s);
 
 // Globals
@@ -44,8 +43,7 @@ int main(void)
 	jamoma_init();
 	
 	// Define our class
-	c = class_new("jcom.velocity",(method)velocity_new, (method)0L, (short)sizeof(t_velocity), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_velocity, obex));				
+	c = class_new("jcom.velocity",(method)velocity_new, (method)0L, sizeof(t_velocity), (method)0L, A_GIMME, 0);		
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)velocity_bang,			"bang",		A_CANT,		0);
@@ -53,8 +51,7 @@ int main(void)
  	class_addmethod(c, (method)velocity_float, 			"float",	A_FLOAT,	0);		
 	class_addmethod(c, (method)velocity_assist, 		"assist",	A_CANT,		0); 
     class_addmethod(c, (method)velocity_set,			"set",		A_GIMME,	0);  
-	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
+	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 
 	//finder_addclass("All Objects","jcom.velocity");		//a helping hand...
 	//finder_addclass("Arith/Logic/Bitwise","jcom.velocity");
@@ -68,7 +65,7 @@ int main(void)
 
 /************************************************************************************/
 // Object Life
-void *velocity_new(Symbol *s, short ac, Atom *arg)
+void *velocity_new(Symbol *s, long ac, Atom *arg)
 {
 	t_velocity *x;
 	
@@ -132,7 +129,7 @@ void velocity_float(t_velocity *x, double f)
 
 
 // SET input
-void velocity_set(t_velocity *x, Symbol *s, short ac, Atom *setval)
+void velocity_set(t_velocity *x, Symbol *s, long ac, Atom *setval)
 {
 	if (ac)
 	{

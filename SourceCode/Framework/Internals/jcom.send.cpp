@@ -19,8 +19,8 @@ void send_float(t_send *x, double value);
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv);
 
 // Globals
-static t_class		*s_send_class;					// Required: Global pointer for our class
-static t_object		*s_receivemaster_object = NULL;	// An instance of the jcom.receivemaster class
+static t_class		*s_send_class;				// Required: Global pointer for our class
+extern t_object		*g_receivemaster_object;	// An instance of the jcom.receivemaster class
 
 
 /************************************************************************************/
@@ -33,9 +33,7 @@ void send_initclass()
 	t_object *attr;
 	
 	// Define our class
-	c = class_new("jcom.send", (method)send_new, (method)0L, (short)sizeof(t_send), (method)0L, A_GIMME, 0);
-
-	class_obexoffset_set(c, calcoffset(t_send, obex));
+	c = class_new("jcom.send", (method)send_new, (method)0L, sizeof(t_send), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)send_bang,				"bang",			0L);
@@ -44,8 +42,7 @@ void send_initclass()
 	class_addmethod(c, (method)send_list,				"list",			A_GIMME, 0L);
 	class_addmethod(c, (method)send_list,				"anything",		A_GIMME, 0L);
     class_addmethod(c, (method)send_assist,				"assist", 		A_CANT, 0L);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 		A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", 	A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 		A_CANT,0);
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
@@ -76,8 +73,8 @@ void *send_new(t_symbol *s, long argc, t_atom *argv)
 			
 		attr_args_process(x, argc, argv);					// handle attribute args
 		
-		if(!s_receivemaster_object)
-			s_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
+		if(!g_receivemaster_object)
+			g_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
 	}
 	return x;
 }
@@ -122,5 +119,5 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	object_method(s_receivemaster_object, ps_dispatch, x->attr_name, msg, argc, argv);
+	object_method(g_receivemaster_object, ps_dispatch, x->attr_name, msg, argc, argv);
 }

@@ -31,11 +31,10 @@ void receivemaster_initclass()
 	s_receivemaster_class = class_new(	"jcom.receivemaster", 
 										(method)receivemaster_new, 
 										(method)receivemaster_free, 
-										(short)sizeof(t_jcom_receivemaster), 
+										sizeof(t_jcom_receivemaster), 
 										(method)0L, 
 										A_GIMME, 
 										0);
-	class_obexoffset_set(s_receivemaster_class, calcoffset(t_jcom_receivemaster, obex));
 
 	// Make methods accessible for our class: 
 	class_addmethod(s_receivemaster_class, (method)receivemaster_dispatch,	"dispatch",	A_CANT, 0L);

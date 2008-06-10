@@ -17,8 +17,8 @@ const double k_anti_denormal_value = 1e-18;
 // statics and globals
 static long			initialized = false;
 static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated
-t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
-t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
+//t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
+//t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
 bool				max5 = false;
 
 
@@ -39,17 +39,28 @@ void jamoma_init(void)
 
 		receivemaster_initclass();
 		receive_initclass();
+		object_method(max, meth, gensym("jcom.receive"), gensym("jcom.loader"), gensym("jcom.receive"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.receive"), NULL);
+		
 		send_initclass();
+		object_method(max, meth, gensym("jcom.send"), gensym("jcom.loader"), gensym("jcom.send"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.send"), NULL);
+
 		receive_tilde_initclass();
+		object_method(max, meth, gensym("jcom.receive~"), gensym("jcom.loader"), gensym("jcom.receive~"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.receive~"), NULL);
+
 		send_tilde_initclass();
+		object_method(max, meth, gensym("jcom.send~"), gensym("jcom.loader"), gensym("jcom.send~"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.send~"), NULL);
 		
 		// Setup Class Aliases for TTBlue
 		object_method(max, meth, gensym("jcom.limiter~"), gensym("tt.limiter~"), gensym("jcom.limiter~"));
 		object_method(max, meth, gensym("jcom.saturation~"), gensym("tt.overdrive~"), gensym("jcom.saturation~"));
 		
 		// Create Required Global Instances
-		obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
-		obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
+		// obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
+		// obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
 
 		// Add Jamoma Key Commands:
@@ -265,7 +276,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	object_attr_getvalueof(o, sAttrName, &ac, &av);
 	object_obex_dumpout(o, sAttrName, ac, av);
 	if(x->hub != NULL){
-//		t_symbol	*attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));
+		// t_symbol	*attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));
 		char		s[256];
 		t_atom		a[4];
 	

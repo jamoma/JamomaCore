@@ -21,7 +21,6 @@ enum outlets{
   * do the ramp to new values according to an extendable set of functions.  */
 typedef struct _ramp{
 	t_object	 ob;					///< Data Structure for this object
-	void		*obex;					///< REQUIRED: Our object
 	void		*outlets[num_outlets];	///< Outlet array
 	t_symbol	*attr_rampunit;			///< Name of the current rampunit
 	RampUnit	*rampUnit;				///< Instance of the current rampunit
@@ -96,8 +95,7 @@ int main(void)				// main receives a copy of the Max function macros table
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.ramp",(method)ramp_new, (method)ramp_free, (short)sizeof(t_ramp), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_ramp, obex));
+	c = class_new("jcom.ramp",(method)ramp_new, (method)ramp_free, sizeof(t_ramp), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)ramp_bang,					"bang",					0);
@@ -112,8 +110,7 @@ int main(void)				// main receives a copy of the Max function macros table
 	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",	A_GIMME,	0);
 	class_addmethod(c, (method)ramp_clock,					"clock",				A_SYM,		0);
 	class_addmethod(c, (method)ramp_assist,					"assist",				A_CANT,		0); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref",				A_CANT,		0);
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);
 
 	// ATTRIBUTE: rampunit
 	class_addattr(c, 

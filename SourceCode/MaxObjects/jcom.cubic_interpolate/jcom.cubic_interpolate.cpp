@@ -11,7 +11,6 @@
 
 typedef struct _cubic_interp{	// Data structure for this object 
 	t_object	ob;				// Must always be the first field; used by Max
-	void		*obex;
 	float		value[4];		// Four y values used for interpolation
 	float		mu;				// Previous interpolated x-position
 	float		attr_step;		// ATTRIBUTE: step size	
@@ -48,9 +47,8 @@ int main(void)
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.cubic_interpolate",(method)cubic_interpolate_new, (method)0L, (short)sizeof(t_cubic_interp), 
-		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_cubic_interp, obex));				
+	c = class_new("jcom.cubic_interpolate",(method)cubic_interpolate_new, (method)0L, sizeof(t_cubic_interp), 
+		(method)0L, A_GIMME, 0);		
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)cubic_interpolate_bang,		"bang",		A_CANT,		0);
@@ -59,7 +57,6 @@ int main(void)
 	class_addmethod(c, (method)cubic_interpolate_assist, 	"assist",	A_CANT,		0);  
     class_addmethod(c, (method)cubic_interpolate_clear,		"clear",	0);
 	class_addmethod(c, (method)object_obex_dumpout,			"dumpout",	0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref", A_CANT,		0);
 
 	// Add attributes to our class:	
 	// ATTRIBUTE: step size - clipped to the range [0, 1]

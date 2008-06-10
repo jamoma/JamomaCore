@@ -21,7 +21,6 @@ const double deg2rad = 3.1415926535897932384626433832795028841971693993751058209
 typedef struct x					// Data structure for this object 
 {
 	Object		ob;					// Must always be the first field; used by Max
-	void		*obex;				// Pointer to object extensions (for attributes)
 	void 		*outlet;			// Pointer to outlet. need one for each outlet 
 	Atom 		outlist[3];			// used for sending lists out	
 }t_aed2xyz;
@@ -49,15 +48,13 @@ int main(void)			//main receives a copy of the Max function macros table
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.aed2xyz",(method)aed2xyz_new, (method)0L, (short)sizeof(t_aed2xyz), (method)0L, 0, 0);
-	class_obexoffset_set(c,calcoffset(t_aed2xyz, obex));
+	c = class_new("jcom.aed2xyz",(method)aed2xyz_new, (method)0L, sizeof(t_aed2xyz), (method)0L, 0, 0);
 	
 	// Make methods available for our class:
 	class_addmethod(c, (method)aed2xyz_bang,			"bang", 	0L);	
     class_addmethod(c, (method)aed2xyz_list,			"list", 	A_GIMME, 0L);
     class_addmethod(c, (method)aed2xyz_assist, 			"assist", 	A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 	A_CANT,0);      
-    class_addmethod(c, (method)object_obex_quickref, 	"quickref", A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 	A_CANT,0);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);

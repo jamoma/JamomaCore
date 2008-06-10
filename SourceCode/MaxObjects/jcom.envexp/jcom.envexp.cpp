@@ -62,7 +62,6 @@
 		
 typedef struct _envExp {							///< Data structure for this object
 	t_object 	ob;									///< REQUIRED: Our object
-	void		*obex;								///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void 		*outlet;							///< pointer to outlet. Need one for each outlet
 	Atom 		envelope[NUM_OF_POINTS * 2];		///< array of envelope points in line~ format
 	float 		attr_coeff;							///< exponential coeffisient. Depends on threshold, decay rate and number of points that envelope is made from
@@ -78,7 +77,7 @@ typedef struct _envExp {							///< Data structure for this object
 // Prototypes for methods: need a method for each incoming message
 
 /** Creates new instance */
-void *envExp_new(Symbol *s, short argc, t_atom *argv);
+void *envExp_new(Symbol *s, long argc, t_atom *argv);
 
 /** Trigger new amplitude envelope using currenlty stored values
   * @return array of data points for envelope
@@ -140,19 +139,14 @@ int main(void)
 	ps_float32 = gensym("float32");
 	ps_dumpout = gensym("dumpout");
 
-	//setup(&this_class, (method)envExp_new, 0L, (short)sizeof(t_envExp), 0L, A_GIMME, 0);
 	// Define our class
-	c = class_new("jcom.envexp",(method)envExp_new, 0L, (short)sizeof(t_envExp), 
-		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_envExp, obex));
-
+	c = class_new("jcom.envexp",(method)envExp_new, 0L, sizeof(t_envExp), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)envExp_bang,				"bang",		A_CANT,		0);
 	class_addmethod(c, (method)envExp_float,			"float",	A_FLOAT,	0);
 	class_addmethod(c, (method)envExp_assist, 			"assist",	A_CANT,		0); 
-	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
+	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 	
 	// ATTRIBUTE: attack
 	attr = attr_offset_new("attack", ps_float32, attrflags,
@@ -192,7 +186,7 @@ int main(void)
 #pragma mark life cycle
 
 
-void *envExp_new(Symbol *s, short argc, t_atom *argv)
+void *envExp_new(Symbol *s, long argc, t_atom *argv)
 {
 	//create the new instance and returns a pointer to it
 	t_envExp *x = (t_envExp *)object_alloc(this_class);

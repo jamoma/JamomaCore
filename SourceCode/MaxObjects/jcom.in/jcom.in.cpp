@@ -35,19 +35,15 @@ int main(void)				// main recieves a copy of the Max function macros table
 	long 		attrflags = 0;
 	t_class 	*c;
 	t_object 	*attr;
-	long		offset;
 	
 	jamoma_init();
 
 	// Define our class
 #ifdef JCOM_IN_TILDE
-	c = class_new("jcom.in~",(method)in_new, (method)in_free, (short)sizeof(t_in), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.in~",(method)in_new, (method)in_free, sizeof(t_in), (method)0L, A_GIMME, 0);
 #else
-	c = class_new("jcom.in",(method)in_new, (method)in_free, (short)sizeof(t_in), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.in",(method)in_new, (method)in_free, sizeof(t_in), (method)0L, A_GIMME, 0);
 #endif
-
-	offset = calcoffset(t_in, common);
-	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)in_dispatched,			"dispatched",			A_GIMME, 0L);

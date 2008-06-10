@@ -13,7 +13,6 @@
 
 typedef struct _mkdir{
 	t_object	obj;
-	void		*obex;
 } t_mkdir;
 
 
@@ -35,8 +34,7 @@ int main(void)
 	jamoma_init();
 	
 	// Define our class
-	c = class_new("jcom.mkdir",(method)mkdir_new, (method)mkdir_free, (short)sizeof(t_mkdir), (method)0L, 0L, 0);
-	class_obexoffset_set(c, calcoffset(t_mkdir, obex));
+	c = class_new("jcom.mkdir",(method)mkdir_new, (method)mkdir_free, sizeof(t_mkdir), (method)0L, 0L, 0);
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)mkdir_make,			"anything", A_GIMME, 0L);

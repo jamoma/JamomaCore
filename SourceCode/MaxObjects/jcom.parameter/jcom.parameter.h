@@ -86,7 +86,7 @@ void 		param_send_feedback(t_param *x);
 void		param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);
-void		param_ramp_callback_list(void *v, short argc, double *value);
+void		param_ramp_callback_list(void *v, long argc, double *value);
 void		atom_clip(t_param *x, t_atom *a);
 void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 

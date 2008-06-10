@@ -55,7 +55,7 @@ typedef struct _paramui{
 
 
 // prototypes: general
-t_paramui*	paramui_new(t_symbol *s, short argc, t_atom *argv);
+t_paramui*	paramui_new(t_symbol *s, long argc, t_atom *argv);
 void 		paramui_free(t_paramui *x);
 void 		paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 // prototypes: drawing/ui

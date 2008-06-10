@@ -86,7 +86,6 @@
 
 typedef struct _delta{			// Data structure for this object 
 	t_object	ob;				// Must always be the first field; used by Max
-	void		*obex;
 	float		prev;			// Previous value
 	float		delta;			// delta step
 	char		clearflag;
@@ -99,7 +98,7 @@ void delta_bang(t_delta *x);
 void delta_int(t_delta *x, long n);
 void delta_float(t_delta *x, double f);
 void delta_clear(t_delta *x);
-void delta_set(t_delta *x, Symbol *s, short ac, Atom *setval);
+void delta_set(t_delta *x, Symbol *s, long ac, Atom *setval);
 void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst);
 
 
@@ -119,8 +118,7 @@ int main(void)
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.delta",(method)delta_new, (method)0L, (short)sizeof(t_delta), (method)0L, 0, 0);
-	class_obexoffset_set(c, calcoffset(t_delta, obex));				
+	c = class_new("jcom.delta",(method)delta_new, (method)0L, sizeof(t_delta), (method)0L, 0, 0);			
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)delta_bang,				"bang",		A_CANT,		0);
@@ -129,8 +127,7 @@ int main(void)
 	class_addmethod(c, (method)delta_assist, 			"assist",	A_CANT,		0); 
     class_addmethod(c, (method)delta_set,				"set",		A_GIMME,	0);  
     class_addmethod(c, (method)delta_clear,				"clear",	0);
-	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
+	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 	//finder_addclass("All Objects","jcom.delta");	
 	//finder_addclass("Arith/Logic/Bitwise","jcom.delta");
 	//post("tl.delta © 2001-03 Trond Lossius");
@@ -198,7 +195,7 @@ void delta_float(t_delta *x, double f)
 
 
 // SET input
-void delta_set(t_delta *x, Symbol *s, short ac, Atom *setval)
+void delta_set(t_delta *x, Symbol *s, long ac, Atom *setval)
 {
 	float f;
 	

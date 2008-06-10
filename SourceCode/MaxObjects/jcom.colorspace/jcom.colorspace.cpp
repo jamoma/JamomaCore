@@ -34,7 +34,6 @@
 typedef struct x					// Data structure for this object 
 {
 	Object		cs_ob;				// Must always be the first field; used by Max
-	void		*obex;				// Pointer to object extensions (for attributes)
 	void 		*out1;				// Pointer to outlet. need one for each outlet 
 	void		*out2;
 	void		*out3;
@@ -109,8 +108,7 @@ int main(void)			//main receives a copy of the Max function macros table
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.colorspace",(method)cs_new, (method)cs_free, (short)sizeof(t_cs), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c,calcoffset(t_cs, obex));
+	c = class_new("jcom.colorspace",(method)cs_new, (method)cs_free, sizeof(t_cs), (method)0L, A_GIMME, 0);
 	
 	// Make methods available for our class:
 	class_addmethod(c, (method)cs_bang,					"bang", 0L);	
@@ -118,8 +116,7 @@ int main(void)			//main receives a copy of the Max function macros table
     class_addmethod(c, (method)cs_float, 				"float", A_FLOAT, 0L);	// Input as float
     class_addmethod(c, (method)cs_list,					"list", A_GIMME, 0L);
     class_addmethod(c, (method)cs_assist, 				"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);      
-    class_addmethod(c, (method)object_obex_quickref, 	"quickref", A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);
 
 	// ATTRIBUTE: mode
 	attr = attr_offset_new("mode", _sym_symbol, attrflags,

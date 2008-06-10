@@ -340,7 +340,7 @@
 							<key>filename</key>
 							<string>jcom.ui/jcom.ui.cpp</string>
 							<key>lastUsed</key>
-							<date>2008-03-22T10:44:54Z</date>
+							<date>2008-06-10T09:48:47Z</date>
 							<key>selected</key>
 							<true/>
 						</dict>
@@ -513,6 +513,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{5, 10}, {963, 868}}</string>
+	<string>{{40, 10}, {963, 868}}</string>
 </dict>
 </plist>

@@ -12,8 +12,7 @@
 
 // Data Structure for this object
 typedef struct _map{
-	t_object		ob;	
-	void			*obex;
+	t_object		ob;
 	void			*outlet;
 	t_symbol		*attr_function;
 	double			attr_inputMin;
@@ -60,8 +59,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jamoma_init();
 
 	// Define our class
-	c = class_new("jcom.map",(method)map_new, (method)map_free, (short)sizeof(t_map), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_map, obex));
+	c = class_new("jcom.map",(method)map_new, (method)map_free, sizeof(t_map), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)map_int,						"int", A_GIMME, 0L);
@@ -71,8 +69,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)map_getFunctionParameters,	"function.parameters.get", A_GIMME, 0);
  	class_addmethod(c, (method)map_setParameter,			"parameter", A_GIMME, 0);
 	class_addmethod(c, (method)map_assist,					"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout", A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref", A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout", A_CANT,0);
 
 	// ATTRIBUTE: set the function to use
 	class_addattr(c, 

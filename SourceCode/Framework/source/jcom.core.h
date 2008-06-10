@@ -35,7 +35,6 @@ typedef void (*t_subscribe_method)(void *x);
  */ 
 typedef struct _jcom_core_subscriber_common{
 	t_pxobject			ob;						///< base object for audio externs
-	void				*obex;					///< object extensions
 	t_object			*container;				///< pointer to the patcher containing this object
 	t_object			*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
@@ -54,7 +53,6 @@ typedef struct _jcom_core_subscriber_common{
 typedef struct _jcom_core_subscriber_extended{
 //#ifdef JCOM_AUDIO_OBJECT
 	t_pxobject			ob;						///< base object for audio externs
-	void				*obex;					///< object extensions
 	t_object			*container;				///< pointer to the patcher containing this object
 	t_object			*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name

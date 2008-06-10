@@ -176,7 +176,7 @@ int main(void)
 }
 
 
-t_ui* ui_new(t_symbol *s, short argc, t_atom *argv)
+t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_ui			*x = NULL;
 	t_dictionary 	*d = NULL;
