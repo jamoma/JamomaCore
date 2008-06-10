@@ -35,6 +35,7 @@ void		return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv);
 void		return_send_feedback(t_return *x);
 void		return_dump(t_return *x);
 t_max_err	return_attr_gettype(t_return *x, void *attr, long *argc, t_atom **argv);
+t_max_err	return_attr_settype(t_return *x, void *attr, long argc, t_atom *argv);
 
 
 // Globals
@@ -63,12 +64,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)return_dump,					"dump",			0L);
 	class_addmethod(c, (method)return_assist,				"assist",		A_CANT, 0L); 
 
-	jcom_core_subscriber_classinit_extended(c, attr, offset);
+	jcom_core_subscriber_classinit_extended(c, attr);
 	
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle
-	jamoma_class_attr_new(c, "type", _sym_symbol,
-		(method)0, (method)return_attr_gettype,
-		calcoffset(t_jcom_core_subscriber_extended, attr_type));
+	jamoma_class_attr_new(c, "type", _sym_symbol, (method)return_attr_settype, (method)return_attr_gettype);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -172,6 +171,13 @@ t_max_err return_attr_gettype(t_return *x, void *attr, long *argc, t_atom **argv
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->common.attr_type);
 
+	return MAX_ERR_NONE;
+}
+
+t_max_err return_attr_settype(t_return *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->common.attr_type = atom_getsym(argv);
 	return MAX_ERR_NONE;
 }
 

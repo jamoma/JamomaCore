@@ -90,14 +90,26 @@ void		param_ramp_callback_list(void *v, long argc, double *value);
 void		atom_clip(t_param *x, t_atom *a);
 void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 
-t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err 	param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err 	param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setfreeze(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setdefault(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getdataspace(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);

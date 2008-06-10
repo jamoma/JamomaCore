@@ -228,7 +228,7 @@ void jamoma_dsp(t_object *, t_signal **sp, short *count)
 // for example:
 // 	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol, (method)param_setramp, 
 //		calcoffset(t_param, attr_ramp));
-void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter, long offset)
+void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter)
 {
 	t_object	*attr = NULL;
 	char		getterName[256];
@@ -236,14 +236,14 @@ void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, metho
 	strcpy(getterName, attrName);
 	strcat(getterName, "/get");
 
-	attr = attr_offset_new(attrName, attrType, 0, getter, setter, offset);
+	attr = attr_offset_new(attrName, attrType, 0, getter, setter, NULL);
 	class_addattr(c, attr);
 
 	class_addmethod(c, (method)jamoma_class_attr_get, getterName, A_GIMME, 0);
 }
 
 
-void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter, long sizeOffset, long offset)
+void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter)
 {
 	t_object	*attr = NULL;
 	char		getterName[256];
@@ -251,7 +251,7 @@ void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType,
 	strcpy(getterName, attrName);
 	strcat(getterName, "/get");
 
-	attr = attr_offset_array_new(attrName, _sym_atom, list_size, 0, getter, setter, sizeOffset, offset);
+	attr = attr_offset_array_new(attrName, _sym_atom, list_size, 0, getter, setter, NULL, NULL);
 	class_addattr(c, attr);
 
 	class_addmethod(c, (method)jamoma_class_attr_get, getterName, A_GIMME, 0);
@@ -276,7 +276,6 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	object_attr_getvalueof(o, sAttrName, &ac, &av);
 	object_obex_dumpout(o, sAttrName, ac, av);
 	if(x->hub != NULL){
-		// t_symbol	*attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));
 		char		s[256];
 		t_atom		a[4];
 	

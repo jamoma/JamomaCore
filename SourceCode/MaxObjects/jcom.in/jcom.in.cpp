@@ -64,7 +64,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)in_release,				"release",				A_CANT, 0L);	// notification of hub being freed
     class_addmethod(c, (method)in_assist,				"assist", 				A_CANT, 0L);
 
-	jcom_core_subscriber_classinit_common(c, attr, offset);	
+	jcom_core_subscriber_classinit_common(c, attr);	
 	
 	// ATTRIBUTE: algorithm_type
 	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
@@ -144,9 +144,9 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		}
 		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 #else
-		for(i = x->num_inputs-1; i >= 1; i--)
+		for(i = x->numInputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
-		for(i = x->num_inputs-1; i >= 0; i--)
+		for(i = x->numInputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif
 

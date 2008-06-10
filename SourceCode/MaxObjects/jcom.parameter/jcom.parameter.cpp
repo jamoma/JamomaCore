@@ -58,60 +58,33 @@ int main(void)				// main recieves a copy of the Max function macros table
 #endif
 	class_addmethod(c, (method)param_setcallback,				"setcallback",					A_CANT,		0);
 
-	jcom_core_subscriber_classinit_extended(c, attr, offset, true);		// define a name attr
+	jcom_core_subscriber_classinit_extended(c, attr, true);		// define a name attr
 		
 	// ATTRIBUTE: ramp	
-	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol,
-		(method)param_attr_setramp, (method)param_attr_getramp,
-		calcoffset(t_param, attr_ramp));
-	jamoma_class_attr_new(c, "ramp/function", _sym_symbol,
-		(method)param_attr_setrampfunction, (method)param_attr_getrampfunction,
-		calcoffset(t_param, attr_rampfunction));
+	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
+	jamoma_class_attr_new(c, "ramp/function", _sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
-	jamoma_class_attr_new(c, "type", _sym_symbol,
-		(method)param_attr_settype, (method)param_attr_gettype,
-		calcoffset(t_jcom_core_subscriber_extended, attr_type));
+	jamoma_class_attr_new(c, "type", _sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c, "ui/freeze", _sym_long,
-		(method)0, (method)param_attr_getfreeze,
-		calcoffset(t_param, attr_ui_freeze));
+	jamoma_class_attr_new(c, "ui/freeze", _sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
-	jamoma_class_attr_new(c, "value/stepsize", _sym_float32,
-		(method)0, (method)param_attr_getstepsize,
-		calcoffset(t_param, attr_stepsize));
+	jamoma_class_attr_new(c, "value/stepsize", _sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
 
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
-	jamoma_class_attr_new(c, "priority", _sym_long,
-		(method)0, (method)param_attr_getpriority,
-		calcoffset(t_param, attr_priority));
+	jamoma_class_attr_new(c, "priority", _sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
 
 	// ATTRIBUTE: value
-	jamoma_class_attr_array_new(c, "value", _sym_atom, LISTSIZE,
-		(method)0, (method)param_attr_getvalue,
-		calcoffset(t_param, list_size), calcoffset(t_param, attr_value));
+	jamoma_class_attr_array_new(c, "value", _sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
 
 	// ATTRIBUTE: value/default
-	jamoma_class_attr_array_new(c, "value/default", _sym_atom, LISTSIZE,
-		(method)0, (method)0,
-		calcoffset(t_param, listDefault_size), calcoffset(t_param, attr_valueDefault));
+	jamoma_class_attr_array_new(c, "value/default", _sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
-	// ATTRIBUTE:
-	jamoma_class_attr_new(c, "dataspace", _sym_symbol,
-		(method)0, (method)0,
-		calcoffset(t_param, attr_dataspace));
-	
-	// ATTRIBUTE:
-	jamoma_class_attr_new(c, "unit/active", _sym_symbol,
-		(method)0, (method)0,
-		calcoffset(t_param, attr_unitActive));
-
-	// ATTRIBUTE:
-	jamoma_class_attr_new(c, "unit/native", _sym_symbol,
-		(method)0, (method)0,
-		calcoffset(t_param, attr_unitNative));
+	jamoma_class_attr_new(c, "dataspace", _sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
+	jamoma_class_attr_new(c, "unit/active", _sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
+	jamoma_class_attr_new(c, "unit/native", _sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -344,8 +317,6 @@ t_max_err param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv)
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_ramp);
-	
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -368,8 +339,6 @@ t_max_err param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom 
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_rampfunction);
-
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -380,8 +349,6 @@ t_max_err param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv)
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->common.attr_type);
-
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -392,20 +359,30 @@ t_max_err param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setlong(*argv, x->attr_ui_freeze);
-
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
-	
+t_max_err param_attr_setfreeze(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_ui_freeze = atom_getlong(argv);
+	return MAX_ERR_NONE;
+}
+
+
 t_max_err param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setfloat(*argv, x->attr_stepsize);
+	return MAX_ERR_NONE;
+}
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+t_max_err param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_stepsize = atom_getlong(argv);
 	return MAX_ERR_NONE;
 }
 
@@ -416,8 +393,13 @@ t_max_err param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **ar
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setlong(*argv, x->attr_priority);
+	return MAX_ERR_NONE;
+}
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+t_max_err param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_priority = atom_getlong(argv);
 	return MAX_ERR_NONE;
 }
 
@@ -429,7 +411,82 @@ t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->list_size);
 	sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * x->list_size);
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	x->list_size = argc;
+	sysmem_copyptr(argv, x->atom_list, argc * sizeof(t_atom));
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = x->listDefault_size;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->listDefault_size);
+		sysmem_copyptr(x->atom_listDefault, *argv, sizeof(t_atom) * x->listDefault_size);
+		
+		return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setdefault(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	x->listDefault_size = argc;
+	sysmem_copyptr(argv, x->atom_listDefault, argc * sizeof(t_atom));
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getdataspace(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_dataspace);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_dataspace = atom_getsym(argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_unitActive);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_unitActive = atom_getsym(argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_unitNative);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_unitNative = atom_getsym(argv);
 	return MAX_ERR_NONE;
 }
 
@@ -1180,7 +1237,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 #pragma mark -
 #pragma mark Ramp Units
 
-void param_ramp_callback_float(void *v, short, double *value)
+void param_ramp_callback_float(void *v, long, double *value)
 {
 	t_param *x = (t_param *)v;
 	float	oldval = atom_getfloat(&x->attr_value);
@@ -1192,7 +1249,7 @@ void param_ramp_callback_float(void *v, short, double *value)
 }
 
 
-void param_ramp_callback_int(void *v, short, double *value)
+void param_ramp_callback_int(void *v, long, double *value)
 {
 	t_param	*x= (t_param *)v;
 	long	val	= *value;

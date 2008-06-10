@@ -72,7 +72,7 @@ void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 void		ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Triggered by our Ramp Unit's tick function */
-void		ramp_callback(void *v, short numvalues, double *values);
+void		ramp_callback(void *v, long numvalues, double *values);
 
 /** Set attribute value. */
 void 		ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
@@ -264,7 +264,7 @@ void ramp_clock(t_ramp *x, t_symbol *clockName)
 
 
 // Triggered by our Ramp Unit's tick function
-void ramp_callback(void *v, short numvalues, double *values)
+void ramp_callback(void *v, long numvalues, double *values)
 {	
 	t_ramp	*x = (t_ramp *)v;
 	t_atom	*a = (t_atom *)malloc(numvalues * sizeof(t_atom));

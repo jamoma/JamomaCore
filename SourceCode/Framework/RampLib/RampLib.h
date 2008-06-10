@@ -13,7 +13,7 @@
 #include "TTObject.h"
 #include "FunctionLib.h"
 
-typedef void (*RampUnitCallback)(void *, short, double *);
+typedef void (*RampUnitCallback)(void *, long, double *);
 
 
 /****************************************************************************************************/

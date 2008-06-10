@@ -8,7 +8,6 @@
  */
 
 // TODO: get module name (by default) from the patcher name so it doesn't have to be specified manually
-// TODO: jcom.send, etc. is completely broken
 // TODO: idea from Adrian Freed is to use jit.cellblock for a documentation interface
 // TODO: AF suggested adding beta functions to the functionlib (lots of unpublished work and use previously by David Wessel)
 
@@ -172,27 +171,32 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_receive = NULL;
 		x->jcom_send_broadcast = NULL;
 		atom_setsym(a, ps_jcom_remote_fromModule);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send)) {
-			post("Jamoma: Module %s complains:", x->attr_name->s_name);
-			error("jcom.hub: loading jcom.send extern failed!");
-		}
+//		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send)) {
+//			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+//			error("jcom.hub: loading jcom.send extern failed!");
+//		}
+		x->jcom_send = (t_object*)object_new_typed(CLASS_BOX, ps_jcom_send, 1, a);
+		
 		atom_setsym(a, ps_jcom_remote_toModule);
-		if(!jcom_core_loadextern(ps_jcom_receive, 1, a, &x->jcom_receive)) {
-			post("Jamoma: Module %s complains:", x->attr_name->s_name);
-			error("jcom.hub: loading jcom.receive extern failed!");
-		}
-		else
-			object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
+//		if(!jcom_core_loadextern(ps_jcom_receive, 1, a, &x->jcom_receive)) {
+//			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+//			error("jcom.hub: loading jcom.receive extern failed!");
+//		}
+//		else
+		x->jcom_receive = (t_object*)object_new_typed(CLASS_BOX, ps_jcom_receive, 1, a);
+		object_method(x->jcom_receive, ps_setcallback, &hub_receive_callback, x);
 			
 		atom_setsym(a, ps_jcom_broadcast_fromHub);
-		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send_broadcast)) {
-			post("Jamoma: Module %s complains:", x->attr_name->s_name);
-			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
-		}
+//		if(!jcom_core_loadextern(ps_jcom_send, 1, a, &x->jcom_send_broadcast)) {
+//			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+//			error("jcom.hub: loading jcom.send (broadcast) extern failed!");
+//		}
+		x->jcom_send_broadcast = (t_object*)object_new_typed(CLASS_BOX, ps_jcom_send, 1, a);
 		
 		if(!s_jcom_send_notifications){
 			atom_setsym(a, gensym("notifications"));
-			jcom_core_loadextern(ps_jcom_send, 1, a, &s_jcom_send_notifications);
+//			jcom_core_loadextern(ps_jcom_send, 1, a, &s_jcom_send_notifications);
+			s_jcom_send_notifications = (t_object*)object_new_typed(CLASS_BOX, ps_jcom_send, 1, a);
 		}
 		
 		hub_internals_create(x);

@@ -45,7 +45,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)init_go,					"go",			A_CANT, 0);
     class_addmethod(c, (method)init_assist,				"assist",		A_CANT, 0L);
 	
-	jcom_core_subscriber_classinit_common(c, attr, offset);	
+	jcom_core_subscriber_classinit_common(c, attr);	
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
