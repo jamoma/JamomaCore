@@ -428,7 +428,6 @@ t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void
 	char*	text = NULL;
 	long	textsize = 0;
 	
-	text[0] = 0;
 	atom_gettext(argc, argv, &textsize, &text, OBEX_UTIL_ATOM_GETTEXT_DEFAULT);
 	if(text && textsize){
 		x->attr_description = gensym(text);

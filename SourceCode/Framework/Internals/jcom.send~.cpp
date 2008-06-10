@@ -76,7 +76,6 @@ void send_tilde_initclass(void)
 		(method)0, (method)audiosend_attr_settarget, calcoffset(t_audiosend, attr_target));
 	class_addattr(c, attr);
 
-
 	// Setup our class to work with MSP
 	class_dspinit(c);
 	

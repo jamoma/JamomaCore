@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 68.0, 54.0, 819.0, 401.0 ],
+		"rect" : [ 210.0, 332.0, 819.0, 401.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 68.0, 54.0, 819.0, 401.0 ],
+		"defrect" : [ 210.0, 332.0, 819.0, 401.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.970939,
@@ -21,26 +21,26 @@
 					"maxclass" : "comment",
 					"text" : "The name of the send and receive can be changed to accomodate for new routings.",
 					"linecount" : 2,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"patching_rect" : [ 553.0, 354.0, 240.0, 30.0 ],
 					"id" : "obj-1",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"fontsize" : 9.873845
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/degrade~/sr_ratio 0.32",
+					"text" : "/degrade~/audio/bypass 0",
 					"patching_rect" : [ 233.0, 348.0, 241.0, 16.0 ],
 					"id" : "obj-2",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -50,13 +50,13 @@
 					"maxclass" : "comment",
 					"text" : "Here you can receive messages from all modules. Do something with the above module and watch what happens.",
 					"linecount" : 3,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"patching_rect" : [ 11.0, 284.0, 239.0, 42.0 ],
 					"id" : "obj-3",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"fontsize" : 9.873845
 				}
 
 			}
@@ -64,14 +64,14 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jmod.send",
+					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 28.0, 16.0, 189.0, 28.0 ],
 					"id" : "obj-4",
 					"fontname" : "Verdana",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"numinlets" : 1,
-					"fontsize" : 17.334082,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"numoutlets" : 0
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"numoutlets" : 0,
+					"fontsize" : 17.334082
 				}
 
 			}
@@ -79,27 +79,25 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Send messages to any jamoma module",
+					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 29.0, 42.0, 242.0, 18.0 ],
 					"id" : "obj-5",
 					"fontname" : "Verdana",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"numoutlets" : 0
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"numoutlets" : 0,
+					"fontsize" : 9.873845
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "panel",
-					"patching_rect" : [ 0.0, 0.0, 273.0, 63.0 ],
+					"patching_rect" : [ 10.0, 10.0, 273.0, 63.0 ],
 					"id" : "obj-6",
-					"rounded" : 0,
+					"rounded" : 15,
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ]
+					"numoutlets" : 0
 				}
 
 			}
@@ -109,11 +107,11 @@
 					"varname" : "/degrade~",
 					"patching_rect" : [ 342.0, 31.0, 310.0, 77.0 ],
 					"id" : "obj-7",
-					"name" : "jmod.degrade~.maxpat",
 					"numinlets" : 3,
-					"args" : [ "/degrade~" ],
+					"name" : "jmod.degrade~.maxpat",
 					"numoutlets" : 3,
-					"outlettype" : [ "", "signal", "signal" ]
+					"outlettype" : [ "", "signal", "signal" ],
+					"args" : [ "/degrade~" ]
 				}
 
 			}
@@ -124,12 +122,11 @@
 					"id" : "obj-8",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
-					"fontsize" : 9.873845,
 					"numoutlets" : 2,
-					"triscale" : 0.9,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "float", "bang" ],
-					"bgcolor" : [ 0.866667, 0.866667, 0.866667, 1.0 ]
+					"triscale" : 0.9,
+					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ]
 				}
 
 			}
@@ -141,8 +138,8 @@
 					"id" : "obj-9",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -166,8 +163,8 @@
 					"id" : "obj-11",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -180,8 +177,8 @@
 					"id" : "obj-12",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -194,8 +191,8 @@
 					"id" : "obj-13",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -204,12 +201,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "name bar",
-					"patching_rect" : [ 728.0, 264.0, 62.0, 16.0 ],
+					"patching_rect" : [ 740.0, 250.0, 62.0, 16.0 ],
 					"id" : "obj-14",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -218,12 +215,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "name foo",
-					"patching_rect" : [ 559.0, 265.0, 60.0, 16.0 ],
+					"patching_rect" : [ 535.0, 255.0, 60.0, 16.0 ],
 					"id" : "obj-15",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -232,12 +229,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "name bar",
-					"patching_rect" : [ 611.0, 265.0, 62.0, 16.0 ],
+					"patching_rect" : [ 610.0, 255.0, 62.0, 16.0 ],
 					"id" : "obj-16",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -250,8 +247,8 @@
 					"id" : "obj-17",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -264,8 +261,8 @@
 					"id" : "obj-18",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
 					"numoutlets" : 2,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "", "" ]
 				}
 
@@ -289,8 +286,8 @@
 					"id" : "obj-20",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -303,8 +300,8 @@
 					"id" : "obj-21",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"fontsize" : 9.873845
 				}
 
 			}
@@ -316,8 +313,8 @@
 					"id" : "obj-22",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
 					"numoutlets" : 2,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "", "" ]
 				}
 
@@ -341,8 +338,8 @@
 					"id" : "obj-24",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
 					"numoutlets" : 1,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "" ]
 				}
 
@@ -355,8 +352,8 @@
 					"id" : "obj-25",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"fontsize" : 9.873845
 				}
 
 			}
@@ -368,8 +365,8 @@
 					"id" : "obj-26",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
 					"numoutlets" : 2,
+					"fontsize" : 9.873845,
 					"outlettype" : [ "", "" ]
 				}
 
@@ -379,13 +376,13 @@
 					"maxclass" : "comment",
 					"text" : "This is a global send object. Remember to send messages to the correct address (/module_name/parameter...)",
 					"linecount" : 3,
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"patching_rect" : [ 13.0, 192.0, 233.0, 42.0 ],
 					"id" : "obj-27",
 					"fontname" : "Verdana",
 					"numinlets" : 1,
-					"fontsize" : 9.873845,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"fontsize" : 9.873845
 				}
 
 			}
@@ -394,11 +391,9 @@
 					"maxclass" : "panel",
 					"patching_rect" : [ 227.0, 210.0, 190.0, 35.0 ],
 					"id" : "obj-28",
-					"rounded" : 0,
+					"rounded" : 15,
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"bgcolor" : [ 0.858824, 0.882353, 0.8, 1.0 ]
+					"numoutlets" : 0
 				}
 
 			}
@@ -407,24 +402,22 @@
 					"maxclass" : "panel",
 					"patching_rect" : [ 225.0, 283.0, 218.0, 35.0 ],
 					"id" : "obj-29",
-					"rounded" : 0,
+					"rounded" : 15,
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"bgcolor" : [ 0.858824, 0.882353, 0.8, 1.0 ]
+					"numoutlets" : 0
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "panel",
+					"bgcolor" : [ 0.078431, 0.078431, 0.078431, 1.0 ],
 					"patching_rect" : [ 554.0, 210.0, 194.0, 35.0 ],
 					"id" : "obj-30",
 					"rounded" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"bgcolor" : [ 0.858824, 0.882353, 0.8, 1.0 ]
+					"bordercolor" : [ 0.984314, 0.984314, 0.431373, 0.72549 ]
 				}
 
 			}
@@ -433,11 +426,9 @@
 					"maxclass" : "panel",
 					"patching_rect" : [ 556.0, 283.0, 225.0, 35.0 ],
 					"id" : "obj-31",
-					"rounded" : 0,
+					"rounded" : 15,
 					"numinlets" : 1,
-					"numoutlets" : 0,
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"bgcolor" : [ 0.858824, 0.882353, 0.8, 1.0 ]
+					"numoutlets" : 0
 				}
 
 			}
@@ -465,7 +456,7 @@
 					"source" : [ "obj-14", 0 ],
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 737.5, 288.0, 684.5, 288.0 ]
+					"midpoints" : [ 749.5, 288.0, 684.5, 288.0 ]
 				}
 
 			}
@@ -492,7 +483,7 @@
 					"source" : [ "obj-16", 0 ],
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 620.5, 288.0, 568.5, 288.0 ]
+					"midpoints" : [ 619.5, 288.0, 568.5, 288.0 ]
 				}
 
 			}
@@ -501,7 +492,7 @@
 					"source" : [ "obj-15", 0 ],
 					"destination" : [ "obj-26", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 568.5, 283.0, 568.5, 283.0 ]
+					"midpoints" : [ 544.5, 283.0, 568.5, 283.0 ]
 				}
 
 			}

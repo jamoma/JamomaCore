@@ -79,7 +79,7 @@ void receivemaster_dispatch(t_jcom_receivemaster *x, t_symbol *name, t_symbol *m
 void receivemaster_add(t_jcom_receivemaster *x, t_symbol *name, t_object *obj)
 {
 	t_linklist	*list = NULL;
-post("ADD: hastbab - %x", s_receive_lists);
+
 	hashtab_lookup(s_receive_lists, name, (t_object **)&list);		// 1. Look up the correct linklist in the hashtab
 	if(!list){
 		list = (t_linklist *)linklist_new();						// if there isn't a linklist for this name yet,
@@ -91,6 +91,7 @@ post("ADD: hastbab - %x", s_receive_lists);
 
 // TODO: When we switch to Max5 then remove these function definitions
 #if 1
+/*
 long linklist_match(void *a, void *b)
 {
 	return a == b;
@@ -104,6 +105,7 @@ void linklist_chuckobject(t_linklist *x, void *o)
 	if(index != -1)
 		linklist_chuckindex(x, index);
 }
+ */
 #endif
 
 
