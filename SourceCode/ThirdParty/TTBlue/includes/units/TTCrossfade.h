@@ -1,6 +1,6 @@
 /* 
  * TTBlue Signal Crossfader Object
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -44,6 +44,12 @@ private:
 	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "calculate"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processCalc(TTAudioSignal& in, TTAudioSignal& out);
+
+
+	TTErr processLinearUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+	TTErr processLookupUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+	TTErr processCalcUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+
 
 public:
 

@@ -1,6 +1,6 @@
 /* 
  * TTBlue Gain Control Object
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -13,7 +13,7 @@ TTGain::TTGain(TTUInt8 newMaxNumChannels)
 	: TTAudioObject("audio.gain", newMaxNumChannels)
 {
 	registerAttribute(TT("linearGain"),	kTypeFloat64,	&gain);
-	registerAttribute(TT("gain"),		kTypeInt32,		NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
+	registerAttribute(TT("gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
 
 	// Set Defaults...
 	setAttributeValue(TT("linearGain"),	1.0);

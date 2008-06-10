@@ -1,6 +1,6 @@
 /* 
  * TTBlue Audio Signal Class
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -147,6 +147,19 @@ TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal&
 }
 
 
+TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
+{
+	TTUInt8	numChannels = signal1.numChannels;
+	
+	if(signal2.numChannels > numChannels)
+		numChannels = signal2.numChannels;
+	if(signal3.numChannels > numChannels)
+		 numChannels = signal3.numChannels;
+
+	return numChannels;
+}
+
+
 TTUInt8 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
 {
 	return signal.numChannels;
@@ -163,6 +176,21 @@ TTUInt8 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
 
 
 // TODO: implement clear() method -- ZERO OUT A VECTOR'S CONTENTS
+TTErr TTAudioSignal::clear()
+{
+	TTUInt8		channel;
+	TTUInt16	i;
+	
+	if(!sampleVectors)
+		return kTTErrGeneric;
+		
+	for(channel=0; channel<numChannels; channel++){
+		for(i=0; i<vs; i++)
+			sampleVectors[channel][i] = 0.0;
+	}
+	return kTTErrNone;
+}
+		
 		
 // TODO: implement fill() method --- SET ALL VALUES IN THE SIGNAL TO A CONSTANT
 

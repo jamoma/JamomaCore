@@ -1,6 +1,6 @@
 /* 
  * TTBlue Signal Crossfader Object
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -45,14 +45,28 @@ TTErr TTCrossfade::setMode(const TTValue& newValue)
 
 TTErr TTCrossfade::setProcessPointers()
 {
-	if(attrShape == TT("equalPower") && attrMode == TT("lookup"))
-		return setProcess((TTProcessMethod)&TTCrossfade::processLookup);
-	else if(attrShape == TT("equalPower") && attrMode == TT("calculate"))
-		return setProcess((TTProcessMethod)&TTCrossfade::processCalc);
-	else
-		return setProcess((TTProcessMethod)&TTCrossfade::processLinear);
+	TTErr	err =kTTErrNone;
+	
+	if(attrShape == TT("equalPower") && attrMode == TT("lookup")){
+		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processLookupUsingSidechain);
+		err |= setProcess((TTProcessMethod)&TTCrossfade::processLookup);
+	}
+	else if(attrShape == TT("equalPower") && attrMode == TT("calculate")){
+		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processCalcUsingSidechain);
+		err |= setProcess((TTProcessMethod)&TTCrossfade::processCalc);
+	}
+	else{
+		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processLinearUsingSidechain);
+		err |= setProcess((TTProcessMethod)&TTCrossfade::processLinear);
+	}
+	return err;
 }
 
+
+#if 0
+#pragma mark -
+#pragma mark Interleaved Process Methods
+#endif
 
 TTErr TTCrossfade::processLinear(TTAudioSignal& in, TTAudioSignal& out)
 {
@@ -124,6 +138,81 @@ TTErr TTCrossfade::processCalc(TTAudioSignal& in, TTAudioSignal& out)
 		inSampleB = in.sampleVectors[numchannels+channel];
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
+		
+		while(vs--)
+			*outSample++ = (*inSampleB++ * (sin(attrPosition * 1.5707963))) + (*inSampleA++ * (sin((1 - attrPosition) * 1.5707963)));
+	}
+	return kTTErrNone;
+}
+
+
+
+#if 0
+#pragma mark -
+#pragma mark Sidechain Process Methods
+#endif
+
+TTErr TTCrossfade::processLinearUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
+{
+	TTUInt16		vs;
+	TTSampleValue	*inSampleA,
+					*inSampleB,
+					*outSample;
+	TTUInt8			numChannels = TTAudioSignal::getMinChannelCount(in1, in2, out);;
+	TTUInt8			channel;
+	
+	for(channel=0; channel<numChannels; channel++){
+		inSampleA = in1.sampleVectors[channel];
+		inSampleB = in2.sampleVectors[channel];
+		outSample = out.sampleVectors[channel];
+		vs = in1.getVectorSize();
+		
+		while(vs--)
+			*outSample++ = (*inSampleB++ * attrPosition) + (*inSampleA++ * (1.0 - attrPosition));
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTCrossfade::processLookupUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
+{
+	TTUInt16		vs;
+	TTSampleValue	*inSampleA,
+					*inSampleB,
+					*outSample;
+	TTUInt8			numChannels = TTAudioSignal::getMinChannelCount(in1, in2, out);;
+	TTUInt8			channel;
+	int				index;
+
+	for(channel=0; channel<numChannels; channel++){
+		inSampleA = in1.sampleVectors[channel];
+		inSampleB = in2.sampleVectors[channel];
+		outSample = out.sampleVectors[channel];
+		vs = in1.getVectorSize();
+		
+		while(vs--){
+			index = (int)(attrPosition * 511.0);
+			*outSample++ = (*inSampleB++ * kTTLookupEqualPower[511 - index]) + (*inSampleA++ * kTTLookupEqualPower[index]);
+		}
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTCrossfade::processCalcUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
+{
+	TTUInt16		vs;
+	TTSampleValue	*inSampleA,
+					*inSampleB,
+					*outSample;
+	TTUInt8			numChannels = TTAudioSignal::getMinChannelCount(in1, in2, out);;
+	TTUInt8			channel;
+
+	for(channel=0; channel<numChannels; channel++){
+		inSampleA = in1.sampleVectors[channel];
+		inSampleB = in2.sampleVectors[channel];
+		outSample = out.sampleVectors[channel];
+		vs = in1.getVectorSize();
 		
 		while(vs--)
 			*outSample++ = (*inSampleB++ * (sin(attrPosition * 1.5707963))) + (*inSampleA++ * (sin((1 - attrPosition) * 1.5707963)));

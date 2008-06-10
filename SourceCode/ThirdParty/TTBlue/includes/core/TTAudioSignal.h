@@ -1,6 +1,6 @@
 /* 
  * TTBlue Audio Signal Class
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -92,6 +92,11 @@ public:
 		if the vectorsize is different from the current state.
 	*/
 	TTErr allocWithSize(TTUInt16 newVectorSize);
+
+	/**	Zero out all of the sample values in the audio signal.
+	*/
+	TTErr clear();
+
 	
 	/** Use this class method to determine the least number of channels the two signals have in common.
 	 *	In cases where a processAudio method expects to have a matching number of audio inputs and outputs,
@@ -101,6 +106,16 @@ public:
 	 *	@param		signal2			The second of the two signals to be compared.
 	 *	@return		The number of channels that are valid for both signal1 and signal2.		*/
 	static TTUInt8 getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2);
+
+	/** Use this class method to determine the least number of channels the specified signals have in common.
+	 	In cases where a processAudio method expects to have a matching number of audio inputs and outputs,
+	 	this method can be used to compare the two signals and return the number of channels for which
+	 	it is safe to assume that the number of inputs and outputs are the same.
+	 	@param		signal1			The first of three signals to be compared.
+	 	@param		signal2			The second of three signals to be compared.
+		@param		signal3			The third of three signals to be compared.
+	 	@return		The number of channels that are valid for all signals.		*/
+	static TTUInt8 getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3);
 
 	/** Use this class method to determine the number of channels of an input our output signal.
 	 *	This can be useful in circumstances where input and output signals are not necsessarily expected
