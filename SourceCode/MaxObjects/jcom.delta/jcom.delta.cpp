@@ -81,15 +81,27 @@
 	MAXREF--->
 */
 
+#include "Jamoma.h";
 
-#include "Jamoma.h"
+t_symbol	*ps_delta,
+			*ps_delta2,
+			*ps_velocity;
 
-typedef struct _delta{			// Data structure for this object 
-	t_object	ob;				// Must always be the first field; used by Max
-	float		prev;			// Previous value
-	float		delta;			// delta step
-	char		clearflag;
-	void		*outlet;			// Pointer to outlet. need one for each outlet 
+
+
+#define nonzero(x)				((x > 0) ? x : 1.)
+
+typedef struct _delta{			///< Data structure for this object 
+	t_object	ob;				///< Must always be the first field; used by Max
+	float		x0;				///< Most recerntly received value
+	float		x1;				///< Previous value
+	float		x2;				///< 2nd last value received
+	float		delta;			///< 1st order differential
+	float		delta2;			///< 2nd order differential
+	long		lasttime;		///< Time code for previous value received
+	char		clearflag;		///< Flag indicating that history has been cleared
+	t_symbol	*attr_mode;		///< ATTRIBUTE: What mode is the object running in?
+	void		*outlet;		///< Pointer to outlet. Need one for each outlet 
 } t_delta;
 
 // Prototypes for methods: need a method for each incoming message
@@ -100,8 +112,7 @@ void delta_float(t_delta *x, double f);
 void delta_clear(t_delta *x);
 void delta_set(t_delta *x, Symbol *s, long ac, Atom *setval);
 void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst);
-
-
+void delta_attr_setmode(t_delta *x, void *attr, long argc, t_atom *argv);
 
 // Globals
 t_class		*this_class;				// Required. Global pointing to this class 
@@ -116,6 +127,10 @@ int main(void)
 	t_class *c;
 	
 	jamoma_init();
+		
+	ps_delta	= gensym("delta");
+	ps_delta2	= gensym("delta2");
+	ps_velocity = gensym("velocity");
 
 	// Define our class
 	c = class_new("jcom.delta",(method)delta_new, (method)0L, sizeof(t_delta), (method)0L, 0, 0);			
@@ -128,10 +143,11 @@ int main(void)
     class_addmethod(c, (method)delta_set,				"set",		A_GIMME,	0);  
     class_addmethod(c, (method)delta_clear,				"clear",	0);
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
-	//finder_addclass("All Objects","jcom.delta");	
-	//finder_addclass("Arith/Logic/Bitwise","jcom.delta");
-	//post("tl.delta © 2001-03 Trond Lossius");
-	
+
+	// ATTRIBUTE: mode	
+	CLASS_ATTR_SYM(c, "mode", 0, t_delta, attr_mode);			// create attribute
+	CLASS_ATTR_ACCESSORS(c, "mode", delta_attr_setmode, 0L);	// need custom setter method
+	CLASS_ATTR_ENUM(c, "mode", 0, "delta delta2 velocity");		// options for inspector
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -139,7 +155,8 @@ int main(void)
 	return 0;
 }
 
-
+#pragma mark -
+#pragma mark Object life
 /************************************************************************************/
 // Object Life
 
@@ -157,14 +174,49 @@ void *delta_new(void)
 }
 
 
+#pragma mark -
+#pragma mark methods
 /************************************************************************************/
 // Methods bound to input/inlets
+
+
+void delta_attr_setmode(t_delta *x, void *attr, long argc, t_atom *argv)
+{
+	t_symbol *arg = atom_getsym(argv);
+
+	if (arg == ps_delta)
+		x->attr_mode = ps_delta;
+	else if (arg == ps_velocity)
+		x->attr_mode = ps_velocity;
+	else if (arg == ps_delta2)
+		x->attr_mode = ps_delta2;
+	else {
+		object_error((t_object *)x, "wrong argument for the mode attribute. Set to delta");
+		x->attr_mode = ps_delta;
+	}
+}
 
 
 // BANG input
 void delta_bang(t_delta *x)
 {
-	outlet_float(x->outlet, x->delta);
+	long thistime;
+	float vel;
+	
+	// mode: 1st order difference
+	if (x->attr_mode==ps_delta)
+		outlet_float(x->outlet, x->delta);
+	// mode: 2nd order difference
+	else if (x->attr_mode==ps_delta2)
+		outlet_float(x->outlet, x->delta2);
+	// mode: velocity
+	else if (x->attr_mode==ps_velocity)
+	{
+		thistime = gettime();	
+		vel = (1000 * (x->x0 - x->x1) ) / (nonzero(thistime - x->lasttime));
+		x->lasttime = thistime;
+		outlet_float(x->outlet, vel);
+	}
 }
 
 
@@ -182,13 +234,29 @@ void delta_int(t_delta *x, long n)
 void delta_float(t_delta *x, double f)
 {
 	if (x->clearflag) {
-		x->prev = f;
-		x->delta = 0;
+		x->x1 = f;
+		x->x2 = f;
 		x->clearflag = 0;
 	}
-	else {
-		x->delta = f - x->prev;
-		x->prev = f;
+
+	// mode: 1st order difference
+	if (x->attr_mode==ps_delta)
+	{
+		x->delta = f - x->x1;
+		x->x1 = f;			
+	}
+	// mode: 2nd order difference
+	else if (x->attr_mode==ps_delta2)
+	{
+		x->delta2 = f - 2*x->x1 + x->x2;
+		x->x2 = x->x1;
+		x->x1 = f;
+	}
+	// mode: velocity	
+	else if (x->attr_mode==ps_velocity)
+	{
+		x->x1 = x->x0;
+		x->x0 = f;
 	}
 	delta_bang(x);
 }
@@ -209,13 +277,13 @@ void delta_set(t_delta *x, Symbol *s, long ac, Atom *setval)
 	else
 		f=0;
 	if (x->clearflag) {
-		x->prev = f;
+		x->x1 = f;
 		x->delta = 0;
 		x->clearflag = 0;
 	}
 	else {
-		x->delta = f - x->prev;
-		x->prev = f;
+		x->delta = f - x->x1;
+		x->x1 = f;
 	}
 	return;
 	
