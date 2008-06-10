@@ -29,7 +29,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.output~.mxt",
+					"varname" : "jmod.output~",
 					"patching_rect" : [ 46.0, 667.0, 300.0, 141.0 ],
 					"name" : "jmod.output~.maxpat",
 					"lockeddragscroll" : 1,
@@ -44,7 +44,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.vst~.mxt[1]",
+					"varname" : "jmod.vst~[1]",
 					"patching_rect" : [ 46.0, 455.0, 300.0, 210.0 ],
 					"name" : "jmod.vst~.maxpat",
 					"lockeddragscroll" : 1,
@@ -59,7 +59,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.vst~.mxt",
+					"varname" : "jmod.vst~",
 					"patching_rect" : [ 46.0, 243.0, 300.0, 210.0 ],
 					"name" : "jmod.vst~.maxpat",
 					"lockeddragscroll" : 1,
@@ -88,7 +88,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "poly~ jmod.continuum_synth.mxt 10",
+					"text" : "poly~ jmod.continuum_synth 10",
 					"patching_rect" : [ 46.0, 199.0, 175.0, 17.0 ],
 					"fontname" : "Verdana",
 					"id" : "obj-6",
@@ -145,7 +145,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.continuum.mxt",
+					"varname" : "jmod.continuum",
 					"patching_rect" : [ 46.0, 86.0, 255.0, 60.0 ],
 					"name" : "jmod.continuum.maxpat",
 					"lockeddragscroll" : 1,

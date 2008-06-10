@@ -128,7 +128,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "algorithm",
-					"text" : "jcom.parameter algorithm @type msg_symbol @description \"Choose the type of.mxtorithm to use for the edge detection.\"",
+					"text" : "jcom.parameter algorithm @type msg_symbol @description \"Choose the type oforithm to use for the edge detection.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"patching_rect" : [ 351.0, 128.0, 288.0, 28.0 ],
@@ -278,7 +278,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.edge%.mxt",
+					"text" : "jalg.edge%",
 					"numinlets" : 2,
 					"patching_rect" : [ 143.0, 379.0, 79.0, 17.0 ],
 					"numoutlets" : 1,

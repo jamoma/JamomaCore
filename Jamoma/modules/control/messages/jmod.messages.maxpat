@@ -367,9 +367,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jcom.gui.1Uh.a.stereo.mxt",
+					"varname" : "jcom.gui.1Uh.a.stereo",
 					"patching_rect" : [ 0.0, 0.0, 511.0, 121.0 ],
-					"name" : "jcom.gui.mxt",
+					"name" : "jcom.gui",
 					"lockeddragscroll" : 1,
 					"id" : "obj-23",
 					"numinlets" : 0,

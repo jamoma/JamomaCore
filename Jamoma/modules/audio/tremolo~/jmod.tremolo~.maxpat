@@ -107,7 +107,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.class.lfo_parameters",
-					"text" : "jcom.class.lfo_parameters.mxt tremolo",
+					"text" : "jcom.class.lfo_parameters tremolo",
 					"patching_rect" : [ 467.0, 71.0, 190.0, 17.0 ],
 					"fontname" : "Verdana",
 					"numinlets" : 2,
@@ -407,7 +407,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.tremolo~.mxt",
+					"text" : "jalg.tremolo~",
 					"patching_rect" : [ 78.0, 346.0, 120.0, 17.0 ],
 					"fontname" : "Verdana",
 					"numinlets" : 3,

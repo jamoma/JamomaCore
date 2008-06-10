@@ -468,7 +468,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.wake%.mxt",
+					"text" : "jalg.wake%",
 					"numinlets" : 2,
 					"patching_rect" : [ 120.0, 267.0, 131.0, 17.0 ],
 					"numoutlets" : 1,

@@ -121,7 +121,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "\/input%1",
-					"name" : "jmod.input%.mxt",
+					"name" : "jmod.input%",
 					"numinlets" : 1,
 					"patching_rect" : [ 305.0, 33.0, 301.0, 71.0 ],
 					"numoutlets" : 2,

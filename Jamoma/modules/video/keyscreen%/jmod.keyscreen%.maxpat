@@ -952,7 +952,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.keyscreen%.mxt",
+					"text" : "jalg.keyscreen%",
 					"numinlets" : 4,
 					"patching_rect" : [ 206.0, 358.0, 106.0, 17.0 ],
 					"numoutlets" : 1,

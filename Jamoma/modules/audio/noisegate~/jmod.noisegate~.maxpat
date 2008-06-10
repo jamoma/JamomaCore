@@ -886,7 +886,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.noisegate~.mxt #0_",
+					"text" : "jalg.noisegate~ #0_",
 					"patching_rect" : [ 46.0, 506.0, 145.0, 17.0 ],
 					"fontname" : "Verdana",
 					"numinlets" : 3,

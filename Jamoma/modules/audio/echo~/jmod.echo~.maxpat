@@ -49,7 +49,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.echo~.mxt",
+					"text" : "jalg.echo~",
 					"outlettype" : [ "", "", "" ],
 					"hidden" : 1,
 					"patching_rect" : [ 38.0, 454.0, 82.0, 17.0 ],

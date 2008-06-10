@@ -306,7 +306,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "\/orsize%",
-					"name" : "jmod.orsize%.mxt",
+					"name" : "jmod.orsize%",
 					"numinlets" : 2,
 					"patching_rect" : [ 287.0, 75.0, 301.0, 72.0 ],
 					"numoutlets" : 2,

@@ -267,7 +267,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.multicast.mxt",
+					"text" : "jalg.multicast",
 					"patching_rect" : [ 119.0, 278.0, 88.0, 17.0 ],
 					"fontname" : "Verdana",
 					"hidden" : 1,

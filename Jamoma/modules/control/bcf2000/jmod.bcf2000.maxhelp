@@ -116,7 +116,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.bcf2000.mxt",
+					"varname" : "jmod.bcf2000",
 					"patching_rect" : [ 44.0, 264.0, 302.0, 71.0 ],
 					"name" : "jmod.bcf2000.maxpat",
 					"numinlets" : 1,

@@ -359,7 +359,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.delay~.mxt",
+					"text" : "jalg.delay~",
 					"patching_rect" : [ 69.0, 399.0, 114.0, 17.0 ],
 					"fontname" : "Verdana",
 					"numinlets" : 3,

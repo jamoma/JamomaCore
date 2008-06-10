@@ -32995,7 +32995,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sprintf script new textslider\/%s bpatcher %ld %ld 150 14 0 0 jcom.textslider.mxt 0 @text %s",
+													"text" : "sprintf script new textslider\/%s bpatcher %ld %ld 150 14 0 0 jcom.textslider 0 @text %s",
 													"linecount" : 2,
 													"patching_rect" : [ 931.0, 220.0, 231.0, 28.0 ],
 													"fontname" : "Verdana",
@@ -33888,7 +33888,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.vst~.mxt #0_",
+					"text" : "jalg.vst~ #0_",
 					"patching_rect" : [ 93.0, 413.0, 122.0, 17.0 ],
 					"fontname" : "Verdana",
 					"numinlets" : 3,

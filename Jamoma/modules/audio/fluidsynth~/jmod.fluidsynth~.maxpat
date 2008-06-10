@@ -362,7 +362,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.fluidsynth~.mxt",
+					"text" : "jalg.fluidsynth~",
 					"outlettype" : [ "", "" ],
 					"hidden" : 1,
 					"patching_rect" : [ 52.0, 276.0, 130.0, 17.0 ],

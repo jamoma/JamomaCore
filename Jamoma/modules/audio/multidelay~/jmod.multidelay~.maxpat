@@ -867,7 +867,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.multidelay~.mxt",
+					"text" : "jalg.multidelay~",
 					"outlettype" : [ "signal", "signal" ],
 					"hidden" : 1,
 					"patching_rect" : [ 304.0, 546.0, 104.0, 17.0 ],

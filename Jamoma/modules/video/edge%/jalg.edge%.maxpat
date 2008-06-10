@@ -48,7 +48,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.menuprep.mxt",
+					"text" : "jcom.menuprep",
 					"numinlets" : 1,
 					"patching_rect" : [ 321.0, 159.0, 99.0, 17.0 ],
 					"numoutlets" : 2,

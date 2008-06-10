@@ -445,7 +445,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.palette.mxt",
+					"text" : "jalg.palette",
 					"patching_rect" : [ 119.0, 278.0, 82.0, 17.0 ],
 					"fontname" : "Verdana",
 					"hidden" : 1,

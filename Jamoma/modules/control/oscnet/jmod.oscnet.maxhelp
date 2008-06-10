@@ -203,7 +203,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.oscnet.mxt",
+					"text" : "jmod.oscnet",
 					"patching_rect" : [ 17.0, 18.0, 313.0, 28.0 ],
 					"fontname" : "Verdana",
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
@@ -233,7 +233,7 @@
 					"maxclass" : "bpatcher",
 					"varname" : "\/oscnet",
 					"patching_rect" : [ 13.0, 231.0, 269.0, 70.0 ],
-					"name" : "jmod.oscnet.mxt",
+					"name" : "jmod.oscnet",
 					"lockeddragscroll" : 1,
 					"id" : "obj-16",
 					"numinlets" : 1,

@@ -857,7 +857,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.brcosa%.mxt",
+					"text" : "jalg.brcosa%",
 					"numinlets" : 2,
 					"patching_rect" : [ 188.0, 236.0, 199.0, 17.0 ],
 					"numoutlets" : 2,

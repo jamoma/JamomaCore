@@ -217,7 +217,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.yfade%.mxt",
+					"text" : "jmod.yfade%",
 					"numinlets" : 1,
 					"patching_rect" : [ 23.0, 27.0, 260.0, 28.0 ],
 					"numoutlets" : 0,

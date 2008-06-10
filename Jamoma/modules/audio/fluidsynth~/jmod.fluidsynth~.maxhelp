@@ -139,7 +139,7 @@
 					"id" : "obj-3",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"name" : "jmod.midiin.mxt"
+					"name" : "jmod.midiin"
 				}
 
 			}

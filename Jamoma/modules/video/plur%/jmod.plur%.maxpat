@@ -111,7 +111,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mode",
-					"text" : "jcom.parameter mode @type msg_int @range/bounds 0 15 @range/clipmode both @ramp/drive none @description \"the different modes represent different (highly arbitrary) variations on the classic linear interpolation.mxtorithm. there are 16 of them. try them all!\"",
+					"text" : "jcom.parameter mode @type msg_int @range/bounds 0 15 @range/clipmode both @ramp/drive none @description \"the different modes represent different (highly arbitrary) variations on the classic linear interpolationorithm. there are 16 of them. try them all!\"",
 					"linecount" : 3,
 					"numinlets" : 1,
 					"patching_rect" : [ 345.0, 173.0, 394.0, 38.0 ],
@@ -620,7 +620,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.plur%.mxt",
+					"text" : "jalg.plur%",
 					"numinlets" : 2,
 					"patching_rect" : [ 109.0, 277.0, 83.0, 17.0 ],
 					"numoutlets" : 1,

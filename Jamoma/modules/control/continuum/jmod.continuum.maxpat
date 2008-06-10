@@ -1077,7 +1077,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.continuum.mxt",
+					"text" : "jalg.continuum",
 					"patching_rect" : [ 213.0, 280.0, 96.0, 17.0 ],
 					"fontname" : "Verdana",
 					"id" : "obj-18",

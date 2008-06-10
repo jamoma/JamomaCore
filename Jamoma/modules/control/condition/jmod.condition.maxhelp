@@ -177,7 +177,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.condition.mxt",
+					"varname" : "jmod.condition",
 					"patching_rect" : [ 22.0, 264.0, 300.0, 71.0 ],
 					"name" : "jmod.condition.maxpat",
 					"numinlets" : 2,

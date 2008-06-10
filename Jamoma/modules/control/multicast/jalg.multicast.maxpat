@@ -429,7 +429,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sprintf script new %sn_net newex %ld 30 150 9 jalg.multicast_elt.mxt %s",
+													"text" : "sprintf script new %sn_net newex %ld 30 150 9 jalg.multicast_elt %s",
 													"linecount" : 3,
 													"patching_rect" : [ 25.0, 141.0, 129.0, 38.0 ],
 													"fontname" : "Verdana",

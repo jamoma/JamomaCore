@@ -521,7 +521,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.emboss%.mxt",
+					"text" : "jalg.emboss%",
 					"numinlets" : 2,
 					"patching_rect" : [ 97.0, 280.0, 101.0, 17.0 ],
 					"numoutlets" : 1,

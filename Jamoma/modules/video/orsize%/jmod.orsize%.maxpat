@@ -1290,7 +1290,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.orsize%.mxt",
+					"text" : "jalg.orsize%",
 					"numinlets" : 2,
 					"patching_rect" : [ 188.0, 223.0, 219.0, 17.0 ],
 					"numoutlets" : 2,

@@ -144,7 +144,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.motiongram%.mxt",
+					"text" : "jalg.motiongram%",
 					"numinlets" : 2,
 					"patching_rect" : [ 79.0, 298.0, 113.0, 17.0 ],
 					"numoutlets" : 2,

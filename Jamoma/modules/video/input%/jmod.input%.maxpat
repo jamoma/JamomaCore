@@ -139,8 +139,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jalg.input%.ui.mxt",
-					"name" : "jalg.input%.ui.mxt",
+					"varname" : "jalg.input%.ui",
+					"name" : "jalg.input%.ui",
 					"numinlets" : 1,
 					"offset" : [ 0.0, -19.0 ],
 					"patching_rect" : [ 0.0, 19.0, 190.0, 41.0 ],
@@ -247,7 +247,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.input%.mxt #0_",
+					"text" : "jalg.input% #0_",
 					"numinlets" : 1,
 					"patching_rect" : [ 173.0, 344.0, 104.0, 17.0 ],
 					"numoutlets" : 2,

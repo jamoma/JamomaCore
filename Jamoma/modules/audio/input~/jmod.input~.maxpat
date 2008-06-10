@@ -1410,7 +1410,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.thru.mxt",
+													"text" : "jcom.thru",
 													"patching_rect" : [ 260.0, 171.0, 80.0, 18.0 ],
 													"id" : "obj-11",
 													"fontname" : "Verdana",
@@ -2329,7 +2329,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.gain.mxt[3]",
+					"varname" : "jcom.parameter.gain[3]",
 					"text" : "route set",
 					"patching_rect" : [ 286.0, 342.0, 53.0, 18.0 ],
 					"id" : "obj-6",
@@ -2346,8 +2346,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.gain.mxt",
-					"text" : "jcom.parameter.gain.mxt audio/gain @description \"master gain\"",
+					"varname" : "jcom.parameter.gain",
+					"text" : "jcom.parameter.gain audio/gain @description \"master gain\"",
 					"patching_rect" : [ 286.0, 321.0, 329.0, 18.0 ],
 					"id" : "obj-7",
 					"fontname" : "Verdana",
@@ -2504,8 +2504,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.gain.mxt[2]",
-					"text" : "jcom.parameter.gain.mxt gain_2 @description \"right channel gain\"",
+					"varname" : "jcom.parameter.gain[2]",
+					"text" : "jcom.parameter.gain gain_2 @description \"right channel gain\"",
 					"linecount" : 2,
 					"patching_rect" : [ 475.0, 204.0, 175.0, 30.0 ],
 					"id" : "obj-17",
@@ -2522,8 +2522,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.gain.mxt[1]",
-					"text" : "jcom.parameter.gain.mxt gain_1 @description \"left channel gain\"",
+					"varname" : "jcom.parameter.gain[1]",
+					"text" : "jcom.parameter.gain gain_1 @description \"left channel gain\"",
 					"linecount" : 2,
 					"patching_rect" : [ 288.0, 204.0, 171.0, 30.0 ],
 					"id" : "obj-18",

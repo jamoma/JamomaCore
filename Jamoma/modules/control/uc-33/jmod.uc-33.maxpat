@@ -3726,7 +3726,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt[7]",
+									"varname" : "jalg.uc-33[7]",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 378.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,
@@ -3743,7 +3743,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt[6]",
+									"varname" : "jalg.uc-33[6]",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 325.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,
@@ -3760,7 +3760,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt[5]",
+									"varname" : "jalg.uc-33[5]",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 272.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,
@@ -3777,7 +3777,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt[4]",
+									"varname" : "jalg.uc-33[4]",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 219.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,
@@ -3794,7 +3794,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt[3]",
+									"varname" : "jalg.uc-33[3]",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 166.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,
@@ -3811,7 +3811,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt[2]",
+									"varname" : "jalg.uc-33[2]",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 113.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,
@@ -3828,7 +3828,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt[1]",
+									"varname" : "jalg.uc-33[1]",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 60.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,
@@ -3845,7 +3845,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.uc-33.mxt",
+									"varname" : "jalg.uc-33",
 									"name" : "jalg.uc-33.maxpat",
 									"presentation_rect" : [ 7.0, 8.0, 51.0, 243.0 ],
 									"lockeddragscroll" : 1,

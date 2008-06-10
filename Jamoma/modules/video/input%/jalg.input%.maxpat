@@ -623,7 +623,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "pfft~ jcom.gizmo_transpose.mxt 4096 4",
+													"text" : "pfft~ jcom.gizmo_transpose 4096 4",
 													"numinlets" : 2,
 													"patching_rect" : [ 319.0, 158.0, 194.0, 17.0 ],
 													"numoutlets" : 1,
@@ -654,7 +654,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "pfft~ jcom.gizmo_transpose.mxt 4096 4",
+													"text" : "pfft~ jcom.gizmo_transpose 4096 4",
 													"numinlets" : 2,
 													"patching_rect" : [ 83.0, 158.0, 194.0, 17.0 ],
 													"numoutlets" : 1,

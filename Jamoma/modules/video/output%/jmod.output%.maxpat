@@ -199,7 +199,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.output%.mxt",
+					"text" : "jalg.output%",
 					"numinlets" : 2,
 					"patching_rect" : [ 189.0, 200.0, 199.0, 17.0 ],
 					"numoutlets" : 1,
@@ -246,7 +246,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.hub",
-					"text" : "jcom.hub jcom.output% @size 1U-half @module_type video .mxtorithm_type jitter @description \"Output to an OpenGL window\"",
+					"text" : "jcom.hub jcom.output% @size 1U-half @module_type video orithm_type jitter @description \"Output to an OpenGL window\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"patching_rect" : [ 1.0, 109.0, 315.0, 28.0 ],

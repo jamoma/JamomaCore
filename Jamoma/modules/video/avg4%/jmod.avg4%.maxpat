@@ -371,7 +371,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.avg4%.mxt",
+					"text" : "jalg.avg4%",
 					"numinlets" : 2,
 					"patching_rect" : [ 138.0, 323.0, 89.0, 17.0 ],
 					"numoutlets" : 1,

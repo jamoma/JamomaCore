@@ -386,7 +386,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.yfade%.mxt",
+					"text" : "jalg.yfade%",
 					"numinlets" : 2,
 					"patching_rect" : [ 180.0, 257.0, 125.0, 17.0 ],
 					"numoutlets" : 2,

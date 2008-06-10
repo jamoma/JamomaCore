@@ -2090,7 +2090,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt[7]",
+									"varname" : "jalg.bcf2000[7]",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 378.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,
@@ -2107,7 +2107,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt[6]",
+									"varname" : "jalg.bcf2000[6]",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 325.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,
@@ -2124,7 +2124,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt[5]",
+									"varname" : "jalg.bcf2000[5]",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 272.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,
@@ -2141,7 +2141,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt[4]",
+									"varname" : "jalg.bcf2000[4]",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 219.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,
@@ -2158,7 +2158,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt[3]",
+									"varname" : "jalg.bcf2000[3]",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 166.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,
@@ -2175,7 +2175,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt[2]",
+									"varname" : "jalg.bcf2000[2]",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 113.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,
@@ -2192,7 +2192,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt[1]",
+									"varname" : "jalg.bcf2000[1]",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 60.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,
@@ -2209,7 +2209,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jalg.bcf2000.mxt",
+									"varname" : "jalg.bcf2000",
 									"name" : "jalg.bcf2000.maxpat",
 									"presentation_rect" : [ 7.0, 8.0, 51.0, 316.0 ],
 									"lockeddragscroll" : 1,

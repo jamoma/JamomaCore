@@ -385,7 +385,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.xfade%.mxt",
+					"text" : "jalg.xfade%",
 					"numinlets" : 3,
 					"patching_rect" : [ 119.0, 485.0, 175.0, 17.0 ],
 					"numoutlets" : 1,

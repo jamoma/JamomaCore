@@ -75,7 +75,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.bcf2000.mxt",
+					"varname" : "jmod.bcf2000",
 					"patching_rect" : [ 46.0, 154.0, 255.0, 60.0 ],
 					"name" : "jmod.uc-33.maxpat",
 					"lockeddragscroll" : 1,

@@ -102,9 +102,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.mouse.mxt",
+					"varname" : "jmod.mouse",
 					"patching_rect" : [ 397.0, 400.0, 255.0, 60.0 ],
-					"name" : "jmod.mouse.mxt",
+					"name" : "jmod.mouse",
 					"lockeddragscroll" : 1,
 					"id" : "obj-7",
 					"numinlets" : 1,
@@ -161,7 +161,7 @@
 					"maxclass" : "bpatcher",
 					"varname" : "\/midi",
 					"patching_rect" : [ 397.0, 517.0, 255.0, 60.0 ],
-					"name" : "jmod.midiin.mxt",
+					"name" : "jmod.midiin",
 					"lockeddragscroll" : 1,
 					"id" : "obj-11",
 					"numinlets" : 1,
@@ -221,7 +221,7 @@
 					"maxclass" : "bpatcher",
 					"varname" : "\/filter~",
 					"patching_rect" : [ 678.0, 465.0, 301.0, 71.0 ],
-					"name" : "jmod.filter~.mxt",
+					"name" : "jmod.filter~",
 					"lockeddragscroll" : 1,
 					"id" : "obj-15",
 					"numinlets" : 3,
@@ -289,7 +289,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "\/create mymapping \/analysis\/result jalg.transformation.mxt -> \/reverb\/decay",
+					"text" : "\/create mymapping \/analysis\/result jalg.transformation -> \/reverb\/decay",
 					"linecount" : 2,
 					"patching_rect" : [ 33.0, 200.0, 263.0, 26.0 ],
 					"fontname" : "Verdana",

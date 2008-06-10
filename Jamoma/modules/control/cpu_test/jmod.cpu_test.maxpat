@@ -596,7 +596,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.mxt",
+					"varname" : "jcom.parameter",
 					"text" : "jcom.parameter my_parameter @repetitions 1 @type msg_int @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both",
 					"linecount" : 2,
 					"patching_rect" : [ 458.0, 47.0, 262.0, 28.0 ],

@@ -248,7 +248,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "poly~ jalg.sine~.mxt",
+					"text" : "poly~ jalg.sine~",
 					"patching_rect" : [ 383.0, 287.0, 103.0, 17.0 ],
 					"fontname" : "Verdana",
 					"numinlets" : 1,

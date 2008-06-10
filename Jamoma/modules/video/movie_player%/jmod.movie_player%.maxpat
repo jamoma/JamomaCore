@@ -362,7 +362,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.list2parameter.mxt 2",
+					"text" : "jcom.list2parameter 2",
 					"numinlets" : 11,
 					"patching_rect" : [ 539.0, 558.0, 144.0, 17.0 ],
 					"numoutlets" : 11,
@@ -873,7 +873,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.movie_player%.mxt",
+					"text" : "jalg.movie_player%",
 					"numinlets" : 2,
 					"patching_rect" : [ 194.0, 384.0, 128.0, 17.0 ],
 					"numoutlets" : 2,

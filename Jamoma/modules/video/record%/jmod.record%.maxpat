@@ -732,7 +732,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.record%.mxt",
+					"text" : "jalg.record%",
 					"numinlets" : 2,
 					"patching_rect" : [ 174.0, 299.0, 90.0, 17.0 ],
 					"numoutlets" : 1,

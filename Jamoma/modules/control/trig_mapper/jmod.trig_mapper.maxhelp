@@ -456,7 +456,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "first, you'll have to analyse the namespace, in order for jmod.trig_mapper.mxt to know every module parameter",
+					"text" : "first, you'll have to analyse the namespace, in order for jmod.trig_mapper to know every module parameter",
 					"linecount" : 2,
 					"patching_rect" : [ 27.0, 148.0, 280.0, 28.0 ],
 					"fontname" : "Verdana",
@@ -510,7 +510,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.trig_mapper.mxt",
+					"text" : "jmod.trig_mapper",
 					"patching_rect" : [ 30.0, 34.0, 218.0, 28.0 ],
 					"fontname" : "Verdana",
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],

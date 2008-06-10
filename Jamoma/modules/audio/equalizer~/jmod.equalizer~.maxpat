@@ -1032,8 +1032,8 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"varname" : "jalg.filter_params.mxt",
-									"text" : "poly~ jalg.filter_params.mxt 0",
+									"varname" : "jalg.filter_params",
+									"text" : "poly~ jalg.filter_params 0",
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 40.0, 270.0, 424.0, 17.0 ],
 									"fontname" : "Verdana",
@@ -1651,7 +1651,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.equalizer~.mxt",
+					"text" : "jalg.equalizer~",
 					"outlettype" : [ "", "signal", "signal" ],
 					"hidden" : 1,
 					"patching_rect" : [ 64.0, 445.0, 119.0, 17.0 ],

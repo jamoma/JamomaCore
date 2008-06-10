@@ -407,7 +407,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.orsize%.mxt",
+					"varname" : "jmod.orsize%",
 					"name" : "jmod.orsize%.maxpat",
 					"numinlets" : 2,
 					"patching_rect" : [ 316.0, 104.0, 301.0, 71.0 ],

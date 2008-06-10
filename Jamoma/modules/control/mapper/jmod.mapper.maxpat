@@ -203,7 +203,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.mxt[6]",
+					"varname" : "jcom.parameter[6]",
 					"text" : "jcom.message mapCreate @description \"Bang to create new mapping.\"",
 					"patching_rect" : [ 482.0, 608.0, 326.0, 17.0 ],
 					"fontname" : "Verdana",
@@ -683,7 +683,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message create @description \"Create a new mapping. Arguments are: [mapping_name] [mapping_source (OSC)] [optional.mxtorithm to apply][ ->][mapping_destination (OSC)].\"",
+					"text" : "jcom.message create @description \"Create a new mapping. Arguments are: [mapping_name] [mapping_source (OSC)] [optionalorithm to apply][ ->][mapping_destination (OSC)].\"",
 					"linecount" : 2,
 					"patching_rect" : [ 482.0, 6.0, 425.0, 28.0 ],
 					"fontname" : "Verdana",
@@ -729,7 +729,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.mapper.mxt",
+					"text" : "jalg.mapper",
 					"patching_rect" : [ 66.0, 330.0, 91.0, 17.0 ],
 					"fontname" : "Verdana",
 					"hidden" : 1,

@@ -31,7 +31,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.record%.mxt",
+					"text" : "jmod.record%",
 					"numinlets" : 1,
 					"patching_rect" : [ 18.0, 26.0, 189.0, 28.0 ],
 					"numoutlets" : 0,

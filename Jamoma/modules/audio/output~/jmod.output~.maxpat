@@ -1347,7 +1347,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.thru.mxt",
+													"text" : "jcom.thru",
 													"patching_rect" : [ 260.0, 171.0, 80.0, 18.0 ],
 													"id" : "obj-11",
 													"fontname" : "Verdana",
@@ -2273,8 +2273,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.gain.mxt",
-					"text" : "jcom.parameter.gain.mxt audio/gain @description \"master gain\"",
+					"varname" : "jcom.parameter.gain",
+					"text" : "jcom.parameter.gain audio/gain @description \"master gain\"",
 					"linecount" : 2,
 					"patching_rect" : [ 346.0, 128.0, 266.0, 30.0 ],
 					"id" : "obj-8",

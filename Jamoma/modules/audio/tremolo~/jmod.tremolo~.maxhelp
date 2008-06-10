@@ -62,7 +62,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.tremolo~.mxt",
+					"varname" : "jmod.tremolo~",
 					"patching_rect" : [ 35.0, 232.0, 300.0, 70.0 ],
 					"name" : "jmod.tremolo~.maxpat",
 					"numinlets" : 3,
@@ -77,7 +77,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.output~.mxt",
+					"varname" : "jmod.output~",
 					"patching_rect" : [ 34.0, 308.0, 301.0, 141.0 ],
 					"name" : "jmod.output~.maxpat",
 					"numinlets" : 3,
@@ -92,7 +92,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.input~.mxt",
+					"varname" : "jmod.input~",
 					"patching_rect" : [ 36.0, 88.0, 301.0, 141.0 ],
 					"name" : "jmod.input~.maxpat",
 					"numinlets" : 1,

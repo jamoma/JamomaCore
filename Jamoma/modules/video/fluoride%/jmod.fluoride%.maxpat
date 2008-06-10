@@ -520,7 +520,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.fluoride%.mxt",
+					"text" : "jalg.fluoride%",
 					"numinlets" : 2,
 					"patching_rect" : [ 93.0, 342.0, 99.0, 17.0 ],
 					"numoutlets" : 1,

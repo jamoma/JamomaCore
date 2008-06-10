@@ -602,7 +602,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.mxt",
+					"varname" : "jcom.parameter",
 					"text" : "jcom.message get_state @description \"Poll state for all bridged modules, and display in text window.\"",
 					"linecount" : 2,
 					"patching_rect" : [ 355.0, 60.0, 280.0, 30.0 ],

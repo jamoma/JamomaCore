@@ -311,7 +311,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.polhemus.mxt",
+					"text" : "jalg.polhemus",
 					"patching_rect" : [ 170.0, 287.0, 92.0, 17.0 ],
 					"fontname" : "Verdana",
 					"hidden" : 1,

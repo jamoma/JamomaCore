@@ -892,7 +892,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.chromakey%.mxt",
+					"text" : "jalg.chromakey%",
 					"numinlets" : 3,
 					"patching_rect" : [ 168.0, 395.0, 109.0, 17.0 ],
 					"numoutlets" : 1,

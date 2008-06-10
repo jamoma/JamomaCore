@@ -143,7 +143,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.movie_player%.mxt",
+					"varname" : "jmod.movie_player%",
 					"name" : "jmod.movie_player%.maxpat",
 					"numinlets" : 2,
 					"patching_rect" : [ 44.0, 176.0, 302.0, 141.0 ],

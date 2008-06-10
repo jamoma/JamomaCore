@@ -246,9 +246,9 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "bpatcher",
-									"varname" : "jmod.midiin.mxt",
+									"varname" : "jmod.midiin",
 									"patching_rect" : [ 16.0, 11.0, 255.0, 60.0 ],
-									"name" : "jmod.midiin.mxt",
+									"name" : "jmod.midiin",
 									"numinlets" : 1,
 									"lockeddragscroll" : 1,
 									"id" : "obj-3",
@@ -660,9 +660,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.cuelist.mxt",
+					"varname" : "jmod.cuelist",
 					"patching_rect" : [ 19.0, 586.0, 300.0, 83.0 ],
-					"name" : "jmod.cuelist.mxt",
+					"name" : "jmod.cuelist",
 					"numinlets" : 1,
 					"lockeddragscroll" : 1,
 					"id" : "obj-7",
@@ -768,7 +768,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.output~.mxt",
+					"varname" : "jmod.output~",
 					"patching_rect" : [ 19.0, 442.0, 300.0, 142.0 ],
 					"name" : "jmod.output~.maxpat",
 					"numinlets" : 3,
@@ -783,7 +783,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.input~.mxt",
+					"varname" : "jmod.input~",
 					"patching_rect" : [ 19.0, 72.0, 300.0, 140.0 ],
 					"name" : "jmod.input~.maxpat",
 					"numinlets" : 1,
@@ -798,7 +798,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.vst~.mxt",
+					"varname" : "jmod.vst~",
 					"patching_rect" : [ 19.0, 225.0, 300.0, 210.0 ],
 					"name" : "jmod.vst~.maxpat",
 					"numinlets" : 3,

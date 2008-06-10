@@ -1465,7 +1465,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"varname" : "jcom.parameter.mxt[1]",
+					"varname" : "jcom.parameter[1]",
 					"text" : "jcom.message camera\/settings @description \"Open dialog for camera settings\"",
 					"numinlets" : 1,
 					"patching_rect" : [ 804.0, 67.0, 367.0, 17.0 ],

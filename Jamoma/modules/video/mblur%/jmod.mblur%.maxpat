@@ -148,7 +148,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.mblur%.mxt",
+					"text" : "jalg.mblur%",
 					"numinlets" : 2,
 					"patching_rect" : [ 246.0, 302.0, 84.0, 17.0 ],
 					"numoutlets" : 1,

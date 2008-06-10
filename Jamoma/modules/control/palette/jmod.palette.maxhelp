@@ -34,7 +34,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.palette.mxt",
+					"text" : "jmod.palette",
 					"patching_rect" : [ 21.0, 17.0, 247.0, 28.0 ],
 					"fontname" : "Verdana",
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
@@ -159,7 +159,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.palette.mxt",
+					"varname" : "jmod.palette",
 					"patching_rect" : [ 147.0, 197.0, 300.0, 70.0 ],
 					"name" : "jmod.palette.maxpat",
 					"lockeddragscroll" : 1,

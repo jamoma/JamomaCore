@@ -312,7 +312,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.wacom.mxt",
+					"text" : "jalg.wacom",
 					"patching_rect" : [ 175.0, 247.0, 104.0, 17.0 ],
 					"fontname" : "Verdana",
 					"hidden" : 1,

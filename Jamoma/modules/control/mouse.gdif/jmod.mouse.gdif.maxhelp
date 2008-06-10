@@ -7372,7 +7372,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.mouse.gdif.mxt",
+					"varname" : "jmod.mouse.gdif",
 					"patching_rect" : [ 22.0, 91.0, 301.0, 70.0 ],
 					"name" : "jmod.mouse.gdif.maxpat",
 					"lockeddragscroll" : 1,

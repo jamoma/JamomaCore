@@ -486,7 +486,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jalg.condition.mxt",
+					"text" : "jalg.condition",
 					"patching_rect" : [ 406.0, 156.0, 114.0, 18.0 ],
 					"fontsize" : 9.873845,
 					"numinlets" : 2,

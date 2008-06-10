@@ -652,7 +652,7 @@
 					"maxclass" : "bpatcher",
 					"varname" : "\/input%",
 					"patching_rect" : [ 356.0, 270.0, 300.0, 70.0 ],
-					"name" : "jmod.input%.mxt",
+					"name" : "jmod.input%",
 					"lockeddragscroll" : 1,
 					"id" : "obj-9",
 					"numinlets" : 1,
