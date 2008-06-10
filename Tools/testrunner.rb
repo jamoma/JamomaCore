@@ -174,6 +174,7 @@ establishCommunication()
 
 @totaltests = 0
 numtests = processAllTestFiles(@svnroot+"/Tests", ".test.maxpat")
+numtests = processAllTestFiles(@svnroot+"/Jamoma/modules", ".test.maxpat")
 puts "  #{numtests} tests completed."
 @totaltests = @totaltests + numtests
 

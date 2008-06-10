@@ -47,5 +47,6 @@ This relies on the 'test-components' folder in the Jamoma/library folder.
 The test components need to be in that location, because they need to be in Max's searchpath.
 
 The tests themselves are located in the 'Tests' folder at the top level of the branch.
+The script also looks in every folder of the Modules folder so that module tests can be kept together with the module.
 
 
