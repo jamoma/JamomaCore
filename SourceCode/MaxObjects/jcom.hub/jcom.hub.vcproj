@@ -43,8 +43,9 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\ThirdParty\libxml2\win32\include;..\..\ThirdParty\libiconv\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
+				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -63,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib JamomaFramework.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug;..\..\ThirdParty\libxml2\win32\lib;..\..\ThirdParty\libiconv\lib"
 				ModuleDefinitionFile="jcom.hub.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
