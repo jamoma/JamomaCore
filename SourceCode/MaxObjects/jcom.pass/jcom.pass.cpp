@@ -43,6 +43,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_class *c;
 	t_object *attr;
 	
+	common_symbols_init();
 	jamoma_init();
 
 	// Define our class
