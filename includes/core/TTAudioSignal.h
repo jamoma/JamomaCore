@@ -117,6 +117,9 @@ public:
 	 	@return		The number of channels that are valid for all signals.		*/
 	static TTUInt8 getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3);
 
+	static TTUInt8 getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2);
+	static TTUInt8 getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3);
+	
 	/** Use this class method to determine the number of channels of an input our output signal.
 	 *	This can be useful in circumstances where input and output signals are not necsessarily expected
 	 *  or required to have the same number of channels.
