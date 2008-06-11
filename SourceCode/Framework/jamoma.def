@@ -1,5 +1,5 @@
 
-LIBRARY "jamoma"
+LIBRARY "JamomaFramework"
 
 EXPORTS
 	; Globals
