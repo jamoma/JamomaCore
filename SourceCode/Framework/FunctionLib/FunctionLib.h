@@ -18,7 +18,7 @@
 
 
 // Specification of our base class
-class FunctionUnit : public TTObject {
+class JAMOMA_EXPORT FunctionUnit : public TTObject {
 public:
 	/** constructor */
 	FunctionUnit(const char* functionName);
@@ -34,7 +34,7 @@ public:
 };
 
 
-class FunctionLib {
+class JAMOMA_EXPORT FunctionLib {
 public:
 	/** Instantiate a function by name */
 	static JamomaError createUnit(const TTSymbol& unitName, FunctionUnit **unit);

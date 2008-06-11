@@ -30,7 +30,7 @@ static const double kGainMidiPowerInv = 1./kGainMidiPower;
 // Specification for the base class of each DataspaceUnit
 // A DataspaceUnit converts from a specific unit to a neutral unit
 // and is used by a DataspaceLib to do a conversion
-class DataspaceUnit{
+class JAMOMA_EXPORT DataspaceUnit{
 	public:
 		t_symbol *name;				/// < name of this unit
 
@@ -52,7 +52,7 @@ class DataspaceUnit{
 
 
 // Specification of our base class
-class DataspaceLib{
+class JAMOMA_EXPORT DataspaceLib{
 	private:
 		DataspaceUnit	*inUnit;
 		DataspaceUnit	*outUnit;

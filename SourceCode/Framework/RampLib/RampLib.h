@@ -21,7 +21,7 @@ typedef void (*RampUnitCallback)(void *, long, double *);
 
 
 // Specification of our base class
-class RampUnit : public TTObject {
+class JAMOMA_EXPORT RampUnit : public TTObject {
 	private:
 		TTSymbol			attrFunction;		///< The name of the functionUnit
 
@@ -66,7 +66,7 @@ class RampUnit : public TTObject {
 };
 
 
-class RampLib {
+class JAMOMA_EXPORT RampLib {
 public:
 	/** Instantiate a function by name */
 	static JamomaError createUnit(const TTSymbol& unitName, RampUnit **unit, RampUnitCallback callback, void* baton);
