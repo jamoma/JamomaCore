@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="jcom.mkdir"
+	Name="jcom.return"
 	ProjectGUID="{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
-	RootNamespace="jcom.mkdir"
+	RootNamespace="jcom.return"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -67,7 +67,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
-				ModuleDefinitionFile="jcom.mkdir.def"
+				ModuleDefinitionFile="jcom.return.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -190,7 +190,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\jcom.mkdir.cpp"
+				RelativePath=".\jcom.return.cpp"
 				>
 			</File>
 		</Filter>
