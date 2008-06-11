@@ -211,4 +211,7 @@ EXPORTS
 		ps_video_mute
 		ps_video_preview
 		ps_voices
-	
+		
+		;commonsyms.c
+		common_symbols_init
+		
