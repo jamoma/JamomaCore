@@ -68,7 +68,8 @@ JamomaError FunctionLib::createUnit(const TTSymbol& unitName, FunctionUnit **uni
 	else{
 		// Invalid function specified default to linear
 //		TTLogError("rampLib: Invalid function: %s", (TTString)unitName);
-		TTLogError("rampLib: Invalid function", (TTString)unitName);
+//		TTLogError("rampLib: Invalid function", (TTString)unitName);
+		error("barfs");
 		newUnit = (FunctionUnit*) new LinearFunction;
 	}
 	

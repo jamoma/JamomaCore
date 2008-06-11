@@ -7,7 +7,7 @@
  */
 
 #include "RampLib.h"
-
+#include "ext.h"
 
 RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton)
 	: TTObject(rampName), startValue(NULL), targetValue(NULL), currentValue(NULL), normalizedValue(0.0), numValues(0), functionUnit(NULL)
@@ -129,7 +129,8 @@ JamomaError RampLib::createUnit(const TTSymbol& unitName, RampUnit **unit, RampU
 		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-		TTLogError("rampLib: Invalid rampUnit: %s", (char*)unitName);
+//		TTLogError("rampLib: Invalid rampUnit: %s", (char*)unitName);
+		error("puke");
 		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}
 	return JAMOMA_ERR_NONE;
