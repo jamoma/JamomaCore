@@ -30,7 +30,7 @@ private:
 	TTInt16		eg_state;
 	TTBoolean	trigger;
 	
-	TTSymbol&	attrMode;
+	TTSymbol	attrMode;
 	
 	TTErr updateSr();
 

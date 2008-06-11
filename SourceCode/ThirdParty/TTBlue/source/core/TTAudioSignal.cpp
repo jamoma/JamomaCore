@@ -1,6 +1,6 @@
 /* 
  * TTBlue Audio Signal Class
- * Copyright � 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -154,8 +154,30 @@ TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal&
 	if(signal2.numChannels < numChannels)
 		numChannels = signal2.numChannels;
 	if(signal3.numChannels < numChannels)
-		 numChannels = signal3.numChannels;
+		numChannels = signal3.numChannels;
+	
+	return numChannels;
+}
 
+
+
+TTUInt8 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2)
+{
+	if(signal1.numChannels < signal2.numChannels)
+		return signal2.numChannels;
+	else
+		return signal1.numChannels;
+}
+
+TTUInt8 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
+{
+	TTUInt8	numChannels = signal1.numChannels;
+	
+	if(signal2.numChannels > numChannels)
+		numChannels = signal2.numChannels;
+	if(signal3.numChannels > numChannels)
+		numChannels = signal3.numChannels;
+	
 	return numChannels;
 }
 

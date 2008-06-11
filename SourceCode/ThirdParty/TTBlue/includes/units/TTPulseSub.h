@@ -1,6 +1,6 @@
 /* 
  * TTBlue Pulse-based Envelope Substitution
- * Copyright Â© 2004, Timothy Place
+ * Copyright © 2004, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -24,7 +24,7 @@ private:
 	TTFloat64	attrSustain;
 	TTFloat64	attrRelease;
 	TTBoolean	attrTrigger;
-	TTSymbol&	attrMode;
+	TTSymbol	attrMode;
 	TTFloat64	attrFrequency;
 	TTFloat64	attrLength;
 

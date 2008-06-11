@@ -1,6 +1,6 @@
 /* 
  * TTBlue Running Average Filter Object
- * Copyright Â© 2008, Tim Place
+ * Copyright © 2008, Tim Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -18,7 +18,7 @@ class TTAverage : public TTAudioObject {
 private:
 	TTUInt16		attrMaxInterval;	///< Maximum number of samples over which one can average
 	TTUInt16		attrInterval;		///< The actual number of samples over which one is averaging
-	TTSymbol&		attrMode;			///< options: bipolar, rms, or absolute
+	TTSymbol		attrMode;			///< options: bipolar, rms, or absolute
 	TTFloat64		invInterval;		///< reciprocal of attrInterval
 	TTFloat64*		accumulator;
 	TTSampleVector*	bins;

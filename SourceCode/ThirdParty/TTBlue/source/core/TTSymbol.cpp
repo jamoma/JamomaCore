@@ -1,6 +1,6 @@
 /* 
  * TTBlue Class for representing Symbols
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -34,7 +34,7 @@ TTSymbol::TTSymbol(const char* newString, TTInt32 newId)
 
 TTSymbol::~TTSymbol()
 {
-	delete string;
+	delete [] string;
 	string = NULL;
 }
 
@@ -42,7 +42,7 @@ TTSymbol::~TTSymbol()
 // Copy Constructor
 TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 {
-	delete string; // TODO: TAP -- is this neccessary?
+	delete [] string; // TODO: TAP -- is this neccessary?
 	id = oldSymbol.id;
 	size = oldSymbol.size;
 	string = new char[size];
@@ -55,7 +55,7 @@ void TTSymbol::init(const char* newString, TTInt32 newId)
 	const TTSymbol	*existingSymbol = NULL;
 
 	// 1. Copy the string
-	delete string;
+	delete [] string;
 	size = strlen(newString) + 1;
 	string = new char[size];
 	memcpy(string, newString, size-1);

@@ -1,6 +1,6 @@
 /* 
  * TTBlue Ramp Generator
- * Copyright Â© 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -21,7 +21,7 @@ private:
 		kDOWN
 	};
 	
-	TTSymbol&			attrMode;				///< mode: sample_accurate or vector_accurate
+	TTSymbol			attrMode;				///< mode: sample_accurate or vector_accurate
 	TTFloat64 			attrRampTime;			///< ramp time in milliseconds
 	TTUInt32			rampSamples;			///< ramp time in samples
 	TTFloat64			attrCurrentValue;		///< 
