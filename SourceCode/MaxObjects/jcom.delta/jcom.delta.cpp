@@ -133,7 +133,7 @@ int main(void)
 	ps_velocity = gensym("velocity");
 
 	// Define our class
-	c = class_new("jcom.delta",(method)delta_new, (method)0L, sizeof(t_delta), (method)0L, 0, 0);			
+	c = class_new("jcom.delta",(method)delta_new, (method)0L, sizeof(t_delta), (method)0L, A_GIMME, 0);			
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)delta_bang,				"bang",		A_CANT,		0);
@@ -145,9 +145,9 @@ int main(void)
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 
 	// ATTRIBUTE: mode	
-	CLASS_ATTR_SYM(c, "mode", 0, t_delta, attr_mode);			// create attribute
-	CLASS_ATTR_ACCESSORS(c, "mode", delta_attr_setmode, 0L);	// need custom setter method
-	CLASS_ATTR_ENUM(c, "mode", 0, "delta delta2 velocity");		// options for inspector
+	CLASS_ATTR_SYM(c,		"mode", 0, t_delta, attr_mode);				// create attribute
+	CLASS_ATTR_ENUM(c,		"mode", 0, "delta delta2 velocity");		// options for inspector
+	CLASS_ATTR_ACCESSORS(c, "mode", 0L, delta_attr_setmode);			// need custom setter method
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -162,9 +162,7 @@ int main(void)
 
 void *delta_new(t_symbol *s, long argc, t_atom *argv)
 {
-	long attrstart = attr_args_offset(argc, argv);
-	t_delta *x;
-	
+	t_delta *x;	
 	x = (t_delta *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if(x){
 		// create inlets and outlets		
