@@ -109,6 +109,7 @@ int main(void)
 	t_object *attr;
 	
 	jamoma_init();
+common_symbols_init();
 #ifdef WIN_VERSION 
 #ifdef __GNUC__
 	init_jit_symbols();

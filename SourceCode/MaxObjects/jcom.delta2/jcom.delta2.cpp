@@ -48,6 +48,7 @@ int main(void)
 	t_class *c;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.delta2",(method)delta2_new, (method)0L, sizeof(t_delta2), (method)0L, 0, 0);		

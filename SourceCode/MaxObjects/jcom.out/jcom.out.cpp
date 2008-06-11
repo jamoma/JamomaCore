@@ -39,6 +39,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object 	*attr = NULL;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 #ifdef JCOM_OUT_TILDE

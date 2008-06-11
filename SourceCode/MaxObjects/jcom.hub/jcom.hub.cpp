@@ -41,6 +41,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.hub",(method)hub_new, (method)hub_free, sizeof(t_hub), (method)0L, A_GIMME, 0);

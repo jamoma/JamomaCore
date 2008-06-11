@@ -45,6 +45,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	common_symbols_init();
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.pass",(method)pass_new, (method)0L, sizeof(t_pass), (method)0L, A_GIMME, 0);

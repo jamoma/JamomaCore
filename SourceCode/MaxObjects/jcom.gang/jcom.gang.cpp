@@ -50,6 +50,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_class *c;
 	
 	jamoma_init();
+common_symbols_init();
 
 	c = class_new("jcom.gang",(method)gang_new, (method)gang_free, sizeof(t_gang), (method)0L, A_GIMME, 0);
 

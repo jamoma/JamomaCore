@@ -32,6 +32,7 @@ int main(void)
 	short		i;
 
 	jamoma_init();
+common_symbols_init();
 	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
 	dataspaces[0] = 0;
 	for(i=0; i<numDataspaces; i++){

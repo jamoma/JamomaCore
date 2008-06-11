@@ -134,6 +134,7 @@ int main(void)
 	t_object *attr;
 
 	jamoma_init();
+common_symbols_init();
 	ps_symbol  = gensym("symbol");
 	ps_long    = gensym("long");
 	ps_float32 = gensym("float32");

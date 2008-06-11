@@ -25,6 +25,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);

@@ -87,6 +87,7 @@ int main(void)
 	class_dspinitjbox(c);
 
 	jamoma_init();
+common_symbols_init();
 	
 	class_addmethod(c, (method)meter_bang,		"bang",			0);
 	class_addmethod(c, (method)meter_int,		"int",			A_LONG, 0);

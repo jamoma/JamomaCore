@@ -45,6 +45,7 @@ int main(void)
 	t_object *attr;
 
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.cubic_interpolate",(method)cubic_interpolate_new, (method)0L, sizeof(t_cubic_interp), 

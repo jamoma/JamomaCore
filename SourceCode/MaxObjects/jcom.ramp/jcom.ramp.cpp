@@ -93,6 +93,7 @@ int main(void)				// main receives a copy of the Max function macros table
 	t_class *c;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.ramp",(method)ramp_new, (method)ramp_free, sizeof(t_ramp), (method)0L, A_GIMME, 0);

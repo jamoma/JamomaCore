@@ -36,6 +36,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object 	*attr;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.init",(method)init_new, (method)jcom_core_subscriber_common_free, sizeof(t_init), (method)0L, A_GIMME, 0);

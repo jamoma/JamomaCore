@@ -106,6 +106,7 @@ int main(void)			//main receives a copy of the Max function macros table
 	t_object *attr;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.colorspace",(method)cs_new, (method)cs_free, sizeof(t_cs), (method)0L, A_GIMME, 0);

@@ -41,6 +41,7 @@ int main(void)
 	t_class *c;
 	
 	jamoma_init();
+common_symbols_init();
 	
 	// Define our class
 	c = class_new("jcom.velocity",(method)velocity_new, (method)0L, sizeof(t_velocity), (method)0L, A_GIMME, 0);		

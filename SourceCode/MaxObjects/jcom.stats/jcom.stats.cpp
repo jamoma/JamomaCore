@@ -57,6 +57,7 @@ int main(void)
 	t_object *attr;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.stats",(method)stats_new, (method)stats_free, sizeof(t_stats), (method)0L, A_GIMME, 0);		

@@ -49,6 +49,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.oscroute",(method)oscroute_new, (method)oscroute_free, sizeof(t_oscroute), (method)0L, A_GIMME, 0);
