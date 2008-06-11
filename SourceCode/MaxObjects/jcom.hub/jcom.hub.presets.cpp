@@ -194,7 +194,7 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 	presetItemList *itemOneList, *itemTwoList;
 	itemOneList = p1->item; itemTwoList = p2->item;
 	t_preset_item *item1, *item2;
-	float value;
+	float val;
 	t_atom newValue[LISTSIZE];
 	bool found = false;
 	
@@ -229,18 +229,18 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 		
 		// we can assume item1 and item2 are the same type if they are the same parameter (see above)
 		if(item1->type == ps_msg_int) {
-			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
-			atom_setfloat(&newValue[0], value);
+			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
+			atom_setfloat(&newValue[0], val);
 		} else if(item1->type == ps_msg_float) {
-			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
-			atom_setfloat(&newValue[0], value);
+			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
+			atom_setfloat(&newValue[0], val);
 		} else if(item1->type == ps_msg_toggle) {
-			value = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
-			atom_setlong(&newValue[0], value);
+			val = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
+			atom_setlong(&newValue[0], val);
 		} else if(item1->type == ps_msg_list || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
 			for(int i = 0; i < item1->list_size; i++) {
-				value = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
-				atom_setfloat(&newValue[i], value);
+				val = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
+				atom_setfloat(&newValue[i], val);
 			}
 		} else if(item1->type == ps_msg_symbol) {
 			atom_setsym(&newValue[0], position <= 0.5 ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
