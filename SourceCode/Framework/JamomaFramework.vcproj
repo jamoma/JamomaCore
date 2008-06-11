@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot;"
+				CommandLine="copy $(OutDir)\$(TargetFileName) &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot;&#x0D;&#x0A;"
 				Outputs="output"
 			/>
 			<Tool
@@ -46,7 +46,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="2"
+				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -66,6 +67,7 @@
 				AdditionalDependencies="TTBlue.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=".\build;..\ThirdParty\c74support\max-includes;..\ThirdParty\c74support\msp-includes;..\ThirdParty\c74support\jit-includes"
+				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -118,6 +120,7 @@
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;"
 				RuntimeLibrary="2"
+				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -342,6 +345,10 @@
 			</File>
 			<File
 				RelativePath=".\source\Jamoma.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\jamoma.def"
 				>
 			</File>
 			<File
