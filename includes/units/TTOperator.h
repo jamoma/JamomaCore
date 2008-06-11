@@ -16,7 +16,7 @@
 	or a pair of input signals */
 class TTEXPORT TTOperator : public TTAudioObject {
 private:
-	TTSymbol&		attrOperator;	///< The type of calculation to perform.
+	TTSymbol		attrOperator;	///< The type of calculation to perform.
 	TTFloat64		attrOperand;	///< The right-hand value of the calculation.
 
 	/** setter for the operator attribute. */

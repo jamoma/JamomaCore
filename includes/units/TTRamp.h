@@ -21,7 +21,7 @@ private:
 		kDOWN
 	};
 	
-	TTSymbol&			attrMode;				///< mode: sample_accurate or vector_accurate
+	TTSymbol			attrMode;				///< mode: sample_accurate or vector_accurate
 	TTFloat64 			attrRampTime;			///< ramp time in milliseconds
 	TTUInt32			rampSamples;			///< ramp time in samples
 	TTFloat64			attrCurrentValue;		///< 
