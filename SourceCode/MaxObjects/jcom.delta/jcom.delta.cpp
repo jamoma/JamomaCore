@@ -105,7 +105,7 @@ typedef struct _delta{			///< Data structure for this object
 } t_delta;
 
 // Prototypes for methods: need a method for each incoming message
-void *delta_new(void);
+void *delta_new(t_symbol *s, long argc, t_atom *argv);
 void delta_bang(t_delta *x);
 void delta_int(t_delta *x, long n);
 void delta_float(t_delta *x, double f);
@@ -160,14 +160,20 @@ int main(void)
 /************************************************************************************/
 // Object Life
 
-void *delta_new(void)
+void *delta_new(t_symbol *s, long argc, t_atom *argv)
 {
+	long attrstart = attr_args_offset(argc, argv);
 	t_delta *x;
 	
 	x = (t_delta *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if(x){
+		// create inlets and outlets		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 		x->outlet = floatout(x);				// create the outlet
+		
+		x->attr_mode = ps_delta;				// set default attribute
+		attr_args_process(x, argc, argv);		// handle attribute args
+		
 		delta_clear(x);							// initilaize instance
 	}
 	return (x);
@@ -297,6 +303,8 @@ void delta_clear(t_delta *x)
 {
 	x->clearflag = 1;
 	x->delta = 0;
+	x->delta2 = 0;
+	x->lasttime = gettime();
 }
 
 
