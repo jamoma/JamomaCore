@@ -43,7 +43,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;..\ThirdParty\TTBlue\includes\core;..\ThirdParty\TTBlue\includes\units;.\source;..\ThirdParty\c74support\max-includes;..\ThirdParty\c74support\msp-includes;..\ThirdParty\c74support\jit-includes"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="2"
