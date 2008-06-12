@@ -91,6 +91,11 @@ common_symbols_init();
 	CLASS_ATTR_DEFAULT(c, 	"fontname",			0, JAMOMA_DEFAULT_FONT);
 	CLASS_ATTR_DEFAULT(c, 	"fontsize",			0, "11");
 	
+	CLASS_ATTR_SYM(c,		"prefix",			0, t_ui, attrPrefix);
+	CLASS_ATTR_DEFAULT(c,	"prefix",			0, "");
+	CLASS_ATTR_SAVE(c,		"prefix",			0);
+	CLASS_ATTR_LABEL(c,		"prefix",			0,	"OSC prefix for parameter names");
+	
 	CLASS_ATTR_LONG(c,		"has_inspector",	0, t_ui, attr_hasinspector);
 	CLASS_ATTR_STYLE(c,		"has_inspector",	0, "onoff");
 	CLASS_ATTR_DEFAULT(c,	"has_inspector",	0, "0");

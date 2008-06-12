@@ -220,11 +220,17 @@ t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	char				name[256];
 
 	obj->attr_hasmute = atom_getlong(argv);
 	
 	if(obj->attr_hasmute){
-		anObject = new uiInternalObject("jcom.parameter", "audio/mute", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
+		name[0] = 0;
+		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			strncpy_zero(name, obj->attrPrefix->s_name, 256);
+		strncat_zero(name, "/mute", 256);
+		
+		anObject = new uiInternalObject("jcom.parameter", name, "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
 		anObject->setAction((method)ui_mute, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
 	}
@@ -243,11 +249,17 @@ t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	char				name[256];
 
 	obj->attr_hasbypass = atom_getlong(argv);
 	
 	if(obj->attr_hasbypass){
-		anObject = new uiInternalObject("jcom.parameter", "audio/bypass", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
+		name[0] = 0;
+		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			strncpy_zero(name, obj->attrPrefix->s_name, 256);
+		strncat_zero(name, "/bypass", 256);
+
+		anObject = new uiInternalObject("jcom.parameter", name, "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
 		anObject->setAction((method)ui_bypass, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
 	}
@@ -264,11 +276,17 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	char				name[256];
 
 	obj->attr_hasmix = atom_getlong(argv);
 	
 	if(obj->attr_hasmix){
-		anObject = new uiInternalObject("jcom.parameter", "audio/mix", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
+		name[0] = 0;
+		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			strncpy_zero(name, obj->attrPrefix->s_name, 256);
+		strncat_zero(name, "/mix", 256);
+
+		anObject = new uiInternalObject("jcom.parameter", name, "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
 		anObject->setAction((method)ui_mix, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
 	}
@@ -285,11 +303,17 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	char				name[256];
 
 	obj->attr_hasgain = atom_getlong(argv);
 	
 	if(obj->attr_hasgain){
-		anObject = new uiInternalObject("jcom.parameter", "audio/gain", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
+		name[0] = 0;
+		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			strncpy_zero(name, obj->attrPrefix->s_name, 256);
+		strncat_zero(name, "/gain", 256);
+		
+		anObject = new uiInternalObject("jcom.parameter", name, "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
 		anObject->setAction((method)ui_gain, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
 	}
@@ -306,11 +330,17 @@ t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	char				name[256];
 
 	obj->attr_hasfreeze = atom_getlong(argv);
 	
 	if(obj->attr_hasfreeze){
-		anObject = new uiInternalObject("jcom.parameter", "video/freeze", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
+		name[0] = 0;
+		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			strncpy_zero(name, obj->attrPrefix->s_name, 256);
+		strncat_zero(name, "/freeze", 256);
+		
+		anObject = new uiInternalObject("jcom.parameter", name, "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
 		anObject->setAction((method)ui_freeze, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
 	}
@@ -327,11 +357,17 @@ t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	char				name[256];
 
 	obj->attr_haspreview = atom_getlong(argv);
 	
 	if(obj->attr_haspreview){
-		anObject = new uiInternalObject("jcom.parameter", "video/preview", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
+		name[0] = 0;
+		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+			strncpy_zero(name, obj->attrPrefix->s_name, 256);
+		strncat_zero(name, "/preview", 256);
+		
+		anObject = new uiInternalObject("jcom.parameter", name, "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.");
 		anObject->setAction((method)ui_preview, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
 	}
