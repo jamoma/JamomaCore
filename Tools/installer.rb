@@ -19,10 +19,10 @@ Dir.chdir libdir        # change to libdir so that requires work
 
 @svn_root = ".."
 @temp = "#{@svn_root}/Installers/temp"
-@max = "#{@temp}/Applications/MaxMSP\ 4.6"
+@max = "#{@temp}/Applications/Max5"
 @c74 = "#{@max}/Cycling '74"
 
-@version = "0.4.6"
+@version = "0.5.0b01"
 
 
 ###################################################################
@@ -90,7 +90,7 @@ cmd("mkdir -pv \"#{@max}\"")
 cmd("mkdir -pv \"#{@max}/patches/templates\"")
 cmd("mkdir -pv \"#{@max}/patches/extras\"")
 cmd("mkdir -pv \"#{@c74}\"")
-cmd("mkdir -pv \"#{@c74}/max-startup\"")
+cmd("mkdir -pv \"#{@c74}/extensions\"")
 cmd("mkdir -pv \"#{@svn_root}/Installers/resources\"")
 cmd("mkdir -pv \"#{@svn_root}/Installers/Jamoma\"")
 
@@ -121,7 +121,7 @@ puts "  Moving things around (framework, loader, templates, etc)..."
 cmd("cp \"#{@c74}/Jamoma/documentation/templates/\"* \"#{@max}/patches/templates\"")
 cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-overview.mxt\" \"#{@max}/patches/extras\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/Jamoma.framework\" \"#{@temp}/Library/Frameworks\"")
-cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/max-startup/\"")
+cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/extensions/\"")
 
 puts "  Copying readme, license, etc...."
 cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/resources\"")
