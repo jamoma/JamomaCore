@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "plugconfig",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 40.0, 134.0, 61.0, 18.0 ],
 					"id" : "obj-1",
 					"numinlets" : 1,
@@ -35,7 +35,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.pluggo.configassist.mxt",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 40.0, 106.0, 156.0, 18.0 ],
 					"id" : "obj-2",
 					"numinlets" : 0,
@@ -63,7 +63,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Provides access to additional settings when configuring a pluggo.",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 14.0, 36.0, 334.0, 18.0 ],
@@ -90,7 +90,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "The plogconfig Inspector also contain quite a few settings.",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 38.0, 162.0, 301.0, 18.0 ],
 					"id" : "obj-6",
 					"numinlets" : 1,

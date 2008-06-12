@@ -53,7 +53,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.metro 500",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 110.0, 125.0, 102.0, 18.0 ],
 					"id" : "obj-4",
 					"numinlets" : 1,
@@ -66,7 +66,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "dsp has to be turned on",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 257.0, 133.0, 149.0, 18.0 ],
 					"id" : "obj-5",
 					"numinlets" : 1,

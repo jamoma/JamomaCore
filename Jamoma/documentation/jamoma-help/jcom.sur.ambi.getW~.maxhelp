@@ -48,7 +48,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "dist",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 148.0, 259.0, 29.0, 18.0 ],
 					"id" : "obj-3",
 					"numinlets" : 1,
@@ -61,7 +61,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "ele",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 127.0, 240.0, 29.0, 18.0 ],
 					"id" : "obj-4",
 					"numinlets" : 1,
@@ -89,7 +89,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "get omni component of an ambisonic multicable signal",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 20.0, 46.0, 280.0, 18.0 ],
@@ -117,7 +117,7 @@
 					"maxclass" : "newobj",
 					"text" : "jmod.sur.ambi.getW~.mxt",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 438.0, 455.0, 140.0, 18.0 ],
 					"id" : "obj-8",
 					"numinlets" : 0,
@@ -130,7 +130,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 111.0, 258.0, 35.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -146,7 +146,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 90.0, 239.0, 35.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -162,7 +162,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 69.0, 220.0, 35.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -179,7 +179,7 @@
 					"maxclass" : "newobj",
 					"text" : "pak /aed 1 0. 0. 1",
 					"outlettype" : [ "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 27.0, 287.0, 99.0, 18.0 ],
 					"id" : "obj-12",
 					"numinlets" : 5,
@@ -231,7 +231,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "azi",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 107.0, 221.0, 29.0, 18.0 ],
 					"id" : "obj-16",
 					"numinlets" : 1,

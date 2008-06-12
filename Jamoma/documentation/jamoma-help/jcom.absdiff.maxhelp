@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 88.0, 107.0, 41.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -36,7 +36,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 32.0, 173.0, 41.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -52,7 +52,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 32.0, 106.0, 41.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -69,7 +69,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.absdiff",
 					"outlettype" : [ "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 32.0, 138.0, 75.0, 18.0 ],
 					"id" : "obj-4",
 					"numinlets" : 2,
@@ -97,7 +97,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Calculates the absolute difference between two numbers",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 17.0, 43.0, 292.0, 18.0 ],

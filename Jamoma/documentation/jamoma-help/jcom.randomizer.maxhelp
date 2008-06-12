@@ -20,7 +20,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 117.0, 236.0, 39.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -36,7 +36,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 29.0, 236.0, 53.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -52,7 +52,7 @@
 				"box" : 				{
 					"maxclass" : "flonum",
 					"outlettype" : [ "float", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 29.0, 291.0, 55.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -69,7 +69,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.randomizer 3.",
 					"outlettype" : [ "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 29.0, 263.0, 122.0, 18.0 ],
 					"id" : "obj-4",
 					"numinlets" : 2,
@@ -82,7 +82,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "output = input +/- (randomizer)",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 153.0, 66.0, 215.0, 18.0 ],
 					"id" : "obj-5",
 					"numinlets" : 1,
@@ -95,7 +95,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Also works with floats",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 158.0, 272.0, 139.0, 18.0 ],
 					"id" : "obj-6",
 					"numinlets" : 1,
@@ -108,7 +108,7 @@
 				"box" : 				{
 					"maxclass" : "number",
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 114.0, 97.0, 37.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -124,7 +124,7 @@
 				"box" : 				{
 					"maxclass" : "number",
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 29.0, 97.0, 37.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -140,7 +140,7 @@
 				"box" : 				{
 					"maxclass" : "number",
 					"outlettype" : [ "int", "bang" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 29.0, 152.0, 37.0, 18.0 ],
 					"triscale" : 0.9,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -157,7 +157,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.randomizer 3",
 					"outlettype" : [ "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 29.0, 124.0, 116.0, 18.0 ],
 					"id" : "obj-10",
 					"numinlets" : 2,
@@ -185,7 +185,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "randomizes the input number a little",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 21.0, 42.0, 213.0, 18.0 ],
@@ -213,7 +213,7 @@
 					"maxclass" : "comment",
 					"text" : "The argument is the randomizer value (default =100).",
 					"linecount" : 3,
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 158.0, 124.0, 115.0, 42.0 ],
 					"id" : "obj-14",
 					"numinlets" : 1,

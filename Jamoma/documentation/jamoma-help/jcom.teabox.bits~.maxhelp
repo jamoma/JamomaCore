@@ -21,7 +21,7 @@
 					"maxclass" : "comment",
 					"text" : "The teabox.bits~ object decodes the bitmask into individual bits, represented as signals.",
 					"linecount" : 4,
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 278.0, 95.0, 131.0, 54.0 ],
 					"id" : "obj-1",
 					"numinlets" : 1,
@@ -35,7 +35,7 @@
 					"maxclass" : "comment",
 					"text" : "This input is a 16-bit integer which is a bitmask of the 16 toggle inputs on the Teabox.",
 					"linecount" : 3,
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 128.0, 62.0, 240.0, 42.0 ],
 					"id" : "obj-2",
 					"numinlets" : 1,
@@ -49,7 +49,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.teabox.bits~",
 					"outlettype" : [ "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 35.0, 100.0, 212.5, 18.0 ],
 					"id" : "obj-3",
 					"numinlets" : 1,
@@ -62,7 +62,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 35.0, 67.0, 89.0, 18.0 ],
 					"mode" : 1,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -80,7 +80,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 35.0, 363.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -98,7 +98,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 48.0, 347.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -116,7 +116,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 61.0, 331.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -134,7 +134,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 74.0, 315.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -152,7 +152,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 87.0, 299.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -170,7 +170,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 100.0, 283.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -188,7 +188,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 113.0, 267.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -206,7 +206,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 126.0, 251.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -224,7 +224,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 139.0, 235.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -242,7 +242,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 152.0, 219.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -260,7 +260,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 165.0, 203.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -278,7 +278,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 178.0, 187.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -296,7 +296,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 191.0, 171.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -314,7 +314,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 204.0, 155.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -332,7 +332,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 217.0, 139.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -350,7 +350,7 @@
 				"box" : 				{
 					"maxclass" : "number~",
 					"outlettype" : [ "signal", "float" ],
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 230.0, 123.0, 43.0, 18.0 ],
 					"mode" : 2,
 					"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
@@ -368,7 +368,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "decode a 16-bit integer signal into individual toggles",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 16.0, 33.0, 333.0, 18.0 ],
 					"id" : "obj-21",
 					"numinlets" : 1,
@@ -404,7 +404,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "• start/stop audio",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"patching_rect" : [ 295.0, 273.0, 99.0, 18.0 ],
 					"id" : "obj-24",
 					"numinlets" : 1,

@@ -465,7 +465,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "1st order difference: delta = x[n] - x[n-1]",
-					"fontsize" : 9.873845,
+					"fontsize" : 10,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"patching_rect" : [ 12.0, 37.0, 377.0, 18.0 ],
