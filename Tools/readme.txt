@@ -7,6 +7,8 @@ This build.rb Ruby script builds all of the C/C++ code required for Jamoma's Fra
 To use the script:
 build.rb <required:configuration> <optional:clean>
 
+(close Max before doing that !)
+
 If you want a nice, clean release version, try this: 
 	./build.rb Deployment clean
 
