@@ -94,6 +94,7 @@ common_symbols_init();
 	CLASS_ATTR_SYM(c,		"prefix",			0, t_ui, attrPrefix);
 	CLASS_ATTR_DEFAULT(c,	"prefix",			0, "");
 	CLASS_ATTR_SAVE(c,		"prefix",			0);
+	CLASS_ATTR_ACCESSORS(c,	"prefix",			NULL,	attr_set_prefix);
 	CLASS_ATTR_LABEL(c,		"prefix",			0,	"OSC prefix for parameter names");
 	
 	CLASS_ATTR_LONG(c,		"has_inspector",	0, t_ui, attr_hasinspector);

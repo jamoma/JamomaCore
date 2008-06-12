@@ -112,4 +112,4 @@ t_max_err	attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv);
-
+t_max_err	attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv);

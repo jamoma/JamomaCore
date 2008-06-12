@@ -25,7 +25,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);
@@ -60,8 +60,8 @@ common_symbols_init();
 	class_addmethod(c, (method)param_setcallback,				"setcallback",					A_CANT,		0);
 
 	jcom_core_subscriber_classinit_extended(c, attr, true);		// define a name attr
-		
-	// ATTRIBUTE: ramp	
+	
+	// ATTRIBUTE: ramp
 	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
 	jamoma_class_attr_new(c, "ramp/function", _sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
 
@@ -139,7 +139,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setlong(&x->atom_list[i], 0);
 			atom_setlong(&x->atom_listDefault[i], 0);
 		}
-		x->name = name;
+		x->common.attr_name = name;
 		atom_setsym(&x->name_atom, name);
 		x->attr_ui_freeze = 0;
 		x->attr_slavemode = 0;
@@ -284,9 +284,9 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 #endif // JMOD_MESSAGE
 	else{
 #ifdef JMOD_MESSAGE
-		error("Jamoma - invalid type specified for %s jcom.message in the %s module.", x->name->s_name, x->common.module_name->s_name);
+		error("Jamoma - invalid type specified for %s jcom.message in the %s module.", x->common.attr_name->s_name, x->common.module_name->s_name);
 #else
-		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->name->s_name, x->common.module_name->s_name);
+		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->common.attr_name->s_name, x->common.module_name->s_name);
 #endif
 		x->common.attr_type = ps_msg_generic;
 		x->param_output = &param_output_generic;
@@ -721,7 +721,7 @@ void param_bang(t_param *x)
 	x->param_output(x);
 #endif
 	if(x->callback)
-		x->callback(x, x->name, x->list_size, x->atom_list);
+		x->callback(x, x->common.attr_name, x->list_size, x->atom_list);
 }
 
 
@@ -1042,7 +1042,7 @@ void param_send_feedback(t_param *x)
 
 	// send to the object in which this parameter is embedded
 	if(x->callback)
-		x->callback(x->callbackArg, x->name, x->list_size, x->atom_list);
+		x->callback(x->callbackArg, x->common.attr_name, x->list_size, x->atom_list);
 	
 	// call on the hub to pass our data onward
 	if(x->common.hub != NULL){

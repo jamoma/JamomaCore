@@ -350,6 +350,17 @@ t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr,
 	return MAX_ERR_NONE;
 }
 
+t_max_err jcom_core_attr_setname(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv){
+		jcom_core_unsubscribe(x->hub, x);
+		x->hub = NULL;
+		x->attr_name = atom_getsym(argv);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
+	}
+	return MAX_ERR_NONE;
+}
+
 
 // We are using a custom setter here because relying on the offset seemed to cause memory corruption
 // This was the easiest way to avoid that.
