@@ -66,7 +66,7 @@ int main(void)
 	t_class *c;
 
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	c = class_new("jcom.ui",
 				  (method)ui_new,
@@ -91,6 +91,8 @@ common_symbols_init();
 	CLASS_ATTR_DEFAULT(c, 	"fontname",			0, JAMOMA_DEFAULT_FONT);
 	CLASS_ATTR_DEFAULT(c, 	"fontsize",			0, "11");
 	
+	CLASS_STICKY_ATTR(c,	"category",			0, "Jamoma");
+
 	CLASS_ATTR_SYM(c,		"prefix",			0, t_ui, attrPrefix);
 	CLASS_ATTR_DEFAULT(c,	"prefix",			0, "");
 	CLASS_ATTR_SAVE(c,		"prefix",			0);
@@ -177,6 +179,8 @@ common_symbols_init();
 	CLASS_ATTR_SYM(c,		"module_name",		0, t_ui, attr_modulename);
 	CLASS_ATTR_DEFAULT(c,	"module_name",		0, "/Jamoma");
 
+	CLASS_STICKY_ATTR_CLEAR(c,	"category");
+	
 	class_register(CLASS_BOX, c);
 	s_ui_class = c;
 	return 0;
