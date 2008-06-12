@@ -1,7 +1,7 @@
 /* 
  * jcom.remote
  * External for Jamoma: private means of communication with a jcom.hub
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright Â© 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -143,6 +143,8 @@ void remote_dispatched(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	outlet_anything(x->outlet, msg, argc, argv);
+	if(x->callback)
+		x->callback(x->callbackArg, msg, argc, argv);
 }
 
 

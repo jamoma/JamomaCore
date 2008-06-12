@@ -161,7 +161,6 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->num_parameters = 0;
 		for(i=0; i<MAX_NUM_CHANNELS; i++)
 			x->meter_object[i] = NULL;
-		x->preview_object = NULL;
 		
 		x->preset = new presetList;					// begin with no presets
 		x->subscriber = new subscriberList;			// ... and no subscribers
@@ -378,7 +377,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		}
 		for(int i=0; i<MAX_NUM_CHANNELS; i++)
 			object_method(x->out_object, ps_register_meter, i, x->meter_object[i]);
-		object_method(x->out_object, ps_register_preview, x->preview_object);
+		object_method(x->out_object, ps_register_preview, x->gui_object);
 	}
 
 	if(new_subscriber->type == ps_subscribe_remote){
@@ -389,17 +388,15 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 			if(x->out_object)
 				object_method(x->out_object, ps_register_meter, meternum-1, x->meter_object[meternum-1]);
 		}
-		else if(new_subscriber->name == ps___preview__){
-			x->preview_object = new_subscriber->object;
-			if(x->out_object)
-				object_method(x->out_object, ps_register_preview, x->preview_object);				
-		}
 	}
 	
 	if(new_subscriber->type == ps_subscribe_parameter)
 		x->num_parameters++;
-	if(new_subscriber->name == ps__gui__)
+	if(new_subscriber->name == ps__gui__){
 		x->gui_object = subscriber_object;
+		if(x->out_object)
+			object_method(x->out_object, ps_register_preview, x->gui_object);				
+	}
 	critical_exit(0);
 	
 	qelem_unset(x->init_qelem);		// clear the last thing to make sure we don't call into this a bunch of times

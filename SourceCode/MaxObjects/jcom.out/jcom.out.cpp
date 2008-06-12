@@ -258,7 +258,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			x->gain->setAttributeValue(TT("gain"), (x->attr_gain - 127) * .6);	// convert midi to db for tap_gain
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute)){
+		else if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))){
 			x->attr_mute = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_mute)
@@ -267,7 +267,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 				x->gain->setAttributeValue(TT("gain"), (x->attr_gain - 127) * .6);			
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_bypass) || (argv->a_w.w_sym == ps_slash_audio_bypass)){
+		else if((argv->a_w.w_sym == ps_audio_bypass) || (argv->a_w.w_sym == ps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))){
 			x->attr_bypass = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
@@ -276,20 +276,17 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 				x->xfade->setAttributeValue(TT("position"), 0.0);
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_mix) || (argv->a_w.w_sym == ps_slash_audio_mix)){
+		else if((argv->a_w.w_sym == ps_audio_mix) || (argv->a_w.w_sym == ps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))){
 			x->attr_mix = atom_getfloat(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
 				x->xfade->setAttributeValue(TT("position"), x->attr_mix * 0.01);		
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_sample_rate) || (argv->a_w.w_sym == ps_slash_audio_sample_rate)){
-			;
-		}
-		else if((argv->a_w.w_sym == ps_audio_meters_freeze) || (argv->a_w.w_sym == ps_slash_audio_meters_freeze)){
+		else if((argv->a_w.w_sym == ps_audio_meters_freeze) || (argv->a_w.w_sym == ps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))){
 			x->attr_defeat_meters = atom_getlong(argv+1);
 		}
-		else if((argv->a_w.w_sym == ps_video_preview) || (argv->a_w.w_sym == ps_slash_video_preview))
+		else if((argv->a_w.w_sym == ps_video_preview) || (argv->a_w.w_sym == ps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
 			x->attr_preview = atom_getlong(argv+1);
 	}
 }

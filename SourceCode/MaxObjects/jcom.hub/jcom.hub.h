@@ -69,7 +69,6 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*in_object;					///< cache the jcom.in object directly for quick access
 	t_object		*out_object;				///< cache the jcom.out object directly for quick access
 	t_object		*meter_object[MAX_NUM_CHANNELS];	///< cache any meter objects so they can be handed to jcom.out
-	t_object		*preview_object;			///< cache the remote for sending jitter matrix preview frames
 	t_object		*gui_object;				///< cache the jcom.remote object in the gui for quick access
 	t_symbol		*attr_name;					///< ATTRIBUTE: module name
 	t_symbol		*attr_type;					///< ATTRIBUTE: what kind of module is this?  (audio, video, control, etc.)
