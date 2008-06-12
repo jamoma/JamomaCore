@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 249.0, 44.0, 483.0, 440.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 249.0, 44.0, 483.0, 440.0 ],
 		"openinpresentation" : 0,
@@ -29,8 +28,7 @@
 					"id" : "obj-1",
 					"patcher" : 					{
 						"rect" : [ 259.0, 132.0, 171.0, 179.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 259.0, 132.0, 171.0, 179.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -118,8 +116,7 @@
 					"id" : "obj-3",
 					"patcher" : 					{
 						"rect" : [ 576.0, 77.0, 450.0, 380.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 576.0, 77.0, 450.0, 380.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -404,8 +401,7 @@
 					"id" : "obj-4",
 					"patcher" : 					{
 						"rect" : [ 18.0, 44.0, 1043.0, 593.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 18.0, 44.0, 1043.0, 593.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -507,8 +503,7 @@
 									"id" : "obj-7",
 									"patcher" : 									{
 										"rect" : [ 456.0, 121.0, 644.0, 305.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 456.0, 121.0, 644.0, 305.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -1021,8 +1016,7 @@
 									"id" : "obj-17",
 									"patcher" : 									{
 										"rect" : [ 10.0, 59.0, 310.0, 252.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 10.0, 59.0, 310.0, 252.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -1217,8 +1211,7 @@
 									"id" : "obj-24",
 									"patcher" : 									{
 										"rect" : [ 20.0, 74.0, 155.0, 154.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 20.0, 74.0, 155.0, 154.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -1293,8 +1286,7 @@
 									"id" : "obj-25",
 									"patcher" : 									{
 										"rect" : [ 20.0, 74.0, 155.0, 154.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 20.0, 74.0, 155.0, 154.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -2277,8 +2269,7 @@
 					"id" : "obj-5",
 					"patcher" : 					{
 						"rect" : [ 184.0, 44.0, 633.0, 648.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 184.0, 44.0, 633.0, 648.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -2399,8 +2390,7 @@
 									"id" : "obj-8",
 									"patcher" : 									{
 										"rect" : [ 20.0, 74.0, 159.0, 173.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 20.0, 74.0, 159.0, 173.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -2476,8 +2466,7 @@
 									"id" : "obj-9",
 									"patcher" : 									{
 										"rect" : [ 20.0, 74.0, 159.0, 173.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 20.0, 74.0, 159.0, 173.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -2840,8 +2829,7 @@
 									"id" : "obj-30",
 									"patcher" : 									{
 										"rect" : [ 20.0, 74.0, 159.0, 173.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 20.0, 74.0, 159.0, 173.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -2956,8 +2944,7 @@
 									"id" : "obj-34",
 									"patcher" : 									{
 										"rect" : [ 607.0, 201.0, 413.0, 340.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 607.0, 201.0, 413.0, 340.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -3218,8 +3205,7 @@
 									"id" : "obj-35",
 									"patcher" : 									{
 										"rect" : [ 796.0, 44.0, 400.0, 372.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 796.0, 44.0, 400.0, 372.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -4024,8 +4010,7 @@
 					"id" : "obj-6",
 					"patcher" : 					{
 						"rect" : [ 310.0, 207.0, 489.0, 378.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 310.0, 207.0, 489.0, 378.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,

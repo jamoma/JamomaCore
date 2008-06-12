@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 179.0, 215.0, 452.0, 383.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 179.0, 215.0, 452.0, 383.0 ],
 		"openinpresentation" : 0,
@@ -129,8 +128,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 40.0, 55.0, 661.0, 308.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 40.0, 55.0, 661.0, 308.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,

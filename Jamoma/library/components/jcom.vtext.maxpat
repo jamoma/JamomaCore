@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 20.0, 47.0, 978.0, 631.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 20.0, 47.0, 978.0, 631.0 ],
 		"openinpresentation" : 0,
@@ -86,8 +85,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 40.0, 55.0, 411.0, 235.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 40.0, 55.0, 411.0, 235.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -295,8 +293,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 40.0, 55.0, 256.0, 265.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 40.0, 55.0, 256.0, 265.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -752,8 +749,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 40.0, 55.0, 256.0, 265.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 40.0, 55.0, 256.0, 265.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -944,8 +940,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 25.0, 87.0, 551.0, 356.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 25.0, 87.0, 551.0, 356.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1375,8 +1370,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 40.0, 55.0, 256.0, 265.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 40.0, 55.0, 256.0, 265.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1698,8 +1692,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 25.0, 87.0, 606.0, 387.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 25.0, 87.0, 606.0, 387.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,

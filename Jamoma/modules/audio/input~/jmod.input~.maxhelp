@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 108.0, 44.0, 813.0, 614.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 108.0, 44.0, 813.0, 614.0 ],
 		"openinpresentation" : 0,
@@ -28,8 +27,7 @@
 					"fontsize" : 15.799999,
 					"patcher" : 					{
 						"rect" : [ 10.0, 59.0, 436.0, 431.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 10.0, 59.0, 436.0, 431.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,

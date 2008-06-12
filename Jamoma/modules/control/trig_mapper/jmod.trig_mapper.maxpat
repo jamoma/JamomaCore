@@ -396,8 +396,7 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 250.0, 148.0, 789.0, 337.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 250.0, 148.0, 789.0, 337.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
@@ -1556,8 +1555,7 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 276.0, 124.0, 601.0, 382.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 276.0, 124.0, 601.0, 382.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
@@ -1615,8 +1613,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 32.0, 131.0, 1123.0, 500.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 32.0, 131.0, 1123.0, 500.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -1728,8 +1725,7 @@
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 10.0, 59.0, 240.0, 240.0 ],
-														"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-														"bglocked" : 0,
+																										"bglocked" : 0,
 														"defrect" : [ 10.0, 59.0, 240.0, 240.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
@@ -2767,8 +2763,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 526.0, 44.0, 538.0, 727.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 526.0, 44.0, 538.0, 727.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -2975,8 +2970,7 @@
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 214.0, 154.0, 496.0, 199.0 ],
-														"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-														"bglocked" : 0,
+																										"bglocked" : 0,
 														"defrect" : [ 214.0, 154.0, 496.0, 199.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
@@ -3473,8 +3467,7 @@
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 10.0, 59.0, 385.0, 271.0 ],
-														"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-														"bglocked" : 0,
+																										"bglocked" : 0,
 														"defrect" : [ 10.0, 59.0, 385.0, 271.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
@@ -4595,8 +4588,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 699.0, 72.0, 538.0, 701.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 699.0, 72.0, 538.0, 701.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -4853,8 +4845,7 @@
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 335.0, 79.0, 496.0, 199.0 ],
-														"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-														"bglocked" : 0,
+																										"bglocked" : 0,
 														"defrect" : [ 335.0, 79.0, 496.0, 199.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
@@ -5337,8 +5328,7 @@
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 10.0, 59.0, 385.0, 271.0 ],
-														"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-														"bglocked" : 0,
+																										"bglocked" : 0,
 														"defrect" : [ 10.0, 59.0, 385.0, 271.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
@@ -6398,8 +6388,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 256.0, 243.0, 225.0, 254.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 256.0, 243.0, 225.0, 254.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,

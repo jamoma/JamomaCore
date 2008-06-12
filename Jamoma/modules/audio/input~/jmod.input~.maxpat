@@ -94,8 +94,7 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 101.0, 72.0, 1339.0, 740.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 101.0, 72.0, 1339.0, 740.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
@@ -317,8 +316,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 350.0, 363.0, 819.0, 415.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 350.0, 363.0, 819.0, 415.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -764,8 +762,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 350.0, 363.0, 819.0, 415.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 350.0, 363.0, 819.0, 415.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -1247,8 +1244,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 11.0, 96.0, 795.0, 460.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 11.0, 96.0, 795.0, 460.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -3118,8 +3114,7 @@
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 315.0, 68.0, 940.0, 764.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 315.0, 68.0, 940.0, 764.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
@@ -3315,8 +3310,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 185.0, 98.0, 623.0, 428.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 185.0, 98.0, 623.0, 428.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -3812,8 +3806,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 642.0, 166.0, 529.0, 535.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 642.0, 166.0, 529.0, 535.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -4354,8 +4347,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 118.0, 354.0, 731.0, 411.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 118.0, 354.0, 731.0, 411.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -4442,8 +4434,7 @@
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 592.0, 57.0, 701.0, 519.0 ],
-														"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-														"bglocked" : 0,
+																										"bglocked" : 0,
 														"defrect" : [ 592.0, 57.0, 701.0, 519.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
@@ -5208,8 +5199,7 @@
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 191.0, 93.0, 428.0, 490.0 ],
-														"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-														"bglocked" : 0,
+																										"bglocked" : 0,
 														"defrect" : [ 191.0, 93.0, 428.0, 490.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
@@ -5893,8 +5883,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 35.0, 59.0, 600.0, 426.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 35.0, 59.0, 600.0, 426.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -6128,8 +6117,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 35.0, 59.0, 600.0, 426.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 35.0, 59.0, 600.0, 426.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
@@ -6261,8 +6249,7 @@
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 35.0, 59.0, 600.0, 426.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 35.0, 59.0, 600.0, 426.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,

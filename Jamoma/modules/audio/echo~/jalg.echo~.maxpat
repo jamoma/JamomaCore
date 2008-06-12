@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 106.0, 84.0, 838.0, 565.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 106.0, 84.0, 838.0, 565.0 ],
 		"openinpresentation" : 0,

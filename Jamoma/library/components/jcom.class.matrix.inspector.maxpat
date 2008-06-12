@@ -60,8 +60,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 566.0, 87.0, 866.0, 433.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 566.0, 87.0, 866.0, 433.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,

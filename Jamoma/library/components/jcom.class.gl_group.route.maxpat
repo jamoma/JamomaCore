@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 31.0, 85.0, 504.0, 269.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 31.0, 85.0, 504.0, 269.0 ],
 		"openinpresentation" : 0,
@@ -40,8 +39,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 0.0, 44.0, 443.0, 222.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 0.0, 44.0, 443.0, 222.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -219,8 +217,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 0.0, 44.0, 468.0, 435.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 0.0, 44.0, 468.0, 435.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -550,8 +547,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 0.0, 44.0, 442.0, 228.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 0.0, 44.0, 442.0, 228.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -745,8 +741,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 0.0, 44.0, 451.0, 229.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 0.0, 44.0, 451.0, 229.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -927,8 +922,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 0.0, 44.0, 338.0, 282.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 0.0, 44.0, 338.0, 282.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1161,8 +1155,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 0.0, 44.0, 299.0, 190.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 0.0, 44.0, 299.0, 190.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1277,8 +1270,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 0.0, 44.0, 322.0, 201.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 0.0, 44.0, 322.0, 201.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,

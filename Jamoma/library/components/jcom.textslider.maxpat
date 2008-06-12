@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 562.0, 51.0, 637.0, 272.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 562.0, 51.0, 637.0, 272.0 ],
 		"openinpresentation" : 0,
@@ -101,8 +100,7 @@
 					"fontname" : "Verdana",
 					"patcher" : 					{
 						"rect" : [ 553.0, 95.0, 666.0, 635.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 553.0, 95.0, 666.0, 635.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -484,8 +482,7 @@
 									"fontname" : "Verdana",
 									"patcher" : 									{
 										"rect" : [ 50.0, 119.0, 600.0, 426.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 50.0, 119.0, 600.0, 426.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -646,8 +643,7 @@
 									"fontname" : "Verdana",
 									"patcher" : 									{
 										"rect" : [ 98.0, 100.0, 1024.0, 607.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 98.0, 100.0, 1024.0, 607.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,

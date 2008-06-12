@@ -610,8 +610,7 @@
 					"border_right" : 1,
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
 					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"contdata" : 0
+								"contdata" : 0
 				}
 
 			}
@@ -655,8 +654,7 @@
 					"border_right" : 1,
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
 					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"contdata" : 1
+								"contdata" : 1
 				}
 
 			}
@@ -748,8 +746,7 @@
 					"fontsize" : 9.873845,
 					"outlettype" : [ "", "" ],
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ]
+								"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ]
 				}
 
 			}
@@ -1263,8 +1260,7 @@
 					"border_right" : 1,
 					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
 					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"contdata" : 0
+								"contdata" : 0
 				}
 
 			}
@@ -2133,8 +2129,7 @@
 					"fontsize" : 9.873845,
 					"outlettype" : [ "", "", "", "float", "", "float", "float", "", "", "", "", "", "float", "float", "", "" ],
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"patcher" : 					{
+								"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 612.0, 161.0, 811.0, 661.0 ],
 						"bglocked" : 0,
