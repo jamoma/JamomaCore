@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 36.0, 59.0, 932.0, 690.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 1,
 		"defrect" : [ 36.0, 59.0, 932.0, 690.0 ],
 		"openinpresentation" : 0,
@@ -1314,8 +1313,7 @@
 					"patching_rect" : [ 820.0, 556.0, 90.0, 17.0 ],
 					"patcher" : 					{
 						"rect" : [ 31.0, 44.0, 928.0, 723.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 31.0, 44.0, 928.0, 723.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1436,8 +1434,7 @@
 					"patching_rect" : [ 191.0, 340.0, 64.0, 28.0 ],
 					"patcher" : 					{
 						"rect" : [ 179.0, 212.0, 364.0, 228.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 179.0, 212.0, 364.0, 228.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1622,8 +1619,7 @@
 					"patching_rect" : [ 73.0, 340.0, 87.0, 28.0 ],
 					"patcher" : 					{
 						"rect" : [ 179.0, 212.0, 521.0, 276.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 179.0, 212.0, 521.0, 276.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -1742,8 +1738,7 @@
 					"patching_rect" : [ 291.0, 340.0, 60.0, 28.0 ],
 					"patcher" : 					{
 						"rect" : [ 475.0, 139.0, 558.0, 468.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 475.0, 139.0, 558.0, 468.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -2253,8 +2248,7 @@
 					"patching_rect" : [ 28.0, 556.0, 95.0, 17.0 ],
 					"patcher" : 					{
 						"rect" : [ 162.0, 194.0, 659.0, 513.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 162.0, 194.0, 659.0, 513.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -3010,8 +3004,7 @@
 					"patching_rect" : [ 712.0, 358.0, 195.0, 17.0 ],
 					"patcher" : 					{
 						"rect" : [ 273.0, 141.0, 584.0, 576.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 273.0, 141.0, 584.0, 576.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,

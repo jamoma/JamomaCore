@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 99.0, 240.0, 453.0, 462.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 99.0, 240.0, 453.0, 462.0 ],
 		"openinpresentation" : 0,
@@ -105,8 +104,7 @@
 					"patching_rect" : [ 356.0, 284.0, 24.0, 18.0 ],
 					"patcher" : 					{
 						"rect" : [ 557.0, 242.0, 396.0, 184.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 557.0, 242.0, 396.0, 184.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -209,8 +207,7 @@
 					"patching_rect" : [ 261.0, 363.0, 16.0, 17.0 ],
 					"patcher" : 					{
 						"rect" : [ 188.0, 431.0, 147.0, 184.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 188.0, 431.0, 147.0, 184.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -361,8 +358,7 @@
 					"patching_rect" : [ 261.0, 313.0, 50.0, 17.0 ],
 					"patcher" : 					{
 						"rect" : [ 104.0, 58.0, 480.0, 132.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 104.0, 58.0, 480.0, 132.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -406,8 +402,7 @@
 									"patching_rect" : [ 265.0, 324.0, 16.0, 17.0 ],
 									"patcher" : 									{
 										"rect" : [ 183.0, 532.0, 147.0, 184.0 ],
-										"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-										"bglocked" : 0,
+																		"bglocked" : 0,
 										"defrect" : [ 183.0, 532.0, 147.0, 184.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,

@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 58.0, 50.0, 524.0, 703.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 58.0, 50.0, 524.0, 703.0 ],
 		"openinpresentation" : 0,
@@ -835,8 +834,7 @@
 					"numoutlets" : 0,
 					"border" : 1,
 					"rounded" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
+								"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
 					"background" : 1,
 					"patching_rect" : [ 21.0, 201.0, 220.0, 208.0 ]
 				}
@@ -864,8 +862,7 @@
 					"numoutlets" : 0,
 					"border" : 1,
 					"rounded" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
+								"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
 					"background" : 1,
 					"patching_rect" : [ 21.0, 415.0, 220.0, 208.0 ]
 				}
@@ -893,8 +890,7 @@
 					"numoutlets" : 0,
 					"border" : 1,
 					"rounded" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
+								"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
 					"background" : 1,
 					"patching_rect" : [ 276.0, 201.0, 220.0, 208.0 ]
 				}
@@ -922,8 +918,7 @@
 					"numoutlets" : 0,
 					"border" : 1,
 					"rounded" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
+								"bordercolor" : [ 0.74902, 0.74902, 0.74902, 1.0 ],
 					"background" : 1,
 					"patching_rect" : [ 276.0, 415.0, 220.0, 208.0 ]
 				}

@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 41.0, 121.0, 982.0, 410.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 41.0, 121.0, 982.0, 410.0 ],
 		"openinpresentation" : 0,
@@ -350,8 +349,7 @@
 					"id" : "obj-21",
 					"patcher" : 					{
 						"rect" : [ 297.0, 209.0, 485.0, 371.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 297.0, 209.0, 485.0, 371.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
