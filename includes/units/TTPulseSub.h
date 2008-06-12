@@ -24,7 +24,7 @@ private:
 	TTFloat64	attrSustain;
 	TTFloat64	attrRelease;
 	TTBoolean	attrTrigger;
-	TTSymbol	attrMode;
+	TTSymbol*	attrMode;
 	TTFloat64	attrFrequency;
 	TTFloat64	attrLength;
 

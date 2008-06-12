@@ -46,7 +46,7 @@ void* TTQueue::run()
 	TTListItem*	objectItem;
 	TTObject*	object;
 	TTListItem*	messageItem;
-	TTSymbol	message;
+	TTSymbol*	message;
 	TTListItem*	valueItem;
 	TTValue		value;
 	TTValue		tempValue;
@@ -70,7 +70,7 @@ void* TTQueue::run()
 
 /** Add a call to the back of the queue.  Will trigger the queue to be serviced if it isn't
 	already scheduled. */
-void TTQueue::queueToBack(TTObject& anObject, TTSymbol& aMessage, TTValue& aValue)
+void TTQueue::queueToBack(TTObject& anObject, TTSymbol* aMessage, TTValue& aValue)
 {
 	TTValue	tempValue;
 

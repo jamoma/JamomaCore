@@ -16,7 +16,7 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt8 newMaxNumChannels)
 	// register attributes
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassFourPole::setFrequency);
 
-	registerAttribute(*kTTSym_resonance,	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassFourPole::setResonance);
+	registerAttribute(kTTSym_resonance,	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassFourPole::setResonance);
 //	setAttributeProperty(kTTSym_resonance, kTTSym_range, TTValue(0.0, 20000.0));
 //	setAttributeProperty(kTTSym_resonance, kTTSym_clipmode, kTTSym_both);		// clipping will happen before calling our custom accessor, unless we set a flag
 	// TODO: flags

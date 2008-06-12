@@ -37,7 +37,7 @@ TTSymbolTable::~TTSymbolTable()
 }
 
 
-TTSymbol& TTSymbolTable::lookup(const char* string)
+TTSymbol* TTSymbolTable::lookup(const char* string)
 {
 	TTUInt32	i;
 	TTSymbol	*newSymbol;
@@ -46,7 +46,7 @@ TTSymbol& TTSymbolTable::lookup(const char* string)
 	for(i=0; i<symbolTableLength; i++){
 		if(!strcmp(string, symbolTable[i]->getString())){
 			sMutex->unlock();
-			return *symbolTable[i];	// we found it
+			return symbolTable[i];	// we found it
 		}
 	}
 
@@ -59,6 +59,6 @@ TTSymbol& TTSymbolTable::lookup(const char* string)
 	symbolTable[symbolTableLength] = newSymbol;
 	symbolTableLength++;
 	sMutex->unlock();
-	return *newSymbol;
+	return newSymbol;
 }
 
