@@ -37,7 +37,7 @@ public:
 class JAMOMA_EXPORT FunctionLib {
 public:
 	/** Instantiate a function by name */
-	static JamomaError createUnit(const TTSymbol& unitName, FunctionUnit **unit);
+	static JamomaError createUnit(const TTSymbol* unitName, FunctionUnit **unit);
 
 	/**	Return a list of all available functions. */
 	static void getUnitNames(TTValue& unitNames);

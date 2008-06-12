@@ -57,7 +57,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_class *c;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.map",(method)map_new, (method)map_free, sizeof(t_map), (method)0L, A_GIMME, 0);
@@ -176,7 +176,7 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	long		numFunctions = 0;
 	long		i;
 	TTValue		functionNames;
-	TTSymbol	aName;
+	TTSymbol*	aName;
 	
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("functions"), 1, a);
@@ -184,9 +184,9 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	FunctionLib::getUnitNames(functionNames);
 	numFunctions = functionNames.getNumValues();
 	for(i=0; i<numFunctions; i++){
-		functionNames.get(i, aName);
+		functionNames.get(i, &aName);
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, gensym(aName));
+		atom_setsym(a+1, gensym(aName->getString()));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
 		
 		atom_setsym(a, obj->attr_function);
@@ -197,12 +197,12 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 
 void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_atom		*a;
-	TTSymbol	parameterName;
+	t_atom*		a;
+	TTSymbol*	parameterName;
 	TTValue		parameterValue;
 	int			numValues;
 	int			i;
-	TTSymbol	tempSymbol;
+	TTSymbol*	tempSymbol;
 	double		tempValue;
 	
 	if(!argc){
@@ -210,19 +210,19 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	obj->functionUnit->getAttributeValue(parameterName, parameterValue);
 	numValues = parameterValue.getNumValues();
 
 	if(numValues){
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, gensym(parameterName));
+		atom_setsym(a, gensym(parameterName->getString()));
 		// Next the whole shebang is copied
 		for(i=0; i<numValues; i++){
 			if(parameterValue.getType(i) == kTypeSymbol){
-				parameterValue.get(i, tempSymbol);
-				atom_setsym(a+i+1, gensym(tempSymbol));
+				parameterValue.get(i, &tempSymbol);
+				atom_setsym(a+i+1, gensym(tempSymbol->getString()));
 			}
 			else{
 				parameterValue.get(i, tempValue);
@@ -241,7 +241,7 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	t_atom		a[2];
 	long		n;
 	TTValue		names;
-	TTSymbol	aName;
+	TTSymbol*	aName;
 
 	atom_setsym(a+0, gensym("clear"));
 	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
@@ -251,8 +251,8 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	if(n){
 		for(int i=0; i<n; i++){
 			atom_setsym(a+0, gensym("append"));
-			names.get(i, aName);
-			atom_setsym(a+1, gensym(aName));
+			names.get(i, &aName);
+			atom_setsym(a+1, gensym(aName->getString()));
 			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}
 	}
@@ -265,7 +265,7 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 
 void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTSymbol	parameterName;
+	TTSymbol*	parameterName;
 	TTValue		newValue;
 	int			i;
 	
@@ -274,7 +274,7 @@ void map_setParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	for(i=1; i<=(argc-1); i++){
 		if(argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));

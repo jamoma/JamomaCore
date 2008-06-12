@@ -11,20 +11,20 @@
 
 #include "TTSymbol.h"
 
-extern const TTEXPORT TTSymbol*	kTTSymEmpty;
+extern TTEXPORT TTSymbol*	kTTSymEmpty;
 
-extern const TTEXPORT TTSymbol*	kTTSym_both;
-extern const TTEXPORT TTSymbol*	kTTSym_bypass;
-extern const TTEXPORT TTSymbol*	kTTSym_clipmode;
-extern const TTEXPORT TTSymbol*	kTTSym_high;
-extern const TTEXPORT TTSymbol*	kTTSym_maxNumChannels;
-extern const TTEXPORT TTSymbol*	kTTSym_low;
-extern const TTEXPORT TTSymbol*	kTTSym_processInPlace;
-extern const TTEXPORT TTSymbol*	kTTSym_range;
-extern const TTEXPORT TTSymbol*	kTTSym_resonance;
-extern const TTEXPORT TTSymbol*	kTTSym_sr;
-extern const TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
-extern const TTEXPORT TTSymbol*	kTTSym_updateSr;
+extern TTEXPORT TTSymbol*	kTTSym_both;
+extern TTEXPORT TTSymbol*	kTTSym_bypass;
+extern TTEXPORT TTSymbol*	kTTSym_clipmode;
+extern TTEXPORT TTSymbol*	kTTSym_high;
+extern TTEXPORT TTSymbol*	kTTSym_maxNumChannels;
+extern TTEXPORT TTSymbol*	kTTSym_low;
+extern TTEXPORT TTSymbol*	kTTSym_processInPlace;
+extern TTEXPORT TTSymbol*	kTTSym_range;
+extern TTEXPORT TTSymbol*	kTTSym_resonance;
+extern TTEXPORT TTSymbol*	kTTSym_sr;
+extern TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
+extern TTEXPORT TTSymbol*	kTTSym_updateSr;
 
 
 void TTSymbolCacheInit();

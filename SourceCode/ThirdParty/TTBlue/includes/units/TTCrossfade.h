@@ -1,6 +1,6 @@
 /* 
  * TTBlue Signal Crossfader Object
- * Copyright © 2008, Timothy Place
+ * Copyright Â© 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -21,8 +21,8 @@
 class TTEXPORT TTCrossfade : public TTAudioObject {
 private:
 	TTFloat64		attrPosition;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
-	TTSymbol		attrShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
-	TTSymbol		attrMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
+	TTSymbol*		attrShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
+	TTSymbol*		attrMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
 
 	/**	Setter for the shape attribute. */
 	TTErr setShape(const TTValue& value);

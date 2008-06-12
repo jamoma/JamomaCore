@@ -187,12 +187,12 @@ void ramp_setFunction(t_ramp *x, t_symbol *functionName)
 
 void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_atom		*a;
-	TTSymbol	parameterName;
+	t_atom*		a;
+	TTSymbol*	parameterName;
 	TTValue		parameterValue;
 	int			numValues;
 	int			i;
-	TTSymbol	tempSymbol;
+	TTSymbol*	tempSymbol;
 	double		tempValue;
 	
 	if(!argc){
@@ -200,18 +200,18 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	obj->rampUnit->getFunctionParameterValue(parameterName, parameterValue);
 	numValues = parameterValue.getNumValues();
 	if(numValues){
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, gensym(parameterName));
+		atom_setsym(a, gensym(parameterName->getString()));
 		// Next the whole shebang is copied
 		for(i=0; i<numValues; i++){
 			if(parameterValue.getType(i) == kTypeSymbol){
-				parameterValue.get(i, tempSymbol);
-				atom_setsym(a+i+1, gensym(tempSymbol));
+				parameterValue.get(i, &tempSymbol);
+				atom_setsym(a+i+1, gensym(tempSymbol->getString()));
 			}
 			else{
 				parameterValue.get(i, tempValue);
@@ -228,7 +228,7 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 
 void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTSymbol	parameterName;
+	TTSymbol*	parameterName;
 	TTValue		newValue;
 	int			i;
 	
@@ -237,7 +237,7 @@ void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	for(i=1; i<=(argc-1); i++){
 		if(argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));
@@ -361,7 +361,7 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 // RAMP UNIT ATTRIBUTES
 void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTSymbol	parameterName;
+	TTSymbol*	parameterName;
 	TTValue		newValue;
 	int			i;
 	
@@ -370,7 +370,7 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	for(i=1; i<=(argc-1); i++){
 		if(argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));
@@ -383,12 +383,12 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 
 void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_atom		*a;
-	TTSymbol	parameterName;
+	t_atom*		a;
+	TTSymbol*	parameterName;
 	TTValue		parameterValue;
 	int			numValues;
 	int			i;
-	TTSymbol	tempSymbol;
+	TTSymbol*	tempSymbol;
 	double		tempValue;
 	
 	if(!argc){
@@ -396,19 +396,19 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	x->rampUnit->getAttributeValue(parameterName, parameterValue);
 	numValues = parameterValue.getNumValues();
 
 	if(numValues){
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, gensym(parameterName));
+		atom_setsym(a, gensym(parameterName->getString()));
 		// Next the whole shebang is copied
 		for(i=0; i<numValues; i++){
 			if(parameterValue.getType(i) == kTypeSymbol){
-				parameterValue.get(i, tempSymbol);
-				atom_setsym(a+i+1, gensym(tempSymbol));
+				parameterValue.get(i, &tempSymbol);
+				atom_setsym(a+i+1, gensym(tempSymbol->getString()));
 			}
 			else{
 				parameterValue.get(i, tempValue);

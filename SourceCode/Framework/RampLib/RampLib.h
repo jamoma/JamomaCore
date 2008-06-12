@@ -23,7 +23,7 @@ typedef void (*RampUnitCallback)(void *, long, double *);
 // Specification of our base class
 class JAMOMA_EXPORT RampUnit : public TTObject {
 	private:
-		TTSymbol			attrFunction;		///< The name of the functionUnit
+		TTSymbol*			attrFunction;		///< The name of the functionUnit
 
 		/** Attribute setter. */
 		TTErr setFunction(const TTValue& functionName);
@@ -48,9 +48,9 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 		/** destructor */
 		virtual ~RampUnit();
 		
-		TTErr getFunctionParameterNames(TTSymbol& parameterName, TTValue& names);
-		TTErr setFunctionParameterValue(TTSymbol& parameterName, const TTValue& newValue);
-		TTErr getFunctionParameterValue(TTSymbol& parameterName, TTValue& value);
+		TTErr getFunctionParameterNames(TTSymbol* parameterName, TTValue& names);
+		TTErr setFunctionParameterValue(TTSymbol* parameterName, const TTValue& newValue);
+		TTErr getFunctionParameterValue(TTSymbol* parameterName, TTValue& value);
 		
 		/** start a ramp over time in milliseconds */
 		virtual void go(TTUInt32 numValues, TTFloat64 *values, TTFloat64 time) = 0;
@@ -69,7 +69,7 @@ class JAMOMA_EXPORT RampUnit : public TTObject {
 class JAMOMA_EXPORT RampLib {
 public:
 	/** Instantiate a function by name */
-	static JamomaError createUnit(const TTSymbol& unitName, RampUnit **unit, RampUnitCallback callback, void* baton);
+	static JamomaError createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton);
 
 	/**	Return a list of all available functions. */
 	static void getUnitNames(TTValue& unitNames);

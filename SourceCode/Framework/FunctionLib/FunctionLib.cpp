@@ -41,13 +41,13 @@ static void delete_functionunit(FunctionUnit* functionUnit)
 	functionUnit = NULL;
 }
 
-JamomaError FunctionLib::createUnit(const TTSymbol& unitName, FunctionUnit **unit)
+JamomaError FunctionLib::createUnit(const TTSymbol* unitName, FunctionUnit **unit)
 {
 	FunctionUnit* oldUnit = NULL;
 	FunctionUnit* newUnit = NULL;
 	
 	if(*unit){
-		TTSymbol& existingFunctionName = (*unit)->getName();
+		TTSymbol* existingFunctionName = (*unit)->getName();
 		if(unitName == existingFunctionName)
 			return JAMOMA_ERR_NONE;
 		else

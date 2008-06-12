@@ -1,6 +1,6 @@
 /* 
  * TTBlue Operator Object
- * Copyright © 2008, Timothy Place
+ * Copyright Â© 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -16,7 +16,7 @@
 	or a pair of input signals */
 class TTEXPORT TTOperator : public TTAudioObject {
 private:
-	TTSymbol		attrOperator;	///< The type of calculation to perform.
+	TTSymbol*		attrOperator;	///< The type of calculation to perform.
 	TTFloat64		attrOperand;	///< The right-hand value of the calculation.
 
 	/** setter for the operator attribute. */

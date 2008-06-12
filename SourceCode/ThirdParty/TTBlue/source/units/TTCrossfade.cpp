@@ -1,6 +1,6 @@
 /* 
  * TTBlue Signal Crossfader Object
- * Copyright © 2008, Timothy Place
+ * Copyright Â© 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -16,7 +16,7 @@ static TTSampleValue zeroVector3[2048]; //TODO: make this dynamically sized
 
 
 TTCrossfade::TTCrossfade(TTUInt8 newMaxNumChannels)
-	: TTAudioObject("audio.crossfade", newMaxNumChannels), attrShape(*kTTSymEmpty), attrMode(*kTTSymEmpty)
+	: TTAudioObject("audio.crossfade", newMaxNumChannels), attrShape(kTTSymEmpty), attrMode(kTTSymEmpty)
 {
 	registerAttribute(TT("position"),	kTypeFloat64,	&attrPosition);
 	registerAttribute(TT("shape"),		kTypeSymbol,	&attrShape,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setShape);

@@ -101,8 +101,8 @@ public:
 	TTValue(TTInt64 initialValue);
 	TTValue(TTUInt64 initialValue);
 	TTValue(TTBoolean initialValue);
-	TTValue(TTSymbol& initialValue);
-	TTValue(const TTSymbol& initialValue);
+	TTValue(TTSymbol* initialValue);
+	TTValue(const TTSymbol* initialValue);
 	TTValue(TTObject& initialValue);
 
 	/** Copy constructor */
@@ -185,8 +185,8 @@ public:
 	operator TTBoolean() const;
 
 	// SYMBOL
-	TTValue& operator = (TTSymbol& value);
-	operator TTSymbol&() const;
+	TTValue& operator = (TTSymbol* value);
+	operator TTSymbol*() const;
 
 	// OBJECT
 	TTValue& operator = (TTObject& value);
@@ -205,7 +205,7 @@ public:
 	void set(TTUInt16 index, const TTInt64 newValue);
 	void set(TTUInt16 index, const TTUInt64 newValue);
 	void set(TTUInt16 index, const TTBoolean newValue);
-	void set(TTUInt16 index, const TTSymbol& newValue);
+	void set(TTUInt16 index, const TTSymbol* newValue);
 	void set(TTUInt16 index, const TTObject& newValue);
 
 
@@ -222,8 +222,8 @@ public:
 	void get(TTUInt16 index, TTInt64 &value) const;
 	void get(TTUInt16 index, TTUInt64 &value) const;
 	void get(TTUInt16 index, TTBoolean &value) const;
-	void get(TTUInt16 index, TTSymbol& value) const;
-	void get(TTUInt16 index, TTObject &value) const;
+	void get(TTUInt16 index, TTSymbol** value) const;
+	void get(TTUInt16 index, TTObject& value) const;
 
 
 	void append(const TTFloat32 newValue);
@@ -237,7 +237,7 @@ public:
 	void append(const TTInt64 newValue);
 	void append(const TTUInt64 newValue);
 	void append(const TTBoolean newValue);
-	void append(const TTSymbol& newValue);
+	void append(const TTSymbol* newValue);
 	void append(const TTObject& newValue);
 
 

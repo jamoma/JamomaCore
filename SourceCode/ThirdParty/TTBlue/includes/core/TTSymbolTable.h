@@ -42,7 +42,7 @@ public:
 	 * This lookup is called directly, but also from the TTSymbol constructor, which allows 
 	 * us to call methods expecting a TTSymbol by passing them simple c strings.
 	 */
-	TTSymbol& lookup(const char* string);
+	TTSymbol* lookup(const char* string);
 };
 
 extern TTEXPORT TTSymbolTable* ttSymbolTable;		///< The global table of symbols

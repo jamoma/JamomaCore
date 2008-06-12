@@ -56,21 +56,21 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 }
 
 
-TTErr RampUnit::getFunctionParameterNames(TTSymbol& parameterName, TTValue& names)
+TTErr RampUnit::getFunctionParameterNames(TTSymbol* parameterName, TTValue& names)
 {
 	functionUnit->getAttributeNames(names);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol& parameterName, const TTValue& newValue)
+TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, const TTValue& newValue)
 {
 	functionUnit->setAttributeValue(parameterName, newValue);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::getFunctionParameterValue(TTSymbol& parameterName, TTValue& value)
+TTErr RampUnit::getFunctionParameterValue(TTSymbol* parameterName, TTValue& value)
 {
 	functionUnit->getAttributeValue(parameterName, value);
 	return kTTErrNone;
@@ -113,7 +113,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 #include "SchedulerRamp.h"
 
 
-JamomaError RampLib::createUnit(const TTSymbol& unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
+JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
 	if(*unit)
 		delete *unit;

@@ -26,5 +26,5 @@ void TTValueCacheInit()
 	kTTVal0 = new TTValue(TTInt32(0));
 	kTTVal1 = new TTValue(TTInt32(1));
 
-	kTTAttr = new TTAttribute(*kTTSymEmpty, kTypeSymbol, NULL);
+	kTTAttr = new TTAttribute(kTTSymEmpty, kTypeSymbol, NULL);
 }

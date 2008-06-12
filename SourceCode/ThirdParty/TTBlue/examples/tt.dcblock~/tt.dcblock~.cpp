@@ -209,7 +209,7 @@ t_max_err dcblock_setBypass(t_dcblock *x, void *attr, long argc, t_atom *argv)
 
 	if(argc){
 		value = x->attrBypass = atom_getlong(argv);
-		x->dcblock->setAttributeValue(*kTTSym_bypass, value);
+		x->dcblock->setAttributeValue(kTTSym_bypass, value);
 	}
 	return MAX_ERR_NONE;
 }

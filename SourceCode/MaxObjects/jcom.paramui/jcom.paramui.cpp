@@ -21,11 +21,11 @@ static t_jrgba		s_light_gray = { 0.65, 0.65, 0.65, 1.0};
 int main(void)
 {
 	long		flags;
-	t_class		*c;
+	t_class*	c;
 	long		numDataspaces = 0;
-	t_symbol	**dataspaceNames = NULL;
+	t_symbol**	dataspaceNames = NULL;
 	TTValue		functionNames;
-	TTSymbol	functionName;
+	TTSymbol*	functionName;
 	char		dataspaces[2048];
 	char		functions[2048];
 	char		tempstr[64];
@@ -42,8 +42,8 @@ common_symbols_init();
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
 	for(i=0; i<functionNames.getNumValues(); i++){
-		functionNames.get(i, functionName);
-		strcat(functions, functionName);	
+		functionNames.get(i, &functionName);
+		strcat(functions, functionName->getString());	
 		strcat(functions, " ");
 	}
 

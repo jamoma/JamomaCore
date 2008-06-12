@@ -44,7 +44,7 @@ public:
 
 	/** Add a call to the back of the queue.  Will trigger the queue to be serviced if it isn't
 		already scheduled. */
-	void queueToBack(TTObject& anObject, TTSymbol& aMessage, TTValue& aValue);
+	void queueToBack(TTObject& anObject, TTSymbol* aMessage, TTValue& aValue);
 	//void queueToFront(TTMethod method, TTValue& value);
 };
 
