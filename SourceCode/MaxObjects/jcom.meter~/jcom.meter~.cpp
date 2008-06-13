@@ -87,7 +87,7 @@ int main(void)
 	class_dspinitjbox(c);
 
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 	
 	class_addmethod(c, (method)meter_bang,		"bang",			0);
 	class_addmethod(c, (method)meter_int,		"int",			A_LONG, 0);
@@ -109,6 +109,7 @@ common_symbols_init();
 //	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,	"bordercolor",		0,	"0.2 0.2 0.2 1.");
 	
 	CLASS_ATTR_DEFAULT(c,				"patching_rect",	0,	"0. 0. 100. 12.");
+	CLASS_ATTR_MIN(c,					"patching_size",	0,	"1. 1.");
 //	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,	"bgcolor",			0,	"0.1 0.1 0.1 1.0");
 	
 	class_register(CLASS_BOX, c);
