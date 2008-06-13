@@ -118,9 +118,11 @@ int main(void)
 	CLASS_ATTR_DEFAULT(c,	"has_controlpanel",	0, "0");
 	CLASS_ATTR_SAVE(c,		"has_controlpanel",	0);
 
-	//CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
-	//CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
-	//CLASS_ATTR_SAVE(c,		"has_meters",		0);
+	// this is needed so that we know whether or not to offer the option of turning the meters on and off in the menu
+	CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
+	CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
+	CLASS_ATTR_SAVE(c,		"has_meters",		0);
+	CLASS_ATTR_STYLE(c,		"meters_defeated",	0, "onoff");
 
 	CLASS_ATTR_LONG(c,		"meters_defeated",	0, t_ui, attr_metersdefeated);
 	CLASS_ATTR_STYLE(c,		"meters_defeated",	0, "onoff");
@@ -746,7 +748,7 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	int					coord_x=0, coord_y=0;
 	t_pt				pt;
 
-	ui_menu_build(x);	// TODO: would be better to not rebuild the menu every single time?  or not?  this uses less memory...
+	ui_menu_build(x);	// would be better to not rebuild the menu every single time?  or not?  this uses less memory...
 
 	jbox_set_mousedragdelta((t_object *)x, 0);
 	p = jpopupmenu_create();
@@ -792,14 +794,160 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 void ui_menu_qfn(t_ui *x)
 {
 	t_symobject *item = (t_symobject *)linklist_getindex(x->menu_items, x->menu_selection);
-	
+
 	if(item->sym == gensym("Defeat Signal Meters")){
 		if(x->attr_metersdefeated)
 			object_attr_setlong(x, gensym("meters_defeated"), 0);
 		else
 			object_attr_setlong(x, gensym("meters_defeated"), 1);
 	}
+	else if(item->sym == gensym("Disable UI Updates"))
+		;
+	else if(item->sym == gensym("Refresh UI"))
+		;
+	else if(item->sym == gensym("Load Settings..."))
+		;
+	else if(item->sym == gensym("Save Settings..."))
+		;
+	else if(item->sym == gensym("Restore Default Settings"))
+		;
+	else if(item->sym == gensym("Store Current Preset"))
+		;
+	else if(item->sym == gensym("Store as Next Preset"))
+		;
+	else if(item->sym == gensym("Get Current State as Text"))
+		;
+	else if(item->sym == gensym("Open Preset Interface"))
+		;
+	else	// assume the menu item is a preset name
+		object_method_sym(x->obj_remote, gensym("/preset/recall"), item->sym, NULL);
 }
+
+
+/* 
+ if((attr_module_type == "audio") || (attr_module_type == "audio.no_panel") || (attr_module_type == "audio.ambisonic")){
+ switch(value){
+ case 0: 
+ if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
+ else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
+ outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
+ outlet(3, "checkitem", 0, attr_displayfreeze_toggle);
+ break;
+ case 1: outlet(4, "/ui/refresh"); break;
+ case 2: 
+ if(attr_meterfreeze_toggle == 1)
+ attr_meterfreeze_toggle = 0;
+ else if(attr_meterfreeze_toggle == 0)
+ attr_meterfreeze_toggle = 1;
+ outlet(4, "/audio/meters/freeze", attr_meterfreeze_toggle); 
+ outlet(3, "checkitem", 2, attr_meterfreeze_toggle); 
+ break;
+ case 3: outlet(4, "/audio/meters/clear"); break;
+ case 5: outlet(4, "/preset/load"); break;
+ case 6: outlet(4, "/preset/write"); break;
+ case 7: outlet(4, "/preset/default"); break;
+ case 9: outlet(4, "/documentation/html"); break;
+ case 10: outlet(4, "/documentation/help"); break;
+ case 11: outlet(4, "/module/view_internals"); break;
+ case 13: outlet(4, "/preset/store"); break;
+ case 14: outlet(4, "/preset/storenext"); break;
+ case 15: outlet(4, "/preset/interface"); break;
+ case 16: outlet(4, "/getstate"); break;
+ default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
+ 
+ ________________________________________________________________________________________________________________
+  else if(attr_module_type == "video"){
+ 
+ menu_add("Preview Output");
+ menu_add("Force a Frame of Output");
+ menu_add("Bypass");
+ menu_add("Freeze");
+ menu_add("Mute");
+ 
+ else if(attr_module_type == "video"){
+ switch(value){
+ case 0:
+ if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
+ else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
+ outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
+ outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
+ break;
+ case 1: outlet(4, "/ui/refresh"); break;
+ case 2: 
+ if(attr_preview == 1) attr_preview = 0;
+ else if(attr_preview == 0) attr_preview = 1;
+ outlet(4, "/video/preview", attr_preview); 
+ outlet(3, "checkitem", 2, attr_preview); 
+ break;
+ case 3: outlet(4, "/genframe"); break;	
+ case 5:
+ if(attr_bypass == 1) attr_bypass = 0;
+ else if(attr_bypass == 0){
+ attr_bypass = 1;
+ attr_freeze = 0;
+ attr_mute = 0;
+ }
+ outlet(4, "/video/bypass", attr_bypass); 
+ break;
+ case 6:
+ if(attr_freeze == 1) attr_freeze = 0;
+ else if(attr_freeze == 0){
+ attr_bypass = 0;
+ attr_freeze = 1;
+ attr_mute = 0;
+ }
+ outlet(4, "/video/freeze", attr_freeze); 
+ break;
+ case 7:
+ if(attr_mute == 1) attr_mute = 0;
+ else if(attr_mute == 0){
+ attr_bypass = 0;
+ attr_freeze = 0;
+ attr_mute = 1;
+ }
+ outlet(4, "/video/mute", attr_mute); 
+ break;
+ case 9: outlet(4, "/preset/load"); break;			
+ case 10: outlet(4, "/preset/write"); break;
+ case 11: outlet(4, "/preset/default"); break;
+ case 13: outlet(4, "/documentation/html"); break;
+ case 14: outlet(4, "/documentation/help"); break;
+ case 15: outlet(4, "/module/view_internals"); break;
+ case 17: outlet(4, "/preset/store"); break;
+ case 18: outlet(4, "/preset/storenext"); break;
+ case 19: outlet(4, "/preset/interface"); break;
+ case 20: outlet(4, "/getstate"); break;
+ default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
+ }
+ outlet(3, "checkitem", 5, attr_bypass);
+ outlet(3, "checkitem", 6, attr_freeze);
+ outlet(3, "checkitem", 7, attr_mute);
+ }
+ 
+ ________________________________________________________________________________________________________________
+ else{	// attr_module_type == "control"
+ 
+ switch(value){
+ case 0:
+ if(attr_displayfreeze_toggle == 1) attr_displayfreeze_toggle = 0;
+ else if(attr_displayfreeze_toggle == 0) attr_displayfreeze_toggle = 1;
+ outlet(4, "/ui/freeze", attr_displayfreeze_toggle); 
+ outlet(3, "checkitem", 0, attr_displayfreeze_toggle); 
+ break;
+ case 1: outlet(4, "/ui/refresh"); break;
+ case 3: outlet(4, "/preset/load"); break;
+ case 4: outlet(4, "/preset/write"); break;
+ case 5: outlet(4, "/preset/default"); break;
+ case 7: outlet(4, "/documentation/html"); break;
+ case 8: outlet(4, "/documentation/help"); break;
+ case 9: outlet(4, "/module/view_internals"); break;	
+ case 11: outlet(4, "/preset/store"); break;
+ case 12: outlet(4, "/preset/storenext"); break;
+ case 13: outlet(4, "/preset/interface"); break;
+ case 14: outlet(4, "/getstate"); break;
+ default: outlet(4, "/preset/recall", preset_items[value - (menu_items.length - menu_num_presets) - 1]); break;
+  
+*/
 
 
 void ui_menu_build(t_ui *x)
@@ -812,6 +960,13 @@ void ui_menu_build(t_ui *x)
 		return;
 
 	linklist_clear(x->menu_items);
+	
+	item = (t_symobject *)symobject_new(gensym("Disable UI Updates"));	// we should mark this one with a check-mark though...
+	linklist_append(x->menu_items, item);	
+	item = (t_symobject *)symobject_new(gensym("Refresh UI"));
+	linklist_append(x->menu_items, item);
+	item = (t_symobject *)symobject_new(gensym("-"));
+	linklist_append(x->menu_items, item);
 	
 	if(x->attr_hasmeters){
 		item = (t_symobject *)symobject_new(gensym("Defeat Signal Meters"));
@@ -828,12 +983,23 @@ void ui_menu_build(t_ui *x)
 	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("Restore Default Settings"));
 	linklist_append(x->menu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Store Current Preset"));
+	linklist_append(x->menu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Store as Next Preset"));
+	linklist_append(x->menu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Get Current State as Text"));
+	linklist_append(x->menu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Open Preset Interface"));
+	linklist_append(x->menu_items, item);
+	
 	item = (t_symobject *)symobject_new(gensym("-"));
 	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("Open Reference Page"));
 	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("View Internal Components"));
+	item = (t_symobject *)symobject_new(gensym("Open Help Patch"));
 	linklist_append(x->menu_items, item);
+	item = (t_symobject *)symobject_new(gensym("View Internal Components"));
+	linklist_append(x->menu_items, item);	
 	
 	ll = linklist_new();
 	object_method_obj(x->obj_remote, gensym("fetchPresetNamesInLinklist"), (t_object*)ll, NULL);
