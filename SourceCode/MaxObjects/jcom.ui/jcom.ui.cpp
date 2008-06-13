@@ -113,10 +113,10 @@ int main(void)
 	CLASS_ATTR_ACCESSORS(c,	"prefix",			NULL,	attr_set_prefix);
 	CLASS_ATTR_LABEL(c,		"prefix",			0,	"OSC prefix for parameter names");
 	
-	CLASS_ATTR_LONG(c,		"has_inspector",	0, t_ui, attr_hasinspector);
-	CLASS_ATTR_STYLE(c,		"has_inspector",	0, "onoff");
-	CLASS_ATTR_DEFAULT(c,	"has_inspector",	0, "0");
-	CLASS_ATTR_SAVE(c,		"has_inspector",	0);
+	CLASS_ATTR_LONG(c,		"has_controlpanel",	0, t_ui, attr_hasinspector);
+	CLASS_ATTR_STYLE(c,		"has_controlpanel",	0, "onoff");
+	CLASS_ATTR_DEFAULT(c,	"has_controlpanel",	0, "0");
+	CLASS_ATTR_SAVE(c,		"has_controlpanel",	0);
 
 	//CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
 	//CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
