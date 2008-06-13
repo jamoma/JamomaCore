@@ -241,11 +241,11 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 		x->attr_mute = atom_getlong(argv+1);
 		outlet_anything(x->algout, ps_mute, argc-1, argv+1);
 	}
-	else if((argv->a_w.w_sym == ps_video_mute) || (argv->a_w.w_sym == ps_slash_video_mute))
+	else if((argv->a_w.w_sym == ps_video_mute) || (argv->a_w.w_sym == ps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
 		x->attr_mute = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == ps_video_bypass) || (argv->a_w.w_sym == ps_slash_video_bypass))
+	else if((argv->a_w.w_sym == ps_video_bypass) || (argv->a_w.w_sym == ps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
 		x->attr_bypass = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == ps_video_freeze) || (argv->a_w.w_sym == ps_slash_video_freeze))
+	else if((argv->a_w.w_sym == ps_video_freeze) || (argv->a_w.w_sym == ps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
 		x->attr_freeze = atom_getlong(argv+1);
 	
 	strcpy(namestring, "/");						// perhaps we could optimize this operation
