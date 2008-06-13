@@ -112,7 +112,7 @@ common_symbols_init();
 	class_addattr(c, attr);
 			
 	// ATTRIBUTE: inspector
-	attr = attr_offset_new("inspector", _sym_long, attrflags,
+	attr = attr_offset_new("controlpanel", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_hub, attr_inspector));
 	class_addattr(c, attr);
 
