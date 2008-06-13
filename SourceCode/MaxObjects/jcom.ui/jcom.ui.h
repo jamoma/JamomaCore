@@ -24,6 +24,11 @@ typedef struct _ui{
 	t_hashtab			*hash_internals;		///< hash table of internal jcom.parameter and jcom.message instances
 	t_object			*obj_remote;			///< the internal jcom.remote instance that communicates with the hub
 
+	t_jrgba				bgcolor;
+	t_jrgba				bordercolor;
+	t_jrgba				headercolor;
+	t_jrgba				textcolor;
+	
 	t_jpopupmenu		*menu;					// module menu
 	void				*menu_qelem;			// ...
 	long				menu_selection;			// ...

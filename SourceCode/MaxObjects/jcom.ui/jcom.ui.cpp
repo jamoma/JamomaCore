@@ -36,10 +36,12 @@
 // class variables
 static t_class		*s_ui_class = NULL;
 
-static t_jrgba		s_color_text				= {0.65,		0.65,		0.65,		1.0};
-static t_jrgba		s_color_background_audio	= {0.141176,	0.141176,	0.141176,	1.0};
-static t_jrgba		s_color_titlebar_audio		= {0.0,			0.0,		0.0,		1.0};
-static t_jrgba		s_color_border_audio		= {0.2,			0.2,		0.2,		1.0};
+//static t_jrgba		s_color_text				= {0.65,		0.65,		0.65,		1.0};
+
+//now x->bgcolor
+//static t_jrgba		s_color_background_audio	= {0.141176,	0.141176,	0.141176,	1.0};
+//static t_jrgba		s_color_titlebar_audio		= {0.0,			0.0,		0.0,		1.0};
+//static t_jrgba		s_color_border_audio		= {0.2,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_background_button	= {0.2,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_border_button		= {0.4,			0.4,		0.4,		1.0};
 static t_jrgba		s_color_text_button_on		= {0.7,			0.7,		0.7,		1.0};
@@ -91,6 +93,18 @@ int main(void)
 	CLASS_ATTR_DEFAULT(c, 	"fontname",			0, JAMOMA_DEFAULT_FONT);
 	CLASS_ATTR_DEFAULT(c, 	"fontsize",			0, "11");
 	
+	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_ui,	bgcolor);
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.141176 0.141176 0.141176 1.0");
+	
+	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_ui,	bordercolor);
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.2 0.2 0.2 1.0");
+	
+	CLASS_ATTR_RGBA(c,						"headercolor",	0,	t_ui,	headercolor);
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.0 0.0 0.0 1.0");
+	
+	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_ui,	textcolor);
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.65 0.65 0.65 1.0");
+	
 	CLASS_STICKY_ATTR(c,	"category",			0, "Jamoma");
 
 	CLASS_ATTR_SYM(c,		"prefix",			0, t_ui, attrPrefix);
@@ -104,9 +118,9 @@ int main(void)
 	CLASS_ATTR_DEFAULT(c,	"has_inspector",	0, "0");
 	CLASS_ATTR_SAVE(c,		"has_inspector",	0);
 
-	CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
-	CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
-	CLASS_ATTR_SAVE(c,		"has_meters",		0);
+	//CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
+	//CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
+	//CLASS_ATTR_SAVE(c,		"has_meters",		0);
 
 	CLASS_ATTR_LONG(c,		"meters_defeated",	0, t_ui, attr_metersdefeated);
 	CLASS_ATTR_STYLE(c,		"meters_defeated",	0, "onoff");
@@ -276,11 +290,12 @@ void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 
 	if((msg == _sym_attr_modified) && (sender == x)){
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
+		textfield = jbox_get_textfield((t_object*) x);
+		if(textfield)
+			textfield_set_textcolor(textfield, &x->textcolor);
 		
-		if(attrname == gensym("module_name")){
-			textfield = jbox_get_textfield((t_object*) x); 
+		if(attrname == gensym("module_name"))
 			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
-		}
 
 		jbox_redraw(&x->box);
 	}
@@ -328,7 +343,7 @@ void ui_paint(t_ui *x, t_object *view)
 									rect.width - ((border_thickness) * 2.0), 
 									rect.height - ((border_thickness) * 2.0), 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&s_color_background_audio);
+	jgraphics_set_source_jrgba(g,	&x->bgcolor);
 	jgraphics_fill(g);
 	
 	// draw the titlebar
@@ -337,7 +352,7 @@ void ui_paint(t_ui *x, t_object *view)
 									rect.width - (border_thickness * 2.0 + 1.0), 
 									18.0, 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&s_color_titlebar_audio);
+	jgraphics_set_source_jrgba(g,	&x->headercolor);
 	jgraphics_fill(g);
 	
 	jgraphics_rectangle_fill_fast(g, border_thickness, 
@@ -351,7 +366,7 @@ void ui_paint(t_ui *x, t_object *view)
 									rect.width - (border_thickness * 2.0), 
 									rect.height - (border_thickness * 2.0), 
 									cornersize, cornersize); 
-	jgraphics_set_source_jrgba(g,	&s_color_border_audio);
+	jgraphics_set_source_jrgba(g,	&x->bordercolor);
 	jgraphics_set_line_width(g, 1.0);
 	jgraphics_stroke(g);
 
@@ -742,7 +757,7 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
-	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, s_color_background_audio);
+	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
 	size = linklist_getsize(x->menu_items);
 	for(i=0; i<size; i++){
 		item = (t_symobject *)linklist_getindex(x->menu_items, i);
@@ -856,7 +871,7 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 						JAMOMA_MENU_FONTSIZE);
 	jpopupmenu_setfont(p, font);
 	jfont_destroy(font);
-	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, s_color_background_audio);
+	//	jpopupmenu_setcolors(p, s_color_text, s_color_titlebar_audio, s_color_text_button_on, x->bgcolor);
 	//	jpopupmenu_setheadercolor(<#t_jpopupmenu * menu#>, <#t_jrgba * hc#>)
 	size = linklist_getsize(x->refmenu_items);
 	for(i=0; i<size; i++){
@@ -1000,7 +1015,7 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 	textfield_set_editonclick(textfield, 0);
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
-	textfield_set_textcolor(textfield, &s_color_text);
+	textfield_set_textcolor(textfield, &x->textcolor);
 	textfield_set_textmargins(textfield, 20.0, 2.0, 60.0, rect->height - 19.0);
 
 	return (void *)1;
