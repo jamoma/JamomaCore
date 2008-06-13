@@ -177,10 +177,15 @@ void TTValue::setType(TTDataType arg)
 
 void TTValue::setNumValues(const TTUInt16 arg)
 {
-	if(arg > numValues){
-		copy(*this);
-	}
 	numValues = arg;
+	TTDataType* t = new TTDataType[numValues];
+	DataValue* d = new DataValue[numValues];
+	memcpy(t, type, sizeof(TTDataType) * numValues);
+	memcpy(d, data, sizeof(DataValue) * numValues);
+	delete [] type;
+	delete [] data;
+	type = t;
+	data = d;
 }
 
 
@@ -663,10 +668,10 @@ void TTValue::get(TTUInt16 index, TTBoolean &value) const
 		CONVERT(TTBoolean)
 }
 
-void TTValue::get(TTUInt16 index, TTSymbol* value) const
+void TTValue::get(TTUInt16 index, TTSymbol** value) const
 {
 	if(*type == kTypeSymbol)
-		value = (data+index)->sym;
+		*value = (data+index)->sym;
 }
 
 void TTValue::get(TTUInt16 index, TTObject &value) const
