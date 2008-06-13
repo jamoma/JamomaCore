@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 377.0, 172.0, 292.0, 136.0 ],
+		"rect" : [ 50.0, 113.0, 342.0, 167.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 377.0, 172.0, 292.0, 136.0 ],
+		"defrect" : [ 50.0, 113.0, 342.0, 167.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.970939,
@@ -20,13 +20,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.fullscreen 32",
-					"outlettype" : [ "" ],
-					"fontsize" : 10,
-					"patching_rect" : [ 141.0, 114.0, 117.0, 18.0 ],
 					"id" : "obj-1",
-					"numinlets" : 0,
 					"fontname" : "Verdana",
-					"numoutlets" : 1
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"patching_rect" : [ 156.0, 124.0, 117.0, 19.0 ],
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ]
 				}
 
 			}
@@ -35,12 +35,13 @@
 					"maxclass" : "comment",
 					"text" : "optional argument sets which key code to trigger fullscreen (default = 27 = escape)",
 					"linecount" : 4,
-					"fontsize" : 10,
-					"patching_rect" : [ 141.0, 58.0, 131.0, 54.0 ],
 					"id" : "obj-2",
-					"numinlets" : 1,
 					"fontname" : "Verdana",
-					"numoutlets" : 0
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 156.0, 68.0, 131.0, 55.0 ],
+					"fontsize" : 10.0
 				}
 
 			}
@@ -48,13 +49,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "thispatcher",
-					"outlettype" : [ "", "" ],
-					"fontsize" : 10,
-					"patching_rect" : [ 14.0, 114.0, 75.0, 18.0 ],
 					"id" : "obj-3",
-					"numinlets" : 1,
 					"fontname" : "Verdana",
+					"numinlets" : 1,
 					"numoutlets" : 2,
+					"patching_rect" : [ 29.0, 124.0, 75.0, 19.0 ],
+					"fontsize" : 10.0,
+					"outlettype" : [ "", "" ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ]
 				}
 
@@ -63,13 +64,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.fullscreen",
-					"outlettype" : [ "" ],
-					"fontsize" : 10,
-					"patching_rect" : [ 14.0, 70.0, 97.0, 18.0 ],
 					"id" : "obj-4",
-					"numinlets" : 0,
 					"fontname" : "Verdana",
-					"numoutlets" : 1
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"patching_rect" : [ 29.0, 80.0, 97.0, 19.0 ],
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ]
 				}
 
 			}
@@ -77,14 +78,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.fullscreen",
-					"fontsize" : 17.334082,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"patching_rect" : [ 5.0, 5.0, 142.0, 28.0 ],
 					"id" : "obj-5",
-					"numinlets" : 1,
 					"fontname" : "Verdana",
-					"numoutlets" : 0
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 20.0, 15.0, 142.0, 28.0 ],
+					"fontsize" : 17.334082
 				}
 
 			}
@@ -92,26 +92,24 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Makes the patch fill the screen when hitting escape",
-					"fontsize" : 10,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"patching_rect" : [ 5.0, 30.0, 265.0, 18.0 ],
 					"id" : "obj-6",
-					"numinlets" : 1,
 					"fontname" : "Verdana",
-					"numoutlets" : 0
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 20.0, 40.0, 267.0, 19.0 ],
+					"fontsize" : 10.0
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "panel",
-					"rounded" : 0,
-					"patching_rect" : [ 0.0, 0.0, 292.0, 50.0 ],
 					"id" : "obj-7",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ]
+					"patching_rect" : [ 15.0, 10.0, 292.0, 50.0 ],
+					"rounded" : 15
 				}
 
 			}
