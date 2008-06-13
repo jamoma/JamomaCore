@@ -10,9 +10,29 @@
 #ifndef __JAMOMA_SYMBOLS_H__
 #define __JAMOMA_SYMBOLS_H__
 
+/* TODO: These need to be cleaned up because they are duplicated in JamomaTypes.h, clean
+ * this up later for now.
+ * XXX */
 #include "ext.h"
+#ifndef JAMOMA_PLATFORM_WIN
+	#ifdef WIN_VERSION
+	 #define JAMOMA_PLATFORM_WIN
+	#else
+	 #define JAMOMA_PLATFORM_MAC
+	 #define JAMOMA_EXPORT
+	#endif
+#endif
 
-extern t_symbol	*jps_none,
+#ifdef JAMOMA_PLATFORM_WIN
+ #include "windows.h"
+ #ifdef _DLL_JAMOMA_EXPORT
+  #define JAMOMA_EXPORT __declspec(dllexport)
+ #else
+  #define JAMOMA_EXPORT __declspec(dllimport)
+ #endif // _DLL_EXPORT
+#endif
+
+extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,
