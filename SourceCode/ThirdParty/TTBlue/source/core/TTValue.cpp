@@ -177,10 +177,15 @@ void TTValue::setType(TTDataType arg)
 
 void TTValue::setNumValues(const TTUInt16 arg)
 {
-	if(arg > numValues){
-		copy(*this);
-	}
 	numValues = arg;
+	TTDataType* t = new TTDataType[numValues];
+	DataValue* d = new DataValue[numValues];
+	memcpy(t, type, sizeof(TTDataType) * numValues);
+	memcpy(d, data, sizeof(DataValue) * numValues);
+	delete [] type;
+	delete [] data;
+	type = t;
+	data = d;
 }
 
 
