@@ -10,6 +10,7 @@
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		22261CE30A28C1C100329D95 /* jcom.hub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jcom.hub.cpp */; };
 		22287BC90CEE340700DF50BB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 22287BC80CEE340700DF50BB /* libxml2.dylib */; };
+		22513ACB0E027B8900EA673A /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22513ACA0E027B8900EA673A /* TTBlue.framework */; };
 		225C7BC70C13641500CE89AF /* jcom.hub.internals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */; };
 		22A2E01B0A93F1F40004A1F5 /* jcom.hub.autodoc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */; };
 		22DBF6E90A940E7C006FC078 /* jcom.hub.presets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DBF6E80A940E7C006FC078 /* jcom.hub.presets.cpp */; };
@@ -23,6 +24,7 @@
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22261CE20A28C1C100329D95 /* jcom.hub.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.cpp; sourceTree = "<group>"; };
 		22287BC80CEE340700DF50BB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
+		22513ACA0E027B8900EA673A /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		225C7BC60C13641500CE89AF /* jcom.hub.internals.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.internals.cpp; sourceTree = "<group>"; };
 		22A2E0190A93F1F40004A1F5 /* jcom.hub.autodoc.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.hub.autodoc.cpp; sourceTree = "<group>"; };
 		22A2E01A0A93F1F40004A1F5 /* jcom.hub.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jcom.hub.h; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 				22287BC90CEE340700DF50BB /* libxml2.dylib in Frameworks */,
 				22FD2DFF0CEE5D2A0039C226 /* Jamoma.framework in Frameworks */,
 				55C0E4A70CF30C09002D3DE3 /* MaxAudioAPI.framework in Frameworks */,
+				22513ACB0E027B8900EA673A /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +64,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22513ACA0E027B8900EA673A /* TTBlue.framework */,
 				55C0E4A60CF30C09002D3DE3 /* MaxAudioAPI.framework */,
 				22FD2DFE0CEE5D2A0039C226 /* Jamoma.framework */,
 				22287BC80CEE340700DF50BB /* libxml2.dylib */,
