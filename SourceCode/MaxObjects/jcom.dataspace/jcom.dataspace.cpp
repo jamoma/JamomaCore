@@ -13,7 +13,7 @@
 // Data Structure for this object
 typedef struct _dataspace{
 	t_object		ob;
-	void			*outlet_active;
+	//void			*outlet_active;
 	void			*outlet_native;
 	DataspaceLib	*dataspace;
 	long			ac;						// for return values from the dataspace conversion
@@ -67,13 +67,20 @@ int main(void)
 	class_addattr(c, 
 		attr_offset_new("dataspace", _sym_symbol, 0,
 		(method)0, (method)dataspace_setDataspace, calcoffset(t_dataspace, attr_dataspace)));
+/*
 	class_addattr(c, 
 		attr_offset_new("unit.active", _sym_symbol, 0,
 		(method)0, (method)dataspace_setDataspaceActive, calcoffset(t_dataspace, attr_dataspace_active)));
 	class_addattr(c, 
 		attr_offset_new("unit.native", _sym_symbol, 0,
 		(method)0, (method)dataspace_setDataspaceNative, calcoffset(t_dataspace, attr_dataspace_native)));
-
+*/
+	CLASS_ATTR_SYM(c,		"input",	0,		t_dataspace,	attr_dataspace_active);
+	CLASS_ATTR_ACCESSORS(c,	"input",	NULL,	dataspace_setDataspaceActive);
+	
+	CLASS_ATTR_SYM(c,		"output",	0,		t_dataspace,	attr_dataspace_native);
+	CLASS_ATTR_ACCESSORS(c,	"output",	NULL,	dataspace_setDataspaceNative);
+	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	dataspace_class = c;
@@ -91,8 +98,8 @@ void *dataspace_new(t_symbol *name, long argc, t_atom *argv)
 	obj = (t_dataspace *)object_alloc(dataspace_class);		// Create object, store pointer to it (get 1 inlet free)
 	if(obj){
 		object_obex_store((void *)obj, _sym_dumpout, (object *)outlet_new(obj,NULL));
+	    //obj->outlet_active = outlet_new(obj, 0);
 	    obj->outlet_native = outlet_new(obj, 0);
-	    obj->outlet_active = outlet_new(obj, 0);
 		obj->dataspace = NULL;
 		obj->attr_dataspace_active = _sym_nothing;
 		obj->attr_dataspace_native = _sym_nothing;
@@ -145,7 +152,7 @@ void dataspace_float(t_dataspace *obj, double x)
 	atom_setfloat(a, x);
 	obj->dataspace->convert(1, a, &obj->ac, &obj->av);
 	outlet_anything(obj->outlet_native, _sym_float, obj->ac, obj->av);
-	outlet_float(obj->outlet_active, x);
+	//outlet_float(obj->outlet_active, x);
 }
 
 
@@ -153,7 +160,7 @@ void dataspace_list(t_dataspace *obj, t_symbol *msg, long argc, t_atom *argv)
 {
 	obj->dataspace->convert(argc, argv, &obj->ac, &obj->av);
 	outlet_anything(obj->outlet_native, _sym_list, obj->ac, obj->av);
-	outlet_anything(obj->outlet_active, _sym_list, argc, argv);
+	//outlet_anything(obj->outlet_active, _sym_list, argc, argv);
 }
 	
 
