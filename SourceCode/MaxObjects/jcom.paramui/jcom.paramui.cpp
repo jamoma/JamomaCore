@@ -380,7 +380,7 @@ void paramui_paint(t_paramui *x, t_object *view)
 		jgraphics_fill(g);
 
 
-	if(x->attr_dataspace != ps_none){
+	if(x->attr_dataspace != jps_none){
 		char data[256];
 
 		// draw the unit display
@@ -416,11 +416,11 @@ void paramui_paint(t_paramui *x, t_object *view)
 		if(x->obj_parameter){
 			object_attr_getvalueof(x->obj_parameter, gensym("value"), &ac, &av);
 			if(ac){
-				if(x->attr_type == ps_msg_float)
+				if(x->attr_type == jps_msg_float)
 					sprintf(data, "%.4f", atom_getfloat(av));
-				else if(x->attr_type == ps_msg_int || x->attr_type == ps_msg_toggle)
+				else if(x->attr_type == jps_msg_int || x->attr_type == jps_msg_toggle)
 					sprintf(data, "%ld", atom_getlong(av));
-				else if(x->attr_type == ps_msg_symbol)
+				else if(x->attr_type == jps_msg_symbol)
 					strcpy(data, atom_getsym(av)->s_name);
 				
 				jtextlayout_settextcolor(x->layout_value, &s_light_gray);

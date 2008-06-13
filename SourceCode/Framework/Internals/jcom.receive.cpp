@@ -132,13 +132,13 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 void receive_bind(t_receive *x)
 {
 	if(!NOGOOD(g_receivemaster_object))
-		object_method(g_receivemaster_object, ps_add, x->attr_name, x);
+		object_method(g_receivemaster_object, jps_add, x->attr_name, x);
 }
 
 
 void receive_remove(t_receive *x)
 {
-	object_method(g_receivemaster_object, ps_remove, x->attr_name, x);
+	object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }
 
 

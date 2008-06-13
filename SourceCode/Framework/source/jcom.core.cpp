@@ -28,9 +28,9 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 		box = object_attr_getobj(patcher, gensym("firstobject"));
 		while(box){
 			objclass = object_attr_getsym(box, gensym("maxclass"));
-			if(objclass == ps_jcom_hub){
+			if(objclass == jps_jcom_hub){
 				hub = object_attr_getobj(box, _sym_object);
-				object_method(hub, ps_subscribe, name, x, object_type);
+				object_method(hub, jps_subscribe, name, x, object_type);
 				return hub;
 			}
 			box = object_attr_getobj(box, gensym("nextobject"));
@@ -52,7 +52,7 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 void jcom_core_unsubscribe(t_object *hub, void *object)
 {
 	if(hub)
-		object_method(hub, ps_unsubscribe, object);
+		object_method(hub, jps_unsubscribe, object);
 }
 
 
@@ -73,19 +73,19 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 	if(!a1 || !a2)
 		return 0;
 		
-	if(type == ps_msg_float){				// float is first so that it gets process the most quickly
+	if(type == jps_msg_float){				// float is first so that it gets process the most quickly
 		if(atom_getfloat(a1) == atom_getfloat(a2))
 			return 1;
 	}
-	else if((type == ps_msg_int) || (type == ps_msg_toggle)){
+	else if((type == jps_msg_int) || (type == jps_msg_toggle)){
 		if(atom_getlong(a1) == atom_getlong(a2))
 			return 1;
 	}
-	else if(type == ps_msg_symbol){
+	else if(type == jps_msg_symbol){
 		if(atom_getsym(a1) == atom_getsym(a2))
 			return 1;
 	}
-	else if((type == ps_msg_generic) || (type == ps_msg_list)){
+	else if((type == jps_msg_generic) || (type == jps_msg_list)){
 		// type msg_list should be checked here as well.  If type == msg_list and this function is called
 		// it means we are dealing with a list of length 1, so we only need to compare one atom anyway.
 		
@@ -158,11 +158,11 @@ bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_objec
 	t_class 	*c = NULL;
 	t_object	*p = NULL;
 
-	c = class_findbyname(ps_box, objectname);
+	c = class_findbyname(jps_box, objectname);
 	if(!c){
 		p = (t_object *)newinstance(objectname, 0, NULL);
 		if(p){
-			c = class_findbyname(ps_box, objectname);
+			c = class_findbyname(jps_box, objectname);
 			freeobject(p);
 			p = NULL;
 		}
@@ -258,11 +258,11 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	x->container = jamoma_object_getpatcher((t_object*)x);
 	
 	// set up the jcom.receive the listens to broadcast messages from the hub
-	atom_setsym(&a, ps_jcom_broadcast_fromHub);
-	if(!jcom_core_loadextern(ps_jcom_receive, 1, &a, &x->obj_hub_broadcast))
+	atom_setsym(&a, jps_jcom_broadcast_fromHub);
+	if(!jcom_core_loadextern(jps_jcom_receive, 1, &a, &x->obj_hub_broadcast))
 		error("jcom.core: loading jcom.receive extern failed");
 	else
-		object_method(x->obj_hub_broadcast, ps_setcallback, &jcom_core_broadcast_callback, x);
+		object_method(x->obj_hub_broadcast, jps_setcallback, &jcom_core_broadcast_callback, x);
 	
 }
 
@@ -273,9 +273,9 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 	
 	x->attr_range[0] = 0.0;
 	x->attr_range[1] = 1.0;
-	x->attr_clipmode = ps_none;
+	x->attr_clipmode = jps_none;
 	x->attr_description = _sym_nothing;
-	x->attr_type = ps_msg_generic;
+	x->attr_type = jps_msg_generic;
 	x->attr_repetitions = 1;
 }
 
@@ -286,7 +286,7 @@ void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
 		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type);
 		if(x->hub) 
-			x->module_name = (t_symbol *)object_method(x->hub, ps_core_module_name_get);
+			x->module_name = (t_symbol *)object_method(x->hub, jps_core_module_name_get);
 		if(x->custom_subscribe)
 			x->custom_subscribe(x);
 	}

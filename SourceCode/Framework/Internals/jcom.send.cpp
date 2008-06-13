@@ -119,5 +119,5 @@ void send_float(t_send *x, double value)
 
 void send_list(t_send *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	object_method(g_receivemaster_object, ps_dispatch, x->attr_name, msg, argc, argv);
+	object_method(g_receivemaster_object, jps_dispatch, x->attr_name, msg, argc, argv);
 }

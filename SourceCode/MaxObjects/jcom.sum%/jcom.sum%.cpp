@@ -96,7 +96,7 @@ void jit_sum_change_calculate_ndim(t_jit_sum *x, t_jit_matrix_info *in_minfo, ch
 
 // Globals
 t_class 	*jit_sum_class;
-t_symbol	*ps_done;
+t_symbol	*jps_done;
 		 	
 
 /**************************************************************************************/
@@ -131,7 +131,7 @@ common_symbols_init();
     class_register(CLASS_BOX, c);
     jit_sum_class = c;
     
-    ps_done = gensym("done");
+    jps_done = gensym("done");
     return 0;
 }
 
@@ -233,7 +233,7 @@ void jit_sum_jit_matrix(t_jit_sum *x, t_symbol *s, long argc, t_atom *argv)
 
 			
 			jit_object_method(matrix, _jit_sym_lock, in_savelock);				
-			max_jit_obex_dumpout(x, ps_done, 0, 0L);			
+			max_jit_obex_dumpout(x, jps_done, 0, 0L);			
 		} else {
 			jit_error_sym(x,_jit_sym_err_calculate);
 		}

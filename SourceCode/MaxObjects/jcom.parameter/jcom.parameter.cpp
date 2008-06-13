@@ -146,14 +146,14 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;		// set function pointer to default
-		x->attr_dataspace = ps_none;
-		x->attr_unitActive = ps_none;
-		x->attr_unitNative = ps_none;
+		x->attr_dataspace = jps_none;
+		x->attr_unitActive = jps_none;
+		x->attr_unitNative = jps_none;
 		
 #ifdef JMOD_MESSAGE
-		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_message);
+		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_message);
 #else
-		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_parameter);
+		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_parameter);
 #endif
 		attr_args_process(x, argc, argv);			// handle attribute args
 
@@ -166,12 +166,12 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		// this is important because memory is configured - not just setting a default!
 		if(x->common.attr_type == NULL){
 			t_atom a;
-			atom_setsym(&a, ps_msg_generic);
-			object_attr_setvalueof(x, ps_type, 1, &a);
+			atom_setsym(&a, jps_msg_generic);
+			object_attr_setvalueof(x, jps_type, 1, &a);
 		}
 		if(x->attr_ramp == _sym_nothing){
 			t_atom a;
-			atom_setsym(&a, ps_none);
+			atom_setsym(&a, jps_none);
 			object_attr_setvalueof(x, gensym("ramp/drive"), 1, &a);
 		}
 	}
@@ -259,26 +259,26 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	t_symbol *arg = atom_getsym(argv);
 	x->common.attr_type = arg;
 
-	if(arg == ps_msg_int){
+	if(arg == jps_msg_int){
 		x->param_output = &param_output_int;
 	}
-	else if(arg == ps_msg_float){
+	else if(arg == jps_msg_float){
 		x->param_output = &param_output_float;
 	}
-	else if(arg == ps_msg_symbol){
+	else if(arg == jps_msg_symbol){
 		x->param_output = &param_output_symbol;
 	}
-	else if(arg == ps_msg_toggle){
+	else if(arg == jps_msg_toggle){
 		x->param_output = &param_output_int;
 	}
-	else if(arg == ps_msg_generic){
+	else if(arg == jps_msg_generic){
 		x->param_output = &param_output_generic;
 	} 
-	else if(arg == ps_msg_list){
+	else if(arg == jps_msg_list){
 		x->param_output = &param_output_list;
 	}
 #ifdef JMOD_MESSAGE
-	else if(arg == ps_msg_none){
+	else if(arg == jps_msg_none){
 		x->param_output = &param_output_none;
 	}
 #endif // JMOD_MESSAGE
@@ -288,7 +288,7 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 #else
 		error("Jamoma - invalid type specified for %s jcom.parameter in the %s module.", x->common.attr_name->s_name, x->common.module_name->s_name);
 #endif
-		x->common.attr_type = ps_msg_generic;
+		x->common.attr_type = jps_msg_generic;
 		x->param_output = &param_output_generic;
 	}
 
@@ -656,48 +656,48 @@ void param_dump(t_param *x)
 		sprintf(s, "%s:clipmode", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_clipmode);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_description);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:priority", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_priority);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:ramp", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:range", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
 		atom_setfloat(&a[2], x->common.attr_range[1]);
-		object_method_typed(x->common.hub, ps_feedback, 3, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 3, a, NULL);
 
 		sprintf(s, "%s:repetitions", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_type);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:ui/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:value", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		jcom_core_atom_copy(&a[1], &x->attr_value);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 	}
 }
 
@@ -715,7 +715,7 @@ void param_bang(t_param *x)
 	// call on the hub to pass our data onward
 	if(x->common.hub != NULL){
 		jcom_core_atom_copy(&a, &x->name_atom);
-		object_method_typed(x->common.hub, ps_feedback, 1, &a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 1, &a, NULL);
 	}
 #else
 	x->param_output(x);
@@ -802,7 +802,7 @@ void param_output_none(void *z)
 	// We can not use (method)param_send_feedback here as it assumes an additional argument
 	if(x->common.hub != NULL){
 		jcom_core_atom_copy(out, &x->name_atom);
-		object_method_typed(x->common.hub, ps_feedback, 1, out, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
 	}
 }
 
@@ -817,7 +817,7 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	// Check for slave mode
 	if(x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], ps_inc, 0, NULL);
+		outlet_anything(x->outlets[k_outlet_direct], jps_inc, 0, NULL);
 		return;
 	}
 	
@@ -838,13 +838,13 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		// Look for args to specify a ramp time
 		if(argc){
 			if(argv->a_type == A_SYM){
-				if(argv->a_w.w_sym == ps_ramp){
+				if(argv->a_w.w_sym == jps_ramp){
 					argc--;
 					argv++;
 					if(argc){
 						ramptime = atom_getlong(argv);
 						if(ramptime){
-							atom_setsym(a+1, ps_ramp);
+							atom_setsym(a+1, jps_ramp);
 							atom_setlong(a+2, ramptime);
 							a_len = 3;
 						}
@@ -857,11 +857,11 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->ramper)
 		x->ramper->stop();
 		
-	if(x->common.attr_type == ps_msg_int)
+	if(x->common.attr_type == jps_msg_int)
 		atom_setlong(a, x->attr_value.a_w.w_long + (x->attr_stepsize * stepmult));
-	else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
+	else if((x->common.attr_type == jps_msg_float) || (x->common.attr_type == jps_msg_generic))
 		atom_setfloat(a, x->attr_value.a_w.w_float + (x->attr_stepsize * stepmult));
-	else if(x->common.attr_type == ps_msg_toggle){
+	else if(x->common.attr_type == jps_msg_toggle){
 		if(x->attr_value.a_w.w_long == 1)
 			x->attr_value.a_w.w_long = 0;
 		else
@@ -887,7 +887,7 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 
 	// Check for slave mode
 	if(x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], ps_dec, 0, NULL);
+		outlet_anything(x->outlets[k_outlet_direct], jps_dec, 0, NULL);
 		return;
 	}
 	
@@ -908,13 +908,13 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		// Look for args to specify a ramp time
 		if(argc){
 			if(argv->a_type == A_SYM){
-				if(argv->a_w.w_sym == ps_ramp){
+				if(argv->a_w.w_sym == jps_ramp){
 					argc--;
 					argv++;
 					if(argc){
 						ramptime = atom_getlong(argv);
 						if(ramptime){
-							atom_setsym(a+1, ps_ramp);
+							atom_setsym(a+1, jps_ramp);
 							atom_setlong(a+2, ramptime);
 							a_len = 3;
 						}
@@ -928,11 +928,11 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->ramper)
 		x->ramper->stop();
 		
-	if(x->common.attr_type == ps_msg_int)
+	if(x->common.attr_type == jps_msg_int)
 		atom_setlong(a, x->attr_value.a_w.w_long - (x->attr_stepsize * stepmult));
-	else if((x->common.attr_type == ps_msg_float) || (x->common.attr_type == ps_msg_generic))
+	else if((x->common.attr_type == jps_msg_float) || (x->common.attr_type == jps_msg_generic))
 		atom_setfloat(a, x->attr_value.a_w.w_float - (x->attr_stepsize * stepmult));
-	else if(x->common.attr_type == ps_msg_toggle){
+	else if(x->common.attr_type == jps_msg_toggle){
 		if(x->attr_value.a_w.w_long == 1)
 			x->attr_value.a_w.w_long = 0;
 		else
@@ -1051,7 +1051,7 @@ void param_send_feedback(t_param *x)
 		// copy any remaining atoms
 		if(x->list_size > 1) 
 			sysmem_copyptr(&x->atom_list[1], out + 2, sizeof(t_atom) * (x->list_size - 1));
-		object_method_typed(x->common.hub, ps_feedback, x->list_size + 1, out, NULL);
+		object_method_typed(x->common.hub, jps_feedback, x->list_size + 1, out, NULL);
 	}
 	// notify listeners (pattr or jcom.paramui) that we have modified data
 #ifndef JMOD_MESSAGE
@@ -1114,7 +1114,7 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			else { 	// no args
 #ifndef JMOD_MESSAGE
 				// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-				if(x->common.attr_type == ps_msg_generic)
+				if(x->common.attr_type == jps_msg_generic)
 					x->list_size = 0;
 #endif			
 				x->param_output(x);
@@ -1163,12 +1163,12 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		
 	// Check the second to last item in the list first, which when ramping should == the string ramp
 	t_atom* ramp = argv + (argc - 2);
-	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == ps_ramp) {
+	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
 
 		time = atom_getfloat(argv+(argc-1));
 
 		// Only one list member if @type is msg_int of msg_float
-		if ( x->common.attr_type == ps_msg_int || x->common.attr_type == ps_msg_float)
+		if ( x->common.attr_type == jps_msg_int || x->common.attr_type == jps_msg_float)
 			argc = 1;
 		else
 			argc = argc - 2;
@@ -1204,8 +1204,8 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		}
 		
 		// Avoid copying more than one atom if the type only can have one argument
-		if(x->common.attr_type != ps_msg_list && x->common.attr_type != ps_msg_generic
-			&& x->common.attr_type != ps_msg_none) {
+		if(x->common.attr_type != jps_msg_list && x->common.attr_type != jps_msg_generic
+			&& x->common.attr_type != jps_msg_none) {
 			// If attr_type is != to anyone of the above values then we know 
 			// that it must be == to a scalar type.  This ensures it will behave
 			// as a scalar and not a list.
@@ -1287,13 +1287,13 @@ void param_ramp_setup(t_param *x)
 		
 	// 2. create the new rampunit
 	// For some types ramping doesn't make sense, so they will be set to none
-	if((x->common.attr_type == ps_msg_none) || (x->common.attr_type == ps_msg_symbol) || (x->common.attr_type == ps_msg_generic))
+	if((x->common.attr_type == jps_msg_none) || (x->common.attr_type == jps_msg_symbol) || (x->common.attr_type == jps_msg_generic))
 		x->attr_ramp = gensym("none");
 		
 		
-	if((x->common.attr_type == ps_msg_int) || (x->common.attr_type == ps_msg_toggle))
+	if((x->common.attr_type == jps_msg_int) || (x->common.attr_type == jps_msg_toggle))
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_int, (void *)x);
-	else if (x->common.attr_type == ps_msg_list)
+	else if (x->common.attr_type == jps_msg_list)
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_list, (void *)x);
 	else
 		RampLib::createUnit(TT(x->attr_ramp->s_name), &x->ramper, param_ramp_callback_float, (void *)x);

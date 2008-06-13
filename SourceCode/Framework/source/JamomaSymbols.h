@@ -12,156 +12,156 @@
 
 #include "ext.h"
 
-extern t_symbol	*ps_none,
-				*ps_done,
-				*ps_linear,
-				*ps_linear_q,
-				*ps_low, 
-				*ps_high, 
-				*ps_both, 
-				*ps_inc,				// increase, decrease
-				*ps_dec,
-				*ps_msg_generic,			// DATA TYPES FOR THE PARAMETER / MESSAGE
-				*ps_msg_int,			// 
-				*ps_msg_float,			// 
-				*ps_msg_symbol,			// 
-				*ps_msg_list,			//
-				*ps_msg_toggle,				// 
-				*ps_msg_none,			// this type only used by jcom.message
-				*ps_jcom_hub, 
-				*ps_feedback,
-				*ps_module_name_get,
-				*ps_core_module_name_get,
-				*ps_dumpout,
-				*ps_audio, 
-				*ps_video, 
-				*ps_control, 
-				*ps_dispatched, 
-				*ps_parameter_name,
-				*ps_message_name,
-				*ps_message_return,
-				*ps_parameter_names_start, 
-				*ps_parameter_names_end,
-				*ps_message_names_start, 
-				*ps_message_names_end,
-				*ps_return_names_start, 
-				*ps_return_names_end,
-				*ps_parameter_values_start,
-				*ps_parameter_values_end,
-				*ps_parameter_value,
-				*ps_subscribe,				// used for calling the 'bind' method on jcom.hub
-				*ps_unsubscribe,
-				*ps_release,				// method in the hub for unsubscribing
-				*ps_subscribe_in,			// when binding to the hub, these specify what type of object this is...
-				*ps_subscribe_out,
-				*ps_subscribe_message,
-				*ps_subscribe_parameter,
-				*ps_subscribe_remote,
-				*ps_subscribe_return,
-				*ps_subscribe_init,
-				*ps_subscribe_meter,
-				*ps_inspector,
-				*ps_num_inputs,				// signal inlets and outlets
-				*ps_num_outputs,
-				*ps_type,
-				*ps_algorithm_type,
-				*ps_name,
-				*ps_range,
-				*ps_clipmode,
-				*ps_ramp,
-				*ps_ramp_drive,
-				*ps_repetitions,
-				*ps_description,
-				*ps_value,	
-				*ps_sigcount,
-				*ps_siglist,
-				*ps_config_changed,
-				*ps_algorithm,
-				*ps_get_num_channels,
-				*ps_module_type,
-				*ps_poly,
-				*ps_default,
-				*ps_jitter,
-				*ps_1U,
-				*ps_1U_half,
-				*ps_algorithm_message,
-				*ps_private,
-				*ps__gui__,
-				*ps__gui__,
-				*ps__jcom_in__,
-				*ps__jcom_out__,
-				*ps___preview__,
-				*ps_return,
-				*ps_return_extended,
-				*ps_go,
-				*ps_init,
-				*ps_ATTRIBUTES,			// used by the hub for setting up the gui...
-				*ps_BUILD,
-				*ps_MODULE_NAME,
-				*ps_MODULE_TITLE,
-				*ps_PARAMETER,
-				*ps_NEW_PRESETS_START,
-				*ps_NEW_PRESETS,
-				*ps_MENU_REBUILD,
-				*ps_size,
-				*ps_skin,
-				*ps_jcom_send,			// object names needed to load externs inside other objects...
-				*ps_jcom_receive,
-				*ps_jcom_remote_fromModule, 			
-				*ps_jcom_remote_toModule,
-				*ps_jcom_broadcast_fromHub,
-				*ps_from_in_object,
-				*ps_box,
-				*ps_setcallback,
-				*ps_link_in,			// common OSC messages, etc.
-				*ps_link_out,
-				*ps_unlink_in,
-				*ps_unlink_out,
-				*ps_audio_gain_midi,
-				*ps_slash_audio_gain_midi,
-				*ps_audio_mute,
-				*ps_slash_audio_mute,
-				*ps_audio_bypass,
-				*ps_slash_audio_bypass,
-				*ps_audio_mix,
-				*ps_slash_audio_mix,
-				*ps_audio_sample_rate,
-				*ps_slash_audio_sample_rate,
-				*ps_audio_meters_freeze,
-				*ps_slash_audio_meters_freeze,
-				*ps_video_mute,
-				*ps_slash_video_mute,
-				*ps_video_bypass,
-				*ps_slash_video_bypass,
-				*ps_video_freeze,
-				*ps_slash_video_freeze,
-				*ps_video_preview,
-				*ps_slash_video_preview,
-				*ps_open,							// 	open
-				*ps_slash_module_view_internals,	//	/module/view_internals
-				*ps_slash_preset_slash_default,		// 	/preset/default
-				*ps_slash_preset_slash_load,		// 	/preset/load
-				*ps_slash_preset_slash_store,		// /preset/store
-				*ps_slash_preset_slash_storenext,	// /preset/storenext
-				*ps_slash_preset_slash_recall,
-				*ps_slash_preset_slash_write,		// 	/preset/save
-				*ps_slash_preset_slash_copy,		// 	/preset/save
-				*ps_ui_slash_freeze,				//	ui/freeze
-				*ps_slash_ui_slash_freeze,			//	/ui/freeze
-				*ps_ui_slash_refresh,				//	ui/refresh
-				*ps_slash_ui_slash_refresh,			//	/ui/refresh
-				*ps_register_meter,
-				*ps_register_preview,
-				*ps_voices,
-				*ps_mute,
-				*ps_target,
-				*ps_sendlastvalue,
-				*ps_sendbypassedvalue,
-				*ps_star,
-				*ps_priority,
-				*ps_add,							// used for calling methods on jcom.receivemaster
-				*ps_remove,
-				*ps_dispatch
+extern t_symbol	*jps_none,
+				*jps_done,
+				*jps_linear,
+				*jps_linear_q,
+				*jps_low, 
+				*jps_high, 
+				*jps_both, 
+				*jps_inc,				// increase, decrease
+				*jps_dec,
+				*jps_msg_generic,			// DATA TYPES FOR THE PARAMETER / MESSAGE
+				*jps_msg_int,			// 
+				*jps_msg_float,			// 
+				*jps_msg_symbol,			// 
+				*jps_msg_list,			//
+				*jps_msg_toggle,				// 
+				*jps_msg_none,			// this type only used by jcom.message
+				*jps_jcom_hub, 
+				*jps_feedback,
+				*jps_module_name_get,
+				*jps_core_module_name_get,
+				*jps_dumpout,
+				*jps_audio, 
+				*jps_video, 
+				*jps_control, 
+				*jps_dispatched, 
+				*jps_parameter_name,
+				*jps_message_name,
+				*jps_message_return,
+				*jps_parameter_names_start, 
+				*jps_parameter_names_end,
+				*jps_message_names_start, 
+				*jps_message_names_end,
+				*jps_return_names_start, 
+				*jps_return_names_end,
+				*jps_parameter_values_start,
+				*jps_parameter_values_end,
+				*jps_parameter_value,
+				*jps_subscribe,				// used for calling the 'bind' method on jcom.hub
+				*jps_unsubscribe,
+				*jps_release,				// method in the hub for unsubscribing
+				*jps_subscribe_in,			// when binding to the hub, these specify what type of object this is...
+				*jps_subscribe_out,
+				*jps_subscribe_message,
+				*jps_subscribe_parameter,
+				*jps_subscribe_remote,
+				*jps_subscribe_return,
+				*jps_subscribe_init,
+				*jps_subscribe_meter,
+				*jps_inspector,
+				*jps_num_inputs,				// signal inlets and outlets
+				*jps_num_outputs,
+				*jps_type,
+				*jps_algorithm_type,
+				*jps_name,
+				*jps_range,
+				*jps_clipmode,
+				*jps_ramp,
+				*jps_ramp_drive,
+				*jps_repetitions,
+				*jps_description,
+				*jps_value,	
+				*jps_sigcount,
+				*jps_siglist,
+				*jps_config_changed,
+				*jps_algorithm,
+				*jps_get_num_channels,
+				*jps_module_type,
+				*jps_poly,
+				*jps_default,
+				*jps_jitter,
+				*jps_1U,
+				*jps_1U_half,
+				*jps_algorithm_message,
+				*jps_private,
+				*jps__gui__,
+				*jps__gui__,
+				*jps__jcom_in__,
+				*jps__jcom_out__,
+				*jps___preview__,
+				*jps_return,
+				*jps_return_extended,
+				*jps_go,
+				*jps_init,
+				*jps_ATTRIBUTES,			// used by the hub for setting up the gui...
+				*jps_BUILD,
+				*jps_MODULE_NAME,
+				*jps_MODULE_TITLE,
+				*jps_PARAMETER,
+				*jps_NEW_PRESETS_START,
+				*jps_NEW_PRESETS,
+				*jps_MENU_REBUILD,
+				*jps_size,
+				*jps_skin,
+				*jps_jcom_send,			// object names needed to load externs inside other objects...
+				*jps_jcom_receive,
+				*jps_jcom_remote_fromModule, 			
+				*jps_jcom_remote_toModule,
+				*jps_jcom_broadcast_fromHub,
+				*jps_from_in_object,
+				*jps_box,
+				*jps_setcallback,
+				*jps_link_in,			// common OSC messages, etc.
+				*jps_link_out,
+				*jps_unlink_in,
+				*jps_unlink_out,
+				*jps_audio_gain_midi,
+				*jps_slash_audio_gain_midi,
+				*jps_audio_mute,
+				*jps_slash_audio_mute,
+				*jps_audio_bypass,
+				*jps_slash_audio_bypass,
+				*jps_audio_mix,
+				*jps_slash_audio_mix,
+				*jps_audio_sample_rate,
+				*jps_slash_audio_sample_rate,
+				*jps_audio_meters_freeze,
+				*jps_slash_audio_meters_freeze,
+				*jps_video_mute,
+				*jps_slash_video_mute,
+				*jps_video_bypass,
+				*jps_slash_video_bypass,
+				*jps_video_freeze,
+				*jps_slash_video_freeze,
+				*jps_video_preview,
+				*jps_slash_video_preview,
+				*jps_open,							// 	open
+				*jps_slash_module_view_internals,	//	/module/view_internals
+				*jps_slash_preset_slash_default,		// 	/preset/default
+				*jps_slash_preset_slash_load,		// 	/preset/load
+				*jps_slash_preset_slash_store,		// /preset/store
+				*jps_slash_preset_slash_storenext,	// /preset/storenext
+				*jps_slash_preset_slash_recall,
+				*jps_slash_preset_slash_write,		// 	/preset/save
+				*jps_slash_preset_slash_copy,		// 	/preset/save
+				*jps_ui_slash_freeze,				//	ui/freeze
+				*jps_slash_ui_slash_freeze,			//	/ui/freeze
+				*jps_ui_slash_refresh,				//	ui/refresh
+				*jps_slash_ui_slash_refresh,			//	/ui/refresh
+				*jps_register_meter,
+				*jps_register_preview,
+				*jps_voices,
+				*jps_mute,
+				*jps_target,
+				*jps_sendlastvalue,
+				*jps_sendbypassedvalue,
+				*jps_star,
+				*jps_priority,
+				*jps_add,							// used for calling methods on jcom.receivemaster
+				*jps_remove,
+				*jps_dispatch
 				;
 
 void jamomaSymbolsInit();

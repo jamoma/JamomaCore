@@ -101,7 +101,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	if(x->in_object){
 		argc = NULL;
 		argv = NULL;
-		object_attr_getvalueof(x->in_object, ps_num_inputs, &argc, &argv);	
+		object_attr_getvalueof(x->in_object, jps_num_inputs, &argc, &argv);	
 		sprintf(tempstring, "\t<p>Number of signal inlets: <code> %ld </ code> <br/>", atom_getlong(argv));
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	}
@@ -111,7 +111,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	if(x->out_object){	// jcom.out is optional in the case of no signals
 		argc = NULL;
 		argv = NULL;
-		object_attr_getvalueof(x->out_object, ps_num_outputs, &argc, &argv);
+		object_attr_getvalueof(x->out_object, jps_num_outputs, &argc, &argv);
 		sprintf(tempstring, "\tNumber of signal outlets: <code> %ld </code> </p>", atom_getlong(argv));
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 	}	
@@ -136,7 +136,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	t_subscriber* t;
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == ps_subscribe_parameter){
+		if(t->type == jps_subscribe_parameter){
 			// name
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");	
 			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", t->name->s_name);
@@ -145,7 +145,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_type , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -153,12 +153,12 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, ps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, jps_range, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
-			if( (msg_type==ps_msg_int) || (msg_type==ps_msg_toggle) )
+			if( (msg_type==jps_msg_int) || (msg_type==jps_msg_toggle) )
 				sprintf(tempstring, "\t\t\t<td class =\"instructionRange\"> %ld %ld </td>", (long)range[0], (long)range[1]);
-			else if ( (msg_type==ps_msg_float) || (msg_type==ps_msg_generic) )
+			else if ( (msg_type==jps_msg_float) || (msg_type==jps_msg_generic) )
 				sprintf(tempstring, "\t\t\t<td class =\"instructionRange\"> %f %f </td>", range[0], range[1]);
 			else
 				sprintf(tempstring, "\t\t\t<th class = \"instructionRange\"> N/A </td>");
@@ -167,7 +167,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -183,7 +183,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_repetitions , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -192,7 +192,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// description
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_description , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_description , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionDescription\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -220,7 +220,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == ps_subscribe_message){
+		if(t->type == jps_subscribe_message){
 			// name
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");	
 			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", t->name->s_name);
@@ -229,7 +229,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_type , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -237,12 +237,12 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, ps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, jps_range, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
-			if( (msg_type==ps_msg_int) || (msg_type==ps_msg_toggle) )
+			if( (msg_type==jps_msg_int) || (msg_type==jps_msg_toggle) )
 				sprintf(tempstring, "\t\t\t<td class =\"instructionRange\"> %ld %ld </td>", (long)range[0], (long)range[1]);
-			else if ( (msg_type==ps_msg_float) || (msg_type==ps_msg_generic) )
+			else if ( (msg_type==jps_msg_float) || (msg_type==jps_msg_generic) )
 				sprintf(tempstring, "\t\t\t<td class =\"instructionRange\"> %f %f </td>", range[0], range[1]);
 			else
 				sprintf(tempstring, "\t\t\t<th class = \"instructionRange\"> N/A </td>");
@@ -251,7 +251,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -267,7 +267,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_repetitions , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -276,7 +276,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// description
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_description , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_description , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionDescription\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -304,7 +304,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == ps_subscribe_return){
+		if(t->type == jps_subscribe_return){
 			// name
 			jcom_core_file_writeline(&file_handle, &myEof, "\t\t<tr>");	
 			sprintf(tempstring, "\t\t\t<td class=\"instructionName\"> %s </td>", t->name->s_name);
@@ -313,7 +313,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_type , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -321,12 +321,12 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, ps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, jps_range, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
-			if( (msg_type==ps_msg_int) || (msg_type==ps_msg_toggle) )
+			if( (msg_type==jps_msg_int) || (msg_type==jps_msg_toggle) )
 				sprintf(tempstring, "\t\t\t<td class =\"instructionRange\"> %ld %ld </td>", (long)range[0], (long)range[1]);
-			else if ( (msg_type==ps_msg_float) || (msg_type==ps_msg_generic) )
+			else if ( (msg_type==jps_msg_float) || (msg_type==jps_msg_generic) )
 				sprintf(tempstring, "\t\t\t<td class =\"instructionRange\"> %f %f </td>", range[0], range[1]);
 			else
 				sprintf(tempstring, "\t\t\t<th class = \"instructionRange\"> N/A </td>");
@@ -335,7 +335,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -351,7 +351,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_repetitions , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -360,7 +360,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// description
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,ps_description , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_description , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionDescription\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -396,7 +396,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 							
 	sysfile_close(file_handle);		// close file reference
 	
-	atom_setsym(&a[0], ps_done);
+	atom_setsym(&a[0], jps_done);
 	hub_outlet_return(x, gensym("/documentation/generate"), 1, &a[0]);
 }
 

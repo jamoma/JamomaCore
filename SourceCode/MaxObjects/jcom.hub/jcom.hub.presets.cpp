@@ -228,21 +228,21 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 		}
 		
 		// we can assume item1 and item2 are the same type if they are the same parameter (see above)
-		if(item1->type == ps_msg_int) {
+		if(item1->type == jps_msg_int) {
 			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
 			atom_setfloat(&newValue[0], val);
-		} else if(item1->type == ps_msg_float) {
+		} else if(item1->type == jps_msg_float) {
 			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
 			atom_setfloat(&newValue[0], val);
-		} else if(item1->type == ps_msg_toggle) {
+		} else if(item1->type == jps_msg_toggle) {
 			val = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
 			atom_setlong(&newValue[0], val);
-		} else if(item1->type == ps_msg_list || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
+		} else if(item1->type == jps_msg_list || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
 			for(int i = 0; i < item1->list_size; i++) {
 				val = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
 				atom_setfloat(&newValue[i], val);
 			}
-		} else if(item1->type == ps_msg_symbol) {
+		} else if(item1->type == jps_msg_symbol) {
 			atom_setsym(&newValue[0], position <= 0.5 ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
 		}
 		hub_symbol(x, item1->param_name, item1->list_size, &newValue[0]);
@@ -367,20 +367,20 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	t_subscriber* t;
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == ps_subscribe_parameter){
+		if(t->type == jps_subscribe_parameter){
 			newItem = (t_preset_item *)sysmem_newptr(sizeof(t_preset_item));
 			newItem->param_name = t->name;
 
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(t->object, ps_type, &ac, &av);		// get
+			object_attr_getvalueof(t->object, jps_type, &ac, &av);		// get
 			newItem->type = atom_getsym(av);										// copy
 
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(t->object, ps_priority, &ac, &av);	// get
+			object_attr_getvalueof(t->object, jps_priority, &ac, &av);	// get
 			newItem->priority = atom_getlong(av);									// copy
 			
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(t->object, ps_value, &ac, &av);		// get
+			object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
 			sysmem_copyptr(av, &newItem->value_list[0], sizeof(t_atom) * ac);
 			newItem->list_size = ac;
 			
@@ -564,7 +564,7 @@ void hub_preset_parse(t_hub *x, char *path)
 					if(type != NULL)
 						item->type = gensym((char *)type);
 					else
-						item->type = ps_msg_generic;
+						item->type = jps_msg_generic;
 					priority = xmlTextReaderGetAttribute(reader, (xmlChar *)"priority");
 					if(priority)
 						sscanf((char *)priority, "%ld", &item->priority);
@@ -590,12 +590,12 @@ void hub_preset_parse(t_hub *x, char *path)
 					float	temp_float = 0;
 					long	temp_int = 0;
 		
-					if(item->type == ps_msg_symbol){
+					if(item->type == jps_msg_symbol){
 						//post("Symbol! %s", (char *)value);
 						atom_setsym(&item->value, gensym((char *)val));		// assume symbol	
 						item->list_size = 1;
 					}
-					else if((item->type == ps_msg_int) || (item->type == ps_msg_toggle)){
+					else if((item->type == jps_msg_int) || (item->type == jps_msg_toggle)){
 						result = sscanf((char *)val, "%ld", &temp_int);		// try to get long
 						if(result > 0){
 							//post("Int! %i", temp_int, result);
@@ -770,10 +770,10 @@ void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
 		item = p->item;
 		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if((presetItem->type == ps_msg_int) || (presetItem->type == ps_msg_toggle))
+			if((presetItem->type == jps_msg_int) || (presetItem->type == jps_msg_toggle))
 				post("    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
-			else if(presetItem->type == ps_msg_symbol)
+			else if(presetItem->type == jps_msg_symbol)
 				post("    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, 
 					atom_getsym(&(presetItem->value))->s_name);
@@ -799,7 +799,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		t_atom	a[2];
 
 		atom_setlong(&a[0], 1);
-		atom_setsym(&a[1], ps_default);
+		atom_setsym(&a[1], jps_default);
 		hub_preset_store(x, gensym("/preset/store"), 2, a);
 	} else {
 		// recall the number of the preset we recalled last in the first preset (the one being recalled now)

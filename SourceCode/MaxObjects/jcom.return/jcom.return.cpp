@@ -97,7 +97,7 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, _sym_dumpout, (t_object *)x->outlets[k_outlet_dumpout]);
 		x->outlets[k_outlet_thru] = outlet_new(x, 0L);
 
-		jcom_core_subscriber_new_extended(&x->common, name, ps_subscribe_return);
+		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_return);
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 		
@@ -134,33 +134,33 @@ void return_dump(t_return *x)
 		sprintf(s, "%s:clipmode", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_clipmode);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_description);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 /* TODO: Should we add ramping ability to this object?
 		sprintf(s, "%s:ramp", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 */
 		sprintf(s, "%s:range", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
 		atom_setfloat(&a[2], x->common.attr_range[1]);
-		object_method_typed(x->common.hub, ps_feedback, 3, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 3, a, NULL);
 
 		sprintf(s, "%s:repetitions", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_type);
-		object_method_typed(x->common.hub, ps_feedback, 2, a, NULL);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 	}
 }
 
@@ -188,9 +188,9 @@ void return_send_feedback(t_return *x)
 {
 	if(x->common.hub != NULL){
 		if(x->common.has_wildcard)
-			object_method_typed(x->common.hub, ps_return_extended, x->output_len, x->output, NULL);
+			object_method_typed(x->common.hub, jps_return_extended, x->output_len, x->output, NULL);
 		else
-			object_method_typed(x->common.hub, ps_return, x->output_len, x->output, NULL);
+			object_method_typed(x->common.hub, jps_return, x->output_len, x->output, NULL);
 	}
 	x->output_len = 1;	// truncate to just the name of this jcom.return object
 }
@@ -201,7 +201,7 @@ void return_bang(t_return *x)
 {
 	x->output_len = 1;
 	if(x->common.hub != NULL)
-		object_method_typed(x->common.hub, ps_return, x->output_len, x->output, NULL);
+		object_method_typed(x->common.hub, jps_return, x->output_len, x->output, NULL);
 	
 	outlet_anything(x->outlets[k_outlet_thru], x->common.attr_name, 0, NULL);
 }

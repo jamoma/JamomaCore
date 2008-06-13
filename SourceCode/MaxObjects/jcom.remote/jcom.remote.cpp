@@ -92,12 +92,12 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv)
 	if(x){
 		x->dumpout = outlet_new(x, NULL);
 		x->outlet = outlet_new(x, NULL);
-		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
+		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 
-		jcom_core_subscriber_new_common(&x->common, name, ps_subscribe_remote);
+		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_remote);
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, (t_subscribe_method)remote_subscribe);
 
 		attr_args_process(x, argc, argv);					// handle attribute args				
@@ -126,7 +126,7 @@ void remote_assist(t_remote *x, void *b, long msg, long arg, char *dst)
 void remote_subscribe(t_remote *x)
 {
 	if(x->callback)
-		x->callback(x->callbackArg, ps_subscribe, 0, NULL);
+		x->callback(x->callbackArg, jps_subscribe, 0, NULL);
 }
 
 
@@ -152,7 +152,7 @@ void remote_jit_matrix(t_remote *x, t_symbol *msg, long argc, t_atom *argv)
 void remote_send_private(t_remote *x)
 {
 	if(x->common.hub){
-		object_method_typed(x->common.hub, ps_private, x->output_len, x->output, NULL);
+		object_method_typed(x->common.hub, jps_private, x->output_len, x->output, NULL);
 		x->output_len = 1;	// truncate to just the name of this jcom.remote object
 	}
 	else

@@ -110,7 +110,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		x->dumpout = outlet_new(x, NULL);
 		x->algout = outlet_new(x, NULL);
 		
-		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
+		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
 		x->numInputs = 0;
 		x->attr_algorithm_type = _sym_nothing;
@@ -151,7 +151,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif
 
-		jcom_core_subscriber_new_common(&x->common, ps__jcom_in__, ps_subscribe_in);
+		jcom_core_subscriber_new_common(&x->common, jps__jcom_in__, jps_subscribe_in);
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &in_subscribe);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
@@ -172,18 +172,18 @@ void in_subscribe(void *z)
 	
 	if(x->common.hub != NULL){
 		// Find out what type of algorithm this is supposed to control
-		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
+		object_attr_getvalueof(x->common.hub, jps_algorithm_type, &argc, &argv);
 		result = atom_getsym(argv);
-		if(result == ps_default){
-			object_attr_getvalueof(x->common.hub, ps_module_type, &argc, &argv);
+		if(result == jps_default){
+			object_attr_getvalueof(x->common.hub, jps_module_type, &argc, &argv);
 			modtype = atom_getsym(argv);
 			
-			if(modtype == ps_audio)
-				x->attr_algorithm_type = ps_poly;
-			else if(modtype == ps_video)
-				x->attr_algorithm_type = ps_jitter;
+			if(modtype == jps_audio)
+				x->attr_algorithm_type = jps_poly;
+			else if(modtype == jps_video)
+				x->attr_algorithm_type = jps_jitter;
 			else
-				x->attr_algorithm_type = ps_control;
+				x->attr_algorithm_type = jps_control;
 		}
 		else
 			x->attr_algorithm_type = result;
@@ -237,15 +237,15 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	char		namestring[256];
 	t_symbol	*osc;
 
-	if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute)){
+	if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute)){
 		x->attr_mute = atom_getlong(argv+1);
-		outlet_anything(x->algout, ps_mute, argc-1, argv+1);
+		outlet_anything(x->algout, jps_mute, argc-1, argv+1);
 	}
-	else if((argv->a_w.w_sym == ps_video_mute) || (argv->a_w.w_sym == ps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
+	else if((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
 		x->attr_mute = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == ps_video_bypass) || (argv->a_w.w_sym == ps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
+	else if((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
 		x->attr_bypass = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == ps_video_freeze) || (argv->a_w.w_sym == ps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
+	else if((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
 		x->attr_freeze = atom_getlong(argv+1);
 	
 	strcpy(namestring, "/");						// perhaps we could optimize this operation
@@ -258,7 +258,7 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 
 void in_view_internals(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	outlet_anything(x->algout, ps_open, 0, 0L);
+	outlet_anything(x->algout, jps_open, 0, 0L);
 }
 
 
@@ -287,9 +287,9 @@ void in_bang(t_in *x)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass)
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_bang, 0, NULL);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_bang, 0, NULL);
 	else
 		outlet_bang(x->outlet[proxy_getinlet((t_object *)x)]);
 }
@@ -300,11 +300,11 @@ void in_int(t_in *x, long value)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass){
 		t_atom a;
 		atom_setlong(&a, value);
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_int, 1, &a);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_int, 1, &a);
 	}
 	else
 		outlet_int(x->outlet[proxy_getinlet((t_object *)x)], value);
@@ -316,11 +316,11 @@ void in_float(t_in *x, double value)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass){
 		t_atom a;
 		atom_setfloat(&a, value);
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_float, 1, &a);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_float, 1, &a);
 	}
 	else
 		outlet_float(x->outlet[proxy_getinlet((t_object *)x)], value);
@@ -332,9 +332,9 @@ void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass)
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), msg, argc, argv);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), msg, argc, argv);
 	else
 		outlet_anything(x->outlet[proxy_getinlet((t_object *)x)], msg, argc, argv);
 }

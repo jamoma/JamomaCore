@@ -13,22 +13,22 @@
 
 /*
 	The UI sends the following to the hub (some are from the preset ui window?):
-		ps_slash_preset_slash_default
-		ps_slash_preset_slash_load
-		ps_slash_preset_slash_recall
-		ps_slash_preset_slash_store
-		ps_slash_preset_slash_storenext
-		ps_slash_preset_slash_copy
-		ps_slash_preset_slash_write
+		jps_slash_preset_slash_default
+		jps_slash_preset_slash_load
+		jps_slash_preset_slash_recall
+		jps_slash_preset_slash_store
+		jps_slash_preset_slash_storenext
+		jps_slash_preset_slash_copy
+		jps_slash_preset_slash_write
  
-		ps_slash_module_view_internals
-		ps_slash_ui_slash_freeze (toggle)
-		ps_slash_ui_slash_refresh
+		jps_slash_module_view_internals
+		jps_slash_ui_slash_freeze (toggle)
+		jps_slash_ui_slash_refresh
  
 	The UI receives the following from the hub:
-		ps_NEW_PRESETS_START
-		ps_NEW_PRESETS
-		ps_MENU_REBUILD
+		jps_NEW_PRESETS_START
+		jps_NEW_PRESETS
+		jps_MENU_REBUILD
 */
 
 #include "jcom.ui.h"
@@ -231,7 +231,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->refmenu_items = NULL;
 		x->hash_internals = hashtab_new(0);
 		
-		atom_setsym(a, ps__gui__);
+		atom_setsym(a, jps__gui__);
 		jcom_core_loadextern(gensym("jcom.remote"), 1, a, &x->obj_remote);
 		object_method(x->obj_remote, gensym("setcallback"), ui_remote_callback, x);
 /*		

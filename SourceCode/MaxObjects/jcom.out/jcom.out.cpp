@@ -103,7 +103,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 
 	if(x){
 		x->dumpout = outlet_new(x, NULL);
-		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
+		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
 		x->numOutputs =  1;
 		x->vector_size = 0;
@@ -144,7 +144,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		for(i=x->numOutputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
 #endif		
-		jcom_core_subscriber_new_common(&x->common, ps__jcom_out__, ps_subscribe_out);
+		jcom_core_subscriber_new_common(&x->common, jps__jcom_out__, jps_subscribe_out);
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &out_subscribe);
 		
 		attr_args_process(x, argc, argv);					// handle attribute args				
@@ -164,25 +164,25 @@ void out_subscribe(void *z)
 	t_symbol	*modtype;
 	t_out		*x = (t_out *)z;
 	
-	//x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, ps_subscribe_out);
+	//x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, jps_subscribe_out);
 	if(x->common.hub != NULL){
-		object_attr_getvalueof(x->common.hub, ps_name, &argc, &argv);
+		object_attr_getvalueof(x->common.hub, jps_name, &argc, &argv);
 		x->common.module_name = atom_getsym(argv);
 		x->num_meter_objects = 0;
 		
 		// Find out what type of algorithm this is supposed to control
-		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
+		object_attr_getvalueof(x->common.hub, jps_algorithm_type, &argc, &argv);
 		result = atom_getsym(argv);
-		if(result == ps_default){
-			object_attr_getvalueof(x->common.hub, ps_module_type, &argc, &argv);
+		if(result == jps_default){
+			object_attr_getvalueof(x->common.hub, jps_module_type, &argc, &argv);
 			modtype = atom_getsym(argv);
 		
-			if(modtype == ps_audio)
-				x->attr_algorithm_type = ps_poly;
-			else if(modtype == ps_video)
-				x->attr_algorithm_type = ps_jitter;
+			if(modtype == jps_audio)
+				x->attr_algorithm_type = jps_poly;
+			else if(modtype == jps_video)
+				x->attr_algorithm_type = jps_jitter;
 			else
-				x->attr_algorithm_type = ps_control;
+				x->attr_algorithm_type = jps_control;
 		}
 		else
 			x->attr_algorithm_type = result;
@@ -249,7 +249,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 		
 	if(argv->a_type == A_SYM){
-		if((argv->a_w.w_sym == ps_slash_audio_gain_midi) || (argv->a_w.w_sym == ps_audio_gain_midi)){
+		if((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)){
 			// Do gain control here...
 			// Should be that the gain change triggers a short tt_ramp to the new value
 			x->attr_gain = atom_getfloat(argv+1);	// store as midi values
@@ -258,7 +258,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			x->gain->setAttributeValue(TT("gain"), (x->attr_gain - 127) * .6);	// convert midi to db for tap_gain
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))){
+		else if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))){
 			x->attr_mute = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_mute)
@@ -267,7 +267,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 				x->gain->setAttributeValue(TT("gain"), (x->attr_gain - 127) * .6);			
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_bypass) || (argv->a_w.w_sym == ps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))){
+		else if((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))){
 			x->attr_bypass = atom_getlong(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
@@ -276,17 +276,17 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 				x->xfade->setAttributeValue(TT("position"), 0.0);
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_mix) || (argv->a_w.w_sym == ps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))){
+		else if((argv->a_w.w_sym == jps_audio_mix) || (argv->a_w.w_sym == jps_slash_audio_mix) || (argv->a_w.w_sym == gensym("mix")) || (argv->a_w.w_sym == gensym("/mix"))){
 			x->attr_mix = atom_getfloat(argv+1);
 #ifdef JCOM_OUT_TILDE
 			if(x->attr_bypass == 0)
 				x->xfade->setAttributeValue(TT("position"), x->attr_mix * 0.01);		
 #endif
 		}
-		else if((argv->a_w.w_sym == ps_audio_meters_freeze) || (argv->a_w.w_sym == ps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))){
+		else if((argv->a_w.w_sym == jps_audio_meters_freeze) || (argv->a_w.w_sym == jps_slash_audio_meters_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze"))){
 			x->attr_defeat_meters = atom_getlong(argv+1);
 		}
-		else if((argv->a_w.w_sym == ps_video_preview) || (argv->a_w.w_sym == ps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
+		else if((argv->a_w.w_sym == jps_video_preview) || (argv->a_w.w_sym == jps_slash_video_preview) || (argv->a_w.w_sym == gensym("preview")) || (argv->a_w.w_sym == gensym("/preview")))
 			x->attr_preview = atom_getlong(argv+1);
 	}
 }
@@ -382,7 +382,7 @@ void update_meters(t_out *x)
 		if(x->meter_object[i]){
 			atom_setsym(&a[0], _sym_float);
 			atom_setfloat(&a[1], x->peakamp[i]);
-			object_method_typed(x->meter_object[i], ps_dispatched, 2, a, NULL);
+			object_method_typed(x->meter_object[i], jps_dispatched, 2, a, NULL);
 		}
 	}
 	x->clock_is_set = 0;

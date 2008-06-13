@@ -117,10 +117,10 @@ void envExp_calculate(t_envExp *x);
 
 // Globals
 t_class		*this_class;				///< Required. Global pointing to this class
-t_symbol	*ps_symbol;
-t_symbol	*ps_long;
-t_symbol	*ps_float32;
-t_symbol	*ps_dumpout;
+t_symbol	*jps_symbol;
+t_symbol	*jps_long;
+t_symbol	*jps_float32;
+t_symbol	*jps_dumpout;
 
 
 /** Class Definition
@@ -135,10 +135,10 @@ int main(void)
 
 	jamoma_init();
 common_symbols_init();
-	ps_symbol  = gensym("symbol");
-	ps_long    = gensym("long");
-	ps_float32 = gensym("float32");
-	ps_dumpout = gensym("dumpout");
+	jps_symbol  = gensym("symbol");
+	jps_long    = gensym("long");
+	jps_float32 = gensym("float32");
+	jps_dumpout = gensym("dumpout");
 
 	// Define our class
 	c = class_new("jcom.envexp",(method)envExp_new, 0L, sizeof(t_envExp), (method)0L, A_GIMME, 0);
@@ -150,27 +150,27 @@ common_symbols_init();
 	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 	
 	// ATTRIBUTE: attack
-	attr = attr_offset_new("attack", ps_float32, attrflags,
+	attr = attr_offset_new("attack", jps_float32, attrflags,
 		(method)0L, (method)envExp_setattack, calcoffset(t_envExp, attr_attack));
 	class_addattr(c, attr);
 
 	// ATTRIBUTE: maximum amplitude
-	attr = attr_offset_new("amplitude", ps_float32, attrflags,
+	attr = attr_offset_new("amplitude", jps_float32, attrflags,
 		(method)0L, (method)envExp_setamplitude, calcoffset(t_envExp, attr_amplitude));
 	class_addattr(c, attr);
 		
 	// ATTRIBUTE: decay rate
-	attr = attr_offset_new("decayrate", ps_float32, attrflags,
+	attr = attr_offset_new("decayrate", jps_float32, attrflags,
 		(method)0L, (method)envExp_setdecayrate, calcoffset(t_envExp, attr_decayrate));
 	class_addattr(c, attr);
 
 	// ATTRIBUTE: low threshold
-	attr = attr_offset_new("threshold", ps_float32, attrflags,
+	attr = attr_offset_new("threshold", jps_float32, attrflags,
 		(method)0L, (method)envExp_setthreshold, calcoffset(t_envExp, attr_threshold));
 	class_addattr(c, attr);	
 	
 	// ATTRIBUTE: note stealing
-	attr = attr_offset_new("steal", ps_long, attrflags,
+	attr = attr_offset_new("steal", jps_long, attrflags,
 		(method)0L, (method)0L, calcoffset(t_envExp, attr_steal));
 	class_addattr(c, attr);
 
@@ -196,7 +196,7 @@ void *envExp_new(Symbol *s, long argc, t_atom *argv)
 	if (x) {
 			post("new_x");
 		// dumpout
-		object_obex_store((void *)x, ps_dumpout, (object *)outlet_new(x,NULL));
+		object_obex_store((void *)x, jps_dumpout, (object *)outlet_new(x,NULL));
 		// create outlet
 		x->outlet =outlet_new(x, 0L);
 	

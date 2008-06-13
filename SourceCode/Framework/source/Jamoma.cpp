@@ -137,7 +137,7 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 {
 	if(max5){
-		t_object	*box = object_attr_getobj(patcher, ps_box);
+		t_object	*box = object_attr_getobj(patcher, jps_box);
 		t_symbol	*objclass = NULL;
 		
 		if(box)
@@ -181,7 +181,7 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 {
 	if(max5){
 		t_symbol		*context = jamoma_patcher_getcontext(patcher);
-		t_object		*box = object_attr_getobj(patcher, ps_box);
+		t_object		*box = object_attr_getobj(patcher, jps_box);
 		t_object		*textfield = NULL;
 		char			*text = NULL;
 		unsigned long	textlen = 0;
@@ -284,7 +284,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 		sprintf(s, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, gensym(s));
 		sysmem_copyptr(av, a+1, sizeof(t_atom) * ac);
-		object_method_typed(x->hub, ps_feedback, ac + 1, a, NULL);
+		object_method_typed(x->hub, jps_feedback, ac + 1, a, NULL);
 	}
 
 	if(ac)

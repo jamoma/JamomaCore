@@ -51,12 +51,12 @@ typedef struct x					// Data structure for this object
 // Class Globals
 t_class		*this_class;				// Required. Global pointing to this class
 
-t_symbol	*ps_no_transform, *ps_rgb2cmy, *ps_cmy2rgb, *ps_rgb2hsv, *ps_hsv2rgb,
-			*ps_rgb2xyz, *ps_xyz2rgb, *ps_rgb2uvw, *ps_uvw2rgb, *ps_rgb2retinalcone,
-			*ps_retinalcone2rgb, *ps_rgb2lab, *ps_lab2rgb, *ps_rgb2yiq, *ps_yiq2rgb,
-			*ps_rgb2hls, *ps_hls2rgb, *ps_rgb2rgbcie, *ps_rgbcie2rgb,
-			*ps_rgb2rgbsmpte, *ps_rgbsmpte2rgb, *ps_rgb2hsl, *ps_hsl2rgb;
-t_symbol	*ps_split, *ps_packed;			
+t_symbol	*jps_no_transform, *jps_rgb2cmy, *jps_cmy2rgb, *jps_rgb2hsv, *jps_hsv2rgb,
+			*jps_rgb2xyz, *jps_xyz2rgb, *jps_rgb2uvw, *jps_uvw2rgb, *jps_rgb2retinalcone,
+			*jps_retinalcone2rgb, *jps_rgb2lab, *jps_lab2rgb, *jps_rgb2yiq, *jps_yiq2rgb,
+			*jps_rgb2hls, *jps_hls2rgb, *jps_rgb2rgbcie, *jps_rgbcie2rgb,
+			*jps_rgb2rgbsmpte, *jps_rgbsmpte2rgb, *jps_rgb2hsl, *jps_hsl2rgb;
+t_symbol	*jps_split, *jps_packed;			
 
 
 // Prototypes for methods: need a method for each incoming message
@@ -135,32 +135,32 @@ common_symbols_init();
 	class_addattr(c, attr);
 
 	// initialize class globals
-	ps_no_transform		= gensym("no_transform");
-	ps_rgb2cmy			= gensym("rgb2cmy");
-	ps_cmy2rgb			= gensym("cmy2rgb");
-	ps_rgb2hsv			= gensym("rgb2hsv");
-	ps_hsv2rgb			= gensym("hsv2rgb");
-	ps_rgb2xyz			= gensym("rgb2xyz");
-	ps_xyz2rgb			= gensym("xyz2rgb");
-	ps_rgb2uvw			= gensym("rgb2uvw");
-	ps_uvw2rgb			= gensym("uvw2rgb");
-	ps_rgb2retinalcone	= gensym("rgb2retinalcone");
-	ps_retinalcone2rgb	= gensym("retinalcone2rgb");
-	ps_rgb2lab			= gensym("rgb2lab");
-	ps_lab2rgb			= gensym("lab2rgb");
-	ps_rgb2yiq			= gensym("rgb2yiq");
-	ps_yiq2rgb			= gensym("yiq2rgb");
-	ps_rgb2hls			= gensym("rgb2hls");
-	ps_hls2rgb			= gensym("hls2rgb");
-	ps_rgb2rgbcie		= gensym("rgb2rgbcie");
-	ps_rgbcie2rgb		= gensym("rgbcie2rgb");
-	ps_rgb2rgbsmpte		= gensym("rgb2rgbsmpte");
-	ps_rgbsmpte2rgb		= gensym("rgbsmpte2rgb");
-	ps_rgb2hsl			= gensym("rgb2hsl");
-	ps_hsl2rgb			= gensym("hsl2rgb");
+	jps_no_transform		= gensym("no_transform");
+	jps_rgb2cmy			= gensym("rgb2cmy");
+	jps_cmy2rgb			= gensym("cmy2rgb");
+	jps_rgb2hsv			= gensym("rgb2hsv");
+	jps_hsv2rgb			= gensym("hsv2rgb");
+	jps_rgb2xyz			= gensym("rgb2xyz");
+	jps_xyz2rgb			= gensym("xyz2rgb");
+	jps_rgb2uvw			= gensym("rgb2uvw");
+	jps_uvw2rgb			= gensym("uvw2rgb");
+	jps_rgb2retinalcone	= gensym("rgb2retinalcone");
+	jps_retinalcone2rgb	= gensym("retinalcone2rgb");
+	jps_rgb2lab			= gensym("rgb2lab");
+	jps_lab2rgb			= gensym("lab2rgb");
+	jps_rgb2yiq			= gensym("rgb2yiq");
+	jps_yiq2rgb			= gensym("yiq2rgb");
+	jps_rgb2hls			= gensym("rgb2hls");
+	jps_hls2rgb			= gensym("hls2rgb");
+	jps_rgb2rgbcie		= gensym("rgb2rgbcie");
+	jps_rgbcie2rgb		= gensym("rgbcie2rgb");
+	jps_rgb2rgbsmpte		= gensym("rgb2rgbsmpte");
+	jps_rgbsmpte2rgb		= gensym("rgbsmpte2rgb");
+	jps_rgb2hsl			= gensym("rgb2hsl");
+	jps_hsl2rgb			= gensym("hsl2rgb");
 	
-	ps_split			= gensym("split");
-	ps_packed			= gensym("packed");
+	jps_split			= gensym("split");
+	jps_packed			= gensym("packed");
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -187,8 +187,8 @@ void *cs_new(Symbol *msg, long argc, Atom *argv)
 
 		// Set defaults
 		x->attr_autopack = 1;
-		x->attr_mode = ps_rgb2hsl;
-		x->attr_outputtype = ps_split;
+		x->attr_mode = jps_rgb2hsl;
+		x->attr_outputtype = jps_split;
 		x->val1 = x->val2 = x->val3 = 1;
 		
 		attr_args_process(x,argc,argv);		//handle attribute args			
@@ -272,32 +272,32 @@ void cs_list(t_cs *x, Symbol *msg, long argc, Atom *argv)
 // BANG - calculate and output
 void cs_bang(t_cs *x)
 {
-	if(x->attr_mode == ps_rgb2hsl) rgb2hsl(x, x->val1, x->val2, x->val3); // first for speed
-	else if(x->attr_mode == ps_hsl2rgb) hsl2rgb(x, x->val1, x->val2, x->val3);
+	if(x->attr_mode == jps_rgb2hsl) rgb2hsl(x, x->val1, x->val2, x->val3); // first for speed
+	else if(x->attr_mode == jps_hsl2rgb) hsl2rgb(x, x->val1, x->val2, x->val3);
 	
-	else if(x->attr_mode == ps_no_transform) no_transform(x);
-	else if(x->attr_mode == ps_rgb2cmy) rgb2cmy(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_cmy2rgb) cmy2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2hsv) rgb2hsv(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_hsv2rgb) hsv2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2xyz) rgb2xyz(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_xyz2rgb) xyz2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2uvw) rgb2uvw(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_uvw2rgb) uvw2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2retinalcone) rgb2cone(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_retinalcone2rgb) cone2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2lab) rgb2lab(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_lab2rgb) lab2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2yiq) rgb2yiq(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_yiq2rgb) yiq2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2hls) rgb2hls(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_hls2rgb) hls2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2rgbcie) rgb2rgbcie(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgbcie2rgb) rgbcie2rgb(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgb2rgbsmpte) rgb2rgbsmpte(x, x->val1, x->val2, x->val3);
-	else if(x->attr_mode == ps_rgbsmpte2rgb) rgbsmpte2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_no_transform) no_transform(x);
+	else if(x->attr_mode == jps_rgb2cmy) rgb2cmy(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_cmy2rgb) cmy2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2hsv) rgb2hsv(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_hsv2rgb) hsv2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2xyz) rgb2xyz(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_xyz2rgb) xyz2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2uvw) rgb2uvw(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_uvw2rgb) uvw2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2retinalcone) rgb2cone(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_retinalcone2rgb) cone2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2lab) rgb2lab(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_lab2rgb) lab2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2yiq) rgb2yiq(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_yiq2rgb) yiq2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2hls) rgb2hls(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_hls2rgb) hls2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2rgbcie) rgb2rgbcie(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgbcie2rgb) rgbcie2rgb(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgb2rgbsmpte) rgb2rgbsmpte(x, x->val1, x->val2, x->val3);
+	else if(x->attr_mode == jps_rgbsmpte2rgb) rgbsmpte2rgb(x, x->val1, x->val2, x->val3);
 
-	if(x->attr_outputtype == ps_packed){
+	if(x->attr_outputtype == jps_packed){
 		Atom temp_list[3];
 		SETLONG(temp_list+0, x->calc1);
 		SETLONG(temp_list+1, x->calc2);

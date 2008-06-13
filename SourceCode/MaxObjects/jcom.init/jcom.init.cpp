@@ -74,9 +74,9 @@ void *init_new(t_symbol *s, long argc, t_atom *argv)
 	if(x){
 		x->dumpout = outlet_new(x, NULL);
 		x->outlet = outlet_new(x, NULL);
-		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
+		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		jcom_core_subscriber_new_common(&x->common, name, ps_subscribe_init);
+		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_init);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
@@ -111,5 +111,5 @@ void init_go(t_init *x)
 void init_bang(t_init *x)
 {
 	if(x->common.hub != NULL)
-		object_method(x->common.hub, ps_init);
+		object_method(x->common.hub, jps_init);
 }
