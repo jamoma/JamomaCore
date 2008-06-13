@@ -96,11 +96,6 @@ common_symbols_init();
 		(method)0, (method)0, calcoffset(t_hub, attr_type));
 	class_addattr(c, attr);
 
-	// ATTRIBUTE: size [1U, 2U, 3U 1U-half, etc.]
-	attr = attr_offset_new("size", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_hub, attr_size));
-	class_addattr(c, attr);
-
 	// ATTRIBUTE: algorithm_type [poly, blue, none, control, jitter, video, default, etc.]
 	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
 		(method)0, (method)0, calcoffset(t_hub, attr_algorithm_type));
@@ -111,11 +106,6 @@ common_symbols_init();
 		(method)0, (method)0, calcoffset(t_hub, attr_description));
 	class_addattr(c, attr);
 			
-	// ATTRIBUTE: inspector
-	attr = attr_offset_new("controlpanel", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_hub, attr_inspector));
-	class_addattr(c, attr);
-
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	s_hub_class = c;
