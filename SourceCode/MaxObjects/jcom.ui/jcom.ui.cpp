@@ -130,7 +130,7 @@ int main(void)
 	CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
 	CLASS_ATTR_DEFAULT(c,	"has_meters",		0, "0");	// number of meters to display
 	CLASS_ATTR_SAVE(c,		"has_meters",		0);
-	CLASS_ATTR_STYLE(c,		"meters_defeated",	0, "onoff");
+	CLASS_ATTR_STYLE(c,		"has_meters",	0, "onoff");
 
 	CLASS_ATTR_LONG(c,		"meters_defeated",	0, t_ui, attr_metersdefeated);
 	CLASS_ATTR_STYLE(c,		"meters_defeated",	0, "onoff");
