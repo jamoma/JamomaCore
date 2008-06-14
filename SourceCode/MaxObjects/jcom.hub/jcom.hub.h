@@ -154,6 +154,10 @@ t_symbol*	hub_modulename_get(t_hub *x);
 t_symbol*	hub_algorithmtype_get(t_hub *x);
 
 
+void hub_module_help(t_hub* x);
+void hub_module_reference(t_hub* x);
+
+
 /** Initializes any jcom.init objects that are subscribed to the hub by sending them
  * a 'bang'.
  * @param x the hub who's subscribed jcom.init objects should be banged

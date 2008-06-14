@@ -13,6 +13,7 @@
 
 #include "jcom.hub.h"
 #include <functional>
+#include "jpatcher_api.h"
 
 
 #define value value_list[0]
@@ -41,7 +42,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.hub",(method)hub_new, (method)hub_free, sizeof(t_hub), (method)0L, A_GIMME, 0);
@@ -81,6 +82,11 @@ common_symbols_init();
 	class_addmethod(c, (method)hub_messagenames_linklist,	"fetchMessageNamesInLinklist",		A_CANT, 0); // used by the ui ref menu
 	class_addmethod(c, (method)hub_returnnames_linklist,	"fetchReturnNamesInLinklist",		A_CANT, 0); // used by the ui ref menu
 	class_addmethod(c, (method)hub_presetnames_linklist,	"fetchPresetNamesInLinklist",		A_CANT, 0); // used by the ui menu
+
+	class_addmethod(c, (method)hub_module_help,				"module/help",			A_CANT, 0); // used by the ui ref menu
+	class_addmethod(c, (method)hub_module_help,				"/module/help",			A_CANT, 0); // used by the ui ref menu
+	class_addmethod(c, (method)hub_module_reference,		"module/reference",		A_CANT, 0); // used by the ui ref menu	
+	class_addmethod(c, (method)hub_module_reference,		"/module/reference",		A_CANT, 0); // used by the ui ref menu	
 	
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
@@ -504,6 +510,16 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		}
 		else if (private_message == jps_slash_module_view_internals)		//	/module/view_internals
 			hub_module_view_alg(x, NULL, 0, NULL);
+		else if (private_message == gensym("/module/help"))
+			hub_module_help(x);
+		else if (private_message == gensym("/module/reference")){
+			//hub_module_reference(x);
+			char refstr[MAX_FILENAME_CHARS];
+			
+			strncpy_zero(refstr, x->attr_name->s_name, MAX_FILENAME_CHARS);
+//			strncat_zero(refstr, ".html", MAX_FILENAME_CHARS);
+			object_method_sym(gensym("max")->s_thing, gensym("html_ref"), gensym(refstr), NULL);
+		}
 		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/ui/freeze
 			if (argc>0)
 				n = atom_getlong(argv);
@@ -861,6 +877,17 @@ void hub_allnames_get(t_hub *x)
 	hub_paramnames_get(x);
 	hub_messagenames_get(x);
 	hub_returnnames_get(x);
+}
+
+
+void hub_module_help(t_hub* x)
+{
+	classname_openhelp(x->attr_name->s_name);
+}
+
+void hub_module_reference(t_hub* x)
+{
+	classname_openrefpage(x->attr_name->s_name);
 }
 
 
