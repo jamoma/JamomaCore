@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 15.0, 55.0, 392.0, 278.0 ],
+		"rect" : [ 15.0, 55.0, 442.0, 254.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 15.0, 55.0, 392.0, 278.0 ],
+		"defrect" : [ 15.0, 55.0, 442.0, 254.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -22,7 +22,7 @@
 					"text" : "route 0",
 					"outlettype" : [ "", "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 67.0, 167.0, 41.0, 17.0 ],
+					"patching_rect" : [ 65.0, 165.0, 45.0, 19.0 ],
 					"numinlets" : 1,
 					"id" : "obj-1",
 					"fontname" : "Verdana",
@@ -36,7 +36,7 @@
 					"text" : "jcom.oscroute /multicable",
 					"outlettype" : [ "", "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 67.0, 139.0, 126.0, 17.0 ],
+					"patching_rect" : [ 65.0, 140.0, 139.0, 19.0 ],
 					"numinlets" : 1,
 					"id" : "obj-2",
 					"fontname" : "Verdana",
@@ -48,7 +48,7 @@
 				"box" : 				{
 					"maxclass" : "inlet",
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 67.0, 119.0, 15.0, 15.0 ],
+					"patching_rect" : [ 65.0, 105.0, 24.0, 24.0 ],
 					"numinlets" : 0,
 					"id" : "obj-3",
 					"numoutlets" : 1,
@@ -59,7 +59,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "outlet",
-					"patching_rect" : [ 67.0, 191.0, 15.0, 15.0 ],
+					"patching_rect" : [ 65.0, 195.0, 24.0, 24.0 ],
 					"numinlets" : 1,
 					"id" : "obj-4",
 					"numoutlets" : 0,
@@ -87,7 +87,7 @@
 					"text" : "get the omni component of a ambisonic signal encoded on a multicable",
 					"fontsize" : 10.0,
 					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"patching_rect" : [ 44.0, 60.0, 370.0, 17.0 ],
+					"patching_rect" : [ 44.0, 60.0, 370.0, 19.0 ],
 					"numinlets" : 1,
 					"id" : "obj-6",
 					"fontname" : "Verdana",
@@ -98,8 +98,8 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-3", 0 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
@@ -116,8 +116,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
-					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-1", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
