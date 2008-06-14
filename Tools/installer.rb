@@ -118,10 +118,12 @@ cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.zip")
 cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.dmg")
 
 puts "  Moving things around (framework, loader, templates, etc)..."
-cmd("cp \"#{@c74}/Jamoma/documentation/templates/\"* \"#{@max}/patches/templates\"")
+cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-templates/\"* \"#{@max}/patches/templates\"")
 cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-overview.mxt\" \"#{@max}/patches/extras\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/Jamoma.framework\" \"#{@temp}/Library/Frameworks\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/extensions/\"")
+cmd("cp \"#{@c74}/Jamoma/*.maxdefaults\" \"#{@c74}/default-settings\"")
+cmd("cp \"#{@c74}/Jamoma/*.maxdefines\" \"#{@c74}/default-definitions\"")
 
 puts "  Copying readme, license, etc...."
 cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/resources\"")
