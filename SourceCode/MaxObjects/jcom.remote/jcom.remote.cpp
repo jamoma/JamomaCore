@@ -16,7 +16,7 @@ typedef struct _remote{
 	void							*outlet;
 	void							*dumpout;	
 	t_atom							output[512];	///< buffer that gets sent to the hub
-	short							output_len;
+	long							output_len;
 	method							callback;		///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	t_object						*callbackArg;	///< The object for which the callback method should be applied
 } t_remote;
@@ -37,8 +37,7 @@ void remote_subscribe(t_remote *x);
 
 
 // Globals
-t_class		*remote_class;					// Required. Global pointing to this class
-
+static t_class		*s_remote_class;					// Required. Global pointing to this class
 
 /************************************************************************************/
 // Main() Function
@@ -46,10 +45,10 @@ t_class		*remote_class;					// Required. Global pointing to this class
 int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class 	*c;
-	t_object 	*attr;
-	
+	t_object 	*attr = NULL;
+
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.remote",(method)remote_new, (method)jcom_core_subscriber_common_free, sizeof(t_remote), (method)0L, A_GIMME, 0);
@@ -64,12 +63,11 @@ common_symbols_init();
     class_addmethod(c, (method)remote_assist,			"assist",		A_CANT, 0L);
 	class_addmethod(c, (method)remote_setcallback,		"setcallback",	A_CANT, 0);
 
-	jcom_core_subscriber_classinit_common(c, attr);	
-		
+	jcom_core_subscriber_classinit_common(c, attr);
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
-	remote_class = c;
-
+	s_remote_class = c;
 	return 0;
 }
 
@@ -81,7 +79,7 @@ common_symbols_init();
 void *remote_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	t_remote 	*x = (t_remote *)object_alloc(remote_class);
+	t_remote 	*x = (t_remote *)object_alloc(s_remote_class);
 	t_symbol	*name = _sym_nothing;	
 	
 	if(attrstart && argv)
@@ -96,8 +94,8 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv)
 
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
-
-		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_remote);
+		
+		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_remote);		
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, (t_subscribe_method)remote_subscribe);
 
 		attr_args_process(x, argc, argv);					// handle attribute args				
