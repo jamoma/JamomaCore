@@ -8,6 +8,8 @@
  */
 
 #include "jcom.hub.h"
+#include "ext_dictionary.h"
+#include "jpatcher_api.h"
 #include "libxml/xmlreader.h"
 #include "libxml/xmlschemas.h"
 #include <functional>
@@ -964,5 +966,36 @@ void hub_presetnames_linklist(t_hub *x, t_linklist *ll)
 		linklist_append(ll, item);
 	}
 	//	critical_exit(0);
+}
+
+
+void hub_preset_interface(t_hub* x)
+{
+	char			filename[MAX_FILENAME_CHARS];
+	short			path;
+	long			type;
+	t_dictionary*	d;
+	t_object*		p;
+	t_atom			a;
+	
+	strncpy_zero(filename, "jcom.preset_interface.maxpat", MAX_FILENAME_CHARS);
+	locatefile_extended(filename, &path, &type, NULL, 0);
+	dictionary_read(filename, path, &d);
+	
+	atom_setobj(&a, d);
+	p = (t_object*)object_new_typed(_sym_nobox, _sym_jpatcher, 1, &a);
+	object_attr_setlong(p, _sym_locked, 1);			// start out locked
+	object_attr_setchar(p, _sym_enablehscroll, 0);		// turn off scroll bars
+	object_attr_setchar(p, _sym_enablevscroll, 0);
+	object_method_parse(p, _sym_window, "constrain 256 256 1800 1800", NULL);
+	object_attach_byptr_register(x, p, _sym_nobox);
+	
+	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed
+	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
+
+	OBJ_ATTR_SYM(p, "jamoma_preset_thing", 0, "boo");
+
+	
+	x->preset_interface = p;
 }
 

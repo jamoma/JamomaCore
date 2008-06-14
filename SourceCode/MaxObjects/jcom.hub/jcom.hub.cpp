@@ -88,6 +88,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_module_reference,		"module/reference",		A_CANT, 0); // used by the ui ref menu	
 	class_addmethod(c, (method)hub_module_reference,		"/module/reference",		A_CANT, 0); // used by the ui ref menu	
 	
+	class_addmethod(c, (method)hub_notify,				"notify",					A_CANT, 0);
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
 
@@ -301,6 +302,7 @@ void hub_free(t_hub *x)
 	subscriberList *subscriber = x->subscriber;
 	t_atom a[2];
 
+	object_free(x->preset_interface);
 	jamoma_hub_remove(x->osc_name);
 
 	atom_setsym(a, x->attr_name);
@@ -329,6 +331,21 @@ void hub_free(t_hub *x)
 	delete x->preset;
 }
 
+
+void hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+{
+	if(sender == x->preset_interface){
+		if(msg == _sym_attr_modified){
+			t_symbol* name;
+
+			name = (t_symbol *)object_method((t_object *)data, _sym_getname);
+		}
+		else if(msg == _sym_free){
+			object_detach_byptr(x, x->preset_interface);
+			x->preset_interface = NULL;
+		}
+	}
+}
 
 /************************************************************************************/
 // Communication with jcom.param objects
@@ -513,12 +530,14 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		else if (private_message == gensym("/module/help"))
 			hub_module_help(x);
 		else if (private_message == gensym("/module/reference")){
-			//hub_module_reference(x);
 			char refstr[MAX_FILENAME_CHARS];
 			
 			strncpy_zero(refstr, x->attr_name->s_name, MAX_FILENAME_CHARS);
-//			strncat_zero(refstr, ".html", MAX_FILENAME_CHARS);
 			object_method_sym(gensym("max")->s_thing, gensym("html_ref"), gensym(refstr), NULL);
+			//hub_module_reference(x);
+		}
+		else if(private_message == gensym("/preset/interface")){
+			hub_preset_interface(x);
 		}
 		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/ui/freeze
 			if (argc>0)

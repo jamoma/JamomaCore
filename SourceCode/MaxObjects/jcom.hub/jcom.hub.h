@@ -82,6 +82,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_symbol		*osc_name;					///< the OSC name of this module for remote communication
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
+	t_object		*preset_interface;
 } t_hub;
 
 
@@ -96,6 +97,7 @@ void		hub_examine_context(t_hub *x);
  * @param x the hub who's memory should be freed
  * @see hub_free */
 void		hub_free(t_hub *x);
+void		hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		hub_assist(t_hub *x, void *b, long msg, long arg, char *dst);
 
 t_object*	hub_getobj_audioin(t_hub *x);
@@ -316,6 +318,8 @@ void 		hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*);
  * @param x a pointer to the hub whose presets should be dumped */
 void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 
+
+void hub_preset_interface(t_hub* x);
 
 // Globals
 extern 		t_class		*hub_class;				// Required: Global pointer for our class
