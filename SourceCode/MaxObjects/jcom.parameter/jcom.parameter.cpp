@@ -142,7 +142,6 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->common.attr_name = name;
 		atom_setsym(&x->name_atom, name);
 		x->attr_ui_freeze = 0;
-		x->attr_slavemode = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
 		x->param_output = &param_output_generic;		// set function pointer to default
@@ -452,8 +451,12 @@ t_max_err param_attr_getdataspace(t_param *x, void *attr, long *argc, t_atom **a
 
 t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv)
+	if(argc && argv){
 		x->attr_dataspace = atom_getsym(argv);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace);
+		x->attr_unitActive = x->dataspace->neutralUnit;
+		x->attr_unitNative = x->dataspace->neutralUnit;
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -469,8 +472,10 @@ t_max_err param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **
 
 t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv)
+	if(argc && argv){
 		x->attr_unitActive = atom_getsym(argv);
+		x->dataspace->setInputUnit(x->attr_unitActive);
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -486,8 +491,10 @@ t_max_err param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **
 
 t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv)
 {
-	if(argc && argv)
+	if(argc && argv){
 		x->attr_unitNative = atom_getsym(argv);
+		x->dataspace->setInputUnit(x->attr_unitNative);
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -815,12 +822,6 @@ void param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	t_atom	a[3];				// value, 'ramp', value
 	short	a_len = 1;
 	
-	// Check for slave mode
-	if(x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], jps_inc, 0, NULL);
-		return;
-	}
-	
 	// Check for Arguments...
 	if(argc){
 		// Look for arg to specify the number of steps to move
@@ -885,12 +886,6 @@ void param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	t_atom	a[3];				// value, 'ramp', value
 	short	a_len = 1;
 
-	// Check for slave mode
-	if(x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], jps_dec, 0, NULL);
-		return;
-	}
-	
 	// Check for Arguments...
 	if(argc){
 		// Look for arg to specify the number of steps to move
@@ -962,11 +957,6 @@ void param_rampUpdate(t_param *x)
 // INT INPUT
 void param_int(t_param *x, long value)
 {
-	// Check for slave mode
-	if (x->attr_slavemode) {
-		outlet_int(x->outlets[k_outlet_direct], value);
-		return;
-	}
 	x->list_size = 1;
 	if(x->common.attr_repetitions == 0){
 		if(value == atom_getlong(&x->attr_value))
@@ -983,12 +973,6 @@ void param_int(t_param *x, long value)
 // FLOAT INPUT
 void param_float(t_param *x, double value)
 {
-	// Check for slave mode
-	if (x->attr_slavemode) {
-		outlet_float(x->outlets[k_outlet_direct], value);
-		return;
-	}
-	
 	x->list_size = 1;
 	if(x->common.attr_repetitions == 0){
 		if(value == atom_getfloat(&x->attr_value))
@@ -997,8 +981,21 @@ void param_float(t_param *x, double value)
 	// new input - halt any ramping...
 	if(x->ramper)
 		x->ramper->stop();
-
-	atom_setfloat(&x->attr_value, value);
+	
+	// this block added for implementing the dataspace features [TAP]
+	{
+		t_atom	a;
+		t_atom*	r;
+		bool	alloc;
+		long	count;
+		
+		atom_setfloat(&a, value);
+		param_convert_units(x, 1, &a, &count, &r, &alloc);
+		atom_setfloat(&x->attr_value, r->a_w.w_float);
+		if(alloc)
+			sysmem_freeptr(r);
+	}
+//	atom_setfloat(&x->attr_value, value);
 	x->param_output(x);
 }
 
@@ -1006,12 +1003,6 @@ void param_float(t_param *x, double value)
 // SYMBOL INPUT
 void param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	// Check for slave mode
-	if (x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], msg, argc, argv);
-		return;
-	}
-	
 	x->list_size = 1;
 	if(x->common.attr_repetitions == 0){
 		if(jcom_core_atom_compare(x->common.attr_type, &x->attr_value, argv))
@@ -1025,8 +1016,7 @@ void param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 
 void param_ui_refresh(t_param *x)
 {
-	if (!x->attr_slavemode)
-		outlet_anything(x->outlets[k_outlet_set], _sym_set, x->list_size, &x->attr_value);
+	outlet_anything(x->outlets[k_outlet_set], _sym_set, x->list_size, &x->attr_value);
 }
 
 
@@ -1070,56 +1060,38 @@ void param_ui_queuefn(t_param *x)
 // messages received from jcom.hub
 void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	if (x->attr_slavemode) {
-		if (argc==0)
-			outlet_bang(x->outlets[k_outlet_direct]);
-		else if (argc==1) {		
-			switch(argv[0].a_type) 
-				{
-					case A_LONG:
-						outlet_int(x->outlets[k_outlet_direct], atom_getlong(argv));
-						break;
-					case A_FLOAT:
-						outlet_float(x->outlets[k_outlet_direct], atom_getfloat(argv));
-						break;
-					case A_SYM:
-						outlet_anything(x->outlets[k_outlet_direct], atom_getsym(argv), 0, 0L);
-						break;
-					default:
-						outlet_anything(x->outlets[k_outlet_direct], msg, argc, argv);
-						break;
-				}
+	// new input - halt any ramping...
+	if(x->ramper)
+		x->ramper->stop();
+
+	if(argc == 1){
+		// If repetitions are disabled, we check for a repetition by treating
+		// this as a 1 element list
+		if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
+			x->list_size, argv, argc)) 
+			return;
+
+		if(x->dataspace){
+			t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
+			x->dataspace->convert(1, argv, &x->list_size, &r);
+			jcom_core_atom_copy(&x->attr_value, r);
 		}
 		else
-			outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
-	}
-	else {
-			// new input - halt any ramping...
-			if(x->ramper)
-				x->ramper->stop();
+			jcom_core_atom_copy(&x->attr_value, argv);
+		x->list_size = 1;				
 		
-			if(argc == 1 ){
-				// If repetitions are disabled, we check for a repetition by treating
-				// this as a 1 element list
-				if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
-					x->list_size, argv, argc)) 
-					return;
-
-				x->list_size = 1;				
-				jcom_core_atom_copy(&x->attr_value, argv);
-				x->param_output(x);
-			} else if(argc > 1) {
-				param_list(x, msg, argc, argv);
-			}
-			else { 	// no args
+		x->param_output(x);
+	} else if(argc > 1) {
+		param_list(x, msg, argc, argv);
+	}
+	else { 	// no args
 #ifndef JMOD_MESSAGE
-				// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-				if(x->common.attr_type == jps_msg_generic)
-					x->list_size = 0;
+		// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
+		if(x->common.attr_type == jps_msg_generic)
+			x->list_size = 0;
 #endif			
-				x->param_output(x);
-			}
-		}
+		x->param_output(x);
+	}
 }
 
 // Returns true if lists are identical
@@ -1150,88 +1122,178 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 	return 1;
 }
 
+
+void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** rv, bool* alloc)
+{
+	if(x->attr_dataspace && (x->attr_unitActive != x->attr_unitNative)){
+		long	count;
+
+		*rv = (t_atom*)sysmem_newptr(sizeof(t_atom) * argc);
+		
+		for(int i=0; i<argc; i++){
+		/*
+			Note that for now we assume that we are converting from 1 value to 1 value.
+			This isn't always true though.  
+			Maybe there could be triplets that would be converted into one value or something?
+		*/
+			x->dataspace->convert(1, argv+i, &count, rv+i);
+		}
+		*alloc = true;
+	}
+	else{
+		*rc = argc;
+		*rv = argv;
+		*alloc = false;
+	}
+}
+
+
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	double	start[LISTSIZE], values[LISTSIZE], time;
-	int i;
+	double		start[LISTSIZE], 
+				values[LISTSIZE], 
+				time;
+	int			i;
+	t_atom*		ramp;
+	t_symbol*	unit;
+	bool		hasRamp = false;
+	bool		hasUnit = false;
+	long		ac = 0;				// These two hold the input, but the input is converted into the native units
+	t_atom*		av = NULL;
+	bool		alloc = false;
 	
-	if (x->attr_slavemode) {
-		outlet_anything(x->outlets[k_outlet_direct], _sym_list, argc, argv);
-		return;
+	/*	If the list is only 1 atom, then we know it is just a value 
+		If it is two atoms, then it could be 2 values or a value + a unit
+		If it is three atoms, then it could be 3 values, 2 values + a unit, or 1 value + a ramp
+		If it is four atoms, then it could be 4 values, 3 values + a unit, 2 values + a ramp, or 1 value with a unit and a ramp
+		etc.
+	 */
+	
+	if(argc == 1)
+		;	// nothing to do
+	else if(argc == 2){
+		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+1) == A_SYM){	// assume the second atom is a unit
+			hasUnit = true;
+			unit = atom_getsym(argv+1);
+		}
 	}
-		
+	else if(argc == 3){
+		ramp = argv + (argc - 2);
+		if(ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp){
+			hasRamp = true;
+		}
+		else if(atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
+			hasUnit = true;
+			unit = atom_getsym(argv+2);
+		}
+	}
+	else{	// 4 or more atoms (could have both a ramp and a unit
+		ramp = argv + (argc - 2);
+		if(ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp){
+			hasRamp = true;
+		}
+		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
+			hasUnit = true;
+			if(hasRamp)
+				unit = atom_getsym(argv+(argc-3));
+			else
+				unit = atom_getsym(argv+(argc-1));
+		}
+	}
+	
+	// The current implementation does not override the active unit temporarily or anything fancy
+	//	It just sets the active unit and then runs with it...
+	if(hasUnit)
+		object_attr_setsym(x, gensym("unit/active"), unit);
+	
+	/*
+		For this initial implementation we are converting the values prior to ramping, as it is easier.
+		Ultimately though, we actually want to convert the units after the ramping, 
+		for example to perform a sweep that is linear vs logarithmic
+	 */
+	if(hasRamp && hasUnit)
+		param_convert_units(x, argc-3, argv, &ac, &av, &alloc);
+	else if(hasRamp)
+		param_convert_units(x, argc-2, argv, &ac, &av, &alloc);
+	else if(hasUnit)
+		param_convert_units(x, argc-1, argv, &ac, &av, &alloc);
+	else
+		param_convert_units(x, argc, argv, &ac, &av, &alloc);
+	
 	// Check the second to last item in the list first, which when ramping should == the string ramp
-	t_atom* ramp = argv + (argc - 2);
-	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
-
+//	ramp = argv + (argc - 2);
+//	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
+	if(hasRamp){
 		time = atom_getfloat(argv+(argc-1));
 
 		// Only one list member if @type is msg_int of msg_float
-		if ( x->common.attr_type == jps_msg_int || x->common.attr_type == jps_msg_float)
-			argc = 1;
-		else
-			argc = argc - 2;
+		if( x->common.attr_type == jps_msg_int || x->common.attr_type == jps_msg_float)
+			ac = 1;
+//		else
+//			argc = argc - 2;
 		
-		for (i=0; i<argc; i++) {
-			values[i] = atom_getfloat(argv+i);
-			if (i<=x->list_size)
+		for(i=0; i<ac; i++){
+			values[i] = atom_getfloat(av+i);
+			if (i <= x->list_size)
 				start[i] = atom_getfloat(&x->atom_list[i]);
 			else
 				start[i] = atom_getfloat(&x->atom_list[(x->list_size)-1]);
 		}
 
 		if(time <= 0){
-			jcom_core_atom_copy(&x->attr_value, argv);
+			jcom_core_atom_copy(&x->attr_value, av);
 			x->param_output(x);
 			return;
 		}	
 
 		if(x->common.attr_repetitions == 0){
-			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
+			if(param_list_compare(x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
 
-		x->list_size = argc;
-		x->ramper->set(argc, start);
-		x->ramper->go(argc, values, time);
+		x->list_size = ac;
+		x->ramper->set(ac, start);
+		x->ramper->go(ac, values, time);
 	} 
-	else {
+	else{
 		// Don't output if the input data is identical
-		if(!x->common.attr_repetitions) {
-			if(param_list_compare(x->atom_list, x->list_size, argv, argc))
+		if(!x->common.attr_repetitions){
+			if(param_list_compare(x->atom_list, x->list_size, av, ac))
 				return;	// nothing to do
 		}
 		
 		// Avoid copying more than one atom if the type only can have one argument
 		if(x->common.attr_type != jps_msg_list && x->common.attr_type != jps_msg_generic
-			&& x->common.attr_type != jps_msg_none) {
+			&& x->common.attr_type != jps_msg_none){
 			// If attr_type is != to anyone of the above values then we know 
 			// that it must be == to a scalar type.  This ensures it will behave
 			// as a scalar and not a list.
-			argc = 1;
+			ac = 1;
 		}
 			
-		for(i = 0; i < argc; i++) {
-			switch(argv[i].a_type) 
-			{
+		for(i = 0; i < ac; i++){
+			switch(av[i].a_type){
 				case A_LONG:
-					atom_setlong(&x->atom_list[i], atom_getlong(argv + i));
+					atom_setlong(&x->atom_list[i], atom_getlong(av + i));
 					break;
 				case A_FLOAT:
-					atom_setfloat(&x->atom_list[i], atom_getfloat(argv + i));
+					atom_setfloat(&x->atom_list[i], atom_getfloat(av + i));
 					break;
 				case A_SYM:
-					atom_setsym(&x->atom_list[i], atom_getsym(argv + i));
+					atom_setsym(&x->atom_list[i], atom_getsym(av + i));
 					break;
 				default:
 					error("param_list: no type specification");
 					break;
 			}
 		}
-		x->list_size = argc;
+		x->list_size = ac;
 		x->param_output(x);
 	}
+	
+	if(alloc)
+		sysmem_freeptr(av);
 }
 
 

@@ -43,17 +43,16 @@ typedef struct _param{						// Data Structure for this object
 	long					list_size;
 	long					listDefault_size;
 	t_symbol				*attr_ramp;				// ATTRIBUTE: ramp mode 
-	long					attr_slavemode;			// ATTRIBUTE: This instance is a slave of another instance, and simply forward anything recieved
 	long					attr_ui_freeze;
 	float					attr_stepsize;			// ATTRIBUTE: amount to increment or decrement by
 	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
-//	t_symbol				*name;					// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
 	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
 	RampUnit				*ramper;				///< rampunit object to perform ramping of input values
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
 	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
 	t_symbol				*attr_rampfunction;		///< Attribute for setting the function used by the ramping
 	t_symbol				*attr_dataspace;		///< The dataspace that this parameter uses (default is 'none')
+	DataspaceLib			*dataspace;
 	t_symbol				*attr_unitActive;		///< The active unit within the dataspace -- the type of values a user is sending
 	t_symbol				*attr_unitNative;		///< The native unit within the dataspace -- the type of values sent to the algorithm
 	method					callback;				///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
@@ -83,6 +82,18 @@ void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);
 void		param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_send_feedback(t_param *x);
+
+/**	Convert a list of atoms through the DataspaceLib from the active units into the native units.
+	@param	x		Parameter or Message instance pointer.
+	@param	argc	The number of input atoms.
+	@param	argv	The address of the first of an array of input atoms.
+	@param	rc		A pointer to a variable that will hold the number of returned atoms.
+	@param	rv		A pointer to the address of the first of an array of output atoms.
+	@param	alloc	A pointer to a bool that will be true if memory was allocated to the rv parameter.
+					If no memory was allocated, then rv will be pointing to argv and alloc will be set to false.
+*/
+void		param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** rv, bool* alloc);
+
 void		param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);
