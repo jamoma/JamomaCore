@@ -78,7 +78,8 @@ int main(void)
 				  A_GIMME,
 				  0L);
 
-	flags = JBOX_TEXTFIELD | JBOX_COLOR;
+	//flags = JBOX_TEXTFIELD | JBOX_COLOR;
+	flags = JBOX_TEXTFIELD;
 	jbox_initclass(c, flags);
 	c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // to specify dictionary constructor
 
@@ -93,18 +94,25 @@ int main(void)
 	CLASS_ATTR_DEFAULT(c, 	"fontname",			0, JAMOMA_DEFAULT_FONT);
 	CLASS_ATTR_DEFAULT(c, 	"fontsize",			0, "11");
 	
+	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
+	
 	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_ui,	bgcolor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.141176 0.141176 0.141176 1.0");
+	CLASS_ATTR_STYLE(c,						"bgcolor",		0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_ui,	bordercolor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.2 0.2 0.2 1.0");
+	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"headercolor",	0,	t_ui,	headercolor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.0 0.0 0.0 1.0");
+	CLASS_ATTR_STYLE(c,						"headercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_ui,	textcolor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.65 0.65 0.65 1.0");
+	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
 	
+	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 	CLASS_STICKY_ATTR(c,	"category",			0, "Jamoma");
 
 	CLASS_ATTR_SYM(c,		"prefix",			0, t_ui, attrPrefix);
