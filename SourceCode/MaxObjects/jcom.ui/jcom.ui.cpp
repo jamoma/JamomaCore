@@ -827,6 +827,12 @@ void ui_menu_qfn(t_ui *x)
 		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
 	else if(item->sym == gensym("Open Preset Interface"))
 		object_method_sym(x->obj_remote, gensym("/preset/interface"), item->sym, NULL);
+	else if(item->sym == gensym("View Internal Components"))
+		object_method_sym(x->obj_remote, gensym("/module/view_internals"), item->sym, NULL);
+	else if(item->sym == gensym("Open Help Patch"))
+		object_method_sym(x->obj_remote, gensym("/module/help"), item->sym, NULL);
+	else if(item->sym == gensym("Open Reference Page"))
+		object_method_sym(x->obj_remote, gensym("/module/reference"), item->sym, NULL);
 	else	// assume the menu item is a preset name
 		object_method_sym(x->obj_remote, gensym("/preset/recall"), item->sym, NULL);
 }
