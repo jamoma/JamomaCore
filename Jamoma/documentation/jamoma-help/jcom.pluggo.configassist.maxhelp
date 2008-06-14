@@ -20,12 +20,12 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "plugconfig",
-					"fontsize" : 10,
-					"patching_rect" : [ 40.0, 134.0, 61.0, 18.0 ],
-					"id" : "obj-1",
-					"numinlets" : 1,
-					"fontname" : "Verdana",
 					"numoutlets" : 0,
+					"fontsize" : 10.0,
+					"patching_rect" : [ 40.0, 134.0, 61.0, 19.0 ],
+					"id" : "obj-1",
+					"fontname" : "Verdana",
+					"numinlets" : 1,
 					"save" : [ "#N", "plugconfig", ";", "#C", "useviews", 1, 1, 1, 1, ";", "#C", "numprograms", 64, ";", "#C", "preempt", 1, ";", "#C", "sigvschange", 1, ";", "#C", "sigvsdefault", 32, ";", "#C", "autosize", ";", "#C", "defaultview", "Interface", 0, 0, 0, ";", "#C", "dragscroll", 1, ";", "#C", "infotext", ";", "#C", "package", "????", ";", "#C", "uniqueid", 8, 78, 145, ";", "#C", "initialpgm", 1, ";" ]
 				}
 
@@ -34,13 +34,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.pluggo.configassist.mxt",
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
-					"fontsize" : 10,
-					"patching_rect" : [ 40.0, 106.0, 156.0, 18.0 ],
+					"patching_rect" : [ 40.0, 106.0, 156.0, 19.0 ],
 					"id" : "obj-2",
-					"numinlets" : 0,
 					"fontname" : "Verdana",
-					"numoutlets" : 1
+					"numinlets" : 0
 				}
 
 			}
@@ -48,14 +48,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "jcom.pluggo.configassist",
+					"numoutlets" : 0,
 					"fontsize" : 17.334082,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
 					"patching_rect" : [ 14.0, 11.0, 263.0, 28.0 ],
 					"id" : "obj-3",
-					"numinlets" : 1,
 					"fontname" : "Verdana",
-					"numoutlets" : 0
+					"numinlets" : 1
 				}
 
 			}
@@ -63,26 +62,24 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Provides access to additional settings when configuring a pluggo.",
-					"fontsize" : 10,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"patching_rect" : [ 14.0, 36.0, 334.0, 18.0 ],
+					"numoutlets" : 0,
+					"fontsize" : 10.0,
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"patching_rect" : [ 14.0, 36.0, 337.0, 19.0 ],
 					"id" : "obj-4",
-					"numinlets" : 1,
 					"fontname" : "Verdana",
-					"numoutlets" : 0
+					"numinlets" : 1
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "panel",
-					"rounded" : 0,
-					"patching_rect" : [ 9.0, 6.0, 350.0, 50.0 ],
-					"id" : "obj-5",
-					"numinlets" : 1,
 					"numoutlets" : 0,
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ]
+					"rounded" : 15,
+					"patching_rect" : [ 10.0, 5.0, 350.0, 50.0 ],
+					"id" : "obj-5",
+					"numinlets" : 1
 				}
 
 			}
@@ -90,12 +87,13 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "The plogconfig Inspector also contain quite a few settings.",
-					"fontsize" : 10,
-					"patching_rect" : [ 38.0, 162.0, 301.0, 18.0 ],
+					"numoutlets" : 0,
+					"fontsize" : 10.0,
+					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"patching_rect" : [ 38.0, 162.0, 303.0, 19.0 ],
 					"id" : "obj-6",
-					"numinlets" : 1,
 					"fontname" : "Verdana",
-					"numoutlets" : 0
+					"numinlets" : 1
 				}
 
 			}
