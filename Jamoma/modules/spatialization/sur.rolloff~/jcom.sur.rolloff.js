@@ -63,9 +63,6 @@ function voices(value)
 	
 	else
 	{	
-		// Only perform scripting if the number of voices actually change
-		if (value==num_voices) return;	
-
 		num_voices_prev = num_voices;
 		num_voices = value;
 		
@@ -74,18 +71,22 @@ function voices(value)
 		if (num_voices < 0)
 			num_voices = 0;
 		
+		// Only perform scripting if the number of voices actually change
+		if (num_voices==num_voices_prev) return;
+		
 		for (i=0; i<num_voices_prev; i++)
 		{
 			outlet(0, "script", "delete", "rollof["+(i+1)+"]");
 		}
 		for (i=0; i<num_voices; i++)
 		{
-			outlet(0, "script", "new", "rollof["+(i+1)+"]", "newex", (80+40*i), (220+25*i), 73, 196617, "jcom.sur.ch.rolloff~.mxt");
+			outlet(0, "script", "newdefault", "rollof["+(i+1)+"]", (80+40*i), (120+20*i), "jcom.sur.ch.rolloff~");
 			outlet(0, "script", "connect", "multiout", i, "rollof["+(i+1)+"]", 0);
 			outlet(0, "script", "connect", "rollof["+(i+1)+"]", 0, "multiin", i);
 			outlet(0, "script", "connect", "route", i, "rollof["+(i+1)+"]", 1);
 			outlet(0, "script", "connect", "oscroute", 0, "rollof["+(i+1)+"]", 2);
 			outlet(0, "script", "connect", "oscroute", 1, "rollof["+(i+1)+"]", 3);
 		}
+		outlet(0, "done");
 	}
 }
