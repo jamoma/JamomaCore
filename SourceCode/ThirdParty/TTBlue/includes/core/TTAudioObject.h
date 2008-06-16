@@ -141,6 +141,13 @@ public:
 
 	/** Convert deciBels into linear ampliude.*/
 	TTFloat64 dbToLinear(TTFloat64 value);
+	
+	/** Convert midi into linear amplitude. */
+	TTFloat64 midiToLinearGain(TTFloat64 value);
+	
+	/** Convert linear amplitude into midi. */
+	TTFloat64 linearGainToMidi(TTFloat64 value);
+	
 
 	/** An idiosyncratic utility for slightly randomizing a number. 
 		Specifically this is used in applications such as randoming delay times for a reverb. */

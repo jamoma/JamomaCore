@@ -11,6 +11,12 @@
 TTUInt32	TTAudioObject::globalSr = 44100;
 
 
+// This coeff is used in GainDataspace mapping MIDI to and from linear gain 
+// so that MIDI=100 equals 0 dB and MIDI = 127 equals +10 dB
+static const double kGainMidiPower = log(pow(10.,10./20.))/log(127./100.);
+static const double kGainMidiPowerInv = 1./kGainMidiPower;
+
+
 /****************************************************************************************************/
 
 TTAudioObject::TTAudioObject(const char* name, TTUInt8 newMaxNumChannels)
@@ -246,6 +252,17 @@ TTFloat64 TTAudioObject::linearToDb(const TTFloat64 value)
 TTFloat64 TTAudioObject::dbToLinear(TTFloat64 value)
 {
 	return(pow(10., (value / 20.)));
+}
+
+
+TTFloat64 TTAudioObject::midiToLinearGain(TTFloat64 value)
+{
+	return pow(value * 0.01, kGainMidiPower);
+}
+
+TTFloat64 TTAudioObject::linearGainToMidi(TTFloat64 value)
+{
+	return 100.0 * pow(value, kGainMidiPowerInv);
 }
 
 

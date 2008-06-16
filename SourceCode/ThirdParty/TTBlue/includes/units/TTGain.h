@@ -23,6 +23,12 @@ private:
 	/** getter for converting gain input from linear to db. */
 	TTErr getGain(TTValue& value);
 
+	/** set the gain using midi units. */
+	TTErr setMidiGain(const TTValue& newValue);
+	
+	/** retreive the gain in midi units. */
+	TTErr getMidiGain(TTValue& value);
+	
 	/**	A standard audio processing method as used by TTBlue objects.*/
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 

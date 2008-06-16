@@ -133,6 +133,9 @@ TTErr TTCrossfade::processLookup(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
+// TODO: Nils says that we should experiment here with (sin*sin) here so that we can sum to 1.0 in the center???
+// It's worth experimenting with it....
+
 TTErr TTCrossfade::processCalc(TTAudioSignal& in, TTAudioSignal& out)
 {
 	short			vs;
