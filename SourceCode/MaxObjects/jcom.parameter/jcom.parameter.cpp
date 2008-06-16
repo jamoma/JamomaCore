@@ -473,8 +473,10 @@ t_max_err param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **
 t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc && argv){
-		x->attr_unitActive = atom_getsym(argv);
-		x->dataspace->setInputUnit(x->attr_unitActive);
+		if(x->dataspace) {
+			x->attr_unitActive = atom_getsym(argv);
+			x->dataspace->setInputUnit(x->attr_unitActive);
+		}
 	}
 	return MAX_ERR_NONE;
 }
