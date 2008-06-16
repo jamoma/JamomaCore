@@ -152,8 +152,9 @@ common_symbols_init();
 
 	CLASS_ATTR_SYM(c,			"description",		0, t_paramui, attr_description);
 	CLASS_ATTR_LABEL(c,			"description",		0, "Parameter Description");
-	CLASS_ATTR_STYLE(c,			"description",		0, "text_large");
-	CLASS_ATTR_DEFAULT(c,		"description",		0, "\"This parameter should do something.\"");
+	//CLASS_ATTR_STYLE(c,			"description",		0, "text_large");
+	CLASS_ATTR_STYLE(c,			"description",		0, "text_onesymbol");
+	CLASS_ATTR_DEFAULT(c,		"description",		0, "This parameter should do something.");
 	CLASS_ATTR_SAVE(c,			"description",		0);
 	CLASS_ATTR_ACCESSORS(c,		"description",		paramui_getDescription, paramui_setDescription);
 
@@ -272,11 +273,12 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 			argLen = 28;
 
 		jcom_core_loadextern(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
-		err = object_attach_byptr(x, x->obj_parameter);
-		if(err){
-			x->obj_parameter = (t_object*)object_register(CLASS_NOBOX, symbol_unique(), (t_object *)x->obj_parameter);
-			err = object_attach_byptr(x, x->obj_parameter);
-		}
+		object_attach_byptr_register(x, x->obj_parameter, _sym_nobox);
+//		err = object_attach_byptr(x, x->obj_parameter);
+//		if(err){
+///			x->obj_parameter = (t_object*)object_register(CLASS_NOBOX, symbol_unique(), (t_object *)x->obj_parameter);
+//			err = object_attach_byptr(x, x->obj_parameter);
+//		}
 	}
 	return x;
 }
@@ -358,26 +360,26 @@ void paramui_paint(t_paramui *x, t_object *view)
 		
 	// draw the inspector icon
 
-		jgraphics_set_source_rgb(g, 0.2, 0.2, 0.2);
-		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g,	border_thickness,
-							border_thickness, 
-							rect.height - (border_thickness * 2.0),
-							rect.height - (border_thickness * 2.0));
-		jgraphics_fill(g);
-		
-		jgraphics_rectangle_fill_fast(g,	border_thickness + rect.height / 2 - (border_thickness), 
-											border_thickness,
-											border_thickness + rect.height / 2, 
-											rect.height - (border_thickness * 2.0));
+	jgraphics_set_source_rgb(g, 0.2, 0.2, 0.2);
+	jgraphics_set_line_width(g, 1.5);
+	jgraphics_oval(g,	border_thickness,
+						border_thickness, 
+						rect.height - (border_thickness * 2.0),
+						rect.height - (border_thickness * 2.0));
+	jgraphics_fill(g);
+	
+	jgraphics_rectangle_fill_fast(g,	border_thickness + rect.height / 2 - (border_thickness), 
+										border_thickness,
+										border_thickness + rect.height / 2, 
+										rect.height - (border_thickness * 2.0));
 
-		jgraphics_set_source_rgb(g, 0.4, 0.4, 0.4);
-		middle = 6.0;
-		jgraphics_move_to(g, 9.5, middle + 4.0);
-		jgraphics_line_to(g, 13.0, middle);
-		jgraphics_line_to(g, 6.0, middle);
-		jgraphics_close_path(g);
-		jgraphics_fill(g);
+	jgraphics_set_source_rgb(g, 0.4, 0.4, 0.4);
+	middle = 6.0;
+	jgraphics_move_to(g, 9.5, middle + 4.0);
+	jgraphics_line_to(g, 13.0, middle);
+	jgraphics_line_to(g, 6.0, middle);
+	jgraphics_close_path(g);
+	jgraphics_fill(g);
 
 
 	if(x->attr_dataspace != jps_none){
@@ -402,7 +404,7 @@ void paramui_paint(t_paramui *x, t_object *view)
 		jtextlayout_set(x->layout_unit,
 						data,
 						jfont_create(JAMOMA_DEFAULT_FONT, JGRAPHICS_FONT_SLANT_NORMAL, JGRAPHICS_FONT_WEIGHT_NORMAL, JAMOMA_DEFAULT_FONTSIZE),
-						rect.width - 28.0, 0.0, 28.0, rect.height,
+						rect.width - 28.0, 0.0, 28.0, rect.height - 1.0,
 						JGRAPHICS_TEXT_JUSTIFICATION_CENTERED,
 						JGRAPHICS_TEXTLAYOUT_USEELLIPSIS);
 		jtextlayout_draw(x->layout_unit, g);
@@ -427,7 +429,7 @@ void paramui_paint(t_paramui *x, t_object *view)
 				jtextlayout_set(x->layout_value,
 								data,
 								jfont_create(JAMOMA_DEFAULT_FONT, JGRAPHICS_FONT_SLANT_NORMAL, JGRAPHICS_FONT_WEIGHT_NORMAL, JAMOMA_DEFAULT_FONTSIZE),
-								84.0, 0.0, rect.width - 84.0 - 20.0, rect.height,
+								84.0, 2.0, rect.width - 84.0 - 20.0, rect.height - 1.0,
 								JGRAPHICS_TEXT_JUSTIFICATION_LEFT,
 								JGRAPHICS_TEXTLAYOUT_USEELLIPSIS);
 				jtextlayout_draw(x->layout_value, g);
@@ -567,7 +569,7 @@ void* paramui_oksize(t_paramui *x, t_rect *rect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &s_light_gray);
-	textfield_set_textmargins(textfield, 18.0, 2.5, rect->width - 80.0, 1.5);
+	textfield_set_textmargins(textfield, 18.0, 2.0, rect->width - 80.0, 2.0);
 	
 	return (void *)1;
 }
