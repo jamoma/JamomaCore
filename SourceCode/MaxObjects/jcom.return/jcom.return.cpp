@@ -269,6 +269,7 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 	return_send_feedback(x);
 }
 
+
 // LIST INPUT 
 void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 {

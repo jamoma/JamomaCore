@@ -239,8 +239,6 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 
 	if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute))//{
 		x->attr_mute = atom_getlong(argv+1);
-//		outlet_anything(x->algout, argv->a_w.w_sym, argc-1, argv+1);
-//	}
 	else if((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
 		x->attr_mute = atom_getlong(argv+1);
 	else if((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))

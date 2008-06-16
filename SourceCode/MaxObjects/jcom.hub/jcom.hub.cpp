@@ -397,7 +397,7 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 
 	if(new_subscriber->type == jps_subscribe_remote){
 		int meternum = 0;
-		sscanf( new_subscriber->name->s_name, "__meter__%i", &meternum);
+		sscanf( new_subscriber->name->s_name, "%i__meter__", &meternum);
 		if(meternum > 0){
 			x->meter_object[meternum-1] = (t_object*)new_subscriber->object;
 			if(x->out_object)
