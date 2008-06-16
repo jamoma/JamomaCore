@@ -103,7 +103,8 @@ GainDataspace::GainDataspace()
 	registerUnit(new LinearAmplitudeUnit,	gensym("linear"));
 	registerUnit(new MidiGainUnit,			gensym("midi"));
 	registerUnit(new DecibelUnit,			gensym("dB"));
-	
+	registerUnit(new DecibelUnit,			gensym("db"));
+
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
 	setOutputUnit(neutralUnit);
