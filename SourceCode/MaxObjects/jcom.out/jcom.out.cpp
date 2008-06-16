@@ -416,7 +416,7 @@ t_int *out_perform(t_int *w)
 	else if(x->attr_mute)
 		x->copy->process(*x->zeroSignal, *x->audioOut);
 	else{
-		if(x->in_object && x->in_object->audioOut)	// TODO: is this safety test really correct?
+		if(x->in_object && x->in_object->audioOut->getNumChannels())	// TODO: is this safety test really correct?
 			x->xfade->process(*x->in_object->audioOut, *x->audioIn, *x->audioTemp);	// perform bypass/mix control
 		else
 			x->copy->process(*x->audioIn, *x->audioTemp);
