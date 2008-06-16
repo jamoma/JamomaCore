@@ -1,7 +1,7 @@
 /* 
  * jcom.return
  * External for Jamoma: return data from our module to the outside world
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -137,10 +137,6 @@ void return_dump(t_return *x)
 	t_atom	a[4];
 	
 	if(x->common.hub != NULL){
-		sprintf(s, "%s:/clipmode", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->common.attr_clipmode);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:/description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
@@ -152,11 +148,16 @@ void return_dump(t_return *x)
 		atom_setsym(&a[1], x->attr_ramp);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 */
-		sprintf(s, "%s:/range", x->common.attr_name->s_name);
+		sprintf(s, "%s:/range/bounds", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
 		atom_setfloat(&a[2], x->common.attr_range[1]);
 		object_method_typed(x->common.hub, jps_feedback, 3, a, NULL);
+		
+		sprintf(s, "%s:/range/clipmode", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->common.attr_clipmode);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:/repetitions", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
