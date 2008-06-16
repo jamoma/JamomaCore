@@ -125,17 +125,8 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"source" : [ "obj-3", 0 ],
-									"destination" : [ "obj-4", 1 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-4", 0 ],
-									"destination" : [ "obj-9", 0 ],
+									"source" : [ "obj-9", 0 ],
+									"destination" : [ "obj-11", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ]
 								}
@@ -152,8 +143,17 @@
 							}
 , 							{
 								"patchline" : 								{
-									"source" : [ "obj-9", 0 ],
-									"destination" : [ "obj-11", 0 ],
+									"source" : [ "obj-4", 0 ],
+									"destination" : [ "obj-9", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"source" : [ "obj-3", 0 ],
+									"destination" : [ "obj-4", 1 ],
 									"hidden" : 0,
 									"midpoints" : [  ]
 								}
@@ -178,13 +178,13 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return audio/amplitude/follower @range/bounds 0. 1. @description \"instant amplitude of the signal number #1\"",
+					"text" : "jcom.return audio/amplitude/follower @range/bounds 0. 1. @enable 0 @description \"instant amplitude of the signal number #1\"",
 					"linecount" : 4,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
 					"id" : "obj-1",
 					"numoutlets" : 2,
-					"patching_rect" : [ 40.0, 65.0, 222.0, 60.0 ],
+					"patching_rect" : [ 40.0, 65.0, 235.0, 60.0 ],
 					"fontsize" : 10.970939,
 					"outlettype" : [ "", "" ]
 				}
