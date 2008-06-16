@@ -285,7 +285,7 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasmix = atom_getlong(argv);
 	
 	if(obj->attr_hasmix){
-		anObject = new uiInternalObject("jcom.parameter", "mix", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "mix", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL);
 		anObject->setAction((method)ui_mix, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -307,7 +307,7 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasgain = atom_getlong(argv);
 	
 	if(obj->attr_hasgain){
-		anObject = new uiInternalObject("jcom.parameter", "gain", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", "gain", "midi", "midi");
+		anObject = new uiInternalObject("jcom.parameter", "gain", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", "gain", "midi", "midi");
 		anObject->setAction((method)ui_gain, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
