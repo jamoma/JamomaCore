@@ -168,7 +168,8 @@ void out_subscribe(void *z)
 	if(x->common.hub != NULL){
 		object_attr_getvalueof(x->common.hub, jps_name, &argc, &argv);
 		x->common.module_name = atom_getsym(argv);
-		x->num_meter_objects = 0;
+// [TAP] Not sure why we are zeroing here -- it doesn't make much sense
+//		x->num_meter_objects = 0;
 		
 		// Find out what type of algorithm this is supposed to control
 		object_attr_getvalueof(x->common.hub, jps_algorithm_type, &argc, &argv);

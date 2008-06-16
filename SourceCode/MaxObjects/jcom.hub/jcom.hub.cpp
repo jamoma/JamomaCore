@@ -388,8 +388,10 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 			object_method(x->in_object, jps_link_out, x->out_object);
 			object_method(x->out_object, jps_link_in, x->in_object);
 		}
-		for(int i=0; i<MAX_NUM_CHANNELS; i++)
-			object_method(x->out_object, jps_register_meter, i, x->meter_object[i]);
+		for(int i=0; i<MAX_NUM_CHANNELS; i++){
+			if(x->meter_object[i])
+				object_method(x->out_object, jps_register_meter, i, x->meter_object[i]);
+		}
 		object_method(x->out_object, jps_register_preview, x->gui_object);
 	}
 
