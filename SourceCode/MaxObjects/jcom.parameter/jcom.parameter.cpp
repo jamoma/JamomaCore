@@ -1,7 +1,7 @@
 /* 
  * jcom.paramater
  * External for Jamoma: parameter definition using pattr
- * By Tim Place, Copyright ÔøΩ 2006
+ * By Tim Place, Copyright � 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -66,10 +66,16 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jamoma_class_attr_new(c, "ramp/function", _sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
-	jamoma_class_attr_new(c, "type", _sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
+	jamoma_class_attr_new(c,	"type", _sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
+#ifdef JMOD_MESSAGE
+	CLASS_ATTR_ENUM(c,			"type",	0,	"msg_int msg_float msg_toggle msg_symbol msg_list msg_none");
+#else
+	CLASS_ATTR_ENUM(c,			"type",	0,	"msg_int msg_float msg_toggle msg_symbol msg_list");
+#endif
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c, "ui/freeze", _sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	jamoma_class_attr_new(c,	"ui/freeze", _sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	CLASS_ATTR_STYLE(c,			"ui/freeze",	0,	"onoff");
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
 	jamoma_class_attr_new(c, "value/stepsize", _sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
