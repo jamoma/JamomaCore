@@ -495,7 +495,7 @@ t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *ar
 {
 	if(argc && argv){
 		x->attr_unitNative = atom_getsym(argv);
-		x->dataspace->setInputUnit(x->attr_unitNative);
+		x->dataspace->setOutputUnit(x->attr_unitNative);
 	}
 	return MAX_ERR_NONE;
 }
