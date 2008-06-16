@@ -33,7 +33,7 @@ t_class			*g_init_class;			// Required. Global pointing to this class
 int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class		*c;
-	t_object 	*attr;
+	t_object 	*attr = NULL;
 	
 	jamoma_init();
 common_symbols_init();
