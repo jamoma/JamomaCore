@@ -7,7 +7,7 @@
   <preset number='1' name='default'>
     <item name='audio/enveloppe_follower/1' type='msg_toggle' priority='0'>0</item>
     <item name='audio/enveloppe_follower/2' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='ch_1' type='msg_int' priority='0'>1</item>
     <item name='ch_2' type='msg_int' priority='0'>2</item>

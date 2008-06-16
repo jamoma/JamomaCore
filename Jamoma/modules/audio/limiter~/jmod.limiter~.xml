@@ -6,7 +6,7 @@
 >
 	
 	<preset number="1" name="default">
-		<item name="audio/gain/midi" type="msg_int">0</item>
+		<item name="audio/gain" type="msg_int">0</item>
 		<item name="audio/meters/freeze" type="msg_toggle">0</item>
 		<item name="audio/mix" type="msg_float">100.</item>
 		<item name="audio/bypass" type="msg_int">0</item>
