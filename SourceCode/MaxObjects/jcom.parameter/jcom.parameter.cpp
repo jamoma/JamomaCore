@@ -382,7 +382,7 @@ t_max_err param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **ar
 t_max_err param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc && argv)
-		x->attr_stepsize = atom_getlong(argv);
+		x->attr_stepsize = atom_getfloat(argv);
 	return MAX_ERR_NONE;
 }
 
