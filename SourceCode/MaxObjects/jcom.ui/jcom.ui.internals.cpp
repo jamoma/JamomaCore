@@ -45,17 +45,20 @@ class uiInternalObject {
 	
 	~uiInternalObject()
 	{
-		object_free(theObject);
+		if(theObject)
+			object_free(theObject);
 	}
 	
 	void setAction(method aCallback, t_object *aCallbackArg)
 	{
-		object_method(theObject, gensym("setcallback"), aCallback, aCallbackArg);
+		if(theObject)
+			object_method(theObject, gensym("setcallback"), aCallback, aCallbackArg);
 	}
 	
 	void setName(char* newName)
 	{
-		object_attr_setsym(theObject, _sym_name, gensym(newName));
+		if(theObject)
+			object_attr_setsym(theObject, _sym_name, gensym(newName));
 	}
 };
 
