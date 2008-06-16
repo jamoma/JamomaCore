@@ -22,10 +22,34 @@ int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class		*c;
 	t_object	*attr = NULL;
+	long		numDataspaces = 0;
+	t_symbol**	dataspaceNames = NULL;
+	TTValue		functionNames;
+	TTSymbol*	functionName;
+	char		dataspaces[2048];
+	char		functions[2048];
+	short		i;
 	
 	// Initialize Globals
 	jamoma_init();
 	common_symbols_init();
+	
+	// Get list of dataspace and ramb library units
+	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
+	dataspaces[0] = 0;
+	for(i=0; i<numDataspaces; i++)
+	{
+		strcat(dataspaces, dataspaceNames[i]->s_name);
+		strcat(dataspaces, " ");
+	}
+	FunctionLib::getUnitNames(functionNames);
+	functions[0] = 0;
+	for(i=0; i<functionNames.getNumValues(); i++)
+	{
+		functionNames.get(i, &functionName);
+		strcat(functions, functionName->getString());	
+		strcat(functions, " ");
+	}
 
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);
@@ -61,37 +85,43 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	jcom_core_subscriber_classinit_extended(c, attr, true);		// define a name attr
 	
-	// ATTRIBUTE: ramp
-	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
-	jamoma_class_attr_new(c, "ramp/function", _sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
+	// ATTRIBUTE: ramp stuff
+	jamoma_class_attr_new(c, 	"ramp/drive", 		_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
+	
+	jamoma_class_attr_new(c, 	"ramp/function", 	_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
+	CLASS_ATTR_ENUM(c,			"ramp/function",	0, functions);
+	
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
-	jamoma_class_attr_new(c,	"type", _sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
+	jamoma_class_attr_new(c,	"type", 			_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,			"type",	0,	"msg_int msg_float msg_toggle msg_symbol msg_list msg_none");
+	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_none");
 #else
-	CLASS_ATTR_ENUM(c,			"type",	0,	"msg_int msg_float msg_toggle msg_symbol msg_list");
+	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list");
 #endif
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c,	"ui/freeze", _sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
-	CLASS_ATTR_STYLE(c,			"ui/freeze",	0,	"onoff");
+	jamoma_class_attr_new(c,	"ui/freeze", 		_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	CLASS_ATTR_STYLE(c,			"ui/freeze",		0,	"onoff");
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
-	jamoma_class_attr_new(c, "value/stepsize", _sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
+	jamoma_class_attr_new(c, 	"value/stepsize", 	_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
 
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
-	jamoma_class_attr_new(c, "priority", _sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
+	jamoma_class_attr_new(c, 	"priority", 		_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
 
 	// ATTRIBUTE: value
-	jamoma_class_attr_array_new(c, "value", _sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
+	jamoma_class_attr_array_new(c, "value", 		_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
 
 	// ATTRIBUTE: value/default
 	jamoma_class_attr_array_new(c, "value/default", _sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
-	jamoma_class_attr_new(c, "dataspace", _sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
-	jamoma_class_attr_new(c, "unit/active", _sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
-	jamoma_class_attr_new(c, "unit/native", _sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
+	// ATTRIBUTES: dataspace stuff
+	jamoma_class_attr_new(c, 	"dataspace", 		_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
+	CLASS_ATTR_ENUM(c,			"dataspace",		0, dataspaces);
+	
+	jamoma_class_attr_new(c, 	"unit/active", 		_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
+	jamoma_class_attr_new(c, 	"unit/native",		 _sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);

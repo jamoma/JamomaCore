@@ -233,6 +233,7 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, bool de
 	
 	// ATTRIBUTE: clipmode - options are none, low, high, both
 	jamoma_class_attr_new(c, "range/clipmode", _sym_symbol, (method)jcom_core_attr_setclipmode, (method)jcom_core_attr_getclipmode);
+	CLASS_ATTR_ENUM(c,	"range/clipmode",	0,	"none low high both");
 
 	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
 	jamoma_class_attr_new(c, "description", _sym_symbol, (method)jcom_core_attr_setdescription, (method)jcom_core_attr_getdescription);
