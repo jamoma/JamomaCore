@@ -433,6 +433,10 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 		if(t->object == subscriber_object) {
 			if(t->type == jps_subscribe_parameter)
 				x->num_parameters--;
+			/*	Temporarily disabling this for Jamoma 0.5
+				We need to evaluate whether or not this is needed any more given the new way we are doing the UI.
+				[TAP]
+
 			else if(t->type == jps_subscribe_in){
 				if(x->out_object)
 					object_method(x->out_object, jps_unlink_out);
@@ -441,6 +445,7 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 				if(x->in_object)
 					object_method(x->in_object, jps_unlink_in);
 			}
+				
 			else if(t->type == jps_subscribe_remote){
 				char temp[32];
 				for(short i=0; i<MAX_NUM_CHANNELS; i++) {
@@ -451,10 +456,10 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 					}
 				}
 			}
+			*/
 			item = subscribers->erase(item);
 			sysmem_freeptr(t);
 			
-			// TODO: Does the following note from Dave apply anymore now that we use GCC on Windows? [TAP]
 			/** XXX why does this need to be here?  It seems Microsoft's compiler is generating code 
 			 * that will preincrement (++) the item iterator in the for loop despite the fact that 
 			 * the for loops if condition has been met and following conditional statement shouldn't
