@@ -306,6 +306,16 @@ void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 		
 		if(attrname == gensym("module_name"))
 			object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
+			
+		char str[5];
+		if(x->gainDragging) {
+			snprintf(str, sizeof(str), "%f", x->attr_gain);
+			object_method(textfield, gensym("settext"), str);
+		}
+		if(x->mixDragging) {
+			snprintf(str, sizeof(str), "%f", x->attr_mix);
+			object_method(textfield, gensym("settext"), str);
+		}
 
 		jbox_redraw(&x->box);
 	}
@@ -726,11 +736,11 @@ void ui_mousedragdelta(t_ui *x, t_object *patcherview, t_pt pt, long modifiers)
 		factor = 50.0;
 	
 	if(x->mixDragging){
-		x->anchorValue = TTClip(x->anchorValue - (pt.y / factor), 0.0, 100.0);
+		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 100.0);
 		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
 	}
 	else if(x->gainDragging){
-		x->anchorValue = TTClip(x->anchorValue - (pt.y / factor), 0.0, 127.0);
+		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 127.0);
 		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
 	}
 }
@@ -740,6 +750,11 @@ void ui_mouseup(t_ui *x, t_object *patcherview)
 {
 	x->mixDragging = false;
 	x->gainDragging = false;
+	t_object *textfield = jbox_get_textfield((t_object*) x);
+	if(textfield)
+		object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
+	
+	jbox_redraw(&x->box);
 }
 
 
