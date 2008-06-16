@@ -14,6 +14,7 @@ TTGain::TTGain(TTUInt8 newMaxNumChannels)
 {
 	registerAttribute(TT("linearGain"),	kTypeFloat64,	&gain);
 	registerAttribute(TT("gain"),		kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getGain, (TTSetterMethod)&TTGain::setGain);
+	registerAttribute(TT("midiGain"),	kTypeFloat64,	NULL,	(TTGetterMethod)&TTGain::getMidiGain, (TTSetterMethod)&TTGain::setMidiGain);
 
 	// Set Defaults...
 	setAttributeValue(TT("linearGain"),	1.0);
@@ -37,6 +38,20 @@ TTErr TTGain::setGain(const TTValue& newValue)
 TTErr TTGain::getGain(TTValue& value)
 {
 	value = linearToDb(gain);
+	return kTTErrNone;
+}
+
+
+TTErr TTGain::setMidiGain(const TTValue& newValue)
+{
+	gain = midiToLinearGain(newValue);
+	return kTTErrNone;
+}
+
+
+TTErr TTGain::getMidiGain(TTValue& value)
+{
+	value = linearGainToMidi(gain);
 	return kTTErrNone;
 }
 
