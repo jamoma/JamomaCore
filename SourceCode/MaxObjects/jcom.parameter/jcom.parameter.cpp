@@ -128,7 +128,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
 
 		// set defaults...
-		x->attr_rampfunction = _sym_nothing;
+		x->attr_rampfunction = jps_linear;
 		x->attr_ramp = _sym_nothing;
 		x->ramper = NULL;
 
@@ -662,50 +662,71 @@ void param_dump(t_param *x)
 	t_atom	a[4];
 	
 	if(x->common.hub != NULL){
-		sprintf(s, "%s:clipmode", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->common.attr_clipmode);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_description);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
-		sprintf(s, "%s:priority", x->common.attr_name->s_name);
+		
+		sprintf(s, "%s:value", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setlong(&a[1], x->attr_priority);
+		jcom_core_atom_copy(&a[1], &x->attr_value);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		sprintf(s, "%s:type", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->common.attr_type);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:ramp", x->common.attr_name->s_name);
+		sprintf(s, "%s:ramp/drive", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:range", x->common.attr_name->s_name);
+		sprintf(s, "%s:ramp/function", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_rampfunction);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+
+		sprintf(s, "%s:range/bounds", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
 		atom_setfloat(&a[2], x->common.attr_range[1]);
 		object_method_typed(x->common.hub, jps_feedback, 3, a, NULL);
+		
+		sprintf(s, "%s:rande/clipmode", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->common.attr_clipmode);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:repetitions", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
-		sprintf(s, "%s:type", x->common.attr_name->s_name);
+				
+		sprintf(s, "%s:dataspace", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->common.attr_type);
+		atom_setsym(&a[1], x->attr_dataspace);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+				
+		sprintf(s, "%s:unit/native", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_unitNative);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
+		sprintf(s, "%s:unit/active", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_unitActive);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
 		sprintf(s, "%s:ui/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
-		sprintf(s, "%s:value", x->common.attr_name->s_name);
+		
+		sprintf(s, "%s:priority", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
-		jcom_core_atom_copy(&a[1], &x->attr_value);
+		atom_setlong(&a[1], x->attr_priority);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 	}
 }
