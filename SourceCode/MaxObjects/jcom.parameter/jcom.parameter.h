@@ -46,7 +46,7 @@ typedef struct _param{						// Data Structure for this object
 	long					attr_ui_freeze;
 	float					attr_stepsize;			// ATTRIBUTE: amount to increment or decrement by
 	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
-	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
+//	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
 	RampUnit				*ramper;				///< rampunit object to perform ramping of input values
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
 	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit

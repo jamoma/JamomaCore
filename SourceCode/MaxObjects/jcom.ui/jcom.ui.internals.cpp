@@ -383,6 +383,8 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 			strncpy_zero(name, obj->attrPrefix->s_name, 256);
 		strncat_zero(name, "/mute", 256);
 		anObject->setName(name);
+//		hashtab_store(obj->hash_internals, gensym(name), anObject);
+//		hashtab_chuckkey(obj->hash_internals, gensym("mute"))
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);

@@ -1,7 +1,7 @@
 /* 
  * jcom.paramater
  * External for Jamoma: parameter definition using pattr
- * By Tim Place, Copyright � 2006
+ * By Tim Place, Copyright ÔøΩ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -140,7 +140,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setlong(&x->atom_listDefault[i], 0);
 		}
 		x->common.attr_name = name;
-		atom_setsym(&x->name_atom, name);
+//		atom_setsym(&x->name_atom, name);
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
@@ -744,7 +744,8 @@ void param_bang(t_param *x)
 
 	// call on the hub to pass our data onward
 	if(x->common.hub != NULL){
-		jcom_core_atom_copy(&a, &x->name_atom);
+//		jcom_core_atom_copy(&a, &x->name_atom);
+		atom_setsym(&a, x->common.attr_name);
 		object_method_typed(x->common.hub, jps_feedback, 1, &a, NULL);
 	}
 #else
@@ -831,7 +832,8 @@ void param_output_none(void *z)
 	// call on the hub to pass our data onward
 	// We can not use (method)param_send_feedback here as it assumes an additional argument
 	if(x->common.hub != NULL){
-		jcom_core_atom_copy(out, &x->name_atom);
+		atom_setsym(out, x->common.attr_name);
+//		jcom_core_atom_copy(out, &x->name_atom);
 		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
 	}
 }
@@ -1059,7 +1061,8 @@ void param_send_feedback(t_param *x)
 	
 	// call on the hub to pass our data onward
 	if(x->common.hub != NULL){
-		jcom_core_atom_copy(out, &x->name_atom);
+//		jcom_core_atom_copy(out, &x->name_atom);
+		atom_setsym(out, x->common.attr_name);
 		jcom_core_atom_copy(out+1, &x->attr_value);
 		// copy any remaining atoms
 		if(x->list_size > 1) 
