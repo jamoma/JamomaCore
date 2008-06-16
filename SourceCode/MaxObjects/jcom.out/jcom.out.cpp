@@ -249,13 +249,15 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 		
 	if(argv->a_type == A_SYM){
-		if((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)){
+// jamoma 0.4
+//		if((argv->a_w.w_sym == jps_slash_audio_gain_midi) || (argv->a_w.w_sym == jps_audio_gain_midi)){
+// jamoma 0.5
+		if((argv->a_w.w_sym == gensym("/audio/gain")) || (argv->a_w.w_sym == gensym("audio/gain")) || (argv->a_w.w_sym == gensym("gain")) || (argv->a_w.w_sym == gensym("/gain"))){
 			// Do gain control here...
 			// Should be that the gain change triggers a short tt_ramp to the new value
 			x->attr_gain = atom_getfloat(argv+1);	// store as midi values
 #ifdef JCOM_OUT_TILDE
-			// TODO: This should use Trond's newer algorithm for midi conversion!
-			x->gain->setAttributeValue(TT("gain"), (x->attr_gain - 127) * .6);	// convert midi to db for tap_gain
+			x->gain->setAttributeValue(TT("midiGain"), x->attr_gain);
 #endif
 		}
 		else if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute"))){
@@ -264,7 +266,7 @@ void out_algorithm_message(t_out *x, t_symbol *msg, long argc, t_atom *argv)
 			if(x->attr_mute)
 				x->gain->setAttributeValue(TT("linearGain"), 0.0);
 			else 
-				x->gain->setAttributeValue(TT("gain"), (x->attr_gain - 127) * .6);			
+				x->gain->setAttributeValue(TT("midiGain"), x->attr_gain);			
 #endif
 		}
 		else if((argv->a_w.w_sym == jps_audio_bypass) || (argv->a_w.w_sym == jps_slash_audio_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass"))){
