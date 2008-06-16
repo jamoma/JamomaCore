@@ -456,7 +456,8 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 	
 	for(i=0; i < x->numInputs; i++){
 		j = x->numInputs + i;
-		if(count[i] && count[j]){
+//		if(count[i] && count[j]){
+		if(count[i] || count[j]){
 			numChannels++;
 			if(sp[i]->s_n > vs)
 				vs = sp[i]->s_n;

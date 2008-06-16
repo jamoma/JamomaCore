@@ -513,7 +513,8 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	
 	for(i=0; i < x->numOutputs; i++){
 		j = x->numOutputs + i;
-		if(count[i] && count[j]){
+//		if(count[i] && count[j]){
+		if(count[i] || count[j]){
 			numChannels++;
 			if(sp[i]->s_n > vs)
 				vs = sp[i]->s_n;
