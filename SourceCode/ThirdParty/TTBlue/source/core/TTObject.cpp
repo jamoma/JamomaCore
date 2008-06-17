@@ -83,6 +83,8 @@ void TTAttribute::getSetterFlags(TTAttributeFlags& currentFlags)
 
 TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 {
+	value.setNumValues(1);
+	
 	switch(attribute.type){
 		case kTypeFloat32:
 			value = *((TTFloat32*)attribute.address);
