@@ -382,8 +382,10 @@ void paramui_paint(t_paramui *x, t_object *view)
 	jgraphics_fill(g);
 
 
-	if(x->attr_dataspace != jps_none){
-		char data[256];
+	//if(x->attr_dataspace != jps_none){
+	if(x->attr_dataspace == gensym("angle")) {
+	
+	char data[256];
 
 		// draw the unit display
 		jgraphics_set_source_rgb(g, 0.2, 0.2, 0.2);
@@ -399,7 +401,7 @@ void paramui_paint(t_paramui *x, t_object *view)
 											border_thickness + rect.height / 1, 
 											rect.height - (border_thickness * 2.0));
 
-		strcpy(data, "midi");
+		strcpy(data, "angle");
 		jtextlayout_settextcolor(x->layout_unit, &s_light_gray);
 		jtextlayout_set(x->layout_unit,
 						data,
@@ -409,6 +411,37 @@ void paramui_paint(t_paramui *x, t_object *view)
 						JGRAPHICS_TEXTLAYOUT_USEELLIPSIS);
 		jtextlayout_draw(x->layout_unit, g);
 	}
+	
+	else if (x->attr_dataspace == gensym("gain")) {
+	
+	char data[256];
+
+		// draw the unit display
+		jgraphics_set_source_rgb(g, 0.2, 0.2, 0.2);
+		jgraphics_set_line_width(g, 1.5);
+		jgraphics_oval(g,	rect.width - (rect.height - (border_thickness * 2.0)) - 2.0, 
+							border_thickness, 
+							rect.height - (border_thickness * 2.0), 
+							rect.height - (border_thickness * 2.0));
+		jgraphics_fill(g);
+		
+		jgraphics_rectangle_fill_fast(g,	rect.width - ((border_thickness + rect.height / 2 - (border_thickness)) * 3.0) - 2.0, 
+											border_thickness, 
+											border_thickness + rect.height / 1, 
+											rect.height - (border_thickness * 2.0));
+
+		strcpy(data, "gain");
+		jtextlayout_settextcolor(x->layout_unit, &s_light_gray);
+		jtextlayout_set(x->layout_unit,
+						data,
+						jfont_create(JAMOMA_DEFAULT_FONT, JGRAPHICS_FONT_SLANT_NORMAL, JGRAPHICS_FONT_WEIGHT_NORMAL, JAMOMA_DEFAULT_FONTSIZE),
+						rect.width - 28.0, 0.0, 28.0, rect.height - 1.0,
+						JGRAPHICS_TEXT_JUSTIFICATION_CENTERED,
+						JGRAPHICS_TEXTLAYOUT_USEELLIPSIS);
+		jtextlayout_draw(x->layout_unit, g);
+	
+	}
+
 
 	{
 		char	data[256];
