@@ -236,7 +236,8 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, bool de
 	CLASS_ATTR_ENUM(c,	"range/clipmode",	0,	"none low high both");
 
 	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
-	jamoma_class_attr_new(c, "description", _sym_symbol, (method)jcom_core_attr_setdescription, (method)jcom_core_attr_getdescription);
+	jamoma_class_attr_new(c,	"description", _sym_symbol, (method)jcom_core_attr_setdescription, (method)jcom_core_attr_getdescription);
+	CLASS_ATTR_STYLE(c,			"description",		0, "text_onesymbol");
 }
 
 
@@ -440,7 +441,7 @@ t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void
 	char*	text = NULL;
 	long	textsize = 0;
 	
-	atom_gettext(argc, argv, &textsize, &text, OBEX_UTIL_ATOM_GETTEXT_DEFAULT);
+	atom_gettext(argc, argv, &textsize, &text, OBEX_UTIL_ATOM_GETTEXT_SYM_NO_QUOTE);
 	if(text && textsize){
 		x->attr_description = gensym(text);
 		sysmem_freeptr(text);
