@@ -75,6 +75,7 @@ void 		param_output_list(void *z);
 void		param_output_none(void *z);
 void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void		param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);

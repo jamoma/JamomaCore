@@ -14,7 +14,7 @@ t_class		*parameter_class;		// Required: Global pointer for our class
 t_class		*message_class;
 
 int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
-
+static char units[2048];
 /************************************************************************************/
 // Class Definition
 
@@ -42,6 +42,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 		strcat(dataspaces, dataspaceNames[i]->s_name);
 		strcat(dataspaces, " ");
 	}
+	
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
 	for(i=0; i<functionNames.getNumValues(); i++)
@@ -50,6 +51,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 		strcat(functions, functionName->getString());	
 		strcat(functions, " ");
 	}
+	
 
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);
@@ -57,6 +59,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
 	//	because the function pointer is in out struct, which hasn't been defined yet
+	class_addmethod(c, (method)param_notify,					"notify",						A_CANT,		0);	
 	class_addmethod(c, (method)param_dispatched,				"dispatched",					A_GIMME,	0);
 	class_addmethod(c, (method)param_int,						"int",							A_DEFLONG,	0);
 	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
@@ -112,7 +115,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jamoma_class_attr_new(c, 	"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
 	CLASS_ATTR_ENUM(c,			"dataspace",				0, dataspaces);
 	
+	units[0] = 0;
 	jamoma_class_attr_new(c, 	"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
+	CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);
 	jamoma_class_attr_new(c, 	"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
 
 	// Finalize our class
@@ -183,7 +188,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_parameter);
 #endif
 		attr_args_process(x, argc, argv);			// handle attribute args
-
+		object_attach_byptr_register(x, x , CLASS_BOX);
 #ifndef JMOD_MESSAGE
 		param_reset(x);	
 #endif
@@ -1434,3 +1439,27 @@ void param_ramp_setup(t_param *x)
 	if(x->attr_rampfunction && x->attr_rampfunction != _sym_nothing && x->attr_rampfunction != gensym("linear"))
 		object_attr_setsym(x, gensym("ramp/function"), x->attr_rampfunction);
 }
+
+void param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+{
+	t_symbol	**unitNames = NULL;
+	long		numUnits = 0;
+	long		i;
+	
+	if(x->dataspace) {
+		x->dataspace->getAvailableUnits(&numUnits, &unitNames);
+		units[0] = 0;
+		for(i=0; i<numUnits; i++)
+		{   
+			strcat(units, unitNames[i]->s_name);
+			strcat(units, " ");
+		}
+		post("available Dataspace-units: %s", units);
+	}
+	
+	if(numUnits)
+		sysmem_freeptr(unitNames);
+
+}
+
+
