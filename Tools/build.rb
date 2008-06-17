@@ -237,6 +237,15 @@ else
 end
 puts ""
 
+puts "copying help ttblue files"
+copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.balance~/tt.balance~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.balance~.maxhelp")
+copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.dcblock~/tt.dcblock~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.dcblock~.maxhelp")
+copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.degrade~/tt.degrade~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.degrade~.maxhelp")
+copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.filter~/tt.filter~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.filter~.maxhelp")
+copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.limiter~/tt.limiter~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.limiter~.maxhelp")
+copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.overdrive~/tt.overdrive~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.overdrive~.maxhelp")
+copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.ramp~/tt.ramp~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.ramp~.maxhelp")
+puts ""
 
 puts "Building Jamoma Externals..."
 
