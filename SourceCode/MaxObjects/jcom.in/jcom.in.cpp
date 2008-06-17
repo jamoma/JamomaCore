@@ -37,7 +37,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object 	*attr = NULL;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 #ifdef JCOM_IN_TILDE
@@ -246,7 +246,8 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	else if((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
 		x->attr_freeze = atom_getlong(argv+1);
 	
-	strcpy(namestring, "/");						// perhaps we could optimize this operation
+	if(argv->a_w.w_sym->s_name[0] != '/')
+		strcpy(namestring, "/");						// perhaps we could optimize this operation
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 
