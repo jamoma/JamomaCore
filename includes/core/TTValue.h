@@ -131,13 +131,13 @@ private:
 	/** Internal method for setting the type of a value. */
 	void setType(TTDataType arg);
 	
-	/** Internal method for setting the number of values, and allocating any needed memory. */	
-	void setNumValues(const TTUInt16 arg);
-
 	/** Performs a deep copy of the object */
 	inline void copy(const TTValue& obj);
 	
 public:
+	/** Internal method for setting the number of values, and allocating any needed memory. */	
+	void setNumValues(const TTUInt16 arg);
+	
 	TTValue& operator = (const TTValue &newValue);
 	
 	// FLOAT32
@@ -240,6 +240,8 @@ public:
 	void append(const TTSymbol* newValue);
 	void append(const TTObject& newValue);
 
+// TODO: implement this!	
+//	TTValue& operator [] (int)
 
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator == (const TTValue &a1, const TTValue &a2)
