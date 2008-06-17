@@ -76,8 +76,6 @@ void		param_output_none(void *z);
 void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 
-/** If the hub receives a bang, it's passed on to this method, and used to update value if @/ramp/drive is set to "async". */
-void		param_rampUpdate(t_param *x);
 void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);
 void		param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv);
@@ -133,11 +131,6 @@ void		param_reset(t_param *x);
 void		param_setcallback(t_param *x, method newCallback, t_object *callbackArg);
 t_max_err	param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv);
-void		param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-void		param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-void		param_getRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-void		param_setRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-
 
 // Defined in jcom.parameter.clip.c
 void 		param_clip_generic(t_param *x);
