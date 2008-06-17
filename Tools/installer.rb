@@ -117,10 +117,11 @@ cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/win-support\"")
 cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.zip")
 cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.dmg")
 
-puts "  Moving things around (framework, loader, templates, etc)..."
+puts "  Moving things around (frameworks, loader, templates, etc)..."
 cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-templates/\"* \"#{@max}/patches/templates\"")
 cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-overview.mxt\" \"#{@max}/patches/extras\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/Jamoma.framework\" \"#{@temp}/Library/Frameworks\"")
+cmd("mv \"#{@c74}/Jamoma/library/externals/TTBlue.framework\" \"#{@temp}/Library/Frameworks\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/extensions/\"")
 cmd("cp \"#{@c74}/Jamoma/*.maxdefaults\" \"#{@c74}/default-settings\"")
 cmd("cp \"#{@c74}/Jamoma/*.maxdefines\" \"#{@c74}/default-definitions\"")
