@@ -250,7 +250,7 @@ t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
 	else{
 		err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
 		if(!err){
-// FIXME: neeeds to remove from the hashtab!
+			hashtab_chuckkey(obj->hash_internals, gensym("mute"));
 			delete anObject;
 		}
 	}
@@ -273,8 +273,10 @@ t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	else{
 		err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
-		if(!err)
+		if(!err){
+			hashtab_chuckkey(obj->hash_internals, gensym("bypass"));
 			delete anObject;
+		}
 	}
 	return err;
 }
@@ -295,8 +297,10 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	else{
 		err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
-		if(!err)
+		if(!err){
+			hashtab_chuckkey(obj->hash_internals, gensym("mix"));
 			delete anObject;
+		}
 	}
 	return err;
 }
@@ -317,8 +321,10 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	else{
 		err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
-		if(!err)
+		if(!err){
+			hashtab_chuckkey(obj->hash_internals, gensym("gain"));
 			delete anObject;
+		}
 	}
 	return err;
 }
@@ -339,8 +345,10 @@ t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	else{
 		err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
-		if(!err)
+		if(!err){
+			hashtab_chuckkey(obj->hash_internals, gensym("freeze"));
 			delete anObject;
+		}
 	}
 	return err;
 }
@@ -361,8 +369,10 @@ t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
 	}
 	else{
 		err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
-		if(!err)
+		if(!err){
+			hashtab_chuckkey(obj->hash_internals, gensym("preview"));
 			delete anObject;
+		}
 	}
 	return err;
 }
