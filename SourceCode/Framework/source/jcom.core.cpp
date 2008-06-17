@@ -226,7 +226,7 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, bool de
 		(method)jcom_core_attr_setrange, (method)jcom_core_attr_getrange);
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
-	jamoma_class_attr_new(c, "repetitions", _sym_long, (method)jcom_core_attr_setrepetitions, (method)jcom_core_attr_getrepetitions);
+	jamoma_class_attr_new(c, "repetitions/allow", _sym_long, (method)jcom_core_attr_setrepetitions, (method)jcom_core_attr_getrepetitions);
 
 	// ATTRIBUTE: type 
 	// this is not defined here because some objects (i.e jcom.parameter) need to treat this in different ways
