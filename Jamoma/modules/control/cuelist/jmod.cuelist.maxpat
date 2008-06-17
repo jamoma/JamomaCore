@@ -252,7 +252,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "listen",
-					"text" : "jcom.parameter listen @type msg_toggle @repetitions 0 @description \"Listen to remote change of parameters.\"",
+					"text" : "jcom.parameter listen @type msg_toggle @repetitions/allow 0 @description \"Listen to remote change of parameters.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],

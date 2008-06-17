@@ -52,7 +52,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.message voices @type msg_int @repetitions 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
+					"text" : "jcom.message voices @type msg_int @repetitions/allow 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,

@@ -111,7 +111,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "destination/voices",
-					"text" : "jcom.parameter destination/voices @repetitions 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Number of speakers that signals are distributed to.\"",
+					"text" : "jcom.parameter destination/voices @repetitions/allow 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Number of speakers that signals are distributed to.\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -263,7 +263,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "destination/dimensions",
-					"text" : "jcom.parameter destination/dimensions @repetitions 0 @type msg_int @range/bounds 2 3 @range/clipmode both @description \"Dimension of the loudspeaker setup (2D or 3D).\"",
+					"text" : "jcom.parameter destination/dimensions @repetitions/allow 0 @type msg_int @range/bounds 2 3 @range/clipmode both @description \"Dimension of the loudspeaker setup (2D or 3D).\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -480,7 +480,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/voices",
-					"text" : "jcom.parameter source/voices @repetitions 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Number of incomming mono sources to pan.\"",
+					"text" : "jcom.parameter source/voices @repetitions/allow 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Number of incomming mono sources to pan.\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"hidden" : 1,

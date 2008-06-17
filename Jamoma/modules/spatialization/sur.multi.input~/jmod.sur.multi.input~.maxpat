@@ -338,7 +338,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "start",
-					"text" : "jcom.message start @type msg_float @repetitions 0 @description \"start time in soundfile to play in [ms]\"",
+					"text" : "jcom.message start @type msg_float @repetitions/allow 0 @description \"start time in soundfile to play in [ms]\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"hidden" : 1,
@@ -1343,7 +1343,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "play[1]",
-					"text" : "jcom.message pause @type msg_toggle @repetitions 0 @description \\\"Pause\\\"",
+					"text" : "jcom.message pause @type msg_toggle @repetitions/allow 0 @description \\\"Pause\\\"",
 					"fontsize" : 10.0,
 					"hidden" : 1,
 					"numinlets" : 1,
@@ -1627,7 +1627,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "play",
-					"text" : "jcom.message play @type msg_toggle @repetitions 0 @description \"starts playback\"",
+					"text" : "jcom.message play @type msg_toggle @repetitions/allow 0 @description \"starts playback\"",
 					"fontsize" : 10.0,
 					"hidden" : 1,
 					"numinlets" : 1,

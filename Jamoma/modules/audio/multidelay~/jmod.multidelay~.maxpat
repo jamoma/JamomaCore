@@ -128,7 +128,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "feedback[1]",
-					"text" : "jcom.parameter feedback @type msg_float @ramp/drive scheduler @repetitions 0 @range/clipmode both @range/bounds 0. 1. @range/clipmode both @description \"Amount of delay feedback.\"",
+					"text" : "jcom.parameter feedback @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/clipmode both @range/bounds 0. 1. @range/clipmode both @description \"Amount of delay feedback.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -614,7 +614,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "right[1]",
-					"text" : "jcom.parameter right @type msg_list @repetitions 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for right channel.\"",
+					"text" : "jcom.parameter right @type msg_list @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for right channel.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -734,7 +734,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "left[1]",
-					"text" : "jcom.parameter left @type msg_list @repetitions 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "jcom.parameter left @type msg_list @repetitions/allow 0 @ramp/drive none @range/bounds 0 10000 @range/clipmode low @description \"Delay time in milliseconds for left channel.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -827,7 +827,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "maxdelay",
-					"text" : "jcom.parameter maxdelay @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 10000 @range/clipmode low @description \"Max delay time in milliseconds.\"",
+					"text" : "jcom.parameter maxdelay @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode low @description \"Max delay time in milliseconds.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",

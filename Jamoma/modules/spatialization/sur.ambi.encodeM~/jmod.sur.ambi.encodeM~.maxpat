@@ -99,7 +99,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "center_radius",
-					"text" : "jcom.parameter center_radius @repetitions 0 @type msg_float @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
+					"text" : "jcom.parameter center_radius @repetitions/allow 0 @type msg_float @range/bounds 0.01 5. @range/clipmode low @description \"The radius (in meters) of the center circle where spatial information collapse to an omni signal as distance approaches zero.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -161,7 +161,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "db_drop_off",
-					"text" : "jcom.parameter db_drop_off @repetitions 0 @type msg_float @range/bounds 0 60 @range/clipmode both @description \"db drop off per meter.\"",
+					"text" : "jcom.parameter db_drop_off @repetitions/allow 0 @type msg_float @range/bounds 0 60 @range/clipmode both @description \"db drop off per meter.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -178,7 +178,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "order",
-					"text" : "jcom.parameter order @repetitions 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Order of encoding.\"",
+					"text" : "jcom.parameter order @repetitions/allow 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Order of encoding.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -389,7 +389,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.parameter voices @repetitions 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Number of mono sources to encode.\"",
+					"text" : "jcom.parameter voices @repetitions/allow 0 @type msg_int @range/bounds 1 16 @range/clipmode both @description \"Number of mono sources to encode.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,

@@ -168,7 +168,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.parameter.mxb[9]",
-					"text" : "jcom.message delay @ramp/drive scheduler @repetitions 1 @range/bounds 0 1000000 @description \"Delay time in samples to be applied to both channels.\"",
+					"text" : "jcom.message delay @ramp/drive scheduler @repetitions/allow 1 @range/bounds 0 1000000 @description \"Delay time in samples to be applied to both channels.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -249,7 +249,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "delay/right",
-					"text" : "jcom.parameter delay/right @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for right channel.\"",
+					"text" : "jcom.parameter delay/right @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for right channel.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -349,7 +349,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "delay/left",
-					"text" : "jcom.parameter delay/left @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for left channel.\"",
+					"text" : "jcom.parameter delay/left @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000000 @range/clipmode both @description \"Delay time in samples for left channel.\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,

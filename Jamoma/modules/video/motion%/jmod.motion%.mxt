@@ -48,7 +48,7 @@ max v2;
 #P objectname contraction/max/on;
 #P hidden newex 452 120 244 196617 jcom.parameter contraction/on @type msg_toggle @description "Turn local contraction box on or off.";
 #P objectname contraction/on;
-#P hidden newex 452 50 406 196617 jcom.parameter contraction/slide @type msg_float @range 0. 10. @range/clipmode low @description @repetitions 0  "The level of smoothing for contraction box.";
+#P hidden newex 452 50 406 196617 jcom.parameter contraction/slide @type msg_float @range 0. 10. @range/clipmode low @description @repetitions/allow/allow 0  "The level of smoothing for contraction box.";
 #P objectname contraction/slide;
 #P window linecount 1;
 #P hidden newex 94 348 58 196617 r jmod.init;

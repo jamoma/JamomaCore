@@ -474,7 +474,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"varname" : "foot/switch",
-													"text" : "jcom.parameter foot/switch @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Foot Pedal: Switch.\"",
+													"text" : "jcom.parameter foot/switch @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Foot Pedal: Switch.\"",
 													"linecount" : 2,
 													"patching_rect" : [ 46.0, 127.0, 336.0, 30.0 ],
 													"outlettype" : [ "", "", "" ],
@@ -714,7 +714,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"varname" : "button/4",
-													"text" : "jcom.parameter button/4 @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Button 4.\"",
+													"text" : "jcom.parameter button/4 @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Button 4.\"",
 													"linecount" : 2,
 													"patching_rect" : [ 46.0, 127.0, 301.0, 30.0 ],
 													"outlettype" : [ "", "", "" ],
@@ -954,7 +954,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"varname" : "button/2",
-													"text" : "jcom.parameter button/2 @type msg_toggle @repetitions 1 @ramp/drive none @description \"Button 2.\"",
+													"text" : "jcom.parameter button/2 @type msg_toggle @repetitions/allow 1 @ramp/drive none @description \"Button 2.\"",
 													"linecount" : 2,
 													"patching_rect" : [ 46.0, 127.0, 301.0, 30.0 ],
 													"outlettype" : [ "", "", "" ],
@@ -1429,7 +1429,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"varname" : "foot/control",
-													"text" : "jcom.parameter foot/control @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @ramp/drive scheduler @priority 1 @description \"Foot Pedal: Continuous Controller.\"",
+													"text" : "jcom.parameter foot/control @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Foot Pedal: Continuous Controller.\"",
 													"linecount" : 3,
 													"patching_rect" : [ 46.0, 127.0, 346.0, 42.0 ],
 													"outlettype" : [ "", "", "" ],
@@ -1695,7 +1695,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"varname" : "button/3",
-													"text" : "jcom.parameter button/3 @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Button 3.\"",
+													"text" : "jcom.parameter button/3 @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Button 3.\"",
 													"linecount" : 2,
 													"patching_rect" : [ 46.0, 127.0, 301.0, 30.0 ],
 													"outlettype" : [ "", "", "" ],
@@ -1935,7 +1935,7 @@
 												"box" : 												{
 													"maxclass" : "newobj",
 													"varname" : "button/1",
-													"text" : "jcom.parameter button/1 @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Button 1.\"",
+													"text" : "jcom.parameter button/1 @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Button 1.\"",
 													"linecount" : 2,
 													"patching_rect" : [ 46.0, 127.0, 301.0, 30.0 ],
 													"outlettype" : [ "", "", "" ],

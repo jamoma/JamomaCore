@@ -776,7 +776,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "saturation/depth",
-					"text" : "jcom.parameter saturation/depth @ramp/drive scheduler @repetitions 0 @type msg_float @range/bounds 0 99 @range/clipmode both @description \"Saturation: Depth.\"",
+					"text" : "jcom.parameter saturation/depth @ramp/drive scheduler @repetitions/allow 0 @type msg_float @range/bounds 0 99 @range/clipmode both @description \"Saturation: Depth.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",

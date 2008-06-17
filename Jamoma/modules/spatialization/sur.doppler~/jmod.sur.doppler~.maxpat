@@ -76,7 +76,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "meters_per_unit",
-					"text" : "jcom.parameter meters_per_unit @type msg_float @repetitions 0 @range/bounds 0. 10. @range/clipmode low @description \"Meters per unit lengt as provided by the /aed messages.\"",
+					"text" : "jcom.parameter meters_per_unit @type msg_float @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode low @description \"Meters per unit lengt as provided by the /aed messages.\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 10.0,
@@ -302,7 +302,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.parameter voices @type msg_int @repetitions 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter voices @type msg_int @repetitions/allow 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 10.0,

@@ -84,7 +84,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "sample_rate[1]",
-					"text" : "jcom.parameter sample_rate @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds -1 1000 @range/clipmode low @description \"Sample rate in ms\"",
+					"text" : "jcom.parameter sample_rate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1 1000 @range/clipmode low @description \"Sample rate in ms\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],

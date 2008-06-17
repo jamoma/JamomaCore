@@ -237,7 +237,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "max_bands",
-									"text" : "jcom.parameter max_bands @type msg_int @repetitions 0 @ramp/drive none @description \"Maximum Number of bands of the filter\"",
+									"text" : "jcom.parameter max_bands @type msg_int @repetitions/allow 0 @ramp/drive none @description \"Maximum Number of bands of the filter\"",
 									"linecount" : 3,
 									"fontsize" : 9.873845,
 									"patching_rect" : [ 405.0, 238.0, 272.0, 42.0 ],
@@ -536,7 +536,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "bands",
-					"text" : "jcom.parameter bands @type msg_int @repetitions 0 @description \"Number of bands of the filter\"",
+					"text" : "jcom.parameter bands @type msg_int @repetitions/allow 0 @description \"Number of bands of the filter\"",
 					"linecount" : 2,
 					"fontsize" : 9.873845,
 					"patching_rect" : [ 586.0, 98.0, 266.0, 30.0 ],

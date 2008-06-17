@@ -48,7 +48,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "randomness",
-					"text" : "jcom.parameter randomness @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 5000 @range/clipmode low @description \"Defines a range of randomness in milliseconds to be applied to the metro interval\"",
+					"text" : "jcom.parameter randomness @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 5000 @range/clipmode low @description \"Defines a range of randomness in milliseconds to be applied to the metro interval\"",
 					"linecount" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 435.0, 155.0, 426.0, 43.0 ],
@@ -246,7 +246,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "time",
-					"text" : "jcom.parameter time @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 1 5000 @range/clipmode low @dataspace time @unit/native ms @description \"Metro interval (ms)\"",
+					"text" : "jcom.parameter time @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 5000 @range/clipmode low @dataspace time @dataspace/unit/native ms @description \"Metro interval (ms)\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 435.0, 90.0, 519.0, 31.0 ],
@@ -346,7 +346,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "toggle",
-					"text" : "jcom.parameter toggle @type msg_toggle @ramp/drive none @repetitions 0 @range/bounds 0 1 @range/clipmode both @description \"Toggle qmetro on/off\"",
+					"text" : "jcom.parameter toggle @type msg_toggle @ramp/drive none @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Toggle qmetro on/off\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 435.0, 25.0, 415.0, 31.0 ],

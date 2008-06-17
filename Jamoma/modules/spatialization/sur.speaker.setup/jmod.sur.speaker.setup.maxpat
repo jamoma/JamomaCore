@@ -1805,7 +1805,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.parameter voices @repetitions 0 @type msg_int @range 0 32 @range/clipmode both @priority 1 @description \"Number of voices to transmit.\"",
+					"text" : "jcom.parameter voices @repetitions/allow 0 @type msg_int @range 0 32 @range/clipmode both @priority 1 @description \"Number of voices to transmit.\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 9.0,

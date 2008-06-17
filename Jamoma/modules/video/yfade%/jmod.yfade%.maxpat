@@ -298,7 +298,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "yfade",
-					"text" : "jcom.parameter yfade @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade switch\"",
+					"text" : "jcom.parameter yfade @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade switch\"",
 					"linecount" : 2,
 					"fontsize" : 9.873845,
 					"outlettype" : [ "", "", "" ],

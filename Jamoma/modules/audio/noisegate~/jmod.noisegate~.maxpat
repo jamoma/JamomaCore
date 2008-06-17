@@ -250,7 +250,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "threshold",
-					"text" : "jcom.parameter threshold @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds -90 24 @range/clipmode both @description \"The threshold sets the level at which the Noise Gate opens and closes..\"",
+					"text" : "jcom.parameter threshold @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -90 24 @range/clipmode both @description \"The threshold sets the level at which the Noise Gate opens and closes..\"",
 					"linecount" : 3,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -283,7 +283,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "release",
-					"text" : "jcom.parameter release @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 1000 @range/clipmode both @description \"When the gate closes, this parameter sets how many milliseconds it will take to fade out.\"",
+					"text" : "jcom.parameter release @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode both @description \"When the gate closes, this parameter sets how many milliseconds it will take to fade out.\"",
 					"linecount" : 3,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -353,7 +353,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "attack",
-					"text" : "jcom.parameter attack @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 1000 @range/clipmode low @description \"When the gate opens, this parameter sets how many milliseconds it will take to fade in.\"",
+					"text" : "jcom.parameter attack @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1000 @range/clipmode low @description \"When the gate opens, this parameter sets how many milliseconds it will take to fade in.\"",
 					"linecount" : 3,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -797,7 +797,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "lookahead",
-					"text" : "jcom.parameter lookahead @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 100 @range/clipmode low @description \"How many samples to look ahead while monitoring incoming signal.\"",
+					"text" : "jcom.parameter lookahead @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 100 @range/clipmode low @description \"How many samples to look ahead while monitoring incoming signal.\"",
 					"linecount" : 3,
 					"numinlets" : 1,
 					"fontname" : "Verdana",

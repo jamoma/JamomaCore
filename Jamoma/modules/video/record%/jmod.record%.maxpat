@@ -481,7 +481,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "framerate",
-					"text" : "jcom.parameter framerate @type msg_float @ramp/drive none @repetitions 0 @range/bounds 1. 25 @range/clipmode low @description Framerate.",
+					"text" : "jcom.parameter framerate @type msg_float @ramp/drive none @repetitions/allow 0 @range/bounds 1. 25 @range/clipmode low @description Framerate.",
 					"linecount" : 2,
 					"id" : "obj-21",
 					"numinlets" : 1,

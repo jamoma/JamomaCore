@@ -310,7 +310,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "xfade[1]",
-					"text" : "jcom.parameter xfade @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade value\"",
+					"text" : "jcom.parameter xfade @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Crossfade value\"",
 					"linecount" : 2,
 					"fontsize" : 9.873845,
 					"outlettype" : [ "", "", "" ],

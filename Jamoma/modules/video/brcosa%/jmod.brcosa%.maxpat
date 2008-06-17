@@ -553,7 +553,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "saturation[1]",
-					"text" : "jcom.parameter saturation @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 4. @range/clipmode none @description \"Saturation of image - 1 is default\"",
+					"text" : "jcom.parameter saturation @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Saturation of image - 1 is default\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontname" : "Verdana",
@@ -690,7 +690,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "contrast[1]",
-					"text" : "jcom.parameter contrast @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 4. @range/clipmode none @description \"Contrast of image - 1 is default\"",
+					"text" : "jcom.parameter contrast @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Contrast of image - 1 is default\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontname" : "Verdana",
@@ -706,7 +706,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "brightness[1]",
-					"text" : "jcom.parameter brightness @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 4. @range/clipmode none @description \"Brightness of image - 1 is default\"",
+					"text" : "jcom.parameter brightness @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 4. @range/clipmode none @description \"Brightness of image - 1 is default\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontname" : "Verdana",

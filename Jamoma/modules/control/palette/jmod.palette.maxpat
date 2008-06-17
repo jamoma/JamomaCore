@@ -149,7 +149,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "random/step_size",
-					"text" : "jcom.parameter random/step_size @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
+					"text" : "jcom.parameter random/step_size @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description \"Set how much next color can deviate from the current when random mode is walk.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
@@ -195,7 +195,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "interpolate/step_size",
-					"text" : "jcom.parameter interpolate/step_size @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions 1 @description \"Step size when interpolating.\"",
+					"text" : "jcom.parameter interpolate/step_size @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Step size when interpolating.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],

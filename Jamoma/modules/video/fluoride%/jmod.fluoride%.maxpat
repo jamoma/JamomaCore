@@ -466,7 +466,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "glow",
-					"text" : "jcom.parameter glow @type msg_list @repetitions 0 @description \"Specify the red green and blue components for the glowing color. The range for each component should be between 0.0 and 1.0.\"",
+					"text" : "jcom.parameter glow @type msg_list @repetitions/allow 0 @description \"Specify the red green and blue components for the glowing color. The range for each component should be between 0.0 and 1.0.\"",
 					"linecount" : 3,
 					"outlettype" : [ "", "", "" ],
 					"fontname" : "Verdana",

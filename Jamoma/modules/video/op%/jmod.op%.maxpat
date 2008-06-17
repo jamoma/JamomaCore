@@ -111,7 +111,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "op_value",
-					"text" : "jcom.parameter op_value @type msg_float @ramp/drive scheduler @repetitions 0 @description \"Number to associate with operation.\"",
+					"text" : "jcom.parameter op_value @type msg_float @ramp/drive scheduler @repetitions/allow 0 @description \"Number to associate with operation.\"",
 					"linecount" : 2,
 					"id" : "obj-7",
 					"numinlets" : 1,

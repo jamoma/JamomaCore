@@ -136,7 +136,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "preamp",
-					"text" : "jcom.parameter preamp @ramp/drive scheduler @repetitions 0 @type msg_float @range/bounds -12 48 @range/clipmode none @description \"Preamp (dB).\"",
+					"text" : "jcom.parameter preamp @ramp/drive scheduler @repetitions/allow 0 @type msg_float @range/bounds -12 48 @range/clipmode none @description \"Preamp (dB).\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -229,7 +229,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "depth",
-					"text" : "jcom.parameter depth @ramp/drive scheduler @repetitions 0 @type msg_float @range/bounds 0 99 @range/clipmode both @description \"Saturation: Depth.\"",
+					"text" : "jcom.parameter depth @ramp/drive scheduler @repetitions/allow 0 @type msg_float @range/bounds 0 99 @range/clipmode both @description \"Saturation: Depth.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",

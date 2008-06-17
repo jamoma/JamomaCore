@@ -841,7 +841,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "angle[1]",
-					"text" : "jcom.parameter angle @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 90 @range/clipmode none @description \"Rotate image - in degrees\"",
+					"text" : "jcom.parameter angle @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 90 @range/clipmode none @description \"Rotate image - in degrees\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontsize" : 9.873845,
@@ -857,7 +857,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "offset_y",
-					"text" : "jcom.parameter offset_y @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in Y-direction\"",
+					"text" : "jcom.parameter offset_y @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in Y-direction\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontsize" : 9.873845,
@@ -1010,7 +1010,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "offset_x",
-					"text" : "jcom.parameter offset_x @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in X-direction\"",
+					"text" : "jcom.parameter offset_x @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds -1000 1000 @range/clipmode none @description \"Offset image in X-direction\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontsize" : 9.873845,
@@ -1156,7 +1156,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "zoom[1]",
-					"text" : "jcom.parameter zoom @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom in the image\"",
+					"text" : "jcom.parameter zoom @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 10. @range/clipmode none @description \"Zoom in the image\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontsize" : 9.873845,

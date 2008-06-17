@@ -896,7 +896,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "aux3/gain",
-					"text" : "jcom.parameter.gain aux3/gain @repetitions 0 @description \"gain of the input cable applied to all aux bus 3\"",
+					"text" : "jcom.parameter.gain aux3/gain @repetitions/allow 0 @description \"gain of the input cable applied to all aux bus 3\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"numinlets" : 1,
@@ -928,7 +928,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "aux2/gain",
-					"text" : "jcom.parameter.gain aux2/gain @repetitions 0 @description \"gain of the input cable applied to aux bus 2\"",
+					"text" : "jcom.parameter.gain aux2/gain @repetitions/allow 0 @description \"gain of the input cable applied to aux bus 2\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"numinlets" : 1,
@@ -960,7 +960,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "aux1/gain",
-					"text" : "jcom.parameter.gain aux1/gain @repetitions 0 @description \"gain of the input cable applied to aux bus 1\"",
+					"text" : "jcom.parameter.gain aux1/gain @repetitions/allow 0 @description \"gain of the input cable applied to aux bus 1\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"numinlets" : 1,
@@ -1398,7 +1398,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "input/gain",
-					"text" : "jcom.parameter.gain input/gain @repetitions 0 @description \"gain of the input cable applied to all aux busses\"",
+					"text" : "jcom.parameter.gain input/gain @repetitions/allow 0 @description \"gain of the input cable applied to all aux busses\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"numinlets" : 1,
@@ -1664,7 +1664,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.parameter voices @type msg_int @repetitions 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels in that multi~ cable. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter voices @type msg_int @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels in that multi~ cable. Changes only take effect when audio is off.\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"numinlets" : 1,

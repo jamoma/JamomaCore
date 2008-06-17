@@ -345,7 +345,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message my_message @repetitions 1 @type msg_int @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both",
+					"text" : "jcom.message my_message @repetitions/allow 1 @type msg_int @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both",
 					"linecount" : 2,
 					"patching_rect" : [ 460.0, 127.0, 368.0, 30.0 ],
 					"outlettype" : [ "", "", "" ],
@@ -570,7 +570,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.parameter",
-					"text" : "jcom.parameter my_parameter @repetitions 1 @type msg_int @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both",
+					"text" : "jcom.parameter my_parameter @repetitions/allow 1 @type msg_int @ramp/drive scheduler @range/bounds 0 40000 @range/clipmode both",
 					"linecount" : 2,
 					"patching_rect" : [ 458.0, 47.0, 368.0, 30.0 ],
 					"outlettype" : [ "", "", "" ],

@@ -331,7 +331,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "port",
-					"text" : "jcom.parameter port @repetitions 0 @type msg_int @description \"port number for this multicast core\"",
+					"text" : "jcom.parameter port @repetitions/allow 0 @type msg_int @description \"port number for this multicast core\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],

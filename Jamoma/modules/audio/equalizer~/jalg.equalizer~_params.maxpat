@@ -282,7 +282,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "sprintf script new freq_param newex 466 358 300 9 jcom.parameter filter_freq/%ld @type msg_float @range 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions 0 @description \"Center frequency (Hz)\"",
+									"text" : "sprintf script new freq_param newex 466 358 300 9 jcom.parameter filter_freq/%ld @type msg_float @range 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
 									"linecount" : 3,
 									"fontsize" : 9.0,
 									"patching_rect" : [ 95.0, 540.0, 327.0, 38.0 ],
@@ -354,7 +354,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "sprintf script new gain_param newex 466 295 300 9 jcom.parameter filter_gain/%ld @type msg_float @range -24 24 @range/clipmode both @ramp/drive scheduler @repetitions 0 @description \"Gain (dB)\"",
+									"text" : "sprintf script new gain_param newex 466 295 300 9 jcom.parameter filter_gain/%ld @type msg_float @range -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
 									"linecount" : 3,
 									"fontsize" : 9.0,
 									"patching_rect" : [ 95.0, 385.0, 326.0, 38.0 ],
@@ -426,7 +426,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "sprintf script new Q_param newex 466 236 300 9 jcom.parameter filter_Q/%ld @type msg_float @ramp/drive scheduler @range 0. 100. @range/clipmode both @repetitions 0 @description \"Resonance (Q)\"",
+									"text" : "sprintf script new Q_param newex 466 236 300 9 jcom.parameter filter_Q/%ld @type msg_float @ramp/drive scheduler @range 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
 									"linecount" : 3,
 									"fontsize" : 9.0,
 									"patching_rect" : [ 95.0, 225.0, 314.0, 38.0 ],

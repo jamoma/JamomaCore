@@ -258,7 +258,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "feedback",
-					"text" : "jcom.parameter feedback @type msg_float @ramp/drive scheduler @repetitions 0 @range/bounds 0. 1. @range/clipmode both @description Feedback.",
+					"text" : "jcom.parameter feedback @type msg_float @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0. 1. @range/clipmode both @description Feedback.",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"patching_rect" : [ 18.0, 265.0, 417.0, 31.0 ],
@@ -288,7 +288,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "right",
-					"text" : "jcom.parameter right @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\"",
+					"text" : "jcom.parameter right @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for right channel.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"patching_rect" : [ 18.0, 184.0, 396.0, 43.0 ],
@@ -987,7 +987,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "filtertype",
-					"text" : "jcom.parameter filtertype @type msg_symbol @repetitions 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
+					"text" : "jcom.parameter filtertype @type msg_symbol @repetitions/allow 0 @description \"What kind of filter to use. Possible values: lowpass | highpass | bandpass | bandstop | peaknotch | lowshelf | highshelf\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"patching_rect" : [ 458.0, 110.0, 349.0, 43.0 ],
@@ -1003,7 +1003,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "filtergain",
-					"text" : "jcom.parameter filtergain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions 0 @description \"Gain (dB)\"",
+					"text" : "jcom.parameter filtergain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"patching_rect" : [ 550.0, 296.0, 441.0, 31.0 ],
@@ -1019,7 +1019,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "q",
-					"text" : "jcom.parameter q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions 0 @description \"Resonance (Q)\"",
+					"text" : "jcom.parameter q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"patching_rect" : [ 549.0, 252.0, 395.0, 31.0 ],
@@ -1035,7 +1035,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "cf",
-					"text" : "jcom.parameter cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions 0 @description \"Center frequency (Hz)\"",
+					"text" : "jcom.parameter cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"patching_rect" : [ 549.0, 336.0, 427.0, 31.0 ],
@@ -1201,7 +1201,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "left",
-					"text" : "jcom.parameter left @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
+					"text" : "jcom.parameter left @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 10000 @range/clipmode both @description \"Delay time in milliseconds for left channel.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"patching_rect" : [ 23.0, 100.0, 397.0, 43.0 ],

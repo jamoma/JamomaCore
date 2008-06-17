@@ -170,7 +170,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "offset[1]",
-					"text" : "jcom.parameter remove_dc @type msg_toggle @repetitions 1 @description \"Removes DC components from the signals. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter remove_dc @type msg_toggle @repetitions/allow 1 @description \"Removes DC components from the signals. Changes only take effect when audio is off.\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -246,7 +246,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "offset",
-					"text" : "jcom.parameter offset @type msg_int @repetitions 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for the multicable. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter offset @type msg_int @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for the multicable. Changes only take effect when audio is off.\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -2008,7 +2008,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.parameter voices @type msg_int @repetitions 1 @range/bounds 2 32 @range/clipmode both @description \"Set number of output channels to use. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter voices @type msg_int @repetitions/allow 1 @range/bounds 2 32 @range/clipmode both @description \"Set number of output channels to use. Changes only take effect when audio is off.\"",
 					"linecount" : 2,
 					"fontsize" : 9.0,
 					"hidden" : 1,

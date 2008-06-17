@@ -140,7 +140,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.parameter.mxb",
-					"text" : "jcom.parameter range @range/bounds 0 100 @range/clipmode low @repetitions 0 @type msg_float @description \"range of values above and below the zero line to display.\"",
+					"text" : "jcom.parameter range @range/bounds 0 100 @range/clipmode low @repetitions/allow 0 @type msg_float @description \"range of values above and below the zero line to display.\"",
 					"linecount" : 2,
 					"id" : "obj-9",
 					"outlettype" : [ "", "", "" ],

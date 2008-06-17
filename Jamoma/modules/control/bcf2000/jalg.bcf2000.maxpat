@@ -493,7 +493,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/key/lower",
-									"text" : "jcom.parameter #2/key/lower @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Upper key.\"",
+									"text" : "jcom.parameter #2/key/lower @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Upper key.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -811,7 +811,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/key/upper",
-									"text" : "jcom.parameter #2/key/upper @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Upper key.\"",
+									"text" : "jcom.parameter #2/key/upper @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Upper key.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -1129,7 +1129,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/4/press",
-									"text" : "jcom.parameter #2/push_encoder/4/press @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
+									"text" : "jcom.parameter #2/push_encoder/4/press @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -1447,7 +1447,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/3/press",
-									"text" : "jcom.parameter #2/push_encoder/3/press @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
+									"text" : "jcom.parameter #2/push_encoder/3/press @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -1765,7 +1765,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/2/press",
-									"text" : "jcom.parameter #2/push_encoder/2/press @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
+									"text" : "jcom.parameter #2/push_encoder/2/press @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -2083,7 +2083,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/1/press",
-									"text" : "jcom.parameter #2/push_encoder/1/press @type msg_toggle @repetitions 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
+									"text" : "jcom.parameter #2/push_encoder/1/press @type msg_toggle @repetitions/allow 1 @ramp/drive none @priority 1 @description \"Push encoder pressed.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -2401,7 +2401,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/4/turn",
-									"text" : "jcom.parameter #2/push_encoder/4/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
+									"text" : "jcom.parameter #2/push_encoder/4/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -2719,7 +2719,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/3/turn",
-									"text" : "jcom.parameter #2/push_encoder/3/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
+									"text" : "jcom.parameter #2/push_encoder/3/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -3037,7 +3037,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/2/turn",
-									"text" : "jcom.parameter #2/push_encoder/2/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
+									"text" : "jcom.parameter #2/push_encoder/2/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -3355,7 +3355,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/push_encoder/1/turn",
-									"text" : "jcom.parameter #2/push_encoder/1/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
+									"text" : "jcom.parameter #2/push_encoder/1/turn @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Push encoder turn.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,
@@ -3673,7 +3673,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/fader",
-									"text" : "jcom.parameter #2/fader @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @ramp/drive scheduler @priority 1 @description \"Fader.\"",
+									"text" : "jcom.parameter #2/fader @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @priority 1 @description \"Fader.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "", "" ],
 									"fontsize" : 9.873845,

@@ -103,7 +103,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/rotary/upper",
-									"text" : "jcom.return #2/rotary/lower @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @description \"Lower rotary control.\"",
+									"text" : "jcom.return #2/rotary/lower @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @description \"Lower rotary control.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "" ],
 									"fontsize" : 9.873845,
@@ -275,7 +275,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/rotary/upper",
-									"text" : "jcom.return #2/rotary/middle @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @description \"Middle rotary control.\"",
+									"text" : "jcom.return #2/rotary/middle @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @description \"Middle rotary control.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "" ],
 									"fontsize" : 9.873845,
@@ -546,7 +546,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/rotary/upper",
-									"text" : "jcom.return #2/rotary/upper @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @description \"Upper rotary control.\"",
+									"text" : "jcom.return #2/rotary/upper @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @description \"Upper rotary control.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "" ],
 									"fontsize" : 9.873845,
@@ -718,7 +718,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "#2/fader",
-									"text" : "jcom.return #2/fader @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions 1 @description \"Fader.\"",
+									"text" : "jcom.return #2/fader @type msg_int @range/bounds 0 127 @range/clipmode both @repetitions/allow 1 @description \"Fader.\"",
 									"linecount" : 2,
 									"outlettype" : [ "", "" ],
 									"fontsize" : 9.873845,

@@ -699,7 +699,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "r/gain",
-									"text" : "jcom.parameter r/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter r/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -715,7 +715,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "w/gain",
-									"text" : "jcom.parameter w/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 1 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter w/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 1 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -731,7 +731,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "x/gain",
-									"text" : "jcom.parameter x/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter x/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -747,7 +747,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "y/gain",
-									"text" : "jcom.parameter y/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter y/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -763,7 +763,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "z/gain",
-									"text" : "jcom.parameter z/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter z/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -779,7 +779,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "s/gain",
-									"text" : "jcom.parameter s/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter s/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -795,7 +795,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "t/gain",
-									"text" : "jcom.parameter t/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter t/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -811,7 +811,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "u/gain",
-									"text" : "jcom.parameter u/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter u/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -827,7 +827,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "v/gain",
-									"text" : "jcom.parameter v/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter v/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -843,7 +843,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "k/gain",
-									"text" : "jcom.parameter k/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter k/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -859,7 +859,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "l/gain",
-									"text" : "jcom.parameter l/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter l/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -875,7 +875,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "m/gain",
-									"text" : "jcom.parameter m/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter m/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -891,7 +891,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "n/gain",
-									"text" : "jcom.parameter n/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter n/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -907,7 +907,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "o/gain",
-									"text" : "jcom.parameter o/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter o/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -923,7 +923,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "p/gain",
-									"text" : "jcom.parameter p/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter p/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -939,7 +939,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "q/gain",
-									"text" : "jcom.parameter q/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
+									"text" : "jcom.parameter q/gain @type msg_float @range/bounds -24 24 @range/clipmode both @repetitions/allow 0 @ramp/drive scheduler @description \"Adjustment of volum for Nth component of ambisonic signal.\"",
 									"linecount" : 2,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
@@ -1420,7 +1420,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "order",
-					"text" : "jcom.parameter order @type msg_int @range/bounds 1 3 @range/clipmode both @repetitions 1 @description \"Ambisonic order. Note: Order is only updated when audio is not running.\"",
+					"text" : "jcom.parameter order @type msg_int @range/bounds 1 3 @range/clipmode both @repetitions/allow 1 @description \"Ambisonic order. Note: Order is only updated when audio is not running.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"fontsize" : 10.0,

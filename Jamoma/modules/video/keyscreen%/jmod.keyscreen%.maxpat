@@ -272,7 +272,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "key/blue",
-					"text" : "jcom.parameter key/blue @repetitions 0 @type msg_float @range/bounds 0. 1. @description \"blue level of the chromakey\"",
+					"text" : "jcom.parameter key/blue @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @description \"blue level of the chromakey\"",
 					"linecount" : 2,
 					"id" : "obj-17",
 					"numinlets" : 1,
@@ -288,7 +288,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "key/green",
-					"text" : "jcom.parameter key/green @repetitions 0 @type msg_float @range/bounds 0. 1. @description \"green level of the chromakey\"",
+					"text" : "jcom.parameter key/green @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @description \"green level of the chromakey\"",
 					"linecount" : 2,
 					"id" : "obj-19",
 					"numinlets" : 1,
@@ -304,7 +304,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "key/red",
-					"text" : "jcom.parameter key/red @repetitions 0 @type msg_float @range/bounds 0. 1. @description \"red level of the chromakey\"",
+					"text" : "jcom.parameter key/red @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @description \"red level of the chromakey\"",
 					"linecount" : 2,
 					"id" : "obj-21",
 					"numinlets" : 1,
@@ -577,7 +577,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mode",
-					"text" : "jcom.parameter mode @repetitions 0 @type msg_toggle @range/bounds 0 1 @description \"keying mode\"",
+					"text" : "jcom.parameter mode @repetitions/allow 0 @type msg_toggle @range/bounds 0 1 @description \"keying mode\"",
 					"linecount" : 2,
 					"id" : "obj-41",
 					"numinlets" : 1,
@@ -593,7 +593,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "mask[1]",
-					"text" : "jcom.parameter mask @repetitions 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"input used as mask\"",
+					"text" : "jcom.parameter mask @repetitions/allow 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"input used as mask\"",
 					"linecount" : 2,
 					"id" : "obj-43",
 					"numinlets" : 1,
@@ -609,7 +609,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "target[1]",
-					"text" : "jcom.parameter target @repetitions 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"input used as target\"",
+					"text" : "jcom.parameter target @repetitions/allow 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"input used as target\"",
 					"linecount" : 2,
 					"id" : "obj-45",
 					"numinlets" : 1,
@@ -625,7 +625,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "key[1]",
-					"text" : "jcom.parameter key @repetitions 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"input used as key\"",
+					"text" : "jcom.parameter key @repetitions/allow 0 @type msg_int @range/bounds 1 3 @range/clipmode both @description \"input used as key\"",
 					"linecount" : 3,
 					"id" : "obj-47",
 					"numinlets" : 1,
@@ -712,7 +712,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "tolerance",
-					"text" : "jcom.parameter tolerance @repetitions 0 @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Tolerance of the chromakey\"",
+					"text" : "jcom.parameter tolerance @repetitions/allow 0 @type msg_float @range/bounds 0. 1. @range/clipmode both @description \"Tolerance of the chromakey\"",
 					"linecount" : 2,
 					"id" : "obj-54",
 					"numinlets" : 1,

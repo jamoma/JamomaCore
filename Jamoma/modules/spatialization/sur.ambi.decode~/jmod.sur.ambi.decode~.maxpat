@@ -395,7 +395,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "third",
-					"text" : "jcom.parameter third @type msg_float @repetitions 0 @range/bounds 0. 2. @range/clipmode both @description \"Third order weight (KLMNOPQ).\"",
+					"text" : "jcom.parameter third @type msg_float @repetitions/allow 0 @range/bounds 0. 2. @range/clipmode both @description \"Third order weight (KLMNOPQ).\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -412,7 +412,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "second",
-					"text" : "jcom.parameter second @type msg_float @repetitions 0 @range/bounds 0. 2. @range/clipmode both @description \"Second order weight (RSTUV).\"",
+					"text" : "jcom.parameter second @type msg_float @repetitions/allow 0 @range/bounds 0. 2. @range/clipmode both @description \"Second order weight (RSTUV).\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -429,7 +429,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "first",
-					"text" : "jcom.parameter first @type msg_float @repetitions 0 @range/bounds 0. 2. @range/clipmode both @description \"First order weight (XYZ).\"",
+					"text" : "jcom.parameter first @type msg_float @repetitions/allow 0 @range/bounds 0. 2. @range/clipmode both @description \"First order weight (XYZ).\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -446,7 +446,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "omni",
-					"text" : "jcom.parameter omni @type msg_float @repetitions 0 @range/bounds 0. 2. @range/clipmode both @description \"Zeroth order weight (W).\"",
+					"text" : "jcom.parameter omni @type msg_float @repetitions/allow 0 @range/bounds 0. 2. @range/clipmode both @description \"Zeroth order weight (W).\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -676,7 +676,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "order",
-					"text" : "jcom.parameter order @type msg_int @repetitions 0 @range/bounds 1 3 @range/clipmode both @description \"Order of decoding for ambisonic signal.  Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter order @type msg_int @repetitions/allow 0 @range/bounds 1 3 @range/clipmode both @description \"Order of decoding for ambisonic signal.  Changes only take effect when audio is off.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
@@ -722,7 +722,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.parameter voices @type msg_int @repetitions 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter voices @type msg_int @repetitions/allow 0 @range/bounds 1 32 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,

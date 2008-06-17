@@ -144,7 +144,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "reverb[1]",
-					"text" : "jcom.parameter reverb @type msg_toggle @ramp/drive scheduler @repetitions 0 @range/bounds 0 1 @range/clipmode both @description \"Turn on reverb.\"",
+					"text" : "jcom.parameter reverb @type msg_toggle @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Turn on reverb.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -177,7 +177,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "chorus[1]",
-					"text" : "jcom.parameter chorus @type msg_toggle @ramp/drive scheduler @repetitions 0 @range/bounds 0 1 @range/clipmode both @description \"Turn on chorus.\"",
+					"text" : "jcom.parameter chorus @type msg_toggle @ramp/drive scheduler @repetitions/allow 0 @range/bounds 0 1 @range/clipmode both @description \"Turn on chorus.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",

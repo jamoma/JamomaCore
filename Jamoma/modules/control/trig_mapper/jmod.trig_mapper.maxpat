@@ -289,7 +289,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "wait_time",
-					"text" : "jcom.parameter wait_time @repetitions 1 @type msg_float @description \"Wait time before sending the output data\"",
+					"text" : "jcom.parameter wait_time @repetitions/allow 1 @type msg_float @description \"Wait time before sending the output data\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -305,7 +305,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "repeat_time",
-					"text" : "jcom.parameter repeat_time @repetitions 1 @type msg_float @description \"minimum time between two repetitions\"",
+					"text" : "jcom.parameter repeat_time @repetitions/allow 1 @type msg_float @description \"minimum time between two repetitions\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -810,7 +810,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_in_action[1]",
-					"text" : "jcom.parameter module_in_action @repetitions 1 @type msg_int @description \"Destination module of the mapping\"",
+					"text" : "jcom.parameter module_in_action @repetitions/allow 1 @type msg_int @description \"Destination module of the mapping\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -840,7 +840,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "in_value[1]",
-					"text" : "jcom.parameter in_value @repetitions 1 @type msg_float @description \"Message sent to output\"",
+					"text" : "jcom.parameter in_value @repetitions/allow 1 @type msg_float @description \"Message sent to output\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -856,7 +856,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "in_message[1]",
-					"text" : "jcom.parameter in_message @repetitions 1 @type msg_generic @description \"Message sent to output\"",
+					"text" : "jcom.parameter in_message @repetitions/allow 1 @type msg_generic @description \"Message sent to output\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -872,7 +872,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_out_action[1]",
-					"text" : "jcom.parameter module_out_action @repetitions 1 @type msg_int @description \"Destination module of the mapping\"",
+					"text" : "jcom.parameter module_out_action @repetitions/allow 1 @type msg_int @description \"Destination module of the mapping\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -902,7 +902,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "out_value[1]",
-					"text" : "jcom.parameter out_value @repetitions 1 @type msg_float @description \"value sent to output\"",
+					"text" : "jcom.parameter out_value @repetitions/allow 1 @type msg_float @description \"value sent to output\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -918,7 +918,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "out_message[1]",
-					"text" : "jcom.parameter out_message @repetitions 1 @type msg_generic @description \"Message sent to output\"",
+					"text" : "jcom.parameter out_message @repetitions/allow 1 @type msg_generic @description \"Message sent to output\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1005,7 +1005,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_in_function",
-					"text" : "jcom.parameter module_in_function @repetitions 1 @type msg_symbol @description \"Source module function of the mapping\" @priority 5",
+					"text" : "jcom.parameter module_in_function @repetitions/allow 1 @type msg_symbol @description \"Source module function of the mapping\" @priority 5",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1021,7 +1021,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_out_function",
-					"text" : "jcom.parameter module_out_function @repetitions 1 @type msg_symbol @description \"Destination function of the mapping\" @priority 6",
+					"text" : "jcom.parameter module_out_function @repetitions/allow 1 @type msg_symbol @description \"Destination function of the mapping\" @priority 6",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1077,7 +1077,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_in_nr",
-					"text" : "jcom.parameter module_in_nr @repetitions 1 @type msg_int @description \"Source module instance of the mapping\" @priority 2",
+					"text" : "jcom.parameter module_in_nr @repetitions/allow 1 @type msg_int @description \"Source module instance of the mapping\" @priority 2",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1093,7 +1093,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_in[1]",
-					"text" : "jcom.parameter module_in @repetitions 1 @type msg_symbol @description \"Source module of the mapping\" @priority 1",
+					"text" : "jcom.parameter module_in @repetitions/allow 1 @type msg_symbol @description \"Source module of the mapping\" @priority 1",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1109,7 +1109,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_out_nr",
-					"text" : "jcom.parameter module_out_nr @repetitions 1 @priority 4 @type msg_int @description \"Destination module instance of the mapping\"",
+					"text" : "jcom.parameter module_out_nr @repetitions/allow 1 @priority 4 @type msg_int @description \"Destination module instance of the mapping\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -5693,7 +5693,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_out[1]",
-					"text" : "jcom.parameter module_out @repetitions 1 @priority 3 @type msg_symbol @description \"Destination module of the mapping\"",
+					"text" : "jcom.parameter module_out @repetitions/allow 1 @priority 3 @type msg_symbol @description \"Destination module of the mapping\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,

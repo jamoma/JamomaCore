@@ -1182,7 +1182,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "contraction/slide",
-									"text" : "jcom.parameter contraction/slide @type msg_float @range/bounds 0. 10. @range/clipmode low @repetitions 0 @description \"The level of smoothing for contraction box.\"",
+									"text" : "jcom.parameter contraction/slide @type msg_float @range/bounds 0. 10. @range/clipmode low @repetitions/allow 0 @description \"The level of smoothing for contraction box.\"",
 									"linecount" : 2,
 									"fontname" : "Arial",
 									"id" : "obj-24",

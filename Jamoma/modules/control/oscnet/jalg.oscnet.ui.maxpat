@@ -340,7 +340,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "osc_prefix",
-					"text" : "jcom.parameter osc_prefix @type msg_symbol @repetitions 0 @description \"Define a string to concatenate to the beginning of all OpenSoundControl strings sent by this module.\"",
+					"text" : "jcom.parameter osc_prefix @type msg_symbol @repetitions/allow 0 @description \"Define a string to concatenate to the beginning of all OpenSoundControl strings sent by this module.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"fontsize" : 9.873845,
@@ -545,7 +545,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "multicast_ip",
-					"text" : "jcom.parameter multicast_ip @type msg_symbol @repetitions 0 @description \"Define the multicast host to for OpenSoundControl messages to which you would like to join.  This may be symbolic or an ip address.\"",
+					"text" : "jcom.parameter multicast_ip @type msg_symbol @repetitions/allow 0 @description \"Define the multicast host to for OpenSoundControl messages to which you would like to join.  This may be symbolic or an ip address.\"",
 					"linecount" : 4,
 					"numoutlets" : 3,
 					"fontsize" : 9.873845,
@@ -697,7 +697,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "send_host",
-					"text" : "jcom.parameter send_host @type msg_symbol @repetitions 0 @description \"Set the host to which OpenSoundControl messages should be sent.  This may be symbolic or an ip address.\"",
+					"text" : "jcom.parameter send_host @type msg_symbol @repetitions/allow 0 @description \"Set the host to which OpenSoundControl messages should be sent.  This may be symbolic or an ip address.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"fontsize" : 9.873845,

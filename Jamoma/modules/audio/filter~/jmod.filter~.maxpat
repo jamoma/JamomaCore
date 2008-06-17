@@ -882,7 +882,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "filtergain",
-					"text" : "jcom.parameter filtergain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions 0 @description \"Gain (dB)\"",
+					"text" : "jcom.parameter filtergain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -898,7 +898,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "q",
-					"text" : "jcom.parameter q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions 0 @description \"Resonance (Q)\"",
+					"text" : "jcom.parameter q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",
@@ -914,7 +914,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "cf",
-					"text" : "jcom.parameter cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions 0 @description \"Center frequency (Hz)\"",
+					"text" : "jcom.parameter cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"fontname" : "Verdana",

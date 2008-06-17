@@ -116,7 +116,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "meters_per_unit[1]",
-					"text" : "jcom.parameter roll_off @type msg_float @repetitions 0 @range/bounds 1. 6. @range/clipmode both @description \"Roll-off in dB per doubling of distance.\"",
+					"text" : "jcom.parameter roll_off @type msg_float @repetitions/allow 0 @range/bounds 1. 6. @range/clipmode both @description \"Roll-off in dB per doubling of distance.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 1,
@@ -148,7 +148,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "meters_per_unit",
-					"text" : "jcom.parameter reference_distance @type msg_float @repetitions 0 @range/bounds 0.15 10. @range/clipmode low @description \"Reference distance used to calculate roll-off.\"",
+					"text" : "jcom.parameter reference_distance @type msg_float @repetitions/allow 0 @range/bounds 0.15 10. @range/clipmode low @description \"Reference distance used to calculate roll-off.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 1,
@@ -315,7 +315,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "voices",
-					"text" : "jcom.parameter voices @type msg_int @repetitions 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
+					"text" : "jcom.parameter voices @type msg_int @repetitions/allow 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"linecount" : 2,
 					"fontsize" : 10.0,
 					"numinlets" : 1,

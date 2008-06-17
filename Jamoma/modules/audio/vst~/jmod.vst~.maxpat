@@ -33626,7 +33626,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "vst/plug",
-					"text" : "jcom.parameter vst/plug @type msg_generic @priority 1 @repetitions 0 @description \"Load a VST effect.  An optional argument define what VST plug-in to open. The plug-in has to be in the Max search path.\"",
+					"text" : "jcom.parameter vst/plug @type msg_generic @priority 1 @repetitions/allow 0 @description \"Load a VST effect.  An optional argument define what VST plug-in to open. The plug-in has to be in the Max search path.\"",
 					"linecount" : 3,
 					"numoutlets" : 3,
 					"id" : "obj-26",
@@ -35956,7 +35956,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "vst/program",
-					"text" : "jcom.parameter vst/program @priority 2 @ramp/drive none @repetitions 1 @description \"VST program.\"",
+					"text" : "jcom.parameter vst/program @priority 2 @ramp/drive none @repetitions/allow 1 @description \"VST program.\"",
 					"linecount" : 2,
 					"numoutlets" : 3,
 					"id" : "obj-47",

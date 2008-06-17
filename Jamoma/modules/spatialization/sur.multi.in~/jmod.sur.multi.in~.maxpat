@@ -512,7 +512,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "channel_offset",
-					"text" : "jcom.parameter channel_offset @type msg_int @repetitions 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for signals. Only take effect the next time audio is started.\"",
+					"text" : "jcom.parameter channel_offset @type msg_int @repetitions/allow 1 @range/bounds 0 64 @range/clipmode low @description \"Set channel offset for signals. Only take effect the next time audio is started.\"",
 					"linecount" : 2,
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 10.0,

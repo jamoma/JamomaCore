@@ -634,7 +634,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "slide_down[1]",
-					"text" : "jcom.parameter slide_down @repetitions 1 @ramp/drive scheduler @type msg_float @description \"Smoothing coef when value decreases\"",
+					"text" : "jcom.parameter slide_down @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Smoothing coef when value decreases\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -659,7 +659,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "slide_up[1]",
-					"text" : "jcom.parameter slide_up @repetitions 1 @ramp/drive scheduler @type msg_float @description \"Smoothing coef when value raises\"",
+					"text" : "jcom.parameter slide_up @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Smoothing coef when value raises\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -684,7 +684,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "ramp[1]",
-					"text" : "jcom.parameter ramp @repetitions 1 @ramp/drive scheduler @type msg_int @description \"Ramp time\"",
+					"text" : "jcom.parameter ramp @repetitions/allow 1 @ramp/drive scheduler @type msg_int @description \"Ramp time\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -884,7 +884,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.parameter[12]",
-					"text" : "jcom.message clipmode @repetitions 1 @type msg_symbol @description \"Choose the clipping mode (none, low, high, both)\"",
+					"text" : "jcom.message clipmode @repetitions/allow 1 @type msg_symbol @description \"Choose the clipping mode (none, low, high, both)\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1024,7 +1024,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "curve[1]",
-					"text" : "jcom.parameter curve @repetitions 1 @ramp/drive scheduler @type msg_float @description \"Curve applied on the output value (<0 exponential, 0 linear, >0 logarithmic\"",
+					"text" : "jcom.parameter curve @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Curve applied on the output value (<0 exponential, 0 linear, >0 logarithmic\"",
 					"linecount" : 3,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1049,7 +1049,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "jcom.parameter[10]",
-					"text" : "jcom.message edit @repetitions 1 @type msg_symbol @description \"Choose operation mode (active, edit, bypass)\"",
+					"text" : "jcom.message edit @repetitions/allow 1 @type msg_symbol @description \"Choose operation mode (active, edit, bypass)\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1074,7 +1074,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "out_max[1]",
-					"text" : "jcom.parameter out_max @repetitions 1 @ramp/drive scheduler @type msg_float @description \"Maximum output value\"",
+					"text" : "jcom.parameter out_max @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Maximum output value\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1099,7 +1099,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "out_min[1]",
-					"text" : "jcom.parameter out_min @repetitions 1 @ramp/drive scheduler @type msg_float @description \"Minimum output value\"",
+					"text" : "jcom.parameter out_min @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Minimum output value\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1124,7 +1124,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "in_max[1]",
-					"text" : "jcom.parameter in_max @repetitions 1 @ramp/drive scheduler @type msg_float @description \"Maximum input value\"",
+					"text" : "jcom.parameter in_max @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Maximum input value\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1149,7 +1149,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "in_min[1]",
-					"text" : "jcom.parameter in_min @repetitions 1 @ramp/drive scheduler @type msg_float @description \"Minimum input value\"",
+					"text" : "jcom.parameter in_min @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Minimum input value\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1360,7 +1360,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_in_function",
-					"text" : "jcom.parameter module_in_function @repetitions 1 @type msg_symbol @description \"Source module function of the mapping\" @priority 6",
+					"text" : "jcom.parameter module_in_function @repetitions/allow 1 @type msg_symbol @description \"Source module function of the mapping\" @priority 6",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1385,7 +1385,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_out_function",
-					"text" : "jcom.parameter module_out_function @repetitions 1 @type msg_symbol @description \"Destination function of the mapping\" @priority 5",
+					"text" : "jcom.parameter module_out_function @repetitions/allow 1 @type msg_symbol @description \"Destination function of the mapping\" @priority 5",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1502,7 +1502,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_in_nr",
-					"text" : "jcom.parameter module_in_nr @repetitions 1 @type msg_int @description \"Source module instance of the mapping\" @priority 2",
+					"text" : "jcom.parameter module_in_nr @repetitions/allow 1 @type msg_int @description \"Source module instance of the mapping\" @priority 2",
 					"linecount" : 4,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1527,7 +1527,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_in[1]",
-					"text" : "jcom.parameter module_in @repetitions 1 @type msg_symbol @description \"Source module of the mapping\" @priority 1",
+					"text" : "jcom.parameter module_in @repetitions/allow 1 @type msg_symbol @description \"Source module of the mapping\" @priority 1",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -1552,7 +1552,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_out_nr",
-					"text" : "jcom.parameter module_out_nr @repetitions 1 @type msg_int @description \"Destination module instance of the mapping\" @priority 4",
+					"text" : "jcom.parameter module_out_nr @repetitions/allow 1 @type msg_int @description \"Destination module instance of the mapping\" @priority 4",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,
@@ -9099,7 +9099,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "module_out[1]",
-					"text" : "jcom.parameter module_out @repetitions 1 @type msg_symbol @description \"Destination module of the mapping\" @priority 3",
+					"text" : "jcom.parameter module_out @repetitions/allow 1 @type msg_symbol @description \"Destination module of the mapping\" @priority 3",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"numinlets" : 1,

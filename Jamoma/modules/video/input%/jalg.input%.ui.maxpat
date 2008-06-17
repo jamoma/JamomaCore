@@ -489,7 +489,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/framedump",
-					"text" : "jcom.parameter file/framedump @type msg_toggle @repetitions 0 @description \"Turn on or off framedump of the video\"",
+					"text" : "jcom.parameter file/framedump @type msg_toggle @repetitions/allow 0 @description \"Turn on or off framedump of the video\"",
 					"linecount" : 2,
 					"id" : "obj-12",
 					"numinlets" : 1,
@@ -689,7 +689,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/loop_points",
-					"text" : "jcom.parameter file/loop_points @type msg_list @repetitions 0 @description \"List of low and high loop point values\"",
+					"text" : "jcom.parameter file/loop_points @type msg_list @repetitions/allow 0 @description \"List of low and high loop point values\"",
 					"linecount" : 4,
 					"id" : "obj-16",
 					"numinlets" : 1,
@@ -731,7 +731,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "synth/noise/size/y",
-					"text" : "jcom.parameter synth/noise/size/y @type msg_int @repetitions 0 @ramp/drive scheduler @range/bounds 1 480 @range/clipmode low @description \"x size of noise matrix\"",
+					"text" : "jcom.parameter synth/noise/size/y @type msg_int @repetitions/allow 0 @ramp/drive scheduler @range/bounds 1 480 @range/clipmode low @description \"x size of noise matrix\"",
 					"linecount" : 3,
 					"id" : "obj-21",
 					"numinlets" : 1,
@@ -747,7 +747,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/audio",
-					"text" : "jcom.parameter file/audio @type msg_toggle @repetitions 0 @description \"Turn audio in the video file on or off\"",
+					"text" : "jcom.parameter file/audio @type msg_toggle @repetitions/allow 0 @description \"Turn audio in the video file on or off\"",
 					"linecount" : 2,
 					"id" : "obj-23",
 					"numinlets" : 1,
@@ -793,7 +793,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "synth/noise/size/x",
-					"text" : "jcom.parameter synth/noise/size/x @type msg_int @repetitions 0 @ramp/drive scheduler @range/bounds 1 640 @range/clipmode low @description \"x size of noise matrix\"",
+					"text" : "jcom.parameter synth/noise/size/x @type msg_int @repetitions/allow 0 @ramp/drive scheduler @range/bounds 1 640 @range/clipmode low @description \"x size of noise matrix\"",
 					"linecount" : 3,
 					"id" : "obj-26",
 					"numinlets" : 1,
@@ -987,7 +987,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/counter",
-					"text" : "jcom.parameter file/counter @type msg_int @repetitions 0 @description \"Video file time counter\"",
+					"text" : "jcom.parameter file/counter @type msg_int @repetitions/allow 0 @description \"Video file time counter\"",
 					"linecount" : 2,
 					"id" : "obj-39",
 					"numinlets" : 1,
@@ -1003,7 +1003,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/rate",
-					"text" : "jcom.parameter file/rate @type msg_float @repetitions 0 @ramp/drive scheduler @range/bounds -2. 2. @range/clipmode none @description \"Playback rate of video file\"",
+					"text" : "jcom.parameter file/rate @type msg_float @repetitions/allow 0 @ramp/drive scheduler @range/bounds -2. 2. @range/clipmode none @description \"Playback rate of video file\"",
 					"linecount" : 2,
 					"id" : "obj-41",
 					"numinlets" : 1,
@@ -1019,7 +1019,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/size",
-					"text" : "jcom.parameter file/size @type msg_int @repetitions 0 @description \"Select size of video playback\"",
+					"text" : "jcom.parameter file/size @type msg_int @repetitions/allow 0 @description \"Select size of video playback\"",
 					"linecount" : 2,
 					"id" : "obj-43",
 					"numinlets" : 1,
@@ -1035,7 +1035,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/loop",
-					"text" : "jcom.parameter file/loop @type msg_toggle @repetitions 0 @description \"Turn looping on or off\"",
+					"text" : "jcom.parameter file/loop @type msg_toggle @repetitions/allow 0 @description \"Turn looping on or off\"",
 					"linecount" : 2,
 					"id" : "obj-45",
 					"numinlets" : 1,
@@ -1051,7 +1051,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "file/on",
-					"text" : "jcom.parameter file/on @type msg_toggle @repetitions 0 @description \"Turn video on or off\"",
+					"text" : "jcom.parameter file/on @type msg_toggle @repetitions/allow 0 @description \"Turn video on or off\"",
 					"linecount" : 2,
 					"id" : "obj-47",
 					"numinlets" : 1,
@@ -1098,7 +1098,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "synth/noise/rate",
-					"text" : "jcom.parameter synth/noise/rate @type msg_int @ramp/drive scheduler @repetitions 0 @range/bounds 2 1000 @range/clipmode low @description \"Metro speed for noise\"",
+					"text" : "jcom.parameter synth/noise/rate @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 2 1000 @range/clipmode low @description \"Metro speed for noise\"",
 					"linecount" : 2,
 					"id" : "obj-53",
 					"numinlets" : 1,
@@ -1453,7 +1453,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "synth/color/on",
-					"text" : "jcom.parameter synth/color/on @type msg_toggle @range/bounds 0 1 @range/clipmode both @repetitions 0 @ramp/drive none @description \"Turn video color synth on or off\"",
+					"text" : "jcom.parameter synth/color/on @type msg_toggle @range/bounds 0 1 @range/clipmode both @repetitions/allow 0 @ramp/drive none @description \"Turn video color synth on or off\"",
 					"linecount" : 2,
 					"id" : "obj-76",
 					"numinlets" : 1,
@@ -1469,7 +1469,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "synth/noise/on",
-					"text" : "jcom.parameter synth/noise/on @type msg_toggle @range/bounds 0 1 @range/clipmode both @repetitions 0 @ramp/drive none @description \"Turn video noise on or off\"",
+					"text" : "jcom.parameter synth/noise/on @type msg_toggle @range/bounds 0 1 @range/clipmode both @repetitions/allow 0 @ramp/drive none @description \"Turn video noise on or off\"",
 					"linecount" : 2,
 					"id" : "obj-78",
 					"numinlets" : 1,
