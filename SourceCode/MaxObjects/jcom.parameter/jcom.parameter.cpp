@@ -117,11 +117,11 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jamoma_class_attr_array_new(c, "value/default", _sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
 	// ATTRIBUTES: dataspace stuff
-	jamoma_class_attr_new(c, 	"dataspace", 		_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
-	CLASS_ATTR_ENUM(c,			"dataspace",		0, dataspaces);
+	jamoma_class_attr_new(c, 	"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
+	CLASS_ATTR_ENUM(c,			"dataspace",				0, dataspaces);
 	
-	jamoma_class_attr_new(c, 	"unit/active", 		_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
-	jamoma_class_attr_new(c, 	"unit/native",		 _sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
+	jamoma_class_attr_new(c, 	"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
+	jamoma_class_attr_new(c, 	"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
