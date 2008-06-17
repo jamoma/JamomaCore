@@ -106,7 +106,7 @@
 						"dataspace" : "none",
 						"name" : "balance",
 						"value/default" : [ 0 ],
-						"description" : "\"\\\"\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"Balance of left versus right channel\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\"\\\"\"",
+						"description" : "Balance of left versus right channel",
 						"value/stepsize" : 1.0,
 						"ui/freeze" : 0,
 						"range/bounds" : [ -1.0, 1.0 ],
