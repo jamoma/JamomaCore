@@ -4,12 +4,11 @@
 		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
-  <preset number='1' name='default'>
-    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
-   <item name='gain_1/midi' type='msg_float' priority='0'>127.000000</item>
-    <item name='gain_2/midi' type='msg_float' priority='0'>127.000000</item>
-    <item name='link' type='msg_toggle' priority='0'>1</item>
+  <preset number='1' name='u175000252'>
+    <item name='/gain' type='msg_float' priority='0'>0</item>
+    <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/gain__' type='msg_generic' priority='0'>0</item>
+    <item name='balance' type='msg_float' priority='0'>0.000000</item>
     <item name='loop' type='msg_toggle' priority='0'>1</item>
     <item name='play' type='msg_generic' priority='0'>0</item>
     <item name='source_select' type='msg_symbol' priority='0'>soundfile</item>
