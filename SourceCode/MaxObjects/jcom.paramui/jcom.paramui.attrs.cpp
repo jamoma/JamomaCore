@@ -167,7 +167,7 @@ t_max_err paramui_setRepetitions(t_paramui *x, void *attr, long argc, t_atom *ar
 	if(argc)
 		x->attr_repetitions = atom_getfloat(argv);
 	
-	object_attr_setvalueof(x->obj_parameter, gensym("repetitions"), argc, argv);
+	object_attr_setvalueof(x->obj_parameter, gensym("repetitions/allow"), argc, argv);
 	return MAX_ERR_NONE;
 }
 
@@ -236,7 +236,7 @@ t_max_err paramui_setUnitActive(t_paramui *x, void *attr, long argc, t_atom *arg
 	if(argc)
 		x->attr_unitActive = atom_getsym(argv);
 	
-	object_attr_setvalueof(x->obj_parameter, gensym("unit/active"), argc, argv);
+	object_attr_setvalueof(x->obj_parameter, gensym("dataspace/unit/active"), argc, argv);
 	return MAX_ERR_NONE;
 }
 
@@ -252,7 +252,7 @@ t_max_err paramui_setUnitNative(t_paramui *x, void *attr, long argc, t_atom *arg
 	if(argc)
 		x->attr_unitNative = atom_getsym(argv);
 	
-	object_attr_setvalueof(x->obj_parameter, gensym("unit/native"), argc, argv);
+	object_attr_setvalueof(x->obj_parameter, gensym("dataspace/unit/native"), argc, argv);
 	return MAX_ERR_NONE;
 }
 

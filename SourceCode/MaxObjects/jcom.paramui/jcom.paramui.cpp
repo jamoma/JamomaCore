@@ -136,12 +136,12 @@ common_symbols_init();
 	CLASS_ATTR_SAVE(c,			"range/bounds",		0);
 	CLASS_ATTR_ACCESSORS(c,		"range/bounds",		paramui_getRange, paramui_setRange);
 
-	CLASS_ATTR_LONG(c,			"repetitions",		0, t_paramui, attr_repetitions);
-	CLASS_ATTR_LABEL(c,			"repetitions",		0, "Allow Repeated Values");
-	CLASS_ATTR_STYLE(c,			"repetitions",		0, "onoff");
-	CLASS_ATTR_DEFAULT(c,		"repetitions",		0, "0");
-	CLASS_ATTR_SAVE(c,			"repetitions",		0);
-	CLASS_ATTR_ACCESSORS(c,		"repetitions",		paramui_getRepetitions, paramui_setRepetitions);
+	CLASS_ATTR_LONG(c,			"repetitions/allow",		0, t_paramui, attr_repetitions);
+	CLASS_ATTR_LABEL(c,			"repetitions/allow",		0, "Allow Repeated Values");
+	CLASS_ATTR_STYLE(c,			"repetitions/allow",		0, "onoff");
+	CLASS_ATTR_DEFAULT(c,		"repetitions/allow",		0, "0");
+	CLASS_ATTR_SAVE(c,			"repetitions/allow",		0);
+	CLASS_ATTR_ACCESSORS(c,		"repetitions/allow",		paramui_getRepetitions, paramui_setRepetitions);
 
 	CLASS_ATTR_SYM(c,			"range/clipmode",	0, t_paramui, attr_clipmode);
 	CLASS_ATTR_LABEL(c,			"range/clipmode",	0, "Mode for Clipping to Range");
@@ -165,17 +165,17 @@ common_symbols_init();
 	CLASS_ATTR_SAVE(c,			"dataspace",		0);
 	CLASS_ATTR_ACCESSORS(c,		"dataspace",		paramui_getDataspace, paramui_setDataspace);
 
-	CLASS_ATTR_SYM(c,			"unit/active",		0, t_paramui, attr_unitActive);
-	CLASS_ATTR_LABEL(c,			"unit/active",		0, "Active Unit within the Dataspace");
-	CLASS_ATTR_DEFAULT(c,		"unit/active",		0, "none");
-	CLASS_ATTR_SAVE(c,			"unit/active",		0);
-	CLASS_ATTR_ACCESSORS(c,		"unit/active",		paramui_getUnitActive, paramui_setUnitActive);
+	CLASS_ATTR_SYM(c,			"dataspace/unit/active",		0, t_paramui, attr_unitActive);
+	CLASS_ATTR_LABEL(c,			"dataspace/unit/active",		0, "Active Unit within the Dataspace");
+	CLASS_ATTR_DEFAULT(c,		"dataspace/unit/active",		0, "none");
+	CLASS_ATTR_SAVE(c,			"dataspace/unit/active",		0);
+	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit/active",		paramui_getUnitActive, paramui_setUnitActive);
 
-	CLASS_ATTR_SYM(c,			"unit/native",		0, t_paramui, attr_unitNative);
-	CLASS_ATTR_LABEL(c,			"unit/native",		0, "Native Unit within the Dataspace");
-	CLASS_ATTR_DEFAULT(c,		"unit/native",		0, "none");
-	CLASS_ATTR_SAVE(c,			"unit/native",		0);
-	CLASS_ATTR_ACCESSORS(c,		"unit/native",		paramui_getUnitNative, paramui_setUnitNative);
+	CLASS_ATTR_SYM(c,			"dataspace/unit/native",		0, t_paramui, attr_unitNative);
+	CLASS_ATTR_LABEL(c,			"dataspace/unit/native",		0, "Native Unit within the Dataspace");
+	CLASS_ATTR_DEFAULT(c,		"dataspace/unit/native",		0, "none");
+	CLASS_ATTR_SAVE(c,			"dataspace/unit/native",		0);
+	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit/native",		paramui_getUnitNative, paramui_setUnitNative);
 
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 
@@ -252,7 +252,7 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+13, gensym("@range/bounds"));
 		atom_setfloat(a+14, x->attr_range[0]);
 		atom_setfloat(a+15, x->attr_range[1]);
-		atom_setsym(a+16, gensym("@repetitions"));
+		atom_setsym(a+16, gensym("@repetitions/allow"));
 		atom_setlong(a+17, x->attr_repetitions);
 		atom_setsym(a+18, gensym("@range/clipmode"));
 		atom_setsym(a+19, x->attr_clipmode);
@@ -260,9 +260,9 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(a+21, x->attr_description);
 		atom_setsym(a+22, gensym("@dataspace"));
 		atom_setsym(a+23, x->attr_dataspace);
-		atom_setsym(a+24, gensym("@unit/active"));
+		atom_setsym(a+24, gensym("@dataspace/unit/active"));
 		atom_setsym(a+25, x->attr_unitActive);
-		atom_setsym(a+26, gensym("@unit/native"));
+		atom_setsym(a+26, gensym("@dataspace/unit/native"));
 		atom_setsym(a+27, x->attr_unitNative);
 		if(x->attr_defaultSize){
 			atom_setsym(a+28, gensym("@value/default"));
