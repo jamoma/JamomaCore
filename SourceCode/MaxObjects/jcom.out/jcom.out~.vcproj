@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="jcom.out~"
-	ProjectGUID="{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
+	ProjectGUID="{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}"
 	RootNamespace="jcom.out~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -49,7 +49,7 @@
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -117,6 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="3"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -140,6 +141,244 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="MTd debug dll|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy &quot;$(OutDir)\$(TargetFileName)&quot; ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				Outputs="output"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;JCOM_OUT_TILDE"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
+				ModuleDefinitionFile="jcom.out~.def"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release Build|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				Outputs="output"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;JCOM_OUT_TILDE"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
+				ModuleDefinitionFile="jcom.out~.def"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="release_build|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				Outputs="output"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION;JCOM_OUT_TILDE"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
+				ModuleDefinitionFile="jcom.out~.def"
+				GenerateDebugInformation="true"
+				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool

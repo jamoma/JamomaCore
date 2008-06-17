@@ -50,10 +50,11 @@
 				MinimalRebuild="true"
 				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="2"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4800"
 			/>
@@ -126,7 +127,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
+				Optimization="3"
 				AdditionalIncludeDirectories="../includes/core;../includes/units"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT"
 				ExceptionHandling="0"
@@ -156,6 +157,259 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copy TTBlue.dll to the Max 5 install."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="MTd debug dll|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				Description="Delete old DLL from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy &quot;$(OutDir)\TTBlue.dll&quot; .\build&#x0D;&#x0A;copy &quot;$(OutDir)\TTBlue.lib&quot; .\build&#x0D;&#x0A;"
+				Outputs="none"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../includes/core;../includes/units"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT"
+				MinimalRebuild="true"
+				ExceptionHandling="0"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				StructMemberAlignment="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+				DisableSpecificWarnings="4800"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				ShowProgress="0"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapFileName="ttblue.map"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copy TTBlue.dll to the Max 5 install."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release Build|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				Description="Delete old DLL from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;"
+				Outputs="none"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				AdditionalIncludeDirectories="../includes/core;../includes/units"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT"
+				MinimalRebuild="true"
+				ExceptionHandling="0"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				StructMemberAlignment="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+				DisableSpecificWarnings="4800"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				ShowProgress="0"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapFileName="ttblue.map"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copy TTBlue.dll to the Max 5 install."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="release_build|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			UseOfMFC="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+				Description="Delete old DLL from Max&apos;s support folder."
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;"
+				Outputs="none"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="../includes/core;../includes/units"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="2"
+				StructMemberAlignment="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+				DisableSpecificWarnings="4800"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				ShowProgress="0"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapFileName="ttblue.map"
+				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
