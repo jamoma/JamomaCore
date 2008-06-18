@@ -6,6 +6,10 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "RampLib.h"
 #include "ext.h"
 

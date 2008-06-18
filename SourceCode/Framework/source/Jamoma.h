@@ -13,6 +13,10 @@
 
 #define JAMOMA_VERSION "0.5 Dev"
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "ext.h"
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "ext_common.h"

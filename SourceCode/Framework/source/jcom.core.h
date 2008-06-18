@@ -10,6 +10,10 @@
 #ifndef __JMOD_CORE_H__
 #define __JMOD_CORE_H__
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "ext.h"
 #include "ext_obex.h"
 #include "ext_critical.h"
@@ -140,7 +144,7 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
  *	@param common a pointer to the struct that contains all of the common members for the object
  *	@param optional bool parameter (default = true) that says whether or not to define a name attribute for this class 
  */
-void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, bool define_name = true);
+void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr = NULL, bool define_name = true);
 
 /** Add methods and attributes that are common to extended subscribers (such as parameter, message, and return)
  *	@param pointer to the class that is being constructed
