@@ -138,6 +138,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->ramp_gain = new TTRamp(1);
 		x->ramp_xfade = new TTRamp(1);
 		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
+		x->gain->setAttributeValue(TT("linearGain"), 1.0);
 #else
 		for(i=x->numOutputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
@@ -147,7 +148,6 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		jcom_core_subscriber_new_common(&x->common, jps__jcom_out__, jps_subscribe_out);
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &out_subscribe);
 		
-		x->gain->setAttributeValue(TT("linearGain"), 1.0);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
 	}
