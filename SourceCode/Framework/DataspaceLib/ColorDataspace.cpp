@@ -68,36 +68,37 @@ HSLUnit::~HSLUnit()
 		
 void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {
-	long	h = atom_getlong(inputAtoms+0);
-	long	s = atom_getlong(inputAtoms+1);
-	long	l = atom_getlong(inputAtoms+2);
-	long	red, green, blue;
-	double	m1,m2,tr,tg,tb, hue, lightness, saturation;
+	double	h = atom_getfloat(inputAtoms+0);
+	double	s = atom_getfloat(inputAtoms+1);
+	double	l = atom_getfloat(inputAtoms+2);
+	double	red, green, blue;
+	double	m1, m2, tr, tg, tb, hue, lightness, saturation;
 
 	// scale to floating point... number range should be 360, 1, 1
-	hue = (float)h;
+	hue = h;
 	//hue = ((hue/255.)*360.);
-	saturation = (float)s/100.0;
-	lightness = (float)l/100.0;
+	saturation = s/100.0;
+	lightness = l/100.0;
 
-	if (lightness <= 0.5) 
+	if(lightness <= 0.5) 
 		m2 = lightness*(1.0+saturation); 
 	else 
 		m2 = lightness+saturation-lightness*saturation;
-	m1 = 2.0*lightness-m2;
-	if (saturation == 0.0){
+	
+	m1 = 2.0 * lightness-m2;
+	if(saturation == 0.0){
 		tr = lightness;
 		tg = lightness;
 		tb = lightness;
 	} 
 	else{
-		tr = hls_value(m1,m2,hue+120.);
-		tg = hls_value(m1,m2,hue);
-		tb = hls_value(m1,m2,hue-120.);
+		tr = hls_value(m1, m2, hue+120.0);
+		tg = hls_value(m1, m2, hue);
+		tb = hls_value(m1, m2, hue-120.0);
 	}
-	red = (int)(tr*255.);
-	green = (int)(tg*255.);
-	blue = (int)(tb*255.);
+	red = tr * 255.0;
+	green = tg * 255.0;
+	blue = tb * 255.0;
 	
 	*outputNumArgs = 3;
 	*(output+0) = red;
@@ -108,10 +109,10 @@ void HSLUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 
 void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
-	long	red = long(*(input+0));
-	long	green = long(*(input+1));
-	long	blue = long(*(input+2));
-	long	hue, lightness, saturation;
+	double	red = (*(input+0));
+	double	green = (*(input+1));
+	double	blue = (*(input+2));
+	double	hue, lightness, saturation;
 	double	max,min,delta;
 	double	r,g,b;
 	double	H,L,S;
@@ -120,36 +121,50 @@ void HSLUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputN
 	r = red/255.0;
 	g = green/255.0;
 	b = blue/255.0;
+	
 	max = r;
 	if(max<g)
 		max=g;
 	if(max<b)
 		max=b;
+	
 	min = r;
-	if (min>g) min=g;
-	if (min>b) min=b;
+	if(min>g)
+		min=g;
+	if(min>b)
+		min=b;
+	
 	L = (max+min)/2.0;
-	if (max == min){
+	if(max == min){
 		S = 0;
 		H = 0;
 	}
 	else{
 		delta = max-min;
-		if (L < 0.5) S = delta/(max+min);
-		else S = delta/(2.0-max-min);
-		if (r == max) H = (g-b)/delta;
-		else if (g == max) H = 2.0+(b-r)/delta;
-		else if (b == max) H = 4.0+(r-g)/delta;
+		if(L < 0.5)
+			S = delta/(max+min);
+		else 
+			S = delta/(2.0-max-min);
+		if(r == max)
+			H = (g-b)/delta;
+		else if(g == max)
+			H = 2.0+(b-r)/delta;
+		else if(b == max) 
+			H = 4.0+(r-g)/delta;
 	}
-	H *= 60.; if (H < 0) H += 360.;
-	hue = long(H);
-	saturation = long(S*100.0);
-	lightness = long(L*100.0);
+	
+	H *= 60.0; 
+	if(H < 0) 
+		H += 360.0;
+	
+	hue = H;
+	saturation = S * 100.0;
+	lightness = L * 100.0;
 
 	*outputNumArgs = 3;	
 	atom_setfloat(*outputAtoms+0, hue);
-	atom_setfloat(*outputAtoms+1, lightness);
-	atom_setfloat(*outputAtoms+2, saturation);
+	atom_setfloat(*outputAtoms+1, saturation);
+	atom_setfloat(*outputAtoms+2, lightness);
 }
 
 
