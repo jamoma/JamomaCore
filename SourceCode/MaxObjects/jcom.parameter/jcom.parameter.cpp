@@ -1,7 +1,7 @@
 /* 
  * jcom.parameter
  * External for Jamoma: parameter definition using pattr
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -117,7 +117,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	units[0] = 0;
 	jamoma_class_attr_new(c, 	"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
-	CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);
+	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);
 	jamoma_class_attr_new(c, 	"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
 
 	// Finalize our class
