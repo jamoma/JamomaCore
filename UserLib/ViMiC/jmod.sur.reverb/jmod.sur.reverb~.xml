@@ -5,8 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='delaylength' type='msg_list' priority='0'>30.000000 76.000000 </item>
     <item name='fdn_eq/cf' type='msg_float' priority='0'>732.239258</item>
@@ -24,14 +23,7 @@
     <item name='modulation/frequency' type='msg_list' priority='0'>0.320000 1.400000 </item>
     <item name='outputs' type='msg_int' priority='2'>8</item>
     <item name='predelay' type='msg_float' priority='0'>0.000000</item>
-    <item name='t60' type='msg_float' priority='0'>1.300000</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='t60' type='msg_float' priority='0'>1.700000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
