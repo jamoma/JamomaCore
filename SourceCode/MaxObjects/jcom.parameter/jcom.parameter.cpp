@@ -1454,7 +1454,9 @@ void param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *da
 			strcat(units, unitNames[i]->s_name);
 			strcat(units, " ");
 		}
-		post("available Dataspace-units: %s", units);
+		//TODO: if Max5 can handle dynamic created menues in the inspector, then we can display the content of 'units'.
+		//post("available Dataspace-units: %s", units);
+		
 	}
 	
 	if(numUnits)
