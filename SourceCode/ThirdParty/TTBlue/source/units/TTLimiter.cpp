@@ -53,9 +53,9 @@ TTLimiter::~TTLimiter()
 	short i;
 	
 	for(i=0; i<maxNumChannels; i++)
-		free(lookaheadBuffer[i]);
-	free(gain);
-	free(lookaheadBuffer);
+		delete [] lookaheadBuffer[i];
+	delete [] lookaheadBuffer;
+	delete [] gain;
 	delete dcBlocker;
 	delete preamp;
 }
@@ -68,16 +68,15 @@ TTErr TTLimiter::updateMaxNumChannels()
 
 	if(lookaheadBuffer){
 		for(i=0; i<maxNumChannels; i++)
-			free(lookaheadBuffer[i]);
-		free(lookaheadBuffer);
+			delete [] lookaheadBuffer[i];
+		delete [] lookaheadBuffer;
 	}
-	if(gain)
-		free(gain);
+	delete gain;
 
-	gain = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
-	lookaheadBuffer = (TTSampleVector*)malloc(sizeof(TTSampleVector) * maxNumChannels);
+	gain = new TTSampleValue[maxBufferSize];
+	lookaheadBuffer = new TTSampleVector[maxNumChannels];
 	for(i=0; i<maxNumChannels; i++)
-		lookaheadBuffer[i] = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxBufferSize);
+		lookaheadBuffer[i] = new TTSampleValue[maxBufferSize];
 
 	clear();
 	
@@ -247,7 +246,10 @@ TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		else
 			maybe = tempSample;
 		gain[lookaheadBufferIndex] = maybe;
-		
+	
+		lookaheadBufferPlayback = lookaheadBufferIndex - attrLookahead;
+		if(lookaheadBufferPlayback < 0)
+			lookaheadBufferPlayback += attrLookahead;		
 		
 		// Process Stage ...
 		for(channel=0; channel<numchannels; channel++){
@@ -273,11 +275,7 @@ TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 					acc = acc + lookaheadInv;
 				}
 			}
-			
-			lookaheadBufferPlayback = lookaheadBufferIndex - attrLookahead;
-			if(lookaheadBufferPlayback < 0)
-				lookaheadBufferPlayback += attrLookahead;
-				
+
 			out.sampleVectors[channel][i] = lookaheadBuffer[channel][lookaheadBufferPlayback] * gain[lookaheadBufferPlayback];
 			last = gain[lookaheadBufferIndex];
 			lookaheadBufferIndex++;

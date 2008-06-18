@@ -66,6 +66,8 @@
 		22A1B3FA0DEDEB520016AC8D /* TTBlueAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A1B3F90DEDEB520016AC8D /* TTBlueAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
+		22AC38AC0E057658006E4504 /* TTDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AC38AB0E057658006E4504 /* TTDelay.h */; };
+		22AC38B20E05766E006E4504 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AC38B10E05766E006E4504 /* TTDelay.cpp */; };
 		22C1BEA40DA5A73E003747D3 /* TTLowpassFourPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C1BEA80DA5A769003747D3 /* TTLowpassFourPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */; };
@@ -172,6 +174,8 @@
 		22A1B3F90DEDEB520016AC8D /* TTBlueAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlueAPI.h; path = ../includes/core/TTBlueAPI.h; sourceTree = SOURCE_ROOT; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22A403850CAD7BA000E5299E /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
+		22AC38AB0E057658006E4504 /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelay.h; path = ../includes/units/TTDelay.h; sourceTree = SOURCE_ROOT; };
+		22AC38B10E05766E006E4504 /* TTDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDelay.cpp; path = ../source/units/TTDelay.cpp; sourceTree = SOURCE_ROOT; };
 		22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassFourPole.h; path = ../includes/units/TTLowpassFourPole.h; sourceTree = SOURCE_ROOT; };
 		22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassTwoPole.h; path = ../includes/units/TTLowpassTwoPole.h; sourceTree = SOURCE_ROOT; };
 		22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFourPole.cpp; path = ../source/units/TTLowpassFourPole.cpp; sourceTree = SOURCE_ROOT; };
@@ -349,6 +353,8 @@
 				22569C440D3E419300328864 /* TTDCBlock.cpp */,
 				22569C180D3E416F00328864 /* TTDegrade.h */,
 				22569C450D3E419300328864 /* TTDegrade.cpp */,
+				22AC38AB0E057658006E4504 /* TTDelay.h */,
+				22AC38B10E05766E006E4504 /* TTDelay.cpp */,
 				22569C190D3E416F00328864 /* TTGain.h */,
 				22569C460D3E419300328864 /* TTGain.cpp */,
 				A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */,
@@ -454,6 +460,7 @@
 				22C418C30DDF8325004AA836 /* TTPulseSub.h in Headers */,
 				22C4196A0DDF96BD004AA836 /* TTOperator.h in Headers */,
 				22A1B3FA0DEDEB520016AC8D /* TTBlueAPI.h in Headers */,
+				22AC38AC0E057658006E4504 /* TTDelay.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +583,7 @@
 				22C416390DDE7614004AA836 /* TTPhasor.cpp in Sources */,
 				22C418C50DDF8340004AA836 /* TTPulseSub.cpp in Sources */,
 				22C419760DDF96DC004AA836 /* TTOperator.cpp in Sources */,
+				22AC38B20E05766E006E4504 /* TTDelay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
