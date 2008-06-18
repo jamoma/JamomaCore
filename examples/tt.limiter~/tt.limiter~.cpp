@@ -37,30 +37,20 @@ typedef struct _limiter	{
 	long			maxNumChannels;
 } t_limiter;
 
-
-// Prototypes for methods: need a method for each incoming message type
-void*		limiter_new(t_symbol *msg, short argc, t_atom *argv);					// New Object Creation Method
+// Prototypes for methods: need a method for each incoming message type:
+void*		limiter_new(t_symbol *msg, long argc, t_atom *argv);					// New Object Creation Method
 void		limiter_free(t_limiter *x);
 void		limiter_assist(t_limiter *x, void *b, long msg, long arg, char *dst);	// Assistance Method
 t_int*		limiter_perform(t_int *w);												// An MSP Perform (signal) Method
 void		limiter_dsp(t_limiter *x, t_signal **sp, short *count);					// DSP Method
 void		limiter_clear(t_limiter *x);
 void		limiter_anything(t_limiter *x, t_symbol *msg, long argc, t_atom *argv);
-/*
-t_max_err	limiter_setBypass(t_limiter *x, void *attr, long argc, t_atom *argv);
-t_max_err	limiter_setPreamp(t_limiter *x, void *attr, long argc, t_atom *argv);
-t_max_err	limiter_setSaturation(t_limiter *x, void *attr, long argc, t_atom *argv);
-t_max_err	limiter_setMode(t_limiter *x, void *attr, long argc, t_atom *argv);
-t_max_err	limiter_setBypassDCBlocker(t_limiter *x, void *attr, long argc, t_atom *argv);
-t_max_err	limiter_setMute(t_limiter *x, void *attr, long argc, t_atom *argv);
-*/
 t_max_err	limiter_setThreshold(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setPreamp(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setPostamp(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setMode(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setRelease(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setLookahead(t_limiter *x, void *attr, long argc, t_atom *argv);
-//t_max_err	limiter_setBypass_limiter(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setBypassDCBlocker(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setBypass(t_limiter *x, void *attr, long argc, t_atom *argv);
 t_max_err	limiter_setMute(t_limiter *x, void *attr, long argc, t_atom *argv);
@@ -69,7 +59,6 @@ t_max_err	limiter_setMute(t_limiter *x, void *attr, long argc, t_atom *argv);
 static t_class*		limiter_class;
 static t_symbol*	ps_linear;
 static t_symbol*	ps_exponential;
-
 
 /************************************************************************************/
 // Main() Function
@@ -83,7 +72,7 @@ int main(void)
 	common_symbols_init();
 	TTBlueInit();
 
-	c = class_new("tt.limiter~",(method)limiter_new, (method)limiter_free, (short)sizeof(t_limiter), 
+	c = class_new("tt.limiter~",(method)limiter_new, (method)limiter_free, sizeof(t_limiter), 
 		(method)0L, A_GIMME, 0);
 
 	class_addmethod(c, (method)limiter_setThreshold,		"/threshold",			A_GIMME, 0);
@@ -99,29 +88,9 @@ int main(void)
  	class_addmethod(c, (method)limiter_clear,				"clear",				0L);		
  	class_addmethod(c, (method)limiter_dsp,					"dsp",					A_CANT, 0L);		
 	class_addmethod(c, (method)limiter_assist,				"assist",				A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout", 				A_CANT, 0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref", 			A_CANT, 0);
-/*
-	attr = attr_offset_new("bypass", _sym_long, attrflags,
-		(method)0L,(method)limiter_setBypass, calcoffset(t_limiter, attrBypass));
-	class_addattr(c, attr);	
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout", 				A_CANT, 0); 
+	class_addmethod(c, (method)stdinletinfo,				"inletinfo",			A_CANT, 0);
 
-	attr = attr_offset_new("limiter", _sym_float32, attrflags,
-		(method)0L, (method)limiter_setSaturation, calcoffset(t_limiter, attrOverdrive));
-	class_addattr(c, attr);
-
-	attr = attr_offset_new("bypass_dcblocker", _sym_long, attrflags,
-		(method)0L, (method)limiter_setBypassDCBlocker, calcoffset(t_limiter, attrBypassDCBlocker));
-	class_addattr(c, attr);
-
-	attr = attr_offset_new("mode", _sym_long, attrflags,
-		(method)0L, (method)limiter_setMode, calcoffset(t_limiter, attrMode));
-	class_addattr(c, attr);
-	
-	attr = attr_offset_new("preamp", _sym_float32, attrflags,
-		(method)0L, (method)limiter_setPreamp, calcoffset(t_limiter, attrPreamp));
-	class_addattr(c, attr);
-*/
 	// ATTRIBUTE: threshold
 	attr = attr_offset_new("threshold", _sym_float32, attrflags,
 		(method)0L, (method)limiter_setThreshold, calcoffset(t_limiter, attrThreshold));
@@ -180,7 +149,7 @@ int main(void)
 /************************************************************************************/
 // Object Creation Method
 
-void* limiter_new(t_symbol *msg, short argc, t_atom *argv)
+void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 {
     t_limiter	*x;
 	TTValue		sr(sys_getsr());
@@ -264,16 +233,16 @@ t_int *limiter_perform(t_int *w)
 	TTUInt16	vs = x->audioIn->getVectorSize();
 	
 	for(i=0; i<numChannels; i++){
-		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		j = (i*2) + 2;
+		x->audioIn->setVector(i, vs, (t_float *)(w[j]));
 	}
 
 	if(!x->obj.z_disabled && !x->attrMute)
 		x->limiter->process(*x->audioIn, *x->audioOut);
 
 	for(i=0; i<numChannels; i++){
-		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		j = (i*2) + 2 + 1;
+		x->audioOut->getVector(i, vs, (t_float *)(w[j]));
 	}
 
 	return w + ((numChannels*2)+2);
