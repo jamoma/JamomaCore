@@ -52,6 +52,27 @@ puts "  "
 @zerolink = false
 
 
+# If there is a TTBlue checkout, then copy the files from it over the ones that are in the Jamoma checkout
+#if(Dir.glob(""))
+if(Dir.glob("#{@svn_root}/../TTBlue/.svn").size > 0)
+  puts "Copying TTBlue files into Jamoma from the independent TTBlue checkout"
+  `cp #{@svn_root}../TTBlue/library/*                  #{@svn_root}/SourceCode/ThirdParty/TTBlue/library`
+  `cp #{@svn_root}../TTBlue/library/TTBlue.xcodeproj/* #{@svn_root}/SourceCode/ThirdParty/TTBlue/library/TTBlue.xcodeproj`
+  `cp #{@svn_root}../TTBlue/includes/core/*            #{@svn_root}/SourceCode/ThirdParty/TTBlue/includes/core`
+  `cp #{@svn_root}../TTBlue/includes/units/*           #{@svn_root}/SourceCode/ThirdParty/TTBlue/includes/units`
+  `cp #{@svn_root}../TTBlue/source/core/*              #{@svn_root}/SourceCode/ThirdParty/TTBlue/source/core`
+  `cp #{@svn_root}../TTBlue/source/units/*             #{@svn_root}/SourceCode/ThirdParty/TTBlue/source/units`
+  `cp #{@svn_root}../TTBlue/examples/tt.balance~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.balance~`
+  `cp #{@svn_root}../TTBlue/examples/tt.dcblock~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.dcblock~`
+  `cp #{@svn_root}../TTBlue/examples/tt.degrade~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.degrade~`
+  `cp #{@svn_root}../TTBlue/examples/tt.filter~/*      #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.filter~`
+  `cp #{@svn_root}../TTBlue/examples/tt.limiter~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.limiter~`
+  `cp #{@svn_root}../TTBlue/examples/tt.overdrive~/*   #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.overdrive~`
+  `cp #{@svn_root}../TTBlue/examples/tt.ramp~/*        #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.ramp~`
+  `cp #{@svn_root}../TTBlue/examples/tt.xfade~/*       #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.xfade~`
+end
+
+
 #######
 ## SUB ROUTINES
 #######
