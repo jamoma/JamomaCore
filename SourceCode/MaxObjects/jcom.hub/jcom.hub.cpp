@@ -239,10 +239,15 @@ void hub_examine_context(t_hub *x)
 			
 	// No arg is present -- try to invent something intelligent for a name
 	if(x->osc_name == _sym_nothing){
-		post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);				
-		x->osc_name = x->attr_name;
+		post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);
+		// Strip jmod. from the beginning of patch names, this happens if you drag a module from browser to bpatcher
+		if(strncmp(x->attr_name->s_name, "jmod.", 5) == 0) {
+			x->osc_name = gensym(x->attr_name->s_name + 5);
+		} else {
+			x->osc_name = x->attr_name;
+		}
 	}
-
+	
 	strcpy(name, x->osc_name->s_name);
 	
 	// the name is autoprepended with a /
