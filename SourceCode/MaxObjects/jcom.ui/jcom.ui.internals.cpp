@@ -33,9 +33,9 @@ class uiInternalObject {
 		if(dataspace && nativeUnit && activeUnit){
 			atom_setsym(a+7, gensym("@dataspace"));
 			atom_setsym(a+8, gensym(dataspace));
-			atom_setsym(a+9, gensym("@unit/native"));
+			atom_setsym(a+9, gensym("@dataspace/unit/native"));
 			atom_setsym(a+10, gensym(nativeUnit));
-			atom_setsym(a+11, gensym("@unit/active"));
+			atom_setsym(a+11, gensym("@dataspace/unit/active"));
 			atom_setsym(a+12, gensym(activeUnit));
 			jcom_core_loadextern(gensym(classname), 13, a, &theObject);
 		}
