@@ -121,7 +121,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
-			x->numInputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
+			x->numInputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
 		} 
 		else
 			x->outlet[0] = x->algout;  // no arguments send any input out the first outlet
