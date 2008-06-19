@@ -114,7 +114,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_algorithm_type = _sym_nothing;
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
-			x->numOutputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
+			x->numOutputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
 		}
 #ifdef JCOM_OUT_TILDE
 		if(x->numOutputs > 0)
@@ -402,7 +402,7 @@ t_int *out_perform(t_int *w)
 	TTUInt8			numChannels = x->audioIn->getNumChannels();
 	TTUInt16		vs = x->audioIn->getVectorSize();
 	TTUInt16		n;
-	TTSampleVector	sig = NULL;
+//	TTSampleVector	sig = NULL;
 	float			currentvalue = 0, peakvalue = 0;	// values for calculating metering
 	
 	// Store the input from the inlets
@@ -432,18 +432,19 @@ t_int *out_perform(t_int *w)
 		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
 		
 		// since we are already looping through the channels here, we will also do the per-channel metering here
-		if(x->attr_defeat_meters == 0){
+		if(x->attr_defeat_meters == 0 && x->num_meter_objects){
+			t_float* envelope = (t_float *)(w[j+2]);
 			n = vs;
-			sig = x->audioOut->sampleVectors[i];
+//			sig = x->audioOut->sampleVectors[i];
 			while(n--){
-				if((*sig) < 0 )						// get the current sample's absolute value
-					currentvalue = -(*sig);
+				if((*envelope) < 0 )						// get the current sample's absolute value
+					currentvalue = -(*envelope);
 				else
-					currentvalue = *sig;
+					currentvalue = *envelope;
 			
 				if(currentvalue > peakvalue) 					// if it's a new peak amplitude...
 					peakvalue = currentvalue;
-				sig++; 										// increment pointer in the vector
+				envelope++; 										// increment pointer in the vector
 			}
 			if(peakvalue != x->peakamp[i]){					// filter out repetitions
 				x->peakamp[i] = peakvalue;
