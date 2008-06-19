@@ -742,7 +742,7 @@ void param_dump(t_param *x)
 		atom_setsym(&a[1], x->common.attr_clipmode);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:repetitions", x->common.attr_name->s_name);
+		sprintf(s, "%s:repetitions/allow", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
@@ -1245,7 +1245,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	if(argc == 1)
 		;	// nothing to do
-	else if(argc == 2){
+	else if(argc == 2 && x->dataspace != 0){
 		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+1) == A_SYM){	// assume the second atom is a unit
 			hasUnit = true;
 			unit = atom_getsym(argv+1);

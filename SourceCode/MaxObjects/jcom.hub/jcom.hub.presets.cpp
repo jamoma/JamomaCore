@@ -756,7 +756,7 @@ void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
 {
 	presetList		*preset = x->preset;
 	//presetItemList	*item;
-	t_atom			a;
+	t_atom			a[2];
 	
 	presetListIterator i;
 	presetItemListIterator itemIterator;
@@ -765,8 +765,9 @@ void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
 	critical_enter(0);
 	for(i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
-		atom_setsym(&a, p->name);
-		hub_outlet_return(x, gensym("/preset/dump"), 1, &a);
+		atom_setlong(&a[0], p->number);
+		atom_setsym(&a[1], p->name);
+		hub_outlet_return(x, gensym("/preset/dump"), 2, a);
 		//item = p->item;
 		//presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
 		//}		
