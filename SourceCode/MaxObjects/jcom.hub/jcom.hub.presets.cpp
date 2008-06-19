@@ -978,6 +978,13 @@ void hub_preset_interface(t_hub* x)
 	t_object*		p;
 	t_atom			a;
 	
+	if(x->preset->empty())
+		return;
+	else{
+		x->preset_lastnum = (*(x->preset->begin()))->last_preset_num;
+		x->preset_lastname = (*(x->preset->begin()))->last_preset_name;
+	}
+	
 	strncpy_zero(filename, "jcom.preset_interface.maxpat", MAX_FILENAME_CHARS);
 	locatefile_extended(filename, &path, &type, NULL, 0);
 	dictionary_read(filename, path, &d);
@@ -993,9 +1000,10 @@ void hub_preset_interface(t_hub* x)
 	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed
 	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
 
-	OBJ_ATTR_SYM(p, "jamoma_preset_thing", 0, "boo");
+	OBJ_ATTR_SYM(p, "jmod/modulename", 0, x->osc_name);	// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "jmod/presetname", 0, x->preset_lastname);
+	OBJ_ATTR_LONG(p, "jmod/presetnumber", 0, x->preset_lastnum);
 
-	
 	x->preset_interface = p;
 }
 

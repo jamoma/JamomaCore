@@ -83,6 +83,8 @@ typedef struct _hub{							///< Data Structure for this object
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
 	t_object		*preset_interface;
+	long			preset_lastnum;
+	t_symbol		*preset_lastname;
 } t_hub;
 
 
