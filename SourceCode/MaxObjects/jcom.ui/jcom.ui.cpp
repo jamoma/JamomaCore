@@ -697,6 +697,7 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 	if(px.x > (rect.width - 120)){
 		// we check the gain and mix knobs first because they are continuous parameters and should run as fast as possible
 		if(x->attr_hasgain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)){
+			setGainDataspaceUnit(x, gensym("midi"));
 			x->gainDragging = true;
 			x->anchor.x = x->anchor.y = 0.0;
 			x->anchorValue = x->attr_gain;			
