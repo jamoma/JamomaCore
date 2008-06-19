@@ -751,8 +751,31 @@ void hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*)
 }
 
 
-// dump the preset info to the Max window for debugging
+// dump the preset info for the preset interface
 void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
+{
+	presetList		*preset = x->preset;
+	//presetItemList	*item;
+	t_atom			a;
+	
+	presetListIterator i;
+	presetItemListIterator itemIterator;
+	t_preset *p;
+	//t_preset_item *presetItem;
+	critical_enter(0);
+	for(i = preset->begin(); i != preset->end(); ++i) {
+		p = *i;
+		atom_setsym(&a, p->name);
+		hub_outlet_return(x, gensym("/preset/dump"), 1, &a);
+		//item = p->item;
+		//presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
+		//}		
+	}
+	critical_exit(0);
+}
+
+// dump the preset info to the Max window for debugging
+void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 {
 	presetList		*preset = x->preset;
 	presetItemList	*item;
@@ -772,9 +795,10 @@ void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
 		item = p->item;
 		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if((presetItem->type == jps_msg_int) || (presetItem->type == jps_msg_toggle))
+			if((presetItem->type == jps_msg_int) || (presetItem->type == jps_msg_toggle)){
 				post("    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
+			}
 			else if(presetItem->type == jps_msg_symbol)
 				post("    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, 

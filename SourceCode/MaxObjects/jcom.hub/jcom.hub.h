@@ -320,6 +320,9 @@ void 		hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*);
  * @param x a pointer to the hub whose presets should be dumped */
 void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 
+/** Post all presets
+ * @param x a pointer to the hub whose presets should be dumped */
+void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
 
 void hub_preset_interface(t_hub* x);
 

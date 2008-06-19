@@ -737,7 +737,7 @@ void param_dump(t_param *x)
 		atom_setfloat(&a[2], x->common.attr_range[1]);
 		object_method_typed(x->common.hub, jps_feedback, 3, a, NULL);
 		
-		sprintf(s, "%s:rande/clipmode", x->common.attr_name->s_name);
+		sprintf(s, "%s:range/clipmode", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_clipmode);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
