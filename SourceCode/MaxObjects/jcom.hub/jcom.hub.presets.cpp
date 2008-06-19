@@ -400,12 +400,26 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	critical_exit(0);	
 }
 
+
 void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	
 {
 	t_atom b[2];
+	long result;
+	char *text;
+	char buf[512];
+	
+	strcpy(buf, "chateau de preset");
+
+	//long jdialog_showtext(char *prompt, char *deftext, long flags, char **text);
+	result = jdialog_showtext("Provide a Name for This Preset", buf, 0, &text);
+	if(result != 1)
+		return;
+	
 	atom_setlong(&b[0], x->preset->size() + 1);
-	atom_setsym(&b[1], atom_getsym(argv));
+	atom_setsym(&b[1], gensym(text));
 	hub_preset_store(x, gensym("/preset/store"), 2, b);
+	
+	// TODO: do we not have to free text?
 }
 
 // read the default file and recall the first preset
