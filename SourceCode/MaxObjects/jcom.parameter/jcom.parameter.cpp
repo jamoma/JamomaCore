@@ -1278,7 +1278,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	// The current implementation does not override the active unit temporarily or anything fancy
 	//	It just sets the active unit and then runs with it...
 	if(hasUnit)
-		object_attr_setsym(x, gensym("unit/active"), unit);
+		object_attr_setsym(x, gensym("dataspace/unit/active"), unit);
 	
 	/*
 		For this initial implementation we are converting the values prior to ramping, as it is easier.
