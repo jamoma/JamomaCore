@@ -752,12 +752,12 @@ void param_dump(t_param *x)
 		atom_setsym(&a[1], x->attr_dataspace);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 				
-		sprintf(s, "%s:unit/native", x->common.attr_name->s_name);
+		sprintf(s, "%s:dataspace/unit/native", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitNative);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		sprintf(s, "%s:unit/active", x->common.attr_name->s_name);
+		sprintf(s, "%s:dataspace/unit/active", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitActive);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
