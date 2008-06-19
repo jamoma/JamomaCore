@@ -62,21 +62,21 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
 
-	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names/dump",		0L);
-	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names/dump", 	0L);
-	class_addmethod(c, (method)hub_messagenames_get,	"message_names/dump",		0L);
-	class_addmethod(c, (method)hub_messagenames_get,	"/message_names/dump",		0L);
-	class_addmethod(c, (method)hub_returnnames_get,		"return_names/dump",		0L);
-	class_addmethod(c, (method)hub_returnnames_get,		"/return_names/dump",		0L);
-	class_addmethod(c, (method)hub_allnames_get,		"*_names/dump",				0L);
-	class_addmethod(c, (method)hub_allnames_get,		"/*_names/dump",			0L);
-	class_addmethod(c, (method)hub_paramvalues_get,		"parameter_values/dump",	0L);
-	class_addmethod(c, (method)hub_paramvalues_get,		"/parameter_values/dump",	0L);
-	class_addmethod(c, (method)hub_modulename_get,		"module_name/get", 0L);
-	class_addmethod(c, (method)hub_modulename_get,		"/module_name/get",			0L);
-	class_addmethod(c, (method)core_modulename_get,		"core_module_name/get",			0L);
-	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type/get", A_CANT);
-	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type/get",		A_CANT);
+	class_addmethod(c, (method)hub_paramnames_get,		"parameter_names:/dump",		0L);
+	class_addmethod(c, (method)hub_paramnames_get,		"/parameter_names:/dump", 	0L);
+	class_addmethod(c, (method)hub_messagenames_get,	"message_names:/dump",		0L);
+	class_addmethod(c, (method)hub_messagenames_get,	"/message_names:/dump",		0L);
+	class_addmethod(c, (method)hub_returnnames_get,		"return_names:/dump",		0L);
+	class_addmethod(c, (method)hub_returnnames_get,		"/return_names:/dump",		0L);
+	class_addmethod(c, (method)hub_allnames_get,		"*_names:/dump",				0L);
+	class_addmethod(c, (method)hub_allnames_get,		"/*_names:/dump",			0L);
+	class_addmethod(c, (method)hub_paramvalues_get,		"parameter_values:/dump",	0L);
+	class_addmethod(c, (method)hub_paramvalues_get,		"/parameter_values:/dump",	0L);
+	class_addmethod(c, (method)hub_modulename_get,		"module_name:/get", 0L);
+	class_addmethod(c, (method)hub_modulename_get,		"/module_name:/get",			0L);
+	class_addmethod(c, (method)core_modulename_get,		"core_module_name:/get",			0L);
+	class_addmethod(c, (method)hub_algorithmtype_get,	"algorithm_type:/get", A_CANT);
+	class_addmethod(c, (method)hub_algorithmtype_get,	"/algorithm_type:/get",		A_CANT);
 	
 	class_addmethod(c, (method)hub_paramnames_linklist,		"fetchParameterNamesInLinklist",	A_CANT, 0); // used by the ui ref menu
 	class_addmethod(c, (method)hub_messagenames_linklist,	"fetchMessageNamesInLinklist",		A_CANT, 0); // used by the ui ref menu

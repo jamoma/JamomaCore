@@ -994,7 +994,10 @@ void hub_preset_interface(t_hub* x)
 	object_attr_setlong(p, _sym_locked, 1);			// start out locked
 	object_attr_setchar(p, _sym_enablehscroll, 0);		// turn off scroll bars
 	object_attr_setchar(p, _sym_enablevscroll, 0);
-	object_method_parse(p, _sym_window, "constrain 256 256 1800 1800", NULL);
+	object_attr_setchar(p, _sym_openinpresentation, 1);	
+	object_attr_setchar(p, _sym_toolbarvisible, 0);	
+	object_attr_setsym(p, _sym_title, gensym("preset_interface"));		
+	object_method_parse(p, _sym_window, "constrain 500 300 757 345", NULL);
 	object_attach_byptr_register(x, p, _sym_nobox);
 	
 	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed
@@ -1005,5 +1008,6 @@ void hub_preset_interface(t_hub* x)
 	OBJ_ATTR_LONG(p, "jmod/presetnumber", 0, x->preset_lastnum);
 
 	x->preset_interface = p;
+	object_method(x->preset_interface, _sym_loadbang);
 }
 
