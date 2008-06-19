@@ -197,6 +197,17 @@ t_max_err attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv)
 }
 
 
+void setGainDataspaceUnit(t_ui* obj, t_symbol* unit)
+{
+	uiInternalObject	*anObject = NULL;
+	t_max_err			err = MAX_ERR_NONE;
+	
+	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
+	if(!err)
+		object_attr_setsym(anObject->theObject, gensym("dataspace/unit/active"), unit);
+}
+
+
 t_max_err attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject = NULL;
@@ -396,8 +407,6 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 			strncpy_zero(name, obj->attrPrefix->s_name, 256);
 		strncat_zero(name, "/mute", 256);
 		anObject->setName(name);
-//		hashtab_store(obj->hash_internals, gensym(name), anObject);
-//		hashtab_chuckkey(obj->hash_internals, gensym("mute"))
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);

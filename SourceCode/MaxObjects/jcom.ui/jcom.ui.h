@@ -109,6 +109,7 @@ t_max_err	attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_mix(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv);
+void setGainDataspaceUnit(t_ui* obj, t_symbol* unit);
 t_max_err	attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_preview(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv);
