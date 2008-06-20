@@ -295,7 +295,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	t_atom			*av;					// used for return values from attribute queries
 	long			ac;						// ...
 	
-	if(argc < 1){
+	if(argc < 1 || atom_getsym(argv) == gensym("Store Current Preset")){
 		// write over the last preset recalled
 			
 		if(preset->empty()) {
@@ -306,18 +306,21 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		preset_num = (*(preset->begin()))->last_preset_num;
 		// Recall the name as well
 		preset_name = (*(preset->begin()))->last_preset_name;
-	} else {
-	
+	} 
+	else{
 		if(argv->a_type != A_LONG){
-			error("jcom.hub (%s module): first argument must be an int if a name is specified", x->attr_name);
+			//error("jcom.hub (%s module): first argument must be an int if a name is specified", x->attr_name);
+			preset_num = (*(preset->begin()))->last_preset_num;
+			preset_name = atom_getsym(argv);
 			return;
 		}
-		
-		preset_num = atom_getlong(argv);
-		if(argc > 1)
-			preset_name = atom_getsym(argv+1);
-		else
-			preset_name = symbol_unique();
+		else{		
+			preset_num = atom_getlong(argv);
+			if(argc > 1)
+				preset_name = atom_getsym(argv+1);
+			else
+				preset_name = symbol_unique();
+		}
 	}
 	
 	// Search the linked list for this preset (if it already exists) and remove it
