@@ -325,6 +325,7 @@ void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
 
 void hub_preset_interface(t_hub* x);
+t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);
 
 // Globals
 extern 		t_class		*hub_class;				// Required: Global pointer for our class

@@ -36,9 +36,7 @@ struct _subIsLess : binary_function<t_subscriber*, t_subscriber*, bool> {
 
 int main(void)				// main recieves a copy of the Max function macros table
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
 	// Initialize Globals
 	jamoma_init();
@@ -92,27 +90,14 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
 
-	// ATTRIBUTE: name
-	// TODO: need a custom setter so that we can update the display of the module name in the ui
-	attr = attr_offset_new("name", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_hub, attr_name));
-	class_addattr(c, attr);
-	
-	// ATTRIBUTE: module_type	[audio, video, control, etc.]
-	attr = attr_offset_new("module_type", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_hub, attr_type));
-	class_addattr(c, attr);
+	CLASS_ATTR_SYM(c,		"name",				0,	t_hub,	osc_name);				// instance name (osc)
+	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setname);
 
-	// ATTRIBUTE: algorithm_type [poly, blue, none, control, jitter, video, default, etc.]
-	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_hub, attr_algorithm_type));
-	class_addattr(c, attr);
+	CLASS_ATTR_SYM(c,		"class",			0,	t_hub,	attr_name);				// module class name
+	CLASS_ATTR_SYM(c,		"module_type",		0,	t_hub,	attr_type);
+	CLASS_ATTR_SYM(c,		"algorithm_type",	0,	t_hub,	attr_algorithm_type);
+	CLASS_ATTR_SYM(c,		"description",		0,	t_hub,	attr_description);
 	
-	// ATTRIBUTE: description
-	attr = attr_offset_new("description", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_hub, attr_description));
-	class_addattr(c, attr);
-			
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	s_hub_class = c;
@@ -212,13 +197,7 @@ void hub_examine_context(t_hub *x)
 {
 	long			argc = 0;
 	t_atom			*argv = NULL;
-	char			name[256];
-	char			*nametest;
-	unsigned short	i;
-	t_atom			a[2];
 	t_symbol		*context = jamoma_patcher_getcontext(x->container);
-	t_max_err		err = MAX_ERR_NONE;
-	int				instance = 0;
 
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
@@ -278,63 +257,7 @@ void hub_examine_context(t_hub *x)
 		}
 	}
 			
-	// No arg is present -- try to invent something intelligent for a name
-	if(x->osc_name == _sym_nothing){
-		post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);
-		// Strip jmod. from the beginning of patch names, this happens if you drag a module from browser to bpatcher
-		if(strncmp(x->attr_name->s_name, "jmod.", 5) == 0) {
-			x->osc_name = gensym(x->attr_name->s_name + 5);
-		} else {
-			x->osc_name = x->attr_name;
-		}
-	}
-	
-	strcpy(name, x->osc_name->s_name);
-	
-	// the name is autoprepended with a /
-	if(name[0] != '/'){
-		char newname[256];
-		
-		strcpy(newname, "/");
-		strcat(newname, name);
-		strcpy(name, newname);
-	}
-		
-	// search for illegal characters as specified by the OSC standard and replace them
-	for(i=0; i<strlen(name); i++){
-		if(name[i] == '[')
-			name[i] = '.';
-		else if(name[i] == ']')
-			name[i] = 0;
-	}
-		
-	// if arg contains a slash then we must complain
-	nametest = name + 1;
-	if(strchr(nametest, '/'))
-		error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
-again:
-	x->osc_name = gensym(name);
-	
-	// Register with the framework, and making sure this name hasn't already been used...
-	err = jamoma_hub_register(x->osc_name, (t_object *)x);
-	if(err){
-		if(instance){
-			nametest = strrchr(name, '.');
-			if(nametest)
-				*nametest = 0;
-		}
-		instance++;
-		nametest = name;
-		sprintf(name, "%s.%i", name, instance);
-		post("Jamoma cannot create multiple modules with the same OSC identifier (%s).  Trying %s instead.", x->osc_name->s_name, name);
-		err = MAX_ERR_NONE;
-		goto again;
-	}
-	
-	// And send a notification to the environment
-	atom_setsym(a, x->attr_name);
-	atom_setsym(a+1, x->osc_name);
-	object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
+	object_attr_setsym(x, _sym_name, x->osc_name);
 
 	// Finally, we now tell subscribers (parameters, etc.) to subscribe
 	if(x->jcom_send_broadcast)
@@ -1148,3 +1071,86 @@ void hub_bang(t_hub *x)
 			object_method(t->object, gensym("/ramp/update"));
 	}	
 }
+
+
+// TODO: need a custom setter so that we can update the display of the module name in the ui
+t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
+{
+	if(argc && argv){
+		char			name[256];
+		unsigned short	i;
+		t_max_err		err = MAX_ERR_NONE;
+		char*			nametest;
+		t_atom			a[2];
+		int				instance = 0;
+		
+		x->osc_name = atom_getsym(argv);
+
+		// No arg is present -- try to invent something intelligent for a name
+		if(x->osc_name == _sym_nothing){
+			post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);
+			// Strip jmod. from the beginning of patch names, this happens if you drag a module from browser to bpatcher
+			if(strncmp(x->attr_name->s_name, "jmod.", 5) == 0)
+				x->osc_name = gensym(x->attr_name->s_name + 5);
+			else
+				x->osc_name = x->attr_name;
+		}
+		
+		strcpy(name, x->osc_name->s_name);
+		
+		// the name is autoprepended with a /
+		if(name[0] != '/'){
+			char newname[256];
+			
+			strcpy(newname, "/");
+			strcat(newname, name);
+			strcpy(name, newname);
+		}
+		
+		// search for illegal characters as specified by the OSC standard and replace them
+		for(i=0; i<strlen(name); i++){
+			if(name[i] == '[')
+				name[i] = '.';
+			else if(name[i] == ']')
+				name[i] = 0;
+		}
+		
+		// if arg contains a slash then we must complain
+		nametest = name + 1;
+		if(strchr(nametest, '/'))
+			error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
+	again:
+		x->osc_name = gensym(name);
+		
+		// update the ui object
+		if(x->gui_object){
+			atom_setsym(&a[0], gensym("module_name"));
+			atom_setsym(&a[1], x->osc_name);
+			object_method_typed(x->gui_object, jps_dispatched, 2, a, NULL);			
+		}
+		
+		// Register with the framework, and making sure this name hasn't already been used...
+		// TODO: is the framework making sure that this t_object is unique and hasn't already been registered?
+		err = jamoma_hub_register(x->osc_name, (t_object *)x);
+		if(err){
+			if(instance){
+				nametest = strrchr(name, '.');
+				if(nametest)
+					*nametest = 0;
+			}
+			instance++;
+			nametest = name;
+			sprintf(name, "%s.%i", name, instance);
+			post("Jamoma cannot create multiple modules with the same OSC identifier (%s).  Trying %s instead.", x->osc_name->s_name, name);
+			err = MAX_ERR_NONE;
+			goto again;
+		}
+		
+		// And send a notification to the environment
+		atom_setsym(a, x->attr_name);
+		atom_setsym(a+1, x->osc_name);
+		object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
+	}
+	return MAX_ERR_NONE;
+}
+
