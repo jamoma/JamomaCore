@@ -159,22 +159,6 @@ t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 }
 
 
-typedef struct bpatcher {
-	t_box b_box;
-	short a,b;
-	short c,d;
-	short e,f;
-	short g,h;
-	short i,j;
-	short k,l;
-	short m,n;
-	short o;
-	Symbol *b_name;
-	Atom b_argv[10];
-	short b_argc;
-} t_bpatcher;
-
-
 // Don't pass memory in for this function!  It will allocate what it needs
 // -- then the caller is responsible for freeing
 void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
