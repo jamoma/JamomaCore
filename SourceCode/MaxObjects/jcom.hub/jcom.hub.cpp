@@ -236,6 +236,47 @@ void hub_examine_context(t_hub *x)
 	// In this case we overwrite whatever happened above
 	if(context == gensym("toplevel"))
 		x->osc_name = gensym("/editing_this_module");
+	else{
+		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
+		t_object*	box = object_attr_getobj(patcher, jps_box);
+		t_object*	ui = NULL;
+		t_symbol*	objclass = NULL;
+		
+		ui = object_attr_getobj(patcher, gensym("firstobject"));
+		while(ui){
+			objclass = object_attr_getsym(ui, gensym("maxclass"));
+			if(objclass == gensym("jcom.ui"))
+				break;
+			ui = object_attr_getobj(ui, gensym("nextobject"));
+		}
+		
+		if(ui){
+			t_rect	boxRect;
+			t_rect	uiRect;
+			
+			if(context == gensym("bpatcher")){
+				object_attr_get_rect(ui, _sym_patching_rect, &uiRect);
+				object_attr_get_rect(box, _sym_patching_rect, &boxRect);
+				boxRect.width = uiRect.width;
+				boxRect.height = uiRect.height;
+				object_attr_set_rect(box, _sym_patching_rect, &boxRect);
+
+				object_attr_get_rect(box, _sym_presentation_rect, &boxRect);
+				boxRect.width = uiRect.width;
+				boxRect.height = uiRect.height;
+				object_attr_set_rect(box, _sym_presentation_rect, &boxRect);
+			}
+			else if(context == gensym("subpatcher")){
+				object_attr_get_rect(ui, _sym_patching_rect, &uiRect);
+				object_attr_get_rect(patcher, _sym_defrect, &boxRect);
+				boxRect.width = uiRect.width;
+				boxRect.height = uiRect.height;
+				object_attr_set_rect(patcher, _sym_defrect, &boxRect);				
+				object_attr_setchar(patcher, _sym_toolbarvisible, 0);				
+			}
+		
+		}
+	}
 			
 	// No arg is present -- try to invent something intelligent for a name
 	if(x->osc_name == _sym_nothing){
