@@ -119,9 +119,20 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 	
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
-	else
-		name = symbol_unique();
-
+	else{
+		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
+		t_symbol*	filepath = object_attr_getsym(patcher, _sym_filepath);
+		char		pathstr[MAX_PATH_CHARS];
+		char*		filename;
+		
+		strncpy_zero(pathstr, filepath->s_name, MAX_PATH_CHARS);
+		filename = strrchr(pathstr, '.');
+		*filename = 0;	// strip the suffix
+		filename = strrchr(pathstr, '/');
+		filename++;
+		name = gensym(filename);
+	}
+		
 	if(x){
 		for(i=k_num_outlets; i > 0; i--)
 			x->outlets[i-1] = outlet_new(x, 0);
