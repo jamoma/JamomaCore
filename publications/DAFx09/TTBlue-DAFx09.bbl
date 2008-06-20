@@ -1,0 +1,62 @@
+\begin{thebibliography}{10}
+
+\bibitem{Mitra:Kaiser:1993:DSP:handbook}
+S.~K. Mitra and J.~F. Kaiser, Eds.,
+\newblock {\em Handbook for Digital Signal Processing},
+\newblock J. Wiley {\&} Sons, New York, NY, USA, 1993.
+
+\bibitem{Haykin:1991:adaptive:filter}
+Simon Haykin,
+\newblock {\em Adaptive Filter Theory},
+\newblock Prentice Hall, Englewood Cliffs, NJ, USA, second edition, 1991.
+
+\bibitem{Moorer:2000:AES:audio:millenium}
+James~A. Moorer,
+\newblock ``Audio in the new millennium,''
+\newblock {\em J. Audio Eng. Soc.}, vol. 48, no. 5, pp. 490--498, May 2000.
+
+\bibitem{Nackaerts:2001:ICMC}
+A.~Nackaerts, B.~{De Moor}, and R.~Lauwereins,
+\newblock ``Parameter estimation for dual-polarization plucked string models,''
+\newblock in {\em Proc. Intl. Computer Music Conf.}, Havana, Cuba, Sept. 17-23,
+  2001, pp. 203--206.
+
+\bibitem{Serra:1996:sms}
+X.~Serra,
+\newblock {\em Musical Signal Processing}, chapter Musical Sound Modeling with
+  Sinusoids plus Noise, pp. 91--122,
+\newblock G. D. Poli, A. Picialli, S. T. Pope, and C. Roads Eds. Swets \&
+  Zeitlinger, Lisse, Switzerland, 1996.
+
+\bibitem{Arfib:1998:DAFx}
+D.~Arfib,
+\newblock ``Different ways to write digital audio effects programs,''
+\newblock in {\em Proc. Digital Audio Effects (DAFx-98)}, Barcelona, Spain,
+  Nov. 19-21, 1998, pp. 188--91.
+
+\bibitem{Askenfelt:1976:automatic:transcription}
+A.~Askenfelt,
+\newblock ``Automatic notation of played music (status report),''
+\newblock Tech. {R}ep., {STL-QPSR, Vol. 1, pp. 1--11}, 1976.
+
+\bibitem{Egozy:1995:MIT:features:gesture}
+E.~B. Egozy,
+\newblock ``Deriving musical control features from a real-time timbre analysis
+  of the clarinet,''
+\newblock M.S. thesis, Massachusetts Institute of Technology, 1995.
+
+\bibitem{Dutilleux:1991}
+P.~Dutilleux,
+\newblock {\em Vers la machine \`a sculpter le son, modification en
+  temps-r\'eel des caract\'eristiques fr\'equentielles et temporelles des
+  sons},
+\newblock Ph.D. thesis, University of Aix-Marseille II, 1991.
+
+\bibitem{Fitz:Haken:2003:Web:morphing:loris}
+K.~Fitz and L.~Haken,
+\newblock ``{Current Research in Real-time Sound Morphing},''
+\newblock Available at
+  \href{http://www.cerlsoundgroup.org/RealTimeMorph/}{http://www.cerlsoundgrou%
+p\allowbreak .org/\allowbreak RealTimeMorph/}, accessed March 08, 2006.
+
+\end{thebibliography}
