@@ -28,8 +28,8 @@ bool				max5 = false;
 void jamoma_init(void)
 {
 	if(!initialized){
-		t_object	*max = gensym("max")->s_thing;
-		t_symbol	*meth = gensym("objectfile");
+		t_object*	max = gensym("max")->s_thing;
+		t_symbol*	meth = gensym("objectfile");
 		t_atom		a[4];
 	
 		if(maxversion() >= 0x0500)
@@ -81,6 +81,13 @@ void jamoma_init(void)
 		atom_setsym(a+3, gensym("jmod."));
 		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
 
+		// I -- a new audio input module, O -- a new audio output module	
+		object_method_parse(max, gensym("definecommand"), "I patcher insertobj bpatcher @name jmod.input~.maxpat @args /adc", NULL);
+		object_method_parse(max, gensym("definecommand"), "O patcher insertobj bpatcher @name jmod.output~.maxpat @args /dac", NULL);
+	
+		// B -- a new module in a bpatcher
+		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @args myModule @name jmod.\"", NULL);		
+		
 		post("Jamoma %s - www.jamoma.org", JAMOMA_VERSION);
 		initialized = true;
 	}
