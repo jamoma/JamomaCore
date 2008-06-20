@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="tt.dcblock~"
-	ProjectGUID="{5451E00E-A65C-4A25-8C40-D3DDD378CBBD}"
+	ProjectGUID="{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}"
 	RootNamespace="tt.dcblock~"
-	TargetFrameworkVersion="131072"
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="0"
 	>
 	<Platforms>
 		<Platform
@@ -16,21 +17,18 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory=".\..\..\sysbuild\win_release\externals"
-			IntermediateDirectory="..\ext_win_release\"
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
-			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				CommandLine=""
+				Outputs="output"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -40,66 +38,38 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
-				TargetEnvironment="1"
-				GenerateTypeLibrary="false"
-				TypeLibraryName=""
-				HeaderFileName=""
-				DLLDataFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
-				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="&quot;C:\Program Files\Cycling &apos;74\MaxMSP SDK\maxmspsdk_win\c74support\max-includes&quot;;&quot;C:\Program Files\Cycling &apos;74\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes&quot;"
-				PreprocessorDefinitions="WIN_VERSION;WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION"
-				StringPooling="true"
-				ExceptionHandling="0"
-				RuntimeLibrary="0"
-				StructMemberAlignment="2"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="false"
+				Optimization="0"
+				AdditionalIncludeDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;..\..\includes\core;..\..\includes\units"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile="..\ext_win_release\grain.bang~.pch"
-				AssemblerListingLocation="..\ext_win_release\"
-				ObjectFile="..\ext_win_release\"
-				ProgramDataBaseFileName="..\ext_win_release\grain.bang~"
 				WarningLevel="3"
-				SuppressStartupBanner="true"
-				CompileAs="1"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="4"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				IgnoreImportLibrary="true"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="&quot;C:\progra~1\cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\max-includes\MaxAPI.lib&quot; &quot;C:\progra~1\cyclin~1\MaxMSP SDK\maxmspsdk_win\c74support\msp-includes\MaxAudio.lib&quot;"
-				OutputFile=".\..\..\sysbuild\win_release\externals\grain.bang~.mxe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				IgnoreAllDefaultLibraries="false"
-				ModuleDefinitionFile=".\grain.bang~.def"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\c74support\jit-includes&quot;;..\..\library\Debug"
+				ModuleDefinitionFile="tt.dcblock~.def"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\ext_win_release\grain.bang~.pdb"
 				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				ImportLibrary="..\ext_win_release\grain.bang~.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -125,14 +95,10 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory=".\build"
-			IntermediateDirectory="..\ext_win_debug\"
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
 			ConfigurationType="2"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -148,67 +114,271 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
-				TargetEnvironment="1"
-				GenerateTypeLibrary="false"
-				TypeLibraryName=""
-				HeaderFileName=""
-				DLLDataFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\maxmspsdk\c74support\max-includes&quot;;&quot;..\maxmspsdk\c74support\msp-includes&quot;;..\..\includes\core;..\..\includes\units"
-				PreprocessorDefinitions="WIN_VERSION;WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_EXT_VERSION;"
-				MinimalRebuild="true"
-				ExceptionHandling="0"
-				BasicRuntimeChecks="0"
-				RuntimeLibrary="1"
-				StructMemberAlignment="2"
-				EnableFunctionLevelLinking="true"
+				Optimization="3"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="ext.h"
-				PrecompiledHeaderFile=".\ext_win_debug\tt.dcblock.pch"
-				AssemblerListingLocation=".\ext_win_debug\"
-				ObjectFile=".\ext_win_debug\"
-				ProgramDataBaseFileName=".\ext_win_debug\tt.dcblock~"
 				WarningLevel="3"
-				SuppressStartupBanner="true"
+				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
-				CompileAs="2"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				IgnoreImportLibrary="true"
-				LinkLibraryDependencies="false"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib"
-				OutputFile="tt.dcblock~.mxe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;.\..\maxmspsdk\c74support\max-includes&quot;;&quot;.\..\maxmspsdk\c74support\msp-includes&quot;;..\..\library\build"
-				IgnoreAllDefaultLibraries="false"
-				ModuleDefinitionFile="tt.dcblock~.def"
-				DelayLoadDLLs="TTBlue"
+				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="..\ext_win_debug\tt.dcblock~.pdb"
 				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				ImportLibrary="..\ext_win_debug\tt.dcblock~.lib"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="MTd debug dll|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy &quot;$(OutDir)\$(TargetFileName)&quot; ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				Outputs="output"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
+				ModuleDefinitionFile="tt.dcblock~.def"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release Build|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				Outputs="output"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
+				ModuleDefinitionFile="tt.dcblock~.def"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="release_build|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				Outputs="output"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="3"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
+				MinimalRebuild="false"
+				ExceptionHandling="1"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="0"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug"
+				ModuleDefinitionFile="tt.dcblock~.def"
+				GenerateDebugInformation="true"
+				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -238,31 +408,30 @@
 	</References>
 	<Files>
 		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
+		</Filter>
+		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\maxmspsdk\c74support\max-includes\common\commonsyms.c"
+				RelativePath="..\..\..\c74support\max-includes\common\commonsyms.c"
 				>
 			</File>
 			<File
 				RelativePath=".\tt.dcblock~.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\tt.dcblock~.def"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl"
-			>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
 		</Filter>
 	</Files>
 	<Globals>
