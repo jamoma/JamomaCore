@@ -340,6 +340,15 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 	else
 		x->has_wildcard = false;
 
+//	if(x->subscriber_type == jps_subscribe_return && x->hub){
+//		jcom_core_unsubscribe(x->hub, x);
+//		x->hub = NULL;
+//		x->attr_name = atom_getsym(argv);
+//		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
+//	}
+	// if the client understands 'update_name' then we call it
+	object_method(x, gensym("update_name"));
+	
 	return MAX_ERR_NONE;
 }
 

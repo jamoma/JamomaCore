@@ -28,6 +28,7 @@ typedef struct _return{							// Data Structure for this object
 // Prototypes
 void*		return_new(t_symbol *s, long argc, t_atom *argv);
 void		return_assist(t_return *x, void *b, long msg, long arg, char *dst);
+void		return_updatename(t_return *x);
 void		return_bang(t_return *x);
 void		return_int(t_return *x, long n);
 void		return_float(t_return *x, double f);
@@ -64,6 +65,7 @@ int main(void)				// main recieves a copy of the Max function macros table
  	class_addmethod(c, (method)return_list,					"list",			A_GIMME, 0L);
  	class_addmethod(c, (method)return_symbol,				"anything",		A_GIMME, 0L);
 	class_addmethod(c, (method)return_dump,					"dump",			0L);
+	class_addmethod(c, (method)return_updatename,			"update_name",	A_CANT, 0L);
 	class_addmethod(c, (method)return_assist,				"assist",		A_CANT, 0L); 
 
 	jcom_core_subscriber_classinit_extended(c, attr);
@@ -129,6 +131,12 @@ void return_assist(t_return *x, void *b, long msg, long arg, char *dst)
 		}
  	}		
 }
+
+void return_updatename(t_return *x)
+{
+	atom_setsym(&x->output[0], x->common.attr_name);
+}
+
 
 // DUMP: use for debugging - dump state to the Max window
 void return_dump(t_return *x)
