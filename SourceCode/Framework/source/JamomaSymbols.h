@@ -39,15 +39,15 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_low, 
 				*jps_high, 
 				*jps_both, 
-				*jps_inc,				// increase, decrease
+				*jps_inc,							// increase, decrease
 				*jps_dec,
-				*jps_msg_generic,			// DATA TYPES FOR THE PARAMETER / MESSAGE
-				*jps_msg_int,			// 
-				*jps_msg_float,			// 
-				*jps_msg_symbol,			// 
-				*jps_msg_list,			//
-				*jps_msg_toggle,				// 
-				*jps_msg_none,			// this type only used by jcom.message
+				*jps_msg_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
+				*jps_msg_int,						// 
+				*jps_msg_float,						// 
+				*jps_msg_symbol,					// 
+				*jps_msg_list,						//
+				*jps_msg_toggle,					// 
+				*jps_msg_none,						// this type only used by jcom.message
 				*jps_jcom_hub, 
 				*jps_feedback,
 				*jps_module_name_get,
@@ -69,10 +69,10 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_parameter_values_start,
 				*jps_parameter_values_end,
 				*jps_parameter_value,
-				*jps_subscribe,				// used for calling the 'bind' method on jcom.hub
+				*jps_subscribe,						// used for calling the 'bind' method on jcom.hub
 				*jps_unsubscribe,
-				*jps_release,				// method in the hub for unsubscribing
-				*jps_subscribe_in,			// when binding to the hub, these specify what type of object this is...
+				*jps_release,						// method in the hub for unsubscribing
+				*jps_subscribe_in,					// when binding to the hub, these specify what type of object this is...
 				*jps_subscribe_out,
 				*jps_subscribe_message,
 				*jps_subscribe_parameter,
@@ -81,9 +81,10 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_subscribe_init,
 				*jps_subscribe_meter,
 				*jps_inspector,
-				*jps_num_inputs,				// signal inlets and outlets
+				*jps_num_inputs,					// signal inlets and outlets
 				*jps_num_outputs,
 				*jps_type,
+				*jps_dataspace,
 				*jps_algorithm_type,
 				*jps_name,
 				*jps_range,
@@ -92,6 +93,7 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_clipmode,
 				*jps_ramp,
 				*jps_ramp_drive,
+				*jps_ramp_function,
 				*jps_repetitions,
 				*jps_repetitions_allow,
 				*jps_description,
@@ -118,7 +120,7 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_return_extended,
 				*jps_go,
 				*jps_init,
-				*jps_ATTRIBUTES,			// used by the hub for setting up the gui...
+				*jps_ATTRIBUTES,					// used by the hub for setting up the gui...
 				*jps_BUILD,
 				*jps_MODULE_NAME,
 				*jps_MODULE_TITLE,
@@ -128,7 +130,7 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_MENU_REBUILD,
 				*jps_size,
 				*jps_skin,
-				*jps_jcom_send,			// object names needed to load externs inside other objects...
+				*jps_jcom_send,						// object names needed to load externs inside other objects...
 				*jps_jcom_receive,
 				*jps_jcom_remote_fromModule, 			
 				*jps_jcom_remote_toModule,
@@ -136,7 +138,7 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_from_in_object,
 				*jps_box,
 				*jps_setcallback,
-				*jps_link_in,			// common OSC messages, etc.
+				*jps_link_in,						// common OSC messages, etc.
 				*jps_link_out,
 				*jps_unlink_in,
 				*jps_unlink_out,
@@ -160,19 +162,19 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_slash_video_freeze,
 				*jps_video_preview,
 				*jps_slash_video_preview,
-				*jps_open,							// 	open
-				*jps_slash_module_view_internals,	//	/module/view_internals
-				*jps_slash_preset_slash_default,		// 	/preset/default
-				*jps_slash_preset_slash_load,		// 	/preset/load
+				*jps_open,							//  open
+				*jps_slash_module_view_internals,	// /module/view_internals
+				*jps_slash_preset_slash_default,	// /preset/default
+				*jps_slash_preset_slash_load,		// /preset/load
 				*jps_slash_preset_slash_store,		// /preset/store
 				*jps_slash_preset_slash_storenext,	// /preset/storenext
 				*jps_slash_preset_slash_recall,
-				*jps_slash_preset_slash_write,		// 	/preset/save
-				*jps_slash_preset_slash_copy,		// 	/preset/save
+				*jps_slash_preset_slash_write,		// /preset/save
+				*jps_slash_preset_slash_copy,		// /preset/save
 				*jps_ui_slash_freeze,				//	ui/freeze
-				*jps_slash_ui_slash_freeze,			//	/ui/freeze
+				*jps_slash_ui_slash_freeze,			// /ui/freeze
 				*jps_ui_slash_refresh,				//	ui/refresh
-				*jps_slash_ui_slash_refresh,			//	/ui/refresh
+				*jps_slash_ui_slash_refresh,		// /ui/refresh
 				*jps_register_meter,
 				*jps_register_preview,
 				*jps_voices,

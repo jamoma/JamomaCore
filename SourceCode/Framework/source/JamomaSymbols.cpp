@@ -65,15 +65,17 @@ t_symbol	*jps_done,
 			*jps_inspector,
 			*jps_num_inputs,				// signal inlets and outlets
 			*jps_num_outputs,
-			*jps_type,					// parameter/message/return attributes
+			*jps_type,						// parameter/message/return attributes
 			*jps_algorithm_type,
 			*jps_name,
+			*jps_dataspace,
 			*jps_range,
 			*jps_range_bounds,
 			*jps_range_clipmode,
 			*jps_clipmode,
 			*jps_ramp,
 			*jps_ramp_drive,
+			*jps_ramp_function,
 			*jps_repetitions,
 			*jps_repetitions_allow,
 			*jps_description,
@@ -230,6 +232,7 @@ void jamomaSymbolsInit()
 	// parameter/message/return attributes
 	jps_inspector					= gensym("inspector");
 	jps_type						= gensym("type");
+	jps_dataspace					= gensym("dataspace");
 	// %TODO: jps_range should probably be removed
 	jps_range						= gensym("range");
 	jps_range_bounds				= gensym("range/bounds");
@@ -238,6 +241,7 @@ void jamomaSymbolsInit()
 	jps_clipmode					= gensym("clipmode");
 	jps_ramp						= gensym("ramp");
 	jps_ramp_drive					= gensym("ramp/drive");
+	jps_ramp_function				= gensym("ramp/function");
 	jps_repetitions					= gensym("repetitions");
 	jps_repetitions_allow			= gensym("repetitions/allow");
 	jps_description					= gensym("description");
