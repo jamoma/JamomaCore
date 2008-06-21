@@ -52,3 +52,8 @@ The tests themselves are located in the 'Tests' folder at the top level of the b
 The script also looks in every folder of the Modules folder so that module tests can be kept together with the module.
 
 
+
+
+DEBUGGING EXTERNALS ON THE MAC PLATFORM
+
+Max Runtime do not use the Max5 file preferences. The AddJamomaPath.maxpat is a handy utility temporaily adding the Jamoma folder and all subfolders to the search path so that externals, components, algorithms modules and help files can be accessed in Max Runtime, e.g. when running the debugger and Max Runtime in Xcode on the OSX platform.
