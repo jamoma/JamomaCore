@@ -623,10 +623,26 @@ t_max_err param_attr_getdataspace(t_param *x, void *attr, long *argc, t_atom **a
 t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc && argv){
+		t_max_err	err;
+		
 		x->attr_dataspace = atom_getsym(argv);
 		jamoma_getDataspace(x->attr_dataspace, &x->dataspace);
-		x->attr_unitActive = x->dataspace->neutralUnit;
-		x->attr_unitNative = x->dataspace->neutralUnit;
+
+		// If there is already a unit defined, then we try to use that
+		// Otherwise we use the default (neutral) unit.
+		err = MAX_ERR_GENERIC;
+		if(x->attr_unitActive)
+			err = x->dataspace->setInputUnit(x->attr_unitActive);
+		if(err)
+			x->attr_unitActive = x->dataspace->neutralUnit;
+		
+		// If there is already a unit defined, then we try to use that
+		// Otherwise we use the default (neutral) unit.
+		err = MAX_ERR_GENERIC;
+		if(x->attr_unitNative)
+			err = x->dataspace->setOutputUnit(x->attr_unitNative);
+		if(err)
+			x->attr_unitNative = x->dataspace->neutralUnit;
 	}
 	return MAX_ERR_NONE;
 }
@@ -644,10 +660,9 @@ t_max_err param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **
 t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc && argv){
-		if(x->dataspace) {
-			x->attr_unitActive = atom_getsym(argv);
+		x->attr_unitActive = atom_getsym(argv);
+		if(x->dataspace)
 			x->dataspace->setInputUnit(x->attr_unitActive);
-		}
 	}
 	return MAX_ERR_NONE;
 }
@@ -666,7 +681,8 @@ t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *ar
 {
 	if(argc && argv){
 		x->attr_unitNative = atom_getsym(argv);
-		x->dataspace->setOutputUnit(x->attr_unitNative);
+		if(x->dataspace)	// fix for crashes reported by Nils
+			x->dataspace->setOutputUnit(x->attr_unitNative);
 	}
 	return MAX_ERR_NONE;
 }
