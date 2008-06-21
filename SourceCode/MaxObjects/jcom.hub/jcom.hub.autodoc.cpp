@@ -153,7 +153,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, jps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, jps_range_bounds, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
 			if( (msg_type==jps_msg_int) || (msg_type==jps_msg_toggle) )
@@ -162,12 +162,14 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 				sprintf(tempstring, "\t\t\t<td class =\"instructionRange\"> %f %f </td>", range[0], range[1]);
 			else
 				sprintf(tempstring, "\t\t\t<th class = \"instructionRange\"> N/A </td>");
-			jcom_core_file_writeline(&file_handle, &myEof, tempstring);	
+			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
+			
+			// %TODO: 
 							
 			// clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_range_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -175,7 +177,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// ramp
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, gensym("ramp/drive"), &argc, &argv);
+			object_attr_getvalueof(t->object, jps_ramp_drive, &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRamp\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -183,7 +185,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_repetitions_allow , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -237,7 +239,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, jps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, jps_range_bounds, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
 			if( (msg_type==jps_msg_int) || (msg_type==jps_msg_toggle) )
@@ -248,10 +250,10 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 				sprintf(tempstring, "\t\t\t<th class = \"instructionRange\"> N/A </td>");
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);	
 							
-			// clipmode
+			// range/clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_range_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -267,7 +269,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_repetitions_allow , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
@@ -321,7 +323,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// range
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object, jps_range, &argc, &argv);
+			object_attr_getvalueof(t->object, jps_range_bounds, &argc, &argv);
 			range[0] = atom_getfloat(argv);
 			range[1] = atom_getfloat(argv+1);
 			if( (msg_type==jps_msg_int) || (msg_type==jps_msg_toggle) )
@@ -332,10 +334,10 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 				sprintf(tempstring, "\t\t\t<th class = \"instructionRange\"> N/A </td>");
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);	
 							
-			// clipmode
+			// range/clipmode
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_clipmode , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_range_clipmode , &argc, &argv);
 			result = atom_getsym(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
@@ -351,7 +353,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// repetitions
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_repetitions , &argc, &argv);
+			object_attr_getvalueof(t->object ,jps_repetitions_allow , &argc, &argv);
 			
 			//result = atom_getlong(argv);
 			sprintf(tempstring, "\t\t\t<td class =\"instructionRepetitions\"> %ld </td>", atom_getlong(argv));
