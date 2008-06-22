@@ -58,7 +58,7 @@ private:
 	
 public:
 	/**	Constructor. */
-	TTDelay(TTUInt8 maxNumChannels);
+	TTDelay(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
 	~TTDelay();

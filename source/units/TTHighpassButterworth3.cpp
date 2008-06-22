@@ -9,7 +9,7 @@
 #include "TTHighpassButterworth3.h"
 
 
-TTHighpassButterworth3::TTHighpassButterworth3(TTUInt8 newMaxNumChannels)
+TTHighpassButterworth3::TTHighpassButterworth3(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.highpass.butterworth", newMaxNumChannels),
 	xm1(NULL), xm2(NULL), xm3(NULL), ym1(NULL), ym2(NULL), ym3(NULL)
 {
@@ -114,13 +114,13 @@ TTErr TTHighpassButterworth3::setFrequency(const TTValue& newValue)
 
 TTErr TTHighpassButterworth3::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
 	TTFloat64		tempx,
 					tempy;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

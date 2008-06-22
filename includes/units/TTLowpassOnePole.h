@@ -44,7 +44,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassOnePole(TTUInt8 newMaxNumChannels);
+	TTLowpassOnePole(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLowpassOnePole();

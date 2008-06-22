@@ -9,7 +9,7 @@
 #include "TTAverage.h"
 
 /*
-TTAverage::TTAverage(TTUInt8 newMaxNumChannels)
+TTAverage::TTAverage(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.runningAverage", newMaxNumChannels),
 	accumulator(NULL), bins(NULL), binsIn(NULL), binsOut(NULL), binsEnd(NULL)
 {

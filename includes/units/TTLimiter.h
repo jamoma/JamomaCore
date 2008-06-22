@@ -94,7 +94,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLimiter(TTUInt8 newMaxNumChannels);
+	TTLimiter(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLimiter();

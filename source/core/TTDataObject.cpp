@@ -11,7 +11,7 @@
 
 /****************************************************************************************************/
 
-TTDataObject::TTDataObject(const char* name, TTUInt8 newMaxNumChannels)
+TTDataObject::TTDataObject(const char* name, TTUInt16 newMaxNumChannels)
 	: TTObject(name)
 {
 //	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTDataObject::setMaxNumChannels);

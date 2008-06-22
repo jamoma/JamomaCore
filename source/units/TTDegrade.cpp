@@ -12,7 +12,7 @@
 #define ONE_OVER_BIG_INT 1.1920928955E-7
 
 
-TTDegrade::TTDegrade(TTUInt8 newMaxNumChannels)
+TTDegrade::TTDegrade(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.degrade", newMaxNumChannels),
 	accumulator(NULL), output(NULL)
 {
@@ -67,11 +67,11 @@ TTErr TTDegrade::setBitdepth(const TTValue& newValue)
 
 TTErr TTDegrade::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 	long			l;
 
 	for(channel=0; channel<numchannels; channel++){

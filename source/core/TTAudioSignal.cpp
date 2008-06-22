@@ -11,7 +11,7 @@
 
 /****************************************************************************************************/
 
-TTAudioSignal::TTAudioSignal(TTUInt8 initialMaxNumChannels)
+TTAudioSignal::TTAudioSignal(TTUInt16 initialMaxNumChannels)
 	: isLocallyOwned(false), maxNumChannels(0), vs(0), numChannels(0), sampleVectors(NULL)
 {
 	TTUInt8	i;
@@ -40,7 +40,7 @@ TTAudioSignal::~TTAudioSignal()
 }
 
 
-TTErr TTAudioSignal::setVector(TTUInt8 channel, TTUInt16 vectorSize, TTSampleVector newVector)
+TTErr TTAudioSignal::setVector(TTUInt16 channel, TTUInt16 vectorSize, TTSampleVector newVector)
 {
 	TTUInt32	i;
 	
@@ -73,7 +73,7 @@ TTErr TTAudioSignal::setVector(TTUInt8 channel, TTUInt16 vectorSize, TTSampleVec
 	If we passed the vs in to this method, we could avoid having to realloc the memory every single time.
 	This would probably be a very good idea.
 */
-TTErr TTAudioSignal::setVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* newVector)
+TTErr TTAudioSignal::setVector(TTUInt16 channel, TTUInt16 vectorSize, TTFloat32* newVector)
 {
 	TTUInt32	i;
 	
@@ -95,14 +95,14 @@ TTErr TTAudioSignal::setVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* 
 }
 
 
-TTErr TTAudioSignal::getVector(TTUInt8 channel, TTUInt16 vectorSize, TTSampleVector returnedVector)
+TTErr TTAudioSignal::getVector(TTUInt16 channel, TTUInt16 vectorSize, TTSampleVector returnedVector)
 {
 	returnedVector = sampleVectors[channel];
 	return kTTErrNone;
 }
 
 
-TTErr TTAudioSignal::getVector(TTUInt8 channel, TTUInt16 vectorSize, TTFloat32* returnedVector)
+TTErr TTAudioSignal::getVector(TTUInt16 channel, TTUInt16 vectorSize, TTFloat32* returnedVector)
 {
 	TTUInt16 i;
 	
@@ -141,7 +141,7 @@ TTErr TTAudioSignal::allocWithSize(TTUInt16 newVectorSize)
 }
 
 
-TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2)
+TTUInt16 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2)
 {
 	if(signal1.numChannels > signal2.numChannels)
 		return signal2.numChannels;
@@ -150,7 +150,7 @@ TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal&
 }
 
 
-TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
+TTUInt16 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
 {
 	TTUInt8	numChannels = signal1.numChannels;
 	
@@ -164,7 +164,7 @@ TTUInt8 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal&
 
 
 
-TTUInt8 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2)
+TTUInt16 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2)
 {
 	if(signal1.numChannels < signal2.numChannels)
 		return signal2.numChannels;
@@ -172,7 +172,7 @@ TTUInt8 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal&
 		return signal1.numChannels;
 }
 
-TTUInt8 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
+TTUInt16 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
 {
 	TTUInt8	numChannels = signal1.numChannels;
 	
@@ -185,7 +185,7 @@ TTUInt8 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal&
 }
 
 
-TTUInt8 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
+TTUInt16 TTAudioSignal::getNumChannels(TTAudioSignal& signal)
 {
 	return signal.numChannels;
 }

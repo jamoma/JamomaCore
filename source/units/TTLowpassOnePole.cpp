@@ -9,7 +9,7 @@
 #include "TTLowpassOnePole.h"
 
 
-TTLowpassOnePole::TTLowpassOnePole(TTUInt8 newMaxNumChannels)
+TTLowpassOnePole::TTLowpassOnePole(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.onepole", newMaxNumChannels),
 	feedback(NULL)
 {
@@ -75,11 +75,11 @@ TTErr TTLowpassOnePole::setFrequency(const TTValue& newValue)
 
 TTErr TTLowpassOnePole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

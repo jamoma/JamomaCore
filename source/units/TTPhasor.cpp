@@ -9,7 +9,7 @@
 #include "TTPhasor.h"
 
 
-TTPhasor::TTPhasor(TTUInt8 newMaxNumChannels)
+TTPhasor::TTPhasor(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.phasor", newMaxNumChannels),
 	attrPhase(0.0), step(0.0), linearGain(1.0)
 {
@@ -82,8 +82,8 @@ TTErr TTPhasor::getGain(TTValue& value)
 TTErr TTPhasor::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue	*outSample;
-	TTUInt8			numchannels = out.getNumChannels();
-	TTUInt8			channel;
+	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		channel;
 	TTUInt16		vs;
 
 	for(channel=0; channel<numchannels; channel++){

@@ -53,7 +53,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassFourPole(TTUInt8 newMaxNumChannels);
+	TTLowpassFourPole(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLowpassFourPole();

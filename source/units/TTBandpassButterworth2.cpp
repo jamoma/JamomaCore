@@ -9,7 +9,7 @@
 #include "TTBandpassButterworth2.h"
 
 
-TTBandpassButterworth2::TTBandpassButterworth2(TTUInt8 newMaxNumChannels)
+TTBandpassButterworth2::TTBandpassButterworth2(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.bandpass.butterworth", newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
@@ -120,13 +120,13 @@ TTErr TTBandpassButterworth2::calculateCoefficients()
 
 TTErr TTBandpassButterworth2::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
 	TTFloat64		tempx,
 					tempy;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

@@ -58,7 +58,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTSvf(TTUInt8 newMaxNumChannels);
+	TTSvf(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTSvf();

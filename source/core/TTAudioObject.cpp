@@ -19,7 +19,7 @@ static const double kGainMidiPowerInv = 1./kGainMidiPower;
 
 /****************************************************************************************************/
 
-TTAudioObject::TTAudioObject(const char* name, TTUInt8 newMaxNumChannels)
+TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 	: TTObject(name)
 {
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);

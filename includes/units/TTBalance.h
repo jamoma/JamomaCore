@@ -53,7 +53,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTBalance(TTUInt8 newMaxNumChannels);
+	TTBalance(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTBalance();

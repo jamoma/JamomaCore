@@ -69,7 +69,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassLinkwitzRiley2(TTUInt8 newMaxNumChannels);
+	TTLowpassLinkwitzRiley2(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLowpassLinkwitzRiley2();

@@ -9,7 +9,7 @@
 #include "TTDelay.h"
 
 
-TTDelay::TTDelay(TTUInt8 newMaxNumChannels)
+TTDelay::TTDelay(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.dcblock", newMaxNumChannels),
 	  buffer(NULL), inPtr(NULL), outPtr(NULL), endPtr(NULL)
 {

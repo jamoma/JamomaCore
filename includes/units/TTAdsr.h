@@ -68,7 +68,7 @@ private:
 		
 	
 public:
-	TTAdsr(TTUInt8 newMaxNumChannels);
+	TTAdsr(TTUInt16 newMaxNumChannels);
 	~TTAdsr();
 	
 

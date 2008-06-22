@@ -54,7 +54,7 @@ private:
 		
 	
 public:
-	TTPulseSub(TTUInt8 newMaxNumChannels);
+	TTPulseSub(TTUInt16 newMaxNumChannels);
 	~TTPulseSub();
 	
 

@@ -47,7 +47,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTAverage(TTUInt8 newMaxNumChannels);
+	TTAverage(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTAverage();

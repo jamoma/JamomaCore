@@ -55,7 +55,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassButterworth1(TTUInt8 newMaxNumChannels);
+	TTLowpassButterworth1(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLowpassButterworth1();

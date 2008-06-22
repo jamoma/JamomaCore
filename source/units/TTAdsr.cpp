@@ -2,7 +2,7 @@
 
 #include "TTadsr.h"
 
-TTAdsr::TTAdsr(TTUInt8 newMaxNumChannels)
+TTAdsr::TTAdsr(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.adsr", newMaxNumChannels), output(0.), output_db(NOISE_FLOOR), 
 	eg_state(k_eg_inactive), trigger(false), attrMode(TT("linear"))
 {

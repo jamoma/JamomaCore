@@ -9,7 +9,7 @@
 #include "TTLimiter.h"
 
 
-TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
+TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.limiter", newMaxNumChannels),
 	lookaheadBuffer(NULL), lookaheadBufferIndex(0), gain(NULL), last(0.0), recover(0.0), maxBufferSize(512), attrMode(TT("exponential"))
 {
@@ -212,8 +212,8 @@ TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	TTInt16			flag,
 					lookaheadBufferPlayback,
 					ind;
-	TTUInt8			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt8			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// Pre-Process the input
 	dcBlocker->process(in, out);	// filter out DC-Offsets (unless it is bypassed)

@@ -9,7 +9,7 @@
 #include "TTDCBlock.h"
 
 
-TTDCBlock::TTDCBlock(TTUInt8 newMaxNumChannels)
+TTDCBlock::TTDCBlock(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.dcblock", newMaxNumChannels),
 	lastInput(NULL),
 	lastOutput(NULL)
@@ -61,11 +61,11 @@ TTErr TTDCBlock::clear()
 // DSP LOOP
 TTErr TTDCBlock::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 	TTSampleValue	temp;
 
 	for(channel=0; channel<numchannels; channel++){

@@ -9,7 +9,7 @@
 #include "TTRamp.h"
 
 
-TTRamp::TTRamp(TTUInt8 newMaxNumChannels)
+TTRamp::TTRamp(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.ramp", newMaxNumChannels),
 	attrMode(TT("vector")), attrCurrentValue(0), attrDestinationValue(0), step(0), direction(0)
 {
@@ -103,8 +103,8 @@ void TTRamp::setStep()
 TTErr TTRamp::processVectorAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue	*outSample;
-	short			numchannels = out.getNumChannels();
-	short			channel;
+	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
 		outSample = out.sampleVectors[channel];
@@ -124,8 +124,8 @@ TTErr TTRamp::processVectorAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
 TTErr TTRamp::processVectorAccurateUp(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue	*outSample;
-	short			numchannels = out.getNumChannels();
-	short			channel;
+	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
 		outSample = out.sampleVectors[channel];
@@ -145,9 +145,9 @@ TTErr TTRamp::processVectorAccurateUp(TTAudioSignal& in, TTAudioSignal& out)
 TTErr TTRamp::processSampleAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue	*outSample;
-	short			numchannels = out.getNumChannels();
-	short			channel;
-	short			vs;
+	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		channel;
+	TTUInt16		vs;
 
 	for(channel=0; channel<numchannels; channel++){
 		vs = out.getVectorSize();
@@ -170,9 +170,9 @@ TTErr TTRamp::processSampleAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
 TTErr TTRamp::processSampleAccurateUp(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTSampleValue	*outSample;
-	short			numchannels = out.getNumChannels();
-	short			channel;
-	short			vs;
+	TTUInt16		numchannels = out.getNumChannels();
+	TTUInt16		channel;
+	TTUInt16		vs;
 
 	for(channel=0; channel<numchannels; channel++){
 		vs = out.getVectorSize();

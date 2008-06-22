@@ -42,7 +42,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTOperator(TTUInt8 newMaxNumChannels);
+	TTOperator(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTOperator();

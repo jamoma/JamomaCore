@@ -50,7 +50,7 @@ private:
 
 public:
 	/**	Constructor. */
-	TTDCBlock(TTUInt8 maxNumChannels);
+	TTDCBlock(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
 	~TTDCBlock();

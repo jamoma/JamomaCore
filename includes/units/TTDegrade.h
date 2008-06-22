@@ -46,7 +46,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTDegrade(TTUInt8 newMaxNumChannels);
+	TTDegrade(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTDegrade();

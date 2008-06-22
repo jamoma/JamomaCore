@@ -9,7 +9,7 @@
 #include "TTSvf.h"
 
 
-TTSvf::TTSvf(TTUInt8 newMaxNumChannels)
+TTSvf::TTSvf(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.svf", newMaxNumChannels),
 	x1(NULL), x2(NULL), x3(NULL), x4(NULL), y1(NULL), y2(NULL), y3(NULL), y4(NULL)
 {
@@ -125,8 +125,8 @@ TTErr TTSvf::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
 	TTSampleValue	tempSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

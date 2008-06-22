@@ -9,7 +9,7 @@
 #include "TTLowpassLinkwitzRiley4.h"
 
 
-TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt8 newMaxNumChannels)
+TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.linkwitzRiley4", newMaxNumChannels),
 	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
@@ -125,13 +125,13 @@ TTErr TTLowpassLinkwitzRiley4::setFrequency(const TTValue& newValue)
 
 TTErr TTLowpassLinkwitzRiley4::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
 	TTFloat64		tempx,
 					tempy;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

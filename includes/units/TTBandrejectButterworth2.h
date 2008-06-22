@@ -57,7 +57,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTBandRejectButterworth2(TTUInt8 newMaxNumChannels);
+	TTBandRejectButterworth2(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTBandRejectButterworth2();

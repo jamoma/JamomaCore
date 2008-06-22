@@ -59,7 +59,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassButterworth3(TTUInt8 newMaxNumChannels);
+	TTLowpassButterworth3(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLowpassButterworth3();
