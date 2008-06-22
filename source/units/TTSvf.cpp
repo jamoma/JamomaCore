@@ -45,7 +45,7 @@ TTSvf::~TTSvf()
 }
 
 
-TTErr TTSvf::updateMaxNumChannels()
+TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	delete[] x1;
 	delete[] x2;

@@ -41,7 +41,7 @@ TTBandRejectButterworth2::~TTBandRejectButterworth2()
 }
 
 
-TTErr TTBandRejectButterworth2::updateMaxNumChannels()
+TTErr TTBandRejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1)
 		free(xm1);

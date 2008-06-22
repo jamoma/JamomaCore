@@ -36,7 +36,7 @@ TTLowpassOnePole::~TTLowpassOnePole()
 }
 
 
-TTErr TTLowpassOnePole::updateMaxNumChannels()
+TTErr TTLowpassOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(feedback)
 		free(feedback);

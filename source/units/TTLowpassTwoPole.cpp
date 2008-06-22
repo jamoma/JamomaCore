@@ -39,7 +39,7 @@ TTLowpassTwoPole::~TTLowpassTwoPole()
 }
 
 
-TTErr TTLowpassTwoPole::updateMaxNumChannels()
+TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	delete[] feedback1;
 	delete[] feedback2;

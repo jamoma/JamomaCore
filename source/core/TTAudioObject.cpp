@@ -45,8 +45,10 @@ TTAudioObject::~TTAudioObject()
 
 TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 {
+	TTValue	oldMaxNumChannels = maxNumChannels;
+	
 	maxNumChannels = newValue;
-	sendMessage(TT("updateMaxNumChannels"));
+	sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
 	return kTTErrNone;
 }
 

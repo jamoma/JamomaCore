@@ -50,7 +50,7 @@ private:
 	TTFloat64			attrPostamp;			///< linear gain scaling factor after the limiting (attr setter used dB).
 
 	/**	Override the setter for the inherited maxNumChannels attribute.					*/
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
 	TTErr updateSr();

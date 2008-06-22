@@ -39,7 +39,7 @@ TTHighpassButterworth2::~TTHighpassButterworth2()
 }
 
 
-TTErr TTHighpassButterworth2::updateMaxNumChannels()
+TTErr TTHighpassButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1)
 		free(xm1);

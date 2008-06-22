@@ -27,7 +27,7 @@ private:
 	TTFloat64		negOneOverResonance;	///< -1 / attrResonance
 
 	// Notifications
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
 
 	// Attributes

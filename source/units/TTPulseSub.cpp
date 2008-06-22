@@ -64,7 +64,7 @@ TTErr TTPulseSub::updateSr()
 }
 
 
-TTErr TTPulseSub::updateMaxNumChannels()
+TTErr TTPulseSub::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	phasor->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 	offset->setAttributeValue(TT("maxNumChannels"), maxNumChannels);

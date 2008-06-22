@@ -27,7 +27,7 @@ private:
 	TTSampleVector*	binsEnd;
 
 	// Notifications
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	// Attributes
 	TTErr setFrequency(const TTValue& newValue);

@@ -37,7 +37,7 @@ private:
 	
 
 	TTErr updateSr();
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
 	TTErr setTrigger(const TTValue& newValue);
 	TTErr setAttack(const TTValue& newValue);

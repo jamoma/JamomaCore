@@ -52,7 +52,7 @@ TTLowpassFourPole::~TTLowpassFourPole()
 }
 
 
-TTErr TTLowpassFourPole::updateMaxNumChannels()
+TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	delete[] x1;
 	delete[] x2;

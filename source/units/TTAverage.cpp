@@ -42,7 +42,7 @@ TTAverage::~TTAverage()
 }
 
 
-TTErr TTAverage::updateMaxNumChannels()
+TTErr TTAverage::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 // FIXME: There is a problem here -- has the maxNumChannels changed?  If so, then we can't iterate like this because we will be freeing the wrong number
 // of channels, given that a different number was allocated the last time through !!!

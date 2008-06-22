@@ -26,7 +26,7 @@ private:
 	TTFloat64		attrSrRatio;		///< Use a range of 0.0 to 1.0 to specify a ratio of the current sample-rate to emulate in order to intentional aliasing artifacts.
 
 	/**	Setter for the inherited maxNumChannels attribute.		*/
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/**	Setter for the bitdepth attribute. */
 	TTErr setBitdepth(const TTValue& value);

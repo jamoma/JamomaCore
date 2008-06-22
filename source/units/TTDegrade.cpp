@@ -38,7 +38,7 @@ TTDegrade::~TTDegrade()
 }
 
 
-TTErr TTDegrade::updateMaxNumChannels()
+TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	short i;
 	

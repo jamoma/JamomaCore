@@ -43,7 +43,7 @@ TTBalance::~TTBalance()
 }
 
 
-TTErr TTBalance::updateMaxNumChannels()
+TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1A)
 		free(xm1A);

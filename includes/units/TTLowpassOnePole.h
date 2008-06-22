@@ -22,7 +22,7 @@ private:
 
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.			*/
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/

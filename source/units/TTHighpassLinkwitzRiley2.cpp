@@ -39,7 +39,7 @@ TTHighpassLinkwitzRiley2::~TTHighpassLinkwitzRiley2()
 }
 
 
-TTErr TTHighpassLinkwitzRiley2::updateMaxNumChannels()
+TTErr TTHighpassLinkwitzRiley2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1)
 		free(xm1);

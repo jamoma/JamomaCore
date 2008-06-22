@@ -33,7 +33,7 @@ TTDCBlock::~TTDCBlock()
 }
 
 
-TTErr TTDCBlock::updateMaxNumChannels()
+TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(lastInput)
 		free(lastInput);

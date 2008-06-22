@@ -27,7 +27,7 @@ private:
 	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/**	Resets the DC-Blocking filter.
 	 *	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
