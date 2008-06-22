@@ -7,7 +7,7 @@ This build.rb Ruby script builds all of the C/C++ code required for Jamoma's Fra
 To use the script:
 build.rb <required:configuration> <optional:clean>
 
-(close Max before doing that !)
+(close Max before doing that!)
 
 If you want a nice, clean release version, try this: 
 	./build.rb Deployment clean
@@ -48,7 +48,7 @@ Automated tests are started by running the following script (after cd'ing into t
 This relies on the 'test-components' folder in the Jamoma/library folder.
 The test components need to be in that location, because they need to be in Max's searchpath.
 
-The tests themselves are located in the 'Tests' folder at the top level of the branch.
+The tests themselves are located in the 'Tests' folder at the top level of the branch, and all subfolders.
 The script also looks in every folder of the Modules folder so that module tests can be kept together with the module.
 
 
@@ -56,4 +56,5 @@ The script also looks in every folder of the Modules folder so that module tests
 
 DEBUGGING EXTERNALS ON THE MAC PLATFORM
 
-Max Runtime do not use the Max5 file preferences. The AddJamomaPath.maxpat is a handy utility temporaily adding the Jamoma folder and all subfolders to the search path so that externals, components, algorithms modules and help files can be accessed in Max Runtime, e.g. when running the debugger and Max Runtime in Xcode on the OSX platform.
+The Max Runtime does not use the Max5 file preferences. The AddJamomaPath.maxpat is a handy utility for temporarily adding the Jamoma folder and all subfolders to the search path so that externals, components, algorithms modules and help files can be accessed in Max Runtime, e.g. when running the debugger and Max Runtime in Xcode on the OSX platform.
+
