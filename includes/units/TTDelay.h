@@ -24,23 +24,27 @@ private:
 	TTSymbol*			attrInterpolation;
 	
 	// alloc'd for each channel
-	TTSampleValue*		fractionalDelay;		///< used in linear interpolated dsp loops
+	TTSampleValue*		fractionalDelay;		///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
 	TTSampleValue* 		fractionalDelaySamples;	///< fractionalDelay expressed in samples rather than ms
 	TTSampleVector*		buffer;
 	TTSampleVector*		inPtr;					///< "write" pointer for buffer
 	TTSampleVector*		outPtr;					///< "read" pointer
 	TTSampleVector*		endPtr;					///< points to last sample in buffer (for speed)	
-//	tt_sample_value		output[4];		
-	
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/** Receives notifications when there are changes to the inherited sr attribute. */
 	TTErr updateSr();
 	
+	TTErr init(TTUInt64 newDelayMaxInSamples);
 	TTErr clear();	
 	void reset();	// internal
+
+	// Attribute Accessors
+	TTErr setDelay(const TTValue& newValue);
+	TTErr setDelayInSamples(const TTValue& newValue);
+	TTErr setInterpolation(const TTValue& newValue);
 	
 	// Process with a constant delay time
 	TTErr processAudioNoInterpolation(TTAudioSignal& in, TTAudioSignal& out);
