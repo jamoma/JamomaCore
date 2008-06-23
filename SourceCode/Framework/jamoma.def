@@ -212,6 +212,14 @@ EXPORTS
 		jps_video_preview
 		jps_voices
 		
+		jps_repetitions_allow
+		jps_ramp_function
+		jps_ramp_drive
+		jps_range_clipmode
+		jps_range_bounds
+		jps_dataspace
+		
 		;commonsyms.c
 		common_symbols_init
 		_common_symbols
+		
