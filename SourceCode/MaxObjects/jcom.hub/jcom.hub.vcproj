@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
+			OutputDirectory="..\..\..\Jamoma\library\externals\windows"
 			IntermediateDirectory="Debug"
 			ConfigurationType="2"
 			>
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				CommandLine=""
 				Outputs="output"
 			/>
 			<Tool
@@ -47,7 +47,7 @@
 				MinimalRebuild="true"
 				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="2"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -68,6 +68,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug;..\..\ThirdParty\libxml2\win32\lib;..\..\ThirdParty\libiconv\lib"
+				GenerateManifest="false"
 				ModuleDefinitionFile="jcom.hub.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -97,7 +98,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
+			OutputDirectory="..\..\..\Jamoma\library\externals\windows"
 			IntermediateDirectory="Release"
 			ConfigurationType="2"
 			>
@@ -119,7 +120,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\ThirdParty\TTBlue\includes\core;..\..\ThirdParty\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\ThirdParty\libxml2\win32\include;..\..\ThirdParty\libiconv\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -137,7 +139,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib JamomaFramework.lib libxml2.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;..\..\Framework\build;..\..\Framework\Debug;..\..\ThirdParty\libxml2\win32\lib;..\..\ThirdParty\libiconv\lib"
+				GenerateManifest="false"
+				IgnoreDefaultLibraryNames=""
+				ModuleDefinitionFile="jcom.hub.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"

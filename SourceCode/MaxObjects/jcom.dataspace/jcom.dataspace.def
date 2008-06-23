@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.dataspace"
+LIBRARY "jcom.dataspace.mxe"
 
 EXPORTS
 	main

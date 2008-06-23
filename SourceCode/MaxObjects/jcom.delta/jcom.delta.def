@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.delta"
+LIBRARY "jcom.delta.mxe"
 
 EXPORTS
 	main

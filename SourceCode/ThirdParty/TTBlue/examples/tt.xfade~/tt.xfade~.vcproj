@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
+			OutputDirectory="..\builds"
 			IntermediateDirectory="Debug"
 			ConfigurationType="2"
 			>
@@ -67,6 +67,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\c74support\jit-includes&quot;;..\..\library\Debug"
+				GenerateManifest="false"
 				ModuleDefinitionFile="tt.xfade~.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -118,7 +119,9 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;"
+				AdditionalIncludeDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;..\..\includes\core;..\..\includes\units"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				IgnoreStandardIncludePath="false"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -136,7 +139,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\c74support\jit-includes&quot;;..\..\library\Debug"
+				GenerateManifest="false"
+				ModuleDefinitionFile="tt.xfade~.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
