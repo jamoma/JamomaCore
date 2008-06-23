@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 #if C74_PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(push, 2)s
+    #pragma pack(push, 2)
 #elif C74_PRAGMA_STRUCT_PACK
     #pragma pack(2)
 #endif
