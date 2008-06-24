@@ -90,6 +90,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
 
+	class_addmethod(c, (method)hub_edclose,				"edclose",	A_CANT, 0);		// notification of closing the /getstate text editor window
+
 	CLASS_ATTR_SYM(c,		"name",				0,	t_hub,	osc_name);				// instance name (osc)
 	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setname);
 
@@ -297,6 +299,10 @@ void hub_free(t_hub *x)
 	}
 	critical_exit(0);	
 
+	object_free(x->textEditor);
+	if(x->textSize)
+		free(x->text);
+		
 	hub_internals_destroy(x);
  	hub_presets_clear(x, NULL, 0, NULL);
 	qelem_free(x->init_qelem);
@@ -526,6 +532,9 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 		else if(private_message == gensym("/preset/interface")){
 			hub_preset_interface(x);
 		}
+		else if(private_message == gensym("/getstate")){
+			hub_getstate(x);
+		}
 		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/ui/freeze
 			if (argc>0)
 				n = atom_getlong(argv);
@@ -603,6 +612,65 @@ void hub_outlet_return(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		osc = gensym(mess);
 		object_method_typed(x->jcom_send, osc, argc, argv, NULL);
 	}
+}
+
+
+void hub_getstate(t_hub *x)
+{
+	subscriberList*		subscriber = x->subscriber;	// head of the linked list
+	subscriberIterator	i;
+	t_subscriber*		t;
+	char*				text = NULL;
+	long				textsize = 0;
+
+	if(!x->textEditor)
+		x->textEditor = (t_object*)object_new(_sym_nobox, _sym_jed, x, 0);
+	
+	if(!x->textSize){
+		x->textSize = 4096;
+		x->text = (char*)malloc(sizeof(char) * x->textSize);
+	}
+	x->text[0] = 0;
+	
+	critical_enter(0);
+	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+		t = *i;
+		if(t->type == jps_subscribe_parameter){
+			long	ac = NULL; 
+			t_atom* av = NULL;
+			
+			object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
+			atom_gettext(ac, av, &textsize, &text, 0);
+			
+			// this is a really lame way to do this...
+			if(strlen(x->text) > (x->textSize - 1024)){
+				x->textSize += 4096;
+				x->text = (char*)realloc(x->text, x->textSize);
+			}
+			
+			strncat_zero(x->text, t->name->s_name, x->textSize);
+			strncat_zero(x->text, " ", x->textSize);
+			strncat_zero(x->text, text, x->textSize);
+			strncat_zero(x->text, "\n", x->textSize);
+
+			sysmem_freeptr(text);
+			text = NULL;
+			textsize = 0;
+		}
+	}
+	critical_exit(0);
+	
+	object_method(x->textEditor, _sym_settext, x->text, _sym_utf_8);
+	object_attr_setchar(x->textEditor, gensym("scratch"), 1); 
+	object_attr_setsym(x->textEditor, _sym_title, gensym("jamoma module state"));
+	
+	sysmem_freeptr(text);
+}
+
+
+void hub_edclose(t_hub *x, char **text, long size)
+{	
+	x->textEditor = NULL;
 }
 
 

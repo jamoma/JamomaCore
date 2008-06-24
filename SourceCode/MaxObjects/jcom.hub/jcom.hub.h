@@ -85,6 +85,9 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*preset_interface;
 	long			preset_lastnum;
 	t_symbol		*preset_lastname;
+	char*			text;						///< text used by /getstate window
+	TTUInt32		textSize;					///< how many chars are alloc'd to text
+	t_object*		textEditor;					///< the text editor window
 } t_hub;
 
 
@@ -323,6 +326,10 @@ void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 /** Post all presets
  * @param x a pointer to the hub whose presets should be dumped */
 void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
+
+
+void hub_getstate(t_hub *x);
+void hub_edclose(t_hub *x, char **text, long size);
 
 void hub_preset_interface(t_hub* x);
 t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);
