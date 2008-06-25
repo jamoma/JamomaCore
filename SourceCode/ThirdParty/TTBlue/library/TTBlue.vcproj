@@ -69,7 +69,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				ShowProgress="0"
-				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				MapFileName="ttblue.map"
@@ -127,7 +126,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
+				Optimization="2"
 				AdditionalIncludeDirectories="../includes/core;../includes/units"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT"
 				ExceptionHandling="0"
@@ -151,7 +150,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				MapFileName="ttblue.map"
