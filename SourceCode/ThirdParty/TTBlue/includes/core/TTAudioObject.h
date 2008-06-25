@@ -44,7 +44,7 @@ protected:
 	TTUInt32						sr;									///< Current sample rate being used by this object
 	TTFloat64						srInv;								///< 1.0 over the current sample rate (inverse)
 	TTFloat64						srMill;								///< 1/1000 of the current sample rate (samples per millisecond)
-	TTUInt8							maxNumChannels;						///< This is the maximum number of channels that can be guaranteed to work
+	TTUInt16						maxNumChannels;						///< This is the maximum number of channels that can be guaranteed to work
 	TTBoolean						attrProcessInPlace;					///< This flag indicates that the object should process the samples "in-place", such that the processed samples are actually in the input
 	TTBoolean						attrBypass;							///< Are we bypassing the processMethod?
 	TTProcessMethod					processMethod;						///< This function pointer points to the active (non-bypass) processing routine
@@ -69,7 +69,7 @@ protected:
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
-	TTAudioObject(const char* name, TTUInt8 maxNumChannels);
+	TTAudioObject(const char* name, TTUInt16 maxNumChannels);
 	
 	/** Destructor. */
 	virtual ~TTAudioObject();

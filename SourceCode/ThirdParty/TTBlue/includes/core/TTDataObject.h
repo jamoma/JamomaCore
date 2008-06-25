@@ -60,7 +60,7 @@ protected:
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
-	TTDataObject(const char* name, TTUInt8 maxNumChannels);
+	TTDataObject(const char* name, TTUInt16 maxNumChannels);
 	
 	/** Destructor. */
 	virtual ~TTDataObject();
