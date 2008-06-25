@@ -252,9 +252,11 @@ t_int *limiter_perform(t_int *w)
 // DSP Method
 void limiter_dsp(t_limiter *x, t_signal **sp, short *count)
 {
-	short	i, j, k=0;
-	void	**audioVectors = NULL;
-	TTUInt8		numChannels = 0;
+	TTUInt16	i; 
+	TTUInt16	j;
+	TTUInt16	k = 0;
+	void**		audioVectors = NULL;
+	TTUInt16	numChannels = 0;
 	TTUInt16	vs = 0;
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1));
