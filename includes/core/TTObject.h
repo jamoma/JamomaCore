@@ -98,30 +98,12 @@ public:
 
 	TTErr setAttributeValue(const TTSymbol* name, const TTValue& value);
 	TTErr getAttributeValue(const TTSymbol* name, TTValue& value);
-	// convenience wrappers...
-	TTErr setAttributeValue(const TTSymbol* name, const TTFloat32& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTFloat32& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTFloat64& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTFloat64& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTInt8& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTInt8& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTUInt8& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTUInt8& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTInt16& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTInt16& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTUInt16& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTUInt16& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTInt32& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTInt32& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTUInt32& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTUInt32& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTInt64& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTInt64& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTUInt64& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTUInt64& value);
-	TTErr setAttributeValue(const TTSymbol* name, const TTSymbol* value);
-	TTErr getAttributeValue(const TTSymbol* name, TTSymbol* value);
 
+	template<class T>
+	TTErr setAttributeValue(const TTSymbol* name, const T& value);
+	template<class T>
+	TTErr getAttributeValue(const TTSymbol* name, T& value);
+	
 	TTErr TTObject::getAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
 	TTErr TTObject::setAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
 	TTErr TTObject::getAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value);
@@ -205,6 +187,22 @@ public:
 	TTMessage(const TTSymbol* newName, TTMethod newMethod, TTMessageFlags newFlags);
 	virtual ~TTMessage();
 };
+
+template <class T>
+TTErr TTObject::setAttributeValue(const TTSymbol* name, const T& value)
+{
+	TTValue	v(value);
+	return setAttributeValue(name, v);
+}
+
+template <class T>
+TTErr TTObject::getAttributeValue(const TTSymbol* name, T& value)
+{
+	TTValue	v;
+	TTErr error = getAttributeValue(name, v);
+	value = v;
+	return error;
+}
 
 #endif // __TT_OBJECT_H__
 
