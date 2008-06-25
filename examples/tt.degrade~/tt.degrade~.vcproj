@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="tt.degrade~"
-	ProjectGUID="{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}"
+	ProjectGUID="{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}"
 	RootNamespace="tt.degrade~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
+			OutputDirectory="..\builds"
 			IntermediateDirectory="Debug"
 			ConfigurationType="2"
 			>
@@ -46,7 +46,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="2"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -67,6 +67,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\c74support\jit-includes&quot;;..\..\library\Debug"
+				GenerateManifest="false"
 				ModuleDefinitionFile="tt.degrade~.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -118,7 +119,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;"
+				AdditionalIncludeDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;..\..\includes\core;..\..\includes\units"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -136,7 +138,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;..\..\..\c74support\max-includes&quot;;&quot;..\..\..\c74support\msp-includes&quot;;&quot;..\..\..\c74support\jit-includes&quot;;..\..\library\Debug"
+				GenerateManifest="false"
+				ModuleDefinitionFile="tt.degrade~.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
