@@ -139,7 +139,6 @@ void TTValue::clear()
 	init();
 	data->float64 = 0.0;
 	*type = kTypeNone;
-	numValues = 0;
 }
 
 
