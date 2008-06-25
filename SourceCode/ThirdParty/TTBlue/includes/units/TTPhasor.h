@@ -46,7 +46,7 @@ private:
 
 public:
 	/**	Constructor. */
-	TTPhasor(TTUInt8 maxNumChannels);
+	TTPhasor(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
 	~TTPhasor();

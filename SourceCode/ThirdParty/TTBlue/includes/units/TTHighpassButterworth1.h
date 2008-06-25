@@ -33,7 +33,7 @@ private:
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.  This allocates memory for xm1 and ym1 
 		so that each channel's previous values are remembered.		*/
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/
@@ -55,7 +55,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTHighpassButterworth1(TTUInt8 newMaxNumChannels);
+	TTHighpassButterworth1(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTHighpassButterworth1();

@@ -27,7 +27,7 @@ private:
 	TTSampleVector*	binsEnd;
 
 	// Notifications
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	// Attributes
 	TTErr setFrequency(const TTValue& newValue);
@@ -47,7 +47,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTAverage(TTUInt8 newMaxNumChannels);
+	TTAverage(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTAverage();

@@ -32,7 +32,7 @@ private:
 	TTFloat64		deciResonance;			///< attrResonance * 0.1
 
 	// Notifications
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
 
 	// Attributes
@@ -53,7 +53,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassFourPole(TTUInt8 newMaxNumChannels);
+	TTLowpassFourPole(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLowpassFourPole();

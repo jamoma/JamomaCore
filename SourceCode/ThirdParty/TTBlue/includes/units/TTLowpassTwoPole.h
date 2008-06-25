@@ -27,7 +27,7 @@ private:
 	TTFloat64		negOneOverResonance;	///< -1 / attrResonance
 
 	// Notifications
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
 
 	// Attributes
@@ -48,7 +48,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTLowpassTwoPole(TTUInt8 newMaxNumChannels);
+	TTLowpassTwoPole(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTLowpassTwoPole();

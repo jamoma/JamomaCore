@@ -30,7 +30,7 @@ private:
 	TTDCBlock*			dcBlocker;
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/**	Setter for the mode attribute. */
 	TTErr setDrive(const TTValue& value);
@@ -57,7 +57,7 @@ private:
 
 public:
 	/**	Constructor. */
-	TTOverdrive(TTUInt8 maxNumChannels);
+	TTOverdrive(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
 	~TTOverdrive();

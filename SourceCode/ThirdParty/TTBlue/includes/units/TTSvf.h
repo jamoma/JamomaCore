@@ -37,7 +37,7 @@ private:
 	TTFloat64		deciResonance;			///< attrResonance * 0.1
 
 	// Notifications
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
 
 	// Attributes
@@ -58,7 +58,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTSvf(TTUInt8 newMaxNumChannels);
+	TTSvf(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTSvf();

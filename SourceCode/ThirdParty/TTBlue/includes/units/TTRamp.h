@@ -58,7 +58,7 @@ private:
 
 public:
 	/**	Constructor. */
-	TTRamp(TTUInt8 maxNumChannels);
+	TTRamp(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
 	~TTRamp();

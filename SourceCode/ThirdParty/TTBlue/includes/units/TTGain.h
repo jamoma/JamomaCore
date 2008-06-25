@@ -35,7 +35,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTGain(TTUInt8 newMaxNumChannels);
+	TTGain(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTGain();

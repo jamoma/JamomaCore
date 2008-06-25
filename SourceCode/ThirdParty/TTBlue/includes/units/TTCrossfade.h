@@ -54,7 +54,7 @@ private:
 public:
 
 	/**	Constructor. */
-	TTCrossfade(TTUInt8 newMaxNumChannels);
+	TTCrossfade(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
 	~TTCrossfade();

@@ -37,7 +37,7 @@ private:
 	
 
 	TTErr updateSr();
-	TTErr updateMaxNumChannels();
+	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
 	TTErr setTrigger(const TTValue& newValue);
 	TTErr setAttack(const TTValue& newValue);
@@ -54,7 +54,7 @@ private:
 		
 	
 public:
-	TTPulseSub(TTUInt8 newMaxNumChannels);
+	TTPulseSub(TTUInt16 newMaxNumChannels);
 	~TTPulseSub();
 	
 
