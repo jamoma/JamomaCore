@@ -52,24 +52,16 @@ puts "  "
 @zerolink = false
 
 
-# If there is a TTBlue checkout, then copy the files from it over the ones that are in the Jamoma checkout
-#if(Dir.glob(""))
-if(Dir.glob("#{@svn_root}/../TTBlue/.svn").size > 0)
-  puts "Copying TTBlue files into Jamoma from the independent TTBlue checkout"
-  `cp #{@svn_root}../TTBlue/library/*                  #{@svn_root}/SourceCode/ThirdParty/TTBlue/library`
-  `cp #{@svn_root}../TTBlue/library/TTBlue.xcodeproj/* #{@svn_root}/SourceCode/ThirdParty/TTBlue/library/TTBlue.xcodeproj`
-  `cp #{@svn_root}../TTBlue/includes/core/*            #{@svn_root}/SourceCode/ThirdParty/TTBlue/includes/core`
-  `cp #{@svn_root}../TTBlue/includes/units/*           #{@svn_root}/SourceCode/ThirdParty/TTBlue/includes/units`
-  `cp #{@svn_root}../TTBlue/source/core/*              #{@svn_root}/SourceCode/ThirdParty/TTBlue/source/core`
-  `cp #{@svn_root}../TTBlue/source/units/*             #{@svn_root}/SourceCode/ThirdParty/TTBlue/source/units`
-  `cp #{@svn_root}../TTBlue/examples/tt.balance~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.balance~`
-  `cp #{@svn_root}../TTBlue/examples/tt.dcblock~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.dcblock~`
-  `cp #{@svn_root}../TTBlue/examples/tt.degrade~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.degrade~`
-  `cp #{@svn_root}../TTBlue/examples/tt.filter~/*      #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.filter~`
-  `cp #{@svn_root}../TTBlue/examples/tt.limiter~/*     #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.limiter~`
-  `cp #{@svn_root}../TTBlue/examples/tt.overdrive~/*   #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.overdrive~`
-  `cp #{@svn_root}../TTBlue/examples/tt.ramp~/*        #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.ramp~`
-  `cp #{@svn_root}../TTBlue/examples/tt.xfade~/*       #{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.xfade~`
+# If there isn't a TTBlue checkout, then we go ahead and check it out
+if(Dir.glob("#{@svn_root}../TTBlue").size == 0)
+  puts "We need to check out TTBlue from it's repository."
+  puts "This could take quite a while, and it will give you no feedback while it is happening."
+  puts ""
+  `svn co https://ttblue.googlecode.com/svn/branches/active #{@svn_root}../TTBlue`
+else
+  puts "TTBlue looks to be already checked-out..."
+  puts "Did you make sure it is updated to the correct revision?"
+  puts ""
 end
 
 
@@ -223,7 +215,7 @@ zero_count
 ###################################################################
 puts "Building Frameworks..."
 zero_count
-build_project("#{@svn_root}/SourceCode/ThirdParty/TTBlue/library", "TTBlue.xcodeproj", configuration, true)
+build_project("#{@svn_root}/../TTBlue/library", "TTBlue.xcodeproj", configuration, true)
 build_project("#{@svn_root}/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
 ex_total, ex_count = get_count
 puts ""
@@ -235,37 +227,37 @@ puts ""
 puts "Building TTBlue Externals..."
 
 zero_count
-build_dir("SourceCode/ThirdParty/TTBlue/examples", configuration, clean)  
+build_dir("#{@svn_root}/../TTBlue/examples", configuration, clean)  
 ex_total, ex_count = get_count
 if("#{configuration}" == "Development")
   puts "copying Development"
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.balance~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.balance~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.dcblock~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.dcblock~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.degrade~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.degrade~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.filter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.filter~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.limiter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.limiter~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.overdrive~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.overdrive~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Development/tt.ramp~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.ramp~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Development/tt.balance~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.balance~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Development/tt.dcblock~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.dcblock~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Development/tt.degrade~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.degrade~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Development/tt.filter~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.filter~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Development/tt.limiter~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.limiter~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Development/tt.overdrive~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.overdrive~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Development/tt.ramp~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.ramp~.mxo")
 else
   puts "copying Deployment"
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.balance~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.balance~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.dcblock~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.dcblock~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.degrade~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.degrade~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.filter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.filter~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.limiter~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.limiter~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.overdrive~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.overdrive~.mxo")
-  copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/Build_Mac/Deployment/tt.ramp~.mxo", "#{@svn_root}/Jamoma/library/externals/mac/tt.ramp~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Deployment/tt.balance~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.balance~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Deployment/tt.dcblock~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.dcblock~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Deployment/tt.degrade~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.degrade~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Deployment/tt.filter~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.filter~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Deployment/tt.limiter~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.limiter~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Deployment/tt.overdrive~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.overdrive~.mxo")
+  copydir("#{@svn_root}../TTBlue/Build_Mac/Deployment/tt.ramp~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.ramp~.mxo")
 end
 puts ""
 
 puts "copying help ttblue files"
-copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.balance~/tt.balance~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.balance~.maxhelp")
-copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.dcblock~/tt.dcblock~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.dcblock~.maxhelp")
-copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.degrade~/tt.degrade~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.degrade~.maxhelp")
-copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.filter~/tt.filter~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.filter~.maxhelp")
-copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.limiter~/tt.limiter~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.limiter~.maxhelp")
-copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.overdrive~/tt.overdrive~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.overdrive~.maxhelp")
-copydir("#{@svn_root}/SourceCode/ThirdParty/TTBlue/examples/tt.ramp~/tt.ramp~.maxhelp", "#{@svn_root}/Jamoma/documentation/jamoma-help/tt.ramp~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/tt.balance~/tt.balance~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.balance~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/tt.dcblock~/tt.dcblock~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.dcblock~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/tt.degrade~/tt.degrade~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.degrade~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/tt.filter~/tt.filter~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.filter~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/tt.limiter~/tt.limiter~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.limiter~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/tt.overdrive~/tt.overdrive~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.overdrive~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/tt.ramp~/tt.ramp~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.ramp~.maxhelp")
 puts ""
 
 puts "Building Jamoma Externals..."
