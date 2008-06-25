@@ -9,7 +9,7 @@
 #include "TTBalance.h"
 
 
-TTBalance::TTBalance(TTUInt8 newMaxNumChannels)
+TTBalance::TTBalance(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.butterworth", newMaxNumChannels),
 	xm1A(NULL), xm2A(NULL), ym1A(NULL), ym2A(NULL), xm1B(NULL), xm2B(NULL), ym1B(NULL), ym2B(NULL)
 {
@@ -43,7 +43,7 @@ TTBalance::~TTBalance()
 }
 
 
-TTErr TTBalance::updateMaxNumChannels()
+TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1A)
 		free(xm1A);
@@ -117,7 +117,7 @@ TTErr TTBalance::setFrequency(const TTValue& newValue)
 
 TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSampleA,
 					*inSampleB,
 					*outSample;
@@ -127,8 +127,8 @@ TTErr TTBalance::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 					absTempxB,
 					tempyA,
 					tempyB;											
-	short			channel;
-	short			numChannels;
+	TTUInt16		channel;
+	TTUInt16		numChannels;
 
 	// Twice as many input channels are expected as output channels
 	numChannels = TTAudioSignal::getNumChannels(in) / 2;

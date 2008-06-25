@@ -9,7 +9,7 @@
 #include "TTLowpassButterworth4.h"
 
 
-TTLowpassButterworth4::TTLowpassButterworth4(TTUInt8 newMaxNumChannels)
+TTLowpassButterworth4::TTLowpassButterworth4(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.butterworth", newMaxNumChannels),
 	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
@@ -43,7 +43,7 @@ TTLowpassButterworth4::~TTLowpassButterworth4()
 }
 
 
-TTErr TTLowpassButterworth4::updateMaxNumChannels()
+TTErr TTLowpassButterworth4::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1)
 		free(xm1);
@@ -135,13 +135,13 @@ TTErr TTLowpassButterworth4::setFrequency(const TTValue& newValue)
 
 TTErr TTLowpassButterworth4::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
 	TTFloat64		tempx,
 					tempy;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

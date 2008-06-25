@@ -8,7 +8,7 @@
 
 #include "TTPulseSub.h"
 
-TTPulseSub::TTPulseSub(TTUInt8 newMaxNumChannels)
+TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.pulsesub", newMaxNumChannels), attrMode(TT("linear"))
 {
 	registerAttribute(TT("attack"),		kTypeFloat64,	&attrAttack,	(TTSetterMethod)&TTPulseSub::setAttack);
@@ -64,7 +64,7 @@ TTErr TTPulseSub::updateSr()
 }
 
 
-TTErr TTPulseSub::updateMaxNumChannels()
+TTErr TTPulseSub::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	phasor->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 	offset->setAttributeValue(TT("maxNumChannels"), maxNumChannels);

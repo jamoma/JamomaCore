@@ -9,7 +9,7 @@
 #include "TTOperator.h"
 
 
-TTOperator::TTOperator(TTUInt8 newMaxNumChannels)
+TTOperator::TTOperator(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.operator", newMaxNumChannels), attrOperator(TT(""))
 {
 	registerAttribute(TT("operator"),	kTypeSymbol,	&attrOperator,	 (TTSetterMethod)&TTOperator::setOperator);
@@ -63,11 +63,11 @@ TTErr TTOperator::setOperand(const TTValue& newValue)
 
 TTErr TTOperator::processAddConstant(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -82,11 +82,11 @@ TTErr TTOperator::processAddConstant(TTAudioSignal& in, TTAudioSignal& out)
 
 TTErr TTOperator::processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -101,11 +101,11 @@ TTErr TTOperator::processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out)
 
 TTErr TTOperator::processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -120,11 +120,11 @@ TTErr TTOperator::processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out)
 
 TTErr TTOperator::processDivideConstant(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -141,12 +141,12 @@ TTErr TTOperator::processDivideConstant(TTAudioSignal& in, TTAudioSignal& out)
 
 TTErr TTOperator::processAddSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*in1Sample,
 					*in2Sample,
 					*outSample;
-	short			numChannels;
-	short			channel;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
 
 	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in2.getNumChannels();
@@ -176,12 +176,12 @@ TTErr TTOperator::processAddSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAud
 
 TTErr TTOperator::processSubtractSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*in1Sample,
 					*in2Sample,
 					*outSample;
-	short			numChannels;
-	short			channel;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
 
 	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in2.getNumChannels();
@@ -211,12 +211,12 @@ TTErr TTOperator::processSubtractSignal(TTAudioSignal& in1, TTAudioSignal& in2, 
 
 TTErr TTOperator::processMultiplySignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*in1Sample,
 					*in2Sample,
 					*outSample;
-	short			numChannels;
-	short			channel;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
 
 	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in2.getNumChannels();
@@ -246,12 +246,12 @@ TTErr TTOperator::processMultiplySignal(TTAudioSignal& in1, TTAudioSignal& in2, 
 
 TTErr TTOperator::processDivideSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*in1Sample,
 					*in2Sample,
 					*outSample;
-	short			numChannels;
-	short			channel;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
 
 	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in2.getNumChannels();

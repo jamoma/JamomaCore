@@ -9,7 +9,7 @@
 #include "TTLowpassTwoPole.h"
 
 
-TTLowpassTwoPole::TTLowpassTwoPole(TTUInt8 newMaxNumChannels)
+TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.twopole", newMaxNumChannels),
 	feedback1(NULL), feedback2(NULL)
 {
@@ -39,7 +39,7 @@ TTLowpassTwoPole::~TTLowpassTwoPole()
 }
 
 
-TTErr TTLowpassTwoPole::updateMaxNumChannels()
+TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	delete[] feedback1;
 	delete[] feedback2;
@@ -95,12 +95,12 @@ void TTLowpassTwoPole::calculateCoefficients()
 
 TTErr TTLowpassTwoPole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
 	TTSampleValue	tempSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

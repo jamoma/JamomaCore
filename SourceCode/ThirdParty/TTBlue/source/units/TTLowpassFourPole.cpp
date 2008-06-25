@@ -9,7 +9,7 @@
 #include "TTLowpassFourPole.h"
 
 
-TTLowpassFourPole::TTLowpassFourPole(TTUInt8 newMaxNumChannels)
+TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.lowpass.fourpole", newMaxNumChannels),
 	x1(NULL), x2(NULL), x3(NULL), x4(NULL), y1(NULL), y2(NULL), y3(NULL), y4(NULL)
 {
@@ -52,7 +52,7 @@ TTLowpassFourPole::~TTLowpassFourPole()
 }
 
 
-TTErr TTLowpassFourPole::updateMaxNumChannels()
+TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	delete[] x1;
 	delete[] x2;
@@ -128,12 +128,12 @@ void TTLowpassFourPole::calculateCoefficients()
 
 TTErr TTLowpassFourPole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
 	TTSampleValue	tempSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

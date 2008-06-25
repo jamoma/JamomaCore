@@ -9,7 +9,7 @@
 #include "TTHighpassLinkwitzRiley2.h"
 
 
-TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt8 newMaxNumChannels)
+TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.highpass.linkwitzRiley4", newMaxNumChannels),
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
@@ -39,7 +39,7 @@ TTHighpassLinkwitzRiley2::~TTHighpassLinkwitzRiley2()
 }
 
 
-TTErr TTHighpassLinkwitzRiley2::updateMaxNumChannels()
+TTErr TTHighpassLinkwitzRiley2::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1)
 		free(xm1);
@@ -101,13 +101,13 @@ TTErr TTHighpassLinkwitzRiley2::setFrequency(const TTValue& newValue)
 
 TTErr TTHighpassLinkwitzRiley2::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
 	TTFloat64		tempx,
 					tempy;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

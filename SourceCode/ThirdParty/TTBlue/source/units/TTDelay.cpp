@@ -9,25 +9,31 @@
 #include "TTDelay.h"
 
 
-TTDelay::TTDelay(TTUInt8 newMaxNumChannels)
+TTDelay::TTDelay(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.dcblock", newMaxNumChannels),
-	buffer(NULL),
-	inPtr(NULL)
+	  buffer(NULL), inPtr(NULL), outPtr(NULL), endPtr(NULL)
 {
-	// make the clear method available to be called:
-	registerMessage(TT("clear"), (TTMethod)&TTDelay::clear, kTTMessagePassNone);
+	// declare attributes
+	registerAttribute(TT("delay"),			kTypeFloat64,	&attrDelay,				(TTSetterMethod)&TTDelay::setDelay);
+	registerAttribute(TT("samples"),		kTypeInt64,		&attrDelayInSamples,	(TTSetterMethod)&TTDelay::setDelayInSamples);
+//	registerAttribute(TT("maxDelay"),		kTypeFloat64,	&attrDelayMax,			(TTSetterMethod)&TTDelay::setDelayMax);
+//	registerAttribute(TT("maxSamples"),		kTypeInt64,		&attrDelayMaxInSamples,	(TTSetterMethod)&TTDelay::setDelayMaxInSamples);
+	registerAttribute(TT("interpolation"),	kTypeSymbol,	&attrInterpolation,		(TTSetterMethod)&TTDelay::setInterpolation);
+
+	// declare messages
+	registerMessage(TT("clear"),				(TTMethod)&TTDelay::clear,					kTTMessagePassNone);
 	
-	// this next one is called by the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDelay::updateMaxNumChannels, kTTMessagePassNone);
+	// notifications from the parent class
+	registerMessage(TT("updateSr"),				(TTMethod)&TTDelay::updateSr,				kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"),	(TTMethod)&TTDelay::updateMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
-//	setProcess((TTProcessMethod)&TTDCBlock::processAudio);
+	setAttributeValue(TT("delay"), 0.0);
+	setAttributeValue(TT("interpolation"), TT("none"));		// TODO: change this to cubic (or at least to linear), this sets the process method
 }
 
 /*
- 
- 
  // OBJECT LIFE					
  TT_INLINE tt_delay::tt_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
  {
@@ -41,193 +47,177 @@ TTDelay::TTDelay(TTUInt8 newMaxNumChannels)
  }
  
  // Internal method which is called by the constructors
- TT_INLINE void tt_delay::init(long max_samples)
- {			
- short i;
- 
- buffer = in_ptr = out_ptr = end_ptr = 0;
- output[0] = output[1] = output[2] = output[3] = 0;		
- 
- mem_free(buffer);
- buffer = (tt_sample_value *)mem_alloc((max_samples + 4) * sizeof(tt_sample_value));
- 
- in_ptr = buffer;
- delay_samples_max = max_samples;
- delay_ms_max = delay_samples_max / m_sr;
- //log_post("INIT: delay_ms_max: %f    delay_samps_max: %i", delay_ms_max, delay_samples_max);			
- set_attr(k_delay_samples, max_samples - 1);
- set_attr(k_interpolation, k_interpolation_linear);
- for(i=0;i<4;i++)
- output[i] = 0;
- 
- reset();
- }
- 
- 
- TT_INLINE tt_delay::~tt_delay()										// Destructor
- {
- mem_free(buffer);
- }
- 
  */
 
 TTDelay::~TTDelay()
 {
-//	free(lastInput);
-//	free(lastOutput);
+	if(buffer){
+		for(TTUInt16 channel=0; channel<maxNumChannels; channel++)
+			delete [] buffer[channel];
+		delete [] buffer;
+	}
+	delete [] inPtr;
+	delete [] outPtr;
+	delete [] endPtr;
 }
 
 
-TTErr TTDelay::updateMaxNumChannels()
+// TODO: this is clumsy and stupid -- we should be doing this stuff when the MaxDelayTime attr is set
+// Howevr, this needs to be called every time that:
+//		the sr changes
+//		the maxNumChannels changes
+//		the maxNumSamples change
+TTErr TTDelay::init(TTUInt64 newDelayMaxInSamples)
 {
-/*	if(lastInput)
-		free(lastInput);
-	if(lastOutput)
-		free(lastOutput);
-	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	clear();
+	TTUInt16 channel;
+
+	attrDelayMaxInSamples = newDelayMaxInSamples;
+	attrDelayMax = attrDelayMaxInSamples / srMill;
+	
+	// FIXME: There is a big problem here -- we don't know the old maxNumChannels, so we could be freeing something bogus?
+	if(buffer){
+		for(channel=0; channel<maxNumChannels; channel++)
+			delete [] buffer[channel];
+		delete [] buffer;
+	}
+	delete [] inPtr;
+	delete [] outPtr;
+	delete [] endPtr;
+	
+	buffer = new TTSampleVector[maxNumChannels];
+	for(channel=0; channel<maxNumChannels; channel++)
+		buffer[channel] = new TTSampleValue[attrDelayMaxInSamples];
+
+	inPtr = new TTSampleVector[maxNumChannels];
+	outPtr = new TTSampleVector[maxNumChannels];
+	endPtr = new TTSampleVector[maxNumChannels];
+	
+	for(channel=0; channel<maxNumChannels; channel++){
+		inPtr[channel] = buffer[channel];
+	}
+
+	reset();
 	return kTTErrNone;
- */
+}
+
+
+TTErr TTDelay::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
+{
+	TTUInt16	numChans = oldMaxNumChannels;
+	TTUInt16	channel;
+	
+	if(buffer){
+		for(channel=0; channel<numChans; channel++)
+			delete [] buffer[channel];
+		delete [] buffer;
+		buffer = NULL;
+	}
+
+	delete [] inPtr;
+	delete [] outPtr;
+	delete [] endPtr;
+	inPtr = NULL;
+	outPtr = NULL;
+	endPtr = NULL;
+	
+	return init(attrDelayMaxInSamples);
 }
 
 
 TTErr TTDelay::updateSr()
 {
-//	TTValue	v(attrFrequency);
-//	return setFrequency(v);
+	init(long(srMill * attrDelay));		// allocate a larger delay buffer if neccessary	
+	return setDelay(attrDelay);			// hold the delay time in ms constant, despite the change of sr
 }
-
-
-/*
- 
- // OVER-RIDE THE INHERITED SET SR METHOD
- TT_INLINE 
- void tt_delay::set_sr(int value)
- {
- if(value != sr){
- sr = value;					// These first three need to be called to do the standard stuff from the base class
- r_sr = 1.0 / value;			// 	THERE SHOULD BE A MORE ELEGANT WAY OF DOING THIS, NO ?!?!?!?!?
- m_sr = (float)sr * 0.001;	//		...
- 
- // This is the SR setting stuff that is specific to this object.
- //		if((m_sr * delay_ms) > delay_samples_max)
- init(long(m_sr * delay_ms));	// allocate a larger delay buffer if neccessary
- set_attr(k_delay_ms, delay_ms);		// hold the delay_length in ms constant, despite the change of sr
- }
- }
- 
- */
 
 
 TTErr TTDelay::clear()
 {
-	/*
-	 float * i;
-	 long j = 0;
-	 
-	 for(i = buffer; i< end_ptr; i++, j++)
-	 //buffer[i] = 0.0;
-	 buffer[j] = 0.0;
-	 //*(buffer+i) = 0.0;
-	 
-	 */
-	
-	TTUInt16 channel;
+	TTUInt16		channel;
+	TTSampleValue*	i;
+	TTUInt32		j;
 
-	for(channel=0; channel<maxNumChannels; channel++){
-//		lastInput[i] = 0;
-//		lastOutput[i] = 0;
-		TTSampleValue*	i;
-		long			j=0;
-		
-		for(i = buffer[channel]; i< endPtr[channel]; i++, j++)
-			//buffer[i] = 0.0;
+	for(channel=0; channel<maxNumChannels; channel++){	
+		for(i = buffer[channel], j=0; i< endPtr[channel]; i++, j++)
 			buffer[channel][j] = 0.0;
-		//*(buffer+i) = 0.0;
-		
 	}
-
 	return kTTErrNone;
 }
 
 
+// TODO: Do we really want this function called every time the delay is changed?  Won't it make a terrible sound?
 // Reset the pointers
 void TTDelay::reset()
 {
-	/*
-	end_ptr = buffer + delay_samples;
-	out_ptr = in_ptr - delay_samples;
-	if(out_ptr < buffer)
-		out_ptr = end_ptr + (out_ptr - buffer) + 1;
-	else if(out_ptr > end_ptr)
-		out_ptr = buffer + (out_ptr - end_ptr);
-	
+	endPtr = buffer + attrDelayInSamples;
+	outPtr = inPtr - attrDelayInSamples;
+	if(outPtr < buffer)
+		outPtr = endPtr + (outPtr - buffer) + 1;
+	else if(outPtr > endPtr)
+		outPtr = buffer + (outPtr - endPtr);
+
 	clear();
-	*/
 }
 
 
+TTErr TTDelay::setDelay(const TTValue& newValue)
+{
+	attrDelay = TTClip<TTFloat64>(newValue, 0.0, attrDelayMax);
 
-/*
- // ATTRIBUTES
- TT_INLINE 
- tt_err tt_delay::set_attr(tt_selector sel, const tt_value &a)	// Set Attributes
- {
- tt_float32 val = a;
- 
- switch (sel){
- case k_delay_ms:
- delay_ms = val;
- //delay_samples = clip(long(delay_ms * m_sr), long(0), delay_samples_max);
- fdelay_samples = delay_ms * m_sr;
- delay_samples = (tt_attribute_value_discrete)fdelay_samples;
- fractional_delay = fdelay_samples - delay_samples;
- break;
- case k_delay_samples:
- fdelay_samples = delay_samples = clip(long(val), long(0), delay_samples_max);
- delay_ms = (float)delay_samples * 1000.0 / (float)sr;
- fractional_delay = 0;
- break;
- case k_interpolation:
- interpolation = (tt_attribute_value_discrete)val;
- if(interpolation == k_interpolation_linear){
- dsp_executor = &tt_delay::dsp_vector_calc_linear;
- dsp_executor2 = &tt_delay::dsp_vector_calc_linear_2in;
- }	
- else if(interpolation == k_interpolation_none){
- dsp_executor = &tt_delay::dsp_vector_calc_nointerp;
- dsp_executor2 = &tt_delay::dsp_vector_calc_nointerp_2in;
- }
- else if(interpolation == k_interpolation_polynomial){
- dsp_executor = 0;
- dsp_executor2 = 0;
- // dsp_executor2 = &tt_delay::dsp_vector_calc_poly_2in;
- log_post("tt_delay: This interpolation mode is not currently functional");
- }
- else if(interpolation == k_interpolation_polynomial2){
- dsp_executor = 0;
- // dsp_executor2 = &tt_delay::dsp_vector_calc_poly2_2in;
- }
- else if(interpolation == k_interpolation_linear2){
- dsp_executor = &tt_delay::dsp_vector_calc_linear;
- // dsp_executor2 = &tt_delay::dsp_vector_calc_linear2_2in;
- }	
- else
- log_error("tt_delay: invalid interpolation mode specified");
- break;
- default:
- return TT_ERR_ATTR_INVALID;
- }
- reset();
- return TT_ERR_NONE;
- }
- */
+// FIXME: NOT YET WORKING	
+//	fractionalDelaySamples = attrDelay * srMill;
+//	attrDelayInSamples = fractionalDelaySamples;				// (truncation is intentional)
+//	fractionalDelay = fractionalDelaySamples - delaySamples;
+
+	reset();
+	return kTTErrNone;
+}
 
 
+TTErr TTDelay::setDelayInSamples(const TTValue& newValue)
+{
+	attrDelayInSamples = TTClip<TTUInt64>(newValue, 0, attrDelayMaxInSamples);
+	attrDelay = attrDelayInSamples * 1000.0 * srInv;
+// FIXME: NOT YET WORKING	
+//	fractionalDelaySamples = attrDelayInSamples;
+	fractionalDelay = 0;
+	
+	reset();
+	return kTTErrNone;
+}
 
 
-// DSP LOOPS
+// TODO: Update these when the new interpolation routines are written
+TTErr TTDelay::setInterpolation(const TTValue& newValue)
+{
+	attrInterpolation = newValue;
+	
+	if(attrInterpolation == TT("none")){
+		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
+		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
+	}
+	else if(attrInterpolation == TT("linear")){
+		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
+		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
+	}
+	else if(attrInterpolation == TT("cubic")){
+		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
+		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
+	}
+	else{
+		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
+		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
+		return kTTErrGeneric;
+	}
+	return kTTErrNone;
+}
+
+
+#if 0
+#pragma mark -
+#pragma mark dsp routines
+#endif
+
 
 TTErr TTDelay::processAudioNoInterpolation(TTAudioSignal& in, TTAudioSignal& out)
 {

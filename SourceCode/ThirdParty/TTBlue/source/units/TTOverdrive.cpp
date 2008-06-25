@@ -9,7 +9,7 @@
 #include "TTOverdrive.h"
 
 
-TTOverdrive::TTOverdrive(TTUInt8 newMaxNumChannels)
+TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.overdrive", newMaxNumChannels)
 {
 	registerAttribute(TT("drive"),		kTypeFloat64,	&attrDrive,		(TTSetterMethod)&TTOverdrive::setDrive);
@@ -39,7 +39,7 @@ TTOverdrive::~TTOverdrive()
 }
 
 
-TTErr TTOverdrive::updateMaxNumChannels()
+TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {	
 	return dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 }
@@ -108,11 +108,11 @@ TTErr TTOverdrive::clear()
 
 TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 	TTSampleValue	temp,
 					sign;
 
@@ -150,8 +150,8 @@ TTErr TTOverdrive::processMode1(TTAudioSignal& in, TTAudioSignal& out)
 	short			vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 	TTSampleValue	temp;
 
 	dcBlocker->process(in, out);

@@ -9,7 +9,7 @@
 #include "TTLimiter.h"
 
 
-TTLimiter::TTLimiter(TTUInt8 newMaxNumChannels)
+TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.limiter", newMaxNumChannels),
 	lookaheadBuffer(NULL), lookaheadBufferIndex(0), gain(NULL), last(0.0), recover(0.0), maxBufferSize(512), attrMode(TT("exponential"))
 {
@@ -62,21 +62,22 @@ TTLimiter::~TTLimiter()
 
 
 // TODO: These message receiver args should be reversed -- this is a change that should be applied throughout TTBlue
-TTErr TTLimiter::updateMaxNumChannels()
+TTErr TTLimiter::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	short i;
+	TTUInt16	channel;
+	TTUInt16	numChannels = oldMaxNumChannels;
 
 	if(lookaheadBuffer){
-		for(i=0; i<maxNumChannels; i++)
-			delete [] lookaheadBuffer[i];
+		for(channel=0; channel<numChannels; channel++)
+			delete [] lookaheadBuffer[channel];
 		delete [] lookaheadBuffer;
 	}
 	delete gain;
 
 	gain = new TTSampleValue[maxBufferSize];
 	lookaheadBuffer = new TTSampleVector[maxNumChannels];
-	for(i=0; i<maxNumChannels; i++)
-		lookaheadBuffer[i] = new TTSampleValue[maxBufferSize];
+	for(channel=0; channel<maxNumChannels; channel++)
+		lookaheadBuffer[channel] = new TTSampleValue[maxBufferSize];
 
 	clear();
 	
@@ -212,8 +213,8 @@ TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	TTInt16			flag,
 					lookaheadBufferPlayback,
 					ind;
-	TTUInt8			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt8			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// Pre-Process the input
 	dcBlocker->process(in, out);	// filter out DC-Offsets (unless it is bypassed)

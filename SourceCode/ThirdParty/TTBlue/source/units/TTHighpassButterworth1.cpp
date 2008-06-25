@@ -9,7 +9,7 @@
 #include "TTHighpassButterworth1.h"
 
 
-TTHighpassButterworth1::TTHighpassButterworth1(TTUInt8 newMaxNumChannels)
+TTHighpassButterworth1::TTHighpassButterworth1(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.highpass.butterworth", newMaxNumChannels),
 	xm1(NULL), ym1(NULL)
 {
@@ -37,7 +37,7 @@ TTHighpassButterworth1::~TTHighpassButterworth1()
 }
 
 
-TTErr TTHighpassButterworth1::updateMaxNumChannels()
+TTErr TTHighpassButterworth1::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	if(xm1)
 		free(xm1);
@@ -89,13 +89,13 @@ TTErr TTHighpassButterworth1::setFrequency(const TTValue& newValue)
 
 TTErr TTHighpassButterworth1::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
 	TTFloat64		tempx,
 					tempy;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	// This outside loop works through each channel one at a time
 	for(channel=0; channel<numchannels; channel++){

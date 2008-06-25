@@ -9,7 +9,7 @@
 #include "TTGain.h"
 
 
-TTGain::TTGain(TTUInt8 newMaxNumChannels)
+TTGain::TTGain(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.gain", newMaxNumChannels)
 {
 	registerAttribute(TT("linearGain"),	kTypeFloat64,	&gain);
@@ -58,11 +58,11 @@ TTErr TTGain::getMidiGain(TTValue& value)
 
 TTErr TTGain::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	short			vs;
+	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
