@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="tt.overdrive~"
-	ProjectGUID="{BB6EBFD2-4246-4D15-B00F-2EE913B15472}"
-	RootNamespace="tt.overdrive~"
+	Name="tt.zerox~"
+	ProjectGUID="{E3F6789F-D53D-458B-88CC-D5718E89B940}"
+	RootNamespace="tt.zerox~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
 	>
@@ -68,7 +68,7 @@
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\library\Debug&quot;"
 				GenerateManifest="false"
-				ModuleDefinitionFile="tt.overdrive~.def"
+				ModuleDefinitionFile="tt.zerox~.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -142,7 +142,7 @@
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\library\Release&quot;"
 				GenerateManifest="false"
-				ModuleDefinitionFile="tt.overdrive~.def"
+				ModuleDefinitionFile="tt.zerox~.def"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -185,7 +185,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\tt.overdrive~.cpp"
+				RelativePath=".\tt.zerox~.cpp"
 				>
 			</File>
 		</Filter>

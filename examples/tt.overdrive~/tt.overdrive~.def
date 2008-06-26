@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tt.overdrive~"
+LIBRARY "tt.overdrive~.mxe"
 
 EXPORTS
 	main

@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tt.ramp~"
+LIBRARY "tt.ramp~.mxe"
 
 EXPORTS
 	main

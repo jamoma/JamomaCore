@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tt.limiter~"
+LIBRARY "tt.limiter~.mxe"
 
 EXPORTS
 	main

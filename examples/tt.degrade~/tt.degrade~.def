@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tt.degrade~"
+LIBRARY "tt.degrade~.mxe"
 
 EXPORTS
 	main

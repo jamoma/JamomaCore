@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tt.zerox~"
+LIBRARY "tt.zerox~.mxe"
 
 EXPORTS
 	main

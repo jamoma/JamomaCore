@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tt.xfade~"
+LIBRARY "tt.xfade~.mxe"
 
 EXPORTS
 	main

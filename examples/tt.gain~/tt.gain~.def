@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "tt.gain~"
+LIBRARY "tt.gain~.mxe"
 
 EXPORTS
 	main
