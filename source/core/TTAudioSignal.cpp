@@ -152,7 +152,7 @@ TTUInt16 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal
 
 TTUInt16 TTAudioSignal::getMinChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
 {
-	TTUInt8	numChannels = signal1.numChannels;
+	TTUInt16	numChannels = signal1.numChannels;
 	
 	if(signal2.numChannels < numChannels)
 		numChannels = signal2.numChannels;
@@ -174,7 +174,7 @@ TTUInt16 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal
 
 TTUInt16 TTAudioSignal::getMaxChannelCount(TTAudioSignal& signal1, TTAudioSignal& signal2, TTAudioSignal& signal3)
 {
-	TTUInt8	numChannels = signal1.numChannels;
+	TTUInt16	numChannels = signal1.numChannels;
 	
 	if(signal2.numChannels > numChannels)
 		numChannels = signal2.numChannels;

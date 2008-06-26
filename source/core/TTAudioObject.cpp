@@ -87,9 +87,9 @@ TTErr TTAudioObject::bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSigna
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
-	TTUInt8			numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
-	TTUInt8			numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
-	TTUInt8			channel;
+	TTUInt16		numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
+	TTUInt16		numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
+	TTUInt16		channel;
 
 	for(channel=0; channel<numChannelsMain; channel++){
 		inSample = in1.sampleVectors[channel];
