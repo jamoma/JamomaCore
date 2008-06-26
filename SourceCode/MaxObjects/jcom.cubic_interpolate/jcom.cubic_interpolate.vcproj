@@ -96,7 +96,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="release_build|Win32"
+			Name="Release|Win32"
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
