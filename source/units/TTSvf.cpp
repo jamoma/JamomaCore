@@ -21,7 +21,7 @@ TTSvf::TTSvf(TTUInt16 newMaxNumChannels)
 	registerMessage(TT("clear"), (TTMethod)&TTSvf::clear, kTTMessagePassNone);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTSvf::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTSvf::updateMaxNumChannels);
 	registerMessage(TT("updateSr"),	(TTMethod)&TTSvf::updateSr, kTTMessagePassNone);
 
 	// Set Defaults...

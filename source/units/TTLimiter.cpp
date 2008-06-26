@@ -23,7 +23,7 @@ TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker,	(TTSetterMethod)&TTLimiter::setDCBlocker);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLimiter::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLimiter::updateMaxNumChannels);
 	// register for notifications from the parent class so we can update the release/recover values
 	registerMessage(TT("updateSr"), (TTMethod)&TTLimiter::updateSr, kTTMessagePassNone);
 	// clear the history

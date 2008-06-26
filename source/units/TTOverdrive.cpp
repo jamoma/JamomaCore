@@ -20,7 +20,7 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	// make the clear method available to be called:
 	registerMessage(TT("clear"), (TTMethod)&TTOverdrive::clear, kTTMessagePassNone);	
 	// this next one is called by the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTOverdrive::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTOverdrive::updateMaxNumChannels);
 
 	dcBlocker = new TTDCBlock(maxNumChannels);
 

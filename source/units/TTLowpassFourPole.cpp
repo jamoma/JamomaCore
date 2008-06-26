@@ -28,7 +28,7 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
 	registerMessage(TT("clear"), (TTMethod)&TTLowpassFourPole::clear, kTTMessagePassNone);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassFourPole::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassFourPole::updateMaxNumChannels);
 	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassFourPole::updateSr, kTTMessagePassNone);
 
 	// Set Defaults...

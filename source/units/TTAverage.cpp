@@ -22,7 +22,7 @@ TTAverage::TTAverage(TTUInt16 newMaxNumChannels)
 	registerMessage(TT("clear"), (TTMethod)&TTAverage::clear, kTTMessagePassNone);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTAverage::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTAverage::updateMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited

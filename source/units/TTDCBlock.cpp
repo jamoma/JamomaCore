@@ -18,7 +18,7 @@ TTDCBlock::TTDCBlock(TTUInt16 newMaxNumChannels)
 	registerMessage(TT("clear"), (TTMethod)&TTDCBlock::clear, kTTMessagePassNone);
 	
 	// this next one is called by the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDCBlock::updateMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);

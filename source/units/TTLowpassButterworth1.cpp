@@ -17,7 +17,7 @@ TTLowpassButterworth1::TTLowpassButterworth1(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassButterworth1::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassButterworth1::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassButterworth1::updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
 	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassButterworth1::updateSr, kTTMessagePassNone);
 	// make the clear method available to the outside world

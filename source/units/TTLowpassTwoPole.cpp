@@ -21,7 +21,7 @@ TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
 	registerMessage(TT("clear"), (TTMethod)&TTLowpassTwoPole::clear, kTTMessagePassNone);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassTwoPole::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassTwoPole::updateMaxNumChannels);
 	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassTwoPole::updateSr, kTTMessagePassNone);
 
 	// Set Defaults...

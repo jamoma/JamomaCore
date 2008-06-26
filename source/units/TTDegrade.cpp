@@ -21,7 +21,7 @@ TTDegrade::TTDegrade(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("srRatio"),	kTypeFloat64,	&attrSrRatio);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDegrade::updateMaxNumChannels, kTTMessagePassNone);
+	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDegrade::updateMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
