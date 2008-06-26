@@ -57,7 +57,7 @@ if(Dir.glob("#{@svn_root}../TTBlue").size == 0)
   puts "We need to check out TTBlue from it's repository."
   puts "This could take quite a while, and it will give you no feedback while it is happening."
   puts ""
-  `svn co https://ttblue.googlecode.com/svn/branches/active #{@svn_root}../TTBlue`
+  `svn co http://ttblue.googlecode.com/svn/branches/active #{@svn_root}../TTBlue`
 else
   puts "TTBlue looks to be already checked-out..."
   puts "Did you make sure it is updated to the correct revision?"
