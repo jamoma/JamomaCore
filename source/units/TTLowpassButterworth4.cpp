@@ -39,7 +39,7 @@ TTLowpassButterworth4::~TTLowpassButterworth4()
 	free(ym1);
 	free(ym2);
 	free(ym3);
-	free(xm4);
+	free(ym4);
 }
 
 
