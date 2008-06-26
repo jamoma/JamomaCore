@@ -9,8 +9,8 @@ TTAdsr::TTAdsr(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("attack"), kTypeFloat64, &attack_ms, (TTSetterMethod)&TTAdsr::setAttack);
 	registerAttribute(TT("decay"), kTypeFloat64, &decay_ms, (TTSetterMethod)&TTAdsr::setDecay);
 	registerAttribute(TT("release"), kTypeFloat64, &release_ms, (TTSetterMethod)&TTAdsr::setRelease);
-	registerAttribute(TT("sustain"), kTypeFloat64, &sustain_amp, (TTSetterMethod)&TTAdsr::setSustainAmp);
-	registerAttribute(TT("sustain_db"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
+	registerAttribute(TT("linearSustain"), kTypeFloat64, &sustain_amp, (TTSetterMethod)&TTAdsr::setSustainAmp);
+	registerAttribute(TT("sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
 	registerAttribute(TT("trigger"), kTypeBoolean, &trigger);
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 	
