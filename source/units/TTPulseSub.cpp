@@ -38,7 +38,7 @@ TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
-	setAttributeValue(TT("sustain_db"), -6.);
+	setAttributeValue(TT("sustain"), -6.);
 	setAttributeValue(TT("release"), 500.);
 	setAttributeValue(TT("mode"), TT("linear"));	// <-- sets the process method
 	
@@ -90,7 +90,7 @@ TTErr TTPulseSub::setDecay(const TTValue& newValue)
 TTErr TTPulseSub::setSustain(const TTValue& newValue)
 {
 	attrSustain = newValue;
-	return env_gen->setAttributeValue(TT("sustain_db"), newValue);
+	return env_gen->setAttributeValue(TT("sustain"), newValue);
 }
 
 TTErr TTPulseSub::setRelease(const TTValue& newValue)

@@ -19,7 +19,7 @@ TTAdsr::TTAdsr(TTUInt16 newMaxNumChannels)
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
-	setAttributeValue(TT("sustain_db"), -6.);
+	setAttributeValue(TT("sustain"), -6.);
 	setAttributeValue(TT("release"), 500.);
 	setAttributeValue(TT("mode"), TT("linear"));	// <-- sets the process method
 }
