@@ -386,6 +386,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\source\units\TTDelay.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\units\TTDelay.h"
+				>
+			</File>
+			<File
 				RelativePath="..\source\units\TTGain.cpp"
 				>
 			</File>
