@@ -844,10 +844,10 @@ void ui_menu_qfn(t_ui *x)
 		object_method_sym(x->obj_remote, gensym("/preset/store"), item->sym, NULL);
 	else if(item->sym == gensym("Store as Next Preset"))
 		object_method_sym(x->obj_remote, gensym("/preset/storenext"), item->sym, NULL);
-	else if(item->sym == gensym("Get Current State as Text"))
-		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
 	else if(item->sym == gensym("Open Preset Interface"))
 		object_method_sym(x->obj_remote, gensym("/preset/interface"), item->sym, NULL);
+	else if(item->sym == gensym("Get Current State as Text"))
+		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
 	else if(item->sym == gensym("View Internal Components"))
 		object_method_sym(x->obj_remote, gensym("/module/view_internals"), item->sym, NULL);
 	else if(item->sym == gensym("Open Help Patch"))
@@ -896,9 +896,9 @@ void ui_menu_build(t_ui *x)
 	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("Store as Next Preset"));
 	linklist_append(x->menu_items, item);
-	item = (t_symobject *)symobject_new(gensym("Get Current State as Text"));
-	linklist_append(x->menu_items, item);
 	item = (t_symobject *)symobject_new(gensym("Open Preset Interface"));
+	linklist_append(x->menu_items, item);
+	item = (t_symobject *)symobject_new(gensym("Get Current State as Text"));
 	linklist_append(x->menu_items, item);
 	
 	item = (t_symobject *)symobject_new(gensym("-"));
