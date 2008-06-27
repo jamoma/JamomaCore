@@ -257,7 +257,7 @@ t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasmute = atom_getlong(argv);
 	
 	if(obj->attr_hasmute){
-		anObject = new uiInternalObject("jcom.parameter", "mute", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "mute", "msg_toggle", "none", "When active, this attribute turns off the module's processing algorithm to save CPU", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_mute, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -281,7 +281,7 @@ t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasbypass = atom_getlong(argv);
 	
 	if(obj->attr_hasbypass){
-		anObject = new uiInternalObject("jcom.parameter", "bypass", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "bypass", "msg_toggle", "none", "When active, this attribute bypasses the module's processing algtorithm, letting audio or video pass through unaffected", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_bypass, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -308,7 +308,7 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	if(obj->attr_hasmix){
 		range[0] = 0.0;
 		range[1] = 100.0;
-		anObject = new uiInternalObject("jcom.parameter", "mix", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", range, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "mix", "msg_float", "scheduler", "Controls the wet/dry mix of the module's processing routine in percent.", range, NULL, NULL, NULL);
 		anObject->setAction((method)ui_mix, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -335,7 +335,7 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 	if(obj->attr_hasgain){
 		range[0] = 0.0;
 		range[1] = 127.0;
-		anObject = new uiInternalObject("jcom.parameter", "gain", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", range, "gain", "midi", "midi");
+		anObject = new uiInternalObject("jcom.parameter", "gain", "msg_float", "scheduler", "Set gain (as MIDI value by default).", range, "gain", "midi", "midi");
 		anObject->setAction((method)ui_gain, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -359,7 +359,7 @@ t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasfreeze = atom_getlong(argv);
 	
 	if(obj->attr_hasfreeze){
-		anObject = new uiInternalObject("jcom.parameter", "freeze", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "freeze", "msg_toggle", "none", "Freezes the last frame of output from the module's processing algorithm.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_freeze, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -383,7 +383,7 @@ t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_haspreview = atom_getlong(argv);
 	
 	if(obj->attr_haspreview){
-		anObject = new uiInternalObject("jcom.parameter", "preview", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "preview", "msg_toggle", "none", "Turns on/off the video display in the module's preview window.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_preview, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
