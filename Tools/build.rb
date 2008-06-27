@@ -227,7 +227,7 @@ puts ""
 puts "Building TTBlue Externals..."
 
 zero_count
-build_dir("#{@svn_root}/../TTBlue/examples", configuration, clean)  
+build_dir("../TTBlue/examples", configuration, clean)  
 ex_total, ex_count = get_count
 if("#{configuration}" == "Development")
   puts "copying Development"
