@@ -18,29 +18,33 @@ class uiInternalObject {
 	t_object	*theObject;
 	//method		action;
 	
-	uiInternalObject(char *classname, char *subscribername, char *subscribertype, char *ramptype, char *description, char *dataspace, char *nativeUnit, char *activeUnit)
+	uiInternalObject(char *classname, char *subscribername, char *subscribertype, char *ramptype, char *description, float *rangebounds, char *dataspace, char *nativeUnit, char *activeUnit)
 	{
-		t_atom		a[13];
+		t_atom		a[15];
+		int i=0;
 	
 		theObject = NULL;
-		atom_setsym(a+0, gensym(subscribername));
-		atom_setsym(a+1, gensym("@type"));
-		atom_setsym(a+2, gensym(subscribertype));
-		atom_setsym(a+3, gensym("@ramp/drive"));
-		atom_setsym(a+4, gensym(ramptype));
-		atom_setsym(a+5, gensym("@description"));
-		atom_setsym(a+6, gensym(description));
+		atom_setsym(a+(i++), gensym(subscribername));
+		atom_setsym(a+(i++), gensym("@type"));
+		atom_setsym(a+(i++), gensym(subscribertype));
+		atom_setsym(a+(i++), gensym("@ramp/drive"));
+		atom_setsym(a+(i++), gensym(ramptype));
+		atom_setsym(a+(i++), gensym("@description"));
+		atom_setsym(a+(i++), gensym(description));
+		if(rangebounds){
+			atom_setsym(a+(i++), gensym("@range/bounds"));
+			atom_setfloat(a+(i++), rangebounds[0]);	
+			atom_setfloat(a+(i++), rangebounds[1]);	
+		}	
 		if(dataspace && nativeUnit && activeUnit){
-			atom_setsym(a+7, gensym("@dataspace"));
-			atom_setsym(a+8, gensym(dataspace));
-			atom_setsym(a+9, gensym("@dataspace/unit/native"));
-			atom_setsym(a+10, gensym(nativeUnit));
-			atom_setsym(a+11, gensym("@dataspace/unit/active"));
-			atom_setsym(a+12, gensym(activeUnit));
-			jcom_core_loadextern(gensym(classname), 13, a, &theObject);
+			atom_setsym(a+(i++), gensym("@dataspace"));
+			atom_setsym(a+(i++), gensym(dataspace));
+			atom_setsym(a+(i++), gensym("@dataspace/unit/native"));
+			atom_setsym(a+(i++), gensym(nativeUnit));
+			atom_setsym(a+(i++), gensym("@dataspace/unit/active"));
+			atom_setsym(a+(i++), gensym(activeUnit));
 		}
-		else
-			jcom_core_loadextern(gensym(classname), 7, a, &theObject);
+		jcom_core_loadextern(gensym(classname), i, a, &theObject);
 	}
 	
 	~uiInternalObject()
@@ -253,7 +257,7 @@ t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasmute = atom_getlong(argv);
 	
 	if(obj->attr_hasmute){
-		anObject = new uiInternalObject("jcom.parameter", "mute", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "mute", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_mute, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mute"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -277,7 +281,7 @@ t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasbypass = atom_getlong(argv);
 	
 	if(obj->attr_hasbypass){
-		anObject = new uiInternalObject("jcom.parameter", "bypass", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "bypass", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_bypass, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("bypass"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -297,11 +301,14 @@ t_max_err attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	float				range[2];
 
 	obj->attr_hasmix = atom_getlong(argv);
 	
 	if(obj->attr_hasmix){
-		anObject = new uiInternalObject("jcom.parameter", "mix", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL);
+		range[0] = 0.0;
+		range[1] = 100.0;
+		anObject = new uiInternalObject("jcom.parameter", "mix", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", range, NULL, NULL, NULL);
 		anObject->setAction((method)ui_mix, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("mix"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -321,11 +328,14 @@ t_max_err attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv)
 {
 	uiInternalObject	*anObject;
 	t_max_err			err = MAX_ERR_NONE;
+	float				range[2];
 
 	obj->attr_hasgain = atom_getlong(argv);
 	
 	if(obj->attr_hasgain){
-		anObject = new uiInternalObject("jcom.parameter", "gain", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", "gain", "midi", "midi");
+		range[0] = 0.0;
+		range[1] = 127.0;
+		anObject = new uiInternalObject("jcom.parameter", "gain", "msg_float", "scheduler", "Needs to be documented -- look at Jamoma 0.4 for the information.", range, "gain", "midi", "midi");
 		anObject->setAction((method)ui_gain, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("gain"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -349,7 +359,7 @@ t_max_err attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_hasfreeze = atom_getlong(argv);
 	
 	if(obj->attr_hasfreeze){
-		anObject = new uiInternalObject("jcom.parameter", "freeze", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "freeze", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_freeze, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("freeze"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
@@ -373,7 +383,7 @@ t_max_err attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv)
 	obj->attr_haspreview = atom_getlong(argv);
 	
 	if(obj->attr_haspreview){
-		anObject = new uiInternalObject("jcom.parameter", "preview", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL);
+		anObject = new uiInternalObject("jcom.parameter", "preview", "msg_toggle", "none", "Needs to be documented -- look at Jamoma 0.4 for the information.", NULL, NULL, NULL, NULL);
 		anObject->setAction((method)ui_preview, (t_object*)obj);
 		hashtab_store(obj->hash_internals, gensym("preview"), (t_object*)anObject);
 		object_attr_setsym(obj, gensym("prefix"), obj->attrPrefix);
