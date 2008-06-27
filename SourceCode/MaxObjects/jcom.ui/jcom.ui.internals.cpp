@@ -20,7 +20,7 @@ class uiInternalObject {
 	
 	uiInternalObject(char *classname, char *subscribername, char *subscribertype, char *ramptype, char *description, float *rangebounds, char *dataspace, char *nativeUnit, char *activeUnit)
 	{
-		t_atom		a[15];
+		t_atom		a[20];
 		int i=0;
 	
 		theObject = NULL;
