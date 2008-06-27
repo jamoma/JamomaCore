@@ -690,6 +690,9 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 {
 	t_rect	rect;
 	
+	// usually we don't want mousedragdelta -- we turn it on below as necessary
+	jbox_set_mousedragdelta((t_object *)x, 0);
+	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
 	if(px.y > 20.0)	// we only handle clicks in the title bar
 		return;
@@ -701,11 +704,13 @@ void ui_mousedown(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 			x->gainDragging = true;
 			x->anchor.x = x->anchor.y = 0.0;
 			x->anchorValue = x->attr_gain;			
+			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if(x->attr_hasmix && px.x >= x->rect_mix.x && px.x <= (x->rect_mix.x + x->rect_mix.width)){
 			x->mixDragging = true;
 			x->anchor.x = x->anchor.y = 0.0;
 			x->anchorValue = x->attr_mix;			
+			jbox_set_mousedragdelta((t_object *)x, 1);
 		}
 		else if(x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
 			object_method_typed(x->obj_remote, gensym("/panel/open"), 0, NULL, NULL);
