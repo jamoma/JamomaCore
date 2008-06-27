@@ -206,7 +206,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "release",
-					"text" : "jcom.parameter release @type msg_float @range/bounds 0 500 @range/clipmode low @dataspace time @dataspace/unit/native ms @ramp/drive scheduler @description \"The release time (ms).\"",
+					"text" : "jcom.parameter release @type msg_float @range/bounds 0 500 @range/clipmode low @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @ramp/drive scheduler @description \"The release time (ms).\"",
 					"linecount" : 2,
 					"fontname" : "Verdana",
 					"id" : "obj-17",
