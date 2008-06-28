@@ -199,8 +199,6 @@ void output_msg(t_oscroute *x, char *msg, int outlet, long argc, t_atom *argv)
 // SYMBOL INPUT
 void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	short		i;
-	t_symbol	*message;				// our input message to match
 	t_symbol	*output;
 	char		input[MAX_MESS_SIZE];	// our input string
 	long		inlet = proxy_getinlet((t_object *)x);
@@ -221,20 +219,18 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 		outlet_anything(x->outlet_overflow, msg, argc , argv);
 		return;
 	}
-
-	message = gensym(input);
 	
 	char *wc, *c;
 	bool overFlow = true;
-	for (i=0; i < x->num_args; i++) {
+	for (int pos=0; pos < x->num_args; pos++) {
 		// Look for exact matches first.
-		if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i])==0) {
+		if (strncmp(msg->s_name, x->arguments[pos]->s_name, x->arglen[pos])==0) {
 			// If incoming message is longer than argument...
-			if (strlen(msg->s_name) > x->arglen[i]){
+			if (strlen(msg->s_name) > x->arglen[pos]){
 				// ...it is only a match if it continues with a slash
-				if (input[x->arglen[i]] == '/') {
-					output = gensym(msg->s_name + x->arglen[i]);
-					outlet_anything(x->outlets[i], output, argc , argv);
+				if (input[x->arglen[pos]] == '/') {
+					output = gensym(msg->s_name + x->arglen[pos]);
+					outlet_anything(x->outlets[pos], output, argc , argv);
 					overFlow = false;
 					break;
 				}
@@ -245,7 +241,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 				// We then have to check what message to return.
 				// The message received has no arguments:
 				if (argc == 0) {
-					outlet_bang(x->outlets[i]);
+					outlet_bang(x->outlets[pos]);
 					overFlow = false;
 					break;
 				}
@@ -254,17 +250,17 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 					overFlow = false;
 					// int argument
 					if (argv->a_type==A_LONG) {
-						outlet_int(x->outlets[i],argv->a_w.w_long);
+						outlet_int(x->outlets[pos],argv->a_w.w_long);
 						break;
 					}				
 					// float argument
 					else if (argv->a_type==A_FLOAT) {
-						outlet_float(x->outlets[i],argv->a_w.w_float);
+						outlet_float(x->outlets[pos],argv->a_w.w_float);
 						break;
 					}
 					// something else
 					else if (argv->a_type==A_SYM) {
-						outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
+						outlet_anything(x->outlets[pos],argv->a_w.w_sym,0,0);
 						break;
 					}				
 				}		
@@ -277,32 +273,33 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 					}
 					else
 						output = _sym_list;
-					outlet_anything(x->outlets[i], output, argc , argv);
+					outlet_anything(x->outlets[pos], output, argc , argv);
 					overFlow = false;
 					break;
 				}
 			}
 		}
 	}
-	
+	// XXX Putting this here makes crashes go away.  It would be really good to know why.
+	//cpost("temp hack to prevent optimizations that cause this object to crash in Deployment");
 	// If no exact matches, look for wildcards.
-	for (i=0; i < x->num_args; i++) {	
+	for (int index=0; index < x->num_args; index++) {	
 
-		if(wc = strstr(x->arguments[i]->s_name, "*")) {
+		if(wc = strstr(x->arguments[index]->s_name, "*")) {
 			// Does the argument have anything following the wildcard?
 			if(*(wc+1) == '\0') {
 				// Now compare the argument up to the asterisk to the message
-				if(strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1) == 0) {
+				if(strncmp(msg->s_name, x->arguments[index]->s_name, x->arglen[index] - 1) == 0) {
 
 					// Increment string past everything that matches including the asterisk
-					char *temp = msg->s_name + (x->arglen[i] - 1);
+					char *temp = msg->s_name + (x->arglen[index] - 1);
 					// Check for a slash, an asterisk causes us to strip off everything up to the next slash
 					char *outMsg = strstr(temp, "/");
 					if(outMsg)
-						output_msg(x, outMsg, i, argc, argv);
+						output_msg(x, outMsg, index, argc, argv);
 					else {
 						// no slash, output everything following the message
-						output_msg(x, NULL, i, argc, argv);
+						output_msg(x, NULL, index, argc, argv);
 					}
 					return;
 				} else {
@@ -320,7 +317,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 					
 				c += strlen(c) - strlen(wc);
 				if(strncmp(c, wc, strlen(c)) == 0) {
-					output_msg(x, c, i, argc, argv);
+					output_msg(x, c, index, argc, argv);
 					return;
 				}
 			}
