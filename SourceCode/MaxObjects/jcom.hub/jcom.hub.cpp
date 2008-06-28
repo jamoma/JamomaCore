@@ -129,10 +129,18 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		strncpy_zero(pathstr, filepath->s_name, MAX_PATH_CHARS);
 		filename = strrchr(pathstr, '.');
-		*filename = 0;	// strip the suffix
-		filename = strrchr(pathstr, '/');
-		filename++;
-		name = gensym(filename);
+		if(filename) {
+			*filename = 0;	// strip the suffix by setting '.' to terminating NULL char
+			filename = strrchr(pathstr, '/');
+			// Our module name is the patchers name since the patcher is typically located
+			// at /some/where/nameToUseForModule.maxpat
+			filename++; // get rid of slash
+			name = gensym(filename);
+		} else {
+			// We are an unnamed jcom.hub inserted into an unsaved max patcher which has
+			// no '.' in it's filename.  Just leave as untitled, at least until it is saved.
+			name = gensym("Untitled");
+		}
 	}
 		
 	if(x){
