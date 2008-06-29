@@ -10,21 +10,19 @@ CUE initialisation
 	/control/ui/freeze 0
 	
 # Module input~
-	/input~/gain_2/midi 0
-	/input~/loop 0
+	/input~/audio/gain 0.
+    # Note that midi units can be specified as floats in Jamoma
+/input~/balance 0.	
+/input~/loop 0
 	/input~/play 0
 	/input~/source_select none
-	/input~/ch_1 0
-	/input~/ch_2 0
-	# Note that midi units can be specified as floats in Jamoma
-	/input~/audio/gain/midi 0.000		
-	/input~/gain_1/midi 0
-	/input~/link 0
+	/input~/ch.1 0
+	/input~/ch.2 0
 	/input~/ui/freeze 0
 	
 # Module filter~
 	/filter~/filtertype bandpass
-	/filter~/audio/gain/midi 0
+	/filter~/audio/gain 0
 	/filter~/audio/meters/freeze 0
 	/filter~/audio/mix 100.000
 	/filter~/audio/bypass 0
@@ -35,9 +33,9 @@ CUE initialisation
 	/filter~/filtergain -1.780
 	
 # Module output~
-	/output~/ch_1 1
-	/output~/ch_2 2
-	/output~/audio/gain/midi 0.000
+	/output~/ch.1 1
+	/output~/ch.2 2
+	/output~/audio/gain 0.000
 	/output~/record/filetype aiff
 	/output~/record/samptype int24
 	/output~/saturation/depth 10.000
@@ -68,13 +66,11 @@ CUE audio_on
 	
 # Module input~
 	/input~/source_select pink
-	/input~/audio/gain/midi 124.000 ramp 2000	
-# Ramp to these new values over 2 seconds...
-	/input~/gain_1/midi 124.000 ramp 2000
-	/input~/gain_2/midi 124.000 ramp 2000
+	/input~/audio/gain 97.000 ramp 2000	
+# Ramp to this new value over 2 seconds...
 	
 # Module filter~
-	/filter~/audio/gain/midi 127.000 ramp 2000
+	/filter~/audio/gain 100.000 ramp 2000
 
 	
 	
@@ -87,7 +83,7 @@ CUE fade_in
 ##############################
 
 # Module output~
-	/output~/audio/gain/midi 125.000 ramp 2000
+	/output~/audio/gain 98.000 ramp 2000
 
 
 
@@ -126,7 +122,7 @@ CUE fade_out
 
 
 # Module output~
-	/output~/audio/gain/midi 0.000 ramp 2000	
+	/output~/audio/gain 0.000 ramp 2000	
 	
 	
 
@@ -140,10 +136,10 @@ CUE audio_off
 
 	
 # Module input~
-	/input~/audio/gain/midi 0 ramp 100
+	/input~/audio/gain 0 ramp 100
 	
 # Module output~
-	/filter~/audio/gain/midi 0 ramp 100
+	/filter~/audio/gain 0 ramp 100
 	
 # Module control
 	/control/audio 0
