@@ -90,7 +90,7 @@ JamomaError FunctionLib::createUnit(const TTSymbol* unitName, FunctionUnit **uni
 void FunctionLib::getUnitNames(TTValue& unitNames)
 {
 	unitNames.clear();
-	unitNames.append(TT("cosine"));
+	unitNames.set(0, TT("cosine"));
 	unitNames.append(TT("linear"));
 	unitNames.append(TT("lowpass"));
 	unitNames.append(TT("power"));
