@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 195.0, 44.0, 616.0, 786.0 ],
+		"rect" : [ 195.0, 44.0, 642.0, 784.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 195.0, 44.0, 616.0, 786.0 ],
+		"defrect" : [ 195.0, 44.0, 642.0, 784.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.970939,
@@ -201,9 +201,9 @@
 					"outlettype" : [ "", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 674.0, 421.0, 370.0, 135.0 ],
+						"rect" : [ 674.0, 421.0, 409.0, 141.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 674.0, 421.0, 370.0, 135.0 ],
+						"defrect" : [ 674.0, 421.0, 409.0, 141.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -217,6 +217,20 @@
 						"imprint" : 0,
 						"metadata" : [  ],
 						"boxes" : [ 							{
+								"box" : 								{
+									"maxclass" : "newobj",
+									"text" : "regexp (.*)\\\\.test.maxpat",
+									"fontname" : "Verdana",
+									"numinlets" : 1,
+									"fontsize" : 9.873845,
+									"patching_rect" : [ 45.0, 25.0, 237.0, 18.0 ],
+									"numoutlets" : 5,
+									"id" : "obj-6",
+									"outlettype" : [ "", "", "", "", "" ]
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"maxclass" : "outlet",
 									"numinlets" : 1,
@@ -259,7 +273,7 @@
 								"box" : 								{
 									"maxclass" : "inlet",
 									"numinlets" : 0,
-									"patching_rect" : [ 50.0, 30.0, 15.0, 15.0 ],
+									"patching_rect" : [ 50.0, -5.0, 15.0, 15.0 ],
 									"numoutlets" : 1,
 									"id" : "obj-4",
 									"outlettype" : [ "" ],
@@ -281,8 +295,17 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"source" : [ "obj-4", 0 ],
+									"source" : [ "obj-6", 3 ],
 									"destination" : [ "obj-3", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"source" : [ "obj-4", 0 ],
+									"destination" : [ "obj-6", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ]
 								}
@@ -388,17 +411,17 @@
 				"box" : 				{
 					"maxclass" : "umenu",
 					"fontname" : "Verdana",
-					"prefix" : "Servo:/Users/pascal/Documents/Docs_boulo/Max_trucs/Jamomactive/Jamoma/modules/",
 					"numinlets" : 1,
-					"items" : [ "audio", ",", "audio/10harmonics~", ",", "audio/10harmonics~/jalg.10_harmonics~.maxpat", ",", "audio/10harmonics~/jmod.10_harmonics~.html", ",", "audio/10harmonics~/jmod.10_harmonics~.maxpat", ",", "audio/10harmonics~/jmod.10_harmonics~.xml", ",", "audio/crossfade~", ",", "audio/crossfade~/jalg.crossfadeM~.maxpat", ",", "audio/crossfade~/jalg.crossfade~.maxpat", ",", "audio/crossfade~/jmod.crossfade~.html", ",", "audio/crossfade~/jmod.crossfade~.maxhelp", ",", "audio/crossfade~/jmod.crossfade~.maxpat", ",", "audio/crossfade~/jmod.crossfade~.xml", ",", "audio/degrade~", ",", "audio/degrade~/jalg.degrade~.maxpat", ",", "audio/degrade~/jmod.degrade~.html", ",", "audio/degrade~/jmod.degrade~.maxhelp", ",", "audio/degrade~/jmod.degrade~.maxpat", ",", "audio/degrade~/jmod.degrade~.xml", ",", "audio/delay~", ",", "audio/delay~/jalg.delay~.maxpat", ",", "audio/delay~/jmod.delay~.html", ",", "audio/delay~/jmod.delay~.maxhelp", ",", "audio/delay~/jmod.delay~.maxpat", ",", "audio/delay~/jmod.delay~.xml", ",", "audio/echo~", ",", "audio/echo~/jalg.echo~.maxpat", ",", "audio/echo~/jmod.echo~.html", ",", "audio/echo~/jmod.echo~.maxhelp", ",", "audio/echo~/jmod.echo~.maxpat", ",", "audio/echo~/jmod.echo~.xml", ",", "audio/equalizer~", ",", "audio/equalizer~/jalg.equalizer~.maxpat", ",", "audio/equalizer~/jalg.equalizer~_params.maxpat", ",", "audio/equalizer~/jmod.equalizer~.html", ",", "audio/equalizer~/jmod.equalizer~.maxhelp", ",", "audio/equalizer~/jmod.equalizer~.maxpat", ",", "audio/equalizer~/jmod.equalizer~.xml", ",", "audio/filter~", ",", "audio/filter~/jalg.filter~.maxpat", ",", "audio/filter~/jmod.filter~.html", ",", "audio/filter~/jmod.filter~.maxhelp", ",", "audio/filter~/jmod.filter~.maxpat", ",", "audio/filter~/jmod.filter~.xml", ",", "audio/fluidsynth~", ",", "audio/fluidsynth~/jalg.fluidsynth~.maxpat", ",", "audio/fluidsynth~/jmod.fluidsynth~.maxhelp", ",", "audio/fluidsynth~/jmod.fluidsynth~.maxpat", ",", "audio/fluidsynth~/jmod.fluidsynth~.xml", ",", "audio/input~", ",", "audio/input~/jmod.input~.html", ",", "audio/input~/jmod.input~.maxhelp", ",", "audio/input~/jmod.input~.maxpat", ",", "audio/input~/jmod.input~.xml", ",", "audio/limiter~", ",", "audio/limiter~/jalg.limiter~.maxpat", ",", "audio/limiter~/jmod.limiter~.html", ",", "audio/limiter~/jmod.limiter~.maxhelp", ",", "audio/limiter~/jmod.limiter~.maxpat", ",", "audio/limiter~/jmod.limiter~.xml", ",", "audio/multidelay~", ",", "audio/multidelay~/jalg.multidelay~.maxpat", ",", "audio/multidelay~/jmod.multidelay~.html", ",", "audio/multidelay~/jmod.multidelay~.maxhelp", ",", "audio/multidelay~/jmod.multidelay~.maxpat", ",", "audio/multidelay~/jmod.multidelay~.xml", ",", "audio/noisegate~", ",", "audio/noisegate~/jalg.noisegate~.maxpat", ",", "audio/noisegate~/jmod.noisegate~.html", ",", "audio/noisegate~/jmod.noisegate~.maxhelp", ",", "audio/noisegate~/jmod.noisegate~.maxpat", ",", "audio/noisegate~/jmod.noisegate~.xml", ",", "audio/noise~", ",", "audio/noise~/jalg.noise~.maxpat", ",", "audio/noise~/jmod.noise~.maxhelp", ",", "audio/noise~/jmod.noise~.maxpat", ",", "audio/noise~/jmod.noise~.xml", ",", "audio/output~", ",", "audio/output~/jmod.output~.html", ",", "audio/output~/jmod.output~.maxhelp", ",", "audio/output~/jmod.output~.maxpat", ",", "audio/output~/jmod.output~.xml", ",", "audio/rissetGlissando", ",", "audio/rissetGlissando/jalg.rissetGlissando~.maxpat", ",", "audio/rissetGlissando/jmod.rissetGlissando~.html", ",", "audio/rissetGlissando/jmod.rissetGlissando~.maxhelp", ",", "audio/rissetGlissando/jmod.rissetGlissando~.maxpat", ",", "audio/rissetGlissando/jmod.rissetGlissando~.xml", ",", "audio/saturation~", ",", "audio/saturation~/jalg.saturation~.maxpat", ",", "audio/saturation~/jmod.saturation~.html", ",", "audio/saturation~/jmod.saturation~.maxhelp", ",", "audio/saturation~/jmod.saturation~.maxpat", ",", "audio/saturation~/jmod.saturation~.xml", ",", "audio/scope~", ",", "audio/scope~/jmod.scope~.html", ",", "audio/scope~/jmod.scope~.maxhelp", ",", "audio/scope~/jmod.scope~.maxpat", ",", "audio/scope~/jmod.scope~.xml", ",", "audio/sine~", ",", "audio/sine~/jalg.sine~.maxpat", ",", "audio/sine~/jmod.sine~.maxhelp", ",", "audio/sine~/jmod.sine~.maxpat", ",", "audio/sine~/jmod.sine~.xml", ",", "audio/tremolo~", ",", "audio/tremolo~/jalg.tremolo~.maxpat", ",", "audio/tremolo~/jmod.tremolo~.html", ",", "audio/tremolo~/jmod.tremolo~.maxhelp", ",", "audio/tremolo~/jmod.tremolo~.maxpat", ",", "audio/tremolo~/jmod.tremolo~.xml", ",", "audio/vst~", ",", "audio/vst~/jalg.vst~.maxpat", ",", "audio/vst~/jmod.vst~.html", ",", "audio/vst~/jmod.vst~.maxhelp", ",", "audio/vst~/jmod.vst~.maxpat", ",", "audio/vst~/jmod.vst~.xml", ",", "control", ",", "control/bcf2000", ",", "control/bcf2000/jalg.bcf2000.maxpat", ",", "control/bcf2000/jmod.bcf2000.html", ",", "control/bcf2000/jmod.bcf2000.maxhelp", ",", "control/bcf2000/jmod.bcf2000.maxpat", ",", "control/bcf2000/jmod.bcf2000.xml", ",", "control/colorpicker", ",", "control/colorpicker/jmod.colorpicker.html", ",", "control/colorpicker/jmod.colorpicker.maxhelp", ",", "control/colorpicker/jmod.colorpicker.maxpat", ",", "control/colorpicker/jmod.colorpicker.xml", ",", "control/condition", ",", "control/condition/jalg.condition.maxpat", ",", "control/condition/jmod.condition.html", ",", "control/condition/jmod.condition.maxhelp", ",", "control/condition/jmod.condition.maxpat", ",", "control/condition/jmod.condition.xml", ",", "control/cont_mapper", ",", "control/cont_mapper/jmod.cont_mapper.html", ",", "control/cont_mapper/jmod.cont_mapper.maxhelp", ",", "control/cont_mapper/jmod.cont_mapper.maxpat", ",", "control/cont_mapper/jmod.cont_mapper.xml", ",", "control/continuum", ",", "control/continuum/jalg.continuum.maxpat", ",", "control/continuum/jmod.continuum.html", ",", "control/continuum/jmod.continuum.maxhelp", ",", "control/continuum/jmod.continuum.maxpat", ",", "control/continuum/jmod.continuum.xml", ",", "control/continuum/jmod.continuum_synth.maxpat", ",", "control/continuum/jmod.continuum_synth.mxt", ",", "control/control", ",", "control/control/jmod.control.html", ",", "control/control/jmod.control.maxhelp", ",", "control/control/jmod.control.maxpat", ",", "control/control/jmod.control.xml", ",", "control/cpu_test", ",", "control/cpu_test/jmod.cpu_test.html", ",", "control/cpu_test/jmod.cpu_test.maxhelp", ",", "control/cpu_test/jmod.cpu_test.maxpat", ",", "control/cue_trigger", ",", "control/cue_trigger/jmod.cue_trigger.html", ",", "control/cue_trigger/jmod.cue_trigger.xml", ",", "control/cuelist", ",", "control/cuelist/jalg.cuelist.maxpat", ",", "control/cuelist/jmod.cuelist.html", ",", "control/cuelist/jmod.cuelist.maxhelp", ",", "control/cuelist/jmod.cuelist.maxpat", ",", "control/cuelist/jmod.cuelist.xml", ",", "control/cuelist/jmod.demo_cuescript.txt", ",", "control/file_browser", ",", "control/file_browser/jmod.file_browser.maxhelp", ",", "control/file_browser/jmod.file_browser.maxpat", ",", "control/file_browser/jmod.file_browser.xml", ",", "control/hi", ",", "control/hi/jalg.hi.maxpat", ",", "control/hi/jmod.hi.html", ",", "control/hi/jmod.hi.maxhelp", ",", "control/hi/jmod.hi.maxpat", ",", "control/hi/jmod.hi.xml", ",", "control/mapper", ",", "control/mapper/jalg.mapper.maxpat", ",", "control/mapper/jalg.transformation.maxpat", ",", "control/mapper/jcom.mappings.js", ",", "control/mapper/jmod.mapper.html", ",", "control/mapper/jmod.mapper.maxhelp", ",", "control/mapper/jmod.mapper.maxpat", ",", "control/mapper/jmod.mapper.xml", ",", "control/messages", ",", "control/messages/jmod.messages.html", ",", "control/messages/jmod.messages.maxpat", ",", "control/messages/jmod.messages.xml", ",", "control/midiin", ",", "control/midiin/jalg.midiin.maxpat", ",", "control/midiin/jmod.midiin.html", ",", "control/midiin/jmod.midiin.maxhelp", ",", "control/midiin/jmod.midiin.maxpat", ",", "control/midiin/jmod.midiin.xml", ",", "control/mouse", ",", "control/mouse/jalg.mouse.maxpat", ",", "control/mouse/jmod.mouse.html", ",", "control/mouse/jmod.mouse.maxhelp", ",", "control/mouse/jmod.mouse.maxpat", ",", "control/mouse/jmod.mouse.xml", ",", "control/mouse.gdif", ",", "control/mouse.gdif/jalg.mouse.gdif.maxpat", ",", "control/mouse.gdif/jmod.mouse.gdif.html", ",", "control/mouse.gdif/jmod.mouse.gdif.maxhelp", ",", "control/mouse.gdif/jmod.mouse.gdif.maxpat", ",", "control/mouse.gdif/jmod.mouse.gdif.xml", ",", "control/multicast", ",", "control/multicast/jalg.multicast.maxpat", ",", "control/multicast/jalg.multicast_elt.maxpat", ",", "control/multicast/jmod.multicast.html", ",", "control/multicast/jmod.multicast.maxhelp", ",", "control/multicast/jmod.multicast.maxpat", ",", "control/multicast/jmod.multicast.xml", ",", "control/oscnet", ",", "control/oscnet/jalg.oscnet.maxpat", ",", "control/oscnet/jalg.oscnet.ui.maxpat", ",", "control/oscnet/jmod.oscnet.html", ",", "control/oscnet/jmod.oscnet.maxhelp", ",", "control/oscnet/jmod.oscnet.maxpat", ",", "control/oscnet/jmod.oscnet.xml", ",", "control/palette", ",", "control/palette/jalg.palette.maxpat", ",", "control/palette/jmod.palette.html", ",", "control/palette/jmod.palette.maxhelp", ",", "control/palette/jmod.palette.maxpat", ",", "control/palette/jmod.palette.xml", ",", "control/polhemus", ",", "control/polhemus/jalg.polhemus.maxpat", ",", "control/polhemus/jmod.polhemus.maxhelp", ",", "control/polhemus/jmod.polhemus.maxpat", ",", "control/polhemus/jmod.polhemus.xml", ",", "control/qmetro", ",", "control/qmetro/jalg.qmetro.maxpat", ",", "control/qmetro/jmod.qmetro.html", ",", "control/qmetro/jmod.qmetro.maxhelp", ",", "control/qmetro/jmod.qmetro.maxpat", ",", "control/qmetro/jmod.qmetro.test.maxpat", ",", "control/qmetro/jmod.qmetro.xml", ",", "control/spacenavigator", ",", "control/spacenavigator/jalg.spacenavigator.maxpat", ",", "control/spacenavigator/jmod.spacenavigator.maxhelp", ",", "control/spacenavigator/jmod.spacenavigator.maxpat", ",", "control/spacenavigator/jmod.spacenavigator.xml", ",", "control/textwriter", ",", "control/textwriter/jalg.textwriter.mxt", ",", "control/textwriter/jmod.textwriter.html", ",", "control/textwriter/jmod.textwriter.maxhelp", ",", "control/textwriter/jmod.textwriter.maxpat", ",", "control/textwriter/jmod.textwriter.xml", ",", "control/trig_mapper", ",", "control/trig_mapper/help1.xml", ",", "control/trig_mapper/help2.xml", ",", "control/trig_mapper/jmod.trig_mapper.maxhelp", ",", "control/trig_mapper/jmod.trig_mapper.maxpat", ",", "control/trig_mapper/jmod.trig_mapper.xml", ",", "control/uc-33", ",", "control/uc-33/jalg.uc-33.maxpat", ",", "control/uc-33/jmod.uc-33.maxhelp", ",", "control/uc-33/jmod.uc-33.maxpat", ",", "control/uc-33/jmod.uc-33.xml", ",", "control/wacom", ",", "control/wacom/jalg.wacom.maxpat", ",", "control/wacom/jmod.wacom.html", ",", "control/wacom/jmod.wacom.maxhelp", ",", "control/wacom/jmod.wacom.maxpat", ",", "control/wacom/jmod.wacom.xml", ",", "spatialization", ",", "spatialization/sur.ambi.adjust~", ",", "spatialization/sur.ambi.adjust~/jalg.sur.ambi.adjust~.maxpat", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.html", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.maxhelp", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.maxpat", ",", "spatialization/sur.ambi.adjust~/jmod.sur.ambi.adjust~.xml", ",", "spatialization/sur.ambi.decode~", ",", "spatialization/sur.ambi.decode~/jalg.sur.ambi.decode~.maxpat", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.html", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.maxhelp", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.maxpat", ",", "spatialization/sur.ambi.decode~/jmod.sur.ambi.decode~.xml", ",", "spatialization/sur.ambi.encodeM~", ",", "spatialization/sur.ambi.encodeM~/jalg.sur.ambi.encodeM~.maxpat", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.html", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.maxhelp", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.maxpat", ",", "spatialization/sur.ambi.encodeM~/jmod.sur.ambi.encodeM~.xml", ",", "spatialization/sur.doppler~", ",", "spatialization/sur.doppler~/jalg.sur.doppler~.maxpat", ",", "spatialization/sur.doppler~/jcom.sur.ch.doppler~.maxpat", ",", "spatialization/sur.doppler~/jcom.sur.doppler.js", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.html", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.maxhelp", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.maxpat", ",", "spatialization/sur.doppler~/jmod.sur.doppler~.xml", ",", "spatialization/sur.multi.aux~", ",", "spatialization/sur.multi.aux~/jalg.sur.multi.aux~.maxpat", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.html", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.maxhelp", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.maxpat", ",", "spatialization/sur.multi.aux~/jmod.sur.multi.aux~.xml", ",", "spatialization/sur.multi.input~", ",", "spatialization/sur.multi.input~/jalg.sur.multi.input~.maxpat", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.html", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.maxhelp", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.maxpat", ",", "spatialization/sur.multi.input~/jmod.sur.multi.input~.xml", ",", "spatialization/sur.multi.in~", ",", "spatialization/sur.multi.in~/jalg.sur.multi.in~.maxpat", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.html", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.maxhelp", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.maxpat", ",", "spatialization/sur.multi.in~/jmod.sur.multi.in~.xml", ",", "spatialization/sur.multi.out~", ",", "spatialization/sur.multi.out~/jalg.sur.multi.out~.maxpat", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.html", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.maxhelp", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.maxpat", ",", "spatialization/sur.multi.out~/jmod.sur.multi.out~.xml", ",", "spatialization/sur.output~", ",", "spatialization/sur.output~/jalg.sur.output~.maxpat", ",", "spatialization/sur.output~/jmod.sur.output~.html", ",", "spatialization/sur.output~/jmod.sur.output~.maxhelp", ",", "spatialization/sur.output~/jmod.sur.output~.maxpat", ",", "spatialization/sur.output~/jmod.sur.output~.xml", ",", "spatialization/sur.rolloff~", ",", "spatialization/sur.rolloff~/jalg.sur.rolloff~.maxpat", ",", "spatialization/sur.rolloff~/jcom.sur.ch.rolloff~.maxpat", ",", "spatialization/sur.rolloff~/jcom.sur.rolloff.js", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.html", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.maxhelp", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.maxpat", ",", "spatialization/sur.rolloff~/jmod.sur.rolloff~.xml", ",", "spatialization/sur.speaker.delay~", ",", "spatialization/sur.speaker.delay~/jalg.sur.speaker.delay~.maxpat", ",", "spatialization/sur.speaker.delay~/jcom.sur.speaker.delays.js", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.html", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.maxhelp", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.maxpat", ",", "spatialization/sur.speaker.delay~/jmod.sur.speaker.delay~.xml", ",", "spatialization/sur.speaker.distamp~", ",", "spatialization/sur.speaker.distamp~/jalg.sur.speaker.distamp~.maxpat", ",", "spatialization/sur.speaker.distamp~/jmod.sur.distamp~.xml", ",", "spatialization/sur.speaker.distamp~/jmod.sur.speaker.distamp~.maxpat", ",", "spatialization/sur.speaker.setup", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.html", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.maxhelp", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.maxpat", ",", "spatialization/sur.speaker.setup/jmod.sur.speaker.setup.xml", ",", "spatialization/sur.vbap~", ",", "spatialization/sur.vbap~/jalg.sur.vbap~.maxpat", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.html", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.maxhelp", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.maxpat", ",", "spatialization/sur.vbap~/jmod.sur.vbap~.xml", ",", "video", ",", "video/avg4%", ",", "video/avg4%/jalg.avg4%.maxpat", ",", "video/avg4%/jmod.avg4%.html", ",", "video/avg4%/jmod.avg4%.maxhelp", ",", "video/avg4%/jmod.avg4%.maxpat", ",", "video/avg4%/jmod.avg4%.xml", ",", "video/background%", ",", "video/background%/jalg.background%.maxpat", ",", "video/background%/jmod.background%.maxhelp", ",", "video/background%/jmod.background%.maxpat", ",", "video/background%/jmod.background%.xml", ",", "video/blur%", ",", "video/blur%/jalg.blur%.maxpat", ",", "video/blur%/jmod.blur%.maxhelp", ",", "video/blur%/jmod.blur%.maxpat", ",", "video/blur%/jmod.blur%.xml", ",", "video/box%", ",", "video/box%/jalg.box%.maxpat", ",", "video/box%/jmod.box%.maxhelp", ",", "video/box%/jmod.box%.maxpat", ",", "video/box%/jmod.box%.xml", ",", "video/brcosa%", ",", "video/brcosa%/jalg.brcosa%.maxpat", ",", "video/brcosa%/jmod.brcosa%.html", ",", "video/brcosa%/jmod.brcosa%.maxhelp", ",", "video/brcosa%/jmod.brcosa%.maxpat", ",", "video/brcosa%/jmod.brcosa%.xml", ",", "video/chromakey%", ",", "video/chromakey%/jalg.chromakey%.maxpat", ",", "video/chromakey%/jmod.chromakey%.html", ",", "video/chromakey%/jmod.chromakey%.maxhelp", ",", "video/chromakey%/jmod.chromakey%.maxpat", ",", "video/chromakey%/jmod.chromakey%.xml", ",", "video/edge%", ",", "video/edge%/jalg.edge%.maxpat", ",", "video/edge%/jmod.edge%.html", ",", "video/edge%/jmod.edge%.maxhelp", ",", "video/edge%/jmod.edge%.maxpat", ",", "video/edge%/jmod.edge%.xml", ",", "video/emboss%", ",", "video/emboss%/jalg.emboss%.maxpat", ",", "video/emboss%/jmod.emboss%.html", ",", "video/emboss%/jmod.emboss%.maxhelp", ",", "video/emboss%/jmod.emboss%.maxpat", ",", "video/emboss%/jmod.emboss%.xml", ",", "video/fluoride%", ",", "video/fluoride%/jalg.fluoride%.maxpat", ",", "video/fluoride%/jmod.fluoride%.html", ",", "video/fluoride%/jmod.fluoride%.maxhelp", ",", "video/fluoride%/jmod.fluoride%.maxpat", ",", "video/fluoride%/jmod.fluoride%.xml", ",", "video/gl.alphamixer%", ",", "video/gl.alphamixer%/jalg.gl.alphamixer%.maxpat", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.html", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.maxhelp", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.maxpat", ",", "video/gl.alphamixer%/jmod.gl.alphamixer%.xml", ",", "video/gl.alphamixer%/shaders", ",", "video/gl.alphamixer%/shaders/jcom.4ch_alphamixer.jxs", ",", "video/gl.alphamixer%/shaders/jcom.4ch_alphamixer.vp.glsl", ",", "video/gl.edgeblend%", ",", "video/gl.edgeblend%/jalg.gl.edgeblend%.maxpat", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.html", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.maxhelp", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.maxpat", ",", "video/gl.edgeblend%/jmod.gl.edgeblend%.xml", ",", "video/gl.td.rota%", ",", "video/gl.td.rota%/jalg.gl.td.rota%.maxpat", ",", "video/gl.td.rota%/jmod.gl.td.rota%.html", ",", "video/gl.td.rota%/jmod.gl.td.rota%.maxhelp", ",", "video/gl.td.rota%/jmod.gl.td.rota%.maxpat", ",", "video/gl.td.rota%/jmod.gl.td.rota%.xml", ",", "video/gl.text2d%", ",", "video/gl.text2d%/jalg.gl.text2d%.mxt", ",", "video/gl.text2d%/jmod.gl.text2d%-demo.txt", ",", "video/gl.text2d%/jmod.gl.text2d%.help", ",", "video/gl.text2d%/jmod.gl.text2d%.html", ",", "video/gl.text2d%/jmod.gl.text2d%.maxpat", ",", "video/gl.text2d%/jmod.gl.text2d%.mxt", ",", "video/gl.text2d%/jmod.gl.text2d%.xml", ",", "video/gl.videoplane%", ",", "video/gl.videoplane%/jalg.gl.videoplane%.maxpat", ",", "video/gl.videoplane%/jmod.gl.videoplane%.html", ",", "video/gl.videoplane%/jmod.gl.videoplane%.maxhelp", ",", "video/gl.videoplane%/jmod.gl.videoplane%.maxpat", ",", "video/gl.videoplane%/jmod.gl.videoplane%.xml", ",", "video/input%", ",", "video/input%/jalg.input%.maxpat", ",", "video/input%/jalg.input%.ui.maxpat", ",", "video/input%/jmod.input%.html", ",", "video/input%/jmod.input%.maxhelp", ",", "video/input%/jmod.input%.maxpat", ",", "video/input%/jmod.input%.xml", ",", "video/keyscreen%", ",", "video/keyscreen%/jalg.keyscreen%.maxpat", ",", "video/keyscreen%/jmod.keyscreen%.html", ",", "video/keyscreen%/jmod.keyscreen%.maxhelp", ",", "video/keyscreen%/jmod.keyscreen%.maxpat", ",", "video/keyscreen%/jmod.keyscreen%.xml", ",", "video/mblur%", ",", "video/mblur%/jalg.mblur%.maxpat", ",", "video/mblur%/jmod.mblur%.html", ",", "video/mblur%/jmod.mblur%.maxhelp", ",", "video/mblur%/jmod.mblur%.maxpat", ",", "video/mblur%/jmod.mblur%.xml", ",", "video/motion%", ",", "video/motion%/jalg.motion%.maxpat", ",", "video/motion%/jmod.motion%.html", ",", "video/motion%/jmod.motion%.maxhelp", ",", "video/motion%/jmod.motion%.maxpat", ",", "video/motion%/jmod.motion%.xml", ",", "video/motion2%", ",", "video/motion2%/jalg.motion2%.maxpat", ",", "video/motion2%/jalg.motion2%.mxt", ",", "video/motion2%/jmod.motion2%.maxhelp", ",", "video/motion2%/jmod.motion2%.maxpat", ",", "video/motion2%/jmod.motion2%.mxt", ",", "video/motion2%/jmod.motion2%.xml", ",", "video/motiongram%", ",", "video/motiongram%/jalg.motiongram%.maxpat", ",", "video/motiongram%/jmod.motiongram%.maxhelp", ",", "video/motiongram%/jmod.motiongram%.maxpat", ",", "video/motiongram%/jmod.motiongram%.xml", ",", "video/movie_player%", ",", "video/movie_player%/jalg.movie_player%.maxpat", ",", "video/movie_player%/jmod.movie_player%.html", ",", "video/movie_player%/jmod.movie_player%.maxhelp", ",", "video/movie_player%/jmod.movie_player%.maxpat", ",", "video/movie_player%/jmod.movie_player%.xml", ",", "video/op%", ",", "video/op%/jalg.op%.maxpat", ",", "video/op%/jmod.op%.html", ",", "video/op%/jmod.op%.maxhelp", ",", "video/op%/jmod.op%.maxpat", ",", "video/op%/jmod.op%.xml", ",", "video/orsize%", ",", "video/orsize%/jalg.orsize%.maxpat", ",", "video/orsize%/jmod.orsize%.html", ",", "video/orsize%/jmod.orsize%.maxhelp", ",", "video/orsize%/jmod.orsize%.maxpat", ",", "video/orsize%/jmod.orsize%.xml", ",", "video/output%", ",", "video/output%/jalg.output%.maxpat", ",", "video/output%/jmod.output%.html", ",", "video/output%/jmod.output%.maxhelp", ",", "video/output%/jmod.output%.maxpat", ",", "video/output%/jmod.output%.xml", ",", "video/plur%", ",", "video/plur%/jalg.plur%.maxpat", ",", "video/plur%/jmod.plur%.html", ",", "video/plur%/jmod.plur%.maxhelp", ",", "video/plur%/jmod.plur%.maxpat", ",", "video/plur%/jmod.plur%.xml", ",", "video/record%", ",", "video/record%/jalg.record%.maxpat", ",", "video/record%/jmod.record%.html", ",", "video/record%/jmod.record%.maxhelp", ",", "video/record%/jmod.record%.maxpat", ",", "video/record%/jmod.record%.xml", ",", "video/similarity%", ",", "video/similarity%/jalg.similarity%.maxpat", ",", "video/similarity%/jmod.similarity%.help", ",", "video/similarity%/jmod.similarity%.maxpat", ",", "video/similarity%/jmod.similarity%.xml", ",", "video/wake%", ",", "video/wake%/jalg.wake%.maxpat", ",", "video/wake%/jmod.wake%.html", ",", "video/wake%/jmod.wake%.maxhelp", ",", "video/wake%/jmod.wake%.maxpat", ",", "video/wake%/jmod.wake%.xml", ",", "video/xfade%", ",", "video/xfade%/jalg.xfade%.maxpat", ",", "video/xfade%/jmod.xfade%.html", ",", "video/xfade%/jmod.xfade%.maxhelp", ",", "video/xfade%/jmod.xfade%.maxpat", ",", "video/xfade%/jmod.xfade%.xml", ",", "video/yfade%", ",", "video/yfade%/jalg.yfade%.maxpat", ",", "video/yfade%/jmod.yfade%.html", ",", "video/yfade%/jmod.yfade%.maxhelp", ",", "video/yfade%/jmod.yfade%.maxpat", ",", "video/yfade%/jmod.yfade%.xml" ],
+					"items" : [ "avg4%", ",", "avg4%/jalg.avg4%.maxpat", ",", "avg4%/jmod.avg4%.html", ",", "avg4%/jmod.avg4%.maxhelp", ",", "avg4%/jmod.avg4%.maxpat", ",", "avg4%/jmod.avg4%.xml", ",", "background%", ",", "background%/jalg.background%.maxpat", ",", "background%/jmod.background%.maxhelp", ",", "background%/jmod.background%.maxpat", ",", "background%/jmod.background%.xml", ",", "blur%", ",", "blur%/jalg.blur%.maxpat", ",", "blur%/jmod.blur%.maxhelp", ",", "blur%/jmod.blur%.maxpat", ",", "blur%/jmod.blur%.xml", ",", "box%", ",", "box%/jalg.box%.maxpat", ",", "box%/jmod.box%.html", ",", "box%/jmod.box%.maxhelp", ",", "box%/jmod.box%.maxpat", ",", "box%/jmod.box%.xml", ",", "brcosa%", ",", "brcosa%/jalg.brcosa%.maxpat", ",", "brcosa%/jmod.brcosa%.html", ",", "brcosa%/jmod.brcosa%.maxhelp", ",", "brcosa%/jmod.brcosa%.maxpat", ",", "brcosa%/jmod.brcosa%.xml", ",", "chromakey%", ",", "chromakey%/jalg.chromakey%.maxpat", ",", "chromakey%/jmod.chromakey%.html", ",", "chromakey%/jmod.chromakey%.maxhelp", ",", "chromakey%/jmod.chromakey%.maxpat", ",", "chromakey%/jmod.chromakey%.xml", ",", "edge%", ",", "edge%/jalg.edge%.maxpat", ",", "edge%/jmod.edge%.html", ",", "edge%/jmod.edge%.maxhelp", ",", "edge%/jmod.edge%.maxpat", ",", "edge%/jmod.edge%.xml", ",", "emboss%", ",", "emboss%/jalg.emboss%.maxpat", ",", "emboss%/jmod.emboss%.html", ",", "emboss%/jmod.emboss%.maxhelp", ",", "emboss%/jmod.emboss%.maxpat", ",", "emboss%/jmod.emboss%.xml", ",", "fluoride%", ",", "fluoride%/jalg.fluoride%.maxpat", ",", "fluoride%/jmod.fluoride%.html", ",", "fluoride%/jmod.fluoride%.maxhelp", ",", "fluoride%/jmod.fluoride%.maxpat", ",", "fluoride%/jmod.fluoride%.xml", ",", "gl.alphamixer%", ",", "gl.alphamixer%/jalg.gl.alphamixer%.maxpat", ",", "gl.alphamixer%/jmod.gl.alphamixer%.html", ",", "gl.alphamixer%/jmod.gl.alphamixer%.maxhelp", ",", "gl.alphamixer%/jmod.gl.alphamixer%.maxpat", ",", "gl.alphamixer%/jmod.gl.alphamixer%.xml", ",", "gl.alphamixer%/shaders", ",", "gl.alphamixer%/shaders/jcom.4ch_alphamixer.jxs", ",", "gl.alphamixer%/shaders/jcom.4ch_alphamixer.vp.glsl", ",", "gl.edgeblend%", ",", "gl.edgeblend%/jalg.gl.edgeblend%.maxpat", ",", "gl.edgeblend%/jmod.gl.edgeblend%.html", ",", "gl.edgeblend%/jmod.gl.edgeblend%.maxhelp", ",", "gl.edgeblend%/jmod.gl.edgeblend%.maxpat", ",", "gl.edgeblend%/jmod.gl.edgeblend%.xml", ",", "gl.td.rota%", ",", "gl.td.rota%/jalg.gl.td.rota%.maxpat", ",", "gl.td.rota%/jmod.gl.td.rota%.html", ",", "gl.td.rota%/jmod.gl.td.rota%.maxhelp", ",", "gl.td.rota%/jmod.gl.td.rota%.maxpat", ",", "gl.td.rota%/jmod.gl.td.rota%.xml", ",", "gl.text2d%", ",", "gl.text2d%/jalg.gl.text2d%.mxt", ",", "gl.text2d%/jmod.gl.text2d%-demo.txt", ",", "gl.text2d%/jmod.gl.text2d%.help", ",", "gl.text2d%/jmod.gl.text2d%.html", ",", "gl.text2d%/jmod.gl.text2d%.maxpat", ",", "gl.text2d%/jmod.gl.text2d%.mxt", ",", "gl.text2d%/jmod.gl.text2d%.xml", ",", "gl.videoplane%", ",", "gl.videoplane%/jalg.gl.videoplane%.maxpat", ",", "gl.videoplane%/jmod.gl.videoplane%.html", ",", "gl.videoplane%/jmod.gl.videoplane%.maxhelp", ",", "gl.videoplane%/jmod.gl.videoplane%.maxpat", ",", "gl.videoplane%/jmod.gl.videoplane%.xml", ",", "input%", ",", "input%/jalg.input%.maxpat", ",", "input%/jalg.input%.ui.maxpat", ",", "input%/jmod.input%.html", ",", "input%/jmod.input%.maxhelp", ",", "input%/jmod.input%.maxpat", ",", "input%/jmod.input%.xml", ",", "keyscreen%", ",", "keyscreen%/jalg.keyscreen%.maxpat", ",", "keyscreen%/jmod.keyscreen%.html", ",", "keyscreen%/jmod.keyscreen%.maxhelp", ",", "keyscreen%/jmod.keyscreen%.maxpat", ",", "keyscreen%/jmod.keyscreen%.xml", ",", "mblur%", ",", "mblur%/jalg.mblur%.maxpat", ",", "mblur%/jmod.mblur%.html", ",", "mblur%/jmod.mblur%.maxhelp", ",", "mblur%/jmod.mblur%.maxpat", ",", "mblur%/jmod.mblur%.xml", ",", "motion%", ",", "motion%/jalg.motion%.maxpat", ",", "motion%/jmod.motion%.html", ",", "motion%/jmod.motion%.maxhelp", ",", "motion%/jmod.motion%.maxpat", ",", "motion%/jmod.motion%.xml", ",", "motion2%", ",", "motion2%/jalg.motion2%.maxpat", ",", "motion2%/jalg.motion2%.mxt", ",", "motion2%/jmod.motion2%.maxhelp", ",", "motion2%/jmod.motion2%.maxpat", ",", "motion2%/jmod.motion2%.mxt", ",", "motion2%/jmod.motion2%.xml", ",", "motiongram%", ",", "motiongram%/jalg.motiongram%.maxpat", ",", "motiongram%/jmod.motiongram%.maxhelp", ",", "motiongram%/jmod.motiongram%.maxpat", ",", "motiongram%/jmod.motiongram%.xml", ",", "movie_player%", ",", "movie_player%/jalg.movie_player%.maxpat", ",", "movie_player%/jmod.movie_player%.html", ",", "movie_player%/jmod.movie_player%.maxhelp", ",", "movie_player%/jmod.movie_player%.maxpat", ",", "movie_player%/jmod.movie_player%.xml", ",", "op%", ",", "op%/jalg.op%.maxpat", ",", "op%/jmod.op%.html", ",", "op%/jmod.op%.maxhelp", ",", "op%/jmod.op%.maxpat", ",", "op%/jmod.op%.xml", ",", "orsize%", ",", "orsize%/jalg.orsize%.maxpat", ",", "orsize%/jmod.orsize%.html", ",", "orsize%/jmod.orsize%.maxhelp", ",", "orsize%/jmod.orsize%.maxpat", ",", "orsize%/jmod.orsize%.xml", ",", "output%", ",", "output%/jalg.output%.maxpat", ",", "output%/jmod.output%.html", ",", "output%/jmod.output%.maxhelp", ",", "output%/jmod.output%.maxpat", ",", "output%/jmod.output%.xml", ",", "plur%", ",", "plur%/jalg.plur%.maxpat", ",", "plur%/jmod.plur%.html", ",", "plur%/jmod.plur%.maxhelp", ",", "plur%/jmod.plur%.maxpat", ",", "plur%/jmod.plur%.xml", ",", "record%", ",", "record%/jalg.record%.maxpat", ",", "record%/jmod.record%.html", ",", "record%/jmod.record%.maxhelp", ",", "record%/jmod.record%.maxpat", ",", "record%/jmod.record%.xml", ",", "similarity%", ",", "similarity%/jalg.similarity%.maxpat", ",", "similarity%/jmod.similarity%.help", ",", "similarity%/jmod.similarity%.html", ",", "similarity%/jmod.similarity%.maxpat", ",", "similarity%/jmod.similarity%.xml", ",", "wake%", ",", "wake%/jalg.wake%.maxpat", ",", "wake%/jmod.wake%.html", ",", "wake%/jmod.wake%.maxhelp", ",", "wake%/jmod.wake%.maxpat", ",", "wake%/jmod.wake%.xml", ",", "xfade%", ",", "xfade%/jalg.xfade%.maxpat", ",", "xfade%/jmod.xfade%.html", ",", "xfade%/jmod.xfade%.maxhelp", ",", "xfade%/jmod.xfade%.maxpat", ",", "xfade%/jmod.xfade%.xml", ",", "yfade%", ",", "yfade%/jalg.yfade%.maxpat", ",", "yfade%/jmod.yfade%.html", ",", "yfade%/jmod.yfade%.maxhelp", ",", "yfade%/jmod.yfade%.maxpat", ",", "yfade%/jmod.yfade%.xml" ],
 					"fontsize" : 10.970939,
-					"autopopulate" : 1,
 					"patching_rect" : [ 95.0, 140.0, 100.0, 20.0 ],
 					"numoutlets" : 3,
 					"types" : [  ],
+					"prefix" : "notfound",
 					"depth" : 6,
 					"id" : "obj-59",
-					"outlettype" : [ "int", "", "" ]
+					"outlettype" : [ "int", "", "" ],
+					"autopopulate" : 1
 				}
 
 			}
@@ -683,7 +706,7 @@
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 9.873845,
-									"patching_rect" : [ 50.0, 50.0, 210.0, 16.0 ],
+									"patching_rect" : [ 50.0, 50.0, 81.0, 16.0 ],
 									"numoutlets" : 1,
 									"id" : "obj-12",
 									"outlettype" : [ "" ]
@@ -893,9 +916,9 @@
 					"outlettype" : [ "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 645.0, 200.0, 601.0, 545.0 ],
+						"rect" : [ 653.0, 201.0, 272.0, 259.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 645.0, 200.0, 601.0, 545.0 ],
+						"defrect" : [ 653.0, 201.0, 272.0, 259.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
@@ -915,23 +938,9 @@
 									"fontname" : "Verdana",
 									"numinlets" : 1,
 									"fontsize" : 9.873845,
-									"patching_rect" : [ 85.0, 220.0, 54.0, 18.0 ],
+									"patching_rect" : [ 75.0, 165.0, 54.0, 18.0 ],
 									"numoutlets" : 1,
 									"id" : "obj-25",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "absolutepath",
-									"fontname" : "Verdana",
-									"numinlets" : 1,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 75.0, 190.0, 100.0, 19.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-24",
 									"outlettype" : [ "" ]
 								}
 
@@ -967,155 +976,11 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "zl slice 1",
-									"fontname" : "Verdana",
-									"numinlets" : 2,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 155.0, 450.0, 100.0, 19.0 ],
-									"numoutlets" : 2,
-									"id" : "obj-21",
-									"outlettype" : [ "", "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "message",
-									"text" : "Servo:/Users/pascal/Documents/Docs_boulo/Max_trucs/Jamomactive/Jamoma/modules/audio/10harmonics~/jmod.10_harmonics~.",
-									"linecount" : 2,
-									"fontname" : "Verdana",
-									"numinlets" : 2,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 70.0, 490.0, 429.0, 29.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-20",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "message",
-									"text" : "Servo:/Users/pascal/Documents/Docs_boulo/Max_trucs/Jamomactive/Jamoma/modules/audio/10harmonics~/jmod.10_harmonics~.maxpat",
-									"linecount" : 2,
-									"fontname" : "Verdana",
-									"numinlets" : 2,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 85.0, 380.0, 429.0, 29.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-19",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "regexp (.*\\\\.)([\\\\w]*)",
-									"fontname" : "Arial",
-									"numinlets" : 1,
-									"fontsize" : 9.0,
-									"patching_rect" : [ 85.0, 415.0, 123.0, 17.0 ],
-									"numoutlets" : 5,
-									"id" : "obj-73",
-									"outlettype" : [ "", "", "", "", "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "message",
-									"text" : "Servo:/Users/pascal/Documents/Docs_boulo/Max_trucs/Jamomactive/Jamoma/modules/audio/degrade~/jmod.degrade~.html",
-									"linecount" : 2,
-									"fontname" : "Verdana",
-									"numinlets" : 2,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 85.0, 290.0, 429.0, 29.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-18",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "message",
-									"text" : "jmod.10_harmonics~.maxpat",
-									"fontname" : "Verdana",
-									"numinlets" : 2,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 395.0, 65.0, 160.0, 17.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-17",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "message",
-									"text" : "Servo:/Users/pascal/Documents/Docs_boulo/Max_trucs/Jamomactive/Jamoma/modules/audio/10harmonics~/",
-									"linecount" : 2,
-									"fontname" : "Verdana",
-									"numinlets" : 2,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 75.0, 340.0, 429.0, 29.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-16",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "message",
-									"text" : "re (.*)jmod.10_harmonics~.maxpat",
-									"fontname" : "Verdana",
-									"numinlets" : 2,
-									"fontsize" : 10.0,
-									"patching_rect" : [ 400.0, 125.0, 193.0, 17.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-15",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "regexp (.*)/library/modules/.*/(.*)\\\\.maxpat",
-									"fontname" : "Verdana",
-									"numinlets" : 1,
-									"fontsize" : 9.873845,
-									"patching_rect" : [ 265.0, 230.0, 237.0, 18.0 ],
-									"numoutlets" : 5,
-									"id" : "obj-10",
-									"outlettype" : [ "", "", "", "", "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "newobj",
-									"text" : "tosymbol",
-									"fontname" : "Verdana",
-									"numinlets" : 1,
-									"fontsize" : 9.873845,
-									"patching_rect" : [ 75.0, 160.0, 54.0, 18.0 ],
-									"numoutlets" : 1,
-									"id" : "obj-1",
-									"outlettype" : [ "" ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"maxclass" : "newobj",
 									"text" : "combine s html",
 									"fontname" : "Verdana",
 									"numinlets" : 2,
 									"fontsize" : 9.873845,
-									"patching_rect" : [ 75.0, 130.0, 257.0, 18.0 ],
+									"patching_rect" : [ 75.0, 130.0, 87.0, 18.0 ],
 									"numoutlets" : 2,
 									"id" : "obj-2",
 									"outlettype" : [ "", "" ]
@@ -1138,7 +1003,7 @@
 								"box" : 								{
 									"maxclass" : "outlet",
 									"numinlets" : 1,
-									"patching_rect" : [ 85.0, 259.0, 15.0, 15.0 ],
+									"patching_rect" : [ 75.0, 204.0, 15.0, 15.0 ],
 									"numoutlets" : 0,
 									"id" : "obj-5",
 									"comment" : ""
@@ -1148,35 +1013,8 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"source" : [ "obj-19", 0 ],
-									"destination" : [ "obj-73", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-73", 1 ],
-									"destination" : [ "obj-21", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-21", 0 ],
-									"destination" : [ "obj-20", 1 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"source" : [ "obj-2", 0 ],
-									"destination" : [ "obj-1", 0 ],
+									"destination" : [ "obj-25", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ]
 								}
@@ -1211,35 +1049,8 @@
 							}
 , 							{
 								"patchline" : 								{
-									"source" : [ "obj-1", 0 ],
-									"destination" : [ "obj-24", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-24", 0 ],
-									"destination" : [ "obj-25", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"source" : [ "obj-25", 0 ],
 									"destination" : [ "obj-5", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"source" : [ "obj-25", 0 ],
-									"destination" : [ "obj-18", 1 ],
 									"hidden" : 0,
 									"midpoints" : [  ]
 								}
@@ -1642,11 +1453,11 @@
 				"box" : 				{
 					"maxclass" : "number",
 					"fontname" : "Verdana",
+					"triscale" : 0.9,
 					"numinlets" : 1,
 					"fontsize" : 9.873845,
 					"patching_rect" : [ 400.0, 201.0, 35.0, 18.0 ],
 					"numoutlets" : 2,
-					"triscale" : 0.9,
 					"id" : "obj-43",
 					"outlettype" : [ "int", "bang" ]
 				}

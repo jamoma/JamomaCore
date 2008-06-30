@@ -50,7 +50,7 @@ void hub_internals_create(t_hub *x)
 	anObject->action = (method)hub_init;
 	hashtab_store(x->hash_internals, gensym("init"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	"msg_none",		"none",	"Generate a documentation page for this module and save it to disk.");
+	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	"msg_generic",	"none",	"Generate a documentation page for this module and save it to disk.");
 	anObject->action = (method)hub_autodoc;
 	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 

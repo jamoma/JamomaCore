@@ -5,7 +5,7 @@
 <title> jmod.input~ </title>
 <style type="text/css">
 body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 24px;	font-weight:100;	padding-top: 1em;	margin: 0;}h2 {	font-size: 18px;	font-weight:200;	margin: 0;	color: #555;	text-transform: lowercase;}h3 {	color: #888;	border-bottom: 1px solid #333;	font-size: 18px;	font-weight:100;	margin-top: 20px;	margin-bottom: 10px;	margin-left: 2%;	margin-right: 2%;}h4{	color: #333;	font-size: 14px;	font-weight: bold;	margin-bottom: 0px;	margin-left: 2%;	margin-right: 2%;}h6 {	font-size: 12px;	font-weight:100;	line-height: 1.2;	margin-right: 2%;	margin-left: 2%;}p {	font-size: 12px;	font-weight:100;	margin: 5px 2%;	padding-bottom: 1em;}ul{	margin-top:0;	padding-top:0;}li {	font-size: 12px;	font-weight:100;	margin-top: 0;	margin-left: 10px;	padding: 0em 0em 0.3em;}img {	padding: 10px 10px 0px 0px;}#jmod_header{	display: block;	margin: 0 0 40px 0;}#jmod_header img{	float: left;}.objectname {	font-size: 24px;	font-weight: bold;}.moduleName {	font-size: 2em;	background-color: #c5c5c5;	text-align: right;	vertical-align: top;	font-weight: bold;}.moduleDescription {	font-size: 1em;	background-color: #000000;	color: #c5c5c5;	text-align: right;	vertical-align: top;}.tableHeading2 {	background-color: #eee;	text-align: left;	vertical-align: top;	font-weight:bold;	font-size: 12px;}table {	border: 0px;	width: 96%;	margin-top: 10px;	margin-bottom: 10px;	margin-left: 2%;	font-size: 14px;}
-.instructionName {	font-family: 'Courier New', Courier, mono;	background-color: #edd;	vertical-align: top;}.instructionType {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRange {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionClipmode {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRamp {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRepetitions {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionDescription {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}td {	padding-right: 5px;	padding-left: 5px;}ul {	list-style-type: disc;}.patchimage {	clear: both;}.comment {	color: #6666FF;}.smallTable {	width: 400px;	border: none;}caption {	font-size: 11px;	font-style: italic;}.filepath {	font-family: 'Courier New', Courier, mono;}.instruction {	font-family: 'Courier New', Courier, mono;}
+.instructionName {	font-family: 'Courier New', Courier, mono;	background-color: #edd;	vertical-align: top;}.instructionType {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDataspace {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRangeBounds {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRangeClipmode {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRampDrive {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionRampFunction {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}.instructionRepetitionsAllow {	font-family: 'Times New Roman', Times, serif;	background-color: #eee;	vertical-align: top;}.instructionDescription {	font-family: 'Times New Roman', Times, serif;	background-color: #eed;	vertical-align: top;}td {	padding-right: 5px;	padding-left: 5px;}ul {	list-style-type: disc;}.patchimage {	clear: both;}.comment {	color: #6666FF;}.smallTable {	width: 400px;	border: none;}caption {	font-size: 11px;	font-style: italic;}.filepath {	font-family: 'Courier New', Courier, mono;}.instruction {	font-family: 'Courier New', Courier, mono;}
 </style>
 	</head>
 
@@ -18,137 +18,110 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	</div>
 
 	<h3> Configuration </h3>
-	<p> Module Type: <code> audio.no_panel </code> <br>
+	<p> Module Type: <code> control </code> <br>
 	Algorithm Type: <code> default </code> </p>
-	<p>Interface Size: <code> 2U-half </code> </p>
+	<p>Interface Size: <code> 1U-half </code> </p>
 	<p>Number of signal inlets: <code> 0 </ code> <br/>
 	Number of signal outlets: <code> 2 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
-			<td> Name </td>
-			<td> Type </td>
-			<td> Range </td>
-			<td> Clipmode </td>
-			<td> Ramp Enabled </td>
-			<td> Repetitions </td>
-			<td> Description </td>
+			<td> /name </td>
+			<td> /type </td>
+			<td> /dataspace </td>
+			<td> /range/bounds </td>
+			<td> /range/clipmode </td>
+			<td> /ramp/drive </td>
+			<td> /ramp/function </td>
+			<td> /repetitions/allow </td>
+			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/enveloppe_follower/1 </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Turn on/off the enveloppe follower for track 1 of this module </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/enveloppe_follower/2 </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Turn on/off the enveloppe follower for track 2 of this module </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/gain/midi </td>
+			<td class="instructionName"> audio/gain </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 158.000000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> gain </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> master gain </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/meters/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> When active, this attribute turns off the signal level meters in the module to conserve CPU. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> ch_1 </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Set logical input for left channel. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> ch_2 </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Set logical input for right channel. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> gain_1/midi </td>
+			<td class="instructionName"> balance </td>
 			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 158.000000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> left channel gain </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Balance of the stereo signal </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> gain_2/midi </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 158.000000 </td>
-			<td class ="instructionClipmode"> low </td>
-			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> right channel gain </td>
+			<td class="instructionName"> ch.1 </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription">  Set logical intput for left channel. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> link </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Link gain levels for left and right channels. </td>
+			<td class="instructionName"> ch.2 </td>
+			<td class ="instructionType"> msg_int </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription">  Set logical ointput for right channel. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> loop </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Loop soundfile. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> play </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Play sound file. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source_select </td>
 			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Select what audio source to use. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
 			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 0 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		<tr>
 	</table>
@@ -158,174 +131,223 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<h3> Messages </h3>
 	<table>
 		<tr class="tableHeading2">
-			<td> Name </td>
-			<td> Type </td>
-			<td> Range </td>
-			<td> Clipmode </td>
-			<td> Ramp Enabled </td>
-			<td> Repetitions </td>
-			<td> Description </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/gain </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -144.000000 18.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> master gain </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> audio/meters/clear </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription">  </td>
+			<td> /name </td>
+			<td> /type </td>
+			<td> /dataspace </td>
+			<td> /range/bounds </td>
+			<td> /range/clipmode </td>
+			<td> /ramp/drive </td>
+			<td> /ramp/function </td>
+			<td> /repetitions/allow </td>
+			<td> /description </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> direct </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> container </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> container for various messages sent directly to the sfplay~ object. Refer to the MSP documentation for further details. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Generate html documentation for the module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> documentation/help </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open the help patch for the module. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> documentation/html </td>
-			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Open the online html reference for this module. </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> dsp_status </td>
 			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open DSP Status window. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> gain_1 </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -144.000000 18.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> left channel gain </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> gain_2 </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> -144.000000 18.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> linear.sched </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> right channel gain </td>
+			<td class="instructionName"> init </td>
+			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
 			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> panel/open </td>
+			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/clear </td>
+			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/copy </td>
+			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
 			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/dump </td>
+			<td class ="instructionType"> msg_none </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Dump all preset names. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/interpolate </td>
+			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/post </td>
 			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Post all presets to the Max window. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
 			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionRange"> 0 1 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/storenext </td>
+			<td class ="instructionType"> msg_list </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
 			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> sf_open </td>
 			<td class ="instructionType"> msg_symbol </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open sound file specified by filename. Without a filename a standard open file dialog allows you to choose a file. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
 			<td class ="instructionType"> msg_none </td>
-			<th class = "instructionRange"> N/A </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp"> none </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace"> none </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
 	</table>
@@ -335,39 +357,47 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<h3> Return </h3>
 	<table>
 		<tr class="tableHeading2">
-			<td> Name </td>
-			<td> Type </td>
-			<td> Range </td>
-			<td> Clipmode </td>
-			<td> Ramp Enabled </td>
-			<td> Repetitions </td>
-			<td> Description </td>
+			<td> /name </td>
+			<td> /type </td>
+			<td> /dataspace </td>
+			<td> /range/bounds </td>
+			<td> /range/clipmode </td>
+			<td> /ramp/drive </td>
+			<td> /ramp/function </td>
+			<td> /repetitions/allow </td>
+			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/amplitude/1 </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Instant amplitude of the signal of track 1 (range 0. 1.) </td>
+			<td class="instructionName"> audio/amplitude.1 </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace">  </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive">  </td>
+			<td class ="instructionRampFunction">  </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> instant amplitude of the signal number #1 </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/amplitude/2 </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 1 </td>
-			<td class ="instructionDescription"> Instant amplitude of the signal of track 2 (range 0. 1.) </td>
+			<td class="instructionName"> audio/amplitude.2 </td>
+			<td class ="instructionType"> msg_generic </td>
+			<td class ="instructionDataspace">  </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive">  </td>
+			<td class ="instructionRampFunction">  </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> instant amplitude of the signal number #1 </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> sf_report </td>
 			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionRange"> 0.000000 1.000000 </td>
-			<td class ="instructionClipmode"> none </td>
-			<td class ="instructionRamp">  </td>
-			<td class ="instructionRepetitions"> 1 </td>
+			<td class ="instructionDataspace">  </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive">  </td>
+			<td class ="instructionRampFunction">  </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Report when sound file reach end point and loop to start point. </td>
 		<tr>
 	</table>
