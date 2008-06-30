@@ -64,6 +64,7 @@ void jamoma_init(void)
 		// obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
 		// obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
+		// TODO: Use quittask_install() to set up a destructor for this to free it before Max exits
 
 		// Add Jamoma Key Commands:
 		
