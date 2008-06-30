@@ -94,7 +94,7 @@
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.paramui",
+					"maxclass" : "jcom.parmater",
 					"text" : "Feedback",
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"description" : "\"\\\"\\\\\\\"A ratio of the emulated sample-rate to the global sample-rate.\\\\\\\"\\\"\"",
@@ -118,7 +118,7 @@
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.paramui",
+					"maxclass" : "jcom.parmater",
 					"text" : "Resonance",
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"description" : "\"\\\"\\\\\\\"A ratio of the emulated sample-rate to the global sample-rate.\\\\\\\"\\\"\"",
@@ -139,7 +139,7 @@
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.paramui",
+					"maxclass" : "jcom.parmater",
 					"text" : "Cutoff",
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"description" : "\"\\\"\\\\\\\"A ratio of the emulated sample-rate to the global sample-rate.\\\\\\\"\\\"\"",
@@ -163,7 +163,7 @@
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.paramui",
+					"maxclass" : "jcom.parmater",
 					"text" : "Bit Depth",
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"description" : "\"\\\"\\\\\\\"The number of bits that will be retained in each sample - use this for bit crunching\\\\\\\"\\\"\"",
@@ -185,7 +185,7 @@
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "jcom.paramui",
+					"maxclass" : "jcom.parmater",
 					"text" : "SR Ratio",
 					"color" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"description" : "\"\\\"\\\\\\\"A ratio of the emulated sample-rate to the global sample-rate.\\\\\\\"\\\"\"",

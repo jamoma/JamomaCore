@@ -246,7 +246,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "time",
-					"text" : "jcom.parameter time @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 5000 @range/clipmode low @dataspace time @dataspace/unit/native ms @description \"Metro interval (ms)\"",
+					"text" : "jcom.parameter time @type msg_int @ramp/drive scheduler @repetitions/allow 0 @range/bounds 1 5000 @range/clipmode low @dataspace time @dataspace/unit/native ms @dataspace/unit/active ms @description \"Metro interval (ms)\"",
 					"linecount" : 2,
 					"numinlets" : 1,
 					"patching_rect" : [ 435.0, 90.0, 548.0, 31.0 ],

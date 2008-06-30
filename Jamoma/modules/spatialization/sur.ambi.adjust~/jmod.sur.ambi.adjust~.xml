@@ -12,7 +12,7 @@
     <item name='meter' type='msg_toggle' priority='0'>0</item>
     <item name='n/gain' type='msg_float' priority='0'>0</item>
     <item name='o/gain' type='msg_float' priority='0'>0</item>
-    <item name='order' type='msg_int' priority='0'>0</item>
+    <item name='order' type='msg_int' priority='0'>3</item>
     <item name='p/gain' type='msg_float' priority='0'>0</item>
     <item name='q/gain' type='msg_float' priority='0'>0</item>
     <item name='r/gain' type='msg_float' priority='0'>0</item>
@@ -21,7 +21,7 @@
     <item name='u/gain' type='msg_float' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='v/gain' type='msg_float' priority='0'>0</item>
-    <item name='w/gain' type='msg_float' priority='0'>0</item>
+    <item name='w/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='x/gain' type='msg_float' priority='0'>0</item>
     <item name='y/gain' type='msg_float' priority='0'>0</item>
     <item name='z/gain' type='msg_float' priority='0'>0</item>

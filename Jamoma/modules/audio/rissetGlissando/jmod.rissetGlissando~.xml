@@ -5,12 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/enveloppe_follower/1' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/enveloppe_follower/2' type='msg_toggle' priority='0'>0</item>
     <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
     <item name='oscillators' type='msg_int' priority='0'>10</item>
     <item name='range' type='msg_list' priority='0'>24.000000 96.000000 </item>
@@ -19,13 +14,8 @@
     <item name='spacing' type='msg_float' priority='0'>12.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
-  <preset number='2' name='down'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/1' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/2' type='msg_toggle' priority='0'>0</item>
+  <preset number='2' name='up'>
     <item name='audio/gain' type='msg_float' priority='0'>110.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='oscillators' type='msg_int' priority='0'>10</item>
     <item name='range' type='msg_list' priority='0'>24.000000 96.000000 </item>
@@ -34,28 +24,18 @@
     <item name='spacing' type='msg_float' priority='0'>12.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
-  <preset number='2' name='up'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/1' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/2' type='msg_toggle' priority='0'>0</item>
+  <preset number='3' name='down'>
     <item name='audio/gain' type='msg_float' priority='0'>110.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='oscillators' type='msg_int' priority='0'>10</item>
     <item name='range' type='msg_list' priority='0'>24.000000 96.000000 </item>
-    <item name='rate' type='msg_float' priority='0'>1.000000</item>
+    <item name='rate' type='msg_float' priority='0'>-1.000000</item>
     <item name='rolloff' type='msg_float' priority='0'>-60.000000</item>
     <item name='spacing' type='msg_float' priority='0'>12.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
-  <preset number='3' name='FalseAlarm'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/1' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/2' type='msg_toggle' priority='0'>0</item>
+  <preset number='4' name='FalseAlarm'>
     <item name='audio/gain' type='msg_float' priority='0'>110.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='oscillators' type='msg_int' priority='0'>10</item>
     <item name='range' type='msg_list' priority='0'>24.000000 96.000000 </item>
@@ -64,13 +44,8 @@
     <item name='spacing' type='msg_float' priority='0'>12.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
-  <preset number='4' name='PsychedelicIdea'>
-    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/1' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/envelope_follower/2' type='msg_toggle' priority='0'>0</item>
+  <preset number='5' name='PsychedelicIdea'>
     <item name='audio/gain' type='msg_float' priority='0'>110.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='oscillators' type='msg_int' priority='0'>10</item>
     <item name='range' type='msg_list' priority='0'>24.000000 96.000000 </item>

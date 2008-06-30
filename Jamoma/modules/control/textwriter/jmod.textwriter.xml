@@ -5,10 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='center_radius' type='msg_float' priority='0'>0.150000</item>
-    <item name='db_drop_off' type='msg_float' priority='0'>2.000000</item>
-    <item name='order' type='msg_int' priority='0'>3</item>
+    <item name='on' type='msg_toggle' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='voices' type='msg_int' priority='0'>3</item>
   </preset>
 </jamoma>
