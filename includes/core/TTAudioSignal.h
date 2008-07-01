@@ -74,9 +74,9 @@ public:
 		vs = newVectorSize;
 	}
 	
-	TTUInt8 getNumChannels()
+	TTUInt16 getNumChannels()
 	{
-		return (TTUInt8)numChannels;
+		return numChannels;
 	}
 
 	void setNumChannels(TTUInt16 newNumChannels)
