@@ -31,6 +31,7 @@ TTWavetable::TTWavetable(TTUInt16 newMaxNumChannels)
 	setAttributeValue(TT("mode"), kTTSym_sine);
 	setAttributeValue(TT("frequency"), 440.0);
 	setAttributeValue(TT("gain"), 0.0);			// 0 dB
+	setAttributeValue(TT("interpolation"), TT("linear"));
 }
 
 
@@ -108,7 +109,9 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSign
 {
 	TTSampleValue	*inSample;
 	TTSampleValue	*outSample;
-	TTUInt16		vs;
+	TTSampleValue	tempSample;
+	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		i=0;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;
 	TTBoolean		hasModulation = true;
@@ -120,33 +123,33 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSign
 	// In that case we don't modulate the oscillator with it
 	if(&in == &out)
 		hasModulation = false;
-	
-	for(channel=0; channel<numChannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+	else
+		inSample = in.sampleVectors[0];
+
+	while(vs--){
+		// Move the play head
+		index += indexDelta;
 		
-		while(vs--){
-			// Move the play head
-			index += indexDelta;
-			
-			if(hasModulation)	// Apply modulation to the play head
-				index += *inSample++ * attrSize / sr;
-			
-			// Wrap the play head
-			if(index >= attrSize)	    		
-				index -= attrSize;
-			else if(index < 0)	    		
-				index += attrSize;
-			
-			// table lookup (linear interpolation)	
-			p1 = (unsigned long)index;
-			p2 = p1 + 1;
-			diff = index - p1;	
-			p2 &= (attrSize - 1);	// fast modulo
-			
-			*outSample++ = ((contents[p2] * diff) + (contents[p1] * (1.0 - diff))) * linearGain;
-		}
+		// Apply modulation to the play head
+		if(hasModulation)
+			index += *inSample++ * attrSize / sr;
+		
+		// Wrap the play head
+		if(index >= attrSize)	    		
+			index -= attrSize;
+		else if(index < 0)	    		
+			index += attrSize;
+		
+		// table lookup (linear interpolation)	
+		p1 = (unsigned long)index;
+		p2 = p1 + 1;
+		diff = index - p1;	
+		p2 &= (attrSize - 1);	// fast modulo
+		
+		tempSample = ((contents[p2] * diff) + (contents[p1] * (1.0 - diff))) * linearGain;
+		for(channel=0; channel<numChannels; channel++)
+			out.sampleVectors[channel][i] = tempSample;
+		i++;
 	}
 	return kTTErrNone;
 	
