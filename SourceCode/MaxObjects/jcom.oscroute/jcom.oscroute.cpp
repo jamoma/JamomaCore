@@ -49,7 +49,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.oscroute",(method)oscroute_new, (method)oscroute_free, sizeof(t_oscroute), (method)0L, A_GIMME, 0);
@@ -104,6 +104,24 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 						//atom_setsym(&(x->arguments[i]), atom_getsym(argv+i));
 						x->arguments[i] = atom_getsym(argv+i);
 						x->arglen[i] = strlen(atom_getsym(argv+i)->s_name);
+						break;
+					case A_LONG:
+						{
+							char	tempstr[256];
+							
+							snprintf(tempstr, 256, "%ld", atom_getlong(argv+i));
+							x->arguments[i] = gensym(tempstr);
+							x->arglen[i] = strlen(tempstr);
+						}
+						break;
+					case A_FLOAT:
+						{
+							char	tempstr[256];
+							
+							snprintf(tempstr, 256, "%f", atom_getfloat(argv+i));
+							x->arguments[i] = gensym(tempstr);
+							x->arglen[i] = strlen(tempstr);
+						}
 						break;
 					default:
 						error("jcom.oscroute - invalid arguments - all args must be symbols");
