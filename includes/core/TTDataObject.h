@@ -12,84 +12,44 @@
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
-#include "TTAudioSignal.h"
-
-
-// Forward declaration of TTAudioObject for the typedef that follows...
-//class TTAudioObject;
-
-/** A type that can be used to store a pointer to a process method */
-//typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal& out);
+#include "TTAudioObject.h"
 
 
 /****************************************************************************************************/
 // Class Specification
 
 /**	TTDataObject is the base class for all asynchronous data generating and processing objects in TTBlue.
- *	
+	It still has knowledge and support for sample-rates, but not channel counts or vector processing.
+	
 	The object processes messages and attributes like any other TTObject.
 	However, this notion is extended by adding the concept of additional inlets and outlets.
 	Inlets and outlets are registered in the constructor.
- 
- 
- 
- *	The theory of operation is that this class handles the public interface to any subclass,
- *	including the main processing method, which calls an appropriate method through a function pointer.
- *	By default, this points to the built-in bypassProcess().  Subclasses then set it to point to their 
- *	own process() method(s) as needed.
- */
+
+	NOTE [TAP] 2008/06/28 -- I'm not really sure what I had in mind by the above, and it doesn't seem to be implemented
+	Instead it seems like we should just declare a process() method that takes a TTValue& input and a TTValue& output.
+*/
 class TTEXPORT TTDataObject : public TTObject {
 private:
 	friend class TTGlobal;				///< Declare that the global object is friend so it can access the globalSr member
-
+	
 protected:
-	TTUInt16		numInlets;			///< Current number of inlets
-	TTUInt16		numOutlets;			///< Current number of outlets
+	TTUInt32						sr;									///< Current sample rate being used by this object
+	TTFloat64						srInv;								///< 1.0 over the current sample rate (inverse)
+	TTFloat64						srMill;								///< 1/1000 of the current sample rate (samples per millisecond)
 
-	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
-//	TTErr setProcess(TTProcessMethod processMethod);
-
-	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
-//	TTErr setBypass(const TTValue& value);
-
-	/**	Setter for the maxNumChannels attribute. 	*/
-//	TTErr setMaxNumChannels(const TTValue& newValue);
-
-	/**	Setter for the sample-rate attribute.		*/
-	TTErr setSr(const TTAttribute&, const TTValue& newValue);
+//	TTUInt16		numInlets;			///< Current number of inlets
+//	TTUInt16		numOutlets;			///< Current number of outlets
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/
-	TTDataObject(const char* name, TTUInt16 maxNumChannels);
+	TTDataObject(const char* name);
 	
 	/** Destructor. */
 	virtual ~TTDataObject();
-		
-	/** Process the input signal, resulting in an output signal. This method wraps the actual process method
-	 *	that will be called.
-	 *	@param in	The input signal.
-	 *	@param out	The output signal.
-	 *	@return 	A TTBlue error code.							*/
-	TTErr process(TTAudioSignal& in, TTAudioSignal& out);
-	
-	/** Process the an output signal only, e.g. for a signal generator. This method wraps the actual process method
-	 *	that will be called.
-	 *	@param in	The input signal.
-	 *	@param out	The output signal.
-	 *	@return 	A TTBlue error code.							*/
-	TTErr process(TTAudioSignal& out);
-	
-	/**	The default audio processing method, which simply copies a signal through with no modifications.		*/
-	TTErr bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
 	
 	
-	
-	/** Registers an outlet handler (pointer to a method).  The outlet handler is the thing that does something
-		with any values sent to outlets.  This is generally called by a host environment for building a 
-		network of objects, and not called by the object itself.
-	*/
-//	???
-	
+	/**	Setter for the sample-rate attribute.		*/
+	TTErr setSr(const TTValue& newValue);
 };
 
 
