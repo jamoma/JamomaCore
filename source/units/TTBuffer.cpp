@@ -56,9 +56,11 @@ TTErr TTBuffer::init()
 
 TTErr TTBuffer::chuck()
 {
-	for(TTUInt16 channel=0; channel<attrNumChannels; channel++)
-		delete [] contents[channel];
-	delete [] contents;
+	if(contents){
+		for(TTUInt16 channel=0; channel<attrNumChannels; channel++)
+			delete [] contents[channel];
+		delete [] contents;
+	}
 	return kTTErrNone;
 }
 
@@ -191,7 +193,7 @@ TTErr TTBuffer::fill(const TTValue& value)
 {
 //	TTSymbol*	fillAlgorithm = value[0];
 // FIXME: implement this once we get [] operators for TTValue;
-	TTSymbol*	fillAlgorithm = NULL;
+	TTSymbol*	fillAlgorithm = value;
 	
 	if(fillAlgorithm == kTTSym_sine){
 		for(TTUInt16 channel=0; channel<attrNumChannels; channel++){
