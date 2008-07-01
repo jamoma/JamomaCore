@@ -35,9 +35,11 @@
 #include "TTBalance.h"
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
+#include "TTBuffer.h"
 #include "TTCrossfade.h"
 #include "TTDCBlock.h"
 #include "TTDegrade.h"
+#include "TTDelay.h"
 #include "TTGain.h"
 #include "TTHighpassButterworth1.h"
 #include "TTHighpassButterworth2.h"
@@ -61,6 +63,7 @@
 #include "TTPulseSub.h"
 #include "TTRamp.h"
 #include "TTSvf.h"
+#include "TTWavetable.h"
 
 
 #endif // __TT_BLUE_API_H__
