@@ -82,11 +82,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		22077FA30D84497600270C06 /* PBXContainerItemProxy */ = {
+		222A38A40E19B81100C72891 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22077F9C0D84497600270C06 /* TTBlue.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* TTBlue.framework */;
 			remoteInfo = TTBlue;
 		};
 /* End PBXContainerItemProxy section */
@@ -98,7 +98,7 @@
 		2200FCAC0D3ECD3D0078B045 /* jcom.receive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receive.cpp; sourceTree = "<group>"; };
 		2200FCAD0D3ECD3D0078B045 /* jcom.receivemaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.receivemaster.cpp; sourceTree = "<group>"; };
 		2200FCAE0D3ECD3D0078B045 /* jcom.send.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.send.cpp; sourceTree = "<group>"; };
-		22077F9C0D84497600270C06 /* TTBlue.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TTBlue.xcodeproj; path = ../ThirdParty/TTBlue/library/TTBlue.xcodeproj; sourceTree = SOURCE_ROOT; };
+		22077F9C0D84497600270C06 /* TTBlue.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TTBlue.xcodeproj; path = ../../../TTBlue/library/TTBlue.xcodeproj; sourceTree = SOURCE_ROOT; };
 		220780BC0D844A6600270C06 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		22097AD60CEA5F880053C8D2 /* JamomaPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JamomaPrefix.pch; sourceTree = "<group>"; };
 		2236907A0D00DFBA002D560B /* JamomaSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JamomaSymbols.cpp; path = source/JamomaSymbols.cpp; sourceTree = "<group>"; };
@@ -270,10 +270,10 @@
 			path = Internals;
 			sourceTree = "<group>";
 		};
-		22077F9D0D84497600270C06 /* Products */ = {
+		222A38A10E19B81100C72891 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				22077FA40D84497600270C06 /* TTBlue.framework */,
+				222A38A50E19B81100C72891 /* TTBlue.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 22077F9D0D84497600270C06 /* Products */;
+					ProductGroup = 222A38A10E19B81100C72891 /* Products */;
 					ProjectRef = 22077F9C0D84497600270C06 /* TTBlue.xcodeproj */;
 				},
 			);
@@ -458,11 +458,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		22077FA40D84497600270C06 /* TTBlue.framework */ = {
+		222A38A50E19B81100C72891 /* TTBlue.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = TTBlue.framework;
-			remoteRef = 22077FA30D84497600270C06 /* PBXContainerItemProxy */;
+			remoteRef = 222A38A40E19B81100C72891 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
