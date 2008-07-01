@@ -26,6 +26,19 @@ TTEXPORT TTSymbol*	kTTSym_sr;
 TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
 TTEXPORT TTSymbol*	kTTSym_updateSr;
 
+TTEXPORT TTSymbol*	kTTSym_sine;
+TTEXPORT TTSymbol*	kTTSym_sineMod;
+TTEXPORT TTSymbol*	kTTSym_cosine;
+TTEXPORT TTSymbol*	kTTSym_cosineMod;
+TTEXPORT TTSymbol*	kTTSym_square;
+TTEXPORT TTSymbol*	kTTSym_squareMod;
+TTEXPORT TTSymbol*	kTTSym_triangle;
+TTEXPORT TTSymbol*	kTTSym_triangleMod;
+TTEXPORT TTSymbol*	kTTSym_ramp;
+TTEXPORT TTSymbol*	kTTSym_rampMod;
+TTEXPORT TTSymbol*	kTTSym_sawtooth;
+TTEXPORT TTSymbol*	kTTSym_sawtoothMod;
+
 
 void TTSymbolCacheInit()
 {
@@ -43,4 +56,18 @@ void TTSymbolCacheInit()
 	kTTSym_sr						= TT("sr");
 	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
 	kTTSym_updateSr					= TT("updateSr");
+	
+	kTTSym_sine						= TT("sine");
+	kTTSym_sineMod					= TT("sineMod");
+	kTTSym_cosine					= TT("cosine");
+	kTTSym_cosineMod				= TT("cosineMod");
+	kTTSym_square					= TT("square");
+	kTTSym_squareMod				= TT("squareMod");
+	kTTSym_triangle					= TT("triangle");
+	kTTSym_triangleMod				= TT("triangleMod");
+	kTTSym_ramp						= TT("ramp");
+	kTTSym_rampMod					= TT("rampMod");
+	kTTSym_sawtooth					= TT("sawtooth");
+	kTTSym_sawtoothMod				= TT("sawtoothMod");
+	
 }

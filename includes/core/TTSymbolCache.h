@@ -26,6 +26,18 @@ extern TTEXPORT TTSymbol*	kTTSym_sr;
 extern TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
 extern TTEXPORT TTSymbol*	kTTSym_updateSr;
 
+extern TTEXPORT TTSymbol*	kTTSym_sine;
+extern TTEXPORT TTSymbol*	kTTSym_sineMod;
+extern TTEXPORT TTSymbol*	kTTSym_cosine;
+extern TTEXPORT TTSymbol*	kTTSym_cosineMod;
+extern TTEXPORT TTSymbol*	kTTSym_square;
+extern TTEXPORT TTSymbol*	kTTSym_squareMod;
+extern TTEXPORT TTSymbol*	kTTSym_triangle;
+extern TTEXPORT TTSymbol*	kTTSym_triangleMod;
+extern TTEXPORT TTSymbol*	kTTSym_ramp;
+extern TTEXPORT TTSymbol*	kTTSym_rampMod;
+extern TTEXPORT TTSymbol*	kTTSym_sawtooth;
+extern TTEXPORT TTSymbol*	kTTSym_sawtoothMod;
 
 void TTSymbolCacheInit();
 
