@@ -126,6 +126,8 @@ protected:
 		virtual ~BlueFilterKernel()
 		{
 			delete mButter;
+			delete mInput;
+			delete mOutput;
 		}
 		
 		
