@@ -46,6 +46,10 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 		setProcess((TTProcessMethod)&TTOperator::processDivideConstant);
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processDivideSignal);
 	}
+	else if(attrOperator == TT("%")){
+		setProcess((TTProcessMethod)&TTOperator::processModuloConstant);
+		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processModuloSignal);
+	}
 	else
 		return kTTErrGeneric;
 	
@@ -54,8 +58,25 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 
 
 TTErr TTOperator::setOperand(const TTValue& newValue)
-{
+{	
+	TTInt64		i;
+	TTUInt32	count;
+	
 	attrOperand = newValue;
+	operandIsPowerOfTwo = false;
+	
+	i = attrOperand;
+	if(i - attrOperand)
+		operandIsInteger = false;
+	else
+		operandIsInteger - true;
+	
+	if(operandIsInteger){
+		for(count = 0; i != 0; count++)
+			i &= i-1;
+		if(count == 1)
+			operandIsPowerOfTwo = true;		
+	}
 	return kTTErrNone;
 }
 
@@ -74,7 +95,7 @@ TTErr TTOperator::processAddConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = attrOperand + *inSample++;
+			*outSample++ = *inSample++ + attrOperand;
 	}
 	return kTTErrNone;
 }
@@ -93,7 +114,7 @@ TTErr TTOperator::processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = attrOperand - *inSample++;
+			*outSample++ = *inSample++ - attrOperand;
 	}
 	return kTTErrNone;
 }
@@ -112,7 +133,7 @@ TTErr TTOperator::processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = attrOperand * *inSample++;
+			*outSample++ = *inSample++ * attrOperand;
 	}
 	return kTTErrNone;
 }
@@ -131,7 +152,37 @@ TTErr TTOperator::processDivideConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = attrOperand / *inSample++;
+			*outSample++ = *inSample++ / attrOperand;
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTOperator::processModuloConstant(TTAudioSignal& in, TTAudioSignal& out)
+{
+	TTUInt16		vs;
+	TTSampleValue*	inSample;
+	TTSampleValue*	outSample;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
+	TTUInt64		temp;
+	TTUInt64		operand = attrOperand;
+	
+	for(channel=0; channel<numchannels; channel++){
+		inSample = in.sampleVectors[channel];
+		outSample = out.sampleVectors[channel];
+		vs = in.getVectorSize();
+		
+		if(operandIsPowerOfTwo){
+			while(vs--){
+				temp = *inSample++;
+				*outSample++ = temp & operand;
+			}
+		}
+		else{
+			while(vs--)
+				*outSample++ = fmod(*inSample++, attrOperand);		
+		}
 	}
 	return kTTErrNone;
 }
@@ -248,11 +299,11 @@ TTErr TTOperator::processDivideSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 {
 	TTUInt16		vs;
 	TTSampleValue	*in1Sample,
-					*in2Sample,
-					*outSample;
+	*in2Sample,
+	*outSample;
 	TTUInt16		numChannels;
 	TTUInt16		channel;
-
+	
 	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in2.getNumChannels();
 		for(channel=0; channel<numChannels; channel++){
@@ -277,4 +328,63 @@ TTErr TTOperator::processDivideSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 	}
 	return kTTErrNone;
 }
+
+
+TTErr TTOperator::processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
+{
+	TTUInt16		vs;
+	TTSampleValue*	in1Sample;
+	TTSampleValue*	in2Sample;
+	TTSampleValue*	outSample;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
+	TTUInt64		temp;
+	TTUInt64		operand;
+	
+	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
+		numChannels = in2.getNumChannels();
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[0];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+			
+			if(operandIsPowerOfTwo){
+				while(vs--){
+					temp = *in1Sample++;
+					operand = *in2Sample++;
+					*outSample++ = temp & operand;
+				}
+			}
+			else{
+				while(vs--)
+					*outSample++ = fmod(*in1Sample++, *in2Sample++);		
+			}
+		}		
+	}
+	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
+		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[channel];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+
+			if(operandIsPowerOfTwo){
+				while(vs--){
+					temp = *in1Sample++;
+					operand = *in2Sample++;
+					*outSample++ = temp & operand;
+				}
+			}
+			else{
+				while(vs--)
+					*outSample++ = fmod(*in1Sample++, *in2Sample++);		
+			}
+		}
+	}
+	return kTTErrNone;
+}
+
+
 

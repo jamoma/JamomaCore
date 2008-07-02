@@ -16,8 +16,10 @@
 	or a pair of input signals */
 class TTEXPORT TTOperator : public TTAudioObject {
 private:
-	TTSymbol*		attrOperator;	///< The type of calculation to perform.
-	TTFloat64		attrOperand;	///< The right-hand value of the calculation.
+	TTSymbol*		attrOperator;			///< The type of calculation to perform.
+	TTFloat64		attrOperand;			///< The right-hand value of the calculation.
+	TTBoolean		operandIsInteger;		///< Set to true if there is no fractional part.
+	TTBoolean		operandIsPowerOfTwo;	///< Set to true is the operand is a power of two to optimize some operations.
 
 	/** setter for the operator attribute. */
 	TTErr setOperator(const TTValue& newValue);
@@ -32,12 +34,14 @@ private:
 	TTErr processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out);
 	TTErr processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out);
 	TTErr processDivideConstant(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processModuloConstant(TTAudioSignal& in, TTAudioSignal& out);
 	
 	/**	An audio processing method that uses a second input signal to define the operand.  */
 	TTErr processAddSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
 	TTErr processSubtractSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
 	TTErr processMultiplySignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
 	TTErr processDivideSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+	TTErr processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
 
 public:
 
