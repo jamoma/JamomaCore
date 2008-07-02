@@ -100,22 +100,57 @@ TTErr TTWavetable::setSize(const TTValue& newSize)
 
 TTErr TTWavetable::processWithNoInterpolation(TTAudioSignal& in, TTAudioSignal& out)
 {
-	// TODO: implement
-	return kTTErrGeneric;
-}
-
-
-TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSignal& out)
-{
 	TTSampleValue	*inSample;
-	TTSampleValue	*outSample;
 	TTSampleValue	tempSample;
 	TTUInt16		vs = in.getVectorSize();
 	TTUInt16		i=0;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;
 	TTBoolean		hasModulation = true;
-	TTInt32			p1, p2;									// two playback indices
+	TTUInt32		p1 = (TTUInt32)index;						// playback index
+	TTSampleVector	contents = wavetable->getContentsForChannel(0);
+	
+	// If the input and output signals are the same, then there really isn't an input signal
+	// In that case we don't modulate the oscillator with it
+	if(&in == &out)
+		hasModulation = false;
+	else
+		inSample = in.sampleVectors[0];
+	
+	while(vs--){
+		// Move the play head
+		index += indexDelta;
+		
+		// Apply modulation to the play head
+		if(hasModulation)
+			index += *inSample++ * attrSize / sr;
+		
+		// Wrap the play head
+		if(index >= attrSize)	    		
+			index -= attrSize;
+		else if(index < 0)	    		
+			index += attrSize;
+		
+		// table lookup (no interpolation)	
+		tempSample = contents[p1] * linearGain;
+		for(channel=0; channel<numChannels; channel++)
+			out.sampleVectors[channel][i] = tempSample;
+		i++;
+	}
+	return kTTErrNone;
+}
+
+
+TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSignal& out)
+{
+	TTSampleValue	*inSample;
+	TTSampleValue	tempSample;
+	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		i=0;
+	TTUInt16		numChannels = out.getNumChannels();
+	TTUInt16		channel;
+	TTBoolean		hasModulation = true;
+	TTUInt32		p1, p2;									// two playback indices
 	TTFloat64		diff;
 	TTSampleVector	contents = wavetable->getContentsForChannel(0);
 	
@@ -141,7 +176,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSign
 			index += attrSize;
 		
 		// table lookup (linear interpolation)	
-		p1 = (unsigned long)index;
+		p1 = (TTUInt32)index;
 		p2 = p1 + 1;
 		diff = index - p1;	
 		p2 &= (attrSize - 1);	// fast modulo
@@ -152,5 +187,4 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSign
 		i++;
 	}
 	return kTTErrNone;
-	
 }
