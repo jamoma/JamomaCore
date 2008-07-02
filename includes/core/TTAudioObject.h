@@ -82,6 +82,13 @@ public:
 	 	@return 	A TTBlue error code.							*/
 	TTErr process(TTAudioSignal& in, TTAudioSignal& out);
 	
+	// shortcut for when the caller is using pointers
+	TTErr process(TTAudioSignal* in, TTAudioSignal* out)
+	{
+		return process(*in, *out);
+	}
+	
+	
 	/** Process the an output signal only, e.g. for a signal generator. This method wraps the actual process method
 	 	that will be called.
 	 	@param in	The input signal.
@@ -89,6 +96,12 @@ public:
 	 	@return 	A TTBlue error code.							*/
 	TTErr process(TTAudioSignal& out);
 
+	// shortcut for when the caller is using pointers
+	TTErr process(TTAudioSignal* out)
+	{
+		return process(*out);
+	}
+	
 	/** Process two input signals, resulting in two output signals. 
 		This method wraps the actual process method, which may use the extra signal as a sidechain or other input.
 	 	@param in1	The main input signal.
@@ -97,6 +110,12 @@ public:
 	 	@param in2	A secondary or sidechain output signal.
 	 	@return 	A TTBlue error code.							*/
 	TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
+
+	// shortcut for when the caller is using pointers
+	TTErr process(TTAudioSignal* in1, TTAudioSignal* in2, TTAudioSignal* out1, TTAudioSignal* out2)
+	{
+		return process(*in1, *in2, *out1, *out2);
+	}
 	
 	/** Process two input signals, resulting in an output signal. 
 		This method wraps the actual process method that will be called.
@@ -105,6 +124,13 @@ public:
 	 	@param out	The output signal.
 	 	@return 	A TTBlue error code.							*/
 	TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out);
+
+	// shortcut for when the caller is using pointers
+	TTErr process(TTAudioSignal* in1, TTAudioSignal* in2, TTAudioSignal* out)
+	{
+		return process(*in1, *in2, *out);
+	}
+	
 	
 	/**	The default audio processing method, which simply copies a signal through with no modifications.		*/
 	TTErr bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
