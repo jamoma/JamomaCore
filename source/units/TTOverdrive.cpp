@@ -13,20 +13,20 @@
 TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.overdrive", newMaxNumChannels)
 {
-	registerAttribute(TT("drive"),		kTypeFloat64,	&attrDrive,		(TTSetterMethod)&TTOverdrive::setDrive);
-	registerAttribute(TT("dcBlocker"),	kTypeBoolean,	&attrDCBlocker, (TTSetterMethod)&TTOverdrive::setDCBlocker);
-	registerAttribute(TT("mode"),		kTypeUInt8,		&attrMode,		(TTSetterMethod)&TTOverdrive::setMode);
-	registerAttribute(TT("preamp"),		kTypeFloat64,	&attrPreamp,	(TTGetterMethod)&TTOverdrive::getPreamp, (TTSetterMethod)&TTOverdrive::setPreamp);
+	// Register Attributes
+	registerAttributeWithSetter(drive,				kTypeFloat64);
+	registerAttributeWithSetter(dcBlocker,			kTypeBoolean);
+	registerAttributeWithSetter(mode,				kTypeUInt8);
+	registerAttributeWithSetterAndGetter(preamp,	kTypeFloat64);
 	
-	// make the clear method available to be called:
+	// Register Messages
 	registerSimpleMessage(clear);
-	
-	// this next one is called by the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
 	
-	dcBlocker = new TTDCBlock(maxNumChannels);
+	// Additional Initialization
+	dcBlockerUnit = new TTDCBlock(maxNumChannels);
 
-	// Set Defaults...
+	// Set Defaults
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setAttributeValue(TT("mode"), 1);
 	setAttributeValue(TT("preamp"), 0.0);
@@ -37,25 +37,25 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 
 TTOverdrive::~TTOverdrive()
 {
-	delete dcBlocker;
+	delete dcBlockerUnit;
 }
 
 
 TTErr TTOverdrive::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {	
-	return dcBlocker->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
+	return dcBlockerUnit->setAttributeValue(TT("maxNumChannels"), maxNumChannels);
 }
 
 
-TTErr TTOverdrive::setDrive(const TTValue& newValue)
+TTErr TTOverdrive::setdrive(const TTValue& newValue)
 {
 	TTFloat64 	f;
 	int			i;
 		
-	attrDrive = TTClip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
+	drive = TTClip(TTFloat32(newValue), TTFloat32(1.0), TTFloat32(10.0));
 
 	// These calculations really only apply to mode 1...
-	f = (attrDrive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
+	f = (drive - 0.999) * 0.111;	// range is roughly [0.001 to 0.999]
 	z = kTTPi * f;
 	s = 1.0 / sin(z);
 	b = 1.0 / f;
@@ -71,17 +71,17 @@ TTErr TTOverdrive::setDrive(const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::setDCBlocker(const TTValue& newValue)
+TTErr TTOverdrive::setdcBlocker(const TTValue& newValue)
 {
-	attrDCBlocker = newValue;
-	return dcBlocker->setAttributeValue(TT("bypass"), !attrDCBlocker);
+	dcBlocker = newValue;
+	return dcBlockerUnit->setAttributeValue(TT("bypass"), !dcBlocker);
 }
 
 
-TTErr TTOverdrive::setMode(const TTValue& newValue)
+TTErr TTOverdrive::setmode(const TTValue& newValue)
 {
-	attrMode = newValue;
-	if(attrMode == 0)
+	mode = newValue;
+	if(mode == 0)
 		setProcess((TTProcessMethod)&TTOverdrive::processMode0);
 	else
 		setProcess((TTProcessMethod)&TTOverdrive::processMode1);	// sine
@@ -89,22 +89,22 @@ TTErr TTOverdrive::setMode(const TTValue& newValue)
 }
 
 
-TTErr TTOverdrive::getPreamp(TTValue& value)
+TTErr TTOverdrive::getpreamp(TTValue& value)
 {
-	value = linearToDb(attrPreamp);
+	value = linearToDb(preamp);
 	return kTTErrNone;
 }
 
-TTErr TTOverdrive::setPreamp(const TTValue& newValue)
+TTErr TTOverdrive::setpreamp(const TTValue& newValue)
 {
-	attrPreamp = dbToLinear(newValue);
+	preamp = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
 
 TTErr TTOverdrive::clear()
 {
-	return dcBlocker->sendMessage(TT("clear"));
+	return dcBlockerUnit->sendMessage(TT("clear"));
 }
 
 
@@ -118,7 +118,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
 	TTSampleValue	temp,
 					sign;
 
-	dcBlocker->process(in, out);
+	dcBlockerUnit->process(in, out);
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -126,7 +126,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			temp = *inSample++ * attrPreamp;
+			temp = *inSample++ * preamp;
 			
 			// the equation only works in the positive quadrant...
 			// so we strip off the sign, apply the equation, and reapply the sign
@@ -140,7 +140,7 @@ TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
 			if(temp > 1.0)		// clip signal if it's out of range
 				*outSample++ = TTClip(temp * sign, TTSampleValue(-1.0), TTSampleValue(1.0));
 			else
-				*outSample++ = sign * (1.0 - exp(attrDrive * log(1.0 - temp)));
+				*outSample++ = sign * (1.0 - exp(drive * log(1.0 - temp)));
 		}
 	}
 	return kTTErrNone;
@@ -156,7 +156,7 @@ TTErr TTOverdrive::processMode1(TTAudioSignal& in, TTAudioSignal& out)
 	TTUInt16		channel;
 	TTSampleValue	temp;
 
-	dcBlocker->process(in, out);
+	dcBlockerUnit->process(in, out);
 
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -164,7 +164,7 @@ TTErr TTOverdrive::processMode1(TTAudioSignal& in, TTAudioSignal& out)
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			temp = *inSample++ * attrPreamp;			
+			temp = *inSample++ * preamp;			
 			if(temp > b) 
 				temp = 1.0;
 			else if(temp < nb) 

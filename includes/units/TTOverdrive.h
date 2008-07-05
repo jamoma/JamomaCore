@@ -18,33 +18,33 @@
  */ 
 class TTEXPORT TTOverdrive : public TTAudioObject {
 private:
-	TTFloat64			attrDrive;		///< 
-	TTBoolean			attrDCBlocker;	///< 
-	TTUInt8				attrMode;		///< 
-	TTFloat64			attrPreamp;		///< linear gain for preamp (attr setter sets it in dB)
+	TTFloat64			drive;			///< Attribute:
+	TTBoolean			dcBlocker;		///< Attribute:
+	TTUInt8				mode;			///< Attribute:
+	TTFloat64			preamp;			///< Attribute: linear gain for preamp (attr setter sets it in dB)
 	TTFloat64			s, 
 						b, 
 						nb, 
 						z, 
 						scale;
-	TTDCBlock*			dcBlocker;
+	TTDCBlock*			dcBlockerUnit;
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
 	/**	Setter for the mode attribute. */
-	TTErr setDrive(const TTValue& value);
+	TTErr setdrive(const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setDCBlocker(const TTValue& value);
+	TTErr setdcBlocker(const TTValue& value);
 
 	/**	Setter for the mode attribute. */
-	TTErr setMode(const TTValue& value);
+	TTErr setmode(const TTValue& value);
 
 	/**	Getter for the mode attribute. */
-	TTErr getPreamp(TTValue& value);
+	TTErr getpreamp(TTValue& value);
 	/**	Setter for the mode attribute. */
-	TTErr setPreamp(const TTValue& value);
+	TTErr setpreamp(const TTValue& value);
 
 	/**	Reset the DC Blocker.			*/
 	TTErr clear();
