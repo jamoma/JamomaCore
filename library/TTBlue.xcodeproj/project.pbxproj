@@ -15,7 +15,7 @@
 		222A380D0E19A5CE00C72891 /* TTWavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 222A380C0E19A5CE00C72891 /* TTWavetable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		222A380F0E19A5E400C72891 /* TTWavetable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222A380E0E19A5E400C72891 /* TTWavetable.cpp */; };
 		223985D30E200EEC00A5F732 /* TTZerocross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223985D20E200EEC00A5F732 /* TTZerocross.cpp */; };
-		223985D50E200F0F00A5F732 /* TTZerocross.h in Headers */ = {isa = PBXBuildFile; fileRef = 223985D40E200F0F00A5F732 /* TTZerocross.h */; };
+		223985D50E200F0F00A5F732 /* TTZerocross.h in Headers */ = {isa = PBXBuildFile; fileRef = 223985D40E200F0F00A5F732 /* TTZerocross.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225384840D70DCA200E5E5FB /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 225384830D70DCA200E5E5FB /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225384850D70DCB600E5E5FB /* TTThread.cpp */; };
 		225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */; };

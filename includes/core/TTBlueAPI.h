@@ -64,6 +64,7 @@
 #include "TTRamp.h"
 #include "TTSvf.h"
 #include "TTWavetable.h"
+#include "TTZerocross.h"
 
 
 #endif // __TT_BLUE_API_H__

@@ -11,88 +11,85 @@
 
 
 TTZerocross::TTZerocross(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("analysis.zerocross", newMaxNumChannels),
-	lastInput(NULL),
-	lastOutput(NULL)
+	: TTAudioObject("analysis.zerocross", newMaxNumChannels)
 {
-	// make the clear method available to be called:
-//	registerMessage(TT("clear"), (TTMethod)&TTZerocross::clear, kTTMessagePassNone);
-//	registerMessage(TT("clear"), (TTCLASSMETHOD)clear, kTTMessagePassNone);
-	registerSimpleMessage(clear);
+	// Attributes
+	registerAttributeWithSetter(size, kTypeUInt32);
 	
-	// notifications
-//	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTZerocross::updateMaxNumChannels);
-	registerSimpleMessage(updateSr);
+	// Messages
+	registerSimpleMessage(clear);
 	registerMessageWithArgument(updateMaxNumChannels);
 	
-//	registerMessage(TT("updateSr"), (TTMethod)&TTZerocross::updateSr, kTTMessagePassNone);
-//	TT_REGISTER_SR_UPDATE;
-	
-	// Set Defaults...
+	// Set Defaults
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	setAttributeValue(TT("size"), 2000);
 	setProcess((TTProcessMethod)&TTZerocross::processAudio);
+	clear();
 }
 
 
 TTZerocross::~TTZerocross()
 {
-	free(lastInput);
-	free(lastOutput);
+	;
 }
 
 
 TTErr TTZerocross::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	if(lastInput)
-		free(lastInput);
-	if(lastOutput)
-		free(lastOutput);
-	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	clear();
-	return kTTErrNone;
-}
-
-
-TTErr TTZerocross::updateSr()
-{
-	;
+	return clear();
 }
 
 
 TTErr TTZerocross::clear()
 {
-	short i;
-
-	for(i=0; i<maxNumChannels; i++){
-		lastInput[i] = 0;
-		lastOutput[i] = 0;
-	}
+	lastSampleWasOverZero = false;
+	counter = 0;
+	finalCount = 0;
+	analysisLocation = 0;
 	return kTTErrNone;
 }
 
 
-// DSP LOOP
+TTErr TTZerocross::setsize(const TTValue& value)
+{
+	size = value;
+	rSize = 1.0 / size;
+	return kTTErrNone;
+}
+
+
+// TODO: this unit requires 1 input and 2 outputs -- it does not yet configure itself for other arrangements!
 TTErr TTZerocross::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 {
-	TTUInt16		vs;
-	TTSampleValue	*inSample,
-					*outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	TTSampleValue	temp;
+	TTUInt16		vs = in.getVectorSize();
+	TTSampleValue*	inSample;
+	TTSampleValue*	out1Sample;
+	TTSampleValue*	out2Sample;
+	TTBoolean		thisSampleIsOverZero;
+	TTBoolean		zeroxOccured;
 
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
+	inSample = in.sampleVectors[0];
+	out1Sample = out.sampleVectors[0];
+	out2Sample = out.sampleVectors[1];
 		
-		while(vs--){
-			temp = *inSample++;
-			*outSample++ = lastOutput[channel] = antiDenormal(temp - lastInput[channel] + (lastOutput[channel] * 0.9997));
-			lastInput[channel] = temp;
+	while(vs--){
+		thisSampleIsOverZero = (0 < (*inSample++));
+		zeroxOccured = lastSampleWasOverZero != thisSampleIsOverZero;
+		lastSampleWasOverZero = thisSampleIsOverZero;
+		
+		counter += zeroxOccured;
+		analysisLocation++;
+		
+		if(analysisLocation >= size){
+			finalCount = ((sr * counter) * rSize) * srInv;
+			analysisLocation = 0;
+			counter = 0;
 		}
+		
+		*out1Sample++ = finalCount;
+		*out2Sample++ = zeroxOccured;
 	}
+		
 	return kTTErrNone;
 }
 

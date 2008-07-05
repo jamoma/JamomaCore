@@ -1,53 +1,56 @@
 /* 
- * jcom.zerox~
+ * tt.zerox~
  * External for Jamoma: zero-crossing counter
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright Â© 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "Jamoma.h"
+#include "ext.h"						// Max Header
+#include "z_dsp.h"						// MSP Header
+#include "ext_strings.h"				// String Functions
+#include "commonsyms.h"					// Common symbols used by the Max 4.5 API
+#include "ext_obex.h"					// Max Object Extensions (attributes) Header
 
-#define NUM_INPUTS 1
-#define NUM_OUTPUTS 2
+#include "TTBlueAPI.h"
+
 
 // Data Structure for this object
 typedef struct _zerox {
-	t_pxobject 		x_obj;			// This object - must be first
-	void			*obex;			// Pointer to object extensions (for attributes)
-	tt_zerox		*my_zerox;		// 
-    tt_audio_signal	*signal_in[NUM_INPUTS];
-    tt_audio_signal	*signal_out[NUM_OUTPUTS];
-	long			attr_size;		// 
+	t_pxobject 		obj;			// This object - must be first
+	TTZerocross*	zeroxUnit;		// 
+    TTAudioSignal*	signalIn;		// 
+    TTAudioSignal*	signalOut;		// 
+	long			attr_size;		//  
 } t_zerox;
 
+
 // Prototypes for methods: need a method for each incoming message type
-void *zerox_new(t_symbol *msg, long argc, t_atom *argv);			// New Object Creation Method
-t_int *zerox_perform(t_int *w);										// An MSP Perform (signal) Method
-void zerox_dsp(t_zerox *x, t_signal **sp, short *count);			// DSP Method
-void zerox_assist(t_zerox *x, void *b, long m, long a, char *s);	// Assistance Method
-t_max_err attr_set_size(t_zerox *x, void *attr, long argc, t_atom *argv);
-void zerox_free(t_zerox *x);
+void*		zerox_new(t_symbol *msg, long argc, t_atom *argv);
+void		zerox_free(t_zerox *x);
+void		zerox_assist(t_zerox *x, void *b, long m, long a, char *s);
+t_max_err	attr_set_size(t_zerox *x, void *attr, long argc, t_atom *argv);
+t_int*		zerox_perform(t_int *w);
+void		zerox_dsp(t_zerox *x, t_signal **sp, short *count);
+
 
 // Globals
-t_class *zerox_class;					// Required. Global pointing to this class
+static t_class *s_zerox_class;
 
 
 /************************************************************************************/
-// Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int main(void)
 {
 	long attrflags = 0;
 	t_class *c;
 	t_object *attr;
 	
-	jamoma_init();
+	TTBlueInit();
+	common_symbols_init();
 
-	c = class_new("tap.zerox~",(method)zerox_new, (method)zerox_free, (short)sizeof(t_zerox), 
-		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c,calcoffset(t_zerox, obex));
+	c = class_new("tt.zerox~", (method)zerox_new, (method)zerox_free, sizeof(t_zerox), (method)0L, A_GIMME, 0);
 
 	class_addmethod(c, (method)zerox_dsp, 		"dsp", A_CANT, 0L);		
     class_addmethod(c, (method)zerox_assist, 	"assist", A_CANT, 0L); 
@@ -56,9 +59,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 		(method)0L, (method)attr_set_size, calcoffset(t_zerox, attr_size));
 	class_addattr(c, attr);
 	
-	class_dspinit(c);				// Setup object's class to work with MSP
+	class_dspinit(c);
 	class_register(CLASS_BOX, c);
-	zerox_class = c;
+	s_zerox_class = c;
 	return 0;
 }
 
@@ -69,8 +72,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 // Create
 void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 {
-	t_zerox *x = (t_zerox *)object_alloc(zerox_class);
-	short i;
+	t_zerox* x = (t_zerox*)object_alloc(s_zerox_class);
 	
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));	// dumpout
@@ -78,30 +80,25 @@ void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 		
-		x->my_zerox = new tt_zerox;
-		for(i=0; i<NUM_INPUTS; i++)
-			x->signal_in[i] = new tt_audio_signal;
-		for(i=0; i<NUM_OUTPUTS; i++)
-			x->signal_out[i] = new tt_audio_signal;
+		x->zeroxUnit = new TTZerocross(1);
+		x->signalIn = new TTAudioSignal(1);
+		x->signalOut = new TTAudioSignal(2);
 
 		x->attr_size = 0;
 		attr_args_process(x, argc, argv); 			//handle attribute args			
 	}
-	return (x);										// Return the pointer
+	return x;
 }
 
 // Destroy
 void zerox_free(t_zerox *x)
 {
-	short i;
-	
 	dsp_free((t_pxobject *)x);
-	delete x->my_zerox;
-	for(i=0; i<NUM_INPUTS; i++)
-		delete x->signal_in[i];
-	for(i=0; i<NUM_OUTPUTS; i++)
-		delete x->signal_out[i];
+	delete x->zeroxUnit;
+	delete x->signalIn;
+	delete x->signalOut;
 }
+
 
 /************************************************************************************/
 // Methods bound to input/inlets
@@ -125,10 +122,8 @@ void zerox_assist(t_zerox *x, void *b, long msg, long arg, char *dst)
 t_max_err attr_set_size(t_zerox *x, void *attr, long argc, t_atom *argv)
 {
 	x->attr_size = atom_getfloat(argv);
-	x->my_zerox->set_attr(tt_zerox::k_analysis_size, x->attr_size);
-	
+	x->zeroxUnit->setAttributeValue(TT("size"), x->attr_size);
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 
@@ -136,22 +131,35 @@ t_max_err attr_set_size(t_zerox *x, void *attr, long argc, t_atom *argv)
 t_int *zerox_perform(t_int *w)
 {
    	t_zerox *x = (t_zerox *)(w[1]);						// Pointer
-    x->signal_in[0]->set_vector((t_float *)(w[2])); 	// Input
-    x->signal_out[0]->set_vector((t_float *)(w[3]));	// Output
-    x->signal_out[1]->set_vector((t_float *)(w[4]));	// Output
-	x->signal_in[0]->vectorsize = (int)(w[5]);			// Vector Size
-			
-	if (!(x->x_obj.z_disabled))	
-		x->my_zerox->dsp_vector_calc(x->signal_in[0], x->signal_out[0], x->signal_out[1]);
+    t_float *in = (t_float *)(w[2]); 	// Input
+    t_float *out1 = (t_float *)(w[3]);	// Output
+    t_float *out2 = (t_float *)(w[4]);	// Output
+	int vs = (int)(w[5]);			// Vector Size
 
-	return (w + 6);	
+	if(!x->obj.z_disabled){								// if we are not muted...
+		x->signalIn->setVector(0, vs, in);	
+		x->zeroxUnit->process(x->signalIn, x->signalOut);
+		x->signalOut->getVector(0, vs, out1);
+		x->signalOut->getVector(1, vs, out2);
+	}	
+	
+	return w+6;	
 }
 
 
 // DSP Method
 void zerox_dsp(t_zerox *x, t_signal **sp, short *count)
 {
-	x->my_zerox->clear();
-	x->my_zerox->set_sr(sp[0]->s_sr);
-	dsp_add(zerox_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);	// Add Perform Method to the DSP Call Chain
+	x->zeroxUnit->clear();
+	x->zeroxUnit->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	dsp_add(zerox_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
+	
+	x->signalIn->setNumChannels(1);
+	x->signalOut->setNumChannels(2);
+	
+	x->signalIn->setVectorSize(sp[0]->s_n);
+	x->signalOut->setVectorSize(sp[0]->s_n);
+	
+	//signalIn will be set in the perform method
+	x->signalOut->alloc();
 }
