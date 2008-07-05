@@ -19,11 +19,11 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "p DoNotSupportDefaultSettings",
+					"text" : "p TheseObjectsDoNotSupportDefaultSettings",
 					"numoutlets" : 0,
 					"id" : "obj-90",
 					"fontname" : "Verdana",
-					"patching_rect" : [ 25.0, 420.0, 169.0, 19.0 ],
+					"patching_rect" : [ 25.0, 420.0, 236.0, 19.0 ],
 					"fontsize" : 10.0,
 					"numinlets" : 0,
 					"patcher" : 					{
@@ -243,7 +243,8 @@
 									"outlettype" : [ "float", "", "", "bang" ],
 									"id" : "obj-7",
 									"patching_rect" : [ 15.0, 180.0, 160.0, 100.0 ],
-									"numinlets" : 1
+									"numinlets" : 1,
+									"addpoints" : [ 0.0, 0.0, 0, 168.918915, 0.96, 0, 432.432434, 0.68, 0, 689.189209, 0.186667, 0, 966.216187, 0.626667, 0 ]
 								}
 
 							}
@@ -257,7 +258,7 @@
 									"numinlets" : 8,
 									"textcolor" : [  ],
 									"nfilters" : 1,
-									"setfilter" : [ 0, 5, 1, 0, 0, 40.0, 1.0, 2.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+									"setfilter" : [ 0, 5, 1, 0, 0, 86.960327, 0.1131, 0.057544, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
 								}
 
 							}
@@ -798,11 +799,11 @@
 					"hint" : "number~",
 					"annotation" : "number~",
 					"numoutlets" : 2,
-					"sig" : 0.0,
+					"sig" : 14.0,
 					"outlettype" : [ "signal", "float" ],
 					"id" : "obj-39",
 					"fontname" : "Verdana",
-					"mode" : 2,
+					"mode" : 1,
 					"patching_rect" : [ 485.0, 150.0, 56.0, 19.0 ],
 					"fontsize" : 10.0,
 					"numinlets" : 2
