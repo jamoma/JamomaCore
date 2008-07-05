@@ -7,6 +7,7 @@
  */
 
 #include "TTOverdrive.h"
+#define thisTTClass TTOverdrive
 
 
 TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
@@ -18,10 +19,11 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("preamp"),		kTypeFloat64,	&attrPreamp,	(TTGetterMethod)&TTOverdrive::getPreamp, (TTSetterMethod)&TTOverdrive::setPreamp);
 	
 	// make the clear method available to be called:
-	registerMessage(TT("clear"), (TTMethod)&TTOverdrive::clear, kTTMessagePassNone);	
+	registerSimpleMessage(clear);
+	
 	// this next one is called by the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTOverdrive::updateMaxNumChannels);
-
+	registerMessageWithArgument(updateMaxNumChannels);
+	
 	dcBlocker = new TTDCBlock(maxNumChannels);
 
 	// Set Defaults...

@@ -59,6 +59,18 @@ typedef enum TTAttributeFlags {
 };
 
 
+/**	A convenience macro to be used by subclasses for registering messages.
+	@param	name	The name of the message, and also the name of the classes' method to be called.
+*/
+#define registerSimpleMessage(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone)
+
+
+/**	A convenience macro to be used by subclasses for registering messages.
+	@param	name	The name of the message, and also the name of the classes' method to be called.
+*/
+#define registerMessageWithArgument(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
+
+
 
 /****************************************************************************************************/
 // Class Specifications
