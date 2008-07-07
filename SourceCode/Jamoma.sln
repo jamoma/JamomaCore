@@ -72,21 +72,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.ramp", "MaxObjects\jco
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTBlue", "..\..\TTBlue\library\TTBlue.vcproj", "{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.balance~", "..\..\TTBlue\examples\tt.balance~\tt.balance~.vcproj", "{E3F6789F-D53D-458B-88CC-D5718E89B940}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.balance~", "..\..\TTBlue\examples\MaxMSP\tt.balance~\tt.balance~.vcproj", "{E3F6789F-D53D-458B-88CC-D5718E89B940}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.dcblock~", "..\..\TTBlue\examples\tt.dcblock~\tt.dcblock~.vcproj", "{C23B6815-DCAE-46F3-B8C1-0F99821D4DB3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.dcblock~", "..\..\TTBlue\examples\MaxMSP\tt.dcblock~\tt.dcblock~.vcproj", "{C23B6815-DCAE-46F3-B8C1-0F99821D4DB3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.degrade~", "..\..\TTBlue\examples\tt.degrade~\tt.degrade~.vcproj", "{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.degrade~", "..\..\TTBlue\examples\MaxMSP\tt.degrade~\tt.degrade~.vcproj", "{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.filter~", "..\..\TTBlue\examples\tt.filter~\tt.filter~.vcproj", "{AED3CA6B-9C8F-4FB1-9EF1-0946F8C7430B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.filter~", "..\..\TTBlue\examples\MaxMSP\tt.filter~\tt.filter~.vcproj", "{AED3CA6B-9C8F-4FB1-9EF1-0946F8C7430B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.limiter~", "..\..\TTBlue\examples\tt.limiter~\tt.limiter~.vcproj", "{B23F2C3B-AC5C-4571-B25A-14BF4F5442CF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.limiter~", "..\..\TTBlue\examples\MaxMSP\tt.limiter~\tt.limiter~.vcproj", "{B23F2C3B-AC5C-4571-B25A-14BF4F5442CF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.overdrive~", "..\..\TTBlue\examples\tt.overdrive~\tt.overdrive~.vcproj", "{BB6EBFD2-4246-4D15-B00F-2EE913B15472}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.overdrive~", "..\..\TTBlue\examples\MaxMSP\tt.overdrive~\tt.overdrive~.vcproj", "{BB6EBFD2-4246-4D15-B00F-2EE913B15472}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.ramp~", "..\..\TTBlue\examples\tt.ramp~\tt.ramp~.vcproj", "{1A7943D4-1BA7-47B0-B7AA-1954F9419857}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.ramp~", "..\..\TTBlue\examples\MaxMSP\tt.ramp~\tt.ramp~.vcproj", "{1A7943D4-1BA7-47B0-B7AA-1954F9419857}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.xfade~", "..\..\TTBlue\examples\tt.xfade~\tt.xfade~.vcproj", "{4A99F290-14B5-4DF3-B718-1A4720B3D4C6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.xfade~", "..\..\TTBlue\examples\MaxMSP\tt.xfade~\tt.xfade~.vcproj", "{4A99F290-14B5-4DF3-B718-1A4720B3D4C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
