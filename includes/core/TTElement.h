@@ -56,11 +56,14 @@ typedef signed				TTInt16;
 typedef unsigned short		TTUInt16;
 typedef signed long			TTInt32;
 typedef unsigned long		TTUInt32;
+
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+typedef __int64				TTInt64;
+typedef unsigned __int64	TTUInt64;
+#else
 typedef signed long long	TTInt64;
 typedef unsigned long long	TTUInt64;
-// TODO: On Windows we might need to do the following if we want to compile with Visual Studio:
-//  typedef __int64				TTInt64;
-//  typedef unsigned __int64	TTUInt64;
+#endif
 
 typedef float				TTFloat32;
 typedef double				TTFloat64;
