@@ -362,6 +362,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\source\units\TTBuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\units\TTBuffer.h"
+				>
+			</File>
+			<File
 				RelativePath="..\source\units\TTCrossfade.cpp"
 				>
 			</File>
@@ -575,6 +583,22 @@
 			</File>
 			<File
 				RelativePath="..\includes\units\TTSvf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\source\units\TTWavetable.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\units\TTWavetable.h"
+				>
+			</File>
+			<File
+				RelativePath="..\source\units\TTZerocross.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\units\TTZerocross.h"
 				>
 			</File>
 		</Filter>
