@@ -23,7 +23,7 @@ TTZerocross::TTZerocross(TTUInt16 newMaxNumChannels)
 	// Set Defaults
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setAttributeValue(TT("size"), 2000);
-	setProcess((TTProcessMethod)&TTZerocross::processAudio);
+	setProcessMethod(processAudio);
 	clear();
 }
 

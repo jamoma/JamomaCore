@@ -77,9 +77,9 @@ TTErr TTWavetable::setInterpolation(const TTValue& newValue)
 {
 	attrMode = newValue;
 	if(attrMode == TT("linear"))
-		setProcess((TTProcessMethod)&TTWavetable::processWithLinearInterpolation);
+		setProcessMethod(processWithLinearInterpolation);
 	else
-		setProcess((TTProcessMethod)&TTWavetable::processWithNoInterpolation);
+		setProcessMethod(processWithNoInterpolation);
 	return kTTErrNone;
 }
 

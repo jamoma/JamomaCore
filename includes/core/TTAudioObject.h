@@ -25,6 +25,12 @@ typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal
 typedef TTErr (TTAudioObject::*TTProcessWithSidechainMethod)(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
 
 
+/**	A convenience macro to be used by subclasses for setting the process method.
+ @param	methodName	The name of the method to use for processing audio vectors.
+ */
+#define setProcessMethod(methodName)    setProcess((TTProcessMethod)& thisTTClass ::methodName )
+
+
 /****************************************************************************************************/
 // Class Specification
 

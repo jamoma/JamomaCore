@@ -27,7 +27,7 @@ TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
-	setProcess((TTProcessMethod)&TTHighpassLinkwitzRiley2::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

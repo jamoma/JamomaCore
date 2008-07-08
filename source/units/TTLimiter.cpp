@@ -45,7 +45,7 @@ TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	setAttributeValue(TT("bypass"),			*kTTBoolNo);
 	TTValue v;
 	clear();
-	setProcess((TTProcessMethod)&TTLimiter::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

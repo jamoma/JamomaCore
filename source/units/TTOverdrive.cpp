@@ -82,9 +82,9 @@ TTErr TTOverdrive::setmode(const TTValue& newValue)
 {
 	mode = newValue;
 	if(mode == 0)
-		setProcess((TTProcessMethod)&TTOverdrive::processMode0);
+		setProcessMethod(processMode0);
 	else
-		setProcess((TTProcessMethod)&TTOverdrive::processMode1);	// sine
+		setProcessMethod(processMode1);	// sine
 	return kTTErrNone;
 }
 

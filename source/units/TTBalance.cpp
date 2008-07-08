@@ -27,7 +27,7 @@ TTBalance::TTBalance(TTUInt16 newMaxNumChannels)
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		10.0);						// Default frequency is 10 Hz
-	setProcess((TTProcessMethod)&TTBalance::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

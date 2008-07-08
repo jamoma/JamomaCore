@@ -36,7 +36,7 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
 	setAttributeValue(TT("resonance"),		1.0);
-	setProcess((TTProcessMethod)&TTLowpassFourPole::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

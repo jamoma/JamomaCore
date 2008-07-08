@@ -44,7 +44,7 @@ TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 	setAttributeValue(TT("release"), 500.);
 	setAttributeValue(TT("mode"), TT("linear"));	// <-- sets the process method
 	
-	setProcess((TTProcessMethod)&TTPulseSub::processAudio);
+	setProcessMethod(processAudio);
 }
 
 TTPulseSub::~TTPulseSub()

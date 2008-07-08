@@ -26,7 +26,7 @@ TTPhasor::TTPhasor(TTUInt16 newMaxNumChannels)
 
 	setAttributeValue(TT("frequency"), 1.0);
 	setAttributeValue(TT("gain"), 0.0);
-	setProcess((TTProcessMethod)&TTPhasor::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

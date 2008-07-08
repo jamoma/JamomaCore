@@ -84,13 +84,13 @@ TTErr TTRamp::stop()
 void TTRamp::setupProcess()
 {
 	if((attrMode == TT("sample")) && (direction == kUP))
-		setProcess((TTProcessMethod)&TTRamp::processSampleAccurateUp);
+		setProcessMethod(processSampleAccurateUp);
 	else if((attrMode == TT("sample")) && (direction == kDOWN))
-		setProcess((TTProcessMethod)&TTRamp::processSampleAccurateDown);
+		setProcessMethod(processSampleAccurateDown);
 	else if((attrMode == TT("vector")) && (direction == kUP))
-		setProcess((TTProcessMethod)&TTRamp::processVectorAccurateUp);
+		setProcessMethod(processVectorAccurateUp);
 	else
-		setProcess((TTProcessMethod)&TTRamp::processVectorAccurateDown);
+		setProcessMethod(processVectorAccurateDown);
 }
 
 

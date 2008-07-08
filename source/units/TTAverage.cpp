@@ -101,11 +101,11 @@ TTErr TTAverage::setMode(const TTValue& newValue)
 	attrMode = newValue;
 	
 	if(attrMode == TT("absolute"))
-		return setProcess((TTProcessMethod)&TTCrossfade::processAbsolute);
+		return setProcessMethod(processAbsolute);
 	else if(attrMode == TT("bipolar"))
-		return setProcess((TTProcessMethod)&TTCrossfade::processBipolar);
+		return setProcessMethod(processBipolar);
 	else if(attrMode == TT("rms"))
-		return setProcess((TTProcessMethod)&TTCrossfade::processRms);
+		return setProcessMethod(processRms);
 	
 	return kTTErrGeneric;
 }

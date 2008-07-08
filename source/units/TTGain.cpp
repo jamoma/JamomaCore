@@ -19,7 +19,7 @@ TTGain::TTGain(TTUInt16 newMaxNumChannels)
 
 	// Set Defaults...
 	setAttributeValue(TT("linearGain"),	1.0);
-	setProcess((TTProcessMethod)&TTGain::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

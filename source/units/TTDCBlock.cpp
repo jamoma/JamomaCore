@@ -23,7 +23,7 @@ TTDCBlock::TTDCBlock(TTUInt16 newMaxNumChannels)
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setProcess((TTProcessMethod)&TTDCBlock::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

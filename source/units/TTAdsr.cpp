@@ -150,9 +150,9 @@ TTErr TTAdsr::setMode(const TTValue& newValue)
 {
 	attrMode = newValue;
 	if(attrMode == TT("exponential"))
-		setProcess((TTProcessMethod)&TTAdsr::processAudioExponential);
+		setProcessMethod(processAudioExponential);
 	else
-		setProcess((TTProcessMethod)&TTAdsr::processAudioLinear);
+		setProcessMethod(processAudioLinear);
 	return kTTErrNone;
 }
 

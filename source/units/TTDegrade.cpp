@@ -27,7 +27,7 @@ TTDegrade::TTDegrade(TTUInt16 newMaxNumChannels)
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
 	setAttributeValue(TT("bitdepth"),		24);
 	setAttributeValue(TT("srRatio"),		1.0);
-	setProcess((TTProcessMethod)&TTDegrade::processAudio);
+	setProcessMethod(processAudio);
 }
 
 

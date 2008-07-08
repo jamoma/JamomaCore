@@ -27,7 +27,7 @@ TTHighpassButterworth2::TTHighpassButterworth2(TTUInt16 newMaxNumChannels)
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequency"),		1000.0);
-	setProcess((TTProcessMethod)&TTHighpassButterworth2::processAudio);
+	setProcessMethod(processAudio);
 }
 
 
