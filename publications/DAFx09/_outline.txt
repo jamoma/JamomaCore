@@ -1,0 +1,53 @@
+
+
+
+
+
+Prior Art
+* STK
+* Max
+* Objective-C
+* Smalltalk
+* SuperCollider?
+
+
+
+What differentiates TTBlue?
+
+
+Major Features
+	
+	Reflection: introspection, dynamic-binding, polymorphic value typing
+	Class Registry: searchable class factory based on a metadata/database model
+	Efficient block processing: including system of manipulating function pointers for process methods
+	Scheduler: for asynchronous events and operations
+	C++: Can use an compiler on any platform (unlike ObjC, for instance)
+	Cross Platform: Mac, Win, Embedded, Linux?
+	Clean interface for extending TTBlue with external classes
+	Tools for automated stress testing and regression testing
+	Automated wrapper creation for generating plug-ins from TTBlue classes very quickly
+	Built for multi-channel with support flexible and dynamically changing channel configurations
+	
+
+An example: 
+	The DC blocker?  Or the 1-pole lowpass?
+
+
+Working Demo Projects
+* Max/MSP
+* Pd
+* VST
+* AudioUnits
+* SuperCollider
+* Embedded devices?
+
+
+In Context:
+* Open Source: Jamoma
+* Commercial: Tap.Tools, Hipno
+
+
+References
+
+
+
