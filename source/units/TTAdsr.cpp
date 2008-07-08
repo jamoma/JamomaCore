@@ -19,7 +19,7 @@ TTAdsr::TTAdsr(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("release"), kTypeFloat64, &release_ms, (TTSetterMethod)&TTAdsr::setRelease);
 	registerAttribute(TT("linearSustain"), kTypeFloat64, &sustain_amp, (TTSetterMethod)&TTAdsr::setSustainAmp);
 	registerAttribute(TT("sustain"), kTypeFloat64, NULL, (TTGetterMethod)&TTAdsr::getSustainDb, (TTSetterMethod)&TTAdsr::setSustainDb);
-	registerAttribute(TT("trigger"), kTypeBoolean, &trigger);
+	registerAttributeSimple(trigger, kTypeBoolean);
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 	
 	// register for notifications from the parent class so we can recalculate coefficients as required

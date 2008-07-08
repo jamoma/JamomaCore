@@ -22,12 +22,11 @@
  */
 class TTEXPORT TTBalance : public TTAudioObject {
 private:
-	TTFloat64		attrFrequency;					///< filter cutoff frequency of inherent lowpass filter
+	TTFloat64		frequency;					///< filter cutoff frequency of inherent lowpass filter
 	TTFloat64		c, a0, a1, a2, b1, b2;			///< filter coefficients
 	TTFloat64		*xm1A, *xm2A, *ym1A, *ym2A;		///< previous input and output values of signal to be balanced
 	TTFloat64		*xm1B, *xm2B, *ym1B, *ym2B;		///< previous input and output values of signal to be compared with
 	
-
 	/**	Receives notifications when there are changes to the inherited 
 		maxNumChannels attribute.  This allocates memory for xm1, xm2, ym1, and ym2 
 		so that each channel's previous values are remembered.		*/
@@ -49,7 +48,7 @@ public:
 	~TTBalance();
 	
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTValue& value);
+	TTErr setfrequency(const TTValue& value);
 	
 	/**	This algorithm depends on the use of an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -57,8 +56,6 @@ public:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
 	TTErr clear();
-	
-	
 };
 
 

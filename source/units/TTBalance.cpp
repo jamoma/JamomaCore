@@ -15,7 +15,7 @@ TTBalance::TTBalance(TTUInt16 newMaxNumChannels)
 	xm1A(NULL), xm2A(NULL), ym1A(NULL), ym2A(NULL), xm1B(NULL), xm2B(NULL), ym1B(NULL), ym2B(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTBalance::setFrequency);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -79,8 +79,8 @@ TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTBalance::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -102,11 +102,11 @@ TTErr TTBalance::clear()
 }
 
 
-TTErr TTBalance::setFrequency(const TTValue& newValue)
+TTErr TTBalance::setfrequency(const TTValue& newValue)
 {
-	attrFrequency = TTClip((double)newValue, 1., (sr*0.45));
+	frequency = TTClip((double)newValue, 1., (sr*0.45));
 
-	c = 1 / ( tan( kTTPi*(attrFrequency/sr) ) );
+	c = 1 / ( tan( kTTPi*(frequency/sr) ) );
 	a0 = 1 / (1 + kTTSqrt2*c + c*c);
 	a1 = 2*a0;
 	a2 = a0;

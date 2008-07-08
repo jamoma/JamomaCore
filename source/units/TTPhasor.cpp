@@ -12,11 +12,11 @@
 
 TTPhasor::TTPhasor(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.phasor", newMaxNumChannels),
-	attrPhase(0.0), step(0.0), linearGain(1.0)
+	phase(0.0), step(0.0), linearGain(1.0)
 {
-	registerAttribute(TT("frequency"),	kTypeFloat64,	&attrFrequency,	(TTSetterMethod)&TTPhasor::setFrequency);
-	registerAttribute(TT("gain"),		kTypeFloat64,	&attrGain,		(TTGetterMethod)&TTPhasor::getGain, (TTSetterMethod)&TTPhasor::setGain);
-	registerAttribute(TT("phase"),		kTypeFloat64,	&attrPhase);
+	registerAttributeWithSetter(frequency,		kTypeFloat64);
+	registerAttributeWithSetterAndGetter(gain,	kTypeFloat64);
+	registerAttributeSimple(phase,				kTypeFloat64);
 	// TODO: More Attributes left to add...
 	//	linearGain
 	//	period in ms
@@ -38,20 +38,20 @@ TTPhasor::~TTPhasor()
 
 TTErr TTPhasor::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
-TTErr TTPhasor::setFrequency(const TTValue& newValue)
+TTErr TTPhasor::setfrequency(const TTValue& newValue)
 {
-	attrFrequency = newValue;
-	if(attrFrequency == 0){
+	frequency = newValue;
+	if(frequency == 0){
 		rampSamples = 0xFFFFFFFF;
 		rampMilliseconds = 0;
 	}
 	else{
-		rampSamples = TTUInt32((1.0 / attrFrequency) * sr);
+		rampSamples = TTUInt32((1.0 / frequency) * sr);
 		rampMilliseconds = 1000.0 * (rampSamples / TTFloat64(sr));
 	}
 	setStep();
@@ -64,14 +64,13 @@ void TTPhasor::setStep()
 }
 
 
-TTErr TTPhasor::setGain(const TTValue& newValue)
+TTErr TTPhasor::setgain(const TTValue& newValue)
 {
-	attrGain = newValue;
-	linearGain = dbToLinear(attrGain);
+	linearGain = dbToLinear(newValue);
 	return kTTErrNone;
 }
 
-TTErr TTPhasor::getGain(TTValue& value)
+TTErr TTPhasor::getgain(TTValue& value)
 {
 	value = linearToDb(linearGain);
 	return kTTErrNone;
@@ -92,12 +91,12 @@ TTErr TTPhasor::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		vs = out.getVectorSize();
 
 		while(vs--){
-			attrPhase += step;
-			if(attrPhase >= 1.0)
-				attrPhase -= 1.0;
-			else if(attrPhase < 0.0)
-				attrPhase += 1.0;
-			*outSample++ = attrPhase * linearGain;	
+			phase += step;
+			if(phase >= 1.0)
+				phase -= 1.0;
+			else if(phase < 0.0)
+				phase += 1.0;
+			*outSample++ = phase * linearGain;	
 		}
 	}
 	return kTTErrNone;

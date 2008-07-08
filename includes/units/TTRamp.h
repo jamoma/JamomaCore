@@ -56,7 +56,7 @@ public:
 	TTErr setMode(const TTValue& value);
 	
 	/** Trigger a ramp with a time set in samples */
-	TTErr rampInSamples(const TTValue& newValue);
+	TTErr rampTimeInSamples(const TTValue& newValue);
 	/** Trigger a ramp with a time set in milliseconds */
 	TTErr setRampTime(const TTValue& newValue);
 	

@@ -16,9 +16,8 @@
  */ 
 class TTEXPORT TTPhasor : public TTAudioObject {
 private:	
-	TTFloat64 			attrFrequency;			///< ramp time in milliseconds
-	TTFloat64			attrGain;				///< gain in dB
-	TTSampleValue		attrPhase;				///< current location in the ramp
+	TTFloat64 			frequency;			///< ramp time in milliseconds
+	TTSampleValue		phase;				///< current location in the ramp
 	
 	TTFloat64			rampMilliseconds;		///< ramp time in milliseconds
 	TTUInt32			rampSamples;			///< ramp time in samples
@@ -43,13 +42,13 @@ public:
 	~TTPhasor();
 	
 	/**	Setter for the frequency attribute in Hertz.   */
-	TTErr setFrequency(const TTValue& newValue);
+	TTErr setfrequency(const TTValue& newValue);
 	
 	/**	Setter the gain attribute in dB.   */
-	TTErr setGain(const TTValue& newValue);
+	TTErr setgain(const TTValue& newValue);
 	
 	/**	Getter for the gain attribute.		*/
-	TTErr getGain(TTValue& value);
+	TTErr getgain(TTValue& value);
 };
 
 
