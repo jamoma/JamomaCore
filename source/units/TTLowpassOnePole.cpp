@@ -15,7 +15,7 @@ TTLowpassOnePole::TTLowpassOnePole(TTUInt16 newMaxNumChannels)
 	feedback(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassOnePole::setFrequency);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -49,8 +49,8 @@ TTErr TTLowpassOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTLowpassOnePole::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -62,12 +62,12 @@ TTErr TTLowpassOnePole::clear()
 }
 
 
-TTErr TTLowpassOnePole::setFrequency(const TTValue& newValue)
+TTErr TTLowpassOnePole::setfrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
-	attrFrequency = newValue;
-	radians = hertzToRadians(attrFrequency);
+	frequency = newValue;
+	radians = hertzToRadians(frequency);
 	coefficient = TTClip(radians / kTTPi, 0.0, 1.0);
 	
 	return kTTErrNone;

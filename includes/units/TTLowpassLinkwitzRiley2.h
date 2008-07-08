@@ -35,7 +35,7 @@
  */
 class TTEXPORT TTLowpassLinkwitzRiley2 : public TTAudioObject {
 private:
-	TTFloat64		attrFrequency;				///< filter cutoff frequency
+	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients
 	TTFloat64		a0, a1, a2;					///< filter coefficients for input samples
 	TTFloat64		b1, b2;						///< filter coefficients for output samples
@@ -72,8 +72,7 @@ public:
 	TTErr clear();
 
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTValue& value);
-
+	TTErr setfrequency(const TTValue& value);
 };
 
 

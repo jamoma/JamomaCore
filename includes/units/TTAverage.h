@@ -16,10 +16,10 @@
  */
 class TTAverage : public TTAudioObject {
 private:
-	TTUInt16		attrMaxInterval;	///< Maximum number of samples over which one can average
-	TTUInt16		attrInterval;		///< The actual number of samples over which one is averaging
-	TTSymbol*		attrMode;			///< options: bipolar, rms, or absolute
-	TTFloat64		invInterval;		///< reciprocal of attrInterval
+	TTUInt16		maxInterval;	///< Maximum number of samples over which one can average
+	TTUInt16		interval;		///< The actual number of samples over which one is averaging
+	TTSymbol*		mode;			///< options: bipolar, rms, or absolute
+	TTFloat64		invInterval;	///< reciprocal of attrInterval
 	TTFloat64*		accumulator;
 	TTSampleVector*	bins;
 	TTSampleVector*	binsIn;
@@ -43,8 +43,8 @@ public:
 	~TTAverage();
 	
 	// Attributes
-	TTErr setFrequency(const TTValue& newValue);
-	TTErr setResonance(const TTValue& newValue);
+	TTErr setfrequency(const TTValue& newValue);
+	TTErr setresonance(const TTValue& newValue);
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -52,7 +52,6 @@ public:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
 	TTErr clear();
-		
 };
 
 

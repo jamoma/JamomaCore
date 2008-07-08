@@ -15,7 +15,7 @@ TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassLinkwitzRiley2::setFrequency);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -63,8 +63,8 @@ TTErr TTHighpassLinkwitzRiley2::updateMaxNumChannels(const TTValue& oldMaxNumCha
 
 TTErr TTHighpassLinkwitzRiley2::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -82,12 +82,12 @@ TTErr TTHighpassLinkwitzRiley2::clear()
 }
 
 
-TTErr TTHighpassLinkwitzRiley2::setFrequency(const TTValue& newValue)
+TTErr TTHighpassLinkwitzRiley2::setfrequency(const TTValue& newValue)
 {
-	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
+	frequency = TTClip((double)newValue, 10., (sr*0.475));
 
-	wc = 2*kTTPi*attrFrequency;
-	k = 2*kTTPi*attrFrequency/tan(kTTPi*attrFrequency/sr);
+	wc = 2*kTTPi*frequency;
+	k = 2*kTTPi*frequency/tan(kTTPi*frequency/sr);
 
 	a0 = (k*k)/(k*k+wc*wc+2*wc*k); 
 	a1 = (-2*k*k)/(k*k+wc*wc+2*wc*k); 

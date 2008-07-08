@@ -15,7 +15,7 @@ TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt16 newMaxNumChannels)
 	xm1(NULL), xm2(NULL), xm3(NULL), xm4(NULL), ym1(NULL), ym2(NULL), ym3(NULL), ym4(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassLinkwitzRiley4::setFrequency);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -79,8 +79,8 @@ TTErr TTLowpassLinkwitzRiley4::updateMaxNumChannels(const TTValue& oldMaxNumChan
 
 TTErr TTLowpassLinkwitzRiley4::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -102,12 +102,12 @@ TTErr TTLowpassLinkwitzRiley4::clear()
 }
 
 
-TTErr TTLowpassLinkwitzRiley4::setFrequency(const TTValue& newValue)
+TTErr TTLowpassLinkwitzRiley4::setfrequency(const TTValue& newValue)
 {
-	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
+	frequency = TTClip((double)newValue, 10., (sr*0.475));
 
-	wc = 2*kTTPi*attrFrequency;
-	k = 2*kTTPi*attrFrequency/tan(kTTPi*attrFrequency/sr);
+	wc = 2*kTTPi*frequency;
+	k = 2*kTTPi*frequency/tan(kTTPi*frequency/sr);
 
 	a0 = pow(wc,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));	
 	a1 = 4*pow(wc,4)/(4*pow(wc,2)*pow(k,2)+2*sqrt(2.)*pow(wc,3)*k+pow(k,4)+2*sqrt(2.)*wc*pow(k,3)+pow(wc,4));

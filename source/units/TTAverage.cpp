@@ -15,9 +15,9 @@ TTAverage::TTAverage(TTUInt16 newMaxNumChannels)
 	accumulator(NULL), bins(NULL), binsIn(NULL), binsOut(NULL), binsEnd(NULL)
 {
 	// register attributes
-	registerAttribute(TT("maxInterval"),	kTypeUInt16, &attrMaxInterval,	(TTSetterMethod)&TTAverage::setMaxInterval);
-	registerAttribute(TT("interval"),		kTypeUInt16, &attrInterval,		(TTSetterMethod)&TTAverage::setInterval);
-	registerAttribute(TT("mode"),			kTypeSymbol, &attrMode,			(TTSetterMethod)&TTAverage::setMode);
+	registerAttributeWithSetter(maxInterval,	kTypeUInt16);
+	registerAttributeWithSetter(interval,		kTypeUInt16);
+	registerAttributeWithSetter(mode,			kTypeSymbol);
 	
 	// register methods
 	registerMessageSimple(clear);
@@ -84,27 +84,27 @@ TTErr TTAverage::clear()
 }
 
 
-TTErr TTAverage::setFrequency(const TTValue& newValue)
+TTErr TTAverage::setfrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
-	attrFrequency = newValue;
-	radians = hertzToRadians(attrFrequency);
+	frequency = newValue;
+	radians = hertzToRadians(frequency);
 	coefficientF = radians * 1.16;
 	calculateCoefficients();
 	return kTTErrNone;
 }
 
 
-TTErr TTAverage::setMode(const TTValue& newValue)
+TTErr TTAverage::setmode(const TTValue& newValue)
 {
-	attrMode = newValue;
+	mode = newValue;
 	
-	if(attrMode == TT("absolute"))
+	if(mode == TT("absolute"))
 		return setProcessMethod(processAbsolute);
-	else if(attrMode == TT("bipolar"))
+	else if(mode == TT("bipolar"))
 		return setProcessMethod(processBipolar);
-	else if(attrMode == TT("rms"))
+	else if(mode == TT("rms"))
 		return setProcessMethod(processRms);
 	
 	return kTTErrGeneric;

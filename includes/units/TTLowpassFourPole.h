@@ -16,8 +16,8 @@
  */
 class TTEXPORT TTLowpassFourPole : public TTAudioObject {
 private:
-	TTFloat64		attrFrequency;			///< filter cutoff frequency
-	TTFloat64		attrResonance;			///< filter resonance -- range is best between 1.0 and 16.0
+	TTFloat64		frequency;			///< filter cutoff frequency
+	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0
 	TTFloat64		coefficientF;			///< filter coefficient
 	TTFloat64		coefficientFB;			///< filter coefficient
 	TTFloat64		coefficientG;			///< filter coefficient
@@ -47,7 +47,10 @@ public:
 
 	/**	Destructor. */
 	~TTLowpassFourPole();
-
+	
+	// Attributes
+	TTErr setfrequency(const TTValue& newValue);
+	TTErr setresonance(const TTValue& newValue);
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -55,10 +58,6 @@ public:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
 	TTErr clear();
-	
-	// Attributes
-	TTErr setFrequency(const TTValue& newValue);
-	TTErr setResonance(const TTValue& newValue);
 };
 
 

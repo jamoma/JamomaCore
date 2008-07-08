@@ -18,8 +18,8 @@
  */
 class TTEXPORT TTBandRejectButterworth2 : public TTAudioObject {
 private:
-	TTFloat64		attrFrequency;					///< filter cutoff frequency
-	TTFloat64		attrQ;							///< filter resonance
+	TTFloat64		frequency;					///< filter cutoff frequency
+	TTFloat64		q;							///< filter resonance
 	TTFloat64		c, d, bw, a0, a1, a2, b1, b2;	///< filter coefficients
 	TTFloat64		*xm1;
 	TTFloat64		*xm2;
@@ -50,10 +50,10 @@ public:
 	~TTBandRejectButterworth2();
 
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTValue& value);
+	TTErr setfrequency(const TTValue& value);
 	
 	/**	Setter for the q (resonance) attribute. */
-	TTErr setQ(const TTValue& value);
+	TTErr setq(const TTValue& value);
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
@@ -61,8 +61,6 @@ public:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
 	TTErr clear();
-	
-	
 };
 
 

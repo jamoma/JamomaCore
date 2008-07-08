@@ -54,7 +54,6 @@ public:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.																*/
 	TTErr clear();
-	
 };
 
 

@@ -28,6 +28,7 @@ Major Features
 	Automated wrapper creation for generating plug-ins from TTBlue classes very quickly
 	Built for multi-channel with support flexible and dynamically changing channel configurations
 	Library of ready-built units for audio analysis, generation, and transformation
+	How do we approach interpolation facilities?
 	
 
 An example: 

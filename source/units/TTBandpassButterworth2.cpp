@@ -15,8 +15,8 @@ TTBandpassButterworth2::TTBandpassButterworth2(TTUInt16 newMaxNumChannels)
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandpassButterworth2::setFrequency);
-	registerAttribute(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandpassButterworth2::setQ);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	registerAttributeWithSetter(q,			kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -65,8 +65,8 @@ TTErr TTBandpassButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumChann
 
 TTErr TTBandpassButterworth2::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -84,18 +84,18 @@ TTErr TTBandpassButterworth2::clear()
 }
 
 
-TTErr TTBandpassButterworth2::setFrequency(const TTValue& newValue)
+TTErr TTBandpassButterworth2::setfrequency(const TTValue& newValue)
 {
-	attrFrequency = TTClip((double)newValue, 10., (sr*0.45));
+	frequency = TTClip((double)newValue, 10., (sr*0.45));
 	
 	return calculateCoefficients();
 }
 
 
-TTErr TTBandpassButterworth2::setQ(const TTValue& newValue)
+TTErr TTBandpassButterworth2::setq(const TTValue& newValue)
 {
 
-	attrQ = newValue;
+	q = newValue;
 	
 	return calculateCoefficients();
 }
@@ -104,12 +104,12 @@ TTErr TTBandpassButterworth2::setQ(const TTValue& newValue)
 TTErr TTBandpassButterworth2::calculateCoefficients()
 {	
 	// Avoid dividing by 0
-	if (attrQ < 0.1)
-		bw = attrFrequency;
+	if(q < 0.1)
+		bw = frequency;
 	else
-		bw = attrFrequency/attrQ;
+		bw = frequency/q;
 	c = 1. / tan( kTTPi*(bw/sr) );
-	d = 2. * cos( 2*kTTPi*(attrFrequency/sr) );
+	d = 2. * cos( 2*kTTPi*(frequency/sr) );
 	a0 = 1. / (1. + c);
 	// a1 = 0.
 	a2 = -a0;

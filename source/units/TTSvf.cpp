@@ -15,8 +15,8 @@ TTSvf::TTSvf(TTUInt16 newMaxNumChannels)
 	x1(NULL), x2(NULL), x3(NULL), x4(NULL), y1(NULL), y2(NULL), y3(NULL), y4(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTSvf::setFrequency);
-	registerAttribute(TT("resonance"),	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTSvf::setResonance);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	registerAttributeWithSetter(resonance,	kTypeFloat64);
 
 	// register methods
 	registerMessageSimple(clear);
@@ -73,8 +73,8 @@ TTErr TTSvf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTSvf::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -92,22 +92,22 @@ TTErr TTSvf::clear()
 }
 
 
-TTErr TTSvf::setFrequency(const TTValue& newValue)
+TTErr TTSvf::setfrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
-	attrFrequency = newValue;
-	radians = hertzToRadians(attrFrequency);
+	frequency = newValue;
+	radians = hertzToRadians(frequency);
 	coefficientF = radians * 1.16;
 	calculateCoefficients();
 	return kTTErrNone;
 }
 
 
-TTErr TTSvf::setResonance(const TTValue& newValue)
+TTErr TTSvf::setresonance(const TTValue& newValue)
 {
-	attrResonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
-	deciResonance = attrResonance * 0.1;
+	resonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
+	deciResonance = resonance * 0.1;
 	calculateCoefficients();
 	return kTTErrNone;
 }

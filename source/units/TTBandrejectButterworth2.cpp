@@ -15,8 +15,8 @@ TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt16 newMaxNumChannels)
 	xm1(NULL), xm2(NULL), ym1(NULL), ym2(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, 	(TTSetterMethod)&TTBandRejectButterworth2::setFrequency);
-	registerAttribute(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandRejectButterworth2::setQ);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	registerAttributeWithSetter(q,			kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -65,8 +65,8 @@ TTErr TTBandRejectButterworth2::updateMaxNumChannels(const TTValue& oldMaxNumCha
 
 TTErr TTBandRejectButterworth2::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -84,17 +84,17 @@ TTErr TTBandRejectButterworth2::clear()
 }
 
 
-TTErr TTBandRejectButterworth2::setFrequency(const TTValue& newValue)
+TTErr TTBandRejectButterworth2::setfrequency(const TTValue& newValue)
 {
-	attrFrequency = TTClip((double)newValue, 10., (sr*0.45));
+	frequency = TTClip((double)newValue, 10., (sr*0.45));
 	
 	return calculateCoefficients();
 }
 
 
-TTErr TTBandRejectButterworth2::setQ(const TTValue& newValue)
+TTErr TTBandRejectButterworth2::setq(const TTValue& newValue)
 {
-	attrQ = newValue;
+	q = newValue;
 	
 	return calculateCoefficients();
 }
@@ -103,12 +103,12 @@ TTErr TTBandRejectButterworth2::setQ(const TTValue& newValue)
 TTErr TTBandRejectButterworth2::calculateCoefficients()
 {
 	// Avoid dividing by zero
-	if (attrQ < 0.1)
-		bw = attrFrequency/0.1;
+	if(q < 0.1)
+		bw = frequency/0.1;
 	else
-		bw = attrFrequency/attrQ;
+		bw = frequency/q;
 	c = tan( kTTPi*(bw/sr) );
-	d = 2.0 * cos( 2.0*kTTPi*(attrFrequency/sr) );
+	d = 2.0 * cos( 2.0*kTTPi*(frequency/sr) );
 	a0 = 1.0 / (1.0 + c);
 	a1 = -1.0 * a0 * d;
 	a2 = a0;

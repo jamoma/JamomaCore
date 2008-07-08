@@ -15,9 +15,9 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
 	x1(NULL), x2(NULL), x3(NULL), x4(NULL), y1(NULL), y2(NULL), y3(NULL), y4(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassFourPole::setFrequency);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	registerAttributeWithSetter(resonance,	kTypeFloat64);
 
-	registerAttribute(kTTSym_resonance,	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassFourPole::setResonance);
 //	setAttributeProperty(kTTSym_resonance, kTTSym_range, TTValue(0.0, 20000.0));
 //	setAttributeProperty(kTTSym_resonance, kTTSym_clipmode, kTTSym_both);		// clipping will happen before calling our custom accessor, unless we set a flag
 	// TODO: flags
@@ -80,8 +80,8 @@ TTErr TTLowpassFourPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTLowpassFourPole::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -99,22 +99,22 @@ TTErr TTLowpassFourPole::clear()
 }
 
 
-TTErr TTLowpassFourPole::setFrequency(const TTValue& newValue)
+TTErr TTLowpassFourPole::setfrequency(const TTValue& newValue)
 {	
 	TTFloat64	radians;
 
-	attrFrequency = newValue;
-	radians = hertzToRadians(attrFrequency);
+	frequency = newValue;
+	radians = hertzToRadians(frequency);
 	coefficientF = radians * 1.16;
 	calculateCoefficients();
 	return kTTErrNone;
 }
 
 
-TTErr TTLowpassFourPole::setResonance(const TTValue& newValue)
+TTErr TTLowpassFourPole::setresonance(const TTValue& newValue)
 {
-	attrResonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
-	deciResonance = attrResonance * 0.1;
+	resonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
+	deciResonance = resonance * 0.1;
 	calculateCoefficients();
 	return kTTErrNone;
 }

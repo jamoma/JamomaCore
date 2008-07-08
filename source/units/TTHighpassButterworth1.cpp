@@ -15,7 +15,7 @@ TTHighpassButterworth1::TTHighpassButterworth1(TTUInt16 newMaxNumChannels)
 	xm1(NULL), ym1(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassButterworth1::setFrequency);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -55,8 +55,8 @@ TTErr TTHighpassButterworth1::updateMaxNumChannels(const TTValue& oldMaxNumChann
 
 TTErr TTHighpassButterworth1::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -72,12 +72,12 @@ TTErr TTHighpassButterworth1::clear()
 }
 
 
-TTErr TTHighpassButterworth1::setFrequency(const TTValue& newValue)
+TTErr TTHighpassButterworth1::setfrequency(const TTValue& newValue)
 {	
-	attrFrequency = TTClip((double)newValue, 10., (sr*0.475));
+	frequency = TTClip((double)newValue, 10., (sr*0.475));
 
-	wc = 2*kTTPi*attrFrequency;
-	k = 2*kTTPi*attrFrequency/tan(kTTPi*attrFrequency/sr);
+	wc = 2*kTTPi*frequency;
+	k = 2*kTTPi*frequency/tan(kTTPi*frequency/sr);
 
 	a0 = k/(k+wc); 
 	a1 = -k/(k+wc); 

@@ -24,7 +24,7 @@
  */
 class TTEXPORT TTLowpassButterworth4 : public TTAudioObject {
 private:
-	TTFloat64		attrFrequency;								///< filter cutoff frequency
+	TTFloat64		frequency;								///< filter cutoff frequency
 	TTFloat64		k, k2, k3, k4, wc, wc2, wc3, wc4, a, b;		///< filter coefficients
 	TTFloat64		a0, a1, a2, a3, a4, b1, b2, b3, b4;			///< filter coefficients
 	TTFloat64		*xm1;										///< Input sample n-1
@@ -64,7 +64,7 @@ public:
 	TTErr clear();
 	
 	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTValue& value);
+	TTErr setfrequency(const TTValue& value);
 	
 };
 

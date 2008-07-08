@@ -15,8 +15,8 @@ TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
 	feedback1(NULL), feedback2(NULL)
 {
 	// register attributes
-	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassTwoPole::setFrequency);
-	registerAttribute(TT("resonance"),	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassTwoPole::setResonance);
+	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	registerAttributeWithSetter(resonance,	kTypeFloat64);
 
 	// register methods
 	registerMessageSimple(clear);
@@ -54,8 +54,8 @@ TTErr TTLowpassTwoPole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTLowpassTwoPole::updateSr()
 {
-	TTValue	v(attrFrequency);
-	return setFrequency(v);
+	TTValue	v(frequency);
+	return setfrequency(v);
 }
 
 
@@ -67,19 +67,19 @@ TTErr TTLowpassTwoPole::clear()
 }
 
 
-TTErr TTLowpassTwoPole::setFrequency(const TTValue& newValue)
+TTErr TTLowpassTwoPole::setfrequency(const TTValue& newValue)
 {	
-	attrFrequency = newValue;
-	radians = hertzToRadians(attrFrequency);	
+	frequency = newValue;
+	radians = hertzToRadians(frequency);	
 	calculateCoefficients();
 	return kTTErrNone;
 }
 
 
-TTErr TTLowpassTwoPole::setResonance(const TTValue& newValue)
+TTErr TTLowpassTwoPole::setresonance(const TTValue& newValue)
 {
-	attrResonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
-	negOneOverResonance = -1.0/attrResonance;
+	resonance = TTClip(TTFloat64(newValue), 0.001, 100.0);
+	negOneOverResonance = -1.0/resonance;
 	calculateCoefficients();
 	
 	return kTTErrNone;
