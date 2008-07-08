@@ -29,18 +29,6 @@ private:
 	TTFloat64			step;					///< 
 	TTBoolean			direction;				///< 0 = ramp up, 1 = ramp down
 
-	/**	Setter for the mode attribute.  The options are 'sample' and 'vector' which determine 
-		the desired accuracy of the ramp that is generated. */
-	TTErr setMode(const TTValue& value);
-
-	/** Trigger a ramp with a time set in samples */
-	TTErr rampInSamples(const TTValue& newValue);
-	/** Trigger a ramp with a time set in milliseconds */
-	TTErr setRampTime(const TTValue& newValue);
-
-	/**	Stop the current ramp.			*/
-	TTErr stop();
-
 	/** Internal method for setting which process method to use. */
 	void setupProcess();
 
@@ -62,6 +50,19 @@ public:
 
 	/**	Destructor. */
 	~TTRamp();
+	
+	/**	Setter for the mode attribute.  The options are 'sample' and 'vector' which determine 
+	 the desired accuracy of the ramp that is generated. */
+	TTErr setMode(const TTValue& value);
+	
+	/** Trigger a ramp with a time set in samples */
+	TTErr rampInSamples(const TTValue& newValue);
+	/** Trigger a ramp with a time set in milliseconds */
+	TTErr setRampTime(const TTValue& newValue);
+	
+	/**	Stop the current ramp.			*/
+	TTErr stop();
+	
 };
 
 

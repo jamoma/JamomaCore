@@ -26,7 +26,6 @@ private:
 	TTUInt32	finalCount;
 	TTUInt32	analysisLocation;		///< keep track of how many samples so far
 	
-	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
@@ -50,14 +49,12 @@ public:
 
 	/**	Destructor. */
 	~TTZerocross();
-	
 
-	/**	Resets the history used in the analysis.	*/
-	TTErr clear();
-	
 	/**	Attribute Setter. */
 	TTErr setsize(const TTValue& value);
 
+	/**	Resets the history used in the analysis.	*/
+	TTErr clear();
 };
 
 

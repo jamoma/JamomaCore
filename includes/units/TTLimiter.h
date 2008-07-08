@@ -55,36 +55,6 @@ private:
 	/** Receives notifications when there are changes to the inherited sr attribute.	*/
 	TTErr updateSr();
 
-	/**	Setter for the threshold attribute. */
-	TTErr setPreamp(const TTValue& value);
-	/**	Getter for the threshold attribute. */
-	TTErr getPreamp(TTValue& value);
-
-	/**	Setter for the threshold attribute. */
-	TTErr setPostamp(const TTValue& value);
-	/**	Getter for the threshold attribute. */
-	TTErr getPostamp(TTValue& value);
-
-	/**	Setter for the threshold attribute. */
-	TTErr setThreshold(const TTValue& value);
-	/**	Getter for the threshold attribute. */
-	TTErr getThreshold(TTValue& value);
-
-	/** Setter for the lookahead attribute, value is in samples. */
-	TTErr setLookahead(TTValue& newValue);
-
-	/**	Setter for the mode attribute. */
-	TTErr setMode(TTValue& newValue);
-
-	/**	Setter for the release attribute. */
-	TTErr setRelease(TTValue& newValue);
-
-	/**	Setter for the dcblocker attribute. */
-	TTErr setDCBlocker(TTValue& newValue);
-
-	/** Clear the history: reset the limiter. */
-	TTErr clear();
-
 	/** Private utility used by the audio processing routine. */
 	void setRecover();
 
@@ -98,6 +68,36 @@ public:
 
 	/**	Destructor. */
 	~TTLimiter();
+	
+	/**	Setter for the threshold attribute. */
+	TTErr setPreamp(const TTValue& value);
+	/**	Getter for the threshold attribute. */
+	TTErr getPreamp(TTValue& value);
+	
+	/**	Setter for the threshold attribute. */
+	TTErr setPostamp(const TTValue& value);
+	/**	Getter for the threshold attribute. */
+	TTErr getPostamp(TTValue& value);
+	
+	/**	Setter for the threshold attribute. */
+	TTErr setThreshold(const TTValue& value);
+	/**	Getter for the threshold attribute. */
+	TTErr getThreshold(TTValue& value);
+	
+	/** Setter for the lookahead attribute, value is in samples. */
+	TTErr setLookahead(TTValue& newValue);
+	
+	/**	Setter for the mode attribute. */
+	TTErr setMode(TTValue& newValue);
+	
+	/**	Setter for the release attribute. */
+	TTErr setRelease(TTValue& newValue);
+	
+	/**	Setter for the dcblocker attribute. */
+	TTErr setDCBlocker(TTValue& newValue);
+	
+	/** Clear the history: reset the limiter. */
+	TTErr clear();	
 };
 
 

@@ -35,9 +35,14 @@ private:
 	TTAudioSignal*	sig1;
 	TTAudioSignal*	sig2;
 	
-
 	TTErr updateSr();
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
+	
+	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	
+public:
+	TTPulseSub(TTUInt16 newMaxNumChannels);
+	~TTPulseSub();
 	
 	TTErr setTrigger(const TTValue& newValue);
 	TTErr setAttack(const TTValue& newValue);
@@ -45,19 +50,9 @@ private:
 	TTErr setSustain(const TTValue& newValue);
 	TTErr setRelease(const TTValue& newValue);
 	TTErr setMode(const TTValue& newValue);
-
-	TTErr TTPulseSub::setFrequency(const TTValue& newValue);
-	TTErr TTPulseSub::setLength(const TTValue& newValue);
 	
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
-	
-		
-	
-public:
-	TTPulseSub(TTUInt16 newMaxNumChannels);
-	~TTPulseSub();
-	
-
+	TTErr setFrequency(const TTValue& newValue);
+	TTErr setLength(const TTValue& newValue);
 };
 
 #endif // __TT_PULSESUB_H__

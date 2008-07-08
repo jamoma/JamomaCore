@@ -28,9 +28,6 @@ private:
 	/**	Setter for the inherited maxNumChannels attribute.		*/
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
-	/**	Setter for the bitdepth attribute. */
-	TTErr setBitdepth(const TTValue& value);
-
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number
 	 *	of inputs and outputs are the same, as are the vector sizes of those inputs and outputs.
@@ -50,6 +47,11 @@ public:
 
 	/**	Destructor. */
 	~TTDegrade();
+	
+	
+	/**	Setter for the bitdepth attribute. */
+	TTErr setBitdepth(const TTValue& value);
+	
 };
 
 

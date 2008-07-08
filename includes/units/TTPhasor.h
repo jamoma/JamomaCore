@@ -29,15 +29,6 @@ private:
 		sr attribute.						*/
 	TTErr updateSr();
 
-	/**	Setter for the frequency attribute in Hertz.   */
-	TTErr setFrequency(const TTValue& newValue);
-
-	/**	Setter the gain attribute in dB.   */
-	TTErr setGain(const TTValue& newValue);
-
-	/**	Getter for the gain attribute.		*/
-	TTErr getGain(TTValue& value);
-
 	/**	Internal method called when the ramp is triggered (by setting the rampTime) */
 	void setStep();
 
@@ -50,6 +41,15 @@ public:
 
 	/**	Destructor. */
 	~TTPhasor();
+	
+	/**	Setter for the frequency attribute in Hertz.   */
+	TTErr setFrequency(const TTValue& newValue);
+	
+	/**	Setter the gain attribute in dB.   */
+	TTErr setGain(const TTValue& newValue);
+	
+	/**	Getter for the gain attribute.		*/
+	TTErr getGain(TTValue& value);
 };
 
 

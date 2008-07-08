@@ -31,23 +31,6 @@ private:
 
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
-
-	/**	Setter for the mode attribute. */
-	TTErr setdrive(const TTValue& value);
-
-	/**	Setter for the mode attribute. */
-	TTErr setdcBlocker(const TTValue& value);
-
-	/**	Setter for the mode attribute. */
-	TTErr setmode(const TTValue& value);
-
-	/**	Getter for the mode attribute. */
-	TTErr getpreamp(TTValue& value);
-	/**	Setter for the mode attribute. */
-	TTErr setpreamp(const TTValue& value);
-
-	/**	Reset the DC Blocker.			*/
-	TTErr clear();
 	
 	/**	Process method when mode == 0	*/
 	TTErr processMode0(TTAudioSignal& in, TTAudioSignal& out);
@@ -61,6 +44,25 @@ public:
 
 	/**	Destructor. */
 	~TTOverdrive();
+	
+	
+	/**	Setter for the mode attribute. */
+	TTErr setdrive(const TTValue& value);
+	
+	/**	Setter for the mode attribute. */
+	TTErr setdcBlocker(const TTValue& value);
+	
+	/**	Setter for the mode attribute. */
+	TTErr setmode(const TTValue& value);
+	
+	/**	Getter for the mode attribute. */
+	TTErr getpreamp(TTValue& value);
+	/**	Setter for the mode attribute. */
+	TTErr setpreamp(const TTValue& value);
+	
+	/**	Reset the DC Blocker.			*/
+	TTErr clear();
+	
 };
 
 

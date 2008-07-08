@@ -45,16 +45,6 @@ private:
 		sr attribute.						*/
 	TTErr updateSr();
 
-	/**	Setter for the frequency attribute. */
-	TTErr setFrequency(const TTValue& value);
-
-	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
-	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
-	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
-	 *	neccesary to clear the filter by calling this method.
-	 *	@return Returns a TTErr error code.												*/
-	TTErr clear();
-
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
 
@@ -65,6 +55,17 @@ public:
 
 	/**	Destructor. */
 	~TTLowpassButterworth4();
+
+	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
+	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
+	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
+	 *	neccesary to clear the filter by calling this method.
+	 *	@return Returns a TTErr error code.												*/
+	TTErr clear();
+	
+	/**	Setter for the frequency attribute. */
+	TTErr setFrequency(const TTValue& value);
+	
 };
 
 

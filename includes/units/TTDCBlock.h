@@ -29,14 +29,6 @@ private:
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 
-	/**	Resets the DC-Blocking filter.
-	 *	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
-	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
-	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
-	 *	neccesary to clear the filter by calling this method.
-	 *	@return Returns a TTErr error code.																*/
-	TTErr clear();
-	
 	/**	Standard audio processing method as used by TTBlue objects.
 	 *	This object can process N parallel channels of audio.  It is assumed that the number
 	 *	of inputs and outputs are the same, as are the vector sizes of those inputs and outputs.
@@ -54,6 +46,15 @@ public:
 
 	/**	Destructor. */
 	~TTDCBlock();
+
+	/**	Resets the DC-Blocking filter.
+	 *	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
+	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the
+	 *	feedback has become corrupted (such as might happen if a NaN is fed in) then it may be 
+	 *	neccesary to clear the filter by calling this method.
+	 *	@return Returns a TTErr error code.																*/
+	TTErr clear();
+	
 };
 
 

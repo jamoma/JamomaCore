@@ -38,14 +38,8 @@ private:
 	TTErr updateSr();
 	
 	TTErr init(TTUInt64 newDelayMaxInSamples);
-	TTErr clear();	
 	void reset();	// internal
 
-	// Attribute Accessors
-	TTErr setDelay(const TTValue& newValue);
-	TTErr setDelayInSamples(const TTValue& newValue);
-	TTErr setInterpolation(const TTValue& newValue);
-	
 	// Process with a constant delay time
 	TTErr processAudioNoInterpolation(TTAudioSignal& in, TTAudioSignal& out);
 	TTErr processAudioLinearInterpolation(TTAudioSignal& in, TTAudioSignal& out);
@@ -62,6 +56,20 @@ public:
 
 	/**	Destructor. */
 	~TTDelay();
+
+	
+	/** Zero out the delay's buffer. */
+	TTErr clear();
+	
+	/** Attribute Accessor */
+	TTErr setDelay(const TTValue& newValue);
+	
+	/** Attribute Accessor */
+	TTErr setDelayInSamples(const TTValue& newValue);
+	
+	/** Attribute Accessor */
+	TTErr setInterpolation(const TTValue& newValue);
+
 };
 
 

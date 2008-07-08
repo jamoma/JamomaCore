@@ -21,12 +21,6 @@ private:
 	TTBoolean		operandIsInteger;		///< Set to true if there is no fractional part.
 	TTBoolean		operandIsPowerOfTwo;	///< Set to true is the operand is a power of two to optimize some operations.
 
-	/** setter for the operator attribute. */
-	TTErr setOperator(const TTValue& newValue);
-
-	/** setter for the operand attribute. */
-	TTErr setOperand(const TTValue& newValue);
-
 	/**	A standard audio processing method as used by TTBlue objects.
 		Performs the mathematical operation with a constant as defined using the 
 		operand attribute. */
@@ -50,6 +44,14 @@ public:
 
 	/**	Destructor. */
 	~TTOperator();
+	
+	
+	/** setter for the operator attribute. */
+	TTErr setOperator(const TTValue& newValue);
+	
+	/** setter for the operand attribute. */
+	TTErr setOperand(const TTValue& newValue);
+		
 };
 
 

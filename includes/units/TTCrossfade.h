@@ -24,32 +24,23 @@ private:
 	TTSymbol*		attrShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
 	TTSymbol*		attrMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
 
-	/**	Setter for the shape attribute. */
-	TTErr setShape(const TTValue& value);
-	
-	/**	Setter for the mode attribute. */
-	TTErr setMode(const TTValue& value);
-	
 	/** Utility used by the setters for setting up the process routine. */
 	TTErr setProcessPointers();
 
 	/**	The process method used when the shape attribute is set to "linear"	
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processLinear(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processLinearUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
 	
 	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "lookup"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processLookup(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processLookupUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
 	
 	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "calculate"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
 	TTErr processCalc(TTAudioSignal& in, TTAudioSignal& out);
-
-
-	TTErr processLinearUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
-	TTErr processLookupUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
 	TTErr processCalcUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
-
 
 public:
 
@@ -58,6 +49,14 @@ public:
 
 	/**	Destructor. */
 	~TTCrossfade();
+	
+	
+	/**	Setter for the shape attribute. */
+	TTErr setShape(const TTValue& value);
+	
+	/**	Setter for the mode attribute. */
+	TTErr setMode(const TTValue& value);
+	
 };
 
 
