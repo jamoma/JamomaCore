@@ -62,7 +62,7 @@ typedef enum TTAttributeFlags {
 /**	A convenience macro to be used by subclasses for registering messages.
 	@param	name	The name of the message, and also the name of the classes' method to be called.
 */
-#define registerSimpleMessage(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone)
+#define registerMessageSimple(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone)
 
 
 /**	A convenience macro to be used by subclasses for registering messages.
@@ -72,14 +72,26 @@ typedef enum TTAttributeFlags {
 
 
 /**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
+	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
+	@param	type	The type of the value.
+*/
+#define registerAttributeSimple(name, type)    registerAttribute(TT(#name), type, &name)
+
+/**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
+	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
+	@param	type	The type of the value.
+*/
+#define registerAttributeWithGetter(name, type)    registerAttribute(TT(#name), type, &name, (TTGetterMethod)& thisTTClass ::get##name )
+
+/**	A convenience macro to be used by subclasses for registering attributes with a custom setter.
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the setter method name.
 	@param	type	The type of the value.
 */
 #define registerAttributeWithSetter(name, type)    registerAttribute(TT(#name), type, &name, (TTSetterMethod)& thisTTClass ::set##name )
 
 
-/**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
-	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the setter method name.
+/**	A convenience macro to be used by subclasses for registering attributes with a custom getter and setter.
+	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter/setter method names.
 	@param	type	The type of the value.
 */
 #define registerAttributeWithSetterAndGetter(name, type)    registerAttribute(TT(#name), type, &name, (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
