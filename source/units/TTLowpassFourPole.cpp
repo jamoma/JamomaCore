@@ -7,6 +7,7 @@
  */
 
 #include "TTLowpassFourPole.h"
+#define thisTTClass TTLowpassFourPole
 
 
 TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)

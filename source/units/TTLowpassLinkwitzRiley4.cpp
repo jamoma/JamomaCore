@@ -7,6 +7,7 @@
  */
 
 #include "TTLowpassLinkwitzRiley4.h"
+#define thisTTClass TTLowpassLinkwitzRiley4
 
 
 TTLowpassLinkwitzRiley4::TTLowpassLinkwitzRiley4(TTUInt16 newMaxNumChannels)

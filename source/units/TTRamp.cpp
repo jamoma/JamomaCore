@@ -7,6 +7,7 @@
  */
 
 #include "TTRamp.h"
+#define thisTTClass TTRamp
 
 
 TTRamp::TTRamp(TTUInt16 newMaxNumChannels)

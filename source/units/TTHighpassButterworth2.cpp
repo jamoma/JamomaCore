@@ -7,6 +7,7 @@
  */
 
 #include "TTHighpassButterworth2.h"
+#define thisTTClass TTHighpassButterworth2
 
 
 TTHighpassButterworth2::TTHighpassButterworth2(TTUInt16 newMaxNumChannels)

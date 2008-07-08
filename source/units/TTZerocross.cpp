@@ -17,7 +17,7 @@ TTZerocross::TTZerocross(TTUInt16 newMaxNumChannels)
 	registerAttributeWithSetter(size, kTypeUInt32);
 	
 	// Messages
-	registerSimpleMessage(clear);
+	registerMessageSimple(clear);
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Set Defaults

@@ -20,7 +20,7 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	registerAttributeWithSetterAndGetter(preamp,	kTypeFloat64);
 	
 	// Register Messages
-	registerSimpleMessage(clear);
+	registerMessageSimple(clear);
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Additional Initialization

@@ -7,6 +7,7 @@
  */
 
 #include "TTBalance.h"
+#define thisTTClass TTBalance
 
 
 TTBalance::TTBalance(TTUInt16 newMaxNumChannels)

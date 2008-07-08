@@ -7,6 +7,7 @@
  */
 
 #include "TTPhasor.h"
+#define thisTTClass TTPhasor
 
 
 TTPhasor::TTPhasor(TTUInt16 newMaxNumChannels)

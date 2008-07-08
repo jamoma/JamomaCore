@@ -7,6 +7,7 @@
  */
 
 #include "TTDCBlock.h"
+#define thisTTClass TTDCBlock
 
 
 TTDCBlock::TTDCBlock(TTUInt16 newMaxNumChannels)

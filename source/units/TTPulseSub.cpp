@@ -7,6 +7,8 @@
  */
 
 #include "TTPulseSub.h"
+#define thisTTClass TTPulseSub
+
 
 TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.pulsesub", newMaxNumChannels), attrMode(TT("linear"))

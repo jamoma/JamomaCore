@@ -17,11 +17,11 @@
  
 class TTEXPORT TTDelay : public TTAudioObject {
 private:
-	TTFloat64			attrDelay;
-	TTUInt64			attrDelayInSamples;
-	TTFloat64			attrDelayMax;
-	TTUInt64			attrDelayMaxInSamples;
-	TTSymbol*			attrInterpolation;
+	TTFloat64			delay;
+	TTUInt64			delayInSamples;
+	TTFloat64			delayMax;
+	TTUInt64			delayMaxInSamples;
+	TTSymbol*			interpolation;
 	
 	// alloc'd for each channel
 	TTSampleValue*		fractionalDelay;		///< used in interpolated dsp loops, if zero then the delay increment is precisely on a sample boundary
@@ -62,13 +62,13 @@ public:
 	TTErr clear();
 	
 	/** Attribute Accessor */
-	TTErr setDelay(const TTValue& newValue);
+	TTErr setdelay(const TTValue& newValue);
 	
 	/** Attribute Accessor */
-	TTErr setDelayInSamples(const TTValue& newValue);
+	TTErr setdelayInSamples(const TTValue& newValue);
 	
 	/** Attribute Accessor */
-	TTErr setInterpolation(const TTValue& newValue);
+	TTErr setinterpolation(const TTValue& newValue);
 
 };
 

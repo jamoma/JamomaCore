@@ -7,6 +7,7 @@
  */
 
 #include "TTGain.h"
+#define thisTTClass TTGain
 
 
 TTGain::TTGain(TTUInt16 newMaxNumChannels)

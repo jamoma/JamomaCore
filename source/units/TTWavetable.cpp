@@ -7,6 +7,7 @@
  */
 
 #include "TTWavetable.h"
+#define thisTTClass TTWavetable
 
 
 TTWavetable::TTWavetable(TTUInt16 newMaxNumChannels)
@@ -23,7 +24,7 @@ TTWavetable::TTWavetable(TTUInt16 newMaxNumChannels)
 	registerMessage(TT("updateSr"),				(TTMethod)&TTWavetable::updateSr, kTTMessagePassNone);
 
 	wavetable = new TTBuffer;
-	wavetable->setNumChannels(1);
+	wavetable->setnumChannels(1);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
@@ -94,7 +95,7 @@ TTErr TTWavetable::setGain(const TTValue& newValue)
 TTErr TTWavetable::setSize(const TTValue& newSize)
 {
 	attrSize = newSize;
-	return wavetable->setLengthInSamples(attrSize);
+	return wavetable->setlengthInSamples(attrSize);
 }
 
 

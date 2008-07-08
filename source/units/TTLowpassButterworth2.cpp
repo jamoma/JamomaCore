@@ -7,6 +7,7 @@
  */
 
 #include "TTLowpassButterworth2.h"
+#define thisTTClass TTLowpassButterworth2
 
 
 TTLowpassButterworth2::TTLowpassButterworth2(TTUInt16 newMaxNumChannels)

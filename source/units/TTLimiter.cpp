@@ -7,6 +7,7 @@
  */
 
 #include "TTLimiter.h"
+#define thisTTClass TTLimiter
 
 
 TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)

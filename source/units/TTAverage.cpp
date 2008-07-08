@@ -7,6 +7,7 @@
  */
 
 #include "TTAverage.h"
+#define thisTTClass TTAverage
 
 /*
 TTAverage::TTAverage(TTUInt16 newMaxNumChannels)

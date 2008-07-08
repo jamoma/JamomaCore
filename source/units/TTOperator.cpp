@@ -7,14 +7,15 @@
  */
 
 #include "TTOperator.h"
+#define thisTTClass TTOperator
 
 
 TTOperator::TTOperator(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.operator", newMaxNumChannels), attrOperator(TT(""))
+	: TTAudioObject("audio.operator", newMaxNumChannels)
 {
-	registerAttribute(TT("operator"),	kTypeSymbol,	&attrOperator,	 (TTSetterMethod)&TTOperator::setOperator);
-	registerAttribute(TT("operand"),	kTypeFloat64,	&attrOperand,	 (TTSetterMethod)&TTOperator::setOperand);
-
+	registerAttribute(TT("operator"), kTypeSymbol, &operatorAttribute, (TTSetterMethod)&TTOperator::setoperator);
+	registerAttributeWithSetter(operand, kTypeFloat64);
+	
 	// Set Defaults...
 	setAttributeValue(TT("operator"),	1.0);
 	setAttributeValue(TT("operand"),	TT("+"));
@@ -27,26 +28,26 @@ TTOperator::~TTOperator()
 }
 
 
-TTErr TTOperator::setOperator(const TTValue& newValue)
+TTErr TTOperator::setoperator(const TTValue& newValue)
 {
-	attrOperator = newValue;
-	if(attrOperator == TT("+")){
+	operatorAttribute = newValue;
+	if(operatorAttribute == TT("+")){
 		setProcess((TTProcessMethod)&TTOperator::processAddConstant);
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processAddSignal);
 	}
-	else if(attrOperator == TT("-")){
+	else if(operatorAttribute == TT("-")){
 		setProcess((TTProcessMethod)&TTOperator::processSubtractConstant);
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processSubtractSignal);
 	}
-	else if(attrOperator == TT("*")){
+	else if(operatorAttribute == TT("*")){
 		setProcess((TTProcessMethod)&TTOperator::processMultiplyConstant);
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processMultiplySignal);
 	}
-	else if(attrOperator == TT("/")){
+	else if(operatorAttribute == TT("/")){
 		setProcess((TTProcessMethod)&TTOperator::processDivideConstant);
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processDivideSignal);
 	}
-	else if(attrOperator == TT("%")){
+	else if(operatorAttribute == TT("%")){
 		setProcess((TTProcessMethod)&TTOperator::processModuloConstant);
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processModuloSignal);
 	}
@@ -57,16 +58,16 @@ TTErr TTOperator::setOperator(const TTValue& newValue)
 }
 
 
-TTErr TTOperator::setOperand(const TTValue& newValue)
+TTErr TTOperator::setoperand(const TTValue& newValue)
 {	
 	TTInt64		i;
 	TTUInt32	count;
 	
-	attrOperand = newValue;
+	operand = newValue;
 	operandIsPowerOfTwo = false;
 	
-	i = (TTInt64)attrOperand;
-	if(i - attrOperand)
+	i = (TTInt64)operand;
+	if(i - operand)
 		operandIsInteger = false;
 	else
 		operandIsInteger = true;
@@ -95,7 +96,7 @@ TTErr TTOperator::processAddConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = *inSample++ + attrOperand;
+			*outSample++ = *inSample++ + operand;
 	}
 	return kTTErrNone;
 }
@@ -114,7 +115,7 @@ TTErr TTOperator::processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = *inSample++ - attrOperand;
+			*outSample++ = *inSample++ - operand;
 	}
 	return kTTErrNone;
 }
@@ -133,7 +134,7 @@ TTErr TTOperator::processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = *inSample++ * attrOperand;
+			*outSample++ = *inSample++ * operand;
 	}
 	return kTTErrNone;
 }
@@ -152,7 +153,7 @@ TTErr TTOperator::processDivideConstant(TTAudioSignal& in, TTAudioSignal& out)
 		outSample = out.sampleVectors[channel];
 		vs = in.getVectorSize();
 		while(vs--)
-			*outSample++ = *inSample++ / attrOperand;
+			*outSample++ = *inSample++ / operand;
 	}
 	return kTTErrNone;
 }
@@ -166,7 +167,7 @@ TTErr TTOperator::processModuloConstant(TTAudioSignal& in, TTAudioSignal& out)
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
 	TTUInt64		temp;
-	TTUInt64		operand = (TTUInt64)attrOperand;
+	TTUInt64		operander = (TTUInt64)operand;
 	
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
@@ -176,12 +177,12 @@ TTErr TTOperator::processModuloConstant(TTAudioSignal& in, TTAudioSignal& out)
 		if(operandIsPowerOfTwo){
 			while(vs--){
 				temp = TTUInt64(*inSample++);
-				*outSample++ = TTSampleValue(temp & operand);
+				*outSample++ = TTSampleValue(temp & operander);
 			}
 		}
 		else{
 			while(vs--)
-				*outSample++ = fmod(*inSample++, attrOperand);		
+				*outSample++ = fmod(*inSample++, operander);		
 		}
 	}
 	return kTTErrNone;

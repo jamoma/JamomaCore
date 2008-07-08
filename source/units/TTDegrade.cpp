@@ -7,7 +7,7 @@
  */
 
 #include "TTDegrade.h"
-
+#define thisTTClass TTDegrade
 #define BIG_INT	0x00800000
 #define ONE_OVER_BIG_INT 1.1920928955E-7
 
@@ -17,11 +17,11 @@ TTDegrade::TTDegrade(TTUInt16 newMaxNumChannels)
 	accumulator(NULL), output(NULL)
 {
 	// register attributes
-	registerAttribute(TT("bitdepth"),	kTypeUInt8,		&attrBitdepth,	(TTSetterMethod)&TTDegrade::setBitdepth);
-	registerAttribute(TT("srRatio"),	kTypeFloat64,	&attrSrRatio);
+	registerAttributeWithSetter(bitdepth,	kTypeUInt8);
+	registerAttributeSimple(srRatio,		kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTDegrade::updateMaxNumChannels);
+	registerMessageWithArgument(updateMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
@@ -57,10 +57,10 @@ TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 }
 
 
-TTErr TTDegrade::setBitdepth(const TTValue& newValue)
+TTErr TTDegrade::setbitdepth(const TTValue& newValue)
 {
-	attrBitdepth = TTClip((int)newValue, 1, 24);
-	bitShift = 24 - attrBitdepth;
+	bitdepth = TTClip((int)newValue, 1, 24);
+	bitShift = 24 - bitdepth;
 	return kTTErrNone;
 }
 
@@ -81,7 +81,7 @@ TTErr TTDegrade::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		
 		while(vs--){
 			// SampeRate Reduction
-			accumulator[channel] += attrSrRatio;
+			accumulator[channel] += srRatio;
 			if(accumulator[channel] >= 1.0){
 				output[channel] = *inSample++;
 				accumulator[channel] -= 1.0;

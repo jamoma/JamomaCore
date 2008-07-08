@@ -7,6 +7,7 @@
  */
 
 #include "TTSvf.h"
+#define thisTTClass TTSvf
 
 
 TTSvf::TTSvf(TTUInt16 newMaxNumChannels)

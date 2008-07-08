@@ -20,9 +20,9 @@
  */
 class TTEXPORT TTCrossfade : public TTAudioObject {
 private:
-	TTFloat64		attrPosition;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
-	TTSymbol*		attrShape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
-	TTSymbol*		attrMode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
+	TTFloat64		position;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
+	TTSymbol*		shape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
+	TTSymbol*		mode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"
 
 	/** Utility used by the setters for setting up the process routine. */
 	TTErr setProcessPointers();
@@ -50,13 +50,11 @@ public:
 	/**	Destructor. */
 	~TTCrossfade();
 	
-	
 	/**	Setter for the shape attribute. */
-	TTErr setShape(const TTValue& value);
+	TTErr setshape(const TTValue& value);
 	
 	/**	Setter for the mode attribute. */
-	TTErr setMode(const TTValue& value);
-	
+	TTErr setmode(const TTValue& value);
 };
 
 

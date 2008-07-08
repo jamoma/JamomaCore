@@ -1,3 +1,11 @@
+/* 
+ * TTBlue Cycling Ramp Generator
+ * Copyright © 2008, Timothy Place & Dave Watson
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
+
 #ifndef __TT_ADSR_H__
 #define __TT_ADSR_H__
 

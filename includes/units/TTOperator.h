@@ -16,8 +16,8 @@
 	or a pair of input signals */
 class TTEXPORT TTOperator : public TTAudioObject {
 private:
-	TTSymbol*		attrOperator;			///< The type of calculation to perform.
-	TTFloat64		attrOperand;			///< The right-hand value of the calculation.
+	TTSymbol*		operatorAttribute;		///< The type of calculation to perform. (The identifier 'operator' is reserved by C++).
+	TTFloat64		operand;				///< The right-hand value of the calculation.
 	TTBoolean		operandIsInteger;		///< Set to true if there is no fractional part.
 	TTBoolean		operandIsPowerOfTwo;	///< Set to true is the operand is a power of two to optimize some operations.
 
@@ -45,13 +45,11 @@ public:
 	/**	Destructor. */
 	~TTOperator();
 	
-	
 	/** setter for the operator attribute. */
-	TTErr setOperator(const TTValue& newValue);
+	TTErr setoperator(const TTValue& newValue);
 	
 	/** setter for the operand attribute. */
-	TTErr setOperand(const TTValue& newValue);
-		
+	TTErr setoperand(const TTValue& newValue);
 };
 
 

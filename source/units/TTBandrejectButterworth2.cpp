@@ -7,6 +7,7 @@
  */
 
 #include "TTBandRejectButterworth2.h"
+#define thisTTClass TTBandRejectButterworth2
 
 
 TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt16 newMaxNumChannels)

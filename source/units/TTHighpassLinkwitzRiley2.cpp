@@ -7,6 +7,7 @@
  */
 
 #include "TTHighpassLinkwitzRiley2.h"
+#define thisTTClass TTHighpassLinkwitzRiley2
 
 
 TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)

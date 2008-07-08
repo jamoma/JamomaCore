@@ -1,6 +1,14 @@
+/* 
+ * TTBlue Cycling Ramp Generator
+ * Copyright © 2008, Timothy Place & Dave Watson
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
 
+#include "TTAdsr.h"
+#define thisTTClass TTAdsr
 
-#include "TTadsr.h"
 
 TTAdsr::TTAdsr(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.adsr", newMaxNumChannels), output(0.), output_db(NOISE_FLOOR), 

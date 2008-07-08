@@ -7,7 +7,7 @@
  */
 
 #include "TTCrossfade.h"
-
+#define thisTTClass TTCrossfade
 
 static bool zeroed = false;
 static TTSampleValue zeroVector1[2048]; //TODO: make this dynamically sized
@@ -16,11 +16,11 @@ static TTSampleValue zeroVector3[2048]; //TODO: make this dynamically sized
 
 
 TTCrossfade::TTCrossfade(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.crossfade", newMaxNumChannels), attrShape(kTTSymEmpty), attrMode(kTTSymEmpty)
+	: TTAudioObject("audio.crossfade", newMaxNumChannels)
 {
-	registerAttribute(TT("position"),	kTypeFloat64,	&attrPosition);
-	registerAttribute(TT("shape"),		kTypeSymbol,	&attrShape,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setShape);
-	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTGetterMethod)NULL, (TTSetterMethod)&TTCrossfade::setMode);
+	registerAttributeSimple(position,	kTypeFloat64);
+	registerAttributeWithSetter(shape,	kTypeSymbol);
+	registerAttributeWithSetter(mode,	kTypeSymbol);
 
 	if(!zeroed){
 		memset(zeroVector1, 0, sizeof(TTSampleValue) * 2048);
@@ -41,16 +41,16 @@ TTCrossfade::~TTCrossfade()
 }
 
 
-TTErr TTCrossfade::setShape(const TTValue& newValue)
+TTErr TTCrossfade::setshape(const TTValue& newValue)
 {
-	attrShape = newValue;
+	shape = newValue;
 	return setProcessPointers();
 }
 
 
-TTErr TTCrossfade::setMode(const TTValue& newValue)
+TTErr TTCrossfade::setmode(const TTValue& newValue)
 {
-	attrMode = newValue;
+	mode = newValue;
 	return setProcessPointers();
 }
 
@@ -59,11 +59,11 @@ TTErr TTCrossfade::setProcessPointers()
 {
 	TTErr	err =kTTErrNone;
 	
-	if(attrShape == TT("equalPower") && attrMode == TT("lookup")){
+	if(shape == TT("equalPower") && mode == TT("lookup")){
 		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processLookupUsingSidechain);
 		err |= setProcess((TTProcessMethod)&TTCrossfade::processLookup);
 	}
-	else if(attrShape == TT("equalPower") && attrMode == TT("calculate")){
+	else if(shape == TT("equalPower") && mode == TT("calculate")){
 		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processCalcUsingSidechain);
 		err |= setProcess((TTProcessMethod)&TTCrossfade::processCalc);
 	}
@@ -99,7 +99,7 @@ TTErr TTCrossfade::processLinear(TTAudioSignal& in, TTAudioSignal& out)
 		vs = in.getVectorSize();
 		
 		while(vs--)
-			*outSample++ = (*inSampleB++ * attrPosition) + (*inSampleA++ * (1.0 - attrPosition));
+			*outSample++ = (*inSampleB++ * position) + (*inSampleA++ * (1.0 - position));
 	}
 	return kTTErrNone;
 }
@@ -125,7 +125,7 @@ TTErr TTCrossfade::processLookup(TTAudioSignal& in, TTAudioSignal& out)
 		vs = in.getVectorSize();
 		
 		while(vs--){
-			index = (int)(attrPosition * 511.0);
+			index = (int)(position * 511.0);
 			*outSample++ = (*inSampleB++ * kTTLookupEqualPower[511 - index]) + (*inSampleA++ * kTTLookupEqualPower[index]);
 		}
 	}
@@ -155,7 +155,7 @@ TTErr TTCrossfade::processCalc(TTAudioSignal& in, TTAudioSignal& out)
 		vs = in.getVectorSize();
 		
 		while(vs--)
-			*outSample++ = (*inSampleB++ * (sin(attrPosition * 1.5707963))) + (*inSampleA++ * (sin((1 - attrPosition) * 1.5707963)));
+			*outSample++ = (*inSampleB++ * (sin(position * 1.5707963))) + (*inSampleA++ * (sin((1 - position) * 1.5707963)));
 	}
 	return kTTErrNone;
 }
@@ -198,7 +198,7 @@ TTErr TTCrossfade::processLinearUsingSidechain(TTAudioSignal& in1, TTAudioSignal
 		vs = in1.getVectorSize();
 		
 		while(vs--)
-			*outSample++ = (*inSampleB++ * attrPosition) + (*inSampleA++ * (1.0 - attrPosition));
+			*outSample++ = (*inSampleB++ * position) + (*inSampleA++ * (1.0 - position));
 	}
 	return kTTErrNone;
 }
@@ -233,7 +233,7 @@ TTErr TTCrossfade::processLookupUsingSidechain(TTAudioSignal& in1, TTAudioSignal
 		vs = in1.getVectorSize();
 		
 		while(vs--){
-			index = (int)(attrPosition * 511.0);
+			index = (int)(position * 511.0);
 			*outSample++ = (*inSampleB++ * kTTLookupEqualPower[511 - index]) + (*inSampleA++ * kTTLookupEqualPower[index]);
 		}
 	}
@@ -257,7 +257,7 @@ TTErr TTCrossfade::processCalcUsingSidechain(TTAudioSignal& in1, TTAudioSignal& 
 		vs = in1.getVectorSize();
 		
 		while(vs--)
-			*outSample++ = (*inSampleB++ * (sin(attrPosition * 1.5707963))) + (*inSampleA++ * (sin((1 - attrPosition) * 1.5707963)));
+			*outSample++ = (*inSampleB++ * (sin(position * 1.5707963))) + (*inSampleA++ * (sin((1 - position) * 1.5707963)));
 	}
 	return kTTErrNone;
 }
