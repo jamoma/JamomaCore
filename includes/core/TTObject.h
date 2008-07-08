@@ -90,10 +90,11 @@ typedef enum TTAttributeFlags {
 #define registerAttributeWithSetter(name, type)    registerAttribute(TT(#name), type, &name, (TTSetterMethod)& thisTTClass ::set##name )
 
 /**	A convenience macro to be used by subclasses for registering attributes with a custom getter and setter.
+	Note that we don't bother passing the address of the value in this macro, because the default setter/getter is not used to access it.
 	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter/setter method names.
 	@param	type	The type of the value.
 */
-#define registerAttributeWithSetterAndGetter(name, type)    registerAttribute(TT(#name), type, &name, (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
+#define registerAttributeWithSetterAndGetter(name, type)    registerAttribute(TT(#name), type, NULL, (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
 
 
 /****************************************************************************************************/
