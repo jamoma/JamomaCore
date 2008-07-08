@@ -27,6 +27,7 @@ Major Features
 	Tools for automated stress testing and regression testing
 	Automated wrapper creation for generating plug-ins from TTBlue classes very quickly
 	Built for multi-channel with support flexible and dynamically changing channel configurations
+	Library of ready-built units for audio analysis, generation, and transformation
 	
 
 An example: 
