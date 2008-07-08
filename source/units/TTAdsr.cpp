@@ -23,7 +23,7 @@ TTAdsr::TTAdsr(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("mode"), kTypeSymbol, &attrMode, (TTSetterMethod)&TTAdsr::setMode);
 	
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTAdsr::updateSr, kTTMessagePassNone);
+	registerMessageSimple(updateSr);
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);

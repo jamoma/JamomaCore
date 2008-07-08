@@ -23,8 +23,8 @@ TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("length"),		kTypeFloat64,	&attrLength,	(TTSetterMethod)&TTPulseSub::setLength);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTPulseSub::updateMaxNumChannels);
-	registerMessage(TT("updateSr"),	(TTMethod)&TTPulseSub::updateSr, kTTMessagePassNone);
+	registerMessageWithArgument(updateMaxNumChannels);
+	registerMessageSimple(updateSr);
 
 	env_gen = new TTAdsr(newMaxNumChannels);
 	phasor = new TTPhasor(newMaxNumChannels);

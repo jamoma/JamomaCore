@@ -18,11 +18,11 @@ TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTHighpassLinkwitzRiley2::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTHighpassLinkwitzRiley2::updateMaxNumChannels);
+	registerMessageWithArgument(updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTHighpassLinkwitzRiley2::updateSr, kTTMessagePassNone);
+	registerMessageSimple(updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTHighpassLinkwitzRiley2::clear, kTTMessagePassNone);
+	registerMessageSimple(clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited

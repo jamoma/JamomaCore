@@ -18,11 +18,11 @@ TTLowpassOnePole::TTLowpassOnePole(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("frequency"),	kTypeFloat64, &attrFrequency, (TTSetterMethod)&TTLowpassOnePole::setFrequency);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassOnePole::updateMaxNumChannels);
+	registerMessageWithArgument(updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassOnePole::updateSr, kTTMessagePassNone);
+	registerMessageSimple(updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTLowpassOnePole::clear, kTTMessagePassNone);
+	registerMessageSimple(clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited

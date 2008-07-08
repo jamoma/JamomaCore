@@ -21,7 +21,7 @@ TTWavetable::TTWavetable(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("interpolation"),	kTypeSymbol,	&attrInterpolation,	(TTSetterMethod)&TTWavetable::setInterpolation);
 	registerAttribute(TT("size"),			kTypeInt64,		&attrSize,			(TTSetterMethod)&TTWavetable::setSize);
 	
-	registerMessage(TT("updateSr"),				(TTMethod)&TTWavetable::updateSr, kTTMessagePassNone);
+	registerMessageSimple(updateSr);
 
 	wavetable = new TTBuffer;
 	wavetable->setnumChannels(1);

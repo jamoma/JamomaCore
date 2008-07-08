@@ -19,11 +19,11 @@ TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("resonance"),	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTLowpassTwoPole::setResonance);
 
 	// register methods
-	registerMessage(TT("clear"), (TTMethod)&TTLowpassTwoPole::clear, kTTMessagePassNone);
+	registerMessageSimple(clear);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassTwoPole::updateMaxNumChannels);
-	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassTwoPole::updateSr, kTTMessagePassNone);
+	registerMessageWithArgument(updateMaxNumChannels);
+	registerMessageSimple(updateSr);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited

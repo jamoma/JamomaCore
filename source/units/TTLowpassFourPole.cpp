@@ -26,11 +26,11 @@ TTLowpassFourPole::TTLowpassFourPole(TTUInt16 newMaxNumChannels)
 //		-- then override the registerAttribute & registerMethod methods
 
 	// register methods
-	registerMessage(TT("clear"), (TTMethod)&TTLowpassFourPole::clear, kTTMessagePassNone);
+	registerMessageSimple(clear);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTLowpassFourPole::updateMaxNumChannels);
-	registerMessage(TT("updateSr"),	(TTMethod)&TTLowpassFourPole::updateSr, kTTMessagePassNone);
+	registerMessageWithArgument(updateMaxNumChannels);
+	registerMessageSimple(updateSr);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited

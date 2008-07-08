@@ -19,11 +19,11 @@ TTSvf::TTSvf(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("resonance"),	kTypeFloat64, &attrResonance, (TTSetterMethod)&TTSvf::setResonance);
 
 	// register methods
-	registerMessage(TT("clear"), (TTMethod)&TTSvf::clear, kTTMessagePassNone);
+	registerMessageSimple(clear);
 
 	// register for notifications
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTSvf::updateMaxNumChannels);
-	registerMessage(TT("updateSr"),	(TTMethod)&TTSvf::updateSr, kTTMessagePassNone);
+	registerMessageWithArgument(updateMaxNumChannels);
+	registerMessageSimple(updateSr);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited

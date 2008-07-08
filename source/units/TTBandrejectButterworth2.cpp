@@ -19,11 +19,11 @@ TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("q"),			kTypeFloat64, &attrQ, 			(TTSetterMethod)&TTBandRejectButterworth2::setQ);
 
 	// register for notifications from the parent class so we can allocate memory as required
-	registerMessage(TT("updateMaxNumChannels"), (TTMethod)&TTBandRejectButterworth2::updateMaxNumChannels);
+	registerMessageWithArgument(updateMaxNumChannels);
 	// register for notifications from the parent class so we can recalculate coefficients as required
-	registerMessage(TT("updateSr"),	(TTMethod)&TTBandRejectButterworth2::updateSr, kTTMessagePassNone);
+	registerMessageSimple(updateSr);
 	// make the clear method available to the outside world
-	registerMessage(TT("clear"), (TTMethod)&TTBandRejectButterworth2::clear, kTTMessagePassNone);
+	registerMessageSimple(clear);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
