@@ -143,18 +143,6 @@ TTFloat64 TTElement::antiDenormal(TTFloat64 value)
 }
 
 
-void TTElement::logMessage(char *message)
-{
-	TTLogMessage(message);
-}
-
-
-void TTElement::logError(char *message)
-{
-	TTLogError(message);
-}
-
-
 long TTElement::round(float value)
 {
 	if(value > 0)
@@ -175,15 +163,43 @@ long TTElement::round(double value)
 
 void TTLogMessage(char *message, ...)
 {
-	// TODO: need to handle va_arg stuff here
-	fprintf(stdout, message);
+	char	str[4096];
+	va_list	ap;
+	
+	va_start(ap, message);
+	vsnprintf(str, 4096, message, ap);
+	va_end(ap);
+	str[4095] = 0; 
+	
+	fprintf(stdout, str);
+}
+
+
+void TTLogWarning(char *message, ...)
+{
+	char	str[4096];
+	va_list	ap;
+	
+	va_start(ap, message);
+	vsnprintf(str, 4096, message, ap);
+	va_end(ap);
+	str[4095] = 0; 
+	
+	fprintf(stdout, str);
 }
 
 
 void TTLogError(char *message, ...)
 {
-	// TODO: need to handle va_arg stuff here
-	fprintf(stderr, message);
+	char	str[4096];
+	va_list	ap;
+	
+	va_start(ap, message);
+	vsnprintf(str, 4096, message, ap);
+	va_end(ap);
+	str[4095] = 0; 
+	
+	fprintf(stderr, str);
 }
 
 

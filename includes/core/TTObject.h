@@ -141,10 +141,10 @@ public:
 	template<class T>
 	TTErr getAttributeValue(const TTSymbol* name, T& value);
 	
-	TTErr TTObject::getAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
-	TTErr TTObject::setAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
-	TTErr TTObject::getAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value);
-	TTErr TTObject::setAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value);
+	TTErr getAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
+	TTErr setAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
+	TTErr getAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value);
+	TTErr setAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value);
 	
 
 	/** return a list of names of the available functionParameters */
@@ -171,6 +171,10 @@ public:
 	// getMessageNames()
 	// getAttributeNames()
 	
+	/**	Log messages scoped to this object instance. */
+	TTErr logMessage(char* fmtstring, ...);
+	TTErr logWarning(char* fmtstring, ...);
+	TTErr logError(char* fmtstring, ...);
 };
 
 

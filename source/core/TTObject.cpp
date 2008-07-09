@@ -395,6 +395,11 @@ TTErr TTObject::registerMessage(const TTSymbol* name, TTMethod method)
 	messageNames[messageCount] = name;
 	messageObjects[messageCount] = new TTMessage(name, method, kTTMessageDefaultFlags);
 	messageCount++;
+	
+	#ifdef TT_DEBUG_MESSAGING
+	logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getString(), kTTMessageDefaultFlags, messageCount);
+	#endif
+	
 	return kTTErrNone;
 }
 
@@ -457,5 +462,68 @@ TTErr TTObject::sendMessage(const TTSymbol* name, TTValue& value)
 		}
 	}
 	return kTTErrMethodNotFound;
+}
+
+
+#if 0
+#pragma mark -
+#pragma mark Logging
+#endif
+
+/**	Log messages scoped to this object instance. */
+TTErr TTObject::logMessage(char* fmtstring, ...)
+{
+	char	str[4000];
+	char	fullstr[4096];
+	va_list	ap;
+	
+	va_start(ap, fmtstring);
+	vsnprintf(str, 4000, fmtstring, ap);
+	va_end(ap);
+	str[4095] = 0;
+	
+	strncpy(fullstr, objectName->getString(), 4095);
+	strncat(fullstr, " : ", 4095);
+	strncat(fullstr, str, 4095);
+	TTLogMessage(fullstr);
+	return kTTErrNone;
+}
+
+
+TTErr TTObject::logWarning(char* fmtstring, ...)
+{
+	char	str[4000];
+	char	fullstr[4096];
+	va_list	ap;
+	
+	va_start(ap, fmtstring);
+	vsnprintf(str, 4000, fmtstring, ap);
+	va_end(ap);
+	str[4095] = 0;
+	
+	strncpy(fullstr, objectName->getString(), 4095);
+	strncat(fullstr, " : ", 4095);
+	strncat(fullstr, str, 4095);
+	TTLogWarning(fullstr);
+	return kTTErrNone;
+}
+
+
+TTErr TTObject::logError(char* fmtstring, ...)
+{
+	char	str[4000];
+	char	fullstr[4096];
+	va_list	ap;
+	
+	va_start(ap, fmtstring);
+	vsnprintf(str, 4000, fmtstring, ap);
+	va_end(ap);
+	str[4095] = 0;
+	
+	strncpy(fullstr, objectName->getString(), 4095);
+	strncat(fullstr, " : ", 4095);
+	strncat(fullstr, str, 4095);
+	TTLogError(fullstr);
+	return kTTErrNone;	
 }
 

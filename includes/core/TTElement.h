@@ -138,12 +138,7 @@ public:
 	
 	/** Filter out denormaled values, which can make processing extremely slow when they are present. */
 	TTFloat64		antiDenormal(TTFloat64 value);
-	
-	/** Post messages associated with this element. */
-	void			logMessage(char *message);
-	/** Posting errors associated with this element. */
-	void			logError(char *message);
-	
+		
 	/** Rounding utility. */
 	static TTInt32	round(TTFloat32 value);
 	/** Rounding utility. */
@@ -154,6 +149,9 @@ public:
 
 /** Platform and host independent method for posting messages. */
 void TTLogMessage(char *message, ...);
+
+/** Platform and host independent method for posting messages. */
+void TTLogWarning(char *message, ...);
 
 /** Platform and host independent method for posting errors. */
 void TTLogError(char *message, ...);
