@@ -18,7 +18,7 @@ TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("release"),	kTypeFloat64,	&attrRelease,	(TTSetterMethod)&TTPulseSub::setRelease);
 	registerAttribute(TT("sustain"),	kTypeFloat64,	&attrSustain,	(TTSetterMethod)&TTPulseSub::setSustain);
 	registerAttribute(TT("trigger"),	kTypeBoolean,	&attrTrigger,	(TTSetterMethod)&TTPulseSub::setTrigger);
-	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTPulseSub::setTrigger);
+	registerAttribute(TT("mode"),		kTypeSymbol,	&attrMode,		(TTSetterMethod)&TTPulseSub::setMode);
 	registerAttribute(TT("frequency"),	kTypeFloat64,	&attrFrequency,	(TTSetterMethod)&TTPulseSub::setFrequency);
 	registerAttribute(TT("length"),		kTypeFloat64,	&attrLength,	(TTSetterMethod)&TTPulseSub::setLength);
 
