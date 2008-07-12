@@ -232,6 +232,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\source\core\TTEnvironment.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\source\core\TTGlobal.cpp"
 				>
 			</File>
@@ -329,6 +333,10 @@
 			</File>
 			<File
 				RelativePath="..\includes\units\TTAdsr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\source\units\TTAllpass.cpp"
 				>
 			</File>
 			<File
