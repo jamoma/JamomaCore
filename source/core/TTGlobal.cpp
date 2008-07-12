@@ -33,7 +33,7 @@ TTGlobal::~TTGlobal()
 
 TTErr TTGlobal::getVersion(TTValue &value)
 {
-	value = "0.5.0";
+	value = "0.5.2";
 	return kTTErrNone;
 }
 
