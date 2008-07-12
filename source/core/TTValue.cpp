@@ -139,6 +139,7 @@ void TTValue::clear()
 	init();
 	data->float64 = 0.0;
 	*type = kTypeNone;
+	numValues = 0;		// Important: We want TTValue to contain zero values so we can build an array dynamically with the append() method [TAP]
 }
 
 
@@ -216,6 +217,7 @@ TTValue& TTValue::operator = (const TTValue &newValue)
 // FLOAT32
 TTValue& TTValue::operator = (TTFloat32 value) 
 {
+	setNumValues(1);
 	*type = kTypeFloat32;
 	data->float32 = value;
 	return *this;
@@ -237,6 +239,7 @@ TTValue::operator TTFloat32() const
 // FLOAT64
 TTValue& TTValue::operator = (TTFloat64 value)
 {
+	setNumValues(1);
 	*type = kTypeFloat64;
 	data->float64 = value;
 	return *this;
@@ -258,6 +261,7 @@ TTValue::operator TTFloat64() const
 // INT8
 TTValue& TTValue::operator = (TTInt8 value)
 {
+	setNumValues(1);
 	*type = kTypeInt8;
 	data->int8 = value;
 	return *this;
@@ -279,6 +283,7 @@ TTValue::operator TTInt8() const
 // UINT8
 TTValue& TTValue::operator = (TTUInt8 value)
 {
+	setNumValues(1);
 	*type = kTypeUInt8;
 	data->uint8 = value;
 	return *this;
@@ -300,6 +305,7 @@ TTValue::operator TTUInt8() const
 // INT16
 TTValue& TTValue::operator = (TTInt16 value)
 {
+	setNumValues(1);
 	*type = kTypeInt16;
 	data->int16 = value;
 	return *this;
@@ -321,6 +327,7 @@ TTValue::operator TTInt16() const
 // UINT16
 TTValue& TTValue::operator = (TTUInt16 value)
 {
+	setNumValues(1);
 	*type = kTypeUInt16;
 	data->uint16 = value;
 	return *this;
@@ -342,6 +349,7 @@ TTValue::operator TTUInt16() const
 // INT32
 TTValue& TTValue::operator = (TTInt32 value)
 {
+	setNumValues(1);
 	*type = kTypeInt32;
 	data->int32 = value;
 	return *this;
@@ -363,6 +371,7 @@ TTValue::operator TTInt32() const
 // UINT32
 TTValue& TTValue::operator = (TTUInt32 value)
 {
+	setNumValues(1);
 	*type = kTypeUInt32;
 	data->uint32 = value;
 	return *this;
@@ -384,6 +393,7 @@ TTValue::operator TTUInt32() const
 // INT64
 TTValue& TTValue::operator = (TTInt64 value)
 {
+	setNumValues(1);
 	*type = kTypeInt64;
 	data->int64 = value;
 	return *this;
@@ -405,6 +415,7 @@ TTValue::operator TTInt64() const
 // UINT64
 TTValue& TTValue::operator = (TTUInt64 value)
 {
+	setNumValues(1);
 	*type = kTypeUInt64;
 	data->uint64 = value;
 	return *this;
@@ -426,6 +437,7 @@ TTValue::operator TTUInt64() const
 // BOOLEAN
 TTValue& TTValue::operator = (TTBoolean value)
 {
+	setNumValues(1);
 	*type = kTypeBoolean;
 	data->boolean = value;
 	return *this;
@@ -447,6 +459,7 @@ TTValue::operator TTBoolean() const
 // SYMBOL
 TTValue& TTValue::operator = (TTSymbol* value)
 {
+	setNumValues(1);
 	if((TTSymbol*)this != value) {
 		*type = kTypeSymbol;
 		data->sym = value;
@@ -467,6 +480,7 @@ TTValue::operator TTSymbol*() const
 // OBJECT
 TTValue& TTValue::operator = (TTObject& value)
 {
+	setNumValues(1);
 	*type = kTypeObject;
 	data->object = &value;
 	return *this;
@@ -484,6 +498,7 @@ TTValue::operator TTObject&() const
 
 TTValue& TTValue::operator = (TTObject* value)
 {
+	setNumValues(1);
 	*type = kTypeObject;
 	data->object = value;
 	return *this;
