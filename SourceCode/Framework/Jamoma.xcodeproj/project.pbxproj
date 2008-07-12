@@ -86,7 +86,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 22077F9C0D84497600270C06 /* TTBlue.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* TTBlue.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = TTBlue;
 		};
 /* End PBXContainerItemProxy section */
@@ -558,7 +558,7 @@
 					/Library/Frameworks/TTBlue.framework/headers,
 				);
 				INFOPLIST_FILE = resources/Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = Jamoma;
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = YES;
@@ -588,7 +588,7 @@
 					/Library/Frameworks/TTBlue.framework/headers,
 				);
 				INFOPLIST_FILE = resources/Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = Jamoma;
 				WRAPPER_EXTENSION = framework;
 			};
