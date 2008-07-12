@@ -17,7 +17,11 @@
 		223985D30E200EEC00A5F732 /* TTZerocross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223985D20E200EEC00A5F732 /* TTZerocross.cpp */; };
 		223985D50E200F0F00A5F732 /* TTZerocross.h in Headers */ = {isa = PBXBuildFile; fileRef = 223985D40E200F0F00A5F732 /* TTZerocross.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22398BC00E24432C00A5F732 /* TTNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BBF0E24432C00A5F732 /* TTNoise.cpp */; };
-		22398BC20E24434700A5F732 /* TTNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398BC10E24434700A5F732 /* TTNoise.h */; };
+		22398BC20E24434700A5F732 /* TTNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398BC10E24434700A5F732 /* TTNoise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22398BCD0E244F5800A5F732 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BCC0E244F5800A5F732 /* TTAllpass.cpp */; };
+		22398BCF0E244F7300A5F732 /* TTAllpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398BCE0E244F7300A5F732 /* TTAllpass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22398C250E25097100A5F732 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398C240E25097100A5F732 /* TTEnvironment.cpp */; };
+		22398C270E25098800A5F732 /* TTEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398C260E25098800A5F732 /* TTEnvironment.h */; };
 		225384840D70DCA200E5E5FB /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 225384830D70DCA200E5E5FB /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225384850D70DCB600E5E5FB /* TTThread.cpp */; };
 		225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */; };
@@ -134,6 +138,10 @@
 		223985D40E200F0F00A5F732 /* TTZerocross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTZerocross.h; path = ../includes/units/TTZerocross.h; sourceTree = SOURCE_ROOT; };
 		22398BBF0E24432C00A5F732 /* TTNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNoise.cpp; path = ../source/units/TTNoise.cpp; sourceTree = SOURCE_ROOT; };
 		22398BC10E24434700A5F732 /* TTNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNoise.h; path = ../includes/units/TTNoise.h; sourceTree = SOURCE_ROOT; };
+		22398BCC0E244F5800A5F732 /* TTAllpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass.cpp; path = ../source/units/TTAllpass.cpp; sourceTree = SOURCE_ROOT; };
+		22398BCE0E244F7300A5F732 /* TTAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAllpass.h; path = ../includes/units/TTAllpass.h; sourceTree = SOURCE_ROOT; };
+		22398C240E25097100A5F732 /* TTEnvironment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTEnvironment.cpp; path = ../source/core/TTEnvironment.cpp; sourceTree = SOURCE_ROOT; };
+		22398C260E25098800A5F732 /* TTEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTEnvironment.h; path = ../includes/core/TTEnvironment.h; sourceTree = SOURCE_ROOT; };
 		225384830D70DCA200E5E5FB /* TTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTThread.h; path = ../includes/core/TTThread.h; sourceTree = SOURCE_ROOT; };
 		225384850D70DCB600E5E5FB /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = ../source/core/TTThread.cpp; sourceTree = SOURCE_ROOT; };
 		225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolCache.cpp; path = ../source/core/TTSymbolCache.cpp; sourceTree = SOURCE_ROOT; };
@@ -289,24 +297,19 @@
 		08FB77AEFE84172EC02AAC07 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				22569C020D3E416200328864 /* TTAudioObject.h */,
-				22569C300D3E417E00328864 /* TTAudioObject.cpp */,
+				22398CC00E25643800A5F732 /* BaseClasses */,
 				22569C030D3E416200328864 /* TTAudioSignal.h */,
 				22569C310D3E417E00328864 /* TTAudioSignal.cpp */,
 				225385560D710FFF00E5E5FB /* TTBlue.h */,
 				225385480D710FAF00E5E5FB /* TTBlue.cpp */,
-				22C9B3C20D6F5429007A2946 /* TTDataObject.h */,
-				22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */,
-				22569C040D3E416200328864 /* TTElement.h */,
-				22569C320D3E417E00328864 /* TTElement.cpp */,
+				22398C260E25098800A5F732 /* TTEnvironment.h */,
+				22398C240E25097100A5F732 /* TTEnvironment.cpp */,
 				22569C050D3E416200328864 /* TTGlobal.h */,
 				22569C330D3E417E00328864 /* TTGlobal.cpp */,
 				22569C060D3E416200328864 /* TTList.h */,
 				2207735A0D70B71300AE077B /* TTList.cpp */,
 				221DED1C0D6BC722000799BA /* TTMutex.h */,
 				221DED1E0D6BC739000799BA /* TTMutex.cpp */,
-				22569C070D3E416200328864 /* TTObject.h */,
-				22569C340D3E417E00328864 /* TTObject.cpp */,
 				225385550D710FFF00E5E5FB /* TTQueue.h */,
 				225385470D710FAF00E5E5FB /* TTQueue.cpp */,
 				22569C080D3E416200328864 /* TTSymbol.h */,
@@ -407,6 +410,21 @@
 			name = "Units-Misc";
 			sourceTree = "<group>";
 		};
+		22398CC00E25643800A5F732 /* BaseClasses */ = {
+			isa = PBXGroup;
+			children = (
+				22569C020D3E416200328864 /* TTAudioObject.h */,
+				22569C300D3E417E00328864 /* TTAudioObject.cpp */,
+				22C9B3C20D6F5429007A2946 /* TTDataObject.h */,
+				22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */,
+				22569C040D3E416200328864 /* TTElement.h */,
+				22569C320D3E417E00328864 /* TTElement.cpp */,
+				22569C070D3E416200328864 /* TTObject.h */,
+				22569C340D3E417E00328864 /* TTObject.cpp */,
+			);
+			name = BaseClasses;
+			sourceTree = "<group>";
+		};
 		22D7F5EA0D10576E009E4AF4 /* Units-Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +435,8 @@
 		22FD31840CEE8EA80039C226 /* Units-Filtering */ = {
 			isa = PBXGroup;
 			children = (
+				22398BCE0E244F7300A5F732 /* TTAllpass.h */,
+				22398BCC0E244F5800A5F732 /* TTAllpass.cpp */,
 				22C1BF400DA5CA43003747D3 /* TTAverage.h */,
 				22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */,
 				22569C140D3E416F00328864 /* TTBandpassButterworth2.h */,
@@ -521,6 +541,8 @@
 				222A380D0E19A5CE00C72891 /* TTWavetable.h in Headers */,
 				223985D50E200F0F00A5F732 /* TTZerocross.h in Headers */,
 				22398BC20E24434700A5F732 /* TTNoise.h in Headers */,
+				22398BCF0E244F7300A5F732 /* TTAllpass.h in Headers */,
+				22398C270E25098800A5F732 /* TTEnvironment.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,6 +670,8 @@
 				222A380F0E19A5E400C72891 /* TTWavetable.cpp in Sources */,
 				223985D30E200EEC00A5F732 /* TTZerocross.cpp in Sources */,
 				22398BC00E24432C00A5F732 /* TTNoise.cpp in Sources */,
+				22398BCD0E244F5800A5F732 /* TTAllpass.cpp in Sources */,
+				22398C250E25097100A5F732 /* TTEnvironment.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

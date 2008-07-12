@@ -8,6 +8,7 @@
 
 #include "TTBlue.h"
 #include "TTSymbolTable.h"
+#include "TTEnvironment.h"
 #include "TTGlobal.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
@@ -20,12 +21,13 @@ void TTBlueInit()
 {
 	if(!TTBlueHasInitialized){
 		ttSymbolTable = new TTSymbolTable;
+		ttEnvironment = new TTEnvironment;
 		ttGlobalObject = new TTGlobal;
 
 		TTSymbolCacheInit();
 		TTValueCacheInit();
 
-		printf("TTBlue -- Version 0.5\n");
+		printf("TTBlue -- Version 0.5.2\n");
 		
 		// do we need to do anything with the global object?
 		// init the queue -- runs in a new thread
