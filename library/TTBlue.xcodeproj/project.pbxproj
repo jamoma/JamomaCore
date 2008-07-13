@@ -21,7 +21,7 @@
 		22398BCD0E244F5800A5F732 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BCC0E244F5800A5F732 /* TTAllpass.cpp */; };
 		22398BCF0E244F7300A5F732 /* TTAllpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398BCE0E244F7300A5F732 /* TTAllpass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22398C250E25097100A5F732 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398C240E25097100A5F732 /* TTEnvironment.cpp */; };
-		22398C270E25098800A5F732 /* TTEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398C260E25098800A5F732 /* TTEnvironment.h */; };
+		22398C270E25098800A5F732 /* TTEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398C260E25098800A5F732 /* TTEnvironment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225384840D70DCA200E5E5FB /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 225384830D70DCA200E5E5FB /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225384850D70DCB600E5E5FB /* TTThread.cpp */; };
 		225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */; };
@@ -80,6 +80,8 @@
 		22A403860CAD7BA000E5299E /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403850CAD7BA000E5299E /* MaxAPI.framework */; };
 		22AC38AC0E057658006E4504 /* TTDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AC38AB0E057658006E4504 /* TTDelay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22AC38B20E05766E006E4504 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AC38B10E05766E006E4504 /* TTDelay.cpp */; };
+		22B66A310E298B0500CB474E /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B66A300E298B0500CB474E /* TTHash.cpp */; };
+		22B66A330E298B1D00CB474E /* TTHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B66A320E298B1D00CB474E /* TTHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C1BEA40DA5A73E003747D3 /* TTLowpassFourPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22C1BEA80DA5A769003747D3 /* TTLowpassFourPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */; };
@@ -200,6 +202,8 @@
 		22A403850CAD7BA000E5299E /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22AC38AB0E057658006E4504 /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelay.h; path = ../includes/units/TTDelay.h; sourceTree = SOURCE_ROOT; };
 		22AC38B10E05766E006E4504 /* TTDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDelay.cpp; path = ../source/units/TTDelay.cpp; sourceTree = SOURCE_ROOT; };
+		22B66A300E298B0500CB474E /* TTHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHash.cpp; path = ../source/core/TTHash.cpp; sourceTree = SOURCE_ROOT; };
+		22B66A320E298B1D00CB474E /* TTHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHash.h; path = ../includes/core/TTHash.h; sourceTree = SOURCE_ROOT; };
 		22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassFourPole.h; path = ../includes/units/TTLowpassFourPole.h; sourceTree = SOURCE_ROOT; };
 		22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassTwoPole.h; path = ../includes/units/TTLowpassTwoPole.h; sourceTree = SOURCE_ROOT; };
 		22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFourPole.cpp; path = ../source/units/TTLowpassFourPole.cpp; sourceTree = SOURCE_ROOT; };
@@ -298,6 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				22398CC00E25643800A5F732 /* BaseClasses */,
+				22B66A200E298A2F00CB474E /* DataStorageClasses */,
+				22B66A220E298A6D00CB474E /* SymbolTable */,
 				22569C030D3E416200328864 /* TTAudioSignal.h */,
 				22569C310D3E417E00328864 /* TTAudioSignal.cpp */,
 				225385560D710FFF00E5E5FB /* TTBlue.h */,
@@ -306,22 +312,12 @@
 				22398C240E25097100A5F732 /* TTEnvironment.cpp */,
 				22569C050D3E416200328864 /* TTGlobal.h */,
 				22569C330D3E417E00328864 /* TTGlobal.cpp */,
-				22569C060D3E416200328864 /* TTList.h */,
-				2207735A0D70B71300AE077B /* TTList.cpp */,
 				221DED1C0D6BC722000799BA /* TTMutex.h */,
 				221DED1E0D6BC739000799BA /* TTMutex.cpp */,
 				225385550D710FFF00E5E5FB /* TTQueue.h */,
 				225385470D710FAF00E5E5FB /* TTQueue.cpp */,
-				22569C080D3E416200328864 /* TTSymbol.h */,
-				22569C350D3E417E00328864 /* TTSymbol.cpp */,
-				225385540D710FFF00E5E5FB /* TTSymbolCache.h */,
-				225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */,
-				22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */,
-				22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */,
 				225384830D70DCA200E5E5FB /* TTThread.h */,
 				225384850D70DCB600E5E5FB /* TTThread.cpp */,
-				22569C090D3E416200328864 /* TTValue.h */,
-				22569C360D3E417E00328864 /* TTValue.cpp */,
 				22569C0A0D3E416200328864 /* TTValueCache.h */,
 				22569C370D3E417E00328864 /* TTValueCache.cpp */,
 			);
@@ -423,6 +419,32 @@
 				22569C340D3E417E00328864 /* TTObject.cpp */,
 			);
 			name = BaseClasses;
+			sourceTree = "<group>";
+		};
+		22B66A200E298A2F00CB474E /* DataStorageClasses */ = {
+			isa = PBXGroup;
+			children = (
+				22B66A320E298B1D00CB474E /* TTHash.h */,
+				22B66A300E298B0500CB474E /* TTHash.cpp */,
+				22569C060D3E416200328864 /* TTList.h */,
+				2207735A0D70B71300AE077B /* TTList.cpp */,
+				22569C090D3E416200328864 /* TTValue.h */,
+				22569C360D3E417E00328864 /* TTValue.cpp */,
+			);
+			name = DataStorageClasses;
+			sourceTree = "<group>";
+		};
+		22B66A220E298A6D00CB474E /* SymbolTable */ = {
+			isa = PBXGroup;
+			children = (
+				22569C080D3E416200328864 /* TTSymbol.h */,
+				22569C350D3E417E00328864 /* TTSymbol.cpp */,
+				225385540D710FFF00E5E5FB /* TTSymbolCache.h */,
+				225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */,
+				22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */,
+				22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */,
+			);
+			name = SymbolTable;
 			sourceTree = "<group>";
 		};
 		22D7F5EA0D10576E009E4AF4 /* Units-Data */ = {
@@ -543,6 +565,7 @@
 				22398BC20E24434700A5F732 /* TTNoise.h in Headers */,
 				22398BCF0E244F7300A5F732 /* TTAllpass.h in Headers */,
 				22398C270E25098800A5F732 /* TTEnvironment.h in Headers */,
+				22B66A330E298B1D00CB474E /* TTHash.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +695,7 @@
 				22398BC00E24432C00A5F732 /* TTNoise.cpp in Sources */,
 				22398BCD0E244F5800A5F732 /* TTAllpass.cpp in Sources */,
 				22398C250E25097100A5F732 /* TTEnvironment.cpp in Sources */,
+				22B66A310E298B0500CB474E /* TTHash.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +717,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TTBluePrefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/headers,
@@ -700,6 +725,10 @@
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = TTBlue;
 				WRAPPER_EXTENSION = framework;
 			};
@@ -722,6 +751,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TTBluePrefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks/MaxAPI.framework/headers,
@@ -729,6 +759,10 @@
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = TTBlue;
 				WRAPPER_EXTENSION = framework;
 			};
