@@ -76,6 +76,11 @@ typedef TTSampleValue*		TTSampleVector;
 /** The primary return type for TTBlue methods.  TTErr is typically an integrer value represented by the TTErrorCodes enum.	*/
 typedef short				TTErr;
 
+/** An integer that is the same size as a pointer. */
+typedef long				TTPtrSizedInt;
+
+/** A generic pointer. */
+typedef void*				TTPtr;
 
 /****************************************************************************************************/
 
@@ -96,7 +101,8 @@ enum TTDataType{
 	kTypeUInt64,
 	kTypeBoolean,
 	kTypeSymbol,
-	kTypeObject
+	kTypeObject,
+	kTypePointer
 };
 
 
