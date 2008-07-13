@@ -17,7 +17,9 @@
 #include "TTBlueAPI.h"
 #include "TTDataObject.h"
 #include "TTElement.h"
+#include "TTEnvironment.h"
 #include "TTGlobal.h"
+#include "TTHash.h"
 #include "TTList.h"
 #include "TTMutex.h"
 #include "TTObject.h"
@@ -31,6 +33,7 @@
 
 // UNITS
 #include "TTAdsr.h"
+#include "TTAllpass.h"
 #include "TTAverage.h"
 #include "TTBalance.h"
 #include "TTBandpassButterworth2.h"
