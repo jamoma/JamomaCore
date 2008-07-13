@@ -124,6 +124,14 @@ TTValue::TTValue(const TTValue& obj)
 	memcpy(data, obj.data, sizeof(DataValue) * numValues);
 }
 
+TTValue::TTValue(TTPtr initialValue)
+{
+	init();
+	data->ptr = initialValue;
+	*type = kTypePointer;
+}
+
+
 TTValue::~TTValue()
 {
 	delete [] type;
@@ -515,6 +523,28 @@ TTValue::operator TTObject*() const
 }
 
 
+// POINTER
+TTValue& TTValue::operator = (TTPtr value)
+{
+	setNumValues(1);
+	if((TTSymbol*)this != value) {
+		*type = kTypePointer;
+		data->ptr = value;
+	}
+	return *this;
+}
+
+TTValue::operator TTPtr() const
+{
+	if(*type == kTypePointer)
+		return data->ptr;
+	else
+		return NULL;
+}
+
+
+
+
 void TTValue::set(TTUInt16 index, const TTFloat32 newValue)
 {
 	type[index] = kTypeFloat32;
@@ -591,6 +621,12 @@ void TTValue::set(TTUInt16 index, const TTObject& newValue)
 {
 	type[index] = kTypeObject;
 	data[index].object = (TTObject*)&newValue;
+}
+
+void TTValue::set(TTUInt16 index, const TTPtr newValue)
+{
+	type[index] = kTypePointer;
+	data[index].ptr = newValue;
 }
 
 
@@ -697,6 +733,12 @@ void TTValue::get(TTUInt16 index, TTObject &value) const
 //		value = *(data+index)->object;
 }
 
+void TTValue::get(TTUInt16 index, TTPtr* value) const
+{
+	if(*type == kTypePointer)
+		*value = (data+index)->ptr;
+}
+
 
 void TTValue::append(const TTFloat32 newValue)
 {
@@ -771,6 +813,12 @@ void TTValue::append(const TTSymbol* newValue)
 }
 
 void TTValue::append(const TTObject& newValue)
+{
+	setNumValues(numValues + 1);
+	set(numValues-1, newValue);
+}
+
+void TTValue::append(const TTPtr newValue)
 {
 	setNumValues(numValues + 1);
 	set(numValues-1, newValue);

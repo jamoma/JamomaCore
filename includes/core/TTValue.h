@@ -81,6 +81,7 @@ private:
 		TTBoolean		boolean;
 		TTSymbol		*sym;
 		TTObject		*object;
+		TTPtr			ptr;
 	};
 		
 	TTDataType	*type;			///< array of types
@@ -104,6 +105,7 @@ public:
 	TTValue(TTSymbol* initialValue);
 	TTValue(const TTSymbol* initialValue);
 	TTValue(TTObject& initialValue);
+	TTValue(TTPtr initialValue);
 
 	/** Copy constructor */
 	TTValue(const TTValue& obj);
@@ -194,6 +196,10 @@ public:
 	TTValue& operator = (TTObject* value);
 	operator TTObject*() const;
 
+	// GENERIC POINTER
+	TTValue& operator = (TTPtr value);
+	operator TTPtr() const;
+	
 	void set(TTUInt16 index, const TTFloat32 newValue);
 	void set(TTUInt16 index, const TTFloat64 newValue);
 	void set(TTUInt16 index, const TTInt8 newValue);
@@ -207,6 +213,7 @@ public:
 	void set(TTUInt16 index, const TTBoolean newValue);
 	void set(TTUInt16 index, const TTSymbol* newValue);
 	void set(TTUInt16 index, const TTObject& newValue);
+	void set(TTUInt16 index, const TTPtr newValue);
 
 
 	// THESE FUNCTIONS CURRENTLY DO NO TYPE OR BOUNDS CHECKING !!!
@@ -224,6 +231,7 @@ public:
 	void get(TTUInt16 index, TTBoolean &value) const;
 	void get(TTUInt16 index, TTSymbol** value) const;
 	void get(TTUInt16 index, TTObject& value) const;
+	void get(TTUInt16 index, TTPtr* value) const;
 
 
 	void append(const TTFloat32 newValue);
@@ -239,6 +247,7 @@ public:
 	void append(const TTBoolean newValue);
 	void append(const TTSymbol* newValue);
 	void append(const TTObject& newValue);
+	void append(const TTPtr newValue);
 
 // TODO: implement this!	
 //	TTValue& operator [] (int)
@@ -294,6 +303,9 @@ public:
 							return false;
 					case kTypeObject:
 						if( (a1.data+i)->object == (a1.data+i)->object )
+							return false;
+					case kTypePointer:
+						if( (a1.data+i)->ptr == (a1.data+i)->ptr )
 							return false;
 					default:
 						return false;
