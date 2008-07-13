@@ -15,23 +15,22 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTBlue.h"
-#include "TTOverdrive.h"				// TTBlue Interfaces...
+#include "TTBlueAPI.h"				// TTBlue Interfaces...
 
 
 // Data Structure for this object
 typedef struct _overdrive	{
     t_pxobject 		obj;
-	TTOverdrive		*overdrive;
-	TTAudioSignal	*audioIn;
-	TTAudioSignal	*audioOut;
+	TTAudioObject*	overdrive;
+	TTAudioSignal*	audioIn;
+	TTAudioSignal*	audioOut;
+	TTUInt16		maxNumChannels;
     float			attrOverdrive;			// ATTRIBUTE: amount of overdrive
     long			attrBypassDCBlocker;
     long			attrBypass;
 	long			attrMode;
 	long			attrMute;
 	float			attrPreamp;				// ATTRIBUTE: in dB
-	long			maxNumChannels;
 } t_overdrive;
 
 
@@ -126,8 +125,8 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
-		x->overdrive = new TTOverdrive(x->maxNumChannels);
+		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);
+		TTObjectInstantiate(TT("overdrive"), &x->overdrive, x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
@@ -147,7 +146,7 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 void overdrive_free(t_overdrive *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->overdrive;
+	TTObjectFree(x->overdrive);
 	delete x->audioIn;
 	delete x->audioOut;
 }
