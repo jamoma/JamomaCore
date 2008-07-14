@@ -185,20 +185,44 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 /****************************************************************************************************/
 
 TTObject::TTObject(const char* name)
-: objectName(TT(name)), messageCount(0), attributeCount(0)
+: objectName(TT(name))
 {
-	;
+	messages = new TTHash;
+	attributes = new TTHash;
 }
 
 
 TTObject::~TTObject()
 {
-	TTUInt16	i;
+	TTValue	v, u;
 
-//	sendNotification(TT("objectDeleted"));
-
-	for(i=0; i<attributeCount; i++)
-		delete attributeObjects[i];
+	// sendNotification(TT("objectDeleted"));
+	
+	// Delete message objects, then delete the hash that maintains them.
+	messages->getKeys(v);
+	for(TTUInt16 i=0; i<v.getNumValues(); i++){
+		TTSymbol*	name = NULL;
+		TTMessage*	message = NULL;
+		
+		v.get(i, &name);
+		messages->lookup(name, u);
+		message = TTMessagePtr(TTPtr(u));
+		delete message;
+	}
+	delete messages;
+	
+	// Delete attribute objects, then delete the hash that maintains them.
+	attributes->getKeys(v);
+	for(TTUInt16 i=0; i<v.getNumValues(); i++){
+		TTSymbol*		name = NULL;
+		TTAttribute*	attribute = NULL;
+		
+		v.get(i, &name);
+		attributes->lookup(name, u);
+		attribute = TTAttributePtr(TTPtr(u));
+		delete attribute;
+	}
+	delete attributes;
 }
 
 
@@ -209,59 +233,60 @@ TTObject::~TTObject()
 
 TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address)
 {
-	attributeNames[attributeCount] = name;
-	attributeObjects[attributeCount] = new TTAttribute(name, type, address);
-	attributeObjects[attributeCount]->setGetterFlags(kTTAttrPassObject);
-	attributeObjects[attributeCount]->setSetterFlags(kTTAttrPassObject);
-	attributeCount++;
+	TTAttribute* newAttribute = new TTAttribute(name, type, address);
+
+	newAttribute->setGetterFlags(kTTAttrPassObject);
+	newAttribute->setSetterFlags(kTTAttrPassObject);
+	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
 TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter)
 {
-	attributeNames[attributeCount] = name;
-	attributeObjects[attributeCount] = new TTAttribute(name, type, address, getter);
-	attributeObjects[attributeCount]->setSetterFlags(kTTAttrPassObject);
-	attributeCount++;
+	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter);
+
+	newAttribute->setSetterFlags(kTTAttrPassObject);
+	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
 TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTSetterMethod setter)
 {
-	attributeNames[attributeCount] = name;
-	attributeObjects[attributeCount] = new TTAttribute(name, type, address, setter);
-	attributeObjects[attributeCount]->setGetterFlags(kTTAttrPassObject);
-	attributeCount++;
+	TTAttribute* newAttribute = new TTAttribute(name, type, address, setter);
+	
+	newAttribute->setGetterFlags(kTTAttrPassObject);
+	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
 TTErr TTObject::registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
 {
-	attributeNames[attributeCount] = name;
-	attributeObjects[attributeCount] = new TTAttribute(name, type, address, getter, setter);
-	attributeCount++;
+	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter, setter);
+
+	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
 
 TTErr TTObject::findAttribute(const TTSymbol* name, TTAttribute** attr)
 {
-	TTUInt8		i;
+	TTValue v;
+	TTErr	err = kTTErrNone;
 	
-	for(i=0; i<attributeCount; i++){
-		if(attributeNames[i] == name){
-			*attr = attributeObjects[i];
-			return kTTErrNone;
-		}
+	err = attributes->lookup(TTSymbolPtr(name), v);
+	if(!err){
+		*attr = TTAttributePtr(TTPtr(v));
+		return kTTErrNone;
 	}
-	return kTTErrInvalidAttribute;
+	else
+		return kTTErrInvalidAttribute;
 }
 
 
 TTErr TTObject::getAttributeValue(const TTSymbol* name, TTValue& value)
 {
-	TTAttribute	*attribute;
-	TTErr		err;
+	TTAttributePtr	attribute;
+	TTErr			err;
 	
 	err = findAttribute(name, &attribute);
 	if(!err){
@@ -278,8 +303,8 @@ TTErr TTObject::getAttributeValue(const TTSymbol* name, TTValue& value)
 
 TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTValue& value)
 {
-	TTAttribute	*attribute;
-	TTErr		err;
+	TTAttributePtr	attribute;
+	TTErr			err;
 	
 	err = findAttribute(name, &attribute);
 	if(!err){
@@ -295,7 +320,7 @@ TTErr TTObject::setAttributeValue(const TTSymbol* name, const TTValue& value)
 
 TTErr TTObject::getAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value)
 {
-	TTAttribute*	attribute;
+	TTAttributePtr	attribute;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -307,7 +332,7 @@ TTErr TTObject::getAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& 
 
 TTErr TTObject::setAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value)
 {
-	TTAttribute*	attribute;
+	TTAttributePtr	attribute;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -320,7 +345,7 @@ TTErr TTObject::setAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& 
 
 TTErr TTObject::getAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value)
 {
-	TTAttribute*	attribute;
+	TTAttributePtr	attribute;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -332,7 +357,7 @@ TTErr TTObject::getAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& 
 
 TTErr TTObject::setAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value)
 {
-	TTAttribute*	attribute;
+	TTAttributePtr	attribute;
 	TTErr			err;
 
 	err = findAttribute(name, &attribute);
@@ -345,11 +370,7 @@ TTErr TTObject::setAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& 
 
 void TTObject::getAttributeNames(TTValue& attributeNameList)
 {
-	TTUInt8		i;
-
-	attributeNameList.clear();	
-	for(i=0; i<attributeCount; i++)
-		attributeNameList.append(*attributeNames[i]);
+	attributes->getKeys(attributeNameList);
 }
 
 
@@ -392,73 +413,69 @@ TTErr TTObject::setGlobalAttributeValue(const TTSymbol* name, TTValue& value)
 
 TTErr TTObject::registerMessage(const TTSymbol* name, TTMethod method)
 {
-	messageNames[messageCount] = name;
-	messageObjects[messageCount] = new TTMessage(name, method, kTTMessageDefaultFlags);
-	messageCount++;
+	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 	
 	#ifdef TT_DEBUG_MESSAGING
 	logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getString(), kTTMessageDefaultFlags, messageCount);
 	#endif
 	
+	messages->insert(TTSymbolPtr(name), TTPtr(newMessage));
 	return kTTErrNone;
 }
 
 
 TTErr TTObject::registerMessage(const TTSymbol* name, TTMethod method, TTMessageFlags flags)
 {
-	messageNames[messageCount] = name;
-	messageObjects[messageCount] = new TTMessage(name, method, flags);
-	messageCount++;
+	TTMessagePtr newMessage = new TTMessage(name, method, flags);
+	
+	#ifdef TT_DEBUG_MESSAGING
+	logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getString(), kTTMessageDefaultFlags, messageCount);
+	#endif
+	
+	messages->insert(TTSymbolPtr(name), TTPtr(newMessage));
 	return kTTErrNone;
+}
+
+
+TTErr TTObject::findMessage(const TTSymbol* name, TTMessage** message)
+{
+	TTValue v;
+	TTErr	err = kTTErrNone;
+	
+	err = messages->lookup(TTSymbolPtr(name), v);
+	if(!err){
+		*message = TTMessagePtr(TTPtr(v));
+		return kTTErrNone;
+	}
+	else
+		return kTTErrInvalidAttribute;
 }
 
 
 TTErr TTObject::sendMessage(const TTSymbol* name)
 {
-	TTUInt8		i;
-	TTMessage	*message;
-
-	for(i=0; i<messageCount; i++){
-		if(messageNames[i] == name){
-			message = messageObjects[i];
-			if(message->flags & kTTMessagePassNone){
-				TTMethodNone	method = (TTMethodNone)message->method;
-				return (this->*method)();
-			}
-			else if(message->flags & kTTMessagePassNameAndValue){
-				TTValue foo;
-				return (this->*message->method)(name, foo);			
-			}
-			else{	// default is kTTMessagePassValue
-				TTMethodValue method = (TTMethodValue)message->method;
-				TTValue foo;
-				return (this->*method)(foo);
-			}
-		}
-	}
-	return kTTErrMethodNotFound;
+	TTValue	v;
+	return sendMessage(name, v);
 }
 
 
 TTErr TTObject::sendMessage(const TTSymbol* name, TTValue& value)
 {
-	TTUInt8		i;
-	TTMessage	*message;
-
-	for(i=0; i<messageCount; i++){
-		if(messageNames[i] == name){
-			message = messageObjects[i];
-			if(message->flags & kTTMessagePassNone){
-				TTMethodNone method = (TTMethodNone)message->method;
-				return (this->*method)();
-			}
-			else if(message->flags & kTTMessagePassNameAndValue){
-				return (this->*message->method)(name, value);			
-			}
-			else{	// default is kTTMessagePassValue
-				TTMethodValue method = (TTMethodValue)message->method;
-				return (this->*method)(value);
-			}
+	TTMessagePtr	message;
+	TTErr			err;
+	
+	err = findMessage(name, &message);
+	if(!err){
+		if(message->flags & kTTMessagePassNone){
+			TTMethodNone method = (TTMethodNone)message->method;
+			return (this->*method)();
+		}
+		else if(message->flags & kTTMessagePassNameAndValue){
+			return (this->*message->method)(name, value);			
+		}
+		else{	// default is kTTMessagePassValue
+			TTMethodValue method = (TTMethodValue)message->method;
+			return (this->*method)(value);
 		}
 	}
 	return kTTErrMethodNotFound;
