@@ -115,12 +115,6 @@ private:
 	TTSymbol*				objectName;
 	TTHash*					messages;
 	TTHash*					attributes;
-//	const TTSymbol*			messageNames[16];
-//	TTMessage*				messageObjects[16];
-//	TTUInt8					messageCount;
-//	const TTSymbol*			attributeNames[16];
-//	TTAttribute*			attributeObjects[16];
-//	TTUInt8					attributeCount;
 
 public:
 	TTObject(const char* name);
@@ -177,7 +171,6 @@ public:
 	
 	//TODO: implement these
 	// getMessageNames()
-	// getAttributeNames()
 	
 	/**	Log messages scoped to this object instance. */
 	TTErr logMessage(char* fmtstring, ...);
