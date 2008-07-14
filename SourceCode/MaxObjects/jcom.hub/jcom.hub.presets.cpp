@@ -16,6 +16,11 @@
 using namespace std;
 #define value value_list[0]
 
+extern t_object	 *g_jcom_send_notifications;
+
+
+
+
 struct _byName : binary_function<t_preset*, t_preset*, bool> {
 	bool operator()(const t_preset* p, const t_preset* q)
 		{	return p->name == q->name; }
@@ -430,6 +435,7 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 {
 	char	default_file_name[256];
 	t_atom	a;
+	t_atom	args[2];
 	
 	strcpy(default_file_name, x->attr_name->s_name);
 	strcat(default_file_name, ".xml");
@@ -438,6 +444,15 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 
 	hub_preset_doread(x, gensym(default_file_name));
 	hub_preset_recall(x, _sym_nothing, 1, &a);
+	
+	// Is default preset recalled as part of initialization of module?
+	if (x->flag_init) {
+		atom_setsym(args, x->attr_name);
+		atom_setsym(args+1, x->osc_name);
+		object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
+		// Initialization is now done
+		x->flag_init = 0;
+	}
 }
 
 

@@ -76,6 +76,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_symbol		*attr_description;			///< ATTRIBUTE: textual description of this module
 	t_symbol		*attr_algorithm_type;		///< ATTRIBUTE: control, jitter, etc.
 	long			attr_inspector;
+	long			flag_init;					///< FLAG: Indicates that the module is in a process of initiaizaiton
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
 	t_object		*jcom_send_broadcast;		///< jcom.send object used to broadcast to subscribers that they should subscribe now

@@ -20,7 +20,7 @@
 
 // Globals
 static t_class		*s_hub_class;						// Required: Global pointer for our class
-static t_object		*s_jcom_send_notifications = NULL;	// Shared instance for communicating about module instantiation and deletion
+t_object			*g_jcom_send_notifications = NULL;	// Shared instance for communicating about module instantiation and deletion
 
 /** A function object for determining if one t_subscriber object should follow another t_subscriber.
  * This is determined by the alphabetical ordering of the names of the two t_subscribers.
@@ -196,10 +196,10 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 //		}
 		x->jcom_send_broadcast = (t_object*)object_new_typed(CLASS_BOX, jps_jcom_send, 1, a);
 		
-		if(!s_jcom_send_notifications){
+		if(!g_jcom_send_notifications){
 			atom_setsym(a, gensym("notifications"));
-//			jcom_core_loadextern(jps_jcom_send, 1, a, &s_jcom_send_notifications);
-			s_jcom_send_notifications = (t_object*)object_new_typed(CLASS_BOX, jps_jcom_send, 1, a);
+//			jcom_core_loadextern(jps_jcom_send, 1, a, &g_jcom_send_notifications);
+			g_jcom_send_notifications = (t_object*)object_new_typed(CLASS_BOX, jps_jcom_send, 1, a);
 		}
 		
 		hub_internals_create(x);
@@ -297,7 +297,7 @@ void hub_free(t_hub *x)
 
 	atom_setsym(a, x->attr_name);
 	atom_setsym(a+1, x->osc_name);
-	object_method_typed(s_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
+	object_method_typed(g_jcom_send_notifications, gensym("module.removed"), 2, a, NULL);
 
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
@@ -766,7 +766,9 @@ void hub_init(t_hub *x, t_symbol*, long, t_atom*)
 {
 	subscriberList	*subscriber = x->subscriber;
 	subscriberIterator i;
-		
+
+	// The flag is indicating that we're in the middle of initialization
+	x->flag_init = 1;
 	// Search the linked list for jcom.init objects and 'bang' them
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
@@ -1238,7 +1240,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		// And send a notification to the environment
 		atom_setsym(a, x->attr_name);
 		atom_setsym(a+1, x->osc_name);
-		object_method_typed(s_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
+		object_method_typed(g_jcom_send_notifications, gensym("module.new"), 2, a, NULL);
 	}
 	return MAX_ERR_NONE;
 }
