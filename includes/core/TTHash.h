@@ -16,7 +16,6 @@ using namespace std;
 
 
 /**	A type that contains a key and a value. */
-typedef TTSymbol*										TTSymbolPtr;
 typedef pair<TTPtrSizedInt,TTValue>						TTKeyVal;
 typedef hash_map<TTPtrSizedInt,TTValue>::const_iterator TTHashIter;
 

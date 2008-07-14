@@ -66,4 +66,8 @@ public:
 };
 
 
+/**	A pointer to a symbol.  This is the way symbols are typically communicated throughout the environment. */
+typedef TTSymbol*  TTSymbolPtr;
+
+
 #endif // __TT_SYMBOL_H__
