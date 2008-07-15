@@ -66,7 +66,7 @@ int main(void)
 	TTBlueInit();	
 	common_symbols_init();
 
-	c = class_new("tt.overdrive~",(method)overdrive_new, (method)overdrive_free, (short)sizeof(t_overdrive), 
+	c = class_new("tt.overdrive~",(method)overdrive_new, (method)overdrive_free, sizeof(t_overdrive), 
 		(method)0L, A_GIMME, 0);
 
 	class_addmethod(c, (method)overdrive_setPreamp,				"/preamp",				A_GIMME, 0);
