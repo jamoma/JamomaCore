@@ -141,6 +141,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = TTClipper;
 				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
 			};
@@ -157,6 +161,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = TTClipper;
 				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
 			};

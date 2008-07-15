@@ -7,26 +7,16 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-//#include "TTAudioObject.h"
 #include "TTBlueAPI.h"
 #define thisTTClass TTClipper
 
 
-extern "C" TTErr loadTTExtension(void)
-{
-	TTBlueInit();
-	// TODO: register the class with the framework here
-	return kTTErrNone;
-}
-
-
 /**	Hard-clip signals to a low and high bound. */
 class TTClipper : public TTAudioObject {
-	
 	TTFloat64	lowBound;		///< Attribute: low bound for clipping
 	TTFloat64	highBound;		///< Attribute: high bound for clipping
 	
-	
+public:
 	/**	Constructor. */
 	TTClipper(TTUInt16 newMaxNumChannels)
 		: TTAudioObject("audio.gain", newMaxNumChannels)
@@ -38,11 +28,11 @@ class TTClipper : public TTAudioObject {
 		setAttributeValue(TT("highBound"), -1.0);
 		setProcessMethod(processAudio);
 	}
-
+	
 
 	/**	Destructor. */
 	~TTClipper(){;}
-
+	
 	
 	/** Audio Processing Method */
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out)
@@ -58,10 +48,13 @@ class TTClipper : public TTAudioObject {
 			vs = in.getVectorSize();
 
 			while(vs--)
-				*outSample++ = TTClip<TTSampleValue>(*inSample++, lowBound, highBound);
+				*outSample++ = TTClip(*inSample++, lowBound, highBound);
 		}
 		return kTTErrNone;
 	}
 
 };
+
+
+TT_CLASS_SETUP("clipper", TTClipper);		// Register our class with the TTBlue environment
 
