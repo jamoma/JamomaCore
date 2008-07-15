@@ -499,7 +499,7 @@ TTErr TTObject::logMessage(char* fmtstring, ...)
 	va_end(ap);
 	str[4095] = 0;
 	
-	strncpy(fullstr, objectName->getString(), 4095);
+	strncpy(fullstr, objectName->getCString(), 4095);
 	strncat(fullstr, " : ", 4095);
 	strncat(fullstr, str, 4095);
 	TTLogMessage(fullstr);
@@ -518,7 +518,7 @@ TTErr TTObject::logWarning(char* fmtstring, ...)
 	va_end(ap);
 	str[4095] = 0;
 	
-	strncpy(fullstr, objectName->getString(), 4095);
+	strncpy(fullstr, objectName->getCString(), 4095);
 	strncat(fullstr, " : ", 4095);
 	strncat(fullstr, str, 4095);
 	TTLogWarning(fullstr);
@@ -537,7 +537,7 @@ TTErr TTObject::logError(char* fmtstring, ...)
 	va_end(ap);
 	str[4095] = 0;
 	
-	strncpy(fullstr, objectName->getString(), 4095);
+	strncpy(fullstr, objectName->getCString(), 4095);
 	strncat(fullstr, " : ", 4095);
 	strncat(fullstr, str, 4095);
 	TTLogError(fullstr);

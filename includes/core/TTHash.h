@@ -12,7 +12,6 @@
 #include "TTElement.h"
 #include "TTValue.h"
 #include <hash_map.h>
-using namespace std;
 
 
 /**	A type that contains a key and a value. */

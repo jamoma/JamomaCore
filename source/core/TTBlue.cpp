@@ -30,7 +30,7 @@ void TTBlueInit()
 		TTSymbolCacheInit();
 		TTValueCacheInit();
 
-		printf("TTBlue -- Version 0.5.2\n");
+		printf("TTBlue -- Version 0.5.3\n");
 		
 		TTBlueRegisterInternalClasses();
 		
@@ -77,7 +77,7 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 		return new TTOverdrive(arguments);
 
 	else{
-		TTLogError("TTBlue: cannot instantiate object of %s class.  No such class.", className->getString());
+		TTLogError("TTBlue: cannot instantiate object of %s class.  No such class.", className->getCString());
 		return NULL;
 	}
 }

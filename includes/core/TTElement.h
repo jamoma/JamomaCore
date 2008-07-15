@@ -24,6 +24,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 //#include <iostream>
+#include <string>
+using namespace std;
+
 #ifdef TT_PLATFORM_WIN
  #include "windows.h"
  #ifdef _DLL_EXPORT
