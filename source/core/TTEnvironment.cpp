@@ -19,7 +19,14 @@ TTEnvironment::TTEnvironment()
 	: TTObject("environment")//, numClasses(0)
 {	
 	classConstructors = new TTHash();
-	
+
+// TODO: implement messages and attributes to the environment.
+// For the MaxMSP examples, we could bind an object (maybe in Jamoma.framework) to the symbol ttblue 
+// to set attributes and send messages.
+//	registerAttributeSimple(debugMessaging,			kTypeBoolean);
+//	registerAttributeWithSetter(drive,				kTypeFloat64);
+//	registerAttributeWithSetter(drive,				kTypeFloat64);
+
 	//registerMessage(TT("getVersion"), (TTMethod)&TTGlobal::getVersion);
 
 	// The global object, and calls for setting the global SR, may come before any TTAudioObject is
