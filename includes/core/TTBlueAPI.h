@@ -69,4 +69,25 @@
 #include "TTZerocross.h"
 
 
+
+/** A macro for setting up the class binding to the library in extension classes. 
+	@param strname A C-string that names the object as it should be listed in the environment. */
+#define TT_CLASS_SETUP(strname, className)\
+\
+extern "C" TTObject* instantiate ## className (TTSymbol*, TTValue& arguments) \
+{\
+TTUInt16 numChannels = 1;\
+if(arguments.getNumValues())\
+numChannels = arguments;\
+return new TTClipper(numChannels);\
+}\
+\
+extern "C" TTErr loadTTExtension(void)\
+{\
+TTBlueInit();\
+TTClassRegister(TT(strname), & instantiate ## className);\
+return kTTErrNone;\
+}
+
+
 #endif // __TT_BLUE_API_H__
