@@ -15,8 +15,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTBlue.h"					// Common to all tt objects
-#include "TTLimiter.h"				// TTBlue Interfaces...
+#include "TTBlueAPI.h"				// TTBlue Interfaces...
 
 
 // Data Structure for this object
@@ -171,7 +170,7 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
+		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		x->limiter = new TTLimiter(x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);

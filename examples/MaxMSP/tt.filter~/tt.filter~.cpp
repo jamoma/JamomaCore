@@ -15,25 +15,7 @@
 #include "commonsyms.h"					// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"					// Max Object Extensions (attributes) Header
 
-#include "TTBlue.h"
-
-#include "TTBandpassButterworth2.h"		// TTBlue Interfaces...
-#include "TTBandrejectButterworth2.h"
-#include "TTHighpassButterworth1.h"
-#include "TTHighpassButterworth2.h"
-#include "TTHighpassButterworth3.h"
-#include "TTHighpassButterworth4.h"
-#include "TTHighpassLinkwitzRiley2.h"
-#include "TTHighpassLinkwitzRiley4.h"
-#include "TTLowpassButterworth1.h"
-#include "TTLowpassButterworth2.h"
-#include "TTLowpassButterworth3.h"
-#include "TTLowpassButterworth4.h"
-#include "TTLowpassLinkwitzRiley2.h"
-#include "TTLowpassLinkwitzRiley4.h"
-#include "TTLowpassOnePole.h"
-#include "TTLowpassTwoPole.h"
-#include "TTLowpassFourPole.h"
+#include "TTBlueAPI.h"					// TTBlue Interfaces...
 
 #define DEFAULT_F 1000
 #define DEFAULT_Q 18
@@ -169,7 +151,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		x->sr = sr;
-		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);
+		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		object_attr_setsym(x, _sym_type, gensym("lowpass/butterworth2"));
 
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);

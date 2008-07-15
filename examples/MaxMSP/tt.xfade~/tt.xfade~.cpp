@@ -15,8 +15,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTBlue.h"					// Common to all tt objects
-#include "TTCrossfade.h"			// TTBlue Interfaces...
+#include "TTBlueAPI.h"				// TTBlue Interfaces...
 
 #define MAX_NUM_CHANNELS 32
 
@@ -27,8 +26,6 @@ typedef struct _fade{
 	long				attr_mode;
 	float				attr_position;
 	short				numChannels;
-//	tt_audio_signal 	*signal_in[3];
-//	tt_audio_signal		*signal_out;
 	TTCrossfade*		xfade;			// crossfade object from the TapTools library
 	TTAudioSignal*		audioIn1;
 	TTAudioSignal*		audioIn2;
@@ -269,32 +266,6 @@ t_int *fade_perform2(t_int *w)
 // DSP Method
 void fade_dsp(t_fade *x, t_signal **sp, short *count)
 {
-/*	short i;
-
-	// determine if a signal is being used to drive the crossfade position
-	if(count[x->numChannels * 2]){			// SIGNAL RATE CROSSFADE CONNECTED
-		for(i=0; i < x->numChannels; i++)		//add an instance of the perform method for each channel
-			dsp_add(fade_perform2, 6, 
-				x, 
-				sp[i]->s_vec, 
-				sp[i + x->numChannels]->s_vec, 
-				sp[x->numChannels * 2]->s_vec, 
-				sp[i + (x->numChannels * 2) + 1]->s_vec, 
-				sp[i]->s_n 
-			);
-	}
-	else{									// CONTROL RATE CROSSFADE
-		for(i=0; i < x->numChannels; i++)		//add an instance of the perform method for each channel
-			dsp_add(fade_perform1, 5, 
-				x, 
-				sp[i]->s_vec, 
-				sp[i + x->numChannels]->s_vec, 
-				sp[i + (x->numChannels * 2) + 1]->s_vec, 
-				sp[i]->s_n 
-			);
-	}
-	*/
-	
 	short		i, j, k, l=0;
 	void		**audioVectors = NULL;
 	TTUInt8		numChannels = 0;

@@ -15,8 +15,7 @@
 #include "commonsyms.h"				// Common symbols used by the Max 4.5 API
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 
-#include "TTBlue.h"
-#include "TTBalance.h"				// TTBlue Interfaces...
+#include "TTBlueAPI.h"				// TTBlue Interfaces...
 
 
 // Data Structure for this object
@@ -102,7 +101,7 @@ void* balance_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
+		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		x->balance = new TTBalance(x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels*2);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);

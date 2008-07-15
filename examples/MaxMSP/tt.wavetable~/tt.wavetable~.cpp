@@ -102,7 +102,7 @@ void* wavetable_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);		
+		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		x->wavetable = new TTWavetable(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 

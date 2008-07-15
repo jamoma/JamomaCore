@@ -125,7 +125,7 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 		if(attrstart && argv)
 			x->maxNumChannels = atom_getlong(argv);
 
-		TTAudioObject::setGlobalAttributeValue(TT("sr"), sr);
+		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		TTObjectInstantiate(TT("overdrive"), &x->overdrive, x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
