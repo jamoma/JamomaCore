@@ -12,7 +12,6 @@
 #include "TTElement.h"
 #include "TTSymbol.h"
 #include <hash_map.h>
-using namespace std;
 #include "TTValue.h"
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
