@@ -58,6 +58,9 @@ public:
 	/** Get an array of all of the keys for the hash table. */
 	TTErr getKeys(TTValue& hashKeys);
 	
+	/** Return the number of keys in the hash table. */
+	TTUInt32 getNumKeys();
+	
 };
 
 

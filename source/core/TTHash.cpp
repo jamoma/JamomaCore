@@ -72,3 +72,10 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 		hashKeys.append(TTSymbolPtr(iter->first));
 	return kTTErrNone;
 }
+
+
+TTUInt32 TTHash::getNumKeys()
+{
+	return hashMap.size();
+}
+
