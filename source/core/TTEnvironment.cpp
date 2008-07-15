@@ -7,6 +7,7 @@
  */
 
 #include "TTEnvironment.h"
+#define thisTTClass TTEnvironment
 
 
 // The environment object has one instance, which is global in scope.
@@ -23,22 +24,25 @@ TTEnvironment::TTEnvironment()
 // TODO: implement messages and attributes to the environment.
 // For the MaxMSP examples, we could bind an object (maybe in Jamoma.framework) to the symbol ttblue 
 // to set attributes and send messages.
-//	registerAttributeSimple(debugMessaging,			kTypeBoolean);
-//	registerAttributeWithSetter(drive,				kTypeFloat64);
-//	registerAttributeWithSetter(drive,				kTypeFloat64);
+	registerAttributeSimple(debugMessaging,	kTypeBoolean);
+	registerAttributeSimple(sr,				kTypeUInt32);
 
-	//registerMessage(TT("getVersion"), (TTMethod)&TTGlobal::getVersion);
+	registerMessageWithArgument(getVersion);
 
-	// The global object, and calls for setting the global SR, may come before any TTAudioObject is
-	// instantiated.  So the attribute definition has been moved into the TTGlobal class itself.
-	//registerAttribute(TT("sr"), kTypeUInt32, &TTAudioObject::globalSr);
-	//setAttributeValue(TT("sr"), 44100);
+	setAttributeValue(TT("sr"), 44100);
 }
 
 
 TTEnvironment::~TTEnvironment()
 {
 	delete classConstructors;
+}
+
+
+TTErr TTEnvironment::getVersion(TTValue &value)
+{
+	value = "0.5.3";
+	return kTTErrNone;
 }
 
 

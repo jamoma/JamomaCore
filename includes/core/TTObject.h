@@ -22,7 +22,6 @@
 // forward declarations needed by the compiler
 class TTAttribute;
 class TTMessage;
-class TTGlobal;
 
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
@@ -154,14 +153,6 @@ public:
 	/** return the name of this class */
 	TTSymbol* getName();
 
-	// These are not registered as static, even though they are operating only on statics.
-	// This is because the function pointers for the attribute getter/setter require a valid 'this' member.
-	// The result however, is that you can't call static methods from anywhere for these...
-	// So instead we create a "ttGlobalObject" instance just for this purpose.
-	static TTErr registerGlobalAttribute(const TTSymbol* name, TTDataType type, void* address);
-	static TTErr registerGlobalAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
-	static TTErr setGlobalAttributeValue(const TTSymbol* name, TTValue& value);
-	static TTErr getGlobalAttributeValue(const TTSymbol* name, TTValue& value);
 	
 	TTErr registerMessage(const TTSymbol* name, TTMethod method);
 	TTErr registerMessage(const TTSymbol* name, TTMethod method, TTMessageFlags flags);

@@ -29,9 +29,6 @@
 	Instead it seems like we should just declare a process() method that takes a TTValue& input and a TTValue& output.
 */
 class TTEXPORT TTDataObject : public TTObject {
-private:
-	friend class TTGlobal;				///< Declare that the global object is friend so it can access the globalSr member
-	
 protected:
 	TTUInt32						sr;									///< Current sample rate being used by this object
 	TTFloat64						srInv;								///< 1.0 over the current sample rate (inverse)

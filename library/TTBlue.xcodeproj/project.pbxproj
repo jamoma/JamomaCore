@@ -33,7 +33,6 @@
 		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C030D3E416200328864 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0D0D3E416200328864 /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C040D3E416200328864 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C0E0D3E416200328864 /* TTGlobal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C050D3E416200328864 /* TTGlobal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C0F0D3E416200328864 /* TTList.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C060D3E416200328864 /* TTList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C100D3E416200328864 /* TTObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C070D3E416200328864 /* TTObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22569C110D3E416200328864 /* TTSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C080D3E416200328864 /* TTSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,7 +55,6 @@
 		22569C380D3E417E00328864 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C300D3E417E00328864 /* TTAudioObject.cpp */; };
 		22569C390D3E417E00328864 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C310D3E417E00328864 /* TTAudioSignal.cpp */; };
 		22569C3A0D3E417E00328864 /* TTElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C320D3E417E00328864 /* TTElement.cpp */; };
-		22569C3B0D3E417E00328864 /* TTGlobal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C330D3E417E00328864 /* TTGlobal.cpp */; };
 		22569C3C0D3E417E00328864 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C340D3E417E00328864 /* TTObject.cpp */; };
 		22569C3D0D3E417E00328864 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C350D3E417E00328864 /* TTSymbol.cpp */; };
 		22569C3E0D3E417E00328864 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C360D3E417E00328864 /* TTValue.cpp */; };
@@ -155,7 +153,6 @@
 		22569C020D3E416200328864 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
 		22569C030D3E416200328864 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
 		22569C040D3E416200328864 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = ../includes/core/TTElement.h; sourceTree = SOURCE_ROOT; };
-		22569C050D3E416200328864 /* TTGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGlobal.h; path = ../includes/core/TTGlobal.h; sourceTree = SOURCE_ROOT; };
 		22569C060D3E416200328864 /* TTList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTList.h; path = ../includes/core/TTList.h; sourceTree = SOURCE_ROOT; };
 		22569C070D3E416200328864 /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = ../includes/core/TTObject.h; sourceTree = SOURCE_ROOT; };
 		22569C080D3E416200328864 /* TTSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbol.h; path = ../includes/core/TTSymbol.h; sourceTree = SOURCE_ROOT; };
@@ -178,7 +175,6 @@
 		22569C300D3E417E00328864 /* TTAudioObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObject.cpp; path = ../source/core/TTAudioObject.cpp; sourceTree = SOURCE_ROOT; };
 		22569C310D3E417E00328864 /* TTAudioSignal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioSignal.cpp; path = ../source/core/TTAudioSignal.cpp; sourceTree = SOURCE_ROOT; };
 		22569C320D3E417E00328864 /* TTElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTElement.cpp; path = ../source/core/TTElement.cpp; sourceTree = SOURCE_ROOT; };
-		22569C330D3E417E00328864 /* TTGlobal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGlobal.cpp; path = ../source/core/TTGlobal.cpp; sourceTree = SOURCE_ROOT; };
 		22569C340D3E417E00328864 /* TTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = ../source/core/TTObject.cpp; sourceTree = SOURCE_ROOT; };
 		22569C350D3E417E00328864 /* TTSymbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbol.cpp; path = ../source/core/TTSymbol.cpp; sourceTree = SOURCE_ROOT; };
 		22569C360D3E417E00328864 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = ../source/core/TTValue.cpp; sourceTree = SOURCE_ROOT; };
@@ -310,8 +306,6 @@
 				225385480D710FAF00E5E5FB /* TTBlue.cpp */,
 				22398C260E25098800A5F732 /* TTEnvironment.h */,
 				22398C240E25097100A5F732 /* TTEnvironment.cpp */,
-				22569C050D3E416200328864 /* TTGlobal.h */,
-				22569C330D3E417E00328864 /* TTGlobal.cpp */,
 				221DED1C0D6BC722000799BA /* TTMutex.h */,
 				221DED1E0D6BC739000799BA /* TTMutex.cpp */,
 				225385550D710FFF00E5E5FB /* TTQueue.h */,
@@ -513,7 +507,6 @@
 				22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */,
 				22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */,
 				22569C0D0D3E416200328864 /* TTElement.h in Headers */,
-				22569C0E0D3E416200328864 /* TTGlobal.h in Headers */,
 				22569C0F0D3E416200328864 /* TTList.h in Headers */,
 				22569C100D3E416200328864 /* TTObject.h in Headers */,
 				22569C110D3E416200328864 /* TTSymbol.h in Headers */,
@@ -644,7 +637,6 @@
 				22569C380D3E417E00328864 /* TTAudioObject.cpp in Sources */,
 				22569C390D3E417E00328864 /* TTAudioSignal.cpp in Sources */,
 				22569C3A0D3E417E00328864 /* TTElement.cpp in Sources */,
-				22569C3B0D3E417E00328864 /* TTGlobal.cpp in Sources */,
 				22569C3C0D3E417E00328864 /* TTObject.cpp in Sources */,
 				22569C3D0D3E417E00328864 /* TTSymbol.cpp in Sources */,
 				22569C3E0D3E417E00328864 /* TTValue.cpp in Sources */,

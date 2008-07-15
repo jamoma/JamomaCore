@@ -7,7 +7,6 @@
  */
 
 #include "TTObject.h"
-#include "TTGlobal.h"
 
 
 /****************************************************************************************************/
@@ -377,32 +376,6 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 TTSymbol* TTObject::getName()
 {
 	return objectName;
-}
-
-
-#if 0
-#pragma mark -
-#pragma mark Global Attributes
-#endif
-
-TTErr TTObject::registerGlobalAttribute(const TTSymbol* name, TTDataType type, void* address)
-{
-	return ttGlobalObject->registerAttribute(name, type, address);
-}
-
-TTErr TTObject::registerGlobalAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter)
-{
-	return ttGlobalObject->registerAttribute(name, type, address, getter, setter);
-}
-
-TTErr TTObject::getGlobalAttributeValue(const TTSymbol* name, TTValue& value)
-{
-	return ttGlobalObject->getAttributeValue(name, value);
-}
-
-TTErr TTObject::setGlobalAttributeValue(const TTSymbol* name, TTValue& value)
-{
-	return ttGlobalObject->setAttributeValue(name, value);
 }
 
 

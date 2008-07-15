@@ -10,7 +10,6 @@
 #define __TT_BLUE_H__
 
 #include "TTElement.h"
-#include "TTGlobal.h"
 #include "TTThread.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"

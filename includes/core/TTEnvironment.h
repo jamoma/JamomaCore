@@ -22,20 +22,28 @@ typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol* className, TTValue& a
 
 /**
 	The global object maintains all global attributes/settings for the TTBlue environment.
+ 
+	All attribute members of the environment are made public, since essentially every class is a friend.
+	They should, however, be treated as read-only.
 */
 class TTEXPORT TTEnvironment : public TTObject {
 private:
-	// TODO: move TTGlobal stuff in here and get rid of the TTGlobal class
 	TTHash*		classConstructors;	///< A hash keyed on classNames, and returning an objectConstructor
-
+	
 public:
+	TTBoolean	debugMessaging;		///< Attribute: should all message traffic be logged?
+	TTUInt32	sr;					///< Current sample rate as understood by the environment as a whole
 
+	
 	/**	Constructor	*/
 	TTEnvironment();
 	
 	
 	/**	Destructor */
 	virtual ~TTEnvironment();
+
+	
+	TTErr getVersion(TTValue &value);
 
 	
 	/**	Register the unit name, and associate it with the constructor to be called. */

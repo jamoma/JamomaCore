@@ -9,7 +9,6 @@
 #include "TTBlue.h"
 #include "TTSymbolTable.h"
 #include "TTEnvironment.h"
-#include "TTGlobal.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
 
@@ -25,7 +24,6 @@ void TTBlueInit()
 	if(!TTBlueHasInitialized){
 		ttSymbolTable = new TTSymbolTable;
 		ttEnvironment = new TTEnvironment;
-		ttGlobalObject = new TTGlobal;
 
 		TTSymbolCacheInit();
 		TTValueCacheInit();

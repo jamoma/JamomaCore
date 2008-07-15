@@ -42,12 +42,7 @@ typedef TTErr (TTAudioObject::*TTProcessWithSidechainMethod)(TTAudioSignal& in1,
  *	own process() method(s) as needed.
  */
 class TTEXPORT TTAudioObject : public TTObject {
-private:
-	friend class TTGlobal;						///< Declare that the global object is friend so it can access the globalSr member
-	friend class TTDataObject;					///< Declare that the global object is friend so it can access the globalSr member
-
 protected:
-	static TTUInt32					globalSr;							///< Current sample rate as understood by the environment as a whole
 	TTUInt32						sr;									///< Current sample rate being used by this object
 	TTFloat64						srInv;								///< 1.0 over the current sample rate (inverse)
 	TTFloat64						srMill;								///< 1/1000 of the current sample rate (samples per millisecond)

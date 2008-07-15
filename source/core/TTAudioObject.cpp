@@ -7,8 +7,7 @@
  */
 
 #include "TTAudioObject.h"
-
-TTUInt32	TTAudioObject::globalSr = 44100;
+#include "TTEnvironment.h"
 
 
 // This coeff is used in GainDataspace mapping MIDI to and from linear gain 
@@ -29,7 +28,7 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setAttributeValue(TT("sr"),				globalSr);
+	setAttributeValue(TT("sr"),				ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
 	setProcessWithSidechain(&TTAudioObject::bypassWithSidechainProcess);
 	setAttributeValue(TT("bypass"),			*kTTBoolNo);

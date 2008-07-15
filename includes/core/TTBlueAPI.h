@@ -18,7 +18,6 @@
 #include "TTDataObject.h"
 #include "TTElement.h"
 #include "TTEnvironment.h"
-#include "TTGlobal.h"
 #include "TTHash.h"
 #include "TTList.h"
 #include "TTMutex.h"

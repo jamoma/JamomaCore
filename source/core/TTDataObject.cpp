@@ -7,6 +7,7 @@
  */
 
 #include "TTDataObject.h"
+#include "TTEnvironment.h"
 
 
 /****************************************************************************************************/
@@ -15,7 +16,7 @@ TTDataObject::TTDataObject(const char* name)
 	: TTObject(name)
 {
 	registerAttribute(TT("sr"),	kTypeUInt32, &sr, (TTSetterMethod)&TTDataObject::setSr);
-	setAttributeValue(TT("sr"),	TTAudioObject::globalSr);
+	setAttributeValue(TT("sr"),	ttEnvironment->sr);
 }
 
 
