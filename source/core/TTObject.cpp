@@ -7,6 +7,7 @@
  */
 
 #include "TTObject.h"
+#include "TTEnvironment.h"
 
 
 /****************************************************************************************************/
@@ -384,26 +385,24 @@ TTSymbol* TTObject::getName()
 #pragma mark Object Messages
 #endif
 
-TTErr TTObject::registerMessage(const TTSymbol* name, TTMethod method)
+TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 	
-	#ifdef TT_DEBUG_MESSAGING
-	logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getString(), kTTMessageDefaultFlags, messageCount);
-	#endif
+	if(ttEnvironment->debugMessaging)
+		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getNumKeys());
 	
 	messages->insert(TTSymbolPtr(name), TTPtr(newMessage));
 	return kTTErrNone;
 }
 
 
-TTErr TTObject::registerMessage(const TTSymbol* name, TTMethod method, TTMessageFlags flags)
+TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method, TTMessageFlags flags)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, flags);
 	
-	#ifdef TT_DEBUG_MESSAGING
-	logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getString(), kTTMessageDefaultFlags, messageCount);
-	#endif
+	if(ttEnvironment->debugMessaging)
+		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getNumKeys());
 	
 	messages->insert(TTSymbolPtr(name), TTPtr(newMessage));
 	return kTTErrNone;

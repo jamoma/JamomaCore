@@ -154,8 +154,8 @@ public:
 	TTSymbol* getName();
 
 	
-	TTErr registerMessage(const TTSymbol* name, TTMethod method);
-	TTErr registerMessage(const TTSymbol* name, TTMethod method, TTMessageFlags flags);
+	TTErr registerMessage(const TTSymbolPtr name, TTMethod method);
+	TTErr registerMessage(const TTSymbolPtr name, TTMethod method, TTMessageFlags flags);
 	TTErr findMessage(const TTSymbol* name, TTMessage** message);
 	TTErr sendMessage(const TTSymbol* name);
 	TTErr sendMessage(const TTSymbol* name, TTValue& value);
