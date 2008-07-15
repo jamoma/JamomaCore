@@ -10,55 +10,68 @@
 #include "TTMutex.h"
 
 static TTMutex*				sMutex = NULL;
-TTEXPORT TTSymbolTable*	ttSymbolTable = NULL;
+TTEXPORT TTSymbolTable*		ttSymbolTable = NULL;
 
 /****************************************************************************************************/
 
 TTSymbolTable::TTSymbolTable()
-	: symbolTable(NULL), symbolTableLength(0), symbolTableSize(0)
 {
 	if(!sMutex)
 		sMutex = new TTMutex(true);
-	symbolTableSize = 1024;
-	symbolTable = (TTSymbol**)malloc(sizeof(TTSymbol*) * (symbolTableSize + 1));
-	// always start off with 1 symbol -- the empty string
-	symbolTable[0] = new TTSymbol("", 0);
-	symbolTableLength++;
+	symbolTable.insert(TTSymbolTablePair("", new TTSymbol("", 0))); 
 }
 
 
 TTSymbolTable::~TTSymbolTable()
 {
-	for(TTUInt32 i = 0; i < symbolTableLength; i++)
-		delete symbolTable[i];
+	TTSymbolTableIter	iter;
+
+	for(iter = symbolTable.begin(); iter != symbolTable.end(); iter++)
+		delete TTSymbolPtr(iter->second);
+	symbolTable.clear();
 	
-	free(symbolTable);
 	// TODO: we should reference count symbol tables and then free the mutex here, yes?
 }
 
 
-TTSymbol* TTSymbolTable::lookup(const char* string)
+TTSymbol* TTSymbolTable::lookup(const char* aString)
 {
-	TTUInt32	i;
-	TTSymbol	*newSymbol;
+	TTSymbolTableIter	iter;
 
 	sMutex->lock();
-	for(i=0; i<symbolTableLength; i++){
-		if(!strcmp(string, symbolTable[i]->getString())){
-			sMutex->unlock();
-			return symbolTable[i];	// we found it
-		}
+	
+	iter = symbolTable.find(aString);
+	if(iter == symbolTable.end()){
+		// The symbol wasn't found in the table, so we need to create and add it.
+		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
+		TTSymbol *newSymbol = new TTSymbol(aString, symbolTable.size());
+		symbolTable.insert(TTSymbolTablePair(aString, newSymbol)); 
+		sMutex->unlock();
+		return newSymbol; 
 	}
-
-	// If we are here then the symbol wasn't found, so we need to create it
-	newSymbol = new TTSymbol(string, symbolTableLength);
-	if(symbolTableLength == symbolTableSize){
-		symbolTableSize += 1024;
-		symbolTable = (TTSymbol**)realloc(symbolTable, sizeof(TTSymbol*) * (symbolTableSize + 1));
+	else{
+		// The symbol was found, so we return it.
+		sMutex->unlock();
+		return iter->second;
 	}
-	symbolTable[symbolTableLength] = newSymbol;
-	symbolTableLength++;
-	sMutex->unlock();
-	return newSymbol;
 }
 
+
+TTSymbol* TTSymbolTable::lookup(string& aString)
+{
+	return lookup(aString.c_str());
+}
+
+
+void TTSymbolTable::dump(TTValue& allSymbols)
+{
+	TTSymbolTableIter	iter;
+	
+	TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
+	allSymbols.clear();
+	for(iter = symbolTable.begin(); iter != symbolTable.end(); iter++){
+		allSymbols.append(TTSymbolPtr(iter->second));
+		TTLogMessage("KEY:%s   VALUE:%s\n", iter->first, TTSymbolPtr(iter->second)->getCString());
+	}
+	TTLogMessage("---- DUMPING SYMBOL TABLE -- END ----\n");
+}

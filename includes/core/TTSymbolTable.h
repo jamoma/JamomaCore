@@ -11,38 +11,57 @@
 
 #include "TTElement.h"
 #include "TTSymbol.h"
-
+#include <hash_map.h>
+using namespace std;
+#include "TTValue.h"
 
 /** This macro is defined as a shortcut for doing a lookup in the symbol table. */
 #define TT ttSymbolTable->lookup
 
+
+/** A simple helper class used by TTSymbolTable for comparing hash_map keys.  */
+class TTStringCompare {
+public:
+	bool operator()(const char* s1, const char* s2) const
+	{
+		return !strcmp(s1, s2);
+	}
+};
+
+
+/** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
+typedef pair<const char*, TTSymbolPtr>														TTSymbolTablePair;
+
+/** An iterator for the STL hash_map used by TTSymbolTable. */
+typedef hash_map<const char*, TTSymbolPtr, hash<char*>, TTStringCompare>::const_iterator	TTSymbolTableIter;
+
+
 /****************************************************************************************************/
-// Class Specification
+// Class Specifications
 
 
 /**
-	The current implementation of this TTSymbolTable class is somewhat crude and really slow 
-	and it should be improved in the future.
-	It has an internal table that is implemented as a fixed array.
-	Each symbol is identified by its index in this array.
+	The TTSymbolTable class is hash_map (based on Stroustrup pp 497) that keeps 
+	commonly used strings in a table so that we can refer to them simply as a pointers for fast comparison.
 */
 class TTEXPORT TTSymbolTable : public TTElement {
 private:
-	TTSymbol**	symbolTable;
-	TTUInt32	symbolTableLength;	///< Number of symbols stored in the table
-	TTUInt32	symbolTableSize;	///< Maximum number of symbols for which there is room in the table
+	hash_map<const char*, TTSymbolPtr, hash<char*>, TTStringCompare>	symbolTable;	///< The symbol table, implemented internally as an STL hash_map.
 
 public:
 	TTSymbolTable();
 	virtual	~TTSymbolTable();
 
 	/** Look in the symbol table for this string.  If it exists then return its id.  
-	 *	If it does not exist then it is created, added to the symbol table and this new symbol's id is returned. 
-	 * 
-	 * This lookup is called directly, but also from the TTSymbol constructor, which allows 
-	 * us to call methods expecting a TTSymbol by passing them simple c strings.
-	 */
-	TTSymbol* lookup(const char* string);
+		If it does not exist then it is created, added to the symbol table and this new symbol's id is returned.	*/
+	TTSymbol* lookup(const char* aString);
+	
+	/** Look in the symbol table for this string.  If it exists then return its id.  
+		If it does not exist then it is created, added to the symbol table and this new symbol's id is returned.	*/
+	TTSymbol* lookup(string& aString);
+	
+	/**	Debugging tool to make it easy to examine everything that is in the symbol table. */
+	void dump(TTValue& allSymbols);
 };
 
 extern TTEXPORT TTSymbolTable* ttSymbolTable;		///< The global table of symbols
