@@ -19,38 +19,45 @@
 	The TTSymbol class is used to represent a string and efficiently pass and compare that string.
 	At the moment the implementation is somewhat crude and really slow and it should be improved in the future.
  
-	Note that generally speaking you should not create a TTSymbol.  Instead, TTSymbol objects should only
-	by created by the TTSymbolTable that you are using.  Because of this we *always* pass TTSymbols as
-	pointers into the symbol table rather than as references or copies.
+	Note that generally speaking you should not directly create a TTSymbol!
+	Instead, TTSymbol objects should only by created by the TTSymbolTable that you are using.  
+	Because of this we *always* pass TTSymbols as pointers (#TTSymbolPtr) into the symbol table rather than as references or copies.
+ 
+	Also, if you don't need the fast lookup capabilities of the symbol table (such as for message or attribute lookup)
+	then consider passing a #TTString instead.
 */
 class TTEXPORT TTSymbol : public TTElement {
 private:
-	TTString				string;				///< the actual string represented by this symbol
+	string					theString;			///< the actual string represented by this symbol
 	TTUInt32				id;					///< a unique identifier for the given string
-	TTUInt32				size;				///< how many chars in the string
-	TTBoolean				locallyOwned;		///< is the string allocated or just a pointer that we don't own?
 
 	/** used by the constructors to create the new symbol */
-	void init(const char* newString, TTInt32 newId);
+	void init(const string& newString, TTInt32 newId);
 
 public:
-	TTSymbol();
-	TTSymbol(const char* newString);
-	
-	/** This constructor is intended only for use by the TTSymbolTable object when creating new symbols
+	/** The constructor is intended only for use by the TTSymbolTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbol(const char*, TTInt32 newId);
+	TTSymbol(const string& newString, TTInt32 newId);
 
 	virtual	~TTSymbol();
 	
 	/** Copy Constructor */
 	TTSymbol(const TTSymbol& oldSymbol);
 
-	const TTString getString();
+	/**	Return a pointer to the internal string. */
+	const string getString();
+
+	/**	Return a pointer to the internal string as a C-string. */
+	const char* getCString();
+	
+	/**	Return this symbol's unique id. */
 	const TTUInt32 getId();
+	
+	/**	Compare this symbol with another symbol.  */
 	TTBoolean compare(TTSymbol& anotherSymbol);
 	
 	// make sure this is a friend so that it can access the private members of the other
+	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
 	{
 		if(symbol1.id == symbol2.id)
@@ -59,9 +66,16 @@ public:
 			return false;
 	}
 	
-	operator TTString() const
+	/** Cast a symbol to a C-string. */
+	operator const char*() const
 	{
-		return string;
+		return theString.c_str();
+	}
+	
+	/** Cast a symbol to a std::string. */
+	operator string() const
+	{
+		return theString;
 	}
 };
 
