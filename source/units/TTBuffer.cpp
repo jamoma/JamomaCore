@@ -139,7 +139,7 @@ TTErr TTBuffer::getValueAtIndex(TTValue& index)
 	TTErr			err;
 
 	index.get(i++, sampleIndex);
-	if(index.getNumValues() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
+	if(index.getSize() > 2)		// TODO: sure would be nice to change the name of this method to "size" or something...
 		index.get(i++, sampleChannel);
 	
 	err = peek(sampleIndex, sampleChannel, sampleValue);
@@ -172,7 +172,7 @@ TTErr TTBuffer::setValueAtIndex(const TTValue& index)
 	TTUInt8			i = 0;
 
 	index.get(i++, sampleIndex);
-	if(index.getNumValues() > 2)
+	if(index.getSize() > 2)
 		index.get(i++, sampleChannel);
 	index.get(i++, sampleValue);	
 	
