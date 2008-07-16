@@ -553,3 +553,24 @@ TTErr TTObject::logError(char* fmtstring, ...)
 	return kTTErrNone;	
 }
 
+
+TTErr TTObject::logDebug(char* fmtstring, ...)
+{
+	if(ttEnvironment->debugBasic){
+		char	str[4000];
+		char	fullstr[4096];
+		va_list	ap;
+		
+		va_start(ap, fmtstring);
+		vsnprintf(str, 4000, fmtstring, ap);
+		va_end(ap);
+		str[4095] = 0;
+		
+		strncpy(fullstr, objectName->getCString(), 4095);
+		strncat(fullstr, " : ", 4095);
+		strncat(fullstr, str, 4095);
+		TTLogDebug(fullstr);
+		return kTTErrNone;
+	}
+}
+

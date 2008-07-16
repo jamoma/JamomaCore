@@ -7,6 +7,7 @@
  */
 
 #include "TTElement.h"
+#include "TTEnvironment.h"
 
 
 const TTFloat64 TTElement::kTTPi = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068;
@@ -200,6 +201,22 @@ void TTLogError(char *message, ...)
 	str[4095] = 0; 
 	
 	fprintf(stderr, str);
+}
+
+
+void TTLogDebug(char *message, ...)
+{
+	if(ttEnvironment->debugBasic){
+		char	str[4096];
+		va_list	ap;
+		
+		va_start(ap, message);
+		vsnprintf(str, 4096, message, ap);
+		va_end(ap);
+		str[4095] = 0; 
+		
+		fprintf(stderr, str);
+	}
 }
 
 

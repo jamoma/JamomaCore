@@ -31,6 +31,7 @@ private:
 	TTHash*		classConstructors;	///< A hash keyed on classNames, and returning an objectConstructor
 	
 public:
+	TTBoolean	debugBasic;			///< Attribute: basic debug functionality is enabled when true
 	TTBoolean	debugMessaging;		///< Attribute: should all message traffic be logged?
 	TTUInt32	sr;					///< Current sample rate as understood by the environment as a whole
 

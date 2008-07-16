@@ -27,8 +27,12 @@ void TTBlueInit()
 
 		TTSymbolCacheInit();
 		TTValueCacheInit();
-
-		printf("TTBlue -- Version 0.5.3\n");
+		
+#ifdef TT_DEBUG
+		TTLogMessage("TTBlue -- Version 0.5.3 -- Debugging Enabled\n");
+#else
+		TTLogMessage("TTBlue -- Version 0.5.3\n");
+#endif
 		
 		TTBlueRegisterInternalClasses();
 		

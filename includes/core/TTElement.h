@@ -165,6 +165,9 @@ void TTLogWarning(char *message, ...);
 /** Platform and host independent method for posting errors. */
 void TTLogError(char *message, ...);
 
+/** Platform and host independent method for posting messages only when debugging is enabled in the environment. */
+void TTLogDebug(char *message, ...);
+
 
 /** A fast routine for clipping a number to a range.  This routine does not use branching. */
 template<class T>

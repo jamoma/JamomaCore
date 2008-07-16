@@ -24,6 +24,7 @@ TTEnvironment::TTEnvironment()
 // TODO: implement messages and attributes to the environment.
 // For the MaxMSP examples, we could bind an object (maybe in Jamoma.framework) to the symbol ttblue 
 // to set attributes and send messages.
+	registerAttributeSimple(debugBasic,		kTypeBoolean);
 	registerAttributeSimple(debugMessaging,	kTypeBoolean);
 	registerAttributeSimple(sr,				kTypeUInt32);
 
