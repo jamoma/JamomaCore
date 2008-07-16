@@ -182,11 +182,11 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	object_obex_dumpout(obj, gensym("functions"), 1, a);
 	
 	FunctionLib::getUnitNames(functionNames);
-	numFunctions = functionNames.getNumValues();
+	numFunctions = functionNames.getSize();
 	for(i=0; i<numFunctions; i++){
 		functionNames.get(i, &aName);
 		atom_setsym(a+0, gensym("append"));
-		atom_setsym(a+1, gensym(aName->getString()));
+		atom_setsym(a+1, gensym((char*)aName->getCString()));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
 		
 		atom_setsym(a, obj->attr_function);
@@ -212,17 +212,17 @@ void map_getParameter(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	
 	parameterName = TT(atom_getsym(argv)->s_name);
 	obj->functionUnit->getAttributeValue(parameterName, parameterValue);
-	numValues = parameterValue.getNumValues();
+	numValues = parameterValue.getSize();
 
 	if(numValues){
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, gensym(parameterName->getString()));
+		atom_setsym(a, gensym((char*)parameterName->getCString()));
 		// Next the whole shebang is copied
 		for(i=0; i<numValues; i++){
 			if(parameterValue.getType(i) == kTypeSymbol){
 				parameterValue.get(i, &tempSymbol);
-				atom_setsym(a+i+1, gensym(tempSymbol->getString()));
+				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 			}
 			else{
 				parameterValue.get(i, tempValue);
@@ -247,12 +247,12 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 	object_obex_dumpout(obj, gensym("function.parameters"), 1, a);
 
 	obj->functionUnit->getAttributeNames(names);
-	n = names.getNumValues();
+	n = names.getSize();
 	if(n){
 		for(int i=0; i<n; i++){
 			atom_setsym(a+0, gensym("append"));
 			names.get(i, &aName);
-			atom_setsym(a+1, gensym(aName->getString()));
+			atom_setsym(a+1, gensym((char*)aName->getCString()));
 			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}
 	}

@@ -45,10 +45,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
-	for(i=0; i<functionNames.getNumValues(); i++)
+	for(i=0; i<functionNames.getSize(); i++)
 	{
 		functionNames.get(i, &functionName);
-		strcat(functions, functionName->getString());	
+		strcat(functions, functionName->getCString());	
 		strcat(functions, " ");
 	}
 	
@@ -327,7 +327,7 @@ void param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			double		tempValue;				
 			
 			x->ramper->getAttributeValue(parameterName, parameterValue);
-			numValues = parameterValue.getNumValues();
+			numValues = parameterValue.getSize();
 			
 			if(numValues){
 				a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
@@ -337,7 +337,7 @@ void param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 				for(int i=0; i<numValues; i++){
 					if(parameterValue.getType(i) == kTypeSymbol){
 						parameterValue.get(i, &tempSymbol);
-						atom_setsym(a+i+1, gensym(tempSymbol->getString()));
+						atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 					}
 					else{
 						parameterValue.get(i, tempValue);
@@ -378,17 +378,17 @@ void param_handleProperty(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			double		tempValue;				
 			
 			x->ramper->getFunctionParameterValue(parameterName, parameterValue);
-			numValues = parameterValue.getNumValues();
+			numValues = parameterValue.getSize();
 			
 			if(numValues){
 				a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 				// First list item is name of parameter
-				atom_setsym(a, gensym(parameterName->getString()));
+				atom_setsym(a, gensym((char*)parameterName->getCString()));
 				// Next the whole shebang is copied
 				for(int i=0; i<numValues; i++){
 					if(parameterValue.getType(i) == kTypeSymbol){
 						parameterValue.get(i, &tempSymbol);
-						atom_setsym(a+i+1, gensym(tempSymbol->getString()));
+						atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 					}
 					else{
 						parameterValue.get(i, tempValue);

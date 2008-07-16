@@ -41,9 +41,9 @@ common_symbols_init();
 	}
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
-	for(i=0; i<functionNames.getNumValues(); i++){
+	for(i=0; i<functionNames.getSize(); i++){
 		functionNames.get(i, &functionName);
-		strcat(functions, functionName->getString());	
+		strcat(functions, functionName->getCString());	
 		strcat(functions, " ");
 	}
 
