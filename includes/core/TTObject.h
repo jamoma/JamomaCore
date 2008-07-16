@@ -10,6 +10,7 @@
 #define __TT_OBJECT_H__
 
 #include "TTElement.h"
+#include "TTList.h"
 #include "TTHash.h"
 #include "TTSymbol.h"
 #include "TTSymbolTable.h"
@@ -111,9 +112,11 @@ typedef enum TTAttributeFlags {
 */
 class TTEXPORT TTObject : public TTElement {
 private:
-	TTSymbol*				objectName;
-	TTHash*					messages;
-	TTHash*					attributes;
+	TTSymbolPtr		objectName;			///< The class name of this object.
+	TTHash*			messages;			///< The collection of all messages for this object, keyed on the message name.
+	TTHash*			attributes;			///< The collection of all attributes for this object, keyed on the attribute name.
+	TTList*			messageObservers;	///< List of all objects watching this object.
+	TTList*			attributeObservers;	///< List of all objects watching this object.
 
 public:
 	TTObject(const char* name);
@@ -126,25 +129,25 @@ public:
 		The the end-user calls setAttribute() on the object (which is defined in 
 		the base class only) and it dispatches the message as appropriate.
 	*/
-	TTErr registerAttribute(const TTSymbol* name, TTDataType type, void* address);
-	TTErr registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter);
-	TTErr registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTSetterMethod setter);
-	TTErr registerAttribute(const TTSymbol* name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address);
+	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter);
+	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTSetterMethod setter);
+	TTErr registerAttribute(const TTSymbolPtr name, TTDataType type, void* address, TTGetterMethod getter, TTSetterMethod setter);
 	
-	TTErr findAttribute(const TTSymbol* name, TTAttribute** attr);
+	TTErr findAttribute(const TTSymbolPtr name, TTAttribute** attr);
 
-	TTErr setAttributeValue(const TTSymbol* name, const TTValue& value);
-	TTErr getAttributeValue(const TTSymbol* name, TTValue& value);
+	TTErr setAttributeValue(const TTSymbolPtr name, const TTValue& value);
+	TTErr getAttributeValue(const TTSymbolPtr name, TTValue& value);
 
 	template<class T>
-	TTErr setAttributeValue(const TTSymbol* name, const T& value);
+	TTErr setAttributeValue(const TTSymbolPtr name, const T& value);
 	template<class T>
-	TTErr getAttributeValue(const TTSymbol* name, T& value);
+	TTErr getAttributeValue(const TTSymbolPtr name, T& value);
 	
-	TTErr getAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
-	TTErr setAttributeGetterFlags(const TTSymbol* name, TTAttributeFlags& value);
-	TTErr getAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value);
-	TTErr setAttributeSetterFlags(const TTSymbol* name, TTAttributeFlags& value);
+	TTErr getAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
+	TTErr setAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
+	TTErr getAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
+	TTErr setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
 	
 
 	/** return a list of names of the available functionParameters */
@@ -156,12 +159,19 @@ public:
 	
 	TTErr registerMessage(const TTSymbolPtr name, TTMethod method);
 	TTErr registerMessage(const TTSymbolPtr name, TTMethod method, TTMessageFlags flags);
-	TTErr findMessage(const TTSymbol* name, TTMessage** message);
-	TTErr sendMessage(const TTSymbol* name);
-	TTErr sendMessage(const TTSymbol* name, TTValue& value);
+	TTErr findMessage(const TTSymbolPtr name, TTMessage** message);
+	TTErr sendMessage(const TTSymbolPtr name);
+	TTErr sendMessage(const TTSymbolPtr name, TTValue& value);
 	
 	//TODO: implement these
 	// getMessageNames()
+	
+	
+	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
+	TTErr registerObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
+	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
+	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
+	
 	
 	/**	Log messages scoped to this object instance. */
 	TTErr logMessage(char* fmtstring, ...);
@@ -179,7 +189,7 @@ class TTEXPORT TTAttribute : TTElement {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbol*		name;			///< the name of the attribute
+	const TTSymbolPtr	name;			///< the name of the attribute
 	TTDataType			type;			///< the data type of the attribute value
 	void*				address;		///< pointer to the memory holding the attribute value
 	TTGetterMethod		getter;			///< method to fetch the attribute value
@@ -187,10 +197,10 @@ public:
 	TTAttributeFlags	getterFlags;	///< define the behavior of the attribute getter method
 	TTAttributeFlags	setterFlags;	///< define the behavior of the attribute setter method
 
-	TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress);
-	TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
-	TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbol* newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress);
+	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
+	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
+	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
 	virtual ~TTAttribute();
 	
 	void setGetterFlags(TTAttributeFlags newFlags);
@@ -213,23 +223,24 @@ class TTEXPORT TTMessage : TTElement {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbol*		name;		///< the name of the message.
+	const TTSymbolPtr	name;		///< the name of the message.
 	TTMessageFlags		flags;		///< define the behavior of the message.
 	TTMethod			method;		///< method associated with this message.
 
-	TTMessage(const TTSymbol* newName, TTMethod newMethod, TTMessageFlags newFlags);
+	TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags);
 	virtual ~TTMessage();
 };
 
+
 template <class T>
-TTErr TTObject::setAttributeValue(const TTSymbol* name, const T& value)
+TTErr TTObject::setAttributeValue(const TTSymbolPtr name, const T& value)
 {
 	TTValue	v(value);
 	return setAttributeValue(name, v);
 }
 
 template <class T>
-TTErr TTObject::getAttributeValue(const TTSymbol* name, T& value)
+TTErr TTObject::getAttributeValue(const TTSymbolPtr name, T& value)
 {
 	TTValue	v;
 	TTErr error = getAttributeValue(name, v);
