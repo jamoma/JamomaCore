@@ -656,6 +656,8 @@ void hub_getstate(t_hub *x)
 				x->text = (char*)realloc(x->text, x->textSize);
 			}
 			
+			strncat_zero(x->text, x->osc_name->s_name, x->textSize);
+			strncat_zero(x->text, "/", x->textSize);
 			strncat_zero(x->text, t->name->s_name, x->textSize);
 			strncat_zero(x->text, " ", x->textSize);
 			strncat_zero(x->text, text, x->textSize);
