@@ -387,7 +387,7 @@ TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method)
 {
 	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 	
-	if(ttEnvironment->debugMessaging)
+	if(ttEnvironment && ttEnvironment->debugMessaging)
 		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
 	
 	messages->append(name, TTPtr(newMessage));
@@ -463,8 +463,12 @@ TTErr TTObject::registerObserverForMessage(const TTObject& observingObject, cons
 
 }
 
-
 TTErr TTObject::registerObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName)
+{
+
+}
+
+TTErr TTObject::registerObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName)
 {
 
 }
@@ -475,8 +479,12 @@ TTErr TTObject::unregisterObserverForMessage(const TTObject& observingObject, co
 
 }
 
-
 TTErr TTObject::unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName)
+{
+
+}
+
+TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName)
 {
 
 }

@@ -169,8 +169,10 @@ public:
 	
 	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
 	TTErr registerObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
+	TTErr registerObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName);
 	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
 	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
+	TTErr unregisterObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName);
 	
 	
 	/**	Log messages scoped to this object instance. */
