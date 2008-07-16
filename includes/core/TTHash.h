@@ -44,13 +44,13 @@ public:
 	virtual ~TTHash();
 
 	/** Insert an item into the hash table. */
-	TTErr insert(const TTSymbolPtr key, const TTValue& value);
+	TTErr append(const TTSymbolPtr key, const TTValue& value);
 	
 	/** Find the value for the given key. */
 	TTErr lookup(const TTSymbolPtr key, TTValue& value);
 	
 	/** Remove an item from the hash table. */
-	TTErr erase(const TTSymbolPtr key);
+	TTErr remove(const TTSymbolPtr key);
 	
 	/** Remove all items from the hash table. */
 	TTErr clear();
@@ -59,7 +59,7 @@ public:
 	TTErr getKeys(TTValue& hashKeys);
 	
 	/** Return the number of keys in the hash table. */
-	TTUInt32 getNumKeys();
+	TTUInt32 getSize();
 	
 };
 

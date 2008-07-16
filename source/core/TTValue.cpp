@@ -163,7 +163,7 @@ TTDataType TTValue::getType(TTUInt16 index) const
 }
 
 
-TTUInt16 TTValue::getNumValues() const
+TTUInt16 TTValue::getSize() const
 {
 	return numValues;
 }
@@ -183,7 +183,7 @@ void TTValue::setType(TTDataType arg)
 }
 
 
-void TTValue::setNumValues(const TTUInt16 arg)
+void TTValue::setSize(const TTUInt16 arg)
 {
 	if(arg != numValues){
 		numValues = arg;
@@ -225,7 +225,7 @@ TTValue& TTValue::operator = (const TTValue &newValue)
 // FLOAT32
 TTValue& TTValue::operator = (TTFloat32 value) 
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeFloat32;
 	data->float32 = value;
 	return *this;
@@ -247,7 +247,7 @@ TTValue::operator TTFloat32() const
 // FLOAT64
 TTValue& TTValue::operator = (TTFloat64 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeFloat64;
 	data->float64 = value;
 	return *this;
@@ -269,7 +269,7 @@ TTValue::operator TTFloat64() const
 // INT8
 TTValue& TTValue::operator = (TTInt8 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeInt8;
 	data->int8 = value;
 	return *this;
@@ -291,7 +291,7 @@ TTValue::operator TTInt8() const
 // UINT8
 TTValue& TTValue::operator = (TTUInt8 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeUInt8;
 	data->uint8 = value;
 	return *this;
@@ -313,7 +313,7 @@ TTValue::operator TTUInt8() const
 // INT16
 TTValue& TTValue::operator = (TTInt16 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeInt16;
 	data->int16 = value;
 	return *this;
@@ -335,7 +335,7 @@ TTValue::operator TTInt16() const
 // UINT16
 TTValue& TTValue::operator = (TTUInt16 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeUInt16;
 	data->uint16 = value;
 	return *this;
@@ -357,7 +357,7 @@ TTValue::operator TTUInt16() const
 // INT32
 TTValue& TTValue::operator = (TTInt32 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeInt32;
 	data->int32 = value;
 	return *this;
@@ -379,7 +379,7 @@ TTValue::operator TTInt32() const
 // UINT32
 TTValue& TTValue::operator = (TTUInt32 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeUInt32;
 	data->uint32 = value;
 	return *this;
@@ -401,7 +401,7 @@ TTValue::operator TTUInt32() const
 // INT64
 TTValue& TTValue::operator = (TTInt64 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeInt64;
 	data->int64 = value;
 	return *this;
@@ -423,7 +423,7 @@ TTValue::operator TTInt64() const
 // UINT64
 TTValue& TTValue::operator = (TTUInt64 value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeUInt64;
 	data->uint64 = value;
 	return *this;
@@ -445,7 +445,7 @@ TTValue::operator TTUInt64() const
 // BOOLEAN
 TTValue& TTValue::operator = (TTBoolean value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeBoolean;
 	data->boolean = value;
 	return *this;
@@ -467,7 +467,7 @@ TTValue::operator TTBoolean() const
 // SYMBOL
 TTValue& TTValue::operator = (TTSymbol* value)
 {
-	setNumValues(1);
+	setSize(1);
 	if((TTSymbol*)this != value) {
 		*type = kTypeSymbol;
 		data->sym = value;
@@ -488,7 +488,7 @@ TTValue::operator TTSymbol*() const
 // OBJECT
 TTValue& TTValue::operator = (TTObject& value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeObject;
 	data->object = &value;
 	return *this;
@@ -506,7 +506,7 @@ TTValue::operator TTObject&() const
 
 TTValue& TTValue::operator = (TTObject* value)
 {
-	setNumValues(1);
+	setSize(1);
 	*type = kTypeObject;
 	data->object = value;
 	return *this;
@@ -526,7 +526,7 @@ TTValue::operator TTObject*() const
 // POINTER
 TTValue& TTValue::operator = (TTPtr value)
 {
-	setNumValues(1);
+	setSize(1);
 	if((TTSymbol*)this != value) {
 		*type = kTypePointer;
 		data->ptr = value;
@@ -742,85 +742,85 @@ void TTValue::get(TTUInt16 index, TTPtr* value) const
 
 void TTValue::append(const TTFloat32 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTFloat64 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt8 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt8 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt16 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt16 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt32 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt32 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTInt64 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTUInt64 newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTBoolean newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTSymbol* newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTObject& newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 
 void TTValue::append(const TTPtr newValue)
 {
-	setNumValues(numValues + 1);
+	setSize(numValues + 1);
 	set(numValues-1, newValue);
 }
 

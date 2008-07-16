@@ -28,7 +28,7 @@ TTHash::~TTHash()
 }
 
 
-TTErr TTHash::insert(const TTSymbolPtr key, const TTValue& value)
+TTErr TTHash::append(const TTSymbolPtr key, const TTValue& value)
 {
 	hashMap.insert(TTKeyVal(TTPtrSizedInt(key), value));
 	return kTTErrNone;
@@ -49,7 +49,7 @@ TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 }
 
 
-TTErr TTHash::erase(const TTSymbolPtr key)
+TTErr TTHash::remove(const TTSymbolPtr key)
 {
 	hashMap.erase(TTPtrSizedInt(key));
 	return kTTErrNone;
@@ -74,7 +74,7 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 }
 
 
-TTUInt32 TTHash::getNumKeys()
+TTUInt32 TTHash::getSize()
 {
 	return hashMap.size();
 }

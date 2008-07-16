@@ -123,9 +123,6 @@ public:
 	/** Return the type of a particular member of this value (assuming it is an array). */
 	TTDataType getType(TTUInt16 index) const;
 
-	/** Return the number of values of this instance. */
-	TTUInt16 getNumValues() const;
-	
 private:
 	/** Internal method used by the constructors. */
 	void init();
@@ -137,8 +134,11 @@ private:
 	inline void copy(const TTValue& obj);
 	
 public:
-	/** Internal method for setting the number of values, and allocating any needed memory. */	
-	void setNumValues(const TTUInt16 arg);
+	/** Return the number of values of this instance. */
+	TTUInt16 getSize() const;
+	
+	/** Set the number of values, and allocate any needed memory. */	
+	void setSize(const TTUInt16 arg);
 	
 	TTValue& operator = (const TTValue &newValue);
 	

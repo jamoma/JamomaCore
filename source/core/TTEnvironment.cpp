@@ -46,9 +46,9 @@ TTErr TTEnvironment::getVersion(TTValue &value)
 }
 
 
-TTErr TTEnvironment::registerClass(TTSymbol* className, TTObjectInstantiationMethod anInstantiationMethod)
+TTErr TTEnvironment::registerClass(const TTSymbolPtr className, TTObjectInstantiationMethod anInstantiationMethod)
 {
-	classConstructors->insert(className, TTPtr(anInstantiationMethod));
+	classConstructors->append(className, TTPtr(anInstantiationMethod));
 	return kTTErrNone;
 }
 

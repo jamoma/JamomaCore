@@ -82,9 +82,7 @@ void TTAttribute::getSetterFlags(TTAttributeFlags& currentFlags)
 
 
 TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
-{
-	value.setNumValues(1);
-	
+{	
 	switch(attribute.type){
 		case kTypeFloat32:
 			value = *((TTFloat32*)attribute.address);
@@ -200,7 +198,7 @@ TTObject::~TTObject()
 	
 	// Delete message objects, then delete the hash that maintains them.
 	messages->getKeys(v);
-	for(TTUInt16 i=0; i<v.getNumValues(); i++){
+	for(TTUInt16 i=0; i<v.getSize(); i++){
 		TTSymbol*	name = NULL;
 		TTMessage*	message = NULL;
 		
@@ -213,7 +211,7 @@ TTObject::~TTObject()
 	
 	// Delete attribute objects, then delete the hash that maintains them.
 	attributes->getKeys(v);
-	for(TTUInt16 i=0; i<v.getNumValues(); i++){
+	for(TTUInt16 i=0; i<v.getSize(); i++){
 		TTSymbol*		name = NULL;
 		TTAttribute*	attribute = NULL;
 		
@@ -237,7 +235,7 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void*
 
 	newAttribute->setGetterFlags(kTTAttrPassObject);
 	newAttribute->setSetterFlags(kTTAttrPassObject);
-	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
+	attributes->append(name, TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
@@ -246,7 +244,7 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void*
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter);
 
 	newAttribute->setSetterFlags(kTTAttrPassObject);
-	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
+	attributes->append(name, TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
@@ -255,7 +253,7 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void*
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, setter);
 	
 	newAttribute->setGetterFlags(kTTAttrPassObject);
-	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
+	attributes->append(name, TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
@@ -263,7 +261,7 @@ TTErr TTObject::registerAttribute(const TTSymbolPtr name, TTDataType type, void*
 {
 	TTAttribute* newAttribute = new TTAttribute(name, type, address, getter, setter);
 
-	attributes->insert(TTSymbolPtr(name), TTPtr(newAttribute));
+	attributes->append(name, TTPtr(newAttribute));
 	return kTTErrNone;
 }
 
@@ -390,9 +388,9 @@ TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method)
 	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 	
 	if(ttEnvironment->debugMessaging)
-		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getNumKeys());
+		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
 	
-	messages->insert(TTSymbolPtr(name), TTPtr(newMessage));
+	messages->append(name, TTPtr(newMessage));
 	return kTTErrNone;
 }
 
@@ -402,9 +400,9 @@ TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method, TTMessa
 	TTMessagePtr newMessage = new TTMessage(name, method, flags);
 	
 	if(ttEnvironment->debugMessaging)
-		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getNumKeys());
+		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
 	
-	messages->insert(TTSymbolPtr(name), TTPtr(newMessage));
+	messages->append(name, TTPtr(newMessage));
 	return kTTErrNone;
 }
 
