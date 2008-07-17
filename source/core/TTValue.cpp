@@ -895,6 +895,7 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 	TTString	str;
 	char*		cStr;
 	char*		current;
+//	char*		whiteSpace;
 	
 	if(*type != kTypeString)
 		return kTTErrInvalidType;
@@ -905,14 +906,21 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 	cStr = new char[str.size()+1];
 	strncpy(cStr, str.c_str(), str.size()+1);
 	
-	current = strrchr(current, ',');
+	current = strrchr(cStr, ',');
 	while(current){
 		*current = 0;
-		current++;		
+		current++;
+		
+		// Do some basic whitespace stripping from the ends
+		while(*current == ' ')
+			current++;
+		while(current[strlen(current)-1] == ' ')
+			current[strlen(current)-1] = 0;
+			
 		append(TT(current));
-		current = strrchr(current, ',');
+		current = strrchr(cStr, ',');
 	}
-	append(TT(current));	
+	append(TT(cStr));	
 	
 	return kTTErrNone;
 }
