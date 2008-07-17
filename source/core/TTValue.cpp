@@ -892,6 +892,28 @@ void TTValue::append(const TTPtr newValue)
 
 TTErr TTValue::transformCSVStringToSymbolArray()
 {
-	;
+	TTString	str;
+	char*		cStr;
+	char*		current;
+	
+	if(*type != kTypeString)
+		return kTTErrInvalidType;
+	
+	str = *data->stringPtr;
+	clear();
+	
+	cStr = new char[str.size()+1];
+	strncpy(cStr, str.c_str(), str.size()+1);
+	
+	current = strrchr(current, ',');
+	while(current){
+		*current = 0;
+		current++;		
+		append(TT(current));
+		current = strrchr(current, ',');
+	}
+	append(TT(current));	
+	
+	return kTTErrNone;
 }
 
