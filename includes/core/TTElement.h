@@ -51,7 +51,7 @@ using namespace std;
 // Type Definitions
 
 typedef bool				TTBoolean;			// same as Boolean on the Mac
-typedef char*				TTString;
+typedef std::string			TTString;
 
 typedef signed char			TTInt8;
 typedef unsigned char		TTUInt8;
@@ -105,7 +105,8 @@ enum TTDataType{
 	kTypeBoolean,
 	kTypeSymbol,
 	kTypeObject,
-	kTypePointer
+	kTypePointer,
+	kTypeString
 };
 
 
