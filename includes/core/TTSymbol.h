@@ -28,16 +28,16 @@
 */
 class TTEXPORT TTSymbol : public TTElement {
 private:
-	string					theString;			///< the actual string represented by this symbol
+	TTString				theString;			///< the actual string represented by this symbol
 	TTUInt32				id;					///< a unique identifier for the given string
 
 	/** used by the constructors to create the new symbol */
-	void init(const string& newString, TTInt32 newId);
+	void init(const TTString& newString, TTInt32 newId);
 
 public:
 	/** The constructor is intended only for use by the TTSymbolTable object when creating new symbols
 		in the table.  Perhaps this could be made private and then the class made a friend... */
-	TTSymbol(const string& newString, TTInt32 newId);
+	TTSymbol(const TTString& newString, TTInt32 newId);
 
 	virtual	~TTSymbol();
 	
@@ -45,7 +45,7 @@ public:
 	TTSymbol(const TTSymbol& oldSymbol);
 
 	/**	Return a pointer to the internal string. */
-	const string getString();
+	const TTString getString();
 
 	/**	Return a pointer to the internal string as a C-string. */
 	const char* getCString();
@@ -73,7 +73,7 @@ public:
 	}
 	
 	/** Cast a symbol to a std::string. */
-	operator string() const
+	operator TTString() const
 	{
 		return theString;
 	}

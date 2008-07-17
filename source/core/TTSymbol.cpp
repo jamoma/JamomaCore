@@ -12,7 +12,7 @@
 
 /****************************************************************************************************/
 
-TTSymbol::TTSymbol(const string& newString, TTInt32 newId)
+TTSymbol::TTSymbol(const TTString& newString, TTInt32 newId)
 {
 	init(newString, newId);
 }
@@ -32,14 +32,14 @@ TTSymbol::TTSymbol(const TTSymbol& oldSymbol)
 }
 
 
-void TTSymbol::init(const string& newString, TTInt32 newId)
+void TTSymbol::init(const TTString& newString, TTInt32 newId)
 {
 	theString = newString;
 	id = newId;
 }
 
 
-const string TTSymbol::getString()
+const TTString TTSymbol::getString()
 {
 	return theString;
 }
