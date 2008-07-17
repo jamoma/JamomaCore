@@ -570,7 +570,7 @@ TTErr TTObject::logDebug(char* fmtstring, ...)
 		strncat(fullstr, " : ", 4095);
 		strncat(fullstr, str, 4095);
 		TTLogDebug(fullstr);
-		return kTTErrNone;
 	}
+	return kTTErrNone;
 }
 
