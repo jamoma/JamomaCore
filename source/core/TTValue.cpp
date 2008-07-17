@@ -94,18 +94,18 @@ TTValue::TTValue(TTBoolean initialValue)
 	*type = kTypeBoolean;
 }
 
-TTValue::TTValue(TTSymbol* initialValue)
+TTValue::TTValue(TTSymbolPtr initialValue)
 {
 	init();
 	data->sym = initialValue;
 	*type = kTypeSymbol;
 }
 
-TTValue::TTValue(const TTSymbol* initialValue)
+TTValue::TTValue(TTString& initialValue)
 {
 	init();
-	data->sym = (TTSymbol*)initialValue;
-	*type = kTypeSymbol;
+	data->stringPtr = new TTString(initialValue);
+	*type = kTypeString;
 }
 
 TTValue::TTValue(TTObject& initialValue)
@@ -113,6 +113,7 @@ TTValue::TTValue(TTObject& initialValue)
 	init();
 	data->object = &initialValue;
 	*type = kTypeObject;
+	stringsPresent = true;
 }
 
 TTValue::TTValue(const TTValue& obj)
@@ -134,6 +135,12 @@ TTValue::TTValue(TTPtr initialValue)
 
 TTValue::~TTValue()
 {
+	if(stringsPresent){
+		for(TTUInt16 i=0; i<numValues; i++){
+			if(type[i] == kTypeString)
+				delete data[i].stringPtr;
+		}
+	}
 	delete [] type;
 	delete [] data;
 }
@@ -141,6 +148,13 @@ TTValue::~TTValue()
 
 void TTValue::clear()
 {
+	if(stringsPresent){
+		for(TTUInt16 i=0; i<numValues; i++){
+			if(type[i] == kTypeString)
+				delete data[i].stringPtr;
+		}
+		stringsPresent = false;
+	}
 	delete [] data;
 	delete [] type;
 
@@ -174,12 +188,15 @@ void TTValue::init()
 	type = new TTDataType;
 	data = new DataValue;
 	numValues = 1;
+	stringsPresent = false;
 }
 
 
 void TTValue::setType(TTDataType arg)
 {
 	*type = arg;
+	if(arg == kTypeString)
+		stringsPresent = true;
 }
 
 
@@ -485,6 +502,29 @@ TTValue::operator TTSymbol*() const
 }
 
 
+// STRING
+TTValue& TTValue::operator = (TTString& value)
+{
+	setSize(1);
+
+	if(!stringsPresent && *type != kTypeString)
+		data->stringPtr = new TTString;
+	*type = kTypeString;
+	stringsPresent = true;
+	*data->stringPtr = value;
+	return *this;
+}
+
+TTValue::operator TTString&() const
+{
+	if(*type == kTypeString)
+		return *data->stringPtr;
+	else
+		return *(new TTString(""));
+		// TODO: This will cause a memory leak if there is an error, right?
+}
+
+
 // OBJECT
 TTValue& TTValue::operator = (TTObject& value)
 {
@@ -623,6 +663,17 @@ void TTValue::set(TTUInt16 index, const TTObject& newValue)
 	data[index].object = (TTObject*)&newValue;
 }
 
+void TTValue::set(TTUInt16 index, const TTString& newValue)
+{
+	if(!stringsPresent || type[index] != kTypeString){
+		type[index] = kTypeString;
+		stringsPresent = true;
+		data[index].stringPtr = new TTString(newValue);
+	}
+	else
+		*data[index].stringPtr = newValue;
+}
+
 void TTValue::set(TTUInt16 index, const TTPtr newValue)
 {
 	type[index] = kTypePointer;
@@ -726,6 +777,12 @@ void TTValue::get(TTUInt16 index, TTSymbol** value) const
 		*value = (data+index)->sym;
 }
 
+void TTValue::get(TTUInt16 index, TTString& value) const
+{
+	if(*type == kTypeString)
+		value = *(data+index)->stringPtr;
+}
+
 void TTValue::get(TTUInt16 index, TTObject &value) const
 {
 //	TODO: The method won't compile because of the lack of a proper definition of the TTObject class in this context
@@ -812,6 +869,12 @@ void TTValue::append(const TTSymbol* newValue)
 	set(numValues-1, newValue);
 }
 
+void TTValue::append(const TTString& newValue)
+{
+	setSize(numValues + 1);
+	set(numValues-1, newValue);
+}
+
 void TTValue::append(const TTObject& newValue)
 {
 	setSize(numValues + 1);
@@ -822,5 +885,13 @@ void TTValue::append(const TTPtr newValue)
 {
 	setSize(numValues + 1);
 	set(numValues-1, newValue);
+}
+
+
+
+
+TTErr TTValue::transformCSVStringToSymbolArray()
+{
+	;
 }
 

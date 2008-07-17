@@ -79,14 +79,16 @@ private:
 		TTInt64			int64;
 		TTUInt64		uint64;
 		TTBoolean		boolean;
-		TTSymbol		*sym;
-		TTObject		*object;
+		TTSymbolPtr		sym;
+		TTString*		stringPtr;	///< We keep the string as a pointer instead of a direct member so that the size of the union is kept to 64-bits.
+		TTObject*		object;
 		TTPtr			ptr;
 	};
 		
 	TTDataType	*type;			///< array of types
 	DataValue	*data;			///< array of values
 	TTUInt16	numValues;		///< number of values
+	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 
 public:
 	/** Constructors */
@@ -102,8 +104,8 @@ public:
 	TTValue(TTInt64 initialValue);
 	TTValue(TTUInt64 initialValue);
 	TTValue(TTBoolean initialValue);
-	TTValue(TTSymbol* initialValue);
-	TTValue(const TTSymbol* initialValue);
+	TTValue(TTSymbolPtr initialValue);
+	TTValue(TTString& initialValue);
 	TTValue(TTObject& initialValue);
 	TTValue(TTPtr initialValue);
 
@@ -189,7 +191,11 @@ public:
 	// SYMBOL
 	TTValue& operator = (TTSymbol* value);
 	operator TTSymbol*() const;
-
+	
+	// STRING
+	TTValue& operator = (TTString& value);
+	operator TTString&() const;
+	
 	// OBJECT
 	TTValue& operator = (TTObject& value);
 	operator TTObject&() const;
@@ -212,6 +218,7 @@ public:
 	void set(TTUInt16 index, const TTUInt64 newValue);
 	void set(TTUInt16 index, const TTBoolean newValue);
 	void set(TTUInt16 index, const TTSymbol* newValue);
+	void set(TTUInt16 index, const TTString& newValue);
 	void set(TTUInt16 index, const TTObject& newValue);
 	void set(TTUInt16 index, const TTPtr newValue);
 
@@ -230,6 +237,7 @@ public:
 	void get(TTUInt16 index, TTUInt64 &value) const;
 	void get(TTUInt16 index, TTBoolean &value) const;
 	void get(TTUInt16 index, TTSymbol** value) const;
+	void get(TTUInt16 index, TTString& value) const;
 	void get(TTUInt16 index, TTObject& value) const;
 	void get(TTUInt16 index, TTPtr* value) const;
 
@@ -246,6 +254,7 @@ public:
 	void append(const TTUInt64 newValue);
 	void append(const TTBoolean newValue);
 	void append(const TTSymbol* newValue);
+	void append(const TTString& newValue);
 	void append(const TTObject& newValue);
 	void append(const TTPtr newValue);
 
@@ -301,6 +310,9 @@ public:
 					case kTypeSymbol:
 						if( (a1.data+i)->sym == (a1.data+i)->sym )
 							return false;
+					case kTypeString:
+						if( *(a1.data+i)->stringPtr == *(a1.data+i)->stringPtr )
+							return false;
 					case kTypeObject:
 						if( (a1.data+i)->object == (a1.data+i)->object )
 							return false;
@@ -314,6 +326,11 @@ public:
 		}
 		return true;
 	}
+	
+	
+	/**	In-place method that converts the internal value, if it is a TTString, from a comma-separated-value string into
+		an array of TTSymbols.  */
+	TTErr transformCSVStringToSymbolArray();
 };
 
 
