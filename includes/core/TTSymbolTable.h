@@ -57,7 +57,7 @@ public:
 	
 	/** Look in the symbol table for this string.  If it exists then return its id.  
 		If it does not exist then it is created, added to the symbol table and this new symbol's id is returned.	*/
-	TTSymbol* lookup(string& aString);
+	TTSymbol* lookup(const TTString& aString);
 	
 	/**	Debugging tool to make it easy to examine everything that is in the symbol table. */
 	void dump(TTValue& allSymbols);

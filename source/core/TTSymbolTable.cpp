@@ -57,7 +57,7 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 }
 
 
-TTSymbol* TTSymbolTable::lookup(string& aString)
+TTSymbol* TTSymbolTable::lookup(const TTString& aString)
 {
 	return lookup(aString.c_str());
 }
