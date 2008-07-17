@@ -1200,9 +1200,11 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		
 		// search for illegal characters as specified by the OSC standard and replace them
 		for(i=0; i<strlen(name); i++){
+/*			TODO :This has to happen only when setting the OSC name from the module's file name
 			if(name[i] == '.')
 				name[i] = '_';
-			else if(name[i] == '[')
+			else */
+			if(name[i] == '[')
 				name[i] = '.';
 			else if(name[i] == ']')
 				name[i] = 0;
