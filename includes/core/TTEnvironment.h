@@ -13,8 +13,8 @@
 #include "TTHash.h"
 
 
+/**	A function pointer for an instance creation function required to be provided by all classes. */
 typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol* className, TTValue& arguments);
-
 
 
 /****************************************************************************************************/
@@ -28,12 +28,13 @@ typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol* className, TTValue& a
 */
 class TTEXPORT TTEnvironment : public TTObject {
 private:
-	TTHash*		classConstructors;	///< A hash keyed on classNames, and returning an objectConstructor
+	TTHash*		classes;			///< A hash keyed on classNames, and returning a TTClassPtr.
+	TTHash*		tags;				///< A hash keyed on tag names, which map to TTLists of all classes with that tag name.
 	
 public:
-	TTBoolean	debugBasic;			///< Attribute: basic debug functionality is enabled when true
+	TTBoolean	debugBasic;			///< Attribute: basic debug functionality is enabled when true.
 	TTBoolean	debugMessaging;		///< Attribute: should all message traffic be logged?
-	TTUInt32	sr;					///< Current sample rate as understood by the environment as a whole
+	TTUInt32	sr;					///< Current sample rate as understood by the environment as a whole.
 
 	
 	/**	Constructor	*/
@@ -44,17 +45,59 @@ public:
 	virtual ~TTEnvironment();
 
 	
+	/**	Retrieve the environment version number. */
 	TTErr getVersion(TTValue &value);
 
 	
-	/**	Register the unit name, and associate it with the constructor to be called. */
-	TTErr registerClass(TTSymbol* className, TTObjectInstantiationMethod anInstantiationMethod);
+	/**	Register the unit name, and associate it with the constructor to be called. 
+		@param	className				The name of the class to register.
+		@param	tags					A comma-delimited list of tags in a string.
+		@param	anInstantiationMethod	A pointer to the C-function that is used to create a new instance of the class.
+		@return				An error code.	*/
+	TTErr registerClass(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+	
+	
+	/** Remove a class from the environment's registry.	
+		If the executable from which it is loaded is no longer referenced by other classes, then also unload the executable.
+		@param	className	The name of the class to remove the registry.
+		@return				An error code.	
+	TTErr unregisterClass(const TTSymbolPtr className);
+	*/
+	
+	
+	/*
+	TTErr refreshClass(const TTSymbolPtr className)
+	{
+		// TODO: cache class Info (like the path of the extension) here
+		unregisterClass(className);
+		//	registerClass(className);
+	
+		// TODO: now re-load the DLL.
+	}
+	*/
+
+	
+	/**	unload/reload all external classes.
+	NOTE that to do this, we need to keep a piece of information that tags a class as external or internal.
+
+	This probably means that the hash is going to need to map not to a function pointer, 
+	but rather to a struct or an object that keeps all of the class's information bundled together.
+	TTErr refreshAllClasses();
+	*/
 	
 	
 	/**	Retreive the names of all registered #TTObject classes in the environment.
 		@param	unitNames	Pass a #TTValue that will be filled with an array of #TTSymbol pointers with the names of the classes.
 		@return				An error code.	*/
 	TTErr getAllClassNames(TTValue& classNames);
+	
+	
+	/**	Retreive the names of all registered #TTObject classes in the environment that 
+		are associated with the given tag(s). 
+		@param	classNames	An array of TTSymbols upon return.
+		@param	tags		An array of tags by which to search the environment's registry.
+		@return				An error code.	*/
+	TTErr getClassNamesWithTags(TTValue& classNames, const TTValue& searchTags);
 	
 	
 	/**	Create a new instance of a registered #TTObject class.
@@ -71,15 +114,18 @@ public:
 	TTErr createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTUInt16& anArgument);
 	
 	
-	/**	Free an instance of a #TTObject class.
+	/**	Release an instance of a #TTObject class.
+		At the moment this is simply freeing the class, but it may use reference counting in the future 
+		(e.g. for TTBuffer references).
+
 		There are a couple of reasons we want to have this wrapper around the delete operator.
 		- For instrumenting the code to investigate bugs, performance, etc.
 		- So that we can handle any threading, spin-locks, mutexes, or other issues before actually freeing the object.
+		- At some point we may do a more release-like-thing where we reference count for pseudo-garbage-collection.
 
 		@param	unit		A pointer to the unit to free.
 		@return				An error code.	*/
-	TTErr deleteInstance(TTObject* anObject);
-	
+	TTErr releaseInstance(TTObject* anObject);
 	
 };
 
@@ -89,10 +135,10 @@ extern TTEnvironment* ttEnvironment;
 
 
 // Some macros for convenience and API naming-convention consistency
-#define TTClassRegister(className, instantiationMethod) ttEnvironment->registerClass(className, instantiationMethod)
+#define TTClassRegister(className, tags, instantiationMethod) ttEnvironment->registerClass(className, tags, instantiationMethod)
 #define TTGetRegisteredClassNames(classNames) ttEnvironment->getAllClassNames(classNames) 
 #define TTObjectInstantiate(className, anObject, arguments) ttEnvironment->createInstance(className, anObject, arguments)
-#define TTObjectFree(anObject) ttEnvironment->deleteInstance(anObject)
+#define TTObjectRelease(anObject) ttEnvironment->releaseInstance(anObject)
 
 #endif // __TT_ENVIRONMENT_H__
 

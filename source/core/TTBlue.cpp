@@ -29,9 +29,9 @@ void TTBlueInit()
 		TTValueCacheInit();
 		
 #ifdef TT_DEBUG
-		TTLogMessage("TTBlue -- Version 0.5.3 -- Debugging Enabled\n");
+		TTLogMessage("TTBlue -- Version %s -- Debugging Enabled\n", TT_VERSION_STRING);
 #else
-		TTLogMessage("TTBlue -- Version 0.5.3\n");
+		TTLogMessage("TTBlue -- Version %s\n", TT_VERSION_STRING);
 #endif
 		
 		TTBlueRegisterInternalClasses();
@@ -54,12 +54,12 @@ void TTBlueInit()
 
 void TTBlueRegisterInternalClasses()
 {
-	TTClassRegister(TT("buffer"), &TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("crossfade"), &TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("degrade"), &TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("delay"), &TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("operator"), &TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("overdrive"), &TTBlueInstantiateInternalClass);
+	TTClassRegister(TT("buffer"),		"audio, buffer, storage",			&TTBlueInstantiateInternalClass);
+	TTClassRegister(TT("crossfade"),	"audio, processor, mixing",			&TTBlueInstantiateInternalClass);
+	TTClassRegister(TT("degrade"),		"audio, processor, distortion",		&TTBlueInstantiateInternalClass);
+	TTClassRegister(TT("delay"),		"audio, processor, delay",			&TTBlueInstantiateInternalClass);
+	TTClassRegister(TT("operator"),		"audio, processor, math",			&TTBlueInstantiateInternalClass);
+	TTClassRegister(TT("overdrive"),	"audio, processor",					&TTBlueInstantiateInternalClass);
 }
 
 

@@ -130,6 +130,25 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
+		{
+			TTValue		v;
+			
+			ttEnvironment->getAllClassNames(v);
+			for(TTUInt16 i=0; i<v.getSize(); i++){
+				TTSymbolPtr classname;
+				v.get(i, &classname);
+				cpost("All classes: %s\n", classname->getCString());
+			}
+				
+			//ttEnvironment->getClassNamesWithTags(v, TT("storage"));
+			ttEnvironment->getClassNamesWithTags(v, TT("processor"));
+			for(TTUInt16 i=0; i<v.getSize(); i++){
+				TTSymbolPtr classname;
+				v.get(i, &classname);
+				cpost("Tagged classes: %s\n", classname->getCString());
+			}
+		}
+		
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
@@ -146,7 +165,7 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 void overdrive_free(t_overdrive *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectFree(x->overdrive);
+	TTObjectRelease(x->overdrive);
 	delete x->audioIn;
 	delete x->audioOut;
 }

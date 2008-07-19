@@ -56,5 +56,5 @@ public:
 };
 
 
-TT_CLASS_SETUP("clipper", TTClipper);		// Register our class with the TTBlue environment
+TT_CLASS_SETUP("clipper", "audio, processor", TTClipper);		// Register our class with the TTBlue environment
 

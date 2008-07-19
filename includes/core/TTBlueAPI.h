@@ -72,12 +72,12 @@
 
 /** A macro for setting up the class binding to the library in extension classes. 
 	@param strname A C-string that names the object as it should be listed in the environment. */
-#define TT_CLASS_SETUP(strname, className)\
+#define TT_CLASS_SETUP(strname, tags, className)\
 \
 extern "C" TTObject* instantiate ## className (TTSymbol*, TTValue& arguments) \
 {\
 TTUInt16 numChannels = 1;\
-if(arguments.getNumValues())\
+if(arguments.getSize())\
 numChannels = arguments;\
 return new TTClipper(numChannels);\
 }\
@@ -85,7 +85,7 @@ return new TTClipper(numChannels);\
 extern "C" TTErr loadTTExtension(void)\
 {\
 TTBlueInit();\
-TTClassRegister(TT(strname), & instantiate ## className);\
+TTClassRegister(TT(strname), tags, & instantiate ## className);\
 return kTTErrNone;\
 }
 
