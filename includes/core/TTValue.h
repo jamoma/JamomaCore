@@ -257,6 +257,8 @@ public:
 	void append(const TTString& newValue);
 	void append(const TTObject& newValue);
 	void append(const TTPtr newValue);
+	void append(const TTValue* newValue);
+
 
 // TODO: implement this!	
 //	TTValue& operator [] (int)

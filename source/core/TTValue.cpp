@@ -887,6 +887,12 @@ void TTValue::append(const TTPtr newValue)
 	set(numValues-1, newValue);
 }
 
+void TTValue::append(const TTValue* newValue)
+{
+	setSize(numValues + 1);
+	data[numValues-1] = newValue->data[0];
+	type[numValues-1] = newValue->type[0];
+}
 
 
 
@@ -895,7 +901,6 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 	TTString	str;
 	char*		cStr;
 	char*		current;
-//	char*		whiteSpace;
 	
 	if(*type != kTypeString)
 		return kTTErrInvalidType;
