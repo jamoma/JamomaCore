@@ -130,6 +130,7 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
+		/*
 		{
 			TTValue		v;
 			
@@ -148,6 +149,7 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 				cpost("Tagged classes: %s\n", classname->getCString());
 			}
 		}
+		*/
 		
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
