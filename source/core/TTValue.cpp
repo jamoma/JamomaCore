@@ -106,6 +106,7 @@ TTValue::TTValue(TTString& initialValue)
 	init();
 	data->stringPtr = new TTString(initialValue);
 	*type = kTypeString;
+	stringsPresent = true;
 }
 
 TTValue::TTValue(TTObject& initialValue)
@@ -113,7 +114,6 @@ TTValue::TTValue(TTObject& initialValue)
 	init();
 	data->object = &initialValue;
 	*type = kTypeObject;
-	stringsPresent = true;
 }
 
 TTValue::TTValue(const TTValue& obj)
