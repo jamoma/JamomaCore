@@ -43,6 +43,7 @@ TTQueue::~TTQueue()
 // main loop for the queue
 void* TTQueue::run()
 {
+/*
 	TTListItem*	objectItem;
 	TTObject*	object;
 	TTListItem*	messageItem;
@@ -64,6 +65,7 @@ void* TTQueue::run()
 		TTThread::sleep(40);	// 24 fps
 		// do we want to check every 40 ms?  Or do we want to kill the thread and re-create it only when it is needed?
 	}
+ */
 	return NULL;
 }
 
