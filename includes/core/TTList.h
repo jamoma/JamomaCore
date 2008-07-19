@@ -11,57 +11,49 @@
 
 #include "TTElement.h"
 #include "TTValue.h"
+#include <list>
+using namespace std;
+
+
+typedef list<TTValue*>::iterator	TTListIter;
 
 /****************************************************************************************************/
 // Class Specification
 
-struct TTListItem {
-	TTValue*		value;
-	TTListItem*		prev;
-	TTListItem*		next;
-};
-	
-
 class TTEXPORT TTList : TTElement {
 private:
-	TTValue*		list;
-	TTUInt32		size;			///< number of items stored in the list
-	TTListItem*		head;
-	TTListItem*		tail;
-	TTListItem*		currentItem;
-	
-	/** utility used by both remove() and clear()  */
-	void doRemove(TTListItem* item);
+	list<TTValue*>	theList;
 	
 public:
 	TTList();
 	virtual ~TTList();
 
-	/** return the number of values in the list. */
+	/** Determine the number of values in the list.
+		@return	The count of the values in the list.	*/
 	TTUInt32 getSize();
 	
-	/** return the number of values in the list. */
-	TTListItem* getHead(TTValue& headValue);
+	/** Return the first value in the list. 
+		@return	The first value in the list.			*/
+	TTValue& getHead();
 	
-	/** return the number of values in the list. */
-	TTListItem* getTail(TTValue& tailValue);
+	/** Return the last value in the list.
+		@return	The last value in the list.				*/
+	TTValue& getTail();
 	
-	/** appends a value to the list. */
-	void append(TTValue& newValue);
+	/** Appends a value to the list. 
+		@param	newValue	The value to add to the list.  */
+	void append(const TTValue& newValue);
 
-// how to know where to insert it?	
-//	void insert(TTValue* newItem);
-
-	/** remove a specified item. */
-	void remove(TTValue& value);
-	void remove(TTListItem* item);
+	/** Remove the specified value. 
+		This doesn't change the value or free it, it just removed the pointer to it from the list.
+		@param	The value to remove.					*/
+	void remove(const TTValue& value);
 	
-	/** remove all items from the list */
+	/** Remove all values from the list					*/
 	void clear();
 
-	/** find the first item with this value, and return it. */
-	TTListItem* findFirst(TTValue* value);
-	
+	/**	Assign the contents of the list to a value as an array.	*/
+	void TTList::assignToValue(TTValue& value);
 };
 
 
