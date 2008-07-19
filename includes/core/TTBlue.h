@@ -9,6 +9,8 @@
 #ifndef __TT_BLUE_H__
 #define __TT_BLUE_H__
 
+#define TT_VERSION_STRING "0.5.3"
+
 #include "TTElement.h"
 #include "TTThread.h"
 #include "TTSymbolCache.h"
