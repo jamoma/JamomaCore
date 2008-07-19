@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2207735B0D70B71300AE077B /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207735A0D70B71300AE077B /* TTList.cpp */; };
+		22145BB80E313B0A008C1F5F /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22145BB70E313B0A008C1F5F /* TTClass.cpp */; };
+		22145BBA0E313B13008C1F5F /* TTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22145BB90E313B13008C1F5F /* TTClass.h */; };
 		221DED1D0D6BC722000799BA /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 221DED1C0D6BC722000799BA /* TTMutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221DED1E0D6BC739000799BA /* TTMutex.cpp */; };
 		222A37170E1987D000C72891 /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222A37160E1987D000C72891 /* TTBuffer.cpp */; };
@@ -128,6 +130,8 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2207735A0D70B71300AE077B /* TTList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTList.cpp; path = ../source/core/TTList.cpp; sourceTree = SOURCE_ROOT; };
+		22145BB70E313B0A008C1F5F /* TTClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClass.cpp; path = ../source/core/TTClass.cpp; sourceTree = SOURCE_ROOT; };
+		22145BB90E313B13008C1F5F /* TTClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClass.h; path = ../includes/core/TTClass.h; sourceTree = SOURCE_ROOT; };
 		221DED1C0D6BC722000799BA /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = ../includes/core/TTMutex.h; sourceTree = SOURCE_ROOT; };
 		221DED1E0D6BC739000799BA /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = ../source/core/TTMutex.cpp; sourceTree = SOURCE_ROOT; };
 		222A37160E1987D000C72891 /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBuffer.cpp; path = ../source/units/TTBuffer.cpp; sourceTree = SOURCE_ROOT; };
@@ -304,6 +308,8 @@
 				22569C310D3E417E00328864 /* TTAudioSignal.cpp */,
 				225385560D710FFF00E5E5FB /* TTBlue.h */,
 				225385480D710FAF00E5E5FB /* TTBlue.cpp */,
+				22145BB90E313B13008C1F5F /* TTClass.h */,
+				22145BB70E313B0A008C1F5F /* TTClass.cpp */,
 				22398C260E25098800A5F732 /* TTEnvironment.h */,
 				22398C240E25097100A5F732 /* TTEnvironment.cpp */,
 				221DED1C0D6BC722000799BA /* TTMutex.h */,
@@ -559,6 +565,7 @@
 				22398BCF0E244F7300A5F732 /* TTAllpass.h in Headers */,
 				22398C270E25098800A5F732 /* TTEnvironment.h in Headers */,
 				22B66A330E298B1D00CB474E /* TTHash.h in Headers */,
+				22145BBA0E313B13008C1F5F /* TTClass.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +695,7 @@
 				22398BCD0E244F5800A5F732 /* TTAllpass.cpp in Sources */,
 				22398C250E25097100A5F732 /* TTEnvironment.cpp in Sources */,
 				22B66A310E298B0500CB474E /* TTHash.cpp in Sources */,
+				22145BB80E313B0A008C1F5F /* TTClass.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
