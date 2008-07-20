@@ -39,7 +39,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object 	*attr = NULL;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 #ifdef JCOM_OUT_TILDE
@@ -111,6 +111,7 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->preview_object = NULL;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
+		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix is false
 		x->attr_algorithm_type = _sym_nothing;
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
