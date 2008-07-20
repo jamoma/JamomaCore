@@ -239,6 +239,7 @@ if("#{configuration}" == "Development")
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.limiter~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.limiter~.mxo")
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.overdrive~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.overdrive~.mxo")
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.ramp~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.ramp~.mxo")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.xfade~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.xfade~.mxo")
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.zerox~.mxo",     "#{@svn_root}Jamoma/library/externals/mac/tt.zerox~.mxo")
 else
   puts "copying Deployment"
@@ -250,6 +251,7 @@ else
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.limiter~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.limiter~.mxo")
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.overdrive~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.overdrive~.mxo")
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.ramp~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.ramp~.mxo")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.xfade~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.xfade~.mxo")
   copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.zerox~.mxo",    "#{@svn_root}Jamoma/library/externals/mac/tt.zerox~.mxo")
 end
 puts ""
