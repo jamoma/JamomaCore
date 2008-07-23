@@ -5,12 +5,61 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='max_bands' type='msg_int'>0</item>
-    <item name='bands' type='msg_int'>5</item>
-    <item name='audio/mute' type='msg_toggle'>1</item>
-    <item name='audio/mix' type='msg_float'>100.000000</item>
-    <item name='audio/meters/freeze' type='msg_toggle'>0</item>
-    <item name='audio/gain' type='msg_float'>0</item>
-    <item name='audio/bypass' type='msg_toggle'>0</item>
+    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
+    <item name='bands' type='msg_int' priority='0'>5</item>
+    <item name='filter/Q.1' type='msg_float' priority='0'>2.840907</item>
+    <item name='filter/Q.2' type='msg_float' priority='0'>1.622036</item>
+    <item name='filter/Q.3' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter/Q.4' type='msg_float' priority='0'>1.389894</item>
+    <item name='filter/Q.5' type='msg_float' priority='0'>2.127070</item>
+    <item name='filter/freq.1' type='msg_float' priority='0'>100</item>
+    <item name='filter/freq.2' type='msg_float' priority='0'>250.000000</item>
+    <item name='filter/freq.3' type='msg_float' priority='0'>500</item>
+    <item name='filter/freq.4' type='msg_float' priority='0'>1000</item>
+    <item name='filter/freq.5' type='msg_float' priority='0'>5000</item>
+    <item name='filter/gain.1' type='msg_float' priority='0'>0</item>
+    <item name='filter/gain.2' type='msg_float' priority='0'>0</item>
+    <item name='filter/gain.3' type='msg_float' priority='0'>0</item>
+    <item name='filter/gain.4' type='msg_float' priority='0'>0</item>
+    <item name='filter/gain.5' type='msg_float' priority='0'>0</item>
+    <item name='filter/type.1' type='msg_symbol' priority='0'>lowshelf</item>
+    <item name='filter/type.2' type='msg_symbol' priority='0'>peaknotch</item>
+    <item name='filter/type.3' type='msg_symbol' priority='0'>peaknotch</item>
+    <item name='filter/type.4' type='msg_symbol' priority='0'>peaknotch</item>
+    <item name='filter/type.5' type='msg_symbol' priority='0'>highshelf</item>
+    <item name='max_bands' type='msg_int' priority='-1'>5</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+  <preset number='2' name='notches'>
+    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
+    <item name='bands' type='msg_int' priority='0'>5</item>
+    <item name='filter/Q.1' type='msg_float' priority='0'>2.840907</item>
+    <item name='filter/Q.2' type='msg_float' priority='0'>1.622036</item>
+    <item name='filter/Q.3' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter/Q.4' type='msg_float' priority='0'>1.389894</item>
+    <item name='filter/Q.5' type='msg_float' priority='0'>2.127070</item>
+    <item name='filter/freq.1' type='msg_float' priority='0'>93.142784</item>
+    <item name='filter/freq.2' type='msg_float' priority='0'>256.040649</item>
+    <item name='filter/freq.3' type='msg_float' priority='0'>587.827576</item>
+    <item name='filter/freq.4' type='msg_float' priority='0'>1483.510986</item>
+    <item name='filter/freq.5' type='msg_float' priority='0'>5000.000000</item>
+    <item name='filter/gain.1' type='msg_float' priority='0'>0.327712</item>
+    <item name='filter/gain.2' type='msg_float' priority='0'>8.077622</item>
+    <item name='filter/gain.3' type='msg_float' priority='0'>9.626923</item>
+    <item name='filter/gain.4' type='msg_float' priority='0'>7.561152</item>
+    <item name='filter/gain.5' type='msg_float' priority='0'>0.000000</item>
+    <item name='filter/type.1' type='msg_symbol' priority='0'>lowshelf</item>
+    <item name='filter/type.2' type='msg_symbol' priority='0'>peaknotch</item>
+    <item name='filter/type.3' type='msg_symbol' priority='0'>peaknotch</item>
+    <item name='filter/type.4' type='msg_symbol' priority='0'>peaknotch</item>
+    <item name='filter/type.5' type='msg_symbol' priority='0'>highshelf</item>
+    <item name='max_bands' type='msg_int' priority='0'>5</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
