@@ -10,23 +10,23 @@
     <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
     <item name='bands' type='msg_int' priority='0'>5</item>
-    <item name='filter.1/Q' type='msg_float' priority='0'>1.000000</item>
+    <item name='filter.1/Q' type='msg_float' priority='0'>2.000000</item>
     <item name='filter.1/freq' type='msg_float' priority='0'>100.353867</item>
     <item name='filter.1/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='filter.1/type' type='msg_symbol' priority='0'>lowshelf</item>
-    <item name='filter.2/Q' type='msg_float' priority='0'>1.000000</item>
+    <item name='filter.2/Q' type='msg_float' priority='0'>2.000000</item>
     <item name='filter.2/freq' type='msg_float' priority='0'>250.000000</item>
     <item name='filter.2/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='filter.2/type' type='msg_symbol' priority='0'>peaknotch</item>
-    <item name='filter.3/Q' type='msg_float' priority='0'>1.000000</item>
+    <item name='filter.3/Q' type='msg_float' priority='0'>2.000000</item>
     <item name='filter.3/freq' type='msg_float' priority='0'>500.000000</item>
     <item name='filter.3/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='filter.3/type' type='msg_symbol' priority='0'>peaknotch</item>
-    <item name='filter.4/Q' type='msg_float' priority='0'>1.000000</item>
+    <item name='filter.4/Q' type='msg_float' priority='0'>2.000000</item>
     <item name='filter.4/freq' type='msg_float' priority='0'>1000.000000</item>
     <item name='filter.4/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='filter.4/type' type='msg_symbol' priority='0'>peaknotch</item>
-    <item name='filter.5/Q' type='msg_float' priority='0'>1.000000</item>
+    <item name='filter.5/Q' type='msg_float' priority='0'>2.000000</item>
     <item name='filter.5/freq' type='msg_float' priority='0'>5000.000000</item>
     <item name='filter.5/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='filter.5/type' type='msg_symbol' priority='0'>highshelf</item>
@@ -37,73 +37,73 @@
     <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='bands' type='msg_int' priority='-5'>5</item>
+    <item name='bands' type='msg_int' priority='-5'>24</item>
     <item name='filter.1/Q' type='msg_float' priority='0'>3.827188</item>
     <item name='filter.1/freq' type='msg_float' priority='0'>76.296318</item>
     <item name='filter.1/gain' type='msg_float' priority='0'>-3.809515</item>
     <item name='filter.1/type' type='msg_symbol' priority='0'>lowshelf</item>
-    <item name='filter.10/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.10/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.10/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.10/freq' type='msg_float' priority='0'>1537.734375</item>
     <item name='filter.10/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.10/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.11/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.11/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.11/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.11/freq' type='msg_float' priority='0'>2306.601562</item>
     <item name='filter.11/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.11/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.12/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.12/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.12/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.12/freq' type='msg_float' priority='0'>3459.902344</item>
     <item name='filter.12/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.12/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.13/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.13/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.13/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.13/freq' type='msg_float' priority='0'>5189.853516</item>
     <item name='filter.13/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.13/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.14/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.14/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.14/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.14/freq' type='msg_float' priority='0'>7784.780273</item>
     <item name='filter.14/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.14/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.15/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.15/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.15/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.15/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.15/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.15/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.16/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.16/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.16/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.16/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.16/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.16/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.17/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.17/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.17/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.17/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.17/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.17/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.18/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.18/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.18/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.18/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.18/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.18/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.19/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.19/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.19/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.19/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.19/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.19/type' type='msg_symbol' priority='0'>0</item>
     <item name='filter.2/Q' type='msg_float' priority='0'>1.622036</item>
     <item name='filter.2/freq' type='msg_float' priority='0'>249.840424</item>
     <item name='filter.2/gain' type='msg_float' priority='0'>8.077622</item>
     <item name='filter.2/type' type='msg_symbol' priority='0'>peaknotch</item>
-    <item name='filter.20/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.20/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.20/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.20/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.20/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.20/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.21/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.21/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.21/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.21/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.21/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.21/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.22/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.22/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.22/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.22/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.22/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.22/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.23/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.23/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.23/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.23/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.23/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.23/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.24/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.24/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.24/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.24/freq' type='msg_float' priority='0'>11025.000000</item>
     <item name='filter.24/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.24/type' type='msg_symbol' priority='0'>0</item>
     <item name='filter.3/Q' type='msg_float' priority='0'>2.626408</item>
@@ -118,20 +118,20 @@
     <item name='filter.5/freq' type='msg_float' priority='0'>5384.319824</item>
     <item name='filter.5/gain' type='msg_float' priority='0'>-20.449438</item>
     <item name='filter.5/type' type='msg_symbol' priority='0'>highshelf</item>
-    <item name='filter.6/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.6/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.6/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.6/freq' type='msg_float' priority='0'>303.750000</item>
     <item name='filter.6/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.6/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.7/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.7/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.7/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.7/freq' type='msg_float' priority='0'>455.625000</item>
     <item name='filter.7/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.7/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.8/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.8/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.8/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.8/freq' type='msg_float' priority='0'>683.437500</item>
     <item name='filter.8/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.8/type' type='msg_symbol' priority='0'>0</item>
-    <item name='filter.9/Q' type='msg_float' priority='0'>0</item>
-    <item name='filter.9/freq' type='msg_float' priority='0'>0</item>
+    <item name='filter.9/Q' type='msg_float' priority='0'>2.500000</item>
+    <item name='filter.9/freq' type='msg_float' priority='0'>1025.156250</item>
     <item name='filter.9/gain' type='msg_float' priority='0'>0</item>
     <item name='filter.9/type' type='msg_symbol' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
