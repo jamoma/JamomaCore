@@ -22,7 +22,10 @@ typedef list<TTValue*>::iterator	TTListIter;
 
 class TTEXPORT TTList : TTElement {
 private:
-	list<TTValue*>	theList;
+	#ifdef TT_PLATFORM_WIN
+	#pragma warning(disable:4251)
+	#endif
+	std::list<TTValue*>	theList;
 	
 public:
 	TTList();
