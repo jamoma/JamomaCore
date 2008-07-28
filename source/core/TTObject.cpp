@@ -460,33 +460,33 @@ TTErr TTObject::sendMessage(const TTSymbolPtr name, TTValue& value)
 
 TTErr TTObject::registerObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName)
 {
-
+	return kTTErrGeneric;
 }
 
 TTErr TTObject::registerObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName)
 {
-
+	return kTTErrGeneric;
 }
 
 TTErr TTObject::registerObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName)
 {
-
+	return kTTErrGeneric;
 }
 
 
 TTErr TTObject::unregisterObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName)
 {
-
+	return kTTErrGeneric;
 }
 
 TTErr TTObject::unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName)
 {
-
+	return kTTErrGeneric;
 }
 
 TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName)
 {
-
+	return kTTErrGeneric;
 }
 
 
