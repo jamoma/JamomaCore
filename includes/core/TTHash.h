@@ -11,13 +11,16 @@
 
 #include "TTElement.h"
 #include "TTValue.h"
+#ifdef TT_PLATFORM_MAC
 #include <hash_map.h>
-
+#else
+#include <hash_map>
+using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespace
+#endif
 
 /**	A type that contains a key and a value. */
 typedef pair<TTPtrSizedInt,TTValue>						TTKeyVal;
 typedef hash_map<TTPtrSizedInt,TTValue>::const_iterator TTHashIter;
-
 
 
 /****************************************************************************************************/
@@ -37,6 +40,9 @@ typedef hash_map<TTPtrSizedInt,TTValue>::const_iterator TTHashIter;
 */
 class TTEXPORT TTHash : TTElement {
 private:
+	#ifdef TT_PLATFORM_WIN
+	#pragma warning(disable:4251)
+	#endif
 	hash_map<TTPtrSizedInt,TTValue>	hashMap;
 	
 public:
