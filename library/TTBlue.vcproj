@@ -48,7 +48,7 @@
 				AdditionalIncludeDirectories="../includes/core;../includes/units"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT"
 				MinimalRebuild="true"
-				ExceptionHandling="0"
+				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				StructMemberAlignment="2"
@@ -130,7 +130,7 @@
 				Optimization="2"
 				AdditionalIncludeDirectories="../includes/core;../includes/units"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT"
-				ExceptionHandling="0"
+				ExceptionHandling="1"
 				RuntimeLibrary="2"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
@@ -216,6 +216,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\source\core\TTClass.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\source\core\TTDataObject.cpp"
 				>
 			</File>
@@ -236,11 +240,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\source\core\TTGlobal.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\includes\core\TTGlobal.h"
+				RelativePath="..\source\core\TTHash.cpp"
 				>
 			</File>
 			<File
