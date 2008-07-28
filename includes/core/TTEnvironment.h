@@ -131,7 +131,7 @@ public:
 
 
 /** The environment object has one instance, which is global in scope. */
-extern TTEnvironment* ttEnvironment;
+extern TTEXPORT TTEnvironment* ttEnvironment;
 
 
 // Some macros for convenience and API naming-convention consistency
