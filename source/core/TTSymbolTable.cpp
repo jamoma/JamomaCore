@@ -19,7 +19,8 @@ TTSymbolTable::TTSymbolTable()
 {
 	if(!sMutex)
 		sMutex = new TTMutex(true);
-	symbolTable.insert(TTSymbolTablePair("", new TTSymbol("", 0))); 
+	symbolTable = new TTSymbolTableHash;
+	symbolTable->insert(TTSymbolTablePair("", new TTSymbol("", 0))); 
 }
 
 
@@ -27,10 +28,10 @@ TTSymbolTable::~TTSymbolTable()
 {
 	TTSymbolTableIter	iter;
 
-	for(iter = symbolTable.begin(); iter != symbolTable.end(); iter++)
+	for(iter = symbolTable->begin(); iter != symbolTable->end(); iter++)
 		delete TTSymbolPtr(iter->second);
-	symbolTable.clear();
-	
+	symbolTable->clear();
+	delete symbolTable;
 	// TODO: we should reference count symbol tables and then free the mutex here, yes?
 }
 
@@ -41,12 +42,12 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 
 	sMutex->lock();
 	
-	iter = symbolTable.find(aString);
-	if(iter == symbolTable.end()){
+	iter = symbolTable->find(aString);
+	if(iter == symbolTable->end()){
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbol *newSymbol = new TTSymbol(aString, symbolTable.size());
-		symbolTable.insert(TTSymbolTablePair(aString, newSymbol)); 
+		TTSymbol *newSymbol = new TTSymbol(aString, symbolTable->size());
+		symbolTable->insert(TTSymbolTablePair(aString, newSymbol)); 
 		sMutex->unlock();
 		return newSymbol; 
 	}
@@ -70,7 +71,7 @@ void TTSymbolTable::dump(TTValue& allSymbols)
 	
 	TTLogMessage("---- DUMPING SYMBOL TABLE -- BEGIN ----\n");
 	allSymbols.clear();
-	for(iter = symbolTable.begin(); iter != symbolTable.end(); iter++){
+	for(iter = symbolTable->begin(); iter != symbolTable->end(); iter++){
 		allSymbols.append(TTSymbolPtr(iter->second));
 		TTLogMessage("KEY:%s   VALUE:%s\n", iter->first, TTSymbolPtr(iter->second)->getCString());
 	}
