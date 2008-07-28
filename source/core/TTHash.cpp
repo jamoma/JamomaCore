@@ -18,29 +18,29 @@ TTHash::TTHash()
 {
 	if(!sListMutex)
 		sListMutex = new TTMutex(false);
-
+	hashMap = new TTHashMap;
 }
 
 
 TTHash::~TTHash()
 {
-	hashMap.clear();
+	hashMap->clear();
+	delete hashMap;
 }
 
 
 TTErr TTHash::append(const TTSymbolPtr key, const TTValue& value)
 {
-	hashMap.insert(TTKeyVal(TTPtrSizedInt(key), value));
+	hashMap->insert(TTKeyVal(TTPtrSizedInt(key), value));
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 {
-	TTHashIter iter;
+	TTHashMapIter iter = hashMap->find(TTPtrSizedInt(key));
 
-	iter = hashMap.find(TTPtrSizedInt(key));
-	if(iter == hashMap.end())
+	if(iter == hashMap->end())
 		return kTTErrGeneric;
 	else{
 		value = iter->second;
@@ -51,24 +51,22 @@ TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 
 TTErr TTHash::remove(const TTSymbolPtr key)
 {
-	hashMap.erase(TTPtrSizedInt(key));
+	hashMap->erase(TTPtrSizedInt(key));
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::clear()
 {
-	hashMap.clear();
+	hashMap->clear();
 	return kTTErrNone;
 }
 
 
 TTErr TTHash::getKeys(TTValue& hashKeys)
 {
-	TTHashIter	iter;
-	
 	hashKeys.clear();
-	for(iter = hashMap.begin(); iter != hashMap.end(); iter++)	
+	for(TTHashMapIter iter = hashMap->begin(); iter != hashMap->end(); iter++)	
 		hashKeys.append(TTSymbolPtr(iter->first));
 	return kTTErrNone;
 }
@@ -76,6 +74,6 @@ TTErr TTHash::getKeys(TTValue& hashKeys)
 
 TTUInt32 TTHash::getSize()
 {
-	return hashMap.size();
+	return hashMap->size();
 }
 
