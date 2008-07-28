@@ -19,8 +19,9 @@ using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespac
 #endif
 
 /**	A type that contains a key and a value. */
-typedef pair<TTPtrSizedInt,TTValue>						TTKeyVal;
-typedef hash_map<TTPtrSizedInt,TTValue>::const_iterator TTHashIter;
+typedef pair<TTPtrSizedInt,TTValue>			TTKeyVal;
+typedef hash_map<TTPtrSizedInt,TTValue>		TTHashMap;
+typedef TTHashMap::const_iterator			TTHashMapIter;
 
 
 /****************************************************************************************************/
@@ -40,10 +41,10 @@ typedef hash_map<TTPtrSizedInt,TTValue>::const_iterator TTHashIter;
 */
 class TTEXPORT TTHash : TTElement {
 private:
-	#ifdef TT_PLATFORM_WIN
-	#pragma warning(disable:4251)
-	#endif
-	hash_map<TTPtrSizedInt,TTValue>	hashMap;
+//	#ifdef TT_PLATFORM_WIN
+//	#pragma warning(disable:4251)
+//	#endif
+	TTHashMap*	hashMap;
 	
 public:
 	TTHash();
