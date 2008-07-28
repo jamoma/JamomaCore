@@ -35,7 +35,7 @@ QueueRamp::~QueueRamp()
 
 void QueueRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time)
 {
-	short i;
+	TTUInt32 i;
 	
 	ramptime 	= time;
 	startTime	= systime_ms();
@@ -62,7 +62,7 @@ void QueueRamp::stop()
 void QueueRamp::tick()
 {
 	unsigned long 	currentTime = systime_ms();
-	short			i;
+	TTUInt32		i;
 	double			mapped;
 	double			*current = currentValue;
 	double			*target = targetValue;

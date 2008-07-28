@@ -44,7 +44,7 @@ RampUnit::~RampUnit()
 
 void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 {
-	short i;
+	TTUInt32 i;
 	
 	stop();
 	setNumValues(newNumValues);
