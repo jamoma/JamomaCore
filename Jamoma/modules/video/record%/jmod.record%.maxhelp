@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 30.0, 89.0, 594.0, 439.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 30.0, 89.0, 594.0, 439.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,
@@ -31,7 +30,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.record%.mxt",
+					"text" : "jmod.record%",
 					"numinlets" : 1,
 					"patching_rect" : [ 18.0, 26.0, 189.0, 28.0 ],
 					"numoutlets" : 0,

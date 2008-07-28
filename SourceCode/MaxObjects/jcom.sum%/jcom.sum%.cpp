@@ -9,26 +9,11 @@
 
 #include "jamoma.h"			// Required for all Max External Objects
 //#include "ext_path.h"		// Includes READ_PERM define   
+#undef CLIP	// supress warnings about redefining these
+#undef MAX	//	...
+#undef MIN	//	...
 #include "jit.common.h"		// Required for all Max External Objects
 
-#ifdef WIN_VERSION
- #ifdef __GNUC__
- t_symbol *_jit_sym_register;
- t_symbol *_jit_sym_char;
- t_symbol *_jit_sym_long;
- t_symbol *_jit_sym_float32;
- t_symbol *_jit_sym_float64;
- t_symbol *_jit_sym_list;
- t_symbol *_jit_sym_jit_matrix;
- t_symbol *_jit_sym_class_jit_matrix;
- t_symbol *_jit_sym_lock;
- t_symbol *_jit_sym_setinfo;
- t_symbol *_jit_sym_getinfo;
- t_symbol *_jit_sym_getdata;
- t_symbol *_jit_sym_clear;
- t_symbol *_jit_sym_err_calculate;
- #endif //__GNUC__
-#endif //WIN_VERSION
 
 #define MATRIX_GET_CHAR_2D(bp,info,plane,x,y) \
 	(*(((uchar *)(bp))+(plane)+((info)->dimstride[0]*(x))+((info)->dimstride[1]*(y))))
@@ -54,36 +39,13 @@
 #define MATRIX_SET_FLOAT64_2D(bp,info,plane,x,y,val) \
 	(*(double *)(((uchar *)(bp))+(plane*8)+((info)->dimstride[0]*(x))+((info)->dimstride[1]*(y)))=(val))
 
-#ifdef WIN_VERSION
-#ifdef __GNUC__
- void init_jit_symbols(void)
- {
-	 _jit_sym_register = gensym("register");
-	 _jit_sym_char = gensym("char");
-	 _jit_sym_long = gensym("long");
-	 _jit_sym_float32 = gensym("float32");
-	 _jit_sym_float64 = gensym("float64");
-	 _jit_sym_list = gensym("list");
-	 _jit_sym_jit_matrix = gensym("jit_matrix");
-	 _jit_sym_class_jit_matrix = gensym("class_jit_matrix");
-	 _jit_sym_lock = gensym("lock");
-	 _jit_sym_setinfo = gensym("setinfo");
-	 _jit_sym_getinfo = gensym("getinfo");
-	 _jit_sym_getdata = gensym("getdata");
-	 _jit_sym_clear = gensym("clear");
-	 _jit_sym_err_calculate = gensym("err_calculate");
- }
-#endif //__GNUC__
-#endif //WIN_VERSION
 
-typedef struct _jit_sum 
-{
-	t_object			ob;
-	void				*obex;
-	void 				*valout;
-	char				mode; 			// mode 0: normal operation, mode 1: change notification
-	void				*matrix;		// pointer to the internal matrix used in change detection
-	t_symbol			*matrix_name;	// name of the internal matrix
+typedef struct _jit_sum {
+	t_object	ob;
+	void*		valout;			// pointer to our outlet
+	char		mode; 			// mode 0: normal operation, mode 1: change notification
+	void*		matrix;			// pointer to the internal matrix used in change detection
+	t_symbol*	matrix_name;	// name of the internal matrix
 } t_jit_sum;
 
 
@@ -96,8 +58,8 @@ void jit_sum_change_calculate_ndim(t_jit_sum *x, t_jit_matrix_info *in_minfo, ch
 
 
 // Globals
-t_class 	*jit_sum_class;
-t_symbol	*ps_done;
+static t_class*	s_jit_sum_class;
+
 		 	
 
 /**************************************************************************************/
@@ -105,20 +67,15 @@ t_symbol	*ps_done;
 
 int main(void)
 {	
-	long attrflags = 0;
-	t_class *c;
-	t_object *attr;
+	long		attrflags = 0;
+	t_class*	c;
+	t_object*	attr;
 	
 	jamoma_init();
-#ifdef WIN_VERSION 
-#ifdef __GNUC__
-	init_jit_symbols();
-#endif
-#endif
-
-	c = class_new("tap.jit.sum", (method)jit_sum_new, (method)jit_sum_free, (short)sizeof(t_jit_sum), 
+	common_symbols_init();
+	
+	c = class_new("jcom.sum%", (method)jit_sum_new, (method)jit_sum_free, sizeof(t_jit_sum), 
 		(method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_jit_sum, obex));
 
     class_addmethod(c, (method)jit_sum_jit_matrix,	"jit_matrix", A_GIMME, 0L);		//at beginning of messlist for speed
     class_addmethod(c, (method)jit_sum_assist,		"assist", A_CANT, 0L); 
@@ -128,11 +85,8 @@ int main(void)
 		(method)0, (method)0L, calcoffset(t_jit_sum, mode));
 	class_addattr(c, attr);	
 
-	// this is very important!
-    class_register(CLASS_BOX, c);
-    jit_sum_class = c;
-    
-    ps_done = gensym("done");
+    class_register(_sym_box, c);
+    s_jit_sum_class = c;
     return 0;
 }
 
@@ -146,20 +100,20 @@ void *jit_sum_new(t_symbol *s, long argc, t_atom *argv)
 	void 				*m;		// pointer to a matrix (used for output)
 	t_jit_matrix_info	info;	// matrix info parameters to set for out matrix
 
-	x = (t_jit_sum *)object_alloc(jit_sum_class);
+	x = (t_jit_sum*)object_alloc(s_jit_sum_class);
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
-		x->valout 	= outlet_new(x,0L);
-		x->mode = 0;
+		x->valout = outlet_new(x,0L);
 		attr_args_process(x,argc,argv); //handle attribute args	
 		
 		// Set up a matrix for writing to...
 		x->matrix_name = jit_symbol_unique();
 		jit_matrix_info_default(&info);									// Follow this up with any values I want to set...
-		m = jit_object_new(_jit_sym_jit_matrix, &info);					// Create new jitter(matrix) object
-		m = jit_object_method(m, _jit_sym_register, x->matrix_name);	// Register the matrix object
-		if(!m) error("tap.jit.sum: couldn't allocate/register matrix");
-		jit_object_method(m, _jit_sym_clear);							// Clear the matrix contents
+		m = jit_object_new(_sym_jit_matrix, &info);						// Create new jitter(matrix) object
+		m = jit_object_method(m, _sym_register, x->matrix_name);		// Register the matrix object
+		if(!m)
+			object_error((t_object*)x, "couldn't allocate/register matrix");
+		jit_object_method(m, _sym_clear);								// Clear the matrix contents
 		jit_object_attach(x->matrix_name, x);							// Attach this Max object to the registered Jitter object
 		x->matrix = m;													// Store the pointer in our object's struct
 	}
@@ -234,7 +188,7 @@ void jit_sum_jit_matrix(t_jit_sum *x, t_symbol *s, long argc, t_atom *argv)
 
 			
 			jit_object_method(matrix, _jit_sym_lock, in_savelock);				
-			max_jit_obex_dumpout(x, ps_done, 0, 0L);			
+			max_jit_obex_dumpout(x, jps_done, 0, 0L);			
 		} else {
 			jit_error_sym(x,_jit_sym_err_calculate);
 		}
@@ -467,7 +421,7 @@ void jit_sum_change_calculate_ndim(t_jit_sum *x, t_jit_matrix_info *in_minfo, ch
 	long dim_x = in_minfo->dim[0], dim_y = in_minfo->dim[1], dim_z = in_minfo->dim[2];
 	
 	if(in_minfo->planecount > 1){
-		error("tap.jit.sum in mode 1: cannot function on multi-plane matrices");
+		object_error((t_object*)x, "mode 1: cannot function on multi-plane matrices");
 		return;
 	}
 	
@@ -531,7 +485,7 @@ void jit_sum_change_calculate_ndim(t_jit_sum *x, t_jit_matrix_info *in_minfo, ch
 				}
 			break;
 			default:
-				error("tap.jit.sum in mode 1: cannot currently function on matrices with more than 3 dimensions");
+				object_error((t_object*)x, "mode 1: cannot currently function on matrices with more than 3 dimensions");
 				return;
 		}
 		return;  // matrix did not change
@@ -559,7 +513,7 @@ output:
 	}
 	
 	else{
-		error("tap.jit.sum in mode 1: cannot function on non-float32 matrices");
+		object_error((t_object*)x, "mode 1: cannot function on non-float32 matrices");
 		return;		
 	}
 bye:

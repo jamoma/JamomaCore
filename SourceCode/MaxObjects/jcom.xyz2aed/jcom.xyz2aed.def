@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jcom.xyz2aed"
-
-EXPORTS
-	main

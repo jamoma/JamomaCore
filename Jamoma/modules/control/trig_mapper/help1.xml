@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='0' name='u004007781'>
+    <item name='in_message' type='msg_generic' priority='0'>0</item>
+    <item name='in_value' type='msg_float' priority='0'>0.200000</item>
+    <item name='module_in_action' type='msg_int' priority='0'>0</item>
+    <item name='module_in_function' type='msg_generic' priority='0'>sf_report</item>
+    <item name='module_in_nr' type='msg_int' priority='0'>0</item>
+    <item name='module_in' type='msg_generic' priority='0'>/input~</item>
+    <item name='module_out_action' type='msg_int' priority='0'>0</item>
+    <item name='module_out_function' type='msg_generic' priority='0'>audio/gain/midi</item>
+    <item name='module_out_nr' type='msg_int' priority='0'>0</item>
+    <item name='module_out' type='msg_generic' priority='0'>/input~</item>
+    <item name='out_message' type='msg_generic' priority='0'>0</item>
+    <item name='out_value' type='msg_float' priority='0'>1.000000</item>
+    <item name='repeat_time' type='msg_float' priority='0'>0.000000</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='wait_time' type='msg_float' priority='0'>0.000000</item>
+  </preset>
+  <preset number='1' name='u374010032'>
+    <item name='in_message' type='msg_generic' priority='0'>0</item>
+    <item name='in_value' type='msg_float' priority='0'>0.200000</item>
+    <item name='module_in_action' type='msg_int' priority='0'>3</item>
+    <item name='module_in_function' type='msg_symbol' priority='5'>button</item>
+    <item name='module_in_nr' type='msg_int' priority='2'>0</item>
+    <item name='module_in' type='msg_symbol' priority='1'>/mouse</item>
+    <item name='module_out_action' type='msg_int' priority='0'>2</item>
+    <item name='module_out_function' type='msg_symbol' priority='6'>mode</item>
+    <item name='module_out_nr' type='msg_int' priority='4'>0</item>
+    <item name='module_out' type='msg_symbol' priority='3'>/limiter~</item>
+    <item name='out_message' type='msg_generic' priority='0'>1</item>
+    <item name='out_value' type='msg_float' priority='0'>1.100000</item>
+    <item name='repeat_time' type='msg_float' priority='0'>0.000000</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='wait_time' type='msg_float' priority='0'>0.000000</item>
+  </preset>
+  <preset number='2' name='u386010042'>
+    <item name='in_message' type='msg_generic' priority='0'>0</item>
+    <item name='in_value' type='msg_float' priority='0'>0.500000</item>
+    <item name='module_in_action' type='msg_int' priority='0'>3</item>
+    <item name='module_in_function' type='msg_symbol' priority='5'>position/x</item>
+    <item name='module_in_nr' type='msg_int' priority='2'>0</item>
+    <item name='module_in' type='msg_symbol' priority='1'>/mouse</item>
+    <item name='module_out_action' type='msg_int' priority='0'>2</item>
+    <item name='module_out_function' type='msg_symbol' priority='6'>audio/gain</item>
+    <item name='module_out_nr' type='msg_int' priority='4'>0</item>
+    <item name='module_out' type='msg_symbol' priority='3'>/limiter~</item>
+    <item name='out_message' type='msg_generic' priority='0'>100.000000</item>
+    <item name='out_value' type='msg_float' priority='0'>1.100000</item>
+    <item name='repeat_time' type='msg_float' priority='0'>0.000000</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='wait_time' type='msg_float' priority='0'>0.000000</item>
+  </preset>
+</jamoma>

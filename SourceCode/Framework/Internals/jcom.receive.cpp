@@ -21,7 +21,7 @@ void 		receive_remove(t_receive *x);
 
 // Globals
 static t_class		*s_receive_class;					// Required: Global pointer the jcom.receive class
-static t_object		*s_receivemaster_object = NULL;		// An instance of the jcom.receivemaster class
+t_object			*g_receivemaster_object = NULL;		// An instance of the jcom.receivemaster class
 
 
 /************************************************************************************/
@@ -40,14 +40,12 @@ void receive_initclass()
 					(method)0L, 
 					A_GIMME, 
 					0);
-	class_obexoffset_set(c, calcoffset(t_receive, obex));
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)receive_dispatch,		"dispatch",			A_CANT, 0);
 	class_addmethod(c, (method)receive_setcallback,		"setcallback",		A_CANT, 0);
     class_addmethod(c, (method)receive_assist,			"assist", 			A_CANT, 0);
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 			A_CANT, 0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", 		A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", 			A_CANT, 0); 
 	
 	// ATTRIBUTE: name
 	attr = attr_offset_new("name", _sym_symbol, attrflags,
@@ -68,20 +66,17 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	t_receive	*x = (t_receive *)object_alloc(s_receive_class);
-//	t_atom		a;
 
-//post("have x: %x", x);
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));
 		x->outlet = outlet_new(x, NULL);
 
-		if(!s_receivemaster_object)
-//			s_receivemaster_object = (t_object *)object_new(CLASS_NOBOX, gensym("jcom.receivemaster"));
-			s_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, gensym("jcom.receivemaster"), 0, NULL);
-//post("have master: %x", s_receivemaster_object);
+		if(!g_receivemaster_object)
+			g_receivemaster_object = (t_object *)object_new_typed(CLASS_NOBOX, gensym("jcom.receivemaster"), 0, NULL);
+
 		x->callback = NULL;
 		x->attr_name = NULL;
-//		attr_args_process(x, argc, argv);					// handle attribute args				
+		// attr_args_process(x, argc, argv);					// handle attribute args				
 
 		// If no name was specified as an attribute
 		if(x->attr_name == NULL){
@@ -89,7 +84,7 @@ void *receive_new(t_symbol *s, long argc, t_atom *argv)
 				x->attr_name = atom_getsym(argv);
 			else
 				x->attr_name = gensym("jcom.receive no arg specified");
-//			receive_bind(x);
+			receive_bind(x);
 		}
 	}
 	return x;
@@ -130,21 +125,20 @@ t_max_err receive_setname(t_receive *x, void *attr, long argc, t_atom *argv)
 		receive_bind(x);		
 	}
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 
 // 
 void receive_bind(t_receive *x)
 {
-//	if(!NOGOOD(s_receivemaster_object))
-//		object_method(s_receivemaster_object, ps_add, x->attr_name, x);
+	if(!NOGOOD(g_receivemaster_object))
+		object_method(g_receivemaster_object, jps_add, x->attr_name, x);
 }
 
 
 void receive_remove(t_receive *x)
 {
-	object_method(s_receivemaster_object, ps_remove, x->attr_name, x);
+	object_method(g_receivemaster_object, jps_remove, x->attr_name, x);
 }
 
 

@@ -34,20 +34,17 @@ int main(void)				// main recieves a copy of the Max function macros table
 {
 	long 		attrflags = 0;
 	t_class 	*c;
-	t_object 	*attr;
-	long		offset;
+	t_object 	*attr = NULL;
 	
 	jamoma_init();
+	common_symbols_init();
 
 	// Define our class
 #ifdef JCOM_IN_TILDE
-	c = class_new("jcom.in~",(method)in_new, (method)in_free, (short)sizeof(t_in), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.in~",(method)in_new, (method)in_free, sizeof(t_in), (method)0L, A_GIMME, 0);
 #else
-	c = class_new("jcom.in",(method)in_new, (method)in_free, (short)sizeof(t_in), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.in",(method)in_new, (method)in_free, sizeof(t_in), (method)0L, A_GIMME, 0);
 #endif
-
-	offset = calcoffset(t_in, common);
-	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)in_dispatched,			"dispatched",			A_GIMME, 0L);
@@ -68,7 +65,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)in_release,				"release",				A_CANT, 0L);	// notification of hub being freed
     class_addmethod(c, (method)in_assist,				"assist", 				A_CANT, 0L);
 
-	jcom_core_subscriber_classinit_common(c, attr, offset);	
+	jcom_core_subscriber_classinit_common(c, attr);	
 	
 	// ATTRIBUTE: algorithm_type
 	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
@@ -77,7 +74,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// ATTRIBUTE: num_inputs
 	attr = attr_offset_new("num_inputs", _sym_long, attrflags,
-		(method)0, (method)0, calcoffset(t_in, num_inputs));
+		(method)0, (method)0, calcoffset(t_in, numInputs));
 	class_addattr(c, attr);	
 
 #ifdef JCOM_IN_TILDE
@@ -113,9 +110,9 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		x->dumpout = outlet_new(x, NULL);
 		x->algout = outlet_new(x, NULL);
 		
-		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
+		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		x->num_inputs = 0;
+		x->numInputs = 0;
 		x->attr_algorithm_type = _sym_nothing;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
@@ -124,35 +121,37 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
-			x->num_inputs = TTClip(argument, 0, MAX_NUM_CHANNELS);
+			x->numInputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
 		} 
 		else
 			x->outlet[0] = x->algout;  // no arguments send any input out the first outlet
 
 #ifdef JCOM_IN_TILDE
-		if(x->num_inputs > 0)
-			dsp_setup((t_pxobject *)x, x->num_inputs);		// Create Object and Inlets
+		if(x->numInputs > 0)
+			dsp_setup((t_pxobject *)x, x->numInputs);		// Create Object and Inlets
 		else
 			dsp_setup((t_pxobject *)x, 1);					// Create Object and Inlet
 
 		x->common.ob.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
 		
-		for(i=0; i < (x->num_inputs); i++)
+		for(i=0; i < (x->numInputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet
 		
-		x->signal_in = new TTAudioSignal(MAX_NUM_CHANNELS);
-		for(i=0; i < MAX_NUM_CHANNELS; i++){
+		x->copier = new TTAudioObject("jcom.in~ copier", x->numInputs);
+		x->audioIn = new TTAudioSignal(x->numInputs);
+		x->audioOut = new TTAudioSignal(x->numInputs);
+		for(i=0; i < x->numInputs; i++){
 			x->remote_vectors[i] = NULL;
 		}
 		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 #else
-		for(i = x->num_inputs-1; i >= 1; i--)
+		for(i = x->numInputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
-		for(i = x->num_inputs-1; i >= 0; i--)
+		for(i = x->numInputs-1; i >= 0; i--)
 			x->outlet[i] = outlet_new(x, 0L);
-
 #endif
-		jcom_core_subscriber_new_common(&x->common, ps__jcom_in__, ps_subscribe_in);
+
+		jcom_core_subscriber_new_common(&x->common, jps__jcom_in__, jps_subscribe_in);
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &in_subscribe);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
@@ -173,18 +172,18 @@ void in_subscribe(void *z)
 	
 	if(x->common.hub != NULL){
 		// Find out what type of algorithm this is supposed to control
-		object_attr_getvalueof(x->common.hub, ps_algorithm_type, &argc, &argv);
+		object_attr_getvalueof(x->common.hub, jps_algorithm_type, &argc, &argv);
 		result = atom_getsym(argv);
-		if(result == ps_default){
-			object_attr_getvalueof(x->common.hub, ps_module_type, &argc, &argv);
+		if(result == jps_default){
+			object_attr_getvalueof(x->common.hub, jps_module_type, &argc, &argv);
 			modtype = atom_getsym(argv);
 			
-			if(modtype == ps_audio)
-				x->attr_algorithm_type = ps_poly;
-			else if(modtype == ps_video)
-				x->attr_algorithm_type = ps_jitter;
+			if(modtype == jps_audio)
+				x->attr_algorithm_type = jps_poly;
+			else if(modtype == jps_video)
+				x->attr_algorithm_type = jps_jitter;
 			else
-				x->attr_algorithm_type = ps_control;
+				x->attr_algorithm_type = jps_control;
 		}
 		else
 			x->attr_algorithm_type = result;
@@ -197,7 +196,9 @@ void in_free(t_in *x)
 {
 #ifdef JCOM_IN_TILDE
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
-	delete x->signal_in;
+	delete x->copier;
+	delete x->audioIn;
+	delete x->audioOut;
 #endif
 	jcom_core_subscriber_common_free(&x->common);
 }
@@ -220,9 +221,9 @@ void in_assist(t_in *x, void *b, long msg, long arg, char *dst)
 	if(msg==1) 	// Inlets
 		strcpy(dst, "(signal) input to the module");
 	else if(msg==2){ // Outlets
-		if(arg < x->num_inputs) 
+		if(arg < x->numInputs) 
 			strcpy(dst, "(signal) connect to the algorithm");
-		else if(arg == x->num_inputs) 
+		else if(arg == x->numInputs) 
 			strcpy(dst, "connect to algorithm");
 		else 
 			strcpy(dst, "dumpout");
@@ -236,18 +237,17 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	char		namestring[256];
 	t_symbol	*osc;
 
-	if((argv->a_w.w_sym == ps_audio_mute) || (argv->a_w.w_sym == ps_slash_audio_mute)){
+	if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute))//{
 		x->attr_mute = atom_getlong(argv+1);
-		outlet_anything(x->algout, ps_mute, argc-1, argv+1);
-	}
-	else if((argv->a_w.w_sym == ps_video_mute) || (argv->a_w.w_sym == ps_slash_video_mute))
+	else if((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
 		x->attr_mute = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == ps_video_bypass) || (argv->a_w.w_sym == ps_slash_video_bypass))
+	else if((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
 		x->attr_bypass = atom_getlong(argv+1);
-	else if((argv->a_w.w_sym == ps_video_freeze) || (argv->a_w.w_sym == ps_slash_video_freeze))
+	else if((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
 		x->attr_freeze = atom_getlong(argv+1);
 	
-	strcpy(namestring, "/");						// perhaps we could optimize this operation
+	if(argv->a_w.w_sym->s_name[0] != '/')
+		strcpy(namestring, "/");						// perhaps we could optimize this operation
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 
@@ -257,7 +257,7 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 
 void in_view_internals(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	outlet_anything(x->algout, ps_open, 0, 0L);
+	outlet_anything(x->algout, jps_open, 0, 0L);
 }
 
 
@@ -286,9 +286,9 @@ void in_bang(t_in *x)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass)
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_bang, 0, NULL);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_bang, 0, NULL);
 	else
 		outlet_bang(x->outlet[proxy_getinlet((t_object *)x)]);
 }
@@ -299,11 +299,11 @@ void in_int(t_in *x, long value)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass){
 		t_atom a;
 		atom_setlong(&a, value);
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_int, 1, &a);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_int, 1, &a);
 	}
 	else
 		outlet_int(x->outlet[proxy_getinlet((t_object *)x)], value);
@@ -315,11 +315,11 @@ void in_float(t_in *x, double value)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass){
 		t_atom a;
 		atom_setfloat(&a, value);
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_float, 1, &a);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), _sym_float, 1, &a);
 	}
 	else
 		outlet_float(x->outlet[proxy_getinlet((t_object *)x)], value);
@@ -331,9 +331,9 @@ void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	if(x->attr_mute)
 		;
 	else if(x->attr_freeze)
-		object_method(x->out_object, ps_sendlastvalue);
+		object_method(x->out_object, jps_sendlastvalue);
 	else if(x->attr_bypass)
-		object_method(x->out_object, ps_sendbypassedvalue, proxy_getinlet((t_object *)x), msg, argc, argv);
+		object_method(x->out_object, jps_sendbypassedvalue, proxy_getinlet((t_object *)x), msg, argc, argv);
 	else
 		outlet_anything(x->outlet[proxy_getinlet((t_object *)x)], msg, argc, argv);
 }
@@ -343,6 +343,7 @@ void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 // (the work is all done in the dsp method)
 t_int *in_perform(t_int *w)
 {
+/*
   	t_in 	*x = (t_in *)(w[1]);		// Instance
 	short	n;
 	short	chan = x->num_inputs;
@@ -373,6 +374,29 @@ t_int *in_perform(t_int *w)
 		}
 	}
 	return(w+2);
+*/
+
+   	t_in		*x = (t_in *)(w[1]);
+	short		i, j;
+	TTUInt8		numChannels = x->audioIn->getNumChannels();
+	TTUInt16	vs = x->audioIn->getVectorSize();
+	
+	// Store the input from the inlets
+	for(i=0; i<numChannels; i++){
+		j = (i*2) + 1;
+		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+	}
+	
+	// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
+	x->copier->process(*x->audioIn, *x->audioOut);
+	
+	// Send the input on to the outlets for the algorithm
+	for(i=0; i<numChannels; i++){
+		j = (i*2) + 1;
+		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+	}
+
+	return w + ((numChannels*2)+2);
 }
 
 
@@ -394,9 +418,13 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 }
 
 
+#ifdef JCOM_IN_TILDE
+
+
 // DSP Method
 void in_dsp(t_in *x, t_signal **sp, short *count)
 {
+/*
 	short 	i, j;
 
 	in_alloc(x, sp[0]->s_n);		// Vector Size
@@ -416,17 +444,54 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 			x->out_vectors[i] = NULL;
 	}
 	dsp_add(in_perform, 1, x);
+*/
+
+	short	i, j, k=0;
+	void	**audioVectors = NULL;
+	TTUInt8		numChannels = 0;
+	TTUInt16	vs = 0;
+	
+	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->numInputs * 2) + 1));
+	audioVectors[k] = x;
+	k++;
+	
+	for(i=0; i < x->numInputs; i++){
+		j = x->numInputs + i;
+//		if(count[i] && count[j]){
+		if(count[i] || count[j]){
+			numChannels++;
+			if(sp[i]->s_n > vs)
+				vs = sp[i]->s_n;
+				
+			audioVectors[k] = sp[i]->s_vec;
+			k++;
+			audioVectors[k] = sp[j]->s_vec;
+			k++;
+		}
+	}
+	
+	x->audioIn->setNumChannels(numChannels);
+	x->audioOut->setNumChannels(numChannels);
+	x->audioIn->setVectorSize(vs);
+	x->audioOut->setVectorSize(vs);
+	//audioIn will be set in the perform method
+	x->audioOut->alloc();
+		
+	dsp_addv(in_perform, k, audioVectors);
+	sysmem_freeptr(audioVectors);
 }
 
 
 void in_alloc(t_in *x, int vector_size)
 {
+// TODO: Do we still need this?  The remote audio from jcom.send~ still needs to be re-implemented!
+/*
 	short i;
 	
 	if(vector_size != x->vector_size) {
 		x->vector_size = vector_size;
-		x->signal_in->numChannels = MAX_NUM_CHANNELS;
-		x->signal_in->vs = vector_size;
+		x->signal_in->setNumChannels(MAX_NUM_CHANNELS);
+		x->signal_in->setVectorSize(vector_size);
 		x->signal_in->alloc();
 
 		for(i=0; i < MAX_NUM_CHANNELS; i++){
@@ -435,5 +500,8 @@ void in_alloc(t_in *x, int vector_size)
 			x->remote_vectors[i] = (float*)sysmem_newptr(sizeof(float) * x->vector_size);
 		}
 	}
+*/
 }
 
+
+#endif // JCOM_IN_TILDE

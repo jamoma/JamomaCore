@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
+    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
+    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
+    <item name='4/shift/min' type='msg_float' priority='0'>0.8</item>
+    <item name='4/shift/max' type='msg_float' priority='0'>0.9</item>
+    <item name='4/pan/min' type='msg_float' priority='0'>0.0</item>
+    <item name='4/pan/max' type='msg_float' priority='0'>1.0</item>
+    <item name='4/gain/min' type='msg_float' priority='0'>-6.0</item>
+    <item name='4/gain/max' type='msg_float' priority='0'>-3.0</item>
+    <item name='4/delay/min' type='msg_float' priority='0'>500.000000</item>
+    <item name='4/delay/max' type='msg_float' priority='0'>2000.000000</item>
+    <item name='3/shift/min' type='msg_float' priority='0'>0.8</item>
+    <item name='3/shift/max' type='msg_float' priority='0'>0.9</item>
+    <item name='3/pan/min' type='msg_float' priority='0'>0.0</item>
+    <item name='3/pan/max' type='msg_float' priority='0'>1.0</item>
+    <item name='3/gain/min' type='msg_float' priority='0'>-6.0</item>
+    <item name='3/gain/max' type='msg_float' priority='0'>-3.0</item>
+    <item name='3/delay/min' type='msg_float' priority='0'>500.000000</item>
+    <item name='3/delay/max' type='msg_float' priority='0'>2000.000000</item>
+    <item name='2/shift/min' type='msg_float' priority='0'>0.8</item>
+    <item name='2/shift/max' type='msg_float' priority='0'>0.9</item>
+    <item name='2/pan/min' type='msg_float' priority='0'>0.0</item>
+    <item name='2/pan/max' type='msg_float' priority='0'>1.0</item>
+    <item name='2/gain/min' type='msg_float' priority='0'>-6.0</item>
+    <item name='2/gain/max' type='msg_float' priority='0'>-3.0</item>
+    <item name='2/delay/min' type='msg_float' priority='0'>500.000000</item>
+    <item name='2/delay/max' type='msg_float' priority='0'>2000.000000</item>
+    <item name='1/shift/min' type='msg_float' priority='0'>0.8</item>
+    <item name='1/shift/max' type='msg_float' priority='0'>0.9</item>
+    <item name='1/pan/min' type='msg_float' priority='0'>0.0</item>
+    <item name='1/pan/max' type='msg_float' priority='0'>1.0</item>
+    <item name='1/gain/min' type='msg_float' priority='0'>-6.0</item>
+    <item name='1/gain/max' type='msg_float' priority='0'>-3.0</item>
+    <item name='1/delay/min' type='msg_float' priority='0'>500.000000</item>
+    <item name='1/delay/max' type='msg_float' priority='0'>2000.000000</item>
+  </preset>
+</jamoma>

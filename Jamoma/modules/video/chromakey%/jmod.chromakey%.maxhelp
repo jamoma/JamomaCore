@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 182.0, 44.0, 918.0, 615.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 182.0, 44.0, 918.0, 615.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,
@@ -291,7 +290,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "\/input%2",
-					"name" : "jmod.input%.mxt",
+					"name" : "jmod.input%",
 					"numinlets" : 1,
 					"patching_rect" : [ 611.0, 82.0, 301.0, 81.0 ],
 					"numoutlets" : 2,
@@ -306,7 +305,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "\/input%1",
-					"name" : "jmod.input%.mxt",
+					"name" : "jmod.input%",
 					"numinlets" : 1,
 					"patching_rect" : [ 308.0, 82.0, 301.0, 81.0 ],
 					"numoutlets" : 2,

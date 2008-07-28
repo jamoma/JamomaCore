@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 570.0, 55.0, 552.0, 262.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 570.0, 55.0, 552.0, 262.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,

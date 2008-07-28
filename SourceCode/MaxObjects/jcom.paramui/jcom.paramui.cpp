@@ -21,17 +21,18 @@ static t_jrgba		s_light_gray = { 0.65, 0.65, 0.65, 1.0};
 int main(void)
 {
 	long		flags;
-	t_class		*c;
+	t_class*	c;
 	long		numDataspaces = 0;
-	t_symbol	**dataspaceNames = NULL;
+	t_symbol**	dataspaceNames = NULL;
 	TTValue		functionNames;
-	TTSymbol	functionName;
+	TTSymbol*	functionName;
 	char		dataspaces[2048];
 	char		functions[2048];
 	char		tempstr[64];
 	short		i;
 
 	jamoma_init();
+common_symbols_init();
 	jamoma_getDataspaceList(&numDataspaces, &dataspaceNames);
 	dataspaces[0] = 0;
 	for(i=0; i<numDataspaces; i++){
@@ -40,9 +41,9 @@ int main(void)
 	}
 	FunctionLib::getUnitNames(functionNames);
 	functions[0] = 0;
-	for(i=0; i<functionNames.getNumValues(); i++){
-		functionNames.get(i, functionName);
-		strcat(functions, functionName);	
+	for(i=0; i<functionNames.getSize(); i++){
+		functionNames.get(i, &functionName);
+		strcat(functions, functionName->getCString());	
 		strcat(functions, " ");
 	}
 
@@ -135,12 +136,12 @@ int main(void)
 	CLASS_ATTR_SAVE(c,			"range/bounds",		0);
 	CLASS_ATTR_ACCESSORS(c,		"range/bounds",		paramui_getRange, paramui_setRange);
 
-	CLASS_ATTR_LONG(c,			"repetitions",		0, t_paramui, attr_repetitions);
-	CLASS_ATTR_LABEL(c,			"repetitions",		0, "Allow Repeated Values");
-	CLASS_ATTR_STYLE(c,			"repetitions",		0, "onoff");
-	CLASS_ATTR_DEFAULT(c,		"repetitions",		0, "0");
-	CLASS_ATTR_SAVE(c,			"repetitions",		0);
-	CLASS_ATTR_ACCESSORS(c,		"repetitions",		paramui_getRepetitions, paramui_setRepetitions);
+	CLASS_ATTR_LONG(c,			"repetitions/allow",		0, t_paramui, attr_repetitions);
+	CLASS_ATTR_LABEL(c,			"repetitions/allow",		0, "Allow Repeated Values");
+	CLASS_ATTR_STYLE(c,			"repetitions/allow",		0, "onoff");
+	CLASS_ATTR_DEFAULT(c,		"repetitions/allow",		0, "0");
+	CLASS_ATTR_SAVE(c,			"repetitions/allow",		0);
+	CLASS_ATTR_ACCESSORS(c,		"repetitions/allow",		paramui_getRepetitions, paramui_setRepetitions);
 
 	CLASS_ATTR_SYM(c,			"range/clipmode",	0, t_paramui, attr_clipmode);
 	CLASS_ATTR_LABEL(c,			"range/clipmode",	0, "Mode for Clipping to Range");
@@ -151,8 +152,9 @@ int main(void)
 
 	CLASS_ATTR_SYM(c,			"description",		0, t_paramui, attr_description);
 	CLASS_ATTR_LABEL(c,			"description",		0, "Parameter Description");
-	CLASS_ATTR_STYLE(c,			"description",		0, "text_large");
-	CLASS_ATTR_DEFAULT(c,		"description",		0, "\"This parameter should do something.\"");
+	//CLASS_ATTR_STYLE(c,			"description",		0, "text_large");
+	CLASS_ATTR_STYLE(c,			"description",		0, "text_onesymbol");
+	CLASS_ATTR_DEFAULT(c,		"description",		0, "This parameter should do something.");
 	CLASS_ATTR_SAVE(c,			"description",		0);
 	CLASS_ATTR_ACCESSORS(c,		"description",		paramui_getDescription, paramui_setDescription);
 
@@ -163,17 +165,17 @@ int main(void)
 	CLASS_ATTR_SAVE(c,			"dataspace",		0);
 	CLASS_ATTR_ACCESSORS(c,		"dataspace",		paramui_getDataspace, paramui_setDataspace);
 
-	CLASS_ATTR_SYM(c,			"unit/active",		0, t_paramui, attr_unitActive);
-	CLASS_ATTR_LABEL(c,			"unit/active",		0, "Active Unit within the Dataspace");
-	CLASS_ATTR_DEFAULT(c,		"unit/active",		0, "none");
-	CLASS_ATTR_SAVE(c,			"unit/active",		0);
-	CLASS_ATTR_ACCESSORS(c,		"unit/active",		paramui_getUnitActive, paramui_setUnitActive);
+	CLASS_ATTR_SYM(c,			"dataspace/unit/active",		0, t_paramui, attr_unitActive);
+	CLASS_ATTR_LABEL(c,			"dataspace/unit/active",		0, "Active Unit within the Dataspace");
+	CLASS_ATTR_DEFAULT(c,		"dataspace/unit/active",		0, "none");
+	CLASS_ATTR_SAVE(c,			"dataspace/unit/active",		0);
+	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit/active",		paramui_getUnitActive, paramui_setUnitActive);
 
-	CLASS_ATTR_SYM(c,			"unit/native",		0, t_paramui, attr_unitNative);
-	CLASS_ATTR_LABEL(c,			"unit/native",		0, "Native Unit within the Dataspace");
-	CLASS_ATTR_DEFAULT(c,		"unit/native",		0, "none");
-	CLASS_ATTR_SAVE(c,			"unit/native",		0);
-	CLASS_ATTR_ACCESSORS(c,		"unit/native",		paramui_getUnitNative, paramui_setUnitNative);
+	CLASS_ATTR_SYM(c,			"dataspace/unit/native",		0, t_paramui, attr_unitNative);
+	CLASS_ATTR_LABEL(c,			"dataspace/unit/native",		0, "Native Unit within the Dataspace");
+	CLASS_ATTR_DEFAULT(c,		"dataspace/unit/native",		0, "none");
+	CLASS_ATTR_SAVE(c,			"dataspace/unit/native",		0);
+	CLASS_ATTR_ACCESSORS(c,		"dataspace/unit/native",		paramui_getUnitNative, paramui_setUnitNative);
 
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 
@@ -185,7 +187,7 @@ int main(void)
 }
 
 
-t_paramui* paramui_new(t_symbol *s, short argc, t_atom *argv)
+t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_paramui		*x = NULL;
 	t_dictionary 	*d = NULL;
@@ -250,7 +252,7 @@ t_paramui* paramui_new(t_symbol *s, short argc, t_atom *argv)
 		atom_setsym(a+13, gensym("@range/bounds"));
 		atom_setfloat(a+14, x->attr_range[0]);
 		atom_setfloat(a+15, x->attr_range[1]);
-		atom_setsym(a+16, gensym("@repetitions"));
+		atom_setsym(a+16, gensym("@repetitions/allow"));
 		atom_setlong(a+17, x->attr_repetitions);
 		atom_setsym(a+18, gensym("@range/clipmode"));
 		atom_setsym(a+19, x->attr_clipmode);
@@ -258,9 +260,9 @@ t_paramui* paramui_new(t_symbol *s, short argc, t_atom *argv)
 		atom_setsym(a+21, x->attr_description);
 		atom_setsym(a+22, gensym("@dataspace"));
 		atom_setsym(a+23, x->attr_dataspace);
-		atom_setsym(a+24, gensym("@unit/active"));
+		atom_setsym(a+24, gensym("@dataspace/unit/active"));
 		atom_setsym(a+25, x->attr_unitActive);
-		atom_setsym(a+26, gensym("@unit/native"));
+		atom_setsym(a+26, gensym("@dataspace/unit/native"));
 		atom_setsym(a+27, x->attr_unitNative);
 		if(x->attr_defaultSize){
 			atom_setsym(a+28, gensym("@value/default"));
@@ -271,11 +273,12 @@ t_paramui* paramui_new(t_symbol *s, short argc, t_atom *argv)
 			argLen = 28;
 
 		jcom_core_loadextern(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
-		err = object_attach_byptr(x, x->obj_parameter);
-		if(err){
-			x->obj_parameter = (t_object*)object_register(CLASS_NOBOX, symbol_unique(), (t_object *)x->obj_parameter);
-			err = object_attach_byptr(x, x->obj_parameter);
-		}
+		object_attach_byptr_register(x, x->obj_parameter, _sym_nobox);
+//		err = object_attach_byptr(x, x->obj_parameter);
+//		if(err){
+///			x->obj_parameter = (t_object*)object_register(CLASS_NOBOX, symbol_unique(), (t_object *)x->obj_parameter);
+//			err = object_attach_byptr(x, x->obj_parameter);
+//		}
 	}
 	return x;
 }
@@ -357,30 +360,32 @@ void paramui_paint(t_paramui *x, t_object *view)
 		
 	// draw the inspector icon
 
-		jgraphics_set_source_rgb(g, 0.2, 0.2, 0.2);
-		jgraphics_set_line_width(g, 1.5);
-		jgraphics_oval(g,	border_thickness,
-							border_thickness, 
-							rect.height - (border_thickness * 2.0),
-							rect.height - (border_thickness * 2.0));
-		jgraphics_fill(g);
-		
-		jgraphics_rectangle_fill_fast(g,	border_thickness + rect.height / 2 - (border_thickness), 
-											border_thickness,
-											border_thickness + rect.height / 2, 
-											rect.height - (border_thickness * 2.0));
+	jgraphics_set_source_rgb(g, 0.2, 0.2, 0.2);
+	jgraphics_set_line_width(g, 1.5);
+	jgraphics_oval(g,	border_thickness,
+						border_thickness, 
+						rect.height - (border_thickness * 2.0),
+						rect.height - (border_thickness * 2.0));
+	jgraphics_fill(g);
+	
+	jgraphics_rectangle_fill_fast(g,	border_thickness + rect.height / 2 - (border_thickness), 
+										border_thickness,
+										border_thickness + rect.height / 2, 
+										rect.height - (border_thickness * 2.0));
 
-		jgraphics_set_source_rgb(g, 0.4, 0.4, 0.4);
-		middle = 6.0;
-		jgraphics_move_to(g, 9.5, middle + 4.0);
-		jgraphics_line_to(g, 13.0, middle);
-		jgraphics_line_to(g, 6.0, middle);
-		jgraphics_close_path(g);
-		jgraphics_fill(g);
+	jgraphics_set_source_rgb(g, 0.4, 0.4, 0.4);
+	middle = 6.0;
+	jgraphics_move_to(g, 9.5, middle + 4.0);
+	jgraphics_line_to(g, 13.0, middle);
+	jgraphics_line_to(g, 6.0, middle);
+	jgraphics_close_path(g);
+	jgraphics_fill(g);
 
 
-	if(x->attr_dataspace != ps_none){
-		char data[256];
+	if(x->attr_dataspace != jps_none) {
+		char data[64];	
+	
+		strncpy(data, x->attr_unitActive->s_name, 64);
 
 		// draw the unit display
 		jgraphics_set_source_rgb(g, 0.2, 0.2, 0.2);
@@ -396,17 +401,17 @@ void paramui_paint(t_paramui *x, t_object *view)
 											border_thickness + rect.height / 1, 
 											rect.height - (border_thickness * 2.0));
 
-		strcpy(data, "midi");
+
 		jtextlayout_settextcolor(x->layout_unit, &s_light_gray);
 		jtextlayout_set(x->layout_unit,
 						data,
 						jfont_create(JAMOMA_DEFAULT_FONT, JGRAPHICS_FONT_SLANT_NORMAL, JGRAPHICS_FONT_WEIGHT_NORMAL, JAMOMA_DEFAULT_FONTSIZE),
-						rect.width - 28.0, 0.0, 28.0, rect.height,
+						rect.width - 28.0, 0.0, 28.0, rect.height - 1.0,
 						JGRAPHICS_TEXT_JUSTIFICATION_CENTERED,
 						JGRAPHICS_TEXTLAYOUT_USEELLIPSIS);
 		jtextlayout_draw(x->layout_unit, g);
 	}
-
+	
 	{
 		char	data[256];
 		t_atom	*av = NULL;
@@ -415,18 +420,18 @@ void paramui_paint(t_paramui *x, t_object *view)
 		if(x->obj_parameter){
 			object_attr_getvalueof(x->obj_parameter, gensym("value"), &ac, &av);
 			if(ac){
-				if(x->attr_type == ps_msg_float)
+				if(x->attr_type == jps_msg_float)
 					sprintf(data, "%.4f", atom_getfloat(av));
-				else if(x->attr_type == ps_msg_int || x->attr_type == ps_msg_toggle)
+				else if(x->attr_type == jps_msg_int || x->attr_type == jps_msg_toggle)
 					sprintf(data, "%ld", atom_getlong(av));
-				else if(x->attr_type == ps_msg_symbol)
+				else if(x->attr_type == jps_msg_symbol)
 					strcpy(data, atom_getsym(av)->s_name);
 				
 				jtextlayout_settextcolor(x->layout_value, &s_light_gray);
 				jtextlayout_set(x->layout_value,
 								data,
 								jfont_create(JAMOMA_DEFAULT_FONT, JGRAPHICS_FONT_SLANT_NORMAL, JGRAPHICS_FONT_WEIGHT_NORMAL, JAMOMA_DEFAULT_FONTSIZE),
-								84.0, 0.0, rect.width - 84.0 - 20.0, rect.height,
+								84.0, 2.0, rect.width - 84.0 - 20.0, rect.height - 1.0,
 								JGRAPHICS_TEXT_JUSTIFICATION_LEFT,
 								JGRAPHICS_TEXTLAYOUT_USEELLIPSIS);
 				jtextlayout_draw(x->layout_value, g);
@@ -566,7 +571,7 @@ void* paramui_oksize(t_paramui *x, t_rect *rect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &s_light_gray);
-	textfield_set_textmargins(textfield, 18.0, 2.5, rect->width - 80.0, 1.5);
+	textfield_set_textmargins(textfield, 18.0, 2.0, rect->width - 80.0, 2.0);
 	
 	return (void *)1;
 }

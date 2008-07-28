@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.gang"
+LIBRARY "jcom.gang.mxe"
 
 EXPORTS
 	main

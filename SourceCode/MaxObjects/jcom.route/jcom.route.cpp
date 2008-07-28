@@ -13,7 +13,6 @@
 
 typedef struct _route{				// Data Structure for this object
 	t_object		ob;								// REQUIRED: Our object
-	void			*obex;							// REQUIRED: Object Extensions used by Jitter/Attribute stuff 
 	void 			*my_outlet[2];					// my outlet array -- NOTE: the attribute dump outlet is handled automagically 
 
 	t_symbol		*searchlist[MAX_LIST_LENGTH];	// ATTRIBUTE: storage of which inlets tigger output from the object (essentially an array of toggles)
@@ -46,18 +45,17 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object *attr;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.route",(method)route_new, (method)0L, (short)sizeof(t_route), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_route, obex));
+	c = class_new("jcom.route",(method)route_new, (method)0L, sizeof(t_route), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
  	class_addmethod(c, (method)route_bang,				"bang", 0L);
   	class_addmethod(c, (method)route_list,				"list", A_GIMME, 0L);	
   	class_addmethod(c, (method)route_symbol,			"anything", A_GIMME, 0L);	
 	class_addmethod(c, (method)route_assist,			"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);
 
 	// ATTRIBUTE: searchstring
 	attr = attr_offset_array_new("searchstring", _sym_symbol, MAX_LIST_LENGTH, attrflags, 

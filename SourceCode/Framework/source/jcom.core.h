@@ -10,6 +10,10 @@
 #ifndef __JMOD_CORE_H__
 #define __JMOD_CORE_H__
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "ext.h"
 #include "ext_obex.h"
 #include "ext_critical.h"
@@ -35,7 +39,6 @@ typedef void (*t_subscribe_method)(void *x);
  */ 
 typedef struct _jcom_core_subscriber_common{
 	t_pxobject			ob;						///< base object for audio externs
-	void				*obex;					///< object extensions
 	t_object			*container;				///< pointer to the patcher containing this object
 	t_object			*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
@@ -54,7 +57,6 @@ typedef struct _jcom_core_subscriber_common{
 typedef struct _jcom_core_subscriber_extended{
 //#ifdef JCOM_AUDIO_OBJECT
 	t_pxobject			ob;						///< base object for audio externs
-	void				*obex;					///< object extensions
 	t_object			*container;				///< pointer to the patcher containing this object
 	t_object			*hub;					///< the jcom.hub object that we subscribe to
 	t_symbol			*attr_name;				///< ATTRIBUTE: subscriber's name
@@ -142,7 +144,7 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
  *	@param common a pointer to the struct that contains all of the common members for the object
  *	@param optional bool parameter (default = true) that says whether or not to define a name attribute for this class 
  */
-void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset, bool define_name = true);
+void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr = NULL, bool define_name = true);
 
 /** Add methods and attributes that are common to extended subscribers (such as parameter, message, and return)
  *	@param pointer to the class that is being constructed
@@ -150,7 +152,7 @@ void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offs
  *	@param common a pointer to the struct that contains all of the common members for the object
  *	@param optional bool parameter (default = true) that says whether or not to define a name attribute for this class 
  */
-void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset, bool define_name = true);
+void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, bool define_name = true);
 
 
 /** Call this when initing a new common-based instance to set defaults
@@ -195,11 +197,19 @@ void jcom_core_broadcast_callback(void *z, t_symbol *msg, long argc, t_atom *arg
 
 
 t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_setname(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv);
+
 t_max_err jcom_core_attr_setrange(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv);
 t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+
 t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_setrepetitions(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv);
+
 t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_setclipmode(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv);
+	
 t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv);
+t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv);
 
 #ifdef __cplusplus
 }

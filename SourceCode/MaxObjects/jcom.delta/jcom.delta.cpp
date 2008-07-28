@@ -81,16 +81,20 @@
 	MAXREF--->
 */
 
+#include "Jamoma.h";
 
-#include "Jamoma.h"
+#define nonzero(x)				((x > 0) ? x : 1.)
 
-typedef struct _delta{			// Data structure for this object 
-	t_object	ob;				// Must always be the first field; used by Max
-	void		*obex;
-	float		prev;			// Previous value
-	float		delta;			// delta step
-	char		clearflag;
-	void		*outlet;			// Pointer to outlet. need one for each outlet 
+typedef struct _delta{			///< Data structure for this object 
+	t_object	ob;				///< Must always be the first field; used by Max
+	float		x0;				///< Most recerntly received value
+	float		x1;				///< Previous value
+	float		x2;				///< 2nd last value received
+	float		delta;			///< 1st order differential
+	float		delta2;			///< 2nd order differential
+	long		lasttime;		///< Time code for previous value received
+	char		clearflag;		///< Flag indicating that history has been cleared
+	void		*outlets[3];		///< Pointer to outlet. Need one for each outlet 
 } t_delta;
 
 // Prototypes for methods: need a method for each incoming message
@@ -99,10 +103,8 @@ void delta_bang(t_delta *x);
 void delta_int(t_delta *x, long n);
 void delta_float(t_delta *x, double f);
 void delta_clear(t_delta *x);
-void delta_set(t_delta *x, Symbol *s, short ac, Atom *setval);
+void delta_set(t_delta *x, Symbol *s, long ac, Atom *setval);
 void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst);
-
-
 
 // Globals
 t_class		*this_class;				// Required. Global pointing to this class 
@@ -117,10 +119,10 @@ int main(void)
 	t_class *c;
 	
 	jamoma_init();
+	common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.delta",(method)delta_new, (method)0L, (short)sizeof(t_delta), (method)0L, 0, 0);
-	class_obexoffset_set(c, calcoffset(t_delta, obex));				
+	c = class_new("jcom.delta",(method)delta_new, (method)0L, sizeof(t_delta), (method)0L, 0L, 0);			
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)delta_bang,				"bang",		A_CANT,		0);
@@ -129,12 +131,7 @@ int main(void)
 	class_addmethod(c, (method)delta_assist, 			"assist",	A_CANT,		0); 
     class_addmethod(c, (method)delta_set,				"set",		A_GIMME,	0);  
     class_addmethod(c, (method)delta_clear,				"clear",	0);
-	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
-	//finder_addclass("All Objects","jcom.delta");	
-	//finder_addclass("Arith/Logic/Bitwise","jcom.delta");
-	//post("tl.delta © 2001-03 Trond Lossius");
-	
+	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -142,24 +139,30 @@ int main(void)
 	return 0;
 }
 
-
+#pragma mark -
+#pragma mark Object life
 /************************************************************************************/
 // Object Life
 
 void *delta_new(void)
 {
-	t_delta *x;
-	
+	t_delta *x;	
 	x = (t_delta *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	if(x){
-    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-		x->outlet = floatout(x);				// create the outlet
+		// create inlets and outlets		
+    	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
+		x->outlets[2] = floatout(x);			// velocity
+		x->outlets[1] = floatout(x);			// 2nd order difference
+		x->outlets[0] = floatout(x);			// 1st order difference
+
 		delta_clear(x);							// initilaize instance
 	}
 	return (x);
 }
 
 
+#pragma mark -
+#pragma mark methods
 /************************************************************************************/
 // Methods bound to input/inlets
 
@@ -167,7 +170,16 @@ void *delta_new(void)
 // BANG input
 void delta_bang(t_delta *x)
 {
-	outlet_float(x->outlet, x->delta);
+	long thistime;
+	float velocity;
+
+	thistime = gettime();	
+	velocity = (1000 * (x->delta) ) / (nonzero(thistime - x->lasttime));
+	x->lasttime = thistime;
+
+	outlet_float(x->outlets[2], velocity);		
+	outlet_float(x->outlets[1], x->delta2);
+	outlet_float(x->outlets[0], x->delta);
 }
 
 
@@ -185,45 +197,40 @@ void delta_int(t_delta *x, long n)
 void delta_float(t_delta *x, double f)
 {
 	if (x->clearflag) {
-		x->prev = f;
-		x->delta = 0;
+		x->x1 = f;
+		x->x0 = f;
 		x->clearflag = 0;
 	}
-	else {
-		x->delta = f - x->prev;
-		x->prev = f;
-	}
+	x->x2 = x->x1;	
+	x->x1 = x->x0;			
+	x->x0 = f;
+	
+	x->delta = x->x0 - x->x1;
+	x->delta2 = x->x0 - 2*x->x1 + x->x2;
+	
 	delta_bang(x);
 }
 
 
 // SET input
-void delta_set(t_delta *x, Symbol *s, short ac, Atom *setval)
+void delta_set(t_delta *x, t_symbol *s, long argc, t_atom *argv)
 {
 	float f;
-	
-	if (ac) {
-		if (setval->a_type==A_LONG)
-			f = (float)setval->a_w.w_long;
-		else if (setval->a_type==A_FLOAT)
-			f = setval->a_w.w_float;
-		else goto err;
-	}
-	else
-		f=0;
+
+	if (argc) 
+		f = atom_getfloat(argv);
 	if (x->clearflag) {
-		x->prev = f;
-		x->delta = 0;
+		x->x1 = f;
+		x->x0 = f;
 		x->clearflag = 0;
 	}
-	else {
-		x->delta = f - x->prev;
-		x->prev = f;
-	}
-	return;
+	x->x2 = x->x1;	
+	x->x1 = x->x0;			
+	x->x0 = f;
+	x->lasttime = gettime();
 	
-	err:
-		error("jcom.delta: Wrong argument for set");
+	x->delta = x->x0 - x->x1;
+	x->delta2 = x->x0 - 2*x->x1 + x->x2;
 }
 
 
@@ -232,6 +239,8 @@ void delta_clear(t_delta *x)
 {
 	x->clearflag = 1;
 	x->delta = 0;
+	x->delta2 = 0;
+	x->lasttime = gettime();
 }
 
 
@@ -242,12 +251,27 @@ void delta_assist(t_delta *x, void *b, long msg, long arg, char *dst)	// Display
 	{ 
 		switch(arg)
 		{
-			case 0: sprintf(dst, "(int/float) function value");
-			break;	
+			case 0:
+				sprintf(dst, "(int/float) function value");
+				break;	
 		}
 	}
 	else if(msg==2)
 	{
-		sprintf(dst, "(float) delta value");
+		switch(arg)
+		{
+			case 0:
+				sprintf(dst, "(float) 1st order difference");
+				break;
+			case 1:
+				sprintf(dst, "(float) 2nd order difference");
+				break;
+			case 2:
+				sprintf(dst, "(float) velocity");
+				break;
+			case 3:
+				sprintf(dst, "dumpout");
+				break;
+		}
 	}
 }

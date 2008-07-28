@@ -19,7 +19,7 @@
 // Specification of our base class
 class PowerFunction : public FunctionUnit{
 private:
-	TTSymbol	attrSymmetry;		///< Mode: none, point or axis
+	TTSymbol*	attrSymmetry;		///< Mode: none, point or axis
 	double		attrPowerValue;		///< Parameter for function: y pow(x,pow(2,powerValue))	
 	double		k;					///< k = pow(2,powerValue)
 

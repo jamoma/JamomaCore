@@ -13,6 +13,10 @@
 
 #define JAMOMA_VERSION "0.5 Dev"
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "ext.h"
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "ext_common.h"
@@ -24,42 +28,30 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "TTAudioObject.h"			// TTBlue Headers...
-#include "TTAudioSignal.h"
-#include "TTSymbol.h"
-#include "TTValue.h"
+#include "TTBlueAPI.h"				// TTBlue Headers...
 
 #include "jcom.core.h"
 #include "jcom.list.h"
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
 #include "JamomaTypes.h"
-#include "JamomaClock.h"
-#include "JamomaScheduler.h"
 #include "JamomaSymbols.h"
 
 #include "DataspaceLib.h"
 #include "FunctionLib.h"
 #include "RampLib.h"
 
-#ifndef NO
-#define NO 0
-#endif
-
-#ifndef YES
-#define YES 1
-#endif
 
 #define JAMOMA_UNIT_HEIGHT 70.0
 #define JAMOMA_UNIT_WIDTH 150.0
 #define JAMOMA_MENU_FONT "Arial"
-#define JAMOMA_MENU_FONTSIZE 10.0
+#define JAMOMA_MENU_FONTSIZE 11.0
 #define JAMOMA_DEFAULT_FONT "Verdana"
-#define JAMOMA_DEFAULT_FONTSIZE 8.0
+#define JAMOMA_DEFAULT_FONTSIZE 9.0
 #define JAMOMA_BUTTON_FONT JAMOMA_DEFAULT_FONT
 
-extern t_object *obj_jamoma_clock;		// the jamoma master clock object
-extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
+//extern t_object *obj_jamoma_clock;		// the jamoma master clock object
+//extern t_object	*obj_jamoma_scheduler;	// a shared global instance of the scheduler (there may be others too)
 extern bool		max5;					// are we in max5?
 
 
@@ -77,10 +69,9 @@ extern "C" {
 
 	void		jamoma_dsp(t_object *, t_signal **sp, short *count);
 
-	void		jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter, long offset);
-	void		jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter, long sizeOffset, long offset);
+	void		jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter);
+	void		jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter);
 	void		jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *);
-	//void		jamoma_class_attr_get_sender(t_object *o, void *attr, long argc, t_atom *argv);
 
 }
 

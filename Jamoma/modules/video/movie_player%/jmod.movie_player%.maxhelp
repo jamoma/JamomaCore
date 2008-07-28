@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 30.0, 89.0, 434.0, 627.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 30.0, 89.0, 434.0, 627.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,
@@ -143,7 +142,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.movie_player%.mxt",
+					"varname" : "jmod.movie_player%",
 					"name" : "jmod.movie_player%.maxpat",
 					"numinlets" : 2,
 					"patching_rect" : [ 44.0, 176.0, 302.0, 141.0 ],

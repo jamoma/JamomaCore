@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 116.0, 44.0, 996.0, 701.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 116.0, 44.0, 996.0, 701.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,
@@ -102,9 +101,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.mouse.mxt",
+					"varname" : "jmod.mouse",
 					"patching_rect" : [ 397.0, 400.0, 255.0, 60.0 ],
-					"name" : "jmod.mouse.mxt",
+					"name" : "jmod.mouse",
 					"lockeddragscroll" : 1,
 					"id" : "obj-7",
 					"numinlets" : 1,
@@ -161,7 +160,7 @@
 					"maxclass" : "bpatcher",
 					"varname" : "\/midi",
 					"patching_rect" : [ 397.0, 517.0, 255.0, 60.0 ],
-					"name" : "jmod.midiin.mxt",
+					"name" : "jmod.midiin",
 					"lockeddragscroll" : 1,
 					"id" : "obj-11",
 					"numinlets" : 1,
@@ -221,7 +220,7 @@
 					"maxclass" : "bpatcher",
 					"varname" : "\/filter~",
 					"patching_rect" : [ 678.0, 465.0, 301.0, 71.0 ],
-					"name" : "jmod.filter~.mxt",
+					"name" : "jmod.filter~",
 					"lockeddragscroll" : 1,
 					"id" : "obj-15",
 					"numinlets" : 3,
@@ -289,7 +288,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "\/create mymapping \/analysis\/result jalg.transformation.mxt -> \/reverb\/decay",
+					"text" : "\/create mymapping \/analysis\/result jalg.transformation -> \/reverb\/decay",
 					"linecount" : 2,
 					"patching_rect" : [ 33.0, 200.0, 263.0, 26.0 ],
 					"fontname" : "Verdana",
@@ -545,15 +544,14 @@
 					"fontsize" : 9.0,
 					"patcher" : 					{
 						"rect" : [ 245.0, 48.0, 698.0, 458.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 245.0, 48.0, 698.0, 458.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxfadetime" : 200,

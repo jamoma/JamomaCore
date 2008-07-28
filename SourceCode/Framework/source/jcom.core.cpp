@@ -28,9 +28,9 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 		box = object_attr_getobj(patcher, gensym("firstobject"));
 		while(box){
 			objclass = object_attr_getsym(box, gensym("maxclass"));
-			if(objclass == ps_jcom_hub){
+			if(objclass == jps_jcom_hub){
 				hub = object_attr_getobj(box, _sym_object);
-				object_method(hub, ps_subscribe, name, x, object_type);
+				object_method(hub, jps_subscribe, name, x, object_type);
 				return hub;
 			}
 			box = object_attr_getobj(box, gensym("nextobject"));
@@ -42,35 +42,8 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 		return NULL;
 	}
 	else{
-		t_patcher	*p = (t_patcher*)container;
-		t_box		*b;
-		t_class		*theclass;
-		t_object	*hub = NULL;
-		
-	again:	
-		for(b = p->p_box; b; b = b->b_next){							// traverse the linked list of boxes in the patch
-			if(b->b_firstin && ((t_object*)(b->b_firstin))->o_magic != 1758379419){
-				error("jamoma_core_subscribe: something has gone terribly wrong");
-				post("maybe you have multiple modules with the same OSC name?");
-				return NULL;
-			}
-			theclass = object_class(b->b_firstin);
-			if(object_classname_compare(b->b_firstin, ps_jcom_hub)){	// if this is a jcom.hub...
-				object_method(b->b_firstin, ps_subscribe, name, x, object_type);
-				hub = (t_object*)b->b_firstin;							// store the pointer
-				break;													// then stop looking
-			}
-		}
-		if(hub == NULL){							// failed to find a hub in the patch...
-			if(p->p_vnewobj != NULL){				//	go one level higher and search there
-				b = (t_box *)p->p_vnewobj;
-				p = b->b_patcher;
-				goto again;
-			}
-			else
-				error("object named '%s' could not find a jcom.hub for subscribing", name->s_name);
-		}
-		return hub;
+		error("This version of Jamoma requires Max 5");
+		return NULL;
 	}
 }
 
@@ -79,7 +52,7 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 void jcom_core_unsubscribe(t_object *hub, void *object)
 {
 	if(hub)
-		object_method(hub, ps_unsubscribe, object);
+		object_method(hub, jps_unsubscribe, object);
 }
 
 
@@ -100,19 +73,19 @@ bool jcom_core_atom_compare(t_symbol *type, t_atom *a1, t_atom *a2)
 	if(!a1 || !a2)
 		return 0;
 		
-	if(type == ps_msg_float){				// float is first so that it gets process the most quickly
+	if(type == jps_msg_float){				// float is first so that it gets process the most quickly
 		if(atom_getfloat(a1) == atom_getfloat(a2))
 			return 1;
 	}
-	else if((type == ps_msg_int) || (type == ps_msg_toggle)){
+	else if((type == jps_msg_int) || (type == jps_msg_toggle)){
 		if(atom_getlong(a1) == atom_getlong(a2))
 			return 1;
 	}
-	else if(type == ps_msg_symbol){
+	else if(type == jps_msg_symbol){
 		if(atom_getsym(a1) == atom_getsym(a2))
 			return 1;
 	}
-	else if((type == ps_msg_generic) || (type == ps_msg_list)){
+	else if((type == jps_msg_generic) || (type == jps_msg_list)){
 		// type msg_list should be checked here as well.  If type == msg_list and this function is called
 		// it means we are dealing with a list of length 1, so we only need to compare one atom anyway.
 		
@@ -185,11 +158,11 @@ bool jcom_core_loadextern(t_symbol *objectname, long argc, t_atom *argv, t_objec
 	t_class 	*c = NULL;
 	t_object	*p = NULL;
 
-	c = class_findbyname(ps_box, objectname);
+	c = class_findbyname(jps_box, objectname);
 	if(!c){
 		p = (t_object *)newinstance(objectname, 0, NULL);
 		if(p){
-			c = class_findbyname(ps_box, objectname);
+			c = class_findbyname(jps_box, objectname);
 			freeobject(p);
 			p = NULL;
 		}
@@ -232,57 +205,40 @@ void jcom_core_getfilepath(short in_path, char *in_filename, char *out_filepath)
 
 
 // Add attributes that are common to many subscribers (such as parameter, message, and return)
-void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, long offset, bool define_name)
+void jcom_core_subscriber_classinit_common(t_class *c, t_object *attr, bool define_name)
 {
-	long		attroffset;
-
 	// METHODS
 	class_addmethod(c, (method)jcom_core_subscriber_hubrelease,	"release",		A_CANT, 0);	// notification of hub being freed
 	class_addmethod(c, (method)object_obex_dumpout,				"dumpout",		A_CANT, 0);  
-	class_addmethod(c, (method)object_obex_quickref,			"quickref",		A_CANT, 0);
 
 	// ATTRIBUTE: name
-	if(define_name){
-		attroffset = offset + calcoffset(t_jcom_core_subscriber_common, attr_name);
-		jamoma_class_attr_new(c, "name", _sym_symbol,
-			(method)jcom_core_subscriber_attribute_common_setname, (method)jcom_core_attr_getname,
-			attroffset);
-	}
+	if(define_name)
+		jamoma_class_attr_new(c, "name", _sym_symbol, (method)jcom_core_subscriber_attribute_common_setname, (method)jcom_core_attr_getname);
 }
 
 
-void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, long offset, bool define_name)
+void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, bool define_name)
 {
-	long		attroffset;
+	jcom_core_subscriber_classinit_common(c, attr, define_name);
 
-	jcom_core_subscriber_classinit_common(c, attr, offset, define_name);
-
+	// TODO: The name of the attributes should be substituted for their jps_* symbol pointers.
+	
 	// ATTRIBUTE: range <low, high>
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_range);
-	jamoma_class_attr_array_new(c, "range/bounds", _sym_float32, 2,
-		(method)jcom_core_attr_setrange, (method)jcom_core_attr_getrange,
-		offset + calcoffset(t_jcom_core_subscriber_extended, attr_range_len), attroffset);
+	jamoma_class_attr_array_new(c, 	"range/bounds", 		_sym_float32, 2, (method)jcom_core_attr_setrange, (method)jcom_core_attr_getrange);
+		
+	// ATTRIBUTE: clipmode - options are none, low, high, both
+	jamoma_class_attr_new(c, 		"range/clipmode",	 	_sym_symbol, (method)jcom_core_attr_setclipmode, (method)jcom_core_attr_getclipmode);
+	CLASS_ATTR_ENUM(c,				"range/clipmode",		0,	"none low high both");	
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_repetitions);
-	jamoma_class_attr_new(c, "repetitions", _sym_long,
-		(method)0, (method)jcom_core_attr_getrepetitions,
-		attroffset);
+	jamoma_class_attr_new(c, 		"repetitions/allow", 	_sym_long, (method)jcom_core_attr_setrepetitions, (method)jcom_core_attr_getrepetitions);
 
 	// ATTRIBUTE: type 
 	// this is not defined here because some objects (i.e jcom.parameter) need to treat this in different ways
-	
-	// ATTRIBUTE: clipmode - options are none, low, high, both
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_clipmode);
-	jamoma_class_attr_new(c, "range/clipmode", _sym_symbol,
-		(method)0, (method)jcom_core_attr_getclipmode,
-		attroffset);
 
 	// ATTRIBUTE: description - does nothing, but is accessed by jcom.dispatcher for /autodoc generation
-	attroffset = offset + calcoffset(t_jcom_core_subscriber_extended, attr_description);
-	jamoma_class_attr_new(c, "description", _sym_symbol,
-		(method)0, (method)jcom_core_attr_getdescription,
-		attroffset);
+	jamoma_class_attr_new(c,		"description", 			_sym_symbol, (method)jcom_core_attr_setdescription, (method)jcom_core_attr_getdescription);
+	CLASS_ATTR_STYLE(c,				"description",			0, "text_onesymbol");
 }
 
 
@@ -305,11 +261,11 @@ void jcom_core_subscriber_new_common(t_jcom_core_subscriber_common *x, t_symbol 
 	x->container = jamoma_object_getpatcher((t_object*)x);
 	
 	// set up the jcom.receive the listens to broadcast messages from the hub
-	atom_setsym(&a, ps_jcom_broadcast_fromHub);
-	if(!jcom_core_loadextern(ps_jcom_receive, 1, &a, &x->obj_hub_broadcast))
+	atom_setsym(&a, jps_jcom_broadcast_fromHub);
+	if(!jcom_core_loadextern(jps_jcom_receive, 1, &a, &x->obj_hub_broadcast))
 		error("jcom.core: loading jcom.receive extern failed");
 	else
-		object_method(x->obj_hub_broadcast, ps_setcallback, &jcom_core_broadcast_callback, x);
+		object_method(x->obj_hub_broadcast, jps_setcallback, &jcom_core_broadcast_callback, x);
 	
 }
 
@@ -320,9 +276,9 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 	
 	x->attr_range[0] = 0.0;
 	x->attr_range[1] = 1.0;
-	x->attr_clipmode = ps_none;
+	x->attr_clipmode = jps_none;
 	x->attr_description = _sym_nothing;
-	x->attr_type = ps_msg_generic;
+	x->attr_type = jps_msg_generic;
 	x->attr_repetitions = 1;
 }
 
@@ -333,7 +289,7 @@ void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
 		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type);
 		if(x->hub) 
-			x->module_name = (t_symbol *)object_method(x->hub, ps_core_module_name_get);
+			x->module_name = (t_symbol *)object_method(x->hub, jps_core_module_name_get);
 		if(x->custom_subscribe)
 			x->custom_subscribe(x);
 	}
@@ -385,6 +341,15 @@ t_max_err jcom_core_subscriber_attribute_common_setname(t_jcom_core_subscriber_c
 	else
 		x->has_wildcard = false;
 
+//	if(x->subscriber_type == jps_subscribe_return && x->hub){
+//		jcom_core_unsubscribe(x->hub, x);
+//		x->hub = NULL;
+//		x->attr_name = atom_getsym(argv);
+//		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
+//	}
+	// if the client understands 'update_name' then we call it
+	object_method(x, gensym("update_name"));
+	
 	return MAX_ERR_NONE;
 }
 
@@ -394,8 +359,17 @@ t_max_err jcom_core_attr_getname(t_jcom_core_subscriber_extended *x, void *attr,
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_name);
+	return MAX_ERR_NONE;
+}
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+t_max_err jcom_core_attr_setname(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv){
+		jcom_core_unsubscribe(x->hub, x);
+		x->hub = NULL;
+		x->attr_name = atom_getsym(argv);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
+	}
 	return MAX_ERR_NONE;
 }
 
@@ -415,17 +389,15 @@ t_max_err jcom_core_attr_setrange(t_jcom_core_subscriber_extended *x, void *attr
 t_max_err jcom_core_attr_getrange(t_jcom_core_subscriber_extended *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 2;
-	if(!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setsym(*argv, x->attr_description);
-
+	
+//sysmem_ptrsize(*argv)
+	// FIXME: This checks if we have memory passed in, good, but how do we know if it is enough memory for 2 atoms? [TAP]
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);
-	//sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * 2);
+
 	atom_setfloat(*argv, x->attr_range[0]);
 	atom_setfloat(*argv+1, x->attr_range[1]);
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
 
@@ -436,8 +408,13 @@ t_max_err jcom_core_attr_getrepetitions(t_jcom_core_subscriber_extended *x, void
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setlong(*argv, x->attr_repetitions);
+	return MAX_ERR_NONE;
+}
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+t_max_err jcom_core_attr_setrepetitions(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_repetitions = atom_getlong(argv);
 	return MAX_ERR_NONE;
 }
 
@@ -448,8 +425,13 @@ t_max_err jcom_core_attr_getclipmode(t_jcom_core_subscriber_extended *x, void *a
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_clipmode);
+	return MAX_ERR_NONE;
+}
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
+t_max_err jcom_core_attr_setclipmode(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_clipmode = atom_getsym(argv);
 	return MAX_ERR_NONE;
 }
 
@@ -461,7 +443,20 @@ t_max_err jcom_core_attr_getdescription(t_jcom_core_subscriber_extended *x, void
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
 	atom_setsym(*argv, x->attr_description);
 
-//	jamoma_class_attr_get_sender((t_object*)x, attr, *argc, *argv);
 	return MAX_ERR_NONE;
 }
+
+t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void *attr, long argc, t_atom *argv)
+{
+	char*	text = NULL;
+	long	textsize = 0;
+	
+	atom_gettext(argc, argv, &textsize, &text, OBEX_UTIL_ATOM_GETTEXT_SYM_NO_QUOTE);
+	if(text && textsize){
+		x->attr_description = gensym(text);
+		sysmem_freeptr(text);
+	}
+	return MAX_ERR_NONE;
+}
+
 

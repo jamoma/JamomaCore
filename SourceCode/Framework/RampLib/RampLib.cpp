@@ -6,8 +6,12 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "RampLib.h"
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
 
+#include "RampLib.h"
+#include "ext.h"
 
 RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void *aBaton)
 	: TTObject(rampName), startValue(NULL), targetValue(NULL), currentValue(NULL), normalizedValue(0.0), numValues(0), functionUnit(NULL)
@@ -32,15 +36,15 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 RampUnit::~RampUnit()
 {
 	delete functionUnit;
-	free(currentValue);
-	free(targetValue);
-	free(startValue);
+	delete [] currentValue;
+	delete [] targetValue;
+	delete [] startValue;
 }
 
 
 void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 {
-	short i;
+	TTUInt32 i;
 	
 	stop();
 	setNumValues(newNumValues);
@@ -56,21 +60,21 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 }
 
 
-TTErr RampUnit::getFunctionParameterNames(TTSymbol& parameterName, TTValue& names)
+TTErr RampUnit::getFunctionParameterNames(TTSymbol* parameterName, TTValue& names)
 {
 	functionUnit->getAttributeNames(names);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::setFunctionParameterValue(TTSymbol& parameterName, const TTValue& newValue)
+TTErr RampUnit::setFunctionParameterValue(TTSymbol* parameterName, const TTValue& newValue)
 {
 	functionUnit->setAttributeValue(parameterName, newValue);
 	return kTTErrNone;
 }
 
 
-TTErr RampUnit::getFunctionParameterValue(TTSymbol& parameterName, TTValue& value)
+TTErr RampUnit::getFunctionParameterValue(TTSymbol* parameterName, TTValue& value)
 {
 	functionUnit->getAttributeValue(parameterName, value);
 	return kTTErrNone;
@@ -80,16 +84,23 @@ TTErr RampUnit::getFunctionParameterValue(TTSymbol& parameterName, TTValue& valu
 void RampUnit::setNumValues(TTUInt32 newNumValues)
 {
 	if(newNumValues != numValues){
-		if(numValues == 0){
-			currentValue = (TTFloat64*)malloc(newNumValues * sizeof(double));
-			targetValue = (TTFloat64*)malloc(newNumValues * sizeof(double));
-			startValue = (TTFloat64*)malloc(newNumValues * sizeof(double));
+		if(numValues != 0){
+			delete [] currentValue;
+			delete [] targetValue;
+			delete [] startValue;
 		}
-		else{
-			currentValue = (TTFloat64*)realloc(currentValue, newNumValues * sizeof(double));
-			targetValue = (TTFloat64*)realloc(targetValue, newNumValues * sizeof(double));
-			startValue = (TTFloat64*)realloc(startValue, newNumValues * sizeof(double));
-		}
+		
+//		if(numValues == 0){
+			currentValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
+			targetValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
+			startValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
+//		}
+//		else{
+			
+//			currentValue = // (TTFloat64*)realloc(currentValue, newNumValues * sizeof(double));
+//			targetValue = // (TTFloat64*)realloc(targetValue, newNumValues * sizeof(double));
+//			startValue = // (TTFloat64*)realloc(startValue, newNumValues * sizeof(double));
+//		}
 		numValues = newNumValues;
 	}
 	sendMessage(TT("numValuesChanged"));	// Notify sub-classes (if they respond to this message)
@@ -106,7 +117,7 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 #include "SchedulerRamp.h"
 
 
-JamomaError RampLib::createUnit(const TTSymbol& unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
+JamomaError RampLib::createUnit(const TTSymbol* unitName, RampUnit **unit, RampUnitCallback callback, void* baton)
 {
 	if(*unit)
 		delete *unit;
@@ -122,7 +133,8 @@ JamomaError RampLib::createUnit(const TTSymbol& unitName, RampUnit **unit, RampU
 		*unit = (RampUnit*) new SchedulerRamp(callback, baton);
 	else {
 		// Invalid function specified default to linear
-		TTLogError("rampLib: Invalid rampUnit: %s", (char*)unitName);
+//		TTLogError("rampLib: Invalid rampUnit: %s", (char*)unitName);
+		error("puke");
 		*unit = (RampUnit*) new NoneRamp(callback, baton);
 	}
 	return JAMOMA_ERR_NONE;

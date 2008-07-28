@@ -10,8 +10,7 @@
 #ifndef __JCOM_IO_H__
 #define __JCOM_IO_H__
 
-#include "TTAudioObject.h"
-#include "TTAudioSignal.h"
+#include "TTBlueAPI.h"
 
 #define MAX_NUM_CHANNELS 32
 
@@ -25,10 +24,12 @@ typedef struct _in{
 	void			*dumpout;						///< dumpout outlet
 	void			*algout;						///< alogorithm outlet         
 	t_symbol		*attr_algorithm_type;			///< the algorithm type
-	long			num_inputs;						///< spec'd as an argument
+	long			numInputs;						///< spec'd as an argument
 	long			vector_size;					///< cached vector_size of the audio signals
 	long			last_target;					///< for poly~-based algorithms, the last target number used
-	TTAudioSignal	*signal_in;						///< last vector of audio samples for each channel (used by jcom.out~)
+	TTAudioSignal*	audioIn;
+	TTAudioSignal*	audioOut;						///< last vector of audio samples for each channel (used by jcom.out~)
+	TTAudioObject*	copier;							///< object to copy audio signals
 	float			*out_vectors[MAX_NUM_CHANNELS];
 	float			*remote_vectors[MAX_NUM_CHANNELS];
 	long			attr_bypass;					///< bypass flag for the module
@@ -49,23 +50,24 @@ typedef struct _out{
 	void			*outlet[MAX_NUM_CHANNELS];
 	void			*dumpout;						///< dumpout outlet
 	t_symbol		*attr_algorithm_type;			///< default is 'poly', also we need a 'blue' type (maybe a better name?)
-	long			num_outputs;					///< spec'd as an argument
+	long			numOutputs;						///< spec'd as an argument
 	long			vector_size;					///< cached vector_size of the audio signals
 
-	TTAudioSignal	*signal_in;
-	TTAudioSignal	*signal_out;
-	TTAudioSignal	*signal_temp;
+	TTAudioSignal*	audioIn;
+	TTAudioSignal*	audioOut;
+	TTAudioSignal*	audioTemp;
+	TTAudioSignal*	zeroSignal;
 	float			peakamp[MAX_NUM_CHANNELS];		///< The peak amplitude of the envelope for the meter from the last vector
 													/* The crossfade and gain objects can be shared for all channels
 													   because the object's don't need an independent state and do not
 													   rely internally on any history.  
 													*/
 	float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
-	TTAudioObject	*xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
-	TTAudioObject	*copy;							///< TTAudioObject does a simple vector copy
-	TTAudioObject	*gain;							///< TTGain implements the 'gain' param
-	TTAudioObject	*ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
-	TTAudioObject	*ramp_xfade;					///< TTRamp with the type of xfade to use
+	TTCrossfade*	xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
+	TTAudioObject*	copy;							///< TTAudioObject does a simple vector copy
+	TTGain*			gain;							///< TTGain implements the 'gain' param
+	TTRamp*			ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
+	TTRamp*			ramp_xfade;					///< TTRamp with the type of xfade to use
 	
 	float			attr_mix;						///< The mix percent, stored in percent
 	long			attr_bypass;					///< the bypass indicator for the module 

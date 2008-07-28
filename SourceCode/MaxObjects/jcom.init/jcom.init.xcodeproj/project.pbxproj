@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		22261CE30A28C1C100329D95 /* jcom.init.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jcom.init.cpp */; };
+		22513B090E027BF500EA673A /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22513B080E027BF500EA673A /* TTBlue.framework */; };
 		22FD2E2B0CEE5E890039C226 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD2E2A0CEE5E890039C226 /* Jamoma.framework */; };
 		55C0E4DF0CF30C82002D3DE3 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C0E4DE0CF30C82002D3DE3 /* MaxAudioAPI.framework */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
@@ -18,6 +19,7 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		22261CE20A28C1C100329D95 /* jcom.init.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.init.cpp; sourceTree = "<group>"; };
+		22513B080E027BF500EA673A /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		22FD2E2A0CEE5E890039C226 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = /Library/Frameworks/Jamoma.framework; sourceTree = "<absolute>"; };
 		542ED84F09C02A0000DBC7EB /* jcom.init.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.init.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C0E4DE0CF30C82002D3DE3 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
@@ -32,6 +34,7 @@
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
 				22FD2E2B0CEE5E890039C226 /* Jamoma.framework in Frameworks */,
 				55C0E4DF0CF30C82002D3DE3 /* MaxAudioAPI.framework in Frameworks */,
+				22513B090E027BF500EA673A /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +54,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22513B080E027BF500EA673A /* TTBlue.framework */,
 				55C0E4DE0CF30C82002D3DE3 /* MaxAudioAPI.framework */,
 				22FD2E2A0CEE5E890039C226 /* Jamoma.framework */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
@@ -206,7 +210,6 @@
 				INSTALL_PATH = /../../../Jamoma/library/externals/mac;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				OTHER_REZFLAGS = "";

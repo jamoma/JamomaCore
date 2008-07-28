@@ -21,7 +21,6 @@ enum outlets{
   * do the ramp to new values according to an extendable set of functions.  */
 typedef struct _ramp{
 	t_object	 ob;					///< Data Structure for this object
-	void		*obex;					///< REQUIRED: Our object
 	void		*outlets[num_outlets];	///< Outlet array
 	t_symbol	*attr_rampunit;			///< Name of the current rampunit
 	RampUnit	*rampUnit;				///< Instance of the current rampunit
@@ -73,7 +72,7 @@ void		ramp_set(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 void		ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Triggered by our Ramp Unit's tick function */
-void		ramp_callback(void *v, short numvalues, double *values);
+void		ramp_callback(void *v, long numvalues, double *values);
 
 /** Set attribute value. */
 void 		ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv);
@@ -94,10 +93,10 @@ int main(void)				// main receives a copy of the Max function macros table
 	t_class *c;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.ramp",(method)ramp_new, (method)ramp_free, (short)sizeof(t_ramp), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_ramp, obex));
+	c = class_new("jcom.ramp",(method)ramp_new, (method)ramp_free, sizeof(t_ramp), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)ramp_bang,					"bang",					0);
@@ -112,8 +111,7 @@ int main(void)				// main receives a copy of the Max function macros table
 	class_addmethod(c, (method)ramp_setFunctionParameter,	"function.parameter",	A_GIMME,	0);
 	class_addmethod(c, (method)ramp_clock,					"clock",				A_SYM,		0);
 	class_addmethod(c, (method)ramp_assist,					"assist",				A_CANT,		0); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,		"quickref",				A_CANT,		0);
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",				A_CANT,		0);
 
 	// ATTRIBUTE: rampunit
 	class_addattr(c, 
@@ -189,12 +187,12 @@ void ramp_setFunction(t_ramp *x, t_symbol *functionName)
 
 void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_atom		*a;
-	TTSymbol	parameterName;
+	t_atom*		a;
+	TTSymbol*	parameterName;
 	TTValue		parameterValue;
 	int			numValues;
 	int			i;
-	TTSymbol	tempSymbol;
+	TTSymbol*	tempSymbol;
 	double		tempValue;
 	
 	if(!argc){
@@ -202,18 +200,18 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	obj->rampUnit->getFunctionParameterValue(parameterName, parameterValue);
-	numValues = parameterValue.getNumValues();
+	numValues = parameterValue.getSize();
 	if(numValues){
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, gensym(parameterName));
+		atom_setsym(a, gensym((char*)parameterName->getCString()));
 		// Next the whole shebang is copied
 		for(i=0; i<numValues; i++){
 			if(parameterValue.getType(i) == kTypeSymbol){
-				parameterValue.get(i, tempSymbol);
-				atom_setsym(a+i+1, gensym(tempSymbol));
+				parameterValue.get(i, &tempSymbol);
+				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 			}
 			else{
 				parameterValue.get(i, tempValue);
@@ -230,7 +228,7 @@ void ramp_getFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 
 void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTSymbol	parameterName;
+	TTSymbol*	parameterName;
 	TTValue		newValue;
 	int			i;
 	
@@ -239,7 +237,7 @@ void ramp_setFunctionParameter(t_ramp *obj, t_symbol *msg, long argc, t_atom *ar
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	for(i=1; i<=(argc-1); i++){
 		if(argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));
@@ -267,7 +265,7 @@ void ramp_clock(t_ramp *x, t_symbol *clockName)
 
 
 // Triggered by our Ramp Unit's tick function
-void ramp_callback(void *v, short numvalues, double *values)
+void ramp_callback(void *v, long numvalues, double *values)
 {	
 	t_ramp	*x = (t_ramp *)v;
 	t_atom	*a = (t_atom *)malloc(numvalues * sizeof(t_atom));
@@ -363,7 +361,7 @@ void ramp_list(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 // RAMP UNIT ATTRIBUTES
 void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	TTSymbol	parameterName;
+	TTSymbol*	parameterName;
 	TTValue		newValue;
 	int			i;
 	
@@ -372,7 +370,7 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	for(i=1; i<=(argc-1); i++){
 		if(argv[i].a_type == A_SYM)
 			newValue.append(TT(atom_getsym(argv+1)->s_name));
@@ -385,12 +383,12 @@ void ramp_attrset(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 
 void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_atom		*a;
-	TTSymbol	parameterName;
+	t_atom*		a;
+	TTSymbol*	parameterName;
 	TTValue		parameterValue;
 	int			numValues;
 	int			i;
-	TTSymbol	tempSymbol;
+	TTSymbol*	tempSymbol;
 	double		tempValue;
 	
 	if(!argc){
@@ -398,19 +396,19 @@ void ramp_attrget(t_ramp *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
-	parameterName = atom_getsym(argv)->s_name;
+	parameterName = TT(atom_getsym(argv)->s_name);
 	x->rampUnit->getAttributeValue(parameterName, parameterValue);
-	numValues = parameterValue.getNumValues();
+	numValues = parameterValue.getSize();
 
 	if(numValues){
 		a = (t_atom *)sysmem_newptr(sizeof(t_atom) * (numValues+1));
 		// First list item is name of parameter
-		atom_setsym(a, gensym(parameterName));
+		atom_setsym(a, gensym((char*)parameterName->getCString()));
 		// Next the whole shebang is copied
 		for(i=0; i<numValues; i++){
 			if(parameterValue.getType(i) == kTypeSymbol){
-				parameterValue.get(i, tempSymbol);
-				atom_setsym(a+i+1, gensym(tempSymbol));
+				parameterValue.get(i, &tempSymbol);
+				atom_setsym(a+i+1, gensym((char*)tempSymbol->getCString()));
 			}
 			else{
 				parameterValue.get(i, tempValue);

@@ -1,0 +1,620 @@
+##############
+CUE setup1
+##############
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+/microphone_setup/xyz/1 -1.15 2.34 0.000
+/microphone_setup/xyz/2 0. 2.34 0.000
+/microphone_setup/xyz/4 1.21 2.34 0.000
+/microphone_setup/xyz/6 2.75 2.34 0.000
+/microphone_setup/xyz/7 2.75 1.13 0.000
+/microphone_setup/xyz/10 2.75 -0.4 0.000
+/microphone_setup/xyz/11 2.75 -2.36 0.000
+/microphone_setup/xyz/12 2.75 -3.88 0.000
+/microphone_setup/xyz/13 1.21 -3.88 0.000
+/microphone_setup/xyz/14 0. -3.88 0.000
+/microphone_setup/xyz/15 -1.15 -3.88 0.000
+/microphone_setup/xyz/17 -2.5 -3.88 0.000
+/microphone_setup/xyz/18 -2.5 -2.36 0.000
+/microphone_setup/xyz/21 -2.5 -0.4 0.000
+/microphone_setup/xyz/22 -2.5 1.13 0.000
+/microphone_setup/xyz/23 -2.5 2.34 0.000
+#### higher speaker
+/microphone_setup/xyz/24 -1.15 2.69 0.700
+/microphone_setup/xyz/3 0. 2.69 0.700
+/microphone_setup/xyz/5 1.21 2.69 0.700
+
+# Module /output	/output/offset 0	/output/remove_dc 0	/output/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32	/output/voices 24
+
+# Module /jmod.sur.multi.aux~.mxt	/jmod.sur.multi.aux~.mxt/aux1/active 0	/jmod.sur.multi.aux~.mxt/aux1/description to_reverb	/jmod.sur.multi.aux~.mxt/aux1/gain/midi 127.000	/jmod.sur.multi.aux~.mxt/aux2/active 1	/jmod.sur.multi.aux~.mxt/aux2/description to_output	/jmod.sur.multi.aux~.mxt/aux2/gain/midi 127.000	/jmod.sur.multi.aux~.mxt/aux3/active 0	/jmod.sur.multi.aux~.mxt/aux3/description Aux_3	/jmod.sur.multi.aux~.mxt/aux3/gain/midi 127.000	/jmod.sur.multi.aux~.mxt/input/gain/midi 127.000	/jmod.sur.multi.aux~.mxt/mute 0	/jmod.sur.multi.aux~.mxt/voices 24
+
+
+# Module /reverb	/reverb/audio/gain/midi 142.000	/reverb/audio/meters/freeze 0	/reverb/audio/mute 1	/reverb/delaylength 30.000 76.000	/reverb/fdn_eq/cf 732.239	/reverb/fdn_eq/filtergain 0.000	/reverb/fdn_eq/filtertype bandpass	/reverb/fdn_eq/q 0.054	/reverb/input_eq/cf 2547.591	/reverb/input_eq/filtergain 0.000	/reverb/input_eq/filtertype lowpass	/reverb/input_eq/q 0.607	/reverb/inputs 16	/reverb/interpolationtime 20.000	/reverb/modulation/active 1	/reverb/modulation/amplitude 0.350 5.060	/reverb/modulation/frequency 0.320 1.400	/reverb/outputs 24	/reverb/predelay 0.000	/reverb/t60 1.300
+
+
+# vimic-Modules 
+		/vimic/audio/gain/midi 142.000
+		/vimic/audio/meters/freeze 0
+		/vimic/audio/mute 0
+		/vimic/room/reflection/1/gain/midi 127.0
+		/vimic/microphones/1/orientation -26.172 0.000
+		/vimic/microphones/1/directivity/ratio 1.000
+		/vimic/microphones/1/gain/midi 127.000
+		/vimic/microphones/1/mute 0
+		/vimic/microphones/1/position/xyz -1.150 2.340 0.000
+		/vimic/microphones/10/orientation 98.276 0.000
+		/vimic/microphones/10/directivity/ratio 1.000
+		/vimic/microphones/10/gain/midi 127.000
+		/vimic/microphones/10/mute 0
+		/vimic/microphones/10/position/xyz 2.750 -0.400 0.000
+		/vimic/microphones/11/orientation 130.636 0.000
+		/vimic/microphones/11/directivity/ratio 1.000
+		/vimic/microphones/11/gain/midi 127.000
+		/vimic/microphones/11/mute 0
+		/vimic/microphones/11/position/xyz 2.750 -2.360 0.000
+		/vimic/microphones/12/orientation 144.672 0.000
+		/vimic/microphones/12/directivity/ratio 1.000
+		/vimic/microphones/12/gain/midi 127.000
+		/vimic/microphones/12/mute 0
+		/vimic/microphones/12/position/xyz 2.750 -3.880 0.000
+		/vimic/microphones/13/orientation 162.680 0.000
+		/vimic/microphones/13/directivity/ratio 1.000
+		/vimic/microphones/13/gain/midi 127.000
+		/vimic/microphones/13/mute 0
+		/vimic/microphones/13/position/xyz 1.210 -3.880 0.000
+		/vimic/microphones/14/orientation 180.000 0.000
+		/vimic/microphones/14/directivity/ratio 1.000
+		/vimic/microphones/14/gain/midi 127.000
+		/vimic/microphones/14/mute 0
+		/vimic/microphones/14/position/xyz 0.000 -3.880 0.000
+		/vimic/microphones/15/orientation -163.491 0.000
+		/vimic/microphones/15/directivity/ratio 1.000
+		/vimic/microphones/15/gain/midi 127.000
+		/vimic/microphones/15/mute 0
+		/vimic/microphones/15/position/xyz -1.150 -3.880 0.000
+		/vimic/microphones/16/orientation 133.547 0.000
+		/vimic/microphones/16/directivity/ratio 1.000
+		/vimic/microphones/16/gain/midi 0.000
+		/vimic/microphones/16/mute 1
+		/vimic/microphones/16/position/xyz 7.507 -7.136 0.000
+		/vimic/microphones/17/orientation -147.205 0.000
+		/vimic/microphones/17/directivity/ratio 1.000
+		/vimic/microphones/17/gain/midi 127.000
+		/vimic/microphones/17/mute 0
+		/vimic/microphones/17/position/xyz -2.500 -3.880 0.000
+		/vimic/microphones/18/orientation -133.350 0.000
+		/vimic/microphones/18/directivity/ratio 1.000
+		/vimic/microphones/18/gain/midi 127.000
+		/vimic/microphones/18/mute 0
+		/vimic/microphones/18/position/xyz -2.500 -2.360 0.000
+		/vimic/microphones/19/orientation 131.704 0.000
+		/vimic/microphones/19/directivity/ratio 1.000
+		/vimic/microphones/19/gain/midi 0.000
+		/vimic/microphones/19/mute 1
+		/vimic/microphones/19/position/xyz 7.214 -6.429 0.000
+		/vimic/microphones/2/orientation 0.000 0.000
+		/vimic/microphones/2/directivity/ratio 1.000
+		/vimic/microphones/2/gain/midi 127.000
+		/vimic/microphones/2/mute 0
+		/vimic/microphones/2/position/xyz -0.000 2.340 0.000
+		/vimic/microphones/20/orientation 130.404 0.000
+		/vimic/microphones/20/directivity/ratio 1.000
+		/vimic/microphones/20/gain/midi 0.000
+		/vimic/microphones/20/mute 1
+		/vimic/microphones/20/position/xyz 7.248 -6.170 0.000
+		/vimic/microphones/21/orientation -99.090 0.000
+		/vimic/microphones/21/directivity/ratio 1.000
+		/vimic/microphones/21/gain/midi 127.000
+		/vimic/microphones/21/mute 0
+		/vimic/microphones/21/position/xyz -2.500 -0.400 0.000
+		/vimic/microphones/22/orientation -65.677 0.000
+		/vimic/microphones/22/directivity/ratio 1.000
+		/vimic/microphones/22/gain/midi 127.000
+		/vimic/microphones/22/mute 0
+		/vimic/microphones/22/position/xyz -2.500 1.130 0.000
+		/vimic/microphones/23/orientation -46.893 0.000
+		/vimic/microphones/23/directivity/ratio 1.000
+		/vimic/microphones/23/gain/midi 127.000
+		/vimic/microphones/23/mute 0
+		/vimic/microphones/23/position/xyz -2.500 2.340 0.000
+		/vimic/microphones/24/orientation -23.147 13.456
+		/vimic/microphones/24/directivity/ratio 1.000
+		/vimic/microphones/24/gain/midi 127.000
+		/vimic/microphones/24/mute 1
+		/vimic/microphones/24/position/xyz -1.150 2.690 0.700
+		/vimic/microphones/3/orientation 0.000 14.586
+		/vimic/microphones/3/directivity/ratio 1.000
+		/vimic/microphones/3/gain/midi 127.000
+		/vimic/microphones/3/mute 1
+		/vimic/microphones/3/position/xyz 0.000 2.690 0.700
+		/vimic/microphones/4/orientation 27.343 0.000
+		/vimic/microphones/4/directivity/ratio 1.000
+		/vimic/microphones/4/gain/midi 127.000
+		/vimic/microphones/4/mute 0
+		/vimic/microphones/4/position/xyz 1.210 2.340 0.000
+		/vimic/microphones/5/orientation 24.219 13.350
+		/vimic/microphones/5/directivity/ratio 1.000
+		/vimic/microphones/5/gain/midi 127.000
+		/vimic/microphones/5/mute 1
+		/vimic/microphones/5/position/xyz 1.210 2.690 0.700
+		/vimic/microphones/6/orientation 49.605 0.000
+		/vimic/microphones/6/directivity/ratio 1.000
+		/vimic/microphones/6/gain/midi 127.000
+		/vimic/microphones/6/mute 0
+		/vimic/microphones/6/position/xyz 2.750 2.340 0.000
+		/vimic/microphones/7/orientation 67.662 0.000
+		/vimic/microphones/7/directivity/ratio 1.000
+		/vimic/microphones/7/gain/midi 127.000
+		/vimic/microphones/7/mute 0
+		/vimic/microphones/7/position/xyz 2.750 1.130 0.000
+		/vimic/microphones/8/orientation 126.073 0.000
+		/vimic/microphones/8/directivity/ratio 1.000
+		/vimic/microphones/8/gain/midi 127.000
+		/vimic/microphones/8/mute 1
+		/vimic/microphones/8/position/xyz 9.180 -6.688 0.000
+		/vimic/microphones/9/orientation 127.345 0.000
+		/vimic/microphones/9/directivity/ratio 1.000
+		/vimic/microphones/9/gain/midi 127.000
+		/vimic/microphones/9/mute 1
+		/vimic/microphones/9/position/xyz 9.080 -6.929 0.000
+		/vimic/microphones/amount 24
+		/vimic/microphones/directivity/power 1.000
+		/vimic/room/reflection/1/gain/midi 0.000
+		/vimic/room/reflection/2/gain/midi 0.0
+		/vimic/room/reflection/airfilter 10000
+		/vimic/room/reflection/order 0
+		/vimic/rendermode/interval 50
+		/vimic/rendermode/xfade/fadefunction cosine
+		/vimic/rendermode/xfade/fadelength 3200
+		/vimic/rendermode/xfade/threshold 10
+		/vimic/report 0
+		/vimic/room/absorption/ceiling/high 99.900
+		/vimic/room/absorption/ceiling/low 99.900
+		/vimic/room/absorption/ceiling/mid 99.900
+		/vimic/room/absorption/floor/high 99.900
+		/vimic/room/absorption/floor/low 99.900
+		/vimic/room/absorption/floor/mid 99.900
+		/vimic/room/absorption/front/high 99.900
+		/vimic/room/absorption/front/low 99.900
+		/vimic/room/absorption/front/mid 99.900
+		/vimic/room/absorption/left/high 99.900
+		/vimic/room/absorption/left/low 99.900
+		/vimic/room/absorption/left/mid 99.900
+		/vimic/room/absorption/rear/high 99.900
+		/vimic/room/absorption/rear/low 99.900
+		/vimic/room/absorption/rear/mid 99.900
+		/vimic/room/absorption/right/high 99.900
+		/vimic/room/absorption/right/low 99.900
+		/vimic/room/absorption/right/mid 99.900
+		/vimic/room/distance/power 1.000
+		/vimic/room/size/xyz 20.000 30.000 8.000
+		#/vimic/source/orientation/yaw 0.000
+		# /vimic/source/position/absolute/aed -81.119 0.000 6.413
+		/vimic/room/temperature 21.000
+		/vimic/updaterate 20
+		/vimic/warning 0
+		
+###
+CUE scaled100%
+###
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+/microphone_setup/xyz/1 -1.15 2.34 0.000
+/microphone_setup/xyz/2 0. 2.34 0.000
+/microphone_setup/xyz/4 1.21 2.34 0.000
+/microphone_setup/xyz/6 2.75 2.34 0.000
+/microphone_setup/xyz/7 2.75 1.13 0.000
+/microphone_setup/xyz/10 2.75 -0.4 0.000
+/microphone_setup/xyz/11 2.75 -2.36 0.000
+/microphone_setup/xyz/12 2.75 -3.88 0.000
+/microphone_setup/xyz/13 1.21 -3.88 0.000
+/microphone_setup/xyz/14 0. -3.88 0.000
+/microphone_setup/xyz/15 -1.15 -3.88 0.000
+/microphone_setup/xyz/17 -2.5 -3.88 0.000
+/microphone_setup/xyz/18 -2.5 -2.36 0.000
+/microphone_setup/xyz/21 -2.5 -0.4 0.000
+/microphone_setup/xyz/22 -2.5 1.13 0.000
+/microphone_setup/xyz/23 -2.5 2.34 0.000
+/microphone_setup/dump		
+		
+####
+CUE scaled50%
+####
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+/microphone_setup/xyz/1 -0.575	1.17	0
+/microphone_setup/xyz/2 0	1.17	0
+/microphone_setup/xyz/3 0	0	0
+/microphone_setup/xyz/4 0.605	1.17	0
+/microphone_setup/xyz/5 0	0	0
+/microphone_setup/xyz/6 1.375	1.17	0
+/microphone_setup/xyz/7 1.375	0.565	0
+/microphone_setup/xyz/8 0	0	0
+/microphone_setup/xyz/9 0	0	0
+/microphone_setup/xyz/10 1.375	-0.2	0
+/microphone_setup/xyz/11 1.375	-1.18	0
+/microphone_setup/xyz/12 1.375	-1.94	0
+/microphone_setup/xyz/13 0.605	-1.94	0
+/microphone_setup/xyz/14 0	-1.94	0
+/microphone_setup/xyz/15 -0.575	-1.94	0
+/microphone_setup/xyz/16 0	0	0
+/microphone_setup/xyz/17 -1.25	-1.94	0
+/microphone_setup/xyz/18 -1.25	-1.18	0
+/microphone_setup/xyz/19 0	0	0
+/microphone_setup/xyz/20 0	0	0
+/microphone_setup/xyz/21 -1.25	-0.2	0
+/microphone_setup/xyz/22 -1.25	0.565	0
+/microphone_setup/xyz/23 -1.25	1.17	0
+/microphone_setup/dump
+
+####
+CUE scaled25%
+####
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+
+/microphone_setup/xyz/1 -0.287500000000000   0.585000000000000                   0
+/microphone_setup/xyz/2                  0   0.585000000000000                   0
+/microphone_setup/xyz/3                  0                   0                   0
+/microphone_setup/xyz/4  0.302500000000000   0.585000000000000                   0
+/microphone_setup/xyz/5                  0                   0                   0
+/microphone_setup/xyz/6  0.687500000000000   0.585000000000000                   0
+/microphone_setup/xyz/7  0.687500000000000   0.282500000000000                   0
+/microphone_setup/xyz/8                  0                   0                   0
+/microphone_setup/xyz/9                  0                   0                   0
+/microphone_setup/xyz/10  0.687500000000000  -0.100000000000000                   0
+/microphone_setup/xyz/11  0.687500000000000  -0.590000000000000                   0
+/microphone_setup/xyz/12  0.687500000000000  -0.970000000000000                   0
+/microphone_setup/xyz/13  0.302500000000000  -0.970000000000000                   0
+/microphone_setup/xyz/14                  0  -0.970000000000000                   0
+/microphone_setup/xyz/15 -0.287500000000000  -0.970000000000000                   0
+/microphone_setup/xyz/16                  0                   0                   0
+/microphone_setup/xyz/17 -0.625000000000000  -0.970000000000000                   0
+/microphone_setup/xyz/18 -0.625000000000000  -0.590000000000000                   0
+/microphone_setup/xyz/19                  0                   0                   0
+/microphone_setup/xyz/20                  0                   0                   0
+/microphone_setup/xyz/21 -0.625000000000000  -0.100000000000000                   0
+/microphone_setup/xyz/22 -0.625000000000000   0.282500000000000                   0
+/microphone_setup/xyz/23 -0.625000000000000   0.585000000000000                   0
+/microphone_setup/dump
+
+####
+CUE scaled12.5%
+####
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+
+/microphone_setup/xyz/1 -0.143750000000000   0.292500000000000                   0
+/microphone_setup/xyz/2                  0   0.292500000000000                   0
+/microphone_setup/xyz/3                  0                   0                   0
+/microphone_setup/xyz/4  0.151250000000000   0.292500000000000                   0
+/microphone_setup/xyz/5                  0                   0                   0
+/microphone_setup/xyz/6  0.343750000000000   0.292500000000000                   0
+/microphone_setup/xyz/7  0.343750000000000   0.141250000000000                   0
+/microphone_setup/xyz/8                  0                   0                   0
+/microphone_setup/xyz/9                  0                   0                   0
+/microphone_setup/xyz/10  0.343750000000000  -0.050000000000000                   0
+/microphone_setup/xyz/11  0.343750000000000  -0.295000000000000                   0
+/microphone_setup/xyz/12  0.343750000000000  -0.485000000000000                   0
+/microphone_setup/xyz/13  0.151250000000000  -0.485000000000000                   0
+/microphone_setup/xyz/14                  0  -0.485000000000000                   0
+/microphone_setup/xyz/15 -0.143750000000000  -0.485000000000000                   0
+/microphone_setup/xyz/16                  0                   0                   0
+/microphone_setup/xyz/17 -0.312500000000000  -0.485000000000000                   0
+/microphone_setup/xyz/18 -0.312500000000000  -0.295000000000000                   0
+/microphone_setup/xyz/19                  0                   0                   0
+/microphone_setup/xyz/20                  0                   0                   0
+/microphone_setup/xyz/21 -0.312500000000000  -0.050000000000000                   0
+/microphone_setup/xyz/22 -0.312500000000000   0.141250000000000                   0
+/microphone_setup/xyz/23 -0.312500000000000   0.292500000000000                   0
+/microphone_setup/dump
+
+####
+CUE scaled125%
+####
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+/microphone_setup/xyz/1 -1.437500000000000   2.925000000000000                   0
+/microphone_setup/xyz/2                  0   2.925000000000000                   0
+/microphone_setup/xyz/3                  0                   0                   0
+/microphone_setup/xyz/4  1.512500000000000   2.925000000000000                   0
+/microphone_setup/xyz/5                  0                   0                   0
+/microphone_setup/xyz/6  3.437500000000000   2.925000000000000                   0
+/microphone_setup/xyz/7  3.437500000000000   1.412500000000000                   0
+/microphone_setup/xyz/8                  0                   0                   0
+/microphone_setup/xyz/9                  0                   0                   0
+/microphone_setup/xyz/10  3.437500000000000  -0.500000000000000                   0
+/microphone_setup/xyz/11  3.437500000000000  -2.950000000000000                   0
+/microphone_setup/xyz/12  3.437500000000000  -4.850000000000000                   0
+/microphone_setup/xyz/13  1.512500000000000  -4.850000000000000                   0
+/microphone_setup/xyz/14                  0  -4.850000000000000                   0
+/microphone_setup/xyz/15 -1.437500000000000  -4.850000000000000                   0
+/microphone_setup/xyz/16                  0                   0                   0
+/microphone_setup/xyz/17 -3.125000000000000  -4.850000000000000                   0
+/microphone_setup/xyz/18 -3.125000000000000  -2.950000000000000                   0
+/microphone_setup/xyz/19                  0                   0                   0
+/microphone_setup/xyz/20                  0                   0                   0
+/microphone_setup/xyz/21 -3.125000000000000  -0.500000000000000                   0
+/microphone_setup/xyz/22 -3.125000000000000   1.412500000000000                   0
+/microphone_setup/xyz/23 -3.125000000000000   2.925000000000000                   0
+/microphone_setup/dump
+
+
+####
+CUE scaled150%
+####
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+/microphone_setup/xyz/1 -1.725000000000000   3.510000000000000                   0
+/microphone_setup/xyz/2                  0   3.510000000000000                   0
+/microphone_setup/xyz/3                  0                   0                   0
+/microphone_setup/xyz/4  1.815000000000000   3.510000000000000                   0
+/microphone_setup/xyz/5                  0                   0                   0
+/microphone_setup/xyz/6  4.125000000000000   3.510000000000000                   0
+/microphone_setup/xyz/7  4.125000000000000   1.695000000000000                   0
+/microphone_setup/xyz/8                  0                   0                   0
+/microphone_setup/xyz/9                  0                   0                   0
+/microphone_setup/xyz/10  4.125000000000000  -0.600000000000000                   0
+/microphone_setup/xyz/11  4.125000000000000  -3.540000000000000                   0
+/microphone_setup/xyz/12  4.125000000000000  -5.820000000000000                   0
+/microphone_setup/xyz/13  1.815000000000000  -5.820000000000000                   0
+/microphone_setup/xyz/14                  0  -5.820000000000000                   0
+/microphone_setup/xyz/15 -1.725000000000000  -5.820000000000000                   0
+/microphone_setup/xyz/16                  0                   0                   0
+/microphone_setup/xyz/17 -3.750000000000000  -5.820000000000000                   0
+/microphone_setup/xyz/18 -3.750000000000000  -3.540000000000000                   0
+/microphone_setup/xyz/19                  0                   0                   0
+/microphone_setup/xyz/20                  0                   0                   0
+/microphone_setup/xyz/21 -3.750000000000000  -0.600000000000000                   0
+/microphone_setup/xyz/22 -3.750000000000000   1.695000000000000                   0
+/microphone_setup/xyz/23 -3.750000000000000   3.510000000000000                   0
+/microphone_setup/dump
+
+####
+CUE scaled200%
+####
+/microphone_setup/active/1 1
+/microphone_setup/active/10 1
+/microphone_setup/active/11 1
+/microphone_setup/active/12 1
+/microphone_setup/active/13 1
+/microphone_setup/active/14 1
+/microphone_setup/active/15 1
+/microphone_setup/active/16 0
+/microphone_setup/active/17 1
+/microphone_setup/active/18 1
+/microphone_setup/active/19 0
+/microphone_setup/active/2 1
+/microphone_setup/active/20 0
+/microphone_setup/active/21 1
+/microphone_setup/active/22 1
+/microphone_setup/active/23 1
+/microphone_setup/active/24 0
+/microphone_setup/active/3 0
+/microphone_setup/active/4 1
+/microphone_setup/active/5 0
+/microphone_setup/active/6 1
+/microphone_setup/active/7 1
+/microphone_setup/active/8 0
+/microphone_setup/active/9 0
+/microphone_setup/xyz/1 -2.300000000000000   4.680000000000000                   0
+/microphone_setup/xyz/2                  0   4.680000000000000                   0
+/microphone_setup/xyz/3                  0                   0                   0
+/microphone_setup/xyz/4  2.420000000000000   4.680000000000000                   0
+/microphone_setup/xyz/5                  0                   0                   0
+/microphone_setup/xyz/6  5.500000000000000   4.680000000000000                   0
+/microphone_setup/xyz/7  5.500000000000000   2.260000000000000                   0
+/microphone_setup/xyz/8                  0                   0                   0
+/microphone_setup/xyz/9                  0                   0                   0
+/microphone_setup/xyz/10 5.500000000000000  -0.800000000000000                   0
+/microphone_setup/xyz/11  5.500000000000000  -4.720000000000000                   0
+/microphone_setup/xyz/12  5.500000000000000  -7.760000000000000                   0
+/microphone_setup/xyz/13  2.420000000000000  -7.760000000000000                   0
+/microphone_setup/xyz/14                  0  -7.760000000000000                   0
+/microphone_setup/xyz/15 -2.300000000000000  -7.760000000000000                   0
+/microphone_setup/xyz/16                  0                   0                   0
+/microphone_setup/xyz/17 -5.000000000000000  -7.760000000000000                   0
+/microphone_setup/xyz/18 -5.000000000000000  -4.720000000000000                   0
+/microphone_setup/xyz/19                  0                   0                   0
+/microphone_setup/xyz/20                  0                   0                   0
+/microphone_setup/xyz/21 -5.000000000000000  -0.800000000000000                   0
+/microphone_setup/xyz/22 -5.000000000000000   2.260000000000000                   0
+/microphone_setup/xyz/23 -5.000000000000000   4.680000000000000                   0
+/microphone_setup/dump
+
+####
+CUE orientation-square
+###
+/vimic/microphones/1/orientation/azimuth 0.000 
+/vimic/microphones/2/orientation/azimuth 0.000 
+/vimic/microphones/3/orientation/azimuth 0.000 
+/vimic/microphones/4/orientation/azimuth 0. 
+/vimic/microphones/5/orientation/azimuth 0.000 
+/vimic/microphones/6/orientation/azimuth 49.605 
+/vimic/microphones/7/orientation/azimuth 90.000 
+/vimic/microphones/8/orientation/azimuth 0.000 
+/vimic/microphones/9/orientation/azimuth 0.000 
+/vimic/microphones/10/orientation/azimuth 90.000 
+/vimic/microphones/11/orientation/azimuth 90.000 
+/vimic/microphones/12/orientation/azimuth 144.672 
+/vimic/microphones/13/orientation/azimuth 180.000 
+/vimic/microphones/14/orientation/azimuth 180.000 
+/vimic/microphones/15/orientation/azimuth 180.000 
+/vimic/microphones/16/orientation/azimuth 0.000 
+/vimic/microphones/17/orientation/azimuth -147.000 
+/vimic/microphones/18/orientation/azimuth -90.000 
+/vimic/microphones/19/orientation/azimuth 0.000 
+/vimic/microphones/20/orientation/azimuth 0.000 
+/vimic/microphones/21/orientation/azimuth -90.000 
+/vimic/microphones/22/orientation/azimuth -90.000 
+/vimic/microphones/23/orientation/azimuth -46.893 
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,6 +11,7 @@
 #define __jcom_HUB_H__
 
 #include "Jamoma.h"					// Max Header
+#include "ext_symobject.h"
 
 #define MAX_STRING_LEN 2048
 #define LISTSIZE 512
@@ -59,7 +60,6 @@ typedef list<t_preset*>::iterator presetListIterator;
  * forwarding of control messages to jcom.in and so on.  */
 typedef struct _hub{							///< Data Structure for this object
 	t_object		ob;							///< REQUIRED: Our object
-	void			*obex;						///< REQUIRED: Object Extensions used by Jitter/Attribute stuff
 	void			*outlets[k_num_outlets];	///< outlet array
 	t_object		*container;					///< the owning patcher
 	subscriberList	*subscriber;				///< top of the linked list of parameters
@@ -69,21 +69,26 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*in_object;					///< cache the jcom.in object directly for quick access
 	t_object		*out_object;				///< cache the jcom.out object directly for quick access
 	t_object		*meter_object[MAX_NUM_CHANNELS];	///< cache any meter objects so they can be handed to jcom.out
-	t_object		*preview_object;			///< cache the remote for sending jitter matrix preview frames
 	t_object		*gui_object;				///< cache the jcom.remote object in the gui for quick access
 	t_symbol		*attr_name;					///< ATTRIBUTE: module name
 	t_symbol		*attr_type;					///< ATTRIBUTE: what kind of module is this?  (audio, video, control, etc.)
 	t_symbol		*attr_size;					///< ATTRIBUTE: gui size
 	t_symbol		*attr_description;			///< ATTRIBUTE: textual description of this module
-	t_symbol		*attr_skin;					///< ATTRIBUTE: skin
 	t_symbol		*attr_algorithm_type;		///< ATTRIBUTE: control, jitter, etc.
 	long			attr_inspector;
+	long			flag_init;					///< FLAG: Indicates that the module is in a process of initiaizaiton
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
 	t_object		*jcom_send_broadcast;		///< jcom.send object used to broadcast to subscribers that they should subscribe now
 	t_symbol		*osc_name;					///< the OSC name of this module for remote communication
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects
+	t_object		*preset_interface;
+	long			preset_lastnum;
+	t_symbol		*preset_lastname;
+	char*			text;						///< text used by /getstate window
+	TTUInt32		textSize;					///< how many chars are alloc'd to text
+	t_object*		textEditor;					///< the text editor window
 } t_hub;
 
 
@@ -98,6 +103,7 @@ void		hub_examine_context(t_hub *x);
  * @param x the hub who's memory should be freed
  * @see hub_free */
 void		hub_free(t_hub *x);
+void		hub_notify(t_hub *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		hub_assist(t_hub *x, void *b, long msg, long arg, char *dst);
 
 t_object*	hub_getobj_audioin(t_hub *x);
@@ -141,6 +147,10 @@ void		hub_paramvalues_get(t_hub *x);
 void		hub_allnames_get(t_hub *x);
 t_symbol*	hub_modulename_get(t_hub *x);
 
+void hub_paramnames_linklist(t_hub *x, t_linklist *linklist);
+void hub_messagenames_linklist(t_hub *x, t_linklist *linklist);
+void hub_returnnames_linklist(t_hub *x, t_linklist *linklist);
+void hub_presetnames_linklist(t_hub *x, t_linklist *ll);
 
 /** Returns the name of the module.  Only really used by jcom.core.cpp
  * @return the name of the module 
@@ -150,6 +160,10 @@ t_symbol*	core_modulename_get(t_hub *x);
 
 t_symbol*	hub_modulename_get(t_hub *x);
 t_symbol*	hub_algorithmtype_get(t_hub *x);
+
+
+void hub_module_help(t_hub* x);
+void hub_module_reference(t_hub* x);
 
 
 /** Initializes any jcom.init objects that are subscribed to the hub by sending them
@@ -310,11 +324,16 @@ void 		hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*);
  * @param x a pointer to the hub whose presets should be dumped */
 void 		hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*);
 
+/** Post all presets
+ * @param x a pointer to the hub whose presets should be dumped */
+void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
 
-/** Adds presets to the GUI menu
- * @param x a pointer to the hub whose preset menu will be updated*/
-void		hub_preset_buildmenu(t_hub *x);
 
+void hub_getstate(t_hub *x);
+void hub_edclose(t_hub *x, char **text, long size);
+
+void hub_preset_interface(t_hub* x);
+t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);
 
 // Globals
 extern 		t_class		*hub_class;				// Required: Global pointer for our class

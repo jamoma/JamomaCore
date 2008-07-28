@@ -14,7 +14,6 @@
 
 typedef struct _pass{						// Data Structure for this object
 	t_object	ob;							// REQUIRED: Our object
-	void		*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff 
 	void 		*outlets[MAX_ARGCOUNT];		// my outlet array
 	void		*outlet_overflow;			// this outlet doubles as the dumpout outlet
 	t_atom		arguments[MAX_ARGCOUNT];
@@ -45,10 +44,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	t_object *attr;
 	
 	jamoma_init();
+	common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.pass",(method)pass_new, (method)0L, (short)sizeof(t_pass), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_pass, obex));
+	c = class_new("jcom.pass",(method)pass_new, (method)0L, sizeof(t_pass), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)pass_int,				"int",		A_DEFLONG,	0L);
@@ -56,8 +55,7 @@ int main(void)				// main recieves a copy of the Max function macros table
   	class_addmethod(c, (method)pass_list,				"list",		A_GIMME, 0L);	
   	class_addmethod(c, (method)pass_symbol,				"anything", A_GIMME, 0L);	
 	class_addmethod(c, (method)pass_assist,				"assist",	A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT, 0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,0);
 
 	// ATTRIBUTE: strip
 	attr = attr_offset_new("strip", _sym_long, attrflags,

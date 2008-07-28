@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 30.0, 44.0, 689.0, 576.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 30.0, 44.0, 689.0, 576.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,
@@ -177,7 +176,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.condition.mxt",
+					"varname" : "jmod.condition",
 					"patching_rect" : [ 22.0, 264.0, 300.0, 71.0 ],
 					"name" : "jmod.condition.maxpat",
 					"numinlets" : 2,
@@ -240,15 +239,14 @@
 					"fontsize" : 9.0,
 					"patcher" : 					{
 						"rect" : [ 297.0, 209.0, 485.0, 371.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 297.0, 209.0, 485.0, 371.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxfadetime" : 200,

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='12' name='RacketBall'>
+    <item name='srcLow' type='msg_generic'>304.000000</item>
+    <item name='srcHigh' type='msg_generic'>226.000000</item>
+    <item name='destLow' type='msg_generic'>55.000000</item>
+    <item name='destHigh' type='msg_generic'>239.000000</item>
+  </preset>
+  <preset number='11' name='OnTheRoof'>
+    <item name='srcLow' type='msg_generic'>222.000000</item>
+    <item name='srcHigh' type='msg_generic'>226.000000</item>
+    <item name='destLow' type='msg_generic'>55.000000</item>
+    <item name='destHigh' type='msg_generic'>239.000000</item>
+  </preset>
+  <preset number='10' name='Spoof'>
+    <item name='srcLow' type='msg_generic'>184.000000</item>
+    <item name='srcHigh' type='msg_generic'>293.000000</item>
+    <item name='destLow' type='msg_generic'>9.000000</item>
+    <item name='destHigh' type='msg_generic'>10.000000</item>
+  </preset>
+  <preset number='9' name='Goof'>
+    <item name='srcLow' type='msg_generic'>184.000000</item>
+    <item name='srcHigh' type='msg_generic'>151.000000</item>
+    <item name='destLow' type='msg_generic'>11.040000</item>
+    <item name='destHigh' type='msg_generic'>11.580000</item>
+  </preset>
+  <preset number='8' name='Inversion'>
+    <item name='srcLow' type='msg_generic'>0.000000</item>
+    <item name='srcHigh' type='msg_generic'>512.000000</item>
+    <item name='destLow' type='msg_generic'>512.000000</item>
+    <item name='destHigh' type='msg_generic'>0.000000</item>
+  </preset>
+  <preset number='7' name='InvertedDownShift'>
+    <item name='srcLow' type='msg_generic'>0.000000</item>
+    <item name='srcHigh' type='msg_generic'>512.000000</item>
+    <item name='destLow' type='msg_generic'>256.000000</item>
+    <item name='destHigh' type='msg_generic'>-256.000000</item>
+  </preset>
+  <preset number='6' name='Uncertainty'>
+    <item name='srcLow' type='msg_generic'>32.000000</item>
+    <item name='srcHigh' type='msg_generic'>0.000000</item>
+    <item name='destLow' type='msg_generic'>0.000000</item>
+    <item name='destHigh' type='msg_generic'>32.000000</item>
+  </preset>
+  <preset number='5' name='WayWayDown'>
+    <item name='srcLow' type='msg_generic'>0.000000</item>
+    <item name='srcHigh' type='msg_generic'>512.000000</item>
+    <item name='destLow' type='msg_generic'>12.000000</item>
+    <item name='destHigh' type='msg_generic'>-500.000000</item>
+  </preset>
+  <preset number='4' name='UpShift'>
+    <item name='srcLow' type='msg_generic'>0.000000</item>
+    <item name='srcHigh' type='msg_generic'>512.000000</item>
+    <item name='destLow' type='msg_generic'>100.000000</item>
+    <item name='destHigh' type='msg_generic'>612.000000</item>
+  </preset>
+  <preset number='3' name='Expansion'>
+    <item name='srcLow' type='msg_generic'>0.000000</item>
+    <item name='srcHigh' type='msg_generic'>512.000000</item>
+    <item name='destLow' type='msg_generic'>0.000000</item>
+    <item name='destHigh' type='msg_generic'>8196.000000</item>
+  </preset>
+  <preset number='2' name='Compression'>
+    <item name='srcLow' type='msg_generic'>0.000000</item>
+    <item name='srcHigh' type='msg_generic'>512.000000</item>
+    <item name='destLow' type='msg_generic'>0.000000</item>
+    <item name='destHigh' type='msg_generic'>108.000000</item>
+  </preset>
+  <preset number='1' name='default'>
+    <item name='srcLow' type='msg_generic'>0.000000</item>
+    <item name='srcHigh' type='msg_generic'>1024.000000</item>
+    <item name='destLow' type='msg_generic'>0.000000</item>
+    <item name='destHigh' type='msg_generic'>1024.000000</item>
+    <item name='audio/mute' type='msg_toggle'>1</item>
+    <item name='audio/mix' type='msg_float'>100.000000</item>
+    <item name='audio/meters/freeze' type='msg_toggle'>0</item>
+    <item name='audio/gain' type='msg_float'>0</item>
+    <item name='audio/bypass' type='msg_toggle'>0</item>
+  </preset>
+</jamoma>

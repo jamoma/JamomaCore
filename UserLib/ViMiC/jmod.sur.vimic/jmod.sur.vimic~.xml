@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='audio/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/meters/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='microphones/1/directivity/ratio' type='msg_float' priority='3'>0.500000</item>
+    <item name='microphones/1/gain/midi' type='msg_float' priority='4'>127.000000</item>
+    <item name='microphones/1/mute' type='msg_int' priority='5'>0</item>
+    <item name='microphones/1/orientation' type='msg_list' priority='2'>0.000000 0.000000 </item>
+    <item name='microphones/1/position/xyz' type='msg_list' priority='1'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/10/directivity/ratio' type='msg_float' priority='93'>0.500000</item>
+    <item name='microphones/10/gain/midi' type='msg_float' priority='94'>0.000000</item>
+    <item name='microphones/10/mute' type='msg_int' priority='95'>1</item>
+    <item name='microphones/10/orientation' type='msg_list' priority='92'>0.000000 0.000000 </item>
+    <item name='microphones/10/position/xyz' type='msg_list' priority='91'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/11/directivity/ratio' type='msg_float' priority='103'>0.500000</item>
+    <item name='microphones/11/gain/midi' type='msg_float' priority='104'>0.000000</item>
+    <item name='microphones/11/mute' type='msg_int' priority='105'>1</item>
+    <item name='microphones/11/orientation' type='msg_list' priority='102'>0.000000 0.000000 </item>
+    <item name='microphones/11/position/xyz' type='msg_list' priority='101'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/12/directivity/ratio' type='msg_float' priority='113'>0.500000</item>
+    <item name='microphones/12/gain/midi' type='msg_float' priority='114'>0.000000</item>
+    <item name='microphones/12/mute' type='msg_int' priority='115'>1</item>
+    <item name='microphones/12/orientation' type='msg_list' priority='112'>0.000000 0.000000 </item>
+    <item name='microphones/12/position/xyz' type='msg_list' priority='111'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/13/directivity/ratio' type='msg_float' priority='123'>0.500000</item>
+    <item name='microphones/13/gain/midi' type='msg_float' priority='124'>0.000000</item>
+    <item name='microphones/13/mute' type='msg_int' priority='125'>1</item>
+    <item name='microphones/13/orientation' type='msg_list' priority='122'>0.000000 0.000000 </item>
+    <item name='microphones/13/position/xyz' type='msg_list' priority='121'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/14/directivity/ratio' type='msg_float' priority='133'>0.500000</item>
+    <item name='microphones/14/gain/midi' type='msg_float' priority='134'>0.000000</item>
+    <item name='microphones/14/mute' type='msg_int' priority='135'>1</item>
+    <item name='microphones/14/orientation' type='msg_list' priority='132'>0.000000 0.000000 </item>
+    <item name='microphones/14/position/xyz' type='msg_list' priority='131'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/15/directivity/ratio' type='msg_float' priority='143'>0.500000</item>
+    <item name='microphones/15/gain/midi' type='msg_float' priority='144'>0.000000</item>
+    <item name='microphones/15/mute' type='msg_int' priority='145'>1</item>
+    <item name='microphones/15/orientation' type='msg_list' priority='142'>0.000000 0.000000 </item>
+    <item name='microphones/15/position/xyz' type='msg_list' priority='141'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/16/directivity/ratio' type='msg_float' priority='153'>0.500000</item>
+    <item name='microphones/16/gain/midi' type='msg_float' priority='154'>0.000000</item>
+    <item name='microphones/16/mute' type='msg_int' priority='155'>1</item>
+    <item name='microphones/16/orientation' type='msg_list' priority='152'>0.000000 0.000000 </item>
+    <item name='microphones/16/position/xyz' type='msg_list' priority='151'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/17/directivity/ratio' type='msg_float' priority='163'>0.500000</item>
+    <item name='microphones/17/gain/midi' type='msg_float' priority='164'>0.000000</item>
+    <item name='microphones/17/mute' type='msg_int' priority='165'>1</item>
+    <item name='microphones/17/orientation' type='msg_list' priority='162'>0.000000 0.000000 </item>
+    <item name='microphones/17/position/xyz' type='msg_list' priority='161'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/18/directivity/ratio' type='msg_float' priority='173'>0.500000</item>
+    <item name='microphones/18/gain/midi' type='msg_float' priority='174'>0.000000</item>
+    <item name='microphones/18/mute' type='msg_int' priority='175'>1</item>
+    <item name='microphones/18/orientation' type='msg_list' priority='172'>0.000000 0.000000 </item>
+    <item name='microphones/18/position/xyz' type='msg_list' priority='171'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/19/directivity/ratio' type='msg_float' priority='183'>0.500000</item>
+    <item name='microphones/19/gain/midi' type='msg_float' priority='184'>0.000000</item>
+    <item name='microphones/19/mute' type='msg_int' priority='185'>1</item>
+    <item name='microphones/19/orientation' type='msg_list' priority='182'>0.000000 0.000000 </item>
+    <item name='microphones/19/position/xyz' type='msg_list' priority='181'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/2/directivity/ratio' type='msg_float' priority='13'>0.500000</item>
+    <item name='microphones/2/gain/midi' type='msg_float' priority='14'>127.000000</item>
+    <item name='microphones/2/mute' type='msg_int' priority='15'>0</item>
+    <item name='microphones/2/orientation' type='msg_list' priority='12'>0.000000 0.000000 </item>
+    <item name='microphones/2/position/xyz' type='msg_list' priority='11'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/20/directivity/ratio' type='msg_float' priority='193'>0.500000</item>
+    <item name='microphones/20/gain/midi' type='msg_float' priority='194'>0.000000</item>
+    <item name='microphones/20/mute' type='msg_int' priority='195'>1</item>
+    <item name='microphones/20/orientation' type='msg_list' priority='192'>0.000000 0.000000 </item>
+    <item name='microphones/20/position/xyz' type='msg_list' priority='191'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/21/directivity/ratio' type='msg_float' priority='203'>0.500000</item>
+    <item name='microphones/21/gain/midi' type='msg_float' priority='204'>0.000000</item>
+    <item name='microphones/21/mute' type='msg_int' priority='205'>1</item>
+    <item name='microphones/21/orientation' type='msg_list' priority='202'>0.000000 0.000000 </item>
+    <item name='microphones/21/position/xyz' type='msg_list' priority='201'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/22/directivity/ratio' type='msg_float' priority='213'>0.500000</item>
+    <item name='microphones/22/gain/midi' type='msg_float' priority='214'>0.000000</item>
+    <item name='microphones/22/mute' type='msg_int' priority='215'>1</item>
+    <item name='microphones/22/orientation' type='msg_list' priority='212'>0.000000 0.000000 </item>
+    <item name='microphones/22/position/xyz' type='msg_list' priority='211'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/23/directivity/ratio' type='msg_float' priority='223'>0.500000</item>
+    <item name='microphones/23/gain/midi' type='msg_float' priority='224'>0.000000</item>
+    <item name='microphones/23/mute' type='msg_int' priority='225'>1</item>
+    <item name='microphones/23/orientation' type='msg_list' priority='222'>0.000000 0.000000 </item>
+    <item name='microphones/23/position/xyz' type='msg_list' priority='221'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/24/directivity/ratio' type='msg_float' priority='233'>0.500000</item>
+    <item name='microphones/24/gain/midi' type='msg_float' priority='234'>0.000000</item>
+    <item name='microphones/24/mute' type='msg_int' priority='235'>1</item>
+    <item name='microphones/24/orientation' type='msg_list' priority='232'>0.000000 0.000000 </item>
+    <item name='microphones/24/position/xyz' type='msg_list' priority='231'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/3/directivity/ratio' type='msg_float' priority='23'>0.500000</item>
+    <item name='microphones/3/gain/midi' type='msg_float' priority='24'>127.000000</item>
+    <item name='microphones/3/mute' type='msg_int' priority='25'>0</item>
+    <item name='microphones/3/orientation' type='msg_list' priority='22'>0.000000 0.000000 </item>
+    <item name='microphones/3/position/xyz' type='msg_list' priority='21'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/4/directivity/ratio' type='msg_float' priority='33'>0.500000</item>
+    <item name='microphones/4/gain/midi' type='msg_float' priority='34'>127.000000</item>
+    <item name='microphones/4/mute' type='msg_int' priority='35'>0</item>
+    <item name='microphones/4/orientation' type='msg_list' priority='32'>0.000000 0.000000 </item>
+    <item name='microphones/4/position/xyz' type='msg_list' priority='31'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/5/directivity/ratio' type='msg_float' priority='43'>0.500000</item>
+    <item name='microphones/5/gain/midi' type='msg_float' priority='44'>127.000000</item>
+    <item name='microphones/5/mute' type='msg_int' priority='45'>0</item>
+    <item name='microphones/5/orientation' type='msg_list' priority='42'>0.000000 0.000000 </item>
+    <item name='microphones/5/position/xyz' type='msg_list' priority='41'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/6/directivity/ratio' type='msg_float' priority='53'>0.500000</item>
+    <item name='microphones/6/gain/midi' type='msg_float' priority='54'>127.000000</item>
+    <item name='microphones/6/mute' type='msg_int' priority='55'>0</item>
+    <item name='microphones/6/orientation' type='msg_list' priority='52'>0.000000 0.000000 </item>
+    <item name='microphones/6/position/xyz' type='msg_list' priority='51'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/7/directivity/ratio' type='msg_float' priority='63'>0.500000</item>
+    <item name='microphones/7/gain/midi' type='msg_float' priority='64'>127.000000</item>
+    <item name='microphones/7/mute' type='msg_int' priority='65'>0</item>
+    <item name='microphones/7/orientation' type='msg_list' priority='62'>0.000000 0.000000 </item>
+    <item name='microphones/7/position/xyz' type='msg_list' priority='61'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/8/directivity/ratio' type='msg_float' priority='73'>0.500000</item>
+    <item name='microphones/8/gain/midi' type='msg_float' priority='74'>127.000000</item>
+    <item name='microphones/8/mute' type='msg_int' priority='75'>0</item>
+    <item name='microphones/8/orientation' type='msg_list' priority='72'>0.000000 0.000000 </item>
+    <item name='microphones/8/position/xyz' type='msg_list' priority='71'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/9/directivity/ratio' type='msg_float' priority='83'>0.500000</item>
+    <item name='microphones/9/gain/midi' type='msg_float' priority='84'>0.000000</item>
+    <item name='microphones/9/mute' type='msg_int' priority='85'>1</item>
+    <item name='microphones/9/orientation' type='msg_list' priority='82'>0.000000 0.000000 </item>
+    <item name='microphones/9/position/xyz' type='msg_list' priority='81'>0.000000 0.000000 0.000000 </item>
+    <item name='microphones/amount' type='msg_int' priority='301'>8</item>
+    <item name='microphones/directivity/power' type='msg_int' priority='0'>1</item>
+	<item name='microphones/polarity' type='msg_toggle' priority='0'>1</item> 
+    <item name='rendermode/interval' type='msg_int' priority='0'>50</item>
+    <item name='rendermode/normalization/active' type='msg_toggle' priority='0'>0</item>
+    <item name='rendermode/threshold/active' type='msg_toggle' priority='0'>0</item>
+    <item name='rendermode/threshold' type='msg_float' priority='0'>0</item>
+    <item name='rendermode/xfade/fadefunction' type='msg_symbol' priority='0'>0</item>
+    <item name='rendermode/xfade/fadelength' type='msg_int' priority='0'>3200</item>
+    <item name='rendermode/xfade/threshold' type='msg_int' priority='0'>2</item>
+    <item name='rendermode' type='msg_symbol' priority='0'>X-fade_lite</item>
+    <item name='report' type='msg_int' priority='0'>0</item>
+    <item name='room/absorption/ceiling/high' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/ceiling/low_mid_frequency' type='msg_int' priority='0'>500</item>
+    <item name='room/absorption/ceiling/low' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/ceiling/mid_high_frequency' type='msg_int' priority='0'>3500</item>
+    <item name='room/absorption/ceiling/mid' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/floor/high' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/floor/low_mid_frequency' type='msg_int' priority='0'>500</item>
+    <item name='room/absorption/floor/low' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/floor/mid_high_frequency' type='msg_int' priority='0'>3500</item>
+    <item name='room/absorption/floor/mid' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/front/high' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/front/low_mid_frequency' type='msg_int' priority='0'>500</item>
+    <item name='room/absorption/front/low' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/front/mid_high_frequency' type='msg_int' priority='0'>3500</item>
+    <item name='room/absorption/front/mid' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/left/high' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/left/low_mid_frequency' type='msg_int' priority='0'>500</item>
+    <item name='room/absorption/left/low' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/left/mid_high_frequency' type='msg_int' priority='0'>3500</item>
+    <item name='room/absorption/left/mid' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/rear/high' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/rear/low_mid_frequency' type='msg_int' priority='0'>500</item>
+    <item name='room/absorption/rear/low' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/rear/mid_high_frequency' type='msg_int' priority='0'>3500</item>
+    <item name='room/absorption/rear/mid' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/right/high' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/right/low_mid_frequency' type='msg_int' priority='0'>500</item>
+    <item name='room/absorption/right/low' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/absorption/right/mid_high_frequency' type='msg_int' priority='0'>3500</item>
+    <item name='room/absorption/right/mid' type='msg_float' priority='0'>99.900002</item>
+    <item name='room/distance/power' type='msg_float' priority='0'>1.000000</item>
+    <item name='room/reflection/0/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='room/reflection/1/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='room/reflection/2/gain/midi' type='msg_float' priority='0'>0.000000</item>
+    <item name='room/reflection/airfilter' type='msg_int' priority='0'>10000</item>
+    <item name='room/reflection/order' type='msg_int' priority='300'>1</item>
+    <item name='room/size/xyz' type='msg_list' priority='0'>20.000000 30.000000 8.000000</item> 
+    <item name='room/temperature' type='msg_float' priority='0'>21.000000</item>
+    <item name='source/orientation/active' type='msg_toggle' priority='0'>0</item>
+    <item name='source/orientation/yaw' type='msg_int' priority='0'>0</item>
+    <item name='source/orientation/mode' type='msg_symbol' priority='0'>static</item>
+    <item name='source/position/absolute/aed' type='msg_list' priority='0'>0.000000 0.000000 4.000000 </item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='updaterate' type='msg_int' priority='0'>20</item>
+    <item name='warning' type='msg_int' priority='0'>0</item>
+  </preset>
+</jamoma>

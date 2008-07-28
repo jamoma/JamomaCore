@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="audio/gain" type="msg_int">0</item>
+		<item name="audio/meters/freeze" type="msg_toggle">0</item>
+		<item name="audio/mix" type="msg_float">100.</item>
+		<item name="audio/bypass" type="msg_int">0</item>
+		<item name="audio/mute" type="msg_int">1</item>
+		
+		<item name="preamp" type="msg_float">6.</item>
+		<item name="postamp" type="msg_float">6.</item>
+		<item name="threshold" type="msg_float">-6.</item>
+		<item name="lookahead" type="msg_int">10</item>
+		<item name="release" type="msg_float">300.</item>
+		<item name="mode" type="msg_symbol">exponential</item>
+    </preset>
+</jamoma>

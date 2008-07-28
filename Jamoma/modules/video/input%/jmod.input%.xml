@@ -21,7 +21,6 @@
     <item name='synth/noise/rate' type='msg_int'>100</item>
     <item name='synth/noise/size/x' type='msg_int'>320</item>
     <item name='synth/noise/size/y' type='msg_int'>240</item>
-    <item name='video/bypass' type='msg_toggle'>0</item>
     <item name='video/freeze' type='msg_toggle'>0</item>
     <item name='video/mute' type='msg_toggle'>0</item>
     <item name='video/preview' type='msg_toggle'>0</item>

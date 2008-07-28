@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>jcom.ui/jcom.ui.cpp</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -83,7 +81,7 @@
 							<key>filename</key>
 							<string>jcom.hub/jcom.hub.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-12-14T14:59:57Z</date>
+							<date>2008-06-11T14:40:21Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
@@ -102,6 +100,8 @@
 							<string>jcom.hub/jcom.hub.internals.cpp</string>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>hub</string>
 				</dict>
@@ -195,15 +195,19 @@
 							<key>filename</key>
 							<string>jcom.parameter/jcom.parameter.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-12-22T07:24:24Z</date>
+							<date>2008-06-12T13:04:19Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.parameter/jcom.parameter.h</string>
 							<key>lastUsed</key>
-							<date>2007-12-14T16:12:27Z</date>
+							<date>2008-06-12T13:04:20Z</date>
+							<key>selected</key>
+							<true/>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>parameter</string>
 				</dict>
@@ -217,14 +221,14 @@
 						<dict>
 							<key>filename</key>
 							<string>jcom.paramui/jcom.paramui.cpp</string>
+							<key>lastUsed</key>
+							<date>2008-06-11T15:48:13Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.paramui/jcom.paramui.attrs.cpp</string>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>paramui</string>
 				</dict>
@@ -328,25 +332,21 @@
 							<key>filename</key>
 							<string>jcom.ui/jcom.ui.internals.cpp</string>
 							<key>lastUsed</key>
-							<date>2008-03-22T10:44:53Z</date>
+							<date>2008-06-10T16:13:36Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.ui/jcom.ui.h</string>
 							<key>lastUsed</key>
-							<date>2008-03-22T10:44:54Z</date>
+							<date>2008-06-10T16:13:36Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.ui/jcom.ui.cpp</string>
 							<key>lastUsed</key>
-							<date>2008-03-22T10:44:54Z</date>
-							<key>selected</key>
-							<true/>
+							<date>2008-06-10T16:13:36Z</date>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>ui</string>
 				</dict>
@@ -461,58 +461,10 @@
 			<key>firstVisibleLine</key>
 			<integer>39</integer>
 		</dict>
-		<key>jcom.ui/jcom.ui.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>146</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>172</integer>
-		</dict>
-		<key>jcom.ui/jcom.ui.h</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>60</integer>
-		</dict>
-		<key>jcom.ui/jcom.ui.internals.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>jcom.ui/jcom.ui.h</string>
-		<string>jcom.ui/jcom.ui.cpp</string>
-		<string>jcom.ui/jcom.ui.internals.cpp</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{5, 10}, {963, 868}}</string>
+	<string>{{40, 10}, {963, 868}}</string>
 </dict>
 </plist>

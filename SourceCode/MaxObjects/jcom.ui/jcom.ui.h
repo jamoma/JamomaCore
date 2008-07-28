@@ -24,6 +24,11 @@ typedef struct _ui{
 	t_hashtab			*hash_internals;		///< hash table of internal jcom.parameter and jcom.message instances
 	t_object			*obj_remote;			///< the internal jcom.remote instance that communicates with the hub
 
+	t_jrgba				bgcolor;
+	t_jrgba				bordercolor;
+	t_jrgba				headercolor;
+	t_jrgba				textcolor;
+	
 	t_jpopupmenu		*menu;					// module menu
 	void				*menu_qelem;			// ...
 	long				menu_selection;			// ...
@@ -34,7 +39,7 @@ typedef struct _ui{
 	long				refmenu_selection;		// ...
 	t_linklist			*refmenu_items;			// ...
 	
-	t_linklist			*presets;				// list of presets as symobjects (flags=index, name=name)
+//	t_linklist			*presets;				// list of presets as symobjects (flags=index, name=name)
 	
 	long				attr_hasinspector;
 	t_rect				rect_inspector;
@@ -62,19 +67,28 @@ typedef struct _ui{
 	long				attr_hasgain;
 	float				attr_gain;
 	t_rect				rect_gain;
+	bool				gainDragging;
 	
 	long				attr_hasmix;
 	float				attr_mix;
 	t_rect				rect_mix;
+	bool				mixDragging;
 
 	t_symbol			*attr_modulename;
+	t_symbol			*attrModuleClass;
+	
+	t_symbol			*attrPrefix;
+	
+	t_pt				anchor;				// used for dragging the dials
+	float				anchorValue;		//	...
 } t_ui;
 
 
 // prototypes: general
-t_ui*		ui_new(t_symbol *s, short argc, t_atom *argv);
+t_ui*		ui_new(t_symbol *s, long argc, t_atom *argv);
 void 		ui_free(t_ui *x);
 void 		ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+void		ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv);
 void 		ui_bang(t_ui *x);
 // prototypes: drawing/ui
 void 		ui_paint(t_ui *x, t_object *view);
@@ -95,6 +109,7 @@ t_max_err	attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_mix(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_gain(t_ui *obj, void *attr, long argc, t_atom *argv);
+void setGainDataspaceUnit(t_ui* obj, t_symbol* unit);
 t_max_err	attr_set_freeze(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_preview(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv);
@@ -103,4 +118,4 @@ t_max_err	attr_set_hasmix(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv);
-
+t_max_err	attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv);

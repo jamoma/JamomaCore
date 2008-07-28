@@ -14,7 +14,6 @@
 
 typedef struct _oscroute{					// Data Structure for this object
 	t_object		ob;							// REQUIRED: Our object
-	void			*obex;						// REQUIRED: Object Extensions used by Jitter/Attribute stuff 
 	void			*outlets[MAX_ARGCOUNT];		// my outlet array
 	void			*outlet_overflow;			// this outlet doubles as the dumpout outlet
 	t_symbol		*arguments[MAX_ARGCOUNT];	// symbols to match
@@ -50,10 +49,10 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// Initialize Globals
 	jamoma_init();
+	common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.oscroute",(method)oscroute_new, (method)oscroute_free, (short)sizeof(t_oscroute), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_oscroute, obex));
+	c = class_new("jcom.oscroute",(method)oscroute_new, (method)oscroute_free, sizeof(t_oscroute), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)oscroute_bang,			"bang",		0L,			0L);	
@@ -62,8 +61,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	class_addmethod(c, (method)oscroute_list,			"list",		A_GIMME,	0L);
   	class_addmethod(c, (method)oscroute_symbol,			"anything", A_GIMME,	0L);	
 	class_addmethod(c, (method)oscroute_assist,			"assist",	A_CANT,		0L); 
-    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref", A_CANT,		0);
+    class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",	A_CANT,		0);
 
 	// ATTRIBUTE: strip
 	attr = attr_offset_new("strip", _sym_long, attrflags,
@@ -106,6 +104,24 @@ void *oscroute_new(t_symbol *s, long argc, t_atom *argv)
 						//atom_setsym(&(x->arguments[i]), atom_getsym(argv+i));
 						x->arguments[i] = atom_getsym(argv+i);
 						x->arglen[i] = strlen(atom_getsym(argv+i)->s_name);
+						break;
+					case A_LONG:
+						{
+							char	tempstr[256];
+							
+							snprintf(tempstr, 256, "%ld", atom_getlong(argv+i));
+							x->arguments[i] = gensym(tempstr);
+							x->arglen[i] = strlen(tempstr);
+						}
+						break;
+					case A_FLOAT:
+						{
+							char	tempstr[256];
+							
+							snprintf(tempstr, 256, "%f", atom_getfloat(argv+i));
+							x->arguments[i] = gensym(tempstr);
+							x->arglen[i] = strlen(tempstr);
+						}
 						break;
 					default:
 						error("jcom.oscroute - invalid arguments - all args must be symbols");
@@ -166,24 +182,41 @@ void oscroute_list(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 	outlet_list(x->outlet_overflow, _sym_list, argc , argv);
 }
 
-char* matchesWildcard(const char *msg, const char *arg, unsigned long len)
+void output_msg(t_oscroute *x, char *msg, int outlet, long argc, t_atom *argv)
 {
-	if(strncmp(msg, arg, len) == 0) 
-		return strstr((char*)msg, "/");	
-
-	return NULL;
-}
-
-inline int wildCardOffset(unsigned int numberOfWc)
-{
-	return 2 * numberOfWc;
+	t_symbol *output;
+	if(msg == '\0') {
+		
+		if (argc == 0) {
+			outlet_bang(x->outlets[outlet]);
+		} else if (argc==1) {
+		
+			if (argv->a_type==A_LONG) 
+				outlet_int(x->outlets[outlet],argv->a_w.w_long);				
+			else if (argv->a_type==A_FLOAT) 
+				outlet_float(x->outlets[outlet],argv->a_w.w_float);
+			else if (argv->a_type==A_SYM) 
+				outlet_anything(x->outlets[outlet],argv->a_w.w_sym,0,0);
+				
+		} else {
+			if (argv->a_type==A_SYM) {
+				output = argv->a_w.w_sym;
+				argc--;
+				argv++;
+			} else {
+				output = _sym_list;
+			}
+					
+			outlet_anything(x->outlets[outlet], output, argc, argv);
+		}				
+	} else 
+		outlet_anything(x->outlets[outlet], gensym(msg), argc, argv);
+	
 }
 
 // SYMBOL INPUT
 void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	short		i;
-	t_symbol	*message;				// our input message to match
 	t_symbol	*output;
 	char		input[MAX_MESS_SIZE];	// our input string
 	long		inlet = proxy_getinlet((t_object *)x);
@@ -204,21 +237,18 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 		outlet_anything(x->outlet_overflow, msg, argc , argv);
 		return;
 	}
-
-	message = gensym(input);
 	
 	char *wc, *c;
-	int wcCount = 0;  // wild card count
 	bool overFlow = true;
-	for (i=0; i < x->num_args; i++) {
+	for (int pos=0; pos < x->num_args; pos++) {
 		// Look for exact matches first.
-		if (strncmp(msg->s_name, x->arguments[i]->s_name, x->arglen[i])==0) {
+		if (strncmp(msg->s_name, x->arguments[pos]->s_name, x->arglen[pos])==0) {
 			// If incoming message is longer than argument...
-			if (strlen(msg->s_name) > x->arglen[i]){
+			if (strlen(msg->s_name) > x->arglen[pos]){
 				// ...it is only a match if it continues with a slash
-				if (input[x->arglen[i]] == '/') {
-					output = gensym(msg->s_name + x->arglen[i]);
-					outlet_anything(x->outlets[i], output, argc , argv);
+				if (input[x->arglen[pos]] == '/') {
+					output = gensym(msg->s_name + x->arglen[pos]);
+					outlet_anything(x->outlets[pos], output, argc , argv);
 					overFlow = false;
 					break;
 				}
@@ -229,7 +259,7 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 				// We then have to check what message to return.
 				// The message received has no arguments:
 				if (argc == 0) {
-					outlet_bang(x->outlets[i]);
+					outlet_bang(x->outlets[pos]);
 					overFlow = false;
 					break;
 				}
@@ -238,17 +268,17 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 					overFlow = false;
 					// int argument
 					if (argv->a_type==A_LONG) {
-						outlet_int(x->outlets[i],argv->a_w.w_long);
+						outlet_int(x->outlets[pos],argv->a_w.w_long);
 						break;
 					}				
 					// float argument
 					else if (argv->a_type==A_FLOAT) {
-						outlet_float(x->outlets[i],argv->a_w.w_float);
+						outlet_float(x->outlets[pos],argv->a_w.w_float);
 						break;
 					}
 					// something else
 					else if (argv->a_type==A_SYM) {
-						outlet_anything(x->outlets[i],argv->a_w.w_sym,0,0);
+						outlet_anything(x->outlets[pos],argv->a_w.w_sym,0,0);
 						break;
 					}				
 				}		
@@ -261,48 +291,52 @@ void oscroute_symbol(t_oscroute *x, t_symbol *msg, long argc, t_atom *argv)
 					}
 					else
 						output = _sym_list;
-					outlet_anything(x->outlets[i], output, argc , argv);
+					outlet_anything(x->outlets[pos], output, argc , argv);
 					overFlow = false;
 					break;
 				}
 			}
 		}
 	}
+	// XXX Putting this here makes crashes go away.  It would be really good to know why.
+	//cpost("temp hack to prevent optimizations that cause this object to crash in Deployment");
 	// If no exact matches, look for wildcards.
-	for (i=0; i < x->num_args; i++) {		
-		// Check to see if this argument has a wildcard
-		if(wc = strstr(x->arguments[i]->s_name, "/*")) {
-			if(*(wc+2) == '\0') {
-				// Wildcard follows parameter names, i.e. /fifth/moon/of/aragon/*
-				if(c = matchesWildcard(msg->s_name, x->arguments[i]->s_name, x->arglen[i] - 1)) {
-					// Need to strip off preceeding part of message
-					char *temp = strstr(c+1, "/");
-					if(temp)
-						outlet_anything(x->outlets[i], gensym(temp), argc, argv);
+	for (int index=0; index < x->num_args; index++) {	
+
+		if(wc = strstr(x->arguments[index]->s_name, "*")) {
+			// Does the argument have anything following the wildcard?
+			if(*(wc+1) == '\0') {
+				// Now compare the argument up to the asterisk to the message
+				if(strncmp(msg->s_name, x->arguments[index]->s_name, x->arglen[index] - 1) == 0) {
+
+					// Increment string past everything that matches including the asterisk
+					char *temp = msg->s_name + (x->arglen[index] - 1);
+					// Check for a slash, an asterisk causes us to strip off everything up to the next slash
+					char *outMsg = strstr(temp, "/");
+					if(outMsg)
+						output_msg(x, outMsg, index, argc, argv);
+					else {
+						// no slash, output everything following the message
+						output_msg(x, NULL, index, argc, argv);
+					}
 					return;
 				} else {
 					// We break here because if the strncmp() fails it means we have a wildcard following an 
 					// OSC message i.e. /robot/* but the incoming message doesn't begin with /robot
-			//		break;
+					//break;
 				}
 			} else {
-				
-				while(wc && *(wc + 2) == '/') {
-					wcCount++;
-					// Skip to next potential wildcard
-					wc += 2;
-					wc = strstr(wc, "/*");
+				// There is no NULL char after asterisk
+				c = msg->s_name;
+				while(wc && *(wc) == '*') {
+					wc++;
+					c++;
 				}
-				c = msg->s_name + 1;
-				for(int skipCnt = 0; skipCnt < wcCount; ++skipCnt) {
-					c = strstr(c + 1, "/");
-				}
-				
-				if(c = matchesWildcard(c, x->arguments[i]->s_name + wildCardOffset(wcCount), strlen(c))) {
-					outlet_anything(x->outlets[i], gensym(c), argc, argv);
+					
+				c += strlen(c) - strlen(wc);
+				if(strncmp(c, wc, strlen(c)) == 0) {
+					output_msg(x, c, index, argc, argv);
 					return;
-				} else {
-					wcCount = 0;
 				}
 			}
 		} 

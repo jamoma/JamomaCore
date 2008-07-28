@@ -9,6 +9,10 @@
 #ifndef __DATASPACELIB_H__
 #define __DATASPACELIB_H__
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "ext.h"
 #include "ext_obex.h"
 #include "JamomaTypes.h"
@@ -30,7 +34,7 @@ static const double kGainMidiPowerInv = 1./kGainMidiPower;
 // Specification for the base class of each DataspaceUnit
 // A DataspaceUnit converts from a specific unit to a neutral unit
 // and is used by a DataspaceLib to do a conversion
-class DataspaceUnit{
+class JAMOMA_EXPORT DataspaceUnit{
 	public:
 		t_symbol *name;				/// < name of this unit
 
@@ -52,7 +56,7 @@ class DataspaceUnit{
 
 
 // Specification of our base class
-class DataspaceLib{
+class JAMOMA_EXPORT DataspaceLib{
 	private:
 		DataspaceUnit	*inUnit;
 		DataspaceUnit	*outUnit;

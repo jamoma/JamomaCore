@@ -17,5 +17,22 @@ enum JamomaError{
 	JAMOMA_ERR_INVALID_PARAMETER
 };
 
+#ifndef JAMOMA_PLATFORM_WIN
+	#ifdef WIN_VERSION
+	 #define JAMOMA_PLATFORM_WIN
+	#else
+	 #define JAMOMA_PLATFORM_MAC
+	 #define JAMOMA_EXPORT
+	#endif
+#endif
+
+#ifdef JAMOMA_PLATFORM_WIN
+ #include "windows.h"
+ #ifdef _DLL_JAMOMA_EXPORT
+  #define JAMOMA_EXPORT __declspec(dllexport)
+ #else
+  #define JAMOMA_EXPORT __declspec(dllimport)
+ #endif // _DLL_EXPORT
+#endif
 
 #endif //__JAMOMA_TYPES_H__

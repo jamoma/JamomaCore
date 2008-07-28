@@ -7,6 +7,10 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#ifdef WIN_VERSION
+ #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
+#endif // WIN_VERSION
+
 #include "ext.h"
 #include "ext_obex.h"
 #include "ext_user.h"
@@ -24,7 +28,7 @@ typedef struct _paramui{
 	t_object			*obj_parameter;			///< embedded jcom.parameter object
 	void				*outlet;				// outlet -- used for sending preview to jit.pwindow
 
-	t_jpopupmenu		*menu;					// module menu
+	t_jpopupmenu		*menu;					// menu
 	void				*menu_qelem;			// ...
 	long				menu_selection;			// ...
 	t_linklist			*menu_items;			// ...
@@ -55,7 +59,7 @@ typedef struct _paramui{
 
 
 // prototypes: general
-t_paramui*	paramui_new(t_symbol *s, short argc, t_atom *argv);
+t_paramui*	paramui_new(t_symbol *s, long argc, t_atom *argv);
 void 		paramui_free(t_paramui *x);
 void 		paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 // prototypes: drawing/ui

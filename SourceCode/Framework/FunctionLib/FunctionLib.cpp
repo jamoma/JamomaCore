@@ -41,13 +41,13 @@ static void delete_functionunit(FunctionUnit* functionUnit)
 	functionUnit = NULL;
 }
 
-JamomaError FunctionLib::createUnit(const TTSymbol& unitName, FunctionUnit **unit)
+JamomaError FunctionLib::createUnit(const TTSymbol* unitName, FunctionUnit **unit)
 {
 	FunctionUnit* oldUnit = NULL;
 	FunctionUnit* newUnit = NULL;
 	
 	if(*unit){
-		TTSymbol& existingFunctionName = (*unit)->getName();
+		TTSymbol* existingFunctionName = (*unit)->getName();
 		if(unitName == existingFunctionName)
 			return JAMOMA_ERR_NONE;
 		else
@@ -68,7 +68,8 @@ JamomaError FunctionLib::createUnit(const TTSymbol& unitName, FunctionUnit **uni
 	else{
 		// Invalid function specified default to linear
 //		TTLogError("rampLib: Invalid function: %s", (TTString)unitName);
-		TTLogError("rampLib: Invalid function", (TTString)unitName);
+//		TTLogError("rampLib: Invalid function", (TTString)unitName);
+		error("barfs");
 		newUnit = (FunctionUnit*) new LinearFunction;
 	}
 	
@@ -89,7 +90,7 @@ JamomaError FunctionLib::createUnit(const TTSymbol& unitName, FunctionUnit **uni
 void FunctionLib::getUnitNames(TTValue& unitNames)
 {
 	unitNames.clear();
-	unitNames.append(TT("cosine"));
+	unitNames.set(0, TT("cosine"));
 	unitNames.append(TT("linear"));
 	unitNames.append(TT("lowpass"));
 	unitNames.append(TT("power"));

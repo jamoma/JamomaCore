@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 201.0, 69.0, 644.0, 638.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 201.0, 69.0, 644.0, 638.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,
@@ -34,7 +33,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jmod.palette.mxt",
+					"text" : "jmod.palette",
 					"patching_rect" : [ 21.0, 17.0, 247.0, 28.0 ],
 					"fontname" : "Verdana",
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
@@ -159,7 +158,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.palette.mxt",
+					"varname" : "jmod.palette",
 					"patching_rect" : [ 147.0, 197.0, 300.0, 70.0 ],
 					"name" : "jmod.palette.maxpat",
 					"lockeddragscroll" : 1,
@@ -210,15 +209,14 @@
 					"outlettype" : [ "jit_matrix", "" ],
 					"patcher" : 					{
 						"rect" : [ 840.0, 260.0, 387.0, 323.0 ],
-						"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-						"bglocked" : 0,
+										"bglocked" : 0,
 						"defrect" : [ 840.0, 260.0, 387.0, 323.0 ],
 						"openinpresentation" : 0,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"gridonopen" : 0,
-						"gridsize" : [ 15.0, 15.0 ],
+						"gridsize" : [ 5.0, 5.0 ],
 						"gridsnaponopen" : 0,
 						"toolbarvisible" : 1,
 						"boxfadetime" : 200,

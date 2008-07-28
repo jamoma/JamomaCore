@@ -43,17 +43,16 @@ typedef struct _param{						// Data Structure for this object
 	long					list_size;
 	long					listDefault_size;
 	t_symbol				*attr_ramp;				// ATTRIBUTE: ramp mode 
-	long					attr_slavemode;			// ATTRIBUTE: This instance is a slave of another instance, and simply forward anything recieved
 	long					attr_ui_freeze;
 	float					attr_stepsize;			// ATTRIBUTE: amount to increment or decrement by
 	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
-	t_symbol				*name;					// the first arg is the name of the parameter, which is stored by pattr - but we cache it here too...
-	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
+//	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
 	RampUnit				*ramper;				///< rampunit object to perform ramping of input values
 	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
 	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
 	t_symbol				*attr_rampfunction;		///< Attribute for setting the function used by the ramping
 	t_symbol				*attr_dataspace;		///< The dataspace that this parameter uses (default is 'none')
+	DataspaceLib			*dataspace;
 	t_symbol				*attr_unitActive;		///< The active unit within the dataspace -- the type of values a user is sending
 	t_symbol				*attr_unitNative;		///< The native unit within the dataspace -- the type of values sent to the algorithm
 	method					callback;				///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
@@ -76,28 +75,51 @@ void 		param_output_list(void *z);
 void		param_output_none(void *z);
 void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void		param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
-/** If the hub receives a bang, it's passed on to this method, and used to update value if @/ramp/drive is set to "async". */
-void		param_rampUpdate(t_param *x);
 void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);
 void		param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_send_feedback(t_param *x);
+
+/**	Convert a list of atoms through the DataspaceLib from the active units into the native units.
+	@param	x		Parameter or Message instance pointer.
+	@param	argc	The number of input atoms.
+	@param	argv	The address of the first of an array of input atoms.
+	@param	rc		A pointer to a variable that will hold the number of returned atoms.
+	@param	rv		A pointer to the address of the first of an array of output atoms.
+	@param	alloc	A pointer to a bool that will be true if memory was allocated to the rv parameter.
+					If no memory was allocated, then rv will be pointing to argv and alloc will be set to false.
+*/
+void		param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** rv, bool* alloc);
+
 void		param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void		param_ramp_callback_float(void *v, float value);
 void		param_ramp_callback_int(void *v, float value);
-void		param_ramp_callback_list(void *v, short argc, double *value);
+void		param_ramp_callback_list(void *v, long argc, double *value);
 void		atom_clip(t_param *x, t_atom *a);
 void 		param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 
-t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err 	param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_gettype(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err 	param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getfreeze(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setfreeze(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setdefault(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getdataspace(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);
@@ -110,11 +132,6 @@ void		param_reset(t_param *x);
 void		param_setcallback(t_param *x, method newCallback, t_object *callbackArg);
 t_max_err	param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv);
-void		param_getRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-void		param_setRampFunctionParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-void		param_getRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-void		param_setRampDriveParameter(t_param *obj, t_symbol *msg, long argc, t_atom *argv);
-
 
 // Defined in jcom.parameter.clip.c
 void 		param_clip_generic(t_param *x);

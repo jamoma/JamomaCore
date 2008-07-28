@@ -22,6 +22,7 @@ class hubInternalObject {
 		t_atom		a[7];
 	
 		theObject = NULL;
+		action = NULL;
 		atom_setsym(a+0, gensym(subscribername));
 		atom_setsym(a+1, gensym("@type"));
 		atom_setsym(a+2, gensym(subscribertype));
@@ -49,7 +50,7 @@ void hub_internals_create(t_hub *x)
 	anObject->action = (method)hub_init;
 	hashtab_store(x->hash_internals, gensym("init"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	"msg_none",		"none",	"Generate a documentation page for this module and save it to disk.");
+	anObject = new hubInternalObject("jcom.message", 	"documentation/generate",	"msg_generic",	"none",	"Generate a documentation page for this module and save it to disk.");
 	anObject->action = (method)hub_autodoc;
 	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 
@@ -93,8 +94,12 @@ void hub_internals_create(t_hub *x)
 	anObject->action = (method)hub_presets_clear;
 	hashtab_store(x->hash_internals, gensym("preset/clear"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/post",				"msg_none",		"none",	"Post all presets to the Max window.");
+	anObject = new hubInternalObject("jcom.message", 	"preset/dump",				"msg_none",		"none",	"Dump all preset names.");
 	anObject->action = (method)hub_presets_dump;
+	hashtab_store(x->hash_internals, gensym("preset/dump"), (t_object*)anObject);
+	
+	anObject = new hubInternalObject("jcom.message", 	"preset/post",				"msg_none",		"none",	"Post all presets to the Max window.");
+	anObject->action = (method)hub_presets_post;
 	hashtab_store(x->hash_internals, gensym("preset/post"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.parameter",	"ui/freeze",				"msg_toggle",	"none",	"Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.");
@@ -104,6 +109,10 @@ void hub_internals_create(t_hub *x)
 	anObject = new hubInternalObject("jcom.message", 	"ui/refresh",				"msg_none",		"none",	"Update displayed values for module to reflect current state.");
 	anObject->action = (method)hub_ui_refresh;
 	hashtab_store(x->hash_internals, gensym("ui/refresh"), (t_object*)anObject);
+
+	// TODO: Make the creation of this message dependent on the attribute to the hub
+	anObject = new hubInternalObject("jcom.message", 	"panel/open",				"msg_none",		"none",	"Open an a module's control panel (inspector) if one is present.");
+	hashtab_store(x->hash_internals, gensym("panel/open"), (t_object*)anObject);	
 }
 
 
@@ -135,7 +144,9 @@ void hub_internals_dispatch(t_hub *x, t_symbol *osc_name, long argc, t_atom *arg
 	t_max_err			err;
 	
 	err = hashtab_lookup(x->hash_internals, osc_name, (t_object**)&theObject);
-	if(!err)
-		theObject->action(x, osc_name, argc, argv);
+	if(!err){
+		if(theObject->action)
+			theObject->action(x, osc_name, argc, argv);
+	}
 }
 

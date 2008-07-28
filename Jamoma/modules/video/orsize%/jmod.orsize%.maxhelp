@@ -1,7 +1,6 @@
 {
 	"patcher" : 	{
 		"rect" : [ 236.0, 51.0, 712.0, 517.0 ],
-		"bgcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 		"bglocked" : 0,
 		"defrect" : [ 236.0, 51.0, 712.0, 517.0 ],
 		"openinpresentation" : 0,
@@ -9,7 +8,7 @@
 		"default_fontface" : 0,
 		"default_fontname" : "Verdana",
 		"gridonopen" : 0,
-		"gridsize" : [ 15.0, 15.0 ],
+		"gridsize" : [ 5.0, 5.0 ],
 		"gridsnaponopen" : 0,
 		"toolbarvisible" : 1,
 		"boxfadetime" : 200,
@@ -407,7 +406,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"varname" : "jmod.orsize%.mxt",
+					"varname" : "jmod.orsize%",
 					"name" : "jmod.orsize%.maxpat",
 					"numinlets" : 2,
 					"patching_rect" : [ 316.0, 104.0, 301.0, 71.0 ],

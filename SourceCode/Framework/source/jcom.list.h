@@ -80,7 +80,7 @@ public:
 		ll.merge(m, comp);
 	}
 	/** @return the number of elements in the list */	
-	int size() { return ll.size(); }
+	long size() { return (long)ll.size(); }
 	/** @return true if the list is empty, false otherwise */
 	bool empty() const { return ll.empty(); }
 	/** Removes the list item at position.  

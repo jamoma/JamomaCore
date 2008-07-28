@@ -1,18 +1,25 @@
 /* 
  * jcom.hub - presets
  * handle preset functions (including XML reading and writing)
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright Â© 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
 #include "jcom.hub.h"
+#include "ext_dictionary.h"
+#include "jpatcher_api.h"
 #include "libxml/xmlreader.h"
 #include "libxml/xmlschemas.h"
 #include <functional>
 using namespace std;
 #define value value_list[0]
+
+extern t_object	 *g_jcom_send_notifications;
+
+
+
 
 struct _byName : binary_function<t_preset*, t_preset*, bool> {
 	bool operator()(const t_preset* p, const t_preset* q)
@@ -77,11 +84,9 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 		presetCopy->name = presetsName;
 		preset->merge(presetCopy, presetIsLess);  // add to list of presets
 		critical_exit(0);
-		hub_preset_buildmenu(x);
-	} else {
+	} 
+	else
 		error("jcom.hub (%s module): preset to copy not found", x->attr_name);
-	}
-	
 }
 			
 	
@@ -196,7 +201,7 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 	presetItemList *itemOneList, *itemTwoList;
 	itemOneList = p1->item; itemTwoList = p2->item;
 	t_preset_item *item1, *item2;
-	float value;
+	float val;
 	t_atom newValue[LISTSIZE];
 	bool found = false;
 	
@@ -230,21 +235,21 @@ void interpolate_presets(t_hub *x, t_preset *p1, t_preset *p2, float position)
 		}
 		
 		// we can assume item1 and item2 are the same type if they are the same parameter (see above)
-		if(item1->type == ps_msg_int) {
-			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
-			atom_setfloat(&newValue[0], value);
-		} else if(item1->type == ps_msg_float) {
-			value = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
-			atom_setfloat(&newValue[0], value);
-		} else if(item1->type == ps_msg_toggle) {
-			value = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
-			atom_setlong(&newValue[0], value);
-		} else if(item1->type == ps_msg_list || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
+		if(item1->type == jps_msg_int) {
+			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
+			atom_setfloat(&newValue[0], val);
+		} else if(item1->type == jps_msg_float) {
+			val = atom_getfloat(&item1->value_list[0]) * (1. - position) + atom_getfloat(&item2->value_list[0]) * position;
+			atom_setfloat(&newValue[0], val);
+		} else if(item1->type == jps_msg_toggle) {
+			val = position <= 0.5 ? atom_getlong(&item1->value) : atom_getlong(&item2->value);
+			atom_setlong(&newValue[0], val);
+		} else if(item1->type == jps_msg_list || item1->type == gensym("list_int") || item1->type == gensym("list_float")) {
 			for(int i = 0; i < item1->list_size; i++) {
-				value = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
-				atom_setfloat(&newValue[i], value);
+				val = atom_getfloat(&item1->value_list[i]) * (1. - position) + atom_getfloat(&item2->value_list[i]) * position;
+				atom_setfloat(&newValue[i], val);
 			}
-		} else if(item1->type == ps_msg_symbol) {
+		} else if(item1->type == jps_msg_symbol) {
 			atom_setsym(&newValue[0], position <= 0.5 ? atom_getsym(&item1->value) : atom_getsym(&item2->value));
 		}
 		hub_symbol(x, item1->param_name, item1->list_size, &newValue[0]);
@@ -295,7 +300,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	t_atom			*av;					// used for return values from attribute queries
 	long			ac;						// ...
 	
-	if(argc < 1){
+	if(argc < 1 || atom_getsym(argv) == gensym("Store Current Preset")){
 		// write over the last preset recalled
 			
 		if(preset->empty()) {
@@ -306,18 +311,21 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		preset_num = (*(preset->begin()))->last_preset_num;
 		// Recall the name as well
 		preset_name = (*(preset->begin()))->last_preset_name;
-	} else {
-	
+	} 
+	else{
 		if(argv->a_type != A_LONG){
-			error("jcom.hub (%s module): first argument must be an int if a name is specified", x->attr_name);
+			//error("jcom.hub (%s module): first argument must be an int if a name is specified", x->attr_name);
+			preset_num = (*(preset->begin()))->last_preset_num;
+			preset_name = atom_getsym(argv);
 			return;
 		}
-		
-		preset_num = atom_getlong(argv);
-		if(argc > 1)
-			preset_name = atom_getsym(argv+1);
-		else
-			preset_name = symbol_unique();
+		else{		
+			preset_num = atom_getlong(argv);
+			if(argc > 1)
+				preset_name = atom_getsym(argv+1);
+			else
+				preset_name = symbol_unique();
+		}
 	}
 	
 	// Search the linked list for this preset (if it already exists) and remove it
@@ -369,20 +377,20 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	t_subscriber* t;
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		if(t->type == ps_subscribe_parameter){
+		if(t->type == jps_subscribe_parameter){
 			newItem = (t_preset_item *)sysmem_newptr(sizeof(t_preset_item));
 			newItem->param_name = t->name;
 
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(t->object, ps_type, &ac, &av);		// get
+			object_attr_getvalueof(t->object, jps_type, &ac, &av);		// get
 			newItem->type = atom_getsym(av);										// copy
 
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(t->object, ps_priority, &ac, &av);	// get
+			object_attr_getvalueof(t->object, jps_priority, &ac, &av);	// get
 			newItem->priority = atom_getlong(av);									// copy
 			
 			ac = NULL; av = NULL;												// init
-			object_attr_getvalueof(t->object, ps_value, &ac, &av);		// get
+			object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get
 			sysmem_copyptr(av, &newItem->value_list[0], sizeof(t_atom) * ac);
 			newItem->list_size = ac;
 			
@@ -398,15 +406,28 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		(*(x->preset->begin()))->last_preset_name = preset_name;
 	}
 	critical_exit(0);	
-	hub_preset_buildmenu(x);
 }
+
 
 void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	
 {
 	t_atom b[2];
+	long result;
+	char *text;
+	char buf[512];
+	
+	strcpy(buf, "chateau de preset");
+
+	//long jdialog_showtext(char *prompt, char *deftext, long flags, char **text);
+	result = jdialog_showtext("Provide a Name for This Preset", buf, 0, &text);
+	if(result != 1)
+		return;
+	
 	atom_setlong(&b[0], x->preset->size() + 1);
-	atom_setsym(&b[1], atom_getsym(argv));
+	atom_setsym(&b[1], gensym(text));
 	hub_preset_store(x, gensym("/preset/store"), 2, b);
+	
+	// TODO: do we not have to free text?
 }
 
 // read the default file and recall the first preset
@@ -414,6 +435,7 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 {
 	char	default_file_name[256];
 	t_atom	a;
+	t_atom	args[2];
 	
 	strcpy(default_file_name, x->attr_name->s_name);
 	strcat(default_file_name, ".xml");
@@ -422,6 +444,15 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 
 	hub_preset_doread(x, gensym(default_file_name));
 	hub_preset_recall(x, _sym_nothing, 1, &a);
+	
+	// Is default preset recalled as part of initialization of module?
+	if (x->flag_init) {
+		atom_setsym(args, x->attr_name);
+		atom_setsym(args+1, x->osc_name);
+		object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
+		// Initialization is now done
+		x->flag_init = 0;
+	}
 }
 
 
@@ -437,7 +468,7 @@ void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	else
 		userpath = _sym_nothing;
 
-	defer_low(x, (method)hub_preset_doread, userpath, 0, 0L);
+	defer(x, (method)hub_preset_doread, userpath, 0, 0L);
 }
 
 
@@ -465,7 +496,6 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 	jcom_core_getfilepath(path, filename, fullpath);
 	//post("path for xml preset file: %s", temppath);
 	hub_preset_parse(x, fullpath);
-	hub_preset_buildmenu(x);
 }
 
 
@@ -568,7 +598,7 @@ void hub_preset_parse(t_hub *x, char *path)
 					if(type != NULL)
 						item->type = gensym((char *)type);
 					else
-						item->type = ps_msg_generic;
+						item->type = jps_msg_generic;
 					priority = xmlTextReaderGetAttribute(reader, (xmlChar *)"priority");
 					if(priority)
 						sscanf((char *)priority, "%ld", &item->priority);
@@ -594,12 +624,12 @@ void hub_preset_parse(t_hub *x, char *path)
 					float	temp_float = 0;
 					long	temp_int = 0;
 		
-					if(item->type == ps_msg_symbol){
+					if(item->type == jps_msg_symbol){
 						//post("Symbol! %s", (char *)value);
 						atom_setsym(&item->value, gensym((char *)val));		// assume symbol	
 						item->list_size = 1;
 					}
-					else if((item->type == ps_msg_int) || (item->type == ps_msg_toggle)){
+					else if((item->type == jps_msg_int) || (item->type == jps_msg_toggle)){
 						result = sscanf((char *)val, "%ld", &temp_int);		// try to get long
 						if(result > 0){
 							//post("Int! %i", temp_int, result);
@@ -753,8 +783,32 @@ void hub_presets_clear(t_hub *x, t_symbol*, long, t_atom*)
 }
 
 
-// dump the preset info to the Max window for debugging
+// dump the preset info for the preset interface
 void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
+{
+	presetList		*preset = x->preset;
+	//presetItemList	*item;
+	t_atom			a[2];
+	
+	presetListIterator i;
+	presetItemListIterator itemIterator;
+	t_preset *p;
+	//t_preset_item *presetItem;
+	critical_enter(0);
+	for(i = preset->begin(); i != preset->end(); ++i) {
+		p = *i;
+		atom_setlong(&a[0], p->number);
+		atom_setsym(&a[1], p->name);
+		hub_outlet_return(x, gensym("/preset/dump"), 2, a);
+		//item = p->item;
+		//presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
+		//}		
+	}
+	critical_exit(0);
+}
+
+// dump the preset info to the Max window for debugging
+void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 {
 	presetList		*preset = x->preset;
 	presetItemList	*item;
@@ -774,10 +828,11 @@ void hub_presets_dump(t_hub *x, t_symbol*, long, t_atom*)
 		item = p->item;
 		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
-			if((presetItem->type == ps_msg_int) || (presetItem->type == ps_msg_toggle))
+			if((presetItem->type == jps_msg_int) || (presetItem->type == jps_msg_toggle)){
 				post("    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
-			else if(presetItem->type == ps_msg_symbol)
+			}
+			else if(presetItem->type == jps_msg_symbol)
 				post("    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, 
 					atom_getsym(&(presetItem->value))->s_name);
@@ -803,7 +858,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		t_atom	a[2];
 
 		atom_setlong(&a[0], 1);
-		atom_setsym(&a[1], ps_default);
+		atom_setsym(&a[1], jps_default);
 		hub_preset_store(x, gensym("/preset/store"), 2, a);
 	} else {
 		// recall the number of the preset we recalled last in the first preset (the one being recalled now)
@@ -816,7 +871,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		hub_preset_store(x, gensym("/preset/store"), 2, b);
 	}
 	
-	defer_low(x, (method)hub_preset_dowrite, userpath, 0, 0L);
+	defer(x, (method)hub_preset_dowrite, userpath, 0, 0L);
 }
 
 void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
@@ -954,26 +1009,62 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 }
 
 
-// Communicate with the gui to build the preset listing in the module menu
-void hub_preset_buildmenu(t_hub *x)
+void hub_presetnames_linklist(t_hub *x, t_linklist *ll)
 {
-	presetList		*preset = x->preset;
-	t_atom			a[3];
-
-	if(x->gui_object != NULL){
-		atom_setsym(&a[0], ps_NEW_PRESETS_START);
-		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
-		
-		presetListIterator i;
-		t_preset *p;
-		for(i = preset->begin(); i != preset->end(); ++i) {
-			p = *i;
-			atom_setsym(&a[0], ps_NEW_PRESETS);
-			atom_setsym(&a[1], p->name);
-			object_method_typed(x->gui_object, ps_dispatched, 2, a, NULL);
-		}
-
-		atom_setsym(&a[0], ps_MENU_REBUILD);		
-		object_method_typed(x->gui_object, ps_dispatched, 1, a, NULL);
+	presetList*			preset = x->preset;
+	presetListIterator	i;
+	t_preset*			p;
+	t_symobject*		item;
+	
+	//	critical_enter(0);
+	for(i = preset->begin(); i != preset->end(); ++i) {
+		p = *i;
+		item = (t_symobject*)symobject_new(p->name);
+		linklist_append(ll, item);
 	}
+	//	critical_exit(0);
 }
+
+
+void hub_preset_interface(t_hub* x)
+{
+	char			filename[MAX_FILENAME_CHARS];
+	short			path;
+	long			type;
+	t_dictionary*	d;
+	t_object*		p;
+	t_atom			a;
+	
+	if(x->preset->empty())
+		return;
+	else{
+		x->preset_lastnum = (*(x->preset->begin()))->last_preset_num;
+		x->preset_lastname = (*(x->preset->begin()))->last_preset_name;
+	}
+	
+	strncpy_zero(filename, "jcom.preset_interface.maxpat", MAX_FILENAME_CHARS);
+	locatefile_extended(filename, &path, &type, NULL, 0);
+	dictionary_read(filename, path, &d);
+	
+	atom_setobj(&a, d);
+	p = (t_object*)object_new_typed(_sym_nobox, _sym_jpatcher, 1, &a);
+	object_attr_setlong(p, _sym_locked, 1);			// start out locked
+	object_attr_setchar(p, _sym_enablehscroll, 0);		// turn off scroll bars
+	object_attr_setchar(p, _sym_enablevscroll, 0);
+	object_attr_setchar(p, _sym_openinpresentation, 1);	
+	object_attr_setchar(p, _sym_toolbarvisible, 0);	
+	object_attr_setsym(p, _sym_title, gensym("preset_interface"));		
+	object_method_parse(p, _sym_window, "constrain 500 300 757 345", NULL);
+	object_attach_byptr_register(x, p, _sym_nobox);
+	
+	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed
+	object_attr_setobj(jpatcher_get_firstview(p), _sym_owner, (t_object*)x);	// become the owner
+
+	OBJ_ATTR_SYM(p, "jmod/modulename", 0, x->osc_name);	// to use in jmod.receive etc.
+	OBJ_ATTR_SYM(p, "jmod/presetname", 0, x->preset_lastname);
+	OBJ_ATTR_LONG(p, "jmod/presetnumber", 0, x->preset_lastnum);
+
+	x->preset_interface = p;
+	object_method(x->preset_interface, _sym_loadbang);
+}
+

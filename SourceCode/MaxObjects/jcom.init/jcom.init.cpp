@@ -33,23 +33,20 @@ t_class			*g_init_class;			// Required. Global pointing to this class
 int main(void)				// main recieves a copy of the Max function macros table
 {
 	t_class		*c;
-	t_object 	*attr;
-	long		offset;
+	t_object 	*attr = NULL;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.init",(method)init_new, (method)jcom_core_subscriber_common_free, 
-		(short)sizeof(t_init), (method)0L, A_GIMME, 0);
-	offset = calcoffset(t_init, common);
-	class_obexoffset_set(c, offset + calcoffset(t_jcom_core_subscriber_common, obex));
+	c = class_new("jcom.init",(method)init_new, (method)jcom_core_subscriber_common_free, sizeof(t_init), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)init_bang,				"bang",			0L);
 	class_addmethod(c, (method)init_go,					"go",			A_CANT, 0);
     class_addmethod(c, (method)init_assist,				"assist",		A_CANT, 0L);
 	
-	jcom_core_subscriber_classinit_common(c, attr, offset);	
+	jcom_core_subscriber_classinit_common(c, attr);	
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -77,9 +74,9 @@ void *init_new(t_symbol *s, long argc, t_atom *argv)
 	if(x){
 		x->dumpout = outlet_new(x, NULL);
 		x->outlet = outlet_new(x, NULL);
-		object_obex_store((void *)x, ps_dumpout, (object *)x->dumpout);		// setup the dumpout
+		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
-		jcom_core_subscriber_new_common(&x->common, name, ps_subscribe_init);
+		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_init);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
@@ -114,5 +111,5 @@ void init_go(t_init *x)
 void init_bang(t_init *x)
 {
 	if(x->common.hub != NULL)
-		object_method(x->common.hub, ps_init);
+		object_method(x->common.hub, jps_init);
 }

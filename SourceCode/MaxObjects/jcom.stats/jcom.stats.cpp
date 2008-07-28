@@ -11,7 +11,6 @@
 
 typedef struct _stats{			// Data structure for this object 
 	struct	object ob;			// Must always be the first field; used by Max
-	void	*obex;
 	double	sumOfValues;		// Sum of values
 	double	sumOfSquaredValues;	// Sum of squared values
 	long	maxWindowSize;		// Maximum window size
@@ -58,10 +57,10 @@ int main(void)
 	t_object *attr;
 	
 	jamoma_init();
+common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.stats",(method)stats_new, (method)stats_free, (short)sizeof(t_stats), (method)0L, A_GIMME, 0);
-	class_obexoffset_set(c, calcoffset(t_stats, obex));			
+	c = class_new("jcom.stats",(method)stats_new, (method)stats_free, sizeof(t_stats), (method)0L, A_GIMME, 0);		
 		
 	// Make methods accessible for our class: 
 
@@ -72,8 +71,7 @@ int main(void)
     class_addmethod(c, (method)stats_set,				"set",			A_FLOAT,	0);
 	class_addmethod(c, (method)stats_window,			"window_size",	A_LONG,		0);
     class_addmethod(c, (method)stats_clear,				"clear",		0);
-	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,		0);  
-    class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT,		0);
+	class_addmethod(c, (method)object_obex_dumpout, 	"dumpout",		A_CANT,		0);
 	
 	// ATTRIBUTE: windowed
 	attr = attr_offset_new("windowed", _sym_long, attrflags,
@@ -159,16 +157,27 @@ void stats_setwindowed(t_stats *x, void *attr, long argc, t_atom *argv)
 void stats_bang(t_stats *x)
 {
 	double mean, standardDeviation;
-
-	if (x->valueCount < 0)
+   
+/*	if (x->valueCount < 0)
 		mean = 0;
 	else 
 		mean = x->sumOfValues / x->valueCount;
 	if (x->valueCount > 1)
 		standardDeviation = sqrt((x->sumOfSquaredValues - ((x->sumOfValues*x->sumOfValues) / x->valueCount)) / (x->valueCount - 1));
 	else
-		standardDeviation = 0;
+		standardDeviation = 0;*/
 
+/////small optimization by Nils Peters////
+
+	if (x->valueCount >= 0)
+		mean = x->sumOfValues / x->valueCount;  
+	else
+		mean = 0;
+    if (x->valueCount > 1)
+        standardDeviation = sqrt((x->sumOfSquaredValues - (x->sumOfValues*mean)) / (x->valueCount - 1));  /* i just simplified the equation by using the mean which was already calculated before*/
+    else
+        standardDeviation = 0;
+///// end of small optimization by Nils Peters////  
 	outlet_float(x->outlet5, standardDeviation);
 	outlet_float(x->outlet4, mean);
 	outlet_float(x->outlet3, x->max);

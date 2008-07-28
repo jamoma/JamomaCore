@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.envexp.mxe"
+
+EXPORTS
+	main

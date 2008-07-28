@@ -17,8 +17,8 @@ const double k_anti_denormal_value = 1e-18;
 // statics and globals
 static long			initialized = false;
 static t_hashtab	*hash_modules = NULL;			// a hashtab of all modules (jcom.hubs) currently instantiated
-t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
-t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
+//t_object			*obj_jamoma_clock = NULL;		// there is only one master clock for the whole system
+//t_object			*obj_jamoma_scheduler = NULL;	// a shared global instance of the scheduler class (there may be others too)
 bool				max5 = false;
 
 
@@ -28,28 +28,67 @@ bool				max5 = false;
 void jamoma_init(void)
 {
 	if(!initialized){
-		t_object	*max = gensym("max")->s_thing;
-		t_symbol	*meth = gensym("objectfile");
+		t_object*	max = gensym("max")->s_thing;
+		t_symbol*	meth = gensym("objectfile");
+		t_atom		a[4];
 	
 		if(maxversion() >= 0x0500)
 			max5 = true;
+		
+		TTBlueInit();
 		common_symbols_init();
 		jamomaSymbolsInit();
-		jamoma_clock_initclass();
-		jamoma_scheduler_initclass();
+
 		receivemaster_initclass();
 		receive_initclass();
+		object_method(max, meth, gensym("jcom.receive"), gensym("jcom.loader"), gensym("jcom.receive"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.receive"), NULL);
+		
 		send_initclass();
+		object_method(max, meth, gensym("jcom.send"), gensym("jcom.loader"), gensym("jcom.send"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.send"), NULL);
+
+		receive_tilde_initclass();
+		object_method(max, meth, gensym("jcom.receive~"), gensym("jcom.loader"), gensym("jcom.receive~"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.receive~"), NULL);
+
+		send_tilde_initclass();
+		object_method(max, meth, gensym("jcom.send~"), gensym("jcom.loader"), gensym("jcom.send~"));
+		object_method_sym(max, gensym("db.object_addinternal"), gensym("jcom.send~"), NULL);
 		
 		// Setup Class Aliases for TTBlue
 		object_method(max, meth, gensym("jcom.limiter~"), gensym("tt.limiter~"), gensym("jcom.limiter~"));
 		object_method(max, meth, gensym("jcom.saturation~"), gensym("tt.overdrive~"), gensym("jcom.saturation~"));
 		
 		// Create Required Global Instances
-		obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
-		obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
+		// obj_jamoma_clock = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.clock"), 0, NULL);
+		// obj_jamoma_scheduler = (t_object*)object_new_typed(CLASS_NOBOX, gensym("jamoma.scheduler"), 0, NULL);
 		hash_modules = (t_hashtab*)hashtab_new(0);
+		// TODO: Use quittask_install() to set up a destructor for this to free it before Max exits
 
+		// Add Jamoma Key Commands:
+		
+		// J -- a new object box with "jcom." in it
+		atom_setsym(a+0, gensym("J"));
+		atom_setsym(a+1, gensym("patcher"));
+		atom_setsym(a+2, gensym("inserttextobj"));
+		atom_setsym(a+3, gensym("jcom."));
+		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
+		
+		// M -- a new object box with "jmod." in it
+		atom_setsym(a+0, gensym("M"));
+		atom_setsym(a+1, gensym("patcher"));
+		atom_setsym(a+2, gensym("inserttextobj"));
+		atom_setsym(a+3, gensym("jmod."));
+		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
+
+		// I -- a new audio input module, O -- a new audio output module	
+		object_method_parse(max, gensym("definecommand"), "I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		object_method_parse(max, gensym("definecommand"), "O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
+	
+		// B -- a new module in a bpatcher
+		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @args myModule @name jmod.\"", NULL);		
+		
 		post("Jamoma %s - www.jamoma.org", JAMOMA_VERSION);
 		initialized = true;
 	}
@@ -106,7 +145,7 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 {
 	if(max5){
-		t_object	*box = object_attr_getobj(patcher, ps_box);
+		t_object	*box = object_attr_getobj(patcher, jps_box);
 		t_symbol	*objclass = NULL;
 		
 		if(box)
@@ -122,36 +161,10 @@ t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 		return _sym_nothing;
 	}
 	else{
-		t_patcher	*p = (t_patcher*)patcher;
-		t_box		*box = p->p_box;
-
-		if(p->p_vnewobj != NULL){
-			box = (t_box *)p->p_vnewobj;
-			if(ob_sym(box) == gensym("bpatcher"))
-				return gensym("bpatcher");
-			else
-				return gensym("subpatcher");
-		}
-		else
-			return gensym("toplevel");
+		error("This version of Jamoma requires Max 5");
+		return _sym_nothing;
 	}
 }
-
-
-typedef struct bpatcher {
-	t_box b_box;
-	short a,b;
-	short c,d;
-	short e,f;
-	short g,h;
-	short i,j;
-	short k,l;
-	short m,n;
-	short o;
-	Symbol *b_name;
-	Atom b_argv[10];
-	short b_argc;
-} t_bpatcher;
 
 
 // Don't pass memory in for this function!  It will allocate what it needs
@@ -160,7 +173,7 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 {
 	if(max5){
 		t_symbol		*context = jamoma_patcher_getcontext(patcher);
-		t_object		*box = object_attr_getobj(patcher, ps_box);
+		t_object		*box = object_attr_getobj(patcher, jps_box);
 		t_object		*textfield = NULL;
 		char			*text = NULL;
 		unsigned long	textlen = 0;
@@ -178,36 +191,7 @@ void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 		}
 	}
 	else{
-		t_patcher	*p = (t_patcher*)patcher;
-		t_symbol	*context = jamoma_patcher_getcontext(patcher);
-		t_bpatcher	*bp;
-		t_box		*box = (t_box *)p->p_vnewobj;
-		t_atombuf	*atoms = NULL;
-		long		ac = 0;
-		t_atom		*av = NULL;
-
-		if(context == gensym("bpatcher")){
-			box = (t_box *)p->p_vnewobj;
-			bp = (t_bpatcher *)box;
-			
-			ac = bp->b_argc;
-			av = bp->b_argv;
-		}
-		else if(context == gensym("subpatcher")){
-			atoms = (t_atombuf *)box->b_binbuf;
-			ac = atoms->a_argc - 1;
-			av = atoms->a_argv + 1;
-		}
-		
-		if(ac && av){
-			*argc = ac;
-			*argv = (t_atom*)sysmem_newptr(sizeof(t_atom) * ac);
-			sysmem_copyptr(av, *argv, sizeof(t_atom) * ac);
-		}
-		else{
-			*argc = 0;
-			*argv = NULL;
-		}
+		error("This version of Jamoma requires Max 5");
 	}
 }
 
@@ -218,18 +202,8 @@ t_symbol* jamoma_patcher_getvarname(t_object *patcher)
 		return _sym_nothing;
 	}
 	else{
-		t_patcher	*p = (t_patcher*)patcher;
-		t_box		*box = (t_box *)p->p_vnewobj;
-		t_symbol	*s = _sym_nothing;
-		
-		if(!box)
-			return _sym_nothing;
-			
-		p = box->b_patcher;	
-		if(patcher_boxname(p, box, &s))
-			return s;
-		else
-			return _sym_nothing;
+		error("This version of Jamoma requires Max 5");
+		return _sym_nothing;
 	}
 }
 
@@ -238,7 +212,7 @@ t_symbol* jamoma_patcher_getvarname(t_object *patcher)
 // are updated if needed
 void jamoma_dsp(t_object *, t_signal **sp, short *count)
 {
-	jamoma_clock_dsp(NULL, sp, count);
+	//jamoma_clock_dsp(NULL, sp, count);
 }
 
 
@@ -248,7 +222,7 @@ void jamoma_dsp(t_object *, t_signal **sp, short *count)
 // for example:
 // 	jamoma_class_attr_new(c, "ramp/drive", _sym_symbol, (method)param_setramp, 
 //		calcoffset(t_param, attr_ramp));
-void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter, long offset)
+void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, method setter, method getter)
 {
 	t_object	*attr = NULL;
 	char		getterName[256];
@@ -256,14 +230,14 @@ void jamoma_class_attr_new(t_class *c, char *attrName, t_symbol *attrType, metho
 	strcpy(getterName, attrName);
 	strcat(getterName, "/get");
 
-	attr = attr_offset_new(attrName, attrType, 0, getter, setter, offset);
+	attr = attr_offset_new(attrName, attrType, 0, getter, setter, NULL);
 	class_addattr(c, attr);
 
 	class_addmethod(c, (method)jamoma_class_attr_get, getterName, A_GIMME, 0);
 }
 
 
-void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter, long sizeOffset, long offset)
+void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType, long list_size, method setter, method getter)
 {
 	t_object	*attr = NULL;
 	char		getterName[256];
@@ -271,7 +245,7 @@ void jamoma_class_attr_array_new(t_class *c, char *attrName, t_symbol *attrType,
 	strcpy(getterName, attrName);
 	strcat(getterName, "/get");
 
-	attr = attr_offset_array_new(attrName, _sym_atom, list_size, 0, getter, setter, sizeOffset, offset);
+	attr = attr_offset_array_new(attrName, _sym_atom, list_size, 0, getter, setter, NULL, NULL);
 	class_addattr(c, attr);
 
 	class_addmethod(c, (method)jamoma_class_attr_get, getterName, A_GIMME, 0);
@@ -296,14 +270,13 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 	object_attr_getvalueof(o, sAttrName, &ac, &av);
 	object_obex_dumpout(o, sAttrName, ac, av);
 	if(x->hub != NULL){
-//		t_symbol	*attrName = (t_symbol *)object_method((t_object *)attr, gensym("getname"));
 		char		s[256];
 		t_atom		a[4];
 	
 		sprintf(s, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, gensym(s));
 		sysmem_copyptr(av, a+1, sizeof(t_atom) * ac);
-		object_method_typed(x->hub, ps_feedback, ac + 1, a, NULL);
+		object_method_typed(x->hub, jps_feedback, ac + 1, a, NULL);
 	}
 
 	if(ac)
