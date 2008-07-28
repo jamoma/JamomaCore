@@ -8,6 +8,7 @@
 
 #include "TTSymbolTable.h"
 #include "TTMutex.h"
+#include "TTValue.h"
 
 static TTMutex*				sMutex = NULL;
 TTEXPORT TTSymbolTable*		ttSymbolTable = NULL;
