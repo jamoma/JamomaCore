@@ -136,7 +136,8 @@ extern TTEXPORT TTEnvironment* ttEnvironment;
 
 // Some macros for convenience and API naming-convention consistency
 #define TTClassRegister(className, tags, instantiationMethod) ttEnvironment->registerClass(className, tags, instantiationMethod)
-#define TTGetRegisteredClassNames(classNames) ttEnvironment->getAllClassNames(classNames) 
+#define TTGetRegisteredClassNames(classNames) ttEnvironment->getAllClassNames(classNames)
+#define TTGetRegisteredClassNamesForTags(classNames, searchTags) ttEnvironment->getClassNamesWithTags(classNames, searchTags)
 #define TTObjectInstantiate(className, anObject, arguments) ttEnvironment->createInstance(className, anObject, arguments)
 #define TTObjectRelease(anObject) ttEnvironment->releaseInstance(anObject)
 
