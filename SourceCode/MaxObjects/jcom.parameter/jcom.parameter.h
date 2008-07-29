@@ -62,19 +62,86 @@ typedef struct _param{						// Data Structure for this object
 
 // Prototypes
 // Defined in jcom.parameter.c
+
+/** The jcom.parameter constructor */
 void		*param_new(t_symbol *s, long argc, t_atom *argv);
+
+/** The parameter deconstructor, frees any memory used by the parameter
+ * @param x the parameter who's memory should be freed
+ * @see param_free */
 void		param_free(t_param *x);
+
+/** Provides assistance on input and output while patching.
+ * @param x the parameter instance
+ * @param b
+ * @param msg Determines is assistance was requested for an input or output
+ * @param arg Determines what input/output assistance was requested for
+ * @param dst destination that assistance string is copied to */
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
+
+/** Use for debugging - dump state to the Max window.
+ * @param x the parameter instance to be investigated. */
 void		param_dump(t_param *x);
+
+/**'bang'method for user input. Return current value(s) locally, and request jcom.hub to process current value in usual fashion.
+ * @param x The parameter instance */
 void		param_bang(t_param *x);
-void 		param_output_int(void *z);		// one of these is called from the bang method pointer in our struct...
+
+/** Method called from the bang method pointer in our struct in order to output an int.
+ * @param z The parameger instance that is requested to output an int.
+ * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
+void 		param_output_int(void *z);
+
+/** Method called from the bang method pointer in our struct in order to output a float.
+ * @param z The parameger instance that is requested to output a float.
+ * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_float(void *z);
+
+/** Method called from the bang method pointer in our struct in order to output a symbol.
+ * @param z The parameger instance that is requested to output a symbol.
+ * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_symbol(void *z);
+
+/** Method called from the bang method pointer in our struct in order to output a generic message.
+ * @param z The parameger instance that is requested to output a generic message.
+ * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_generic(void *z);
+
+/** Method called from the bang method pointer in our struct in order to output a list.
+ * @param z The parameger instance that is requested to output a list.
+ * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void 		param_output_list(void *z);
+
+/** Method called from the bang method pointer in our struct in order to output a message with no arguments.
+    Typically used by jcom.return to return an OSC message with no arguments.
+ * @param z The parameger instance that is requested to output a message.
+ * @psee param_output_int param_output_float param_output_symbol param_output_generic param_output_list param_output_none */
 void		param_output_none(void *z);
+
+/** Increase parameter value in steps. 
+	Optional arguments passed as pointer to array of atoms specify
+	how many steps to increase value by,
+	if parameter is to ramp to new value
+	and ramp time.
+	@param x The parameter instance
+	@param msg The inc symbol pointer
+	@param Array length
+	@param argv Pointer to atom array
+	@see param_inc param_dec */
 void 		param_inc(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+
+/** Decrease parameter value in steps. 
+	Optional arguments passed as pointer to array of atoms specify
+	how many steps to increase value by,
+	if parameter is to ramp to new value
+	and ramp time.
+	@param x The parameter instance
+	@param msg The dec symbol pointer
+	@param Array length
+	@param argv Pointer to atom array
+	@see param_inc param_dec */
 void 		param_dec(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+
 void		param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 
 void		param_int(t_param *x, long n);

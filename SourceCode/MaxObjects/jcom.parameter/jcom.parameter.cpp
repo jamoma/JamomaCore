@@ -791,7 +791,7 @@ void param_dump(t_param *x)
 }
 
 
-// 'bang' method for user input
+// 'bang'method for user input
 void param_bang(t_param *x)
 {
 #ifdef JMOD_MESSAGE
