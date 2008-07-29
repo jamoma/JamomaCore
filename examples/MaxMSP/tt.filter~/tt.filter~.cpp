@@ -24,11 +24,10 @@
 /** Data structure for the filter module. */
 typedef struct _filter	{								///< Data Structure for this object
     t_pxobject 				obj;						///< REQUIRED: Our object
-	TTAudioObject			*filter;					///< Pointer to the TTBlue filter unit used
-	TTAudioObject			*oldFilter;					///< Pointer to a previous filter that needs to be freed
-	TTAudioSignal			*audioIn;					///< Array of pointers to the audio inlets
-	TTAudioSignal			*audioOut;					///< Array of pointers to the audio outlets
-	long					maxNumChannels;				///< The maximum number of audio channels permitted
+	TTAudioObject*			filter;						///< Pointer to the TTBlue filter unit used
+	TTAudioSignal*			audioIn;					///< Array of pointers to the audio inlets
+	TTAudioSignal*			audioOut;					///< Array of pointers to the audio outlets
+	TTUInt16				maxNumChannels;				///< The maximum number of audio channels permitted
 	long					sr;							///< The sample-rate
 	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
 	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
@@ -78,6 +77,9 @@ t_max_err 	filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv);
 /** Method setting the type of the filter to use. */
 t_max_err 	filter_setType(t_filter *x, void *attr, long argc, t_atom *argv);
 
+/**	Spew the available filter names to the dumpout for a umenu. */
+void filter_gettypes(t_filter *x);
+
 
 // Globals
 t_class *filter_class;				// Required. Global pointing to this class
@@ -98,11 +100,11 @@ int main(void)
 	c = class_new("tt.filter~",(method)filter_new, (method)filter_free, (short)sizeof(t_filter), 
 		(method)0L, A_GIMME, 0);
 
+	class_addmethod(c, (method)filter_gettypes,			"gettypes",		0L);
  	class_addmethod(c, (method)filter_clear, 			"clear",		0L);		
  	class_addmethod(c, (method)filter_dsp, 				"dsp",			A_CANT, 0L);		
 	class_addmethod(c, (method)filter_assist, 			"assist",		A_CANT, 0L); 
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT, 0);  
-	class_addmethod(c, (method)object_obex_quickref,	"quickref",		A_CANT, 0);
 
 	attr = attr_offset_new("bypass", _sym_long, attrflags,
 		(method)0L,(method)filter_setBypass, calcoffset(t_filter, attrBypass));
@@ -144,7 +146,6 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 		x->attrBypass = 0;
 		x->attrFrequency = DEFAULT_F;
 		x->attrQ = DEFAULT_Q;
-		x->oldFilter = NULL;
 		
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
 		if(attrstart && argv)
@@ -152,7 +153,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 
 		x->sr = sr;
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		object_attr_setsym(x, _sym_type, gensym("lowpass/butterworth2"));
+		object_attr_setsym(x, _sym_type, gensym("lowpass.butterworth.2"));
 
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
@@ -173,9 +174,7 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 void filter_free(t_filter *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->filter;
-	if(x->oldFilter)
-		delete x->oldFilter;
+	TTObjectRelease(x->filter);
 	delete x->audioIn;
 	delete x->audioOut;
 }
@@ -197,6 +196,25 @@ void filter_assist(t_filter *x, void *b, long msg, long arg, char *dst)
 void filter_clear(t_filter *x)
 {
 	x->filter->sendMessage(TT("clear"));
+}
+
+
+void filter_gettypes(t_filter *x)
+{
+	TTValue		v;
+	t_atom		a[2];
+	
+	atom_setsym(a, _sym_clear);
+	object_obex_dumpout(x, gensym("types"), 1, a);
+	atom_setsym(a, _sym_append);
+	
+	TTGetRegisteredClassNamesForTags(v, TT("filter"));
+	for(TTUInt16 i=0; i<v.getSize(); i++){
+		TTSymbolPtr classname;
+		v.get(i, &classname);
+		atom_setsym(a+1, gensym((char*)classname->getCString()));
+		object_obex_dumpout(x, gensym("types"), 2, a);
+	}
 }
 
 
@@ -232,90 +250,23 @@ t_max_err filter_setQ(t_filter *x, void *attr, long argc, t_atom *argv)
 }
 
 
-/**	Some notes on how this setter works:
- *	
- *	First, we need to understand that this function is called in the low-priority queue thread,
- *	at which time the audio thread may be calling the perform method simultaneously on another
- *	processor.  So we need to take care when switching filters.
- *	
- *	To deal with this, we completely set up the new filter before switching (including setting the
- *	attributes of the filter).  Then we switch, but we don't free the old filter yet -- because the
- *	perform routine could be in the middle of a vector running the old filter still.  So we switch
- *	the pointer in the struct, but instead of deleting the old filter we simply cache its pointer
- *	in an "oldFilter" member.
- *	
- *	We could attempt to delete this filter the next time the audio perform method is called,
- *	but that would incur an expense in the perform routine and the we would also need to 
- *	manage qelem and other machinery to make that happen.  Instead, we just delete the old filter
- *	the next time we switch filters, or when the object itself is freed.  It isn't very much
- *	memory to keep the old one around and this makes things both simple and fast.
- */
 t_max_err filter_setType(t_filter *x, void *attr, long argc, t_atom *argv)
-{
-	TTAudioObject	*newFilter = NULL;
-	TTErr			err = kTTErrNone;
-	
-	if(x->oldFilter){
-		delete x->oldFilter;
-		x->oldFilter = NULL;
-	}
-	
+{	
 	if(argc){
 		if(x->attrType != atom_getsym(argv)){	// if it hasn't changed, then jump to the end...
-			x->attrType = atom_getsym(argv);
-			
-			// These should be sorted alphabetically
-			if(x->attrType == gensym("bandpass/butterworth2"))
-				newFilter = new TTBandpassButterworth2(x->maxNumChannels);
-			else if(x->attrType == gensym("bandreject/butterworth2"))
-				newFilter = new TTBandRejectButterworth2(x->maxNumChannels);
-			else if(x->attrType == gensym("highpass/butterworth1"))
-				newFilter = new TTHighpassButterworth1(x->maxNumChannels);
-			else if(x->attrType == gensym("highpass/butterworth2"))
-				newFilter = new TTHighpassButterworth2(x->maxNumChannels);
-			else if(x->attrType == gensym("highpass/butterworth3"))
-				newFilter = new TTHighpassButterworth3(x->maxNumChannels);
-			else if(x->attrType == gensym("highpass/butterworth4"))
-				newFilter = new TTHighpassButterworth4(x->maxNumChannels);
-			else if(x->attrType == gensym("highpass/linkwitzRiley2"))
-				newFilter = new TTHighpassLinkwitzRiley2(x->maxNumChannels);
-			else if(x->attrType == gensym("highpass/linkwitzRiley4"))
-				newFilter = new TTHighpassLinkwitzRiley4(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/butterworth1"))
-				newFilter = new TTLowpassButterworth1(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/butterworth2"))
-				newFilter = new TTLowpassButterworth2(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/butterworth3"))
-				newFilter = new TTLowpassButterworth3(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/butterworth4"))
-				newFilter = new TTLowpassButterworth4(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/linkwitzRiley2"))
-				newFilter = new TTLowpassLinkwitzRiley2(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/linkwitzRiley4"))
-				newFilter = new TTLowpassLinkwitzRiley4(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/onepole"))
-				newFilter = new TTLowpassOnePole(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/twopole"))
-				newFilter = new TTLowpassTwoPole(x->maxNumChannels);
-			else if(x->attrType == gensym("lowpass/fourpole"))
-				newFilter = new TTLowpassFourPole(x->maxNumChannels);
-				
-			else{
-				error("invalid filter type specified to tt.filter~");
-				return MAX_ERR_GENERIC;
-			}
+			TTErr	err = kTTErrNone;
 
-			// Now that we have our new filter, update it with the current state of the external:
-			newFilter->setAttributeValue(TT("frequency"), x->attrFrequency);
-			err = newFilter->setAttributeValue(TT("q"), x->attrQ);
-			if(err == kTTErrInvalidAttribute)
-				err = newFilter->setAttributeValue(TT("resonance"), x->attrQ);
-			newFilter->setAttributeValue(TT("bypass"), x->attrBypass);
-			newFilter->setAttributeValue(TT("sr"), x->sr);
-			
-			// Finally, swap the old filter out for the new one
-			x->oldFilter = x->filter;
-			x->filter = newFilter;
+			x->attrType = atom_getsym(argv);
+			TTObjectInstantiate(TT(x->attrType->s_name), &x->filter, x->maxNumChannels);			
+			if(x->filter){
+				// Now that we have our new filter, update it with the current state of the external:
+				x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
+				err = x->filter->setAttributeValue(TT("q"), x->attrQ);
+				if(err == kTTErrInvalidAttribute)
+					err = x->filter->setAttributeValue(TT("resonance"), x->attrQ);
+				x->filter->setAttributeValue(TT("bypass"), x->attrBypass);
+				x->filter->setAttributeValue(TT("sr"), x->sr);
+			}
 		}
 	}
 	return MAX_ERR_NONE;
