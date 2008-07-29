@@ -19,8 +19,8 @@
 // Data Structure for this object
 typedef struct _gain{
 	t_pxobject 		obj;
-	TTCrossfade*	xfade;				// crossfade object from the ttblue library
-	TTGain*			gain;				// gain control object the ttblue library
+	TTAudioObject*	xfade;				// crossfade object from the ttblue library
+	TTAudioObject*	gain;				// gain control object the ttblue library
 	TTAudioSignal*	signalIn;
 	TTAudioSignal*	signalOut;
 	TTAudioSignal*	signalTemp;
@@ -106,8 +106,10 @@ void* gain_new(t_symbol* s, long argc, t_atom* argv)
 		for(i=0; i < x->numChannels; i++)
 			outlet_new((t_pxobject*)x, "signal");				// Create a signal Outlet   		
 
-		x->xfade = new TTCrossfade(x->numChannels);				// Constructors
-		x->gain = new TTGain(x->numChannels);
+		//x->xfade = new TTCrossfade(x->numChannels);				// Constructors
+		//x->gain = new TTGain(x->numChannels);
+		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numChannels);
+		TTObjectInstantiate(TT("gain"), &x->gain, x->numChannels);
 		x->signalTemp = new TTAudioSignal(x->numChannels);
 		x->signalOut = new TTAudioSignal(x->numChannels);
 		x->signalIn = new TTAudioSignal(x->numChannels*2);
@@ -127,8 +129,8 @@ void* gain_new(t_symbol* s, long argc, t_atom* argv)
 void gain_free(t_gain *x)
 {
 	dsp_free((t_pxobject *)x);		// Always call dsp_free first in this routine
-	delete x->xfade;
-	delete x->gain;
+	TTObjectRelease(x->xfade);
+	TTObjectRelease(x->gain);
 	delete x->signalTemp;
 	delete x->signalOut;
 	delete x->signalIn;

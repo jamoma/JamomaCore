@@ -19,7 +19,7 @@
 // Data Structure for this object
 typedef struct _zerox {
 	t_pxobject 		obj;			// This object - must be first
-	TTZerocross*	zeroxUnit;		// 
+	TTAudioObject*	zeroxUnit;		// 
     TTAudioSignal*	signalIn;		// 
     TTAudioSignal*	signalOut;		// 
 	long			attr_size;		//  
@@ -72,15 +72,16 @@ int main(void)
 // Create
 void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 {
-	t_zerox* x = (t_zerox*)object_alloc(s_zerox_class);
+	t_zerox*	x = (t_zerox*)object_alloc(s_zerox_class);
+	TTUInt16	numChannels = 1;
 	
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));	// dumpout
 		dsp_setup((t_pxobject *)x, 1);				// Create Object and 1 Inlet (last argument)
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
-		
-		x->zeroxUnit = new TTZerocross(1);
+
+		TTObjectInstantiate(TT("zerocross"), &x->zeroxUnit, numChannels);
 		x->signalIn = new TTAudioSignal(1);
 		x->signalOut = new TTAudioSignal(2);
 
@@ -94,7 +95,7 @@ void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 void zerox_free(t_zerox *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->zeroxUnit;
+	TTObjectRelease(x->zeroxUnit);
 	delete x->signalIn;
 	delete x->signalOut;
 }
@@ -150,7 +151,8 @@ t_int *zerox_perform(t_int *w)
 // DSP Method
 void zerox_dsp(t_zerox *x, t_signal **sp, short *count)
 {
-	x->zeroxUnit->clear();
+	//x->zeroxUnit->clear();
+	x->zeroxUnit->sendMessage(TT("clear"));
 	x->zeroxUnit->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	dsp_add(zerox_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
 	

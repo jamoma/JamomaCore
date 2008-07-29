@@ -21,13 +21,13 @@
 // Data Structure for this object
 typedef struct _wavetable	{
     t_pxobject 		obj;
-	TTWavetable*	wavetable;
+	TTAudioObject*	wavetable;
 	TTAudioSignal*	audioOut;
 	t_symbol*		attrMode;
 	t_symbol*		attrInterpolation;
 	float			attrFrequency;
 	float			attrGain;
-	long			maxNumChannels;
+	TTUInt16		maxNumChannels;
 } t_wavetable;
 
 
@@ -103,7 +103,8 @@ void* wavetable_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		x->wavetable = new TTWavetable(x->maxNumChannels);
+		//x->wavetable = new TTWavetable(x->maxNumChannels);
+		TTObjectInstantiate(TT("wavetable"), &x->wavetable, x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
@@ -123,7 +124,7 @@ void* wavetable_new(t_symbol *msg, short argc, t_atom *argv)
 void wavetable_free(t_wavetable *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->wavetable;
+	TTObjectRelease(x->wavetable);
 	delete x->audioOut;
 }
 

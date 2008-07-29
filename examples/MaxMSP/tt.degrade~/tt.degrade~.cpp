@@ -21,13 +21,13 @@
 // Data Structure for this object
 typedef struct _degrade	{
     t_pxobject 		obj;
-	TTDegrade		*degrade;
-	TTAudioSignal	*audioIn;
-	TTAudioSignal	*audioOut;
+	TTAudioObject*	degrade;
+	TTAudioSignal*	audioIn;
+	TTAudioSignal*	audioOut;
 	long			attrBypass;
 	long			attrBitdepth;
 	float			attrSrRatio;
-	long			maxNumChannels;
+	TTUInt16		maxNumChannels;
 } t_degrade;
 
 
@@ -104,7 +104,8 @@ void* degrade_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		x->degrade = new TTDegrade(x->maxNumChannels);
+//		x->degrade = new TTDegrade(x->maxNumChannels);
+		TTObjectInstantiate(TT("degrade"), &x->degrade, x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
@@ -124,7 +125,8 @@ void* degrade_new(t_symbol *msg, short argc, t_atom *argv)
 void degrade_free(t_degrade *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->degrade;
+	TTObjectRelease(x->degrade);
+//	delete x->degrade;
 	delete x->audioIn;
 	delete x->audioOut;
 }

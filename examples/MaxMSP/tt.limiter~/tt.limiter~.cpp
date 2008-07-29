@@ -21,19 +21,19 @@
 // Data Structure for this object
 typedef struct _limiter	{
     t_pxobject 		obj;
-	TTLimiter		*limiter;
-	TTAudioSignal	*audioIn;
-	TTAudioSignal	*audioOut;
+	TTAudioObject*	limiter;
+	TTAudioSignal*	audioIn;
+	TTAudioSignal*	audioOut;
 	float			attrThreshold;			// ATTRIBUTE: in dB
 	float			attrRelease;
     long			attrLookahead;
     long			attrBypassDCBlocker;
     long			attrBypass;
 	long			attrMute;
-	t_symbol		*attrMode;
+	t_symbol*		attrMode;
 	float			attrPreamp;				// ATTRIBUTE: in dB
 	float			attrPostamp;			// ATTRIBUTE: in dB
-	long			maxNumChannels;
+	TTUInt16		maxNumChannels;
 } t_limiter;
 
 // Prototypes for methods: need a method for each incoming message type:
@@ -171,7 +171,8 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		x->limiter = new TTLimiter(x->maxNumChannels);
+		//x->limiter = new TTLimiter(x->maxNumChannels);
+		TTObjectInstantiate(TT("limiter"), &x->limiter, x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
@@ -191,7 +192,7 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 void limiter_free(t_limiter *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->limiter;
+	TTObjectRelease(x->limiter);
 	delete x->audioIn;
 	delete x->audioOut;
 }

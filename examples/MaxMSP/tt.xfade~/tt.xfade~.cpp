@@ -1,5 +1,5 @@
 /* 
- *	tt.limiter~
+ *	tt.xfade~
  *	External object for Max/MSP
  *	
  *	Example project for TTBlue
@@ -25,8 +25,8 @@ typedef struct _fade{
 	long				attr_shape;
 	long				attr_mode;
 	float				attr_position;
-	short				numChannels;
-	TTCrossfade*		xfade;			// crossfade object from the TapTools library
+	TTUInt16			numChannels;
+	TTAudioObject*		xfade;			// crossfade object from the TTBlue library
 	TTAudioSignal*		audioIn1;
 	TTAudioSignal*		audioIn2;
 	TTAudioSignal*		audioInControl;
@@ -119,7 +119,8 @@ void *fade_new(t_symbol *s, long argc, t_atom *argv)
 		for(i=0; i< (x->numChannels); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal Outlet   		
 		
-		x->xfade = new TTCrossfade(x->numChannels);			// Constructors
+		//x->xfade = new TTCrossfade(x->numChannels);			// Constructors
+		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numChannels);
 		x->audioIn1 = new TTAudioSignal(x->numChannels);
 		x->audioIn2 = new TTAudioSignal(x->numChannels);
 		x->audioInControl = new TTAudioSignal(x->numChannels);
@@ -138,7 +139,7 @@ void *fade_new(t_symbol *s, long argc, t_atom *argv)
 void fade_free(t_fade *x)
 {
 	dsp_free((t_pxobject *)x);		// Always call dsp_free first in this routine	
-	delete x->xfade;
+	TTObjectRelease(x->xfade);
 	delete x->audioIn1;
 	delete x->audioIn2;
 	delete x->audioInControl;

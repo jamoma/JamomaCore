@@ -21,11 +21,11 @@
 // Data Structure for this object
 typedef struct _dcblock	{
     t_pxobject 		obj;
-	TTDCBlock		*dcblock;
-	TTAudioSignal	*audioIn;
-	TTAudioSignal	*audioOut;
+	TTAudioObject*	dcblock;
+	TTAudioSignal*	audioIn;
+	TTAudioSignal*	audioOut;
 	long			attrBypass;
-	long			maxNumChannels;
+	TTUInt16		maxNumChannels;
 } t_dcblock;
 
 
@@ -92,7 +92,8 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		x->dcblock = new TTDCBlock(x->maxNumChannels);
+//		x->dcblock = new TTDCBlock(x->maxNumChannels);
+		TTObjectInstantiate(TT("dcblock"), &x->dcblock, x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
@@ -112,7 +113,7 @@ void* dcblock_new(t_symbol *msg, short argc, t_atom *argv)
 void dcblock_free(t_dcblock *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->dcblock;
+	TTObjectRelease(x->dcblock);
 	delete x->audioIn;
 	delete x->audioOut;
 }

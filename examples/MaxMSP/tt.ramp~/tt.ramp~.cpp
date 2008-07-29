@@ -21,10 +21,10 @@
 // Data Structure for this object
 typedef struct _ramp	{
     t_pxobject 		obj;
-	TTRamp			*ramp;
-	TTAudioSignal	*audioOut;
+	TTAudioObject*	ramp;
+	TTAudioSignal*	audioOut;
 	t_symbol*		attrMode;
-	long			maxNumChannels;
+	TTUInt16		maxNumChannels;
 } t_ramp;
 
 
@@ -97,7 +97,8 @@ void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		x->ramp = new TTRamp(x->maxNumChannels);
+		//x->ramp = new TTRamp(x->maxNumChannels);
+		TTObjectInstantiate(TT("ramp"), &x->ramp, x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
@@ -116,7 +117,7 @@ void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 void ramp_free(t_ramp *x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->ramp;
+	TTObjectRelease(x->ramp);
 	delete x->audioOut;
 }
 
