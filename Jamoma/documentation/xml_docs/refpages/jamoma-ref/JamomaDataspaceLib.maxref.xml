@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="JamomaDataspaceLib">
+	
+    <digest>
+        Jamoma Dataspace Library
+    </digest>
+
+    <description>
+        Library of unit conversions for a number of different data spaces. This library is used by a number of Jamoma externals.
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			Data
+		</metadata>
+		
+		<metadata name="tag">
+			Library
+		</metadata>
+		
+	</metadatalist>
+
+
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+		
+		<seealso name="JamomaFunctionLib">
+			The Jamoma Function Library
+		</seealso>
+		
+		<seealso name="JamomaRampLib">
+			The Jamoma Ramp Library
+		</seealso>
+		
+		<seealso name="jcom.dataspace">
+			Convert between various types of units using the Jamoma dataspace library.
+		</seealso>
+		
+		<seealso name="jcom.message">
+			Handling messages in Jamoma modules.
+		</seealso>
+
+		<seealso name="jcom.parameter">
+			Handling parameters in Jamoma modules.
+		</seealso>
+		
+		<seealso name="atodb">
+			Convert linear amplitude to a decibel value
+		</seealso>
+
+		<seealso name="cartopol">
+			Cartesian to Polar coordinate conversion
+		</seealso>
+		
+		<seealso name="dbtoa">
+			Convert a decibel value to linear amplitude
+		</seealso>
+					
+		<seealso name="expr">
+			Evaluate a mathematical expression
+		</seealso>
+
+		<seealso name="poltocar">
+			Polar to Cartesian coordinate conversion
+		</seealso>		
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+
+	<misc name="Dataspaces">
+	
+		<entry name="angle">
+			<description>
+				<br />
+				<br />
+				• <m>deg</m>: alias for <m>degree</m>. <br />
+				• <m>degree</m>: angle expressed as degree. <br />
+				• <m>rad</m>: alias for radian. <br />
+				• <m>radian</m>: angle expressed as radian.<br />
+				<br />
+			</description>
+		</entry>
+		
+		<entry name="color">
+			<description>
+				<br />
+				<br />
+				• <m>cmy</m>: (cyan magenta yellow) as values in the range [0,255]<br />
+				• <m>hsl</m>: (hue saturation lightness) as values in the following range: hue [0,360], saturation [0,100], lightness [0,100]<br />
+				• <m>hsv</m>: (hue saturation value) as values in the following range: hue [0,360], saturation [0,100], value [0,100]<br />
+				• <m>rgb</m>: (red green blue) as values in the range [0,255]<br />
+				<br />
+			</description>
+		</entry>
+
+		<entry name="distance">
+			<description>
+				<br />
+				<br />
+				• <m>'</m>: Distance measured in feets, same as <m>feet</m>. <br />
+				• <m>"</m>: Distance measured in inches, same as <m>inches</m>. <br />
+				• <m>centimeter</m>: Distance measured in centimeters, same as <m>cm</m>. <br />
+				• <m>cm</m>: Distance measured in centimeters, same as <m>centimieter</m>. <br />
+				• <m>feet</m>: Distance measured in feets, same as <m>'</m>. <br />
+				• <m>inches</m>: Distance measured in inches, same as <m>"</m>. <br />
+				• <m>m</m>: Distance measured in meters, same as <m>meters</m>. <br />
+				• <m>meters</m>: distance measured in meters, same as <m>m</m>. <br />
+				<br />
+			</description>
+		</entry>
+
+		<entry name="gain">
+			<description>
+				<br />
+				<br />
+				• <m>db</m>: Gain level measured in decibel, equal to <m>dB</m>. <br />
+				• <m>dB</m>: Gain level measured in decibel, equal to <m>db</m> <br />
+				• <m>linear</m>: Gain described as linear amplitude. <br />
+				• <m>midi</m>: In Jamoma MIDI gain is mapped so that MIDI=0 equals linear amplitude of 0, MIDI=100 equals unity gain (0 dB), 
+				and midi=127 equals a +10 dB boost.
+				The mapping function used for convertion from MIDI value to absolute gain is <i>amplitude = pow(midi_value*0.01,k)</i>
+				where <i>k = log(pow(10.,10./20.))/log(127./100.)</i> <br />
+				<br />
+			</description>
+		</entry>
+		
+		<entry name="none">
+			<description>
+				<br />
+				<br />
+				• <m>none</m>: This is a neutral datasspace and can be used to escape unit conversions.
+				<br />
+			</description>
+		</entry>
+
+		<entry name="pitch">
+			<description>
+				<br />
+				<br />
+				• <m>cent</m>: Pitch expressed as MIDI cents. <br />
+				• <m>Hz</m>: Pitch described in terms of frequency. <br />
+				• <m>midi</m>: MIDI pitch as floating point value. <br />
+				<br />
+			</description>
+		</entry>
+
+		<entry name="position">
+			<description>
+				<br />
+				<br />
+				• <m>ad</m>: Two-dimensional polar position described as azimuth and position. Same as <m>polar</m>. <br />
+				• <m>aed</m>: Three-dimensional spherical position described by azimuth, elevation and distance. Same as <m>spherical</m>. <br />
+				• <m>cart2D</m>: Two-dimensional Cartesian position. Same as <m>xy</m>. <br />
+				• <m>cart3D</m>: Three-dimensional Cartesian position. Same as <m>xyz</m>. <br />
+				• <m>cylindrical</m>: Cylindrical 3D position described using polar position in the horizontal plane and <i>z</i> for vertical position.
+				  Same as <m>daz</m>. <br />
+				• <m>daz</m>: Cylindrical 3D position described using polar position in the horizontal plane and <i>z</i> for vertical position.
+				  Same as <m>cylindrical</m>. <br />
+				• <m>openGL</m>: Position described according to the OpenGL standard. <br />
+				• <m>polar</m>: Two-dimensional polar position described as azimuth and position. Same as <m>ad</m>. <br />
+				• <m>spherical</m>: Three-dimensional spherical position described by azimuth, elevation and distance. Same as <m>aed</m>. <br />
+				• <m>xy</m>: Two-dimensional Cartesian position. Same as <m>cart2D</m> <br />			
+				• <m>xyz</m>: Three-dimensional Cartesian position. Same as <m>cart3D</m>. <br />
+				<br />
+			</description>
+		</entry>
+
+		<entry name="temperature">
+			<description>
+				<br />
+				<br />
+				• <m>C</m>: Temperature as Celsius degrees. Same as <m>Celsius</m>. <br />
+				• <m>Celsius</m>: Temperature as Celsius degrees. Same as <m>C</m>. <br />
+				• <m>F</m>: Temperature as Farenheit degree. Same as <m>F</m>. <br />
+				• <m>Fahrenheit</m>: Temperature as Farenheit degree. Same as <m>F</m>. <br />
+				• <m>K</m> Temperature as Kelvin degree. Same as <m>Kelvin</m>. <br />
+				• <m>Kelvin</m>: Temperature as Kelvin degree. Same as <m>K</m>. <br />
+				<br />
+			</description>
+		</entry>
+
+		<entry name="time">
+			<description>
+				<br />
+				<br />
+				• <m>millisecond</m>: Time measurd in milliseconds. Same as <m>ms</m>. <br />
+				• <m>ms</m>: Time measurd in milliseconds. Same as <m>millisecond</m>. <br />
+				• <m>s</m>: Time measured in seconds. Same as <m>second</m>. <br />
+				• <m>sample</m>: Time measured in number of samples. This unit depends on the sample rate used at any given time. <br />
+				• <m>second</m>: Time measured in seconds. Same as <m>s</m>. <br />
+				<br />
+			</description>
+		</entry>				
+
+	</misc>
+	
+</c74object>

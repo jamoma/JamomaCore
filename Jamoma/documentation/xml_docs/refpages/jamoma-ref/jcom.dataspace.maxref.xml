@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jcom.dataspace">
+	
+    <digest>
+        Convert between various types of units using the Jamoma dataspace library.
+    </digest>
+
+    <description>
+        Convert between various types of units using the Jamoma dataspace library.
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			Data
+		</metadata>
+		
+		<metadata name="tag">
+			math
+		</metadata>
+	
+		
+	</metadatalist>
+
+
+	<!--INLETS-->
+	
+	<inletlist>
+		
+		<inlet id="0" name="INLET_NAME">
+			<digest>
+				value(s) to be converted
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+	</inletlist>
+
+
+	<!--OUTLETS-->
+	
+	<outletlist>
+		
+		<outlet id="0" name="OUTLET_NAME">
+			<digest>
+				Converted value
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="1" name="OUTLET_NAME">
+			<digest>
+				Dump outlet
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+	</outletlist>
+
+
+	<!--ARGUMENTS-->
+	
+	<objarglist>
+
+		<objarg id="0" name="OBJARG_NAME" type="OBJARG_TYPE" optional="0">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</objarg>
+		
+	</objarglist>
+
+
+	<!--MESSAGES-->
+	
+	<methodlist>
+		
+		<method name="int">
+			<arglist>
+				<arg name="input" type="int" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The value is converted to a <m>float</m> and processed accordingly.
+			</description>
+		</method>
+		
+		<method name="float">
+			<arglist>
+				<arg name="input" type="float" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The value is converted according to input to the output unit of the current dataspace used, as set by the <m>dataspace</m>, <m>input</m> and <m>output</m> attributes.
+				The converted value is output from the left outlet.
+			</description>
+		</method>
+		
+		<method name="list">
+			<arglist>
+				<arg name="input" type="list" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				If the current dataspace, as set by the <m>dataspace</m> attribute, deals with multi-dimensional data such as positions or colorspaces, the list is 
+				interpreted as a vector of input data according to the <m>input</m> attribute. The vector is converted to an output vector according to the <m>output</m>
+				 attribute, and returned as a list of <m>floats</m>. <br />
+				<br />
+				If the current dataspace, is one-dimensional the first list member is treated as a <m>float</m> and converted accordingly.
+			</description>
+		</method>
+	
+		<method name="dataspaces.get">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Queries what dataspaces are available. A list of available dataspaces is returned from the right (dump) outlet
+				in a format that with proper routing can be used to populate a umenu.
+			</description>
+		</method>
+		
+		<method name="units.get">
+			<arglist />
+			<digest>
+			TEXT_HERE
+			</digest>
+			<description>
+			Queries what units are available for the dataspace currently used. A list of available units is returned from the right (dump) outlet
+			in a format that with proper routing can be used to populate a umenu.
+			</description>
+		</method>
+
+
+		
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+	
+	<attributelist>
+	
+		<attribute name="dataspace" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Defines the dataspace to use. Refer to the documentation of the <o>JamomaDataspaceLib</o> for a list of available dataspaces.		
+			</digest>
+			<description>
+				Defines the dataspace to use. Refer to the documentation of the <o>JamomaDataspaceLib</o> for a list of available dataspaces.
+			</description>
+		</attribute>
+		
+		<attribute name="input" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Defines the unit of incoming data. What units are available depends on the dataspace used. 
+				Refer to the documentation of the <o>JamomaDataspaceLib</o> for further details.
+			</digest>
+			<description>
+				Defines the unit of incoming data. What units are available depends on the dataspace used. 
+				Refer to the documentation of the <o>JamomaDataspaceLib</o> for further details.
+			</description>
+		</attribute>
+		
+		<attribute name="output" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Defines the unit of incoming data. What units are available depends on the dataspace used. 
+				Refer to the documentation of the <o>JamomaDataspaceLib</o> for further details.
+			</digest>
+			<description>
+				Defines the unit of incoming data. What units are available depends on the dataspace used. 
+				Refer to the documentation of the <o>JamomaDataspaceLib</o> for further details.
+			</description>
+		</attribute>
+		
+	</attributelist>
+
+
+	<!--EXAMPLE-->
+	
+	<examplelist>
+		<example image="IMAGE_URL" caption=" IMAGE_CAPTION" />
+	</examplelist>
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+
+		<seealso name="JamomaDapaspaceLib">
+			The Jamoma Dataspace Library
+		</seealso>
+		
+		<seealso name="JamomaFunctionLib">
+			The Jamoma Function Library
+		</seealso>
+		
+		<seealso name="JamomaRampLib">
+			The Jamoma Ramp Library
+		</seealso>
+
+		<seealso name="jcom.map">
+			Scaling and mapping input to output using the <o>JamomaFunctionLib</o>
+			.
+		</seealso>
+
+		<seealso name="jcom.message">
+			Handling messages in Jamoma modules
+		</seealso>
+				
+		<seealso name="jcom.parameter">
+			Handling parameters in Jamoma modules
+		</seealso>
+
+		<seealso name="jcom.ramp">
+			Ramping from a value to another with some extra features using the <o>JamomaFunctionLib</o>
+			 and <o>JamomaRampLib</o>
+		</seealso>
+
+		<seealso name="atodb">
+			Convert linear amplitude to a decibel value
+		</seealso>
+
+		<seealso name="cartopol">
+			Cartesian to Polar coordinate conversion
+		</seealso>
+		
+		<seealso name="dbtoa">
+			Convert a decibel value to linear amplitude
+		</seealso>
+					
+		<seealso name="expr">
+			Evaluate a mathematical expression
+		</seealso>
+
+		<seealso name="poltocar">
+			Polar to Cartesian coordinate conversion
+		</seealso>
+				
+		<seealso name="scale">
+			Map an input range of values to an output range
+		</seealso>
+		
+		<seealso name="zmap">
+			Maps input range of values to output range
+		</seealso>
+				
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+
+	<misc name="Output">
+
+	<entry name="DataspacesMenu">
+		<description>
+			<br />
+			Out right outlet: In responce to the <m>dataspaces.get</m> message, <o>jcom.dataspace</o> returns a series of messages that when routed though a
+			<o>route</o> object with the argument <m>DataspacesMenu</m> can be used to autopopulate a <o>umenu</o> with all available dataspaces.
+			<o>jcom.dataspace</o> first send the message <m>DataspacesMenu clear</m>, and then sends a message <m>DataspacesMenu append (name_of_dataspace)</m>
+			for each available dataspace in alphabetical order.
+		</description>
+	</entry>
+	
+		<entry name="float">
+			<description>
+				<br />
+				Out left outlet: If the current dataspace, as set by the <m>dataspace</m> attribute is one-dimensional, received input is converted from the unit
+				defined by the <m>input</m> attribute to the unit set by the <m>output</m> unit, and returned from the left outlet as a <m>float</m>.
+			</description>
+		</entry>
+
+		<entry name="list">
+			<description>
+				<br />
+				Out left outlet: If the current dataspace, as set by the <m>dataspace</m> attribute is multi-dimensional, received input is converted from the unit
+				defined by the <m>input</m> attribute to the unit set by the <m>output</m> unit, and returned from the left outlet as a <m>list</m> of floating-point values.
+			</description>
+		</entry>
+
+		<entry name="UnitMenu">
+			<description>
+				<br />
+				Out right outlet: In responce to the <m>units.get</m> message, <o>jcom.dataspace</o> returns a series of messages that when routed though a
+				<o>route</o> object with the argument <m>UnitMenu</m> can be used to autopopulate a <o>umenu</o> with all available units for the current dataspace.
+				<o>jcom.dataspace</o> first send the message <m>UnitMenu clear</m>, and then sends a message <m>UnitMenu append (name_of_unit)</m>
+				for each available unit in alphabetical order.
+			</description>
+		</entry>
+
+	</misc>
+	
+</c74object>

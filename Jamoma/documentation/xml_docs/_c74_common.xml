@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<root>
+  <setting name="jargon_enable" value="1"/>
+  <setting name="jargon_mouseover" value="1"/>
+  <setting name="kernel" value="0"/>
+</root>

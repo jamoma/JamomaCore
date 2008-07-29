@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jcom.parameter">
+	
+    <digest>
+        Handling parameters in Jamoma modules.
+    </digest>
+
+    <description>
+        Handling parameters in Jamoma modules. The state of the parameters define the state of the Jamoma module. 
+		The parameter state can be queried, stored and recalled, enabling storing and recalling of module presets, as well as other mechanisms
+		for monitoring and controlling the state of the module.
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			Data
+		</metadata>
+		
+	</metadatalist>
+
+
+	<!--INLETS-->
+	
+	<inletlist>
+		
+		<inlet id="0" name="INLET_NAME">
+			<digest>
+				Set parameter value locally 0 e.g. from GUI object.
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+	</inletlist>
+
+
+	<!--OUTLETS-->
+	
+	<outletlist>
+		
+		<outlet id="0" name="OUTLET_NAME">
+			<digest>
+				set: connect to GUI object
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="1" name="OUTLET_NAME">
+			<digest>
+				updated parameter values are passed out directly
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="2" name="OUTLET_NAME">
+			<digest>
+				attributes etc.
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+	</outletlist>
+
+
+	<!--ARGUMENTS-->
+	
+	<objarglist>
+		
+		<objarg name="parameter name" type="symbol" optional="0">
+			<digest>
+				Set name of the parameter.
+			</digest>
+			<description>
+				Set name of the parameter. Can be changed dynamically using the name attribute.
+			</description>
+		</objarg>
+		
+	</objarglist>
+
+
+	<!--MESSAGES-->
+	
+	<methodlist>
+		
+		<method name="bang">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Current parameter value is output locally as well as internally by jcom.hub.
+			</description>
+		</method>
+		
+		<method name="int">
+			<arglist>
+				<arg name="input" type="int" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Update parameter value and trigger output locally and internally.
+			</description>
+		</method>
+		
+		<method name="float">
+			<arglist>
+				<arg name="input" type="float" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Update parameter value and trigger output locally and internally.
+			</description>
+		</method>
+		
+		<method name="list">
+			<arglist>
+				<arg name="input" type="list" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Update parameter value and trigger output locally and internally. If 2nd last member is the symbol <m>ramp</m>, 
+				the parameter vil ramp to new value(s) as described by the ramp attributes.
+			</description>
+		</method>
+		
+		<method name="anything">
+			<arglist>
+				<arg name="input" type="list" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Update parameter value and trigger output locally and internally if @type is msg_symbol or msg_generic.
+			</description>
+		</method>
+		
+		<method name="+">
+			<arglist>
+				<arg id="0" name="steps ramp time" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Increment parameter value in steps.
+				It takes the following arguments: <br />
+				<br />
+				• int/float: How many steps to increase by. Stepsize is defined by the <m>value/stepsize</m> attribute (optional, defauls to 1). <br />
+				• symbol: The symbol <m>ramp</m> indicates that <o>jcom.parameter</o> should ramp to the new value (optional). <br />
+				• int/float: The time interval of the ramp (optional, defaults to 0). <br />
+				<br />
+				The message <m>+</m> is a shortcut or alias for the OSC message <m>value/inc</m>.
+			</description>
+		</method>
+		
+		<method name="-">
+			<arglist>
+				<arg id="0" name="steps ramp time" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Decrease parameter value in steps.
+				It takes the following arguments: <br />
+				<br />
+				• int/float: How many steps to decrease by. Stepsize is defined by the <m>value/stepsize</m> attribute (optional, defauls to 1). <br />
+				• symbol: The symbol <m>ramp</m> indicates that <o>jcom.parameter</o> should ramp to the new value (optional). <br />
+				• int/float: The time interval of the ramp (optional, defaults to 0). <br />
+				<br />
+				The message <m>-</m> is a shortcut or alias for the OSC message <m> value/dec </m> .
+			</description>
+		</method>
+		
+		<method name="dispatched">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The <m>dispatched</m> message is used by the Jamoma system for intenal communication from the hub (<o>jcom.hub</o>) of the module to the parameter.
+				One of the benefits of this is that the parameter can be accessed not only locally by direct communication with <o>jcom.parameter</o>,
+				but also from outside the module by passing OSC messages to the left inlet of the module with the OSC name of the module prepended to the OSC namespace:
+				<m>/parameter_name/parameter_namespace</m>.
+				In addition the parameter can be controlled by other modules such as <o>jmod.cuelist</o> and <o>jmod.cont_mapper</o> using OSC addresses with 
+				the name of the module and parameter prepended: <m>/module_name/parameter_name/parameter_namespace</m>.
+			</description>
+		</method>
+		
+		<method name="dump">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The <m>dump</m> message can be used for debugging of the parameter, and dumps the current state of the object to the Max window.
+			</description>
+		</method>
+		
+		<method name="reset">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				What is reset doing?
+			</description>
+		</method>
+		
+		<method name="ui/refresh">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Outputs current value with set prepended from left outlet only in order to refresh displayed value in the GUI.
+			</description>
+		</method>
+		
+		<method name="value/dec">
+			<arglist>
+				<arg id="0" name="steps ramp time" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Decrease parameter value in steps.
+				It takes the following arguments: <br />
+				<br />
+				• int/float: How many steps to decrease by. Stepsize is defined by the <m>value/stepsize</m> attribute (optional, defauls to 1).<br />
+				• symbol: The symbol <m>ramp</m> indicates that <o>jcom.parameter</o> should ramp to the new value (optional).<br />
+				• int/float: The time interval of the ramp (optional, defaults to 0). <br />
+				<br />
+				<m>value/dec</m> can also be addressed by the shortcut <m>-</m>.
+			</description>
+		</method>
+		
+		<method name="value/inc">
+			<arglist>
+				<arg id="0" name="steps ramp time" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				Increment parameter value in steps.
+				It takes the following arguments: <br />
+				<br />
+				• int/float: How many steps to increase by. Stepsize is defined by the <m>value/stepsize</m> attribute (optional, defauls to 1).<br />
+				• symbol: The symbol <m>ramp</m> indicates that <o>jcom.parameter</o> should ramp to the new value (optional).<br />
+				• int/float: The time interval of the ramp (optional, defaults to 0).<br />
+				<br />
+				<m>value/inc</m> can also be addressed by the shortcut <m>+</m>.				
+			</description>
+		</method>
+		
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+	
+	<attributelist>
+		<attribute name="dataspace" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Set what dataspace is used by the parameter for unit conversions.
+			</digest>
+			<description>
+				Set what dataspace is used by the parameter for unit conversions.
+			</description>
+		</attribute>
+		
+		<attribute name="dataspace/unit/active" get="1" set="1" type="symbol" size="1">
+			<digest>
+				The dataspace unit used for communication to the algorithm from the outside world.
+			</digest>
+			<description>
+				The dataspace unit used for communication to the algorithm from the outside world.
+			</description>
+		</attribute>
+		
+		<attribute name="dataspace/unit/native" get="1" set="1" type="symbol" size="1">
+			<digest>
+				The dataspace unit used natively for internal communication to the algorithm of the module.
+			</digest>
+			<description>
+				The dataspace unit used natively for internal communication to the algorithm of the module.
+			</description>
+		</attribute>
+		
+		<attribute name="description" get="1" set="1" type="symbol" size="1">
+		<digest>
+				Description of the parameter. Used for auto-documentation of the module.
+			</digest>
+			<description>
+				Description of the parameter. Used for auto-documentation of the module.
+			</description>
+		</attribute>
+		
+		<attribute name="name" get="1" set="1" type="symbol" size="1">
+			<digest>
+				The name of the parameter. The name becomes a node of the OSC namespace.
+			</digest>
+			<description>
+				The name of the parameter. The name becomes a node of the OSC namespace.
+			</description>
+		</attribute>
+		
+		<attribute name="priority" get="1" set="1" type="1" size="1">
+			<digest>
+				Used to determine order of parameter recall in a preset.
+			</digest>
+			<description>
+				Used to determine order of parameter recall in a preset.
+			</description>
+		</attribute>
+		
+		<attribute name="ramp/drive" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Determines the mechanism used to drive ramping to new parameter values.
+			</digest>
+			<description>
+				Determines the mechanism used to drive ramping to new parameter values.
+			</description>
+		</attribute>
+		
+		<attribute name="ramp/function" get="1" set="1" type="symbol" size="1">
+			<digest>
+				The mapping function determining the curve of the ramping to new parameter value.
+			</digest>
+			<description>
+				The mapping function determining the curve of the ramping to new parameter value.
+			</description>
+		</attribute>
+		
+		<attribute name="range/bounds" get="1" set="1" type="1" size="2">
+			<digest>
+				Lower and upper boundaries defining the range of possible parameter values.
+			</digest>
+			<description>
+				Lower and upper boundaries defining the range of possible parameter values.
+		</description>
+		</attribute>
+		
+		<attribute name="range/clipmode" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Define clipping behaviour at the boundaries of the parameter range. Possible values are none 0 low 0 high and both.
+			</digest>
+			<description>
+				Define clipping behaviour at the boundaries of the parameter range. Possible values are none 0 low 0 high and both.
+			</description>
+		</attribute>
+		
+		<attribute name="repetitions/allow" get="1" set="1" type="1" size="1">
+			<digest>
+				Determines whether repeated parameter values will be filtered.
+			</digest>
+			<description>
+				Determines whether repeated parameter values will be filtered.
+			</description>
+		</attribute>
+		
+		<attribute name="type" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Set the type of data stored and handled by the parameter. Options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list and msg_none.
+			</digest>
+			<description>
+				Set the type of data stored and handled by the parameter. Options are:<br />
+				• <m>msg_float</m>: The parameter is a container for a floating-point value.<br />
+				• <m>msg_generic</m>: The parameter can contain an array with one or more integers, floating-point numbers and/or symbols.<br />
+				• <m>msg_int</m>: The parameter is a container for an integer value.<br />
+				• <m>msg_list</m>: The parameter is a container for a list. Currently all list members are assumed to be of type <m>int</m> or <f>float</f>.<br />
+				• <m>msg_none</m>: The parameter does not conatin any value. In this case it makes more sense to use <o>jcom.message</o> with the <m>type</m> attribute
+				set to <m>msg_none</m>, as there's no state that can be queried, stored or recalled.<br />
+				• <m>msg_symbol</m>: The parameter is a container for a symbol.<br />
+				• <m>msg_toggle</m>: The parameter is a container for a boolean (1/0) value.<br />
+		</description>
+		</attribute>
+		
+		<attribute name="ui/freeze" get="1" set="1" type="1" size="1">
+			<digest>
+				Toggles a frozen ui outlet so that you can save cpu
+			</digest>
+			<description>
+				Toggles a frozen ui outlet so that you can save cpu
+		</description>
+		</attribute>
+		
+		<attribute name="value" get="1" set="1" type="atom" size="1">
+			<digest>
+				Parameter value.
+			</digest>
+			<description>
+				Parameter value.
+			</description>
+		</attribute>
+		
+		<attribute name="value/default" get="1" set="1" type="atom" size="1">
+			<digest>
+				Default parameter value. Might be overridden by module presets.
+			</digest>
+			<description>
+				Default parameter value. Might be overridden by module presets.
+			</description>
+		</attribute>
+		
+		<attribute name="value/stepsize" get="1" set="1" type="1" size="1">
+			<digest>
+			How much to increment or decrement by.
+			</digest>
+			<description>
+				How much to increment or decrement by.
+			</description>
+		</attribute>
+		
+	</attributelist>
+
+
+	<!--EXAMPLE-->
+	
+	<examplelist>
+		<example image="some_URL" caption=" Some text. " />
+	</examplelist>
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+		
+		<seealso name="jcom.hub">
+			The central nervous system of a jamoma module.
+		</seealso>
+		
+		<seealso name="jcom.in">
+			Input conduit for control signals in a jamoma module. Most often these are Jitter matrices.
+		</seealso>
+		
+		<seealso name="jcom.in~">
+			Input conduit for audio signals in a jamoma module.
+		</seealso>
+		
+		<seealso name="jcom.init">
+			Utility for initialization of modules.
+		</seealso>
+		
+		<seealso name="jcom.message">
+			Handling messages in the modules.
+		</seealso>
+		
+		<seealso name="jcom.return">
+			Return information from the module to the outside world.
+		</seealso>
+		
+		<seealso name="jcom.ui">
+			Default background for the module GUI, providing access to common and shared features.
+		</seealso>
+		
+		<seealso name="pattr">
+			<o>jcom.parameter</o> is kind of analogue to the the <o>pattr</o> object within the standard <o>pattrstorage</o> preset system, but offers 
+			extended possibilities in terms of e.g. range and type checking, ramping and documentation.
+		</seealso>		
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+	
+	<misc name="Output">
+		<entry name="Anything">
+			<description>
+				<br />
+				Out left outlet: Parameter value with set prepended. Connect to GUI object.
+				<br />
+				<br />
+				Out middle outlet: Parameter value.
+			</description>
+		</entry>
+		<entry name="(internal)">
+			<description>
+				<br />
+				<o>jcom.parameter</o> communicates with <o>jcom.hub</o> so that parameters can be updated and communicated remotely, 
+				as well as being passed on to the algorithm of the module via <o>jcom.in</o> or <o>jcom.in~</o>.
+				In addition the internal communication ensures proper communication with other modules monitoring and controlling changes 
+				in all modules of the Jamoma network.
+			</description>
+		</entry>
+	</misc>
+	
+	<misc name="Remote communication">
+		<entry name="Communication with the module via the hub">
+			<description>
+				<br />
+				Internal communication between <o>jcom.hub</o> and <o>jcom.parameter</o> enables communication with the parameter by passing OSC messages 
+				to the left inlet of the hub or module. The parameter can be addressed by OSC messages to the module with the name of the parameter as
+				OSC address, eventually with ramping over a specified time interval: <br />
+				<br />
+				• <m>/name_of_parameter (value)</m> <br />
+				• <m>/name_of_parameter (value) ramp 3000</m> <br />
+				<br />
+				
+				The parameter is concieved as a <emp>node</emp> of the OSC namespace as elaborated in
+				<i>T. Place et al (2008): Addressing Classes by Differentiating Values and Properties in OSC. Procceedings of NIME 2008.</i>
+				
+				All messages and attributes that can be accessed locally are therefore also accessible using the colon separator “:” as a separator 
+				between the OSC address of the node and the namespace for adressing the members of the node, e.g:<br />
+				<br />
+				• <m>/parameter_name:+</m><br />
+				• <m>/parameter_name:dataspace temperature</m><br />
+				• <m>/parameter_name:dataspace/unit/active Celsius</m><br />
+			</description>
+		</entry>
+		<entry name="Remote communication to and from other modules">
+			<description>
+				<br />
+				The Jamoma framework also have a system for listening to and controlling parameters, messages and returns of modules remoetely.
+				This enables modules to control other modules using OSC messages with the name of the module and the name of the 
+				parameter prepended to the local namespace of the node. Some examples of modules using this feature are <o>jmod.cuelist</o>,
+				<o>jmod.mapper</o>, <o>jmod.cont_mapper</o> and <o>jmod.trig_mapper</o>.<br />
+				<br />
+				Here are some examples illustrating the syntax used for addressing a parameter from e.g. the cuelist of <o>jmod.cuescript</o>:<br />
+				<br />
+				• <m>/module_name/parameter_name (value)</m> <br />
+				• <m>/module_name/parameter_name (value) ramp 3000</m> <br />
+				• <m>/module_name/parameter_name:+</m><br />
+				• <m>/module_name/parameter_name:dataspace temperature</m><br />
+				• <m>/module_name/parameter_name:dataspace/unit/active Celsius</m><br />
+			</description>
+		</entry>
+	</misc>
+	
+</c74object>

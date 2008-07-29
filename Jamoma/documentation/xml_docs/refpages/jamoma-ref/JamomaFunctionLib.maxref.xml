@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="JamomaFunctionLib">
+	
+    <digest>
+        Jamoma Function Library
+    </digest>
+
+    <description>
+        The Jamoma Function Library contains a number of unit functions <i>y&#160;=&#160;f(x)</i> that map the normalized input range <i>x&#160;&#8712;&#160;[0,1]</i> 
+		to the normalized output range <i>y&#160;&#8712;&#160;[0,1]</i>. If other input and/or output ranges are required, the external utilizing the
+		 <o>JamomaFunctionLib</o> need to take care of linear scaling of input and output values to ensure that the <o>JamomaFunctionLib</o> 
+		operates on normalized ranges.<br />
+		<br />
+		The <o>JamomaFunctionLib</o> is used in different ways by a number of Jamoma externals:<br />
+		• jcom.map: Map the input range <i>x &#8712; [a,b]</i> to the output range <i>y &#8712; [c,d]</i> according to a number of different functions.<br />
+		• <o>jcom.parameter</o> and <o>jcom.message</o>: For ramping parameters and messages, the <o>JamomaFunctionLib</o>
+		 provides a selection of curvatures to use for the ramp. <br />
+		• <o>jcom.ramp</o>: Ramp from one value to another. The curvature of the ramp is controlled by the JamomaFunctionLib.<br />
+		<br />
+		Some functions have further properties influencing the shape of the curve. These properties can be set and queried.<br />
+		<br />
+		The <o>JamomaFunctionLib</o>, when queried, will provide information on available function units, available properties for each function unit,
+		current unit used, and the state of properties for the current function unit.
+		
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			Data
+		</metadata>
+		
+		<metadata name="tag">
+			Library
+		</metadata>
+		
+	</metadatalist>
+
+
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+		
+		<seealso name="JamomaDataspaceLib">
+			The Jamoma Dataspace Library
+		</seealso>
+		
+		<seealso name="JamomaRampLib">
+			The Jamoma Ramp Library
+		</seealso>
+		
+		<seealso name="jcom.dataspace">
+			Convert between various types of units using the Jamoma dataspace library
+		</seealso>
+		
+		<seealso name="jcom.message">
+			Handling messages in Jamoma modules
+		</seealso>
+
+		<seealso name="jcom.parameter">
+			Handling parameters in Jamoma modules
+		</seealso>
+		
+		<seealso name="atodb">
+			Convert linear amplitude to a decibel value
+		</seealso>
+
+		<seealso name="cartopol">
+			Cartesian to Polar coordinate conversion
+		</seealso>
+		
+		<seealso name="dbtoa">
+			Convert a decibel value to linear amplitude
+		</seealso>
+					
+		<seealso name="expr">
+			Evaluate a mathematical expression
+		</seealso>
+
+		<seealso name="lp.scamp~">
+			Scale, offset, and limit signals
+		</seealso>
+		
+		<seealso name="lp.scampi">
+			Scale, map, and limit values
+		</seealso>
+		
+		<seealso name="lp.scampf">
+			Scale, map, and limit values
+		</seealso>
+		
+		<seealso name="poltocar">
+			Polar to Cartesian coordinate conversion
+		</seealso>		
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+
+	<misc name="Functions">
+	
+		<entry name="cosine">
+			<description>
+				<br />
+				<br />
+				<i>y(x) = -0.5*cos(x*&#960;)+0.5)</i><br />
+				<br /> 
+				No properties.<br />
+				<br />
+			</description>
+		</entry>
+		
+		<entry name="linear">
+			<description>
+				<br />
+				<br />
+				<i>y(x) = x </i><br />
+				<br />
+				No properties.<br />
+				<br />
+			</description>
+		</entry>
+
+		<entry name="lowpass">
+			<description>
+
+				This is a first order recursive filter, much like a first order IIR audio filter.:<br />
+				<br />
+				<i>y(n) = (y(n-1)*k)+(x(n)*(1-k))</i> <br />
+				<br />
+				Properties:<br />
+				<br />
+				• <m>coefficient</m>: feedback coefficient. <i>0 &#8804; coefficient &#8804; 1</i> <br />
+				<br />
+			</description>
+		</entry>
+
+		<entry name="power">
+			<description>
+				<br />
+				<br />
+				• <i>y = pow(x,k) 			</i> 						&#8194; if &#8194; <i><m>symmetry</m> =  <m>none</m></i> <br />
+				• <i>y = 0.5*(sign(2*x-1)*pow(fabs(2*x-1),k)+1) </i> 	&#8194; if &#8194; <i><m>symmetry</m> =  <m>point</m></i> <br />
+				• <i>y = pow(fabs(2*x-1),k)</i> 						&#8194; if &#8194; <i><m>symmetry</m> =  <m>axis</m></i> <br />
+				<br />
+				where <i>k = pow(2, <m>power</m>) </i> .<br />
+				<br />
+				Properties:<br />
+				<br />
+				• <m>power</m>: This coeffisient determines the exponent. <i><m>power</m> = 0</i> gives a straight line. 
+				Positive values results in curves with positive curvature, negative values in curves with negative curvature.<br />
+				• <m>symmetry</m>: Takes a <m>symbol</m> argument. Possible values are <m>none</m>, <m>point</m> and <m>axis</m>.<br />				
+				<br />
+			</description>
+		</entry>
+		
+		<entry name="tanh">
+			<description>
+				<br />
+				<br />
+				<i>y = &#945;*(tanh(a*(x-b)) - &#946;)</i> <br />
+				<br />
+				where:<br />
+				<br />
+				• <i> a = log(7.0)/<m>width</m> </i> <br />
+				• <i> b = 0.5*(<m>offset</m>+1) </i> <br />
+				• <i> &#945; = 1/(tanh(a*(1-b))-tanh(a*(-b))) </i> <br />
+				• <i> &#946; = tanh(a*(-b)) </i> <br />
+				<br />
+				Properties:<br />
+				<br />
+				• <m>width</m>: <br />
+				• <m>offset</m>: <br />
+				<br />
+			</description>
+		</entry>			
+
+	</misc>
+
+	<misc name="Credits">
+		<entry name="Litter Power Package">
+			<description>
+				<br />
+				The symmetry property of the <m>power</m> function was inspired by functionalities in the mapping externals
+				that are part of the valuable Litter Power Package by Peter Castine.
+			</description>
+		</entry>
+	
+	</misc>
+	
+</c74object>
