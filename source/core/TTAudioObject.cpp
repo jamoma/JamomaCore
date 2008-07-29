@@ -143,25 +143,45 @@ TTErr TTAudioObject::setBypass(const TTValue& value)
 
 TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 {
-	return (this->*currentProcessMethod)(in, out);
+	TTErr	err;
+	
+	lock();
+	err = (this->*currentProcessMethod)(in, out);
+	unlock();
+	return err;
 }
 
 
 TTErr TTAudioObject::process(TTAudioSignal& out)
 {
-	return (this->*currentProcessMethod)(out, out);
+	TTErr	err;
+	
+	lock();
+	err = (this->*currentProcessMethod)(out, out);
+	unlock();
+	return err;
 }
 
 
 TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
 {
-	return (this->*currentProcessWithSidechainMethod)(in1, in2, out1, out2);
+	TTErr	err;
+	
+	lock();
+	err = (this->*currentProcessWithSidechainMethod)(in1, in2, out1, out2);
+	unlock();
+	return err;
 }
 
 
 TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out)
 {
-	return (this->*currentProcessWithSidechainMethod)(in1, in2, out, out);
+	TTErr	err;
+	
+	lock();
+	err = (this->*currentProcessWithSidechainMethod)(in1, in2, out, out);
+	unlock();
+	return err;
 }
 
 
