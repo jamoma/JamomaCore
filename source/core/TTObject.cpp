@@ -183,7 +183,7 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 /****************************************************************************************************/
 
 TTObject::TTObject(const char* name)
-: objectName(TT(name))
+: objectName(TT(name)), locked(false)
 {
 	messages = new TTHash;
 	attributes = new TTHash;
