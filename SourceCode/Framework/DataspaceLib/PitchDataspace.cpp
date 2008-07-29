@@ -13,7 +13,7 @@
 
 
 MidiPitchUnit::MidiPitchUnit()
-	: DataspaceUnit("centimeter")
+	: DataspaceUnit("midi")
 {;}
 
 
@@ -39,8 +39,37 @@ void MidiPitchUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 
 
 /***********************************************************************************************/
+
+
+CentUnit::CentUnit()
+	: DataspaceUnit("cent")
+{;}
+
+
+CentUnit::~CentUnit()
+{;}
+		
+
+void CentUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	*outputNumArgs = 1;
+	// f = 440 * pow(2, (m-69)/12.)
+	*output = 100. * 440. * pow(2,(atom_getfloat(inputAtoms)-69.)/12.);
+
+}
+
+
+void CentUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	*outputNumArgs = 1;
+	// m = 69. + 12*log2(f/440.);
+	atom_setfloat(*outputAtoms, 69. + 12* log(*input/(440.*100))/log(2.));
+}
+
+
+/***********************************************************************************************/
 FrequencyUnit::FrequencyUnit()
-	: DataspaceUnit("foot")
+	: DataspaceUnit("Hz")
 {;}
 
 
@@ -67,6 +96,7 @@ PitchDataspace::PitchDataspace()
 	: DataspaceLib("distance", "meter")
 {
 	// Create one of each kind of unit, and cache them in a hash
+	registerUnit(new CentUnit,			gensym("cent"));
 	registerUnit(new MidiPitchUnit,		gensym("midi"));
 	registerUnit(new FrequencyUnit,		gensym("Hz"));
 	

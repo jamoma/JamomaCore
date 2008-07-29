@@ -33,6 +33,14 @@ class FrequencyUnit : DataspaceUnit{
 		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
 };
 
+class CentUnit : DataspaceUnit{
+	public:
+		CentUnit();
+		~CentUnit();
+		
+		void convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output);
+		void convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms);
+};
 
 // Specification of our base class
 class PitchDataspace : DataspaceLib{
