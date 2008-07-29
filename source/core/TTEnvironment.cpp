@@ -184,6 +184,12 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioObject**
 
 TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 {
+	// If the object is locked (e.g. in the middle of processing a vector in another thread) 
+	//	then we spin until the lock is released
+	//	TODO: we should also be able to time-out in the event that we have a dead lock.
+	while(anObject->getlock())
+		;
+		
 	delete anObject;
 	return kTTErrNone;
 }
