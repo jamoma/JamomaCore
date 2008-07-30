@@ -129,7 +129,20 @@ void* overdrive_new(t_symbol *msg, short argc, t_atom *argv)
 		TTObjectInstantiate(TT("overdrive"), &x->overdrive, x->maxNumChannels);
 		x->audioIn = new TTAudioSignal(x->maxNumChannels);
 		x->audioOut = new TTAudioSignal(x->maxNumChannels);
-		
+
+#ifdef DEBUG_SYMBOL_TABLE
+		{
+			TTValue v;
+
+			ttSymbolTable->dump(v);
+			for(TTUInt16 i=0; i<v.getSize(); i++){
+				TTSymbolPtr name;
+				v.get(i, &name);
+				post("A Sym: %s", name->getCString());
+			}
+		}
+#endif
+
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
