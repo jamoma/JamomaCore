@@ -548,6 +548,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\source\units\TTNoise.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\source\units\TTOperator.cpp"
 				>
 			</File>
