@@ -27,7 +27,26 @@ using namespace stdext;	// Visual Studio 2008 puts the hash_map in this namespac
 #define TT ttSymbolTable->lookup
 
 
+/** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
+typedef pair<const char*, TTSymbolPtr>																	TTSymbolTablePair;
+
+
 /** A simple helper class used by TTSymbolTable for comparing hash_map keys.  */
+#ifdef TT_PLATFORM_WIN
+typedef const char* TTCString;
+class TTStringCompare : public stdext::hash_compare<TTCString> {
+public:
+	bool operator()(TTCString s1, TTCString s2) const
+	{
+		return !strcmp(s1, s2);
+	}
+
+	std::size_t operator()(TTCString s)
+	{
+		return stdext::hash_value(s);
+	}
+};
+#else
 class TTStringCompare {
 public:
 	bool operator()(const char* s1, const char* s2) const
@@ -35,15 +54,18 @@ public:
 		return !strcmp(s1, s2);
 	}
 };
-
-
-/** A type that represents the key as a C-String and the value as a pointer to the matching TTSymbol object. */
-typedef pair<const char*, TTSymbolPtr>																	TTSymbolTablePair;
+#endif
 
 
 /** An iterator for the STL hash_map used by TTSymbolTable. */
 #ifdef TT_PLATFORM_WIN
-typedef hash_map<const char*, TTSymbolPtr >	TTSymbolTableHash;
+//typedef hash_map<const char*, TTSymbolPtr, TTStringCompare >	TTSymbolTableHash;
+
+//class TTSymbolTableHash : public stdext::hash_map <char*, TTSymbolPtr, TTStringCompare>
+//{};
+typedef hash_map<TTString, TTSymbolPtr>	TTSymbolTableHash;
+
+//typedef hash_map<const char*, TTSymbolPtr >	TTSymbolTableHash;
 //typedef hash_map<const char*, TTSymbolPtr, hash_compare<TTStringCompare> >	TTSymbolTableHash;
 //typedef hash_map<const char*, TTSymbolPtr, hash_compare<TTStringCompare> >::const_iterator	TTSymbolTableIter;
 #else
