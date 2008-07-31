@@ -990,7 +990,7 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 
 	strcpy(input, msg->s_name);
 	if(*input2 == '/')				// leading slash means it's OSC...
-		input2++;					// remove the the leading slash
+		input2++;					// remove the leading slash
 
 	split = strchr(input2, ':');	// remove (and store) the param name
 	if(split != NULL){
