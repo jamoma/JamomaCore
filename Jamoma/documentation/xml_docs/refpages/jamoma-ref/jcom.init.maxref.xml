@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jcom.init">
+	
+    <digest>
+        Utility for initialization of modules
+    </digest>
+
+    <description>
+		<o>jmod.init</o> is a kind of <o>loadbang</o> local to the module. This way it is possible to initialize one module without resetting all preexisting modules.
+		<o>jmod.init</o> connects to <o>jmod.hub</o> in order to link to all other instances of <o>jmod.init</o> within the same module. 
+		It also makes <o>jmod.hub</o> reset all parameters to the default preset.
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			Data
+		</metadata>
+		
+	</metadatalist>
+
+
+	<!--INLETS-->
+	
+	<inletlist>
+		
+		<inlet id="0" name="INLET_NAME">
+			<digest>
+				(bang) initialize the module
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+		
+	</inletlist>
+
+
+	<!--OUTLETS-->
+	
+	<outletlist>
+		
+		<outlet id="0" name="OUTLET_NAME">
+			<digest>
+				bang on initialization
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="1" name="OUTLET_NAME">
+			<digest>
+				dumpout
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+	</outletlist>
+
+
+	<!--ARGUMENTS-->
+	
+	<objarglist>
+
+		<objarg id="0" name="OBJARG_NAME" type="OBJARG_TYPE" optional="0">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</objarg>
+		
+	</objarglist>
+
+
+	<!--MESSAGES-->
+	
+	<methodlist>
+		
+		<method name="bang">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				When <o>jcom.init</o> receives a bang, it tells the <o>jcom.hub</o> of the module to initilaize the module.
+				As part of initialization the default preset file will be loaded, all parameters and messages reset to default
+				state and all <o>jcom.init</o> objects in the module will output a <m>bang</m>. 
+			</description>
+		</method>
+		
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+	
+	<attributelist>
+	
+		<attribute name="name" get="1" set="1" type="symbol" size="1">
+			<digest>
+				Not used.
+				<!-- %TODO: The name attribute is inherited from t_jcom_core_subscriber_common. Maybe this should be looked into to elimiante the name attribute? -->
+			</digest>
+			<description>
+				Not used
+			</description>
+		</attribute>
+		
+	</attributelist>
+
+
+	<!--EXAMPLE-->
+	
+	<examplelist>
+		<example image="IMAGE_URL" caption=" IMAGE_CAPTION" />
+	</examplelist>
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>	
+
+		<seealso name="jcom.hub">
+			The central nervous system of a jamoma module.
+		</seealso>
+		
+		<seealso name="jcom.message">
+			Handling messages in the modules.
+		</seealso>
+
+		<seealso name="jcom.parameter">
+			Handling parameters in the modules.
+		</seealso>
+		
+		<seealso name="loadbang">
+			Send a bang automatically when a patcher is loaded
+		</seealso>
+		
+		<seealso name="loadmess">
+			Send a message when a patch is loaded
+		</seealso>
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+	
+	<misc name="Output">
+		<entry name="bang">
+			<description>
+				<br />
+				Out left outlet: <o>jcom.init</o> outputs a <m>bang</m> when the module initializes.
+			</description>
+		</entry>
+		
+		<entry name="(internal)">
+			<description>
+				<br />
+				When <o>jcom.init</o> receives a bang, it tells the <o>jcom.hub</o> of the module to initialize the module.
+				As part of initialization the default preset file will be loaded, all parameters and messages reset to default
+				state and all <o>jcom.init</o> objects in the module will output a <m>bang</m>.
+			</description>
+		</entry>
+	</misc>
+	
+</c74object>

@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jcom.hub">
+	
+    <digest>
+        The central nervous system of a Jamoma module.
+    </digest>
+
+    <description>
+        <o>jcom.hub</o> is the central brain in a Jamoma module. It parses input and remote communication, 
+		distributes messaging to parameters, maintains the state of the module, generates documentation, etc.<br />
+		<br />
+		Each Jamoma module requires the presence of one and one only <o>jcom.hub</o>. In fact, the presence of <o>jcom.hub</o>
+		in a patch is the deciding factor that makes the patch a Jamoma module.
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			Data
+		</metadata>
+		
+	</metadatalist>
+
+
+	<!--INLETS-->
+	
+	<inletlist>
+		
+		<inlet id="0" name="INLET_NAME">
+			<digest>
+				TEXT DESCRIBING THE INLET
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+		<inlet id="1" name="INLET_NAME">
+			<digest>
+				TEXT DESCRIBING THE INLET
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+	</inletlist>
+
+
+	<!--OUTLETS-->
+	
+	<outletlist>
+		
+		<outlet id="0" name="OUTLET_NAME">
+			<digest>
+				TEXT DESCRIBING THE OUTLET
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="1" name="OUTLET_NAME">
+			<digest>
+				dumpout
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+	</outletlist>
+
+
+	<!--ARGUMENTS-->
+	
+	<objarglist>
+		
+		<objarg name="ARGUMENT_NAME" type="TYPE" optional="0">
+			<digest>
+				SHORT DESCRIPTION
+			</digest>
+			<description>
+				FULL DESCRIPTION
+			</description>
+		</objarg>
+		
+	</objarglist>
+
+
+	<!--MESSAGES-->
+	
+	<methodlist>
+		
+		<method name="bang">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION
+			</description>
+		</method>
+		
+		<method name="anything">
+			<arglist>
+				<arg name="input" type="list" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION
+			</description>
+		</method>
+
+		<method name="/*_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+
+		<method name="/message_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+
+		<method name="/module_name:/get">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="/parameter_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+
+		<method name="/parameter_values:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+
+		<method name="/return_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+														
+		<method name="*_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="core_module_name:/get">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="feedback">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+				
+		<method name="message_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="module_name:/get">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="parameter_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+			
+		<method name="parameter_values:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="private">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="return">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="return_extended">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+
+				
+		<method name="return_names:/dump">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				DESCRIPTION OF MESSAGE
+			</description>
+		</method>
+		
+		<method name="Embedded jcom.message instances">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The <o>jcom.hub</o> external contains a number of embedded or internal <o>jcom.message</o> instances.
+				Each of these can be addressed with OSC messages according to their name attributes. In addition the subspace of properties
+				of the messages can be addressed in the same way as for any other <o>jcom.message</o> instance in the module. <br />
+				<br />
+				A list of embedded <o>jcom.message</o> instances is provided at the end of this reference document.
+			</description>
+		</method>
+		
+		<method name="Embedded jcom.parameter instances">
+			<arglist>
+				<arg id="0" name="ONE TWO THREE" type="list" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The <o>jcom.hub</o> external also contains a number of embedded or internal <o>jcom.object</o> instances.
+				Each of these can be addressed with OSC messages according to their name attributes. In addition the subspace of properties
+				of the messages can be addressed in the same way as for any other <o>jcom.object</o> instance in the module. <br />
+				<br />
+				A list of embedded <o>jcom.object</o> instances is provided at the end of this reference document.
+			</description>
+		</method>
+		
+
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+	
+	<attributelist>
+	
+		<attribute name="algorithm_type" get="1" set="1" type="symbol" size="1">
+			<digest>
+				SHORT DESCRIPTION
+			</digest>
+			<description>
+				FULL DESCRIPTION
+			</description>
+		</attribute>
+		
+		<attribute name="class" get="1" set="1" type="TYPE" size="1">
+			<digest>
+				SHORT DESCRIPTION
+			</digest>
+			<description>
+				FULL DESCRIPTION
+			</description>
+		</attribute>
+		
+		<attribute name="description" get="1" set="1" type="TYPE" size="1">
+			<digest>
+				SHORT DESCRIPTION
+			</digest>
+			<description>
+				FULL DESCRIPTION
+			</description>
+		</attribute>
+		
+		<attribute name="module_type" get="1" set="1" type="TYPE" size="1">
+			<digest>
+				SHORT DESCRIPTION
+			</digest>
+			<description>
+				FULL DESCRIPTION
+			</description>
+		</attribute>
+		
+		<attribute name="name" get="1" set="1" type="TYPE" size="1">
+			<digest>
+				SHORT DESCRIPTION
+			</digest>
+			<description>
+				FULL DESCRIPTION
+			</description>
+		</attribute>
+		
+	</attributelist>
+
+
+	<!--EXAMPLE-->
+	
+	<examplelist>
+		<example image="IMAGE_URL" caption=" IMAGE_CAPTION" />
+	</examplelist>
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+		
+		<seealso name="jcom.gui">
+			Default graphical background of Jamoma modules, with common and shared properties embedded.
+		</seealso>
+		
+		<seealso name="jcom.in">
+			Input conduit for control signals in a jamoma module. Most often these are Jitter matrices.
+		</seealso>
+		
+		<seealso name="jcom.in~">
+			Input conduit for audio signals in a jamoma module.
+		</seealso>
+		
+		<seealso name="jcom.init">
+			Utility for initialization of modules.
+		</seealso>
+		
+		<seealso name="jcom.message">
+			Handling messages in the modules.
+		</seealso>
+		
+		<seealso name="jcom.out">
+			Output conduit for control signals in a jamoma module. Most often these are Jitter matrices.
+		</seealso>
+		
+		<seealso name="jcom.out~">
+			Output conduit for audio signals in a jamoma module.
+		</seealso>
+		
+		<seealso name="jcom.parameter">
+			Handling messages in the modules.
+		</seealso>
+		
+		<seealso name="jcom.paramui">
+			Jamoma GUI object with jcom.parameter embedded.
+		</seealso>
+		
+		<seealso name="jcom.return">
+			Return information from the module to the outside world.
+		</seealso>
+		
+		<seealso name="jcom.ui">
+			Default background for the module GUI, providing access to common and shared features.
+		</seealso>
+		
+		<seealso name="pattrstorage">
+			<o>jcom.parameter</o> is kind of analogue to the the <o>pattrstorage</o> object within the standard <o>pattr</o> preset system, but offers 
+			extended possibilities in terms of OSC parsing, remote communication, documentation and extended communication with and control of parameters,
+			messages, returns as well as signal input and output.
+		</seealso>
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+	
+	<misc name="Output">
+		<entry name="Anything">
+			<description>
+				<br />
+				Out left outlet: DESCRIPTION
+				<br />
+				<br />
+				Out middle outlet: DESCRIPTION
+			</description>
+		</entry>
+		
+		<entry name="(internal)">
+			<description>
+				<br />
+				DESCRIPTION
+			</description>
+		</entry>
+		
+	</misc>
+	
+	<misc name="Embedded jcom.message instances">
+		
+			<entry name = "documentation/generate">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_generic</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Generate a documentation page for this module and save it to disk.
+				</description>
+			</entry>
+
+			<entry name = "init">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Initialize a module completely to the original state.
+				</description>
+			</entry>
+
+			<entry name = "module/view_internals">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.
+				</description>
+			</entry>
+
+			<entry name = "panel/open">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Open an a module's control panel (inspector) if one is present.
+				</description>
+			</entry>
+
+			<entry name = "preset/clear">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Clears all presets, providing a blank slate for saving new presets.
+				</description>
+			</entry>
+
+			<entry name = "preset/copy">
+				<description>
+					<br />
+					<m>"msg_list</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Create a new preset (2nd argument) by copying the contents of another preset (1st argument)
+				</description>
+			</entry>		
+
+			<entry name = "preset/default">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Open the default preset file and recall the first preset in that file.
+				</description>
+			</entry>		
+
+			<entry name = "preset/dump">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Dump all preset names.
+				</description>
+			</entry>		
+
+			<entry name = "preset/interpolate">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_list</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.
+				</description>
+			</entry>	
+
+			<entry name = "preset/post">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Post all presets to the Max window.
+				</description>
+			</entry>
+
+			<entry name = "preset/read">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_symbol</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.
+				</description>
+			</entry>			
+
+			<entry name = "preset/recall">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_generic</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Recall a preset by number - you can also choose presets from the module menu.
+				</description>
+			</entry>
+
+			<entry name = "preset/store">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_list</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module.
+				</description>
+			</entry>			
+
+			<entry name = "preset/storenext">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_list</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually.
+				</description>
+			</entry>
+
+			<entry name = "preset/write">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_symbol</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Write an xml-preset file to disk.  An optional argument defines the file to open.
+				</description>
+			</entry>			
+
+			<entry name = "ui/refresh">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_none</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Update displayed values for module to reflect current state.
+				</description>
+			</entry>
+
+		</misc>
+
+		<misc name = "Embedded jcom.parameter instances">
+			<entry name = "ui/freeze">
+				<description>
+					<br />
+					<m>type</m> = <m>msg_toggle</m> <br />
+					<m>ramp/drive</m> = <m>none</m> <br />
+					<m>description</m> = Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources.
+				</description>
+			</entry>		
+		
+	</misc>
+	
+</c74object>
