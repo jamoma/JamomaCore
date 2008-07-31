@@ -179,6 +179,7 @@
 			</digest>
 			<description>
 				Defines the dataspace to use. Refer to the documentation of the <o>JamomaDataspaceLib</o> for a list of available dataspaces.
+				Some dataspaces might have additional properties. 
 			</description>
 		</attribute>
 		
@@ -218,7 +219,7 @@
 	
 	<seealsolist>
 
-		<seealso name="JamomaDapaspaceLib">
+		<seealso name="JamomaDataspaceLib">
 			The Jamoma Dataspace Library
 		</seealso>
 		

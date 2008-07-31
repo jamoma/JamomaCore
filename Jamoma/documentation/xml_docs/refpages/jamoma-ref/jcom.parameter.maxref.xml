@@ -457,6 +457,19 @@
 	
 	<seealsolist>
 		
+
+		<seealso name="JamomaDataspaceLib">
+			The Jamoma Dataspace Library
+		</seealso>
+		
+		<seealso name="JamomaFunctionLib">
+			The Jamoma Function Library
+		</seealso>
+		
+		<seealso name="JamomaRampLib">
+			The Jamoma Ramp Library
+		</seealso>
+
 		<seealso name="jcom.hub">
 			The central nervous system of a jamoma module.
 		</seealso>
@@ -475,6 +488,10 @@
 		
 		<seealso name="jcom.message">
 			Handling messages in the modules.
+		</seealso>
+		
+		<seealso name="jcom.paramui">
+			Jamoma GUI object with jcom.parameter embedded.
 		</seealso>
 		
 		<seealso name="jcom.return">

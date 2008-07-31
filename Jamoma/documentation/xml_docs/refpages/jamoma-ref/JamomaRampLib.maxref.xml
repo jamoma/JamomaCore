@@ -8,7 +8,12 @@
     </digest>
 
     <description>
-        Library of unit conversions for a number of different data spaces. This library is used by a number of Jamoma externals.
+        Library of units that in different ways trigger updates of values during ramps from one value or set of values to another.<br />
+		<br />
+		Some ramp units have further properties influencing the way values are updated. These properties can be set and queried.  <br />
+		<br />
+		The JamomaRampLib, when queried, will provide information on available ramp units, available properties for each ramp unit, 
+		current unit used, and the state of properties for the current ramp unit.
     </description>
 
 
@@ -52,93 +57,47 @@
 			The Jamoma Function Library
 		</seealso>
 		
-		<seealso name="jcom.dataspace">
-			Convert between various types of units using the Jamoma dataspace library.
-		</seealso>
-		
 		<seealso name="jcom.message">
-			Handling messages in Jamoma modules.
+			Handling messages in Jamoma modules
 		</seealso>
 
 		<seealso name="jcom.parameter">
-			Handling parameters in Jamoma modules.
+			Handling parameters in Jamoma modules
 		</seealso>
 		
-		<seealso name="atodb">
-			Convert linear amplitude to a decibel value
-		</seealso>
-
-		<seealso name="cartopol">
-			Cartesian to Polar coordinate conversion
+		<seealso name="jcom.ramp">
+			Ramping from one value to another, using the Jamoma RampLib and FunctionLib
 		</seealso>
 		
-		<seealso name="dbtoa">
-			Convert a decibel value to linear amplitude
+		<seealso name="bline">
+			Event-driven multi-segment line object
 		</seealso>
-					
-		<seealso name="expr">
-			Evaluate a mathematical expression
+		
+		<seealso name="line">
+			Output numbers in a ramp from one value to another
 		</seealso>
-
-		<seealso name="poltocar">
-			Polar to Cartesian coordinate conversion
-		</seealso>		
+		
+		<seealso name="line~">
+			Linear ramp generator
+		</seealso>
+		<seealso name="setclock">
+			Control the clock speed of timing objects remotely
+		</seealso>
 		
 	</seealsolist>
 
 
 	<!--MISC-->
 
-	<misc name="Dataspaces">
+	<misc name="Ramp Units">
 	
-		<entry name="angle">
+		<entry name="async">
 			<description>
 				<br />
 				<br />
-				• <m>deg</m>: alias for <m>degree</m>. <br />
-				• <m>degree</m>: angle expressed as degree. <br />
-				• <m>rad</m>: alias for radian. <br />
-				• <m>radian</m>: angle expressed as radian.<br />
-				<br />
-			</description>
-		</entry>
-		
-		<entry name="color">
-			<description>
-				<br />
-				<br />
-				• <m>cmy</m>: (cyan magenta yellow) as values in the range [0,255]<br />
-				• <m>hsl</m>: (hue saturation lightness) as values in the following range: hue [0,360], saturation [0,100], lightness [0,100]<br />
-				• <m>hsv</m>: (hue saturation value) as values in the following range: hue [0,360], saturation [0,100], value [0,100]<br />
-				• <m>rgb</m>: (red green blue) as values in the range [0,255]<br />
-				<br />
-			</description>
-		</entry>
-
-		<entry name="distance">
-			<description>
-				<br />
-				<br />
-				• <m>'</m>: same as <m>feet</m><br />
-				• <m>"</m>: same as <m>inches</m><br />
-				• <m>centimeter</m>: same as <m>cm</m> <br />
-				• <m>cm</m>: Alias for <m>centimieter</m><br />
-				• <m>feet</m>: same as <m>'</m> <br />
-				• <m>inches</m>: same as <m>"</m> <br />
-				• <m>m</m>: same as <m>meters</m><br />
-				• <m>meters</m>: ame as <m>m</m> <br />
-				<br />
-			</description>
-		</entry>
-
-		<entry name="gain">
-			<description>
-				<br />
-				<br />
-				• <m>db</m>: decibel, equal to <m>dB</m> <br />
-				• <m>dB</m>: decibel, equal to <m>db</m> <br />
-				• <m>linear</m>: linear amplitude <br />
-				• <m>midi</m>: <br />
+				Asyncronuous (event-driven) ramping driven by bangs passed to module (hub) or Max messages passed to leftmost signal inlet.
+				In video modules the <m>async</m> ramp unit can be used to update paramerters only when a new Jitter matrix is 
+				about to be calculated. <br />
 				<br />
 			</description>
 		</entry>
@@ -147,68 +106,36 @@
 			<description>
 				<br />
 				<br />
-				• <m>none</m>: This datasapce can be used to escape unit conversions.
+				A non-ramping unit. This ramp unit just sets the value immediately.<br />
 				<br />
 			</description>
 		</entry>
 
-		<entry name="pitch">
+		<entry name="queue">
 			<description>
 				<br />
 				<br />
-				• <m>cent</m>: Pitch expressed as MIDI cents. <br />
-				• <m>Hz</m>: Frequency <br />
-				• <m>midi</m>: MIDI pitch as floating point value <br />
+				Ramping unit using the Max queue in order to update as often as possible without getting in the way of timed processes.<br />
 				<br />
 			</description>
 		</entry>
 
-		<entry name="position">
+		<entry name="scheduler">
 			<description>
 				<br />
 				<br />
-				• <m>ad</m>: Two-dimensional polar position described as azimuth and position. Same as <m>polar</m> <br />
-				• <m>aed</m>: Three-dimensional spherical position described by azimuth, elevation and distance. Same as <m>spherical</m> <br />
-				• <m>cart2D</m>: Two-dimensional Cartesian position. Same as <m>xy</m> <br />
-				• <m>cart3D</m>: Three-dimensional Cartesian position. Same as <m>xyz</m> <br />
-				• <m>cylindrical</m>: Cylindrical 3D position described using polar position in the horizontal plane and <i>z</i> for vertical position.
-				  Same as <m>daz</m>. <br />
-				• <m>daz</m>: Cylindrical 3D position described using polar position in the horizontal plane and <i>z</i> for vertical position.
-				  Same as <m>cylindrical</m>. <br />
-				• <m>openGL</m>: Position described according to the OpenGL standard. <br />
-				• <m>polar</m>: Two-dimensional polar position described as azimuth and position. Same as <m>ad</m> <br />
-				• <m>spherical</m>: Three-dimensional spherical position described by azimuth, elevation and distance. Same as <m>aed</m> <br />
-				• <m>xy</m>: Two-dimensional Cartesian position. Same as <m>cart2D</m> <br />			
-				• <m>xyz</m>: Three-dimensional Cartesian position. Same as <m>cart3D</m> <br />
+				Ramping unit providing updated values at regular and timed ticks, using the Max scheduler.<br />
+				<br />
+				Properties:<br />
+				<br />
+				• <m>clock</m>: The <m>clock</m> property, followed by the name of an existing <o>setclock</o> object, sets the <m>scheduler</m> 
+				ramp unit to be controlled by that <o>setclock</o> object rather than by Max’s internal millisecond clock. 
+				If no argument is provided for the <m>clock</m> property, the <m>scheduler</m> ramp unit falls back to using Max’s regular 
+				millisecond clock. <br />
+				• <m>granularity</m>: The time grain (output interval) between updated values. <br />	
 				<br />
 			</description>
-		</entry>
-
-		<entry name="temperature">
-			<description>
-				<br />
-				<br />
-				• <m>C</m> (alias to Celsius) <br />
-				• <m>Celsius</m> <br />
-				• <m>F</m> (alias to Farenheit) <br />
-				• <m>Fahrenheit</m> <br />
-				• <m>K</m> (alias to Kelvin) <br />
-				• <m>Kelvin</m> <br />
-				<br />
-			</description>
-		</entry>
-
-		<entry name="time">
-			<description>
-				<br />
-				<br />
-				• <m>millisecond</m> <br />
-				• <m>ms</m>: alias to millisecond <br />
-				• <m>s</m>: alias to second <br />
-				• <m>sample</m>: depends on the sample rate <br />
-				• <m>second</m>: 
-			</description>
-		</entry>				
+		</entry>			
 
 	</misc>
 	

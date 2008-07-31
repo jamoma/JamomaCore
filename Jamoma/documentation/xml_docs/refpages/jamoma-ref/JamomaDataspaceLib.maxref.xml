@@ -163,6 +163,7 @@
 				• <m>cent</m>: Pitch expressed as MIDI cents. <br />
 				• <m>Hz</m>: Pitch described in terms of frequency. <br />
 				• <m>midi</m>: MIDI pitch as floating point value. <br />
+				• <m>speed</m>: Transposition playback speed of audio buffers or sound files. <m>midi=0</m> equals <m>speed=1</m>. <br />
 				<br />
 			</description>
 		</entry>
