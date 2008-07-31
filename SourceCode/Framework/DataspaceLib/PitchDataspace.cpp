@@ -92,13 +92,42 @@ void FrequencyUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 
 
 /***********************************************************************************************/
+
+SpeedUnit::SpeedUnit()
+	: DataspaceUnit("speed")
+{;}
+
+
+SpeedUnit::~SpeedUnit()
+{;}
+
+void SpeedUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	*outputNumArgs = 1;
+	// f = speed*440./pow(2.,(69./12.))
+	*output = atom_getfloat(inputAtoms) * 440./pow(2.,(69./12.));
+}
+
+
+void SpeedUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	*outputNumArgs = 1;
+	// speed = f * pow(2.,(69./12.))/440.
+	atom_setfloat(*outputAtoms, *input * pow(2.,(69./12.))/440.);
+}
+
+
+
+
+/***********************************************************************************************/
 PitchDataspace::PitchDataspace()
 	: DataspaceLib("distance", "meter")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CentUnit,			gensym("cent"));
-	registerUnit(new MidiPitchUnit,		gensym("midi"));
 	registerUnit(new FrequencyUnit,		gensym("Hz"));
+	registerUnit(new MidiPitchUnit,		gensym("midi"));
+	registerUnit(new SpeedUnit,			gensym("speed"));	// Transposition playback speed of buffers or sound files 
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
