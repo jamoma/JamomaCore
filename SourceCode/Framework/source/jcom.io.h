@@ -63,11 +63,11 @@ typedef struct _out{
 													   rely internally on any history.  
 													*/
 	float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
-	TTCrossfade*	xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
+	TTAudioObject*	xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
 	TTAudioObject*	copy;							///< TTAudioObject does a simple vector copy
-	TTGain*			gain;							///< TTGain implements the 'gain' param
-	TTRamp*			ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
-	TTRamp*			ramp_xfade;					///< TTRamp with the type of xfade to use
+	TTAudioObject*	gain;							///< TTGain implements the 'gain' param
+	TTAudioObject*	ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
+	TTAudioObject*	ramp_xfade;						///< TTRamp with the type of xfade to use
 	
 	float			attr_mix;						///< The mix percent, stored in percent
 	long			attr_bypass;					///< the bypass indicator for the module 
