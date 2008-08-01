@@ -80,6 +80,41 @@ end
 
 def processAllTestFiles(directory, suffix)
   count = 0
+  
+  # Setup OSC Methods that we respond to from the tests we are about to run
+  @testDone = 0
+  @oscReceiver.add_method('/test/finished', '') do |msg|
+    @testDone = 1
+  end
+  
+  @oscReceiver.add_method('/test/result', nil) do |msg|
+    if(msg.args[0] == "PASS")
+      if msg.args.size == 2
+        puts "    PASSED: #{msg.args[1]}"
+      elsif msg.args.size == 3
+        puts "    PASSED: #{msg.args[1]} #{msg.args[2]}"
+      else
+        puts "    PASSED: #{msg.args[1]} #{msg.args[2]} (#{msg.args[3]})"
+      end
+      @passes = @passes + 1
+    else
+      if msg.args.size == 2
+        puts "    FAILED: #{msg.args[1]}     ********************"
+      elsif msg.args.size == 3
+        puts "    FAILED: #{msg.args[1]} #{msg.args[2]}     ********************"
+      else
+        puts "    FAILED: #{msg.args[1]} #{msg.args[2]} (#{msg.args[3]})    ********************"
+      end
+      @failures = @failures + 1
+    end
+  end
+  
+  @oscReceiver.add_method('/test/log', nil) do |msg|
+    puts "    #{msg.args.to_s}"
+  end
+  
+  
+  # Now we actually go through the directories and open the test
   Dir.foreach(directory) do |x| 
     filepath = directory + path_separator + x
     if File.directory?(filepath) && iteratable_directory_name?(x)
@@ -90,32 +125,6 @@ def processAllTestFiles(directory, suffix)
       puts "  #{filepath}:" 
 
       @testDone = 0
-      @oscReceiver.add_method('/test/finished', '') do |msg|
-        @testDone = 1
-      end
-      
-      @oscReceiver.add_method('/test/result', nil) do |msg|
-        if(msg.args[0] == "PASS")
-          puts "    PASSED: #{msg.args[1]}"
-          @passes = @passes + 1
-        else
-          if msg.args.size == 2
-            puts "    FAILED: #{msg.args[1]}     ****"
-          elsif msg.args.size == 3
-            puts "    FAILED: #{msg.args[1]} #{msg.args[2]}     ****"
-          else
-            puts "    FAILED: #{msg.args[1]} #{msg.args[2]} (#{msg.args[3]})    ****"
-          end
-          @failures = @failures + 1
-        end
-      end
-      
-      @oscReceiver.add_method('/test/log', nil) do |msg|
-        puts "    #{msg.args.to_s}"
-      end
-      
-      
-      
       
       m = OSC::Message.new("/test/open #{filepath}");
       @oscSender.send(m, 0, @host, @sendPort)
