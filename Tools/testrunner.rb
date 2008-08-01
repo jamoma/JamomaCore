@@ -182,10 +182,9 @@ establishCommunication()
 
 
 @totaltests = 0
-numtests = processAllTestFiles(@svnroot+"/Tests", ".test.maxpat")
-numtests = processAllTestFiles(@svnroot+"/Jamoma/modules", ".test.maxpat")
-puts "  #{numtests} tests completed."
-@totaltests = @totaltests + numtests
+@totaltests += processAllTestFiles(@svnroot+"/Tests", ".test.maxpat")
+@totaltests += processAllTestFiles(@svnroot+"/Jamoma/modules", ".test.maxpat")
+puts "  #{@totaltests} tests completed."
 
 
 puts "  Quitting Max..."
@@ -200,10 +199,10 @@ puts "  Cleaning up: removing jcom.testmanager.maxpat from the Max Startup folde
 puts ""
 puts "  RESULTS:"
 puts "    assertions failed:    #{@failures}"
-puts "    unusual terminations: #{@potential_crashes}"
+#puts "    unusual terminations: #{@potential_crashes}"
 puts "    assertions passed:    #{@passes}"
 puts "    number of files:      #{@totaltests}"
-#puts "    total test time:      #{Time.now - @script_start_time} seconds"
+puts "    total test time:      #{Time.now - @startTime} seconds"
 
 
 puts ""
