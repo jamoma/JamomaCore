@@ -7,11 +7,8 @@
 ###################################################################
 
 require 'osc'
-#require 'open3'
 require 'fileutils'
 require 'pathname'
-#require 'rexml/document'
-#include REXML
 
 
 Dir.chdir ".."
