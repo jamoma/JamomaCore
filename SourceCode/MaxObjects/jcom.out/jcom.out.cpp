@@ -133,11 +133,21 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->audioOut = new TTAudioSignal(x->numOutputs);
 		x->audioTemp = new TTAudioSignal(x->numOutputs);
 		x->zeroSignal = new TTAudioSignal(x->numOutputs);
-		x->xfade = new TTCrossfade(x->numOutputs);
+		
+		//x->xfade = new TTCrossfade(x->numOutputs);
+		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
+
 		x->copy = new TTAudioObject("jcom.out copier", x->numOutputs);
-		x->gain = new TTGain(x->numOutputs);
-		x->ramp_gain = new TTRamp(1);
-		x->ramp_xfade = new TTRamp(1);
+
+		//x->gain = new TTGain(x->numOutputs);
+		TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
+
+//		x->ramp_gain = new TTRamp(1);
+		TTObjectInstantiate(TT("ramp"), &x->ramp_gain, x->numOutputs);
+
+//		x->ramp_xfade = new TTRamp(1);
+		TTObjectInstantiate(TT("ramp"), &x->ramp_xfade, x->numOutputs);
+
 		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 		x->gain->setAttributeValue(TT("linearGain"), 1.0);
 #else
@@ -204,11 +214,11 @@ void out_free(t_out *x)
 	delete x->audioOut;
 	delete x->audioTemp;
 	delete x->zeroSignal;
-	delete x->xfade;
 	delete x->copy;
-	delete x->gain;
-	delete x->ramp_gain;
-	delete x->ramp_xfade;
+	TTObjectRelease(x->xfade);
+	TTObjectRelease(x->gain);
+	TTObjectRelease(x->ramp_gain);
+	TTObjectRelease(x->ramp_xfade);
 #endif
 	jcom_core_subscriber_common_free(&x->common);
 }

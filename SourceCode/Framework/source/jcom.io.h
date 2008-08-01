@@ -50,7 +50,7 @@ typedef struct _out{
 	void			*outlet[MAX_NUM_CHANNELS];
 	void			*dumpout;						///< dumpout outlet
 	t_symbol		*attr_algorithm_type;			///< default is 'poly', also we need a 'blue' type (maybe a better name?)
-	long			numOutputs;						///< spec'd as an argument
+	TTUInt16		numOutputs;						///< spec'd as an argument
 	long			vector_size;					///< cached vector_size of the audio signals
 
 	TTAudioSignal*	audioIn;
