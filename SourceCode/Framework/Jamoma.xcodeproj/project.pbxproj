@@ -559,6 +559,10 @@
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = Jamoma;
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = YES;
@@ -589,6 +593,10 @@
 				);
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = Jamoma;
 				WRAPPER_EXTENSION = framework;
 			};
