@@ -42,7 +42,7 @@ void MidiPitchUnit::convertFromNeutral(long inputNumArgs, double *input, long *o
 
 
 CentUnit::CentUnit()
-	: DataspaceUnit("cent")
+	: DataspaceUnit("cents")
 {;}
 
 
@@ -54,7 +54,7 @@ void CentUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *out
 {
 	*outputNumArgs = 1;
 	// f = 440 * pow(2, (m-69)/12.)
-	*output = 100. * 440. * pow(2,(atom_getfloat(inputAtoms)-69.)/12.);
+	*output = 440. * pow(2,(atom_getfloat(inputAtoms)-6900.)/1200.);
 
 }
 
@@ -63,7 +63,7 @@ void CentUnit::convertFromNeutral(long inputNumArgs, double *input, long *output
 {
 	*outputNumArgs = 1;
 	// m = 69. + 12*log2(f/440.);
-	atom_setfloat(*outputAtoms, 69. + 12* log(*input/(440.*100))/log(2.));
+	atom_setfloat(*outputAtoms, 6900. + 1200* log(*input/(440.))/log(2.));
 }
 
 
@@ -121,10 +121,10 @@ void SpeedUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 /***********************************************************************************************/
 PitchDataspace::PitchDataspace()
-	: DataspaceLib("distance", "meter")
+	: DataspaceLib("pitch", "Hz")
 {
 	// Create one of each kind of unit, and cache them in a hash
-	registerUnit(new CentUnit,			gensym("cent"));
+	registerUnit(new CentUnit,			gensym("cents"));
 	registerUnit(new FrequencyUnit,		gensym("Hz"));
 	registerUnit(new MidiPitchUnit,		gensym("midi"));
 	registerUnit(new SpeedUnit,			gensym("speed"));	// Transposition playback speed of buffers or sound files 
