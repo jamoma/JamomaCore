@@ -71,19 +71,33 @@ JamomaError DataspaceLib::convert(long inputNumArgs, t_atom *inputAtoms, long *o
 		
 JamomaError DataspaceLib::setInputUnit(t_symbol *inUnitName)
 {
+	t_object*	newUnit = NULL;
+	JamomaError	err;
+	
 	if(inUnit && inUnitName == inUnit->name)	// already have this one loaded
 		return JAMOMA_ERR_NONE;
-	else
-		return (JamomaError)hashtab_lookup(unitHash, inUnitName, (t_object**)&inUnit);
+	else{
+		err = (JamomaError)hashtab_lookup(unitHash, inUnitName, (t_object**)&newUnit);
+		if(!err && newUnit)
+			inUnit = (DataspaceUnit*)newUnit;
+		return err;
+	}
 }
 
 
 JamomaError DataspaceLib::setOutputUnit(t_symbol *outUnitName)
 {
+	t_object*	newUnit = NULL;
+	JamomaError	err;
+	
 	if(outUnit && outUnitName == outUnit->name)	// already have this one loaded
 		return JAMOMA_ERR_NONE;
-	else
-		return (JamomaError)hashtab_lookup(unitHash, outUnitName, (t_object**)&outUnit);
+	else{
+		err = (JamomaError)hashtab_lookup(unitHash, outUnitName, (t_object**)&newUnit);
+		if(!err && newUnit)
+			outUnit = (DataspaceUnit*)newUnit;
+		return err;
+	}
 }
 
 
