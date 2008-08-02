@@ -16,6 +16,8 @@
 					<string>../Framework/source</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>Framework</string>
 		</dict>
@@ -39,35 +41,32 @@
 					<string>../Framework/FunctionLib</string>
 				</dict>
 				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>name</key>
-							<string>ramplib_api</string>
-							<key>regexFolderFilter</key>
-							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-							<key>sourceDirectory</key>
-							<string>../RampLib/ramplib_api</string>
-						</dict>
-						<dict>
-							<key>name</key>
-							<string>RampUnits</string>
-							<key>regexFolderFilter</key>
-							<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-							<key>sourceDirectory</key>
-							<string>../RampLib/RampUnits</string>
-						</dict>
-					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>RampLib</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>../Framework/RampLib</string>
 				</dict>
 			</array>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>Libs</string>
 		</dict>
 		<dict>
 			<key>children</key>
 			<array>
+				<dict>
+					<key>name</key>
+					<string>Internals</string>
+					<key>regexFolderFilter</key>
+					<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+					<key>sourceDirectory</key>
+					<string>../Framework/Internals</string>
+				</dict>
 				<dict>
 					<key>children</key>
 					<array>
@@ -81,27 +80,27 @@
 							<key>filename</key>
 							<string>jcom.hub/jcom.hub.cpp</string>
 							<key>lastUsed</key>
-							<date>2008-06-11T14:40:21Z</date>
+							<date>2008-08-01T14:17:22Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.hub/jcom.hub.h</string>
 							<key>lastUsed</key>
-							<date>2007-12-14T14:37:31Z</date>
+							<date>2008-07-31T07:10:48Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.hub/jcom.hub.presets.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-12-14T14:37:29Z</date>
+							<date>2008-08-01T14:17:23Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.hub/jcom.hub.internals.cpp</string>
+							<key>lastUsed</key>
+							<date>2008-08-01T14:17:23Z</date>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>hub</string>
 				</dict>
@@ -131,7 +130,7 @@
 							<key>filename</key>
 							<string>jcom.init/jcom.init.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-07-02T22:23:50Z</date>
+							<date>2008-08-01T10:40:31Z</date>
 						</dict>
 					</array>
 					<key>name</key>
@@ -157,7 +156,7 @@
 							<key>filename</key>
 							<string>jcom.meter~/jcom.meter~.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-04-06T23:34:29Z</date>
+							<date>2008-07-30T15:10:06Z</date>
 						</dict>
 					</array>
 					<key>name</key>
@@ -170,13 +169,13 @@
 							<key>filename</key>
 							<string>jcom.out/jcom.out.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-07-02T22:23:43Z</date>
+							<date>2008-07-30T19:52:43Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.out/jcom.out.h</string>
 							<key>lastUsed</key>
-							<date>2007-04-07T03:49:05Z</date>
+							<date>2008-07-30T18:51:33Z</date>
 						</dict>
 					</array>
 					<key>name</key>
@@ -189,25 +188,21 @@
 							<key>filename</key>
 							<string>jcom.parameter/jcom.parameter.clip.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-04-06T23:18:56Z</date>
+							<date>2008-08-01T14:25:08Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.parameter/jcom.parameter.cpp</string>
 							<key>lastUsed</key>
-							<date>2008-06-12T13:04:19Z</date>
+							<date>2008-08-01T15:16:47Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.parameter/jcom.parameter.h</string>
 							<key>lastUsed</key>
-							<date>2008-06-12T13:04:20Z</date>
-							<key>selected</key>
-							<true/>
+							<date>2008-08-01T14:25:52Z</date>
 						</dict>
 					</array>
-					<key>expanded</key>
-					<true/>
 					<key>name</key>
 					<string>parameter</string>
 				</dict>
@@ -261,25 +256,6 @@
 					<array>
 						<dict>
 							<key>filename</key>
-							<string>jcom.receive/jcom.receive.cpp</string>
-							<key>lastUsed</key>
-							<date>2007-12-10T18:05:41Z</date>
-						</dict>
-						<dict>
-							<key>filename</key>
-							<string>jcom.receive/jcom.receivemaster.cpp</string>
-							<key>lastUsed</key>
-							<date>2007-12-10T18:05:42Z</date>
-						</dict>
-					</array>
-					<key>name</key>
-					<string>receive</string>
-				</dict>
-				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
 							<string>jcom.receive~/jcom.receive~.cpp</string>
 						</dict>
 					</array>
@@ -306,24 +282,11 @@
 							<key>filename</key>
 							<string>jcom.return/jcom.return.cpp</string>
 							<key>lastUsed</key>
-							<date>2007-07-18T18:29:31Z</date>
+							<date>2008-08-01T14:17:20Z</date>
 						</dict>
 					</array>
 					<key>name</key>
 					<string>return</string>
-				</dict>
-				<dict>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>filename</key>
-							<string>jcom.send/jcom.send.cpp</string>
-							<key>lastUsed</key>
-							<date>2007-12-10T18:05:42Z</date>
-						</dict>
-					</array>
-					<key>name</key>
-					<string>send</string>
 				</dict>
 				<dict>
 					<key>children</key>
@@ -338,15 +301,17 @@
 							<key>filename</key>
 							<string>jcom.ui/jcom.ui.h</string>
 							<key>lastUsed</key>
-							<date>2008-06-10T16:13:36Z</date>
+							<date>2008-08-02T16:09:57Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>jcom.ui/jcom.ui.cpp</string>
 							<key>lastUsed</key>
-							<date>2008-06-10T16:13:36Z</date>
+							<date>2008-08-02T16:09:56Z</date>
 						</dict>
 					</array>
+					<key>expanded</key>
+					<true/>
 					<key>name</key>
 					<string>ui</string>
 				</dict>
@@ -355,6 +320,14 @@
 			<true/>
 			<key>name</key>
 			<string>Externals</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>xml_docs</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>../../Jamoma/documentation/xml_docs</string>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -403,50 +376,6 @@
 			<key>firstVisibleLine</key>
 			<integer>63</integer>
 		</dict>
-		<key>jcom.init/jcom.init.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>90</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>36</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>89</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>90</integer>
-			</dict>
-		</dict>
-		<key>jcom.out/jcom.out.cpp</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>213</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>47</integer>
-		</dict>
 		<key>jcom.remote/jcom.remote.cpp</key>
 		<dict>
 			<key>caret</key>
@@ -465,6 +394,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{40, 10}, {963, 868}}</string>
+	<string>{{34, 27}, {823, 851}}</string>
 </dict>
 </plist>
