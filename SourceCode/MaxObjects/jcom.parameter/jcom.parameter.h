@@ -52,9 +52,11 @@ typedef struct _param{						// Data Structure for this object
 	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
 	t_symbol				*attr_rampfunction;		///< Attribute for setting the function used by the ramping
 	t_symbol				*attr_dataspace;		///< The dataspace that this parameter uses (default is 'none')
-	DataspaceLib			*dataspace;
+	DataspaceLib			*dataspace_active2native;
+	DataspaceLib			*dataspace_native2internal;
 	t_symbol				*attr_unitActive;		///< The active unit within the dataspace -- the type of values a user is sending
-	t_symbol				*attr_unitNative;		///< The native unit within the dataspace -- the type of values sent to the algorithm
+	t_symbol				*attr_unitNative;		///< The native unit within the dataspace -- the type of values used for display and being returned from the module
+	t_symbol				*attr_unitInternal;		///< The internal unit within the dataspace -- the type of values sent to the algorithm
 	method					callback;				///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	t_object				*callbackArg;			///< The object for which the callback method should be applied
 } t_param;
@@ -187,6 +189,8 @@ t_max_err	param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **
 t_max_err	param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **argv);
 t_max_err	param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getinternalunit(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setinternalunit(t_param *x, void *attr, long argc, t_atom *argv);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);

@@ -119,6 +119,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	jamoma_class_attr_new(c, 	"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
 	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);
 	jamoma_class_attr_new(c, 	"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
+	jamoma_class_attr_new(c, 	"dataspace/unit/internal",	_sym_symbol, (method)param_attr_setinternalunit, (method)param_attr_getinternalunit);
 
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -181,6 +182,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
+		x->attr_unitInternal = jps_none;
 		
 #ifdef JMOD_MESSAGE
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_message);
@@ -626,23 +628,43 @@ t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *arg
 		t_max_err	err;
 		
 		x->attr_dataspace = atom_getsym(argv);
-		jamoma_getDataspace(x->attr_dataspace, &x->dataspace);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2native);
 
 		// If there is already a unit defined, then we try to use that
 		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
 		if(x->attr_unitActive)
-			err = x->dataspace->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_active2native->setInputUnit(x->attr_unitActive);
 		if(err)
-			x->attr_unitActive = x->dataspace->neutralUnit;
+			x->attr_unitActive = x->dataspace_active2native->neutralUnit;
 		
 		// If there is already a unit defined, then we try to use that
 		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
-		if(x->attr_unitNative)
-			err = x->dataspace->setOutputUnit(x->attr_unitNative);
+		if(x->attr_unitNative) 
+			err = x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
 		if(err)
-			x->attr_unitNative = x->dataspace->neutralUnit;
+			x->attr_unitNative = x->dataspace_active2native->neutralUnit;
+
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_native2internal);
+
+		// If there is already a unit defined, then we try to use that
+		// Otherwise we use the default (neutral) unit.
+		err = MAX_ERR_GENERIC;
+		if(x->attr_unitNative)
+			err = x->dataspace_native2internal->setInputUnit(x->attr_unitNative);
+		if(err)
+			x->attr_unitNative = x->dataspace_native2internal->neutralUnit;
+		
+		// If there is already a unit defined, then we try to use that
+		// Otherwise we use the default (neutral) unit.
+		err = MAX_ERR_GENERIC;
+		if(x->attr_unitInternal) 
+			err = x->dataspace_native2internal->setOutputUnit(x->attr_unitInternal);
+		if(err)
+			x->attr_unitInternal = x->dataspace_native2internal->neutralUnit;
+			
+
 	}
 	return MAX_ERR_NONE;
 }
@@ -661,8 +683,8 @@ t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *ar
 {
 	if(argc && argv){
 		x->attr_unitActive = atom_getsym(argv);
-		if(x->dataspace)
-			x->dataspace->setInputUnit(x->attr_unitActive);
+		if(x->dataspace_active2native)
+			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
 	}
 	return MAX_ERR_NONE;
 }
@@ -681,8 +703,30 @@ t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *ar
 {
 	if(argc && argv){
 		x->attr_unitNative = atom_getsym(argv);
-		if(x->dataspace)	// fix for crashes reported by Nils
-			x->dataspace->setOutputUnit(x->attr_unitNative);
+		if(x->dataspace_active2native)	// fix for crashes reported by Nils
+			x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
+		if(x->dataspace_native2internal)	// fix for crashes reported by Nils
+			x->dataspace_native2internal->setInputUnit(x->attr_unitNative);
+	}
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getinternalunit(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attr_unitInternal);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setinternalunit(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv){
+		x->attr_unitInternal = atom_getsym(argv);
+		if(x->dataspace_native2internal)	// fix for crashes reported by Nils
+			x->dataspace_native2internal->setOutputUnit(x->attr_unitInternal);
 	}
 	return MAX_ERR_NONE;
 }
@@ -778,6 +822,11 @@ void param_dump(t_param *x)
 		atom_setsym(&a[1], x->attr_unitActive);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
+		sprintf(s, "%s:/dataspace/unit/internal", x->common.attr_name->s_name);
+		atom_setsym(&a[0], gensym(s));
+		atom_setsym(&a[1], x->attr_unitInternal);
+		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		
 		sprintf(s, "%s:/ui/freeze", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attr_ui_freeze);
@@ -1153,9 +1202,9 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			x->list_size, argv, argc)) 
 			return;
 
-		if(x->dataspace){
+		if(x->dataspace_active2native){
 			t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
-			x->dataspace->convert(1, argv, &x->list_size, &r);
+			x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
 			jcom_core_atom_copy(&x->attr_value, r);
 		}
 		else
@@ -1218,7 +1267,7 @@ void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** 
 			This isn't always true though.  
 			Maybe there could be triplets that would be converted into one value or something?
 		*/
-			x->dataspace->convert(1, argv+i, &count, rv+i);
+			x->dataspace_active2native->convert(1, argv+i, &count, rv+i);
 		}
 		*alloc = true;
 	}
@@ -1261,7 +1310,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	if(argc == 1)
 		;	// nothing to do
-	else if(argc == 2 && x->dataspace != 0){
+	else if(argc == 2 && x->dataspace_active2native != 0){
 		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+1) == A_SYM){	// assume the second atom is a unit
 			hasUnit = true;
 			unit = atom_getsym(argv+1);
@@ -1462,8 +1511,8 @@ void param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *da
 	long		numUnits = 0;
 	long		i;
 	
-	if(x->dataspace) {
-		x->dataspace->getAvailableUnits(&numUnits, &unitNames);
+	if(x->dataspace_active2native) {
+		x->dataspace_active2native->getAvailableUnits(&numUnits, &unitNames);
 		units[0] = 0;
 		for(i=0; i<numUnits; i++)
 		{   
