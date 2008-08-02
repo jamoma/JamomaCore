@@ -42,7 +42,7 @@
 #include "RampLib.h"
 
 
-#define JAMOMA_UNIT_HEIGHT 70.0
+#define JAMOMA_UNIT_HEIGHT 35.0
 #define JAMOMA_UNIT_WIDTH 150.0
 #define JAMOMA_MENU_FONT "Arial"
 #define JAMOMA_MENU_FONTSIZE 11.0
