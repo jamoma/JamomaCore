@@ -293,10 +293,10 @@
 	<attributelist>
 		<attribute name="dataspace" get="1" set="1" type="symbol" size="1">
 			<digest>
-				Set what dataspace is used by the parameter for unit conversions.
+				Set what dataspace used internally by the parameter for unit conversions.
 			</digest>
 			<description>
-				Set what dataspace is used by the parameter for unit conversions.
+				Set what dataspace used internally by the parameter for unit conversions.
 			</description>
 		</attribute>
 		
@@ -308,13 +308,26 @@
 				The dataspace unit used for communication to the algorithm from the outside world.
 			</description>
 		</attribute>
+
 		
-		<attribute name="dataspace/unit/native" get="1" set="1" type="symbol" size="1">
+		<attribute name="dataspace/unit/internal" get="1" set="1" type="symbol" size="1">
 			<digest>
-				The dataspace unit used natively for internal communication to the algorithm of the module.
+				The dataspace unit used for communication to the algorithm of the module via <o>jcom.in</o> or <o>jcom.in~</o>.
 			</digest>
 			<description>
-				The dataspace unit used natively for internal communication to the algorithm of the module.
+				The dataspace unit used for communication to the algorithm of the module via <o>jcom.in</o> or <o>jcom.in~</o>.
+			</description>
+		</attribute>
+				
+		<attribute name="dataspace/unit/native" get="1" set="1" type="symbol" size="1">
+			<digest>
+				The dataspace unit used internally by the parameter. Presets are stored according to the native unit.
+				Output from the left outlet of <o>jcom.hub</o> (and hence the module) will be according to the native unit of the dataspace.
+			</digest>
+			<description>
+				The dataspace unit used internally by the parameter. Presets are stored according to the native unit.
+				Output from the left outlet of <o>jcom.hub</o> (and hence the module) as well as remote communication of values from the module
+				will use the native unit of the dataspace.
 			</description>
 		</attribute>
 		
