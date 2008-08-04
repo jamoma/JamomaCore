@@ -388,7 +388,7 @@ TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method)
 	TTMessagePtr newMessage = new TTMessage(name, method, kTTMessageDefaultFlags);
 	
 	if(ttEnvironment && ttEnvironment->debugMessaging)
-		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
+		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld\n", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
 	
 	messages->append(name, TTPtr(newMessage));
 	return kTTErrNone;
@@ -400,7 +400,7 @@ TTErr TTObject::registerMessage(const TTSymbolPtr name, TTMethod method, TTMessa
 	TTMessagePtr newMessage = new TTMessage(name, method, flags);
 	
 	if(ttEnvironment->debugMessaging)
-		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
+		logMessage("Registering Message '%s' with flags = %ld, message count for this object is now %ld\n", name->getCString(), kTTMessageDefaultFlags, messages->getSize());
 	
 	messages->append(name, TTPtr(newMessage));
 	return kTTErrNone;
