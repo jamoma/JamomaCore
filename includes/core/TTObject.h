@@ -151,8 +151,11 @@ public:
 	TTErr setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
 	
 
-	/** return a list of names of the available functionParameters */
+	/** return a list of names of the available attributes */
 	void getAttributeNames(TTValue& attributeNameList);
+	
+	/** return a list of names of the available messages */
+	void getMessageNames(TTValue& messageNameList);
 	
 	/** return the name of this class */
 	TTSymbol* getName();

@@ -372,6 +372,12 @@ void TTObject::getAttributeNames(TTValue& attributeNameList)
 }
 
 
+void TTObject::getMessageNames(TTValue& messageNameList)
+{
+	messages->getKeys(messageNameList);
+}
+
+
 TTSymbol* TTObject::getName()
 {
 	return objectName;
