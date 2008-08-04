@@ -134,6 +134,28 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount a
 }
 
 
+void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, AtomPtr argv)
+{
+	if(argc && argv){
+		TTValue	v;
+		
+		for(AtomCount i=0; i<argc; i++){
+			if(atom_gettype(argv+i) == A_LONG)
+				v.set(i, atom_getlong(argv+i));
+			else if(atom_gettype(argv+i) == A_FLOAT)
+				v.set(i, atom_getfloat(argv+i));
+			else if(atom_gettype(argv+i) == A_SYM)
+				v.set(i, TT(atom_getsym(argv+i)->s_name));
+			else
+				object_error(ObjectPtr(x), "bad type for message arg");
+		}
+		x->wrappedObject->sendMessage(TT(s->s_name), v);
+	}
+	else
+		x->wrappedObject->sendMessage(TT(s->s_name));
+}
+
+
 // Perform (signal) Method
 t_int *wrappedClass_perform(t_int *w)
 {
@@ -222,27 +244,16 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Cla
 	// Create a temporary instance of the class so that we can query it.
 	TTObjectInstantiate(ttblueClassName, &o, numChannels);
 
-/*
 	o->getMessageNames(v);
 	for(TTUInt16 i=0; i<v.getSize(); i++){
 		TTSymbolPtr			name = NULL;
-		TTMessageFlags		flags = 0;
 		
 		v.get(i, &name);
-//		o->getMessageFlags(name, &flags);
-		
-//		if(flags & kTTMessagePassNone){
-//			; // TODO: message with no args
-			//class_addmethod(c, (method)degrade_clear, 			"clear",	0L);
-			// actually we can't do that, because we always need to know the message, so we always have to use A_GIMME
-//		}
-//		else{
-			;	// TODO: message with A_GIMME
-		class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_anything, name->getCString(), A_GIMME, 0);
-//		}
-		// TODO: what about A_CANT?
+		if(name == TT("updateMaxNumChannels") || name == TT("updateSr"))
+			continue;	// don't expose these attributes to Max users
+
+		class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_anything, (char*)name->getCString(), A_GIMME, 0);
 	}
-*/
 	
 	o->getAttributeNames(v);
 	for(TTUInt16 i=0; i<v.getSize(); i++){
@@ -265,6 +276,8 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Cla
 		
 		class_addattr(wrappedMaxClass->maxClass, attr_offset_new((char*)name->getCString(), maxType, 0, (method)wrappedClass_attrGet, (method)wrappedClass_attrSet, NULL));
 	}
+	
+	TTObjectRelease(o);
 	
  	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_dsp, 		"dsp",		A_CANT, 0L);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout", 	A_CANT, 0); 
