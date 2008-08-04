@@ -15,7 +15,7 @@
  *	or overdrive effect to "warm" a sound up.
  */ 
 class TTEXPORT TTPhasor : public TTAudioObject {
-private:	
+protected:	
 	TTFloat64 			frequency;			///< ramp time in milliseconds
 	TTSampleValue		phase;				///< current location in the ramp
 	

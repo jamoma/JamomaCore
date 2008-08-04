@@ -18,7 +18,7 @@
  */
  
 class TTEXPORT TTZerocross : public TTAudioObject {
-private:
+protected:
 	TTUInt32	size;					///< Attribute: size of the analysis buffer
 	TTFloat64	rSize;					///< reciprocal of the size attribute
 	TTBoolean	lastSampleWasOverZero;	///< was the last sample over zero?

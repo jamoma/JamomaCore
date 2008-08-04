@@ -21,7 +21,7 @@
  *	considered as the A source and the last N/2 input channels are considered the B source.
  */
 class TTEXPORT TTBalance : public TTAudioObject {
-private:
+protected:
 	TTFloat64		frequency;					///< filter cutoff frequency of inherent lowpass filter
 	TTFloat64		c, a0, a1, a2, b1, b2;			///< filter coefficients
 	TTFloat64		*xm1A, *xm2A, *ym1A, *ym2A;		///< previous input and output values of signal to be balanced

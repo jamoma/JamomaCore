@@ -17,7 +17,7 @@
 	The wavetable is implemented as a TTBuffer.
  */ 
 class TTEXPORT TTWavetable : public TTAudioObject {
-private:
+protected:
 	TTSymbol*			attrMode;
 	TTFloat64			attrFrequency;
 	TTFloat64			attrGain;

@@ -15,7 +15,7 @@
 /**	TTOperator performs basic mathematical operations on an input signal, 
 	or a pair of input signals */
 class TTEXPORT TTOperator : public TTAudioObject {
-private:
+protected:
 	TTSymbol*		operatorAttribute;		///< The type of calculation to perform. (The identifier 'operator' is reserved by C++).
 	TTFloat64		operand;				///< The right-hand value of the calculation.
 	TTBoolean		operandIsInteger;		///< Set to true if there is no fractional part.

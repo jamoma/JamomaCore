@@ -15,7 +15,7 @@
 /**	A running average filter.
  */
 class TTAverage : public TTAudioObject {
-private:
+protected:
 	TTUInt16		maxInterval;	///< Maximum number of samples over which one can average
 	TTUInt16		interval;		///< The actual number of samples over which one is averaging
 	TTSymbol*		mode;			///< options: bipolar, rms, or absolute

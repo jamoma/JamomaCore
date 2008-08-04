@@ -17,7 +17,7 @@
  *	or overdrive effect to "warm" a sound up.
  */ 
 class TTEXPORT TTOverdrive : public TTAudioObject {
-private:
+protected:
 	TTFloat64			drive;			///< Attribute:
 	TTBoolean			dcBlocker;		///< Attribute:
 	TTUInt8				mode;			///< Attribute:
@@ -43,7 +43,7 @@ public:
 	TTOverdrive(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTOverdrive();
+	virtual ~TTOverdrive();
 	
 	
 	/**	Setter for the mode attribute. */

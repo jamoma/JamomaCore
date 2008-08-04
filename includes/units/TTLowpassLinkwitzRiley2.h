@@ -34,7 +34,7 @@
  *
  */
 class TTEXPORT TTLowpassLinkwitzRiley2 : public TTAudioObject {
-private:
+protected:
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		k, wc;						///< filter coefficients
 	TTFloat64		a0, a1, a2;					///< filter coefficients for input samples

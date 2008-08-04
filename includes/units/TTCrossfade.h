@@ -19,7 +19,7 @@
  *	considered as the A source and the last N/2 input channels are considered the B source.
  */
 class TTEXPORT TTCrossfade : public TTAudioObject {
-private:
+protected:
 	TTFloat64		position;	///< Use a range of 0.0 to 1.0 to specify a ratio of the B source to the A source.
 	TTSymbol*		shape;		///< The shape attribute is set with a TTSymbol that is either "equalPower" (the default) or "linear"
 	TTSymbol*		mode;		///< The mode attribute is set with a TTSymbol that is either "lookup" (the default) or "calculate"

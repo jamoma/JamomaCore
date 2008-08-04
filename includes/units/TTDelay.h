@@ -16,7 +16,7 @@
  */
  
 class TTEXPORT TTDelay : public TTAudioObject {
-private:
+protected:
 	TTFloat64			delay;
 	TTUInt64			delayInSamples;
 	TTFloat64			delayMax;

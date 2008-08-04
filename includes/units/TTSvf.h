@@ -20,7 +20,7 @@
 	At some point in the future we could add a mode to get all 4 signals out of the output...
  */
 class TTSvf : public TTAudioObject {
-private:
+protected:
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0
 	TTFloat64		coefficientF;			///< filter coefficient

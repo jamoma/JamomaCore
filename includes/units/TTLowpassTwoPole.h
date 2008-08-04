@@ -15,7 +15,7 @@
 /**	A resonant two-pole, no-zero, lowpass filter. Based on the Hal Chamberlin book.
  */
 class TTEXPORT TTLowpassTwoPole : public TTAudioObject {
-private:
+protected:
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance
 	TTFloat64		coefficientA;			///< filter coefficient

@@ -14,7 +14,7 @@
 
 /**	Noise Generator */
 class TTEXPORT TTNoise : public TTAudioObject {
-private:
+protected:
 	TTSymbol*		mode;	///< Attribute: what color is the noise?
 	TTUInt32		accum;	///< accumulator for the noise generation
 	TTSampleValue	b[6];	///< for the "pinking" filter

@@ -22,7 +22,7 @@
  */
  
 class TTEXPORT TTDCBlock : public TTAudioObject {
-private:
+protected:
 	TTSampleValue*		lastInput;		///< Feedback values used for the audio filter			
 	TTSampleValue*		lastOutput;		///< Feedback values used for the audio filter
 

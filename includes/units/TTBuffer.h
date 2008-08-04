@@ -23,7 +23,7 @@
 */
  
 class TTEXPORT TTBuffer : public TTDataObject {
-private:
+protected:
 	TTSampleVector*		contents;			///< An array of vectors (one vector per channel) to hold the samples.
 	TTUInt16			numChannels;		///< The number of channels in the buffer
 	TTFloat64			length;				///< The size of the buffer in milliseconds

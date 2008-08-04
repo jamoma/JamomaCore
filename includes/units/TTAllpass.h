@@ -14,7 +14,7 @@
 
 /**	An allpass filter. */
 class TTEXPORT TTAllpass : public TTAudioObject {
-private:
+protected:
 	TTFloat64		delay;				///< Attribute: delay time in milliseconds
 	TTFloat64		delayMax;			///< Maximum delay time in milliseconds (how long is the buffer?)
 	TTUInt32		delayInSamples;		///< Delay time in samples (internal)		

@@ -15,7 +15,7 @@
  *	or overdrive effect to "warm" a sound up.
  */ 
 class TTEXPORT TTRamp : public TTAudioObject {
-private:
+protected:
 	enum{
 		kUP = 0,
 		kDOWN

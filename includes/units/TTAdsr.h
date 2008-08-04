@@ -13,7 +13,7 @@
 
 /**	TTAdsr is an attack-decay-sustain-release envelope generator */
 class TTEXPORT TTAdsr : public TTAudioObject {
-private:
+protected:
 	TTFloat64	attack_ms;
 	TTInt32		attack_samples;
 	TTFloat64	attack_step;

@@ -28,7 +28,7 @@
 	once the amplitude level of the input has been reduced.
 */
 class TTEXPORT TTLimiter : public TTAudioObject {
-private:
+protected:
 	TTFloat64			recover;				///< 
 	TTFloat64			lookaheadInv;			///< reciprocal (inverse) of the lookahead attribute
 	TTUInt32			lookaheadBufferIndex;

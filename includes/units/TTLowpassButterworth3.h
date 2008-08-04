@@ -23,7 +23,7 @@
  *
  */
 class TTEXPORT TTLowpassButterworth3 : public TTAudioObject {
-private:
+protected:
 	TTFloat64		frequency;						///< filter cutoff frequency
 	TTFloat64		k, wc;								///< filter coefficients	
 	TTFloat64		a0, a1, a2, a3, b1, b2, b3;			///< filter coefficients

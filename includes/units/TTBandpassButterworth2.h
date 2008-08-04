@@ -17,7 +17,7 @@
  * 	Synthesis, Composition, and Performance. 2nd edition. Schirmer.
  */
 class TTEXPORT TTBandpassButterworth2 : public TTAudioObject {
-private:
+protected:
 	TTFloat64		frequency;				///< filter cutoff frequency
 	TTFloat64		q;						///< filter resonance
 	TTFloat64		c, d, bw, a0, a2, b1, b2;	///< filter coefficients. a1=0 and hence ignored
