@@ -43,7 +43,7 @@ public:
 	TTOperator(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTOperator();
+	virtual ~TTOperator();
 	
 	/** setter for the operator attribute. */
 	TTErr setoperator(const TTValue& newValue);

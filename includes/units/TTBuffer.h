@@ -43,7 +43,7 @@ public:
 	TTBuffer();
 
 	/**	Destructor. */
-	~TTBuffer();
+	virtual ~TTBuffer();
 	
 	/**	Attribute accessor: set the number of channels for this buffer.
 		@return Returns a TTErr error code.	*/

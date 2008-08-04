@@ -48,7 +48,7 @@ public:
 	TTZerocross(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTZerocross();
+	virtual ~TTZerocross();
 
 	/**	Attribute Setter. */
 	TTErr setsize(const TTValue& value);

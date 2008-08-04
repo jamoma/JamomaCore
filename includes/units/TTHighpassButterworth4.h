@@ -54,7 +54,7 @@ public:
 	TTHighpassButterworth4(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTHighpassButterworth4();
+	virtual ~TTHighpassButterworth4();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

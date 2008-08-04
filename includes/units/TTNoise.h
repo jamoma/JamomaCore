@@ -33,7 +33,7 @@ public:
 	TTNoise(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTNoise();
+	virtual ~TTNoise();
 
 	/**	Attribute Setter. */
 	TTErr setmode(const TTValue& newMode);

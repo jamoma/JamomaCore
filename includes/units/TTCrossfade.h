@@ -48,7 +48,7 @@ public:
 	TTCrossfade(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTCrossfade();
+	virtual ~TTCrossfade();
 	
 	/**	Setter for the shape attribute. */
 	TTErr setshape(const TTValue& value);

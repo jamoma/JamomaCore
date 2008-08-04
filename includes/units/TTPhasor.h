@@ -39,7 +39,7 @@ public:
 	TTPhasor(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTPhasor();
+	virtual ~TTPhasor();
 	
 	/**	Setter for the frequency attribute in Hertz.   */
 	TTErr setfrequency(const TTValue& newValue);

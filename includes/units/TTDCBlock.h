@@ -45,7 +45,7 @@ public:
 	TTDCBlock(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTDCBlock();
+	virtual ~TTDCBlock();
 
 	/**	Resets the DC-Blocking filter.
 	 *	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should

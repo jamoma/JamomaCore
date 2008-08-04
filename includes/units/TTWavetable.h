@@ -42,7 +42,7 @@ public:
 	TTWavetable(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTWavetable();
+	virtual ~TTWavetable();
 	
 	
 	/**	Setter for the mode attribute. 

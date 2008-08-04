@@ -37,7 +37,7 @@ public:
 	TTLowpassOnePole(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTLowpassOnePole();
+	virtual ~TTLowpassOnePole();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

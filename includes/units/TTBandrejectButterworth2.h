@@ -47,7 +47,7 @@ public:
 	TTBandRejectButterworth2(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTBandRejectButterworth2();
+	virtual ~TTBandRejectButterworth2();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

@@ -46,7 +46,7 @@ public:
 	TTDegrade(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTDegrade();
+	virtual ~TTDegrade();
 	
 	
 	/**	Setter for the bitdepth attribute. */

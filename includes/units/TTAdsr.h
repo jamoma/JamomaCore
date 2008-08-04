@@ -60,7 +60,7 @@ private:
 	
 public:
 	TTAdsr(TTUInt16 newMaxNumChannels);
-	~TTAdsr();
+	virtual ~TTAdsr();
 	
 	TTErr setAttack(const TTValue& newValue);
 	//	TTErr getAttack(TTValue& value);

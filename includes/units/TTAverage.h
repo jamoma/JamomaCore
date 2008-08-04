@@ -40,7 +40,7 @@ public:
 	TTAverage(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTAverage();
+	virtual ~TTAverage();
 	
 	// Attributes
 	TTErr setfrequency(const TTValue& newValue);

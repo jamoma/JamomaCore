@@ -51,7 +51,7 @@ public:
 	TTAllpass(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTAllpass();
+	virtual ~TTAllpass();
 	
 	/** Attribute accessor. */
 	TTErr setdelay(const TTValue& newValue);

@@ -26,7 +26,7 @@ public:
 	TTGain(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTGain();
+	virtual ~TTGain();
 	
 	/** setter for converting gain input from db to linear. */
 	TTErr setGain(const TTValue& newValue);

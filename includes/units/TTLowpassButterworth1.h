@@ -48,7 +48,7 @@ public:
 	TTLowpassButterworth1(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTLowpassButterworth1();
+	virtual ~TTLowpassButterworth1();
 
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the

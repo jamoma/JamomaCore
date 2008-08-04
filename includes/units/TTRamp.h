@@ -49,7 +49,7 @@ public:
 	TTRamp(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTRamp();
+	virtual ~TTRamp();
 	
 	/**	Setter for the mode attribute.  The options are 'sample' and 'vector' which determine 
 	 the desired accuracy of the ramp that is generated. */

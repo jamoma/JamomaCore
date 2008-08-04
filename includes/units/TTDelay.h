@@ -55,7 +55,7 @@ public:
 	TTDelay(TTUInt16 maxNumChannels);
 
 	/**	Destructor. */
-	~TTDelay();
+	virtual ~TTDelay();
 
 	
 	/** Zero out the delay's buffer. */

@@ -66,7 +66,7 @@ public:
 	TTLowpassLinkwitzRiley4(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTLowpassLinkwitzRiley4();
+	virtual ~TTLowpassLinkwitzRiley4();
 	
 	/**	This algorithm uses an IIR filter, meaning that it relies on feedback.  If the filter should
 	 *	not be producing any signal (such as turning audio off and then back on in a host) or if the

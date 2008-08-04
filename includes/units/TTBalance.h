@@ -45,7 +45,7 @@ public:
 	TTBalance(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTBalance();
+	virtual ~TTBalance();
 	
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

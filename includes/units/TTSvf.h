@@ -51,7 +51,7 @@ public:
 	TTSvf(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTSvf();
+	virtual ~TTSvf();
 
 	// Attributes
 	TTErr setfrequency(const TTValue& newValue);

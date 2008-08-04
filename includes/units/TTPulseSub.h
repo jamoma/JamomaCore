@@ -42,7 +42,7 @@ private:
 	
 public:
 	TTPulseSub(TTUInt16 newMaxNumChannels);
-	~TTPulseSub();
+	virtual ~TTPulseSub();
 	
 	TTErr setTrigger(const TTValue& newValue);
 	TTErr setAttack(const TTValue& newValue);

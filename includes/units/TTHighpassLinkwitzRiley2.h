@@ -62,7 +62,7 @@ public:
 	TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTHighpassLinkwitzRiley2();
+	virtual ~TTHighpassLinkwitzRiley2();
 
 	/**	Setter for the frequency attribute. */
 	TTErr setfrequency(const TTValue& value);

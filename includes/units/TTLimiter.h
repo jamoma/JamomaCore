@@ -67,7 +67,7 @@ public:
 	TTLimiter(TTUInt16 newMaxNumChannels);
 
 	/**	Destructor. */
-	~TTLimiter();
+	virtual ~TTLimiter();
 	
 	/**	Setter for the threshold attribute. */
 	TTErr setPreamp(const TTValue& value);
