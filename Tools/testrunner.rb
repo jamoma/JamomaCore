@@ -11,9 +11,50 @@ require 'fileutils'
 require 'pathname'
 require "platform"
 
+puts "Jamoma Automated Test Runner"
 
-Dir.chdir ".."
-@svnroot = Dir.pwd
+def win32?
+  (Platform::OS == :unix && Platform::IMPL == :cygwin) || Platform::OS == :win32
+end
+
+###################################################################
+# argument processing
+###################################################################
+
+@svnroot = ""
+if (ARGV.length < 1)
+  Dir.chdir ".."
+  @svnroot = Dir.pwd
+else
+  @svnroot = ARGV[0]
+end
+puts "  svn root: " + @svnroot
+
+
+@maxfolder = ""
+if (ARGV.length < 2)
+  if win32?
+    @maxfolder = "C:\\Program Files\\Cycling '74\\Max 5.0"
+  else
+    @maxfolder = "/Applications/Max5"
+  end
+else
+  @maxfolder = ARGV[1]
+end
+puts "  max folder: " + @maxfolder
+
+
+@testroots = ARGV.slice(2, ARGV.length - 2)
+@testroots = [] if(@testroots == nil)
+if (@testroots.length == 0)
+  @testroots << @svnroot
+  puts "  No testroot args, so the default testing root will be: " + @svnroot
+end
+  
+
+###################################################################
+# initialization
+###################################################################
 
 @host = 'localhost'
 @receivePort = 7474
@@ -21,11 +62,10 @@ Dir.chdir ".."
 
 @passes = 0
 @failures = 0
-
 @startTime = Time.now
 
+@testDone = 0
 
-puts "Jamoma Automated Test Runner"
 puts "  Starting the OSC Server..."
 @oscReceiver = OSC::UDPServer.new
 @oscReceiver.bind @host, @receivePort
@@ -37,17 +77,9 @@ puts "  Starting the OSC Server..."
 ###################################################################
 
 
-def win32?
-  (Platform::OS == :unix && Platform::IMPL == :cygwin) || Platform::OS == :win32
-end
-
-
 def path_separator
-#  if win32?
-#    "\\"
-#  else
-    "/"
-#  end
+  # Because we run from cygwin, we can just use the forward slash for both platforms
+  "/"
 end
 
 
@@ -76,11 +108,8 @@ def directory_of(pathstring)
 end
 
 
-def processAllTestFiles(directory, suffix)
-  count = 0
-  
-  # Setup OSC Methods that we respond to from the tests we are about to run
-  @testDone = 0
+# Setup OSC Methods that we respond to from the tests we are about to run
+def setupOscCallbacks
   @oscReceiver.add_method('/test/finished', '') do |msg|
     @testDone = 1
   end
@@ -110,7 +139,12 @@ def processAllTestFiles(directory, suffix)
   @oscReceiver.add_method('/test/log', nil) do |msg|
     puts "    #{msg.args.to_s}"
   end
-  
+end
+
+
+def processAllTestFiles(directory, suffix)
+  @testDone = 0  
+  count = 0
   
   # Now we actually go through the directories and open the test
   Dir.foreach(directory) do |x| 
@@ -172,33 +206,50 @@ def establishCommunication
 end
 
 
+def launchMax
+  if win32?
+    # We have input like "C:\\Program Files\\Cycling '74\\Max 5.0"
+    # We want output like "/cygdrive/c/Program Files/Cycling '74/Max 5.0"
+   cygwinPathForMaxFolder = @maxfolder.gsub!(/\\/, '/')
+   cygwinPathForMaxFolder.sub!(/(.):\//, '/cygdrive/\1/')
+    `open "#{@maxfolder}/Max.exe"`
+  else
+    `open "#{@maxfolder}/MaxMSP.app/Contents/MacOS/MaxMSP"`
+  end
+end
+
 
 ###################################################################
 # here is where we actually run the tests
 ###################################################################
 
 puts "  Copying jcom.test.manager.maxpat to the Max Startup folder"
-if win32?
-  `cp "#{@svnroot}/Tools/jcom.test.manager.maxpat" "C:\\Program Files\\Cycling '74\\Max 5.0\\Cycling '74\\max-startup"`
-else
-  `cp "#{@svnroot}/Tools/jcom.test.manager.maxpat" "/Applications/Max5/Cycling '74/max-startup"`
-end
+#if win32?
+#  `cp "#{@svnroot}/Tools/jcom.test.manager.maxpat" "#{@maxfolder}\\Cycling '74\\max-startup"`
+#else
+  `cp "#{@svnroot}/Tools/jcom.test.manager.maxpat" "#{@maxfolder}/Cycling '74/max-startup"`
+#end
+
 
 puts "  Launching Max..."
-if win32?
-  `open "/cygdrive/c/Program Files/Cycling '74/Max 5.0/Max.exe"`
-else
-  `open /Applications/Max5/MaxMSP.app/Contents/MacOS/MaxMSP`
-end
+launchMax()
+
 
 puts "  Establishing Communication with Max..."
 establishCommunication()
+setupOscCallbacks()
 
 
 @totaltests = 0
-@totaltests += processAllTestFiles(@svnroot+"/Tests", ".test.maxpat")
-@totaltests += processAllTestFiles(@svnroot+"/Jamoma/modules", ".test.maxpat")
+#@totaltests += processAllTestFiles(@svnroot+"/Tests", ".test.maxpat")
+#@totaltests += processAllTestFiles(@svnroot+"/Jamoma/modules", ".test.maxpat")
+@testroots.each do |testroot|
+  @totaltests += processAllTestFiles(testroot, ".test.maxpat")
+end
 puts "  #{@totaltests} tests completed."
+
+
+
 
 
 puts "  Quitting Max..."
@@ -206,12 +257,12 @@ quit = OSC::Message.new('/kill');
 @oscSender.send(quit, 0, @host, @sendPort)
 sleep 5
 
-puts "  Cleaning up: removing jcom.testmanager.maxpat from the Max Startup folder"
-if win32?
-  `rm "C:\\Program Files\\Cycling '74\\Max 5.0\\Cycling '74\\max-startup\\jcom.test.manager.maxpat"`
-else
-  `rm "/Applications/Max5/Cycling '74/max-startup/jcom.test.manager.maxpat"`
-end
+puts "  Clean up: removing jcom.testmanager.maxpat from the Max Startup folder"
+#if win32?
+#  `rm "#{@maxfolder}\\Cycling '74\\max-startup\\jcom.test.manager.maxpat"`
+#else
+  `rm "#{@maxfolder}/Cycling '74/max-startup/jcom.test.manager.maxpat"`
+#end
 
 puts ""
 puts "  RESULTS:"
