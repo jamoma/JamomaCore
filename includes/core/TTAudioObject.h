@@ -49,6 +49,7 @@ protected:
 	TTUInt16						maxNumChannels;						///< This is the maximum number of channels that can be guaranteed to work
 	TTBoolean						attrProcessInPlace;					///< This flag indicates that the object should process the samples "in-place", such that the processed samples are actually in the input
 	TTBoolean						attrBypass;							///< Are we bypassing the processMethod?
+	TTBoolean						attrMute;							///< Mute the processMethod.
 	TTProcessMethod					processMethod;						///< This function pointer points to the active (non-bypass) processing routine
 	TTProcessMethod					currentProcessMethod;				///< This function pointer always points to the current processing routine
 	TTProcessWithSidechainMethod	processWithSidechainMethod;			///< This function pointer points to the active (non-bypass) processing routine with sidechains, if applicable
@@ -62,6 +63,11 @@ protected:
 
 	/** Bypass the audio processing routine and copy all input samples to the output unchanged.				*/
 	TTErr setBypass(const TTValue& value);
+	
+public:
+	/** Mute the audio processing routine and zero all output.												*/
+	TTErr setMute(const TTValue& value);
+protected:
 
 	/**	Setter for the maxNumChannels attribute. 	*/
 	TTErr setMaxNumChannels(const TTValue& newValue);
@@ -110,7 +116,7 @@ public:
 	 	@param in1	The main output signal.
 	 	@param in2	A secondary or sidechain output signal.
 	 	@return 	A TTBlue error code.							*/
-	TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
+	TTErr process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
 
 	// shortcut for when the caller is using pointers
 	TTErr process(TTAudioSignal* in1, TTAudioSignal* in2, TTAudioSignal* out1, TTAudioSignal* out2)
@@ -124,7 +130,7 @@ public:
 	 	@param in2	A secondary or sidechain input signal.
 	 	@param out	The output signal.
 	 	@return 	A TTBlue error code.							*/
-	TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out);
+	TTErr process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out);
 
 	// shortcut for when the caller is using pointers
 	TTErr process(TTAudioSignal* in1, TTAudioSignal* in2, TTAudioSignal* out)
@@ -138,6 +144,12 @@ public:
 	
 	/**	The default audio processing method for calls with side chains, which simply copies the signals through with no modifications.		*/
 	TTErr bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
+	
+	/**	A muted audio processing method, which simply copies zeroes to the output.		*/
+	TTErr muteProcess(TTAudioSignal& in, TTAudioSignal& out);
+	
+	/**	A muted audio processing method, which simply copies zeroes to the output.		*/
+	TTErr muteWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
 	
 	
 	// UTILITIES
