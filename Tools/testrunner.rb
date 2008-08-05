@@ -224,11 +224,7 @@ end
 ###################################################################
 
 puts "  Copying jcom.test.manager.maxpat to the Max Startup folder"
-#if win32?
-#  `cp "#{@svnroot}/Tools/jcom.test.manager.maxpat" "#{@maxfolder}\\Cycling '74\\max-startup"`
-#else
-  `cp "#{@svnroot}/Tools/jcom.test.manager.maxpat" "#{@maxfolder}/Cycling '74/max-startup"`
-#end
+`cp "#{@svnroot}/Tools/jcom.test.manager.maxpat" "#{@maxfolder}/Cycling '74/max-startup"`
 
 
 puts "  Launching Max..."
@@ -241,15 +237,10 @@ setupOscCallbacks()
 
 
 @totaltests = 0
-#@totaltests += processAllTestFiles(@svnroot+"/Tests", ".test.maxpat")
-#@totaltests += processAllTestFiles(@svnroot+"/Jamoma/modules", ".test.maxpat")
 @testroots.each do |testroot|
   @totaltests += processAllTestFiles(testroot, ".test.maxpat")
 end
 puts "  #{@totaltests} tests completed."
-
-
-
 
 
 puts "  Quitting Max..."
@@ -258,11 +249,7 @@ quit = OSC::Message.new('/kill');
 sleep 5
 
 puts "  Clean up: removing jcom.testmanager.maxpat from the Max Startup folder"
-#if win32?
-#  `rm "#{@maxfolder}\\Cycling '74\\max-startup\\jcom.test.manager.maxpat"`
-#else
-  `rm "#{@maxfolder}/Cycling '74/max-startup/jcom.test.manager.maxpat"`
-#end
+`rm "#{@maxfolder}/Cycling '74/max-startup/jcom.test.manager.maxpat"`
 
 puts ""
 puts "  RESULTS:"
