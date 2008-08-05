@@ -210,7 +210,7 @@ def launchMax
   if win32?
     # We have input like "C:\\Program Files\\Cycling '74\\Max 5.0"
     # We want output like "/cygdrive/c/Program Files/Cycling '74/Max 5.0"
-   cygwinPathForMaxFolder = @maxfolder.gsub!(/\\/, '/')
+   cygwinPathForMaxFolder = @maxfolder.gsub(/\\/, '/')
    cygwinPathForMaxFolder.sub!(/(.):\//, '/cygdrive/\1/')
     `open "#{@maxfolder}/Max.exe"`
   else
