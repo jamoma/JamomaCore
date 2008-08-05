@@ -223,7 +223,7 @@ void wrappedClass_dsp(WrappedInstancePtr x, t_signal **sp, short *count)
 
 TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, ClassPtr* c)
 {
-	TTObject*	o;
+	TTObject*	o = NULL;
 	TTValue		v;
 	TTUInt16	numChannels = 1;
 
