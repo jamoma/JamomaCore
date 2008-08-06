@@ -10,6 +10,7 @@
  */
 
 #include "TTClassWrapperMax.h"
+#include "ext_hashtab.h"
 
 
 // Data Structure for this object
@@ -32,17 +33,19 @@ typedef struct _wrappedClass {
 typedef WrappedInstance* WrappedInstancePtr;
 
 
-static WrappedClass* wrappedMaxClass = NULL;
-
+//static WrappedClass* wrappedMaxClass = NULL;
+static t_hashtab*	wrappedMaxClasses = NULL;
 
 
 ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 {
-    WrappedInstancePtr	x;
+	WrappedClass*		wrappedMaxClass = NULL;
+    WrappedInstancePtr	x = NULL;
 	TTValue				sr(sys_getsr());
  	long				attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short				i;
 	
+	hashtab_lookup(wrappedMaxClasses, name, (ObjectPtr*)&wrappedMaxClass);
     x = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
     if(x){
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
@@ -223,12 +226,16 @@ void wrappedClass_dsp(WrappedInstancePtr x, t_signal **sp, short *count)
 
 TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, ClassPtr* c)
 {
-	TTObject*	o = NULL;
-	TTValue		v;
-	TTUInt16	numChannels = 1;
+	TTObject*		o = NULL;
+	TTValue			v;
+	TTUInt16		numChannels = 1;
+	WrappedClass*	wrappedMaxClass = NULL;
 
 	common_symbols_init();
 	TTBlueInit();
+	
+	if(!wrappedMaxClasses)
+		wrappedMaxClasses = hashtab_new(0);
 	
 	wrappedMaxClass = new WrappedClass;
 	wrappedMaxClass->maxClassName = gensym(maxClassName);
@@ -287,6 +294,8 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Cla
 	class_register(_sym_box, wrappedMaxClass->maxClass);
 	if(c)
 		*c = wrappedMaxClass->maxClass;
+	
+	hashtab_store(wrappedMaxClasses, wrappedMaxClass->maxClassName, ObjectPtr(wrappedMaxClass));
 	return kTTErrNone;
 }
 
