@@ -189,7 +189,7 @@ TTErr TTAudioObject::setBypass(const TTValue& value)
 
 TTErr TTAudioObject::setMute(const TTValue& value)
 {
-	attrBypass = value;
+	attrMute = value;
 	if(attrBypass){
 		currentProcessMethod = &TTAudioObject::bypassProcess;
 		currentProcessWithSidechainMethod = &TTAudioObject::bypassWithSidechainProcess;
