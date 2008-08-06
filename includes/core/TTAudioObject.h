@@ -54,6 +54,8 @@ protected:
 	TTProcessMethod					currentProcessMethod;				///< This function pointer always points to the current processing routine
 	TTProcessWithSidechainMethod	processWithSidechainMethod;			///< This function pointer points to the active (non-bypass) processing routine with sidechains, if applicable
 	TTProcessWithSidechainMethod	currentProcessWithSidechainMethod;	///< This function pointer always points to the current processing routine with sidechains, if applicable
+	TTPtrSizedInt					reserved1;							///< Reserved -- May be used for something in the future without changing the size of the struct.
+	TTPtrSizedInt					reserved2;							///< Reserved -- May be used for something in the future without changing the size of the struct.
 
 	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
 	TTErr setProcess(TTProcessMethod processMethod);

@@ -30,12 +30,14 @@
 */
 class TTEXPORT TTDataObject : public TTObject {
 protected:
-	TTUInt32						sr;									///< Current sample rate being used by this object
-	TTFloat64						srInv;								///< 1.0 over the current sample rate (inverse)
-	TTFloat64						srMill;								///< 1/1000 of the current sample rate (samples per millisecond)
+	TTUInt32			sr;					///< Current sample rate being used by this object
+	TTFloat64			srInv;				///< 1.0 over the current sample rate (inverse)
+	TTFloat64			srMill;				///< 1/1000 of the current sample rate (samples per millisecond)
+	TTPtrSizedInt		reserved1;			///< Reserved -- May be used for something in the future without changing the size of the struct.
+	TTPtrSizedInt		reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 
-//	TTUInt16		numInlets;			///< Current number of inlets
-//	TTUInt16		numOutlets;			///< Current number of outlets
+//	TTUInt16			numInlets;			///< Current number of inlets
+//	TTUInt16			numOutlets;			///< Current number of outlets
 
 public:
 	//** Constructor.  Requires that the maximum number of channels to be used with this instance is defined.	*/

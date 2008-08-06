@@ -118,6 +118,8 @@ private:
 	TTList*			messageObservers;	///< List of all objects watching this object.
 	TTList*			attributeObservers;	///< List of all objects watching this object.
 	TTBoolean		locked;				///< Is there a lock placed on this object using lock() or unlock()?
+	TTPtrSizedInt	reserved1;			///< Reserved -- May be used for something in the future without changing the size of the struct.
+	TTPtrSizedInt	reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 
 public:
 	TTObject(const char* name);
