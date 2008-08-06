@@ -1,8 +1,6 @@
 /* 
- *	tt.degrade~
- *	External object for Max/MSP
- *	
- *	Example project for TTBlue
+ *	TTClassWrapperMax
+ *	An automated class wrapper to make TTBlue object's available as objects for Max/MSP
  *	Copyright © 2008 by Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
@@ -21,32 +19,38 @@ typedef struct _wrappedInstance {
 	TTAudioSignal*	audioOut;
 	TTUInt16		maxNumChannels;
 } WrappedInstance;
-
-
-typedef struct _wrappedClass {
-	ClassPtr	maxClass;
-	SymbolPtr	maxClassName;
-	TTSymbolPtr ttblueClassName;
-} WrappedClass;
-
-
 typedef WrappedInstance* WrappedInstancePtr;
 
 
-//static WrappedClass* wrappedMaxClass = NULL;
+/** A hash of all wrapped clases, keyed on the Max class name. */
 static t_hashtab*	wrappedMaxClasses = NULL;
 
 
 ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
-{
+{	
 	WrappedClass*		wrappedMaxClass = NULL;
     WrappedInstancePtr	x = NULL;
 	TTValue				sr(sys_getsr());
  	long				attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short				i;
+	TTErr				err = kTTErrNone;
 	
+	// Find the WrappedClass
 	hashtab_lookup(wrappedMaxClasses, name, (ObjectPtr*)&wrappedMaxClass);
-    x = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
+	
+	// If the WrappedClass has a validity check defined, then call the validity check function.
+	// If it returns an error, then we won't instantiate the object.
+	if(wrappedMaxClass){
+		if(wrappedMaxClass->validityCheck)
+			err = wrappedMaxClass->validityCheck(wrappedMaxClass->validityCheckArgument);
+		else
+			err = kTTErrNone;
+	}
+	else
+		err = kTTErrGeneric;
+	
+	if(!err)
+		x = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
     if(x){
 		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
 		if(attrstart && argv)
@@ -159,6 +163,16 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 }
 
 
+// Method for Assistance Messages
+void wrappedClass_assist(WrappedInstancePtr x, void *b, long msg, long arg, char *dst)
+{
+	if(msg==1)			// Inlets
+		strcpy(dst, "signal input, control messages");		
+	else if(msg==2)		// Outlets
+		strcpy(dst, "signal output");
+}
+
+
 // Perform (signal) Method
 t_int *wrappedClass_perform(t_int *w)
 {
@@ -224,7 +238,7 @@ void wrappedClass_dsp(WrappedInstancePtr x, t_signal **sp, short *count)
 }
 
 
-TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, ClassPtr* c)
+TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c)
 {
 	TTObject*		o = NULL;
 	TTValue			v;
@@ -247,6 +261,8 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Cla
 											A_GIMME, 
 											0);
 	wrappedMaxClass->ttblueClassName = ttblueClassName;
+	wrappedMaxClass->validityCheck = NULL;
+	wrappedMaxClass->validityCheckArgument = NULL;
 	
 	// Create a temporary instance of the class so that we can query it.
 	TTObjectInstantiate(ttblueClassName, &o, numChannels);
@@ -286,18 +302,29 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Cla
 	
 	TTObjectRelease(o);
 	
- 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_dsp, 		"dsp",		A_CANT, 0L);
-    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout", 	A_CANT, 0); 
-//	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",	A_CANT, 0L);
+ 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_dsp, 		"dsp",			A_CANT, 0L);
+    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",		A_CANT, 0); 
+	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",		A_CANT, 0L);
+	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",	A_CANT, 0);
 	
 	class_dspinit(wrappedMaxClass->maxClass);
 	class_register(_sym_box, wrappedMaxClass->maxClass);
 	if(c)
-		*c = wrappedMaxClass->maxClass;
+		*c = wrappedMaxClass;
 	
 	hashtab_store(wrappedMaxClasses, wrappedMaxClass->maxClassName, ObjectPtr(wrappedMaxClass));
 	return kTTErrNone;
 }
 
 
+TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
+{
+	TTErr err = wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c);
+	
+	if(!err){
+		(*c)->validityCheck = validityCheck;
+		(*c)->validityCheckArgument = validityCheckArgument;
+	}
+	return err;
+}
 
