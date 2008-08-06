@@ -317,6 +317,18 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 }
 
 
+TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
+{
+	TTErr err = wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c);
+	
+	if(!err){
+		(*c)->validityCheck = validityCheck;
+		(*c)->validityCheckArgument = (*c)->maxClass;
+	}
+	return err;
+}
+
+
 TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
 {
 	TTErr err = wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c);
