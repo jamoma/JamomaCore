@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\includes\core&quot;;&quot;$(ProjectDir)..\..\..\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\includes\core&quot;;&quot;$(ProjectDir)..\..\..\includes\units&quot;;&quot;$(ProjectDir)..&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\includes\core&quot;;&quot;$(ProjectDir)..\..\..\includes\units&quot;"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\includes\core&quot;;&quot;$(ProjectDir)..\..\..\includes\units&quot;;&quot;$(ProjectDir)..&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				RuntimeLibrary="2"
 				StructMemberAlignment="2"
@@ -188,6 +188,10 @@
 			</File>
 			<File
 				RelativePath=".\tt.dcblock~.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\TTClassWrapperMax.cpp"
 				>
 			</File>
 		</Filter>
