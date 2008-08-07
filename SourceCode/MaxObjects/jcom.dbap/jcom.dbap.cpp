@@ -9,10 +9,9 @@
 
 #include "Jamoma.h"
 
-
-
 const long MAX_NUM_SPEAKERS = 32;
 
+t_symbol		*ps_dst_position;
 
 typedef struct _xyz{
 	float		x;										///< x position
@@ -40,10 +39,13 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv);
 t_max_err dbap_setstep(t_dbap *x, void *attr, long argc, t_atom *argv);
 
 /** Set the position of the nth speaker. */
-void dbap_speaker(t_dbap *x, void *attr, long argc, t_atom *argv);
+void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv);
 
 /** Set the position of the nth virtual source. */
 void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv);
+
+/** Get info on destination setup ++ */
+void dbap_info(t_dbap *x);
 
 /** Display assist strings while patching. */
 void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst);
@@ -59,6 +61,9 @@ t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv);
 
 /** Set rolloff in dB */
 t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv);
+
+/** Calculation of exponent coefficient based on rolloff */
+void dbap_calculate_a(t_dbap *x);
 
 /** Calculate matrix coefficients for most recently received position for the 1D case. */
 void dbap_calculate1D(t_dbap *x, long n);
@@ -88,34 +93,32 @@ int main(void)
 
 	jamoma_init();
 	common_symbols_init();
+	ps_dst_position = gensym("dst_position");
 
 	// Define our class
 	c = class_new("jcom.dbap",(method)dbap_new, (method)0L, sizeof(t_dbap), 
 		(method)0L, A_GIMME, 0);		
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)dbap_speaker,			"destination",	A_GIMME,	0);
-	class_addmethod(c, (method)dbap_speaker,			"source",		A_GIMME,	0);
-	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);  
+	class_addmethod(c, (method)dbap_destination,		"dst_position",	A_GIMME,	0);
+	class_addmethod(c, (method)dbap_source,				"src_position",	A_GIMME,	0);
+	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);
+	class_addmethod(c, (method)dbap_info,				"info",			0);
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		0);  
 
 	// Add attributes to our class:	
-	CLASS_ATTR_LONG(c,			"dimensions",	0,		t_dbap,	attr_dimensions);
-	CLASS_ATTR_ACCESSORS(c,		"dimensions",	NULL,	dbap_attr_setdimensions);
-	//jamoma_class_attr_new(c, 	"dimensions", 	_sym_long, (method)dbap_attr_setdimensions, (method)dbap_attr_getdimensions);
-	CLASS_ATTR_ENUM(c,			"dimensions",	0,	"1 2 3");
+	CLASS_ATTR_LONG(c,		"dimensions",		0,		t_dbap,	attr_dimensions);
+	CLASS_ATTR_ACCESSORS(c,	"dimensions",		NULL,	dbap_attr_setdimensions);
+	CLASS_ATTR_ENUM(c,		"dimensions",		0,	"1 2 3");
 
-	CLASS_ATTR_LONG(c,			"num_destinations",	0,		t_dbap,	attr_num_destinations);
-	CLASS_ATTR_ACCESSORS(c,		"num_destinations",	NULL,	dbap_attr_setnum_destinations);
-	//jamoma_class_attr_new(c, 	"num_destination", _sym_long, (method)dbap_attr_setnum_destinations, (method)dbap_attr_getnum_speakers);
+	CLASS_ATTR_LONG(c,		"num_destinations",	0,		t_dbap,	attr_num_destinations);
+	CLASS_ATTR_ACCESSORS(c,	"num_destinations",	NULL,	dbap_attr_setnum_destinations);
 
-	CLASS_ATTR_FLOAT(c,			"blur",			0,		t_dbap,	attr_blur);
-	CLASS_ATTR_ACCESSORS(c,		"blur",			NULL,	dbap_attr_setblur);	
-	//jamoma_class_attr_new(c, 	"blur",			_sym_float32, (method)dbap_attr_setblur, (method)dbap_attr_getblur);
+	CLASS_ATTR_FLOAT(c,		"blur",				0,		t_dbap,	attr_blur);
+	CLASS_ATTR_ACCESSORS(c,	"blur",				NULL,	dbap_attr_setblur);	
 
-	CLASS_ATTR_FLOAT(c,			"rolloff",			0,		t_dbap,	attr_rolloff);
-	CLASS_ATTR_ACCESSORS(c,		"rolloff",			NULL,	dbap_attr_setrolloff);		
-	//jamoma_class_attr_new(c, 	"rolloff",		_sym_float32, (method)dbap_attr_setrolloff, (method)dbap_attr_getrolloff);
+	CLASS_ATTR_FLOAT(c,		"rolloff",			0,		t_dbap,	attr_rolloff);
+	CLASS_ATTR_ACCESSORS(c,	"rolloff",			NULL,	dbap_attr_setrolloff);		
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -149,6 +152,8 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->dst_position[i].z = 0.;
 		}
 		attr_args_process(x, argc, argv);			// handle attribute args
+		dbap_calculate_a(x);
+		
 	}
 	return (x);										// return the pointer
 }
@@ -159,7 +164,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 
 
 // set position of a speaker
-void dbap_speaker(t_dbap *x, void *attr, long argc, t_atom *argv)
+void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	long n;
 	
@@ -228,6 +233,21 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
 	}
 	else
 		error("Invalid arguments for source.");
+}
+
+
+void dbap_info(t_dbap *x)
+{
+	t_atom		a[4];
+	long i;
+	
+	for (i=0; i<x->attr_num_destinations; i++) {
+		atom_setlong(&a[0], i);
+		atom_setfloat(&a[1], x->dst_position[i].x);
+		atom_setfloat(&a[2], x->dst_position[i].y);
+		atom_setfloat(&a[3], x->dst_position[i].z);
+		object_obex_dumpout(x, ps_dst_position, x->attr_dimensions+1, a);
+	}
 }
 
 
@@ -308,7 +328,6 @@ t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	float f;
 	
-	post("Setting rollof");
 	if(argc && argv) {	
 		f = atom_getfloat(argv);
 		if (f<=0.0) {
@@ -316,15 +335,24 @@ t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 			return MAX_ERR_NONE;;
 		}	
 		x->attr_rolloff = f;
-		x->a = log(x->attr_rolloff)/log(2.);
+		dbap_calculate_a(x);
 	}	
 	return MAX_ERR_NONE;
 }
 
 
 
+
+
 /************************************************************************************/
 // Calculations
+
+
+void dbap_calculate_a(t_dbap *x)
+{
+	x->a = log(x->attr_rolloff)/log(2.);
+	post("x->a =%f", x->a );
+}
 
 
 void dbap_calculate1D(t_dbap *x, long n)
