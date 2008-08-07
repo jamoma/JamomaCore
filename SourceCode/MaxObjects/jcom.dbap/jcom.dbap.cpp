@@ -23,12 +23,12 @@ typedef struct _xyz{
 
 typedef struct _dbap{									///< Data structure for this object 
 	t_object	ob;										///< Must always be the first field; used by Max
-	t_xyz		speaker_position[MAX_NUM_SPEAKERS];		///< Array of speaker positions
-	t_xyz		source_position;						///< Positions of the virtual source
+	t_xyz		dst_position[MAX_NUM_SPEAKERS];			///< Array of speaker positions
+	t_xyz		src_position;							///< Positions of the virtual source
 	long		attr_dimensions;						///< Number of dimensions of the speaker and source system
 	float		attr_blur;								///< Spatial bluriness ratio
 	float		attr_rolloff;							///< Set rolloff with distance in dB.
-	long		attr_num_speakers;						///< number of speakers used
+	long		attr_num_destinations;					///< number of destinations used
 	float		a;										///< Constant: Exponent controlling amplitude dependance on distance. Depends on attr_rolloff
 	void		*outlet;								////< Pointer to outlet. Need one for each outlet
 } t_dbap;
@@ -48,26 +48,14 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv);
 /** Display assist strings while patching. */
 void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst);
 
-/** Get number of dimensions of the system. */
-t_max_err dbap_attr_getdimensions(t_dbap *x, void *attr, long *argc, t_atom **argv);
-
 /** Set number of dimensions of the system. */
 t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv);
 
-/** Get the number of speakers of the system. */
-t_max_err dbap_attr_getnum_speakers(t_dbap *x, void *attr, long *argc, t_atom **argv);
-
 /** Set the number of speakers of the system. */
-t_max_err dbap_attr_setnum_speakers(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Get spatial blur coefficient */
-t_max_err dbap_attr_getblur(t_dbap *x, void *attr, long *argc, t_atom **argv);
+t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom *argv);
 
 /** Set spatial blur coefficient */
 t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Get rolloff in dB */
-t_max_err dbap_attr_getrolloff(t_dbap *x, void *attr, long *argc, t_atom **argv);
 
 /** Set rolloff in dB */
 t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv);
@@ -106,20 +94,28 @@ int main(void)
 		(method)0L, A_GIMME, 0);		
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)dbap_speaker,			"speaker",	A_GIMME,	0);
-	class_addmethod(c, (method)dbap_speaker,			"source",	A_GIMME,	0);
-	class_addmethod(c, (method)dbap_assist,				"assist",	A_CANT,		0);  
-	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",	0);  
+	class_addmethod(c, (method)dbap_speaker,			"destination",	A_GIMME,	0);
+	class_addmethod(c, (method)dbap_speaker,			"source",		A_GIMME,	0);
+	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);  
+	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		0);  
 
 	// Add attributes to our class:	
-	jamoma_class_attr_new(c, 	"dimensions", 	_sym_long, (method)dbap_attr_setdimensions, (method)dbap_attr_getdimensions);
+	CLASS_ATTR_LONG(c,			"dimensions",	0,		t_dbap,	attr_dimensions);
+	CLASS_ATTR_ACCESSORS(c,		"dimensions",	NULL,	dbap_attr_setdimensions);
+	//jamoma_class_attr_new(c, 	"dimensions", 	_sym_long, (method)dbap_attr_setdimensions, (method)dbap_attr_getdimensions);
 	CLASS_ATTR_ENUM(c,			"dimensions",	0,	"1 2 3");
-	
-	jamoma_class_attr_new(c, 	"num_speakers", _sym_long, (method)dbap_attr_setnum_speakers, (method)dbap_attr_getnum_speakers);
-	
-	jamoma_class_attr_new(c, 	"blur",			_sym_float32, (method)dbap_attr_setblur, (method)dbap_attr_getblur);
-	
-	jamoma_class_attr_new(c, 	"rolloff",		_sym_float32, (method)dbap_attr_setrolloff, (method)dbap_attr_getrolloff);
+
+	CLASS_ATTR_LONG(c,			"num_destinations",	0,		t_dbap,	attr_num_destinations);
+	CLASS_ATTR_ACCESSORS(c,		"num_destinations",	NULL,	dbap_attr_setnum_destinations);
+	//jamoma_class_attr_new(c, 	"num_destination", _sym_long, (method)dbap_attr_setnum_destinations, (method)dbap_attr_getnum_speakers);
+
+	CLASS_ATTR_FLOAT(c,			"blur",			0,		t_dbap,	attr_blur);
+	CLASS_ATTR_ACCESSORS(c,		"blur",			NULL,	dbap_attr_setblur);	
+	//jamoma_class_attr_new(c, 	"blur",			_sym_float32, (method)dbap_attr_setblur, (method)dbap_attr_getblur);
+
+	CLASS_ATTR_FLOAT(c,			"rolloff",			0,		t_dbap,	attr_rolloff);
+	CLASS_ATTR_ACCESSORS(c,		"rolloff",			NULL,	dbap_attr_setrolloff);		
+	//jamoma_class_attr_new(c, 	"rolloff",		_sym_float32, (method)dbap_attr_setrolloff, (method)dbap_attr_getrolloff);
 	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
@@ -143,14 +139,14 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->outlet = outlet_new(x, 0);				// Create outlet
 		
 		// Initializing and setting defaults for attributes.
-		x->attr_num_speakers = 1;					// default value
+		x->attr_num_destinations = 1;					// default value
 		x->attr_dimensions = 2;						// two-dimensional by default
 		x->attr_rolloff = 6;						// 6 dB rolloff by default
 		x->attr_blur = 0.01;						// %TODO: Calculate rms of distance from mean position of speakers, and use that.
 		for (i=0; i<MAX_NUM_SPEAKERS; i++) {
-			x->speaker_position[i].x = 0.;
-			x->speaker_position[i].y = 0.;
-			x->speaker_position[i].z = 0.;
+			x->dst_position[i].x = 0.;
+			x->dst_position[i].y = 0.;
+			x->dst_position[i].z = 0.;
 		}
 		attr_args_process(x, argc, argv);			// handle attribute args
 	}
@@ -177,18 +173,18 @@ void dbap_speaker(t_dbap *x, void *attr, long argc, t_atom *argv)
 		{
 			case 1:
 				n = atom_getlong(argv);
-				x->speaker_position[n].x = atom_getfloat(argv+1);
+				x->dst_position[n].x = atom_getfloat(argv+1);
 				break;
 			case 2:
 				n = atom_getlong(argv);
-				x->speaker_position[n].x = atom_getfloat(argv+1);
-				x->speaker_position[n].y = atom_getfloat(argv+2);
+				x->dst_position[n].x = atom_getfloat(argv+1);
+				x->dst_position[n].y = atom_getfloat(argv+2);
 				break;
 			case 3:
 				n = atom_getlong(argv);
-				x->speaker_position[n].x = atom_getfloat(argv+1);
-				x->speaker_position[n].y = atom_getfloat(argv+2);
-				x->speaker_position[n].z = atom_getfloat(argv+3);
+				x->dst_position[n].x = atom_getfloat(argv+1);
+				x->dst_position[n].y = atom_getfloat(argv+2);
+				x->dst_position[n].z = atom_getfloat(argv+3);
 				break;
 		}
 	}
@@ -212,20 +208,20 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
 		{
 			case 1:
 				n = atom_getlong(argv);
-				x->source_position.x = atom_getfloat(argv+1);
+				x->src_position.x = atom_getfloat(argv+1);
 				dbap_calculate1D(x,n);
 				break;
 			case 2:
 				n = atom_getlong(argv);
-				x->source_position.x = atom_getfloat(argv+1);
-				x->source_position.y = atom_getfloat(argv+2);
+				x->src_position.x = atom_getfloat(argv+1);
+				x->src_position.y = atom_getfloat(argv+2);
 				dbap_calculate2D(x,n);
 				break;
 			case 3:
 				n = atom_getlong(argv);
-				x->source_position.x = atom_getfloat(argv+1);
-				x->source_position.y = atom_getfloat(argv+2);
-				x->source_position.z = atom_getfloat(argv+3);
+				x->src_position.x = atom_getfloat(argv+1);
+				x->src_position.y = atom_getfloat(argv+2);
+				x->src_position.z = atom_getfloat(argv+3);
 				dbap_calculate3D(x,n);
 				break;
 		}
@@ -257,15 +253,6 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 
 
 // ATTRIBUTE: dimensions (1-3)
-t_max_err dbap_attr_getdimensions(t_dbap *x, void *attr, long *argc, t_atom **argv)
-{
-	*argc = 1;
-	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setlong(*argv, x->attr_dimensions);
-	return MAX_ERR_NONE;	
-}
-
 t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	long n;
@@ -282,17 +269,7 @@ t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv
 
 
 // ATTRIBUTE: number of speakers
-t_max_err dbap_attr_getnum_speakers(t_dbap *x, void *attr, long *argc, t_atom **argv)
-{
-	*argc = 1;
-	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setlong(*argv, x->attr_num_speakers);
-	return MAX_ERR_NONE;	
-}
-
-
-t_max_err dbap_attr_setnum_speakers(t_dbap *x, void *attr, long argc, t_atom *argv)
+t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	long n;
 	
@@ -302,7 +279,7 @@ t_max_err dbap_attr_setnum_speakers(t_dbap *x, void *attr, long argc, t_atom *ar
 			n = 0;
 		if (n>MAX_NUM_SPEAKERS) 
 			n = MAX_NUM_SPEAKERS;		
-		x->attr_num_speakers = n;
+		x->attr_num_destinations = n;
 	}	
 	return MAX_ERR_NONE;
 }
@@ -310,16 +287,6 @@ t_max_err dbap_attr_setnum_speakers(t_dbap *x, void *attr, long argc, t_atom *ar
 
 
 // ATTRIBUTE: spatial bluriness
-t_max_err dbap_attr_getblur(t_dbap *x, void *attr, long *argc, t_atom **argv)
-{
-	*argc = 1;
-	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setfloat(*argv, x->attr_blur);
-	return MAX_ERR_NONE;	
-}
-
-
 t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	float f;
@@ -337,16 +304,6 @@ t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv)
 
 
 // ATTRIBUTE: rolloff
-t_max_err dbap_attr_getrolloff(t_dbap *x, void *attr, long *argc, t_atom **argv)
-{
-	*argc = 1;
-	if (!(*argv)) // otherwise use memory passed in
-		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setfloat(*argv, x->attr_rolloff);
-	return MAX_ERR_NONE;	
-}
-
-
 t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	float f;
@@ -390,9 +347,9 @@ void dbap_calculate2D(t_dbap *x, long n)
 
 	r2 = x->attr_blur*x->attr_blur;
 	k2inv = 0;
-	for (i=0; i<x->attr_num_speakers; i++) {
-		dx = x->source_position.x - x->speaker_position[i].x;
-		dy = x->source_position.y - x->speaker_position[i].y;
+	for (i=0; i<x->attr_num_destinations; i++) {
+		dx = x->src_position.x - x->dst_position[i].x;
+		dy = x->src_position.y - x->dst_position[i].y;
 		dia[i] = pow(dx*dx + dy*dy + r2, 0.5*x->a);
 		k2inv = k2inv + 1./(dia[i]*dia[i]);
 	}
@@ -400,7 +357,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 
 	atom_setlong(&a[0], n);
 	
-	for (i=0; i<x->attr_num_speakers; i++) {
+	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
 		atom_setfloat(&a[2], k/dia[i]);
 		outlet_anything(x->outlet, _sym_list, 3, a);
