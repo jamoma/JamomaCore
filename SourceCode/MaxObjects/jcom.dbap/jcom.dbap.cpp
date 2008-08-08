@@ -24,6 +24,8 @@ typedef struct _dbap{									///< Data structure for this object
 	t_object	ob;										///< Must always be the first field; used by Max
 	t_xyz		dst_position[MAX_NUM_SPEAKERS];			///< Array of speaker positions
 	t_xyz		src_position;							///< Positions of the virtual source
+	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
+	float		variance;								///< Bias-corrected variance of distance from destination points to mean destination point
 	long		attr_dimensions;						///< Number of dimensions of the speaker and source system
 	float		attr_blur;								///< Spatial bluriness ratio
 	float		attr_rolloff;							///< Set rolloff with distance in dB.
@@ -74,6 +76,11 @@ void dbap_calculate2D(t_dbap *x, long n);
 /** Calculate matrix coefficients for most recently received position for the 3D case. */
 void dbap_calculate3D(t_dbap *x, long n);
 
+/** Calculate mean position of the destination points. */
+void dbap_calculate_mean_dst_position(t_dbap *x);
+
+/** Calculate bias-corrected variance of distance from destination points to mean destination point. */
+void dbap_calculate_variance(t_dbap *x);
 
 
 
@@ -258,7 +265,8 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 	{ 
 		switch(arg)
 		{
-			case 0: sprintf(dst, "set source and speaker positions");
+			case 0: 
+				sprintf(dst, "set source and speaker positions");
 				break;	
 		}
 	}
@@ -266,7 +274,9 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 	{
 		switch(arg)
 		{
-			case 0: sprintf(dst, "(list) messages for matrix~"); break;
+			case 0: 
+				sprintf(dst, "(list) messages for matrix~");
+				break;
 		}
 	}
 }
@@ -287,7 +297,6 @@ t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv
 }
 
 
-
 // ATTRIBUTE: number of speakers
 t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
@@ -305,7 +314,6 @@ t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom
 }
 
 
-
 // ATTRIBUTE: spatial bluriness
 t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
@@ -319,8 +327,6 @@ t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv)
 	}	
 	return MAX_ERR_NONE;
 }
-
-
 
 
 // ATTRIBUTE: rolloff
@@ -357,7 +363,7 @@ void dbap_calculate_a(t_dbap *x)
 
 void dbap_calculate1D(t_dbap *x, long n)
 {
-	
+	// TODO: Not yet implemented
 }
 
 
@@ -395,5 +401,56 @@ void dbap_calculate2D(t_dbap *x, long n)
 
 void dbap_calculate3D(t_dbap *x, long n)
 {
-	
+	// TODO: Not yet implemented	
 }
+
+
+void dbap_calculate_mean_dst_position(t_dbap *x)
+{
+	long i;
+	float a,b,c;
+
+	a = 0;
+	b = 0;
+	c = 0;
+	for (i=0; i<x->attr_num_destinations; i++) {
+		a += x->dst_position[i].x;
+		b += x->dst_position[i].y;
+		c += x->dst_position[i].z;
+	}
+	x->mean_dst_position.x = a/x->attr_num_destinations;
+	x->mean_dst_position.y = b/x->attr_num_destinations;
+	x->mean_dst_position.z = c/x->attr_num_destinations;
+}
+
+
+void dbap_calculate_variance(t_dbap *x)
+{
+	long i;
+	float dx, dy, dz;
+	float d2=0;
+	
+	if (x->attr_dimensions==1) {
+		for (i=0; i<x->attr_num_destinations; i++) {
+			dx = x->dst_position[i].x - x->mean_dst_position.x;
+			d2 += dx*dx;
+		}		
+	}
+	else if (x->attr_dimensions==2) {
+		for (i=0; i<x->attr_num_destinations; i++) {
+			dx = x->dst_position[i].x - x->mean_dst_position.x;
+			dx = x->dst_position[i].y - x->mean_dst_position.y;
+			d2 += dx*dx + dy*dy;
+		}
+	}
+	else {
+		for (i=0; i<x->attr_num_destinations; i++) {
+			dx = x->dst_position[i].x - x->mean_dst_position.x;
+			dx = x->dst_position[i].y - x->mean_dst_position.y;
+			dz = x->dst_position[i].z - x->mean_dst_position.z;
+			d2 += dx*dx + dy*dy + dz*dz;
+		}		
+	}
+	x->variance = sqrt(d2/(x->attr_num_destinations-1));
+}
+
