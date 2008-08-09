@@ -23,10 +23,11 @@
 // forward declarations needed by the compiler
 class TTAttribute;
 class TTMessage;
+class TTObject;
 
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
-
+typedef TTObject*		TTObjectPtr;
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(const TTSymbol* methodName, TTValue& value);
