@@ -453,25 +453,50 @@ void dbap_calculate(t_dbap *x, long n)
 
 void dbap_calculate1D(t_dbap *x, long n)
 {
-	// TODO: Not yet implemented
+	float k;							// Scaling coefficient
+	float k2inv;						// Inverse square of the scaling constant k
+	float dx;							// Distance vector
+	float r2;							// Bluriness ratio 
+	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
+	t_atom a[3];						// Output array of atoms
+	
+	
+	long i;
+	
+	r2 = x->blur[n] * x->variance;
+	r2 = r2*r2;
+	k2inv = 0;
+	for (i=0; i<x->attr_num_destinations; i++) {
+		dx = x->src_position[n].x - x->dst_position[i].x;
+		dia[i] = pow(dx*dx + r2, 0.5*x->a);
+		k2inv = k2inv + 1./(dia[i]*dia[i]);
+	}
+	k = sqrt(1./k2inv);
+	
+	atom_setlong(&a[0], n);
+	
+	for (i=0; i<x->attr_num_destinations; i++) {
+		atom_setlong(&a[1], i);
+		atom_setfloat(&a[2], k/dia[i]);
+		outlet_anything(x->outlet, _sym_list, 3, a);
+	}	
 }
 
 
 void dbap_calculate2D(t_dbap *x, long n)
 {
-	float k;						// Scaling coefficient
-	float k2inv;					// Inverse square of the scaling constant k
-	float dx, dy;					// Distance vector
-	float r2;						// Bluriness ratio 
+	float k;							// Scaling coefficient
+	float k2inv;						// Inverse square of the scaling constant k
+	float dx, dy;						// Distance vector
+	float r2;							// Bluriness ratio 
 	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
-	t_atom a[3];					// Output array of atoms
+	t_atom a[3];						// Output array of atoms
 
 	
 	long i;
 
 	r2 = x->blur[n] * x->variance;
-	r2 = r2*r2
-	;
+	r2 = r2*r2;
 	k2inv = 0;
 	for (i=0; i<x->attr_num_destinations; i++) {
 		dx = x->src_position[n].x - x->dst_position[i].x;
@@ -493,7 +518,35 @@ void dbap_calculate2D(t_dbap *x, long n)
 
 void dbap_calculate3D(t_dbap *x, long n)
 {
-	// TODO: Not yet implemented	
+	float k;							// Scaling coefficient
+	float k2inv;						// Inverse square of the scaling constant k
+	float dx, dy, dz;					// Distance vector
+	float r2;							// Bluriness ratio 
+	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
+	t_atom a[3];						// Output array of atoms
+	
+	
+	long i;
+	
+	r2 = x->blur[n] * x->variance;
+	r2 = r2*r2;
+	k2inv = 0;
+	for (i=0; i<x->attr_num_destinations; i++) {
+		dx = x->src_position[n].x - x->dst_position[i].x;
+		dy = x->src_position[n].y - x->dst_position[i].y;
+		dz = x->src_position[n].z - x->dst_position[i].z;
+		dia[i] = pow(dx*dx + dy*dy + dz*dz + r2, 0.5*x->a);
+		k2inv = k2inv + 1./(dia[i]*dia[i]);
+	}
+	k = sqrt(1./k2inv);
+	
+	atom_setlong(&a[0], n);
+	
+	for (i=0; i<x->attr_num_destinations; i++) {
+		atom_setlong(&a[1], i);
+		atom_setfloat(&a[2], k/dia[i]);
+		outlet_anything(x->outlet, _sym_list, 3, a);
+	}	
 }
 
 
