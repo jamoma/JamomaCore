@@ -216,6 +216,9 @@
 			</digest>
 			<description>
 				The relative roll-of of amplitude with increasing distance from a destination point, expressed in <m>dB</m>.
+				Default value is 6 dB. The higher tre <m>rolloff</m>, the more the sources will tend to to be attracted towards
+				the closest destination(s). High values can be used for synthetic spatialisation effects where sources are attracted
+				to one destination at a time, with non-dicontinuous transitions from one destination to the next.
 			</description>
 		</attribute>
 		
