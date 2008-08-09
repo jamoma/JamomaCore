@@ -9,9 +9,11 @@
 
 #include "Jamoma.h"
 
-const long MAX_NUM_SPEAKERS = 32;
+const long MAX_NUM_SOURCES = 32;
+const long MAX_NUM_DESTINATIONS = 32;
 
-t_symbol		*ps_dst_position;
+t_symbol		*ps_dst_position,
+				*ps_src_position;
 
 typedef struct _xyz{
 	float		x;										///< x position
@@ -22,15 +24,16 @@ typedef struct _xyz{
 
 typedef struct _dbap{									///< Data structure for this object 
 	t_object	ob;										///< Must always be the first field; used by Max
-	t_xyz		dst_position[MAX_NUM_SPEAKERS];			///< Array of speaker positions
-	t_xyz		src_position;							///< Positions of the virtual source
+	t_xyz		src_position[MAX_NUM_SOURCES];			///< Positions of the virtual source
+	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
 	float		variance;								///< Bias-corrected variance of distance from destination points to mean destination point
 	long		attr_dimensions;						///< Number of dimensions of the speaker and source system
 	float		attr_blur;								///< Spatial bluriness ratio
 	float		blur_radius;							///< Blur radius = attr_blur * variance
 	float		attr_rolloff;							///< Set rolloff with distance in dB.
-	long		attr_num_destinations;					///< number of destinations used
+	long		attr_num_sources;						///< number of active sources
+	long		attr_num_destinations;					///< number of active destinations
 	float		a;										///< Constant: Exponent controlling amplitude dependance on distance. Depends on attr_rolloff
 	void		*outlet;								////< Pointer to outlet. Need one for each outlet
 } t_dbap;
@@ -56,7 +59,10 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst);
 /** Set number of dimensions of the system. */
 t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv);
 
-/** Set the number of speakers of the system. */
+/** Set the number of sources of the system. */
+t_max_err dbap_attr_setnum_sources(t_dbap *x, void *attr, long argc, t_atom *argv);
+
+/** Set the number of destinations of the system. */
 t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom *argv);
 
 /** Set spatial blur coefficient */
@@ -103,6 +109,7 @@ int main(void)
 
 	jamoma_init();
 	common_symbols_init();
+	ps_src_position = gensym("src_position");
 	ps_dst_position = gensym("dst_position");
 
 	// Define our class
@@ -121,6 +128,9 @@ int main(void)
 	CLASS_ATTR_ACCESSORS(c,	"dimensions",		NULL,	dbap_attr_setdimensions);
 	CLASS_ATTR_ENUM(c,		"dimensions",		0,	"1 2 3");
 
+	CLASS_ATTR_LONG(c,		"num_sources",		0,		t_dbap,	attr_num_sources);
+	CLASS_ATTR_ACCESSORS(c,	"num_sources",		NULL,	dbap_attr_setnum_sources);
+	
 	CLASS_ATTR_LONG(c,		"num_destinations",	0,		t_dbap,	attr_num_destinations);
 	CLASS_ATTR_ACCESSORS(c,	"num_destinations",	NULL,	dbap_attr_setnum_destinations);
 
@@ -154,11 +164,17 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->outlet = outlet_new(x, 0);				// Create outlet
 		
 		// Initializing and setting defaults for attributes.
-		x->attr_num_destinations = 1;					// default value
+		x->attr_num_sources = 1;					// default value
+		x->attr_num_destinations = 1;				// default value
 		x->attr_dimensions = 2;						// two-dimensional by default
 		x->attr_rolloff = 6;						// 6 dB rolloff by default
 		x->attr_blur = 0.01;						// %TODO: Calculate rms of distance from mean position of speakers, and use that.
-		for (i=0; i<MAX_NUM_SPEAKERS; i++) {
+		for (i=0; i<MAX_NUM_SOURCES; i++) {
+			x->src_position[i].x = 0.;
+			x->src_position[i].y = 0.;
+			x->src_position[i].z = 0.;
+		}
+		for (i=0; i<MAX_NUM_DESTINATIONS; i++) {
 			x->dst_position[i].x = 0.;
 			x->dst_position[i].y = 0.;
 			x->dst_position[i].z = 0.;
@@ -186,7 +202,7 @@ void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 	
 	if (argc >= (x->attr_dimensions + 1)) {
 		n = atom_getlong(argv);
-		if ( (n<0) || (n>=MAX_NUM_SPEAKERS) ) {
+		if ( (n<0) || (n>=MAX_NUM_DESTINATIONS) ) {
 			error("Invalid arguments for destination.");
 			return;
 		}
@@ -224,7 +240,7 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
 	
 	if (argc >= (x->attr_dimensions + 1)) {
 		n = atom_getlong(argv);
-		if ( (n<0) || (n>=MAX_NUM_SPEAKERS) ) {
+		if ( (n<0) || (n>=MAX_NUM_DESTINATIONS) ) {
 			error("Invalid arguments for source.");
 			return;
 		}
@@ -232,20 +248,20 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
 		{
 			case 1:
 				n = atom_getlong(argv);
-				x->src_position.x = atom_getfloat(argv+1);
+				x->src_position[n].x = atom_getfloat(argv+1);
 				dbap_calculate1D(x,n);
 				break;
 			case 2:
 				n = atom_getlong(argv);
-				x->src_position.x = atom_getfloat(argv+1);
-				x->src_position.y = atom_getfloat(argv+2);
+				x->src_position[n].x = atom_getfloat(argv+1);
+				x->src_position[n].y = atom_getfloat(argv+2);
 				dbap_calculate2D(x,n);
 				break;
 			case 3:
 				n = atom_getlong(argv);
-				x->src_position.x = atom_getfloat(argv+1);
-				x->src_position.y = atom_getfloat(argv+2);
-				x->src_position.z = atom_getfloat(argv+3);
+				x->src_position[n].x = atom_getfloat(argv+1);
+				x->src_position[n].y = atom_getfloat(argv+2);
+				x->src_position[n].z = atom_getfloat(argv+3);
 				dbap_calculate3D(x,n);
 				break;
 		}
@@ -259,6 +275,14 @@ void dbap_info(t_dbap *x)
 {
 	t_atom		a[4];
 	long i;
+
+	for (i=0; i<x->attr_num_sources; i++) {
+		atom_setlong(&a[0], i);
+		atom_setfloat(&a[1], x->src_position[i].x);
+		atom_setfloat(&a[2], x->src_position[i].y);
+		atom_setfloat(&a[3], x->src_position[i].z);
+		object_obex_dumpout(x, ps_src_position, x->attr_dimensions+1, a);
+	}
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[0], i);
@@ -314,7 +338,25 @@ t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv
 }
 
 
-// ATTRIBUTE: number of speakers
+// ATTRIBUTE: number of sources
+t_max_err dbap_attr_setnum_sources(t_dbap *x, void *attr, long argc, t_atom *argv)
+{
+	long n;
+	
+	if(argc && argv) {	
+		n = atom_getlong(argv);
+		if (n<0) 
+			n = 0;
+		if (n>MAX_NUM_SOURCES) 
+			n = MAX_NUM_SOURCES;		
+		x->attr_num_sources = n;
+		// The set of destination points has been changed - recalculate blur radius.
+	}	
+	return MAX_ERR_NONE;
+}
+
+
+// ATTRIBUTE: number of destinations
 t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	long n;
@@ -323,8 +365,8 @@ t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom
 		n = atom_getlong(argv);
 		if (n<0) 
 			n = 0;
-		if (n>MAX_NUM_SPEAKERS) 
-			n = MAX_NUM_SPEAKERS;		
+		if (n>MAX_NUM_DESTINATIONS) 
+			n = MAX_NUM_DESTINATIONS;		
 		x->attr_num_destinations = n;
 		// The set of destination points has been changed - recalculate blur radius.
 		dbap_calculate_blur_radius(x);
@@ -340,9 +382,11 @@ t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv)
 	
 	if(argc && argv) {	
 		f = atom_getfloat(argv);
-		if (f<0.01) 
-			f = 0.01;	
+		if (f<0.0001) 
+			f = 0.001;	
 		x->attr_blur = f;
+		// The set of destination points has been changed - recalculate blur radius.
+		dbap_calculate_blur_radius(x);
 	}	
 	return MAX_ERR_NONE;
 }
@@ -385,17 +429,18 @@ void dbap_calculate2D(t_dbap *x, long n)
 	float k2inv;					// Inverse square of the scaling constant k
 	float dx, dy;					// Distance vector
 	float r2;						// Bluriness ratio 
-	float dia[MAX_NUM_SPEAKERS];	// Distance to ith speaker to the power of x->a.
+	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
 	t_atom a[3];					// Output array of atoms
 
 	
 	long i;
 
-	r2 = x->attr_blur*x->attr_blur;
+	post("dbap_calculate2");
+	r2 = x->blur_radius*x->blur_radius;
 	k2inv = 0;
 	for (i=0; i<x->attr_num_destinations; i++) {
-		dx = x->src_position.x - x->dst_position[i].x;
-		dy = x->src_position.y - x->dst_position[i].y;
+		dx = x->src_position[n].x - x->dst_position[i].x;
+		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(dx*dx + dy*dy + r2, 0.5*x->a);
 		k2inv = k2inv + 1./(dia[i]*dia[i]);
 	}
@@ -475,8 +520,24 @@ void dbap_calculate_variance(t_dbap *x)
 
 void dbap_calculate_blur_radius(t_dbap *x)
 {
+	long i;
+	
 	dbap_calculate_mean_dst_position(x);
 	dbap_calculate_variance(x);
 	x->blur_radius = x->attr_blur * x->variance;
+	
+	// Update all matrix values
+	if (x->attr_dimensions==1) {
+		for (i=0; i<x->attr_num_sources; i++)
+			dbap_calculate1D(x, i);
+	}
+	else if (x->attr_dimensions==2)	{
+		for (i=0; i<x->attr_num_sources; i++)
+			dbap_calculate2D(x, i);
+	}
+	else {
+		for (i=0; i<x->attr_num_sources; i++)
+			dbap_calculate3D(x, i);
+	}
 }
 
