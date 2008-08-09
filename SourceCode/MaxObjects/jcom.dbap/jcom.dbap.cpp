@@ -28,6 +28,7 @@ typedef struct _dbap{									///< Data structure for this object
 	float		variance;								///< Bias-corrected variance of distance from destination points to mean destination point
 	long		attr_dimensions;						///< Number of dimensions of the speaker and source system
 	float		attr_blur;								///< Spatial bluriness ratio
+	float		blur_radius;							///< Blur radius = attr_blur * variance
 	float		attr_rolloff;							///< Set rolloff with distance in dB.
 	long		attr_num_destinations;					///< number of destinations used
 	float		a;										///< Constant: Exponent controlling amplitude dependance on distance. Depends on attr_rolloff
@@ -82,6 +83,8 @@ void dbap_calculate_mean_dst_position(t_dbap *x);
 /** Calculate bias-corrected variance of distance from destination points to mean destination point. */
 void dbap_calculate_variance(t_dbap *x);
 
+/** Calculate blur_radius as blur * variance. Scales spatial bluriness to the size of the destination space. */
+void dbap_calculate_blur_radius(t_dbap *x);
 
 
 // Globals
@@ -136,6 +139,8 @@ int main(void)
 
 /************************************************************************************/
 // Object Life
+#pragma mark -
+#pragma mark object life
 
 void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 {
@@ -159,18 +164,22 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->dst_position[i].z = 0.;
 		}
 		attr_args_process(x, argc, argv);			// handle attribute args
-		dbap_calculate_a(x);
-		
+		dbap_calculate_a(x);						// calculate expo0nent coefficiant used for rolloff
+		dbap_calculate_blur_radius(x);				// Calculate blur radius
 	}
 	return (x);										// return the pointer
 }
 
 
+
 /************************************************************************************/
 // Methods bound to input/inlets
 
+#pragma mark -
+#pragma mark methods
 
-// set position of a speaker
+
+// set position of a destination
 void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	long n;
@@ -178,7 +187,7 @@ void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 	if (argc >= (x->attr_dimensions + 1)) {
 		n = atom_getlong(argv);
 		if ( (n<0) || (n>=MAX_NUM_SPEAKERS) ) {
-			error("Invalid arguments for speaker.");
+			error("Invalid arguments for destination.");
 			return;
 		}
 		switch (x->attr_dimensions)
@@ -199,6 +208,9 @@ void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 				x->dst_position[n].z = atom_getfloat(argv+3);
 				break;
 		}
+		// The set of destination points has been changed - recalculate blur radius.
+		dbap_calculate_blur_radius(x);
+
 	}
 	else
 		error("Invalid arguments for speaker.");
@@ -282,6 +294,11 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 }
 
 
+/************************************************************************************/
+// Methods bound to attributes
+#pragma mark -
+#pragma mark attribute accessors
+
 // ATTRIBUTE: dimensions (1-3)
 t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
@@ -309,6 +326,8 @@ t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom
 		if (n>MAX_NUM_SPEAKERS) 
 			n = MAX_NUM_SPEAKERS;		
 		x->attr_num_destinations = n;
+		// The set of destination points has been changed - recalculate blur radius.
+		dbap_calculate_blur_radius(x);
 	}	
 	return MAX_ERR_NONE;
 }
@@ -348,17 +367,10 @@ t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 
 
 
-
-
 /************************************************************************************/
-// Calculations
-
-
-void dbap_calculate_a(t_dbap *x)
-{
-	x->a = log(x->attr_rolloff)/log(2.);
-	post("x->a =%f", x->a );
-}
+// Methods bound to calculations
+#pragma mark -
+#pragma mark calculations
 
 
 void dbap_calculate1D(t_dbap *x, long n)
@@ -402,6 +414,12 @@ void dbap_calculate2D(t_dbap *x, long n)
 void dbap_calculate3D(t_dbap *x, long n)
 {
 	// TODO: Not yet implemented	
+}
+
+
+void dbap_calculate_a(t_dbap *x)
+{
+	x->a = log(x->attr_rolloff)/log(2.);
 }
 
 
@@ -452,5 +470,13 @@ void dbap_calculate_variance(t_dbap *x)
 		}		
 	}
 	x->variance = sqrt(d2/(x->attr_num_destinations-1));
+}
+
+
+void dbap_calculate_blur_radius(t_dbap *x)
+{
+	dbap_calculate_mean_dst_position(x);
+	dbap_calculate_variance(x);
+	x->blur_radius = x->attr_blur * x->variance;
 }
 
