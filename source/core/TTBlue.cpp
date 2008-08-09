@@ -12,16 +12,25 @@
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
 
+#ifdef TT_PLATFORM_MAC
+#include <dlfcn.h>
+#endif
+
+
 static bool TTBlueHasInitialized = false;
 
-void TTBlueRegisterInternalClasses();
-TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
+void		TTBlueLoadExternalClasses();
+void		TTBlueLoadExternalClassesFromFolder(const TTString& fullpath);
+void		TTBlueRegisterInternalClasses();
+TTObjectPtr	TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments);
 
 
 /****************************************************************************************************/
 void TTBlueInit()
 {
 	if(!TTBlueHasInitialized){
+		TTBlueHasInitialized = true;
+
 		ttSymbolTable = new TTSymbolTable;
 		ttEnvironment = new TTEnvironment;
 
@@ -35,12 +44,105 @@ void TTBlueInit()
 #endif
 		
 		TTBlueRegisterInternalClasses();
+		TTBlueLoadExternalClasses();
 		
 		// do we need to do anything with the global object?
 		// init the queue -- runs in a new thread
-	
-		TTBlueHasInitialized = true;
 	}
+}
+
+
+/****************************************************************************************************/
+
+void TTBlueLoadExternalClasses()
+{
+#ifdef TT_PLATFORM_MAC
+	OSErr		err = noErr;
+	FSRef		ref;
+	UInt8		path[4096];
+	TTString	fullpath;
+	
+	// Look in ~/Library/Application Support/TTBlue/Extensions
+	err = FSFindFolder(kLocalDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
+	if(!err){
+		FSRefMakePath(&ref, path, 4096);
+		fullpath = (char*)path;
+		fullpath += "/TTBlue/Extensions";
+		TTBlueLoadExternalClassesFromFolder(fullpath);
+	}
+	
+	// Look in /Library/Application Support/TTBlue/Extensions
+	err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kCreateFolder, &ref);
+	if(!err){
+		FSRefMakePath(&ref, path, 4096);
+		fullpath = (char*)path;
+		fullpath += "/TTBlue/Extensions";
+		TTBlueLoadExternalClassesFromFolder(fullpath);
+	}
+#elif TT_PLATFORM_WIN
+	
+#else // Some other platform, like Linux
+	
+#endif
+}
+
+
+void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
+{
+#ifdef TT_PLATFORM_MAC
+	FSRef							ref;
+	Boolean							isDirectory;
+	OSStatus						status = noErr;
+	ItemCount						count = 0;	
+    FSIterator						iterator;
+	HFSUniStr255*					names = NULL;
+	CFStringRef						name;
+	char							cname[4096];
+	TTString						path;
+	void*							handle;
+	TTExtensionInitializationMethod	initializer;
+	TTErr							err;
+	
+	FSPathMakeRef((UInt8*)fullpath.c_str(), &ref, &isDirectory);
+	status = FSOpenIterator(&ref, kFSIterateFlat, &iterator);
+	if(!status){
+        names = (HFSUniStr255 *)malloc(sizeof(HFSUniStr255) * 4096);
+        if(names){
+            // Request information about files in the given directory,
+            // until we get a status code back from the File Manager
+            do{
+				status = FSGetCatalogInfoBulk(iterator, 4096, &count, NULL, kFSCatInfoNone, NULL, NULL, NULL, names);
+				
+                // Process all items received
+                if(status == noErr || status == errFSNoMoreItems){
+                    for(UInt32 i=0; i < count; i += 1){
+  						name = CFStringCreateWithCharacters(kCFAllocatorDefault, names[i].unicode, names[i].length);
+						CFStringGetCString(name, cname, 4096, kCFStringEncodingUTF8);
+						path = fullpath;
+						path += "/";
+						path += cname;
+						
+						handle = dlopen(path.c_str(), RTLD_LAZY);
+						initializer = (TTExtensionInitializationMethod)dlsym(handle, "loadTTExtension");
+						if(initializer)
+							err = initializer();
+						CFRelease(name);
+                    }
+                }
+            }
+            while(status == noErr);
+			
+            // errFSNoMoreItems tells us we have successfully processed all
+            // items in the directory -- not really an error
+            if(status == errFSNoMoreItems)
+                status = noErr;
+			
+            // Free the array memory
+            free( (void *) names );
+        }
+		FSCloseIterator(iterator);
+    }
+#endif
 }
 
 

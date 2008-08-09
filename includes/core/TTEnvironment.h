@@ -16,6 +16,9 @@
 /**	A function pointer for an instance creation function required to be provided by all classes. */
 typedef TTObject* (*TTObjectInstantiationMethod)(TTSymbol* className, TTValue& arguments);
 
+/**	A function pointer for an instance creation function required to be provided by all classes. */
+typedef TTErr (*TTExtensionInitializationMethod)();
+
 
 /****************************************************************************************************/
 // Class Specifications
