@@ -1,7 +1,7 @@
 /* 
  * jcom.dbap
  * External for Jamoma: DBAP - Distance Based Amplitude Panning
- * By Trond Lossius, Copyright © 2006
+ * By Trond Lossius, Copyright © 2008
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -9,8 +9,9 @@
 
 #include "Jamoma.h"
 
-const long MAX_NUM_SOURCES = 32;
-const long MAX_NUM_DESTINATIONS = 32;
+// This seems to be the current restrictions of matrix~
+const long MAX_NUM_SOURCES = 250;
+const long MAX_NUM_DESTINATIONS = 500;
 
 t_symbol		*ps_dst_position,
 				*ps_src_position;
