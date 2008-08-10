@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;"
+				CommandLine="mkdir &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -185,6 +185,50 @@
 			>
 			<File
 				RelativePath=".\TTFunctionLib.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Function Units"
+			>
+			<File
+				RelativePath=".\CosineFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CosineFunction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LinearFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LinearFunction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LowpassFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LowpassFunction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PowerFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PowerFunction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TanhFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TanhFunction.h"
 				>
 			</File>
 		</Filter>

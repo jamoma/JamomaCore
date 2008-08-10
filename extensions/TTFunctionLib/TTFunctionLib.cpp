@@ -15,7 +15,7 @@
 #include "TanhFunction.h"
 
 
-extern "C" TTObjectPtr instantiateFunctionUnit(TTSymbolPtr className, TTValue& arguments)
+extern "C" TT_EXTENSION_EXPORT TTObjectPtr instantiateFunctionUnit(TTSymbolPtr className, TTValue& arguments)
 {
 	TTUInt16 numChannels = 1;
 
@@ -37,7 +37,7 @@ extern "C" TTObjectPtr instantiateFunctionUnit(TTSymbolPtr className, TTValue& a
 }
 
 
-extern "C" TTErr loadTTExtension(void)
+extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void)
 {
 	TTBlueInit();
 
