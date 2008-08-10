@@ -14,6 +14,8 @@
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
+#elif TT_PLATFORM_WIN
+#include <ShlObj.h>
 #endif
 
 
@@ -80,7 +82,28 @@ void TTBlueLoadExternalClasses()
 		TTBlueLoadExternalClassesFromFolder(fullpath);
 	}
 #elif TT_PLATFORM_WIN
-	
+	TTString	fullpath;
+	char		temppath[4096];
+	HKEY		hKey = 0;
+	LONG		lRes;
+	DWORD		dwSize = sizeof(temppath);
+//	Boolean		notFolder;
+	HRESULT		hr;
+
+	// Look in C:\Program Files\Common Files\TTBlue\Extensions
+	hr = SHGetFolderPath(NULL, CSIDL_PROGRAM_FILES_COMMON, NULL, SHGFP_TYPE_CURRENT, (LPSTR)temppath);
+	if(!FAILED(hr)){
+		fullpath = temppath;
+		fullpath += "\\TTBlue\\Extensions\\";
+		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
+//		if(!lRes)
+			TTBlueLoadExternalClassesFromFolder(fullpath);
+//		else
+//			TTLogError("Could not create directory for TTBlue extensions.");
+	}
+
+	// TODO: Look in some user-level directory like we do on the Mac?
+
 #else // Some other platform, like Linux
 	
 #endif
@@ -142,6 +165,34 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
         }
 		FSCloseIterator(iterator);
     }
+#elif TT_PLATFORM_WIN
+	HANDLE							fdHandle;
+	WIN32_FIND_DATA					findFileData;
+	TTString						path;
+	HANDLE							hLib = NULL;
+	TTExtensionInitializationMethod	initializer;
+	TTErr							err;
+
+	path = fullpath;
+	path += "*.ttdll";
+	fdHandle = FindFirstFile(path.c_str(), &findFileData);
+	if(fdHandle && (fdHandle != INVALID_HANDLE_VALUE)){
+		while(fdHandle){
+			path = fullpath;
+			path += findFileData.cFileName;
+
+			hLib = LoadLibrary(path.c_str());
+			if(hLib){
+				initializer = (TTExtensionInitializationMethod)GetProcAddress((HMODULE)hLib, "loadTTExtension");
+				if(initializer)
+					err = initializer();
+			}
+			if(!FindNextFile(fdHandle, &findFileData))
+				break;
+		}
+	}
+#else
+	;
 #endif
 }
 
