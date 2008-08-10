@@ -82,6 +82,13 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
+TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y)
+{
+	y = x;
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioObject::bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
 {
 	TTUInt16		vs;
@@ -150,11 +157,35 @@ TTErr TTAudioObject::muteWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal&
 }
 
 
+TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y)
+{
+	TTAudioSignal	in(1);
+	TTAudioSignal	out(1);
+	TTErr			err;
+	
+	in.setNumChannels(1);
+	in.setVectorSize(1);
+	out.setNumChannels(1);
+	out.setVectorSize(1);
+	
+	in.sampleVectors[0][0] = x;
+	err = process(in, out);
+	y = out.sampleVectors[0][0];
+
+	return err;
+}
+
+
 TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 {
 	processMethod = newProcessMethod;
-	if(!attrBypass)
+	if(!calculateMethod)
+		calculateMethod = &TTAudioObject::defaultCalculateMethod;
+	
+	if(!attrBypass){
 		currentProcessMethod = processMethod;
+		currentCalculateMethod = calculateMethod;
+	}
 	return kTTErrNone;
 }
 
@@ -168,12 +199,22 @@ TTErr TTAudioObject::setProcessWithSidechain(TTProcessWithSidechainMethod newPro
 }
 
 
+TTErr TTAudioObject::setCalculate(TTCalculateMethod newCalculateMethod)
+{
+	calculateMethod = newCalculateMethod;
+	if(!attrBypass)
+		currentCalculateMethod = calculateMethod;
+	return kTTErrNone;
+}
+
+
 TTErr TTAudioObject::setBypass(const TTValue& value)
 {
 	attrBypass = value;
 	if(attrBypass){
 		currentProcessMethod = &TTAudioObject::bypassProcess;
 		currentProcessWithSidechainMethod = &TTAudioObject::bypassWithSidechainProcess;
+		currentCalculateMethod = &TTAudioObject::bypassCalculate;
 	}
 	else if(attrMute){
 		currentProcessMethod = &TTAudioObject::muteProcess;
@@ -182,6 +223,10 @@ TTErr TTAudioObject::setBypass(const TTValue& value)
 	else{
 		currentProcessMethod = processMethod;
 		currentProcessWithSidechainMethod = processWithSidechainMethod;
+		if(calculateMethod)
+			currentCalculateMethod = calculateMethod;
+		else
+			currentCalculateMethod = &TTAudioObject::defaultCalculateMethod;
 	}
 	return kTTErrNone;
 }
@@ -203,6 +248,17 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 		currentProcessWithSidechainMethod = processWithSidechainMethod;
 	}
 	return kTTErrNone;
+}
+
+
+TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
+{
+	TTErr	err;
+	
+	lock();
+	err = (this->*currentCalculateMethod)(x, y);
+	unlock();
+	return err;
 }
 
 
