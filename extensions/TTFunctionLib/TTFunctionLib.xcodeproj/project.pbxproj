@@ -1,0 +1,290 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2217FA9F0E4F284500806778 /* CosineFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA950E4F284500806778 /* CosineFunction.cpp */; };
+		2217FAA00E4F284500806778 /* CosineFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA960E4F284500806778 /* CosineFunction.h */; };
+		2217FAA10E4F284500806778 /* LinearFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA970E4F284500806778 /* LinearFunction.cpp */; };
+		2217FAA20E4F284500806778 /* LinearFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA980E4F284500806778 /* LinearFunction.h */; };
+		2217FAA30E4F284500806778 /* LowpassFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA990E4F284500806778 /* LowpassFunction.cpp */; };
+		2217FAA40E4F284500806778 /* LowpassFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9A0E4F284500806778 /* LowpassFunction.h */; };
+		2217FAA50E4F284500806778 /* PowerFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA9B0E4F284500806778 /* PowerFunction.cpp */; };
+		2217FAA60E4F284500806778 /* PowerFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9C0E4F284500806778 /* PowerFunction.h */; };
+		2217FAA70E4F284500806778 /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA9D0E4F284500806778 /* TanhFunction.cpp */; };
+		2217FAA80E4F284500806778 /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9E0E4F284500806778 /* TanhFunction.h */; };
+		22398BAE0E243E2D00A5F732 /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */; };
+		22398BB20E243EAE00A5F732 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22398BB10E243EAE00A5F732 /* TTBlue.framework */; };
+		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		2217FA950E4F284500806778 /* CosineFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CosineFunction.cpp; sourceTree = "<group>"; };
+		2217FA960E4F284500806778 /* CosineFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosineFunction.h; sourceTree = "<group>"; };
+		2217FA970E4F284500806778 /* LinearFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LinearFunction.cpp; sourceTree = "<group>"; };
+		2217FA980E4F284500806778 /* LinearFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearFunction.h; sourceTree = "<group>"; };
+		2217FA990E4F284500806778 /* LowpassFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LowpassFunction.cpp; sourceTree = "<group>"; };
+		2217FA9A0E4F284500806778 /* LowpassFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LowpassFunction.h; sourceTree = "<group>"; };
+		2217FA9B0E4F284500806778 /* PowerFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerFunction.cpp; sourceTree = "<group>"; };
+		2217FA9C0E4F284500806778 /* PowerFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerFunction.h; sourceTree = "<group>"; };
+		2217FA9D0E4F284500806778 /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhFunction.cpp; sourceTree = "<group>"; };
+		2217FA9E0E4F284500806778 /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
+		22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
+		22398BB10E243EAE00A5F732 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
+		D2AAC09D05546B4700DB518D /* TTFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TTFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC09B05546B4700DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
+				22398BB20E243EAE00A5F732 /* TTBlue.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DDFF38A45A11DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC09D05546B4700DB518D /* TTFunctionLib.ttdylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* TTFunctionLib */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77ACFE841707C02AAC07 /* Source */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DDFF38A45A11DB9C8B /* Products */,
+			);
+			name = TTFunctionLib;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				22398BB10E243EAE00A5F732 /* TTBlue.framework */,
+				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */,
+				2217FAAA0E4F284D00806778 /* Functions */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		2217FAAA0E4F284D00806778 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				2217FA960E4F284500806778 /* CosineFunction.h */,
+				2217FA950E4F284500806778 /* CosineFunction.cpp */,
+				2217FA980E4F284500806778 /* LinearFunction.h */,
+				2217FA970E4F284500806778 /* LinearFunction.cpp */,
+				2217FA9A0E4F284500806778 /* LowpassFunction.h */,
+				2217FA990E4F284500806778 /* LowpassFunction.cpp */,
+				2217FA9C0E4F284500806778 /* PowerFunction.h */,
+				2217FA9B0E4F284500806778 /* PowerFunction.cpp */,
+				2217FA9E0E4F284500806778 /* TanhFunction.h */,
+				2217FA9D0E4F284500806778 /* TanhFunction.cpp */,
+			);
+			name = Functions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC09905546B4700DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2217FAA00E4F284500806778 /* CosineFunction.h in Headers */,
+				2217FAA20E4F284500806778 /* LinearFunction.h in Headers */,
+				2217FAA40E4F284500806778 /* LowpassFunction.h in Headers */,
+				2217FAA60E4F284500806778 /* PowerFunction.h in Headers */,
+				2217FAA80E4F284500806778 /* TanhFunction.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC09C05546B4700DB518D /* TTFunctionLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "TTFunctionLib" */;
+			buildPhases = (
+				D2AAC09905546B4700DB518D /* Headers */,
+				D2AAC09B05546B4700DB518D /* Frameworks */,
+				D2AAC09A05546B4700DB518D /* Sources */,
+				2217F9FF0E4E194400806778 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TTFunctionLib;
+			productName = TTFunctionLib;
+			productReference = D2AAC09D05546B4700DB518D /* TTFunctionLib.ttdylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "TTFunctionLib" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* TTFunctionLib */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC09C05546B4700DB518D /* TTFunctionLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2217F9FF0E4E194400806778 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/mkdir -p \"/Library/Application Support/TTBlue/Extensions\"\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$EXECUTABLE_EXTENSION\" \"/Library/Application Support/TTBlue/Extensions\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC09A05546B4700DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22398BAE0E243E2D00A5F732 /* TTFunctionLib.cpp in Sources */,
+				2217FA9F0E4F284500806778 /* CosineFunction.cpp in Sources */,
+				2217FAA10E4F284500806778 /* LinearFunction.cpp in Sources */,
+				2217FAA30E4F284500806778 /* LowpassFunction.cpp in Sources */,
+				2217FAA50E4F284500806778 /* PowerFunction.cpp in Sources */,
+				2217FAA70E4F284500806778 /* TanhFunction.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB916108733D950010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = ttdylib;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = prefix.pch;
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				PRODUCT_NAME = TTFunctionLib;
+				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
+			};
+			name = Debug;
+		};
+		1DEB916208733D950010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_EXTENSION = ttdylib;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = prefix.pch;
+				INSTALL_PATH = /usr/local/lib;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
+				PRODUCT_NAME = TTFunctionLib;
+				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
+			};
+			name = Release;
+		};
+		1DEB916508733D950010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB916608733D950010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "TTFunctionLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916108733D950010E9CD /* Debug */,
+				1DEB916208733D950010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "TTFunctionLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB916508733D950010E9CD /* Debug */,
+				1DEB916608733D950010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
