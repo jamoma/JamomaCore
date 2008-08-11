@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.oscinstance"
+
+EXPORTS
+	main
