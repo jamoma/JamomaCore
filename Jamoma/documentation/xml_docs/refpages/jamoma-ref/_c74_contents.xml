@@ -4,9 +4,11 @@
 <refpage name='JamomaFunctionLib.maxref.xml'/>
 <refpage name='JamomaRampLib.maxref.xml'/>
 <refpage name='jcom.dataspace.maxref.xml'/>
+<refpage name='jcom.dbap.maxref.xml'/>
 <refpage name='jcom.delta.maxref.xml'/>
 <refpage name='jcom.hub'/>
 <refpage name='jcom.init.maxref.xml'/>
 <refpage name='jcom.meter~.maxref.xml'/>
+<refpage name='jcom.oscinstance.maxref.xml'/>
 <refpage name='jcom.parameter.maxref.xml'/>
 </root>

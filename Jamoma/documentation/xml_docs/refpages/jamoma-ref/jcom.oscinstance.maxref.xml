@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jcom.oscinstance">
+	
+    <digest>
+        Retrieve instance number or ID from incomming OSC messages.
+    </digest>
+
+    <description>
+        Retrieve instance number or ID from incomming OSC messages.
+    </description>
+
+
+	<!--METADATA-->
+	
+	<metadatalist>
+		
+		<metadata name="author">
+			jamoma.org
+		</metadata>
+		
+		<metadata name="tag">
+			Jamoma
+		</metadata>
+		
+		<metadata name="tag">
+			Max
+		</metadata>
+		
+		<metadata name="tag">
+			OSC
+		</metadata>
+		
+	</metadatalist>
+
+
+	<!--INLETS-->
+	
+	<inletlist>
+		
+		<inlet id="0" name="INLET_NAME">
+			<digest>
+				Incomming OSC messages
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</inlet>
+		
+	</inletlist>
+
+
+	<!--OUTLETS-->
+	
+	<outletlist>
+		
+		<outlet id="0" name="OUTLET_NAME">
+			<digest>
+				OSC message with instance info stripped
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="1" name="OUTLET_NAME">
+			<digest>
+				OSC instance number or ID
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+		<outlet id="2" name="OUTLET_NAME">
+			<digest>
+				dumpout / overflow from non-matching inpu
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</outlet>
+		
+	</outletlist>
+
+
+	<!--ARGUMENTS-->
+	
+	<objarglist>
+		
+		<objarg id="0" name="OBJARG_NAME" type="OBJARG_TYPE" optional="0">
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				TEXT_HERE
+			</description>
+		</objarg>
+		
+	</objarglist>
+
+
+	<!--MESSAGES-->
+	
+	<methodlist>
+		
+		<method name="int">
+			<arglist>
+				<arg name="input" type="int" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				As integers are not OSC messages, incomming <m>int</m> messages are passed straight to the rightmost outlet.
+			</description>
+		</method>
+		
+		<method name="float">
+			<arglist>
+				<arg name="input" type="float" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				As floats are not OSC messages, incomming <m>float</m> messages are passed straight to the rightmost outlet.
+			</description>
+		</method>
+		
+		<method name="list">
+			<arglist>
+				<arg name="input" type="list" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				As lists (starting with a number) are not OSC messages, 
+				incomming <m>lists</m> are passed straight to the rightmost outlet.
+			</description>
+		</method>
+		
+		<method name="anything">
+			<arglist>
+				<arg name="input" type="list" optional="0" id="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				If the incomming symbol is not an OSC message, it is passed straight to the rightmost outlet.<br />
+				If it is an OSC message, the first branch of the OSC address is examined. 
+				If it contains a "<m>.</m>" (dot separator) the part of the branch name after the dot is interpreted as
+				an instance identifier. The instance ID or number is returned from the middle outlet, while the remained 
+				of the OSC message, with the instance removed, is returned from the leftmost outlet.<br />
+				If the first branch of the OSC address do not contain a dot instance separator, the message is passed to
+				the rightmost outlet.
+			</description>
+		</method>
+		
+	</methodlist>
+
+
+	<!--ATTRIBUTES-->
+	
+
+
+
+	<!--EXAMPLE-->
+	
+	<examplelist>
+		<example image="IMAGE_URL" caption=" IMAGE_CAPTION" />
+	</examplelist>
+
+
+	<!--SEEALSO-->
+	
+	<seealsolist>
+		
+		<seealso name="jcom.oscroute">
+			Routing of open sound control messages.
+		</seealso>	
+		
+		<seealso name="jcom.pass">
+			Direct messages and numbers to different outlets.
+		</seealso>
+		
+	</seealsolist>
+
+
+	<!--MISC-->
+	
+	<misc name="Output">
+		<entry name="Anything">
+			<description>
+				<br />
+				Out left outlet: If the incomming message is an OSC message with an instance separator in the first branch
+				of the OSC address, the OSC message with the instance removed, is returned from the leftmost outlet.
+				<br />
+				<br />
+				Out middle outlet: If the incomming message is an OSC message with an instance separator in the first branch
+				of the OSC address, the instance ID or number is returned from the middle outlet.
+				<br />
+				<br />
+				Out right outlet: If the incomming message is not an OSC message with an instance separator in the first branch
+				of the OSC address, it is returned from the rightmost outlet.
+			</description>
+		</entry>
+		
+	</misc>
+	
+</c74object>
