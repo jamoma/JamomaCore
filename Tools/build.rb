@@ -220,6 +220,12 @@ build_project("#{@svn_root}SourceCode/Framework", "Jamoma.xcodeproj", configurat
 ex_total, ex_count = get_count
 puts ""
 
+puts "Building TTBlue Extensions..."
+zero_count
+build_dir("../TTBlue/extensions", configuration, clean)  
+ex_total, ex_count = get_count
+puts ""
+
 
 ###################################################################
 # EXTERNALS

@@ -88,7 +88,7 @@ void SchedulerRamp::tick()
 	}
 	else{
 		normalizedValue += stepsize;
-		mapped = functionUnit->map(normalizedValue);
+		functionUnit->calculate(normalizedValue, mapped);
 		for(i=0; i < numValues; i++)
 			current[i] = start[i] + ((target[i] - start[i]) * mapped);
 	}

@@ -7,93 +7,30 @@
  */
 
 #include "FunctionLib.h"
-#include "TTThread.h"
-
-
-FunctionUnit::FunctionUnit(const char* functionName)
-	: TTObject(functionName)
-{
-}
-
-FunctionUnit::~FunctionUnit()
-{
-	;
-}
 
 
 /***************************************************************************
 	Interface for Instantiating any FunctionLib
  ***************************************************************************/
 
-#include "CosineFunction.h"
-#include "LinearFunction.h"
-#include "LowpassFunction.h"
-#include "PowerFunction.h"
-#include "TanhFunction.h"
-
-
-// TODO: get rid of this MaxAPI include when we get rid of the defer_low() call
-#include "ext.h"
-
-static void delete_functionunit(FunctionUnit* functionUnit)
+/*
+static void delete_functionunit(TTAudioObject* functionUnit)
 {
-	delete functionUnit;
-	functionUnit = NULL;
+	TTObjectRelease(functionUnit);
+	*functionUnit = NULL;
 }
+*/
 
-JamomaError FunctionLib::createUnit(const TTSymbol* unitName, FunctionUnit **unit)
+TTErr FunctionLib::createUnit(const TTSymbolPtr unitName, TTAudioObject **unit)
 {
-	FunctionUnit* oldUnit = NULL;
-	FunctionUnit* newUnit = NULL;
+	TTUInt16	numChannels = 1;
 	
-	if(*unit){
-		TTSymbol* existingFunctionName = (*unit)->getName();
-		if(unitName == existingFunctionName)
-			return JAMOMA_ERR_NONE;
-		else
-			oldUnit = *unit;
-	}
-
-	// These should be alphabetized
-	if(unitName == TT("cosine"))
-		newUnit = (FunctionUnit*) new CosineFunction;
-	else if(unitName == TT("linear"))
-		newUnit = (FunctionUnit*) new LinearFunction;
-	else if(unitName == TT("lowpass"))
-		newUnit = (FunctionUnit*) new LowpassFunction;
-	else if(unitName == TT("power"))
-		newUnit = (FunctionUnit*) new PowerFunction;
-	else if(unitName == TT("tanh"))
-		newUnit = (FunctionUnit*) new TanhFunction;
-	else{
-		// Invalid function specified default to linear
-//		TTLogError("rampLib: Invalid function: %s", (TTString)unitName);
-//		TTLogError("rampLib: Invalid function", (TTString)unitName);
-		error("barfs");
-		newUnit = (FunctionUnit*) new LinearFunction;
-	}
-	
-	*unit = newUnit;
-	if(oldUnit){
-		// We can't sleep the main thread. So this is futile:
-		//	TTThread::sleep(100);
-		//	delete oldUnit;
-		// TTQueue is not all ironed out just yet.  We should use that... 
-		// Maybe through a delay on the TTScheduler, which isn't written at all.
-		// So we'll use this nasty hack in the Max API to delete the old unit safely:
-		defer_low(NULL, (method)delete_functionunit, (t_symbol*)oldUnit, 0, NULL);
-	}
-	return JAMOMA_ERR_NONE;
+	return TTObjectInstantiate(unitName, unit, numChannels);
 }
 
 
 void FunctionLib::getUnitNames(TTValue& unitNames)
 {
-	unitNames.clear();
-	unitNames.set(0, TT("cosine"));
-	unitNames.append(TT("linear"));
-	unitNames.append(TT("lowpass"));
-	unitNames.append(TT("power"));
-	unitNames.append(TT("tanh"));
+	TTGetRegisteredClassNamesForTags(unitNames, TT("function"));
 }
 

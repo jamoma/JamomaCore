@@ -21,7 +21,7 @@ typedef struct _map{
 	double			attr_outputMax;
 	double 			a, b;				// Coefficients used for normalizing input
 	double			c, d;				// Coefficients used for scaling normalized output
-	FunctionUnit	*functionUnit;
+	TTAudioObject	*functionUnit;
 	bool			valid;				// true if the functionUnit can be used
 } t_map;
 
@@ -164,7 +164,9 @@ void map_float(t_map *obj, double x)
 	double y;
 	
 	if(obj->valid){
-		y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
+		//y = obj->c * obj->functionUnit->map(obj->a * x + obj->b) + obj->d;
+		obj->functionUnit->calculate(obj->a * x + obj->b, y);
+		y = obj->c * y + obj->d;
 		outlet_float(obj->outlet, y);
 	}
 }
@@ -252,6 +254,8 @@ void map_getFunctionParameters(t_map *obj, t_symbol *msg, long argc, t_atom *arg
 		for(int i=0; i<n; i++){
 			atom_setsym(a+0, gensym("append"));
 			names.get(i, &aName);
+			if(aName == TT("processInPlace") || aName == TT("bypass") || aName == TT("mute") || aName == TT("maxNumChannels") || aName == TT("sr"))
+				continue;	// don't publish these parameters
 			atom_setsym(a+1, gensym((char*)aName->getCString()));
 			object_obex_dumpout(obj, gensym("function.parameters"), 2, a);
 		}

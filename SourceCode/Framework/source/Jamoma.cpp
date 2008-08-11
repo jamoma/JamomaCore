@@ -89,6 +89,16 @@ void jamoma_init(void)
 		// B -- a new module in a bpatcher
 		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @args myModule @name jmod.\"", NULL);		
 		
+		
+		// Here bind the TTBlue environment object to the symbol "TTBlue"
+		{
+			t_symbol* TTBlueMaxSymbol = gensym("TTBlue");
+			
+			//TTBlueMaxSymbol->s_thing = ;
+			// Before we can do this we have to have a ttblue max class to receive the messages, duh...
+		}
+		
+		
 		post("Jamoma %s - www.jamoma.org", JAMOMA_VERSION);
 		initialized = true;
 	}
