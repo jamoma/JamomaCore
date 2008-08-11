@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="TTClipper"
-	ProjectGUID="{BB6EBFD2-4246-4D15-B00F-2EE913B15472}"
+	ProjectGUID="{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
 	RootNamespace="tt.overdrive~"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -28,7 +28,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				CommandLine="mkdir &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;"
-				Outputs="output"
+				Outputs="foo"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -107,7 +107,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;"
+				CommandLine="mkdir &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;"
+				Outputs="foo"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
