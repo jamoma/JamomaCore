@@ -124,6 +124,8 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 	char			*dot;
 	char			*slash;
 	t_symbol		*instance;
+	char			*instanceEnd;
+	long			i;
 	t_symbol		*osc = NULL;
 
 	strcpy(input, msg->s_name);
@@ -144,10 +146,14 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 		*dot = NULL;
 		osc = gensym(input2-1);				// reintroduce the leading slash
 
-		// TODO: The problem with the following two lines is that instance always ends up being of type symbol
 		instance = gensym(dot+1);
-		outlet_anything(x->outlet1, instance, NULL, 0L);		
-
+		// Check if the instance is an integer (long):
+		i = strtol (instance->s_name,&instanceEnd,10);		
+		if (instance->s_name[0] != '\n' && (*instanceEnd == '\n' || *instanceEnd == '\0'))
+			outlet_int(x->outlet1, i);
+		else
+			outlet_anything(x->outlet1, instance, NULL, 0L);	
+		
 		outlet_anything(x->outlet0, osc, argc, argv);
 	}
 	else {
@@ -160,6 +166,12 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 		*slash = NULL;							// temporarily remove the slash
 		instance = gensym(dot+1);
 		*slash = '/';							// put slash back in
+		// Check if the instance is an integer (long):
+		i = strtol (instance->s_name,&instanceEnd,10);		
+		if (instance->s_name[0] != '\n' && (*instanceEnd == '\n' || *instanceEnd == '\0'))
+			outlet_int(x->outlet1, i);
+		else
+			outlet_anything(x->outlet1, instance, NULL, 0L);
 		outlet_anything(x->outlet1, instance, NULL, 0L);
 
 		strcat(input, slash);					// remove the instance part and concatenate
