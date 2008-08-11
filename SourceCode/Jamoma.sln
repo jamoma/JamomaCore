@@ -88,6 +88,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.ramp~", "..\..\TTBlue\ex
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.xfade~", "..\..\TTBlue\examples\MaxMSP\tt.xfade~\tt.xfade~.vcproj", "{4A99F290-14B5-4DF3-B718-1A4720B3D4C6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTFunctionLib", "..\..\TTBlue\extensions\TTFunctionLib\TTFunctionLib.vcproj", "{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTClipper", "..\..\TTBlue\extensions\TTClipper\TTClipper.vcproj", "{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -234,6 +238,14 @@ Global
 		{4A99F290-14B5-4DF3-B718-1A4720B3D4C6}.Debug|Win32.Build.0 = Debug|Win32
 		{4A99F290-14B5-4DF3-B718-1A4720B3D4C6}.Release|Win32.ActiveCfg = Release|Win32
 		{4A99F290-14B5-4DF3-B718-1A4720B3D4C6}.Release|Win32.Build.0 = Release|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Debug|Win32.Build.0 = Debug|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Release|Win32.ActiveCfg = Release|Win32
+		{946C1578-B549-4F2C-820E-CC8E2E2B94DC}.Release|Win32.Build.0 = Release|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Debug|Win32.Build.0 = Debug|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Release|Win32.ActiveCfg = Release|Win32
+		{C73B580F-BC81-490A-A54C-C851BF03BE3C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

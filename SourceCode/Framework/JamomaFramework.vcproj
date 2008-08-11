@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="JamomaFramework"
 	ProjectGUID="{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}"
 	RootNamespace="JamomaFramework"
@@ -200,10 +200,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\CosineFunction.h"
-				>
-			</File>
-			<File
 				RelativePath=".\DataspaceLib\DataspaceLib.h"
 				>
 			</File>
@@ -256,14 +252,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\LinearFunction.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FunctionLib\LowpassFunction.h"
-				>
-			</File>
-			<File
 				RelativePath=".\DataspaceLib\NoneDataspace.h"
 				>
 			</File>
@@ -280,10 +268,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\PowerFunction.h"
-				>
-			</File>
-			<File
 				RelativePath=".\RampLib\QueueRamp.h"
 				>
 			</File>
@@ -293,10 +277,6 @@
 			</File>
 			<File
 				RelativePath=".\RampLib\SchedulerRamp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FunctionLib\TanhFunction.h"
 				>
 			</File>
 			<File
@@ -333,10 +313,6 @@
 			</File>
 			<File
 				RelativePath="..\ThirdParty\c74support\max-includes\common\commonsyms.c"
-				>
-			</File>
-			<File
-				RelativePath=".\FunctionLib\CosineFunction.cpp"
 				>
 			</File>
 			<File
@@ -396,14 +372,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\LinearFunction.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\FunctionLib\LowpassFunction.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\DataspaceLib\NoneDataspace.cpp"
 				>
 			</File>
@@ -420,10 +388,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FunctionLib\PowerFunction.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\RampLib\QueueRamp.cpp"
 				>
 			</File>
@@ -433,10 +397,6 @@
 			</File>
 			<File
 				RelativePath=".\RampLib\SchedulerRamp.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\FunctionLib\TanhFunction.cpp"
 				>
 			</File>
 			<File
