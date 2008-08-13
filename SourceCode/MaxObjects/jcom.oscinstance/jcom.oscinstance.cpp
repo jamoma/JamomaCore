@@ -24,6 +24,9 @@ void *oscinstance_new(t_symbol *s, long argc, t_atom *argv);
 /** Provide assistance strings in the patcher window. */
 void oscinstance_assist(t_oscinstance *x, void *b, long msg, long arg, char *dst);
 
+/** Method for bang input. */
+void oscinstance_bang(t_oscinstance *x);
+
 /** Method for int input. */
 void oscinstance_int(t_oscinstance *x, long n);
 
@@ -52,6 +55,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	c = class_new("jcom.oscinstance",(method)oscinstance_new, (method)0L, sizeof(t_oscinstance), (method)0L, A_GIMME, 0);
 
+	class_addmethod(c, (method)oscinstance_bang,		"bang",		0);	
 	class_addmethod(c, (method)oscinstance_int,			"int",		A_DEFLONG,	0L);
 	class_addmethod(c, (method)oscinstance_float,		"float",	A_DEFFLOAT,	0L);
   	class_addmethod(c, (method)oscinstance_symbol,		"list", 	A_GIMME, 0L);
@@ -99,6 +103,12 @@ void oscinstance_assist(t_oscinstance *x, void *b, long msg, long arg, char *dst
 		else
 			strcpy(dst, "dumpout / overflow from non-matching input");	
  	}		
+}
+
+
+void oscinstance_bang(t_oscinstance *x)
+{
+	outlet_bang(x->outlet_overflow);
 }
 
 

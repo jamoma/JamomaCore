@@ -104,7 +104,17 @@
 	<!--MESSAGES-->
 	
 	<methodlist>
-		
+
+		<method name="bang">
+			<arglist />
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The message <m>bang</m> os passed straight on to the rightmost outlet.
+			</description>
+		</method>
+				
 		<method name="int">
 			<arglist>
 				<arg name="input" type="int" optional="0" id="0" />
