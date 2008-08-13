@@ -13,7 +13,7 @@
 #define COMP_MANUF		BlueFilter_COMP_MANF	
 
 #define VERSION			kBlueFilterVersion
-#define NAME			"TTBlue:BlueFilter"
+#define NAME			"TTBlue: BlueFilter"
 #define DESCRIPTION		"TTBlue Filter AU Plug-in"
 #define ENTRY_POINT		"BlueFilterEntry"
 
