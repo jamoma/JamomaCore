@@ -82,6 +82,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	// ATTRIBUTE: ramp stuff
 	jamoma_class_attr_new(c, 	"ramp/drive", 		_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
+	// TODO: CLASS_ATTR_ENUM for "ramp/drive" should be autopopulated same way that "ramp/function" is.
+	CLASS_ATTR_ENUM(c,			"ramp/drive",		0, "async none queue scheduler ");
 	
 	jamoma_class_attr_new(c, 	"ramp/function", 	_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
 	CLASS_ATTR_ENUM(c,			"ramp/function",	0, functions);
