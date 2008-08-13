@@ -354,7 +354,11 @@
 				Used to determine order of parameter recall in a preset.
 			</digest>
 			<description>
-				Used to determine order of parameter recall in a preset.
+				Used to determine order of parameter recall in a preset. When presets of modules are recalled, 
+				parameters are set according to priority, so that parameters with <m>priority 1</m> get updated first, then
+				parameters with <m>priority 2</m>, then <m>priority 3</m>, and so on. If the <m>priority</m> attribute 
+				is not set, it defaults to <m>0</m>. Parameters with <m>priority 0</m> are regarded the lowest priority, 
+				and end up at the end of the queue of parameters to be set.
 			</description>
 		</attribute>
 		
