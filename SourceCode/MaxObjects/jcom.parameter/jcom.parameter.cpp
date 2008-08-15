@@ -1263,14 +1263,7 @@ void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** 
 
 		*rv = (t_atom*)sysmem_newptr(sizeof(t_atom) * argc);
 		
-		for(int i=0; i<argc; i++){
-		/*
-			Note that for now we assume that we are converting from 1 value to 1 value.
-			This isn't always true though.  
-			Maybe there could be triplets that would be converted into one value or something?
-		*/
-			x->dataspace_active2native->convert(1, argv+i, &count, rv+i);
-		}
+		x->dataspace_active2native->convert(argc, argv, &count, rv);
 		*alloc = true;
 	}
 	else{
