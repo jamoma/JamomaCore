@@ -18,6 +18,45 @@
 		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "Required as an escape if we don't want the patch to fire.",
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-8",
+					"fontsize" : 10.0,
+					"patching_rect" : [ 145.0, 155.0, 295.0, 19.0 ],
+					"numinlets" : 1,
+					"fontname" : "Verdana",
+					"numoutlets" : 0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "loadmess 2",
+					"id" : "obj-5",
+					"outlettype" : [ "" ],
+					"fontsize" : 10.0,
+					"patching_rect" : [ 35.0, 120.0, 68.0, 19.0 ],
+					"numinlets" : 1,
+					"fontname" : "Verdana",
+					"numoutlets" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "gswitch2",
+					"id" : "obj-4",
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 90.0, 150.0, 39.0, 32.0 ],
+					"numinlets" : 2,
+					"numoutlets" : 2
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.oscroute /editing_this_module",
 					"id" : "obj-7",
@@ -78,7 +117,7 @@
 					"text" : "jcom.test.assert.equal TESTparameter/dataspace/color/hsl2native 0. 255. 0.",
 					"id" : "obj-25",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 895.0, 275.0, 397.0, 19.0 ],
+					"patching_rect" : [ 835.0, 290.0, 397.0, 19.0 ],
 					"numinlets" : 2,
 					"fontname" : "Verdana",
 					"numoutlets" : 0
@@ -102,11 +141,11 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "t b",
+					"text" : "tragger b",
 					"id" : "obj-23",
-					"outlettype" : [ "bang" ],
+					"outlettype" : [ "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 270.0, 260.0, 24.0, 19.0 ],
+					"patching_rect" : [ 270.0, 260.0, 55.0, 19.0 ],
 					"numinlets" : 1,
 					"fontname" : "Verdana",
 					"numoutlets" : 1
@@ -158,11 +197,12 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter hsv2native @type msg_list @dataspace color @dataspace/unit/active hsl @dataspace/unit/native rgb",
+					"text" : "jcom.parameter color/hsv2native @type msg_list @dataspace color @dataspace/unit/active hsl @dataspace/unit/native rgb",
+					"linecount" : 2,
 					"id" : "obj-2",
 					"outlettype" : [ "", "", "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 595.0, 250.0, 607.0, 19.0 ],
+					"patching_rect" : [ 595.0, 250.0, 495.0, 31.0 ],
 					"numinlets" : 1,
 					"fontname" : "Verdana",
 					"numoutlets" : 3
@@ -171,33 +211,6 @@
 			}
  ],
 		"lines" : [ 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
-					"destination" : [ "obj-23", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-23", 0 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
 				"patchline" : 				{
 					"source" : [ "obj-2", 1 ],
 					"destination" : [ "obj-25", 0 ],
@@ -208,8 +221,35 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
-					"destination" : [ "obj-14", 0 ],
+					"source" : [ "obj-4", 1 ],
+					"destination" : [ "obj-23", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-7", 0 ],
+					"destination" : [ "obj-4", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-5", 0 ],
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-15", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
@@ -226,8 +266,26 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-15", 0 ],
-					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-13", 0 ],
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-23", 0 ],
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-14", 0 ],
+					"destination" : [ "obj-15", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
