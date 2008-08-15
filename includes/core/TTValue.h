@@ -85,8 +85,8 @@ private:
 		TTPtr			ptr;
 	};
 		
-	TTDataType	*type;			///< array of types
-	DataValue	*data;			///< array of values
+	TTDataType*	type;			///< array of types
+	DataValue*	data;			///< array of values
 	TTUInt16	numValues;		///< number of values
 	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 

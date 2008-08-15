@@ -203,11 +203,15 @@ void TTValue::setType(TTDataType arg)
 void TTValue::setSize(const TTUInt16 arg)
 {
 	if(arg != numValues){
+		TTUInt16	safeNumValues = (arg < numValues) ? arg : numValues;	// The safe number of values that can be copied.
+		
 		numValues = arg;
 		TTDataType* t = new TTDataType[numValues];
 		DataValue* d = new DataValue[numValues];
-		memcpy(t, type, sizeof(TTDataType) * numValues);
-		memcpy(d, data, sizeof(DataValue) * numValues);
+		if(safeNumValues){
+			memcpy(t, type, sizeof(TTDataType) * safeNumValues);
+			memcpy(d, data, sizeof(TTValue::DataValue) * safeNumValues);
+		}
 		delete [] type;
 		delete [] data;
 		type = t;
