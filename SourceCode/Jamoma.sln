@@ -73,24 +73,54 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTBlue", "..\..\TTBlue\library\TTBlue.vcproj", "{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.balance~", "..\..\TTBlue\examples\MaxMSP\tt.balance~\tt.balance~.vcproj", "{E3F6789F-D53D-458B-88CC-D5718E89B940}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.dcblock~", "..\..\TTBlue\examples\MaxMSP\tt.dcblock~\tt.dcblock~.vcproj", "{C23B6815-DCAE-46F3-B8C1-0F99821D4DB3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.degrade~", "..\..\TTBlue\examples\MaxMSP\tt.degrade~\tt.degrade~.vcproj", "{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.filter~", "..\..\TTBlue\examples\MaxMSP\tt.filter~\tt.filter~.vcproj", "{AED3CA6B-9C8F-4FB1-9EF1-0946F8C7430B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.limiter~", "..\..\TTBlue\examples\MaxMSP\tt.limiter~\tt.limiter~.vcproj", "{B23F2C3B-AC5C-4571-B25A-14BF4F5442CF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.overdrive~", "..\..\TTBlue\examples\MaxMSP\tt.overdrive~\tt.overdrive~.vcproj", "{BB6EBFD2-4246-4D15-B00F-2EE913B15472}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.ramp~", "..\..\TTBlue\examples\MaxMSP\tt.ramp~\tt.ramp~.vcproj", "{1A7943D4-1BA7-47B0-B7AA-1954F9419857}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.xfade~", "..\..\TTBlue\examples\MaxMSP\tt.xfade~\tt.xfade~.vcproj", "{4A99F290-14B5-4DF3-B718-1A4720B3D4C6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTFunctionLib", "..\..\TTBlue\extensions\TTFunctionLib\TTFunctionLib.vcproj", "{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TTClipper", "..\..\TTBlue\extensions\TTClipper\TTClipper.vcproj", "{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
