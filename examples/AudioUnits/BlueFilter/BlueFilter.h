@@ -110,22 +110,24 @@ protected:
 	{
 	public:
 		BlueFilterKernel(AUEffectBase *inAudioUnit )
-		: AUKernelBase(inAudioUnit)
+		: AUKernelBase(inAudioUnit), mButter(NULL), mInput(NULL), mOutput(NULL)
 		{
-			mButter = new TTLowpassButterworth4(1);
+			TTUInt16	numChannels = 1;
+			
+			TTObjectInstantiate(TT("lowpass.butterworth.4"), &mButter, numChannels);
 			mButter->setAttributeValue(TT("sr"), GetSampleRate());
 			
-			mInput = new TTAudioSignal(1);
-			mInput->setNumChannels(1);
+			mInput = new TTAudioSignal(numChannels);
+			mInput->setNumChannels(numChannels);
 			
-			mOutput = new TTAudioSignal(1);
-			mOutput->setNumChannels(1);
+			mOutput = new TTAudioSignal(numChannels);
+			mOutput->setNumChannels(numChannels);
 		}
 		
 		
 		virtual ~BlueFilterKernel()
 		{
-			delete mButter;
+			TTObjectRelease(mButter);
 			delete mInput;
 			delete mOutput;
 		}
@@ -143,7 +145,7 @@ protected:
         virtual void Reset();
 		
 	private:
-		TTLowpassButterworth4*	mButter;
+		TTAudioObject*			mButter;
 		TTAudioSignal*			mInput;
 		TTAudioSignal*			mOutput;
 	};
