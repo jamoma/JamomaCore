@@ -106,17 +106,17 @@ void MeterUnit::convertFromNeutral(long inputNumArgs, double *input, long *outpu
 
 /***********************************************************************************************/
 DistanceDataspace::DistanceDataspace()
-	: DataspaceLib("distance", "meter")
+	: DataspaceLib("distance", "meters")
 {
 	// Create one of each kind of unit, and cache them in a hash
 	registerUnit(new CentimeterUnit,	gensym("cm"));
-	registerUnit(new CentimeterUnit,	gensym("centimeter"));
+	registerUnit(new CentimeterUnit,	gensym("centimeters"));
 	registerUnit(new FootUnit,			gensym("'"));
 	registerUnit(new FootUnit,			gensym("feet"));
 	registerUnit(new InchUnit,			gensym("\""));
 	registerUnit(new InchUnit,			gensym("inches"));
 	registerUnit(new MeterUnit,			gensym("m"));
-	registerUnit(new MeterUnit,			gensym("meter"));
+	registerUnit(new MeterUnit,			gensym("meters"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
