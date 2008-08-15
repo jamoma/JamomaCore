@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.ramp"
+LIBRARY "jcom.ramp.mxe"
 
 EXPORTS
 	main

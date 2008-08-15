@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.map"
+LIBRARY "jcom.map.mxe"
 
 EXPORTS
 	main

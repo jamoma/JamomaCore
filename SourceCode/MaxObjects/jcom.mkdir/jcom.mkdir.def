@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.mkdir"
+LIBRARY "jcom.mkdir.mxe"
 
 EXPORTS
 	main

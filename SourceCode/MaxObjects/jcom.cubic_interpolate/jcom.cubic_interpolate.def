@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.delta.mxe"
+LIBRARY "jcom.cubic_interpolate.mxe"
 
 EXPORTS
 	main

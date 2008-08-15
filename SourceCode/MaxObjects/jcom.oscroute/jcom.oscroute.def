@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.oscroute"
+LIBRARY "jcom.oscroute.mxe"
 
 EXPORTS
 	main

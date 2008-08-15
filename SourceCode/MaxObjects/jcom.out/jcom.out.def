@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.out"
+LIBRARY "jcom.out.mxe"
 
 EXPORTS
 	main

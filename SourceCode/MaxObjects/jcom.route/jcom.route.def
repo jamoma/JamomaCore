@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.route"
+LIBRARY "jcom.route.mxe"
 
 EXPORTS
 	main

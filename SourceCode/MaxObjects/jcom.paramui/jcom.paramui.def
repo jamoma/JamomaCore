@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.paramui"
+LIBRARY "jcom.paramui.mxe"
 
 EXPORTS
 	main

@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.remote"
+LIBRARY "jcom.remote.mxe"
 
 EXPORTS
 	main

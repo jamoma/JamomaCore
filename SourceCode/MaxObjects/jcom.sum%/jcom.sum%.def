@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.sum%"
+LIBRARY "jcom.sum%.mxe"
 
 EXPORTS
 	main

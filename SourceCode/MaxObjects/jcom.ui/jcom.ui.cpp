@@ -332,8 +332,8 @@ void ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv)
 		object_attr_setvalueof(x, gensym("module_name"), 1, argv+1);
 	else if(message == gensym("module_class") && argc == 2)
 		x->attrModuleClass = atom_getsym(argv+1);
-	else if(message == gensym("module_type") && argc == 2)
-		; // TODO: Should do something here?
+//	else if(message == gensym("module_type") && argc == 2)
+//		; // TODO: Should do something here?
 }
 
 
