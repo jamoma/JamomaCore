@@ -1264,6 +1264,7 @@ void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** 
 		*rv = (t_atom*)sysmem_newptr(sizeof(t_atom) * argc);
 		
 		x->dataspace_active2native->convert(argc, argv, &count, rv);
+		*rc = count;
 		*alloc = true;
 	}
 	else{
