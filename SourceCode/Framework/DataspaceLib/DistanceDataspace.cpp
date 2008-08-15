@@ -116,7 +116,7 @@ DistanceDataspace::DistanceDataspace()
 	registerUnit(new InchUnit,			gensym("\""));
 	registerUnit(new InchUnit,			gensym("inches"));
 	registerUnit(new MeterUnit,			gensym("m"));
-	registerUnit(new MeterUnit,			gensym("meters"));
+	registerUnit(new MeterUnit,			gensym("meter"));
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
