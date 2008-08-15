@@ -98,7 +98,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
+			OutputDirectory="..\builds"
 			IntermediateDirectory="Release"
 			ConfigurationType="2"
 			>

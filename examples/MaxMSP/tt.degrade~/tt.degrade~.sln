@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.degrade~", "tt.degrade~.vcproj", "{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.degrade~", "tt.degrade~.vcproj", "{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,16 +12,16 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.Debug|Win32.Build.0 = Debug|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.MTd debug dll|Win32.ActiveCfg = MTd debug dll|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.MTd debug dll|Win32.Build.0 = MTd debug dll|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.Release Build|Win32.ActiveCfg = Release Build|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.Release Build|Win32.Build.0 = Release Build|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.release_build|Win32.ActiveCfg = release_build|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.release_build|Win32.Build.0 = release_build|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.Release|Win32.ActiveCfg = Release|Win32
-		{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}.Release|Win32.Build.0 = Release|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.Debug|Win32.Build.0 = Debug|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.MTd debug dll|Win32.ActiveCfg = MTd debug dll|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.MTd debug dll|Win32.Build.0 = MTd debug dll|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.Release Build|Win32.ActiveCfg = Release Build|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.Release Build|Win32.Build.0 = Release Build|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.release_build|Win32.ActiveCfg = release_build|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.release_build|Win32.Build.0 = release_build|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.Release|Win32.ActiveCfg = Release|Win32
+		{4EAED30E-F75C-4EC6-BA3A-5DF0554B35F6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
