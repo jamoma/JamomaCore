@@ -413,54 +413,84 @@ t_max_err attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv)
 	err = hashtab_lookup(obj->hash_internals, gensym("mute"), (t_object**)&anObject);
 	if(!err){
 		name[0] = 0;
-		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
-			strncpy_zero(name, obj->attrPrefix->s_name, 256);
-		strncat_zero(name, "/mute", 256);
+		if (obj->attrPrefix!=gensym(""))
+		{
+			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+				strncpy_zero(name, obj->attrPrefix->s_name, 256);
+			strncat_zero(name, "/mute", 256);
+		}
+		else
+			strncat_zero(name, "mute", 256);		
 		anObject->setName(name);
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("bypass"), (t_object**)&anObject);
 	if(!err){
 		name[0] = 0;
-		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
-			strncpy_zero(name, obj->attrPrefix->s_name, 256);
-		strncat_zero(name, "/bypass", 256);
+		if (obj->attrPrefix!=gensym("")) 
+		{
+			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+				strncpy_zero(name, obj->attrPrefix->s_name, 256);
+			strncat_zero(name, "/bypass", 256);
+		}
+		else
+			strncat_zero(name, "bypass", 256);
 		anObject->setName(name);
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("mix"), (t_object**)&anObject);
 	if(!err){
 		name[0] = 0;
-		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+		if (obj->attrPrefix!=gensym(""))
+		{
+			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
 			strncpy_zero(name, obj->attrPrefix->s_name, 256);
-		strncat_zero(name, "/mix", 256);
+			strncat_zero(name, "/mix", 256);
+		}
+		else
+			strncat_zero(name, "mix", 256);
 		anObject->setName(name);
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("gain"), (t_object**)&anObject);
 	if(!err){
 		name[0] = 0;
-		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
-			strncpy_zero(name, obj->attrPrefix->s_name, 256);
-		strncat_zero(name, "/gain", 256);
+		if (obj->attrPrefix!=gensym(""))
+		{
+			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+				strncpy_zero(name, obj->attrPrefix->s_name, 256);
+			strncat_zero(name, "/gain", 256);
+		}
+		else
+			strncat_zero(name, "gain", 256);
 		anObject->setName(name);
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("freeze"), (t_object**)&anObject);
 	if(!err){
 		name[0] = 0;
-		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
-			strncpy_zero(name, obj->attrPrefix->s_name, 256);
-		strncat_zero(name, "/freeze", 256);
+		if (obj->attrPrefix!=gensym(""))
+		{
+			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+				strncpy_zero(name, obj->attrPrefix->s_name, 256);
+			strncat_zero(name, "/freeze", 256);
+		}
+		else
+			strncat_zero(name, "freeze", 256);
 		anObject->setName(name);
 	}
 	
 	err = hashtab_lookup(obj->hash_internals, gensym("preview"), (t_object**)&anObject);
 	if(!err){
 		name[0] = 0;
-		if(obj->attrPrefix && obj->attrPrefix->s_name[0])
-			strncpy_zero(name, obj->attrPrefix->s_name, 256);
-		strncat_zero(name, "/preview", 256);
+		if (obj->attrPrefix!=gensym(""))
+		{
+			if(obj->attrPrefix && obj->attrPrefix->s_name[0])
+				strncpy_zero(name, obj->attrPrefix->s_name, 256);
+			strncat_zero(name, "/preview", 256);
+		}
+		else
+			strncat_zero(name, "preview", 256);
 		anObject->setName(name);
 	}
 	
