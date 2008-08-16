@@ -14,7 +14,7 @@ typedef struct _ttlimiter {
 	t_object		obj;
 	t_outlet*		outlet;			// outlet for status and version messages
 	t_float			f;				// dummy for signal in first inlet
-	TTLimiter*		limiter;		// the TTBlue limiter object
+	TTAudioObject*	limiter;		// the TTBlue limiter object
 	TTAudioSignal*	audioIn;
 	TTAudioSignal*	audioOut;
 } t_ttlimiter;
@@ -54,13 +54,14 @@ void ttlimiter_tilde_setup(void)
 
 void *ttlimiter_new(t_symbol *s, long ac, t_atom *at)
 {
-	t_ttlimiter *x = (t_ttlimiter*)pd_new(ttlimiter_class);
+	t_ttlimiter*	x = (t_ttlimiter*)pd_new(ttlimiter_class);
+	TTUInt16		numChannels = 1;	// Just a mono limiter for now...
 
 	if(x){
 		outlet_new(&x->obj, gensym("signal"));	// Create new signal outlet
-		x->limiter = new TTLimiter(1);			// Just a mono limiter for now...
-		x->audioIn = new TTAudioSignal(1);
-		x->audioOut = new TTAudioSignal(1);
+		TTObjectInstantiate(TT("limiter"), &x->limiter, numChannels);		
+		x->audioIn = new TTAudioSignal(numChannels);
+		x->audioOut = new TTAudioSignal(numChannels);
 	}
 	return(x);
 }
@@ -68,7 +69,7 @@ void *ttlimiter_new(t_symbol *s, long ac, t_atom *at)
 
 void ttlimiter_free(t_ttlimiter *x)
 {
-	delete x->limiter;
+	TTObjectRelease(x->limiter);
 }
 
 

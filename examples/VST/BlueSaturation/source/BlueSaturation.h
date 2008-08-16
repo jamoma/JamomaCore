@@ -49,8 +49,9 @@ public:
 	virtual bool getProductString(char* text);
 	virtual VstInt32 getVendorVersion();
 
-protected:	
-	TTOverdrive*		mOverdrive;
+protected:
+	TTUInt16			mNumChannels;
+	TTAudioObject*		mOverdrive;
 	TTAudioSignal*		mInput;
 	TTAudioSignal*		mOutput;
 	BlueParameter*		mParameterList;

@@ -192,6 +192,10 @@
 					"$(SRCROOT)/../../../../../vstsdk-2.4",
 				);
 				INFOPLIST_FILE = Info.plist;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = BlueSaturation;
 			};
 			name = Debug;
@@ -209,6 +213,10 @@
 					"$(SRCROOT)/../../../../../vstsdk-2.4",
 				);
 				INFOPLIST_FILE = Info.plist;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				PRODUCT_NAME = again;
 			};
 			name = Release;

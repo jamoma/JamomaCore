@@ -151,6 +151,10 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				MACH_O_TYPE = mh_bundle;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				OTHER_LDFLAGS = (
 					"-flat_namespace",
 					"-undefined",
@@ -180,6 +184,10 @@
 				);
 				INSTALL_PATH = /usr/local/lib;
 				MACH_O_TYPE = mh_bundle;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-Wno-deprecated",
+				);
 				OTHER_LDFLAGS = (
 					"-flat_namespace",
 					"-undefined",

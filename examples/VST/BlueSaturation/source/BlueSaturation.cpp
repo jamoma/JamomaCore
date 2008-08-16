@@ -10,7 +10,7 @@ AudioEffect* createEffectInstance(audioMasterCallback audioMaster)
 /***************************************************************************/
 
 BlueSaturation::BlueSaturation(audioMasterCallback audioMaster)
-	: AudioEffectX(audioMaster, kNumPresets, kNumParameters)
+	: AudioEffectX(audioMaster, kNumPresets, kNumParameters), mNumChannels(2)
 {
 	TTBlueInit();
 	
@@ -20,14 +20,13 @@ BlueSaturation::BlueSaturation(audioMasterCallback audioMaster)
 	canProcessReplacing();	// supports replacing output
 	canDoubleReplacing();	// supports double precision processing
 
-	//fGain = 1.f;			// default to 0 dB
-	mOverdrive = new TTOverdrive(2);
+	TTObjectInstantiate(TT("overdrive"), &mOverdrive, mNumChannels);
 
-	mInput = new TTAudioSignal(2);
-	mInput->setNumChannels(2);
+	mInput = new TTAudioSignal(mNumChannels);
+	mInput->setNumChannels(mNumChannels);
 
-	mOutput = new TTAudioSignal(2);
-	mOutput->setNumChannels(2);
+	mOutput = new TTAudioSignal(mNumChannels);
+	mOutput->setNumChannels(mNumChannels);
 	
 	mParameterList = new BlueParameter[kNumParameters];
 
@@ -52,7 +51,7 @@ BlueSaturation::BlueSaturation(audioMasterCallback audioMaster)
 
 BlueSaturation::~BlueSaturation()
 {
-	delete mOverdrive;
+	TTObjectRelease(mOverdrive);
 	delete mInput;
 	delete mOutput;
 }
