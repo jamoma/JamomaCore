@@ -41,7 +41,7 @@ TTObject*  instantiate ## className (TTSymbol*, TTValue& arguments) \
 TTUInt16 numChannels = 1;\
 if(arguments.getSize())\
 numChannels = arguments;\
-return new TTClipper(numChannels);\
+return new className (numChannels);\
 }\
 \
 extern "C" TT_EXTENSION_EXPORT TTErr loadTTExtension(void);\
