@@ -14,7 +14,8 @@
 typedef struct _oscinstance{				///< Data Structure for this object
 	t_object	ob;							///< REQUIRED: Our object
 	void		*outlet0;					///< Leftmost outlet, passing osc messages
-	void		*outlet1;					///< Middle outlet, passing instance number or ID
+	void		*outlet1;					///< 2nd outlet, passing instance number or ID
+	void		*outlet2;					///< 3rd outlet, passing the arguments of incomming OSC messages
 	void		*outlet_overflow;			///< The rightmost outlet: This outlet doubles as the dumpout outlet
 } t_oscinstance;
 
@@ -80,6 +81,7 @@ void *oscinstance_new(t_symbol *s, long argc, t_atom *argv)
 	if(x){
 		x->outlet_overflow = outlet_new(x, 0);		// overflow outlet
 		object_obex_store((void *)x, _sym_dumpout, (object *)x->outlet_overflow);	// dumpout
+		x->outlet2 = outlet_new(x, 0);				// Create Outlet
 		x->outlet1 = outlet_new(x, 0);				// Create Outlet
 		x->outlet0 = outlet_new(x, 0);				// Create Outlet
 	}
@@ -156,15 +158,20 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 		*dot = NULL;
 		osc = gensym(input2-1);				// reintroduce the leading slash
 
+		// Output from 3rd outlet: The arguments of the OSC message
+		outlet_anything(x->outlet2, _sym_list, argc, argv);
+		
 		instance = gensym(dot+1);
-		// Check if the instance is an integer (long):
+		
+		// Output from 2nd outlet: Instance. Check if the instance is an integer (long):
 		i = strtol (instance->s_name,&instanceEnd,10);		
 		if (instance->s_name[0] != '\n' && (*instanceEnd == '\n' || *instanceEnd == '\0'))
 			outlet_int(x->outlet1, i);
 		else
 			outlet_anything(x->outlet1, instance, NULL, 0L);	
 		
-		outlet_anything(x->outlet0, osc, argc, argv);
+		// Output from leftmost outlet: OSC message with instance removed
+		outlet_anything(x->outlet0, osc, NULL, 0L);
 	}
 	else {
 		if ( slash<dot )
@@ -172,22 +179,25 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 		
 		*dot = NULL;
 		
-		// TODO: Same here: Instance always ends up being of type symbol.
 		*slash = NULL;							// temporarily remove the slash
 		instance = gensym(dot+1);
 		*slash = '/';							// put slash back in
-		// Check if the instance is an integer (long):
+		
+		// Output from 3rd outlet: The arguments of the OSC message
+		outlet_anything(x->outlet2, _sym_list, argc, argv);
+		
+		// Output from 2nd outlet: Instance. Check if the instance is an integer (long):
 		i = strtol (instance->s_name,&instanceEnd,10);		
 		if (instance->s_name[0] != '\n' && (*instanceEnd == '\n' || *instanceEnd == '\0'))
 			outlet_int(x->outlet1, i);
 		else
 			outlet_anything(x->outlet1, instance, NULL, 0L);
-		outlet_anything(x->outlet1, instance, NULL, 0L);
+		
+		// Output from leftmost outlet: Concatenated OSC message
 
 		strcat(input, slash);					// remove the instance part and concatenate
 		osc = gensym(input2-1);					// reintroduce the leading slash
-		// Need to get outlet from 2nd outlet
-		outlet_anything(x->outlet0, osc, argc, argv);
+		outlet_anything(x->outlet0, osc, NULL, 0L);
 	}
 	return;
 
