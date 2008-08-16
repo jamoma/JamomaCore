@@ -137,8 +137,9 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 	char			*slash;
 	t_symbol		*instance;
 	char			*instanceEnd;
-	long			i;
+	t_symbol		*output;
 	t_symbol		*osc = NULL;
+	long			i;
 
 	strcpy(input, msg->s_name);
 	
@@ -156,49 +157,60 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 
 	if ( slash == 0) {
 		*dot = NULL;
-		osc = gensym(input2-1);				// reintroduce the leading slash
-
-		// Output from 3rd outlet: The arguments of the OSC message
-		outlet_anything(x->outlet2, _sym_list, argc, argv);
-		
+		osc = gensym(input2-1);				// reintroduce the leading slash		
 		instance = gensym(dot+1);
-		
-		// Output from 2nd outlet: Instance. Check if the instance is an integer (long):
-		i = strtol (instance->s_name,&instanceEnd,10);		
-		if (instance->s_name[0] != '\n' && (*instanceEnd == '\n' || *instanceEnd == '\0'))
-			outlet_int(x->outlet1, i);
-		else
-			outlet_anything(x->outlet1, instance, NULL, 0L);	
-		
-		// Output from leftmost outlet: OSC message with instance removed
-		outlet_anything(x->outlet0, osc, NULL, 0L);
 	}
 	else {
 		if ( slash<dot )
-			goto spillover;						// there are instances, but not in the leading branch
-		
-		*dot = NULL;
-		
-		*slash = NULL;							// temporarily remove the slash
+			goto spillover;					// there are instances, but not in the leading branch		
+		*dot = NULL;	
+		*slash = NULL;						// temporarily remove the slash
 		instance = gensym(dot+1);
-		*slash = '/';							// put slash back in
+		*slash = '/';						// put slash back in
+		strcat(input, slash);				// remove the instance part and concatenate
+		osc = gensym(input2-1);				// reintroduce the leading slash	
+	}	
 		
-		// Output from 3rd outlet: The arguments of the OSC message
-		outlet_anything(x->outlet2, _sym_list, argc, argv);
-		
-		// Output from 2nd outlet: Instance. Check if the instance is an integer (long):
-		i = strtol (instance->s_name,&instanceEnd,10);		
-		if (instance->s_name[0] != '\n' && (*instanceEnd == '\n' || *instanceEnd == '\0'))
-			outlet_int(x->outlet1, i);
-		else
-			outlet_anything(x->outlet1, instance, NULL, 0L);
-		
-		// Output from leftmost outlet: Concatenated OSC message
+	// Output from 3rd outlet: The arguments of the OSC message
 
-		strcat(input, slash);					// remove the instance part and concatenate
-		osc = gensym(input2-1);					// reintroduce the leading slash
-		outlet_anything(x->outlet0, osc, NULL, 0L);
+	// We have to check what message to return.
+	// The message received has no arguments:
+	if (argc == 0) {
+		outlet_bang(x->outlet2);
 	}
+	// The message received has one argument only:
+	else if (argc==1) {
+		// int argument
+		if (argv->a_type==A_LONG)
+			outlet_int(x->outlet2,argv->a_w.w_long);
+		// float argument
+		else if (argv->a_type==A_FLOAT)
+			outlet_float(x->outlet2,argv->a_w.w_float);
+		// something else
+		else if (argv->a_type==A_SYM)
+			outlet_anything(x->outlet2,argv->a_w.w_sym,0,0);
+	}		
+	// There are two or more arguments: check if first is A_SYM	
+	else {
+		if (argv->a_type==A_SYM) {
+			output = argv->a_w.w_sym;
+			argc--;
+			argv++;
+		}
+		else
+			output = _sym_list;
+		outlet_anything(x->outlet2, output, argc , argv);
+	}
+
+	// Output from 2nd outlet: Instance. Check if the instance is an integer (long):
+	i = strtol (instance->s_name,&instanceEnd,10);		
+	if (instance->s_name[0] != '\n' && (*instanceEnd == '\n' || *instanceEnd == '\0'))
+		outlet_int(x->outlet1, i);
+	else
+		outlet_anything(x->outlet1, instance, NULL, 0L);		
+
+	// Output from 1st outlet: OC name with instance removed
+	outlet_anything(x->outlet0, osc, NULL, 0L);		
 	return;
 
 	spillover:
