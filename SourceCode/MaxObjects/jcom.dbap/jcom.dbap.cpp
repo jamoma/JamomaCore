@@ -207,7 +207,7 @@ void dbap_blur(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	float f;
 	
 	if((argc>=2) && argv) {	
-		n = atom_getlong(argv);
+		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
 			error("Invalid argument(s) for blur");
 			return;
@@ -243,7 +243,7 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
 	long n;
 	
 	if (argc >= (x->attr_dimensions + 1)) {
-		n = atom_getlong(argv);
+		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
 		if ( (n<0) || (n>=MAX_NUM_DESTINATIONS) ) {
 			error("Invalid arguments for source.");
 			return;
@@ -251,16 +251,13 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
 		switch (x->attr_dimensions)
 		{
 			case 1:
-				n = atom_getlong(argv);
 				x->src_position[n].x = atom_getfloat(argv+1);
 				break;
 			case 2:
-				n = atom_getlong(argv);
 				x->src_position[n].x = atom_getfloat(argv+1);
 				x->src_position[n].y = atom_getfloat(argv+2);
 				break;
 			case 3:
-				n = atom_getlong(argv);
 				x->src_position[n].x = atom_getfloat(argv+1);
 				x->src_position[n].y = atom_getfloat(argv+2);
 				x->src_position[n].z = atom_getfloat(argv+3);
@@ -279,7 +276,7 @@ void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 	long n;
 	
 	if (argc >= (x->attr_dimensions + 1)) {
-		n = atom_getlong(argv);
+		n = atom_getlong(argv)-1;							// we start counting from 1 for destinations
 		if ( (n<0) || (n>=MAX_NUM_DESTINATIONS) ) {
 			error("Invalid arguments for destination.");
 			return;
@@ -287,16 +284,13 @@ void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 		switch (x->attr_dimensions)
 		{
 			case 1:
-				n = atom_getlong(argv);
 				x->dst_position[n].x = atom_getfloat(argv+1);
 				break;
 			case 2:
-				n = atom_getlong(argv);
 				x->dst_position[n].x = atom_getfloat(argv+1);
 				x->dst_position[n].y = atom_getfloat(argv+2);
 				break;
 			case 3:
-				n = atom_getlong(argv);
 				x->dst_position[n].x = atom_getfloat(argv+1);
 				x->dst_position[n].y = atom_getfloat(argv+2);
 				x->dst_position[n].z = atom_getfloat(argv+3);
@@ -317,7 +311,7 @@ void dbap_info(t_dbap *x)
 	long i;
 
 	for (i=0; i<x->attr_num_sources; i++) {
-		atom_setlong(&a[0], i);
+		atom_setlong(&a[0], i+1);
 		atom_setfloat(&a[1], x->src_position[i].x);
 		atom_setfloat(&a[2], x->src_position[i].y);
 		atom_setfloat(&a[3], x->src_position[i].z);
@@ -325,7 +319,7 @@ void dbap_info(t_dbap *x)
 	}
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
-		atom_setlong(&a[0], i);
+		atom_setlong(&a[0], i+1);
 		atom_setfloat(&a[1], x->dst_position[i].x);
 		atom_setfloat(&a[2], x->dst_position[i].y);
 		atom_setfloat(&a[3], x->dst_position[i].z);
