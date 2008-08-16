@@ -225,5 +225,8 @@ public:
 };
 
 
+typedef TTAudioObject* TTAudioObjectPtr;
+
+
 #endif // __TT_AUDIO_OBJECT_H__
 

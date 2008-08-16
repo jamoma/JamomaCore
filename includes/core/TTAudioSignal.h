@@ -130,5 +130,8 @@ public:
 };
 
 
+typedef TTAudioSignal* TTAudioSignalPtr;
+
+
 #endif // __TT_AUDIO_SIGNAL_H__
 

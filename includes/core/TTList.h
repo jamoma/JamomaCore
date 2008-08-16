@@ -60,5 +60,8 @@ public:
 };
 
 
+typedef TTList* TTListPtr;
+
+
 #endif // __TT_LIST_H__
 

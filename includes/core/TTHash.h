@@ -71,5 +71,8 @@ public:
 };
 
 
+typedef TTHash* TTHashPtr;
+
+
 #endif // __TT_HASH_H__
 
