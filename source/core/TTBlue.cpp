@@ -47,9 +47,6 @@ void TTBlueInit()
 		
 		TTBlueRegisterInternalClasses();
 		TTBlueLoadExternalClasses();
-		
-		// do we need to do anything with the global object?
-		// init the queue -- runs in a new thread
 	}
 }
 
@@ -87,7 +84,6 @@ void TTBlueLoadExternalClasses()
 	HKEY		hKey = 0;
 	LONG		lRes;
 	DWORD		dwSize = sizeof(temppath);
-//	Boolean		notFolder;
 	HRESULT		hr;
 
 	// Look in C:\Program Files\Common Files\TTBlue\Extensions
@@ -96,10 +92,7 @@ void TTBlueLoadExternalClasses()
 		fullpath = temppath;
 		fullpath += "\\TTBlue\\Extensions\\";
 		lRes = SHCreateDirectory(NULL, (LPCWSTR)fullpath.c_str());
-//		if(!lRes)
-			TTBlueLoadExternalClassesFromFolder(fullpath);
-//		else
-//			TTLogError("Could not create directory for TTBlue extensions.");
+		TTBlueLoadExternalClassesFromFolder(fullpath);
 	}
 
 	// TODO: Look in some user-level directory like we do on the Mac?
