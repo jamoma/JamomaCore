@@ -53,9 +53,6 @@ public:
 	/**	Return this symbol's unique id. */
 	const TTUInt32 getId();
 	
-	/**	Compare this symbol with another symbol.  */
-	TTBoolean compare(TTSymbol& anotherSymbol);
-	
 	// make sure this is a friend so that it can access the private members of the other
 	/** Compare two symbols for equality. */
 	inline friend bool operator == (const TTSymbol& symbol1, const TTSymbol& symbol2)
