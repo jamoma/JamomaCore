@@ -8,6 +8,6 @@
     <item name='menu' type='msg_generic' priority='0'>0</item>
     <item name='on' type='msg_toggle' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='updaterate' type='msg_int' priority='0'>66</item>
+    <item name='updaterate' type='msg_int' priority='0'>0</item>
   </preset>
 </jamoma>
