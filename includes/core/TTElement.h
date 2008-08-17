@@ -51,6 +51,7 @@ using namespace std;
 // Type Definitions
 
 typedef bool				TTBoolean;			// same as Boolean on the Mac
+typedef char*				TTCString;
 typedef std::string			TTString;
 
 typedef signed char			TTInt8;
