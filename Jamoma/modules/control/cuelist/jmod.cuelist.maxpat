@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 435.0, 147.0, 814.0, 635.0 ],
+		"rect" : [ 140.0, 51.0, 814.0, 635.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 435.0, 147.0, 814.0, 635.0 ],
+		"defrect" : [ 140.0, 51.0, 814.0, 635.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.970939,
@@ -19,57 +19,57 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "textbutton",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 147.166489, 22.48205, 73.374352, 20.0 ],
-					"texton" : "View",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"border" : 1,
-					"patching_rect" : [ 355.0, 270.0, 36.0, 21.0 ],
-					"presentation" : 1,
-					"numoutlets" : 3,
-					"text" : "View",
-					"rounded" : 8.0,
 					"id" : "obj-21",
-					"outlettype" : [ "", "", "int" ]
+					"fontsize" : 10.0,
+					"numinlets" : 1,
+					"patching_rect" : [ 355.0, 270.0, 36.0, 21.0 ],
+					"border" : 1,
+					"presentation" : 1,
+					"texton" : "View",
+					"rounded" : 8.0,
+					"text" : "View",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"fontname" : "Verdana",
+					"presentation_rect" : [ 148.166489, 22.48205, 72.374352, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "textbutton",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 52.0, 44.0, 93.215401, 20.0 ],
-					"texton" : "Save Cue Script",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"border" : 1,
-					"patching_rect" : [ 355.0, 186.0, 100.0, 20.0 ],
-					"presentation" : 1,
-					"numoutlets" : 3,
-					"text" : "Save Cue Script",
-					"rounded" : 8.0,
 					"id" : "obj-13",
-					"outlettype" : [ "", "", "int" ]
+					"fontsize" : 10.0,
+					"numinlets" : 1,
+					"patching_rect" : [ 355.0, 186.0, 100.0, 20.0 ],
+					"border" : 1,
+					"presentation" : 1,
+					"texton" : "Save Cue Script",
+					"rounded" : 8.0,
+					"text" : "Save Cue Script",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"fontname" : "Verdana",
+					"presentation_rect" : [ 52.0, 44.0, 93.215401, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "textbutton",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 221.245789, 22.48205, 73.664474, 20.0 ],
-					"texton" : "Get State",
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"border" : 1,
-					"patching_rect" : [ 356.0, 41.0, 100.0, 20.0 ],
-					"presentation" : 1,
-					"numoutlets" : 3,
-					"text" : "Get State",
-					"rounded" : 8.0,
 					"id" : "obj-2",
-					"outlettype" : [ "", "", "int" ]
+					"fontsize" : 10.0,
+					"numinlets" : 1,
+					"patching_rect" : [ 356.0, 41.0, 100.0, 20.0 ],
+					"border" : 1,
+					"presentation" : 1,
+					"texton" : "Get State",
+					"rounded" : 8.0,
+					"text" : "Get State",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"fontname" : "Verdana",
+					"presentation_rect" : [ 222.245789, 22.48205, 72.664474, 20.0 ]
 				}
 
 			}
@@ -77,13 +77,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.in",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-1",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 86.0, 185.0, 45.0, 18.0 ],
 					"numoutlets" : 2,
-					"id" : "obj-1",
-					"outlettype" : [ "", "" ]
+					"outlettype" : [ "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -91,18 +91,18 @@
 				"box" : 				{
 					"maxclass" : "umenu",
 					"varname" : "CueMenu",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 146.446152, 45.1077, 149.589752, 19.0 ],
-					"numinlets" : 1,
-					"labelclick" : 1,
-					"items" : [  ],
+					"id" : "obj-3",
 					"fontsize" : 10.0,
+					"types" : [  ],
+					"numinlets" : 1,
 					"patching_rect" : [ 355.0, 353.0, 146.0, 19.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
-					"types" : [  ],
-					"id" : "obj-3",
-					"outlettype" : [ "int", "", "" ]
+					"labelclick" : 1,
+					"outlettype" : [ "int", "", "" ],
+					"fontname" : "Verdana",
+					"items" : [  ],
+					"presentation_rect" : [ 147.446152, 44.0, 148.589752, 19.0 ]
 				}
 
 			}
@@ -110,13 +110,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "p cue_menu",
-					"fontname" : "Verdana",
-					"numinlets" : 0,
+					"id" : "obj-4",
 					"fontsize" : 9.873845,
+					"numinlets" : 0,
 					"patching_rect" : [ 355.0, 330.0, 70.0, 18.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-4",
 					"outlettype" : [ "" ],
+					"fontname" : "Verdana",
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 302.0, 84.0, 600.0, 426.0 ],
@@ -138,23 +138,23 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "sel ---END ---START",
-									"fontname" : "Verdana",
-									"numinlets" : 1,
+									"id" : "obj-1",
 									"fontsize" : 9.873845,
+									"numinlets" : 1,
 									"patching_rect" : [ 57.0, 110.0, 110.0, 18.0 ],
 									"numoutlets" : 3,
-									"id" : "obj-1",
-									"outlettype" : [ "bang", "bang", "" ]
+									"outlettype" : [ "bang", "bang", "" ],
+									"fontname" : "Verdana"
 								}
 
 							}
 , 							{
 								"box" : 								{
 									"maxclass" : "outlet",
+									"id" : "obj-2",
 									"numinlets" : 1,
 									"patching_rect" : [ 57.0, 239.0, 15.0, 15.0 ],
 									"numoutlets" : 0,
-									"id" : "obj-2",
 									"comment" : ""
 								}
 
@@ -163,13 +163,13 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "prepend append",
-									"fontname" : "Verdana",
-									"numinlets" : 1,
+									"id" : "obj-3",
 									"fontsize" : 9.873845,
+									"numinlets" : 1,
 									"patching_rect" : [ 57.0, 198.0, 89.0, 18.0 ],
 									"numoutlets" : 1,
-									"id" : "obj-3",
-									"outlettype" : [ "" ]
+									"outlettype" : [ "" ],
+									"fontname" : "Verdana"
 								}
 
 							}
@@ -177,13 +177,13 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "t \"Select cue\" clear",
-									"fontname" : "Verdana",
-									"numinlets" : 1,
+									"id" : "obj-4",
 									"fontsize" : 9.873845,
+									"numinlets" : 1,
 									"patching_rect" : [ 105.0, 155.0, 103.0, 18.0 ],
 									"numoutlets" : 2,
-									"id" : "obj-4",
-									"outlettype" : [ "Select cue", "clear" ]
+									"outlettype" : [ "Select cue", "clear" ],
+									"fontname" : "Verdana"
 								}
 
 							}
@@ -191,13 +191,13 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"text" : "r #0__set_menu",
-									"fontname" : "Verdana",
-									"numinlets" : 0,
+									"id" : "obj-5",
 									"fontsize" : 9.873845,
+									"numinlets" : 0,
 									"patching_rect" : [ 57.0, 89.0, 92.0, 18.0 ],
 									"numoutlets" : 1,
-									"id" : "obj-5",
-									"outlettype" : [ "" ]
+									"outlettype" : [ "" ],
+									"fontname" : "Verdana"
 								}
 
 							}
@@ -260,13 +260,13 @@
 					}
 ,
 					"saved_object_attributes" : 					{
-						"fontname" : "Verdana",
-						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
-						"default_fontsize" : 10.0
+						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana"
 					}
 
 				}
@@ -277,13 +277,13 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.message save_script @description \"Save cue script to a file. An argument determines the path and name of the file.  No argument will bring up a file dialog (like saveas) or save the script to the existing file that is in use.\"",
 					"linecount" : 3,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-6",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 355.0, 210.0, 407.0, 42.0 ],
 					"numoutlets" : 3,
-					"id" : "obj-6",
-					"outlettype" : [ "", "", "" ]
+					"outlettype" : [ "", "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -293,13 +293,13 @@
 					"varname" : "listen",
 					"text" : "jcom.parameter listen @type msg_toggle @repetitions/allow 0 @description \"Listen to remote change of parameters.\"",
 					"linecount" : 2,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
-					"fontsize" : 9.873845,
-					"patching_rect" : [ 355.0, 484.0, 314.0, 30.0 ],
-					"numoutlets" : 3,
 					"id" : "obj-8",
-					"outlettype" : [ "", "", "" ]
+					"fontsize" : 9.873845,
+					"numinlets" : 1,
+					"patching_rect" : [ 355.0, 487.0, 314.0, 30.0 ],
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -307,13 +307,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jcom.pass open",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-11",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 86.0, 209.0, 86.0, 18.0 ],
 					"numoutlets" : 2,
-					"id" : "obj-11",
-					"outlettype" : [ "", "" ]
+					"outlettype" : [ "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -322,13 +322,13 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.message view @description \"View current cue script in a text window.\"",
 					"linecount" : 2,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-12",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 355.0, 295.0, 208.0, 30.0 ],
 					"numoutlets" : 3,
-					"id" : "obj-12",
-					"outlettype" : [ "", "", "" ]
+					"outlettype" : [ "", "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -337,13 +337,13 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.message remote @type msg_generic @description \"Wireless communication of messages to modules via the bridge.\"",
 					"linecount" : 2,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-15",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 355.0, 416.0, 341.0, 30.0 ],
 					"numoutlets" : 3,
-					"id" : "obj-15",
-					"outlettype" : [ "", "", "" ]
+					"outlettype" : [ "", "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -352,13 +352,13 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.message cue @type msg_generic @description \"Recall cue event from cue script.\"",
 					"linecount" : 2,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-16",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 355.0, 375.0, 248.0, 30.0 ],
 					"numoutlets" : 3,
-					"id" : "obj-16",
-					"outlettype" : [ "", "", "" ]
+					"outlettype" : [ "", "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -366,13 +366,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "pcontrol",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-19",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 86.0, 235.0, 49.0, 18.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-19",
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -380,13 +380,13 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/documentation/generate",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
+					"id" : "obj-20",
 					"fontsize" : 9.873845,
+					"numinlets" : 2,
 					"patching_rect" : [ 38.0, 89.0, 135.0, 16.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-20",
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -395,13 +395,13 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.message load_script @description \"Load cue script from file. <br>NOTE: jcom.cue_list will be watching the file and automatically update if the content of the file is changed. This way you can use an external editor to work on the cue script while Jamoma is running.\"",
 					"linecount" : 4,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-22",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 355.0, 126.0, 353.0, 54.0 ],
 					"numoutlets" : 3,
-					"id" : "obj-22",
-					"outlettype" : [ "", "", "" ]
+					"outlettype" : [ "", "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -409,13 +409,13 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/init",
-					"fontname" : "Verdana",
-					"numinlets" : 2,
+					"id" : "obj-24",
 					"fontsize" : 9.873845,
+					"numinlets" : 2,
 					"patching_rect" : [ 180.0, 90.0, 37.0, 16.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-24",
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -423,13 +423,13 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "jalg.cuelist #0_",
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-25",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 86.0, 264.0, 88.0, 18.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-25",
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
@@ -439,23 +439,23 @@
 					"varname" : "jcom.hub",
 					"text" : "jcom.hub @module_type control @description \"Manage cue list in text format\"",
 					"linecount" : 2,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-27",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 16.0, 114.0, 278.0, 30.0 ],
 					"numoutlets" : 2,
-					"id" : "obj-27",
-					"outlettype" : [ "", "" ]
+					"outlettype" : [ "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "inlet",
+					"id" : "obj-28",
 					"numinlets" : 0,
 					"patching_rect" : [ 16.0, 90.0, 13.0, 13.0 ],
 					"numoutlets" : 1,
-					"id" : "obj-28",
 					"outlettype" : [ "" ],
 					"comment" : ""
 				}
@@ -464,10 +464,10 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "outlet",
+					"id" : "obj-29",
 					"numinlets" : 1,
 					"patching_rect" : [ 16.0, 154.0, 13.0, 13.0 ],
 					"numoutlets" : 0,
-					"id" : "obj-29",
 					"comment" : ""
 				}
 
@@ -478,86 +478,89 @@
 					"varname" : "jcom.parameter",
 					"text" : "jcom.message get_state @description \"Poll state for all bridged modules, and display in text window.\"",
 					"linecount" : 2,
-					"fontname" : "Verdana",
-					"numinlets" : 1,
+					"id" : "obj-30",
 					"fontsize" : 9.873845,
+					"numinlets" : 1,
 					"patching_rect" : [ 355.0, 66.0, 280.0, 30.0 ],
 					"numoutlets" : 3,
-					"id" : "obj-30",
-					"outlettype" : [ "", "", "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "listen",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 13.0, 23.0, 47.0, 19.0 ],
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numinlets" : 1,
-					"fontsize" : 10.0,
-					"patching_rect" : [ 201.0, 0.0, 47.0, 19.0 ],
-					"presentation" : 1,
-					"numoutlets" : 0,
-					"id" : "obj-31"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "radiogroup",
-					"varname" : "ListenToggle",
-					"activecolor" : [ 0.784314, 0.784314, 0.784314, 1.0 ],
-					"presentation_rect" : [ -1.0, 23.0, 50.0, 18.0 ],
-					"numinlets" : 1,
-					"inactivecolor" : [ 0.756863, 0.756863, 0.756863, 1.0 ],
-					"patching_rect" : [ 355.0, 465.0, 54.0, 18.0 ],
-					"presentation" : 1,
-					"numoutlets" : 1,
-					"id" : "obj-10",
-					"outlettype" : [ "" ],
-					"itemtype" : 1,
-					"size" : 1,
-					"values" : [ 0 ],
-					"disabled" : [ 0 ]
+					"outlettype" : [ "", "", "" ],
+					"fontname" : "Verdana"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "textbutton",
-					"fontname" : "Verdana",
-					"presentation_rect" : [ 51.9641, 22.0, 94.215401, 20.0 ],
-					"texton" : "Load Cue Script",
-					"numinlets" : 1,
+					"id" : "obj-10",
 					"fontsize" : 10.0,
+					"mode" : 1,
+					"numinlets" : 1,
+					"patching_rect" : [ 355.0, 465.0, 100.0, 20.0 ],
 					"border" : 1,
-					"patching_rect" : [ 355.0, 103.0, 100.0, 20.0 ],
 					"presentation" : 1,
-					"numoutlets" : 3,
-					"text" : "Load Cue Script",
+					"texton" : "Listen (On)",
 					"rounded" : 8.0,
+					"text" : "Listen (Off)",
+					"numoutlets" : 3,
+					"truncate" : 0,
+					"outlettype" : [ "", "", "int" ],
+					"fontname" : "Verdana",
+					"presentation_rect" : [ 3.0, 22.48205, 47.215401, 42.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "textbutton",
 					"id" : "obj-9",
-					"outlettype" : [ "", "", "int" ]
+					"fontsize" : 10.0,
+					"numinlets" : 1,
+					"patching_rect" : [ 355.0, 103.0, 100.0, 20.0 ],
+					"border" : 1,
+					"presentation" : 1,
+					"texton" : "Load Cue Script",
+					"rounded" : 8.0,
+					"text" : "Load Cue Script",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"fontname" : "Verdana",
+					"presentation_rect" : [ 51.9641, 22.0, 94.215401, 20.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "jcom.ui",
-					"text" : "/editing_this_module.1",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"text" : "/editing_this_module",
+					"id" : "obj-32",
 					"numinlets" : 1,
 					"presentation" : 1,
 					"numoutlets" : 1,
-					"id" : "obj-32",
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"source" : [ "obj-10", 0 ],
+					"destination" : [ "obj-8", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-8", 0 ],
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 364.5, 519.0, 342.0, 519.0, 342.0, 462.0, 364.5, 462.0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"source" : [ "obj-27", 0 ],
 					"destination" : [ "obj-29", 0 ],
@@ -689,24 +692,6 @@
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 364.5, 405.0, 342.0, 405.0, 342.0, 348.0, 364.5, 348.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
-					"destination" : [ "obj-8", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
-					"destination" : [ "obj-10", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 364.5, 516.0, 342.0, 516.0, 342.0, 462.0, 364.5, 462.0 ]
 				}
 
 			}
