@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+
+<jamoma version="0.4" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jamoma.org/ file:jamoma.xsd"
+>
+	
+	<preset number="1" name="default">
+		<item name="audio/gain" type="msg_int">0</item>
+		<item name="audio/meters/freeze" type="msg_int">0</item>
+		<item name="audio/mix" type="msg_float">100.</item>
+		<item name="audio/bypass" type="msg_int">0</item>
+		<item name="audio/mute" type="msg_int">1</item>
+		
+		<item name="left" type="msg_int">250</item>
+		<item name="cf" type="msg_float" priority="4">8571.957031</item>
+		<item name="q" type="msg_float">0.80165</item>
+		<item name="filtergain" type="msg_float">-0.547163</item>
+		<item name="filtertype" type="msg_symbol">lowpass</item>
+		<item name="right" type="msg_int">750</item>
+		<item name="feedback" type="msg_float" priority ="1">0.2</item>
+    </preset>
+</jamoma>
