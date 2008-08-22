@@ -929,8 +929,8 @@ TTErr TTValue::transformCSVStringToSymbolArray()
 		append(TT(current));
 		current = strrchr(cStr, ',');
 	}
-	append(TT(cStr));	
-	
+	append(TT(cStr));
+	delete[] cStr;
 	return kTTErrNone;
 }
 
