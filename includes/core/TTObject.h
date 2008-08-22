@@ -216,7 +216,7 @@ public:
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTEXPORT TTAttribute : TTElement {
+class TTEXPORT TTAttribute : TTObject {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
@@ -250,7 +250,7 @@ public:
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTEXPORT TTMessage : TTElement {
+class TTEXPORT TTMessage : TTObject {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
