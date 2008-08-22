@@ -7,7 +7,7 @@ CUE 1_init_8_microphones
 # Module /jmod.multi.aux
 	/jmod.multi.aux/aux.1/active 0
 	/jmod.multi.aux/aux.1/description "to reverb"
-	/jmod.multi.aux/aux.1/gaini 100.000
+	/jmod.multi.aux/aux.1/gain 100.000
 	/jmod.multi.aux/aux.2/active 1
 	/jmod.multi.aux/aux.2/description "to output"
 	/jmod.multi.aux/aux.2/gain 100.000
@@ -15,7 +15,7 @@ CUE 1_init_8_microphones
 	/jmod.multi.aux/aux.3/description "_"
 	/jmod.multi.aux/aux.3/gain 100.000
 	/jmod.multi.aux/input/gain 100.000
-	/jmod.multi.aux/mute 0
+	/jmod.multi.aux/audio/mute 0
 	/jmod.multi.aux/ui/freeze 0
 	/jmod.multi.aux/voices 8
 # Module /jmod.sur.vimic~
@@ -103,15 +103,15 @@ CUE 1_init_8_microphones
 	/jmod.sur.vimic~/room/absorption/rear/preset full
 	/jmod.sur.vimic~/room/absorption/front/preset full
 # Module /microphone_setup
-    /microphone_setup/voices 8
-	/microphone_setup/aed/1 -0.000 0.000 2.000
-	/microphone_setup/aed/2 -45.000 0.000 2.000
-	/microphone_setup/aed/3 -90.000 0.000 2.000
-	/microphone_setup/aed/4 -135.000 0.000 2.000
-	/microphone_setup/aed/5 180.000 0.000 2.000
-	/microphone_setup/aed/6 135.000 0.000 2.000
-	/microphone_setup/aed/7 90.000 0.000 2.000
-	/microphone_setup/aed/8 45.000 0.000 2.000
+#    /microphone_setup/voices 8
+#	/microphone_setup/aed/1 -0.000 0.000 2.000
+#	/microphone_setup/aed/2 -45.000 0.000 2.000
+#	/microphone_setup/aed/3 -90.000 0.000 2.000
+#	/microphone_setup/aed/4 -135.000 0.000 2.000
+#	/microphone_setup/aed/5 180.000 0.000 2.000
+#	/microphone_setup/aed/6 135.000 0.000 2.000
+#	/microphone_setup/aed/7 90.000 0.000 2.000
+#	/microphone_setup/aed/8 45.000 0.000 2.000
 # Module /output~
 	/output~/channel_offset 0
 	/output~/ui/freeze 0
@@ -316,31 +316,31 @@ WAIT 1000
 	/jmod.sur.vimic~/room/absorption/rear/preset full
 	/jmod.sur.vimic~/room/absorption/front/preset full
 # Module /microphone_setup
-    /microphone_setup/voices 24
-	/microphone_setup/aed/1 0.000 0.000 1.000
-	/microphone_setup/aed/10 135.000 0.000 1.000
-	/microphone_setup/aed/11 150.000 0.000 1.000
-	/microphone_setup/aed/12 165.000 0.000 1.000
-	/microphone_setup/aed/13 180.000 0.000 1.000
-	/microphone_setup/aed/14 195.000 0.000 1.000
-	/microphone_setup/aed/15 210.000 0.000 1.000
-	/microphone_setup/aed/16 225.000 0.000 1.000
-	/microphone_setup/aed/17 240.000 0.000 1.000
-	/microphone_setup/aed/18 255.000 0.000 1.000
-	/microphone_setup/aed/19 270.000 0.000 1.000
-	/microphone_setup/aed/2 15.000 0.000 1.000
-	/microphone_setup/aed/20 285.000 0.000 1.000
-	/microphone_setup/aed/21 300.000 0.000 1.000
-	/microphone_setup/aed/22 315.000 0.000 1.000
-	/microphone_setup/aed/23 330.000 0.000 1.000
-	/microphone_setup/aed/24 345.000 0.000 1.000
-	/microphone_setup/aed/3 30.000 0.000 1.000
-	/microphone_setup/aed/4 45.000 0.000 1.000
-	/microphone_setup/aed/5 60.000 0.000 1.000
-	/microphone_setup/aed/6 75.000 0.000 1.000
-	/microphone_setup/aed/7 90.000 0.000 1.000
-	/microphone_setup/aed/8 105.000 0.000 1.000
-	/microphone_setup/aed/9 120.000 0.000 1.000
+#    /microphone_setup/voices 24
+#	/microphone_setup/aed/1 0.000 0.000 1.000
+#	/microphone_setup/aed/10 135.000 0.000 1.000
+#	/microphone_setup/aed/11 150.000 0.000 1.000
+#	/microphone_setup/aed/12 165.000 0.000 1.000
+#	/microphone_setup/aed/13 180.000 0.000 1.000
+#	/microphone_setup/aed/14 195.000 0.000 1.000
+#	/microphone_setup/aed/15 210.000 0.000 1.000
+#	/microphone_setup/aed/16 225.000 0.000 1.000
+#	/microphone_setup/aed/17 240.000 0.000 1.000
+#	/microphone_setup/aed/18 255.000 0.000 1.000
+#	/microphone_setup/aed/19 270.000 0.000 1.000
+#	/microphone_setup/aed/2 15.000 0.000 1.000
+#	/microphone_setup/aed/20 285.000 0.000 1.000
+#	/microphone_setup/aed/21 300.000 0.000 1.000
+#	/microphone_setup/aed/22 315.000 0.000 1.000
+#	/microphone_setup/aed/23 330.000 0.000 1.000
+#	/microphone_setup/aed/24 345.000 0.000 1.000
+#	/microphone_setup/aed/3 30.000 0.000 1.000
+#	/microphone_setup/aed/4 45.000 0.000 1.000
+#	/microphone_setup/aed/5 60.000 0.000 1.000
+#	/microphone_setup/aed/6 75.000 0.000 1.000
+#	/microphone_setup/aed/7 90.000 0.000 1.000
+#	/microphone_setup/aed/8 105.000 0.000 1.000
+#	/microphone_setup/aed/9 120.000 0.000 1.000
 # Module /reverb~
 	/reverb~/audio/gain/midi 0.000
 	/reverb~/audio/meters/freeze 0
@@ -379,7 +379,7 @@ CUE 3_fadein_Direct_Sound
 ############################################################
 CUE 4_include_late_reverb
 ############################################################
-/jmod.multi.aux/aux1/gain 0.0
-/jmod.multi.aux/aux1/active 1
+/jmod.multi.aux/aux.1/gain 0.0
+/jmod.multi.aux/aux.1/active 1
 /reverb~/audio/mute 0
-/jmod.multi.aux/aux1/gain 100.0 ramp 2000
+/jmod.multi.aux/aux.1/gain 100.0 ramp 2000
