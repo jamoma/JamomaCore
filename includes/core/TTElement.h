@@ -78,9 +78,6 @@ typedef TTFloat64			TTSampleValue;
 /** A TTSampleVector is simply a pointer to the first of an array of TTSampleValues. */
 typedef TTSampleValue*		TTSampleVector;
 
-/** The primary return type for TTBlue methods.  TTErr is typically an integrer value represented by the TTErrorCodes enum.	*/
-typedef short				TTErr;
-
 /** An integer that is the same size as a pointer. */
 typedef long				TTPtrSizedInt;
 
@@ -115,7 +112,7 @@ enum TTDataType{
 
 /**	TTBlue Error Codes
  *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
-enum TTErrorCode {
+enum TTErr {
 	kTTErrNone = 0,			///< No Error.
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
 	kTTErrAllocFailed,		///< Couldn't get memory.
