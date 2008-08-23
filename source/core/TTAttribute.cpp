@@ -197,3 +197,15 @@ TTErr TTAttribute::getrange(TTValue& currentRange)
 	return kTTErrNone;
 }
 
+
+TTErr TTAttribute::setrangeChecking(const TTValue& newRangeCheckingMode)
+{
+	rangeChecking = newRangeCheckingMode;
+	return kTTErrNone;
+}
+
+TTErr TTAttribute::getrangeChecking(TTValue& currentRangeCheckingMode)
+{
+	currentRangeCheckingMode = rangeChecking;
+	return kTTErrNone;
+}

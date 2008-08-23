@@ -95,7 +95,10 @@ public:
 	
 	TTErr setrange(const TTValue& newRange);
 	TTErr getrange(TTValue& currentRange);
-
+	
+	TTErr setrangeChecking(const TTValue& newRangeCheckingMode);
+	TTErr getrangeChecking(TTValue& currentRangeCheckingMode);
+	
 };
 
 

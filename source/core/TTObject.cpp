@@ -127,7 +127,7 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, TTValue& value)
 	return err;
 }
 
-TTErr TTObject::setAttributeValue(const TTSymbolPtr name, const TTValue& value)
+TTErr TTObject::setAttributeValue(const TTSymbolPtr name, TTValue& value)
 {
 	TTAttributePtr	attribute;
 	TTErr			err;
@@ -137,6 +137,13 @@ TTErr TTObject::setAttributeValue(const TTSymbolPtr name, const TTValue& value)
 		if(attribute->readOnly)
 			err = kTTErrReadOnly;
 		else{
+			if(attribute->rangeChecking != TT("clip"))
+				value.clip(attribute->rangeLowBound, attribute->rangeLowBound);
+			else if(attribute->rangeChecking != TT("cliplow"))
+				value.cliplow(attribute->rangeLowBound);
+			else if(attribute->rangeChecking != TT("cliphigh"))
+				value.cliphigh(attribute->rangeLowBound);
+
 			if(attribute->setterFlags & kTTAttrPassObject)
 				err = (this->*attribute->setter)(*attribute, value);
 			else{

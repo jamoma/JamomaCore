@@ -101,7 +101,14 @@ public:
 	
 	TTErr findAttribute(const TTSymbolPtr name, TTAttribute** attr);
 
-	TTErr setAttributeValue(const TTSymbolPtr name, const TTValue& value);
+	/**	Set an attribute value for an object
+		@param	name	The name of the attribute to set.
+		@param	value	The value to use for setting the attribute.  
+						This value can be changed(!), for example if the value is out of range for the attribute.
+						Hence, it is not declared const.
+		@return			An error code.
+	 */
+	TTErr setAttributeValue(const TTSymbolPtr name, TTValue& value);
 	TTErr getAttributeValue(const TTSymbolPtr name, TTValue& value);
 
 	template<class T>
