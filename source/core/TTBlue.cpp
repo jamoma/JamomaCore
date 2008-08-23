@@ -33,12 +33,11 @@ void TTBlueInit()
 	if(!TTBlueHasInitialized){
 		TTBlueHasInitialized = true;
 		
-
 		ttSymbolTable = new TTSymbolTable;
-		ttEnvironment = new TTEnvironment;
-
 		for(int i=0; i<kNumTTDataTypes; i++)
 			TTDataInfo::addDataInfoForType(TTDataType(i));
+
+		ttEnvironment = new TTEnvironment;
 		
 		TTSymbolCacheInit();
 		TTValueCacheInit();
