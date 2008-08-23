@@ -118,18 +118,6 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 
 TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& value)
 {
-	/*	TTErr err = getAttributeValue(TT("readOnly"), internalValue);
-
-
-	if(!err){
-		TTBoolean readOnly = internalValue;
-		if(readOnly)
-			return kTTErrGeneric;
-	}
-	 */
-	if(readOnly)
-		return kTTErrReadOnly;
-	
 	switch(attribute.type){
 		case kTypeFloat32:
 			*((TTFloat32*)attribute.address) = value;
@@ -179,26 +167,33 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 
 TTErr TTAttribute::setreadOnly(const TTValue& newReadOnlyValue)
 {
-	internalValue = newReadOnlyValue;
+	readOnly = newReadOnlyValue;
 	return kTTErrNone;
 }
 
 TTErr TTAttribute::getreadOnly(TTValue& currentReadOnlyValue)
 {
-	currentReadOnlyValue = internalValue;
+	currentReadOnlyValue = readOnly;
 	return kTTErrNone;
 }
 
 
 TTErr TTAttribute::setrange(const TTValue& newRange)
 {
-	internalValue = newRange;
-	return kTTErrNone;
+	if(newRange.getSize() == 2){
+		newRange.get(0, rangeLowBound);
+		newRange.get(1, rangeHighBound);
+		return kTTErrNone;
+	}
+	else
+		return kTTErrWrongNumValues;
 }
 
 TTErr TTAttribute::getrange(TTValue& currentRange)
 {
-	currentRange = internalValue;
+	currentRange.clear();
+	currentRange.append(rangeLowBound);
+	currentRange.append(rangeHighBound);
 	return kTTErrNone;
 }
 

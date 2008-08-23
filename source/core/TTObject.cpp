@@ -134,11 +134,15 @@ TTErr TTObject::setAttributeValue(const TTSymbolPtr name, const TTValue& value)
 	
 	err = findAttribute(name, &attribute);
 	if(!err){
-		if(attribute->setterFlags & kTTAttrPassObject)
-			err = (this->*attribute->setter)(*attribute, value);
+		if(attribute->readOnly)
+			err = kTTErrReadOnly;
 		else{
-			TTMethodConstValue setter = (TTMethodConstValue)attribute->setter;
-			err = (this->*setter)(value);
+			if(attribute->setterFlags & kTTAttrPassObject)
+				err = (this->*attribute->setter)(*attribute, value);
+			else{
+				TTMethodConstValue setter = (TTMethodConstValue)attribute->setter;
+				err = (this->*setter)(value);
+			}
 		}
 	}
 	return err;
