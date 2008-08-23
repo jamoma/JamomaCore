@@ -5,12 +5,27 @@
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
+
+ 
+ 
+ EXTREMELY IMPORTANT
+ 
+ In order to comile this source, you must modify the CoreAudio SDK.
+ The reason is that the CoreAudio SDK uses anonymous enums.
+ Anonymous enums, beside being considered bad practice in the C++ community,
+ cause problems for the GCC 4 compiler when compiling C++ templates 
+ in other parts of the code.
+ 
+ So you will need to find CoreAudioTypes.h and give all of the enums a name.
+ 
+ 
  */
 
 #include "TTBlueAPI.h"
 #include <CoreServices/CoreServices.h>
 #include <AudioToolbox/AudioToolBox.h>
 #include <AudioUnit/AudioUnit.h>
+
 
 #define thisTTClass TTAudioUnit
 
