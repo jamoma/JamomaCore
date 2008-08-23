@@ -16,7 +16,7 @@
  */ 
 class TTEXPORT TTRamp : public TTAudioObject {
 protected:
-	enum{
+	enum rampDirection {
 		kUP = 0,
 		kDOWN
 	};
