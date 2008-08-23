@@ -57,19 +57,19 @@ TTErr TTCrossfade::setmode(const TTValue& newValue)
 
 TTErr TTCrossfade::setProcessPointers()
 {
-	TTErr	err =kTTErrNone;
+	TTErr	err = kTTErrNone;
 	
 	if(shape == TT("equalPower") && mode == TT("lookup")){
-		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processLookupUsingSidechain);
-		err |= setProcess((TTProcessMethod)&TTCrossfade::processLookup);
+		err = setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processLookupUsingSidechain);
+		err = setProcess((TTProcessMethod)&TTCrossfade::processLookup);
 	}
 	else if(shape == TT("equalPower") && mode == TT("calculate")){
-		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processCalcUsingSidechain);
-		err |= setProcess((TTProcessMethod)&TTCrossfade::processCalc);
+		err = setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processCalcUsingSidechain);
+		err = setProcess((TTProcessMethod)&TTCrossfade::processCalc);
 	}
 	else{
-		err |= setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processLinearUsingSidechain);
-		err |= setProcess((TTProcessMethod)&TTCrossfade::processLinear);
+		err = setProcessWithSidechain((TTProcessWithSidechainMethod)&TTCrossfade::processLinearUsingSidechain);
+		err = setProcess((TTProcessMethod)&TTCrossfade::processLinear);
 	}
 	return err;
 }
