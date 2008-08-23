@@ -92,23 +92,25 @@ private:
 
 public:
 	/** Constructors */
-	TTValue();
-	TTValue(TTFloat32 initialValue);
-	TTValue(TTFloat64 initialValue);
-	TTValue(TTInt8 initialValue);
-	TTValue(TTUInt8 initialValue);
-	TTValue(TTInt16 initialValue);
-	TTValue(TTUInt16 initialValue);
-	TTValue(TTInt32 initialValue);
-	TTValue(TTUInt32 initialValue);
-	TTValue(TTInt64 initialValue);
-	TTValue(TTUInt64 initialValue);
-	TTValue(TTBoolean initialValue);
-	TTValue(TTSymbolPtr initialValue);
-	TTValue(TTString& initialValue);
-	TTValue(TTObject& initialValue);
-	TTValue(TTPtr initialValue);
-
+	TTValue();													// empty value
+	
+	template<class T>
+	TTValue(const T& initialValue)								// single value
+	{
+		init();
+		set(0, initialValue);
+	}
+	
+	template<class T>
+	TTValue(const T& initialValue1, const T& initialValue2)		// two item array
+	{
+		init();
+		setSize(2);
+		set(0, initialValue1);
+		set(1, initialValue2);
+	}
+	
+		
 	/** Copy constructor */
 	TTValue(const TTValue& obj);
 
@@ -241,27 +243,15 @@ public:
 	void get(TTUInt16 index, TTObject& value) const;
 	void get(TTUInt16 index, TTPtr* value) const;
 
-
-	void append(const TTFloat32 newValue);
-	void append(const TTFloat64 newValue);
-	void append(const TTInt8 newValue);
-	void append(const TTUInt8 newValue);
-	void append(const TTInt16 newValue);
-	void append(const TTUInt16 value);
-	void append(const TTInt32 newValue);
-	void append(const TTUInt32 newValue);
-	void append(const TTInt64 newValue);
-	void append(const TTUInt64 newValue);
-	void append(const TTBoolean newValue);
-	void append(const TTSymbol* newValue);
-	void append(const TTString& newValue);
-	void append(const TTObject& newValue);
-	void append(const TTPtr newValue);
-	void append(const TTValue* newValue);
-
-
-// TODO: implement this!	
-//	TTValue& operator [] (int)
+	
+	/**	Grow the array by one element and set the value of the new last element with newValue. */
+	template<class T>
+	void append(const T& newValue)
+	{
+		setSize(numValues + 1);
+		set(numValues-1, newValue);
+	}
+	
 
 	// make sure this is a friend so that it can access the private members of the other atom
 	friend bool operator == (const TTValue &a1, const TTValue &a2)
