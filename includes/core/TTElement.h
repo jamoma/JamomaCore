@@ -106,8 +106,39 @@ enum TTDataType{
 	kTypeObject,
 	kTypePointer,
 	kTypeString,
-	kTypeLocalValue		///< This is a special type used by TTAttribute to indicate that a value is a TTValue and is locally maintained.
+	kTypeLocalValue,	///< This is a special type used by TTAttribute to indicate that a value is a TTValue and is locally maintained.
+	kNumTTDataTypes
 };
+
+
+class TTSymbol;		// forward declaration
+class TTDataInfo;
+typedef TTDataInfo* TTDataInfoPtr;
+
+/**	An array, indexed by values from TTDataType, containing information about those data types.	*/
+extern TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
+
+
+class TTDataInfo {
+public:
+	TTSymbol*	name;			///< The name of the type as a symbol, e.g. float32, float64, etc.
+	TTBoolean	isNumerical;	///< Is this type numeric?
+	TTInt8		bitdepth;		///< Negative numbers indicate dynamic or unknown bitdepth.
+	
+	static TTDataInfoPtr getInfoForType(TTDataType type)
+	{
+		return ttDataTypeInfo[type];
+	}
+	
+	static TTBoolean getIsNumerical(TTDataType type)
+	{
+		return ttDataTypeInfo[type]->isNumerical;
+	}
+	
+	static void addDataInfoForType(TTDataType type);
+
+};
+
 
 
 /**	TTBlue Error Codes
