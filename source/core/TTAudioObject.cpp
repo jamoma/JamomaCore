@@ -163,10 +163,8 @@ TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y)
 	TTAudioSignal	out(1);
 	TTErr			err;
 	
-	in.setNumChannels(1);
-	in.setVectorSize(1);
-	out.setNumChannels(1);
-	out.setVectorSize(1);
+	in.setvectorSize(1);
+	out.setvectorSize(1);
 	
 	in.sampleVectors[0][0] = x;
 	err = process(in, out);

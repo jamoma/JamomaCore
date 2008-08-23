@@ -34,9 +34,7 @@ TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 	scaler->setAttributeValue(TT("operator"), TT("*"));
 	
 	sig1 = new TTAudioSignal(1);
-	sig1->setNumChannels(1);
 	sig2 = new TTAudioSignal(1);
-	sig2->setNumChannels(1);
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
@@ -137,8 +135,8 @@ TTErr TTPulseSub::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	inSample = in.sampleVectors[0];
 	outSample = out.sampleVectors[0];
 	
-	sig1->allocWithSize(vs);
-	sig2->allocWithSize(vs);
+	sig1->allocWithVectorSize(vs);
+	sig2->allocWithVectorSize(vs);
 	
 	phasor->process(*sig1);					// ramp wave, stored in a temporary vector
 	offset->process(*sig1, *sig2);			// offset the ramp wave, effectively altering the duty cycle

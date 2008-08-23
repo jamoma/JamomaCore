@@ -18,10 +18,14 @@
 // Class Specification
 
 /** The TTAudioSignal class represents N vectors of audio samples for M channels. 
- *	All of the members are made public so that direct access to members can be used for
- *	speed in cases where efficiency is of the utmost importance.
+ 
+ 	All of the members are made public so that direct access to members can be used for
+ 	speed in cases where efficiency is of the utmost importance.
+ 
+	Where speed is less critical, the preferred method of work with audio signals is the same as for other objects:
+	use the dynamic message passing interface.
 */
-class TTEXPORT TTAudioSignal : TTElement {
+class TTEXPORT TTAudioSignal : public TTObject {
 private:
 	enum{
 		kExternallyOwned = 0,
@@ -30,7 +34,7 @@ private:
 
 	TTBoolean		isLocallyOwned;
 	TTUInt16		maxNumChannels;		///< The number of audio channels for which memory has been allocated.
-	TTUInt16		vs;					///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
+	TTUInt16		vectorSize;			///< Vector Size for this signal.  Every channel in a signal must have the same vector-size.
 	TTUInt16		numChannels;		///< The number of audio channels that have valid sample values stored in them.
 	TTUInt8			bitdepth;			///< Currently supported bitdepths are 32 and 64. This is set by the setVector() method.
 
@@ -42,6 +46,15 @@ public:
 	
 	/** Destructor */
 	virtual ~TTAudioSignal();
+
+private:
+	/**	Internal method for freeing the vectors. */
+	void chuck();
+	
+public:
+	/**	Attribute accessor. */
+	TTErr setmaxNumChannels(const TTValue& newMaxNumChannels);
+	
 	
 	/** Assigns a vector of sample values to a channel in this signal.
 	 *	The vector member of this class simply holds a pointer, not a copy of the data.  This makes the 
@@ -56,45 +69,60 @@ public:
 	 *	@param		newVector		A pointer to the first sample in a vector of samples.
 	 *	@result		An error code.																 */
 	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTSampleVector newVector);
+	TTErr setVector64(const TTValue& v);	// A version of the above used by the message passing interface.
+
 	
 	/**	This version handles vector assignments from 32-bit vectors.
 	*/
 	TTErr setVector(const TTUInt16 channel, const TTUInt16 vectorSize, const TTFloat32* newVector);
+	TTErr setVector32(const TTValue& v);	// A version of the above used by the message passing interface.
+
 	
 	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTSampleVector returnedVector);
+	TTErr getVector64(TTValue& v);	// A version of the above used by the message passing interface.
+
 	TTErr getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTFloat32* returnedVector);
+	TTErr getVector32(TTValue& v);	// A version of the above used by the message passing interface.
+
 	
+	TTErr setvectorSize(const TTValue& newVectorSize)
+	{
+		vectorSize = newVectorSize;
+		return kTTErrNone;
+	}
+	
+	// Note the capitalization -- this is not a normal getter, but rather a convenience method
 	TTUInt16 getVectorSize()
 	{
-		return vs;
+		return vectorSize;
 	}
 	
-	void setVectorSize(const TTUInt16 newVectorSize)
+	TTErr setnumChannels(const TTValue& newNumChannels)
 	{
-		vs = newVectorSize;
+		numChannels = TTClip<TTUInt16>(newNumChannels, 0, maxNumChannels);
+		return kTTErrNone;
 	}
 	
+	// Note the capitalization -- this is not a normal getter, but rather a convenience method
 	TTUInt16 getNumChannels()
 	{
 		return numChannels;
 	}
-
-	void setNumChannels(const TTUInt16 newNumChannels)
-	{
-		numChannels = TTClip<TTUInt16>(newNumChannels, 0, maxNumChannels);
-	}
-
+	
 	/**	Allocate memory for all channels at the current vectorsize.
 	*/
 	TTErr alloc();
 	
+	
 	/**	Allocate memory for all channels at the specified vectorsize, 
 		if the vectorsize is different from the current state.
 	*/
-	TTErr allocWithSize(const TTUInt16 newVectorSize);
-
+	TTErr allocWithVectorSize(const TTUInt16 newVectorSize);	
+	TTErr allocWithNewVectorSize(const TTValue& newVectorSize);
+	
+	
 	/**	Zero out all of the sample values in the audio signal.
-	*/
+		@return An error code.	*/
 	TTErr clear();
 
 	

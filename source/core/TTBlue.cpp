@@ -130,7 +130,7 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 				status = FSGetCatalogInfoBulk(iterator, 4096, &count, NULL, kFSCatInfoNone, NULL, NULL, NULL, names);
 				
                 // Process all items received
-                if(status == noErr || status == errFSNoMoreItems){
+                if(status == OSStatus(noErr) || status == OSStatus(errFSNoMoreItems)){
                     for(UInt32 i=0; i < count; i += 1){
   						name = CFStringCreateWithCharacters(kCFAllocatorDefault, names[i].unicode, names[i].length);
 						CFStringGetCString(name, cname, 4096, kCFStringEncodingUTF8);
@@ -146,11 +146,11 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
                     }
                 }
             }
-            while(status == noErr);
+            while(status == OSStatus(noErr));
 			
             // errFSNoMoreItems tells us we have successfully processed all
             // items in the directory -- not really an error
-            if(status == errFSNoMoreItems)
+            if(status == OSStatus(errFSNoMoreItems))
                 status = noErr;
 			
             // Free the array memory
@@ -191,6 +191,9 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 
 
 /****************************************************************************************************/
+
+// Core
+#include "TTAudioSignal.h"
 
 // Analysis
 #include "TTZerocross.h"
@@ -247,6 +250,10 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 
 void TTBlueRegisterInternalClasses()
 {
+	// Core
+	TTClassRegister(TT("audiosignal"),					"audio, signal, core",												&TTBlueInstantiateInternalClass);
+	
+	
 	// Analysis
 	TTClassRegister(TT("zerocross"),					"audio, analysis, frequency",										&TTBlueInstantiateInternalClass);
 	
@@ -309,6 +316,10 @@ void TTBlueRegisterInternalClasses()
 
 TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments)
 {
+	// Core
+	if(className == TT("audiosignal"))
+		return new TTAudioSignal(arguments);
+	
 	// Analysis
 	if(className == TT("zerocross"))
 		return new TTZerocross(arguments);
