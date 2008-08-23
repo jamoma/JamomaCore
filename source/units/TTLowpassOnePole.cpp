@@ -16,6 +16,8 @@ TTLowpassOnePole::TTLowpassOnePole(TTUInt16 newMaxNumChannels)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	addAttributeProperty(frequency,			range,			TTValue(2.0, sr*0.475));
+	addAttributeProperty(frequency,			rangeChecking,	TT("clip"));
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);

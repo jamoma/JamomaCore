@@ -16,6 +16,9 @@ TTBandRejectButterworth2::TTBandRejectButterworth2(TTUInt16 newMaxNumChannels)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	addAttributeProperty(frequency,			range,			TTValue(10.0, sr*0.45));
+	addAttributeProperty(frequency,			rangeChecking,	TT("clip"));
+
 	registerAttributeWithSetter(q,			kTypeFloat64);
 
 	// register for notifications from the parent class so we can allocate memory as required
@@ -86,8 +89,7 @@ TTErr TTBandRejectButterworth2::clear()
 
 TTErr TTBandRejectButterworth2::setfrequency(const TTValue& newValue)
 {
-	frequency = TTClip((double)newValue, 10., (sr*0.45));
-	
+	frequency = newValue;
 	return calculateCoefficients();
 }
 

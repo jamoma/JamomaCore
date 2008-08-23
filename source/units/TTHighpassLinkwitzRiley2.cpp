@@ -16,6 +16,8 @@ TTHighpassLinkwitzRiley2::TTHighpassLinkwitzRiley2(TTUInt16 newMaxNumChannels)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	addAttributeProperty(frequency,			range,			TTValue(10.0, sr*0.475));
+	addAttributeProperty(frequency,			rangeChecking,	TT("clip"));
 
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -84,7 +86,7 @@ TTErr TTHighpassLinkwitzRiley2::clear()
 
 TTErr TTHighpassLinkwitzRiley2::setfrequency(const TTValue& newValue)
 {
-	frequency = TTClip((double)newValue, 10., (sr*0.475));
+	frequency = newValue;
 
 	wc = 2*kTTPi*frequency;
 	k = 2*kTTPi*frequency/tan(kTTPi*frequency/sr);

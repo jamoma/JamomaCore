@@ -16,6 +16,9 @@ TTLowpassTwoPole::TTLowpassTwoPole(TTUInt16 newMaxNumChannels)
 {
 	// register attributes
 	registerAttributeWithSetter(frequency,	kTypeFloat64);
+	addAttributeProperty(frequency,			range,			TTValue(2.0, sr*0.475));
+	addAttributeProperty(frequency,			rangeChecking,	TT("clip"));
+
 	registerAttributeWithSetter(resonance,	kTypeFloat64);
 
 	// register methods
