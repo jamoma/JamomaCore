@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'TTClipper' target in the 'TTClipper' project.
+// Prefix header for all source files of the project.
 //
 
 #include <Carbon/Carbon.h>
