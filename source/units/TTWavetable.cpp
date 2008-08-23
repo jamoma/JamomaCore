@@ -68,7 +68,7 @@ TTErr TTWavetable::setMode(const TTValue& newValue)
 		return wavetable->fill(newValue);
 	else{
 		// TODO: implement the ability to use an externally defined buffer
-		return kTTErrGeneric;
+		return kTTErrInvalidValue;
 	}
 }
 

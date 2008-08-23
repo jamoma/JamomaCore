@@ -208,7 +208,7 @@ TTErr TTDelay::setinterpolation(const TTValue& newValue)
 	else{
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
-		return kTTErrGeneric;
+		return kTTErrInvalidValue;
 	}
 	return kTTErrNone;
 }

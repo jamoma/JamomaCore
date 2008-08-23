@@ -115,14 +115,19 @@ enum TTDataType{
 
 /**	TTBlue Error Codes
  *	Enumeration of error codes that might be returned by any of the TTBlue functions and methods.	*/
-enum TTErrorCode{
+enum TTErrorCode {
 	kTTErrNone = 0,			///< No Error.
 	kTTErrGeneric,			///< Something went wrong, but what exactly is not known.  Typically used for context-specific problems.
-	kTTErrAllocFailed,		///< Couldn't get memory -- TODO: perhaps this error num or description should change?
-	kTTErrFreeFailed,		///< Couldn't free memory -- TODO: perhaps this error num or description should change?
-	kTTErrInvalidType,		///< Bad DataType for the context
-	kTTErrInvalidAttribute,	///< Bad Attribute specified
-	kTTErrMethodNotFound	///< Method not found.  Typically returned by the TTObject::sendMessage() function.
+	kTTErrAllocFailed,		///< Couldn't get memory.
+	kTTErrFreeFailed,		///< Couldn't free memory.
+	kTTErrInvalidType,		///< Bad DataType for the context.
+	kTTErrInvalidAttribute,	///< Bad Attribute specified.
+	kTTErrInvalidValue,		///< An inappropriate value was specified for an attribute or variable.
+	kTTErrWrongNumValues,	///< The wrong number of values were passed to a method or attribute.
+	kTTErrMethodNotFound,	///< Method not found.  Typically returned by the TTObject::sendMessage() function.
+	kTTErrValueNotFound,	///< A value was not found when doing a look up for it (in a TTHash, TTList, or other class).
+	kTTErrBadChannelConfig,	///< An invalid number of audio channels for a given context was encountered.
+	kTTErrReadOnly			///< Attempted a write to a read-only entity.
 };
 
 

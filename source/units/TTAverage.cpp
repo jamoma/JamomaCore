@@ -115,7 +115,7 @@ TTErr TTAverage::setmode(const TTValue& newValue)
 	else if(mode == TT("rms"))
 		return setProcessMethod(processRms);
 	
-	return kTTErrGeneric;
+	return kTTErrInvalidValue;
 }
 
 

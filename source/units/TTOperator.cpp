@@ -52,7 +52,7 @@ TTErr TTOperator::setoperator(const TTValue& newValue)
 		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processModuloSignal);
 	}
 	else
-		return kTTErrGeneric;
+		return kTTErrInvalidValue;
 	
 	return kTTErrNone;
 }
@@ -340,7 +340,7 @@ TTErr TTOperator::processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 	TTUInt16		numChannels;
 	TTUInt16		channel;
 	TTUInt64		temp;
-	TTUInt64		operand;
+	TTUInt64		intOperand;
 	
 	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
 		numChannels = in2.getNumChannels();
@@ -353,8 +353,8 @@ TTErr TTOperator::processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 			if(operandIsPowerOfTwo){
 				while(vs--){
 					temp = TTUInt64(*in1Sample++);
-					operand = TTUInt64(*in2Sample++);
-					*outSample++ = TTSampleValue(temp & operand);
+					intOperand = TTUInt64(*in2Sample++);
+					*outSample++ = TTSampleValue(temp & intOperand);
 				}
 			}
 			else{
@@ -374,8 +374,8 @@ TTErr TTOperator::processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 			if(operandIsPowerOfTwo){
 				while(vs--){
 					temp = TTUInt64(*in1Sample++);
-					operand = TTUInt64(*in2Sample++);
-					*outSample++ = TTSampleValue(temp & operand);
+					intOperand = TTUInt64(*in2Sample++);
+					*outSample++ = TTSampleValue(temp & intOperand);
 				}
 			}
 			else{

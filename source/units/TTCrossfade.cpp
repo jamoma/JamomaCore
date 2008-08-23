@@ -90,7 +90,7 @@ TTErr TTCrossfade::processLinear(TTAudioSignal& in, TTAudioSignal& out)
 	TTUInt16		channel;
 	
 	if(in.getNumChannels() != out.getNumChannels()*2)
-		return kTTErrGeneric;
+		return kTTErrBadChannelConfig;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSampleA = in.sampleVectors[channel];
@@ -116,7 +116,7 @@ TTErr TTCrossfade::processLookup(TTAudioSignal& in, TTAudioSignal& out)
 	int				index;
 	
 	if(in.getNumChannels() != out.getNumChannels()*2)
-		return kTTErrGeneric;
+		return kTTErrBadChannelConfig;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSampleA = in.sampleVectors[channel];
@@ -146,7 +146,7 @@ TTErr TTCrossfade::processCalc(TTAudioSignal& in, TTAudioSignal& out)
 	TTUInt16		channel;
 	
 	if(in.getNumChannels() != out.getNumChannels()*2)
-		return kTTErrGeneric;
+		return kTTErrBadChannelConfig;
 
 	for(channel=0; channel<numchannels; channel++){
 		inSampleA = in.sampleVectors[channel];

@@ -34,7 +34,7 @@ TTErr TTClass::createInstance(TTObject** anObject, TTValue& anArgument)
 	if(*anObject)
 		return kTTErrNone;
 	else
-		return kTTErrGeneric;
+		return kTTErrAllocFailed;
 }
 
 
