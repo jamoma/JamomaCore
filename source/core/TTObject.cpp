@@ -137,12 +137,12 @@ TTErr TTObject::setAttributeValue(const TTSymbolPtr name, TTValue& value)
 		if(attribute->readOnly)
 			err = kTTErrReadOnly;
 		else{
-			if(attribute->rangeChecking != TT("clip"))
-				value.clip(attribute->rangeLowBound, attribute->rangeLowBound);
-			else if(attribute->rangeChecking != TT("cliplow"))
+			if(attribute->rangeChecking == TT("clip"))
+				value.clip(attribute->rangeLowBound, attribute->rangeHighBound);
+			else if(attribute->rangeChecking == TT("cliplow"))
 				value.cliplow(attribute->rangeLowBound);
-			else if(attribute->rangeChecking != TT("cliphigh"))
-				value.cliphigh(attribute->rangeLowBound);
+			else if(attribute->rangeChecking == TT("cliphigh"))
+				value.cliphigh(attribute->rangeHighBound);
 
 			if(attribute->setterFlags & kTTAttrPassObject)
 				err = (this->*attribute->setter)(*attribute, value);
@@ -221,7 +221,7 @@ TTErr TTObject::registerAttributeProperty(const TTSymbolPtr attributeName, const
 	if(!err){
 		theAttr = TTAttributePtr(TTPtr(v));
 		err = theAttr->registerAttribute(propertyName, kTypeLocalValue, NULL, getter, setter);
-		theAttr->setAttributeValue(propertyName, initialValue);
+		theAttr->setAttributeValue(propertyName, (TTValue&)initialValue);
 	}
 	return err;
 }
