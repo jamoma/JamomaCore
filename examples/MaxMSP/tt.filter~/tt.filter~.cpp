@@ -437,10 +437,10 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 		hasQ = true;
 	}
 	
-	x->audioIn->setNumChannels(numChannels);
-	x->audioOut->setNumChannels(numChannels);
-	x->audioIn->setVectorSize(vs);
-	x->audioOut->setVectorSize(vs);
+	x->audioIn->setnumChannels(numChannels);
+	x->audioOut->setnumChannels(numChannels);
+	x->audioIn->setvectorSize(vs);
+	x->audioOut->setvectorSize(vs);
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();
 

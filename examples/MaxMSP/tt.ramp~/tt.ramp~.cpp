@@ -176,8 +176,8 @@ void ramp_dsp(t_ramp *x, t_signal **sp, short *count)
 {
 	x->ramp->setAttributeValue(TT("sr"), sp[0]->s_sr);
 
-	x->audioOut->setNumChannels(x->maxNumChannels);
-	x->audioOut->setVectorSize(sp[0]->s_n);
+	x->audioOut->setnumChannels(x->maxNumChannels);
+	x->audioOut->setvectorSize(sp[0]->s_n);
 	x->audioOut->alloc();
 
 	dsp_add(ramp_perform, 2, x, sp[0]->s_vec);

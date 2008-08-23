@@ -248,13 +248,13 @@ void gain_dsp(t_gain *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->signalIn->setNumChannels(numChannels*2);
-	x->signalOut->setNumChannels(numChannels);
-	x->signalTemp->setNumChannels(numChannels);
+	x->signalIn->setnumChannels(numChannels*2);
+	x->signalOut->setnumChannels(numChannels);
+	x->signalTemp->setnumChannels(numChannels);
 	
-	x->signalIn->setVectorSize(vs);
-	x->signalOut->setVectorSize(vs);
-	x->signalTemp->setVectorSize(vs);
+	x->signalIn->setvectorSize(vs);
+	x->signalOut->setvectorSize(vs);
+	x->signalTemp->setvectorSize(vs);
 
 	//signalIn will be set in the perform method
 	x->signalOut->alloc();

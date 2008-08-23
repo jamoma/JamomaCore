@@ -160,8 +160,8 @@ void wavetable_dsp(t_wavetable *x, t_signal **sp, short *count)
 {
 	x->wavetable->setAttributeValue(TT("sr"), sp[0]->s_sr);
 
-	x->audioOut->setNumChannels(x->maxNumChannels);
-	x->audioOut->setVectorSize(sp[0]->s_n);
+	x->audioOut->setnumChannels(x->maxNumChannels);
+	x->audioOut->setvectorSize(sp[0]->s_n);
 	x->audioOut->alloc();
 
 	dsp_add(wavetable_perform, 2, x, sp[0]->s_vec);

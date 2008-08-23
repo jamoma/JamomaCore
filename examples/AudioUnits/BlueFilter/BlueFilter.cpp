@@ -129,7 +129,7 @@ void BlueFilter::BlueFilterKernel::Process(	const	Float32*	inSourceP,
                                                     bool		&ioSilence )
 {
 	mInput->setVector(0, inFramesToProcess, (TTFloat32*)inSourceP);
-	mOutput->setVectorSize(inFramesToProcess);
+	mOutput->setvectorSize(inFramesToProcess);
 	mOutput->alloc();
 
 	mButter->setAttributeValue(TT("frequency"),  GetParameter(kParam_One));

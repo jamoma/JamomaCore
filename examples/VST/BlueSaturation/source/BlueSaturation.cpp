@@ -23,10 +23,7 @@ BlueSaturation::BlueSaturation(audioMasterCallback audioMaster)
 	TTObjectInstantiate(TT("overdrive"), &mOverdrive, mNumChannels);
 
 	mInput = new TTAudioSignal(mNumChannels);
-	mInput->setNumChannels(mNumChannels);
-
 	mOutput = new TTAudioSignal(mNumChannels);
-	mOutput->setNumChannels(mNumChannels);
 	
 	mParameterList = new BlueParameter[kNumParameters];
 
@@ -183,7 +180,7 @@ void BlueSaturation::processReplacing(float** inputs, float** outputs, VstInt32 
 {
 	mInput->setVector(0, sampleFrames, (TTFloat32*)inputs[0]);
 	mInput->setVector(1, sampleFrames, (TTFloat32*)inputs[1]);
-	mOutput->setVectorSize(sampleFrames);
+	mOutput->setvectorSize(sampleFrames);
 	mOutput->alloc();
 	
 	mOverdrive->process(mInput, mOutput);
@@ -197,7 +194,7 @@ void BlueSaturation::processDoubleReplacing(double** inputs, double** outputs, V
 {
 	mInput->setVector(0, sampleFrames, (TTFloat64*)inputs[0]);
 	mInput->setVector(1, sampleFrames, (TTFloat64*)inputs[1]);
-	mOutput->setVectorSize(sampleFrames);
+	mOutput->setvectorSize(sampleFrames);
 	mOutput->alloc();
 	
 	mOverdrive->process(mInput, mOutput);

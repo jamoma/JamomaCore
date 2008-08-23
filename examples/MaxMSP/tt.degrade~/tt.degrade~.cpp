@@ -13,6 +13,14 @@
 
 int main(void)
 {
-	return wrapTTClassAsMaxClass(TT("degrade"), "tt.degrade~", NULL);
+	WrappedClassOptionsPtr	options = new WrappedClassOptions;
+	TTValue					value;
+
+	value.clear();
+	value.append(TT("srRatio"));
+	value.append(TT("bitdepth"));
+	options->append(TT("additionalSignalInputSetsAttribute"), value);
+	
+	return wrapTTClassAsMaxClass(TT("degrade"), "tt.degrade~", NULL, options);
 }
 

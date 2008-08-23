@@ -103,10 +103,10 @@ t_int *ttlimiter_perform(t_int *w)
 // DSP Method
 void ttlimiter_dsp(t_ttlimiter *x, t_signal **sp)
 {
-	x->audioIn->setNumChannels(1);
-	x->audioOut->setNumChannels(1);
-	x->audioIn->setVectorSize(sp[0]->s_n);
-	x->audioOut->setVectorSize(sp[0]->s_n);
+	x->audioIn->setnumChannels(1);
+	x->audioOut->setnumChannels(1);
+	x->audioIn->setvectorSize(sp[0]->s_n);
+	x->audioOut->setvectorSize(sp[0]->s_n);
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();
 	

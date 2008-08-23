@@ -9,6 +9,29 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "TTClassWrapperMax.h"
+
+int main(void)
+{
+	WrappedClassOptionsPtr	options = new WrappedClassOptions;
+	TTValue					value;
+	
+	// By default, the wrapper assumes we have N-channels of both input and output
+	// Here we tell it that this object needs to have twice as many inputs as outputs
+	value.append(2);
+	value.append(1);
+	options->append(TT("numChannelsUseFixedRatioInputsToOutputs"), value);
+		
+	// Here we add an additional audio inlet to control the position of the fade (if the signal is connected)
+	value.clear();
+	value.append(TT("position"));
+	options->append(TT("additionalSignalInputSetsAttribute"), value);
+	
+	return wrapTTClassAsMaxClass(TT("crossfade"), "tt.xfade~", NULL, options);
+}
+
+/***********************************************************************************
+
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header
 #include "ext_strings.h"			// String Functions
@@ -51,7 +74,6 @@ t_int *fade_perform_stereo_2(t_int *w);
 static t_class	*s_fade_class;
 
 
-/************************************************************************************/
 // Main() Function
 
 int main(void)				// main recieves a copy of the Max function macros table
@@ -95,7 +117,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 }
 
 
-/************************************************************************************/
+/***********************************************************************************
 // Object Life
 
 // Create
@@ -147,7 +169,7 @@ void fade_free(t_fade *x)
 }
 
 
-/************************************************************************************/
+/***********************************************************************************
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
@@ -320,4 +342,4 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 
 	sysmem_freeptr(audioVectors);
 }
-
+*/

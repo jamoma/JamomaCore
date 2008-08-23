@@ -118,10 +118,7 @@ protected:
 			mButter->setAttributeValue(TT("sr"), GetSampleRate());
 			
 			mInput = new TTAudioSignal(numChannels);
-			mInput->setNumChannels(numChannels);
-			
 			mOutput = new TTAudioSignal(numChannels);
-			mOutput->setNumChannels(numChannels);
 		}
 		
 		

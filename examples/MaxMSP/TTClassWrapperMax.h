@@ -29,15 +29,50 @@ typedef long		AtomCount;
 
 typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);		///< A type that can be used to store a pointer to a validity checking function.
 
+class WrappedClassOptions;
+
 typedef struct _wrappedClass {
 	ClassPtr				maxClass;							///< The Max class pointer.
 	SymbolPtr				maxClassName;						///< The name to give the Max class.
 	TTSymbolPtr				ttblueClassName;					///< The name of the class as registered with the TTBlue framework.
 	TTValidityCheckFunction validityCheck;						///< A function to call to validate the context for an object before it is instantiated.
 	TTPtr					validityCheckArgument;				///< An argument to pass to the validityCheck function when it is called.
+	WrappedClassOptions*	options;							///< Additional configuration options specified for the class.
 } WrappedClass;
-typedef WrappedClass* WrappedClassPtr;							///< A pointer to a WrappedClass.
 
+
+
+class WrappedClassOptions {
+protected:
+	TTHash*	options;
+
+public:
+	WrappedClassOptions()
+	{
+		options = new TTHash;
+	}
+	
+	virtual ~WrappedClassOptions()
+	{
+		delete options;
+	}
+	
+	TTErr append(const TTSymbolPtr optionName, const TTValue& optionValue)
+	{
+		return options->append(optionName, optionValue);
+	}
+	
+	/**	Returns an error if the requested option doesn't exist. */
+	TTErr lookup(const TTSymbolPtr optionName, TTValue& optionValue)
+	{
+		return options->lookup(optionName, optionValue);
+	}
+	
+};
+	
+
+typedef WrappedClass* WrappedClassPtr;							///< A pointer to a WrappedClass.
+typedef WrappedClassOptions* WrappedClassOptionsPtr;			///< A pointer to WrappedClassOptions.
 
 
 // FUNCTIONS
@@ -50,6 +85,12 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 
 // This version can be passed a method that is called to make sure it is legit to instantiate the class.
 TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument);
+
+
+// These are versions of the above, but for which additional options can be specified.
+TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options);
+TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options);
+TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options);
 
 
 

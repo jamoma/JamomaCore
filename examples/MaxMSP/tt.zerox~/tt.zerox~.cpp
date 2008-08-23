@@ -156,11 +156,11 @@ void zerox_dsp(t_zerox *x, t_signal **sp, short *count)
 	x->zeroxUnit->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	dsp_add(zerox_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
 	
-	x->signalIn->setNumChannels(1);
-	x->signalOut->setNumChannels(2);
+	x->signalIn->setnumChannels(1);
+	x->signalOut->setnumChannels(2);
 	
-	x->signalIn->setVectorSize(sp[0]->s_n);
-	x->signalOut->setVectorSize(sp[0]->s_n);
+	x->signalIn->setvectorSize(sp[0]->s_n);
+	x->signalOut->setvectorSize(sp[0]->s_n);
 	
 	//signalIn will be set in the perform method
 	x->signalOut->alloc();

@@ -208,10 +208,10 @@ void balance_dsp(t_balance *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setNumChannels(numChannels*2);
-	x->audioOut->setNumChannels(numChannels);
-	x->audioIn->setVectorSize(vs);
-	x->audioOut->setVectorSize(vs);
+	x->audioIn->setnumChannels(numChannels*2);
+	x->audioOut->setnumChannels(numChannels);
+	x->audioIn->setvectorSize(vs);
+	x->audioOut->setvectorSize(vs);
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();	
 	
