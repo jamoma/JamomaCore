@@ -87,6 +87,7 @@ private:
 		
 	TTDataType*	type;			///< array of types
 	DataValue*	data;			///< array of values
+	TTBoolean*	numerical;		///< array of indicators for whether or not the type is numerical
 	TTUInt16	numValues;		///< number of values
 	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 
@@ -335,7 +336,141 @@ public:
 	/**	In-place method that converts the internal value, if it is a TTString, from a comma-separated-value string into
 		an array of TTSymbols.  */
 	TTErr transformCSVStringToSymbolArray();
+	
+	
+	void clip(const TTFloat64& lowBound, const TTFloat64& highBound)
+	{
+		for(TTUInt16 i=0; i<numValues; i++){
+			if(TTDataInfo::getIsNumerical(type[i])){
+				// TODO: find a way to make this routine faster
+				switch(type[i]){
+					case kTypeFloat32:
+						data[i].float32 = TTClip<TTFloat64>(data[i].float32, lowBound, highBound);
+						break;
+					case kTypeFloat64:
+						data[i].float64 = TTClip<TTFloat64>(data[i].float64, lowBound, highBound);
+						break;
+					case kTypeInt8:
+						data[i].int8 = TTClip<TTFloat64>(data[i].int8, lowBound, highBound);
+						break;
+					case kTypeUInt8:
+						data[i].uint8 = TTClip<TTFloat64>(data[i].uint8, lowBound, highBound);
+						break;
+					case kTypeInt16:
+						data[i].int16 = TTClip<TTFloat64>(data[i].int16, lowBound, highBound);
+						break;
+					case kTypeUInt16:
+						data[i].uint16 = TTClip<TTFloat64>(data[i].uint16, lowBound, highBound);
+						break;
+					case kTypeInt32:
+						data[i].int32 = TTClip<TTFloat64>(data[i].int32, lowBound, highBound);
+						break;
+					case kTypeUInt32:
+						data[i].uint32 = TTClip<TTFloat64>(data[i].uint32, lowBound, highBound);
+						break;
+					case kTypeInt64:
+						data[i].int64 = TTClip<TTFloat64>(data[i].int64, lowBound, highBound);
+						break;
+					case kTypeUInt64:
+						data[i].uint64 = TTClip<TTFloat64>(data[i].uint64, lowBound, highBound);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
+	void cliplow(const TTFloat64& lowBound)
+	{
+		for(TTUInt16 i=0; i<numValues; i++){
+			if(TTDataInfo::getIsNumerical(type[i])){
+				// TODO: find a way to make this routine faster
+				switch(type[i]){
+					case kTypeFloat32:
+						data[i].float32 = TTLimitMin<TTFloat64>(data[i].float32, lowBound);
+						break;
+					case kTypeFloat64:
+						data[i].float64 = TTLimitMin<TTFloat64>(data[i].float64, lowBound);
+						break;
+					case kTypeInt8:
+						data[i].int8 = TTLimitMin<TTFloat64>(data[i].int8, lowBound);
+						break;
+					case kTypeUInt8:
+						data[i].uint8 = TTLimitMin<TTFloat64>(data[i].uint8, lowBound);
+						break;
+					case kTypeInt16:
+						data[i].int16 = TTLimitMin<TTFloat64>(data[i].int16, lowBound);
+						break;
+					case kTypeUInt16:
+						data[i].uint16 = TTLimitMin<TTFloat64>(data[i].uint16, lowBound);
+						break;
+					case kTypeInt32:
+						data[i].int32 = TTLimitMin<TTFloat64>(data[i].int32, lowBound);
+						break;
+					case kTypeUInt32:
+						data[i].uint32 = TTLimitMin<TTFloat64>(data[i].uint32, lowBound);
+						break;
+					case kTypeInt64:
+						data[i].int64 = TTLimitMin<TTFloat64>(data[i].int64, lowBound);
+						break;
+					case kTypeUInt64:
+						data[i].uint64 = TTLimitMin<TTFloat64>(data[i].uint64, lowBound);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
+	void cliphigh(const TTFloat64& highBound)
+	{
+		for(TTUInt16 i=0; i<numValues; i++){
+			if(TTDataInfo::getIsNumerical(type[i])){
+				// TODO: find a way to make this routine faster
+				switch(type[i]){
+					case kTypeFloat32:
+						data[i].float32 = TTLimitMax<TTFloat64>(data[i].float32, highBound);
+						break;
+					case kTypeFloat64:
+						data[i].float64 = TTLimitMax<TTFloat64>(data[i].float64, highBound);
+						break;
+					case kTypeInt8:
+						data[i].int8 = TTLimitMax<TTFloat64>(data[i].int8, highBound);
+						break;
+					case kTypeUInt8:
+						data[i].uint8 = TTLimitMax<TTFloat64>(data[i].uint8, highBound);
+						break;
+					case kTypeInt16:
+						data[i].int16 = TTLimitMax<TTFloat64>(data[i].int16, highBound);
+						break;
+					case kTypeUInt16:
+						data[i].uint16 = TTLimitMax<TTFloat64>(data[i].uint16, highBound);
+						break;
+					case kTypeInt32:
+						data[i].int32 = TTLimitMax<TTFloat64>(data[i].int32, highBound);
+						break;
+					case kTypeUInt32:
+						data[i].uint32 = TTLimitMax<TTFloat64>(data[i].uint32, highBound);
+						break;
+					case kTypeInt64:
+						data[i].int64 = TTLimitMax<TTFloat64>(data[i].int64, highBound);
+						break;
+					case kTypeUInt64:
+						data[i].uint64 = TTLimitMax<TTFloat64>(data[i].uint64, highBound);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
 };
+
+
+typedef TTValue* TTValuePtr;
 
 
 #endif // __TT_VALUE_H__
