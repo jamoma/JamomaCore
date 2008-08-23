@@ -158,7 +158,7 @@ TTErr TTAudioSignal::setVector32(const TTValue& v)
 }
 
 
-TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 vectorSize, TTSampleVector returnedVector)
+TTErr TTAudioSignal::getVector(const TTUInt16 channel, const TTUInt16 returnedVectorSize, TTSampleVector returnedVector)
 {
 	returnedVector = sampleVectors[channel];
 	return kTTErrNone;
