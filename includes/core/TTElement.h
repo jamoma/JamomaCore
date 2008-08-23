@@ -16,7 +16,6 @@
 	 #define TT_PLATFORM_WIN
 	#else
 	 #define TT_PLATFORM_MAC
-	 #define TTEXPORT
 	#endif
 #endif
 
@@ -34,6 +33,8 @@ using namespace std;
  #else
   #define TTEXPORT __declspec(dllimport)
  #endif // _DLL_EXPORT
+#else
+#define TTEXPORT __attribute__((visibility("default")))
 #endif
 
 
