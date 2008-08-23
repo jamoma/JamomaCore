@@ -46,8 +46,8 @@ TTSymbol* TTSymbolTable::lookup(const char* aString)
 	if(iter == symbolTable->end()){
 		// The symbol wasn't found in the table, so we need to create and add it.
 		// TTLogMessage("Adding symbol: %s  With Address: %x", aString, aString);
-		TTSymbol *newSymbol = new TTSymbol(aString, symbolTable->size());
-		symbolTable->insert(TTSymbolTablePair(aString, newSymbol)); 
+		TTSymbolPtr	newSymbol = new TTSymbol(aString, symbolTable->size());
+		symbolTable->insert(TTSymbolTablePair(newSymbol->getCString(), newSymbol)); 
 		sMutex->unlock();
 		return newSymbol; 
 	}
