@@ -258,8 +258,8 @@ public:
 	TTErr setreadOnly(const TTValue& newReadOnlyValue);
 	TTErr getreadOnly(TTValue& currentReadOnlyValue);
 	
-	TTErr TTAttribute::setrange(const TTValue& newRange);
-	TTErr TTAttribute::getrange(TTValue& currentRange);
+	TTErr setrange(const TTValue& newRange);
+	TTErr getrange(TTValue& currentRange);
 
 };
 

@@ -56,7 +56,7 @@ public:
 	void clear();
 
 	/**	Assign the contents of the list to a value as an array.	*/
-	void TTList::assignToValue(TTValue& value);
+	void assignToValue(TTValue& value);
 };
 
 

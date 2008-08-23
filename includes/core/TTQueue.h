@@ -40,7 +40,7 @@ public:
 	virtual	~TTQueue();
 
 	/** This is them main loop that runs the queue */
-	void* TTQueue::run();
+	void* run();
 
 	/** Add a call to the back of the queue.  Will trigger the queue to be serviced if it isn't
 		already scheduled. */
