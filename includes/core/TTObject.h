@@ -1,6 +1,6 @@
 /* 
  * TTBlue Object Base Class
- * Copyright � 2008, Timothy Place
+ * Copyright © 2008, Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -28,6 +28,7 @@ class TTObject;
 typedef TTAttribute*	TTAttributePtr;
 typedef TTMessage*		TTMessagePtr;
 typedef TTObject*		TTObjectPtr;
+
 
 /** A type that can be used to store a pointer to a message for an object */
 typedef TTErr (TTObject::*TTMethod)(const TTSymbol* methodName, TTValue& value);
@@ -65,58 +66,11 @@ typedef enum TTAttributeFlags {
 };
 
 
-/**	A convenience macro to be used by subclasses for registering messages.
-	@param	name	The name of the message, and also the name of the classes' method to be called.
-*/
-#define registerMessageSimple(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name , kTTMessagePassNone)
-
-
-/**	A convenience macro to be used by subclasses for registering messages.
-	@param	name	The name of the message, and also the name of the classes' method to be called.
-*/
-#define registerMessageWithArgument(name)    registerMessage(TT(#name), (TTMethod)& thisTTClass ::name )
-
-
-/**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
-	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
-	@param	type	The type of the value.
-*/
-#define registerAttributeSimple(name, type)    registerAttribute(TT(#name), type, &name)
-
-/**	A convenience macro to be used by subclasses for registering attributes with a custom getter.
-	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter method name.
-	@param	type	The type of the value.
-*/
-#define registerAttributeWithGetter(name, type)    registerAttribute(TT(#name), type, &name, (TTGetterMethod)& thisTTClass ::get##name )
-
-/**	A convenience macro to be used by subclasses for registering attributes with a custom setter.
-	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the setter method name.
-	@param	type	The type of the value.
-*/
-#define registerAttributeWithSetter(name, type)    registerAttribute(TT(#name), type, &name, (TTSetterMethod)& thisTTClass ::set##name )
-
-/**	A convenience macro to be used by subclasses for registering attributes with a custom getter and setter.
-	Note that we don't bother passing the address of the value in this macro, because the default setter/getter is not used to access it.
-	@param	name	The name of the attribute, which is also the name of the classes' member holding the value, and used for the getter/setter method names.
-	@param	type	The type of the value.
-*/
-#define registerAttributeWithSetterAndGetter(name, type)    registerAttribute(TT(#name), type, NULL, (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
-
-
-/** A convenience macro to be used for registering properties of attributes.
-	This assumes that the property is one that has been explicitly supported by TTAttribute through the definition of accessor methods.
-	If you are adding a custom property then you must define your own accessor methods and register the property by calling the
-	TTObject::registerAttributeProperty() method directly.
-*/
-#define addAttributeProperty(attributeName, propertyName, initialValue)		registerAttributeProperty(TT(#attributeName), TT(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
-
 /****************************************************************************************************/
 // Class Specifications
 
 /**
-	At the moment this class uses really lame associative arrays to keep track of messages and 
-	attributes.  Even lamer is that we statically limit it to 16 of each right now.  
-	Eventually we will do this with something way better...
+	Base class for all first-class TTBlue objects.
 */
 class TTEXPORT TTObject : public TTElement {
 private:
@@ -221,67 +175,6 @@ public:
 };
 
 
-/**
-	This class represents a single attribute, as used by the TTObject class.
-	At the moment we define it in the same file because we are sharing the typedef
-	for TTMethod.
-*/
-class TTEXPORT TTAttribute : public TTObject {
-private:
-public:
-	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbolPtr	name;			///< the name of the attribute
-	TTDataType			type;			///< the data type of the attribute value
-	void*				address;		///< pointer to the memory holding the attribute value
-	TTGetterMethod		getter;			///< method to fetch the attribute value
-	TTSetterMethod		setter;			///< method to set the attribute value
-	TTAttributeFlags	getterFlags;	///< define the behavior of the attribute getter method
-	TTAttributeFlags	setterFlags;	///< define the behavior of the attribute setter method
-	TTValue				internalValue;	///< attributes that maintain their own data use this member to store it.
-
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress);
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTSetterMethod newSetter);
-	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter, TTSetterMethod newSetter);
-	virtual ~TTAttribute();
-	
-	void setGetterFlags(TTAttributeFlags newFlags);
-	void getGetterFlags(TTAttributeFlags& currentFlags);
-
-	void setSetterFlags(TTAttributeFlags newFlags);
-	void getSetterFlags(TTAttributeFlags& currentFlags);
-
-	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
-	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
-	
-	// Potential Attributes of TTAttribute
-	TTErr setreadOnly(const TTValue& newReadOnlyValue);
-	TTErr getreadOnly(TTValue& currentReadOnlyValue);
-	
-	TTErr setrange(const TTValue& newRange);
-	TTErr getrange(TTValue& currentRange);
-
-};
-
-
-/**
-	This class represents a single message, as used by the TTObject class.
-	At the moment we define it in the same file because we are sharing the typedef
-	for TTMethod.
-*/
-class TTEXPORT TTMessage : public TTObject {
-private:
-public:
-	// Should make this group private, but to get things working initially, we're leaving them public...
-	const TTSymbolPtr	name;		///< the name of the message.
-	TTMessageFlags		flags;		///< define the behavior of the message.
-	TTMethod			method;		///< method associated with this message.
-
-	TTMessage(const TTSymbolPtr newName, TTMethod newMethod, TTMessageFlags newFlags);
-	virtual ~TTMessage();
-};
-
-
 template <class T>
 TTErr TTObject::setAttributeValue(const TTSymbolPtr name, const T& value)
 {
@@ -297,6 +190,11 @@ TTErr TTObject::getAttributeValue(const TTSymbolPtr name, T& value)
 	value = v;
 	return error;
 }
+
+
+#include "TTAttribute.h"
+#include "TTMessage.h"
+
 
 #endif // __TT_OBJECT_H__
 

@@ -41,7 +41,7 @@ TTErr TTHash::lookup(const TTSymbolPtr key, TTValue& value)
 	TTHashMapIter iter = hashMap->find(TTPtrSizedInt(key));
 
 	if(iter == hashMap->end())
-		return kTTErrGeneric;
+		return kTTErrValueNotFound;
 	else{
 		value = iter->second;
 		return kTTErrNone;
