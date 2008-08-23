@@ -103,6 +103,13 @@ typedef enum TTAttributeFlags {
 #define registerAttributeWithSetterAndGetter(name, type)    registerAttribute(TT(#name), type, NULL, (TTGetterMethod)& thisTTClass ::get##name, (TTSetterMethod)& thisTTClass ::set##name )
 
 
+/** A convenience macro to be used for registering properties of attributes.
+	This assumes that the property is one that has been explicitly supported by TTAttribute through the definition of accessor methods.
+	If you are adding a custom property then you must define your own accessor methods and register the property by calling the
+	TTObject::registerAttributeProperty() method directly.
+*/
+#define addAttributeProperty(attributeName, propertyName, initialValue)		registerAttributeProperty(TT(#attributeName), TT(#propertyName), initialValue, (TTGetterMethod)& TTAttribute::get##propertyName , (TTSetterMethod)& TTAttribute::set##propertyName )
+
 /****************************************************************************************************/
 // Class Specifications
 
@@ -152,7 +159,10 @@ public:
 	TTErr setAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
 	TTErr getAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
 	TTErr setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
-	
+
+	TTErr registerAttributeProperty(const TTSymbolPtr attributeName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter);
+
+
 
 	/** return a list of names of the available attributes */
 	void getAttributeNames(TTValue& attributeNameList);
@@ -169,9 +179,9 @@ public:
 	TTErr findMessage(const TTSymbolPtr name, TTMessage** message);
 	TTErr sendMessage(const TTSymbolPtr name);
 	TTErr sendMessage(const TTSymbolPtr name, TTValue& value);
-	
-	//TODO: implement these
-	// getMessageNames()
+
+// TODO:
+//	TTErr registerMessageProperty(const TTSymbolPtr messageName, const TTSymbolPtr propertyName, const TTValue& initialValue);
 	
 	
 	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
@@ -216,7 +226,7 @@ public:
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTEXPORT TTAttribute : TTObject {
+class TTEXPORT TTAttribute : public TTObject {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...
@@ -227,6 +237,7 @@ public:
 	TTSetterMethod		setter;			///< method to set the attribute value
 	TTAttributeFlags	getterFlags;	///< define the behavior of the attribute getter method
 	TTAttributeFlags	setterFlags;	///< define the behavior of the attribute setter method
+	TTValue				internalValue;	///< attributes that maintain their own data use this member to store it.
 
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress);
 	TTAttribute(const TTSymbolPtr newName, TTDataType newType, void* newAddress, TTGetterMethod newGetter);
@@ -242,6 +253,14 @@ public:
 
 	TTErr defaultGetter(const TTAttribute& attribute, TTValue& value);
 	TTErr defaultSetter(const TTAttribute& attribute, const TTValue& value);
+	
+	// Potential Attributes of TTAttribute
+	TTErr setreadOnly(const TTValue& newReadOnlyValue);
+	TTErr getreadOnly(TTValue& currentReadOnlyValue);
+	
+	TTErr TTAttribute::setrange(const TTValue& newRange);
+	TTErr TTAttribute::getrange(TTValue& currentRange);
+
 };
 
 
@@ -250,7 +269,7 @@ public:
 	At the moment we define it in the same file because we are sharing the typedef
 	for TTMethod.
 */
-class TTEXPORT TTMessage : TTObject {
+class TTEXPORT TTMessage : public TTObject {
 private:
 public:
 	// Should make this group private, but to get things working initially, we're leaving them public...

@@ -132,6 +132,14 @@ TTErr TTAttribute::defaultGetter(const TTAttribute& attribute, TTValue& value)
 
 TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& value)
 {
+	TTErr err = getAttributeValue(TT("readOnly"), internalValue);
+
+	if(!err){
+		TTBoolean readOnly = internalValue;
+		if(readOnly)
+			return kTTErrGeneric;
+	}
+	
 	switch(attribute.type){
 		case kTypeFloat32:
 			*((TTFloat32*)attribute.address) = value;
@@ -178,6 +186,33 @@ TTErr TTAttribute::defaultSetter(const TTAttribute& attribute, const TTValue& va
 	}
 	return kTTErrInvalidType;
 }
+
+
+TTErr TTAttribute::setreadOnly(const TTValue& newReadOnlyValue)
+{
+	internalValue = newReadOnlyValue;
+	return kTTErrNone;
+}
+
+TTErr TTAttribute::getreadOnly(TTValue& currentReadOnlyValue)
+{
+	currentReadOnlyValue = internalValue;
+	return kTTErrNone;
+}
+
+
+TTErr TTAttribute::setrange(const TTValue& newRange)
+{
+	internalValue = newRange;
+	return kTTErrNone;
+}
+
+TTErr TTAttribute::getrange(TTValue& currentRange)
+{
+	currentRange = internalValue;
+	return kTTErrNone;
+}
+
 
 
 /****************************************************************************************************/
@@ -369,6 +404,22 @@ TTErr TTObject::setAttributeSetterFlags(const TTSymbolPtr name, TTAttributeFlags
 void TTObject::getAttributeNames(TTValue& attributeNameList)
 {
 	attributes->getKeys(attributeNameList);
+}
+
+
+TTErr TTObject::registerAttributeProperty(const TTSymbolPtr attributeName, const TTSymbolPtr propertyName, const TTValue& initialValue, TTGetterMethod getter, TTSetterMethod setter)
+{
+	TTAttributePtr	theAttr = NULL;
+	TTValue			v;
+	TTErr			err;
+	
+	err = attributes->lookup(attributeName, v);
+	if(!err){
+		theAttr = TTAttributePtr(TTPtr(v));
+		err = theAttr->registerAttribute(propertyName, kTypeLocalValue, NULL, getter, setter);
+		theAttr->setAttributeValue(propertyName, initialValue);
+	}
+	return err;
 }
 
 

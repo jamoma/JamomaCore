@@ -107,7 +107,8 @@ enum TTDataType{
 	kTypeSymbol,
 	kTypeObject,
 	kTypePointer,
-	kTypeString
+	kTypeString,
+	kTypeLocalValue		///< This is a special type used by TTAttribute to indicate that a value is a TTValue and is locally maintained.
 };
 
 
