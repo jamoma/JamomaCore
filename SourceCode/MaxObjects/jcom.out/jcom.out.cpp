@@ -539,15 +539,15 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setNumChannels(numChannels);
-	x->audioOut->setNumChannels(numChannels);
-	x->audioTemp->setNumChannels(numChannels);
-	x->zeroSignal->setNumChannels(numChannels);
+	x->audioIn->setnumChannels(numChannels);
+	x->audioOut->setnumChannels(numChannels);
+	x->audioTemp->setnumChannels(numChannels);
+	x->zeroSignal->setnumChannels(numChannels);
 	
-	x->audioIn->setVectorSize(vs);
-	x->audioOut->setVectorSize(vs);
-	x->audioTemp->setVectorSize(vs);
-	x->zeroSignal->setVectorSize(vs);
+	x->audioIn->setvectorSize(vs);
+	x->audioOut->setvectorSize(vs);
+	x->audioTemp->setvectorSize(vs);
+	x->zeroSignal->setvectorSize(vs);
 	
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();
