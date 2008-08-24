@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='acceleration' type='msg_float' priority='0'>2.000000</item>
-    <item name='attractpoint/aed' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='attractpoint' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='attract' type='msg_float' priority='0'>4.560000</item>
     <item name='avoid' type='msg_float' priority='0'>3.000000</item>
     <item name='center' type='msg_float' priority='0'>1.960000</item>
