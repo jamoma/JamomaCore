@@ -311,7 +311,7 @@ public:
 		
 		presetInfo.presetNumber = presetNumber;
 		err = AudioUnitSetProperty(audioUnit, kAudioUnitProperty_CurrentPreset, kAudioUnitScope_Global, 0, &presetInfo, sizeof(AUPreset));
-		return err;
+		return TTErr(err);
 	}
 	
 	
