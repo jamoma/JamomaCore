@@ -5,7 +5,8 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='/audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='dimensions' type='msg_int' priority='1'>2</item>
     <item name='num_sources' type='msg_int' priority='2'>3</item>
     <item name='num_speakers' type='msg_int' priority='2'>8</item>

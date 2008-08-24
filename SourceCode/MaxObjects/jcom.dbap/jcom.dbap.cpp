@@ -27,6 +27,8 @@ typedef struct _dbap{									///< Data structure for this object
 	t_object	ob;										///< Must always be the first field; used by Max
 	t_xyz		src_position[MAX_NUM_SOURCES];			///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];					///< Spatial bluriness ratio in percents for each source
+	float		src_gain[MAX_NUM_SOURCES];				///< Linear gain for each source, not yet used
+	float		master_gain;							///< Mater gain for all ofr the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
 	float		variance;								///< Bias-corrected variance of distance from destination points to mean destination point
@@ -55,6 +57,9 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv);
 
 /** Set the position of the nth speaker. */
 void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv);
+
+/** Set master gain for all values passed from the object to matrix~. */
+void dbap_mastergain(t_dbap *x, double f);
 
 /** Get info on destination setup ++ */
 void dbap_info(t_dbap *x);
@@ -127,6 +132,7 @@ int main(void)
 	class_addmethod(c, (method)dbap_blurall,			"blurall",		A_FLOAT,	0);
 	class_addmethod(c, (method)dbap_source,				"src_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_destination,		"dst_position",	A_GIMME,	0);
+	class_addmethod(c, (method)dbap_mastergain,			"master_gain",	A_FLOAT,	0);
 	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);
 	class_addmethod(c, (method)dbap_info,				"info",			0);
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		0);  
@@ -169,6 +175,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->outlet = outlet_new(x, 0);				// Create outlet
 		
 		// Initializing and setting defaults for attributes.
+		x->master_gain = 1.;						// default value
 		x->attr_num_sources = 1;					// default value
 		x->attr_num_destinations = 1;				// default value
 		x->attr_dimensions = 2;						// two-dimensional by default
@@ -304,6 +311,19 @@ void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 		error("Invalid arguments for speaker.");
 }
 
+
+void dbap_mastergain(t_dbap *x, double f)
+{
+	long i;
+	
+	x->master_gain = f;
+	if (x->master_gain<0.)
+		x->master_gain = 0;
+	
+	// Update all matrix values
+	for (i=0; i<x->attr_num_sources; i++)
+		dbap_calculate(x, i);
+}
 
 void dbap_info(t_dbap *x)
 {
@@ -472,7 +492,7 @@ void dbap_calculate1D(t_dbap *x, long n)
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], k/dia[i]);
+		atom_setfloat(&a[2], x->master_gain*k/dia[i]);
 		outlet_anything(x->outlet, _sym_list, 3, a);
 	}	
 }
@@ -505,7 +525,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], k/dia[i]);
+		atom_setfloat(&a[2], x->master_gain*k/dia[i]);
 		outlet_anything(x->outlet, _sym_list, 3, a);
 	}	
 }
@@ -539,7 +559,7 @@ void dbap_calculate3D(t_dbap *x, long n)
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], k/dia[i]);
+		atom_setfloat(&a[2], x->master_gain*k/dia[i]);
 		outlet_anything(x->outlet, _sym_list, 3, a);
 	}	
 }
@@ -588,14 +608,14 @@ void dbap_calculate_variance(t_dbap *x)
 	else if (x->attr_dimensions==2) {
 		for (i=0; i<x->attr_num_destinations; i++) {
 			dx = x->dst_position[i].x - x->mean_dst_position.x;
-			dx = x->dst_position[i].y - x->mean_dst_position.y;
+			dy = x->dst_position[i].y - x->mean_dst_position.y;
 			d2 += dx*dx + dy*dy;
 		}
 	}
 	else {
 		for (i=0; i<x->attr_num_destinations; i++) {
 			dx = x->dst_position[i].x - x->mean_dst_position.x;
-			dx = x->dst_position[i].y - x->mean_dst_position.y;
+			dy = x->dst_position[i].y - x->mean_dst_position.y;
 			dz = x->dst_position[i].z - x->mean_dst_position.z;
 			d2 += dx*dx + dy*dy + dz*dz;
 		}		

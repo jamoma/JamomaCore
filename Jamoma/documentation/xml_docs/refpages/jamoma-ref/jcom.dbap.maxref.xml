@@ -161,6 +161,20 @@
 				The message <m>info</m> cause <o>jcom.dbap</o> to output information concerning current positions of sources and destinations.
 			</description>
 		</method>
+
+		<method name="master_gain">
+			<arglist>
+				<arg id="0" name="master_gain" type="float" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The message <m>master_gain</m> can be used to control the general gain level for all matrix~ routings controlled by <o>jcom.dbap</o>.
+				All amplitude values calculated internally by <o>jcom.dbap</o> are multiplied by the value of <m>master_gain</m> before beíng passed to <o>matrix~</o>.
+				The argument for <m>master_gain</m> is interpreted as linear gain, and defaults to <m>1</m>.
+			</description>
+		</method>
 		
 		<method name="src_position">
 			<arglist>
