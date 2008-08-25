@@ -11,7 +11,7 @@
 #ifndef __JAMOMA_H__
 #define __JAMOMA_H__
 
-#define JAMOMA_VERSION "0.5 Dev"
+#define JAMOMA_VERSION "0.5 Beta"
 
 #ifdef WIN_VERSION
  #pragma warning(disable:4083) //warning C4083: expected 'newline'; found identifier 's'
