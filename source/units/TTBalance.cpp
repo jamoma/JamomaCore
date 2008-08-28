@@ -33,44 +33,36 @@ TTBalance::TTBalance(TTUInt16 newMaxNumChannels)
 
 TTBalance::~TTBalance()
 {
-	free(xm1A);
-	free(xm2A);
-	free(ym1A);
-	free(ym2A);
-	free(xm1B);
-	free(xm2B);
-	free(ym1B);
-	free(ym2B);
+	delete[] xm1A;
+	delete[] xm2A;
+	delete[] ym1A;
+	delete[] ym2A;
+	delete[] xm1B;
+	delete[] xm2B;
+	delete[] ym1B;
+	delete[] ym2B;
 }
 
 
 TTErr TTBalance::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	if(xm1A)
-		free(xm1A);
-	if(xm2A)
-		free(xm2A);
-	if(ym1A)
-		free(ym1A);
-	if(ym2A)
-		free(ym2A);
-	if(xm1B)
-		free(xm1B);
-	if(xm2B)
-		free(xm2B);
-	if(ym1B)
-		free(ym1B);
-	if(ym2B)
-		free(ym2B);
-	
-	xm1A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm2A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym1A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym2A = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm1B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm2B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym1B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym2B = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	delete[] xm1A;
+	delete[] xm2A;
+	delete[] ym1A;
+	delete[] ym2A;
+	delete[] xm1B;
+	delete[] xm2B;
+	delete[] ym1B;
+	delete[] ym2B;
+		
+	xm1A = new TTFloat64[maxNumChannels];
+	xm2A = new TTFloat64[maxNumChannels];
+	ym1A = new TTFloat64[maxNumChannels];
+	ym2A = new TTFloat64[maxNumChannels];
+	xm1B = new TTFloat64[maxNumChannels];
+	xm2B = new TTFloat64[maxNumChannels];
+	ym1B = new TTFloat64[maxNumChannels];
+	ym2B = new TTFloat64[maxNumChannels];
 	
 	clear();
 	return kTTErrNone;

@@ -29,19 +29,18 @@ TTDCBlock::TTDCBlock(TTUInt16 newMaxNumChannels)
 
 TTDCBlock::~TTDCBlock()
 {
-	free(lastInput);
-	free(lastOutput);
+	delete[] lastInput;
+	delete[] lastOutput;
 }
 
 
 TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	if(lastInput)
-		free(lastInput);
-	if(lastOutput)
-		free(lastOutput);
-	lastInput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	lastOutput = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
+	delete[] lastInput;
+	delete[] lastOutput;
+	lastInput = new TTSampleValue[maxNumChannels];
+	lastOutput = new TTSampleValue[maxNumChannels];
+
 	clear();
 	return kTTErrNone;
 }

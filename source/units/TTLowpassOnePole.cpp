@@ -35,15 +35,14 @@ TTLowpassOnePole::TTLowpassOnePole(TTUInt16 newMaxNumChannels)
 
 TTLowpassOnePole::~TTLowpassOnePole()
 {
-	free(feedback);
+	delete[] feedback;
 }
 
 
 TTErr TTLowpassOnePole::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	if(feedback)
-		free(feedback);
-	feedback = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	delete[] feedback;
+	feedback = new TTFloat64[maxNumChannels];
 	clear();
 	return kTTErrNone;
 }

@@ -35,20 +35,18 @@ TTHighpassButterworth1::TTHighpassButterworth1(TTUInt16 newMaxNumChannels)
 
 TTHighpassButterworth1::~TTHighpassButterworth1()
 {
-	free(xm1);
-	free(ym1);
+	delete[] xm1;
+	delete[] ym1;
 }
 
 
 TTErr TTHighpassButterworth1::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	if(xm1)
-		free(xm1);
-	if(ym1)
-		free(ym1);
+	delete[] xm1;
+	delete[] ym1;
 	
-	xm1 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym1 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	xm1 = new TTFloat64[maxNumChannels];
+	ym1 = new TTFloat64[maxNumChannels];
 	
 	clear();
 	return kTTErrNone;

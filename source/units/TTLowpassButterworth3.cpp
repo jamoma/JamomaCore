@@ -35,36 +35,30 @@ TTLowpassButterworth3::TTLowpassButterworth3(TTUInt16 newMaxNumChannels)
 
 TTLowpassButterworth3::~TTLowpassButterworth3()
 {
-	free(xm1);
-	free(xm2);
-	free(xm3);
-	free(ym1);
-	free(ym2);
-	free(ym3);
+	delete[] xm1;
+	delete[] xm2;
+	delete[] xm3;
+	delete[] ym1;
+	delete[] ym2;
+	delete[] ym3;
 }
 
 
 TTErr TTLowpassButterworth3::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
-	if(xm1)
-		free(xm1);
-	if(xm2)
-		free(xm2);
-	if(xm3)
-		free(xm3);
-	if(ym1)
-		free(ym1);
-	if(ym2)
-		free(ym2);
-	if(ym3)
-		free(ym3);
+	delete[] xm1;
+	delete[] xm2;
+	delete[] xm3;
+	delete[] ym1;
+	delete[] ym2;
+	delete[] ym3;
 	
-	xm1 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm2 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	xm3 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym1 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym2 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
-	ym3 = (TTFloat64*)malloc(sizeof(TTFloat64) * maxNumChannels);
+	xm1 = new TTFloat64[maxNumChannels];
+	xm2 = new TTFloat64[maxNumChannels];
+	xm3 = new TTFloat64[maxNumChannels];
+	ym1 = new TTFloat64[maxNumChannels];
+	ym2 = new TTFloat64[maxNumChannels];
+	ym3 = new TTFloat64[maxNumChannels];
 	
 	clear();
 	return kTTErrNone;

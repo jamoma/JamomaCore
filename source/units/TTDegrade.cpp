@@ -33,8 +33,8 @@ TTDegrade::TTDegrade(TTUInt16 newMaxNumChannels)
 
 TTDegrade::~TTDegrade()
 {
-	free(accumulator);
-	free(output);
+	delete[] accumulator;
+	delete[] output;
 }
 
 
@@ -42,13 +42,12 @@ TTErr TTDegrade::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 {
 	short i;
 	
-	if(accumulator)
-		free(accumulator);
-	if(output)
-		free(output);
+	delete[] accumulator;
+	delete[] output;
 	
-	accumulator = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
-	output = (TTSampleValue*)malloc(sizeof(TTSampleValue) * maxNumChannels);
+	accumulator	= new TTSampleValue[maxNumChannels];
+	output		= new TTSampleValue[maxNumChannels];
+
 	for(i=0; i<maxNumChannels; i++){
 		accumulator[i] = 0.0;
 		output[i] = 0.0;				// clear the values
