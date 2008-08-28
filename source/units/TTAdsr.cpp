@@ -124,14 +124,6 @@ TTErr TTAdsr::setSustainAmp(const TTValue& newValue)
 	return kTTErrNone;
 }
 
-/*
-TTErr TTAdsr::getSustainAmp(const TTAttribute&, TTValue& value)
-{
-	value = sustain_amp;
-	return kTTErrNone;
-}
-*/
-
 TTErr TTAdsr::setSustainDb(const TTValue& newValue)
 {
 	sustain_db = newValue;
@@ -156,56 +148,6 @@ TTErr TTAdsr::setMode(const TTValue& newValue)
 	return kTTErrNone;
 }
 
-/*
-TTErr TTAdsr::processAudio(TTAudioSignal& out)
-{
-	TTSampleValue *outSample;
-	short vs = out.vs;
-
-	while(vs--) {
-		
-		if(trigger) {
-			if(eg_state == k_eg_inactive || eg_state == k_eg_release)
-				eg_state = k_eg_attack;
-		} else {
-			if(eg_state != k_eg_inactive && eg_state != k_eg_release)
-				eg_state = k_eg_release;
-		}
-		
-		switch(eg_state) {
-			case k_eg_attack:
-				output += attack_step;
-				if(output >= 1.) {
-					output = 1.;
-					eg_state = k_eg_decay;
-				}
-				break;
-			case k_eg_decay:
-				output -= decay_step;
-				if(output <= sustain_amp) {
-					eg_state = k_eg_sustain;
-					output = sustain_amp;
-				}
-				break;
-			case k_eg_sustain:
-			
-				break;
-				
-			case k_eg_release:
-				output -= release_step;
-				if(output <= 0.) {
-					eg_state = k_eg_inactive;
-					output = 0.;
-				}
-				break;
-		}
-		*outSample++ = output;
-	}
-	
-	
-	return kTTErrNone;
-}
-*/
 	
 TTErr TTAdsr::processAudioLinear(TTAudioSignal& in, TTAudioSignal& out)
 {
