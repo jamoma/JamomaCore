@@ -467,6 +467,49 @@ public:
 		}
 	}
 	
+	void round()
+	{
+		for(TTUInt16 i=0; i<numValues; i++){
+			if(TTDataInfo::getIsNumerical(type[i])){
+				// TODO: find a way to make this routine faster
+				switch(type[i]){
+					case kTypeFloat32:
+						data[i].float32 = TTRound(data[i].float32);
+						break;
+					case kTypeFloat64:
+						data[i].float64 = TTRound(data[i].float64);
+						break;
+					case kTypeInt8:
+						data[i].int8 = TTRound(data[i].int8);
+						break;
+					case kTypeUInt8:
+						data[i].uint8 = TTRound(data[i].uint8);
+						break;
+					case kTypeInt16:
+						data[i].int16 = TTRound(data[i].int16);
+						break;
+					case kTypeUInt16:
+						data[i].uint16 = TTRound(data[i].uint16);
+						break;
+					case kTypeInt32:
+						data[i].int32 = TTRound(data[i].int32);
+						break;
+					case kTypeUInt32:
+						data[i].uint32 = TTRound(data[i].uint32);
+						break;
+					case kTypeInt64:
+						data[i].int64 = TTRound(data[i].int64);
+						break;
+					case kTypeUInt64:
+						data[i].uint64 = TTRound(data[i].uint64);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
+	
 };
 
 
