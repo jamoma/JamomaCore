@@ -184,12 +184,6 @@ public:
 	
 	/** Filter out denormaled values, which can make processing extremely slow when they are present. */
 	TTFloat64		antiDenormal(TTFloat64 value);
-		
-	/** Rounding utility. */
-	static TTInt32	round(TTFloat32 value);
-	/** Rounding utility. */
-	static TTInt32	round(TTFloat64 value);
-	
 };
 
 
@@ -280,6 +274,15 @@ static T TTScale(T value, T inlow, T inhigh, T outlow, T outhigh)
 	return(value);											
 }
 
+/** Rounding utility. */
+template<class T>
+static TTInt32 TTRound(T value)
+{
+	if(value > 0)
+		return((long)(value + 0.5));
+	else
+		return((long)(value - 0.5));
+}
 
 
 #endif // __TT_ELEMENT_H__

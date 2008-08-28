@@ -144,25 +144,6 @@ TTFloat64 TTElement::antiDenormal(TTFloat64 value)
 }
 
 
-long TTElement::round(float value)
-{
-	if(value > 0)
-		return((long)(value + 0.5));
-	else
-		return((long)(value - 0.5));
-}
-
-
-long TTElement::round(double value)
-{
-	if(value > 0)
-		return((long)(value + 0.5));
-	else
-		return((long)(value - 0.5));
-}
-
-
-
 TTDataInfoPtr	ttDataTypeInfo[kNumTTDataTypes];
 
 void TTDataInfo::addDataInfoForType(TTDataType type)
