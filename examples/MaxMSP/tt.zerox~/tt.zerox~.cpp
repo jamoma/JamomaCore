@@ -73,7 +73,6 @@ int main(void)
 void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_zerox*	x = (t_zerox*)object_alloc(s_zerox_class);
-	TTUInt16	numChannels = 1;
 	
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));	// dumpout
@@ -81,9 +80,9 @@ void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 		outlet_new((t_pxobject *)x, "signal");		// Create a signal Outlet
 
-		TTObjectInstantiate(TT("zerocross"), &x->zeroxUnit, numChannels);
-		x->signalIn = new TTAudioSignal(1);
-		x->signalOut = new TTAudioSignal(2);
+		TTObjectInstantiate(TT("zerocross"), &x->zeroxUnit, 1);
+		TTObjectInstantiate(TT("audiosignal"), &x->signalIn, 2);
+		TTObjectInstantiate(TT("audiosignal"), &x->signalOut, 2);
 
 		x->attr_size = 0;
 		attr_args_process(x, argc, argv); 			//handle attribute args			
@@ -96,8 +95,8 @@ void zerox_free(t_zerox *x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->zeroxUnit);
-	delete x->signalIn;
-	delete x->signalOut;
+	TTObjectRelease(x->signalIn);
+	TTObjectRelease(x->signalOut);
 }
 
 
@@ -151,17 +150,13 @@ t_int *zerox_perform(t_int *w)
 // DSP Method
 void zerox_dsp(t_zerox *x, t_signal **sp, short *count)
 {
-	//x->zeroxUnit->clear();
 	x->zeroxUnit->sendMessage(TT("clear"));
 	x->zeroxUnit->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	dsp_add(zerox_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n);
+		
+	x->signalIn->setAttributeValue(TT("vectorSize"), sp[0]->s_n);
+	x->signalOut->setAttributeValue(TT("vectorSize"), sp[0]->s_n);
 	
-	x->signalIn->setnumChannels(1);
-	x->signalOut->setnumChannels(2);
-	
-	x->signalIn->setvectorSize(sp[0]->s_n);
-	x->signalOut->setvectorSize(sp[0]->s_n);
-	
-	//signalIn will be set in the perform method
-	x->signalOut->alloc();
+	//signalIn will be set (alloc'd) in the perform method
+	x->signalOut->sendMessage(TT("alloc"));
 }

@@ -23,7 +23,7 @@ protected:
 	TTFloat64	rSize;					///< reciprocal of the size attribute
 	TTBoolean	lastSampleWasOverZero;	///< was the last sample over zero?
 	TTUInt32	counter;				///< counts zero-crossings
-	TTUInt32	finalCount;
+	TTFloat64	finalCount;
 	TTUInt32	analysisLocation;		///< keep track of how many samples so far
 	
 	/**	This method gets called when the inherited maxNumChannels attribute is changed. */
