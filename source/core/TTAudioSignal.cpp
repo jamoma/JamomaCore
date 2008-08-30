@@ -239,6 +239,25 @@ TTErr TTAudioSignal::allocWithNewVectorSize(const TTValue& newVectorSize)
 }
 
 
+TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest)
+{
+	short			vs;
+	TTSampleValue*	inSample;
+	TTSampleValue*	outSample;
+	short			numchannels = TTAudioSignal::getMinChannelCount(source, dest);
+	short			channel;
+	
+	for(channel=0; channel<numchannels; channel++){
+		inSample = source.sampleVectors[channel];
+		outSample = dest.sampleVectors[channel];
+		vs = source.getVectorSize();
+		while(vs--)
+			*outSample++ = *inSample++;
+	}
+	return kTTErrNone;
+}
+
+
 TTUInt16 TTAudioSignal::getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
 {
 	if(signal1.numChannels > signal2.numChannels)

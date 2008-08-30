@@ -65,6 +65,8 @@ TTErr TTAudioObject::setSr(const TTValue& newValue)
 
 TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 {
+	return TTAudioSignal::copy(in, out);
+/*	
 	short			vs;
 	TTSampleValue	*inSample,
 	*outSample;
@@ -79,6 +81,7 @@ TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
 			*outSample++ = *inSample++;
 	}
 	return kTTErrNone;
+ */
 }
 
 
@@ -91,13 +94,16 @@ TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y)
 
 TTErr TTAudioObject::bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
 {
-	TTUInt16		vs;
-	TTSampleValue	*inSample,
-	*outSample;
-	TTUInt16		numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
-	TTUInt16		numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
-	TTUInt16		channel;
+//	TTUInt16		vs;
+//	TTSampleValue	*inSample,
+//	*outSample;
+//	TTUInt16		numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
+//	TTUInt16		numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
+//	TTUInt16		channel;
 	
+	TTAudioSignal::copy(in2, out2);
+	return TTAudioSignal::copy(in1, out1);
+/*
 	for(channel=0; channel<numChannelsMain; channel++){
 		inSample = in1.sampleVectors[channel];
 		outSample = out1.sampleVectors[channel];
@@ -113,6 +119,7 @@ TTErr TTAudioObject::bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSigna
 			*outSample++ = *inSample++;
 	}
 	return kTTErrNone;
+ */
 }
 
 

@@ -92,7 +92,7 @@ public:
 	}
 	
 	// Note the capitalization -- this is not a normal getter, but rather a convenience method
-	TTUInt16 getVectorSize()
+	TTUInt16 getVectorSize() const
 	{
 		return vectorSize;
 	}
@@ -104,7 +104,7 @@ public:
 	}
 	
 	// Note the capitalization -- this is not a normal getter, but rather a convenience method
-	TTUInt16 getNumChannels()
+	TTUInt16 getNumChannels() const
 	{
 		return numChannels;
 	}
@@ -124,6 +124,10 @@ public:
 	/**	Zero out all of the sample values in the audio signal.
 		@return An error code.	*/
 	TTErr clear();
+	
+	
+	/**	Copy the audio from one signal into another.	*/
+	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest);
 
 	
 	/** Use this class method to determine the least number of channels the two signals have in common.
@@ -154,7 +158,6 @@ public:
 	 *	@param		signal			The signal that we want to investigate.
 	 *	@return		The number of channels of the signal.		*/
 	static TTUInt16 getNumChannels(const TTAudioSignal& signal);
-
 };
 
 
