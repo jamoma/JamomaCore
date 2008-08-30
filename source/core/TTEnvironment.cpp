@@ -164,7 +164,7 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObject** anOb
 	return err;
 }
 
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObject** anObject, TTUInt16& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObject** anObject, TTUInt16 anArgument)
 {
 	TTValue v(anArgument);
 	return createInstance(className, anObject, v);
@@ -175,7 +175,17 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioObject**
 	return createInstance(className, (TTObject**)anObject, anArgument);
 }
 
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTUInt16& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTUInt16 anArgument)
+{
+	return createInstance(className, (TTObject**)anObject, anArgument);
+}
+
+TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTValue& anArgument)
+{
+	return createInstance(className, (TTObject**)anObject, anArgument);
+}
+
+TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTUInt16 anArgument)
 {
 	return createInstance(className, (TTObject**)anObject, anArgument);
 }

@@ -112,9 +112,11 @@ public:
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return				An error code.	*/
 	TTErr createInstance(const TTSymbolPtr className, TTObject** anObject, TTValue& anArgument);
-	TTErr createInstance(const TTSymbolPtr className, TTObject** anObject, TTUInt16& anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTObject** anObject, TTUInt16 anArgument);
 	TTErr createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTValue& anArgument);
-	TTErr createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTUInt16& anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTUInt16 anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTValue& anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTUInt16 anArgument);
 	
 	
 	/**	Release an instance of a #TTObject class.
