@@ -279,7 +279,7 @@ void TTLogError(char *message, ...)
 	va_end(ap);
 	str[4095] = 0; 
 	
-	fprintf(stderr, str);
+	fprintf(stdout, str);
 }
 
 
@@ -294,7 +294,7 @@ void TTLogDebug(char *message, ...)
 		va_end(ap);
 		str[4095] = 0; 
 		
-		fprintf(stderr, str);
+		fprintf(stdout, str);
 	}
 }
 
