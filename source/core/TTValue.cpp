@@ -8,6 +8,8 @@
 
 #include "TTValue.h"
 #include "TTSymbolTable.h"
+#include "TTObject.h"
+
 
 /****************************************************************************************************/
 
@@ -529,6 +531,8 @@ TTValue& TTValue::operator = (TTString& value)
 
 TTValue::operator TTString&() const
 {
+	TT_ASSERT(ttvalue_cast_to_string_ref, *type == kTypeString);
+
 	if(*type == kTypeString)
 		return *data->stringPtr;
 	else
@@ -548,6 +552,8 @@ TTValue& TTValue::operator = (TTObject& value)
 
 TTValue::operator TTObject&() const
 {
+	TT_ASSERT(ttvalue_cast_to_object_ref, *type == kTypeObject);
+
 	if(*type == kTypeObject)
 		return *data->object;
 	else{
@@ -566,6 +572,8 @@ TTValue& TTValue::operator = (TTObject* value)
 
 TTValue::operator TTObject*() const
 {
+	TT_ASSERT(ttvalue_cast_to_object_ptr, *type == kTypeObject);
+	
 	if(*type == kTypeObject)
 		return data->object;
 	else{
@@ -797,9 +805,8 @@ void TTValue::get(TTUInt16 index, TTString& value) const
 
 void TTValue::get(TTUInt16 index, TTObject &value) const
 {
-//	TODO: The method won't compile because of the lack of a proper definition of the TTObject class in this context
-//	if(*type == kTypeUInt64)
-//		value = *(data+index)->object;
+	if(*type == kTypeUInt64)
+		value = *(data+index)->object;
 }
 
 void TTValue::get(TTUInt16 index, TTPtr* value) const

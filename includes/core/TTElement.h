@@ -47,6 +47,21 @@ using namespace std;
 #endif
 
 
+#ifdef TT_DEBUG
+#define TT_ENABLE_ASSERTIONS
+#endif
+
+#ifdef TT_ENABLE_ASSERTIONS
+#define TT_ASSERT(name, result) \
+				if(!result){\
+					char* nullPtr = 0;\
+					TTLogError("%s:%ld ASSERTION %s FAILED\n", __FILE__, __LINE__, #name );\
+					*nullPtr = 1;\
+				}
+#else
+#define TT_ASSERT(name, result) ((void)(0));
+#endif
+
 
 /****************************************************************************************************/
 // Type Definitions
