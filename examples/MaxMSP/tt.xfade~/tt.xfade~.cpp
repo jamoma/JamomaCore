@@ -16,6 +16,8 @@ int main(void)
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;
 	
+	TTBlueInit();
+	
 	// By default, the wrapper assumes we have N-channels of both input and output
 	// Here we tell it that this object needs to have twice as many inputs as outputs
 	value.append(2);

@@ -16,6 +16,8 @@ int main(void)
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;
 
+	TTBlueInit();
+
 	value.clear();
 	value.append(TT("srRatio"));
 	value.append(TT("bitdepth"));

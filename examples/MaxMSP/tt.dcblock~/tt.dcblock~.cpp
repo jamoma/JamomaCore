@@ -13,6 +13,7 @@
 
 int main(void)
 {
+	TTBlueInit();
 	return wrapTTClassAsMaxClass(TT("dcblock"), "tt.dcblock~", NULL);
 }
 
