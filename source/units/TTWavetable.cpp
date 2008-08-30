@@ -24,6 +24,8 @@ TTWavetable::TTWavetable(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(updateSr);
 
 	wavetable = new TTBuffer;
+	if(!wavetable)
+		throw TTException("Could not create internal buffer object");
 	wavetable->setnumChannels(1);
 
 	// Set Defaults...

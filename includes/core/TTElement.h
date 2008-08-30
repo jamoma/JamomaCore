@@ -175,7 +175,18 @@ enum TTErr {
 
 
 /****************************************************************************************************/
-// Class Specification
+// Class Specifications
+
+
+/**	A TTBlue exception is thown with this object. */
+class TTEXPORT TTException {
+	TTCString	reason;
+public:
+	TTException(TTCString aReason)
+	: reason(aReason)
+	{}
+};
+
 
 /**	The required base-class from which all TTBlue objects must inherit.
  *	This object is the primary base-class for all TTBlue objects, including TTObject.  

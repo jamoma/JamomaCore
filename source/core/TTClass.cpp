@@ -26,15 +26,17 @@ TTClass::~TTClass()
 
 TTErr TTClass::createInstance(TTObject** anObject, TTValue& anArgument)
 {
-	*anObject = instantiationMethod(name, anArgument);
+	TTErr err = kTTErrNone;
 	
-	//TODO: Should be doing some sort of exception handling here
-	//	That way class constructors and destructors can throw exceptions if something goes wrong...
-		
-	if(*anObject)
-		return kTTErrNone;
-	else
-		return kTTErrAllocFailed;
+	try{
+		*anObject = instantiationMethod(name, anArgument);
+	}
+	catch(...){
+		err = kTTErrAllocFailed;
+	}
+	
+	TT_ASSERT(create_instance_successful, err == kTTErrNone);
+	return err;
 }
 
 
