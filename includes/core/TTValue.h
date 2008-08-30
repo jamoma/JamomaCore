@@ -525,39 +525,39 @@ public:
 					break;
 				case kTypeFloat64:
 					temp = new char[16];
-					snprintf(temp, 16, "%lf ", data[i].float32);
+					snprintf(temp, 16, "%lf ", data[i].float64);
 					break;
 				case kTypeInt8:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", data[i].float32);
+					snprintf(temp, 16, "%i ", data[i].int8);
 					break;
 				case kTypeUInt8:
 					temp = new char[16];
-					snprintf(temp, 16, "%u ", data[i].float32);
+					snprintf(temp, 16, "%u ", data[i].uint8);
 					break;
 				case kTypeInt16:
 					temp = new char[16];
-					snprintf(temp, 16, "%i ", data[i].float32);
+					snprintf(temp, 16, "%i ", data[i].int16);
 					break;
 				case kTypeUInt16:
 					temp = new char[16];
-					snprintf(temp, 16, "%u ", data[i].float32);
+					snprintf(temp, 16, "%u ", data[i].uint16);
 					break;
 				case kTypeInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", data[i].float32);
+					snprintf(temp, 16, "%ld ", data[i].int32);
 					break;
 				case kTypeUInt32:
 					temp = new char[16];
-					snprintf(temp, 16, "%lu ", data[i].float32);
+					snprintf(temp, 16, "%lu ", data[i].uint32);
 					break;
 				case kTypeInt64:
 					temp = new char[16];
-					snprintf(temp, 16, "%ld ", data[i].float32);
+					snprintf(temp, 16, "%lld ", data[i].int64);
 					break;
 				case kTypeUInt64:
 					temp = new char[16];
-					snprintf(temp, 16, "%lu ", data[i].float32);
+					snprintf(temp, 16, "%llu ", data[i].uint64);
 					break;
 				case kTypeBoolean:
 					if(data[i].boolean)
@@ -575,11 +575,11 @@ public:
 					break;
 				case kTypeObject:
 					temp = new char[16];
-					snprintf(temp, 16, "%x ", data[i].object);
+					snprintf(temp, 16, "%x ", (unsigned int)data[i].object);
 					break;
 				case kTypePointer:
 					temp = new char[16];
-					snprintf(temp, 16, "%x ", data[i].ptr);
+					snprintf(temp, 16, "%x ", (unsigned int)data[i].ptr);
 					break;
 				default:
 					str->append(" ");
