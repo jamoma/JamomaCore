@@ -102,6 +102,8 @@ void oscinstance_assist(t_oscinstance *x, void *b, long msg, long arg, char *dst
 			strcpy(dst, "OSC message with instance info stripped");
 		else if (arg == 1)
 		 	strcpy(dst, "OSC instance number or ID");
+		else if (arg == 2)
+		 	strcpy(dst, "parameter value");		
 		else
 			strcpy(dst, "dumpout / overflow from non-matching input");	
  	}		
