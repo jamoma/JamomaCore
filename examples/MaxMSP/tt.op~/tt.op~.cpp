@@ -20,13 +20,15 @@
 
 // Data Structure for this object
 typedef struct _op {
-    t_pxobject 		obj;
-	TTAudioObject*	op;
-	TTAudioSignal*	audioIn;
-	TTAudioSignal*	audioOut;
-    float			attrOperand;
-    t_symbol*		attrOperator;
-	TTUInt16		maxNumChannels;
+    t_pxobject			obj;
+	TTAudioObjectPtr	op;
+	TTAudioSignalPtr	audioIn;
+	TTAudioSignalPtr	audioOut;
+    float				attrOperand;
+    t_symbol*			attrOperator;
+	TTUInt16			maxNumChannels;
+	TTUInt16			numChannels;
+	TTUInt16			vs;
 } t_op;
 
 
@@ -91,9 +93,8 @@ void* op_new(t_symbol *msg, short argc, t_atom *argv)
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		TTObjectInstantiate(TT("operator"), &x->op, x->maxNumChannels);
-		//x->op = new TTOperator(x->maxNumChannels);
-		x->audioIn = new TTAudioSignal(x->maxNumChannels);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -112,8 +113,8 @@ void op_free(t_op *x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->op);
-	delete x->audioIn;
-	delete x->audioOut;
+	TTObjectRelease(x->audioIn);
+	TTObjectRelease(x->audioOut);
 }
 
 
@@ -135,23 +136,21 @@ t_int *op_perform(t_int *w)
 {
    	t_op	*x = (t_op *)(w[1]);
 	short		i, j;
-	TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, (t_float *)(w[j+1]));
 	}
 
 	if(!x->obj.z_disabled)
-		x->op->process(*x->audioIn, *x->audioOut);
+		x->op->process(x->audioIn, x->audioOut);
 
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, (t_float *)(w[j+2]));
 	}
 
-	return w + ((numChannels*2)+2);
+	return w + ((x->numChannels*2)+2);
 }
 
 
@@ -160,19 +159,19 @@ void op_dsp(t_op *x, t_signal **sp, short *count)
 {
 	short		i, j, k=0;
 	void		**audioVectors = NULL;
-	TTUInt8		numChannels = 0;
-	TTUInt16	vs = 0;
-	
+
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1));
 	audioVectors[k] = x;
 	k++;
 	
+	x->numChannels = 0;
+	x->vs = 0;
 	for(i=0; i < x->maxNumChannels; i++){
 		j = x->maxNumChannels + i;
 		if(count[i] && count[j]){
-			numChannels++;
-			if(sp[i]->s_n > vs)
-				vs = sp[i]->s_n;
+			x->numChannels++;
+			if(sp[i]->s_n > x->vs)
+				x->vs = sp[i]->s_n;
 				
 			audioVectors[k] = sp[i]->s_vec;
 			k++;
@@ -181,12 +180,12 @@ void op_dsp(t_op *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setnumChannels(numChannels);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioIn->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
+	x->audioIn->setAttributeValue(TT("numChannels"), x->maxNumChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), x->maxNumChannels);
+	x->audioIn->setAttributeValue(TT("vectorSize"), x->vs);
+	x->audioOut->setAttributeValue(TT("vectorSize"), x->vs);
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();
+	x->audioOut->sendMessage(TT("alloc"));
 	
 	x->op->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	

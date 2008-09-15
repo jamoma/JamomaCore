@@ -19,12 +19,13 @@
 
 
 // Data Structure for this object
-typedef struct _ramp	{
-    t_pxobject 		obj;
-	TTAudioObject*	ramp;
-	TTAudioSignal*	audioOut;
-	t_symbol*		attrMode;
-	TTUInt16		maxNumChannels;
+typedef struct _ramp {
+    t_pxobject			obj;
+	TTAudioObjectPtr	ramp;
+	TTAudioSignalPtr	audioOut;
+	t_symbol*			attrMode;
+	TTUInt16			maxNumChannels;
+	TTUInt16			vs;
 } t_ramp;
 
 
@@ -99,7 +100,7 @@ void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		//x->ramp = new TTRamp(x->maxNumChannels);
 		TTObjectInstantiate(TT("ramp"), &x->ramp, x->maxNumChannels);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -118,7 +119,7 @@ void ramp_free(t_ramp *x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->ramp);
-	delete x->audioOut;
+	TTObjectRelease(x->audioOut);
 }
 
 
@@ -166,7 +167,7 @@ t_int *ramp_perform(t_int *w)
 	if(!(x->obj.z_disabled))
 		x->ramp->process(*x->audioOut);
 
-	x->audioOut->getVector(0, x->audioOut->getVectorSize(), (t_float *)(w[2]));
+	TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, 0, x->vs, w[2]);
     return w+3;
 }
 
@@ -175,10 +176,11 @@ t_int *ramp_perform(t_int *w)
 void ramp_dsp(t_ramp *x, t_signal **sp, short *count)
 {
 	x->ramp->setAttributeValue(TT("sr"), sp[0]->s_sr);
-
-	x->audioOut->setnumChannels(x->maxNumChannels);
-	x->audioOut->setvectorSize(sp[0]->s_n);
-	x->audioOut->alloc();
+	x->vs = sp[0]->s_n;
+	
+	x->audioOut->setAttributeValue(TT("numChannels"), x->maxNumChannels);
+	x->audioOut->setAttributeValue(TT("vectorSize"), sp[0]->s_n);
+	x->audioOut->sendMessage(TT("alloc"));
 
 	dsp_add(ramp_perform, 2, x, sp[0]->s_vec);
 }

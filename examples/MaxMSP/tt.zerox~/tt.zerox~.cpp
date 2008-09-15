@@ -18,11 +18,11 @@
 
 // Data Structure for this object
 typedef struct _zerox {
-	t_pxobject 		obj;			// This object - must be first
-	TTAudioObject*	zeroxUnit;		// 
-    TTAudioSignal*	signalIn;		// 
-    TTAudioSignal*	signalOut;		// 
-	long			attr_size;		//  
+	t_pxobject			obj;			// This object - must be first
+	TTAudioObjectPtr	zeroxUnit;		// 
+    TTAudioSignalPtr	signalIn;		// 
+    TTAudioSignalPtr	signalOut;		// 
+	long				attr_size;		//  
 } t_zerox;
 
 
@@ -137,12 +137,11 @@ t_int *zerox_perform(t_int *w)
 	int vs = (int)(w[5]);			// Vector Size
 
 	if(!x->obj.z_disabled){								// if we are not muted...
-		x->signalIn->setVector(0, vs, in);	
+		TTAUDIOSIGNAL_SETVECTOR32(x->signalIn, 0, vs, in);
 		x->zeroxUnit->process(x->signalIn, x->signalOut);
-		x->signalOut->getVector(0, vs, out1);
-		x->signalOut->getVector(1, vs, out2);
-	}	
-	
+		TTAUDIOSIGNAL_GETVECTOR32(x->signalOut, 0, vs, out1);
+		TTAUDIOSIGNAL_GETVECTOR32(x->signalOut, 1, vs, out2);
+	}
 	return w+6;	
 }
 

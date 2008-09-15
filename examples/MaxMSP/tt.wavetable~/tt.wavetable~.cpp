@@ -20,14 +20,15 @@
 
 // Data Structure for this object
 typedef struct _wavetable	{
-    t_pxobject 		obj;
-	TTAudioObject*	wavetable;
-	TTAudioSignal*	audioOut;
-	t_symbol*		attrMode;
-	t_symbol*		attrInterpolation;
-	float			attrFrequency;
-	float			attrGain;
-	TTUInt16		maxNumChannels;
+    t_pxobject			obj;
+	TTAudioObjectPtr	wavetable;
+	TTAudioSignalPtr	audioOut;
+	t_symbol*			attrMode;
+	t_symbol*			attrInterpolation;
+	float				attrFrequency;
+	float				attrGain;
+	TTUInt16			maxNumChannels;
+	TTUInt16			vs;
 } t_wavetable;
 
 
@@ -103,15 +104,13 @@ void* wavetable_new(t_symbol *msg, short argc, t_atom *argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		//x->wavetable = new TTWavetable(x->maxNumChannels);
 		TTObjectInstantiate(TT("wavetable"), &x->wavetable, x->maxNumChannels);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-//	    dsp_setup((t_pxobject *)x, x->maxNumChannels);								// inlets
-	    dsp_setup((t_pxobject *)x, 0);								// inlets
+	    dsp_setup((t_pxobject *)x, 0);												// inlets
 		for(i=0; i < x->maxNumChannels; i++)
 			outlet_new((t_pxobject *)x, "signal");									// outlets
 		
@@ -125,7 +124,7 @@ void wavetable_free(t_wavetable *x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->wavetable);
-	delete x->audioOut;
+	TTObjectRelease(x->audioOut);
 }
 
 
@@ -150,7 +149,7 @@ t_int *wavetable_perform(t_int *w)
 	if(!(x->obj.z_disabled))
 		x->wavetable->process(*x->audioOut);
 
-	x->audioOut->getVector(0, x->audioOut->getVectorSize(), (t_float *)(w[2]));
+	TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, 0, x->vs, w[2]);
     return w+3;
 }
 
@@ -159,10 +158,11 @@ t_int *wavetable_perform(t_int *w)
 void wavetable_dsp(t_wavetable *x, t_signal **sp, short *count)
 {
 	x->wavetable->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->vs = sp[0]->s_n;
 
-	x->audioOut->setnumChannels(x->maxNumChannels);
-	x->audioOut->setvectorSize(sp[0]->s_n);
-	x->audioOut->alloc();
+	x->audioOut->setAttributeValue(TT("numChannels"), x->maxNumChannels);
+	x->audioOut->setAttributeValue(TT("vectorSize"), sp[0]->s_n);
+	x->audioOut->sendMessage(TT("alloc"));
 
 	dsp_add(wavetable_perform, 2, x, sp[0]->s_vec);
 }

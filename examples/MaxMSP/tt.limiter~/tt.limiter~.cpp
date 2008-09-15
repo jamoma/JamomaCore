@@ -20,20 +20,22 @@
 
 // Data Structure for this object
 typedef struct _limiter	{
-    t_pxobject 		obj;
-	TTAudioObject*	limiter;
-	TTAudioSignal*	audioIn;
-	TTAudioSignal*	audioOut;
-	float			attrThreshold;			// ATTRIBUTE: in dB
-	float			attrRelease;
-    long			attrLookahead;
-    long			attrBypassDCBlocker;
-    long			attrBypass;
-	long			attrMute;
-	t_symbol*		attrMode;
-	float			attrPreamp;				// ATTRIBUTE: in dB
-	float			attrPostamp;			// ATTRIBUTE: in dB
-	TTUInt16		maxNumChannels;
+    t_pxobject			obj;
+	TTAudioObjectPtr	limiter;
+	TTAudioSignalPtr	audioIn;
+	TTAudioSignalPtr	audioOut;
+	float				attrThreshold;			// ATTRIBUTE: in dB
+	float				attrRelease;
+    long				attrLookahead;
+    long				attrBypassDCBlocker;
+    long				attrBypass;
+	long				attrMute;
+	t_symbol*			attrMode;
+	float				attrPreamp;				// ATTRIBUTE: in dB
+	float				attrPostamp;			// ATTRIBUTE: in dB
+	TTUInt16			maxNumChannels;
+	TTUInt16			numChannels;
+	TTUInt16			vs;
 } t_limiter;
 
 // Prototypes for methods: need a method for each incoming message type:
@@ -173,8 +175,8 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		//x->limiter = new TTLimiter(x->maxNumChannels);
 		TTObjectInstantiate(TT("limiter"), &x->limiter, x->maxNumChannels);
-		x->audioIn = new TTAudioSignal(x->maxNumChannels);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -193,8 +195,8 @@ void limiter_free(t_limiter *x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->limiter);
-	delete x->audioIn;
-	delete x->audioOut;
+	TTObjectRelease(x->audioIn);
+	TTObjectRelease(x->audioOut);
 }
 
 
@@ -229,23 +231,21 @@ t_int *limiter_perform(t_int *w)
 {
    	t_limiter	*x = (t_limiter *)(w[1]);
 	short		i, j;
-	TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 2;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j]));
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, (t_float *)(w[j]));
 	}
 
 	if(!x->obj.z_disabled && !x->attrMute)
 		x->limiter->process(*x->audioIn, *x->audioOut);
 
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 2 + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, (t_float *)(w[j]));
 	}
 
-	return w + ((numChannels*2)+2);
+	return w + ((x->numChannels*2)+2);
 }
 
 
@@ -256,19 +256,19 @@ void limiter_dsp(t_limiter *x, t_signal **sp, short *count)
 	TTUInt16	j;
 	TTUInt16	k = 0;
 	void**		audioVectors = NULL;
-	TTUInt16	numChannels = 0;
-	TTUInt16	vs = 0;
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1));
 	audioVectors[k] = x;
 	k++;
 	
+	x->numChannels = 0;
+	x->vs = 0;
 	for(i=0; i < x->maxNumChannels; i++){
 		j = x->maxNumChannels + i;
 		if(count[i] && count[j]){
-			numChannels++;
-			if(sp[i]->s_n > vs)
-				vs = sp[i]->s_n;
+			x->numChannels++;
+			if(sp[i]->s_n > x->vs)
+				x->vs = sp[i]->s_n;
 				
 			audioVectors[k] = sp[i]->s_vec;
 			k++;
@@ -277,12 +277,12 @@ void limiter_dsp(t_limiter *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setnumChannels(numChannels);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioIn->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
+	x->audioIn->setAttributeValue(TT("numChannels"), x->numChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), x->numChannels);
+	x->audioIn->setAttributeValue(TT("vectorSize"), x->vs);
+	x->audioOut->setAttributeValue(TT("vectorSize"), x->vs);
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();
+	x->audioOut->sendMessage(TT("alloc"));
 	
 	x->limiter->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	

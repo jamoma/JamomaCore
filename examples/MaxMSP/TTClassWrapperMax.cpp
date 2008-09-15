@@ -18,7 +18,9 @@ typedef struct _wrappedInstance {
 	TTAudioObject*	wrappedObject;				///< The instance of the TTBlue object we are wrapping
 	TTAudioSignal*	audioIn;					///< Audio input signal
 	TTAudioSignal*	audioOut;					///< Audio output signal
+	TTUInt16		vs;
 	TTUInt16		maxNumChannels;				///< The number of channels for which this object is initialized to operate upon
+	TTUInt16		numChannels;				///< The actual number of channels in use
 	TTUInt16		numInputs;
 	TTUInt16		numOutputs;
 	TTUInt16		numControlSignals;			///< What number, a subset of numInputs, of signals are for controlling attributes?
@@ -67,8 +69,8 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 
 		TTObjectInstantiate(wrappedMaxClass->ttblueClassName, &x->wrappedObject, x->maxNumChannels);
-		x->audioIn = new TTAudioSignal(x->maxNumChannels);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 		
 		attr_args_process(x,argc,argv);				// handle attribute args	
 		
@@ -113,8 +115,8 @@ void wrappedClass_free(WrappedInstancePtr x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->wrappedObject);
-	delete x->audioIn;
-	delete x->audioOut;
+	TTObjectRelease(x->audioIn);
+	TTObjectRelease(x->audioOut);
 	delete[] x->controlSignalNames;
 }
 
@@ -213,28 +215,26 @@ t_int *wrappedClass_perform(t_int *w)
 {
    	WrappedInstancePtr	x = (WrappedInstancePtr)(w[1]);
 	short				i, j;
-	TTUInt8				numChannels = x->audioIn->getNumChannels();
-	TTUInt16			vs = x->audioIn->getVectorSize();	
 
 	for(i=0; i < x->numControlSignals; i++){
-		t_float* value = (t_float*)(w[numChannels+i]);
+		t_float* value = (t_float*)(w[x->numChannels+i]);
 		x->wrappedObject->setAttributeValue(x->controlSignalNames[i], *value);
 	}
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, (t_float *)(w[j+1]));
 	}
 	
-	if(!x->obj.z_disabled)											// if we are not muted...
-		x->wrappedObject->process(*x->audioIn, *x->audioOut);		// Actual process
+	if(!x->obj.z_disabled)										// if we are not muted...
+		x->wrappedObject->process(x->audioIn, x->audioOut);		// Actual process
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, (t_float *)(w[j+2]));
 	}
 	
-	return w + ((numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return w + ((x->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
@@ -243,19 +243,19 @@ void wrappedClass_dsp(WrappedInstancePtr x, t_signal **sp, short *count)
 {
 	short		i, j, k=0;
 	void		**audioVectors = NULL;
-	TTUInt8		numChannels = 0;
-	TTUInt16	vs = 0;
 		
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1 + x->numControlSignals));
 	audioVectors[k] = x;
 	k++;
 	
+	x->numChannels = 0;
+	x->vs = 0;
 	for(i=0; i < x->maxNumChannels; i++){
 		j = x->maxNumChannels + x->numControlSignals + i;
 		if(count[i] && count[j]){
-			numChannels++;
-			if(sp[i]->s_n > vs)
-				vs = sp[i]->s_n;
+			x->numChannels++;
+			if(sp[i]->s_n > x->vs)
+				x->vs = sp[i]->s_n;
 			
 			audioVectors[k] = sp[i]->s_vec;
 			k++;
@@ -264,12 +264,12 @@ void wrappedClass_dsp(WrappedInstancePtr x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setnumChannels(numChannels);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioIn->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
+	x->audioIn->setAttributeValue(TT("numChannels"), x->numChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), x->numChannels);
+	x->audioIn->setAttributeValue(TT("vectorSize"), x->vs);
+	x->audioOut->setAttributeValue(TT("vectorSize"), x->vs);
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();
+	x->audioOut->sendMessage(TT("alloc"));
 	
 	x->wrappedObject->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	

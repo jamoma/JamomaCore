@@ -20,13 +20,15 @@
 
 // Data Structure for this object
 typedef struct _balance	{
-    t_pxobject 		obj;
-	TTAudioObject*	balance;
-	TTAudioSignal*	audioIn;
-	TTAudioSignal*	audioOut;
-	long			attrBypass;
-	float			attrFrequency;
-	TTUInt16		maxNumChannels;
+    t_pxobject			obj;
+	TTAudioObjectPtr	balance;
+	TTAudioSignalPtr	audioIn;
+	TTAudioSignalPtr	audioOut;
+	long				attrBypass;
+	float				attrFrequency;
+	TTUInt16			maxNumChannels;
+	TTUInt16			numChannels;
+	TTUInt16			vs;
 } t_balance;
 
 
@@ -103,9 +105,8 @@ void* balance_new(t_symbol *msg, short argc, t_atom *argv)
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		TTObjectInstantiate(TT("balance"), &x->balance, x->maxNumChannels);
-	//	x->balance = new TTBalance(x->maxNumChannels);
-		x->audioIn = new TTAudioSignal(x->maxNumChannels*2);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels*2);
+		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
 
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -124,8 +125,8 @@ void balance_free(t_balance *x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->balance);
-	delete x->audioIn;
-	delete x->audioOut;
+	TTObjectRelease(x->audioIn);
+	TTObjectRelease(x->audioOut);
 }
 
 
@@ -139,9 +140,6 @@ void balance_assist(t_balance *x, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "(signal) input, control messages");		
 	else if(msg==2) // Outlets
 		strcpy(dst, "(signal) Balanced output");
-	#pragma unused(x)
-	#pragma unused(b)
-	#pragma unused(arg)
 }
 
 
@@ -155,26 +153,25 @@ void balance_clear(t_balance *x)
 t_int *balance_perform(t_int *w)
 {
    	t_balance	*x = (t_balance *)(w[1]);
-	short		i, j;
-	TTUInt8		numChannels = x->audioOut->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
+	short		i, j, k;
 
 	// We sort audioIn so that all channels of signalA comes first, then all channels of signalB
-	for(i=0; i < numChannels; i++){
+	for(i=0; i < x->numChannels; i++){
 		j = (i*3) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
-		x->audioIn->setVector(i+numChannels, vs, (t_float *)(w[j+2]));
+		k = i + x->numChannels;
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, k, x->vs, w[j+2]);
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
 		x->balance->process(*x->audioIn, *x->audioOut);		// Actual balance process
 
-	for(i=0; i < numChannels; i++){
+	for(i=0; i < x->numChannels; i++){
 		j = (i*3) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+3]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+3]);
 	}
 
-	return w + ((numChannels*3)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return w + ((x->numChannels*3)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
@@ -183,21 +180,21 @@ void balance_dsp(t_balance *x, t_signal **sp, short *count)
 {
 	short		i, j, k, l=0;
 	void		**audioVectors = NULL;
-	TTUInt8		numChannels = 0;
-	TTUInt16	vs = 0;
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 3) + 1));
 	audioVectors[l] = x;
 	l++;
 	
 	// audioVectors[] passed to balance_perform() as {x, audioInL[0], audioInR[0], audioOut[0], audioInL[1], audioInR[1], audioOut[1],...}
+	x->numChannels = 0;
+	x->vs = 0;
 	for(i=0; i < x->maxNumChannels; i++){
 		j = x->maxNumChannels + i;
 		k = x->maxNumChannels*2 + i;
 		if(count[i] && count[j] && count[k]){
-			numChannels++;
-			if(sp[i]->s_n > vs)
-				vs = sp[i]->s_n;
+			x->numChannels++;
+			if(sp[i]->s_n > x->vs)
+				x->vs = sp[i]->s_n;
 
 			audioVectors[l] = sp[i]->s_vec;
 			l++;
@@ -208,12 +205,12 @@ void balance_dsp(t_balance *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setnumChannels(numChannels*2);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioIn->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
+	x->audioOut->setAttributeValue(TT("numChannels"), x->numChannels*2);
+	x->audioOut->setAttributeValue(TT("numChannels"), x->numChannels);
+	x->audioIn->setAttributeValue(TT("vectorSize"), x->vs);
+	x->audioOut->setAttributeValue(TT("vectorSize"), x->vs);
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();	
+	x->audioOut->sendMessage(TT("alloc"));
 	
 	x->balance->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
