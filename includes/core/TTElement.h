@@ -189,28 +189,24 @@ public:
 
 
 /**	The required base-class from which all TTBlue objects must inherit.
- *	This object is the primary base-class for all TTBlue objects, including TTObject.  
- *	It does not define any core audio, attribute, or other high-level functionality.  For
- *	these refer to TTObject and TTAudioObject.														*/
+ 	This object is the primary base-class for all TTBlue objects, including TTObject.  
+ 	It does not define any real functionality.  
+	Instead it provides a way to group and work polymorphically with any class in TTBlue, 
+	including both TTValue and TTObject.													*/
 class TTEXPORT TTElement {
 public:
-	static const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
-	static const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
-	static const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
-	static const TTFloat64 kTTPi;							///< pre-calculated value of pi
-	static const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
-	static const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
-	static const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
-
-	/** Constructor. */
-	TTElement();
-	
-	/** Destructor. */
-	virtual ~TTElement();
-	
-	/** Filter out denormaled values, which can make processing extremely slow when they are present. */
-	TTFloat64		antiDenormal(TTFloat64 value);
+	TTElement();			///< Constructor.
+	virtual ~TTElement();	///< Destructor.
 };
+
+
+TTEXPORT extern const TTFloat32 kTTLookupEqualPower[];			///< Equal Power lookup table
+TTEXPORT extern const TTFloat32 kTTLookupHalfPaddedwWelch[];		///< 256 point window table (the first half of it)
+TTEXPORT extern const TTFloat32 kTTLookupQuarterSine[];			///< Quarter Sine lookup table
+TTEXPORT extern const TTFloat64 kTTPi;							///< pre-calculated value of pi
+TTEXPORT extern const TTFloat64 kTTTwoPi;						///< pre-calculated value of pi * 2
+TTEXPORT extern const TTFloat64 kTTAntiDenormalValue;			///< constant used by the ttantidenormal function
+TTEXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root of 2
 
 
 /** Platform and host independent method for posting messages. */
@@ -225,6 +221,17 @@ void TTLogError(char *message, ...);
 /** Platform and host independent method for posting messages only when debugging is enabled in the environment. */
 void TTLogDebug(char *message, ...);
 
+
+/** Filter out denormaled values, which can make processing extremely slow when they are present. */
+template<class T>
+static T TTAntiDenormal(T value)
+{
+#ifndef TT_DISABLE_DENORMAL_FIX
+	value += kTTAntiDenormalValue;
+	value -= kTTAntiDenormalValue;
+#endif
+	return(value);
+}
 
 /** A fast routine for clipping a number to a range.  This routine does not use branching. */
 template<class T>

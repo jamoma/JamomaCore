@@ -50,7 +50,7 @@ TTErr LowpassFunction::setcoefficient(const TTValue& newValue)
 
 TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y)
 {
-	y = feedback = antiDenormal((feedback * coefficient) + (x * one_minus_coefficient));
+	y = feedback = TTAntiDenormal((feedback * coefficient) + (x * one_minus_coefficient));
 	return kTTErrNone;
 }
 

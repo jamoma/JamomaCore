@@ -115,7 +115,7 @@ TTErr TTLowpassTwoPole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempSample = *inSample++;
-			tempSample = antiDenormal((feedback1[channel] * coefficientA) - (feedback2[channel] * coefficientB) + (tempSample * coefficientC));
+			tempSample = TTAntiDenormal((feedback1[channel] * coefficientA) - (feedback2[channel] * coefficientB) + (tempSample * coefficientC));
 			*outSample++ = tempSample;
 			feedback2[channel] = feedback1[channel];
 			feedback1[channel] = tempSample;

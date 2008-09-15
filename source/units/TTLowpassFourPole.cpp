@@ -121,7 +121,7 @@ TTErr TTLowpassFourPole::setresonance(const TTValue& newValue)
 void TTLowpassFourPole::calculateCoefficients()
 {
 	coefficientFB = deciResonance * (1.0 - 0.15 * (coefficientF * coefficientF));
-	coefficientG = antiDenormal(0.35013 * ((coefficientF * coefficientF) * (coefficientF * coefficientF))); 
+	coefficientG = TTAntiDenormal(0.35013 * ((coefficientF * coefficientF) * (coefficientF * coefficientF))); 
 }
 
 
@@ -143,16 +143,16 @@ TTErr TTLowpassFourPole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempSample = *inSample++;
-			tempSample -= antiDenormal(y4[channel] * coefficientFB);
+			tempSample -= TTAntiDenormal(y4[channel] * coefficientFB);
 			tempSample *= coefficientG;
 			
-			y1[channel] = antiDenormal(tempSample + 0.3 * x1[channel] + (1 - coefficientF) * y1[channel]);
+			y1[channel] = TTAntiDenormal(tempSample + 0.3 * x1[channel] + (1 - coefficientF) * y1[channel]);
 			x1[channel] = tempSample;
-			y2[channel] = antiDenormal(y1[channel] + 0.3 * x2[channel] + (1 - coefficientF) * y2[channel]);
+			y2[channel] = TTAntiDenormal(y1[channel] + 0.3 * x2[channel] + (1 - coefficientF) * y2[channel]);
 			x2[channel] = y1[channel];
-			y3[channel] = antiDenormal(y2[channel] + 0.3 * x3[channel] + (1 - coefficientF) * y3[channel]);
+			y3[channel] = TTAntiDenormal(y2[channel] + 0.3 * x3[channel] + (1 - coefficientF) * y3[channel]);
 			x3[channel] = y2[channel];
-			y4[channel] = antiDenormal(y3[channel] + 0.3 * x4[channel] + (1 - coefficientF) * y4[channel]);
+			y4[channel] = TTAntiDenormal(y3[channel] + 0.3 * x4[channel] + (1 - coefficientF) * y4[channel]);
 			x4[channel] = y3[channel];
 			tempSample = y4[channel];
 			

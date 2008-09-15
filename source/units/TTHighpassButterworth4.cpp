@@ -147,7 +147,7 @@ TTErr TTHighpassButterworth4::processAudio(TTAudioSignal& in, TTAudioSignal& out
 		// This inner loop works through each sample within the channel one at a time
 		while(vs--){
 			tempx = *inSample++;
-			tempy = antiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] + a3*xm3[channel] + a4*xm4[channel]
+			tempy = TTAntiDenormal(a0*tempx + a1*xm1[channel] + a2*xm2[channel] + a3*xm3[channel] + a4*xm4[channel]
 				- b1*ym1[channel] - b2*ym2[channel] - b3*ym3[channel] - b4*ym4[channel]);
 			xm4[channel] = xm3[channel];
 			xm3[channel] = xm2[channel];

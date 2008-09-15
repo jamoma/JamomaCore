@@ -75,7 +75,7 @@ TTErr TTDCBlock::processAudio(TTAudioSignal& in, TTAudioSignal& out)
 		
 		while(vs--){
 			temp = *inSample++;
-			*outSample++ = lastOutput[channel] = antiDenormal(temp - lastInput[channel] + (lastOutput[channel] * 0.9997));
+			*outSample++ = lastOutput[channel] = TTAntiDenormal(temp - lastInput[channel] + (lastOutput[channel] * 0.9997));
 			lastInput[channel] = temp;
 		}
 	}
