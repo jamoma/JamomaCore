@@ -174,7 +174,7 @@ TTErr TTAudioSignal::getVector64(TTValue& v)
 		v.get(0, channel);
 		v.get(1, theVectorSize);
 		v.get(2, &returnedVector);
-		return setVector(channel, theVectorSize, TTSampleVector(returnedVector));
+		return getVector(channel, theVectorSize, TTSampleVector(returnedVector));
 	}
 	return kTTErrWrongNumValues;
 }
@@ -199,7 +199,7 @@ TTErr TTAudioSignal::getVector32(TTValue& v)
 		v.get(0, channel);
 		v.get(1, theVectorSize);
 		v.get(2, &returnedVector);
-		return setVector(channel, theVectorSize, (TTFloat32*)returnedVector);
+		return getVector(channel, theVectorSize, (TTFloat32*)returnedVector);
 	}
 	return kTTErrWrongNumValues;
 }
