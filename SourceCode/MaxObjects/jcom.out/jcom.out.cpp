@@ -410,37 +410,53 @@ t_int *out_perform(t_int *w)
 {
   	t_out*			x = (t_out *)(w[1]);
 	short			i, j;
-	TTUInt8			numChannels = x->audioIn->getNumChannels();
-	TTUInt16		vs = x->audioIn->getVectorSize();
+	TTUInt16		numChannels;
+	TTUInt16		vs;
 	TTUInt16		n;
-//	TTSampleVector	sig = NULL;
-	float			currentvalue = 0, peakvalue = 0;	// values for calculating metering
+	float			currentvalue = 0;
+	float			peakvalue = 0;	// values for calculating metering
+	TTValue			v;
+	TTUInt16		inObjectProducesNumChannels;
+	
+	x->audioIn->getAttributeValue(TT("numChannels"), numChannels);
+	x->in_object->audioOut->getAttributeValue(TT("numChannels"), inObjectProducesNumChannels);
+	x->audioIn->getAttributeValue(TT("vectorSize"), vs);
+	v.setSize(3);
+	v.set(1, vs);
 	
 	// Store the input from the inlets
 	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+//		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+// TODO: use a cached symbol instead of looking it up every single time
+		v.set(0, i);
+		v.set(2, TTPtr((w[j+1])));
+		x->audioIn->sendMessage(TT("setVector32"), v);		
 	}
 	
 	
 	if(x->attr_bypass)
-		x->copy->process(*x->in_object->audioOut, *x->audioOut);
+		x->copy->process(x->in_object->audioOut, x->audioOut);
 	else if(x->attr_mute)
-		x->copy->process(*x->zeroSignal, *x->audioOut);
+		x->copy->process(x->zeroSignal, x->audioOut);
 	else{
-		if(x->in_object && x->in_object->audioOut->getNumChannels())	// TODO: is this safety test really correct?
-			x->xfade->process(*x->in_object->audioOut, *x->audioIn, *x->audioTemp);	// perform bypass/mix control
+		if(x->in_object && inObjectProducesNumChannels)
+			x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);	// perform bypass/mix control
 		else
-			x->copy->process(*x->audioIn, *x->audioTemp);
+			x->copy->process(x->audioIn, x->audioTemp);
 	
-		x->gain->process(*x->audioTemp, *x->audioOut);								// perform gain control
+		x->gain->process(x->audioTemp, x->audioOut);								// perform gain control
 	}
 	
 	
 	// Send the input on to the outlets for the algorithm
 	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+//		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+// TODO: use a cached symbol instead of looking it up every single time
+		v.set(0, i);
+		v.set(2, TTPtr((w[j+2])));		
+		x->audioOut->sendMessage(TT("getVector32"), v);
 		
 		// since we are already looping through the channels here, we will also do the per-channel metering here
 		if(x->attr_defeat_meters == 0 && x->num_meter_objects){
@@ -539,24 +555,24 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setnumChannels(numChannels);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioTemp->setnumChannels(numChannels);
-	x->zeroSignal->setnumChannels(numChannels);
+	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioTemp->setAttributeValue(TT("numChannels"), numChannels);
+	x->zeroSignal->setAttributeValue(TT("numChannels"), numChannels);
 	
-	x->audioIn->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
-	x->audioTemp->setvectorSize(vs);
-	x->zeroSignal->setvectorSize(vs);
+	x->audioIn->setAttributeValue(TT("vectorSize"), vs);
+	x->audioOut->setAttributeValue(TT("vectorSize"), vs);
+	x->audioTemp->setAttributeValue(TT("vectorSize"), vs);
+	x->zeroSignal->setAttributeValue(TT("vectorSize"), vs);
 	
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();
-	x->audioTemp->alloc();
-	x->zeroSignal->alloc();
-	x->zeroSignal->clear();
+	x->audioOut->sendMessage(TT("alloc"));
+	x->audioTemp->sendMessage(TT("alloc"));
+	x->zeroSignal->sendMessage(TT("alloc"));
+	x->zeroSignal->sendMessage(TT("clear"));
 		
 	dsp_addv(out_perform, k, audioVectors);
-	sysmem_freeptr(audioVectors);
+	sysmem_freeptr(audioVectors);	
 }
 
 

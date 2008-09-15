@@ -378,13 +378,23 @@ t_int *in_perform(t_int *w)
 
    	t_in		*x = (t_in *)(w[1]);
 	short		i, j;
-	TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
+	TTUInt16	numChannels;
+	TTUInt16	vs;
+	TTValue		v;
+	
+	x->audioIn->getAttributeValue(TT("numChannels"), numChannels);
+	x->audioIn->getAttributeValue(TT("vectorSize"), vs);
+	v.setSize(3);
+	v.set(1, vs);
 	
 	// Store the input from the inlets
 	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+//		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+// TODO: use a cached symbol instead of looking it up every single time
+		v.set(0, i);
+		v.set(2, TTPtr((w[j+1])));
+		x->audioIn->sendMessage(TT("setVector32"), v);
 	}
 	
 	// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
@@ -393,7 +403,11 @@ t_int *in_perform(t_int *w)
 	// Send the input on to the outlets for the algorithm
 	for(i=0; i<numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+//		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+// TODO: use a cached symbol instead of looking it up every single time
+		v.set(0, i);
+		v.set(2, TTPtr((w[j+2])));		
+		x->audioOut->sendMessage(TT("getVector32"), v);
 	}
 
 	return w + ((numChannels*2)+2);
@@ -470,13 +484,13 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 		}
 	}
 	
-	x->audioIn->setnumChannels(numChannels);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioIn->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
+	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
+	x->audioIn->setAttributeValue(TT("vectorSize"), vs);
+	x->audioOut->setAttributeValue(TT("vectorSize"), vs);
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();
-		
+	x->audioOut->sendMessage(TT("alloc"));
+	
 	dsp_addv(in_perform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
 }
