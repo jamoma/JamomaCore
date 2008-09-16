@@ -132,7 +132,7 @@ TTErr TTEnvironment::getClassNamesWithTags(TTValue& classNames, const TTValue& s
 }
 
 
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObject** anObject, TTValue& anArgument)
+TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, TTValue& anArgument)
 {
 	TTValue		v;
 	TTClassPtr	theClass;
@@ -164,33 +164,6 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObject** anOb
 	return err;
 }
 
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObject** anObject, TTUInt16 anArgument)
-{
-	TTValue v(anArgument);
-	return createInstance(className, anObject, v);
-}
-
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTValue& anArgument)
-{
-	return createInstance(className, (TTObject**)anObject, anArgument);
-}
-
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTUInt16 anArgument)
-{
-	return createInstance(className, (TTObject**)anObject, anArgument);
-}
-
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTValue& anArgument)
-{
-	return createInstance(className, (TTObject**)anObject, anArgument);
-}
-
-TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTUInt16 anArgument)
-{
-	return createInstance(className, (TTObject**)anObject, anArgument);
-}
-
-
 
 TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 {
@@ -203,4 +176,50 @@ TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 	delete anObject;
 	return kTTErrNone;
 }
+
+
+#if 0
+#pragma mark -
+#pragma mark Public Interface
+#endif
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, returnedObjectPtr, arguments);
+}
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
+}
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments)
+{
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
+}
+
+
+TTErr TTObjectRelease(TTObjectPtr anObject)
+{
+	return ttEnvironment->releaseInstance(anObject);
+}
+
+
+TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+{
+	return ttEnvironment->registerClass(className, tagString, anInstantiationMethod);
+}
+
+
+TTErr TTGetRegisteredClassNames(TTValue& classNames)
+{
+	return ttEnvironment->getAllClassNames(classNames);
+}
+
+
+TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags)
+{
+	return ttEnvironment->getClassNamesWithTags(classNames, searchTags);
+}
+
 

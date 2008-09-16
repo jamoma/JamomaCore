@@ -111,12 +111,7 @@ public:
 		@param	anArgument	For most audio processing objects, this should be passed the maximum number of channels.
 							For this reason, we overload this method with a TTUint16 argument as a convenience.
 		@return				An error code.	*/
-	TTErr createInstance(const TTSymbolPtr className, TTObject** anObject, TTValue& anArgument);
-	TTErr createInstance(const TTSymbolPtr className, TTObject** anObject, TTUInt16 anArgument);
-	TTErr createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTValue& anArgument);
-	TTErr createInstance(const TTSymbolPtr className, TTAudioObject** anObject, TTUInt16 anArgument);
-	TTErr createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTValue& anArgument);
-	TTErr createInstance(const TTSymbolPtr className, TTAudioSignal** anObject, TTUInt16 anArgument);
+	TTErr createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, TTValue& anArgument);
 	
 	
 	/**	Release an instance of a #TTObject class.
@@ -139,12 +134,39 @@ public:
 extern TTEXPORT TTEnvironment* ttEnvironment;
 
 
-// Some macros for convenience and API naming-convention consistency
-#define TTClassRegister(className, tags, instantiationMethod) ttEnvironment->registerClass(className, tags, instantiationMethod)
-#define TTGetRegisteredClassNames(classNames) ttEnvironment->getAllClassNames(classNames)
-#define TTGetRegisteredClassNamesForTags(classNames, searchTags) ttEnvironment->getClassNamesWithTags(classNames, searchTags)
-#define TTObjectInstantiate(className, anObject, arguments) ttEnvironment->createInstance(className, anObject, arguments)
-#define TTObjectRelease(anObject) ttEnvironment->releaseInstance(anObject)
+
+
+// Public Interface
+
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTValue& arguments);
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTValue& arguments);
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
+
+template<class T>
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const T& arguments)
+{
+	TTValue	v(arguments);
+	return ttEnvironment->createInstance(className, returnedObjectPtr, v);
+}
+
+template<class T>
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const T& arguments)
+{
+	TTValue	v(arguments);
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
+}
+
+template<class T>
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const T& arguments)
+{
+	TTValue	v(arguments);
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
+}
+
+TTEXPORT TTErr TTObjectRelease(TTObjectPtr anObject);
+TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
+TTEXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);
+TTEXPORT TTErr TTGetRegisteredClassNamesForTags(TTValue& classNames, const TTValue& searchTags);
 
 #endif // __TT_ENVIRONMENT_H__
 
