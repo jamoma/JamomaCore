@@ -111,10 +111,21 @@ public:
 	TTErr setAttributeValue(const TTSymbolPtr name, TTValue& value);
 	TTErr getAttributeValue(const TTSymbolPtr name, TTValue& value);
 
-	template<class T>
-	TTErr setAttributeValue(const TTSymbolPtr name, const T& value);
-	template<class T>
-	TTErr getAttributeValue(const TTSymbolPtr name, T& value);
+	template <class T>
+	TTErr setAttributeValue(const TTSymbolPtr name, const T& value)
+	{
+		TTValue	v(value);
+		return setAttributeValue(name, v);
+	}
+	
+	template <class T>
+	TTErr getAttributeValue(const TTSymbolPtr name, T& value)
+	{
+		TTValue	v;
+		TTErr error = getAttributeValue(name, v);
+		value = v;
+		return error;
+	}
 	
 	TTErr getAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
 	TTErr setAttributeGetterFlags(const TTSymbolPtr name, TTAttributeFlags& value);
@@ -180,23 +191,6 @@ public:
 	}
 	
 };
-
-
-template <class T>
-TTErr TTObject::setAttributeValue(const TTSymbolPtr name, const T& value)
-{
-	TTValue	v(value);
-	return setAttributeValue(name, v);
-}
-
-template <class T>
-TTErr TTObject::getAttributeValue(const TTSymbolPtr name, T& value)
-{
-	TTValue	v;
-	TTErr error = getAttributeValue(name, v);
-	value = v;
-	return error;
-}
 
 
 #include "TTAttribute.h"

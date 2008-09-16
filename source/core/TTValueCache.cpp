@@ -9,13 +9,12 @@
 #include "TTValueCache.h"
 #include "TTObject.h"
 
-TTValue*	kTTBoolNo;
-TTValue*	kTTBoolYes;
+TTEXPORT TTValuePtr	kTTBoolNo;
+TTEXPORT TTValuePtr	kTTBoolYes;
 
-TTValue*	kTTVal0;
-TTValue*	kTTVal1;
-
-TTAttribute* kTTAttr;
+TTEXPORT TTValuePtr	kTTVal0;
+TTEXPORT TTValuePtr	kTTVal1;
+TTEXPORT TTValuePtr	kTTVal0_pt_0;
 
 
 void TTValueCacheInit()
@@ -25,6 +24,5 @@ void TTValueCacheInit()
 
 	kTTVal0 = new TTValue(TTInt32(0));
 	kTTVal1 = new TTValue(TTInt32(1));
-
-	kTTAttr = new TTAttribute(kTTSymEmpty, kTypeSymbol, NULL);
+	kTTVal0_pt_0 = new TTValue(double(0.0));
 }

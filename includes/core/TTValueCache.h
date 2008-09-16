@@ -12,12 +12,12 @@
 #include "TTValue.h"
 
 
-extern TTValue*	kTTBoolNo;
-extern TTValue*	kTTBoolYes;
+extern TTValuePtr	kTTBoolNo;
+extern TTValuePtr	kTTBoolYes;
 
-extern TTValue*	kTTVal0;
-extern TTValue*	kTTVal1;
-
+extern TTValuePtr	kTTVal0;
+extern TTValuePtr	kTTVal1;
+extern TTValuePtr	kTTVal0_pt_0;
 
 void TTValueCacheInit();
 
