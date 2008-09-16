@@ -11,7 +11,12 @@
 
 #include "TTSymbol.h"
 
-extern TTEXPORT TTSymbol*	kTTSymEmpty;
+// high-performance (these are defined first so that they are found fast)
+extern TTEXPORT TTSymbolPtr	kTTSymEmpty;
+extern TTEXPORT TTSymbolPtr kTTSym_setVector32;
+extern TTEXPORT TTSymbolPtr kTTSym_getVector32;
+extern TTEXPORT TTSymbolPtr kTTSym_setVector64;
+extern TTEXPORT TTSymbolPtr kTTSym_getVector64;
 
 extern TTEXPORT TTSymbolPtr	kTTSym_alloc;
 extern TTEXPORT TTSymbol*	kTTSym_both;

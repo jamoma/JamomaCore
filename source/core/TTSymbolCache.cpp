@@ -11,7 +11,11 @@
 #include "TTSymbolCache.h"
 
 
-TTEXPORT TTSymbol*	kTTSymEmpty;
+TTEXPORT TTSymbolPtr	kTTSymEmpty;
+TTEXPORT TTSymbolPtr	kTTSym_setVector32;
+TTEXPORT TTSymbolPtr	kTTSym_getVector32;
+TTEXPORT TTSymbolPtr	kTTSym_setVector64;
+TTEXPORT TTSymbolPtr	kTTSym_getVector64;
 
 TTEXPORT TTSymbolPtr	kTTSym_alloc;
 TTEXPORT TTSymbol*	kTTSym_both;
@@ -49,6 +53,10 @@ TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
 void TTSymbolCacheInit()
 {
 	kTTSymEmpty						= TT("");
+	kTTSym_setVector32				= TT("setVector32");
+	kTTSym_getVector32				= TT("getVector32");
+	kTTSym_setVector64				= TT("setVector64");
+	kTTSym_getVector64				= TT("getVector64");
 
 	kTTSym_alloc					= TT("alloc");
 	kTTSym_both						= TT("both");
