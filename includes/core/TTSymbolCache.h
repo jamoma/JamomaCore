@@ -13,19 +13,23 @@
 
 extern TTEXPORT TTSymbol*	kTTSymEmpty;
 
+extern TTEXPORT TTSymbolPtr	kTTSym_alloc;
 extern TTEXPORT TTSymbol*	kTTSym_both;
 extern TTEXPORT TTSymbol*	kTTSym_bypass;
 extern TTEXPORT TTSymbol*	kTTSym_clipmode;
 extern TTEXPORT TTSymbol*	kTTSym_high;
-extern TTEXPORT TTSymbol*	kTTSym_maxNumChannels;
 extern TTEXPORT TTSymbol*	kTTSym_low;
+extern TTEXPORT TTSymbol*	kTTSym_maxNumChannels;
+extern TTEXPORT TTSymbolPtr	kTTSym_numChannels;
 extern TTEXPORT TTSymbol*	kTTSym_processInPlace;
 extern TTEXPORT TTSymbol*	kTTSym_range;
 extern TTEXPORT TTSymbol*	kTTSym_resonance;
 extern TTEXPORT TTSymbol*	kTTSym_sr;
 extern TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
 extern TTEXPORT TTSymbol*	kTTSym_updateSr;
+extern TTEXPORT TTSymbolPtr	kTTSym_vectorSize;
 
+// waveforms
 extern TTEXPORT TTSymbol*	kTTSym_sine;
 extern TTEXPORT TTSymbol*	kTTSym_sineMod;
 extern TTEXPORT TTSymbol*	kTTSym_cosine;
@@ -38,6 +42,10 @@ extern TTEXPORT TTSymbol*	kTTSym_ramp;
 extern TTEXPORT TTSymbol*	kTTSym_rampMod;
 extern TTEXPORT TTSymbol*	kTTSym_sawtooth;
 extern TTEXPORT TTSymbol*	kTTSym_sawtoothMod;
+
+// object names
+extern TTEXPORT TTSymbolPtr	kTTSym_adsr;
+extern TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
 
 void TTSymbolCacheInit();
 

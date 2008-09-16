@@ -13,18 +13,21 @@
 
 TTEXPORT TTSymbol*	kTTSymEmpty;
 
+TTEXPORT TTSymbolPtr	kTTSym_alloc;
 TTEXPORT TTSymbol*	kTTSym_both;
 TTEXPORT TTSymbol*	kTTSym_bypass;
 TTEXPORT TTSymbol*	kTTSym_clipmode;
 TTEXPORT TTSymbol*	kTTSym_high;
-TTEXPORT TTSymbol*	kTTSym_maxNumChannels;
 TTEXPORT TTSymbol*	kTTSym_low;
+TTEXPORT TTSymbolPtr	kTTSym_maxNumChannels;
+TTEXPORT TTSymbolPtr	kTTSym_numChannels;
 TTEXPORT TTSymbol*	kTTSym_processInPlace;
 TTEXPORT TTSymbol*	kTTSym_range;
 TTEXPORT TTSymbol*	kTTSym_resonance;
 TTEXPORT TTSymbol*	kTTSym_sr;
 TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
 TTEXPORT TTSymbol*	kTTSym_updateSr;
+TTEXPORT TTSymbolPtr	kTTSym_vectorSize;
 
 TTEXPORT TTSymbol*	kTTSym_sine;
 TTEXPORT TTSymbol*	kTTSym_sineMod;
@@ -39,23 +42,29 @@ TTEXPORT TTSymbol*	kTTSym_rampMod;
 TTEXPORT TTSymbol*	kTTSym_sawtooth;
 TTEXPORT TTSymbol*	kTTSym_sawtoothMod;
 
+TTEXPORT TTSymbolPtr	kTTSym_adsr;
+TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
+
 
 void TTSymbolCacheInit()
 {
 	kTTSymEmpty						= TT("");
 
+	kTTSym_alloc					= TT("alloc");
 	kTTSym_both						= TT("both");
 	kTTSym_bypass					= TT("bypass");
 	kTTSym_clipmode					= TT("clipmode");
 	kTTSym_high						= TT("high");
-	kTTSym_maxNumChannels			= TT("maxNumChannels");
 	kTTSym_low						= TT("low");
+	kTTSym_maxNumChannels			= TT("maxNumChannels");
+	kTTSym_numChannels				= TT("numChannels");
 	kTTSym_processInPlace			= TT("processInPlace");
 	kTTSym_range					= TT("range");
 	kTTSym_resonance				= TT("resonance");
 	kTTSym_sr						= TT("sr");
 	kTTSym_updateMaxNumChannels		= TT("updateMaxNumChannels");
 	kTTSym_updateSr					= TT("updateSr");
+	kTTSym_vectorSize				= TT("vectorSize");
 	
 	kTTSym_sine						= TT("sine");
 	kTTSym_sineMod					= TT("sineMod");
@@ -70,4 +79,6 @@ void TTSymbolCacheInit()
 	kTTSym_sawtooth					= TT("sawtooth");
 	kTTSym_sawtoothMod				= TT("sawtoothMod");
 	
+	kTTSym_adsr						= TT("adsr");
+	kTTSym_audiosignal				= TT("audiosignal");
 }
