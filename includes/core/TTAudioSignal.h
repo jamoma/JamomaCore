@@ -176,7 +176,7 @@ typedef TTAudioSignal* TTAudioSignalPtr;
 		_temp_tt_value_setvector ## a.set(0, a);\
 		_temp_tt_value_setvector ## a.set(1, b);\
 		_temp_tt_value_setvector ## a.set(2, TTPtr(c));\
-		signal_obj->sendMessage(TT("setVector32"), _temp_tt_value_setvector ## a);
+		signal_obj->sendMessage(kTTSym_setVector32, _temp_tt_value_setvector ## a);
 
 /**	A convenience macro for sending the 'getVector32' message to an audio signal.
 	@param	signal_obj	A pointer to a TTAudioSignal object.
@@ -190,7 +190,7 @@ typedef TTAudioSignal* TTAudioSignalPtr;
 		_temp_tt_value_getvector ## a.set(0, a);\
 		_temp_tt_value_getvector ## a.set(1, b);\
 		_temp_tt_value_getvector ## a.set(2, TTPtr(c));\
-		signal_obj->sendMessage(TT("getVector32"), _temp_tt_value_getvector ## a);
+		signal_obj->sendMessage(kTTSym_getVector32, _temp_tt_value_getvector ## a);
 
 
 #endif // __TT_AUDIO_SIGNAL_H__
