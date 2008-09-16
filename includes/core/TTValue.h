@@ -348,34 +348,34 @@ public:
 				// TODO: find a way to make this routine faster
 				switch(type[i]){
 					case kTypeFloat32:
-						data[i].float32 = TTClip<TTFloat64>(data[i].float32, lowBound, highBound);
+						data[i].float32 = TTClip<TTFloat32>(data[i].float32, (TTFloat32)lowBound, (TTFloat32)highBound);
 						break;
 					case kTypeFloat64:
 						data[i].float64 = TTClip<TTFloat64>(data[i].float64, lowBound, highBound);
 						break;
 					case kTypeInt8:
-						data[i].int8 = TTClip<TTFloat64>(data[i].int8, lowBound, highBound);
+						data[i].int8 = TTClip<TTInt8>(data[i].int8, (TTInt8)lowBound, (TTInt8)highBound);
 						break;
 					case kTypeUInt8:
-						data[i].uint8 = TTClip<TTFloat64>(data[i].uint8, lowBound, highBound);
+						data[i].uint8 = TTClip<TTUInt8>(data[i].uint8, (TTUInt8)lowBound, (TTUInt8)highBound);
 						break;
 					case kTypeInt16:
-						data[i].int16 = TTClip<TTFloat64>(data[i].int16, lowBound, highBound);
+						data[i].int16 = TTClip<TTInt16>(data[i].int16, (TTInt16)lowBound, (TTInt16)highBound);
 						break;
 					case kTypeUInt16:
-						data[i].uint16 = TTClip<TTFloat64>(data[i].uint16, lowBound, highBound);
+						data[i].uint16 = TTClip<TTUInt16>(data[i].uint16, (TTUInt16)lowBound, (TTUInt16)highBound);
 						break;
 					case kTypeInt32:
-						data[i].int32 = TTClip<TTFloat64>(data[i].int32, lowBound, highBound);
+						data[i].int32 = TTClip<TTInt32>(data[i].int32, (TTInt32)lowBound, (TTInt32)highBound);
 						break;
 					case kTypeUInt32:
-						data[i].uint32 = TTClip<TTFloat64>(data[i].uint32, lowBound, highBound);
+						data[i].uint32 = TTClip<TTUInt32>(data[i].uint32, (TTUInt32)lowBound, (TTUInt32)highBound);
 						break;
 					case kTypeInt64:
-						data[i].int64 = TTClip<TTFloat64>(data[i].int64, lowBound, highBound);
+						data[i].int64 = TTClip<TTInt64>(data[i].int64, (TTInt64)lowBound, (TTInt64)highBound);
 						break;
 					case kTypeUInt64:
-						data[i].uint64 = TTClip<TTFloat64>(data[i].uint64, lowBound, highBound);
+						data[i].uint64 = TTClip<TTUInt64>(data[i].uint64, (TTUInt64)lowBound, (TTUInt64)highBound);
 						break;
 					default:
 						break;
@@ -391,34 +391,34 @@ public:
 				// TODO: find a way to make this routine faster
 				switch(type[i]){
 					case kTypeFloat32:
-						data[i].float32 = TTLimitMin<TTFloat64>(data[i].float32, lowBound);
+						data[i].float32 = TTLimitMin<TTFloat32>(data[i].float32, (TTFloat32)lowBound);
 						break;
 					case kTypeFloat64:
 						data[i].float64 = TTLimitMin<TTFloat64>(data[i].float64, lowBound);
 						break;
 					case kTypeInt8:
-						data[i].int8 = TTLimitMin<TTFloat64>(data[i].int8, lowBound);
+						data[i].int8 = TTLimitMin<TTInt8>(data[i].int8, (TTInt8)lowBound);
 						break;
 					case kTypeUInt8:
-						data[i].uint8 = TTLimitMin<TTFloat64>(data[i].uint8, lowBound);
+						data[i].uint8 = TTLimitMin<TTUInt8>(data[i].uint8, (TTUInt8)lowBound);
 						break;
 					case kTypeInt16:
-						data[i].int16 = TTLimitMin<TTFloat64>(data[i].int16, lowBound);
+						data[i].int16 = TTLimitMin<TTInt16>(data[i].int16, (TTInt16)lowBound);
 						break;
 					case kTypeUInt16:
-						data[i].uint16 = TTLimitMin<TTFloat64>(data[i].uint16, lowBound);
+						data[i].uint16 = TTLimitMin<TTUInt16>(data[i].uint16, (TTUInt16)lowBound);
 						break;
 					case kTypeInt32:
-						data[i].int32 = TTLimitMin<TTFloat64>(data[i].int32, lowBound);
+						data[i].int32 = TTLimitMin<TTInt32>(data[i].int32, (TTInt32)lowBound);
 						break;
 					case kTypeUInt32:
-						data[i].uint32 = TTLimitMin<TTFloat64>(data[i].uint32, lowBound);
+						data[i].uint32 = TTLimitMin<TTUInt32>(data[i].uint32, (TTUInt32)lowBound);
 						break;
 					case kTypeInt64:
-						data[i].int64 = TTLimitMin<TTFloat64>(data[i].int64, lowBound);
+						data[i].int64 = TTLimitMin<TTInt64>(data[i].int64, (TTInt64)lowBound);
 						break;
 					case kTypeUInt64:
-						data[i].uint64 = TTLimitMin<TTFloat64>(data[i].uint64, lowBound);
+						data[i].uint64 = TTLimitMin<TTUInt64>(data[i].uint64, (TTUInt64)lowBound);
 						break;
 					default:
 						break;
@@ -434,34 +434,34 @@ public:
 				// TODO: find a way to make this routine faster
 				switch(type[i]){
 					case kTypeFloat32:
-						data[i].float32 = TTLimitMax<TTFloat64>(data[i].float32, highBound);
+						data[i].float32 = TTLimitMax<TTFloat32>(data[i].float32, (TTFloat32)highBound);
 						break;
 					case kTypeFloat64:
 						data[i].float64 = TTLimitMax<TTFloat64>(data[i].float64, highBound);
 						break;
 					case kTypeInt8:
-						data[i].int8 = TTLimitMax<TTFloat64>(data[i].int8, highBound);
+						data[i].int8 = TTLimitMax<TTInt8>(data[i].int8, (TTInt8)highBound);
 						break;
 					case kTypeUInt8:
-						data[i].uint8 = TTLimitMax<TTFloat64>(data[i].uint8, highBound);
+						data[i].uint8 = TTLimitMax<TTUInt8>(data[i].uint8, (TTUInt8)highBound);
 						break;
 					case kTypeInt16:
-						data[i].int16 = TTLimitMax<TTFloat64>(data[i].int16, highBound);
+						data[i].int16 = TTLimitMax<TTInt16>(data[i].int16, (TTInt16)highBound);
 						break;
 					case kTypeUInt16:
-						data[i].uint16 = TTLimitMax<TTFloat64>(data[i].uint16, highBound);
+						data[i].uint16 = TTLimitMax<TTUInt16>(data[i].uint16, (TTUInt16)highBound);
 						break;
 					case kTypeInt32:
-						data[i].int32 = TTLimitMax<TTFloat64>(data[i].int32, highBound);
+						data[i].int32 = TTLimitMax<TTInt32>(data[i].int32, (TTInt32)highBound);
 						break;
 					case kTypeUInt32:
-						data[i].uint32 = TTLimitMax<TTFloat64>(data[i].uint32, highBound);
+						data[i].uint32 = TTLimitMax<TTUInt32>(data[i].uint32, (TTUInt32)highBound);
 						break;
 					case kTypeInt64:
-						data[i].int64 = TTLimitMax<TTFloat64>(data[i].int64, highBound);
+						data[i].int64 = TTLimitMax<TTInt64>(data[i].int64, (TTInt64)highBound);
 						break;
 					case kTypeUInt64:
-						data[i].uint64 = TTLimitMax<TTFloat64>(data[i].uint64, highBound);
+						data[i].uint64 = TTLimitMax<TTUInt64>(data[i].uint64, (TTUInt64)highBound);
 						break;
 					default:
 						break;
@@ -477,22 +477,22 @@ public:
 				// TODO: find a way to make this routine faster
 				switch(type[i]){
 					case kTypeFloat32:
-						data[i].float32 = TTRound(data[i].float32);
+						data[i].float32 = (TTFloat32)TTRound(data[i].float32);
 						break;
 					case kTypeFloat64:
 						data[i].float64 = TTRound(data[i].float64);
 						break;
 					case kTypeInt8:
-						data[i].int8 = TTRound(data[i].int8);
+						data[i].int8 = (TTInt8)TTRound(data[i].int8);
 						break;
 					case kTypeUInt8:
-						data[i].uint8 = TTRound(data[i].uint8);
+						data[i].uint8 = (TTUInt8)TTRound(data[i].uint8);
 						break;
 					case kTypeInt16:
-						data[i].int16 = TTRound(data[i].int16);
+						data[i].int16 = (TTInt16)TTRound(data[i].int16);
 						break;
 					case kTypeUInt16:
-						data[i].uint16 = TTRound(data[i].uint16);
+						data[i].uint16 = (TTUInt16)TTRound(data[i].uint16);
 						break;
 					case kTypeInt32:
 						data[i].int32 = TTRound(data[i].int32);

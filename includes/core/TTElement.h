@@ -28,6 +28,7 @@ using namespace std;
 
 #ifdef TT_PLATFORM_WIN
  #include "windows.h"
+ #define snprintf _snprintf
  #ifdef _DLL_EXPORT
   #define TTEXPORT __declspec(dllexport)
  #else
@@ -257,9 +258,9 @@ static T TTLimitMax(T value, T high_bound)
 	#ifdef TT_PLATFORM_MAC
 		value += fabs(value);
 	#else
-		value += fabs((double)value);
+		value = T(value + fabs((double)value));
 	#endif
-	value *= 0.5;
+	value = T(value * 0.5);
 	value = high_bound - value;
 	return value; 
 }
@@ -273,10 +274,10 @@ static T TTLimitMin(T value, T low_bound)
 	#ifdef TT_PLATFORM_MAC
 		value += fabs(value);
 	#else
-		value += fabs((double)value);
+		value = T(value + fabs((double)value));
 	#endif
-	value *= 0.5;
-	value += low_bound;
+	value = T(value * 0.5);
+	value = T(value + low_bound);
 	return value; 
 }
 

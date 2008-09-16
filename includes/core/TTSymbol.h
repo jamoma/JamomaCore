@@ -28,8 +28,21 @@
 */
 class TTEXPORT TTSymbol : public TTElement {
 private:
-	TTString				theString;			///< the actual string represented by this symbol
+
+// Microsoft's compiler complains because TTString (std::string) does not have a DLL-Interface
+// In this case, we never pass TTSymbols or reference them directly -- we always use TTSymbolPtrs,
+// So it's okay that this class's struct may be of an undetermined size depending on compiler or compiler settings.
+#if defined(_MSC_VER)
+__pragma(warning(push))
+__pragma(warning(disable:4251))
+#endif
+
 	TTUInt32				id;					///< a unique identifier for the given string
+	TTString				theString;			///< the actual string represented by this symbol
+
+#if defined(_MSC_VER)
+__pragma(warning(pop))
+#endif
 
 	/** used by the constructors to create the new symbol */
 	void init(const TTString& newString, TTInt32 newId);

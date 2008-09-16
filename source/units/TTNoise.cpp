@@ -11,10 +11,10 @@
 
 
 TTNoise::TTNoise(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.phasor", newMaxNumChannels)
+	: TTAudioObject("audio.phasor", newMaxNumChannels), accum(0)
 {
 	registerAttributeWithSetter(mode, kTypeSymbol);
-	b[0] = b[1] = b[2] = b[3] = b[4] = b[5] = accum = 0.0;
+	b[0] = b[1] = b[2] = b[3] = b[4] = b[5] = 0.0;
 	setAttributeValue(TT("mode"), TT("white"));
 }
 
