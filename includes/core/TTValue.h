@@ -92,7 +92,10 @@ private:
 	TTBoolean	stringsPresent;	///< are there any values which are strings?  if so they need special handling when it is time to free them.
 
 public:
-	/** Constructors */
+	/** Constructors. */
+	//	There are a lot of constructors defined with duplication of code being a concern.
+	//	Attempts at using C++ templates for the constructor works on Windows but provides
+	//	excessive amounts of grief when linking on the Mac.
 	TTValue();
 	TTValue(TTFloat32 initialValue);
 	TTValue(TTFloat64 initialValue);
