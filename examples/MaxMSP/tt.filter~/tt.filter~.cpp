@@ -21,14 +21,16 @@
 #define DEFAULT_Q 18
 
 
-/** Data structure for the filter module. */
-typedef struct _filter	{								///< Data Structure for this object
-    t_pxobject 				obj;						///< REQUIRED: Our object
-	TTAudioObject*			filter;						///< Pointer to the TTBlue filter unit used
-	TTAudioSignal*			audioIn;					///< Array of pointers to the audio inlets
-	TTAudioSignal*			audioOut;					///< Array of pointers to the audio outlets
+/** Data structure for the tt.filter~ object. */
+typedef struct _filter	{
+    t_pxobject 				obj;						///< REQUIRED: The MSP 'base class'
+	TTAudioObjectPtr		filter;						///< The TTBlue filter unit used
+	TTAudioSignalPtr		audioIn;					///< The TTBlue audio signal object that is used for filter input
+	TTAudioSignalPtr		audioOut;					///< The TTBlue audio signal object that us used for filter output
 	TTUInt16				maxNumChannels;				///< The maximum number of audio channels permitted
-	long					sr;							///< The sample-rate
+	TTUInt16				numChannels;				///< The actual number of audio channels used
+	TTUInt16				vs;							///< The vector size (number of samples per processing block)
+	long					sr;							///< The sample rate
 	long					attrBypass;					///< ATTRIBUTE: Bypass filtering
 	float					attrFrequency;				///< ATTRIBUTE: Filter cutoff or center frequency, depending on the kind of filter
 	float					attrQ;						///< ATTRIBUTE: Rilter resonance
@@ -90,39 +92,34 @@ t_class *filter_class;				// Required. Global pointing to this class
 
 int main(void)
 {
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 	
 	common_symbols_init();
 	TTBlueInit();
 
-	c = class_new("tt.filter~",(method)filter_new, (method)filter_free, (short)sizeof(t_filter), 
-		(method)0L, A_GIMME, 0);
+	c = class_new("tt.filter~",(method)filter_new, (method)filter_free, sizeof(t_filter), (method)0L, A_GIMME, 0);
 
 	class_addmethod(c, (method)filter_gettypes,			"gettypes",		0L);
  	class_addmethod(c, (method)filter_clear, 			"clear",		0L);		
  	class_addmethod(c, (method)filter_dsp, 				"dsp",			A_CANT, 0L);		
 	class_addmethod(c, (method)filter_assist, 			"assist",		A_CANT, 0L); 
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		A_CANT, 0);  
+	class_addmethod(c, (method)stdinletinfo,			"inletinfo",	A_CANT, 0);
 
-	attr = attr_offset_new("bypass", _sym_long, attrflags,
-		(method)0L,(method)filter_setBypass, calcoffset(t_filter, attrBypass));
-	class_addattr(c, attr);
-	
-	attr = attr_offset_new("frequency", _sym_float32, attrflags,
-		(method)0L,(method)filter_setFrequency, calcoffset(t_filter, attrFrequency));
-	class_addattr(c, attr);
-	
-	attr = attr_offset_new("q", _sym_float32, attrflags,
-		(method)0L,(method)filter_setQ, calcoffset(t_filter, attrQ));
-	class_addattr(c, attr);
+	CLASS_ATTR_LONG(c,		"bypass",		0,	t_filter, attrBypass);
+	CLASS_ATTR_ACCESSORS(c,	"bypass",		NULL, filter_setBypass);
+	CLASS_ATTR_STYLE(c,		"bypass",		0, "onoff");
 
-	attr = attr_offset_new("type", _sym_symbol, attrflags,
-		(method)0L,(method)filter_setType, calcoffset(t_filter, attrType));
-	class_addattr(c, attr);
+	CLASS_ATTR_FLOAT(c,		"frequency",	0,	t_filter, attrFrequency);
+	CLASS_ATTR_ACCESSORS(c,	"frequency",	NULL, filter_setFrequency);
 
-	class_dspinit(c);						// Setup object's class to work with MSP
+	CLASS_ATTR_FLOAT(c,		"q",	0,	t_filter, attrQ);
+	CLASS_ATTR_ACCESSORS(c,	"q",	NULL, filter_setQ);
+
+	CLASS_ATTR_SYM(c,		"type",	0,	t_filter, attrType);
+	CLASS_ATTR_ACCESSORS(c,	"type",	NULL, filter_setType);
+
+	class_dspinit(c);
 	class_register(CLASS_BOX, c);
 	filter_class = c;
 
@@ -155,9 +152,9 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		object_attr_setsym(x, _sym_type, gensym("lowpass.butterworth.2"));
 
-		x->audioIn = new TTAudioSignal(x->maxNumChannels);
-		x->audioOut = new TTAudioSignal(x->maxNumChannels);
-		
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioIn, x->maxNumChannels);
+		TTObjectInstantiate(kTTSym_audiosignal, &x->audioOut, x->maxNumChannels);
+			
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
@@ -175,8 +172,8 @@ void filter_free(t_filter *x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease(x->filter);
-	delete x->audioIn;
-	delete x->audioOut;
+	TTObjectRelease(x->audioIn);
+	TTObjectRelease(x->audioOut);
 }
 
 
@@ -281,23 +278,21 @@ t_int *filter_perform(t_int *w)
 {
    	t_filter	*x = (t_filter *)(w[1]);
 	short		i, j;
-	TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
 	}
 
 	if(!x->obj.z_disabled)									// if we are not muted...
-		x->filter->process(*x->audioIn, *x->audioOut);		// Actual Filter process
+		x->filter->process(x->audioIn, x->audioOut);		// Actual Filter process
 
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
 	}
 
-	return w + ((numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return w + ((x->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
@@ -307,12 +302,10 @@ t_int *filter_perform_freq(t_int *w)
    	t_filter*	x = (t_filter *)(w[1]);
 	short		i, j;
 	t_float*	freq;
-	TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
 	}
 	j = (i*2) + 2;
 	freq = (t_float*)w[j];
@@ -320,15 +313,15 @@ t_int *filter_perform_freq(t_int *w)
 	if(!x->obj.z_disabled){
 		x->attrFrequency = *freq;
 		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
-		x->filter->process(*x->audioIn, *x->audioOut);
+		x->filter->process(x->audioIn, x->audioOut);
 	}
 
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
 	}
 
-	return w + ((numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return w + ((x->numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
@@ -338,27 +331,25 @@ t_int *filter_perform_q(t_int *w)
    	t_filter*	x = (t_filter *)(w[1]);
 	short		i, j;
 	t_float*	q;
-	TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
 	}
 	q = (t_float*)w[(i*2) + 2];
 
 	if(!x->obj.z_disabled){
 		x->attrQ = *q;
 		x->filter->setAttributeValue(TT("q"), x->attrQ);
-		x->filter->process(*x->audioIn, *x->audioOut);
+		x->filter->process(x->audioIn, x->audioOut);
 	}
 
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
 	}
 
-	return w + ((numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return w + ((x->numChannels*2)+3);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
@@ -369,12 +360,10 @@ t_int *filter_perform_freq_q(t_int *w)
 	short		i, j;
 	t_float*	freq;
 	t_float*	q;
-	TTUInt8		numChannels = x->audioIn->getNumChannels();
-	TTUInt16	vs = x->audioIn->getVectorSize();
 	
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
+		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, w[j+1]);
 	}
 	freq = (t_float*)w[(i*2) + 2];
 	q = (t_float*)w[(i*2) + 3];
@@ -384,15 +373,15 @@ t_int *filter_perform_freq_q(t_int *w)
 		x->attrQ = *q;
 		x->filter->setAttributeValue(TT("frequency"), x->attrFrequency);
 		x->filter->setAttributeValue(TT("q"), x->attrQ);
-		x->filter->process(*x->audioIn, *x->audioOut);
+		x->filter->process(x->audioIn, x->audioOut);
 	}
 
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
+		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, w[j+2]);
 	}
 
-	return w + ((numChannels*2)+4);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return w + ((x->numChannels*2)+4);				// +2 = +1 for the x pointer and +1 to point to the next object
 }
 
 
@@ -406,19 +395,19 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 	void		**audioVectors = NULL;
 	bool		hasFreq = false;
 	bool		hasQ = false;
-	TTUInt8		numChannels = 0;
-	TTUInt16	vs = 0;
 	
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1));
 	audioVectors[k] = x;
 	k++;
 	
+	x->numChannels = 0;
+	x->vs = 0;
 	for(i=0; i < x->maxNumChannels; i++){
 		j = x->maxNumChannels + i + 2;
 		if(count[i] && count[j]){
-			numChannels++;
-			if(sp[i]->s_n > vs)
-				vs = sp[i]->s_n;
+			x->numChannels++;
+			if(sp[i]->s_n > x->vs)
+				x->vs = sp[i]->s_n;
 				
 			audioVectors[k] = sp[i]->s_vec;
 			k++;
@@ -437,15 +426,15 @@ void filter_dsp(t_filter *x, t_signal **sp, short *count)
 		hasQ = true;
 	}
 	
-	x->audioIn->setnumChannels(numChannels);
-	x->audioOut->setnumChannels(numChannels);
-	x->audioIn->setvectorSize(vs);
-	x->audioOut->setvectorSize(vs);
+	x->audioIn->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioOut->setAttributeValue(kTTSym_numChannels, x->numChannels);
+	x->audioIn->setAttributeValue(kTTSym_vectorSize, x->vs);
+	x->audioOut->setAttributeValue(kTTSym_vectorSize, x->vs);
 	//audioIn will be set in the perform method
-	x->audioOut->alloc();
+	x->audioOut->sendMessage(kTTSym_alloc);
 
 	x->sr = sp[0]->s_sr;	
-	x->filter->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	x->filter->setAttributeValue(kTTSym_sr, sp[0]->s_sr);
 	
 	if(hasFreq && hasQ)
 		dsp_addv(filter_perform_freq_q, k, audioVectors);
