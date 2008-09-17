@@ -954,6 +954,7 @@ void ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 		if(!item->sym || (item->sym->s_name[0] == '\0') || item->sym->s_name[0] == '-')//{
 			jpopupmenu_addseperator(p);
 		else{
+//TODO: Instead of passing NULL for the 4th parameter, we can pass a custom color for "header" items			
 			jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 		// TODO: use jpopupmenu_addheader instead -- requires that Max export this function though (which it currently doesn't)
 		//	if(item->flags)
