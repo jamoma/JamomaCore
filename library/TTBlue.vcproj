@@ -240,7 +240,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\includes\core\ttelement.h"
+				RelativePath="..\includes\core\TTElement.h"
 				>
 			</File>
 			<File
