@@ -190,7 +190,7 @@ void cubic_interpolate_assist(t_cubic_interp *x, void *b, long msg, long arg, ch
 	{ 
 		switch(arg)
 		{
-			case 0: sprintf(dst, "(bang/float) interpolate, set next");
+			case 0: strcpy(dst, "(bang/float) interpolate, set next");
 			break;	
 		}
 	}
@@ -198,9 +198,9 @@ void cubic_interpolate_assist(t_cubic_interp *x, void *b, long msg, long arg, ch
 	{
 		switch(arg)
 		{
-				case 0: sprintf(dst, "(float) interpolated value"); break;
-				case 1: sprintf(dst, "(bang) need new target value"); break;
-				case 2: sprintf(dst, "dumpout"); break;
+				case 0: strcpy(dst, "(float) interpolated value"); break;
+				case 1: strcpy(dst, "(bang) need new target value"); break;
+				case 2: strcpy(dst, "dumpout"); break;
 		}
 	}
 }

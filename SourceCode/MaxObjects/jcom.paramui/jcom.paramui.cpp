@@ -68,7 +68,7 @@ common_symbols_init();
 
 	CLASS_ATTR_DEFAULT(c,		"patching_rect",	0, "0. 0. 144. 20.");
 	CLASS_ATTR_DEFAULT(c,		"fontname",			0, JAMOMA_DEFAULT_FONT);
-	sprintf(tempstr, "%f", JAMOMA_DEFAULT_FONTSIZE);
+	snprintf(tempstr, 64, "%f", JAMOMA_DEFAULT_FONTSIZE);
 	CLASS_ATTR_DEFAULT(c,		"fontsize",			0, tempstr);
 
 	CLASS_STICKY_ATTR(c,		"category",			0, "Jamoma");
@@ -421,9 +421,9 @@ void paramui_paint(t_paramui *x, t_object *view)
 			object_attr_getvalueof(x->obj_parameter, gensym("value"), &ac, &av);
 			if(ac){
 				if(x->attr_type == jps_msg_float)
-					sprintf(data, "%.4f", atom_getfloat(av));
+					snprintf(data, 256, "%.4f", atom_getfloat(av));
 				else if(x->attr_type == jps_msg_int || x->attr_type == jps_msg_toggle)
-					sprintf(data, "%ld", atom_getlong(av));
+					snprintf(data, 256, "%ld", atom_getlong(av));
 				else if(x->attr_type == jps_msg_symbol)
 					strcpy(data, atom_getsym(av)->s_name);
 				

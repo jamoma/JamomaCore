@@ -193,11 +193,11 @@ void route_symbol(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	for(i=0; i<argc; i++){
 		switch(argv[i].a_type){
 			case A_LONG:
-				sprintf(tempstring, "%ld", argv[i].a_w.w_long);
+				snprintf(tempstring, 50, "%ld", argv[i].a_w.w_long);
 				tempsym = gensym(tempstring);
 				break;
 			case A_FLOAT:
-				sprintf(tempstring, "%f", argv[i].a_w.w_float);
+				snprintf(tempstring, 50, "%f", argv[i].a_w.w_float);
 				tempsym = gensym(tempstring);
 				break;
 			case A_SYM:
@@ -231,11 +231,11 @@ void route_list(t_route *x, t_symbol *msg, long argc, t_atom *argv)
 	for(i=0; i<argc; i++){
 		switch(argv[i].a_type){
 			case A_LONG:
-				sprintf(tempstring, "%ld", argv[i].a_w.w_long);
+				snprintf(tempstring, 50, "%ld", argv[i].a_w.w_long);
 				tempsym = gensym(tempstring);
 				break;
 			case A_FLOAT:
-				sprintf(tempstring, "%f", argv[i].a_w.w_float);
+				snprintf(tempstring, 50, "%f", argv[i].a_w.w_float);
 				tempsym = gensym(tempstring);
 				break;
 			case A_SYM:

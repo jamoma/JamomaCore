@@ -146,38 +146,38 @@ void return_dump(t_return *x)
 	
 	if(x->common.hub != NULL){
 
-		sprintf(s, "%s:/description", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/description", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_description);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 /* TODO: Should we add ramping ability to this object?
-		sprintf(s, "%s:ramp", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:ramp", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_ramp);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 */
-		sprintf(s, "%s:/range/bounds", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/range/bounds", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setfloat(&a[1], x->common.attr_range[0]);
 		atom_setfloat(&a[2], x->common.attr_range[1]);
 		object_method_typed(x->common.hub, jps_feedback, 3, a, NULL);
 		
-		sprintf(s, "%s:/range/clipmode", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/range/clipmode", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_clipmode);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:/repetitions", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/repetitions", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		sprintf(s, "%s:/type", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->common.attr_type);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
-		sprintf(s, "%s:/enable", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/enable", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->attrEnable);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);

@@ -916,7 +916,7 @@ void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
 void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 {
 	long 			type = 'TEXT';				// four-char code for Mac file type
-	char 			filename[256];				// for storing the name of the file locally
+	char 			filename[MAX_FILENAME_CHARS];				// for storing the name of the file locally
 	short 			path, err;					// pathID#, error number
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
@@ -928,7 +928,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 
 	// SPECIFY THE FILE WE WANT TO WRITE
 	if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
-		sprintf(filename, "%s.xml", x->attr_name->s_name);					// Default File Name
+		snprintf(filename, MAX_FILENAME_CHARS, "%s.xml", x->attr_name->s_name);					// Default File Name
 		saveas_promptset("Save Preset...");									// Instructional Text in the dialog
 		err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
 		if(err)																// User Cancelled
@@ -963,7 +963,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	critical_enter(0);
 	for(i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
-		sprintf(tempstring, "  <preset number='%ld' name='%s'>", p->number, p->name->s_name);
+		snprintf(tempstring, 1024, "  <preset number='%ld' name='%s'>", p->number, p->name->s_name);
 		jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 
 		// Process each item in the preset
@@ -975,16 +975,16 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 			} else {
 				if(presetItem->value.a_type == A_SYM){
 					result = atom_getsym(&(presetItem->value));
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%s</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%s</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, 
 						presetItem->priority, result->s_name);
 				}
 				else if(presetItem->value.a_type == A_FLOAT)
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%f</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%f</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
 						atom_getfloat(&(presetItem->value)));
 				else if(presetItem->value.a_type == A_LONG)
-					sprintf(tempstring, "    <item name='%s' type='%s' priority='%ld'>%ld</item>",
+					snprintf(tempstring, 1024, "    <item name='%s' type='%s' priority='%ld'>%ld</item>",
 					 	presetItem->param_name->s_name, presetItem->type->s_name, presetItem->priority,
 						atom_getlong(&(presetItem->value)));
 				

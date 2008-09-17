@@ -589,9 +589,9 @@ void hub_return_extended(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	if(namestring[strlen(namestring)-1] == '*'){
 		namestring[strlen(namestring)-1] = 0;
 		if(argv[1].a_type == A_LONG)
-			sprintf(namestring, "%s%ld", namestring, argv[1].a_w.w_long);
+			snprintf(namestring, 256, "%s%ld", namestring, argv[1].a_w.w_long);
 		else if(argv[1].a_type == A_FLOAT)
-			sprintf(namestring, "%s%f", namestring, argv[1].a_w.w_float);
+			snprintf(namestring, 256, "%s%f", namestring, argv[1].a_w.w_float);
 		else // assuming symbol
 			strcat(namestring, atom_getsym(argv+1)->s_name);
 		osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
@@ -905,7 +905,7 @@ void hub_paramvalues_get(t_hub *x)
 		if(t->type == jps_subscribe_parameter){
 			ac = NULL; av = NULL;										// init
 			object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
-			sprintf(osc, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
+			snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
 			hub_outlet_return(x, gensym(osc), ac, av);
 		}
 	}
@@ -1235,7 +1235,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 			}
 			instance++;
 			nametest = name;
-			sprintf(name, "%s.%i", name, instance);
+			snprintf(name, 256, "%s.%i", name, instance);
 			post("Jamoma cannot create multiple modules with the same OSC identifier (%s).  Trying %s instead.", x->osc_name->s_name, name);
 			err = MAX_ERR_NONE;
 			goto again;

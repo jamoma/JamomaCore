@@ -133,11 +133,11 @@ void pass_assist(t_pass *x, void *b, long msg, long arg, char *dst)
 			char		tempstring[200];
 			switch(x->arguments[arg].a_type){
 				case A_LONG:
-					sprintf(tempstring, "%ld", atom_getlong(&x->arguments[arg]));
+					snprintf(tempstring, 200, "%ld", atom_getlong(&x->arguments[arg]));
 					strcpy(dst, tempstring);
 					break;
 				case A_FLOAT:
-					sprintf(tempstring, "%f", atom_getfloat(&x->arguments[arg]));
+					snprintf(tempstring, 200, "%f", atom_getfloat(&x->arguments[arg]));
 					strcpy(dst, tempstring);
 					break;
 				case A_SYM:

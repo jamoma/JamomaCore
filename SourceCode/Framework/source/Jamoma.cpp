@@ -283,7 +283,7 @@ void jamoma_class_attr_get(t_object *o, t_symbol *attrName, long, t_atom *)
 		char		s[256];
 		t_atom		a[4];
 	
-		sprintf(s, "%s:/%s", x->attr_name->s_name, attrName->s_name);
+		snprintf(s, 256, "%s:/%s", x->attr_name->s_name, attrName->s_name);
 		atom_setsym(a+0, gensym(s));
 		sysmem_copyptr(av, a+1, sizeof(t_atom) * ac);
 		object_method_typed(x->hub, jps_feedback, ac + 1, a, NULL);

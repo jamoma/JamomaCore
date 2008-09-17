@@ -311,19 +311,19 @@ void stats_clear(t_stats *x)
 void stats_assist(t_stats *x, void *b, long msg, long arg, char *dst)	// Display assistance messages
 {
 	if(msg==1){ 
-		sprintf(dst, "(int/float) function value");
+		strcpy(dst, "(int/float) function value");
 	}
 	else if(msg==2){
 		if (arg==0)
-			sprintf(dst, "(int) counter");
+			strcpy(dst, "(int) counter");
 		else if (arg==1)
-			sprintf(dst, "(float) minimum");
+			strcpy(dst, "(float) minimum");
 		else if (arg==2)
-			sprintf(dst, "(float) maximum");
+			strcpy(dst, "(float) maximum");
 		else if (arg==3)
-			sprintf(dst, "(float) mean");
+			strcpy(dst, "(float) mean");
 		else if (arg==4)
-			sprintf(dst, "(float) standard deviation");
+			strcpy(dst, "(float) standard deviation");
 		else
 			strcpy(dst, "dumpout");
 	}
