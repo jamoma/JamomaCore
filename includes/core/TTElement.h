@@ -28,6 +28,9 @@ using namespace std;
 
 #ifdef TT_PLATFORM_WIN
  #include "windows.h"
+ #ifndef _CRT_SECURE_NO_WARNINGS
+  #define _CRT_SECURE_NO_WARNINGS
+ #endif
  #define snprintf _snprintf
  #ifdef _DLL_EXPORT
   #define TTEXPORT __declspec(dllexport)
