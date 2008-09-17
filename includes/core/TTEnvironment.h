@@ -143,21 +143,21 @@ TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTValue& arguments);
 
 template<class T>
-TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const T& arguments)
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const T& arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, returnedObjectPtr, v);
 }
 
 template<class T>
-TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const T& arguments)
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const T& arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
 }
 
 template<class T>
-TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const T& arguments)
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const T& arguments)
 {
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
