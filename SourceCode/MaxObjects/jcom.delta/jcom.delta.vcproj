@@ -46,7 +46,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="0"
+				RuntimeLibrary="1"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
