@@ -164,6 +164,12 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 	return err;
 }
 
+TTObjectPtr TTEnvironment::referenceInstance(TTObjectPtr anObject)
+{
+	// TODO: make sure that anObject is valid or wrap with an exception?
+	anObject->referenceCount++;
+	return anObject;
+}
 
 TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 {
@@ -172,8 +178,10 @@ TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 	//	TODO: we should also be able to time-out in the event that we have a dead lock.
 	while(anObject->getlock())
 		;
-		
-	delete anObject;
+	
+	anObject->referenceCount--;
+	if(referenceCount < 1)
+		delete anObject;
 	return kTTErrNone;
 }
 
@@ -198,6 +206,10 @@ TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returne
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
 }
 
+TTObjectPtr TTObjectReference(TTObjectPtr anObject)
+{
+	return ttEnvironment->referenceInstance(anObject);
+}
 
 TTErr TTObjectRelease(TTObjectPtr anObject)
 {

@@ -11,7 +11,7 @@
 
 
 TTObject::TTObject(const char* name)
-: objectName(TT(name)), locked(false)
+: objectName(TT(name)), locked(false), referenceCount(1)
 {
 	messages = new TTHash;
 	attributes = new TTHash;

@@ -74,12 +74,15 @@ typedef enum TTAttributeFlags {
 */
 class TTEXPORT TTObject : public TTElement {
 private:
+	friend class TTEnvironment;
+
 	TTSymbolPtr		objectName;			///< The class name of this object.
 	TTHash*			messages;			///< The collection of all messages for this object, keyed on the message name.
 	TTHash*			attributes;			///< The collection of all attributes for this object, keyed on the attribute name.
 	TTList*			messageObservers;	///< List of all objects watching this object.
 	TTList*			attributeObservers;	///< List of all objects watching this object.
 	TTBoolean		locked;				///< Is there a lock placed on this object using lock() or unlock()?
+	TTUInt16		referenceCount;		///< Reference count for this instance.
 	TTPtrSizedInt	reserved1;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 	TTPtrSizedInt	reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 

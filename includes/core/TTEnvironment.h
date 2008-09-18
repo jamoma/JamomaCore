@@ -114,6 +114,10 @@ public:
 	TTErr createInstance(const TTSymbolPtr className, TTObjectPtr* anObject, TTValue& anArgument);
 	
 	
+	/**	Create a reference to an object. */
+	TTObjectPtr referenceInstance(TTObjectPtr anObject);
+
+	
 	/**	Release an instance of a #TTObject class.
 		At the moment this is simply freeing the class, but it may use reference counting in the future 
 		(e.g. for TTBuffer references).
@@ -162,6 +166,8 @@ TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returne
 	TTValue	v(arguments);
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
 }
+
+TTEXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
 
 TTEXPORT TTErr TTObjectRelease(TTObjectPtr anObject);
 TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
