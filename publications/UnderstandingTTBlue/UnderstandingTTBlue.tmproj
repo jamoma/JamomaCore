@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>chapter_using_objects.tex</string>
+	<string>main.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>main.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T02:42:02Z</date>
+			<date>2008-09-19T03:17:18Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -22,13 +24,13 @@
 			<key>filename</key>
 			<string>aknowledgements.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T02:40:54Z</date>
+			<date>2008-09-19T03:05:03Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>chapter_introduction.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-18T23:38:59Z</date>
+			<date>2008-09-19T03:05:08Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -40,29 +42,37 @@
 			<key>filename</key>
 			<string>chapter_using_objects.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T02:42:02Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2008-09-19T03:17:18Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>chapter_writing_objects.tex</string>
+			<key>lastUsed</key>
+			<date>2008-09-19T03:16:32Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>chapter_unit_testing.tex</string>
+			<key>lastUsed</key>
+			<date>2008-09-19T03:08:31Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>chapter_object_wrappers.tex</string>
+			<key>lastUsed</key>
+			<date>2008-09-19T03:08:27Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>appendix_tags.tex</string>
+			<key>lastUsed</key>
+			<date>2008-09-19T03:08:29Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>aknowledgements.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>8</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>chapter_datatypes.tex</key>
 		<dict>
 			<key>caret</key>
@@ -93,55 +103,53 @@
 				<integer>52</integer>
 			</dict>
 		</dict>
-		<key>chapter_introduction.tex</key>
+		<key>chapter_using_objects.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>6</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>273</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>164</integer>
 		</dict>
-		<key>chapter_using_objects.tex</key>
+		<key>chapter_writing_objects.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>23</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>182</integer>
+				<integer>3</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>165</integer>
+			<integer>0</integer>
 		</dict>
 		<key>main.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>34</integer>
 				<key>line</key>
-				<integer>58</integer>
+				<integer>22</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>15</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>main.tex</string>
-		<string>aknowledgements.tex</string>
-		<string>chapter_introduction.tex</string>
-		<string>chapter_datatypes.tex</string>
+		<string>chapter_writing_objects.tex</string>
 		<string>chapter_using_objects.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
@@ -151,6 +159,6 @@
 	<key>treeState</key>
 	<dict/>
 	<key>windowFrame</key>
-	<string>{{74, 26}, {1187, 839}}</string>
+	<string>{{74, 18}, {1296, 847}}</string>
 </dict>
 </plist>
