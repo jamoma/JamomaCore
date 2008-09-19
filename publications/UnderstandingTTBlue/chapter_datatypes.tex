@@ -1,0 +1,80 @@
+\chapter{Data Types}
+
+
+We will begin our introduction of the TTBlue environment by looking at the basic data types.  All other aspects of the environment, creating objects, writing extensions, etc., all require some knowledge about how data is represented.
+
+
+
+\section{Primitive Data Types}
+
+\subsection{Numbers}
+To begin, TTBlue defines a variety of basic types for representing integers and a floating-point numbers with various degrees of resolution, and in signed or unsigned variants.  Table~\ref{tab:numeric_types} lists the basic numeric types according to their properties.
+
+\begin{table}[ht]
+\begin{center}
+\footnotesize\noindent
+\begin{tabular}{| l | l | l | l |}
+    \hline
+    \textbf{}	&	\textbf{Unsigned Integer}      & \textbf{Signed Integer}	& \textbf{Floating-Point}	\\ 
+	\hline
+	8-bit	&	\texttt{TTUInt8}			& \texttt{TTInt8}	 	&			\\
+	\hline
+	16-bit	&  \texttt{TTUInt16} & \texttt{TTInt16}		&		 \\
+	\hline
+	32-bit		& \texttt{TTUInt32}		&	\texttt{TTInt32}		&	\texttt{TTFloat32}	 \\
+	\hline
+	64-bit		& \texttt{TTUInt64}		&	\texttt{TTInt64}		&	\texttt{TTFloat64}	 \\
+	\hline
+\end{tabular}
+\end{center}
+\caption{Selected numeric data types in TTBlue.}
+\label{tab:numeric_types}
+\end{table}
+
+
+
+
+\subsection{Booleans}
+
+In addition to these types for representing numbers, there are basic types for representing booleans (true/false values), TTBoolean.
+
+
+\subsection{Strings and Symbols}
+
+Strings can be represented in several different ways in TTBlue.  Of course, arrays of the standard char type is well understood way to work with text in C.  The TTString type, at the time of this writing, is a typedef of the C++ std::string, and thus follows the conventions of the string provided by the C++ standard library.
+
+In addition to TTString, there is also a TTSymbol type.  A symbol is simply a wrapper around a string that is cached in a fast lookup table.  While comparing TTString values is relatively slow, comparing TTSymbol values is extremely fast.
+
+Symbols are never created directly.  Rather, to use a symbol you lookup the symbol in the symbol table.  If the symbol is there, then a pointer to the symbol is returned to you.  If the symbol is not in the table, then it is created, added to the table, and the pointer is returned to you.  Because looking up symbols is such a central operation in TTBlue, and because we will use it so often, the easy-to-type macro TT is defined to do this.  For example:
+
+\begin{small}\begin{verbatim}
+	TTSymbolPtr bearSymbol = TT(“bear”);
+\end{verbatim}\end{small}
+
+
+
+\section{Composite Data Types}
+
+\subsection{TTValue}
+
+While is important to have defined the basic data types for numbers, strings, and booleans, this is not the way that values are typically passed in TTBlue.  Instead, values are passed as TTValues.  
+TTValue is a generic type that can hold any of the number, string, boolean, or a few other types that we use in TTBlue.  In fact, it can even hold an array of values made up of these various types.  The following example shows several assignments using TTValues.
+
+\begin{small}\begin{verbatim}
+	// Assigning numbers and symbols to TTValues
+	TTValue v = 3.1415;
+	TTValue s = TT(“hog”);
+
+	// Assigning TTValues to numbers
+	TTUInt16 i = v;
+\end{verbatim}\end{small}
+
+
+
+\subsection{TTObject}
+
+Another type that can be represented with a TTValue is the TTObject type.  We’ll discuss more about that in coming sections.
+
+
+%\subsection{TTMatrix}
+

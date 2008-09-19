@@ -1,0 +1,83 @@
+\documentclass[10pt,a4paper]{book}
+%\usepackage{fullpage}
+\usepackage{times}
+\usepackage{chicago}                    	% for "(Author, year)" cite style.
+\usepackage{indentfirst}                	% indent para after headings.
+\usepackage{graphicx}			% for including EPS graphics
+\usepackage{textcomp}			% required for euro sign
+
+\usepackage{color}
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{commentcolor}{rgb}{0.9,0.2,0.2}
+
+\usepackage{listings}		% required for source code listings
+\lstset{language=c++}
+\lstset{basicstyle=\small\ttfamily}
+\lstset{commentstyle=\color{commentcolor}}
+
+\usepackage{hyperref}
+\usepackage{url}
+
+\hypersetup{colorlinks,urlcolor=black,linkcolor=black,citecolor=black}  
+%reduces the space between the items in the itemize-environment 
+\newenvironment{packed_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+\newenvironment{packed_item}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+
+%\usepackage{thumbpdf}			% pdf thumb icons?
+
+\pagestyle{headings}
+
+\begin{document}
+
+\frontmatter
+
+\input{hyphenations}
+	
+\title{\textbf{Understanding TTBlue}\\
+A Not So Short Introduction to the TTBlue Environment}
+\author{Timothy Place\\
+Electrotap, LLC.}
+\date{\today}
+\maketitle
+
+%\frontmatter
+\input{aknowledgements}
+
+\tableofcontents
+
+\mainmatter
+
+\input{chapter_introduction}
+\input{chapter_datatypes}
+\input{chapter_using_objects}
+\input{chapter_writing_objects}
+\input{chapter_unit_testing}
+\input{chapter_object_wrappers}
+
+\input{appendix_tags}
+
+%\backmatter
+
+% Bibliography
+
+
+\bibliographystyle{chicago}
+\bibliography{space_bibliography}
+\nocite{*}
+
+
+\end{document}
+
+
+%%%%%%%%%%%%%
