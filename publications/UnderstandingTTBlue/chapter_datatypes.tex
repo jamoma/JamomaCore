@@ -41,15 +41,15 @@ In addition to these types for representing numbers, there are basic types for r
 
 \subsection{Strings and Symbols}
 
-Strings can be represented in several different ways in TTBlue.  Of course, arrays of the standard char type is well understood way to work with text in C.  The TTString type, at the time of this writing, is a typedef of the C++ std::string, and thus follows the conventions of the string provided by the C++ standard library.
+Strings can be represented in several different ways in TTBlue.  Of course, arrays of the standard char type is well understood way to work with text in C.  The \!{TTString} type, at the time of this writing, is a typedef of the C++ std::string, and thus follows the conventions of the string provided by the C++ standard library.
 
-In addition to TTString, there is also a TTSymbol type.  A symbol is simply a wrapper around a string that is cached in a fast lookup table.  While comparing TTString values is relatively slow, comparing TTSymbol values is extremely fast.
+In addition to \!{TTString}, there is also a \!{TTSymbol} type.  A symbol is simply a wrapper around a string that is cached in a fast lookup table.  While comparing \!{TTString} values is relatively slow, comparing \!{TTSymbol} values is extremely fast.
 
 Symbols are never created directly.  Rather, to use a symbol you lookup the symbol in the symbol table.  If the symbol is there, then a pointer to the symbol is returned to you.  If the symbol is not in the table, then it is created, added to the table, and the pointer is returned to you.  Because looking up symbols is such a central operation in TTBlue, and because we will use it so often, the easy-to-type macro TT is defined to do this.  For example:
 
-\begin{small}\begin{verbatim}
-	TTSymbolPtr bearSymbol = TT(“bear”);
-\end{verbatim}\end{small}
+\begin{lstlisting}
+	TTSymbolPtr bearSymbol = TT("bear");
+\end{lstlisting}
 
 
 
@@ -58,22 +58,22 @@ Symbols are never created directly.  Rather, to use a symbol you lookup the symb
 \subsection{TTValue}
 
 While is important to have defined the basic data types for numbers, strings, and booleans, this is not the way that values are typically passed in TTBlue.  Instead, values are passed as TTValues.  
-TTValue is a generic type that can hold any of the number, string, boolean, or a few other types that we use in TTBlue.  In fact, it can even hold an array of values made up of these various types.  The following example shows several assignments using TTValues.
+\!{TTValue} is a generic type that can hold any of the number, string, boolean, or a few other types that we use in TTBlue.  In fact, it can even hold an array of values made up of these various types.  The following example shows several assignments using TTValues.
 
-\begin{small}\begin{verbatim}
+\begin{lstlisting}
 	// Assigning numbers and symbols to TTValues
 	TTValue v = 3.1415;
-	TTValue s = TT(“hog”);
+	TTValue s = TT("hog");
 
 	// Assigning TTValues to numbers
 	TTUInt16 i = v;
-\end{verbatim}\end{small}
+\end{lstlisting}
 
 
 
 \subsection{TTObject}
 
-Another type that can be represented with a TTValue is the TTObject type.  We’ll discuss more about that in coming sections.
+Another type that can be represented with a \!{TTValue} is the \!{TTObject} type.  We’ll discuss more about that in coming sections.
 
 
 %\subsection{TTMatrix}

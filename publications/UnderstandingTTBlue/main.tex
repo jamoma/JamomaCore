@@ -10,10 +10,15 @@
 \definecolor{black}{rgb}{0,0,0}
 \definecolor{commentcolor}{rgb}{0.9,0.2,0.2}
 
-\usepackage{listings}		% required for source code listings
+%\usepackage{shortvrb}
+\usepackage{listings}						% required for source code listings
 \lstset{language=c++}
 \lstset{basicstyle=\small\ttfamily}
 \lstset{commentstyle=\color{commentcolor}}
+\lstset{tabsize=2}
+\lstset{gobble=2}							% eat the first tab in block listings
+\lstset{aboveskip=\bigskipamount}			% amount of space above a block listing
+\lstset{belowskip=\bigskipamount}			% ...
 
 \usepackage{hyperref}
 \usepackage{url}
@@ -58,10 +63,16 @@ Electrotap, LLC.}
 
 \mainmatter
 
+% I don't know why, but the below command from the listings package doesn't seem to be recoginized...
+%\lstMakeShortInline{}{!}
+% ... so we define our own macro instead.  hopefully this won't cause problems.
+\renewcommand{\!}[1]{\lstinline®#1®}
+
 \input{chapter_introduction}
 \input{chapter_datatypes}
 \input{chapter_using_objects}
 \input{chapter_writing_objects}
+\input{chapter_extending_objects}
 \input{chapter_unit_testing}
 \input{chapter_object_wrappers}
 

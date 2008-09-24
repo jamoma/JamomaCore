@@ -1,0 +1,30 @@
+\chapter{Extending Objects}
+
+\section{Subclassing Objects}
+
+The classical methodology for extending functionality in object-oriented designs is to subclass an object.
+In other words, we derive a new object that inherits all of the functionality of a parent class.
+This is also possible in TTBlue, though you may wish to keep a few guidelines in mind when subclassing.
+
+...
+
+
+
+\section{Decorating Objects}
+
+Because TTBlue is a dynamic and reflective API for creating objects, we can extend objects by means other than subclassing.
+One specific way of doing this is by decorating a class.
+
+For example, let us assume that we have a bandpass filter for processing audio.
+Further, this object understands how to control its center frequency using an attribute specified in Hertz.
+What are we to do if we want to communicate with the object using the Bark scale?
+
+One option is to write a conversion routine and always call that routine to convert the value, then send a message the filter.
+A second option is subclass the filter, creating another filter which has the required attribute specified using Barks.
+A third option is to decorate the existing filter by adding a new attribute to it at runtime.
+
+...
+
+
+
+
