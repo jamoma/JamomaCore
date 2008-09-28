@@ -14,7 +14,9 @@ const long MAX_NUM_SOURCES = 250;
 const long MAX_NUM_DESTINATIONS = 500;
 
 t_symbol		*ps_dst_position,
-				*ps_src_position;
+				*ps_src_position,
+				*ps_src_gain,
+				*ps_src_mute;
 
 typedef struct _xyz{
 	float		x;										///< x position
@@ -28,6 +30,7 @@ typedef struct _dbap{									///< Data structure for this object
 	t_xyz		src_position[MAX_NUM_SOURCES];			///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];					///< Spatial bluriness ratio in percents for each source
 	float		src_gain[MAX_NUM_SOURCES];				///< Linear gain for each source, not yet used
+	float		src_not_muted[MAX_NUM_SOURCES];				///< Mute and unmute sources
 	float		master_gain;							///< Mater gain for all ofr the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
@@ -53,13 +56,19 @@ void dbap_blur(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
 void dbap_blurall(t_dbap *x, double f);
 
 /** Set the position of the nth virtual source. */
-void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv);
+void dbap_source(t_dbap *x, void *msg, long argc, t_atom *argv);
 
 /** Set the position of the nth speaker. */
-void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv);
+void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv);
+
+/** Set input gain for nth source. */
+void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv);
 
 /** Set master gain for all values passed from the object to matrix~. */
 void dbap_mastergain(t_dbap *x, double f);
+
+/** Mute and unmute sources */
+void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv);
 
 /** Get info on destination setup ++ */
 void dbap_info(t_dbap *x);
@@ -121,6 +130,8 @@ int main(void)
 	jamoma_init();
 	common_symbols_init();
 	ps_src_position = gensym("src_position");
+	ps_src_gain = gensym("src_gain");
+	ps_src_mute = gensym("src_mute");
 	ps_dst_position = gensym("dst_position");
 
 	// Define our class
@@ -132,7 +143,9 @@ int main(void)
 	class_addmethod(c, (method)dbap_blurall,			"blurall",		A_FLOAT,	0);
 	class_addmethod(c, (method)dbap_source,				"src_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_destination,		"dst_position",	A_GIMME,	0);
+	class_addmethod(c, (method)dbap_sourcegain,			"src_gain",		A_GIMME,	0);
 	class_addmethod(c, (method)dbap_mastergain,			"master_gain",	A_FLOAT,	0);
+	class_addmethod(c, (method)dbap_sourcemute,			"src_mute",		A_GIMME,	0);
 	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);
 	class_addmethod(c, (method)dbap_info,				"info",			0);
 	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		0);  
@@ -184,7 +197,9 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->src_position[i].x = 0.;
 			x->src_position[i].y = 0.;
 			x->src_position[i].z = 0.;
-			x->blur[i] = 0.000001;
+			x->blur[i]	   = 0.000001;
+			x->src_gain[i] = 1.0;
+			x->src_not_muted[i] = 1.0;
 		}
 		for (i=0; i<MAX_NUM_DESTINATIONS; i++) {
 			x->dst_position[i].x = 0.;
@@ -224,7 +239,6 @@ void dbap_blur(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 		if (f<0.000001) 
 			f = 0.000001;	
 		x->blur[n] = f;
-		// The set of destination points has been changed - recalculate blur radius.
 		dbap_calculate(x, n);
 	}
 	else
@@ -245,7 +259,7 @@ void dbap_blurall(t_dbap *x, double f)
 }
 
 // set source position and calculate output
-void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
+void dbap_source(t_dbap *x, void *msg, long argc, t_atom *argv)
 {
 	long n;
 	
@@ -278,7 +292,7 @@ void dbap_source(t_dbap *x, void *attr, long argc, t_atom *argv)
 
 
 // set position of a destination
-void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
+void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv)
 {
 	long n;
 	
@@ -312,6 +326,30 @@ void dbap_destination(t_dbap *x, void *attr, long argc, t_atom *argv)
 }
 
 
+void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv)
+{
+	long n;
+	float f;
+	
+	if((argc>=2) && argv) {	
+		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
+			error("Invalid argument(s) for source_gain");
+			return;
+		}
+		argv++;
+		f = atom_getfloat(argv);
+		if (f<0.0) 
+			f = 0.0;	
+		x->src_gain[n] = f;
+		dbap_calculate(x, n);
+	}
+	else
+		error("Invalid argument(s) for source_gain");
+}
+
+
+
 void dbap_mastergain(t_dbap *x, double f)
 {
 	long i;
@@ -325,6 +363,26 @@ void dbap_mastergain(t_dbap *x, double f)
 		dbap_calculate(x, i);
 }
 
+
+void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
+{
+	long n;
+	
+	if((argc>=2) && argv) {	
+		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
+			error("Invalid argument(s) for source_gain");
+			return;
+		}
+		argv++;	
+		x->src_not_muted[n] = (atom_getfloat(argv)==0.0);
+		dbap_calculate(x, n);
+	}
+	else
+		error("Invalid argument(s) for source_gain");
+}
+
+
 void dbap_info(t_dbap *x)
 {
 	t_atom		a[4];
@@ -336,6 +394,10 @@ void dbap_info(t_dbap *x)
 		atom_setfloat(&a[2], x->src_position[i].y);
 		atom_setfloat(&a[3], x->src_position[i].z);
 		object_obex_dumpout(x, ps_src_position, x->attr_dimensions+1, a);
+		atom_setfloat(&a[1], x->src_gain[i]);
+		object_obex_dumpout(x, ps_src_gain, 2, a);
+		atom_setlong(&a[1], (x->src_not_muted[i]==0));
+		object_obex_dumpout(x, ps_src_mute, 2, a);
 	}
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
@@ -487,12 +549,13 @@ void dbap_calculate1D(t_dbap *x, long n)
 		k2inv = k2inv + 1./(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
+	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
 	
 	atom_setlong(&a[0], n);
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], x->master_gain*k/dia[i]);
+		atom_setfloat(&a[2], k/dia[i]);
 		outlet_anything(x->outlet, _sym_list, 3, a);
 	}	
 }
@@ -520,12 +583,13 @@ void dbap_calculate2D(t_dbap *x, long n)
 		k2inv = k2inv + 1./(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
+	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
 
 	atom_setlong(&a[0], n);
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], x->master_gain*k/dia[i]);
+		atom_setfloat(&a[2], k/dia[i]);
 		outlet_anything(x->outlet, _sym_list, 3, a);
 	}	
 }
@@ -554,12 +618,13 @@ void dbap_calculate3D(t_dbap *x, long n)
 		k2inv = k2inv + 1./(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
+	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
 	
 	atom_setlong(&a[0], n);
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], x->master_gain*k/dia[i]);
+		atom_setfloat(&a[2], k/dia[i]);
 		outlet_anything(x->outlet, _sym_list, 3, a);
 	}	
 }

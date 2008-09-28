@@ -175,6 +175,35 @@
 				The argument for <m>master_gain</m> is interpreted as linear gain, and defaults to <m>1</m>.
 			</description>
 		</method>
+
+		<method name="src_gain">
+			<arglist>
+				<arg id="0" name="instance gain" type="int float" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The message <m>src_gain</m> can be used to control incoming gain level independently for each source.
+				An <m>ínt</m> argument sets the instance number, starting from <m>1</m>, and is followed by a <m>float</m> value interpreted as linear gain level.
+				All source gain levels are set to <m>1.0</m> on initialization of the object.
+			</description>
+		</method>
+		
+		<method name="src_mute">
+			<arglist>
+				<arg id="0" name="instance mute" type="int int" optional="0" />
+			</arglist>
+			<digest>
+				TEXT_HERE
+			</digest>
+			<description>
+				The message <m>src_mute</m> can be used to individually mute and unmute the sources.
+				An <m>int</m> argument sets the instance number, starting from <m>1</m>, and is followed by a <m>int</m> or <m>float</m> value.
+				A value of <m>0</m> or <m>0.0</m> un-mutes the source, all other values mutes the source.
+				All sources are un-muted at initialization of the object.
+			</description>
+		</method>
 		
 		<method name="src_position">
 			<arglist>
