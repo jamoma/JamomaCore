@@ -126,7 +126,7 @@
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\..\..\TTBlue\includes\core;..\..\..\..\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="0"

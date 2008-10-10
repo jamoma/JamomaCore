@@ -125,7 +125,7 @@
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\TTBlue\includes\core&quot;;&quot;$(ProjectDir)..\..\..\TTBlue\includes\units&quot;;.\source;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="0"
