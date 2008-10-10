@@ -248,6 +248,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\includes\core\TTEnvironment.h"
+				>
+			</File>
+			<File
 				RelativePath="..\source\core\TTHash.cpp"
 				>
 			</File>
