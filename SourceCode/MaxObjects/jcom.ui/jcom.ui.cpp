@@ -97,19 +97,19 @@ int main(void)
 	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
 	
 	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_ui,	bgcolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.141176 0.141176 0.141176 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.93 0.93 0.93 1.0");
 	CLASS_ATTR_STYLE(c,						"bgcolor",		0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_ui,	bordercolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.2 0.2 0.2 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.6 0.6 0.6 1.0");
 	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"headercolor",	0,	t_ui,	headercolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.0 0.0 0.0 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"headercolor",	0,	"0.82 0.82 0.82 1.0");
 	CLASS_ATTR_STYLE(c,						"headercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_ui,	textcolor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.65 0.65 0.65 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0. 0. 0. 1.0");
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
 	
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
