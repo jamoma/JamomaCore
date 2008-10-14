@@ -5,7 +5,7 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='audio/gain' type='msg_float' priority='0'>100.0</item>
+    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='delaylength' type='msg_list' priority='0'>30.000000 76.000000 </item>
     <item name='fdn_eq/cf' type='msg_float' priority='0'>732.239258</item>

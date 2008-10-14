@@ -2020,7 +2020,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "input_eq/filtergain",
-									"text" : "jcom.parameter input_eq/filtergain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
+									"text" : "jcom.parameter input_eq/filtergain @type msg_float @range/bounds -24 24 @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Gain (dB)\"",
 									"linecount" : 2,
 									"hidden" : 1,
 									"numoutlets" : 3,
@@ -2037,7 +2037,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "input_eq/q",
-									"text" : "jcom.parameter input_eq/q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
+									"text" : "jcom.parameter input_eq/q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 1 @description \"Resonance (Q)\"",
 									"linecount" : 2,
 									"hidden" : 1,
 									"numoutlets" : 3,
@@ -2054,7 +2054,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "input_eq/cf",
-									"text" : "jcom.parameter input_eq/cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
+									"text" : "jcom.parameter input_eq/cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Center frequency (Hz)\"",
 									"linecount" : 2,
 									"hidden" : 1,
 									"numoutlets" : 3,
@@ -2914,7 +2914,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "fdn_eq/filtergain",
-									"text" : "jcom.parameter fdn_eq/filtergain @type msg_float @range/bounds -24. 0. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Gain (dB)\"",
+									"text" : "jcom.parameter fdn_eq/filtergain @type msg_float @range/bounds -24. 0. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Gain (dB)\"",
 									"linecount" : 2,
 									"hidden" : 1,
 									"numoutlets" : 3,
@@ -2931,7 +2931,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "fdn_eq/q",
-									"text" : "jcom.parameter fdn_eq/q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 0 @description \"Resonance (Q)\"",
+									"text" : "jcom.parameter fdn_eq/q @type msg_float @ramp/drive scheduler @range/bounds 0. 100. @range/clipmode both @repetitions/allow 1 @description \"Resonance (Q)\"",
 									"linecount" : 2,
 									"hidden" : 1,
 									"numoutlets" : 3,
@@ -2948,7 +2948,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "fdn_eq/cf",
-									"text" : "jcom.parameter fdn_eq/cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 0 @description \"Center frequency (Hz)\"",
+									"text" : "jcom.parameter fdn_eq/cf @type msg_float @range/bounds 30. 11025. @range/clipmode both @ramp/drive scheduler @repetitions/allow 1 @description \"Center frequency (Hz)\"",
 									"linecount" : 2,
 									"hidden" : 1,
 									"numoutlets" : 3,
