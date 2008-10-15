@@ -222,6 +222,11 @@ TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, co
 	return ttEnvironment->registerClass(className, tagString, anInstantiationMethod);
 }
 
+TTErr TTClassRegister(const TTSymbolPtr className, const TTCString tagString, const TTObjectInstantiationMethod anInstantiationMethod)
+{
+	return ttEnvironment->registerClass(className, TTString(tagString), anInstantiationMethod);
+}
+
 
 TTErr TTGetRegisteredClassNames(TTValue& classNames)
 {
