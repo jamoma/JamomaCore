@@ -5,7 +5,7 @@ returns names, positions and dimensions of all named patchers in this patch
 
 function bang()
 {
-this.patcher.apply(iterfun);
+this.patcher.parentpatcher.apply(iterfun);
 }
 
 function iterfun(b)
