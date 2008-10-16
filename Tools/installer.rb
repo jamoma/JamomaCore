@@ -22,7 +22,7 @@ Dir.chdir libdir        # change to libdir so that requires work
 @max = "#{@temp}/Applications/Max5"
 @c74 = "#{@max}/Cycling '74"
 
-@version = "0.5.0b01"
+@version = "0.5.0b04"
 
 
 ###################################################################
@@ -119,12 +119,12 @@ cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.dmg")
 
 puts "  Moving things around (frameworks, loader, templates, etc)..."
 cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-templates/\"* \"#{@max}/patches/templates\"")
-cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-overview.mxt\" \"#{@max}/patches/extras\"")
+cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-overview.maxpat\" \"#{@max}/patches/extras\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/Jamoma.framework\" \"#{@temp}/Library/Frameworks\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/TTBlue.framework\" \"#{@temp}/Library/Frameworks\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/extensions/\"")
-cmd("cp \"#{@c74}/Jamoma/support/*.maxdefaults\" \"#{@c74}/default-settings\"")
-cmd("cp \"#{@c74}/Jamoma/support/*.maxdefines\" \"#{@c74}/default-definitions\"")
+cmd("mv \"#{@c74}/Jamoma/support/*.maxdefaults\" \"#{@c74}/default-settings/*.maxdefaults\"")
+cmd("mv \"#{@c74}/Jamoma/support/jcom.ui.maxdefines\" \"#{@c74}/default-definitions/jcom.ui.maxdefines\"")
 
 puts "  Copying readme, license, etc...."
 cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/resources\"")
