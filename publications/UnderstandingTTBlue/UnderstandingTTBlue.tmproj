@@ -3,16 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>main.tex</string>
+	<string>chapter_extending_objects.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>main.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T03:17:18Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2008-09-24T21:59:40Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -36,19 +34,25 @@
 			<key>filename</key>
 			<string>chapter_datatypes.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T02:00:04Z</date>
+			<date>2008-09-24T21:51:39Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>chapter_using_objects.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T03:17:18Z</date>
+			<date>2008-09-24T23:00:30Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>chapter_writing_objects.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T03:16:32Z</date>
+			<date>2008-09-24T21:27:03Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>chapter_extending_objects.tex</string>
+			<key>lastUsed</key>
+			<date>2008-09-24T23:00:30Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -78,42 +82,40 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>21</integer>
 				<key>line</key>
-				<integer>52</integer>
+				<integer>65</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>155</integer>
 			<key>firstVisibleLine</key>
-			<integer>41</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>49</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>52</integer>
-			</dict>
+			<integer>10</integer>
 		</dict>
-		<key>chapter_using_objects.tex</key>
+		<key>chapter_extending_objects.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>38</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>273</integer>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>18</integer>
+		</dict>
+		<key>chapter_using_objects.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>10</integer>
+				<key>line</key>
+				<integer>185</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>164</integer>
 		</dict>
@@ -124,33 +126,51 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>3</integer>
+				<integer>4</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>4</integer>
+			</dict>
 		</dict>
 		<key>main.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>34</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>22</integer>
+				<integer>48</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>36</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>main.tex</string>
-		<string>chapter_writing_objects.tex</string>
+		<string>chapter_datatypes.tex</string>
 		<string>chapter_using_objects.tex</string>
+		<string>chapter_writing_objects.tex</string>
+		<string>chapter_extending_objects.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
