@@ -91,6 +91,8 @@ cmd("mkdir -pv \"#{@max}/patches/templates\"")
 cmd("mkdir -pv \"#{@max}/patches/extras\"")
 cmd("mkdir -pv \"#{@c74}\"")
 cmd("mkdir -pv \"#{@c74}/extensions\"")
+cmd("mkdir -pv \"#{@c74}/default-definitions\"")
+cmd("mkdir -pv \"#{@c74}/default-settings\"")
 cmd("mkdir -pv \"#{@svn_root}/Installers/resources\"")
 cmd("mkdir -pv \"#{@svn_root}/Installers/Jamoma\"")
 
