@@ -21,14 +21,14 @@ cp -r ../../Jamoma root/Cycling\ \'74
 mv root/Cycling\ \'74/Jamoma/library/externals/windows/jcom.meter~.mxe root/Cycling\ \'74/max-startup/jcom.meter~.mxe
 mv root/Cycling\ \'74/Jamoma/library/externals/windows/jcom.loader.mxe root/Cycling\ \'74/extensions/jcom.loader.mxe
 cp root/Cycling\ \'74/Jamoma/documentation/jamoma-overview.maxpat root/patches/extras/jamoma-overview.maxpat
-cp root/Cycling\ \'74/Jamoma/JamomaDark.maxdefaults root/Cycling\ \'74/default-settings/JamomaDark.maxdefaults
-cp root/Cycling\ \'74/Jamoma/JamomaLight.maxdefaults root/Cycling\ \'74/default-settings/JamomaLight.maxdefaults
-cp root/Cycling\ \'74/Jamoma/jcom.ui.maxdefines root/Cycling\ \'74/default-definitions/jcom.ui.maxdefines
+cp root/Cycling\ \'74/Jamoma/support/JamomaDark.maxdefaults root/Cycling\ \'74/default-settings/JamomaDark.maxdefaults
+cp root/Cycling\ \'74/Jamoma/support/JamomaLight.maxdefaults root/Cycling\ \'74/default-settings/JamomaLight.maxdefaults
+cp root/Cycling\ \'74/Jamoma/support/jcom.ui.maxdefines root/Cycling\ \'74/default-definitions/jcom.ui.maxdefines
 mv root/Cycling\ \'74/Jamoma/library/externals/windows/JamomaFramework.dll root/support
 mv root/Cycling\ \'74/Jamoma/library/externals/windows/TTBlue.dll root/support
-mv root/Cycling\ \'74/Jamoma/library/third-party/win-support/iconv.dll root/support
-mv root/Cycling\ \'74/Jamoma/library/third-party/win-support/libxml2.dll root/support
-mv root/Cycling\ \'74/Jamoma/library/third-party/win-support/zlib1.dll root/support
+mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/iconv.dll root/support
+mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/libxml2.dll root/support
+mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/zlib1.dll root/support
 cp root/Cycling\ \'74/Jamoma/GNU-LGPL.rtf License.rtf
 
 echo "making candle with paraffin"
