@@ -433,25 +433,28 @@ void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 // read the default file and recall the first preset
 void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 {
-	char	default_file_name[256];
-	t_atom	a;
-	t_atom	args[2];
+	char		default_file_name[256];
+	t_atom		a;
+	t_atom		args[2];
+	t_max_err	err;
 	
 	strcpy(default_file_name, x->attr_name->s_name);
 	strcat(default_file_name, ".xml");
 	
 	atom_setlong(&a, 1);
 
-	hub_preset_doread(x, gensym(default_file_name));
-	hub_preset_recall(x, _sym_nothing, 1, &a);
-	
-	// Is default preset recalled as part of initialization of module?
-	if (x->flag_init) {
-		atom_setsym(args, x->attr_name);
-		atom_setsym(args+1, x->osc_name);
-		object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
-		// Initialization is now done
-		x->flag_init = 0;
+	err = hub_preset_doread(x, gensym(default_file_name));
+	if(!err){
+		hub_preset_recall(x, _sym_nothing, 1, &a);
+		
+		// Is default preset recalled as part of initialization of module?
+		if (x->flag_init) {
+			atom_setsym(args, x->attr_name);
+			atom_setsym(args+1, x->osc_name);
+			object_method_typed(g_jcom_send_notifications, gensym("module.initialized"), 2, args, NULL);
+			// Initialization is now done
+			x->flag_init = 0;
+		}
 	}
 }
 
@@ -472,7 +475,7 @@ void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 }
 
 
-void hub_preset_doread(t_hub *x, t_symbol *userpath)
+t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 {
 	char 			filename[256];			// for storing the name of the file locally
 	char 			fullpath[512];			// path and name passed on to the xml parser
@@ -480,22 +483,23 @@ void hub_preset_doread(t_hub *x, t_symbol *userpath)
 	long			outtype;				// the file type that is actually true
 
 	// FIND THE FILE WE WANT TO READ
-	if(!userpath->s_name[0]){													// Empty string
+	if(!userpath->s_name[0]){											// Empty string
 		if(open_dialog(filename, &path, &outtype ,NULL, -1))			// Returns 0 if successful
-			return;														// User Cancelled
+			return MAX_ERR_GENERIC;										// User Cancelled
 	}
 	else{
-		strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
+		strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
 		if(locatefile_extended(filename, &path, &outtype, NULL, -1)){	// Returns 0 if successful
-			if(x->attr_name != gensym("/editing_this_module"))
+			if(!x->editing)
 				error("jcom.hub (%s module): preset file not found", x->attr_name->s_name);
-			return;														// Not found
-		}	
+			return MAX_ERR_GENERIC;										// Not found
+		}
 	}
 
 	jcom_core_getfilepath(path, filename, fullpath);
 	//post("path for xml preset file: %s", temppath);
 	hub_preset_parse(x, fullpath);
+	return MAX_ERR_NONE;
 }
 
 

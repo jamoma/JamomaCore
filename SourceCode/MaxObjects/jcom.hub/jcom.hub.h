@@ -89,6 +89,7 @@ typedef struct _hub{							///< Data Structure for this object
 	char*			text;						///< text used by /getstate window
 	TTUInt32		textSize;					///< how many chars are alloc'd to text
 	t_object*		textEditor;					///< the text editor window
+	TTBoolean		editing;					///< are we editing this module?
 } t_hub;
 
 
@@ -234,7 +235,7 @@ void 		hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 /** This does the actual work for @ref hub_preset_read since the actual
  * act of reading the file is defered to the low priority thread
  * @see hub_preset_read */
-void 		hub_preset_doread(t_hub *x, t_symbol *userpath);
+t_max_err 	hub_preset_doread(t_hub *x, t_symbol *userpath);
 
 
 /** Reads in and parses an XML file of presets 

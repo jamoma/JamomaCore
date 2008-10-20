@@ -234,14 +234,17 @@ void hub_examine_context(t_hub *x)
 		x->osc_name = jamoma_patcher_getvarname(x->container);
 
 	// In this case we overwrite whatever happened above
-	if(context == gensym("toplevel"))
+	if(context == gensym("toplevel")){
 		x->osc_name = gensym("/editing_this_module");
+		x->editing = true;
+	}
 	else{
 		t_object*	patcher = jamoma_object_getpatcher((t_object*)x);
 		t_object*	box = object_attr_getobj(patcher, jps_box);
 		t_object*	ui = NULL;
 		t_symbol*	objclass = NULL;
 		
+		x->editing = false;		
 		ui = object_attr_getobj(patcher, gensym("firstobject"));
 		while(ui){
 			objclass = object_attr_getsym(ui, gensym("maxclass"));
