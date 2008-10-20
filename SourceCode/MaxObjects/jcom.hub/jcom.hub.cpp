@@ -1177,6 +1177,8 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		char*			nametest;
 		t_atom			a[2];
 		int				instance = 0;
+		TTBoolean		nameConflict = false;
+		t_symbol*		nameOriginal;
 		
 		x->osc_name = atom_getsym(argv);
 
@@ -1217,6 +1219,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		nametest = name + 1;
 		if(strchr(nametest, '/'))
 			error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
+		nameOriginal = gensym(name);
 	again:
 		x->osc_name = gensym(name);
 		
@@ -1239,10 +1242,12 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 			instance++;
 			nametest = name;
 			snprintf(name, 256, "%s.%i", name, instance);
-			post("Jamoma cannot create multiple modules with the same OSC identifier (%s).  Trying %s instead.", x->osc_name->s_name, name);
+			nameConflict = true;
 			err = MAX_ERR_NONE;
 			goto again;
 		}
+		if(nameConflict)
+			object_post((t_object*)x, "Jamoma cannot create multiple modules with the same OSC identifier (%s).  Using %s instead.", nameOriginal->s_name, name);
 		
 		// And send a notification to the environment
 		atom_setsym(a, x->attr_name);
