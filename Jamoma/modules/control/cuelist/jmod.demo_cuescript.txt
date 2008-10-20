@@ -5,15 +5,15 @@ CUE initialisation
 ##############################
 
 # Module control
-	/control/audio 0			
+	/control/audio 0
 	# turn off the dsp
 	/control/ui/freeze 0
-	
+
 # Module input~
 	/input~/audio/gain 0.
-    # Note that midi units can be specified as floats in Jamoma
-/input~/balance 0.	
-/input~/loop 0
+	# Note that midi units can be specified as floats in Jamoma
+	/input~/balance 0.	
+	/input~/loop 0
 	/input~/play 0
 	/input~/source_select none
 	/input~/ch.1 0
@@ -66,8 +66,7 @@ CUE audio_on
 	
 # Module input~
 	/input~/source_select pink
-	/input~/audio/gain 97.000 ramp 2000	
-# Ramp to this new value over 2 seconds...
+	/input~/audio/gain 97.000 ramp 2000		# Ramp to this new value over 2 seconds...
 	
 # Module filter~
 	/filter~/audio/gain 100.000 ramp 2000
