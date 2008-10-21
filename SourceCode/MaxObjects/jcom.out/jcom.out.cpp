@@ -106,7 +106,6 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
 		x->numOutputs =  1;
-		x->vector_size = 0;
 		x->attr_preview = 0;
 		x->preview_object = NULL;
 		x->attr_bypass = 0;
@@ -136,8 +135,6 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		
 		//x->xfade = new TTCrossfade(x->numOutputs);
 		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
-
-		x->copy = new TTAudioObject("jcom.out copier", x->numOutputs);
 
 		//x->gain = new TTGain(x->numOutputs);
 		TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
@@ -214,7 +211,6 @@ void out_free(t_out *x)
 	delete x->audioOut;
 	delete x->audioTemp;
 	delete x->zeroSignal;
-	delete x->copy;
 	TTObjectRelease(x->xfade);
 	TTObjectRelease(x->gain);
 	TTObjectRelease(x->ramp_gain);
@@ -410,59 +406,39 @@ t_int *out_perform(t_int *w)
 {
   	t_out*			x = (t_out *)(w[1]);
 	short			i, j;
-	TTUInt16		numChannels;
-	TTUInt16		vs;
 	TTUInt16		n;
 	float			currentvalue = 0;
 	float			peakvalue = 0;	// values for calculating metering
-	TTValue			v;
-	TTUInt16		inObjectProducesNumChannels;
-	
-	x->audioIn->getAttributeValue(TT("numChannels"), numChannels);
-	x->in_object->audioOut->getAttributeValue(TT("numChannels"), inObjectProducesNumChannels);
-	x->audioIn->getAttributeValue(TT("vectorSize"), vs);
-	v.setSize(3);
-	v.set(1, vs);
 	
 	// Store the input from the inlets
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-//		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
-// TODO: use a cached symbol instead of looking it up every single time
-		v.set(0, i);
-		v.set(2, TTPtr((w[j+1])));
-		x->audioIn->sendMessage(TT("setVector32"), v);		
+		x->audioIn->setVector(i, x->vectorSize, (TTFloat32*)w[j+1]);
 	}
 	
-	
 	if(x->attr_bypass)
-		x->copy->process(x->in_object->audioOut, x->audioOut);
+		TTAudioSignal::copy(*x->in_object->audioOut, *x->audioOut);
 	else if(x->attr_mute)
-		x->copy->process(x->zeroSignal, x->audioOut);
+		TTAudioSignal::copy(*x->zeroSignal, *x->audioOut);
 	else{
-		if(x->in_object && inObjectProducesNumChannels)
+		if(x->in_object && x->in_object->numChannels)
 			x->xfade->process(x->in_object->audioOut, x->audioIn, x->audioTemp);	// perform bypass/mix control
 		else
-			x->copy->process(x->audioIn, x->audioTemp);
+			TTAudioSignal::copy(*x->audioIn, *x->audioTemp);
 	
 		x->gain->process(x->audioTemp, x->audioOut);								// perform gain control
 	}
 	
-	
 	// Send the input on to the outlets for the algorithm
-	for(i=0; i<numChannels; i++){
+	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-//		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
-// TODO: use a cached symbol instead of looking it up every single time
-		v.set(0, i);
-		v.set(2, TTPtr((w[j+2])));		
-		x->audioOut->sendMessage(TT("getVector32"), v);
+		x->audioOut->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
 		
 		// since we are already looping through the channels here, we will also do the per-channel metering here
 		if(x->attr_defeat_meters == 0 && x->num_meter_objects){
 			t_float* envelope = (t_float *)(w[j+2]);
-			n = vs;
-//			sig = x->audioOut->sampleVectors[i];
+			
+			n = x->vectorSize;
 			while(n--){
 				if((*envelope) < 0 )						// get the current sample's absolute value
 					currentvalue = -(*envelope);
@@ -483,21 +459,8 @@ t_int *out_perform(t_int *w)
 		}		
 	}
 
-	return w + ((numChannels*2)+2);
+	return w + ((x->numChannels*2)+2);
 }
-
-
-/*
-t_int *out_perform_zero(t_int *w)
-{
-  	t_float *out 	= (t_float *)(w[1]);	// Output
-	long	n		= (long)(w[2]);			// vectorsize
-
-	while(n--)
-		*out++ = 0;
-	return(w+3);
-}
-*/
 
 
 void out_getAudioForChannel(t_out *x, int channel, float **vector)
@@ -509,24 +472,6 @@ void out_getAudioForChannel(t_out *x, int channel, float **vector)
 // DSP Method
 void out_dsp(t_out *x, t_signal **sp, short *count)
 {
-/*
-	short 	i;
-	int 	vs = sp[0]->s_n;			// Vector Size
-	int		sr = sp[0]->s_sr;			// Sample Rate	
-
-	x->ramp_gain->setAttributeValue(TT("sr"), sr);	// convert midi to db for tap_gain
-	x->ramp_xfade->setAttributeValue(TT("sr"), sr);	// convert midi to db for tap_gain
-	out_alloc(x, vs);
-
-	for(i=0; i < x->num_outputs; i++){			// take a look at each
-		x->out_vectors[i] = sp[i]->s_vec;
-		if(count[i])
-			dsp_add(out_perform, 5, x, i, sp[i]->s_vec, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
-		else
-			dsp_add(out_perform_zero, 2, sp[x->num_outputs + i]->s_vec, sp[i]->s_n);
-	}
-	*/
-
 	short		i, j, k=0;
 	void**		audioVectors = NULL;
 	TTUInt8		numChannels = 0;
@@ -542,7 +487,6 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	
 	for(i=0; i < x->numOutputs; i++){
 		j = x->numOutputs + i;
-//		if(count[i] && count[j]){
 		if(count[i] || count[j]){
 			numChannels++;
 			if(sp[i]->s_n > vs)
@@ -555,11 +499,13 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 		}
 	}
 	
+	x->numChannels = numChannels;
 	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
 	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
 	x->audioTemp->setAttributeValue(TT("numChannels"), numChannels);
 	x->zeroSignal->setAttributeValue(TT("numChannels"), numChannels);
 	
+	x->vectorSize = vs;
 	x->audioIn->setAttributeValue(TT("vectorSize"), vs);
 	x->audioOut->setAttributeValue(TT("vectorSize"), vs);
 	x->audioTemp->setAttributeValue(TT("vectorSize"), vs);

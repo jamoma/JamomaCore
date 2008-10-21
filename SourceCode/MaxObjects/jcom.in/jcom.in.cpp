@@ -117,7 +117,6 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
 		x->attr_freeze = 0;
-		x->vector_size = 0;  // reset cached vector size
 
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
@@ -137,7 +136,6 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		for(i=0; i < (x->numInputs); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal outlet
 		
-		x->copier = new TTAudioObject("jcom.in~ copier", x->numInputs);
 		x->audioIn = new TTAudioSignal(x->numInputs);
 		x->audioOut = new TTAudioSignal(x->numInputs);
 		for(i=0; i < x->numInputs; i++){
@@ -196,7 +194,6 @@ void in_free(t_in *x)
 {
 #ifdef JCOM_IN_TILDE
 	dsp_free((t_pxobject *)x);			// Always call dsp_free first in this routine
-	delete x->copier;
 	delete x->audioIn;
 	delete x->audioOut;
 #endif
@@ -343,74 +340,25 @@ void in_anything(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 // (the work is all done in the dsp method)
 t_int *in_perform(t_int *w)
 {
-/*
-  	t_in 	*x = (t_in *)(w[1]);		// Instance
-	short	n;
-	short	chan = x->num_inputs;
-	short	i, j;
-	float	*out, *remote;
-	
-	for(i=0; i < chan; i++){
-		n = x->vector_size;
-		remote = x->remote_vectors[i];
-		out = x->out_vectors[i];
-		j = 0;
-		if(out && x->signal_in->sampleVectors[i]){
-			if(remote){
-				while(n--){
-					x->signal_in->sampleVectors[i][j] += *remote;
-					*out++ = x->signal_in->sampleVectors[i][j];
-					*remote = 0.0;
-					remote++;
-					j++;
-				} 
-			}
-			else{
-				while(n--){
-					*out++ = x->signal_in->sampleVectors[i][j];
-					j++;
-				} 
-			}
-		}
-	}
-	return(w+2);
-*/
-
    	t_in		*x = (t_in *)(w[1]);
 	short		i, j;
-	TTUInt16	numChannels;
-	TTUInt16	vs;
-	TTValue		v;
-	
-	x->audioIn->getAttributeValue(TT("numChannels"), numChannels);
-	x->audioIn->getAttributeValue(TT("vectorSize"), vs);
-	v.setSize(3);
-	v.set(1, vs);
 	
 	// Store the input from the inlets
-	for(i=0; i<numChannels; i++){
+	for(i=0; i < x->numChannels; i++){
 		j = (i*2) + 1;
-//		x->audioIn->setVector(i, vs, (t_float *)(w[j+1]));
-// TODO: use a cached symbol instead of looking it up every single time
-		v.set(0, i);
-		v.set(2, TTPtr((w[j+1])));
-		x->audioIn->sendMessage(TT("setVector32"), v);
+		x->audioIn->setVector(i, x->vectorSize, (TTFloat32*)w[j+1]);
 	}
 	
 	// TODO: need to mix in input here from jcom.send~ objects (as in the old code above)
-	x->copier->process(*x->audioIn, *x->audioOut);
+	TTAudioSignal::copy(*x->audioIn, *x->audioOut);
 	
 	// Send the input on to the outlets for the algorithm
-	for(i=0; i<numChannels; i++){
+	for(i=0; i < x->numChannels; i++){
 		j = (i*2) + 1;
-//		x->audioOut->getVector(i, vs, (t_float *)(w[j+2]));
-// TODO: use a cached symbol instead of looking it up every single time
-		v.set(0, i);
-		v.set(2, TTPtr((w[j+2])));		
-		x->audioOut->sendMessage(TT("getVector32"), v);
+		x->audioOut->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
 	}
 
-	return w + ((numChannels*2)+2);
+	return w + ((x->numChannels*2)+2);
 }
 
 
@@ -424,7 +372,7 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 	
 	for(i=0; i<numAudioVectors; i++){
 		vector = audioVectors[i];
-		n = x->vector_size;
+		n = x->vectorSize;
 		out = x->remote_vectors[i];
 		while(n--)
 			*out++ += *vector++;
@@ -438,30 +386,8 @@ void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 // DSP Method
 void in_dsp(t_in *x, t_signal **sp, short *count)
 {
-/*
-	short 	i, j;
-
-	in_alloc(x, sp[0]->s_n);		// Vector Size
-
-	for(i=0; i < x->num_inputs; i++){	//take a look at each
-		if(count[i])
-			x->signal_in->setVector(i, sp[i]->s_vec);
-		else
-			x->signal_in->setVector(i, NULL);
-	}
-	
-	j=i;
-	for(i=0; i < x->num_inputs; i++, j++){
-		if(count[i])
-			x->out_vectors[i] = sp[j]->s_vec;
-		else
-			x->out_vectors[i] = NULL;
-	}
-	dsp_add(in_perform, 1, x);
-*/
-
-	short	i, j, k=0;
-	void	**audioVectors = NULL;
+	short		i, j, k=0;
+	void**		audioVectors = NULL;
 	TTUInt8		numChannels = 0;
 	TTUInt16	vs = 0;
 	
@@ -471,7 +397,6 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 	
 	for(i=0; i < x->numInputs; i++){
 		j = x->numInputs + i;
-//		if(count[i] && count[j]){
 		if(count[i] || count[j]){
 			numChannels++;
 			if(sp[i]->s_n > vs)
@@ -483,6 +408,8 @@ void in_dsp(t_in *x, t_signal **sp, short *count)
 			k++;
 		}
 	}
+	x->numChannels = numChannels;
+	x->vectorSize = vs;
 	
 	x->audioIn->setAttributeValue(TT("numChannels"), numChannels);
 	x->audioOut->setAttributeValue(TT("numChannels"), numChannels);
