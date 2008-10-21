@@ -21,7 +21,9 @@ int main(void)
 	value.clear();
 	value.append(TT("srRatio"));
 	value.append(TT("bitdepth"));
-	options->append(TT("additionalSignalInputSetsAttribute"), value);
+
+// TODO: experimental:
+//	options->append(TT("additionalSignalInputSetsAttribute"), value);
 	
 	return wrapTTClassAsMaxClass(TT("degrade"), "tt.degrade~", NULL, options);
 }
