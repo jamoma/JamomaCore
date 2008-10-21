@@ -54,7 +54,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	// NOW ATTEMPT TO CREATE THE FILE...
 	err = path_createsysfile(filename, path, type, &file_handle);
 	if(err){																// Handle any errors that occur
-		error("jcom.hub: %s - error %d creating file", filename, err);
+		object_error((t_object*)x, "%s - error %d creating file", filename, err);
 		return;	
 	}
 
@@ -438,7 +438,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	// WE ARE DONE, SO CLOSE THE FILE
 	err = sysfile_seteof(file_handle, myEof);
 	if(err){
-		error("jcom.hub: %s - error %d creating EOF", filename, err);
+		object_error((t_object*)x, "%s - error %d creating EOF", filename, err);
 		return;	
 	}
 							

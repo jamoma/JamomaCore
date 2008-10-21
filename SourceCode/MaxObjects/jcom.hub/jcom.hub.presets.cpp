@@ -44,7 +44,7 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 	presetList		*preset = x->preset;
 	
 	if(argc < 1){
-		error("jcom.hub (%s module): preset.recall requires a valid argument", x->attr_name);
+		object_error((t_object*)x, "%s module: preset.recall requires a valid argument", x->attr_name);
 		return;
 	}
 	
@@ -86,7 +86,7 @@ void hub_preset_copy(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// number
 		critical_exit(0);
 	} 
 	else
-		error("jcom.hub (%s module): preset to copy not found", x->attr_name);
+		object_error((t_object*)x, "%s module: preset to copy not found", x->attr_name);
 }
 			
 	
@@ -101,7 +101,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	short			i;
 	
 	if(argc < 1){
-		error("jcom.hub (%s module): preset.recall requires a valid argument", x->attr_name);
+		object_error((t_object*)x, "%s module: preset.recall requires a valid argument", x->attr_name);
 		return;
 	}
 
@@ -132,7 +132,7 @@ void hub_preset_recall(t_hub *x, t_symbol *msg, long argc, t_atom *argv)	// numb
 	
 	if(!found){
 		if(x->attr_name != gensym("/editing_this_module"))
-			error("jcom.hub (%s module): preset.recall - invalid preset specified", x->attr_name->s_name);
+			object_error((t_object*)x, "%s module: preset.recall - invalid preset specified", x->attr_name->s_name);
 		critical_exit(0);
 		return;
 	}
@@ -266,7 +266,7 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	float position;
 	
 	if(argc < 3) {
-		error("jcom.hub (%s module): interpolation requires three arguments", x->attr_name);
+		object_error((t_object*)x, "%s module: interpolation requires three arguments", x->attr_name);
 		return;
 	}
 
@@ -275,13 +275,13 @@ void hub_preset_interpolate(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	p1 = find_preset(presetll, p1Name);
 	if(!p1) {
-		error("can't find preset %s", p1Name);
+		object_error((t_object*)x, "can't find preset %s", p1Name);
 		return;
 	}
 	
 	p2 = find_preset(presetll, p2Name);
 	if(!p2) {
-		error("can't find preset %s", p1Name);
+		object_error((t_object*)x, "can't find preset %s", p1Name);
 		return;
 	}
 	
@@ -304,7 +304,7 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 		// write over the last preset recalled
 			
 		if(preset->empty()) {
-			error("jcom.hub (%s module): no preset specified active", x->attr_name);
+			object_error((t_object*)x, "%s module: no preset specified active", x->attr_name);
 			return;
 		}
 		// Recall the number of the preset we recalled last	
@@ -491,7 +491,7 @@ t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 		strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
 		if(locatefile_extended(filename, &path, &outtype, NULL, -1)){	// Returns 0 if successful
 			if(!x->editing)
-				error("jcom.hub (%s module): preset file not found", x->attr_name->s_name);
+				object_error((t_object*)x, "%s module: preset file not found", x->attr_name->s_name);
 			return MAX_ERR_GENERIC;										// Not found
 		}
 	}
@@ -666,7 +666,7 @@ void hub_preset_parse(t_hub *x, char *path)
 									item->list_size += 1;							
 									break;
 								default:
-									error("Unable to determine data type");
+									object_error((t_object*)x, "Unable to determine data type");
 									break;
 							}
 						}
@@ -677,12 +677,12 @@ void hub_preset_parse(t_hub *x, char *path)
 		}
 		xmlFreeTextReader(reader);
 		if(ret != 0){
-			error("%s: failed to parse", path);
+			object_error((t_object*)x, "%s: failed to parse", path);
 		}
 		critical_exit(0);
 	}
 	else{
-		error("Unable to open %s", path);
+		object_error((t_object*)x, "Unable to open %s", path);
 	}
 }
 
@@ -704,7 +704,7 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 	// 1. Find the XML Schema file
 	strcpy(filename, "jamoma.xsd");
 	if(locatefile_extended(filename, &path, &outtype, NULL, -1)){
-		error("jcom.hub (%s module): jamoma.xsd schema file not found", x->attr_name->s_name);
+		object_error((t_object*)x, "%s module: jamoma.xsd schema file not found", x->attr_name->s_name);
 		return -1;
 	}	
 	jcom_core_getfilepath(path, filename, fullpath);
@@ -713,37 +713,37 @@ short hub_preset_validate(t_hub *x, char *xml_path)
 	//schema_doc = xmlReadFile("/Users/tim/Developer/_electrotap/Jamoma/library/jamoma.xsd", NULL, 0);
 	schema_doc = xmlReadFile(fullpath, NULL, 0);
 	if(schema_doc == NULL){
-		error("jcom.hub: preset validation could not open schema doc");
+		object_error((t_object*)x, "preset validation could not open schema doc");
 		goto out;
 	}
 
 	parser_context = xmlSchemaNewDocParserCtxt(schema_doc);
 	if(schema_doc == NULL){
-		error("jcom.hub: preset validation could not create parser for schema doc");
+		object_error((t_object*)x, "preset validation could not create parser for schema doc");
 		goto out;
 	}
 
 	schema = xmlSchemaParse(parser_context);
 	if(schema_doc == NULL){
-		error("jcom.hub: preset validation could not create representation of schema in memory");
+		object_error((t_object*)x, "preset validation could not create representation of schema in memory");
 		goto out;
 	}
 
 	context = xmlSchemaNewValidCtxt(schema);
 	if(context == NULL){
-		error("jcom.hub: preset validation failed to create a context");
+		object_error((t_object*)x, "preset validation failed to create a context");
 		goto out;
 	}
 
 	document = xmlReadFile(xml_path, NULL, 0);
 	if(document == NULL){
-		error("jcom.hub: preset validation could not open the preset file");
+		object_error((t_object*)x, "preset validation could not open the preset file");
 		goto out;
 	}
 
 	result = xmlSchemaValidateDoc(context, document);	
 	if(result){
-		error("jcom.hub: preset file FAILED xml schema validation");
+		object_error((t_object*)x, "preset file FAILED xml schema validation");
 	}
 
 out:		
@@ -817,9 +817,9 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 	presetList		*preset = x->preset;
 	presetItemList	*item;
 
-	post("");
-	post("PRESET DUMP");
-	post("");
+	object_post((t_object*)x, "");
+	object_post((t_object*)x, "PRESET DUMP");
+	object_post((t_object*)x, "");
 	
 	presetListIterator i;
 	presetItemListIterator itemIterator;
@@ -828,20 +828,20 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 	critical_enter(0);
 	for(i = preset->begin(); i != preset->end(); ++i) {
 		p = *i;
-		post("  PRESET %i: %s", p->number, p->name->s_name);
+		object_post((t_object*)x, "  PRESET %i: %s", p->number, p->name->s_name);
 		item = p->item;
 		for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
 			presetItem = *itemIterator;
 			if((presetItem->type == jps_msg_int) || (presetItem->type == jps_msg_toggle)){
-				post("    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
+				object_post((t_object*)x, "    %s (type %s, priority %i): %ld", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, atom_getlong(&(presetItem->value)));
 			}
 			else if(presetItem->type == jps_msg_symbol)
-				post("    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
+				object_post((t_object*)x, "    %s (type %s, priority %i): %s", presetItem->param_name->s_name,
 				 	presetItem->type->s_name, presetItem->priority, 
 					atom_getsym(&(presetItem->value))->s_name);
 			else
-				post("    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
+				object_post((t_object*)x, "    %s (type %s, priority %i): %f", presetItem->param_name->s_name, 
 					presetItem->type->s_name, presetItem->priority, atom_getfloat(&(presetItem->value)));
 		}		
 	}
@@ -946,7 +946,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	// NOW ATTEMPT TO CREATE THE FILE...
 	err = path_createsysfile(filename, path, type, &file_handle);
 	if(err){																// Handle any errors that occur
-		error("jcom.hub: %s - error %d creating file", filename, err);
+		object_error((t_object*)x, "%s - error %d creating file", filename, err);
 		return;	
 	}
 
@@ -1004,12 +1004,12 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	// WE ARE DONE, SO CLOSE THE FILE
 	err = sysfile_seteof(file_handle, myEof);
 	if(err){
-		error("jcom.hub: %s - error %d creating EOF", filename, err);
+		object_error((t_object*)x, "%s - error %d creating EOF", filename, err);
 		return;	
 	}
 							
 	sysfile_close(file_handle);		// close file reference
-	post("Jamoma: /preset/write completed successfully");
+	object_post((t_object*)x, "Jamoma: /preset/write completed successfully");
 }
 
 

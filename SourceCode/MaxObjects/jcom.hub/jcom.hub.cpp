@@ -353,11 +353,11 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	t_subscriber	*new_subscriber;
 	
 	if(subscriber_object == NULL){
-		if (x->osc_name == gensym("/editing_this_module"))
-			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+		if (x->editing)
+			object_post((t_object*)x, "Jamoma: Module %s complains:", x->attr_name->s_name);
 		else	
-			post("Jamoma: Module %s complains:", x->osc_name->s_name);
-		error("Null object cannot subscribe to jcom.hub");
+			object_post((t_object*)x, "Jamoma: Module %s complains:", x->osc_name->s_name);
+		object_error((t_object*)x, "Null object cannot subscribe to jcom.hub");
 		return _sym_nothing;
 	}
 	
@@ -1052,11 +1052,11 @@ void hub_symbol(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 			} else if(!x->using_wildcard) {
 				// if we got here through the use a remote message to modules named by a wildcard
 				// then we need don't post annoying errors to the Max window
-				if (x->osc_name == gensym("/editing_this_module"))
-					post("Jamoma: Module %s complains:", x->attr_name->s_name);
+				if (x->editing)
+					object_post((t_object*)x, "Jamoma: Module %s complains:", x->attr_name->s_name);
 				else	
-					post("Jamoma: Module %s complains:", x->osc_name->s_name);
-				error("No message or parameter named %s.", name->s_name);
+					object_post((t_object*)x, "Jamoma: Module %s complains:", x->osc_name->s_name);
+				object_error((t_object*)x, "No message or parameter named %s.", name->s_name);
 			}
 		}
 	}
@@ -1122,11 +1122,11 @@ void hub_receive_callback(void *z, t_symbol *msg, long argc, t_atom *argv)
 		
 	split = strchr(in, '/');		// get the OSC message for the module
 	if(split == NULL){
-		if (x->osc_name == gensym("/editing_this_module"))
-			post("Jamoma: Module %s complains:", x->attr_name->s_name);
+		if (x->editing)
+			object_post((t_object*)x, "Jamoma: Module %s complains:", x->attr_name->s_name);
 		else	
-			post("Jamoma: Module %s complains:", x->osc_name->s_name);
-		error("jcom.hub (%s module) received message from jcom.send with problematic or missing OSC namespace (%s)", x->attr_name->s_name, mess);
+			object_post((t_object*)x, "Jamoma: Module %s complains:", x->osc_name->s_name);
+		object_error((t_object*)x, "%s module received message from jcom.send with problematic or missing OSC namespace (%s)", x->attr_name->s_name, mess);
 		return;
 	}
 
@@ -1184,7 +1184,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 
 		// No arg is present -- try to invent something intelligent for a name
 		if(x->osc_name == _sym_nothing){
-			post("%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);
+			object_post((t_object*)x, "%s: this module was not given an osc name as an argument!  making up something that will hopefully work.", x->attr_name->s_name);
 			// Strip jmod. from the beginning of patch names, this happens if you drag a module from browser to bpatcher
 			if(strncmp(x->attr_name->s_name, "jmod.", 5) == 0)
 				x->osc_name = gensym(x->attr_name->s_name + 5);
@@ -1218,7 +1218,7 @@ t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv)
 		// if arg contains a slash then we must complain
 		nametest = name + 1;
 		if(strchr(nametest, '/'))
-			error("%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
+			object_error((t_object*)x, "%s: OSC NAME GIVEN TO MODULES MAY NOT CONTAIN A SLASH OTHER THAN THE LEADING SLASH!", x->attr_name->s_name);
 		nameOriginal = gensym(name);
 	again:
 		x->osc_name = gensym(name);
