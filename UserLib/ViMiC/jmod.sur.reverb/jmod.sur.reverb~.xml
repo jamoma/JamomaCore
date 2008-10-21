@@ -8,12 +8,12 @@
     <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='delaylength' type='msg_list' priority='0'>30.000000 76.000000 </item>
-    <item name='fdn_eq/cf' type='msg_float' priority='0'>732.239258</item>
-    <item name='fdn_eq/filtergain' type='msg_float' priority='0'>0.000000</item>
+    <item name='fdn_eq/cf' type='msg_float' priority='0'>732.0</item>
+    <item name='fdn_eq/filtergain' type='msg_float' priority='0'>0.0</item>
     <item name='fdn_eq/filtertype' type='msg_symbol' priority='0'>bandpass</item>
     <item name='fdn_eq/q' type='msg_float' priority='0'>0.054497</item>
-    <item name='input_eq/cf' type='msg_float' priority='0'>2547.590820</item>
-    <item name='input_eq/filtergain' type='msg_float' priority='0'>0.000000</item>
+    <item name='input_eq/cf' type='msg_float' priority='0'>2548.0</item>
+    <item name='input_eq/filtergain' type='msg_float' priority='0'>0.00</item>
     <item name='input_eq/filtertype' type='msg_symbol' priority='0'>lowpass</item>
     <item name='input_eq/q' type='msg_float' priority='0'>0.606826</item>
     <item name='inputs' type='msg_int' priority='1'>8</item>
