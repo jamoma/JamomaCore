@@ -1,6 +1,6 @@
 /*
 locate_bpatcher.js
-returns names, positions and dimensions of all named patchers in this patch
+returns names, positions and dimensions of all named patchers in the parent patcher.
 */
 
 function bang()
