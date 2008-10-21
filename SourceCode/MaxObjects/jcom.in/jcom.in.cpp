@@ -245,6 +245,8 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	
 	if(argv->a_w.w_sym->s_name[0] != '/')
 		strcpy(namestring, "/");						// perhaps we could optimize this operation
+	else
+		namestring[0] = 0;
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 
