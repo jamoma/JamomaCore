@@ -40067,7 +40067,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "microphones/direct/power",
-									"text" : "jcom.parameter microphones/directivity/power @type msg_int @repetitions/allow 0 @range/bounds 0 8 @range/clipmode both @description \"power law for attenuation due to microphone directivity\"",
+									"text" : "jcom.parameter microphones/directivity/power @type msg_int @repetitions/allow 0 @range/bounds 0 9 @range/clipmode both @description \"power law for attenuation due to microphone directivity\"",
 									"linecount" : 3,
 									"fontsize" : 9.0,
 									"hidden" : 1,
@@ -40084,7 +40084,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "room/distance/power",
-									"text" : "jcom.parameter room/distance/power @type msg_float @range/bounds 0. 8. @range/clipmode both @repetitions/allow 0 @description \"power law for attenuation due to distance\"",
+									"text" : "jcom.parameter room/distance/power @type msg_float @range/bounds 0. 9. @range/clipmode both @repetitions/allow 0 @description \"power law for attenuation due to distance\"",
 									"linecount" : 3,
 									"fontsize" : 9.0,
 									"hidden" : 1,
