@@ -223,7 +223,7 @@ t_int *wrappedClass_perform(t_int *w)
 	
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_SETVECTOR32(x->audioIn, i, x->vs, (t_float *)(w[j+1]));
+		x->audioIn->setVector(i, x->vs, (TTFloat32*)w[j+1]);
 	}
 	
 	if(!x->obj.z_disabled)										// if we are not muted...
@@ -231,7 +231,7 @@ t_int *wrappedClass_perform(t_int *w)
 	
 	for(i=0; i<x->numChannels; i++){
 		j = (i*2) + 1;
-		TTAUDIOSIGNAL_GETVECTOR32(x->audioOut, i, x->vs, (t_float *)(w[j+2]));
+		x->audioOut->getVector(i, x->vs, (TTFloat32*)w[j+2]);
 	}
 	
 	return w + ((x->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object

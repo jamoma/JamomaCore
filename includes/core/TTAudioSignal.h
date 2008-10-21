@@ -165,6 +165,7 @@ typedef TTAudioSignal* TTAudioSignalPtr;
 
 
 /**	A convenience macro for sending the 'setVector32' message to an audio signal.  
+	This macro should NOT be used in performance-sensitive code.
 	@param	signal_obj	A pointer to a TTAudioSignal object.
 	@param	a			The zero-based channel number of the vector.
 	@param	b			The vector size of the channel.
@@ -179,6 +180,7 @@ typedef TTAudioSignal* TTAudioSignalPtr;
 		signal_obj->sendMessage(kTTSym_setVector32, _temp_tt_value_setvector ## a);
 
 /**	A convenience macro for sending the 'getVector32' message to an audio signal.
+	This macro should NOT be used in performance-sensitive code.
 	@param	signal_obj	A pointer to a TTAudioSignal object.
 	@param	a			The zero-based channel number of the vector.
 	@param	b			The vector size of the channel.
