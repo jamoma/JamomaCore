@@ -148,7 +148,13 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			argv = NULL;
 			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
-			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
+			{
+				char*	humantype = msg_type->s_name;
+				
+				if(strstr(humantype, "msg_"))
+					humantype += 4;
+				snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
+			}
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			
 			// dataspace
@@ -248,7 +254,13 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			argv = NULL;
 			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
-			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
+			{
+				char*	humantype = msg_type->s_name;
+				
+				if(strstr(humantype, "msg_"))
+					humantype += 4;
+				snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
+			}
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			
 			// dataspace
@@ -348,7 +360,13 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			argv = NULL;
 			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
 			msg_type = atom_getsym(argv);
-			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", msg_type->s_name);
+			{
+				char*	humantype = msg_type->s_name;
+				
+				if(strstr(humantype, "msg_"))
+					humantype += 4;
+				snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
+			}
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			
 			// dataspace
