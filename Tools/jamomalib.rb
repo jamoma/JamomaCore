@@ -11,6 +11,7 @@ require 'fileutils'
 require 'pathname'
 require 'osc'
 require "platform"
+require 'wininit' if win32?
 require 'rexml/document'
 include REXML
 
