@@ -430,6 +430,7 @@ t_int *out_perform(t_int *w)
 		// since we are already looping through the channels here, we will also do the per-channel metering here
 		if(x->attr_defeat_meters == 0 && x->num_meter_objects){
 			t_float* envelope = (t_float *)(w[j+2]);
+			peakvalue = 0.0;
 			
 			n = x->vectorSize;
 			while(n--){
