@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TTBlue"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
@@ -26,7 +26,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -97,7 +97,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copy TTBlue.dll to the Max 5 install."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -109,7 +109,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -181,7 +181,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copy TTBlue.dll to the Max 5 install."
-				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>

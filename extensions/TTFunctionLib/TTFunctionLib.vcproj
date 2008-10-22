@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;"
+				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
