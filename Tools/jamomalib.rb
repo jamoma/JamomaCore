@@ -11,14 +11,13 @@ require 'fileutils'
 require 'pathname'
 require 'osc'
 require "platform"
-require 'wininit' if win32?
 require 'rexml/document'
 include REXML
-
 
 
 def win32?
   (Platform::OS == :unix && Platform::IMPL == :cygwin) || Platform::OS == :win32
 end
 
+require 'wininit' if win32?
 
