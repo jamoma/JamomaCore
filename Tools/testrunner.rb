@@ -1,21 +1,17 @@
-#!/usr/bin/env ruby
-# not using the version with warnings because rosc posts a lot of annoying warnings...
-#/usr/bin/env ruby -wKU
+#!/usr/bin/env ruby -wKU
 
 ###################################################################
 # Run automated tests for Jamoma
 ###################################################################
 
-require 'osc'
-require 'fileutils'
-require 'pathname'
-require "platform"
+# First include the functions in the jamoma lib
+libdir = "."
+Dir.chdir libdir        # change to libdir so that requires work
+require "jamomalib"   # C74 build library
+
 
 puts "Jamoma Automated Test Runner"
 
-def win32?
-  (Platform::OS == :unix && Platform::IMPL == :cygwin) || Platform::OS == :win32
-end
 
 ###################################################################
 # argument processing

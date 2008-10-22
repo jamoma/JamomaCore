@@ -2,19 +2,12 @@
 
 ###################################################################
 # Build Jamoma
-# Ruby Version - notoriously based on scripts by Jeremy Bernstein
 ###################################################################
 
-require 'open3'
-require 'fileutils'
-require 'pathname'
-
-require 'rexml/document'
-include REXML
-
-# This finds our current directory, to generate an absolute path for the require
+# First include the functions in the jamoma lib
 libdir = "."
 Dir.chdir libdir        # change to libdir so that requires work
+require "jamomalib"   # C74 build library
 
 if(ARGV.length == 0)
   puts "usage: "
@@ -23,6 +16,14 @@ if(ARGV.length == 0)
 end
 
 configuration = ARGV[0];
+if win32?
+  if(configuration == "Development")
+    configuration = "Debug"
+  else
+    configuration = "Release"
+  end
+end
+
 clean = false;
 @debug = false;
 
@@ -164,13 +165,41 @@ def build_xcode_project(projectdir, projectname, configuration, clean)
 end
 
 
+def build_vs_project(projectdir, projectname, target, style, clean)
+  out = ""
+  err = ""
+
+  Open3.popen3("nice vcbuild.exe #{"/rebuild" if clean == true} \"#{projectname}\" \"#{configuration}\"") do |stdin, stdout, stderr|
+    out = stdout.read
+    err = stderr.read
+  end
+
+  if /(0 error|up\-to\-date)/.match(out)
+    @cur_count+=1
+    puts "#{projectname}: BUILD SUCCEEDED"
+    log_build(out)
+    return 1
+  else
+    @fail_array.push("#{projectdir}/#{projectname}")
+    puts "#{projectname}: BUILD FAILED **************************************"
+    log_error(out)
+    log_error(err)
+  end
+  return 0
+end
+
+
 def build_project(projectdir, projectname, configuration, clean)
   if FileTest.exist?("#{projectdir}/#{projectname}")
     @cur_total+=1
     olddir = Dir.getwd
     Dir.chdir(projectdir)
     
-    @cur_count += build_xcode_project(projectdir, projectname, configuration, clean)
+    if win32?
+      @cur_count += build_vs_project(projectdir, projectname, configuration, clean)
+    else
+      @cur_count += build_xcode_project(projectdir, projectname, configuration, clean)
+    end
 
     Dir.chdir(olddir)
   else

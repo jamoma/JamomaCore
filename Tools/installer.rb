@@ -6,16 +6,11 @@
 # note: all zips should be unzipped (3rd-party externs) too
 ###################################################################
 
-require 'open3'
-require 'fileutils'
-require 'pathname'
-
-require 'rexml/document'
-include REXML
-
-# This finds our current directory, to generate an absolute path for the require
+# First include the functions in the jamoma lib
 libdir = "."
 Dir.chdir libdir        # change to libdir so that requires work
+require "jamomalib"   # C74 build library
+
 
 @svn_root = ".."
 @temp = "#{@svn_root}/Installers/temp"
