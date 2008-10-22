@@ -235,6 +235,15 @@ void return_int(t_return *x, long value)
 {
 	if(!x->attrEnable)
 		return;
+	
+	if(x->common.attr_clipmode != _sym_none){
+		if(x->common.attr_clipmode == jps_both)
+			value = TTClip<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+		else if(x->common.attr_clipmode == jps_low)
+			value = TTLimitMin<TTInt32>(value, x->common.attr_range[0]);
+		else if(x->common.attr_clipmode == jps_high)
+			value = TTLimitMax<TTInt32>(value, x->common.attr_range[1]);
+	}
 
 	atom_setlong(&x->output[1], value);
 	x->output_len = 2;
@@ -249,6 +258,15 @@ void return_float(t_return *x, double value)
 {
 	if(!x->attrEnable)
 		return;
+	
+	if(x->common.attr_clipmode != _sym_none){
+		if(x->common.attr_clipmode == jps_both)
+			value = TTClip<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
+		else if(x->common.attr_clipmode == jps_low)
+			value = TTLimitMin<TTFloat32>(value, x->common.attr_range[0]);
+		else if(x->common.attr_clipmode == jps_high)
+			value = TTLimitMax<TTFloat32>(value, x->common.attr_range[1]);
+	}
 
 	atom_setfloat(&x->output[1], value);
 	x->output_len = 2;
