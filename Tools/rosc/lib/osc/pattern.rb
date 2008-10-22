@@ -6,13 +6,13 @@ module OSC
       case s
       when Regexp # This is experimental
 	s = Regexp.source s
-	s.gsub! /(\\\\)*\[^\/\]\*/, "\1*"
-	s.gsub! /(\\\\)*\[^\/\]/, "\1?"
-	s.gsub! /(\\\\)*\[^/, "\1[!"
-	s.gsub! /(\\\\)*\(/, "\1{"
-	s.gsub! /(\\\\)*\|/, "\1,"
-	s.gsub! /(\\\\)*\)/, "\1}"
-	s.gsub! /\\\\/, "\\"
+	s.gsub!( /(\\\\)*\[^\/\]\*/ , "\1*" )
+	s.gsub!( /(\\\\)*\[^\/\]/, "\1?" )
+	s.gsub!( /(\\\\)*\[^/, "\1[!" )
+	s.gsub!( /(\\\\)*\(/, "\1{" )
+	s.gsub!( /(\\\\)*\|/, "\1," )
+	s.gsub!( /(\\\\)*\)/, "\1}" )
+	s.gsub!( /\\\\/, "\\" )
       end
       super s
     end
@@ -20,13 +20,13 @@ module OSC
     # Return a Regex representing this pattern
     def regexp
       s = Regexp.escape self
-      s.gsub! /\\\?/, '[^/]'
-      s.gsub! /\\\*/, '[^/]*'
-      s.gsub! /\\\[!/, '[^'
-      s.gsub! /\\\]/, ']'
-      s.gsub! /\\\{/, '('
-      s.gsub! /,/, '|'
-      s.gsub! /\\\}/, ')'
+      s.gsub!( /\\\?/, '[^/]' )
+      s.gsub!( /\\\*/, '[^/]*' )
+      s.gsub!( /\\\[!/, '[^' )
+      s.gsub!( /\\\]/, ']' )
+      s.gsub!( /\\\{/, '(' )
+      s.gsub!( /,/, '|' )
+      s.gsub!( /\\\}/, ')' )
       Regexp.new s
     end
 
@@ -63,13 +63,13 @@ module OSC
 
 	# branch {}
 	if x =~ /^\{/
-	  x.scan /[^\{\},]+/ do |x|
+	  x.scan( /[^\{\},]+/ ) do |x|
 	    q.push [x.scan(/./)+a,[y]+b]
 	  end
 	  next
 	end
 	if y =~ /^\{/
-	  y.scan /[^\{\},]+/ do |y|
+	  y.scan( /[^\{\},]+/ ) do |y|
 	    q.push [[x]+a,y.scan(/./)+b]
 	  end
 	  next
