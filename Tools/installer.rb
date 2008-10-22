@@ -22,7 +22,7 @@ Dir.chdir libdir        # change to libdir so that requires work
 @max = "#{@temp}/Applications/Max5"
 @c74 = "#{@max}/Cycling '74"
 
-@version = "0.5.0b04"
+@version = "0.5.0b07"
 
 
 ###################################################################
@@ -86,6 +86,7 @@ puts "  Creating installer directory structure..."
 cmd("rm -rfv \"#{@temp}\"")                                            # remove an old temp dir if it exists
 cmd("mkdir -pv \"#{@temp}\"")                                         # now make a clean one, and build dir structure in it
 cmd("mkdir -pv \"#{@temp}/Library/Frameworks\"")
+cmd("mkdir -pv \"#{@temp}/Library/Application Support/TTBlue/Extensions\"")
 cmd("mkdir -pv \"#{@max}\"")
 cmd("mkdir -pv \"#{@max}/patches/templates\"")
 cmd("mkdir -pv \"#{@max}/patches/extras\"")
@@ -97,7 +98,10 @@ cmd("mkdir -pv \"#{@svn_root}/Installers/resources\"")
 cmd("mkdir -pv \"#{@svn_root}/Installers/Jamoma\"")
 
 puts "  Copying the Jamoma folder..."
-cmd("cp -rpv \"#{@svn_root}/Jamoma\" \"#{@c74}/Jamoma\"")               # copy the Jamoma folder
+cmd("cp -rpv \"#{@svn_root}/Jamoma\" \"#{@c74}/Jamoma\"")
+
+puts "  Copying TTBlue Extensions"
+cmd("cp -rpv /Library/Application\ Support/TTBlue/Extensions/* \"#{@temp}/Library/Application Support/TTBlue/Extensions\"") 
 
 puts "  Stripping .svn folders..."
 cmd("rm -rfv \"#{@c74}/Jamoma/\"*/.svn")                               # and remove all .svn folders by brute force (someone can make this better)
