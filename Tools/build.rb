@@ -273,14 +273,9 @@ copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.filter~/tt.gain~.maxhelp",    
 copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.limiter~/tt.limiter~.maxhelp",     "#{@svn_root}Jamoma/documentation/jamoma-help/tt.limiter~.maxhelp")
 copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.overdrive~/tt.overdrive~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.overdrive~.maxhelp")
 copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.ramp~/tt.ramp~.maxhelp",           "#{@svn_root}Jamoma/documentation/jamoma-help/tt.ramp~.maxhelp")
-<<<<<<< .mine
-copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.ramp~/tt.wavetable~.maxhelp",      "#{@svn_root}Jamoma/documentation/jamoma-help/tt.wavetable~.maxhelp")
-copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.ramp~/tt.xfade~.maxhelp",          "#{@svn_root}Jamoma/documentation/jamoma-help/tt.xfade~.maxhelp")
-copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.ramp~/tt.zerox~.maxhelp",          "#{@svn_root}Jamoma/documentation/jamoma-help/tt.zerox~.maxhelp")
-=======
-copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.xfade~/tt.xfade~.maxhelp",          "#{@svn_root}Jamoma/documentation/jamoma-help/tt.xfade~.maxhelp")
-copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.zerox~/tt.zerox~.maxhelp",          "#{@svn_root}Jamoma/documentation/jamoma-help/tt.zerox~.maxhelp")
->>>>>>> .r4030
+copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.wavetable~/tt.wavetable~.maxhelp", "#{@svn_root}Jamoma/documentation/jamoma-help/tt.wavetable~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.xfade~/tt.xfade~.maxhelp",         "#{@svn_root}Jamoma/documentation/jamoma-help/tt.xfade~.maxhelp")
+copydir("#{@svn_root}../TTBlue/examples/MaxMSP/tt.zerox~/tt.zerox~.maxhelp",         "#{@svn_root}Jamoma/documentation/jamoma-help/tt.zerox~.maxhelp")
 puts ""
 
 puts "Building Jamoma Externals..."
