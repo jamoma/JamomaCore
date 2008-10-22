@@ -241,7 +241,7 @@ void TTLogMessage(char *message, ...)
 	va_end(ap);
 	str[4095] = 0; 
 	
-	fprintf(stdout, str);
+	fprintf(stderr, str);
 }
 
 
@@ -255,7 +255,7 @@ void TTLogWarning(char *message, ...)
 	va_end(ap);
 	str[4095] = 0; 
 	
-	fprintf(stdout, str);
+	fprintf(stderr, str);
 }
 
 
@@ -269,7 +269,7 @@ void TTLogError(char *message, ...)
 	va_end(ap);
 	str[4095] = 0; 
 	
-	fprintf(stdout, str);
+	fprintf(stderr, str);
 }
 
 
@@ -284,7 +284,7 @@ void TTLogDebug(char *message, ...)
 		va_end(ap);
 		str[4095] = 0; 
 		
-		fprintf(stdout, str);
+		fprintf(stderr, str);
 	}
 }
 
