@@ -31,6 +31,8 @@ mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/libxml2.dll root/
 mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/zlib1.dll root/support
 cp root/Cycling\ \'74/Jamoma/GNU-LGPL.rtf License.rtf
 
+echo "WE NEED TO COPY THE TTBLUE EXTENSIONS HERE -- MAYBE ALSO MAKE A WIX MODULE FOR THEM??? -- OTHERWISE WE MISS THE FUNCTIONLIB!"
+
 echo "making candle with paraffin"
 ../wix/Paraffin.exe -dir root/Cycling\ \'74\\ -custom JamomaC74     -g -direXclude .svn -ext .WXS JamomaC74.wxs
 ../wix/Paraffin.exe -dir root/patches\\       -custom JamomaPatches -g -direXclude .svn -ext .WXS JamomaPatches.wxs
