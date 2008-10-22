@@ -68,12 +68,7 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)out_assist,				"assist", 				A_CANT, 0L);
 
 	jcom_core_subscriber_classinit_common(c, attr);	
-	
-	// ATTRIBUTE: algorithm_type
-	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_out, attr_algorithm_type));
-	class_addattr(c, attr);
-	
+		
 	// ATTRIBUTE: num_inputs
 	attr = attr_offset_new("num_outputs", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_out, numOutputs));
@@ -111,7 +106,6 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
 		x->attr_mix = 100;										// Assume 100%, so that processed signal is passed through if @has_mix is false
-		x->attr_algorithm_type = _sym_nothing;
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
 			x->numOutputs = TTClip(argument, 1, MAX_NUM_CHANNELS);
@@ -167,29 +161,9 @@ void out_subscribe(void *z)
 	t_symbol	*modtype;
 	t_out		*x = (t_out *)z;
 	
-	//x->common.hub = jcom_core_subscribe(x, x->common.attr_name, x->common.container, jps_subscribe_out);
 	if(x->common.hub != NULL){
 		object_attr_getvalueof(x->common.hub, jps_name, &argc, &argv);
 		x->common.module_name = atom_getsym(argv);
-// [TAP] Not sure why we are zeroing here -- it doesn't make much sense
-//		x->num_meter_objects = 0;
-		
-		// Find out what type of algorithm this is supposed to control
-		object_attr_getvalueof(x->common.hub, jps_algorithm_type, &argc, &argv);
-		result = atom_getsym(argv);
-		if(result == jps_default){
-			object_attr_getvalueof(x->common.hub, jps_module_type, &argc, &argv);
-			modtype = atom_getsym(argv);
-		
-			if(modtype == jps_audio)
-				x->attr_algorithm_type = jps_poly;
-			else if(modtype == jps_video)
-				x->attr_algorithm_type = jps_jitter;
-			else
-				x->attr_algorithm_type = jps_control;
-		}
-		else
-			x->attr_algorithm_type = result;
 	}
 }
 

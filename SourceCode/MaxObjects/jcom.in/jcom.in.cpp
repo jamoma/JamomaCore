@@ -66,12 +66,7 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)in_assist,				"assist", 				A_CANT, 0L);
 
 	jcom_core_subscriber_classinit_common(c, attr);	
-	
-	// ATTRIBUTE: algorithm_type
-	attr = attr_offset_new("algorithm_type", _sym_symbol, attrflags,
-		(method)0, (method)0, calcoffset(t_in, attr_algorithm_type));
-	class_addattr(c, attr);
-	
+		
 	// ATTRIBUTE: num_inputs
 	attr = attr_offset_new("num_inputs", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_in, numInputs));
@@ -113,7 +108,6 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		object_obex_store((void *)x, jps_dumpout, (object *)x->dumpout);		// setup the dumpout
 
 		x->numInputs = 0;
-		x->attr_algorithm_type = _sym_nothing;
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
 		x->attr_freeze = 0;
@@ -161,31 +155,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 // deferred function for registering with the jcom.hub object
 void in_subscribe(void *z)
 {
-	long		argc;
-	t_atom		a;
-	t_atom		*argv = &a;
-	t_symbol	*result;
-	t_symbol	*modtype;
-	t_in		*x = (t_in *)z;
-	
-	if(x->common.hub != NULL){
-		// Find out what type of algorithm this is supposed to control
-		object_attr_getvalueof(x->common.hub, jps_algorithm_type, &argc, &argv);
-		result = atom_getsym(argv);
-		if(result == jps_default){
-			object_attr_getvalueof(x->common.hub, jps_module_type, &argc, &argv);
-			modtype = atom_getsym(argv);
-			
-			if(modtype == jps_audio)
-				x->attr_algorithm_type = jps_poly;
-			else if(modtype == jps_video)
-				x->attr_algorithm_type = jps_jitter;
-			else
-				x->attr_algorithm_type = jps_control;
-		}
-		else
-			x->attr_algorithm_type = result;
-	}
+	;
 }
 
 
