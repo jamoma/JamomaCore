@@ -1258,7 +1258,7 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 
 void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** rv, bool* alloc)
 {
-	if(x->attr_dataspace && (x->attr_unitActive != x->attr_unitNative)){
+	if((x->attr_dataspace && x->dataspace_active2native) && (x->attr_unitActive != x->attr_unitNative)){
 		long	count;
 
 		*rv = (t_atom*)sysmem_newptr(sizeof(t_atom) * argc);
