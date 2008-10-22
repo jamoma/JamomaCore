@@ -279,7 +279,7 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 	x->attr_clipmode = jps_none;
 	x->attr_description = _sym_nothing;
 	x->attr_type = jps_msg_generic;
-	x->attr_repetitions = 1;
+	x->attr_repetitions = 0;	// this should default to the most efficient and common way of working, so repetitions are filtered [TAP]
 }
 
 
