@@ -15,7 +15,7 @@ CUE initialisation
 	/input~/balance 0.	
 	/input~/loop 0
 	/input~/play 0
-	/input~/source_select none
+	/input~/source none
 	/input~/ch.1 0
 	/input~/ch.2 0
 	/input~/ui/freeze 0
@@ -65,7 +65,7 @@ CUE audio_on
 	/control/ui/freeze 0
 	
 # Module input~
-	/input~/source_select pink
+	/input~/source pink
 	/input~/audio/gain 97.000 ramp 2000		# Ramp to this new value over 2 seconds...
 	
 # Module filter~
