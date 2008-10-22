@@ -55,7 +55,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 
 	class_addmethod(c, (method)hub_subscribe,			"subscribe",				A_CANT, 0L);	// client object subscribing
 	class_addmethod(c, (method)hub_unsubscribe,			"unsubscribe",				A_CANT, 0L);	// client object unsubscribing
-	class_addmethod(c, (method)hub_receive,				"feedback",					A_GIMME, 0L);	// feedback from parameters and such
+	class_addmethod(c, (method)hub_receive,				"__feedback__",				A_GIMME, 0L);	// feedback from parameters and such
 	class_addmethod(c, (method)hub_private,				"private", 					A_GIMME, 0L);	// internal communications such as jcom.remote
 	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
 	class_addmethod(c, (method)hub_return_extended,		"return_extended",			A_GIMME, 0L);	// feedback from jcom.return
@@ -482,7 +482,6 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 // TODO: Why is this safety check removed?  Is it really safe to remove it? [TAP]
 //	if(argv->a_type == A_SYM)
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
-	//strcat(namestring, name->s_name);
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 
 	if(x->in_object != NULL)
