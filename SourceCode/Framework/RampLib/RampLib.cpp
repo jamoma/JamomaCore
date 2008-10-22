@@ -24,11 +24,6 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 	startValue[0] = 0.0;
 
 	registerAttribute(TT("function"),	kTypeSymbol,	&attrFunction,	(TTSetterMethod)&RampUnit::setFunction);
-	
-	//registerMessage(TT("getFunctionParameterNames"), (TTMethod)&RampUnit::getFunctionParameterNames);
-	//registerMessage(TT("setFunctionParameterValue"), (TTMethod)&RampUnit::setFunctionParameterValue);
-	//registerMessage(TT("getFunctionParameterValue"), (TTMethod)&RampUnit::getFunctionParameterValue);
-	
 	setAttributeValue(TT("function"), TT("linear"));
 }
 
@@ -55,8 +50,13 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 
 TTErr RampUnit::setFunction(const TTValue& functionName)
 {
+	TTErr	err;
+	
 	attrFunction = functionName;
-	return FunctionLib::createUnit(attrFunction, &functionUnit);
+	err = FunctionLib::createUnit(attrFunction, &functionUnit);
+	if(err)
+		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
+	return err;
 }
 
 
@@ -90,17 +90,9 @@ void RampUnit::setNumValues(TTUInt32 newNumValues)
 			delete [] startValue;
 		}
 		
-//		if(numValues == 0){
-			currentValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
-			targetValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
-			startValue = new TTFloat64[newNumValues]; // (TTFloat64*)malloc(newNumValues * sizeof(double));
-//		}
-//		else{
-			
-//			currentValue = // (TTFloat64*)realloc(currentValue, newNumValues * sizeof(double));
-//			targetValue = // (TTFloat64*)realloc(targetValue, newNumValues * sizeof(double));
-//			startValue = // (TTFloat64*)realloc(startValue, newNumValues * sizeof(double));
-//		}
+		currentValue = new TTFloat64[newNumValues];
+		targetValue = new TTFloat64[newNumValues];
+		startValue = new TTFloat64[newNumValues];
 		numValues = newNumValues;
 	}
 	sendMessage(TT("numValuesChanged"));	// Notify sub-classes (if they respond to this message)

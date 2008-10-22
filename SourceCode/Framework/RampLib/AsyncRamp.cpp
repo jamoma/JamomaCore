@@ -60,7 +60,7 @@ void AsyncRamp::tick()
 	double			*start = startValue;
 	float			ratio;
 	
-	if(active){
+	if(active && functionUnit){
 		if(currentTime > targetTime){
 			active = 0;
 			for(i=0; i < numValues; i++)
