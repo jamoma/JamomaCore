@@ -193,7 +193,7 @@ void jamomaSymbolsInit()
 	jps_msg_toggle					= gensym("msg_toggle");
 	jps_msg_none					= gensym("msg_none");			// this type only used by jcom.message
 	jps_jcom_hub					= gensym("jcom.hub"); 
-    jps_feedback					= gensym("feedback");
+    jps_feedback					= gensym("__feedback__");		// used for parameter feedback to the hub
 	// common OSC messages according to the JIG
 	jps_module_name_get				= gensym("/module_name/get");
 	jps_core_module_name_get		= gensym("core_module_name/get");
