@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='layout-demo1'>
+    <item name='layout' type='msg_int' priority='0'>0</item>
+    <item name='positions' type='msg_list' priority='0'>/filter~ 300 210 1 /degrade~ 0 140 1 /limiter~ 0 210 1 /noise~ 300 70 1 /output~ 0 525 1 /file_browser_1 300 0 1 /input~ 300 70 1 /multidelay~ 300 280 1 /saturation~ 300 350 1 /file_browser_2 600 0 1 /input~[2] 600 70 1 /filter~[2] 600 210 1 /multidelay~[2] 600 280 1 /file_browser_3 900 0 1 /input~[3] 900 70 1 /filter~[3] 900 210 1 /multidelay~[3] 900 280 1 /saturation~[3] 900 350 1 /file_browser_4 300 455 1 /input~[4] 300 525 1 /filter~[4] 300 665 1 /multidelay~[4] 300 735 1 /saturation~[4] 300 805 1 /file_browser_5 600 455 1 /input~[5] 600 525 1 /filter~[5] 600 665 1 /multidelay~[5] 600 735 1 /saturation~[5] 600 805 1 /file_browser_6 900 455 1 /input~[6] 900 525 1 /filter~[6] 900 665 1 /multidelay~[6] 900 735 1 /saturation~[6] 900 805 1 jmod.control 0 0 1 /mouse/1 0 315 1 /saturation~[2] 600 350 1 cuelist 0 455 1</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+  <preset number='2' name='layout-demo2'>
+    <item name='positions' type='msg_list' priority='0'>/filter~ 265 74 1 /degrade~ 33 147 1 /limiter~ 127 222 1 /noise~ 7 330 1 /output~ 433 290 1 </item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+  <preset number='3' name='layout-demo3'>
+    <item name='positions' type='msg_list' priority='0'>/filter~ 300 210 1 /degrade~ 0 70 1 /limiter~ 0 140 1 /noise~ 300 0 1 /output~ 300 70 1 </item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+  <preset number='4' name='layout-demo4'>
+    <item name='positions' type='msg_list' priority='0'>/filter~ 0 0 0 /degrade~ 0 70 0 /limiter~ 0 105 1 /noise~ 0 210 1 /output~ 300 70 0 </item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+  <preset number='5' name='layout-demo5'>
+    <item name='positions' type='msg_list' priority='0'>/filter~ 0 0 0 /degrade~ 0 70 0 /limiter~ 0 70 0 /noise~ 0 0 0 /output~ 0 105 1 </item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+  <preset number='6' name='layout-demo6'>
+    <item name='positions' type='msg_list' priority='0'>/filter~ 0 105 1 /degrade~ 0 175 1 /limiter~ 0 70 0 /noise~ 0 0 0 /output~ 0 0 0 </item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+</jamoma>
