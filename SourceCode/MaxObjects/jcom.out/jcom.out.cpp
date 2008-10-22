@@ -133,19 +133,12 @@ void *out_new(t_symbol *s, long argc, t_atom *argv)
 		x->audioTemp = new TTAudioSignal(x->numOutputs);
 		x->zeroSignal = new TTAudioSignal(x->numOutputs);
 		
-		//x->xfade = new TTCrossfade(x->numOutputs);
 		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numOutputs);
-
-		//x->gain = new TTGain(x->numOutputs);
 		TTObjectInstantiate(TT("gain"), &x->gain, x->numOutputs);
-
-//		x->ramp_gain = new TTRamp(1);
 		TTObjectInstantiate(TT("ramp"), &x->ramp_gain, x->numOutputs);
-
-//		x->ramp_xfade = new TTRamp(1);
 		TTObjectInstantiate(TT("ramp"), &x->ramp_xfade, x->numOutputs);
 
-		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
+//		out_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 		x->gain->setAttributeValue(TT("linearGain"), 1.0);
 #else
 		for(i=x->numOutputs-1; i >= 1; i--)
