@@ -458,7 +458,7 @@ t_int *out_perform(t_int *w)
 
 void out_getAudioForChannel(t_out *x, int channel, float **vector)
 {
-	*vector = x->out_vectors[channel];
+//	*vector = x->out_vectors[channel];
 }
 
 

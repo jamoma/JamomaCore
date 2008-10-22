@@ -138,10 +138,10 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		
 		x->audioIn = new TTAudioSignal(x->numInputs);
 		x->audioOut = new TTAudioSignal(x->numInputs);
-		for(i=0; i < x->numInputs; i++){
-			x->remote_vectors[i] = NULL;
-		}
-		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
+//		for(i=0; i < x->numInputs; i++){
+//			x->remote_vectors[i] = NULL;
+//		}
+//		in_alloc(x, sys_getblksize());						// allocates the vectors for the audio signals
 #else
 		for(i = x->numInputs-1; i >= 1; i--)
 			x->inlet[i] = proxy_new(x, i, 0L);
@@ -368,17 +368,17 @@ t_int *in_perform(t_int *w)
 // If that is so then our mixing is bogus, and perform needs to perform mixing too...
 void in_remoteaudio(t_in *x, float *audioVectors[], long numAudioVectors)
 {
-	short	i;
-	float	*vector, *out;
-	long	n;
-	
-	for(i=0; i<numAudioVectors; i++){
-		vector = audioVectors[i];
-		n = x->vectorSize;
-		out = x->remote_vectors[i];
-		while(n--)
-			*out++ += *vector++;
-	}
+//	short	i;
+//	float	*vector, *out;
+//	long	n;
+//	
+//	for(i=0; i<numAudioVectors; i++){
+//		vector = audioVectors[i];
+//		n = x->vectorSize;
+//		out = x->remote_vectors[i];
+//		while(n--)
+//			*out++ += *vector++;
+//	}
 }
 
 

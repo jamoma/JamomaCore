@@ -30,8 +30,8 @@ typedef struct _in{
 	long			last_target;					///< for poly~-based algorithms, the last target number used
 	TTAudioSignal*	audioIn;
 	TTAudioSignal*	audioOut;						///< last vector of audio samples for each channel (used by jcom.out~)
-	float			*out_vectors[MAX_NUM_CHANNELS];
-	float			*remote_vectors[MAX_NUM_CHANNELS];
+	//float			*out_vectors[MAX_NUM_CHANNELS];
+	//float			*remote_vectors[MAX_NUM_CHANNELS];
 	long			attr_bypass;					///< bypass flag for the module
 	long			attr_mute;						///< mute flag for the module
 	long			attr_freeze;					///< freeze flag for video modules
@@ -63,7 +63,7 @@ typedef struct _out{
 													   because the object's don't need an independent state and do not
 													   rely internally on any history.  
 													*/
-	float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
+	//float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
 	TTAudioObject*	xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
 	TTAudioObject*	gain;							///< TTGain implements the 'gain' param
 	TTAudioObject*	ramp_gain;						///< TTRamp ramps to drive smooth audio for the above params
