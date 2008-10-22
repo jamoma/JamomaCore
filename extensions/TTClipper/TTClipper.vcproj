@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TTClipper"
 	ProjectGUID="{C73B580F-BC81-490A-A54C-C851BF03BE3C}"
 	RootNamespace="tt.overdrive~"
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;C:\Program Files\Common Files\TTBlue\Extensions&quot;&#x0D;&#x0A;"
+				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
