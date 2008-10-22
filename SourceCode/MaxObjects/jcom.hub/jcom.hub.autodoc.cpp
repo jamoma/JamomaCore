@@ -37,6 +37,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 	t_symbol		*msg_type;
 	//long			num_signals;
 	float			range[2];
+	char			*humantype;
 
 	// SPECIFY THE FILE WE WANT TO WRITE
 	if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
@@ -146,26 +147,19 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
-			msg_type = atom_getsym(argv);
-			{
-				char*	humantype = msg_type->s_name;
-				
-				if(strstr(humantype, "msg_"))
-					humantype += 4;
-				snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
-			}
+			err = object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
+			if(err)
+				msg_type = gensym("bogus");
+			else
+				msg_type = atom_getsym(argv);
+
+			humantype = msg_type->s_name;
+			if(strstr(humantype, "msg_"))
+				humantype += 4;
+			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
+			
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
-			
-			// dataspace
-			argc = NULL;
-			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_dataspace , &argc, &argv);
-			msg_type = atom_getsym(argv);
-			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspace\"> %s </td>", msg_type->s_name);
-			jcom_core_file_writeline(&file_handle, &myEof, tempstring);			
-			
-			
+
 			// range/bounds
 			argc = NULL;
 			argv = NULL;
@@ -179,7 +173,7 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			else
 				snprintf(tempstring, 1024, "\t\t\t<th class = \"instructionRangeBounds\"> N/A </td>");
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
-								
+					
 			// range/clipmode
 			argc = NULL;
 			argv = NULL;
@@ -187,7 +181,15 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			result = atom_getsym(argv);
 			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionRangeClipmode\"> %s </td>", result->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
-				
+
+			// dataspace
+			argc = NULL;
+			argv = NULL;
+			object_attr_getvalueof(t->object ,jps_dataspace , &argc, &argv);
+			msg_type = atom_getsym(argv);
+			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspace\"> %s </td>", msg_type->s_name);
+			jcom_core_file_writeline(&file_handle, &myEof, tempstring);			
+			
 			// ramp/drive
 			argc = NULL;
 			argv = NULL;
@@ -252,15 +254,16 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
-			msg_type = atom_getsym(argv);
-			{
-				char*	humantype = msg_type->s_name;
-				
-				if(strstr(humantype, "msg_"))
-					humantype += 4;
-				snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
-			}
+			err = object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
+			if(err)
+				msg_type = gensym("bogus");
+			else
+				msg_type = atom_getsym(argv);
+			
+			humantype = msg_type->s_name;
+			if(strstr(humantype, "msg_"))
+				humantype += 4;
+			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
 			
 			// dataspace
@@ -270,7 +273,6 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			msg_type = atom_getsym(argv);
 			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspace\"> %s </td>", msg_type->s_name);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);			
-			
 			
 			// range/bounds
 			argc = NULL;
@@ -358,25 +360,17 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			// type
 			argc = NULL;
 			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
-			msg_type = atom_getsym(argv);
-			{
-				char*	humantype = msg_type->s_name;
-				
-				if(strstr(humantype, "msg_"))
-					humantype += 4;
-				snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
-			}
+			err = object_attr_getvalueof(t->object ,jps_type , &argc, &argv);
+			if(err)
+				msg_type = gensym("bogus");
+			else
+				msg_type = atom_getsym(argv);
+
+			humantype = msg_type->s_name;
+			if(strstr(humantype, "msg_"))
+				humantype += 4;
+			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionType\"> %s </td>", humantype);
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
-			
-			// dataspace
-			argc = NULL;
-			argv = NULL;
-			object_attr_getvalueof(t->object ,jps_dataspace , &argc, &argv);
-			msg_type = atom_getsym(argv);
-			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspace\"> %s </td>", msg_type->s_name);
-			jcom_core_file_writeline(&file_handle, &myEof, tempstring);			
-			
 			
 			// range/bounds
 			argc = NULL;
@@ -391,6 +385,14 @@ void hub_doautodoc(t_hub *x, t_symbol *userpath)
 			else
 				snprintf(tempstring, 1024, "\t\t\t<th class = \"instructionRangeBounds\"> N/A </td>");
 			jcom_core_file_writeline(&file_handle, &myEof, tempstring);
+
+			// dataspace
+			argc = NULL;
+			argv = NULL;
+			object_attr_getvalueof(t->object ,jps_dataspace , &argc, &argv);
+			msg_type = atom_getsym(argv);
+			snprintf(tempstring, 1024, "\t\t\t<td class =\"instructionDataspace\"> %s </td>", msg_type->s_name);
+			jcom_core_file_writeline(&file_handle, &myEof, tempstring);			
 								
 			// range/clipmode
 			argc = NULL;
@@ -473,8 +475,8 @@ void table_heading(t_filehandle *file_handle, long *myEof)
 	jcom_core_file_writeline(file_handle, myEof, "\t\t<tr class=\"tableHeading2\">");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /name </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /type </td>");
-	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /range/bounds </td>");
+	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /range/clipmode </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/drive </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/function </td>");
