@@ -258,7 +258,7 @@ else
 end
 
 if  win32?
-	build_project("#{@svn_root}SourceCode/Framework", "Jamoma.vcproj", configuration, true)
+	build_project("#{@svn_root}SourceCode/Framework", "JamomaFramework.vcproj", configuration, true)
 else
 	build_project("#{@svn_root}SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
 end
@@ -281,32 +281,44 @@ puts "Building TTBlue Externals..."
 zero_count
 build_dir("../TTBlue/examples/MaxMSP", configuration, clean)  
 ex_total, ex_count = get_count
+
+extension = ".mxo"
+if win32?
+	extension = ".mxe"
+end
+
+folder = "mac"
+if win32?
+	folder = "windows"
+end
+
+
 if("#{configuration}" == "Development")
   puts "copying Development"
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.balance~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.balance~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.dcblock~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.dcblock~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.degrade~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.degrade~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.filter~.mxo",    "#{@svn_root}Jamoma/library/externals/mac/tt.filter~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.gain~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.gain~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.limiter~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.limiter~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.overdrive~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.overdrive~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.ramp~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.ramp~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.wavetable~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.wavetable~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.xfade~.mxo",     "#{@svn_root}Jamoma/library/externals/mac/tt.xfade~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.zerox~.mxo",     "#{@svn_root}Jamoma/library/externals/mac/tt.zerox~.mxo")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.balance~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.balance~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.dcblock~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.dcblock~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.degrade~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.degrade~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.filter~#{extension}",    "#{@svn_root}Jamoma/library/externals/#{folder}/tt.filter~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.gain~#{extension}",      "#{@svn_root}Jamoma/library/externals/#{folder}/tt.gain~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.limiter~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.limiter~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.overdrive~#{extension}", "#{@svn_root}Jamoma/library/externals/#{folder}/tt.overdrive~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.ramp~#{extension}",      "#{@svn_root}Jamoma/library/externals/#{folder}/tt.ramp~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.wavetable~#{extension}", "#{@svn_root}Jamoma/library/externals/#{folder}/tt.wavetable~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.xfade~#{extension}",     "#{@svn_root}Jamoma/library/externals/#{folder}/tt.xfade~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Development/tt.zerox~#{extension}",     "#{@svn_root}Jamoma/library/externals/#{folder}/tt.zerox~#{extension}")
 else
   puts "copying Deployment"
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.balance~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.balance~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.dcblock~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.dcblock~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.degrade~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.degrade~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.filter~.mxo",    "#{@svn_root}Jamoma/library/externals/mac/tt.filter~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.gain~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.gain~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.limiter~.mxo",   "#{@svn_root}Jamoma/library/externals/mac/tt.limiter~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.overdrive~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.overdrive~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.ramp~.mxo",      "#{@svn_root}Jamoma/library/externals/mac/tt.ramp~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.wavetable~.mxo", "#{@svn_root}Jamoma/library/externals/mac/tt.wavetable~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.xfade~.mxo",     "#{@svn_root}Jamoma/library/externals/mac/tt.xfade~.mxo")
-  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.zerox~.mxo",     "#{@svn_root}Jamoma/library/externals/mac/tt.zerox~.mxo")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.balance~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.balance~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.dcblock~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.dcblock~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.degrade~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.degrade~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.filter~#{extension}",    "#{@svn_root}Jamoma/library/externals/#{folder}/tt.filter~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.gain~#{extension}",      "#{@svn_root}Jamoma/library/externals/#{folder}/tt.gain~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.limiter~#{extension}",   "#{@svn_root}Jamoma/library/externals/#{folder}/tt.limiter~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.overdrive~#{extension}", "#{@svn_root}Jamoma/library/externals/#{folder}/tt.overdrive~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.ramp~#{extension}",      "#{@svn_root}Jamoma/library/externals/#{folder}/tt.ramp~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.wavetable~#{extension}", "#{@svn_root}Jamoma/library/externals/#{folder}/tt.wavetable~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.xfade~#{extension}",     "#{@svn_root}Jamoma/library/externals/#{folder}/tt.xfade~#{extension}")
+  copydir("#{@svn_root}../TTBlue/examples/Build_Mac/Deployment/tt.zerox~#{extension}",     "#{@svn_root}Jamoma/library/externals/#{folder}/tt.zerox~#{extension}")
 end
 puts ""
 
