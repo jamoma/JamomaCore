@@ -393,7 +393,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/sf_open",
+					"text" : "/soundfile/open",
 					"id" : "obj-23",
 					"fontname" : "Verdana",
 					"numinlets" : 2,
@@ -407,7 +407,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/sf_open anton.aif",
+					"text" : "/soundfile/open anton.aif",
 					"id" : "obj-24",
 					"fontname" : "Verdana",
 					"numinlets" : 2,

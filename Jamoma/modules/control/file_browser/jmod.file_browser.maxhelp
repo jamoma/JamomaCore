@@ -258,7 +258,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "prepend \/sf_open",
+									"text" : "prepend \/soundfile/open",
 									"patching_rect" : [ 47.0, 84.0, 89.0, 17.0 ],
 									"fontname" : "Verdana",
 									"id" : "obj-5",
