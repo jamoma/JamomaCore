@@ -92,9 +92,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
 	jamoma_class_attr_new(c,	"type", 			_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_none");
+	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
 #else
-	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list");
+	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
 #endif
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
