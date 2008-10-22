@@ -32635,7 +32635,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[12]",
-					"text" : "jcom.parameter source/8/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/8/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
@@ -32671,7 +32671,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[13]",
-					"text" : "jcom.parameter source/7/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/7/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
@@ -32707,7 +32707,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[14]",
-					"text" : "jcom.parameter source/6/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/6/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
@@ -32743,7 +32743,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[15]",
-					"text" : "jcom.parameter source/5/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/5/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
@@ -32779,7 +32779,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[11]",
-					"text" : "jcom.parameter source/4/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/4/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
@@ -32815,7 +32815,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[10]",
-					"text" : "jcom.parameter source/3/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/3/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
@@ -32851,7 +32851,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[9]",
-					"text" : "jcom.parameter source/2/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/2/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
@@ -32887,7 +32887,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "rendermode[8]",
-					"text" : "jcom.parameter source/1/mute @type msg_toggle @description \"deactivates rendering of the sound source\"",
+					"text" : "jcom.parameter source/1/mute @type msg_toggle @repetitions/allow 1 @description \"deactivates rendering of the sound source\"",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontname" : "Arial",
