@@ -165,7 +165,7 @@ def build_xcode_project(projectdir, projectname, configuration, clean)
 end
 
 
-def build_vs_project(projectdir, projectname, target, style, clean)
+def build_vs_project(projectdir, projectname, configuration, clean)
   out = ""
   err = ""
 
@@ -174,7 +174,7 @@ def build_vs_project(projectdir, projectname, target, style, clean)
     err = stderr.read
   end
 
-  if /(0 error|up\-to\-date)/.match(out)
+  if /(0 error|up\-to\-date|0 erreur)/.match(out)
     @cur_count+=1
     puts "#{projectname}: BUILD SUCCEEDED"
     log_build(out)
@@ -209,7 +209,13 @@ end
 
 
 def find_and_build_project(projectdir, configuration, clean)
-  rgx = /.xcodeproj$/
+
+if win32?
+ 	rgx = /.vcproj$/
+else
+  	rgx = /.xcodeproj$/
+end
+
   Dir.foreach(projectdir) do |file|
     if rgx.match(file)
         build_project(projectdir, file, configuration, clean)
@@ -244,8 +250,19 @@ zero_count
 ###################################################################
 puts "Building Frameworks..."
 zero_count
-build_project("#{@svn_root}../TTBlue/library", "TTBlue.xcodeproj", configuration, true)
-build_project("#{@svn_root}SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
+
+if win32?
+	build_project("#{@svn_root}../TTBlue/library", "TTBlue.vcproj", configuration, true)
+else
+	build_project("#{@svn_root}../TTBlue/library", "TTBlue.xcodeproj", configuration, true)
+end
+
+if  win32?
+	build_project("#{@svn_root}SourceCode/Framework", "Jamoma.vcproj", configuration, true)
+else
+	build_project("#{@svn_root}SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
+end
+
 ex_total, ex_count = get_count
 puts ""
 
