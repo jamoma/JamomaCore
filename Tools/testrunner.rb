@@ -153,10 +153,16 @@ def processAllTestFiles(directory, suffix)
       count = count + 1
 
       # The path we get back on Windows will need to be massaged so that Max can use it...
-      if formatted_filepath =~ /\/cygdrive\/(.)\/(.*)/
-       formatted_filepath.sub!(/\/cygdrive\/(.)\/(.*)/, '\1:\/\2')
-       formatted_filepath.gsub!(/\\/, '')
-      end
+
+	if win32?
+		# This is works but i suppose there are other ways to do that ...
+		formatted_filepath = "#{@maxfolder}/../jamoma/Tools/#{filepath}"
+	else
+     		if formatted_filepath =~ /\/cygdrive\/(.)\/(.*)/
+      			formatted_filepath.sub!(/\/cygdrive\/(.)\/(.*)/, '\1:\/\2')
+     			formatted_filepath.gsub!(/\\/, '')
+     		end
+	end
       puts "  #{formatted_filepath}:" 
 
       @testDone = 0
@@ -208,7 +214,7 @@ def launchMax
     # We want output like "/cygdrive/c/Program Files/Cycling '74/Max 5.0"
    cygwinPathForMaxFolder = @maxfolder.gsub(/\\/, '/')
    cygwinPathForMaxFolder.sub!(/(.):\//, '/cygdrive/\1/')
-    `open "#{@maxfolder}/Max.exe"`
+    `cygstart "#{@maxfolder}/Max.exe"`
   else
     `open "#{@maxfolder}/MaxMSP.app/Contents/MacOS/MaxMSP"`
   end
