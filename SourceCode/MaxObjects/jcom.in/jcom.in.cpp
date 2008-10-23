@@ -235,20 +235,20 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 	if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute)){
 		x->attr_mute = atom_getlong(argv+1);
 		if(x->attr_algorithm_type == _sym_patcher){
-			t_atom a[2];
+			t_atom		a[2];
+			t_dll*		connecteds = NULL;
+			t_object*	o;
+			t_symbol*	name;
+			t_object*	box;
+			t_outlet*	myoutlet = NULL;
 			
 			atom_setlong(a+0, !x->attr_mute);
 			atom_setlong(a+1, 1);
 
-			t_dll* connecteds;// = (dll*) (&x->common.ob.z_ob.o_outlet) + sizeof(t_tinyobject);
-			t_object* o;
-			t_symbol* name;
-			t_object*	box;
-			
 			object_obex_lookup(x, _sym_pound_B, &box);
-			
-			t_outlet* myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 2);
-			connecteds = (t_dll*)myoutlet->o_dll;
+			myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 2);
+			if(myoutlet)
+				connecteds = (t_dll*)myoutlet->o_dll;
 			
 			// search through all connected objects for an inlet object (which indicates that we found a patcher to mute)
 			while(connecteds){
