@@ -19,7 +19,7 @@ void schedulerramp_clockfn(SchedulerRamp *x)
 
 
 SchedulerRamp::SchedulerRamp(RampUnitCallback aCallbackMethod, void *aBaton)
-	: RampUnit("ramp.scheduler", aCallbackMethod, aBaton), stepsize(0.0)
+	: RampUnit("ramp.scheduler", aCallbackMethod, aBaton), stepsize(0.0), isRunning(false)
 {
 	clock = clock_new(this, (method)&schedulerramp_clockfn);	// install the max timer
 
@@ -61,14 +61,15 @@ void SchedulerRamp::go(TTUInt32 inNumValues, TTFloat64 *inValues, TTFloat64 time
 		startValue[i] = currentValue[i];
 	}
 	normalizedValue = 0.0;				// set the ramp to the beginning
+	isRunning = true;
 	setclock_fdelay(NULL, clock, 0);	// start now
-
 }
 
 
 void SchedulerRamp::stop()
 {
 	clock_unset(clock);
+	isRunning = false;
 }
 
 
@@ -80,7 +81,7 @@ void SchedulerRamp::tick()
 	double			*target = targetValue;
 	double			*start = startValue;
 
-	if(functionUnit){
+	if(functionUnit && isRunning){
 		// 1. go to the the next step in our ramp
 		numgrains--;
 		if(numgrains == 0){
@@ -100,6 +101,8 @@ void SchedulerRamp::tick()
 		// 3. set the clock to fire again
 		if(numgrains)
 			setclock_fdelay(NULL, clock, attrGranularity);
+		else
+			isRunning = false;
 	}
 }
 
