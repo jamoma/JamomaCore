@@ -34,6 +34,7 @@ typedef struct _in{
 	long			attr_bypass;					///< bypass flag for the module
 	long			attr_mute;						///< mute flag for the module
 	long			attr_freeze;					///< freeze flag for video modules
+	t_symbol*		attr_algorithm_type;			///< examples: 'patcher', 'poly', 'ttblue' (default is patcher)
 } t_in;
 
 

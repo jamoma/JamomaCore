@@ -70,7 +70,9 @@ int main(void)				// main recieves a copy of the Max function macros table
 	// ATTRIBUTE: num_inputs
 	attr = attr_offset_new("num_inputs", _sym_long, attrflags,
 		(method)0, (method)0, calcoffset(t_in, numInputs));
-	class_addattr(c, attr);	
+	class_addattr(c, attr);
+	
+	CLASS_ATTR_SYM(c,	"algorithm/type",	0,	t_in,	attr_algorithm_type);
 
 #ifdef JCOM_IN_TILDE
 //	// ATTRIBUTE: manage_channels
@@ -111,6 +113,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_bypass = 0;
 		x->attr_mute = 0;
 		x->attr_freeze = 0;
+		x->attr_algorithm_type = _sym_patcher;
 
 		if(attrstart > 0){
 			int argument = atom_getlong(argv);
@@ -198,14 +201,72 @@ void in_assist(t_in *x, void *b, long msg, long arg, char *dst)
 }
 
 
+// this stuff is needed for muting the algorithm patchers without using the pcontrol object
+
+#include "jpatcher_api.h"
+
+typedef struct dll {
+	t_object d_ob;
+	struct dll *d_next;
+	struct dll *d_prev;
+	void *d_x1;
+} t_dll;
+
+typedef struct outlet {
+	struct tinyobject o_ob;
+	struct dll *o_dll;
+} t_outlet;
+
+typedef struct inlet {
+	struct tinyobject i_ob;
+	void *i_who;
+	struct object *i_owner;
+} t_inlet;
+
+// end of required stuff for our built-in pcontrol functionality
+
+
 // messages received from jcom.hub for the algorithm
 void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	char		namestring[256];
 	t_symbol	*osc;
 
-	if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute))//{
+	if((argv->a_w.w_sym == jps_audio_mute) || (argv->a_w.w_sym == jps_slash_audio_mute)){
 		x->attr_mute = atom_getlong(argv+1);
+		if(x->attr_algorithm_type == _sym_patcher){
+			t_atom a[2];
+			
+			atom_setlong(a+0, !x->attr_mute);
+			atom_setlong(a+1, 1);
+
+			t_dll* connecteds;// = (dll*) (&x->common.ob.z_ob.o_outlet) + sizeof(t_tinyobject);
+			t_object* o;
+			t_symbol* name;
+			t_object*	box;
+			
+			object_obex_lookup(x, _sym_pound_B, &box);
+			
+			t_outlet* myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 2);
+			connecteds = (t_dll*)myoutlet->o_dll;
+			
+			// search through all connected objects for an inlet object (which indicates that we found a patcher to mute)
+			while(connecteds){
+				o = (t_object*)connecteds->d_x1;
+				name = object_classname(o);
+				if(name == _sym_inlet){
+					o = ((t_inlet *)connecteds->d_x1)->i_owner;
+					name = object_classname(o);
+					if(name == _sym_jpatcher)
+						// 'setrock' is the message that is used for pcontrol sends to the patcher of enabling
+						object_method(o, gensym("setrock"), 2, a);
+				}
+				o = NULL;
+				name = NULL;
+				connecteds = connecteds->d_next;
+			}
+		}
+	}
 	else if((argv->a_w.w_sym == jps_video_mute) || (argv->a_w.w_sym == jps_slash_video_mute) || (argv->a_w.w_sym == gensym("mute")) || (argv->a_w.w_sym == gensym("/mute")))
 		x->attr_mute = atom_getlong(argv+1);
 	else if((argv->a_w.w_sym == jps_video_bypass) || (argv->a_w.w_sym == jps_slash_video_bypass) || (argv->a_w.w_sym == gensym("bypass")) || (argv->a_w.w_sym == gensym("/bypass")))
