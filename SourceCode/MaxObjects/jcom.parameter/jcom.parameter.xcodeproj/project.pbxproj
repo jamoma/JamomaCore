@@ -320,6 +320,7 @@
 					"-Wmost",
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
+					"-Wno-deprecated",
 				);
 				WRAPPER_EXTENSION = mxo;
 				ZERO_LINK = YES;
@@ -374,7 +375,7 @@
 					"-Wmost",
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
-					"-Wno-conversion",
+					"-Wno-deprecated",
 				);
 				WRAPPER_EXTENSION = mxo;
 				ZERO_LINK = NO;
@@ -443,6 +444,7 @@
 					"-Wmost",
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
+					"-Wno-deprecated",
 				);
 				WRAPPER_EXTENSION = mxo;
 				ZERO_LINK = YES;
@@ -497,7 +499,7 @@
 					"-Wmost",
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
-					"-Wno-conversion",
+					"-Wno-deprecated",
 				);
 				WRAPPER_EXTENSION = mxo;
 				ZERO_LINK = NO;
