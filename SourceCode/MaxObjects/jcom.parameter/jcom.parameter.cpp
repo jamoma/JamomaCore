@@ -164,7 +164,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->ramp_qelem = qelem_new(x, (method)param_ramp_setup);
 
 		// set defaults...
-		x->attr_rampfunction = jps_linear;
+		x->attr_rampfunction = _sym_nothing;
 		x->attr_ramp = _sym_nothing;
 		x->ramper = NULL;
 
@@ -176,7 +176,6 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setlong(&x->atom_listDefault[i], 0);
 		}
 		x->common.attr_name = name;
-//		atom_setsym(&x->name_atom, name);
 		x->attr_ui_freeze = 0;
 		x->attr_stepsize = 1.0;
 		x->attr_priority = 0;						// default is no priority
@@ -210,6 +209,10 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 			atom_setsym(&a, jps_none);
 			object_attr_setvalueof(x, gensym("ramp/drive"), 1, &a);
 		}
+		if(x->attr_rampfunction == _sym_nothing && x->attr_ramp != _sym_none)
+			object_attr_setsym(x, gensym("ramp/function"), jps_linear);
+		else
+			object_attr_setsym(x, gensym("ramp/function"), _sym_none);
 	}
 	return (x);										// return the pointer to our new instantiation
 }
@@ -467,9 +470,7 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	}
 
 	qelem_set(x->ramp_qelem);	// set up the rampunit with callbacks appropriate to this data type
-
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 
@@ -481,9 +482,7 @@ t_max_err param_attr_setramp(t_param *x, void *attr, long argc, t_atom *argv)
 	x->attr_ramp = arg;
 	
 	qelem_set(x->ramp_qelem);	// place a call to param_ramp_setup() at the end of the low-priority queue
-
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 t_max_err param_attr_getramp(t_param *x, void *attr, long *argc, t_atom **argv)
@@ -503,9 +502,7 @@ t_max_err param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *
 
 	if(x->ramper)
 		x->ramper->setAttributeValue(TT("function"), TT(x->attr_rampfunction->s_name));
-
 	return MAX_ERR_NONE;
-	#pragma unused(attr)
 }
 
 t_max_err param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv)
@@ -585,7 +582,6 @@ t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->list_size);
 	sysmem_copyptr(x->atom_list, *argv, sizeof(t_atom) * x->list_size);
-
 	return MAX_ERR_NONE;
 }
 
@@ -600,11 +596,10 @@ t_max_err param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv)
 t_max_err param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = x->listDefault_size;
-	if (!(*argv)) // otherwise use memory passed in
+	if(!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * x->listDefault_size);
-		sysmem_copyptr(x->atom_listDefault, *argv, sizeof(t_atom) * x->listDefault_size);
-		
-		return MAX_ERR_NONE;
+	sysmem_copyptr(x->atom_listDefault, *argv, sizeof(t_atom) * x->listDefault_size);
+	return MAX_ERR_NONE;
 }
 
 t_max_err param_attr_setdefault(t_param *x, void *attr, long argc, t_atom *argv)
