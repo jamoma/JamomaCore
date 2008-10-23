@@ -246,7 +246,7 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 			atom_setlong(a+1, 1);
 
 			object_obex_lookup(x, _sym_pound_B, &box);
-			myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, 2);
+			myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, x->numInputs);
 			if(myoutlet)
 				connecteds = (t_dll*)myoutlet->o_dll;
 			
