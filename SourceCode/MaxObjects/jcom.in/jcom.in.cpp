@@ -273,11 +273,12 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 		x->attr_bypass = atom_getlong(argv+1);
 	else if((argv->a_w.w_sym == jps_video_freeze) || (argv->a_w.w_sym == jps_slash_video_freeze) || (argv->a_w.w_sym == gensym("freeze")) || (argv->a_w.w_sym == gensym("/freeze")))
 		x->attr_freeze = atom_getlong(argv+1);
-	
+
 	if(argv->a_w.w_sym->s_name[0] != '/')
 		strcpy(namestring, "/");						// perhaps we could optimize this operation
 	else
 		namestring[0] = 0;
+
 	strcat(namestring, argv->a_w.w_sym->s_name);	//	by creating a table when the param is bound
 	osc = gensym(namestring);						//	then we could look-up the symbol instead of using gensym()
 
@@ -287,6 +288,37 @@ void in_algorithm_message(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 
 void in_view_internals(t_in *x, t_symbol *msg, long argc, t_atom *argv)
 {
+	if(x->attr_algorithm_type == _sym_patcher){
+		t_atom		a[2];
+		t_dll*		connecteds = NULL;
+		t_object*	o;
+		t_symbol*	name;
+		t_object*	box;
+		t_outlet*	myoutlet = NULL;
+		
+		atom_setlong(a+0, !x->attr_mute);
+		atom_setlong(a+1, 1);
+		
+		object_obex_lookup(x, _sym_pound_B, &box);
+		myoutlet = (t_outlet*)jbox_getoutlet((t_jbox*)box, x->numInputs);
+		if(myoutlet)
+			connecteds = (t_dll*)myoutlet->o_dll;
+		
+		// search through all connected objects for an inlet object (which indicates that we found a patcher to mute)
+		while(connecteds){
+			o = (t_object*)connecteds->d_x1;
+			name = object_classname(o);
+			if(name == _sym_inlet){
+				o = ((t_inlet *)connecteds->d_x1)->i_owner;
+				name = object_classname(o);
+				if(name == _sym_jpatcher)
+					object_method(o, gensym("vis"));
+			}
+			o = NULL;
+			name = NULL;
+			connecteds = connecteds->d_next;
+		}
+	}
 	outlet_anything(x->algout, jps_open, 0, 0L);
 }
 
