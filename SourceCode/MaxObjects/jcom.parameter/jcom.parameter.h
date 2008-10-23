@@ -205,9 +205,9 @@ t_max_err	param_attr_setrampfunction(t_param *x, void *attr, long argc, t_atom *
 t_max_err	param_attr_getrampfunction(t_param *x, void *attr, long *argc, t_atom **argv);
 
 // Defined in jcom.parameter.clip.c
-void 		param_clip_generic(t_param *x);
-void 		param_clip_int(t_param *x);
-void 		param_clip_float(t_param *x);
-void		param_clip_list(t_param *x);
+bool 		param_clip_generic(t_param *x);
+bool 		param_clip_int(t_param *x);
+bool 		param_clip_float(t_param *x);
+bool		param_clip_list(t_param *x);
 
 #endif // #ifndef __JMOD_PARAM_H__

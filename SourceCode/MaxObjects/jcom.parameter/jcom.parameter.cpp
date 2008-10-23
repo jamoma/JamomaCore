@@ -876,7 +876,8 @@ void param_output_generic(void *z)
 			outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
 	}
 	else if(x->list_size > 1){
-		param_clip_generic(x);
+		if(param_clip_generic(x) && x->ramper)
+			x->ramper->stop();
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
 	} 
 	else{	// zero args
@@ -890,7 +891,8 @@ void param_output_int(void *z)
 {
 	t_param *x = (t_param *)z;
 
-	param_clip_int(x);
+	if(param_clip_int(x) && x->ramper)
+		x->ramper->stop();
 	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
 	param_send_feedback(x);
 }
@@ -900,7 +902,8 @@ void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
 
-	param_clip_float(x);
+	if(param_clip_float(x) && x->ramper)
+		x->ramper->stop();
 	outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
 	param_send_feedback(x);
 }
@@ -919,7 +922,8 @@ void param_output_list(void *z)
 {
 	t_param *x = (t_param *)z;
 	
-	param_clip_list(x);
+	if(param_clip_list(x) && x->ramper)
+		x->ramper->stop();
 	outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
 	param_send_feedback(x);
 }
@@ -938,7 +942,6 @@ void param_output_none(void *z)
 	// We can not use (method)param_send_feedback here as it assumes an additional argument
 	if(x->common.hub != NULL){
 		atom_setsym(out, x->common.attr_name);
-//		jcom_core_atom_copy(out, &x->name_atom);
 		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
 	}
 }
