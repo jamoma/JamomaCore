@@ -1124,20 +1124,29 @@ void param_float(t_param *x, double value)
 void param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	char*	c = strrchr(msg->s_name, ':');
-	
+	long	ac = 0;
+	t_atom*	av = NULL;
+
 	if(c){
 		param_handleProperty(x, msg, argc, argv);
 		return;
 	}
-	
-	x->list_size = 1;
+
+	ac = argc+1;
+	av = (t_atom*)malloc(sizeof(t_atom) * ac);
+	atom_setsym(av, msg);
+	memcpy(av+1, argv, sizeof(t_atom) * argc);
+	param_list(x, _sym_list, ac, av);
+	free(av);
+/*
+	x->list_size = argc;
 	if(x->common.attr_repetitions == 0){
 		if(jcom_core_atom_compare(x->common.attr_type, &x->attr_value, argv))
 			return;
 	}
 	atom_setsym(&x->attr_value, msg);
 	x->param_output(x);
-
+*/
 }
 
 
