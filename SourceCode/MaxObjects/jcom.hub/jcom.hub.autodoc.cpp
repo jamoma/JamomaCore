@@ -324,9 +324,9 @@ void table_heading(t_filehandle *file_handle, long *myEof)
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /type </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /range/bounds </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /range/clipmode </td>");
-	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/drive </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /ramp/function </td>");
+	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /dataspace </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /repetitions/allow </td>");	
 	jcom_core_file_writeline(file_handle, myEof, "\t\t\t<td> /description </td>");
 	jcom_core_file_writeline(file_handle, myEof, "\t\t<tr>");
