@@ -529,10 +529,7 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 			hub_getstate(x);
 		}
 		else if (private_message == jps_slash_ui_slash_freeze) {			// 	/ui/freeze
-			if (argc>0)
-				n = atom_getlong(argv);
-			atom_setlong(&a, n);
-			hub_ui_freeze(x, NULL, 1, &a);
+			hub_symbol(x, jps_slash_ui_slash_freeze, argc, argv);
 		}
 		else if ( private_message == jps_slash_ui_slash_refresh )		//	/ui/refresh
 			hub_ui_refresh(x, NULL, 0, NULL);
@@ -1057,12 +1054,19 @@ void hub_module_view_alg(t_hub *x, t_symbol*, long, t_atom*)
 void hub_ui_freeze(t_hub *x, t_symbol*, long argc, t_atom *argv)
 {
 	subscriberList *subscriber = x->subscriber;	// head of the linked list
-	
-	// Change freeze status for all messages and parameters	
+	t_max_err err = MAX_ERR_NONE;
+
+	// Change freeze status for all messages and parameters
 	subscriberIterator i;
 	t_subscriber* t;
+
+	// Change freeze attribute for the gui
+	// FIXME: This call is not working!!!!
+	// this means that the ui menu does not always reflect the state correctly
+	err = object_attr_setlong(x->gui_object, gensym("ui_is_frozen"), atom_getlong(argv));
+
 	critical_enter(0);
-	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+ 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if(t->type == jps_subscribe_parameter)
 			object_method_typed(t->object, jps_ui_slash_freeze, 1, argv, NULL);
