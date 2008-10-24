@@ -1058,7 +1058,7 @@ void hub_preset_interface(t_hub* x)
 	object_attr_setchar(p, _sym_openinpresentation, 1);	
 	object_attr_setchar(p, _sym_toolbarvisible, 0);	
 	object_attr_setsym(p, _sym_title, gensym("preset_interface"));		
-	object_method_parse(p, _sym_window, "constrain 500 300 757 345", NULL);
+	object_method_parse(p, _sym_window, "constrain 5 320 179 595", NULL);
 	object_attach_byptr_register(x, p, _sym_nobox);
 	
 	object_method(p, _sym_vis);	// "vis" happens immediately, "front" is defer_lowed

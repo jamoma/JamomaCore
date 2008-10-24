@@ -16,17 +16,19 @@ enum outlets{
 };
 
 
-typedef struct _return{							// Data Structure for this object
+typedef struct _return {
 	t_jcom_core_subscriber_extended	common;
-	void 							*outlets[num_outlets];			// my outlet array
-	t_atom							output[512];					// buffer that gets sent to the hub
+	void 							*outlets[num_outlets];	// my outlet array
+	t_atom							output[512];			// buffer that gets sent to the hub
 	short							output_len;
 	char							attrEnable;
+	t_object*						send;					// send object for direct sending
 } t_return;
 
 
 // Prototypes
 void*		return_new(t_symbol *s, long argc, t_atom *argv);
+void		return_makesend(t_return *x);
 void		return_assist(t_return *x, void *b, long msg, long arg, char *dst);
 void		return_updatename(t_return *x);
 void		return_bang(t_return *x);
@@ -110,8 +112,27 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		
 		attr_args_process(x, argc, argv);
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+		defer_low(x, (method)return_makesend, 0, 0, 0);
 	}
 	return (x);
+}
+
+
+void return_makesend(t_return *x)
+{
+	t_atom		a;
+	char		osc[512];
+	t_symbol*	module_name = object_attr_getsym(x->common.hub, _sym_name);
+
+	if(module_name && module_name != _sym_nothing){
+		strcpy(osc, module_name->s_name);
+		strcat(osc, "/");
+		strcat(osc, x->common.attr_name->s_name);
+		atom_setsym(&a, gensym(osc));
+		x->send = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, &a);
+	}
+	else
+		defer_low(x, (method)return_makesend, 0, 0, 0);
 }
 
 
@@ -212,7 +233,27 @@ void return_send_feedback(t_return *x)
 		else
 			object_method_typed(x->common.hub, jps_return, x->output_len, x->output, NULL);
 	}
-	x->output_len = 1;	// truncate to just the name of this jcom.return object
+	
+	if(x->send){
+		if(x->output_len > 2){
+			if(x->output[1].a_type == A_FLOAT || x->output[1].a_type == A_LONG)
+				object_method_typed(x->send, _sym_list, x->output_len-1, x->output+1, NULL);		
+			else
+				object_method_typed(x->send, atom_getsym(x->output), x->output_len-1, x->output+1, NULL);
+		}
+		else if(x->output_len > 1){
+			if(x->output[1].a_type == A_FLOAT)
+				object_method_typed(x->send, _sym_float, x->output_len-1, x->output+1, NULL);		
+			else if(x->output[1].a_type == A_LONG)
+				object_method_typed(x->send, _sym_int, x->output_len-1, x->output+1, NULL);		
+			else
+				object_method_typed(x->send, atom_getsym(x->output), 0, NULL, NULL);
+		}
+		else
+			object_method_typed(x->send, _sym_bang, 0, NULL, NULL);	
+
+		x->output_len = 1;	// truncate to just the name of this jcom.return object
+	}
 }
 
 
