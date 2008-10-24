@@ -20,7 +20,7 @@ TTEnvironment*	ttEnvironment = NULL;
 /****************************************************************************************************/
 
 TTEnvironment::TTEnvironment()
-	: TTObject("environment")//, numClasses(0)
+	: TTObject("environment"), debugBasic(false), debugMessaging(false), sr(0)
 {	
 	classes = new TTHash();
 	tags = new TTHash();
