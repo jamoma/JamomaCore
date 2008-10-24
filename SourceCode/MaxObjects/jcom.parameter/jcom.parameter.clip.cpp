@@ -19,6 +19,8 @@ bool param_clip_generic(t_param *x)
 		return param_clip_int(x);
 	else if(x->atom_list[0].a_type == A_FLOAT)
 		return param_clip_float(x);
+	else
+		return false;
 }
 
 
