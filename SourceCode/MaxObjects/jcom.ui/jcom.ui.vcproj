@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="jcom.ui"
 	ProjectGUID="{E77085FA-7786-415B-9C54-E69C632FDB55}"
 	RootNamespace="jcom.ui"
@@ -206,6 +206,10 @@
 			</File>
 			<File
 				RelativePath=".\jcom.ui.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\jcom.ui.h"
 				>
 			</File>
 			<File

@@ -203,6 +203,10 @@ int main(void)
 	CLASS_ATTR_SYM(c,		"module_name",		0, t_ui, attr_modulename);
 	CLASS_ATTR_DEFAULT(c,	"module_name",		0, "/Jamoma");
 
+	CLASS_ATTR_LONG(c,		"ui_is_frozen",		0, t_ui, attr_ui_freeze);
+	CLASS_ATTR_STYLE(c,		"ui_is_frozen",		0, "onoff");
+	CLASS_ATTR_DEFAULT(c,	"ui_is_frozen",		0, "0");
+
 	CLASS_STICKY_ATTR_CLEAR(c,	"category");
 	
 	class_register(CLASS_BOX, c);
@@ -801,6 +805,12 @@ void ui_menu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers)
 				else
 					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 			}
+			else if(item->sym == gensym("Disable UI Updates")){
+				if(x->attr_ui_freeze)
+					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 1, 0, NULL);
+				else
+					jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
+			}
 			else
 				jpopupmenu_additem(p, i+1, item->sym->s_name, NULL, 0, item->flags, NULL);
 		}
@@ -830,8 +840,13 @@ void ui_menu_qfn(t_ui *x)
 		else
 			object_attr_setlong(x, gensym("meters_defeated"), 1);
 	}
-	else if(item->sym == gensym("Disable UI Updates"))
-		object_method_long(x->obj_remote, gensym("/ui/freeze"), x->attr_isfrozen, NULL);
+	else if(item->sym == gensym("Disable UI Updates")){
+		if(x->attr_ui_freeze)
+			x->attr_ui_freeze = false;
+		else
+			x->attr_ui_freeze = true;
+		object_method_long(x->obj_remote, gensym("/ui/freeze"), x->attr_ui_freeze, NULL);
+	}
 	else if(item->sym == gensym("Refresh UI"))
 		object_method_sym(x->obj_remote, gensym("/ui/refresh"), item->sym, NULL);
 	else if(item->sym == gensym("Load Settings..."))
@@ -869,8 +884,7 @@ void ui_menu_build(t_ui *x)
 		return;
 
 	linklist_clear(x->menu_items);
-	
-	item = (t_symobject *)symobject_new(gensym("Disable UI Updates"));	// we should mark this one with a check-mark though...
+	item = (t_symobject *)symobject_new(gensym("Disable UI Updates"));
 	linklist_append(x->menu_items, item);	
 	item = (t_symobject *)symobject_new(gensym("Refresh UI"));
 	linklist_append(x->menu_items, item);

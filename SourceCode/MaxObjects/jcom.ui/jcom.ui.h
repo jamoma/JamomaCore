@@ -78,6 +78,7 @@ typedef struct _ui{
 	t_symbol			*attrModuleClass;
 	
 	t_symbol			*attrPrefix;
+	long				attr_ui_freeze;
 	
 	t_pt				anchor;				// used for dragging the dials
 	float				anchorValue;		//	...
