@@ -839,12 +839,13 @@ void ui_menu_qfn(t_ui *x)
 			object_attr_setlong(x, gensym("meters_defeated"), 0);
 		else
 			object_attr_setlong(x, gensym("meters_defeated"), 1);
+		object_method_long(x->obj_remote, gensym("audio/meters/freeze"), x->attr_metersdefeated, NULL);
 	}
 	else if(item->sym == gensym("Disable UI Updates")){
 		if(x->attr_ui_freeze)
-			x->attr_ui_freeze = false;
+			object_attr_setlong(x, gensym("ui_is_frozen"), 0);
 		else
-			x->attr_ui_freeze = true;
+			object_attr_setlong(x, gensym("ui_is_frozen"), 1);
 		object_method_long(x->obj_remote, gensym("/ui/freeze"), x->attr_ui_freeze, NULL);
 	}
 	else if(item->sym == gensym("Refresh UI"))
