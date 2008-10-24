@@ -80,6 +80,8 @@ bool param_clip_list(t_param *x)
 				iclipped = TTLimitMax(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_both)
 				iclipped = TTClip(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+			else
+				iclipped = x->atom_list[i].a_w.w_long;
 
 			if(didClipAll && !(iclipped == x->atom_list[i].a_w.w_long))
 				didClipAll = false;
@@ -91,7 +93,9 @@ bool param_clip_list(t_param *x)
 			else if(x->common.attr_clipmode == jps_high)
 				fclipped = TTLimitMax(x->atom_list[i].a_w.w_float, x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_both)
-				fclipped = TTClip(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);			
+				fclipped = TTClip(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
+			else
+				fclipped = x->atom_list[i].a_w.w_float;
 
 			if(didClipAll && !(fclipped == x->atom_list[i].a_w.w_float))
 				didClipAll = false;
