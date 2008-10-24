@@ -53,6 +53,9 @@ TTErr RampUnit::setFunction(const TTValue& functionName)
 	TTErr	err;
 	
 	attrFunction = functionName;
+	if(attrFunction == TT("none"))
+		attrFunction = TT("linear");
+	
 	err = FunctionLib::createUnit(attrFunction, &functionUnit);
 	if(err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
