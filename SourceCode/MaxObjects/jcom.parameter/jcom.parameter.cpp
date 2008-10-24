@@ -1108,9 +1108,9 @@ void param_float(t_param *x, double value)
 	// this block added for implementing the dataspace features [TAP]
 	{
 		t_atom	a;
-		t_atom*	r;
-		bool	alloc;
-		long	count;
+		t_atom*	r = NULL;
+		bool	alloc = false;
+		long	count = 0;
 		
 		atom_setfloat(&a, value);
 		param_convert_units(x, 1, &a, &count, &r, &alloc);

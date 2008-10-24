@@ -34,6 +34,8 @@ bool param_clip_int(t_param *x)
 		clipped = TTLimitMax(val, (long)x->common.attr_range[1]);
 	else if(x->common.attr_clipmode == jps_both)
 		clipped = TTClip(val, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
+	else
+		clipped = val;
 
 	atom_setlong(&x->attr_value, clipped);	// must be set for all cases to cast the jps_none type correctly too
 	return clipped != val;
@@ -52,6 +54,8 @@ bool param_clip_float(t_param *x)
 		clipped = TTLimitMax(val, x->common.attr_range[1]);
 	else if(x->common.attr_clipmode == jps_both)
 		clipped = TTClip(val, x->common.attr_range[0], x->common.attr_range[1]);
+	else
+		clipped = val;
 
 	atom_setfloat(&x->attr_value, clipped);	// must be set for all cases to cast the jps_none type correctly too
 	return clipped != val;
