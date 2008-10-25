@@ -339,23 +339,33 @@ void hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv)		// numb
 	   	pIter = preset->find_if(preset->begin(), preset->end(), presetByNumber(*pIter, preset_num));
 	if(pIter != preset->end()) {
 	*/
-	for(pIter = preset->begin(); pIter != preset->end(); ++pIter) {
+	critical_enter(0);
+	pIter = preset->begin();
+	while(pIter != preset->end()){
 		p = *pIter;
 		if(p->number == preset_num) {
 			item = p->item;
 			// Free the parameters this preset contains
+			while(!item->empty()) {
+				itemIterator = item->begin();
+  				sysmem_freeptr(*itemIterator);
+				item->remove(itemIterator);
+			}
+
+			/*
 			for(itemIterator = item->begin(); itemIterator != item->end(); ++itemIterator) {
-				sysmem_freeptr(*itemIterator);
+			sysmem_freeptr(*itemIterator);
 				itemIterator = item->erase(itemIterator);
 			}
+			*/
 			delete item;
 			// Free the preset itself
 			sysmem_freeptr(p);
 			// Remove from linked list
 			pIter = preset->erase(pIter);
 		}
+		else pIter++;
 	}
-	
 	
 	// Allocate the slot for this preset, and store the data
 	p = (t_preset *)sysmem_newptr(sizeof(t_preset));
