@@ -100,6 +100,8 @@ int main(void)				// main recieves a copy of the Max function macros table
 	CLASS_ATTR_SYM(c,		"algorithm_type",	0,	t_hub,	attr_algorithm_type);
 	CLASS_ATTR_SYM(c,		"description",		0,	t_hub,	attr_description);
 	
+	CLASS_ATTR_SYM(c,		"user_path",		0,	t_hub,	user_path);	// the path of the last file used to save the presets
+
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	s_hub_class = c;

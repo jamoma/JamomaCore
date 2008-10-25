@@ -474,14 +474,16 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 //void hub_preset_read(t_hub *x, t_symbol *userpath)
 void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol	*userpath;
-
+	t_symbol *arg_path;
 	if(argc)
-		userpath = atom_getsym(argv);
+		arg_path = atom_getsym(argv);
 	else
-		userpath = _sym_nothing;
+		arg_path = _sym_nothing;
 
-	defer(x, (method)hub_preset_doread, userpath, 0, 0L);
+	// SAVE PATH IN user_path ATTRIBUTE
+	x->user_path = arg_path;
+
+	defer(x, (method)hub_preset_doread, arg_path, 0, 0L);
 }
 
 
@@ -496,6 +498,9 @@ t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 	if(!userpath->s_name[0]){											// Empty string
 		if(open_dialog(filename, &path, &outtype ,NULL, -1))			// Returns 0 if successful
 			return MAX_ERR_GENERIC;										// User Cancelled
+
+		// ELSE WE SAVE THE filename IN THE HUB ATTRIBUTE user_path.
+		x->user_path = gensym(filename);
 	}
 	else{
 		strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
@@ -858,15 +863,26 @@ void hub_presets_post(t_hub *x, t_symbol*, long, t_atom*)
 	critical_exit(0);
 }
 
+void hub_preset_write_again(t_hub *x)
+{
+	t_atom a;
+
+	if(x->user_path){
+		atom_setsym(&a,x->user_path);
+		defer(x, (method)hub_preset_write, NULL, 1, &a);
+	}
+}
 
 void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol	*userpath;
-
+	t_symbol *arg_path;
 	if(argc)
-		userpath = atom_getsym(argv);
+		arg_path = atom_getsym(argv);
 	else
-		userpath = _sym_nothing;
+		arg_path = _sym_nothing;
+
+	// SAVE PATH IN user_path ATTRIBUTE
+	x->user_path = arg_path;
 
 	if(x->preset->empty()){	// no presets have been stored, so store the current state as the default
 		t_atom	a[2];
@@ -885,7 +901,7 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		hub_preset_store(x, gensym("/preset/store"), 2, b);
 	}
 	
-	defer(x, (method)hub_preset_dowrite, userpath, 0, 0L);
+	defer(x, (method)hub_preset_dowrite, arg_path, 0, 0L);
 }
 
 void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
@@ -946,7 +962,10 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 		saveas_promptset("Save Preset...");									// Instructional Text in the dialog
 		err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
 		if(err)																// User Cancelled
-			return;															
+			return;
+
+		// ELSE WE SAVE THE filename IN THE HUB ATTRIBUTE user_path.
+		x->user_path = gensym(filename);
 	}
 	else{
 		strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string

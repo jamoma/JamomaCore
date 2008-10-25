@@ -86,6 +86,7 @@ typedef struct _hub{							///< Data Structure for this object
 	t_object		*preset_interface;
 	long			preset_lastnum;
 	t_symbol		*preset_lastname;
+	t_symbol		*user_path;					///< path of the last file used to save the presets
 	char*			text;						///< text used by /getstate window
 	TTUInt32		textSize;					///< how many chars are alloc'd to text
 	t_object*		textEditor;					///< the text editor window
@@ -261,6 +262,12 @@ short		hub_preset_validate(t_hub *x, char *xml_path);
  */
 void 		hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv);
 
+/** Writes on the same XML preset file.
+ * @param x the hub whose presets should be written to disk
+ * @param userpath path to the XML file to write
+ * @see  hub_preset_dowrite hub_preset_read hub_preset_doread 
+ */
+void 		hub_preset_write_again(t_hub *x);
 
 /** This does the actual work for @ref hub_preset_write since the actual
  * act of writing the file is defered to the low priority thread 
