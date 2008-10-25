@@ -7,7 +7,7 @@
   <preset number='1' name='default'>
     <item name='fullscreen' type='msg_int' priority='0'>0</item>
     <item name='layout' type='msg_int' priority='0'>1</item>
-    <item name='positions' type='msg_list' priority='0'>/temp 100 100 1 </item>
+    <item name='positions' type='msg_list' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
