@@ -68,9 +68,9 @@ void hub_internals_create(t_hub *x)
 	anObject->action = (method)hub_preset_write;
 	hashtab_store(x->hash_internals, gensym("preset/write"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"preset/writeagain",		"msg_symbol",	"none",	"Write on same xml-preset file.", 1);
-	anObject->action = (method)hub_preset_write_again;
-	hashtab_store(x->hash_internals, gensym("preset/writeagain"), (t_object*)anObject);
+//	anObject = new hubInternalObject("jcom.message", 	"preset/writeagain",		"msg_symbol",	"none",	"Write on same xml-preset file.", 1);
+//	anObject->action = (method)hub_preset_write_again;
+//	hashtab_store(x->hash_internals, gensym("preset/writeagain"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/recall",			"msg_generic",	"none",	"Recall a preset by number - you can also choose presets from the module menu.", 1);
 	anObject->action = (method)hub_preset_recall;
