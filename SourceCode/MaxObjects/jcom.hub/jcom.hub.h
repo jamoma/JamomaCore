@@ -317,6 +317,10 @@ void 		hub_preset_store(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// nu
  */
 void 		hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv);	// number & optional name
 
+/** Stores a preset in the last recalled or stored preset.
+ * @param x the hub containing the preset
+ */
+void		hub_preset_store_current(t_hub *x);
 
 /** Recall the default file and recall the first preset
  * @param x the hub whose default preset should be recalled */

@@ -88,6 +88,10 @@ void hub_internals_create(t_hub *x)
 	anObject->action = (method)hub_preset_store_next;
 	hashtab_store(x->hash_internals, gensym("preset/storenext"), (t_object*)anObject);
 
+	anObject = new hubInternalObject("jcom.message", 	"preset/storecurrent",		"msg_list",		"none",	"Store on the last recalled or stored preset", 1);
+	anObject->action = (method)hub_preset_store_current;
+	hashtab_store(x->hash_internals, gensym("preset/storecurrent"), (t_object*)anObject);
+
 	anObject = new hubInternalObject("jcom.message", 	"preset/interpolate",		"msg_list",		"none",	"Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument.", 0);
 	anObject->action = (method)hub_preset_interpolate;
 	hashtab_store(x->hash_internals, gensym("preset/interpolate"), (t_object*)anObject);

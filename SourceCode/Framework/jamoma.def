@@ -180,7 +180,9 @@ EXPORTS
 		jps_slash_preset_slash_recall
 		jps_slash_preset_slash_store
 		jps_slash_preset_slash_storenext
+		jps_slash_preset_slash_storecurrent
 		jps_slash_preset_slash_write
+		jps_slash_preset_slash_writeagain
 		jps_slash_ui_slash_freeze
 		jps_slash_ui_slash_refresh
 		jps_slash_video_bypass

@@ -168,8 +168,10 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_slash_preset_slash_load,		// /preset/load
 				*jps_slash_preset_slash_store,		// /preset/store
 				*jps_slash_preset_slash_storenext,	// /preset/storenext
+				*jps_slash_preset_slash_storecurrent,	// /preset/storecurrent
 				*jps_slash_preset_slash_recall,
 				*jps_slash_preset_slash_write,		// /preset/save
+				*jps_slash_preset_slash_writeagain,	// /preset/save
 				*jps_slash_preset_slash_copy,		// /preset/save
 				*jps_ui_slash_freeze,				//	ui/freeze
 				*jps_slash_ui_slash_freeze,			// /ui/freeze

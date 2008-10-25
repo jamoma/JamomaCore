@@ -440,6 +440,11 @@ void hub_preset_store_next(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	// TODO: do we not have to free text?
 }
 
+void hub_preset_store_current(t_hub *x)
+{ 
+	defer(x,(method)hub_preset_store, NULL, 0, 0L);
+}
+
 // read the default file and recall the first preset
 void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 {

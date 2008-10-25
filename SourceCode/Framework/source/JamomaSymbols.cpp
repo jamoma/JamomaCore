@@ -149,8 +149,10 @@ t_symbol	*jps_done,
 			*jps_slash_preset_slash_load,		// 	/preset/load
 			*jps_slash_preset_slash_store,
 			*jps_slash_preset_slash_storenext,
+			*jps_slash_preset_slash_storecurrent,
 			*jps_slash_preset_slash_recall,
 			*jps_slash_preset_slash_write,		// 	/preset/save
+			*jps_slash_preset_slash_writeagain,	// 	/preset/save
 			*jps_slash_preset_slash_copy,		// 	/preset/save
 			*jps_ui_slash_freeze,				//	ui/freeze
 			*jps_slash_ui_slash_freeze,			//	/ui/freeze
@@ -321,8 +323,10 @@ void jamomaSymbolsInit()
 	jps_slash_preset_slash_load		= gensym("/preset/load");
 	jps_slash_preset_slash_recall	= gensym("/preset/recall");
 	jps_slash_preset_slash_write	= gensym("/preset/write");
-	jps_slash_preset_slash_store	= gensym("/preset/store");		
-	jps_slash_preset_slash_storenext	= gensym("/preset/storenext");		
+	jps_slash_preset_slash_writeagain	= gensym("/preset/writeagain");
+	jps_slash_preset_slash_store	= gensym("/preset/store");
+	jps_slash_preset_slash_storenext	= gensym("/preset/storenext");
+	jps_slash_preset_slash_storecurrent = gensym("/preset/storecurrent");
 	jps_slash_preset_slash_copy		= gensym("/preset/copy");		
 	jps_ui_slash_freeze				= gensym("ui/freeze");
 	jps_slash_ui_slash_freeze		= gensym("/ui/freeze");

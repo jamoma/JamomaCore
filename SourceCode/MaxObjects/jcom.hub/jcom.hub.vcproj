@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="jcom.hub"
 	ProjectGUID="{262189C1-79A4-4352-A324-883DA0561191}"
 	RootNamespace="jcom.hub"
@@ -188,6 +188,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\jcom.hub.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
