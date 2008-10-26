@@ -26,6 +26,7 @@ typedef t_object*	ObjectPtr;
 typedef t_symbol*	SymbolPtr;
 typedef t_atom*		AtomPtr;
 typedef long		AtomCount;
+typedef t_max_err	MaxErr;
 
 typedef TTErr (*TTValidityCheckFunction)(const TTPtr data);		///< A type that can be used to store a pointer to a validity checking function.
 
