@@ -1,0 +1,6 @@
+;exported symbols
+
+LIBRARY "jcom.textslider.mxe"
+
+EXPORTS
+	main
