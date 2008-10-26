@@ -29,6 +29,7 @@ typedef struct _return {
 // Prototypes
 void*		return_new(t_symbol *s, long argc, t_atom *argv);
 void		return_makesend(t_return *x);
+void		return_free(t_return *x);
 void		return_assist(t_return *x, void *b, long msg, long arg, char *dst);
 void		return_updatename(t_return *x);
 void		return_bang(t_return *x);
@@ -58,7 +59,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	common_symbols_init();
 
 	// Define our class
-	c = class_new("jcom.return",(method)return_new, (method)jcom_core_subscriber_common_free, sizeof(t_return), (method)0L, A_GIMME, 0);
+	c = class_new("jcom.return",(method)return_new, (method)return_free, sizeof(t_return), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class:
 	class_addmethod(c, (method)return_bang,					"bang",			A_CANT, 0L);
@@ -133,6 +134,14 @@ void return_makesend(t_return *x)
 	}
 	else
 		defer_low(x, (method)return_makesend, 0, 0, 0);
+}
+
+
+void return_free(t_return *x)
+{
+	jcom_core_subscriber_common_free((t_jcom_core_subscriber_common*)x);
+	if(x->send)
+		object_free(x->send);
 }
 
 
@@ -251,9 +260,8 @@ void return_send_feedback(t_return *x)
 		}
 		else
 			object_method_typed(x->send, _sym_bang, 0, NULL, NULL);	
-
-		x->output_len = 1;	// truncate to just the name of this jcom.return object
 	}
+	x->output_len = 1;	// truncate to just the name of this jcom.return object
 }
 
 
