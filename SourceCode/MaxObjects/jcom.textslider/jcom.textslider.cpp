@@ -44,6 +44,7 @@ typedef struct _textslider{
 	t_jrgba		attrTextColor;		///< Text color
 	
 	float		attrValue;			///< The slider value
+	float		attrRange[2];		///< ATTRIBUTE: low, high
 	void		*outlet;			///< Outlet
 } t_textslider;
 
@@ -56,6 +57,8 @@ void		textslider_assist(t_textslider *x, void *b, long m, long a, char *s);
 void		textslider_bang(t_textslider *x);
 void		textslider_int(t_textslider *x, long value);
 void		textslider_float(t_textslider *x, double value);
+t_max_err	textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv);
+t_max_err	textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv);
 void		textslider_paint(t_textslider *x, t_object *view);
 void*		textslider_oksize(t_textslider *x, t_rect *newrect);
 
@@ -109,6 +112,12 @@ int main(void)
 	
 	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 100. 12.");
 	CLASS_ATTR_MIN(c,						"patching_size",	0,	"1. 1.");
+
+	CLASS_ATTR_FLOAT_ARRAY(c,				"range",		0,	t_textslider,	attrRange, 2);
+	CLASS_ATTR_LABEL(c,						"range",		0,	"Range");
+	CLASS_ATTR_DEFAULT(c,					"range",		0,	"0.0 1.0");
+	CLASS_ATTR_SAVE(c,						"range",		0);
+	CLASS_ATTR_ACCESSORS(c,					"range",		textslider_getRange, textslider_setRange);
 	
 	class_register(CLASS_BOX, c);
 	s_textslider_class = c;		
@@ -158,7 +167,9 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 	x->obj.z_box.b_firstin = (t_object*)x;
 
 	x->outlet = outlet_new(x, 0);
-	
+	x->attrRange[0] = 0.;
+	x->attrRange[1] = 1.;
+
 	attr_dictionary_process(x,d);
 	jbox_ready((t_jbox *)x);
 	return x;
@@ -229,6 +240,32 @@ void textslider_float(t_textslider *x, double value)
 }
 
 
+t_max_err textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv)
+{
+
+	*argc = 2;
+	
+	//sysmem_ptrsize(*argv)
+	// FIXME: This checks if we have memory passed in, good, but how do we know if it is enough memory for 2 atoms? [TAP]
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);
+	
+	atom_setfloat(*argv, x->attrRange[0]);
+	atom_setfloat(*argv+1, x->attrRange[1]);	
+
+	return MAX_ERR_NONE;
+}
+
+t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc)
+		x->attrRange[0] = atom_getfloat(argv+0);
+	if(argc > 1)
+		x->attrRange[1] = atom_getfloat(argv+1);
+	
+	return MAX_ERR_NONE;
+}
+
 
 
 #if 0
@@ -251,7 +288,12 @@ void textslider_paint(t_textslider *x, t_object *view)
 {
 	t_rect			rect;
 	t_jgraphics*	g;
-	double			value = TTClip(x->attrValue, 0.0f, 1.0f);
+	double			value;
+	
+	if (x->attrRange[0] == x->attrRange[1])
+		value = 0.5;
+	else
+		value = TTClip( (x->attrValue - x->attrRange[0])/(x->attrRange[1] - x->attrRange[0]), 0.0f, 1.0f);
 	double			position;
 	t_jrgba			c;
 	
