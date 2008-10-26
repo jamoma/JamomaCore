@@ -117,8 +117,12 @@ void lydOutAssist(LydOutPtr x, void* b, long msg, long arg, char* dst)
 {
 	if(msg==1)			// Inlets
 		strcpy(dst, "multichannel audio connection and control messages");		
-	else if(msg==2)		// Outlets
-		strcpy(dst, "(signal) single-channel output");
+	else if(msg==2){	// Outlets
+		if(arg == x->maxNumChannels)
+			strcpy(dst, "dumpout");
+		else
+			strcpy(dst, "(signal) single-channel output");
+	}
 }
 
 TTErr lydOutSetup(LydOutPtr x)
@@ -158,6 +162,7 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 	void		**audioVectors = NULL;
 	MaxErr		err;
 	ObjectPtr	patcher = NULL;
+	ObjectPtr	box = NULL;
 	ObjectPtr	o = NULL;
 	method		lydbaerSetupMethod = NULL;
 	
@@ -174,14 +179,15 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 		Thus, after this has happened every object will know about the object above it in the graph,
 		and we will then be able to pull audio from them.
 	 */ 
-		
+
 	err = object_obex_lookup(x, gensym("#P"), &patcher);
-	o = jpatcher_get_firstobject(patcher);
-	while(o) {
+	box = jpatcher_get_firstobject(patcher);
+	while(box) {
+		o = jbox_get_object(box);
 		lydbaerSetupMethod = zgetfn(o, gensym("lydbaerSetup"));
 		if(lydbaerSetupMethod)
 			err = (MaxErr)lydbaerSetupMethod(o);
-		o = jbox_get_nextobject(o);
+		box = jbox_get_nextobject(box);
 	}
 	
 	// Setup the perform method

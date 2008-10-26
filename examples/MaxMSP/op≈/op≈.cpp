@@ -12,7 +12,7 @@
 
 // Data Structure for this object
 typedef struct LydOp {
-    t_pxobject			obj;
+    t_object			obj;
 	LydbaerObjectPtr	lydbaer;
 	void*				lydbaerOutlet;
 	SymbolPtr			attrOperator;
@@ -56,7 +56,7 @@ int main(void)
 	CLASS_ATTR_ACCESSORS(c,	"operator",	NULL,	lydOpSetOperator);
 	
 	CLASS_ATTR_FLOAT(c,		"operand",	0,		LydOp,	attrOperand);
-	CLASS_ATTR_ACCESSORS(c,	"operator",	NULL,	lydOpSetOperand);
+	CLASS_ATTR_ACCESSORS(c,	"operand",	NULL,	lydOpSetOperand);
 	
 	class_register(_sym_box, c);
 	sLydOpClass = c;
@@ -78,7 +78,11 @@ LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		// TODO: we need to update objects to work with the correct number of channels when the network is configured
 		// Either that, or when we pull we just up the number of channels if when we need to ???
-		x->lydbaer = new LydbaerObject(TT("op"), 8);
+		x->lydbaer = new LydbaerObject(TT("operator"), 8);
+		if(!x->lydbaer->audioObject){
+			object_error(ObjectPtr(x), "cannot load TTBlue object");
+			return NULL;
+		}
 		
 		attr_args_process(x,argc,argv);
 	}
@@ -88,7 +92,6 @@ LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void lydOpFree(LydOpPtr x)
 {
-	dsp_free((t_pxobject *)x);
 	delete x->lydbaer;
 }
 
@@ -100,9 +103,13 @@ void lydOpFree(LydOpPtr x)
 void lydOpAssist(LydOpPtr x, void* b, long msg, long arg, char* dst)
 {
 	if(msg==1)			// Inlets
-		strcpy(dst, "multichannel audio connection and control messages");		
-	else if(msg==2)		// Outlets
-		strcpy(dst, "(signal) single-channel output");
+		strcpy(dst, "multichannel input and control messages");		
+	else if(msg==2){	// Outlets
+		if(arg == 0)
+			strcpy(dst, "multichannel output");
+		else
+			strcpy(dst, "dumpout");
+	}
 }
 
 
