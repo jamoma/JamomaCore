@@ -6,9 +6,16 @@
 >
   <preset number='1' name='default'>
     <item name='channel' type='msg_int' priority='0'>1</item>
+    <item name='midiin' type='msg_symbol' priority='0'>Fireface (754) Port 1</item>
+    <item name='mute' type='msg_toggle' priority='0'>0</item>
+    <item name='resolution' type='msg_int' priority='0'>12</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+  <preset number='2' name='chateau de preset'>
+    <item name='channel' type='msg_int' priority='0'>1</item>
     <item name='midiin' type='msg_symbol' priority='0'>0</item>
     <item name='mute' type='msg_toggle' priority='0'>0</item>
-    <item name='resolution' type='msg_int' priority='0'>0</item>
+    <item name='resolution' type='msg_int' priority='0'>12</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
