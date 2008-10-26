@@ -7,7 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "lydbær.h"
+#include "lydbaer.h"
 
 
 LydbaerObject::LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels)
@@ -107,36 +107,4 @@ TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
 	}
 	return kTTErrNone;
 }
-
-
-#if 0
-#pragma mark -
-#pragma mark LydbaerSource Class Implementation
-#endif
-
-
-#define thisTTClass LydbaerSource
-
-LydbaerSource::LydbaerSource(TTUInt16 newMaxNumChannels)
-: TTAudioObject("lydbaer.source", newMaxNumChannels)
-{
-	buffer = new TTAudioSignal(newMaxNumChannels);
-	setProcessMethod(processAudio);
-}
-
-
-LydbaerSource::~LydbaerSource()
-{
-	delete buffer;
-}
-
-
-TTErr LydbaerSource::processAudio(TTAudioSignal& unused, TTAudioSignal& out)
-{
-	return TTAudioSignal::copy(*buffer, out);
-}
-
-
-// Register our class with the TTBlue environment
-TT_CLASS_SETUP("lydbaer.source", "audio, wrapper", LydbaerSource);
 

@@ -7,7 +7,7 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "jpatcher_api.h"
 
-#include "lydbær.h"
+#include "lydbaer.h"
 #include "TTClassWrapperMax.h"
 
 

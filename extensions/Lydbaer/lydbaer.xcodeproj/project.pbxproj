@@ -8,16 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		22398BB20E243EAE00A5F732 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22398BB10E243EAE00A5F732 /* TTBlue.framework */; };
-		2259470D0EB4B75500E33619 /* lydbær.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259470B0EB4B75500E33619 /* lydbær.cpp */; };
-		2259470E0EB4B75500E33619 /* lydbær.h in Headers */ = {isa = PBXBuildFile; fileRef = 2259470C0EB4B75500E33619 /* lydbær.h */; };
+		225948260EB4E53800E33619 /* lydbaer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225948240EB4E53800E33619 /* lydbaer.cpp */; };
+		225948270EB4E53800E33619 /* lydbaer.h in Headers */ = {isa = PBXBuildFile; fileRef = 225948250EB4E53800E33619 /* lydbaer.h */; };
+		2259482C0EB4E57400E33619 /* lydbaerSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2259482B0EB4E57400E33619 /* lydbaerSource.cpp */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22398BB10E243EAE00A5F732 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
-		2259470B0EB4B75500E33619 /* lydbær.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "lydbær.cpp"; sourceTree = "<group>"; };
-		2259470C0EB4B75500E33619 /* lydbær.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "lydbær.h"; sourceTree = "<group>"; };
+		225948240EB4E53800E33619 /* lydbaer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lydbaer.cpp; sourceTree = "<group>"; };
+		225948250EB4E53800E33619 /* lydbaer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lydbaer.h; sourceTree = "<group>"; };
+		2259482B0EB4E57400E33619 /* lydbaerSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lydbaerSource.cpp; sourceTree = "<group>"; };
 		D2AAC09D05546B4700DB518D /* Lydbær.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "Lydbær.ttdylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -64,8 +66,9 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				2259470B0EB4B75500E33619 /* lydbær.cpp */,
-				2259470C0EB4B75500E33619 /* lydbær.h */,
+				225948250EB4E53800E33619 /* lydbaer.h */,
+				225948240EB4E53800E33619 /* lydbaer.cpp */,
+				2259482B0EB4E57400E33619 /* lydbaerSource.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -77,7 +80,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2259470E0EB4B75500E33619 /* lydbær.h in Headers */,
+				225948270EB4E53800E33619 /* lydbaer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +110,7 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "lydbær" */;
+			buildConfigurationList = 1DEB916408733D950010E9CD /* Build configuration list for PBXProject "lydbaer" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* TTClipper */;
@@ -141,7 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2259470D0EB4B75500E33619 /* lydbær.cpp in Sources */,
+				225948260EB4E53800E33619 /* lydbaer.cpp in Sources */,
+				2259482C0EB4E57400E33619 /* lydbaerSource.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +235,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "lydbær" */ = {
+		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "lydbaer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB916508733D950010E9CD /* Development */,
