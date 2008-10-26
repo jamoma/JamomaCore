@@ -262,6 +262,8 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 		x->attrRange[0] = atom_getfloat(argv+0);
 	if(argc > 1)
 		x->attrRange[1] = atom_getfloat(argv+1);
+
+	jbox_redraw((t_jbox*)x);
 	
 	return MAX_ERR_NONE;
 }
