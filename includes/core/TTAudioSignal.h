@@ -158,6 +158,37 @@ public:
 	 *	@param		signal			The signal that we want to investigate.
 	 *	@return		The number of channels of the signal.		*/
 	static TTUInt16 getNumChannels(const TTAudioSignal& signal);
+	
+	
+	/**	Sum another audio signal's samples with this audio signal's samples.
+	 */
+	TTAudioSignal& operator += (const TTAudioSignal& rightHandValue)
+	{
+		short			vs;
+		TTSampleValue*	inSample;
+		TTSampleValue*	outSample;
+		short			channelCount = getMaxChannelCount(*this, rightHandValue);
+		short			channel;
+		
+		if(channelCount > maxNumChannels)
+			channelCount = maxNumChannels;
+		if(channelCount > rightHandValue.maxNumChannels)
+			channelCount = rightHandValue.maxNumChannels;
+		
+		for(channel=0; channel<channelCount; channel++){
+			inSample = sampleVectors[channel];
+			outSample = rightHandValue.sampleVectors[channel];
+
+			if(vectorSize > rightHandValue.vectorSize)
+				vs = rightHandValue.vectorSize;
+			else
+				vs = vectorSize;
+
+			while(vs--)
+				*outSample++ += *inSample++;
+		}
+		return *this;
+	}
 };
 
 
