@@ -485,17 +485,14 @@ void hub_preset_read(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 	else
 		arg_path = _sym_nothing;
 
-	// SAVE PATH IN user_path ATTRIBUTE
-	x->user_path = arg_path;
-
 	defer(x, (method)hub_preset_doread, arg_path, 0, 0L);
 }
 
 
 t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 {
-	char 			filename[256];			// for storing the name of the file locally
-	char 			fullpath[512];			// path and name passed on to the xml parser
+	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
+	char 			fullpath[MAX_PATH_CHARS];		// path and name passed on to the xml parser
 	short 			path;					// pathID#
 	long			outtype;				// the file type that is actually true
 
@@ -503,9 +500,6 @@ t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 	if(!userpath->s_name[0]){											// Empty string
 		if(open_dialog(filename, &path, &outtype ,NULL, -1))			// Returns 0 if successful
 			return MAX_ERR_GENERIC;										// User Cancelled
-
-		// ELSE WE SAVE THE filename IN THE HUB ATTRIBUTE user_path.
-		x->user_path = gensym(filename);
 	}
 	else{
 		strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
@@ -517,6 +511,10 @@ t_max_err hub_preset_doread(t_hub *x, t_symbol *userpath)
 	}
 
 	jcom_core_getfilepath(path, filename, fullpath);
+	
+	// ... AND WE SAVE THE filepath IN THE HUB ATTRIBUTE user_path.
+	x->user_path = gensym(fullpath);
+
 	//post("path for xml preset file: %s", temppath);
 	hub_preset_parse(x, fullpath);
 	return MAX_ERR_NONE;
@@ -872,10 +870,12 @@ void hub_preset_write_again(t_hub *x)
 {
 	t_atom a;
 
-	if(x->user_path){
-		atom_setsym(&a,x->user_path);
+	if(x->user_path->s_name[0]){
+		atom_setsym(&a,jps_slash_preset_slash_writeagain);
 		defer(x, (method)hub_preset_write, NULL, 1, &a);
 	}
+	else
+		object_error((t_object*)x, "%s module: no preset file specified active", x->attr_name);
 }
 
 void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
@@ -885,9 +885,6 @@ void hub_preset_write(t_hub *x, t_symbol *msg, long argc, t_atom *argv)
 		arg_path = atom_getsym(argv);
 	else
 		arg_path = _sym_nothing;
-
-	// SAVE PATH IN user_path ATTRIBUTE
-	x->user_path = arg_path;
 
 	if(x->preset->empty()){	// no presets have been stored, so store the current state as the default
 		t_atom	a[2];
@@ -951,7 +948,8 @@ void writeList(t_filehandle *fh, long *eof, t_preset_item *item)
 void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 {
 	long 			type = 'TEXT';				// four-char code for Mac file type
-	char 			filename[MAX_FILENAME_CHARS];				// for storing the name of the file locally
+	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
+	char 			fullpath[MAX_PATH_CHARS];	// for storing the absolute path of the file
 	short 			path, err;					// pathID#, error number
 	long			outtype;					// the file type that is actually true
 	t_filehandle	file_handle;				// a reference to our file (for opening it, closing it, etc.)
@@ -961,27 +959,38 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 	presetItemList	*item = NULL;				// for accessing items of the preset
 	t_symbol		*result;
 
-	// SPECIFY THE FILE WE WANT TO WRITE
-	if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
-		snprintf(filename, MAX_FILENAME_CHARS, "%s.xml", x->attr_name->s_name);					// Default File Name
-		saveas_promptset("Save Preset...");									// Instructional Text in the dialog
-		err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
-		if(err)																// User Cancelled
-			return;
-
-		// ELSE WE SAVE THE filename IN THE HUB ATTRIBUTE user_path.
-		x->user_path = gensym(filename);
+	if(userpath == jps_slash_preset_slash_writeagain)
+	{
+	// THE FILE WE WANT TO WRITE IS ALREADY SPECIFIED
+		strcpy(filename, x->user_path->s_name);
+		path = 0;
+		err = path_createsysfile(filename, path, type, &file_handle);
+			if(err)
+				return;
 	}
 	else{
-		strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
-		path = 0;		
-	}
+		// SPECIFY THE FILE WE WANT TO WRITE
+		if(!userpath->s_name[0]){												// Empty string - Throw up a dialog
+			snprintf(filename, MAX_FILENAME_CHARS, "%s.xml", x->attr_name->s_name);		// Default File Name
+			saveas_promptset("Save Preset...");									// Instructional Text in the dialog
+			err = saveasdialog_extended(filename, &path, &outtype, &type, 1);	// Returns 0 if successful
+			if(err)																// User Cancelled
+				return;
+		}
+		else{
+			strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
+			path = 0;
+		}
 
-	// NOW ATTEMPT TO CREATE THE FILE...
-	err = path_createsysfile(filename, path, type, &file_handle);
-	if(err){																// Handle any errors that occur
-		object_error((t_object*)x, "%s - error %d creating file", filename, err);
-		return;	
+		// NOW ATTEMPT TO CREATE THE FILE...
+		err = path_createsysfile(filename, path, type, &file_handle);
+		if(err){																// Handle any errors that occur
+			object_error((t_object*)x, "%s - error %d creating file", filename, err);
+			return;	
+		}
+		// ... AND WE SAVE THE filepath IN THE HUB ATTRIBUTE user_path.
+		jcom_core_getfilepath(path, filename, fullpath);
+		x->user_path = gensym(fullpath);
 	}
 
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
