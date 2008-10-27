@@ -176,16 +176,19 @@ public:
 			channelCount = rightHandValue.maxNumChannels;
 		
 		for(channel=0; channel<channelCount; channel++){
-			inSample = sampleVectors[channel];
-			outSample = rightHandValue.sampleVectors[channel];
+			inSample = rightHandValue.sampleVectors[channel];
+			outSample = sampleVectors[channel];
 
 			if(vectorSize > rightHandValue.vectorSize)
 				vs = rightHandValue.vectorSize;
 			else
 				vs = vectorSize;
 
-			while(vs--)
-				*outSample++ += *inSample++;
+			while(vs--){
+				(*outSample) = (*outSample) + (*inSample);
+				outSample++;
+				inSample++;
+			}
 		}
 		return *this;
 	}
