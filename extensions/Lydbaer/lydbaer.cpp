@@ -29,9 +29,21 @@ LydbaerObject::~LydbaerObject()
 }
 
 
+TTErr LydbaerObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
+{
+	if(audioOutput)
+		TTObjectRelease(audioOutput);
+
+	audioOutput = (TTAudioSignalPtr)TTObjectReference(newOutputPtr);
+	return kTTErrNone;
+}
+
+
 TTErr LydbaerObject::prepareToProcess()
 {
 	processStatus = kProcessNotStarted;
+	for(TTUInt16 i=0; i<numSources; i++)
+		audioSources[i]->prepareToProcess();
 	return kTTErrNone;
 }
 
@@ -53,8 +65,13 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject)
 		audioSources = (LydbaerObjectPtr*)malloc(sizeof(LydbaerObjectPtr) * numSources);
 	else
 		audioSources = (LydbaerObjectPtr*)realloc(audioSources, sizeof(LydbaerObjectPtr) * numSources);
-
 	audioSources[numSources-1] = anObject;
+	
+	// now match our source's vector size (and number of channels?)
+	//audioOutput->vectorSize = anObject->audioOutput->vectorSize;
+	//audioOutput->numChannels = anObject->audioOutput->numChannels;
+	audioInput->allocWithVectorSize(anObject->audioOutput->getVectorSize());
+	audioOutput->allocWithVectorSize(anObject->audioOutput->getVectorSize());
 	return kTTErrNone;
 }
 

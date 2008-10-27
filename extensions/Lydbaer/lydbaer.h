@@ -52,7 +52,11 @@ public:
 	
 	/**	Destructor.		*/
 	virtual ~LydbaerObject();
-	
+
+	/**	Rather than use the internal audio output signal, it is possible to set your own.
+		One example for why you might want this is for creating generator objects.	*/
+	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
+
 	
 	/**	Clear the list of source objects from which this object will try to pull audio.	*/
 	TTErr resetSources();

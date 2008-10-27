@@ -7,7 +7,7 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbær.h"
+#include "maxbaer.h"
 
 // Data Structure for this object
 typedef struct LydIn {
@@ -25,6 +25,7 @@ typedef LydIn* LydInPtr;
 LydInPtr	lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydInFree(LydInPtr x);
 void		lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst);
+TTErr		lydInReset(LydInPtr x);
 TTErr		lydInSetup(LydInPtr x);
 TTErr		lydInObject(LydInPtr x, LydbaerObjectPtr audioSourceObject);
 t_int*		lydInPerform(t_int* w);
@@ -48,6 +49,7 @@ int main(void)
 	
 	c = class_new("in≈", (method)lydInNew, (method)lydInFree, sizeof(LydIn), (method)0L, A_GIMME, 0);
 	
+	class_addmethod(c, (method)lydInReset,				"lydbaerReset",		A_CANT, 0);
 	class_addmethod(c, (method)lydInSetup,				"lydbaerSetup",		A_CANT, 0);
  	class_addmethod(c, (method)lydInDsp,				"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)lydInAssist,				"assist",			A_CANT, 0); 
@@ -77,6 +79,7 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		x->lydbaer = new LydbaerObject(TT("lydbaer.source"), x->maxNumChannels);
+		x->lydbaer->setAudioOutputPtr(LydbaerSourcePtr(x->lydbaer->audioObject)->buffer);
 		
 		attr_args_process(x,argc,argv);
 		
@@ -114,13 +117,19 @@ void lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst)
 }
 
 
+TTErr lydInReset(LydInPtr x)
+{
+	return x->lydbaer->resetSources();
+}
+
+
 TTErr lydInSetup(LydInPtr x)
 {
 	Atom a;
 	
 	atom_setobj(&a, ObjectPtr(x->lydbaer));
 	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 1, &a);
-	return x->lydbaer->resetSources();
+	return kTTErrNone;
 }
 
 
@@ -132,8 +141,9 @@ t_int* lydInPerform(t_int* w)
 	
 	if(!x->obj.z_disabled){
 		for(i=0; i<x->numChannels; i++){
-			j = (i*2) + 1;
-			LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
+//			j = (i*2) + 1;
+//			LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
+			LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
 		}
 	}	
 	return w + (x->numChannels+2);

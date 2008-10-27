@@ -7,7 +7,7 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbær.h"
+#include "maxbaer.h"
 
 
 // Data Structure for this object
@@ -25,6 +25,7 @@ typedef LydOp* LydOpPtr;
 LydOpPtr	lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydOpFree(LydOpPtr x);
 void		lydOpAssist(LydOpPtr x, void* b, long msg, long arg, char* dst);
+TTErr		lydOpReset(LydOpPtr x);
 TTErr		lydOpSetup(LydOpPtr x);
 TTErr		lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject);
 MaxErr		lydOpSetOperator(LydOpPtr x, void *attr, AtomCount argc, AtomPtr argv);
@@ -47,6 +48,7 @@ int main(void)
 	
 	c = class_new("op≈", (method)lydOpNew, (method)lydOpFree, sizeof(LydOp), (method)0L, A_GIMME, 0);
 	
+	class_addmethod(c, (method)lydOpReset,				"lydbaerReset",		A_CANT, 0);
 	class_addmethod(c, (method)lydOpSetup,				"lydbaerSetup",		A_CANT, 0);
 	class_addmethod(c, (method)lydOpObject,				"lydbaerObject",	A_OBJ,	0);
  	class_addmethod(c, (method)lydOpAssist,				"assist",			A_CANT, 0); 
@@ -113,13 +115,21 @@ void lydOpAssist(LydOpPtr x, void* b, long msg, long arg, char* dst)
 }
 
 
+// METHODS SPECIFIC TO LYDBAER EXTERNALS
+
+TTErr lydOpReset(LydOpPtr x)
+{
+	return x->lydbaer->resetSources();
+}
+
+
 TTErr lydOpSetup(LydOpPtr x)
 {
 	Atom a;
 	
 	atom_setobj(&a, ObjectPtr(x->lydbaer));
 	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 1, &a);
-	return x->lydbaer->resetSources();
+	return kTTErrNone;
 }
 
 
@@ -129,11 +139,13 @@ TTErr lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject)
 }
 
 
+// ATTRIBUTE SETTERS
+
 MaxErr lydOpSetOperator(LydOpPtr x, void *attr, AtomCount argc, AtomPtr argv)
 {
 	if(argc){
 		x->attrOperator = atom_getsym(argv);
-		x->lydbaer->audioObject->setAttributeValue(TT("operator"), TT("x->attrOperator->s_name"));
+		x->lydbaer->audioObject->setAttributeValue(TT("operator"), TT(x->attrOperator->s_name));
 	}
 	return MAX_ERR_NONE;
 }

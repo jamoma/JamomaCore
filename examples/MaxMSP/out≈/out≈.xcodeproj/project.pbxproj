@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
-		225947260EB4B97700E33619 /* maxbaer.h in Headers */ = {isa = PBXBuildFile; fileRef = 225947250EB4B97700E33619 /* maxbaer.h */; };
-		225948000EB4E4D600E33619 /* lydbaer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225947FE0EB4E4D600E33619 /* lydbaer.cpp */; };
-		225948010EB4E4D600E33619 /* lydbaer.h in Headers */ = {isa = PBXBuildFile; fileRef = 225947FF0EB4E4D600E33619 /* lydbaer.h */; };
-		227B50010EB349AC00A75E8A /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = 227B50000EB349AC00A75E8A /* TTClassWrapperMax.h */; };
+		225948680EB4E74B00E33619 /* lydbaer.h in Headers */ = {isa = PBXBuildFile; fileRef = 225948640EB4E74B00E33619 /* lydbaer.h */; };
+		225948690EB4E74B00E33619 /* lydbaer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225948650EB4E74B00E33619 /* lydbaer.cpp */; };
+		2259486A0EB4E74B00E33619 /* maxbaer.h in Headers */ = {isa = PBXBuildFile; fileRef = 225948660EB4E74B00E33619 /* maxbaer.h */; };
+		2259486B0EB4E74B00E33619 /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = 225948670EB4E74B00E33619 /* TTClassWrapperMax.h */; };
 		22BFF61C0D2AB4D700BD97E5 /* out≈.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF61B0D2AB4D700BD97E5 /* out≈.cpp */; };
 		22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */; };
 		22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F229A50D48CA460018534E /* TTBlue.framework */; };
@@ -23,10 +23,10 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
-		225947250EB4B97700E33619 /* maxbaer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxbaer.h; path = ../maxbaer.h; sourceTree = SOURCE_ROOT; };
-		225947FE0EB4E4D600E33619 /* lydbaer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lydbaer.cpp; path = ../../../extensions/Lydbaer/lydbaer.cpp; sourceTree = SOURCE_ROOT; };
-		225947FF0EB4E4D600E33619 /* lydbaer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lydbaer.h; path = ../../../extensions/Lydbaer/lydbaer.h; sourceTree = SOURCE_ROOT; };
-		227B50000EB349AC00A75E8A /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		225948640EB4E74B00E33619 /* lydbaer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lydbaer.h; path = ../../../extensions/Lydbaer/lydbaer.h; sourceTree = SOURCE_ROOT; };
+		225948650EB4E74B00E33619 /* lydbaer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lydbaer.cpp; path = ../../../extensions/Lydbaer/lydbaer.cpp; sourceTree = SOURCE_ROOT; };
+		225948660EB4E74B00E33619 /* maxbaer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxbaer.h; path = ../maxbaer.h; sourceTree = SOURCE_ROOT; };
+		225948670EB4E74B00E33619 /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
 		22BFF61B0D2AB4D700BD97E5 /* out≈.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "out≈.cpp"; sourceTree = "<group>"; };
 		22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -53,7 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				08FB77ADFE841716C02AAC07 /* Source */,
-				227B4F4C0EB26F5200A75E8A /* Lydbær */,
+				225948630EB4E74B00E33619 /* Lydbaer */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
@@ -97,17 +97,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		227B4F4C0EB26F5200A75E8A /* Lydbær */ = {
+		225948630EB4E74B00E33619 /* Lydbaer */ = {
 			isa = PBXGroup;
 			children = (
-				225947FF0EB4E4D600E33619 /* lydbaer.h */,
-				225947FE0EB4E4D600E33619 /* lydbaer.cpp */,
-				225947250EB4B97700E33619 /* maxbaer.h */,
-				227B50000EB349AC00A75E8A /* TTClassWrapperMax.h */,
+				225948640EB4E74B00E33619 /* lydbaer.h */,
+				225948650EB4E74B00E33619 /* lydbaer.cpp */,
+				225948660EB4E74B00E33619 /* maxbaer.h */,
+				225948670EB4E74B00E33619 /* TTClassWrapperMax.h */,
 			);
-			name = "Lydbær";
-			path = "../../Lydbær";
-			sourceTree = SOURCE_ROOT;
+			name = Lydbaer;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -116,9 +115,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				227B50010EB349AC00A75E8A /* TTClassWrapperMax.h in Headers */,
-				225947260EB4B97700E33619 /* maxbaer.h in Headers */,
-				225948010EB4E4D600E33619 /* lydbaer.h in Headers */,
+				225948680EB4E74B00E33619 /* lydbaer.h in Headers */,
+				2259486A0EB4E74B00E33619 /* maxbaer.h in Headers */,
+				2259486B0EB4E74B00E33619 /* TTClassWrapperMax.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,7 +205,7 @@
 			files = (
 				22BFF61C0D2AB4D700BD97E5 /* out≈.cpp in Sources */,
 				22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */,
-				225948000EB4E4D600E33619 /* lydbaer.cpp in Sources */,
+				225948690EB4E74B00E33619 /* lydbaer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

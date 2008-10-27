@@ -7,7 +7,7 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbær.h"
+#include "maxbaer.h"
 
 
 // Data Structure for this object
@@ -27,7 +27,7 @@ typedef LydOut* LydOutPtr;
 LydOutPtr	lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydOutFree(LydOutPtr x);
 void		lydOutAssist(LydOutPtr x, void* b, long msg, long arg, char* dst);
-TTErr		lydOutSetup(LydOutPtr x);
+TTErr		lydOutReset(LydOutPtr x);
 TTErr		lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject);
 t_int*		lydOutPerform(t_int* w);
 void		lydOutDsp(LydOutPtr x, t_signal** sp, short* count);
@@ -51,7 +51,7 @@ int main(void)
 	c = class_new("out≈", (method)lydOutNew, (method)lydOutFree, sizeof(LydOut), (method)0L, A_GIMME, 0);
 	
 	//class_addmethod(c, (method)lydOutNotify,			"notify",			A_CANT, 0);
-	class_addmethod(c, (method)lydOutSetup,				"lydbaerSetup",		A_CANT, 0);
+	class_addmethod(c, (method)lydOutReset,				"lydbaerReset",		A_CANT, 0);
 	class_addmethod(c, (method)lydOutObject,			"lydbaerObject",	A_OBJ,	0);
  	class_addmethod(c, (method)lydOutDsp,				"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)lydOutAssist,			"assist",			A_CANT, 0); 
@@ -125,7 +125,7 @@ void lydOutAssist(LydOutPtr x, void* b, long msg, long arg, char* dst)
 	}
 }
 
-TTErr lydOutSetup(LydOutPtr x)
+TTErr lydOutReset(LydOutPtr x)
 {
 	return x->lydbaer->resetSources();
 }
@@ -147,8 +147,9 @@ t_int* lydOutPerform(t_int* w)
 		x->lydbaer->prepareToProcess();
 		x->lydbaer->getAudioOutput(x->audioSignal);
 		for(i=0; i<x->numChannels; i++){
-			j = (i*2) + 1;
-			x->audioSignal->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
+//			j = (i*2) + 1;
+//			x->audioSignal->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
+			x->audioSignal->getVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
 		}
 	}	
 	return w + (x->numChannels+2);
@@ -178,9 +179,24 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 		
 		Thus, after this has happened every object will know about the object above it in the graph,
 		and we will then be able to pull audio from them.
+	 
+	 
+		***
+		We have to traverse twice, because we have to clear all connections first, then add connections.
+		It won't work to do them both during the same traversal because situations arise
+		Where we setup the chain and then it gets reset again by another object 
+		(since the order in which we traverse objects is undefined).
 	 */ 
 
 	err = object_obex_lookup(x, gensym("#P"), &patcher);
+	box = jpatcher_get_firstobject(patcher);
+	while(box) {
+		o = jbox_get_object(box);
+		lydbaerSetupMethod = zgetfn(o, gensym("lydbaerReset"));
+		if(lydbaerSetupMethod)
+			err = (MaxErr)lydbaerSetupMethod(o);
+		box = jbox_get_nextobject(box);
+	}
 	box = jpatcher_get_firstobject(patcher);
 	while(box) {
 		o = jbox_get_object(box);
