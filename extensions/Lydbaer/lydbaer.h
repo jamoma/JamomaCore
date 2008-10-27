@@ -57,6 +57,23 @@ public:
 		One example for why you might want this is for creating generator objects.	*/
 	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
 
+	TTUInt16 getNumOutputChannels()
+	{
+		return audioOutput->getNumChannels();
+	}
+	
+	TTUInt16 getSampleRate()
+	{
+		TTUInt16 sr;
+		audioObject->getAttributeValue(kTTSym_sr, sr);
+		return sr;
+	}
+	
+	TTUInt16 getOutputVectorSize()
+	{
+		return audioOutput->getVectorSize();
+	}
+	
 	
 	/**	Clear the list of source objects from which this object will try to pull audio.	*/
 	TTErr resetSources();
