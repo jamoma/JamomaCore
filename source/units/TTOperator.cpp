@@ -17,8 +17,8 @@ TTOperator::TTOperator(TTUInt16 newMaxNumChannels)
 	registerAttributeWithSetter(operand, kTypeFloat64);
 	
 	// Set Defaults...
-	setAttributeValue(TT("operator"),	1.0);
-	setAttributeValue(TT("operand"),	TT("+"));
+	setAttributeValue(TT("operator"),	TT("+"));
+	setAttributeValue(TT("operand"),	1.0);
 }
 
 
