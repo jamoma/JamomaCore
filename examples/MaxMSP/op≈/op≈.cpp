@@ -76,7 +76,7 @@ LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     x = LydOpPtr(object_alloc(sLydOpClass));
     if(x){
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, 0);
+		x->lydbaerOutlet = outlet_new(x, 0);
 		
 		// TODO: we need to update objects to work with the correct number of channels when the network is configured
 		// Either that, or when we pull we just up the number of channels if when we need to ???
