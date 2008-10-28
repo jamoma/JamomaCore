@@ -8,6 +8,8 @@
     <item name='bypass' type='msg_toggle' priority='0'>0</item>
     <item name='dimensions' type='msg_int' priority='0'>2</item>
     <item name='listen' type='msg_toggle' priority='0'>1</item>
+    <item name='mirror/active' type='msg_toggle' priority='0'>0</item>
+    <item name='mirror/angle' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='order' type='msg_list' priority='0'>stretch random translate skew rotate </item>
     <item name='random/factor' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='random' type='msg_symbol' priority='0'>0</item>
