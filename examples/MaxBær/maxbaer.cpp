@@ -1,33 +1,26 @@
 /* 
- *	TTClassWrapperMax
- *	An automated class wrapper to make TTBlue object's available as objects for Max/MSP
+ *	Maxbaer
+ *	A thin wrapper of the Lydbaer audio system for use in the Cycling '74 Max/MSP environment.
+ *	Includes an automated class wrapper to make TTBlue object's available as objects for Max/MSP.
  *	Copyright © 2008 by Timothy Place
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTClassWrapperMax.h"
+#include "maxbaer.h"
 #include "ext_hashtab.h"
 
 
 // Data Structure for this object
 typedef struct _wrappedInstance {
-    t_pxobject 		obj;						///< Max audio object header
-	WrappedClassPtr	wrappedClassDefinition;		///< A pointer to the class definition
-	TTAudioObject*	wrappedObject;				///< The instance of the TTBlue object we are wrapping
-	TTAudioSignal*	audioIn;					///< Audio input signal
-	TTAudioSignal*	audioOut;					///< Audio output signal
-	TTUInt16		vs;
-	TTUInt16		maxNumChannels;				///< The number of channels for which this object is initialized to operate upon
-	TTUInt16		numChannels;				///< The actual number of channels in use
-	TTUInt16		numInputs;
-	TTUInt16		numOutputs;
-	TTUInt16		numControlSignals;			///< What number, a subset of numInputs, of signals are for controlling attributes?
-	TTSymbolPtr*	controlSignalNames;			///< An array of attribute names for the control signals.
+    t_object			obj;						///< Max audio object header
+	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
+	LydbaerObjectPtr	lydbaerObject;				///< The instance of the TTBlue object we are wrapping
+	TTPtr				lydbaerOutlet;
 } WrappedInstance;
 
-typedef WrappedInstance* WrappedInstancePtr;	///< Pointer to a wrapped instance of our object.
+typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
 
 
 /** A hash of all wrapped clases, keyed on the Max class name. */
@@ -38,10 +31,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 {	
 	WrappedClass*		wrappedMaxClass = NULL;
     WrappedInstancePtr	x = NULL;
-	TTValue				sr(sys_getsr());
 	TTValue				v;
- 	long				attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	short				i;
 	TTErr				err = kTTErrNone;
 	
 	// Find the WrappedClass
@@ -61,51 +51,13 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	if(!err)
 		x = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
     if(x){
-		x->wrappedClassDefinition = wrappedMaxClass;
-		x->maxNumChannels = 2;		// An initial argument to this object will set the maximum number of channels
-		if(attrstart && argv)
-			x->maxNumChannels = atom_getlong(argv);
-		
-		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-
-		TTObjectInstantiate(wrappedMaxClass->ttblueClassName, &x->wrappedObject, x->maxNumChannels);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioIn, x->maxNumChannels);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioOut, x->maxNumChannels);
-		
-		attr_args_process(x,argc,argv);				// handle attribute args	
-		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
-		
-		
-		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("numChannelsUseFixedRatioInputsToOutputs"), v)){
-		   TTUInt16	inputs;
-		   TTUInt16	outputs;
-		   
-		   v.get(0, inputs);
-		   v.get(1, outputs);
-		   x->numInputs = x->maxNumChannels * inputs;
-		   x->numOutputs = x->maxNumChannels * outputs;
-		}
-		else{
-		   x->numInputs = x->maxNumChannels;
-		   x->numOutputs = x->maxNumChannels;
-		}
-		
-		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalInputSetsAttribute"), v)){
-			x->numControlSignals = v.getSize();
-			x->controlSignalNames = new TTSymbolPtr[x->numControlSignals];
-			for(TTUInt16 i=0; i<x->numControlSignals; i++){
-				x->numInputs++;
-				v.get(i, &x->controlSignalNames[i]);
-			}
-		}
-		
-		dsp_setup((t_pxobject *)x, x->numInputs);			// inlets
-		for(i=0; i < x->numOutputs; i++)
-			outlet_new((t_pxobject *)x, "signal");			// outlets
+		x->lydbaerOutlet = outlet_new(x, NULL);
 
-		  
-		x->obj.z_misc = Z_NO_INPLACE;
+		x->wrappedClassDefinition = wrappedMaxClass;
+		x->lydbaerObject = new LydbaerObject(wrappedMaxClass->ttblueClassName, 1);
+		
+		attr_args_process(x,argc,argv);
 	}
 	return ObjectPtr(x);
 }
@@ -113,12 +65,36 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 
 void wrappedClass_free(WrappedInstancePtr x)
 {
-	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->wrappedObject);
-	TTObjectRelease(x->audioIn);
-	TTObjectRelease(x->audioOut);
-	delete[] x->controlSignalNames;
+	if(x->lydbaerObject)
+		delete x->lydbaerObject;
 }
+
+
+
+// METHODS SPECIFIC TO LYDBAER EXTERNALS
+
+TTErr maxbaerReset(WrappedInstancePtr x, long vectorSize)
+{
+	return x->lydbaerObject->resetSources(vectorSize);
+}
+
+
+TTErr maxbaerSetup(WrappedInstancePtr x)
+{
+	Atom a;
+	
+	atom_setobj(&a, ObjectPtr(x->lydbaerObject));
+	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 1, &a);
+	return kTTErrNone;
+}
+
+
+TTErr maxbaerObject(WrappedInstancePtr x, LydbaerObjectPtr audioSourceObject)
+{
+	return x->lydbaerObject->addSource(audioSourceObject);
+}
+
+
 
 
 t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
@@ -127,7 +103,7 @@ t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* 
 	TTValue		v;
 	AtomCount	i;
 	
-	x->wrappedObject->getAttributeValue(TT(attrName->s_name), v);
+	x->lydbaerObject->audioObject->getAttributeValue(TT(attrName->s_name), v);
 
 	*argc = v.getSize();
 	if (!(*argv)) // otherwise use memory passed in
@@ -171,7 +147,7 @@ t_max_err wrappedClass_attrSet(WrappedInstancePtr x, ObjectPtr attr, AtomCount a
 			else
 				object_error(ObjectPtr(x), "bad type for attribute setter");
 		}
-		x->wrappedObject->setAttributeValue(TT(attrName->s_name), v);
+		x->lydbaerObject->audioObject->setAttributeValue(TT(attrName->s_name), v);
 		return MAX_ERR_NONE;
 	}
 	return MAX_ERR_GENERIC;
@@ -193,10 +169,10 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 			else
 				object_error(ObjectPtr(x), "bad type for message arg");
 		}
-		x->wrappedObject->sendMessage(TT(s->s_name), v);
+		x->lydbaerObject->audioObject->sendMessage(TT(s->s_name), v);
 	}
 	else
-		x->wrappedObject->sendMessage(TT(s->s_name));
+		x->lydbaerObject->audioObject->sendMessage(TT(s->s_name));
 }
 
 
@@ -204,93 +180,26 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 void wrappedClass_assist(WrappedInstancePtr x, void *b, long msg, long arg, char *dst)
 {
 	if(msg==1)			// Inlets
-		strcpy(dst, "signal input, control messages");		
-	else if(msg==2)		// Outlets
-		strcpy(dst, "signal output");
+		strcpy(dst, "multichannel input and control messages");		
+	else if(msg==2){	// Outlets
+		if(arg == 0)
+			strcpy(dst, "multichannel output");
+		else
+			strcpy(dst, "dumpout");
+	}
 }
 
 
-// Perform (signal) Method
-t_int *wrappedClass_perform(t_int *w)
+
+
+
+
+TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c)
 {
-   	WrappedInstancePtr	x = (WrappedInstancePtr)(w[1]);
-	short				i, j;
-
-	for(i=0; i < x->numControlSignals; i++){
-		t_float* value = (t_float*)(w[x->numChannels+i]);
-		x->wrappedObject->setAttributeValue(x->controlSignalNames[i], *value);
-	}
-	
-	for(i=0; i<x->numChannels; i++){
-		j = (i*2) + 1;
-		x->audioIn->setVector(i, x->vs, (TTFloat32*)w[j+1]);
-	}
-	
-	if(!x->obj.z_disabled)										// if we are not muted...
-		x->wrappedObject->process(x->audioIn, x->audioOut);		// Actual process
-	
-	for(i=0; i<x->numChannels; i++){
-		j = (i*2) + 1;
-		x->audioOut->getVector(i, x->vs, (TTFloat32*)w[j+2]);
-	}
-	
-	return w + ((x->numChannels*2)+2);				// +2 = +1 for the x pointer and +1 to point to the next object
+	return wrapAsMaxbaer(ttblueClassName, maxClassName, c, (WrappedClassOptionsPtr)NULL);
 }
 
-
-// DSP Method
-void wrappedClass_dsp(WrappedInstancePtr x, t_signal **sp, short *count)
-{
-	short		i, j, k=0;
-	void		**audioVectors = NULL;
-		
-	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1 + x->numControlSignals));
-	audioVectors[k] = x;
-	k++;
-	
-	x->numChannels = 0;
-	x->vs = 0;
-	for(i=0; i < x->maxNumChannels; i++){
-		j = x->maxNumChannels + x->numControlSignals + i;
-		if(count[i] && count[j]){
-			x->numChannels++;
-			if(sp[i]->s_n > x->vs)
-				x->vs = sp[i]->s_n;
-			
-			audioVectors[k] = sp[i]->s_vec;
-			k++;
-			audioVectors[k] = sp[j]->s_vec;
-			k++;
-		}
-	}
-	
-	x->audioIn->setAttributeValue(TT("numChannels"), x->numChannels);
-	x->audioOut->setAttributeValue(TT("numChannels"), x->numChannels);
-	x->audioIn->setAttributeValue(TT("vectorSize"), x->vs);
-	x->audioOut->setAttributeValue(TT("vectorSize"), x->vs);
-	//audioIn will be set in the perform method
-	x->audioOut->sendMessage(TT("alloc"));
-	
-	x->wrappedObject->setAttributeValue(TT("sr"), sp[0]->s_sr);
-	
-	j=i;
-	for(i=0; i < x->numControlSignals; i++){
-		audioVectors[k] = sp[j]->s_vec;
-		j++;
-		k++;
-	}
-	
-	dsp_addv(wrappedClass_perform, k, audioVectors);
-	sysmem_freeptr(audioVectors);
-}
-
-
-TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c)
-{
-	return wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c, (WrappedClassOptionsPtr)NULL);
-}
-
-TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, WrappedClassOptionsPtr options)
 {
 	TTObject*		o = NULL;
 	TTValue			v;
@@ -359,12 +268,13 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 	
 	TTObjectRelease(o);
 	
- 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_dsp, 		"dsp",			A_CANT, 0L);
-    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",		A_CANT, 0); 
-	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",		A_CANT, 0L);
-	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",	A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"lydbaerReset",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"lydbaerSetup",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"lydbaerObject",	A_OBJ,	0);
+    class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0); 
+	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",			A_CANT, 0L);
+	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",		A_CANT, 0);
 	
-	class_dspinit(wrappedMaxClass->maxClass);
 	class_register(_sym_box, wrappedMaxClass->maxClass);
 	if(c)
 		*c = wrappedMaxClass;
@@ -374,9 +284,9 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 }
 
 
-TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
+TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck)
 {
-	TTErr err = wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c);
+	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c);
 	
 	if(!err){
 		(*c)->validityCheck = validityCheck;
@@ -385,9 +295,9 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 	return err;
 }
 
-TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, WrappedClassOptionsPtr options)
 {
-	TTErr err = wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c, options);
 	
 	if(!err){
 		(*c)->validityCheck = validityCheck;
@@ -397,9 +307,9 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 }
 
 
-TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
+TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument)
 {
-	TTErr err = wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c);
+	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c);
 	
 	if(!err){
 		(*c)->validityCheck = validityCheck;
@@ -408,9 +318,9 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 	return err;
 }
 
-TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options)
+TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClassPtr* c, TTValidityCheckFunction validityCheck, TTPtr validityCheckArgument, WrappedClassOptionsPtr options)
 {
-	TTErr err = wrapTTClassAsMaxClass(ttblueClassName, maxClassName, c, options);
+	TTErr err = wrapAsMaxbaer(ttblueClassName, maxClassName, c, options);
 	
 	if(!err){
 		(*c)->validityCheck = validityCheck;
