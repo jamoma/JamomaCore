@@ -28,67 +28,89 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr class="tableHeading2">
 			<td> /name </td>
 			<td> /type </td>
-			<td> /dataspace </td>
 			<td> /range/bounds </td>
 			<td> /range/clipmode </td>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
+			<td> /dataspace </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> dimensions </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class="instructionName"> audio/gain </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> scheduler </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Set gain (as MIDI value by default). </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> audio/mute </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> dimensions </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 1 3 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Dimensions of the virtual space. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> num_sources </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class="instructionName"> numSources </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> The number of mono sources that are to be distributed spatially. </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> num_speakers </td>
-			<td class ="instructionType"> msg_int </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class="instructionName"> numSpeakers </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> The number of speakers that sources are diffused to. </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> rolloff </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 1.000000 6.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> The relative rolloff of amplitude with distance from speakers, expressed in dB. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
-			<td class ="instructionType"> msg_toggle </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
 		<tr>
 	</table>
@@ -100,1254 +122,1276 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr class="tableHeading2">
 			<td> /name </td>
 			<td> /type </td>
-			<td> /dataspace </td>
 			<td> /range/bounds </td>
 			<td> /range/clipmode </td>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
+			<td> /dataspace </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> documentation/generate </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> info </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Get info on current positions of sources and speakers </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Initialize a module completely to the original state. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> panel/open </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open an a module's control panel (inspector) if one is present. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/clear </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Clears all presets, providing a blank slate for saving new presets. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/copy </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Create a new preset (2nd argument) by copying the contents of another preset (1st argument) </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/default </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open the default preset file and recall the first preset in that file. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/dump </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Dump all preset names. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/interpolate </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Interpolate between two named presets (argument 1 and 2) using a ratio (float in the range [0.0, 1.0]) specified as the third argument. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/post </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Post all presets to the Max window. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> symbol </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/recall </td>
-			<td class ="instructionType"> msg_generic </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Recall a preset by number - you can also choose presets from the module menu. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/store </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store a preset by number in memory.  All presets present in memory will be written to disk when you send a save_settings message to the module. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> preset/storenext </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class="instructionName"> preset/storecurrent </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Store on the last recalled or stored preset </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> preset/storenext </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Store a preset in the next preset slot.  Handy so that you do not need to specify a preset number manually. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> msg_symbol </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> symbol </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write an xml-preset file to disk.  An optional argument defines the file to open. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.1/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class="instructionName"> preset/writeagain </td>
+			<td class ="instructionType"> symbol </td>
 			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Write on same xml-preset file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> source.1/blur </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.1/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.10/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.10/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.11/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.11/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.12/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.12/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.13/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.13/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.14/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.14/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.15/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.15/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.16/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.16/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.17/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.17/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.18/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.18/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.19/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.19/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.2/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.20/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.20/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.21/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.21/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.22/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.22/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.23/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.23/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.24/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.24/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.25/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.25/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.26/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.26/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.27/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.27/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.28/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.28/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.29/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.29/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.3/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.30/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.30/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.31/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.31/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.32/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.32/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.4/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.5/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.6/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.7/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.8/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.9/blur </td>
-			<td class ="instructionType"> msg_float </td>
-			<td class ="instructionDataspace"> none </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Set spatial bluriness of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.9/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.1/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.10/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.11/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.12/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.13/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.14/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.15/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.16/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.17/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.18/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.19/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.2/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.20/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.21/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.22/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.23/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.24/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.25/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.26/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.27/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.28/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.29/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.3/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.30/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.31/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.32/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.4/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.5/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.6/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.7/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.8/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.9/position </td>
-			<td class ="instructionType"> msg_list </td>
-			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Position of the Nth speaker </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
-			<td class ="instructionType"> msg_none </td>
-			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Update displayed values for module to reflect current state. </td>
 		<tr>
@@ -1360,11 +1404,11 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr class="tableHeading2">
 			<td> /name </td>
 			<td> /type </td>
-			<td> /dataspace </td>
 			<td> /range/bounds </td>
 			<td> /range/clipmode </td>
 			<td> /ramp/drive </td>
 			<td> /ramp/function </td>
+			<td> /dataspace </td>
 			<td> /repetitions/allow </td>
 			<td> /description </td>
 		<tr>
