@@ -68,10 +68,10 @@ int main(void)
 	class_addmethod(c, (method)wavetable_assist,		"assist",	A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout", 	A_CANT, 0);  
 
-	CLASS_ATTR_SYM(c,		"mode",				0,		t_wavetable,	attrInterpolation);
+	CLASS_ATTR_SYM(c,		"mode",				0,		t_wavetable,	attrMode);
 	CLASS_ATTR_ACCESSORS(c,	"mode",				NULL,	wavetable_setMode);
 	
-	CLASS_ATTR_SYM(c,		"interpolation",	0,		t_wavetable,	attrMode);
+	CLASS_ATTR_SYM(c,		"interpolation",	0,		t_wavetable,	attrInterpolation);
 	CLASS_ATTR_ACCESSORS(c,	"interpolation",	NULL,	wavetable_setInterpolation);
 	
 	CLASS_ATTR_FLOAT(c,		"frequency",		0,		t_wavetable,	attrFrequency);
