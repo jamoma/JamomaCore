@@ -34,7 +34,7 @@ typedef LydbaerObject*	LydbaerObjectPtr;
 	build a dynamic graph of audio processing units.
 */
 
-class LydbaerObject {	
+class TTEXPORT LydbaerObject {	
 protected:
 	// Data
 	
@@ -115,7 +115,7 @@ public:
 
 /**	LydbaerSource is a very simple audio object that holds a signal from TTBlue
 	that can be used by a Lydbaer graph.		*/
-class LydbaerSource : public TTAudioObject
+class TTEXPORT LydbaerSource : public TTAudioObject
 {
 public:
 	TTAudioSignalPtr	buffer;		///< storage for the audioSignal that we provide

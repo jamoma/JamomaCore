@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>chapter_extending_objects.tex</string>
+	<string>main.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>main.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-24T21:59:40Z</date>
+			<date>2008-10-22T06:53:57Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -28,13 +30,13 @@
 			<key>filename</key>
 			<string>chapter_introduction.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-19T03:05:08Z</date>
+			<date>2008-10-22T06:48:49Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>chapter_datatypes.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-24T21:51:39Z</date>
+			<date>2008-10-22T06:53:57Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -52,7 +54,7 @@
 			<key>filename</key>
 			<string>chapter_extending_objects.tex</string>
 			<key>lastUsed</key>
-			<date>2008-09-24T23:00:30Z</date>
+			<date>2008-10-22T06:46:49Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -82,14 +84,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>21</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>65</integer>
+				<integer>48</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>155</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>10</integer>
+			<integer>41</integer>
 		</dict>
 		<key>chapter_extending_objects.tex</key>
 		<dict>
@@ -104,6 +106,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>18</integer>
+		</dict>
+		<key>chapter_introduction.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>6</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>chapter_using_objects.tex</key>
 		<dict>
@@ -167,6 +183,7 @@
 	<key>openDocuments</key>
 	<array>
 		<string>main.tex</string>
+		<string>chapter_introduction.tex</string>
 		<string>chapter_datatypes.tex</string>
 		<string>chapter_using_objects.tex</string>
 		<string>chapter_writing_objects.tex</string>
