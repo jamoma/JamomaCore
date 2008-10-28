@@ -140,11 +140,8 @@ t_int* lydInPerform(t_int* w)
 	short		i, j;
 	
 	if(!x->obj.z_disabled){
-		for(i=0; i<x->numChannels; i++){
-//			j = (i*2) + 1;
-//			LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
+		for(i=0; i<x->numChannels; i++)
 			LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
-		}
 	}	
 	return w + (x->numChannels+2);
 }
