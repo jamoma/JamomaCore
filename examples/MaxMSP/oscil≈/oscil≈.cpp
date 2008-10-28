@@ -27,7 +27,6 @@ typedef OscilBaer* OscilBaerPtr;
 OscilBaerPtr	oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void			oscilBaerFree(OscilBaerPtr x);
 void			oscilBaerAssist(OscilBaerPtr x, void* b, long msg, long arg, char* dst);
-void			oscilBaerBang(OscilBaerPtr x);
 TTErr			oscilBaerReset(OscilBaerPtr x, long vectorSize);
 TTErr			oscilBaerSetup(OscilBaerPtr x);
 
@@ -112,12 +111,8 @@ void oscilBaerAssist(OscilBaerPtr x, void* b, long msg, long arg, char* dst)
 		strcpy(dst, "multichannel audio connection and control messages");		
 	else if(msg==2){	// Outlets
 		if(arg == 0)
-			strcpy(dst, "sample rate of the input signal");
-		else if(arg == 1)
-			strcpy(dst, "vector size of the input signal");
-		else if(arg == 2)
-			strcpy(dst, "number of channels in the input signal");
-		else if(arg == 3)
+			strcpy(dst, "multichannel audio connection");
+		else
 			strcpy(dst, "dumpout");
 	}
 }
