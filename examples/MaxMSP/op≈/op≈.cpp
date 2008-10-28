@@ -25,7 +25,7 @@ typedef LydOp* LydOpPtr;
 LydOpPtr	lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydOpFree(LydOpPtr x);
 void		lydOpAssist(LydOpPtr x, void* b, long msg, long arg, char* dst);
-TTErr		lydOpReset(LydOpPtr x);
+TTErr		lydOpReset(LydOpPtr x, long vectorSize);
 TTErr		lydOpSetup(LydOpPtr x);
 TTErr		lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject);
 MaxErr		lydOpSetOperator(LydOpPtr x, void *attr, AtomCount argc, AtomPtr argv);
@@ -117,9 +117,9 @@ void lydOpAssist(LydOpPtr x, void* b, long msg, long arg, char* dst)
 
 // METHODS SPECIFIC TO LYDBAER EXTERNALS
 
-TTErr lydOpReset(LydOpPtr x)
+TTErr lydOpReset(LydOpPtr x, long vectorSize)
 {
-	return x->lydbaer->resetSources();
+	return x->lydbaer->resetSources(vectorSize);
 }
 
 

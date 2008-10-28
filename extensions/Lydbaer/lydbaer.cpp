@@ -11,7 +11,7 @@
 
 
 LydbaerObject::LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels)
-	:audioSources(NULL), numSources(0), audioInput(NULL), audioOutput(NULL), audioObject(NULL)
+	:flags(kLydbaerProcessor), audioSources(NULL), numSources(0), audioInput(NULL), audioOutput(NULL), audioObject(NULL)
 {
 	TTErr err;
 	
@@ -42,18 +42,27 @@ TTErr LydbaerObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 TTErr LydbaerObject::prepareToProcess()
 {
 	processStatus = kProcessNotStarted;
+
 	for(TTUInt16 i=0; i<numSources; i++)
 		audioSources[i]->prepareToProcess();
+
 	return kTTErrNone;
 }
 
 
-TTErr LydbaerObject::resetSources()
+TTErr LydbaerObject::resetSources(TTUInt16 vs)
 {
 	if(audioSources && numSources)
 		free(audioSources);
 	audioSources = NULL;
 	numSources = 0;
+	
+	// Generators will not receive an 'addSource' call, 
+	// so we set them with the 'default' vector size provided by the global reset
+	if(flags & kLydbaerGenerator){
+		audioOutput->allocWithVectorSize(vs);
+	}
+	
 	return kTTErrNone;
 }
 
@@ -68,8 +77,6 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject)
 	audioSources[numSources-1] = anObject;
 	
 	// now match our source's vector size (and number of channels?)
-	//audioOutput->vectorSize = anObject->audioOutput->vectorSize;
-	//audioOutput->numChannels = anObject->audioOutput->numChannels;
 	audioInput->allocWithVectorSize(anObject->audioOutput->getVectorSize());
 	audioOutput->allocWithVectorSize(anObject->audioOutput->getVectorSize());
 	return kTTErrNone;

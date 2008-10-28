@@ -20,6 +20,10 @@ enum LydbaerProcessStatus {
 	kProcessComplete
 };
 
+enum LydbaerFlags {
+	kLydbaerProcessor = 0,
+	kLydbaerGenerator = 1
+};
 
 class LydbaerObject;
 typedef LydbaerObject*	LydbaerObjectPtr;
@@ -35,9 +39,12 @@ protected:
 	// Data
 	
 	LydbaerProcessStatus		processStatus;	///< Used to enable correct processing of feedback loops, multiple destinations, etc.
+	LydbaerFlags				flags;
 	
 	LydbaerObjectPtr*			audioSources;	///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+public:
 	TTUInt16					numSources;		///< The number of getSamples callback functions (sources) from which we pull.
+protected:
 	
 	TTAudioSignalPtr			audioInput;		///< The buffered input for processing audio with our object.
 	TTAudioSignalPtr			audioOutput;	///< The results of processing audio with our object.
@@ -57,6 +64,7 @@ public:
 		One example for why you might want this is for creating generator objects.	*/
 	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
 
+	
 	TTUInt16 getNumOutputChannels()
 	{
 		return audioOutput->getNumChannels();
@@ -74,9 +82,16 @@ public:
 		return audioOutput->getVectorSize();
 	}
 	
+	TTErr addFlag(LydbaerFlags newFlag)
+	{
+		flags = newFlag;
+		return kTTErrNone;
+	}
 	
-	/**	Clear the list of source objects from which this object will try to pull audio.	*/
-	TTErr resetSources();
+	
+	/**	Clear the list of source objects from which this object will try to pull audio.	
+		@param	vs		The global vector size that will be used for the chain's output.	*/
+	TTErr resetSources(TTUInt16 vs);
 	
 	/**	Add a source to the list of objects from which to request audio. */
 	TTErr addSource(LydbaerObjectPtr anObject);
@@ -84,8 +99,9 @@ public:
 	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
 		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.
-		@return 				An error code.	*/
+		@return 		An error code.		*/
 	virtual TTErr prepareToProcess();
+	
 	
 	/**	This method is required to be implemented by all objects except for those existing solely as a destination.
 		@param	audioOutput		This method is passed a reference to an audio signal pointer.

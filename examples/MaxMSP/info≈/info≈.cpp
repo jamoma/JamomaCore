@@ -30,7 +30,7 @@ LydInfoPtr	lydInfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydInfoFree(LydInfoPtr x);
 void		lydInfoAssist(LydInfoPtr x, void* b, long msg, long arg, char* dst);
 void		lydInfoBang(LydInfoPtr x);
-TTErr		lydInfoReset(LydInfoPtr x);
+TTErr		lydInfoReset(LydInfoPtr x, long vectorSize);
 TTErr		lydInfoObject(LydInfoPtr x, LydbaerObjectPtr audioSourceObject);
 
 
@@ -125,7 +125,7 @@ void lydInfoBang(LydInfoPtr x)
 }
 
 
-TTErr lydInfoReset(LydInfoPtr x)
+TTErr lydInfoReset(LydInfoPtr x, long vectorSize)
 {
 	x->audioSourceObject = NULL;
 	return kTTErrNone;

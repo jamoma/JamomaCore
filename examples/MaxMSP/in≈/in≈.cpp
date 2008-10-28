@@ -25,7 +25,7 @@ typedef LydIn* LydInPtr;
 LydInPtr	lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydInFree(LydInPtr x);
 void		lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst);
-TTErr		lydInReset(LydInPtr x);
+TTErr		lydInReset(LydInPtr x, long vectorSize);
 TTErr		lydInSetup(LydInPtr x);
 TTErr		lydInObject(LydInPtr x, LydbaerObjectPtr audioSourceObject);
 t_int*		lydInPerform(t_int* w);
@@ -117,9 +117,9 @@ void lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst)
 }
 
 
-TTErr lydInReset(LydInPtr x)
+TTErr lydInReset(LydInPtr x, long vectorSize)
 {
-	return x->lydbaer->resetSources();
+	return x->lydbaer->resetSources(vectorSize);
 }
 
 
@@ -137,7 +137,7 @@ TTErr lydInSetup(LydInPtr x)
 t_int* lydInPerform(t_int* w)
 {
    	LydInPtr	x = (LydInPtr)(w[1]);
-	short		i, j;
+	short		i;
 	
 	if(!x->obj.z_disabled){
 		for(i=0; i<x->numChannels; i++)

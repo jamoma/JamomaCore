@@ -27,7 +27,7 @@ typedef LydOut* LydOutPtr;
 LydOutPtr	lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydOutFree(LydOutPtr x);
 void		lydOutAssist(LydOutPtr x, void* b, long msg, long arg, char* dst);
-TTErr		lydOutReset(LydOutPtr x);
+TTErr		lydOutReset(LydOutPtr x, long vectorSize);
 TTErr		lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject);
 t_int*		lydOutPerform(t_int* w);
 void		lydOutDsp(LydOutPtr x, t_signal** sp, short* count);
@@ -90,7 +90,6 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-//	    dsp_setup((t_pxobject *)x, x->maxNumChannels);								// inlets
 	    dsp_setup((t_pxobject *)x, 1);
 		for(i=0; i < x->maxNumChannels; i++)
 			outlet_new((t_pxobject *)x, "signal");
@@ -125,9 +124,9 @@ void lydOutAssist(LydOutPtr x, void* b, long msg, long arg, char* dst)
 	}
 }
 
-TTErr lydOutReset(LydOutPtr x)
+TTErr lydOutReset(LydOutPtr x, long vectorSize)
 {
-	return x->lydbaer->resetSources();
+	return x->lydbaer->resetSources(vectorSize);
 }
 
 
@@ -141,16 +140,13 @@ TTErr lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject)
 t_int* lydOutPerform(t_int* w)
 {
    	LydOutPtr	x = (LydOutPtr)(w[1]);
-	short		i, j;
+	short		i;
 	
-	if(!x->obj.z_disabled){
+	if(!x->obj.z_disabled && x->lydbaer->numSources){
 		x->lydbaer->prepareToProcess();
 		x->lydbaer->getAudioOutput(x->audioSignal);
-		for(i=0; i<x->numChannels; i++){
-//			j = (i*2) + 1;
-//			x->audioSignal->getVector(i, x->vectorSize, (TTFloat32*)w[j+2]);
+		for(i=0; i<x->numChannels; i++)
 			x->audioSignal->getVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
-		}
 	}	
 	return w + (x->numChannels+2);
 }
@@ -194,7 +190,7 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 		o = jbox_get_object(box);
 		lydbaerSetupMethod = zgetfn(o, gensym("lydbaerReset"));
 		if(lydbaerSetupMethod)
-			err = (MaxErr)lydbaerSetupMethod(o);
+			err = (MaxErr)lydbaerSetupMethod(o, x->vectorSize);
 		box = jbox_get_nextobject(box);
 	}
 	box = jpatcher_get_firstobject(patcher);
