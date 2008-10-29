@@ -219,7 +219,8 @@ TTErr TTAudioSignal::alloc()
 		sampleVectors[i] = (TTSampleVector)malloc(sizeof(TTSampleValue) * vectorSize);
 	}
 	isLocallyOwned = maxNumChannels > 0 ? true : false;
-	bitdepth = 64;
+	// we can't do this here!  we are called by the setVector method for 32bit signals!
+	//bitdepth = 64;
 	return kTTErrNone;
 }
 
