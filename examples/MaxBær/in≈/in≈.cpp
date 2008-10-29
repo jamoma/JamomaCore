@@ -10,7 +10,7 @@
 #include "maxbaer.h"
 
 // Data Structure for this object
-typedef struct LydIn {
+struct LydIn {
     t_pxobject			obj;
 	LydbaerObjectPtr	lydbaer;
 	void*				lydbaerOutlet;
@@ -79,8 +79,13 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		x->lydbaer = new LydbaerObject(TT("lydbaer.source"), x->maxNumChannels);
-		x->lydbaer->setAudioOutputPtr(LydbaerSourcePtr(x->lydbaer->audioObject)->buffer);
-		
+		if(x->lydbaer->audioObject)
+			x->lydbaer->setAudioOutputPtr(LydbaerSourcePtr(x->lydbaer->audioObject)->buffer);
+		else{
+			object_error(ObjectPtr(x), "cannot load lydbaer.source");
+			return NULL;
+		}
+
 		attr_args_process(x,argc,argv);
 		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));

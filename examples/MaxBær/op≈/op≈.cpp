@@ -11,7 +11,7 @@
 
 
 // Data Structure for this object
-typedef struct LydOp {
+struct LydOp {
     t_object			obj;
 	LydbaerObjectPtr	lydbaer;
 	void*				lydbaerOutlet;

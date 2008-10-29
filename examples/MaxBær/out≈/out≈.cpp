@@ -11,7 +11,7 @@
 
 
 // Data Structure for this object
-typedef struct LydOut {
+struct LydOut {
     t_pxobject			obj;
 	LydbaerObjectPtr	lydbaer;
 	TTAudioSignalPtr	audioSignal;

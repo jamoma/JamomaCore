@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="TTBlue"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../includes/core;../includes/units"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\includes\core&quot;;&quot;$(ProjectDir)..\includes\units&quot;;&quot;$(ProjectDir)lydbaer&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -128,7 +128,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="../includes/core;../includes/units"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\includes\core&quot;;&quot;$(ProjectDir)..\includes\units&quot;;&quot;$(ProjectDir)lydbaer&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;_DLL_EXPORT;_CRT_SECURE_NO_WARNINGS"
 				ExceptionHandling="1"
 				RuntimeLibrary="0"
@@ -633,6 +633,22 @@
 			</File>
 			<File
 				RelativePath="..\includes\units\TTZerocross.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Lydbaer"
+			>
+			<File
+				RelativePath=".\lydbaer\lydbaer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lydbaer\lydbaer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lydbaer\lydbaerSource.cpp"
 				>
 			</File>
 		</Filter>
