@@ -16,7 +16,20 @@ or a developer release (without cleaning), try this:
 	./build.rb Development
 
 
+If you get an error such as:
+	./jamomalib.rb:12:in `require': no such file to load -- osc (LoadError)	from ./jamomalib.rb:12	from ./build.rb:10:in `require'	from ./build.rb:10
 
+you have to update rosc:
+
+1. just go to the rosc folder which is inside the Tools folder
+	cd rosc
+2. execute:
+	sudo ruby setup.rb
+3. go back to the previous folder:
+	cd ..
+4. try now to make the build
+
+--------------------------------------------------
 
 MAKING AN INSTALLER
 The installer.rb Ruby script collects all of the files it needs and then generates a standard Mac installer.
@@ -26,7 +39,7 @@ If you want to make an installer, then follow these instructions:
 2. all zips should be unzipped (3rd-party externs) too
 3. ./installer.rb
 
-
+--------------------------------------------------
 
 
 SETTING UP AUTOMATED TESTS
@@ -38,7 +51,7 @@ The version we are using is included in the Tools/rosc folder.  To install it:
 
 Now you are ready to run automated tests, as described below.
 
-
+--------------------------------------------------
 
 RUNNING AUTOMATED TESTS
 
@@ -51,8 +64,7 @@ The test components need to be in that location, because they need to be in Max'
 The tests themselves are located in the 'Tests' folder at the top level of the branch, and all subfolders.
 The script also looks in every folder of the Modules folder so that module tests can be kept together with the module.
 
-
-
+--------------------------------------------------
 
 DEBUGGING EXTERNALS ON THE MAC PLATFORM
 
