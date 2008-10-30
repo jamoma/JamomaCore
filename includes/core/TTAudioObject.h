@@ -76,7 +76,6 @@ protected:
 public:
 	/** Mute the audio processing routine and zero all output.												*/
 	TTErr setMute(const TTValue& value);
-protected:
 
 	/**	Setter for the maxNumChannels attribute. 	*/
 	TTErr setMaxNumChannels(const TTValue& newValue);
