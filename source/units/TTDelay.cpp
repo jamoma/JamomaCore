@@ -17,8 +17,8 @@ TTDelay::TTDelay(TTUInt16 newMaxNumChannels)
 	// declare attributes
 	registerAttributeWithSetter(delay,				kTypeFloat64);
 	registerAttributeWithSetter(delayInSamples,		kTypeInt64);
-//	registerAttributeWithSetter(delayMax,			kTypeFloat64);
-//	registerAttributeWithSetter(delayMaxInSamples,	kTypeInt64);
+	registerAttributeWithSetter(delayMax,			kTypeFloat64);
+	registerAttributeWithSetter(delayMaxInSamples,	kTypeInt64);
 	registerAttributeWithSetter(interpolation,		kTypeSymbol);
 
 	// declare messages
@@ -30,25 +30,11 @@ TTDelay::TTDelay(TTUInt16 newMaxNumChannels)
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
-	setAttributeValue(TT("delay"), 0.0);
+	setAttributeValue(TT("delayMaxInSamples"), 256);
+	setAttributeValue(TT("delayInSamples"), 100);
 	setAttributeValue(TT("interpolation"), TT("none"));		// TODO: change this to cubic (or at least to linear), this sets the process method
 }
 
-/*
- // OBJECT LIFE					
- TT_INLINE tt_delay::tt_delay(long max)						// Constructor - INT ARGUMENT: SPECIFY IN SAMPLES
- {
- init(max);
- }
- 
- TT_INLINE tt_delay::tt_delay(float max_ms)					// Constructor - FLOAT ARGUMENT: SPECIFY IN MS
- {
- long max = long(max_ms * m_sr);
- init(max);
- }
- 
- // Internal method which is called by the constructors
- */
 
 TTDelay::~TTDelay()
 {
@@ -63,8 +49,7 @@ TTDelay::~TTDelay()
 }
 
 
-// TODO: this is clumsy and stupid -- we should be doing this stuff when the MaxDelayTime attr is set
-// Howevr, this needs to be called every time that:
+// This is called every time that:
 //		the sr changes
 //		the maxNumChannels changes
 //		the maxNumSamples change
@@ -72,32 +57,33 @@ TTErr TTDelay::init(TTUInt64 newDelayMaxInSamples)
 {
 	TTUInt16 channel;
 
-	delayMaxInSamples = newDelayMaxInSamples;
-	delayMax = delayMaxInSamples / srMill;
-	
-	// FIXME: There is a big problem here -- we don't know the old maxNumChannels, so we could be freeing something bogus?
-	if(buffer){
+	if(newDelayMaxInSamples){
+		delayMaxInSamples = newDelayMaxInSamples;
+		delayMax = delayMaxInSamples / srMill;
+		
+		if(buffer){
+			for(channel=0; channel<maxNumChannels; channel++)
+				delete [] buffer[channel];
+			delete [] buffer;
+		}
+		delete [] inPtr;
+		delete [] outPtr;
+		delete [] endPtr;
+		
+		buffer = new TTSampleVector[maxNumChannels];
 		for(channel=0; channel<maxNumChannels; channel++)
-			delete [] buffer[channel];
-		delete [] buffer;
-	}
-	delete [] inPtr;
-	delete [] outPtr;
-	delete [] endPtr;
-	
-	buffer = new TTSampleVector[maxNumChannels];
-	for(channel=0; channel<maxNumChannels; channel++)
-		buffer[channel] = new TTSampleValue[delayMaxInSamples];
+			buffer[channel] = new TTSampleValue[delayMaxInSamples];
 
-	inPtr = new TTSampleVector[maxNumChannels];
-	outPtr = new TTSampleVector[maxNumChannels];
-	endPtr = new TTSampleVector[maxNumChannels];
-	
-	for(channel=0; channel<maxNumChannels; channel++){
-		inPtr[channel] = buffer[channel];
-	}
+		inPtr = new TTSampleVector[maxNumChannels];
+		outPtr = new TTSampleVector[maxNumChannels];
+		endPtr = new TTSampleVector[maxNumChannels];
+		
+		for(channel=0; channel<maxNumChannels; channel++){
+			inPtr[channel] = buffer[channel];
+		}
 
-	reset();
+		reset();
+	}
 	return kTTErrNone;
 }
 
@@ -150,13 +136,14 @@ TTErr TTDelay::clear()
 // Reset the pointers
 void TTDelay::reset()
 {
-	endPtr = buffer + delayInSamples;
-	outPtr = inPtr - delayInSamples;
-	if(outPtr < buffer)
-		outPtr = endPtr + (outPtr - buffer) + 1;
-	else if(outPtr > endPtr)
-		outPtr = buffer + (outPtr - endPtr);
-
+	for(TTUInt16 channel=0; channel<maxNumChannels; channel++){
+		endPtr[channel] = buffer[channel] + delayInSamples;
+		outPtr[channel] = inPtr[channel] - delayInSamples;
+		if(outPtr[channel] < buffer[channel])
+			outPtr[channel] = endPtr[channel] + (outPtr[channel] - buffer[channel]) + 1;
+		else if(outPtr[channel] > endPtr[channel])
+			outPtr[channel] = buffer[channel] + (outPtr[channel] - endPtr[channel]);
+	}
 	clear();
 }
 
@@ -164,6 +151,7 @@ void TTDelay::reset()
 TTErr TTDelay::setdelay(const TTValue& newValue)
 {
 	delay = TTClip<TTFloat64>(newValue, 0.0, delayMax);
+	delayInSamples = delay * srMill;
 
 // FIXME: NOT YET WORKING	
 //	fractionalDelaySamples = attrDelay * srMill;
@@ -179,11 +167,29 @@ TTErr TTDelay::setdelayInSamples(const TTValue& newValue)
 {
 	delayInSamples = TTClip<TTUInt64>(newValue, 0, delayMaxInSamples);
 	delay = delayInSamples * 1000.0 * srInv;
-// FIXME: NOT YET WORKING	
-//	fractionalDelaySamples = attrDelayInSamples;
+	// FIXME: NOT YET WORKING	
+	//	fractionalDelaySamples = attrDelayInSamples;
 	fractionalDelay = 0;
 	
 	reset();
+	return kTTErrNone;
+}
+
+
+TTErr TTDelay::setdelayMax(const TTValue& newValue)
+{
+	delayMax = newValue;
+	delayMaxInSamples = delayMax * srMill;
+	init(delayMaxInSamples);
+	return kTTErrNone;
+}
+
+
+TTErr TTDelay::setdelayMaxInSamples(const TTValue& newValue)
+{
+	delayMaxInSamples = newValue;
+	delayMax = delayMaxInSamples * 1000.0 * srInv;
+	init(delayMaxInSamples);
 	return kTTErrNone;
 }
 

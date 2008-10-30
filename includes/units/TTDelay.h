@@ -68,6 +68,12 @@ public:
 	TTErr setdelayInSamples(const TTValue& newValue);
 	
 	/** Attribute Accessor */
+	TTErr setdelayMax(const TTValue& newValue);
+	
+	/** Attribute Accessor */
+	TTErr setdelayMaxInSamples(const TTValue& newValue);
+	
+	/** Attribute Accessor */
 	TTErr setinterpolation(const TTValue& newValue);
 
 };
