@@ -1,2 +1,5 @@
-In Cygwin, cd into the Installers/Windows directory.  Then run ./makeInstaller.sh
+In Cygwin, cd into the Installers/Windows directory.  
+
+	Then : 				run ./makeInstaller.sh
+	or, if doesn't work : 		bash ./makeInstaller.sh
 
