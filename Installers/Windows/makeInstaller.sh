@@ -16,6 +16,9 @@ mkdir root/support
 mkdir root/Cycling\ \'74/default-definitions
 mkdir root/Cycling\ \'74/default-settings
 mkdir root/Cycling\ \'74/extensions
+mkdir root/Common\ Files
+mkdir root/Common\ Files/TTBlue
+mkdir root/Common\ Files/TTBlue/Extensions
 
 cp -r ../../Jamoma root/Cycling\ \'74
 mv root/Cycling\ \'74/Jamoma/library/externals/windows/jcom.meter~.mxe root/Cycling\ \'74/max-startup/jcom.meter~.mxe
@@ -26,12 +29,14 @@ cp root/Cycling\ \'74/Jamoma/support/JamomaLight.maxdefaults root/Cycling\ \'74/
 cp root/Cycling\ \'74/Jamoma/support/jcom.ui.maxdefines root/Cycling\ \'74/default-definitions/jcom.ui.maxdefines
 mv root/Cycling\ \'74/Jamoma/library/externals/windows/JamomaFramework.dll root/support
 mv root/Cycling\ \'74/Jamoma/library/externals/windows/TTBlue.dll root/support
+mv root/Cycling\ \'74/Jamoma/library/externals/windows/TTClipper.ttdll root/Common\ Files/TTBlue/Extensions
+mv root/Cycling\ \'74/Jamoma/library/externals/windows/TTFunctionLib.ttdll root/Common\ Files/TTBlue/Extensions
 mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/iconv.dll root/support
 mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/libxml2.dll root/support
 mv root/Cycling\ \'74/Jamoma/library/third-party/WinXP/support/zlib1.dll root/support
 cp root/Cycling\ \'74/Jamoma/GNU-LGPL.rtf License.rtf
 
-echo "WE NEED TO COPY THE TTBLUE EXTENSIONS HERE -- MAYBE ALSO MAKE A WIX MODULE FOR THEM??? -- OTHERWISE WE MISS THE FUNCTIONLIB!"
+echo "MAKE A WIX MODULE FOR THEM??? -- OTHERWISE WE MISS THE FUNCTIONLIB!"
 
 echo "making candle with paraffin"
 ../wix/Paraffin.exe -dir root/Cycling\ \'74\\ -custom JamomaC74     -g -direXclude .svn -ext .WXS JamomaC74.wxs
