@@ -113,7 +113,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.dll &quot;$(ProjectDir)..\..\jamoma\Jamoma\library\externals\windows&#x0D;&#x0A;"
 				Outputs="AAA"
 			/>
 			<Tool
