@@ -52,7 +52,7 @@ int main(void)
 	// classes that we wish to wrap for use in MSP
 	
 	fxlibObjectDefine("degrade");
-	fxlibObjectDefine("delay");			// crashes
+	fxlibObjectDefine("delay");
 	fxlibObjectDefine("limiter");
 	fxlibObjectDefine("overdrive");
 	fxlibObjectDefine("pulsesub");
