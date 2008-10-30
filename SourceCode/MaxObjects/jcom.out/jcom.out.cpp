@@ -23,10 +23,11 @@
 #include "Jamoma.h"
 #include "jcom.out.h"
 
-#define POLL_INTERVAL	150			// metro time
+// Constants
+const double kPollIntervalDefault = 150;	// for meters to update
 
 // Globals
-t_class		*out_class;					// Required. Global pointing to this class
+t_class*	out_class;
 
 
 /************************************************************************************/
@@ -157,8 +158,6 @@ void out_subscribe(void *z)
 	long		argc;
 	t_atom		a;
 	t_atom		*argv = &a;
-	t_symbol	*result;
-	t_symbol	*modtype;
 	t_out		*x = (t_out *)z;
 	
 	if(x->common.hub != NULL){
@@ -357,14 +356,17 @@ void update_meters(t_out *x)
 	short	i;
 	t_atom	a[2];
 	
+	x->clock_is_set = 0;
 	for(i=0; i < x->num_meter_objects; i++){
-		if(x->meter_object[i]){
+		if(x->meter_object[i] && x->peakamp[i] != x->lastPeakamp[i]){
 			atom_setsym(&a[0], _sym_float);
 			atom_setfloat(&a[1], x->peakamp[i]);
 			object_method_typed(x->meter_object[i], jps_dispatched, 2, a, NULL);
+			x->lastPeakamp[i] = x->peakamp[i];
+			x->peakamp[i] = 0;
 		}
 	}
-	x->clock_is_set = 0;
+	clock_delay(x->clock, kPollIntervalDefault); 			// restart the clock
 }
 
 
@@ -418,13 +420,14 @@ t_int *out_perform(t_int *w)
 					peakvalue = currentvalue;
 				envelope++; 										// increment pointer in the vector
 			}
-			if(peakvalue != x->peakamp[i]){					// filter out repetitions
+//			if(peakvalue != x->peakamp[i]){					// filter out repetitions
+			if(peakvalue > x->peakamp[i])
 				x->peakamp[i] = peakvalue;
-				if(x->clock_is_set == 0){
-					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
-					x->clock_is_set = 1;
-				}
-			}
+//				if(x->clock_is_set == 0){
+//					clock_delay(x->clock, POLL_INTERVAL); 		// start the clock
+//					x->clock_is_set = 1;
+//				}
+//			}
 		}		
 	}
 
@@ -487,7 +490,14 @@ void out_dsp(t_out *x, t_signal **sp, short *count)
 	x->zeroSignal->sendMessage(TT("clear"));
 		
 	dsp_addv(out_perform, k, audioVectors);
-	sysmem_freeptr(audioVectors);	
+	sysmem_freeptr(audioVectors);
+
+	// start the meters
+	if(x->num_meter_objects){
+		for(i=0; i<MAX_NUM_CHANNELS; i++)
+			x->peakamp[i] = 0;
+		clock_delay(x->clock, kPollIntervalDefault); 			// start the clock
+	}
 }
 
 

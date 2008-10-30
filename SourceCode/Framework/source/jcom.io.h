@@ -62,6 +62,7 @@ typedef struct _out{
 													   because the object's don't need an independent state and do not
 													   rely internally on any history.  
 													*/
+	float			lastPeakamp[MAX_NUM_CHANNELS];	///< The last value sent to the meters, used for repetition filtering.
 	//float			*out_vectors[MAX_NUM_CHANNELS];	///< buffers of the last output for access by jcom.receive~
 	TTAudioObject*	xfade;							///< TTCrossfade implements the 'mix' and 'bypass' params
 	TTAudioObject*	gain;							///< TTGain implements the 'gain' param
