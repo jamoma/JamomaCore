@@ -62,12 +62,14 @@ TTErr TTAudioSignal::setmaxNumChannels(const TTValue& newMaxNumChannels)
 {
 	TTUInt32	i;
 
-	chuck();
-	maxNumChannels = newMaxNumChannels;
-	if(maxNumChannels) {
-		sampleVectors = (TTSampleVector *)malloc(sizeof(TTSampleVector) * maxNumChannels);
-		for(i=0; i<maxNumChannels; i++)
-			sampleVectors[i] = NULL;
+	if(TTUInt16(newMaxNumChannels) != maxNumChannels){
+		chuck();
+		maxNumChannels = newMaxNumChannels;
+		if(maxNumChannels) {
+			sampleVectors = (TTSampleVector *)malloc(sizeof(TTSampleVector) * maxNumChannels);
+			for(i=0; i<maxNumChannels; i++)
+				sampleVectors[i] = NULL;
+		}
 	}
 	return kTTErrNone;
 }

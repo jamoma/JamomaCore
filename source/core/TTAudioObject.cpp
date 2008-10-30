@@ -28,7 +28,12 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 	registerAttribute(TT("processInPlace"), kTypeBoolean,	&attrProcessInPlace);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	
+	// Commenting this out, thus making this initial argument unused.
+	// The problem is that if we set it here, then it is too early to trigger the notification in the subclass.
+	// And then because it is already defined, then our repetition filtering won't let it through to allocate memory...
+	// setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+
 	setAttributeValue(TT("sr"),				ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
 	setProcessWithSidechain(&TTAudioObject::bypassWithSidechainProcess);
@@ -41,14 +46,16 @@ TTAudioObject::~TTAudioObject()
 {
 	;
 }
-		
+
 
 TTErr TTAudioObject::setMaxNumChannels(const TTValue& newValue)
 {
-	TTValue	oldMaxNumChannels = maxNumChannels;
+	if(TTUInt16(newValue) != maxNumChannels){
+		TTValue	oldMaxNumChannels = maxNumChannels;
 	
-	maxNumChannels = newValue;
-	sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
+		maxNumChannels = newValue;
+		sendMessage(TT("updateMaxNumChannels"), oldMaxNumChannels);
+	}
 	return kTTErrNone;
 }
 
