@@ -16,18 +16,18 @@ function bang()
 
 function iterfun(b)
 {
-	if(b.maxclass == "patcher")
-	{
+//	if(b.maxclass == "patcher")
+//	{
 		if(b.varname != "") //filter unamed objects
 		{
 			outlet(0, b.varname, b.rect);
 			// outlet(0, b.varname, b.rect, b.getattr("presentation"));
 		}
-	}
+//	}
 return true;
 }
 iterfun.local=1;
 
 // Pour la compilation automatique
-autowatch = 1;
-post("Compiled...\n");
+//autowatch = 1;
+//post("Compiled...\n");
