@@ -137,19 +137,24 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 	TTValue		v;
 	TTClassPtr	theClass;
 	TTErr		err;
+	TTObjectPtr	newObject = NULL;
+	TTObjectPtr	oldObject = NULL;
 
-	if(*anObject){
-		releaseInstance(*anObject);
-		*anObject = NULL;
-	}
-	
 	err = classes->lookup(className, v);
 	if(!err){
 		theClass = TTClassPtr(TTPtr(v));
 		if(theClass)
-			err = theClass->createInstance(anObject, anArgument);
+			err = theClass->createInstance(&newObject, anArgument);
 		else
 			err = kTTErrGeneric;
+	}
+	
+	if(!err && newObject){
+		if(*anObject)
+			oldObject = *anObject;
+		*anObject = newObject;
+		if(oldObject)
+			releaseInstance(oldObject);
 	}
 		
 	//TODO: Add instance tracking.  For each instance of a class, we push the instance onto a linked list of instances for that class
