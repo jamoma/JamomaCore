@@ -18,6 +18,21 @@
 		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
+					"maxclass" : "message",
+					"text" : "/preset/store 1 default, /preset/write",
+					"linecount" : 2,
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"id" : "obj-4",
+					"patching_rect" : [ 120.0, 135.0, 139.0, 29.0 ],
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ],
+					"fontname" : "Verdana"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"maxclass" : "textbutton",
 					"varname" : "DSP_Status",
 					"numinlets" : 1,
@@ -119,7 +134,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"id" : "obj-2",
-					"patching_rect" : [ 47.0, 107.0, 137.0, 17.0 ],
+					"patching_rect" : [ 120.0, 95.0, 137.0, 17.0 ],
 					"fontsize" : 10.0,
 					"outlettype" : [ "" ],
 					"fontname" : "Verdana"
@@ -802,7 +817,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"id" : "obj-12",
-					"patching_rect" : [ 24.0, 132.0, 220.0, 31.0 ],
+					"patching_rect" : [ 25.0, 180.0, 220.0, 31.0 ],
 					"fontsize" : 10.0,
 					"outlettype" : [ "", "" ],
 					"fontname" : "Verdana"
@@ -845,7 +860,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"id" : "obj-15",
-					"patching_rect" : [ 24.0, 174.0, 15.0, 15.0 ],
+					"patching_rect" : [ 25.0, 230.0, 26.0, 26.0 ],
 					"comment" : ""
 				}
 
@@ -856,7 +871,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"id" : "obj-16",
-					"patching_rect" : [ 24.0, 107.0, 15.0, 15.0 ],
+					"patching_rect" : [ 25.0, 80.0, 26.0, 26.0 ],
 					"outlettype" : [ "" ],
 					"comment" : ""
 				}
@@ -928,6 +943,15 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"source" : [ "obj-4", 0 ],
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"source" : [ "obj-82", 0 ],
 					"destination" : [ "obj-24", 0 ],
