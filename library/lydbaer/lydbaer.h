@@ -93,9 +93,11 @@ public:
 		@param	vs		The global vector size that will be used for the chain's output.	*/
 	TTErr resetSources(TTUInt16 vs);
 	
-	/**	Add a source to the list of objects from which to request audio. */
+	/**	Add a source to the list of objects from which to request audio.	*/
 	TTErr addSource(LydbaerObjectPtr anObject);
 	
+	/**	Allocate buffers and prepare for processing.	*/
+	TTErr init();
 	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
 		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.

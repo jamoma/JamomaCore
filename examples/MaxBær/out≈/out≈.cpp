@@ -221,6 +221,8 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 	
 	dsp_addv(lydOutPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);
+	
+	x->lydbaer->init();
 }
 
 

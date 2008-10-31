@@ -68,11 +68,7 @@ TTErr LydbaerObject::resetSources(TTUInt16 vs)
 
 
 TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject)
-{
-	TTUInt16	numChannels;
-	TTUInt16	sourceProducesNumChannels;
-	TTUInt16	weDeliverNumChannels;
-	
+{	
 	numSources++;
 	if(numSources == 1)
 		audioSources = (LydbaerObjectPtr*)malloc(sizeof(LydbaerObjectPtr) * numSources);
@@ -80,31 +76,53 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject)
 		audioSources = (LydbaerObjectPtr*)realloc(audioSources, sizeof(LydbaerObjectPtr) * numSources);
 	audioSources[numSources-1] = anObject;
 	
-	// now match our source's vector size and number of channels
+	return kTTErrNone;
+}
+
+
+TTErr LydbaerObject::init()
+{
+	TTUInt16	numChannels;
+	TTUInt16	sourceProducesNumChannels;
+	TTUInt16	weDeliverNumChannels;
 	
-	numChannels = audioInput->getNumChannels();
-	sourceProducesNumChannels = anObject->audioOutput->getNumChannels();
-	if(sourceProducesNumChannels > numChannels){
-		audioInput->setmaxNumChannels(sourceProducesNumChannels);
-		audioInput->setnumChannels(sourceProducesNumChannels);
+	// init objects higher up in the chain first
+	for(TTUInt16 i=0; i<numSources; i++)
+		audioSources[i]->init();
+	
+	if(numSources && audioSources){
+		// match our source's vector size and number of channels
+		
+		numChannels = audioInput->getNumChannels();
+		sourceProducesNumChannels = audioSources[0]->audioOutput->getNumChannels();
+		if(sourceProducesNumChannels > numChannels){
+			audioInput->setmaxNumChannels(sourceProducesNumChannels);
+			audioInput->setnumChannels(sourceProducesNumChannels);
+		}
+		else
+			sourceProducesNumChannels = numChannels;
+		
+		// while it make sense to always match the input of this object to the output of the previous object (as above)
+		// we might want to have a different number of outputs here -- how should we handle that?
+		// for now we are just matching them...
+		
+		numChannels = audioOutput->getNumChannels();
+		weDeliverNumChannels = audioSources[0]->audioOutput->getNumChannels();
+		if(weDeliverNumChannels > numChannels){
+			audioOutput->setmaxNumChannels(weDeliverNumChannels);
+			audioOutput->setnumChannels(weDeliverNumChannels);
+		}
+		else
+			weDeliverNumChannels = numChannels;
+
+		// for generators, these are already alloc'd in the reset method
+		audioInput->allocWithVectorSize(audioSources[0]->audioOutput->getVectorSize());
+		audioOutput->allocWithVectorSize(audioSources[0]->audioOutput->getVectorSize());
 	}
-	else
-		sourceProducesNumChannels = numChannels;
-	audioInput->allocWithVectorSize(anObject->audioOutput->getVectorSize());
-	
-	// while it make sense to always match the input of this object to the output of the previous object (as above)
-	// we might want to have a different number of outputs here -- how should we handle that?
-	// for now we are just matching them...
-	
-	numChannels = audioOutput->getNumChannels();
-	weDeliverNumChannels = anObject->audioOutput->getNumChannels();
-	if(weDeliverNumChannels > numChannels){
-		audioOutput->setmaxNumChannels(weDeliverNumChannels);
-		audioOutput->setnumChannels(weDeliverNumChannels);
+	else{
+		sourceProducesNumChannels = 0;
+		weDeliverNumChannels = getNumOutputChannels();
 	}
-	else
-		weDeliverNumChannels = numChannels;
-	audioOutput->allocWithVectorSize(anObject->audioOutput->getVectorSize());
 	
 	// Even more ambiguous, what do we do for the acual audio object?  
 	// For now we are setting it to the higher of the two options to be safe.
@@ -112,7 +130,7 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject)
 		audioObject->setMaxNumChannels(weDeliverNumChannels);
 	else
 		audioObject->setMaxNumChannels(sourceProducesNumChannels);
-		
+
 	return kTTErrNone;
 }
 
