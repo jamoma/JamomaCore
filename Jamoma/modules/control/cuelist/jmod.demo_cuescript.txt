@@ -13,8 +13,8 @@ CUE initialisation
 	/input~/audio/gain 0.
 	# Note that midi units can be specified as floats in Jamoma
 	/input~/balance 0.	
-	/input~/loop 0
-	/input~/play 0
+	/input~/soundfile/loop 0
+	/input~/soundfile/play 0
 	/input~/source none
 	/input~/ch.1 0
 	/input~/ch.2 0
