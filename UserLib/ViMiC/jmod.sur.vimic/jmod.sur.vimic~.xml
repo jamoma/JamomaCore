@@ -181,7 +181,6 @@
     <item name='source/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/orientation/yaw' type='msg_int' priority='0'>0</item>
     <item name='source/orientation/mode' type='msg_symbol' priority='0'>static</item>
-    <item name='source/position/absolute/xyz' type='msg_list' priority='0'>0.000000 1.000000 0.000000 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='updaterate' type='msg_int' priority='0'>20</item>
     <item name='warning' type='msg_int' priority='0'>0</item>

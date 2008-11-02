@@ -181,56 +181,48 @@
     <item name='source/1/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/1/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/1/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/1/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/1/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='source/2/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='source/2/mute' type='msg_toggle' priority='0'>0</item>
     <item name='source/2/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/2/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/2/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/2/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/2/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='source/3/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='source/3/mute' type='msg_toggle' priority='0'>0</item>
     <item name='source/3/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/3/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/3/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/3/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/3/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='source/4/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='source/4/mute' type='msg_toggle' priority='0'>0</item>
     <item name='source/4/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/4/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/4/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/4/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/4/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='source/5/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='source/5/mute' type='msg_toggle' priority='0'>0</item>
     <item name='source/5/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/5/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/5/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/5/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/5/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='source/6/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='source/6/mute' type='msg_toggle' priority='0'>0</item>
     <item name='source/6/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/6/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/6/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/6/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/6/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='source/7/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='source/7/mute' type='msg_toggle' priority='0'>0</item>
     <item name='source/7/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/7/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/7/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/7/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/7/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='source/8/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='source/8/mute' type='msg_toggle' priority='0'>0</item>
     <item name='source/8/orientation/active' type='msg_toggle' priority='0'>0</item>
     <item name='source/8/orientation/mode' type='msg_symbol' priority='0'>0</item>
     <item name='source/8/orientation/yaw' type='msg_int' priority='0'>0</item>
-    <item name='source/8/position/absolute/xyz' type='msg_generic' priority='0'>0</item>
     <item name='source/8/rendermode' type='msg_symbol' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='updaterate' type='msg_int' priority='0'>20</item>
