@@ -31,8 +31,9 @@ typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64&
 /**	A convenience macro to be used by subclasses for setting the process method.
  @param	methodName	The name of the method to use for processing audio vectors.
  */
-#define setProcessMethod(methodName)    setProcess((TTProcessMethod)& thisTTClass ::methodName )
-#define setCalculateMethod(methodName)	setCalculate((TTCalculateMethod)& thisTTClass ::methodName )
+#define setProcessMethod(methodName)				setProcess((TTProcessMethod)& thisTTClass ::methodName )
+#define setProcessWithSidechainMethod(methodName)	setProcessWithSidechain((TTProcessWithSidechainMethod)& thisTTClass ::methodName )
+#define setCalculateMethod(methodName)				setCalculate((TTCalculateMethod)& thisTTClass ::methodName )
 
 
 /****************************************************************************************************/
