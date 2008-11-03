@@ -108,6 +108,15 @@ public:
 	{
 		return numChannels;
 	}
+
+	
+	TTUInt16 getMaxNumChannels();
+
+	
+	TTBoolean getIsLocallyOwned()
+	{
+		return isLocallyOwned;
+	}
 	
 	/**	Allocate memory for all channels at the current vectorsize.
 	*/
@@ -127,8 +136,12 @@ public:
 	
 	
 	/**	Copy the audio from one signal into another.	*/
-	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest);
-
+//	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest);
+	
+	/**	Copy the audio from one signal into another.	*/
+	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset=0);
+	
+	
 	
 	/** Use this class method to determine the least number of channels the two signals have in common.
 	 *	In cases where a processAudio method expects to have a matching number of audio inputs and outputs,
@@ -152,7 +165,7 @@ public:
 	static TTUInt16 getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2);
 	static TTUInt16 getMaxChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2, const TTAudioSignal& signal3);
 	
-	/** Use this class method to determine the number of channels of an input our output signal.
+	/** Use this class method to determine the number of channels of an input or output signal.
 	 *	This can be useful in circumstances where input and output signals are not necsessarily expected
 	 *  or required to have the same number of channels.
 	 *	@param		signal			The signal that we want to investigate.
