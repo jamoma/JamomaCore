@@ -168,6 +168,8 @@
     <item name='room/absorption/right/low' type='msg_float' priority='0'>0.099999</item>
     <item name='room/absorption/right/mid_high_frequency' type='msg_int' priority='0'>10</item>
     <item name='room/absorption/right/mid' type='msg_float' priority='0'>0.099999</item>
+    <item name='room/distance/dbunit' type='msg_float' priority='0'>3.000000</item>
+    <item name='room/distance/mode' type='msg_symbol' priority='0'>inverse</item>
     <item name='room/distance/power' type='msg_float' priority='0'>1.000000</item>
     <item name='room/reflection/0/gain' type='msg_generic' priority='0'>0.000000</item>
     <item name='room/reflection/1/gain' type='msg_generic' priority='0'>0.000000</item>
