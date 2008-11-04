@@ -18,39 +18,7 @@
     <item name='rotate/angle' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='rotate/reference' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='skew/active' type='msg_toggle' priority='0'>0</item>
-    <item name='skew/factor' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
-    <item name='source.1/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.10/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.11/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.12/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.13/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.14/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.15/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.16/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.17/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.18/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.19/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.2/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.20/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.21/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.22/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.23/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.24/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.25/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.26/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.27/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.28/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.29/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.3/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.30/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.31/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.32/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.4/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.5/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.6/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.7/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.8/position/xyz' type='msg_list' priority='0'>0</item>
-    <item name='source.9/position/xyz' type='msg_list' priority='0'>0</item>
+    <item name='skew/angle' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
     <item name='sources/amount' type='msg_int' priority='0'>4</item>
     <item name='stretch/active' type='msg_toggle' priority='0'>0</item>
     <item name='stretch/factor' type='msg_generic' priority='0'>1.000000</item>
