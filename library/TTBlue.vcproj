@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TTBlue"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
@@ -113,7 +113,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.dll &quot;$(ProjectDir)..\..\jamoma\Jamoma\library\externals\windows&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;"
 				Outputs="AAA"
 			/>
 			<Tool

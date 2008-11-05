@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;"
+				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\jamoma\Jamoma\library\externals\windows&quot;"
+				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\jamoma\Jamoma\library\externals\windows&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
