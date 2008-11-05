@@ -978,7 +978,7 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 				return;
 		}
 		else{
-			strcpy(filename, userpath->s_name);									// Copy symbol argument to a local string
+			strcpy(filename, userpath->s_name);								// Copy symbol argument to a local string
 			path = 0;
 		}
 
@@ -988,8 +988,9 @@ void hub_preset_dowrite(t_hub *x, t_symbol *userpath)
 			object_error((t_object*)x, "%s - error %d creating file", filename, err);
 			return;	
 		}
-		// ... AND WE SAVE THE filepath IN THE HUB ATTRIBUTE user_path.
-		jcom_core_getfilepath(path, filename, fullpath);
+		// ... AND WE SAVE THE fullpath IN THE HUB ATTRIBUTE user_path.
+		if(path) jcom_core_getfilepath(path, filename, fullpath);
+		else strcpy(fullpath, filename);
 		x->user_path = gensym(fullpath);
 	}
 
