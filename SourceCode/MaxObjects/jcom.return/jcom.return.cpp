@@ -21,6 +21,7 @@ typedef struct _return {
 	void 							*outlets[num_outlets];	// my outlet array
 	t_atom							output[512];			// buffer that gets sent to the hub
 	short							output_len;
+	short							input_len;				//used in return_lis, stores the length of a list w/o the OSC name 
 	char							attrEnable;
 	t_object*						send;					// send object for direct sending
 } t_return;
@@ -46,6 +47,7 @@ t_max_err	return_attr_settype(t_return *x, void *attr, long argc, t_atom *argv);
 // Globals
 t_class		*return_class;				// Required: Global pointer for our class
 
+int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
 
 /************************************************************************************/
 // Class Definition
@@ -197,7 +199,7 @@ void return_dump(t_return *x)
 		atom_setsym(&a[1], x->common.attr_clipmode);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 
-		snprintf(s, 256, "%s:/repetitions", x->common.attr_name->s_name);
+		snprintf(s, 256, "%s:/repetitions/allow", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setlong(&a[1], x->common.attr_repetitions);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
@@ -284,7 +286,10 @@ void return_int(t_return *x, long value)
 {
 	if(!x->attrEnable)
 		return;
-	
+	if(x->common.attr_repetitions == 0){
+		if(value == atom_getlong(&x->output[1]))
+			return;
+	}
 	if(x->common.attr_clipmode != _sym_none){
 		if(x->common.attr_clipmode == jps_both)
 			value = TTClip<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
@@ -306,8 +311,11 @@ void return_int(t_return *x, long value)
 void return_float(t_return *x, double value)
 {
 	if(!x->attrEnable)
-		return;
-	
+		return;    
+	if(x->common.attr_repetitions == 0){
+		if(value == atom_getfloat(&x->output[1]))
+			return;
+	}
 	if(x->common.attr_clipmode != _sym_none){
 		if(x->common.attr_clipmode == jps_both)
 			value = TTClip<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
@@ -332,7 +340,10 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 
 	if(!x->attrEnable)
 		return;
-
+    if(x->common.attr_repetitions == 0){
+		if(msg == atom_getsym(&x->output[1]))
+			return;
+	}
 	atom_setsym(&x->output[1], msg);
 	x->output_len++;
 	
@@ -340,7 +351,6 @@ void return_symbol(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 		jcom_core_atom_copy(&x->output[i+1], argv++);
 		x->output_len++;
 	}	
-	
 	outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-2, &x->output[2]);
 	return_send_feedback(x);
 }
@@ -354,10 +364,44 @@ void return_list(t_return *x, t_symbol *msg, long argc, t_atom *argv)
 	if(!x->attrEnable)
 		return;
 	
+	if(x->common.attr_repetitions == 0){
+		if(param_list_compare(x->output+1, x->input_len, argv, argc))
+			return;	// nothing to do
+	}
+			
 	for(i=1; i<=argc; i++){
 		jcom_core_atom_copy(&x->output[i], argv++);
-		x->output_len++;
+		x->output_len++;	
 	}
+	x->input_len = x->output_len-1;
 	outlet_anything(x->outlets[k_outlet_thru], msg, x->output_len-1, &x->output[1]);
 	return_send_feedback(x);
+}
+
+// Returns true if lists are identical
+int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
+{
+	// If lists differ in length they're obviously not the same
+	if(lengthx == lengthy) {
+		short type;
+		for(int i = 0; i < lengthx; i++) {
+			if((x->a_type) != (y->a_type))
+				return 0; // not identical, types differ
+			
+			type = x->a_type;
+			if((type == A_FLOAT) && (x->a_w.w_float != y->a_w.w_float))
+				return 0;
+			else if((type == A_LONG) && (x->a_w.w_long != y->a_w.w_long))
+				return 0;
+			else if((type == A_SYM) && (x->a_w.w_sym != y->a_w.w_sym))
+				return 0;
+			
+			x++; y++;  // keep going
+		}
+	} 
+	else {
+		return 0; // list lengths differ
+	}
+	
+	return 1;
 }
