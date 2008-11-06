@@ -18,6 +18,7 @@ TTEXPORT TTSymbolPtr	kTTSym_setVector64;
 TTEXPORT TTSymbolPtr	kTTSym_getVector64;
 
 TTEXPORT TTSymbolPtr	kTTSym_alloc;
+TTEXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
 TTEXPORT TTSymbol*	kTTSym_both;
 TTEXPORT TTSymbol*	kTTSym_bypass;
 TTEXPORT TTSymbol*	kTTSym_clipmode;
@@ -59,6 +60,7 @@ void TTSymbolCacheInit()
 	kTTSym_getVector64				= TT("getVector64");
 
 	kTTSym_alloc					= TT("alloc");
+	kTTSym_audioEngineWillProcess	= TT("audioEngineWillProcess");
 	kTTSym_both						= TT("both");
 	kTTSym_bypass					= TT("bypass");
 	kTTSym_clipmode					= TT("clipmode");

@@ -19,6 +19,7 @@ extern TTEXPORT TTSymbolPtr kTTSym_setVector64;
 extern TTEXPORT TTSymbolPtr kTTSym_getVector64;
 
 extern TTEXPORT TTSymbolPtr	kTTSym_alloc;
+extern TTEXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
 extern TTEXPORT TTSymbol*	kTTSym_both;
 extern TTEXPORT TTSymbol*	kTTSym_bypass;
 extern TTEXPORT TTSymbol*	kTTSym_clipmode;
