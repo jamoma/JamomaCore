@@ -75,6 +75,12 @@
 		22569C5B0D3E419300328864 /* TTLowpassOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */; };
 		22569C5C0D3E419300328864 /* TTOverdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4D0D3E419300328864 /* TTOverdrive.cpp */; };
 		22569C5D0D3E419300328864 /* TTRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4E0D3E419300328864 /* TTRamp.cpp */; };
+		22578F120EC2762900A5EC32 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F110EC2762900A5EC32 /* libportaudio.a */; };
+		22578F180EC2767800A5EC32 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22578F170EC2767800A5EC32 /* portaudio.h */; };
+		22578F1D0EC276B200A5EC32 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
+		22578F1E0EC276B200A5EC32 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
+		22578F1F0EC276B200A5EC32 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
+		22578F200EC276B200A5EC32 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
 		228A09550E6049600053576D /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228A09530E6049600053576D /* TTAttribute.cpp */; };
 		228A09560E6049600053576D /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228A09540E6049600053576D /* TTMessage.cpp */; };
 		228A095A0E60498D0053576D /* TTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 228A09580E60498D0053576D /* TTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -197,6 +203,12 @@
 		22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassOnePole.cpp; path = ../source/units/TTLowpassOnePole.cpp; sourceTree = SOURCE_ROOT; };
 		22569C4D0D3E419300328864 /* TTOverdrive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOverdrive.cpp; path = ../source/units/TTOverdrive.cpp; sourceTree = SOURCE_ROOT; };
 		22569C4E0D3E419300328864 /* TTRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRamp.cpp; path = ../source/units/TTRamp.cpp; sourceTree = SOURCE_ROOT; };
+		22578F110EC2762900A5EC32 /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = portaudio/libportaudio.a; sourceTree = "<group>"; };
+		22578F170EC2767800A5EC32 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = portaudio/include/portaudio.h; sourceTree = "<group>"; };
+		22578F190EC276B200A5EC32 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		22578F1B0EC276B200A5EC32 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		228A09530E6049600053576D /* TTAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAttribute.cpp; path = ../source/core/TTAttribute.cpp; sourceTree = SOURCE_ROOT; };
 		228A09540E6049600053576D /* TTMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMessage.cpp; path = ../source/core/TTMessage.cpp; sourceTree = SOURCE_ROOT; };
 		228A09580E60498D0053576D /* TTMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMessage.h; path = ../includes/core/TTMessage.h; sourceTree = SOURCE_ROOT; };
@@ -257,6 +269,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */,
+				22578F120EC2762900A5EC32 /* libportaudio.a in Frameworks */,
+				22578F1D0EC276B200A5EC32 /* CoreAudio.framework in Frameworks */,
+				22578F1E0EC276B200A5EC32 /* AudioToolbox.framework in Frameworks */,
+				22578F1F0EC276B200A5EC32 /* AudioUnit.framework in Frameworks */,
+				22578F200EC276B200A5EC32 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +310,12 @@
 			isa = PBXGroup;
 			children = (
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
+				22578F170EC2767800A5EC32 /* portaudio.h */,
+				22578F110EC2762900A5EC32 /* libportaudio.a */,
+				22578F190EC276B200A5EC32 /* CoreAudio.framework */,
+				22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */,
+				22578F1B0EC276B200A5EC32 /* AudioUnit.framework */,
+				22578F1C0EC276B200A5EC32 /* CoreServices.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -561,6 +584,7 @@
 				228A095A0E60498D0053576D /* TTMessage.h in Headers */,
 				228A095B0E60498D0053576D /* TTAttribute.h in Headers */,
 				2294E55C0EB79AD600A88073 /* lydbaer.h in Headers */,
+				22578F180EC2767800A5EC32 /* portaudio.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,8 +752,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/lydbaer/build/Development\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/portaudio\"";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
@@ -769,8 +795,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/lydbaer/build/Development\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/portaudio\"";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
