@@ -8,12 +8,14 @@
 
 #include "TTList.h"
 #include "TTMutex.h"
+#include "TTObject.h"
 
 static TTMutex* sListMutex=NULL;
 
 /****************************************************************************************************/
 
 TTList::TTList()
+	:threadProtection(YES)
 {
 	if(!sListMutex)
 		sListMutex = new TTMutex(false);
@@ -46,25 +48,25 @@ TTValue& TTList::getTail()
 
 void TTList::append(const TTValue& newValue)
 {
-	sListMutex->lock();
+	lock();
 	theList.insert(theList.end(), (TTValue*)&newValue);
-	sListMutex->unlock();
+	unlock();
 }
 
 
 void TTList::remove(const TTValue& value)
 {
-	sListMutex->lock();
+	lock();
 	theList.remove((TTValue*)&value);
-	sListMutex->unlock();
+	unlock();
 }
 
 
 void TTList::clear()
 {
-	sListMutex->lock();
+	lock();
 	theList.clear();
-	sListMutex->unlock();
+	unlock();
 }
 
 
@@ -74,10 +76,36 @@ void TTList::assignToValue(TTValue& value)
 	
 	value.clear();
 	
-	sListMutex->lock();
+	lock();
 	for(iter = theList.begin(); iter != theList.end(); iter++){
 		value.append(*iter);
 	}
-	sListMutex->unlock();	
+	unlock();	
+}
+
+
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName)
+{
+	lock();
+	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
+		TTObjectPtr obj = *(*iter);
+		if(obj)
+			obj->sendMessage(messageName);
+	}
+	unlock();
+	return kTTErrNone;
+}
+
+
+void TTList::lock()
+{
+	if(threadProtection)
+		sListMutex->lock();
+}
+
+void TTList::unlock()
+{
+	if(threadProtection)
+		sListMutex->unlock();
 }
 

@@ -22,10 +22,15 @@ typedef list<TTValue*>::iterator	TTListIter;
 
 class TTEXPORT TTList : TTElement {
 private:
+	TTBoolean	threadProtection;	///< Use thread safety mechanisms.  Only disable this if you are certain that you will be calling from a single thread.
+	
 	#ifdef TT_PLATFORM_WIN
 	#pragma warning(disable:4251)
 	#endif
 	std::list<TTValue*>	theList;
+	
+	void lock();
+	void unlock();
 	
 public:
 	TTList();
@@ -57,6 +62,15 @@ public:
 
 	/**	Assign the contents of the list to a value as an array.	*/
 	void assignToValue(TTValue& value);
+	
+	/**	Traverse the entire list, and if the item in the list is an object, then send it the specified message.	*/
+	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName);
+	
+	
+	void setThreadProtection(TTBoolean newThreadProtection)
+	{	
+		threadProtection = newThreadProtection;
+	}
 };
 
 
