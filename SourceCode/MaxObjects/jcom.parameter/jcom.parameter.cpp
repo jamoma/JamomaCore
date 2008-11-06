@@ -901,11 +901,14 @@ void param_output_int(void *z)
 void param_output_float(void *z)
 {
 	t_param *x = (t_param *)z;
+	TTBoolean	didClip;
 
-	if(param_clip_float(x) && x->ramper)
-		x->ramper->stop();
+	didClip = param_clip_float(x);
 	outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
 	param_send_feedback(x);
+
+	if(didClip && x->ramper)
+		x->ramper->stop();
 }
 
 

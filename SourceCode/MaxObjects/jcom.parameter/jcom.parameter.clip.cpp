@@ -60,7 +60,12 @@ bool param_clip_float(t_param *x)
 		clipped = val;
 
 	atom_setfloat(&x->attr_value, clipped);	// must be set for all cases to cast the jps_none type correctly too
-	return clipped != val;
+	
+	// cannot just compare the two floats here, unfortunately, because of rounding errors from the clipping functions [TAP]
+	if(fabs(clipped-val) < 0.0001)
+		return false;	// did not clip, or difference was so small that we assume we didn't.
+	else
+		return true;	// did clip
 }
 
 
