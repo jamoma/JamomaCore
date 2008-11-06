@@ -576,10 +576,8 @@ TTValue::operator TTObject*() const
 	
 	if(*type == kTypeObject)
 		return data->object;
-	else{
-		// TODO: This is an error, not sure what to do...
-		return data->object;
-	}
+	else
+		return NULL;
 }
 
 
