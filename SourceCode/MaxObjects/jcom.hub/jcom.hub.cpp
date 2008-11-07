@@ -910,7 +910,7 @@ void hub_paramvalues_get(t_hub *x)
 					ac = NULL; 
 					av = NULL;	
 					object_attr_getvalueof(t->object, jps_priority, &ac, &av);
-					post("Priority" + atom_getlong(av));
+//					post("Priority" + atom_getlong(av));
 					if(atom_getlong(av) == p){
 						ac = NULL; av = NULL;										// init
 						object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
