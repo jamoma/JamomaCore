@@ -11,7 +11,7 @@
 
 
 LydbaerObject::LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels)
-	:flags(kLydbaerProcessor), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
+	:flags(kLydbaerProcessor), alwaysProcessSidechain(false), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
 	audioInput(NULL), audioOutput(NULL), sidechainInput(NULL), sidechainOutput(NULL), audioObject(NULL)
 {
 	TTErr err;
@@ -49,6 +49,13 @@ TTErr LydbaerObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt
 {
 	inChansToOutChansRatio[0] = numInputChannels;
 	inChansToOutChansRatio[1] = numOutputChannels;
+	return kTTErrNone;
+}
+
+
+TTErr LydbaerObject::setAlwaysProcessSidechain(TTBoolean newValue)
+{
+	alwaysProcessSidechain = newValue;
 	return kTTErrNone;
 }
 
@@ -166,6 +173,11 @@ TTErr LydbaerObject::init()
 			sidechainSourceProducesNumChannels = initAudioSignal(sidechainInput, sidechainSources[0]);
 			sidechainInput->allocWithVectorSize(sidechainSources[0]->audioOutput->getVectorSize());
 		}
+		if(alwaysProcessSidechain){
+			if(!sidechainOutput)
+				TTObjectInstantiate(kTTSym_audiosignal, &sidechainOutput, sourceProducesNumChannels * TTLimitMin<TTFloat32>(inChansToOutChansRatio[1] / inChansToOutChansRatio[0], 1));				
+			sidechainOutput->allocWithVectorSize(audioSources[0]->audioOutput->getVectorSize());
+		}
 	}
 	else{
 		sourceProducesNumChannels = 0;
@@ -214,6 +226,18 @@ TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
 				}
 				
 				audioObject->process(audioInput, sidechainInput, audioOutput);		// a processor with sidechain input
+			}
+			else if(alwaysProcessSidechain){
+				audioInput->clear();		// zero the samples
+				
+				// sum the sources
+				for(TTUInt16 i=0; i<numSources; i++){
+					err = audioSources[i]->getAudioOutput(pulledInput);
+					if(!err)
+						(*audioInput) += (*pulledInput);
+				}
+								
+				audioObject->process(audioInput, audioInput, audioOutput, sidechainOutput);		// a processor with sidechain output
 			}
 			else if(numSources){
 				// zero the samples

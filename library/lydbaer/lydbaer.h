@@ -38,7 +38,8 @@ class TTEXPORT LydbaerObject {
 protected:
 	LydbaerProcessStatus		processStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	LydbaerFlags				flags;
-	TTUInt16					inChansToOutChansRatio[2];	///< for every N incoming channels, this object should produce M output channels
+	TTUInt16					inChansToOutChansRatio[2];	///< for every N incoming channels, this object should produce M output channels.
+	TTBoolean					alwaysProcessSidechain;		///< always process with the sidechain, regardless of whether the sidechain is provided with valid input.
 	
 	LydbaerObjectPtr*			audioSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
 	LydbaerObjectPtr*			sidechainSources;		///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
@@ -68,6 +69,7 @@ public:
 	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
 
 	TTErr setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels);
+	TTErr setAlwaysProcessSidechain(TTBoolean newValue);
 	
 	TTUInt16 getNumOutputChannels()
 	{

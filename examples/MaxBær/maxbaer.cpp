@@ -17,7 +17,7 @@ typedef struct _wrappedInstance {
     t_object			obj;						///< Max audio object header
 	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
 	LydbaerObjectPtr	lydbaerObject;				///< The instance of the TTBlue object we are wrapping
-	TTPtr				lydbaerOutlet;
+	TTPtr				lydbaerOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
 	
 	TTPtr				inlets[16];					///< Array of proxy inlets beyond the first inlet
 	long				inletnum;					///< The Max proxy inlet number
@@ -37,6 +37,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	TTValue				v;
 	TTErr				err = kTTErrNone;
 	TTUInt8				numInputs = 1;
+	TTUInt8				numOutputs = 1;
 	
 	// Find the WrappedClass
 	hashtab_lookup(wrappedMaxClasses, name, (ObjectPtr*)&wrappedMaxClass);
@@ -61,7 +62,10 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 			x->inlets[i] = proxy_new(x, i+1, &x->inletnum);
 		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
-		x->lydbaerOutlet = outlet_new(x, NULL);
+		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
+			numOutputs += TTUInt8(v);
+		for(TTInt8 i=numOutputs-1; i>=0; i--)
+			x->lydbaerOutlets[i] = outlet_new(x, NULL);
 
 		x->wrappedClassDefinition = wrappedMaxClass;
 		x->lydbaerObject = new LydbaerObject(wrappedMaxClass->ttblueClassName, 1);
@@ -73,6 +77,10 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 			v.get(0, numInChans);
 			v.get(1, numOutChans);
 			x->lydbaerObject->setInChansToOutChansRatio(numInChans, numOutChans);
+		}
+		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("alwaysUseSidechain"), v)){
+			TTBoolean alwaysUseSidechain = v;
+			x->lydbaerObject->setAlwaysProcessSidechain(alwaysUseSidechain);
 		}
 		
 		attr_args_process(x, argc, argv);
@@ -102,7 +110,7 @@ TTErr maxbaerSetup(WrappedInstancePtr x)
 	Atom a;
 	
 	atom_setobj(&a, ObjectPtr(x->lydbaerObject));
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 1, &a);
+	outlet_anything(x->lydbaerOutlets[0], gensym("lydbaerObject"), 1, &a);
 	return kTTErrNone;
 }
 
