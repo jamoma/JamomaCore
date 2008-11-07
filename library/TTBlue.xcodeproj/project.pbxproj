@@ -94,8 +94,6 @@
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
 		22AC38AC0E057658006E4504 /* TTDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AC38AB0E057658006E4504 /* TTDelay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22AC38B20E05766E006E4504 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AC38B10E05766E006E4504 /* TTDelay.cpp */; };
-		22B4D0AA0EC37BAD0030FD40 /* TTOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B4D0A90EC37BAD0030FD40 /* TTOutput.h */; };
-		22B4D0AC0EC37BD80030FD40 /* TTOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B4D0AB0EC37BD80030FD40 /* TTOutput.cpp */; };
 		22B4D0AF0EC37DCE0030FD40 /* lydbaerOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B4D0AE0EC37DCE0030FD40 /* lydbaerOutput.cpp */; };
 		22B66A310E298B0500CB474E /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B66A300E298B0500CB474E /* TTHash.cpp */; };
 		22B66A330E298B1D00CB474E /* TTHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B66A320E298B1D00CB474E /* TTHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -227,8 +225,6 @@
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22AC38AB0E057658006E4504 /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelay.h; path = ../includes/units/TTDelay.h; sourceTree = SOURCE_ROOT; };
 		22AC38B10E05766E006E4504 /* TTDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDelay.cpp; path = ../source/units/TTDelay.cpp; sourceTree = SOURCE_ROOT; };
-		22B4D0A90EC37BAD0030FD40 /* TTOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOutput.h; path = ../includes/units/TTOutput.h; sourceTree = SOURCE_ROOT; };
-		22B4D0AB0EC37BD80030FD40 /* TTOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOutput.cpp; path = ../source/units/TTOutput.cpp; sourceTree = SOURCE_ROOT; };
 		22B4D0AE0EC37DCE0030FD40 /* lydbaerOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lydbaerOutput.cpp; sourceTree = "<group>"; };
 		22B66A300E298B0500CB474E /* TTHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHash.cpp; path = ../source/core/TTHash.cpp; sourceTree = SOURCE_ROOT; };
 		22B66A320E298B1D00CB474E /* TTHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHash.h; path = ../includes/core/TTHash.h; sourceTree = SOURCE_ROOT; };
@@ -410,8 +406,6 @@
 				22AC38B10E05766E006E4504 /* TTDelay.cpp */,
 				22C419690DDF96BD004AA836 /* TTOperator.h */,
 				22C419750DDF96DC004AA836 /* TTOperator.cpp */,
-				22B4D0A90EC37BAD0030FD40 /* TTOutput.h */,
-				22B4D0AB0EC37BD80030FD40 /* TTOutput.cpp */,
 				22569C200D3E416F00328864 /* TTOverdrive.h */,
 				22569C4D0D3E419300328864 /* TTOverdrive.cpp */,
 			);
@@ -601,7 +595,6 @@
 				2294E55C0EB79AD600A88073 /* lydbaer.h in Headers */,
 				22578F180EC2767800A5EC32 /* portaudio.h in Headers */,
 				2257900B0EC27D1500A5EC32 /* TTAudioEngine.h in Headers */,
-				22B4D0AA0EC37BAD0030FD40 /* TTOutput.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,7 +730,6 @@
 				2294E55A0EB79AD600A88073 /* lydbaer.cpp in Sources */,
 				2294E55D0EB79AD600A88073 /* lydbaerSource.cpp in Sources */,
 				225790090EC27CF600A5EC32 /* TTAudioEngine.cpp in Sources */,
-				22B4D0AC0EC37BD80030FD40 /* TTOutput.cpp in Sources */,
 				22B4D0AF0EC37DCE0030FD40 /* lydbaerOutput.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
