@@ -37,16 +37,8 @@ public:
 	// If only one signal is provided, then duplicate it onto a second set of channels
 	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out)
 	{
-//		TTUInt16	maxChannels = out.getMaxNumChannels();
 		TTUInt16	numChannels = in.getNumChannels();
-		
-//		if((numChannels * 2) > maxChannels){
-//			TTBoolean needsAlloc = out.getIsLocallyOwned();
-//			
-//			out.setmaxNumChannels(numChannels * 2);
-//			if(needsAlloc)
-//				out.alloc();
-//		}
+
 		TTAudioSignal::copy(in, out, 0);
 		TTAudioSignal::copy(in, out, numChannels);
 		
@@ -56,17 +48,8 @@ public:
 	
 	TTErr processAudioWithSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
 	{
-//		TTUInt16	maxChannels = out.getMaxNumChannels();
 		TTUInt16	numChannels1 = in1.getNumChannels();
-//		TTUInt16	numChannels2 = in2.getNumChannels();
-		
-//		if((numChannels1 + numChannels2) > maxChannels){
-//			TTBoolean needsAlloc = out.getIsLocallyOwned();
-//			
-//			out.setmaxNumChannels(numChannels1 + numChannels2);
-//			if(needsAlloc)
-//				out.alloc();
-//		}
+
 		TTAudioSignal::copy(in1, out, 0);
 		TTAudioSignal::copy(in2, out, numChannels1);
 		
