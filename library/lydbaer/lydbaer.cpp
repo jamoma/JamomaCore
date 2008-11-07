@@ -16,9 +16,12 @@ LydbaerObject::LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels
 {
 	TTErr err;
 	
+	inChansToOutChansRatio[0] = 1;
+	inChansToOutChansRatio[1] = 1;
+	
 	err = TTObjectInstantiate(objectName, &audioObject, initialNumChannels);
 	err = TTObjectInstantiate(kTTSym_audiosignal, &audioInput, initialNumChannels);
-	err = TTObjectInstantiate(kTTSym_audiosignal, &audioOutput, initialNumChannels);
+	err = TTObjectInstantiate(kTTSym_audiosignal, &audioOutput, initialNumChannels * TTLimitMin<TTFloat32>(inChansToOutChansRatio[1] / inChansToOutChansRatio[0], 1));
 }
 
 
@@ -38,6 +41,14 @@ TTErr LydbaerObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 		TTObjectRelease(audioOutput);
 
 	audioOutput = (TTAudioSignalPtr)TTObjectReference(newOutputPtr);
+	return kTTErrNone;
+}
+
+
+TTErr LydbaerObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels)
+{
+	inChansToOutChansRatio[0] = numInputChannels;
+	inChansToOutChansRatio[1] = numOutputChannels;
 	return kTTErrNone;
 }
 
@@ -85,6 +96,10 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject, TTUInt8 anInletNumber)
 		else
 			sidechainSources = (LydbaerObjectPtr*)realloc(sidechainSources, sizeof(LydbaerObjectPtr) * numSidechainSources);
 		sidechainSources[numSidechainSources-1] = anObject;
+		if(!sidechainInput)
+			TTObjectInstantiate(kTTSym_audiosignal, &sidechainInput, 1);
+		if(!sidechainOutput)
+			TTObjectInstantiate(kTTSym_audiosignal, &sidechainOutput, TTLimitMin<TTFloat32>(inChansToOutChansRatio[1] / inChansToOutChansRatio[0], 1));			
 	}
 	else{					// A normal audio source
 		numSources++;
@@ -138,8 +153,10 @@ TTErr LydbaerObject::init()
 		
 		// while it make sense to always match the input of this object to the output of the previous object (as above)
 		// we might want to have a different number of outputs here -- how should we handle that?
-		// for now we are just matching them...		
-		weDeliverNumChannels = initAudioSignal(audioOutput, audioSources[0]);
+		// for now we are just matching them more or less...		
+		weDeliverNumChannels = sourceProducesNumChannels * TTLimitMin<TTFloat32>(inChansToOutChansRatio[1] / inChansToOutChansRatio[0], 1);
+		audioOutput->setmaxNumChannels(weDeliverNumChannels);
+		audioOutput->setnumChannels(weDeliverNumChannels);
 
 		// for generators, these are already alloc'd in the reset method
 		audioInput->allocWithVectorSize(audioSources[0]->audioOutput->getVectorSize());
@@ -198,7 +215,7 @@ TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
 				
 				audioObject->process(audioInput, sidechainInput, audioOutput);		// a processor with sidechain input
 			}
-			if(numSources){
+			else if(numSources){
 				// zero the samples
 				audioInput->clear();
 				

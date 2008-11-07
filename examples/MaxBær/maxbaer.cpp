@@ -66,6 +66,15 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		x->wrappedClassDefinition = wrappedMaxClass;
 		x->lydbaerObject = new LydbaerObject(wrappedMaxClass->ttblueClassName, 1);
 		
+		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){
+			TTUInt16 numInChans = 1;
+			TTUInt16 numOutChans = 1;
+			
+			v.get(0, numInChans);
+			v.get(1, numOutChans);
+			x->lydbaerObject->setInChansToOutChansRatio(numInChans, numOutChans);
+		}
+		
 		attr_args_process(x, argc, argv);
 	}
 	return ObjectPtr(x);

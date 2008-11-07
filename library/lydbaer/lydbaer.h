@@ -38,6 +38,7 @@ class TTEXPORT LydbaerObject {
 protected:
 	LydbaerProcessStatus		processStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	LydbaerFlags				flags;
+	TTUInt16					inChansToOutChansRatio[2];	///< for every N incoming channels, this object should produce M output channels
 	
 	LydbaerObjectPtr*			audioSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
 	LydbaerObjectPtr*			sidechainSources;		///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
@@ -66,6 +67,7 @@ public:
 		One example for why you might want this is for creating generator objects.	*/
 	TTErr setAudioOutputPtr(TTAudioSignalPtr newOutputPtr);
 
+	TTErr setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels);
 	
 	TTUInt16 getNumOutputChannels()
 	{
