@@ -12,7 +12,7 @@
 
 LydbaerObject::LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels)
 	:flags(kLydbaerProcessor), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
-	audioInput(NULL), sidechainInput(NULL), audioOutput(NULL), audioObject(NULL)
+	audioInput(NULL), audioOutput(NULL), sidechainInput(NULL), sidechainOutput(NULL), audioObject(NULL)
 {
 	TTErr err;
 	
@@ -26,8 +26,9 @@ LydbaerObject::~LydbaerObject()
 {
 	TTObjectRelease(audioObject);
 	TTObjectRelease(audioInput);
-	TTObjectRelease(sidechainInput);
 	TTObjectRelease(audioOutput);
+	TTObjectRelease(sidechainInput);
+	TTObjectRelease(sidechainOutput);
 }
 
 
@@ -104,13 +105,12 @@ TTUInt16 LydbaerObject::initAudioSignal(TTAudioSignalPtr aSignal, LydbaerObjectP
 	
 	numChannels = aSignal->getNumChannels();
 	sourceProducesNumChannels = aSource->audioOutput->getNumChannels();
-	if(sourceProducesNumChannels > numChannels){
+
+	// currently we only up-size a signal, but perhaps we should also down-size them as appropriate?
+	if(sourceProducesNumChannels > numChannels)
 		aSignal->setmaxNumChannels(sourceProducesNumChannels);
-		aSignal->setnumChannels(sourceProducesNumChannels);
-	}
-	else
-		sourceProducesNumChannels = numChannels;
-	
+
+	aSignal->setnumChannels(sourceProducesNumChannels);
 	return sourceProducesNumChannels;
 }
 
@@ -135,28 +135,11 @@ TTErr LydbaerObject::init()
 	if(numSources && audioSources){
 		// match our source's vector size and number of channels
 		sourceProducesNumChannels = initAudioSignal(audioInput, audioSources[0]);
-//		numChannels = audioInput->getNumChannels();
-//		sourceProducesNumChannels = audioSources[0]->audioOutput->getNumChannels();
-//		if(sourceProducesNumChannels > numChannels){
-//			audioInput->setmaxNumChannels(sourceProducesNumChannels);
-//			audioInput->setnumChannels(sourceProducesNumChannels);
-//		}
-//		else
-//			sourceProducesNumChannels = numChannels;
 		
 		// while it make sense to always match the input of this object to the output of the previous object (as above)
 		// we might want to have a different number of outputs here -- how should we handle that?
-		// for now we are just matching them...
-		
+		// for now we are just matching them...		
 		weDeliverNumChannels = initAudioSignal(audioOutput, audioSources[0]);
-//		numChannels = audioOutput->getNumChannels();
-//		weDeliverNumChannels = audioSources[0]->audioOutput->getNumChannels();
-//		if(weDeliverNumChannels > numChannels){
-//			audioOutput->setmaxNumChannels(weDeliverNumChannels);
-//			audioOutput->setnumChannels(weDeliverNumChannels);
-//		}
-//		else
-//			weDeliverNumChannels = numChannels;
 
 		// for generators, these are already alloc'd in the reset method
 		audioInput->allocWithVectorSize(audioSources[0]->audioOutput->getVectorSize());
@@ -235,13 +218,13 @@ TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
 			// return
 			returnedSignal = audioOutput;
 			break;
-			
-			
+		
+		
 		// we already processed everything that needs to be processed, so just set the pointer
 		case kProcessComplete:
 			returnedSignal = audioOutput;
-			
-			
+		
+		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
 		case kProcessingCurrently:
 			returnedSignal = audioOutput;

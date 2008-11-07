@@ -36,8 +36,6 @@ typedef LydbaerObject*	LydbaerObjectPtr;
 
 class TTEXPORT LydbaerObject {	
 protected:
-	// Data
-	
 	LydbaerProcessStatus		processStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	LydbaerFlags				flags;
 	
@@ -47,12 +45,13 @@ public:
 	TTUInt16					numSources;				///< The number of getSamples callback functions (sources) from which we pull.
 	TTUInt16					numSidechainSources;	///< The number of getSamples callback functions (sources) from which we pull.
 protected:
-	
 	TTAudioSignalPtr			audioInput;				///< The buffered input for processing audio with our object.
-	TTAudioSignalPtr			sidechainInput;			///< The buffered input for processing audio with our object.
 	TTAudioSignalPtr			audioOutput;			///< The results of processing audio with our object.
+	TTAudioSignalPtr			sidechainInput;			///< The buffered input for processing audio with our object.
+	TTAudioSignalPtr			sidechainOutput;		///< The results of processing audio with our object.
 public:	
 	TTAudioObjectPtr			audioObject;			///< The actual TTBlue object doing the processing.
+	
 	
 	// Methods
 
