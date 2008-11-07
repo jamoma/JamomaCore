@@ -18,6 +18,9 @@ typedef struct _wrappedInstance {
 	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
 	LydbaerObjectPtr	lydbaerObject;				///< The instance of the TTBlue object we are wrapping
 	TTPtr				lydbaerOutlet;
+	
+	TTPtr				inlets[16];					///< Array of proxy inlets beyond the first inlet
+	long				inletnum;					///< The Max proxy inlet number
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
@@ -33,6 +36,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
     WrappedInstancePtr	x = NULL;
 	TTValue				v;
 	TTErr				err = kTTErrNone;
+	TTUInt8				numInputs = 1;
 	
 	// Find the WrappedClass
 	hashtab_lookup(wrappedMaxClasses, name, (ObjectPtr*)&wrappedMaxClass);
@@ -51,13 +55,18 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	if(!err)
 		x = (WrappedInstancePtr)object_alloc(wrappedMaxClass->maxClass);
     if(x){
+		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalInputs"), v))
+			numInputs += TTUInt8(v);
+		for(TTUInt8 i=0; i<numInputs-1; i++)
+			x->inlets[i] = proxy_new(x, i+1, &x->inletnum);
+		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 		x->lydbaerOutlet = outlet_new(x, NULL);
 
 		x->wrappedClassDefinition = wrappedMaxClass;
 		x->lydbaerObject = new LydbaerObject(wrappedMaxClass->ttblueClassName, 1);
 		
-		attr_args_process(x,argc,argv);
+		attr_args_process(x, argc, argv);
 	}
 	return ObjectPtr(x);
 }
@@ -91,7 +100,8 @@ TTErr maxbaerSetup(WrappedInstancePtr x)
 
 TTErr maxbaerObject(WrappedInstancePtr x, LydbaerObjectPtr audioSourceObject)
 {
-	return x->lydbaerObject->addSource(audioSourceObject);
+	long inletnum = proxy_getinlet(ObjectPtr(x));
+	return x->lydbaerObject->addSource(audioSourceObject, inletnum);
 }
 
 
