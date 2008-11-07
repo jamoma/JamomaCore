@@ -332,25 +332,27 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples
 	for(unsigned int i=0; i<frameCount; i++ ){
-		TTSampleVector sampleVector[numOutputChannels];
+//		TTSampleVector sampleVector[numOutputChannels];
 		
 		for(TTUInt16 channel=0; channel<numInputChannels; channel++){
-			sampleVector[channel] = inputBuffer->sampleVectors[channel];
-			sampleVector[channel][i] = *input++;
+//			sampleVector[channel] = inputBuffer->sampleVectors[channel];
+//			sampleVector[channel][i] = *input++;
+			inputBuffer->sampleVectors[channel][i] = *input++;
 		}
 		
 		for(TTUInt16 channel=0; channel<numOutputChannels; channel++){
-			sampleVector[channel] = outputBuffer->sampleVectors[channel];
-			*output++ = sampleVector[channel][i];
+//			sampleVector[channel] = outputBuffer->sampleVectors[channel];
+//			*output++ = sampleVector[channel][i];
+			*output++ = outputBuffer->sampleVectors[channel][i];
 		}
     }
     return 0;
 }
 
 
-
+#if 0
 #pragma mark -
-
+#endif
 
 static TTAudioEnginePtr sAudioEngine = NULL;
 
