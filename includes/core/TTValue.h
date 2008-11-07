@@ -245,6 +245,7 @@ public:
 	void get(TTUInt16 index, TTSymbol** value) const;
 	void get(TTUInt16 index, TTString& value) const;
 	void get(TTUInt16 index, TTObject& value) const;
+	void get(TTUInt16 index, TTObject** value) const;
 	void get(TTUInt16 index, TTPtr* value) const;
 
 

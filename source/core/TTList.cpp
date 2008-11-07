@@ -88,7 +88,9 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName)
 {
 	lock();
 	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
-		TTObjectPtr obj = *(*iter);
+		TTObjectPtr obj = NULL;
+		
+		(*iter)->get(0, &obj);
 		if(obj)
 			obj->sendMessage(messageName);
 	}

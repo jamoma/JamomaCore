@@ -803,8 +803,14 @@ void TTValue::get(TTUInt16 index, TTString& value) const
 
 void TTValue::get(TTUInt16 index, TTObject &value) const
 {
-	if(type[index] == kTypeUInt64)
+	if(type[index] == kTypeObject)
 		value = *(data+index)->object;
+}
+
+void TTValue::get(TTUInt16 index, TTObject** value) const
+{
+	if(type[index] == kTypeObject)
+		*value = (data+index)->object;
 }
 
 void TTValue::get(TTUInt16 index, TTPtr* value) const
