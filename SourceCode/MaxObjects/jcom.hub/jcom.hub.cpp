@@ -874,27 +874,92 @@ void hub_paramnames_get(t_hub *x)
 // Return a list of parameters and message for this module
 void hub_paramvalues_get(t_hub *x)
 {
-	subscriberList	*subscriber = x->subscriber;	// head of the linked list
-	t_atom			*av;
-	long			ac;
-	char			osc[512];
-	
+	subscriberList		*subscriber = x->subscriber;	// head of the linked list
+	t_atom				*av;
+	long				ac;
+	char				osc[512];
+	subscriberIterator	i;
+	t_subscriber*		t;
+	short				num_params_with_priority = 0;
+	short				num_params_recalled = 0;
+	short				p;
+
 	hub_outlet_return(x, jps_parameter_values_start, 0, NULL);
 	
-	subscriberIterator i;
-	t_subscriber* t;
+	// Count the number of parameters with a priority
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
 		if(t->type == jps_subscribe_parameter){
-			ac = NULL; av = NULL;										// init
-			object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
-			snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
-			hub_outlet_return(x, gensym(osc), ac, av);
+			ac = NULL; 
+			av = NULL;	
+			object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+			if(atom_getlong(av) > 0)
+				num_params_with_priority++;		
 		}
 	}
-		
 	critical_exit(0);
+
+	if(num_params_with_priority > 0){
+		p=1;
+		while(num_params_with_priority > num_params_recalled){
+			critical_enter(0);
+			for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+				t = *i;
+				if(t->type == jps_subscribe_parameter){
+					ac = NULL; 
+					av = NULL;	
+					object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+					post("Priority" + atom_getlong(av));
+					if(atom_getlong(av) == p){
+						ac = NULL; av = NULL;										// init
+						object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
+						snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
+						hub_outlet_return(x, gensym(osc), ac, av);
+						num_params_recalled++;
+					}
+				}
+			}
+			critical_exit(0);
+			p++;
+		}
+
+		// Recall items with priority 0 now
+		critical_enter(0);
+		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if(t->type == jps_subscribe_parameter){
+				ac = NULL; 
+				av = NULL;	
+				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+				if(atom_getlong(av) == 0) {
+					ac = NULL; av = NULL;										// init
+					object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
+					snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
+					hub_outlet_return(x, gensym(osc), ac, av);
+				}
+			}
+		}
+		critical_exit(0);
+	}
+	else{
+		critical_enter(0);
+		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if(t->type == jps_subscribe_parameter){
+				ac = NULL; 
+				av = NULL;	
+				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+				if(atom_getlong(av) == 0) {
+					ac = NULL; av = NULL;										// init
+					object_attr_getvalueof(t->object, jps_value, &ac, &av);		// get	
+					snprintf(osc, 512, "%s/%s", jps_parameter_value->s_name, t->name->s_name);
+					hub_outlet_return(x, gensym(osc), ac, av);
+				}
+			}
+		}
+		critical_exit(0);
+	}
 	hub_outlet_return(x, jps_parameter_values_end, 0, NULL);
 }
 
