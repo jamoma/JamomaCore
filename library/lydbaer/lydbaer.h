@@ -38,18 +38,21 @@ class TTEXPORT LydbaerObject {
 protected:
 	// Data
 	
-	LydbaerProcessStatus		processStatus;	///< Used to enable correct processing of feedback loops, multiple destinations, etc.
+	LydbaerProcessStatus		processStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	LydbaerFlags				flags;
 	
-	LydbaerObjectPtr*			audioSources;	///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+	LydbaerObjectPtr*			audioSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+	LydbaerObjectPtr*			sidechainSources;		///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
 public:
-	TTUInt16					numSources;		///< The number of getSamples callback functions (sources) from which we pull.
+	TTUInt16					numSources;				///< The number of getSamples callback functions (sources) from which we pull.
+	TTUInt16					numSidechainSources;	///< The number of getSamples callback functions (sources) from which we pull.
 protected:
 	
-	TTAudioSignalPtr			audioInput;		///< The buffered input for processing audio with our object.
-	TTAudioSignalPtr			audioOutput;	///< The results of processing audio with our object.
+	TTAudioSignalPtr			audioInput;				///< The buffered input for processing audio with our object.
+	TTAudioSignalPtr			sidechainInput;			///< The buffered input for processing audio with our object.
+	TTAudioSignalPtr			audioOutput;			///< The results of processing audio with our object.
 public:	
-	TTAudioObjectPtr			audioObject;	///< The actual TTBlue object doing the processing.
+	TTAudioObjectPtr			audioObject;			///< The actual TTBlue object doing the processing.
 	
 	// Methods
 
@@ -93,11 +96,21 @@ public:
 		@param	vs		The global vector size that will be used for the chain's output.	*/
 	TTErr resetSources(TTUInt16 vs);
 	
-	/**	Add a source to the list of objects from which to request audio.	*/
-	TTErr addSource(LydbaerObjectPtr anObject);
+	
+	/**	Add a source to the list of objects from which to request audio.
+		@param	anObject		The lydbaer object which is supplying us with input.
+		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
+								Typically the value passed here will be 0, indicating the normal audio input.
+		@return					An error code.	*/
+	TTErr addSource(LydbaerObjectPtr anObject, TTUInt8 anInletNumber=0);
+
+private:
+	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, LydbaerObjectPtr aSource);
+public:
 	
 	/**	Allocate buffers and prepare for processing.	*/
 	TTErr init();
+	
 	
 	/**	This method is called by an object about to process audio, prior to calling getAudioOutput().
 		As with the getAudioOutput() method, this is driven by the destination object and working up through the chains.
@@ -115,8 +128,51 @@ public:
 
 
 
+
+/**	LydbaerOutput is an audio object that serves as the destination and master for a Lydbaer graph.		*/
+class TTEXPORT LydbaerOutput : public TTAudioObject
+{
+public:
+	TTObjectPtr			audioEngine;
+	TTAudioSignalPtr	placeHolder;	///< an unused audio signal that we pass
+	LydbaerObjectPtr	owner;			///< the owning lydbaer instance
+	TTValuePtr			me;
+
+	
+	/**	Constructor. */
+	LydbaerOutput(TTUInt16 newMaxNumChannels);
+	
+	/**	Destructor. */
+	virtual ~LydbaerOutput();
+	
+	
+	TTErr start();
+	TTErr stop();
+	
+	/** Called by the audio engine every time a new vector of output is required. */
+	TTErr audioEngineWillProcess();
+	
+	TTErr setOwner(TTValue& newOwner);
+
+	
+	// Attribute Accessors
+	TTErr setsampleRate(const TTValue& newValue);
+	TTErr getsampleRate(TTValue& returnedValue);
+	TTErr setvectorSize(const TTValue& newValue);
+	TTErr getvectorSize(TTValue& returnedValue);
+	
+	
+	/**	A standard audio processing method as used by TTBlue objects.*/
+	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& unused);	
+};
+
+typedef LydbaerOutput* LydbaerOutputPtr;
+
+
+
+
 /**	LydbaerSource is a very simple audio object that holds a signal from TTBlue
-	that can be used by a Lydbaer graph.		*/
+ that can be used by a Lydbaer graph.		*/
 class TTEXPORT LydbaerSource : public TTAudioObject
 {
 public:
@@ -130,7 +186,7 @@ public:
 	virtual ~LydbaerSource();
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);	
+	TTErr processAudio(TTAudioSignal& unused, TTAudioSignal& out);	
 };
 
 typedef LydbaerSource* LydbaerSourcePtr;

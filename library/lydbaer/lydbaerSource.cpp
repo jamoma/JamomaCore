@@ -29,8 +29,3 @@ TTErr LydbaerSource::processAudio(TTAudioSignal& unused, TTAudioSignal& out)
 {
 	return TTAudioSignal::copy(*buffer, out);
 }
-
-
-// Register our class with the TTBlue environment
-TT_CLASS_SETUP("lydbaer.source", "audio, wrapper", LydbaerSource);
-

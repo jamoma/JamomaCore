@@ -11,6 +11,7 @@
 #include "TTEnvironment.h"
 #include "TTSymbolCache.h"
 #include "TTValueCache.h"
+#include "TTAudioEngine.h"
 
 #ifdef TT_PLATFORM_MAC
 #include <dlfcn.h>
@@ -50,7 +51,14 @@ void TTBlueInit()
 		
 		TTBlueRegisterInternalClasses();
 		TTBlueLoadExternalClasses();
+		TTAudioEngineCreate();
 	}
+}
+
+
+void TTBlueShutdown()
+{
+	TTAudioEngineFree();
 }
 
 
@@ -321,6 +329,7 @@ void TTBlueRegisterInternalClasses()
 
 	// Lydbaer
 	TTClassRegister(TT("lydbaer.source"),				"audio, lydbaer",													&TTBlueInstantiateInternalClass);
+	TTClassRegister(TT("lydbaer.output"),				"audio, lydbaer",													&TTBlueInstantiateInternalClass);
 
 
 }
@@ -432,8 +441,10 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 	// Lydbaer
 	else if(className == TT("lydbaer.source"))
 		return new LydbaerSource(arguments);
+	else if(className == TT("lydbaer.output"))
+		return new LydbaerOutput(arguments);
 
-
+	
 
 	// Not found
 	else{
