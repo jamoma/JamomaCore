@@ -292,7 +292,7 @@ TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUI
 		while(vs--)
 			*outSample++ = *inSample++;
 	}
-	for(channel; channel<(numchannels+additionalOutputChannels); channel++){
+	for(channel; channel<(numchannels+additionalOutputChannels-channelOffset); channel++){
 		outSample = dest.sampleVectors[channel];
 		vs = dest.getVectorSize();
 		while(vs--)
