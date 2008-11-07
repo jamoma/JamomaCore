@@ -21,6 +21,7 @@ typedef struct LydInfo {
 	long				numChannels;	// the actual number of channels to use, set by the dsp method
 	long				vectorSize;		// cached by the DSP method
 	float				gain;			// gain multiplier
+	TTPtr				qelem;			// a queue for deferring 'bang' calls
 };
 typedef LydInfo* LydInfoPtr;
 
@@ -30,6 +31,7 @@ LydInfoPtr	lydInfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydInfoFree(LydInfoPtr x);
 void		lydInfoAssist(LydInfoPtr x, void* b, long msg, long arg, char* dst);
 void		lydInfoBang(LydInfoPtr x);
+void		lyInfoQfn(LydInfoPtr x);
 TTErr		lydInfoReset(LydInfoPtr x, long vectorSize);
 TTErr		lydInfoObject(LydInfoPtr x, LydbaerObjectPtr audioSourceObject);
 
@@ -71,15 +73,15 @@ LydInfoPtr lydInfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
    
     x = LydInfoPtr(object_alloc(sLydInfoClass));
     if(x){
-
-		
-		attr_args_process(x,argc,argv);				// handle attribute args	
-				
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-//	    dsp_setup((t_pxobject *)x, 1);
 		x->outletNumChannels = outlet_new((t_pxobject *)x, 0L);;
 		x->outletVectorSize = outlet_new((t_pxobject *)x, 0L);;
 		x->outletSampleRate = outlet_new((t_pxobject *)x, 0L);;
+
+		x->qelem = qelem_new(x, (method)lyInfoQfn);
+		
+		attr_args_process(x,argc,argv);				// handle attribute args	
+				
 	}
 	return x;
 }
@@ -87,7 +89,7 @@ LydInfoPtr lydInfoNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void lydInfoFree(LydInfoPtr x)
 {
-	;
+	qelem_free(x->qelem);
 }
 
 
@@ -113,6 +115,12 @@ void lydInfoAssist(LydInfoPtr x, void* b, long msg, long arg, char* dst)
 
 
 void lydInfoBang(LydInfoPtr x)
+{
+	qelem_set(x->qelem);
+}
+
+
+void lyInfoQfn(LydInfoPtr x)
 {
 	if(x->audioSourceObject){
 		outlet_int(x->outletNumChannels, x->audioSourceObject->getNumOutputChannels());
