@@ -218,7 +218,10 @@ TTObjectPtr TTObjectReference(TTObjectPtr anObject)
 
 TTErr TTObjectRelease(TTObjectPtr anObject)
 {
-	return ttEnvironment->releaseInstance(anObject);
+	if(anObject)
+		return ttEnvironment->releaseInstance(anObject);
+	else
+		return kTTErrNone;
 }
 
 
