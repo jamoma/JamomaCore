@@ -327,24 +327,17 @@ TTInt32 TTAudioEngine::callback(const TTFloat32*		input,
 	outputBuffer->clear();
 
 	// notify any observers that we are about to process a vector
+	// for example, a lydbaer graph will do all of its processing in response to this
+	// also, the scheduler will be serviced as a result of this
 	callbackObservers->iterateObjectsSendingMessage(kTTSym_audioEngineWillProcess);
 	
 	// right now we copy all of the channels, regardless of whether or not they are actually being used
 	// TODO: only copy the channels that actually contain new audio samples
-	for(unsigned int i=0; i<frameCount; i++ ){
-//		TTSampleVector sampleVector[numOutputChannels];
-		
-		for(TTUInt16 channel=0; channel<numInputChannels; channel++){
-//			sampleVector[channel] = inputBuffer->sampleVectors[channel];
-//			sampleVector[channel][i] = *input++;
+	for(unsigned int i=0; i<frameCount; i++){		
+		for(TTUInt16 channel=0; channel<numInputChannels; channel++)
 			inputBuffer->sampleVectors[channel][i] = *input++;
-		}
-		
-		for(TTUInt16 channel=0; channel<numOutputChannels; channel++){
-//			sampleVector[channel] = outputBuffer->sampleVectors[channel];
-//			*output++ = sampleVector[channel][i];
+		for(TTUInt16 channel=0; channel<numOutputChannels; channel++)
 			*output++ = outputBuffer->sampleVectors[channel][i];
-		}
     }
     return 0;
 }
