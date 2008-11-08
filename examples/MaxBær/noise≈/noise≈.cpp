@@ -114,10 +114,11 @@ TTErr noiseBaerReset(NoiseBaerPtr x, long vectorSize)
 
 TTErr noiseBaerSetup(NoiseBaerPtr x)
 {
-	Atom a;
+	Atom a[2];
 	
-	atom_setobj(&a, ObjectPtr(x->lydbaer));
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 1, &a);
+	atom_setobj(a+0, ObjectPtr(x->lydbaer));
+	atom_setlong(a+1, 0);
+	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
 	return kTTErrNone;
 }
 

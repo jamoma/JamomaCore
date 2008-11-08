@@ -141,6 +141,10 @@ public:
 	/**	Copy the audio from one signal into another.	*/
 	static TTErr copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset=0);
 	
+	/**	Copy the audio from one signal into another.	*/
+	static TTErr copySubset(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 startingChannel=0, TTUInt16 endingChannel=0);
+	
+	
 	
 	
 	/** Use this class method to determine the least number of channels the two signals have in common.

@@ -40,10 +40,10 @@ public:
 	// Process Method	
 	TTErr processAudioWithSidechain(TTAudioSignal& in, TTAudioSignal&, TTAudioSignal& out1, TTAudioSignal& out2)
 	{
-		out1.setnumChannels(splitChannel);
-		out2.setnumChannels(out2.getNumChannels() - splitChannel);
 		TTAudioSignal::copy(in, out1, 0);
-		TTAudioSignal::copy(in, out2, splitChannel);
+		TTAudioSignal::copySubset(in, out2, splitChannel, in.getNumChannels()-1);
+		out1.setnumChannels(splitChannel);
+		out2.setnumChannels(in.getNumChannels() - splitChannel);
 		return kTTErrNone;
 	}
 	

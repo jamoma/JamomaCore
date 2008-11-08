@@ -27,7 +27,7 @@ void		lydOpFree(LydOpPtr x);
 void		lydOpAssist(LydOpPtr x, void* b, long msg, long arg, char* dst);
 TTErr		lydOpReset(LydOpPtr x, long vectorSize);
 TTErr		lydOpSetup(LydOpPtr x);
-TTErr		lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject);
+TTErr		lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr		lydOpSetOperator(LydOpPtr x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr		lydOpSetOperand(LydOpPtr x, void *attr, AtomCount argc, AtomPtr argv);
 
@@ -50,7 +50,7 @@ int main(void)
 	
 	class_addmethod(c, (method)lydOpReset,				"lydbaerReset",		A_CANT, 0);
 	class_addmethod(c, (method)lydOpSetup,				"lydbaerSetup",		A_CANT, 0);
-	class_addmethod(c, (method)lydOpObject,				"lydbaerObject",	A_OBJ,	0);
+	class_addmethod(c, (method)lydOpObject,				"lydbaerObject",	A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)lydOpAssist,				"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -125,17 +125,18 @@ TTErr lydOpReset(LydOpPtr x, long vectorSize)
 
 TTErr lydOpSetup(LydOpPtr x)
 {
-	Atom a;
+	Atom a[2];
 	
-	atom_setobj(&a, ObjectPtr(x->lydbaer));
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 1, &a);
+	atom_setobj(a+0, ObjectPtr(x->lydbaer));
+	atom_setlong(a+1, 0);
+	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
 	return kTTErrNone;
 }
 
 
-TTErr lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject)
+TTErr lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return x->lydbaer->addSource(audioSourceObject);
+	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }
 
 

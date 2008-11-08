@@ -14,6 +14,7 @@
 typedef struct LydInfo {
     t_object			obj;
 	LydbaerObjectPtr	audioSourceObject;
+	long				audioSourceOutlet;
 	TTPtr				outletSampleRate;
 	TTPtr				outletVectorSize;
 	TTPtr				outletNumChannels;
@@ -33,7 +34,7 @@ void		lydInfoAssist(LydInfoPtr x, void* b, long msg, long arg, char* dst);
 void		lydInfoBang(LydInfoPtr x);
 void		lyInfoQfn(LydInfoPtr x);
 TTErr		lydInfoReset(LydInfoPtr x, long vectorSize);
-TTErr		lydInfoObject(LydInfoPtr x, LydbaerObjectPtr audioSourceObject);
+TTErr		lydInfoObject(LydInfoPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
 
 
 // Globals
@@ -54,7 +55,7 @@ int main(void)
 	
 	class_addmethod(c, (method)lydInfoBang,				"bang",				0);
 	class_addmethod(c, (method)lydInfoReset,			"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydInfoObject,			"lydbaerObject",	A_OBJ,	0);
+	class_addmethod(c, (method)lydInfoObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)lydInfoAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -123,7 +124,10 @@ void lydInfoBang(LydInfoPtr x)
 void lyInfoQfn(LydInfoPtr x)
 {
 	if(x->audioSourceObject){
-		outlet_int(x->outletNumChannels, x->audioSourceObject->getNumOutputChannels());
+		if(x->audioSourceOutlet)
+			outlet_int(x->outletNumChannels, x->audioSourceObject->getNumSidechainOutputChannels());
+		else
+			outlet_int(x->outletNumChannels, x->audioSourceObject->getNumOutputChannels());
 		outlet_int(x->outletVectorSize, x->audioSourceObject->getOutputVectorSize());
 		outlet_int(x->outletSampleRate, x->audioSourceObject->getSampleRate());
 	}
@@ -140,9 +144,10 @@ TTErr lydInfoReset(LydInfoPtr x, long vectorSize)
 }
 
 
-TTErr lydInfoObject(LydInfoPtr x, LydbaerObjectPtr newAudioSourceObject)
+TTErr lydInfoObject(LydInfoPtr x, LydbaerObjectPtr newAudioSourceObject, long sourceOutletNumber)
 {
 	x->audioSourceObject = newAudioSourceObject;
+	x->audioSourceOutlet = sourceOutletNumber;
 	lydInfoBang(x);
 	return kTTErrNone;
 }

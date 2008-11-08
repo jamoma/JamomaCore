@@ -23,7 +23,7 @@ LydDacPtr	lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydDacFree(LydDacPtr x);
 void		lydDacAssist(LydDacPtr x, void* b, long msg, long arg, char* dst);
 TTErr		lydDacReset(LydDacPtr x, long vectorSize);
-TTErr		lydDacObject(LydDacPtr x, LydbaerObjectPtr audioSourceObject);
+TTErr		lydDacObject(LydDacPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
 TTErr		lydDacStart(LydDacPtr x);
 TTErr		lydDacStop(LydDacPtr x);
 // Prototypes for attribute accessors
@@ -53,7 +53,7 @@ int main(void)
 	class_addmethod(c, (method)lydDacStop,				"stop",				0);
 	//class_addmethod(c, (method)lydDacNotify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)lydDacReset,				"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydDacObject,			"lydbaerObject",	A_OBJ,	0);
+	class_addmethod(c, (method)lydDacObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)lydDacAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -114,9 +114,9 @@ TTErr lydDacReset(LydDacPtr x, long vectorSize)
 }
 
 
-TTErr lydDacObject(LydDacPtr x, LydbaerObjectPtr audioSourceObject)
+TTErr lydDacObject(LydDacPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return x->lydbaer->addSource(audioSourceObject);
+	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }
 
 

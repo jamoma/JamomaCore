@@ -107,21 +107,24 @@ TTErr maxbaerReset(WrappedInstancePtr x, long vectorSize)
 
 TTErr maxbaerSetup(WrappedInstancePtr x)
 {
-	Atom a;
+	Atom		a[2];
+	TTUInt16	i=0;
 	
-	atom_setobj(&a, ObjectPtr(x->lydbaerObject));
-	outlet_anything(x->lydbaerOutlets[0], gensym("lydbaerObject"), 1, &a);
+	atom_setobj(a+0, ObjectPtr(x->lydbaerObject));
+	while(x->lydbaerOutlets[i]){
+		atom_setlong(a+1, i);
+		outlet_anything(x->lydbaerOutlets[i], gensym("lydbaerObject"), 2, a);
+		i++;
+	}
 	return kTTErrNone;
 }
 
 
-TTErr maxbaerObject(WrappedInstancePtr x, LydbaerObjectPtr audioSourceObject)
+TTErr maxbaerObject(WrappedInstancePtr x, LydbaerObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
-	long inletnum = proxy_getinlet(ObjectPtr(x));
-	return x->lydbaerObject->addSource(audioSourceObject, inletnum);
+	long inletNumber = proxy_getinlet(ObjectPtr(x));
+	return x->lydbaerObject->addSource(audioSourceObject, sourceOutletNumber, inletNumber);
 }
-
-
 
 
 t_max_err wrappedClass_attrGet(WrappedInstancePtr x, ObjectPtr attr, AtomCount* argc, AtomPtr* argv)
@@ -297,7 +300,7 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 	
 	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"lydbaerReset",		A_CANT, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"lydbaerSetup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"lydbaerObject",	A_OBJ,	0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",			A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",		A_CANT, 0);

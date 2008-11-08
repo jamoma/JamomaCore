@@ -41,8 +41,10 @@ protected:
 	TTUInt16					inChansToOutChansRatio[2];	///< for every N incoming channels, this object should produce M output channels.
 	TTBoolean					alwaysProcessSidechain;		///< always process with the sidechain, regardless of whether the sidechain is provided with valid input.
 	
-	LydbaerObjectPtr*			audioSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
-	LydbaerObjectPtr*			sidechainSources;		///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+	LydbaerObjectPtr*			audioSources;				///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+	TTUInt16*					audioSourceOutletIndices;
+	LydbaerObjectPtr*			sidechainSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+	TTUInt16*					sidechainOutletIndices;
 public:
 	TTUInt16					numSources;				///< The number of getSamples callback functions (sources) from which we pull.
 	TTUInt16					numSidechainSources;	///< The number of getSamples callback functions (sources) from which we pull.
@@ -76,6 +78,11 @@ public:
 		return audioOutput->getNumChannels();
 	}
 	
+	TTUInt16 getNumSidechainOutputChannels()
+	{
+		return sidechainOutput->getNumChannels();
+	}
+	
 	TTUInt16 getSampleRate()
 	{
 		TTUInt16 sr;
@@ -105,7 +112,7 @@ public:
 		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					An error code.	*/
-	TTErr addSource(LydbaerObjectPtr anObject, TTUInt8 anInletNumber=0);
+	TTErr addSource(LydbaerObjectPtr anObject, TTUInt16 sourceOutletNumber=0, TTUInt16 anInletNumber=0);
 
 private:
 	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, LydbaerObjectPtr aSource);
@@ -125,7 +132,7 @@ public:
 		@param	audioOutput		This method is passed a reference to an audio signal pointer.
 								We then set this audio signal pointer to point to the TTAudioSignal containing our calculated samples.
 	 	@return					An error code.	*/
-	virtual TTErr getAudioOutput(TTAudioSignalPtr& returnedSignal);
+	virtual TTErr getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain=false);
 	
 };
 

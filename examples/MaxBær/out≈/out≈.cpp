@@ -28,7 +28,7 @@ LydOutPtr	lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydOutFree(LydOutPtr x);
 void		lydOutAssist(LydOutPtr x, void* b, long msg, long arg, char* dst);
 TTErr		lydOutReset(LydOutPtr x, long vectorSize);
-TTErr		lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject);
+TTErr		lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
 t_int*		lydOutPerform(t_int* w);
 void		lydOutDsp(LydOutPtr x, t_signal** sp, short* count);
 MaxErr		lydOutSetGain(LydOutPtr x, void *attr, AtomCount argc, AtomPtr argv);
@@ -52,7 +52,7 @@ int main(void)
 	
 	//class_addmethod(c, (method)lydOutNotify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)lydOutReset,				"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydOutObject,			"lydbaerObject",	A_OBJ,	0);
+	class_addmethod(c, (method)lydOutObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)lydOutDsp,				"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)lydOutAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
@@ -130,9 +130,9 @@ TTErr lydOutReset(LydOutPtr x, long vectorSize)
 }
 
 
-TTErr lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject)
+TTErr lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return x->lydbaer->addSource(audioSourceObject);
+	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }
 
 
@@ -140,13 +140,15 @@ TTErr lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject)
 t_int* lydOutPerform(t_int* w)
 {
    	LydOutPtr	x = (LydOutPtr)(w[1]);
-	short		i;
+	TTUInt16	numChannels;
 	
 	if(!x->obj.z_disabled && x->lydbaer->numSources){
 		x->lydbaer->prepareToProcess();
 		x->lydbaer->getAudioOutput(x->audioSignal);
-		for(i=0; i<x->numChannels; i++)
-			x->audioSignal->getVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
+		
+		numChannels = TTClip<TTUInt16>(x->numChannels, 0, x->audioSignal->getNumChannels());
+		for(TTUInt16 channel=0; channel<numChannels; channel++)
+			x->audioSignal->getVector(channel, x->vectorSize, (TTFloat32*)w[channel+2]);
 	}	
 	return w + (x->numChannels+2);
 }

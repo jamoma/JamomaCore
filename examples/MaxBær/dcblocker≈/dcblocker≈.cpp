@@ -27,7 +27,7 @@ void				dcBlockerBaerAssist(DCBlockerBaerPtr x, void* b, long msg, long arg, cha
 void				dcBlockerBaerClear(DCBlockerBaerPtr x);
 TTErr				dcBlockerBaerReset(DCBlockerBaerPtr x, long vectorSize);
 TTErr				dcBlockerBaerSetup(DCBlockerBaerPtr x);
-TTErr				dcBlockerBaerObject(DCBlockerBaerPtr x, LydbaerObjectPtr audioSourceObject);
+TTErr				dcBlockerBaerObject(DCBlockerBaerPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr				dcBlockerBaerSetBypass(DCBlockerBaerPtr x, void *attr, AtomCount argc, AtomPtr argv);
 
 
@@ -50,7 +50,7 @@ int main(void)
 	class_addmethod(c, (method)dcBlockerBaerClear,		"clear",			0);
 	class_addmethod(c, (method)dcBlockerBaerReset,		"lydbaerReset",		A_CANT, 0);
 	class_addmethod(c, (method)dcBlockerBaerSetup,		"lydbaerSetup",		A_CANT, 0);
-	class_addmethod(c, (method)dcBlockerBaerObject,		"lydbaerObject",	A_OBJ,	0);
+	class_addmethod(c, (method)dcBlockerBaerObject,		"lydbaerObject",	A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)dcBlockerBaerAssist,		"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -130,17 +130,18 @@ TTErr dcBlockerBaerReset(DCBlockerBaerPtr x, long vectorSize)
 
 TTErr dcBlockerBaerSetup(DCBlockerBaerPtr x)
 {
-	Atom a;
+	Atom a[2];
 	
-	atom_setobj(&a, ObjectPtr(x->lydbaer));
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 1, &a);
+	atom_setobj(a+0, ObjectPtr(x->lydbaer));
+	atom_setlong(a+1, 0);
+	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
 	return kTTErrNone;
 }
 
 
-TTErr dcBlockerBaerObject(DCBlockerBaerPtr x, LydbaerObjectPtr audioSourceObject)
+TTErr dcBlockerBaerObject(DCBlockerBaerPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
 {
-	return x->lydbaer->addSource(audioSourceObject);
+	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }
 
 

@@ -302,6 +302,25 @@ TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUI
 }
 
 
+TTErr TTAudioSignal::copySubset(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 startingChannel, TTUInt16 endingChannel)
+{
+	TTUInt16		vs;
+	TTSampleValue*	inSample;
+	TTSampleValue*	outSample;
+	TTUInt16		sourceChannel;
+	TTUInt16		destChannel;
+	
+	for(sourceChannel=startingChannel, destChannel=0; sourceChannel<=endingChannel; sourceChannel++, destChannel++){
+		inSample = source.sampleVectors[sourceChannel];
+		outSample = dest.sampleVectors[destChannel];
+		vs = source.getVectorSize();
+		while(vs--)
+			*outSample++ = *inSample++;
+	}
+	return kTTErrNone;
+}
+
+
 TTUInt16 TTAudioSignal::getMinChannelCount(const TTAudioSignal& signal1, const TTAudioSignal& signal2)
 {
 	if(signal1.numChannels > signal2.numChannels)

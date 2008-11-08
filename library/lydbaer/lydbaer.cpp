@@ -94,15 +94,21 @@ TTErr LydbaerObject::resetSources(TTUInt16 vs)
 }
 
 
-TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject, TTUInt8 anInletNumber)
+TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject, TTUInt16 sourceOutletNumber, TTUInt16 anInletNumber)
 {	
 	if(anInletNumber){		// A sidechain source
 		numSidechainSources++;
-		if(numSidechainSources == 1)
+		if(numSidechainSources == 1){
 			sidechainSources = (LydbaerObjectPtr*)malloc(sizeof(LydbaerObjectPtr) * numSidechainSources);
-		else
+			sidechainOutletIndices = (TTUInt16*)malloc(sizeof(TTUInt16) * numSources);
+		}
+		else{
 			sidechainSources = (LydbaerObjectPtr*)realloc(sidechainSources, sizeof(LydbaerObjectPtr) * numSidechainSources);
+			sidechainOutletIndices = (TTUInt16*)realloc(audioSourceOutletIndices, sizeof(TTUInt16) * numSources);
+		}
 		sidechainSources[numSidechainSources-1] = anObject;
+		sidechainOutletIndices[numSidechainSources-1] = sourceOutletNumber;
+		
 		if(!sidechainInput)
 			TTObjectInstantiate(kTTSym_audiosignal, &sidechainInput, 1);
 		if(!sidechainOutput)
@@ -110,11 +116,16 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject, TTUInt8 anInletNumber)
 	}
 	else{					// A normal audio source
 		numSources++;
-		if(numSources == 1)
+		if(numSources == 1){
 			audioSources = (LydbaerObjectPtr*)malloc(sizeof(LydbaerObjectPtr) * numSources);
-		else
+			audioSourceOutletIndices = (TTUInt16*)malloc(sizeof(TTUInt16) * numSources);
+		}
+		else{
 			audioSources = (LydbaerObjectPtr*)realloc(audioSources, sizeof(LydbaerObjectPtr) * numSources);
+			audioSourceOutletIndices = (TTUInt16*)realloc(audioSourceOutletIndices, sizeof(TTUInt16) * numSources);
+		}
 		audioSources[numSources-1] = anObject;
+		audioSourceOutletIndices[numSources-1] = sourceOutletNumber;
 	}
 	return kTTErrNone;
 }
@@ -196,7 +207,7 @@ TTErr LydbaerObject::init()
 }
 
 
-TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
+TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain)
 {
 	TTAudioSignalPtr	pulledInput = NULL;
 	TTAudioSignalPtr	pulledSidechainInput = NULL;
@@ -206,17 +217,23 @@ TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
 		
 		// we have not processed anything yet, so let's get started
 		case kProcessNotStarted:
-					
+			processStatus = kProcessingCurrently;
+			
+			// zero the samples
+			audioInput->clear();
+
+			// sum the sources
+			for(TTUInt16 i=0; i<numSources; i++){
+				// if there is a non-zero source outlet index, that means we are supposed to request the sidechain signal
+				err = audioSources[i]->getAudioOutput(pulledInput, audioSourceOutletIndices[i]);
+				if(!err)
+					(*audioInput) += (*pulledInput);
+			}
+			
+			
+			
 			if(numSidechainSources){
-				audioInput->clear();		// zero the samples
 				sidechainInput->clear();	// zero the samples
-				
-				// sum the sources
-				for(TTUInt16 i=0; i<numSources; i++){
-					err = audioSources[i]->getAudioOutput(pulledInput);
-					if(!err)
-						(*audioInput) += (*pulledInput);
-				}
 				
 				// sum the sidechain sources
 				for(TTUInt16 i=0; i<numSidechainSources; i++){
@@ -227,29 +244,10 @@ TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
 				
 				audioObject->process(audioInput, sidechainInput, audioOutput);		// a processor with sidechain input
 			}
-			else if(alwaysProcessSidechain){
-				audioInput->clear();		// zero the samples
-				
-				// sum the sources
-				for(TTUInt16 i=0; i<numSources; i++){
-					err = audioSources[i]->getAudioOutput(pulledInput);
-					if(!err)
-						(*audioInput) += (*pulledInput);
-				}
-								
+			else if(alwaysProcessSidechain){								
 				audioObject->process(audioInput, audioInput, audioOutput, sidechainOutput);		// a processor with sidechain output
-			}
+			}			
 			else if(numSources){
-				// zero the samples
-				audioInput->clear();
-				
-				// sum the sources
-				for(TTUInt16 i=0; i<numSources; i++){
-					err = audioSources[i]->getAudioOutput(pulledInput);
-					if(!err)
-						(*audioInput) += (*pulledInput);
-				}
-
 				audioObject->process(audioInput, audioOutput);		// a processor
 			}
 			else{
@@ -257,20 +255,32 @@ TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal)
 			}
 			
 			// return
-			returnedSignal = audioOutput;
+			if(getSidechain)
+				returnedSignal = sidechainOutput;
+			else
+				returnedSignal = audioOutput;
+			
+			processStatus = kProcessComplete;
 			break;
 		
 		
 		// we already processed everything that needs to be processed, so just set the pointer
 		case kProcessComplete:
-			returnedSignal = audioOutput;
-		
+			if(getSidechain)
+				returnedSignal = sidechainOutput;
+			else
+				returnedSignal = audioOutput;
+			break;
+			
 		
 		// to prevent feedback / infinite loops, we just hand back the last calculated output here
 		case kProcessingCurrently:
-			returnedSignal = audioOutput;
+			if(getSidechain)
+				returnedSignal = sidechainOutput;
+			else
+				returnedSignal = audioOutput;
 			break;
-		
+			
 		
 		// we should never get here
 		default:
