@@ -200,6 +200,34 @@ void wrappedClass_anything(WrappedInstancePtr x, SymbolPtr s, AtomCount argc, At
 				object_error(ObjectPtr(x), "bad type for message arg");
 		}
 		x->lydbaerObject->audioObject->sendMessage(TT(s->s_name), v);
+		
+		// process the returned value for the dumpout outlet
+		{
+			AtomCount	ac = v.getSize();
+
+			if(ac){
+				AtomPtr		av = (AtomPtr)malloc(sizeof(Atom) * ac);
+				
+				for(AtomCount i=0; i<ac; i++){
+					if(v.getType() == kTypeSymbol){
+						TTSymbolPtr ttSym = NULL;
+						v.get(i, &ttSym);
+						atom_setsym(av+i, gensym((char*)ttSym->getCString()));
+					}
+					else if(v.getType() == kTypeFloat32 || v.getType() == kTypeFloat64){
+						TTFloat64 f = 0.0;
+						v.get(i, f);
+						atom_setfloat(av+i, f);
+					}
+					else{
+						TTInt32 l = 0;
+						v.get(i, l);
+						atom_setfloat(av+i, l);
+					}
+				}
+				object_obex_dumpout(x, s, ac, av);
+			}
+		}
 	}
 	else
 		x->lydbaerObject->audioObject->sendMessage(TT(s->s_name));
