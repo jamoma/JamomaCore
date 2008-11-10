@@ -96,7 +96,7 @@ puts "  Copying the Jamoma folder..."
 cmd("cp -rpv \"#{@svn_root}/Jamoma\" \"#{@c74}/Jamoma\"")
 
 puts "  Copying TTBlue Extensions"
-cmd("cp -rpv /Library/Application\ Support/TTBlue/Extensions/* \"#{@temp}/Library/Application Support/TTBlue/Extensions\"") 
+cmd("cp -rpv \"/Library/Application Support/TTBlue/Extensions\"/* \"#{@temp}/Library/Application Support/TTBlue/Extensions\"") 
 
 puts "  Stripping .svn folders..."
 cmd("rm -rfv \"#{@c74}/Jamoma/\"*/.svn")                               # and remove all .svn folders by brute force (someone can make this better)
@@ -124,7 +124,7 @@ cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-overview.maxpat\" \"#{@max}/patche
 cmd("mv \"#{@c74}/Jamoma/library/externals/Jamoma.framework\" \"#{@temp}/Library/Frameworks\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/TTBlue.framework\" \"#{@temp}/Library/Frameworks\"")
 cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/extensions/\"")
-cmd("mv \"#{@c74}/Jamoma/support/*.maxdefaults\" \"#{@c74}/default-settings/*.maxdefaults\"")
+cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefaults \"#{@c74}/default-settings\"")
 cmd("mv \"#{@c74}/Jamoma/support/jcom.ui.maxdefines\" \"#{@c74}/default-definitions/jcom.ui.maxdefines\"")
 
 puts "  Copying readme, license, etc...."
