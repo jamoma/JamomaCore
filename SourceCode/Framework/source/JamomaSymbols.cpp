@@ -18,9 +18,11 @@ t_symbol	*jps_done,
 			*jps_linear,
 			*jps_linear_q,
 			*jps_ramp_update,
-			*jps_low, 
+			*jps_low,					// clip stuff
 			*jps_high, 
-			*jps_both, 
+			*jps_both,
+			*jps_wrap_both,
+			*jps_fold_both,
 			*jps_inc,					// increase, decrease
 			*jps_dec,
 			*jps_msg_generic, 				// types
@@ -180,9 +182,12 @@ void jamomaSymbolsInit()
 	jps_linear						= gensym("linear");
 	jps_linear_q					= gensym("linear.q");
 	jps_ramp_update					= gensym("ramp_update");
+	//clip stuff
 	jps_low							= gensym("low"); 
 	jps_high						= gensym("high"); 
 	jps_both						= gensym("both");
+	jps_wrap_both					= gensym("wrap");
+	jps_fold_both					= gensym("fold");
 	// increase and decrease
 	jps_inc							= gensym("inc");
 	jps_dec							= gensym("dec");

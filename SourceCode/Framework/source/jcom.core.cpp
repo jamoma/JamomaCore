@@ -226,9 +226,9 @@ void jcom_core_subscriber_classinit_extended(t_class *c, t_object *attr, bool de
 	// ATTRIBUTE: range <low, high>
 	jamoma_class_attr_array_new(c, 	"range/bounds", 		_sym_float32, 2, (method)jcom_core_attr_setrange, (method)jcom_core_attr_getrange);
 		
-	// ATTRIBUTE: clipmode - options are none, low, high, both
+	// ATTRIBUTE: clipmode - options are none, low, high, both, wrap, fold
 	jamoma_class_attr_new(c, 		"range/clipmode",	 	_sym_symbol, (method)jcom_core_attr_setclipmode, (method)jcom_core_attr_getclipmode);
-	CLASS_ATTR_ENUM(c,				"range/clipmode",		0,	"none low high both");	
+	CLASS_ATTR_ENUM(c,				"range/clipmode",		0,	"none low high both wrap fold");	
 
 	// ATTRIBUTE: repetitions - 0 means repetitive values are not allowed, 1 means they are
 	jamoma_class_attr_new(c, 		"repetitions/allow", 	_sym_long, (method)jcom_core_attr_setrepetitions, (method)jcom_core_attr_getrepetitions);

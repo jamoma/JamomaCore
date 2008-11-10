@@ -36,9 +36,11 @@ extern  t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,
-				*jps_low, 
+				*jps_low,							// clip stuff
 				*jps_high, 
-				*jps_both, 
+				*jps_both,
+				*jps_wrap_both,
+				*jps_fold_both,
 				*jps_inc,							// increase, decrease
 				*jps_dec,
 				*jps_msg_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE
