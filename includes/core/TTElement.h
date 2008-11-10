@@ -296,6 +296,34 @@ static T TTOneWrap(T value, T low_bound, T high_bound)
 	else
 		return((high_bound + 1) - (low_bound - value));
 }
+/** this routine wrapping around the range as much as necessary, Nils Peters, Nov. 2008 */
+template<class T>
+static T TTInfWrap(T value, T low_bound, T high_bound)
+{   
+	if((value >= low_bound) && (value < high_bound))  
+	return value; //nothing to wrap
+	/* let's wrap it */
+	else if (value - low_bound >= 0) 
+		return(fmod(value  - low_bound, fabs(low_bound - high_bound)) + low_bound);
+	else 
+		return(-1.0 * fmod(-1.0 * (value  - low_bound), fabs(low_bound - high_bound)) + high_bound);	
+}	
+
+/** this routine folds numbers into the data range, Nils Peters, Nov. 2008 */
+template<class T>
+static T TTFold(T value, T low_bound, T high_bound)
+{   
+	double foldRange;
+	
+	if((value >= low_bound) && (value <= high_bound))  
+	return value; //nothing to fold 
+	else 
+	{   foldRange = 2 * fabs(low_bound - high_bound);
+		return (fabs(remainder(value - low_bound, foldRange)) + low_bound);
+	}		
+}	
+
+
 
 /** A utility for scaling one range of values onto another range of values. */
 template<class T>
