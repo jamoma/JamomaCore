@@ -113,10 +113,9 @@ cmd("rm -fv \"#{@c74}/Jamoma/library/externals/\"*.zip")
 cmd("rm -fv \"#{@c74}/Jamoma/library/externals/\"*.log")
 cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/windows\"")
 cmd("rm -rfv \"#{@c74}/Jamoma/library/externals/ramplib_windows\"")
-cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/Phidgets_win\"")
-cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/win-support\"")
-cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.zip")
-cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/\"*.dmg")
+cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/Mac/\"*.zip")
+cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/Mac\"*.dmg")
+cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/WinXP\"")
 
 puts "  Moving things around (frameworks, loader, templates, etc)..."
 cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-templates/\"* \"#{@max}/patches/templates\"")
