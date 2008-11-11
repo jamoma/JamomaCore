@@ -17,7 +17,7 @@ require "jamomalib"   # C74 build library
 @max = "#{@temp}/Applications/Max5"
 @c74 = "#{@max}/Cycling '74"
 
-@version = "0.5.0b08"
+@version = "0.5.0b09"
 
 
 ###################################################################
