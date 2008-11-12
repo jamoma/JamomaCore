@@ -214,16 +214,16 @@ TTEXPORT extern const TTFloat64 kTTSqrt2;						///< pre-calculated square-root o
 
 
 /** Platform and host independent method for posting messages. */
-void TTLogMessage(char *message, ...);
+void TTEXPORT TTLogMessage(char *message, ...);
 
 /** Platform and host independent method for posting messages. */
-void TTLogWarning(char *message, ...);
+void TTEXPORT TTLogWarning(char *message, ...);
 
 /** Platform and host independent method for posting errors. */
-void TTLogError(char *message, ...);
+void TTEXPORT TTLogError(char *message, ...);
 
 /** Platform and host independent method for posting messages only when debugging is enabled in the environment. */
-void TTLogDebug(char *message, ...);
+void TTEXPORT TTLogDebug(char *message, ...);
 
 
 /** Filter out denormaled values, which can make processing extremely slow when they are present. */
@@ -301,12 +301,12 @@ template<class T>
 static T TTInfWrap(T value, T low_bound, T high_bound)
 {   
 	if((value >= low_bound) && (value < high_bound))  
-	return value; //nothing to wrap
+		return value; //nothing to wrap
 	/* let's wrap it */
 	else if (value - low_bound >= 0) 
-		return(fmod(value  - low_bound, fabs(low_bound - high_bound)) + low_bound);
+		return(fmod((double)value  - low_bound, fabs((double)low_bound - high_bound)) + low_bound);
 	else 
-		return(-1.0 * fmod(-1.0 * (value  - low_bound), fabs(low_bound - high_bound)) + high_bound);	
+		return(-1.0 * fmod(-1.0 * (value  - low_bound), fabs((double)low_bound - high_bound)) + high_bound);	
 }	
 
 /** this routine folds numbers into the data range, Nils Peters, Nov. 2008 */
@@ -316,11 +316,17 @@ static T TTFold(T value, T low_bound, T high_bound)
 	double foldRange;
 	
 	if((value >= low_bound) && (value <= high_bound))  
-	return value; //nothing to fold 
-	else 
-	{   foldRange = 2 * fabs(low_bound - high_bound);
-		return (fabs(remainder(value - low_bound, foldRange)) + low_bound);
-	}		
+		return value; //nothing to fold 
+	else{
+#ifdef TT_PLATFORM_WIN
+		TTLogError("TTFold() not currently implemented on Windows");
+		// The standard remainder() function is not present on Windows!
+		return value;
+#else
+		foldRange = 2 * fabs(low_bound - high_bound);
+		return fabs(remainder(value - low_bound, foldRange)) + low_bound;
+#endif
+	}
 }	
 
 
