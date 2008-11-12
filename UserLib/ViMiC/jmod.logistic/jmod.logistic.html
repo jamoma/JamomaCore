@@ -13,7 +13,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<div id="jmod_header">
 	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.logistic </h1>
-	<h2> Logistic Map  x[n+1] = x[n] * a(-x[n] + 1) </h2>
+	<h2> Logistic Map  x[n] = x[n-1] * a(1 - x[n-1]) </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
@@ -45,7 +45,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> new a-parameter </td>
+			<td class ="instructionDescription"> value of the a-parameter </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> active </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Turns internal clock on </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> iterationdepth </td>
@@ -56,18 +67,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> itaration index </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> on </td>
-			<td class ="instructionType"> toggle </td>
-			<td class ="instructionRangeBounds"> 0 1 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Turn polling on </td>
+			<td class ="instructionDescription"> index of the iteration sample , x[n-1] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> seed </td>
@@ -94,13 +94,13 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> updaterate </td>
 			<td class ="instructionType"> int </td>
-			<td class ="instructionRangeBounds"> 10 66 </td>
+			<td class ="instructionRangeBounds"> 1 66 </td>
 			<td class ="instructionRangeClipmode"> both </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> set the frequency how often Arduino delivers data </td>
+			<td class ="instructionDescription"> set the frequency how often the function computes data </td>
 		<tr>
 	</table>
 
@@ -326,7 +326,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> get data due to an external clock </td>
+			<td class ="instructionDescription"> update from  an external clock </td>
 		<tr>
 	</table>
 

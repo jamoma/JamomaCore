@@ -6,8 +6,8 @@
 >
   <preset number='1' name='default'>
     <item name='a' type='msg_float' priority='0'>3.700000</item>
+    <item name='active' type='msg_toggle' priority='0'>0</item>
     <item name='iterationdepth' type='msg_int' priority='0'>1</item>
-    <item name='on' type='msg_toggle' priority='0'>0</item>
     <item name='seed' type='msg_float' priority='1'>0.469040</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='updaterate' type='msg_int' priority='0'>10</item>
