@@ -1,6 +1,6 @@
 ;exported symbols
 
-LIBRARY "jcom.oscinstance"
+LIBRARY "jcom.oscinstance.mxe"
 
 EXPORTS
 	main

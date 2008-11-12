@@ -146,7 +146,7 @@ void oscinstance_symbol(t_oscinstance *x, t_symbol *msg, long argc, t_atom *argv
 	strcpy(input, msg->s_name);
 	
 	// This object only deals with OSC messages
-	if(!*input2 == '/') {
+	if(!(*input2 == '/')) {
 		goto spillover;
 	}
 	input2++;								// jump past the leading slash
