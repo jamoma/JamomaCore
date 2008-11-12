@@ -32,15 +32,15 @@
  #endif // _DLL_EXPORT
 #endif
 
-extern  t_symbol JAMOMA_EXPORT *jps_none,
+extern "C" t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,
 				*jps_low,							// clip stuff
 				*jps_high, 
 				*jps_both,
-				*jps_wrap_both,
-				*jps_fold_both,
+				*jps_wrap,
+				*jps_fold,
 				*jps_inc,							// increase, decrease
 				*jps_dec,
 				*jps_msg_generic,					// DATA TYPES FOR THE PARAMETER / MESSAGE

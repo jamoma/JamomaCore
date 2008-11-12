@@ -297,9 +297,9 @@ void return_int(t_return *x, long value)
 			value = TTLimitMin<TTInt32>(value, x->common.attr_range[0]);
 		else if(x->common.attr_clipmode == jps_high)
 			value = TTLimitMax<TTInt32>(value, x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_wrap_both)
+		else if(x->common.attr_clipmode == jps_wrap)
 			value = TTInfWrap<TTInt32>(value,x->common.attr_range[0], x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_fold_both)
+		else if(x->common.attr_clipmode == jps_fold)
 			value = TTFold<TTInt32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 	}
     
@@ -327,9 +327,9 @@ void return_float(t_return *x, double value)
 			value = TTLimitMin<TTFloat32>(value, x->common.attr_range[0]);
 		else if(x->common.attr_clipmode == jps_high)
 			value = TTLimitMax<TTFloat32>(value, x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_wrap_both)
+		else if(x->common.attr_clipmode == jps_wrap)
 			value = TTInfWrap<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
-		else if(x->common.attr_clipmode == jps_fold_both)
+		else if(x->common.attr_clipmode == jps_fold)
 			value = TTFold<TTFloat32>(value, x->common.attr_range[0], x->common.attr_range[1]);
 	}
 

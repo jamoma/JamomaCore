@@ -12,6 +12,9 @@
 #endif // WIN_VERSION
 
 #include "ext.h"		// Max externals header
+#include "JamomaSymbols.h"
+
+extern "C" {
 
 t_symbol	*jps_done,
 			*jps_none,					// ramp stuff
@@ -21,8 +24,8 @@ t_symbol	*jps_done,
 			*jps_low,					// clip stuff
 			*jps_high, 
 			*jps_both,
-			*jps_wrap_both,
-			*jps_fold_both,
+			*jps_wrap,
+			*jps_fold,
 			*jps_inc,					// increase, decrease
 			*jps_dec,
 			*jps_msg_generic, 				// types
@@ -174,6 +177,9 @@ t_symbol	*jps_done,
 			*jps_dispatch
 			;
 
+}
+
+
 void jamomaSymbolsInit()
 {
 	jps_done						= gensym("done");
@@ -186,8 +192,8 @@ void jamomaSymbolsInit()
 	jps_low							= gensym("low"); 
 	jps_high						= gensym("high"); 
 	jps_both						= gensym("both");
-	jps_wrap_both					= gensym("wrap");
-	jps_fold_both					= gensym("fold");
+	jps_wrap						= gensym("wrap");
+	jps_fold						= gensym("fold");
 	// increase and decrease
 	jps_inc							= gensym("inc");
 	jps_dec							= gensym("dec");

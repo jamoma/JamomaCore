@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="jcom.oscinstance"
-	ProjectGUID="{7C38ADBC-7949-4275-932C-1FC76A8BDA4B}"
+	ProjectGUID="{C4149401-80C0-4BEA-ADE6-CFE068A2150B}"
 	RootNamespace="jcom.oscinstance"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"

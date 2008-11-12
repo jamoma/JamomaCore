@@ -36,9 +36,9 @@ bool param_clip_int(t_param *x)
 		clipped = TTLimitMax(val, (long)x->common.attr_range[1]);
 	else if(x->common.attr_clipmode == jps_both)
 		clipped = TTClip(val, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-	else if(x->common.attr_clipmode == jps_wrap_both)
+	else if(x->common.attr_clipmode == jps_wrap)
 		clipped = TTInfWrap(val, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-	else if(x->common.attr_clipmode == jps_fold_both)
+	else if(x->common.attr_clipmode == jps_fold)
 		clipped = TTFold(val, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 	else
 		clipped = val;
@@ -60,10 +60,10 @@ bool param_clip_float(t_param *x)
 		clipped = TTLimitMax(val, x->common.attr_range[1]);
 	else if(x->common.attr_clipmode == jps_both)
 		clipped = TTClip(val, x->common.attr_range[0], x->common.attr_range[1]);
-	else if(x->common.attr_clipmode == jps_wrap_both)
-	clipped = TTInfWrap(val, x->common.attr_range[0], x->common.attr_range[1]);
-	else if(x->common.attr_clipmode == jps_fold_both)
-	clipped = TTFold(val, x->common.attr_range[0], x->common.attr_range[1]);
+	else if(x->common.attr_clipmode == jps_wrap)
+		clipped = TTInfWrap(val, x->common.attr_range[0], x->common.attr_range[1]);
+	else if(x->common.attr_clipmode == jps_fold)
+		clipped = TTFold(val, x->common.attr_range[0], x->common.attr_range[1]);
 	else
 	clipped = val;
 
@@ -93,9 +93,9 @@ bool param_clip_list(t_param *x)
 				iclipped = TTLimitMax(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_both)
 				iclipped = TTClip(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-			else if(x->common.attr_clipmode == jps_wrap_both)
+			else if(x->common.attr_clipmode == jps_wrap)
 				iclipped = TTInfWrap(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-			else if(x->common.attr_clipmode == jps_fold_both)
+			else if(x->common.attr_clipmode == jps_fold)
 				iclipped = TTFold(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 			else
 				iclipped = x->atom_list[i].a_w.w_long;
@@ -111,9 +111,9 @@ bool param_clip_list(t_param *x)
 				fclipped = TTLimitMax(x->atom_list[i].a_w.w_float, x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_both)
 				fclipped = TTClip(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
-			else if(x->common.attr_clipmode == jps_wrap_both)
+			else if(x->common.attr_clipmode == jps_wrap)
 				fclipped = TTInfWrap(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
-			else if(x->common.attr_clipmode == jps_fold_both)
+			else if(x->common.attr_clipmode == jps_fold)
 				fclipped = TTFold(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
 			else
 				fclipped = x->atom_list[i].a_w.w_float;
