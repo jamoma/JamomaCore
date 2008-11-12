@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.sum%", "jcom.sum%.vcproj", "{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.sum", "jcom.sum.vcproj", "{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

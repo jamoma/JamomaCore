@@ -136,14 +136,14 @@ void jit_sum_free(t_jit_sum *x)
 void jit_sum_assist(t_jit_sum *x, void *b, long m, long a, char *s)
 {
 	if (m == 1) { //input
-		sprintf(s,"(matrix) in");
+		strcpy(s,"(matrix) in");
 	} else { //output
 		switch (a) {
 		case 0:
-			sprintf(s,"(int) sum of values");
+			strcpy(s,"(int) sum of values");
 			break; 			
 		case 1:
-			sprintf(s,"dumpout");
+			strcpy(s,"dumpout");
 			break; 			
 		}
 	}
