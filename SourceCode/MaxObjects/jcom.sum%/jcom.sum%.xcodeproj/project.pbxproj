@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
-		22261CE30A28C1C100329D95 /* jcom.sum%.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jcom.sum%.cpp */; };
+		22261CE30A28C1C100329D95 /* jcom.sum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22261CE20A28C1C100329D95 /* jcom.sum.cpp */; };
 		22261EAD0A2B8E9A00329D95 /* JitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22261EAC0A2B8E9A00329D95 /* JitterAPI.framework */; };
 		22513B990E027C8A00EA673A /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22513B980E027C8A00EA673A /* TTBlue.framework */; };
 		22FD32A80CEE96F40039C226 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD32A70CEE96F40039C226 /* Jamoma.framework */; };
@@ -19,7 +19,7 @@
 /* Begin PBXFileReference section */
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
-		22261CE20A28C1C100329D95 /* jcom.sum%.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.sum%.cpp"; sourceTree = "<group>"; };
+		22261CE20A28C1C100329D95 /* jcom.sum.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.sum.cpp; sourceTree = "<group>"; };
 		22261EAC0A2B8E9A00329D95 /* JitterAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JitterAPI.framework; path = /Library/Frameworks/JitterAPI.framework; sourceTree = "<absolute>"; };
 		22513B980E027C8A00EA673A /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		22FD32A70CEE96F40039C226 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = /Library/Frameworks/Jamoma.framework; sourceTree = "<absolute>"; };
@@ -70,7 +70,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22261CE20A28C1C100329D95 /* jcom.sum%.cpp */,
+				22261CE20A28C1C100329D95 /* jcom.sum.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -175,7 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22261CE30A28C1C100329D95 /* jcom.sum%.cpp in Sources */,
+				22261CE30A28C1C100329D95 /* jcom.sum.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
