@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="TTFunctionLib"
 	ProjectGUID="{946C1578-B549-4F2C-820E-CC8E2E2B94DC}"
 	RootNamespace="tt.overdrive~"
@@ -27,7 +27,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
@@ -107,7 +107,7 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(ProjectDir)..\..\..\jamoma\Jamoma\library\externals\windows&quot;&#x0D;&#x0A;&#x0D;&#x0A;"
+				CommandLine="IF NOT EXIST &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot; mkdir &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;&#x0D;&#x0A;copy $(OutDir)\$(TargetFileName) &quot;$(CommonProgramFiles)\TTBlue\Extensions&quot;&#x0D;&#x0A;"
 				Outputs="foo"
 			/>
 			<Tool
