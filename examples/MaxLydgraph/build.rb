@@ -57,7 +57,7 @@ if(ARGV.length > 2)
   end
 end
 
-puts "Building Maxbær"
+puts "Building Lydbaer for Max"
 puts "==================================================="
 puts "  configuration: #{configuration}"
 puts "  clean: #{clean}"
@@ -149,13 +149,15 @@ def build_xcode_project(projectdir, projectname, configuration, clean)
   out = ""
   err = ""
 
-  Open3.popen3("nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build") do |stdin, stdout, stderr|
+#  Open3.popen3("nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build") do |stdin, stdout, stderr|
+  out = `nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build`
+    
     if(@debug)
-      puts "nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build"
+      puts "nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build"
     end
-    out = stdout.read
-    err = stderr.read
-  end
+#    out = stdout.read
+#    err = stderr.read
+#  end
 
   if /BUILD SUCCEEDED/.match(out)
     @cur_count+=1
@@ -277,10 +279,10 @@ puts ""
 ###################################################################
 # EXTERNALS
 ###################################################################
-puts "Building Maxbær Externals..."
+puts "Building MaxLydgraph Externals..."
 
 zero_count
-build_dir("examples/Maxbær", configuration, clean)  
+build_dir("examples/MaxLydgraph", configuration, clean)  
 ex_total, ex_count = get_count
 
 #src_folder = "Build_Mac/#{configuration}"
