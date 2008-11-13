@@ -149,15 +149,15 @@ def build_xcode_project(projectdir, projectname, configuration, clean)
   out = ""
   err = ""
 
-#  Open3.popen3("nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build") do |stdin, stdout, stderr|
-  out = `nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build`
+  Open3.popen3("nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build") do |stdin, stdout, stderr|
+#  out = `nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build`
     
     if(@debug)
       puts "nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} #{"clean" if clean == true} build"
     end
-#    out = stdout.read
-#    err = stderr.read
-#  end
+    out = stdout.read
+    err = stderr.read
+  end
 
   if /BUILD SUCCEEDED/.match(out)
     @cur_count+=1
@@ -300,7 +300,8 @@ ex_total, ex_count = get_count
 #puts ""
 
 puts "Copying help files"
-copydir("#{@build_root}/*/*.maxhelp",     "#{@build_root}/../Build_Mac/#{configuration}")
+puts "cp -v \"#{@build_root}\"/*/*.maxhelp \"#{@build_root}/../Build_Mac/#{configuration}\" "
+puts `cp -v "#{@build_root}"/*/*.maxhelp "#{@build_root}/../Build_Mac/#{configuration}"`
 puts ""
 
 #puts "Building Jamoma Externals..."
