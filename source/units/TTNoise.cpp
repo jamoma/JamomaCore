@@ -39,8 +39,9 @@ TTErr TTNoise::setmode(const TTValue& newMode)
 }
 
 
-TTErr TTNoise::processWhiteNoise(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTNoise::processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -58,8 +59,9 @@ TTErr TTNoise::processWhiteNoise(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTNoise::processPinkNoise(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTNoise::processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -90,8 +92,9 @@ TTErr TTNoise::processPinkNoise(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTNoise::processBrownNoise(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTNoise::processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -118,8 +121,9 @@ TTErr TTNoise::processBrownNoise(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTNoise::processBlueNoise(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTNoise::processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	tempSample;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;

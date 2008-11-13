@@ -29,18 +29,15 @@ protected:
 
 	/**	The process method used when the shape attribute is set to "linear"	
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
-	TTErr processLinear(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processLinearUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+	TTErr processLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "lookup"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
-	TTErr processLookup(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processLookupUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+	TTErr processLookup(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	/** The process method used when the shape attribute is set to "equalPower" and the mode is set to "calculate"
 	 *	This method will return an error if the input and output channels are not matched properly.		*/
-	TTErr processCalc(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processCalcUsingSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+	TTErr processCalc(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 

@@ -97,8 +97,10 @@ void TTLowpassTwoPole::calculateCoefficients()
 }
 
 
-TTErr TTLowpassTwoPole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTLowpassTwoPole::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;

@@ -58,7 +58,7 @@ protected:
 	TTErr updateSr();
 
 	/**	Standard audio processing method as used by TTBlue objects. */
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 

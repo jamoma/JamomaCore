@@ -125,8 +125,10 @@ void TTLowpassFourPole::calculateCoefficients()
 }
 
 
-TTErr TTLowpassFourPole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTLowpassFourPole::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;

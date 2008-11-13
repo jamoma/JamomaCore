@@ -57,8 +57,10 @@ TTErr TTGain::getMidiGain(TTValue& value)
 }
 
 
-TTErr TTGain::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTGain::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;

@@ -149,8 +149,10 @@ TTErr TTAdsr::setMode(const TTValue& newValue)
 }
 
 	
-TTErr TTAdsr::processAudioLinear(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
 	TTUInt16		vs = in.getVectorSize();
@@ -211,8 +213,10 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTAdsr::processAudioExponential(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
 	TTUInt16		vs = in.getVectorSize();

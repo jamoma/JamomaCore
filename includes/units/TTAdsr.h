@@ -42,8 +42,8 @@ protected:
 	
 	TTErr updateSr();
 
-	TTErr processAudioLinear(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processAudioExponential(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 	enum constants {
 		NOISE_FLOOR = -120

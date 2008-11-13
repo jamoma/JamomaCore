@@ -126,8 +126,10 @@ void TTAverage::calculateCoefficients()
 }
 
 
-TTErr TTAverage::processBipolar(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTAverage::processBipolar(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+ TTAudioSignal&	in = inputs->getSignal(0);
+ TTAudioSignal&	out = outputs->getSignal(0);
 	short			vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;

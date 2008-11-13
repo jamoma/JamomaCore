@@ -317,8 +317,10 @@ public:
 	
 	
 	/** Audio Processing Method */
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out)
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
+		TTAudioSignal&				in = inputs->getSignal(0);
+		TTAudioSignal&				out = outputs->getSignal(0);
 		TTUInt16					vs = in.getVectorSize();
 		TTUInt16					numInputChannels = in.getNumChannels();
 		TTUInt16					numOutputChannels = out.getNumChannels();		

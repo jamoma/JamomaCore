@@ -18,7 +18,7 @@ protected:
 	TTFloat64		gain;	///< linear gain to be applied to the input signal
 
 	/**	A standard audio processing method as used by TTBlue objects.*/
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 

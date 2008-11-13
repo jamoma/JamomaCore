@@ -33,10 +33,12 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 	// The problem is that if we set it here, then it is too early to trigger the notification in the subclass.
 	// And then because it is already defined, then our repetition filtering won't let it through to allocate memory...
 	// setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
+	
+	inputArray = new TTAudioSignalArray(2);
+	outputArray = new TTAudioSignalArray(2);
 
 	setAttributeValue(TT("sr"),				ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
-	setProcessWithSidechain(&TTAudioObject::bypassWithSidechainProcess);
 	setAttributeValue(TT("bypass"),			*kTTBoolNo);
 	setAttributeValue(TT("processInPlace"), *kTTBoolNo);
 }
@@ -44,7 +46,8 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 
 TTAudioObject::~TTAudioObject()
 {
-	;
+	delete inputArray;
+	delete outputArray;
 }
 
 
@@ -70,25 +73,19 @@ TTErr TTAudioObject::setSr(const TTValue& newValue)
 }
 
 
-TTErr TTAudioObject::bypassProcess(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTAudioObject::bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	return TTAudioSignal::copy(in, out);
-/*	
-	short			vs;
-	TTSampleValue	*inSample,
-	*outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
-	
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		while(vs--)
-			*outSample++ = *inSample++;
+	for(TTUInt16 i=0; i<outputs->numAudioSignals; i++){
+		TTAudioSignal& out = outputs->getSignal(i);
+
+		if(i<inputs->numAudioSignals){
+			TTAudioSignal& in = inputs->getSignal(i);
+			TTAudioSignal::copy(in, out);
+		}
+		else
+			out.clear();
 	}
 	return kTTErrNone;
- */
 }
 
 
@@ -99,76 +96,16 @@ TTErr TTAudioObject::bypassCalculate(const TTFloat64& x, TTFloat64& y)
 }
 
 
-TTErr TTAudioObject::bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
-{
-//	TTUInt16		vs;
-//	TTSampleValue	*inSample,
-//	*outSample;
-//	TTUInt16		numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
-//	TTUInt16		numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
-//	TTUInt16		channel;
-	
-	TTAudioSignal::copy(in2, out2);
-	return TTAudioSignal::copy(in1, out1);
-/*
-	for(channel=0; channel<numChannelsMain; channel++){
-		inSample = in1.sampleVectors[channel];
-		outSample = out1.sampleVectors[channel];
-		vs = in1.getVectorSize();
-		while(vs--)
-			*outSample++ = *inSample++;
-	}
-	for(channel=0; channel<numChannelsSidechain; channel++){
-		inSample = in2.sampleVectors[channel];
-		outSample = out2.sampleVectors[channel];
-		vs = in2.getVectorSize();
-		while(vs--)
-			*outSample++ = *inSample++;
-	}
-	return kTTErrNone;
- */
-}
 
-
-TTErr TTAudioObject::muteProcess(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTAudioObject::muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	short			vs;
-	TTSampleValue*	outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	short			channel;
-	
-	for(channel=0; channel<numchannels; channel++){
-		outSample = out.sampleVectors[channel];
-		vs = out.getVectorSize();
-		while(vs--)
-			*outSample++ = 0.0;
-	}
+	for(TTUInt16 i=0; i<inputs->numAudioSignals; i++)
+		(inputs->getSignal(i)).clear();
+	for(TTUInt16 i=0; i<outputs->numAudioSignals; i++)
+		(outputs->getSignal(i)).clear();
 	return kTTErrNone;
 }
 
-
-TTErr TTAudioObject::muteWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
-{
-	TTUInt16		vs;
-	TTSampleValue*	outSample;
-	TTUInt16		numChannelsMain = TTAudioSignal::getMinChannelCount(in1, out1);
-	TTUInt16		numChannelsSidechain = TTAudioSignal::getMinChannelCount(in2, out2);
-	TTUInt16		channel;
-	
-	for(channel=0; channel<numChannelsMain; channel++){
-		outSample = out1.sampleVectors[channel];
-		vs = out1.getVectorSize();
-		while(vs--)
-			*outSample++ = 0.0;
-	}
-	for(channel=0; channel<numChannelsSidechain; channel++){
-		outSample = out2.sampleVectors[channel];
-		vs = out2.getVectorSize();
-		while(vs--)
-			*outSample++ = 0.0;
-	}
-	return kTTErrNone;
-}
 
 
 TTErr TTAudioObject::defaultCalculateMethod(const TTFloat64& x, TTFloat64& y)
@@ -202,15 +139,6 @@ TTErr TTAudioObject::setProcess(TTProcessMethod newProcessMethod)
 }
 
 
-TTErr TTAudioObject::setProcessWithSidechain(TTProcessWithSidechainMethod newProcessMethod)
-{
-	processWithSidechainMethod = newProcessMethod;
-	if(!attrBypass)
-		currentProcessWithSidechainMethod = processWithSidechainMethod;
-	return kTTErrNone;
-}
-
-
 TTErr TTAudioObject::setCalculate(TTCalculateMethod newCalculateMethod)
 {
 	calculateMethod = newCalculateMethod;
@@ -225,16 +153,13 @@ TTErr TTAudioObject::setBypass(const TTValue& value)
 	attrBypass = value;
 	if(attrBypass){
 		currentProcessMethod = &TTAudioObject::bypassProcess;
-		currentProcessWithSidechainMethod = &TTAudioObject::bypassWithSidechainProcess;
 		currentCalculateMethod = &TTAudioObject::bypassCalculate;
 	}
 	else if(attrMute){
 		currentProcessMethod = &TTAudioObject::muteProcess;
-		currentProcessWithSidechainMethod = &TTAudioObject::muteWithSidechainProcess;
 	}
 	else{
 		currentProcessMethod = processMethod;
-		currentProcessWithSidechainMethod = processWithSidechainMethod;
 		if(calculateMethod)
 			currentCalculateMethod = calculateMethod;
 		else
@@ -249,15 +174,12 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 	attrMute = value;
 	if(attrBypass){
 		currentProcessMethod = &TTAudioObject::bypassProcess;
-		currentProcessWithSidechainMethod = &TTAudioObject::bypassWithSidechainProcess;
 	}
 	else if(attrMute){
 		currentProcessMethod = &TTAudioObject::muteProcess;
-		currentProcessWithSidechainMethod = &TTAudioObject::muteWithSidechainProcess;
 	}
 	else{
 		currentProcessMethod = processMethod;
-		currentProcessWithSidechainMethod = processWithSidechainMethod;
 	}
 	return kTTErrNone;
 }
@@ -279,7 +201,11 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 	TTErr	err;
 	
 	lock();
-	err = (this->*currentProcessMethod)(in, out);
+	inputArray->numAudioSignals = 1;
+	inputArray->setSignal(0, &in);
+	outputArray->numAudioSignals = 1;
+	outputArray->setSignal(0, &out);
+	err = (this->*currentProcessMethod)(inputArray, outputArray);
 	unlock();
 	return err;
 }
@@ -290,7 +216,10 @@ TTErr TTAudioObject::process(TTAudioSignal& out)
 	TTErr	err;
 	
 	lock();
-	err = (this->*currentProcessMethod)(out, out);
+	inputArray->numAudioSignals = 0;
+	outputArray->numAudioSignals = 1;
+	outputArray->setSignal(0, &out);
+	err = (this->*currentProcessMethod)(inputArray, outputArray);
 	unlock();
 	return err;
 }
@@ -301,7 +230,13 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 	TTErr	err;
 	
 	lock();
-	err = (this->*currentProcessWithSidechainMethod)(in1, in2, out1, out2);
+	inputArray->numAudioSignals = 2;
+	inputArray->setSignal(0, &in1);
+	inputArray->setSignal(1, &in2);
+	outputArray->numAudioSignals = 2;
+	outputArray->setSignal(0, &out1);
+	outputArray->setSignal(1, &out2);
+	err = (this->*currentProcessMethod)(inputArray, outputArray);
 	unlock();
 	return err;
 }
@@ -312,7 +247,23 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 	TTErr	err;
 	
 	lock();
-	err = (this->*currentProcessWithSidechainMethod)(in1, in2, out, out);
+	inputArray->numAudioSignals = 2;
+	inputArray->setSignal(0, &in1);
+	inputArray->setSignal(1, &in2);
+	outputArray->numAudioSignals = 1;
+	outputArray->setSignal(0, &out);
+	err = (this->*currentProcessMethod)(inputArray, outputArray);
+	unlock();
+	return err;
+}
+
+
+TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTErr	err;
+	
+	lock();
+	err = (this->*currentProcessMethod)(inputs, outputs);
 	unlock();
 	return err;
 }

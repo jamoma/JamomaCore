@@ -41,7 +41,7 @@ protected:
 	 					and number of channels should the two signals not be matched.
 	 	@param	out		A pointer to a TTAudioSignal object that has the output sample vectors.
 	 	@return			A TTBlue error code.	*/
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 	/**	Constructor. */

@@ -24,7 +24,7 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Additional Initialization
-	dcBlockerUnit = new TTDCBlock(maxNumChannels);
+	dcBlockerUnit = new TTDCBlock(newMaxNumChannels);
 
 	// Set Defaults
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
@@ -108,8 +108,10 @@ TTErr TTOverdrive::clear()
 }
 
 
-TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTOverdrive::processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
@@ -147,8 +149,10 @@ TTErr TTOverdrive::processMode0(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTOverdrive::processMode1(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTOverdrive::processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	short			vs;
 	TTSampleValue	*inSample,
 					*outSample;

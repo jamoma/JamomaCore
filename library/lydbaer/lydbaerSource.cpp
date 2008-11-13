@@ -25,7 +25,8 @@ LydbaerSource::~LydbaerSource()
 }
 
 
-TTErr LydbaerSource::processAudio(TTAudioSignal& unused, TTAudioSignal& out)
+TTErr LydbaerSource::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	return TTAudioSignal::copy(*buffer, out);
 }

@@ -21,22 +21,27 @@ protected:
 	TTBoolean		operandIsInteger;		///< Set to true if there is no fractional part.
 	TTBoolean		operandIsPowerOfTwo;	///< Set to true is the operand is a power of two to optimize some operations.
 
-	/**	A standard audio processing method as used by TTBlue objects.
-		Performs the mathematical operation with a constant as defined using the 
-		operand attribute. */
-	TTErr processAddConstant(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processDivideConstant(TTAudioSignal& in, TTAudioSignal& out);
-	TTErr processModuloConstant(TTAudioSignal& in, TTAudioSignal& out);
-	
-	/**	An audio processing method that uses a second input signal to define the operand.  */
-	TTErr processAddSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
-	TTErr processSubtractSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
-	TTErr processMultiplySignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
-	TTErr processDivideSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
-	TTErr processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&);
+	/**	A standard audio processing method as used by TTBlue objects. */
+	TTErr processAdd				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAddConstant		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processAddSignal			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
+	TTErr processSubtract			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processSubtractConstant	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processSubtractSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr processMultiply			(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processMultiplyConstant	(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processMultiplySignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr processDivide				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processDivideConstant		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processDivideSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
+	TTErr processModulo				(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processModuloConstant		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processModuloSignal		(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	
 public:
 
 	/**	Constructor. */

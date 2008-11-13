@@ -246,5 +246,65 @@ typedef TTAudioSignal* TTAudioSignalPtr;
 		signal_obj->sendMessage(kTTSym_getVector32, _temp_tt_value_getvector ## a);
 
 
+
+/**	A simple container for an array of TTAudioSignal pointers.
+	This class does not manage the signals themselves, instantiate, or free them.	*/
+class TTEXPORT TTAudioSignalArray : public TTElement {
+protected:
+	TTAudioSignalPtr*	audioSignals;			///< The actual array of audio signal pointers.
+	TTUInt16			maxNumAudioSignals;		///< The maximum number of audio signals that can be passed in this array.
+public:
+	TTUInt16			numAudioSignals;		///< The number of audio signal pointers which are actually valid.
+	
+	
+	TTAudioSignalArray(TTUInt16 initialMaxNumAudioSignals)
+	: audioSignals(NULL)
+	{
+		setMaxNumAudioSignals(initialMaxNumAudioSignals);
+	}
+	
+	virtual ~TTAudioSignalArray()
+	{
+		delete[] audioSignals;
+	}
+
+	
+	void init()
+	{
+		delete[] audioSignals;
+		audioSignals = new TTAudioSignalPtr[maxNumAudioSignals];
+		numAudioSignals = 0;
+	}
+	
+	
+	/**	Note: calling this function will invalidate all audioSignal pointers contained within the array. */
+	void setMaxNumAudioSignals(TTUInt16 newMaxNumAudioSignals)
+	{
+		maxNumAudioSignals = newMaxNumAudioSignals;
+		init();
+	}
+	
+	TTUInt16 getMaxNumAudioSignals()
+	{
+		return maxNumAudioSignals;
+	}
+
+	
+	inline TTAudioSignal& getSignal(TTUInt16 index)
+	{
+		return *audioSignals[index];
+	}
+	
+	inline TTErr setSignal(TTUInt16 index, const TTAudioSignalPtr aSignal)
+	{
+		audioSignals[index] = aSignal;
+		return kTTErrNone;
+	}
+	
+};
+
+
+typedef TTAudioSignalArray* TTAudioSignalArrayPtr;
+
 #endif // __TT_AUDIO_SIGNAL_H__
 

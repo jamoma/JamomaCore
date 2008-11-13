@@ -59,8 +59,10 @@ TTErr TTZerocross::setsize(const TTValue& value)
 
 
 // TODO: this unit requires 1 input and 2 outputs -- it does not yet configure itself for other arrangements!
-TTErr TTZerocross::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTZerocross::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSize();
 	TTSampleValue*	inSample;
 	TTSampleValue*	out1Sample;

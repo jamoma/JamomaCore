@@ -32,7 +32,7 @@ protected:
 	void setStep();
 
 	/**	Process method -- This method is special!  It does not use it's input!	*/
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 	/**	Constructor. */

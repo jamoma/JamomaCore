@@ -98,8 +98,10 @@ TTErr TTLowpassLinkwitzRiley2::setfrequency(const TTValue& newValue)
 }
 
 
-TTErr TTLowpassLinkwitzRiley2::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTLowpassLinkwitzRiley2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;

@@ -75,8 +75,10 @@ TTErr TTLowpassOnePole::setfrequency(const TTValue& newValue)
 }
 
 
-TTErr TTLowpassOnePole::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTLowpassOnePole::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;

@@ -48,9 +48,7 @@ TTErr TTDCBlock::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTDCBlock::clear()
 {
-	short i;
-
-	for(i=0; i<maxNumChannels; i++){
+	for(TTUInt16 i=0; i<maxNumChannels; i++){
 		lastInput[i] = 0;
 		lastOutput[i] = 0;
 	}
@@ -59,8 +57,10 @@ TTErr TTDCBlock::clear()
 
 
 // DSP LOOP
-TTErr TTDCBlock::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTDCBlock::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;

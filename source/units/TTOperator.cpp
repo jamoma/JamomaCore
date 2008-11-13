@@ -31,26 +31,16 @@ TTOperator::~TTOperator()
 TTErr TTOperator::setoperator(const TTValue& newValue)
 {
 	operatorAttribute = newValue;
-	if(operatorAttribute == TT("+")){
-		setProcess((TTProcessMethod)&TTOperator::processAddConstant);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processAddSignal);
-	}
-	else if(operatorAttribute == TT("-")){
-		setProcess((TTProcessMethod)&TTOperator::processSubtractConstant);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processSubtractSignal);
-	}
-	else if(operatorAttribute == TT("*")){
-		setProcess((TTProcessMethod)&TTOperator::processMultiplyConstant);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processMultiplySignal);
-	}
-	else if(operatorAttribute == TT("/")){
-		setProcess((TTProcessMethod)&TTOperator::processDivideConstant);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processDivideSignal);
-	}
-	else if(operatorAttribute == TT("%")){
-		setProcess((TTProcessMethod)&TTOperator::processModuloConstant);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTOperator::processModuloSignal);
-	}
+	if(operatorAttribute == TT("+"))
+		setProcessMethod(processAdd);
+	else if(operatorAttribute == TT("-"))
+		setProcessMethod(processSubtract);
+	else if(operatorAttribute == TT("*"))
+		setProcessMethod(processMultiply);
+	else if(operatorAttribute == TT("/"))
+		setProcessMethod(processDivide);
+	else if(operatorAttribute == TT("%"))
+		setProcessMethod(processModulo);
 	else
 		return kTTErrInvalidValue;
 	
@@ -83,14 +73,24 @@ TTErr TTOperator::setoperand(const TTValue& newValue)
 
 
 
-TTErr TTOperator::processAddConstant(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTOperator::processAdd(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	if(inputs->numAudioSignals != 1)
+		return processAddSignal(inputs, outputs);
+	else
+		return processAddConstant(inputs, outputs);
+}
+
+TTErr TTOperator::processAddConstant(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
-					*outSample;
+	*outSample;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
-
+	
 	for(channel=0; channel<numchannels; channel++){
 		inSample = in.sampleVectors[channel];
 		outSample = out.sampleVectors[channel];
@@ -101,9 +101,57 @@ TTErr TTOperator::processAddConstant(TTAudioSignal& in, TTAudioSignal& out)
 	return kTTErrNone;
 }
 
-
-TTErr TTOperator::processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTOperator::processAddSignal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in1 = inputs->getSignal(0);
+	TTAudioSignal&	in2 = inputs->getSignal(1);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
+	TTSampleValue	*in1Sample,
+					*in2Sample,
+					*outSample;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
+	
+	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
+		numChannels = in2.getNumChannels();
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[0];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+			while(vs--)
+				*outSample++ = *in1Sample++ + *in2Sample++;
+		}		
+	}
+	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
+		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[channel];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+			while(vs--)
+				*outSample++ = *in1Sample++ + *in2Sample++;
+		}
+	}
+	return kTTErrNone;
+}
+
+
+
+TTErr TTOperator::processSubtract(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	if(inputs->numAudioSignals != 1)
+		return processSubtractSignal(inputs, outputs);
+	else
+		return processSubtractConstant(inputs, outputs);
+}
+
+TTErr TTOperator::processSubtractConstant(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
@@ -120,9 +168,57 @@ TTErr TTOperator::processSubtractConstant(TTAudioSignal& in, TTAudioSignal& out)
 	return kTTErrNone;
 }
 
-
-TTErr TTOperator::processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTOperator::processSubtractSignal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in1 = inputs->getSignal(0);
+	TTAudioSignal&	in2 = inputs->getSignal(1);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
+	TTSampleValue	*in1Sample,
+	*in2Sample,
+	*outSample;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
+	
+	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
+		numChannels = in2.getNumChannels();
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[0];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+			while(vs--)
+				*outSample++ = *in1Sample++ - *in2Sample++;
+		}		
+	}
+	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
+		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[channel];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+			while(vs--)
+				*outSample++ = *in1Sample++ - *in2Sample++;
+		}
+	}
+	return kTTErrNone;
+}
+
+
+
+TTErr TTOperator::processMultiply(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	if(inputs->numAudioSignals != 1)
+		return processMultiplySignal(inputs, outputs);
+	else
+		return processMultiplyConstant(inputs, outputs);
+}
+
+TTErr TTOperator::processMultiplyConstant(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
@@ -139,9 +235,57 @@ TTErr TTOperator::processMultiplyConstant(TTAudioSignal& in, TTAudioSignal& out)
 	return kTTErrNone;
 }
 
-
-TTErr TTOperator::processDivideConstant(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTOperator::processMultiplySignal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in1 = inputs->getSignal(0);
+	TTAudioSignal&	in2 = inputs->getSignal(1);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
+	TTSampleValue	*in1Sample,
+	*in2Sample,
+	*outSample;
+	TTUInt16		numChannels;
+	TTUInt16		channel;
+	
+	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
+		numChannels = in2.getNumChannels();
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[0];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+			while(vs--)
+				*outSample++ = *in1Sample++ * *in2Sample++;
+		}		
+	}
+	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
+		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
+		for(channel=0; channel<numChannels; channel++){
+			in1Sample = in1.sampleVectors[channel];
+			in2Sample = in2.sampleVectors[channel];
+			outSample = out.sampleVectors[channel];
+			vs = in1.getVectorSize();
+			while(vs--)
+				*outSample++ = *in1Sample++ * *in2Sample++;
+		}
+	}
+	return kTTErrNone;
+}
+
+
+
+TTErr TTOperator::processDivide(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	if(inputs->numAudioSignals != 1)
+		return processDivideSignal(inputs, outputs);
+	else
+		return processDivideConstant(inputs, outputs);
+}
+
+TTErr TTOperator::processDivideConstant(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;
@@ -159,145 +303,11 @@ TTErr TTOperator::processDivideConstant(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTOperator::processModuloConstant(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTOperator::processDivideSignal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTUInt16		vs;
-	TTSampleValue*	inSample;
-	TTSampleValue*	outSample;
-	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
-	TTUInt16		channel;
-	TTUInt64		temp;
-	TTUInt64		operander = (TTUInt64)operand;
-	
-	for(channel=0; channel<numchannels; channel++){
-		inSample = in.sampleVectors[channel];
-		outSample = out.sampleVectors[channel];
-		vs = in.getVectorSize();
-		
-		if(operandIsPowerOfTwo){
-			while(vs--){
-				temp = TTUInt64(*inSample++);
-				*outSample++ = TTSampleValue(temp & operander);
-			}
-		}
-		else{
-			while(vs--)
-				*outSample++ = fmod(*inSample++, operander);		
-		}
-	}
-	return kTTErrNone;
-}
-
-
-
-
-TTErr TTOperator::processAddSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
-{
-	TTUInt16		vs;
-	TTSampleValue	*in1Sample,
-					*in2Sample,
-					*outSample;
-	TTUInt16		numChannels;
-	TTUInt16		channel;
-
-	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
-		numChannels = in2.getNumChannels();
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[0];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ + *in2Sample++;
-		}		
-	}
-	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[channel];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ + *in2Sample++;
-		}
-	}
-	return kTTErrNone;
-}
-
-
-TTErr TTOperator::processSubtractSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
-{
-	TTUInt16		vs;
-	TTSampleValue	*in1Sample,
-					*in2Sample,
-					*outSample;
-	TTUInt16		numChannels;
-	TTUInt16		channel;
-
-	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
-		numChannels = in2.getNumChannels();
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[0];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ - *in2Sample++;
-		}		
-	}
-	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[channel];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ - *in2Sample++;
-		}
-	}
-	return kTTErrNone;
-}
-
-
-TTErr TTOperator::processMultiplySignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
-{
-	TTUInt16		vs;
-	TTSampleValue	*in1Sample,
-					*in2Sample,
-					*outSample;
-	TTUInt16		numChannels;
-	TTUInt16		channel;
-
-	if(in2.getNumChannels() == 1){				// If the operand signal is one only channel, then we apply that to all channels of in1
-		numChannels = in2.getNumChannels();
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[0];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ * *in2Sample++;
-		}		
-	}
-	else{										// Otherwise we apply channel 1 to channel 1, channel 2 to channel 2, etc.
-		numChannels = TTAudioSignal::getMinChannelCount(in1, out);
-		for(channel=0; channel<numChannels; channel++){
-			in1Sample = in1.sampleVectors[channel];
-			in2Sample = in2.sampleVectors[channel];
-			outSample = out.sampleVectors[channel];
-			vs = in1.getVectorSize();
-			while(vs--)
-				*outSample++ = *in1Sample++ * *in2Sample++;
-		}
-	}
-	return kTTErrNone;
-}
-
-
-TTErr TTOperator::processDivideSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
-{
+	TTAudioSignal&	in1 = inputs->getSignal(0);
+	TTAudioSignal&	in2 = inputs->getSignal(1);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*in1Sample,
 	*in2Sample,
@@ -331,8 +341,52 @@ TTErr TTOperator::processDivideSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 }
 
 
-TTErr TTOperator::processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
+
+
+TTErr TTOperator::processModulo(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	if(inputs->numAudioSignals != 1)
+		return processModuloSignal(inputs, outputs);
+	else
+		return processModuloConstant(inputs, outputs);
+}
+
+TTErr TTOperator::processModuloConstant(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
+	TTSampleValue*	inSample;
+	TTSampleValue*	outSample;
+	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
+	TTUInt16		channel;
+	TTUInt64		temp;
+	TTUInt64		operander = (TTUInt64)operand;
+	
+	for(channel=0; channel<numchannels; channel++){
+		inSample = in.sampleVectors[channel];
+		outSample = out.sampleVectors[channel];
+		vs = in.getVectorSize();
+		
+		if(operandIsPowerOfTwo){
+			while(vs--){
+				temp = TTUInt64(*inSample++);
+				*outSample++ = TTSampleValue(temp & operander);
+			}
+		}
+		else{
+			while(vs--)
+				*outSample++ = fmod(*inSample++, operander);		
+		}
+	}
+	return kTTErrNone;
+}
+
+TTErr TTOperator::processModuloSignal(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+{
+	TTAudioSignal&	in1 = inputs->getSignal(0);
+	TTAudioSignal&	in2 = inputs->getSignal(1);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue*	in1Sample;
 	TTSampleValue*	in2Sample;
@@ -370,7 +424,7 @@ TTErr TTOperator::processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 			in2Sample = in2.sampleVectors[channel];
 			outSample = out.sampleVectors[channel];
 			vs = in1.getVectorSize();
-
+			
 			if(operandIsPowerOfTwo){
 				while(vs--){
 					temp = TTUInt64(*in1Sample++);
@@ -386,6 +440,3 @@ TTErr TTOperator::processModuloSignal(TTAudioSignal& in1, TTAudioSignal& in2, TT
 	}
 	return kTTErrNone;
 }
-
-
-

@@ -19,10 +19,7 @@
 class TTAudioObject;
 
 /** A type that can be used to store a pointer to a process method (which calculates a vector of samples). */
-typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignal& in, TTAudioSignal& out);
-
-/** A type that can be used to store a pointer to a process method (which calculates parallel vectors of samples). */
-typedef TTErr (TTAudioObject::*TTProcessWithSidechainMethod)(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
+typedef TTErr (TTAudioObject::*TTProcessMethod)(TTAudioSignalArrayPtr in, TTAudioSignalArrayPtr out);
 
 /**	A type that can be used to store a pointer to a calculate method (which calculates a single sample). */
 typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64& y);
@@ -32,7 +29,6 @@ typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64&
  @param	methodName	The name of the method to use for processing audio vectors.
  */
 #define setProcessMethod(methodName)				setProcess((TTProcessMethod)& thisTTClass ::methodName )
-#define setProcessWithSidechainMethod(methodName)	setProcessWithSidechain((TTProcessWithSidechainMethod)& thisTTClass ::methodName )
 #define setCalculateMethod(methodName)				setCalculate((TTCalculateMethod)& thisTTClass ::methodName )
 
 
@@ -48,26 +44,24 @@ typedef TTErr (TTAudioObject::*TTCalculateMethod)(const TTFloat64& x, TTFloat64&
  */
 class TTEXPORT TTAudioObject : public TTObject {
 protected:
-	TTUInt32						sr;									///< Current sample rate being used by this object
-	TTFloat64						srInv;								///< 1.0 over the current sample rate (inverse)
-	TTFloat64						srMill;								///< 1/1000 of the current sample rate (samples per millisecond)
-	TTUInt16						maxNumChannels;						///< This is the maximum number of channels that can be guaranteed to work
-	TTBoolean						attrProcessInPlace;					///< This flag indicates that the object should process the samples "in-place", such that the processed samples are actually in the input
-	TTBoolean						attrBypass;							///< Are we bypassing the processMethod?
-	TTBoolean						attrMute;							///< Mute the processMethod.
-	TTProcessMethod					processMethod;						///< This function pointer points to the active (non-bypass) processing routine.
-	TTProcessMethod					currentProcessMethod;				///< This function pointer always points to the current processing routine.
-	TTProcessWithSidechainMethod	processWithSidechainMethod;			///< This function pointer points to the active (non-bypass) processing routine with sidechains, if applicable.
-	TTProcessWithSidechainMethod	currentProcessWithSidechainMethod;	///< This function pointer always points to the current processing routine with sidechains, if applicable.
-	TTCalculateMethod				calculateMethod;					///< This function pointer points to the active (non-bypass) calculate routine.
-	TTCalculateMethod				currentCalculateMethod;				///< This function pointer always points to the current calculate routine.
-
+	TTUInt32				sr;							///< Current sample rate being used by this object
+	TTFloat64				srInv;						///< 1.0 over the current sample rate (inverse)
+	TTFloat64				srMill;						///< 1/1000 of the current sample rate (samples per millisecond)
+	TTUInt16				maxNumChannels;				///< This is the maximum number of channels that can be guaranteed to work
+	TTBoolean				attrProcessInPlace;			///< This flag indicates that the object should process the samples "in-place", such that the processed samples are actually in the input
+	TTBoolean				attrBypass;					///< Are we bypassing the processMethod?
+	TTBoolean				attrMute;					///< Mute the processMethod.
+	TTProcessMethod			processMethod;				///< This function pointer points to the active (non-bypass) processing routine.
+	TTProcessMethod			currentProcessMethod;		///< This function pointer always points to the current processing routine.
+	TTCalculateMethod		calculateMethod;			///< This function pointer points to the active (non-bypass) calculate routine.
+	TTCalculateMethod		currentCalculateMethod;		///< This function pointer always points to the current calculate routine.
+	TTAudioSignalArray*		inputArray;					///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
+	TTAudioSignalArray*		outputArray;				///< If the process method is passed a signal, rather than an array of signals, we wrap the signal in this array.
+	
+	
 	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
 	TTErr setProcess(TTProcessMethod processMethod);
-	
-	/** Set the audio processing routine to point to a method that is defined as an arg to this function.	*/
-	TTErr setProcessWithSidechain(TTProcessWithSidechainMethod processMethod);
-	
+		
 	/** Set the sample calculate routine to point to a method that is defined as an arg to this function.	*/
 	TTErr setCalculate(TTCalculateMethod newCalculateMethod);
 		
@@ -156,21 +150,19 @@ public:
 		return process(*in1, *in2, *out);
 	}
 	
+	/**	Process an array of audio signals. */
+	TTErr process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+
 	
 	/**	The default audio processing method, which simply copies a signal through with no modifications.		*/
-	TTErr bypassProcess(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr bypassProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Produces a result for calls to calculate when the unit is bypassed.  */
 	TTErr bypassCalculate(const TTFloat64& x, TTFloat64& y);
-
-	/**	The default audio processing method for calls with side chains, which simply copies the signals through with no modifications.		*/
-	TTErr bypassWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
 	
 	/**	A muted audio processing method, which simply copies zeroes to the output.		*/
-	TTErr muteProcess(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr muteProcess(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
-	/**	A muted audio processing method, which simply copies zeroes to the output.		*/
-	TTErr muteWithSidechainProcess(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2);
 	
 	/**	A default calculate method, which simply calls the process method with 1 channel signals that are 1 sample in length.  
 		This method is not fast, and if you anticipate the calculate method to be called often, you should write a proper

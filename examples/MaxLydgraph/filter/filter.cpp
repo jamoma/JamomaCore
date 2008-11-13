@@ -115,9 +115,9 @@ public:
 	}
 
 	
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out)
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		return actualFilterObject->process(in, out);
+		return actualFilterObject->process(inputs, outputs);
 	}
 	
 };

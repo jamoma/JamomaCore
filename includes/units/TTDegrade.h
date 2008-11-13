@@ -38,7 +38,7 @@ protected:
 	 *	@return	Returns a TTBlue Error Code.  TODO: Perhaps we should check if the signals are matched and then
 	 *			return an error if they aren't?  Currently we are just returning TT_ERR_NONE all the time.
 	 */
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 

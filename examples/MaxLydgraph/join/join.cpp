@@ -24,7 +24,6 @@ public:
 	{		
 		setAttributeValue(TT("maxNumChannels"), newMaxNumChannels);		
 		setProcessMethod(processAudio);
-		setProcessWithSidechainMethod(processAudioWithSidechain);
 	}
 	
 	// Destructor
@@ -35,27 +34,26 @@ public:
 	
 	
 	// If only one signal is provided, then duplicate it onto a second set of channels
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out)
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
-		TTUInt16	numChannels = in.getNumChannels();
+		TTAudioSignal&	in1 = inputs->getSignal(0);
+		TTAudioSignal&	out = outputs->getSignal(0);
+		TTUInt16		numChannels = in1.getNumChannels();
 
-		TTAudioSignal::copy(in, out, 0);
-		TTAudioSignal::copy(in, out, numChannels);
+		if(inputs->numAudioSignals == 1){
+			
+			TTAudioSignal::copy(in1, out, 0);
+			TTAudioSignal::copy(in1, out, numChannels);
+		}
+		else{ // assume 2 input signals			
+			TTAudioSignal&	in2 = inputs->getSignal(1);
+			
+			TTAudioSignal::copy(in1, out, 0);
+			TTAudioSignal::copy(in2, out, numChannels);
+		}
 		
 		return kTTErrNone;
 	}
-	
-	
-	TTErr processAudioWithSidechain(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out, TTAudioSignal&)
-	{
-		TTUInt16	numChannels1 = in1.getNumChannels();
-
-		TTAudioSignal::copy(in1, out, 0);
-		TTAudioSignal::copy(in2, out, numChannels1);
-		
-		return kTTErrNone;
-	}
-	
 };
 
 

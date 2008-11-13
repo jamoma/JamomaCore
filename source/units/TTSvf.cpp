@@ -123,9 +123,11 @@ void TTSvf::calculateCoefficients()
 }
 
 
-TTErr TTSvf::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTSvf::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	short			vs;
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
+	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
 	TTSampleValue	tempSample;

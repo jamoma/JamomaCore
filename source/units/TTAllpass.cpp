@@ -166,8 +166,10 @@ TTErr TTAllpass::setdelay(const TTValue& newValue)
 }
 
 
-TTErr TTAllpass::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTAllpass::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+ TTAudioSignal&	in = inputs->getSignal(0);
+ TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;

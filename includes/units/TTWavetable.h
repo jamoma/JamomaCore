@@ -32,10 +32,10 @@ protected:
 	TTErr updateSr();
 	
 	/**	Process method 	*/
-	TTErr processWithNoInterpolation(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Process method 	*/
-	TTErr processWithLinearInterpolation(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 	/**	Constructor. */

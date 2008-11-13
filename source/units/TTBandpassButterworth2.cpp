@@ -117,8 +117,10 @@ TTErr TTBandpassButterworth2::calculateCoefficients()
 	return kTTErrNone;
 }
 
-TTErr TTBandpassButterworth2::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTBandpassButterworth2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;

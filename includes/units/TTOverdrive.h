@@ -33,10 +33,10 @@ protected:
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
 	/**	Process method when mode == 0	*/
-	TTErr processMode0(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processMode0(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	/**	Process method when mode == 1	*/
-	TTErr processMode1(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processMode1(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 	/**	Constructor. */

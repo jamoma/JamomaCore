@@ -38,7 +38,7 @@ protected:
 	TTErr updateSr();
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 public:
 	TTPulseSub(TTUInt16 newMaxNumChannels);

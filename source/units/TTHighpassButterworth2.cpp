@@ -94,8 +94,10 @@ TTErr TTHighpassButterworth2::setfrequency(const TTValue& newValue)
 }
 
 
-TTErr TTHighpassButterworth2::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTHighpassButterworth2::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleValue	*inSample,
 					*outSample;

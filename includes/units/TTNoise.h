@@ -20,13 +20,13 @@ protected:
 	TTSampleValue	b[6];	///< for the "pinking" filter
 	
 	/**	Audio Processing Method	*/
-	TTErr processWhiteNoise(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processWhiteNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Audio Processing Method	*/
-	TTErr processPinkNoise(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processPinkNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Audio Processing Method	*/
-	TTErr processBrownNoise(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processBrownNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Audio Processing Method	*/
-	TTErr processBlueNoise(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processBlueNoise(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 public:
 	/**	Constructor. */

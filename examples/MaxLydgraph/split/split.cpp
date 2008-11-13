@@ -28,7 +28,7 @@ public:
 		registerAttributeSimple(splitChannel, kTypeUInt16);
 		
 		setAttributeValue(TT("maxNumChannels"), newMaxNumChannels);
-		setProcessWithSidechainMethod(processAudioWithSidechain);
+		setProcessMethod(processAudio);
 	}
 	
 	// Destructor
@@ -36,10 +36,14 @@ public:
 	{
 		;
 	}
-	
+
 	// Process Method	
-	TTErr processAudioWithSidechain(TTAudioSignal& in, TTAudioSignal&, TTAudioSignal& out1, TTAudioSignal& out2)
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 	{
+		TTAudioSignal&	in = inputs->getSignal(0);
+		TTAudioSignal&	out1 = outputs->getSignal(0);
+		TTAudioSignal&	out2 = outputs->getSignal(1);
+		
 		TTAudioSignal::copy(in, out1, 0);
 		TTAudioSignal::copySubset(in, out2, splitChannel, in.getNumChannels()-1);
 		out1.setnumChannels(splitChannel);

@@ -36,13 +36,13 @@ protected:
 	void setStep();
 
 	/**	Process method -- This method is special!  It only sets the first sample of the vector and does not use it's input!	*/
-	TTErr processVectorAccurateDown(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processVectorAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Process method -- This method is special!  It only sets the first sample of the vector and does not use it's input!	*/
-	TTErr processVectorAccurateUp(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processVectorAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Process method 	*/
-	TTErr processSampleAccurateDown(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processSampleAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	/**	Process method 	*/
-	TTErr processSampleAccurateUp(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processSampleAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 	/**	Constructor. */

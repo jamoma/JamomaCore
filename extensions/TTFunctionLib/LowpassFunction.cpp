@@ -55,8 +55,10 @@ TTErr LowpassFunction::calculateValue(const TTFloat64& x, TTFloat64& y)
 }
 
 
-TTErr LowpassFunction::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr LowpassFunction::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTSampleVector	inSample;
 	TTSampleVector	outSample;

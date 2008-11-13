@@ -101,8 +101,10 @@ TTErr TTWavetable::setSize(const TTValue& newSize)
 }
 
 
-TTErr TTWavetable::processWithNoInterpolation(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTWavetable::processWithNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*inSample;
 	TTSampleValue	tempSample;
 	TTUInt16		vs = in.getVectorSize();
@@ -144,11 +146,13 @@ TTErr TTWavetable::processWithNoInterpolation(TTAudioSignal& in, TTAudioSignal& 
 }
 
 
-TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*inSample;
 	TTSampleValue	tempSample;
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = out.getVectorSize();
 	TTUInt16		i=0;
 	TTUInt16		numChannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -159,7 +163,7 @@ TTErr TTWavetable::processWithLinearInterpolation(TTAudioSignal& in, TTAudioSign
 	
 	// If the input and output signals are the same, then there really isn't an input signal
 	// In that case we don't modulate the oscillator with it
-	if(&in == &out)
+	if(inputs->numAudioSignals == 0)
 		hasModulation = false;
 	else
 		inSample = in.sampleVectors[0];

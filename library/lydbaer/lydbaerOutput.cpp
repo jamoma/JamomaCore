@@ -94,8 +94,10 @@ TTErr LydbaerOutput::getvectorSize(TTValue& returnedValue)
 }
 
 
-TTErr LydbaerOutput::processAudio(TTAudioSignal& in, TTAudioSignal& unused)
+TTErr LydbaerOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+
 	(*((TTAudioEnginePtr)audioEngine)->outputBuffer) += in;
 	return kTTErrNone;
 }

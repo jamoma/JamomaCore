@@ -101,8 +101,9 @@ void TTRamp::setStep()
 }
 
 
-TTErr TTRamp::processVectorAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTRamp::processVectorAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -122,8 +123,9 @@ TTErr TTRamp::processVectorAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTRamp::processVectorAccurateUp(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTRamp::processVectorAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -143,8 +145,9 @@ TTErr TTRamp::processVectorAccurateUp(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTRamp::processSampleAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTRamp::processSampleAccurateDown(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;
@@ -168,8 +171,9 @@ TTErr TTRamp::processSampleAccurateDown(TTAudioSignal& in, TTAudioSignal& out)
 }
 
 
-TTErr TTRamp::processSampleAccurateUp(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTRamp::processSampleAccurateUp(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;

@@ -79,8 +79,9 @@ TTErr TTPhasor::getgain(TTValue& value)
 
 // TODO: add flags so that TTAudioObject can call a process method with a different number audio signals?
 
-TTErr TTPhasor::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTPhasor::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue	*outSample;
 	TTUInt16		numchannels = out.getNumChannels();
 	TTUInt16		channel;

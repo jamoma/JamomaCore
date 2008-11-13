@@ -201,19 +201,15 @@ TTErr TTDelay::setinterpolation(const TTValue& newValue)
 	
 	if(interpolation == TT("none")){
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
 	}
 	else if(interpolation == TT("linear")){
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
 	}
 	else if(interpolation == TT("cubic")){
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
 	}
 	else{
 		setProcess((TTProcessMethod)&TTDelay::processAudioNoInterpolation);
-		setProcessWithSidechain((TTProcessWithSidechainMethod)&TTDelay::processAudioNoInterpolationWithDelaySignal);		
 		return kTTErrInvalidValue;
 	}
 	return kTTErrNone;
@@ -226,8 +222,10 @@ TTErr TTDelay::setinterpolation(const TTValue& newValue)
 #endif
 
 
-TTErr TTDelay::processAudioNoInterpolation(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTDelay::processAudioNoInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs;
 	TTUInt16		numchannels = TTAudioSignal::getMinChannelCount(in, out);
 	TTUInt16		channel;
@@ -253,8 +251,10 @@ TTErr TTDelay::processAudioNoInterpolation(TTAudioSignal& in, TTAudioSignal& out
 }
 
 
-TTErr TTDelay::processAudioLinearInterpolation(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTDelay::processAudioLinearInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+//	TTAudioSignal&	in = inputs->getSignal(0);
+//	TTAudioSignal&	out = outputs->getSignal(0);
 	/*
 	 float temp;
 	 tt_sample_value *next;
@@ -291,8 +291,10 @@ TTErr TTDelay::processAudioLinearInterpolation(TTAudioSignal& in, TTAudioSignal&
 }
 
 
-TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+//	TTAudioSignal&	in = inputs->getSignal(0);
+//	TTAudioSignal&	out = outputs->getSignal(0);
 	// see http://crca.ucsd.edu/~msp/techniques/latest/book-html/node114.html
 	// see http://crca.ucsd.edu/~msp/techniques/latest/book-html/node31.html#tab02.1
 	
@@ -302,8 +304,8 @@ TTErr TTDelay::processAudioCubicInterpolation(TTAudioSignal& in, TTAudioSignal& 
 
 
 // Process with a delay time set by a signal
-TTErr TTDelay::processAudioNoInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&)
-{
+//TTErr TTDelay::processAudioNoInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&)
+//{
 	/*	temp_vs = in->vectorsize;
 	 
 	 // CALCULATE THE DELAY TIME
@@ -323,12 +325,12 @@ TTErr TTDelay::processAudioNoInterpolationWithDelaySignal(TTAudioSignal& in, TTA
 	 }
 	 in->reset(); in2->reset(); out->reset();
 	 */
-	return kTTErrNone;
-}
+//	return kTTErrNone;
+//}
 
 
-TTErr TTDelay::processAudioLinearInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&)
-{
+//TTErr TTDelay::processAudioLinearInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&)
+//{
 /*
  tt_sample_value	temp;
  tt_sample_value	*next;
@@ -378,14 +380,14 @@ TTErr TTDelay::processAudioLinearInterpolationWithDelaySignal(TTAudioSignal& in,
  in1->reset(); in2->reset(); out->reset();
  //log_post("delay_signal_ms: %f, samples: %f (%i)", delay_ms, fdelay_samples, delay_samples);
  */
-	return kTTErrNone;
-}
+//	return kTTErrNone;
+//}
 
 
-TTErr TTDelay::processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&)
-{
-	return kTTErrNone;
-}
+//TTErr TTDelay::processAudioCubicInterpolationWithDelaySignal(TTAudioSignal& in, TTAudioSignal& delayIn, TTAudioSignal& out, TTAudioSignal&)
+//{
+//	return kTTErrNone;
+//}
 
 
 

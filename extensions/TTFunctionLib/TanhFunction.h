@@ -50,7 +50,7 @@ public:
 	inline TTErr calculateValue(const TTFloat64& x, TTFloat64& y);
 	
 	/**	A standard audio processing method as used by TTBlue objects.*/
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& out);
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 };
 
 

@@ -200,8 +200,10 @@ void TTLimiter::setRecover()
 }
 
 
-TTErr TTLimiter::processAudio(TTAudioSignal& in, TTAudioSignal& out)
+TTErr TTLimiter::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
+	TTAudioSignal&	in = inputs->getSignal(0);
+	TTAudioSignal&	out = outputs->getSignal(0);
 	TTUInt16		vs = in.getVectorSize();
 	TTUInt16		i, j;
 	TTSampleValue	tempSample;

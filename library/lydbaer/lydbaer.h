@@ -172,8 +172,9 @@ public:
 	TTErr getvectorSize(TTValue& returnedValue);
 	
 	
-	/**	A standard audio processing method as used by TTBlue objects.*/
-	TTErr processAudio(TTAudioSignal& in, TTAudioSignal& unused);	
+	/**	A standard audio processing method as used by TTBlue objects.
+		@param	outputs	unused.		*/
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
 typedef LydbaerOutput* LydbaerOutputPtr;
@@ -195,8 +196,9 @@ public:
 	/**	Destructor. */
 	virtual ~LydbaerSource();
 	
-	/**	A standard audio processing method as used by TTBlue objects.*/
-	TTErr processAudio(TTAudioSignal& unused, TTAudioSignal& out);	
+	/**	A standard audio processing method as used by TTBlue objects.
+		@param	inputs	unused.				*/
+	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
 typedef LydbaerSource* LydbaerSourcePtr;
