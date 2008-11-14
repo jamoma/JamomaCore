@@ -318,12 +318,15 @@ static T TTFold(T value, T low_bound, T high_bound)
 	if((value >= low_bound) && (value <= high_bound))  
 		return value; //nothing to fold 
 	else{
-#ifdef TT_PLATFORM_WIN
-		TTLogError("TTFold() not currently implemented on Windows");
-		// The standard remainder() function is not present on Windows!
-		return value;
-#else
 		foldRange = 2 * fabs(low_bound - high_bound);
+#ifdef TT_PLATFORM_WIN
+		// The standard remainder() function is not present on Windows, so we do it ourselves.
+		double	v = value - low_bound;
+		double	d = v / foldRange;
+		long	n = TTRound(d);
+		double	r = v - n * foldRange;
+		return fabs(r);
+#else
 		return fabs(remainder(value - low_bound, foldRange)) + low_bound;
 #endif
 	}
