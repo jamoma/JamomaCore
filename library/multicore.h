@@ -1,5 +1,5 @@
 /* 
- * Lydbaer Extensions for TTBlue
+ * MCore Extensions for TTBlue
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -13,58 +13,58 @@
 #include "TTBlueAPI.h"
 
 
-enum LydbaerProcessStatus {
+enum MCoreProcessStatus {
 	kProcessUnknown = 0,
 	kProcessNotStarted,
 	kProcessingCurrently,	
 	kProcessComplete
 };
 
-enum LydbaerFlags {
-	kLydbaerProcessor = 0,
-	kLydbaerGenerator = 1
+enum MCoreFlags {
+	kMCoreProcessor = 0,
+	kMCoreGenerator = 1
 };
 
-class LydbaerObject;
-typedef LydbaerObject*	LydbaerObjectPtr;
+class MCoreObject;
+typedef MCoreObject*	MCoreObjectPtr;
 
 
 /**
-	The LydbaerObject wraps a TTBlue object in way that makes it possible to 
+	The MCoreObject wraps a TTBlue object in way that makes it possible to 
 	build a dynamic graph of audio processing units.
 */
 
-class TTEXPORT LydbaerObject {	
+class TTEXPORT MCoreObject {	
 protected:
-	LydbaerProcessStatus		processStatus;			///< Used to enable correct processing of feedback loops, multiple destinations, etc.
-	LydbaerFlags				flags;
-	TTUInt16					inChansToOutChansRatio[2];	///< for every N incoming channels, this object should produce M output channels.
-	TTBoolean					alwaysProcessSidechain;		///< always process with the sidechain, regardless of whether the sidechain is provided with valid input.
+	MCoreProcessStatus		processStatus;				///< Used to enable correct processing of feedback loops, multiple destinations, etc.
+	MCoreFlags				flags;
+	TTUInt16				inChansToOutChansRatio[2];	///< for every N incoming channels, this object should produce M output channels.
+	TTBoolean				alwaysProcessSidechain;		///< always process with the sidechain, regardless of whether the sidechain is provided with valid input.
 	
-	LydbaerObjectPtr*			audioSources;				///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
-	TTUInt16*					audioSourceOutletIndices;
-	LydbaerObjectPtr*			sidechainSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
-	TTUInt16*					sidechainOutletIndices;
+	MCoreObjectPtr*			audioSources;				///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+	TTUInt16*				audioSourceOutletIndices;
+	MCoreObjectPtr*			sidechainSources;			///< An array of objects from which we pull our source samples using the ::getAudioOutput() method.
+	TTUInt16*				sidechainOutletIndices;
 public:
-	TTUInt16					numSources;				///< The number of getSamples callback functions (sources) from which we pull.
-	TTUInt16					numSidechainSources;	///< The number of getSamples callback functions (sources) from which we pull.
+	TTUInt16				numSources;					///< The number of getSamples callback functions (sources) from which we pull.
+	TTUInt16				numSidechainSources;		///< The number of getSamples callback functions (sources) from which we pull.
 protected:
-	TTAudioSignalPtr			audioInput;				///< The buffered input for processing audio with our object.
-	TTAudioSignalPtr			audioOutput;			///< The results of processing audio with our object.
-	TTAudioSignalPtr			sidechainInput;			///< The buffered input for processing audio with our object.
-	TTAudioSignalPtr			sidechainOutput;		///< The results of processing audio with our object.
+	TTAudioSignalPtr		audioInput;					///< The buffered input for processing audio with our object.
+	TTAudioSignalPtr		audioOutput;				///< The results of processing audio with our object.
+	TTAudioSignalPtr		sidechainInput;				///< The buffered input for processing audio with our object.
+	TTAudioSignalPtr		sidechainOutput;			///< The results of processing audio with our object.
 public:	
-	TTAudioObjectPtr			audioObject;			///< The actual TTBlue object doing the processing.
+	TTAudioObjectPtr		audioObject;				///< The actual TTBlue object doing the processing.
 	
 	
 	// Methods
 
 	/**	Constructor.	
 		@param	objectName	The name of the TTBlue object you want to wrap.		*/
-	LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels);
+	MCoreObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels);
 	
 	/**	Destructor.		*/
-	virtual ~LydbaerObject();
+	virtual ~MCoreObject();
 
 	/**	Rather than use the internal audio output signal, it is possible to set your own.
 		One example for why you might want this is for creating generator objects.	*/
@@ -95,7 +95,7 @@ public:
 		return audioOutput->getVectorSize();
 	}
 	
-	TTErr addFlag(LydbaerFlags newFlag)
+	TTErr addFlag(MCoreFlags newFlag)
 	{
 		flags = newFlag;
 		return kTTErrNone;
@@ -112,10 +112,10 @@ public:
 		@param	anInletNumber	If this object has a second input mechanism (e.g. a sidechain input), then that is indicated here.
 								Typically the value passed here will be 0, indicating the normal audio input.
 		@return					An error code.	*/
-	TTErr addSource(LydbaerObjectPtr anObject, TTUInt16 sourceOutletNumber=0, TTUInt16 anInletNumber=0);
+	TTErr addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumber=0, TTUInt16 anInletNumber=0);
 
 private:
-	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, LydbaerObjectPtr aSource);
+	TTUInt16 initAudioSignal(TTAudioSignalPtr aSignal, MCoreObjectPtr aSource);
 public:
 	
 	/**	Allocate buffers and prepare for processing.	*/
@@ -139,21 +139,21 @@ public:
 
 
 
-/**	LydbaerOutput is an audio object that serves as the destination and master for a Lydbaer graph.		*/
-class TTEXPORT LydbaerOutput : public TTAudioObject
+/**	MCoreOutput is an audio object that serves as the destination and master for a MCore graph.		*/
+class TTEXPORT MCoreOutput : public TTAudioObject
 {
 public:
 	TTObjectPtr			audioEngine;
 	TTAudioSignalPtr	placeHolder;	///< an unused audio signal that we pass
-	LydbaerObjectPtr	owner;			///< the owning lydbaer instance
+	MCoreObjectPtr	owner;			///< the owning lydbaer instance
 	TTValuePtr			me;
 
 	
 	/**	Constructor. */
-	LydbaerOutput(TTUInt16 newMaxNumChannels);
+	MCoreOutput(TTUInt16 newMaxNumChannels);
 	
 	/**	Destructor. */
-	virtual ~LydbaerOutput();
+	virtual ~MCoreOutput();
 	
 	
 	TTErr start();
@@ -177,31 +177,34 @@ public:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
-typedef LydbaerOutput* LydbaerOutputPtr;
+typedef MCoreOutput* MCoreOutputPtr;
 
 
 
 
-/**	LydbaerSource is a very simple audio object that holds a signal from TTBlue
- that can be used by a Lydbaer graph.		*/
-class TTEXPORT LydbaerSource : public TTAudioObject
+/**	MCoreSource is a very simple audio object that holds a signal from TTBlue
+ that can be used by a MCore graph.		*/
+class TTEXPORT MCoreSource : public TTAudioObject
 {
 public:
 	TTAudioSignalPtr	buffer;		///< storage for the audioSignal that we provide
 	
 	
 	/**	Constructor. */
-	LydbaerSource(TTUInt16 newMaxNumChannels);
+	MCoreSource(TTUInt16 newMaxNumChannels);
 	
 	/**	Destructor. */
-	virtual ~LydbaerSource();
+	virtual ~MCoreSource();
 	
 	/**	A standard audio processing method as used by TTBlue objects.
 		@param	inputs	unused.				*/
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);	
 };
 
-typedef LydbaerSource* LydbaerSourcePtr;
+typedef MCoreSource* MCoreSourcePtr;
+
+
+TTEXPORT void MCoreInit(void);
 
 
 #endif // __LYDBAER_H__

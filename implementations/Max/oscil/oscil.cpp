@@ -7,13 +7,13 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 // Data Structure for this object
 typedef struct OscilBaer {
     t_object			obj;
-	LydbaerObjectPtr	lydbaer;
+	MCoreObjectPtr	lydbaer;
 	TTPtr				lydbaerOutlet;
 	SymbolPtr			attrWaveform;
 	SymbolPtr			attrInterpolation;
@@ -47,13 +47,13 @@ int main(void)
 {
 	t_class *c;
 
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 
 	c = class_new("oscil≈", (method)oscilBaerNew, (method)oscilBaerFree, sizeof(OscilBaer), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)oscilBaerReset,			"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)oscilBaerSetup,			"lydbaerSetup",		A_CANT,	0);
+	class_addmethod(c, (method)oscilBaerReset,			"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)oscilBaerSetup,			"multicore.setup",		A_CANT,	0);
 	class_addmethod(c, (method)oscilBaerAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -83,13 +83,13 @@ OscilBaerPtr oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     OscilBaerPtr x = OscilBaerPtr(object_alloc(sOscilBaerClass));
 
     if(x){
-		x->lydbaer = new LydbaerObject(TT("wavetable"), 1);
-		x->lydbaer->addFlag(kLydbaerGenerator);
+		x->lydbaer = new MCoreObject(TT("wavetable"), 1);
+		x->lydbaer->addFlag(kMCoreGenerator);
 
 		attr_args_process(x, argc, argv);
 
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "lydbaerObject");
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.object");
 	}
 	return x;
 }
@@ -130,7 +130,7 @@ TTErr oscilBaerSetup(OscilBaerPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
 	return kTTErrNone;
 }
 

@@ -1,5 +1,5 @@
 /* 
- * Lydbaer Extensions for TTBlue
+ * MCore Extensions for TTBlue
  * Creates a wrapper for TTAudioObjects that can be used to build an audio processing graph.
  * Copyright © 2008, Timothy Place
  * 
@@ -7,11 +7,11 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "lydbaer.h"
+#include "multicore.h"
 
 
-LydbaerObject::LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels)
-	:flags(kLydbaerProcessor), alwaysProcessSidechain(false), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
+MCoreObject::MCoreObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels)
+	:flags(kMCoreProcessor), alwaysProcessSidechain(false), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
 	audioInput(NULL), audioOutput(NULL), sidechainInput(NULL), sidechainOutput(NULL), audioObject(NULL)
 {
 	TTErr err;
@@ -25,7 +25,7 @@ LydbaerObject::LydbaerObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels
 }
 
 
-LydbaerObject::~LydbaerObject()
+MCoreObject::~MCoreObject()
 {
 	TTObjectRelease(audioObject);
 	TTObjectRelease(audioInput);
@@ -35,7 +35,7 @@ LydbaerObject::~LydbaerObject()
 }
 
 
-TTErr LydbaerObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
+TTErr MCoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 {
 	if(audioOutput)
 		TTObjectRelease(audioOutput);
@@ -45,7 +45,7 @@ TTErr LydbaerObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 }
 
 
-TTErr LydbaerObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels)
+TTErr MCoreObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt16 numOutputChannels)
 {
 	inChansToOutChansRatio[0] = numInputChannels;
 	inChansToOutChansRatio[1] = numOutputChannels;
@@ -53,14 +53,14 @@ TTErr LydbaerObject::setInChansToOutChansRatio(TTUInt16 numInputChannels, TTUInt
 }
 
 
-TTErr LydbaerObject::setAlwaysProcessSidechain(TTBoolean newValue)
+TTErr MCoreObject::setAlwaysProcessSidechain(TTBoolean newValue)
 {
 	alwaysProcessSidechain = newValue;
 	return kTTErrNone;
 }
 
 
-TTErr LydbaerObject::prepareToProcess()
+TTErr MCoreObject::prepareToProcess()
 {
 	processStatus = kProcessNotStarted;
 
@@ -72,7 +72,7 @@ TTErr LydbaerObject::prepareToProcess()
 }
 
 
-TTErr LydbaerObject::resetSources(TTUInt16 vs)
+TTErr MCoreObject::resetSources(TTUInt16 vs)
 {
 	if(audioSources && numSources)
 		free(audioSources);
@@ -86,7 +86,7 @@ TTErr LydbaerObject::resetSources(TTUInt16 vs)
 	
 	// Generators will not receive an 'addSource' call, 
 	// so we set them with the 'default' vector size provided by the global reset
-	if(flags & kLydbaerGenerator){
+	if(flags & kMCoreGenerator){
 		audioOutput->allocWithVectorSize(vs);
 	}
 	
@@ -94,16 +94,16 @@ TTErr LydbaerObject::resetSources(TTUInt16 vs)
 }
 
 
-TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject, TTUInt16 sourceOutletNumber, TTUInt16 anInletNumber)
+TTErr MCoreObject::addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumber, TTUInt16 anInletNumber)
 {	
 	if(anInletNumber){		// A sidechain source
 		numSidechainSources++;
 		if(numSidechainSources == 1){
-			sidechainSources = (LydbaerObjectPtr*)malloc(sizeof(LydbaerObjectPtr) * numSidechainSources);
+			sidechainSources = (MCoreObjectPtr*)malloc(sizeof(MCoreObjectPtr) * numSidechainSources);
 			sidechainOutletIndices = (TTUInt16*)malloc(sizeof(TTUInt16) * numSources);
 		}
 		else{
-			sidechainSources = (LydbaerObjectPtr*)realloc(sidechainSources, sizeof(LydbaerObjectPtr) * numSidechainSources);
+			sidechainSources = (MCoreObjectPtr*)realloc(sidechainSources, sizeof(MCoreObjectPtr) * numSidechainSources);
 			sidechainOutletIndices = (TTUInt16*)realloc(audioSourceOutletIndices, sizeof(TTUInt16) * numSources);
 		}
 		sidechainSources[numSidechainSources-1] = anObject;
@@ -117,11 +117,11 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject, TTUInt16 sourceOutletN
 	else{					// A normal audio source
 		numSources++;
 		if(numSources == 1){
-			audioSources = (LydbaerObjectPtr*)malloc(sizeof(LydbaerObjectPtr) * numSources);
+			audioSources = (MCoreObjectPtr*)malloc(sizeof(MCoreObjectPtr) * numSources);
 			audioSourceOutletIndices = (TTUInt16*)malloc(sizeof(TTUInt16) * numSources);
 		}
 		else{
-			audioSources = (LydbaerObjectPtr*)realloc(audioSources, sizeof(LydbaerObjectPtr) * numSources);
+			audioSources = (MCoreObjectPtr*)realloc(audioSources, sizeof(MCoreObjectPtr) * numSources);
 			audioSourceOutletIndices = (TTUInt16*)realloc(audioSourceOutletIndices, sizeof(TTUInt16) * numSources);
 		}
 		audioSources[numSources-1] = anObject;
@@ -131,7 +131,7 @@ TTErr LydbaerObject::addSource(LydbaerObjectPtr anObject, TTUInt16 sourceOutletN
 }
 
 
-TTUInt16 LydbaerObject::initAudioSignal(TTAudioSignalPtr aSignal, LydbaerObjectPtr aSource)
+TTUInt16 MCoreObject::initAudioSignal(TTAudioSignalPtr aSignal, MCoreObjectPtr aSource)
 {
 	TTUInt16	numChannels;
 	TTUInt16	sourceProducesNumChannels;
@@ -148,7 +148,7 @@ TTUInt16 LydbaerObject::initAudioSignal(TTAudioSignalPtr aSignal, LydbaerObjectP
 }
 
 
-TTErr LydbaerObject::init()
+TTErr MCoreObject::init()
 {
 	TTUInt16	sourceProducesNumChannels;
 	TTUInt16	sidechainSourceProducesNumChannels;
@@ -207,7 +207,7 @@ TTErr LydbaerObject::init()
 }
 
 
-TTErr LydbaerObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain)
+TTErr MCoreObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean getSidechain)
 {
 	TTAudioSignalPtr	pulledInput = NULL;
 	TTAudioSignalPtr	pulledSidechainInput = NULL;

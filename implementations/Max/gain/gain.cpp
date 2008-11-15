@@ -7,11 +7,11 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 int main(void)
 {
-	TTBlueInit();
+	MCoreInit();
 	return wrapAsMaxbaer(TT("gain"), "gain≈", NULL);
 }
 

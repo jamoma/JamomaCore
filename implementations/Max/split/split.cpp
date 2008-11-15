@@ -7,7 +7,7 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 #define thisTTClass TTSplit
 
 
@@ -67,7 +67,7 @@ int main(void)
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;
 	
-	TTBlueInit();
+	MCoreInit();
 
 	value.clear();
 	value.append(1);	

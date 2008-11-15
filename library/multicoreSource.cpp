@@ -7,25 +7,25 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "lydbaer.h"
-#define thisTTClass LydbaerSource
+#include "multicore.h"
+#define thisTTClass MCoreSource
 
 
-LydbaerSource::LydbaerSource(TTUInt16 newMaxNumChannels)
-: TTAudioObject("lydbaer.source", newMaxNumChannels)
+MCoreSource::MCoreSource(TTUInt16 newMaxNumChannels)
+: TTAudioObject("multicore.source", newMaxNumChannels)
 {
 	buffer = new TTAudioSignal(newMaxNumChannels);
 	setProcessMethod(processAudio);
 }
 
 
-LydbaerSource::~LydbaerSource()
+MCoreSource::~MCoreSource()
 {
 	delete buffer;
 }
 
 
-TTErr LydbaerSource::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr MCoreSource::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	out = outputs->getSignal(0);
 	return TTAudioSignal::copy(*buffer, out);

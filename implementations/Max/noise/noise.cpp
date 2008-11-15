@@ -7,13 +7,13 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 // Data Structure for this object
 typedef struct NoiseBaer {
     t_object			obj;
-	LydbaerObjectPtr	lydbaer;
+	MCoreObjectPtr	lydbaer;
 	TTPtr				lydbaerOutlet;
 	SymbolPtr			attrMode;
 };
@@ -44,13 +44,13 @@ int main(void)
 {
 	t_class *c;
 
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 
 	c = class_new("noise≈", (method)noiseBaerNew, (method)noiseBaerFree, sizeof(NoiseBaer), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)noiseBaerReset,			"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)noiseBaerSetup,			"lydbaerSetup",		A_CANT,	0);
+	class_addmethod(c, (method)noiseBaerReset,			"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)noiseBaerSetup,			"multicore.setup",		A_CANT,	0);
 	class_addmethod(c, (method)noiseBaerAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -71,13 +71,13 @@ NoiseBaerPtr noiseBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     NoiseBaerPtr x = NoiseBaerPtr(object_alloc(sNoiseBaerClass));
 
     if(x){
-		x->lydbaer = new LydbaerObject(TT("noise"), 1);
-		x->lydbaer->addFlag(kLydbaerGenerator);
+		x->lydbaer = new MCoreObject(TT("noise"), 1);
+		x->lydbaer->addFlag(kMCoreGenerator);
 
 		attr_args_process(x, argc, argv);
 
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "lydbaerObject");
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.object");
 	}
 	return x;
 }
@@ -118,7 +118,7 @@ TTErr noiseBaerSetup(NoiseBaerPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
 	return kTTErrNone;
 }
 

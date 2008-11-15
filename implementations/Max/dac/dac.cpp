@@ -7,13 +7,13 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 // Data Structure for this object
 struct LydDac {
     t_object			obj;
-	LydbaerObjectPtr	lydbaer;
+	MCoreObjectPtr	lydbaer;
 };
 typedef LydDac* LydDacPtr;
 
@@ -23,7 +23,7 @@ LydDacPtr	lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydDacFree(LydDacPtr x);
 void		lydDacAssist(LydDacPtr x, void* b, long msg, long arg, char* dst);
 TTErr		lydDacReset(LydDacPtr x, long vectorSize);
-TTErr		lydDacObject(LydDacPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr		lydDacObject(LydDacPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber);
 TTErr		lydDacStart(LydDacPtr x);
 TTErr		lydDacStop(LydDacPtr x);
 // Prototypes for attribute accessors
@@ -44,7 +44,7 @@ int main(void)
 {
 	t_class *c;
 	
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 	
 	c = class_new("dac≈", (method)lydDacNew, (method)lydDacFree, sizeof(LydDac), (method)0L, A_GIMME, 0);
@@ -52,8 +52,8 @@ int main(void)
 	class_addmethod(c, (method)lydDacStart,				"start",			0);
 	class_addmethod(c, (method)lydDacStop,				"stop",				0);
 	//class_addmethod(c, (method)lydDacNotify,			"notify",			A_CANT, 0);
-	class_addmethod(c, (method)lydDacReset,				"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydDacObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)lydDacReset,				"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)lydDacObject,			"multicore.object",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)lydDacAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -78,7 +78,7 @@ LydDacPtr lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue		v;
 	
     if(x){
-		x->lydbaer = new LydbaerObject(TT("lydbaer.output"), 2);
+		x->lydbaer = new MCoreObject(TT("multicore.output"), 2);
 		v = TTPtr(x->lydbaer);
 		x->lydbaer->audioObject->sendMessage(TT("setOwner"), v);
 
@@ -114,7 +114,7 @@ TTErr lydDacReset(LydDacPtr x, long vectorSize)
 }
 
 
-TTErr lydDacObject(LydDacPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr lydDacObject(LydDacPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }
@@ -126,7 +126,7 @@ TTErr lydDacStart(LydDacPtr x)
 	ObjectPtr	patcher = NULL;
 	ObjectPtr	box = NULL;
 	ObjectPtr	o = NULL;
-	method		lydbaerSetupMethod = NULL;
+	method		multicoreSetupMethod = NULL;
 	long		vectorSize;
 	
 	x->lydbaer->audioObject->getAttributeValue(TT("vectorSize"), vectorSize);
@@ -135,17 +135,17 @@ TTErr lydDacStart(LydDacPtr x)
 	box = jpatcher_get_firstobject(patcher);
 	while(box) {
 		o = jbox_get_object(box);
-		lydbaerSetupMethod = zgetfn(o, gensym("lydbaerReset"));
-		if(lydbaerSetupMethod)
-			err = (MaxErr)lydbaerSetupMethod(o, vectorSize);
+		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
+		if(multicoreSetupMethod)
+			err = (MaxErr)multicoreSetupMethod(o, vectorSize);
 		box = jbox_get_nextobject(box);
 	}
 	box = jpatcher_get_firstobject(patcher);
 	while(box) {
 		o = jbox_get_object(box);
-		lydbaerSetupMethod = zgetfn(o, gensym("lydbaerSetup"));
-		if(lydbaerSetupMethod)
-			err = (MaxErr)lydbaerSetupMethod(o);
+		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
+		if(multicoreSetupMethod)
+			err = (MaxErr)multicoreSetupMethod(o);
 		box = jbox_get_nextobject(box);
 	}
 		

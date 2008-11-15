@@ -7,7 +7,7 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 #define thisTTClass TTFilter
 
 
@@ -136,7 +136,7 @@ TTObjectPtr instantiateTTFilter(TTSymbolPtr className, TTValue& arguments)
 
 int main(void)
 {
-	TTBlueInit();
+	MCoreInit();
 
 	// First, we have to register our custom subclass with the TTBlue framework.
 	TTClassRegister(TT("filter"), "audio, processor, effect, lydbaer", &instantiateTTFilter);

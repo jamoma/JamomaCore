@@ -7,13 +7,13 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "lydbaer.h"
+#include "multicore.h"
 #include "TTAudioEngine.h"
-#define thisTTClass LydbaerOutput
+#define thisTTClass MCoreOutput
 
 
-LydbaerOutput::LydbaerOutput(TTUInt16 newMaxNumChannels)
-: TTAudioObject("lydbaer.output", newMaxNumChannels), placeHolder(NULL)
+MCoreOutput::MCoreOutput(TTUInt16 newMaxNumChannels)
+: TTAudioObject("multicore.output", newMaxNumChannels), placeHolder(NULL)
 {
 	TTObjectInstantiate(kTTSym_audiosignal, &placeHolder, 1);
 	audioEngine = TTAudioEngineReference();
@@ -34,7 +34,7 @@ LydbaerOutput::LydbaerOutput(TTUInt16 newMaxNumChannels)
 }
 
 
-LydbaerOutput::~LydbaerOutput()
+MCoreOutput::~MCoreOutput()
 {
 	audioEngine->sendMessage(TT("removeCallbackObserver"), *me);
 	delete me;
@@ -42,7 +42,7 @@ LydbaerOutput::~LydbaerOutput()
 }
 
 
-TTErr LydbaerOutput::start()
+TTErr MCoreOutput::start()
 {
 	owner->init();
 	audioEngine->sendMessage(TT("start"));
@@ -50,14 +50,14 @@ TTErr LydbaerOutput::start()
 }
 
 
-TTErr LydbaerOutput::stop()
+TTErr MCoreOutput::stop()
 {
 	audioEngine->sendMessage(TT("stop"));
 	return kTTErrNone;
 }
 
 
-TTErr LydbaerOutput::audioEngineWillProcess()
+TTErr MCoreOutput::audioEngineWillProcess()
 {
 	owner->prepareToProcess();
 	owner->getAudioOutput(placeHolder);
@@ -65,36 +65,36 @@ TTErr LydbaerOutput::audioEngineWillProcess()
 }
 
 
-TTErr LydbaerOutput::setOwner(TTValue& newOwner)
+TTErr MCoreOutput::setOwner(TTValue& newOwner)
 {
-	owner = LydbaerObjectPtr(TTPtr(newOwner));
+	owner = MCoreObjectPtr(TTPtr(newOwner));
 	return kTTErrNone;
 }
 
 
-TTErr LydbaerOutput::setsampleRate(const TTValue& newValue)
+TTErr MCoreOutput::setsampleRate(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_sr, newValue);
 }
 
-TTErr LydbaerOutput::getsampleRate(TTValue& returnedValue)
+TTErr MCoreOutput::getsampleRate(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_sr, returnedValue);
 }
 
 
-TTErr LydbaerOutput::setvectorSize(const TTValue& newValue)
+TTErr MCoreOutput::setvectorSize(const TTValue& newValue)
 {
 	return audioEngine->setAttributeValue(kTTSym_vectorSize, newValue);
 }
 
-TTErr LydbaerOutput::getvectorSize(TTValue& returnedValue)
+TTErr MCoreOutput::getvectorSize(TTValue& returnedValue)
 {
 	return audioEngine->getAttributeValue(kTTSym_vectorSize, returnedValue);
 }
 
 
-TTErr LydbaerOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
+TTErr MCoreOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
 	TTAudioSignal&	in = inputs->getSignal(0);
 

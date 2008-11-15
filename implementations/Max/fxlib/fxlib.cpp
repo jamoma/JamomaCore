@@ -14,7 +14,7 @@
  */
 
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 static ObjectPtr	sMaxObject					= gensym("max")->s_thing;
@@ -38,7 +38,7 @@ void fxlibObjectDefine(const char* name)
 	
 	atom_setsym(&a, s);
 	object_method_typed(sMaxObject,	ss_db_object_addinternal,	1, &a, NULL);			// add to database for autocompletion
-	object_method(sMaxObject,		ss_oblist,					gensym("Lydbær"), s);	// add to new object list
+	object_method(sMaxObject,		ss_oblist,					gensym("Multicore"), s);	// add to new object list
 	object_method(sMaxObject,		ss_objectfile,				s, ss_fxlib, s);		// map the helpfile so it can be opened with opt-click
 	
 }
@@ -47,7 +47,7 @@ void fxlibObjectDefine(const char* name)
 
 int main(void)
 {
-	TTBlueInit();
+	MCoreInit();
 	
 	// classes that we wish to wrap for use in MSP
 	

@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
 		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
-		2259472A0EB4B98200E33619 /* maxbaer.h in Headers */ = {isa = PBXBuildFile; fileRef = 225947290EB4B98200E33619 /* maxbaer.h */; };
-		226ACC1C0EBBD121003F20B5 /* maxbaer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226ACC1B0EBBD121003F20B5 /* maxbaer.cpp */; };
+		220BD4E20ECE72D300F7D618 /* JamomaMulticore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220BD4E10ECE72D300F7D618 /* JamomaMulticore.framework */; };
+		2259472A0EB4B98200E33619 /* maxMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 225947290EB4B98200E33619 /* maxMulticore.h */; };
+		226ACC1C0EBBD121003F20B5 /* maxMulticore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 226ACC1B0EBBD121003F20B5 /* maxMulticore.cpp */; };
 		22BFF61C0D2AB4D700BD97E5 /* split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF61B0D2AB4D700BD97E5 /* split.cpp */; };
 		22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */; };
 		22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F229A50D48CA460018534E /* TTBlue.framework */; };
@@ -21,8 +22,9 @@
 		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
-		225947290EB4B98200E33619 /* maxbaer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxbaer.h; path = ../maxbaer.h; sourceTree = SOURCE_ROOT; };
-		226ACC1B0EBBD121003F20B5 /* maxbaer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxbaer.cpp; path = ../maxbaer.cpp; sourceTree = SOURCE_ROOT; };
+		220BD4E10ECE72D300F7D618 /* JamomaMulticore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaMulticore.framework; path = ../../../library/build/Development/JamomaMulticore.framework; sourceTree = SOURCE_ROOT; };
+		225947290EB4B98200E33619 /* maxMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxMulticore.h; path = ../maxMulticore.h; sourceTree = SOURCE_ROOT; };
+		226ACC1B0EBBD121003F20B5 /* maxMulticore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxMulticore.cpp; path = ../maxMulticore.cpp; sourceTree = SOURCE_ROOT; };
 		22BFF61B0D2AB4D700BD97E5 /* split.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = split.cpp; sourceTree = "<group>"; };
 		22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
 		22F229A50D48CA460018534E /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
@@ -38,6 +40,7 @@
 				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
 				0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */,
 				22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */,
+				220BD4E20ECE72D300F7D618 /* JamomaMulticore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +61,7 @@
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				220BD4E10ECE72D300F7D618 /* JamomaMulticore.framework */,
 				22F229A50D48CA460018534E /* TTBlue.framework */,
 				0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */,
 				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
@@ -86,8 +90,8 @@
 		225948620EB4E72300E33619 /* Lydbaer */ = {
 			isa = PBXGroup;
 			children = (
-				225947290EB4B98200E33619 /* maxbaer.h */,
-				226ACC1B0EBBD121003F20B5 /* maxbaer.cpp */,
+				225947290EB4B98200E33619 /* maxMulticore.h */,
+				226ACC1B0EBBD121003F20B5 /* maxMulticore.cpp */,
 			);
 			name = Lydbaer;
 			sourceTree = "<group>";
@@ -99,7 +103,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2259472A0EB4B98200E33619 /* maxbaer.h in Headers */,
+				2259472A0EB4B98200E33619 /* maxMulticore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +191,7 @@
 			files = (
 				22BFF61C0D2AB4D700BD97E5 /* split.cpp in Sources */,
 				22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */,
-				226ACC1C0EBBD121003F20B5 /* maxbaer.cpp in Sources */,
+				226ACC1C0EBBD121003F20B5 /* maxMulticore.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +205,11 @@
 				DEBUGGING_SYMBOLS = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../library/build/Development\"";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -212,7 +220,7 @@
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../library/TTBluePrefix.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../library/multicore.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -222,6 +230,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/JamomaMulticore.framework/Headers,
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					/Library/Frameworks/TTBlue.framework/Headers,
@@ -264,7 +273,11 @@
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks,
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../library/build/Development\"";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -273,7 +286,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../library/TTBluePrefix.pch";
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../library/multicore.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
@@ -283,6 +296,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
+					/Library/Frameworks/JamomaMulticore.framework/Headers,
 					/Library/Frameworks/MaxAPI.framework/Headers,
 					/Library/Frameworks/MaxAudioAPI.framework/Headers,
 					/Library/Frameworks/TTBlue.framework/Headers,

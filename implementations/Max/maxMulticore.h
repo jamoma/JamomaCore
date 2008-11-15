@@ -19,7 +19,7 @@
 #include "jpatcher_api.h"			// Required for patcher traversal code
 
 #include "TTBlueAPI.h"				// TTBlue Interfaces
-#include "lydbaer.h"				// Definitions for Lydbaer Wrapping
+#include "multicore.h"				// Definitions for Lydbaer Wrapping
 
 
 

@@ -7,13 +7,13 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 // Data Structure for this object
 typedef struct LydInfo {
     t_object			obj;
-	LydbaerObjectPtr	audioSourceObject;
+	MCoreObjectPtr	audioSourceObject;
 	long				audioSourceOutlet;
 	TTPtr				outletSampleRate;
 	TTPtr				outletVectorSize;
@@ -34,7 +34,7 @@ void		lydInfoAssist(LydInfoPtr x, void* b, long msg, long arg, char* dst);
 void		lydInfoBang(LydInfoPtr x);
 void		lyInfoQfn(LydInfoPtr x);
 TTErr		lydInfoReset(LydInfoPtr x, long vectorSize);
-TTErr		lydInfoObject(LydInfoPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr		lydInfoObject(LydInfoPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber);
 
 
 // Globals
@@ -48,14 +48,14 @@ int main(void)
 {
 	t_class *c;
 
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 
 	c = class_new("info≈", (method)lydInfoNew, (method)lydInfoFree, sizeof(LydInfo), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)lydInfoBang,				"bang",				0);
-	class_addmethod(c, (method)lydInfoReset,			"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydInfoObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)lydInfoReset,			"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)lydInfoObject,			"multicore.object",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)lydInfoAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -144,7 +144,7 @@ TTErr lydInfoReset(LydInfoPtr x, long vectorSize)
 }
 
 
-TTErr lydInfoObject(LydInfoPtr x, LydbaerObjectPtr newAudioSourceObject, long sourceOutletNumber)
+TTErr lydInfoObject(LydInfoPtr x, MCoreObjectPtr newAudioSourceObject, long sourceOutletNumber)
 {
 	x->audioSourceObject = newAudioSourceObject;
 	x->audioSourceOutlet = sourceOutletNumber;

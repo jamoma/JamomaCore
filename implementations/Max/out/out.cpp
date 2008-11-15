@@ -7,13 +7,13 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 // Data Structure for this object
 struct LydOut {
     t_pxobject			obj;
-	LydbaerObjectPtr	lydbaer;
+	MCoreObjectPtr		lydbaer;
 	TTAudioSignalPtr	audioSignal;
 	long				maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
 	long				numChannels;	// the actual number of channels to use, set by the dsp method
@@ -28,7 +28,7 @@ LydOutPtr	lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv);
 void		lydOutFree(LydOutPtr x);
 void		lydOutAssist(LydOutPtr x, void* b, long msg, long arg, char* dst);
 TTErr		lydOutReset(LydOutPtr x, long vectorSize);
-TTErr		lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr		lydOutObject(LydOutPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber);
 t_int*		lydOutPerform(t_int* w);
 void		lydOutDsp(LydOutPtr x, t_signal** sp, short* count);
 MaxErr		lydOutSetGain(LydOutPtr x, void *attr, AtomCount argc, AtomPtr argv);
@@ -45,14 +45,14 @@ int main(void)
 {
 	t_class *c;
 
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 
 	c = class_new("out≈", (method)lydOutNew, (method)lydOutFree, sizeof(LydOut), (method)0L, A_GIMME, 0);
 	
 	//class_addmethod(c, (method)lydOutNotify,			"notify",			A_CANT, 0);
-	class_addmethod(c, (method)lydOutReset,				"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydOutObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)lydOutReset,				"multicore.reset",	A_CANT, 0);
+	class_addmethod(c, (method)lydOutObject,			"multicore.object",	A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)lydOutDsp,				"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)lydOutAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
@@ -85,7 +85,7 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioSignal, x->maxNumChannels);
-		x->lydbaer = new LydbaerObject(TT("gain"), x->maxNumChannels);
+		x->lydbaer = new MCoreObject(TT("gain"), x->maxNumChannels);
 		
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -130,7 +130,7 @@ TTErr lydOutReset(LydOutPtr x, long vectorSize)
 }
 
 
-TTErr lydOutObject(LydOutPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr lydOutObject(LydOutPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }
@@ -163,7 +163,7 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 	ObjectPtr	patcher = NULL;
 	ObjectPtr	box = NULL;
 	ObjectPtr	o = NULL;
-	method		lydbaerSetupMethod = NULL;
+	method		multicoreSetupMethod = NULL;
 	
 	x->vectorSize = sp[0]->s_n;
 	
@@ -171,7 +171,7 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 		This is tricky, as there is no way to simply ask our inlets what are connected to them.
 		So here is what we do:
 		
-		1. Broadcast a message to every object in the patcher.  Something like 'lydbaerSetup'.
+		1. Broadcast a message to every object in the patcher.  Something like 'multicore.setup'.
 		2. This message is then handled by all objects that understand it by passing a 'lydbaerObject'
 			message down to the next object(s) below them.
 		
@@ -190,17 +190,17 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 	box = jpatcher_get_firstobject(patcher);
 	while(box) {
 		o = jbox_get_object(box);
-		lydbaerSetupMethod = zgetfn(o, gensym("lydbaerReset"));
-		if(lydbaerSetupMethod)
-			err = (MaxErr)lydbaerSetupMethod(o, x->vectorSize);
+		multicoreSetupMethod = zgetfn(o, gensym("multicore.reset"));
+		if(multicoreSetupMethod)
+			err = (MaxErr)multicoreSetupMethod(o, x->vectorSize);
 		box = jbox_get_nextobject(box);
 	}
 	box = jpatcher_get_firstobject(patcher);
 	while(box) {
 		o = jbox_get_object(box);
-		lydbaerSetupMethod = zgetfn(o, gensym("lydbaerSetup"));
-		if(lydbaerSetupMethod)
-			err = (MaxErr)lydbaerSetupMethod(o);
+		multicoreSetupMethod = zgetfn(o, gensym("multicore.setup"));
+		if(multicoreSetupMethod)
+			err = (MaxErr)multicoreSetupMethod(o);
 		box = jbox_get_nextobject(box);
 	}
 	

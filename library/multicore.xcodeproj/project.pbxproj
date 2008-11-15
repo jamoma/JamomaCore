@@ -7,266 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2207735B0D70B71300AE077B /* TTList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2207735A0D70B71300AE077B /* TTList.cpp */; };
-		22145BB80E313B0A008C1F5F /* TTClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22145BB70E313B0A008C1F5F /* TTClass.cpp */; };
-		22145BBA0E313B13008C1F5F /* TTClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22145BB90E313B13008C1F5F /* TTClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		221DED1D0D6BC722000799BA /* TTMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 221DED1C0D6BC722000799BA /* TTMutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221DED1E0D6BC739000799BA /* TTMutex.cpp */; };
-		222A37170E1987D000C72891 /* TTBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222A37160E1987D000C72891 /* TTBuffer.cpp */; };
-		222A37190E1987E100C72891 /* TTBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 222A37180E1987E100C72891 /* TTBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		222A380D0E19A5CE00C72891 /* TTWavetable.h in Headers */ = {isa = PBXBuildFile; fileRef = 222A380C0E19A5CE00C72891 /* TTWavetable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		222A380F0E19A5E400C72891 /* TTWavetable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222A380E0E19A5E400C72891 /* TTWavetable.cpp */; };
-		223985D30E200EEC00A5F732 /* TTZerocross.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 223985D20E200EEC00A5F732 /* TTZerocross.cpp */; };
-		223985D50E200F0F00A5F732 /* TTZerocross.h in Headers */ = {isa = PBXBuildFile; fileRef = 223985D40E200F0F00A5F732 /* TTZerocross.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22398BC00E24432C00A5F732 /* TTNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BBF0E24432C00A5F732 /* TTNoise.cpp */; };
-		22398BC20E24434700A5F732 /* TTNoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398BC10E24434700A5F732 /* TTNoise.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22398BCD0E244F5800A5F732 /* TTAllpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BCC0E244F5800A5F732 /* TTAllpass.cpp */; };
-		22398BCF0E244F7300A5F732 /* TTAllpass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398BCE0E244F7300A5F732 /* TTAllpass.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22398C250E25097100A5F732 /* TTEnvironment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398C240E25097100A5F732 /* TTEnvironment.cpp */; };
-		22398C270E25098800A5F732 /* TTEnvironment.h in Headers */ = {isa = PBXBuildFile; fileRef = 22398C260E25098800A5F732 /* TTEnvironment.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		225384840D70DCA200E5E5FB /* TTThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 225384830D70DCA200E5E5FB /* TTThread.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225384850D70DCB600E5E5FB /* TTThread.cpp */; };
-		225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */; };
-		2253854A0D710FAF00E5E5FB /* TTQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385470D710FAF00E5E5FB /* TTQueue.cpp */; };
-		2253854B0D710FAF00E5E5FB /* TTBlue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225385480D710FAF00E5E5FB /* TTBlue.cpp */; };
-		225385570D710FFF00E5E5FB /* TTSymbolCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385540D710FFF00E5E5FB /* TTSymbolCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		225385580D710FFF00E5E5FB /* TTQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385550D710FFF00E5E5FB /* TTQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		225385590D710FFF00E5E5FB /* TTBlue.h in Headers */ = {isa = PBXBuildFile; fileRef = 225385560D710FFF00E5E5FB /* TTBlue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C020D3E416200328864 /* TTAudioObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C030D3E416200328864 /* TTAudioSignal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C0D0D3E416200328864 /* TTElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C040D3E416200328864 /* TTElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C0F0D3E416200328864 /* TTList.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C060D3E416200328864 /* TTList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C100D3E416200328864 /* TTObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C070D3E416200328864 /* TTObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C110D3E416200328864 /* TTSymbol.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C080D3E416200328864 /* TTSymbol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C120D3E416200328864 /* TTValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C090D3E416200328864 /* TTValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C130D3E416200328864 /* TTValueCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C0A0D3E416200328864 /* TTValueCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C220D3E416F00328864 /* TTBandpassButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C140D3E416F00328864 /* TTBandpassButterworth2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C230D3E416F00328864 /* TTBandrejectButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C150D3E416F00328864 /* TTBandrejectButterworth2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C240D3E416F00328864 /* TTCrossfade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C160D3E416F00328864 /* TTCrossfade.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C250D3E416F00328864 /* TTDCBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C170D3E416F00328864 /* TTDCBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C260D3E416F00328864 /* TTDegrade.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C180D3E416F00328864 /* TTDegrade.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C270D3E416F00328864 /* TTGain.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C190D3E416F00328864 /* TTGain.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C280D3E416F00328864 /* TTHighpassButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C1A0D3E416F00328864 /* TTHighpassButterworth2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C290D3E416F00328864 /* TTHighpassLinkwitzRiley4.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C1B0D3E416F00328864 /* TTHighpassLinkwitzRiley4.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C2A0D3E416F00328864 /* TTLimiter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C1C0D3E416F00328864 /* TTLimiter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C2B0D3E416F00328864 /* TTLowpassButterworth2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C1D0D3E416F00328864 /* TTLowpassButterworth2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C2C0D3E416F00328864 /* TTLowpassLinkwitzRiley4.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C1E0D3E416F00328864 /* TTLowpassLinkwitzRiley4.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C2D0D3E416F00328864 /* TTLowpassOnePole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C1F0D3E416F00328864 /* TTLowpassOnePole.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C2E0D3E416F00328864 /* TTOverdrive.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C200D3E416F00328864 /* TTOverdrive.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C2F0D3E416F00328864 /* TTRamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22569C210D3E416F00328864 /* TTRamp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22569C380D3E417E00328864 /* TTAudioObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C300D3E417E00328864 /* TTAudioObject.cpp */; };
-		22569C390D3E417E00328864 /* TTAudioSignal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C310D3E417E00328864 /* TTAudioSignal.cpp */; };
-		22569C3A0D3E417E00328864 /* TTElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C320D3E417E00328864 /* TTElement.cpp */; };
-		22569C3C0D3E417E00328864 /* TTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C340D3E417E00328864 /* TTObject.cpp */; };
-		22569C3D0D3E417E00328864 /* TTSymbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C350D3E417E00328864 /* TTSymbol.cpp */; };
-		22569C3E0D3E417E00328864 /* TTValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C360D3E417E00328864 /* TTValue.cpp */; };
-		22569C3F0D3E417E00328864 /* TTValueCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C370D3E417E00328864 /* TTValueCache.cpp */; };
-		22569C4F0D3E419300328864 /* TTBandpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */; };
-		22569C500D3E419300328864 /* TTBandrejectButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */; };
-		22569C510D3E419300328864 /* TTCrossfade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C420D3E419300328864 /* TTCrossfade.cpp */; };
-		22569C530D3E419300328864 /* TTDCBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C440D3E419300328864 /* TTDCBlock.cpp */; };
-		22569C540D3E419300328864 /* TTDegrade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C450D3E419300328864 /* TTDegrade.cpp */; };
-		22569C550D3E419300328864 /* TTGain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C460D3E419300328864 /* TTGain.cpp */; };
-		22569C560D3E419300328864 /* TTHighpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C470D3E419300328864 /* TTHighpassButterworth2.cpp */; };
-		22569C570D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C480D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp */; };
-		22569C580D3E419300328864 /* TTLimiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C490D3E419300328864 /* TTLimiter.cpp */; };
-		22569C590D3E419300328864 /* TTLowpassButterworth2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4A0D3E419300328864 /* TTLowpassButterworth2.cpp */; };
-		22569C5A0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4B0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp */; };
-		22569C5B0D3E419300328864 /* TTLowpassOnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */; };
-		22569C5C0D3E419300328864 /* TTOverdrive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4D0D3E419300328864 /* TTOverdrive.cpp */; };
-		22569C5D0D3E419300328864 /* TTRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22569C4E0D3E419300328864 /* TTRamp.cpp */; };
-		22578F120EC2762900A5EC32 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F110EC2762900A5EC32 /* libportaudio.a */; };
-		22578F180EC2767800A5EC32 /* portaudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 22578F170EC2767800A5EC32 /* portaudio.h */; };
-		22578F1D0EC276B200A5EC32 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F190EC276B200A5EC32 /* CoreAudio.framework */; };
-		22578F1E0EC276B200A5EC32 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */; };
-		22578F1F0EC276B200A5EC32 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
-		22578F200EC276B200A5EC32 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
-		225790090EC27CF600A5EC32 /* TTAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 225790080EC27CF600A5EC32 /* TTAudioEngine.cpp */; };
-		2257900B0EC27D1500A5EC32 /* TTAudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 2257900A0EC27D1500A5EC32 /* TTAudioEngine.h */; };
-		228A09550E6049600053576D /* TTAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228A09530E6049600053576D /* TTAttribute.cpp */; };
-		228A09560E6049600053576D /* TTMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 228A09540E6049600053576D /* TTMessage.cpp */; };
-		228A095A0E60498D0053576D /* TTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 228A09580E60498D0053576D /* TTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		228A095B0E60498D0053576D /* TTAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 228A09590E60498D0053576D /* TTAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2294E55A0EB79AD600A88073 /* lydbaer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2294E53C0EB79AD600A88073 /* lydbaer.cpp */; };
-		2294E55C0EB79AD600A88073 /* lydbaer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2294E53E0EB79AD600A88073 /* lydbaer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2294E55D0EB79AD600A88073 /* lydbaerSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2294E5420EB79AD600A88073 /* lydbaerSource.cpp */; };
-		22A1B3FA0DEDEB520016AC8D /* TTBlueAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A1B3F90DEDEB520016AC8D /* TTBlueAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		220BD2CD0ECE640A00F7D618 /* multicore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2C80ECE640A00F7D618 /* multicore.cpp */; };
+		220BD2CE0ECE640B00F7D618 /* multicore.h in Headers */ = {isa = PBXBuildFile; fileRef = 220BD2C90ECE640A00F7D618 /* multicore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		220BD2CF0ECE640B00F7D618 /* multicore.pch in Headers */ = {isa = PBXBuildFile; fileRef = 220BD2CA0ECE640A00F7D618 /* multicore.pch */; };
+		220BD2D00ECE640B00F7D618 /* multicoreOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */; };
+		220BD2D10ECE640B00F7D618 /* multicoreSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */; };
+		220BD3B10ECE649500F7D618 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220BD3B00ECE649500F7D618 /* TTBlue.framework */; };
+		220BD41E0ECE658F00F7D618 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD41C0ECE658F00F7D618 /* main.cpp */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
-		22AC38AC0E057658006E4504 /* TTDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22AC38AB0E057658006E4504 /* TTDelay.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22AC38B20E05766E006E4504 /* TTDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22AC38B10E05766E006E4504 /* TTDelay.cpp */; };
-		22B4D0AF0EC37DCE0030FD40 /* lydbaerOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B4D0AE0EC37DCE0030FD40 /* lydbaerOutput.cpp */; };
-		22B66A310E298B0500CB474E /* TTHash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B66A300E298B0500CB474E /* TTHash.cpp */; };
-		22B66A330E298B1D00CB474E /* TTHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B66A320E298B1D00CB474E /* TTHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C1BEA40DA5A73E003747D3 /* TTLowpassFourPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C1BEA80DA5A769003747D3 /* TTLowpassFourPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */; };
-		22C1BEA90DA5A769003747D3 /* TTLowpassTwoPole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BEA70DA5A769003747D3 /* TTLowpassTwoPole.cpp */; };
-		22C1BF3E0DA5CA2F003747D3 /* TTSvf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BF3C0DA5CA2F003747D3 /* TTSvf.cpp */; };
-		22C1BF3F0DA5CA2F003747D3 /* TTAverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */; };
-		22C1BF420DA5CA43003747D3 /* TTAverage.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF400DA5CA43003747D3 /* TTAverage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C1BF430DA5CA43003747D3 /* TTSvf.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C1BF410DA5CA43003747D3 /* TTSvf.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C416370DDE75F7004AA836 /* TTPhasor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C416360DDE75F7004AA836 /* TTPhasor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C416390DDE7614004AA836 /* TTPhasor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C416380DDE7614004AA836 /* TTPhasor.cpp */; };
-		22C418C30DDF8325004AA836 /* TTPulseSub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C418C20DDF8325004AA836 /* TTPulseSub.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C418C50DDF8340004AA836 /* TTPulseSub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C418C40DDF8340004AA836 /* TTPulseSub.cpp */; };
-		22C4196A0DDF96BD004AA836 /* TTOperator.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C419690DDF96BD004AA836 /* TTOperator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C419760DDF96DC004AA836 /* TTOperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C419750DDF96DC004AA836 /* TTOperator.cpp */; };
-		22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C9B3C20D6F5429007A2946 /* TTDataObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */; };
-		22E6CDEF0D4D067A00DA75EE /* TTSymbolTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */; };
-		22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55332A6D0D9264AD00597792 /* TTAdsr.h in Headers */ = {isa = PBXBuildFile; fileRef = 55332A6C0D9264AD00597792 /* TTAdsr.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55332A6F0D9264B700597792 /* TTAdsr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55332A6E0D9264B700597792 /* TTAdsr.cpp */; };
-		A779B3D00D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B3D20D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B3D40D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */; };
-		A779B3D60D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */; };
-		A779B4380D507FB700EAD135 /* TTLowpassButterworth1.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4370D507FB700EAD135 /* TTLowpassButterworth1.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B43A0D507FC100EAD135 /* TTHighpassButterworth1.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B43C0D507FD300EAD135 /* TTHighpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */; };
-		A779B43E0D507FDD00EAD135 /* TTLowpassButterworth1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */; };
-		A779B4A80D508E5200EAD135 /* TTLowpassButterworth3.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4A60D508E5200EAD135 /* TTLowpassButterworth3.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B4A90D508E5200EAD135 /* TTHighpassButterworth3.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4A70D508E5200EAD135 /* TTHighpassButterworth3.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B4AC0D508E6900EAD135 /* TTLowpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */; };
-		A779B4AD0D508E6900EAD135 /* TTHighpassButterworth3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */; };
-		A779B4C00D509B6F00EAD135 /* TTLowpassButterworth4.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4BE0D509B6F00EAD135 /* TTLowpassButterworth4.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A779B4C40D509BB100EAD135 /* TTHighpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */; };
-		A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */; };
-		A77FB4480D685CF60095A7FD /* TTBalance.h in Headers */ = {isa = PBXBuildFile; fileRef = A77FB4470D685CF60095A7FD /* TTBalance.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A77FB44A0D685D020095A7FD /* TTBalance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A77FB4490D685D020095A7FD /* TTBalance.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2207735A0D70B71300AE077B /* TTList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTList.cpp; path = ../source/core/TTList.cpp; sourceTree = SOURCE_ROOT; };
-		22145BB70E313B0A008C1F5F /* TTClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClass.cpp; path = ../source/core/TTClass.cpp; sourceTree = SOURCE_ROOT; };
-		22145BB90E313B13008C1F5F /* TTClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClass.h; path = ../includes/core/TTClass.h; sourceTree = SOURCE_ROOT; };
-		221DED1C0D6BC722000799BA /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = ../includes/core/TTMutex.h; sourceTree = SOURCE_ROOT; };
-		221DED1E0D6BC739000799BA /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = ../source/core/TTMutex.cpp; sourceTree = SOURCE_ROOT; };
-		222A37160E1987D000C72891 /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBuffer.cpp; path = ../source/units/TTBuffer.cpp; sourceTree = SOURCE_ROOT; };
-		222A37180E1987E100C72891 /* TTBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBuffer.h; path = ../includes/units/TTBuffer.h; sourceTree = SOURCE_ROOT; };
-		222A380C0E19A5CE00C72891 /* TTWavetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTWavetable.h; path = ../includes/units/TTWavetable.h; sourceTree = SOURCE_ROOT; };
-		222A380E0E19A5E400C72891 /* TTWavetable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTWavetable.cpp; path = ../source/units/TTWavetable.cpp; sourceTree = SOURCE_ROOT; };
-		223985D20E200EEC00A5F732 /* TTZerocross.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTZerocross.cpp; path = ../source/units/TTZerocross.cpp; sourceTree = SOURCE_ROOT; };
-		223985D40E200F0F00A5F732 /* TTZerocross.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTZerocross.h; path = ../includes/units/TTZerocross.h; sourceTree = SOURCE_ROOT; };
-		22398BBF0E24432C00A5F732 /* TTNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTNoise.cpp; path = ../source/units/TTNoise.cpp; sourceTree = SOURCE_ROOT; };
-		22398BC10E24434700A5F732 /* TTNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTNoise.h; path = ../includes/units/TTNoise.h; sourceTree = SOURCE_ROOT; };
-		22398BCC0E244F5800A5F732 /* TTAllpass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAllpass.cpp; path = ../source/units/TTAllpass.cpp; sourceTree = SOURCE_ROOT; };
-		22398BCE0E244F7300A5F732 /* TTAllpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAllpass.h; path = ../includes/units/TTAllpass.h; sourceTree = SOURCE_ROOT; };
-		22398C240E25097100A5F732 /* TTEnvironment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTEnvironment.cpp; path = ../source/core/TTEnvironment.cpp; sourceTree = SOURCE_ROOT; };
-		22398C260E25098800A5F732 /* TTEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTEnvironment.h; path = ../includes/core/TTEnvironment.h; sourceTree = SOURCE_ROOT; };
-		225384830D70DCA200E5E5FB /* TTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTThread.h; path = ../includes/core/TTThread.h; sourceTree = SOURCE_ROOT; };
-		225384850D70DCB600E5E5FB /* TTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTThread.cpp; path = ../source/core/TTThread.cpp; sourceTree = SOURCE_ROOT; };
-		225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolCache.cpp; path = ../source/core/TTSymbolCache.cpp; sourceTree = SOURCE_ROOT; };
-		225385470D710FAF00E5E5FB /* TTQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTQueue.cpp; path = ../source/core/TTQueue.cpp; sourceTree = SOURCE_ROOT; };
-		225385480D710FAF00E5E5FB /* TTBlue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBlue.cpp; path = ../source/core/TTBlue.cpp; sourceTree = SOURCE_ROOT; };
-		225385540D710FFF00E5E5FB /* TTSymbolCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolCache.h; path = ../includes/core/TTSymbolCache.h; sourceTree = SOURCE_ROOT; };
-		225385550D710FFF00E5E5FB /* TTQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTQueue.h; path = ../includes/core/TTQueue.h; sourceTree = SOURCE_ROOT; };
-		225385560D710FFF00E5E5FB /* TTBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlue.h; path = ../includes/core/TTBlue.h; sourceTree = SOURCE_ROOT; };
-		22569C020D3E416200328864 /* TTAudioObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioObject.h; path = ../includes/core/TTAudioObject.h; sourceTree = SOURCE_ROOT; };
-		22569C030D3E416200328864 /* TTAudioSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioSignal.h; path = ../includes/core/TTAudioSignal.h; sourceTree = SOURCE_ROOT; };
-		22569C040D3E416200328864 /* TTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTElement.h; path = ../includes/core/TTElement.h; sourceTree = SOURCE_ROOT; };
-		22569C060D3E416200328864 /* TTList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTList.h; path = ../includes/core/TTList.h; sourceTree = SOURCE_ROOT; };
-		22569C070D3E416200328864 /* TTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTObject.h; path = ../includes/core/TTObject.h; sourceTree = SOURCE_ROOT; };
-		22569C080D3E416200328864 /* TTSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbol.h; path = ../includes/core/TTSymbol.h; sourceTree = SOURCE_ROOT; };
-		22569C090D3E416200328864 /* TTValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValue.h; path = ../includes/core/TTValue.h; sourceTree = SOURCE_ROOT; };
-		22569C0A0D3E416200328864 /* TTValueCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTValueCache.h; path = ../includes/core/TTValueCache.h; sourceTree = SOURCE_ROOT; };
-		22569C140D3E416F00328864 /* TTBandpassButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBandpassButterworth2.h; path = ../includes/units/TTBandpassButterworth2.h; sourceTree = SOURCE_ROOT; };
-		22569C150D3E416F00328864 /* TTBandrejectButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBandrejectButterworth2.h; path = ../includes/units/TTBandrejectButterworth2.h; sourceTree = SOURCE_ROOT; };
-		22569C160D3E416F00328864 /* TTCrossfade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTCrossfade.h; path = ../includes/units/TTCrossfade.h; sourceTree = SOURCE_ROOT; };
-		22569C170D3E416F00328864 /* TTDCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDCBlock.h; path = ../includes/units/TTDCBlock.h; sourceTree = SOURCE_ROOT; };
-		22569C180D3E416F00328864 /* TTDegrade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDegrade.h; path = ../includes/units/TTDegrade.h; sourceTree = SOURCE_ROOT; };
-		22569C190D3E416F00328864 /* TTGain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTGain.h; path = ../includes/units/TTGain.h; sourceTree = SOURCE_ROOT; };
-		22569C1A0D3E416F00328864 /* TTHighpassButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth2.h; path = ../includes/units/TTHighpassButterworth2.h; sourceTree = SOURCE_ROOT; };
-		22569C1B0D3E416F00328864 /* TTHighpassLinkwitzRiley4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHighpassLinkwitzRiley4.h; path = ../includes/units/TTHighpassLinkwitzRiley4.h; sourceTree = SOURCE_ROOT; };
-		22569C1C0D3E416F00328864 /* TTLimiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLimiter.h; path = ../includes/units/TTLimiter.h; sourceTree = SOURCE_ROOT; };
-		22569C1D0D3E416F00328864 /* TTLowpassButterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth2.h; path = ../includes/units/TTLowpassButterworth2.h; sourceTree = SOURCE_ROOT; };
-		22569C1E0D3E416F00328864 /* TTLowpassLinkwitzRiley4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassLinkwitzRiley4.h; path = ../includes/units/TTLowpassLinkwitzRiley4.h; sourceTree = SOURCE_ROOT; };
-		22569C1F0D3E416F00328864 /* TTLowpassOnePole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassOnePole.h; path = ../includes/units/TTLowpassOnePole.h; sourceTree = SOURCE_ROOT; };
-		22569C200D3E416F00328864 /* TTOverdrive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOverdrive.h; path = ../includes/units/TTOverdrive.h; sourceTree = SOURCE_ROOT; };
-		22569C210D3E416F00328864 /* TTRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTRamp.h; path = ../includes/units/TTRamp.h; sourceTree = SOURCE_ROOT; };
-		22569C300D3E417E00328864 /* TTAudioObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioObject.cpp; path = ../source/core/TTAudioObject.cpp; sourceTree = SOURCE_ROOT; };
-		22569C310D3E417E00328864 /* TTAudioSignal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioSignal.cpp; path = ../source/core/TTAudioSignal.cpp; sourceTree = SOURCE_ROOT; };
-		22569C320D3E417E00328864 /* TTElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTElement.cpp; path = ../source/core/TTElement.cpp; sourceTree = SOURCE_ROOT; };
-		22569C340D3E417E00328864 /* TTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTObject.cpp; path = ../source/core/TTObject.cpp; sourceTree = SOURCE_ROOT; };
-		22569C350D3E417E00328864 /* TTSymbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbol.cpp; path = ../source/core/TTSymbol.cpp; sourceTree = SOURCE_ROOT; };
-		22569C360D3E417E00328864 /* TTValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValue.cpp; path = ../source/core/TTValue.cpp; sourceTree = SOURCE_ROOT; };
-		22569C370D3E417E00328864 /* TTValueCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTValueCache.cpp; path = ../source/core/TTValueCache.cpp; sourceTree = SOURCE_ROOT; };
-		22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandpassButterworth2.cpp; path = ../source/units/TTBandpassButterworth2.cpp; sourceTree = SOURCE_ROOT; };
-		22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBandrejectButterworth2.cpp; path = ../source/units/TTBandrejectButterworth2.cpp; sourceTree = SOURCE_ROOT; };
-		22569C420D3E419300328864 /* TTCrossfade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTCrossfade.cpp; path = ../source/units/TTCrossfade.cpp; sourceTree = SOURCE_ROOT; };
-		22569C440D3E419300328864 /* TTDCBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDCBlock.cpp; path = ../source/units/TTDCBlock.cpp; sourceTree = SOURCE_ROOT; };
-		22569C450D3E419300328864 /* TTDegrade.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDegrade.cpp; path = ../source/units/TTDegrade.cpp; sourceTree = SOURCE_ROOT; };
-		22569C460D3E419300328864 /* TTGain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTGain.cpp; path = ../source/units/TTGain.cpp; sourceTree = SOURCE_ROOT; };
-		22569C470D3E419300328864 /* TTHighpassButterworth2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth2.cpp; path = ../source/units/TTHighpassButterworth2.cpp; sourceTree = SOURCE_ROOT; };
-		22569C480D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley4.cpp; path = ../source/units/TTHighpassLinkwitzRiley4.cpp; sourceTree = SOURCE_ROOT; };
-		22569C490D3E419300328864 /* TTLimiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLimiter.cpp; path = ../source/units/TTLimiter.cpp; sourceTree = SOURCE_ROOT; };
-		22569C4A0D3E419300328864 /* TTLowpassButterworth2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth2.cpp; path = ../source/units/TTLowpassButterworth2.cpp; sourceTree = SOURCE_ROOT; };
-		22569C4B0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassLinkwitzRiley4.cpp; path = ../source/units/TTLowpassLinkwitzRiley4.cpp; sourceTree = SOURCE_ROOT; };
-		22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassOnePole.cpp; path = ../source/units/TTLowpassOnePole.cpp; sourceTree = SOURCE_ROOT; };
-		22569C4D0D3E419300328864 /* TTOverdrive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOverdrive.cpp; path = ../source/units/TTOverdrive.cpp; sourceTree = SOURCE_ROOT; };
-		22569C4E0D3E419300328864 /* TTRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTRamp.cpp; path = ../source/units/TTRamp.cpp; sourceTree = SOURCE_ROOT; };
-		22578F110EC2762900A5EC32 /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = portaudio/libportaudio.a; sourceTree = "<group>"; };
-		22578F170EC2767800A5EC32 /* portaudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = portaudio.h; path = portaudio/include/portaudio.h; sourceTree = "<group>"; };
-		22578F190EC276B200A5EC32 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
-		22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
-		22578F1B0EC276B200A5EC32 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
-		22578F1C0EC276B200A5EC32 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
-		225790080EC27CF600A5EC32 /* TTAudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAudioEngine.cpp; path = ../source/core/TTAudioEngine.cpp; sourceTree = SOURCE_ROOT; };
-		2257900A0EC27D1500A5EC32 /* TTAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAudioEngine.h; path = ../includes/core/TTAudioEngine.h; sourceTree = SOURCE_ROOT; };
-		228A09530E6049600053576D /* TTAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAttribute.cpp; path = ../source/core/TTAttribute.cpp; sourceTree = SOURCE_ROOT; };
-		228A09540E6049600053576D /* TTMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMessage.cpp; path = ../source/core/TTMessage.cpp; sourceTree = SOURCE_ROOT; };
-		228A09580E60498D0053576D /* TTMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMessage.h; path = ../includes/core/TTMessage.h; sourceTree = SOURCE_ROOT; };
-		228A09590E60498D0053576D /* TTAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAttribute.h; path = ../includes/core/TTAttribute.h; sourceTree = SOURCE_ROOT; };
-		2294E53C0EB79AD600A88073 /* lydbaer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lydbaer.cpp; sourceTree = "<group>"; };
-		2294E53E0EB79AD600A88073 /* lydbaer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lydbaer.h; sourceTree = "<group>"; };
-		2294E5420EB79AD600A88073 /* lydbaerSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lydbaerSource.cpp; sourceTree = "<group>"; };
-		22A1B3F90DEDEB520016AC8D /* TTBlueAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBlueAPI.h; path = ../includes/core/TTBlueAPI.h; sourceTree = SOURCE_ROOT; };
+		220BD2C80ECE640A00F7D618 /* multicore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicore.cpp; sourceTree = "<group>"; };
+		220BD2C90ECE640A00F7D618 /* multicore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multicore.h; sourceTree = "<group>"; };
+		220BD2CA0ECE640A00F7D618 /* multicore.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multicore.pch; sourceTree = "<group>"; };
+		220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicoreOutput.cpp; sourceTree = "<group>"; };
+		220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicoreSource.cpp; sourceTree = "<group>"; };
+		220BD3B00ECE649500F7D618 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
+		220BD41C0ECE658F00F7D618 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		22AC38AB0E057658006E4504 /* TTDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDelay.h; path = ../includes/units/TTDelay.h; sourceTree = SOURCE_ROOT; };
-		22AC38B10E05766E006E4504 /* TTDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDelay.cpp; path = ../source/units/TTDelay.cpp; sourceTree = SOURCE_ROOT; };
-		22B4D0AE0EC37DCE0030FD40 /* lydbaerOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lydbaerOutput.cpp; sourceTree = "<group>"; };
-		22B66A300E298B0500CB474E /* TTHash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHash.cpp; path = ../source/core/TTHash.cpp; sourceTree = SOURCE_ROOT; };
-		22B66A320E298B1D00CB474E /* TTHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHash.h; path = ../includes/core/TTHash.h; sourceTree = SOURCE_ROOT; };
-		22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassFourPole.h; path = ../includes/units/TTLowpassFourPole.h; sourceTree = SOURCE_ROOT; };
-		22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTLowpassTwoPole.h; path = ../includes/units/TTLowpassTwoPole.h; sourceTree = SOURCE_ROOT; };
-		22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassFourPole.cpp; path = ../source/units/TTLowpassFourPole.cpp; sourceTree = SOURCE_ROOT; };
-		22C1BEA70DA5A769003747D3 /* TTLowpassTwoPole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassTwoPole.cpp; path = ../source/units/TTLowpassTwoPole.cpp; sourceTree = SOURCE_ROOT; };
-		22C1BF3C0DA5CA2F003747D3 /* TTSvf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSvf.cpp; path = ../source/units/TTSvf.cpp; sourceTree = SOURCE_ROOT; };
-		22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAverage.cpp; path = ../source/units/TTAverage.cpp; sourceTree = SOURCE_ROOT; };
-		22C1BF400DA5CA43003747D3 /* TTAverage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAverage.h; path = ../includes/units/TTAverage.h; sourceTree = SOURCE_ROOT; };
-		22C1BF410DA5CA43003747D3 /* TTSvf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSvf.h; path = ../includes/units/TTSvf.h; sourceTree = SOURCE_ROOT; };
-		22C416360DDE75F7004AA836 /* TTPhasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPhasor.h; path = ../includes/units/TTPhasor.h; sourceTree = SOURCE_ROOT; };
-		22C416380DDE7614004AA836 /* TTPhasor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPhasor.cpp; path = ../source/units/TTPhasor.cpp; sourceTree = SOURCE_ROOT; };
-		22C418C20DDF8325004AA836 /* TTPulseSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTPulseSub.h; path = ../includes/units/TTPulseSub.h; sourceTree = SOURCE_ROOT; };
-		22C418C40DDF8340004AA836 /* TTPulseSub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTPulseSub.cpp; path = ../source/units/TTPulseSub.cpp; sourceTree = SOURCE_ROOT; };
-		22C419690DDF96BD004AA836 /* TTOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTOperator.h; path = ../includes/units/TTOperator.h; sourceTree = SOURCE_ROOT; };
-		22C419750DDF96DC004AA836 /* TTOperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTOperator.cpp; path = ../source/units/TTOperator.cpp; sourceTree = SOURCE_ROOT; };
-		22C9B3C20D6F5429007A2946 /* TTDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTDataObject.h; path = ../includes/core/TTDataObject.h; sourceTree = SOURCE_ROOT; };
-		22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTDataObject.cpp; path = ../source/core/TTDataObject.cpp; sourceTree = SOURCE_ROOT; };
-		22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTSymbolTable.cpp; path = ../source/core/TTSymbolTable.cpp; sourceTree = SOURCE_ROOT; };
-		22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = ../includes/core/TTSymbolTable.h; sourceTree = SOURCE_ROOT; };
-		55332A6C0D9264AD00597792 /* TTAdsr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAdsr.h; path = ../includes/units/TTAdsr.h; sourceTree = SOURCE_ROOT; };
-		55332A6E0D9264B700597792 /* TTAdsr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAdsr.cpp; path = ../source/units/TTAdsr.cpp; sourceTree = SOURCE_ROOT; };
-		8DC2EF5B0486A6940098B216 /* TTBlue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TTBlue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassLinkwitzRiley2.h; path = ../includes/units/TTHighpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
-		A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassLinkwitzRiley2.h; path = ../includes/units/TTLowpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
-		A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley2.cpp; path = ../source/units/TTHighpassLinkwitzRiley2.cpp; sourceTree = SOURCE_ROOT; };
-		A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassLinkwitzRiley2.cpp; path = ../source/units/TTLowpassLinkwitzRiley2.cpp; sourceTree = SOURCE_ROOT; };
-		A779B4370D507FB700EAD135 /* TTLowpassButterworth1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth1.h; path = ../includes/units/TTLowpassButterworth1.h; sourceTree = SOURCE_ROOT; };
-		A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth1.h; path = ../includes/units/TTHighpassButterworth1.h; sourceTree = SOURCE_ROOT; };
-		A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth1.cpp; path = ../source/units/TTHighpassButterworth1.cpp; sourceTree = SOURCE_ROOT; };
-		A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth1.cpp; path = ../source/units/TTLowpassButterworth1.cpp; sourceTree = SOURCE_ROOT; };
-		A779B4A60D508E5200EAD135 /* TTLowpassButterworth3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth3.h; path = ../includes/units/TTLowpassButterworth3.h; sourceTree = SOURCE_ROOT; };
-		A779B4A70D508E5200EAD135 /* TTHighpassButterworth3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth3.h; path = ../includes/units/TTHighpassButterworth3.h; sourceTree = SOURCE_ROOT; };
-		A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth3.cpp; path = ../source/units/TTLowpassButterworth3.cpp; sourceTree = SOURCE_ROOT; };
-		A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth3.cpp; path = ../source/units/TTHighpassButterworth3.cpp; sourceTree = SOURCE_ROOT; };
-		A779B4BE0D509B6F00EAD135 /* TTLowpassButterworth4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassButterworth4.h; path = ../includes/units/TTLowpassButterworth4.h; sourceTree = SOURCE_ROOT; };
-		A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassButterworth4.h; path = ../includes/units/TTHighpassButterworth4.h; sourceTree = SOURCE_ROOT; };
-		A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassButterworth4.cpp; path = ../source/units/TTHighpassButterworth4.cpp; sourceTree = SOURCE_ROOT; };
-		A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTLowpassButterworth4.cpp; path = ../source/units/TTLowpassButterworth4.cpp; sourceTree = SOURCE_ROOT; };
-		A77FB4470D685CF60095A7FD /* TTBalance.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTBalance.h; path = ../includes/units/TTBalance.h; sourceTree = SOURCE_ROOT; };
-		A77FB4490D685D020095A7FD /* TTBalance.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTBalance.cpp; path = ../source/units/TTBalance.cpp; sourceTree = SOURCE_ROOT; };
+		8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaMulticore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,11 +35,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */,
-				22578F120EC2762900A5EC32 /* libportaudio.a in Frameworks */,
-				22578F1D0EC276B200A5EC32 /* CoreAudio.framework in Frameworks */,
-				22578F1E0EC276B200A5EC32 /* AudioToolbox.framework in Frameworks */,
-				22578F1F0EC276B200A5EC32 /* AudioUnit.framework in Frameworks */,
-				22578F200EC276B200A5EC32 /* CoreServices.framework in Frameworks */,
+				220BD3B10ECE649500F7D618 /* TTBlue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +45,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* TTBlue.framework */,
+				8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,15 +53,7 @@
 		0867D691FE84028FC02AAC07 /* MaxObject */ = {
 			isa = PBXGroup;
 			children = (
-				22A1B3F90DEDEB520016AC8D /* TTBlueAPI.h */,
-				08FB77AEFE84172EC02AAC07 /* Core */,
-				2294E51B0EB79AD600A88073 /* Lydbær */,
-				223985E30E200F3100A5F732 /* Units-Analysis */,
-				22D7F5EA0D10576E009E4AF4 /* Units-Data */,
-				223985E50E200FA200A5F732 /* Units-Dynamics */,
-				223985E40E200F5F00A5F732 /* Units-Generators */,
-				22FD31840CEE8EA80039C226 /* Units-Filtering */,
-				223985E60E200FD500A5F732 /* Units-Misc */,
+				223985E60E200FD500A5F732 /* Source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -316,215 +64,22 @@
 			isa = PBXGroup;
 			children = (
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
-				22578F170EC2767800A5EC32 /* portaudio.h */,
-				22578F110EC2762900A5EC32 /* libportaudio.a */,
-				22578F190EC276B200A5EC32 /* CoreAudio.framework */,
-				22578F1A0EC276B200A5EC32 /* AudioToolbox.framework */,
-				22578F1B0EC276B200A5EC32 /* AudioUnit.framework */,
-				22578F1C0EC276B200A5EC32 /* CoreServices.framework */,
+				220BD3B00ECE649500F7D618 /* TTBlue.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
-		08FB77AEFE84172EC02AAC07 /* Core */ = {
+		223985E60E200FD500A5F732 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22398CC00E25643800A5F732 /* BaseClasses */,
-				22B66A200E298A2F00CB474E /* DataStorageClasses */,
-				22B66A220E298A6D00CB474E /* SymbolTable */,
-				2257900A0EC27D1500A5EC32 /* TTAudioEngine.h */,
-				225790080EC27CF600A5EC32 /* TTAudioEngine.cpp */,
-				225385560D710FFF00E5E5FB /* TTBlue.h */,
-				225385480D710FAF00E5E5FB /* TTBlue.cpp */,
-				22145BB90E313B13008C1F5F /* TTClass.h */,
-				22145BB70E313B0A008C1F5F /* TTClass.cpp */,
-				22398C260E25098800A5F732 /* TTEnvironment.h */,
-				22398C240E25097100A5F732 /* TTEnvironment.cpp */,
-				221DED1C0D6BC722000799BA /* TTMutex.h */,
-				221DED1E0D6BC739000799BA /* TTMutex.cpp */,
-				225385550D710FFF00E5E5FB /* TTQueue.h */,
-				225385470D710FAF00E5E5FB /* TTQueue.cpp */,
-				225384830D70DCA200E5E5FB /* TTThread.h */,
-				225384850D70DCB600E5E5FB /* TTThread.cpp */,
-				22569C0A0D3E416200328864 /* TTValueCache.h */,
-				22569C370D3E417E00328864 /* TTValueCache.cpp */,
+				220BD41C0ECE658F00F7D618 /* main.cpp */,
+				220BD2C90ECE640A00F7D618 /* multicore.h */,
+				220BD2C80ECE640A00F7D618 /* multicore.cpp */,
+				220BD2CA0ECE640A00F7D618 /* multicore.pch */,
+				220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */,
+				220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */,
 			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		223985E30E200F3100A5F732 /* Units-Analysis */ = {
-			isa = PBXGroup;
-			children = (
-				223985D40E200F0F00A5F732 /* TTZerocross.h */,
-				223985D20E200EEC00A5F732 /* TTZerocross.cpp */,
-			);
-			name = "Units-Analysis";
-			sourceTree = "<group>";
-		};
-		223985E40E200F5F00A5F732 /* Units-Generators */ = {
-			isa = PBXGroup;
-			children = (
-				55332A6C0D9264AD00597792 /* TTAdsr.h */,
-				55332A6E0D9264B700597792 /* TTAdsr.cpp */,
-				22398BC10E24434700A5F732 /* TTNoise.h */,
-				22398BBF0E24432C00A5F732 /* TTNoise.cpp */,
-				22C416360DDE75F7004AA836 /* TTPhasor.h */,
-				22C416380DDE7614004AA836 /* TTPhasor.cpp */,
-				22569C210D3E416F00328864 /* TTRamp.h */,
-				22569C4E0D3E419300328864 /* TTRamp.cpp */,
-				222A380C0E19A5CE00C72891 /* TTWavetable.h */,
-				222A380E0E19A5E400C72891 /* TTWavetable.cpp */,
-			);
-			name = "Units-Generators";
-			sourceTree = "<group>";
-		};
-		223985E50E200FA200A5F732 /* Units-Dynamics */ = {
-			isa = PBXGroup;
-			children = (
-				A77FB4470D685CF60095A7FD /* TTBalance.h */,
-				A77FB4490D685D020095A7FD /* TTBalance.cpp */,
-				22569C190D3E416F00328864 /* TTGain.h */,
-				22569C460D3E419300328864 /* TTGain.cpp */,
-				22569C1C0D3E416F00328864 /* TTLimiter.h */,
-				22569C490D3E419300328864 /* TTLimiter.cpp */,
-				22C418C20DDF8325004AA836 /* TTPulseSub.h */,
-				22C418C40DDF8340004AA836 /* TTPulseSub.cpp */,
-			);
-			name = "Units-Dynamics";
-			sourceTree = "<group>";
-		};
-		223985E60E200FD500A5F732 /* Units-Misc */ = {
-			isa = PBXGroup;
-			children = (
-				222A37180E1987E100C72891 /* TTBuffer.h */,
-				222A37160E1987D000C72891 /* TTBuffer.cpp */,
-				22569C160D3E416F00328864 /* TTCrossfade.h */,
-				22569C420D3E419300328864 /* TTCrossfade.cpp */,
-				22569C180D3E416F00328864 /* TTDegrade.h */,
-				22569C450D3E419300328864 /* TTDegrade.cpp */,
-				22AC38AB0E057658006E4504 /* TTDelay.h */,
-				22AC38B10E05766E006E4504 /* TTDelay.cpp */,
-				22C419690DDF96BD004AA836 /* TTOperator.h */,
-				22C419750DDF96DC004AA836 /* TTOperator.cpp */,
-				22569C200D3E416F00328864 /* TTOverdrive.h */,
-				22569C4D0D3E419300328864 /* TTOverdrive.cpp */,
-			);
-			name = "Units-Misc";
-			sourceTree = "<group>";
-		};
-		22398CC00E25643800A5F732 /* BaseClasses */ = {
-			isa = PBXGroup;
-			children = (
-				228A09590E60498D0053576D /* TTAttribute.h */,
-				228A09530E6049600053576D /* TTAttribute.cpp */,
-				22569C020D3E416200328864 /* TTAudioObject.h */,
-				22569C300D3E417E00328864 /* TTAudioObject.cpp */,
-				22569C030D3E416200328864 /* TTAudioSignal.h */,
-				22569C310D3E417E00328864 /* TTAudioSignal.cpp */,
-				22C9B3C20D6F5429007A2946 /* TTDataObject.h */,
-				22C9B3C40D6F5434007A2946 /* TTDataObject.cpp */,
-				22569C040D3E416200328864 /* TTElement.h */,
-				22569C320D3E417E00328864 /* TTElement.cpp */,
-				228A09580E60498D0053576D /* TTMessage.h */,
-				228A09540E6049600053576D /* TTMessage.cpp */,
-				22569C070D3E416200328864 /* TTObject.h */,
-				22569C340D3E417E00328864 /* TTObject.cpp */,
-			);
-			name = BaseClasses;
-			sourceTree = "<group>";
-		};
-		2294E51B0EB79AD600A88073 /* Lydbær */ = {
-			isa = PBXGroup;
-			children = (
-				2294E53E0EB79AD600A88073 /* lydbaer.h */,
-				2294E53C0EB79AD600A88073 /* lydbaer.cpp */,
-				22B4D0AE0EC37DCE0030FD40 /* lydbaerOutput.cpp */,
-				2294E5420EB79AD600A88073 /* lydbaerSource.cpp */,
-			);
-			name = "Lydbær";
-			path = lydbaer;
-			sourceTree = "<group>";
-		};
-		22B66A200E298A2F00CB474E /* DataStorageClasses */ = {
-			isa = PBXGroup;
-			children = (
-				22B66A320E298B1D00CB474E /* TTHash.h */,
-				22B66A300E298B0500CB474E /* TTHash.cpp */,
-				22569C060D3E416200328864 /* TTList.h */,
-				2207735A0D70B71300AE077B /* TTList.cpp */,
-				22569C090D3E416200328864 /* TTValue.h */,
-				22569C360D3E417E00328864 /* TTValue.cpp */,
-			);
-			name = DataStorageClasses;
-			sourceTree = "<group>";
-		};
-		22B66A220E298A6D00CB474E /* SymbolTable */ = {
-			isa = PBXGroup;
-			children = (
-				22569C080D3E416200328864 /* TTSymbol.h */,
-				22569C350D3E417E00328864 /* TTSymbol.cpp */,
-				225385540D710FFF00E5E5FB /* TTSymbolCache.h */,
-				225385460D710FAF00E5E5FB /* TTSymbolCache.cpp */,
-				22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */,
-				22E6CDEE0D4D067A00DA75EE /* TTSymbolTable.cpp */,
-			);
-			name = SymbolTable;
-			sourceTree = "<group>";
-		};
-		22D7F5EA0D10576E009E4AF4 /* Units-Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Units-Data";
-			sourceTree = "<group>";
-		};
-		22FD31840CEE8EA80039C226 /* Units-Filtering */ = {
-			isa = PBXGroup;
-			children = (
-				22398BCE0E244F7300A5F732 /* TTAllpass.h */,
-				22398BCC0E244F5800A5F732 /* TTAllpass.cpp */,
-				22C1BF400DA5CA43003747D3 /* TTAverage.h */,
-				22C1BF3D0DA5CA2F003747D3 /* TTAverage.cpp */,
-				22569C140D3E416F00328864 /* TTBandpassButterworth2.h */,
-				22569C400D3E419300328864 /* TTBandpassButterworth2.cpp */,
-				22569C150D3E416F00328864 /* TTBandrejectButterworth2.h */,
-				22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */,
-				22569C170D3E416F00328864 /* TTDCBlock.h */,
-				22569C440D3E419300328864 /* TTDCBlock.cpp */,
-				A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */,
-				A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */,
-				22569C1A0D3E416F00328864 /* TTHighpassButterworth2.h */,
-				22569C470D3E419300328864 /* TTHighpassButterworth2.cpp */,
-				A779B4A70D508E5200EAD135 /* TTHighpassButterworth3.h */,
-				A779B4AB0D508E6900EAD135 /* TTHighpassButterworth3.cpp */,
-				A779B4BF0D509B6F00EAD135 /* TTHighpassButterworth4.h */,
-				A779B4C20D509BB100EAD135 /* TTHighpassButterworth4.cpp */,
-				A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */,
-				A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */,
-				22569C1B0D3E416F00328864 /* TTHighpassLinkwitzRiley4.h */,
-				22569C480D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp */,
-				A779B4370D507FB700EAD135 /* TTLowpassButterworth1.h */,
-				A779B43D0D507FDD00EAD135 /* TTLowpassButterworth1.cpp */,
-				22569C1D0D3E416F00328864 /* TTLowpassButterworth2.h */,
-				22569C4A0D3E419300328864 /* TTLowpassButterworth2.cpp */,
-				A779B4A60D508E5200EAD135 /* TTLowpassButterworth3.h */,
-				A779B4AA0D508E6900EAD135 /* TTLowpassButterworth3.cpp */,
-				A779B4BE0D509B6F00EAD135 /* TTLowpassButterworth4.h */,
-				A779B4C30D509BB100EAD135 /* TTLowpassButterworth4.cpp */,
-				A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */,
-				A779B3D50D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp */,
-				22569C1E0D3E416F00328864 /* TTLowpassLinkwitzRiley4.h */,
-				22569C4B0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp */,
-				22569C1F0D3E416F00328864 /* TTLowpassOnePole.h */,
-				22569C4C0D3E419300328864 /* TTLowpassOnePole.cpp */,
-				22C1BEA30DA5A73E003747D3 /* TTLowpassTwoPole.h */,
-				22C1BEA70DA5A769003747D3 /* TTLowpassTwoPole.cpp */,
-				22C1BEA20DA5A73E003747D3 /* TTLowpassFourPole.h */,
-				22C1BEA60DA5A769003747D3 /* TTLowpassFourPole.cpp */,
-				22C1BF410DA5CA43003747D3 /* TTSvf.h */,
-				22C1BF3C0DA5CA2F003747D3 /* TTSvf.cpp */,
-			);
-			name = "Units-Filtering";
+			name = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -534,76 +89,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22569C0B0D3E416200328864 /* TTAudioObject.h in Headers */,
-				22569C0C0D3E416200328864 /* TTAudioSignal.h in Headers */,
-				22569C0D0D3E416200328864 /* TTElement.h in Headers */,
-				22569C0F0D3E416200328864 /* TTList.h in Headers */,
-				22569C100D3E416200328864 /* TTObject.h in Headers */,
-				22569C110D3E416200328864 /* TTSymbol.h in Headers */,
-				22569C120D3E416200328864 /* TTValue.h in Headers */,
-				22569C130D3E416200328864 /* TTValueCache.h in Headers */,
-				22569C220D3E416F00328864 /* TTBandpassButterworth2.h in Headers */,
-				22569C230D3E416F00328864 /* TTBandrejectButterworth2.h in Headers */,
-				22569C240D3E416F00328864 /* TTCrossfade.h in Headers */,
-				22569C250D3E416F00328864 /* TTDCBlock.h in Headers */,
-				22569C260D3E416F00328864 /* TTDegrade.h in Headers */,
-				22569C270D3E416F00328864 /* TTGain.h in Headers */,
-				22569C280D3E416F00328864 /* TTHighpassButterworth2.h in Headers */,
-				22569C290D3E416F00328864 /* TTHighpassLinkwitzRiley4.h in Headers */,
-				22569C2A0D3E416F00328864 /* TTLimiter.h in Headers */,
-				22569C2B0D3E416F00328864 /* TTLowpassButterworth2.h in Headers */,
-				22569C2C0D3E416F00328864 /* TTLowpassLinkwitzRiley4.h in Headers */,
-				22569C2D0D3E416F00328864 /* TTLowpassOnePole.h in Headers */,
-				22569C2E0D3E416F00328864 /* TTOverdrive.h in Headers */,
-				22569C2F0D3E416F00328864 /* TTRamp.h in Headers */,
-				22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */,
-				A779B3D00D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h in Headers */,
-				A779B3D20D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h in Headers */,
-				A779B4380D507FB700EAD135 /* TTLowpassButterworth1.h in Headers */,
-				A779B43A0D507FC100EAD135 /* TTHighpassButterworth1.h in Headers */,
-				A779B4A80D508E5200EAD135 /* TTLowpassButterworth3.h in Headers */,
-				A779B4A90D508E5200EAD135 /* TTHighpassButterworth3.h in Headers */,
-				A779B4C00D509B6F00EAD135 /* TTLowpassButterworth4.h in Headers */,
-				A779B4C10D509B6F00EAD135 /* TTHighpassButterworth4.h in Headers */,
-				A77FB4480D685CF60095A7FD /* TTBalance.h in Headers */,
-				221DED1D0D6BC722000799BA /* TTMutex.h in Headers */,
-				22C9B3C30D6F5429007A2946 /* TTDataObject.h in Headers */,
-				225384840D70DCA200E5E5FB /* TTThread.h in Headers */,
-				225385570D710FFF00E5E5FB /* TTSymbolCache.h in Headers */,
-				225385580D710FFF00E5E5FB /* TTQueue.h in Headers */,
-				225385590D710FFF00E5E5FB /* TTBlue.h in Headers */,
-				55332A6D0D9264AD00597792 /* TTAdsr.h in Headers */,
-				22C1BEA40DA5A73E003747D3 /* TTLowpassFourPole.h in Headers */,
-				22C1BEA50DA5A73E003747D3 /* TTLowpassTwoPole.h in Headers */,
-				22C1BF420DA5CA43003747D3 /* TTAverage.h in Headers */,
-				22C1BF430DA5CA43003747D3 /* TTSvf.h in Headers */,
-				22C416370DDE75F7004AA836 /* TTPhasor.h in Headers */,
-				22C418C30DDF8325004AA836 /* TTPulseSub.h in Headers */,
-				22C4196A0DDF96BD004AA836 /* TTOperator.h in Headers */,
-				22A1B3FA0DEDEB520016AC8D /* TTBlueAPI.h in Headers */,
-				22AC38AC0E057658006E4504 /* TTDelay.h in Headers */,
-				222A37190E1987E100C72891 /* TTBuffer.h in Headers */,
-				222A380D0E19A5CE00C72891 /* TTWavetable.h in Headers */,
-				223985D50E200F0F00A5F732 /* TTZerocross.h in Headers */,
-				22398BC20E24434700A5F732 /* TTNoise.h in Headers */,
-				22398BCF0E244F7300A5F732 /* TTAllpass.h in Headers */,
-				22398C270E25098800A5F732 /* TTEnvironment.h in Headers */,
-				22B66A330E298B1D00CB474E /* TTHash.h in Headers */,
-				22145BBA0E313B13008C1F5F /* TTClass.h in Headers */,
-				228A095A0E60498D0053576D /* TTMessage.h in Headers */,
-				228A095B0E60498D0053576D /* TTAttribute.h in Headers */,
-				2294E55C0EB79AD600A88073 /* lydbaer.h in Headers */,
-				22578F180EC2767800A5EC32 /* portaudio.h in Headers */,
-				2257900B0EC27D1500A5EC32 /* TTAudioEngine.h in Headers */,
+				220BD2CE0ECE640B00F7D618 /* multicore.h in Headers */,
+				220BD2CF0ECE640B00F7D618 /* multicore.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* TTBlue */ = {
+		8DC2EF4F0486A6940098B216 /* Multicore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "TTBlue" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Multicore" */;
 			buildPhases = (
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
@@ -615,10 +111,10 @@
 			);
 			dependencies = (
 			);
-			name = TTBlue;
+			name = Multicore;
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = MaxObject;
-			productReference = 8DC2EF5B0486A6940098B216 /* TTBlue.framework */;
+			productReference = 8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -626,7 +122,7 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TTBlue" */;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "multicore" */;
 			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
@@ -634,7 +130,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* TTBlue */,
+				8DC2EF4F0486A6940098B216 /* Multicore */,
 			);
 		};
 /* End PBXProject section */
@@ -670,67 +166,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22569C380D3E417E00328864 /* TTAudioObject.cpp in Sources */,
-				22569C390D3E417E00328864 /* TTAudioSignal.cpp in Sources */,
-				22569C3A0D3E417E00328864 /* TTElement.cpp in Sources */,
-				22569C3C0D3E417E00328864 /* TTObject.cpp in Sources */,
-				22569C3D0D3E417E00328864 /* TTSymbol.cpp in Sources */,
-				22569C3E0D3E417E00328864 /* TTValue.cpp in Sources */,
-				22569C3F0D3E417E00328864 /* TTValueCache.cpp in Sources */,
-				22569C4F0D3E419300328864 /* TTBandpassButterworth2.cpp in Sources */,
-				22569C500D3E419300328864 /* TTBandrejectButterworth2.cpp in Sources */,
-				22569C510D3E419300328864 /* TTCrossfade.cpp in Sources */,
-				22569C530D3E419300328864 /* TTDCBlock.cpp in Sources */,
-				22569C540D3E419300328864 /* TTDegrade.cpp in Sources */,
-				22569C550D3E419300328864 /* TTGain.cpp in Sources */,
-				22569C560D3E419300328864 /* TTHighpassButterworth2.cpp in Sources */,
-				22569C570D3E419300328864 /* TTHighpassLinkwitzRiley4.cpp in Sources */,
-				22569C580D3E419300328864 /* TTLimiter.cpp in Sources */,
-				22569C590D3E419300328864 /* TTLowpassButterworth2.cpp in Sources */,
-				22569C5A0D3E419300328864 /* TTLowpassLinkwitzRiley4.cpp in Sources */,
-				22569C5B0D3E419300328864 /* TTLowpassOnePole.cpp in Sources */,
-				22569C5C0D3E419300328864 /* TTOverdrive.cpp in Sources */,
-				22569C5D0D3E419300328864 /* TTRamp.cpp in Sources */,
-				22E6CDEF0D4D067A00DA75EE /* TTSymbolTable.cpp in Sources */,
-				A779B3D40D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp in Sources */,
-				A779B3D60D507A2200EAD135 /* TTLowpassLinkwitzRiley2.cpp in Sources */,
-				A779B43C0D507FD300EAD135 /* TTHighpassButterworth1.cpp in Sources */,
-				A779B43E0D507FDD00EAD135 /* TTLowpassButterworth1.cpp in Sources */,
-				A779B4AC0D508E6900EAD135 /* TTLowpassButterworth3.cpp in Sources */,
-				A779B4AD0D508E6900EAD135 /* TTHighpassButterworth3.cpp in Sources */,
-				A779B4C40D509BB100EAD135 /* TTHighpassButterworth4.cpp in Sources */,
-				A779B4C50D509BB100EAD135 /* TTLowpassButterworth4.cpp in Sources */,
-				A77FB44A0D685D020095A7FD /* TTBalance.cpp in Sources */,
-				221DED1F0D6BC739000799BA /* TTMutex.cpp in Sources */,
-				22C9B3C50D6F5434007A2946 /* TTDataObject.cpp in Sources */,
-				2207735B0D70B71300AE077B /* TTList.cpp in Sources */,
-				225384860D70DCB600E5E5FB /* TTThread.cpp in Sources */,
-				225385490D710FAF00E5E5FB /* TTSymbolCache.cpp in Sources */,
-				2253854A0D710FAF00E5E5FB /* TTQueue.cpp in Sources */,
-				2253854B0D710FAF00E5E5FB /* TTBlue.cpp in Sources */,
-				55332A6F0D9264B700597792 /* TTAdsr.cpp in Sources */,
-				22C1BEA80DA5A769003747D3 /* TTLowpassFourPole.cpp in Sources */,
-				22C1BEA90DA5A769003747D3 /* TTLowpassTwoPole.cpp in Sources */,
-				22C1BF3E0DA5CA2F003747D3 /* TTSvf.cpp in Sources */,
-				22C1BF3F0DA5CA2F003747D3 /* TTAverage.cpp in Sources */,
-				22C416390DDE7614004AA836 /* TTPhasor.cpp in Sources */,
-				22C418C50DDF8340004AA836 /* TTPulseSub.cpp in Sources */,
-				22C419760DDF96DC004AA836 /* TTOperator.cpp in Sources */,
-				22AC38B20E05766E006E4504 /* TTDelay.cpp in Sources */,
-				222A37170E1987D000C72891 /* TTBuffer.cpp in Sources */,
-				222A380F0E19A5E400C72891 /* TTWavetable.cpp in Sources */,
-				223985D30E200EEC00A5F732 /* TTZerocross.cpp in Sources */,
-				22398BC00E24432C00A5F732 /* TTNoise.cpp in Sources */,
-				22398BCD0E244F5800A5F732 /* TTAllpass.cpp in Sources */,
-				22398C250E25097100A5F732 /* TTEnvironment.cpp in Sources */,
-				22B66A310E298B0500CB474E /* TTHash.cpp in Sources */,
-				22145BB80E313B0A008C1F5F /* TTClass.cpp in Sources */,
-				228A09550E6049600053576D /* TTAttribute.cpp in Sources */,
-				228A09560E6049600053576D /* TTMessage.cpp in Sources */,
-				2294E55A0EB79AD600A88073 /* lydbaer.cpp in Sources */,
-				2294E55D0EB79AD600A88073 /* lydbaerSource.cpp in Sources */,
-				225790090EC27CF600A5EC32 /* TTAudioEngine.cpp in Sources */,
-				22B4D0AF0EC37DCE0030FD40 /* lydbaerOutput.cpp in Sources */,
+				220BD2CD0ECE640A00F7D618 /* multicore.cpp in Sources */,
+				220BD2D00ECE640B00F7D618 /* multicoreOutput.cpp in Sources */,
+				220BD2D10ECE640B00F7D618 /* multicoreSource.cpp in Sources */,
+				220BD41E0ECE658F00F7D618 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,17 +186,14 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TTBluePrefix.pch;
+				GCC_PREFIX_HEADER = multicore.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TT_DEBUG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_SHADOW = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/headers,
-					/Library/Frameworks/MaxAudioAPI.framework/headers,
-				);
+				HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/headers;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
@@ -772,7 +208,7 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = TTBlue;
+				PRODUCT_NAME = JamomaMulticore;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Development;
@@ -791,16 +227,13 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = TTBluePrefix.pch;
+				GCC_PREFIX_HEADER = multicore.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_SHADOW = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAPI.framework/headers,
-					/Library/Frameworks/MaxAudioAPI.framework/headers,
-				);
+				HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/headers;
 				INFOPLIST_FILE = resources/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
@@ -815,7 +248,7 @@
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRODUCT_NAME = TTBlue;
+				PRODUCT_NAME = JamomaMulticore;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Deployment;
@@ -843,7 +276,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "TTBlue" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Multicore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Development */,
@@ -852,7 +285,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Deployment;
 		};
-		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TTBlue" */ = {
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "multicore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Development */,

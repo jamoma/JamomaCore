@@ -7,13 +7,13 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 // Data Structure for this object
 struct LydOp {
     t_object			obj;
-	LydbaerObjectPtr	lydbaer;
+	MCoreObjectPtr		lydbaer;
 	void*				lydbaerOutlet;
 	SymbolPtr			attrOperator;
 	TTFloat32			attrOperand;
@@ -27,7 +27,7 @@ void		lydOpFree(LydOpPtr x);
 void		lydOpAssist(LydOpPtr x, void* b, long msg, long arg, char* dst);
 TTErr		lydOpReset(LydOpPtr x, long vectorSize);
 TTErr		lydOpSetup(LydOpPtr x);
-TTErr		lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr		lydOpObject(LydOpPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr		lydOpSetOperator(LydOpPtr x, void *attr, AtomCount argc, AtomPtr argv);
 MaxErr		lydOpSetOperand(LydOpPtr x, void *attr, AtomCount argc, AtomPtr argv);
 
@@ -43,16 +43,16 @@ int main(void)
 {
 	t_class *c;
 	
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 	
 	c = class_new("op≈", (method)lydOpNew, (method)lydOpFree, sizeof(LydOp), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)lydOpReset,				"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydOpSetup,				"lydbaerSetup",		A_CANT, 0);
-	class_addmethod(c, (method)lydOpObject,				"lydbaerObject",	A_OBJ, A_LONG, 0);
- 	class_addmethod(c, (method)lydOpAssist,				"assist",			A_CANT, 0); 
-    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
+	class_addmethod(c, (method)lydOpReset,				"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)lydOpSetup,				"multicore.setup",		A_CANT, 0);
+	class_addmethod(c, (method)lydOpObject,				"multicore.object",		A_OBJ, A_LONG, 0);
+ 	class_addmethod(c, (method)lydOpAssist,				"assist",				A_CANT, 0); 
+    class_addmethod(c, (method)object_obex_dumpout,		"dumpout",				A_CANT, 0);  
 	
 	CLASS_ATTR_SYM(c,		"operator",	0,		LydOp,	attrOperator);
 	CLASS_ATTR_ACCESSORS(c,	"operator",	NULL,	lydOpSetOperator);
@@ -76,11 +76,11 @@ LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     x = LydOpPtr(object_alloc(sLydOpClass));
     if(x){
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-		x->lydbaerOutlet = outlet_new(x, "lydbaerObject");
+		x->lydbaerOutlet = outlet_new(x, "multicore.object");
 		
 		// TODO: we need to update objects to work with the correct number of channels when the network is configured
 		// Either that, or when we pull we just up the number of channels if when we need to ???
-		x->lydbaer = new LydbaerObject(TT("operator"), 8);
+		x->lydbaer = new MCoreObject(TT("operator"), 8);
 		if(!x->lydbaer->audioObject){
 			object_error(ObjectPtr(x), "cannot load TTBlue object");
 			return NULL;
@@ -129,12 +129,12 @@ TTErr lydOpSetup(LydOpPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
 	return kTTErrNone;
 }
 
 
-TTErr lydOpObject(LydOpPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr lydOpObject(LydOpPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }

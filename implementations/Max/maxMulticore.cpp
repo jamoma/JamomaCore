@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 #include "ext_hashtab.h"
 
 
@@ -16,7 +16,7 @@
 typedef struct _wrappedInstance {
     t_object			obj;						///< Max audio object header
 	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
-	LydbaerObjectPtr	lydbaerObject;				///< The instance of the TTBlue object we are wrapping
+	MCoreObjectPtr	lydbaerObject;				///< The instance of the TTBlue object we are wrapping
 	TTPtr				lydbaerOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
 	
 	TTPtr				inlets[16];					///< Array of proxy inlets beyond the first inlet
@@ -65,10 +65,10 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
 			numOutputs += TTUInt8(v);
 		for(TTInt8 i=numOutputs-1; i>=0; i--)
-			x->lydbaerOutlets[i] = outlet_new(x, "lydbaerObject");
+			x->lydbaerOutlets[i] = outlet_new(x, "multicore.object");
 
 		x->wrappedClassDefinition = wrappedMaxClass;
-		x->lydbaerObject = new LydbaerObject(wrappedMaxClass->ttblueClassName, 1);
+		x->lydbaerObject = new MCoreObject(wrappedMaxClass->ttblueClassName, 1);
 		
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){
 			TTUInt16 numInChans = 1;
@@ -113,14 +113,14 @@ TTErr maxbaerSetup(WrappedInstancePtr x)
 	atom_setobj(a+0, ObjectPtr(x->lydbaerObject));
 	while(x->lydbaerOutlets[i]){
 		atom_setlong(a+1, i);
-		outlet_anything(x->lydbaerOutlets[i], gensym("lydbaerObject"), 2, a);
+		outlet_anything(x->lydbaerOutlets[i], gensym("multicore.object"), 2, a);
 		i++;
 	}
 	return kTTErrNone;
 }
 
 
-TTErr maxbaerObject(WrappedInstancePtr x, LydbaerObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
+TTErr maxbaerObject(WrappedInstancePtr x, MCoreObjectPtr audioSourceObject, TTUInt16 sourceOutletNumber)
 {
 	long inletNumber = proxy_getinlet(ObjectPtr(x));
 	return x->lydbaerObject->addSource(audioSourceObject, sourceOutletNumber, inletNumber);
@@ -265,7 +265,7 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 	WrappedClass*	wrappedMaxClass = NULL;
 
 	common_symbols_init();
-	TTBlueInit();
+	MCoreInit();
 	
 	if(!wrappedMaxClasses)
 		wrappedMaxClasses = hashtab_new(0);
@@ -326,9 +326,9 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 	
 	TTObjectRelease(o);
 	
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"lydbaerReset",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"lydbaerSetup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"lydbaerObject",	A_OBJ, A_LONG, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"multicore.reset",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"multicore.setup",		A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"multicore.object",	A_OBJ, A_LONG, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",			A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",		A_CANT, 0);

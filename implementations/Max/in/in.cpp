@@ -7,12 +7,12 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 // Data Structure for this object
 struct LydIn {
     t_pxobject			obj;
-	LydbaerObjectPtr	lydbaer;
+	MCoreObjectPtr		lydbaer;
 	void*				lydbaerOutlet;
 	long				maxNumChannels;	// the number of inlets or outlets, which is an argument at instantiation
 	long				numChannels;	// the actual number of channels to use, set by the dsp method
@@ -27,7 +27,7 @@ void		lydInFree(LydInPtr x);
 void		lydInAssist(LydInPtr x, void* b, long msg, long arg, char* dst);
 TTErr		lydInReset(LydInPtr x, long vectorSize);
 TTErr		lydInSetup(LydInPtr x);
-TTErr		lydInObject(LydInPtr x, LydbaerObjectPtr audioSourceObject);
+TTErr		lydInObject(LydInPtr x, MCoreObjectPtr audioSourceObject);
 t_int*		lydInPerform(t_int* w);
 void		lydInDsp(LydInPtr x, t_signal** sp, short* count);
 MaxErr		lydInSetGain(LydInPtr x, void *attr, AtomCount argc, AtomPtr argv);
@@ -44,13 +44,13 @@ int main(void)
 {
 	t_class *c;
 	
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 	
 	c = class_new("in≈", (method)lydInNew, (method)lydInFree, sizeof(LydIn), (method)0L, A_GIMME, 0);
 	
-	class_addmethod(c, (method)lydInReset,				"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)lydInSetup,				"lydbaerSetup",		A_CANT, 0);
+	class_addmethod(c, (method)lydInReset,				"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)lydInSetup,				"multicore.setup",		A_CANT, 0);
  	class_addmethod(c, (method)lydInDsp,				"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)lydInAssist,				"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
@@ -78,18 +78,18 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			x->maxNumChannels = atom_getlong(argv);
 		
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		x->lydbaer = new LydbaerObject(TT("lydbaer.source"), x->maxNumChannels);
+		x->lydbaer = new MCoreObject(TT("multicore.source"), x->maxNumChannels);
 		if(x->lydbaer->audioObject)
-			x->lydbaer->setAudioOutputPtr(LydbaerSourcePtr(x->lydbaer->audioObject)->buffer);
+			x->lydbaer->setAudioOutputPtr(MCoreSourcePtr(x->lydbaer->audioObject)->buffer);
 		else{
-			object_error(ObjectPtr(x), "cannot load lydbaer.source");
+			object_error(ObjectPtr(x), "cannot load multicore.source");
 			return NULL;
 		}
 
 		attr_args_process(x,argc,argv);
 		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "lydbaerObject");
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.object");
 	    dsp_setup((t_pxobject *)x, x->maxNumChannels);
 		
 		x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
@@ -134,7 +134,7 @@ TTErr lydInSetup(LydInPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
 	return kTTErrNone;
 }
 
@@ -147,7 +147,7 @@ t_int* lydInPerform(t_int* w)
 	
 	if(!x->obj.z_disabled){
 		for(i=0; i<x->numChannels; i++)
-			LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
+			MCoreSourcePtr(x->lydbaer->audioObject)->buffer->setVector(i, x->vectorSize, (TTFloat32*)w[i+2]);
 	}	
 	return w + (x->numChannels+2);
 }
@@ -173,10 +173,10 @@ void lydInDsp(LydInPtr x, t_signal** sp, short* count)
 		k++;
 	}
 	
-	LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setAttributeValue(TT("numChannels"), x->maxNumChannels);
-	LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->setAttributeValue(TT("vectorSize"), x->vectorSize);
-	LydbaerSourcePtr(x->lydbaer->audioObject)->buffer->sendMessage(TT("alloc"));
-	LydbaerSourcePtr(x->lydbaer->audioObject)->setAttributeValue(TT("sr"), sp[0]->s_sr);
+	MCoreSourcePtr(x->lydbaer->audioObject)->buffer->setAttributeValue(TT("numChannels"), x->maxNumChannels);
+	MCoreSourcePtr(x->lydbaer->audioObject)->buffer->setAttributeValue(TT("vectorSize"), x->vectorSize);
+	MCoreSourcePtr(x->lydbaer->audioObject)->buffer->sendMessage(TT("alloc"));
+	MCoreSourcePtr(x->lydbaer->audioObject)->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(lydInPerform, k, audioVectors);
 	sysmem_freeptr(audioVectors);

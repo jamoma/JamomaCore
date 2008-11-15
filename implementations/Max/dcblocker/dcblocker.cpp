@@ -7,13 +7,13 @@
  *	http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "maxbaer.h"
+#include "maxMulticore.h"
 
 
 // Data Structure for this object
 typedef struct DCBlockerBaer {
     t_object			obj;
-	LydbaerObjectPtr	lydbaer;
+	MCoreObjectPtr		lydbaer;
 	TTPtr				lydbaerOutlet;
 	long				attrBypass;
 };
@@ -27,7 +27,7 @@ void				dcBlockerBaerAssist(DCBlockerBaerPtr x, void* b, long msg, long arg, cha
 void				dcBlockerBaerClear(DCBlockerBaerPtr x);
 TTErr				dcBlockerBaerReset(DCBlockerBaerPtr x, long vectorSize);
 TTErr				dcBlockerBaerSetup(DCBlockerBaerPtr x);
-TTErr				dcBlockerBaerObject(DCBlockerBaerPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber);
+TTErr				dcBlockerBaerObject(DCBlockerBaerPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber);
 MaxErr				dcBlockerBaerSetBypass(DCBlockerBaerPtr x, void *attr, AtomCount argc, AtomPtr argv);
 
 
@@ -42,15 +42,15 @@ int main(void)
 {
 	ClassPtr c;
 	
-	TTBlueInit();	
+	MCoreInit();	
 	common_symbols_init();
 	
 	c = class_new("dcblocker≈", (method)dcBlockerBaerNew, (method)dcBlockerBaerFree, sizeof(DCBlockerBaer), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)dcBlockerBaerClear,		"clear",			0);
-	class_addmethod(c, (method)dcBlockerBaerReset,		"lydbaerReset",		A_CANT, 0);
-	class_addmethod(c, (method)dcBlockerBaerSetup,		"lydbaerSetup",		A_CANT, 0);
-	class_addmethod(c, (method)dcBlockerBaerObject,		"lydbaerObject",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)dcBlockerBaerReset,		"multicore.reset",		A_CANT, 0);
+	class_addmethod(c, (method)dcBlockerBaerSetup,		"multicore.setup",		A_CANT, 0);
+	class_addmethod(c, (method)dcBlockerBaerObject,		"multicore.object",	A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)dcBlockerBaerAssist,		"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -74,11 +74,11 @@ DCBlockerBaerPtr dcBlockerBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     x = (DCBlockerBaerPtr)object_alloc(sDCBlockerBaerClass);
     if(x){
     	object_obex_store((void *)x, _sym_dumpout, (ObjectPtr)outlet_new(x, NULL));
-		x->lydbaerOutlet = outlet_new(x, "lydbaerObject");
+		x->lydbaerOutlet = outlet_new(x, "multicore.object");
 		
 		// TODO: we need to update objects to work with the correct number of channels when the network is configured
 		// Either that, or when we pull we just up the number of channels if when we need to ???
-		x->lydbaer = new LydbaerObject(TT("dcblock"), 8);
+		x->lydbaer = new MCoreObject(TT("dcblock"), 8);
 		if(!x->lydbaer->audioObject){
 			object_error(ObjectPtr(x), "cannot load TTBlue object");
 			return NULL;
@@ -134,12 +134,12 @@ TTErr dcBlockerBaerSetup(DCBlockerBaerPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("lydbaerObject"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
 	return kTTErrNone;
 }
 
 
-TTErr dcBlockerBaerObject(DCBlockerBaerPtr x, LydbaerObjectPtr audioSourceObject, long sourceOutletNumber)
+TTErr dcBlockerBaerObject(DCBlockerBaerPtr x, MCoreObjectPtr audioSourceObject, long sourceOutletNumber)
 {
 	return x->lydbaer->addSource(audioSourceObject, sourceOutletNumber);
 }
