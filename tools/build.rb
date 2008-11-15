@@ -57,7 +57,7 @@ if(ARGV.length > 2)
   end
 end
 
-puts "Building Lydbaer for Max"
+puts "Building Jamoma Multicore for Max"
 puts "==================================================="
 puts "  configuration: #{configuration}"
 puts "  clean: #{clean}"
@@ -65,8 +65,8 @@ puts "  clean: #{clean}"
 puts "  "
 
 
-@build_root = Dir.pwd;
-@svn_root = "../../"
+@svn_root = Dir.pwd + "/../"
+@build_root = @svn_root + "implementations/Max";
 @fail_array = Array.new
 @zerolink = false
 
@@ -261,28 +261,28 @@ puts "Building Frameworks..."
 zero_count
 
 if win32?
-	build_project("#{@svn_root}/library", "TTBlue.vcproj", configuration, true)
+	build_project("#{@svn_root}/library", "multicore.vcproj", configuration, true)
 else
-	build_project("#{@svn_root}/library", "TTBlue.xcodeproj", configuration, true)
+	build_project("#{@svn_root}/library", "multicore.xcodeproj", configuration, true)
 end
 
 ex_total, ex_count = get_count
 puts ""
 
-puts "Building TTBlue Extensions..."
-zero_count
-build_dir("extensions", configuration, clean)  
-ex_total, ex_count = get_count
-puts ""
+#puts "Building TTBlue Extensions..."
+#zero_count
+#build_dir("extensions", configuration, clean)  
+#ex_total, ex_count = get_count
+#puts ""
 
 
 ###################################################################
 # EXTERNALS
 ###################################################################
-puts "Building MaxLydgraph Externals..."
+puts "Building Externals for Max..."
 
 zero_count
-build_dir("examples/MaxLydgraph", configuration, clean)  
+build_dir("implementations/Max", configuration, clean)  
 ex_total, ex_count = get_count
 
 #src_folder = "Build_Mac/#{configuration}"
