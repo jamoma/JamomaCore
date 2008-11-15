@@ -65,7 +65,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
 			numOutputs += TTUInt8(v);
 		for(TTInt8 i=numOutputs-1; i>=0; i--)
-			x->lydbaerOutlets[i] = outlet_new(x, NULL);
+			x->lydbaerOutlets[i] = outlet_new(x, "lydbaerObject");
 
 		x->wrappedClassDefinition = wrappedMaxClass;
 		x->lydbaerObject = new LydbaerObject(wrappedMaxClass->ttblueClassName, 1);

@@ -89,7 +89,7 @@ OscilBaerPtr oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		attr_args_process(x, argc, argv);
 
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, 0L);
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "lydbaerObject");
 	}
 	return x;
 }

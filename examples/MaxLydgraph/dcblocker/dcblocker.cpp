@@ -74,7 +74,7 @@ DCBlockerBaerPtr dcBlockerBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     x = (DCBlockerBaerPtr)object_alloc(sDCBlockerBaerClass);
     if(x){
     	object_obex_store((void *)x, _sym_dumpout, (ObjectPtr)outlet_new(x, NULL));
-		x->lydbaerOutlet = outlet_new(x, NULL);
+		x->lydbaerOutlet = outlet_new(x, "lydbaerObject");
 		
 		// TODO: we need to update objects to work with the correct number of channels when the network is configured
 		// Either that, or when we pull we just up the number of channels if when we need to ???

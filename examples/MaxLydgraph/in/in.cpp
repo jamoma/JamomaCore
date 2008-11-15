@@ -89,7 +89,7 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		attr_args_process(x,argc,argv);
 		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, 0);
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "lydbaerObject");
 	    dsp_setup((t_pxobject *)x, x->maxNumChannels);
 		
 		x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
