@@ -84,13 +84,13 @@ typedef TTAudioEngine* TTAudioEnginePtr;
 
 
 
-TTErr				TTAudioEngineCreate();
-TTErr				TTAudioEngineFree();
-TTObjectPtr			TTAudioEngineReference();
-TTAudioSignalPtr	TTAudioEngineGetInputSignalReference();
-TTAudioSignalPtr	TTAudioEngineGetOutputSignalReference();
-TTErr				TTAudioEngineStart();
-TTErr				TTAudioEngineStop();
+TTErr					TTAudioEngineCreate();
+TTErr					TTAudioEngineFree();
+TTEXPORT TTObjectPtr	TTAudioEngineReference();
+TTAudioSignalPtr		TTAudioEngineGetInputSignalReference();
+TTAudioSignalPtr		TTAudioEngineGetOutputSignalReference();
+TTErr					TTAudioEngineStart();
+TTErr					TTAudioEngineStop();
 
 
 /** A C-function used for the callback from PortAudio.  

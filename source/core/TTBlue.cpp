@@ -258,9 +258,6 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 #include "TTOperator.h"
 #include "TTOverdrive.h"
 
-// Lydbaer
-#include "lydbaer.h"
-
 
 void TTBlueRegisterInternalClasses()
 {
@@ -325,12 +322,6 @@ void TTBlueRegisterInternalClasses()
 	TTClassRegister(TT("delay"),						"audio, processor, delay",											&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("operator"),						"audio, processor, math",											&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("overdrive"),					"audio, processor",													&TTBlueInstantiateInternalClass);
-
-
-	// Lydbaer
-	TTClassRegister(TT("lydbaer.source"),				"audio, lydbaer",													&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("lydbaer.output"),				"audio, lydbaer",													&TTBlueInstantiateInternalClass);
-
 
 }
 
@@ -436,15 +427,6 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 	else if(className == TT("overdrive"))
 		return new TTOverdrive(arguments);
 
-
-
-	// Lydbaer
-	else if(className == TT("lydbaer.source"))
-		return new LydbaerSource(arguments);
-	else if(className == TT("lydbaer.output"))
-		return new LydbaerOutput(arguments);
-
-	
 
 	// Not found
 	else{
