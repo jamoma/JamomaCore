@@ -17,7 +17,7 @@
     <item name='limiter/preamp' type='msg_float' priority='0'>6.000000</item>
     <item name='limiter/release' type='msg_float' priority='0'>300.000000</item>
     <item name='limiter/threshold' type='msg_float' priority='0'>-6.000000</item>
-    <item name='record' type='msg_toggle' priority='0'>0</item>
+    <item name='record/active' type='msg_toggle' priority='0'>0</item>
     <item name='record/filetype' type='msg_symbol' priority='0'>aiff</item>
     <item name='record/samptype' type='msg_symbol' priority='0'>int24</item>
     <item name='saturation/active' type='msg_toggle' priority='0'>1</item>
