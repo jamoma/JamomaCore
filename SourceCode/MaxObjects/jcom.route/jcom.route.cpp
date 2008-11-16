@@ -122,9 +122,9 @@ void route_assist(t_route *x, void *b, long msg, long arg, char *dst)
 		strcpy(dst, "Input");
 	else if(msg==2){ 				// Outlets
 		switch(arg){
-			case 0: strcpy(dst, "Output"); break;
-			case 1: strcpy(dst, "Attribute Stuff"); break;
-			case 1: strcpy(dst, "Dumpout"); break;
+			case 0: strcpy(dst, "Matching Output"); break;
+			case 1: strcpy(dst, "Unmatching Output"); break;
+			case 2: strcpy(dst, "Dumpout"); break;
  		}
  	}		
 }
