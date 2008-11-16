@@ -23,6 +23,11 @@ typedef struct _xyz{
 	float		y;										///< y position
 	float		z;										///< z position
 } t_xyz;												///< Cartesian coordinate of a point
+
+typedef struct _hull1{
+	float		min;									///< minimum x value
+	float		max;									///< maximum x value
+} t_hull1;												///< Convex hull in 1 dimension
 	
 
 typedef struct _dbap{									///< Data structure for this object 
@@ -34,13 +39,14 @@ typedef struct _dbap{									///< Data structure for this object
 	float		master_gain;							///< Mater gain for all ofr the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
+	t_hull1		hull1;									///< Convex hull in 1 dimension
 	float		variance;								///< Bias-corrected variance of distance from destination points to mean destination point
 	long		attr_dimensions;						///< Number of dimensions of the speaker and source system
 	float		attr_rolloff;							///< Set rolloff with distance in dB.
 	long		attr_num_sources;						///< number of active sources
 	long		attr_num_destinations;					///< number of active destinations
 	float		a;										///< Constant: Exponent controlling amplitude dependance on distance. Depends on attr_rolloff
-	void		*outlet;								////< Pointer to outlet. Need one for each outlet
+	void		*outlet[2];								////< Pointer to outlets. Need one for each outlet
 } t_dbap;
 
 // Prototypes for methods: need a method for each incoming message
@@ -111,6 +117,18 @@ void dbap_calculate_mean_dst_position(t_dbap *x);
 
 /** Calculate bias-corrected variance of distance from destination points to mean destination point. */
 void dbap_calculate_variance(t_dbap *x);
+
+/** Calculate convex hull of space spanned by destination points. */ 
+void dbap_calculate_hull(t_dbap *x);
+
+/** Calculate convex hull of space spanned by destination points: 1D */
+void dbap_calculate_hull1D(t_dbap *x);
+
+/** Calculate convex hull of space spanned by destination points: 2D */
+void dbap_calculate_hull2D(t_dbap *x);
+
+/** Calculate convex hull of space spanned by destination points: 3D */
+void dbap_calculate_hull3D(t_dbap *x);
 
 
 // Globals
@@ -185,7 +203,8 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 	
 	if(x){
     	object_obex_store(x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
-		x->outlet = outlet_new(x, 0);				// Create outlet
+		x->outlet[1] = outlet_new(x, 0);				// Middle outlet: Distance from convex hull
+		x->outlet[0] = outlet_new(x, 0);				// Left outlet: Feed to matrix~
 		
 		// Initializing and setting defaults for attributes.
 		x->master_gain = 1.;						// default value
@@ -193,6 +212,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 		x->attr_num_destinations = 1;				// default value
 		x->attr_dimensions = 2;						// two-dimensional by default
 		x->attr_rolloff = 6;						// 6 dB rolloff by default			
+		
 		for (i=0; i<MAX_NUM_SOURCES; i++) {
 			x->src_position[i].x = 0.;
 			x->src_position[i].y = 0.;
@@ -201,11 +221,15 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->src_gain[i] = 1.0;
 			x->src_not_muted[i] = 1.0;
 		}
+		
 		for (i=0; i<MAX_NUM_DESTINATIONS; i++) {
 			x->dst_position[i].x = 0.;
 			x->dst_position[i].y = 0.;
 			x->dst_position[i].z = 0.;
 		}
+		x->hull1.min = 0.0;
+		x->hull1.max = 0.0;
+		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		dbap_calculate_a(x);						// calculate expo0nent coefficiant used for rolloff
 		dbap_calculate_variance(x);					// this implisitly also calculate all matrix values
@@ -319,6 +343,7 @@ void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv)
 		}
 		// The set of destination points has been changed - recalculate variance.
 		dbap_calculate_variance(x);		// implicitely updates all matrix values
+		dbap_calculate_hull(x);
 
 	}
 	else
@@ -429,6 +454,12 @@ void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst)	// Display a
 			case 0: 
 				strcpy(dst, "(list) messages for matrix~");
 				break;
+			case 1: 
+				strcpy(dst, "(list) distance from convex hull");
+				break;
+			case 2: 
+				strcpy(dst, "dumpout");
+				break;
 		}
 	}
 }
@@ -530,6 +561,8 @@ void dbap_calculate(t_dbap *x, long n)
 
 void dbap_calculate1D(t_dbap *x, long n)
 {
+	double xPos;						// x-position of the source
+	double dist;						// Distance from source to convex hull
 	double k;							// Scaling coefficient
 	double k2inv;						// Inverse square of the scaling constant k
 	double dx;							// Distance vector
@@ -539,24 +572,41 @@ void dbap_calculate1D(t_dbap *x, long n)
 	
 	
 	long i;
+
+	// Calculate distance from convex hull and project position onto convex hull)
+	xPos = x->src_position[n].x;
+	if (xPos < x->hull1.min) {
+		dist = x->hull1.min - xPos;
+		xPos = x->hull1.min;
+	}
+	else if (xPos > x->hull1.max) {
+		dist = xPos - x->hull1.max;
+		xPos = x->hull1.max;
+	}
+	else
+		dist = 0.0;
+	
+	atom_setlong(&a[0], n);
+	atom_setfloat(&a[1], dist);
+	outlet_anything(x->outlet[1], _sym_list, 2, a);
 	
 	r2 = x->blur[n] * x->variance;
 	r2 = r2*r2;
 	k2inv = 0;
 	for (i=0; i<x->attr_num_destinations; i++) {
-		dx = x->src_position[n].x - x->dst_position[i].x;
+		dx = xPos - x->dst_position[i].x;
 		dia[i] = pow(dx*dx + r2, 0.5*x->a);
 		k2inv = k2inv + 1./(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
 	
-	atom_setlong(&a[0], n);
+
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
 		atom_setfloat(&a[2], k/dia[i]);
-		outlet_anything(x->outlet, _sym_list, 3, a);
+		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}	
 }
 
@@ -590,7 +640,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
 		atom_setfloat(&a[2], k/dia[i]);
-		outlet_anything(x->outlet, _sym_list, 3, a);
+		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}	
 }
 
@@ -625,7 +675,7 @@ void dbap_calculate3D(t_dbap *x, long n)
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
 		atom_setfloat(&a[2], k/dia[i]);
-		outlet_anything(x->outlet, _sym_list, 3, a);
+		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}	
 }
 
@@ -693,3 +743,45 @@ void dbap_calculate_variance(t_dbap *x)
 }
 
 
+void dbap_calculate_hull(t_dbap *x)
+{
+	// Update all matrix values
+	if (x->attr_dimensions==1)
+		dbap_calculate_hull1D(x);
+	else if (x->attr_dimensions==2)
+		dbap_calculate_hull2D(x);
+	else
+		dbap_calculate_hull3D(x);
+}
+
+
+
+void dbap_calculate_hull1D(t_dbap *x)
+{
+	long i;
+	float min, max;
+	
+	min = x->dst_position[0].x;
+	max = x->dst_position[0].x;
+	
+	for (i=1; i<x->attr_num_destinations; i++) {
+		if (x->dst_position[i].x < min)
+			min = x->dst_position[i].x;
+		if (x->dst_position[i].x > max)
+			max = x->dst_position[i].x;
+	}
+	x->hull1.min = min;
+	x->hull1.max = max;
+}
+
+
+
+void dbap_calculate_hull2D(t_dbap *x)
+{
+	// TODO: develop algorithm calculating convex hull in 2 dimensions
+}
+
+void dbap_calculate_hull3D(t_dbap *x)
+{
+	// TODO: develop algorithm calculating convex hull in 3 dimensions
+}
