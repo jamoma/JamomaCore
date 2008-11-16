@@ -124,6 +124,7 @@ void route_assist(t_route *x, void *b, long msg, long arg, char *dst)
 		switch(arg){
 			case 0: strcpy(dst, "Output"); break;
 			case 1: strcpy(dst, "Attribute Stuff"); break;
+			case 1: strcpy(dst, "Dumpout"); break;
  		}
  	}		
 }
