@@ -17,21 +17,29 @@
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
     <Property Id='DiskPrompt' Value="Jamoma Installation [1]" />
 
+
     <Directory Id='INSTALLDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder'>
+
         <Directory Id="jamoma.org" Name="Cyclin_1" LongName="Cycling '74">
           <Directory Id="TARGETDIR" Name="Max_1" LongName="Max 5.0">
           </Directory>
         </Directory>
+
+        <Directory Id='CommonFilesFolder'>
+	  <Directory Id="EXTENSIONSDIR" Name="TTBlue">
+	  </Directory>
+	</Directory>
+
       </Directory>
     </Directory>
 
-    <Feature Id='Complete' Title='Jamoma 0.5' Level='1' Description='Jamoma 0.5 for Max 5'
-		>
-<!-- Display='expand' ConfigurableDirectory='INSTALLDIR' -->
+
+    <Feature Id='Complete' Title='Jamoma 0.5' Level='1' Description='Jamoma 0.5 for Max 5'>
         <ComponentGroupRef Id='group_JamomaC74'/>
         <ComponentGroupRef Id='group_JamomaPatches'/>
         <ComponentGroupRef Id='group_JamomaSupport'/>
+        <ComponentGroupRef Id='group_JamomaExtensions'/>
     </Feature>
 
     <UIRef Id="WixUI_FeatureTree" />
@@ -40,13 +48,6 @@
     <Icon Id="JamomaIcon" SourceFile="..\..\SourceCode\Framework\resources\jamoma.ico" />
     <Property Id="ARPPRODUCTICON">JamomaIcon</Property>
     <Property Id="ARPURLINFOABOUT">http://jamoma.org</Property>
-
-
-<!--
-    <Property Id="ShowLicenseAgreementDlg">1</Property>
--->
-
-
 
   </Product>
 </Wix>

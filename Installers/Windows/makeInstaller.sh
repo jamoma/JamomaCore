@@ -98,18 +98,19 @@ cp root/Cycling\ \'74/Jamoma/GNU-LGPL.rtf root/License.rtf
 cp root/Cycling\ \'74/Jamoma/ReadMe.rtf root/ReadMe.rtf
 
 echo " Building Package -- this could take a while..."
-echo " MAKE A WIX MODULE FOR THEM??? -- OTHERWISE WE MISS THE FUNCTIONLIB!"
 
 echo " Making candle with paraffin"
-../wix/Paraffin.exe -dir root/Cycling\ \'74\\ -custom JamomaC74     -g -direXclude .svn -ext .WXS JamomaC74.wxs
-../wix/Paraffin.exe -dir root/patches\\       -custom JamomaPatches -g -direXclude .svn -ext .WXS JamomaPatches.wxs
-../wix/Paraffin.exe -dir root/support\\       -custom JamomaSupport -g -direXclude .svn -ext .WXS JamomaSupport.wxs
+../wix/Paraffin.exe -dir root/Cycling\ \'74\\ -custom JamomaC74        -g -direXclude .svn -ext .WXS JamomaC74.wxs
+../wix/Paraffin.exe -dir root/patches\\       -custom JamomaPatches    -g -direXclude .svn -ext .WXS JamomaPatches.wxs
+../wix/Paraffin.exe -dir root/support\\       -custom JamomaSupport    -g -direXclude .svn -ext .WXS JamomaSupport.wxs
+../wix/Paraffin.exe -dir root/Common\ Files\\TTBlue\\Extensions\\ -custom JamomaExtensions -g -direXclude .svn -ext .WXS JamomaExtensions.wxs
 
 echo " Now making the installer"
 ../wix/candle.exe -dvar.ProductVersion="0.5" -dvar.ProductName="Jamoma 0.5" /nologo JamomaC74.wxs
 ../wix/candle.exe -dvar.ProductVersion="0.5" -dvar.ProductName="Jamoma 0.5" /nologo JamomaPatches.wxs
 ../wix/candle.exe -dvar.ProductVersion="0.5" -dvar.ProductName="Jamoma 0.5" /nologo JamomaSupport.wxs
+../wix/candle.exe -dvar.ProductVersion="0.5" -dvar.ProductName="Jamoma 0.5" /nologo JamomaExtensions.wxs
 ../wix/candle.exe -dvar.ProductVersion="0.5" -dvar.ProductName="Jamoma 0.5" /nologo main.wxs 
 ../wix/candle.exe -dvar.ProductVersion="0.5" -dvar.ProductName="Jamoma 0.5" /nologo ui.wxs 
-../wix/light.exe /nologo /out Jamoma.msi main.wixobj JamomaC74.wixobj JamomaPatches.wixobj JamomaSupport.wixobj ui.wixobj ..\\wix\\wixui.wixlib -loc ..\\wix\\WixUI_en-us.wxl
+../wix/light.exe /nologo /out Jamoma.msi main.wixobj JamomaC74.wixobj JamomaPatches.wixobj JamomaSupport.wixobj JamomaExtensions.wixobj ui.wixobj ..\\wix\\wixui.wixlib -loc ..\\wix\\WixUI_en-us.wxl
 
