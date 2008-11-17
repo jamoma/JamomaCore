@@ -109,36 +109,25 @@ if win32?
   `mkdir "root/Common Files/TTBlue/Extensions"`
 
   puts " Copying .dll in /Jamoma/library/externals/windows folder"
-  `cp ../../../TTBlue/extensions/TTClipper/Release/TTClipper.ttdll          ../../Jamoma/library/externals/windows/TTClipper.ttdll`
-  `cp ../../../TTBlue/extensions/TTFunctionLib/Release/TTFunctionLib.ttdll  ../../Jamoma/library/externals/windows/TTFunctionLib.ttdll`
-  `cp ../../../TTBlue/library/Release/TTBlue.dll                            ../../Jamoma/library/externals/windows/TTBlue.dll`
-  `cp ../../SourceCode/Framework/Release/JamomaFramework.dll                ../../Jamoma/library/externals/windows/JamomaFramework.dll`
+  `cp ../../../TTBlue/extensions/TTClipper/Release/*.ttdll   ../../Jamoma/library/externals/windows`
+  `cp ../../../TTBlue/library/Release/TTBlue.dll             ../../Jamoma/library/externals/windows/TTBlue.dll`
+  `cp ../../SourceCode/Framework/Release/JamomaFramework.dll ../../Jamoma/library/externals/windows/JamomaFramework.dll`
 
   puts " Copying the Jamoma folder --  this could take a while..."
   `cp -r ../../Jamoma "root/Cycling '74"`
 
   puts " Moving TTBlue Extensions"
-  `mv "root/Cycling '74/Jamoma/library/externals/windows/TTClipper.ttdll"      "root/Common Files/TTBlue/Extensions"`
-  `mv "root/Cycling '74/Jamoma/library/externals/windows/TTFunctionLib.ttdll"  "root/Common Files/TTBlue/Extensions"`
+  `mv "root/Cycling '74/Jamoma/library/externals/windows"/*.ttdll      "root/Common Files/TTBlue/Extensions"`
 
   puts " Moving things around (frameworks, loader, templates, etc)..."
   `mv "#{@c74}/Jamoma/library/externals/windows/JamomaFramework.dll"  root/support`
   `mv "#{@c74}/Jamoma/library/externals/windows/TTBlue.dll"           root/support`
-  `mv "#{@c74}/Jamoma/library/third-party/WinXP/support/iconv.dll"    root/support`
-  `mv "#{@c74}/Jamoma/library/third-party/WinXP/support/libxml2.dll"  root/support`
-  `mv "#{@c74}/Jamoma/library/third-party/WinXP/support/zlib1.dll"    root/support`
+  `mv "#{@c74}/Jamoma/library/third-party/WinXP/support"/*.dll        root/support`
 
   `mv "#{@c74}/Jamoma/library/externals/windows/jcom.loader.mxe" "#{@c74}/extensions/jcom.loader.mxe"`
 
-  `cp "#{@c74}/Jamoma/support/JamomaArarat.maxdefaults"         "#{@c74}/default-settings/JamomaArarat.maxdefaults"`
-  `cp "#{@c74}/Jamoma/support/JamomaDark.maxdefaults"           "#{@c74}/default-settings/JamomaDark.maxdefaults"`
-  `cp "#{@c74}/Jamoma/support/JamomaGraphite.maxdefaults"       "#{@c74}/default-settings/JamomaGraphite.maxdefaults"`
-  `cp "#{@c74}/Jamoma/support/JamomaKulerQuietCry.maxdefaults"  "#{@c74}/default-settings/JamomaKulerQuietCry.maxdefaults"`
-  `cp "#{@c74}/Jamoma/support/JamomaLight.maxdefaults"          "#{@c74}/default-settings/JamomaLight.maxdefaults"`
-  `cp "#{@c74}/Jamoma/support/JamomaMax.maxdefaults"            "#{@c74}/default-settings/JamomaMax.maxdefaults"`
-  `cp "#{@c74}/Jamoma/support/JamomaNoir.maxdefaults"           "#{@c74}/default-settings/JamomaNoir.maxdefaults"`
-
-  `cp "#{@c74}/Jamoma/support/jcom.ui.maxdefines" "#{@c74}/default-definitions/jcom.ui.maxdefines"`
+  `cp "#{@c74}/Jamoma/support"/*.maxdefaults   "#{@c74}/default-settings"`
+  `cp "#{@c74}/Jamoma/support"/*.maxdefines    "#{@c74}/default-definitions"`
 
   `cp "#{@c74}/Jamoma/documentation/jamoma-overview.maxpat" root/patches/extras/jamoma-overview.maxpat`
 
