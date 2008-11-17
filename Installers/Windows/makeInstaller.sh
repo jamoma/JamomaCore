@@ -32,7 +32,7 @@ echo " Copying .dll in /Jamoma/library/externals/windows folder"
 cp ../../../TTBlue/extensions/TTClipper/Release/TTClipper.ttdll ../../Jamoma/library/externals/windows/TTClipper.ttdll
 cp ../../../TTBlue/extensions/TTFunctionLib/Release/TTFunctionLib.ttdll ../../Jamoma/library/externals/windows/TTFunctionLib.ttdll
 cp ../../../TTBlue/library/Release/TTBlue.dll ../../Jamoma/library/externals/windows/TTBlue.dll
-cp ../../Jamoma/SourceCode/Framework/Release/JamomaFramework.dll ../../Jamoma/library/externals/windows/JamomaFramework.dll
+cp ../../SourceCode/Framework/Release/JamomaFramework.dll ../../Jamoma/library/externals/windows/JamomaFramework.dll
 
 echo " Copying the Jamoma folder --  this could take a while..."
 cp -r ../../Jamoma root/Cycling\ \'74
