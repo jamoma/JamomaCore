@@ -236,7 +236,7 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /position/aed @triggers 1",
+									"text" : "combine microphones. 1 /position/aed @triggers 1",
 									"patching_rect" : [ 181.0, 179.0, 278.0, 20.0 ],
 									"id" : "obj-1",
 									"fontname" : "Arial",
@@ -334,7 +334,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /position/z @triggers 1",
+									"text" : "combine microphones. 1 /position/z @triggers 1",
 									"patching_rect" : [ 171.0, 791.0, 264.0, 20.0 ],
 									"id" : "obj-119",
 									"fontname" : "Arial",
@@ -348,7 +348,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /directivity/preset @triggers 1",
+									"text" : "combine microphones. 1 /directivity/preset @triggers 1",
 									"patching_rect" : [ 172.0, 643.0, 300.0, 20.0 ],
 									"id" : "obj-118",
 									"fontname" : "Arial",
@@ -362,7 +362,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /orientation/yaw @triggers 1",
+									"text" : "combine microphones. 1 /orientation/yaw @triggers 1",
 									"patching_rect" : [ 176.0, 509.0, 294.0, 20.0 ],
 									"id" : "obj-117",
 									"fontname" : "Arial",
@@ -376,7 +376,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /orientation/pitch @triggers 1",
+									"text" : "combine microphones. 1 /orientation/pitch @triggers 1",
 									"patching_rect" : [ 176.0, 349.0, 298.0, 20.0 ],
 									"id" : "obj-116",
 									"fontname" : "Arial",
@@ -390,7 +390,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /gain @triggers 1",
+									"text" : "combine microphones. 1 /gain @triggers 1",
 									"patching_rect" : [ 181.071808, 47.894901, 236.0, 20.0 ],
 									"id" : "obj-115",
 									"fontname" : "Arial",
@@ -404,7 +404,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /directivity/ratio @triggers 1",
+									"text" : "combine microphones. 1 /directivity/ratio @triggers 1",
 									"patching_rect" : [ 181.0, -211.0, 290.0, 20.0 ],
 									"id" : "obj-114",
 									"fontname" : "Arial",
@@ -418,7 +418,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /orientation @triggers 1",
+									"text" : "combine microphones. 1 /orientation @triggers 1",
 									"patching_rect" : [ 183.0, -365.0, 269.0, 20.0 ],
 									"id" : "obj-113",
 									"fontname" : "Arial",
@@ -432,7 +432,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /position/xyz @triggers 1",
+									"text" : "combine microphones. 1 /position/xyz @triggers 1",
 									"patching_rect" : [ 183.0, -508.0, 276.0, 20.0 ],
 									"id" : "obj-112",
 									"fontname" : "Arial",
@@ -446,7 +446,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "combine microphones/ 1 /mute @triggers 1",
+									"text" : "combine microphones. 1 /mute @triggers 1",
 									"patching_rect" : [ 181.0, -72.0, 240.0, 20.0 ],
 									"id" : "obj-105",
 									"fontname" : "Arial",
