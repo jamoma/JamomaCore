@@ -318,7 +318,7 @@ static T TTFold(T value, T low_bound, T high_bound)
 	if((value >= low_bound) && (value <= high_bound))  
 		return value; //nothing to fold 
 	else{
-		foldRange = 2 * fabs(low_bound - high_bound);
+		foldRange = 2 * fabs((double)low_bound - high_bound);
 #ifdef TT_PLATFORM_WIN
 		// The standard remainder() function is not present on Windows, so we do it ourselves.
 		double	v = value - low_bound;
