@@ -209,9 +209,10 @@ t_max_err meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, voi
 	
 	if(msg == _sym_attr_modified){
 		name = (t_symbol *)object_method((t_object *)data, _sym_getname);
+
 		if(name == _sym_bgcolor)
 			jbox_redraw((t_jbox*)x);
-		if(name == _sym_patching_rect)
+		if(name == _sym_patching_rect || name == gensym("orientation"))
 			meterEffectOrientation(x);
 	}
 	
