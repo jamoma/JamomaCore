@@ -185,7 +185,7 @@ TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 		;
 	
 	anObject->referenceCount--;
-	if(referenceCount < 1)
+	if(anObject->referenceCount < 1)
 		delete anObject;
 	return kTTErrNone;
 }
