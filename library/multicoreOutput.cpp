@@ -96,9 +96,13 @@ TTErr MCoreOutput::getvectorSize(TTValue& returnedValue)
 
 TTErr MCoreOutput::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTAudioSignal&	in = inputs->getSignal(0);
+	if(inputs->numAudioSignals){
+		TTAudioSignal&	in = inputs->getSignal(0);
 
-	(*((TTAudioEnginePtr)audioEngine)->outputBuffer) += in;
-	return kTTErrNone;
+		(*((TTAudioEnginePtr)audioEngine)->outputBuffer) += in;
+		return kTTErrNone;
+	}
+	else
+		return kTTErrBadChannelConfig;
 }
 
