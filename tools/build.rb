@@ -300,7 +300,7 @@ ex_total, ex_count = get_count
 #puts ""
 
 puts "Copying help files"
-puts "cp -v \"#{@build_root}\"/*/*.maxhelp \"#{@build_root}/../Build_Mac/#{configuration}\" "
+#puts "cp -v \"#{@build_root}\"/*/*.maxhelp \"#{@build_root}/../Build_Mac/#{configuration}\" "
 `cp -v "#{@build_root}"/*/*.maxhelp "#{@build_root}/../Build_Mac/#{configuration}"`
 puts ""
 
