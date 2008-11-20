@@ -110,7 +110,7 @@ public:
 	TTValue(TTBoolean initialValue);
 	TTValue(TTSymbolPtr initialValue);
 	TTValue(TTString& initialValue);
-	TTValue(TTObject& initialValue);
+	TTValue(const TTObject& initialValue);
 	TTValue(TTPtr initialValue);
 	
 	TTValue(TTFloat64 initialValue1, TTFloat64 initialValue2);
