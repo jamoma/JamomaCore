@@ -51,7 +51,18 @@ public:
 	/** Appends a value to the list. 
 		@param	newValue	The value to add to the list.  */
 	void append(const TTValue& newValue);
-
+	
+	/**	If we don't define a version of this function that takes a pointer, 
+		then when a pointer is provided a new temporary TTValue is created to provide the reference
+		and then when the temporary is deleted we end up with a corrupt entry in the linked list.		*/
+	void append(const TTValuePtr newValue)
+	{
+		append(*newValue);
+	}
+	
+	/** Find a value in the list that is equal to a value passed-in. */
+	TTErr findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue);
+	
 	/** Remove the specified value. 
 		This doesn't change the value or free it, it just removed the pointer to it from the list.
 		@param	The value to remove.					*/
@@ -65,6 +76,7 @@ public:
 	
 	/**	Traverse the entire list, and if the item in the list is an object, then send it the specified message.	*/
 	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName);
+	TTErr iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValue& aValue);
 	
 	
 	void setThreadProtection(TTBoolean newThreadProtection)

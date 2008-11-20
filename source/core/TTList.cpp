@@ -54,6 +54,24 @@ void TTList::append(const TTValue& newValue)
 }
 
 
+TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue)
+{
+	TTErr err = kTTErrGeneric;
+	
+	lock();
+	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
+		if((const TTValue&)(*iter) == valueToCompareAgainst){
+			foundValue = *iter;
+			err = kTTErrNone;
+			break;
+		}
+	}
+	unlock();
+	
+	return err;
+}
+
+
 void TTList::remove(const TTValue& value)
 {
 	lock();
@@ -93,6 +111,21 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName)
 		(*iter)->get(0, &obj);
 		if(obj)
 			obj->sendMessage(messageName);
+	}
+	unlock();
+	return kTTErrNone;
+}
+
+
+TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValue& aValue)
+{
+	lock();
+	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
+		TTObjectPtr obj = NULL;
+		
+		(*iter)->get(0, &obj);
+		if(obj)
+			obj->sendMessage(messageName, aValue);
 	}
 	unlock();
 	return kTTErrNone;
