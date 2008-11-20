@@ -27,18 +27,23 @@
 using namespace std;
 
 #ifdef TT_PLATFORM_WIN
- #include "windows.h"
- #ifndef _CRT_SECURE_NO_WARNINGS
-  #define _CRT_SECURE_NO_WARNINGS
- #endif
- #define snprintf _snprintf
- #ifdef _DLL_EXPORT
-  #define TTEXPORT __declspec(dllexport)
- #else
-  #define TTEXPORT __declspec(dllimport)
- #endif // _DLL_EXPORT
-#else
-#define TTEXPORT __attribute__((visibility("default")))
+	#include "windows.h"
+	#ifndef _CRT_SECURE_NO_WARNINGS
+		#define _CRT_SECURE_NO_WARNINGS
+	#endif
+	#define snprintf _snprintf
+	#ifdef _DLL_EXPORT
+		#define TTEXPORT __declspec(dllexport)
+	#else
+	#define TTEXPORT __declspec(dllimport)
+	#endif // _DLL_EXPORT
+
+#else // TT_PLATFORM_MAC
+	#ifdef _DLL_EXPORT
+		#define TTEXPORT __attribute__((visibility("default")))
+	#else
+		#define TTEXPORT  
+	#endif
 #endif
 
 
