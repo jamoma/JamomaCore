@@ -81,10 +81,10 @@ private:
 	TTHash*			attributes;			///< The collection of all attributes for this object, keyed on the attribute name.
 	TTList*			messageObservers;	///< List of all objects watching this object.
 	TTList*			attributeObservers;	///< List of all objects watching this object.
-	TTBoolean		locked;				///< Is there a lock placed on this object using lock() or unlock()?
+	TTUInt8			locked;				///< Is there a lock placed on this object using lock() or unlock()?
 	TTUInt16		referenceCount;		///< Reference count for this instance.
-	TTPtrSizedInt	reserved1;			///< Reserved -- May be used for something in the future without changing the size of the struct.
-	TTPtrSizedInt	reserved2;			///< Reserved -- May be used for something in the future without changing the size of the struct.
+	TTList*			observers;			///< List of all objects watching this object.
+	TTPtrSizedInt	reserved;			///< Reserved -- May be used for something in the future without changing the size of the struct.
 
 public:
 	TTObject(const char* name);
@@ -158,13 +158,12 @@ public:
 // TODO:
 //	TTErr registerMessageProperty(const TTSymbolPtr messageName, const TTSymbolPtr propertyName, const TTValue& initialValue);
 	
-	
 	TTErr registerObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
 	TTErr registerObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
-	TTErr registerObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName);
+	TTErr registerObserverForNotifications(const TTObject& observingObject);
 	TTErr unregisterObserverForMessage(const TTObject& observingObject, const TTSymbolPtr messageName);
 	TTErr unregisterObserverForAttribute(const TTObject& observingObject, const TTSymbolPtr attributeName);
-	TTErr unregisterObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName);
+	TTErr unregisterObserverForNotifications(const TTObject& observingObject);
 	
 	
 	/**	Log messages scoped to this object instance. */
@@ -178,19 +177,19 @@ public:
 	
 	inline TTErr lock()
 	{
-		locked = true;
+		locked++;
 		return kTTErrNone;
 	}
 	
 	inline TTErr unlock()
 	{
-		locked = false;
+		locked--;
 		return kTTErrNone;
 	}
 	
 	inline TTBoolean getlock()
 	{
-		return locked;
+		return locked > 0;
 	}
 	
 };
