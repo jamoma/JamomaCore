@@ -95,7 +95,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"fontsize" : 10.0,
-					"outlettype" : [ "multicore.object", "" ]
+					"outlettype" : [ "multicore.signal", "" ]
 				}
 
 			}
@@ -289,7 +289,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 10.0,
-					"outlettype" : [ "multicore.object", "multicore.object", "" ]
+					"outlettype" : [ "multicore.signal", "multicore.signal", "" ]
 				}
 
 			}
@@ -413,7 +413,7 @@
 					"numinlets" : 5,
 					"numoutlets" : 2,
 					"fontsize" : 10.0,
-					"outlettype" : [ "multicore.object", "" ]
+					"outlettype" : [ "multicore.signal", "" ]
 				}
 
 			}

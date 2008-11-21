@@ -52,8 +52,8 @@ int main(void)
 	class_addmethod(c, (method)lydDacStart,				"start",			0);
 	class_addmethod(c, (method)lydDacStop,				"stop",				0);
 	//class_addmethod(c, (method)lydDacNotify,			"notify",			A_CANT, 0);
-	class_addmethod(c, (method)lydDacReset,				"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)lydDacObject,			"multicore.object",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)lydDacReset,				"multicore.reset",	A_CANT, 0);
+	class_addmethod(c, (method)lydDacObject,			"multicore.signal",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)lydDacAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	
@@ -76,9 +76,14 @@ LydDacPtr lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
     LydDacPtr	x = LydDacPtr(object_alloc(sLydDacClass));
 	TTValue		v;
+	TTErr		err;
 	
     if(x){
-		x->lydbaer = new MCoreObject(TT("multicore.output"), 2);
+		v.setSize(2);
+		v.set(0, TT("multicore.output"));
+		v.set(1, 2);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+
 		v = TTPtr(x->lydbaer);
 		x->lydbaer->audioObject->sendMessage(TT("setOwner"), v);
 
@@ -91,7 +96,7 @@ LydDacPtr lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void lydDacFree(LydDacPtr x)
 {
-	delete x->lydbaer;
+	TTObjectRelease(x->lydbaer);
 }
 
 

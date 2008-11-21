@@ -45,7 +45,7 @@ public:
 			TTAudioSignal::copy(in1, out, 0);
 			TTAudioSignal::copy(in1, out, numChannels);
 		}
-		else{ // assume 2 input signals			
+		else if(inputs->numAudioSignals == 2){ // can't assume 2 input signals -- what if there are zero for example?	
 			TTAudioSignal&	in2 = inputs->getSignal(1);
 			
 			TTAudioSignal::copy(in1, out, 0);

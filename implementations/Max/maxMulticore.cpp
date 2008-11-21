@@ -16,7 +16,7 @@
 typedef struct _wrappedInstance {
     t_object			obj;						///< Max audio object header
 	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
-	MCoreObjectPtr	lydbaerObject;				///< The instance of the TTBlue object we are wrapping
+	MCoreObjectPtr		lydbaerObject;				///< The instance of the TTBlue object we are wrapping
 	TTPtr				lydbaerOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
 	
 	TTPtr				inlets[16];					///< Array of proxy inlets beyond the first inlet
@@ -65,10 +65,13 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
 			numOutputs += TTUInt8(v);
 		for(TTInt8 i=numOutputs-1; i>=0; i--)
-			x->lydbaerOutlets[i] = outlet_new(x, "multicore.object");
+			x->lydbaerOutlets[i] = outlet_new(x, "multicore.signal");
 
 		x->wrappedClassDefinition = wrappedMaxClass;
-		x->lydbaerObject = new MCoreObject(wrappedMaxClass->ttblueClassName, 1);
+		v.setSize(2);
+		v.set(0, wrappedMaxClass->ttblueClassName);
+		v.set(1, 1);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaerObject, v);
 		
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("channelRatioInputToOutput"), v)){
 			TTUInt16 numInChans = 1;
@@ -92,7 +95,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 void wrappedClass_free(WrappedInstancePtr x)
 {
 	if(x->lydbaerObject)
-		delete x->lydbaerObject;
+		TTObjectRelease(x->lydbaerObject);
 }
 
 
@@ -113,7 +116,7 @@ TTErr maxbaerSetup(WrappedInstancePtr x)
 	atom_setobj(a+0, ObjectPtr(x->lydbaerObject));
 	while(x->lydbaerOutlets[i]){
 		atom_setlong(a+1, i);
-		outlet_anything(x->lydbaerOutlets[i], gensym("multicore.object"), 2, a);
+		outlet_anything(x->lydbaerOutlets[i], gensym("multicore.signal"), 2, a);
 		i++;
 	}
 	return kTTErrNone;
@@ -326,9 +329,9 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 	
 	TTObjectRelease(o);
 	
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"multicore.reset",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"multicore.setup",		A_CANT, 0);
-	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"multicore.object",	A_OBJ, A_LONG, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"multicore.reset",	A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"multicore.setup",	A_CANT, 0);
+	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerObject,			"multicore.signal",	A_OBJ, A_LONG, 0);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",			A_CANT, 0); 
 	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_assist, 	"assist",			A_CANT, 0L);
 	class_addmethod(wrappedMaxClass->maxClass, (method)stdinletinfo,			"inletinfo",		A_CANT, 0);

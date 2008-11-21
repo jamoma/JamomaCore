@@ -70,6 +70,8 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
     LydInPtr	x;
 	TTValue		sr(sys_getsr());
  	long		attrstart = attr_args_offset(argc, argv);
+	TTValue		v;
+	TTErr		err;
 	
     x = LydInPtr(object_alloc(sLydInClass));
     if(x){
@@ -78,7 +80,12 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			x->maxNumChannels = atom_getlong(argv);
 		
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		x->lydbaer = new MCoreObject(TT("multicore.source"), x->maxNumChannels);
+
+		v.setSize(2);
+		v.set(0, TT("multicore.source"));
+		v.set(1, x->maxNumChannels);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+
 		if(x->lydbaer->audioObject)
 			x->lydbaer->setAudioOutputPtr(MCoreSourcePtr(x->lydbaer->audioObject)->buffer);
 		else{
@@ -89,7 +96,7 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		attr_args_process(x,argc,argv);
 		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.object");
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.signal");
 	    dsp_setup((t_pxobject *)x, x->maxNumChannels);
 		
 		x->obj.z_misc = Z_NO_INPLACE | Z_PUT_FIRST;
@@ -101,7 +108,7 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void lydInFree(LydInPtr x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->lydbaer;
+	TTObjectRelease(x->lydbaer);
 }
 
 
@@ -134,7 +141,7 @@ TTErr lydInSetup(LydInPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.signal"), 2, a);
 	return kTTErrNone;
 }
 

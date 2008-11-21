@@ -13,7 +13,7 @@
 // Data Structure for this object
 typedef struct OscilBaer {
     t_object			obj;
-	MCoreObjectPtr	lydbaer;
+	MCoreObjectPtr		lydbaer;
 	TTPtr				lydbaerOutlet;
 	SymbolPtr			attrWaveform;
 	SymbolPtr			attrInterpolation;
@@ -81,15 +81,21 @@ int main(void)
 OscilBaerPtr oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
     OscilBaerPtr x = OscilBaerPtr(object_alloc(sOscilBaerClass));
+	TTValue		v;
+	TTErr		err;
 
     if(x){
-		x->lydbaer = new MCoreObject(TT("wavetable"), 1);
+		v.setSize(2);
+		v.set(0, TT("wavetable"));
+		v.set(1, 1);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+
 		x->lydbaer->addFlag(kMCoreGenerator);
 
 		attr_args_process(x, argc, argv);
 
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.object");
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.signal");
 	}
 	return x;
 }
@@ -97,7 +103,7 @@ OscilBaerPtr oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void oscilBaerFree(OscilBaerPtr x)
 {
-	delete x->lydbaer;
+	TTObjectRelease(x->lydbaer);
 }
 
 
@@ -130,7 +136,7 @@ TTErr oscilBaerSetup(OscilBaerPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.signal"), 2, a);
 	return kTTErrNone;
 }
 

@@ -21,8 +21,9 @@ void MCoreInit(void)
 {
 	if(!initialized){
 		TTBlueInit();
-		TTClassRegister(TT("multicore.source"),	"audio, multicore",		&MCoreInstantiateTTObject);
-		TTClassRegister(TT("multicore.output"),	"audio, multicore",		&MCoreInstantiateTTObject);
+		TTClassRegister(TT("multicore.object"),	"audio, multicore, wrapper",	&MCoreInstantiateTTObject);
+		TTClassRegister(TT("multicore.source"),	"audio, multicore",				&MCoreInstantiateTTObject);
+		TTClassRegister(TT("multicore.output"),	"audio, multicore",				&MCoreInstantiateTTObject);
 	}
 }
 
@@ -30,7 +31,9 @@ void MCoreInit(void)
 
 TTObjectPtr MCoreInstantiateTTObject(TTSymbolPtr className, TTValue& arguments)
 {
-	if(className == TT("multicore.source"))
+	if(className == TT("multicore.object"))
+		return new MCoreObject(arguments);
+	else if(className == TT("multicore.source"))
 		return new MCoreSource(arguments);
 	else if(className == TT("multicore.output"))
 		return new MCoreOutput(arguments);

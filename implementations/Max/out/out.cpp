@@ -52,7 +52,7 @@ int main(void)
 	
 	//class_addmethod(c, (method)lydOutNotify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)lydOutReset,				"multicore.reset",	A_CANT, 0);
-	class_addmethod(c, (method)lydOutObject,			"multicore.object",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)lydOutObject,			"multicore.signal",	A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)lydOutDsp,				"dsp",				A_CANT, 0);		
 	class_addmethod(c, (method)lydOutAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
@@ -76,6 +76,8 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 	TTValue		sr(sys_getsr());
  	long		attrstart = attr_args_offset(argc, argv);		// support normal arguments
 	short		i;
+	TTValue		v;
+	TTErr		err;
    
     x = LydOutPtr(object_alloc(sLydOutClass));
     if(x){
@@ -85,7 +87,11 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
 		TTObjectInstantiate(TT("audiosignal"), &x->audioSignal, x->maxNumChannels);
-		x->lydbaer = new MCoreObject(TT("gain"), x->maxNumChannels);
+
+		v.setSize(2);
+		v.set(0, TT("gain"));
+		v.set(1, x->maxNumChannels);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 		
 		attr_args_process(x,argc,argv);				// handle attribute args	
 				
@@ -103,7 +109,7 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void lydOutFree(LydOutPtr x)
 {
 	dsp_free((t_pxobject *)x);
-	delete x->lydbaer;
+	TTObjectRelease(x->lydbaer);
 	TTObjectRelease(x->audioSignal);
 }
 

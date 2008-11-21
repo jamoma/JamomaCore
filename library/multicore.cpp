@@ -8,30 +8,69 @@
  */
 
 #include "multicore.h"
+#define thisTTClass MCoreObject
 
 
-MCoreObject::MCoreObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels)
-	:flags(kMCoreProcessor), alwaysProcessSidechain(false), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
+MCoreObject::MCoreObject(const TTValue& arguments)
+	: TTObject("multicore.object"), flags(kMCoreProcessor), alwaysProcessSidechain(false), audioSources(NULL), sidechainSources(NULL), numSources(0), numSidechainSources(0), 
 	audioInput(NULL), audioOutput(NULL), sidechainInput(NULL), sidechainOutput(NULL), audioObject(NULL)
 {
-	TTErr err;
+	TTErr		err;
+	TTSymbolPtr	wrappedObjectName;
+	TTUInt16	initialNumChannels;
 	
+	TT_ASSERT(multicore_correct_instantiation_args, arguments.getSize() == 2);
+	
+	arguments.get(0, &wrappedObjectName);
+	arguments.get(1, initialNumChannels);
 	inChansToOutChansRatio[0] = 1;
 	inChansToOutChansRatio[1] = 1;
 	
-	err = TTObjectInstantiate(objectName, &audioObject, initialNumChannels);
+	err = TTObjectInstantiate(wrappedObjectName, &audioObject, initialNumChannels);
 	err = TTObjectInstantiate(kTTSym_audiosignal, &audioInput, initialNumChannels);
 	err = TTObjectInstantiate(kTTSym_audiosignal, &audioOutput, initialNumChannels * TTLimitMin<TTFloat32>(inChansToOutChansRatio[1] / inChansToOutChansRatio[0], 1));
+	
+	registerMessageWithArgument(objectFreeing);	// called when one of our input source objects is deleted
 }
 
 
 MCoreObject::~MCoreObject()
 {
+	for(TTUInt16 i=0; i<numSources; i++)
+		audioSources[i]->unregisterObserverForNotifications(*this);
+
 	TTObjectRelease(audioObject);
 	TTObjectRelease(audioInput);
 	TTObjectRelease(audioOutput);
 	TTObjectRelease(sidechainInput);
 	TTObjectRelease(sidechainOutput);
+}
+
+
+TTErr MCoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
+{
+	TTObjectPtr o = theObjectBeingDeleted;
+	TTBoolean	found = NO;
+	TTBoolean	oldValid = valid;
+	// This is an ugly operation
+	// the problem is that we don't want to traverse a linked-list in the processing chain
+	
+	valid = false;
+	while(getlock())
+		;
+	
+	for(TTUInt16 i=0; i<(numSources-1); i++){
+		if(audioSources[i] == o)
+			found = YES;
+		if(found)
+			audioSources[i] = audioSources[i+1];
+	}
+	
+	audioSources[numSources-1] = 0;
+	numSources--;	
+
+	valid = oldValid;
+	return kTTErrNone;
 }
 
 
@@ -62,18 +101,26 @@ TTErr MCoreObject::setAlwaysProcessSidechain(TTBoolean newValue)
 
 TTErr MCoreObject::prepareToProcess()
 {
-	processStatus = kProcessNotStarted;
+	lock();
+	if(valid){
+		processStatus = kProcessNotStarted;
 
-	for(TTUInt16 i=0; i<numSources; i++)
-		audioSources[i]->prepareToProcess();
-	for(TTUInt16 i=0; i<numSidechainSources; i++)
-		sidechainSources[i]->prepareToProcess();
+		for(TTUInt16 i=0; i<numSources; i++)
+			audioSources[i]->prepareToProcess();
+		for(TTUInt16 i=0; i<numSidechainSources; i++)
+			sidechainSources[i]->prepareToProcess();
+		
+	}
+	unlock();
 	return kTTErrNone;
 }
 
 
 TTErr MCoreObject::resetSources(TTUInt16 vs)
 {
+	for(TTUInt16 i=0; i<numSources; i++)
+		audioSources[i]->unregisterObserverForNotifications(*this);
+
 	if(audioSources && numSources)
 		free(audioSources);
 	audioSources = NULL;
@@ -127,6 +174,9 @@ TTErr MCoreObject::addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumbe
 		audioSources[numSources-1] = anObject;
 		audioSourceOutletIndices[numSources-1] = sourceOutletNumber;
 	}
+	
+	anObject->registerObserverForNotifications(*this);
+	
 	return kTTErrNone;
 }
 
@@ -153,7 +203,9 @@ TTErr MCoreObject::init()
 	TTUInt16	sourceProducesNumChannels;
 	TTUInt16	sidechainSourceProducesNumChannels;
 	TTUInt16	weDeliverNumChannels;
-		
+	
+	lock();
+	
 	// init objects higher up in the chain first
 	for(TTUInt16 i=0; i<numSources; i++)
 		audioSources[i]->init();
@@ -203,6 +255,7 @@ TTErr MCoreObject::init()
 	else
 		audioObject->setMaxNumChannels(sourceProducesNumChannels);
 
+	unlock();
 	return kTTErrNone;
 }
 
@@ -213,6 +266,7 @@ TTErr MCoreObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean ge
 	TTAudioSignalPtr	pulledSidechainInput = NULL;
 	TTErr				err;
 	
+	lock();
 	switch(processStatus){
 		
 		// we have not processed anything yet, so let's get started
@@ -284,8 +338,10 @@ TTErr MCoreObject::getAudioOutput(TTAudioSignalPtr& returnedSignal, TTBoolean ge
 		
 		// we should never get here
 		default:
+			unlock();
 			return kTTErrGeneric;
 	}
+	unlock();
 	return kTTErrNone;
 }
 

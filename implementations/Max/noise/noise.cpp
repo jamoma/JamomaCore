@@ -69,15 +69,21 @@ int main(void)
 NoiseBaerPtr noiseBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
     NoiseBaerPtr x = NoiseBaerPtr(object_alloc(sNoiseBaerClass));
+	TTValue		v;
+	TTErr		err;
 
     if(x){
-		x->lydbaer = new MCoreObject(TT("noise"), 1);
+		v.setSize(2);
+		v.set(0, TT("noise"));
+		v.set(1, 1);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+
 		x->lydbaer->addFlag(kMCoreGenerator);
 
 		attr_args_process(x, argc, argv);
 
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));
-		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.object");
+		x->lydbaerOutlet = outlet_new((t_pxobject *)x, "multicore.signal");
 	}
 	return x;
 }
@@ -85,7 +91,7 @@ NoiseBaerPtr noiseBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void noiseBaerFree(NoiseBaerPtr x)
 {
-	delete x->lydbaer;
+	TTObjectRelease(x->lydbaer);
 }
 
 
@@ -118,7 +124,7 @@ TTErr noiseBaerSetup(NoiseBaerPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.signal"), 2, a);
 	return kTTErrNone;
 }
 

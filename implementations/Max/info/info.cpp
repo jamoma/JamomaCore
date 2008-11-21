@@ -54,8 +54,8 @@ int main(void)
 	c = class_new("info≈", (method)lydInfoNew, (method)lydInfoFree, sizeof(LydInfo), (method)0L, A_GIMME, 0);
 	
 	class_addmethod(c, (method)lydInfoBang,				"bang",				0);
-	class_addmethod(c, (method)lydInfoReset,			"multicore.reset",		A_CANT, 0);
-	class_addmethod(c, (method)lydInfoObject,			"multicore.object",	A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)lydInfoReset,			"multicore.reset",	A_CANT, 0);
+	class_addmethod(c, (method)lydInfoObject,			"multicore.signal",	A_OBJ, A_LONG, 0);
 	class_addmethod(c, (method)lydInfoAssist,			"assist",			A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",			A_CANT, 0);  
 	

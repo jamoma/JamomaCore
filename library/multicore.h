@@ -29,12 +29,32 @@ class MCoreObject;
 typedef MCoreObject*	MCoreObjectPtr;
 
 
+#ifdef TT_PLATFORM_WIN
+	#include "windows.h"
+	#ifdef _DLL_EXPORT
+		#define MULTICORE_EXPORT __declspec(dllexport)
+	#else
+		#define MULTICORE_EXPORT __declspec(dllimport)
+	#endif
+#else // TT_PLATFORM_MAC
+	#ifdef _DLL_EXPORT
+		#define MULTICORE_EXPORT __attribute__((visibility("default")))
+	#else
+		#define MULTICORE_EXPORT  
+	#endif
+#endif
+
+
+
 /**
 	The MCoreObject wraps a TTBlue object in way that makes it possible to 
 	build a dynamic graph of audio processing units.
+ 
+	It is implemented as a TTObject so that it can receive dynamically bound messages, 
+	such as notifications from other objects.
 */
 
-class TTEXPORT MCoreObject {	
+class MULTICORE_EXPORT MCoreObject : public TTObject {	
 protected:
 	MCoreProcessStatus		processStatus;				///< Used to enable correct processing of feedback loops, multiple destinations, etc.
 	MCoreFlags				flags;
@@ -60,11 +80,16 @@ public:
 	// Methods
 
 	/**	Constructor.	
-		@param	objectName	The name of the TTBlue object you want to wrap.		*/
-	MCoreObject(TTSymbolPtr objectName, TTUInt16 initialNumChannels);
+		@param	arguments		There should be two arguments: 
+								1. The name of the TTBlue object you want to wrap, and
+								2. The initial number of channel. */
+	MCoreObject(const TTValue& arguments);
 	
 	/**	Destructor.		*/
 	virtual ~MCoreObject();
+
+	/**	A notification that the specified object is being deleted -- so we should drop it from our list of input sources.  */
+	TTErr objectFreeing(const TTValue& theObjectBeingDeleted);
 
 	/**	Rather than use the internal audio output signal, it is possible to set your own.
 		One example for why you might want this is for creating generator objects.	*/
@@ -140,7 +165,7 @@ public:
 
 
 /**	MCoreOutput is an audio object that serves as the destination and master for a MCore graph.		*/
-class TTEXPORT MCoreOutput : public TTAudioObject
+class MULTICORE_EXPORT MCoreOutput : public TTAudioObject
 {
 public:
 	TTObjectPtr			audioEngine;
@@ -184,7 +209,7 @@ typedef MCoreOutput* MCoreOutputPtr;
 
 /**	MCoreSource is a very simple audio object that holds a signal from TTBlue
  that can be used by a MCore graph.		*/
-class TTEXPORT MCoreSource : public TTAudioObject
+class MULTICORE_EXPORT MCoreSource : public TTAudioObject
 {
 public:
 	TTAudioSignalPtr	buffer;		///< storage for the audioSignal that we provide
@@ -204,7 +229,7 @@ public:
 typedef MCoreSource* MCoreSourcePtr;
 
 
-TTEXPORT void MCoreInit(void);
+MULTICORE_EXPORT void MCoreInit(void);
 
 
 #endif // __LYDBAER_H__

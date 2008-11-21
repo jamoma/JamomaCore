@@ -50,7 +50,7 @@ int main(void)
 	
 	class_addmethod(c, (method)lydOpReset,				"multicore.reset",		A_CANT, 0);
 	class_addmethod(c, (method)lydOpSetup,				"multicore.setup",		A_CANT, 0);
-	class_addmethod(c, (method)lydOpObject,				"multicore.object",		A_OBJ, A_LONG, 0);
+	class_addmethod(c, (method)lydOpObject,				"multicore.signal",		A_OBJ, A_LONG, 0);
  	class_addmethod(c, (method)lydOpAssist,				"assist",				A_CANT, 0); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",				A_CANT, 0);  
 	
@@ -72,15 +72,19 @@ int main(void)
 LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 {
     LydOpPtr	x;
+	TTValue		v;
+	TTErr		err;
 	
     x = LydOpPtr(object_alloc(sLydOpClass));
     if(x){
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
-		x->lydbaerOutlet = outlet_new(x, "multicore.object");
+		x->lydbaerOutlet = outlet_new(x, "multicore.signal");
 		
-		// TODO: we need to update objects to work with the correct number of channels when the network is configured
-		// Either that, or when we pull we just up the number of channels if when we need to ???
-		x->lydbaer = new MCoreObject(TT("operator"), 8);
+		v.setSize(2);
+		v.set(0, TT("operator"));
+		v.set(1, 1);
+		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+
 		if(!x->lydbaer->audioObject){
 			object_error(ObjectPtr(x), "cannot load TTBlue object");
 			return NULL;
@@ -94,7 +98,7 @@ LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void lydOpFree(LydOpPtr x)
 {
-	delete x->lydbaer;
+	TTObjectRelease(x->lydbaer);
 }
 
 
@@ -129,7 +133,7 @@ TTErr lydOpSetup(LydOpPtr x)
 	
 	atom_setobj(a+0, ObjectPtr(x->lydbaer));
 	atom_setlong(a+1, 0);
-	outlet_anything(x->lydbaerOutlet, gensym("multicore.object"), 2, a);
+	outlet_anything(x->lydbaerOutlet, gensym("multicore.signal"), 2, a);
 	return kTTErrNone;
 }
 
