@@ -44,7 +44,7 @@
     <item name='in/max' type='msg_float' priority='0'>1.000000</item>
     <item name='in/min' type='msg_float' priority='0'>0.000000</item>
     <item name='in/module/function' type='msg_symbol' priority='6'>audio/amplitude.1</item>
-    <item name='in/module/name_nr' type='msg_int' priority='2'>0</item>
+    <item name='in/module/nr' type='msg_int' priority='2'>0</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>/input~</item>
     <item name='out/module/function' type='msg_symbol' priority='5'>cf</item>
     <item name='out/module/nr' type='msg_int' priority='4'>1</item>
