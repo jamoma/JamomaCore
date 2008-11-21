@@ -58,7 +58,7 @@ void TTList::appendUnique(const TTValuePtr newValue)
 	TTErr	err;
 	TTValue	foundValue;
 	
-	err = findEquals(newValue, foundValue);
+	err = findEquals(*newValue, foundValue);
 	if(err == kTTErrValueNotFound)
 		append(*newValue);
 }
@@ -71,7 +71,7 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 	lock();
 	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
 		if((**iter) == valueToCompareAgainst){
-			foundValue = *iter;
+			foundValue = **iter;
 			err = kTTErrNone;
 			break;
 		}
@@ -85,7 +85,12 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 void TTList::remove(const TTValue& value)
 {
 	lock();
-	theList.remove((TTValue*)&value);
+	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
+		if((**iter) == value){
+			theList.remove(*iter);
+			break;
+		}
+	}
 	unlock();
 }
 
