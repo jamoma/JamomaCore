@@ -48,7 +48,7 @@ CUE initialisation
 	/output~/limiter/mode exponential
 	/output~/limiter/active 1
 	/output~/ui/freeze 0
-	/output~/record 0
+	/output~/record/active 0
 
 
 
