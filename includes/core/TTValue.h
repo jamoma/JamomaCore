@@ -286,50 +286,66 @@ public:
 					case kTypeInt8:
 						if( (a1.data+i)->int8 != (a1.data+i)->int8 )
 							return false;
+						break;
 					case kTypeUInt8:
 						if( (a1.data+i)->uint8 != (a1.data+i)->uint8 )
 							return false;
+						break;
 					case kTypeInt16:
 						if( (a1.data+i)->int16 != (a1.data+i)->int16 )
 							return false;
+						break;
 					case kTypeUInt16:
 						if( (a1.data+i)->uint16 != (a1.data+i)->uint16 )
 							return false;
+						break;
 					case kTypeInt32:
 						if( (a1.data+i)->int32 != (a1.data+i)->int32 )
 							return false;
+						break;
 					case kTypeUInt32:
 						if( (a1.data+i)->uint32 != (a1.data+i)->uint32 )
 							return false;
+						break;
 					case kTypeInt64:
 						if( (a1.data+i)->int64 != (a1.data+i)->int64 )
 							return false;
+						break;
 					case kTypeUInt64:
 						if( (a1.data+i)->uint64 != (a1.data+i)->uint64 )
 							return false;
+						break;
 					case kTypeFloat32:
 						if( (a1.data+i)->float32 != (a1.data+i)->float32 )
 							return false;
+						break;
 					case kTypeFloat64:
 						if( (a1.data+i)->float64 != (a1.data+i)->float64 )
 							return false;
+						break;
 					case kTypeBoolean:
 						if( (a1.data+i)->boolean != (a1.data+i)->boolean )
 							return false;
+						break;
 					case kTypeSymbol:
 						if( (a1.data+i)->sym != (a1.data+i)->sym )
 							return false;
+						break;
 					case kTypeString:
 						if( *(a1.data+i)->stringPtr != *(a1.data+i)->stringPtr )
 							return false;
+						break;
 					case kTypeObject:
 						if( (a1.data+i)->object != (a1.data+i)->object )
 							return false;
+						break;
 					case kTypePointer:
 						if( (a1.data+i)->ptr != (a1.data+i)->ptr )
 							return false;
+						break;
 					default:
 						return false;
+						break;
 				}
 			}
 		}
