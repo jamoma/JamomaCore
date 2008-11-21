@@ -345,7 +345,6 @@ public:
 						break;
 					default:
 						return false;
-						break;
 				}
 			}
 		}
