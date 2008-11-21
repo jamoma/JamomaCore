@@ -155,6 +155,8 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 		*anObject = newObject;
 		if(oldObject)
 			releaseInstance(oldObject);
+
+		(*anObject)->valid = true;
 	}
 		
 	//TODO: Add instance tracking.  For each instance of a class, we push the instance onto a linked list of instances for that class
@@ -165,7 +167,6 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 	//	- if an object is referenced by another object, and thus shared, then we need to reference counting here before freeing.
 	// THEREFORE: we should have an addReference() and release() method (instead of a deleteInstance() method).
 	//	- the reference counting itself should probably be done inside of TTObject though, yes?
-	
 	return err;
 }
 
@@ -179,6 +180,8 @@ TTObjectPtr TTEnvironment::referenceInstance(TTObjectPtr anObject)
 TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 {
 	TTValue v = *anObject;
+	
+	anObject->valid = false;
 	anObject->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
 	
 	// If the object is locked (e.g. in the middle of processing a vector in another thread) 

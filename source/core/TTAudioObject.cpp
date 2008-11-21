@@ -189,9 +189,11 @@ TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
 {
 	TTErr	err;
 	
-	lock();
-	err = (this->*currentCalculateMethod)(x, y);
-	unlock();
+	if(valid){
+		lock();
+		err = (this->*currentCalculateMethod)(x, y);
+		unlock();
+	}
 	return err;
 }
 
@@ -200,13 +202,15 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTErr	err;
 	
-	lock();
-	inputArray->numAudioSignals = 1;
-	inputArray->setSignal(0, &in);
-	outputArray->numAudioSignals = 1;
-	outputArray->setSignal(0, &out);
-	err = (this->*currentProcessMethod)(inputArray, outputArray);
-	unlock();
+	if(valid){
+		lock();
+		inputArray->numAudioSignals = 1;
+		inputArray->setSignal(0, &in);
+		outputArray->numAudioSignals = 1;
+		outputArray->setSignal(0, &out);
+		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		unlock();
+	}
 	return err;
 }
 
@@ -215,12 +219,14 @@ TTErr TTAudioObject::process(TTAudioSignal& out)
 {
 	TTErr	err;
 	
-	lock();
-	inputArray->numAudioSignals = 0;
-	outputArray->numAudioSignals = 1;
-	outputArray->setSignal(0, &out);
-	err = (this->*currentProcessMethod)(inputArray, outputArray);
-	unlock();
+	if(valid){
+		lock();
+		inputArray->numAudioSignals = 0;
+		outputArray->numAudioSignals = 1;
+		outputArray->setSignal(0, &out);
+		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		unlock();
+	}
 	return err;
 }
 
@@ -229,15 +235,17 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 {
 	TTErr	err;
 	
-	lock();
-	inputArray->numAudioSignals = 2;
-	inputArray->setSignal(0, &in1);
-	inputArray->setSignal(1, &in2);
-	outputArray->numAudioSignals = 2;
-	outputArray->setSignal(0, &out1);
-	outputArray->setSignal(1, &out2);
-	err = (this->*currentProcessMethod)(inputArray, outputArray);
-	unlock();
+	if(valid){
+		lock();
+		inputArray->numAudioSignals = 2;
+		inputArray->setSignal(0, &in1);
+		inputArray->setSignal(1, &in2);
+		outputArray->numAudioSignals = 2;
+		outputArray->setSignal(0, &out1);
+		outputArray->setSignal(1, &out2);
+		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		unlock();
+	}
 	return err;
 }
 
@@ -246,14 +254,16 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 {
 	TTErr	err;
 	
-	lock();
-	inputArray->numAudioSignals = 2;
-	inputArray->setSignal(0, &in1);
-	inputArray->setSignal(1, &in2);
-	outputArray->numAudioSignals = 1;
-	outputArray->setSignal(0, &out);
-	err = (this->*currentProcessMethod)(inputArray, outputArray);
-	unlock();
+	if(valid){
+		lock();
+		inputArray->numAudioSignals = 2;
+		inputArray->setSignal(0, &in1);
+		inputArray->setSignal(1, &in2);
+		outputArray->numAudioSignals = 1;
+		outputArray->setSignal(0, &out);
+		err = (this->*currentProcessMethod)(inputArray, outputArray);
+		unlock();
+	}
 	return err;
 }
 
@@ -262,9 +272,11 @@ TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr
 {
 	TTErr	err;
 	
-	lock();
-	err = (this->*currentProcessMethod)(inputs, outputs);
-	unlock();
+	if(valid){
+		lock();
+		err = (this->*currentProcessMethod)(inputs, outputs);
+		unlock();
+	}
 	return err;
 }
 

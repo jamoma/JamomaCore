@@ -11,12 +11,13 @@
 
 
 TTObject::TTObject(const char* name)
-	: objectName(TT(name)), messageObservers(NULL), attributeObservers(NULL), 
-	  locked(false), referenceCount(1), observers(NULL), reserved(0)
+	: objectName(TT(name)), observers(NULL), messageObservers(NULL), attributeObservers(NULL), 
+	  locked(false), referenceCount(1), valid(false), reserved1(0), reserved2(0)
 {
 	messages = new TTHash;
 	attributes = new TTHash;
 	observers = new TTList;
+	// 'valid' will be set true by the Environment class which is the factory for all objects
 }
 
 
