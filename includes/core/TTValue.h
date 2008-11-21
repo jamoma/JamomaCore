@@ -284,49 +284,49 @@ public:
 			else{
 				switch(a1.type[i]){
 					case kTypeInt8:
-						if( (a1.data+i)->int8 == (a1.data+i)->int8 )
+						if( (a1.data+i)->int8 != (a1.data+i)->int8 )
 							return false;
 					case kTypeUInt8:
-						if( (a1.data+i)->uint8 == (a1.data+i)->uint8 )
+						if( (a1.data+i)->uint8 != (a1.data+i)->uint8 )
 							return false;
 					case kTypeInt16:
-						if( (a1.data+i)->int16 == (a1.data+i)->int16 )
+						if( (a1.data+i)->int16 != (a1.data+i)->int16 )
 							return false;
 					case kTypeUInt16:
-						if( (a1.data+i)->uint16 == (a1.data+i)->uint16 )
+						if( (a1.data+i)->uint16 != (a1.data+i)->uint16 )
 							return false;
 					case kTypeInt32:
-						if( (a1.data+i)->int32 == (a1.data+i)->int32 )
+						if( (a1.data+i)->int32 != (a1.data+i)->int32 )
 							return false;
 					case kTypeUInt32:
-						if( (a1.data+i)->uint32 == (a1.data+i)->uint32 )
+						if( (a1.data+i)->uint32 != (a1.data+i)->uint32 )
 							return false;
 					case kTypeInt64:
-						if( (a1.data+i)->int64 == (a1.data+i)->int64 )
+						if( (a1.data+i)->int64 != (a1.data+i)->int64 )
 							return false;
 					case kTypeUInt64:
-						if( (a1.data+i)->uint64 == (a1.data+i)->uint64 )
+						if( (a1.data+i)->uint64 != (a1.data+i)->uint64 )
 							return false;
 					case kTypeFloat32:
-						if( (a1.data+i)->float32 == (a1.data+i)->float32 )
+						if( (a1.data+i)->float32 != (a1.data+i)->float32 )
 							return false;
 					case kTypeFloat64:
-						if( (a1.data+i)->float64 == (a1.data+i)->float64 )
+						if( (a1.data+i)->float64 != (a1.data+i)->float64 )
 							return false;
 					case kTypeBoolean:
-						if( (a1.data+i)->boolean == (a1.data+i)->boolean )
+						if( (a1.data+i)->boolean != (a1.data+i)->boolean )
 							return false;
 					case kTypeSymbol:
-						if( (a1.data+i)->sym == (a1.data+i)->sym )
+						if( (a1.data+i)->sym != (a1.data+i)->sym )
 							return false;
 					case kTypeString:
-						if( *(a1.data+i)->stringPtr == *(a1.data+i)->stringPtr )
+						if( *(a1.data+i)->stringPtr != *(a1.data+i)->stringPtr )
 							return false;
 					case kTypeObject:
-						if( (a1.data+i)->object == (a1.data+i)->object )
+						if( (a1.data+i)->object != (a1.data+i)->object )
 							return false;
 					case kTypePointer:
-						if( (a1.data+i)->ptr == (a1.data+i)->ptr )
+						if( (a1.data+i)->ptr != (a1.data+i)->ptr )
 							return false;
 					default:
 						return false;
