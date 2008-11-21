@@ -70,7 +70,7 @@ TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundVal
 	
 	lock();
 	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
-		if((const TTValue&)(*iter) == valueToCompareAgainst){
+		if((**iter) == valueToCompareAgainst){
 			foundValue = *iter;
 			err = kTTErrNone;
 			break;
