@@ -334,7 +334,7 @@ TTErr TTObject::registerObserverForAttribute(const TTObject& observingObject, co
 TTErr TTObject::registerObserverForNotifications(const TTObject& observingObject)
 {
 	TTValuePtr v = new TTValue(observingObject);
-	observers->append(v);
+	observers->appendUnique(v);
 	return kTTErrNone;
 }
 

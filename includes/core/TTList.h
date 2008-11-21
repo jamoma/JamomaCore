@@ -60,6 +60,8 @@ public:
 		append(*newValue);
 	}
 	
+	void appendUnique(const TTValuePtr newValue);
+	
 	/** Find a value in the list that is equal to a value passed-in. */
 	TTErr findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue);
 	

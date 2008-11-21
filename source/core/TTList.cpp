@@ -53,10 +53,20 @@ void TTList::append(const TTValue& newValue)
 	unlock();
 }
 
+void TTList::appendUnique(const TTValuePtr newValue)
+{
+	TTErr	err;
+	TTValue	foundValue;
+	
+	err = findEquals(newValue, foundValue);
+	if(err == kTTErrValueNotFound)
+		append(*newValue);
+}
+
 
 TTErr TTList::findEquals(const TTValue& valueToCompareAgainst, TTValue& foundValue)
 {
-	TTErr err = kTTErrGeneric;
+	TTErr err = kTTErrValueNotFound;
 	
 	lock();
 	for(TTListIter iter = theList.begin(); iter != theList.end(); iter++){
