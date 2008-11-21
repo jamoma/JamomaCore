@@ -11,10 +11,12 @@
 
 
 TTObject::TTObject(const char* name)
-: objectName(TT(name)), locked(false), referenceCount(1), reserved1(0), reserved2(0)
+	: objectName(TT(name)), messageObservers(NULL), attributeObservers(NULL), 
+	  locked(false), referenceCount(1), observers(NULL), reserved(0)
 {
 	messages = new TTHash;
 	attributes = new TTHash;
+	observers = new TTList;
 }
 
 
@@ -22,7 +24,7 @@ TTObject::~TTObject()
 {
 	TTValue	v, u;
 
-	// sendNotification(TT("objectDeleted"));
+	delete observers;
 	
 	// Delete message objects, then delete the hash that maintains them.
 	messages->getKeys(v);
@@ -329,9 +331,11 @@ TTErr TTObject::registerObserverForAttribute(const TTObject& observingObject, co
 	return kTTErrGeneric;
 }
 
-TTErr TTObject::registerObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName)
+TTErr TTObject::registerObserverForNotifications(const TTObject& observingObject)
 {
-	return kTTErrGeneric;
+	TTValuePtr v = new TTValue(observingObject);
+	observers->append(v);
+	return kTTErrNone;
 }
 
 
@@ -345,9 +349,16 @@ TTErr TTObject::unregisterObserverForAttribute(const TTObject& observingObject, 
 	return kTTErrGeneric;
 }
 
-TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObject, const TTSymbolPtr notificationName)
+TTErr TTObject::unregisterObserverForNotifications(const TTObject& observingObject)
 {
-	return kTTErrGeneric;
+	TTValue	c(observingObject);
+	TTValue	v;
+	TTErr	err;
+	
+	err = observers->findEquals(c, v);
+	if(!err)
+		observers->remove(v);
+	return err;
 }
 
 

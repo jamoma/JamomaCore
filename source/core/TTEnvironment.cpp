@@ -178,12 +178,15 @@ TTObjectPtr TTEnvironment::referenceInstance(TTObjectPtr anObject)
 
 TTErr TTEnvironment::releaseInstance(TTObject* anObject)
 {
+	TTValue v = *anObject;
+	anObject->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
+	
 	// If the object is locked (e.g. in the middle of processing a vector in another thread) 
 	//	then we spin until the lock is released
 	//	TODO: we should also be able to time-out in the event that we have a dead lock.
 	while(anObject->getlock())
 		;
-	
+
 	anObject->referenceCount--;
 	if(anObject->referenceCount < 1)
 		delete anObject;
