@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='voices' type='msg_int' priority='1'>8</item>
+  </preset>
+</jamoma>
