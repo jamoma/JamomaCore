@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='audio/mute' type='msg_toggle' priority='0'>0.0</item>
-    <item name='dcblocker/active' type='msg_toggle' priority='0'>1</item>
+    <item name='limiter/dcblocker/active' type='msg_toggle' priority='0'>1</item>
     <item name='limiter/active' type='msg_toggle' priority='0'>1</item>
     <item name='limiter/lookahead' type='msg_int' priority='0'>64</item>
     <item name='limiter/mode' type='msg_symbol' priority='0'>exponential</item>
@@ -14,7 +14,9 @@
     <item name='limiter/preamp' type='msg_float' priority='0'>6.0</item>
     <item name='limiter/release' type='msg_float' priority='0'>300.0</item>
     <item name='limiter/threshold' type='msg_float' priority='0'>6.0</item>
-    <item name='offset' type='msg_int' priority='0'>0</item>
+    <item name='offset' type='msg_int' priority='0'>0</item>  
+	<item name='record/filetype' type='msg_symbol' priority='0'>aiff</item>
+    <item name='record/samptype' type='msg_symbol' priority='0'>int24</item>
     <item name='setup' type='msg_list' priority='0'>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='voices' type='msg_int' priority='0'>8</item>
