@@ -14,17 +14,21 @@
     <item name='random/factor' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
     <item name='random' type='msg_symbol' priority='0'>0</item>
     <item name='random/mode' type='msg_int' priority='0'>0</item>
-    <item name='rotate/active' type='msg_toggle' priority='0'>0</item>
-    <item name='rotate/angle' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
+    <item name='rotate/active' type='msg_toggle' priority='0'>1</item>
+    <item name='rotate/pitch' type='msg_float' priority='0'>0</item>
     <item name='rotate/reference' type='msg_list' priority='0'>0.000000 0.000000 0.000000 </item>
-    <item name='skew/active' type='msg_toggle' priority='0'>0</item>
+    <item name='rotate/roll' type='msg_float' priority='0'>0</item>
+    <item name='rotate/yaw' type='msg_float' priority='0'>0</item>
+    <item name='skew/active' type='msg_toggle' priority='0'>1</item>
     <item name='skew/angle' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
     <item name='sources/amount' type='msg_int' priority='0'>4</item>
-    <item name='stretch/active' type='msg_toggle' priority='0'>0</item>
+    <item name='stretch/active' type='msg_toggle' priority='0'>1</item>
     <item name='stretch/factor' type='msg_generic' priority='0'>1.000000</item>
     <item name='stretch/reference' type='msg_list' priority='0'>0</item>
-    <item name='translate/active' type='msg_toggle' priority='0'>0</item>
-    <item name='translate/factor' type='msg_list' priority='0'>0</item>
+    <item name='translate/active' type='msg_toggle' priority='0'>1</item>
+    <item name='translate/x' type='msg_float' priority='0'>0</item>
+    <item name='translate/y' type='msg_float' priority='0'>0</item>
+    <item name='translate/z' type='msg_float' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
