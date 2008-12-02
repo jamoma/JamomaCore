@@ -22,7 +22,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	Algorithm Type: <code> default </code> </p>
 	<p>Interface Size: <code> 1U-half </code> </p>
 	<p>Number of signal inlets: <code> 0 </ code> <br/>
-	Number of signal outlets: <code> 24 </code> </p>
+	Number of signal outlets: <code> 4194328 </code> </p>
 	<h3> Parameters </h3>
 	<table>
 		<tr class="tableHeading2">
@@ -77,15 +77,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.1/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -99,8 +99,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.1/position/xyz </td>
@@ -110,8 +110,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/active </td>
@@ -132,15 +132,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -154,8 +154,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/position/xyz </td>
@@ -165,8 +165,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/active </td>
@@ -187,15 +187,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -209,8 +209,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/position/xyz </td>
@@ -220,8 +220,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/active </td>
@@ -242,15 +242,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -264,8 +264,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/position/xyz </td>
@@ -275,8 +275,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/active </td>
@@ -297,15 +297,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -319,8 +319,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/position/xyz </td>
@@ -330,8 +330,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/active </td>
@@ -352,15 +352,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -374,8 +374,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/position/xyz </td>
@@ -385,8 +385,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/active </td>
@@ -407,15 +407,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -429,8 +429,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/position/xyz </td>
@@ -440,8 +440,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/active </td>
@@ -462,15 +462,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -484,8 +484,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/position/xyz </td>
@@ -495,8 +495,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/active </td>
@@ -517,15 +517,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -539,8 +539,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/position/xyz </td>
@@ -550,8 +550,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/active </td>
@@ -572,15 +572,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -594,8 +594,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/position/xyz </td>
@@ -605,8 +605,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/active </td>
@@ -627,15 +627,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -649,8 +649,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/position/xyz </td>
@@ -660,8 +660,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/active </td>
@@ -682,15 +682,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -704,8 +704,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/position/xyz </td>
@@ -715,8 +715,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/active </td>
@@ -737,15 +737,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -759,8 +759,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/position/xyz </td>
@@ -770,8 +770,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/active </td>
@@ -792,15 +792,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -814,8 +814,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/position/xyz </td>
@@ -825,8 +825,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/active </td>
@@ -847,15 +847,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -869,8 +869,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/position/xyz </td>
@@ -880,8 +880,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/active </td>
@@ -902,15 +902,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -924,8 +924,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/position/xyz </td>
@@ -935,8 +935,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/active </td>
@@ -957,15 +957,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -979,8 +979,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/position/xyz </td>
@@ -990,8 +990,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/active </td>
@@ -1012,15 +1012,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -1034,8 +1034,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/position/xyz </td>
@@ -1045,8 +1045,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/active </td>
@@ -1067,15 +1067,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -1089,8 +1089,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/position/xyz </td>
@@ -1100,8 +1100,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/active </td>
@@ -1122,15 +1122,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -1144,8 +1144,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/position/xyz </td>
@@ -1155,8 +1155,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/active </td>
@@ -1177,15 +1177,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -1199,8 +1199,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/position/xyz </td>
@@ -1210,8 +1210,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/active </td>
@@ -1232,15 +1232,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -1254,8 +1254,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/position/xyz </td>
@@ -1265,8 +1265,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/active </td>
@@ -1287,15 +1287,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -1309,8 +1309,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/position/xyz </td>
@@ -1320,8 +1320,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/active </td>
@@ -1342,15 +1342,15 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Directivity_value_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Directivity value of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/gain </td>
-			<td class ="instructionType"> generic </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> gain </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
@@ -1364,8 +1364,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "orientation_[yaw_pitch]_of_the_microphone_in_degree" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "orientation [yaw_pitch] of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/position/xyz </td>
@@ -1375,8 +1375,8 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_xyz_coodinate_of_the_microphone" </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "Position in xyz coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones/amount </td>
@@ -2559,29 +2559,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.1/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.1/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.1/position/aed </td>
@@ -2592,7 +2592,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.1/position/z </td>
@@ -2603,7 +2603,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.1/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/directivity/preset </td>
@@ -2614,29 +2625,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/position/aed </td>
@@ -2647,7 +2658,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.10/position/z </td>
@@ -2658,7 +2669,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.10/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/directivity/preset </td>
@@ -2669,29 +2691,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/position/aed </td>
@@ -2702,7 +2724,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.11/position/z </td>
@@ -2713,7 +2735,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.11/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/directivity/preset </td>
@@ -2724,29 +2757,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/position/aed </td>
@@ -2757,7 +2790,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.12/position/z </td>
@@ -2768,7 +2801,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.12/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/directivity/preset </td>
@@ -2779,29 +2823,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/position/aed </td>
@@ -2812,7 +2856,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.13/position/z </td>
@@ -2823,7 +2867,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.13/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/directivity/preset </td>
@@ -2834,29 +2889,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/position/aed </td>
@@ -2867,7 +2922,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.14/position/z </td>
@@ -2878,7 +2933,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.14/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/directivity/preset </td>
@@ -2889,29 +2955,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/position/aed </td>
@@ -2922,7 +2988,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.15/position/z </td>
@@ -2933,7 +2999,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.15/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/directivity/preset </td>
@@ -2944,29 +3021,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/position/aed </td>
@@ -2977,7 +3054,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.16/position/z </td>
@@ -2988,7 +3065,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.16/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/directivity/preset </td>
@@ -2999,29 +3087,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/position/aed </td>
@@ -3032,7 +3120,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.17/position/z </td>
@@ -3043,7 +3131,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.17/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/directivity/preset </td>
@@ -3054,29 +3153,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/position/aed </td>
@@ -3087,7 +3186,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.18/position/z </td>
@@ -3098,7 +3197,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.18/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/directivity/preset </td>
@@ -3109,29 +3219,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/position/aed </td>
@@ -3142,7 +3252,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.19/position/z </td>
@@ -3153,7 +3263,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.19/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/directivity/preset </td>
@@ -3164,29 +3285,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/position/aed </td>
@@ -3197,7 +3318,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.2/position/z </td>
@@ -3208,7 +3329,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.2/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/directivity/preset </td>
@@ -3219,29 +3351,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/position/aed </td>
@@ -3252,7 +3384,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.20/position/z </td>
@@ -3263,7 +3395,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.20/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/directivity/preset </td>
@@ -3274,29 +3417,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/position/aed </td>
@@ -3307,7 +3450,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.21/position/z </td>
@@ -3318,7 +3461,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.21/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/directivity/preset </td>
@@ -3329,29 +3483,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/position/aed </td>
@@ -3362,7 +3516,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.22/position/z </td>
@@ -3373,7 +3527,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.22/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/directivity/preset </td>
@@ -3384,29 +3549,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/position/aed </td>
@@ -3417,7 +3582,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.23/position/z </td>
@@ -3428,7 +3593,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.23/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/directivity/preset </td>
@@ -3439,29 +3615,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/position/aed </td>
@@ -3472,7 +3648,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.24/position/z </td>
@@ -3483,7 +3659,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.24/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/directivity/preset </td>
@@ -3494,29 +3681,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/position/aed </td>
@@ -3527,7 +3714,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.3/position/z </td>
@@ -3538,7 +3725,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.3/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/directivity/preset </td>
@@ -3549,29 +3747,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/position/aed </td>
@@ -3582,7 +3780,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.4/position/z </td>
@@ -3593,7 +3791,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.4/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/directivity/preset </td>
@@ -3604,29 +3813,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/position/aed </td>
@@ -3637,7 +3846,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.5/position/z </td>
@@ -3648,7 +3857,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.5/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/directivity/preset </td>
@@ -3659,29 +3879,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/position/aed </td>
@@ -3692,7 +3912,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.6/position/z </td>
@@ -3703,7 +3923,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.6/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/directivity/preset </td>
@@ -3714,29 +3945,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/position/aed </td>
@@ -3747,7 +3978,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.7/position/z </td>
@@ -3758,7 +3989,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.7/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/directivity/preset </td>
@@ -3769,29 +4011,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/position/aed </td>
@@ -3802,7 +4044,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.8/position/z </td>
@@ -3813,7 +4055,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.8/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/directivity/preset </td>
@@ -3824,29 +4077,29 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Directivity_preset_for_the_microphone" </td>
+			<td class ="instructionDescription"> "load a directivity preset for the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/orientation/pitch </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -90.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> fold </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Pitch_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Pitch angle of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/orientation/yaw </td>
 			<td class ="instructionType"> float </td>
 			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Yaw_angle_for_the_orientation_of_microphone" </td>
+			<td class ="instructionDescription"> "Yaw angle for the orientation of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/position/aed </td>
@@ -3857,7 +4110,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> "Position_in_aed_coodinate_of_the_microphone" </td>
+			<td class ="instructionDescription"> "Position in spherical coodinate of the Nth microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> microphones.9/position/z </td>
@@ -3868,7 +4121,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> "Z_component_for_position_of_microphone" </td>
+			<td class ="instructionDescription"> "Z coordinate of the Nth microphone position" </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> microphones.9/solo </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> "activates solo mode for this microphone" </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> module/view_internals </td>
