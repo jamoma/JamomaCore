@@ -7,9 +7,9 @@
   <preset number='1' name='default'>
     <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='loop' type='msg_toggle' priority='0'>0</item>
     <item name='loopsync/active' type='msg_toggle' priority='0'>0</item>
     <item name='loopsync/mode' type='msg_symbol' priority='0'>loop_time</item>
+    <item name='loop' type='msg_toggle' priority='0'>0</item>
     <item name='reverse' type='msg_toggle' priority='0'>0</item>
     <item name='sample/displaylength' type='msg_float' priority='0'>0</item>
     <item name='sample/displaystart' type='msg_list' priority='0'>0</item>
