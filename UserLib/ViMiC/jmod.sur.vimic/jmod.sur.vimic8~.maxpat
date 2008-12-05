@@ -148,21 +148,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo[7]",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 373.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 188.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-132",
 					"numinlets" : 1
 				}
@@ -173,21 +173,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo[6]",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 353.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 170.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-131",
 					"numinlets" : 1
 				}
@@ -198,21 +198,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo[5]",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 332.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 152.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-129",
 					"numinlets" : 1
 				}
@@ -223,21 +223,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo[4]",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 313.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 134.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-128",
 					"numinlets" : 1
 				}
@@ -248,21 +248,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo[3]",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 290.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 116.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-127",
 					"numinlets" : 1
 				}
@@ -273,21 +273,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo[2]",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 273.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 98.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-125",
 					"numinlets" : 1
 				}
@@ -298,21 +298,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo[1]",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 256.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 80.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-124",
 					"numinlets" : 1
 				}
@@ -323,21 +323,21 @@
 					"maxclass" : "textbutton",
 					"hint" : "Solo",
 					"varname" : "pvar_solo",
+					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"patching_rect" : [ 1613.0, 234.0, 34.0, 15.0 ],
-					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"rounded" : 8.0,
+					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
 					"fontsize" : 9.0,
+					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"outlettype" : [ "", "", "int" ],
 					"mode" : 1,
+					"textoncolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
 					"text" : "S",
-					"textoveroncolor" : [ 0.101961, 0.098039, 0.098039, 1.0 ],
-					"bgoveroncolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 					"presentation_rect" : [ 41.0, 62.0, 21.0, 16.0 ],
 					"fontname" : "Verdana",
 					"texton" : "S",
-					"bgoncolor" : [ 0.917647, 0.937255, 0.670588, 1.0 ],
 					"id" : "obj-123",
 					"numinlets" : 1
 				}
@@ -5340,8 +5340,8 @@
 									"patching_rect" : [ 156.0, 467.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -8294,13 +8294,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -8366,8 +8366,8 @@
 										"name" : "#0-directivity-2",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -9092,8 +9092,8 @@
 									"patching_rect" : [ 156.0, 467.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -12046,13 +12046,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -12118,8 +12118,8 @@
 										"name" : "#0-directivity-3",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -12844,8 +12844,8 @@
 									"patching_rect" : [ 156.0, 467.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -15798,13 +15798,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -15870,8 +15870,8 @@
 										"name" : "#0-directivity-4",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -16626,8 +16626,8 @@
 									"patching_rect" : [ 156.0, 467.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -19550,13 +19550,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 107, 107, 107 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -19622,8 +19622,8 @@
 										"name" : "#0-directivity-5",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -20378,8 +20378,8 @@
 									"patching_rect" : [ 156.0, 467.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -23302,13 +23302,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -23374,8 +23374,8 @@
 										"name" : "#0-directivity-6",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -24130,8 +24130,8 @@
 									"patching_rect" : [ 156.0, 467.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -27054,13 +27054,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -27126,8 +27126,8 @@
 										"name" : "#0-directivity-7",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -27882,8 +27882,8 @@
 									"patching_rect" : [ 153.0, 507.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -30808,13 +30808,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -30880,8 +30880,8 @@
 										"name" : "#0-directivity-8",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -31636,8 +31636,8 @@
 									"patching_rect" : [ 153.0, 507.0, 58.0, 58.0 ],
 									"presentation" : 1,
 									"numoutlets" : 1,
-									"jsarguments" : [  ],
 									"outlettype" : [ "" ],
+									"jsarguments" : [  ],
 									"filename" : "jsui_360dial.js",
 									"presentation_rect" : [ 299.0, 84.0, 58.0, 58.0 ],
 									"id" : "obj-51",
@@ -34548,13 +34548,13 @@
 									"patching_rect" : [ 173.0, 124.0, 245.0, 131.0 ],
 									"presentation" : 1,
 									"numoutlets" : 5,
-									"jsarguments" : [  ],
 									"outlettype" : [ "", "", "", "", "" ],
+									"jsarguments" : [  ],
 									"filename" : "ej.function.js",
 									"presentation_rect" : [ 23.0, 54.0, 245.0, 131.0 ],
 									"id" : "obj-40",
 									"numinlets" : 1,
-									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "nbfunction", 2 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "hiddenpoint", 0 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "mode", 1 ], [ "clickmove", 1 ], [ "timedisplay", 0 ], [ "mousereport", 1 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "clickadd", 1 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ] ]
+									"embedstate" : [ [ "CreateNFunctions", 2, "Trumpet", 50, 0.0, 1.0, 0.0, 360.0, "nan", "nan", 0.7943, "nan" ], [ "SetColor", 0, "brgb", 204, 204, 204 ], [ "SetColor", 0, "frgb", 82, 82, 82 ], [ "SetColor", 0, "rgb2", 84, 84, 84 ], [ "SetColor", 0, "rgb3", 255, 0, 0 ], [ "SetColor", 0, "rgb4", 51, 51, 51 ], [ "SetColor", 0, "rgb5", 128, 128, 128 ], [ "SetColor", 0, "rgb6", 107, 107, 107 ], [ "SetColor", 1, "brgb", 204, 204, 204 ], [ "SetColor", 1, "frgb", 82, 82, 82 ], [ "SetColor", 1, "rgb2", 107, 107, 107 ], [ "SetColor", 1, "rgb3", 255, 0, 0 ], [ "SetColor", 1, "rgb4", 51, 51, 51 ], [ "SetColor", 1, "rgb5", 128, 128, 128 ], [ "SetColor", 1, "rgb6", 107, 107, 107 ], [ "fsaa", 1 ], [ "redrawon" ], [ "grid", 3 ], [ "clickmove", 1 ], [ "bordersync", 1 ], [ "movemode", 0 ], [ "legend", 1 ], [ "snap2grid", 0 ], [ "autosustain", 0 ], [ "notifyrecalled", 0 ], [ "clickadd", 1 ], [ "mode", 1 ], [ "autocursor", 1 ], [ "numcurvepoints", 12 ], [ "nbfunction", 2 ], [ "clicksustain", 1 ], [ "ghost", 20 ], [ "hiddenpoint", 0 ], [ "timedisplay", 0 ], [ "mousereport", 1 ] ]
 								}
 
 							}
@@ -34620,8 +34620,8 @@
 										"name" : "#0-directivity-1",
 										"showeditor" : 0,
 										"embed" : 0,
-										"notename" : 0,
 										"signed" : 0,
+										"notename" : 0,
 										"size" : 361
 									}
 
@@ -35187,12 +35187,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 62.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-41",
 					"numinlets" : 1
@@ -35203,9 +35203,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain",
-					"text" : "jcom.parameter room/reflection/gain.2 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @description \"gain of the early reflections 2nd order\"",
-					"linecount" : 4,
-					"patching_rect" : [ 687.0, 587.0, 245.0, 48.0 ],
+					"text" : "jcom.parameter room/reflection/gain.2 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @type msg_float @ramp/drive scheduler @description \"gain of the early reflections 2nd order\"",
+					"linecount" : 3,
+					"patching_rect" : [ 687.0, 587.0, 380.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35220,9 +35220,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/1/gain",
-					"text" : "jcom.parameter room/reflection/gain.1 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @description \"gain of the early reflections 1st order\"",
-					"linecount" : 4,
-					"patching_rect" : [ 690.0, 532.0, 245.0, 48.0 ],
+					"text" : "jcom.parameter room/reflection/gain.1 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @type msg_float @ramp/drive scheduler @description \"gain of the early reflections 1st order\"",
+					"linecount" : 3,
+					"patching_rect" : [ 690.0, 532.0, 380.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35237,9 +35237,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/0/gain",
-					"text" : "jcom.parameter room/reflection/gain.0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @description \"gain of the direct sound component\"",
-					"linecount" : 4,
-					"patching_rect" : [ 684.0, 479.0, 245.0, 48.0 ],
+					"text" : "jcom.parameter room/reflection/gain.0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @type msg_float @ramp/drive scheduler @description \"gain of the direct sound component\"",
+					"linecount" : 3,
+					"patching_rect" : [ 684.0, 479.0, 380.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35254,9 +35254,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[3]",
-					"text" : "jcom.parameter source.2/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 2\"",
+					"text" : "jcom.parameter source.2/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 2\"",
 					"linecount" : 3,
-					"patching_rect" : [ 585.0, 75.0, 270.0, 38.0 ],
+					"patching_rect" : [ 585.0, 75.0, 339.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35271,9 +35271,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[4]",
-					"text" : "jcom.parameter source.1/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 1\"",
+					"text" : "jcom.parameter source.1/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 1\"",
 					"linecount" : 3,
-					"patching_rect" : [ 585.0, 30.0, 270.0, 38.0 ],
+					"patching_rect" : [ 585.0, 30.0, 342.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35288,9 +35288,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[5]",
-					"text" : "jcom.parameter source.4/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 4\"",
+					"text" : "jcom.parameter source.4/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 4\"",
 					"linecount" : 3,
-					"patching_rect" : [ 585.0, 178.0, 270.0, 38.0 ],
+					"patching_rect" : [ 585.0, 178.0, 339.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35305,9 +35305,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[6]",
-					"text" : "jcom.parameter source.3/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 3\"",
+					"text" : "jcom.parameter source.3/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 3\"",
 					"linecount" : 3,
-					"patching_rect" : [ 585.0, 120.0, 270.0, 38.0 ],
+					"patching_rect" : [ 585.0, 120.0, 339.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35322,9 +35322,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[1]",
-					"text" : "jcom.parameter source.6/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 6\"",
+					"text" : "jcom.parameter source.6/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 6\"",
 					"linecount" : 3,
-					"patching_rect" : [ 585.0, 299.0, 270.0, 38.0 ],
+					"patching_rect" : [ 585.0, 299.0, 339.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35339,9 +35339,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[2]",
-					"text" : "jcom.parameter source.5/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 5\"",
+					"text" : "jcom.parameter source.5/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 5\"",
 					"linecount" : 3,
-					"patching_rect" : [ 585.0, 243.0, 270.0, 38.0 ],
+					"patching_rect" : [ 585.0, 243.0, 339.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -35361,12 +35361,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 10.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ 0, ",", 1, ",", 2 ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 129.0, 40.0, 24.0, 19.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-237",
 					"numinlets" : 1
@@ -35382,12 +35382,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 10.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ 1, ",", 2, ",", 3, ",", 4, ",", 5, ",", 6, ",", 7, ",", 8, ",", 9, ",", 10, ",", 11, ",", 12, ",", 13, ",", 14, ",", 15, ",", 16, ",", 17, ",", 18, ",", 19, ",", 20, ",", 21, ",", 22, ",", 23, ",", 24 ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 129.0, 20.0, 24.0, 19.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-353",
 					"numinlets" : 1
@@ -36077,9 +36077,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[8]",
-					"text" : "jcom.parameter source.8/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 8\"",
+					"text" : "jcom.parameter source.8/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 8\"",
 					"linecount" : 3,
-					"patching_rect" : [ 670.0, 414.0, 270.0, 38.0 ],
+					"patching_rect" : [ 670.0, 414.0, 339.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -36094,9 +36094,9 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain[7]",
-					"text" : "jcom.parameter source.7/gain @repetitions/allow 0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 7\"",
+					"text" : "jcom.parameter source.7/gain @repetitions/allow 0 @type msg_float @ramp/drive scheduler @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @description \"gain of source 7\"",
 					"linecount" : 3,
-					"patching_rect" : [ 585.0, 362.5, 270.0, 38.0 ],
+					"patching_rect" : [ 585.0, 362.5, 339.0, 38.0 ],
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
 					"hidden" : 1,
@@ -36539,12 +36539,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 188.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-99",
 					"numinlets" : 1
@@ -36575,12 +36575,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 170.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-101",
 					"numinlets" : 1
@@ -36611,12 +36611,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 152.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-103",
 					"numinlets" : 1
@@ -36647,12 +36647,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 134.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-105",
 					"numinlets" : 1
@@ -36683,12 +36683,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 116.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-107",
 					"numinlets" : 1
@@ -36719,12 +36719,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 98.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-109",
 					"numinlets" : 1
@@ -36755,12 +36755,12 @@
 					"presentation" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 9.0,
+					"labelclick" : 1,
+					"arrow" : 0,
 					"outlettype" : [ "int", "", "" ],
 					"items" : [ "ViMiC_lite", ",", "X-fade_lite", ",", "ViMiC_XL", ",", "X-fade_XL", ",", "Panning", ",", "Static" ],
-					"arrow" : 0,
 					"types" : [  ],
 					"presentation_rect" : [ 64.0, 80.0, 56.0, 17.0 ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-111",
 					"numinlets" : 1
@@ -37650,9 +37650,9 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 12.0,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "inverse", ",", "exponential" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 419.0, 581.0, 51.0, 20.0 ],
 									"fontname" : "Arial",
@@ -38718,7 +38718,7 @@
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"presentation_rect" : [ 455.0, 0.0, 59.0, 19.0 ],
+									"presentation_rect" : [ 451.0, 0.0, 59.0, 19.0 ],
 									"fontname" : "Verdana",
 									"underline" : 1,
 									"id" : "obj-304",
@@ -38735,7 +38735,7 @@
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"presentation_rect" : [ 362.0, 0.0, 71.0, 19.0 ],
+									"presentation_rect" : [ 355.0, 0.0, 71.0, 19.0 ],
 									"fontname" : "Verdana",
 									"underline" : 1,
 									"id" : "obj-306",
@@ -38752,7 +38752,7 @@
 									"numoutlets" : 0,
 									"fontsize" : 10.0,
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
-									"presentation_rect" : [ 293.0, 0.0, 69.0, 19.0 ],
+									"presentation_rect" : [ 265.0, 0.0, 69.0, 19.0 ],
 									"fontname" : "Verdana",
 									"underline" : 1,
 									"id" : "obj-308",
@@ -38819,12 +38819,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "cosine", ",", "cosine_squared", ",", "linear", ",", "tanh", ",", "sqrt" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 549.0, 622.0, 52.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-352",
 									"numinlets" : 1
@@ -39121,12 +39121,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "---", ",", "omni", ",", "subcardioid", ",", "cardioid", ",", "supercardioid", ",", "hypercardioid", ",", "figure-eight" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 379.0, 542.718994, 65.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-302",
 									"numinlets" : 1
@@ -39140,9 +39140,9 @@
 									"patching_rect" : [ 158.099152, 974.338867, 49.0, 19.0 ],
 									"presentation" : 1,
 									"numoutlets" : 2,
-									"minimum" : -180.0,
 									"fontsize" : 10.0,
 									"outlettype" : [ "float", "bang" ],
+									"minimum" : -180.0,
 									"maximum" : 180.0,
 									"presentation_rect" : [ 257.099152, 542.718994, 39.0, 19.0 ],
 									"fontname" : "Verdana",
@@ -43140,12 +43140,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "---", ",", "zero", ",", "full", ",", "audience", ",", "carpet", ",", "brick", ",", "sand", ",", "metal", ",", "trees", ",", "grass" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 207.0, 693.0, 94.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-123",
 									"numinlets" : 1
@@ -43190,12 +43190,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "---", ",", "zero", ",", "full", ",", "audience", ",", "carpet", ",", "brick", ",", "sand", ",", "metal", ",", "trees", ",", "grass" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 207.0, 674.0, 94.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-126",
 									"numinlets" : 1
@@ -43240,12 +43240,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "---", ",", "zero", ",", "full", ",", "audience", ",", "carpet", ",", "brick", ",", "sand", ",", "metal", ",", "trees", ",", "grass" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 207.0, 618.0, 94.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-129",
 									"numinlets" : 1
@@ -43290,12 +43290,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "---", ",", "zero", ",", "full", ",", "audience", ",", "carpet", ",", "brick", ",", "sand", ",", "metal", ",", "trees", ",", "grass" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 207.0, 599.0, 94.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-132",
 									"numinlets" : 1
@@ -43340,12 +43340,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "---", ",", "zero", ",", "full", ",", "audience", ",", "carpet", ",", "brick", ",", "sand", ",", "metal", ",", "trees", ",", "grass" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 207.0, 656.0, 94.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-135",
 									"numinlets" : 1
@@ -43390,12 +43390,12 @@
 									"presentation" : 1,
 									"numoutlets" : 3,
 									"fontsize" : 10.0,
+									"labelclick" : 1,
+									"arrow" : 0,
 									"outlettype" : [ "int", "", "" ],
 									"items" : [ "---", ",", "zero", ",", "full", ",", "audience", ",", "carpet", ",", "brick", ",", "sand", ",", "metal", ",", "trees", ",", "grass" ],
-									"arrow" : 0,
 									"types" : [  ],
 									"presentation_rect" : [ 207.0, 637.0, 94.0, 19.0 ],
-									"labelclick" : 1,
 									"fontname" : "Verdana",
 									"id" : "obj-138",
 									"numinlets" : 1
@@ -44465,17 +44465,17 @@
 									"maxclass" : "flonum",
 									"varname" : "bb6",
 									"triangle" : 0,
-									"triscale" : 0.9,
 									"patching_rect" : [ 406.0, 866.0, 29.0, 17.0 ],
+									"triscale" : 0.9,
 									"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"numoutlets" : 2,
+									"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"fontsize" : 9.0,
 									"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
 									"outlettype" : [ "float", "bang" ],
 									"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"fontname" : "Arial",
 									"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
-									"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"id" : "obj-280",
 									"numinlets" : 1
 								}
@@ -44486,17 +44486,17 @@
 									"maxclass" : "flonum",
 									"varname" : "bb5",
 									"triangle" : 0,
-									"triscale" : 0.9,
 									"patching_rect" : [ 406.0, 848.0, 29.0, 17.0 ],
+									"triscale" : 0.9,
 									"hbgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"numoutlets" : 2,
+									"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"fontsize" : 9.0,
 									"htextcolor" : [ 0.870588, 0.870588, 0.870588, 1.0 ],
 									"outlettype" : [ "float", "bang" ],
 									"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"fontname" : "Arial",
 									"textcolor" : [ 0.709804, 0.709804, 0.709804, 1.0 ],
-									"bordercolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 									"id" : "obj-281",
 									"numinlets" : 1
 								}
@@ -44527,7 +44527,7 @@
 									"fontname" : "Arial",
 									"id" : "obj-283",
 									"numinlets" : 1,
-									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "zoom", "nofloat", "menu", "minimize", ";", "#Q", "window", "constrain", 2, 2, 32768, 32768, ";", "#Q", "window", "size", 154, 44, 757, 784, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ]
+									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ]
 								}
 
 							}
@@ -46921,16 +46921,16 @@
 				"box" : 				{
 					"maxclass" : "jcom.ui",
 					"text" : "/editing_this_module",
-					"has_panel" : 1,
-					"patching_rect" : [ -2.0, 1.0, 300.0, 210.0 ],
 					"has_meters" : 1,
-					"presentation" : 1,
 					"has_gain" : 1,
+					"patching_rect" : [ -2.0, 1.0, 300.0, 210.0 ],
+					"presentation" : 1,
 					"numoutlets" : 1,
+					"prefix" : "audio",
 					"outlettype" : [ "" ],
 					"has_mute" : 1,
-					"prefix" : "audio",
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 210.0 ],
+					"has_panel" : 1,
 					"id" : "obj-225",
 					"numinlets" : 1
 				}
@@ -46938,6 +46938,204 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"source" : [ "obj-160", 0 ],
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-11", 0 ],
+					"destination" : [ "obj-160", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-200", 0 ],
+					"destination" : [ "obj-31", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-26", 0 ],
+					"destination" : [ "obj-200", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-201", 0 ],
+					"destination" : [ "obj-50", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-36", 0 ],
+					"destination" : [ "obj-201", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-67", 0 ],
+					"destination" : [ "obj-52", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-51", 0 ],
+					"destination" : [ "obj-67", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-68", 0 ],
+					"destination" : [ "obj-61", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-53", 0 ],
+					"destination" : [ "obj-68", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-168", 0 ],
+					"destination" : [ "obj-64", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-63", 0 ],
+					"destination" : [ "obj-168", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-169", 0 ],
+					"destination" : [ "obj-66", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-65", 0 ],
+					"destination" : [ "obj-169", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-176", 0 ],
+					"destination" : [ "obj-70", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-69", 0 ],
+					"destination" : [ "obj-176", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-71", 0 ],
+					"destination" : [ "obj-189", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-189", 0 ],
+					"destination" : [ "obj-72", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-73", 0 ],
+					"destination" : [ "obj-170", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-170", 0 ],
+					"destination" : [ "obj-74", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-113", 0 ],
+					"destination" : [ "obj-171", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-171", 0 ],
+					"destination" : [ "obj-114", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"source" : [ "obj-132", 0 ],
 					"destination" : [ "obj-143", 0 ],
@@ -48670,204 +48868,6 @@
 				"patchline" : 				{
 					"source" : [ "obj-72", 0 ],
 					"destination" : [ "obj-142", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-171", 0 ],
-					"destination" : [ "obj-114", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-113", 0 ],
-					"destination" : [ "obj-171", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-170", 0 ],
-					"destination" : [ "obj-74", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-73", 0 ],
-					"destination" : [ "obj-170", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-189", 0 ],
-					"destination" : [ "obj-72", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-71", 0 ],
-					"destination" : [ "obj-189", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-69", 0 ],
-					"destination" : [ "obj-176", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-176", 0 ],
-					"destination" : [ "obj-70", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-65", 0 ],
-					"destination" : [ "obj-169", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-169", 0 ],
-					"destination" : [ "obj-66", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-63", 0 ],
-					"destination" : [ "obj-168", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-168", 0 ],
-					"destination" : [ "obj-64", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-53", 0 ],
-					"destination" : [ "obj-68", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-68", 0 ],
-					"destination" : [ "obj-61", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-51", 0 ],
-					"destination" : [ "obj-67", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-67", 0 ],
-					"destination" : [ "obj-52", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-36", 0 ],
-					"destination" : [ "obj-201", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-201", 0 ],
-					"destination" : [ "obj-50", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-26", 0 ],
-					"destination" : [ "obj-200", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-200", 0 ],
-					"destination" : [ "obj-31", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-11", 0 ],
-					"destination" : [ "obj-160", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-160", 0 ],
-					"destination" : [ "obj-16", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
