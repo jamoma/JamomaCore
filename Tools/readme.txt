@@ -11,13 +11,17 @@ build.rb <required:configuration> <optional:clean>
 
 If you want a nice, clean release version, try this: 
 	./build.rb Deployment clean
+	(under cygwin you have to try : ruby ./build.rb Deployment clean)
 
 or a developer release (without cleaning), try this: 
 	./build.rb Development
-
+	(under cygwin you have to try : ruby ./build.rb Development clean)
 
 If you get an error such as:
-	./jamomalib.rb:12:in `require': no such file to load -- osc (LoadError)	from ./jamomalib.rb:12	from ./build.rb:10:in `require'	from ./build.rb:10
+	./jamomalib.rb:12:in `require': no such file to load -- osc (LoadError)
+	from ./jamomalib.rb:12
+	from ./build.rb:10:in `require'
+	from ./build.rb:10
 
 you have to update rosc:
 
