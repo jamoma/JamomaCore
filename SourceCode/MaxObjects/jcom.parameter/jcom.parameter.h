@@ -59,6 +59,7 @@ typedef struct _param{						// Data Structure for this object
 	t_symbol				*attr_unitInternal;		///< The internal unit within the dataspace -- the type of values sent to the algorithm
 	method					callback;				///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	t_object				*callbackArg;			///< The object for which the callback method should be applied
+	t_object				*receive;				///< Direct receive
 } t_param;
 
 
@@ -80,6 +81,9 @@ void		param_free(t_param *x);
  * @param arg Determines what input/output assistance was requested for
  * @param dst destination that assistance string is copied to */
 void		param_assist(t_param *x, void *b, long msg, long arg, char *dst);
+
+/**	Create the direct receive object. */
+void		param_makereceive(void *z);
 
 /** Use for debugging - dump state to the Max window.
  * @param x the parameter instance to be investigated. */

@@ -190,6 +190,9 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 #else
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_parameter);
 #endif
+		// Any time this object subscribes, we need to (re)setup the internal direct receive object:
+		jcom_core_subscriber_setcustomsubscribe_method((t_jcom_core_subscriber_common*)x, param_makereceive);
+		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		object_attach_byptr_register(x, x , CLASS_BOX);
 #ifndef JMOD_MESSAGE
@@ -225,6 +228,8 @@ void param_free(t_param *x)
 	qelem_free(x->ramp_qelem);
 	if(x->ramper)
 		delete x->ramper;
+	if(x->receive)
+		object_free(x->receive);
 }
 
 
@@ -753,6 +758,47 @@ void param_assist(t_param *x, void *b, long msg, long arg, char *dst)
 		}
  	}		
 }
+
+
+// receive messages from our internal jcom.receive external
+void param_receive_callback(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	if(msg == _sym_int)
+		param_int(x, atom_getlong(argv));
+	else if(msg == _sym_float)
+		param_float(x, atom_getfloat(argv));
+	else if(msg == _sym_list)
+		param_list(x, msg, argc, argv);
+	else
+		param_symbol(x, msg, argc, argv);
+}
+
+
+void param_makereceive(void* z)
+{
+	t_param*	x = (t_param*)z;
+	t_atom		a;
+	char		osc[512];
+	t_symbol*	module_name = object_attr_getsym(x->common.hub, _sym_name);
+	
+	if(x->receive){
+		object_free(x->receive);
+		x->receive = NULL;
+	}
+	
+	if(module_name && module_name != _sym_nothing){
+		strcpy(osc, module_name->s_name);
+		strcat(osc, "/");
+		strcat(osc, x->common.attr_name->s_name);
+		
+		atom_setsym(&a, gensym(osc));
+		x->receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, &a);
+		object_method(x->receive, jps_setcallback, &param_receive_callback, x);
+	}
+	else
+		defer_low(x, (method)param_makereceive, 0, 0, 0);
+}
+
 
 
 // DUMP: use for debugging - dump state to the Max window
