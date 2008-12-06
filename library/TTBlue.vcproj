@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TTBlue"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
@@ -186,8 +186,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy TTBlue.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				Description="Copy TTBlue.dll and PortAudio.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\Release\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;"
 			/>
 		</Configuration>
 	</Configurations>
