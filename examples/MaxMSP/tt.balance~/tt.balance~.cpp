@@ -9,6 +9,8 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+
+#include "TTClassWrapperMax.h"
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header
 #include "ext_strings.h"			// String Functions
@@ -50,7 +52,7 @@ t_class *balance_class;				// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	long attrflags = 0;
 	t_class *c;

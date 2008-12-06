@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "tt.gain~.mxe"
-
-EXPORTS
-	main

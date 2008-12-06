@@ -7,6 +7,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "TTClassWrapperMax.h"
 #include "ext.h"						// Max Header
 #include "z_dsp.h"						// MSP Header
 #include "ext_strings.h"				// String Functions
@@ -49,7 +50,7 @@ static t_class*	s_gain_class;
 /************************************************************************************/
 // Define our class
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	t_class *c;
 	

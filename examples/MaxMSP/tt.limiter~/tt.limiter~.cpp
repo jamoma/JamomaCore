@@ -9,6 +9,7 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
+#include "TTClassWrapperMax.h"
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header
 #include "ext_strings.h"			// String Functions
@@ -64,7 +65,7 @@ static t_symbol*	ps_exponential;
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	long attrflags = 0;
 	t_class *c;

@@ -63,7 +63,7 @@ TTObject* instantiateOverdriveExtended(TTSymbolPtr className, TTValue& arguments
 }
 
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	// First, we have to register our custom subclass with the TTBlue framework.
 	TTBlueInit();

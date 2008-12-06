@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "tt.balance~.mxe"
-
-EXPORTS
-	main

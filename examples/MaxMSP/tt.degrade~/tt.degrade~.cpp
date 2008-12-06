@@ -11,7 +11,7 @@
 
 #include "TTClassWrapperMax.h"
 
-int main(void)
+int TTCLASSWRAPPERMAX_EXPORT main(void)
 {
 	WrappedClassOptionsPtr	options = new WrappedClassOptions;
 	TTValue					value;

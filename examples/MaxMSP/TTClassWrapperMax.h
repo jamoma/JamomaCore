@@ -17,7 +17,11 @@
 #include "ext_obex.h"				// Max Object Extensions (attributes) Header
 #include "TTBlueAPI.h"				// TTBlue Interfaces...
 
-
+#ifdef WIN_VERSION
+#define TTCLASSWRAPPERMAX_EXPORT __declspec(dllexport) 
+#else
+#define TTCLASSWRAPPERMAX_EXPORT
+#endif
 
 // TYPE DEFINITIONS
 

@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "tt.limiter~.mxe"
-
-EXPORTS
-	main
