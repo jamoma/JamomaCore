@@ -21,12 +21,12 @@
 					"maxclass" : "newobj",
 					"text" : "poly~ jalg.Zin~ 1",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 226.0, 338.0, 145.0, 17.0 ],
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 1,
+					"patching_rect" : [ 226.0, 338.0, 145.0, 17.0 ],
+					"outlettype" : [ "signal" ],
+					"fontname" : "Arial",
 					"id" : "obj-34",
-					"outlettype" : [ "signal" ]
+					"numinlets" : 1
 				}
 
 			}
@@ -37,32 +37,32 @@
 					"text" : "jcom.parameter inputnumber @type msg_int @description \"Number of the audio channel input\" @priority 30 @value/default 1",
 					"linecount" : 2,
 					"fontsize" : 9.0,
-					"patching_rect" : [ 438.0, 208.0, 409.0, 27.0 ],
-					"hidden" : 1,
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 3,
+					"patching_rect" : [ 438.0, 208.0, 409.0, 27.0 ],
+					"outlettype" : [ "", "", "" ],
+					"hidden" : 1,
+					"fontname" : "Arial",
 					"id" : "obj-24",
-					"color" : [ 1.0, 0.741176, 0.611765, 1.0 ],
-					"outlettype" : [ "", "", "" ]
+					"numinlets" : 1,
+					"color" : [ 1.0, 0.741176, 0.611765, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "number",
+					"minimum" : 1,
 					"triangle" : 0,
 					"fontsize" : 9.0,
-					"patching_rect" : [ 438.0, 184.0, 47.0, 17.0 ],
-					"presentation" : 1,
-					"minimum" : 1,
-					"numinlets" : 1,
-					"fontname" : "Arial",
-					"maximum" : 64,
 					"numoutlets" : 2,
+					"maximum" : 64,
+					"patching_rect" : [ 438.0, 184.0, 47.0, 17.0 ],
+					"outlettype" : [ "int", "bang" ],
+					"presentation" : 1,
+					"fontname" : "Arial",
 					"id" : "obj-22",
-					"presentation_rect" : [ 12.0, 34.0, 26.0, 17.0 ],
-					"outlettype" : [ "int", "bang" ]
+					"numinlets" : 1,
+					"presentation_rect" : [ 12.0, 34.0, 26.0, 17.0 ]
 				}
 
 			}
@@ -71,12 +71,12 @@
 					"maxclass" : "message",
 					"text" : "set type-in the name",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 434.0, 64.0, 125.0, 15.0 ],
-					"numinlets" : 2,
-					"fontname" : "Arial",
 					"numoutlets" : 1,
+					"patching_rect" : [ 434.0, 64.0, 125.0, 15.0 ],
+					"outlettype" : [ "" ],
+					"fontname" : "Arial",
 					"id" : "obj-15",
-					"outlettype" : [ "" ]
+					"numinlets" : 2
 				}
 
 			}
@@ -85,12 +85,12 @@
 					"maxclass" : "newobj",
 					"text" : "loadbang",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 434.0, 44.0, 48.0, 17.0 ],
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 1,
+					"patching_rect" : [ 434.0, 44.0, 48.0, 17.0 ],
+					"outlettype" : [ "bang" ],
+					"fontname" : "Arial",
 					"id" : "obj-10",
-					"outlettype" : [ "bang" ]
+					"numinlets" : 1
 				}
 
 			}
@@ -99,13 +99,13 @@
 					"maxclass" : "comment",
 					"text" : "number & name for the audio input",
 					"fontsize" : 9.0,
+					"numoutlets" : 0,
 					"patching_rect" : [ 264.0, 64.0, 150.0, 17.0 ],
 					"presentation" : 1,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
-					"numinlets" : 1,
 					"fontname" : "Arial",
-					"numoutlets" : 0,
 					"id" : "obj-11",
+					"numinlets" : 1,
 					"presentation_rect" : [ 2.0, 18.0, 162.0, 17.0 ]
 				}
 
@@ -113,11 +113,11 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "jcom.meter~",
+					"numoutlets" : 0,
 					"patching_rect" : [ 244.0, 364.0, 100.0, 12.0 ],
 					"presentation" : 1,
-					"numinlets" : 1,
-					"numoutlets" : 0,
 					"id" : "obj-9",
+					"numinlets" : 1,
 					"presentation_rect" : [ 6.0, 54.0, 140.0, 10.0 ]
 				}
 
@@ -129,14 +129,14 @@
 					"text" : "jcom.parameter inputname @type msg_symbol @description \"Name of the audio channel input\" @priority 31",
 					"linecount" : 2,
 					"fontsize" : 9.0,
-					"patching_rect" : [ 432.0, 138.0, 399.0, 27.0 ],
-					"hidden" : 1,
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 3,
+					"patching_rect" : [ 432.0, 138.0, 399.0, 27.0 ],
+					"outlettype" : [ "", "", "" ],
+					"hidden" : 1,
+					"fontname" : "Arial",
 					"id" : "obj-7",
-					"color" : [ 1.0, 0.741176, 0.611765, 1.0 ],
-					"outlettype" : [ "", "", "" ]
+					"numinlets" : 1,
+					"color" : [ 1.0, 0.741176, 0.611765, 1.0 ]
 				}
 
 			}
@@ -145,12 +145,12 @@
 					"maxclass" : "newobj",
 					"text" : "route text",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 432.0, 116.0, 48.0, 17.0 ],
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 2,
+					"patching_rect" : [ 432.0, 116.0, 48.0, 17.0 ],
+					"outlettype" : [ "", "" ],
+					"fontname" : "Arial",
 					"id" : "obj-5",
-					"outlettype" : [ "", "" ]
+					"numinlets" : 1
 				}
 
 			}
@@ -159,18 +159,18 @@
 					"maxclass" : "textedit",
 					"text" : "type-in the name",
 					"fontsize" : 9.0,
-					"keymode" : 1,
 					"lines" : 1,
+					"numoutlets" : 4,
+					"keymode" : 1,
 					"patching_rect" : [ 436.0, 90.0, 142.0, 21.0 ],
+					"outlettype" : [ "", "int", "", "" ],
 					"presentation" : 1,
 					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
-					"numinlets" : 1,
 					"fontname" : "Arial",
-					"numoutlets" : 4,
 					"id" : "obj-2",
+					"numinlets" : 1,
 					"presentation_rect" : [ 42.0, 34.0, 103.0, 16.0 ],
-					"outputmode" : 1,
-					"outlettype" : [ "", "int", "", "" ]
+					"outputmode" : 1
 				}
 
 			}
@@ -179,24 +179,24 @@
 					"maxclass" : "message",
 					"text" : "/preset/store 1 default, /preset/write",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 40.0, 180.0, 192.0, 15.0 ],
-					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
-					"numinlets" : 2,
-					"fontname" : "Arial",
 					"numoutlets" : 1,
+					"patching_rect" : [ 40.0, 180.0, 192.0, 15.0 ],
+					"outlettype" : [ "" ],
+					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
+					"fontname" : "Arial",
 					"id" : "obj-47",
-					"outlettype" : [ "" ]
+					"numinlets" : 2
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "inlet",
-					"patching_rect" : [ 226.0, 296.0, 13.0, 13.0 ],
-					"numinlets" : 0,
 					"numoutlets" : 1,
-					"id" : "obj-3",
+					"patching_rect" : [ 226.0, 296.0, 13.0, 13.0 ],
 					"outlettype" : [ "" ],
+					"id" : "obj-3",
+					"numinlets" : 0,
 					"comment" : ""
 				}
 
@@ -204,10 +204,10 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "outlet",
-					"patching_rect" : [ 226.0, 364.0, 13.0, 13.0 ],
-					"numinlets" : 1,
 					"numoutlets" : 0,
+					"patching_rect" : [ 226.0, 364.0, 13.0, 13.0 ],
 					"id" : "obj-32",
+					"numinlets" : 1,
 					"comment" : ""
 				}
 
@@ -217,12 +217,12 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.in",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 102.0, 258.0, 78.0, 17.0 ],
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 2,
+					"patching_rect" : [ 102.0, 258.0, 78.0, 17.0 ],
+					"outlettype" : [ "", "" ],
+					"fontname" : "Arial",
 					"id" : "obj-60",
-					"outlettype" : [ "", "" ]
+					"numinlets" : 1
 				}
 
 			}
@@ -231,12 +231,12 @@
 					"maxclass" : "comment",
 					"text" : "source position",
 					"fontsize" : 9.0,
+					"numoutlets" : 0,
 					"patching_rect" : [ 12.0, 156.0, 102.0, 17.0 ],
 					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"numinlets" : 1,
 					"fontname" : "Arial",
-					"numoutlets" : 0,
 					"id" : "obj-8",
+					"numinlets" : 1,
 					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
 				}
 
@@ -246,12 +246,12 @@
 					"maxclass" : "newobj",
 					"text" : "pcontrol",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 102.0, 305.0, 45.0, 17.0 ],
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 1,
+					"patching_rect" : [ 102.0, 305.0, 45.0, 17.0 ],
+					"outlettype" : [ "" ],
+					"fontname" : "Arial",
 					"id" : "obj-29",
-					"outlettype" : [ "" ]
+					"numinlets" : 1
 				}
 
 			}
@@ -260,12 +260,12 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.panelopen",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 102.0, 282.0, 78.0, 17.0 ],
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 2,
+					"patching_rect" : [ 102.0, 282.0, 78.0, 17.0 ],
+					"outlettype" : [ "", "" ],
+					"fontname" : "Arial",
 					"id" : "obj-30",
-					"outlettype" : [ "", "" ]
+					"numinlets" : 1
 				}
 
 			}
@@ -274,12 +274,12 @@
 					"maxclass" : "message",
 					"text" : "/documentation/generate",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 39.0, 201.0, 125.0, 15.0 ],
-					"numinlets" : 2,
-					"fontname" : "Arial",
 					"numoutlets" : 1,
+					"patching_rect" : [ 39.0, 201.0, 125.0, 15.0 ],
+					"outlettype" : [ "" ],
+					"fontname" : "Arial",
 					"id" : "obj-31",
-					"outlettype" : [ "" ]
+					"numinlets" : 2
 				}
 
 			}
@@ -289,23 +289,23 @@
 					"varname" : "jmod.hub",
 					"text" : "jcom.hub Z.in~ @module_type audio @description \"Audio input module\"",
 					"fontsize" : 9.0,
-					"patching_rect" : [ 18.0, 228.0, 298.0, 17.0 ],
-					"numinlets" : 1,
-					"fontname" : "Arial",
 					"numoutlets" : 2,
+					"patching_rect" : [ 18.0, 228.0, 298.0, 17.0 ],
+					"outlettype" : [ "", "" ],
+					"fontname" : "Arial",
 					"id" : "obj-35",
-					"outlettype" : [ "", "" ]
+					"numinlets" : 1
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"maxclass" : "inlet",
-					"patching_rect" : [ 20.0, 180.0, 13.0, 13.0 ],
-					"numinlets" : 0,
 					"numoutlets" : 1,
-					"id" : "obj-36",
+					"patching_rect" : [ 20.0, 180.0, 13.0, 13.0 ],
 					"outlettype" : [ "" ],
+					"id" : "obj-36",
+					"numinlets" : 0,
 					"comment" : ""
 				}
 
@@ -313,10 +313,10 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "outlet",
-					"patching_rect" : [ 17.0, 428.0, 13.0, 13.0 ],
-					"numinlets" : 1,
 					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 428.0, 13.0, 13.0 ],
 					"id" : "obj-37",
+					"numinlets" : 1,
 					"comment" : ""
 				}
 
@@ -324,19 +324,19 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "jcom.ui",
-					"text" : "/editing_this_module",
-					"patching_rect" : [ 2.0, 2.0, 150.0, 70.0 ],
-					"presentation" : 1,
-					"has_gain" : 1,
-					"numinlets" : 1,
-					"has_panel" : 1,
-					"has_meters" : 1,
+					"text" : "/editing_this_module.2",
 					"numoutlets" : 1,
 					"prefix" : "audio",
-					"has_mute" : 1,
+					"patching_rect" : [ 2.0, 2.0, 150.0, 70.0 ],
+					"outlettype" : [ "" ],
+					"presentation" : 1,
+					"has_gain" : 1,
+					"has_panel" : 1,
+					"has_meters" : 1,
 					"id" : "obj-59",
+					"numinlets" : 1,
 					"presentation_rect" : [ 0.0, -2.0, 150.0, 70.0 ],
-					"outlettype" : [ "" ]
+					"has_mute" : 1
 				}
 
 			}
