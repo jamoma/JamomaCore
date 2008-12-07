@@ -13,6 +13,8 @@
 		22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */; };
 		22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F229A50D48CA460018534E /* TTBlue.framework */; };
 		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		A79047830EEC361300A78F60 /* TTClassWrapperMax.h in Headers */ = {isa = PBXBuildFile; fileRef = A79047810EEC361300A78F60 /* TTClassWrapperMax.h */; };
+		A79047840EEC361300A78F60 /* TTClassWrapperMax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A79047820EEC361300A78F60 /* TTClassWrapperMax.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		22C01ED909CE6CDB00177B81 /* Externs-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = "Externs-Info.plist"; path = "../common/Externs-Info.plist"; sourceTree = SOURCE_ROOT; };
 		22F229A50D48CA460018534E /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		542ED84F09C02A0000DBC7EB /* tt.balance~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tt.balance~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79047810EEC361300A78F60 /* TTClassWrapperMax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClassWrapperMax.h; path = ../TTClassWrapperMax.h; sourceTree = SOURCE_ROOT; };
+		A79047820EEC361300A78F60 /* TTClassWrapperMax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTClassWrapperMax.cpp; path = ../TTClassWrapperMax.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 			children = (
 				22BFF61B0D2AB4D700BD97E5 /* tt.balance~.cpp */,
 				22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */,
+				A79047810EEC361300A78F60 /* TTClassWrapperMax.h */,
+				A79047820EEC361300A78F60 /* TTClassWrapperMax.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -95,6 +101,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A79047830EEC361300A78F60 /* TTClassWrapperMax.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +189,7 @@
 			files = (
 				22BFF61C0D2AB4D700BD97E5 /* tt.balance~.cpp in Sources */,
 				22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */,
+				A79047840EEC361300A78F60 /* TTClassWrapperMax.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
