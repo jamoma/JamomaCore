@@ -110,6 +110,7 @@ if win32?
 
   puts " Copying .dll in /Jamoma/library/externals/windows folder"
   `cp ../../../TTBlue/extensions/TTClipper/Release/*.ttdll   ../../Jamoma/library/externals/windows`
+  `cp ../../../TTBlue/library/portaudio/Release/*.dll   ../../Jamoma/library/externals/windows`
   `cp ../../../TTBlue/library/Release/TTBlue.dll             ../../Jamoma/library/externals/windows/TTBlue.dll`
   `cp ../../SourceCode/Framework/Release/JamomaFramework.dll ../../Jamoma/library/externals/windows/JamomaFramework.dll`
 
@@ -122,6 +123,7 @@ if win32?
   puts " Moving things around (frameworks, loader, templates, etc)..."
   `mv "#{@c74}/Jamoma/library/externals/windows/JamomaFramework.dll"  root/support`
   `mv "#{@c74}/Jamoma/library/externals/windows/TTBlue.dll"           root/support`
+  `mv "#{@c74}/Jamoma/library/externals/windows/PortAudio.dll"           root/support`
   `mv "#{@c74}/Jamoma/library/third-party/WinXP/support"/*.dll        root/support`
 
   `mv "#{@c74}/Jamoma/library/externals/windows/jcom.loader.mxe" "#{@c74}/extensions/jcom.loader.mxe"`
