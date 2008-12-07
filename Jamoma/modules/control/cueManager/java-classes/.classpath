@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/Program Files/Cycling &apos;74/Max 5.0/Cycling &apos;74/java/lib/jitter.jar"/>
+	<classpathentry kind="lib" path="D:/Program Files/Cycling &apos;74/Max 5.0/Cycling &apos;74/java/lib/jode-1.1.2-pre-embedded.jar"/>
+	<classpathentry kind="lib" path="D:/Program Files/Cycling &apos;74/Max 5.0/Cycling &apos;74/java/lib/max.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
