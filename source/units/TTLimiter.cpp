@@ -30,8 +30,8 @@ TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	// clear the history
 	registerMessageSimple(clear);
 
-	dcBlocker = new TTDCBlock(maxNumChannels);
-	preamp = new TTGain(maxNumChannels);
+	dcBlocker = new TTDCBlock(newMaxNumChannels);
+	preamp = new TTGain(newMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
