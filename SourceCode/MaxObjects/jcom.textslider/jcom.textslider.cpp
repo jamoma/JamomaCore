@@ -123,6 +123,8 @@ int main(void)
 	CLASS_ATTR_DEFAULT(c,					"range",		0,	"0.0 1.0");
 	CLASS_ATTR_SAVE(c,						"range",		0);
 	CLASS_ATTR_ACCESSORS(c,					"range",		textslider_getRange, textslider_setRange);
+	CLASS_ATTR_CATEGORY(c,					"range",		0,	"Value");
+	
 	
 	class_register(CLASS_BOX, c);
 	s_textslider_class = c;		
