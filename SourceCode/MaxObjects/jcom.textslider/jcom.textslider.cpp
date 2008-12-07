@@ -45,6 +45,7 @@ typedef struct _textslider{
 	
 	float		attrValue;			///< The slider value
 	float		attrRange[2];		///< ATTRIBUTE: low, high
+	float		anchorValue;		///< Used for mouse dragging
 	void		*outlet;			///< Outlet
 } t_textslider;
 
@@ -285,85 +286,32 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 
 void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers)
 {
-	/*
-	t_rect	rect;
-	
-	// usually we don't want mousedragdelta -- we turn it on below as necessary
-	jbox_set_mousedragdelta((t_object *)x, 0);
-	
-	jbox_get_rect_for_view((t_object *)x, patcherview, &rect); 
-	if(px.y > 20.0)	// we only handle clicks in the title bar
-		return;
-	
-	if(px.x > (rect.width - 120)){
-		// we check the gain and mix knobs first because they are continuous parameters and should run as fast as possible
-		if(x->attr_hasgain && px.x >= x->rect_gain.x && px.x <= (x->rect_gain.x + x->rect_gain.width)){
-			setGainDataspaceUnit(x, gensym("midi"));
-			x->gainDragging = true;
-			x->anchor.x = x->anchor.y = 0.0;
-			x->anchorValue = x->attr_gain;			
+			x->anchorValue = x->attrValue;			
 			jbox_set_mousedragdelta((t_object *)x, 1);
-		}
-		else if(x->attr_hasmix && px.x >= x->rect_mix.x && px.x <= (x->rect_mix.x + x->rect_mix.width)){
-			x->mixDragging = true;
-			x->anchor.x = x->anchor.y = 0.0;
-			x->anchorValue = x->attr_mix;			
-			jbox_set_mousedragdelta((t_object *)x, 1);
-		}
-		else if(x->attr_hasinspector && px.x >= x->rect_inspector.x && px.x <= (x->rect_inspector.x + x->rect_inspector.width))
-			object_method_typed(x->obj_remote, gensym("/panel/open"), 0, NULL, NULL);
-		else if(x->attr_haspreview && px.x >= x->rect_preview.x && px.x <= (x->rect_preview.x + x->rect_preview.width))
-			object_attr_setlong(x, gensym("is_previewing"), !x->attr_ispreviewing);
-		else if(x->attr_hasfreeze && px.x >= x->rect_freeze.x && px.x <= (x->rect_freeze.x + x->rect_freeze.width))
-			object_attr_setlong(x, gensym("is_frozen"), !x->attr_isfrozen);
-		else if(x->attr_hasbypass && px.x >= x->rect_bypass.x && px.x <= (x->rect_bypass.x + x->rect_bypass.width))
-			object_attr_setlong(x, gensym("is_bypassed"), !x->attr_isbypassed);
-		else if(x->attr_hasmute && px.x >= x->rect_mute.x && px.x <= (x->rect_mute.x + x->rect_mute.width))
-			object_attr_setlong(x, gensym("is_muted"), !x->attr_ismuted);
-	}
-	else if(px.x < 25)
-		ui_menu_do(x, patcherview, px, modifiers);
-	else if(px.x < 150)
-		ui_refmenu_do(x, patcherview, px, modifiers);
-	*/
 }
 
 
 // mousedragdelta sends the amount the mouse moved in t_pt
 void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-	/*
 	t_rect	rect;
-	double	factor = 1.0;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
+	double	factor = 200.0;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	
 	if(modifiers & eShiftKey)
-		factor = 50.0;
+		factor = 1000.0;
 	
-	if(x->mixDragging){
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 100.0);
-		object_attr_setfloat(x, gensym("mix"), x->anchorValue);
-	}
-	else if(x->gainDragging){
-		x->anchorValue = TTClip<float>(x->anchorValue - (pt.y / factor), 0.0, 127.0);
-		object_attr_setfloat(x, gensym("gain"), x->anchorValue);
-	}
-	*/
+	factor = factor * (x->attrRange[1] - x->attrRange[0]);
+	
+	x->anchorValue = TTClip<float>(x->anchorValue + (pt.x / factor), x->attrRange[0], x->attrRange[1]);
+	textslider_float(x, x->anchorValue);
 }
 
 
 void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
-	/*
-	x->mixDragging = false;
-	x->gainDragging = false;
-	t_object *textfield = jbox_get_textfield((t_object*) x);
-	if(textfield)
-		object_method(textfield, gensym("settext"), x->attr_modulename->s_name);
-	
 	jbox_redraw(&x->box);
-	*/
 }
 
 
