@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='aux.1' type='msg_float' priority='0'>0.000000</item>
+    <item name='aux.2' type='msg_float' priority='0'>0.000000</item>
+    <item name='mode' type='msg_symbol' priority='30'>static</item>
+    <item name='output/bottomLeft' type='msg_int' priority='0'>3</item>
+    <item name='output/bottomRight' type='msg_int' priority='0'>4</item>
+    <item name='output/ramptime' type='msg_float' priority='0'>0</item>
+    <item name='output/topLeft' type='msg_int' priority='0'>1</item>
+    <item name='output/topRight' type='msg_int' priority='0'>2</item>
+    <item name='position/rd' type='msg_float' priority='32'>1.000000</item>
+    <item name='position/sps' type='msg_float' priority='31'>-1.000000</item>
+    <item name='position/x' type='msg_float' priority='34'>0.000000</item>
+    <item name='position/y' type='msg_float' priority='33'>0.000000</item>
+    <item name='time_ambitus' type='msg_list' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='volume' type='msg_float' priority='0'>1.000000</item>
+  </preset>
+</jamoma>

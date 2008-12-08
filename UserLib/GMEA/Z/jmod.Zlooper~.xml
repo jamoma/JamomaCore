@@ -5,11 +5,13 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
+    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='looper/buffername' type='msg_symbol' priority='0'>0</item>
     <item name='looper/direction' type='msg_int' priority='0'>0</item>
     <item name='looper/display/length' type='msg_float' priority='0'>0.000000</item>
     <item name='looper/display/start' type='msg_float' priority='0'>0.000000</item>
+    <item name='looper/input' type='msg_symbol' priority='0'>0</item>
     <item name='looper/inputrec' type='msg_int' priority='0'>0</item>
     <item name='looper/loopmode' type='msg_int' priority='0'>0</item>
     <item name='looper/menu/buffer' type='msg_symbol' priority='32'>0</item>
@@ -17,10 +19,8 @@
     <item name='looper/menu/folder' type='msg_symbol' priority='31'>0</item>
     <item name='looper/pitch' type='msg_float' priority='0'>1.000000</item>
     <item name='looper/play' type='msg_int' priority='0'>0</item>
-    <item name='looper/preamp_gain' type='msg_float' priority='0'>0.000000</item>
     <item name='looper/selection/end' type='msg_float' priority='0'>0.000000</item>
     <item name='looper/selection/start' type='msg_float' priority='10'>0.000000</item>
-    <item name='looper/volume' type='msg_float' priority='0'>1.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
