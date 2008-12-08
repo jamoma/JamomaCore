@@ -66,6 +66,12 @@ void jamoma_init(void)
 		hash_modules = (t_hashtab*)hashtab_new(0);
 		// TODO: Use quittask_install() to set up a destructor for this to free it before Max exits
 
+		
+		// This tells Max 5.0.6 and higher that we want the patcher files to be saved such that they are sorted.
+		// Having the saved this way makes our SVN diffs much more meaningful.
+		object_method_long(max, gensym("sortpatcherdictonsave"), 1, NULL);
+	
+		
 		// Add Jamoma Key Commands:
 		
 		// J -- a new object box with "jcom." in it
