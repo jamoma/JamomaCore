@@ -5,12 +5,15 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
-    <item name='first' type='msg_float' priority='0'>1.000000</item>
-    <item name='omni' type='msg_float' priority='0'>0.823242</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>16</item>
     <item name='order' type='msg_int' priority='0'>3</item>
-    <item name='second' type='msg_float' priority='0'>0.442259</item>
-    <item name='third' type='msg_float' priority='0'>0.079101</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='voices' type='msg_int' priority='0'>8</item>
+    <item name='weights/first' type='msg_float' priority='0'>1.000000</item>
+    <item name='weights/omni' type='msg_float' priority='0'>0.823242</item>
+    <item name='weights/preset' type='msg_symbol' priority='0'>default</item>
+    <item name='weights/second' type='msg_float' priority='0'>0.442259</item>
+    <item name='weights/third' type='msg_float' priority='0'>0.079101</item>
   </preset>
 </jamoma>

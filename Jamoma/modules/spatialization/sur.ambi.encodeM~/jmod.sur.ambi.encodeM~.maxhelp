@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 70.0, 86.0, 463.0, 179.0 ],
+		"rect" : [ 158.0, 109.0, 463.0, 179.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 70.0, 86.0, 463.0, 179.0 ],
+		"defrect" : [ 158.0, 109.0, 463.0, 179.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -15,18 +15,72 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "Refer to the decode module for further details:",
+					"fontsize" : 10.0,
+					"numinlets" : 1,
+					"patching_rect" : [ 31.0, 104.0, 219.0, 18.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"numoutlets" : 0,
+					"fontname" : "Arial",
+					"id" : "obj-5"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "jmod.sur.ambi.encodeM~",
+					"fontsize" : 17.334082,
+					"numinlets" : 1,
+					"patching_rect" : [ 24.0, 23.0, 271.0, 28.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"numoutlets" : 0,
+					"fontname" : "Verdana",
+					"id" : "obj-68"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "Ambisonic encoding of up to 32 mono sources.",
+					"fontsize" : 10.0,
+					"numinlets" : 1,
+					"patching_rect" : [ 24.0, 49.0, 345.0, 19.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"numoutlets" : 0,
+					"fontname" : "Verdana",
+					"id" : "obj-69"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"patching_rect" : [ 20.0, 19.0, 351.0, 53.0 ],
+					"presentation" : 1,
+					"rounded" : 15,
+					"numoutlets" : 0,
+					"presentation_rect" : [ 20.0, 19.0, 351.0, 53.0 ],
+					"id" : "obj-62"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "jmod.sur.ambi.decode~",
-					"numoutlets" : 1,
 					"fontsize" : 9.0,
-					"outlettype" : [ "" ],
-					"id" : "obj-1",
-					"fontname" : "Arial",
 					"numinlets" : 2,
-					"patching_rect" : [ 255.0, 106.0, 134.0, 15.0 ]
+					"patching_rect" : [ 255.0, 106.0, 134.0, 15.0 ],
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"fontname" : "Arial",
+					"id" : "obj-1"
 				}
 
 			}
@@ -34,14 +88,14 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "prepend help",
-					"numoutlets" : 1,
 					"fontsize" : 9.0,
-					"outlettype" : [ "" ],
-					"hidden" : 1,
-					"id" : "obj-2",
-					"fontname" : "Arial",
 					"numinlets" : 1,
-					"patching_rect" : [ 255.0, 127.0, 64.0, 17.0 ]
+					"patching_rect" : [ 255.0, 127.0, 64.0, 17.0 ],
+					"hidden" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"fontname" : "Arial",
+					"id" : "obj-2"
 				}
 
 			}
@@ -49,78 +103,22 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "pcontrol",
-					"numoutlets" : 1,
 					"fontsize" : 9.0,
-					"outlettype" : [ "" ],
+					"numinlets" : 1,
+					"patching_rect" : [ 255.0, 150.0, 45.0, 17.0 ],
 					"hidden" : 1,
-					"id" : "obj-3",
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
 					"fontname" : "Arial",
-					"numinlets" : 1,
-					"patching_rect" : [ 255.0, 150.0, 45.0, 17.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.sur.ambi.encode~",
-					"numoutlets" : 0,
-					"fontsize" : 18.0,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-4",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"patching_rect" : [ 21.0, 26.0, 386.0, 27.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Ambisonic encoding of up to 16 mono sources.",
-					"numoutlets" : 0,
-					"fontsize" : 9.0,
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"id" : "obj-5",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"patching_rect" : [ 21.0, 56.0, 392.0, 17.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "panel",
-					"numoutlets" : 0,
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
-					"rounded" : 0,
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ],
-					"id" : "obj-6",
-					"numinlets" : 1,
-					"patching_rect" : [ 17.0, 15.0, 409.0, 63.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Refer to the decode module for further details:",
-					"numoutlets" : 0,
-					"fontsize" : 9.0,
-					"id" : "obj-7",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"patching_rect" : [ 21.0, 107.0, 219.0, 17.0 ]
+					"id" : "obj-3"
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-2", 0 ],
-					"destination" : [ "obj-3", 0 ],
+					"source" : [ "obj-1", 0 ],
+					"destination" : [ "obj-2", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ]
 				}
@@ -128,8 +126,8 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-2", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ]
 				}

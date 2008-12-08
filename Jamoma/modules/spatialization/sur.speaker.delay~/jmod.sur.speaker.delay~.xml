@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>8</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='voices' type='msg_int' priority='0'>8</item>
   </preset>
 </jamoma>
