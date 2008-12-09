@@ -17,6 +17,6 @@
     <item name='aux.3/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='input/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='voices' type='msg_int' priority='0'>1</item>
+    <item name='channels' type='msg_int' priority='0'>1</item>
   </preset>
 </jamoma>

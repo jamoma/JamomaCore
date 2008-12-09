@@ -19,27 +19,27 @@
     <item name='record/samptype' type='msg_symbol' priority='0'>int24</item>
     <item name='setup' type='msg_list' priority='0'>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='voices' type='msg_int' priority='0'>8</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>8</item>
   </preset>
   <preset number='2' name='2 channels'>
-    <item name='voices' type='msg_int' priority='0'>2</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>2</item>
   </preset>
   <preset number='3' name='4 channels'>
-    <item name='voices' type='msg_int' priority='0'>4</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>4</item>
   </preset>
   <preset number='5' name='6 channels'>
-    <item name='voices' type='msg_int' priority='0'>6</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>6</item>
   </preset>
   <preset number='6' name='8 channels'>
-    <item name='voices' type='msg_int' priority='0'>8</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>8</item>
   </preset>
   <preset number='7' name='16 channels'>
-    <item name='voices' type='msg_int' priority='0'>16</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>16</item>
   </preset>
   <preset number='8' name='24 channels'>
-    <item name='voices' type='msg_int' priority='0'>24</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>24</item>
   </preset>
   <preset number='9' name='32 channels'>
-    <item name='voices' type='msg_int' priority='0'>32</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>32</item>
   </preset>
 </jamoma>
