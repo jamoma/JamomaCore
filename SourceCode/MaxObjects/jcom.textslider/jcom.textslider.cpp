@@ -17,6 +17,7 @@
 #include "Jamoma.h"
 #include "TTBlue.h"
 
+enum coordinate {X, Y};
 
 // Constants
 const double kPollIntervalDefault = 150;
@@ -46,6 +47,7 @@ typedef struct _textslider{
 	float		attrValue;			///< The slider value
 	float		attrRange[2];		///< ATTRIBUTE: low, high
 	float		anchorValue;		///< Used for mouse dragging
+	int		mouseposition[2];	///< Used to keep track of mouse position
 	void		*outlet;			///< Outlet
 } t_textslider;
 
@@ -286,8 +288,12 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 
 void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers)
 {
-			x->anchorValue = x->attrValue;			
-			jbox_set_mousedragdelta((t_object *)x, 1);
+	x->mouseposition[X] = 0;
+	x->mouseposition[Y] = 0;
+	jmouse_getposition_global(&x->mouseposition[X], &x->mouseposition[Y]);
+	post("Mouse position: %ld %ld", x->mouseposition[X], x->mouseposition[Y]);
+	x->anchorValue = x->attrValue;			
+	jbox_set_mousedragdelta((t_object *)x, 1);
 }
 
 
@@ -295,12 +301,12 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
 {
 	t_rect	rect;
-	double	factor = 200.0;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
 	
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
-	
+
+	double	factor = rect.width;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
 	if(modifiers & eShiftKey)
-		factor = 1000.0;
+		factor = factor*50.;
 	
 	factor = factor * (x->attrRange[1] - x->attrRange[0]);
 	
@@ -311,7 +317,24 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 
 void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
-	jbox_redraw(&x->box);
+	//Point pt;
+	
+	
+	// mouse cursor stuff
+	
+	/**	Get the position of the mouse cursor in screen coordinates.
+	 @ingroup			jmouse
+	 @param	x			The address of a variable to hold the x-coordinate upon return.
+	 @param	y			The address of a variable to hold the y-coordinate upon return.	*/
+	//void jmouse_getposition_global(int *x, int *y);
+	
+	/**	Set the position of the mouse cursor in screen coordinates.
+	 @ingroup			jmouse
+	 @param	x			The new x-coordinate of the mouse cursor position.
+	 @param	y			The new y-coordinate of the mouse cursor position.	*/
+	//void jmouse_setposition_global(int x, int y);
+	
+	//MoveMouseTo(pt)
 }
 
 
