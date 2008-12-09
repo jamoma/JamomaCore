@@ -7,8 +7,8 @@
   <preset number='1' name='default'>
     <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='mainfolder' type='msg_symbol' priority='0'>0</item>
-    <item name='selectedfile' type='msg_symbol' priority='0'>0</item>
+    <item name='mainfolder' type='msg_list' priority='30'>/Documents and Settings/niko/Mes documents/lpb/</item>
+    <item name='selectedfile' type='msg_list' priority='31'>Copie de solopeltetmarto2.wav</item>
     <item name='sf/loopmode' type='msg_int' priority='0'>0</item>
     <item name='sf/pitch' type='msg_float' priority='0'>1.000000</item>
     <item name='sf/play' type='msg_int' priority='0'>0</item>
