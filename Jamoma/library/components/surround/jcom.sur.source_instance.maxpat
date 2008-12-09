@@ -43,13 +43,13 @@
 					"frozen_object_attributes" : 					{
 						"dataspace/unit/internal" : "none",
 						"value" : [ 1 ],
+						"dataspace/unit/native" : "none",
 						"dataspace" : "none",
-						"dataspace/unit/active" : "none",
 						"type" : "msg_toggle",
-						"description" : "mutes the Nth source.",
-						"priority" : 0,
 						"value/default" : [ 1 ],
-						"dataspace/unit/native" : "none"
+						"description" : "enables/disables the effect of the Nth source.",
+						"priority" : 0,
+						"dataspace/unit/active" : "none"
 					}
 
 				}
@@ -110,12 +110,12 @@
 					"id" : "obj-19",
 					"frozen_object_attributes" : 					{
 						"dataspace/unit/internal" : "aed",
+						"dataspace/unit/native" : "aed",
 						"dataspace" : "position",
-						"dataspace/unit/active" : "aed",
 						"type" : "msg_list",
 						"description" : "Position of the Nth source. In spherical coordinates (aed) by default.",
 						"priority" : 0,
-						"dataspace/unit/native" : "aed"
+						"dataspace/unit/active" : "aed"
 					}
 
 				}
@@ -124,26 +124,8 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-3", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
@@ -161,7 +143,25 @@
 , 			{
 				"patchline" : 				{
 					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-7", 0 ],
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-3", 0 ],
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-5", 0 ],
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
