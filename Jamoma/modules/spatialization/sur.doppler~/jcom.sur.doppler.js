@@ -43,7 +43,7 @@ function dspstate(value)
     if (value==0)
     {
         if (hold_flag==1)
-            voices(hold_voices);
+            numSources(hold_voices);
     }
 }
 
