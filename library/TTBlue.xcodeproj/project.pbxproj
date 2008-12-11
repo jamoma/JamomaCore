@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 45;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -139,6 +139,7 @@
 		22145BB90E313B13008C1F5F /* TTClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTClass.h; path = ../includes/core/TTClass.h; sourceTree = SOURCE_ROOT; };
 		221DED1C0D6BC722000799BA /* TTMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTMutex.h; path = ../includes/core/TTMutex.h; sourceTree = SOURCE_ROOT; };
 		221DED1E0D6BC739000799BA /* TTMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTMutex.cpp; path = ../source/core/TTMutex.cpp; sourceTree = SOURCE_ROOT; };
+		2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = JamomaDSP.xcconfig; path = resources/JamomaDSP.xcconfig; sourceTree = "<group>"; };
 		222A37160E1987D000C72891 /* TTBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTBuffer.cpp; path = ../source/units/TTBuffer.cpp; sourceTree = SOURCE_ROOT; };
 		222A37180E1987E100C72891 /* TTBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTBuffer.h; path = ../includes/units/TTBuffer.h; sourceTree = SOURCE_ROOT; };
 		222A380C0E19A5CE00C72891 /* TTWavetable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTWavetable.h; path = ../includes/units/TTWavetable.h; sourceTree = SOURCE_ROOT; };
@@ -289,6 +290,7 @@
 		0867D691FE84028FC02AAC07 /* MaxObject */ = {
 			isa = PBXGroup;
 			children = (
+				2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */,
 				22A1B3F90DEDEB520016AC8D /* TTBlueAPI.h */,
 				08FB77AEFE84172EC02AAC07 /* Core */,
 				223985E30E200F3100A5F732 /* Units-Analysis */,
@@ -605,7 +607,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "TTBlue" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* MaxObject */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
@@ -639,7 +641,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n";
+			shellScript = "#if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n#\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\n#fi\n\n#/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -714,6 +716,7 @@
 /* Begin XCBuildConfiguration section */
 		1DEB91AE08733DA50010E9CD /* Development */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -757,6 +760,7 @@
 		};
 		1DEB91AF08733DA50010E9CD /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2227748E0EF1BFF100CA7476 /* JamomaDSP.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
@@ -805,7 +809,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx10.4;
 			};
 			name = Development;
 		};
@@ -815,7 +819,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx10.4;
 			};
 			name = Deployment;
 		};
