@@ -352,7 +352,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Increase/decrease",
-					"patching_rect" : [ 250.0, 145.0, 106.0, 19.0 ],
+					"patching_rect" : [ 140.0, 141.0, 106.0, 19.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
@@ -365,7 +365,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/audio/gain:/value/dec",
-					"patching_rect" : [ 245.0, 162.0, 126.0, 17.0 ],
+					"patching_rect" : [ 135.0, 158.0, 126.0, 17.0 ],
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"fontname" : "Verdana",
@@ -379,7 +379,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/audio/gain:/value/inc",
-					"patching_rect" : [ 245.0, 180.0, 123.0, 17.0 ],
+					"patching_rect" : [ 135.0, 176.0, 123.0, 17.0 ],
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"fontname" : "Verdana",
@@ -407,7 +407,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/audio/gain $1 midi",
-					"patching_rect" : [ 130.0, 180.0, 111.0, 17.0 ],
+					"patching_rect" : [ 410.0, 188.0, 111.0, 17.0 ],
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"fontname" : "Verdana",
@@ -420,7 +420,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "number",
-					"patching_rect" : [ 130.0, 161.0, 39.0, 19.0 ],
+					"patching_rect" : [ 410.0, 169.0, 39.0, 19.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"fontname" : "Verdana",
@@ -435,7 +435,7 @@
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : " in midi units",
-					"patching_rect" : [ 165.0, 160.0, 121.0, 19.0 ],
+					"patching_rect" : [ 445.0, 168.0, 121.0, 19.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
@@ -448,7 +448,7 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/audio/gain $1",
-					"patching_rect" : [ 43.0, 161.0, 87.0, 17.0 ],
+					"patching_rect" : [ 46.0, 163.0, 87.0, 17.0 ],
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"fontname" : "Verdana",
@@ -488,8 +488,8 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Set gain in dB",
-					"patching_rect" : [ 6.0, 145.0, 84.0, 19.0 ],
+					"text" : "Set gain in MIDI values ",
+					"patching_rect" : [ 7.0, 140.0, 128.0, 19.0 ],
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"fontname" : "Verdana",
