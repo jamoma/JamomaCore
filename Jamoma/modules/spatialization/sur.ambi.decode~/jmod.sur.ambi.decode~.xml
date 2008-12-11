@@ -7,7 +7,7 @@
   <preset number='1' name='default'>
     <item name='audio/gain' type='msg_float' priority='0'>0</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='numSpeakers' type='msg_int' priority='0'>16</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>8</item>
     <item name='order' type='msg_int' priority='0'>3</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='weights/first' type='msg_float' priority='0'>1.000000</item>
