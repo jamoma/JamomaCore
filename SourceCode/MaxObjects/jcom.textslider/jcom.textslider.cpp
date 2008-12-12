@@ -64,9 +64,10 @@ void		textslider_assist(t_textslider *x, void *b, long m, long a, char *s);
 void		textslider_bang(t_textslider *x);
 void		textslider_int(t_textslider *x, long value);
 void		textslider_float(t_textslider *x, double value);
+void		textslider_set(t_textslider *x, double value);
 t_max_err	textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv);
 t_max_err	textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv);
-t_max_err	textslider_set_text(t_textslider *obj, void *attr, long argc, t_atom *argv);
+t_max_err	textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *argv);
 void		textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers);
 void		textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
 void		textslider_mouseup(t_textslider *x, t_object *patcherview);
@@ -86,9 +87,21 @@ static t_class*	s_textslider_class;
 
 int main(void)
 {
-	t_class *c = class_new("jcom.textslider", (method)textslider_new, (method)textslider_free, sizeof(t_textslider), (method)NULL, A_GIMME, 0L);
+	t_class *c;
+	
+	jamoma_init();
+	common_symbols_init();
+	
+	c = class_new("jcom.textslider", 
+				  (method)textslider_new, 
+				  (method)textslider_free, 
+				  sizeof(t_textslider), 
+				  (method)NULL, 
+				  A_GIMME, 
+				  0L);
 	
 	c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // use dictionary constructor
+	c->c_flags |= JBOX_TEXTFIELD;
 	jbox_initclass(c, 0);
 	
 	jamoma_init();
@@ -96,7 +109,8 @@ int main(void)
 	
 	class_addmethod(c, (method)textslider_bang,				"bang",				0);
 	class_addmethod(c, (method)textslider_int,				"int",				A_LONG, 0);
-	class_addmethod(c, (method)textslider_float,			"float",			A_FLOAT, 0);	
+	class_addmethod(c, (method)textslider_float,			"float",			A_FLOAT, 0);
+	class_addmethod(c, (method)textslider_set,				"set",				A_FLOAT, 0);
 	class_addmethod(c, (method)textslider_paint,			"paint",			A_CANT, 0);
 	class_addmethod(c, (method)textslider_oksize,			"oksize",			A_CANT, 0);
 	class_addmethod(c, (method)textslider_mousedown,		"mousedown",		A_CANT, 0);
@@ -275,6 +289,13 @@ void textslider_float(t_textslider *x, double value)
 
 }
 
+void textslider_set(t_textslider *x, double value)
+{
+	x->attrValue = value;
+	// TODO: Should it be clipped to range?
+	jbox_redraw((t_jbox*)x);	
+}
+
 
 t_max_err textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv)
 {
@@ -305,12 +326,14 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 }
 
 
-t_max_err textslider_set_text(t_textslider *obj, void *attr, long argc, t_atom *argv)
+t_max_err textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *argv)
 {	
 	if(argc && argv)
-		obj->attrText = atom_getsym(argv);
+		x->attrText = atom_getsym(argv);
 	else
-		obj->attrText = _sym_nothing;
+		x->attrText = _sym_nothing;
+	
+	jbox_redraw((t_jbox*)x);
 		
 	return MAX_ERR_NONE;
 }
