@@ -28,9 +28,9 @@ protected:
 	TTFloat64	attrFrequency;
 	TTFloat64	attrLength;
 
-	TTOperator*		offset;
-	TTPhasor*		phasor;
 	TTAdsr*			env_gen;
+	TTPhasor*		phasor;
+	TTOperator*		offset;
 	TTOperator*		scaler;
 	TTAudioSignal*	sig1;
 	TTAudioSignal*	sig2;
