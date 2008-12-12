@@ -20,34 +20,34 @@ extern TTEXPORT TTSymbolPtr kTTSym_getVector64;
 
 extern TTEXPORT TTSymbolPtr	kTTSym_alloc;
 extern TTEXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
-extern TTEXPORT TTSymbol*	kTTSym_both;
-extern TTEXPORT TTSymbol*	kTTSym_bypass;
-extern TTEXPORT TTSymbol*	kTTSym_clipmode;
-extern TTEXPORT TTSymbol*	kTTSym_high;
-extern TTEXPORT TTSymbol*	kTTSym_low;
-extern TTEXPORT TTSymbol*	kTTSym_maxNumChannels;
+extern TTEXPORT TTSymbolPtr	kTTSym_both;
+extern TTEXPORT TTSymbolPtr	kTTSym_bypass;
+extern TTEXPORT TTSymbolPtr	kTTSym_clipmode;
+extern TTEXPORT TTSymbolPtr	kTTSym_high;
+extern TTEXPORT TTSymbolPtr	kTTSym_low;
+extern TTEXPORT TTSymbolPtr	kTTSym_maxNumChannels;
 extern TTEXPORT TTSymbolPtr	kTTSym_numChannels;
-extern TTEXPORT TTSymbol*	kTTSym_processInPlace;
-extern TTEXPORT TTSymbol*	kTTSym_range;
-extern TTEXPORT TTSymbol*	kTTSym_resonance;
-extern TTEXPORT TTSymbol*	kTTSym_sr;
-extern TTEXPORT TTSymbol*	kTTSym_updateMaxNumChannels;
-extern TTEXPORT TTSymbol*	kTTSym_updateSr;
+extern TTEXPORT TTSymbolPtr	kTTSym_processInPlace;
+extern TTEXPORT TTSymbolPtr	kTTSym_range;
+extern TTEXPORT TTSymbolPtr	kTTSym_resonance;
+extern TTEXPORT TTSymbolPtr	kTTSym_sr;
+extern TTEXPORT TTSymbolPtr	kTTSym_updateMaxNumChannels;
+extern TTEXPORT TTSymbolPtr	kTTSym_updateSr;
 extern TTEXPORT TTSymbolPtr	kTTSym_vectorSize;
 
 // waveforms
-extern TTEXPORT TTSymbol*	kTTSym_sine;
-extern TTEXPORT TTSymbol*	kTTSym_sineMod;
-extern TTEXPORT TTSymbol*	kTTSym_cosine;
-extern TTEXPORT TTSymbol*	kTTSym_cosineMod;
-extern TTEXPORT TTSymbol*	kTTSym_square;
-extern TTEXPORT TTSymbol*	kTTSym_squareMod;
-extern TTEXPORT TTSymbol*	kTTSym_triangle;
-extern TTEXPORT TTSymbol*	kTTSym_triangleMod;
-extern TTEXPORT TTSymbol*	kTTSym_ramp;
-extern TTEXPORT TTSymbol*	kTTSym_rampMod;
-extern TTEXPORT TTSymbol*	kTTSym_sawtooth;
-extern TTEXPORT TTSymbol*	kTTSym_sawtoothMod;
+extern TTEXPORT TTSymbolPtr	kTTSym_sine;
+extern TTEXPORT TTSymbolPtr	kTTSym_sineMod;
+extern TTEXPORT TTSymbolPtr	kTTSym_cosine;
+extern TTEXPORT TTSymbolPtr	kTTSym_cosineMod;
+extern TTEXPORT TTSymbolPtr	kTTSym_square;
+extern TTEXPORT TTSymbolPtr	kTTSym_squareMod;
+extern TTEXPORT TTSymbolPtr	kTTSym_triangle;
+extern TTEXPORT TTSymbolPtr	kTTSym_triangleMod;
+extern TTEXPORT TTSymbolPtr	kTTSym_ramp;
+extern TTEXPORT TTSymbolPtr	kTTSym_rampMod;
+extern TTEXPORT TTSymbolPtr	kTTSym_sawtooth;
+extern TTEXPORT TTSymbolPtr	kTTSym_sawtoothMod;
 
 // object names
 extern TTEXPORT TTSymbolPtr	kTTSym_adsr;
