@@ -7,11 +7,13 @@
  */
 
 #include "TTOverdrive.h"
+#include "TTEnvironment.h"
 #define thisTTClass TTOverdrive
 
 
 TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.overdrive", newMaxNumChannels)
+	: TTAudioObject("audio.overdrive", newMaxNumChannels),
+	  dcBlockerUnit(NULL)
 {
 	// Register Attributes
 	registerAttributeWithSetter(drive,				kTypeFloat64);
@@ -24,7 +26,7 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 	
 	// Additional Initialization
-	dcBlockerUnit = new TTDCBlock(newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_dcblock, &dcBlockerUnit, newMaxNumChannels);
 
 	// Set Defaults
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
@@ -37,7 +39,7 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 
 TTOverdrive::~TTOverdrive()
 {
-	delete dcBlockerUnit;
+	TTObjectRelease(dcBlockerUnit);
 }
 
 
