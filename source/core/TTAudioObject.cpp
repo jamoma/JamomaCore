@@ -187,7 +187,7 @@ TTErr TTAudioObject::setMute(const TTValue& value)
 
 TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
 {
-	TTErr	err;
+	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
@@ -200,7 +200,7 @@ TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
 
 TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 {
-	TTErr	err;
+	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
@@ -217,7 +217,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 
 TTErr TTAudioObject::process(TTAudioSignal& out)
 {
-	TTErr	err;
+	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
@@ -233,7 +233,7 @@ TTErr TTAudioObject::process(TTAudioSignal& out)
 
 TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out1, TTAudioSignal& out2)
 {
-	TTErr	err;
+	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
@@ -252,7 +252,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 
 TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSignal& out)
 {
-	TTErr	err;
+	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
@@ -270,7 +270,7 @@ TTErr TTAudioObject::process(TTAudioSignal& in1, TTAudioSignal& in2, TTAudioSign
 
 TTErr TTAudioObject::process(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs)
 {
-	TTErr	err;
+	TTErr	err = kTTErrGeneric;
 	
 	if(valid){
 		lock();
