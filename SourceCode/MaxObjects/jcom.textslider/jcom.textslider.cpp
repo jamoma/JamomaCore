@@ -36,7 +36,7 @@ const double kMinimumChangeForRedraw = 0.00001;
 
 // Instance definition
 typedef struct _textslider{
-	t_pxjbox	obj;
+	t_jbox		box;
 	char		attrDefeat;			// disable the textslider
 	
 	t_jrgba		attrBgColor;		///< Background color
@@ -47,8 +47,11 @@ typedef struct _textslider{
 	float		attrValue;			///< The slider value
 	float		attrRange[2];		///< ATTRIBUTE: low, high
 	float		anchorValue;		///< Used for mouse dragging
-	t_symbol	*attrText;			///< Thye text displayed by the slider
+	t_symbol	*attrText;			///< The text displayed by the slider
+	
 	int			mouseposition[2];	///< Used to keep track of mouse position
+	bool		mouseDown;			///< Flag indicating mouse status
+	
 	void		*outlet;			///< Outlet
 } t_textslider;
 
@@ -63,6 +66,7 @@ void		textslider_int(t_textslider *x, long value);
 void		textslider_float(t_textslider *x, double value);
 t_max_err	textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv);
 t_max_err	textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv);
+t_max_err	textslider_set_text(t_textslider *obj, void *attr, long argc, t_atom *argv);
 void		textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers);
 void		textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
 void		textslider_mouseup(t_textslider *x, t_object *patcherview);
@@ -102,6 +106,14 @@ int main(void)
 	class_addmethod(c, (method)textslider_assist,			"assist",			A_CANT, 0);
 
 	
+
+	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 100. 12.");
+	CLASS_ATTR_MIN(c,						"patching_size",	0,	"1. 1.");
+		
+	CLASS_ATTR_DEFAULT(c,					"fontname",			0, JAMOMA_DEFAULT_FONT);
+	CLASS_ATTR_DEFAULT(c,					"fontsize",			0, "11");
+	
+	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
 	
 	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_textslider,	attrBgColor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.7 0.7 0.7 1.0");
@@ -119,15 +131,22 @@ int main(void)
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.0 0.0 0.0 1.0");
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
 	
-	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 100. 12.");
-	CLASS_ATTR_MIN(c,						"patching_size",	0,	"1. 1.");
+	CLASS_STICKY_ATTR_CLEAR(c,				"category");
+	
 
 	CLASS_ATTR_FLOAT_ARRAY(c,				"range",		0,	t_textslider,	attrRange, 2);
 	CLASS_ATTR_LABEL(c,						"range",		0,	"Range");
 	CLASS_ATTR_DEFAULT(c,					"range",		0,	"0.0 1.0");
 	CLASS_ATTR_SAVE(c,						"range",		0);
 	CLASS_ATTR_ACCESSORS(c,					"range",		textslider_getRange, textslider_setRange);
-	CLASS_ATTR_CATEGORY(c,					"range",		0,	"Value");
+	CLASS_ATTR_CATEGORY(c,					"range",		0,	"Jamoma");
+	
+	CLASS_ATTR_SYM(c,						"text",			0,	t_textslider, attrText);
+	CLASS_ATTR_LABEL(c,						"text",			0,	"Displayed Text");
+	CLASS_ATTR_DEFAULT(c,					"text",			0,	"textslider");
+	CLASS_ATTR_SAVE(c,						"text",			0);
+	CLASS_ATTR_ACCESSORS(c,					"text",			NULL,	textslider_set_text);
+	CLASS_ATTR_CATEGORY(c,					"text",			0,	"Jamoma");
 	
 	
 	class_register(CLASS_BOX, c);
@@ -181,7 +200,7 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 	
 	box = (t_jbox *)x;
 	jbox_new(box, flags, argc, argv);
-	x->obj.z_box.b_firstin = (t_object*)x;
+	x->box.b_firstin = (t_object *)x;
 
 	x->outlet = outlet_new(x, 0);
 	x->attrRange[0] = 0.;
@@ -286,6 +305,17 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 }
 
 
+t_max_err textslider_set_text(t_textslider *obj, void *attr, long argc, t_atom *argv)
+{	
+	if(argc && argv)
+		obj->attrText = atom_getsym(argv);
+	else
+		obj->attrText = _sym_nothing;
+		
+	return MAX_ERR_NONE;
+}
+
+
 
 #if 0
 #pragma mark -
@@ -295,6 +325,8 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 
 void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers)
 {
+	x->mouseDown = 1;
+	
 	x->mouseposition[X] = 0;
 	x->mouseposition[Y] = 0;
 	jmouse_getposition_global(&x->mouseposition[X], &x->mouseposition[Y]);
@@ -325,7 +357,7 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
 	Point pt;
-	
+	x->mouseDown = 0;
 	
 	// mouse cursor stuff
 	
@@ -342,6 +374,8 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 	//void jmouse_setposition_global(int x, int y);
 	
 	//MoveMouseTo(pt)
+	
+	jbox_redraw(&x->box);
 }
 
 
@@ -383,9 +417,19 @@ void textslider_paint(t_textslider *x, t_object *view)
 	c = x->attrBgColor;
 	jgraphics_set_source_jrgba(g, &c);
 	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);
-	jgraphics_text_measure(g, "sometext", &textWidth, &textHeight);
-	jgraphics_move_to(g, 10, (rect.height)/2+(textHeight/4));	
-	jgraphics_show_text(g, "sometext");
+	
+	c = x->attrTextColor;
+	jgraphics_set_source_jrgba(g, &c);
+	jgraphics_text_measure(g, x->attrText->s_name, &textWidth, &textHeight);
+	jgraphics_move_to(g, 10, (rect.height)/2+(textHeight/4));
+	
+	char str[7];
+	if(x->mouseDown) {
+		snprintf(str, sizeof(str), "%f", x->attrValue);
+		jgraphics_show_text(g, str);
+	}
+	else
+		jgraphics_show_text(g, x->attrText->s_name);
 	
 }
 
