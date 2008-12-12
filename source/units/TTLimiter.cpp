@@ -7,12 +7,14 @@
  */
 
 #include "TTLimiter.h"
+#include "TTEnvironment.h"
 #define thisTTClass TTLimiter
 
 
 TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("audio.limiter", newMaxNumChannels),
-	lookaheadBuffer(NULL), lookaheadBufferIndex(0), gain(NULL), last(0.0), recover(0.0), maxBufferSize(512), attrMode(TT("exponential"))
+	  recover(0.0), lookaheadBufferIndex(0), lookaheadBuffer(NULL), gain(NULL), last(0.0),
+	  dcBlocker(NULL), preamp(NULL), maxBufferSize(512), attrMode(TT("exponential"))
 {
 	// register our attributes
 	registerAttribute(TT("preamp"),		kTypeFloat64,	NULL,			(TTGetterMethod)&TTLimiter::getPreamp,		(TTSetterMethod)&TTLimiter::setPreamp);
@@ -30,8 +32,8 @@ TTLimiter::TTLimiter(TTUInt16 newMaxNumChannels)
 	// clear the history
 	registerMessageSimple(clear);
 
-	dcBlocker = new TTDCBlock(newMaxNumChannels);
-	preamp = new TTGain(newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_dcblock, &dcBlocker, newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_gain, &preamp, newMaxNumChannels);
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
@@ -57,8 +59,8 @@ TTLimiter::~TTLimiter()
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
-	delete dcBlocker;
-	delete preamp;
+	TTObjectRelease(dcBlocker);
+	TTObjectRelease(preamp);
 }
 
 
