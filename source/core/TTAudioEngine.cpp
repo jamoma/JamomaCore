@@ -18,11 +18,11 @@ TTAudioEngine::TTAudioEngine()
 	 vectorSize(64),
 	 sampleRate(44100),
 	 stream(NULL),
-	 inputBuffer(NULL),
-	 outputBuffer(NULL),
 	 inputDevice(NULL),
 	 outputDevice(NULL),
-	 isRunning(false)
+	 isRunning(false),
+	 inputBuffer(NULL),
+	 outputBuffer(NULL)
 {
 	callbackObservers = new TTList;
 	callbackObservers->setThreadProtection(NO);	// ... because we make calls into this at every audio vector calculation ...
@@ -145,7 +145,7 @@ TTErr TTAudioEngine::initStream()
 
 TTErr TTAudioEngine::start()
 {
-	PaError err;
+	PaError err = paNoError;
 	
 	if(!isRunning){
 		if(!stream)
@@ -163,7 +163,7 @@ TTErr TTAudioEngine::start()
 
 TTErr TTAudioEngine::stop()
 {
-	PaError err = 0;
+	PaError err = paNoError;
 	
 	if(stream){
 		err = Pa_StopStream(stream);
