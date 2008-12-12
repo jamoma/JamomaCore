@@ -47,7 +47,8 @@ typedef struct _textslider{
 	float		attrValue;			///< The slider value
 	float		attrRange[2];		///< ATTRIBUTE: low, high
 	float		anchorValue;		///< Used for mouse dragging
-	int		mouseposition[2];	///< Used to keep track of mouse position
+	t_symbol	*attrText;			///< Thye text displayed by the slider
+	int			mouseposition[2];	///< Used to keep track of mouse position
 	void		*outlet;			///< Outlet
 } t_textslider;
 
@@ -144,9 +145,9 @@ int main(void)
 
 void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 {
-	t_textslider*	x;
-	t_jbox*		box;
-	long		flags;
+	t_textslider*	x = NULL;
+	t_jbox*			box;
+	long			flags;
 	
 	t_dictionary *d=NULL;
 	
@@ -156,20 +157,26 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 	x = (t_textslider *)object_alloc(s_textslider_class);
 	
 	flags = 0 
-		| JBOX_DRAWFIRSTIN 
-		| JBOX_NODRAWBOX
-		| JBOX_DRAWINLAST
-	//	| JBOX_TRANSPARENT	
-	//	| JBOX_NOGROW
-	//	| JBOX_GROWY
-		| JBOX_GROWBOTH
-	//	| JBOX_HILITE
-	//	| JBOX_BACKGROUND
-	//	| JBOX_DRAWBACKGROUND
-	//	| JBOX_NOFLOATINSPECTOR
-	//	| JBOX_TEXTFIELD
-	//	| JBOX_MOUSEDRAGDELTA
-	//	| JBOX_TEXTFIELD
+		| JBOX_DRAWFIRSTIN		// 0
+		| JBOX_NODRAWBOX		// 1
+		| JBOX_DRAWINLAST		// 2
+	//	| JBOX_TRANSPARENT		// 3
+	//	| JBOX_NOGROW			// 4
+	//	| JBOX_GROWY			// 5
+		| JBOX_GROWBOTH			// 6
+	//	| JBOX_IGNORELOCKCLICK	// 7
+	//	| JBOX_HILITE			// 8
+	//	| JBOX_BACKGROUND		// 9
+	//	| JBOX_NOFLOATINSPECTOR	// 10
+	//	| JBOX_TEXTFIELD		// 11
+		| JBOX_MOUSEDRAGDELTA	// 12
+	//	| JBOX_COLOR			// 13
+	//	| JBOX_BINBUF			// 14
+	//	| JBOX_DRAWIOLOCKED		// 15
+	//	| JBOX_DRAWBACKGROUND	// 16
+	//	| JBOX_NOINSPECTFIRSTIN	// 17
+	//	| JBOX_DEFAULTNAMES		// 18
+	//	| JBOX_FIXWIDTH			// 19
 	;
 	
 	box = (t_jbox *)x;
@@ -317,7 +324,7 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 
 void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
-	//Point pt;
+	Point pt;
 	
 	
 	// mouse cursor stuff
@@ -352,6 +359,7 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 void textslider_paint(t_textslider *x, t_object *view)
 {
 	t_rect			rect;
+	double			textWidth, textHeight;
 	t_jgraphics*	g;
 	double			value;
 	
@@ -375,7 +383,9 @@ void textslider_paint(t_textslider *x, t_object *view)
 	c = x->attrBgColor;
 	jgraphics_set_source_jrgba(g, &c);
 	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);
-	
+	jgraphics_text_measure(g, "sometext", &textWidth, &textHeight);
+	jgraphics_move_to(g, 10, (rect.height)/2+(textHeight/4));	
+	jgraphics_show_text(g, "sometext");
 	
 }
 
