@@ -19,21 +19,20 @@
  */ 
 class TTEXPORT TTPulseSub : public TTAudioObject {
 protected:
-	TTFloat64	attrAttack;
-	TTFloat64	attrDecay;
-	TTFloat64	attrSustain;
-	TTFloat64	attrRelease;
-	TTBoolean	attrTrigger;
-	TTSymbol*	attrMode;
-	TTFloat64	attrFrequency;
-	TTFloat64	attrLength;
-
-	TTAdsr*			env_gen;
-	TTPhasor*		phasor;
-	TTOperator*		offset;
-	TTOperator*		scaler;
-	TTAudioSignal*	sig1;
-	TTAudioSignal*	sig2;
+	TTFloat64			attrAttack;
+	TTFloat64			attrDecay;
+	TTFloat64			attrSustain;
+	TTFloat64			attrRelease;
+	TTBoolean			attrTrigger;
+	TTSymbolPtr			attrMode;
+	TTFloat64			attrFrequency;
+	TTFloat64			attrLength;
+	TTAudioObjectPtr	env_gen;		///< TTAdsr
+	TTAudioObjectPtr	phasor;			///< TTPhasor
+	TTAudioObjectPtr	offset;			///< TTOperator
+	TTAudioObjectPtr	scaler;			///< TTOperator
+	TTAudioSignalPtr	sig1;
+	TTAudioSignalPtr	sig2;
 	
 	TTErr updateSr();
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
@@ -41,7 +40,7 @@ protected:
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 	
 public:
-	TTPulseSub(TTUInt16 newMaxNumChannels);
+	TTPulseSub(const TTUInt16 newMaxNumChannels);
 	virtual ~TTPulseSub();
 	
 	TTErr setTrigger(const TTValue& newValue);

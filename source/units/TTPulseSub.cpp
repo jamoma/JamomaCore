@@ -7,11 +7,13 @@
  */
 
 #include "TTPulseSub.h"
+#include "TTEnvironment.h"
 #define thisTTClass TTPulseSub
 
 
-TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("audio.pulsesub", newMaxNumChannels), attrMode(TT("linear"))
+TTPulseSub::TTPulseSub(const TTUInt16 newMaxNumChannels)
+	: TTAudioObject("audio.pulsesub", newMaxNumChannels), attrMode(TT("linear")),
+	  env_gen(NULL), phasor(NULL), offset(NULL), scaler(NULL), sig1(NULL), sig2(NULL)
 {
 	registerAttribute(TT("attack"),		kTypeFloat64,	&attrAttack,	(TTSetterMethod)&TTPulseSub::setAttack);
 	registerAttribute(TT("decay"),		kTypeFloat64,	&attrDecay,		(TTSetterMethod)&TTPulseSub::setDecay);
@@ -26,15 +28,14 @@ TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 	registerMessageWithArgument(updateMaxNumChannels);
 	registerMessageSimple(updateSr);
 
-	env_gen = new TTAdsr(newMaxNumChannels);
-	phasor = new TTPhasor(newMaxNumChannels);
-	offset = new TTOperator(newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_adsr, &env_gen, newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_phasor, &phasor, newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_operator, &offset, newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_operator, &scaler, newMaxNumChannels);	
+	TTObjectInstantiate(kTTSym_audiosignal, &sig1, 1);	
+	TTObjectInstantiate(kTTSym_audiosignal, &sig2, 1);	
 	offset->setAttributeValue(TT("operator"), TT("+"));
-	scaler = new TTOperator(newMaxNumChannels);
 	scaler->setAttributeValue(TT("operator"), TT("*"));
-	
-	sig1 = new TTAudioSignal(1);
-	sig2 = new TTAudioSignal(1);
 
 	setAttributeValue(TT("attack"), 50.);
 	setAttributeValue(TT("decay"), 100.);
@@ -48,10 +49,12 @@ TTPulseSub::TTPulseSub(TTUInt16 newMaxNumChannels)
 
 TTPulseSub::~TTPulseSub()
 {
-	delete offset;
-	delete phasor;
-	delete env_gen;
-	delete scaler;
+	TTObjectRelease(offset);
+	TTObjectRelease(phasor);
+	TTObjectRelease(env_gen);
+	TTObjectRelease(scaler);
+	TTObjectRelease(sig1);
+	TTObjectRelease(sig2);
 }
 
 
