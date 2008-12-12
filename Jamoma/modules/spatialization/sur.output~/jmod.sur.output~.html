@@ -48,17 +48,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> dcblocker/active </td>
-			<td class ="instructionType"> toggle </td>
-			<td class ="instructionRangeBounds"> 0 1 </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> DC Blocker: Active or bypassed. </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> limiter/active </td>
 			<td class ="instructionType"> toggle </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
@@ -68,6 +57,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Limiter: Active or bypassed. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> limiter/dcblocker/active </td>
+			<td class ="instructionType"> toggle </td>
+			<td class ="instructionRangeBounds"> 0 1 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> DC Blocker: Active or bypassed. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> limiter/lookahead </td>
@@ -136,6 +136,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Limiter: Set threshold as dB. </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> numSpeakers </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 2 32 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Set number of output channels to use. Changes only take effect when audio is off. </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> offset </td>
 			<td class ="instructionType"> int </td>
 			<td class ="instructionRangeBounds"> 0 64 </td>
@@ -189,17 +200,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> voices </td>
-			<td class ="instructionType"> int </td>
-			<td class ="instructionRangeBounds"> 2 32 </td>
-			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Set number of output channels to use. Changes only take effect when audio is off. </td>
 		<tr>
 	</table>
 
