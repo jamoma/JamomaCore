@@ -288,8 +288,8 @@ void TTBlueRegisterInternalClasses()
 	
 	
 	// Filtering
-	TTClassRegister(TT("allpass"),						"audio, processor, filter, allpass",								&TTBlueInstantiateInternalClass);
-	TTClassRegister(TT("average"),						"audio, processor, filter, lowpass, envelope",						&TTBlueInstantiateInternalClass);
+//	TTClassRegister(TT("allpass"),						"audio, processor, filter, allpass",								&TTBlueInstantiateInternalClass);
+//	TTClassRegister(TT("average"),						"audio, processor, filter, lowpass, envelope",						&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("bandpass.butterworth.2"),		"audio, processor, filter, bandpass, butterworth",					&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("bandreject.butterworth.2"),		"audio, processor, filter, notch",									&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("dcblock"),						"audio, processor, filter",											&TTBlueInstantiateInternalClass);
@@ -312,7 +312,7 @@ void TTBlueRegisterInternalClasses()
 	TTClassRegister(TT("lowpass.2"),					"audio, processor, filter, lowpass",								&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("lowpass.4"),					"audio, processor, filter, lowpass",								&TTBlueInstantiateInternalClass);
 
-	TTClassRegister(TT("svf"),							"audio, processor, filter, lowpass, highpass, bandpass, notch",		&TTBlueInstantiateInternalClass);
+//	TTClassRegister(TT("svf"),							"audio, processor, filter, lowpass, highpass, bandpass, notch",		&TTBlueInstantiateInternalClass);
 	
 	
 	// Misc
