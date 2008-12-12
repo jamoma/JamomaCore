@@ -55,36 +55,6 @@ TTErr TTAdsr::updateSr()
 }
 
 
-#ifdef USE_MACRO_ACCESSORS
-/** Defines a setter function, the first parameter creates a function prefixed with the word set
- * in front of it.  The second parameter is the prefix for the variable that has been defined in the class */
-#define DEFINE_SETPARAM(functionName, prefix)	TTErr TTAdsr::set ## functionName (const TTAttribute&, const TTValue& newValue) { \
-	prefix ## _ms = TTClip<TTFloat64>( prefix ## _ms, 1., 60000.); \
-	prefix ## _samples = long(( prefix ## _ms / 1000.) * sr); \
-	prefix ## _step = 1.0 / prefix ## _samples; \
-	prefix ## _step_db = -(double(NOISE_FLOOR) / prefix ## _samples); \
-	return kTTErrNone; \
-	}
-
-/** Defines a getter function, the first parameter creates a function prefixed with the word get
- * in front of it.  The second parameter is the prefix for the variable that has been defined in the class */
-#define DEFINE_GETPARAM(functionName, prefix)	TTErr TTAdsr::get ## functionName (const TTAttribute&, TTValue& value) { \
-	value = prefix ## _ms; \
-	return kTTErrNone; \
-	}
-	
-/** Define a setter and getter function */
-#define DEFINE_PARAM(functionName, prefix) DEFINE_SETPARAM(functionName, prefix) \
-	DEFINE_GETPARAM(functionName, prefix)
-
-
-DEFINE_PARAM(Attack, attack);
-DEFINE_PARAM(Decay, decay);
-DEFINE_PARAM(Release, release);
-
-#else // using old fashioned not-generated-by-a-macro accessors
-
-
 TTErr TTAdsr::setAttack(const TTValue& newValue)
 {
 	attack_ms = TTClip((TTFloat64)newValue, 1.0, 60000.0);
@@ -113,8 +83,6 @@ TTErr TTAdsr::setRelease(const TTValue& newValue)
 	release_step_db = -(double(NOISE_FLOOR) / release_samples);
 	return kTTErrNone;
 }
-
-#endif 
 
 
 TTErr TTAdsr::setSustainAmp(const TTValue& newValue)
