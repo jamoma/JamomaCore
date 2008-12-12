@@ -49,6 +49,8 @@ TTEXPORT TTSymbol*	kTTSym_sawtoothMod;
 
 TTEXPORT TTSymbolPtr	kTTSym_adsr;
 TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
+TTEXPORT TTSymbolPtr	kTTSym_operator;
+TTEXPORT TTSymbolPtr	kTTSym_phasor;
 
 
 void TTSymbolCacheInit()
@@ -91,4 +93,6 @@ void TTSymbolCacheInit()
 	
 	kTTSym_adsr						= TT("adsr");
 	kTTSym_audiosignal				= TT("audiosignal");
+	kTTSym_operator					= TT("operator");
+	kTTSym_phasor					= TT("phasor");
 }

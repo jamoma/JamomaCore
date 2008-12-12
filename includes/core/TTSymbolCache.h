@@ -52,6 +52,8 @@ extern TTEXPORT TTSymbol*	kTTSym_sawtoothMod;
 // object names
 extern TTEXPORT TTSymbolPtr	kTTSym_adsr;
 extern TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
+extern TTEXPORT TTSymbolPtr	kTTSym_operator;
+extern TTEXPORT TTSymbolPtr	kTTSym_phasor;
 
 void TTSymbolCacheInit();
 
