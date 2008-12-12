@@ -155,16 +155,14 @@ TTErr TTAdsr::processAudioLinear(TTAudioSignalArrayPtr inputs, TTAudioSignalArra
 	TTAudioSignal&	out = outputs->getSignal(0);
 	TTSampleValue*	inSample;
 	TTSampleValue*	outSample;
-	TTUInt16		vs = in.getVectorSize();
+	TTUInt16		vs = out.getVectorSize();
 	bool			checkAudioTrigger = false;
 
-	// If the two signals are the same instance, then we know that only an output signal has been passed
-	// So in that case we use the control-rate trigger instead of an audio-rate trigger.
 	// TODO: Is there a decent way to do this without having to check this every single vector?
-	if(&in != &out)
+	if(inputs->numAudioSignals){
 		checkAudioTrigger = true;
-
-	inSample = in.sampleVectors[0];
+		inSample = in.sampleVectors[0];
+	}
 	outSample = out.sampleVectors[0];
 	
 	while(vs--) {
@@ -222,13 +220,11 @@ TTErr TTAdsr::processAudioExponential(TTAudioSignalArrayPtr inputs, TTAudioSigna
 	TTUInt16		vs = in.getVectorSize();
 	bool			checkAudioTrigger = false;
 
-	// If the two signals are the same instance, then we know that only an output signal has been passed
-	// So in that case we use the control-rate trigger instead of an audio-rate trigger.
 	// TODO: Is there a decent way to do this without having to check this every single vector?
-	if(&in != &out)
+	if(inputs->numAudioSignals){
 		checkAudioTrigger = true;
-
-	inSample = in.sampleVectors[0];
+		inSample = in.sampleVectors[0];
+	}
 	outSample = out.sampleVectors[0];
 	
 	while(vs--) {
