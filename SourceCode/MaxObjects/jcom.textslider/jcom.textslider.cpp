@@ -403,7 +403,7 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	if(modifiers & eShiftKey)
 		factor = factor*50.;
 	
-	factor = factor * (x->attrRange[1] - x->attrRange[0]);
+	factor = factor / (x->attrRange[1] - x->attrRange[0]);
 	
 	x->anchorValue = TTClip<float>(x->anchorValue + (pt.x / factor), x->attrRange[0], x->attrRange[1]);
 	
