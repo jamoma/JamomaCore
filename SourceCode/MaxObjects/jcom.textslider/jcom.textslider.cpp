@@ -67,6 +67,7 @@ void		textslider_float(t_textslider *x, double value);
 void		textslider_set(t_textslider *x, double value);
 t_max_err	textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv);
 t_max_err	textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv);
+t_max_err	textslider_get_text(t_textslider *x, void *attr, long *argc, t_atom **argv);
 t_max_err	textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *argv);
 void		textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers);
 void		textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
@@ -87,6 +88,7 @@ static t_class*	s_textslider_class;
 
 int main(void)
 {
+	long	flags;
 	t_class *c;
 	
 	jamoma_init();
@@ -100,12 +102,9 @@ int main(void)
 				  A_GIMME, 
 				  0L);
 	
-	c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // use dictionary constructor
-	c->c_flags |= JBOX_TEXTFIELD;
-	jbox_initclass(c, 0);
-	
-	jamoma_init();
-	common_symbols_init();
+	flags = JBOX_TEXTFIELD;
+	jbox_initclass(c, flags);	
+	c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // to specify dictionary constructor
 	
 	class_addmethod(c, (method)textslider_bang,				"bang",				0);
 	class_addmethod(c, (method)textslider_int,				"int",				A_LONG, 0);
@@ -124,8 +123,8 @@ int main(void)
 	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 100. 12.");
 	CLASS_ATTR_MIN(c,						"patching_size",	0,	"1. 1.");
 		
-	CLASS_ATTR_DEFAULT(c,					"fontname",			0, JAMOMA_DEFAULT_FONT);
-	CLASS_ATTR_DEFAULT(c,					"fontsize",			0, "11");
+	CLASS_ATTR_DEFAULT(c,					"fontname",		0, JAMOMA_DEFAULT_FONT);
+	CLASS_ATTR_DEFAULT(c,					"fontsize",		0, "10");
 	
 	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
 	
@@ -159,7 +158,7 @@ int main(void)
 	CLASS_ATTR_LABEL(c,						"text",			0,	"Displayed Text");
 	CLASS_ATTR_DEFAULT(c,					"text",			0,	"textslider");
 	CLASS_ATTR_SAVE(c,						"text",			0);
-	CLASS_ATTR_ACCESSORS(c,					"text",			NULL,	textslider_set_text);
+	CLASS_ATTR_ACCESSORS(c,					"text",			textslider_get_text, textslider_set_text);
 	CLASS_ATTR_CATEGORY(c,					"text",			0,	"Jamoma");
 	
 	
@@ -217,8 +216,6 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 	x->box.b_firstin = (t_object *)x;
 
 	x->outlet = outlet_new(x, 0);
-	x->attrRange[0] = 0.;
-	x->attrRange[1] = 1.;
 
 	attr_dictionary_process(x,d);
 	jbox_ready((t_jbox *)x);
@@ -289,12 +286,22 @@ void textslider_float(t_textslider *x, double value)
 
 }
 
+
+
+
+
 void textslider_set(t_textslider *x, double value)
 {
 	x->attrValue = value;
 	// TODO: Should it be clipped to range?
 	jbox_redraw((t_jbox*)x);	
 }
+
+
+#if 0
+#pragma mark -
+#pragma mark Attributes
+#endif 0
 
 
 t_max_err textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv)
@@ -326,6 +333,16 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 }
 
 
+t_max_err textslider_get_text(t_textslider *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attrText);
+	return MAX_ERR_NONE;
+}
+
+
 t_max_err textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *argv)
 {	
 	if(argc && argv)
@@ -337,7 +354,6 @@ t_max_err textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *ar
 		
 	return MAX_ERR_NONE;
 }
-
 
 
 #if 0
@@ -398,19 +414,34 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 	
 	//MoveMouseTo(pt)
 	
+	t_object *textfield = jbox_get_textfield((t_object*) x);
+	if(textfield)
+		object_method(textfield, gensym("settext"), x->attrText->s_name);
+	
 	jbox_redraw(&x->box);
 }
 
 
 void *textslider_oksize(t_textslider *x, t_rect *newrect)
 {
+	t_object 	*textfield = NULL;
+	
 	TTClip(newrect->width, kWidthMinimum, kWidthMaximum);
 	TTClip(newrect->height, kHeightMinimum, kHeightMaximum);
+	
+	// We do textfield configuration here because the margins are dependent upon the dimensions
+	// textfield is used for displaying the parameter name
+	textfield = jbox_get_textfield((t_object*) x); 
+	textfield_set_noactivate(textfield, 1);
+	textfield_set_readonly(textfield, 1);
+	textfield_set_editonclick(textfield, 0);
+	textfield_set_wordwrap(textfield, 0);
+	textfield_set_useellipsis(textfield, 1); 
+	textfield_set_textcolor(textfield, &x->attrTextColor);
+	textfield_set_textmargins(textfield, 10., newrect->height / 2., newrect->width - 10.0, 2.0);
+		
 	return (void*)1;
 }
-
-
-
 
 
 void textslider_paint(t_textslider *x, t_object *view)
@@ -441,10 +472,13 @@ void textslider_paint(t_textslider *x, t_object *view)
 	jgraphics_set_source_jrgba(g, &c);
 	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);
 	
-	c = x->attrTextColor;
-	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_text_measure(g, x->attrText->s_name, &textWidth, &textHeight);
-	jgraphics_move_to(g, 10, (rect.height)/2+(textHeight/4));
+	//c = x->attrTextColor;
+	//jgraphics_set_source_jrgba(g, &c);
+	//jgraphics_select_jfont(g, t_jfont *jfont); 
+	//jgraphics_set_font_size(g, double size);
+	
+	//jgraphics_text_measure(g, x->attrText->s_name, &textWidth, &textHeight);
+	//jgraphics_move_to(g, 10, (rect.height)/2+(textHeight/4));
 	
 	char str[7];
 	if(x->mouseDown) {
