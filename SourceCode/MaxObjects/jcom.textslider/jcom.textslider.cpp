@@ -135,6 +135,10 @@ int main(void)
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"fgcolor",		0,	"0.95 0.95 0.95 1.0");
 	CLASS_ATTR_STYLE(c,						"fgcolor",		0,	"rgba");	
 	
+	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_textslider,	attrBorderColor);
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.7 0.7 0.7 1.0");
+	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
+	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_textslider,	attrTextColor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.0 0.0 0.0 1.0");
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
@@ -399,7 +403,7 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 
-	double	factor = rect.width;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
+	double	factor = rect.width-2;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
 	if(modifiers & eShiftKey)
 		factor = factor*50.;
 	
@@ -432,7 +436,7 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 	// Mouse show up again at current slider value
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	jmouse_setposition_view(patcherview, 
-							rect.x+((x->attrValue/(x->attrRange[1] - x->attrRange[0]))*rect.width), 
+							rect.x+((x->attrValue/(x->attrRange[1] - x->attrRange[0]))*(rect.width-2)+1), 
 							x->mousePositionY);
 }
 
@@ -453,7 +457,7 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &x->attrTextColor);
-	textfield_set_textmargins(textfield, 2.0, 2.0, 2.0, 2.0);
+	textfield_set_textmargins(textfield, 10.0, 4.0, 2.0, 2.0);
 		
 	return (void*)1;
 }
@@ -476,14 +480,23 @@ void textslider_paint(t_textslider *x, t_object *view)
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
 	rect.x = 0;
 	rect.y = 0;
-	position = rect.width * value;
+	position = (rect.width-2) * value+1;
 
+	// Draw frame
+	c = x->attrBorderColor;
+	jgraphics_set_source_jrgba(g, &c);
+	jgraphics_rectangle_fill_fast(g, 0., 0., rect.width, rect.height);	
+	
+	// Draw active part of slider
 	c = x->attrFgColor;
 	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, 0, 0, position, rect.height);	
+	jgraphics_rectangle_fill_fast(g, 1, 1, position, rect.height-2);	
 	
+	// Draw passive part of slider
 	c = x->attrBgColor;
 	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);	
+	jgraphics_rectangle_fill_fast(g, position, 1, rect.width-position-1, rect.height-2);
+	
+
 }
 
