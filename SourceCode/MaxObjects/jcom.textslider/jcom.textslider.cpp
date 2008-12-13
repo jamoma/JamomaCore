@@ -59,7 +59,7 @@ typedef struct _textslider{
 // prototypes
 void*		textslider_new(t_symbol *s, long argc, t_atom *argv);
 void		textslider_free(t_textslider *x);
-t_max_err	textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+void		textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		textslider_assist(t_textslider *x, void *b, long m, long a, char *s);
 void		textslider_bang(t_textslider *x);
 void		textslider_int(t_textslider *x, long value);
@@ -111,6 +111,7 @@ int main(void)
 	class_addmethod(c, (method)textslider_float,			"float",			A_FLOAT, 0);
 	class_addmethod(c, (method)textslider_set,				"set",				A_FLOAT, 0);
 	class_addmethod(c, (method)textslider_paint,			"paint",			A_CANT, 0);
+	class_addmethod(c, (method)textslider_notify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)textslider_oksize,			"oksize",			A_CANT, 0);
 	class_addmethod(c, (method)textslider_mousedown,		"mousedown",		A_CANT, 0);
 	class_addmethod(c, (method)textslider_mousedragdelta,	"mousedragdelta",	A_CANT, 0);
@@ -235,18 +236,28 @@ void textslider_free(t_textslider *x)
 #pragma mark Methods
 #endif 0
 
-t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+void textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	t_symbol*	name;
+	t_symbol*	attrname;
+	t_object	*textfield;
 	
-	if(msg == _sym_attr_modified){
-		name = (t_symbol *)object_method((t_object *)data, _sym_getname);
-		if(name == _sym_bgcolor)
-			jbox_redraw((t_jbox*)x);
+	if((msg == _sym_attr_modified) && (sender == x)){
+		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
+		textfield = jbox_get_textfield((t_object*) x);
+		if(textfield)
+			textfield_set_textcolor(textfield, &x->attrTextColor);
+		
+		if(attrname == gensym("module_name"))
+			object_method(textfield, gensym("settext"), x->attrText->s_name);
+		
+		char str[7];
+		if(x->mouseDown) {
+			snprintf(str, sizeof(str), "%f", x->attrValue);
+			object_method(textfield, gensym("settext"), str);
+		}
+		
+		jbox_redraw(&x->box);
 	}
-	
-	jbox_notify((t_jbox *)x, s, msg, sender, data);
-	return MAX_ERR_NONE;
 }
 
 
@@ -438,7 +449,7 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &x->attrTextColor);
-	textfield_set_textmargins(textfield, 10., newrect->height / 2., newrect->width - 10.0, 2.0);
+	textfield_set_textmargins(textfield, 10., 2., newrect->width - 10.0, 2.0);
 		
 	return (void*)1;
 }
