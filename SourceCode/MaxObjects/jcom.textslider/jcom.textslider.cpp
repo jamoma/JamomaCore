@@ -128,20 +128,24 @@ int main(void)
 	CLASS_STICKY_ATTR(c,					"category",		0, "Color");
 	
 	CLASS_ATTR_RGBA(c,						"bgcolor",		0,	t_textslider,	attrBgColor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.7 0.7 0.7 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bgcolor",		0,	"0.8 0.8 0.8 0.7");
 	CLASS_ATTR_STYLE(c,						"bgcolor",		0,	"rgba");
+	CLASS_ATTR_LABEL(c,						"bgcolor",		0,	"Background Color");
 
 	CLASS_ATTR_RGBA(c,						"fgcolor",		0,	t_textslider,	attrFgColor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"fgcolor",		0,	"0.95 0.95 0.95 1.0");
-	CLASS_ATTR_STYLE(c,						"fgcolor",		0,	"rgba");	
+	CLASS_ATTR_STYLE(c,						"fgcolor",		0,	"rgba");
+	CLASS_ATTR_LABEL(c,						"fgcolor",		0,	"Foreground Color");
 	
 	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_textslider,	attrBorderColor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.7 0.7 0.7 1.0");
+	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.5 0.5 0.5 1.0");
 	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
+	CLASS_ATTR_LABEL(c,						"bordercolor",	0,	"Border Color");
 	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_textslider,	attrTextColor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.0 0.0 0.0 1.0");
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
+	CLASS_ATTR_LABEL(c,						"textcolor",	0,	"Text Color");
 	
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");
 
