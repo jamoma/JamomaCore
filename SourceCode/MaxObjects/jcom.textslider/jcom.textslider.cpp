@@ -119,7 +119,7 @@ int main(void)
 
 	
 
-	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 100. 12.");
+	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 160. 20.");
 	CLASS_ATTR_MIN(c,						"patching_size",	0,	"1. 1.");
 		
 	CLASS_ATTR_DEFAULT(c,					"fontname",		0, JAMOMA_DEFAULT_FONT);
@@ -134,10 +134,6 @@ int main(void)
 	CLASS_ATTR_RGBA(c,						"fgcolor",		0,	t_textslider,	attrFgColor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"fgcolor",		0,	"0.95 0.95 0.95 1.0");
 	CLASS_ATTR_STYLE(c,						"fgcolor",		0,	"rgba");	
-	
-	CLASS_ATTR_RGBA(c,						"bordercolor",	0,	t_textslider,	attrBorderColor);
-	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"bordercolor",	0,	"0.7 0.7 0.7 1.0");
-	CLASS_ATTR_STYLE(c,						"bordercolor",	0,	"rgba");
 	
 	CLASS_ATTR_RGBA(c,						"textcolor",	0,	t_textslider,	attrTextColor);
 	CLASS_ATTR_DEFAULTNAME_SAVE_PAINT(c,	"textcolor",	0,	"0.0 0.0 0.0 1.0");
