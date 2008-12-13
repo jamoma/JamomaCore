@@ -246,8 +246,12 @@ void textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender
 	t_object	*textfield;
 	t_symbol	*attrname;
 	
-	if((msg == _sym_attr_modified) && (sender == x)){
+	if(msg == _sym_modified)
+		jbox_redraw(&x->box);	
+	else if ((msg == _sym_attr_modified) && (sender == x))
+	{
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
+		
 		textfield = jbox_get_textfield((t_object*) x);
 		if(textfield)
 			textfield_set_textcolor(textfield, &x->attrTextColor);
@@ -411,7 +415,7 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 
 void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
-	Point pt;
+	// Point pt;
 	x->mouseDown = 0;
 	
 	// mouse cursor stuff
@@ -454,7 +458,7 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &x->attrTextColor);
-	textfield_set_textmargins(textfield, 10., 2., newrect->width - 10.0, 2.0);
+	textfield_set_textmargins(textfield, 10., 2., newrect->width - 10.0, newrect->height - 4.0);
 		
 	return (void*)1;
 }
@@ -463,7 +467,6 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 void textslider_paint(t_textslider *x, t_object *view)
 {
 	t_rect			rect;
-	double			textWidth, textHeight;
 	t_jgraphics*	g;
 	double			value;
 	
