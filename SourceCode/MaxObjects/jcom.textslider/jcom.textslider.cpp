@@ -17,8 +17,6 @@
 #include "Jamoma.h"
 #include "TTBlue.h"
 
-enum coordinate {X, Y};
-
 // Constants
 const double kPollIntervalDefault = 150;
 const double kPollIntervalMinimum = 50;
@@ -49,7 +47,7 @@ typedef struct _textslider{
 	float		anchorValue;		///< Used for mouse dragging
 	t_symbol	*attrText;			///< The text displayed by the slider
 	
-	int			mouseposition[2];	///< Used to keep track of mouse position
+	double		mousePositionY;		///< Used to redraw position mouse after dragging
 	bool		mouseDown;			///< Flag indicating mouse status
 	
 	void		*outlet;			///< Outlet
@@ -146,7 +144,6 @@ int main(void)
 	CLASS_ATTR_STYLE(c,						"textcolor",	0,	"rgba");
 	
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");
-	
 
 	CLASS_ATTR_FLOAT_ARRAY(c,				"range",		0,	t_textslider,	attrRange, 2);
 	CLASS_ATTR_LABEL(c,						"range",		0,	"Range");
@@ -162,19 +159,17 @@ int main(void)
 	CLASS_ATTR_ACCESSORS(c,					"text",			textslider_get_text, textslider_set_text);
 	CLASS_ATTR_CATEGORY(c,					"text",			0,	"Jamoma");
 	
-	
 	class_register(CLASS_BOX, c);
 	s_textslider_class = c;		
 	return 0;
 }
 
 
-
-
 #if 0
 #pragma mark -
 #pragma mark Life Cycle
 #endif 0
+
 
 void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 {
@@ -198,7 +193,7 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 			| JBOX_GROWBOTH			// 6
 		//	| JBOX_IGNORELOCKCLICK	// 7
 		//	| JBOX_HILITE			// 8
-		//	| JBOX_BACKGROUND		// 9
+			| JBOX_BACKGROUND		// 9
 		//	| JBOX_NOFLOATINSPECTOR	// 10
 			| JBOX_TEXTFIELD		// 11
 			| JBOX_MOUSEDRAGDELTA	// 12
@@ -240,6 +235,7 @@ void textslider_free(t_textslider *x)
 #pragma mark -
 #pragma mark Methods
 #endif 0
+
 
 void textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
@@ -292,11 +288,14 @@ void textslider_bang(t_textslider *x)
 }
 
 
+// Method: int - converted to float
 void textslider_int(t_textslider *x, long value)
 {
 	textslider_float(x,(double)value);
 }
 
+
+// Method: float - update value, redraw and output
 void textslider_float(t_textslider *x, double value)
 {
 	x->attrValue = value;
@@ -307,9 +306,7 @@ void textslider_float(t_textslider *x, double value)
 }
 
 
-
-
-
+// Method: set - update and redraw, but no output
 void textslider_set(t_textslider *x, double value)
 {
 	x->attrValue = value;
@@ -339,6 +336,7 @@ t_max_err textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **
 
 	return MAX_ERR_NONE;
 }
+
 
 t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv)
 {
@@ -384,12 +382,14 @@ t_max_err textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *ar
 
 void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers)
 {
-	x->mouseDown = 1;
+	t_rect	rect;
 	
-	x->mouseposition[X] = 0;
-	x->mouseposition[Y] = 0;
-	jmouse_getposition_global(&x->mouseposition[X], &x->mouseposition[Y]);
-	post("Mouse position: %ld %ld", x->mouseposition[X], x->mouseposition[Y]);
+	// Get rect position and prepare for the mouse to show up properly affter dragging
+	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
+	x->mousePositionY = rect.y + px.y;
+	
+	x->mouseDown = 1;
+
 	x->anchorValue = x->attrValue;			
 	jbox_set_mousedragdelta((t_object *)x, 1);
 }
@@ -399,7 +399,8 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
 {
 	t_rect	rect;
-	
+	t_object	*textfield;
+
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 
 	double	factor = rect.width;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
@@ -409,36 +410,34 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	factor = factor * (x->attrRange[1] - x->attrRange[0]);
 	
 	x->anchorValue = TTClip<float>(x->anchorValue + (pt.x / factor), x->attrRange[0], x->attrRange[1]);
+	
+	// Display value while dragging
+	char str[7];
+	textfield = jbox_get_textfield((t_object*) x);
+	snprintf(str, sizeof(str), "%f", x->attrValue);
+	if (textfield)
+		object_method(textfield, gensym("settext"), str);
+	
 	textslider_float(x, x->anchorValue);
 }
 
 
 void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
-	// Point pt;
 	x->mouseDown = 0;
-	
-	// mouse cursor stuff
-	
-	/**	Get the position of the mouse cursor in screen coordinates.
-	 @ingroup			jmouse
-	 @param	x			The address of a variable to hold the x-coordinate upon return.
-	 @param	y			The address of a variable to hold the y-coordinate upon return.	*/
-	//void jmouse_getposition_global(int *x, int *y);
-	
-	/**	Set the position of the mouse cursor in screen coordinates.
-	 @ingroup			jmouse
-	 @param	x			The new x-coordinate of the mouse cursor position.
-	 @param	y			The new y-coordinate of the mouse cursor position.	*/
-	//void jmouse_setposition_global(int x, int y);
-	
-	//MoveMouseTo(pt)
+	t_rect	rect;
 	
 	t_object *textfield = jbox_get_textfield((t_object*) x);
 	if(textfield)
 		object_method(textfield, gensym("settext"), x->attrText->s_name);
 	
 	jbox_redraw(&x->box);
+	
+	// Mouse show up again at current slider value
+	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
+	jmouse_setposition_view(patcherview, 
+							rect.x+((x->attrValue/(x->attrRange[1] - x->attrRange[0]))*rect.width), 
+							x->mousePositionY);
 }
 
 
@@ -450,7 +449,7 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 	TTClip(newrect->height, kHeightMinimum, kHeightMaximum);
 	
 	// We do textfield configuration here because the margins are dependent upon the dimensions
-	// textfield is used for displaying the parameter name
+	// Textfield is used for displaying the slider name
 	textfield = jbox_get_textfield((t_object*) x); 
 	textfield_set_noactivate(textfield, 1);
 	textfield_set_readonly(textfield, 1);
@@ -458,7 +457,7 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &x->attrTextColor);
-	textfield_set_textmargins(textfield, 10., 2., newrect->width - 10.0, newrect->height - 4.0);
+	textfield_set_textmargins(textfield, 2.0, 2.0, 2.0, 2.0);
 		
 	return (void*)1;
 }
@@ -489,23 +488,6 @@ void textslider_paint(t_textslider *x, t_object *view)
 	
 	c = x->attrBgColor;
 	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);
-	
-	//c = x->attrTextColor;
-	//jgraphics_set_source_jrgba(g, &c);
-	//jgraphics_select_jfont(g, t_jfont *jfont); 
-	//jgraphics_set_font_size(g, double size);
-	
-	//jgraphics_text_measure(g, x->attrText->s_name, &textWidth, &textHeight);
-	//jgraphics_move_to(g, 10, (rect.height)/2+(textHeight/4));
-	
-	char str[7];
-	if(x->mouseDown) {
-		snprintf(str, sizeof(str), "%f", x->attrValue);
-		jgraphics_show_text(g, str);
-	}
-	else
-		jgraphics_show_text(g, x->attrText->s_name);
-	
+	jgraphics_rectangle_fill_fast(g, position, 0, rect.width-position, rect.height);	
 }
 
