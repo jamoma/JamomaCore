@@ -178,49 +178,51 @@ int main(void)
 
 void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 {
-	t_textslider*	x = NULL;
-	t_jbox*			box;
+	t_textslider	*x = NULL;
+	t_dictionary	*d=NULL;
 	long			flags;
-	
-	t_dictionary *d=NULL;
+
 	
 	if (!(d=object_dictionaryarg(argc,argv)))
 		return NULL;
 	
-	x = (t_textslider *)object_alloc(s_textslider_class);
-	
-	flags = 0 
-		| JBOX_DRAWFIRSTIN		// 0
-		| JBOX_NODRAWBOX		// 1
-		| JBOX_DRAWINLAST		// 2
-	//	| JBOX_TRANSPARENT		// 3
-	//	| JBOX_NOGROW			// 4
-	//	| JBOX_GROWY			// 5
-		| JBOX_GROWBOTH			// 6
-	//	| JBOX_IGNORELOCKCLICK	// 7
-	//	| JBOX_HILITE			// 8
-	//	| JBOX_BACKGROUND		// 9
-	//	| JBOX_NOFLOATINSPECTOR	// 10
-	//	| JBOX_TEXTFIELD		// 11
-		| JBOX_MOUSEDRAGDELTA	// 12
-	//	| JBOX_COLOR			// 13
-	//	| JBOX_BINBUF			// 14
-	//	| JBOX_DRAWIOLOCKED		// 15
-	//	| JBOX_DRAWBACKGROUND	// 16
-	//	| JBOX_NOINSPECTFIRSTIN	// 17
-	//	| JBOX_DEFAULTNAMES		// 18
-	//	| JBOX_FIXWIDTH			// 19
-	;
-	
-	box = (t_jbox *)x;
-	jbox_new(box, flags, argc, argv);
-	x->box.b_firstin = (t_object *)x;
+	if (x = (t_textslider *)object_alloc(s_textslider_class))
+	{
+		flags = 0 
+			| JBOX_DRAWFIRSTIN		// 0
+			| JBOX_NODRAWBOX		// 1
+			| JBOX_DRAWINLAST		// 2
+		//	| JBOX_TRANSPARENT		// 3
+		//	| JBOX_NOGROW			// 4
+		//	| JBOX_GROWY			// 5
+			| JBOX_GROWBOTH			// 6
+		//	| JBOX_IGNORELOCKCLICK	// 7
+		//	| JBOX_HILITE			// 8
+		//	| JBOX_BACKGROUND		// 9
+		//	| JBOX_NOFLOATINSPECTOR	// 10
+			| JBOX_TEXTFIELD		// 11
+			| JBOX_MOUSEDRAGDELTA	// 12
+		//	| JBOX_COLOR			// 13
+		//	| JBOX_BINBUF			// 14
+		//	| JBOX_DRAWIOLOCKED		// 15
+		//	| JBOX_DRAWBACKGROUND	// 16
+		//	| JBOX_NOINSPECTFIRSTIN	// 17
+		//	| JBOX_DEFAULTNAMES		// 18
+		//	| JBOX_FIXWIDTH			// 19
+		;
+		
+		jbox_new(&x->box, flags, argc, argv);
+		x->box.b_firstin = (t_object *)x;
+		x->outlet = outlet_new(x, 0);
 
-	x->outlet = outlet_new(x, 0);
-
-	attr_dictionary_process(x,d);
-	jbox_ready((t_jbox *)x);
-	return x;
+		attr_dictionary_process(x,d);
+		jbox_ready((t_jbox *)x);
+		
+		object_attach_byptr(x, x); 		// sign up for notifications of changes to our attributes
+		return x;
+	}
+	else
+		return NULL;
 }
 
 
@@ -228,6 +230,9 @@ void textslider_free(t_textslider *x)
 {	
 	notify_free((t_object *)x);
 	jbox_free((t_jbox *)x);
+	
+	object_detach_byptr(x, x); 
+	object_unregister(x); 
 }
 
 
@@ -238,8 +243,8 @@ void textslider_free(t_textslider *x)
 
 void textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
-	t_symbol*	attrname;
 	t_object	*textfield;
+	t_symbol	*attrname;
 	
 	if((msg == _sym_attr_modified) && (sender == x)){
 		attrname = (t_symbol *)object_method((t_object *)data, gensym("getname"));
@@ -247,7 +252,7 @@ void textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender
 		if(textfield)
 			textfield_set_textcolor(textfield, &x->attrTextColor);
 		
-		if(attrname == gensym("module_name"))
+		if(attrname == gensym("text"))
 			object_method(textfield, gensym("settext"), x->attrText->s_name);
 		
 		char str[7];
