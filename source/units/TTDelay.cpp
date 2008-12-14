@@ -12,6 +12,7 @@
 
 TTDelay::TTDelay(TTUInt16 newMaxNumChannels)
 	: TTAudioObject("filter.dcblock", newMaxNumChannels),
+	  delay(0), delayInSamples(0), delayMax(0), delayMaxInSamples(0),
 	  buffer(NULL), inPtr(NULL), outPtr(NULL), endPtr(NULL)
 {
 	// declare attributes
