@@ -299,7 +299,7 @@
 					"presentation_rect" : [ 0.0, 20.0, 150.0, 14.0 ],
 					"outlettype" : [ "" ],
 					"id" : "obj-37",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 275.0, 356.0, 153.0, 17.0 ],
 					"presentation" : 1,
 					"args" : [ 0.8, "@text", " ", "@size", 150, 15 ]

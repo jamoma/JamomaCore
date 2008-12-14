@@ -5800,7 +5800,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.2/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.2/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 2,
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
 									"numoutlets" : 3,
@@ -9552,7 +9552,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.3/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.3/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 2,
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
 									"numoutlets" : 3,
@@ -13304,7 +13304,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.4/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.4/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 2,
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
 									"numoutlets" : 3,
@@ -17086,7 +17086,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.5/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.5/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 2,
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
 									"numoutlets" : 3,
@@ -20838,7 +20838,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.6/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.6/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 2,
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
 									"numoutlets" : 3,
@@ -24590,7 +24590,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.7/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.7/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 2,
 									"patching_rect" : [ 276.0, 472.0, 579.0, 27.0 ],
 									"numoutlets" : 3,
@@ -28342,7 +28342,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.8/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.8/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 4,
 									"patching_rect" : [ 273.0, 512.0, 182.0, 48.0 ],
 									"numoutlets" : 3,
@@ -32097,7 +32097,7 @@
 								"box" : 								{
 									"maxclass" : "newobj",
 									"varname" : "source/orientation/yaw",
-									"text" : "jcom.parameter source.1/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode none @description \"orientation of sound source 1 (yaw-angle)\"",
+									"text" : "jcom.parameter source.1/orientation/yaw @type msg_int @range/bounds -180 180 @range/clipmode wrap @ramp/drive scheduler @description \"orientation of sound source 1 (yaw-angle)\"",
 									"linecount" : 6,
 									"patching_rect" : [ 280.0, 503.0, 155.0, 69.0 ],
 									"numoutlets" : 3,
@@ -36899,7 +36899,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s8",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 567.0, 417.0, 100.0, 14.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -36916,7 +36916,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s1[7]",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 481.0, 362.5, 101.0, 15.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -36933,7 +36933,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s1[6]",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 481.0, 301.0, 101.0, 15.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -36950,7 +36950,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s1[5]",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 481.0, 246.0, 101.0, 15.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -36967,7 +36967,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s1[4]",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 481.0, 180.0, 101.0, 14.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -36984,7 +36984,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s1[3]",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 481.0, 125.0, 101.0, 15.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -37001,7 +37001,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s1[2]",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 481.0, 76.0, 101.0, 15.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -37034,7 +37034,7 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "Vol_s1",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 481.0, 33.0, 101.0, 17.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -37050,7 +37050,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 585.0, 595.0, 100.0, 12.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -46627,7 +46627,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 584.0, 543.0, 100.0, 12.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
@@ -46644,7 +46644,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "bpatcher",
-					"name" : "jcom.textslider.maxpat",
+					"name" : "jcom.textsliderOLD.maxpat",
 					"patching_rect" : [ 584.0, 483.0, 100.0, 13.0 ],
 					"presentation" : 1,
 					"numoutlets" : 1,
