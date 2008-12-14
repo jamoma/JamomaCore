@@ -2,7 +2,7 @@
 CUE "1 init 8 microphones"
 ###############################################################
 # Module /jmod.control
-/jmod.control/audio 0
+/control/audio 0
 
 # Module /jmod.multi.aux
 	/jmod.multi.aux/aux.1/active 0
@@ -17,7 +17,7 @@ CUE "1 init 8 microphones"
 	/jmod.multi.aux/input/gain 100.000
 	/jmod.multi.aux/audio/mute 0
 	/jmod.multi.aux/ui/freeze 0
-	/jmod.multi.aux/voices 8
+	/jmod.multi.aux/channels 8
 # Module /jmod.sur.vimic~
     /jmod.sur.vimic~/microphones/amount 8
 	/jmod.sur.vimic~/room/reflection/order 1
@@ -118,7 +118,7 @@ CUE "1 init 8 microphones"
 /output~/record/samptype default
 /output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
 /output~/ui/freeze 0
-/output~/voices 8
+/output~/numSpeakers 8
 
 # Module /reverb~
 	/reverb~/audio/gain 0.0
@@ -145,13 +145,12 @@ CUE "1 init 8 microphones"
 	
 	WAIT 200
 
-# Module /jmod.control
-	/jmod.control/audio 1
+
 	
 ######################################################
 CUE 2_fadein_Direct_Sound
 ######################################################
-/jmod.control/audio 1
+/control/audio 1
 /jmod.sur.vimic~/room/reflection/gain.0  100.0
 /jmod.sur.vimic~/audio/gain 100.0 ramp 2000
 
@@ -211,7 +210,7 @@ CUE "init 24 speakers"
 /output~/record/samptype default
 /output~/setup 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
 /output~/ui/freeze 0
-/output~/voices 24
+/output~/numSpeakers 24
 
 # Module /jmod.control
 /jmod.control/audio 0
@@ -228,7 +227,7 @@ CUE "init 24 speakers"
 	/jmod.multi.aux/input/gain 100.0
 	/jmod.multi.aux/audio/mute 0
 	/jmod.multi.aux/ui/freeze 0
-	/jmod.multi.aux/voices 24
+	/jmod.multi.aux/channels 24
 # Module /jmod.sur.vimic~
     /jmod.sur.vimic~/microphones/amount 24
 	/jmod.sur.vimic~/room/reflection/order 1
