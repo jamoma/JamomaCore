@@ -54,7 +54,8 @@ typedef struct _textslider{
 	// Eventually: Implement "prepend text" and "append text" attributes 
 	t_symbol	*attrText;			///< The text displayed by the slider
 	
-	t_symbol	*attrTracking;			///< Set mouse drag mode 
+	t_symbol	*attrTracking;		///< Set mouse drag mode
+	bool		attrClickJump;		///< Jump to new value onj mouse click
 	double		mousePositionY;		///< Used to redraw position mouse after dragging
 	bool		mouseDown;			///< Flag indicating mouse status
 	
@@ -171,11 +172,17 @@ int main(void)
 	CLASS_ATTR_SAVE(c,						"text",			0);
 	CLASS_ATTR_ACCESSORS(c,					"text",			textslider_get_text, textslider_set_text);
 	
-	CLASS_ATTR_SYM(c,						"attrTracking",	0,	t_textslider, attrTracking);
-	CLASS_ATTR_LABEL(c,						"attrTracking",	0,	"Mouse Tracking");
-	CLASS_ATTR_DEFAULT(c,					"attrTracking",	0,	"horizontal");
-	CLASS_ATTR_SAVE(c,						"attrTracking",	0);
-	CLASS_ATTR_ENUM(c,						"attrTracking",	0,	"horizontal vertical both");
+	CLASS_ATTR_SYM(c,						"tracking",		0,	t_textslider, attrTracking);
+	CLASS_ATTR_LABEL(c,						"tracking",		0,	"Mouse Tracking");
+	CLASS_ATTR_DEFAULT(c,					"tracking",		0,	"horizontal");
+	CLASS_ATTR_SAVE(c,						"tracking",		0);
+	CLASS_ATTR_ENUM(c,						"tracking",		0,	"horizontal vertical both");
+	
+	CLASS_ATTR_LONG(c,						"clickjump",	0,	t_textslider, attrClickJump);
+	CLASS_ATTR_LABEL(c,						"clickjump",	0,	"Jump to Value on Mouse Down");
+	CLASS_ATTR_DEFAULT(c,					"clickjump",	0,	"1");
+	CLASS_ATTR_SAVE(c,						"clickjump",	0);
+	CLASS_ATTR_STYLE(c,						"clickjump",	0,	"onoff");
 
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");	
 	
@@ -403,9 +410,7 @@ t_max_err textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *ar
 void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers)
 {
 	t_rect	rect;
-	
-	// TODO: add attribute for whether to jump to click position or not
-	
+	double	delta;
 	
 	// Get rect position and prepare for the mouse to show up properly affter dragging
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
@@ -413,6 +418,12 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	
 	x->mouseDown = 1;
 
+	// Jump to new value on mouse down?
+	if (x->attrClickJump) {
+		delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
+		delta = delta/(rect.width-2.)*(x->attrRange[1]-x->attrRange[0]) + x->attrRange[0];
+		textslider_float(x, delta);
+	}
 	x->anchorValue = x->attrValue;			
 	jbox_set_mousedragdelta((t_object *)x, 1);
 }
