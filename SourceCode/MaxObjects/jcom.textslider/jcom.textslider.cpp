@@ -325,8 +325,7 @@ void textslider_int(t_textslider *x, long value)
 // Method: float - update value, redraw and output
 void textslider_float(t_textslider *x, double value)
 {
-	x->attrValue = value;
-	// TODO: Should it be clipped to range?
+	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
 	jbox_redraw((t_jbox*)x);
 	outlet_float(x->outlet, x->attrValue);
 
@@ -336,8 +335,7 @@ void textslider_float(t_textslider *x, double value)
 // Method: set - update and redraw, but no output
 void textslider_set(t_textslider *x, double value)
 {
-	x->attrValue = value;
-	// TODO: Should it be clipped to range?
+	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
 	jbox_redraw((t_jbox*)x);	
 }
 
@@ -530,25 +528,24 @@ void textslider_paint(t_textslider *x, t_object *view)
 	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);		// obtain graphics context
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
-	rect.x = 0;
-	rect.y = 0;
-	position = (rect.width-3) * value+1;					// -3: one pixel for each border and -1 for counting to N-1 
+	position = ((rect.width-3)*value)+1;					// -3: one pixel for each border and -1 for counting to N-1 
 
 	// Draw frame
 	c = x->attrBorderColor;
 	jgraphics_set_source_jrgba(g, &c);
 	jgraphics_rectangle_fill_fast(g, 0., 0., rect.width, rect.height);	
-	
-	// Draw active part of slider
-	c = x->attrFgColor;
-	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, 1, 1, position, rect.height-2);	
-	
+
 	// Draw passive part of slider
 	c = x->attrBgColor;
 	jgraphics_set_source_jrgba(g, &c);
-	jgraphics_rectangle_fill_fast(g, position, 1, rect.width-position-1, rect.height-2);
+	jgraphics_rectangle_fill_fast(g, position, 1.0, rect.width-position-2.0, rect.height-2.0);
 	
-
+	if (value > 0.)
+	{
+		// Draw active part of slider
+		c = x->attrFgColor;
+		jgraphics_set_source_jrgba(g, &c);
+		jgraphics_rectangle_fill_fast(g, 1.0,1.0, position, rect.height-2.0);	
+	}
 }
 
