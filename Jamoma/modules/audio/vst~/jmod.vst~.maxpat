@@ -153,7 +153,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "/panel/open",
+					"text" : "/vst/plug none",
 					"linecount" : 2,
 					"numoutlets" : 1,
 					"patching_rect" : [ 205.0, 530.0, 50.0, 29.0 ],
@@ -1025,7 +1025,7 @@
 						"bglocked" : 0,
 						"defrect" : [ 102.0, 44.0, 1262.0, 765.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
-						"openinpresentation" : 0,
+						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
 						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
@@ -1113,9 +1113,11 @@
 									"text" : "Plug-In Parameters 6++",
 									"numoutlets" : 0,
 									"patching_rect" : [ 10.0, 5.0, 148.0, 19.0 ],
+									"presentation" : 1,
 									"id" : "obj-4",
 									"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 									"fontname" : "Verdana",
+									"presentation_rect" : [ 10.0, 5.0, 148.0, 19.0 ],
 									"numinlets" : 1,
 									"fontsize" : 10.0
 								}
@@ -1844,9 +1846,9 @@
 									"fontsize" : 10.0,
 									"patcher" : 									{
 										"fileversion" : 1,
-										"rect" : [ -95.0, 94.0, 1535.0, 587.0 ],
+										"rect" : [ 0.0, 89.0, 1535.0, 587.0 ],
 										"bglocked" : 0,
-										"defrect" : [ -95.0, 94.0, 1535.0, 587.0 ],
+										"defrect" : [ 0.0, 89.0, 1535.0, 587.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 10.0,
@@ -1863,7 +1865,7 @@
 													"maxclass" : "message",
 													"text" : "presentation $1",
 													"numoutlets" : 1,
-													"patching_rect" : [ 1350.0, 425.0, 88.0, 17.0 ],
+													"patching_rect" : [ 1165.0, 420.0, 88.0, 17.0 ],
 													"id" : "obj-32",
 													"outlettype" : [ "" ],
 													"fontname" : "Verdana",
@@ -2556,7 +2558,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sprintf script newdefault textslider/%s %ld %ld jcom.textslider @presentation_rect %ld %ld 150b @args 0.3 @text %s",
+													"text" : "sprintf script newdefault textslider/%s %ld %ld jcom.textslider @presentation_rect %ld %ld 150b @args 0.3 @text %s @presentation 1",
 													"linecount" : 2,
 													"numoutlets" : 1,
 													"patching_rect" : [ 931.0, 280.0, 598.0, 31.0 ],
@@ -2571,10 +2573,10 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "sprintf script new parameter/%s newdefault %ld %ld jcom.parameter parameter/%s @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Nth parameter of the VST plugin.\"",
-													"linecount" : 4,
+													"text" : "sprintf script newdefault parameter/%s %ld %ld jcom.parameter parameter/%s @type msg_float @range/bounds 0. 1. @range/clipmode both @ramp/drive scheduler @priority 3 @description \"Nth parameter of the VST plugin.\"",
+													"linecount" : 2,
 													"numoutlets" : 1,
-													"patching_rect" : [ 535.0, 280.0, 394.0, 55.0 ],
+													"patching_rect" : [ 535.0, 325.0, 604.0, 31.0 ],
 													"id" : "obj-14",
 													"outlettype" : [ "" ],
 													"fontname" : "Verdana",
@@ -2601,15 +2603,6 @@
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"source" : [ "obj-2", 0 ],
-													"destination" : [ "obj-12", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"source" : [ "obj-1", 0 ],
 													"destination" : [ "obj-14", 1 ],
 													"hidden" : 0,
@@ -2631,7 +2624,7 @@
 													"source" : [ "obj-3", 1 ],
 													"destination" : [ "obj-14", 2 ],
 													"hidden" : 0,
-													"midpoints" : [ 278.5, 145.0, 794.5, 145.0 ]
+													"midpoints" : [ 278.5, 145.0, 934.5, 145.0 ]
 												}
 
 											}
@@ -2649,34 +2642,34 @@
 													"source" : [ "obj-8", 0 ],
 													"destination" : [ "obj-14", 3 ],
 													"hidden" : 0,
-													"midpoints" : [ 174.5, 235.0, 919.5, 235.0 ]
+													"midpoints" : [ 174.5, 235.0, 1129.5, 235.0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
-													"source" : [ "obj-13", 0 ],
-													"destination" : [ "obj-12", 0 ],
+													"source" : [ "obj-8", 0 ],
+													"destination" : [ "obj-13", 5 ],
 													"hidden" : 0,
-													"midpoints" : [ 940.5, 387.0, 174.5, 387.0 ]
+													"midpoints" : [ 174.5, 229.0, 1519.5, 229.0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
 													"source" : [ "obj-3", 1 ],
-													"destination" : [ "obj-13", 2 ],
+													"destination" : [ "obj-13", 4 ],
 													"hidden" : 0,
-													"midpoints" : [ 278.5, 142.0, 1172.099976, 142.0 ]
+													"midpoints" : [ 278.5, 138.0, 1403.699951, 138.0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
 													"source" : [ "obj-3", 0 ],
-													"destination" : [ "obj-13", 1 ],
+													"destination" : [ "obj-13", 3 ],
 													"hidden" : 0,
-													"midpoints" : [ 221.5, 185.0, 1056.300049, 185.0 ]
+													"midpoints" : [ 221.5, 182.0, 1287.900024, 182.0 ]
 												}
 
 											}
@@ -2692,27 +2685,36 @@
 , 											{
 												"patchline" : 												{
 													"source" : [ "obj-3", 0 ],
-													"destination" : [ "obj-13", 3 ],
+													"destination" : [ "obj-13", 1 ],
 													"hidden" : 0,
-													"midpoints" : [ 221.5, 182.0, 1287.900024, 182.0 ]
+													"midpoints" : [ 221.5, 185.0, 1056.300049, 185.0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
 													"source" : [ "obj-3", 1 ],
-													"destination" : [ "obj-13", 4 ],
+													"destination" : [ "obj-13", 2 ],
 													"hidden" : 0,
-													"midpoints" : [ 278.5, 138.0, 1403.699951, 138.0 ]
+													"midpoints" : [ 278.5, 142.0, 1172.099976, 142.0 ]
 												}
 
 											}
 , 											{
 												"patchline" : 												{
-													"source" : [ "obj-8", 0 ],
-													"destination" : [ "obj-13", 5 ],
+													"source" : [ "obj-13", 0 ],
+													"destination" : [ "obj-12", 0 ],
 													"hidden" : 0,
-													"midpoints" : [ 174.5, 229.0, 1519.5, 229.0 ]
+													"midpoints" : [ 940.5, 387.0, 174.5, 387.0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"source" : [ "obj-2", 0 ],
+													"destination" : [ "obj-12", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ]
 												}
 
 											}
@@ -3239,7 +3241,7 @@
 					"fontname" : "Verdana",
 					"presentation_rect" : [ 10.0, 45.0, 165.0, 19.0 ],
 					"numinlets" : 1,
-					"items" : [ "Noise Reduction", ",", "Spectral Flatten", ",", "Spectral Reshape", ",", "Init 4", ",", "Init 5", ",", "Init 6", ",", "Init 7", ",", "Init 8" ],
+					"items" : "Default",
 					"fontsize" : 10.0
 				}
 

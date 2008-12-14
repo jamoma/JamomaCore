@@ -7,11 +7,9 @@
   <preset number='1' name='default'>
     <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
     <item name='audio/gain' type='msg_float' priority='0'>0</item>
-    <item name='audio/mix' type='msg_float' priority='0'>0</item>
-    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='parameter/<parameter name>' type='msg_float' priority='3'>0</item>
+    <item name='audio/mix' type='msg_float' priority='0'>100.</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='vst/plug' type='msg_generic' priority='1'>0</item>
-    <item name='vst/program' type='msg_generic' priority='2'>0</item>
+    <item name='vst/plug' type='msg_generic' priority='1'>none</item>
   </preset>
 </jamoma>
