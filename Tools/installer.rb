@@ -247,7 +247,9 @@ else
   cmd("mv \"#{@c74}/Jamoma/library/externals/TTBlue.framework\" \"#{@temp}/Library/Frameworks\"")
   cmd("mv \"#{@c74}/Jamoma/library/externals/mac/jcom.loader.mxo\" \"#{@c74}/extensions/\"")
   cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefaults \"#{@c74}/default-settings\"")
-  cmd("mv \"#{@c74}/Jamoma/support/jcom.ui.maxdefines\" \"#{@c74}/default-definitions/jcom.ui.maxdefines\"")
+  cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefines \"#{@c74}/default-definitions\"")
+  # cmd("mv \"#{@c74}/Jamoma/support/jcom.ui.maxdefines\" \"#{@c74}/default-definitions/jcom.ui.maxdefines\"")
+  # now we have several maxdefines
 
   puts "  Copying readme, license, etc...."
   cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/resources\"")
