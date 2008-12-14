@@ -2,11 +2,15 @@
 	jcom.textslider
 	A slider displaying text and value
 	By Trond Lossius, Copyright © 2008
-	Based on jcom.meter~ by Tim Place, ©2005
+	Inspired by a GUI widget from radiaL by jhno
 	
 	License: This code is licensed under the terms of the GNU LGPL
 	http://www.gnu.org/licenses/lgpl.html 
   */
+
+
+// TODO: Integrate Dataspace Lib and Function Lib.
+// Would like to add 2nd inlet and outlet for communiting units to/from umenu
 
 #include "ext.h"
 #include "ext_obex.h"
@@ -45,6 +49,9 @@ typedef struct _textslider{
 	float		attrValue;			///< The slider value
 	float		attrRange[2];		///< ATTRIBUTE: low, high
 	float		anchorValue;		///< Used for mouse dragging
+	
+	// TODO: Display a list instead of just one symbol.
+	// Eventually: Implement "prepend text" and "append text" attributes 
 	t_symbol	*attrText;			///< The text displayed by the slider
 	
 	double		mousePositionY;		///< Used to redraw position mouse after dragging
@@ -388,6 +395,9 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 {
 	t_rect	rect;
 	
+	// TODO: add attribute for whether to jump to click position or not
+	
+	
 	// Get rect position and prepare for the mouse to show up properly affter dragging
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	x->mousePositionY = rect.y + px.y;
@@ -413,7 +423,16 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	
 	factor = factor / (x->attrRange[1] - x->attrRange[0]);
 	
+	// TODO: respond to vertical drag
+	
 	x->anchorValue = TTClip<float>(x->anchorValue + (pt.x / factor), x->attrRange[0], x->attrRange[1]);
+	
+	// TODO: Display of values during drag should be optional.
+	
+	// TODO: Add numdecimalplaces attribute
+	
+
+	
 	
 	// Display value while dragging
 	char str[7];
@@ -479,12 +498,14 @@ void textslider_paint(t_textslider *x, t_object *view)
 		value = TTClip( (x->attrValue - x->attrRange[0])/(x->attrRange[1] - x->attrRange[0]), 0.0f, 1.0f);
 	double			position;
 	t_jrgba			c;
+
+	// TODO: Rounded corners
 	
 	g = (t_jgraphics*) patcherview_get_jgraphics(view);		// obtain graphics context
 	jbox_get_rect_for_view((t_object *)x, view, &rect);		// this is the box rectangle -- but we draw relative to 0 0, and thus only care about width & height
 	rect.x = 0;
 	rect.y = 0;
-	position = (rect.width-2) * value+1;
+	position = (rect.width-3) * value+1;					// -3: one pixel for each border and -1 for counting to N-1 
 
 	// Draw frame
 	c = x->attrBorderColor;
