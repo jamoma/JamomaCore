@@ -54,6 +54,7 @@ typedef struct _textslider{
 	// Eventually: Implement "prepend text" and "append text" attributes 
 	t_symbol	*attrText;			///< The text displayed by the slider
 	
+	t_symbol	*attrTracking;			///< Set mouse drag mode 
 	double		mousePositionY;		///< Used to redraw position mouse after dragging
 	bool		mouseDown;			///< Flag indicating mouse status
 	
@@ -156,19 +157,27 @@ int main(void)
 	
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");
 
+	CLASS_STICKY_ATTR(c,					"category",		0, "Jamoma");
+	
 	CLASS_ATTR_FLOAT_ARRAY(c,				"range",		0,	t_textslider,	attrRange, 2);
 	CLASS_ATTR_LABEL(c,						"range",		0,	"Range");
 	CLASS_ATTR_DEFAULT(c,					"range",		0,	"0.0 1.0");
 	CLASS_ATTR_SAVE(c,						"range",		0);
 	CLASS_ATTR_ACCESSORS(c,					"range",		textslider_getRange, textslider_setRange);
-	CLASS_ATTR_CATEGORY(c,					"range",		0,	"Jamoma");
 	
 	CLASS_ATTR_SYM(c,						"text",			0,	t_textslider, attrText);
 	CLASS_ATTR_LABEL(c,						"text",			0,	"Displayed Text");
 	CLASS_ATTR_DEFAULT(c,					"text",			0,	"textslider");
 	CLASS_ATTR_SAVE(c,						"text",			0);
 	CLASS_ATTR_ACCESSORS(c,					"text",			textslider_get_text, textslider_set_text);
-	CLASS_ATTR_CATEGORY(c,					"text",			0,	"Jamoma");
+	
+	CLASS_ATTR_SYM(c,						"attrTracking",	0,	t_textslider, attrTracking);
+	CLASS_ATTR_LABEL(c,						"attrTracking",	0,	"Mouse Tracking");
+	CLASS_ATTR_DEFAULT(c,					"attrTracking",	0,	"horizontal");
+	CLASS_ATTR_SAVE(c,						"attrTracking",	0);
+	CLASS_ATTR_ENUM(c,						"attrTracking",	0,	"horizontal vertical both");
+
+	CLASS_STICKY_ATTR_CLEAR(c,				"category");	
 	
 	class_register(CLASS_BOX, c);
 	s_textslider_class = c;		
@@ -412,8 +421,9 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 // mousedragdelta sends the amount the mouse moved in t_pt
 void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
 {
-	t_rect	rect;
+	t_rect		rect;
 	t_object	*textfield;
+	float		delta;
 
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 
@@ -422,17 +432,23 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 		factor = factor*50.;
 	
 	factor = factor / (x->attrRange[1] - x->attrRange[0]);
-	
-	// TODO: respond to vertical drag
-	
-	x->anchorValue = TTClip<float>(x->anchorValue + (pt.x / factor), x->attrRange[0], x->attrRange[1]);
+		
+	if (x->attrTracking==gensym("horizontal"))
+		delta = pt.x;
+	else if (x->attrTracking==gensym("vertical"))
+		delta = -pt.y;
+	else if (x->attrTracking==gensym("both"))
+	{
+		if (fabs(pt.x)>fabs(pt.y))
+			delta = pt.x;
+		else
+			delta = -pt.y;
+	}	
+	x->anchorValue = TTClip<float>(x->anchorValue + (delta/factor), x->attrRange[0], x->attrRange[1]);
 	
 	// TODO: Display of values during drag should be optional.
 	
 	// TODO: Add numdecimalplaces attribute
-	
-
-	
 	
 	// Display value while dragging
 	char str[7];
