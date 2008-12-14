@@ -505,6 +505,7 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &x->attrTextColor);
+	// TODO: text should be centered vertically
 	textfield_set_textmargins(textfield, 10.0, 4.0, 2.0, 2.0);
 		
 	return (void*)1;
