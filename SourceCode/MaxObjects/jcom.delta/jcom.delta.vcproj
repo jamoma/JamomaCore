@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="jcom.delta"
 	ProjectGUID="{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}"
 	RootNamespace="jcom.delta"
@@ -125,7 +125,7 @@
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\..\..\TTBlue\includes\core;..\..\..\..\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="0"
