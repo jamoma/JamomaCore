@@ -217,6 +217,9 @@ else
   cmd("mkdir -pv \"#{@max}/patches/templates\"")
   cmd("mkdir -pv \"#{@max}/patches/extras\"")
   cmd("mkdir -pv \"#{@c74}\"")
+  cmd("mkdir -pv \"#{@c74}/java\"")
+  cmd("mkdir -pv \"#{@c74}/java/classes\"")
+  cmd("mkdir -pv \"#{@c74}/java/classes/cueManager\"")
   cmd("mkdir -pv \"#{@c74}/extensions\"")
   cmd("mkdir -pv \"#{@c74}/default-definitions\"")
   cmd("mkdir -pv \"#{@c74}/default-settings\"")
@@ -258,6 +261,10 @@ else
   cmd("mv \"#{@c74}/Jamoma/support\"/*.maxdefines \"#{@c74}/default-definitions\"")
   # cmd("mv \"#{@c74}/Jamoma/support/jcom.ui.maxdefines\" \"#{@c74}/default-definitions/jcom.ui.maxdefines\"")
   # now we have several maxdefines
+  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/Cue.class\" \"#{@c74}/java/classes/cueManager\"") 
+  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueList.class\" \"#{@c74}/java/classes/cueManager\"") 
+  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/Data.class\" \"#{@c74}/java/classes/cueManager\"") 
+  cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueManager.class\" \"#{@c74}/java/classes/cueManager\"") 
 
   puts "  Copying readme, license, etc...."
   cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/resources\"")
