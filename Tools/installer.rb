@@ -97,6 +97,9 @@ if win32?
   `mkdir root`
   `mkdir "root/Cycling '74"`
   `mkdir "root/Cycling '74/max-startup"`
+  `mkdir "root/Cycling '74/java"`
+  `mkdir "root/Cycling '74/java/classes"`
+  `mkdir "root/Cycling '74/java/classes/cueManager"`
   `mkdir root/patches`
   `mkdir root/patches/extras`
   `mkdir root/patches/templates`
@@ -140,6 +143,11 @@ if win32?
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jmod.template.control.maxpat" root/patches/templates/jmod.template.control.maxpat`
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/jmod.template.video%.maxpat"  root/patches/templates/jmod.template.video%.maxpat`
   `cp "#{@c74}/Jamoma/documentation/jamoma-templates/layout.xml"                   root/patches/templates/layout.xml`
+
+  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/Cue.class" "root/Cycling '74/java/classes/cueManager/Cue.class"`
+  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueList.class" "root/Cycling '74/java/classes/cueManager/CueList.class"`
+  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/Data.class" "root/Cycling '74/java/classes/cueManager/Data.class"`
+  `cp "#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueManager.class" "root/Cycling '74/java/classes/cueManager/CueManager.class"`
 
   puts " Stripping .svn folders..."
   `rm -rf "#{@c74}/Jamoma"/.svn`                              # and remove all .svn folders by brute force (someone can make this better)
