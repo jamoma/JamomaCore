@@ -130,6 +130,7 @@
 				ExceptionHandling="1"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="0"
+				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
