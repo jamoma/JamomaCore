@@ -261,6 +261,8 @@ end
 
 if  win32?
 	build_project("#{@svn_root}SourceCode/Framework", "JamomaFramework.vcproj", configuration, true)
+	`cp ../../TTBlue/library/#{configuration}/TTBlue.dll             ../Jamoma/library/externals/TTBlue.dll`
+	`cp ../SourceCode/Framework/#{configuration}/JamomaFramework.dll ../Jamoma/library/externals/JamomaFramework.dll`
 else
 	build_project("#{@svn_root}SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
 end
@@ -272,6 +274,10 @@ puts "Building TTBlue Extensions..."
 zero_count
 build_dir("../TTBlue/extensions", configuration, clean)  
 ex_total, ex_count = get_count
+if  win32?
+	build_project("#{@svn_root}SourceCode/Framework", "JamomaFramework.vcproj", configuration, true)
+	`cp ../../TTBlue/extensions/*/#{configuration}/*.ttdll    ../Jamoma/library/externals/TTBlueExtensions/`
+end
 puts ""
 
 

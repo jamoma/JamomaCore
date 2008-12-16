@@ -111,22 +111,15 @@ if win32?
   `mkdir "root/Common Files/TTBlue"`
   `mkdir "root/Common Files/TTBlue/Extensions"`
 
-  puts " Copying .dll in /Jamoma/library/externals/windows folder"
-  `cp ../../../TTBlue/extensions/TTClipper/Release/*.ttdll   ../../Jamoma/library/externals/windows`
-  `cp ../../../TTBlue/library/portaudio/Release/*.dll   ../../Jamoma/library/externals/windows`
-  `cp ../../../TTBlue/library/Release/TTBlue.dll             ../../Jamoma/library/externals/windows/TTBlue.dll`
-  `cp ../../SourceCode/Framework/Release/JamomaFramework.dll ../../Jamoma/library/externals/windows/JamomaFramework.dll`
-
   puts " Copying the Jamoma folder --  this could take a while..."
   `cp -r ../../Jamoma "root/Cycling '74"`
 
   puts " Moving TTBlue Extensions"
-  `mv "root/Cycling '74/Jamoma/library/externals/windows"/*.ttdll      "root/Common Files/TTBlue/Extensions"`
+  `mv "root/Cycling '74/Jamoma/library/externals/TTBlueExtensions"/*.ttdll      "root/Common Files/TTBlue/Extensions"`
 
   puts " Moving things around (frameworks, loader, templates, etc)..."
-  `mv "#{@c74}/Jamoma/library/externals/windows/JamomaFramework.dll"  root/support`
-  `mv "#{@c74}/Jamoma/library/externals/windows/TTBlue.dll"           root/support`
-  `mv "#{@c74}/Jamoma/library/externals/windows/PortAudio.dll"           root/support`
+  `mv "#{@c74}/Jamoma/library/externals/JamomaFramework.dll"  root/support`
+  `mv "#{@c74}/Jamoma/library/externals/TTBlue.dll"           root/support`
   `mv "#{@c74}/Jamoma/library/third-party/WinXP/support"/*.dll        root/support`
 
   `mv "#{@c74}/Jamoma/library/externals/windows/jcom.loader.mxe" "#{@c74}/extensions/jcom.loader.mxe"`
@@ -170,6 +163,7 @@ if win32?
   `rm -rf  "#{@c74}/Jamoma/library/third-party/Mac"`
   `rm -rf  "#{@c74}/Jamoma/library/third-party/WinXP"/*.zip`
   `rm -rf  "#{@c74}/Jamoma/library/third-party/WinXP/support"`
+  `rm -rf  "#{@c74}/Jamoma/support"`
 
   puts " Copying readme, license, etc...."
   `cp "#{@c74}/Jamoma/GNU-LGPL.rtf" root/License.rtf`
