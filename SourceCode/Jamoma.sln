@@ -22,8 +22,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.gang", "MaxObjects\jco
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.hub", "MaxObjects\jcom.hub\jcom.hub.vcproj", "{262189C1-79A4-4352-A324-883DA0561191}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.in~", "MaxObjects\jcom.in\jcom.in~.vcproj", "{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.in", "MaxObjects\jcom.in\jcom.in.vcproj", "{E4EC2969-6BB1-4A47-A3F6-396B90B2478B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.init", "MaxObjects\jcom.init\jcom.init.vcproj", "{93DA32D3-1D6D-4325-B642-F7770CC941B0}"
@@ -43,11 +41,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out", "MaxObjects\jcom
 		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109} = {FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out~", "MaxObjects\jcom.out\jcom.out~.vcproj", "{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5F7E43DE-E2C6-48CA-A47D-98012C82EAE2} = {5F7E43DE-E2C6-48CA-A47D-98012C82EAE2}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.pass", "MaxObjects\jcom.pass\jcom.pass.vcproj", "{7C38ADBC-7949-4275-932C-1FC76A8BDA4B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.remote", "MaxObjects\jcom.remote\jcom.remote.vcproj", "{6B6A376C-D280-4F6A-8194-10650D0A8C4C}"
@@ -61,8 +54,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.ui", "MaxObjects\jcom.ui\jcom.ui.vcproj", "{E77085FA-7786-415B-9C54-E69C632FDB55}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.dataspace", "MaxObjects\jcom.dataspace\jcom.dataspace.vcproj", "{A9B43C22-B366-40AB-A425-598C0868C457}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.message", "MaxObjects\jcom.parameter\jcom.message.vcproj", "{0C18D1E5-E1FD-4619-B334-43E882F1164D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.parameter", "MaxObjects\jcom.parameter\jcom.parameter.vcproj", "{EC4B067D-6E03-40DF-BDC9-DA9B7745A637}"
 EndProject
@@ -128,6 +119,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.zerox~", "..\..\TTBlue\e
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.oscinstance", "MaxObjects\jcom.oscinstance\jcom.oscinstance.vcproj", "{C4149401-80C0-4BEA-ADE6-CFE068A2150B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.in~", "MaxObjects\jcom.in~\jcom.in~.vcproj", "{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out~", "MaxObjects\jcom.out~\jcom.out~.vcproj", "{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.message", "MaxObjects\jcom.message\jcom.message.vcproj", "{0C18D1E5-E1FD-4619-B334-43E882F1164D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -154,10 +151,6 @@ Global
 		{262189C1-79A4-4352-A324-883DA0561191}.Debug|Win32.Build.0 = Debug|Win32
 		{262189C1-79A4-4352-A324-883DA0561191}.Release|Win32.ActiveCfg = Release|Win32
 		{262189C1-79A4-4352-A324-883DA0561191}.Release|Win32.Build.0 = Release|Win32
-		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Debug|Win32.Build.0 = Debug|Win32
-		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Release|Win32.ActiveCfg = Release|Win32
-		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Release|Win32.Build.0 = Release|Win32
 		{E4EC2969-6BB1-4A47-A3F6-396B90B2478B}.Debug|Win32.ActiveCfg = Debug|Win32
 		{E4EC2969-6BB1-4A47-A3F6-396B90B2478B}.Debug|Win32.Build.0 = Debug|Win32
 		{E4EC2969-6BB1-4A47-A3F6-396B90B2478B}.Release|Win32.ActiveCfg = Release|Win32
@@ -190,10 +183,6 @@ Global
 		{5F7E43DE-E2C6-48CA-A47D-98012C82EAE2}.Debug|Win32.Build.0 = Debug|Win32
 		{5F7E43DE-E2C6-48CA-A47D-98012C82EAE2}.Release|Win32.ActiveCfg = Release|Win32
 		{5F7E43DE-E2C6-48CA-A47D-98012C82EAE2}.Release|Win32.Build.0 = Release|Win32
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.Build.0 = Debug|Win32
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Release|Win32.ActiveCfg = Release|Win32
-		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Release|Win32.Build.0 = Release|Win32
 		{7C38ADBC-7949-4275-932C-1FC76A8BDA4B}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7C38ADBC-7949-4275-932C-1FC76A8BDA4B}.Debug|Win32.Build.0 = Debug|Win32
 		{7C38ADBC-7949-4275-932C-1FC76A8BDA4B}.Release|Win32.ActiveCfg = Release|Win32
@@ -222,10 +211,6 @@ Global
 		{A9B43C22-B366-40AB-A425-598C0868C457}.Debug|Win32.Build.0 = Debug|Win32
 		{A9B43C22-B366-40AB-A425-598C0868C457}.Release|Win32.ActiveCfg = Release|Win32
 		{A9B43C22-B366-40AB-A425-598C0868C457}.Release|Win32.Build.0 = Release|Win32
-		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Debug|Win32.Build.0 = Debug|Win32
-		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Release|Win32.ActiveCfg = Release|Win32
-		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Release|Win32.Build.0 = Release|Win32
 		{EC4B067D-6E03-40DF-BDC9-DA9B7745A637}.Debug|Win32.ActiveCfg = Debug|Win32
 		{EC4B067D-6E03-40DF-BDC9-DA9B7745A637}.Debug|Win32.Build.0 = Debug|Win32
 		{EC4B067D-6E03-40DF-BDC9-DA9B7745A637}.Release|Win32.ActiveCfg = Release|Win32
@@ -294,6 +279,18 @@ Global
 		{C4149401-80C0-4BEA-ADE6-CFE068A2150B}.Debug|Win32.Build.0 = Debug|Win32
 		{C4149401-80C0-4BEA-ADE6-CFE068A2150B}.Release|Win32.ActiveCfg = Release|Win32
 		{C4149401-80C0-4BEA-ADE6-CFE068A2150B}.Release|Win32.Build.0 = Release|Win32
+		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Debug|Win32.Build.0 = Debug|Win32
+		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Release|Win32.ActiveCfg = Release|Win32
+		{EB8A97BD-3282-4B01-99A3-AC0177BA4C6F}.Release|Win32.Build.0 = Release|Win32
+		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Debug|Win32.Build.0 = Debug|Win32
+		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Release|Win32.ActiveCfg = Release|Win32
+		{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}.Release|Win32.Build.0 = Release|Win32
+		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Debug|Win32.Build.0 = Debug|Win32
+		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Release|Win32.ActiveCfg = Release|Win32
+		{0C18D1E5-E1FD-4619-B334-43E882F1164D}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
