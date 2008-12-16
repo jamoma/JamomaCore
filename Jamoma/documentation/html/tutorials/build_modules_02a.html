@@ -8,7 +8,7 @@
 
 <body>
 <div id="jmod_header">
-	<img src="../images/jmod.icon.mod.png" width="128" height="128">
+	<img src="../graphics/jmod.icon.mod.png" width="128" height="128">
 	
   <h1>building modules - tutorial two </h1>
 	
@@ -22,7 +22,7 @@
   We're basically going to turn a qmetro object into a Jamoma module. Max-wise this is 
   a very simple patch:</p>
   
-<p><img src="../images/tutorial_02a_qmetro.jpg" width="137" height="128" vspace="1"></p>
+<p><img src="../graphics/tutorial_02a_qmetro.jpg" width="137" height="128" vspace="1"></p>
 <p>If we analyze what this patch is made up of, we could say that it contains 
   each of the following elements.</p>
 <h4>Logical Part</h4>
@@ -63,14 +63,14 @@
   for.  For this reason we will need to do a little bit of routing inside of
   of our algorithm patch. Instead of the standard Max <strong>route</strong> object, we will use      <strong>jcom.oscroute</strong>, as it adds a number of useful OpenSoundControl-related functionalities. 
   Here is what our algorithm patch should look like:</p>
-<p><img src="../images/tutorial_02A_algorithm.png" width="344" height="213"></p>
+<p><img src="../graphics/tutorial_02A_algorithm.png" width="344" height="213"></p>
 <p>Once you have made this patch, save it as <strong>jalg.qmetro_tutorial.mxt</strong> 
   somewhere in the search path. If you're a Jamoma developer and planning to make 
   the new module a part of the Jamoma package, your new algorithm should be stored 
   in the <span class="filepath">Jamoma/library/algorithm</span> folder. If not, 
   you should find some other dedicated place in the Max search path for your custom modules.</p>
 <p>If you want to test this patch before moving on, you can do the following:</p>
-<p><img src="../images/tutorial_02A_algo_test.png" width="145" height="138"></p>
+<p><img src="../graphics/tutorial_02A_algo_test.png" width="145" height="138"></p>
 <h3>A template for control modules</h3>
 <p>Now we will start making the module. The module will embedd the algorithm, 
   and offer a GUI for parameter handling. To make it easier to create new modules, 
@@ -86,7 +86,7 @@
   of module it is. If not, you should find some other dedicated place in the Max 
   search path for your custom modules.</p>
 <p>Once you have made yourself a copy and renamed it, open it and take a look:</p>
-<p><img src="../images/tutorial_02a_template.png"></p>
+<p><img src="../graphics/tutorial_02a_template.png"></p>
 <p>If your template does not look exactly like this, try clicking on the two message 
   boxes at the lower left of the window (;&nbsp; max refresh and ;&nbsp; jmod.init bang). Sometimes 
   the screen does not display all elements properly when you first load a patch.</p>
@@ -102,7 +102,7 @@
   For more details on various sizes of modules, please refere to the <a href="../interface_guidelines.html">JIG</a>.</p>
 <p>For our interface we'll need a toggle and a number box here. We'll also rename 
   the comments so that they make sense to us:</p>
-<p><img src="../images/tutorial_02a_interface.jpg" width="262" height="88"></p>
+<p><img src="../graphics/tutorial_02a_interface.jpg" width="262" height="88"></p>
 <p>If you want to visually match the number box display to those used for most Jamoma control modules, you 
   can open the inspector for the number box and make the following adjustments:</p>
 <ul>
@@ -127,17 +127,17 @@
 <p>We'll start off by naming the toggle &quot;MetroToggle&quot; and the number 
   box &quot;MetroTime&quot; by selecting one object at a time and choose <strong>Name</strong> 
   from the <strong>Object</strong> menu:</p>
-<p><img src="../images/tutorial_02a_metrotoggle.jpg" width="385" height="193"></p>
+<p><img src="../graphics/tutorial_02a_metrotoggle.jpg" width="385" height="193"></p>
 <p>&nbsp;</p>
 <p>Next we create two <strong>pvar</strong> objects with the arguments &quot;MetroToggle&quot; 
   and &quot;MetroTime&quot; respectively. You can check that the communication 
   between the GUI objects and <strong>pvar</strong> function by connecting toggles and number boxes 
   to the inlets and outlets of the respective pvars and test:</p>
-<p><img src="../images/tutorial_02a_pvartest.jpg" width="482" height="169"></p>
+<p><img src="../graphics/tutorial_02a_pvartest.jpg" width="482" height="169"></p>
 <p>&nbsp;</p>
 <p>Now it's time for connecting the pvar objects to <strong>jcom.parameter</strong>. This is how 
   we'll do it:</p>
-<p><img src="../images/tutorial_02a_pvarconnect1.png" width="217" height="140"></p>
+<p><img src="../graphics/tutorial_02a_pvarconnect1.png" width="217" height="140"></p>
 <p>&nbsp;</p>
 <p>Now we're ready for some magic. Try turning the toggle on and off, and change 
   the time in the interface. If everything is working as it's supposed to, any change 
@@ -215,7 +215,7 @@
   a higher value </span><br>
   @description &quot;Metro interval (ms)&quot;</p>
 <p>Now this part of the patch looks like this:</p>
-<p><img src="../images/tutorial_02a_parameters.png" width="327" height="144"></p>
+<p><img src="../graphics/tutorial_02a_parameters.png" width="327" height="144"></p>
 <p>Before we move on, it's worth noting that <strong>jcom.parameter</strong>
   is quite powerful. In addition to keeping track of the current state of the parameter, 
   it can be used for ramping to new values, clipping the range and filtering out 
@@ -228,7 +228,7 @@
   so we will use the component <strong>jcom.return</strong>. <strong>jcom.return</strong> takes 
   more or less the same arguments and attributes as <strong>jcom.parameter</strong>, and we will 
   use the following settings:</p>
-<p><img src="../images/tutorial_02A_return.png" width="307" height="55"></p>
+<p><img src="../graphics/tutorial_02A_return.png" width="307" height="55"></p>
 <p>Why do we do it this way instead of simply prepending /trigger? The answer 
   is that <strong>jcom.return</strong> helps us in the documentation of the module, as well as 
   with various ways of communication and mapping between modules that will be documented in 
@@ -241,7 +241,7 @@
 <p>If you want you can connect the left outlet of <strong>jcom.hub</strong> 
   and the left outlet of the algorithm to a button to check that the patch is working. This is what 
   it ought to look like:</p>
-<p><img src="../images/tutorial_02a_winding_up.png"></p>
+<p><img src="../graphics/tutorial_02a_winding_up.png"></p>
 <p>Next we want to provide a default preset for the module. First click the &quot;;&nbsp; jcom.init 
   bang&quot; message box so that the module is properly initialized. Then set 
   time to 40 and the toggle to off, then click on the message "/preset/store 1 default, /preset/write". Save the preset 
@@ -256,7 +256,7 @@
 <p>Save and close your module patch, and create a new patch. Create a <strong>bpatcher </strong>
   object, and in the inspector, type &quot;jmod.qmetro_tutorial.mxt&quot;. Add a few more 
   objects as shown below:</p>
-<p><img src="../images/tutorial_02a_testing.png" width="406" height="339"></p>
+<p><img src="../graphics/tutorial_02a_testing.png" width="406" height="339"></p>
 <p>Click &quot;;&nbsp;jcom.init bang&quot; to initialize, and if the display is not looking
   as it is supposed to, refresh the screen by clicking &quot;;&nbsp;max refresh&quot;.</p>
 <p>If you interact with the toggle and time number box in the module, you'll see 
