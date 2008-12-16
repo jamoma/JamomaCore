@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="tt.dcblock~"
 	ProjectGUID="{C23B6815-DCAE-46F3-B8C1-0F99821D4DB3}"
 	RootNamespace="tt.dcblock~"
@@ -121,7 +121,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\includes\core&quot;;&quot;$(ProjectDir)..\..\..\includes\units&quot;;&quot;$(ProjectDir)..&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				RuntimeLibrary="0"
 				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
