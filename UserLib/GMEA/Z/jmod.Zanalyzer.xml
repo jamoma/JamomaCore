@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='hopsize' type='msg_int' priority='0'>512</item>
+    <item name='npartial' type='msg_int' priority='0'>7</item>
+    <item name='reattack/dynamic' type='msg_int' priority='0'>10</item>
+    <item name='reattack/period' type='msg_int' priority='0'>100</item>
+    <item name='threshold/high' type='msg_int' priority='0'>77</item>
+    <item name='threshold/low' type='msg_int' priority='0'>45</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='vibrato/interval' type='msg_float' priority='0'>0.500000</item>
+    <item name='vibrato/period' type='msg_int' priority='0'>100</item>
+  </preset>
+</jamoma>
