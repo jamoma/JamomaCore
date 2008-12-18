@@ -8,21 +8,22 @@
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='aux.1' type='msg_float' priority='0'>0.000000</item>
     <item name='aux.2' type='msg_float' priority='0'>0.000000</item>
+    <item name='link' type='msg_int' priority='28'>0</item>
     <item name='mode' type='msg_symbol' priority='30'>static</item>
     <item name='output/bottomLeft' type='msg_int' priority='0'>3</item>
     <item name='output/bottomRight' type='msg_int' priority='0'>4</item>
     <item name='output/ramptime' type='msg_float' priority='0'>0</item>
     <item name='output/topLeft' type='msg_int' priority='0'>1</item>
     <item name='output/topRight' type='msg_int' priority='0'>2</item>
-    <item name='position/rd' type='msg_float' priority='32'>1.000000</item>
+    <item name='position/rd' type='msg_float' priority='32'>0.215562</item>
     <item name='position/sps' type='msg_float' priority='31'>-1.000000</item>
-    <item name='position/x' type='msg_float' priority='34'>0.000000</item>
-    <item name='position/y' type='msg_float' priority='33'>0.000000</item>
-    <item name='position2/rd' type='msg_float' priority='32'>0</item>
-    <item name='position2/sps' type='msg_float' priority='31'>0</item>
-    <item name='position2/x' type='msg_float' priority='34'>0</item>
-    <item name='position2/y' type='msg_float' priority='33'>0</item>
-    <item name='time_ambitus' type='msg_list' priority='0'>0</item>
+    <item name='position/x' type='msg_float' priority='34'>-0.088608</item>
+    <item name='position/y' type='msg_float' priority='33'>-0.037975</item>
+    <item name='position2/rd' type='msg_float' priority='32'>0.650000</item>
+    <item name='position2/sps' type='msg_float' priority='31'>-1.000000</item>
+    <item name='position2/x' type='msg_float' priority='34'>0.088608</item>
+    <item name='position2/y' type='msg_float' priority='33'>-0.063291</item>
+    <item name='time_ambitus' type='msg_list' priority='0'>804 804 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='volume' type='msg_float' priority='0'>1.000000</item>
   </preset>
