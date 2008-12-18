@@ -19,11 +19,13 @@ public class CueManager extends MaxObject
 	
 	/// Déclarations
 	private File cuelistfile; // an imported cuelist file
+	private String lastFilePath; // memorize the path of the last saved or loaded file
 	private CueList cuelist; // the current cuelist (note : the index start at 1 for the user)
 	private Cue get_state; // the actual state of each modules
 	private String store_name; // the name of the cue to store
 	private int store_index; // the index of the cue to store (note: this is not a user index)
 	private String currentCueName; // le nom de la dernière cue mise à jour
+
 	
 	/// Constructeurs
 	public CueManager()
@@ -33,6 +35,7 @@ public class CueManager extends MaxObject
 		createInfoOutlet(true);
 		
 		cuelist = new CueList();
+		lastFilePath = "NO FILE";
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,7 +117,7 @@ public class CueManager extends MaxObject
 	
 	// message to save the cue list in a chosen file
 	///////////////////////////////////////////////////
-	public void saveas(String file_path)
+	public void saveAs(String file_path)
 	{
 		FileWriter fwo;
 		BufferedWriter bwo;
@@ -123,8 +126,14 @@ public class CueManager extends MaxObject
 		
 		try
 		{
-			if(file_path.endsWith(".txt")) cuelistfile = new File(file_path);
-			else cuelistfile = new File(file_path+".txt");
+			if(file_path.endsWith(".txt")) {
+				this.cuelistfile = new File(file_path);
+				this.lastFilePath = file_path;
+			}
+			else {
+				this.cuelistfile = new File(file_path+".txt");
+				this.lastFilePath = file_path;
+			}
 			
 			cuelistfile.createNewFile();
 			
@@ -172,8 +181,17 @@ public class CueManager extends MaxObject
 
 		// release resources associated with output.txt
 		bwo.close();
+		post("file saved in : "+this.lastFilePath);
 		}
 		catch(IOException ioexception){ioexception.printStackTrace( );}
+	}
+	
+	public void save(){
+		if(!this.lastFilePath.equals("NO FILE"))
+			saveAs(this.lastFilePath);
+		else
+			post("no memorized file. Please use the saveAs command before");
+			
 	}
 	
 	// message to edit all or a part of the cuelist.
@@ -393,7 +411,7 @@ public class CueManager extends MaxObject
 		
 		if(l.length()>0){
 			line = supprSpaceBefore(l);
-
+			
 			// "CUE" search
 			if(line.startsWith("KEY CUE")){
 				// else add the cue to the cuelist
@@ -405,6 +423,12 @@ public class CueManager extends MaxObject
 				// else add the cue to the cuelist
 				cuelist.add(new Cue(line.substring(4), DIFFERENTIAL));
 				this.currentCueName = line.substring(4);
+				return;
+			}
+			// FILEPATH search
+			if(line.startsWith("FILEPATH")){
+				// else add the cue to the cuelist
+				this.lastFilePath = line.substring(9);
 				return;
 			}
 			else{
@@ -830,6 +854,7 @@ final class Data {
 		return this.type == CueManager._CMT;
 	}
 }
+
 
 
 
