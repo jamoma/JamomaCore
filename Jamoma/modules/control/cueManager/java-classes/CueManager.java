@@ -119,47 +119,63 @@ public class CueManager extends MaxObject
 	///////////////////////////////////////////////////
 	public void saveAs(String file_path)
 	{
+		if(file_path.endsWith(".txt")) {
+			this.cuelistfile = new File(file_path);
+			this.lastFilePath = file_path;
+		}
+		else {
+			this.cuelistfile = new File(file_path+".txt");
+			this.lastFilePath = file_path;
+		}
+		
+		if(!cuelistfile.exists()){
+			try{
+				cuelistfile.createNewFile();
+			}
+			catch(java.io.IOException e){
+				post("java error : " + e.getMessage());
+				return;
+			}
+		}
+		save();
+	}
+	
+	public void save(){
+		
 		FileWriter fwo;
 		BufferedWriter bwo;
 		Cue actualCue;
 		String line;
 		
-		try
-		{
-			if(file_path.endsWith(".txt")) {
-				this.cuelistfile = new File(file_path);
-				this.lastFilePath = file_path;
-			}
-			else {
-				this.cuelistfile = new File(file_path+".txt");
-				this.lastFilePath = file_path;
-			}
-			
-			cuelistfile.createNewFile();
-			
-			fwo = new FileWriter(cuelistfile.getPath(), false); // false means we will be writing to the file
-			bwo = new BufferedWriter(fwo);
+		if(this.lastFilePath.equals("NO FILE"))
+			post("no memorized file. Please use the saveAs command before");
+		else{
 
-			// ECRITURE
-			for(int cue=0; cue<cuelist.size(); cue++){
-				
-				actualCue = cuelist.get(cue);
-				
-				// ENTETE CUE
-				bwo.newLine( );
-				bwo.newLine( );
-				if(cuelist.get(cue).getType() == 1)
-					bwo.write("KEY CUE "+cuelist.get(cue).getName());
-				else
-					bwo.write("CUE "+cuelist.get(cue).getName());
-				bwo.newLine( );
-				
-				// COMMANDE
-				for(int d=0; d<actualCue.size(); d++){
-					
-					bwo.newLine();
-					bwo.newLine();
-					
+			try
+			{
+				fwo = new FileWriter(cuelistfile.getPath(), false); // false means we will be writing to the file
+				bwo = new BufferedWriter(fwo);
+
+				// ECRITURE
+				for(int cue=0; cue<cuelist.size(); cue++){
+
+					actualCue = cuelist.get(cue);
+
+					// ENTETE CUE
+					bwo.newLine( );
+					bwo.newLine( );
+					if(cuelist.get(cue).getType() == 1)
+						bwo.write("KEY CUE "+cuelist.get(cue).getName());
+					else
+						bwo.write("CUE "+cuelist.get(cue).getName());
+					bwo.newLine( );
+
+					// COMMANDE
+					for(int d=0; d<actualCue.size(); d++){
+
+						bwo.newLine();
+						bwo.newLine();
+
 						line = supprSpaceBefore(actualCue.get(d).getString());
 
 						if(actualCue.get(d).isCmt()){
@@ -170,28 +186,22 @@ public class CueManager extends MaxObject
 							bwo.write(line);
 							bwo.newLine();
 						}
-						
+
 						if(actualCue.get(d).isCtl() || actualCue.get(d).isWait()){
 							bwo.write("	"+line);
 							bwo.newLine();		
 						}
 					}
-			}
-			bwo.newLine( );	
+				}
+				bwo.newLine( );	
 
-		// release resources associated with output.txt
-		bwo.close();
-		post("file saved in : "+this.lastFilePath);
+				// release resources associated with output.txt
+				bwo.close();
+				post("file saved in : "+this.lastFilePath);
+			}
+			catch(IOException ioexception){ioexception.printStackTrace( );}
+
 		}
-		catch(IOException ioexception){ioexception.printStackTrace( );}
-	}
-	
-	public void save(){
-		if(!this.lastFilePath.equals("NO FILE"))
-			saveAs(this.lastFilePath);
-		else
-			post("no memorized file. Please use the saveAs command before");
-			
 	}
 	
 	// message to edit all or a part of the cuelist.
@@ -427,7 +437,7 @@ public class CueManager extends MaxObject
 			}
 			// FILEPATH search
 			if(line.startsWith("FILEPATH")){
-				// else add the cue to the cuelist
+				this.cuelistfile = new File(line.substring(9));
 				this.lastFilePath = line.substring(9);
 				return;
 			}
