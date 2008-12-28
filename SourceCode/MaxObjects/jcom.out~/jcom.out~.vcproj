@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="jcom.out~"
 	ProjectGUID="{8FFB9124-6300-4835-B6A8-D1E7FE6B6E9C}"
 	RootNamespace="jcom.out~"
@@ -131,6 +131,7 @@
 				ExceptionHandling="1"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="0"
+				StructMemberAlignment="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
