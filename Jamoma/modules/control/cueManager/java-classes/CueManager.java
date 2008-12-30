@@ -442,6 +442,7 @@ public class CueManager extends MaxObject
 			// FILEPATH search
 			if(line.startsWith("FILEPATH")){
 				this.cuelistfile = new File(line.substring(9));
+				post("file loaded : "+this.cuelistfile.getAbsolutePath());
 				return;
 			}
 			else{
@@ -867,7 +868,6 @@ final class Data {
 		return this.type == CueManager._CMT;
 	}
 }
-
 
 
 
