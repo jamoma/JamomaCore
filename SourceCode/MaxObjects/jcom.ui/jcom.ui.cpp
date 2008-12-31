@@ -1087,8 +1087,8 @@ void* ui_oksize(t_ui *x, t_rect *rect)
 	unitFrac = rect->height - (unitHeight * JAMOMA_UNIT_HEIGHT);
 	if(unitFrac > (JAMOMA_UNIT_HEIGHT/2))
 		unitHeight += 1;	
-	if(unitHeight < 2)
-		unitHeight = 2;
+	if(unitHeight < 1)
+		unitHeight = 1;
 	rect->height = unitHeight * JAMOMA_UNIT_HEIGHT;
 
 	unitWidth = rect->width / JAMOMA_UNIT_WIDTH;
