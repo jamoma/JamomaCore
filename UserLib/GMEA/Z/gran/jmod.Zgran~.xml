@@ -9,23 +9,23 @@
     <item name='amp' type='msg_float' priority='0'>0.499000</item>
     <item name='audio/gain' type='msg_float' priority='0'>70.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='begin/jit' type='msg_float' priority='0'>126.647331</item>
-    <item name='begin' type='msg_float' priority='0'>1286.167847</item>
+    <item name='position/jit' type='msg_float' priority='0'>126.647331</item>
+    <item name='position' type='msg_float' priority='0'>1286.167847</item>
     <item name='continuous' type='msg_int' priority='28'>1</item>
     <item name='delay' type='msg_int' priority='0'>0</item>
     <item name='delay/jit' type='msg_int' priority='0'>96</item>
-    <item name='density/jit' type='msg_float' priority='24'>0</item>
     <item name='density' type='msg_float' priority='24'>8.000000</item>
-    <item name='input' type='msg_list' priority='0'>0</item>
+    <item name='density/jit' type='msg_float' priority='24'>0</item>
     <item name='length/jit' type='msg_int' priority='0'>167</item>
     <item name='length' type='msg_int' priority='0'>291</item>
     <item name='pitch/jit' type='msg_float' priority='0'>0.000000</item>
     <item name='pitch' type='msg_float' priority='0'>1.000000</item>
-    <item name='record' type='msg_int' priority='0'>0</item>
-    <item name='sound/bufferpool' type='msg_list' priority='30'>/bufferpool</item>
-    <item name='sound/buffer' type='msg_list' priority='32'>cherokee.aif</item>
-    <item name='sound/enveloppe' type='msg_list' priority='31'>0</item>
-    <item name='sound/folder' type='msg_list' priority='31'>AddedFiles</item>
+    <item name='record/active' type='msg_int' priority='0'>0</item>
+    <item name='record/input' type='msg_list' priority='0'>0</item>
+    <item name='sound/bufferpool' type='msg_list' priority='1'>/bufferpool</item>
+    <item name='sound/buffer' type='msg_list' priority='3'>cherokee.aif</item>
+    <item name='sound/enveloppe' type='msg_symbol' priority='31'>blackman.aif</item>
+    <item name='sound/folder' type='msg_list' priority='2'>AddedFiles</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='voices' type='msg_generic' priority='0'>64</item>
   </preset>

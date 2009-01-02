@@ -7,7 +7,7 @@
   <preset number='1' name='default'>
     <item name='fullscreen' type='msg_int' priority='0'>0</item>
     <item name='layout' type='msg_int' priority='0'>1</item>
-    <item name='positions' type='msg_list' priority='0'>0</item>
+    <item name='positions' type='msg_list' priority='0'>/Zlooper~.1 0 315 1 /cueManager 150 0 1 /Zenveloppe~.1 0 455 1 edit 0 280 1 /Zequalizer~.1 0 595 1 /Zspat.1 0 735 1 /Zspat.2 300 735 1 /Zequalizer~.2 300 595 1 /Zenveloppe~.2 300 455 1 /Zlooper~.2 300 315 1 /Zlooper~.3 600 315 1 /Zenveloppe~.3 600 455 1 /Zequalizer~.3 600 595 1 /Zspat.3 600 735 1 /Zspat.4 900 735 1 /Zequalizer~.4 900 595 1 /Zenveloppe~.4 900 455 1 /Zlooper~.4 900 315 1 /equalizer~.2 900 70 1 /ZDtD2.2 900 0 1 /equalizer~.1 600 70 1 /Zspat2.1 600 210 1 /Zspat2.2 900 210 1 /ZDtD2.4 1200 315 1 /equalizer~.4 1200 385 1 /equalizer~.3 1200 70 1 /ZDtD2.3 1200 0 1 /Zspat2.3 1200 210 1 /Zspat2.4 1200 525 1 /ZDtD2.1 600 0 1 /Zin~ 450 175 1 /Zanalyzer 150 175 1 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
 </jamoma>
