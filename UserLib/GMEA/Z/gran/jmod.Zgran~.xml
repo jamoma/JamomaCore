@@ -7,19 +7,19 @@
   <preset number='1' name='default'>
     <item name='amp/jit' type='msg_float' priority='0'>0.000000</item>
     <item name='amp' type='msg_float' priority='0'>0.499000</item>
-    <item name='audio/gain' type='msg_float' priority='0'>70.000000</item>
+    <item name='audio/gain' type='msg_float' priority='0'>0.000000</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
-    <item name='position/jit' type='msg_float' priority='0'>126.647331</item>
-    <item name='position' type='msg_float' priority='0'>1286.167847</item>
     <item name='continuous' type='msg_int' priority='28'>1</item>
     <item name='delay' type='msg_int' priority='0'>0</item>
     <item name='delay/jit' type='msg_int' priority='0'>96</item>
     <item name='density' type='msg_float' priority='24'>8.000000</item>
     <item name='density/jit' type='msg_float' priority='24'>0</item>
-    <item name='length/jit' type='msg_int' priority='0'>167</item>
+    <item name='length/jit' type='msg_float' priority='0'>167.000000</item>
     <item name='length' type='msg_int' priority='0'>291</item>
     <item name='pitch/jit' type='msg_float' priority='0'>0.000000</item>
     <item name='pitch' type='msg_float' priority='0'>1.000000</item>
+    <item name='position/jit' type='msg_generic' priority='5'>1.000000</item>
+    <item name='position' type='msg_float' priority='4'>1.000000</item>
     <item name='record/active' type='msg_int' priority='0'>0</item>
     <item name='record/input' type='msg_list' priority='0'>0</item>
     <item name='sound/bufferpool' type='msg_list' priority='1'>/bufferpool</item>
