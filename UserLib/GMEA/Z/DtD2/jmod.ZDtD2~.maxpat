@@ -770,7 +770,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "poly~ jalg.ZDtD2 1",
+					"text" : "poly~ jalg.ZDtD2~ 1",
 					"numinlets" : 3,
 					"fontsize" : 12.0,
 					"numoutlets" : 4,
