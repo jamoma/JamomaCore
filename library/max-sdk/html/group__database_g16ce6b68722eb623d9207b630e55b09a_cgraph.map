@@ -1,0 +1,4 @@
+<area shape="rect" href="$group__database.html#g57619b568083f0cf5989455af0ad3d5b" title="Return a single value from a result according to its index and field coordinates..." alt="" coords="301,5,435,32">
+<area shape="rect" href="$group__database.html#g051ca3fefd1d2e4fe162a943c3d15060" title="A utility to convert from a sql datetime string into seconds." alt="" coords="287,56,449,83">
+<area shape="rect" href="$group__obj.html#ge740749094827ac5adc2b7145db1c596" title="Sends an untyped message to an object." alt="" coords="528,5,659,32">
+<area shape="rect" href="$group__systime.html#gb102340f92f3b8136629cf88a57e61a0" title="Convert a t_datetime representation of time into seconds." alt="" coords="499,56,688,83">

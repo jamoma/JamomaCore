@@ -1,0 +1,5 @@
+<area shape="rect" href="$group__atom.html#g98af493b18dfac0f8d441e16e520d5f6" title="Inserts an integer into a t_atom and change the t_atom&#39;s type to A_LONG." alt="" coords="155,5,275,32">
+<area shape="rect" href="$group__atom.html#g36c2619378802011ff0ff44bf74a807c" title="Inserts a t_symbol * into a t_atom and change the t_atom&#39;s type to A_SYM." alt="" coords="156,56,273,83">
+<area shape="rect" href="$group__symbol.html#g8268797d125a15bae1010af70b559e05" title="Given a C&#45;string, fetch the matching t_symbol pointer from the symbol table, generating..." alt="" coords="176,107,253,133">
+<area shape="rect" href="$group__obj.html#g3759846cb356195532c41e35b87522ee" title="Call the free function and release the memory for an instance of an internal object..." alt="" coords="164,157,265,184">
+<area shape="rect" href="$group__obj.html#g459c71aca6316e345379eeb424ad56ff" title="Allocates the memory for an instance of an object class and initialize its object..." alt="" coords="140,208,289,235">

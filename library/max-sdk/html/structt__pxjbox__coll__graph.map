@@ -1,0 +1,5 @@
+<area shape="rect" href="$structt__jbox.html" title="The t_jbox struct provides the header for a Max user&#45;interface object." alt="" coords="257,153,321,180">
+<area shape="rect" href="$structt__rect.html" title="Coordinates for specifying a rectangular region." alt="" coords="5,7,67,33">
+<area shape="rect" href="$structt__symbol.html" title="The symbol." alt="" coords="167,7,252,33">
+<area shape="rect" href="$structt__object.html" title="The structure for the head of any object which wants to have inlets or outlets, or..." alt="" coords="331,7,408,33">
+<area shape="rect" href="$structt__jrgba.html" title="A color composed of red, green, blue, and alpha components." alt="" coords="441,7,511,33">

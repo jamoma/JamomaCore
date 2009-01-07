@@ -1,0 +1,4 @@
+<area shape="rect" href="$group__database.html#g70fac948e0a17e91d80c064765d5d016" title="Execute a SQL query on the database." alt="" coords="233,31,321,57">
+<area shape="rect" href="$group__misc.html#g0022303fac866c8f5757aa56b67ce29d" title="Copy the contents of one string to another, in a manner safer than the standard strcpy()..." alt="" coords="221,81,333,108">
+<area shape="rect" href="$group__console.html#g94fff7e4ee19b8db6904a009117e0667" title="Print text to the system console." alt="" coords="417,5,476,32">
+<area shape="rect" href="$group__obj.html#ge740749094827ac5adc2b7145db1c596" title="Sends an untyped message to an object." alt="" coords="381,56,512,83">
