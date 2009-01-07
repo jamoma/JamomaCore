@@ -93,7 +93,7 @@ void jamoma_init(void)
 		object_method_parse(max, gensym("definecommand"), "O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
 	
 		// B -- a new module in a bpatcher
-		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @args myModule @name jmod.\"", NULL);		
+		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
 		
 		
 		// Here bind the TTBlue environment object to the symbol "TTBlue"
