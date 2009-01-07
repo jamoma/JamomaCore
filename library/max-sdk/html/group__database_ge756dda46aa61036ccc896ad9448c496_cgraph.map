@@ -1,0 +1,5 @@
+<area shape="rect" href="$group__database.html#g70fac948e0a17e91d80c064765d5d016" title="Execute a SQL query on the database." alt="" coords="224,31,312,57">
+<area shape="rect" href="$group__attr.html#g1179c4e91fb8263447ff4dfa471df953" title="Retrieves the value of an attribute, given its parent object and name." alt="" coords="188,81,348,108">
+<area shape="rect" href="$group__attr.html#g986dd931f91666f178bdf3aace48f53b" title="Sets the value of an attribute, given its parent object and name." alt="" coords="189,132,347,159">
+<area shape="rect" href="$group__console.html#g94fff7e4ee19b8db6904a009117e0667" title="Print text to the system console." alt="" coords="433,5,492,32">
+<area shape="rect" href="$group__obj.html#ge740749094827ac5adc2b7145db1c596" title="Sends an untyped message to an object." alt="" coords="397,56,528,83">

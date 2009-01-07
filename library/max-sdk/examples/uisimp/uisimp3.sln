@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uisimp3", "uisimp3.vcproj", "{8A6DD13A-D414-4535-BA7B-6569BD9E3B9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A6DD13A-D414-4535-BA7B-6569BD9E3B9F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8A6DD13A-D414-4535-BA7B-6569BD9E3B9F}.Debug|Win32.Build.0 = Debug|Win32
+		{8A6DD13A-D414-4535-BA7B-6569BD9E3B9F}.Release|Win32.ActiveCfg = Release|Win32
+		{8A6DD13A-D414-4535-BA7B-6569BD9E3B9F}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
