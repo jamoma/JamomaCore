@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='audio/bypass' type='msg_toggle' priority='0'>1</item>
+    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
+    <item name='audio/mix' type='msg_float' priority='0'>127.000000</item>
+    <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='bandwidth' type='msg_float' priority='0'>0.300000</item>
+    <item name='clear' type='msg_generic' priority='0'>0</item>
+    <item name='damping' type='msg_float' priority='0'>0.440000</item>
+    <item name='early' type='msg_float' priority='0'>-12.000000</item>
+    <item name='revtime' type='msg_float' priority='0'>3.700000</item>
+    <item name='roomsize' type='msg_float' priority='0'>6.000000</item>
+    <item name='tail' type='msg_float' priority='0'>-5.000000</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+  </preset>
+</jamoma>
