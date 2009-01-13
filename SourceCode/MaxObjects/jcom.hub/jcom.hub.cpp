@@ -1,7 +1,7 @@
 /* 
  * jcom.hub
  * External for Jamoma: the main control center
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -485,7 +485,6 @@ void hub_private(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	t_symbol		*private_id = _sym_nothing;	
 	t_symbol		*private_message = _sym_nothing;
 	t_symbol		*userpath = _sym_nothing;
-	long			n = 0;
 	t_atom			a;
 	
 	private_id = atom_getsym(argv);
