@@ -32,7 +32,7 @@
  #endif // _DLL_EXPORT
 #endif
 
-extern "C" t_symbol JAMOMA_EXPORT *jps_none,
+JAMOMA_EXPORT extern t_symbol *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,
@@ -114,7 +114,6 @@ extern "C" t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_algorithm_message,
 				*jps_private,
 				*jps__gui__,
-				*jps__gui__,
 				*jps__jcom_in__,
 				*jps__jcom_out__,
 				*jps___preview__,
@@ -193,7 +192,7 @@ extern "C" t_symbol JAMOMA_EXPORT *jps_none,
 				*jps_dispatch
 				;
 
-void jamomaSymbolsInit();
+extern "C" void jamomaSymbolsInit();
 
 #endif // #ifndef __JAMOMA_SYMBOLS_H__
 

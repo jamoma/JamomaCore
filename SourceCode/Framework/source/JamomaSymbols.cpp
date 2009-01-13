@@ -14,8 +14,6 @@
 #include "ext.h"		// Max externals header
 #include "JamomaSymbols.h"
 
-extern "C" {
-
 t_symbol	*jps_done,
 			*jps_none,					// ramp stuff
 			*jps_linear,
@@ -176,8 +174,6 @@ t_symbol	*jps_done,
 			*jps_remove,
 			*jps_dispatch
 			;
-
-}
 
 
 void jamomaSymbolsInit()
