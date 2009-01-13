@@ -66,7 +66,7 @@ typedef struct _textslider{
 // prototypes
 void*		textslider_new(t_symbol *s, long argc, t_atom *argv);
 void		textslider_free(t_textslider *x);
-void		textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+t_max_err	textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
 void		textslider_assist(t_textslider *x, void *b, long m, long a, char *s);
 void		textslider_bang(t_textslider *x);
 void		textslider_int(t_textslider *x, long value);
@@ -93,7 +93,7 @@ static t_class*	s_textslider_class;
 #pragma mark Class Definition
 #endif 0
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long	flags;
 	t_class *c;
@@ -240,7 +240,6 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 		attr_dictionary_process(x,d);
 		jbox_ready((t_jbox *)x);
 		
-		object_attach_byptr(x, x); 		// sign up for notifications of changes to our attributes
 		return x;
 	}
 	else
@@ -252,9 +251,6 @@ void textslider_free(t_textslider *x)
 {	
 	notify_free((t_object *)x);
 	jbox_free((t_jbox *)x);
-	
-	object_detach_byptr(x, x); 
-	object_unregister(x); 
 }
 
 
@@ -264,7 +260,7 @@ void textslider_free(t_textslider *x)
 #endif 0
 
 
-void textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	t_object	*textfield;
 	t_symbol	*attrname;
@@ -290,6 +286,7 @@ void textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *sender
 		
 		jbox_redraw(&x->box);
 	}
+	return jbox_notify((t_jbox*)x, s, msg, sender, data);
 }
 
 

@@ -27,12 +27,12 @@ static t_class *mkdir_class;
 
 
 /************************************************************************************/
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class *c;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 	
 	// Define our class
 	c = class_new("jcom.mkdir",(method)mkdir_new, (method)mkdir_free, sizeof(t_mkdir), (method)0L, 0L, 0);

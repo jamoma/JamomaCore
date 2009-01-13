@@ -18,7 +18,7 @@ static t_jrgba		s_light_gray = { 0.65, 0.65, 0.65, 1.0};
 #pragma mark -
 #pragma mark life cycle
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long		flags;
 	t_class*	c;
@@ -229,7 +229,6 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 		jbox_ready(&x->box);
 
 		x = (t_paramui *)object_register(CLASS_BOX, symbol_unique(), x);
-		object_attach_byptr(x, x); 						// sign up for notifications of changes to our attributes
 
 		x->menu_items = (t_linklist *)linklist_new();
 		paramui_menu_build(x);
@@ -273,12 +272,6 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 			argLen = 28;
 
 		jcom_core_loadextern(gensym("jcom.parameter"), argLen, a, &x->obj_parameter);
-		object_attach_byptr_register(x, x->obj_parameter, _sym_nobox);
-//		err = object_attach_byptr(x, x->obj_parameter);
-//		if(err){
-///			x->obj_parameter = (t_object*)object_register(CLASS_NOBOX, symbol_unique(), (t_object *)x->obj_parameter);
-//			err = object_attach_byptr(x, x->obj_parameter);
-//		}
 	}
 	return x;
 }
@@ -292,8 +285,6 @@ void paramui_free(t_paramui *x)
 	x->menu_qelem = NULL;
 	object_free(x->menu_items);
 	object_detach_byptr(x, x->obj_parameter);
-	object_detach_byptr(x, x); 
-	object_unregister(x); 
 	if(x->layout_value)
 		jtextlayout_destroy(x->layout_value);
 	if(x->layout_unit)
@@ -305,7 +296,7 @@ void paramui_free(t_paramui *x)
 #pragma mark -
 #pragma mark methods
 
-void paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+t_max_err paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	if(msg == _sym_modified)
 		jbox_redraw(&x->box);	
@@ -332,6 +323,7 @@ void paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender, void
 
 		jbox_redraw(&x->box);
 	}
+	
 }
 
 

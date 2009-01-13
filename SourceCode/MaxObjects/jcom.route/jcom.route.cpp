@@ -38,14 +38,14 @@ t_class		*route_class;				// Required: Global pointer for our class
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long attrflags = 0;
 	t_class *c;
 	t_object *attr;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.route",(method)route_new, (method)0L, sizeof(t_route), (method)0L, A_GIMME, 0);

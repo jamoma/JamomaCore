@@ -114,7 +114,7 @@ t_class		*this_class;				// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {	
 	t_class *c;
 	

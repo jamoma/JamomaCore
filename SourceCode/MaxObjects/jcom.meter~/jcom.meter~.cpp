@@ -91,7 +91,7 @@ static t_class*	s_meter_class;
 #pragma mark Class Definition
 #endif 0
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class *c = class_new("jcom.meter~", (method)meter_new, (method)meter_free, sizeof(t_meter), (method)NULL, A_GIMME, 0L);
 	
@@ -215,9 +215,7 @@ t_max_err meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, voi
 		if(name == _sym_patching_rect || name == gensym("orientation"))
 			meterEffectOrientation(x);
 	}
-	
-	jbox_notify((t_jbox *)x, s, msg, sender, data);
-	return MAX_ERR_NONE;
+	return jbox_notify((t_jbox*)x, s, msg, sender, data);
 }
 
 

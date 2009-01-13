@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jcom.mkdir.mxe"
-
-EXPORTS
-	main

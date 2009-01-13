@@ -30,7 +30,7 @@ t_atom		ga_zero;
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long 		attrflags = 0;
 	t_class 	*c;

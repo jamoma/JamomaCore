@@ -125,7 +125,7 @@ t_symbol	*jps_dumpout;
 
 /** Class Definition
   */
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	post("main");
 	

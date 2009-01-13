@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jcom.jit.sum.mxe"
-
-EXPORTS
-	main

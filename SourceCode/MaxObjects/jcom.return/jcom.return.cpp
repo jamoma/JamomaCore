@@ -52,7 +52,7 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
 /************************************************************************************/
 // Class Definition
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class 	*c;
 	t_object 	*attr = NULL;

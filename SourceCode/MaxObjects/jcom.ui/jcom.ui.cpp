@@ -62,7 +62,7 @@ static t_jrgba		s_color_darkgreen			= {0.05,		0.4,		0.05,		1.0};
 #pragma mark -
 #pragma mark life cycle
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	long	flags;
 	t_class *c;
@@ -260,9 +260,6 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 */
 		attr_dictionary_process(x, d); 					// handle attribute args
 		jbox_ready(&x->box);
-
-		x = (t_ui *)object_register(CLASS_BOX, symbol_unique(), x);
-		object_attach_byptr(x, x); 						// sign up for notifications of changes to our attributes
 		
 		x->menu_items = (t_linklist *)linklist_new();
 		x->menu_qelem = qelem_new(x, (method)ui_menu_qfn);
@@ -288,16 +285,13 @@ void ui_free(t_ui *x)
 	
 	object_free(x->obj_remote);
 	ui_internals_destroy(x);
-
-	object_detach_byptr(x, x); 
-	object_unregister(x); 
 }
 
 
 #pragma mark -
 #pragma mark methods
 
-void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
+t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 {
 	t_object	*textfield;
 	t_symbol	*attrname;
@@ -323,6 +317,7 @@ void ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
 
 		jbox_redraw(&x->box);
 	}
+	return jbox_notify((t_jbox*)x, s, msg, sender, data);
 }
 
 

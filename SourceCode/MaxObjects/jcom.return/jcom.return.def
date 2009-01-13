@@ -1,6 +1,0 @@
-;exported symbols
-
-LIBRARY "jcom.return.mxe"
-
-EXPORTS
-	main

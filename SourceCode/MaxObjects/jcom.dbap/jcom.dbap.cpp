@@ -139,7 +139,7 @@ t_class		*this_class;				// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {	
 	long attrflags = 0;
 	t_class *c;

@@ -1,7 +1,7 @@
 /* 
  * jcom.cubic_interpolate
  * External for Jamoma: cubic interpolation on a stream of floats
- * By Trond Lossius, Copyright © 2006
+ * By Trond Lossius, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -38,7 +38,7 @@ t_class		*this_class;				// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {	
 	long attrflags = 0;
 	t_class *c;

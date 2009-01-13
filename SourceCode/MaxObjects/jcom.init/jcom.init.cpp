@@ -30,7 +30,7 @@ t_class			*g_init_class;			// Required. Global pointing to this class
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class		*c;
 	t_object 	*attr = NULL;

@@ -34,7 +34,7 @@ struct _subIsLess : binary_function<t_subscriber*, t_subscriber*, bool> {
 /************************************************************************************/
 // Main() Function
 
-int main(void)				// main recieves a copy of the Max function macros table
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {
 	t_class *c;
 	

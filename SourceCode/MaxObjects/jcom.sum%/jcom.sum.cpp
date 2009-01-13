@@ -65,7 +65,7 @@ static t_class*	s_jit_sum_class;
 /**************************************************************************************/
 // MAIN
 
-int main(void)
+int JAMOMA_EXPORT_MAXOBJ main(void)
 {	
 	long		attrflags = 0;
 	t_class*	c;
