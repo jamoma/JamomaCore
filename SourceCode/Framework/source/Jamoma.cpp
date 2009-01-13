@@ -8,6 +8,7 @@
  */
 
 #include "Jamoma.h"
+#include "JamomaObject.h"
 
 // constants
 const double k_pi = 3.1415926535897932;		// pi
@@ -100,10 +101,17 @@ void jamoma_init(void)
 		{
 			t_symbol* TTBlueMaxSymbol = gensym("TTBlue");
 			
-			//TTBlueMaxSymbol->s_thing = ;
+			TTBlueMaxSymbol->s_thing = 0;
 			// Before we can do this we have to have a ttblue max class to receive the messages, duh...
 		}
 		
+		// now the jamoma object
+		{
+			t_symbol* jamomaSymbol = gensym("jamoma");
+		
+			jamoma_object_initclass();
+			jamomaSymbol->s_thing = jamoma_object_new();
+		}
 		
 		post("Jamoma %s - www.jamoma.org", JAMOMA_VERSION);
 		initialized = true;
