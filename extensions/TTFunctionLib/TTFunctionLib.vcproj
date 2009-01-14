@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -64,7 +64,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TTBlue.lib"
+				AdditionalDependencies="JamomaDSP.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\Debug&quot;"
@@ -141,7 +141,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TTBlue.lib"
+				AdditionalDependencies="JamomaDSP.lib"
 				OutputFile="$(OutDir)\$(ProjectName).ttdll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\library\Release&quot;"
