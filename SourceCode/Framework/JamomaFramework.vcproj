@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="JamomaFramework"
+	Name="JamomaModular"
 	ProjectGUID="{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}"
 	RootNamespace="JamomaFramework"
 	Keyword="Win32Proj"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\TTBlue\includes\core&quot;;&quot;$(ProjectDir)..\..\..\TTBlue\includes\units&quot;;.\source;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,9 +64,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TTBlue.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
+				AdditionalDependencies="JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\TTBlue\library\$(ConfigurationName)&quot;;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -124,7 +124,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\TTBlue\includes\core&quot;;&quot;$(ProjectDir)..\..\..\TTBlue\includes\units&quot;;.\source;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -147,9 +147,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="TTBlue.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
+				AdditionalDependencies="JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\TTBlue\library\$(ConfigurationName)&quot;;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
