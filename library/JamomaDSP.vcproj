@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
-	Name="TTBlue"
+	Version="9.00"
+	Name="JamomaDSP"
 	ProjectGUID="{34630069-834D-46BA-83CF-3DB7F1A9665F}"
 	RootNamespace="TTBlue"
 	Keyword="Win32Proj"
@@ -26,11 +26,11 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;"
 				Outputs="none"
 			/>
 			<Tool
@@ -75,7 +75,7 @@
 				DelayLoadDLLs="PortAudio.dll"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
-				MapFileName="ttblue.map"
+				MapFileName="JamomaDSP.map"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -99,8 +99,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy TTBlue.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				Description="Copy JamomaDSP.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaDSP.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -112,11 +112,11 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;"
+				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy $(OutDir)\TTBlue.dll .\build&#x0D;&#x0A;copy $(OutDir)\TTBlue.lib .\build&#x0D;&#x0A;"
+				CommandLine="copy $(OutDir)\JamomaDSP.dll .\build&#x0D;&#x0A;copy $(OutDir)\JamomaDSP.lib .\build&#x0D;&#x0A;"
 				Outputs="AAA"
 			/>
 			<Tool
@@ -160,7 +160,7 @@
 				DelayLoadDLLs="PortAudio.dll"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
-				MapFileName="ttblue.map"
+				MapFileName="JamomaDSP.map"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -186,8 +186,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy TTBlue.dll and PortAudio.dll to the Max 5 install."
-				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\TTBlue.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\TTBlue.dll&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\Release\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;"
+				Description="Copy JamomaDSP.dll and PortAudio.dll to the Max 5 install."
+				CommandLine="if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(IntDir)\JamomaDSP.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;&#x0D;&#x0A;if exist &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support&quot; copy &quot;$(ProjectDir)portaudio\Release\PortAudio.dll&quot; &quot;$(ProgramFiles)\Cycling &apos;74\Max 5.0\support\PortAudio.dll&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
