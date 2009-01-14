@@ -1,21 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JamomaFramework", "Framework\JamomaFramework.vcproj", "{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}"
-	ProjectSection(ProjectDependencies) = postProject
-		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.cubic_interpolate", "MaxObjects\jcom.cubic_interpolate\jcom.cubic_interpolate.vcproj", "{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
-		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109} = {FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.delta", "MaxObjects\jcom.delta\jcom.delta.vcproj", "{6FC7FB66-237C-4E5C-AB2F-D9E90663DB13}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34630069-834D-46BA-83CF-3DB7F1A9665F} = {34630069-834D-46BA-83CF-3DB7F1A9665F}
-		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109} = {FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.gang", "MaxObjects\jcom.gang\jcom.gang.vcproj", "{670497AB-6B6F-419C-99E2-781A86446F83}"
@@ -37,9 +30,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.oscroute", "MaxObjects\jcom.oscroute\jcom.oscroute.vcproj", "{8B8D8B57-13A7-4DA1-A6B6-549AB9642A4B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.out", "MaxObjects\jcom.out\jcom.out.vcproj", "{5F7E43DE-E2C6-48CA-A47D-98012C82EAE2}"
-	ProjectSection(ProjectDependencies) = postProject
-		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109} = {FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.pass", "MaxObjects\jcom.pass\jcom.pass.vcproj", "{7C38ADBC-7949-4275-932C-1FC76A8BDA4B}"
 EndProject
@@ -95,16 +85,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.xfade~", "..\..\DSP\exam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.zerox~", "..\..\DSP\examples\MaxMSP\tt.zerox~\tt.zerox~.vcproj", "{CEA34310-7BE9-45F6-B44D-C2CCD6DECE59}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JamomaModular", "Framework\JamomaModular.vcproj", "{61C80A36-5F63-4CD0-8F2A-AC759D323726}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}.Debug|Win32.ActiveCfg = Debug|Win32
-		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}.Debug|Win32.Build.0 = Debug|Win32
-		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}.Release|Win32.ActiveCfg = Release|Win32
-		{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}.Release|Win32.Build.0 = Release|Win32
 		{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}.Debug|Win32.ActiveCfg = Debug|Win32
 		{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}.Debug|Win32.Build.0 = Debug|Win32
 		{62D83C78-EA6D-49B0-AA38-F4DF8BB04D6C}.Release|Win32.ActiveCfg = Release|Win32
@@ -261,6 +249,10 @@ Global
 		{CEA34310-7BE9-45F6-B44D-C2CCD6DECE59}.Debug|Win32.Build.0 = Debug|Win32
 		{CEA34310-7BE9-45F6-B44D-C2CCD6DECE59}.Release|Win32.ActiveCfg = Release|Win32
 		{CEA34310-7BE9-45F6-B44D-C2CCD6DECE59}.Release|Win32.Build.0 = Release|Win32
+		{61C80A36-5F63-4CD0-8F2A-AC759D323726}.Debug|Win32.ActiveCfg = Debug|Win32
+		{61C80A36-5F63-4CD0-8F2A-AC759D323726}.Debug|Win32.Build.0 = Debug|Win32
+		{61C80A36-5F63-4CD0-8F2A-AC759D323726}.Release|Win32.ActiveCfg = Release|Win32
+		{61C80A36-5F63-4CD0-8F2A-AC759D323726}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

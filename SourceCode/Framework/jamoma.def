@@ -1,5 +1,5 @@
 
-LIBRARY "JamomaFramework"
+LIBRARY "JamomaModular.dll"
 
 EXPORTS
 	; Globals

@@ -32,7 +32,7 @@
  #endif // _DLL_EXPORT
 #endif
 
-JAMOMA_EXPORT extern t_symbol *jps_none,
+extern "C" JAMOMA_EXPORT extern t_symbol *jps_none,
 				*jps_done,
 				*jps_linear,
 				*jps_linear_q,

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="JamomaModular"
-	ProjectGUID="{FF7B13AD-FE86-4AAF-A615-4BD7D25FE109}"
+	ProjectGUID="{61C80A36-5F63-4CD0-8F2A-AC759D323726}"
 	RootNamespace="JamomaFramework"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -66,7 +66,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -124,7 +124,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalIncludeDirectories=".\Ramplib;.\Dataspacelib;.\Functionlib;&quot;$(ProjectDir)..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\DSP\includes\units&quot;;.\source;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;TTBLUE_EXPORTS;TT_PLATFORM_WIN;WIN_VERSION;_DLL_JAMOMA_EXPORT;_CRT_SECURE_NO_WARNINGS;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -149,7 +149,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="JamomaDSP.lib MaxAPI.lib MaxAudio.lib jitlib.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;..\ThirdParty\c74support\max-includes&quot;;&quot;..\ThirdParty\c74support\msp-includes&quot;;&quot;..\ThirdParty\c74support\jit-includes&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\..\..\DSP\library\$(ConfigurationName)&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;"
 				GenerateManifest="false"
 				ModuleDefinitionFile="jamoma.def"
 				GenerateDebugInformation="true"
@@ -312,7 +312,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\ThirdParty\c74support\max-includes\common\commonsyms.c"
+				RelativePath="..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
 				>
 			</File>
 			<File
