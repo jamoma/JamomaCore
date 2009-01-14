@@ -14,7 +14,8 @@
 		222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B15B00F1D1461008B1A46 /* commonsyms.cpp */; };
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
 		222B19FE0F1D8D70008B1A46 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B19FD0F1D8D70008B1A46 /* Jamoma.framework */; };
-		222B1B380F1D91E6008B1A46 /* jcom.meter~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B1B370F1D91E6008B1A46 /* jcom.meter~.cpp */; };
+		222B1B930F1D92FE008B1A46 /* jcom.out.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B1B910F1D92FE008B1A46 /* jcom.out.cpp */; };
+		222B1B940F1D92FE008B1A46 /* jcom.out.h in Headers */ = {isa = PBXBuildFile; fileRef = 222B1B920F1D92FE008B1A46 /* jcom.out.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +26,9 @@
 		222B15B00F1D1461008B1A46 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
 		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		222B19FD0F1D8D70008B1A46 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = ../../Framework/build/UninstalledProducts/Jamoma.framework; sourceTree = SOURCE_ROOT; };
-		222B1B370F1D91E6008B1A46 /* jcom.meter~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "jcom.meter~.cpp"; sourceTree = "<group>"; };
-		2FBBEAE508F335360078DB84 /* jcom.meter~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.meter~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		222B1B910F1D92FE008B1A46 /* jcom.out.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jcom.out.cpp; path = ../jcom.out/jcom.out.cpp; sourceTree = SOURCE_ROOT; };
+		222B1B920F1D92FE008B1A46 /* jcom.out.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jcom.out.h; path = ../jcom.out/jcom.out.h; sourceTree = SOURCE_ROOT; };
+		2FBBEAE508F335360078DB84 /* jcom.out~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "jcom.out~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +73,8 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				222B1B370F1D91E6008B1A46 /* jcom.meter~.cpp */,
+				222B1B910F1D92FE008B1A46 /* jcom.out.cpp */,
+				222B1B920F1D92FE008B1A46 /* jcom.out.h */,
 				222B15B00F1D1461008B1A46 /* commonsyms.cpp */,
 			);
 			name = Source;
@@ -80,7 +83,7 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2FBBEAE508F335360078DB84 /* jcom.meter~.mxo */,
+				2FBBEAE508F335360078DB84 /* jcom.out~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +95,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				222B1B940F1D92FE008B1A46 /* jcom.out.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +118,7 @@
 			);
 			name = "max-external";
 			productName = iterator;
-			productReference = 2FBBEAE508F335360078DB84 /* jcom.meter~.mxo */;
+			productReference = 2FBBEAE508F335360078DB84 /* jcom.out~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -122,7 +126,7 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.meter~" */;
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.out~" */;
 			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
@@ -161,7 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */,
-				222B1B380F1D91E6008B1A46 /* jcom.meter~.cpp in Sources */,
+				222B1B930F1D92FE008B1A46 /* jcom.out.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +201,7 @@
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
 				);
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = JCOM_OUT_TILDE;
 			};
 			name = Development;
 		};
@@ -220,13 +225,14 @@
 					"\"$(SRCROOT)/../../Framework/build/Development\"",
 					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = JCOM_OUT_TILDE;
 			};
 			name = Deployment;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.meter~" */ = {
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.out~" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2FBBEAD008F335010078DB84 /* Development */,

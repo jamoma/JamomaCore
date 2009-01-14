@@ -1,7 +1,7 @@
 /* 
  * jcom.hub
- * External for Jamoma: dispatch messages to jcom.param objects (a potential replacement for jcom.hub)
- * By Tim Place, Copyright © 2006
+ * External for Jamoma: dispatch messages to jcom.parameter objects
+ * By Tim Place, Copyright Â© 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
