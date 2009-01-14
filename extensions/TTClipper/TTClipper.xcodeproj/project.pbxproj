@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		22398BAE0E243E2D00A5F732 /* TTClipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BAD0E243E2D00A5F732 /* TTClipper.cpp */; };
-		22398BB20E243EAE00A5F732 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22398BB10E243EAE00A5F732 /* TTBlue.framework */; };
+		22D43B740F1D9F3500C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		22398BAD0E243E2D00A5F732 /* TTClipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTClipper.cpp; sourceTree = "<group>"; };
-		22398BB10E243EAE00A5F732 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
+		22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* TTClipper.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TTClipper.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -25,7 +25,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22398BB20E243EAE00A5F732 /* TTBlue.framework in Frameworks */,
+				22D43B740F1D9F3500C16BB0 /* JamomaDSP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,7 +53,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22398BB10E243EAE00A5F732 /* TTBlue.framework */,
+				22D43B730F1D9F3500C16BB0 /* JamomaDSP.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -152,6 +152,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = ttdylib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -164,7 +168,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTClipper;
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
 			};
 			name = Development;
 		};
@@ -176,6 +180,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = ttdylib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
@@ -185,7 +193,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTClipper;
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
 			};
 			name = Deployment;
 		};

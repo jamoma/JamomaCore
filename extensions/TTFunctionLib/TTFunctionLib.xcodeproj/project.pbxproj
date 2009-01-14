@@ -18,7 +18,7 @@
 		2217FAA70E4F284500806778 /* TanhFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2217FA9D0E4F284500806778 /* TanhFunction.cpp */; };
 		2217FAA80E4F284500806778 /* TanhFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2217FA9E0E4F284500806778 /* TanhFunction.h */; };
 		22398BAE0E243E2D00A5F732 /* TTFunctionLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */; };
-		22398BB20E243EAE00A5F732 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22398BB10E243EAE00A5F732 /* TTBlue.framework */; };
+		22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */; };
 		D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +35,7 @@
 		2217FA9D0E4F284500806778 /* TanhFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TanhFunction.cpp; sourceTree = "<group>"; };
 		2217FA9E0E4F284500806778 /* TanhFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TanhFunction.h; sourceTree = "<group>"; };
 		22398BAD0E243E2D00A5F732 /* TTFunctionLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTFunctionLib.cpp; sourceTree = "<group>"; };
-		22398BB10E243EAE00A5F732 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
+		22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* TTFunctionLib.ttdylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = TTFunctionLib.ttdylib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,7 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2AAC0B105546B7500DB518D /* Carbon.framework in Frameworks */,
-				22398BB20E243EAE00A5F732 /* TTBlue.framework in Frameworks */,
+				22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +73,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				22398BB10E243EAE00A5F732 /* TTBlue.framework */,
+				22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -200,6 +200,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = ttdylib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -212,7 +216,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFunctionLib;
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
 			};
 			name = Development;
 		};
@@ -224,6 +228,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = ttdylib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../library/build/UninstalledProducts\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
@@ -233,7 +241,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = TTFunctionLib;
-				USER_HEADER_SEARCH_PATHS = /Library/Frameworks/TTBlue.framework/Headers;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../../includes/**\"";
 			};
 			name = Deployment;
 		};
