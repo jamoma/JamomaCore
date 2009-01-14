@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\..\..\TTBlue\includes\core;..\..\..\..\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;..\..\..\..\Tools\library\max-sdk\c74support\msp-includes;..\..\..\..\Tools\library\max-sdk\c74support\jit-includes;..\..\..\..\JamomaDSP\includes\core;..\..\..\..\JamomaDSP\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -64,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaDSP.lib JamomaModular.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;&quot;..\..\..\..\TTBlue\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;..\..\..\..\JamomaDSP\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -124,7 +124,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\ThirdParty\c74support\max-includes&quot;;..\..\ThirdParty\c74support\msp-includes;..\..\ThirdParty\c74support\jit-includes;..\..\..\..\TTBlue\includes\core;..\..\..\..\TTBlue\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;..\..\..\..\Tools\library\max-sdk\c74support\msp-includes;..\..\..\..\Tools\library\max-sdk\c74support\jit-includes;..\..\..\..\JamomaDSP\includes\core;..\..\..\..\JamomaDSP\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JCOMDELTA_EXPORTS;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
@@ -147,10 +147,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib TTBlue.lib JamomaFramework.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib jitlib.lib JamomaDSP.lib JamomaModular.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\ThirdParty\c74support\max-includes&quot;;&quot;..\..\ThirdParty\c74support\msp-includes&quot;;&quot;..\..\ThirdParty\c74support\jit-includes&quot;;&quot;..\..\..\..\TTBlue\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;..\..\..\..\JamomaDSP\library\$(ConfigurationName)&quot;;&quot;..\..\Framework\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -200,7 +200,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\ThirdParty\c74support\max-includes\common\commonsyms.c"
+				RelativePath="..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
 				>
 			</File>
 			<File
