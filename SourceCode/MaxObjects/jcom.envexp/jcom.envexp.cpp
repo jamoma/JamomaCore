@@ -1,7 +1,7 @@
 /* 
  	jcom.envexp (previously named tl.envexp)
 	create envelope with linear attack and exponential decay.	
- 	By Trond Lossius, Copyright © 2001-08
+ 	By Trond Lossius, Copyright ï¿½ 2001-08
 	Change History (most recent first):
 
 		06-Apr-2008:	<tl>	Moved to Jamoma, renamed jcom.envexp
@@ -25,35 +25,35 @@
 	http://www.gnu.org/licenses/lgpl.html 
 
 
-/* **************************************************************************** */
-/*                                                                              */
-/* 	Input:																		*/
-/*			list:	Maximum amplitude, attack time, decay time					*/
-/*			bang:	Trigger new amplitude using stored values					*/
-/*			set:	Set envelope properties without triggering					*/
-/*			threshold (float):													*/
-/*					Change low threshold value									*/
-/*			steal (int):														*/
-/*					Enable/disable note stealing								*/
-/*																				*/
-/*	Arguments:																	*/
-/*			int:	Threshold amplitude. Envelope is terminated when this low	*/
-/*					threshold is reached. Defaults to -90 dB.					*/
-/*			int:	Note stealing properties.									*/
-/*						If 0: Note stealing disabled. When a envelope is		*/
-/*							triggered, a "0" is sent first so that amplitude	*/
-/*							immediately is set to 0.							*/
-/*						If non-zero: "0" is not sent. Hence the attack section	*/
-/*							of the envelope takes of from current amplitude		*/
-/*							 value.												*/
-/*						Defaults to 1 (non-zero)								*/
-/* 	Output:																		*/
-/*			list:	Envelope in line~ format.									*/
-/*			int:	If note-stealing is disabled, the value "0" is transmitted	*/
-/*					prior to list of envelope data.								*/
-/* 																				*/
-/* Trond Lossius 2000-06-26														*/
-/********************************************************************************/
+* ****************************************************************************
+*                                                                              
+* 	Input:																		
+*			list:	Maximum amplitude, attack time, decay time					
+*			bang:	Trigger new amplitude using stored values					
+*			set:	Set envelope properties without triggering					
+*			threshold (float):													
+*					Change low threshold value									
+*			steal (int):														
+*					Enable/disable note stealing								
+*																				
+*	Arguments:																	
+*			int:	Threshold amplitude. Envelope is terminated when this low	
+*					threshold is reached. Defaults to -90 dB.					
+*			int:	Note stealing properties.									
+*						If 0: Note stealing disabled. When a envelope is		
+*							triggered, a "0" is sent first so that amplitude	
+*							immediately is set to 0.							
+*						If non-zero: "0" is not sent. Hence the attack section	
+*							of the envelope takes of from current amplitude		
+*							 value.												
+*						Defaults to 1 (non-zero)								
+* 	Output:																		
+*			list:	Envelope in line~ format.									
+*			int:	If note-stealing is disabled, the value "0" is transmitted	
+*					prior to list of envelope data.								
+* 																				
+* Trond Lossius 2000-06-26														
+********************************************************************************/
 
 #include "Jamoma.h"									// include Jamoma lib
 
