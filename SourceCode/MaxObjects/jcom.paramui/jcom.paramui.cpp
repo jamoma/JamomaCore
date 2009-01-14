@@ -194,7 +194,7 @@ t_paramui* paramui_new(t_symbol *s, long argc, t_atom *argv)
 	long 			flags;
 	t_atom			a[LISTSIZE+34];
 	long			argLen;
-	t_max_err		err = MAX_ERR_NONE;
+	//t_max_err		err = MAX_ERR_NONE;
 
 	if(!(d=object_dictionaryarg(argc, argv)))
 		return NULL;	
@@ -323,7 +323,7 @@ t_max_err paramui_notify(t_paramui *x, t_symbol *s, t_symbol *msg, void *sender,
 
 		jbox_redraw(&x->box);
 	}
-	
+	return MAX_ERR_NONE;
 }
 
 
