@@ -1,7 +1,7 @@
 /* 
  * jcom.dbap
  * External for Jamoma: DBAP - Distance Based Amplitude Panning
- * By Trond Lossius, Copyright © 2008
+ * By Trond Lossius, Copyright ï¿½ 2008
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -141,9 +141,7 @@ t_class		*this_class;				// Required. Global pointing to this class
 
 int JAMOMA_EXPORT_MAXOBJ main(void)
 {	
-	long attrflags = 0;
 	t_class *c;
-	t_object *attr;
 
 	jamoma_init();
 	common_symbols_init();
