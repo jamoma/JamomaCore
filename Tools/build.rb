@@ -320,7 +320,7 @@ if win32?
 	extension = ".mxe"
 end
 
-src_folder = "Build_Mac/Development"
+src_folder = "Build_Mac"
 if win32?
 	src_folder = "MaxMSP/builds"
 end
