@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
@@ -64,7 +64,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\library\Debug&quot;"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="MaxAPI.lib MaxAudio.lib TTBlue.lib"
+				AdditionalDependencies="MaxAPI.lib MaxAudio.lib JamomaDSP.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mxe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(ProjectDir)..\c74support\max-includes&quot;;&quot;$(ProjectDir)..\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\library\Release&quot;"
