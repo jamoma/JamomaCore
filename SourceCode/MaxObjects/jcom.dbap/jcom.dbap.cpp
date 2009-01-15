@@ -29,12 +29,12 @@ typedef struct _hull1{
 	float		max;									///< maximum x value
 } t_hull1;												///< Convex hull in 1 dimension
 	
-
 typedef struct _dbap{									///< Data structure for this object 
 	t_object	ob;										///< Must always be the first field; used by Max
 	t_xyz		src_position[MAX_NUM_SOURCES];			///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];					///< Spatial bluriness ratio in percents for each source
 	float		src_gain[MAX_NUM_SOURCES];				///< Linear gain for each source, not yet used
+	float		src_weight[MAX_NUM_SOURCES][MAX_NUM_DESTINATIONS];	///< Weight for each source for each destination 
 	float		src_not_muted[MAX_NUM_SOURCES];				///< Mute and unmute sources
 	float		master_gain;							///< Mater gain for all ofr the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
@@ -72,6 +72,9 @@ void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv);
 
 /** Set master gain for all values passed from the object to matrix~. */
 void dbap_mastergain(t_dbap *x, double f);
+
+/** Set weight for nth source by passing a list to balance each destination. */
+void dbap_weight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Mute and unmute sources */
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv);
@@ -386,6 +389,28 @@ void dbap_mastergain(t_dbap *x, double f)
 		dbap_calculate(x, i);
 }
 
+void dbap_weight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
+{
+	long n;
+	long i;
+	float f;
+	
+	if((argc == MAX_NUM_DESTINATIONS+1) && argv) {			// the first argument is the source number
+		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
+			error("Invalid argument(s) for source_weight");
+			return;
+		}
+		for(i=1;i<argc;i++){								// the rest is the list of weights for each destination
+			f = atom_getfloat(argv+i);
+			if (f<0.0) 
+				f = 0.0;	
+			x->src_weight[n][i] = f;
+		}
+	}
+	else
+		error("Invalid argument(s) for source_weight");
+}
 
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 {
@@ -628,7 +653,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 		dx = x->src_position[n].x - x->dst_position[i].x;
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
-		k2inv = k2inv + 1./(dia[i]*dia[i]);
+		k2inv = k2inv + (src_weight[n][i]*src_weight[n][i])/(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
