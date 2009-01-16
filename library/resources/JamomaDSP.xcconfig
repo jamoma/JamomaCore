@@ -25,6 +25,7 @@ INSTALL_PATH = /
 // Special Files
 INFOPLIST_FILE = $(SRCROOT)/resources/Info.plist
 
+LIBRARY_SEARCH_PATHS = $(inherited) "$(SRCROOT)/portaudio"
 
 // Per architecture and deployment settings
 SDKROOT[arch=i386] = /Developer/SDKs/MacOSX10.4u.sdk
