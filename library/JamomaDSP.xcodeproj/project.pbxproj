@@ -1157,7 +1157,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_SHADOW = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				INFOPLIST_FILE = /Users/tim/dev/Jamoma/DSP/library/resources/Info.plist;
+				INFOPLIST_FILE = "\"$(SRCROOT)/resources/Info.plist\"";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
 				LIBRARY_SEARCH_PATHS = (
@@ -1200,7 +1200,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_SHADOW = YES;
 				GENERATE_PKGINFO_FILE = YES;
-				INFOPLIST_FILE = /Users/tim/dev/Jamoma/DSP/library/resources/Info.plist;
+				INFOPLIST_FILE = "\"$(SRCROOT)/resources/Info.plist\"";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
 				LIBRARY_SEARCH_PATHS = (
