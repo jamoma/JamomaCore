@@ -653,7 +653,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 		dx = x->src_position[n].x - x->dst_position[i].x;
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
-		k2inv = k2inv + (src_weight[n][i]*src_weight[n][i])/(dia[i]*dia[i]);
+		k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
