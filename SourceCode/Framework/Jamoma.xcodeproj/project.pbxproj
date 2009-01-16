@@ -103,7 +103,7 @@
 		222B140A0F1D0DA8008B1A46 /* ext_database.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ext_database.c; sourceTree = "<group>"; };
 		222B140B0F1D0DA8008B1A46 /* jpatcher_syms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jpatcher_syms.c; sourceTree = "<group>"; };
 		222B140C0F1D0DA8008B1A46 /* mouse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mouse.c; sourceTree = "<group>"; };
-		222B140D0F1D0DA8008B1A46 /* verinfo_win.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rc; path = verinfo_win.rc; sourceTree = "<group>"; };
+		222B140D0F1D0DA8008B1A46 /* verinfo_win.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = verinfo_win.rc; sourceTree = "<group>"; };
 		222B140E0F1D0DA8008B1A46 /* commonsyms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commonsyms.h; sourceTree = "<group>"; };
 		222B140F0F1D0DA8008B1A46 /* edit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edit.h; sourceTree = "<group>"; };
 		222B14100F1D0DA8008B1A46 /* ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ext.h; sourceTree = "<group>"; };
@@ -828,6 +828,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXPORTED_SYMBOLS_FILE = "";
 				FRAMEWORK_SEARCH_PATHS = (
+					../../../DSP/library/build/UninstalledProducts,
 					"../../../Tools/library/c74support/max-includes",
 					"../../../Tools/library/c74support/msp-includes",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -877,6 +878,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				EXPORTED_SYMBOLS_FILE = "";
 				FRAMEWORK_SEARCH_PATHS = (
+					../../../DSP/library/build/UninstalledProducts,
 					"../../../Tools/library/c74support/max-includes",
 					"../../../Tools/library/c74support/msp-includes",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
