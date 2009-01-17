@@ -408,17 +408,18 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	float f;
 	
 	if((argc == x->attr_num_destinations+1) && argv) {			// the first argument is the source number
-		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
+		n = atom_getlong(argv)-1;								// we start counting from 1 for sources
 		if((n < 0)||(n >= x->attr_num_sources)) {
 			error("Invalid argument(s) for src_weight");
 			return;
 		}
-		for(i=1;i<argc;i++){								// the rest is the list of weights for each destination
+		for(i=1;i<argc;i++){									// the rest is the list of weights for each destination
 			f = atom_getfloat(argv+i);
-			if (f<0.0) 
+			if(f<0.0) 
 				f = 0.0;	
-			x->src_weight[n][i] = f;
+			x->src_weight[n][i-1] = f;
 		}
+		dbap_calculate(x, n);
 	}
 	else
 		error("Invalid argument(s) for src_weight");
