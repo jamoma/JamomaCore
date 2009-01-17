@@ -34,7 +34,7 @@ typedef struct _dbap{									///< Data structure for this object
 	t_xyz		src_position[MAX_NUM_SOURCES];			///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];					///< Spatial bluriness ratio in percents for each source
 	float		src_gain[MAX_NUM_SOURCES];				///< Linear gain for each source, not yet used
-	float		src_weight[MAX_NUM_SOURCES][MAX_NUM_DESTINATIONS];	///< Weight for each source for each destination 
+	//float		src_weight[MAX_NUM_SOURCES][MAX_NUM_DESTINATIONS];	///< Weight for each source for each destination 
 	float		src_not_muted[MAX_NUM_SOURCES];				///< Mute and unmute sources
 	float		master_gain;							///< Mater gain for all ofr the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
@@ -74,7 +74,7 @@ void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv);
 void dbap_mastergain(t_dbap *x, double f);
 
 /** Set weight for nth source by passing a list to balance each destination. */
-void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
+//void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Mute and unmute sources */
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv);
@@ -163,7 +163,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)dbap_source,				"src_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_destination,		"dst_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_sourcegain,			"src_gain",		A_GIMME,	0);
-	class_addmethod(c, (method)dbap_sourceweight,		"src_weight",	A_GIMME,	0);
+	//class_addmethod(c, (method)dbap_sourceweight,		"src_weight",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_mastergain,			"master_gain",	A_FLOAT,	0);
 	class_addmethod(c, (method)dbap_sourcemute,			"src_mute",		A_GIMME,	0);
 	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);
@@ -230,11 +230,11 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->dst_position[i].z = 0.;
 		}
 
-		for(i=0;i<MAX_NUM_SOURCES;i++){
+		/*for(i=0;i<MAX_NUM_SOURCES;i++){
 			for(j=0;j<MAX_NUM_SOURCES;j++){
 				x->src_weight[i][j] = 1.;
 			}
-		}
+		}*/
 
 		x->hull1.min = 0.0;
 		x->hull1.max = 0.0;
@@ -397,7 +397,7 @@ void dbap_mastergain(t_dbap *x, double f)
 		dbap_calculate(x, i);
 }
 
-void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
+/*void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	long n;
 	long i;
@@ -418,7 +418,7 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 	}
 	else
 		error("Invalid argument(s) for source_weight");
-}
+}*/
 
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 {
@@ -661,7 +661,8 @@ void dbap_calculate2D(t_dbap *x, long n)
 		dx = x->src_position[n].x - x->dst_position[i].x;
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
-		k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
+		//k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
+		k2inv = k2inv + 1./(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
