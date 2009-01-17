@@ -87,6 +87,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tt.zerox~", "..\..\DSP\exam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JamomaModular", "Framework\JamomaModular.vcproj", "{61C80A36-5F63-4CD0-8F2A-AC759D323726}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcom.dbap", "MaxObjects\jcom.dbap\jcom.dbap.vcproj", "{3DBF9BCD-66D4-4487-848B-1423B0528C5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -253,6 +255,10 @@ Global
 		{61C80A36-5F63-4CD0-8F2A-AC759D323726}.Debug|Win32.Build.0 = Debug|Win32
 		{61C80A36-5F63-4CD0-8F2A-AC759D323726}.Release|Win32.ActiveCfg = Release|Win32
 		{61C80A36-5F63-4CD0-8F2A-AC759D323726}.Release|Win32.Build.0 = Release|Win32
+		{3DBF9BCD-66D4-4487-848B-1423B0528C5A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3DBF9BCD-66D4-4487-848B-1423B0528C5A}.Debug|Win32.Build.0 = Debug|Win32
+		{3DBF9BCD-66D4-4487-848B-1423B0528C5A}.Release|Win32.ActiveCfg = Release|Win32
+		{3DBF9BCD-66D4-4487-848B-1423B0528C5A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
