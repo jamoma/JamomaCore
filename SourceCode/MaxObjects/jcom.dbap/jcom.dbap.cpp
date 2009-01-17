@@ -198,7 +198,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 {
 	t_dbap *x;
-	long i;
+	long i,j;
 	
 	x = (t_dbap *)object_alloc(this_class);	// create the new instance and return a pointer to it
 	
@@ -228,6 +228,13 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->dst_position[i].y = 0.;
 			x->dst_position[i].z = 0.;
 		}
+
+		for(i=0;i<MAX_NUM_SOURCES;i++){
+			for(j=0;j<MAX_NUM_SOURCES;j++){
+				x->src_weight[i][j] = 1.;
+			}
+		}
+
 		x->hull1.min = 0.0;
 		x->hull1.max = 0.0;
 		
