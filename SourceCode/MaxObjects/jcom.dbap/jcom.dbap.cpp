@@ -13,6 +13,10 @@
 const long MAX_NUM_SOURCES = 250;
 const long MAX_NUM_DESTINATIONS = 500;
 
+// This is to 
+const long MAX_NUM_WEIGHTED_SOURCES = 64;
+const long MAX_NUM_WEIGHTED_DESTINATIONS = 32;
+
 t_symbol		*ps_dst_position,
 				*ps_src_position,
 				*ps_src_gain,
@@ -34,7 +38,7 @@ typedef struct _dbap{									///< Data structure for this object
 	t_xyz		src_position[MAX_NUM_SOURCES];			///< Positions of the virtual source
 	float		blur[MAX_NUM_SOURCES];					///< Spatial bluriness ratio in percents for each source
 	float		src_gain[MAX_NUM_SOURCES];				///< Linear gain for each source, not yet used
-	//float		src_weight[MAX_NUM_SOURCES][MAX_NUM_DESTINATIONS];	///< Weight for each source for each destination 
+	float		src_weight[MAX_NUM_WEIGHTED_SOURCES][MAX_NUM_WEIGHTED_DESTINATIONS];///< Weight for each source for each destination 
 	float		src_not_muted[MAX_NUM_SOURCES];				///< Mute and unmute sources
 	float		master_gain;							///< Mater gain for all ofr the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
@@ -74,7 +78,7 @@ void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv);
 void dbap_mastergain(t_dbap *x, double f);
 
 /** Set weight for nth source by passing a list to balance each destination. */
-//void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
+void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Mute and unmute sources */
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv);
@@ -163,7 +167,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)dbap_source,				"src_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_destination,		"dst_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_sourcegain,			"src_gain",		A_GIMME,	0);
-	//class_addmethod(c, (method)dbap_sourceweight,		"src_weight",	A_GIMME,	0);
+	class_addmethod(c, (method)dbap_sourceweight,		"src_weight",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_mastergain,			"master_gain",	A_FLOAT,	0);
 	class_addmethod(c, (method)dbap_sourcemute,			"src_mute",		A_GIMME,	0);
 	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);
@@ -230,11 +234,11 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			x->dst_position[i].z = 0.;
 		}
 
-		/*for(i=0;i<MAX_NUM_SOURCES;i++){
-			for(j=0;j<MAX_NUM_SOURCES;j++){
+		for(i=0;i<MAX_NUM_WEIGHTED_SOURCES;i++){
+			for(j=0;j<MAX_NUM_WEIGHTED_DESTINATIONS;j++){
 				x->src_weight[i][j] = 1.;
 			}
-		}*/
+		}
 
 		x->hull1.min = 0.0;
 		x->hull1.max = 0.0;
@@ -397,16 +401,16 @@ void dbap_mastergain(t_dbap *x, double f)
 		dbap_calculate(x, i);
 }
 
-/*void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
+void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	long n;
 	long i;
 	float f;
 	
-	if((argc == MAX_NUM_DESTINATIONS+1) && argv) {			// the first argument is the source number
+	if((argc == x->attr_num_destinations+1) && argv) {			// the first argument is the source number
 		n = atom_getlong(argv)-1;							// we start counting from 1 for sources
-		if ( (n<0) || (n>=MAX_NUM_SOURCES) ) {
-			error("Invalid argument(s) for source_weight");
+		if((n < 0)||(n >= x->attr_num_sources)) {
+			error("Invalid argument(s) for src_weight");
 			return;
 		}
 		for(i=1;i<argc;i++){								// the rest is the list of weights for each destination
@@ -417,8 +421,8 @@ void dbap_mastergain(t_dbap *x, double f)
 		}
 	}
 	else
-		error("Invalid argument(s) for source_weight");
-}*/
+		error("Invalid argument(s) for src_weight");
+}
 
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 {
@@ -437,7 +441,6 @@ void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 	else
 		error("Invalid argument(s) for source_gain");
 }
-
 
 void dbap_info(t_dbap *x)
 {
@@ -661,8 +664,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 		dx = x->src_position[n].x - x->dst_position[i].x;
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
-		//k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
-		k2inv = k2inv + 1./(dia[i]*dia[i]);
+		k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
 	}
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
@@ -671,7 +673,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
-		atom_setfloat(&a[2], k/dia[i]);
+		atom_setfloat(&a[2], x->src_weight[n][i]*k/dia[i]);
 		outlet_anything(x->outlet[0], _sym_list, 3, a);
 	}	
 }
