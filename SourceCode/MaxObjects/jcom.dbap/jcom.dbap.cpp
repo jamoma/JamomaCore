@@ -74,7 +74,7 @@ void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv);
 void dbap_mastergain(t_dbap *x, double f);
 
 /** Set weight for nth source by passing a list to balance each destination. */
-void dbap_weight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
+void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
 
 /** Mute and unmute sources */
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv);
@@ -163,6 +163,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)dbap_source,				"src_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_destination,		"dst_position",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_sourcegain,			"src_gain",		A_GIMME,	0);
+	class_addmethod(c, (method)dbap_sourceweight,		"src_weight",	A_GIMME,	0);
 	class_addmethod(c, (method)dbap_mastergain,			"master_gain",	A_FLOAT,	0);
 	class_addmethod(c, (method)dbap_sourcemute,			"src_mute",		A_GIMME,	0);
 	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);
@@ -396,7 +397,7 @@ void dbap_mastergain(t_dbap *x, double f)
 		dbap_calculate(x, i);
 }
 
-void dbap_weight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
+void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	long n;
 	long i;
