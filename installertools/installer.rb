@@ -9,15 +9,15 @@
 # First include the functions in the jamoma lib
 libdir = "."
 Dir.chdir libdir        # change to libdir so that requires work
-require "jamomalib"   # C74 build library
+require "../library/jamomalib"   # C74 build library
 
 
 @svn_root = ".."
 if win32?
   Dir.chdir @svn_root
   @svn_root = Dir.pwd
-  Dir.chdir "#{@svn_root}/Tools"
-  @temp = "#{@svn_root}/Installers/Windows"
+  Dir.chdir "#{@svn_root}/installertools"
+  @temp = "#{@svn_root}/installertools/Windows"
   @max = "#{@temp}/root"
 else
   @temp = "#{@svn_root}/Installers/temp"
@@ -33,10 +33,10 @@ end
 ###################################################################
 
 def create_logs
-  @build_log = File.new("#{@svn_root}/Installers/_installer.log", "w")
+  @build_log = File.new("#{@svn_root}/installertools/_installer.log", "w")
   @build_log.write("JAMOMA INSTALLER LOG: #{`date`}\n\n")
   @build_log.flush
-  @error_log = File.new("#{@svn_root}/Installers/_error.log", "w")
+  @error_log = File.new("#{@svn_root}/installertools/_error.log", "w")
   @error_log.write("JAMOMA INSTALLER ERROR LOG: #{`date`}\n\n")
   @error_log.flush
   trap("SIGINT") { die }
@@ -85,7 +85,7 @@ end
 
 if win32?
   
-  Dir.chdir("#{@svn_root}/Installers/Windows")
+  Dir.chdir("#{@svn_root}/installertools/Windows")
 
   puts " Removing old temporary folder"
   `rm -rf root`
@@ -112,13 +112,15 @@ if win32?
   `mkdir "root/Common Files/TTBlue/Extensions"`
 
   puts " Copying the Jamoma folder --  this could take a while..."
-  `cp -r ../../Jamoma "root/Cycling '74"`
+  `cp -r "#{@svn_root}/../Modular/Jamoma" "root/Cycling '74"`
 
   puts " Moving TTBlue Extensions"
   `mv "root/Cycling '74/Jamoma/library/externals/TTBlueExtensions"/*.ttdll      "root/Common Files/TTBlue/Extensions"`
 
   puts " Moving things around (frameworks, loader, templates, etc)..."
   `mv "#{@c74}/Jamoma/library/externals/JamomaFramework.dll"  root/support`
+  `mv "#{@c74}/Jamoma/library/externals/JamomaDSP.dll"  root/support`
+  `mv "#{@c74}/Jamoma/library/externals/JamomaModular.dll"  root/support`
   `mv "#{@c74}/Jamoma/library/externals/TTBlue.dll"           root/support`
   `mv "#{@c74}/Jamoma/library/third-party/WinXP/support"/*.dll        root/support`
 
