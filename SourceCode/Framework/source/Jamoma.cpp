@@ -168,26 +168,18 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 
 t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 {
-	if(max5){
-		t_object	*box = object_attr_getobj(patcher, jps_box);
-		t_symbol	*objclass = NULL;
-		
-		if(box)
-			objclass = object_classname(box);
-		
-		if(objclass == gensym("bpatcher"))
-			return objclass;
-		else if(objclass == gensym("newobj"))
-			return gensym("subpatcher");
-		else
-			return gensym("toplevel");
-
-		return _sym_nothing;
-	}
-	else{
-		error("This version of Jamoma requires Max 5");
-		return _sym_nothing;
-	}
+	t_object	*box = object_attr_getobj(patcher, jps_box);
+	t_symbol	*objclass = NULL;
+	
+	if(box)
+		objclass = object_classname(box);
+	
+	if(objclass == gensym("bpatcher"))
+		return objclass;
+	else if(objclass == gensym("newobj"))
+		return gensym("subpatcher");
+	else
+		return gensym("toplevel");
 }
 
 
