@@ -198,6 +198,35 @@ TTErr TTAudioObject::calculate(const TTFloat64& x, TTFloat64& y)
 }
 
 
+TTErr TTAudioObject::calculate(const TTValue& x, TTValue& y)
+{
+	TTErr	err = kTTErrGeneric;
+
+	if(valid){
+		TTFloat64	in;
+		TTFloat64	out;
+		TTUInt32	size;
+		
+		lock();
+		
+		// at the moment we are iterating through the values using the same call to the object
+		// however, if the calculation involves the history of previous input or output
+		// then this will not work --
+		// TODO: there needs to be a way to request a calculation of a list on the object if it defines such a method
+
+		y.clear();
+		size = x.getSize();
+		for(TTUInt32 i=0; i<size; i++){
+			x.get(i, in);
+			err = (this->*currentCalculateMethod)(in, out);
+			y.append(out);
+		}
+		unlock();
+	}
+	return err;
+}
+
+
 TTErr TTAudioObject::process(TTAudioSignal& in, TTAudioSignal& out)
 {
 	TTErr	err = kTTErrGeneric;

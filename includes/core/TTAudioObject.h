@@ -92,6 +92,7 @@ public:
 		@return		An error, if any.
 	 */
 	TTErr calculate(const TTFloat64& x, TTFloat64& y);
+	TTErr calculate(const TTValue& x, TTValue& y);
 
 	
 	/** Process the input signal, resulting in an output signal. This method wraps the actual process method
