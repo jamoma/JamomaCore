@@ -290,6 +290,11 @@ puts ""
 # FINISH UP
 ###################################################################
 
+if  win32?
+else
+  copydir("#{@build_root}/../Build_Mac/fxlib≈.mxo",  "\"/Applications/Max5/Cycling '74/extensions/fxlib≈.mxo\"")
+end
+
 puts "=================DONE===================="
 puts "\nFailed projects:" if @fail_array.length > 0
 @fail_array.each do |loser|
