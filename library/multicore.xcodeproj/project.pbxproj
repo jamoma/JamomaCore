@@ -12,9 +12,9 @@
 		220BD2CF0ECE640B00F7D618 /* multicore.pch in Headers */ = {isa = PBXBuildFile; fileRef = 220BD2CA0ECE640A00F7D618 /* multicore.pch */; };
 		220BD2D00ECE640B00F7D618 /* multicoreOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */; };
 		220BD2D10ECE640B00F7D618 /* multicoreSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */; };
-		220BD3B10ECE649500F7D618 /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220BD3B00ECE649500F7D618 /* TTBlue.framework */; };
 		220BD41E0ECE658F00F7D618 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 220BD41C0ECE658F00F7D618 /* main.cpp */; };
 		22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A403830CAD7B9400E5299E /* Carbon.framework */; };
+		22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,9 +23,9 @@
 		220BD2CA0ECE640A00F7D618 /* multicore.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multicore.pch; sourceTree = "<group>"; };
 		220BD2CB0ECE640A00F7D618 /* multicoreOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicoreOutput.cpp; sourceTree = "<group>"; };
 		220BD2CC0ECE640A00F7D618 /* multicoreSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multicoreSource.cpp; sourceTree = "<group>"; };
-		220BD3B00ECE649500F7D618 /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
 		220BD41C0ECE658F00F7D618 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		22A403830CAD7B9400E5299E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
 		8DC2EF5B0486A6940098B216 /* JamomaMulticore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JamomaMulticore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,7 +35,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A403840CAD7B9400E5299E /* Carbon.framework in Frameworks */,
-				220BD3B10ECE649500F7D618 /* TTBlue.framework in Frameworks */,
+				22DF22510F2441BD00DBBEE9 /* JamomaDSP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,8 +63,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				22DF22500F2441BD00DBBEE9 /* JamomaDSP.framework */,
 				22A403830CAD7B9400E5299E /* Carbon.framework */,
-				220BD3B00ECE649500F7D618 /* TTBlue.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -180,8 +180,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /Library/Frameworks;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../DSP/library/build/UninstalledProducts\"";
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -212,6 +219,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = JamomaMulticore;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Development;
@@ -223,8 +231,15 @@
 					ppc,
 					i386,
 				);
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = /Library/Frameworks;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../DSP/library/build/UninstalledProducts\"";
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -253,6 +268,7 @@
 					"-Wno-deprecated",
 				);
 				PRODUCT_NAME = JamomaMulticore;
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Deployment;
