@@ -282,6 +282,7 @@ if win32?
 	build_project("#{@svn_root}../DSP/library", "JamomaDSP.vcproj", configuration, true)
 else
 	build_project("#{@svn_root}../DSP/library", "JamomaDSP.xcodeproj", configuration, true)
+	copydir("#{@svn_root}../DSP/library/build/UninstalledProducts/JamomaDSP.framework",   "/Library/Frameworks/JamomaDSP.framework")
 end
 
 if  win32?
@@ -290,6 +291,7 @@ if  win32?
 	`cp #{@svn_root}SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}Jamoma/library/externals/JamomaModular.dll`
 else
 	build_project("#{@svn_root}SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
+	copydir("#{@svn_root}SourceCode/Framework/build/UninstalledProducts/Jamoma.framework",   "/Library/Frameworks/Jamoma.framework")
 end
 
 ex_total, ex_count = get_count
@@ -297,7 +299,7 @@ puts ""
 
 puts "Building TTBlue Extensions..."
 zero_count
-build_dir("#{@svn_root}../DSP/extensions", configuration, clean)  
+build_dir("../DSP/extensions", configuration, clean)  
 ex_total, ex_count = get_count
 if  win32?
 	`cp #{@svn_root}../DSP/extensions/builds/*.ttdll    #{@svn_root}Jamoma/library/externals/TTBlueExtensions/`
@@ -311,7 +313,7 @@ puts ""
 puts "Building TTBlue Externals..."
 
 zero_count
-build_dir("#{@svn_root}DSP/examples/MaxMSP", configuration, clean)  
+build_dir("../DSP/examples/MaxMSP", configuration, clean)  
 ex_total, ex_count = get_count
 
 extension = ".mxo"
