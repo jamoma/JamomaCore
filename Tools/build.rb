@@ -387,6 +387,12 @@ puts ""
 # FINISH UP
 ###################################################################
 
+if  win32?
+else
+  copydir("#{@svn_root}Jamoma/library/externals/mac/jcom.loader.mxo",  "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
+  puts""
+end
+
 puts "=================DONE===================="
 puts "\nFailed projects:" if @fail_array.length > 0
 @fail_array.each do |loser|
