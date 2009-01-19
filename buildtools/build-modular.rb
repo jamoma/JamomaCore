@@ -280,8 +280,7 @@ zero_count
 
 if  win32?
 	build_project("#{@svn_root}../Modular/SourceCode/Framework", "JamomaModular.vcproj", configuration, true)
-	`cp #{@svn_root}../DSP/library/#{configuration}/JamomaDSP.dll           #{@svn_root}Jamoma/library/externals/JamomaDSP.dll`
-	`cp #{@svn_root}../Modular/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}Jamoma/library/externals/JamomaModular.dll`
+	`cp #{@svn_root}../Modular/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}../Modular/Jamoma/library/externals/JamomaModular.dll`
 else
 	build_project("#{@svn_root}../Modular/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
 end

@@ -244,6 +244,7 @@ zero_count
 
 if win32?
 	build_project("#{@svn_root}/library", "JamomaDSP.vcproj", configuration, true)
+	`cp #{@svn_root}/../DSP/library/#{configuration}/JamomaDSP.dll           #{@svn_root}/../Modular/Jamoma/library/externals/JamomaDSP.dll`
 else
 	build_project("#{@svn_root}/library", "JamomaDSP.xcodeproj", configuration, true)
 end
