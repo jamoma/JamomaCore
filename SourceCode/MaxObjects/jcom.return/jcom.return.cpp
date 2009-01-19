@@ -115,7 +115,7 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		
 		attr_args_process(x, argc, argv);
 		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
-		defer_low(x, (method)return_makesend, 0, 0, 0);
+		return_makesend(x, 0, 0, 0);
 	}
 	return (x);
 }
