@@ -3,67 +3,67 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F5B62020919440900A62EB9 /* MaxAPI.framework */; };
-		0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */; };
-		220BD4930ECE6DDC00F7D618 /* JamomaMulticore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220BD4920ECE6DDC00F7D618 /* JamomaMulticore.framework */; };
-		2259472A0EB4B98200E33619 /* maxMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 225947290EB4B98200E33619 /* maxMulticore.h */; };
-		22BFF61C0D2AB4D700BD97E5 /* in.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF61B0D2AB4D700BD97E5 /* in.cpp */; };
-		22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */; };
-		22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F229A50D48CA460018534E /* TTBlue.framework */; };
-		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		222B15330F1D116F008B1A46 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15320F1D116F008B1A46 /* MaxAPI.framework */; };
+		222B15350F1D1179008B1A46 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */; };
+		222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B15B00F1D1461008B1A46 /* commonsyms.cpp */; };
+		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
+		22DF22FC0F24440800DBBEE9 /* multicore-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 22DF22FB0F24440800DBBEE9 /* multicore-max.xcconfig */; };
+		22DF23050F24443100DBBEE9 /* maxMulticore.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DF23030F24443100DBBEE9 /* maxMulticore.h */; };
+		22DF23060F24443100DBBEE9 /* maxMulticore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DF23040F24443100DBBEE9 /* maxMulticore.cpp */; };
+		22DF23080F24444400DBBEE9 /* JamomaMulticore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DF23070F24444400DBBEE9 /* JamomaMulticore.framework */; };
+		22DF239A0F24472F00DBBEE9 /* in.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DF23990F24472F00DBBEE9 /* in.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		0F5B62020919440900A62EB9 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
-		0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
-		220BD4920ECE6DDC00F7D618 /* JamomaMulticore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaMulticore.framework; path = ../../../library/build/Development/JamomaMulticore.framework; sourceTree = SOURCE_ROOT; };
-		225947290EB4B98200E33619 /* maxMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxMulticore.h; path = ../maxMulticore.h; sourceTree = SOURCE_ROOT; };
-		22BFF61B0D2AB4D700BD97E5 /* in.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = in.cpp; sourceTree = "<group>"; };
-		22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = commonsyms.c; path = /Library/Frameworks/MaxAPI.framework/Headers/commonsyms.c; sourceTree = "<absolute>"; };
-		22F229A50D48CA460018534E /* TTBlue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTBlue.framework; path = /Library/Frameworks/TTBlue.framework; sourceTree = "<absolute>"; };
-		542ED84F09C02A0000DBC7EB /* in≈.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "in≈.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
+		222B15320F1D116F008B1A46 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
+		222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
+		222B15B00F1D1461008B1A46 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
+		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		22DF22FB0F24440800DBBEE9 /* multicore-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "multicore-max.xcconfig"; path = "../multicore-max.xcconfig"; sourceTree = SOURCE_ROOT; };
+		22DF23030F24443100DBBEE9 /* maxMulticore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maxMulticore.h; path = ../maxMulticore.h; sourceTree = SOURCE_ROOT; };
+		22DF23040F24443100DBBEE9 /* maxMulticore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maxMulticore.cpp; path = ../maxMulticore.cpp; sourceTree = SOURCE_ROOT; };
+		22DF23070F24444400DBBEE9 /* JamomaMulticore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaMulticore.framework; path = ../../../library/build/UninstalledProducts/JamomaMulticore.framework; sourceTree = SOURCE_ROOT; };
+		22DF23990F24472F00DBBEE9 /* in.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = in.cpp; sourceTree = "<group>"; };
+		2FBBEAE508F335360078DB84 /* in≈.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "in≈.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8D01CCCD0486CAD60068D4B7 /* Frameworks */ = {
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
-				0F5B62030919440900A62EB9 /* MaxAPI.framework in Frameworks */,
-				0FF3254009473DCC00B01934 /* MaxAudioAPI.framework in Frameworks */,
-				22F229A60D48CA460018534E /* TTBlue.framework in Frameworks */,
-				220BD4930ECE6DDC00F7D618 /* JamomaMulticore.framework in Frameworks */,
+				222B15330F1D116F008B1A46 /* MaxAPI.framework in Frameworks */,
+				222B15350F1D1179008B1A46 /* MaxAudioAPI.framework in Frameworks */,
+				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
+				22DF23080F24444400DBBEE9 /* JamomaMulticore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		089C166AFE841209C02AAC07 /* abs~ */ = {
+		089C166AFE841209C02AAC07 /* iterator */ = {
 			isa = PBXGroup;
 			children = (
+				22DF22FB0F24440800DBBEE9 /* multicore-max.xcconfig */,
 				08FB77ADFE841716C02AAC07 /* Source */,
-				225948620EB4E72300E33619 /* Lydbaer */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
 				19C28FB4FE9D528D11CA2CBB /* Products */,
 			);
-			name = "abs~";
+			name = iterator;
 			sourceTree = "<group>";
 		};
 		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				220BD4920ECE6DDC00F7D618 /* JamomaMulticore.framework */,
-				22F229A50D48CA460018534E /* TTBlue.framework */,
-				0FF3253F09473DCC00B01934 /* MaxAudioAPI.framework */,
-				0F5B62020919440900A62EB9 /* MaxAPI.framework */,
-				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
+				22DF23070F24444400DBBEE9 /* JamomaMulticore.framework */,
+				222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */,
+				222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */,
+				222B15320F1D116F008B1A46 /* MaxAPI.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -71,8 +71,10 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				22BFF61B0D2AB4D700BD97E5 /* in.cpp */,
-				22BFF8EE0D2B2C3000BD97E5 /* commonsyms.c */,
+				22DF23990F24472F00DBBEE9 /* in.cpp */,
+				222B15B00F1D1461008B1A46 /* commonsyms.cpp */,
+				22DF23030F24443100DBBEE9 /* maxMulticore.h */,
+				22DF23040F24443100DBBEE9 /* maxMulticore.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -80,52 +82,42 @@
 		19C28FB4FE9D528D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				542ED84F09C02A0000DBC7EB /* in≈.mxo */,
+				2FBBEAE508F335360078DB84 /* in≈.mxo */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		225948620EB4E72300E33619 /* Lydbaer */ = {
-			isa = PBXGroup;
-			children = (
-				225947290EB4B98200E33619 /* maxMulticore.h */,
-			);
-			name = Lydbaer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		8D01CCC70486CAD60068D4B7 /* Headers */ = {
+		2FBBEAD708F335360078DB84 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2259472A0EB4B98200E33619 /* maxMulticore.h in Headers */,
+				22DF23050F24443100DBBEE9 /* maxMulticore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D01CCC60486CAD60068D4B7 /* MaxObject External */ = {
+		2FBBEAD608F335360078DB84 /* max-external */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "MaxObject External" */;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
 			buildPhases = (
-				8D01CCC70486CAD60068D4B7 /* Headers */,
-				8D01CCC90486CAD60068D4B7 /* Resources */,
-				8D01CCCB0486CAD60068D4B7 /* Sources */,
-				8D01CCCD0486CAD60068D4B7 /* Frameworks */,
-				8D01CCCF0486CAD60068D4B7 /* Rez */,
-				22C01EDC09CE6D2900177B81 /* ShellScript */,
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "MaxObject External";
-			productInstallPath = "$(HOME)/Library/Bundles";
-			productName = MSPExternal;
-			productReference = 542ED84F09C02A0000DBC7EB /* in≈.mxo */;
+			name = "max-external";
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* in≈.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -133,30 +125,31 @@
 /* Begin PBXProject section */
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "in" */;
-			compatibilityVersion = "Xcode 2.4";
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "in" */;
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
-			mainGroup = 089C166AFE841209C02AAC07 /* abs~ */;
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D01CCC60486CAD60068D4B7 /* MaxObject External */,
+				2FBBEAD608F335360078DB84 /* max-external */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8D01CCC90486CAD60068D4B7 /* Resources */ = {
+		2FBBEAD808F335360078DB84 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22DF22FC0F24440800DBBEE9 /* multicore-max.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXRezBuildPhase section */
-		8D01CCCF0486CAD60068D4B7 /* Rez */ = {
+		2FBBEADF08F335360078DB84 /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -165,195 +158,94 @@
 		};
 /* End PBXRezBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		22C01EDC09CE6D2900177B81 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# perl ../common/infoplist_versionmaker.pl\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		8D01CCCB0486CAD60068D4B7 /* Sources */ = {
+		2FBBEADA08F335360078DB84 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22BFF61C0D2AB4D700BD97E5 /* in.cpp in Sources */,
-				22BFF8EF0D2B2C3000BD97E5 /* commonsyms.c in Sources */,
+				222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */,
+				22DF23060F24443100DBBEE9 /* maxMulticore.cpp in Sources */,
+				22DF239A0F24472F00DBBEE9 /* in.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		0FFBB95909731BB700D78707 /* Development */ = {
+		2FBBEAD008F335010078DB84 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEBUGGING_SYMBOLS = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = (
-					/Library/Frameworks,
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../library/build/Development\"";
-				GCC_ALTIVEC_EXTENSIONS = YES;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_ENABLE_TRIGRAPHS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_INPUT_FILETYPE = automatic;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../library/multicore.pch";
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_SHADOW = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/JamomaMulticore.framework/Headers,
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					/Library/Frameworks/TTBlue.framework/Headers,
-				);
-				INFOPLIST_FILE = ../Info.plist;
-				INSTALL_PATH = "/../../Build_Mac/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
-				LIBRARY_STYLE = Bundle;
-				LINKER_DISPLAYS_MANGLED_NAMES = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				OTHER_CFLAGS = "";
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "in≈";
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"-Wno-conversion",
-				);
-				WRAPPER_EXTENSION = mxo;
-				ZERO_LINK = YES;
 			};
 			name = Development;
 		};
-		0FFBB95A09731BB700D78707 /* Deployment */ = {
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
 			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22DF22FB0F24440800DBBEE9 /* multicore-max.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
+					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
+					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Framework/build/Development\"",
+					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22DF22FB0F24440800DBBEE9 /* multicore-max.xcconfig */;
 			buildSettings = {
 				ARCHS = (
 					ppc,
 					i386,
 				);
 				COPY_PHASE_STRIP = YES;
-				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = "$(PROJECT_DIR)";
 				FRAMEWORK_SEARCH_PATHS = (
-					/Library/Frameworks,
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
+					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
+					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Framework/build/Development\"",
+					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../../library/build/UninstalledProducts\"",
 				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../library/build/Development\"";
-				GCC_ALTIVEC_EXTENSIONS = YES;
-				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_TRIGRAPHS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_INPUT_FILETYPE = automatic;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/../../../library/multicore.pch";
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_EFFECTIVE_CPLUSPLUS_VIOLATIONS = NO;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
-				GCC_WARN_SHADOW = NO;
-				GCC_WARN_UNKNOWN_PRAGMAS = NO;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/JamomaMulticore.framework/Headers,
-					/Library/Frameworks/MaxAPI.framework/Headers,
-					/Library/Frameworks/MaxAudioAPI.framework/Headers,
-					/Library/Frameworks/TTBlue.framework/Headers,
-				);
-				INFOPLIST_FILE = ../Info.plist;
-				INSTALL_PATH = "/../../Build_Mac/$(CONFIGURATION)";
-				LIBRARY_SEARCH_PATHS = "";
-				LIBRARY_STYLE = Bundle;
-				LINKER_DISPLAYS_MANGLED_NAMES = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				OTHER_CFLAGS = "";
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-Wno-deprecated",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "in≈";
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SECTORDER_FLAGS = "";
-				USER_HEADER_SEARCH_PATHS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"-Wno-conversion",
-				);
-				WRAPPER_EXTENSION = mxo;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		0FFBB95D09731BB700D78707 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Development;
-		};
-		0FFBB95E09731BB700D78707 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
 			};
 			name = Deployment;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0FFBB95809731BB700D78707 /* Build configuration list for PBXNativeTarget "MaxObject External" */ = {
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "in" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0FFBB95909731BB700D78707 /* Development */,
-				0FFBB95A09731BB700D78707 /* Deployment */,
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		0FFBB95C09731BB700D78707 /* Build configuration list for PBXProject "in" */ = {
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0FFBB95D09731BB700D78707 /* Development */,
-				0FFBB95E09731BB700D78707 /* Deployment */,
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
