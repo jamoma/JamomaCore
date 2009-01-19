@@ -300,8 +300,7 @@ void map_doSetFunction(t_map *obj, t_symbol *newFunctionName)
 t_max_err map_setFunction(t_map *obj, void *attr, long argc, t_atom *argv)
 {
 	obj->valid = false;	// prevent values from being processed by the function while it is in a state of flux
-//map_doSetFunction(obj, atom_getsym(argv));
-	defer_low(obj, (method)map_doSetFunction, atom_getsym(argv), 0, NULL);
+	defer(obj, (method)map_doSetFunction, atom_getsym(argv), 0, NULL);
 	return MAX_ERR_NONE;
 }
 
