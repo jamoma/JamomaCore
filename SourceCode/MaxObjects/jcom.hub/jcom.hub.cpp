@@ -86,6 +86,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)hub_module_reference,		"module/reference",		A_CANT, 0); // used by the ui ref menu	
 	class_addmethod(c, (method)hub_module_reference,		"/module/reference",		A_CANT, 0); // used by the ui ref menu	
 	
+	//class_addmethod(c, (method)hub_examine_context,		"loadbang", A_CANT, 0);
 	class_addmethod(c, (method)hub_notify,				"notify",					A_CANT, 0);
 	class_addmethod(c, (method)hub_assist,				"assist",					A_CANT, 0L); 
     class_addmethod(c, (method)object_obex_dumpout,		"dumpout",					A_CANT,	0);
@@ -103,7 +104,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_SYM(c,		"user_path",		0,	t_hub,	user_path);	// the path of the last file used to save the presets
 
 	// Finalize our class
-	class_register(CLASS_BOX, c);
+	class_register(_sym_box, c);
 	s_hub_class = c;
 	
 	return 0;
@@ -176,24 +177,28 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		x->jcom_receive = NULL;
 		x->jcom_send_broadcast = NULL;
 		atom_setsym(a, jps_jcom_remote_fromModule);
-		x->jcom_send = (t_object*)object_new_typed(CLASS_BOX, jps_jcom_send, 1, a);
+		x->jcom_send = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		
 		atom_setsym(a, jps_jcom_remote_toModule);
-		x->jcom_receive = (t_object*)object_new_typed(CLASS_BOX, jps_jcom_receive, 1, a);
+		x->jcom_receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, a);
 		object_method(x->jcom_receive, jps_setcallback, &hub_receive_callback, x);
 			
 		atom_setsym(a, jps_jcom_broadcast_fromHub);
-		x->jcom_send_broadcast = (t_object*)object_new_typed(CLASS_BOX, jps_jcom_send, 1, a);
+		x->jcom_send_broadcast = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		
 		if(!g_jcom_send_notifications){
 			atom_setsym(a, gensym("notifications"));
-			g_jcom_send_notifications = (t_object*)object_new_typed(CLASS_BOX, jps_jcom_send, 1, a);
+			g_jcom_send_notifications = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		}
 		
 		hub_internals_create(x);
 
 		x->container = jamoma_object_getpatcher((t_object*)x);
-		defer_low(x, (method)hub_examine_context, 0, 0, 0);		
+		
+		// The following must be deferred because we have to interrogate our box,
+		// and our box is not yet valid until we have finished instantiating the object.
+		// Trying to use a loadbang method instead is also not fully successful (as of Max 5.0.6)
+		defer_low(x, (method)hub_examine_context, 0, 0, 0);
 	}
 	return x;
 }
@@ -272,6 +277,8 @@ void hub_examine_context(t_hub *x)
 	object_attr_setsym(x, _sym_name, x->osc_name);
 
 	// Finally, we now tell subscribers (parameters, etc.) to subscribe
+	// [TAP] Perhaps the reason things are so slow is that this is global -- so any time *any* module sends the broadcast then all modules have to link up?
+	// Ugh!  We need to scope this -- maybe do a PI_DEEP!
 	if(x->jcom_send_broadcast)
 		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
 }
