@@ -795,7 +795,6 @@
 				222B17B90F1D4009008B1A46 /* Resources */,
 				222B17BA0F1D4009008B1A46 /* Sources */,
 				222B17F50F1D4009008B1A46 /* Frameworks */,
-				222B17FC0F1D4009008B1A46 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -864,19 +863,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		222B17FC0F1D4009008B1A46 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./resources/cleanup.rb $SRCROOT/build/UninstalledProducts/$INFOPLIST_PATH\n";
-		};
 		22C8C0650CB31E500094575E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1051,7 +1037,7 @@
 					/Library/Frameworks/MaxAPI.framework/headers,
 					/Library/Frameworks/MaxAudioAPI.framework/headers,
 				);
-				INFOPLIST_FILE = resources/Info.plist;
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
 				LIBRARY_SEARCH_PATHS = (
@@ -1096,7 +1082,7 @@
 					/Library/Frameworks/MaxAPI.framework/headers,
 					/Library/Frameworks/MaxAudioAPI.framework/headers,
 				);
-				INFOPLIST_FILE = resources/Info.plist;
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
 				LIBRARY_SEARCH_PATHS = (
@@ -1157,15 +1143,24 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_SHADOW = YES;
 				GENERATE_PKGINFO_FILE = YES;
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/resources/Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/lydbaer/build/Development\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/portaudio\"";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = JamomaDSP;
 				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Development;
 		};
@@ -1192,15 +1187,24 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_SHADOW = YES;
 				GENERATE_PKGINFO_FILE = YES;
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/resources/Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LD_GENERATE_MAP_FILE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/lydbaer/build/Development\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/portaudio\"";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wno-deprecated",
 				);
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = JamomaDSP;
 				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Deployment;
 		};
