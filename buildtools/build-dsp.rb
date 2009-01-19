@@ -50,7 +50,7 @@ puts "  "
 
 
 @build_root = "../../Modular/library/externals"
-@log_root = "../logs/DSP"
+@log_root = "../logs"
 @svn_root = "../../DSP"
 @fail_array = Array.new
 @zerolink = false
@@ -64,10 +64,10 @@ puts "  "
 def create_logs
   # set up log files and ensure that the build_root is there
   `mkdir -p #{@log_root}` if !FileTest.exist?(@log_root)
-  @build_log = File.new("#{@log_root}/_build.log", "w")
+  @build_log = File.new("#{@log_root}/DSP_build.log", "w")
   @build_log.write("MAX BUILD LOG: #{`date`}\n\n")
   @build_log.flush
-  @error_log = File.new("#{@log_root}/_error.log", "w")
+  @error_log = File.new("#{@log_root}/DSP_error.log", "w")
   @error_log.write("MAX BUILD ERROR LOG: #{`date`}\n\n")
   @error_log.flush
   trap("SIGINT") { die }

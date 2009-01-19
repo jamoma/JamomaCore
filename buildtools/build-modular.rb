@@ -50,7 +50,7 @@ puts "  "
 
 @svn_root = "../"
 @build_root = @svn_root + "../Modular/Jamoma/library/externals"
-@log_root = "../logs/Modular"
+@log_root = "../logs"
 @fail_array = Array.new
 @zerolink = false
 
@@ -100,10 +100,10 @@ end
 def create_logs
   # set up log files and ensure that the build_root is there
   `mkdir -p #{@log_root}` if !FileTest.exist?(@log_root)
-  @build_log = File.new("#{@log_root}/_build.log", "w")
+  @build_log = File.new("#{@log_root}/Modular_build.log", "w")
   @build_log.write("MAX BUILD LOG: #{`date`}\n\n")
   @build_log.flush
-  @error_log = File.new("#{@log_root}/_error.log", "w")
+  @error_log = File.new("#{@log_root}/Modular_error.log", "w")
   @error_log.write("MAX BUILD ERROR LOG: #{`date`}\n\n")
   @error_log.flush
   trap("SIGINT") { die }
