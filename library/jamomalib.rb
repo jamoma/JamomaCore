@@ -15,10 +15,9 @@ require "../library/platform"
 require 'rexml/document'
 include REXML
 
-
 def win32?
   (Platform::OS == :unix && Platform::IMPL == :cygwin) || Platform::OS == :win32
 end
 
-require 'wininit' if win32?
+require '../library/wininit' if win32?
 
