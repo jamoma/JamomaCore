@@ -46,6 +46,8 @@ public:
 						- The gain level of the matrix point (in dB)
 		@return			An error code.				*/
 	TTErr setGain(const TTValue& newValue);
+	TTErr setLinearGain(const TTValue& newValue);
+	TTErr setMidiGain(const TTValue& newValue);
 	
 	
 	void processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 gain);

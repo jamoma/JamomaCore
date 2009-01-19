@@ -15,6 +15,8 @@ TTMatrixMixer::TTMatrixMixer(TTUInt16 newMaxNumChannels)
 	  gainMatrix(NULL)
 {
 	registerMessageWithArgument(setGain);
+	registerMessageWithArgument(setLinearGain);
+	registerMessageWithArgument(setMidiGain);
 	registerMessageWithArgument(updateMaxNumChannels);
 	registerMessageSimple(clear);	
 
@@ -77,6 +79,40 @@ TTErr TTMatrixMixer::setGain(const TTValue& newValue)
 	newValue.get(1, y);
 	newValue.get(2, gainValue);
 	gainMatrix[x][y] = dbToLinear(gainValue);
+	return kTTErrNone;
+}
+
+
+TTErr TTMatrixMixer::setLinearGain(const TTValue& newValue)
+{
+	TTUInt16	x;
+	TTUInt16	y;
+	TTFloat64	gainValue;
+	
+	if (newValue.getSize() != 3)
+		return kTTErrWrongNumValues;
+	
+	newValue.get(0, x);
+	newValue.get(1, y);
+	newValue.get(2, gainValue);
+	gainMatrix[x][y] = gainValue;
+	return kTTErrNone;
+}
+
+
+TTErr TTMatrixMixer::setMidiGain(const TTValue& newValue)
+{
+	TTUInt16	x;
+	TTUInt16	y;
+	TTFloat64	gainValue;
+	
+	if (newValue.getSize() != 3)
+		return kTTErrWrongNumValues;
+	
+	newValue.get(0, x);
+	newValue.get(1, y);
+	newValue.get(2, gainValue);
+	gainMatrix[x][y] = midiToLinearGain(gainValue);
 	return kTTErrNone;
 }
 
