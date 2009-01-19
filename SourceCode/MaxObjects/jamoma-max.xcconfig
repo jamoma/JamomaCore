@@ -15,7 +15,9 @@ PRODUCT_VERSION = 0.5
 // Paths
 C74SUPPORT = $(SRCROOT)/../../../../Tools/library/max-sdk/c74support
 DSPLIB =     $(SRCROOT)/../../../../DSP
-HEADER_SEARCH_PATHS = /Developer/Headers/FlatCarbon "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(SRCROOT)/../../Framework/**" "$(DSPLIB)/includes/**"
+
+JAMOMA_SHARED = $(SRCROOT)/../../../../Tools/library/common
+HEADER_SEARCH_PATHS = /Developer/Headers/FlatCarbon "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(SRCROOT)/../../Framework/**" "$(DSPLIB)/includes/**" "$(JAMOMA_SHARED)"
 FRAMEWORK_SEARCH_PATHS = "$(C74SUPPORT)/max-includes" "$(C74SUPPORT)/msp-includes" "$(C74SUPPORT)/jit-includes" "$(DSPLIB)/library/build-mac"
 DSTROOT = $(SRCROOT)/../../../Jamoma/library/externals/mac
 // (This next path is relative to DSTROOT)
