@@ -721,7 +721,6 @@
 				8DC2EF520486A6940098B216 /* Resources */,
 				8DC2EF540486A6940098B216 /* Sources */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
-				22C8C0650CB31E500094575E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -783,22 +782,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		22C8C0650CB31E500094575E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"/Library/Frameworks/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\nif [ \"../../Jamoma/library/externals/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ]\n\tthen /bin/rm -rf \"../../Jamoma/library/externals/$PRODUCT_NAME.$WRAPPER_EXTENSION\"\nfi\n\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" /Library/Frameworks\n/bin/cp -R \"$TARGET_BUILD_DIR/$PRODUCT_NAME.$WRAPPER_EXTENSION\" ../../Jamoma/library/externals\n/bin/rm -rf ../../Jamoma/library/externals/TTBlue.framework\n/bin/cp -R \"/Library/Frameworks/TTBlue.framework\" ../../Jamoma/library/externals\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DC2EF540486A6940098B216 /* Sources */ = {
@@ -868,6 +851,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../DSP/includes/**",
 					/Library/Frameworks/MaxAPI.framework/headers,
 					/Library/Frameworks/MaxAudioAPI.framework/headers,
 					/Library/Frameworks/TTBlue.framework/headers,
@@ -916,8 +900,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/MaxAudioAPI.framework/headers,
+					"$(SRCROOT)/../../../DSP/includes/**",
 					/Library/Frameworks/MaxAPI.framework/headers,
+					/Library/Frameworks/MaxAudioAPI.framework/headers,
 					/Library/Frameworks/TTBlue.framework/headers,
 				);
 				INFOPLIST_FILE = resources/Info.plist;
