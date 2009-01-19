@@ -7,7 +7,7 @@
 # First include the functions in the jamoma lib
 libdir = "."
 Dir.chdir libdir        # change to libdir so that requires work
-require "jamomalib"   # C74 build library
+require "../library/jamomalib"   # C74 build library
 
 if(ARGV.length == 0)
   puts "usage: "
@@ -48,9 +48,8 @@ puts "  clean: #{clean}"
 #puts "  debug the build script: #{debug}"
 puts "  "
 
-
-@build_root = "../Jamoma/library/externals"
 @svn_root = "../"
+@build_root = @svn_root + "../Modular/Jamoma/library/externals"
 @fail_array = Array.new
 @zerolink = false
 
@@ -279,11 +278,11 @@ puts "Building Frameworks..."
 zero_count
 
 if  win32?
-	build_project("#{@svn_root}SourceCode/Framework", "JamomaModular.vcproj", configuration, true)
+	build_project("#{@svn_root}../Modular/SourceCode/Framework", "JamomaModular.vcproj", configuration, true)
 	`cp #{@svn_root}../DSP/library/#{configuration}/JamomaDSP.dll           #{@svn_root}Jamoma/library/externals/JamomaDSP.dll`
-	`cp #{@svn_root}SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}Jamoma/library/externals/JamomaModular.dll`
+	`cp #{@svn_root}../Modular/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}Jamoma/library/externals/JamomaModular.dll`
 else
-	build_project("#{@svn_root}SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
+	build_project("#{@svn_root}../Modular/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
 end
 
 ex_total, ex_count = get_count
@@ -297,7 +296,7 @@ puts ""
 puts "Building Max Externals..."
 
 zero_count
-build_dir("SourceCode/MaxObjects", configuration, clean)  
+build_dir("../Modular/SourceCode/MaxObjects", configuration, clean)  
 ex_total, ex_count = get_count
 puts ""
 
