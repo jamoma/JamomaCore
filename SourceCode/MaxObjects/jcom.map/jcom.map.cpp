@@ -32,6 +32,7 @@ void		map_free(t_map *obj);
 void		map_assist(t_map *obj, void *b, long m, long a, char *s);
 void		map_int(t_map *obj, long x);
 void		map_float(t_map *obj, double x);
+void		map_list(t_map* obj, SymbolPtr message, AtomCount ac, AtomPtr av);
 void		map_getFunctions(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 void		map_getParameter(t_map *x, t_symbol *msg, long argc, t_atom *argv);
 void		map_getFunctionParameters(t_map *x, t_symbol *msg, long argc, t_atom *argv);
@@ -65,7 +66,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)map_int,						"int",						A_LONG, 0L);
 	class_addmethod(c, (method)map_float,					"float",					A_FLOAT, 0L);
-	class_addmethod(c, (method)map_float,					"list",						A_GIMME, 0L);
+	class_addmethod(c, (method)map_list,					"list",						A_GIMME, 0L);
 	class_addmethod(c, (method)map_getFunctions,			"functions.get",			A_GIMME, 0);
  	class_addmethod(c, (method)map_getParameter,			"parameter.get",			A_GIMME, 0);
 	class_addmethod(c, (method)map_getFunctionParameters,	"function.parameters.get",	A_GIMME, 0);
@@ -169,6 +170,37 @@ void map_float(t_map *obj, double x)
 		obj->functionUnit->calculate(obj->a * x + obj->b, y);
 		y = obj->c * y + obj->d;
 		outlet_float(obj->outlet, y);
+	}
+}
+
+
+void map_list(t_map* obj, SymbolPtr message, AtomCount argc, AtomPtr argv)
+{	
+	if(obj->valid){
+		TTValue		v;
+		TTValue		ret;
+		double		x, y;
+		AtomCount	ac = 0;
+		AtomPtr		av = NULL;
+
+		v.clear();
+		for(int i=0; i<argc; i++){
+			x = atom_getfloat(argv+i);
+			v.append(obj->a * x + obj->b);
+		}
+		
+		obj->functionUnit->calculate(v, ret);
+		
+		ac = ret.getSize();
+		av = new Atom[ac];
+		for(int i=0; i<ac; i++){
+			ret.get(i, y);
+			y = obj->c * y + obj->d;
+			atom_setfloat(av+i, y);
+		}
+
+		outlet_anything(obj->outlet, _sym_list, ac, av);
+		delete [] av;
 	}
 }
 
