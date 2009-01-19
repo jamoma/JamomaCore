@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes;$(ProjectDir)..\..\..\..\DSP\includes\core;$(ProjectDir)..\..\..\..\DSP\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -126,7 +126,7 @@
 				EnableIntrinsicFunctions="false"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes;$(ProjectDir)..\..\..\..\DSP\includes\core;$(ProjectDir)..\..\..\..\DSP\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"

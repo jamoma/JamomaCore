@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;$(ProjectDir)..\..\..\..\DSP\includes\core;$(ProjectDir)..\..\..\..\DSP\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\ThirdParty\libxml2\win32\include;..\..\ThirdParty\libiconv\include"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\ThirdParty\libxml2\win32\include;..\..\ThirdParty\libiconv\include;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WIN_VERSION"
 				MinimalRebuild="true"
 				ExceptionHandling="0"
@@ -126,7 +126,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;$(ProjectDir)..\..\..\..\DSP\includes\core;$(ProjectDir)..\..\..\..\DSP\includes\units;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\ThirdParty\libxml2\win32\include;..\..\ThirdParty\libiconv\include"
+				AdditionalIncludeDirectories="..\..\Framework\source;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\msp-includes&quot;;&quot;$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\jit-includes&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\core&quot;;&quot;$(ProjectDir)..\..\..\..\DSP\includes\units&quot;;..\..\Framework\Dataspacelib;..\..\Framework\Functionlib;..\..\Framework\Ramplib;..\..\ThirdParty\libxml2\win32\include;..\..\ThirdParty\libiconv\include;&quot;$(ProjectDir)..\..\..\..\Tools\library\common&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WIN_VERSION;_CRT_NOFORCE_MANIFEST;_STL_NOFORCE_MANIFEST"
 				MinimalRebuild="false"
 				ExceptionHandling="1"
