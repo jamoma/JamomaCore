@@ -21,6 +21,7 @@ TTEXPORT TTSymbolPtr	kTTSym_alloc;
 TTEXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
 TTEXPORT TTSymbolPtr	kTTSym_both;
 TTEXPORT TTSymbolPtr	kTTSym_bypass;
+TTEXPORT TTSymbolPtr	kTTSym_clear;
 TTEXPORT TTSymbolPtr	kTTSym_clipmode;
 TTEXPORT TTSymbolPtr	kTTSym_high;
 TTEXPORT TTSymbolPtr	kTTSym_low;
@@ -67,6 +68,7 @@ void TTSymbolCacheInit()
 	kTTSym_audioEngineWillProcess	= TT("audioEngineWillProcess");
 	kTTSym_both						= TT("both");
 	kTTSym_bypass					= TT("bypass");
+	kTTSym_clear					= TT("clear");
 	kTTSym_clipmode					= TT("clipmode");
 	kTTSym_high						= TT("high");
 	kTTSym_low						= TT("low");

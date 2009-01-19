@@ -22,6 +22,7 @@ extern TTEXPORT TTSymbolPtr	kTTSym_alloc;
 extern TTEXPORT TTSymbolPtr	kTTSym_audioEngineWillProcess;
 extern TTEXPORT TTSymbolPtr	kTTSym_both;
 extern TTEXPORT TTSymbolPtr	kTTSym_bypass;
+extern TTEXPORT TTSymbolPtr kTTSym_clear;
 extern TTEXPORT TTSymbolPtr	kTTSym_clipmode;
 extern TTEXPORT TTSymbolPtr	kTTSym_high;
 extern TTEXPORT TTSymbolPtr	kTTSym_low;
