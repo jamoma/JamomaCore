@@ -1,0 +1,250 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		222B152C0F1D1123008B1A46 /* jamoma-max.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */; };
+		222B15330F1D116F008B1A46 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15320F1D116F008B1A46 /* MaxAPI.framework */; };
+		222B15350F1D1179008B1A46 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */; };
+		222B15370F1D1185008B1A46 /* JitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B15360F1D1185008B1A46 /* JitterAPI.framework */; };
+		222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B15B00F1D1461008B1A46 /* commonsyms.cpp */; };
+		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
+		222B19FE0F1D8D70008B1A46 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B19FD0F1D8D70008B1A46 /* Jamoma.framework */; };
+		22DF213D0F23529C00DBBEE9 /* jcom.savebang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DF213C0F23529C00DBBEE9 /* jcom.savebang.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "jamoma-max.xcconfig"; path = "../jamoma-max.xcconfig"; sourceTree = SOURCE_ROOT; };
+		222B15320F1D116F008B1A46 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/max-includes/MaxAPI.framework"; sourceTree = SOURCE_ROOT; };
+		222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/msp-includes/MaxAudioAPI.framework"; sourceTree = SOURCE_ROOT; };
+		222B15360F1D1185008B1A46 /* JitterAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JitterAPI.framework; path = "../../../../Tools/library/max-sdk/c74support/jit-includes/JitterAPI.framework"; sourceTree = SOURCE_ROOT; };
+		222B15B00F1D1461008B1A46 /* commonsyms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = commonsyms.cpp; path = "../../../../Tools/library/max-sdk/c74support/max-includes/common/commonsyms.cpp"; sourceTree = SOURCE_ROOT; };
+		222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JamomaDSP.framework; path = ../../../../DSP/library/build/UninstalledProducts/JamomaDSP.framework; sourceTree = SOURCE_ROOT; };
+		222B19FD0F1D8D70008B1A46 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = ../../Framework/build/UninstalledProducts/Jamoma.framework; sourceTree = SOURCE_ROOT; };
+		22DF213C0F23529C00DBBEE9 /* jcom.savebang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.savebang.cpp; sourceTree = "<group>"; };
+		2FBBEAE508F335360078DB84 /* jcom.savebang.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.savebang.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FBBEADC08F335360078DB84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				222B15330F1D116F008B1A46 /* MaxAPI.framework in Frameworks */,
+				222B15350F1D1179008B1A46 /* MaxAudioAPI.framework in Frameworks */,
+				222B15370F1D1185008B1A46 /* JitterAPI.framework in Frameworks */,
+				222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */,
+				222B19FE0F1D8D70008B1A46 /* Jamoma.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iterator */ = {
+			isa = PBXGroup;
+			children = (
+				222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */,
+				08FB77ADFE841716C02AAC07 /* Source */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = iterator;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				222B19FD0F1D8D70008B1A46 /* Jamoma.framework */,
+				222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */,
+				222B15360F1D1185008B1A46 /* JitterAPI.framework */,
+				222B15340F1D1179008B1A46 /* MaxAudioAPI.framework */,
+				222B15320F1D116F008B1A46 /* MaxAPI.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				22DF213C0F23529C00DBBEE9 /* jcom.savebang.cpp */,
+				222B15B00F1D1461008B1A46 /* commonsyms.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FBBEAE508F335360078DB84 /* jcom.savebang.mxo */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2FBBEAD708F335360078DB84 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2FBBEAD608F335360078DB84 /* max-external */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */;
+			buildPhases = (
+				2FBBEAD708F335360078DB84 /* Headers */,
+				2FBBEAD808F335360078DB84 /* Resources */,
+				2FBBEADA08F335360078DB84 /* Sources */,
+				2FBBEADC08F335360078DB84 /* Frameworks */,
+				2FBBEADF08F335360078DB84 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "max-external";
+			productName = iterator;
+			productReference = 2FBBEAE508F335360078DB84 /* jcom.savebang.mxo */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.savebang" */;
+			compatibilityVersion = "Xcode 3.0";
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* iterator */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FBBEAD608F335360078DB84 /* max-external */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FBBEAD808F335360078DB84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				222B152C0F1D1123008B1A46 /* jamoma-max.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		2FBBEADF08F335360078DB84 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FBBEADA08F335360078DB84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */,
+				22DF213D0F23529C00DBBEE9 /* jcom.savebang.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2FBBEAD008F335010078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		2FBBEAD108F335010078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		2FBBEAE108F335360078DB84 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
+					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
+					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Framework/build/Development\"",
+					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+			};
+			name = Development;
+		};
+		2FBBEAE208F335360078DB84 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 222B152B0F1D1123008B1A46 /* jamoma-max.xcconfig */;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/max-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/msp-includes\"",
+					"\"$(SRCROOT)/../../../../Tools/library/max-sdk/c74support/jit-includes\"",
+					"\"$(SRCROOT)/../../../../TTBlue/library/build/Deployment\"",
+					"\"$(SRCROOT)/../../Framework/build/Deployment\"",
+					"\"$(SRCROOT)/../../../../DSP/library/build/UninstalledProducts\"",
+					"\"$(SRCROOT)/../../Framework/build/Development\"",
+					"\"$(SRCROOT)/../../Framework/build/UninstalledProducts\"",
+				);
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FBBEACF08F335010078DB84 /* Build configuration list for PBXProject "jcom.savebang" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAD008F335010078DB84 /* Development */,
+				2FBBEAD108F335010078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		2FBBEAE008F335360078DB84 /* Build configuration list for PBXNativeTarget "max-external" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FBBEAE108F335360078DB84 /* Development */,
+				2FBBEAE208F335360078DB84 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
