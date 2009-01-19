@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='color.1/bounds/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.1/brightness' type='msg_int' priority='0'>0</item>
+    <item name='color.1/brightness/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.1/center/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.1/hue/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.1/hue' type='msg_int' priority='0'>0</item>
+    <item name='color.1/saturation' type='msg_int' priority='0'>0</item>
+    <item name='color.1/saturation/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.1/size/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.2/bounds/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.2/brightness/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.2/brightness' type='msg_int' priority='0'>0</item>
+    <item name='color.2/center/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.2/hue/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.2/hue' type='msg_int' priority='0'>0</item>
+    <item name='color.2/saturation/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.2/saturation' type='msg_int' priority='0'>0</item>
+    <item name='color.2/size/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.3/bounds/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.3/brightness/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.3/brightness' type='msg_int' priority='0'>0</item>
+    <item name='color.3/center/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.3/hue/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.3/hue' type='msg_int' priority='0'>0</item>
+    <item name='color.3/saturation/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.3/saturation' type='msg_int' priority='0'>0</item>
+    <item name='color.3/size/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.4/bounds/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.4/brightness/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.4/brightness' type='msg_int' priority='0'>0</item>
+    <item name='color.4/center/active' type='msg_toggle' priority='0'>0</item>
+    <item name='color.4/hue/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.4/hue' type='msg_int' priority='0'>0</item>
+    <item name='color.4/saturation/variation' type='msg_int' priority='0'>0</item>
+    <item name='color.4/saturation' type='msg_int' priority='0'>0</item>
+    <item name='color.4/size/active' type='msg_toggle' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='video/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='video/preview' type='msg_toggle' priority='0'>0</item>
+  </preset>
+</jamoma>

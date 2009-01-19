@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='iso-8859-1' standalone='yes' ?>
+
+<jamoma version='0.4'
+		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
+>
+  <preset number='1' name='default'>
+    <item name='widthclip' type='msg_int' priority='0'>0</item>
+    <item name='video/preview' type='msg_toggle' priority='0'>1</item>
+    <item name='video/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='position' type='msg_list' priority='0'>0 0 </item>
+    <item name='kernel/5/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/5/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/5/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/4/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/4/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/4/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/3/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/3/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/3/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/2/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/2/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/2/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/1/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/1/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/1/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='interpolation' type='msg_toggle' priority='0'>0</item>
+    <item name='depthclip' type='msg_int' priority='0'>0</item>
+  </preset>
+  <preset number='2' name='test2'>
+    <item name='widthclip' type='msg_int' priority='0'>0</item>
+    <item name='video/preview' type='msg_toggle' priority='0'>0</item>
+    <item name='video/mute' type='msg_toggle' priority='0'>0</item>
+    <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='position' type='msg_list' priority='0'>0 1 </item>
+    <item name='kernel/5/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/5/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/5/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/4/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/4/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/4/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/3/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/3/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/3/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/2/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/2/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/2/center' type='msg_list' priority='0'>0.500000 0.500000 </item>
+    <item name='kernel/1/weight' type='msg_float' priority='0'>0.500000</item>
+    <item name='kernel/1/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
+    <item name='kernel/1/center' type='msg_list' priority='0'>0.990000 0.990000 </item>
+    <item name='interpolation' type='msg_toggle' priority='0'>0</item>
+    <item name='depthclip' type='msg_int' priority='0'>0</item>
+  </preset>
+</jamoma>
