@@ -257,6 +257,7 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 #include "TTDelay.h"
 #include "TTOperator.h"
 #include "TTOverdrive.h"
+#include "TTMatrixMixer.h"
 
 
 void TTBlueRegisterInternalClasses()
@@ -322,7 +323,7 @@ void TTBlueRegisterInternalClasses()
 	TTClassRegister(TT("delay"),						"audio, processor, delay",											&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("operator"),						"audio, processor, math",											&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("overdrive"),					"audio, processor",													&TTBlueInstantiateInternalClass);
-
+	TTClassRegister(TT("matrixmixer"),					"audio, mixing, matrix",											&TTBlueInstantiateInternalClass);
 }
 
 
@@ -426,8 +427,10 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 		return new TTOperator(arguments);
 	else if(className == TT("overdrive"))
 		return new TTOverdrive(arguments);
+	else if(className == TT("matrixmixer"))
+		return new TTMatrixMixer(arguments);
 
-
+	
 	// Not found
 	else{
 		TTLogError("TTBlue: cannot instantiate object of %s class.  No such class.", className->getCString());
