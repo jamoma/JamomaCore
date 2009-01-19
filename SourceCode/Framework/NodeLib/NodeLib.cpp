@@ -15,7 +15,7 @@
 
 JamomaNode::JamomaNode(SymbolPtr newAddress, SymbolPtr newType, ObjectPtr newObject)
 {
-	newAddress
+//	newAddress
 	
 	// do a lookup to see if this node already exists in the tree,
 	// if it does not then we will give it an instance number of 0
@@ -27,7 +27,10 @@ JamomaNode::JamomaNode(SymbolPtr newAddress, SymbolPtr newType, ObjectPtr newObj
 }
 
 
-
+JamomaNode::~JamomaNode()
+{
+	;
+}
 
 
 #if 0
@@ -36,7 +39,14 @@ JamomaNode::JamomaNode(SymbolPtr newAddress, SymbolPtr newType, ObjectPtr newObj
 #endif
 
 
-TTErr JamomaNode::getNodeForOSC(static char* oscAddress, JamomaNodePtr* returnedNode)
+TTErr JamomaNode::getNodeForOSC(const char* oscAddress, JamomaNodePtr* returnedNode)
 {
-	getNodeForOSC(gensym(oscAddress), returnedNode);
+	return getNodeForOSC(gensym((char*)oscAddress), returnedNode);
+}
+
+
+TTErr JamomaNode::getNodeForOSC(SymbolPtr oscAddress, JamomaNodePtr* returnedNode)
+{
+	// TODO: do something
+	return kTTErrNone;
 }

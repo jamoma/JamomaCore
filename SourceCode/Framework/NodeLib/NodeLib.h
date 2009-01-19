@@ -10,13 +10,9 @@
 #define __NODELIB_H__
 
 #include "TTBlueAPI.h"
+#include "JamomaMaxTypes.h"
 
 class JamomaNode;
-
-typedef t_object*	ObjectPtr;
-typedef t_symbol*	SymbolPtr;
-typedef t_hashtab*	HashtabPtr;
-typedef t_linklist*	LinkedListPtr;
 typedef JamomaNode*	JamomaNodePtr;
 
 
@@ -79,8 +75,9 @@ protected:
 public:
 	
 	/**	Create a new node, at the given location in the tree. */
-	JamomaNode(SymbolPtr newAddress, SymbolPtr newType, ObjectPtr newObject)
+	JamomaNode(SymbolPtr newAddress, SymbolPtr newType, ObjectPtr newObject);
 	
+	/** Destroy a node. */
 	virtual ~JamomaNode();
 
 
@@ -115,8 +112,10 @@ public:
 		@param	oscAddress		The Open Sound Control string for which to find the JamomaNode.
 		@param	returnedNode	The .
 		@return					An error code.		*/
-	static TTErr getNodeForOSC(JamomaNodePtr* returnedNode, SymbolPtr oscAddress);
+	static TTErr getNodeForOSC(const char* oscAddress, JamomaNodePtr* returnedNode);
 	
+	static TTErr getNodeForOSC(SymbolPtr oscAddress, JamomaNodePtr* returnedNode);
+
 	
 };
 
@@ -147,7 +146,7 @@ TTErr JamomaNodeLookup(SymbolPtr oscAddress, LinkedListPtr* returnedNodes, Jamom
 								e.g. because a node already existed with this address and instance name.
 						
 	@return						An error code.				*/
-TTErr JamomaNodeCreate(SymbolPtr oscAddress, SymbolPtr newType, ObjectPtr newObject, JamomaNodePtr* returnedNode, TTBoolean* created));
+TTErr JamomaNodeCreate(SymbolPtr oscAddress, SymbolPtr newType, ObjectPtr newObject, JamomaNodePtr* returnedNode, TTBoolean* created);
 
 
 #endif // __NODELIB_H__

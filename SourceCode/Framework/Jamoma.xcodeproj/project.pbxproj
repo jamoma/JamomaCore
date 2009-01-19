@@ -40,6 +40,9 @@
 		22D7F5F40D105827009E4AF4 /* DataspaceLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */; };
 		22D7F5F50D105827009E4AF4 /* DataspaceLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D7F5F10D105827009E4AF4 /* DataspaceLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22D7F5F60D105827009E4AF4 /* TemperatureDataspace.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */; };
+		22DF21C50F23ABC600DBBEE9 /* NodeLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DF21C30F23ABC600DBBEE9 /* NodeLib.cpp */; };
+		22DF21C60F23ABC600DBBEE9 /* NodeLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DF21C40F23ABC600DBBEE9 /* NodeLib.h */; };
+		22DF21CA0F23ACDE00DBBEE9 /* JamomaMaxTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DF21C90F23ACDE00DBBEE9 /* JamomaMaxTypes.h */; };
 		22E6C7560D4AB21B00DA75EE /* AsyncRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */; };
 		22E6C7570D4AB21B00DA75EE /* AsyncRamp.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6C74C0D4AB21B00DA75EE /* AsyncRamp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22E6C7580D4AB21B00DA75EE /* NoneRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22E6C74D0D4AB21B00DA75EE /* NoneRamp.cpp */; };
@@ -251,6 +254,9 @@
 		22D7F5F00D105827009E4AF4 /* DataspaceLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DataspaceLib.cpp; path = DataspaceLib/DataspaceLib.cpp; sourceTree = "<group>"; };
 		22D7F5F10D105827009E4AF4 /* DataspaceLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataspaceLib.h; path = DataspaceLib/DataspaceLib.h; sourceTree = "<group>"; };
 		22D7F5F20D105827009E4AF4 /* TemperatureDataspace.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TemperatureDataspace.cpp; path = DataspaceLib/TemperatureDataspace.cpp; sourceTree = "<group>"; };
+		22DF21C30F23ABC600DBBEE9 /* NodeLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NodeLib.cpp; path = NodeLib/NodeLib.cpp; sourceTree = "<group>"; };
+		22DF21C40F23ABC600DBBEE9 /* NodeLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeLib.h; path = NodeLib/NodeLib.h; sourceTree = "<group>"; };
+		22DF21C90F23ACDE00DBBEE9 /* JamomaMaxTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JamomaMaxTypes.h; path = ../../../Tools/library/common/JamomaMaxTypes.h; sourceTree = SOURCE_ROOT; };
 		22E6C74B0D4AB21B00DA75EE /* AsyncRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AsyncRamp.cpp; path = RampLib/AsyncRamp.cpp; sourceTree = "<group>"; };
 		22E6C74C0D4AB21B00DA75EE /* AsyncRamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncRamp.h; path = RampLib/AsyncRamp.h; sourceTree = "<group>"; };
 		22E6C74D0D4AB21B00DA75EE /* NoneRamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoneRamp.cpp; path = RampLib/NoneRamp.cpp; sourceTree = "<group>"; };
@@ -315,6 +321,7 @@
 				22D7F5EA0D10576E009E4AF4 /* DataspaceLib */,
 				22AEF31F0D0DB77900F7762D /* FunctionLib */,
 				22FD31840CEE8EA80039C226 /* RampLib */,
+				22DF21BD0F23AB6D00DBBEE9 /* NodeLib */,
 				2200FCAB0D3ECD3D0078B045 /* Internals */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -609,6 +616,15 @@
 			name = DataspaceLib;
 			sourceTree = "<group>";
 		};
+		22DF21BD0F23AB6D00DBBEE9 /* NodeLib */ = {
+			isa = PBXGroup;
+			children = (
+				22DF21C40F23ABC600DBBEE9 /* NodeLib.h */,
+				22DF21C30F23ABC600DBBEE9 /* NodeLib.cpp */,
+			);
+			name = NodeLib;
+			sourceTree = "<group>";
+		};
 		22FD2DCF0CEE5B770039C226 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,6 +637,7 @@
 				2236907C0D00DFC3002D560B /* JamomaSymbols.h */,
 				225AC96E0D1EC37C00F3F92F /* JamomaThreading.h */,
 				22AEF32C0D0DB98500F7762D /* JamomaTypes.h */,
+				22DF21C90F23ACDE00DBBEE9 /* JamomaMaxTypes.h */,
 				22FD2DC10CEE5B6F0039C226 /* jcom.core.h */,
 				22FD2DC20CEE5B6F0039C226 /* jcom.io.h */,
 				22FD2DC30CEE5B6F0039C226 /* jcom.list.h */,
@@ -688,6 +705,8 @@
 				22E6C75B0D4AB21B00DA75EE /* QueueRamp.h in Headers */,
 				22E6C75E0D4AB21B00DA75EE /* RampLib.h in Headers */,
 				22E6C7600D4AB21B00DA75EE /* SchedulerRamp.h in Headers */,
+				22DF21C60F23ABC600DBBEE9 /* NodeLib.h in Headers */,
+				22DF21CA0F23ACDE00DBBEE9 /* JamomaMaxTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +831,7 @@
 				22E6C75F0D4AB21B00DA75EE /* SchedulerRamp.cpp in Sources */,
 				226951DB0DEE665200911DE0 /* jcom.receive~.cpp in Sources */,
 				226951DC0DEE665200911DE0 /* jcom.send~.cpp in Sources */,
+				22DF21C50F23ABC600DBBEE9 /* NodeLib.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

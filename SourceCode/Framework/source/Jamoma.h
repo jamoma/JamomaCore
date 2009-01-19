@@ -34,6 +34,7 @@
 #include "jcom.list.h"
 #include "jcom.io.h"
 #include "jcom.sendreceive.h"
+#include "JamomaMaxTypes.h"
 #include "JamomaTypes.h"
 #include "JamomaSymbols.h"
 
