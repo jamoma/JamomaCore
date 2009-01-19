@@ -63,14 +63,15 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	c = class_new("jcom.map",(method)map_new, (method)map_free, sizeof(t_map), (method)0L, A_GIMME, 0);
 
 	// Make methods accessible for our class: 
-	class_addmethod(c, (method)map_int,						"int", A_GIMME, 0L);
-	class_addmethod(c, (method)map_float,					"float", A_GIMME, 0L);
-	class_addmethod(c, (method)map_getFunctions,			"functions.get", A_GIMME, 0);
- 	class_addmethod(c, (method)map_getParameter,			"parameter.get", A_GIMME, 0);
-	class_addmethod(c, (method)map_getFunctionParameters,	"function.parameters.get", A_GIMME, 0);
- 	class_addmethod(c, (method)map_setParameter,			"parameter", A_GIMME, 0);
-	class_addmethod(c, (method)map_assist,					"assist", A_CANT, 0L); 
-    class_addmethod(c, (method)object_obex_dumpout,			"dumpout", A_CANT,0);
+	class_addmethod(c, (method)map_int,						"int",						A_LONG, 0L);
+	class_addmethod(c, (method)map_float,					"float",					A_FLOAT, 0L);
+	class_addmethod(c, (method)map_float,					"list",						A_GIMME, 0L);
+	class_addmethod(c, (method)map_getFunctions,			"functions.get",			A_GIMME, 0);
+ 	class_addmethod(c, (method)map_getParameter,			"parameter.get",			A_GIMME, 0);
+	class_addmethod(c, (method)map_getFunctionParameters,	"function.parameters.get",	A_GIMME, 0);
+ 	class_addmethod(c, (method)map_setParameter,			"parameter",				A_GIMME, 0);
+	class_addmethod(c, (method)map_assist,					"assist",					A_CANT, 0L); 
+    class_addmethod(c, (method)object_obex_dumpout,			"dumpout",					A_CANT,0);
 
 	// ATTRIBUTE: set the function to use
 	class_addattr(c, 
@@ -185,14 +186,12 @@ void map_getFunctions(t_map *obj, t_symbol *msg, long argc, t_atom *argv)
 	
 	FunctionLib::getUnitNames(functionNames);
 	numFunctions = functionNames.getSize();
+
+	atom_setsym(a+0, gensym("append"));
 	for(i=0; i<numFunctions; i++){
 		functionNames.get(i, &aName);
-		atom_setsym(a+0, gensym("append"));
 		atom_setsym(a+1, gensym((char*)aName->getCString()));
 		object_obex_dumpout(obj, gensym("functions"), 2, a);
-		
-		atom_setsym(a, obj->attr_function);
-		object_obex_dumpout(obj, gensym("functions"), 1, a);
 	}
 }
 
