@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 22.0, 154.0, 1273.0, 587.0 ],
+		"rect" : [ 22.0, 154.0, 1270.0, 617.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 22.0, 154.0, 1273.0, 587.0 ],
+		"defrect" : [ 22.0, 154.0, 1270.0, 617.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -16,6 +16,106 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.message audio/panic @type msg_none @description \"Panic: Stop audio immediately.\"",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"fontsize" : 10.970939,
+					"patching_rect" : [ 555.0, 540.0, 518.0, 20.0 ],
+					"outlettype" : [ "", "", "" ],
+					"id" : "obj-16",
+					"fontname" : "Verdana"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "r #0_xxx_audio",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"fontsize" : 9.873845,
+					"patching_rect" : [ 625.0, 478.0, 90.0, 18.0 ],
+					"outlettype" : [ "" ],
+					"id" : "obj-3",
+					"fontname" : "Verdana"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"varname" : "audio[1]",
+					"text" : "jcom.parameter audio/active @type msg_toggle @description \"Toggle audio on and off.\"",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"fontsize" : 10.0,
+					"patching_rect" : [ 555.0, 503.0, 456.0, 19.0 ],
+					"outlettype" : [ "", "", "" ],
+					"id" : "obj-14",
+					"fontname" : "Verdana"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "textbutton",
+					"varname" : "Play_button[1]",
+					"numinlets" : 1,
+					"presentation_rect" : [ 205.0, 2.0, 60.0, 16.0 ],
+					"numoutlets" : 3,
+					"mode" : 1,
+					"fontsize" : 10.0,
+					"border" : 1,
+					"patching_rect" : [ 555.0, 478.0, 60.0, 18.0 ],
+					"outlettype" : [ "", "", "int" ],
+					"presentation" : 1,
+					"id" : "obj-11",
+					"text" : "Audio Off",
+					"rounded" : 8.0,
+					"bgoncolor" : [ 0.54902, 0.54902, 0.54902, 1.0 ],
+					"texton" : "Audio On",
+					"fontname" : "Verdana"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "textbutton",
+					"varname" : "DSP_Status",
+					"prototypename" : "jamoma open",
+					"numinlets" : 1,
+					"presentation_rect" : [ 168.0, 2.0, 35.0, 16.0 ],
+					"numoutlets" : 3,
+					"fontsize" : 10.0,
+					"border" : 1,
+					"patching_rect" : [ 555.0, 413.0, 35.0, 18.0 ],
+					"outlettype" : [ "", "", "int" ],
+					"presentation" : 1,
+					"id" : "obj-12",
+					"text" : "DSP",
+					"rounded" : 8.0,
+					"texton" : "recording",
+					"fontname" : "Verdana"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.message dspStatus @description \" Open DSP Status window.\"",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"fontsize" : 10.0,
+					"patching_rect" : [ 555.0, 435.0, 352.0, 19.0 ],
+					"outlettype" : [ "", "", "" ],
+					"id" : "obj-15",
+					"fontname" : "Verdana"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"maxclass" : "comment",
 					"text" : "Setup: 1 2 3 4 5 6 7 8",
@@ -38,7 +138,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"fontsize" : 10.0,
-					"patching_rect" : [ 850.0, 360.0, 36.0, 17.0 ],
+					"patching_rect" : [ 850.0, 340.0, 36.0, 17.0 ],
 					"outlettype" : [ "" ],
 					"id" : "obj-23",
 					"fontname" : "Verdana"
@@ -52,7 +152,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"fontsize" : 10.0,
-					"patching_rect" : [ 895.0, 360.0, 36.0, 17.0 ],
+					"patching_rect" : [ 895.0, 340.0, 36.0, 17.0 ],
 					"outlettype" : [ "" ],
 					"id" : "obj-20",
 					"fontname" : "Verdana"
@@ -66,7 +166,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 10.0,
-					"patching_rect" : [ 850.0, 320.0, 51.0, 19.0 ],
+					"patching_rect" : [ 850.0, 310.0, 51.0, 19.0 ],
 					"outlettype" : [ "bang", "bang", "" ],
 					"id" : "obj-10",
 					"fontname" : "Verdana"
@@ -85,7 +185,7 @@
 					"mode" : 1,
 					"fontsize" : 10.0,
 					"border" : 1,
-					"patching_rect" : [ 850.0, 390.0, 51.466908, 17.933016 ],
+					"patching_rect" : [ 850.0, 365.0, 51.466908, 17.933016 ],
 					"outlettype" : [ "", "", "int" ],
 					"presentation" : 1,
 					"id" : "obj-4",
@@ -170,7 +270,7 @@
 					"numinlets" : 1,
 					"presentation_rect" : [ 210.0, 21.0, 18.0, 18.0 ],
 					"numoutlets" : 1,
-					"patching_rect" : [ 630.0, 220.0, 20.0, 20.0 ],
+					"patching_rect" : [ 555.0, 220.0, 20.0, 20.0 ],
 					"outlettype" : [ "int" ],
 					"presentation" : 1,
 					"id" : "obj-55"
@@ -1287,7 +1387,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"fontsize" : 10.0,
-					"patching_rect" : [ 660.0, 220.0, 479.0, 19.0 ],
+					"patching_rect" : [ 585.0, 220.0, 479.0, 19.0 ],
 					"outlettype" : [ "", "", "" ],
 					"id" : "obj-26",
 					"fontname" : "Verdana"
@@ -1593,7 +1693,7 @@
 									"outlettype" : [ "", "" ],
 									"id" : "obj-10",
 									"fontname" : "Verdana",
-									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "zoom", "nofloat", "menu", "minimize", ";", "#Q", "window", "constrain", 2, 2, 32768, 32768, ";", "#Q", "window", "size", 65, 80, 207, 661, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ]
+									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ]
 								}
 
 							}
@@ -3158,7 +3258,7 @@
 					"source" : [ "obj-4", 0 ],
 					"destination" : [ "obj-5", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 859.5, 419.0, 576.0, 419.0, 576.0, 257.0, 594.5, 257.0 ]
+					"midpoints" : [ 859.5, 388.0, 576.0, 388.0, 576.0, 257.0, 594.5, 257.0 ]
 				}
 
 			}
@@ -3366,6 +3466,42 @@
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [ 294.5, 365.0, 29.5, 365.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-12", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-14", 0 ],
+					"destination" : [ "obj-11", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 564.5, 527.0, 549.0, 527.0, 549.0, 471.0, 564.5, 471.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-3", 0 ],
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 634.5, 499.0, 564.5, 499.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-11", 0 ],
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
 				}
 
 			}
