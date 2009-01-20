@@ -221,6 +221,26 @@ TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returne
 	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, arguments);
 }
 
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments)
+{
+	TTValue	v(arguments);
+	return ttEnvironment->createInstance(className, returnedObjectPtr, v);
+}
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments)
+{
+	TTValue	v(arguments);
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
+}
+
+TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments)
+{
+	TTValue	v(arguments);
+	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
+}
+
+
 TTObjectPtr TTObjectReference(TTObjectPtr anObject)
 {
 	return ttEnvironment->referenceInstance(anObject);

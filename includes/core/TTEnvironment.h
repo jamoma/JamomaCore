@@ -141,30 +141,15 @@ extern TTEXPORT TTEnvironment* ttEnvironment;
 
 
 // Public Interface
+// Some of this looks a bit crazy due to duplication -- however the use of templates causes problems for linking on some Macs and PCs
+// (while not neccessarily on others)
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, TTValue& arguments);
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, TTValue& arguments);
 TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, TTValue& arguments);
-	
-template<class T>
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const T& arguments)
-{
-	TTValue	v(arguments);
-	return ttEnvironment->createInstance(className, returnedObjectPtr, v);
-}
 
-template<class T>
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const T& arguments)
-{
-	TTValue	v(arguments);
-	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
-}
-
-template<class T>
-TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const T& arguments)
-{
-	TTValue	v(arguments);
-	return ttEnvironment->createInstance(className, (TTObjectPtr*)returnedObjectPtr, v);
-}
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioObjectPtr* returnedObjectPtr, const TTUInt16 arguments);
+TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr* returnedObjectPtr, const TTUInt16 arguments);
 
 TTEXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
 
