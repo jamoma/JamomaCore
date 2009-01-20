@@ -49,12 +49,12 @@ TTPulseSub::TTPulseSub(const TTUInt16 newMaxNumChannels)
 
 TTPulseSub::~TTPulseSub()
 {
-	TTObjectRelease(offset);
-	TTObjectRelease(phasor);
-	TTObjectRelease(env_gen);
-	TTObjectRelease(scaler);
-	TTObjectRelease(sig1);
-	TTObjectRelease(sig2);
+	TTObjectRelease(&offset);
+	TTObjectRelease(&phasor);
+	TTObjectRelease(&env_gen);
+	TTObjectRelease(&scaler);
+	TTObjectRelease(&sig1);
+	TTObjectRelease(&sig2);
 }
 
 

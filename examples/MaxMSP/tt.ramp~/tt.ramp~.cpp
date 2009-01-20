@@ -119,8 +119,8 @@ void* ramp_new(t_symbol *msg, short argc, t_atom *argv)
 void ramp_free(t_ramp *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->ramp);
-	TTObjectRelease(x->audioOut);
+	TTObjectRelease(&x->ramp);
+	TTObjectRelease(&x->audioOut);
 }
 
 

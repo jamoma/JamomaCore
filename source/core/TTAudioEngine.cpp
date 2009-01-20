@@ -65,8 +65,8 @@ TTAudioEngine::~TTAudioEngine()
 			TTLogError("PortAudio error freeing engine: %s", Pa_GetErrorText(err));
 	}
 	delete callbackObservers;
-	TTObjectRelease(inputBuffer);
-	TTObjectRelease(outputBuffer);
+	TTObjectRelease(&inputBuffer);
+	TTObjectRelease(&outputBuffer);
 }
 
 

@@ -114,9 +114,9 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 void wrappedClass_free(WrappedInstancePtr x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->wrappedObject);
-	TTObjectRelease(x->audioIn);
-	TTObjectRelease(x->audioOut);
+	TTObjectRelease(&x->wrappedObject);
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
 	delete[] x->controlSignalNames;
 }
 
@@ -357,7 +357,7 @@ TTErr wrapTTClassAsMaxClass(TTSymbolPtr ttblueClassName, char* maxClassName, Wra
 			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, "onoff");
 	}
 	
-	TTObjectRelease(o);
+	TTObjectRelease(&o);
 	
  	class_addmethod(wrappedMaxClass->maxClass, (method)wrappedClass_dsp, 		"dsp",			A_CANT, 0L);
     class_addmethod(wrappedMaxClass->maxClass, (method)object_obex_dumpout, 	"dumpout",		A_CANT, 0); 

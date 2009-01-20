@@ -112,9 +112,9 @@ void* op_new(t_symbol *msg, short argc, t_atom *argv)
 void op_free(t_op *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->op);
-	TTObjectRelease(x->audioIn);
-	TTObjectRelease(x->audioOut);
+	TTObjectRelease(&x->op);
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
 }
 
 

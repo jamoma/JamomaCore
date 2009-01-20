@@ -130,8 +130,8 @@ void* gain_new(t_symbol* s, long argc, t_atom* argv)
 void gain_free(t_gain *x)
 {
 	dsp_free((t_pxobject *)x);		// Always call dsp_free first in this routine
-	TTObjectRelease(x->xfade);
-	TTObjectRelease(x->gain);
+	TTObjectRelease(&x->xfade);
+	TTObjectRelease(&x->gain);
 	delete x->signalTemp;
 	delete x->signalOut;
 	delete x->signalIn;

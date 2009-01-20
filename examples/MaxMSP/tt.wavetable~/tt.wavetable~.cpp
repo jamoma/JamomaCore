@@ -123,8 +123,8 @@ void* wavetable_new(t_symbol *msg, short argc, t_atom *argv)
 void wavetable_free(t_wavetable *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->wavetable);
-	TTObjectRelease(x->audioOut);
+	TTObjectRelease(&x->wavetable);
+	TTObjectRelease(&x->audioOut);
 }
 
 

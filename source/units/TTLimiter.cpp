@@ -59,8 +59,8 @@ TTLimiter::~TTLimiter()
 		delete [] lookaheadBuffer[i];
 	delete [] lookaheadBuffer;
 	delete [] gain;
-	TTObjectRelease(dcBlocker);
-	TTObjectRelease(preamp);
+	TTObjectRelease(&dcBlocker);
+	TTObjectRelease(&preamp);
 }
 
 

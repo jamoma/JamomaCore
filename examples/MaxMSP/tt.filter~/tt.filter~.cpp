@@ -172,9 +172,9 @@ void* filter_new(t_symbol *msg, short argc, t_atom *argv)
 void filter_free(t_filter *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->filter);
-	TTObjectRelease(x->audioIn);
-	TTObjectRelease(x->audioOut);
+	TTObjectRelease(&x->filter);
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
 }
 
 

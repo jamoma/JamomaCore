@@ -39,7 +39,7 @@ TTOverdrive::TTOverdrive(TTUInt16 newMaxNumChannels)
 
 TTOverdrive::~TTOverdrive()
 {
-	TTObjectRelease(dcBlockerUnit);
+	TTObjectRelease(&dcBlockerUnit);
 }
 
 

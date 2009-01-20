@@ -126,9 +126,9 @@ void* balance_new(t_symbol *msg, short argc, t_atom *argv)
 void balance_free(t_balance *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->balance);
-	TTObjectRelease(x->audioIn);
-	TTObjectRelease(x->audioOut);
+	TTObjectRelease(&x->balance);
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
 }
 
 

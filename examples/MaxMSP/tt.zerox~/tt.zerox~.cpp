@@ -95,9 +95,9 @@ void *zerox_new(t_symbol *msg, long argc, t_atom *argv)
 void zerox_free(t_zerox *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->zeroxUnit);
-	TTObjectRelease(x->signalIn);
-	TTObjectRelease(x->signalOut);
+	TTObjectRelease(&x->zeroxUnit);
+	TTObjectRelease(&x->signalIn);
+	TTObjectRelease(&x->signalOut);
 }
 
 

@@ -154,7 +154,7 @@ TTErr TTEnvironment::createInstance(const TTSymbolPtr className, TTObjectPtr* an
 			oldObject = *anObject;
 		*anObject = newObject;
 		if(oldObject)
-			releaseInstance(oldObject);
+			releaseInstance(&oldObject);
 
 		(*anObject)->valid = true;
 	}
@@ -177,22 +177,24 @@ TTObjectPtr TTEnvironment::referenceInstance(TTObjectPtr anObject)
 	return anObject;
 }
 
-TTErr TTEnvironment::releaseInstance(TTObject* anObject)
+TTErr TTEnvironment::releaseInstance(TTObjectPtr* anObject)
 {
-	TTValue v = *anObject;
+	TTValue v = **anObject;
 	
-	anObject->valid = false;
-	anObject->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
+	(*anObject)->valid = false;
+	(*anObject)->observers->iterateObjectsSendingMessage(TT("objectFreeing"), v);
 	
 	// If the object is locked (e.g. in the middle of processing a vector in another thread) 
 	//	then we spin until the lock is released
 	//	TODO: we should also be able to time-out in the event that we have a dead lock.
-	while(anObject->getlock())
+	while((*anObject)->getlock())
 		;
 
-	anObject->referenceCount--;
-	if(anObject->referenceCount < 1)
-		delete anObject;
+	(*anObject)->referenceCount--;
+	if((*anObject)->referenceCount < 1){
+		delete *anObject;
+		*anObject = NULL;
+	}
 	return kTTErrNone;
 }
 
@@ -242,13 +244,25 @@ TTObjectPtr TTObjectReference(TTObjectPtr anObject)
 	return ttEnvironment->referenceInstance(anObject);
 }
 
-TTErr TTObjectRelease(TTObjectPtr anObject)
+
+TTErr TTObjectRelease(TTObjectPtr* anObject)
 {
-	if(anObject)
+	if(*anObject)
 		return ttEnvironment->releaseInstance(anObject);
 	else
 		return kTTErrNone;
 }
+
+TTErr TTObjectRelease(TTAudioObjectPtr* anObject)
+{
+	return TTObjectRelease((TTObjectPtr*) anObject);
+}
+
+TTErr TTObjectRelease(TTAudioSignalPtr* anObject)
+{
+	return TTObjectRelease((TTObjectPtr*) anObject);
+}
+
 
 
 TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod)

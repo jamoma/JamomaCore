@@ -129,8 +129,7 @@ public:
 
 		@param	unit		A pointer to the unit to free.
 		@return				An error code.	*/
-	TTErr releaseInstance(TTObject* anObject);
-	
+	TTErr releaseInstance(TTObjectPtr* anObject);	
 };
 
 
@@ -153,7 +152,10 @@ TTEXPORT TTErr TTObjectInstantiate(const TTSymbolPtr className, TTAudioSignalPtr
 
 TTEXPORT TTObjectPtr TTObjectReference(TTObjectPtr anObject);
 
-TTEXPORT TTErr TTObjectRelease(TTObjectPtr anObject);
+TTEXPORT TTErr TTObjectRelease(TTObjectPtr* anObject);
+TTEXPORT TTErr TTObjectRelease(TTAudioObjectPtr* anObject);
+TTEXPORT TTErr TTObjectRelease(TTAudioSignalPtr* anObject);
+
 TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTString& tagString, const TTObjectInstantiationMethod anInstantiationMethod);
 TTEXPORT TTErr TTClassRegister(const TTSymbolPtr className, const TTCString tagString, const TTObjectInstantiationMethod anInstantiationMethod);
 TTEXPORT TTErr TTGetRegisteredClassNames(TTValue& classNames);

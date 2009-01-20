@@ -195,9 +195,9 @@ void *limiter_new(t_symbol *s, long argc, t_atom *argv)
 void limiter_free(t_limiter *x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->limiter);
-	TTObjectRelease(x->audioIn);
-	TTObjectRelease(x->audioOut);
+	TTObjectRelease(&x->limiter);
+	TTObjectRelease(&x->audioIn);
+	TTObjectRelease(&x->audioOut);
 }
 
 
