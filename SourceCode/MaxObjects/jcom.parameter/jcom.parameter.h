@@ -152,7 +152,8 @@ void		param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *d
 
 void		param_int(t_param *x, long n);
 void		param_float(t_param *x, double f);
-void		param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv);
+void		param_symbol(t_param *x, t_symbol *s);
+void		param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv);
 void 		param_send_feedback(t_param *x);
 
 /**	Convert a list of atoms through the DataspaceLib from the active units into the native units.

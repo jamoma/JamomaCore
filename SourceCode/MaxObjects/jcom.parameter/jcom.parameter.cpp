@@ -64,7 +64,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)param_int,						"int",							A_DEFLONG,	0);
 	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
  	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
- 	class_addmethod(c, (method)param_symbol,					"anything",						A_GIMME,	0);
+	class_addmethod(c, (method)param_symbol,					"symbol",						A_DEFSYM,	0);
+ 	class_addmethod(c, (method)param_anything,					"anything",						A_GIMME,	0);
 	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
 	class_addmethod(c, (method)param_inc,						"value/inc",					A_GIMME,	0);
 	class_addmethod(c, (method)param_dec,						"value/dec",					A_GIMME,	0);
@@ -459,6 +460,7 @@ t_max_err param_attr_settype(t_param *x, void *attr, long argc, t_atom *argv)
 	else if(arg == jps_msg_list){
 		x->param_output = &param_output_list;
 	}
+
 #ifdef JMOD_MESSAGE
 	else if(arg == jps_msg_none){
 		x->param_output = &param_output_none;
@@ -768,10 +770,12 @@ void param_receive_callback(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		param_int(x, atom_getlong(argv));
 	else if(msg == _sym_float)
 		param_float(x, atom_getfloat(argv));
+	else if(msg == _sym_symbol)
+		param_symbol(x, atom_getsym(argv));
 	else if(msg == _sym_list)
 		param_list(x, msg, argc, argv);
 	else
-		param_symbol(x, msg, argc, argv);
+		param_anything(x, msg, argc, argv);
 }
 
 
@@ -912,7 +916,7 @@ void param_bang(t_param *x)
 void param_output_generic(void *z)
 {
 	t_param *x = (t_param *)z;
-	
+
 	if(x->list_size == 1){
 		param_clip_generic(x);
 		if(x->attr_value.a_type == A_LONG)
@@ -932,7 +936,6 @@ void param_output_generic(void *z)
 	}
 	param_send_feedback(x);
 }
-
 
 void param_output_int(void *z)
 {
@@ -958,15 +961,15 @@ void param_output_float(void *z)
 		x->ramper->stop();
 }
 
-
 void param_output_symbol(void *z)
 {
 	t_param *x = (t_param *)z;
-
-	outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
-	param_send_feedback(x);
+	
+	if(atom_gettype(&x->attr_value) == A_SYM){
+		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
+		param_send_feedback(x);
+	}
 }
-
 
 void param_output_list(void *z)
 {
@@ -1172,9 +1175,23 @@ void param_float(t_param *x, double value)
 	x->param_output(x);
 }
 
-
 // SYMBOL INPUT
-void param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv)
+void param_symbol(t_param *x, t_symbol *value)
+{
+	x->list_size = 1;
+	if(x->common.attr_repetitions == 0){
+		if(value == atom_getsym(&x->attr_value))
+			return;
+	}
+	// new input - halt any ramping...
+	if(x->ramper)
+		x->ramper->stop();
+	atom_setsym(&x->attr_value, value);
+	x->param_output(x);
+}
+
+// ANYTHING INPUT
+void param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
 	char*	c = strrchr(msg->s_name, ':');
 	long	ac = 0;
@@ -1191,6 +1208,7 @@ void param_symbol(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	memcpy(av+1, argv, sizeof(t_atom) * argc);
 	param_list(x, _sym_list, ac, av);
 	free(av);
+
 /*
 	x->list_size = argc;
 	if(x->common.attr_repetitions == 0){
@@ -1335,8 +1353,8 @@ void param_convert_units(t_param* x,long argc, t_atom* argv, long* rc, t_atom** 
 // LIST INPUT <value, ramptime>
 void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	double		start[LISTSIZE], 
-				values[LISTSIZE], 
+	double		start[LISTSIZE],
+				values[LISTSIZE],
 				time;
 	int			i;
 	t_atom*		ramp;
@@ -1360,8 +1378,6 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		param_handleProperty(x, msg, argc, argv);
 		return;
 	}
-	
-	post("argc : %d", argc);
 
 	if(argc == 1)
 		;	// nothing to do
@@ -1428,7 +1444,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if( x->common.attr_type == jps_msg_int || x->common.attr_type == jps_msg_float)
 			ac = 1;
 //		else
-//			argc = argc - 2;
+//		argc = argc - 2;
 		
 		for(i=0; i<ac; i++){
 			values[i] = atom_getfloat(av+i);
@@ -1462,7 +1478,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		
 		// Avoid copying more than one atom if the type only can have one argument
 		if(x->common.attr_type != jps_msg_list && x->common.attr_type != jps_msg_generic
-			&& x->common.attr_type != jps_msg_none){
+			&& x->common.attr_type != jps_msg_none && x->common.attr_type != jps_msg_symbol){
 			// If attr_type is != to anyone of the above values then we know 
 			// that it must be == to a scalar type.  This ensures it will behave
 			// as a scalar and not a list.
