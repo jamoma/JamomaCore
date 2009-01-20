@@ -686,6 +686,7 @@ t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *ar
 	if(argc && argv){
 		x->attr_unitActive = atom_getsym(argv);
 		if(x->dataspace_active2native)
+			// TODO : check for a Jamoma error
 			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
 	}
 	return MAX_ERR_NONE;
@@ -1360,9 +1361,11 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		return;
 	}
 	
+	post("argc : %d", argc);
+
 	if(argc == 1)
 		;	// nothing to do
-	else if(argc == 2 && x->dataspace_active2native != 0){
+	else if(argc == 2 && x->attr_unitActive != jps_none){
 		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+1) == A_SYM){	// assume the second atom is a unit
 			hasUnit = true;
 			unit = atom_getsym(argv+1);
@@ -1373,7 +1376,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if(ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp){
 			hasRamp = true;
 		}
-		else if(atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
+		else if((x->attr_dataspace != jps_none) && atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
 			hasUnit = true;
 			unit = atom_getsym(argv+2);
 		}
@@ -1383,7 +1386,7 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		if(ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp){
 			hasRamp = true;
 		}
-		if(atom_gettype(argv) != A_SYM && atom_gettype(argv+2) == A_SYM){	// assume the last atom is a unit
+		if((x->attr_dataspace != jps_none) && atom_gettype(argv) != A_SYM && atom_gettype(argv+argc-1) == A_SYM){	// assume the last atom is a unit
 			hasUnit = true;
 			if(hasRamp)
 				unit = atom_getsym(argv+(argc-3));
@@ -1402,15 +1405,19 @@ void param_list(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 		Ultimately though, we actually want to convert the units after the ramping, 
 		for example to perform a sweep that is linear vs logarithmic
 	 */
-	if(hasRamp && hasUnit)
+	if(hasRamp && hasUnit){
 		param_convert_units(x, argc-3, argv, &ac, &av, &alloc);
-	else if(hasRamp)
+	}
+	else if(hasRamp){
 		param_convert_units(x, argc-2, argv, &ac, &av, &alloc);
-	else if(hasUnit)
+	}
+	else if(hasUnit){
 		param_convert_units(x, argc-1, argv, &ac, &av, &alloc);
-	else
+	}
+	else{
 		param_convert_units(x, argc, argv, &ac, &av, &alloc);
-	
+	}
+
 	// Check the second to last item in the list first, which when ramping should == the string ramp
 //	ramp = argv + (argc - 2);
 //	if (ramp->a_type == A_SYM && ramp->a_w.w_sym == jps_ramp) {
