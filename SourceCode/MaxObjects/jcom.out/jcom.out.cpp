@@ -1,7 +1,7 @@
 /* 
  * jcom.out~
  * External for Jamoma: manage audio outputs for a module
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -178,10 +178,10 @@ void out_free(t_out *x)
 	delete x->audioOut;
 	delete x->audioTemp;
 	delete x->zeroSignal;
-	TTObjectRelease(x->xfade);
-	TTObjectRelease(x->gain);
-	TTObjectRelease(x->ramp_gain);
-	TTObjectRelease(x->ramp_xfade);
+	TTObjectRelease(&x->xfade);
+	TTObjectRelease(&x->gain);
+	TTObjectRelease(&x->ramp_gain);
+	TTObjectRelease(&x->ramp_xfade);
 #endif
 	jcom_core_subscriber_common_free(&x->common);
 }
