@@ -131,7 +131,7 @@ void TTMatrixMixer::processOne(TTAudioSignal& in, TTAudioSignal& out, TTFloat64 
 		vs = in.getVectorSize();
 		
 		while(vs--)
-			*outSample++ = (*inSample++) * gain;
+			*outSample++ += (*inSample++) * gain;
 	}
 }
 
@@ -148,6 +148,7 @@ TTErr TTMatrixMixer::processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArr
 	for(TTUInt16 y=0; y < outputs->numAudioSignals; y++){
 		TTAudioSignal&	out = outputs->getSignal(y);
 		
+		out.clear();
 		for(TTUInt16 x=0; x < inputs->numAudioSignals; x++){
 			TTAudioSignal&	in = inputs->getSignal(x);
 			
