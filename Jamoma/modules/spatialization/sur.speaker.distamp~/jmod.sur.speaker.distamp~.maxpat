@@ -21,10 +21,10 @@
 					"text" : "jcom.message matrix/dump @type msg_none @description \"Post current matrix settings to the Max window .\"",
 					"linecount" : 2,
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 525.0, 240.0, 362.0, 31.0 ],
+					"outlettype" : [ "", "", "" ],
 					"id" : "obj-1",
 					"fontname" : "Verdana"
 				}
@@ -36,10 +36,10 @@
 					"text" : "jcom.message aed @type msg_list @description \"List describing index (counting from 1), azimuth, elevation, distance for one speaker.\"",
 					"linecount" : 2,
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 525.0, 201.0, 385.0, 31.0 ],
+					"outlettype" : [ "", "", "" ],
 					"id" : "obj-2",
 					"fontname" : "Verdana"
 				}
@@ -52,10 +52,10 @@
 					"text" : "jcom.message voices @type msg_int @repetitions/allow 0 @range/bounds 1 16 @range/clipmode both @description \"The number of audio channels that the ambisonic signal is diffused to. Changes only take effect when audio is off.\"",
 					"linecount" : 3,
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 525.0, 154.0, 431.0, 43.0 ],
+					"outlettype" : [ "", "", "" ],
 					"id" : "obj-3",
 					"fontname" : "Verdana"
 				}
@@ -65,27 +65,27 @@
 				"box" : 				{
 					"maxclass" : "multislider",
 					"varname" : "MULTISLIDER",
-					"bgcolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ],
-					"spacing" : 3,
-					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
-					"bordercolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ],
-					"numinlets" : 1,
 					"ghostbar" : 50,
-					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
-					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
-					"numoutlets" : 2,
-					"presentation_rect" : [ 2.0, 25.0, 250.0, 31.0 ],
-					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"outlettype" : [ "", "" ],
-					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
 					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ],
+					"numinlets" : 1,
+					"presentation_rect" : [ 10.0, 25.0, 280.0, 40.0 ],
+					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
-					"patching_rect" : [ 2.0, 25.0, 250.0, 31.0 ],
-					"size" : 5,
+					"numoutlets" : 2,
+					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
+					"patching_rect" : [ 5.0, 25.0, 288.0, 35.0 ],
 					"slidercolor" : [ 0.419608, 0.419608, 0.419608, 1.0 ],
+					"outlettype" : [ "", "" ],
+					"bgcolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ],
 					"presentation" : 1,
 					"id" : "obj-4",
+					"bordercolor" : [ 0.094118, 0.094118, 0.094118, 1.0 ],
+					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
 					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
+					"spacing" : 3,
+					"size" : 5,
+					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
+					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
 					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ]
 				}
 
@@ -95,10 +95,10 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.in",
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 210.0, 200.0, 54.0, 19.0 ],
+					"outlettype" : [ "", "" ],
 					"id" : "obj-5",
 					"fontname" : "Verdana"
 				}
@@ -110,9 +110,9 @@
 					"text" : "multicable signal output",
 					"linecount" : 3,
 					"numinlets" : 1,
+					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
-					"numoutlets" : 0,
 					"patching_rect" : [ 245.0, 345.0, 67.0, 43.0 ],
 					"id" : "obj-6",
 					"fontname" : "Verdana"
@@ -135,8 +135,8 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"patching_rect" : [ 385.0, 165.0, 30.0, 30.0 ],
+					"outlettype" : [ "" ],
 					"id" : "obj-10",
 					"comment" : "W - omni"
 				}
@@ -148,10 +148,10 @@
 					"text" : "multicable signal input",
 					"linecount" : 3,
 					"numinlets" : 1,
+					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 420.0, 160.0, 61.0, 43.0 ],
+					"patching_rect" : [ 420.0, 160.0, 64.0, 43.0 ],
 					"id" : "obj-11",
 					"fontname" : "Verdana"
 				}
@@ -162,10 +162,10 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.oscroute /audio/mute",
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 235.0, 230.0, 150.0, 19.0 ],
+					"outlettype" : [ "", "" ],
 					"id" : "obj-13",
 					"fontname" : "Verdana"
 				}
@@ -176,10 +176,10 @@
 					"maxclass" : "newobj",
 					"text" : "mute~",
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 235.0, 265.0, 49.0, 19.0 ],
+					"outlettype" : [ "" ],
 					"id" : "obj-14",
 					"fontname" : "Verdana"
 				}
@@ -190,10 +190,10 @@
 					"maxclass" : "newobj",
 					"text" : "jalg.sur.speaker.distamp~",
 					"numinlets" : 2,
-					"fontsize" : 10.0,
 					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 210.0, 305.0, 196.0, 19.0 ],
+					"outlettype" : [ "dump", "" ],
 					"id" : "obj-15",
 					"fontname" : "Verdana"
 				}
@@ -203,12 +203,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/preset/store 1 default, /preset/write",
-					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
 					"numinlets" : 2,
-					"fontsize" : 10.0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 50.0, 90.0, 251.0, 17.0 ],
+					"outlettype" : [ "" ],
+					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
 					"id" : "obj-16",
 					"fontname" : "Verdana"
 				}
@@ -218,12 +218,12 @@
 				"box" : 				{
 					"maxclass" : "message",
 					"text" : "/documentation/generate",
-					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
 					"numinlets" : 2,
-					"fontsize" : 10.0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"fontsize" : 10.0,
 					"patching_rect" : [ 80.0, 110.0, 160.0, 17.0 ],
+					"outlettype" : [ "" ],
+					"bgcolor" : [ 0.8, 0.54902, 0.54902, 1.0 ],
 					"id" : "obj-17",
 					"fontname" : "Verdana"
 				}
@@ -236,10 +236,10 @@
 					"text" : "jcom.hub @description \"Amplitude of speakers adjusted in proportion to distance from sweet spot\"",
 					"linecount" : 2,
 					"numinlets" : 1,
-					"fontsize" : 10.0,
 					"numoutlets" : 2,
+					"fontsize" : 10.0,
+					"patching_rect" : [ 10.0, 150.0, 294.0, 31.0 ],
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 10.0, 150.0, 292.0, 31.0 ],
 					"id" : "obj-19",
 					"fontname" : "Verdana"
 				}
@@ -250,8 +250,8 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
 					"patching_rect" : [ 10.0, 90.0, 30.0, 30.0 ],
+					"outlettype" : [ "" ],
 					"id" : "obj-21",
 					"comment" : ""
 				}
@@ -285,9 +285,9 @@
 					"text" : "This module adjust amplitude of speakers according to distance from sweet spot, so that normalized amplitude correction is proportional to distance.",
 					"linecount" : 2,
 					"numinlets" : 1,
+					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
-					"numoutlets" : 0,
 					"patching_rect" : [ 25.0, 459.0, 409.0, 31.0 ],
 					"id" : "obj-25",
 					"fontname" : "Verdana"
@@ -300,10 +300,10 @@
 					"text" : "Such amplitude correction is performed in the ambipan~ Max external for ambisonic panning made by A.Sedes, B.Courribet and J.B.Thiebaut at CICM Université Paris8, Maison des Sciences de l'Homme Paris Nord.",
 					"linecount" : 3,
 					"numinlets" : 1,
+					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
-					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 490.0, 382.0, 43.0 ],
+					"patching_rect" : [ 25.0, 490.0, 384.0, 43.0 ],
 					"id" : "obj-26",
 					"fontname" : "Verdana"
 				}
@@ -314,9 +314,9 @@
 					"maxclass" : "comment",
 					"text" : "NOTE: Jitter is required in this module!",
 					"numinlets" : 1,
+					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
-					"numoutlets" : 0,
 					"patching_rect" : [ 26.0, 537.0, 441.0, 19.0 ],
 					"id" : "obj-27",
 					"fontname" : "Verdana"
@@ -328,12 +328,12 @@
 					"maxclass" : "jcom.ui",
 					"text" : "/editing_this_module",
 					"numinlets" : 1,
-					"numoutlets" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"has_mute" : 1,
+					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"presentation" : 1,
-					"id" : "obj-28"
+					"id" : "obj-28",
+					"has_mute" : 1
 				}
 
 			}
