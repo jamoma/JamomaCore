@@ -39,11 +39,11 @@ MCoreObject::~MCoreObject()
 	for(TTUInt16 i=0; i<numSources; i++)
 		audioSources[i]->unregisterObserverForNotifications(*this);
 
-	TTObjectRelease(audioObject);
-	TTObjectRelease(audioInput);
-	TTObjectRelease(audioOutput);
-	TTObjectRelease(sidechainInput);
-	TTObjectRelease(sidechainOutput);
+	TTObjectRelease(&audioObject);
+	TTObjectRelease(&audioInput);
+	TTObjectRelease(&audioOutput);
+	TTObjectRelease(&sidechainInput);
+	TTObjectRelease(&sidechainOutput);
 }
 
 
@@ -67,8 +67,8 @@ TTErr MCoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 	}
 	
 	audioSources[numSources-1] = 0;
-	numSources--;	
-
+	numSources--;
+	
 	valid = oldValid;
 	return kTTErrNone;
 }
@@ -77,7 +77,7 @@ TTErr MCoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 TTErr MCoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 {
 	if(audioOutput)
-		TTObjectRelease(audioOutput);
+		TTObjectRelease(&audioOutput);
 
 	audioOutput = (TTAudioSignalPtr)TTObjectReference(newOutputPtr);
 	return kTTErrNone;
@@ -118,6 +118,7 @@ TTErr MCoreObject::prepareToProcess()
 
 TTErr MCoreObject::resetSources(TTUInt16 vs)
 {
+	// go through all of the sources and tell them we don't want to watch them any more
 	for(TTUInt16 i=0; i<numSources; i++)
 		audioSources[i]->unregisterObserverForNotifications(*this);
 
@@ -175,6 +176,7 @@ TTErr MCoreObject::addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumbe
 		audioSourceOutletIndices[numSources-1] = sourceOutletNumber;
 	}
 	
+	// tell the source that is passed in that we want to watch it
 	anObject->registerObserverForNotifications(*this);
 	
 	return kTTErrNone;

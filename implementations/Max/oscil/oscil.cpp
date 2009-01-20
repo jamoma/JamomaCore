@@ -103,7 +103,7 @@ OscilBaerPtr oscilBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void oscilBaerFree(OscilBaerPtr x)
 {
-	TTObjectRelease(x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
 }
 
 

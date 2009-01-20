@@ -114,7 +114,7 @@ MMatrixPtr mmatrixNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void mmatrixFree(MMatrixPtr x)
 {
-	TTObjectRelease(x->multicore);
+	TTObjectRelease((TTObjectPtr*)&x->multicore);
 	
 	for(TTUInt16 i=0; i<x->numInputs-1; i++)
 		object_free(x->inlets[i]);

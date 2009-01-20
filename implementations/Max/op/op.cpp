@@ -98,7 +98,7 @@ LydOpPtr lydOpNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void lydOpFree(LydOpPtr x)
 {
-	TTObjectRelease(x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
 }
 
 

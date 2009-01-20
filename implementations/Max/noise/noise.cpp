@@ -91,7 +91,7 @@ NoiseBaerPtr noiseBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 // Memory Deallocation
 void noiseBaerFree(NoiseBaerPtr x)
 {
-	TTObjectRelease(x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
 }
 
 

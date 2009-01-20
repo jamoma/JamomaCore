@@ -94,7 +94,7 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
 		
 		attr_args_process(x,argc,argv);				// handle attribute args	
-				
+		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout	
 	    dsp_setup((t_pxobject *)x, 1);
 		for(i=0; i < x->maxNumChannels; i++)
@@ -109,8 +109,8 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void lydOutFree(LydOutPtr x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->lydbaer);
-	TTObjectRelease(x->audioSignal);
+	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&x->audioSignal);
 }
 
 

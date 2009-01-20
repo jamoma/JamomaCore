@@ -93,7 +93,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 void wrappedClass_free(WrappedInstancePtr x)
 {
 	if(x->lydbaerObject)
-		TTObjectRelease(x->lydbaerObject);
+		TTObjectRelease((TTObjectPtr*)&x->lydbaerObject);
 	// FIXME: leaking proxy inlets!
 }
 
@@ -326,7 +326,7 @@ TTErr wrapAsMaxbaer(TTSymbolPtr ttblueClassName, char* maxClassName, WrappedClas
 			CLASS_ATTR_STYLE(wrappedMaxClass->maxClass, (char*)name->getCString(), 0, "onoff");
 	}
 	
-	TTObjectRelease(o);
+	TTObjectRelease(&o);
 	
 	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerReset,			"multicore.reset",	A_CANT, 0);
 	class_addmethod(wrappedMaxClass->maxClass, (method)maxbaerSetup,			"multicore.setup",	A_CANT, 0);

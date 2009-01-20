@@ -38,7 +38,7 @@ MCoreOutput::~MCoreOutput()
 {
 	audioEngine->sendMessage(TT("removeCallbackObserver"), *me);
 	delete me;
-	TTObjectRelease(placeHolder);
+	TTObjectRelease(&placeHolder);
 }
 
 

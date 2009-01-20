@@ -96,7 +96,7 @@ LydDacPtr lydDacNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 
 void lydDacFree(LydDacPtr x)
 {
-	TTObjectRelease(x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
 }
 
 

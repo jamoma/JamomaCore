@@ -108,7 +108,7 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void lydInFree(LydInPtr x)
 {
 	dsp_free((t_pxobject *)x);
-	TTObjectRelease(x->lydbaer);
+	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
 }
 
 

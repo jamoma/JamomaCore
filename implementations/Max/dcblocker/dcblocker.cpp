@@ -99,7 +99,7 @@ DCBlockerBaerPtr dcBlockerBaerNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 void dcBlockerBaerFree(DCBlockerBaerPtr x)
 {
 	if(x->lydbaer)
-		TTObjectRelease(x->lydbaer);
+		TTObjectRelease((TTObjectPtr*)&x->lydbaer);
 }
 
 
