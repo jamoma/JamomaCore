@@ -124,7 +124,7 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName)
 		TTObjectPtr obj = NULL;
 		
 		(*iter)->get(0, &obj);
-		if(obj)
+		if(obj && obj->valid)
 			obj->sendMessage(messageName);
 	}
 	unlock();
@@ -139,7 +139,7 @@ TTErr TTList::iterateObjectsSendingMessage(const TTSymbolPtr messageName, TTValu
 		TTObjectPtr obj = NULL;
 		
 		(*iter)->get(0, &obj);
-		if(obj)
+		if(obj && obj->valid)
 			obj->sendMessage(messageName, aValue);
 	}
 	unlock();
