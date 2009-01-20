@@ -18,9 +18,7 @@ typedef struct _wrappedInstance {
 	WrappedClassPtr		wrappedClassDefinition;		///< A pointer to the class definition
 	MCoreObjectPtr		lydbaerObject;				///< The instance of the TTBlue object we are wrapping
 	TTPtr				lydbaerOutlets[16];			///< Array of outlets, may eventually want this to be more dynamic
-	
 	TTPtr				inlets[16];					///< Array of proxy inlets beyond the first inlet
-	long				inletnum;					///< The Max proxy inlet number
 } WrappedInstance;
 
 typedef WrappedInstance* WrappedInstancePtr;		///< Pointer to a wrapped instance of our object.
@@ -59,7 +57,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalInputs"), v))
 			numInputs += TTUInt8(v);
 		for(TTUInt8 i=0; i<numInputs-1; i++)
-			x->inlets[i] = proxy_new(x, i+1, &x->inletnum);
+			x->inlets[i] = proxy_new(x, i+1, NULL);
 		
     	object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x,NULL));	// dumpout
 		if(wrappedMaxClass->options && !wrappedMaxClass->options->lookup(TT("additionalSignalOutputs"), v))
@@ -96,6 +94,7 @@ void wrappedClass_free(WrappedInstancePtr x)
 {
 	if(x->lydbaerObject)
 		TTObjectRelease(x->lydbaerObject);
+	// FIXME: leaking proxy inlets!
 }
 
 
