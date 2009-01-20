@@ -239,6 +239,8 @@
 		22E6CDF10D4D069000DA75EE /* TTSymbolTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55332A6D0D9264AD00597792 /* TTAdsr.h in Headers */ = {isa = PBXBuildFile; fileRef = 55332A6C0D9264AD00597792 /* TTAdsr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55332A6F0D9264B700597792 /* TTAdsr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55332A6E0D9264B700597792 /* TTAdsr.cpp */; };
+		664F3F540F254E8C00BB763D /* TTMatrixMixer.h in Headers */ = {isa = PBXBuildFile; fileRef = 221AD7720F24F2FE00B5B388 /* TTMatrixMixer.h */; };
+		664F3F560F254E9100BB763D /* TTMatrixMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221AD7700F24F2D000B5B388 /* TTMatrixMixer.cpp */; };
 		A779B3D00D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A779B3D20D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h in Headers */ = {isa = PBXBuildFile; fileRef = A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A779B3D40D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */; };
@@ -788,6 +790,7 @@
 				228A095B0E60498D0053576D /* TTAttribute.h in Headers */,
 				22578F180EC2767800A5EC32 /* portaudio.h in Headers */,
 				2257900B0EC27D1500A5EC32 /* TTAudioEngine.h in Headers */,
+				664F3F540F254E8C00BB763D /* TTMatrixMixer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -997,6 +1000,7 @@
 				228A09550E6049600053576D /* TTAttribute.cpp in Sources */,
 				228A09560E6049600053576D /* TTMessage.cpp in Sources */,
 				225790090EC27CF600A5EC32 /* TTAudioEngine.cpp in Sources */,
+				664F3F560F254E9100BB763D /* TTMatrixMixer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
