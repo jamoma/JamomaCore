@@ -14,14 +14,14 @@
 MCoreSource::MCoreSource(TTUInt16 newMaxNumChannels)
 : TTAudioObject("multicore.source", newMaxNumChannels)
 {
-	buffer = new TTAudioSignal(newMaxNumChannels);
+	TTObjectInstantiate(kTTSym_audiosignal, &buffer, newMaxNumChannels);
 	setProcessMethod(processAudio);
 }
 
 
 MCoreSource::~MCoreSource()
 {
-	delete buffer;
+	TTObjectRelease(&buffer) ;
 }
 
 
