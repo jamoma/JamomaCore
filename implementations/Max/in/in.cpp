@@ -85,6 +85,7 @@ LydInPtr lydInNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 		v.set(0, TT("multicore.source"));
 		v.set(1, x->maxNumChannels);
 		err = TTObjectInstantiate(TT("multicore.object"), (TTObjectPtr*)&x->lydbaer, v);
+		x->lydbaer->addFlag(kMCoreGenerator);
 
 		if(x->lydbaer->audioObject)
 			x->lydbaer->setAudioOutputPtr(MCoreSourcePtr(x->lydbaer->audioObject)->buffer);
