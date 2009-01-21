@@ -76,10 +76,12 @@ TTErr MCoreObject::objectFreeing(const TTValue& theObjectBeingDeleted)
 
 TTErr MCoreObject::setAudioOutputPtr(TTAudioSignalPtr newOutputPtr)
 {
-	if(audioOutput)
-		TTObjectRelease(&audioOutput);
-
+	TTObjectPtr oldAudioOutput = audioOutput;
+	
 	audioOutput = (TTAudioSignalPtr)TTObjectReference(newOutputPtr);
+
+	if(oldAudioOutput)
+		TTObjectRelease(&oldAudioOutput);
 	return kTTErrNone;
 }
 
