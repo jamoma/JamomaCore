@@ -86,7 +86,9 @@ LydOutPtr lydOutNew(SymbolPtr msg, AtomCount argc, AtomPtr argv)
 			x->maxNumChannels = atom_getlong(argv);
 
 		ttEnvironment->setAttributeValue(kTTSym_sr, sr);
-		TTObjectInstantiate(TT("audiosignal"), &x->audioSignal, x->maxNumChannels);
+		
+//		We don't create this -- it is provided for us when we call getAudioSignal()
+//		TTObjectInstantiate(TT("audiosignal"), &x->audioSignal, x->maxNumChannels);
 
 		v.setSize(2);
 		v.set(0, TT("gain"));
@@ -110,7 +112,7 @@ void lydOutFree(LydOutPtr x)
 {
 	dsp_free((t_pxobject *)x);
 	TTObjectRelease((TTObjectPtr*)&x->lydbaer);
-	TTObjectRelease((TTObjectPtr*)&x->audioSignal);
+//	TTObjectRelease((TTObjectPtr*)&x->audioSignal);
 }
 
 
@@ -222,9 +224,9 @@ void lydOutDsp(LydOutPtr x, t_signal** sp, short* count)
 		k++;
 	}
 	
-	x->audioSignal->setAttributeValue(TT("numChannels"), x->maxNumChannels);
-	x->audioSignal->setAttributeValue(TT("vectorSize"), x->vectorSize);
-	x->audioSignal->sendMessage(TT("alloc"));
+//	x->audioSignal->setAttributeValue(TT("numChannels"), x->maxNumChannels);
+//	x->audioSignal->setAttributeValue(TT("vectorSize"), x->vectorSize);
+//	x->audioSignal->sendMessage(TT("alloc"));
 	x->lydbaer->audioObject->setAttributeValue(TT("sr"), sp[0]->s_sr);
 	
 	dsp_addv(lydOutPerform, k, audioVectors);
