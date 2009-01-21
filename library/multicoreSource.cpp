@@ -12,7 +12,7 @@
 
 
 MCoreSource::MCoreSource(TTUInt16 newMaxNumChannels)
-: TTAudioObject("multicore.source", newMaxNumChannels)
+: TTAudioObject("multicore.source", newMaxNumChannels), buffer(NULL)
 {
 	TTObjectInstantiate(kTTSym_audiosignal, &buffer, newMaxNumChannels);
 	setProcessMethod(processAudio);
