@@ -152,7 +152,7 @@ TTErr MCoreObject::addSource(MCoreObjectPtr anObject, TTUInt16 sourceOutletNumbe
 		}
 		else{
 			sidechainSources = (MCoreObjectPtr*)realloc(sidechainSources, sizeof(MCoreObjectPtr) * numSidechainSources);
-			sidechainOutletIndices = (TTUInt16*)realloc(audioSourceOutletIndices, sizeof(TTUInt16) * numSources);
+			sidechainOutletIndices = (TTUInt16*)realloc(sidechainOutletIndices, sizeof(TTUInt16) * numSources);
 		}
 		sidechainSources[numSidechainSources-1] = anObject;
 		sidechainOutletIndices[numSidechainSources-1] = sourceOutletNumber;
