@@ -36,9 +36,10 @@ MCoreObject::MCoreObject(const TTValue& arguments)
 
 MCoreObject::~MCoreObject()
 {
-	for(TTUInt16 i=0; i<numSources; i++)
-		audioSources[i]->unregisterObserverForNotifications(*this);
-
+	for(TTUInt16 i=0; i<numSources; i++){
+		if(audioSources[i]->valid)
+			audioSources[i]->unregisterObserverForNotifications(*this);
+	}
 	TTObjectRelease(&audioObject);
 	TTObjectRelease(&audioInput);
 	TTObjectRelease(&audioOutput);
