@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 397.0, 139.0, 600.0, 426.0 ],
+		"rect" : [ 560.0, 182.0, 510.0, 398.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 397.0, 139.0, 600.0, 426.0 ],
+		"defrect" : [ 560.0, 182.0, 510.0, 398.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,23 +17,25 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"candicane2" : [ 0.145098, 0.203922, 0.356863, 1.0 ],
-					"candicane3" : [ 0.290196, 0.411765, 0.713726, 1.0 ],
-					"candicane4" : [ 0.439216, 0.619608, 0.070588, 1.0 ],
-					"candicane5" : [ 0.584314, 0.827451, 0.431373, 1.0 ],
-					"candicane6" : [ 0.733333, 0.035294, 0.788235, 1.0 ],
+					"candicane2" : [ 0.0, 1.0, 0.0, 1.0 ],
+					"candicane3" : [ 0.0, 0.0, 1.0, 1.0 ],
+					"candicane4" : [ 1.0, 0.0, 1.0, 1.0 ],
+					"candicane5" : [ 0.0, 1.0, 1.0, 1.0 ],
+					"candicane6" : [ 1.0, 1.0, 0.0, 1.0 ],
 					"candicane7" : [ 0.878431, 0.243137, 0.145098, 1.0 ],
 					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
-					"compatibility" : 1,
+					"candycane" : 5,
 					"id" : "obj-1",
 					"maxclass" : "multislider",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 211.0, 292.0, 63.0, 45.0 ],
+					"patching_rect" : [ 158.0, 277.0, 63.0, 45.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
-					"size" : 5
+					"setstyle" : 1,
+					"size" : 5,
+					"slidercolor" : [ 1.0, 0.0, 0.0, 1.0 ]
 				}
 
 			}
@@ -52,7 +54,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 96.0, 292.0, 116.0, 45.0 ],
+					"patching_rect" : [ 41.0, 277.0, 116.0, 45.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"size" : 25
@@ -68,14 +70,28 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 106.0, 217.0, 116.0, 15.0 ],
-					"text" : "/position 0 0"
+					"patching_rect" : [ 54.0, 231.0, 212.0, 15.0 ],
+					"text" : "/kernel.1/center 0.5 0.5"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/jmod.tap.ali" ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-12",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 52.0, 60.0, 261.0, 19.0 ],
+					"text" : "Ali Momeni's Multidimensional interpolator"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "/jmod.tap.ali%" ],
 					"id" : "obj-13",
 					"lockeddragscroll" : 1,
 					"maxclass" : "bpatcher",
@@ -83,9 +99,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 94.0, 118.0, 300.0, 70.0 ],
+					"patching_rect" : [ 41.0, 133.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"varname" : "jmod.tap.ali%.mxt"
+					"varname" : "jmod.tap.ali%"
 				}
 
 			}
@@ -320,15 +336,15 @@
  ]
 					}
 ,
-					"patching_rect" : [ 493.0, 251.0, 45.0, 19.0 ],
+					"patching_rect" : [ 433.0, 266.0, 45.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontname" : "Verdana",
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p scale"
@@ -344,8 +360,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 94.0, 270.0, 245.0, 17.0 ],
-					"text" : "jcom.oscroute /list /normalized"
+					"patching_rect" : [ 41.0, 255.0, 252.0, 17.0 ],
+					"text" : "route /list /normalized"
 				}
 
 			}
@@ -358,24 +374,61 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 94.0, 194.0, 111.0, 17.0 ],
+					"patching_rect" : [ 41.0, 209.0, 225.0, 17.0 ],
 					"text" : "jcom.oscroute /output"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "/jmod.control" ],
+					"fontname" : "Verdana",
+					"fontsize" : 18.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-4",
-					"lockeddragscroll" : 1,
-					"maxclass" : "bpatcher",
-					"name" : "jmod.control.maxpat",
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 95.0, 31.0, 150.0, 70.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
-					"varname" : "jmod.control.mxt"
+					"numoutlets" : 0,
+					"patching_rect" : [ 48.0, 33.0, 228.0, 28.0 ],
+					"text" : "jmod.tap.ali%"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 38.0, 23.0, 335.0, 60.0 ],
+					"rounded" : 15
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-7",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 49.0, 61.0, 185.0, 19.0 ],
+					"text" : "Ali Momeni's Colorblob mapper"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-8",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 48.0, 63.0, 306.0, 19.0 ],
+					"text" : "Ambiophonics RACE implementation"
 				}
 
 			}
@@ -388,7 +441,7 @@
 					"numoutlets" : 2,
 					"onscreen" : 0,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 409.0, 117.0, 128.0, 128.0 ]
+					"patching_rect" : [ 349.0, 132.0, 128.0, 128.0 ]
 				}
 
 			}
@@ -406,7 +459,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 384.5, 194.0, 401.5, 194.0, 401.5, 113.0, 418.5, 113.0 ],
+					"midpoints" : [ 331.5, 209.0, 344.5, 209.0, 344.5, 128.0, 358.5, 128.0 ],
 					"source" : [ "obj-13", 1 ]
 				}
 
@@ -415,7 +468,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 502.5, 284.0, 543.5, 284.0, 543.5, 108.0, 103.5, 108.0 ],
+					"midpoints" : [ 442.5, 287.0, 482.5, 287.0, 482.5, 125.0, 50.5, 125.0 ],
 					"source" : [ "obj-16", 0 ]
 				}
 
