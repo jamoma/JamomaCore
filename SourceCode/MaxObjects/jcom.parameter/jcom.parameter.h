@@ -1,7 +1,7 @@
 /* 
  * jcom.param
  * External for Jamoma: parameter definition using pattr
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -73,6 +73,10 @@ void		*param_new(t_symbol *s, long argc, t_atom *argv);
  * @param x the parameter who's memory should be freed
  * @see param_free */
 void		param_free(t_param *x);
+
+
+void		param_subscribe(t_param *x);
+
 
 /** Provides assistance on input and output while patching.
  * @param x the parameter instance

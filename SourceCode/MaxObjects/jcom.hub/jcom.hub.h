@@ -79,7 +79,6 @@ typedef struct _hub{							///< Data Structure for this object
 	long			flag_init;					///< FLAG: Indicates that the module is in a process of initiaizaiton
 	t_object		*jcom_send;					///< jcom.send and jcom.receive objects for remote communication
 	t_object		*jcom_receive;				//	...
-	t_object		*jcom_send_broadcast;		///< jcom.send object used to broadcast to subscribers that they should subscribe now
 	t_symbol		*osc_name;					///< the OSC name of this module for remote communication
 	bool			using_wildcard;				///< used when parsing wildcards to flag special syntax checking
 	t_hashtab		*hash_internals;			///< use Max's hashtab implementation for tracking internals objects

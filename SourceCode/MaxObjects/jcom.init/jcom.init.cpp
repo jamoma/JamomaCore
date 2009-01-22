@@ -36,7 +36,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	t_object 	*attr = NULL;
 	
 	jamoma_init();
-common_symbols_init();
+	common_symbols_init();
 
 	// Define our class
 	c = class_new("jcom.init",(method)init_new, (method)jcom_core_subscriber_common_free, sizeof(t_init), (method)0L, A_GIMME, 0);
@@ -79,7 +79,7 @@ void *init_new(t_symbol *s, long argc, t_atom *argv)
 		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_init);
 		attr_args_process(x, argc, argv);					// handle attribute args				
 
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 	}
 	return (x);												// Return the pointer
 }

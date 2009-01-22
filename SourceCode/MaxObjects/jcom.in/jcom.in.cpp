@@ -149,7 +149,7 @@ void *in_new(t_symbol *s, long argc, t_atom *argv)
 		jcom_core_subscriber_new_common(&x->common, jps__jcom_in__, jps_subscribe_in);
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, &in_subscribe);
 		attr_args_process(x, argc, argv);					// handle attribute args				
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 	}
 	return (x);												// Return the pointer
 }

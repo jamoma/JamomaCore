@@ -83,6 +83,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jbox_initclass(c, flags);
 	c->c_flags |= CLASS_FLAG_NEWDICTIONARY; // to specify dictionary constructor
 
+	class_addmethod(c, (method)ui_subscribe,		"subscribe",		A_CANT, 0);
 	class_addmethod(c, (method)ui_notify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)ui_paint,			"paint",			A_CANT, 0);
 	class_addmethod(c, (method)ui_mousedown,		"mousedown",		A_CANT, 0);
@@ -221,7 +222,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 	t_dictionary 	*d = NULL;
 //	t_object 		*textfield = NULL; 
 	long 			flags;
-	t_atom			a[1];
+	t_atom			a[2];
 
 	if(!(d=object_dictionaryarg(argc, argv)))
 		return NULL;	
@@ -245,8 +246,9 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		x->refmenu_items = NULL;
 		x->hash_internals = hashtab_new(0);
 		
-		atom_setsym(a, jps__gui__);
-		jcom_core_loadextern(gensym("jcom.remote"), 1, a, &x->obj_remote);
+		atom_setsym(a+0, jps__gui__);
+		atom_setobj(a+1, x->box.b_patcher);
+		jcom_core_loadextern(gensym("jcom.remote"), 2, a, &x->obj_remote);
 		object_method(x->obj_remote, gensym("setcallback"), ui_remote_callback, x);
 /*		
 		textfield = jbox_get_textfield((t_object*) x); 
@@ -318,6 +320,25 @@ t_max_err ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *dat
 		jbox_redraw(&x->box);
 	}
 	return jbox_notify((t_jbox*)x, s, msg, sender, data);
+}
+
+
+void ui_subscribe(t_ui *x)
+{
+	SymbolPtr*			keys = NULL;
+	long				numkeys = 0;
+	uiInternalObject*	anObject = NULL;
+	
+	hashtab_getkeys(x->hash_internals, &numkeys, &keys);
+	if(numkeys && keys){
+		for(int i=0; i<numkeys; i++){
+			hashtab_lookup(x->hash_internals, keys[i], (t_object**)&anObject);
+			object_method(anObject->theObject, jps_subscribe);
+		}
+		sysmem_freeptr(keys);
+	}
+	
+	object_method(x->obj_remote, jps_subscribe);
 }
 
 

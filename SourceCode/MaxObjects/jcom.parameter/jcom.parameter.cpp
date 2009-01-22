@@ -125,7 +125,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_class_attr_new(c, 	"dataspace/unit/internal",	_sym_symbol, (method)param_attr_setinternalunit, (method)param_attr_getinternalunit);
 
 	// Finalize our class
-	class_register(CLASS_BOX, c);
+	class_register(_sym_box, c);
 #ifdef JMOD_MESSAGE
 	message_class = c;
 #else
@@ -150,11 +150,17 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 	t_param		*x = (t_param *)object_alloc(parameter_class);
 #endif
 	t_symbol	*name = _sym_nothing;
+	ObjectPtr	patcher = NULL;
 
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else
 		name = symbol_unique();
+	
+	// for instances buried inside of another object:
+	// we pass a second argument which is a pointer to the patcher
+	if(attrstart>1 && argv)
+		patcher = ObjectPtr(atom_getobj(argv+1));
 
 	if(x){
 		for(i=num_outlets; i > 0; i--)
@@ -191,15 +197,21 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 #else
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_parameter);
 #endif
+		if(patcher)
+			x->common.container = patcher;
+		
 		// Any time this object subscribes, we need to (re)setup the internal direct receive object:
 		jcom_core_subscriber_setcustomsubscribe_method((t_jcom_core_subscriber_common*)x, param_makereceive);
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
-		object_attach_byptr_register(x, x , CLASS_BOX);
+		object_attach_byptr_register(x, x , _sym_box);
 #ifndef JMOD_MESSAGE
 		param_reset(x);	
 #endif
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+
+		// We used to defer here to try and wait for the hub to exist?
+		// but now the hub will ask about us once the patcher is ready and gets a loadbang [TAP]
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 		
 		// If no type was specified by the user we call the accessor here
 		// this is important because memory is configured - not just setting a default!

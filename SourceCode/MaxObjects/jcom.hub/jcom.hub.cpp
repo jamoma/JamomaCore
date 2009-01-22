@@ -175,24 +175,18 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 		
 		x->jcom_send = NULL;
 		x->jcom_receive = NULL;
-		x->jcom_send_broadcast = NULL;
 		atom_setsym(a, jps_jcom_remote_fromModule);
 		x->jcom_send = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		
 		atom_setsym(a, jps_jcom_remote_toModule);
 		x->jcom_receive = (t_object*)object_new_typed(_sym_box, jps_jcom_receive, 1, a);
 		object_method(x->jcom_receive, jps_setcallback, &hub_receive_callback, x);
-			
-		atom_setsym(a, jps_jcom_broadcast_fromHub);
-		x->jcom_send_broadcast = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
-		
+					
 		if(!g_jcom_send_notifications){
 			atom_setsym(a, gensym("notifications"));
 			g_jcom_send_notifications = (t_object*)object_new_typed(_sym_box, jps_jcom_send, 1, a);
 		}
 		
-		hub_internals_create(x);
-
 		x->container = jamoma_object_getpatcher((t_object*)x);
 		
 		// The following must be deferred because we have to interrogate our box,
@@ -204,14 +198,41 @@ void *hub_new(t_symbol *s, long argc, t_atom *argv)
 }
 
 
+long hub_iterate_callback(t_hub *x, t_object *obj)
+{
+	method		subscribeMethod = NULL;
+	//ObjectPtr	p = jbox_get_patcher(obj);
+	//SymbolPtr	s = jpatcher_get_name(p);
+	SymbolPtr	name = object_classname(obj);
+	
+	//object_post(ObjectPtr(x), "iterate: %s (in %s)", name->s_name, s);
+	
+	if(!object_classname_compare(obj, jps_jcom_hub)){
+		
+//		if(NOGOOD(obj))
+//			object_error(ObjectPtr(x), "bad object when iterating?");
+//		else{
+		if(name == gensym("jcom.ui"))
+			;
+		
+			subscribeMethod = zgetfn(obj, jps_subscribe);
+			if(subscribeMethod)
+				(*subscribeMethod)(obj);
+//		}
+	}
+	return 0;
+}
+
+
 // TODO: When running in the debugger, it seems like we are iterating through this function a whole bunch of times!
 // Can we put it in a qelem or something so that it only gets called once? [TAP]
 // But actually, maybe it is just a Max 4.6 funky Runtime thing?  Let's take a look again when we get to Max 5
 void hub_examine_context(t_hub *x)
 {
-	long			argc = 0;
-	t_atom			*argv = NULL;
-	t_symbol		*context = jamoma_patcher_getcontext(x->container);
+	AtomCount	argc = 0;
+	AtomPtr		argv = NULL;
+	SymbolPtr	context = jamoma_patcher_getcontext(x->container);
+	long		result = 0;
 
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
@@ -273,14 +294,14 @@ void hub_examine_context(t_hub *x)
 		
 		}
 	}
-			
-	object_attr_setsym(x, _sym_name, x->osc_name);
 
-	// Finally, we now tell subscribers (parameters, etc.) to subscribe
-	// [TAP] Perhaps the reason things are so slow is that this is global -- so any time *any* module sends the broadcast then all modules have to link up?
-	// Ugh!  We need to scope this -- maybe do a PI_DEEP!
-	if(x->jcom_send_broadcast)
-		object_method_typed(x->jcom_send_broadcast, gensym("hub.changed"), 0, NULL, NULL);
+	object_attr_setsym(x, _sym_name, x->osc_name);
+	
+	object_method(x->container, _sym_iterate, (method)hub_iterate_callback, x, PI_DEEP, &result);
+	hub_internals_create(x);
+
+	qelem_unset(x->init_qelem);		// clear the last thing to make sure we don't call into this a bunch of times
+	qelem_set(x->init_qelem);		// flag the queue for initialization
 }
 
 
@@ -300,7 +321,8 @@ void hub_free(t_hub *x)
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		// notify the subscriber that the hub is going away
-		object_method((*i)->object, jps_release);
+		if(!NOGOOD((*i)->object))
+			object_method((*i)->object, jps_release);
 		sysmem_freeptr(*i);
 	}
 	critical_exit(0);	
@@ -316,8 +338,6 @@ void hub_free(t_hub *x)
 		object_free(x->jcom_send);
 	if(x->jcom_receive)
 		object_free(x->jcom_receive);
-	if(x->jcom_send_broadcast)
-		object_free(x->jcom_send_broadcast);
 	x->subscriber->clear();
 	delete x->subscriber;
 	delete x->preset;
@@ -405,8 +425,6 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 	}
 	critical_exit(0);
 	
-	qelem_unset(x->init_qelem);		// clear the last thing to make sure we don't call into this a bunch of times
-	qelem_set(x->init_qelem);		// flag the queue for initialization
 	return x->attr_name;			// return the module name to the parameter
 }
 
@@ -456,7 +474,9 @@ void hub_unsubscribe(t_hub *x, t_object *subscriber_object)
 			 * the for loops if condition has been met and following conditional statement shouldn't
 			 * execute.  Either that or something awkward about the the behavior of their STL 
 			 * implementation */
-			if(item == subscribers->end())
+			// XXX -- TIM is commenting it out temporarily.  It may not effect us anymore with all of the recent changes?
+			// If we have processed the unsub then we really want to just break right away...
+			//if(item == subscribers->end())
 				break;
 
 		}

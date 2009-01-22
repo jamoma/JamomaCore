@@ -79,14 +79,20 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *remote_new(t_symbol *s, long argc, t_atom *argv)
 {
 	long 		attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	t_remote 	*x = (t_remote *)object_alloc(s_remote_class);
-	t_symbol	*name = _sym_nothing;	
+	t_remote*	x = (t_remote*)object_alloc(s_remote_class);
+	SymbolPtr	name = _sym_nothing;
+	ObjectPtr	patcher = NULL;
 	
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else
 		name = symbol_unique();
 	
+	// for instances buried inside of another object:
+	// we pass a second argument which is a pointer to the patcher
+	if(attrstart>1 && argv)
+		patcher = ObjectPtr(atom_getobj(argv+1));
+
 	if(x){
 		x->dumpout = outlet_new(x, NULL);
 		x->outlet = outlet_new(x, NULL);
@@ -97,9 +103,11 @@ void *remote_new(t_symbol *s, long argc, t_atom *argv)
 		
 		jcom_core_subscriber_new_common(&x->common, name, jps_subscribe_remote);		
 		jcom_core_subscriber_setcustomsubscribe_method(&x->common, (t_subscribe_method)remote_subscribe);
-
+		if(patcher)
+			x->common.container = patcher;
+		
 		attr_args_process(x, argc, argv);					// handle attribute args				
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 	}
 	return (x);												// Return the pointer
 }

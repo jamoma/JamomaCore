@@ -89,6 +89,7 @@ typedef struct _ui{
 t_ui*		ui_new(t_symbol *s, long argc, t_atom *argv);
 void 		ui_free(t_ui *x);
 t_max_err	ui_notify(t_ui *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+void		ui_subscribe(t_ui *x);
 void		ui_remote_callback(t_ui *x, t_symbol *s, long argc, t_atom* argv);
 void 		ui_bang(t_ui *x);
 // prototypes: drawing/ui
@@ -120,3 +121,60 @@ t_max_err	attr_set_hasgain(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_hasfreeze(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_haspreview(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_prefix(t_ui *obj, void *attr, long argc, t_atom *argv);
+
+
+
+class uiInternalObject {
+public:
+	t_object	*theObject;
+	//method		action;
+	
+	uiInternalObject(char *classname, char *subscribername, ObjectPtr patcher, char *subscribertype, char *ramptype, char *description, float *rangebounds, char *dataspace, char *nativeUnit, char *activeUnit)
+	{
+		t_atom	a[18];
+		int		i=0;
+		
+		theObject = NULL;
+		atom_setsym(a+(i++), gensym(subscribername));
+		atom_setobj(a+(i++), patcher);
+		atom_setsym(a+(i++), gensym("@type"));
+		atom_setsym(a+(i++), gensym(subscribertype));
+		atom_setsym(a+(i++), gensym("@ramp/drive"));
+		atom_setsym(a+(i++), gensym(ramptype));
+		atom_setsym(a+(i++), gensym("@description"));
+		atom_setsym(a+(i++), gensym(description));
+		if(rangebounds){
+			atom_setsym(a+(i++), gensym("@range/bounds"));
+			atom_setfloat(a+(i++), rangebounds[0]);	
+			atom_setfloat(a+(i++), rangebounds[1]);	
+		}	
+		if(dataspace && nativeUnit && activeUnit){
+			atom_setsym(a+(i++), gensym("@dataspace"));
+			atom_setsym(a+(i++), gensym(dataspace));
+			atom_setsym(a+(i++), gensym("@dataspace/unit/native"));
+			atom_setsym(a+(i++), gensym(nativeUnit));
+			atom_setsym(a+(i++), gensym("@dataspace/unit/active"));
+			atom_setsym(a+(i++), gensym(activeUnit));
+		}
+		jcom_core_loadextern(gensym(classname), i, a, &theObject);
+	}
+	
+	~uiInternalObject()
+	{
+		if(theObject)
+			object_free(theObject);
+	}
+	
+	void setAction(method aCallback, t_object *aCallbackArg)
+	{
+		if(theObject)
+			object_method(theObject, gensym("setcallback"), aCallback, aCallbackArg);
+	}
+	
+	void setName(char* newName)
+	{
+		if(theObject)
+			object_attr_setsym(theObject, _sym_name, gensym(newName));
+	}
+};
+

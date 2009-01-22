@@ -97,11 +97,17 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 	long		attrstart = attr_args_offset(argc, argv);
 	t_return*	x = (t_return *)object_alloc(return_class);
 	t_symbol*	name = _sym_nothing;
+	ObjectPtr	patcher = NULL;
 
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
 	else
 		name = symbol_unique();
+
+	// for instances buried inside of another object:
+	// we pass a second argument which is a pointer to the patcher
+	if(attrstart>1 && argv)
+		patcher = ObjectPtr(atom_getobj(argv+1));
 
 	if(x){
 		x->outlets[k_outlet_dumpout] = outlet_new(x, 0L);
@@ -112,9 +118,12 @@ void *return_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setsym(&x->output[0], name);
 		x->output_len = 1;
 		x->attrEnable = true;
+
+		if(patcher)
+			x->common.container = patcher;
 		
 		attr_args_process(x, argc, argv);
-		defer_low(x, (method)jcom_core_subscriber_subscribe, 0, 0, 0);
+		jcom_core_subscriber_subscribe((t_jcom_core_subscriber_common*)x);
 		return_makesend(x);
 	}
 	return (x);
