@@ -70,8 +70,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 54.0, 231.0, 212.0, 15.0 ],
-					"text" : "/kernel.1/center 0.5 0.5"
+					"patching_rect" : [ 54.0, 231.0, 212.0, 15.0 ]
 				}
 
 			}
@@ -338,12 +337,12 @@
 ,
 					"patching_rect" : [ 433.0, 266.0, 45.0, 19.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0,
-						"globalpatchername" : "",
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
 						"default_fontsize" : 10.0
 					}
 ,
