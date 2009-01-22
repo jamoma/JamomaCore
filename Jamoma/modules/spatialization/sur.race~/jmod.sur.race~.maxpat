@@ -50,14 +50,14 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"dataspace/unit/active" : "Hz",
-						"dataspace/unit/native" : "Hz",
-						"description" : "Mid High X-over Frequency",
-						"dataspace" : "pitch",
-						"type" : "msg_int",
 						"range/bounds" : [ 5.0, 20000.0 ],
-						"value/default" : [ 5000 ],
 						"range/clipmode" : "both",
+						"dataspace/unit/active" : "Hz",
+						"type" : "msg_int",
+						"dataspace/unit/native" : "Hz",
+						"value/default" : [ 5000 ],
+						"dataspace" : "pitch",
+						"description" : "Mid High X-over Frequency",
 						"dataspace/unit/internal" : "Hz"
 					}
 ,
@@ -89,13 +89,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"description" : "delaytime for the crosstalk cancelling [µseconds]",
-						"dataspace" : "time",
-						"value/stepsize" : 0.01,
-						"type" : "msg_float",
 						"range/bounds" : [ 0.0, 1.0 ],
+						"value/stepsize" : 0.01,
+						"range/clipmode" : "low",
+						"type" : "msg_float",
 						"value/default" : [ 0.07 ],
-						"range/clipmode" : "low"
+						"dataspace" : "time",
+						"description" : "delaytime for the crosstalk cancelling [µseconds]"
 					}
 ,
 					"id" : "obj-13",
@@ -145,11 +145,11 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"description" : "attenation value for the crosstalk frequency",
-						"type" : "msg_float",
 						"range/bounds" : [ -10.0, 0.0 ],
+						"range/clipmode" : "both",
+						"type" : "msg_float",
 						"value/default" : [ -2.5 ],
-						"range/clipmode" : "both"
+						"description" : "attenation value for the crosstalk frequency"
 					}
 ,
 					"id" : "obj-17",
@@ -236,6 +236,24 @@
 					"patching_rect" : [ 25.0, 165.0, 233.0, 19.0 ],
 					"text" : "jcom.hub @description \"Ambiphonics RACE\"",
 					"varname" : "jmod.hub"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"arrow" : 0,
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-23",
+					"items" : [ "butterworth.1", ",", "butterworth.2", ",", "butterworth.3", ",", "butterworth.4", ",", "linkwitzriley.2", ",", "linkwitzriley.4" ],
+					"maxclass" : "umenu",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "int", "", "" ],
+					"patching_rect" : [ 269.0, 110.0, 100.0, 19.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 163.0, 1.0, 84.0, 19.0 ],
+					"types" : [  ]
 				}
 
 			}
@@ -330,6 +348,25 @@
 			}
 , 			{
 				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frozen_object_attributes" : 					{
+						"type" : "msg_symbol",
+						"description" : "type of the filter for separating the bands"
+					}
+,
+					"id" : "obj-30",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 372.0, 109.0, 140.0, 19.0 ],
+					"text" : "jcom.parameter filtertype"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"comment" : "",
 					"hidden" : 1,
 					"id" : "obj-33",
@@ -387,13 +424,13 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"frozen_object_attributes" : 					{
-						"dataspace/unit/active" : "Hz",
-						"dataspace/unit/native" : "Hz",
-						"dataspace" : "pitch",
-						"type" : "msg_int",
 						"range/bounds" : [ 5.0, 16000.0 ],
-						"value/default" : [ 250 ],
 						"range/clipmode" : "both",
+						"dataspace/unit/active" : "Hz",
+						"type" : "msg_int",
+						"dataspace/unit/native" : "Hz",
+						"value/default" : [ 250 ],
+						"dataspace" : "pitch",
 						"dataspace/unit/internal" : "Hz"
 					}
 ,
@@ -557,6 +594,15 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-30", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ],
@@ -606,6 +652,15 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-23", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-30", 0 ]
 				}
 
 			}

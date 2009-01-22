@@ -39,8 +39,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 346.0, 299.0, 146.0, 31.0 ],
-					"text" : "this module based on a PD patch by Alastair H. Moore"
+					"patching_rect" : [ 341.0, 296.0, 182.0, 31.0 ],
+					"text" : "this module based on a PD-patch \nby Alastair H. Moore"
 				}
 
 			}
@@ -110,8 +110,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 79.41394, 80.649887, 140.0, 19.0 ],
-					"text" : "What is Ambiphonics? see"
+					"patching_rect" : [ 75.41394, 80.649887, 146.0, 19.0 ],
+					"text" : "What is Ambiophonics? see"
 				}
 
 			}
@@ -125,7 +125,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 31.0, 369.0, 144.0, 17.0 ],
-					"text" : "/gain 100."
+					"text" : "/module/view_internals"
 				}
 
 			}
@@ -152,7 +152,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 345.0, 335.0, 294.0, 19.0 ],
+					"patching_rect" : [ 341.0, 328.0, 294.0, 19.0 ],
 					"text" : "http://www-users.york.ac.uk/~ahm105/ambiophonics/"
 				}
 
@@ -181,7 +181,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 33.0, 48.0, 306.0, 19.0 ],
-					"text" : "Ambiphonics RACE implementation"
+					"text" : "Ambiophonics RACE implementation"
 				}
 
 			}
