@@ -19,7 +19,7 @@ static const double kGainMidiPowerInv = 1./kGainMidiPower;
 /****************************************************************************************************/
 
 TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
-	: TTObject(name), attrMute(0)
+	: TTObject(name), attrMute(0), inputArray(NULL), outputArray(NULL)
 {
 	registerAttribute(TT("maxNumChannels"), kTypeUInt8,		&maxNumChannels,	(TTSetterMethod)&TTAudioObject::setMaxNumChannels);
 	registerAttribute(TT("sr"),				kTypeUInt32,	&sr,				(TTSetterMethod)&TTAudioObject::setSr);
@@ -34,8 +34,8 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 	// And then because it is already defined, then our repetition filtering won't let it through to allocate memory...
 	// setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);
 	
-	inputArray = new TTAudioSignalArray(2);
-	outputArray = new TTAudioSignalArray(2);
+	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&inputArray, 2);
+	TTObjectInstantiate(kTTSym_audiosignalarray, (TTObjectPtr*)&outputArray, 2);
 
 	setAttributeValue(TT("sr"),				ttEnvironment->sr);
 	setProcess(&TTAudioObject::bypassProcess);
@@ -46,8 +46,8 @@ TTAudioObject::TTAudioObject(const char* name, TTUInt16 newMaxNumChannels)
 
 TTAudioObject::~TTAudioObject()
 {
-	delete inputArray;
-	delete outputArray;
+	TTObjectRelease((TTObjectPtr*)&inputArray);
+	TTObjectRelease((TTObjectPtr*)&outputArray);
 }
 
 

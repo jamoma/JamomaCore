@@ -264,7 +264,7 @@ void TTBlueRegisterInternalClasses()
 {
 	// Core
 	TTClassRegister(TT("audiosignal"),					"audio, signal, core",												&TTBlueInstantiateInternalClass);
-	
+	TTClassRegister(TT("audiosignalarray"),				"audio, signal, core",												&TTBlueInstantiateInternalClass);
 	
 	// Analysis
 	TTClassRegister(TT("zerocross"),					"audio, analysis, frequency",										&TTBlueInstantiateInternalClass);
@@ -332,9 +332,11 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 	// Core
 	if(className == TT("audiosignal"))
 		return new TTAudioSignal(arguments);
+	else if(className == TT("audiosignalarray")) // kTTSym_audiosignalarray)
+		return new TTAudioSignalArray(arguments);
 	
 	// Analysis
-	if(className == TT("zerocross"))
+	else if(className == TT("zerocross"))
 		return new TTZerocross(arguments);
 	
 	

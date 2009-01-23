@@ -12,7 +12,7 @@
 #include "TTObject.h"
 #include "TTSymbol.h"
 #include "TTValue.h"
-#include "TTAudioSignal.h"
+#include "TTAudioSignalArray.h"
 
 
 // Forward declaration of TTAudioObject for the typedef that follows...

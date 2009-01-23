@@ -53,6 +53,7 @@ extern TTEXPORT TTSymbolPtr	kTTSym_sawtoothMod;
 // object names
 extern TTEXPORT TTSymbolPtr	kTTSym_adsr;
 extern TTEXPORT TTSymbolPtr	kTTSym_audiosignal;
+extern TTEXPORT TTSymbolPtr kTTSym_audiosignalarray;
 extern TTEXPORT TTSymbolPtr	kTTSym_dcblock;
 extern TTEXPORT TTSymbolPtr	kTTSym_gain;
 extern TTEXPORT TTSymbolPtr	kTTSym_operator;

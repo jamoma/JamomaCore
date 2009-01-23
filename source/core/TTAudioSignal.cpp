@@ -7,6 +7,7 @@
  */
 
 #include "TTAudioSignal.h"
+#include "TTEnvironment.h"
 #define thisTTClass TTAudioSignal
 
 
@@ -248,32 +249,6 @@ TTErr TTAudioSignal::allocWithNewVectorSize(const TTValue& newVectorSize)
 	return allocWithVectorSize(TTUInt16(newVectorSize));
 }
 
-/*
-TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest)
-{
-	short			vs;
-	TTSampleValue*	inSample;
-	TTSampleValue*	outSample;
-	short			numchannels = TTAudioSignal::getMinChannelCount(source, dest);
-	short			additionalOutputChannels = dest.numChannels - numchannels;
-	short			channel;
-	
-	for(channel=0; channel<numchannels; channel++){
-		inSample = source.sampleVectors[channel];
-		outSample = dest.sampleVectors[channel];
-		vs = source.getVectorSize();
-		while(vs--)
-			*outSample++ = *inSample++;
-	}
-	for(channel; channel<(numchannels+additionalOutputChannels); channel++){
-		outSample = dest.sampleVectors[channel];
-		vs = dest.getVectorSize();
-		while(vs--)
-			*outSample++ = 0.0;
-	}
-	return kTTErrNone;
-}
-*/
 
 TTErr TTAudioSignal::copy(const TTAudioSignal& source, TTAudioSignal& dest, TTUInt16 channelOffset)
 {
@@ -398,5 +373,4 @@ TTErr TTAudioSignal::clear()
 		
 		
 // TODO: implement fill() method --- SET ALL VALUES IN THE SIGNAL TO A CONSTANT
-
 
