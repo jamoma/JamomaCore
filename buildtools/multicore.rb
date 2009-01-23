@@ -81,10 +81,10 @@ puts "  "
 def create_logs
   # set up log files and ensure that the build_root is there
   `mkdir -p #{@build_root}` if !FileTest.exist?(@build_root)
-  @build_log = File.new("#{@log_root}/Multicore_build.log"", "w")
+  @build_log = File.new("#{@log_root}/Multicore_build.log", "w")
   @build_log.write("MAX BUILD LOG: #{`date`}\n\n")
   @build_log.flush
-  @error_log = File.new("#{@log_root}/Multicore_error.log"", "w")
+  @error_log = File.new("#{@log_root}/Multicore_error.log", "w")
   @error_log.write("MAX BUILD ERROR LOG: #{`date`}\n\n")
   @error_log.flush
   trap("SIGINT") { die }
