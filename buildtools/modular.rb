@@ -283,7 +283,7 @@ if  win32?
 	`cp #{@svn_root}../Modular/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}../Modular/Jamoma/library/externals/JamomaModular.dll`
 else
 	build_project("#{@svn_root}../Modular/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
-	copydir("#{@svn_root}/library/build/UninstalledProducts/Jamoma.framework", "/Library/Frameworks/Jamoma.framework")
+	copydir("#{@svn_root}../Modular/Jamoma/library/build/UninstalledProducts/Jamoma.framework", "/Library/Frameworks/Jamoma.framework")
 end
 
 ex_total, ex_count = get_count
