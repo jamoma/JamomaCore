@@ -13,6 +13,33 @@
 //			Should create a more DRY way of doing this.
 
 
+void ui_color_contentBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
+void ui_color_toolbarBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
+void ui_color_toolbarText(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
+void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
+
+
+
+void ui_internals_createColors(t_ui* obj)
+{
+	uiInternalObject	*anObject;
+	
+	anObject = new uiInternalObject("jcom.parameter", "view/color/contentBackground", obj->box.b_patcher, "msg_list", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject->setAction((method)ui_color_contentBackground, (t_object*)obj);
+	hashtab_store(obj->hash_internals, gensym("view/color/contentBackground"), (t_object*)anObject);
+	
+	anObject = new uiInternalObject("jcom.parameter", "view/color/toolbarBackground", obj->box.b_patcher, "msg_list", "none", "The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject->setAction((method)ui_color_toolbarBackground, (t_object*)obj);
+	hashtab_store(obj->hash_internals, gensym("view/color/toolbarBackground"), (t_object*)anObject);
+	
+	anObject = new uiInternalObject("jcom.parameter", "view/color/toolbarText", obj->box.b_patcher, "msg_list", "none", "The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject->setAction((method)ui_color_toolbarText, (t_object*)obj);
+	hashtab_store(obj->hash_internals, gensym("view/color/toolbarText"), (t_object*)anObject);
+	
+	anObject = new uiInternalObject("jcom.parameter", "view/color/border", obj->box.b_patcher, "msg_list", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
+	anObject->setAction((method)ui_color_border, (t_object*)obj);
+	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
+}
 
 
 void ui_internals_destroy(t_ui *obj)
@@ -83,6 +110,32 @@ void ui_preview(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
 	obj->attr_ispreviewing = atom_getlong(argv);
 	jbox_redraw(&obj->box);
 }
+
+
+void ui_color_contentBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	object_attr_setvalueof(obj, _sym_bgcolor, argc, argv);
+}
+
+
+void ui_color_toolbarBackground(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	object_attr_setvalueof(obj, gensym("headercolor"), argc, argv);
+}
+
+
+void ui_color_toolbarText(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	object_attr_setvalueof(obj, _sym_textcolor, argc, argv);
+}
+
+
+void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv)
+{
+	object_attr_setvalueof(obj, gensym("bordercolor"), argc, argv);
+}
+
+
 
 
 t_max_err attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv)

@@ -36,12 +36,6 @@
 // class variables
 static t_class		*s_ui_class = NULL;
 
-//static t_jrgba		s_color_text				= {0.65,		0.65,		0.65,		1.0};
-
-//now x->bgcolor
-//static t_jrgba		s_color_background_audio	= {0.141176,	0.141176,	0.141176,	1.0};
-//static t_jrgba		s_color_titlebar_audio		= {0.0,			0.0,		0.0,		1.0};
-//static t_jrgba		s_color_border_audio		= {0.2,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_background_button	= {0.2,			0.2,		0.2,		1.0};
 static t_jrgba		s_color_border_button		= {0.4,			0.4,		0.4,		1.0};
 static t_jrgba		s_color_text_button_on		= {0.7,			0.7,		0.7,		1.0};
@@ -220,7 +214,6 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 {
 	t_ui			*x = NULL;
 	t_dictionary 	*d = NULL;
-//	t_object 		*textfield = NULL; 
 	long 			flags;
 	t_atom			a[2];
 
@@ -250,16 +243,7 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 		atom_setobj(a+1, x->box.b_patcher);
 		jcom_core_loadextern(gensym("jcom.remote"), 2, a, &x->obj_remote);
 		object_method(x->obj_remote, gensym("setcallback"), ui_remote_callback, x);
-/*		
-		textfield = jbox_get_textfield((t_object*) x); 
-		textfield_set_noactivate(textfield, 1);
-		textfield_set_readonly(textfield, 1);
-		textfield_set_editonclick(textfield, 0);
-		textfield_set_wordwrap(textfield, 0);
-		textfield_set_useellipsis(textfield, 1); 
-		textfield_set_textcolor(textfield, &s_light_gray);
-		textfield_set_textmargins(textfield, 20.0, 2.0, 60.0, 51.0);
-*/
+
 		attr_dictionary_process(x, d); 					// handle attribute args
 		jbox_ready(&x->box);
 		
@@ -268,6 +252,8 @@ t_ui* ui_new(t_symbol *s, long argc, t_atom *argv)
 
 		x->refmenu_items = (t_linklist *)linklist_new();
 		x->refmenu_qelem = qelem_new(x, (method)ui_refmenu_qfn);
+		
+		ui_internals_createColors(x);
 	}
 	return x;
 }

@@ -106,6 +106,7 @@ void		ui_refmenu_do(t_ui *x, t_object *patcherview, t_pt px, long modifiers);
 void 		ui_refmenu_qfn(t_ui *x);
 void 		ui_refmenu_build(t_ui *x);
 // prototypes: internal parameters
+void		ui_internals_createColors(t_ui* obj);
 void		ui_internals_destroy(t_ui *x);
 t_max_err	attr_set_mute(t_ui *obj, void *attr, long argc, t_atom *argv);
 t_max_err	attr_set_bypass(t_ui *obj, void *attr, long argc, t_atom *argv);
