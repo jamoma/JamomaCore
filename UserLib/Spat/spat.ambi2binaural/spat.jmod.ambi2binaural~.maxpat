@@ -1,1 +1,439 @@
-max v2;#N vpatcher 384 56 1273 620;#P window setfont "Sans Serif" 9.;#P hidden newex 418 232 47 196617 pcontrol;#N vpatcher 10 59 370 321;#P window setfont "Sans Serif" 9.;#P newex 132 50 134 196617 jcom.oscroute /audio/mute;#P outlet 170 159 15 0;#P newex 132 74 31 196617 == 0;#P message 132 95 62 196617 enable \$1 1;#P newex 50 50 78 196617 jcom.pass open;#P inlet 50 30 15 0;#P outlet 50 158 15 0;#P outlet 132 158 15 0;#P connect 2 0 3 0;#P fasten 7 1 1 0 261 145 55 145;#P connect 3 1 7 0;#P connect 7 0 5 0;#P connect 5 0 4 0;#P connect 3 0 0 0;#P connect 4 0 0 0;#P connect 4 0 6 0;#P pop;#P hidden newobj 327 198 91 196617 p wiev_and_mute;#N vpatcher 38 82 638 482;#P window setfont "Sans Serif" 9.;#P newex 233 88 126 196617 jcom.sur.ambi.getW~.mxt;#P newex 233 286 36 196617 pass~;#P outlet 233 324 15 0;#P inlet 61 61 15 0;#P user gain~ 233 150 24 100 158 0 1.071519 7.94321 10.;#P inlet 233 61 15 0;#P newex 61 117 126 196617 jcom.oscroute /gain/midi;#P connect 3 0 0 0;#P connect 1 0 6 0;#P connect 0 0 2 0;#P connect 6 0 2 0;#P connect 2 0 5 0;#P connect 5 0 4 0;#P pop;#P hidden newobj 418 253 74 196617 p display_gain;#P hidden message 101 114 191 196617 /preset/store 1 default \, /preset/write;#B color 3;#P hidden message 109 136 125 196617 /documentation/generate;#B color 3;#P hidden message 240 136 31 196617 /init;#P hidden newex 367 232 47 196617 pcontrol;#P hidden inlet 546 149 15 0;#P hidden outlet 459 371 15 0;#P hidden outlet 393 371 15 0;#P hidden newex 327 177 43 196617 jcom.in;#P window setfont "Sans Serif" 10.;#P user umenu 12 37 79 196651 1 64 54 1;#X add KEMAR;#X add 1002;#X add 1003;#X add 1004;#X add 1005;#X add 1006;#X add 1007;#X add 1008;#X add 1009;#X add 1012;#X add 1013;#X add 1014;#X add 1015;#X add 1016;#X add 1017;#X add 1018;#X add 1020;#X add 1021;#X add 1022;#X add 1023;#X add 1025;#X add 1026;#X add 1028;#X add 1029;#X add 1030;#X add 1031;#X add 1032;#X add 1033;#X add 1034;#X add 1037;#X add 1038;#X add 1039;#X add 1040;#X add 1041;#X add 1042;#X add 1043;#X add 1044;#X add 1045;#X add 1046;#X add 1047;#X add 1048;#X add 1049;#X add 1050;#X add 1051;#X add 1052;#X add 1053;#X add 1054;#X add 1055;#X add 1056;#X add 1057;#X add 1058;#X add 1059;#P objectname HeadMenu;#P window setfont "Sans Serif" 9.;#P window linecount 2;#P hidden message 76 321 65 196617 \; max refresh;#P window linecount 1;#P hidden newex 311 51 87 196617 pvar HeadMenu 2;#P window linecount 3;#P hidden newex 0 164 303 196617 jcom.hub spat.jmod.ambi2binaural~ @size 1U-half @module_type audio.ambisonic @description "Convert 1st order ambisonic b-format signal to binaural for play back over headphones.";#P objectname jmod.hub;#P window linecount 1;#P hidden comment 14 115 79 196617 command input;#P hidden inlet 0 115 13 0;#P hidden newex 311 76 346 196617 jcom.parameter head @type msg_symbol @description "transfer function";#P objectname jmod.parameter;#P comment 12 22 148 196617 Head-related transfer function;#B frgb 172 172 172;#P hidden newex 327 306 143 196617 spat.jalg.ambi2binaural~.mxt;#P hidden outlet 0 301 13 0;#P hidden comment 372 391 101 196617 ---signal outputs---;#P hidden comment 418 275 362 196617 This should have been connected to the meter in jcom.gui.ambi-component.mxt;#P bpatcher 0 0 256 60 0 0 jcom.gui.mxt 0;#P objectname jmod.gui;#P hidden fasten 20 0 9 0 106 157 5 157;#P hidden fasten 18 0 9 0 245 157 5 157;#P hidden fasten 19 0 9 0 114 157 5 157;#P hidden connect 7 0 9 0;#P hidden connect 9 0 3 0;#P lcolor 6;#P hidden fasten 6 0 10 0 316 98 303 98 303 45 316 45;#P hidden fasten 10 1 6 0 393 72 316 72;#P hidden connect 13 0 22 0;#P hidden connect 22 0 4 0;#P hidden fasten 17 0 4 0 372 260 332 260;#P hidden fasten 9 1 4 0 298 238 332 238;#P hidden connect 22 1 17 0;#P hidden connect 4 1 14 0;#P hidden connect 22 2 23 0;#P hidden connect 23 0 21 0;#P hidden connect 4 2 15 0;#P hidden fasten 16 0 4 1 551 302 465 302;#P hidden connect 16 0 21 1;#P pop;
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"rect" : [ 62.0, 173.0, 1145.0, 614.0 ],
+		"bglocked" : 0,
+		"defrect" : [ 62.0, 173.0, 1145.0, 614.0 ],
+		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+		"openinpresentation" : 1,
+		"default_fontsize" : 10.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Verdana",
+		"gridonopen" : 0,
+		"gridsize" : [ 5.0, 5.0 ],
+		"gridsnaponopen" : 0,
+		"toolbarvisible" : 1,
+		"boxanimatetime" : 200,
+		"imprint" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.out~ 2",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "signal", "signal", "" ],
+					"id" : "obj-29",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 395.0, 335.0, 73.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.meter_receive 2",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"id" : "obj-51",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 400.0, 490.0, 141.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.meter_receive 1",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"id" : "obj-26",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 400.0, 445.0, 141.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "jcom.meter~",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"presentation_rect" : [ 183.0, 10.0, 80.0, 4.0 ],
+					"id" : "obj-27",
+					"patching_rect" : [ 400.0, 515.0, 80.0, 4.0 ],
+					"presentation" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "jcom.meter~",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"presentation_rect" : [ 183.0, 5.0, 80.0, 4.0 ],
+					"id" : "obj-28",
+					"patching_rect" : [ 400.0, 470.0, 80.0, 4.0 ],
+					"presentation" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "message",
+					"text" : "/preset/store 1 default, /preset/write",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"id" : "obj-4",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 152.0, 118.0, 213.0, 17.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "message",
+					"text" : "/documentation/generate",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"id" : "obj-5",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 170.0, 140.0, 140.0, 17.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "inlet",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"id" : "obj-8",
+					"patching_rect" : [ 515.0, 250.0, 25.0, 25.0 ],
+					"comment" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"id" : "obj-9",
+					"patching_rect" : [ 425.0, 365.0, 24.0, 24.0 ],
+					"comment" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"id" : "obj-10",
+					"patching_rect" : [ 395.0, 365.0, 24.0, 24.0 ],
+					"comment" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.in~",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"id" : "obj-11",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 395.0, 255.0, 56.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "umenu",
+					"varname" : "HeadMenu",
+					"numinlets" : 1,
+					"items" : [ "KEMAR", ",", 1002, ",", 1003, ",", 1004, ",", 1005, ",", 1006, ",", 1007, ",", 1008, ",", 1009, ",", 1012, ",", 1013, ",", 1014, ",", 1015, ",", 1016, ",", 1017, ",", 1018, ",", 1020, ",", 1021, ",", 1022, ",", 1023, ",", 1025, ",", 1026, ",", 1028, ",", 1029, ",", 1030, ",", 1031, ",", 1032, ",", 1033, ",", 1034, ",", 1037, ",", 1038, ",", 1039, ",", 1040, ",", 1041, ",", 1042, ",", 1043, ",", 1044, ",", 1045, ",", 1046, ",", 1047, ",", 1048, ",", 1049, ",", 1050, ",", 1051, ",", 1052, ",", 1053, ",", 1054, ",", 1055, ",", 1056, ",", 1057, ",", 1058, ",", 1059 ],
+					"numoutlets" : 3,
+					"presentation_rect" : [ 15.0, 45.0, 79.0, 19.0 ],
+					"outlettype" : [ "int", "", "" ],
+					"id" : "obj-12",
+					"fontname" : "Verdana",
+					"types" : [  ],
+					"arrowlink" : 1,
+					"patching_rect" : [ 350.0, 45.0, 79.0, 19.0 ],
+					"labelclick" : 1,
+					"presentation" : 1,
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"varname" : "jmod.hub",
+					"text" : "jcom.hub @description \"Convert 1st order ambisonic b-format signal to binaural for play back over headphones.\"",
+					"linecount" : 2,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"id" : "obj-15",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 5.0, 170.0, 318.0, 31.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "command input",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-16",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 34.0, 115.0, 87.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "inlet",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"id" : "obj-17",
+					"patching_rect" : [ 5.0, 115.0, 25.0, 25.0 ],
+					"comment" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"varname" : "jmod.parameter",
+					"text" : "jcom.parameter head @type msg_symbol @description \"Head-related transfer function.\"",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"id" : "obj-18",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 350.0, 75.0, 458.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "Head-related transfer function",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"presentation_rect" : [ 15.0, 25.0, 165.0, 19.0 ],
+					"id" : "obj-19",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 15.0, 25.0, 165.0, 19.0 ],
+					"presentation" : 1,
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "spat.jalg.ambi2binaural~",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"id" : "obj-20",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 395.0, 305.0, 137.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"id" : "obj-21",
+					"patching_rect" : [ 5.0, 305.0, 25.0, 25.0 ],
+					"comment" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "---signal outputs---",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-22",
+					"fontname" : "Verdana",
+					"patching_rect" : [ 375.0, 400.0, 112.0, 19.0 ],
+					"fontsize" : 10.0
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "jcom.ui",
+					"text" : "/editing_this_module",
+					"numinlets" : 1,
+					"has_mute" : 1,
+					"numoutlets" : 1,
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"outlettype" : [ "" ],
+					"id" : "obj-25",
+					"has_meters" : 1,
+					"has_gain" : 1,
+					"presentation" : 1
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"source" : [ "obj-11", 0 ],
+					"destination" : [ "obj-20", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-8", 0 ],
+					"destination" : [ "obj-20", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-29", 1 ],
+					"destination" : [ "obj-9", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-29", 0 ],
+					"destination" : [ "obj-10", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-20", 1 ],
+					"destination" : [ "obj-29", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-20", 0 ],
+					"destination" : [ "obj-29", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-26", 0 ],
+					"destination" : [ "obj-28", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-51", 0 ],
+					"destination" : [ "obj-27", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-12", 2 ],
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 419.5, 69.0, 359.5, 69.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-18", 0 ],
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 359.5, 99.0, 332.0, 99.0, 332.0, 40.0, 359.5, 40.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-4", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 161.5, 157.0, 14.5, 157.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-5", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 179.5, 157.0, 14.5, 157.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-17", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-15", 0 ],
+					"destination" : [ "obj-21", 0 ],
+					"hidden" : 0,
+					"color" : [ 1.0, 0.890196, 0.090196, 1.0 ],
+					"midpoints" : [  ]
+				}
+
+			}
+ ]
+	}
+
+}

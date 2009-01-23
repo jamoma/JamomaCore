@@ -1,1 +1,554 @@
-max v2;#N vpatcher 32 82 592 635;#P window setfont "Sans Serif" 9.;#P window linecount 2;#P hidden message 160 167 70 196617 \; max refresh;#P window linecount 1;#N vpatcher 20 74 620 474;#P window setfont "Sans Serif" 9.;#P newex 50 50 50 196617 deferlow;#P newex 50 70 61 196617 delay 2500;#P newex 50 90 50 196617 deferlow;#P inlet 50 30 15 0;#P outlet 50 112 15 0;#P connect 1 0 4 0;#P connect 4 0 3 0;#P connect 3 0 2 0;#P connect 2 0 0 0;#P pop;#P newobj 23 136 60 196617 p slow_init;#P message 106 165 50 196617 /order 1;#P hidden newex 91 466 68 196617 loadmess set;#P window linecount 0;#P message 23 485 169 196617;#P window linecount 1;#P newex 23 466 62 196617 prepend set;#P comment 17 52 300 196617 Binaural decoding of 1st order (B-format) ambisonic signal.;#B frgb 255 255 255;#P window setfont "Sans Serif" 18.;#P comment 16 21 258 196626 spat.jmod.ambi2binaural~;#B frgb 255 255 255;#P user panel 10 10 374 63;#X brgb 67 65 107;#X frgb 128 11 10;#X border 0;#X rounded 0;#X shadow 0;#X done;#P window setfont "Sans Serif" 9.;#P message 406 464 30 196617 open;#P message 406 446 67 196617 startwindow;#P newex 23 416 112 196617 jcom.ambimonitor2aed;#P newex 23 116 48 196617 loadbang;#P window linecount 3;#P message 23 165 80 196617 aed 1 -60. 0. 8 \, aed 2 0 0. 8 \, aed 3 60. 0. 8;#P user ambimonitor 23 211 200 200 0 1 1 0 0 0;#X rgb1 0 0 0;#X rgb2 0 0 0;#X rgb3 0 0 0;#X rgb4 235 235 117;#X rgb5 196 196 196;#X rgb6 255 255 255;#X rgb7 176 176 243;#X rgb8 117 117 255;#P user ezdac~ 359 446 403 479 0;#P bpatcher 237 223 255 60 0 0 jmod.sur.multi.in~.mxt 0 /multi_in;#P bpatcher 237 299 255 60 0 0 jmod.sur.ambi.encodeM~.mxt 0 /ambi_encode~;#P window linecount 1;#P hidden newex 483 162 21 196617 t 1;#P toggle 438 141 15 0;#P message 454 141 64 196617 open \, loop 1;#N sfplay~  1 120960 0 ;#P newobj 438 162 44 196617 sfplay~;#P hidden newex 390 163 21 196617 t 1;#P toggle 345 142 15 0;#P message 361 142 64 196617 open \, loop 1;#N sfplay~  1 120960 0 ;#P newobj 345 163 44 196617 sfplay~;#P hidden newex 297 164 21 196617 t 1;#P toggle 252 143 15 0;#P message 268 143 64 196617 open \, loop 1;#N sfplay~  1 120960 0 ;#P newobj 252 164 44 196617 sfplay~;#P bpatcher 237 366 255 60 0 0 spat.jmod.ambi2binaural~.mxt 0 /ambi2binaural~;#P objectname jmod.ambi2binaural~.mod;#P comment 17 89 484 196617 The /head message can be used to coose between different head-related transfer functions (HRTF).;#P connect 19 0 30 0;#P connect 30 0 18 0;#P connect 18 0 17 0;#P connect 17 0 20 0;#P fasten 1 0 26 0 242 460 28 460;#P hidden fasten 28 0 27 0 96 482 28 482;#P connect 26 0 27 0;#P fasten 30 0 29 0 28 158 111 158;#P hidden fasten 30 0 31 0 28 158 113 158 113 158 165 158;#P fasten 20 0 14 0 28 438 229 438 229 296 242 296;#P lcolor 1;#P fasten 29 0 14 0 111 188 229 188 229 294 242 294;#P lcolor 1;#P hidden fasten 5 0 4 0 302 182 333 182 333 140 257 140;#P hidden connect 3 0 2 0;#P connect 4 0 2 0;#P connect 2 0 15 1;#P fasten 6 0 15 2 350 198 272 198;#P fasten 10 0 15 3 443 207 287 207;#P hidden fasten 3 0 5 0 273 161 302 161;#P hidden fasten 9 0 8 0 395 182 426 182 426 139 350 139;#P hidden connect 7 0 6 0;#P connect 8 0 6 0;#P hidden connect 21 0 16 0;#P hidden connect 22 0 16 0;#P connect 1 1 16 0;#P hidden fasten 7 0 9 0 366 160 395 160;#P fasten 1 2 16 1 486 435 398 435;#P hidden fasten 13 0 12 0 488 181 519 181 519 138 443 138;#P hidden connect 11 0 10 0;#P connect 12 0 10 0;#P connect 15 1 14 1;#P connect 14 1 1 1;#P hidden fasten 11 0 13 0 459 159 488 159;#P pop;
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"rect" : [ 32.0, 82.0, 1222.0, 788.0 ],
+		"bglocked" : 0,
+		"defrect" : [ 32.0, 82.0, 1222.0, 788.0 ],
+		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+		"openinpresentation" : 0,
+		"default_fontsize" : 10.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Verdana",
+		"gridonopen" : 0,
+		"gridsize" : [ 5.0, 5.0 ],
+		"gridsnaponopen" : 0,
+		"toolbarvisible" : 1,
+		"boxanimatetime" : 200,
+		"imprint" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"maxclass" : "message",
+					"text" : "/aed 1 -28.227226 0. 0.703683 1",
+					"linecount" : 2,
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ],
+					"id" : "obj-30",
+					"patching_rect" : [ 30.0, 560.0, 169.0, 29.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 2
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "bpatcher",
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"id" : "obj-28",
+					"patching_rect" : [ 290.0, 550.0, 300.0, 140.0 ],
+					"name" : "jmod.output~.maxpat",
+					"numinlets" : 3,
+					"args" : [ "/output~" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "bpatcher",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"presentation_rect" : [ 701.0, 367.0, 300.0, 140.0 ],
+					"id" : "obj-19",
+					"patching_rect" : [ 710.0, 550.0, 300.0, 140.0 ],
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"args" : [ "/source.3~" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "bpatcher",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"presentation_rect" : [ 701.0, 199.0, 300.0, 140.0 ],
+					"id" : "obj-11",
+					"patching_rect" : [ 710.0, 360.0, 300.0, 140.0 ],
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"args" : [ "/source.2~" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "bpatcher",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"id" : "obj-10",
+					"patching_rect" : [ 710.0, 165.0, 300.0, 140.0 ],
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"args" : [ "/source.1~" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "p slow_init",
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ],
+					"id" : "obj-2",
+					"patching_rect" : [ 25.0, 175.0, 67.0, 19.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 1,
+					"patcher" : 					{
+						"fileversion" : 1,
+						"rect" : [ 20.0, 74.0, 199.0, 233.0 ],
+						"bglocked" : 0,
+						"defrect" : [ 20.0, 74.0, 199.0, 233.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+						"openinpresentation" : 0,
+						"default_fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"gridonopen" : 0,
+						"gridsize" : [ 5.0, 5.0 ],
+						"gridsnaponopen" : 0,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"maxclass" : "newobj",
+									"text" : "deferlow",
+									"numoutlets" : 1,
+									"fontsize" : 10.0,
+									"outlettype" : [ "" ],
+									"id" : "obj-1",
+									"patching_rect" : [ 45.0, 65.0, 53.0, 19.0 ],
+									"fontname" : "Verdana",
+									"numinlets" : 1
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"maxclass" : "newobj",
+									"text" : "delay 2500",
+									"numoutlets" : 1,
+									"fontsize" : 10.0,
+									"outlettype" : [ "bang" ],
+									"id" : "obj-2",
+									"patching_rect" : [ 45.0, 90.0, 66.0, 19.0 ],
+									"fontname" : "Verdana",
+									"numinlets" : 2
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"maxclass" : "newobj",
+									"text" : "deferlow",
+									"numoutlets" : 1,
+									"fontsize" : 10.0,
+									"outlettype" : [ "" ],
+									"id" : "obj-3",
+									"patching_rect" : [ 45.0, 115.0, 53.0, 19.0 ],
+									"fontname" : "Verdana",
+									"numinlets" : 1
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"maxclass" : "inlet",
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"id" : "obj-4",
+									"patching_rect" : [ 45.0, 25.0, 25.0, 25.0 ],
+									"numinlets" : 0,
+									"comment" : ""
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"maxclass" : "outlet",
+									"numoutlets" : 0,
+									"id" : "obj-5",
+									"patching_rect" : [ 45.0, 145.0, 25.0, 25.0 ],
+									"numinlets" : 1,
+									"comment" : ""
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"source" : [ "obj-3", 0 ],
+									"destination" : [ "obj-5", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"source" : [ "obj-2", 0 ],
+									"destination" : [ "obj-3", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"source" : [ "obj-1", 0 ],
+									"destination" : [ "obj-2", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"source" : [ "obj-4", 0 ],
+									"destination" : [ "obj-1", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ]
+								}
+
+							}
+ ]
+					}
+,
+					"saved_object_attributes" : 					{
+						"default_fontface" : 0,
+						"default_fontname" : "Verdana",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontname" : "Verdana"
+					}
+
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "message",
+					"text" : "/order 1",
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ],
+					"id" : "obj-3",
+					"patching_rect" : [ 150.0, 225.0, 55.0, 17.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 2
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "message",
+					"text" : "/head KEMAR",
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ],
+					"id" : "obj-5",
+					"patching_rect" : [ 290.0, 475.0, 116.0, 17.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 2
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "Binaural decoding of 1st order (B-format) ambisonic signal.",
+					"numoutlets" : 0,
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-7",
+					"patching_rect" : [ 17.0, 52.0, 334.0, 19.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "spat.jmod.ambi2binaural~",
+					"numoutlets" : 0,
+					"fontsize" : 18.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-8",
+					"patching_rect" : [ 16.0, 21.0, 258.0, 28.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "panel",
+					"numoutlets" : 0,
+					"id" : "obj-9",
+					"patching_rect" : [ 10.0, 10.0, 374.0, 63.0 ],
+					"rounded" : 15,
+					"numinlets" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "jcom.ambimonitor2aed",
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ],
+					"id" : "obj-12",
+					"patching_rect" : [ 25.0, 520.0, 125.0, 19.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "newobj",
+					"text" : "loadbang",
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
+					"outlettype" : [ "bang" ],
+					"id" : "obj-13",
+					"patching_rect" : [ 25.0, 150.0, 54.0, 19.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "message",
+					"text" : "aed 1 -60. 0. 8, aed 2 0 0. 8, aed 3 60. 0. 8",
+					"linecount" : 3,
+					"numoutlets" : 1,
+					"fontsize" : 10.0,
+					"outlettype" : [ "" ],
+					"id" : "obj-14",
+					"patching_rect" : [ 25.0, 225.0, 92.0, 41.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 2
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "ambimonitor",
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"id" : "obj-15",
+					"patching_rect" : [ 25.0, 275.0, 200.0, 200.0 ],
+					"numinlets" : 1
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "bpatcher",
+					"numoutlets" : 2,
+					"lockeddragscroll" : 1,
+					"outlettype" : [ "", "" ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"id" : "obj-17",
+					"patching_rect" : [ 290.0, 170.0, 300.0, 70.0 ],
+					"name" : "jmod.sur.multi.in~.maxpat",
+					"numinlets" : 33,
+					"args" : [ "/multi_in" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "bpatcher",
+					"numoutlets" : 2,
+					"lockeddragscroll" : 1,
+					"outlettype" : [ "", "" ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"id" : "obj-18",
+					"patching_rect" : [ 290.0, 275.0, 300.0, 70.0 ],
+					"name" : "jmod.sur.ambi.encodeM~.maxpat",
+					"numinlets" : 2,
+					"args" : [ "/ambi_encode~" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "bpatcher",
+					"varname" : "jmod.ambi2binaural~.mod",
+					"numoutlets" : 3,
+					"lockeddragscroll" : 1,
+					"outlettype" : [ "", "signal", "signal" ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"id" : "obj-31",
+					"patching_rect" : [ 290.0, 390.0, 300.0, 70.0 ],
+					"name" : "spat.jmod.ambi2binaural~.maxpat",
+					"numinlets" : 2,
+					"args" : [ "/ambi2binaural~" ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "The /head message can be used to coose between different head-related transfer functions (HRTF).",
+					"numoutlets" : 0,
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-32",
+					"patching_rect" : [ 17.0, 85.0, 537.0, 19.0 ],
+					"fontname" : "Verdana",
+					"numinlets" : 1
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"source" : [ "obj-12", 0 ],
+					"destination" : [ "obj-30", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 34.5, 549.0, 189.5, 549.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-15", 0 ],
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-3", 0 ],
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 159.5, 252.0, 299.5, 252.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-19", 1 ],
+					"destination" : [ "obj-17", 3 ],
+					"hidden" : 0,
+					"midpoints" : [ 860.0, 700.0, 1063.0, 700.0, 1063.0, 148.0, 325.84375, 148.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-11", 1 ],
+					"destination" : [ "obj-17", 2 ],
+					"hidden" : 0,
+					"midpoints" : [ 860.0, 510.0, 1052.0, 510.0, 1052.0, 140.0, 317.0625, 140.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-10", 1 ],
+					"destination" : [ "obj-17", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 860.0, 315.0, 1042.0, 315.0, 1042.0, 132.0, 308.28125, 132.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-31", 2 ],
+					"destination" : [ "obj-28", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-31", 1 ],
+					"destination" : [ "obj-28", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-31", 0 ],
+					"destination" : [ "obj-5", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 299.5, 467.0, 396.5, 467.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-18", 1 ],
+					"destination" : [ "obj-31", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-17", 1 ],
+					"destination" : [ "obj-18", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-2", 0 ],
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 34.5, 203.0, 159.5, 203.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-14", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-2", 0 ],
+					"destination" : [ "obj-14", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-13", 0 ],
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+ ]
+	}
+
+}
