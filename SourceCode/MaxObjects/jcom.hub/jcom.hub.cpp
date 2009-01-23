@@ -375,6 +375,10 @@ t_symbol* hub_subscribe(t_hub *x, t_symbol *name, t_object *subscriber_object, t
 		return _sym_nothing;
 	}
 	
+	// if this object has been previously subscribed, we remove it before adding it again
+	// perhaps we could just ignore the second subscription instead?  what about parameter renaming situations?
+	hub_unsubscribe(x, subscriber_object);
+	
 	// Create the new item
 	new_subscriber = (t_subscriber *)sysmem_newptr(sizeof(t_subscriber));
 	new_subscriber->object = subscriber_object;
