@@ -19,7 +19,7 @@
 				"box" : 				{
 					"maxclass" : "number",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 350.0, 245.0, 50.0, 19.0 ],
+					"patching_rect" : [ 220.0, 265.0, 50.0, 19.0 ],
 					"numinlets" : 1,
 					"id" : "obj-5",
 					"numoutlets" : 2,
@@ -33,7 +33,7 @@
 					"maxclass" : "message",
 					"text" : "/object.2 $1",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 350.0, 275.0, 72.0, 17.0 ],
+					"patching_rect" : [ 220.0, 295.0, 72.0, 17.0 ],
 					"numinlets" : 2,
 					"id" : "obj-7",
 					"numoutlets" : 1,
@@ -46,7 +46,7 @@
 				"box" : 				{
 					"maxclass" : "number",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 200.0, 245.0, 50.0, 19.0 ],
+					"patching_rect" : [ 70.0, 265.0, 50.0, 19.0 ],
 					"numinlets" : 1,
 					"id" : "obj-8",
 					"numoutlets" : 2,
@@ -60,7 +60,7 @@
 					"maxclass" : "message",
 					"text" : "/source.1/position $1",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 200.0, 275.0, 118.0, 17.0 ],
+					"patching_rect" : [ 70.0, 295.0, 118.0, 17.0 ],
 					"numinlets" : 2,
 					"id" : "obj-6",
 					"numoutlets" : 1,
@@ -74,7 +74,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.hub",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 70.0, 300.0, 57.0, 19.0 ],
+					"patching_rect" : [ 70.0, 355.0, 57.0, 19.0 ],
 					"numinlets" : 1,
 					"id" : "obj-3",
 					"numoutlets" : 2,
@@ -139,7 +139,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.parameter.array 4 source position @type msg_int @description Hello",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 70.0, 355.0, 385.0, 19.0 ],
+					"patching_rect" : [ 70.0, 410.0, 385.0, 19.0 ],
 					"numinlets" : 0,
 					"id" : "obj-2",
 					"numoutlets" : 0,
@@ -152,7 +152,7 @@
 					"maxclass" : "newobj",
 					"text" : "jcom.parameter.array 4 object @type msg_int @description Hello",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 70.0, 390.0, 340.0, 19.0 ],
+					"patching_rect" : [ 70.0, 445.0, 340.0, 19.0 ],
 					"numinlets" : 0,
 					"id" : "obj-1",
 					"numoutlets" : 0,
@@ -163,16 +163,7 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
+					"source" : [ "obj-7", 0 ],
 					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
@@ -190,8 +181,17 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
+					"source" : [ "obj-6", 0 ],
 					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-8", 0 ],
+					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
