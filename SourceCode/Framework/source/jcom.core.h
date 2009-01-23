@@ -18,6 +18,7 @@
 #include "ext_obex.h"
 #include "ext_critical.h"
 #include "z_dsp.h"
+#include "JamomaTypes.h"
 
 #ifdef WIN_VERSION
 #define snprintf _snprintf
@@ -202,9 +203,9 @@ t_max_err jcom_core_attr_setdescription(t_jcom_core_subscriber_extended *x, void
  * @param container pointer to patcher containg the parameter, in, out, etc.
  * @return a pointer to the hub object
  */
-t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type);
+JAMOMA_EXPORT t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type);
 
-t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type, t_object* hub);
+JAMOMA_EXPORT t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, t_symbol *object_type, t_object* hub);
 
 
 /** Unsubscribe a client from the hub.
