@@ -283,7 +283,7 @@ if  win32?
 	`cp #{@svn_root}../Modular/SourceCode/Framework/#{configuration}/JamomaModular.dll  #{@svn_root}../Modular/Jamoma/library/externals/JamomaModular.dll`
 else
 	build_project("#{@svn_root}../Modular/SourceCode/Framework", "Jamoma.xcodeproj", configuration, true)
-	copydir("#{@svn_root}../Modular/Jamoma/library/build/UninstalledProducts/Jamoma.framework", "/Library/Frameworks/Jamoma.framework")
+	copydir("#{@svn_root}../Modular/SourceCode/Framework/build/UninstalledProducts/Jamoma.framework", "/Library/Frameworks/Jamoma.framework")
 end
 
 ex_total, ex_count = get_count
@@ -301,6 +301,11 @@ build_dir("../Modular/SourceCode/MaxObjects", configuration, clean)
 ex_total, ex_count = get_count
 puts ""
 
+if  win32?
+else
+	copydir("#{@svn_root}../Modular/Jamoma/library/externals/mac/jcom.loader.mxo", "\"/Applications/Max5/Cycling '74/extensions/jcom.loader.mxo\"")
+end
+puts ""
 
 ###################################################################
 # FINISH UP
@@ -318,5 +323,4 @@ end
 close_logs
 puts ""
 exit 0;
-
 
