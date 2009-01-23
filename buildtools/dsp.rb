@@ -133,9 +133,9 @@ def build_xcode_project(projectdir, projectname, configuration, clean)
   out = ""
   err = ""
 
-  Open3.popen3("nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build") do |stdin, stdout, stderr|
+  Open3.popen3("nice xcodebuild -project #{projectname} -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build") do |stdin, stdout, stderr|
     if(@debug)
-      puts "nice xcodebuild -project #{projectname} -alltargets -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build"
+      puts "nice xcodebuild -project #{projectname} -configuration #{configuration} ZERO_LINK=\"NO\" #{"clean" if clean == true} build"
     end
     out = stdout.read
     err = stderr.read
