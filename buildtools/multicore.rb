@@ -264,6 +264,7 @@ if win32?
 	build_project("#{@svn_root}/library", "multicore.vcproj", configuration, true)
 else
 	build_project("#{@svn_root}/library", "multicore.xcodeproj", configuration, true)
+  copydir("#{@svn_root}/library/build/UninstalledProducts/JamomaMulticore.framework", "/Library/Frameworks/JamomaMulticore.framework")
 end
 
 ex_total, ex_count = get_count

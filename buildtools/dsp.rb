@@ -247,7 +247,7 @@ if win32?
 	`cp #{@svn_root}/../DSP/library/#{configuration}/JamomaDSP.dll           #{@svn_root}/../Modular/Jamoma/library/externals/JamomaDSP.dll`
 else
 	build_project("#{@svn_root}/library", "JamomaDSP.xcodeproj", configuration, true)
-  copydir("#{@svn_root}/library/UninstalledProducts/JamomaDSP.framework", "/Library/Frameworks/JamomaDSP.framework")
+  copydir("#{@svn_root}/library/build/UninstalledProducts/JamomaDSP.framework", "/Library/Frameworks/JamomaDSP.framework")
 end
 
 ex_total, ex_count = get_count
