@@ -30,7 +30,7 @@ RampUnit::RampUnit(const char* rampName, RampUnitCallback aCallbackMethod, void 
 
 RampUnit::~RampUnit()
 {
-	delete functionUnit;
+	TTObjectRelease(&functionUnit);
 	delete [] currentValue;
 	delete [] targetValue;
 	delete [] startValue;
@@ -50,12 +50,18 @@ void RampUnit::set(TTUInt32 newNumValues, TTFloat64 *newValues)
 
 TTErr RampUnit::setFunction(const TTValue& functionName)
 {
-	TTErr	err;
+	TTErr		err;
+	TTSymbolPtr	newFunctionName = NULL;
 	
-	attrFunction = functionName;
-	if(attrFunction == TT("none"))
-		attrFunction = TT("linear");
+	functionName.get(0, &newFunctionName);
 	
+	if(newFunctionName == TT("none"))
+		newFunctionName = TT("linear");
+	
+	if(newFunctionName == attrFunction)
+		return kTTErrNone;
+	
+	attrFunction = newFunctionName;
 	err = FunctionLib::createUnit(attrFunction, &functionUnit);
 	if(err)
 		logError("Jamoma ramp unit failed to load the requested FunctionUnit from TTBlue.");
