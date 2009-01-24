@@ -18,11 +18,11 @@
 		"boxes" : [ 			{
 				"box" : 				{
 					"maxclass" : "message",
-					"text" : "jcom.message.array",
+					"text" : "jcom.parameter.array",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 460.0, 620.0, 113.0, 17.0 ],
+					"patching_rect" : [ 445.0, 605.0, 119.0, 17.0 ],
 					"id" : "obj-46",
 					"numinlets" : 2,
 					"fontname" : "Verdana"
@@ -37,7 +37,7 @@
 					"hidden" : 1,
 					"outlettype" : [ "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 520.0, 565.0, 76.0, 19.0 ],
+					"patching_rect" : [ 505.0, 550.0, 76.0, 19.0 ],
 					"id" : "obj-47",
 					"numinlets" : 1,
 					"fontname" : "Verdana"
@@ -52,7 +52,7 @@
 					"hidden" : 1,
 					"outlettype" : [ "" ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 520.0, 590.0, 51.0, 19.0 ],
+					"patching_rect" : [ 505.0, 575.0, 51.0, 19.0 ],
 					"id" : "obj-48",
 					"numinlets" : 1,
 					"fontname" : "Verdana"
@@ -66,7 +66,7 @@
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 455.0, 600.0, 52.0, 19.0 ],
+					"patching_rect" : [ 440.0, 585.0, 52.0, 19.0 ],
 					"id" : "obj-72",
 					"numinlets" : 1,
 					"fontname" : "Verdana"
@@ -76,6 +76,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "message",
+					"text" : "/object.2 0.031",
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"fontsize" : 10.0,
@@ -228,7 +229,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "- an array of six parameters named /objetc.N",
+					"text" : "- an array of six messages named /objetc.N",
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
@@ -242,7 +243,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "- an array of four parameters named /source.N/position",
+					"text" : "- an array of four messages named /source.N/position",
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
@@ -256,12 +257,12 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "This comonent is a utility for creating an array of parameter instances in one go. Currently the number of instances can not be changed on the fly.",
+					"text" : "This comonent is a utility for creating an array of message instances in one go. Currently the number of instances can not be changed on the fly.",
 					"linecount" : 2,
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
-					"patching_rect" : [ 40.0, 90.0, 425.0, 31.0 ],
+					"patching_rect" : [ 40.0, 90.0, 464.0, 31.0 ],
 					"id" : "obj-10",
 					"numinlets" : 1,
 					"fontname" : "Verdana"
@@ -340,7 +341,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "jcom.parameter.array",
+					"text" : "jcom.message.array",
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 18.0,
@@ -354,7 +355,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "define an array of parameter instances",
+					"text" : "define an array of message instances",
 					"numoutlets" : 0,
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"fontsize" : 10.0,
@@ -391,10 +392,10 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter.array 4 source position @type msg_int @description Hello",
+					"text" : "jcom.message.array 4 source position @type msg_int @description Hello",
 					"numoutlets" : 0,
 					"fontsize" : 10.0,
-					"patching_rect" : [ 40.0, 205.0, 385.0, 19.0 ],
+					"patching_rect" : [ 40.0, 205.0, 378.0, 19.0 ],
 					"id" : "obj-2",
 					"numinlets" : 0,
 					"fontname" : "Verdana"
@@ -404,10 +405,10 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.parameter.array 6 object @type msg_float @description Hello",
+					"text" : "jcom.message.array 6 object @type msg_float @description Hello",
 					"numoutlets" : 0,
 					"fontsize" : 10.0,
-					"patching_rect" : [ 40.0, 235.0, 349.0, 19.0 ],
+					"patching_rect" : [ 40.0, 235.0, 343.0, 19.0 ],
 					"id" : "obj-1",
 					"numinlets" : 0,
 					"fontname" : "Verdana"
@@ -416,15 +417,6 @@
 			}
  ],
 		"lines" : [ 			{
-				"patchline" : 				{
-					"source" : [ "obj-46", 0 ],
-					"destination" : [ "obj-47", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
 				"patchline" : 				{
 					"source" : [ "obj-47", 0 ],
 					"destination" : [ "obj-48", 0 ],
@@ -435,8 +427,35 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-35", 0 ],
-					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-46", 0 ],
+					"destination" : [ "obj-47", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-3", 0 ],
+					"destination" : [ "obj-9", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 49.5, 530.0, 170.5, 530.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-8", 0 ],
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-6", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
@@ -453,28 +472,10 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
-					"destination" : [ "obj-3", 0 ],
+					"source" : [ "obj-35", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-3", 0 ],
-					"destination" : [ "obj-9", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 49.5, 530.0, 170.5, 530.0 ]
 				}
 
 			}
