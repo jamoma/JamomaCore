@@ -17,20 +17,6 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "voices 6",
-					"fontsize" : 10.0,
-					"patching_rect" : [ 310.0, 90.0, 51.0, 17.0 ],
-					"numinlets" : 2,
-					"id" : "obj-10",
-					"numoutlets" : 1,
-					"fontname" : "Verdana",
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
 					"text" : "zl slice 1",
 					"fontsize" : 10.0,
@@ -101,10 +87,10 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "poly~ jcom.parameter.array.instance #1 args #0_",
+					"text" : "jcom.parameter.array.instance #0_",
 					"fontsize" : 10.0,
-					"patching_rect" : [ 65.0, 235.0, 264.0, 19.0 ],
-					"numinlets" : 1,
+					"patching_rect" : [ 65.0, 235.0, 188.0, 19.0 ],
+					"numinlets" : 0,
 					"id" : "obj-1",
 					"numoutlets" : 0,
 					"fontname" : "Verdana"
@@ -114,34 +100,7 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
-					"destination" : [ "obj-1", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-2", 1 ],
-					"destination" : [ "obj-7", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-5", 0 ],
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
+					"source" : [ "obj-9", 1 ],
 					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
@@ -159,8 +118,26 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-9", 1 ],
+					"source" : [ "obj-7", 0 ],
 					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-5", 0 ],
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-2", 1 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
