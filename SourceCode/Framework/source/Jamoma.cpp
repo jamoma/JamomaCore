@@ -158,10 +158,7 @@ t_object* jamoma_object_getpatcher(t_object *obj)
 {
 	t_object *patcher = NULL;
 	
-	if(max5)
-		object_obex_lookup(obj, gensym("#P"), &patcher);
-	else
-		patcher = (t_object*)gensym("#P")->s_thing;
+	object_obex_lookup(obj, gensym("#P"), &patcher);
 	return patcher;
 }
 
@@ -187,27 +184,22 @@ t_symbol *jamoma_patcher_getcontext(t_object *patcher)
 // -- then the caller is responsible for freeing
 void jamoma_patcher_getargs(t_object *patcher, long *argc, t_atom **argv)
 {
-	if(max5){
-		t_symbol		*context = jamoma_patcher_getcontext(patcher);
-		t_object		*box = object_attr_getobj(patcher, jps_box);
-		t_object		*textfield = NULL;
-		char			*text = NULL;
-		unsigned long	textlen = 0;
+	t_symbol		*context = jamoma_patcher_getcontext(patcher);
+	t_object		*box = object_attr_getobj(patcher, jps_box);
+	t_object		*textfield = NULL;
+	char			*text = NULL;
+	unsigned long	textlen = 0;
 
-		if(context == gensym("bpatcher"))
-			object_attr_getvalueof(box, gensym("args"), argc, argv);
-		else if(context == gensym("subpatcher")){
-			textfield = object_attr_getobj(box, gensym("textfield"));
-			object_method(textfield, gensym("gettextptr"), &text, &textlen);
-			atom_setparse(argc, argv, text);
-		}
-		else{
-			*argc = 0;
-			*argv = NULL;
-		}
+	if(context == gensym("bpatcher"))
+		object_attr_getvalueof(box, gensym("args"), argc, argv);
+	else if(context == gensym("subpatcher")){
+		textfield = object_attr_getobj(box, gensym("textfield"));
+		object_method(textfield, gensym("gettextptr"), &text, &textlen);
+		atom_setparse(argc, argv, text);
 	}
 	else{
-		error("This version of Jamoma requires Max 5");
+		*argc = 0;
+		*argv = NULL;
 	}
 }
 

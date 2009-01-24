@@ -24,17 +24,17 @@ t_object *jcom_core_subscribe(t_object *x, t_symbol *name, t_object *container, 
 	t_object	*hub = NULL;
 	
 again5:
-	box = object_attr_getobj(patcher, gensym("firstobject"));
+	box = object_attr_getobj(patcher, _sym_firstobject);
 	while(box){
-		objclass = object_attr_getsym(box, gensym("maxclass"));
+		objclass = object_attr_getsym(box, _sym_maxclass);
 		if(objclass == jps_jcom_hub){
 			hub = object_attr_getobj(box, _sym_object);
 			object_method(hub, jps_subscribe, name, x, object_type);
 			return hub;
 		}
-		box = object_attr_getobj(box, gensym("nextobject"));
+		box = object_attr_getobj(box, _sym_nextobject);
 	}
-	patcher = object_attr_getobj(patcher, gensym("parentpatcher"));
+	patcher = object_attr_getobj(patcher, _sym_parentpatcher);
 	if(patcher)
 		goto again5;
 
@@ -284,19 +284,15 @@ void jcom_core_subscriber_new_extended(t_jcom_core_subscriber_extended *x, t_sym
 // function for registering with the jcom.hub object
 void jcom_core_subscriber_subscribe(t_jcom_core_subscriber_common *x)
 {
-//	if(x->hub == NULL){			// do not allow multiple subscribes of this object 
-//		if(hub)
-//			x->hub = hub;
-		if(x->hub)
-			x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type, x->hub);
-		else
-			x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type);
-		if(x->hub){
-			x->module_name = (t_symbol *)object_method(x->hub, jps_core_module_name_get);
-			if(x->custom_subscribe)
-				x->custom_subscribe(x);
-		}
-//	}
+	if(x->hub)
+		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type, x->hub);
+	else
+		x->hub = jcom_core_subscribe((t_object*)x, x->attr_name, x->container, x->subscriber_type);
+	if(x->hub){
+		x->module_name = (t_symbol *)object_method(x->hub, jps_core_module_name_get);
+		if(x->custom_subscribe)
+			x->custom_subscribe(x);
+	}
 }
 
 

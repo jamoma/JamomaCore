@@ -97,6 +97,7 @@ typedef struct _hub{							///< Data Structure for this object
 
 /** The jcom.hub constructor */
 void*		hub_new(t_symbol *s, long argc, t_atom *argv);
+void		hub_subscriptions_refresh(t_hub *x);
 void		hub_examine_context(t_hub *x);
 
 

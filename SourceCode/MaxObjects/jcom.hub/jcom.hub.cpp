@@ -55,6 +55,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	class_addmethod(c, (method)hub_subscribe,			"subscribe",				A_CANT, 0L);	// client object subscribing
 	class_addmethod(c, (method)hub_unsubscribe,			"unsubscribe",				A_CANT, 0L);	// client object unsubscribing
+	class_addmethod(c, (method)hub_subscriptions_refresh,	"refreshSubscriptions",	0);
 	class_addmethod(c, (method)hub_receive,				"__feedback__",				A_GIMME, 0L);	// feedback from parameters and such
 	class_addmethod(c, (method)hub_private,				"private", 					A_GIMME, 0L);	// internal communications such as jcom.remote
 	class_addmethod(c, (method)hub_return,				"return",					A_GIMME, 0L);	// feedback from jcom.return
@@ -203,24 +204,23 @@ long hub_iterate_callback(t_hub *x, t_object *obj)
 	method		subscribeMethod = NULL;
 	//ObjectPtr	p = jbox_get_patcher(obj);
 	//SymbolPtr	s = jpatcher_get_name(p);
-	SymbolPtr	name = object_classname(obj);
+	//SymbolPtr	name = object_classname(obj);
 	
 	//object_post(ObjectPtr(x), "iterate: %s (in %s)", name->s_name, s);
 	
 	if(!object_classname_compare(obj, jps_jcom_hub)){
-		
-//		if(NOGOOD(obj))
-//			object_error(ObjectPtr(x), "bad object when iterating?");
-//		else{
-		if(name == gensym("jcom.ui"))
-			;
-		
-			subscribeMethod = zgetfn(obj, jps_subscribe);
-			if(subscribeMethod)
-				(*subscribeMethod)(obj);
-//		}
+		subscribeMethod = zgetfn(obj, jps_subscribe);
+		if(subscribeMethod)
+			(*subscribeMethod)(obj);
 	}
 	return 0;
+}
+
+void hub_subscriptions_refresh(t_hub *x)
+{
+	long result = 0;
+
+	object_method(x->container, _sym_iterate, (method)hub_iterate_callback, x, PI_DEEP, &result);
 }
 
 
@@ -232,7 +232,6 @@ void hub_examine_context(t_hub *x)
 	AtomCount	argc = 0;
 	AtomPtr		argv = NULL;
 	SymbolPtr	context = jamoma_patcher_getcontext(x->container);
-	long		result = 0;
 
 	// Try to get OSC Name of module from an argument
 	jamoma_patcher_getargs(x->container, &argc, &argv);	// <-- this call allocates memory for argv
@@ -297,7 +296,7 @@ void hub_examine_context(t_hub *x)
 
 	object_attr_setsym(x, _sym_name, x->osc_name);
 	
-	object_method(x->container, _sym_iterate, (method)hub_iterate_callback, x, PI_DEEP, &result);
+	hub_subscriptions_refresh(x);
 	hub_internals_create(x);
 
 	qelem_unset(x->init_qelem);		// clear the last thing to make sure we don't call into this a bunch of times
