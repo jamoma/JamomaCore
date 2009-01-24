@@ -2,7 +2,7 @@
  * jcom.init
  * External for Jamoma: send bang to initialize something
  *	bang source may be global or for just one module
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -111,5 +111,5 @@ void init_go(t_init *x)
 void init_bang(t_init *x)
 {
 	if(x->common.hub != NULL)
-		object_method(x->common.hub, jps_init);
+		object_method_typed(x->common.hub, jps_init, 0, NULL, NULL);
 }
