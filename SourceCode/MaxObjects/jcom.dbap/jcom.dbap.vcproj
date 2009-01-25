@@ -188,6 +188,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\dbap.h"
+				>
+			</File>
+			<File
+				RelativePath=".\hull2D.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -202,6 +210,10 @@
 			>
 			<File
 				RelativePath="$(ProjectDir)..\..\..\..\Tools\library\max-sdk\c74support\max-includes\common\commonsyms.c"
+				>
+			</File>
+			<File
+				RelativePath=".\hull2D.cpp"
 				>
 			</File>
 			<File

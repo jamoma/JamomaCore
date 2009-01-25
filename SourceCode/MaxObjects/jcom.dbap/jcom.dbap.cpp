@@ -1,189 +1,17 @@
 /* 
  * jcom.dbap
  * External for Jamoma: DBAP - Distance Based Amplitude Panning
- * By Trond Lossius, Copyright � 2008
+ * By Trond Lossius, Copyright 2008
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
 #include "Jamoma.h"
-
-// This seems to be the current restrictions of matrix~
-const long MAX_NUM_SOURCES = 250;
-const long MAX_NUM_DESTINATIONS = 500;
-
-//
-const long MAX_NUM_WEIGHTED_SOURCES = 64;
-const long MAX_NUM_WEIGHTED_DESTINATIONS = 32;
-
-const long MAX_SIZE_VIEW_X = 80;
-const long MAX_SIZE_VIEW_Y = 60;
-
-t_symbol		*ps_dst_position,
-				*ps_src_position,
-				*ps_src_gain,
-				*ps_src_mute;
-
-typedef struct _xyz{
-	float		x;										///< x position
-	float		y;										///< y position
-	float		z;										///< z position
-} t_xyz;												///< Cartesian coordinate of a point
-
-typedef struct _hull1{
-	float		min;									///< minimum x value
-	float		max;									///< maximum x value
-} t_hull1;												///< Convex hull in 1 dimension
-	
-typedef struct _dbap{									///< Data structure for this object 
-	t_object	ob;										///< Must always be the first field; used by Max
-	t_xyz		src_position[MAX_NUM_SOURCES];			///< Positions of the virtual source
-	float		blur[MAX_NUM_SOURCES];					///< Spatial bluriness ratio in percents for each source
-	float		src_gain[MAX_NUM_SOURCES];				///< Linear gain for each source, not yet used
-	float		src_weight[MAX_NUM_WEIGHTED_SOURCES][MAX_NUM_WEIGHTED_DESTINATIONS];///< Weight for each source for each destination 
-	float		src_not_muted[MAX_NUM_SOURCES];			///< Mute and unmute sources
-	float		master_gain;							///< Mater gain for all ofr the algorithm
-	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
-	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
-	t_hull1		hull1;									///< Convex hull in 1 dimension
-	float		variance;								///< Bias-corrected variance of distance from destination points to mean destination point
-	long		attr_dimensions;						///< Number of dimensions of the speaker and source system
-	float		attr_rolloff;							///< Set rolloff with distance in dB.
-	long		attr_num_sources;						///< number of active sources
-	long		attr_num_destinations;					///< number of active destinations
-
-	unsigned char view_matrix[MAX_SIZE_VIEW_X][MAX_SIZE_VIEW_Y]; ///< handle to the hitmap view matrix
-	long		attr_view_size[2];						///< size of the hitmap view window (pixel,pixel)
-	t_xyz		attr_view_start;						///< coordinate of the start point of the view
-	t_xyz		attr_view_end;							///< coordinate of the end point of the view
-	bool		attr_view_update;						///< IO the view updating
-	t_atom		last_view[2];							///< memorize the last view [dst src]
-	
-	float		a;										///< Constant: Exponent controlling amplitude dependance on distance. Depends on attr_rolloff
-	void		*outlet[2];								////< Pointer to outlets. Need one for each outlet
-} t_dbap;
-
-// Prototypes for methods: need a method for each incoming message
-
-void *dbap_new(t_symbol *msg, long argc, t_atom *argv);
-t_max_err dbap_setstep(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Set spatial blur for nth source. */
-void dbap_blur(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
-
-/** Set spatial blur for all sources. */
-void dbap_blurall(t_dbap *x, double f);
-
-/** Set the position of the nth virtual source. */
-void dbap_source(t_dbap *x, void *msg, long argc, t_atom *argv);
-
-/** Set the position of the nth speaker. */
-void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv);
-
-/** Set input gain for nth source. */
-void dbap_sourcegain(t_dbap *x, void *msg, long argc, t_atom *argv);
-
-/** Set master gain for all values passed from the object to matrix~. */
-void dbap_mastergain(t_dbap *x, double f);
-
-/** Set weight for nth source by passing a list to balance each destination. */
-void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
-
-/** Mute and unmute sources */
-void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv);
-
-/** Display a hitmap view of the dbap for a destination and a source weight config or all (on the info outlet ?) */
-void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv);
-
-/** Turn on/off the auto wiev updating */
-void dbap_view_update(t_dbap *x, long io);
-
-/** Set the size of hitmap view window */
-void dbap_view_size(t_dbap *x, long sizeX, long sizeY);
-
-/** Set the start point of the hitmap view window */
-void dbap_view_start(t_dbap *x, void *msg, long argc, t_atom *argv);
-
-/** Set the end point of the hitmap view window */
-void dbap_view_end(t_dbap *x, void *msg, long argc, t_atom *argv);
-
-/** Get info on destination setup ++ */
-void dbap_info(t_dbap *x);
-
-/** Display assist strings while patching. */
-void dbap_assist(t_dbap *x, void *b, long msg, long arg, char *dst);
-
-/** Set number of dimensions of the system. */
-t_max_err dbap_attr_setdimensions(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Set the number of sources of the system. */
-t_max_err dbap_attr_setnum_sources(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Set the number of destinations of the system. */
-t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Set spatial blur coefficient */
-t_max_err dbap_attr_setblur(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Set rolloff in dB */
-t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv);
-
-/** Calculation of exponent coefficient based on rolloff */
-void dbap_calculate_a(t_dbap *x);
-
-/** General method for calculation of matrix coefficient for nth source. */
-void dbap_calculate(t_dbap *x, long n);
-
-/** Calculate matrix coefficients for nth source: 1D space. */
-void dbap_calculate1D(t_dbap *x, long n);
-
-/** Calculate matrix coefficients for nth source: 2D space. */
-void dbap_calculate2D(t_dbap *x, long n);
-
-/** Calculate matrix coefficients for nth source: 3D space. */
-void dbap_calculate3D(t_dbap *x, long n);
-
-/** Calculate mean position of the destination points. */
-void dbap_calculate_mean_dst_position(t_dbap *x);
-
-/** Calculate bias-corrected variance of distance from destination points to mean destination point. */
-void dbap_calculate_variance(t_dbap *x);
-
-/** Calculate convex hull of space spanned by destination points. */ 
-void dbap_calculate_hull(t_dbap *x);
-
-/** Calculate convex hull of space spanned by destination points: 1D */
-void dbap_calculate_hull1D(t_dbap *x);
-
-/** Calculate convex hull of space spanned by destination points: 2D */
-void dbap_calculate_hull2D(t_dbap *x);
-
-/** Calculate convex hull of space spanned by destination points: 3D */
-void dbap_calculate_hull3D(t_dbap *x);
-
-/** Calculate the view (2D-matrix) */
-void dbap_calculate_view(t_dbap *x, long dst, long src);
-
-/** If the attr_view_update is true : calculate the last view */
-void dbap_update_view(t_dbap *x);
-
-/** Calculate the view (2D-matrix) : 1D */
-void dbap_calculate_view1D(t_dbap *x, long dst, long src);
-
-/** Calculate the view (2D-matrix) : 2D */
-void dbap_calculate_view2D(t_dbap *x, long dst, long src);
-
-/** Calculate the view (2D-matrix) : 3D */
-void dbap_calculate_view3D(t_dbap *x, long dst, long src);
-
-/** Output the calculated view */
-void dbap_output_view(t_dbap *x);
+#include "dbap.h"
 
 // Globals
 t_class		*this_class;				// Required. Global pointing to this class 
-
-
 
 /************************************************************************************/
 // Main() Function
@@ -221,7 +49,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	class_addmethod(c, (method)dbap_assist,				"assist",		A_CANT,		0);
 	class_addmethod(c, (method)dbap_info,				"info",			0);
-	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		0);  
+	class_addmethod(c, (method)object_obex_dumpout,		"dumpout",		0);
 
 	// Add attributes to our class:	
 	CLASS_ATTR_LONG(c,		"dimensions",		0,		t_dbap,	attr_dimensions);
@@ -734,7 +562,6 @@ t_max_err dbap_attr_setnum_sources(t_dbap *x, void *attr, long argc, t_atom *arg
 	return MAX_ERR_NONE;
 }
 
-
 // ATTRIBUTE: number of destinations
 t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
@@ -744,7 +571,7 @@ t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom
 		n = atom_getlong(argv);
 		if (n<0) 
 			n = 0;
-		if (n>MAX_NUM_DESTINATIONS) 
+		if (n>MAX_NUM_DESTINATIONS)
 			n = MAX_NUM_DESTINATIONS;		
 		x->attr_num_destinations = n;
 		// The set of destination points has been changed - recalculate blur radius.
@@ -1006,11 +833,96 @@ void dbap_calculate_hull1D(t_dbap *x)
 	x->hull1.max = max;
 }
 
-
-
+// TODO : a way to select dst
+// TODO : put the algotithm in hull2.cpp (keep it here while isn't tested to use post())
 void dbap_calculate_hull2D(t_dbap *x)
 {
-	// TODO: develop algorithm calculating convex hull in 2 dimensions
+	t_H2D h2;	//the data strucuture to perform calculation
+	long i,j;
+	long m;   /* Index of lowest so far. */
+
+	// post("h2D : Start -------------------------------------------------");
+
+	// Store dst coordinate to prepare algorithm
+	for(i = 0; i<x->attr_num_destinations; i++){
+		h2.point[i].v[X] = x->dst_position[i].x;
+		h2.point[i].v[Y] = x->dst_position[i].y;
+		h2.point[i].vnum = i;
+		h2.point[i].del = false;
+	}
+
+	// Find the lowest and rightmost Point
+	m = 0;
+	for(i = 1; i<x->attr_num_destinations; i++)
+		if (
+			(h2.point[i].v[Y] <  h2.point[m].v[Y]) 
+			|| ((h2.point[i].v[Y] == h2.point[m].v[Y])
+			&& (h2.point[i].v[X] > h2.point[m].v[X]))) 
+			m = i;
+
+	// Debug
+	//post("h2D : The lowest and rigthmost point is %d", m+1);
+
+	// Swap point[0] and point[m]
+	Swap(h2.point,0,m);
+
+	qsort_s(
+      &h2.point[1],					// pointer to 1st elem
+      x->attr_num_destinations-1,	// number of elems
+      sizeof(t_structPoint),		// size of each elem
+      Compare,						// -1,0,+1 compare function
+	  &h2						// pointer to the hull2 structure that the compare routine needs to access
+	);
+
+	// Remove all elements from point marked deleted
+	if(h2.nb_delete > 0){
+		i = 0;
+		j = 0;
+		while(i < x->attr_num_destinations){
+			if(!h2.point[i].del){		// if not marked for deletion
+				if (i != j){
+					Copy(h2.point,i,j);	// Copy point[i] to point[j]
+					Delete(h2.point,i);	// Delete point[i]
+				}
+				j++;
+			}
+			else Delete(h2.point,i);	// else Delete point[i]
+			i++;
+		}
+		h2.nb_point = j;
+	}
+
+	// Debug
+	//post("h2D : %d points sorted by angle",h2.nb_point);
+	//dbap_hull2_postpoint(x);
+	
+	h2.stack = Graham(h2);
+	
+	// Debug
+	post("h2D : Hull");
+
+	// store result in x->hull2
+	x->hull2.num_dst = 0;
+	if (h2.stack)
+		while(h2.stack) {
+			// Debug
+			post("vnum = %d, x = %f, y = %f", h2.stack->p->vnum+1,h2.stack->p->v[X],h2.stack->p->v[Y]);
+
+			x->hull2.id_dst[i] = h2.stack->p->vnum;
+			x->hull2.num_dst++;
+			h2.stack = h2.stack->next;
+   } // else do nothing
+}
+
+// Print point[] (debugging)
+void dbap_hull2_postpoint(t_dbap *x, t_H2D h2)
+{
+	long i;
+	post("H2D : %d points", h2.nb_point);
+	for(i = 0; i<x->attr_num_destinations; i++)
+		if(!h2.point[i].del)
+			post("vnum = %d, x = %f, y = %f", 
+			h2.point[i].vnum + 1, h2.point[i].v[X], h2.point[i].v[Y]);
 }
 
 void dbap_calculate_hull3D(t_dbap *x)
