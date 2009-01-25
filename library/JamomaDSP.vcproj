@@ -26,7 +26,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -112,7 +112,7 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Delete old DLL from Max&apos;s support folder."
-				CommandLine="if exist &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;D:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
+				CommandLine="if exist &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot; attrib -r -a &quot;C:\Program Files\Cycling &apos;74\Max 5.0\support\JamomaDSP.dll&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
