@@ -244,10 +244,10 @@ zero_count
 
 if win32?
 	build_project("#{@svn_root}/library", "JamomaDSP.vcproj", configuration, true)
-	`cp #{@svn_root}/../DSP/library/#{configuration}/JamomaDSP.dll           #{@svn_root}/../Modular/Jamoma/library/externals/JamomaDSP.dll`
+	copydir("#{@svn_root}/../DSP/library/#{configuration}/JamomaDSP.dll", "#{@svn_root}/../Modular/Jamoma/library/externals/JamomaDSP.dll")
 else
 	build_project("#{@svn_root}/library", "JamomaDSP.xcodeproj", configuration, true)
-  copydir("#{@svn_root}/library/build/UninstalledProducts/JamomaDSP.framework", "/Library/Frameworks/JamomaDSP.framework")
+  	copydir("#{@svn_root}/library/build/UninstalledProducts/JamomaDSP.framework", "/Library/Frameworks/JamomaDSP.framework")
 end
 
 ex_total, ex_count = get_count
@@ -258,7 +258,8 @@ zero_count
 build_dir("extensions", configuration, clean)  
 ex_total, ex_count = get_count
 if  win32?
-	`cp #{@svn_root}/extensions/builds/*.ttdll    #{@svn_root}/../Modular/Jamoma/library/externals/TTBlueExtensions/`
+	copydir("#{@svn_root}/../DSP/extensions/TTClipper/#{configuration}/TTClipper.ttdll",   "#{@svn_root}/../Modular/Jamoma/library/externals/TTBlueExtensions/TTClipper.ttdll")
+	copydir("#{@svn_root}/../DSP/extensions/TTFunctionLib/#{configuration}/TTFunctionLib.ttdll",    "#{@svn_root}/../Modular/Jamoma/library/externals/TTBlueExtensions/TTFunctionLib.ttdll")
 end
 puts ""
 
@@ -289,33 +290,19 @@ end
 
 puts ""
 
-if("#{configuration}" == "Development")
-  puts "copying Development"
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.balance~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.balance~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.dcblock~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.dcblock~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.degrade~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.degrade~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.filter~#{extension}",    "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.filter~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.gain~#{extension}",      "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.gain~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.limiter~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.limiter~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.overdrive~#{extension}", "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.overdrive~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.ramp~#{extension}",      "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.ramp~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.wavetable~#{extension}", "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.wavetable~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.xfade~#{extension}",     "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.xfade~#{extension}")
-  copydir("#{@svn_root}/examples/#{src_folder}/tt.zerox~#{extension}",     "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.zerox~#{extension}")
-else
-  puts "copying Deployment"
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.balance~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.balance~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.dcblock~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.dcblock~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.degrade~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.degrade~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.filter~#{extension}",    "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.filter~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.gain~#{extension}",      "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.gain~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.limiter~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.limiter~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.overdrive~#{extension}", "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.overdrive~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.ramp~#{extension}",      "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.ramp~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.wavetable~#{extension}", "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.wavetable~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.xfade~#{extension}",     "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.xfade~#{extension}")
-  copydir("#{@svn_root}../DSP/examples/#{src_folder}/tt.zerox~#{extension}",     "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.zerox~#{extension}")
-end
+puts "copying #{extension}"
+
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.balance~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.balance~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.dcblock~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.dcblock~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.degrade~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.degrade~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.filter~#{extension}",    "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.filter~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.gain~#{extension}",      "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.gain~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.limiter~#{extension}",   "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.limiter~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.overdrive~#{extension}", "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.overdrive~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.ramp~#{extension}",      "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.ramp~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.wavetable~#{extension}", "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.wavetable~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.xfade~#{extension}",     "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.xfade~#{extension}")
+copydir("#{@svn_root}/../DSP/examples/#{src_folder}/tt.zerox~#{extension}",     "#{@svn_root}/../Modular/Jamoma/library/externals/#{dst_folder}/tt.zerox~#{extension}")
 puts ""
 
 puts "copying help files"
