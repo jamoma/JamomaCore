@@ -226,6 +226,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\source\core\TTAudioSignalArray.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\includes\core\TTAudioSignalArray.h"
+				>
+			</File>
+			<File
 				RelativePath="..\source\core\TTBlue.cpp"
 				>
 			</File>
