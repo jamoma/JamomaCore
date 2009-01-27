@@ -34,8 +34,8 @@ not removed.
 
 /** Data structures to store a 2 dimensional convex hull */
 
-static const int X0;	// used in Compare
-static const int Y0;	// used in Compare
+//static const int X0;	// used in Compare
+//static const int Y0;	// used in Compare
 
 /*--------- Point(s) Structure ---------*/
 typedef float t_xy[2];	/* Type float point */
