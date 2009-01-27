@@ -55,27 +55,27 @@ Compare: returns -1,0,+1 if p1 < p2, =, or > respectively;
 here "<" means smaller angle.  Follows the conventions of qsort_s
 (with a pointer to contextual hull data).
 ---------------------------------------------------------------------*/
-int   Compare(void *h,const void *tpi, const void *tpj)
+int   Compare(const void *tpi, const void *tpj)
 {
 	int a;					// area sign
 	float x, y;				// projections of ri & rj in 1st quadrant
 	t_point pi, pj;			// data to compare
-	t_H2D *h2;			// contextual data to make the comparison
+	// t_H2D *h2;			// contextual data to make the comparison
 
 	pi = (t_point)tpi;
 	pj = (t_point)tpj;
-	h2 = (t_H2D *)h;
+	//h2 = (t_H2D *)h;
 
-	a = AreaSign(h2->point[0].v, pi->v, pj->v);
+	a = AreaSign(pi->p0, pi->v, pj->v);
 	if (a > 0)
 		return -1;
 	else if (a < 0)
 		return 1;
-	else { /* Collinear with P[0] */
-		x =  abs( pi->v[X] -  h2->point[0].v[X] ) - abs( pj->v[X] -  h2->point[0].v[X] );
-		y =  abs( pi->v[Y] -  h2->point[0].v[Y] ) - abs( pj->v[Y] -  h2->point[0].v[Y] );
+	else { /* Collinear with P[0] (stored in each pi->p0  because we use qsort instead of qsort_s) */
+		x =  abs( pi->v[X] -  pi->p0[X] ) - abs( pj->v[X] -  pi->p0[X] );
+		y =  abs( pi->v[Y] -  pi->p0[Y] ) - abs( pj->v[Y] -  pi->p0[Y] );
 
-		h2->nb_delete++;
+		//h2->nb_delete++; // Now it's done after the sorting
 
 		if ((x < 0) || (y < 0)) {
 			pi->del = true;

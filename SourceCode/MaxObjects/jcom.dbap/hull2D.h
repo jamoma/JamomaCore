@@ -34,6 +34,9 @@ not removed.
 
 /** Data structures to store a 2 dimensional convex hull */
 
+static const int X0;	// used in Compare
+static const int Y0;	// used in Compare
+
 /*--------- Point(s) Structure ---------*/
 typedef float t_xy[2];	/* Type float point */
 
@@ -43,6 +46,7 @@ struct _structPoint {
 	t_xy	v;
 	int		vnum;
 	bool	del;
+	t_xy	p0;
 };
 
 /*--------- Stack Structure ------------*/
@@ -65,7 +69,7 @@ typedef struct _H2D {
 void		Swap(t_point point, int i, int j);
 void		Copy(t_point point, int i, int j);
 void		Delete(t_point point,int i);
-int			Compare(void *h,const void *tpi, const void *tpj);
+int			Compare(const void *tpi, const void *tpj);
 int			AreaSign(t_xy a, t_xy b, t_xy c);
 t_stack		Graham(t_H2D);
 t_stack		Pop(t_stack s);

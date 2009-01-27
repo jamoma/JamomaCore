@@ -860,19 +860,32 @@ void dbap_calculate_hull2D(t_dbap *x)
 			&& (h2.point[i].v[X] > h2.point[m].v[X]))) 
 			m = i;
 
+
 	// Debug
-	//post("h2D : The lowest and rigthmost point is %d", m+1);
+	// post("h2D : The lowest and rigthmost point is %d", m+1);
 
 	// Swap point[0] and point[m]
 	Swap(h2.point,0,m);
 
-	qsort_s(
+	// add p0 to each point[i] (to get it during Compare without use a qsort_s)
+	for(i = 1; i<x->attr_num_destinations; i++){
+		h2.point[i].p0[0] = h2.point[0].v[0];
+		h2.point[i].p0[1] = h2.point[0].v[1];
+	}
+
+	qsort(
       &h2.point[1],					// pointer to 1st elem
       x->attr_num_destinations-1,	// number of elems
       sizeof(t_structPoint),		// size of each elem
-      Compare,						// -1,0,+1 compare function
-	  &h2						// pointer to the hull2 structure that the compare routine needs to access
+      Compare						// -1,0,+1 compare function
+	  //&h2							// pointer to the hull2 structure that the compare routine needs to access
 	);
+
+	// count nb_delete ('cause we can't do that in Compare)
+	h2.nb_delete = 0;
+	for(i = 1; i<x->attr_num_destinations; i++){
+		if(h2.point[i].del) h2.nb_delete++;
+	}
 
 	// Remove all elements from point marked deleted
 	if(h2.nb_delete > 0){
