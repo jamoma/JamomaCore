@@ -16,9 +16,10 @@
     <item name='output/topRight' type='msg_int' priority='0'>2</item>
     <item name='position/rd' type='msg_float' priority='32'>1.000000</item>
     <item name='position/sps' type='msg_float' priority='31'>-1.000000</item>
-    <item name='position/x' type='msg_float' priority='34'>0.000000</item>
-    <item name='position/y' type='msg_float' priority='33'>0.000000</item>
-    <item name='time_ambitus' type='msg_list' priority='0'>0</item>
+    <item name='position/x' type='msg_float' priority='34'>-0.012658</item>
+    <item name='position/y' type='msg_float' priority='33'>-0.063291</item>
+    <item name='timeambitus/max' type='msg_int' priority='0'>980</item>
+    <item name='timeambitus/min' type='msg_int' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='volume' type='msg_float' priority='0'>1.000000</item>
   </preset>
