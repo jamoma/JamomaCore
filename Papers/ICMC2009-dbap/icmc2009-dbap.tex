@@ -1,0 +1,320 @@
+% Template: LaTeX file for ICMC 2009 papers, with hyper-references
+%
+% derived from the DAFx-06 templates
+%
+% 1) Please compile using latex or pdflatex.
+% 2) Please use figures in vectorial format (.pdf); .png or .jpg are working otherwise 
+% 3) Please use the "papertitle" and "pdfauthor" commands defined below
+
+%------------------------------------------------------------------------------------------
+\documentclass[twoside,10pt]{article}
+\usepackage{icmc2009,amssymb,amsmath} 
+%\setcounter{page}{1}
+
+\usepackage{mathptmx} 
+
+%____________________________________________________________
+%  !  !  !  !  !  !  !  !  !  !  !  ! user defined variables  !  !  !  !  !  !  !  !  !  !  !  !  !  !
+%==== set the title ====
+\def\papertitle{DBAP - Distance-based amplitude panning}
+%\def\papertitle{}	%-- should be empty for the submission anyway!
+
+%==== 1st submission: author name and affiliation are empty for anonymous submission ====
+%\def\paperauthorA{} 
+%\affiliation{}{}
+
+
+%==== final submission: author name and affiliation ====
+%---- uncomment 1 to 4 lines, for 1 to 4 authors
+\def\paperauthorA{Trond Lossius}
+\def\paperauthorB{Pascal Baltazar}
+\def\paperauthorC{Th\'eo de la Hogue}
+%\def\paperauthorD{Fourth Author}
+
+%%---- set correspnding affiliation data for...
+%%-- 1 author
+%\affiliation{\paperauthorA}
+%  {School\\ Department, City, Country \\ {\tt \href{mailto:email@domain.icmc}{email@domain.icmc}}}
+
+%%-- 2 authors with same affiliation
+%\affiliation{\paperauthorA, \paperauthorB}
+%  {School\\ Department, City, Country \\ {\tt \href{mailto:email@domain.icmc}{email@domain.icmc}}}
+
+%-- 2 authors with different affiliations
+%\twoaffiliations{\paperauthorA}{School\\ Department}
+%  {\paperauthorB}{Company\\ Address}
+
+%%-- 3 authors with different affiliations
+\threeaffiliations{\paperauthorA}{BEK\\C. Sundtsgt. 55\\5004 Bergen\\Norway\\trond.lossius@bek.no}
+  {\paperauthorB}{GMEA\\4 rue Sainte Claire\\81000 Albi\\France\\pb@gmea.net}
+  {\paperauthorC}{GMEA\\4 rue Sainte Claire\\81000 Albi\\France\\theod@gmea.net}
+
+%%-- 4 authors with different affiliations
+%\fouraffiliations{\paperauthorA}{School A\\ Department X}
+%  {\paperauthorB}{Company\\ Address}
+%  {\paperauthorC}{School B\\ Department Y}
+%  {\paperauthorD}{School C\\ Department Z}
+
+%  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^ user defined variables  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^  ^ 
+%------------------------------------------------------------------------------------------
+
+%%-- if using .ps or .eps figure files, they will be converted on the fly
+%%-- RMK: for faster LaTeX runs, use it only once after adding new \includegraphics[]{} cmds
+%\usepackage{epstopdf}	 
+
+%---- the hyperref package must be last to properly work
+\usepackage[pdftex,
+       pdftitle={\papertitle},
+	pdfauthor={\paperauthorA},
+	colorlinks=false,bookmarksnumbered,pdfstartview=XYZ]{hyperref}
+%\pdfcompresslevel=9
+\usepackage[pdftex]{graphicx}	% for compatible graphics with hyperref
+\usepackage[figure,table]{hypcap}	% corrects the hyper-anchor of figures/tables
+
+\title{\papertitle}
+
+%------------------------------------------------------------------------------------------
+\begin{document}
+
+\DeclareGraphicsExtensions{.png,.jpg,.pdf} % used graphic file format for pdflatex
+    
+\maketitle
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Abstract
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\begin{abstract}
+The abstract should be placed at the top left column and should contain
+about 150 words.
+\end{abstract}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Introduction
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Introduction}\label{sec:introduction}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eros libero, rhoncus id, blandit et, condimentum malesuada, est. Morbi rhoncus, nisl id adipiscing varius, sapien pede elementum metus, faucibus eleifend magna felis sed augue. Morbi bibendum posuere quam. Suspendisse potenti. Nunc erat. Quisque eu leo. Aenean viverra, justo sed euismod interdum, nibh quam fringilla risus, vitae fermentum lectus turpis vitae lorem. Suspendisse auctor adipiscing risus. Nunc hendrerit eros. Phasellus sapien. Vestibulum nunc. Mauris feugiat diam nec est. Phasellus pretium augue. Nulla facilisi. Fusce eleifend. Donec nec mauris eu leo dictum interdum. 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Fundamentals
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Distance-based amplitude panning}
+
+\subsection{Fundamentals}
+
+\textit{Distance-based amplitude panning (DBAP)} extends the principle of equal intensity panning from a pair of speakers to a loudspeaker array of any size, with no \textit{a priori} assumptions to their positions in space or relative to each other.
+
+For simplicity the method will be discussed in terms of a two-dimensional setup with speakers and source all positioned in the same horizontal plane. This can easily be extended to three dimensions.
+
+The position of the virtual source will be described in terms of Cartesian coordinates $(x_{s}, y_{s})$. For a setup with $N$ speakers, the position of the $i$th speaker is given as $(x_{i}, y_{i})$. The distance from source to each of the speakers can then be calculated as
+
+\begin{equation} \label{eq:distance}
+d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 } \qquad \textrm{for } 1 \leq i \leq N \textrm{ .}
+\end{equation}
+
+For simplicity the source is assumed to have unity amplitude. DBAP makes two assumptions. The first is that intensity is to be constant regardless of the position of the virtual source. If the amplitude of the $ith$ speaker is $v_{i}$, this implies
+
+\begin{equation} \label{eq:constant_intensity}
+I = \sum_{i=1}^{N} {v_{i}}^2 = 1
+\end{equation}
+
+Secondly, it is assumed that all speakers are active at all times, and the relative amplitude of the $i$th speaker depends on the distance from the virtual source as 
+
+\begin{equation} \label{eq:inverse_distance}
+v_{i} = \frac{k}{2 d_{i} a} 
+\end{equation}
+
+where $k$ is a coefficient depending on the position of the source and all speakers, while $a$ is a coefficient depending on the rolloff $R$ in decibels per doubling of distance:
+
+\begin{equation} \label{eq:rolloff}
+	a = 10^{\frac{-R}{20}}
+\end{equation}
+
+A rolloff of $R = 6$ dB equals the inverse distance law for sound propagating in a free field. For closed or semiclosed environments $R$ will generally be lower, in the range 3-5 dB, and depending on reflections and reverberation \cite{Everest:2000handbook_acoustics} (pp. 84-88). In these circumstances (\ref{eq:rolloff}) represents a simplified description of attenuation with distance, but simulation of reflections and reverberation is anyway beyond the scope of an amplitude-panning based spatialisation method.
+
+%The second is based on the inverse distance law for sound pressure for sound propagating in free field as discussed in section \ref{distance_hearing}. DBAP applies an adaption of this by assuming that the relative amplitude for each speaker is inversely proportional to the distance from source to speaker:
+
+Combining equations (\ref{eq:constant_intensity}) and (\ref{eq:inverse_distance}) $k$ can be found as:
+
+\begin{equation} \label{eq:calculate_k}
+k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{1}{{d_{i}}^2}}}
+\end{equation}
+
+
+
+
+\subsection{Spatial blur}
+
+If the virtual source is located at the exact position of one of the loudspeakers, (\ref{eq:calculate_k}) will cause a division by zero. Combining equations (\ref{eq:inverse_distance}) and (\ref{eq:calculate_k}) we get
+
+\begin{equation}
+v_{j} = \frac{1}{\sum_{i=0}^{N} \frac{{d_{j}}^2}{{d_{i}}^2}}
+\end{equation}
+
+From this it can be shown that
+
+\begin{equation} \label{eq:distance_zero}
+\lim_{d_{j} \rightarrow 0} v_{i} = 
+\left\{ \begin{array}{ll} 
+1 & \textrm{if $i=j$}\\ 
+0 & \textrm{if $i \ne j$}
+\end{array} \right.
+\end{equation}
+
+When the virtual source is located at the exact position of one of the loudspeakers, only that speaker will be emitting sound. This might cause the same kind of problems with loudspeaker directions being audible as discussed earlier for vector-based amplitude panning. One way of ensuring a certain degree of spread would be by introducing a \textit{diffusion constant $r_{s} \ge 0$} in equation (\ref{eq:distance}):
+
+\begin{equation} \label{eq:mod_distance}
+d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
+\end{equation}
+
+The diffusion constant $r_{s}$ can be thought of as a displacement in vertical position introduced between the source and the speakers, as if the speakers are positioned at $z_{i}=0$ while the vertical position of the source is $z_{s}=r_{s}$. The effect of this is that a certain amount of spatial blurriness is introduced. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There should be a potential for using this artistically in terms of contrasts between highly articulated or diffuse spatial positioning of sources.
+
+The expansion of the above discussion to three dimensions is trivial by substituting equation (\ref{eq:mod_distance}) for
+
+\begin{equation} \label{eq:3D_mod_distance}
+d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {(z_{i} - z_{s})}^2 + {r_{s}}^2}
+\end{equation}
+
+The diffusion constant $r$ now can be understood as a displacement in the fourth dimension of source as compared to speakers. The practical implications remains the same as for the two-dimensional speaker setup, but conceptually the idea of a source offset in the fourth dimension is intriguing.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Introduction
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{IEEEtranS}
+\bibliography{icmc2009-dbap} % requires file template.bib
+
+\end{document}
+
+%
+%This is the template file for the proceedings of the 9$^{th}$ International Conference on Digital Audio Effects (DAFx-06). 
+%This template has been generated from WASPAA'99 templates and aims at producing conference proceedings in electronic form. 
+%The format is essentially the one used for ICASSP conferences.
+
+%Please use either this \LaTeX{} or the accompanying Word formats when preparing your submission. 
+%The templates are available in electronic form at the website:
+%\\ \href{http://www.dafx.ca}{http://www.dafx.ca}. Thanks!
+
+%
+
+%
+%This template can be found on the conference website.
+
+%\subsection{Figures} 
+%All figures should be centered on the column (or page, if the figure spans both columns). 
+%Figure captions (in italic) should follow each figure and have the format given in Figure \ref{fft_plot}.
+%\begin{figure}[ht]
+%\centerline{\includegraphics[scale=0.8]{fft_plot2}}
+%\caption{{\it Sinusoid in time and frequency domain.}}  
+%\label{fft_plot}
+%\end{figure}
+%Figures must be vectorial (no screen copy, no bitmap, etc). For example when using \texttt{Matlab}, export using either Postscript or PDF format. Also, in order to provide a better readibility, figure text font size should be at list identical to footnote font size. To do so using \texttt{Matlab}, use the \texttt{subplot} command before plotting.
+
+%\subsection{Tables} 
+%As for figures, all tables should be centered on the column (or page, if the table spans both columns). 
+%Table captions should be in italic, follow each table and have the format given in Table \ref{tab:example}.
+
+%\begin{table}[htdp]
+%  \begin{center}
+%    \begin{tabular}{|c|c|}\hline
+%    	angle ($\theta$, rad) & $\sin \theta$ \\\hline
+%	$\frac{\pi}{2}$ & 1 \\
+%	$\pi$ & 0 \\
+%	$\frac{3\pi}{2}$ & -1 \\
+%	$2\pi$ & 0 \\\hline
+%    \end{tabular}
+%  \end{center}
+%  \label{tab:example}
+%  \caption{{\it Basic trigonometric values.}}
+%\end{table}%
+
+%\subsection{Equations}
+%Equations should be placed on separate lines and numbered:
+
+%\begin{equation}
+%X(e^{j\Omega})=\sum_{n=0}^{N-1}x(n)e^{-j\Omega n}
+%\label{eq1}
+%\end{equation}
+%where the sequence $x(n)$ in equation (\ref{eq1}) is a windowed frame:
+%\begin{equation}
+%x(n)=s(n)\cdot w(n)
+%\label{eq2}
+%\end{equation}
+%with a window function $w(n)$.
+
+%\subsection{Page Numbers}
+%Page numbers will be added to the document electronically, so {\em please leave the numbering as is},
+%that is, the first page will start at page DAFX-1 and the last page, at most, will have to be DAFX-6
+%for the submission of papers for an oral presentation or DAFX-4 in the case of a poster presentation.
+
+%\subsection{References}
+%The references will be numbered in order of appearance \cite{Mitra:Kaiser:1993:DSP:handbook}, \cite{Haykin:1991:adaptive:filter}, \cite{Moorer:2000:AES:audio:millenium} and \cite{Arfib:1998:DAFx}. Please avoid listing references that do not appear in the text (we did the opposite in this template).
+
+%\subsubsection{Reference Format}
+%The reference format is the standard IEEE one. We recommend to use BibTeX to create the reference list.
+
+%\section{Conclusions}
+%This template can be found on the conference website. 
+%If you wish to include two authors' affiliations please use the companion LaTeX template tmpl\_la2\_href. 
+%Please, submit full-length papers (max.~6 pages for oral presentation and max.~4 pages for posters).
+% 
+%Submission is fully electronic and automated through the Conference Web Submission System. 
+%DO NOT send us papers directly by e-mail. 
+
+%\section{Acknowledgements}
+%Many thanks to the great number of anonymous reviewers!
+
+%%\newpage
+%\nocite{*}
+%\bibliographystyle{IEEEbib}
+%\bibliography{template} % requires file template.bib
+
+%\end{document}
