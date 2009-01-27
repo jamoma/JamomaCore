@@ -15073,7 +15073,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute",
-					"text" : "jcom.message source/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 630.0, 214.0, 589.0, 27.0 ],
 					"numoutlets" : 3,

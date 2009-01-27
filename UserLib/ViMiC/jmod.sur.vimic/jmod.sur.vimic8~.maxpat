@@ -36399,7 +36399,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[8]",
-					"text" : "jcom.message source.1/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.1/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 573.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
@@ -36416,7 +36416,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[7]",
-					"text" : "jcom.message source.8/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.8/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 781.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
@@ -36433,7 +36433,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[6]",
-					"text" : "jcom.message source.7/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.7/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 752.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
@@ -36450,7 +36450,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[5]",
-					"text" : "jcom.message source.6/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.6/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 722.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
@@ -36467,7 +36467,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[4]",
-					"text" : "jcom.message source.5/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.5/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 692.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
@@ -36484,7 +36484,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[3]",
-					"text" : "jcom.message source.4/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.4/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 662.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
@@ -36501,7 +36501,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[2]",
-					"text" : "jcom.message source.3/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.3/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 632.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
@@ -36518,7 +36518,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "source/position/absolute[1]",
-					"text" : "jcom.message source.2/position/xyz @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
+					"text" : "jcom.message source.2/position @ramp/drive scheduler @description \"Sourceposition in the virtual room - spatDIF compliant\" @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz",
 					"linecount" : 2,
 					"patching_rect" : [ 1243.0, 602.0, 597.0, 27.0 ],
 					"numoutlets" : 3,
