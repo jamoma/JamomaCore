@@ -139,6 +139,8 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 
 		x->hull1.min = 0.0;
 		x->hull1.max = 0.0;
+
+		x->hull2.num_dst = 0;
 		
 		attr_args_process(x, argc, argv);			// handle attribute args
 		dbap_calculate_a(x);						// calculate expo0nent coefficiant used for rolloff
@@ -661,8 +663,6 @@ void dbap_calculate1D(t_dbap *x, long n)
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
 	
-
-	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
 		atom_setfloat(&a[2], k/dia[i]);
@@ -678,25 +678,82 @@ void dbap_calculate2D(t_dbap *x, long n)
 	float dx, dy;						// Distance vector
 	float r2;							// Bluriness ratio 
 	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
+	float sdia[MAX_NUM_DESTINATIONS];	// Squared Distance to ith speaker (without bluriness ratio)
+	long jC,jN;							// index of the the dest C and N dest in hull2->id_dst[]
+	long iC,iN;							// index of the the dest C and N dest in dst_position[]
+	float sSC,sSN,sCN;					// squared Distance of the Source to C and N and [CN]
+	t_xyz P;							// Projection point of Source on [CN], pointer to coord of S, C and N
+	float kCN, dist, min_dist;
+	float v, out;						// is the source out of the hull ? (-1 inside, 1 outside)
+	long id_min;						// id of the closest dest
+	long i,j;
 	t_atom a[3];						// Output array of atoms
-
-	
-	long i;
 
 	r2 = x->blur[n] * x->variance;
 	r2 = r2*r2;
 	k2inv = 0;
-	for (i=0; i<x->attr_num_destinations; i++) {
+	for(i=0; i<x->attr_num_destinations; i++){
 		dx = x->src_position[n].x - x->dst_position[i].x;
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
+		sdia[i] = dx*dx + dy*dy;
+		
 		k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
 	}
+
+	// Find the closest border in the hull
+	min_dist = 10000.;
+	out = -1.;
+	for(j=0; j<x->hull2.num_dst; j++){
+		// index in the dst_position[]
+		iC = x->hull2.id_dst[j];
+		iN = x->hull2.id_dst[(j+1)%x->hull2.num_dst];
+		// squared distance of the source S to the dest C and N
+		sSC = sdia[iC];
+		sSN = sdia[iN];
+		// squared distance of the border
+		sCN = x->hull2.dst2next[j];
+		kCN = (sSC + sCN - sSN)/sCN;
+
+		if(kCN<0){
+			dist = sqrt(sSC);
+		}
+		else{
+			if(kCN>2){
+				dist = sqrt(sSN);
+			}
+			else{
+				// the projection of the source on [CN] : <CP> = kCN * <CN>
+				P.x = (kCN/2) * (x->dst_position[iN].x - x->dst_position[iC].x) + x->dst_position[iC].x;
+				P.y = (kCN/2) * (x->dst_position[iN].y - x->dst_position[iC].y) + x->dst_position[iC].y;
+				// distance of SP
+				dx = x->src_position[n].x - P.x;
+				dy = x->src_position[n].y - P.y;
+				dist = sqrt(dx*dx + dy*dy);
+			}
+		}
+
+		// is the source out of the hull ?
+		v = (x->dst_position[iN].x - x->dst_position[iC].x)*(x->src_position[n].y - x->dst_position[iC].y);
+		v -= (x->dst_position[iN].y - x->dst_position[iC].y)*(x->src_position[n].x - x->dst_position[iC].x);
+		if(v/abs(v)>0) out = 1.;
+
+		if(dist < min_dist){
+			min_dist = dist;
+			if(sSC < sSN) id_min = iC;
+			else  id_min = iN;
+		}
+	}
+
+	atom_setlong(&a[0],n);								// src
+	atom_setfloat(&a[1],out*min_dist);					// dist to hull
+	atom_setlong(&a[2],id_min+1);						// id of the closest dst in the hull 
+	outlet_anything(x->outlet[1], _sym_list, 3, a);
+
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
 
 	atom_setlong(&a[0], n);
-	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[1], i);
 		atom_setfloat(&a[2], x->src_weight[n][i]*k/dia[i]);
@@ -837,9 +894,10 @@ void dbap_calculate_hull1D(t_dbap *x)
 // TODO : put the algotithm in hull2.cpp (keep it here while isn't tested to use post())
 void dbap_calculate_hull2D(t_dbap *x)
 {
-	t_H2D h2;	//the data strucuture to perform calculation
+	t_H2D h2;			//the data strucuture to perform calculation
 	long i,j;
-	long m;   /* Index of lowest so far. */
+	float dx,dy;		// to calculate the lenght of each border of the hull
+	long m;				// Index of lowest so far
 
 	// post("h2D : Start -------------------------------------------------");
 
@@ -912,30 +970,48 @@ void dbap_calculate_hull2D(t_dbap *x)
 	h2.stack = Graham(h2);
 	
 	// Debug
-	post("h2D : Hull");
+	//post("h2D : Hull");
 
 	// store result in x->hull2
-	x->hull2.num_dst = 0;
-	if (h2.stack)
-		while(h2.stack) {
+	i = 0;
+	if(h2.stack){
+		while(h2.stack){
 			// Debug
-			post("vnum = %d, x = %f, y = %f", h2.stack->p->vnum+1,h2.stack->p->v[X],h2.stack->p->v[Y]);
-
+			//post("vnum = %d, x = %f, y = %f", h2.stack->p->vnum+1,h2.stack->p->v[X],h2.stack->p->v[Y]);
+			
 			x->hull2.id_dst[i] = h2.stack->p->vnum;
-			x->hull2.num_dst++;
+			
+			// calculate the lenght of each border of the hull
+			if(i>0){
+				dx = x->dst_position[x->hull2.id_dst[i-1]].x - x->dst_position[x->hull2.id_dst[i]].x;
+				dy = x->dst_position[x->hull2.id_dst[i-1]].y - x->dst_position[x->hull2.id_dst[i]].y;
+				x->hull2.dst2next[i-1] = dx*dx + dy*dy;
+				//post("dist[%d %d] = %f", x->hull2.id_dst[i-1]+1,x->hull2.id_dst[i]+1,sqrt(x->hull2.dst2next[i-1]));
+			}
+			
 			h2.stack = h2.stack->next;
+			
+			i++;
+		}
+		x->hull2.num_dst = i;
+		// for the last border
+		dx = x->dst_position[x->hull2.id_dst[i-1]].x - x->dst_position[x->hull2.id_dst[0]].x;
+		dy = x->dst_position[x->hull2.id_dst[i-1]].y - x->dst_position[x->hull2.id_dst[0]].y;
+		x->hull2.dst2next[i-1] = dx*dx + dy*dy;
+		//post("dist[%d %d] = %f", x->hull2.id_dst[i-1]+1,x->hull2.id_dst[0]+1,sqrt(x->hull2.dst2next[i-1]));
+
    } // else do nothing
 }
 
 // Print point[] (debugging)
 void dbap_hull2_postpoint(t_dbap *x, t_H2D h2)
 {
-	long i;
-	post("H2D : %d points", h2.nb_point);
-	for(i = 0; i<x->attr_num_destinations; i++)
-		if(!h2.point[i].del)
-			post("vnum = %d, x = %f, y = %f", 
-			h2.point[i].vnum + 1, h2.point[i].v[X], h2.point[i].v[Y]);
+	//long i;
+	//post("H2D : %d points", h2.nb_point);
+	//for(i = 0; i<x->attr_num_destinations; i++)
+	//	if(!h2.point[i].del)
+			//post("vnum = %d, x = %f, y = %f", 
+			//h2.point[i].vnum + 1, h2.point[i].v[X], h2.point[i].v[Y]);
 }
 
 void dbap_calculate_hull3D(t_dbap *x)

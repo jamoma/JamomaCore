@@ -8,7 +8,8 @@
  */
 
 #include "jamoma.h"
-#include "string.h"					
+#include "string.h"
+
 
 // define symbol
 t_symbol		*ps_keycue,
@@ -116,4 +117,8 @@ void cuemng_add_line(t_cuemng *x,long type, t_symbol *index, long argc, t_atom *
 
 t_cue* cuemng_current_cue(t_cuemng *x);
 void cuemng_textAnalysis(char *text);
-void cuemng_write_handle(t_line *line, t_handle ht);
+void cuemng_write_line(char* dst, t_line *line);
+void cuemng_write_atom(char* dst, t_atom *src);
+void cuemng_write_sym(char* dst, t_symbol *src);
+void cuemng_write_long(char* dst, long src);
+void cuemng_write_float(char* dst, float src);

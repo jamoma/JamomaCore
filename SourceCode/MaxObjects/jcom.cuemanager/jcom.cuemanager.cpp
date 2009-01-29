@@ -143,7 +143,7 @@ void cuemng_assist(t_cuemng *x, void *b, long msg, long arg, char *dst)
 
 void cuemng_edclose(t_cuemng *x, char **ht, long size)
 {
-	char *text;
+	/*char *text;
 
 	text = sysmem_newptr((long)strlen(*ht)*sizeof(char));
 
@@ -153,6 +153,7 @@ void cuemng_edclose(t_cuemng *x, char **ht, long size)
 		cuemng_textAnalysis(text);
 	}
     x->m_editor = NULL;
+	*/
 }
 
 long cuemng_edsave(t_cuemng *x, char **ht, long size)
@@ -164,100 +165,142 @@ long cuemng_edsave(t_cuemng *x, char **ht, long size)
 
 void cuemng_bang(t_cuemng *x)
 {
-	t_handle ht;
+	char *ht = new char[2048];
 
-	t_cue *ccue = cuemng_current_cue(x);
+	cuemng_write_sym(ht,ps_keycue);
+	cuemng_write_long(ht,2356);
+	cuemng_write_float(ht,3.4567);
+	cuemng_write_sym(ht,ps_nl);
 
-	if(ccue){
+	post("%s",ht);
+
+	//t_cue *ccue = cuemng_current_cue(x);
+
+	/*if(ccue){
 		if(x->trigeditmode){ // TRIGGER_MODE
 
 		}
 		else{ // EDIT_MODE
-			if(!x->m_editor)
-				x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0); 
+
+			// if the jed object doesn't exist, create it
+			//if(!x->m_editor)
+			//	x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0); 
+
+			// store head info of the cue
+			// mode
+			if(ccue->mode == ABSOLUTE_CUE) cuemng_write_sym(ht,ps_keycue);
+			else cuemng_write_sym(ht,ps_cue);
+
+			// write name
+			cuemng_write_sym(ht,ccue->index);
 			
-			// create a new handle for the text
-			ht = sysmem_newhandle(0);
-
-			/* store head data of the cue
-			if(ccue->mode == ABSOLUTE_CUE) strcat(text,ps_keycue->s_name);
-			strcat(text," ");
-			strcat(text,ccue->index->s_name);
-			strcat(text,"\n");
-			strcat(text,"\n");
-			strcat(text,ps_separation->s_name);
-
-			object_method(x->m_editor, gensym("settext"), text, gensym("utf-8"));
-
-			object_method(x->m_editor, gensym("newline"));
-
-			strcpy(text,ps_separation->s_name);
-			object_method(x->m_editor, gensym("settext"), text, gensym("utf-8"));
-			*/
-
-			linklist_funall(ccue->linelist, (method)cuemng_write_handle, ht);
+			// write option(s)
+			if(ccue->ramp > 0){
+				cuemng_write_sym(ht,gensym("ramp"));
+				cuemng_write_long(ht,ccue->ramp);
+			}
 			
-			object_method(x->m_editor, gensym("settext"), *ht, gensym("utf-8"));
+			// write 3 new line
+			cuemng_write_sym(ht,ps_nl);
+			cuemng_write_sym(ht,ps_nl);
+			cuemng_write_sym(ht,ps_nl);
 
-			// how to give a title
+			// write a separation
+			cuemng_write_sym(ht,ps_separation);
+
+			// write 2 new line
+			cuemng_write_sym(ht,ps_nl);
+			cuemng_write_sym(ht,ps_nl);
+			
+			// write each line of the cue
+			linklist_funall(ccue->linelist, (method)cuemng_write_line, ht);
+			
+			// write ht in the editor
+			//object_method(x->m_editor, gensym("settext"), ht, gensym("utf-8"));
+
+			// give a title to the windows editor
 			object_attr_setsym(x->m_editor, gensym("title"), ccue->index);
 
-			// how to open the text window
+			// open the text window editor
 			object_attr_setchar(x->m_editor, gensym("visible"), 1);
-
-			sysmem_freehandle(ht);
 		}
 	}else
 		object_post((t_object *)x, "error bang : create a cue before");
+		*/
 }
 
-void cuemng_write_handle(t_line *l, t_handle ht)
+void cuemng_write_line(char* ht, t_line *l)
 {
 	long i,size;
-	char *s_tab;
-	char s_index[64];
-	char s_data[256];
-	char s_line[512];
 
 	if(ht){
 		// l->type : number of tabs
-		if(l->type == _MODULE) s_tab = ps_module->s_name;
-		if(l->type == _PARAM) s_tab = ps_tab_param->s_name;
-		if(l->type == _ATTR) s_tab = ps_tab_attr->s_name;
-		if(l->type == _WAIT) s_tab = ps_tab_wait->s_name;
-		if(l->type == _CMT) s_tab = ps_tab_cmt->s_name;
-		snprintf(s_line, sizeof(s_index), "%s", s_tab);
+		if(l->type == _MODULE) cuemng_write_sym(ht,ps_module);
+		if(l->type == _PARAM) cuemng_write_sym(ht,ps_tab_param);
+		if(l->type == _ATTR) cuemng_write_sym(ht,ps_tab_attr);
+		if(l->type == _WAIT) cuemng_write_sym(ht,ps_tab_wait);
+		if(l->type == _CMT) cuemng_write_sym(ht,ps_tab_cmt);
 
 		// l->index
-		if(l->index != ps_no_id){
-			snprintf(s_index, sizeof(s_index), "%s ", l->index->s_name);
-			strcat(s_line, s_index);
-		}
+		if(l->index != ps_no_id) cuemng_write_sym(ht,l->index);
 		
 		// l->data[]
 		for(i=0;i<l->n;i++){
-			
-			if(atom_gettype(&l->data[i]) == A_SYM){
-				snprintf(s_data, sizeof(s_data), "%s ", atom_getsym(&l->data[i])->s_name);
-			}
-			if(atom_gettype(&l->data[i]) == A_FLOAT){
-				snprintf(s_data, sizeof(s_data), "%f ", atom_getfloat(&l->data[i]));
-			}
-			if(atom_gettype(&l->data[i]) == A_LONG){
-				snprintf(s_data, sizeof(s_data), "%d ", atom_getlong(&l->data[i]));
-			}
-			strcat(s_line,s_data);
+			cuemng_write_atom(ht,&l->data[i]);
 		}
-		
-		post("%s",s_line);
 
 		// new line
-		strcat(s_line,ps_nl->s_name);
-
-		//size = sysmem_handlesize(ht);
-		//sysmem_resizehandle(ht, size + (long)strlen(s_line));
-		//strcat(*ht, s_line);
+		cuemng_write_sym(ht,ps_nl);
 	}
+}
+
+// append an atom to a string
+void cuemng_write_atom(char *dst, t_atom *src){
+	if(atom_gettype(src) == A_SYM)cuemng_write_sym(dst,atom_getsym(src));	
+	if(atom_gettype(src) == A_LONG)cuemng_write_long(dst,atom_getlong(src));
+	if(atom_gettype(src) == A_FLOAT)cuemng_write_float(dst,atom_getfloat(src));
+}
+
+// append a symbol to a string
+void cuemng_write_sym(char *dst, t_symbol *src){
+
+	char *temp;
+
+	temp = new char[strlen(src->s_name)+1];
+
+	strcpy(temp,ps_keycue->s_name);
+	strcat(dst,temp);
+	strcat(dst," ");
+	post("%s",temp);
+	free(temp);
+}
+
+// append a long to a string
+void cuemng_write_long(char* dst, long src){
+
+	char *temp;
+
+	temp = new char[32];
+
+	snprintf(temp, sizeof(char)*((long)strlen(temp)+1),"%ld",src);
+	strcat(dst,temp);
+	strcat(dst," ");
+	post("%s",temp);
+	free(temp);
+}
+
+// append a float to a string
+void cuemng_write_float(char* dst, float src){
+
+	char *temp;
+
+	temp = new char[32];
+
+	snprintf(temp, sizeof(char)*((long)strlen(temp)+1),"%f",src);
+	strcat(dst,temp);
+	strcat(dst," ");
+	post("%s",temp);
+	free(temp);
 }
 
 // this method matches any incoming data to stored it

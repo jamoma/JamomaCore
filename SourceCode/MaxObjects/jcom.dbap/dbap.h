@@ -41,6 +41,7 @@ typedef struct _hull1{
 typedef struct _hull2{
 	long		num_dst;								///< number dst in the convex hull
 	long		id_dst[MAX_NUM_DESTINATIONS];			///< index of dst in dst_position[]
+	float		dst2next[MAX_NUM_DESTINATIONS];			///< squared length of each border of the hull
 } t_hull2;												///< Convex hull in 1 dimension
 	
 typedef struct _dbap{									///< Data structure for this object 
