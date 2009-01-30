@@ -736,7 +736,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 		// is the source out of the hull ?
 		v = (x->dst_position[iN].x - x->dst_position[iC].x)*(x->src_position[n].y - x->dst_position[iC].y);
 		v -= (x->dst_position[iN].y - x->dst_position[iC].y)*(x->src_position[n].x - x->dst_position[iC].x);
-		if(v/abs(v)>0) out = 1.;
+		if(v>0) out = 1.;
 
 		if(dist < min_dist){
 			min_dist = dist;
