@@ -15,6 +15,9 @@
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
 		222B19FE0F1D8D70008B1A46 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B19FD0F1D8D70008B1A46 /* Jamoma.framework */; };
 		222B1A480F1D8EB5008B1A46 /* jcom.dbap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B1A470F1D8EB5008B1A46 /* jcom.dbap.cpp */; };
+		A74373810F34DEDC00135816 /* dbap.h in Headers */ = {isa = PBXBuildFile; fileRef = A74373800F34DEDC00135816 /* dbap.h */; };
+		A74373830F34DEE700135816 /* hull2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A74373820F34DEE700135816 /* hull2D.cpp */; };
+		A74373850F34DEED00135816 /* hull2D.h in Headers */ = {isa = PBXBuildFile; fileRef = A74373840F34DEED00135816 /* hull2D.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		222B19FD0F1D8D70008B1A46 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = ../../Framework/build/UninstalledProducts/Jamoma.framework; sourceTree = SOURCE_ROOT; };
 		222B1A470F1D8EB5008B1A46 /* jcom.dbap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.dbap.cpp; sourceTree = "<group>"; };
 		2FBBEAE508F335360078DB84 /* jcom.dbap.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.dbap.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		A74373800F34DEDC00135816 /* dbap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbap.h; sourceTree = SOURCE_ROOT; };
+		A74373820F34DEE700135816 /* hull2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hull2D.cpp; sourceTree = SOURCE_ROOT; };
+		A74373840F34DEED00135816 /* hull2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hull2D.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +77,10 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				A74373800F34DEDC00135816 /* dbap.h */,
 				222B1A470F1D8EB5008B1A46 /* jcom.dbap.cpp */,
+				A74373840F34DEED00135816 /* hull2D.h */,
+				A74373820F34DEE700135816 /* hull2D.cpp */,
 				222B15B00F1D1461008B1A46 /* commonsyms.cpp */,
 			);
 			name = Source;
@@ -92,6 +101,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A74373810F34DEDC00135816 /* dbap.h in Headers */,
+				A74373850F34DEED00135816 /* hull2D.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +173,7 @@
 			files = (
 				222B15B10F1D1461008B1A46 /* commonsyms.cpp in Sources */,
 				222B1A480F1D8EB5008B1A46 /* jcom.dbap.cpp in Sources */,
+				A74373830F34DEE700135816 /* hull2D.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
