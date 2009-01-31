@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 133.0, 64.0, 1307.0, 790.0 ],
+		"rect" : [ 0.0, 44.0, 1307.0, 790.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 133.0, 64.0, 1307.0, 790.0 ],
+		"defrect" : [ 0.0, 44.0, 1307.0, 790.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -103,7 +103,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Matrix interp (ms):",
+					"text" : "Matrix interp (ms)",
 					"presentation_rect" : [ 155.0, 46.0, 107.0, 19.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"patching_rect" : [ 155.0, 46.0, 107.0, 19.0 ],
@@ -133,9 +133,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message.array 32 speaker position @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal aed @priority 1 @description \"Position of the nth source.\"",
+					"text" : "jcom.message.array 32 speaker position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\"",
 					"linecount" : 2,
-					"patching_rect" : [ 430.0, 415.0, 577.0, 31.0 ],
+					"patching_rect" : [ 430.0, 415.0, 599.0, 31.0 ],
 					"id" : "obj-22",
 					"fontname" : "Verdana",
 					"numinlets" : 0,
@@ -147,9 +147,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @dataspace/unit/native xyz @dataspace/unit/internal aed @priority 1 @description \"Position of the nth source.\"",
+					"text" : "jcom.message.array 32 source position @type msg_list @dataspace position @dataspace/unit/active xyz @priority 1 @description \"Position of the nth source.\"",
 					"linecount" : 2,
-					"patching_rect" : [ 430.0, 240.0, 577.0, 31.0 ],
+					"patching_rect" : [ 430.0, 240.0, 603.0, 31.0 ],
 					"id" : "obj-6",
 					"fontname" : "Verdana",
 					"numinlets" : 0,
@@ -193,7 +193,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Number of speakers:",
+					"text" : "Number of speakers",
 					"presentation_rect" : [ 5.0, 45.0, 116.0, 19.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"patching_rect" : [ 5.0, 45.0, 116.0, 19.0 ],
@@ -301,7 +301,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Number of sources:",
+					"text" : "Number of sources",
 					"presentation_rect" : [ 5.0, 25.0, 114.0, 19.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"patching_rect" : [ 5.0, 25.0, 114.0, 19.0 ],
@@ -398,7 +398,7 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "Dimensions:",
+					"text" : "Dimensions",
 					"presentation_rect" : [ 155.0, 25.0, 73.0, 19.0 ],
 					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"patching_rect" : [ 155.0, 25.0, 73.0, 19.0 ],
@@ -470,12 +470,12 @@
 					"text" : "/editing_this_module",
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"outlettype" : [ "" ],
-					"has_mute" : 1,
 					"presentation" : 1,
 					"id" : "obj-36",
 					"prefix" : "audio",
 					"has_gain" : 1,
 					"numinlets" : 1,
+					"has_mute" : 1,
 					"numoutlets" : 1
 				}
 
