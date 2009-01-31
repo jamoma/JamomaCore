@@ -798,7 +798,7 @@ void dbap_calculate3D(t_dbap *x, long n)
 
 void dbap_calculate_a(t_dbap *x)
 {
-	x->a = log(x->attr_rolloff)/log(2.);
+	x->a = log(pow(10., (x->attr_rolloff / 20.)))/log(2.);
 }
 
 
