@@ -86,6 +86,13 @@
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = TTBlue;
 		};
+		22B3B6770F36586C00893097 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22077F9C0D84497600270C06 /* JamomaDSP.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 22B3B4320F360B3000893097 /* libJamomaDSP.a */;
+			remoteInfo = "JamomaDSP-static";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -575,6 +582,7 @@
 			isa = PBXGroup;
 			children = (
 				222B18510F1D40D7008B1A46 /* JamomaDSP.framework */,
+				22B3B6780F36586C00893097 /* libJamomaDSP.a */,
 				222B18530F1D40D7008B1A46 /* TTBlue.framework */,
 			);
 			name = Products;
@@ -713,7 +721,7 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* Jamoma */ = {
+		8DC2EF4F0486A6940098B216 /* TTBlue */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "Jamoma" */;
 			buildPhases = (
@@ -751,7 +759,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				8DC2EF4F0486A6940098B216 /* Jamoma */,
+				8DC2EF4F0486A6940098B216 /* TTBlue */,
 			);
 		};
 /* End PBXProject section */
@@ -769,6 +777,13 @@
 			fileType = wrapper.framework;
 			path = TTBlue.framework;
 			remoteRef = 222B18520F1D40D7008B1A46 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22B3B6780F36586C00893097 /* libJamomaDSP.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libJamomaDSP.a;
+			remoteRef = 22B3B6770F36586C00893097 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
