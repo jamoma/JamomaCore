@@ -75,27 +75,30 @@ void jamoma_init(void)
 		
 		// Add Jamoma Key Commands:
 		
-		// J -- a new object box with "jcom." in it
+		// J -- Jamoma: a new object box with "jcom." in it
 		atom_setsym(a+0, gensym("J"));
 		atom_setsym(a+1, gensym("patcher"));
 		atom_setsym(a+2, gensym("inserttextobj"));
 		atom_setsym(a+3, gensym("jcom."));
 		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
 		
-		// M -- a new object box with "jmod." in it
+		// M -- Module: a new object box with "jmod." in it
 		atom_setsym(a+0, gensym("M"));
 		atom_setsym(a+1, gensym("patcher"));
 		atom_setsym(a+2, gensym("inserttextobj"));
 		atom_setsym(a+3, gensym("jmod."));
 		object_method_typed(max, gensym("definecommand"), 4, a, NULL);
 
-		// I -- a new audio input module, O -- a new audio output module	
+		// I -- Input: a new audio input module
 		object_method_parse(max, gensym("definecommand"), "I patcher insertobj bpatcher @name jmod.input~.maxpat @args /input~", NULL);
+		// O -- Output: a new audio output module	
 		object_method_parse(max, gensym("definecommand"), "O patcher insertobj bpatcher @name jmod.output~.maxpat @args /output~", NULL);
 	
-		// B -- a new module in a bpatcher
+		// B -- BPatcher: a new module in a bpatcher
 		object_method_parse(max, gensym("definecommand"), "B patcher inserttextobj \"bpatcher @name jmod. @args myModule\"", NULL);		
-		
+		// D -- Demo: a new module in a bpatcher, but with the args reverse which is handy for super-fast demos when you don't care about the OSC name
+		object_method_parse(max, gensym("definecommand"), "D patcher inserttextobj \"bpatcher @name jmod.\"", NULL);		
+
 		
 		// Here bind the TTBlue environment object to the symbol "TTBlue"
 		{
