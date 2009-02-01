@@ -34,32 +34,35 @@ typedef void (*pf_noargs)(void *x);			// pointer to a function with only the str
 #define attr_value			atom_list[0]
 #define attr_valueDefault	atom_listDefault[0]
 
-typedef struct _param{						// Data Structure for this object
+typedef struct _param{
 	t_jcom_core_subscriber_extended	common;
-	pf_noargs				param_output;				// bang method for the instance points to an optimized function
-	void 					*outlets[num_outlets];	// my outlet array
-	t_atom					atom_list[LISTSIZE];	// was "t_atom attr_value;"	// ATTRIBUTE: The parameter's value
-	t_atom					atom_listDefault[LISTSIZE];
-	long					list_size;
-	long					listDefault_size;
-	t_symbol				*attr_ramp;				// ATTRIBUTE: ramp mode 
-	long					attr_ui_freeze;
-	float					attr_stepsize;			// ATTRIBUTE: amount to increment or decrement by
-	long					attr_priority;			// ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
-//	t_atom					name_atom;				// the above name, but cached as an atom for quick referencing
-	RampUnit				*ramper;				///< rampunit object to perform ramping of input values
-	void					*ui_qelem;				// the output to the connected ui object is "qlim'd" with this qelem
-	void					*ramp_qelem;			///< allows us to defer calls to setup a rampunit
-	t_symbol				*attr_rampfunction;		///< Attribute for setting the function used by the ramping
-	t_symbol				*attr_dataspace;		///< The dataspace that this parameter uses (default is 'none')
-	DataspaceLib			*dataspace_active2native;
-	DataspaceLib			*dataspace_native2internal;
-	t_symbol				*attr_unitActive;		///< The active unit within the dataspace -- the type of values a user is sending
-	t_symbol				*attr_unitNative;		///< The native unit within the dataspace -- the type of values used for display and being returned from the module
-	t_symbol				*attr_unitInternal;		///< The internal unit within the dataspace -- the type of values sent to the algorithm
-	method					callback;				///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
-	t_object				*callbackArg;			///< The object for which the callback method should be applied
-	t_object				*receive;				///< Direct receive
+	pf_noargs		param_output;				///< bang method for the instance points to an optimized function
+	TTPtr 			outlets[num_outlets];		///< my outlet array
+	t_atom			atom_list[LISTSIZE];		///< was "t_atom attr_value;"	// ATTRIBUTE: The parameter's value
+	t_atom			atom_listDefault[LISTSIZE];
+	long			list_size;
+	long			listDefault_size;
+	SymbolPtr		attr_ramp;					///< ATTRIBUTE: ramp mode 
+	long			attr_ui_freeze;
+	float			attr_stepsize;				///< ATTRIBUTE: amount to increment or decrement by
+	long			attr_priority;				///< ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
+//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
+	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
+	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
+	TTPtr			ramp_qelem;					///< allows us to defer calls to setup a rampunit
+	SymbolPtr		attr_rampfunction;			///< Attribute for setting the function used by the ramping
+	SymbolPtr		attr_dataspace;				///< The dataspace that this parameter uses (default is 'none')
+	DataspaceLib*	dataspace_override2active;	///< Performs conversion from messages like 'gain -6 db' to the active unit
+	DataspaceLib*	dataspace_active2display;	///< Performs conversion from the active input format to the format used by the parameter display
+	DataspaceLib*	dataspace_display2active;	///< Performs conversion from the display/ui to get back to the active units
+	DataspaceLib*	dataspace_active2native;	///< Performs conversions from the active input to pass on to the algorithm
+	SymbolPtr		attr_unitNative;			///< The native (model/algorithm) unit within the dataspace.
+	SymbolPtr		attr_unitActive;			///< The active (input/output) unit within the dataspace: the type of values a user is sending and receiving.
+	SymbolPtr		attr_unitDisplay;			///< The display unit within the dataspace -- sent to/from the inlet/outlet of this instance
+	SymbolPtr		attr_unitOverride;			///< An internal unit conversion that is used temporarily when the parameter's value is set with a non-active unit.
+	method			callback;					///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
+	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
+	ObjectPtr		receive;					///< Direct receive
 } t_param;
 
 
@@ -198,8 +201,8 @@ t_max_err	param_attr_getactiveunit(t_param *x, void *attr, long *argc, t_atom **
 t_max_err	param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getnativeunit(t_param *x, void *attr, long *argc, t_atom **argv);
 t_max_err	param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *argv);
-t_max_err	param_attr_getinternalunit(t_param *x, void *attr, long *argc, t_atom **argv);
-t_max_err	param_attr_setinternalunit(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getdisplayunit(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setdisplayunit(t_param *x, void *attr, long argc, t_atom *argv);
 
 void 		param_ramp_setup(t_param *x);
 void		param_ui_refresh(t_param *x);

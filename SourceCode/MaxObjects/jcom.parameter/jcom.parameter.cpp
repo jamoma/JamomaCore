@@ -1,33 +1,35 @@
 /* 
  * jcom.parameter
- * External for Jamoma: parameter definition using pattr
- * By Tim Place, Copyright � 2006
+ * External for Jamoma: parameter definition
+ * By Tim Place, Copyright © 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "jcom.parameter.h"		// everything we need is in here
+#include "jcom.parameter.h"			// everything we need is in here
 
 // Globals
-t_class		*parameter_class;		// Required: Global pointer for our class
-t_class		*message_class;
+static ClassPtr	parameter_class;	// Required: Global pointer for our class
+static char		units[2048];
 
+// Prototypes
 int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
-static char units[2048];
+
+
 /************************************************************************************/
 // Class Definition
 
 int JAMOMA_EXPORT_MAXOBJ main(void)
 {
-	t_class		*c;
-	t_object	*attr = NULL;
-	long		numDataspaces = 0;
-	t_symbol**	dataspaceNames = NULL;
+	ClassPtr		c;
+	ObjectPtr		attr = NULL;
+	long			numDataspaces = 0;
+	SymbolPtr*	dataspaceNames = NULL;
 	TTValue		functionNames;
-	TTSymbol*	functionName;
-	char		dataspaces[2048];
-	char		functions[2048];
+	TTSymbol*		functionName;
+	char			dataspaces[2048];
+	char			functions[2048];
 	short		i;
 	
 	// Initialize Globals
@@ -51,7 +53,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 		strcat(functions, functionName->getCString());	
 		strcat(functions, " ");
 	}
-	
 
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);
@@ -59,78 +60,75 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
 	//	because the function pointer is in out struct, which hasn't been defined yet
-	class_addmethod(c, (method)param_notify,					"notify",						A_CANT,		0);	
-	class_addmethod(c, (method)param_dispatched,				"dispatched",					A_GIMME,	0);
-	class_addmethod(c, (method)param_int,						"int",							A_DEFLONG,	0);
-	class_addmethod(c, (method)param_float,						"float",						A_DEFFLOAT,	0);
- 	class_addmethod(c, (method)param_list,						"list",							A_GIMME,	0);
-	class_addmethod(c, (method)param_symbol,					"symbol",						A_DEFSYM,	0);
- 	class_addmethod(c, (method)param_anything,					"anything",						A_GIMME,	0);
-	class_addmethod(c, (method)param_ui_refresh,				"ui/refresh",					0);
-	class_addmethod(c, (method)param_inc,						"value/inc",					A_GIMME,	0);
-	class_addmethod(c, (method)param_dec,						"value/dec",					A_GIMME,	0);
-	class_addmethod(c, (method)param_inc,						"+",							A_GIMME,	0);
-	class_addmethod(c, (method)param_dec,						"-",							A_GIMME,	0);
-	class_addmethod(c, (method)param_dump,						"dump",							0);
-	class_addmethod(c, (method)param_bang,						"bang",							0);
-	class_addmethod(c, (method)param_assist,					"assist",						A_CANT,		0); 
+	class_addmethod(c, (method)param_notify,			"notify",			A_CANT,		0);	
+	class_addmethod(c, (method)param_dispatched,		"dispatched",		A_GIMME,		0);
+	class_addmethod(c, (method)param_int,				"int",			A_DEFLONG,	0);
+	class_addmethod(c, (method)param_float,			"float",			A_DEFFLOAT,	0);
+ 	class_addmethod(c, (method)param_list,			"list",			A_GIMME,		0);
+	class_addmethod(c, (method)param_symbol,			"symbol",			A_DEFSYM,		0);
+ 	class_addmethod(c, (method)param_anything,		"anything",		A_GIMME,		0);
+	class_addmethod(c, (method)param_ui_refresh,		"ui/refresh",					0);
+	class_addmethod(c, (method)param_inc,				"value/inc",		A_GIMME,		0);
+	class_addmethod(c, (method)param_dec,				"value/dec",		A_GIMME,		0);
+	class_addmethod(c, (method)param_inc,				"+",				A_GIMME,		0);
+	class_addmethod(c, (method)param_dec,				"-",				A_GIMME,		0);
+	class_addmethod(c, (method)param_dump,			"dump",						0);
+	class_addmethod(c, (method)param_bang,			"bang",						0);
+	class_addmethod(c, (method)param_assist,			"assist",			A_CANT,		0); 
 #ifndef JMOD_MESSAGE
-	class_addmethod(c, (method)param_reset,						"reset",						0);
+	class_addmethod(c, (method)param_reset,			"reset",						0);
 #endif
-	class_addmethod(c, (method)param_setcallback,				"setcallback",					A_CANT,		0);
+	class_addmethod(c, (method)param_setcallback,		"setcallback",	A_CANT,		0);
 
 	jcom_core_subscriber_classinit_extended(c, attr, true);		// define a name attr
 	
 	// ATTRIBUTE: ramp stuff
-	jamoma_class_attr_new(c, 	"ramp/drive", 		_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
-	// TODO: CLASS_ATTR_ENUM for "ramp/drive" should be autopopulated same way that "ramp/function" is.
-	CLASS_ATTR_ENUM(c,			"ramp/drive",		0, "async none queue scheduler ");
+	jamoma_class_attr_new(c,		"ramp/drive", 		_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
+	// TODO: CLASS_ATTR_ENUM for	"ramp/drive" should be autopopulated same way that "ramp/function" is.
+	CLASS_ATTR_ENUM(c,				"ramp/drive",		0, "async none queue scheduler ");
 	
-	jamoma_class_attr_new(c, 	"ramp/function", 	_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
-	CLASS_ATTR_ENUM(c,			"ramp/function",	0, functions);
+	jamoma_class_attr_new(c,		"ramp/function", 	_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
+	CLASS_ATTR_ENUM(c,				"ramp/function",	0, functions);
 	
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
-	jamoma_class_attr_new(c,	"type", 			_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
+	jamoma_class_attr_new(c,		"type", 			_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
+	CLASS_ATTR_ENUM(c,				"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
 #else
-	CLASS_ATTR_ENUM(c,			"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
+	CLASS_ATTR_ENUM(c,				"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
 #endif
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c,	"ui/freeze", 		_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	jamoma_class_attr_new(c,		"ui/freeze", 		_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
 	CLASS_ATTR_STYLE(c,			"ui/freeze",		0,	"onoff");
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
-	jamoma_class_attr_new(c, 	"value/stepsize", 	_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
+	jamoma_class_attr_new(c,		"value/stepsize", 	_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
 
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
-	jamoma_class_attr_new(c, 	"priority", 		_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
+	jamoma_class_attr_new(c,		"priority", 		_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
 
 	// ATTRIBUTE: value
-	jamoma_class_attr_array_new(c, "value", 		_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
+	jamoma_class_attr_array_new(c,	"value", 		_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
 
 	// ATTRIBUTE: value/default
-	jamoma_class_attr_array_new(c, "value/default", _sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
+	jamoma_class_attr_array_new(c,	"value/default", _sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
 	// ATTRIBUTES: dataspace stuff
-	jamoma_class_attr_new(c, 	"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
-	CLASS_ATTR_ENUM(c,			"dataspace",				0, dataspaces);
+	jamoma_class_attr_new(c,		"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
+	CLASS_ATTR_ENUM(c,				"dataspace",				0, dataspaces);
 	
 	units[0] = 0;
-	jamoma_class_attr_new(c, 	"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
-	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);
-	jamoma_class_attr_new(c, 	"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
-	jamoma_class_attr_new(c, 	"dataspace/unit/internal",	_sym_symbol, (method)param_attr_setinternalunit, (method)param_attr_getinternalunit);
-
+	jamoma_class_attr_new(c,		"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
+	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);	
+	jamoma_class_attr_new(c,		"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
+	jamoma_class_attr_new(c,		"dataspace/unit/display",	_sym_symbol, (method)param_attr_setdisplayunit, (method)param_attr_getdisplayunit);
+	// the override dataspace is not exposed as an attribute
+	
 	// Finalize our class
 	class_register(_sym_box, c);
-#ifdef JMOD_MESSAGE
-	message_class = c;
-#else
 	parameter_class = c;
-#endif
 	return 0;
 }
 
@@ -143,14 +141,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 void *param_new(t_symbol *s, long argc, t_atom *argv)
 {
 	short		i;
-	long		attrstart = attr_args_offset(argc, argv);
-#ifdef JMOD_MESSAGE
-	t_param		*x = (t_param *)object_alloc(message_class);
-#else
-	t_param		*x = (t_param *)object_alloc(parameter_class);
-#endif
-	t_symbol	*name = _sym_nothing;
-	ObjectPtr	patcher = NULL;
+	long			attrstart = attr_args_offset(argc, argv);
+	t_param*		x = (t_param *)object_alloc(parameter_class);
+	SymbolPtr		name = _sym_nothing;
+	ObjectPtr		patcher = NULL;
 
 	if(attrstart && argv)
 		atom_arg_getsym(&name, 0, attrstart, argv);
@@ -190,8 +184,7 @@ void *param_new(t_symbol *s, long argc, t_atom *argv)
 		x->attr_dataspace = jps_none;
 		x->attr_unitActive = jps_none;
 		x->attr_unitNative = jps_none;
-		x->attr_unitInternal = jps_none;
-		
+
 #ifdef JMOD_MESSAGE
 		jcom_core_subscriber_new_extended(&x->common, name, jps_subscribe_message);
 #else
@@ -645,42 +638,43 @@ t_max_err param_attr_setdataspace(t_param *x, void *attr, long argc, t_atom *arg
 		
 		x->attr_dataspace = atom_getsym(argv);
 		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2native);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_active2display);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_display2active);
+		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_override2active);
 
 		// If there is already a unit defined, then we try to use that
 		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
-		if(x->attr_unitActive)
+		if(x->attr_unitActive){
 			err = x->dataspace_active2native->setInputUnit(x->attr_unitActive);
-		if(err)
+			err = x->dataspace_active2display->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
+
+			// override always defaults to the active unit
+			err = x->dataspace_override2active->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_override2active->setOutputUnit(x->attr_unitActive);
+		}
+		if(err){
 			x->attr_unitActive = x->dataspace_active2native->neutralUnit;
+			err = x->dataspace_active2native->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_active2display->setInputUnit(x->attr_unitActive);
+			err = x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
+			err = x->dataspace_override2active->setOutputUnit(x->attr_unitActive);
+		}
 		
-		// If there is already a unit defined, then we try to use that
-		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
 		if(x->attr_unitNative) 
 			err = x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
 		if(err)
 			x->attr_unitNative = x->dataspace_active2native->neutralUnit;
 
-		jamoma_getDataspace(x->attr_dataspace, &x->dataspace_native2internal);
-
-		// If there is already a unit defined, then we try to use that
-		// Otherwise we use the default (neutral) unit.
 		err = MAX_ERR_GENERIC;
-		if(x->attr_unitNative)
-			err = x->dataspace_native2internal->setInputUnit(x->attr_unitNative);
+		if(x->attr_unitDisplay){
+			err = x->dataspace_active2display->setOutputUnit(x->attr_unitDisplay);
+			err = x->dataspace_display2active->setInputUnit(x->attr_unitDisplay);
+		}
 		if(err)
-			x->attr_unitNative = x->dataspace_native2internal->neutralUnit;
-		
-		// If there is already a unit defined, then we try to use that
-		// Otherwise we use the default (neutral) unit.
-		err = MAX_ERR_GENERIC;
-		if(x->attr_unitInternal) 
-			err = x->dataspace_native2internal->setOutputUnit(x->attr_unitInternal);
-		if(err)
-			x->attr_unitInternal = x->dataspace_native2internal->neutralUnit;
-			
-
+			x->attr_unitNative = x->dataspace_active2native->neutralUnit;
 	}
 	return MAX_ERR_NONE;
 }
@@ -700,8 +694,11 @@ t_max_err param_attr_setactiveunit(t_param *x, void *attr, long argc, t_atom *ar
 	if(argc && argv){
 		x->attr_unitActive = atom_getsym(argv);
 		if(x->dataspace_active2native)
-			// TODO : check for a Jamoma error
 			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
+		if(x->dataspace_active2display)
+			x->dataspace_active2native->setInputUnit(x->attr_unitActive);
+		if(x->dataspace_display2active)
+			x->dataspace_display2active->setOutputUnit(x->attr_unitActive);
 	}
 	return MAX_ERR_NONE;
 }
@@ -720,30 +717,30 @@ t_max_err param_attr_setnativeunit(t_param *x, void *attr, long argc, t_atom *ar
 {
 	if(argc && argv){
 		x->attr_unitNative = atom_getsym(argv);
-		if(x->dataspace_active2native)	// fix for crashes reported by Nils
+		if(x->dataspace_active2native)
 			x->dataspace_active2native->setOutputUnit(x->attr_unitNative);
-		if(x->dataspace_native2internal)	// fix for crashes reported by Nils
-			x->dataspace_native2internal->setInputUnit(x->attr_unitNative);
 	}
 	return MAX_ERR_NONE;
 }
 
 
-t_max_err param_attr_getinternalunit(t_param *x, void *attr, long *argc, t_atom **argv)
+t_max_err param_attr_getdisplayunit(t_param *x, void *attr, long *argc, t_atom **argv)
 {
 	*argc = 1;
 	if (!(*argv)) // otherwise use memory passed in
 		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
-	atom_setsym(*argv, x->attr_unitInternal);
+	atom_setsym(*argv, x->attr_unitDisplay);
 	return MAX_ERR_NONE;
 }
 
-t_max_err param_attr_setinternalunit(t_param *x, void *attr, long argc, t_atom *argv)
+t_max_err param_attr_setdisplayunit(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	if(argc && argv){
-		x->attr_unitInternal = atom_getsym(argv);
-		if(x->dataspace_native2internal)	// fix for crashes reported by Nils
-			x->dataspace_native2internal->setOutputUnit(x->attr_unitInternal);
+		x->attr_unitDisplay = atom_getsym(argv);
+		if(x->dataspace_active2display)
+			x->dataspace_active2display->setOutputUnit(x->attr_unitDisplay);
+		if(x->dataspace_display2active)
+			x->dataspace_display2active->setInputUnit(x->attr_unitDisplay);
 	}
 	return MAX_ERR_NONE;
 }
@@ -880,11 +877,6 @@ void param_dump(t_param *x)
 		snprintf(s, 256, "%s:/dataspace/unit/active", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
 		atom_setsym(&a[1], x->attr_unitActive);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
-
-		snprintf(s, 256, "%s:/dataspace/unit/internal", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		atom_setsym(&a[1], x->attr_unitInternal);
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
 		snprintf(s, 256, "%s:/ui/freeze", x->common.attr_name->s_name);
