@@ -20,7 +20,8 @@ if win32?
   @temp = "#{@svn_root}/installertools/Windows"
   @max = "#{@temp}/root"
 else
-  @temp = "#{@svn_root}/Installers/temp"
+  @installers = "#{@svn_root}/../Installers"
+  @temp = "#{@installers}/temp"
   @max = "#{@temp}/Applications/Max5"
 end
 @c74 = "#{@max}/Cycling '74"
@@ -204,7 +205,7 @@ else
 # mac
   create_logs
 
-  puts "  Creating installer directory structure..."
+  puts "  Creating installer directory structure @ #{@temp} ..."
   cmd("rm -rfv \"#{@temp}\"")                                            # remove an old temp dir if it exists
   cmd("mkdir -pv \"#{@temp}\"")                                         # now make a clean one, and build dir structure in it
   cmd("mkdir -pv \"#{@temp}/Library/Frameworks\"")
@@ -219,11 +220,15 @@ else
   cmd("mkdir -pv \"#{@c74}/extensions\"")
   cmd("mkdir -pv \"#{@c74}/default-definitions\"")
   cmd("mkdir -pv \"#{@c74}/default-settings\"")
-  cmd("mkdir -pv \"#{@svn_root}/Installers/resources\"")
-  cmd("mkdir -pv \"#{@svn_root}/Installers/Jamoma\"")
+  cmd("mkdir -pv \"#{@installers}/resources\"")
+  cmd("mkdir -pv \"#{@installers}/Jamoma\"")
 
   puts "  Copying the Jamoma folder..."
-  cmd("cp -rpv \"#{@svn_root}/Jamoma\" \"#{@c74}/Jamoma\"")
+  cmd("cp -rpv \"#{@svn_root}/../Modular/Jamoma\" \"#{@c74}/Jamoma\"")
+
+  puts "  Copying Shared Libraries"
+  cmd("cp -rpv \"#{@svn_root}/../Modular/SourceCode/Framework/build/UninstalledProducts/Jamoma.framework\" \"#{@temp}/Library/Frameworks/Jamoma.framework\"") 
+  cmd("cp -rpv \"#{@svn_root}/../DSP/library/build/UninstalledProducts/JamomaDSP.framework\" \"#{@temp}/Library/Frameworks/JamomaDSP.framework\"") 
 
   puts "  Copying TTBlue Extensions"
   cmd("cp -rpv \"/Library/Application Support/TTBlue/Extensions\"/* \"#{@temp}/Library/Application Support/TTBlue/Extensions\"") 
@@ -247,7 +252,7 @@ else
   cmd("rm -fv \"#{@c74}/Jamoma/library/third-party/Mac\"*.dmg")
   cmd("rm -rfv \"#{@c74}/Jamoma/library/third-party/WinXP\"")
 
-  puts "  Moving things around (frameworks, loader, templates, etc)..."
+  puts "  Moving things around (loader, templates, etc)..."
   cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-templates/\"* \"#{@max}/patches/templates\"")
   cmd("cp \"#{@c74}/Jamoma/documentation/jamoma-overview.maxpat\" \"#{@max}/patches/extras\"")
   cmd("mv \"#{@c74}/Jamoma/library/externals/Jamoma.framework\" \"#{@temp}/Library/Frameworks\"")
@@ -263,14 +268,14 @@ else
   cmd("cp \"#{@c74}/Jamoma/modules/control/cueManager/java-classes/CueManager.class\" \"#{@c74}/java/classes/cueManager\"") 
 
   puts "  Copying readme, license, etc...."
-  cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/resources\"")
-  cmd("cp \"#{@svn_root}/Jamoma/ReadMe.rtf\" \"#{@svn_root}/Installers/Jamoma\"")
-  cmd("cp \"#{@svn_root}/Jamoma/GNU-LGPL.rtf\" \"#{@svn_root}/Installers/resources/License.rtf\"")
-  cmd("cp \"#{@svn_root}/Jamoma/GNU-LGPL.rtf\" \"#{@svn_root}/Installers/Jamoma/License.rtf\"")
+  cmd("cp \"#{@c74}/Jamoma/ReadMe.rtf\" \"#{@installers}/resources\"")
+  cmd("cp \"#{@c74}/Jamoma/ReadMe.rtf\" \"#{@installers}/Jamoma\"")
+  cmd("cp \"#{@c74}/Jamoma/GNU-LGPL.rtf\" \"#{@installers}/resources/License.rtf\"")
+  cmd("cp \"#{@c74}/Jamoma/GNU-LGPL.rtf\" \"#{@installers}/Jamoma/License.rtf\"")
 
   puts "  Building Package -- this could take a while..."
-  cmd("rm -rfv \"#{@svn_root}/Installers/MacInstaller/Jamoma.pkg\"")
-  cmd("/Developer/usr/bin/packagemaker --verbose --root \"#{@svn_root}/Installers/temp\" --id org.jamoma.jamoma --out \"#{@svn_root}/Installers/Jamoma/Jamoma.pkg\" --version #{@version} --title Jamoma --resources \"#{@svn_root}/Installers/resources\" --target 10.4 --domain system --root-volume-only")
+  cmd("rm -rfv \"#{@installers}/MacInstaller/Jamoma.pkg\"")
+  cmd("/Developer/usr/bin/packagemaker --verbose --root \"#{@temp}\" --id org.jamoma.modular --out \"#{@installers}/Jamoma/Jamoma.pkg\" --version #{@version} --title Jamoma --resources \"#{@installers}/resources\" --target 10.4 --domain system --root-volume-only")
 
   # Warning: the zip thing seems to be a real problem on the Mac using OS 10.5 at least...  Renaming the zip ends up causing the install to fail
   #puts "  Zipping the Installer..."
@@ -279,8 +284,8 @@ else
   #cmd("mv \"#{@svn_root}/Installers/Jamoma.pkg.zip\" \"#{@svn_root}/Installers/Jamoma-0.4.6-Mac.pkg.zip\"")
 
   puts "  Creating Disk Image..."
-  cmd("rm -rfv \"#{@svn_root}/Installers/Jamoma-#{@version}-Mac.dmg\"")
-  cmd("hdiutil create -srcfolder \"#{@svn_root}/Installers/Jamoma\" \"#{@svn_root}/Installers/Jamoma-#{@version}-Mac.dmg\"")
+  cmd("rm -rfv \"#{@installers}/Jamoma-#{@version}-Mac.dmg\"")
+  cmd("hdiutil create -srcfolder \"#{@installers}/Jamoma\" \"#{@installers}/Jamoma-#{@version}-Mac.dmg\"")
 
   puts "  All done!"
 
