@@ -1077,9 +1077,11 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 				k2inv = k2inv + (x->src_weight[src][d]*x->src_weight[src][d])/(dia[d]*dia[d]);
 			}
 			k = sqrt(1./k2inv);
-			// Mean between linear response and square response
-			pix = ((k * x->src_weight[src][dst]) / (2. * dia[dst]*dia[dst])) * (dia[dst] + x->src_weight[src][dst]);
-			if(pix > 1.) pix = 1.;  //to have pix [0 :: 1]
+
+			// squared response [0::1]
+			pix =  k*x->src_weight[src][dst]/ dia[dst];
+			pix *= pix;
+
 			// keep the max
 			if(x->view_matrix[i][j] < (unsigned char)(pix * 255.))
 				x->view_matrix[i][j] = (unsigned char)(pix * 255.);
