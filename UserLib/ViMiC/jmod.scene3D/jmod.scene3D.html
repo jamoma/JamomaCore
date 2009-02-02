@@ -92,6 +92,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> defines the mirror plane </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> numSources </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 1 32 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> maximum number of sources in the scene </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> order </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -114,17 +125,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> random </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> allowed attributes x, y, z, xy,xz,yz, xyz </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> random/mode </td>
 			<td class ="instructionType"> int </td>
 			<td class ="instructionRangeBounds"> 0 2 </td>
@@ -134,6 +134,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> random mod: 0 no random effect, 1: noise is added to the incoming position (something like drunk), 2 noise value overwrites current position completelt </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> random </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> allowed attributes x, y, z, xy,xz,yz, xyz </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> rotate/active </td>
@@ -149,7 +160,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> rotate/pitch </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> -180.000000 180.000000 </td>
+			<td class ="instructionRangeBounds"> 0.000000 360.000000 </td>
 			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -171,8 +182,8 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> rotate/roll </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 90.000000 </td>
-			<td class ="instructionRangeClipmode"> fold </td>
+			<td class ="instructionRangeBounds"> 0.000000 360.000000 </td>
+			<td class ="instructionRangeClipmode"> wrap </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
@@ -213,17 +224,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> angles of the skew effect in the order of x->y | y->x | x->z | y->z | z->x | z->y </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> sources/amount </td>
-			<td class ="instructionType"> int </td>
-			<td class ="instructionRangeBounds"> 1 32 </td>
-			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> maximum number of sources in the scene </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> stretch/active </td>
 			<td class ="instructionType"> toggle </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
@@ -237,10 +237,10 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> stretch/factor </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> -20.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
-			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> multiplier to strech the scene in all dimensions </td>
@@ -270,7 +270,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> translate/x </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> -20.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -281,7 +281,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> translate/y </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> -20.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -292,7 +292,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> translate/z </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeBounds"> -20.000000 20.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> scheduler </td>
 			<td class ="instructionRampFunction"> linear </td>
@@ -310,6 +310,50 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/border </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/contentBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarText </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
 	</table>
 
@@ -527,6 +571,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> shuffles position of sources around </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> source.1/position </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> position </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> Position of the Nth source. </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> source.1/position/aed </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -538,7 +593,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.1/position/xyz </td>
+			<td class="instructionName"> source.10/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -560,7 +615,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.10/position/xyz </td>
+			<td class="instructionName"> source.11/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -582,7 +637,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.11/position/xyz </td>
+			<td class="instructionName"> source.12/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -604,7 +659,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.12/position/xyz </td>
+			<td class="instructionName"> source.13/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -626,7 +681,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.13/position/xyz </td>
+			<td class="instructionName"> source.14/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -648,7 +703,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.14/position/xyz </td>
+			<td class="instructionName"> source.15/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -670,7 +725,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.15/position/xyz </td>
+			<td class="instructionName"> source.16/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -692,7 +747,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.16/position/xyz </td>
+			<td class="instructionName"> source.17/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -714,7 +769,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.17/position/xyz </td>
+			<td class="instructionName"> source.18/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -736,7 +791,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.18/position/xyz </td>
+			<td class="instructionName"> source.19/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -758,7 +813,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.19/position/xyz </td>
+			<td class="instructionName"> source.2/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -780,7 +835,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.2/position/xyz </td>
+			<td class="instructionName"> source.20/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -802,7 +857,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.20/position/xyz </td>
+			<td class="instructionName"> source.21/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -824,7 +879,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.21/position/xyz </td>
+			<td class="instructionName"> source.22/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -846,7 +901,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.22/position/xyz </td>
+			<td class="instructionName"> source.23/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -868,7 +923,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.23/position/xyz </td>
+			<td class="instructionName"> source.24/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -890,7 +945,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.24/position/xyz </td>
+			<td class="instructionName"> source.25/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -912,7 +967,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.25/position/xyz </td>
+			<td class="instructionName"> source.26/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -934,7 +989,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.26/position/xyz </td>
+			<td class="instructionName"> source.27/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -956,7 +1011,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.27/position/xyz </td>
+			<td class="instructionName"> source.28/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -978,7 +1033,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.28/position/xyz </td>
+			<td class="instructionName"> source.29/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1000,7 +1055,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.29/position/xyz </td>
+			<td class="instructionName"> source.3/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1022,7 +1077,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.3/position/xyz </td>
+			<td class="instructionName"> source.30/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1044,7 +1099,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.30/position/xyz </td>
+			<td class="instructionName"> source.31/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1066,7 +1121,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.31/position/xyz </td>
+			<td class="instructionName"> source.32/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1088,7 +1143,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.32/position/xyz </td>
+			<td class="instructionName"> source.4/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1110,7 +1165,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.4/position/xyz </td>
+			<td class="instructionName"> source.5/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1132,7 +1187,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.5/position/xyz </td>
+			<td class="instructionName"> source.6/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1154,7 +1209,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.6/position/xyz </td>
+			<td class="instructionName"> source.7/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1176,7 +1231,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.7/position/xyz </td>
+			<td class="instructionName"> source.8/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1198,7 +1253,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Position of the Nth source. </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> source.8/position/xyz </td>
+			<td class="instructionName"> source.9/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1210,17 +1265,6 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> source.9/position/aed </td>
-			<td class ="instructionType"> list </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> position </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Position of the Nth source. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> source.9/position/xyz </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1270,7 +1314,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.1/position/xyz </td>
+			<td class="instructionName"> output/source.1/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1281,7 +1325,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.10/position/xyz </td>
+			<td class="instructionName"> output/source.10/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1292,7 +1336,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.11/position/xyz </td>
+			<td class="instructionName"> output/source.11/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1303,7 +1347,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.12/position/xyz </td>
+			<td class="instructionName"> output/source.12/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1314,7 +1358,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.13/position/xyz </td>
+			<td class="instructionName"> output/source.13/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1325,7 +1369,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.14/position/xyz </td>
+			<td class="instructionName"> output/source.14/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1336,7 +1380,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.15/position/xyz </td>
+			<td class="instructionName"> output/source.15/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1347,7 +1391,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.16/position/xyz </td>
+			<td class="instructionName"> output/source.16/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1358,7 +1402,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.17/position/xyz </td>
+			<td class="instructionName"> output/source.17/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1369,7 +1413,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.18/position/xyz </td>
+			<td class="instructionName"> output/source.18/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1380,7 +1424,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.19/position/xyz </td>
+			<td class="instructionName"> output/source.19/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1391,7 +1435,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.2/position/xyz </td>
+			<td class="instructionName"> output/source.2/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1402,7 +1446,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.20/position/xyz </td>
+			<td class="instructionName"> output/source.20/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1413,7 +1457,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.21/position/xyz </td>
+			<td class="instructionName"> output/source.21/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1424,7 +1468,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.22/position/xyz </td>
+			<td class="instructionName"> output/source.22/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1435,7 +1479,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.23/position/xyz </td>
+			<td class="instructionName"> output/source.23/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1446,7 +1490,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.24/position/xyz </td>
+			<td class="instructionName"> output/source.24/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1457,7 +1501,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.25/position/xyz </td>
+			<td class="instructionName"> output/source.25/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1468,7 +1512,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.26/position/xyz </td>
+			<td class="instructionName"> output/source.26/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1479,7 +1523,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.27/position/xyz </td>
+			<td class="instructionName"> output/source.27/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1490,7 +1534,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.28/position/xyz </td>
+			<td class="instructionName"> output/source.28/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1501,7 +1545,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.29/position/xyz </td>
+			<td class="instructionName"> output/source.29/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1512,7 +1556,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.3/position/xyz </td>
+			<td class="instructionName"> output/source.3/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1523,7 +1567,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.30/position/xyz </td>
+			<td class="instructionName"> output/source.30/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1534,7 +1578,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.31/position/xyz </td>
+			<td class="instructionName"> output/source.31/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1545,7 +1589,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.32/position/xyz </td>
+			<td class="instructionName"> output/source.32/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1556,7 +1600,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.4/position/xyz </td>
+			<td class="instructionName"> output/source.4/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1567,7 +1611,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.5/position/xyz </td>
+			<td class="instructionName"> output/source.5/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1578,7 +1622,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.6/position/xyz </td>
+			<td class="instructionName"> output/source.6/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1589,7 +1633,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.7/position/xyz </td>
+			<td class="instructionName"> output/source.7/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1600,7 +1644,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.8/position/xyz </td>
+			<td class="instructionName"> output/source.8/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -1611,7 +1655,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription">  </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> output/source.9/position/xyz </td>
+			<td class="instructionName"> output/source.9/position </td>
 			<td class ="instructionType"> list </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
