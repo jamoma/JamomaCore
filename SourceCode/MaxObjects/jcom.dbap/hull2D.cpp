@@ -26,7 +26,7 @@ void	Swap(t_point point,int i, int j)
 {
 	long ltemp;
 	bool btemp;
-	float ftemp;
+	double ftemp;
 	/* Uses swap macro. */
 	SWAP(ltemp, point[i].vnum,		point[j].vnum);
 	SWAP(ftemp, point[i].v[X],		point[j].v[X]);
@@ -58,13 +58,11 @@ here "<" means smaller angle.  Follows the conventions of qsort_s
 int   Compare(const void *tpi, const void *tpj)
 {
 	int a;					// area sign
-	float x, y;				// projections of ri & rj in 1st quadrant
+	double x, y;			// projections of ri & rj in 1st quadrant
 	t_point pi, pj;			// data to compare
-	// t_H2D *h2;			// contextual data to make the comparison
 
 	pi = (t_point)tpi;
 	pj = (t_point)tpj;
-	//h2 = (t_H2D *)h;
 
 	a = AreaSign(pi->p0, pi->v, pj->v);
 	if (a > 0)
@@ -123,7 +121,6 @@ t_stack	Graham(t_H2D h2)
 			i++;
 		}
 		else top = Pop( top );
-		//post("Stack at bot of while loop, i=%d, vnum=%d:", i, P[i].vnum);
 		//PrintStack(top);
 	}
 	return top;
@@ -170,11 +167,14 @@ int		AreaSign(t_xy a, t_xy b, t_xy c)
 {
     double area2;
 
-    area2 = ( b[0] - a[0] ) * (double)( c[1] - a[1] ) -
-            ( c[0] - a[0] ) * (double)( b[1] - a[1] );
+    area2 = ( b[0] - a[0] ) * ( c[1] - a[1] ) -
+            ( c[0] - a[0] ) * ( b[1] - a[1] );
 
     /* The area should be an integer. */
-    if      (area2 >  0.5) return  1;
+    /*if      (area2 >  0.5) return  1;
     else if (area2 < -0.5) return -1;
-    else                   return  0;
+    else                   return  0;*/
+	if      (area2 > 0) return  1;
+    else if (area2 < 0) return -1;
+    else                return  0;
 }

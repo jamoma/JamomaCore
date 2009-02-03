@@ -54,6 +54,7 @@ typedef struct _dbap{									///< Data structure for this object
 	float		master_gain;							///< Mater gain for all ofr the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
+	bool		hull_io;								///< On/off calculation of distances to hull
 	t_hull1		hull1;									///< Convex hull in 1 dimension
 	t_hull2		hull2;									///< Convex hull in 2 dimensions
 	float		variance;								///< Bias-corrected variance of distance from destination points to mean destination point
@@ -102,10 +103,13 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv);
 /** Mute and unmute sources */
 void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv);
 
+/** Turn on/off the calculation of distance to hull */
+void dbap_hull(t_dbap *x, long f);
+
 /** Display a hitmap view of the dbap for a destination and a source weight config or all (on the info outlet ?) */
 void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv);
 
-/** Turn on/off the auto wiev updating */
+/** Turn on/off the auto view updating */
 void dbap_view_update(t_dbap *x, long io);
 
 /** Set the size of hitmap view window */
@@ -160,17 +164,17 @@ void dbap_calculate_mean_dst_position(t_dbap *x);
 void dbap_calculate_variance(t_dbap *x);
 
 /** Calculate convex hull of space spanned by destination points. */ 
-void dbap_calculate_hull(t_dbap *x);
+void dbap_calculate_hull(t_dbap *x, long n);
 
 /** Calculate convex hull of space spanned by destination points: 1D */
-void dbap_calculate_hull1D(t_dbap *x);
+void dbap_calculate_hull1D(t_dbap *x, long n);
 
 /** Calculate convex hull of space spanned by destination points: 2D */
-void dbap_calculate_hull2D(t_dbap *x);
+void dbap_calculate_hull2D(t_dbap *x, long n);
 void dbap_hull2_postpoint(t_dbap *x, t_H2D h2); // debug
 
 /** Calculate convex hull of space spanned by destination points: 3D */
-void dbap_calculate_hull3D(t_dbap *x);
+void dbap_calculate_hull3D(t_dbap *x, long n);
 
 /** Calculate the view (2D-matrix) */
 void dbap_calculate_view(t_dbap *x, long dst, long src);

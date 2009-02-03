@@ -35,13 +35,13 @@ not removed.
 /** Data structures to store a 2 dimensional convex hull */
 
 /*--------- Point(s) Structure ---------*/
-typedef float t_xy[2];	/* Type float point */
+typedef double t_xy[2];	/* Type float point */
 
 typedef struct _structPoint t_structPoint;
 typedef t_structPoint *t_point;
 struct _structPoint {
 	t_xy	v;
-	int		vnum;
+	long	vnum;
 	bool	del;
 	t_xy	p0;
 };

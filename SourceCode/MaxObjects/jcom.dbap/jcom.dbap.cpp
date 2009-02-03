@@ -41,6 +41,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)dbap_mastergain,			"master_gain",	A_FLOAT,	0);
 	class_addmethod(c, (method)dbap_sourcemute,			"src_mute",		A_GIMME,	0);
 
+	class_addmethod(c, (method)dbap_hull,				"hull",			A_LONG,		0);
+
 	class_addmethod(c, (method)dbap_view,				"view",			A_GIMME,	0);
 	class_addmethod(c, (method)dbap_view_update,		"view_update",	A_LONG,		0);
 	class_addmethod(c, (method)dbap_view_size,			"view_size",	A_LONG, A_LONG,	0);
@@ -137,6 +139,8 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 			}
 		}
 
+		x->hull_io = false;
+
 		x->hull1.min = 0.0;
 		x->hull1.max = 0.0;
 
@@ -151,7 +155,7 @@ void *dbap_new(t_symbol *msg, long argc, t_atom *argv)
 
 
 
-/************************************************************************************/
+/********************************************************************************************/
 // Methods bound to input/inlets
 
 #pragma mark -
@@ -257,7 +261,6 @@ void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv)
 		}
 		// The set of destination points has been changed - recalculate variance.
 		dbap_calculate_variance(x);		// implicitely updates all matrix values
-		dbap_calculate_hull(x);
 		dbap_update_view(x);
 	}
 	else
@@ -321,6 +324,7 @@ void dbap_sourceweight(t_dbap *x, t_symbol *msg, long argc, t_atom *argv)
 			x->src_weight[n][i-1] = f;
 		}
 		dbap_calculate(x, n);
+		dbap_calculate_hull(x, n);
 		dbap_update_view(x);
 	}
 	else
@@ -343,6 +347,26 @@ void dbap_sourcemute(t_dbap *x, void *msg, long argc, t_atom *argv)
 	}
 	else
 		error("Invalid argument(s) for source_gain");
+}
+
+/** Turn on/off the calculation of distance to hull */
+void dbap_hull(t_dbap *x, long f)
+{
+	bool refresh = false;
+
+	x->hull_io = f > 0;
+
+	// Is the hull has been built ?
+	if(x->hull_io){
+		if(x->attr_dimensions == 1){
+			if((x->hull1.min == 0.)&&(x->hull1.max == 0.)) refresh = true;
+		}
+		else if(x->attr_dimensions == 2){
+			if(x->hull2.num_dst == 0) refresh = true;
+			}
+	}
+	if(refresh) dbap_calculate_hull(x,1);	//It's the same hull for all sources
+											//TODO : a hull for each source
 }
 
 /** Display a hitmap view of the dbap for a destination and a source weight config or all (on the info outlet ?) */
@@ -397,7 +421,7 @@ void dbap_view(t_dbap *x, void *msg, long argc, t_atom *argv)
 /** Turn on/off the auto wiev updating */
 void dbap_view_update(t_dbap *x, long io)
 {
-	x->attr_view_update = io >= 1;
+	x->attr_view_update = io > 0;
 }
 
 /** Set the size of hitmap view window */
@@ -631,26 +655,27 @@ void dbap_calculate1D(t_dbap *x, long n)
 	double r2;							// Bluriness ratio 
 	double dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
 	t_atom a[3];						// Output array of atoms
-	
-	
 	long i;
 
-	// Calculate distance from convex hull and project position onto convex hull)
 	xPos = x->src_position[n].x;
-	if (xPos < x->hull1.min) {
-		dist = x->hull1.min - xPos;
-		xPos = x->hull1.min;
-	}
-	else if (xPos > x->hull1.max) {
-		dist = xPos - x->hull1.max;
-		xPos = x->hull1.max;
-	}
-	else
-		dist = 0.0;
+
+	// Calculate distance from convex hull and project position onto convex hull)
+	if(x->hull_io){
+		if (xPos < x->hull1.min) {
+			dist = x->hull1.min - xPos;
+			xPos = x->hull1.min;
+		}
+		else if (xPos > x->hull1.max) {
+			dist = xPos - x->hull1.max;
+			xPos = x->hull1.max;
+		}
+		else
+			dist = 0.0;
 	
-	atom_setlong(&a[0], n);
-	atom_setfloat(&a[1], dist);
-	outlet_anything(x->outlet[1], _sym_list, 2, a);
+		atom_setlong(&a[0], n);
+		atom_setfloat(&a[1], dist);
+		(x->outlet[1], _sym_list, 2, a);
+	}
 	
 	r2 = x->blur[n] * x->variance;
 	r2 = r2*r2;
@@ -696,59 +721,61 @@ void dbap_calculate2D(t_dbap *x, long n)
 		dx = x->src_position[n].x - x->dst_position[i].x;
 		dy = x->src_position[n].y - x->dst_position[i].y;
 		dia[i] = pow(double(dx*dx + dy*dy + r2), double(0.5*x->a));
-		sdia[i] = dx*dx + dy*dy;
+		if(x->hull_io) sdia[i] = dx*dx + dy*dy;
 		
 		k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i]);
 	}
 
-	// Find the closest border in the hull
-	min_dist = 10000.;
-	out = -1.;
-	for(j=0; j<x->hull2.num_dst; j++){
-		// index in the dst_position[]
-		iC = x->hull2.id_dst[j];
-		iN = x->hull2.id_dst[(j+1)%x->hull2.num_dst];
-		// squared distance of the source S to the dest C and N
-		sSC = sdia[iC];
-		sSN = sdia[iN];
-		// squared distance of the border
-		sCN = x->hull2.dst2next[j];
-		kCN = (sSC + sCN - sSN)/sCN;
+	if(x->hull_io){
+		// Find the closest border in the hull
+		min_dist = 10000.;
+		out = -1.;
+		for(j=0; j<x->hull2.num_dst; j++){
+			// index in the dst_position[]
+			iC = x->hull2.id_dst[j];
+			iN = x->hull2.id_dst[(j+1)%x->hull2.num_dst];
+			// squared distance of the source S to the dest C and N
+			sSC = sdia[iC];
+			sSN = sdia[iN];
+			// squared distance of the border
+			sCN = x->hull2.dst2next[j];
+			kCN = (sSC + sCN - sSN)/sCN;
 
-		if(kCN<0){
-			dist = sqrt(sSC);
-		}
-		else{
-			if(kCN>2){
-				dist = sqrt(sSN);
+			if(kCN<0){
+				dist = sqrt(sSC);
 			}
 			else{
-				// the projection of the source on [CN] : <CP> = kCN * <CN>
-				P.x = (kCN/2) * (x->dst_position[iN].x - x->dst_position[iC].x) + x->dst_position[iC].x;
-				P.y = (kCN/2) * (x->dst_position[iN].y - x->dst_position[iC].y) + x->dst_position[iC].y;
-				// distance of SP
-				dx = x->src_position[n].x - P.x;
-				dy = x->src_position[n].y - P.y;
-				dist = sqrt(dx*dx + dy*dy);
+				if(kCN>2){
+					dist = sqrt(sSN);
+				}
+				else{
+					// the projection of the source on [CN] : <CP> = kCN * <CN>
+					P.x = (kCN/2) * (x->dst_position[iN].x - x->dst_position[iC].x) + x->dst_position[iC].x;
+					P.y = (kCN/2) * (x->dst_position[iN].y - x->dst_position[iC].y) + x->dst_position[iC].y;
+					// distance of SP
+					dx = x->src_position[n].x - P.x;
+					dy = x->src_position[n].y - P.y;
+					dist = sqrt(dx*dx + dy*dy);
+				}
+			}
+
+			// is the source out of the hull ?
+			v = (x->dst_position[iN].x - x->dst_position[iC].x)*(x->src_position[n].y - x->dst_position[iC].y);
+			v -= (x->dst_position[iN].y - x->dst_position[iC].y)*(x->src_position[n].x - x->dst_position[iC].x);
+			if(v>0) out = 1.;
+
+			if(dist < min_dist){
+				min_dist = dist;
+				if(sSC < sSN) id_min = iC;
+				else  id_min = iN;
 			}
 		}
 
-		// is the source out of the hull ?
-		v = (x->dst_position[iN].x - x->dst_position[iC].x)*(x->src_position[n].y - x->dst_position[iC].y);
-		v -= (x->dst_position[iN].y - x->dst_position[iC].y)*(x->src_position[n].x - x->dst_position[iC].x);
-		if(v>0) out = 1.;
-
-		if(dist < min_dist){
-			min_dist = dist;
-			if(sSC < sSN) id_min = iC;
-			else  id_min = iN;
-		}
+		atom_setlong(&a[0],n);								// src
+		atom_setfloat(&a[1],out*min_dist);					// dist to hull
+		atom_setlong(&a[2],id_min+1);						// id of the closest dst in the hull 
+		outlet_anything(x->outlet[1], _sym_list, 3, a);
 	}
-
-	atom_setlong(&a[0],n);								// src
-	atom_setfloat(&a[1],out*min_dist);					// dist to hull
-	atom_setlong(&a[2],id_min+1);						// id of the closest dst in the hull 
-	outlet_anything(x->outlet[1], _sym_list, 3, a);
 
 	k = sqrt(1./k2inv);
 	k = k*x->master_gain*x->src_gain[n]*x->src_not_muted[n];
@@ -859,20 +886,20 @@ void dbap_calculate_variance(t_dbap *x)
 }
 
 
-void dbap_calculate_hull(t_dbap *x)
+void dbap_calculate_hull(t_dbap *x, long n)
 {
 	// Update all matrix values
 	if (x->attr_dimensions==1)
-		dbap_calculate_hull1D(x);
+		dbap_calculate_hull1D(x, n);
 	else if (x->attr_dimensions==2)
-		dbap_calculate_hull2D(x);
+		dbap_calculate_hull2D(x, n);
 	else
-		dbap_calculate_hull3D(x);
+		dbap_calculate_hull3D(x, n);
 }
 
 
 
-void dbap_calculate_hull1D(t_dbap *x)
+void dbap_calculate_hull1D(t_dbap *x, long n)
 {
 	long i;
 	float min, max;
@@ -892,51 +919,54 @@ void dbap_calculate_hull1D(t_dbap *x)
 
 // TODO : a way to select dst
 // TODO : put the algotithm in hull2.cpp (keep it here while isn't tested to use post())
-void dbap_calculate_hull2D(t_dbap *x)
+void dbap_calculate_hull2D(t_dbap *x, long n)
 {
 	t_H2D h2;			//the data strucuture to perform calculation
 	long i,j;
 	float dx,dy;		// to calculate the lenght of each border of the hull
 	long m;				// Index of lowest so far
 
-	// post("h2D : Start -------------------------------------------------");
+	//post("h2D : Start ********************************************");
+	if(x->attr_num_destinations < 2) return;
+	else h2.nb_point = x->attr_num_destinations;
 
 	// Store dst coordinate to prepare algorithm
 	for(i = 0; i<x->attr_num_destinations; i++){
-		h2.point[i].v[X] = x->dst_position[i].x;
-		h2.point[i].v[Y] = x->dst_position[i].y;
-		h2.point[i].vnum = i;
+		h2.point[i].v[X] = (double) x->dst_position[i].x;
+		h2.point[i].v[Y] = (double) x->dst_position[i].y;
+		h2.point[i].vnum = i+1;
 		h2.point[i].del = false;
 	}
 
 	// Find the lowest and rightmost Point
 	m = 0;
-	for(i = 1; i<x->attr_num_destinations; i++)
-		if (
-			(h2.point[i].v[Y] <  h2.point[m].v[Y]) 
-			|| ((h2.point[i].v[Y] == h2.point[m].v[Y])
-			&& (h2.point[i].v[X] > h2.point[m].v[X]))) 
+	for(i = 1; i<x->attr_num_destinations; i++){
+		if((h2.point[i].v[Y] <  h2.point[m].v[Y]) || ((h2.point[i].v[Y] == h2.point[m].v[Y]) && (h2.point[i].v[X] > h2.point[m].v[X]))){
 			m = i;
+		}
+	}
 
 
 	// Debug
-	// post("h2D : The lowest and rigthmost point is %d", m+1);
+	//post("h2D : The lowest and rigthmost point is %d", m+1);
 
 	// Swap point[0] and point[m]
 	Swap(h2.point,0,m);
 
 	// add p0 to each point[i] (to get it during Compare without use a qsort_s)
-	for(i = 1; i<x->attr_num_destinations; i++){
+	for(i = 0; i<x->attr_num_destinations; i++){
 		h2.point[i].p0[0] = h2.point[0].v[0];
 		h2.point[i].p0[1] = h2.point[0].v[1];
 	}
+
+	// debug
+	//dbap_hull2_postpoint(x, h2);
 
 	qsort(
       &h2.point[1],					// pointer to 1st elem
       x->attr_num_destinations-1,	// number of elems
       sizeof(t_structPoint),		// size of each elem
       Compare						// -1,0,+1 compare function
-	  //&h2							// pointer to the hull2 structure that the compare routine needs to access
 	);
 
 	// count nb_delete ('cause we can't do that in Compare)
@@ -944,6 +974,9 @@ void dbap_calculate_hull2D(t_dbap *x)
 	for(i = 1; i<x->attr_num_destinations; i++){
 		if(h2.point[i].del) h2.nb_delete++;
 	}
+
+	// debug
+	//post("nb_del = %d",h2.nb_delete);
 
 	// Remove all elements from point marked deleted
 	if(h2.nb_delete > 0){
@@ -965,7 +998,6 @@ void dbap_calculate_hull2D(t_dbap *x)
 
 	// Debug
 	//post("h2D : %d points sorted by angle",h2.nb_point);
-	//dbap_hull2_postpoint(x);
 	
 	h2.stack = Graham(h2);
 	
@@ -977,9 +1009,9 @@ void dbap_calculate_hull2D(t_dbap *x)
 	if(h2.stack){
 		while(h2.stack){
 			// Debug
-			//post("vnum = %d, x = %f, y = %f", h2.stack->p->vnum+1,h2.stack->p->v[X],h2.stack->p->v[Y]);
+			//post("vnum = %d, x = %f, y = %f", h2.stack->p->vnum,h2.stack->p->v[X],h2.stack->p->v[Y]);
 			
-			x->hull2.id_dst[i] = h2.stack->p->vnum;
+			x->hull2.id_dst[i] = (h2.stack->p->vnum)-1;
 			
 			// calculate the lenght of each border of the hull
 			if(i>0){
@@ -990,7 +1022,6 @@ void dbap_calculate_hull2D(t_dbap *x)
 			}
 			
 			h2.stack = h2.stack->next;
-			
 			i++;
 		}
 		x->hull2.num_dst = i;
@@ -1000,21 +1031,26 @@ void dbap_calculate_hull2D(t_dbap *x)
 		x->hull2.dst2next[i-1] = dx*dx + dy*dy;
 		//post("dist[%d %d] = %f", x->hull2.id_dst[i-1]+1,x->hull2.id_dst[0]+1,sqrt(x->hull2.dst2next[i-1]));
 
-   } // else do nothing
+	} // else do nothing
+
+	// debug
+	//for(i=0; i<x->hull2.num_dst; i++){
+	//	post("id = %d",x->hull2.id_dst[i]+1);
+	//}
 }
 
 // Print point[] (debugging)
 void dbap_hull2_postpoint(t_dbap *x, t_H2D h2)
 {
-	//long i;
-	//post("H2D : %d points", h2.nb_point);
-	//for(i = 0; i<x->attr_num_destinations; i++)
-	//	if(!h2.point[i].del)
-			//post("vnum = %d, x = %f, y = %f", 
-			//h2.point[i].vnum + 1, h2.point[i].v[X], h2.point[i].v[Y]);
+	long i;
+	post("H2D : %d points", h2.nb_point);
+	for(i = 0; i<x->attr_num_destinations; i++)
+		if(!h2.point[i].del)
+			post("vnum = %d, x = %f, y = %f", 
+			h2.point[i].vnum, h2.point[i].v[X], h2.point[i].v[Y]);
 }
 
-void dbap_calculate_hull3D(t_dbap *x)
+void dbap_calculate_hull3D(t_dbap *x, long n)
 {
 	// TODO: develop algorithm calculating convex hull in 3 dimensions
 }
@@ -1050,7 +1086,7 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 	float dia[MAX_NUM_DESTINATIONS];	// Distance to ith speaker to the power of x->a.
 	float div_x, div_y;	
 	float pix;
-	long i,j,d;
+	long i,j,m_j,d;
 	t_xyz temp_src;
 
 	div_x = (x->attr_view_end.x - x->attr_view_start.x)/x->attr_view_size[0];
@@ -1058,10 +1094,10 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 
 	// For each pixel of the view window
 	for(i=0; i<x->attr_view_size[0]; i++){
-		for(j=0; j<x->attr_view_size[1]; j++){
+		for(j=0 ; j<x->attr_view_size[1]; j++){
 
 			temp_src.x = x->attr_view_start.x + i * div_x;
-			temp_src.y = x->attr_view_end.y - (x->attr_view_start.y + j * div_y); // jit.matrix style
+			temp_src.y = x->attr_view_start.y + j * div_y;
 			
 			//> dbap calculation for the temp source
 			//> calculation of the mean of amplitudes
@@ -1083,8 +1119,9 @@ void dbap_calculate_view2D(t_dbap *x, long dst, long src)
 			pix *= pix;
 
 			// keep the max
-			if(x->view_matrix[i][j] < (unsigned char)(pix * 255.))
-				x->view_matrix[i][j] = (unsigned char)(pix * 255.);
+			m_j = x->attr_view_size[1]-j-1;   // jit.matrix style
+			if(x->view_matrix[i][m_j] < (unsigned char)(pix * 255.))
+				x->view_matrix[i][m_j] = (unsigned char)(pix * 255.);
 		}
 	}
 }
