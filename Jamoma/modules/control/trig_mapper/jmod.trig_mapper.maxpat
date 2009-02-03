@@ -21,7 +21,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-1",
-					"items" : [ "/Zrmetro", ",", "/Zspat~", ",", "/Zequalizer~", ",", "/Zspat2~", ",", "/Zgigaverb~", ",", "/layout", ",", "/ZDtD2~", ",", "/bcf2000", ",", "/control", ",", "/Zin~", ",", "/Zkroonde", ",", "/cueManager", ",", "/barycentre", ",", "/mouse", ",", "/cont_mapper", ",", "/trig_mapper", ",", "/editing_this_module" ],
+					"items" : [ "/editing_this_module", ",", "/Zrmetro", ",", "/Zspat~", ",", "/Zequalizer~", ",", "/Zspat2~", ",", "/Zgigaverb~", ",", "/cont_mapper", ",", "/layout", ",", "/ZDtD2~", ",", "/bcf2000", ",", "/control", ",", "/Zin~", ",", "/Zkroonde", ",", "/cueManager", ",", "/barycentre", ",", "/mouse", ",", "/trig_mapper" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
@@ -1724,7 +1724,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 9,
-					"outlettype" : [ "", "int", "", "clear", "int", "clear", "", "int", "" ],
+					"outlettype" : [ "", "", "", "clear", "int", "clear", "", "int", "" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"rect" : [ 43.0, 125.0, 1139.0, 397.0 ],
@@ -1741,6 +1741,7 @@
 						"toolbarvisible" : 1,
 						"boxanimatetime" : 200,
 						"imprint" : 0,
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"fontname" : "Verdana",
@@ -1828,7 +1829,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 4,
 									"numoutlets" : 5,
-									"outlettype" : [ "int", "", "", "", "int" ],
+									"outlettype" : [ "", "", "", "", "int" ],
 									"patcher" : 									{
 										"fileversion" : 1,
 										"rect" : [ 36.0, 87.0, 504.0, 615.0 ],
@@ -1845,6 +1846,7 @@
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
 										"imprint" : 0,
+										"visible" : 1,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -2468,12 +2470,12 @@
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 2,
-													"outlettype" : [ "int", "<separator>" ],
+													"outlettype" : [ "int", "" ],
 													"patcher" : 													{
 														"fileversion" : 1,
-														"rect" : [ 98.0, 82.0, 317.0, 199.0 ],
+														"rect" : [ 86.0, 177.0, 317.0, 199.0 ],
 														"bglocked" : 0,
-														"defrect" : [ 98.0, 82.0, 317.0, 199.0 ],
+														"defrect" : [ 86.0, 177.0, 317.0, 199.0 ],
 														"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 														"openinpresentation" : 0,
 														"default_fontsize" : 10.0,
@@ -2557,8 +2559,7 @@
 																	"maxclass" : "outlet",
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 20.0, 115.0, 15.0, 15.0 ],
-																	"presentation_rect" : [ 20.0, 116.0, 0.0, 0.0 ]
+																	"patching_rect" : [ 20.0, 115.0, 15.0, 15.0 ]
 																}
 
 															}
@@ -2675,7 +2676,7 @@
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 1,
-													"outlettype" : [ "int" ],
+													"outlettype" : [ "" ],
 													"patching_rect" : [ 127.0, 497.0, 57.0, 18.0 ],
 													"text" : "jcom.thru"
 												}
@@ -5555,6 +5556,7 @@
 										"toolbarvisible" : 1,
 										"boxanimatetime" : 200,
 										"imprint" : 0,
+										"visible" : 1,
 										"boxes" : [ 											{
 												"box" : 												{
 													"fontname" : "Verdana",
@@ -6137,7 +6139,7 @@
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 2,
-													"outlettype" : [ "int", "<separator>" ],
+													"outlettype" : [ "int", "" ],
 													"patcher" : 													{
 														"fileversion" : 1,
 														"rect" : [ 736.0, 73.0, 317.0, 199.0 ],
@@ -6154,6 +6156,7 @@
 														"toolbarvisible" : 1,
 														"boxanimatetime" : 200,
 														"imprint" : 0,
+														"visible" : 1,
 														"boxes" : [ 															{
 																"box" : 																{
 																	"fontname" : "Verdana",
@@ -6163,7 +6166,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 25.0, 75.0, 138.0, 18.0 ],
+																	"patching_rect" : [ 35.0, 125.0, 138.0, 18.0 ],
 																	"text" : "jcom.parameters_dumper"
 																}
 
@@ -6191,7 +6194,7 @@
 																	"numinlets" : 1,
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
-																	"patching_rect" : [ 165.0, 75.0, 126.0, 18.0 ],
+																	"patching_rect" : [ 175.0, 125.0, 126.0, 18.0 ],
 																	"text" : "jcom.returns_dumper"
 																}
 
@@ -6203,7 +6206,7 @@
 																	"maxclass" : "outlet",
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 90.0, 113.0, 15.0, 15.0 ]
+																	"patching_rect" : [ 100.0, 163.0, 15.0, 15.0 ]
 																}
 
 															}
@@ -6226,8 +6229,21 @@
 																	"maxclass" : "outlet",
 																	"numinlets" : 1,
 																	"numoutlets" : 0,
-																	"patching_rect" : [ 15.0, 115.0, 15.0, 15.0 ],
-																	"presentation_rect" : [ 16.0, 116.0, 0.0, 0.0 ]
+																	"patching_rect" : [ 25.0, 165.0, 15.0, 15.0 ]
+																}
+
+															}
+, 															{
+																"box" : 																{
+																	"fontname" : "Verdana",
+																	"fontsize" : 9.873845,
+																	"id" : "obj-7",
+																	"maxclass" : "newobj",
+																	"numinlets" : 1,
+																	"numoutlets" : 1,
+																	"outlettype" : [ "" ],
+																	"patching_rect" : [ 175.0, 95.0, 36.0, 18.0 ],
+																	"text" : "t s"
 																}
 
 															}
@@ -6236,7 +6252,7 @@
 																"patchline" : 																{
 																	"destination" : [ "obj-4", 0 ],
 																	"hidden" : 0,
-																	"midpoints" : [ 34.5, 104.0, 99.0, 104.0 ],
+																	"midpoints" : [ 44.5, 154.0, 109.0, 154.0 ],
 																	"source" : [ "obj-1", 0 ]
 																}
 
@@ -6246,7 +6262,7 @@
 																	"destination" : [ "obj-1", 0 ],
 																	"hidden" : 0,
 																	"midpoints" : [  ],
-																	"source" : [ "obj-2", 1 ]
+																	"source" : [ "obj-2", 3 ]
 																}
 
 															}
@@ -6255,7 +6271,7 @@
 																	"destination" : [ "obj-3", 0 ],
 																	"hidden" : 0,
 																	"midpoints" : [  ],
-																	"source" : [ "obj-2", 3 ]
+																	"source" : [ "obj-2", 1 ]
 																}
 
 															}
@@ -6281,7 +6297,7 @@
 																"patchline" : 																{
 																	"destination" : [ "obj-4", 0 ],
 																	"hidden" : 0,
-																	"midpoints" : [ 174.5, 104.0, 99.0, 104.0 ],
+																	"midpoints" : [ 184.5, 154.0, 109.0, 154.0 ],
 																	"source" : [ "obj-3", 0 ]
 																}
 
@@ -7181,15 +7197,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-1", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-2", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-9", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -7523,7 +7530,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-80",
-					"items" : [ "/Zrmetro", ",", "/Zspat~", ",", "/Zequalizer~", ",", "/Zspat2~", ",", "/Zgigaverb~", ",", "/layout", ",", "/ZDtD2~", ",", "/bcf2000", ",", "/control", ",", "/Zin~", ",", "/Zkroonde", ",", "/cueManager", ",", "/barycentre", ",", "/mouse", ",", "/cont_mapper", ",", "/trig_mapper", ",", "/editing_this_module" ],
+					"items" : [ "/editing_this_module", ",", "/Zrmetro", ",", "/Zspat~", ",", "/Zequalizer~", ",", "/Zspat2~", ",", "/Zgigaverb~", ",", "/cont_mapper", ",", "/layout", ",", "/ZDtD2~", ",", "/bcf2000", ",", "/control", ",", "/Zin~", ",", "/Zkroonde", ",", "/cueManager", ",", "/barycentre", ",", "/mouse", ",", "/trig_mapper" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
