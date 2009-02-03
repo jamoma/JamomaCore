@@ -1338,7 +1338,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/2/gain",
-					"text" : "jcom.parameter room/reflection/gain.2 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @ramp/drive scheduler @type msg_float @description \"gain of the early reflections 2nd order\"",
+					"text" : "jcom.parameter room/reflection/gain.2 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @ramp/drive scheduler @type msg_float @description \"gain of the early reflections 2nd order\"",
 					"linecount" : 2,
 					"patching_rect" : [ 625.0, 160.0, 589.0, 27.0 ],
 					"numoutlets" : 3,
@@ -1355,7 +1355,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/1/gain",
-					"text" : "jcom.parameter room/reflection/gain.1 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @ramp/drive scheduler @type msg_float @description \"gain of the early reflections 1st order\"",
+					"text" : "jcom.parameter room/reflection/gain.1 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @ramp/drive scheduler @type msg_float @description \"gain of the early reflections 1st order\"",
 					"linecount" : 2,
 					"patching_rect" : [ 614.0, 102.0, 589.0, 27.0 ],
 					"numoutlets" : 3,
@@ -1372,7 +1372,7 @@
 				"box" : 				{
 					"maxclass" : "newobj",
 					"varname" : "room/reflection/0/gain",
-					"text" : "jcom.parameter room/reflection/gain.0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/internal midi @repetitions/allow 0 @ramp/drive scheduler @type msg_float @description \"gain of the direct sound component\"",
+					"text" : "jcom.parameter room/reflection/gain.0 @dataspace gain @dataspace/unit/active midi @dataspace/unit/native midi @dataspace/unit/native midi @repetitions/allow 0 @ramp/drive scheduler @type msg_float @description \"gain of the direct sound component\"",
 					"linecount" : 2,
 					"patching_rect" : [ 616.0, 38.0, 589.0, 27.0 ],
 					"numoutlets" : 3,
@@ -11250,7 +11250,7 @@
 , 							{
 								"box" : 								{
 									"maxclass" : "newobj",
-									"text" : "jcom.parameter room/temperature @type msg_float @repetitions/allow 1 @range/bounds -20. 30. @range/clipmode low @dataspace temperature @dataspace/unit/active C @dataspace/unit/native C @dataspace/unit/internal C @description \"Temperature in Celsius to calculate the speed of sound\"",
+									"text" : "jcom.parameter room/temperature @type msg_float @repetitions/allow 1 @range/bounds -20. 30. @range/clipmode low @dataspace temperature @dataspace/unit/active C @dataspace/unit/native C @dataspace/unit/native C @description \"Temperature in Celsius to calculate the speed of sound\"",
 									"linecount" : 3,
 									"patching_rect" : [ 1095.0, 945.0, 596.0, 38.0 ],
 									"numoutlets" : 3,
