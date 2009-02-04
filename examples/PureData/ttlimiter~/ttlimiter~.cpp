@@ -22,13 +22,15 @@ typedef struct _ttlimiter {
 
 // Prototypes
 extern "C" {
-void ttlimiter_tilde_setup();
+	void ttlimiter_tilde_setup();
+}
+
 void* ttlimiter_new(t_symbol *s, long ac, t_atom *at);
 void ttlimiter_free(t_ttlimiter *x);
 void ttlimiter_setpreamp(t_ttlimiter *x, double f);
 t_int* ttlimiter_perform(t_int *w);
 void ttlimiter_dsp(t_ttlimiter *x, t_signal **sp);
-}
+
 
 // Statics & Globals
 static t_class *ttlimiter_class;
@@ -69,14 +71,14 @@ void *ttlimiter_new(t_symbol *s, long ac, t_atom *at)
 
 void ttlimiter_free(t_ttlimiter *x)
 {
-	TTObjectRelease(x->limiter);
+	TTObjectRelease(&x->limiter);
 }
 
 
 // Methods
 
 // Method for Posting Status
-void ttlimiter_setpreamp(t_ttlimiter *x, float f)
+void ttlimiter_setpreamp(t_ttlimiter *x, double f)
 {
 	x->limiter->setAttributeValue(TT("preamp"), f);
 }
