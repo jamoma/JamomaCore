@@ -158,7 +158,7 @@ public class CueManager extends MaxObject
 
 		try
 		{
-			fwo = new FileWriter(cuelistfile.getPath(), false); // false means we will be writing to the file
+			fwo = new FileWriter(cuelistfile.getAbsolutePath(), false); // false means we will be writing to the file
 			bwo = new BufferedWriter(fwo);
 
 			// ECRITURE
@@ -204,6 +204,7 @@ public class CueManager extends MaxObject
 			bwo.close();
 			post("file saved in : "+this.cuelistfile.getAbsolutePath());
 		}
+		catch(java.io.FileNotFoundException f){saveAs();}
 		catch(java.lang.NullPointerException e){saveAs();}
 		catch(IOException ioexception){ioexception.printStackTrace( );}
 	}
@@ -421,7 +422,7 @@ public class CueManager extends MaxObject
 	///////////////////////////////////////////
 	private void fileAnalysis(String l)
 	{
-		String line;
+		String line, file_path;
 		
 		if(l.length()>0){
 			line = supprSpaceBefore(l);
@@ -441,7 +442,18 @@ public class CueManager extends MaxObject
 			}
 			// FILEPATH search
 			if(line.startsWith("FILEPATH")){
-				this.cuelistfile = new File(line.substring(9));
+				file_path = line.substring(9);
+				try{
+					if(file_path.endsWith(".txt")){
+						this.cuelistfile = new File(file_path);
+					}
+					else {
+						this.cuelistfile = new File(file_path+".txt");
+					}
+				}
+				catch(java.lang.NullPointerException e){
+					return;
+				}
 				post("file loaded : "+this.cuelistfile.getAbsolutePath());
 				return;
 			}
@@ -868,6 +880,7 @@ final class Data {
 		return this.type == CueManager._CMT;
 	}
 }
+
 
 
 
