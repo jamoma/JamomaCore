@@ -57,6 +57,35 @@ public class CueManager extends MaxObject
 		fileAnalysis(line);
 	}
 	
+/*	public void read(Atom[] args){
+		
+		String file_path = "";
+		FilePermission fp;
+		
+		if(args.length == 1){
+			if(args[0].isString()) file_path = args[0].getString();
+		}
+		else return;
+		
+		try{
+			if(file_path.endsWith(".txt")) {
+				this.cuelistfile = new File(file_path);
+			}
+			else {
+				this.cuelistfile = new File(file_path+".txt");
+			}
+		}
+		catch(java.lang.NullPointerException e){
+			return;
+		}
+		
+		fp = new FilePermission(this.cuelistfile.getAbsolutePath(),"read");
+		
+		if(!cuelistfile.exists()) return;	
+		
+		
+	}*/
+	
 	// message to get the state of each modules
 	//////////////////////////////////////////////
 	public void get_state(Atom[] args){
@@ -119,7 +148,6 @@ public class CueManager extends MaxObject
 	public void saveAs()
 	{
 		String file_path;
-		FilePermission fp;
 		
 		file_path = MaxSystem.saveAsDialog("Save as","cuelist.txt");
 		
@@ -134,18 +162,7 @@ public class CueManager extends MaxObject
 		catch(java.lang.NullPointerException e){
 			return;
 		}
-		
-		fp = new FilePermission(this.cuelistfile.getParent(),"write");
-		
-		if(!cuelistfile.exists()){
-			try{
-				this.cuelistfile.createNewFile();
-			}
-			catch(java.io.IOException e){
-				post("java error : " + e.getMessage());
-				return;
-			}
-		}	
+			
 		saveAgain();
 	}
 	
@@ -153,8 +170,24 @@ public class CueManager extends MaxObject
 	{
 		FileWriter fwo;
 		BufferedWriter bwo;
+		FilePermission fp;
 		Cue actualCue;
 		String line;
+		
+		try{
+			fp = new FilePermission(this.cuelistfile.getParent(),"write");
+		
+			if(!cuelistfile.exists()){
+				try{
+					this.cuelistfile.createNewFile();
+				}
+				catch(java.io.IOException e){
+					post("java error : " + e.getMessage());
+					return;
+				}
+			}
+		}
+		catch(java.lang.NullPointerException n){saveAs();}
 
 		try
 		{
@@ -447,7 +480,7 @@ public class CueManager extends MaxObject
 					if(file_path.endsWith(".txt")){
 						this.cuelistfile = new File(file_path);
 					}
-					else {
+					else{
 						this.cuelistfile = new File(file_path+".txt");
 					}
 				}
