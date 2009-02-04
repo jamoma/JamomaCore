@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 228.0, 91.0, 1006.0, 491.0 ],
+		"rect" : [ 70.0, 171.0, 1006.0, 491.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 228.0, 91.0, 1006.0, 491.0 ],
+		"defrect" : [ 70.0, 171.0, 1006.0, 491.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -428,8 +428,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 432.0, 138.0, 405.0, 27.0 ],
-					"text" : "jcom.parameter inputname @type msg_symbol @description \"Name of the audio channel input\" @priority 31",
+					"patching_rect" : [ 432.0, 138.0, 420.0, 27.0 ],
+					"text" : "jcom.parameter inputname @type msg_list @description \"Name of the audio channel input\" @priority 31",
 					"varname" : "jmod.parameter.mxb[7]"
 				}
 
@@ -664,7 +664,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 441.5, 163.0, 419.0, 163.0, 419.0, 86.0, 445.5, 86.0 ],
+					"midpoints" : [ 441.5, 174.0, 419.0, 174.0, 419.0, 86.0, 445.5, 86.0 ],
 					"source" : [ "obj-7", 0 ]
 				}
 

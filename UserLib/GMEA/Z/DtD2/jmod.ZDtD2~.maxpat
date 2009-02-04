@@ -667,13 +667,13 @@
 ,
 					"patching_rect" : [ 145.0, 377.0, 268.0, 20.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"fontname" : "Arial",
+						"default_fontface" : 0,
 						"default_fontname" : "Arial",
-						"default_fontsize" : 12.0,
 						"fontface" : 0,
 						"fontsize" : 12.0,
-						"globalpatchername" : ""
+						"globalpatchername" : "",
+						"default_fontsize" : 12.0
 					}
 ,
 					"text" : "p routing"
@@ -809,6 +809,7 @@
 			}
 , 			{
 				"box" : 				{
+					"background" : 1,
 					"border" : 1.0,
 					"bordercolor" : [ 1.0, 1.0, 0.062745, 1.0 ],
 					"id" : "obj-38",
