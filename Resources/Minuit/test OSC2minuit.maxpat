@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 240.0, 275.0, 638.0, 363.0 ],
+		"rect" : [ 13.0, 451.0, 634.0, 213.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 240.0, 275.0, 638.0, 363.0 ],
+		"defrect" : [ 13.0, 451.0, 634.0, 213.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -194,7 +194,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 628.0, 212.0, 154.0, 18.0 ],
+					"patching_rect" : [ 602.0, 178.0, 154.0, 18.0 ],
 					"text" : "?namespace /control/bibi.0"
 				}
 
@@ -208,7 +208,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 633.0, 338.0, 200.0, 18.0 ],
+					"patching_rect" : [ 607.0, 304.0, 200.0, 18.0 ],
 					"text" : "?get /output~/audio/gain:ramp/drive"
 				}
 
@@ -222,7 +222,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 632.0, 186.0, 122.0, 18.0 ],
+					"patching_rect" : [ 606.0, 152.0, 122.0, 18.0 ],
 					"text" : "?namespace /control"
 				}
 
@@ -252,7 +252,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 634.0, 391.0, 131.0, 18.0 ],
+					"patching_rect" : [ 608.0, 357.0, 131.0, 18.0 ],
 					"text" : "?get /control/bibi:value"
 				}
 
@@ -806,7 +806,7 @@
 					"patching_rect" : [ 38.0, 221.0, 469.0, 23.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 35.0, 507.0, 23.0 ],
-					"text" : "path : /output~/limiter/mode"
+					"text" : "path : /input~/audio/gain"
 				}
 
 			}
@@ -853,7 +853,7 @@
 					"patching_rect" : [ 36.0, 443.0, 398.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 147.0, 593.0, 20.0 ],
-					"text" : "request ?get /output~/limiter/mode:type"
+					"text" : "request ?get /input~/audio/gain:value"
 				}
 
 			}
@@ -911,7 +911,7 @@
 					"patching_rect" : [ 181.0, 30.0, 858.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 15.0, 180.0, 592.0, 20.0 ],
-					"text" : "answer :get /output~/limiter/mode:type symbol"
+					"text" : "answer :get /input~/audio/gain:value 0.0000"
 				}
 
 			}
@@ -1988,7 +1988,7 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
 													"patching_rect" : [ 16.0, 420.0, 144.0, 18.0 ],
-													"text" : "/output~/limiter"
+													"text" : "/input~/audio"
 												}
 
 											}
@@ -2797,7 +2797,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 629.0, 235.0, 135.0, 18.0 ],
+					"patching_rect" : [ 603.0, 201.0, 135.0, 18.0 ],
 					"text" : "?namespace /control/ui"
 				}
 
@@ -2850,7 +2850,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 630.0, 262.0, 165.0, 18.0 ],
+					"patching_rect" : [ 604.0, 228.0, 165.0, 18.0 ],
 					"text" : "?namespace /control/ui/bobo"
 				}
 
@@ -2864,7 +2864,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 630.0, 285.0, 176.0, 18.0 ],
+					"patching_rect" : [ 604.0, 251.0, 176.0, 18.0 ],
 					"text" : "?namespace //control/ui/freeze"
 				}
 
@@ -2878,7 +2878,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 631.0, 310.0, 171.0, 18.0 ],
+					"patching_rect" : [ 605.0, 276.0, 171.0, 18.0 ],
 					"text" : "?namespace /control/ui/freeze"
 				}
 
@@ -2892,7 +2892,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 637.0, 415.0, 129.0, 18.0 ],
+					"patching_rect" : [ 611.0, 381.0, 129.0, 18.0 ],
 					"text" : "?get /control/bibi:bobo"
 				}
 
@@ -2906,7 +2906,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 635.0, 363.0, 170.0, 18.0 ],
+					"patching_rect" : [ 609.0, 329.0, 170.0, 18.0 ],
 					"text" : "?get /output~/audio/gain:bobo"
 				}
 
@@ -3127,7 +3127,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 18.0, 114.0, 115.0, 18.0 ],
-									"text" : "/output~/limiter"
+									"text" : "/input~/audio"
 								}
 
 							}
@@ -3351,7 +3351,7 @@
 					"patching_rect" : [ 439.0, 267.0, 96.0, 20.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 427.0, 86.0, 180.0, 20.0 ],
-					"text" : "symbol"
+					"text" : "0.00"
 				}
 
 			}
