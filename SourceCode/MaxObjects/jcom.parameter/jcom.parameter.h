@@ -63,6 +63,7 @@ typedef struct _param{
 	method			callback;					///< A callback method that is used to pass output to an object that encapsulates this parameter (such as the jcom.ui)
 	ObjectPtr		callbackArg;				///< The object for which the callback method should be applied
 	ObjectPtr		receive;					///< Direct receive
+	TTBoolean		isSending;					///< flag to tell us if we are currently sending out our value
 } t_param;
 
 

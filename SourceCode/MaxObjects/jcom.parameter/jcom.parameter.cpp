@@ -904,7 +904,6 @@ void param_bang(t_param *x)
 
 	// call on the hub to pass our data onward
 	if(x->common.hub != NULL){
-//		jcom_core_atom_copy(&a, &x->name_atom);
 		atom_setsym(&a, x->common.attr_name);
 		object_method_typed(x->common.hub, jps_feedback, 1, &a, NULL);
 	}
@@ -921,6 +920,7 @@ void param_output_generic(void *z)
 {
 	t_param *x = (t_param *)z;
 
+	x->isSending = YES;
 	if(x->list_size == 1){
 		param_clip_generic(x);
 		if(x->attr_value.a_type == A_LONG)
@@ -939,6 +939,7 @@ void param_output_generic(void *z)
 		param_output_none(x);
 	}
 	param_send_feedback(x);
+	x->isSending = NO;
 }
 
 void param_output_int(void *z)
@@ -947,8 +948,10 @@ void param_output_int(void *z)
 
 	if(param_clip_int(x) && x->ramper)
 		x->ramper->stop();
+	x->isSending = YES;
 	outlet_int(x->outlets[k_outlet_direct], x->attr_value.a_w.w_long);
 	param_send_feedback(x);
+	x->isSending = NO;
 }
 
 
@@ -958,8 +961,10 @@ void param_output_float(void *z)
 	TTBoolean	didClip;
 
 	didClip = param_clip_float(x);
+	x->isSending = YES;
 	outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
 	param_send_feedback(x);
+	x->isSending = NO;
 
 	if(didClip && x->ramper)
 		x->ramper->stop();
@@ -970,8 +975,10 @@ void param_output_symbol(void *z)
 	t_param *x = (t_param *)z;
 	
 	if(atom_gettype(&x->attr_value) == A_SYM){
+		x->isSending = YES;
 		outlet_anything(x->outlets[k_outlet_direct], atom_getsym(&x->attr_value), 0, NULL);
 		param_send_feedback(x);
+		x->isSending = NO;
 	}
 }
 
@@ -981,8 +988,10 @@ void param_output_list(void *z)
 	
 	if(param_clip_list(x) && x->ramper)
 		x->ramper->stop();
+	x->isSending = YES;
 	outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
 	param_send_feedback(x);
+	x->isSending = NO;
 }
 
 
@@ -991,6 +1000,8 @@ void param_output_none(void *z)
 	t_param *x = (t_param *)z;
 	t_atom output[1];
 	t_atom *out = (t_atom *)(&output);
+
+	x->isSending = YES;
 
 	// bang direct output
 	outlet_bang(x->outlets[k_outlet_direct]);
@@ -1001,6 +1012,8 @@ void param_output_none(void *z)
 		atom_setsym(out, x->common.attr_name);
 		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
 	}
+
+	x->isSending = NO;
 }
 
 
@@ -1212,16 +1225,6 @@ void param_anything(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 	memcpy(av+1, argv, sizeof(t_atom) * argc);
 	param_list(x, _sym_list, ac, av);
 	free(av);
-
-/*
-	x->list_size = argc;
-	if(x->common.attr_repetitions == 0){
-		if(jcom_core_atom_compare(x->common.attr_type, &x->attr_value, argv))
-			return;
-	}
-	atom_setsym(&x->attr_value, msg);
-	x->param_output(x);
-*/
 }
 
 
@@ -1272,37 +1275,39 @@ void param_ui_queuefn(t_param *x)
 // messages received from jcom.hub
 void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	// new input - halt any ramping...
-	if(x->ramper)
-		x->ramper->stop();
+	if(!x->isSending){
+		// new input - halt any ramping...
+		if(x->ramper)
+			x->ramper->stop();
 
-	if(argc == 1){
-		// If repetitions are disabled, we check for a repetition by treating
-		// this as a 1 element list
-		if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
-			x->list_size, argv, argc)) 
-			return;
+		if(argc == 1){
+			// If repetitions are disabled, we check for a repetition by treating
+			// this as a 1 element list
+			if(x->common.attr_repetitions == 0 && param_list_compare(x->atom_list, 
+				x->list_size, argv, argc)) 
+				return;
 
-		if(x->dataspace_active2native){
-			t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
-			x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
-			jcom_core_atom_copy(&x->attr_value, r);
+			if(x->dataspace_active2native){
+				t_atom* r = (t_atom*)sysmem_newptr(sizeof(t_atom));
+				x->dataspace_active2native->convert(1, argv, &x->list_size, &r);
+				jcom_core_atom_copy(&x->attr_value, r);
+			}
+			else
+				jcom_core_atom_copy(&x->attr_value, argv);
+			x->list_size = 1;
+			
+			x->param_output(x);
+		} else if(argc > 1) {
+			param_list(x, msg, argc, argv);
 		}
-		else
-			jcom_core_atom_copy(&x->attr_value, argv);
-		x->list_size = 1;				
-		
-		x->param_output(x);
-	} else if(argc > 1) {
-		param_list(x, msg, argc, argv);
-	}
-	else { 	// no args
-#ifndef JMOD_MESSAGE
-		// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-		if(x->common.attr_type == jps_msg_generic)
-			x->list_size = 0;
-#endif			
-		x->param_output(x);
+		else { 	// no args
+	#ifndef JMOD_MESSAGE
+			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
+			if(x->common.attr_type == jps_msg_generic)
+				x->list_size = 0;
+	#endif			
+			x->param_output(x);
+		}
 	}
 }
 
