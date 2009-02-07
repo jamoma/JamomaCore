@@ -22,6 +22,7 @@
     <item name='time/wait' type='msg_float' priority='0'>0.000000</item>
   </preset>
   <preset number='1' name='toggle limiter modes'>
+    <item name='edit' type='msg_symbol' priority='0'>edit</item>
     <item name='in/action' type='msg_int' priority='0'>4</item>
     <item name='in/message' type='msg_generic' priority='0'>0</item>
     <item name='in/module/function' type='msg_symbol' priority='5'>button</item>
@@ -29,14 +30,19 @@
     <item name='in/module/nr' type='msg_int' priority='2'>0</item>
     <item name='in/value' type='msg_float' priority='0'>0.500000</item>
     <item name='out/action' type='msg_int' priority='0'>2</item>
-    <item name='out/message' type='msg_generic' priority='0'>0</item>
+    <item name='out/message' type='msg_generic' priority='0'>exponential</item>
     <item name='out/module/function' type='msg_symbol' priority='6'>mode</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/limiter~</item>
     <item name='out/module/nr' type='msg_int' priority='4'>0</item>
+    <item name='out/ramp' type='msg_float' priority='0'>0</item>
     <item name='out/value' type='msg_float' priority='0'>0.000000</item>
     <item name='time/repeat' type='msg_float' priority='0'>0.000000</item>
     <item name='time/wait' type='msg_float' priority='0'>0.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
   <preset number='2' name='ramp audio gain'>
     <item name='in/action' type='msg_int' priority='0'>4</item>
@@ -57,6 +63,7 @@
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
   <preset number='3' name='limiter modes w/delay'>
+    <item name='edit' type='msg_symbol' priority='0'>edit</item>
     <item name='in/action' type='msg_int' priority='0'>4</item>
     <item name='in/message' type='msg_generic' priority='0'>0</item>
     <item name='in/module/function' type='msg_symbol' priority='5'>button</item>
@@ -64,7 +71,7 @@
     <item name='in/module/nr' type='msg_int' priority='2'>0</item>
     <item name='in/value' type='msg_float' priority='0'>0.500000</item>
     <item name='out/action' type='msg_int' priority='0'>2</item>
-    <item name='out/message' type='msg_generic' priority='0'>0</item>
+    <item name='out/message' type='msg_generic' priority='0'>exponential</item>
     <item name='out/module/function' type='msg_symbol' priority='6'>mode</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/limiter~</item>
     <item name='out/module/nr' type='msg_int' priority='4'>0</item>
@@ -73,5 +80,9 @@
     <item name='time/repeat' type='msg_float' priority='0'>0.000000</item>
     <item name='time/wait' type='msg_float' priority='0'>2.000000</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
 </jamoma>
