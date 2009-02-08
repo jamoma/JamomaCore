@@ -2,12 +2,124 @@
 %% http://bibdesk.sourceforge.net/
 
 
-%% Created for lossius at 2009-02-08 21:43:12 +0100 
+%% Created for lossius at 2009-02-08 22:14:13 +0100 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
 
 
+
+@inbook{Spors:2004sound_field_synthesis,
+	Abstract = {{Audio Signal Processing for Next-Generation Multimedia Communication Systems presents cutting-edge digital signal processing theory and implementation techniques for problems including speech acquisition and enhancement using microphone arrays, new adaptive filtering algorithms, multichannel acoustic echo cancellation, sound source tracking and separation, audio coding, and realistic sound stage reproduction. This book's focus is almost exclusively on the processing, transmission, and presentation of audio and acoustic signals in multimedia communications for telecollaboration where immersive acoustics will play a great role in the near future.}},
+	Annote = {State-of-the-art systems for the reproduction of spatial audio suffer from a serious problem: The spatial properties of the reproduced sound can only be perceived correctly in a small part of the listening area, the so-called sweet spot. This restriction occurs because conventional reproduction of spatial audio is based on psychoacoustics, e.i. mainly intensity panning techniques. A solution to this problem calls for a new reproduction technique which allows the synthesis of physically correct wave fields of three-dimensional acoustic scenes. It should result in a large listening areas which is not restricted to a particular sweet spot.
+
+A number of different apporaches have been suggested. They can be roughly categorized into advanced panning techniques, ambisonics, and wave field synthesis. Advanced panning techniques aim at enlarging the sweet spot well known from two-channel stereo or 5-channel surround sound systems. An example is the vector based amplitude panning technique (VBAP) as described in e.g. [1]. Ambisonicssystems represent the sound field in an enclosure by an expansion into three-dimensional basis-functions A faithful reproduction of this sound field requires techniques for the cintributions of all relevant basis functions. In common realizations, only the lowest order contributions are exploited [2].
+
+This chapter represents the third approach from above, wave field synthesis (WFS). It is a technique for reproducing the acoustics of large recording rooms in smaller sized listening rooms. The spatial properties of the acoustical scene can be perceived correctly by an arbitrary large number of listeners which are allowed to move freely inside the listening area without the need of their positions being tracked. These features are achieved through a strict foundation on the basic laws of acoustical wave propagation.
+
+WFS typically use more loudspeakers than audio channels. Contrary to conventional spatial audio reproduction techniques like two-channel stereo or 5-channel surround, there exists no fixed mapping of the audio channels to the reproduction loudspeakers. Instead, a representation of the three-dimensional acoustic scene is used that can be reproduced by various WFS systems utilizing different loudspeaker setups.
+
+---
+
+The theoretical basis of WFS is given by Huygen's principle. Huygen stated that any point of a propagating wave at any instant conforms to the envelope of spherical waves emanating from every point on the wavefront at the prior instant. This principle can be used to synthesize acoustic wave fronts of arbitrary shape. Of course, it is not very practical to position the acoustic sources on the wave fronts for synthesizers with a loudspeaker array.
+
+
+Deviations from true sound pressure distribution. To effects are observed:
+
+1) Spatial aliasing
+
+2. truncation effects
+
+
+aliasing frequency  F_{al} = \frac{c}{ 2 \DELTA \lambda fi_max }
+
+fi_{max} denotes the maximum angle of incidence of the synthesized plane wave relative to the loudspeaker array. 
+
+If \DELTA \lambda = 10 cm, the minimum spatial aliasing frequency is f_{al} = 17000 Hz
+
+Truncation effects appear when the line is represented by a loudspeaker array of finite extension. They can be understood as diffraction waves propagating from the ends of the loudspeaker arrays. Truncation effects can be minimized, e.g. by filtering in the spatial domain (tapering, windowing) [7].
+
+
+
+Model-based rendering may be interpreted as a special case of the data-based approach: Instead of measuring room impulses, models for acoustic sources are used to calculate the loudspeaker driving signals. Point sources and plane waves are the most common models used in model-based WFS systems.
+
+
+},
+	Author = {S. Spors and H. Teutsch and A. Kuntz and R. Rabenstein},
+	Citeulike-Article-Id = {1076402},
+	Date-Added = {2009-02-08 22:14:12 +0100},
+	Date-Modified = {2009-02-08 22:14:12 +0100},
+	Editor = {Huang, Yiteng and Benesty, Jacob},
+	Howpublished = {Hardcover},
+	Isbn = {1402077688},
+	Keywords = {spatialisation, wave_field_synthesis},
+	Pages = {323-344},
+	Priority = {2},
+	Publisher = {Springer},
+	Title = {Sound Field Synthesis. In Audio Signal Processing for Next-Generation Multimedia Communication Systems},
+	Url = {http://www.amazon.fr/exec/obidos/ASIN/1402077688/citeulike04-21},
+	Year = {2004},
+	Bdsk-Url-1 = {http://www.amazon.fr/exec/obidos/ASIN/1402077688/citeulike04-21}}
+
+@article{Poletti:2000holographic_sound,
+	Abstract = {A theoretical foundation is developed for horizontal holographic surroundsound systems 
+based on the two-dimensional Fourier transform. It is shown how the theory leads to the 
+recording and reproduction of sound fields using circular arrays of microphones and loud- 
+speakers. DFI" processing of circular microphone arrays produces the spherical harmonics 
+of the sound field, and is a generalization of certain higher order multipole microphones. 
+The performance of the array is shown to be improved by using directional microphone 
+elements. The angular sine panning functions arise naturally from the reproduction theory, 
+and a mode-matching approach further verifies that they are optimum at low frequencies. 
+General windowing is reviewed for the control of artifacts at high frequencies and the radial 
+error is proposed as a useful parameter for designing windows. Sound intensity theory is 
+examined for visualizing surround sound fields, and a complex instantaneous velocity is 
+introduced, which is easy to generate and equivalent to previous definitions for the case of 
+monochromatic sound fields. The reproduction performance of a five-loudspeaker surround 
+system is examined, and its performance over wider reproduction areas is also considered.
+},
+	Author = {M. A. Poletti},
+	Date-Added = {2009-02-08 22:08:13 +0100},
+	Date-Modified = {2009-02-08 22:08:13 +0100},
+	Journal = {Journal of the Audio Engineering Society},
+	Keywords = {spatialisation},
+	Local-Url = {file://localhost/Users/lossius/Documents/Artikler/_bibdesk_indexed/Poletti_2000holographic_sound.pdf},
+	Month = {December},
+	Number = {12},
+	Pages = {1155-1182},
+	Title = {{A Unified Theory of Horizontal Holographic Sound Systems}},
+	Volume = {48},
+	Year = {2000},
+	Bdsk-File-1 = {YnBsaXN0MDDUAQIDBAUGCQpYJHZlcnNpb25UJHRvcFkkYXJjaGl2ZXJYJG9iamVjdHMSAAGGoNE
+HCFRyb290gAFfEA9OU0tleWVkQXJjaGl2ZXKoCwwXGBkdJCVVJG51bGzTDQ4PEBEUViRjbGFzc1
+dOUy5rZXlzWk5TLm9iamVjdHOAB6ISE4ACgAOiFRaABIAGWWFsaWFzRGF0YVxyZWxhdGl2ZVBhd
+GjSDRobHFdOUy5kYXRhgAVPEQIKAAAAAAIKAAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAA
+AADErH58SCsAAAALDScfUG9sZXR0aV8yMDAwaG9sb2dyYXBoI0IwREEwLnBkZgAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsNoMNdB31QREYgcHJ2dwAFAAQAAAkgAAAAAAAAAAAAAA
+AAAAAAEF9iaWJkZXNrX2luZGV4ZWQAEAAIAADErGJcAAAAEQAIAADDXPltAAAAAQAUAAsNJwALD
+SUACuhPAAn6OQAAe1sAAgBeTWFjaW50b3NoIEhEOlVzZXJzOmxvc3NpdXM6RG9jdW1lbnRzOkFy
+dGlrbGVyOl9iaWJkZXNrX2luZGV4ZWQ6UG9sZXR0aV8yMDAwaG9sb2dyYXBoI0IwREEwLnBkZgA
+OAEQAIQBQAG8AbABlAHQAdABpAF8AMgAwADAAMABoAG8AbABvAGcAcgBhAHAAaABpAGMAXwBzAG
+8AdQBuAGQALgBwAGQAZgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASAFNVc2Vycy9sb
+3NzaXVzL0RvY3VtZW50cy9BcnRpa2xlci9fYmliZGVza19pbmRleGVkL1BvbGV0dGlfMjAwMGhv
+bG9ncmFwaGljX3NvdW5kLnBkZgAAEwABLwAAFQACAA7//wAA0h4fICFYJGNsYXNzZXNaJGNsYXN
+zbmFtZaMhIiNdTlNNdXRhYmxlRGF0YVZOU0RhdGFYTlNPYmplY3RfEFQuLi8uLi8uLi8uLi8uLi
+9Eb2N1bWVudHMvQXJ0aWtsZXIvX2JpYmRlc2tfaW5kZXhlZC9Qb2xldHRpXzIwMDBob2xvZ3Jhc
+GhpY19zb3VuZC5wZGbSHh8mJ6InI1xOU0RpY3Rpb25hcnkACAARABoAHwApADIANwA6AD8AQQBT
+AFwAYgBpAHAAeACDAIUAiACKAIwAjwCRAJMAnQCqAK8AtwC5AscCzALVAuAC5ALyAvkDAgNZA14
+DYQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAANu}}
+
+@periodical{Gerzon:1974surround,
+	Author = {M. Gerzon},
+	Date-Added = {2009-02-08 22:04:47 +0100},
+	Date-Modified = {2009-02-08 22:04:47 +0100},
+	Journal = {Wireless World. Reprinted in An anthology of articles on spatial sound techniques, part 2: Multichannel audio technologies. Edited by F. Rumsey. Audio engineering society, Inc, 2006.},
+	Keywords = {spatialisation, ambisonics},
+	Month = {December},
+	Pages = {483-486},
+	Title = {Surround-sound psychoacoustics: Criteria for the design of matrix and descrete surround-sound systems.},
+	Url = {http://www.ai.sri.com/ajh/audio/sfm/scans/wireless-world-gerzon-12-1974.pdf},
+	Year = {1974},
+	Bdsk-Url-1 = {http://www.ai.sri.com/ajh/audio/sfm/scans/wireless-world-gerzon-12-1974.pdf}}
 
 @techreport{ITU:1993_surround_5:1,
 	Author = {ITU},
