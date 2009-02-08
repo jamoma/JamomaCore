@@ -148,7 +148,7 @@ The position of the virtual source will be described in terms of Cartesian coord
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 } \qquad \textrm{for } 1 \leq i \leq N \textrm{ .}
 \end{equation}
 
-For simplicity the source is assumed to have unity amplitude. DBAP makes two assumptions. The first is that intensity is to be constant regardless of the position of the virtual source. This is an extension of the principle of constant intensity panning for stereo to multichannel setups. If the amplitude of the $i$th speaker is $v_{i}$, this implies
+For simplicity the source is assumed to have unity amplitude. DBAP makes two assumptions. The first is that intensity is to be constant regardless of the position of the virtual source. This can be considered an extension of the principle of constant intensity panning for stereo to multichannel setups. If the amplitude of the $i$th speaker is $v_{i}$, this implies
 
 \begin{equation} \label{eq:constant_intensity}
 I = \sum_{i=1}^{N} {v_{i}}^2 = 1
@@ -197,7 +197,14 @@ From this it can be shown that
 \end{array} \right.
 \end{equation}
 
-When the virtual source is located at the exact position of one of the loudspeakers, only that speaker will be emitting sound. This might cause the same kind of problems with loudspeaker directions being audible as discussed earlier for vector-based amplitude panning. One way of ensuring a certain degree of spread would be by introducing a \textit{diffusion constant $r_{s} \ge 0$} in equation (\ref{eq:distance}):
+When the virtual source is located at the exact position of one of the loudspeakers, only that speaker will be emitting sound. This might cause the similar problems with loudspeaker directions being audible as observed by Ville Pulkki in VBAP.
+
+% TODO: Add reference to Ville Pulkkis paper, and rewrite this section to get better flow.
+
+
+
+
+ discussed earlier for vector-based amplitude panning. One way of ensuring a certain degree of spread would be by introducing a \textit{diffusion constant $r_{s} \ge 0$} in equation (\ref{eq:distance}):
 
 \begin{equation} \label{eq:mod_distance}
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
