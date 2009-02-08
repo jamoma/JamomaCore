@@ -113,15 +113,19 @@ about 150 words.
 
 \section{Introduction}\label{sec:introduction}
 
-The use of multichannel and surround sound reproduction is getting ever more common, for consumer applications as well as musical and artistic purposes. A number of techniques exist for virtual positioning of sound sources using an array of loudspeakers. A common assumption of techniques for spatialisation is that the position of the listener is known and fixed, and the speakers are surrounding her either on a two-dimensional ring or a three-dimensional sphere. Examples of such speaker layouts and spatialisation techniques are stereo panning, 5.1-channel surround \cite{ITU:1993_surround_5:1}, further extended industrial multichannel configurations \cite{Rumsey:2001spatial_audio}, vector-based amplitude panning (VBAP) \cite{Pulkki:1997vbap} and first and higher-order ambisonics \cite{Gerzon:1974surround, Poletti:2000holographic_sound}.
+The use of multichannel and surround sound reproduction is getting ever more common, for consumer applications as well as musical and artistic purposes. A number of techniques exists for virtual positioning of sound sources using an array of loudspeakers. A common assumption of techniques for spatialisation is that the position of the listener is known and fixed, and the speakers are surrounding the listener either on a two-dimensional ring or a three-dimensional sphere. Examples of such speaker layouts and spatialisation techniques are stereo panning, 5.1-channel surround \cite{ITU:1993_surround_5:1}, further extended industrial multichannel configurations \cite{Rumsey:2001spatial_audio}, vector-based amplitude panning (VBAP) \cite{Pulkki:1997vbap} and first and higher-order ambisonics \cite{Gerzon:1974surround, Poletti:2000holographic_sound}.
 
 Wave field synthesis (WFS) is a noticeable exception to the above sweet spot restriction, reproducing signals resulting in a large listening area. The spatial properties of the acoustical scene can be perceived correctly by an arbitrary large number of listeners regardless of their position inside this area \cite{Spors:2004sound_field_synthesis}.
 
 For musical and artistic use a number of practical limitations tend to restrict what spatialisation techniques are feasible to use.
 
-Unless working on a site providing a permanent loudspeaker rig for wave field synthesis, the high number of loudspeakers required might render WFS impractical for financial reasons as well as time constraints.
+Unless working on a site providing a permanent setup for wave field synthesis, the high number of loudspeakers required might render WFS impractical for financial reasons as well as time constraints.
 
 For real-time music and sound purposes the relative low CPU requirements of matrix-based spatialisation techniques seems to make them popular choices, and VBAP as well as first and higher order ambisonics are readily available for use in common software environments for real-time processing such as Max/MSP \cite{Pulkki:2000vbap_max, Schacher:2006ambi_max, Neukom:2008ambipan}.
+
+The requirements imposed by VBAP and ambisonics with respect to listeners being restricted to a relatively small listening area surrounded by loudspeakers might be impractical or even undesired in practical applications. In a concert situation ideally all of the audience should have a detailed impression of the spatial content of the music, not only the ones sitting at the middle of the hall. In a sound installation context one might want the audience to be able to move around the space \cite{lossius:2008installations}. And finally, for practical and/or artistic reasons it might not be possible or desired to have loudspeakers arranged in a ring or sphere.
+
+Distance-based amplitude panning (DBAP) is a matrix-based spatialisation technique that takes the actual positions of the speakers as the point of departure while making no assumptions as to where the listeners are situated. This makes DBAP useful for a number of real-world situations such as music for concerts, works for stage, installations and museum sound design where ordinary speaker layouts might not apply.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,7 +148,7 @@ The position of the virtual source will be described in terms of Cartesian coord
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 } \qquad \textrm{for } 1 \leq i \leq N \textrm{ .}
 \end{equation}
 
-For simplicity the source is assumed to have unity amplitude. DBAP makes two assumptions. The first is that intensity is to be constant regardless of the position of the virtual source. If the amplitude of the $i$th speaker is $v_{i}$, this implies
+For simplicity the source is assumed to have unity amplitude. DBAP makes two assumptions. The first is that intensity is to be constant regardless of the position of the virtual source. This is an extension of the principle of constant intensity panning for stereo to multichannel setups. If the amplitude of the $i$th speaker is $v_{i}$, this implies
 
 \begin{equation} \label{eq:constant_intensity}
 I = \sum_{i=1}^{N} {v_{i}}^2 = 1
