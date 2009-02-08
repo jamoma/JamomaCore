@@ -238,7 +238,7 @@ Another requirement of this development was to create the possibility to define 
 The possibility of interpolating between subsets of loudspeakers was also a desired feature, in order to have smooth transitions between such ``sonic geographies'', which led to using floating point values in the computation of the array in the algorithm, rather than strict boolean values. 
 
 Anticipating possible uses of floating point values for each loudspeaker, this parameter has been named as ``weights'' for each speaker, and implemented using the modification below of \ref{eq:calculate_k} :
-%TODO : clean up this equation
+%TODO : clean up this equation - is k2inv the right term ? other ones ?
 \begin{equation} \label{eq:2Dweight}
 k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i])
 \end{equation}
@@ -247,13 +247,24 @@ k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i])
 This weight parameter, after being submitted to listening tests and visualization (as described below in\ref{subsection:Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 The authors are also looking forward to obtaining a better numerical representation of this parameter, in particular of its range and transfer function, as well as to achieve a management of the interdependence of all weights, in order to make its manipulation more intuitive for the user.
 
+\subsection{Visual representation}
+
+In order to allow intuitive understanding and manipulation of the algorithm for the users, the authors developped a visual representation of the behaviour of the algorithm, using gradients to represent the "predominance" of each speaker according to the signal spreading. This is intended to give a more intuitive manipulation of source positions, as well as managing parameters such as spatial blur, rolloff, or spatial weights, that can sound rather abstract to the non-scientific.
+
+
+For each pixel of a selected view matrix (of X * Y pixels), the pixel value is set to the  squared amplitude returned by the dbap algorithm as if a source was at this position. The visual result is a picture that show to the user the spatial response of  a loudspeaker. The lighter pixels are positions where amplitudes is closed to 1. and the darker ones, positions where amplitudes are closed to 0.. As expected, the far the source is from the loudspeaker, the less is the amplitude. However the presence of “digs” in the spatial distribution of the amplitude response illustrates how the dbap algorithm works when a source moves between several loudspeakers. Those graphical informations, even esthetic there are, give to the user a kind of hitmap that could assists him during space writing and performance time.
+
+
+But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result show straight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. The following pictures illustrate several settings of rolloff and blur parameters on all loudspeakers. The last picture illustrates a weights preset that keep only five loudspeakers set with different weights.
+
+
 \subsection{Convex Hull}
 
 %TODO : fix cross-reference
 The behaviour of the initial DBAP algorithm, as described in \ref{subsection:Fundamentals}, implies that the source gets distributed equally on all loudspeakers when placed outside of the speakers zone. Intuitively, in an user-perspective, one would expect a perception of ``distance increase'' when going out of the speakers zone, rather than an even distribution.
 Investigating the geometrical models to realize this idea, the authors found out \textit{convex hulls} to be a promising candidate.
 In two dimensions a convex hull can be visualized by imagining an elastic band stretched open to encompass all speakers; when released, it will assume the shape of the required convex hull. Tests could then be performed to determine if the virtual source is positioned inside or outside of the convex hull. 
-The algorithm used to calculate it is the direct application of the implementation written \cite{Rourke:1998_geometry}
+The algorithm used to calculate it is the direct application of the implementation written in \cite{Rourke:1998_geometry}
 
 %TODO : turn all equations in TeX format !
 
@@ -287,12 +298,12 @@ The distance to the hull is returned as a negative value when a source S is insi
 
 −	Return dist_min * out
 
-In order to get a perceptually satisfying result, rendering a distance increase of the source, different processing techniques can be applied to the source, e.g. filtering, reverb, loudness decrease... etc. Though, no generic behaviour can be determined to process such a perceptual effect, so it was decided to output this parameter as a raw value for each source, to be mapped afterwards to sound processing parameters, according to the perceptual or compositional purpose. 
+In order to get a perceptually satisfying result for rendering a distance increase of the source, different processing techniques can be applied to the source, e.g. filtering, reverb, loudness decrease... etc. Though, as no generic behaviour can be determined to process such a perceptual effect, it has been decided to output this parameter as a raw value for each source, to be mapped afterwards to sound processing parameters, according to the desired perceptual or compositional purpose. 
 
 
 \section{Implementation}
 
-\subsection{Visual representation}
+
 
 
 
