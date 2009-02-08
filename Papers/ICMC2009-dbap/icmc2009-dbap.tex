@@ -125,7 +125,7 @@ For real-time music and sound purposes the relative low CPU requirements of matr
 
 The requirements imposed by VBAP and ambisonics with respect to listeners being restricted to a relatively small listening area surrounded by loudspeakers might be impractical or even undesired in practical applications. In a concert situation ideally all of the audience should have a detailed impression of the spatial content of the music, not only the ones sitting at the middle of the hall. In a sound installation context one might want the audience to be able to move around the space \cite{lossius:2008installations}. And finally, for practical and/or artistic reasons it might not be possible or desired to have loudspeakers arranged in a ring or sphere.
 
-Distance-based amplitude panning (DBAP) is a matrix-based spatialisation technique that takes the actual positions of the speakers as the point of departure while making no assumptions as to where the listeners are situated. This makes DBAP useful for a number of real-world situations such as music for concerts, works for stage, installations and museum sound design where ordinary speaker layouts might not apply.
+Distance-based amplitude panning (DBAP) is a matrix-based spatialisation technique that takes the actual positions of the speakers as the point of departure while making no assumptions as to where the listeners are situated. This makes DBAP useful for a number of real-world situations such as music for concerts, works for stage, installations and museum sound design where predefined geometric speaker layouts might not apply.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -197,28 +197,16 @@ From this it can be shown that
 \end{array} \right.
 \end{equation}
 
-When the virtual source is located at the exact position of one of the loudspeakers, only that speaker will be emitting sound. This might cause the similar problems with loudspeaker directions being audible as observed by Ville Pulkki in VBAP.
-
-% TODO: Add reference to Ville Pulkkis paper, and rewrite this section to get better flow.
-
-
-
-
- discussed earlier for vector-based amplitude panning. One way of ensuring a certain degree of spread would be by introducing a \textit{diffusion constant $r_{s} \ge 0$} in equation (\ref{eq:distance}):
+When the virtual source is located at the exact position of one of the loudspeakers, only that speaker will be emitting sound. This may cause unwanted changes in spatial spread and coloration of a virtual source in a similar way as observed for VBAP \cite{Pulkki:1999vbap}. To adjust for this a similar solution can be provided by introduction of a degree of \textit{spatial blur} $r_{s} \ge 0$ in equation (\ref{eq:distance}):
 
 \begin{equation} \label{eq:mod_distance}
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
 \end{equation}
 
-The diffusion constant $r_{s}$ can be thought of as a displacement in vertical position introduced between the source and the speakers, as if the speakers are positioned at $z_{i}=0$ while the vertical position of the source is $z_{s}=r_{s}$. The effect of this is that a certain amount of spatial blurriness is introduced. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There should be a potential for using this artistically in terms of contrasts between highly articulated or diffuse spatial positioning of sources.
+The blur coefficient $r_{s}$ can be understood as a displacement in vertical position introduced between the source and the speakers, as if the speakers are positioned at $z_{i}=0$ while the vertical position of the source is $z_{s}=r_{s}$. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There should be a potential for using this artistically in terms of contrasts between highly articulated or diffuse spatial positioning of sources. However there is a limitation to how blurred sources can get. While all speakers will approach the same level as $ r_{s} \rightarrow \infty $, practical tests indicate that the precedence effect will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener \cite{Litovsky:1999precedence_effect}.
 
-The expansion of the above discussion to three dimensions is trivial by substituting equation (\ref{eq:mod_distance}) for
 
-\begin{equation} \label{eq:3D_mod_distance}
-d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {(z_{i} - z_{s})}^2 + {r_{s}}^2}
-\end{equation}
 
-The diffusion constant $r$ now can be understood as a displacement in the fourth dimension of source as compared to speakers. The practical implications remains the same as for the two-dimensional speaker setup, but conceptually the idea of a source offset in the fourth dimension is intriguing.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
