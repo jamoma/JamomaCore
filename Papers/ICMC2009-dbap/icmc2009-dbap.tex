@@ -203,47 +203,10 @@ When the virtual source is located at the exact position of one of the loudspeak
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
 \end{equation}
 
-The blur coefficient $r_{s}$ can be understood as a displacement in vertical position introduced between the source and the speakers, as if the speakers are positioned at $z_{i}=0$ while the vertical position of the source is $z_{s}=r_{s}$. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There should be a potential for using this artistically in terms of contrasts between highly articulated or diffuse spatial positioning of sources. However there is a limitation to how blurred sources can get. While all speakers will approach the same level as $ r_{s} \rightarrow \infty $, practical tests indicate that the precedence effect will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener \cite{Litovsky:1999precedence_effect}.
+The blur coefficient $r_{s}$ can be understood as a displacement in vertical position introduced between the source and the speakers, as if the speakers are positioned at $z_{i}=0$ while the vertical position of the source is $z_{s}=r_{s}$. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There should be a potential for using this artistically in terms of contrasts between highly articulated or diffuse spatial positioning of sources. However there is a limitation to how blurred sources can be perceived to be. While all speakers will approach the same level as $ r_{s} \rightarrow \infty $, practical experience indicate that the precedence effect will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener \cite{Litovsky:1999precedence_effect}.
 
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Extending DBAP
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{extending DBAP}
-
-\subsection{Spatial weights}
-
-The initial idea behind \textit{spatial weights} was to use the DBAP algorithm on different subsets of loudspeakers for different sources, in a global sound diffusion system. This idea is partly coming from the tradition of the acousmonium \cite{Bayle:1993MusiqueAcousmatique}, for which a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music\cite{Prager:2002acousmatique}.
-
-Following this idea, the authors thought including such a loudspeaker-grouping system could be artistically promising, in order to create registers of loudspeakers as described above, or to define specific ``sonic geographies'' for different sources, by using different layers of loudspeakers for each of them. This is intended to allow a pre-defined spatial orchestration to be prepared in order to be later adapted to specific rooms\cite{Lyon:2008spatial_orchestration}. Another potential use of such loudspeakers layers could happen in installation or museum spaces, in order to diffuse sound sources both locally in one room, or all other the place.
-
-Another requirement of this development was to create the possibility to define the subsets of loudspeakers dynamically, and not only as an initial setp, so that they could be changed during the composition process, as well as during the performance of the music. This led the authors to define these subsets individually for each sound source as an array of $n$ boolean values, indicating if each loudspeaker is part or not of the subset, $n$ being the total number or loudspeakers.
-The possibility of interpolating between subsets of loudspeakers was also a desired feature, in order to have smooth transitions between such ``sonic geographies'', which led to using floating point values in the computation of the array in the algorithm, rather than strict boolean values. 
-
-Anticipating possible uses of floating point values for each loudspeaker, this parameter has been named as ``weights'' for each speaker, and implemented using the modification below of \ref{eq:calculate_k} :
-%TODO : clean up this equation - is k2inv the right term ? other ones ?
-\begin{equation} \label{eq:2Dweight}
-k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i])
-\end{equation}
-
-%TODO : fix cross-reference
-This weight parameter, after being submitted to listening tests and visualization (as described below in\ref{subsection:Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
-The authors are also looking forward to obtaining a better numerical representation of this parameter, in particular of its range and transfer function, as well as to achieve a management of the interdependence of all weights, in order to make its manipulation more intuitive for the user.
-
-\subsection{Visual representation}
-
-In order to allow intuitive understanding and manipulation of the algorithm by the users, the authors developped a visual representation of the behaviour of the algorithm, using gradients to represent the "predominance" zone of each speaker according to the signal spreading. This is intended to give a more intuitive manipulation of source positions, as well as managing parameters such as spatial blur, rolloff, or spatial weights, that can sound rather abstract to the non-scientific.
-
-
-For each pixel of a selected view matrix (of X * Y pixels), the pixel value is set to the  squared amplitude returned by the dbap algorithm as if a source was at this position. The visual result is a picture that shows to the user the spatial response of  a loudspeaker. The lighter pixels are positions where amplitudes are close to 1. and the darker ones, positions where amplitudes are close to 0.. As expected, the more far the source is from the loudspeaker, the less high is the amplitude. However the presence of “digs” in the spatial distribution of the amplitude response illustrates how the dbap algorithm works when a source moves between several loudspeakers. Those graphical informations, even aesthetic there are, give to the user a kind of hitmap that could assist him during space scripting and performing.
-
-
-But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result show sstraight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. The following figures illustrate several settings of rolloff and blur parameters on all loudspeakers. The last picture illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
 
 
 \subsection{Convex Hull}
@@ -286,7 +249,46 @@ The distance to the hull is returned as a negative value when a source S is insi
 
 −	Return dist_min * out
 
-In order to get a perceptually satisfying result for rendering a distance increase of the source, different processing techniques can be applied to the source, e.g. filtering, reverb, loudness decrease... etc. Though, as no generic behaviour can be determined to process such a perceptual effect, it has been decided to output this parameter as a raw value for each source, to be mapped afterwards to sound processing parameters, according to the desired perceptual or compositional purpose. 
+In order to get a perceptually satisfying result for rendering a distance increase of the source, different processing techniques can be applied to the source, e.g. filtering, reverb, loudness decrease... etc. Though, as no generic behaviour can be determined to process such a perceptual effect, it has been decided to output this parameter as a raw value for each source, to be mapped afterwards to sound processing parameters, according to the desired perceptual or compositional purpose.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Extending DBAP
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{extending DBAP}
+
+\subsection{Spatial weights}
+
+The initial idea behind \textit{spatial weights} was to use the DBAP algorithm on different subsets of loudspeakers for different sources, in a global sound diffusion system. This idea is partly coming from the tradition of the acousmonium \cite{Bayle:1993MusiqueAcousmatique}, for which a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music\cite{Prager:2002acousmatique}.
+
+Following this idea, the authors thought including such a loudspeaker-grouping system could be artistically promising, in order to create registers of loudspeakers as described above, or to define specific ``sonic geographies'' for different sources, by using different layers of loudspeakers for each of them. This is intended to allow a pre-defined spatial orchestration to be prepared in order to be later adapted to specific rooms\cite{Lyon:2008spatial_orchestration}. Another potential use of such loudspeakers layers could happen in installation or museum spaces, in order to diffuse sound sources both locally in one room, or all other the place.
+
+Another requirement of this development was to create the possibility to define the subsets of loudspeakers dynamically, and not only as an initial setp, so that they could be changed during the composition process, as well as during the performance of the music. This led the authors to define these subsets individually for each sound source as an array of $n$ boolean values, indicating if each loudspeaker is part or not of the subset, $n$ being the total number or loudspeakers.
+The possibility of interpolating between subsets of loudspeakers was also a desired feature, in order to have smooth transitions between such ``sonic geographies'', which led to using floating point values in the computation of the array in the algorithm, rather than strict boolean values. 
+
+Anticipating possible uses of floating point values for each loudspeaker, this parameter has been named as ``weights'' for each speaker, and implemented using the modification below of \ref{eq:calculate_k} :
+%TODO : clean up this equation - is k2inv the right term ? other ones ?
+\begin{equation} \label{eq:2Dweight}
+k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i])
+\end{equation}
+
+%TODO : fix cross-reference
+This weight parameter, after being submitted to listening tests and visualization (as described below in\ref{subsection:Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
+The authors are also looking forward to obtaining a better numerical representation of this parameter, in particular of its range and transfer function, as well as to achieve a management of the interdependence of all weights, in order to make its manipulation more intuitive for the user.
+
+\subsection{Visual representation}
+
+In order to allow intuitive understanding and manipulation of the algorithm by the users, the authors developped a visual representation of the behaviour of the algorithm, using gradients to represent the "predominance" zone of each speaker according to the signal spreading. This is intended to give a more intuitive manipulation of source positions, as well as managing parameters such as spatial blur, rolloff, or spatial weights, that can sound rather abstract to the non-scientific.
+
+
+For each pixel of a selected view matrix (of X * Y pixels), the pixel value is set to the  squared amplitude returned by the dbap algorithm as if a source was at this position. The visual result is a picture that shows to the user the spatial response of  a loudspeaker. The lighter pixels are positions where amplitudes are close to 1. and the darker ones, positions where amplitudes are close to 0.. As expected, the more far the source is from the loudspeaker, the less high is the amplitude. However the presence of “digs” in the spatial distribution of the amplitude response illustrates how the dbap algorithm works when a source moves between several loudspeakers. Those graphical informations, even aesthetic there are, give to the user a kind of hitmap that could assist him during space scripting and performing.
+
+
+But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result show sstraight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. The following figures illustrate several settings of rolloff and blur parameters on all loudspeakers. The last picture illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
+
 
 
 \section{Implementation}
