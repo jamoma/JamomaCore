@@ -221,10 +221,15 @@ The initial idea behind \textit{spatial weights} was to use the DBAP algorithm o
 Following this idea, the authors thought including such a loudspeaker-grouping system could be artistically promising, in order to create registers of loudspeakers as describe above, or to define specific ``sonic geographies'' for different sources, by using different layers of loudspeakers for each of them, which allows a pre-defined spatial orchestration to be prepared in order to be later adapted to specific rooms\cite{Lyon:2008spatial_orchestration}. Another potential use of such loudspeakers layers could happen in installation or museum spaces, in order to diffuse sound sources both locally in one room, or all other the place.
 
 Another requirement was to have the possibility to define the subsets of loudspeakers dynamically, and not only initially, so that they could be changed during the composition process, as well as during the performance of the music, which led the authors to define these subsets individually for each sound source as an array of n boolean values, indicating if each loudspeaker is part or not of the subset, n being the total number or loudspeakers.
-The possibility of interpolating between subsets of loudspeakers was also a desired feature, 
+The possibility of interpolating between subsets of loudspeakers was also a desired feature, in order to have smooth transitions between such ``sonic geographies'', which led to use floating point values in the computation of the array in the algorithm, rather than strict boolean values. 
 
+Anticipating possible uses of floating point values for each loudspeaker, this parameter has been named as ``weights'' for each speaker, and implemented using the modification of \ref{eq:calculate_k} below :
+%TODO : clean up this equation
+\begin{equation} \label{eq:2Dweight}
+k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i])
+\end{equation}
 
-
+This weight parameter, after being submitted to listening tests and visualization (as described below in\ref{Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker.
 
 \subsection{Convex Hull}
 
