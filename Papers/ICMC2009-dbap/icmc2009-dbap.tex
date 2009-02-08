@@ -213,8 +213,11 @@ d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {(z_{i} - z_{s})}^2 +
 
 The diffusion constant $r$ now can be understood as a displacement in the fourth dimension of source as compared to speakers. The practical implications remains the same as for the two-dimensional speaker setup, but conceptually the idea of a source offset in the fourth dimension is intriguing.
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Extending DBAP
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{extending DBAP}
 
@@ -222,27 +225,67 @@ The diffusion constant $r$ now can be understood as a displacement in the fourth
 
 The initial idea behind \textit{spatial weights} was to use the DBAP algorithm on different subsets of loudspeakers for different sources, in a global sound diffusion system. This idea is partly coming from the tradition of the acousmonium \cite{Bayle:1993MusiqueAcousmatique}, for which a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music\cite{Prager:2002acousmatique}.
 
-Following this idea, the authors thought including such a loudspeaker-grouping system could be artistically promising, in order to create registers of loudspeakers as describe above, or to define specific ``sonic geographies'' for different sources, by using different layers of loudspeakers for each of them, which allows a pre-defined spatial orchestration to be prepared in order to be later adapted to specific rooms\cite{Lyon:2008spatial_orchestration}. Another potential use of such loudspeakers layers could happen in installation or museum spaces, in order to diffuse sound sources both locally in one room, or all other the place.
+Following this idea, the authors thought including such a loudspeaker-grouping system could be artistically promising, in order to create registers of loudspeakers as described above, or to define specific ``sonic geographies'' for different sources, by using different layers of loudspeakers for each of them. This is intended to allow a pre-defined spatial orchestration to be prepared in order to be later adapted to specific rooms\cite{Lyon:2008spatial_orchestration}. Another potential use of such loudspeakers layers could happen in installation or museum spaces, in order to diffuse sound sources both locally in one room, or all other the place.
 
-Another requirement was to have the possibility to define the subsets of loudspeakers dynamically, and not only initially, so that they could be changed during the composition process, as well as during the performance of the music, which led the authors to define these subsets individually for each sound source as an array of n boolean values, indicating if each loudspeaker is part or not of the subset, n being the total number or loudspeakers.
-The possibility of interpolating between subsets of loudspeakers was also a desired feature, in order to have smooth transitions between such ``sonic geographies'', which led to use floating point values in the computation of the array in the algorithm, rather than strict boolean values. 
+Another requirement of this development was to create the possibility to define the subsets of loudspeakers dynamically, and not only as an initial setp, so that they could be changed during the composition process, as well as during the performance of the music. This led the authors to define these subsets individually for each sound source as an array of $n$ boolean values, indicating if each loudspeaker is part or not of the subset, $n$ being the total number or loudspeakers.
+The possibility of interpolating between subsets of loudspeakers was also a desired feature, in order to have smooth transitions between such ``sonic geographies'', which led to using floating point values in the computation of the array in the algorithm, rather than strict boolean values. 
 
-Anticipating possible uses of floating point values for each loudspeaker, this parameter has been named as ``weights'' for each speaker, and implemented using the modification of \ref{eq:calculate_k} below :
+Anticipating possible uses of floating point values for each loudspeaker, this parameter has been named as ``weights'' for each speaker, and implemented using the modification below of \ref{eq:calculate_k} :
 %TODO : clean up this equation
 \begin{equation} \label{eq:2Dweight}
 k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i])
 \end{equation}
 
-This weight parameter, after being submitted to listening tests and visualization (as described below in\ref{Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker.
+%TODO : fix cross-reference
+This weight parameter, after being submitted to listening tests and visualization (as described below in\ref{subsection:Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
+The authors are also looking forward to obtaining a better numerical representation of this parameter, in particular of its range and transfer function, as well as to achieve a management of the interdependence of all weights, in order to make its manipulation more intuitive for the user.
 
 \subsection{Convex Hull}
 
+%TODO : fix cross-reference
+The behaviour of the initial DBAP algorithm, as described in \ref{subsection:Fundamentals}, implies that the source gets distributed equally on all loudspeakers when placed outside of the speakers zone. Intuitively, in an user-perspective, one would expect a perception of ``distance increase'' when going out of the speakers zone, rather than an even distribution.
+Investigating the geometrical models to realize this idea, the authors found out \textit{convex hulls} to be a promising candidate.
+In two dimensions a convex hull can be visualized by imagining an elastic band stretched open to encompass all speakers; when released, it will assume the shape of the required convex hull. Tests could then be performed to determine if the virtual source is positioned inside or outside of the convex hull. 
+The algorithm used to calculate it is the direct application of the implementation written \cite{Rourke:1998_geometry}
+
+%TODO : turn all equations in TeX format !
+
+	Stages of the algorithm :
+
+−	Find the lowest and the righest loudspeaker (P0) among N.
+−	Calculate the orientation of each P0Pi.
+−	Sort all Pi by this orientation : we get an array of angularly sorted points Pi without the Pj which are colinear with a longer P0Pi.
+−	Perform the Graham algorithm on this array to fill a stack with M remaining Pi :
+−	Push P0
+−	Push P1
+−	while (i < M)
+−	if Pi is strictly to the left of the directed line through P_top to P_next : Push Pi and increment i.
+−	else Pop the P_top.
+
+−	The resulting stack is all the Pi of the convex hull sorted by angle.
+
+The distance to the hull is returned as a negative value when a source S is inside and positive otherwise. The calculation is performed as below :
+
+−	out = -1
+−	For each border CN of the hull
+
+−	K = (SC² + CN² – SN²) / CN²
+−	if( K < 0 ) dist = SC
+−	else if( K > 2 ) dist = SN
+−	else the projection P of the source S is on the border CN so dist = SP
+−	if( dist < dist_min ) dist_min = dist
+−	
+−	V =  (Nx – Cx)*(Sy-Cy) – (Ny – Cy)*(Sx – Cx)
+−	if( V > 0 ) out = 1
+
+−	Return dist_min * out
+
+In order to get a perceptually satisfying result, rendering a distance increase of the source, different processing techniques can be applied to the source, e.g. filtering, reverb, loudness decrease... etc. Though, no generic behaviour can be determined to process such a perceptual effect, so it was decided to output this parameter as a raw value for each source, to be mapped afterwards to sound processing parameters, according to the perceptual or compositional purpose. 
 
 
 \section{Implementation}
 
 \subsection{Visual representation}
-
 
 
 
