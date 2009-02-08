@@ -1,7 +1,7 @@
 /* 
 	jcom.textslider
 	A slider displaying text and value
-	By Trond Lossius, Copyright © 2008
+	By Trond Lossius, Copyright ï¿½ 2008
 	Inspired by a GUI widget from radiaL by jhno
 	
 	License: This code is licensed under the terms of the GNU LGPL
@@ -35,7 +35,6 @@ const double kOrientationVectical = 1;
 const double kOrientationHorizontal = 0;
 const double kMinimumChangeForRedraw = 0.00001;
 
-
 // Instance definition
 typedef struct _textslider{
 	t_jbox		box;
@@ -48,6 +47,7 @@ typedef struct _textslider{
 	
 	float		attrValue;			///< The slider value
 	float		attrRange[2];		///< ATTRIBUTE: low, high
+	float       attrTextOffset[2];  //NP
 	float		anchorValue;		///< Used for mouse dragging
 	
 	// TODO: Display a list instead of just one symbol.
@@ -74,6 +74,8 @@ void		textslider_float(t_textslider *x, double value);
 void		textslider_set(t_textslider *x, double value);
 t_max_err	textslider_getRange(t_textslider *x, void *attr, long *argc, t_atom **argv);
 t_max_err	textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *argv);
+t_max_err	textslider_getTextOffset(t_textslider *x, void *attr, long *argc, t_atom **argv);
+t_max_err	textslider_setTextOffset(t_textslider *x, void *attr, long argc, t_atom *argv);
 t_max_err	textslider_get_text(t_textslider *x, void *attr, long *argc, t_atom **argv);
 t_max_err	textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *argv);
 void		textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers);
@@ -165,6 +167,12 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_DEFAULT(c,					"range",		0,	"0.0 1.0");
 	CLASS_ATTR_SAVE(c,						"range",		0);
 	CLASS_ATTR_ACCESSORS(c,					"range",		textslider_getRange, textslider_setRange);
+	
+	CLASS_ATTR_FLOAT_ARRAY(c,				"textpos",		0,	t_textslider,	attrTextOffset, 2);
+	CLASS_ATTR_LABEL(c,						"textpos",		0,	"Text position");
+	CLASS_ATTR_DEFAULT(c,					"textpos",		0,	"10.0 4.0");
+	CLASS_ATTR_SAVE(c,						"textpos",		0);
+	CLASS_ATTR_ACCESSORS(c,					"textpos",		textslider_getTextOffset, textslider_setTextOffset);
 	
 	CLASS_ATTR_SYM(c,						"text",			0,	t_textslider, attrText);
 	CLASS_ATTR_LABEL(c,						"text",			0,	"Displayed Text");
@@ -278,6 +286,9 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 		if(attrname == gensym("text"))
 			object_method(textfield, gensym("settext"), x->attrText->s_name);
 		
+		if(attrname == gensym("textpos"))
+		textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
+		
 		char str[7];
 		if(x->mouseDown) {
 			snprintf(str, sizeof(str), "%f", x->attrValue);
@@ -367,6 +378,34 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 	if(argc > 1)
 		x->attrRange[1] = atom_getfloat(argv+1);
 
+	jbox_redraw((t_jbox*)x);
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err textslider_getTextOffset(t_textslider *x, void *attr, long *argc, t_atom **argv)
+{
+	
+	*argc = 2;
+	
+	//sysmem_ptrsize(*argv)
+	// FIXME: This checks if we have memory passed in, good, but how do we know if it is enough memory for 2 atoms? [TAP]
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom) * 2);
+	
+	atom_setfloat(*argv, x->attrTextOffset[0]);
+	atom_setfloat(*argv+1, x->attrTextOffset[1]);	
+	
+	return MAX_ERR_NONE;
+}
+
+t_max_err textslider_setTextOffset(t_textslider *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc)
+		 x->attrTextOffset[0] = atom_getfloat(argv+0);
+	if(argc > 1)
+		 x->attrTextOffset[1] = atom_getfloat(argv+1);
+	
 	jbox_redraw((t_jbox*)x);
 	
 	return MAX_ERR_NONE;
@@ -502,9 +541,8 @@ void *textslider_oksize(t_textslider *x, t_rect *newrect)
 	textfield_set_wordwrap(textfield, 0);
 	textfield_set_useellipsis(textfield, 1); 
 	textfield_set_textcolor(textfield, &x->attrTextColor);
-	// TODO: text should be centered vertically
-	textfield_set_textmargins(textfield, 10.0, 4.0, 2.0, 2.0);
-		
+	textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
+	// changed by NP: was: textfield_set_textmargins(textfield, 10.0, 4.0, 2.0, 2.0);	
 	return (void*)1;
 }
 
