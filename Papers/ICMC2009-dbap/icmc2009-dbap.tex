@@ -235,7 +235,7 @@ For each source position it is first determined if the source is outside the hul
 
 \subsection{Extending DBAP by introducing spatial weights}
 
-In the discussions so far the DBAP algorithm has dealt with the speakers in a transparent way, aiming at reproducing virtual sound sources in the best way possible without any further considerations for any loudspeaker properties apart from position.
+In the discussions thus far, the DBAP algorithm has dealt with the speakers in a transparent manner, with the aim of reproducing virtual sound sources in the best way possible without any further considerations for any loudspeaker properties apart from position.
 
 The extension of DBAP by introduction of a spatial weight $w_{i}$ in equation \ref{eq:inverse_distance} enables a source to be restricted to use a subset of speakers:
 
@@ -249,16 +249,18 @@ Equation \ref{eq:calculate_k} will now be modified to:
 k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{{w_{i}}^2}{{d_{i}}^2}}}
 \end{equation}
 
-This might offer several artistic possibilities. Within the tradition of the acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music \cite{Prager:2002acousmatique}. If the loudspeaker setup consists of different kinds of speakers with differing spectral properties, they can be thought of as an orchestra of speakers and be organized into different instrumental groups. Spatial weights can then be used to ensure that a source is spatialised among members of one group only. This allow a timbral and spatial orchestration to be prepared or composed prior to performance, and then be adjusted to the specific room used for playback \cite{Lyon:2008spatial_orchestration}. 
+This might offer several artistic possibilities. Within the tradition of the Acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music \cite{Prager:2002acousmatique}. If the loudspeaker setup consists of different kinds of speakers with differing spectral properties, they can be thought of as an orchestra of speakers and be organized into different instrumental groups. Spatial weights can then be used to ensure that a source is spatialised among members of one group only. This allows a timbral and spatial orchestration to be prepared or composed prior to performance, and then be adjusted to the specific room used for playback \cite{Lyon:2008spatial_orchestration}. 
 
 In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. For instance one source can be diffused in one room only while another source with a different set of spatial weights might be permitted to move between several or all rooms.
 
 Spatial weights can be changed dynamically, thus allowing smooth transitions from one state to another. 
 
-This weight parameter, after being submitted to listening tests and visualization (as described below in \ref{sec:visual_representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
+% TODO: Tim says the words 'showed up' should be changed to a more proper term -- saying 'showed up' sounds very Texan ;-)
+This weight parameter, after being submitted to listening tests and visualization (as described later in\ref{subsection:Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 
-The authors are also looking forward to obtaining a better numerical representation of this parameter, in particular of its range and transfer function, as well as to achieve a management of the interdependence of all weights, in order to make its manipulation more intuitive for the user.
-
+% CHANGED: Tim reworded this paragraph very significantly -- please check!
+% TODO: Tim also says... Due to a conflict in SVN, I can't tell what happened here -- maybe this paragraph was just deleted ?
+The authors are exploring a means by which to obtain a better numerical representation of this parameter.  In particular the parameter's range and transfer function. Research is ongoing to find a more intuitive process for the user by which to manage the interdependence of all weights.
 
 
 
