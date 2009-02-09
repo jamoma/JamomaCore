@@ -205,7 +205,7 @@ d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
 
 The blur coefficient $r_{s}$ can be understood as a displacement in vertical position introduced between the source and the speakers, as if the speakers are positioned at $z_{i}=0$ while the vertical position of the source is $z_{s}=r_{s}$. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There should be a potential for using this artistically in terms of contrasts between highly articulated or diffuse spatial positioning of sources. However there is a limitation to how blurred sources can be perceived to be. While all speakers will approach the same level as $ r_{s} \rightarrow \infty $, practical experience indicate that the precedence effect will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener \cite{Litovsky:1999precedence_effect}.
 
-
+% TODO: Discuss variance
 
 
 
@@ -213,11 +213,11 @@ The blur coefficient $r_{s}$ can be understood as a displacement in vertical pos
 
 %TODO : fix cross-reference
 
-The assumptions that DBAP are based on falls apart when sources move outside the field of speakers. As a source position moves further away from the speakers, the relative difference in distance from source to each of the speakers diminishes, resulting in less and less difference in levels between the speakers, in much the same way as discussed in the previous subsection. In order to compensate for this, additional steps needs to be taken when the source move outside the field of speakers using computational geometry:
+The assumptions that DBAP are based on falls apart when sources move outside the field of speakers. As a source position moves away from the speakers, the relative difference in distance from source to each of the speakers diminishes, resulting in less and less difference in levels between the speakers, in much the same way as discussed for spatial blur in the previous subsection. In order to compensate for this, additional steps needs to be taken when the source move outside the field of speakers.
 
-From the description of louspeaker positions the \emph{convex hull} of the field of speakers is calculated. In two dimensions the convex hull ``ìs the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}.
+From the description of louspeaker positions the \emph{convex hull} of the field of speakers is calculated. In two dimensions the convex hull ``is the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}.
 
-For each source position it is first determined if the point lays outside the convex hull or not. If the source position is inside or on the boundary of the convex hull no additional steps needs to be taken. If the source is positioned outside the convex hull, the projection of the point onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. The source position is then substituted for the projected point for further DBAP calculations. In addition the distance from the source position to the convex hull is returned. This value can be used for additional spatialisation processing, e.g. gain attenuation, air filtering, doppler effect and gradual introduction of reverb with increasing distance from the hull.
+For each source position it is first determined if the source is outside the hull or not. If it is inside or on the boundary no additional steps needs to be taken. If the source is positioned outside the convex hull, the projection of the point onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. The source position is then substituted for the projected point in further DBAP calculations. In addition the distance from the source position to the convex hull is returned. This value can be used for additional spatial processing such as gain attenuation, air filtering, doppler effect and gradual introduction of reverb with increasing distance from the hull.
 
 
 
