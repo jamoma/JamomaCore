@@ -287,7 +287,9 @@ In order to provide users with an intuitive understanding of the algorithm, a vi
 % Does this look better ?
 % Tim says 'yes, good enough for now'
 
-The method for creating this visualization consists in creating a graphical map of level response for each loudspeaker as a 2D matrix of levels. For each pixel of this matrix, the pixel value is set to the squared amplitude returned by the dbap algorithm if the source was located at this position. The visual result in figure \ref{fig:1spk} indicates the spatial response for one of the loudspeakers. The lighter pixels are positions where amplitudes are close to $1$ and the darker ones are positions where amplitudes are close to $0$. As expected, the further away the source is from the loudspeaker, the lower the amplitude. However the presence of holes in the spatial distribution of the amplitude response illustrates how the DBAP algorithm works when a source moves between several loudspeakers.
+The method for creating this visualization consists in creating a graphical map of level response for each loudspeaker as a 2D matrix of levels. For each pixel of this matrix, the pixel value is set to the squared amplitude returned by the dbap algorithm if the source was located at this position. The visual result in figure \ref{fig:1spk} indicates the spatial response for one of the loudspeakers. The lighter pixels are positions where amplitudes are close to $1$ and the darker ones are positions where amplitudes are close to $0$. As expected, the further away the source is from the loudspeaker, the lower the amplitude. 
+%However the presence of holes in the spatial distribution of the amplitude response illustrates how the DBAP algorithm works when a source moves between several loudspeakers.
+%This part above isn't really necessary
 
 % CHANGED: Tim may not know what he is talking about, but he thinks the numbers for the dB values look odd in the PDF.  The 6 dB in particular.  Ignore if you think he's nuts. Pascal agrees and suggests removing the dollar signs just in case it could look better, so he'll try that out, and let's see how it turns out
 
