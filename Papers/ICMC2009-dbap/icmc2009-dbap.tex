@@ -249,8 +249,6 @@ Spatial weights can be changed dynamically, thus allowing smooth transitions fro
 
 This weight parameter, after being submitted to listening tests and visualization (as described later in \ref{sec:visual_representation}), has revealed itself as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 
-% CHANGED: Tim reworded this paragraph very significantly -- please check!
-% TODO: Tim also says... Due to a conflict in SVN, I can't tell what happened here -- maybe this paragraph was just deleted ?
 The authors are also exploring a means by which to obtain a better numerical representation of this parameter.  In particular the parameter's range and transfer function. Research is ongoing to find a more intuitive process for the user by which to manage the interdependence of all weights.
 
 
@@ -261,15 +259,11 @@ The authors are also exploring a means by which to obtain a better numerical rep
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% TODO: Visualization is the other spelling of this word -- spelled with an s is the British spelling, which might be okay.
-
 \section{Implementation and visualization}
 
 \subsection{Implementation}
 
-DBAP is implemented as a C/C++ external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} as part of the Jamoma framework \cite{Place:2006jamoma}, available under the GNU LGPL license. In addition to the features discussed already, the input gain of each source can be controlled prior to the DBAP processing, and each source can be muted.
-
-In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
+DBAP is implemented as an external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} written in C as a part of the Jamoma library and framework \cite{Place:2006jamoma}. In addition to the features discussed already, the input gain of each source can be controlled prior to the DBAP processing, and each source can be muted.  In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
 
 
 
@@ -291,6 +285,7 @@ In order to provide users with an intuitive understanding of the algorithm, a vi
 \end{figure}
 
 % Does this look better ?
+% Tim says 'yes, good enough for now'
 
 The method for creating this visualization consists in creating a graphical map of level response for each loudspeaker as a 2D matrix of levels. For each pixel of this matrix, the pixel value is set to the squared amplitude returned by the dbap algorithm if the source was located at this position. The visual result in figure \ref{fig:1spk} indicates the spatial response for one of the loudspeakers. The lighter pixels are positions where amplitudes are close to $1$ and the darker ones are positions where amplitudes are close to $0$. As expected, the further away the source is from the loudspeaker, the lower the amplitude. However the presence of holes in the spatial distribution of the amplitude response illustrates how the DBAP algorithm works when a source moves between several loudspeakers.
 
