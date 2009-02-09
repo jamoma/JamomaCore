@@ -283,21 +283,41 @@ The authors are also looking forward to obtaining a better numerical representat
 
 In order to allow intuitive understanding and manipulation of the algorithm by the users, the authors developped a visual representation of the behaviour of the algorithm, using gradients to represent the "predominance" zone of each speaker according to the signal spreading. This is intended to give a more intuitive manipulation of source positions, as well as managing parameters such as spatial blur, rolloff, or spatial weights, that can sound rather abstract to the non-scientific.
 
+%\begin{figure}[ht]
+%\centerline{\includegraphics[scale=0.8]{LoudspeakerPositions}}
+%\caption{{\it Blue points represent the positions of the 16 speakers used in the examples below}}  
+%\label{Speakers Positions}
+%\end{figure}
 
 For each pixel of a selected view matrix (of X * Y pixels), the pixel value is set to the  squared amplitude returned by the dbap algorithm as if a source was at this position. The visual result is a picture that shows to the user the spatial response of  a loudspeaker. The lighter pixels are positions where amplitudes are close to 1. and the darker ones, positions where amplitudes are close to 0.. As expected, the more far the source is from the loudspeaker, the less high is the amplitude. However the presence of “digs” in the spatial distribution of the amplitude response illustrates how the dbap algorithm works when a source moves between several loudspeakers. Those graphical informations, even aesthetic there are, give to the user a kind of hitmap that could assist him during space scripting and performing.
 
+%\begin{figure}[ht]
+%\centerline{\includegraphics[scale=0.5]{spk4_r_6_b_0}}
+%\caption{{\it Representation of the levels 2D distribution for speaker 4 - parameter values are 6dB for rolloff, and 0. for blur}}  
+%\label{Level distribution for one speaker}
+%\end{figure}
 
-But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result show sstraight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. The following figures illustrate several settings of rolloff and blur parameters on all loudspeakers. The last picture illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
+But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result shows straight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. The following figures illustrate several settings of rolloff and blur parameters on all loudspeakers. The last picture illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
 
+%\begin{figure}[ht]
+%\centerline{\includegraphics[scale=0.5]{all_r_2_b_0}}
+%\caption{{\it Representation of the 2D distribution of levels for all speakers - parameter values are 2dB for rolloff, and 0. for blur}}  
+%\label{Level distribution for all speakers}
+%\end{figure}
 
+%\begin{figure}[ht]
+%\centerline{\includegraphics[scale=0.5]{all_r_6_b_0}}
+%\caption{{\it Representation of the 2D distribution of levels for all speakers - parameter values are 6dB for rolloff, and 0. for blur}}  
+%\label{Level distribution for all speakers}
+%\end{figure}
 
-\section{Implementation}
+%\begin{figure}[ht]
+%\centerline{\includegraphics[scale=0.5]{all_r_6_b_0.2}}
+%\caption{{\it Representation of the 2D distribution of levels for all speakers - parameter values are 6dB for rolloff, and 0.2 for blur}}  
+%\label{Level distribution for all speakers}
+%\end{figure}
 
-
-
-
-
-
+These pictures can be generated in realtime by the algorithm, and thus be used as an user interface for source positionning, e.g. for mouse interaction, or even better for tactile-screen interaction. 
 
 
 \section{further development}
