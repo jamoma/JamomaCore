@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 128.0, 191.0, 855.0, 461.0 ],
+		"rect" : [ 128.0, 191.0, 1122.0, 452.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 128.0, 191.0, 855.0, 461.0 ],
+		"defrect" : [ 128.0, 191.0, 1122.0, 452.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.970939,
@@ -33,9 +33,9 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.message send @description \"An OpenSoundControl message to send out over the network.\"",
+					"text" : "jcom.message send @repetitions/allow 1 @description \"An OpenSoundControl message to send out over the network.\"",
 					"fontsize" : 9.873845,
-					"patching_rect" : [ 490.0, 213.0, 498.0, 18.0 ],
+					"patching_rect" : [ 487.0, 214.0, 615.0, 18.0 ],
 					"outlettype" : [ "", "", "" ],
 					"fontname" : "Verdana",
 					"id" : "obj-2",
@@ -47,10 +47,10 @@
 , 			{
 				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.return receive @description \"OpenSoundControl messages coming in from the network are reported here.\"",
+					"text" : "jcom.return receive @repetitions/allow 1 @description \"OpenSoundControl messages coming in from the network are reported here.\"",
 					"linecount" : 2,
 					"fontsize" : 9.873845,
-					"patching_rect" : [ 196.0, 300.0, 298.0, 30.0 ],
+					"patching_rect" : [ 196.0, 300.0, 600.0, 30.0 ],
 					"outlettype" : [ "", "" ],
 					"fontname" : "Verdana",
 					"id" : "obj-3",
@@ -69,10 +69,10 @@
 					"outlettype" : [ "int", "", "" ],
 					"presentation" : 1,
 					"items" : [ "single", ",", "multicast" ],
-					"labelclick" : 1,
 					"fontname" : "Verdana",
 					"id" : "obj-4",
 					"numinlets" : 1,
+					"labelclick" : 1,
 					"presentation_rect" : [ 199.0, 2.0, 76.0, 19.0 ],
 					"numoutlets" : 3
 				}
@@ -236,8 +236,8 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-1", 0 ],
-					"destination" : [ "obj-14", 0 ],
+					"source" : [ "obj-14", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
@@ -245,17 +245,44 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
-					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-15", 0 ],
+					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 502.5, 180.0, 477.0, 180.0, 477.0, 120.0, 501.5, 120.0 ]
+					"midpoints" : [  ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-13", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 197.5, 130.0, 25.5, 130.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-16", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 25.5, 126.0, 25.5, 141.0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"source" : [ "obj-11", 0 ],
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 60.5, 130.0, 25.5, 130.0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
 					"source" : [ "obj-4", 0 ],
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
@@ -273,7 +300,7 @@
 , 			{
 				"patchline" : 				{
 					"source" : [ "obj-4", 0 ],
-					"destination" : [ "obj-7", 0 ],
+					"destination" : [ "obj-6", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
@@ -281,44 +308,17 @@
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-14", 0 ],
-					"destination" : [ "obj-3", 0 ],
+					"source" : [ "obj-6", 0 ],
+					"destination" : [ "obj-4", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ]
+					"midpoints" : [ 502.5, 180.0, 477.0, 180.0, 477.0, 120.0, 501.5, 120.0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-11", 0 ],
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 60.5, 130.0, 25.5, 130.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-16", 0 ],
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 25.5, 126.0, 25.5, 141.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-13", 0 ],
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 197.5, 130.0, 25.5, 130.0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"source" : [ "obj-15", 0 ],
-					"destination" : [ "obj-17", 0 ],
+					"source" : [ "obj-1", 0 ],
+					"destination" : [ "obj-14", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ]
 				}
