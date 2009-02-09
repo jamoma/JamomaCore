@@ -61,7 +61,7 @@ CUE setup1
 	/jmod.sur.multi.aux~.mxt/aux.3/active 0
 	/jmod.sur.multi.aux~.mxt/aux.3/description Aux_3
 	/jmod.sur.multi.aux~.mxt/aux.3/gain 100.0
-	/jmod.sur.multi.aux~.mxt/input/gain 100.0
+	/jmod.sur.multi.aux~.mxt/audio/gain 100.0
 	/jmod.sur.multi.aux~.mxt/active 1
 	/jmod.sur.multi.aux~.mxt/channels 24
 

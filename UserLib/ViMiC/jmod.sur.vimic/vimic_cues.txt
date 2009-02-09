@@ -14,7 +14,7 @@ CUE "1 init 8 microphones"
 	/jmod.multi.aux/aux.3/active 0
 	/jmod.multi.aux/aux.3/description "_"
 	/jmod.multi.aux/aux.3/gain 100.000
-	/jmod.multi.aux/input/gain 100.000
+	/jmod.multi.aux/audio/gain 100.000
 	/jmod.multi.aux/audio/mute 0
 	/jmod.multi.aux/ui/freeze 0
 	/jmod.multi.aux/channels 8
@@ -224,7 +224,7 @@ CUE "init 24 speakers"
 	/jmod.multi.aux/aux.3/active 0
 	/jmod.multi.aux/aux.3/description "_"
 	/jmod.multi.aux/aux.3/gain 100.0
-	/jmod.multi.aux/input/gain 100.0
+	/jmod.multi.aux/audio/gain 100.0
 	/jmod.multi.aux/audio/mute 0
 	/jmod.multi.aux/ui/freeze 0
 	/jmod.multi.aux/channels 24
