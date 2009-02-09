@@ -18,17 +18,32 @@
 		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
+					"maxclass" : "comment",
+					"text" : "It could be useful to have a jmod.midi object, that would provide midi in AND out. This way, sequencer could be controled by the patch...",
+					"linecount" : 2,
+					"fontsize" : 12.0,
+					"numinlets" : 1,
+					"presentation_rect" : [ 39.0, 267.0, 0.0, 0.0 ],
+					"numoutlets" : 0,
+					"fontname" : "Arial",
+					"id" : "obj-2",
+					"patching_rect" : [ 680.0, 256.0, 439.0, 34.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "/midiin",
-					"args" : [ "/midiin" ],
-					"patching_rect" : [ 951.0, 92.0, 150.0, 70.0 ],
-					"outlettype" : [ "", "" ],
-					"lockeddragscroll" : 1,
-					"id" : "obj-12",
 					"numinlets" : 1,
-					"name" : "jmod.midiin.maxpat",
+					"lockeddragscroll" : 1,
 					"presentation_rect" : [ 120.0, 120.0, 150.0, 70.0 ],
-					"numoutlets" : 2
+					"numoutlets" : 2,
+					"args" : [ "/midiin" ],
+					"id" : "obj-12",
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 951.0, 92.0, 150.0, 70.0 ],
+					"name" : "jmod.midiin.maxpat"
 				}
 
 			}
@@ -37,11 +52,11 @@
 					"maxclass" : "comment",
 					"text" : "multi-directional mapping between bcf2000 fader 1, output gain and your favorite sequencer CC11 (use mapping-for-jmod.mapper & rythme+conductor+CC.mid provided)",
 					"fontsize" : 12.0,
-					"patching_rect" : [ 24.0, 60.0, 913.0, 20.0 ],
+					"numinlets" : 1,
+					"numoutlets" : 0,
 					"fontname" : "Arial",
 					"id" : "obj-1",
-					"numinlets" : 1,
-					"numoutlets" : 0
+					"patching_rect" : [ 24.0, 60.0, 913.0, 20.0 ]
 				}
 
 			}
@@ -49,15 +64,15 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "/mapper",
-					"args" : [ "/mapper" ],
-					"patching_rect" : [ 329.0, 92.0, 300.0, 140.0 ],
-					"outlettype" : [ "" ],
-					"lockeddragscroll" : 1,
-					"id" : "obj-35",
 					"numinlets" : 1,
-					"name" : "jmod.mapper.maxpat",
+					"lockeddragscroll" : 1,
 					"presentation_rect" : [ 120.0, 120.0, 300.0, 140.0 ],
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"args" : [ "/mapper" ],
+					"id" : "obj-35",
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 329.0, 92.0, 300.0, 140.0 ],
+					"name" : "jmod.mapper.maxpat"
 				}
 
 			}
@@ -65,14 +80,14 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "/output~",
-					"args" : [ "/output~" ],
-					"patching_rect" : [ 642.0, 93.0, 300.0, 140.0 ],
-					"outlettype" : [ "" ],
-					"id" : "obj-49",
 					"numinlets" : 3,
-					"name" : "jmod.output~.maxpat",
 					"presentation_rect" : [ 75.0, 75.0, 300.0, 140.0 ],
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"args" : [ "/output~" ],
+					"id" : "obj-49",
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 642.0, 93.0, 300.0, 140.0 ],
+					"name" : "jmod.output~.maxpat"
 				}
 
 			}
@@ -80,15 +95,15 @@
 				"box" : 				{
 					"maxclass" : "bpatcher",
 					"varname" : "jmod.bcf2000[1]",
-					"args" : [ "/bcf2000" ],
-					"patching_rect" : [ 19.0, 92.0, 300.0, 70.0 ],
-					"outlettype" : [ "" ],
-					"lockeddragscroll" : 1,
-					"id" : "obj-17",
 					"numinlets" : 1,
-					"name" : "jmod.bcf2000.maxpat",
+					"lockeddragscroll" : 1,
 					"presentation_rect" : [ 30.0, 30.0, 300.0, 70.0 ],
-					"numoutlets" : 1
+					"numoutlets" : 1,
+					"args" : [ "/bcf2000" ],
+					"id" : "obj-17",
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 19.0, 92.0, 300.0, 70.0 ],
+					"name" : "jmod.bcf2000.maxpat"
 				}
 
 			}
