@@ -269,30 +269,38 @@ For each pixel of a selected view matrix (of X * Y pixels), the pixel value is s
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{spk4_r_6_b_0}}
 \caption{{\it Representation of the levels 2D distribution for speaker 4 - parameter values are 6dB for rolloff, and 0. for blur}}  
-\label{Level distribution for one speaker}
+\label{1spk}
 \end{figure}
 
-But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result shows straight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. The following figures illustrate several settings of rolloff and blur parameters on all loudspeakers. The last picture illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
+But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result shows straight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. Figures \ref{figure:allspk1}, \ref{figure:allspk2}, \ref{figure:allspk3} illustrate several settings of rolloff and blur parameters on all loudspeakers. 
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{all_r_2_b_0}}
 \caption{{\it Representation of the 2D distribution of levels for all speakers - parameter values are 2dB for rolloff, and 0. for blur}}  
-\label{Level distribution for all speakers}
+\label{allspk1}
 \end{figure}
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{all_r_6_b_0}}
 \caption{{\it Representation of the 2D distribution of levels for all speakers - parameter values are 6dB for rolloff, and 0. for blur}}  
-\label{Level distribution for all speakers}
+\label{allspk2}
 \end{figure}
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{all_r_6_b_0_2}}
 \caption{{\it Representation of the 2D distribution of levels for all speakers - parameter values are 6dB for rolloff, and 0.2 for blur}}  
-\label{Level distribution for all speakers}
+\label{allspk3}
 \end{figure}
 
-These pictures can be generated in realtime by the algorithm, and thus be used as an user interface for source positionning, e.g. for mouse interaction, or even better for tactile-screen interaction. 
+Figure \ref{figure:5spk_weights} illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
+
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.5]{spk[5,8,9,10,11,12]_w[1.5,1.,1.,1.,0.75,1.2]}}
+\caption{{\it Representation of the 2D distribution of levels for 5 speakers only, with different weights for each speaker : [1.5,1.,1.,1.,0.75,1.2] for speakers [5,8,9,10,11,12]}}  
+\label{5spk_weights}
+\end{figure}
+
+These pictures are generated in realtime by the algorithm, and thus be used as an user interface for source positioning, e.g. for mouse interaction, or even better for tactile-screen interaction. 
 
 \section{Implementation}
 
@@ -300,14 +308,12 @@ These pictures can be generated in realtime by the algorithm, and thus be used a
 
 \section{Further development}
 
-Further listening tests and usage experimentations
+A Combination of convex hulls with spatial weights still needs to be done : A hull is created for each source, by including all speakers with non null weights. Further processing can be applied then to create a perception of encapsulated or congruent spaces in the same place.
+A Visual representation of convex hulls also remains to be done, in particular when combined with loudspeaker layers. A possible solution for that would be to create a spatial fade to black around the hull 
 
-Hull Combination with weights : A hull is created for each source Including all speakers with non null weights
-Representation : Convex hulls : Spatial fade
+All of the points discussed in this article have been implemented in 2 dimensions, and need to be implemented in 1 and 3 dimensions as well.  
 
-3D  
-
-Interfaces
+A project for designing multi-touch/graphical interfaces to intuitively interact and set all the available parameters of DBAP has been initiated.
 
 \section{Acknowledgements}
 
