@@ -272,7 +272,7 @@ The authors are also looking forward to obtaining a better numerical representat
 
 \subsection{Implementation}
 
-DBAP is implemented as a C/C++ external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} as part of the Jamoma framework \cite{Place:2006jamoma}, available under the GNU LGPL license. In addition to the features discussed already, the input gain of each source can be controlled prior to the DBAP processing, and the source can be muted.
+DBAP is implemented as a C/C++ external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} as part of the Jamoma framework \cite{Place:2006jamoma}, available under the GNU LGPL license. In addition to the features discussed already, the input gain of each source can be controlled prior to the DBAP processing, and each source can be muted.
 
 In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialisation modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
 
@@ -317,15 +317,16 @@ For each pixel of a selected view matrix, the pixel value is set to the squared 
 
 A visualisation of the response ranges for all speakers can be created by combining all figures of the same kind as fig. \ref{fig:1spk}, and then find maximum amplitude for 2D-position. The graphical result shows straight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. Figures \ref{fig:allspk1}, \ref{fig:allspk2} and \ref{fig:allspk3} illustrate several settings of varying roll off and blur values. 
 
-Figure \ref{figure:5spk_weights} illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
-
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{spk_groups}}
-\caption{{\it Representation of the 2D distribution of levels for 5 speakers only, with different weights for each speaker : [1.5,1.,1.,1.,0.75,1.2] for speakers [5,8,9,10,11,12]}}  
-\label{5spk_weights}
+\caption{{\it Representation of the 2D distribution of levels for 5 speakers only, with different weights for each speaker: $[1.5,1.,1.,1.,0.75,1.2]$ for speakers $[5,8,9,10,11,12]$}}  
+\label{fig:5spk_weights}
 \end{figure}
 
-These pictures are generated in realtime by the algorithm, and thus be used as an user interface for source positioning, e.g. for mouse interaction, or even better for tactile-screen interaction. 
+Figure \ref{fig:5spk_weights} illustrates a weights preset that keeps only five loudspeakers set with different weights for each of them.
+
+These pictures are generated in realtime by the algorithm, and can thus be used as a user-interface for source positioning, e.g. as back drops for mouse interaction, or even better for tactile-screen interaction.
+
 
 
 \section{Further development}
@@ -339,7 +340,7 @@ A project for designing multi-touch/graphical interfaces to intuitively interact
 
 \section{Acknowledgements}
 
-Initial development of DBAP was done for the workshop and exhibition ``Living room'' at Galleri KiT in Trondheim, 2003, produced by The Norwegian production Network for Electronic Arts. The initial implementation in C of the DBAP algorithm was done by André Sier. Extensive and valuable feedback has been given by Mathieu Chamagne. 
+Initial development of DBAP was done for the workshop and exhibition ``Living room'' at Galleri KiT in Trondheim, 2003, produced by The Norwegian production Network for Electronic Arts. The initial implementation in C of the DBAP algorithm was done by André Sier. The authors would like to express their gratitude to the rest of Jamoma developers, and in particular to Mathieu Chamagne for extensive and valuable feedback. 
 
 
 
