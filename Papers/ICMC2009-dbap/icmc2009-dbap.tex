@@ -266,23 +266,29 @@ The authors are also looking forward to obtaining a better numerical representat
 
 \subsection{Implementation}
 
-\subsection{Visual representation}
+DBAP is implemented as a C/C++ external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} as part of the Jamoma framework \cite{Place:2006jamoma}, available under the GNU LGPL license.
 
-In order to allow intuitive understanding and manipulation of the algorithm by the users, the authors developped a visual representation of the behaviour of the algorithm, using gradients to represent the "predominance" zone of each speaker according to the signal spreading. This is intended to give a more intuitive manipulation of source positions, as well as managing parameters such as spatial blur, rolloff, or spatial weights, that can sound rather abstract to the non-scientific.
+In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialisation modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
+
+
+
+\subsection{Visual representations}
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.8]{LoudspeakerPositions}}
-\caption{{\it Blue points represent the positions of the 16 speakers used in the examples below}}  
-\label{Speakers Positions}
+\caption{{\it Points represent positions of the 16 speakers used in the examples below}}
+\label{speaker_positions}
 \end{figure}
 
-For each pixel of a selected view matrix (of X * Y pixels), the pixel value is set to the  squared amplitude returned by the dbap algorithm as if a source was at this position. The visual result is a picture that shows to the user the spatial response of  a loudspeaker. The lighter pixels are positions where amplitudes are close to 1. and the darker ones, positions where amplitudes are close to 0.. As expected, the more far the source is from the loudspeaker, the less high is the amplitude. However the presence of “digs” in the spatial distribution of the amplitude response illustrates how the dbap algorithm works when a source moves between several loudspeakers. Those graphical informations, even aesthetic there are, give to the user a kind of hitmap that could assist him during space scripting and performing.
+In order to provide users with an intuitive understanding and manipulation of the algorithm, a visual representation of the behaviour of the algorithm has been developed, using gradients to represent the ``predominance'' zone of each speaker. This is intended to give a more intuitive manipulation of source positions, as well as management of parameters such as spatial blur, rolloff and spatial weights.
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{spk4_r_6_b_0}}
-\caption{{\it Representation of the levels 2D distribution for speaker 4 - parameter values are 6dB for rolloff, and 0. for blur}}  
+\caption{{\it Representation of the levels 2D distribution for speaker 4. Parameter values are $6$ dB for roll off, and $0$ for blur}}  
 \label{1spk}
 \end{figure}
+
+For each pixel of a selected view matrix, the pixel value is set to the squared amplitude returned by the dbap algorithm if the source was located at this position. The visual result in figure \ref{1spk} indicates the spatial response for one of the loudspeakers. The lighter pixels are positions where amplitudes are close to 1. and the darker ones are positions where amplitudes are close to 0. As expected, the further away the source is from the loudspeaker, the less is the amplitude. However the presence of ``digs'' in the spatial distribution of the amplitude response illustrates how the DBAP algorithm works when a source moves between several loudspeakers. The graphical information provides the user with a kind of hitmap assisting in space scripting and performing.
 
 But those pictures of spatial response of each loudspeaker need to be shown together in one visualization. The layout “fusion” method chosen is a max operation between each pixel of each pictures. The graphical result shows straight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explain as positions where the source is equal mixed between the closest loudspeakers. Figures \ref{figure:allspk1}, \ref{figure:allspk2}, \ref{figure:allspk3} illustrate several settings of rolloff and blur parameters on all loudspeakers. 
 
