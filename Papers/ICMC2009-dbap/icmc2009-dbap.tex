@@ -209,47 +209,16 @@ The blur coefficient $r_{s}$ can be understood as a displacement in vertical pos
 
 
 
-\subsection{Convex Hull}
+\subsection{Sources positioned beyond the range of the speakers}
 
 %TODO : fix cross-reference
-The behaviour of the initial DBAP algorithm, as described in \ref{subsection:Fundamentals}, implies that the source gets distributed equally on all loudspeakers when placed outside of the speakers zone. Intuitively, in an user-perspective, one would expect a perception of ``distance increase'' when going out of the speakers zone, rather than an even distribution.
-Investigating the geometrical models to realize this idea, the authors found out \textit{convex hulls} to be a promising candidate.
-In two dimensions a convex hull can be visualized by imagining an elastic band stretched open to encompass all speakers; when released, it will assume the shape of the required convex hull. Tests could then be performed to determine if the virtual source is positioned inside or outside of the convex hull. 
-The algorithm used to calculate it is the direct application of the implementation written in \cite{Rourke:1998_geometry}
 
-%TODO : turn all equations in TeX format !
+The assumptions that DBAP are based on falls apart when sources move outside the field of speakers. As a source position moves further away from the speakers, the relative difference in distance from source to each of the speakers diminishes, resulting in less and less difference in levels between the speakers, in much the same way as discussed in the previous subsection. In order to compensate for this, additional steps needs to be taken when the source move outside the field of speakers using computational geometry:
 
-	Stages of the algorithm :
+From the description of louspeaker positions the \emph{convex hull} of the field of speakers is calculated. In two dimensions the convex hull ``ìs the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}.
 
-−	Find the lowest and the righest loudspeaker (P0) among N.
-−	Calculate the orientation of each P0Pi.
-−	Sort all Pi by this orientation : we get an array of angularly sorted points Pi without the Pj which are colinear with a longer P0Pi.
-−	Perform the Graham algorithm on this array to fill a stack with M remaining Pi :
-−	Push P0
-−	Push P1
-−	while (i < M)
-−	if Pi is strictly to the left of the directed line through P_top to P_next : Push Pi and increment i.
-−	else Pop the P_top.
+For each source position it is first determined if the point lays outside the convex hull or not. If the source position is inside or on the boundary of the convex hull no additional steps needs to be taken. If the source is positioned outside the convex hull, the projection of the point onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. The source position is then substituted for the projected point for further DBAP calculations. In addition the distance from the source position to the convex hull is returned. This value can be used for additional spatialisation processing, e.g. gain attenuation, air filtering, doppler effect and gradual introduction of reverb with increasing distance from the hull.
 
-−	The resulting stack is all the Pi of the convex hull sorted by angle.
-
-The distance to the hull is returned as a negative value when a source S is inside and positive otherwise. The calculation is performed as below :
-
-−	out = -1
-−	For each border CN of the hull
-
-−	K = (SC² + CN² – SN²) / CN²
-−	if( K < 0 ) dist = SC
-−	else if( K > 2 ) dist = SN
-−	else the projection P of the source S is on the border CN so dist = SP
-−	if( dist < dist_min ) dist_min = dist
-−	
-−	V =  (Nx – Cx)*(Sy-Cy) – (Ny – Cy)*(Sx – Cx)
-−	if( V > 0 ) out = 1
-
-−	Return dist_min * out
-
-In order to get a perceptually satisfying result for rendering a distance increase of the source, different processing techniques can be applied to the source, e.g. filtering, reverb, loudness decrease... etc. Though, as no generic behaviour can be determined to process such a perceptual effect, it has been decided to output this parameter as a raw value for each source, to be mapped afterwards to sound processing parameters, according to the desired perceptual or compositional purpose.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
