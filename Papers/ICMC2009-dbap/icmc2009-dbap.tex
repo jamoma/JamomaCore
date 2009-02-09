@@ -92,7 +92,6 @@
 
 
 % TODO: Write abstract!
-% TODO: Tim notes the spelling of spatialisation, instead of spatialization -- probably the latter is preferred?
 % TODO: Tim notes the use of the phrase "in terms of" a lot in this paper.  Too much.  This terminology should be limited to mathematical descriptions, and not aesthetic or perceptual issues.
 
 \begin{abstract}
@@ -116,23 +115,20 @@ about 150 words.
 
 \section{Introduction}\label{sec:introduction}
 
-Multichannel and surround sound reproduction is becoming more common, both for consumer applications as well as for musical and artistic purposes. A number of techniques exist for virtual positioning of sound sources using an array of loudspeakers.  Techniques for spatialisation commonly assume that the position of a listener is known and fixed, and that the speakers are surrounding the listener either on a two-dimensional ring or a three-dimensional sphere. Examples of such speaker layouts and spatialisation techniques are stereo panning, 5.1-channel surround \cite{ITU:1993_surround_5:1}, further extended industrial multichannel configurations \cite{Rumsey:2001spatial_audio}, vector-based amplitude panning (VBAP) \cite{Pulkki:1997vbap}, as well as both first-order and higher-order ambisonics \cite{Gerzon:1974surround, Poletti:2000holographic_sound}.
+Multichannel and surround sound reproduction is becoming more common, both for consumer applications as well as for musical and artistic purposes. A number of techniques exist for virtual positioning of sound sources using an array of loudspeakers.  Techniques for spatialization commonly assume that the position of a listener is known and fixed, and that the speakers are surrounding the listener either on a two-dimensional ring or a three-dimensional sphere. Examples of such speaker layouts and spatialization techniques are stereo panning, 5.1-channel surround \cite{ITU:1993_surround_5:1}, further extended industrial multichannel configurations \cite{Rumsey:2001spatial_audio}, vector-based amplitude panning (VBAP) \cite{Pulkki:1997vbap}, as well as both first-order and higher-order ambisonics \cite{Gerzon:1974surround, Poletti:2000holographic_sound}.
 
 Wave field synthesis (WFS) is a noticeable exception to the aforementioned ``sweet spot'' restriction, reproducing signals resulting in a large listening area. The spatial properties of the acoustical scene can be perceived correctly by an arbitrarily large number of listeners regardless of their position inside this area \cite{Spors:2004sound_field_synthesis}.
 
-A number of practical limitations tend to restrict what spatialisation techniques are feasible for musical and artistic use.
+A number of practical limitations tend to restrict what spatialization techniques are feasible for musical and artistic use.
 
-% TODO: Tim thinks this is sentence is very awkward.
-Unless working on a site providing a permanent setup for wave field synthesis, the high number of loudspeakers required might render WFS impractical for financial reasons as well as time constraints.
+Due to the high number of loudspeakers required, WFS might be impractical to use for financial reasons as well as time constraints unless one is working on a site where a permanent setup for wave field synthesis is installed
 
-% TODO: Tim asks " do you always need to say 'first and higher order ambisonics'? " -- it seems strange and is grammatically awkward.  Can you just use "ambisonics" ?  You already said first and higher once before...
-For real-time music and sound purposes, the relatively low CPU requirements of matrix-based spatialisation techniques seem to make them popular choices. 
-VBAP as well as first and higher order ambisonics are readily available for use in common software environments for real-time processing such as Max/MSP \cite{Pulkki:2000vbap_max, Schacher:2006ambi_max, Neukom:2008ambipan}.
+For real-time music and sound purposes, the relatively low CPU requirements of matrix-based spatialization techniques seem to make them popular choices. VBAP as well as ambisonics are readily available for use in common software environments for real-time processing such as Max/MSP \cite{Pulkki:2000vbap_max, Schacher:2006ambi_max, Neukom:2008ambipan}.
 
 Among the requirements imposed by VBAP and ambisonics, are that the listeners are restricted to a relatively small listening area surrounded by loudspeakers.  These requirements might be unfeasible or undesired in practical applications.  In the ideal concert situation the entire audience should have a detailed impression of the spatial content of the music, not limiting the impression to those sitting in the middle of the concert hall. In a sound installation context one might want the audience to be able to move around the space \cite{lossius:2008installations}.  Finally, for pragmatic and/or artistic reasons it might not be possible or desired to have loudspeakers arranged in a ring or a sphere.
 
 % CHANGED: Tim capitalized the DBAP words -- if not desired, feel free to undo it
-Distance-Based Amplitude Panning (DBAP) is a matrix-based spatialisation technique that takes the actual positions of the speakers in space as the point of departure, while making no assumptions as to where the listeners are situated. This makes DBAP useful for a number of real-world situations including music for concerts, works for stage, installations, and museum sound design where predefined geometric speaker layouts might not apply.
+Distance-Based Amplitude Panning (DBAP) is a matrix-based spatialization technique that takes the actual positions of the speakers in space as the point of departure, while making no assumptions as to where the listeners are situated. This makes DBAP useful for a number of real-world situations including music for concerts, works for stage, installations, and museum sound design where predefined geometric speaker layouts might not apply.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -170,14 +166,13 @@ v_{i} = \frac{k}{2 d_{i} a}
 \end{equation}
 
 % TODO: Tim notes that 'depending' isn't quite the right word in this sentence.  In both places it should be a different word (not certain about the replacement yet)
-% TODO: Maybe the correct work is 'calculated from' ?
-where $k$ is a coefficient depending on the position of the source and all speakers, while $a$ is a coefficient depending on the rolloff $R$ in decibels per doubling of distance:
+where $k$ is a coefficient depending on the position of the source and all speakers, while $a$ is a coefficient calculated from the rolloff $R$ in decibels per doubling of distance:
 
 \begin{equation} \label{eq:rolloff}
 	a = 10^{\frac{-R}{20}}
 \end{equation}
 
-A rolloff of $R = 6$ dB equals the inverse distance law for sound propagating in a free field. For closed or semiclosed environments $R$ will generally be lower, in the range 3-5 dB, and depending on reflections and reverberation \cite{Everest:2000handbook_acoustics} (pp. 84-88). In these circumstances (\ref{eq:rolloff}) represents a simplified description of attenuation with distance, but simulation of reflections and reverberation is anyway beyond the scope of an amplitude-panning based spatialisation method.
+A rolloff of $R = 6$ dB equals the inverse distance law for sound propagating in a free field. For closed or semiclosed environments $R$ will generally be lower, in the range 3-5 dB, and depending on reflections and reverberation \cite{Everest:2000handbook_acoustics} (pp. 84-88). In these circumstances (\ref{eq:rolloff}) represents a simplified description of attenuation with distance, but simulation of reflections and reverberation is anyway beyond the scope of an amplitude-panning based spatialization method.
 
 %The second is based on the inverse distance law for sound pressure for sound propagating in free field as discussed in section \ref{distance_hearing}. DBAP applies an adaption of this by assuming that the relative amplitude for each speaker is inversely proportional to the distance from source to speaker:
 
@@ -222,13 +217,11 @@ The blur coefficient $r_{s}$ can be understood as a displacement in vertical pos
 
 \subsection{Sources positioned beyond the field of speakers}
 
-%TODO: Tim asks "should you be saying speaker or loudspeaker?"
+The presuppositions upon which DBAP is based do not hold true when sources move outside of the field of speakers. As the distance of a source position from a loudspeaker increases, the relative difference in distance from source to each of the loudspeakers diminishes, resulting in progressively less difference in levels between the loudspeakers.  This occurs in much the same manner as discussed for spatial blur in the previous subsection. To compensate for this, additional steps needs to be taken when the source moves outside the field of loudspeakers.
 
-The presuppositions upon which DBAP is based do not hold true when sources move outside of the field of speakers. As the distance of a source position from a speaker increases, the relative difference in distance from source to each of the speakers diminishes, resulting in progressively less difference in levels between the speakers.  This occurs in much the same manner as discussed for spatial blur in the previous subsection. To compensate for this, additional steps needs to be taken when the source moves outside the field of speakers.
+From the description of loudspeaker positions the \emph{convex hull} of the field of loudspeakers is calculated. In two dimensions the convex hull ``is the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}.
 
-From the description of loudspeaker positions the \emph{convex hull} of the field of speakers is calculated. In two dimensions the convex hull ``is the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}.
-
-For each source position it is first determined if the source is outside the hull or not. If it is inside or on the boundary no additional steps needs to be taken. If the source is positioned outside the convex hull, the projection of the point onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. The source position is then substituted for the projected point on the hull in subsequent DBAP calculations. In addition, the distance from the source position to the convex hull is returned. This value can be used for optional added spatial processing such as gain attenuation, air filtering, doppler effect, or gradual introduction of reverb with increasing distance from the hull.
+For each source position it is first determined if the source is outside the hull or not. If it is inside or on the boundary no additional steps needs to be taken. If the source is positioned outside the convex hull, the projection of the point onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. The source position is then substituted for the projected point on the hull in subsequent DBAP calculations. In addition, the distance from the source position to the convex hull is returned. This value can be used for optional added spatial processing such as gain attenuation, air filtering, Doppler effect, or gradual introduction of reverb with increasing distance from the hull.
 
 
 
@@ -255,8 +248,7 @@ In installations or museum spaces spatial weights can also be used to confine so
 
 Spatial weights can be changed dynamically, thus allowing smooth transitions from one state to another. 
 
-% TODO: Tim says the words 'showed up' should be changed to a more proper term -- saying 'showed up' sounds very Texan ;-)
-This weight parameter, after being submitted to listening tests and visualization (as described later in\ref{subsection:Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
+This weight parameter, after being submitted to listening tests and visualization (as described later in\ref{subsection:Visual representation}), has revealed itself as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 
 % CHANGED: Tim reworded this paragraph very significantly -- please check!
 % TODO: Tim also says... Due to a conflict in SVN, I can't tell what happened here -- maybe this paragraph was just deleted ?
@@ -276,7 +268,7 @@ The authors are exploring a means by which to obtain a better numerical represen
 
 DBAP is implemented as a C/C++ external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} as part of the Jamoma framework \cite{Place:2006jamoma}, available under the GNU LGPL license. In addition to the features discussed already, the input gain of each source can be controlled prior to the DBAP processing, and each source can be muted.
 
-In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialisation modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
+In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
 
 
 
