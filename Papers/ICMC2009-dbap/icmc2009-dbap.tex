@@ -221,15 +221,8 @@ For each source position it is first determined if the source is outside the hul
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% Extending DBAP
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{extending DBAP}
-
-\subsection{Spatial weights}
+\subsection{Extending DBAP by introducing spatial weights}
 
 The initial idea behind \textit{spatial weights} was to use the DBAP algorithm on different subsets of loudspeakers for different sources, in a global sound diffusion system. This idea is partly coming from the tradition of the acousmonium \cite{Bayle:1993MusiqueAcousmatique}, for which a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music\cite{Prager:2002acousmatique}.
 
@@ -247,6 +240,19 @@ k2inv = k2inv + (x->src_weight[n][i]*x->src_weight[n][i])/(dia[i]*dia[i])
 %TODO : fix cross-reference
 This weight parameter, after being submitted to listening tests and visualization (as described below in\ref{subsection:Visual representation}), showed up as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 The authors are also looking forward to obtaining a better numerical representation of this parameter, in particular of its range and transfer function, as well as to achieve a management of the interdependence of all weights, in order to make its manipulation more intuitive for the user.
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Extending DBAP
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{extending DBAP}
+
+
 
 \subsection{Visual representation}
 
@@ -281,7 +287,7 @@ But those pictures of spatial response of each loudspeaker need to be shown toge
 \end{figure}
 
 \begin{figure}[ht]
-\centerline{\includegraphics[scale=0.5]{all_r_6_b_0.2}}
+\centerline{\includegraphics[scale=0.5]{all_r_6_b_0_2}}
 \caption{{\it Representation of the 2D distribution of levels for all speakers - parameter values are 6dB for rolloff, and 0.2 for blur}}  
 \label{Level distribution for all speakers}
 \end{figure}
