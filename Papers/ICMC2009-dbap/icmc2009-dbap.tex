@@ -95,7 +95,7 @@
 % TODO: Tim notes the use of the phrase "in terms of" a lot in this paper.  Too much.  This terminology should be limited to mathematical descriptions, and not aesthetic or perceptual issues.
 
 \begin{abstract}
-Most common techniques for spatialization requires the listener to be positioned at a sweet-spot, surrounded by loudspeakers. For practical concert, stage and installation applications such layouts might be inconvenient. Distance-Based Amplitude Panning (DBAP) offers an alternative panning-based spatialization method where no assumptions are made concerning the layout of the speaker array nor the position of the listener.  DBAP is implemented as C/C++ externals for Max/MSP, and as a module for the Jamoma framework.
+Most common techniques for spatialization require the listener to be positioned at a sweet-spot, surrounded by loudspeakers. For practical concert, stage and installation applications such layouts might be inconvenient. Distance-Based Amplitude Panning (DBAP) offers an alternative panning-based spatialization method where no assumptions are made concerning the layout of the speaker array nor the position of the listener.  DBAP is implemented as C/C++ externals for Max/MSP, and as a module for the Jamoma framework.
 \end{abstract}
 
 
@@ -241,17 +241,19 @@ Equation \ref{eq:calculate_k} will now be modified to:
 k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{{w_{i}}^2}{{d_{i}}^2}}}
 \end{equation}
 
-This might offer several artistic possibilities. Within the tradition of the Acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music \cite{Prager:2002acousmatique}. If the loudspeaker setup consists of different kinds of speakers with differing spectral properties, they can be thought of as an orchestra of speakers and be organized into different instrumental groups. Spatial weights can then be used to ensure that a source is spatialised among members of one group only. This allows a timbral and spatial orchestration to be prepared or composed prior to performance, and then be adjusted to the specific room used for playback \cite{Lyon:2008spatial_orchestration}. 
+This might offer several artistic possibilities. 
+
+For instance, within the tradition of the Acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large number of speakers are used, sorted in several groups with different qualities and characteristics, thus allowing a scripting of sound space according to the spectral content of the projected music \cite{Prager:2002acousmatique}. If the loudspeaker setup consists of different kinds of speakers with differing spectral properties, they can be thought of as an orchestra of speakers and be organized into different instrumental groups. Spatial weights can then be used to ensure that a source is spatialised among members of one group only. This allows a timbral and spatial orchestration to be prepared or composed prior to performance, and then be adjusted to the specific room used for playback \cite{Lyon:2008spatial_orchestration}. 
 
 In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. For instance one source can be diffused in one room only while another source with a different set of spatial weights might be permitted to move between several or all rooms.
 
 Spatial weights can be changed dynamically, thus allowing smooth transitions from one state to another. 
 
-This weight parameter, after being submitted to listening tests and visualization (as described later in\ref{sec:visual_representation}), has revealed itself as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
+This weight parameter, after being submitted to listening tests and visualization (as described later in \ref{sec:visual_representation}), has revealed itself as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 
 % CHANGED: Tim reworded this paragraph very significantly -- please check!
 % TODO: Tim also says... Due to a conflict in SVN, I can't tell what happened here -- maybe this paragraph was just deleted ?
-The authors are exploring a means by which to obtain a better numerical representation of this parameter.  In particular the parameter's range and transfer function. Research is ongoing to find a more intuitive process for the user by which to manage the interdependence of all weights.
+The authors are also exploring a means by which to obtain a better numerical representation of this parameter.  In particular the parameter's range and transfer function. Research is ongoing to find a more intuitive process for the user by which to manage the interdependence of all weights.
 
 
 
@@ -290,34 +292,34 @@ In order to provide users with an intuitive understanding of the algorithm, a vi
 \label{fig:1spk}
 \end{figure}
 
-% TODO: Tim notes introduction of new terminology with no precedent.  What is a "view matrix"?  What is a "hitmap"  And what is "digs"?
-% TODO: Tim thinks the last sentence of this paragraph doesn't make much sense and is very difficult to read.  All of the "ing" words bunched together is one problem.
+% Does this look better ?
 
-For each pixel of a selected view matrix, the pixel value is set to the squared amplitude returned by the dbap algorithm if the source was located at this position. The visual result in figure \ref{fig:1spk} indicates the spatial response for one of the loudspeakers. The lighter pixels are positions where amplitudes are close to $1$ and the darker ones are positions where amplitudes are close to $0$. As expected, the further away the source is from the loudspeaker, the lower the amplitude. However the presence of ``digs'' in the spatial distribution of the amplitude response illustrates how the DBAP algorithm works when a source moves between several loudspeakers. The graphical information provides the user with a kind of hitmap assisting in space scripting and performing.
+The method for creating this visualization consists in creating a graphical map of level response for each loudspeaker as a 2D matrix of levels. For each pixel of this matrix, the pixel value is set to the squared amplitude returned by the dbap algorithm if the source was located at this position. The visual result in figure \ref{fig:1spk} indicates the spatial response for one of the loudspeakers. The lighter pixels are positions where amplitudes are close to $1$ and the darker ones are positions where amplitudes are close to $0$. As expected, the further away the source is from the loudspeaker, the lower the amplitude. However the presence of holes in the spatial distribution of the amplitude response illustrates how the DBAP algorithm works when a source moves between several loudspeakers.
 
 % TODO: Tim may not know what he is talking about, but he thinks the numbers for the dB values look odd in the PDF.  The 6 dB in particular.  Ignore if you think he's nuts.
+% Pascal agrees and suggests removing the dollar signs just in case it could look better, so he'll try that out, and let's see how it turns out
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{all_r_2_b_0}}
-\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are $2$ dB for rolloff, and $0$ for blur}}  
+\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are 2 dB for rolloff, and 0 for blur}}  
 \label{fig:allspk1}
 \end{figure}
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{all_r_6_b_0}}
-\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are $6$ dB for rolloff, and $0$ for blur}}  
+\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are 6 dB for rolloff, and 0 for blur}}  
 \label{fig:allspk2}
 \end{figure}
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{all_r_6_b_0_2}}
-\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are $6$ dB for rolloff, and $0.2$ for blur}}  
+\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are 6 dB for rolloff, and 0.2 for blur}}  
 \label{fig:allspk3}
 \end{figure}
 
 % TODO: Tim worked on some minor wording issues below , but still isn't 100% sure what the first sentence means and also doesn't understand the second sentence at all.
 
-A visualisation of the response ranges for all speakers can be created by combining all figures of the same kind as fig. \ref{fig:1spk}, and then finding the maximum amplitude for 2D-position. The graphical result shows straight segmented parts in space corresponding to every spatial influence zones of loudspeakers. Here the darker pixels have to be explained as positions where the source is mixed equally between the closest loudspeakers. Figures \ref{fig:allspk1}, \ref{fig:allspk2} and \ref{fig:allspk3} illustrate several settings of varying roll off and blur values. 
+A visualisation of the response ranges for all speakers can be created by combining all figures of the same kind as fig. \ref{fig:1spk}, and then finding the maximum amplitude for 2D-position. The graphical result shows segmented parts in space corresponding to every spatial zone of predominance for every loudspeaker. Here the darker pixels have to be explained as positions where the source is mixed equally between the closest loudspeakers. Figures \ref{fig:allspk1}, \ref{fig:allspk2} and \ref{fig:allspk3} illustrate several settings of varying roll off and blur values. 
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{spk_groups}}
@@ -333,8 +335,10 @@ These pictures are generated in realtime by the algorithm, and can thus be used 
 
 \section{Further development}
 
-A Combination of convex hulls with spatial weights still needs to be done : A hull is created for each source, by including all speakers with non null weights. Further processing can be applied then to create a perception of encapsulated or congruent spaces in the same place.
+A Combination of convex hulls with spatial weights still needs to be done : A hull is created for each source, by including all speakers with non null weights. Further processing can be applied then, based on the distance value from the hull, in order to create a perception of encapsulated or congruent spaces in the same place.
 A Visual representation of convex hulls also remains to be done, in particular when combined with loudspeaker layers. A possible solution for that would be to create a spatial fade to black around the hull 
+
+%TODO: are these two paragraphs below OK ? Maybe they need to be rewritten ?
 
 All of the points discussed in this article have been implemented in 2 dimensions, and need to be implemented in 1 and 3 dimensions as well.  
 
@@ -346,7 +350,7 @@ A project for designing multi-touch/graphical interfaces to intuitively interact
 
 \section{Acknowledgements}
 
-Initial development of DBAP was done for the workshop and exhibition ``Living room'' at Galleri KiT in Trondheim, 2003, produced by The Norwegian production Network for Electronic Arts. The initial implementation in C of the DBAP algorithm was done by André Sier. The authors would like to express their gratitude to the rest of Jamoma developers, and in particular to Mathieu Chamagne for extensive and valuable feedback. 
+Initial development of DBAP was done for the workshop and exhibition ``Living room'' at Galleri KiT in Trondheim, 2003, produced by The Norwegian production Network for Electronic Arts. The initial implementation in C of the DBAP algorithm was done by André Sier. The authors would like to express their gratitude to the rest of Jamoma developers, and in particular to Mathieu Chamagne for extensive and valuable feedback and Tim Place for proof-reading. 
 
 
 
