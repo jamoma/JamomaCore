@@ -206,7 +206,9 @@ When the virtual source is located at the exact position of one of the loudspeak
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
 \end{equation}
 
-The blur coefficient $r_{s}$ can be understood as a displacement in vertical position introduced between the source and the speakers, as if the speakers are positioned at $z_{i}=0$ while the vertical position of the source is $z_{s}=r_{s}$. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There should be a potential for using this artistically to create contrasts between highly articulated or diffuse spatial positioning of sources.  There is a limitation, however, to how blurred the sources can be perceived.  While all speakers will approach the same level as $ r_{s} \rightarrow \infty $, practical experience indicates that the precedence effect will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener \cite{Litovsky:1999precedence_effect}.
+In two dimensions the blur coefficient $r_{s}$ can be understood as a displacement in vertical position introduced between the source and the speakers. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There is a limitation, however, to how blurred the sources can be perceived.  Practical experience indicates that the precedence effect \cite{Litovsky:1999precedence_effect} will come into play as blur is increased, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener.
+
+In the implementation of DBAP discussed in section \ref{sec:implementation} the blur coefficient is normalized, using the covariance of distance from centre of loudspeaker rig to loudspeakers as scaling factor, in order to make the blur coefficient less sensitive to changes in size of loudspeaker layouts.
 
 % TODO: Discuss variance
 
@@ -262,6 +264,7 @@ The authors are also exploring a means by which to obtain a better numerical rep
 \section{Implementation and visualization}
 
 \subsection{Implementation}
+\label{sec:implementation}
 
 DBAP is implemented as an external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} written in C as a part of the Jamoma library and framework \cite{Place:2006jamoma}. In addition to the features discussed already, the input gain of each source can be controlled prior to the DBAP processing, and each source can be muted.  In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
 
