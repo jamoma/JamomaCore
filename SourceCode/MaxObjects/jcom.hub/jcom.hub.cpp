@@ -881,21 +881,92 @@ t_object* hub_getobj_audioout(t_hub *x)
 // Return a list of parameters and message for this module
 void hub_paramnames_get(t_hub *x)
 {
-	subscriberList	*subscriber = x->subscriber;	// head of the linked list
-	t_atom			a;
+	subscriberList		*subscriber = x->subscriber;	// head of the linked list
+	t_atom				a;
+	t_atom				*av;
+	long				ac;
+	subscriberIterator	i;
+	t_subscriber*		t;
+	short				num_params_with_priority = 0;
+	short				num_params_recalled = 0;
+	short				p;
 	
 	hub_outlet_return(x, jps_parameter_names_start, 0, NULL);
 	
-	subscriberIterator i;
-	t_subscriber* t;
+	// Count the number of parameters with a priority
 	critical_enter(0);
 	for(i = subscriber->begin(); i != subscriber->end(); ++i) {
 		t = *i;
-		atom_setsym(&a, t->name);
-		if(t->type == jps_subscribe_parameter)
-			hub_outlet_return(x, jps_parameter_name, 1, &a);
+		if(t->type == jps_subscribe_parameter){
+			ac = NULL; 
+			av = NULL;	
+			object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+			if(atom_getlong(av) > 0)
+				num_params_with_priority++;		
+		}
 	}
 	critical_exit(0);
+
+	if(num_params_with_priority > 0){
+		p=1;
+		while(num_params_with_priority > num_params_recalled){
+			critical_enter(0);
+			for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+				t = *i;
+				if(t->type == jps_subscribe_parameter){
+					ac = NULL; 
+					av = NULL;	
+					object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+					if(atom_getlong(av) == p){
+						ac = NULL; av = NULL;								// init
+						atom_setsym(&a, t->name);
+						if(t->type == jps_subscribe_parameter)
+							hub_outlet_return(x, jps_parameter_name, 1, &a);
+						num_params_recalled++;
+					}
+				}
+			}
+			critical_exit(0);
+			p++;
+		}
+
+		// Recall items with priority 0 now
+		critical_enter(0);
+		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if(t->type == jps_subscribe_parameter){
+				ac = NULL; 
+				av = NULL;	
+				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+				if(atom_getlong(av) == 0) {
+					ac = NULL; av = NULL;										// init
+					atom_setsym(&a, t->name);
+					if(t->type == jps_subscribe_parameter)
+						hub_outlet_return(x, jps_parameter_name, 1, &a);
+				}
+			}
+		}
+		critical_exit(0);
+	}
+	else{
+		critical_enter(0);
+		for(i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if(t->type == jps_subscribe_parameter){
+				ac = NULL; 
+				av = NULL;	
+				object_attr_getvalueof(t->object, jps_priority, &ac, &av);
+				if(atom_getlong(av) == 0) {
+					ac = NULL; av = NULL;										// init
+					atom_setsym(&a, t->name);
+					if(t->type == jps_subscribe_parameter)
+						hub_outlet_return(x, jps_parameter_name, 1, &a);
+				}
+			}
+		}
+		critical_exit(0);
+	}
+
 	hub_outlet_return(x, jps_parameter_names_end, 0, NULL);
 }
 
