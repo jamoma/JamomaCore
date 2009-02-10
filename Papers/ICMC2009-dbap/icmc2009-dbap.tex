@@ -328,22 +328,16 @@ These pictures are generated in realtime by the algorithm, and can thus be used 
 
 
 
-\section{Further development}
+\section{Conclusions and further work}
 
-% TODO: Tim thinks this entire section needs to be re-worked.  Right now it seems like a bullet list rather than a proper text.
+DBAP offers a light-weigh panning-based solution for spatialization that works for irregular loudspeaker layouts. The Jamoma module implementation makes DBAP available alongside modules for VBAP and ambisonics modules, enabling techniques to be interchanged and compared. Jamoma also offers a more advanced spatialisation technique that can be used for irregular loudspeaker layouts, ViMiC, incorporating distance-based signal delays between speakers, simulation of microphone patterns, early reflections and surface absorption \cite{Peters:2008vimic}. ViMiC is more CPU-intensive, and might require a dedicated computer for spatialization or limitations on the number of loudspeakers used as compared to DBAP.
 
-A Combination of convex hulls with spatial weights still needs to be done : A hull is created for each source, by including all speakers with non null weights. Further processing can be applied then, based on the distance value from the hull, in order to create a perception of encapsulated or congruent spaces in the same place.
-A Visual representation of convex hulls also remains to be done, in particular when combined with loudspeaker layers. A possible solution for that would be to create a spatial fade to black around the hull 
+Implementations of convex hulls and spatial weights remains to be done for three-dimensional loudspeaker layouts. If spatial weights are used to define subspaces of speakers, it also remains to be investigated if and how the implementation of convex hulls can be dynamically reconfigured.
 
-%TODO: are these two paragraphs below OK ? Maybe they need to be rewritten ?
+In this paper DBAP has been discussed used for spatialisation to a static layout of speakers. For gaming applications the speaker layout relative to the player could be defined, and then the actual speaker layout could be changed dynamically as the gamer moves through the virtual world of the game.
 
-All of the points discussed in this article have been implemented in 2 dimensions, and need to be implemented in 1 and 3 dimensions as well.  
+DBAP can also be used as a solution for dynamic routing of input sources to a spacial layout of effect processes. Instead of defining loudspeaker positions, the effects could be assigned positions in two or more spaces. The idea of having sources traverse a space of effects would resemble  e.g. the work by \cite{Momeni:2003hipnoscope}. A project for designing multi-touch graphical interfaces to intuitively interact with DBAP has been initiated.
 
-A project for designing multi-touch/graphical interfaces to intuitively interact and set all the available parameters of DBAP has been initiated.
-
-% TODO: Discuss ViMiC as a more versatile and CPU-hungry alternative
-% TODO: DBAP for sound FX processing, references to Ali Momeni and Hipnoscope
-% TODO: DBAP for gaming: Traversing through a virtual soundscape by moving the speaker positions
 
 \section{Acknowledgements}
 
