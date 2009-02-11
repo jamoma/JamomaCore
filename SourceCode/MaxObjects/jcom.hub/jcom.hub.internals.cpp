@@ -71,7 +71,6 @@ void hub_internals_create(t_hub *x)
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/read",				x->container,	"msg_generic",	"none",	"Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.", 1);
 	anObject->setAction((method)hub_preset_read, (t_object*)x);
-	
 	hashtab_store(x->hash_internals, gensym("preset/read"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/write",				x->container,	"msg_generic",	"none",	"Write an xml-preset file to disk.  An optional argument defines the file to open.", 1);

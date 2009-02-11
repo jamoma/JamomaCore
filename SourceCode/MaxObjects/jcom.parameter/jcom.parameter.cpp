@@ -1009,6 +1009,11 @@ void param_output_none(void *z)
 	// call on the hub to pass our data onward
 	// We can not use (method)param_send_feedback here as it assumes an additional argument
 	if(x->common.hub != NULL){
+
+		// send to the object in which this parameter is embedded
+		if(x->callback)
+			x->callback(x->callbackArg, x->common.attr_name, x->list_size, x->atom_list);
+				
 		atom_setsym(out, x->common.attr_name);
 		object_method_typed(x->common.hub, jps_feedback, 1, out, NULL);
 	}
