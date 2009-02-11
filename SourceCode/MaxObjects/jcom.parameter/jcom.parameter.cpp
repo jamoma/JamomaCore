@@ -1303,16 +1303,15 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			x->list_size = 1;
 			
 			x->param_output(x);
-		} else if(argc > 1) {
+		} 
+		else if(argc > 1)
 			param_list(x, msg, argc, argv);
-		}
-		else { 	// no args
-//	#ifndef JMOD_MESSAGE
+		else{ 	// no args
 			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-//			if(x->common.attr_type == jps_msg_generic)
-				x->list_size = 0;
-//	#endif			
-			x->param_output(x);
+			//if(x->common.attr_type == jps_msg_generic)
+			x->list_size = 0;
+			if (x->common.attr_type != jps_msg_list)	// zero length list parameters are not allowed
+				x->param_output(x);
 		}
 	}
 }
@@ -1323,6 +1322,7 @@ int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy)
 	// If lists differ in length they're obviously not the same
 	if(lengthx == lengthy) {
 		short type;
+		
 		for(int i = 0; i < lengthx; i++) {
 			if((x->a_type) != (y->a_type))
 				return 0; // not identical, types differ
