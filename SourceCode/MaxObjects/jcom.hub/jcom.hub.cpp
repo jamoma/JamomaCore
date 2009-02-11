@@ -504,7 +504,7 @@ void hub_receive(t_hub *x, t_symbol *name, long argc, t_atom *argv)
 	if(x->out_object != NULL)
 		object_method_typed(x->out_object, jps_algorithm_message, argc, argv, NULL);	// send to jcom.out
 
-	hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
+	//hub_internals_dispatch(x, argv->a_w.w_sym, argc-1, argv+1);
 	hub_outlet_return(x, osc, argc-1, argv+1);
 }
 

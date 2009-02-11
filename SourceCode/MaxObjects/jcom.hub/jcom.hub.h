@@ -221,7 +221,7 @@ void hub_internals_destroy(t_hub *x);
  * @param argc		the number of values to send to the parameter or message
  * @param argv		the actual values to send to the parameter or message
  */
-void hub_internals_dispatch(t_hub * x, t_symbol * osc_name, long argc, t_atom * argv);
+//void hub_internals_dispatch(t_hub * x, t_symbol * osc_name, long argc, t_atom * argv);
 
 
 // These are in jcom.hub.presets.cpp

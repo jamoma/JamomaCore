@@ -1301,11 +1301,11 @@ void param_dispatched(t_param *x, t_symbol *msg, long argc, t_atom *argv)
 			param_list(x, msg, argc, argv);
 		}
 		else { 	// no args
-	#ifndef JMOD_MESSAGE
+//	#ifndef JMOD_MESSAGE
 			// generic parameters may have no arg -- i.e. to open a dialog that defines the arg
-			if(x->common.attr_type == jps_msg_generic)
+//			if(x->common.attr_type == jps_msg_generic)
 				x->list_size = 0;
-	#endif			
+//	#endif			
 			x->param_output(x);
 		}
 	}
