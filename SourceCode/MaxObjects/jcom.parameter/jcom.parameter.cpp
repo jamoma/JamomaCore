@@ -929,16 +929,17 @@ void param_output_generic(void *z)
 			outlet_float(x->outlets[k_outlet_direct], x->attr_value.a_w.w_float);
 		else if(x->attr_value.a_type == A_SYM)
 			outlet_anything(x->outlets[k_outlet_direct], x->attr_value.a_w.w_sym, 0, NULL);
+		param_send_feedback(x);
 	}
 	else if(x->list_size > 1){
 		if(param_clip_generic(x) && x->ramper)
 			x->ramper->stop();
 		outlet_anything(x->outlets[k_outlet_direct], _sym_list, x->list_size, x->atom_list);
+		param_send_feedback(x);
 	} 
 	else{	// zero args
 		param_output_none(x);
 	}
-	param_send_feedback(x);
 	x->isSending = NO;
 }
 
