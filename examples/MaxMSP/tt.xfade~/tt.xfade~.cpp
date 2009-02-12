@@ -9,31 +9,6 @@
  * http://www.gnu.org/licenses/lgpl.html 
  */
 
-#include "TTClassWrapperMax.h"
-
-int TTCLASSWRAPPERMAX_EXPORT main(void)
-{
-	WrappedClassOptionsPtr	options = new WrappedClassOptions;
-	TTValue					value;
-	
-	TTBlueInit();
-	
-	// By default, the wrapper assumes we have N-channels of both input and output
-	// Here we tell it that this object needs to have twice as many inputs as outputs
-	value.append(2);
-	value.append(1);
-	options->append(TT("numChannelsUseFixedRatioInputsToOutputs"), value);
-		
-	// Here we add an additional audio inlet to control the position of the fade (if the signal is connected)
-	value.clear();
-	value.append(TT("position"));
-	options->append(TT("additionalSignalInputSetsAttribute"), value);
-	
-	return wrapTTClassAsMaxClass(TT("crossfade"), "tt.xfade~", NULL, options);
-}
-
-/***********************************************************************************
-
 #include "ext.h"					// Max Header
 #include "z_dsp.h"					// MSP Header
 #include "ext_strings.h"			// String Functions
@@ -76,6 +51,7 @@ t_int *fade_perform_stereo_2(t_int *w);
 static t_class	*s_fade_class;
 
 
+/************************************************************************************/
 // Main() Function
 
 int main(void)				// main recieves a copy of the Max function macros table
@@ -86,32 +62,32 @@ int main(void)				// main recieves a copy of the Max function macros table
 	
 	TTBlueInit();
 	common_symbols_init();
-
+	
 	// Define our class
 	c = class_new("tt.xfade~",(method)fade_new, (method)fade_free, sizeof(t_fade), (method)0L, A_GIMME, 0);
-
+	
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)fade_float,				"float", A_FLOAT, 0L);
 	class_addmethod(c, (method)fade_dsp, 				"dsp", A_CANT, 0L);
     class_addmethod(c, (method)object_obex_dumpout, 	"dumpout", A_CANT,0);
     class_addmethod(c, (method)fade_assist, 			"assist", A_CANT, 0L);
-
+	
 	// Add attributes to our class:
 	attr = attr_offset_new("shape", _sym_long, attrflags,
-		(method)0L,(method)attr_set_shape, calcoffset(t_fade, attr_shape));
+						   (method)0L,(method)attr_set_shape, calcoffset(t_fade, attr_shape));
 	class_addattr(c, attr);
 	
 	attr = attr_offset_new("mode", _sym_long, attrflags,
-		(method)0L,(method)attr_set_mode, calcoffset(t_fade, attr_mode));
+						   (method)0L,(method)attr_set_mode, calcoffset(t_fade, attr_mode));
 	class_addattr(c, attr);
 	
 	attr = attr_offset_new("position", _sym_float32, attrflags,
-		(method)0L,(method)attr_set_position, calcoffset(t_fade, attr_position));
+						   (method)0L,(method)attr_set_position, calcoffset(t_fade, attr_position));
 	class_addattr(c, attr);	
 	
 	// Setup our class to work with MSP
 	class_dspinit(c);
-
+	
 	// Finalize our class
 	class_register(CLASS_BOX, c);
 	s_fade_class = c;
@@ -119,7 +95,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 }
 
 
-/***********************************************************************************
+/************************************************************************************/
 // Object Life
 
 // Create
@@ -131,29 +107,29 @@ void *fade_new(t_symbol *s, long argc, t_atom *argv)
 	t_fade *x = (t_fade *)object_alloc(s_fade_class);
 	if(x){
 		object_obex_store((void *)x, _sym_dumpout, (object *)outlet_new(x, NULL));	// dumpout
-
+		
 		x->numChannels = 1;
 		if(attrstart && argv){
 			int argument = atom_getlong(argv);
 			x->numChannels = TTClip(argument, 1, MAX_NUM_CHANNELS);
 		}
-
+		
 		dsp_setup((t_pxobject *)x, (x->numChannels * 2) + 1);	// Create Object and N Inlets (last argument)
 		x->x_obj.z_misc = Z_NO_INPLACE;  					// ESSENTIAL!   		
 		for(i=0; i< (x->numChannels); i++)
 			outlet_new((t_pxobject *)x, "signal");			// Create a signal Outlet   		
 		
 		//x->xfade = new TTCrossfade(x->numChannels);			// Constructors
-		TTObjectInstantiate(TT("crossfade"), &x->xfade, x->numChannels);
-		x->audioIn1 = new TTAudioSignal(x->numChannels);
-		x->audioIn2 = new TTAudioSignal(x->numChannels);
-		x->audioInControl = new TTAudioSignal(x->numChannels);
-		x->audioOut = new TTAudioSignal(x->numChannels);
+		TTObjectInstantiate(TT("crossfade"),	&x->xfade,			x->numChannels);
+		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioIn1,		x->numChannels);
+		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioIn2,		x->numChannels);
+		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioInControl,	x->numChannels);
+		TTObjectInstantiate(kTTSym_audiosignal,	&x->audioOut,		x->numChannels);
 		
 		x->xfade->setAttributeValue(TT("mode"), TT("lookup"));
 		x->xfade->setAttributeValue(TT("shape"), TT("equalPower"));
 		x->xfade->setAttributeValue(TT("position"), 0.5);
-
+		
 		attr_args_process(x, argc, argv);					// handle attribute args				
 	}
 	return (x);												// Return the pointer
@@ -162,16 +138,17 @@ void *fade_new(t_symbol *s, long argc, t_atom *argv)
 // Destroy
 void fade_free(t_fade *x)
 {
-	dsp_free((t_pxobject *)x);		// Always call dsp_free first in this routine	
-	TTObjectRelease(x->xfade);
-	delete x->audioIn1;
-	delete x->audioIn2;
-	delete x->audioInControl;
-	delete x->audioOut;
+	dsp_free((t_pxobject *)x);		// Always call dsp_free first in this routine
+	
+	TTObjectRelease(&x->xfade);
+	TTObjectRelease(&x->audioIn1);
+	TTObjectRelease(&x->audioIn2);
+	TTObjectRelease(&x->audioInControl);
+	TTObjectRelease(&x->audioOut);
 }
 
 
-/***********************************************************************************
+/************************************************************************************/
 // Methods bound to input/inlets
 
 // Method for Assistance Messages
@@ -218,7 +195,7 @@ t_max_err attr_set_shape(t_fade *x, void *attr, long argc, t_atom *argv)
 		x->xfade->setAttributeValue(TT("shape"), TT("equalPower"));
 	else 
 		x->xfade->setAttributeValue(TT("shape"), TT("linear"));
-
+	
 	return MAX_ERR_NONE;
 }
 
@@ -231,7 +208,7 @@ t_max_err attr_set_mode(t_fade *x, void *attr, long argc, t_atom *argv)
 		x->xfade->setAttributeValue(TT("mode"), TT("lookup"));
 	else 
 		x->xfade->setAttributeValue(TT("mode"), TT("calculate"));
-
+	
 	return MAX_ERR_NONE;
 }
 
@@ -249,14 +226,14 @@ t_int *fade_perform1(t_int *w)
 		x->audioIn1->setVector(i, vs, (t_float *)(w[j+1]));
 		x->audioIn2->setVector(i, vs, (t_float *)(w[j+2]));
 	}
-
+	
 	x->xfade->process(*x->audioIn1, *x->audioIn2, *x->audioOut);
-
+	
 	for(i=0; i<numChannels; i++){
 		j = (i*3) + 1;
 		x->audioOut->getVector(i, vs, (t_float *)(w[j+3]));
 	}
-
+	
 	return w + ((numChannels*3)+2);
 }
 
@@ -275,16 +252,16 @@ t_int *fade_perform2(t_int *w)
 		x->audioIn2->setVector(i, vs, (t_float *)(w[j+2]));
 	}
 	object_attr_setfloat(x, _sym_position, *((t_float *)(w[(numChannels*3)+2])));
-
+	
 	x->xfade->process(*x->audioIn1, *x->audioIn2, *x->audioOut);
-
+	
 	for(i=0; i<numChannels; i++){
 		j = (i*3) + 1;
 		x->audioOut->getVector(i, vs, (t_float *)(w[j+3]));
 	}
-
+	
 	return w + ((numChannels*3)+3);
-
+	
 }
 
 
@@ -311,7 +288,7 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 			numChannels++;
 			if(sp[i]->s_n > vs)
 				vs = sp[i]->s_n;
-
+			
 			audioVectors[l] = sp[i]->s_vec;
 			l++;
 			audioVectors[l] = sp[j]->s_vec;
@@ -326,12 +303,12 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 		l++;
 	}
 	
-	x->audioIn1->setNumChannels(numChannels);
-	x->audioIn2->setNumChannels(numChannels);
-	x->audioOut->setNumChannels(numChannels);
-	x->audioIn1->setVectorSize(vs);
-	x->audioIn2->setVectorSize(vs);
-	x->audioOut->setVectorSize(vs);
+	x->audioIn1->setnumChannels(numChannels);
+	x->audioIn2->setnumChannels(numChannels);
+	x->audioOut->setnumChannels(numChannels);
+	x->audioIn1->setvectorSize(vs);
+	x->audioIn2->setvectorSize(vs);
+	x->audioOut->setvectorSize(vs);
 	//audioIn will be set in the perform method
 	x->audioOut->alloc();	
 	
@@ -341,7 +318,7 @@ void fade_dsp(t_fade *x, t_signal **sp, short *count)
 		dsp_addv(fade_perform2, l, audioVectors);
 	else
 		dsp_addv(fade_perform1, l, audioVectors);
-
+	
 	sysmem_freeptr(audioVectors);
 }
-*/
+
