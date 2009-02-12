@@ -3751,7 +3751,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 511.0, 17.0 ],
-									"text" : "jcom.message source.2/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.2/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -7782,7 +7782,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 511.0, 17.0 ],
-									"text" : "jcom.message source.3/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.3/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -11813,7 +11813,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 511.0, 17.0 ],
-									"text" : "jcom.message source.4/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.4/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -15874,7 +15874,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 511.0, 17.0 ],
-									"text" : "jcom.message source.5/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.5/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -19905,7 +19905,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 511.0, 17.0 ],
-									"text" : "jcom.message source.6/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.6/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -23936,7 +23936,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 476.0, 34.0, 511.0, 17.0 ],
-									"text" : "jcom.message source.7/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.7/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -27968,7 +27968,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 569.0, 51.0, 302.0, 28.0 ],
-									"text" : "jcom.message source.8/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.8/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
@@ -32002,7 +32002,7 @@
 									"numoutlets" : 3,
 									"outlettype" : [ "", "", "" ],
 									"patching_rect" : [ 569.0, 51.0, 309.0, 28.0 ],
-									"text" : "jcom.message source.1/directivity/loadFile @type msg_symbol @description \"sound source directivity preset\""
+									"text" : "jcom.message source.1/directivity/loadFile @repetitions/allow 1 @type msg_generic @description \"sound source directivity preset\""
 								}
 
 							}
