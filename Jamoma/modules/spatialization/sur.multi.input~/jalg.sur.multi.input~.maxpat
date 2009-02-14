@@ -483,8 +483,8 @@
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"frozen_object_attributes" : 									{
-										"range/bounds" : [ 0.0, 1.0 ],
-										"range/clipmode" : "both"
+										"range/clipmode" : "both",
+										"range/bounds" : [ 0.0, 1.0 ]
 									}
 ,
 									"id" : "obj-15",
@@ -2010,7 +2010,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 321.0, 62.0, 26.0, 26.0 ]
+									"patching_rect" : [ 321.0, 52.0, 26.0, 26.0 ]
 								}
 
 							}
