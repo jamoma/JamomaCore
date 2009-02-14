@@ -5,29 +5,57 @@
 		xsi:schemaLocation='http://jamoma.org/ file:jamoma.xsd'
 >
   <preset number='1' name='default'>
+    <item name='numSpeakers' type='msg_int' priority='5'>8</item>
+    <item name='speaker.1/position' type='msg_list' priority='4'>0.000000 5.000000 0.000000 </item>
+    <item name='speaker.10/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.11/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.12/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.13/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.14/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.15/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.16/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.17/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.18/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.19/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.2/position' type='msg_list' priority='4'>-3.535534 3.535534 0.000000 </item>
+    <item name='speaker.20/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.21/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.22/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.23/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.24/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.25/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.26/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.27/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.28/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.29/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.3/position' type='msg_list' priority='4'>-5.000000 0.000000 0.000000 </item>
+    <item name='speaker.30/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.31/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.32/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='speaker.4/position' type='msg_list' priority='4'>-3.535534 -3.535534 0.000000 </item>
+    <item name='speaker.5/position' type='msg_list' priority='4'>-0.000000 -5.000000 0.000000 </item>
+    <item name='speaker.6/position' type='msg_list' priority='4'>3.535535 -3.535533 0.000000 </item>
+    <item name='speaker.7/position' type='msg_list' priority='4'>5.000000 0.000000 0.000000 </item>
+    <item name='speaker.8/position' type='msg_list' priority='4'>3.535533 3.535535 0.000000 </item>
+    <item name='speaker.9/position' type='msg_list' priority='4'>0 0 0</item>
+    <item name='type' type='msg_symbol' priority='1'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>8</item>
-    <item name='type' type='msg_symbol' priority='12'>speaker</item>
-    <item name='speaker.1/position' type='msg_list' priority='0'>0.000000 5.000000 0.000000 </item>
-    <item name='speaker.2/position' type='msg_list' priority='0'>-3.535534 3.535534 0.000000 </item>
-    <item name='speaker.3/position' type='msg_list' priority='0'>-5.000000 0.000000 0.000000 </item>
-    <item name='speaker.4/position' type='msg_list' priority='0'>-3.535534 -3.535534 0.000000 </item>
-    <item name='speaker.5/position' type='msg_list' priority='0'>-0.000000 -5.000000 0.000000 </item>
-    <item name='speaker.6/position' type='msg_list' priority='0'>3.535535 -3.535533 0.000000 </item>
-    <item name='speaker.7/position' type='msg_list' priority='0'>5.000000 0.000000 0.000000 </item>
-    <item name='speaker.8/position' type='msg_list' priority='0'>3.535533 3.535535 0.000000 </item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
   <preset number='2' name='2 (2-0) channel stereo'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>2</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>2</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.500000 4.330127 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>2.500000 4.330127 0.000000 </item>
   </preset>
   <preset number='3' name='3 (3-0) channel stereo'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>3</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>3</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.500000 4.330127 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>2.500000 4.330127 0.000000 </item>
@@ -35,7 +63,7 @@
   <preset number='4' name='4 (3-1) channel surround'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>4</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>4</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.500000 4.330127 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>2.500000 4.330127 0.000000 </item>
@@ -44,7 +72,7 @@
   <preset number='5' name='ITU 5 (3-2) channel surround'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>5</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>5</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.500000 4.330127 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>2.500000 4.330127 0.000000 </item>
@@ -54,7 +82,7 @@
   <preset number='6' name='ITU 7 (3-4) channel surround'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>7</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>7</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.500000 4.330127 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>2.500000 4.330127 0.000000 </item>
@@ -64,18 +92,18 @@
     <item name='speaker.7/position' type='msg_list' priority='0'>-5.000000 0.000000 0.000000 </item>
   </preset>
   <preset number='7' name='Rig 2D 4 channels'>
-     <item name='type' type='msg_symbol' priority='12'>speaker</item>
-   <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>4</item>
+    <item name='type' type='msg_symbol' priority='12'>speaker</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>4</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-3.535534 3.535534 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>3.535534 3.535534 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>3.535534 -3.535534 0.000000 </item>
     <item name='speaker.4/position' type='msg_list' priority='0'>-3.535534 -3.535534 0.000000 </item>
   </preset>
   <preset number='8' name='Rig 2D 5 channels'>
-       <item name='type' type='msg_symbol' priority='12'>speaker</item>
- <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>5</item>
+    <item name='type' type='msg_symbol' priority='12'>speaker</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>5</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.938926 4.045085 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>2.938926 4.045085 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>4.755282 -1.545085 0.000000 </item>
@@ -83,9 +111,9 @@
     <item name='speaker.5/position' type='msg_list' priority='0'>-4.755282 -1.545085 0.000000 </item>
   </preset>
   <preset number='9' name='Rig 2D 6 channels'>
-      <item name='type' type='msg_symbol' priority='12'>speaker</item>
-  <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>6</item>
+    <item name='type' type='msg_symbol' priority='12'>speaker</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>6</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.500000 4.330127 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>2.500000 4.330127 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>5.000000 0.000000 0.000000 </item>
@@ -96,7 +124,7 @@
   <preset number='10' name='Rig 2D 8 channels 1'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>8</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>8</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-1.913416 4.619398 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>1.913416 4.619398 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>4.619398 1.913417 0.000000 </item>
@@ -109,7 +137,7 @@
   <preset number='11' name='Rig 2D 8 channels 2'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>8</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>8</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>3.535534 3.535534 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>5.000000 0.000000 0.000000 </item>
@@ -122,7 +150,7 @@
   <preset number='12' name='Rig 2D 12 channels'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='1'>12</item>
+    <item name='numSpeakers' type='msg_int' priority='1'>12</item>
     <item name='speaker.1/position' type='msg_list' priority='4'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='4'>2.500000 4.330127 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='4'>4.330127 2.500000 0.000000 </item>
@@ -140,7 +168,7 @@
   <preset number='13' name='Rig 2D 16 channels'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='1'>16</item>
+    <item name='numSpeakers' type='msg_int' priority='1'>16</item>
     <item name='speaker.1/position' type='msg_list' priority='4'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='4'>1.913417 4.619398 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='4'>3.535534 3.535534 0.000000 </item>
@@ -159,9 +187,9 @@
     <item name='speaker.16/position' type='msg_list' priority='4'>-1.913417 4.619398 0.000000 </item>
   </preset>
   <preset number='14' name='Rig 3D 8 channels (Cube)'>
-     <item name='type' type='msg_symbol' priority='12'>speaker</item>
-   <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>8</item>
+    <item name='type' type='msg_symbol' priority='12'>speaker</item>
+    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>8</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-2.896140 2.896140 2.867882 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>2.896140 2.896140 2.867882 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>2.896140 -2.896140 2.867882 </item>
@@ -174,7 +202,7 @@
   <preset number='15' name='Rig 3D 12 channels (Dodecahedron1)'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>12</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>12</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>-0.000000 0.000000 5.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>-0.000000 0.000000 -5.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>-2.630147 3.620085 2.230989 </item>
@@ -191,7 +219,7 @@
   <preset number='16' name='Rig 3D 12 channels 2 (Dodecahedron 2)'>
     <item name='type' type='msg_symbol' priority='12'>speaker</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='numInstances' type='msg_int' priority='0'>12</item>
+    <item name='numSpeakers' type='msg_int' priority='0'>12</item>
     <item name='speaker.1/position' type='msg_list' priority='0'>0.000000 5.000000 0.000000 </item>
     <item name='speaker.2/position' type='msg_list' priority='0'>-0.000000 -5.000000 0.000000 </item>
     <item name='speaker.3/position' type='msg_list' priority='0'>0.000000 2.230989 -4.474672 </item>
@@ -204,46 +232,5 @@
     <item name='speaker.10/position' type='msg_list' priority='0'>2.617144 -2.235253 -3.626872 </item>
     <item name='speaker.11/position' type='msg_list' priority='0'>2.617144 2.235253 3.626872 </item>
     <item name='speaker.12/position' type='msg_list' priority='0'>-2.617144 -2.235253 -3.626872 </item>
-  </preset>
-  <preset number='1' name='default'>
-    <item name='numInstances' type='msg_int' priority='1'>8</item>
-    <item name='speaker.1/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.10/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.11/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.12/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.13/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.14/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.15/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.16/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.17/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.18/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.19/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.2/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.20/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.21/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.22/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.23/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.24/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.25/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.26/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.27/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.28/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.29/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.3/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.30/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.31/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.32/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.4/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.5/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.6/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.7/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.8/position' type='msg_list' priority='4'>0</item>
-    <item name='speaker.9/position' type='msg_list' priority='4'>0</item>
-    <item name='type' type='msg_symbol' priority='12'>speaker</item>
-    <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='view/color/border' type='msg_list' priority='0'>0</item>
-    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
-    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
   </preset>
 </jamoma>
