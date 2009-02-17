@@ -35,7 +35,11 @@ using namespace std;
 	#ifdef _DLL_EXPORT
 		#define TTEXPORT __declspec(dllexport)
 	#else
-	#define TTEXPORT __declspec(dllimport)
+		#ifdef TTSTATIC
+			#define TTEXPORT
+		#else
+			#define TTEXPORT __declspec(dllimport)
+		#endif
 	#endif // _DLL_EXPORT
 
 #else // TT_PLATFORM_MAC

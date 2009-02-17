@@ -311,6 +311,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				IgnoreDefaultLibraryNames="libcmt"
 			/>
 			<Tool
 				Name="VCALinkTool"
