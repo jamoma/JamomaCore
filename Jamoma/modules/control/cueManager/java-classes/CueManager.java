@@ -14,8 +14,10 @@ public class CueManager extends MaxObject
 	public static final int _CTL = 0;
 	public static final int _WAIT = 1;
 	public static final int _CMT = 2;
+	public static final int _CFG = 3;
 	public static final String NL = "cr";
 	public static final String TAB = "tab";
+	public static final String CONFIG = "/CONFIG";
 	public static final String SEPARATION = "##############################";
 	
 	/// Déclarations
@@ -31,7 +33,7 @@ public class CueManager extends MaxObject
 	public CueManager()
 	{
 		declareInlets(new int[]{DataTypes.ALL});
-		declareOutlets(new int[]{DataTypes.ALL, DataTypes.ALL});
+		declareOutlets(new int[]{DataTypes.ALL, DataTypes.ALL, DataTypes.ALL});
 		createInfoOutlet(true);
 		
 		cuelist = new CueList();
@@ -492,6 +494,12 @@ public class CueManager extends MaxObject
 			}
 			else{
 				if(cuelist.size() > 0){
+					// CONFIG search
+					if(line.startsWith(CONFIG)){
+						// add the command to the last cue
+						cuelist.getLast().addData(line, _CFG);
+						return;
+					}
 					// COMMAND search
 					if(line.startsWith("/")){
 
@@ -568,9 +576,12 @@ public class CueManager extends MaxObject
 			if(line.startsWith("CUE")){
 				return;
 			}
-			
+			if(line.startsWith(CONFIG)){
+				// add the command to the get_state cue
+				this.cuelist.get(store_index).addData(line, _CFG);
+				return;
+			}
 			if(line.startsWith("/")){
-
 				// add the command to the get_state cue
 				this.cuelist.get(store_index).addData(line, _CTL);
 				return;
@@ -662,8 +673,14 @@ public class CueManager extends MaxObject
 			// ne pas envoyer les comments
 			data = c.get(i);
 			if(!data.isCmt()){
-				cmd_out = Atom.newAtom(data.getString());
-				dumpOut(cmd_out);
+				if(data.isCfg()){
+					cmd_out = Atom.newAtom(data.getString().substring(8));
+					configOut(cmd_out);
+				}
+				else{
+					cmd_out = Atom.newAtom(data.getString());
+					dumpOut(cmd_out);
+				}
 			}
 		}
 	}
@@ -723,6 +740,10 @@ public class CueManager extends MaxObject
 
 	private void dumpOut(Atom atom_send){
 		outlet(0,atom_send);
+	}
+	
+	private void configOut(Atom atom_send){
+		outlet(2,atom_send);
 	}
 	
 	private void editOut(Atom atom_send){
@@ -912,7 +933,12 @@ final class Data {
 	public boolean isCmt(){
 		return this.type == CueManager._CMT;
 	}
+	
+	public boolean isCfg(){
+		return this.type == CueManager._CFG;
+	}
 }
+
 
 
 
