@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 185.0, 200.0, 963.0, 590.0 ],
+		"rect" : [ 165.0, 149.0, 963.0, 590.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 185.0, 200.0, 963.0, 590.0 ],
+		"defrect" : [ 165.0, 149.0, 963.0, 590.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.970939,
@@ -40,7 +40,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 520.0, 355.0, 123.0, 20.0 ],
+					"patching_rect" : [ 520.0, 355.0, 97.0, 20.0 ],
 					"text" : "prepend /*/edit"
 				}
 
@@ -56,7 +56,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 30.0, 270.0, 42.0, 19.0 ],
+					"patching_rect" : [ 30.0, 268.0, 42.0, 19.0 ],
 					"pattrmode" : 1,
 					"presentation" : 1,
 					"presentation_rect" : [ 574.0, 19.0, 41.0, 19.0 ],
@@ -104,7 +104,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 34.0, 544.0, 168.0, 18.0 ],
-					"text" : "/cf 1495.153564"
+					"text" : "/cf 882.679688"
 				}
 
 			}
@@ -541,13 +541,13 @@
 ,
 					"patching_rect" : [ 681.0, 289.0, 57.0, 18.0 ],
 					"saved_object_attributes" : 					{
+						"fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontsize" : 10.0,
-						"fontname" : "Verdana",
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"globalpatchername" : ""
+						"default_fontname" : "Verdana"
 					}
 ,
 					"text" : "p settings"
@@ -765,8 +765,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 369.0, 214.0, 449.0, 18.0 ],
-					"text" : "as you can see, it routes the x position from the mouse module to the gain of the limiter"
+					"patching_rect" : [ 369.0, 214.0, 495.0, 18.0 ],
+					"text" : "as you can see, it routes the x position from the mouse module to the wet/dry mix of the filter"
 				}
 
 			}
@@ -779,7 +779,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 369.0, 192.0, 186.0, 18.0 ],
+					"patching_rect" : [ 369.0, 192.0, 187.0, 18.0 ],
 					"text" : "1_ recall a ready-made mapping ->"
 				}
 
@@ -821,7 +821,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 651.0, 194.0, 180.0, 16.0 ],
+					"patching_rect" : [ 651.0, 194.0, 166.0, 16.0 ],
 					"text" : "/mapper.1/preset/recall mouse"
 				}
 
@@ -1053,19 +1053,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-33", 0 ],
+					"destination" : [ "obj-12", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ],
-					"source" : [ "obj-30", 0 ]
+					"source" : [ "obj-33", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-12", 0 ],
+					"destination" : [ "obj-33", 0 ],
 					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-33", 0 ]
+					"midpoints" : [ 51.0, 320.5, 529.5, 320.5 ],
+					"source" : [ "obj-30", 1 ]
 				}
 
 			}
