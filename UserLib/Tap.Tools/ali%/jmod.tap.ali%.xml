@@ -23,15 +23,19 @@
     <item name='kernel.5/size' type='msg_list' priority='0'>1.000000 1.000000 </item>
     <item name='kernel.5/weight' type='msg_float' priority='0'>0.500000</item>
     <item name='position' type='msg_list' priority='0'>0.000000 0.000000 </item>
-    <item name='preset.1' type='msg_list' priority='0'>0</item>
-    <item name='preset.2' type='msg_list' priority='0'>0</item>
-    <item name='preset.3' type='msg_list' priority='0'>0</item>
-    <item name='preset.4' type='msg_list' priority='0'>0</item>
-    <item name='preset.5' type='msg_list' priority='0'>0</item>
+    <item name='preset.1' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
+    <item name='preset.2' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
+    <item name='preset.3' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
+    <item name='preset.4' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
+    <item name='preset.5' type='msg_list' priority='0'>0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 </item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='video/mute' type='msg_toggle' priority='0'>0</item>
     <item name='video/preview' type='msg_toggle' priority='0'>1</item>
+    <item name='view/color/border' type='msg_list' priority='0'>0</item>
+    <item name='view/color/contentBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarBackground' type='msg_list' priority='0'>0</item>
+    <item name='view/color/toolbarText' type='msg_list' priority='0'>0</item>
     <item name='widthclip' type='msg_int' priority='0'>25</item>
   </preset>
 </jamoma>

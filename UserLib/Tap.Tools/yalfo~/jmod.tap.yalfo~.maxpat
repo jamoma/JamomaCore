@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 148.0, 94.0, 994.0, 323.0 ],
+		"rect" : [ 185.0, 192.0, 994.0, 323.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 148.0, 94.0, 994.0, 323.0 ],
+		"defrect" : [ 185.0, 192.0, 994.0, 323.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -66,7 +66,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 496.0, 147.0, 54.0, 19.0 ],
+					"patching_rect" : [ 496.0, 138.0, 54.0, 19.0 ],
 					"text" : "jcom.in~"
 				}
 
@@ -246,8 +246,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 16.0, 174.0, 466.0, 31.0 ],
-					"text" : "jcom.hub tap.jmod.yalfo~ @size 1U-half @module_type audio.no_panel @algorithm_type blue @description \"Yet Another LFO - a very efficient low frequency oscillator.\"",
+					"patching_rect" : [ 13.0, 174.0, 386.0, 31.0 ],
+					"text" : "jcom.hub @module_type audio.no_panel @algorithm_type blue @description \"Yet Another LFO - a very efficient low frequency oscillator.\"",
 					"varname" : "jmod.hub"
 				}
 
@@ -317,7 +317,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "" ],
-					"patching_rect" : [ 496.0, 168.0, 49.0, 19.0 ],
+					"patching_rect" : [ 496.0, 164.0, 49.0, 19.0 ],
 					"text" : "tap.lfo~",
 					"varname" : "tap.harmonizer~.mod"
 				}
@@ -354,6 +354,42 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 135.5, 161.0, 22.5, 161.0 ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 279.5, 164.0, 22.5, 164.0 ],
+					"source" : [ "obj-16", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 1,
+					"midpoints" : [  ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-34", 0 ],
 					"hidden" : 0,
@@ -413,42 +449,6 @@
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 135.5, 161.0, 25.5, 161.0 ],
-					"source" : [ "obj-12", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
-					"hidden" : 1,
-					"midpoints" : [ 279.5, 164.0, 25.5, 164.0 ],
-					"source" : [ "obj-16", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-19", 0 ],
-					"hidden" : 1,
-					"midpoints" : [  ],
-					"source" : [ "obj-13", 0 ]
 				}
 
 			}
