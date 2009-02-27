@@ -14,9 +14,10 @@
     <item name='IR.4/gain' type='msg_float' priority='0'>0</item>
     <item name='IR.4/reverse' type='msg_toggle' priority='0'>0</item>
     <item name='SegmentSize' type='msg_int' priority='0'>2048</item>
+    <item name='normalize' type='msg_toggle' priority='0'>1</item>
     <item name='audio/bypass' type='msg_toggle' priority='0'>0</item>
-    <item name='audio/gain' type='msg_float' priority='0'>100.000000</item>
-    <item name='audio/mix' type='msg_float' priority='0'>100.000000</item>
+    <item name='audio/gain' type='msg_float' priority='0'>100</item>
+    <item name='audio/mix' type='msg_float' priority='0'>100</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>0</item>
     <item name='channels' type='msg_int' priority='4'>2</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
