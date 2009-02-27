@@ -13,7 +13,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<div id="jmod_header">
 	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.file_browser </h1>
-	<h2> Browsing and selecting files to send to audio or video players </h2>
+	<h2> Browsing and selecting files </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
@@ -48,17 +48,6 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDescription"> Numbers of levels of folders below the chosen one to look into </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> file </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
-			<td class ="instructionRangeClipmode"> none </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Selected file name </td>
-		<tr>
-		<tr>
 			<td class="instructionName"> folder </td>
 			<td class ="instructionType"> symbol </td>
 			<th class = "instructionRangeBounds"> N/A </td>
@@ -67,18 +56,18 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Folder to browse </td>
+			<td class ="instructionDescription"> Path of folder to browse </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> type </td>
 			<td class ="instructionType"> int </td>
-			<td class ="instructionRangeBounds"> 0 1 </td>
-			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRangeBounds"> 0 4 </td>
+			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Choose between different file types </td>
+			<td class ="instructionDescription"> File types to display </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
@@ -162,6 +151,17 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Generate a documentation page for this module and save it to disk. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> file </td>
+			<td class ="instructionType"> symbol </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> Selected file name </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> init </td>
@@ -376,7 +376,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 			<td class ="instructionRampFunction">  </td>
 			<td class ="instructionDataspace">  </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> number of matching items in folder </td>
+			<td class ="instructionDescription"> Number of matching items in folder (not updated when changing depth) </td>
 		<tr>
 	</table>
 
