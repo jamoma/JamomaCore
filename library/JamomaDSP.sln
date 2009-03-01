@@ -6,19 +6,13 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
-		Debug-Static|Win32 = Debug-Static|Win32
 		Release|Win32 = Release|Win32
-		Release-Static|Win32 = Release-Static|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Debug|Win32.Build.0 = Debug|Win32
-		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Debug-Static|Win32.ActiveCfg = Debug-Static|Win32
-		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Debug-Static|Win32.Build.0 = Debug-Static|Win32
+		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Debug|Win32.ActiveCfg = Release|Win32
+		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Debug|Win32.Build.0 = Release|Win32
 		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Release|Win32.ActiveCfg = Release|Win32
 		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Release|Win32.Build.0 = Release|Win32
-		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Release-Static|Win32.ActiveCfg = Release-Static|Win32
-		{34630069-834D-46BA-83CF-3DB7F1A9665F}.Release-Static|Win32.Build.0 = Release-Static|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
