@@ -19,12 +19,26 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
+					"id" : "obj-19",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "bang", "" ],
+					"patching_rect" : [ 220.0, 275.0, 101.0, 19.0 ],
+					"text" : "sel /numSpeakers"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
 					"id" : "obj-18",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 220.0, 275.0, 35.0, 17.0 ],
+					"patching_rect" : [ 220.0, 300.0, 35.0, 17.0 ],
 					"text" : "clear"
 				}
 
@@ -39,7 +53,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 25.0, 270.0, 165.0, 31.0 ],
+					"patching_rect" : [ 25.0, 280.0, 165.0, 31.0 ],
 					"text" : "jcom.position2ambimonitor @prefix speaker @radius 10."
 				}
 
@@ -78,37 +92,33 @@
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 17.334082,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"fontsize" : 18.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-6",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 13.0, 189.0, 28.0 ],
-					"text" : "jmod.sur.setup",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"patching_rect" : [ 15.0, 13.0, 196.0, 28.0 ],
+					"text" : "jmod.sur.setup"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"fontname" : "Verdana",
-					"fontsize" : 9.873845,
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-7",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 16.0, 43.0, 388.0, 18.0 ],
-					"text" : "Module for describing arrangements of instances as sets of XYZ coordinates",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+					"patching_rect" : [ 16.0, 43.0, 394.0, 19.0 ],
+					"text" : "Module for describing arrangements of instances as sets of XYZ coordinates"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ],
-					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
 					"id" : "obj-8",
 					"maxclass" : "panel",
 					"numinlets" : 1,
@@ -556,7 +566,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 25.0, 610.0, 250.0, 17.0 ],
-					"text" : "/speaker.3/position -4.330127 -2.5 0."
+					"text" : "/speaker.9/position 0. 0. 0."
 				}
 
 			}
@@ -597,18 +607,9 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-18", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 34.5, 158.0, 229.5, 158.0 ],
-					"source" : [ "obj-9", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 229.5, 313.0, 34.5, 313.0 ],
+					"midpoints" : [ 229.5, 330.0, 34.5, 330.0 ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -646,6 +647,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-4", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-18", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 34.5, 268.0, 229.5, 268.0 ],
+					"source" : [ "obj-11", 0 ]
 				}
 
 			}
