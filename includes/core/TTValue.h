@@ -611,10 +611,12 @@ public:
 			}
 		}
 		
-		str->erase(str->end());	// strip the trailing space
+		// CHANGED: no longer calling this as it was corrupting memory on the Mac [TAP]
+		//str->erase(str->end());	// strip the trailing space
+
 		// now set the value to the string
 		clear();
-		append(str);
+		append(*str);	// CHANGED: If we pass a pointer then this is appended at a generic TTPtr [TAP]
 	}
 	
 };
