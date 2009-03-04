@@ -23,27 +23,26 @@ class TTSvf : public TTAudioObject {
 protected:
 	TTFloat64		frequency;			///< filter cutoff frequency
 	TTFloat64		resonance;			///< filter resonance -- range is best between 1.0 and 16.0
-	TTFloat64		coefficientF;			///< filter coefficient
-	TTFloat64		coefficientFB;			///< filter coefficient
-	TTFloat64		coefficientG;			///< filter coefficient
-	TTFloat64		*x1;					///< previous input sample for each channel
-	TTFloat64		*x2;					///< 2nd previous input sample for each channel
-	TTFloat64		*x3;					///< 3rd previous input sample for each channel
-	TTFloat64		*x4;					///< 4th previous input sample for each channel
-	TTFloat64		*y1;					///< previous output sample for each channel
-	TTFloat64		*y2;					///< 2nd previous output sample for each channel
-	TTFloat64		*y3;					///< 3rd previous output sample for each channel
-	TTFloat64		*y4;					///< 4th previous output sample for each channel
-	TTFloat64		deciResonance;			///< attrResonance * 0.1
-
+	TTSymbolPtr		mode;				///< lowpass, highpass, bandpass, notch, or peak
+	TTFloat64		freq, res, damp;	// coefficients
+	TTFloat64*		lowpass_output;		// feedback storage...
+	TTFloat64* 		highpass_output;
+	TTFloat64*		bandpass_output;
+	TTFloat64* 		notch_output;
+	TTFloat64*		peak_output;
+	
 	// Notifications
 	TTErr updateMaxNumChannels(const TTValue& oldMaxNumChannels);
 	TTErr updateSr();
 
 	void calculateCoefficients();
 	
-	/**	Standard audio processing method as used by TTBlue objects. */
-	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	/**	Audio processing methods. */
+	TTErr processLowpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processHighpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processBandpass(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processNotch(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
+	TTErr processPeak(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 public:
 
@@ -54,6 +53,7 @@ public:
 	virtual ~TTSvf();
 
 	// Attributes
+	TTErr setmode(const TTValue& newValue);
 	TTErr setfrequency(const TTValue& newValue);
 	TTErr setresonance(const TTValue& newValue);
 
@@ -63,6 +63,9 @@ public:
 	 *	neccesary to clear the filter by calling this method.
 	 *	@return Returns a TTErr error code.												*/
 	TTErr clear();	
+	
+	/**	Performs the actual SVF calculations. */
+	void tick(TTSampleValue value, TTUInt16 channel);
 };
 
 
