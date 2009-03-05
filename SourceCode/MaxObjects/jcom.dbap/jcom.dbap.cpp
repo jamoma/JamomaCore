@@ -22,10 +22,16 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	jamoma_init();
 	common_symbols_init();
+	ps_rolloff = gensym("rolloff");
 	ps_src_position = gensym("src_position");
 	ps_src_gain = gensym("src_gain");
 	ps_src_mute = gensym("src_mute");
+	ps_src_blur = gensym("blur");
 	ps_dst_position = gensym("dst_position");
+	ps_dimensions = gensym("dimensions");
+	ps_num_sources = gensym("num_sources");
+	ps_num_destinations = gensym("num_destinations");
+
 
 	// Define our class
 	c = class_new("jcom.dbap",(method)dbap_new, (method)0L, sizeof(t_dbap), 
@@ -499,6 +505,15 @@ void dbap_info(t_dbap *x)
 	t_atom		a[4];
 	long i;
 
+	atom_setfloat(&a[0], x->attr_rolloff);
+	object_obex_dumpout(x, ps_rolloff, 1, a);
+
+	atom_setlong(&a[0], x->attr_dimensions);
+	object_obex_dumpout(x, ps_dimensions, 1, a);
+	
+	atom_setlong(&a[0], x->attr_num_sources);
+	object_obex_dumpout(x, ps_num_sources, 1, a);
+	
 	for (i=0; i<x->attr_num_sources; i++) {
 		atom_setlong(&a[0], i+1);
 		atom_setfloat(&a[1], x->src_position[i].x);
@@ -509,7 +524,12 @@ void dbap_info(t_dbap *x)
 		object_obex_dumpout(x, ps_src_gain, 2, a);
 		atom_setlong(&a[1], (x->src_not_muted[i]==0));
 		object_obex_dumpout(x, ps_src_mute, 2, a);
+		atom_setfloat(&a[1], x->blur[i]);
+		object_obex_dumpout(x, ps_src_blur, 1, a);
 	}
+	
+	atom_setlong(&a[0], x->attr_num_destinations);
+	object_obex_dumpout(x, ps_num_destinations, 1, a);
 	
 	for (i=0; i<x->attr_num_destinations; i++) {
 		atom_setlong(&a[0], i+1);
@@ -611,6 +631,7 @@ t_max_err dbap_attr_setnum_destinations(t_dbap *x, void *attr, long argc, t_atom
 t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 {
 	float f;
+	long i;
 	
 	if(argc && argv) {	
 		f = atom_getfloat(argv);
@@ -621,7 +642,10 @@ t_max_err dbap_attr_setrolloff(t_dbap *x, void *attr, long argc, t_atom *argv)
 		x->attr_rolloff = f;
 		dbap_calculate_a(x);
 		dbap_update_view(x);
-	}	
+		// Update all matrix values
+		for (i=0; i<x->attr_num_sources; i++)
+			dbap_calculate(x, i);
+	}
 	return MAX_ERR_NONE;
 }
 

@@ -19,10 +19,16 @@ const long MAX_NUM_WEIGHTED_DESTINATIONS = 32;
 const long MAX_SIZE_VIEW_X = 80;
 const long MAX_SIZE_VIEW_Y = 60;
 
-t_symbol		*ps_dst_position,
+t_symbol		*ps_rollloff,
+				*ps_dimensions,
+				*ps_rolloff,
+				*ps_num_sources,
+				*ps_num_destinations,
+				*ps_dst_position,
 				*ps_src_position,
 				*ps_src_gain,
-				*ps_src_mute;
+				*ps_src_mute,
+				*ps_src_blur;
 
 /** Data structure for storing a 1,2 or 3 dimensional space data */
 typedef struct _xyz{
@@ -51,7 +57,7 @@ typedef struct _dbap{									///< Data structure for this object
 	float		src_gain[MAX_NUM_SOURCES];				///< Linear gain for each source, not yet used
 	float		src_weight[MAX_NUM_WEIGHTED_SOURCES][MAX_NUM_WEIGHTED_DESTINATIONS];///< Weight for each source for each destination 
 	float		src_not_muted[MAX_NUM_SOURCES];			///< Mute and unmute sources
-	float		master_gain;							///< Mater gain for all ofr the algorithm
+	float		master_gain;							///< Mater gain for all of the algorithm
 	t_xyz		dst_position[MAX_NUM_DESTINATIONS];		///< Array of speaker positions
 	t_xyz		mean_dst_position;						///< Mean position of the field of destination points
 	bool		hull_io;								///< On/off calculation of distances to hull
