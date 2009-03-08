@@ -64,7 +64,7 @@ int main(void)				// main recieves a copy of the Max function macros table
 	common_symbols_init();
 	
 	// Define our class
-	c = class_new("tt.xfade~",(method)fade_new, (method)fade_free, sizeof(t_fade), (method)0L, A_GIMME, 0);
+	c = class_new("tt.xfade~", (method)fade_new, (method)fade_free, sizeof(t_fade), (method)0L, A_GIMME, 0);
 	
 	// Make methods accessible for our class: 
 	class_addmethod(c, (method)fade_float,				"float", A_FLOAT, 0L);
@@ -73,17 +73,16 @@ int main(void)				// main recieves a copy of the Max function macros table
     class_addmethod(c, (method)fade_assist, 			"assist", A_CANT, 0L);
 	
 	// Add attributes to our class:
-	attr = attr_offset_new("shape", _sym_long, attrflags,
-						   (method)0L,(method)attr_set_shape, calcoffset(t_fade, attr_shape));
-	class_addattr(c, attr);
-	
-	attr = attr_offset_new("mode", _sym_long, attrflags,
-						   (method)0L,(method)attr_set_mode, calcoffset(t_fade, attr_mode));
-	class_addattr(c, attr);
-	
-	attr = attr_offset_new("position", _sym_float32, attrflags,
-						   (method)0L,(method)attr_set_position, calcoffset(t_fade, attr_position));
-	class_addattr(c, attr);	
+	CLASS_ATTR_LONG(c,		"shape",		0,	t_fade, attr_shape);
+	CLASS_ATTR_ACCESSORS(c,	"shape",		NULL, attr_set_shape);
+	CLASS_ATTR_ENUMINDEX(c,	"shape",		0, "EqualPower Linear");
+
+	CLASS_ATTR_LONG(c,		"mode",			0,	t_fade, attr_mode);
+	CLASS_ATTR_ACCESSORS(c,	"mode",			NULL, attr_set_mode);
+	CLASS_ATTR_ENUMINDEX(c,	"mode",			0, "LookupTable Calculate");
+
+	CLASS_ATTR_FLOAT(c,		"position",		0,	t_fade, attr_position);
+	CLASS_ATTR_ACCESSORS(c,	"position",		NULL, attr_set_position);	
 	
 	// Setup our class to work with MSP
 	class_dspinit(c);
