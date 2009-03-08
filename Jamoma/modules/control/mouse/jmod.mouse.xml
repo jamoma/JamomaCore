@@ -6,6 +6,6 @@
 >
   <preset number='1' name='default'>
     <item name='reference' type='msg_generic'>screen</item>
-    <item name='mouse_on' type='msg_int'>0</item>
+    <item name='active' type='msg_int'>0</item>
   </preset>
 </jamoma>
