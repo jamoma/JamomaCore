@@ -227,7 +227,7 @@ public class CueManager extends MaxObject
 						bwo.newLine();
 					}
 
-					if(actualCue.get(d).isCtl() || actualCue.get(d).isWait()){
+					if(actualCue.get(d).isCtl() || actualCue.get(d).isWait() || actualCue.get(d).isCfg()){
 						bwo.write("	"+line);
 						bwo.newLine();		
 					}
