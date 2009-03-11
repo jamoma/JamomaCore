@@ -243,6 +243,9 @@ void wrappedClass_dsp(WrappedInstancePtr x, t_signal **sp, short *count)
 {
 	short		i, j, k=0;
 	void		**audioVectors = NULL;
+	
+	// make sure that the global sample rate used by the environment is updated, in case it has changed
+	ttEnvironment->setAttributeValue(kTTSym_sr, sys_getsr());
 		
 	audioVectors = (void**)sysmem_newptr(sizeof(void*) * ((x->maxNumChannels * 2) + 1 + x->numControlSignals));
 	audioVectors[k] = x;
