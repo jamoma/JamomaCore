@@ -7,6 +7,7 @@
  */
 
 #include "TimeDataspace.h"
+#include "TTBlueAPI.h"
 
 
 MillisecondUnit::MillisecondUnit()
@@ -35,9 +36,11 @@ void MillisecondUnit::convertFromNeutral(long inputNumArgs, double *input, long 
 /***********************************************************************************************/
 SampleUnit::SampleUnit()
 	: DataspaceUnit("sample")
-{
-	// TODO: Do something a bit more legit with the sample rate -- need to actually know the real sample rate!
-	sample_rate = (long)DEFAULT_SAMPLE_RATE;
+{   
+	TTValue globalSampleRate;	
+	
+	ttEnvironment->getAttributeValue(TT("sr"), globalSampleRate);
+	sample_rate = globalSampleRate; 	//was: sample_rate = (long)DEFAULT_SAMPLE_RATE; [NP]
 	msr = double(sample_rate) / 1000.0;
 	rmsr = 1.0 / msr;
 }

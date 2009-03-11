@@ -11,8 +11,6 @@
 
 #include "DataspaceLib.h"
 
-#define DEFAULT_SAMPLE_RATE	44100.0
-
 /****************************************************************************************************/
 // Class Specifications
 
