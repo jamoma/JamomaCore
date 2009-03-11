@@ -8,7 +8,7 @@
  * SETUP
  *******************************************************************/
 
-//autowatch = 1;
+autowatch = 1;
 
 // CONSTANTS
 
@@ -19,8 +19,10 @@ MAX_VOICES = 32;                    // Maximum number of speakers
 // VARIABLES
 
 var sample_rate = 44100;
+var sample_rate_ms = sample_rate * 0.001;
 var DSP_running = 0;
 var distance = new Array(MAX_VOICES);
+var delaySamples = new Array(MAX_VOICES);
 var num_voices = 0;                    // Current number of voices
 var num_voices_prev = 0;            // Previous number of voices
 var hold_voices = 0;                // If audio is running, voices will not be changed
@@ -48,6 +50,7 @@ function sr(value)
     if (sample_rate==value) return;
     
     sample_rate = value;
+    sample_rate_ms = value * 0.001;
     calculate_delays();
 }
 
@@ -122,7 +125,43 @@ function calculate_delays()
             max_dist = distance[i];
     }
     for (i=0; i<num_voices; i++)
-    {
-        outlet((i+1), (max_dist - distance[i]) * (sample_rate / SPEED_OF_SOUND));
+    {   delaySamples[i] = (max_dist - distance[i]) * (sample_rate / SPEED_OF_SOUND);
+        outlet(i+1, delaySamples[i]);
     }
 }
+
+// the following procedures were added by Nils Peters on March 10, 2009
+// TODO: if SR changes, the state of the current delays are wrong. 
+function delay()   
+{
+    var a = arrayfromargs(messagename,arguments);    
+        
+    if (a[1] <= num_voices)
+    { 
+      delaySamples[a[1]-1] = (a[2] * sample_rate_ms); // we expect a time delay in ms
+      outlet(a[1], delaySamples[a[1]-1]); 
+     
+     //post("outlet: ",a[1],"delay :", a[2],"samples: ", a[2] * sample_rate_ms);
+     //post();
+    }
+}
+
+function bypass(toggle)
+{
+    if (toggle == 0)
+    {
+     for (i=0; i<num_voices; i++)
+        {
+        outlet(i+1, delaySamples[i]);
+        }
+    }
+    else if (toggle == 1)
+        {
+        for (i=0; i<num_voices; i++)
+        {
+        outlet(i+1, 0 );
+        }
+    }
+}
+
+

@@ -13,7 +13,7 @@ body {	margin: 0px;	font-family: Arial, Helvetica, sans-serif;}h1 {	font-size: 2
 	<div id="jmod_header">
 	<img src="../../../documentation/images/jmod.icon.mod.png" width="128" height="128">
 	<h1> jmod.sur.speaker.delay~ </h1>
-	<h2> Adjust delay of the loudspeakers to adjust for varying distances. </h2>
+	<h2> Adjust delay of the loudspeakers to adjust for varying distances. Delay can either be provided as a time delay or will be calculated from loudspeaker positions automatically. </h2>
 	<h6><a href="../../../documentation/html/index.html">Table of Contents</a> | <a href="../modules/">Index of Modules</a> | <a href="http://jamoma.org/">Jamoma.org</a></h6>
 	</div>
 
@@ -37,7 +37,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td> /description </td>
 		<tr>
 		<tr>
-			<td class="instructionName"> audio/mute </td>
+			<td class="instructionName"> audio/bypass </td>
 			<td class ="instructionType"> toggle </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
 			<td class ="instructionRangeClipmode"> none </td>
@@ -45,7 +45,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> When active, this attribute turns off the module's processing algorithm to save CPU </td>
+			<td class ="instructionDescription"> When active, this attribute bypasses the module's processing algtorithm, letting audio or video pass through unaffected </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> numSpeakers </td>
@@ -68,6 +68,50 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> Turn off the updating of user interface elements when parameters change.  This may be done to conserve CPU resources. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/border </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The border color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/contentBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarBackground </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The background color of the module's toolbar in the format RGBA where values range [0.0, 1.0]. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> view/color/toolbarText </td>
+			<td class ="instructionType"> list </td>
+			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> The color of the module's toolbar text in the format RGBA where values range [0.0, 1.0]. </td>
 		<tr>
 	</table>
 
@@ -198,8 +242,8 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/read </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
@@ -253,8 +297,8 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/write </td>
-			<td class ="instructionType"> symbol </td>
-			<th class = "instructionRangeBounds"> N/A </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
@@ -264,7 +308,7 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 		<tr>
 			<td class="instructionName"> preset/writeagain </td>
-			<td class ="instructionType"> symbol </td>
+			<td class ="instructionType"> none </td>
 			<th class = "instructionRangeBounds"> N/A </td>
 			<td class ="instructionRangeClipmode"> none </td>
 			<td class ="instructionRampDrive"> none </td>
@@ -272,6 +316,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Write on same xml-preset file. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.1/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.1/position </td>
@@ -282,7 +337,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.10/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.10/position </td>
@@ -293,7 +359,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.11/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.11/position </td>
@@ -304,7 +381,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.12/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.12/position </td>
@@ -315,7 +403,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.13/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.13/position </td>
@@ -326,7 +425,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.14/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.14/position </td>
@@ -337,7 +447,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.15/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.15/position </td>
@@ -348,7 +469,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.16/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.16/position </td>
@@ -359,7 +491,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.17/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.17/position </td>
@@ -370,7 +513,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.18/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.18/position </td>
@@ -381,7 +535,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.19/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.19/position </td>
@@ -392,7 +557,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.2/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.2/position </td>
@@ -403,7 +579,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.20/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.20/position </td>
@@ -414,7 +601,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.21/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.21/position </td>
@@ -425,7 +623,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.22/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.22/position </td>
@@ -436,7 +645,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.23/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.23/position </td>
@@ -447,7 +667,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.24/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.24/position </td>
@@ -458,7 +689,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.25/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.25/position </td>
@@ -469,7 +711,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.26/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.26/position </td>
@@ -480,7 +733,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.27/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.27/position </td>
@@ -491,7 +755,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.28/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.28/position </td>
@@ -502,7 +777,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.29/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.29/position </td>
@@ -513,7 +799,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.3/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.3/position </td>
@@ -524,7 +821,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.30/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.30/position </td>
@@ -535,7 +843,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.31/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.31/position </td>
@@ -546,7 +865,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.32/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.32/position </td>
@@ -557,7 +887,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.4/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.4/position </td>
@@ -568,7 +909,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.5/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.5/position </td>
@@ -579,7 +931,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.6/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.6/position </td>
@@ -590,7 +953,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.7/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.7/position </td>
@@ -601,7 +975,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.8/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.8/position </td>
@@ -612,7 +997,18 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> speaker.9/delay </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 1000.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> time </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> delay to be applied on the Nth speaker  in [ms] by default </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> speaker.9/position </td>
@@ -623,7 +1019,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> position </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> Position of the Nth speaker </td>
+			<td class ="instructionDescription"> Position of the Nth speaker. In cartesian coordinates (xyz) by default  </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
