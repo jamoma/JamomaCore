@@ -197,33 +197,29 @@ public class CueManager extends MaxObject
 			bwo = new BufferedWriter(fwo);
 
 			// ECRITURE
+			bwo.newLine( );
 			for(int cue=0; cue<cuelist.size(); cue++){
 
 				actualCue = cuelist.get(cue);
 
 				// ENTETE CUE
 				bwo.newLine( );
-				bwo.newLine( );
 				if(cuelist.get(cue).getType() == 1)
 					bwo.write("KEY CUE "+cuelist.get(cue).getName());
 				else
 					bwo.write("CUE "+cuelist.get(cue).getName());
-				bwo.newLine( );
+
+				bwo.newLine();
 
 				// COMMANDE
 				for(int d=0; d<actualCue.size(); d++){
 
-					bwo.newLine();
-					bwo.newLine();
-
 					line = supprSpaceBefore(actualCue.get(d).getString());
 
 					if(actualCue.get(d).isCmt()){
-						if(line.startsWith("# Module")){
-							bwo.newLine();
-							bwo.newLine();
-						}
+						bwo.newLine();
 						bwo.write(line);
+						bwo.newLine();
 						bwo.newLine();
 					}
 
@@ -233,7 +229,6 @@ public class CueManager extends MaxObject
 					}
 				}
 			}
-			bwo.newLine( );	
 
 			// release resources associated with output.txt
 			bwo.close();
@@ -634,28 +629,30 @@ public class CueManager extends MaxObject
 		if(!c.getName().equals("get_state")){
 			this.currentCueName = c.getName();
 		}
-		
 		editOut(Atom.newAtom(NL));
-		editOut(Atom.newAtom(NL));
-		if(c.getType() == 1)
+		if(c.getType() == 1){
 			editOut(Atom.newAtom("KEY CUE "+c.getName()));
-		else
+			editOut(Atom.newAtom(NL));
+		}
+		else{
 			editOut(Atom.newAtom("CUE "+c.getName()));
+			editOut(Atom.newAtom(NL));
+		}
 		
 		for(int i=0; i<c.size(); i++){
-			editOut(Atom.newAtom(NL));
-			
 			if(!c.get(i).isCmt()){
+				editOut(Atom.newAtom(TAB));
+				editOut(Atom.newAtom(TAB));
+				editOut(Atom.newAtom(TAB));
+				editOut(Atom.newAtom(TAB));
+				editOut(Atom.newAtom(c.get(i).getString()));
 				editOut(Atom.newAtom(NL));
-				editOut(Atom.newAtom(TAB));
-				editOut(Atom.newAtom(TAB));
-				editOut(Atom.newAtom(TAB));
-				editOut(Atom.newAtom(TAB));
-				editOut(Atom.newAtom(c.get(i).getString()));	
 			}
 			else{
 				editOut(Atom.newAtom(NL));
 				editOut(Atom.newAtom(c.get(i).getString()));
+				editOut(Atom.newAtom(NL));
+				editOut(Atom.newAtom(NL));
 			}
 		}
 	}
@@ -938,6 +935,7 @@ final class Data {
 		return this.type == CueManager._CFG;
 	}
 }
+
 
 
 
