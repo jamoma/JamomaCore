@@ -562,10 +562,7 @@ public class CueManager extends MaxObject
 			line = supprSpaceBefore(l);
 			
 			// "CUE" search
-			if(line.startsWith("ABSOLUTE CUE")){
-				return;
-			}
-			if(line.startsWith("DIFFERENTIAL CUE")){
+			if(line.startsWith("KEY CUE")){
 				return;
 			}
 			if(line.startsWith("CUE")){
