@@ -110,7 +110,7 @@ TTErr TTSvf::setfrequency(const TTValue& newValue)
 {	
 
 	frequency = newValue;
-	freq = 2.0 * sin(pi * frequency / double(sr * 2)); 
+	freq = 2.0 * sin(kTTPi * frequency / double(sr * 2)); 
 	if(freq > 0.25)
 		freq = 0.25;
 	calculateCoefficients();
