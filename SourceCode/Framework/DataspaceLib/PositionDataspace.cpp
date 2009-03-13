@@ -77,15 +77,15 @@ SphericalUnit::~SphericalUnit()
 		
 void SphericalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
 {   //double kDegreesToRadians = kDegreesToRadians;
-	double aa = (90. - atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a
+	double aa = (atom_getfloat(inputAtoms+0)) *  kDegreesToRadians; //a  
 	double ee = atom_getfloat(inputAtoms+1) *  kDegreesToRadians; //e
 	double dd = atom_getfloat(inputAtoms+2); //d
 	
 	*outputNumArgs = 3;
 	double temp = cos(ee) * dd;		
-	*(output+0) = cos(aa) * temp;
-	*(output+1) =  sin(aa) * temp;
-	*(output+2) =  sin(ee) * dd;
+	*(output+0) = sin(aa) * temp; 
+	*(output+1) = cos(aa) * temp; 
+	*(output+2) = sin(ee) * dd;
 }
 
 
@@ -117,11 +117,11 @@ void PolarUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *ou
 {
     *outputNumArgs = 2;
 	
-	double aa = (90. - atom_getfloat(inputAtoms+0)) * kDegreesToRadians; //a
+	double aa = (atom_getfloat(inputAtoms+0)) * kDegreesToRadians; //a
 	double dd = atom_getfloat(inputAtoms+1); //d
 				
-	*(output+0) = cos(aa)  * dd; //x
-	*(output+1) = sin(aa) * dd; //y
+	*(output+0) = sin(aa)  * dd; //x
+	*(output+1) = cos(aa) * dd; //y
 	
 		
 }
@@ -185,11 +185,11 @@ void CylindricalUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, lo
 	
 	*outputNumArgs = 3;
 	double dd = atom_getfloat(inputAtoms+0); //d
-	double aa = (90. - atom_getfloat(inputAtoms+1)) * kDegreesToRadians; //a
+	double aa = (atom_getfloat(inputAtoms+1)) * kDegreesToRadians; //a
 	
 				
-	*(output+0) = cos(aa)  * dd; //x
-	*(output+1) = sin(aa) * dd; //y
+	*(output+0) = sin(aa)  * dd; //x
+	*(output+1) = cos(aa) * dd; //y
 	*(output+2) = atom_getfloat(inputAtoms+2); //z
 }
 
