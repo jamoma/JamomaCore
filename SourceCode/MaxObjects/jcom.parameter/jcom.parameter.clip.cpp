@@ -83,7 +83,12 @@ bool param_clip_list(t_param *x)
 	short	i;
 	float	fclipped;
 	long	iclipped;
-	bool	didClipAll = true;
+	//bool	didClipAll = false;
+	
+	// the code regarding didClipAll is supposed to return true when every member of the list has been clipped to its limit
+	// that way ramping can be terminated prematurely if it was trying to ramp to something out of range
+	// however, this code as it is doesn't work, and it doesn't buy us much anyway
+	// so I'm just commenting it out for the time being [TAP]
 	
 	for(i=0; i < x->list_size; i++){
 		if(x->atom_list[i].a_type == A_LONG){
@@ -97,13 +102,11 @@ bool param_clip_list(t_param *x)
 				iclipped = TTInfWrap(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_fold)
 				iclipped = TTFold(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-			else{
+			else
 				iclipped = x->atom_list[i].a_w.w_long;
-				didClipAll = false;
-			}
 
-			if(didClipAll && !(iclipped == x->atom_list[i].a_w.w_long))
-				didClipAll = false;
+			//if(didClipAll && !(iclipped == x->atom_list[i].a_w.w_long))
+			//	didClipAll = false;
 			x->atom_list[i].a_w.w_long = iclipped;
 		}
 		else if(x->atom_list[i].a_type == A_FLOAT){
@@ -117,15 +120,14 @@ bool param_clip_list(t_param *x)
 				fclipped = TTInfWrap(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_fold)
 				fclipped = TTFold(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
-			else{
+			else
 				fclipped = x->atom_list[i].a_w.w_float;
-				didClipAll = false;
-			}
 
-			if(didClipAll && !(fclipped == x->atom_list[i].a_w.w_float))
-				didClipAll = false;
+			//if(didClipAll && !(fclipped == x->atom_list[i].a_w.w_float))
+			//	didClipAll = false;
 			x->atom_list[i].a_w.w_float = fclipped;
 		}
 	}
-	return didClipAll;
+	//return didClipAll;
+	return false;
 }
