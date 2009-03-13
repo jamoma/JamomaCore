@@ -80,17 +80,7 @@ else
 end
 
 # Then we do the same for the Jamoma Tools
-if(Dir.glob("#{@svn_root}../Tools").size == 0)
-  puts "We need to check out Jamoma Tools from its repository."
-  puts "This could take quite a while, and it will give you no feedback while it is happening."
-  puts ""
-  `svn co http://jatuuls.googlecode.com/svn/branches/active #{@svn_root}../Tools`
-else
-  puts "The Jamoma Tools look to be already checked-out..."
-  puts "Did you make sure they are updated to the correct revision?"
-  puts ""
-end
-
+  puts "You did update the Jamoma Tools, right?"
 
 
 #######
