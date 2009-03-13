@@ -1,6 +1,6 @@
 /* 
  * jcom.param - clipping and range methods
- * By Tim Place, Copyright © 2006
+ * By Tim Place, Copyright ï¿½ 2006
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -97,8 +97,10 @@ bool param_clip_list(t_param *x)
 				iclipped = TTInfWrap(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_fold)
 				iclipped = TTFold(x->atom_list[i].a_w.w_long, (long)x->common.attr_range[0], (long)x->common.attr_range[1]);
-			else
+			else{
 				iclipped = x->atom_list[i].a_w.w_long;
+				didClipAll = false;
+			}
 
 			if(didClipAll && !(iclipped == x->atom_list[i].a_w.w_long))
 				didClipAll = false;
@@ -115,8 +117,10 @@ bool param_clip_list(t_param *x)
 				fclipped = TTInfWrap(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
 			else if(x->common.attr_clipmode == jps_fold)
 				fclipped = TTFold(x->atom_list[i].a_w.w_float, x->common.attr_range[0], x->common.attr_range[1]);
-			else
+			else{
 				fclipped = x->atom_list[i].a_w.w_float;
+				didClipAll = false;
+			}
 
 			if(didClipAll && !(fclipped == x->atom_list[i].a_w.w_float))
 				didClipAll = false;
