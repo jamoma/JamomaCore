@@ -66,7 +66,7 @@ CUE audio_on
 	
 # Module input~
 	/input~/source pink
-	/input~/audio/gain 97.000 ramp 2000		# Ramp to this new value over 2 seconds...
+	/input~/audio/gain 90.000 ramp 2000		# Ramp to this new value over 2 seconds...
 	
 # Module filter~
 	/filter~/audio/gain 100.000 ramp 2000
@@ -82,7 +82,7 @@ CUE fade_in
 ##############################
 
 # Module output~
-	/output~/audio/gain 98.000 ramp 2000
+	/output~/audio/gain 90.000 ramp 2000
 
 
 
