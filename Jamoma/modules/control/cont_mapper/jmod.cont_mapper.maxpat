@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 44.0, 1369.0, 826.0 ],
-		"bgcolor" : [ 0.976471, 0.921569, 0.764706, 1.0 ],
+		"rect" : [ 6.0, 44.0, 1369.0, 826.0 ],
+		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 44.0, 1369.0, 826.0 ],
+		"defrect" : [ 6.0, 44.0, 1369.0, 826.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -20,25 +20,25 @@
 				"box" : 				{
 					"align" : 0,
 					"arrow" : 0,
-					"arrowbgcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"arrowcolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"arrowbgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
+					"arrowcolor" : [ 0.12549, 0.12549, 0.12549, 1.0 ],
 					"arrowframe" : 1,
 					"arrowlink" : 1,
 					"autopopulate" : 0,
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.588235, 0.086275, 1.0 ],
+					"bgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
 					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
 					"depth" : 0,
-					"discolor" : [ 0.494118, 0.698039, 0.901961, 1.0 ],
+					"discolor" : [ 0.509804, 0.505882, 0.505882, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"framecolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"framecolor" : [ 0.066667, 0.066667, 0.066667, 1.0 ],
 					"hidden" : 0,
-					"hltcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-1",
 					"ignoreclick" : 0,
-					"items" : [ "/input~", ",", "/editing_this_module" ],
+					"items" : [ "/Zenveloppe~", ",", "/Zequalizer~", ",", "/Zspat", ",", "/Zgigaverb~", ",", "/ZVerbSpat2~", ",", "/bufferpool", ",", "/ZvoixSpat~", ",", "/Zin~", ",", "/Zanalyzer", ",", "/teteBras", ",", "/cueTRK", ",", "/colorTracker%", ",", "/background%", ",", "/brcosa%", ",", "/input%", ",", "/ZDtD2", ",", "/Zspat2", ",", "/equalizer~", ",", "/Zgran~", ",", "/Zlooper~", ",", "/cueManager", ",", "/cont_mapper", ",", "/cueMappers", ",", "/buttons", ",", "/sensor", ",", "/wacom", ",", "/Zkroonde", ",", "/trig_mapper", ",", "/layoutMap", ",", "/layout", ",", "/control", ",", "/editing_this_module" ],
 					"labelclick" : 0,
 					"maxclass" : "umenu",
 					"menumode" : 0,
@@ -55,7 +55,7 @@
 					"showdotfiles" : 0,
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"textcolor2" : [ 0.15, 0.15, 0.15, 1.0 ],
-					"togcolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
+					"togcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"types" : [  ],
 					"underline" : 0,
 					"varname" : "module_out"
@@ -66,25 +66,25 @@
 				"box" : 				{
 					"align" : 0,
 					"arrow" : 0,
-					"arrowbgcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"arrowcolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"arrowbgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
+					"arrowcolor" : [ 0.12549, 0.12549, 0.12549, 1.0 ],
 					"arrowframe" : 1,
 					"arrowlink" : 1,
 					"autopopulate" : 0,
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.588235, 0.086275, 1.0 ],
+					"bgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
 					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
 					"depth" : 0,
-					"discolor" : [ 0.494118, 0.698039, 0.901961, 1.0 ],
+					"discolor" : [ 0.509804, 0.505882, 0.505882, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"framecolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"framecolor" : [ 0.066667, 0.066667, 0.066667, 1.0 ],
 					"hidden" : 0,
-					"hltcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-2",
 					"ignoreclick" : 0,
-					"items" : [ "/input~", ",", "/editing_this_module" ],
+					"items" : [ "/Zenveloppe~", ",", "/Zequalizer~", ",", "/Zspat", ",", "/Zgigaverb~", ",", "/ZVerbSpat2~", ",", "/bufferpool", ",", "/ZvoixSpat~", ",", "/Zin~", ",", "/Zanalyzer", ",", "/teteBras", ",", "/cueTRK", ",", "/colorTracker%", ",", "/background%", ",", "/brcosa%", ",", "/input%", ",", "/ZDtD2", ",", "/Zspat2", ",", "/equalizer~", ",", "/Zgran~", ",", "/Zlooper~", ",", "/cueManager", ",", "/cont_mapper", ",", "/cueMappers", ",", "/buttons", ",", "/sensor", ",", "/wacom", ",", "/Zkroonde", ",", "/trig_mapper", ",", "/layoutMap", ",", "/layout", ",", "/control", ",", "/editing_this_module" ],
 					"labelclick" : 0,
 					"maxclass" : "umenu",
 					"menumode" : 0,
@@ -101,7 +101,7 @@
 					"showdotfiles" : 0,
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"textcolor2" : [ 0.15, 0.15, 0.15, 1.0 ],
-					"togcolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
+					"togcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"types" : [  ],
 					"underline" : 0,
 					"varname" : "module_in"
@@ -141,7 +141,7 @@
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 552.0, 21.0, 45.0, 45.0 ],
-					"setminmax" : [ -1.0, 1.0 ],
+					"setminmax" : [ 0.0, 127.0 ],
 					"setstyle" : 0,
 					"settype" : 1,
 					"signed" : 0,
@@ -186,7 +186,7 @@
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 552.0, 21.0, 45.0, 45.0 ],
-					"setminmax" : [ 0.0, 127.0 ],
+					"setminmax" : [ 0.0, 1.0 ],
 					"setstyle" : 0,
 					"settype" : 1,
 					"signed" : 0,
@@ -201,8 +201,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 0.337255, 0.356863, 0.690196, 0.329412 ],
-					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
+					"bgcolor" : [ 0.168627, 0.168627, 0.168627, 1.0 ],
+					"bgcolor2" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -218,15 +218,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "hint $1",
-					"textcolor" : [ 0.635294, 0.156863, 0.0, 1.0 ]
+					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 0.337255, 0.356863, 0.690196, 0.329412 ],
-					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
+					"bgcolor" : [ 0.168627, 0.168627, 0.168627, 1.0 ],
+					"bgcolor2" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -242,15 +242,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "hint $1",
-					"textcolor" : [ 0.635294, 0.156863, 0.0, 1.0 ]
+					"textcolor" : [ 0.0, 0.0, 0.0, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -265,15 +265,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "r #0to.thispatcher",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -289,7 +289,7 @@
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
@@ -313,7 +313,7 @@
 					"compatibility" : 0,
 					"contdata" : 0,
 					"drawpeaks" : 0,
-					"frozen_box_attributes" : [ "bgcolor", "slidercolor" ],
+					"frozen_box_attributes" : [ "slidercolor", "bgcolor" ],
 					"ghostbar" : 0,
 					"hidden" : 0,
 					"id" : "obj-24",
@@ -327,7 +327,7 @@
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 552.0, 21.0, 45.0, 45.0 ],
-					"setminmax" : [ -1.0, 1.0 ],
+					"setminmax" : [ 0.0, 127.0 ],
 					"setstyle" : 0,
 					"settype" : 1,
 					"signed" : 0,
@@ -342,8 +342,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -358,15 +358,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter function/parameter1 @type msg_float @priority 5 @repetitions/allow 1",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -381,15 +381,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter function/symmetry @type msg_symbol @priority 3 @repetitions/allow 1",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -404,15 +404,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter function/parameter2 @type msg_float @priority 4 @repetitions/allow 1",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -427,15 +427,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter function @type msg_symbol @priority 1 @repetitions/allow 1",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -458,7 +458,7 @@
 					"patching_rect" : [ 173.0, 710.0, 51.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 499.0, 52.0, 51.0, 17.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 1.0,
@@ -469,8 +469,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -493,7 +493,7 @@
 					"patching_rect" : [ 174.0, 660.0, 51.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 499.0, 35.0, 51.0, 17.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 1.0,
@@ -504,11 +504,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 1,
 					"id" : "obj-76",
 					"ignoreclick" : 1,
@@ -519,7 +519,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 438.0, 51.0, 62.0, 19.0 ],
 					"text" : "symmetry",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0,
 					"varname" : "param2_name"
 				}
@@ -528,11 +528,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 1,
 					"id" : "obj-17",
 					"ignoreclick" : 1,
@@ -543,7 +543,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 438.0, 35.0, 72.0, 19.0 ],
 					"text" : "powerValue",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0,
 					"varname" : "param1_name"
 				}
@@ -553,22 +553,22 @@
 				"box" : 				{
 					"align" : 0,
 					"arrow" : 0,
-					"arrowbgcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"arrowcolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"arrowbgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
+					"arrowcolor" : [ 0.12549, 0.12549, 0.12549, 1.0 ],
 					"arrowframe" : 1,
 					"arrowlink" : 1,
 					"autopopulate" : 0,
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.588235, 0.086275, 1.0 ],
+					"bgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
 					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
 					"depth" : 0,
-					"discolor" : [ 0.494118, 0.698039, 0.901961, 1.0 ],
+					"discolor" : [ 0.509804, 0.505882, 0.505882, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"framecolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"framecolor" : [ 0.066667, 0.066667, 0.066667, 1.0 ],
 					"hidden" : 0,
-					"hltcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-19",
 					"ignoreclick" : 0,
 					"items" : [ "cosine", ",", "linear", ",", "lowpass", ",", "power", ",", "tanh" ],
@@ -588,7 +588,7 @@
 					"showdotfiles" : 0,
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"textcolor2" : [ 0.15, 0.15, 0.15, 1.0 ],
-					"togcolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
+					"togcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"types" : [  ],
 					"underline" : 0,
 					"varname" : "function_menu"
@@ -628,7 +628,7 @@
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 278.0, 1.0, 271.0, 16.0 ],
-					"setminmax" : [ -1.0, 1.0 ],
+					"setminmax" : [ 0.0, 127.0 ],
 					"setstyle" : 1,
 					"settype" : 1,
 					"signed" : 0,
@@ -643,8 +643,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -659,7 +659,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.hub @module_type control @description \"One-to-one Mapper\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "jcom.hub"
 				}
 
@@ -700,8 +700,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -717,7 +717,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter out/module/name @repetitions/allow 1 @type msg_symbol @description \"Destination module of the mapping\" @priority 3",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "module_out[1]"
 				}
 
@@ -773,8 +773,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -990,25 +990,25 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Arial",
 						"fontname" : "Arial",
 						"default_fontsize" : 12.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 12.0
+						"fontsize" : 12.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p ignoreclik",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
@@ -1024,15 +1024,15 @@
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1047,15 +1047,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.init",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1071,7 +1071,7 @@
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"save" : [ "#N", "thispatcher", ";", "#Q", "end", ";" ],
 					"text" : "thispatcher",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
@@ -1079,22 +1079,22 @@
 				"box" : 				{
 					"align" : 0,
 					"arrow" : 0,
-					"arrowbgcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"arrowcolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"arrowbgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
+					"arrowcolor" : [ 0.12549, 0.12549, 0.12549, 1.0 ],
 					"arrowframe" : 1,
 					"arrowlink" : 1,
 					"autopopulate" : 0,
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.588235, 0.086275, 1.0 ],
+					"bgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
 					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
 					"depth" : 0,
-					"discolor" : [ 0.494118, 0.698039, 0.901961, 1.0 ],
+					"discolor" : [ 0.509804, 0.505882, 0.505882, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"framecolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"framecolor" : [ 0.066667, 0.066667, 0.066667, 1.0 ],
 					"hidden" : 0,
-					"hltcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-28",
 					"ignoreclick" : 0,
 					"items" : [ "edit", ",", "active", ",", "bypass" ],
@@ -1114,7 +1114,7 @@
 					"showdotfiles" : 0,
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"textcolor2" : [ 0.15, 0.15, 0.15, 1.0 ],
-					"togcolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
+					"togcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"types" : [  ],
 					"underline" : 0,
 					"varname" : "edit"
@@ -1124,8 +1124,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1159,8 +1159,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1176,7 +1176,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter slide/down @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Smoothing coef when value decreases\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "slide_down[1]"
 				}
 
@@ -1184,8 +1184,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1201,7 +1201,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter slide/up @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Smoothing coef when value raises\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "slide_up[1]"
 				}
 
@@ -1209,8 +1209,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1233,7 +1233,7 @@
 					"patching_rect" : [ 995.0, 16.0, 28.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 371.0, 52.0, 42.0, 17.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 0.9,
@@ -1244,11 +1244,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 9.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-38",
 					"ignoreclick" : 1,
@@ -1259,7 +1259,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 333.0, 54.0, 35.0, 17.0 ],
 					"text" : "Ramp",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0,
 					"varname" : "ramp_com"
 				}
@@ -1314,8 +1314,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1339,7 +1339,7 @@
 					"patching_rect" : [ 510.0, 122.0, 27.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 405.0, 20.0, 30.0, 17.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 0.9,
@@ -1350,8 +1350,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1375,7 +1375,7 @@
 					"patching_rect" : [ 510.0, 196.0, 27.0, 17.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 371.0, 20.0, 30.0, 17.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 0.9,
@@ -1386,11 +1386,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 9.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-42",
 					"ignoreclick" : 1,
@@ -1401,7 +1401,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 333.0, 21.0, 33.0, 17.0 ],
 					"text" : "Slide",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -1433,8 +1433,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1450,7 +1450,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter clipmode @repetitions/allow 1 @type msg_symbol @description \"Choose the clipping mode (none, low, high, both)\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "jcom.parameter[12]"
 				}
 
@@ -1459,22 +1459,22 @@
 				"box" : 				{
 					"align" : 0,
 					"arrow" : 0,
-					"arrowbgcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"arrowcolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"arrowbgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
+					"arrowcolor" : [ 0.12549, 0.12549, 0.12549, 1.0 ],
 					"arrowframe" : 1,
 					"arrowlink" : 1,
 					"autopopulate" : 0,
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.588235, 0.086275, 1.0 ],
+					"bgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
 					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
 					"depth" : 0,
-					"discolor" : [ 0.494118, 0.698039, 0.901961, 1.0 ],
+					"discolor" : [ 0.509804, 0.505882, 0.505882, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"framecolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"framecolor" : [ 0.066667, 0.066667, 0.066667, 1.0 ],
 					"hidden" : 0,
-					"hltcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-46",
 					"ignoreclick" : 0,
 					"items" : [ "none", ",", "low", ",", "high", ",", "both" ],
@@ -1494,7 +1494,7 @@
 					"showdotfiles" : 0,
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"textcolor2" : [ 0.15, 0.15, 0.15, 1.0 ],
-					"togcolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
+					"togcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"types" : [  ],
 					"underline" : 0,
 					"varname" : "clipmode"
@@ -1504,11 +1504,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 9.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-49",
 					"ignoreclick" : 1,
@@ -1519,7 +1519,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 438.0, 20.0, 47.0, 17.0 ],
 					"text" : "Function",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -1527,8 +1527,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1562,8 +1562,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1579,7 +1579,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter edit @repetitions/allow 1 @type msg_symbol @description \"Choose operation mode (active, edit, bypass)\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "jcom.parameter[10]"
 				}
 
@@ -1587,8 +1587,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1604,7 +1604,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter out/max @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Maximum output value\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "out_max[1]"
 				}
 
@@ -1658,8 +1658,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1675,7 +1675,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter out/min @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Minimum output value\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "out_min[1]"
 				}
 
@@ -1683,8 +1683,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1700,7 +1700,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter in/max @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Maximum input value\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "in_max[1]"
 				}
 
@@ -1708,8 +1708,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1725,7 +1725,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter in/min @repetitions/allow 1 @ramp/drive scheduler @type msg_float @description \"Minimum input value\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "in_min[1]"
 				}
 
@@ -1733,8 +1733,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1757,7 +1757,7 @@
 					"patching_rect" : [ 250.0, 355.0, 33.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 237.0, 47.0, 40.0, 19.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 0.9,
@@ -1768,8 +1768,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1792,7 +1792,7 @@
 					"patching_rect" : [ 485.0, 451.0, 40.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 276.0, 47.0, 40.0, 19.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 0.9,
@@ -1803,11 +1803,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-69",
 					"ignoreclick" : 1,
@@ -1818,7 +1818,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 198.0, 47.0, 40.0, 19.0 ],
 					"text" : "Range",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -1826,8 +1826,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1842,15 +1842,15 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.in",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1873,7 +1873,7 @@
 					"patching_rect" : [ 955.0, 460.0, 33.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 237.0, 22.0, 40.0, 19.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 0.9,
@@ -1884,8 +1884,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"bordercolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"cantchange" : 0,
 					"fontface" : 0,
 					"fontname" : "Verdana",
@@ -1908,7 +1908,7 @@
 					"patching_rect" : [ 1030.0, 406.0, 41.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 276.0, 22.0, 41.0, 19.0 ],
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 0.5 ],
 					"triangle" : 0,
 					"tricolor" : [ 0.75, 0.75, 0.75, 1.0 ],
 					"triscale" : 0.9,
@@ -1919,11 +1919,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-73",
 					"ignoreclick" : 1,
@@ -1934,7 +1934,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 198.0, 24.0, 40.0, 19.0 ],
 					"text" : "Range",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -1942,8 +1942,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1959,7 +1959,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter in/module/function @repetitions/allow 1 @type msg_symbol @description \"Source module function of the mapping\" @priority 6",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "module_in_function"
 				}
 
@@ -1967,8 +1967,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -1984,7 +1984,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter out/module/function @repetitions/allow 1 @type msg_symbol @description \"Destination function of the mapping\" @priority 5",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "module_out_function"
 				}
 
@@ -1992,8 +1992,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -2008,7 +2008,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "r mappers_edit",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
@@ -2016,23 +2016,23 @@
 				"box" : 				{
 					"align" : 0,
 					"arrow" : 0,
-					"arrowbgcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"arrowcolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"arrowbgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
+					"arrowcolor" : [ 0.12549, 0.12549, 0.12549, 1.0 ],
 					"arrowframe" : 1,
 					"arrowlink" : 1,
 					"autopopulate" : 0,
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.588235, 0.086275, 1.0 ],
+					"bgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
 					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
 					"depth" : 0,
-					"discolor" : [ 0.494118, 0.698039, 0.901961, 1.0 ],
+					"discolor" : [ 0.509804, 0.505882, 0.505882, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"framecolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"framecolor" : [ 0.066667, 0.066667, 0.066667, 1.0 ],
 					"hidden" : 0,
 					"hint" : "audio/gain",
-					"hltcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-80",
 					"ignoreclick" : 0,
 					"items" : [ "audio/amplitude.1", ",", "audio/amplitude.2", ",", "soundfile/report", ",", "<separator>", ",", "audio/active", ",", "audio/gain", ",", "balance", ",", "ch.1", ",", "ch.2", ",", "soundfile/loop", ",", "soundfile/play", ",", "source", ",", "ui/freeze", ",", "view/color/border", ",", "view/color/contentBackground", ",", "view/color/toolbarBackground", ",", "view/color/toolbarText" ],
@@ -2052,7 +2052,7 @@
 					"showdotfiles" : 0,
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"textcolor2" : [ 0.15, 0.15, 0.15, 1.0 ],
-					"togcolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
+					"togcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"types" : [  ],
 					"underline" : 0,
 					"varname" : "module_in_fct"
@@ -2063,23 +2063,23 @@
 				"box" : 				{
 					"align" : 0,
 					"arrow" : 0,
-					"arrowbgcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
-					"arrowcolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"arrowbgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
+					"arrowcolor" : [ 0.12549, 0.12549, 0.12549, 1.0 ],
 					"arrowframe" : 1,
 					"arrowlink" : 1,
 					"autopopulate" : 0,
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.588235, 0.086275, 1.0 ],
+					"bgcolor" : [ 0.635294, 0.635294, 0.635294, 1.0 ],
 					"bgcolor2" : [ 1.0, 0.807843, 0.356863, 1.0 ],
 					"depth" : 0,
-					"discolor" : [ 0.494118, 0.698039, 0.901961, 1.0 ],
+					"discolor" : [ 0.509804, 0.505882, 0.505882, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"framecolor" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"framecolor" : [ 0.066667, 0.066667, 0.066667, 1.0 ],
 					"hidden" : 0,
 					"hint" : "balance",
-					"hltcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"hltcolor" : [ 0.92, 0.92, 0.92, 1.0 ],
 					"id" : "obj-81",
 					"ignoreclick" : 0,
 					"items" : [ "audio/active", ",", "audio/gain", ",", "balance", ",", "ch.1", ",", "ch.2", ",", "soundfile/loop", ",", "soundfile/play", ",", "source", ",", "ui/freeze", ",", "view/color/border", ",", "view/color/contentBackground", ",", "view/color/toolbarBackground", ",", "view/color/toolbarText", ",", "<separator>", ",", "/input~", ",", "audio/panic", ",", "documentation/generate", ",", "dspStatus", ",", "init", ",", "module/view_internals", ",", "panel/open", ",", "preset/clear", ",", "preset/copy", ",", "preset/default", ",", "preset/dump", ",", "preset/interpolate", ",", "preset/post", ",", "preset/read", ",", "preset/recall", ",", "preset/store", ",", "preset/storecurrent", ",", "preset/storenext", ",", "preset/write", ",", "preset/writeagain", ",", "soundfile/direct", ",", "soundfile/open", ",", "ui/refresh" ],
@@ -2099,7 +2099,7 @@
 					"showdotfiles" : 0,
 					"textcolor" : [ 0.15, 0.15, 0.15, 1.0 ],
 					"textcolor2" : [ 0.15, 0.15, 0.15, 1.0 ],
-					"togcolor" : [ 0.501961, 0.717647, 0.764706, 1.0 ],
+					"togcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
 					"types" : [  ],
 					"underline" : 0,
 					"varname" : "module_out_fct"
@@ -2109,8 +2109,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -2126,7 +2126,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter in/module/nr @repetitions/allow 1 @type msg_int @description \"Source module instance of the mapping\" @priority 2",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "module_in_nr"
 				}
 
@@ -2134,8 +2134,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -2151,7 +2151,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter in/module/name @repetitions/allow 1 @type msg_symbol @description \"Source module of the mapping\" @priority 1",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "module_in[1]"
 				}
 
@@ -2159,8 +2159,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -2176,7 +2176,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter out/module/nr @repetitions/allow 1 @type msg_int @description \"Destination module instance of the mapping\" @priority 4",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "module_out_nr"
 				}
 
@@ -2184,8 +2184,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -2201,7 +2201,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.return directValue @type msg_float @enable 0 @description \"direct value of the mapping\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "module_out_function[1]"
 				}
 
@@ -2209,11 +2209,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 9.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-90",
 					"ignoreclick" : 1,
@@ -2224,7 +2224,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 333.0, 38.0, 27.0, 17.0 ],
 					"text" : "Clip",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -2232,11 +2232,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-92",
 					"ignoreclick" : 1,
@@ -2247,7 +2247,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 48.0, 27.0, 19.0 ],
 					"text" : "Out",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -2279,8 +2279,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -2571,13 +2571,13 @@
 ,
 									"patching_rect" : [ 210.0, 690.0, 119.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p output-meter"
@@ -2811,13 +2811,13 @@
 ,
 									"patching_rect" : [ 907.0, 629.0, 80.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p input-meter"
@@ -3651,13 +3651,13 @@
 ,
 									"patching_rect" : [ 760.0, 270.0, 78.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p parameters"
@@ -4124,13 +4124,13 @@
 ,
 									"patching_rect" : [ 110.0, 405.0, 64.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 9.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 9.0
+										"fontsize" : 9.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p display"
@@ -4643,13 +4643,13 @@
 ,
 													"patching_rect" : [ 242.0, 446.0, 52.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p envfol"
@@ -4889,13 +4889,13 @@
 ,
 													"patching_rect" : [ 290.0, 260.0, 46.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p script"
@@ -5097,13 +5097,13 @@
 ,
 													"patching_rect" : [ 25.0, 490.0, 64.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p adresses"
@@ -5507,7 +5507,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 10.0,
-													"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 													"id" : "obj-47",
 													"linecount" : 10,
 													"maxclass" : "comment",
@@ -6081,13 +6081,13 @@
 ,
 									"patching_rect" : [ 365.0, 160.0, 194.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p adress_in"
@@ -6354,13 +6354,13 @@
 ,
 													"patching_rect" : [ 105.0, 145.0, 52.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p hide"
@@ -6508,13 +6508,13 @@
 ,
 													"patching_rect" : [ 30.0, 105.0, 29.0, 19.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p rp"
@@ -6530,7 +6530,7 @@
 													"numinlets" : 0,
 													"numoutlets" : 1,
 													"outlettype" : [ "" ],
-													"patching_rect" : [ 30.0, 30.0, 73.0, 19.0 ],
+													"patching_rect" : [ 30.0, 30.0, 74.0, 19.0 ],
 													"text" : "r #0_ramp"
 												}
 
@@ -6661,13 +6661,13 @@
 ,
 									"patching_rect" : [ 180.0, 545.0, 73.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p ramp_gate"
@@ -6826,7 +6826,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 9.873845,
-													"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 													"id" : "obj-15",
 													"maxclass" : "comment",
 													"numinlets" : 1,
@@ -7130,13 +7130,13 @@
 ,
 									"patching_rect" : [ 180.0, 450.0, 345.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p clip_range"
@@ -7379,13 +7379,13 @@
 ,
 									"patching_rect" : [ 640.0, 120.0, 37.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p edit"
@@ -7787,13 +7787,13 @@
 ,
 													"patching_rect" : [ 281.0, 237.0, 45.0, 18.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p script"
@@ -8106,13 +8106,13 @@
 ,
 													"patching_rect" : [ 24.0, 462.0, 62.0, 18.0 ],
 													"saved_object_attributes" : 													{
-														"default_fontface" : 0,
 														"default_fontname" : "Verdana",
 														"fontname" : "Verdana",
 														"default_fontsize" : 10.0,
 														"globalpatchername" : "",
 														"fontface" : 0,
-														"fontsize" : 10.0
+														"fontsize" : 10.0,
+														"default_fontface" : 0
 													}
 ,
 													"text" : "p adresses"
@@ -8386,7 +8386,7 @@
 												"box" : 												{
 													"fontname" : "Verdana",
 													"fontsize" : 9.873845,
-													"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 													"id" : "obj-49",
 													"linecount" : 11,
 													"maxclass" : "comment",
@@ -8979,13 +8979,13 @@
 ,
 									"patching_rect" : [ 100.0, 155.0, 249.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Verdana",
 										"fontname" : "Verdana",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p adress_out"
@@ -9271,13 +9271,13 @@
 ,
 									"patching_rect" : [ 545.0, 460.0, 72.0, 19.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
 										"default_fontname" : "Arial",
 										"fontname" : "Arial",
 										"default_fontsize" : 10.0,
 										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p slide_gate"
@@ -10136,17 +10136,17 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
 						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
 						"default_fontsize" : 10.0,
 						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p mapper",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ]
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ]
 				}
 
 			}
@@ -10199,8 +10199,8 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 0.807843, 0.356863, 1.0 ],
-					"color" : [ 0.933333, 0.203922, 0.019608, 1.0 ],
+					"bgcolor" : [ 0.1, 0.1, 0.1, 1.0 ],
+					"color" : [ 0.8, 0.8, 0.8, 0.8 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
@@ -10216,7 +10216,7 @@
 					"presentation" : 0,
 					"presentation_rect" : [ 0.0, 0.0, 0.0, 0.0 ],
 					"text" : "jcom.parameter ramp @repetitions/allow 1 @ramp/drive scheduler @type msg_int @description \"Ramp time\"",
-					"textcolor" : [ 0.431373, 0.133333, 0.082353, 1.0 ],
+					"textcolor" : [ 0.95, 0.95, 0.95, 1.0 ],
 					"varname" : "ramp[1]"
 				}
 
@@ -10224,11 +10224,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 9.873845,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-47",
 					"ignoreclick" : 1,
@@ -10239,7 +10239,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 30.0, 332.0, 18.0 ],
 					"text" : "_________________________________________________",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -10247,11 +10247,11 @@
 , 			{
 				"box" : 				{
 					"background" : 0,
-					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"bgcolor" : [ 0.95, 0.95, 0.95, 0.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-99",
 					"ignoreclick" : 1,
@@ -10262,7 +10262,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 4.0, 23.0, 19.0, 19.0 ],
 					"text" : "In",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"textcolor" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"underline" : 0
 				}
 
@@ -10270,8 +10270,8 @@
 , 			{
 				"box" : 				{
 					"background" : 1,
-					"bgcolor" : [ 1.0, 0.678431, 0.2, 0.396078 ],
-					"bordercolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ],
+					"bgcolor" : [ 0.14902, 0.14902, 0.14902, 1.0 ],
+					"bordercolor" : [ 0.298039, 0.298039, 0.298039, 1.0 ],
 					"fontface" : 0,
 					"fontname" : "Verdana",
 					"fontsize" : 11.0,
@@ -10283,7 +10283,7 @@
 					"has_mute" : 0,
 					"has_panel" : 0,
 					"has_preview" : 0,
-					"headercolor" : [ 1.0, 0.678431, 0.2, 1.0 ],
+					"headercolor" : [ 0.2, 0.2, 0.2, 1.0 ],
 					"hidden" : 0,
 					"id" : "obj-107",
 					"ignoreclick" : 0,
@@ -10296,7 +10296,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 0.0, 600.0, 70.0 ],
 					"text" : "/editing_this_module",
-					"textcolor" : [ 0.337255, 0.356863, 0.690196, 1.0 ]
+					"textcolor" : [ 0.909804, 0.909804, 0.909804, 1.0 ]
 				}
 
 			}
