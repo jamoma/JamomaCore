@@ -13,6 +13,7 @@
 		<item name="multicast_join" type="msg_int">0</item>
 		<item name="multicast_port" type="msg_int">7500</item>
 		<item name="osc_prefix" type="msg_symbol">null</item>
+		<item name="send/active" type="msg_toggle">1</item>
 		<item name="mode" type="msg_int">0</item>
 	</preset>
 	<preset number ="2" name ="multicast">
@@ -23,6 +24,7 @@
 		<item name="multicast_join" type="msg_int">1</item>
 		<item name="multicast_port" type="msg_int">7500</item>
 		<item name="osc_prefix" type="msg_symbol">null</item>
+		<item name="send/active" type="msg_toggle">1</item> 
 		<item name="mode" type="msg_int">1</item>
 	</preset>
 	<preset number ="3" name ="broadcast">
@@ -32,7 +34,8 @@
 		<item name="multicast_ip" type="msg_symbol">224.0.0.3</item>
 		<item name="multicast_join" type="msg_int">0</item>
 		<item name="multicast_port" type="msg_int"></item>
-		<item name="osc_prefix" type="msg_symbol">null</item>
+		<item name="osc_prefix" type="msg_symbol">null</item> 
+		<item name="send/active" type="msg_toggle">1</item> 
 		<item name="mode" type="msg_int"></item>
     </preset>
 </jamoma>
