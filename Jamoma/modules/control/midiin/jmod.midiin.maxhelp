@@ -136,7 +136,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 95.0, 325.0, 54.0, 18.0 ],
+					"patching_rect" : [ 100.0, 325.0, 54.0, 18.0 ],
 					"triscale" : 0.9
 				}
 
@@ -221,7 +221,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 210.0, 200.0, 174.0, 16.0 ],
-					"text" : "/raw/voice.1/cc.1 0."
+					"text" : "/raw/voice.1/note 63 0"
 				}
 
 			}
