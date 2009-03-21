@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 22.0, 63.0, 498.0, 717.0 ],
+		"rect" : [ 25.0, 59.0, 498.0, 717.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 22.0, 63.0, 498.0, 717.0 ],
+		"defrect" : [ 25.0, 59.0, 498.0, 717.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -17,6 +17,142 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-27",
+					"linecount" : 4,
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 365.0, 185.0, 100.0, 50.0 ],
+					"text" : "/mainfolder Servo:/Users/pascalbaltazar/Music/SonsTest/RAM/"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-17",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 365.0, 160.0, 100.0, 18.0 ],
+					"text" : "loadbang"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"hidden" : 1,
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patcher" : 					{
+						"fileversion" : 1,
+						"rect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"bglocked" : 0,
+						"defrect" : [ 0.0, 0.0, 640.0, 480.0 ],
+						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+						"openinpresentation" : 0,
+						"default_fontsize" : 10.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 0,
+						"gridsize" : [ 5.0, 5.0 ],
+						"gridsnaponopen" : 0,
+						"toolbarvisible" : 1,
+						"boxanimatetime" : 200,
+						"imprint" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.160198,
+									"hidden" : 1,
+									"id" : "obj-44",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "bang" ],
+									"patching_rect" : [ 51.0, 100.0, 22.0, 17.0 ],
+									"text" : "b 1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Arial",
+									"fontsize" : 9.160198,
+									"hidden" : 1,
+									"id" : "obj-45",
+									"linecount" : 5,
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 50.0, 126.0, 108.0, 57.0 ],
+									"text" : ";\rmax launch_browser http://dvlpt.gmem.free.fr/web/static.php?page=max_externals"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"comment" : "",
+									"id" : "obj-3",
+									"maxclass" : "inlet",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 51.0, 40.0, 25.0, 25.0 ]
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-45", 0 ],
+									"hidden" : 1,
+									"midpoints" : [  ],
+									"source" : [ "obj-44", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-44", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 350.0, 79.0, 42.0, 18.0 ],
+					"saved_object_attributes" : 					{
+						"default_fontname" : "Arial",
+						"fontname" : "Arial",
+						"default_fontsize" : 10.0,
+						"globalpatchername" : "",
+						"fontface" : 0,
+						"fontsize" : 10.0,
+						"default_fontface" : 0
+					}
+,
+					"text" : "p GMU"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "input~.2" ],
 					"id" : "obj-9",
 					"lockeddragscroll" : 1,
@@ -25,7 +161,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "signal" ],
-					"patching_rect" : [ 330.0, 480.0, 150.0, 70.0 ],
+					"patching_rect" : [ 330.0, 330.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 355.0, 395.0, 150.0, 70.0 ],
 					"varname" : "input1[1]"
 				}
@@ -62,38 +198,7 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.160198,
-					"hidden" : 1,
-					"id" : "obj-44",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 356.0, 122.0, 22.0, 17.0 ],
-					"text" : "b 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.160198,
-					"hidden" : 1,
-					"id" : "obj-45",
-					"linecount" : 5,
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 355.0, 148.0, 108.0, 57.0 ],
-					"text" : ";\rmax launch_browser http://dvlpt.gmem.free.fr/web/static.php?page=max_externals"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"args" : [ "Zeq~" ],
+					"args" : [ "Zgran~eq" ],
 					"id" : "obj-24",
 					"maxclass" : "bpatcher",
 					"name" : "jmod.Zequalizer~.maxpat",
@@ -116,7 +221,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "signal" ],
-					"patching_rect" : [ 330.0, 405.0, 150.0, 70.0 ],
+					"patching_rect" : [ 330.0, 255.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 340.0, 380.0, 150.0, 70.0 ],
 					"varname" : "input1"
 				}
@@ -234,7 +339,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "Zspat~" ],
+					"args" : [ "Zgran~spat" ],
 					"id" : "obj-2",
 					"maxclass" : "bpatcher",
 					"name" : "jmod.Zspat~.maxpat",
@@ -264,7 +369,7 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "Zmod~" ],
+					"args" : [ "Zgran~mod" ],
 					"id" : "obj-6",
 					"maxclass" : "bpatcher",
 					"name" : "jmod.Zmodulation~.maxpat",
@@ -286,7 +391,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 333.0, 335.0, 150.0, 35.0 ],
+					"patching_rect" : [ 330.0, 150.0, 150.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 35.0 ],
 					"varname" : "toto"
 				}
@@ -355,7 +460,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 333.0, 257.0, 150.0, 70.0 ],
+					"patching_rect" : [ 330.0, 70.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
 					"varname" : "jmod.control.mxt"
 				}
@@ -363,6 +468,33 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-24", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-24", 1 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-1", 7 ],
 					"hidden" : 1,
@@ -526,45 +658,27 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-24", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-24", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-6", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-8", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-45", 0 ],
+					"destination" : [ "obj-15", 0 ],
 					"hidden" : 1,
 					"midpoints" : [  ],
-					"source" : [ "obj-44", 0 ]
+					"source" : [ "obj-27", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-44", 0 ],
+					"destination" : [ "obj-27", 0 ],
 					"hidden" : 1,
-					"midpoints" : [ 222.5, 66.0, 365.5, 66.0 ],
+					"midpoints" : [  ],
+					"source" : [ "obj-17", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 222.5, 67.333336, 359.5, 67.333336 ],
 					"source" : [ "obj-23", 0 ]
 				}
 
