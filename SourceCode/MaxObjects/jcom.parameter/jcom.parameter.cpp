@@ -60,61 +60,63 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// Make methods accessible for our class:
 	// Note that we can't make the bang method directly accessible here (must go through another function)
 	//	because the function pointer is in out struct, which hasn't been defined yet
-	class_addmethod(c, (method)param_notify,			"notify",			A_CANT,		0);	
-	class_addmethod(c, (method)param_dispatched,		"dispatched",		A_GIMME,		0);
-	class_addmethod(c, (method)param_int,				"int",			A_DEFLONG,	0);
-	class_addmethod(c, (method)param_float,			"float",			A_DEFFLOAT,	0);
- 	class_addmethod(c, (method)param_list,			"list",			A_GIMME,		0);
-	class_addmethod(c, (method)param_symbol,			"symbol",			A_DEFSYM,		0);
- 	class_addmethod(c, (method)param_anything,		"anything",		A_GIMME,		0);
-	class_addmethod(c, (method)param_ui_refresh,		"ui/refresh",					0);
-	class_addmethod(c, (method)param_inc,				"value/inc",		A_GIMME,		0);
-	class_addmethod(c, (method)param_dec,				"value/dec",		A_GIMME,		0);
-	class_addmethod(c, (method)param_inc,				"+",				A_GIMME,		0);
-	class_addmethod(c, (method)param_dec,				"-",				A_GIMME,		0);
+	class_addmethod(c, (method)param_notify,		"notify",		A_CANT,		0);	
+	class_addmethod(c, (method)param_dispatched,	"dispatched",	A_GIMME,	0);
+	class_addmethod(c, (method)param_int,			"int",			A_DEFLONG,	0);
+	class_addmethod(c, (method)param_float,			"float",		A_DEFFLOAT,	0);
+ 	class_addmethod(c, (method)param_list,			"list",			A_GIMME,	0);
+	class_addmethod(c, (method)param_symbol,		"symbol",		A_DEFSYM,	0);
+ 	class_addmethod(c, (method)param_anything,		"anything",		A_GIMME,	0);
+	class_addmethod(c, (method)param_ui_refresh,	"ui/refresh",				0);
+	class_addmethod(c, (method)param_inc,			"value/inc",	A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,			"value/dec",	A_GIMME,	0);
+	class_addmethod(c, (method)param_inc,			"+",			A_GIMME,	0);
+	class_addmethod(c, (method)param_dec,			"-",			A_GIMME,	0);
 	class_addmethod(c, (method)param_dump,			"dump",						0);
 	class_addmethod(c, (method)param_bang,			"bang",						0);
-	class_addmethod(c, (method)param_assist,			"assist",			A_CANT,		0); 
+	class_addmethod(c, (method)param_assist,		"assist",		A_CANT,		0); 
 #ifndef JMOD_MESSAGE
-	class_addmethod(c, (method)param_reset,			"reset",						0);
+	class_addmethod(c, (method)param_reset,			"reset",					0);
 #endif
-	class_addmethod(c, (method)param_setcallback,		"setcallback",	A_CANT,		0);
+	class_addmethod(c, (method)param_setcallback,	"setcallback",	A_CANT,		0);
 
 	jcom_core_subscriber_classinit_extended(c, attr, true);		// define a name attr
 	
 	// ATTRIBUTE: ramp stuff
-	jamoma_class_attr_new(c,		"ramp/drive", 		_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
+	jamoma_class_attr_new(c,		"ramp/drive",				_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
 	// TODO: CLASS_ATTR_ENUM for	"ramp/drive" should be autopopulated same way that "ramp/function" is.
-	CLASS_ATTR_ENUM(c,				"ramp/drive",		0, "async none queue scheduler ");
+	CLASS_ATTR_ENUM(c,				"ramp/drive",				0, "async none queue scheduler ");
 	
-	jamoma_class_attr_new(c,		"ramp/function", 	_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
-	CLASS_ATTR_ENUM(c,				"ramp/function",	0, functions);
+	jamoma_class_attr_new(c,		"ramp/function",			_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
+	CLASS_ATTR_ENUM(c,				"ramp/function",			0, functions);
 	
 
 	// ATTRIBUTE: type - options are msg_generic, msg_int, msg_float, msg_symbol, msg_toggle, msg_list, msg_none
-	jamoma_class_attr_new(c,		"type", 			_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
+	jamoma_class_attr_new(c,		"type",						_sym_symbol, (method)param_attr_settype, (method)param_attr_gettype);
 #ifdef JMOD_MESSAGE
-	CLASS_ATTR_ENUM(c,				"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic msg_none");
 #else
-	CLASS_ATTR_ENUM(c,				"type",	0,			"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
+	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
 #endif
 	
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
-	jamoma_class_attr_new(c,		"ui/freeze", 		_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
-	CLASS_ATTR_STYLE(c,			"ui/freeze",		0,	"onoff");
+	jamoma_class_attr_new(c,		"ui/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
+	CLASS_ATTR_STYLE(c,				"ui/freeze",				0,	"onoff");
 	
 	// ATTRIBUTE: stepsize - how much increment or decrement by
-	jamoma_class_attr_new(c,		"value/stepsize", 	_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
+	jamoma_class_attr_new(c,		"value/stepsize",			_sym_float32, (method)param_attr_setstepsize, (method)param_attr_getstepsize);
 
 	// ATTRIBUTE: priority - used to determine order of parameter recall in a preset
-	jamoma_class_attr_new(c,		"priority", 		_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
+	jamoma_class_attr_new(c,		"priority",					_sym_long, (method)param_attr_setpriority, (method)param_attr_getpriority);
 
 	// ATTRIBUTE: value
-	jamoma_class_attr_array_new(c,	"value", 		_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
+	jamoma_class_attr_array_new(c,	"value",					_sym_atom, LISTSIZE, (method)param_attr_setvalue, (method)param_attr_getvalue);
 
 	// ATTRIBUTE: value/default
-	jamoma_class_attr_array_new(c,	"value/default", _sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
+	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
+	jamoma_class_attr_new(c,		"readonly",					_sym_long, NULL, (method)param_attr_getreadonly);
+	
 	// ATTRIBUTES: dataspace stuff
 	jamoma_class_attr_new(c,		"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
 	CLASS_ATTR_ENUM(c,				"dataspace",				0, dataspaces);
@@ -584,6 +586,23 @@ t_max_err param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv
 {
 	if(argc && argv)
 		x->attr_priority = atom_getlong(argv);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err param_attr_getreadonly(t_param *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setlong(*argv, x->attr_readonly);
+	return MAX_ERR_NONE;
+}
+
+t_max_err param_attr_setreadonly(t_param *x, void *attr, long argc, t_atom *argv)
+{
+	if(argc && argv)
+		x->attr_readonly = atom_getlong(argv);
 	return MAX_ERR_NONE;
 }
 

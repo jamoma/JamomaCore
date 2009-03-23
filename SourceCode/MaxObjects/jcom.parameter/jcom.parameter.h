@@ -46,7 +46,8 @@ typedef struct _param{
 	long			attr_ui_freeze;
 	float			attr_stepsize;				///< ATTRIBUTE: amount to increment or decrement by
 	long			attr_priority;				///< ATTRIBUTE: does this parameter have a priority over other parameters when a preset is recalled?
-//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
+	long			attr_readonly;
+	//	Atom			name_atom;					///< the above name, but cached as an atom for quick referencing
 	RampUnit*		ramper;						///< rampunit object to perform ramping of input values
 	TTPtr			ui_qelem;					///< the output to the connected ui object is "qlim'd" with this qelem
 	TTPtr			ramp_qelem;					///< allows us to defer calls to setup a rampunit
@@ -192,6 +193,8 @@ t_max_err	param_attr_getstepsize(t_param *x, void *attr, long *argc, t_atom **ar
 t_max_err	param_attr_setstepsize(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getpriority(t_param *x, void *attr, long *argc, t_atom **argv);
 t_max_err	param_attr_setpriority(t_param *x, void *attr, long argc, t_atom *argv);
+t_max_err	param_attr_getreadonly(t_param *x, void *attr, long *argc, t_atom **argv);
+t_max_err	param_attr_setreadonly(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv);
 t_max_err	param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv);
 t_max_err	param_attr_getdefault(t_param *x, void *attr, long *argc, t_atom **argv);
