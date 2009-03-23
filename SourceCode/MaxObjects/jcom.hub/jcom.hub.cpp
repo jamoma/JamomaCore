@@ -94,8 +94,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	class_addmethod(c, (method)hub_edclose,				"edclose",	A_CANT, 0);		// notification of closing the /getstate text editor window
 
-	class_addmethod(c, (method)hub_script,				"script",	A_GIMME, 0);	// patcher scripting for the module
-	
 	CLASS_ATTR_SYM(c,		"name",				0,	t_hub,	osc_name);				// instance name (osc)
 	CLASS_ATTR_ACCESSORS(c,	"name",				NULL,	hub_attr_setname);
 
