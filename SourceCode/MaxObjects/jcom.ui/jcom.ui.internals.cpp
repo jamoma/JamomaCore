@@ -23,6 +23,7 @@ void ui_color_border(t_ui *obj, t_symbol *msg, long argc, t_atom *argv);
 void ui_internals_createColors(t_ui* obj)
 {
 	uiInternalObject	*anObject;
+	t_atom				a[2];
 	
 	anObject = new uiInternalObject("jcom.parameter", "view/color/contentBackground", obj->box.b_patcher, "msg_list", "none", "The background color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_contentBackground, (t_object*)obj);
@@ -39,6 +40,14 @@ void ui_internals_createColors(t_ui* obj)
 	anObject = new uiInternalObject("jcom.parameter", "view/color/border", obj->box.b_patcher, "msg_list", "none", "The border color of the module in the format RGBA where values range [0.0, 1.0].", NULL, NULL, NULL, NULL);
 	anObject->setAction((method)ui_color_border, (t_object*)obj);
 	hashtab_store(obj->hash_internals, gensym("view/color/border"), (t_object*)anObject);
+	
+	anObject = new uiInternalObject("jcom.parameter", "view/size", obj->box.b_patcher, "msg_list", "none", "The size of the module's UI.", NULL, NULL, NULL, NULL);
+	//anObject->setAction((method)ui_color_border, (t_object*)obj);
+	anObject->setReadonly(true);
+	atom_setlong(a+0, obj->box.b_patching_rect.width);
+	atom_setlong(a+1, obj->box.b_patching_rect.height);
+	anObject->setValue(2, a);
+	hashtab_store(obj->hash_internals, gensym("view/size"), (t_object*)anObject);
 }
 
 

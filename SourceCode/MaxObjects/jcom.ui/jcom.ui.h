@@ -177,5 +177,17 @@ public:
 		if(theObject)
 			object_attr_setsym(theObject, _sym_name, gensym(newName));
 	}
+	
+	void setReadonly(bool value)
+	{
+		if(theObject)
+			object_attr_setlong(theObject, _sym_readonly, value);
+	}
+
+	void setValue(AtomCount ac, AtomPtr av)
+	{
+		if(theObject)
+			object_attr_setvalueof(theObject, _sym_value, ac, av);
+	}
 };
 

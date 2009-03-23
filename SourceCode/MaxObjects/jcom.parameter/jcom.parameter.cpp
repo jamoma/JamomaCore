@@ -619,7 +619,13 @@ t_max_err param_attr_getvalue(t_param *x, void *attr, long *argc, t_atom **argv)
 t_max_err param_attr_setvalue(t_param *x, void *attr, long argc, t_atom *argv)
 {
 	x->list_size = argc;
-	sysmem_copyptr(argv, x->atom_list, argc * sizeof(t_atom));
+	//sysmem_copyptr(argv, x->atom_list, argc * sizeof(t_atom));
+	//memcpy(x->atom_list, argv, argc * sizeof(t_atom));
+	// the two calls above fail to copy the atoms ???
+	for (int i=0; i<argc; i++) {
+		x->atom_list[i].a_type = argv[i].a_type;
+		x->atom_list[i].a_w.w_long = argv[i].a_w.w_long;
+	}
 	return MAX_ERR_NONE;
 }
 
