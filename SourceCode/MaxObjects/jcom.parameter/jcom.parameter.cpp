@@ -115,7 +115,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// ATTRIBUTE: value/default
 	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
-	jamoma_class_attr_new(c,		"readonly",					_sym_long, NULL, (method)param_attr_getreadonly);
+	jamoma_class_attr_new(c,		"readonly",					_sym_long, (method)param_attr_setreadonly, (method)param_attr_getreadonly);
 	
 	// ATTRIBUTES: dataspace stuff
 	jamoma_class_attr_new(c,		"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
