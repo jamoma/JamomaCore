@@ -344,6 +344,7 @@ void 		hub_presets_post(t_hub *x, t_symbol*, long, t_atom*);
 
 void hub_getstate(t_hub *x);
 void hub_edclose(t_hub *x, char **text, long size);
+void hub_script(t_hub* x, SymbolPtr s, AtomCount ac, AtomPtr av);
 
 void hub_preset_interface(t_hub* x);
 t_max_err hub_attr_setname(t_hub* x, t_object* attr, long argc, t_atom* argv);
