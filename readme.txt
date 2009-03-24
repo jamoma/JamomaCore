@@ -2,20 +2,18 @@ The Jamoma Tools folder contains scripts which perform various essential tasks f
 
 
 BUILDING THE SOURCE CODE
-This build.rb Ruby script builds all of the C/C++ code required for Jamoma's Framework and Externals.
+This "all.sh" script builds all of the C/C++ code required for Jamoma's Framework and Externals.
 
 To use the script:
-build.rb <required:configuration> <optional:clean>
+sh all.sh <required:configuration> <optional:clean>
 
 (close Max before doing that!)
 
 If you want a nice, clean release version, try this: 
-	./build.rb Deployment clean
-	(under cygwin you have to try : ruby ./build.rb Deployment clean)
+	sh all.sh Deployment clean (or Release clean)
 
 or a developer release (without cleaning), try this: 
-	./build.rb Development
-	(under cygwin you have to try : ruby ./build.rb Development clean)
+	sh all.sh Development (or Debug)
 
 If you get an error such as:
 	./jamomalib.rb:12:in `require': no such file to load -- osc (LoadError)
