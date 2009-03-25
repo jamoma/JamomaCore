@@ -2,7 +2,7 @@ The Jamoma Tools folder contains scripts which perform various essential tasks f
 
 
 BUILDING THE SOURCE CODE
-This "all.sh" script builds all of the C/C++ code required for Jamoma's Framework and Externals.
+This "all.sh" script in the /buildtools folder builds all of the C/C++ code required for Jamoma's Framework and Externals.
 
 To use the script:
 sh all.sh <required:configuration> <optional:clean>
@@ -23,7 +23,7 @@ If you get an error such as:
 
 you have to update rosc:
 
-1. just go to the rosc folder which is inside the Tools folder
+1. just go to the rosc folder which is inside the Tools/library folder
 	cd rosc
 2. execute:
 	sudo ruby setup.rb
@@ -39,7 +39,8 @@ The installer.rb Ruby script collects all of the files it needs and then generat
 If you want to make an installer, then follow these instructions:
 1. do a clean deployment build (above)
 2. all zips should be unzipped (3rd-party externs) too
-3. ./installer.rb
+3. go to /installertools folder
+4. ./installer.rb
 
 --------------------------------------------------
 
@@ -71,5 +72,4 @@ The script also looks in every folder of the Modules folder so that module tests
 DEBUGGING EXTERNALS ON THE MAC PLATFORM
 
 The Max Runtime does not use the Max5 file preferences. The AddJamomaPath.maxpat is a handy utility for temporarily adding the Jamoma folder and all subfolders to the search path so that externals, components, algorithms modules and help files can be accessed in Max Runtime, e.g. when running the debugger and Max Runtime in Xcode on the OSX platform.
-
 
