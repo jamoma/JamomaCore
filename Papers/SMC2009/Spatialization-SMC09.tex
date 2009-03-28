@@ -61,39 +61,66 @@ about 150-200 words.
 
 \section{Introduction}\label{sec:introduction}
 
-This template includes all the information about formatting manuscripts for the SMC 2009. Please follow these 
-guidelines to give the final proceedings a uniform look. If you have any questions, please contact the conference Programme Chairs.
 
-This template (in Word and Latex formats) can be downloaded from the SMC 2009 web site 
-(\url{http://smc2009.smcnetwork.org/}). (Some users may recognize that this template is an adaptation of the ISMIR template.)
+\section{Taxonomy of Spatialization Modules in Jamoma}
 
-%\section{Pdflatex versus Latex/dvips}
-%You can prepare a PDF file in two ways: either directly with pdflatex (using
-%Template.tex) or with latex, dvips, and ps2pdf (using Template\_ps.tex). The
-%latter method allows you to include Postscript images, while the former
-%works nicely with PNG or PDF images, just to name two examples.
+\subsection{Rendering Modules}
 
-\section{Page Size}\label{sec:page_size}
+\subsubsection{Ambisonics}
+ \cite{Schacher:2006ambi_max}
+\subsubsection{VBAP}
+  \cite{Pulkki:2000vbap_max}
+\subsubsection{DBAP}
+ \cite{dbapICMC09}
+\subsubsection{ViMiC}
+\cite{Peters:2008vimic}
+\subsubsection{binaural}
+?? Does anybody has a working module for this ?
 
-The proceedings will be printed on letter-size paper (21.6 x 27.9 cm or
-8.5" x 11").
-All material on each page should fit within a rectangle of 7" x 9" (17.78~cm x 22.86~cm), 
-centered on the page, beginning 1'' (2.54~cm)
-from the top of the page and ending with 1'' (2.54~cm) from the
-bottom. The left and right margins should be 0.75'' (1.9~cm).
-The text should be in two 3.3" (8.4~cm) columns with a 0.4'' (1~cm) gutter.
-All {\it text} must be in a two-column format. Text must be
-{\it \textbf{fully justified}}.
+\subsection{Control Modules}
+
+\subsubsection{HoloEdit Modules}
+-  holo.transport\\
+-  holo.reccontrol\\  
+paper ?
+\subsubsection{Geotransforms}
+- scene3D
+
+\subsection{mappings}
+- boids3D 
+- 
 
 
-\section{Typeset Text}\label{sec:typeset_text}
+\subsection{Effect Modules}
 
-\subsection{Normal or Body Text}\label{subsec:body}
+\subsubsection{Doppler}
 
-Please use a 10pt (point) Times font, or other Roman font with serifs, as close as possible in appearance to Times. 
-Please use sans-serif or non-proportional fonts only for special purposes, such as distinguishing source code text.
+\subsubsection{Airfilter}
+ 
+\subsubsection{RollOff}
 
-The first paragraph in each section should not be indented, but all other paragraphs should be.
+\subsubsection{Reverb}  
+
+\subsection{Utilities}
+
+\subsubsection{loudspeaker setup and correction}
+-sur.speaker.setup             \\
+-sur.distamp~   \hspace{2cm}SPL compensation\\
+-sur.speaker.delay~ \hspace{2cm}delay compensation        \\
+
+\subsubsection{multichannel tools}
+- meters\\
+- aux \\
+
+\section{HoloEdit Bridge}
+
+   
+\section{SpatDIF}
+
+
+
+
+\section{Style Stuff - delme}
 
 \subsection{Title and Authors}
 
@@ -105,38 +132,6 @@ put the addresses, evenly spaced, under each authors' name.
 Reviews are double-blind. {\it \textbf{Author information should be removed from this page in initial submissions}}, 
 and only added later by the authors when sending camera-ready versions.
 
-\subsection{Page Numbering, Headers and Footers}
-
-Do not include headers, footers or page numbers in your submission.
-These will be added when the publications are assembled.
-
-\section{First Level Headings}
-
-First level headings are in Times 10pt bold, centered with 1 line
-of space above the section head, and 1/2 space below it.  For a section
-header immediately followed by a subsection header, the space should be merged.
-
-\subsection{Second Level Headings}
-
-Second level headings are in Times 10pt bold, flush left, with 1 line of
-space above the section head, and 1/2 space below it. The first letter of
-each significant word is capitalised.
-
-\subsubsection{Third and Further Level Headings}
-
-Third level headings are in Times 10pt italic, flush left, with 1/2 line
-of space above the section head, and 1/2 space below it. The first letter
-of each significant word is capitalised.
-
-Using more than three levels of headings is highly discouraged.
-
-\section{Footnotes and Figures}
-
-\subsection{Footnotes}
-
-Indicate footnotes with a number in the text.\footnote{This a footnote}
-Use 8pt type for footnotes. Place the footnotes at the bottom of the page
-on which they appear. Precede the footnote with a 0.5pt horizontal rule.
 
 \subsection{Figures, Tables and Captions}
 
@@ -177,34 +172,12 @@ hello SMC  & 1073 \\
 \label{fig:example}
 \end{figure}
 
-\section{Equations}
 
-Equations should be placed on separated lines and numbered.
-The number should be on the right side, in parentheses.
+\section{Conclusion}
+A conclusion is the place when you get tired of thinking. 
 
-\begin{equation}
-E=mc^{2}
-\end{equation}
-
-\section{Citations}
-
-All bibliographical references should be listed at the
-end, inside a section named ``REFERENCES''.
-All references listed should be cited in the text.
-When refering to a document, type the number in
-square brackets~\cite{Author:00}.
-
-\begin{thebibliography}{citations}
-
-\bibitem {Author:00} Author, E.
-``The title of the conference paper'',
-{\it Proceedings of the 5th Sound and Music Computing Conference}, 
-Berlin, Germany, 2008.
-
-\bibitem{Someone:02} Someone, A.
-{\it  Title of the book}.
-Editorial Acme, Barcelona, 2004.
-
-\end{thebibliography}
-
+\section{Acknowledgment}
+\bibliographystyle{abbrv}  %\bibliographystyle{natbib}% ama, nar, alpha, plain, chicago,{plainnat}  abbrv, siam   
+\small
+\bibliography{smc09}
 \end{document}
