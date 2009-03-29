@@ -167,6 +167,9 @@ This attribute is completely hidden from the user and is not directly accessible
 
 example message:     [gain -6 db]
 
+The way the delay~ object works in this example is an example of the override unit.  In this case the native/active units are samples, but the override is ms.
+
+
 
 
 
@@ -220,6 +223,32 @@ The problem is that there are currently 2 uses for that second outlet of which I
 4:34 PM
  
 2. it controls some part of the display for which the possibly deferred or otherwise treated first outlet is insufficient (to refresh of calculate filtergraph~ coefficients or something).  This suggests it should stay in the display unit.
+
+
+\subsection{Mappers}
+
+Nils:
+
+I can see that one would like to work for mappings with units independently from whatever unit is currently active.....but we can work on that later if necessary ?
+
+Tim:
+
+We had a good discussion about this in Albi (but it isn't written down anywhere, naturally).  If a module wishes to work in a different unit, then it is incumbent upon that module to do its own work.  So a mapping module can query a parameter to find out what dataspace it has, and what the active unit is.  Then it can use a jcom.dataspace object to do whatever mapping is requested by the user.
+
+Nils:
+
+that seems easy to implement without breaking too much. However, you may end up with a chain of unit conversions such as from unitA to unitB to unitC to unitA that only causes rounding errors and processing....but that's probably only a theoretical issue.
+
+Tim:
+
+I have been more concerned about the efficiency than about rounding errors, but theoretically both are possible.  Fortunately there will be no conversions unless you ask for them.  
+
+It may be possible in the future to optimize as well.  For example, if the graph can be detected as containing unitA to unitB to unitC to unitA then it could optimize itself to just convert directly between the bounding units.  As with any such optimization, I would place it as something to be done in the distant future -- after we have a fully functioning and field tested system in place.
+
+
+\subsection{More Use Cases}
+
+Another use case (or set of them) is what happens when reading in presets with no unit defined.  I'm not sure if there are good examples or not.  Probably there are in the spatialization modules somewhere.
 
 
 
