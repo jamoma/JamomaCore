@@ -1,0 +1,233 @@
+%
+%  untitled
+%
+%  Created by Tim Place on 2009-03-24.
+%  Copyright (c) 2009 __MyCompanyName__. All rights reserved.
+%
+\documentclass[]{article}
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+
+% Setup for fullpage use
+\usepackage{fullpage}
+
+% Uncomment some of the following if you use the features
+%
+% Running Headers and footers
+%\usepackage{fancyhdr}
+
+% Multipart figures
+%\usepackage{subfigure}
+
+% More symbols
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{latexsym}
+
+% Surround parts of graphics with box
+\usepackage{boxedminipage}
+
+% Package for including code in the document
+\usepackage{listings}
+
+% If you want to generate a toc for each chapter (use with book)
+\usepackage{minitoc}
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+%\newif\ifpdf
+%\ifx\pdfoutput\undefined
+%\pdffalse % we are not running PDFLaTeX
+%\else
+%\pdfoutput=1 % we are running PDFLaTeX
+%\pdftrue
+%\fi
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\else
+\usepackage{graphicx}
+\fi
+\title{DataspaceLib -- Functional Specification}
+\author{ Timothy Place }
+
+\date{2009-03-29}
+
+\begin{document}
+
+\ifpdf
+\DeclareGraphicsExtensions{.pdf, .jpg, .tif}
+\else
+\DeclareGraphicsExtensions{.eps, .jpg}
+\fi
+
+\maketitle
+
+
+\begin{abstract}
+\end{abstract}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Overview}
+
+The \textbf{DataspaceLib} is a library within the Jamoma environment for performing conversions between data whose values may be represented in different forms or units.  The DataspaceLib is not used directly by end users in Max, but rather is integrated into objects that need its services.  For example, the jcom.dataspace object can be used to do simple conversions and the jcom.parameter object can access the DataspaceLib internally to allow parameter values that are specified in many different units.
+
+This spec is far from complete.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Use Cases}
+
+\subsection{Case 1: Prometheus and the Temperature of Fire}
+
+Prometheus, having stolen fire from the gods wants to measure how hot the fire is and then convert between various temperature units (Kelvin, Celsius, Fahrenheit).  He needs to convert between temperatures simply and directly just using jcom.dataspace.
+
+
+\subsection{Case 2: Echo the Nymph}
+
+When Hera curses Echo she needs to be able to set the amount of time for the echo.  Hera wants to be able to control the delay time of the echo in different time units: seconds, milliseconds, samples, Hertz.
+
+
+\subsection{Case 3: Brita the Filterer}
+
+Brita needs to have a filter module.  The parameters of the filter in the filter module are frequency, q, and gain.  They need to be displayed and controlled using a filtergraph~ object and number boxes or sliders.  The frequency and gain both must be specifiable in various units.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Data Flow}
+
+\subsection{DataspaceLib}
+
+The DataspaceLib itself is already designed and implemented, so there is not a compelling need to create a blueprint for it here.
+
+
+
+\subsection{Integration with jcom.parameter}
+
+The jcom.parameter (which includes jcom.message for all intents and purposes) will have the following attributes:
+
+
+\subsubsection{@dataspace}
+
+Define the dataspace, which in turn determines what units are available.
+
+
+
+
+\subsubsection{@unit/active}
+
+This is the primary input and output unit for the module/parameter.
+
+Default value is the neutral unit of the dataspace.
+
+active unit is applied to presets which are saved as well 
+  (and the unit is always written into the file)
+
+implies that the cuelist and mappers will always use the active unit
+
+Changing the active unit dynamically during runtime may have unintended side-effects.  So it might be that we wish to consider this attribute readonly...
+
+
+\subsubsection{@unit/native}
+
+This is the internal unit used to send values to the algorithm.
+
+Default value is the value of @unit/active.
+
+This attribute is readonly -- meaning that it is set by the author of a module at the time that the module is created, and cannot be changed on-the-fly at runtime.
+
+
+\subsubsection{@unit/display}
+
+This is the unit used to communicate with the UI of the module (number, slider, etc).
+
+Default value is the value of @unit/active.
+
+This attribute might be changed through an additional inlet/outlet to jcom.parameter?
+
+
+\subsubsection{@unit/override}
+
+This is a very special unit, which is used when there is input from the user via a message, and that message contains a unit which is not the active unit.  In this case the specified unit of the message (the override unit) is used temporarily to drive the parameter.
+
+Default value is the value of @unit/active.
+
+This attribute is completely hidden from the user and is not directly accessible in any way.
+
+example message:     [gain -6 db]
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Open Issues}
+
+\subsection{Integration with jcom.parameter}
+
+\subsubsection{Inlets and Outlets}
+
+The problem is that there are currently 2 uses for that second outlet of which I'm aware:
+4:33 PM
+ 
+1. it controls something in the algorithm directly (which suggests native unit)
+4:34 PM
+ 
+2. it controls some part of the display for which the possibly deferred or otherwise treated first outlet is insufficient (to refresh of calculate filtergraph~ coefficients or something).  This suggests it should stay in the display unit.
+
+
+ I am wondering now if we just need a whole bunch of outlets, one for each type or something?  (Nils does not like this)
+
+
+
+
+\subsection{The conversion to native unit: jcom.parameter or jcom.in?}
+
+Nils Asks the following:
+
+The native unit, which goes to the algorithm....  this only appears at the jcom.in ?
+
+I think towards a MVC it makes sense to dedicate the active unit to the jalg - means that it only appears at the output of jcom.in
+
+
+Tim Responds:
+
+In general, I don't think the MVC thing will cause us any grief because the algorithm and the parameters are all together in the model.  The one that is trickier is the display because there could be multiple views -- but I think we should play ostrich and stick our heads in the sand on that for now.
+4:31 PM
+ 
+Interesting thought about where the actual code goes though.  In the current architecture it does make sense that the active->native conversion would be located in the jcom.in, which I hadn't considered before.
+4:31 PM
+ 
+I think it will make more sense in the future (MVC) to keep it in the parameter though.
+
+And I think that this discussion about the MVC might clarify your previous question, and that yes the 2nd outlet of jcom.parameter should be spitting out the native unit
+
+The problem is that there are currently 2 uses for that second outlet of which I'm aware:
+4:33 PM
+ 
+1. it controls something in the algorithm directly (which suggests native unit)
+4:34 PM
+ 
+2. it controls some part of the display for which the possibly deferred or otherwise treated first outlet is insufficient (to refresh of calculate filtergraph~ coefficients or something).  This suggests it should stay in the display unit.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{plain}
+\bibliography{}
+\end{document}
