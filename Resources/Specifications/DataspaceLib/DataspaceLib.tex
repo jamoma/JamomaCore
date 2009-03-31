@@ -27,6 +27,7 @@
 
 % Surround parts of graphics with box
 \usepackage{boxedminipage}
+\usepackage{hyperref}
 
 % Package for including code in the document
 \usepackage{listings}
@@ -104,6 +105,8 @@ Brita needs to have a filter module.  The parameters of the filter in the filter
 \subsection{Case 4: Lenny the +10dB producer}
 Lenny, a successful producer from San Francisco, doesn't like midi numbers and feels more comfortable with dB (especially with +10 dB). Therefore he wants to change globally all gain UI elements in Jamoma  (knobs, textslider, numberboxes) from default Jamoma-MIDI to dB. 
 
+\subsection{Case 5: Jean Luc and the final frontier}
+Jean Luc has a mission: space - the final frontier. He navigates sounds through a three dimensional cartesian room. Sometimes, especially after a bottle of wine from the Galliac region, canards from heaven appear and spinning spherically around his head. In these moments, he would like to describe his sonic experience in a similar way - with spherical coordinates. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -124,7 +127,7 @@ The jcom.parameter (which includes jcom.message for all intents and purposes) wi
 
 Define the dataspace, which in turn determines what units are available.
 
-
+This attribute should be readonly (see section \ref{sec:unit/native}), but we don't have a way right now to control it. 
 
 
 \subsubsection{@unit/active}
@@ -141,7 +144,7 @@ implies that the cuelist and mappers will always use the active unit
 Changing the active unit dynamically during runtime may have unintended side-effects.  So it might be that we wish to consider this attribute readonly...
 
 
-\subsubsection{@unit/native}
+\subsubsection{@unit/native}    \label{sec:unit/native}
 
 This is the internal unit used to send values to the algorithm.
 
