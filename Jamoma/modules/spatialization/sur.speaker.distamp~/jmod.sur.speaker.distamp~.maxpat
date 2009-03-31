@@ -73,6 +73,7 @@
 					"candicane8" : [ 0.027451, 0.447059, 0.501961, 1.0 ],
 					"ghostbar" : 50,
 					"id" : "obj-4",
+					"ignoreclick" : 1,
 					"maxclass" : "multislider",
 					"numinlets" : 1,
 					"numoutlets" : 2,
@@ -80,7 +81,7 @@
 					"patching_rect" : [ 5.0, 25.0, 288.0, 35.0 ],
 					"peakcolor" : [ 0.498039, 0.498039, 0.498039, 1.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 10.0, 25.0, 280.0, 40.0 ],
+					"presentation_rect" : [ 3.0, 22.0, 293.0, 44.0 ],
 					"setminmax" : [ 0.0, 1.0 ],
 					"size" : 5,
 					"slidercolor" : [ 0.419608, 0.419608, 0.419608, 1.0 ],
@@ -192,7 +193,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 2,
 					"numoutlets" : 2,
-					"outlettype" : [ "dump", "" ],
+					"outlettype" : [ "", "" ],
 					"patching_rect" : [ 210.0, 305.0, 196.0, 19.0 ],
 					"text" : "jalg.sur.speaker.distamp~"
 				}
@@ -310,12 +311,13 @@
 			}
 , 			{
 				"box" : 				{
-					"has_mute" : 1,
+					"has_bypass" : 1,
 					"id" : "obj-28",
 					"maxclass" : "jcom.ui",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
+					"prefix" : "audio",
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
 					"text" : "/editing_this_module"
@@ -324,15 +326,6 @@
 			}
  ],
 		"lines" : [ 			{
-				"patchline" : 				{
-					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
-				}
-
-			}
-, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
@@ -353,15 +346,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-13", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-5", 0 ]

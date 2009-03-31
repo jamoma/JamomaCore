@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 475.0, 68.0, 686.0, 568.0 ],
+		"rect" : [ 281.0, 52.0, 686.0, 568.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 475.0, 68.0, 686.0, 568.0 ],
+		"defrect" : [ 281.0, 52.0, 686.0, 568.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 10.0,
@@ -116,12 +116,26 @@
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
+									"id" : "obj-2",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 148.0, 134.0, 70.0, 19.0 ],
+									"text" : "prepend set"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
 									"id" : "obj-4",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "clear" ],
-									"patching_rect" : [ 392.0, 117.0, 42.0, 19.0 ],
+									"patching_rect" : [ 52.0, 101.0, 42.0, 19.0 ],
 									"text" : "t clear"
 								}
 
@@ -135,7 +149,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 394.0, 91.0, 114.0, 19.0 ],
+									"patching_rect" : [ 51.0, 69.0, 114.0, 19.0 ],
 									"text" : "route /numSpeakers"
 								}
 
@@ -149,7 +163,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 50.0, 100.0, 294.0, 19.0 ],
+									"patching_rect" : [ 148.0, 97.0, 294.0, 19.0 ],
 									"text" : "jcom.position2ambimonitor @prefix speaker @radius 10"
 								}
 
@@ -180,6 +194,15 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
+									"destination" : [ "obj-12", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-1", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-18", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
@@ -207,10 +230,10 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-12", 0 ],
+									"destination" : [ "obj-2", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
-									"source" : [ "obj-14", 0 ]
+									"source" : [ "obj-12", 0 ]
 								}
 
 							}
@@ -219,7 +242,7 @@
 									"destination" : [ "obj-18", 0 ],
 									"hidden" : 0,
 									"midpoints" : [  ],
-									"source" : [ "obj-12", 0 ]
+									"source" : [ "obj-2", 0 ]
 								}
 
 							}
@@ -229,10 +252,10 @@
 					"patching_rect" : [ 35.0, 211.0, 55.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0
 					}
@@ -279,8 +302,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 315.0, 300.0, 43.0 ],
-					"text" : "This module adjust amplitude of speakers according to distance from sweet spot, so that normalized amplitude correction is proportional to distance."
+					"patching_rect" : [ 255.0, 321.0, 310.0, 43.0 ],
+					"text" : "This module adjust amplitude of speakers according to distance from central listening position, so that normalized amplitude correction is proportional to distance."
 				}
 
 			}
@@ -294,7 +317,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 255.0, 360.0, 300.0, 55.0 ],
+					"patching_rect" : [ 256.0, 378.0, 300.0, 55.0 ],
 					"text" : "Such amplitude correction is performed in the ambipan~ Max external for ambisonic panning made by A.Sedes, B.Courribet and J.B.Thiebaut at CICM Université Paris8, Maison des Sciences de l'Homme Paris Nord."
 				}
 
@@ -789,10 +812,10 @@
 					"patching_rect" : [ 35.0, 175.0, 82.0, 19.0 ],
 					"saved_object_attributes" : 					{
 						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
 						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
+						"default_fontname" : "Verdana",
 						"globalpatchername" : "",
+						"default_fontsize" : 10.0,
 						"fontface" : 0,
 						"fontsize" : 10.0
 					}
@@ -854,7 +877,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
-					"patching_rect" : [ 35.0, 145.0, 37.0, 19.0 ],
+					"patching_rect" : [ 35.0, 144.0, 37.0, 19.0 ],
 					"triscale" : 0.9
 				}
 
@@ -897,13 +920,31 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 360.0, 155.0, 175.0, 31.0 ],
+					"patching_rect" : [ 358.0, 148.0, 175.0, 31.0 ],
 					"text" : "(Audio need to be running for matrix~ to ramp to new values)"
 				}
 
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 279.5, 227.0, 264.5, 227.0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 44.5, 202.0, 264.5, 202.0 ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-48", 0 ],
 					"hidden" : 1,
@@ -945,24 +986,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-19", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 279.5, 227.0, 264.5, 227.0 ],
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-5", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 44.5, 202.0, 264.5, 202.0 ],
-					"source" : [ "obj-8", 0 ]
 				}
 
 			}
