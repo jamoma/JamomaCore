@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='pan' type='msg_float' priority='0'>0.5</item>
+    <item name='pan' type='msg_float' priority='0'>0.0</item>
     <item name='length' type='msg_float' priority='0'>1000</item>
     <item name='capture' type='msg_toggle' priority='0'>0</item>
     <item name='audio/mute' type='msg_toggle' priority='0'>1</item>
