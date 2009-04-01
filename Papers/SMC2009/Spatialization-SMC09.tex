@@ -11,7 +11,16 @@
 \usepackage{smc2009,amsmath}
 % To use when using pdflatex
 \usepackage{graphicx}
-\usepackage{url}
+\usepackage{url}     
+\usepackage{hyperref}   
+      
+\newenvironment{packed_item}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
 % To use when using latex, dvips and ps2pdf
 % \usepackage[dvips]{graphicx}
 
@@ -60,6 +69,24 @@ about 150-200 words.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
+keywords: spatialization, adaptation, site-specific, Ambisonics, 
+
+Paradigms:
+\begin{packed_item}
+\item {separate render and control layer}
+\item {Plug-In structure: exchangeable renderer and interface components}
+\item {customizable to accommodate for different technical and acoustical conditions}
+\item {allowing for external control e.g. through MIDI or OSC}
+\item {present management}
+\item {sound scene visualization}   
+\item {binaural rendering for headphone listening}
+\item {multichannel recording possibility}  
+\end{packed_item}	
+
+\subsection{Frameworks for Spatialization}
+Spatialisateur (Spat) \cite{JotPhD}, in development at IRCAM and Espaces Nouveaux since 1991, is a library of spatialization algorithms, including VBAP, first-order Ambisonics and stereo techniques (XY, MS, ORTF) for up to 8 loudspeakers. It can also reproduce 3D sound for headphones (binaural) or 2/4 loudspeakers (transaural). A room model is included to create artificial early reflections and reverb controlled by a perceptual-based user interface.
+
+
 
 
 \section{Taxonomy of Spatialization Modules in Jamoma}
@@ -67,13 +94,14 @@ about 150-200 words.
 \subsection{Rendering Modules}
 
 \subsubsection{Ambisonics}
- \cite{Schacher:2006ambi_max}
+ \cite{Schacher:2006ambi_max}   
+Decoding/Adjusting/Encoding
 \subsubsection{VBAP}
   \cite{Pulkki:2000vbap_max}
 \subsubsection{DBAP}
  \cite{dbapICMC09}
 \subsubsection{ViMiC}
-\cite{Peters:2008vimic}
+\cite{Peters:2008vimic} \cite{CMJ08-VIMIC}
 \subsubsection{binaural}
 ?? Does anybody has a working module for this ?
 
@@ -105,8 +133,8 @@ paper ?
 
 \subsubsection{loudspeaker setup and correction}
 -sur.speaker.setup             \\
--sur.distamp~   \hspace{2cm}SPL compensation\\
--sur.speaker.delay~ \hspace{2cm}delay compensation        \\
+-sur.distamp$\sim$   \hspace{2cm}SPL compensation\\
+-sur.speaker.delay$\sim$ \hspace{2cm}delay compensation        \\
 
 \subsubsection{multichannel tools}
 - meters\\
@@ -174,7 +202,8 @@ hello SMC  & 1073 \\
 
 
 \section{Conclusion}
-A conclusion is the place when you get tired of thinking. 
+A conclusion is the place when you get tired of thinking. \\
+\url{www.jamoma.org}
 
 \section{Acknowledgment}
 \bibliographystyle{abbrv}  %\bibliographystyle{natbib}% ama, nar, alpha, plain, chicago,{plainnat}  abbrv, siam   

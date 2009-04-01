@@ -1,0 +1,54 @@
+Focus of the paper:
+flexible working environment for spatialization 
+
+Arguments: 
+1)  work with spatialization is often very experimental and depends on acoustical and technical conditions
+2) Consequently, artists working with spatialization need a flexible environment that allow exploring different rendering techniques "ad hoc" as well as on-site fine-tuning (and also rapid prototyping or ability to swicth fast from one to another in creative working processes pressed for time - I guess that's what you've said better already...)
+2.1) storing settings independently from spatial positions of sound sources and loudspeakers
+    Benefits:
+    - to compare
+    - interchangeablity
+    - adaptable to different development and performance situations
+    - easier to create audio documentation of works 
+    This implisitely mean that we are more interested in spatialisation algorithms where this is possible, rather than e.g. directly working with 5.1
+
+
+Strategies for standardization of interfaces:
+- SpatDIF
+- Standardised GUI interfaces
+- modular approach: 
+    - positioning of sources and speakers defined independently of algorithms
+    - modular algorithm (air, doppler, ...
+    - mixing of rendering techniques (e.g. some sounds rendered with VBAP and some with Ambisonics)
+Controlling: - mapping from gestural controller and interfaces to spatialization parameter (interactive media ?)
+             - Holo-edit bridge: to compose spatial scenes in a sequencer like environment 
+    - having one familiar composition interface whereas the underlying renderer is exchangable  
+
+
+
+Implementations:
+- multicable thing
+- datapace thing
+- 
+
+
+
+Chat part:
+---------
+
+I think that once we have layed out the motivating problems and approaches, we can discuss or list implementations in Jamoma, along the way that you suggest in chapt. 2 (taxonomy) of the teex document
+
+Should the controlling part be done according to the layout you suggested in the tex?
+- rendering modules
+- control modules
+- etc.?
+
+hmmmm, we can change that
+I hink that once 
+
+
+I think also Marlons approach might be intersting in terms of that paper:
+- rendering B-format in OpenMusic
+- and playback of B-format files in Max with Jamoma, where he can adapt for the current technical and acoustiacal situation 
+- he also works on a binaural module for Ambisonics in Jamoma
+
