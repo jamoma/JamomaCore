@@ -9,7 +9,6 @@
     <item name='fullscreen' type='msg_toggle' priority='0'>0</item>
     <item name='interpolate' type='msg_toggle' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
-    <item name='video/bypass' type='msg_toggle' priority='0'>0</item>
     <item name='video/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='video/mute' type='msg_toggle' priority='0'>0</item>
     <item name='video/preview' type='msg_toggle' priority='0'>0</item>
