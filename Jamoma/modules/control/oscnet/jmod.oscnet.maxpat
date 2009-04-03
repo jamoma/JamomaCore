@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 128.0, 191.0, 1122.0, 452.0 ],
+		"rect" : [ 98.0, 108.0, 1122.0, 452.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 128.0, 191.0, 1122.0, 452.0 ],
+		"defrect" : [ 98.0, 108.0, 1122.0, 452.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.970939,
@@ -70,7 +70,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "int", "", "" ],
-					"patching_rect" : [ 492.0, 124.0, 76.0, 19.0 ],
+					"patching_rect" : [ 489.0, 69.0, 76.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 199.0, 2.0, 76.0, 19.0 ],
 					"types" : [  ],
@@ -83,13 +83,12 @@
 					"fontname" : "Verdana",
 					"fontsize" : 9.873845,
 					"id" : "obj-6",
-					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 493.0, 150.0, 337.0, 30.0 ],
-					"text" : "jcom.parameter mode @type msg_toggle @range/clipmode none @description \"Choose between single IP or multicast usage\"",
+					"patching_rect" : [ 490.0, 95.0, 525.0, 18.0 ],
+					"text" : "jcom.parameter mode @type msg_symbol @description \"Choose between single IP or multicast usage\"",
 					"varname" : "mode"
 				}
 
@@ -105,7 +104,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"offset" : [ 0.0, -19.0 ],
-					"patching_rect" : [ 8.0, 19.0, 283.0, 51.0 ],
+					"patching_rect" : [ 652.0, 138.0, 283.0, 51.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 1.0, 18.0, 295.0, 49.0 ],
 					"varname" : "jalg.oscnet.ui.maxpat"
@@ -209,37 +208,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-14", 0 ],
+					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-1", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-4", 0 ],
-					"hidden" : 0,
-					"midpoints" : [ 502.5, 180.0, 477.0, 180.0, 477.0, 120.0, 501.5, 120.0 ],
-					"source" : [ "obj-6", 0 ]
+					"source" : [ "obj-6", 1 ]
 				}
 
 			}
@@ -281,19 +253,37 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
+					"destination" : [ "obj-3", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-4", 0 ]
+					"source" : [ "obj-14", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
+					"destination" : [ "obj-14", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 661.5, 192.0, 438.0, 192.0, 438.0, 75.0, 6.0, 75.0, 6.0, 18.0, 17.5, 18.0 ],
-					"source" : [ "obj-6", 1 ]
+					"midpoints" : [  ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 499.5, 125.0, 474.0, 125.0, 474.0, 65.0, 498.5, 65.0 ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 1 ]
 				}
 
 			}

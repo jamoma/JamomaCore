@@ -14,7 +14,7 @@
 		<item name="multicast_port" type="msg_int">7500</item>
 		<item name="osc_prefix" type="msg_symbol">null</item>
 		<item name="send/active" type="msg_toggle">1</item>
-		<item name="mode" type="msg_int">0</item>
+		<item name="mode" type="msg_int">single</item>
 	</preset>
 	<preset number ="2" name ="multicast">
 		<item name="receive_port" type="msg_int">7400</item>
@@ -25,7 +25,7 @@
 		<item name="multicast_port" type="msg_int">7500</item>
 		<item name="osc_prefix" type="msg_symbol">null</item>
 		<item name="send/active" type="msg_toggle">1</item> 
-		<item name="mode" type="msg_int">1</item>
+		<item name="mode" type="msg_int">multicast</item>
 	</preset>
 	<preset number ="3" name ="broadcast">
 		<item name="receive_port" type="msg_int">7400</item>
