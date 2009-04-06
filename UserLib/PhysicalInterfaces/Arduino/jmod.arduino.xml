@@ -9,5 +9,29 @@
     <item name='menu' type='msg_int' priority='0'>0</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
     <item name='updaterate' type='msg_int' priority='0'>10</item>
+  </preset> 
+
+<preset number='2' name='enable all analog outputs'>
+    <item name='/analog.0:/enable' type='msg_toggle'>1</item>
+    <item name='/analog.1:/enable' type='msg_toggle'>1</item>
+	<item name='/analog.2:/enable' type='msg_toggle'>1</item>
+	<item name='/analog.3:/enable' type='msg_toggle'>1</item>
+	<item name='/analog.4:/enable' type='msg_toggle'>1</item>
+	<item name='/analog.5:/enable' type='msg_toggle'>1</item>
   </preset>
+
+<preset number='3' name='enable all digital outputs'>
+ 	<item name='/digital.2:/enable' type='msg_toggle'>1</item>
+	<item name='/digital.3:/enable' type='msg_toggle'>1</item>
+	<item name='/digital.4:/enable' type='msg_toggle'>1</item>
+	<item name='/digital.5:/enable' type='msg_toggle'>1</item> 
+	<item name='/digital.6:/enable' type='msg_toggle'>1</item>    
+	<item name='/digital.7:/enable' type='msg_toggle'>1</item>    
+	<item name='/digital.8:/enable' type='msg_toggle'>1</item>    
+	<item name='/digital.9:/enable' type='msg_toggle'>1</item>   
+	<item name='/digital.10:/enable' type='msg_toggle'>1</item>    
+	<item name='/digital.11:/enable' type='msg_toggle'>1</item>     
+	<item name='/digital.12:/enable' type='msg_toggle'>1</item>    
+	<item name='/digital.13:/enable' type='msg_toggle'>1</item>    
+  </preset>  
 </jamoma>
