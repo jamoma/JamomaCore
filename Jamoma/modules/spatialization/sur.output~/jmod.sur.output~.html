@@ -45,7 +45,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> Toggle audio on and off. </td>
+			<td class ="instructionDescription"> Toggle the global DSP on and off. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> audio/mute </td>
@@ -78,7 +78,7 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> DC Blocker: Active or bypassed. </td>
+			<td class ="instructionDescription"> DC Blocker feature of the limiter: Active or bypassed. </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> limiter/lookahead </td>
@@ -200,28 +200,6 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 0 </td>
 			<td class ="instructionDescription"> List of output channels that multicable signal is routed to. </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> test/channel </td>
-			<td class ="instructionType"> int </td>
-			<td class ="instructionRangeBounds"> 1 8 </td>
-			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> none </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> selected multicable channel  for connection test </td>
-		<tr>
-		<tr>
-			<td class="instructionName"> test/gain </td>
-			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
-			<td class ="instructionRangeClipmode"> both </td>
-			<td class ="instructionRampDrive"> none </td>
-			<td class ="instructionRampFunction"> none </td>
-			<td class ="instructionDataspace"> gain </td>
-			<td class ="instructionRepetitionsAllow"> 0 </td>
-			<td class ="instructionDescription"> gain value for the connection test-noise </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/freeze </td>
@@ -536,6 +514,28 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Low-level module hacking.  Any arguments arguments to this message will be interpretted as patcher scripting for the top-level patcher of the module. </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> test/channel </td>
+			<td class ="instructionType"> int </td>
+			<td class ="instructionRangeBounds"> 1 9 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> selected multicable channel  for connection test </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> test/gain </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 127.000000 </td>
+			<td class ="instructionRangeClipmode"> both </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> gain </td>
+			<td class ="instructionRepetitionsAllow"> 0 </td>
+			<td class ="instructionDescription"> gain value for the connection test-noise </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> ui/refresh </td>
