@@ -1,6 +1,13 @@
 Focus of the paper:
 flexible working environment for spatialization 
 
+Problems:
+1. spatialization is mainly done in DAWs and leads to "panning" because the interface of the plugins suggests this
+	(rather than more immersive 'bathing' types of spatial diffusion, etc.)
+2. there are alternative solutions, such as max or pd or supercollider
+	(and Max/Pd/SuperCollider aren't much more of a solution than say Ruby or C++.  They are programming environments, not solutions that are ready to use.)
+
+
 Arguments: 
 1)  work with spatialization is often very experimental and depends on acoustical and technical conditions
 2) Consequently, artists working with spatialization need a flexible environment that allow exploring different rendering techniques "ad hoc" as well as on-site fine-tuning (and also rapid prototyping or ability to swicth fast from one to another in creative working processes pressed for time - I guess that's what you've said better already...)
@@ -11,6 +18,7 @@ Arguments:
     - adaptable to different development and performance situations
     - easier to create audio documentation of works 
     This implisitely mean that we are more interested in spatialisation algorithms where this is possible, rather than e.g. directly working with 5.1
+3) 	but Jamoma gives a structure so, one can be flexible *and* organized; something either a DAW, nor vanilla max/pd/supercollider can't
 
 
 Strategies for standardization of interfaces:
@@ -32,6 +40,10 @@ Implementations:
 - 
 
 
+Questions to Answer:
+- What is "Jamoma"?
+
+
 
 Chat part:
 ---------
@@ -51,4 +63,19 @@ I think also Marlons approach might be intersting in terms of that paper:
 - rendering B-format in OpenMusic
 - and playback of B-format files in Max with Jamoma, where he can adapt for the current technical and acoustiacal situation 
 - he also works on a binaural module for Ambisonics in Jamoma
+
+
+
+Another chat part (Nils and Tim):
+---------
+
+Nils: something what I am thinking lately about is that not only controlling spatialization, but also that spatialization is creating/controlling something else 
+e.g. the envelope follower at a VBAP 8-channel output could be mapped to something else
+
+Tim: sure, spatializers could even control other spatializer, or work in a recursive situation where they end up controlling themselves in some indirect way
+
+Nils:... or visualizing something
+ 
+Tim: if a boids algorithm is driving spatialization, and the envelope follower at a VBAP 8-channel output is in turn controlling the boids algorithm...
+could be interesting
 
