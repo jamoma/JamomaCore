@@ -8,6 +8,12 @@ outlets = 2;
 setoutletassist(1,"begin (bang)");
 setoutletassist(0,"box scripting name (symbol), box rect (list), presentation (0/1)");
 
+function thisparentpatcher()
+{
+    var a = arrayfromargs(arguments);
+	this.patcher.parentpatcher.message(a);
+}
+
 function bang()
 {
 	outlet(1,"bang");
