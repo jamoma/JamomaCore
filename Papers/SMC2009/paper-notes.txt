@@ -1,69 +1,112 @@
+TITLE:
+
+
+
+
+flexible working environment for spatialization
+towards interoperability in sound spatialization management 
+
+maybe mentionning the concept of layers ???
+
+
 STRUCTURE
 
-1. Intro
-    -expose problems
-    -use cases (users : composers, installation artists, scientists...etc...)
+1. INTRO
+
+    -Expose problems
+        blahblah from trond ande Nils...
+        a few CMJ & OS papers on that
+        
+    -Use cases (users : composers, installation artists, scientists...etc...)
        - OpenMusic off-line rendering
        - BEAST sound diffusion
        - interactive sound installations
        - real-time control via sensors/gestural controler etc. by performer
+       - tape-music (fixed media)
+       - computer generated - real time spatialization (see <meta-description> layer)
        
-2. Background / existing state of the art /review of current techniques
+
+
+
+2. BACKGROUND / EXISTING STATE OF THE ART / REVIEW OF CURRENT TECHNIQUES
+
+   - review paradigms and workflow in typical use-cases
+
     -limitations (rendering techniques are available, but none of them is universal + control and scripting of them is the weakness)
 
-3. Strategies/Methodologies
+1. spatialization is mainly done in DAWs and leads to "panning" because the bus architectures and interfaces of the panning plugins suggests this.
+    Limitations:
+        a) mainly tied to consumer formats (stereo and ITU 5:1 surround)
+        b) restricted to linear prerendering compositional processes
+        c) complicated to maintain automation when changing rendering plugIn
+        d) burden to connect interfaces (Lemur, Stantum, Wacom, Camera-tracking)
+        
+        <- BENJAMIN will write something about this (GUIs, multichannel audio routing in DAWs, adaptation to the listening room) -> 10/15 lines
+        
+    Rather than:
+	   - more immersive 'bathing' types of spatial diffusion
+	   - setups with more loudspeakers
+	   - real time, interactive and generative processing
+	   - experimenting
+	   - top-down (hierarchical) control of source distributions, scene description approaches, etc.)
+	   - bottom-up (automonous or semiautonmous agents) emergent algoritms like boids, swarms, genetics etc. or adaptive control algorithm such as artificial neural networks and other machine learning techniques.
+	   - recursion and meta-control (tap.jit.ali module, envelope-follower -> boids, Trond's proposition of using DBAP for meta-control of parameters, etc.)
+
+2. there are alternative solutions, such as audio programming environments (max or pd or supercollider, bidule, sonic birth, audiomulch
+      - supercollider provides polyphony at its best (but polyphony is really just a fancy array -- not a solution for any given application of that array)
+	(and Max/Pd/SuperCollider aren't much more of a solution than say Ruby or C++.  They are programming environments, not solutions that are ready to use.)
+
+Cite Nils' survey of use of spatialization in composition - not published yet, but we can say .. . submitted at least in the final version
+
+Quotes by composers:
+- What we need, for our personal work, is a way to extend the capabilities of those tools in a completely flexible and configurable way - and that suggests plug-ins (though it will always be a potential problem overcoming inherent IO structures in the host applications).
+
+- Working with non-standard loudspeakers: Spherical Loudspeaker Array, or the Hemisphere Point-source Emanation Loudspeaker, for example.  I would like to experiment with these
+
+- Tool building and music making happen together and depend upon each other.  [I like this one ... NP   me to (TL)]
+
+- Very frustrated with my current spatialization software and am desperately looking for something better!
+
+
+3. STRATEGIES/METHODOLOGIES
     
-    
-    
-    
-    
-4. Tools/Solutions 
-    - SpatDIF
-    - Jamoma
-    - ICST Ambisonics
-    - HoloEdit
-    - Iannix
-    
-
-5. Analysis of toolsets / Discussion
-
-6. 
-
-
-
-
-
-_______________________________________________________________
-
-
-a set of strategies to make working with spatialisation more flexible, modular, customizable and interoperable    .
+    a set of strategies to make working with spatialisation more flexible, modular, customizable and interoperable.
 
     working symbolically?  - separating rendering and controlling algorithms
         are there other approaches? diffusion practice (e.g. acousmatic sound projection)? (specific editing to a fixed form)
     common interface
     modularity
-    flexible (dynamic) number of channels
+    flexible (dynamic) number of channels 
+    http://en.wikipedia.org/wiki/OSI_model
 
-Layered model: layers (somewhat similar to the OSI model for network protocol design)
-    - controlling the rendering is a higher level
-    - rendering is one layer
-    - audio encoded with spatial infomation (e.g. B-format and 
+    Initial sketch of what hierarchical layers there are:
     
-
-_________________________________________________
-
-what are the strategies?
+    5) controlling the rendering (e.g. HoloEdit, ambicontrol, swarms, boids, trajectories...)     <indirect control description or meta-description>
+        Protocol: SpatDIF extended
+    4) position of sources and speakers at one moment in time as SpatDIF                          <direct control description>
+        Protocol: SpatDIF core, SpatDIF extended if required by the encoder 
+    3) encoded audio
+        Protocols:
+            Spatial infomation embedded in format: (e.g. B-format and Dirac, MPEG-surround ?)
+            SpatDIF core and extended if required by the encoder (concerning info on target system) 
+    2) decoded audio
+        Protocols: E.g. CoreAudio, Jack
+    1) physical layer (computers, sound cards, speakers, etc.)   
+    
+    
+    What are the strategies?
 
     1) Common interface:
             SpatDIF : unified namespaces
        Common metaphors:
             visual representations
-            (horizontal) timeline (see comparisons of DAWs: http://acousmodules.free.fr/hosts.htm )
+            (horizontal) timeline (see multichannel-comparisons of DAWs: http://acousmodules.free.fr/hosts.htm )
             vs. (vertical) real-time canvas
             
     2) Modularity / Layers
         interchangeability of 
         interoperability
+        adaptability (through modules querying other modules to adapt themselves to other parts of the graph)
 
     3) Tools:
     
@@ -75,10 +118,42 @@ what are the strategies?
             
         authoring meta tools:
             HoloEdit
+                Timeline metaphore
             Iannix
             
 
 
+   
+4. TOOLS/SOLUTIONS 
+
+    - SpatDIF
+    - Jamoma (what is jamoma?, jamoma dsp, jamoma multicore, jamoma modular, dataspace lib)
+    - ICST Ambisonics
+    - HoloEdit
+    - Iannix
+    
+
+
+
+
+
+5. ANALYSIS / DISCUSSION
+
+
+
+
+
+6. FUTURE WORK
+
+7. CONCLUSION
+
+
+
+8. REFERENCES
+
+
+
+________________________________________________________________________________________________________________
 
 
 
@@ -86,13 +161,7 @@ what are the strategies?
 
 
 
-TITLE: 
 
-
-
-Focus of the paper:
-flexible working environment for spatialization
-towards interoperability in sound spatialization management 
 
 INTRODUCTION (leading to problems):
 
@@ -129,9 +198,6 @@ Quotes by composers:
 - Tool building and music making happen together and depend upon each other.  [I like this one ...NP   me to (TL)]
 
 - Very frustrated with my current spatialization software and am desperately looking for something better!
-
-
-
 
 
 
@@ -192,52 +258,11 @@ Controlling: - mapping from gestural controller and interfaces to spatialization
     - having one familiar composition interface whereas the underlying renderer is exchangable  
 
 
-
-Implementations:
-- multicable thing
-- dataspace thing
-- 
-
-
-Questions to Answer:
-- What is "Jamoma"?
-
-
-
 Chat part:
 ---------
-
-I think that once we have layed out the motivating problems and approaches, we can discuss or list implementations in Jamoma, along the way that you suggest in chapt. 2 (taxonomy) of the tex document
-
-Should the controlling part be done according to the layout you suggested in the tex?
-- rendering modules
-- control modules
-- etc.?
-
-hmmmm, we can change that
-I hink that once 
-
 
 I think also Marlons approach might be intersting in terms of that paper:
 - rendering B-format in OpenMusic
 - and playback of B-format files in Max with Jamoma, where he can adapt for the current technical and acoustiacal situation 
 - he also works on a binaural module for Ambisonics in Jamoma
-
-
-
-Another chat part (Nils and Tim):
----------
-
-Nils: something what I am thinking lately about is that not only controlling spatialization, but also that spatialization is creating/controlling something else 
-e.g. the envelope follower at a VBAP 8-channel output could be mapped to something else
-
-Tim: sure, spatializers could even control other spatializer, or work in a recursive situation where they end up controlling themselves in some indirect way
-
-Nils:... or visualizing something
- 
-Tim: if a boids algorithm is driving spatialization, and the envelope follower at a VBAP 8-channel output is in turn controlling the boids algorithm...
-could be interesting
-
-This sounds like Trond's proposition of using DBAP for meta-control of parameters... ± similarly to tap.jit.ali (or jmod.tap.ali% ;D  ), yes of course !
-
 
