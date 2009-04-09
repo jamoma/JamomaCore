@@ -121,21 +121,26 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// else, copy the current
 	class_addmethod(c, (method)cuemng_copy,				"copy",			A_GIMME, 0);
 
+	// the optimization works only on a cue (not a keycue).
+	// It constists in check difference between the given cue
+	// and all previous cue (from the previous keycue).
+	class_addmethod(c, (method)cuemng_optimize,			"optimize",		A_GIMME, 0);
+
 	// if there is an index, append the temp cue to 
 	// the cue which have the given index
 	// else, append to the current
 	class_addmethod(c, (method)cuemng_join,				"join",			A_GIMME, 0);
 
-	// if there is two index, store the difference 
-	// between the first and the second in the temp cue 
-	// else, store the difference between the current and 
-	// the cue which have the given index
-	// note : if values are differents, keep the value of the first cue
+	// if there is an index, compare each line of the cue 
+	// which have the given index to the temp cue :
+	//		> if the parameter doesn't exist or is different,
+	//		keep the line with his value.
+	//		> else remove the line.
 	class_addmethod(c, (method)cuemng_difference,		"difference",	A_GIMME, 0);
 
 	// if there is an index, all lines of the temp cue
 	// are compared to the cue which have the given index :
-	//		> if the parameter (or attributs) already exists,
+	//		> if the parameter already exists,
 	//		the temp cue value replace the selected cue value
 	//		> if the parameter doesn't exist, this is appended 
 	//		to the selected cue.
@@ -750,11 +755,11 @@ void cuemng_append(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 			index = linklist_insertindex(x->cuelist, c, index);
 		
 		if(index != -1){
-			x->current = index;
+			x->current = index-1;
 			x->Kcurrent = cuemng_previous_key_index(x);
 
 			// info operation
-			atom_setlong(&a[0],index+1); // index starts at 1 for user
+			atom_setlong(&a[0],index); // index starts at 1 for user
 			cuemng_info_operation(x,s,1,a);
 		}
 		else
@@ -896,6 +901,57 @@ void cuemng_copy(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		object_error((t_object *)x, "copy : this index doesn't exist");
 }
 
+void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index, i;
+	t_cue *c;
+	t_atom a[1];
+
+	// if there is the temp flag
+	// do nothing
+	if(cuemng_check_temp(x,argc,argv)){
+		object_error((t_object *)x, "optimize : bad index");
+		return;
+	}
+
+	index = cuemng_check_index(x,argc,argv);
+	
+	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	if(c){
+		if(c->mode == DIFFERENTIAL_CUE){
+			
+			i = x->Kcurrent;
+
+			while(i < index){
+
+				// clear temp cue
+				cuemng_clear_temp(x);
+
+				// copy a previous cue into
+				atom_setlong(&a[0],i+1);	// index starts at 1 for users
+				defer(x,(method)cuemng_copy,gensym("copy"),1,a);
+
+				// keep the diffrence into the selected cue
+				atom_setlong(&a[0],index+1); // index starts at 1 for users
+				defer(x,(method)cuemng_difference,gensym("difference"),1,a);
+
+				i++;
+			}
+
+			x->current = index;
+			x->Kcurrent = cuemng_previous_key_index(x);
+
+			// info operation
+			atom_setlong(&a[0],index+1); // index starts at 1 for user
+			cuemng_info_operation(x,s,1,a);
+		}
+		else
+			object_error((t_object *)x, "optimize : select a CUE (and not a KEYCUE or EMPTY)");
+	}
+	else
+		object_error((t_object *)x, "optimize : this index doesn't exist");
+}
+
 void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
 	long index;
@@ -930,10 +986,9 @@ void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 void cuemng_difference(t_cuemng *x, t_symbol* s, long argc, t_atom *argv){
 
-	long index1, index2 ; // if values are different, keep the value of first cue (index1)
-	long memo;
-	t_cue *c1;
-	t_atom a[2];
+	long index;
+	t_cue *c;
+	t_atom a[1];
 
 	// if there is the temp flag
 	// do nothing
@@ -942,54 +997,23 @@ void cuemng_difference(t_cuemng *x, t_symbol* s, long argc, t_atom *argv){
 		return;
 	}
 
-	// select index1 and 2
-	if(argc == 1){
-		if(atom_gettype(&argv[0]) == A_LONG){
-			index1 = x->current;
-			index2 = cuemng_check_index(x,argc,argv);
-		}
-	}else{
-		if(argc == 2){
-			if(atom_gettype(&argv[0]) == A_LONG)
-				index1 = cuemng_check_index(x,argc,argv);
-			if(atom_gettype(&argv[1]) == A_LONG)
-				index2 = cuemng_check_index(x,argc-1,argv+1);
-		}
-		else{
-			// no index
-			if(x->current > 0){
-				index1 = x->current;
-				index1 = x->current-1;
-			}
-			else{
-				object_error((t_object *)x, "difference : bad index");
-				return;
-			}
-		}
-	}
-
-	x->current = index1;
-	x->Kcurrent = cuemng_previous_key_index(x);
-
-	// difference between 1 and 2
-	// add difference to the temp cue
-	c1 = (t_cue *)linklist_getindex(x->cuelist,index1);
-
-	// HEAD INFO : keep c1 but set as differential cue 
-	x->temp_cue->index = c1->index;
-	x->temp_cue->mode = DIFFERENTIAL_CUE;
-	x->temp_cue->ramp = c1->ramp;
+	index = cuemng_check_index(x,argc,argv);
 	
-	// linelist
-	memo = x->current;
-	x->current = index2;
-	linklist_funall(c1->linelist, (method)cuemng_diff_linelist, x);
-	x->current = memo;
+	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	if(c){
+		// compare each line of the temp cue to the cue
+		// and remove all lines which are equal
+		linklist_funall(x->temp_cue->linelist, (method)cuemng_diff_linelist, c->linelist);
 
-	// info operation
-	atom_setlong(&a[0],index1+1); // index starts at 1 for user
-	atom_setlong(&a[1],index2+1); // index starts at 1 for user
-	cuemng_info_operation(x,s,2,a);
+		x->current = index;
+		x->Kcurrent = cuemng_previous_key_index(x);
+
+		// info operation
+		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		cuemng_info_operation(x,s,1,a);
+	}
+	else
+		object_error((t_object *)x, "append : this index doesn't exist");
 }
 
 void cuemng_modify(t_cuemng *x, t_symbol* s, long argc, t_atom *argv){
@@ -1222,43 +1246,23 @@ void cuemng_copy_line(t_line *src, t_line *dest){
 	}
 }
 
-void cuemng_diff_linelist(t_line *l1, t_cuemng *x){
-
-	t_cue *c2;
-	t_line *l_new;
+void cuemng_diff_linelist(t_line *l, t_linklist *comp)
+{
 	void *l_found;
 	long exist;
-	bool diff;
 
-	if(l1->type == _PARAM){
+	if(l->type == _PARAM){
 
-		c2 = (t_cue *)linklist_getindex(x->cuelist,x->current);
-
-		// Is the line exists in the dest linelist ?
-		exist = linklist_findfirst(c2->linelist, &l_found, cuemng_search_line, l1->index);
+		// Is the line exists in the comp linelist ?
+		exist = linklist_findfirst(comp, &l_found, cuemng_search_line, l->index);
 				
-		// if doesn't exist
-		diff = exist == -1;
-
-		// or data are different
-		diff |= !cuemng_diff_data(l1, (t_line *)l_found);
-		
-		// if doesn't exist or data are different
-		if(diff){
-				// append the l1 into the temp
-				l_new = (t_line *)sysmem_newptr((long)sizeof(t_line));
-
-				// copy the l1 into a new line
-				cuemng_copy_line(l1, l_new);
-
-				// append the line to the temp cue linelist
-				// TODO :	respect priority : !!!!! how ?
-				//			insert it into the right module : !!!!! how ?
-				linklist_append(x->temp_cue->linelist,l_new);
-		}
+		// if exist and data are equal
+		// remove the line from the comp linelist
+		if(exist != -1)
+			if(cuemng_diff_data(l, (t_line *)l_found))
+				linklist_deleteindex(comp,exist);
 	}
 }
-
 
 // return true if equal, return false if different
 bool cuemng_diff_data(t_line *l1, t_line *l2){

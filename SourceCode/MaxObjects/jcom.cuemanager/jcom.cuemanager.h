@@ -169,10 +169,12 @@ void cuemng_replace(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_clear(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_delete(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_copy(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_difference(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_modify(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 //void cuemng_shift(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+
 void cuemng_anything(t_cuemng *x, t_symbol *s, long argc, t_atom *argv);
 
 // Private methods
@@ -187,7 +189,7 @@ void cuemng_add_temp(t_cuemng *x,long type, t_symbol *index, long argc, t_atom *
 void cuemng_copy_cue(t_cuemng *x, t_cue *src, t_cue *dest);
 void cuemng_copy_linelist(t_line *src, t_linklist *dest);
 void cuemng_copy_line(t_line *src, t_line *dest);
-void cuemng_diff_linelist(t_line *src, t_cuemng *x);
+void cuemng_diff_linelist(t_line *l, t_linklist *comp);
 bool cuemng_diff_data(t_line *l1, t_line *l2);
 void cuemng_modify_linelist(t_line *src, t_linklist *dest);
 long cuemng_search_cue(void *c, void *match);

@@ -1,10 +1,10 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 0.0, 46.0, 1280.0, 694.0 ],
+		"rect" : [ 4.0, 50.0, 1280.0, 694.0 ],
 		"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 0.0, 46.0, 1280.0, 694.0 ],
+		"defrect" : [ 4.0, 50.0, 1280.0, 694.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -24,7 +24,7 @@
 					"fontsize" : 12.0,
 					"id" : "obj-42",
 					"maxclass" : "number",
-					"maximum" : 2,
+					"maximum" : 0,
 					"minimum" : 1,
 					"mouseup" : 1,
 					"numinlets" : 1,
@@ -1184,7 +1184,7 @@
 					"presentation" : 1,
 					"presentation_rect" : [ 110.0, 80.0, 110.0, 20.0 ],
 					"tabmode" : 0,
-					"text" : "Cue_2"
+					"text" : "Init_cue"
 				}
 
 			}
@@ -2183,9 +2183,9 @@
 									"numoutlets" : 0,
 									"patcher" : 									{
 										"fileversion" : 1,
-										"rect" : [ 411.0, 133.0, 356.0, 384.0 ],
+										"rect" : [ 411.0, 133.0, 356.0, 605.0 ],
 										"bglocked" : 0,
-										"defrect" : [ 411.0, 133.0, 356.0, 384.0 ],
+										"defrect" : [ 411.0, 133.0, 356.0, 605.0 ],
 										"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 										"openinpresentation" : 0,
 										"default_fontsize" : 12.0,
@@ -2198,6 +2198,21 @@
 										"boxanimatetime" : 200,
 										"imprint" : 0,
 										"boxes" : [ 											{
+												"box" : 												{
+													"fontname" : "Arial",
+													"fontsize" : 12.0,
+													"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+													"id" : "obj-8",
+													"linecount" : 8,
+													"maxclass" : "comment",
+													"numinlets" : 1,
+													"numoutlets" : 0,
+													"patching_rect" : [ 101.0, 413.0, 150.0, 117.0 ],
+													"text" : "\ni = Kcurrent\n\nwhile {i < current) {\n    clear temp\n    copy i\n    difference current\n}"
+												}
+
+											}
+, 											{
 												"box" : 												{
 													"fontname" : "Arial",
 													"fontsize" : 12.0,
@@ -2259,11 +2274,12 @@
 													"fontsize" : 12.0,
 													"frgb" : [ 0.945098, 0.913725, 0.407843, 1.0 ],
 													"id" : "obj-3",
+													"linecount" : 2,
 													"maxclass" : "comment",
 													"numinlets" : 1,
 													"numoutlets" : 0,
-													"patching_rect" : [ 47.0, 316.0, 108.0, 20.0 ],
-													"text" : "TODO : difference",
+													"patching_rect" : [ 101.0, 378.0, 125.0, 34.0 ],
+													"text" : "optimize it a kind of  difference loop",
 													"textcolor" : [ 0.945098, 0.913725, 0.407843, 1.0 ]
 												}
 
@@ -2276,9 +2292,9 @@
 													"maxclass" : "newobj",
 													"numinlets" : 1,
 													"numoutlets" : 3,
-													"outlettype" : [ "info", "bang", "append" ],
-													"patching_rect" : [ 16.0, 291.0, 90.0, 20.0 ],
-													"text" : "t info b append"
+													"outlettype" : [ "info", "optimize", "append" ],
+													"patching_rect" : [ 16.0, 291.0, 128.0, 20.0 ],
+													"text" : "t info optimize append"
 												}
 
 											}
@@ -2438,19 +2454,10 @@
  ],
 										"lines" : [ 											{
 												"patchline" : 												{
-													"destination" : [ "obj-19", 0 ],
-													"hidden" : 0,
-													"midpoints" : [  ],
-													"source" : [ "obj-9", 0 ]
-												}
-
-											}
-, 											{
-												"patchline" : 												{
 													"destination" : [ "obj-16", 0 ],
 													"hidden" : 0,
-													"midpoints" : [ 96.5, 334.0, 181.5, 334.0 ],
-													"source" : [ "obj-19", 2 ]
+													"midpoints" : [ 80.0, 334.0, 181.5, 334.0 ],
+													"source" : [ "obj-19", 1 ]
 												}
 
 											}
@@ -2460,6 +2467,24 @@
 													"hidden" : 0,
 													"midpoints" : [ 25.5, 334.5, 181.5, 334.5 ],
 													"source" : [ "obj-19", 0 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-16", 0 ],
+													"hidden" : 0,
+													"midpoints" : [ 134.5, 334.0, 181.5, 334.0 ],
+													"source" : [ "obj-19", 2 ]
+												}
+
+											}
+, 											{
+												"patchline" : 												{
+													"destination" : [ "obj-19", 0 ],
+													"hidden" : 0,
+													"midpoints" : [  ],
+													"source" : [ "obj-9", 0 ]
 												}
 
 											}
@@ -6805,7 +6830,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-41",
-					"items" : [ "Cue___Menu", ",", "Cue_2", ",", "Init_cue" ],
+					"items" : "Cue___Menu",
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,
