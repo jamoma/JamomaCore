@@ -42,7 +42,6 @@ t_symbol	*ps_no_id,				// if line have no index
 			*ps_no_data,			// if line have no data
 			*ps_tempcue,			// the "TEMPCUE" mode key word
 			*ps_tempindex,			// the "temp" index key word
-			*ps_tempname,			// to give a name to the temp cue
 			*ps_emptycue,			// the "EMPTY" mode key word
 			*ps_emptyname,			// to give a name to an empty cue
 			*ps_ramp_global;		// to refer to the global ramp cue time
@@ -157,18 +156,22 @@ void cuemng_int(t_cuemng *x, long id);
 void cuemng_temp(t_cuemng *x);
 void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_new_cuelist(t_cuemng *x);
 void cuemng_load(t_cuemng *x, t_symbol *s);
 void cuemng_saveas(t_cuemng *x, t_symbol *s);
 void cuemng_save(t_cuemng *x);
 void cuemng_open(t_cuemng *x);
 void cuemng_info(t_cuemng *x);
-void cuemng_ramp(t_cuemng *x, long r);
+void cuemng_doramp(t_cuemng *x, long r);
+void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_append(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_replace(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_clear(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_delete(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_copy(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_rename(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_recall(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_difference(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);

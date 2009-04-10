@@ -28,7 +28,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	ps_no_data = gensym("no_data");								// if line have no data
 	ps_tempcue = gensym("TEMPCUE");								// the "TEMPCUE" mode key word
 	ps_tempindex = gensym("temp");								// the "temp" index key word
-	ps_tempname = gensym("temp cue");							// to give a nameto the temp cue
 	ps_emptycue = gensym("EMPTY");								// the "EMPTY" mode key word
 	ps_emptyname = gensym("empty");								// to give a name to an empty cue
 	ps_ramp_global = gensym("global");							// to refer to the global ramp cue time
@@ -68,6 +67,9 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// if no index, trigger the current
 	class_addmethod(c, (method)cuemng_trigger,			"trigger",		A_GIMME, 0);
 
+	// this method clear the cuelist
+	class_addmethod(c, (method)cuemng_new_cuelist,		"new",			0);
+
 	// this method read a text file at the given path or,
 	// if there isn't path, open a dialog to select one.
 	class_addmethod(c, (method)cuemng_load,				"load",			A_DEFSYM, 0);
@@ -90,7 +92,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)cuemng_info,				"info",			0);
 
 	// this method enable/disable the ramp driving
-	class_addmethod(c, (method)cuemng_ramp,				"ramp",			A_LONG, 0);
+	class_addmethod(c, (method)cuemng_doramp,			"doramp",		A_LONG, 0);
+
+	// this method set the time of the ramp of 
+	// the selected cue (or the current if no index)
+	class_addmethod(c, (method)cuemng_ramptime,			"ramptime",		A_GIMME, 0);
 
 	// if there is an index, insert the temp cue 
 	// at this index in the cue list
@@ -120,6 +126,13 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// the given index into the temp cue
 	// else, copy the current
 	class_addmethod(c, (method)cuemng_copy,				"copy",			A_GIMME, 0);
+
+	// rename the selected cue (or the current if no index)
+	class_addmethod(c, (method)cuemng_rename,			"rename",		A_GIMME, 0);
+
+	// the recall method constists in trigger all previous cue 
+	//(from the previous keycue)until to trigger the given cue.
+	class_addmethod(c, (method)cuemng_recall,			"recall",		A_GIMME, 0);
 
 	// the optimization works only on a cue (not a keycue).
 	// It constists in check difference between the given cue
@@ -293,9 +306,16 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 			if(stop_at != -1)
 				object_post((t_object *)x,"cuemng_edclose : there is more than one cue in the text !");
 
-			// info operation /edit id
-			atom_setlong(&a[0],x->current+1); // index starts at 1 for user
-			defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
+			if(x->show == CUE_TEXT){
+				// info operation /edit id
+				atom_setlong(&a[0],x->current+1); // index starts at 1 for user
+				defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
+			}
+			else{
+				// info operation /edit temp
+				atom_setsym(&a[0],ps_tempindex);
+				defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
+			}
 		}
 	}
     x->m_editor = NULL;
@@ -326,9 +346,16 @@ void cuemng_bang(t_cuemng *x)
 			// output the cue
 			cuemng_output_cue(x, ccue);
 
-			// info operation /trigger id
-			atom_setlong(&a[0],x->current+1); // index starts at 1 for user
-			defer(x,(method)cuemng_info_operation,gensym("trigger"),1,a);
+			if(x->current != -1){
+				// info operation /trigger id
+				atom_setlong(&a[0],x->current+1); // index starts at 1 for user
+				defer(x,(method)cuemng_info_operation,gensym("trigger"),1,a);
+			}
+			else{
+				// info operation /trigger temp
+				atom_setsym(&a[0],ps_tempindex);
+				defer(x,(method)cuemng_info_operation,gensym("trigger"),1,a);
+			}
 		}
 		else{ // EDIT_MODE
 
@@ -428,6 +455,24 @@ void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	else{
 		cuemng_int(x,x->current+1);
 	}
+}
+
+void cuemng_new_cuelist(t_cuemng *x){
+
+		// clear the cuelist
+		if(linklist_getsize(x->cuelist)){
+			linklist_clear(x->cuelist);
+			x->current = -1;
+			x->Kcurrent = -1;
+		}
+
+		strcpy(x->filename,".txt");
+
+		cuemng_clear_temp(x);
+
+		x->m_editor = NULL;
+		x->Kcurrent = -1;
+		x->current = -1;
 }
 
 void cuemng_load(t_cuemng *x, t_symbol *s)
@@ -606,6 +651,9 @@ void cuemng_info(t_cuemng *x)
 		atom_setsym(&info_ccue[0],ccue->index);
 		outlet_anything(x->info_out, gensym("/current/name"), 1, info_ccue);
 
+		atom_setlong(&info_ccue[0],ccue->ramp);
+		outlet_anything(x->info_out, gensym("/current/ramp"), 1, info_ccue);
+
 		// output informations about the current key cue
 		ckcue = cuemng_current_key_cue(x);
 		
@@ -621,9 +669,62 @@ void cuemng_info(t_cuemng *x)
 		outlet_anything(x->info_out, gensym("/cuelist"), 0, 0);
 }
 
-void cuemng_ramp(t_cuemng *x, long r){
+void cuemng_doramp(t_cuemng *x, long r){
 
-	x->do_ramp = r != 0;
+	x->do_ramp = (r != 0);
+}
+
+void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index;
+	t_cue *c;
+	long new_ramptime;
+	t_atom a[2];
+
+	// if there is the temp flag
+	// do nothing
+	if(cuemng_check_temp(x,argc,argv)){
+		object_error((t_object *)x, "ramptime : bad index");
+		return;
+	}
+	
+	if(argc >= 2){
+		index = cuemng_check_index(x,argc,argv);
+		if(atom_gettype(&argv[1]) == A_LONG)
+			new_ramptime = atom_getlong(&argv[1]);
+		else{
+			object_error((t_object *)x, "ramptime : the new time have to be an integer (ms)");
+			return;
+		}
+	}
+	else{
+		if(argc == 1){
+			index = cuemng_check_index(x,0,0);		// to get the current
+			if(atom_gettype(&argv[0]) == A_LONG)
+				new_ramptime = atom_getlong(&argv[0]);
+			else{
+				object_error((t_object *)x, "ramptime : the new time have to be an integer (ms)");
+				return;
+			}
+		}
+		else{
+			object_error((t_object *)x, "ramptime : needs a new time");
+			return;
+		}
+	}
+	
+	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	if(c){
+
+		c->ramp = new_ramptime;
+
+		// info operation
+		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		atom_setlong(&a[1],new_ramptime);
+		cuemng_info_operation(x,s,2,a);
+	}
+	else
+		object_error((t_object *)x, "ramptime : this index doesn't exist");
 }
 
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
@@ -858,7 +959,7 @@ void cuemng_delete(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	if(c){
 		linklist_clear(c->linelist);
 		linklist_deleteindex(x->cuelist,index);
-		if(index > linklist_getsize(x->cuelist)) index = linklist_getsize(x->cuelist);
+		if(index >= linklist_getsize(x->cuelist)) index = linklist_getsize(x->cuelist)-1;
 
 		x->current = index;
 		x->Kcurrent = cuemng_previous_key_index(x);
@@ -899,6 +1000,106 @@ void cuemng_copy(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	}
 	else
 		object_error((t_object *)x, "copy : this index doesn't exist");
+}
+
+void cuemng_rename(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index;
+	t_cue *c;
+	t_symbol *new_name;
+	t_atom a[2];
+
+	// if there is the temp flag
+	// do nothing
+	if(cuemng_check_temp(x,argc,argv)){
+		object_error((t_object *)x, "rename : bad index");
+		return;
+	}
+	
+	if(argc >= 2){
+		index = cuemng_check_index(x,argc,argv);
+		if(atom_gettype(&argv[1]) == A_SYM)
+			new_name = atom_getsym(&argv[1]);
+		else{
+			object_error((t_object *)x, "rename : the new name have to be a symbol");
+			return;
+		}
+	}
+	else{
+		if(argc == 1){
+			index = cuemng_check_index(x,0,0);		// to get the current
+			if(atom_gettype(&argv[0]) == A_SYM)
+				new_name = atom_getsym(&argv[0]);
+			else{
+				object_error((t_object *)x, "rename : the new name have to be a symbol");
+				return;
+			}
+		}
+		else{
+			object_error((t_object *)x, "rename : needs a new name");
+			return;
+		}
+	}
+	
+	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	if(c){
+
+		strcpy(c->index->s_name, new_name->s_name);
+
+		// info operation
+		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		atom_setsym(&a[1],new_name);
+		cuemng_info_operation(x,s,2,a);
+	}
+	else
+		object_error((t_object *)x, "rename : this index doesn't exist");
+}
+
+void cuemng_recall(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index, i;
+	t_cue *c;
+	t_atom a[1];
+	bool memo;
+
+	// if there is the temp flag
+	// do nothing
+	if(cuemng_check_temp(x,argc,argv)){
+		object_error((t_object *)x, "recall : bad index");
+		return;
+	}
+
+	index = cuemng_check_index(x,argc,argv);
+	
+	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	if(c){
+
+		if(c->mode == ABSOLUTE_CUE) x->Kcurrent = index;
+		
+		i = x->Kcurrent;
+		memo = x->do_ramp;
+		x->do_ramp = false;	// disable the ramp to trigger the previous cues
+
+		while(i <= index){
+
+			if(i == index) x->do_ramp = memo;	// enable the ramp to trigger the selected cue (if do_ramp)
+
+			// trigger a previous cue
+			atom_setlong(&a[0],i+1);	// index starts at 1 for users
+			defer(x,(method)cuemng_trigger,gensym("trigger"),1,a);
+
+			i++;
+		}
+
+		x->current = index;
+		x->Kcurrent = cuemng_previous_key_index(x);
+
+		// info operation
+		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		cuemng_info_operation(x,s,1,a);
+	}
+	else
+		object_error((t_object *)x, "recall : this index doesn't exist");
 }
 
 void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
@@ -1040,7 +1241,7 @@ void cuemng_modify(t_cuemng *x, t_symbol* s, long argc, t_atom *argv){
 		//		> if the parameter doesn't exist, this is appended 
 		//		to the selected cue.
 
-		if(x->temp_cue->index != ps_tempname)
+		if(x->temp_cue->index != ps_tempindex)
 			c->index = x->temp_cue->index;
 
 		if(x->temp_cue->mode != TEMP_CUE)
@@ -1128,7 +1329,7 @@ void cuemng_anything(t_cuemng *x, t_symbol *start, long argc, t_atom *argv)
 void cuemng_clear_temp(t_cuemng *x)
 {
 	x->temp_cue->mode = TEMP_CUE;
-	x->temp_cue->index = ps_tempname;
+	x->temp_cue->index = ps_tempindex;
 
 	x->temp_cue->ramp = NO_RAMP;
 
@@ -1463,8 +1664,21 @@ long cuemng_read_text(t_cuemng *x, char **texthd, long str)
 
 void cuemng_output_cue(t_cuemng *x, t_cue* c)
 {
+	t_atom a[1];
+
 	// prepare ramp global
 	x->global_ramp = c->ramp;
+
+	// advise the user that a ramp will start
+	// if it isn't the temp cue
+	if(x->current != -1){
+		if(x->do_ramp)
+			atom_setlong(&a[0],x->global_ramp);
+		else
+			atom_setlong(&a[0],0);
+
+		outlet_anything(x->info_out, gensym("/start_ramp"), 1, a);
+	}
 
 	// output each line of the cue
 	linklist_funall(c->linelist, (method)cuemng_output_line, x);
@@ -1478,7 +1692,7 @@ void cuemng_output_line(t_line *l, t_cuemng *x)
 	switch(l->type){
 		case  _PARAM : 
 			{
-				if(l->ramp != NO_RAMP && x->do_ramp){
+				if((l->ramp != NO_RAMP) && x->do_ramp){
 
 					// create an array to send data + ramp
 					data_ramp = (t_atom *)sysmem_newptr((long)(2+l->n)*sizeof(t_atom));
