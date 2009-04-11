@@ -17,6 +17,19 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"hint" : "audio fader is only relevant for file playback ",
+					"id" : "obj-1",
+					"maxclass" : "hint",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 442.0, 328.0, 100.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 235.0, 2.0, 16.0, 17.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-4",
@@ -123,7 +136,7 @@
 					"outlettype" : [ "int", "", "" ],
 					"patching_rect" : [ 362.0, 379.0, 76.0, 19.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 161.0, 1.0, 76.0, 19.0 ],
+					"presentation_rect" : [ 157.0, 1.0, 76.0, 19.0 ],
 					"types" : [  ],
 					"varname" : "source_mode"
 				}
@@ -217,6 +230,7 @@
 , 			{
 				"box" : 				{
 					"has_freeze" : 1,
+					"has_gain" : 1,
 					"has_mute" : 1,
 					"has_preview" : 1,
 					"id" : "obj-34",
@@ -233,6 +247,24 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-16", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-17", 0 ],
 					"hidden" : 0,
@@ -265,24 +297,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-4", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-16", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-16", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-3", 0 ]
 				}
 
 			}

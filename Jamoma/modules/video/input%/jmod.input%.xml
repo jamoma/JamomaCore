@@ -16,7 +16,7 @@
     <item name='desktop/size/x' type='msg_int' priority='0'>320</item>
     <item name='desktop/size/y' type='msg_int' priority='0'>240</item>
     <item name='file/active' type='msg_toggle' priority='0'>0</item>
-    <item name='file/audio' type='msg_toggle' priority='0'>1</item>
+    <item name='video/gain' type='msg_float' priority='0'>100</item>
     <item name='file/counter' type='msg_int' priority='0'>0</item>
     <item name='file/framedump' type='msg_toggle' priority='0'>0</item>
     <item name='file/loop' type='msg_toggle' priority='0'>1</item>
