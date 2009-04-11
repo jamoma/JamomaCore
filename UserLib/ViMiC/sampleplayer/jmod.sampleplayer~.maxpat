@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 390.0, 105.0, 1003.0, 596.0 ],
+		"rect" : [ 243.0, 89.0, 1003.0, 596.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 390.0, 105.0, 1003.0, 596.0 ],
+		"defrect" : [ 243.0, 89.0, 1003.0, 596.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -16,6 +16,40 @@
 		"boxanimatetime" : 200,
 		"imprint" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"id" : "obj-15",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 289.0, 467.0, 50.0, 17.0 ],
+					"text" : "text $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"border" : 0,
+					"fontname" : "Verdana",
+					"fontsize" : 11.0,
+					"id" : "obj-16",
+					"ignoreclick" : 1,
+					"maxclass" : "textbutton",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "int" ],
+					"patching_rect" : [ 290.0, 487.0, 164.669907, 19.15332 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 3.0, 21.0, 293.669922, 19.15332 ],
+					"rounded" : 0.0,
+					"text" : "Drag soundfile into the module",
+					"truncate" : 2
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
@@ -126,13 +160,13 @@
 ,
 					"patching_rect" : [ 256.0, 365.0, 24.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p"
@@ -587,24 +621,6 @@
 			}
 , 			{
 				"box" : 				{
-					"fontname" : "Verdana",
-					"fontsize" : 12.0,
-					"id" : "obj-24",
-					"ignoreclick" : 1,
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 280.0, 470.0, 240.0, 19.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 3.0, 20.695526, 296.0, 19.0 ],
-					"text" : "Bach_Clavecin_canon-G_st.aif",
-					"varname" : "name_symbol"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"color" : [ 1.0, 0.741176, 0.611765, 1.0 ],
 					"fontname" : "Arial",
 					"fontsize" : 9.0,
@@ -682,6 +698,40 @@
 						"imprint" : 0,
 						"title" : "loop editor",
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontname" : "Verdana",
+									"fontsize" : 10.0,
+									"id" : "obj-27",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 306.0, 560.0, 75.0, 19.0 ],
+									"text" : "prepend text"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"border" : 0,
+									"fontname" : "Verdana",
+									"fontsize" : 12.0,
+									"id" : "obj-23",
+									"ignoreclick" : 1,
+									"maxclass" : "textbutton",
+									"numinlets" : 1,
+									"numoutlets" : 3,
+									"outlettype" : [ "", "", "int" ],
+									"patching_rect" : [ 306.0, 584.0, 164.669907, 19.15332 ],
+									"presentation" : 1,
+									"presentation_rect" : [ 6.0, 5.0, 506.669922, 19.15332 ],
+									"rounded" : 0.0,
+									"text" : "Drag soundfile into the module",
+									"truncate" : 2
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
@@ -1051,20 +1101,6 @@
 							}
 , 							{
 								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
-									"id" : "obj-19",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 321.0, 563.0, 62.0, 17.0 ],
-									"text" : "prepend set"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"fontname" : "Verdana",
 									"fontsize" : 10.0,
 									"id" : "obj-20",
@@ -1074,20 +1110,6 @@
 									"outlettype" : [ "bang" ],
 									"patching_rect" : [ 617.0, 54.0, 24.0, 19.0 ],
 									"text" : "t b"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Arial",
-									"fontsize" : 9.0,
-									"id" : "obj-22",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 321.0, 583.0, 100.0, 17.0 ],
-									"text" : "pvar sample_name2"
 								}
 
 							}
@@ -1156,24 +1178,6 @@
 									"triangle" : 0,
 									"triscale" : 0.9,
 									"varname" : "verticalzoom"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"fontname" : "Verdana",
-									"fontsize" : 12.0,
-									"id" : "obj-32",
-									"ignoreclick" : 1,
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 323.0, 64.0, 249.0, 19.0 ],
-									"presentation" : 1,
-									"presentation_rect" : [ 4.0, 5.0, 511.0, 19.0 ],
-									"text" : "Bach_Clavecin_canon-G_st.aif",
-									"varname" : "sample_name2"
 								}
 
 							}
@@ -1701,13 +1705,13 @@
 ,
 									"patching_rect" : [ 34.0, 204.0, 50.0, 17.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontname" : "Arial",
-										"globalpatchername" : "",
-										"default_fontsize" : 10.0,
 										"fontname" : "Arial",
+										"globalpatchername" : "",
+										"default_fontface" : 0,
 										"fontface" : 0,
 										"fontsize" : 10.0,
-										"default_fontface" : 0
+										"default_fontname" : "Arial",
+										"default_fontsize" : 10.0
 									}
 ,
 									"text" : "p wfkeys"
@@ -1770,7 +1774,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 108.0, 265.0, 61.0, 17.0 ],
-									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
+									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "zoom", "nofloat", "menu", "minimize", ";", "#Q", "window", "constrain", 2, 2, 32768, 32768, ";", "#Q", "window", "size", 220, 153, 740, 334, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
 									"text" : "thispatcher"
 								}
 
@@ -1812,15 +1816,6 @@
 									"hidden" : 0,
 									"midpoints" : [  ],
 									"source" : [ "obj-12", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-19", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-12", 1 ]
 								}
 
 							}
@@ -2019,15 +2014,6 @@
 									"hidden" : 1,
 									"midpoints" : [  ],
 									"source" : [ "obj-51", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-22", 0 ],
-									"hidden" : 0,
-									"midpoints" : [  ],
-									"source" : [ "obj-19", 0 ]
 								}
 
 							}
@@ -2292,18 +2278,36 @@
 								}
 
 							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-27", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-12", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-23", 0 ],
+									"hidden" : 0,
+									"midpoints" : [  ],
+									"source" : [ "obj-27", 0 ]
+								}
+
+							}
  ]
 					}
 ,
 					"patching_rect" : [ 16.0, 529.0, 81.0, 18.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontname" : "Verdana",
-						"globalpatchername" : "",
-						"default_fontsize" : 10.0,
 						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0,
 						"fontface" : 0,
 						"fontsize" : 10.0,
-						"default_fontface" : 0
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0
 					}
 ,
 					"text" : "p panel"
@@ -2429,7 +2433,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "signal", "signal", "signal" ],
-					"patching_rect" : [ 375.0, 364.0, 123.0, 17.0 ],
+					"patching_rect" : [ 376.0, 364.0, 123.0, 17.0 ],
 					"text" : "jalg.sampleplayer~ #0_"
 				}
 
@@ -2496,6 +2500,24 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-15", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-23", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-16", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-15", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-39", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -2534,7 +2556,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-57", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 265.5, 360.0, 384.5, 360.0 ],
+					"midpoints" : [ 265.5, 360.0, 385.5, 360.0 ],
 					"source" : [ "obj-49", 0 ]
 				}
 
@@ -2878,15 +2900,6 @@
 					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-23", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-24", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 282.25, 463.5, 510.5, 463.5 ],
-					"source" : [ "obj-23", 3 ]
 				}
 
 			}
