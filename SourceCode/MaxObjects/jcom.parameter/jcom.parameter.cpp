@@ -293,6 +293,7 @@ void param_reset(t_param *x)
 	if(x->listDefault_size){						// copy the default values to the current value
 		sysmem_copyptr(x->atom_listDefault, x->atom_list, sizeof(t_atom) * x->listDefault_size);
 		x->list_size = x->listDefault_size;
+		param_bang(x);
 	}
 }
 
