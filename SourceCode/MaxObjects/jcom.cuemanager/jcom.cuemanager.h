@@ -188,7 +188,6 @@ void cuemng_clear_temp(t_cuemng *x);
 void cuemng_set_temp(t_cuemng *x,long mode, long argc, t_atom *argv);
 void cuemng_add_temp(t_cuemng *x,long type, t_symbol *index, long argc, t_atom *argv);
 
-
 void cuemng_copy_cue(t_cuemng *x, t_cue *src, t_cue *dest);
 void cuemng_copy_linelist(t_line *src, t_linklist *dest);
 void cuemng_copy_line(t_line *src, t_line *dest);

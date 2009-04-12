@@ -192,6 +192,8 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv)
 		strcpy(x->filename,".txt");
 
 		x->temp_cue = (t_cue *)malloc(sizeof(t_cue));
+		x->temp_cue->linelist = linklist_new();
+		linklist_flags(x->temp_cue->linelist, OBJ_FLAG_MEMORY);
 		cuemng_clear_temp(x);
 
 		x->m_editor = NULL;
@@ -775,8 +777,12 @@ void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		else
 			index = x->current;
 
-		// create a cue and copy the temp_cue into
+		// create a cue
 		c = (t_cue *)malloc(sizeof(t_cue));
+		c->linelist = linklist_new();
+		linklist_flags(c->linelist, OBJ_FLAG_MEMORY);
+
+		// copy the temp cue into
 		cuemng_copy_cue(x, x->temp_cue, c);
 
 		// insert the cue to the cuelist
@@ -845,22 +851,29 @@ void cuemng_append(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 		index++; 	// append AFTER the current
 
-		// create a cue and copy the temp_cue into
+		// create a cue
 		c = (t_cue *)malloc(sizeof(t_cue));
+		c->linelist = linklist_new();
+		linklist_flags(c->linelist, OBJ_FLAG_MEMORY);
+
+		// copy the temp cue into
 		cuemng_copy_cue(x, x->temp_cue, c);
 
-		// insert the cue to the cuelist
-		if(index >= linklist_getsize(x->cuelist))
+		// append the cue to the cuelist
+		if(index >= linklist_getsize(x->cuelist)){
 			index = linklist_append(x->cuelist, c);
-		else
+			index--;
+		}
+		else{
 			index = linklist_insertindex(x->cuelist, c, index);
+		}
 		
 		if(index != -1){
-			x->current = index-1;
+			x->current = index;
 			x->Kcurrent = cuemng_previous_key_index(x);
 
 			// info operation
-			atom_setlong(&a[0],index); // index starts at 1 for user
+			atom_setlong(&a[0],index+1); // index starts at 1 for user
 			cuemng_info_operation(x,s,1,a);
 		}
 		else
@@ -916,9 +929,6 @@ void cuemng_clear(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	if(cuemng_check_temp(x,argc,argv)){
 		// clear the temp_cue
 		cuemng_clear_temp(x);
-
-		// info operation
-		cuemng_info_operation(x,s,argc,argv);
 	}
 	else{
 		index = cuemng_check_index(x,argc,argv);
@@ -1057,7 +1067,7 @@ void cuemng_rename(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 void cuemng_recall(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
-	long index, i;
+	long last_id, new_id, i;
 	t_cue *c;
 	t_atom a[1];
 	bool memo;
@@ -1069,33 +1079,59 @@ void cuemng_recall(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		return;
 	}
 
-	index = cuemng_check_index(x,argc,argv);
+	last_id = cuemng_check_index(x,0,0);			// get the current id
+	new_id = cuemng_check_index(x,argc,argv);		// get the new id
 	
-	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	c = (t_cue *)linklist_getindex(x->cuelist,new_id);
 	if(c){
 
-		if(c->mode == ABSOLUTE_CUE) x->Kcurrent = index;
-		
-		i = x->Kcurrent;
-		memo = x->do_ramp;
-		x->do_ramp = false;	// disable the ramp to trigger the previous cues
+		// set current and Kcurrent
+		x->current = new_id;
+		x->Kcurrent = cuemng_previous_key_index(x);
 
-		while(i <= index){
+		// if it's a backward recall
+		if(last_id > new_id){
+			// the trigger loop will start at the previous KEYCUE
+			i = x->Kcurrent;
+		}
+		// else, it's a forward recall
+		else{
+			// if the last cue is after the current KEYCUE
+			// the trigger loop will start at the last cue
+			// else, start at the previous KEYCUE
+			if(last_id > x->Kcurrent) i = last_id;
+			else i = x->Kcurrent;
+		}
 
-			if(i == index) x->do_ramp = memo;	// enable the ramp to trigger the selected cue (if do_ramp)
+		// a modify loop on the previous cue to set the temp cue
+		cuemng_clear_temp(x);
+		while(i < new_id){
 
-			// trigger a previous cue
-			atom_setlong(&a[0],i+1);	// index starts at 1 for users
-			defer(x,(method)cuemng_trigger,gensym("trigger"),1,a);
-
+			// modify the temp cue with a previous cue
+			c = (t_cue *)linklist_getindex(x->cuelist,i);
+			if(c){
+				linklist_funall(c->linelist,(method)cuemng_modify_linelist,x->temp_cue->linelist);
+				// info operation
+				atom_setsym(&a[0],ps_tempindex);
+				cuemng_info_operation(x,gensym("modify"),1,a);
+			}
 			i++;
 		}
 
-		x->current = index;
-		x->Kcurrent = cuemng_previous_key_index(x);
+		// trigger the temp
+		memo = x->do_ramp;
+		x->do_ramp = false;					// disable the ramp to trigger the temp cue
+		atom_setsym(&a[0],ps_tempindex);
+		defer(x,(method)cuemng_trigger,gensym("trigger"),1,a);
+		cuemng_clear_temp(x);
+			
+		// trigger the selected cue
+		x->do_ramp = memo;					// enable the ramp to trigger the selected cue (if do_ramp)
+		atom_setlong(&a[0],new_id+1);		// index starts at 1 for users
+		defer(x,(method)cuemng_trigger,gensym("trigger"),1,a);
 
 		// info operation
-		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		atom_setlong(&a[0],new_id+1);		// index starts at 1 for user
 		cuemng_info_operation(x,s,1,a);
 	}
 	else
@@ -1328,13 +1364,19 @@ void cuemng_anything(t_cuemng *x, t_symbol *start, long argc, t_atom *argv)
 // clear the temp cue
 void cuemng_clear_temp(t_cuemng *x)
 {
+	t_atom a[1];
+
 	x->temp_cue->mode = TEMP_CUE;
 	x->temp_cue->index = ps_tempindex;
 
 	x->temp_cue->ramp = NO_RAMP;
 
-	x->temp_cue->linelist = linklist_new();
-	linklist_flags(x->temp_cue->linelist, OBJ_FLAG_MEMORY);
+	if(linklist_getsize(x->temp_cue->linelist))
+		linklist_clear(x->temp_cue->linelist);
+
+	// info operation
+	atom_setsym(&a[0],ps_tempindex);
+	cuemng_info_operation(x,gensym("clear"),1,a);
 }
 
 // set head informations of the temp cue (mode, index, options)
@@ -1405,9 +1447,9 @@ void cuemng_copy_cue(t_cuemng *x, t_cue *src, t_cue *dest)
 	dest->mode = src->mode;
 	dest->ramp = src->ramp;
 	
-	// create a new linklist
-	dest->linelist = linklist_new();
-	linklist_flags(dest->linelist, OBJ_FLAG_MEMORY);
+	// clear the linklist
+	if(linklist_getsize(dest->linelist))
+		linklist_clear(dest->linelist);
 
 	// add each line of the src linelist
 	// into the dest linelist
@@ -1509,7 +1551,10 @@ void cuemng_modify_linelist(t_line *src, t_linklist *dest){
 	long exist;
 
 	// Is the line exists in the dest linelist ?
-	exist = linklist_findfirst(dest, &l_found, cuemng_search_line, src->index);
+	if(linklist_getsize(dest))
+		exist = linklist_findfirst(dest, &l_found, cuemng_search_line, src->index);
+	else
+		exist = -1;
 			
 	if(exist != -1){
 		// memo the ramp of l_found
@@ -1670,15 +1715,12 @@ void cuemng_output_cue(t_cuemng *x, t_cue* c)
 	x->global_ramp = c->ramp;
 
 	// advise the user that a ramp will start
-	// if it isn't the temp cue
-	if(x->current != -1){
-		if(x->do_ramp)
-			atom_setlong(&a[0],x->global_ramp);
-		else
-			atom_setlong(&a[0],0);
+	if(x->do_ramp)
+		atom_setlong(&a[0],x->global_ramp);
+	else
+		atom_setlong(&a[0],0);
 
-		outlet_anything(x->info_out, gensym("/start_ramp"), 1, a);
-	}
+	outlet_anything(x->info_out, gensym("/start_ramp"), 1, a);
 
 	// output each line of the cue
 	linklist_funall(c->linelist, (method)cuemng_output_line, x);
