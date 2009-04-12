@@ -452,6 +452,23 @@ void hub_preset_default(t_hub *x, t_symbol*, long, t_atom*)
 	t_atom		a;
 	t_atom		args[2];
 	t_max_err	err;
+
+	// 2009-04-12 TAP: this block sets the default values prior to setting values from the default preset
+	// It could be improved by, for example, merging the values into a preset dictionary or something?
+	// Unfortunately, this current way will mean we set all values twice when a module is initialized
+	{
+		subscriberList*		subscriber = x->subscriber;	// head of the linked list
+		subscriberIterator	i;
+		t_subscriber*		t;
+				
+		critical_enter(0);
+		for (i = subscriber->begin(); i != subscriber->end(); ++i) {
+			t = *i;
+			if (t->type == jps_subscribe_parameter)
+				object_method(t->object, _sym_reset);
+		}
+		critical_exit(0);
+	}
 	
 	strcpy(default_file_name, x->attr_name->s_name);
 	strcat(default_file_name, ".xml");
