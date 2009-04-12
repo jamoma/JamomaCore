@@ -81,6 +81,8 @@ t_max_err	textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *ar
 void		textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers);
 void		textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
 void		textslider_mouseup(t_textslider *x, t_object *patcherview);
+void		textslider_mouseenter(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
+void		textslider_mouseleave(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
 void		textslider_paint(t_textslider *x, t_object *view);
 void*		textslider_oksize(t_textslider *x, t_rect *newrect);
 
@@ -125,10 +127,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)textslider_mousedown,		"mousedown",		A_CANT, 0);
 	class_addmethod(c, (method)textslider_mousedragdelta,	"mousedragdelta",	A_CANT, 0);
 	class_addmethod(c, (method)textslider_mouseup,			"mouseup",			A_CANT, 0);
+    class_addmethod(c, (method)textslider_mouseenter,		"mouseenter",		A_CANT, 0);
+    class_addmethod(c, (method)textslider_mouseleave,		"mouseleave",		A_CANT, 0);
 	class_addmethod(c, (method)textslider_notify,			"notify",			A_CANT, 0);
-	class_addmethod(c, (method)textslider_assist,			"assist",			A_CANT, 0);
-
-	
+	class_addmethod(c, (method)textslider_assist,			"assist",			A_CANT, 0);	
 
 	CLASS_ATTR_DEFAULT(c,					"patching_rect",	0,	"0. 0. 160. 20.");
 	CLASS_ATTR_MIN(c,						"patching_size",	0,	"1. 1.");
@@ -463,11 +465,23 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 }
 
 
+void textslider_updatestringvalue(t_textslider *x)
+{
+	char		str[7];
+	t_object*	textfield = jbox_get_textfield((t_object*) x);
+	
+	if (textfield) {
+		snprintf(str, sizeof(str), "%f", x->attrValue);
+		object_method(textfield, gensym("settext"), str);
+	}
+	jbox_redraw(&x->box);
+}
+
+
 // mousedragdelta sends the amount the mouse moved in t_pt
 void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
 {
 	t_rect		rect;
-	t_object	*textfield;
 	float		delta;
 
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
@@ -495,14 +509,8 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	
 	// TODO: Add numdecimalplaces attribute
 	
-	// Display value while dragging
-	char str[7];
-	textfield = jbox_get_textfield((t_object*) x);
-	snprintf(str, sizeof(str), "%f", x->attrValue);
-	if (textfield)
-		object_method(textfield, gensym("settext"), str);
-	
 	textslider_float(x, x->anchorValue);
+	textslider_updatestringvalue(x);
 }
 
 
@@ -510,18 +518,30 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 {
 	x->mouseDown = 0;
 	t_rect	rect;
-	
-	t_object *textfield = jbox_get_textfield((t_object*) x);
-	if(textfield)
-		object_method(textfield, gensym("settext"), x->attrText->s_name);
-	
-	jbox_redraw(&x->box);
-	
+
 	// Mouse show up again at current slider value
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	jmouse_setposition_view(patcherview, 
 							rect.x+((x->attrValue/(x->attrRange[1] - x->attrRange[0]))*(rect.width-2)+1), 
 							x->mousePositionY);
+	jbox_redraw(&x->box);
+}
+
+
+// Display value while hoverring
+void textslider_mouseenter(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
+{
+	textslider_updatestringvalue(x);
+}
+
+
+void textslider_mouseleave(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
+{
+	t_object*	textfield = jbox_get_textfield((t_object*) x);
+	
+	if (textfield)
+		object_method(textfield, gensym("settext"), x->attrText->s_name);
+	jbox_redraw(&x->box);
 }
 
 
