@@ -266,8 +266,9 @@ void dbap_destination(t_dbap *x, void *msg, long argc, t_atom *argv)
 				break;
 		}
 		// The set of destination points has been changed - recalculate variance.
-		dbap_calculate_variance(x);		// implicitely updates all matrix values
-		dbap_update_view(x);
+		dbap_calculate_variance(x);						// implicitely updates all matrix values
+		if(x->hull_io) dbap_calculate_hull(x,n);		// implicitely updates the hull
+		dbap_update_view(x);							// implicitely updates the view
 	}
 	else
 		error("Invalid arguments for speaker.");
@@ -795,7 +796,7 @@ void dbap_calculate2D(t_dbap *x, long n)
 			}
 		}
 
-		atom_setlong(&a[0],n);								// src
+		atom_setlong(&a[0],n+1);							// src (index starts at one for users
 		atom_setfloat(&a[1],out*min_dist);					// dist to hull
 		atom_setlong(&a[2],id_min+1);						// id of the closest dst in the hull 
 		outlet_anything(x->outlet[1], _sym_list, 3, a);
