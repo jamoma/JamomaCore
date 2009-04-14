@@ -79,20 +79,38 @@ about 150-200 words.
 \section{Introduction - TL|NP}\label{sec:introduction}
 %keywords: spatialization, adaptation, site-specific, Ambisonics, 
  
-    
--Use cases (users : composers, installation artists, scientists...etc...)
-   - OpenMusic off-line rendering
-   - BEAST sound diffusion (the more speaker - the mre complicated to perform)
-   - interactive sound installations
-   - real-time control via sensors/gestural controller etc. by performer
-   - tape-music (fixed media)
-   - computer generated - real time spatialization (see <meta-description> layer)
+
+The goal of a each spatial rendering system is, simply speaking, to facilitate or even empower the creative use of spatial aspects for the artist. However, quantitative studies on spatial music (\cite{otondo2008ctu}, \cite{PetersSurvey}) remind us that there are great individual and context-related differences in defining that goal across composers. %that the compositional use of spatialization techniques varies strongly across composers and musical context.    
+For instance, the requirements of a computer aided spatialization system may vary between a fixed-media composition (e.g \cite{BarrettOS02} %TODO: find a Robert Normandeau reference
+), an installation art (\cite{lossius:2007sound_space_body}), and a live diffusion performance (\cite{Truax99}), as there were:
+\begin{packed_item} 
+	\item {binaural rendering for headphone listening}
+	\item {multichannel playback and recording possibility} 
+	\item {testing technical setup, e.g. loudspeaker connections}   
+	\item {customizable to accommodate for different acoustical conditions, e.g. adapting the virtual room description to the listening room} 
+\item {customizable to accommodate for different technical conditions, e.g. rendering to different reproduction formats, compensation for non-ideal loudspeaker configurations, routing signals to dedicated physical outputs}  
+\item {allowing for external control e.g. through MIDI, OSC or other protocols}
+\item {present management}
+\item {sound scene visualization}   
+\item {separate render and control layer}
+\item {Plug-In structure: exchangeable renderer and interface components}
+\end{packed_item}
+TODO: this list must become better!-please help\\
+Also, the importance of the outlined requirements vary on the different stages of the compositional processes 
+\emph{Experimentation -- Composing -- Performance -- Documentation}. 
+
+%The outlined requirements may differ according to artistic paradigms.
+%-Use cases (users : composers, installation artists, scientists...etc...)
+%   - OpenMusic off-line rendering
+%   - BEAST sound diffusion (the more speaker - the mre complicated to perform)
+%   - interactive sound installations
+%   - real-time control via sensors/gestural controller etc. by performer
+%   - tape-music (fixed media)
+%   - computer generated - real time spatialization (see <meta-description> layer)
    
 
 
-
-Requirements for a spatialization framework at different levels in a compositional process.
-Experimenting -- Composing -- Performance -- Documentation. The outlined requirements may differ according to artistic paradigms.  
+ 
     
 %Experimental stage:\\
 %\begin{packed_item}
@@ -117,18 +135,7 @@ Experimenting -- Composing -- Performance -- Documentation. The outlined require
 %\item {multichannel recording possibility}         
 %\item {storing }       
 %\end{packed_item}  
-\begin{packed_item}
-\item {separate render and control layer}
-\item {Plug-In structure: exchangeable renderer and interface components}
-\item {customizable to accommodate for different technical conditions, e.g. rendering to different reproduction formats, compensation for non-ideal loudspeaker configurations, routing signals to dedicated physical outputs}  
-\item {customizable to accommodate for different acoustical conditions, e.g. adapting the virtual room description to the listening room} 
-\item {allowing for external control e.g. through MIDI or OSC}
-\item {present management}
-\item {sound scene visualization}   
-\item {binaural rendering for headphone listening}
-\item {multichannel recording possibility} 
-\item {testing technical setup, e.g. loudspeaker connections} 
-\end{packed_item}	
+
    
 
 
@@ -164,7 +171,7 @@ spatialization is mainly done in DAWs and leads to "panning" because the bus arc
         
 \subsection{Media programming environments}
 Beside the paradigm of the DAW, various media programming environment exist, such as SuperCollider, Pure Data, Chuck, Bidule, or Max/MSP which are capable for spatial sound synthesis in real-time. In order to support individual approaches and to meet the specific needs of computer music and mixed media art, these environments enable the user to combine music making with computer programming.  
-However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges in spatial music, as outlined in section XYZ. Consequently, enumerable different self-contained libraries and spatialization toolboxes were created by artists and researcher, such as the Space Unit Generator \cite{SUG02}, IRCAM's Spatialisateur \cite{JotPhD} or Virtual Microphone Control \cite{CMJ08-VIMIC} to generate virtual sound sources and artificial spaces. Also frameworks primarily dedicated to sound diffusion practice, such as the BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, or ICAST \cite{ICAST06} are available.   
+However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges in spatial music, as outlined in section XYZ. Consequently, enumerable different self-contained libraries and spatialization toolboxes were created by artists and researcher, such as the Space Unit Generator \cite{SUG02}, IRCAM's Spatialisateur \cite{JotPhD}, or Virtual Microphone Control \cite{CMJ08-VIMIC} to generate virtual sound sources and artificial spaces. Also frameworks primarily dedicated to sound diffusion practice, such as the BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, or ICAST \cite{ICAST06} are available.   
 
 \section{Strategies \& Methodologies in Spatial Sound Synthesis}  
 - TROND, J45CH, NILS, PASCAL\\
