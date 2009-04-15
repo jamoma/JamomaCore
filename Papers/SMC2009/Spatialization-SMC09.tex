@@ -79,30 +79,29 @@ KEYWORDS : sound spatialization, interoperability, layered architecture, adaptat
 
 \end{abstract}
 
-\section{Introduction - TL|NP}\label{sec:introduction}
+\section{Introduction}\label{sec:introduction}
 
  
 The goal of each spatialization
 %rendering is it only the rendering system, or control/rendering ?
 system is, simply speaking, to facilitate or even empower the creative use of spatial aspects for the artist. However, quantitative studies on spatial music (\cite{otondo2008ctu}, \cite{PetersSurvey}) remind us that there are great individual and context-related differences in defining that goal across composers. %that the compositional use of spatialization techniques varies strongly across composers and musical context.    
 For instance, the requirements of a computer aided spatialization system may vary between a fixed-media composition (e.g \cite{BarrettOS02} %TODO: find a Robert Normandeau reference
-), an installation art (\cite{lossius:2007sound_space_body}), and a live diffusion performance (\cite{Truax99}), as there were for instance:
+), an art-installation (\cite{lossius:2007sound_space_body}), and a live diffusion performance (\cite{Truax99}). Moreover, different components are in play in the different stages of the creative processes 
+\emph{Experimentation -- Composing -- Performance -- Documentation}, for instance between :
 \begin{packed_item} 
+	\item {real-time or non real-time rendering}  
+%	\item {Plug-In structure: exchangeable renderer and interface components} - this is one of the ideas of the article, we don't need it here
+	\item {multichannel playback and recording possibility} 	
 	\item {binaural rendering for headphone listening}
-	\item {multichannel playback and recording possibility} 
 	\item {testing technical setup, e.g. loudspeaker connections}   
-	\item {customizable to accommodate for different acoustical conditions, e.g. adapting the virtual room description to the listening room} 
+	\item {customizable renderer in order to accommodate for different acoustical conditions, e.g. adapting the virtual room description to the listening room} 
 \item {customizable to accommodate for different technical conditions, e.g. rendering to different reproduction formats, compensation for non-ideal loudspeaker configurations, routing signals to dedicated physical outputs}  
+	\item {visual representation of a sound scene} 
+%\item {separate render and control layer} - this is one of the ideas of the article, we don't need it here
 \item {allowing for external control e.g. through MIDI, OSC or other protocols}
-\item {present management}
-\item {visual representation of a sound scene}
-\item {real-time or non real-time rendering}   
-\item {separate render and control layer}
-\item {Plug-In structure: exchangeable renderer and interface components}
+
 \end{packed_item}
-TODO: this list must become better!-please help\\
-Also, the importance of the outlined requirements vary on the different stages of the compositional processes 
-\emph{Experimentation -- Composing -- Performance -- Documentation}. 
+TODO: this list must become better!-please help - \emph{what do we want to say with this list ??} \\
 
 %The outlined requirements may differ according to artistic paradigms.
 %-Use cases (users : composers, installation artists, scientists...etc...)
@@ -148,19 +147,17 @@ Also, the importance of the outlined requirements vary on the different stages o
 %\quote{Very frustrated with my current spatialization software and am desperately looking for something better!}
 
 \section{Review}
-This section gives an overview of current paradigms and solutions for sound spatialization. 
+This section gives an overview of current paradigms and solutions for sound spatialization, and shows their limitations. 
 
 
 \subsection{digital audio workstations - DAW} \label{sec:digital audio workstations - DAW}  
 
-Currently, many composers use DAWs for designing their sound spatialization, especially for fixed media, tape-music and consumer media production. In these contexts the DAWs generally fullfill the artistic needs of the composers in terms of spatialization, along with the fact that they are used to the concept and restrictions of DAWs, and that these offer a good workflow and project management, and are extendable through plug-ins\\
+Currently, many composers and sound-artists use DAWs for designing their sound spatialization, especially for fixed media, tape-music and consumer media production. In these contexts the DAWs generally fullfill the artistic needs of the users in terms of spatialization, along with the fact that they are used to the concept and restrictions of DAWs, and that these offer a good workflow and project management, and are extendable through plug-ins\\
 
-From 1993, emergence of the ITU 5.1 has been announced as a major improvement for mixing surround sound. Originally designed to fulfill the needs of the film industry, this loudspeaker configuration appeared to music and entertainment companies as a new way to extend their commercial offer. Since then, all DAWs surround panners have been designed to respect and organise sound processing for this set-up. We had to wait until the late nineties to see new suggestions for our surround workstation (from 6.1 to 10.2), enhancing sidesÕ precision and perception outside of the Central Listening Position.\\
-An useful approach for recording, multimedia or film prospects (canÕt do business without standards), but still in a regular, circular, geometric and Ç giving direction È design, wich cannot be acceptable and sufficient for creation or live applications. As an example, a non-flexible loudspeaker circle set-up is very rarely adapted to the concert hall.\\ 
-As much as the speaker configuration, another critical fonction for surround sound mixing is the way that the energy is divided between the speakers. A ``blur" parameter (often mixed up with the ``divergence" parametrer control : Ç wich determines the width of the panned signal with respect to neighboring speakers È - ProTools) % is that a quote from the ProTools Manual? we should put the reference into the bib file [NP]
- should be one of the most adjustable, and could appear on every surround panner affected to audio channels. Because it enables many variations and possibilities for a creative mix, and because we would work with this parameter considering the specific features of the sound we have to spatialize. Most of the time, and thatÕs too restrictive, this factor is associated and linked to the sound sourceÕs position to the center in the surround panner, and is related to parameters such as ``spread" or ``diversity" (Logic Pro). The most accurate and efficient representation for that is available on Sequoia software (by Magix), with Ç soundfield È offset and character (shape) settings for each track, a global divergence to fit to the listening room size, and a complete flexibility for the speaker set-up in the listening area. \\
- 
- TODO : maybe reduce the last part of this subsection\\
+From 1993, emergence of the ITU 5.1 has been announced as a major improvement for mixing surround sound. Originally designed to fulfill the needs of the film industry, this loudspeaker configuration appeared to music and entertainment companies as a new way to extend their commercial offer. Since then, all DAWs surround panners have been designed to respect and organize sound processing for this set-up. We had to wait until the late nineties to see new suggestions for the surround workstations (from 6.1 to 10.2,  \footnote{a comparative table of DAWs concerning multi-channel audio can be found at \url{http://acousmodules.free.fr/hosts.htm}}), enhancing sides precision and perception outside of the Central Listening Position.\\
+This was an useful approach for recording, multimedia or film prospects (cannot do business without standards), but still in a regular, circular, geometric and (FIXME: non-neutral? we mean it influences the user) design, wich cannot be acceptable and sufficient for creation or live applications. As an example, a non-flexible loudspeaker circle set-up is very rarely adapted to the concert hall.\\ 
+As much as the speaker configuration, another critical fonction for surround sound mixing is the way in which the energy is parsed between the speakers. A ``blur" parameter (often confused with the ``divergence" parametrer control : \quote{which determines the width of the panned signal with respect to neighboring speakers}\cite{digidesignSPG2005})  should be one of the most adjustable, and could appear on every surround panner affected to audio channels. Because it enables many variations and possibilities for a creative mix, and because we would work with this parameter considering the specific features of the sound we have to spatialize. Most of the time, and too restrictively, this factor is associated and linked to the sound source's position to the center in the surround panner, and is related to parameters such as ``spread" or ``diversity" (e.g. in Apple's Logic Pro \footnote{\url{www.apple.com/logicstudio/}}). The most accurate and efficient representation for this parameter is available on Sequoia software \footnote{\url{http://www.magix.com/us/sequoia/}}, with ``soundfield'' offset and character (shape) settings for each track, a global divergence to fit to the listening room size, and a complete flexibility for the speaker set-up in the listening area. \\
+
 %
 % Did we discuss all point below:? (moved above -> we should use them at the beginning IMHO)
 %
@@ -179,42 +176,17 @@ However, in the name of complete flexibility, these environments lack in providi
 However, each tool may only provide solutions for a subset of compositional viewpoints and the development of new compositional approaches through combining these tools is difficult or even limited through their specific designs. 
 %LIMITATIONS OF THESE SOLUTIONS :
 
-
 \section{Strategies \& Methodologies in Spatial Sound Synthesis}  
  
-A traditional workflow in electroacoustic composition or linear sound editing comprises a number of steps leading to the construction of the audio scene. Other contexts such as audio installations or multimedia work imply a different sequence in the steps of the process. The modular approach tries to abstract these differences and define underlying common elements that are always in play when spatialization is used. This layer model doesn't imply a specific method, it much rather tries to emphasize the importance of the interchangeability of modules, which share their interconnecting interfaces. The tools for each layer can be exchanged and compared, without forcing the musicican to completly rebuild his setup.
+A traditional workflow in electroacoustic composition or linear sound editing comprises a number of steps leading to the construction of the audio scene. Other contexts such as audio installations or multimedia work imply a different sequence in the steps of the process. The modular approach tries to abstract these differences and define underlying common elements that are always in play when spatialization is used. This layer model doesn't imply a specific method, it much rather tries to emphasize the importance of the interchangeability of modules, which share their interconnecting interfaces. The tools for each layer can be exchanged and compared, without forcing the artist to completly rebuild his setup.
 
 \begin{quote}Spatial orchestration eases this [...] constraint, [...] the composition may be reconfigured for each individual performance. This will require [...] the composer [to] conceive spatial attributes in a more abstract fashion, that is then instantiated in potentially different ways into different performance environments. \cite{Lyon:2008spatial_orchestration} \end{quote}
-By working symbolically during the composition/editing process and separating the authoring from the rendering processes a realization can become portable. A common set of descriptors and shared representation metaphors such a s timelines or scene graphs builds the glue to make a disparate set of tools into a coherent workflow. 
+By working symbolically during the composition/editing process and separating the authoring from the rendering processes a realization can become portable. A common set of descriptors and shared representation metaphors such as timelines or scene graphs builds the glue to make a disparate set of tools into a coherent workflow by enhancing interoperability between the different building blocks.\\
+Modularity is another key point towards this aim, as it allows to separate elements into different layers, according to their function, as describeb in \ref{sec:layers}. It also allows adaptability, through modules querying other modules to adapt themselves to other parts of the graph.\\
+The Tools have to comply to these recommandations, and can be separated in two categories : rendering engines and authoring meta-tools.\\
 
 
-\begin{packed_enumerate}  
-
-\item[1.] Common interface -> interopability \\
-            SpatDIF : unified namespaces \\
-       Common metaphors: \\
-            visual representations \\
-            (horizontal) timeline (see multichannel-comparisons of DAWs: http://acousmodules.free.fr/hosts.htm ) \\
-            vs. (vertical) real-time canvas \\
-            
-\item[2.] Modularity / Layers\\
-        interoperability \\
-        adaptability (through modules querying other modules to adapt themselves to other parts of the graph) \\
-
-\item[3.] Tools \\
-    
-        rendering engines: \\
-            (need to provide an extensible and dynamic bus system) \\
-            Jamoma multicore (flexible number of channels) <- does that work ?
-            supercollider buses \\
-            
-        authoring meta tools: \\
-            HoloEdit :
-                Timeline metaphore \\
-\end{packed_enumerate} 
-
-
-\subsection{A layered approach to the spatialization workflow}
+\subsection{A layered approach to the spatialization workflow}\label{sec:layers}
 %TROND, J45CH\\
 In order to better grasp the structural and methodological entities used in a spatialization process, a layered approach is proposed, which defines the problem domains in an ascending order of abstraction (Table \ref{tab:layer}). This model gets its inspiration from the OSI network model \footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}
 
