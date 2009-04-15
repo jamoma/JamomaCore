@@ -32,7 +32,7 @@
 
 % Title.
 % ------
-\title{TODO: Title}
+\title{a layered approach to sound spatialization - concepts and examples}
 
 % IMPORTANT NOTICE:
 % Reviews are double-blind
@@ -71,13 +71,16 @@
 
 \begin{abstract} 
 -flexible working environment for spatialization\\
--towards interoperability in sound spatialization management\\
+-A layered approach towards interoperability in sound spatialization management\\
 The abstract should be placed at the top left column and should contain
 about 150-200 words.
+
+KEYWORDS : sound spatialization, interoperability, layered architecture, adaptation, site-specific, Ambisonics
+
 \end{abstract}
 
 \section{Introduction - TL|NP}\label{sec:introduction}
-%keywords: spatialization, adaptation, site-specific, Ambisonics, 
+
  
 The goal of a each spatialization
 %rendering is it only the rendering system, or control/rendering ?
@@ -173,7 +176,6 @@ As much as the speaker configuration, another critical fonction for surround sou
 %        c) complicated to maintain automation when changing rendering plugIn
 %        d) burden to connect interfaces (Lemur, Stantum, Wacom, Camera-tracking)
 %        
-%        <- BENJAMIN will write something about this (GUIs, multichannel audio routing in DAWs, adaptation to the listening room) -> 10/15 lines
 %        
 \subsection{Media programming environments}
 Beside the paradigm of the DAW, various media programming environment exist, such as SuperCollider, Pure Data, Chuck, OpenMusic, or Max/MSP which are capable for spatial sound synthesis. In order to support individual approaches and to meet the specific needs of computer music and mixed media art, these environments enable the user to combine music making with computer programming.  
@@ -191,7 +193,7 @@ However, each tool may only provide solutions for a subset of compositional view
  
 A traditional workflow in electroacoustic composition or linear sound editing comprises a number of steps leading to the construction of the audio scene. Other contexts such as audio installations or multimedia work imply a different sequence in the steps of the process. The modular approach tries to abstract these differences and define underlying common elements that are always in play when spatialisation is used. This layer model doesn't imply a specific method, it much rather tries to emphasize the importance of the interchangeability of modules, which share their interconnecting interfaces. The tools for each layer can be exchanged and compared, without forcing the musicican to completly rebuild the workflow.
 
-"Spatial orchestration eases this [...] constraint, [...] the composition may be reconfigured for each individual performance. This will require [...] the composer [to] conceive of spatial attributes in a more abstract fashion, that is then instantiated in potentially different ways into different performance environments. " \cite{Lyon:2008spatial_orchestration}\\ 
+\begin{quote}Spatial orchestration eases this [...] constraint, [...] the composition may be reconfigured for each individual performance. This will require [...] the composer [to] conceive of spatial attributes in a more abstract fashion, that is then instantiated in potentially different ways into different performance environments. \cite{Lyon:2008spatial_orchestration} \end{quote}
 By working symbolically during the composition/editing process and separating the authoring from the rendering processes a realization can become portable. A common set of descriptors and shared representation metaphors such a s timelines or scene graphs builds the glue to make a disparate set of tools into a coherent workflow. 
 
        are there other approaches? diffusion practice (e.g. acousmatic sound projection)? (specific editing to a fixed form)\\
@@ -222,9 +224,9 @@ By working symbolically during the composition/editing process and separating th
 \end{packed_enumerate} 
 
 
-\subsection{A layered approach to the spatialisation workflow}
+\subsection{A layered approach to the spatialization workflow}
 %TROND, J45CH\\
-In order to better grasp the structural and methodlogical entities used in a spatialisation process, a layered approach is proposed, which clearly defines the problem domains in an ascending order of abstraction. This model gets its inspiration from the OSI network model \footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}
+In order to better grasp the structural and methodological entities used in a spatialization process, a layered approach is proposed, which defines the problem domains in an ascending order of abstraction (Table \ref{tab:layer}). This model gets its inspiration from the OSI network model \footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}
 
 
 
@@ -245,17 +247,19 @@ In order to better grasp the structural and methodlogical entities used in a spa
 
 \begin{table*}   
 	\begin{tabular}{llll} 
-	Nr. & Layer & Example&\\
+	Nr. & Layer & Examples&\\
 	\hline
-	5 & controlling the rendering & HoloEdit, ambicontrol, swarms, boids \cite{kimboyle:ssp}, trajectories...  & <indirect control description or meta-description> \\ 
+	5 & controlling the rendering & HoloEdit, ambicontrol,& indirect control description \\ 
+	  &    &  swarm simulator, algorithmic generator & or meta-description\\       %, boids \cite{kimboyle:ssp}
 	\hline
-	4. & position of sources and speakers at one moment in time &  Protocol: SpatDIF core, SpatDIF extended if required by the encoder  &  <direct control description>\\
+	4. & audio scene description  & Protocol: SpatDIF core protocol,  & current position of virtual sound sources, \\
+	   &             &    SpatDIF extended if required  & loudspeakers, source width, ...\\
 	\hline
-	3. & encoded audio Protocols & CoreAudio, Jack, PortAudio & \\
+	3. & encoded audio Protocols & B-format, DIRAC, MPEG-surround & Spatial infomation embedded in format\\
  	\hline 
 	2. & decoded audio Protocols & CoreAudio, Jack, PortAudio & \\	
 	\hline
-	1. & physical layer & computers, sound cards, speakers, etc. & \\			 
+	1. & physical layer & computers, sound cards, loudspeakers& \\			 
 	%\hline
 	%Distinctness & ??& ??\\			
    	\end{tabular}               
@@ -271,7 +275,7 @@ defining standards through experimental implementation and usage
 \subsection{SpatDIF}
 --> Nils \\
 The goal of SpatDIF is to develop a system independent language for describing spatial audio scenes \cite{Peters:2008spatdif} 
-Formats who integrate spatial audio decriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music community because these formats are primary tailored to multimedia and gaming applications and do not necessarily consider the special requirements of spatial music and performances in concert venues. Furthermore it is the authors opinion that artists were not sufﬁciently involved in the development of these formats.\\
+Formats who integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music community because these formats are primary tailored to multimedia and gaming applications and do not necessarily consider the special requirements of spatial music and performances in concert venues. Furthermore it is the authors opinion that artists were not sufficiently involved in the development of these formats.\\
 As can be seen in the layer section
 
 
@@ -286,64 +290,29 @@ The ICST ambisonics tools comprise a set of four externals for MaxMSP. The two D
 
 \subsection{Jamoma}
 
-Jamoma is a collaborative set of tools, including DSP and utilities libraries, and a framework for structuring Max/MSP patches. It has been extensively used for the research that is explained here.\\
+Jamoma is a collaborative set of software tools, including DSP and utilities libraries, and a framework for structuring Max/MSP patches. It has been extensively used for the research that is explained here.\\
 As a part of the Jamoma library, the DBAP algorithm \cite{dbapICMC09} has been developped by the Jamoma collective as a Max/MSP external. Its major interest consists in how it goes beyond the loudspeakers setup limitation explained in \ref{sec:digital audio workstations - DAW}, based on an ideal model rather than actual positions of loudspeakers in the room.\\
-One other important part of the Jamoma modular framework supplies a set of spatialization tools, as modules wrapping different spatialization algorithms (VBAP, DBAP, ambisonics encoding/adjusting/decoding, ViMic\cite{CMJ08-VIMIC}),effect processors (Doppler, Airfilter, RollOff, Reverb) and utilities (, that can be combined and substituted one to each other in order to quickly get an acoustic result. 
-This effort of namespace stantdardization in Jamoma has been a valuable testbed for experimenting the ideas presented here, in particular, the actual interoperability of different algorithms, Holo-Edit, Ambimonitor GUI object and physical interfaces (i.e. JazzMutant's Lemur \footnote{\url{http://www.jazzmutant.com/}} or TUIO-compliant TODO:add cite for TUIO interfaces using the Max Multitouch Framework \footnote{\url{http://code.google.com/p/mmf/}}).
-
-%
-%\section{Taxonomy of Spatialization Modules in Jamoma}
-%\subsection{Rendering Modules}
-%\subsubsection{Ambisonics}
-% \cite{Schacher:2006ambi_max}   
-%Decoding/Adjusting/Encoding
-%\subsubsection{VBAP}
-%  \cite{Pulkki:2000vbap_max}
-%\subsubsection{DBAP}
-% \cite{dbapICMC09}
-%\subsubsection{ViMiC}
-%\cite{Peters:2008vimic} \cite{CMJ08-VIMIC}
-%\subsubsection{binaural}
-%?? Does anybody has a working module for this ?
-%\subsection{Control Modules}
-%\subsubsection{HoloEdit Modules}
-%-  holo.transport\\
-%-  holo.reccontrol\\ 
-%paper ?
-%\subsubsection{Geotransforms}
-%- scene3D
-%\subsection{mappings}
-%- boids3D 
-%\subsection{Effect Modules}
-%\subsubsection{Doppler}
-%\subsubsection{Airfilter}
-%\subsubsection{RollOff}
-%\subsubsection{Reverb}  
-%\subsection{Utilities}
-%\subsubsection{loudspeaker setup and correction}
-%-sur.speaker.setup             \\
-%-sur.distamp$\sim$   \hspace{2cm}SPL compensation\\
-%-sur.speaker.delay$\sim$ \hspace{2cm}delay compensation        \\
-%\subsubsection{multichannel tools}
-%- meters\\
-%- aux \\
+One other important part of the Jamoma modular framework supplies a set of spatialization tools, as modules wrapping different spatialization algorithms (VBAP \cite{Pulkki:2000vbap_max}, DBAP \cite{dbapICMC09}, ambisonics \cite{Schacher:2006ambi_max}, ViMic\cite{CMJ08-VIMIC}) that can be combined and substituted one to each other in order to quickly get an acoustic result. 
+Moreover, a number of effect processors (Doppler, Airfilter, RollOff, Reverb) and utilities (loudspeaker setup, FIXME:SPL compensation, FIXME:delay compensation, multichannel meters and auxilliaries) are also available.
+All these modules have been designed according to the same namespace model, thus allowing the user to experiment different setups in minutes.
+This effort of namespace stantdardization in Jamoma has then been a valuable testbed for experimenting the ideas presented here, in particular, the actual interoperability of different algorithms, Holo-Edit, Ambimonitor GUI object and physical interfaces (i.e. JazzMutant's Lemur \footnote{\url{http://www.jazzmutant.com/}} or TUIO-compliant \cite{kaltenbrunner2005tpt} using the Max Multitouch Framework \footnote{\url{http://code.google.com/p/mmf/}}).
  
 \subsection{Holo-Edit}
-Holo-Edit is part of the GMEM Holophon project, dedicated to multi-sources and multi-speakers spatialization, and initiated by Laurent Pottier [TODO: cite http://www.iua.upf.es/dafx98/papers/POT38.PS]. It's a standalone application written in Java/OpenGL which main purpose is the composition of sound in space. It uses the timeline paradigm found in traditionnal DAW for recording / editing / playing spatialization control. The manipulated data is in the form of trajectories or sequence of time-tagged points in a 3D space. These trajectories can be generated or modified by an expandable set of  tools allowing special spatial and temporal behaviours. We can cite for example symmetry, proportion, translation, acceleration, local exaggeration, .. Different scene representation windows allow the user to view/modify data focusing on different aspects : "Room" by a top view of the virtual space, "Time Editor" which is related to the classic automation curve view in DAWs and "Score" which represent the whole composition in a multi-track block-based view.
+Holo-Edit, initiated by L. Pottier \cite{LaurentDAFX98}, is part of the GMEM Holophon project, dedicated to multi-sources and multi-speakers spatialization. This standalone application is written in Java / OpenGL and uses the timeline paradigm found in traditional DAW for recording, editing, and reproduction spatialization control messages. The manipulated data is in the form of trajectories or sequence of time-tagged points in a 3D space. These trajectories can be generated or modified by an expandable set of tools allowing special spatial and temporal behaviors. We can cite for example symmetry, proportion, translation, acceleration, local exaggeration, .. Different scene representation windows allow the user to view/modify data focusing on different aspects : ``Room" by a top view of the virtual space, ``Time Editor" which is related to the classic automation curve view in DAWs and ``Score" which represent the whole composition in a multi-track block-based view.
 An important feature of Holo-Edit is the ability to represent sound waveforms beside their trajectories. This allows to synchronize sound cues to their associated movements.
-The model of space/time representation has been left intentionnaly generic, thus it can control variety of different spatialization methods. Even if the model used is a "virtual space" model [ ref ?? ], its generic nature allow to use it in a more abstract way, thinking more of movements in an arbitrary space ( can be acoustic, symbolic, semiotic ...).
-Holo-Edit uses OSC for I/O data communication. It has been succesffully used with varions spatial renderer, written in Max/MSP, Pd or SuperCollider, using various algorithm like VBAP, Ambisonic, DBAP. 
-But the main drawback of this workflow is the important process of adapting and formating the data to fit the algorithm inputs ( say coordinate system, scales, ). 
+The model of space/time representation has been left intentionally generic, thus it can control variety of different spatialization methods. Even if the model used is a ``virtual space" model [ ref ?? ], its generic nature allow to use it in a more abstract way, thinking more of movements in an arbitrary space ( can be acoustic, symbolic, semiotic ...).
+Holo-Edit uses OSC for I/O data communication. It has been successfully used with various spatial renderers, written in Max/MSP, Pd or SuperCollider, using various algorithm like VBAP, Ambisonic, DBAP. 
+But the main drawback of this workflow is the important process of adapting and formating the data to fit the algorithm inputs (e.g. coordinate system, scales, ). 
 A communication interface has been developped for integration into the Jamoma environnement. It thus add the features of playing trajectory compositions according to the edited score and to record them from any real-time control inputs available in Jamoma. 
-
-[TODO : cite online
-Pottier L. and Frey L. (2005). Holo-Edit online : construction d'une application Java sur internet. in procedings of JIM05 , CICM Paris France ]
+   \cite{Pottier05}
+%[ cite online
+%Pottier L. and Frey L. (2005). Holo-Edit online : construction d'une application Java sur internet. in procedings of JIM05 , CICM Paris France ]
 
 
 \section{Discussion \& Outlook}
 
-This collaborative has emerged from a workshop blabla
-we're planning to make more
+This collaborative research has emerged from a workshop blabla
+we're planning to make more of them
 
 The next step includes developing more usecases and a wider set of tools. SpatDIF and the modular approach to spatialization needs to grow through implementations in a variety of software, especially commercially used systems DAWs and plugins.
 
