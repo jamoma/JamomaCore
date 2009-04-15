@@ -32,7 +32,7 @@
 
 % Title.
 % ------
-\title{Paper Template for SMC 2009}
+\title{TODO: Title}
 
 % IMPORTANT NOTICE:
 % Reviews are double-blind
@@ -79,10 +79,11 @@ about 150-200 words.
 \section{Introduction - TL|NP}\label{sec:introduction}
 %keywords: spatialization, adaptation, site-specific, Ambisonics, 
  
-
-The goal of a each spatial rendering system is, simply speaking, to facilitate or even empower the creative use of spatial aspects for the artist. However, quantitative studies on spatial music (\cite{otondo2008ctu}, \cite{PetersSurvey}) remind us that there are great individual and context-related differences in defining that goal across composers. %that the compositional use of spatialization techniques varies strongly across composers and musical context.    
+The goal of a each spatialization
+%rendering is it only the rendering system, or control/rendering ?
+system is, simply speaking, to facilitate or even empower the creative use of spatial aspects for the artist. However, quantitative studies on spatial music (\cite{otondo2008ctu}, \cite{PetersSurvey}) remind us that there are great individual and context-related differences in defining that goal across composers. %that the compositional use of spatialization techniques varies strongly across composers and musical context.    
 For instance, the requirements of a computer aided spatialization system may vary between a fixed-media composition (e.g \cite{BarrettOS02} %TODO: find a Robert Normandeau reference
-), an installation art (\cite{lossius:2007sound_space_body}), and a live diffusion performance (\cite{Truax99}), as there were:
+), an installation art (\cite{lossius:2007sound_space_body}), and a live diffusion performance (\cite{Truax99}), as there were for instance:
 \begin{packed_item} 
 	\item {binaural rendering for headphone listening}
 	\item {multichannel playback and recording possibility} 
@@ -91,7 +92,8 @@ For instance, the requirements of a computer aided spatialization system may var
 \item {customizable to accommodate for different technical conditions, e.g. rendering to different reproduction formats, compensation for non-ideal loudspeaker configurations, routing signals to dedicated physical outputs}  
 \item {allowing for external control e.g. through MIDI, OSC or other protocols}
 \item {present management}
-\item {sound scene visualization}   
+\item {visual representation of a sound scene}
+\item {real-time or non real-time rendering}   
 \item {separate render and control layer}
 \item {Plug-In structure: exchangeable renderer and interface components}
 \end{packed_item}
@@ -108,9 +110,6 @@ Also, the importance of the outlined requirements vary on the different stages o
 %   - tape-music (fixed media)
 %   - computer generated - real time spatialization (see <meta-description> layer)
    
-
-
- 
     
 %Experimental stage:\\
 %\begin{packed_item}
@@ -136,9 +135,6 @@ Also, the importance of the outlined requirements vary on the different stages o
 %\item {storing }       
 %\end{packed_item}  
 
-   
-
-
 
 %\quote{ What WE need, for our personal work, is a way to extend the capabilities of those tools in a completely flexible and configurable way - and that suggests plug-ins (though it will always be a potential problem overcoming inherent IO structures in the host applications).}
 
@@ -149,150 +145,152 @@ Also, the importance of the outlined requirements vary on the different stages o
 %\quote{Very frustrated with my current spatialization software and am desperately looking for something better!}
 
 \section{Review}
-This section gives an overview of  current paradigms and solutions for spatial sound synthesis. 
+This section gives an overview of current paradigms and solutions for spatial sound synthesis. 
 
 
-\subsection{digital audio workstations - DAW}   
-- a lot of composer use DAW\\
-- why?: composers are adapted to the concept and restrictions of DAWs\\
+\subsection{digital audio workstations - DAW} \label{sec:digital audio workstations - DAW}  
+
+ - a lot of composer use DAW\\
+ - why?: composers are adapted to the concept and restrictions of DAWs\\
 - - - good workflow and project management\\
-- - - extendable through plugIns\\
-- - - accomplished the goals for fixed media and tape-music and consumer media production\\
-
-
-spatialization is mainly done in DAWs and leads to "panning" because the bus architectures and interfaces of the panning plugins suggests this.
-    Limitations:
-        a) mainly tied to consumer formats (stereo and ITU 5:1 surround)
-        b) restricted to linear prerendering compositional processes
-        c) complicated to maintain automation when changing rendering plugIn
-        d) burden to connect interfaces (Lemur, Stantum, Wacom, Camera-tracking)
-        
-        <- BENJAMIN will write something about this (GUIs, multichannel audio routing in DAWs, adaptation to the listening room) -> 10/15 lines
-        
+ - - - extendable through plugIns\\
+ - - - accomplished the goals for fixed media and tape-music and consumer media production\\
+ 
+From 1993, emergence of the ITU 5.1 has been announced as a major improvement for mixing surround sound. Originally designed to fulfill the needs of the film industry, this loudspeaker configuration appeared to music and entertainment companies as a new way to extend their commercial offer. Since then, all DAWs surround panners have been designed to respect and organise sound processing for this set-up. We had to wait until the late nineties to see new suggestions for our surround workstation (from 6.1 to 10.2), enhancing sidesÕ precision and perception outside of the Central Listening Position.\\
+An useful approach for recording, multimedia or film prospects (canÕt do business without standards), but still in a regular, circular, geometric and Ç giving direction È design, wich cannot be acceptable and sufficient for creation or live applications. As an example, a non-flexible loudspeaker circle set-up is very rarely adapted to the concert hall.\\ 
+As much as the speaker configuration, another critical fonction for surround sound mixing is the way that the energy is divided between the speakers. A ``blur" parameter (often mixed up with the ``divergence" parametrer control : Ç wich determines the width of the panned signal with respect to neighboring speakers È - ProTools) % is that a quote from the ProTools Manual? we should put the reference into the bib file [NP]
+ should be one of the most adjustable, and could appear on every surround panner affected to audio channels. Because it enables many variations and possibilities for a creative mix, and because we would work with this parameter considering the specific features of the sound we have to spatialize. Most of the time, and thatÕs too restrictive, this factor is associated and linked to the sound sourceÕs position to the center in the surround panner, and is related to parameters such as ``spread" or ``diversity" (Logic Pro). The most accurate and efficient representation for that is available on Sequoia software (by Magix), with Ç soundfield È offset and character (shape) settings for each track, a global divergence to fit to the listening room size, and a complete flexibility for the speaker set-up in the listening area. \\
+ 
+ TODO : maybe reduce the last part of this subsection\\
+%
+% Did we discuss all point below:? (moved above -> we should use them at the beginning IMHO)
+%
+%
+%spatialization is mainly done in DAWs and leads to "panning" because the bus architectures and interfaces of the panning plugins suggests this.
+%    Limitations:
+%        a) mainly tied to consumer formats (stereo and ITU 5:1 surround)
+%        b) restricted to linear prerendering compositional processes
+%        c) complicated to maintain automation when changing rendering plugIn
+%        d) burden to connect interfaces (Lemur, Stantum, Wacom, Camera-tracking)
+%        
+%        <- BENJAMIN will write something about this (GUIs, multichannel audio routing in DAWs, adaptation to the listening room) -> 10/15 lines
+%        
 \subsection{Media programming environments}
-Beside the paradigm of the DAW, various media programming environment exist, such as SuperCollider, Pure Data, Chuck, Bidule, or Max/MSP which are capable for spatial sound synthesis in real-time. In order to support individual approaches and to meet the specific needs of computer music and mixed media art, these environments enable the user to combine music making with computer programming.  
-However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges in spatial music, as outlined in section XYZ. Consequently, enumerable different self-contained libraries and spatialization toolboxes were created by artists and researcher, such as the Space Unit Generator \cite{SUG02}, IRCAM's Spatialisateur \cite{JotPhD}, or Virtual Microphone Control \cite{CMJ08-VIMIC} to generate virtual sound sources and artificial spaces. Also frameworks primarily dedicated to sound diffusion practice, such as the BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, or ICAST \cite{ICAST06} are available.   
+Beside the paradigm of the DAW, various media programming environment exist, such as SuperCollider, Pure Data, Chuck, OpenMusic, or Max/MSP which are capable for spatial sound synthesis. In order to support individual approaches and to meet the specific needs of computer music and mixed media art, these environments enable the user to combine music making with computer programming.  
+However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges in spatial music, as outlined in section \ref{sec:introduction}. Consequently, enumerable different self-contained libraries and spatialization toolboxes were created by artists and researcher, such as the Space Unit Generator \cite{SUG02}, IRCAM's Spatialisateur \cite{JotPhD}, or Virtual Microphone Control \cite{CMJ08-VIMIC} to generate virtual sound sources and artificial spaces. Also frameworks primarily dedicated to sound diffusion practice, such as the BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, or ICAST \cite{ICAST06} are available.   
+However, each tool may only provide solutions for a subset of compositional viewpoints and the development of new compositional approaches through combining these tools is difficult or even limited through their specific designs. 
+%LIMITATIONS OF THESE SOLUTIONS :
+
 
 \section{Strategies \& Methodologies in Spatial Sound Synthesis}  
 - TROND, J45CH, NILS, PASCAL\\
 
 
-a set of strategies to make working with spatialisation more flexible, modular, customizable and interoperable.\\
-Eric Lyon: \cite{Lyon:2008spatial_orchestration}\\ 
-   working symbolically?  - separating rendering and controlling algorithms\\
+
+ What are the strategies? ¥¥¥ JASCH, BLTZR, TROND
+ 
+A traditional workflow in electroacoustic composition or linear sound editing comprises a number of steps leading to the construction of the audio scene. Other contexts such as audio installations or multimedia work imply a different sequence in the steps of the process. The modular approach tries to abstract these differences and define underlying common elements that are always in play when spatialisation is used. This layer model doesn't imply a specific method, it much rather tries to emphasize the importance of the interchangeability of modules, which share their interconnecting interfaces. The tools for each layer can be exchanged and compared, without forcing the musicican to completly rebuild the workflow.
+
+"Spatial orchestration eases this [...] constraint, [...] the composition may be reconfigured for each individual performance. This will require [...] the composer [to] conceive of spatial attributes in a more abstract fashion, that is then instantiated in potentially different ways into different performance environments. " \cite{Lyon:2008spatial_orchestration}\\ 
+By working symbolically during the composition/editing process and separating the authoring from the rendering processes a realization can become portable. A common set of descriptors and shared representation metaphors such a s timelines or scene graphs builds the glue to make a disparate set of tools into a coherent workflow. 
+
        are there other approaches? diffusion practice (e.g. acousmatic sound projection)? (specific editing to a fixed form)\\
-   common interface
-   modularity
-   flexible (dynamic) number of channels 
-   \url{http://en.wikipedia.org/wiki/OSI_model}
+
+\begin{packed_enumerate}  
+
+\item[1.] Common interface -> interopability \\
+            SpatDIF : unified namespaces \\
+       Common metaphors: \\
+            visual representations \\
+            (horizontal) timeline (see multichannel-comparisons of DAWs: http://acousmodules.free.fr/hosts.htm ) \\
+            vs. (vertical) real-time canvas \\
+            
+\item[2.] Modularity / Layers\\
+        interoperability \\
+        adaptability (through modules querying other modules to adapt themselves to other parts of the graph) \\
+
+\item[3.] Tools \\
+    
+        rendering engines: \\
+            (need to provide an extensible and dynamic bus system) \\
+            Jamoma multicore (flexible number of channels) <- does that work ?
+            supercollider buses \\
+            
+        authoring meta tools: \\
+            HoloEdit :
+                Timeline metaphore \\
+\end{packed_enumerate} 
 
 
-\subsection{hierarchical layers}
-TROND, J45CH\\
-\begin{packed_enumerate}   
-\item[5.]{controlling the rendering (e.g. HoloEdit, ambicontrol, swarms, boids \cite{kimboyle:ssp}, trajectories...)     <indirect control description or meta-description> 
-       Protocol: SpatDIF extended }
-\item[4.]{position of sources and speakers at one moment in time as SpatDIF                          <direct control description>
-       Protocol: SpatDIF core, SpatDIF extended if required by the encoder }
-\item[3.]{encoded audio
-       Protocols:
-           Spatial infomation embedded in format: (e.g. B-format and Dirac, MPEG-surround ?)
-           SpatDIF core and extended if required by the encoder (concerning info on target system) }
-\item[2.]{decoded audio
-       Protocols: E.g. CoreAudio, Jack }
-\item[1.]{physical layer (computers, sound cards, speakers, etc.)}
-\end{packed_enumerate}  
+\subsection{A layered approach to the spatialisation workflow}
+%TROND, J45CH\\
+In order to better grasp the structural and methodlogical entities used in a spatialisation process, a layered approach is proposed, which clearly defines the problem domains in an ascending order of abstraction. This model gets its inspiration from the OSI network model \footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}
+
+
+
+%\begin{packed_enumerate}   
+%\item[5.]{controlling the rendering (e.g. HoloEdit, ambicontrol, swarms, boids \cite{kimboyle:ssp}, trajectories...)     <indirect control %description or meta-description>
+%       Protocol: SpatDIF extended }
+%\item[4.]{position of sources and speakers at one moment in time as SpatDIF                          <direct control description>
+%       Protocol: SpatDIF core, SpatDIF extended if required by the encoder }
+%\item[3.]{encoded audio
+%       Protocols:
+%           Spatial infomation embedded in format: (e.g. B-format and Dirac, MPEG-surround ?)
+%           SpatDIF core and extended if required by the encoder (concerning info on target system) }
+%\item[2.]{decoded audio
+%       Protocols: E.g. CoreAudio, Jack, PortAudio }
+%\item[1.]{physical layer (computers, sound cards, speakers, etc.)}
+%\end{packed_enumerate}  
+%TODO: sketch of the layers?
+
+\begin{table*}   
+	\begin{tabular}{llll} 
+	Nr. & Layer & Example&\\
+	\hline
+	5 & controlling the rendering & HoloEdit, ambicontrol, swarms, boids \cite{kimboyle:ssp}, trajectories...  & <indirect control description or meta-description> \\ 
+	\hline
+	4. & position of sources and speakers at one moment in time &  Protocol: SpatDIF core, SpatDIF extended if required by the encoder  &  <direct control description>\\
+	\hline
+	3. & encoded audio Protocols & CoreAudio, Jack, PortAudio & \\
+ 	\hline 
+	2. & decoded audio Protocols & CoreAudio, Jack, PortAudio & \\	
+	\hline
+	1. & physical layer & computers, sound cards, speakers, etc. & \\			 
+	%\hline
+	%Distinctness & ??& ??\\			
+   	\end{tabular}               
+  			\caption{Layers}
+		\label{tab:layer}       
+	\end{table*}                          
+
+
+
+-- making standard through experimenting 
+defining standards through experimental implementation and usage
+
+\subsection{SpatDIF}
+--> Nils \\
+The goal of SpatDIF is to develop a system independent language for describing spatial audio scenes \cite{Peters:2008spatdif} 
+Formats who integrate spatial audio decriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music community because these formats are primary tailored to multimedia and gaming applications and do not necessarily consider the special requirements of spatial music and performances in concert venues. Furthermore it is the authors opinion that artists were not sufÞciently involved in the development of these formats.\\
+As can be seen in the layer section
 
 
 
 \section{Tools}
-- structured according to layers
+%- structured according to layers
+
+These are for the tools we used for experimentation :
 
 \subsection{ICST Ambisonics}
-The ICST ambisonics tools comprise a set of four externals for MaxMSP. The two DSP externals ambiencode~ and ambidecode~ generate and decode Higher Order Ambisonics. They go up to 3rd Order with Furse-Malham Formulas in Version 1.2, and up to 5th order either Furse-Malhamor Normalized 3D Formulas in version 2.0. The two control externals ambimonitor and ambicontrol complete the set. Ambimonitor presents the user with a GUI displaying point sources in an abstract space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. The import/export format for the trajectories and state snapshots is a simple XML text file, which will be replaced by a SpatDIF compliant formatting in a next release. \cite{Schacher:2006ambi_max} At ICST a different panning algorithm was derived from in-phase ambisonic decoding and also coded as MaxMSP external. Ambipanning~ implements the Ambisonic Equivalent Panning, which transcodes in one step a set of mono sources onto a ideally circular sepaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply per point individually varying directivity responses. This external understands the same command syntax and becomes interchangeable with the other ICST ambisonic dsp objects. \cite{Neukom:2008ambipan} 
+The ICST ambisonics tools comprise a set of four externals for MaxMSP. The two DSP externals ambiencode~ and ambidecode~ generate and decode Higher Order Ambisonics. They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0. The two control externals ambimonitor and ambicontrol complete the set. Ambimonitor presents the user with a GUI displaying point sources in an abstract space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. The import/export format for the trajectories and state snapshots is a simple XML text file, which will be replaced by a SpatDIF compliant formatting in a next release. \cite{Schacher:2006ambi_max} At ICST a different panning algorithm was derived from in-phase ambisonic decoding and also coded as MaxMSP external. Ambipanning~ implements the Ambisonic Equivalent Panning, which transcodes in one step a set of mono sources onto a ideally circular sepaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply per point individually varying directivity responses. This external understands the same command syntax and becomes interchangeable with the other ICST ambisonic dsp objects. \cite{Neukom:2008ambipan}
 
 \subsection{Jamoma}
-(what is jamoma?, jamoma dsp, jamoma multicore, jamoma modular, dataspace lib) --> TIM    
- 
-\subsection{SpatDIF}
---> Nils 
 
-\subsection{Holo-Edit}
---> Charles
+Jamoma is a collaborative set of tools, including DSP and utilities libraries, and a framework for structuring Max/MSP patches. It has been extensively used for the research that is explained here.\\
+As a part of the Jamoma library, the DBAP algorithm \cite{dbapICMC09} has been developped by the Jamoma collective as a Max/MSP external. Its major interest consists in how it goes beyond the loudspeakers setup limitation explained in \ref{sec:digital audio workstations - DAW}, based on an ideal model rather than actual positions of loudspeakers in the room.\\
+One other important part of the Jamoma modular framework supplies a set of spatialization tools, as modules wrapping different spatialization algorithms (VBAP, DBAP, ambisonics encoding/adjusting/decoding, ViMic\cite{CMJ08-VIMIC}),effect processors (Doppler, Airfilter, RollOff, Reverb) and utilities (, that can be combined and substituted one to each other in order to quickly get an acoustic result. 
+This effort of namespace stantdardization in Jamoma has been a valuable testbed for experimenting the ideas presented here, in particular, the actual interoperability of different algorithms, Holo-Edit, Ambimonitor GUI object and physical interfaces (i.e. JazzMutant's Lemur \footnote{\url{http://www.jazzmutant.com/}} or TUIO-compliant TODO:add cite for TUIO interfaces using the Max Multitouch Framework \footnote{\url{http://code.google.com/p/mmf/}}).
 
-
-
-\section{Style Stuff - delme}
-
-\subsection{Title and Authors}
-
-The title is 14pt Times, bold, caps, upper case, centered. Authors' names are centered. 
-The lead author's name is to be listed first (left-most), and the co-authors' names after. If the addresses for all 
-authors are the same, include the address only once, centered. If the authors have different addresses, 
-put the addresses, evenly spaced, under each authors' name.
-
-Reviews are double-blind. {\it \textbf{Author information should be removed from this page in initial submissions}}, 
-and only added later by the authors when sending camera-ready versions.
-
-
-\subsection{Figures, Tables and Captions}
-
-All artwork must be centered, neat, clean, and legible. All lines should
-be very dark for purposes of reproduction and art work should not be hand-drawn.
-The proceedings is not in color, and therefore all figures must make
-sense in black-and-white form.
-Figure and table numbers and captions always appear below the figure. Leave 1
-line space between the figure or table and the caption. Each figure or table
-is numbered consecutively. Captions should be Times 10pt.
-Place tables/figures in text as close to the reference as possible.
-References to figures and tables should be capitalised, for example:
-see Figure \ref{fig:example} and Table \ref{tab:example}.
-Figures and tables may extend across both columns to a maximum
-width of 7'' (17.78~cm).
-
-\begin{table}
-\begin{center}
-\begin{tabular}{|l|l|}
-\hline
-String value & Numeric value \\
-\hline
-hello SMC  & 1073 \\
-\hline
-\end{tabular}
-\end{center}
-\caption{Table captions should be placed below the table}
-\label{tab:example}
-\end{table}
-
-\begin{figure}
-\centerline{\framebox{
-% To use when using pdflatex
-	\includegraphics[width=\columnwidth]{../ICMC2009-dbap/all_r_6_b_0_2}}}
-	% To use when using latex, dvips and ps2pdf
-% 	\includegraphics[width=\columnwidth]{figure.eps}}}
-\caption{Figure captions should be placed below the figure}
-\label{fig:example}
-\end{figure}
-
-
-\section{Discussion \& Outlook}
-
-\section{Conclusion}
-A conclusion is the place when you get tired of thinking. \\
-
-\section{Acknowledgment}
-\bibliographystyle{abbrv}  %\bibliographystyle{natbib}% ama, nar, alpha, plain, chicago,{plainnat}  abbrv, siam   
-\small
-\bibliography{smc09}
-\end{document}   
-
-%%%%%%%  Poubelle %%%%%%   
-	
-%\subsection{Frameworks for Spatialization}
-%\textbf{Spatialisateur} (Spat) \cite{JotPhD}, in development at IRCAM and Espaces Nouveaux since 1991, is a library of spatialization algorithms for MaxMSP, including VBAP, first-order Ambisonics and stereo techniques (XY, MS, ORTF) for up to 8 loudspeakers. It can also reproduce 3D sound for headphones (binaural) or 2/4 loudspeakers (transaural). A room model is included to create artificial early reflections and reverb controlled by a perceptual-based user interface.\\
-%\textbf{Ambisonics toolbox}  \cite{Schacher:2006ambi_max}
-
-   
 %
 %\section{Taxonomy of Spatialization Modules in Jamoma}
 %\subsection{Rendering Modules}
@@ -329,6 +327,96 @@ A conclusion is the place when you get tired of thinking. \\
 %\subsubsection{multichannel tools}
 %- meters\\
 %- aux \\
+ 
+\subsection{Holo-Edit}
+Holo-Edit is part of the GMEM Holophon project, dedicated to multi-sources and multi-speakers spatialization, and initiated by Laurent Pottier [TODO: cite http://www.iua.upf.es/dafx98/papers/POT38.PS]. It's a standalone application written in Java/OpenGL which main purpose is the composition of sound in space. It uses the timeline paradigm found in traditionnal DAW for recording / editing / playing spatialization control. The manipulated data is in the form of trajectories or sequence of time-tagged points in a 3D space. These trajectories can be generated or modified by an expandable set of  tools allowing special spatial and temporal behaviours. We can cite for example symmetry, proportion, translation, acceleration, local exaggeration, .. Different scene representation windows allow the user to view/modify data focusing on different aspects : "Room" by a top view of the virtual space, "Time Editor" which is related to the classic automation curve view in DAWs and "Score" which represent the whole composition in a multi-track block-based view.
+An important feature of Holo-Edit is the ability to represent sound waveforms beside their trajectories. This allows to synchronize sound cues to their associated movements.
+The model of space/time representation has been left intentionnaly generic, thus it can control variety of different spatialization methods. Even if the model used is a "virtual space" model [ ref ?? ], its generic nature allow to use it in a more abstract way, thinking more of movements in an arbitrary space ( can be acoustic, symbolic, semiotic ...).
+Holo-Edit uses OSC for I/O data communication. It has been succesffully used with varions spatial renderer, written in Max/MSP, Pd or SuperCollider, using various algorithm like VBAP, Ambisonic, DBAP. 
+But the main drawback of this workflow is the important process of adapting and formating the data to fit the algorithm inputs ( say coordinate system, scales, ). 
+A communication interface has been developped for integration into the Jamoma environnement. It thus add the features of playing trajectory compositions according to the edited score and to record them from any real-time control inputs available in Jamoma. 
+
+[TODO : cite online
+Pottier L. and Frey L. (2005). Holo-Edit online : construction d'une application Java sur internet. in procedings of JIM05 , CICM Paris France ]
+
+
+\section{Discussion \& Outlook}
+
+This collaborative has emerged from a workshop blabla
+we're planning to make more
+
+The next step includes developing more usecases and a wider set of tools. SpatDIF and the modular approach to spatialization needs to grow through implementations in a variety of software, especially commercially used systems DAWs and plugins.
+
+
+\section{Conclusion}
+A conclusion is the place when you get tired of thinking. \\
+
+\section{Acknowledgment}
+\bibliographystyle{abbrv}  %\bibliographystyle{natbib}% ama, nar, alpha, plain, chicago,{plainnat}  abbrv, siam   
+\small
+\bibliography{smc09}
+\end{document}   
+
+%%%%%%%  Poubelle %%%%%%   
+	
+%\subsection{Frameworks for Spatialization}
+%\textbf{Spatialisateur} (Spat) \cite{JotPhD}, in development at IRCAM and Espaces Nouveaux since 1991, is a library of spatialization algorithms for MaxMSP, including VBAP, first-order Ambisonics and stereo techniques (XY, MS, ORTF) for up to 8 loudspeakers. It can also reproduce 3D sound for headphones (binaural) or 2/4 loudspeakers (transaural). A room model is included to create artificial early reflections and reverb controlled by a perceptual-based user interface.\\
+%\textbf{Ambisonics toolbox}  \cite{Schacher:2006ambi_max}
+
+   
+
+% \section{Style Stuff - delme}
+
+% \subsection{Title and Authors}
+
+%The title is 14pt Times, bold, caps, upper case, centered. Authors' names are centered. 
+%The lead author's name is to be listed first (left-most), and the co-authors' names after. If the addresses for all 
+%authors are the same, include the address only once, centered. If the authors have different addresses, 
+%put the addresses, evenly spaced, under each authors' name.
+
+% Reviews are double-blind. {\it \textbf{Author information should be removed from this page in initial submissions}}, 
+% and only added later by the authors when sending camera-ready versions.
+
+
+%\subsection{Figures, Tables and Captions}
+
+%All artwork must be centered, neat, clean, and legible. All lines should
+%be very dark for purposes of reproduction and art work should not be hand-drawn.
+%The proceedings is not in color, and therefore all figures must make
+%sense in black-and-white form.
+%Figure and table numbers and captions always appear below the figure. Leave 1
+%line space between the figure or table and the caption. Each figure or table
+%is numbered consecutively. Captions should be Times 10pt.
+%Place tables/figures in text as close to the reference as possible.
+%References to figures and tables should be capitalised, for example:
+%see Figure \ref{fig:example} and Table \ref{tab:example}.
+%Figures and tables may extend across both columns to a maximum
+%width of 7'' (17.78~cm).
+
+%\begin{table}
+%\begin{center}
+%\begin{tabular}{|l|l|}
+%\hline
+%String value & Numeric value \\
+%\hline
+%hello SMC  & 1073 \\
+%\hline
+%\end{tabular}
+%\end{center}
+%\caption{Table captions should be placed below the table}
+%\label{tab:example}
+%\end{table}
+
+%\begin{figure}
+%\centerline{\framebox{
+% To use when using pdflatex
+%	\includegraphics[width=\columnwidth]{../ICMC2009-dbap/all_r_6_b_0_2}}}
+	% To use when using latex, dvips and ps2pdf
+% 	\includegraphics[width=\columnwidth]{figure.eps}}}
+%\caption{Figure captions should be placed below the figure}
+%\label{fig:example}
+%\end{figure}
+
 
 
 
