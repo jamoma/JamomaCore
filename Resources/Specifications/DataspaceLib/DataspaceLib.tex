@@ -90,7 +90,7 @@ This spec is far from complete.
 
 \subsection{Case 1: Prometheus and the Temperature of Fire}
 
-Prometheus, having stolen fire from the gods wants to measure how hot the fire is and then convert between various temperature units (Kelvin, Celsius, Fahrenheit).  He needs to convert between temperatures simply and directly just using jcom.dataspace.
+Prometheus, having stolen fire from the gods wants to measure how hot the fire is and then convert between various temperature units (Kelvin, Celsius, Fahrenheit) to teach them to human across various places of the world.  He needs to convert between temperatures simply and directly just using jcom.dataspace.
 
 
 \subsection{Case 2: Echo the Nymph}
@@ -186,17 +186,15 @@ The way the delay~ object works in this example is an example of the override un
 
 \subsubsection{Inlets and Outlets}
 
-The problem is that there are currently 2 uses for that second outlet of which I'm aware:
-4:33 PM
+The problem is that there are currently 2 uses for that second outlet of which I'm aware:4:33 PM
  
 1. it controls something in the algorithm directly (which suggests native unit)
-4:34 PM
  
-2. it controls some part of the display for which the possibly deferred or otherwise treated first outlet is insufficient (to refresh of calculate filtergraph~ coefficients or something).  This suggests it should stay in the display unit.
+2. it controls some part of the display for which the possibly deferred or otherwise treated first outlet is insufficient (to refresh or calculate filtergraph~ coefficients or something).  This suggests it should stay in the display unit.
 
 
- I am wondering now if we just need a whole bunch of outlets, one for each type or something?  (Nils does not like this)
-
+I am wondering now if we just need a whole bunch of outlets, one for each type or something?  (Nils does not like this, and Pascal either)
+Pascal thinks that having the first outlet in the display unit, and the second one in the native unit sounds good... Could anyone please provide an example where this problematic ?
 
 
 
@@ -211,21 +209,22 @@ I think towards a MVC it makes sense to dedicate the active unit to the jalg - m
 
 Tim Responds:
 
-In general, I don't think the MVC thing will cause us any grief because the algorithm and the parameters are all together in the model.  The one that is trickier is the display because there could be multiple views -- but I think we should play ostrich and stick our heads in the sand on that for now.
-4:31 PM
+In general, I don't think the MVC thing will cause us any grief because the algorithm and the parameters are all together in the model.  The one that is trickier is the display because there could be multiple views -- but I think we should play östereich and stick our heads in the sand on that for now.
+
  
-Interesting thought about where the actual code goes though.  In the current architecture it does make sense that the active->native conversion would be located in the jcom.in, which I hadn't considered before.
-4:31 PM
+Interesting thought about where the actual code goes though.  In the current architecture it does make sense that the active to native conversion would be located in the jcom.in, which I hadn't considered before.
+
  
-I think it will make more sense in the future (MVC) to keep it in the parameter though.
+I think it will make more sense in the future (MVC) to keep it in the parameter though.\\
+Pascal asks : will there be a jcom.in at all in the MVC future, if the parameter is in the model ?
 
 And I think that this discussion about the MVC might clarify your previous question, and that yes the 2nd outlet of jcom.parameter should be spitting out the native unit
 
 The problem is that there are currently 2 uses for that second outlet of which I'm aware:
-4:33 PM
+
  
 1. it controls something in the algorithm directly (which suggests native unit)
-4:34 PM
+
  
 2. it controls some part of the display for which the possibly deferred or otherwise treated first outlet is insufficient (to refresh of calculate filtergraph~ coefficients or something).  This suggests it should stay in the display unit.
 
