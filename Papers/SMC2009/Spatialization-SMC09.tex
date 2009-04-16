@@ -70,14 +70,15 @@
 
 \permission
 
-\begin{abstract} 
--flexible working environment for spatialization\\
--A layered approach towards interoperability in sound spatialization management\\
-The abstract should be placed at the top left column and should contain
-about 150-200 words.
-stratified     strata  stratum 
-KEYWORDS : sound spatialization, interoperability, layered architecture, adaptation, site-specific, Ambisonics
-
+\begin{abstract}
+The availability of better CPU resources in recent years makes it possible to experiment more freely with spatial rendering for seeking new ways of expressions, e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. To guarantee an efficient workflow for such non-standardized approach, structure and flexibility are required. This paper proposes a multi-layer concept to meet these requirements.\\                              	
+\textbf{Keywords:} sound spatialization, interoperability, layered architecture, adaptation, site-specific, Ambisonics      
+%-flexible working environment for spatialization\\
+%-A layered approach towards interoperability in sound spatialization management\\
+%The abstract should be placed at the top left column and should contain
+%about 150-200 words.
+%stratified     strata  stratum 
+%KEYWORDS : 
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
@@ -88,9 +89,9 @@ The goal of each spatialization
 system is, simply speaking, to facilitate or even empower the creative use of spatial medium for the sonic artist. Quantitative studies on spatial music (\cite{otondo2008ctu}, \cite{PetersSurvey}) remind us that there are great individual and context-related differences in defining that goal amongst composers. %that the compositional use of spatialization techniques varies strongly across composers and musical context.    
 For instance, the requirements of a computer aided spatialization system may vary between a fixed-media composition (e.g \cite{BarrettOS02} %TODO: find a Robert Normandeau reference
 ), an art-installation (\cite{lossius:2007sound_space_body}), and a live diffusion performance (\cite{Truax99}). 
-For instance, an interactive art installation where the real-time quality of a spatial rendering system plays in combination with the possibility to control spatial processes through a multi-touch screen is of great importance, whereas for a performance of a multichannel fixed-media composition the compensation of non-equidistant loudspeaker in terms of sound pressure and time delays is paramount. Other requirements may be binaural rendering for headphone listening, multichannel playback and recording, or a visual representation of a sound scene.  
-Moreover, even during the creation of one spatial art work, the importance of these requirements change at different stages of the creative processes \emph{Experimentation -- Composing -- Performance -- Documentation}. 
-
+For instance, an interactive art installation where the real-time quality of a spatial rendering system is of great importance in combination with the possibility to control spatial processes through a multi-touch screen, whereas for a performance of a fixed-media composition features such as multichannel playback and the compensation of non-equidistant loudspeaker in terms of sound pressure and time delays may be paramount. Other requirements may be binaural rendering for headphone listening, multichannel recording, up-and down mixing, or a visual representation of a sound scene.  
+Moreover, even during the creation of one spatial art work, the importance of these requirements change throughout the different stages of the creative processes. % \emph{Experimentation -- Arranging -- Performance -- Documentation}. 
+Several common paradigms for spatial sound synthesis are outlined in section \ref{sec:review}. %The availability of better CPU resources in recent years makes it possible to experiment more freely with these paradigms for seeking new ways of expressions, e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. This paper shows how such complex spatialization scenarios can be conceptualized through a multi-layer structure.    
 
 
 
@@ -152,7 +153,7 @@ Moreover, even during the creation of one spatial art work, the importance of th
 
 %\quote{Very frustrated with my current spatialization software and am desperately looking for something better!}
 
-\section{Review of current Paradigms}
+\section{Review of current Paradigms} \label{sec:review}
 %This section gives an overview of current paradigms and solutions for sound spatialization, and shows their limitations. 
 \subsection{Live sound diffusion}  
 ?? shall we mention live diffusion as a paradigm ?
@@ -197,9 +198,9 @@ The Tools used for authoring or rendering must comply to these recommendations, 
 
 \subsection{A layered approach to the spatialization workflow}\label{sec:layers}
 %TROND, J45CH\\
-In order to better grasp the structural and methodological entities used in a spatialization process, a layered approach is proposed, which defines the problem domains in an ascending order of abstraction (Table \ref{tab:layer}). This model gets its inspiration from the OSI network model \footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}. OSI (Open Systems Interconnection), is an abstract description for layered communications and computer network protocol design, which divides network architecture into seven layers which range, from top to bottom, between the Application and the Physical Layers
-
-
+In order to better grasp the structural and methodological entities used in a spatialization process, a layered approach is proposed, which defines the problem domains in an ascending order of abstraction (Table \ref{fig:layers}). This model gets its inspiration from the OSI network model \footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}. OSI (Open Systems Interconnection), is an abstract description for layered communications and computer network protocol design, which divides network architecture into seven layers which range, from top to bottom, between the Application and the Physical Layers
+%
+%
 %\begin{packed_enumerate}   
 %\item[5.]{controlling the rendering (e.g. HoloEdit, ambicontrol, swarms, boids \cite{kimboyle:ssp}, trajectories...)     <indirect control %description or meta-description>
 %       Protocol: SpatDIF extended }
@@ -214,32 +215,32 @@ In order to better grasp the structural and methodological entities used in a sp
 %\item[1.]{physical layer (computers, sound cards, speakers, etc.)}
 %\end{packed_enumerate}  
 %TODO: sketch of the layers?
-
-\begin{table*}   
-	\begin{tabular}{llll} 
-	Nr. & Layer & Examples&\\
-	\hline
-	5. & controlling the rendering & Holo-Edit, ambicontrol,& indirect control description \\ 
-	  &    &  swarm simulator, algorithmic generator & or meta-description\\       %, boids \cite{kimboyle:ssp}
-	\hline
-	4. & audio scene description  & Protocol: SpatDIF core protocol,  & current position of virtual sound sources, \\
-	   &             &    SpatDIF extended if required  & loudspeakers, source width, ...\\
-	\hline
-	3. & encoded audio Protocols & B-format, DIRAC, MPEG-surround & Spatial information embedded in format\\
- 	\hline 
-	2. & decoded audio Protocols & CoreAudio, Jack, PortAudio & \\	
-	\hline
-	1. & physical layer & computers, sound cards, loudspeakers& \\			 
-	%\hline
-	%Distinctness & ??& ??\\			
-   	\end{tabular}               
-  			\caption{Layers}
-		\label{tab:layer}       
-	\end{table*}                          
+%
+%\begin{table*}   
+%	\begin{tabular}{llll} 
+%	Nr. & Layer & Examples&\\
+%	\hline
+%	5. & controlling the rendering & Holo-Edit, ambicontrol,& indirect control description \\ 
+%	  &    &  swarm simulator, algorithmic generator & or meta-description\\       %, boids \cite{kimboyle:ssp}
+%	\hline
+%	4. & audio scene description  & Protocol: SpatDIF core protocol,  & current position of virtual sound sources, \\
+%	   &             &    SpatDIF extended if required  & loudspeakers, source width, ...\\
+%	\hline
+%	3. & encoded audio Protocols & B-format, DIRAC, MPEG-surround & Spatial information embedded in format\\
+% 	\hline 
+%	2. & decoded audio Protocols & CoreAudio, Jack, PortAudio & \\	
+%	\hline
+%	1. & physical layer & computers, sound cards, loudspeakers& \\			 
+%	%\hline
+%	%Distinctness & ??& ??\\			
+%   	\end{tabular}               
+%  			\caption{Layers}
+%		\label{tab:layer}       
+%	\end{table*}                          
 
 	\begin{figure}
 		[ht] \centerline{
-		\includegraphics[width=1.1\columnwidth]{layers.pdf}} \caption{Layers} \label{fig:layers} 
+		\includegraphics[width=1.1\columnwidth]{layers.pdf}} \caption{TODO: where is Soundflower and Rewire in that graph?} \label{fig:layers} 
 	\end{figure}
 	%\end{center}
 
