@@ -83,7 +83,7 @@ We propose a multi-layer approach to mediate across essential components involve
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}         
-The improvements in computer and audio equipment in recent years makes it possible to experiment more freely with resource-demanding sound synthesis techniques such as spatialization. (NOTE : is spatialization a "sound synthesis technique" ? Not sure... [PB]) For seeking new means of expression different spatialization applications should be easily combined and accessible for both programmatic and user interfaces. % and/or other controllers. %e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. 
+The improvements in computer and audio equipment in recent years makes it possible to experiment more freely with resource-demanding sound synthesis techniques such as spatialization. (NOTE : is spatialization a "sound synthesis technique" ? Not sure... [PB] - I think it is a special case -- because you synthesize the sound around a sound, another (closer) name for it is ``spatial sound synthesis" [NP]) For seeking new means of expression different spatialization applications should be easily combined and accessible for both programmatic and user interfaces. % and/or other controllers. %e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. 
 Furthermore, 
 %The goal of any spatialization
 %rendering is it only the rendering system, or control/rendering ?
@@ -205,7 +205,9 @@ The Tools used for authoring and rendering must comply to these recommendations 
 
 \subsection{A layered approach to the spatialization workflow}\label{sec:layers}
 %TROND, J45CH\\
-In order to better grasp the structural and methodological entities used in a spatialization process, a layered approach is proposed, which defines the problem domains in an ascending order of abstraction (Table \ref{fig:layers}). This model gets its inspiration from the OSI network model \footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}. OSI (Open Systems Interconnection) is an abstract description for layered communications and computer network protocol design.  OSI divides network architecture into seven layers which range, from top to bottom, between the Application and  Physical Layers.
+In order to better grasp the structural and methodological entities used in a spatialization process, a layered approach is proposed, which defines the problem domains in an ascending order of abstraction (Table \ref{fig:layers}). This model gets its inspiration from the OSI network model\footnote{\url{http://en.wikipedia.org/wiki/OSI_model}} which is an abstract description for layered communications and computer network protocol design. OSI (Open Systems Interconnection) divides network architecture into seven layers which range, from top to bottom, between the Application and  Physical Layers.
+Each OSI-layer contains a collection of conceptually similar functionalities that provide services to the layer above it and receives service from the layer below it. The adaptation of concepts originally designed for network protocols to computer music systems was already proven to be valid for instance in creating the popular Open Sound Control (OSC) protocol \cite{wright1997osc}. 
+%A layer is a collection of conceptually similar functions that provide services to the layer above it and receives service from the layer below it. For example, a layer that provides error-free communications across a network provides the path needed by applications above it, while it calls the next lower layer to send and receive packets that make up the contents of the path.
 %
 %
 %\begin{packed_enumerate}   
