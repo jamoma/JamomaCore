@@ -191,7 +191,7 @@ Beside the paradigm of the DAW, various media programming environments exist tha
 However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges of spatial music as outlined in section \ref{sec:introduction}. Consequently, numerous self-contained spatialization libraries and toolboxes have been created by artists and researchers to generate virtual sound sources and artificial spaces, such as Space Unit Generator \cite{SUG02}, Spatialisateur \cite{JotPhD}, or Virtual Microphone Control \cite{CMJ08-VIMIC}. Also toolboxes dedicated to sound diffusion practice, such as the BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, or ICAST \cite{ICAST06} are available.   
 Each tool, however, may only provide solutions for a subset of compositional viewpoints. The development of new aesthetics through combining these tools is difficult or limited through their specific designs. 
 \subsection{Stand-alone Applications}
-A variety of powerful stand-alone spatialization systems are in development, ranging from directional based spatialization frameworks (e.g. SSR \cite{geier2008ssr}, \emph{Zirkonium} \cite{ramakrishnan2006zk}) and Auditory Virtual Environments (AVE) (e.g. tinyAVE) to sound diffusion and particle oriented approaches (e.g. \emph{Scatter} \cite{ScatterSMC08}). Although these applications usually promote their graphical user interfaces as the primary method to access the embedded DSP-core, a few strategies to allow communication from outside through self-contained  XML, MIDI or OSC protocols can be found.  
+A variety of powerful stand-alone spatialization systems are in development, ranging from directional based spatialization frameworks (e.g. SSR \cite{geier2008ssr}, Zirkonium \cite{ramakrishnan2006zk}) and Auditory Virtual Environments (AVE, e.g. tinyAVE \cite{BorssAES35}) to sound diffusion and particle oriented approaches (e.g. Scatter \cite{ScatterSMC08}). Although these applications usually promote their graphical user interfaces as the primary method to access their embedded DSP-algorithms, a few strategies to allow communication from outside through self-contained  XML, MIDI or OSC protocols can be found.  
 
 \section{Strategies \& Methodologies in sound spatialization}  
  
@@ -203,7 +203,7 @@ Thus modularity is an essential tenet.  Modularity allows the separation of elem
 The Tools used for authoring and rendering must comply to these recommendations and can be separated into two categories: rendering engines and authoring meta-tools.\\ TODO : maybe this last part may be fused with the one above ??? Modularity concern tools, doesn't it ? And reducing the categories to 2 (render/meta) is senseless when we claim for more layers....  
 
 
-\subsection{A layered approach to the spatialization workflow}\label{sec:layers}
+\subsection{A stratified approach to the spatialization workflow}\label{sec:layers}
 %TROND, J45CH\\
 In order to better grasp the structural and methodological entities used in a spatialization process, a layered approach is proposed, which defines the problem domains in an ascending order of abstraction (Figure \ref{fig:layers}). This model gets its inspiration from the OSI network model\footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}, which is an abstract description for layered communications and computer network protocol design. OSI (Open Systems Interconnection) divides network architecture into seven layers that range from top to bottom between the Application and Physical Layers.
 Each OSI-layer contains a collection of conceptually similar functionalities that provide services to the layer above it and receives service from the layer below it. The adaptation of concepts originally designed for network protocols to computer music systems was legitimized, for instance, in creating the popular Open Sound Control (OSC) protocol \cite{wright1997osc}. 
@@ -255,17 +255,13 @@ Each OSI-layer contains a collection of conceptually similar functionalities tha
 The major functionality of the Physical Device Layer is to establish the physical relationship between computer and user.                                                       
 It defines the electrical and physical specifications of peripherical devices that creates the acoustical signals, such as soundcards, loudspeakers, and headphones, but also of interface devices and computer screens to visualize and control spatial sound processes. 
 \subsubsection{Decoded Audio Layer}
-This layer contains the audio deamon that runs in the background of a computer OS and manages multichannel audio data between the physical devices and higher layers. Extensions such as JACK, Soundflower, or Rewire can be used for more complex distributions of audio signals among different audio applications. 
-\subsubsection{Encoded Audio Stream Layer}	
+This layer contains the audio service that runs in the background of a computer OS and manages multichannel audio data between the physical devices and higher layers. Extensions such as JACK, Soundflower, or Rewire can be used for more complex distributions of audio signals among different audio applications. 
+\subsubsection{Encoded Audio Layer}	
 TODO
 \subsubsection{DSP / Rendering Layer}
 TODO
 \subsubsection{Audio Scene Description Layer}
-TODO \\
-\textbf{SpatDIF:} A particular effort has been done by the authors on integrating and developing SpatDIF as Layer 4 (audio scene description). The goal of SpatDIF is to develop a system-independent language for describing spatial audio scenes \cite{Peters:2008spatdif} 
-Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music or fine arts community because these formats are primary tailored to multimedia and gaming applications.  As such they do not necessarily consider the special requirements of spatial music, or performances in concert venues, or sonic/mixed media installations in specific places such as galleries or museums.  Furthermore it is the authors' opinion that artists were not sufficiently involved in the development of these formats.\\
-As can be seen in the layer section (... to be continued ...)
-
+This layer mediates between the \emph{Authoring/Control Layer} above and the \emph{Rendering Layer} below through an abstract and independent description about the spatial scene. This description can range from a simple static scene with one virtual sound sources up to complex dynamic audio scenes including multiple virtual spaces. Examples for this layer are ASDF \cite{geier2008ssr}, OpenAL \cite{openAL-spec1.1} or SpatDIF \cite{Peters:2008spatdif}.    
 \subsubsection{Authoring / Render-Control Layer}	
 TODO   
 
@@ -273,6 +269,12 @@ TODO
 %- structured according to layers
 In order to concretely experiment these ideas, the authors designed and used the tools described below :
 TODO: maybe the tools should be organized according to the layers - hmmm... yes, but some of them are participating to different layers, e.g. ICST Ambisonics are in 5 and 3... Though, if we do so, maybe the description of the layers should contain the description of the tools used in our experimentations ????
+
+
+\subsection{SpatDIF} The Spatial Sound Description Interchange Format (SpatDIF) is in development for functioning in the Audio Scene Description Layer. The goal of SpatDIF is to develop a system-independent language for describing spatial audio scenes \cite{Peters:2008spatdif}. 
+Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music or fine arts community because these formats are primary tailored to multimedia and gaming applications.  As such they do not necessarily consider the special requirements of spatial music, or performances in concert venues, or sonic/mixed media installations in specific places such as galleries or museums.  Furthermore it is the authors' opinion that artists were not sufficiently involved in the development of these formats.\\
+As can be seen in the layer section (... to be continued ...)
+
  
 \subsection{ICST Ambisonics}
 The ICST ambisonics tools comprise a set of four externals for Max/MSP. The two DSP externals ambiencode~ and ambidecode~ generate and decode Higher Order Ambisonics. They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0. The two control externals ambimonitor and ambicontrol complete the set. Ambimonitor presents the user with a GUI displaying point sources in an abstract 2D or 3D space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the Ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. The import/export format for the trajectories and state snapshots is a simple XML text file, which will be replaced by a SpatDIF compliant formatting in a next release. \cite{Schacher:2006ambi_max} At ICST a different panning algorithm \cite{Neukom:2008ambipan} was derived from in-phase ambisonic decoding and also coded as Max/MSP external. Ambipanning~ implements the Ambisonic Equivalent Panning, which transcodes in one step a set of mono sources onto a ideally circular speaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply per point individually varying directivity responses. This external understands the same command syntax and becomes interchangeable with the other ICST ambisonic DSP objects. 
