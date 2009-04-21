@@ -256,7 +256,7 @@ Each OSI-layer contains a collection of conceptually similar functionalities tha
 	\subsubsection{Physical Device Layer}
 The major functionality of the Physical Device Layer is to establish the physical relationship between computer and listener.                                                       
 It defines the electrical and physical specifications of devices that creates the acoustical signals, such as soundcards, loudspeakers, and headphones.  
-\subsubsection{Decode Layer}
+\subsubsection{Decoding Layer}
 This layer contains the audio service that runs in the background of a computer OS and manages multichannel audio data between the physical devices and higher layers. Examples are Core Audio, ALSA, or PortAudio. Extensions such as JACK, Soundflower, or Rewire can be used for more complex distributions of audio signals among different audio applications. 
 \subsubsection{Encoding Layer}	
 TODO\\
@@ -313,7 +313,7 @@ As a step towards SpatDIF compliancy a Holo-edit communication interface was dev
 
 
 \section{Discussion \& Outlook}
-
+This layered approach is an abstract and simplified description of spatial sound processes. Of course, there are other, and more complex and interacting processes embedded in a computer music environment.   
 TODO : Here we should maybe emphasize the fact that all these tools do work together and insert a screenshot of a patch demonstrating this (like the one I committed yesterday in UserLib/Holophon/Examples/LemurThingie) - and maybe a graph showing the connections... ???
 
 The method used here tries to define standards through experimental implementation and usage :
