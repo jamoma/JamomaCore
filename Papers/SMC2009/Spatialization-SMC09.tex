@@ -253,14 +253,25 @@ Each OSI-layer contains a collection of conceptually similar functionalities tha
 	%\end{center}  
 	
 	
-	\subsubsection{Physical Device Layer}
+\subsubsection{Physical Device Layer}
 The major functionality of the Physical Device Layer is to establish the physical relationship between computer and listener.                                                       
-It defines the electrical and physical specifications of devices that creates the acoustical signals, such as soundcards, loudspeakers, and headphones.  
-\subsubsection{Decoding Layer}
-This layer contains the audio service that runs in the background of a computer OS and manages multichannel audio data between the physical devices and higher layers. Examples are Core Audio, ALSA, or PortAudio. Extensions such as JACK, Soundflower, or Rewire can be used for more complex distributions of audio signals among different audio applications. 
-\subsubsection{Encoding Layer}	
-TODO\\
-Examples: DIRAC, Ambisonic B-Format, MPEG Surround, DTS, AC3 
+It defines the electrical and physical specifications of devices that creates the acoustical signals, such as soundcards, amplifiers, loudspeakers, and headphones.
+\subsubsection{Stystem-Level Services Layer}
+This layer contains the audio services that runs in the background of a computer OS and manages multichannel audio data between the physical devices and higher layers. Examples are Core Audio, ALSA, or PortAudio. 
+Extensions such as JACK, Soundflower, Rewire and networked audio streaming can be used for more complex distributions of audio signals among different audio clients.
+\subsubsection{Encoding and Decoding Layers}	
+In the proposed model the spatial rendering is considered to consist of two layers. The encoding layer produce encoded signals containing spatial information while being independent of and unaware of the speaker layout. The decoding process interprets the encoded signal and decodes it for the speaker layout at hand. \cite{Wiggins2004PhDThesis} p. 99 arguments for the benefits of such hierarchical rendering methods:
+
+\begin{packed_item} 
+	\item {The created piece will be much more portable in that, as long as a decoder is available, many different speaker layouts can be used.}  
+	\item {The recordings will become more future-proof as, if a speaker layout changes, just a re-decode is needed, rather than a whole remix of the piece.} 	
+	\item {The composition/recording/monitoring of the piece will become more flexible as headphones, or just a few speakers can be used. This will result in less space being needed. This is particularly useful for on-location recordings, or small studios, where space may be limited.}
+\end{packed_item}
+
+Examples of such hierarchical rendering methods are Directional Audio Coding (DIRAC) \cite{Pulkki2007dirac_1}, Ambisonic B-Format, Higher-order Ambisonic, MPEG Surround, DTS and AC3. 
+
+Not all rendering methods generate intermediate encoded signals. Spatialization techniques such as VBAP \cite{Pulkki:1997vbap}, DBAP \cite{dbapICMC09}, ViMiC \cite{CMJ08-VIMIC} and Ambisonics equivalent panning \cite{Neukom:2008ambipan} encapsulate the encoding and decoding layers in one process.
+
 \subsubsection{Scene Description Layer}
 This layer mediates between the \emph{Authoring Layer} above and the \emph{Decoding Layer} below through an abstract and independent description about the spatial scene. This description can range from a simple static scene with one virtual sound sources up to complex dynamic audio scenes including multiple virtual spaces. Examples for this layer are ASDF \cite{geier2008ssr}, OpenAL \cite{openAL-spec1.1} or SpatDIF \cite{Peters:2008spatdif}.  	
 
