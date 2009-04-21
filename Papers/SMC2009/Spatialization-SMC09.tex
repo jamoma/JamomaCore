@@ -83,7 +83,7 @@ We propose a multi-layer approach to mediate across essential components involve
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}         
-The improvements in computer and audio equipment in recent years make it possible to experiment more freely with resource-demanding sound synthesis techniques such as spatialization. (NOTE : is spatialization a ``sound synthesis technique'' ? Not sure... [PB] - I think it is a special case -- because you synthesize the sound around a sound, another (closer) name for it is ``spatial sound synthesis" [NP]) For seeking new means of expression, different spatialization applications should be readily combined and accessible for both programmatic and user interfaces. % and/or other controllers. %e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. 
+The improvements in computer and audio equipment in recent years make it possible to experiment more freely with resource-demanding sound synthesis techniques such as spatial sound synthesis, also known as spatialization. For seeking new means of expression, different spatialization applications should be readily combined and accessible for both programmatic and user interfaces. % and/or other controllers. %e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. 
 Furthermore, 
 %The goal of any spatialization
 %rendering is it only the rendering system, or control/rendering ?
@@ -165,7 +165,7 @@ Guaranteeing efficient workflow for sound spatialization requires structure, fle
 \subsection{Digital Audio Workstations - DAW} \label{sec:digital audio workstations - DAW} 
 Currently, many composers and sound designers use DAWs for designing their sound spatialization primarily in the context of fixed media, tape-music, and consumer media production. Users of DAWs often have former experience with live diffusion systems, or with panning in a hardware mixing console. Their migration to DAWs seems reasonable because the linear time representation of sound material and the audio bus architecture in DAWs originates from the use of multitrack tape recorder and mixing consoles. 
 A number of (mainly commercial) DAWs are mature and offer a systematic user interface, good project and sound file management, and extendability through plug-ins.  They can fulfill the needs of many users in the described context.\\
-However, through focusing on consumer media products, multichannel capabilities are limited. ITU 5.1, a surround sound format with equidistant loudspeakers around an ideal located listener is the most common multichannel format. % in DAWs and in surround panning plugins. 
+However, through focusing on consumer media products, multichannel capabilities are limited. ITU 5.1 \cite{ITU:1993_surround_5:1}, a surround sound format with equidistant loudspeakers around an ideal located listener is the most common multichannel format. % in DAWs and in surround panning plugins. 
 Its artistic use may be limited because 5.1 favors the frontal direction and has reduced capabilities for localizing virtual sources from the sides and back.  More recently, extensions up to 10.2 are available\footnote{A comparison of DAWs concerning their multichannel audio capabilities shows \url{http://acousmodules.free.fr/hosts.htm}.}.   
 Also, in art installations or concert hall environments, non-standard loudspeaker setups are common, varying in number and arrangements of loudspeakers.  These configurations are typically unaccounted by existing DAWs and therefore often difficult to use. 
 %From 1993, emergence of the ITU 5.1 has been announced as a major improvement for mixing surround sound. Originally designed to fulfill the needs of the film industry, this loudspeaker configuration appeared to music and entertainment companies as a new way to extend their commercial offer. Since then, all DAWs surround panners have been designed to respect and organize sound processing for this set-up. It was not until the late nineties that new suggestions for surround workstations (from 6.1 to 10.2, enhancing sides precision, and perception outside of the Central Listening Position) were considered.\\
@@ -188,7 +188,7 @@ Moreover, this parameter is often only indirectly controllable, e.g. through the
       
 \subsection{Media programming environments}  \label{sec:Media programming environments}
 Beside the paradigm of the DAW, various media programming environments exist that are capable of spatial sound synthesis. These include SuperCollider, Pure Data, Chuck, OpenMusic, and Max/MSP.  In order to support individual approaches and to meet the specific needs of computer music and mixed media art, these environments enable the user to combine music making with computer programming.\\  
-However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges of spatial music as outlined in section \ref{sec:introduction}. Consequently, numerous self-contained spatialization libraries and toolboxes have been created by artists and researchers to generate virtual sound sources and artificial spaces, such as Space Unit Generator \cite{SUG02}, Spatialisateur \cite{JotPhD}, or Virtual Microphone Control \cite{CMJ08-VIMIC}. Also toolboxes dedicated to sound diffusion practice, such as the BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, or ICAST \cite{ICAST06} are available.   
+However, in the name of complete flexibility, these environments lack in providing structured solutions for the specific challenges of spatial music as outlined in section \ref{sec:introduction}. Consequently, numerous self-contained spatialization libraries and toolboxes have been created by artists and researchers to generate virtual sound sources and artificial spaces, such as Space Unit Generator \cite{SUG02}, Spatialisateur \cite{JotPhD}, or Virtual Microphone Control \cite{CMJ08-VIMIC}. Also toolboxes dedicated to sound diffusion practice, such as the BEASTmulch System\footnote{\url{http://www.beast.bham.ac.uk/research}}, or ICAST \cite{ICAST06} were developed.   
 Each tool, however, may only provide solutions for a subset of compositional viewpoints. The development of new aesthetics through combining these tools is difficult or limited through their specific designs. 
 \subsection{Stand-alone Applications}
 A variety of powerful stand-alone spatialization systems are in development, ranging from directional based spatialization frameworks (e.g. SSR \cite{geier2008ssr}, Zirkonium \cite{ramakrishnan2006zk}) and Auditory Virtual Environments (AVE, e.g. tinyAVE \cite{BorssAES35}) to sound diffusion and particle oriented approaches (e.g. Scatter \cite{ScatterSMC08}). Although these applications usually promote their graphical user interfaces as the primary method to access their embedded DSP-algorithms, a few strategies to allow communication from outside through self-contained  XML, MIDI or OSC protocols can be found.  
@@ -247,8 +247,8 @@ Each OSI-layer contains a collection of conceptually similar functionalities tha
 %		\label{tab:layer}       
 %	\end{table*}                          
 	\begin{figure}
-		[ht] \centerline{
-		\includegraphics[width=0.9\columnwidth]{layers2.pdf}} \caption{Process layers and communication stream} \label{fig:layers} 
+		[ht] \centerline{\framebox{ 
+		\includegraphics[width=0.95\columnwidth]{layers2.pdf}}} \caption{Process layers and communication stream} \label{fig:layers} 
 	\end{figure}
 	%\end{center}  
 	
@@ -268,15 +268,15 @@ In the proposed model the spatial rendering is considered to consist of two laye
 	\item {The composition/recording/monitoring of the piece will become more flexible as headphones, or just a few speakers can be used. This will result in less space being needed. This is particularly useful for on-location recordings, or small studios, where space may be limited.}
 \end{packed_item}
 
-Examples of such hierarchical rendering methods are Directional Audio Coding (DIRAC) \cite{Pulkki2007dirac_1}, Ambisonics B-Format, Higher-order Ambisonics, MPEG Surround, DTS, and AC3.
+Examples of such hierarchical rendering methods are Directional Audio Coding (DIRAC) \cite{Pulkki2007dirac_1}, Ambisonics B-Format, Higher-order Ambisonics, MPEG Surround, DTS, or AC-3.
 Not every rendering technique generate intermediate encoded signals: for instance VBAP \cite{Pulkki:1997vbap}, DBAP \cite{dbapICMC09}, ViMiC \cite{CMJ08-VIMIC}, or Ambisonics equivalent panning \cite{Neukom:2008ambipan} encapsulate the encoding and decoding layers in one process.
 
 \subsubsection{Scene Description Layer}
 This layer mediates between the \emph{Authoring Layer} above and the \emph{Decoding Layer} below through an abstract and independent description about the spatial scene. This description can range from a simple static scene with one virtual sound sources up to complex dynamic audio scenes including multiple virtual spaces. Examples for this layer are ASDF \cite{geier2008ssr}, OpenAL \cite{openAL-spec1.1} or SpatDIF \cite{Peters:2008spatdif}.  	
 
 \subsubsection{Authoring Layer}	
-TODO\\
-Examples: symbolic authoring tools, generative algorithms, emergent algorithms / swarms, ICST ambimonitor/ambicontrol, Holo-Edit
+This layer contains all software applications that enables the end-user to create spatial audio content without the need to control underlying processes directly. Authoring applications may differ remarkably from each other in order to serve the requirements for varicolored approaches to spatialization.
+Examples are symbolic authoring tools, generative algorithms, simulations of emergent behaviors (swarms or flock-of-birds); or more specifically, ICST ambimonitor/ambicontrol, and Holo-Edit.
 
 
 \subsection{Winding up comments for chapter 3}
