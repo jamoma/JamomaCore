@@ -248,22 +248,32 @@ Each OSI-layer contains a collection of conceptually similar functionalities tha
 %	\end{table*}                          
 	\begin{figure}
 		[ht] \centerline{
-		\includegraphics[width=1.1\columnwidth]{layers.pdf}} \caption{TODO: where is Soundflower and Rewire in that graph? [PB] : I guess in the green layer ??? } \label{fig:layers} 
+		\includegraphics[width=0.9\columnwidth]{layers2.pdf}} \caption{Process layers and communication stream} \label{fig:layers} 
 	\end{figure}
 	%\end{center}  
-\subsubsection{Physical Device Layer}
-The major functionality of the Physical Device Layer is to establish the physical relationship between computer and user.                                                       
-It defines the electrical and physical specifications of peripherical devices that creates the acoustical signals, such as soundcards, loudspeakers, and headphones, but also of interface devices and computer screens to visualize and control spatial sound processes. 
-\subsubsection{Decoded Audio Layer}
-This layer contains the audio service that runs in the background of a computer OS and manages multichannel audio data between the physical devices and higher layers. Extensions such as JACK, Soundflower, or Rewire can be used for more complex distributions of audio signals among different audio applications. 
-\subsubsection{Encoded Audio Layer}	
-TODO
-\subsubsection{DSP / Rendering Layer}
-TODO
-\subsubsection{Audio Scene Description Layer}
-This layer mediates between the \emph{Authoring/Control Layer} above and the \emph{Rendering Layer} below through an abstract and independent description about the spatial scene. This description can range from a simple static scene with one virtual sound sources up to complex dynamic audio scenes including multiple virtual spaces. Examples for this layer are ASDF \cite{geier2008ssr}, OpenAL \cite{openAL-spec1.1} or SpatDIF \cite{Peters:2008spatdif}.    
-\subsubsection{Authoring / Render-Control Layer}	
-TODO   
+	
+	
+	\subsubsection{Physical Device Layer}
+The major functionality of the Physical Device Layer is to establish the physical relationship between computer and listener.                                                       
+It defines the electrical and physical specifications of devices that creates the acoustical signals, such as soundcards, loudspeakers, and headphones.  
+\subsubsection{Decode Layer}
+This layer contains the audio service that runs in the background of a computer OS and manages multichannel audio data between the physical devices and higher layers. Examples are Core Audio, ALSA, or PortAudio. Extensions such as JACK, Soundflower, or Rewire can be used for more complex distributions of audio signals among different audio applications. 
+\subsubsection{Encoding Layer}	
+TODO\\
+Examples: DIRAC, Ambisonic B-Format, MPEG Surround, DTS, AC3 
+\subsubsection{Scene Description Layer}
+This layer mediates between the \emph{Authoring Layer} above and the \emph{Decoding Layer} below through an abstract and independent description about the spatial scene. This description can range from a simple static scene with one virtual sound sources up to complex dynamic audio scenes including multiple virtual spaces. Examples for this layer are ASDF \cite{geier2008ssr}, OpenAL \cite{openAL-spec1.1} or SpatDIF \cite{Peters:2008spatdif}.  	
+
+\subsubsection{Authoring Layer}	
+TODO\\
+Examples: symbolic authoring tools, generative algorithms, emergent algorithms / swarms, ICST ambimonitor/ambicontrol, Holo-Edit
+
+
+\subsection{Winding up comments for chapter 3}
+1) The idea we take from OSI is that for each layer (and for each level of communication between layers) there might be different ....
+2) Some frendering techniques will operate acress more than one level. E.g. VBAP, DBAP, ViMiC and ambipanning incorporates encoding and decoding.
+3) the flow of information/audio can go across several layers, the layers don't impose an absolute ordering and exclusive sequence of events.
+
 
 \section{Stratified Tools}
 %- structured according to layers
@@ -271,8 +281,11 @@ In order to concretely experiment these ideas, the authors designed and used the
 TODO: maybe the tools should be organized according to the layers - hmmm... yes, but some of them are participating to different layers, e.g. ICST Ambisonics are in 5 and 3... Though, if we do so, maybe the description of the layers should contain the description of the tools used in our experimentations ????
 
 
-\subsection{SpatDIF} The Spatial Sound Description Interchange Format (SpatDIF) is in development for functioning in the Audio Scene Description Layer. The goal of SpatDIF is to develop a system-independent language for describing spatial audio scenes \cite{Peters:2008spatdif}. 
-Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music or fine arts community because these formats are primary tailored to multimedia and gaming applications.  As such they do not necessarily consider the special requirements of spatial music, or performances in concert venues, or sonic/mixed media installations in specific places such as galleries or museums.  Furthermore it is the authors' opinion that artists were not sufficiently involved in the development of these formats.\\
+\subsection{SpatDIF} 
+The goal of the Spatial Sound Description Interchange Format (SpatDIF) is to develop a system-independent language for describing spatial audio scenes \cite{Peters:2008spatdif} to be applied in the Audio Scene Description Layer. 
+Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music or fine arts community because these formats are primary tailored to multimedia and gaming applications. 
+
+As such they do not necessarily consider the special requirements of spatial music, or performances in concert venues, or sonic/mixed media installations in specific places such as galleries or museums.  Furthermore it is the authors' opinion that artists were not sufficiently involved in the development of these formats.\\
 As can be seen in the layer section (... to be continued ...)
 
  
@@ -311,9 +324,10 @@ The next step includes developing more use cases and a wider set of tools. SpatD
 
 
 \section{Conclusion}
-A conclusion is the place when you get tired of thinking. \\
+A conclusion is the place when you get tired of thinking.\\
 
 \section{Acknowledgment}
+ICMC 2008 panel discussion \url{http://redmine.spatdif.org/wiki/spatdif/Belfast_2008}
 \bibliographystyle{abbrv}  %\bibliographystyle{natbib}% ama, nar, alpha, plain, chicago,{plainnat}  abbrv, siam   
 \small
 \bibliography{smc09}
