@@ -5408,7 +5408,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 225.0, 470.0, 254.0, 19.0 ],
-													"text" : "jcom.attributes_dumper"
+													"text" : "jcom.getAllAttributes"
 												}
 
 											}
@@ -7628,7 +7628,7 @@
 													"numoutlets" : 2,
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 207.0, 411.0, 219.0, 18.0 ],
-													"text" : "jcom.attributes_dumper"
+													"text" : "jcom.getAllAttributes"
 												}
 
 											}

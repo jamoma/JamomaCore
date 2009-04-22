@@ -2696,7 +2696,7 @@
 																					"numoutlets" : 2,
 																					"outlettype" : [ "", "" ],
 																					"patching_rect" : [ 200.0, 435.0, 133.0, 18.0 ],
-																					"text" : "jcom.attributes_dumper"
+																					"text" : "jcom.getAllAttributes"
 																				}
 
 																			}
@@ -2817,7 +2817,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 26.0, 77.0, 130.0, 18.0 ],
-																									"text" : "jcom.messages_dumper"
+																									"text" : "jcom.getMessageNames"
 																								}
 
 																							}
@@ -2845,7 +2845,7 @@
 																									"numoutlets" : 1,
 																									"outlettype" : [ "" ],
 																									"patching_rect" : [ 146.0, 77.0, 138.0, 18.0 ],
-																									"text" : "jcom.parameters_dumper"
+																									"text" : "jcom.getParameterNames"
 																								}
 
 																							}

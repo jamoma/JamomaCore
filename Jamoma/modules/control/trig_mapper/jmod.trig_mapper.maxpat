@@ -2370,7 +2370,7 @@
 , 											{
 												"box" : 												{
 													"maxclass" : "newobj",
-													"text" : "jcom.attributes_dumper",
+													"text" : "jcom.getAllAttributes",
 													"outlettype" : [ "", "" ],
 													"patching_rect" : [ 200.0, 435.0, 133.0, 18.0 ],
 													"id" : "obj-3",
