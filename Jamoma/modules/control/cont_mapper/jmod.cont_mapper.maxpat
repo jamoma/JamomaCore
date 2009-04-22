@@ -4962,7 +4962,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 70.0, 90.0, 141.0, 19.0 ],
-																	"text" : "jcom.parameters_dumper"
+																	"text" : "jcom.getParameterNames"
 																}
 
 															}
@@ -4990,7 +4990,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 270.0, 85.0, 128.0, 19.0 ],
-																	"text" : "jcom.returns_dumper"
+																	"text" : "jcom.getReturnNames"
 																}
 
 															}
@@ -7962,7 +7962,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 90.0, 80.0, 130.0, 18.0 ],
-																	"text" : "jcom.messages_dumper"
+																	"text" : "jcom.getMessageNames"
 																}
 
 															}
@@ -7990,7 +7990,7 @@
 																	"numoutlets" : 1,
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 225.0, 80.0, 138.0, 18.0 ],
-																	"text" : "jcom.parameters_dumper"
+																	"text" : "jcom.getParameterNames"
 																}
 
 															}

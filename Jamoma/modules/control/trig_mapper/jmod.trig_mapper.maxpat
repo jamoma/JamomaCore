@@ -2519,7 +2519,7 @@
 														"boxes" : [ 															{
 																"box" : 																{
 																	"maxclass" : "newobj",
-																	"text" : "jcom.messages_dumper",
+																	"text" : "jcom.getMessageNames",
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 26.0, 77.0, 130.0, 18.0 ],
 																	"id" : "obj-1",
@@ -2547,7 +2547,7 @@
 , 															{
 																"box" : 																{
 																	"maxclass" : "newobj",
-																	"text" : "jcom.parameters_dumper",
+																	"text" : "jcom.getParameterNames",
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 146.0, 77.0, 138.0, 18.0 ],
 																	"id" : "obj-3",
@@ -6258,7 +6258,7 @@
 														"boxes" : [ 															{
 																"box" : 																{
 																	"maxclass" : "newobj",
-																	"text" : "jcom.parameters_dumper",
+																	"text" : "jcom.getParameterNames",
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 35.0, 125.0, 138.0, 18.0 ],
 																	"id" : "obj-1",
@@ -6286,7 +6286,7 @@
 , 															{
 																"box" : 																{
 																	"maxclass" : "newobj",
-																	"text" : "jcom.returns_dumper",
+																	"text" : "jcom.getReturnNames",
 																	"outlettype" : [ "" ],
 																	"patching_rect" : [ 175.0, 125.0, 126.0, 18.0 ],
 																	"id" : "obj-3",
