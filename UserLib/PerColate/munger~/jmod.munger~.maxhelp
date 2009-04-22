@@ -1,1 +1,257 @@
-max v2;#N vpatcher 34 53 991 439;#P origin 0 -4;#P window setfont "Sans Serif" 9.;#P window linecount 3;#P comment 60 245 147 196617 ¥ by dan trueman \, computer music center \, columbia university...;#P window setfont "Sans Serif" 14.;#P window linecount 1;#P comment 60 137 76 196622 munger~;#P window setfont "Sans Serif" 9.;#P comment 60 158 131 196617 multichannel granulator...;#P window linecount 4;#P comment 60 185 146 196617 ¥ munger takes a signal input and granulates it \, allowing for different transposition and granular sampling effects.;#P window linecount 3;#P comment 60 292 148 196617 ¥ flext port with additional new features by Ivica Ico Bukvic and Ji-Sun Kim \, Virginia Tech;#P bpatcher 319 213 100 100 0 0 jmod.munger~.mxt 0;#P objectname jmod.munger~.mxt;#P window linecount 1;#P comment 24 55 250 196617 Granulation for everyone...;#B frgb 255 255 255;#P window setfont "Sans Serif" 18.;#P comment 23 24 258 196626 jmod.munger~;#B frgb 255 255 255;#P bpatcher 677 261 255 60 0 0 jmod.control.mxt 0 /control;#P objectname jmod.control;#P window setfont "Sans Serif" 9.;#P newex 524 349 132 196617 dac~ 1 2;#P bpatcher 402 85 255 120 0 0 jmod.input~.mxt 0 /input1~;#P objectname /input1~;#P hidden newex 467 330 65 196617 loadmess set;#P message 402 350 121 196617 /audio/bypass 0;#P newex 402 329 61 196617 prepend set;#P user panel 17 13 374 63;#X brgb 67 65 107;#X frgb 128 11 10;#X border 0;#X rounded 0;#X shadow 0;#X done;#P connect 1 0 2 0;#P hidden fasten 3 0 2 0 472 349 407 349;#P pop;
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"rect" : [ 34.0, 53.0, 957.0, 412.0 ],
+		"bglocked" : 0,
+		"defrect" : [ 34.0, 53.0, 957.0, 412.0 ],
+		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
+		"openinpresentation" : 0,
+		"default_fontsize" : 10.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Verdana",
+		"gridonopen" : 0,
+		"gridsize" : [ 5.0, 5.0 ],
+		"gridsnaponopen" : 0,
+		"toolbarvisible" : 1,
+		"boxanimatetime" : 200,
+		"imprint" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-1",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 60.0, 245.0, 147.0, 39.0 ],
+					"text" : "â€¢ by dan trueman, computer music center, columbia university..."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 14.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-2",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 60.0, 137.0, 76.0, 24.0 ],
+					"text" : "munger~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-3",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 60.0, 158.0, 131.0, 17.0 ],
+					"text" : "multichannel granulator..."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-4",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 60.0, 185.0, 147.0, 50.0 ],
+					"text" : "â€¢ munger takes a signal input and granulates it, allowing for different transposition and granular sampling effects."
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-5",
+					"linecount" : 3,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 60.0, 292.0, 149.0, 39.0 ],
+					"text" : "â€¢ flext port with additional new features by Ivica Ico Bukvic and Ji-Sun Kim, Virginia Tech"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [  ],
+					"id" : "obj-6",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.munger~.maxpat",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patching_rect" : [ 319.0, 213.0, 100.0, 100.0 ],
+					"varname" : "jmod.munger~.mxt"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"id" : "obj-7",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 24.0, 55.0, 250.0, 17.0 ],
+					"text" : "Granulation for everyone...",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 18.0,
+					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
+					"id" : "obj-8",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 23.0, 24.0, 258.0, 28.0 ],
+					"text" : "jmod.munger~",
+					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "/control" ],
+					"id" : "obj-9",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.control.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 677.0, 261.0, 150.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 150.0, 70.0 ],
+					"varname" : "jmod.control"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 0,
+					"patching_rect" : [ 524.0, 349.0, 132.0, 17.0 ],
+					"text" : "dac~ 1 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [ "/input1~" ],
+					"id" : "obj-11",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.input~.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 402.0, 85.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"varname" : "/input1~"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"hidden" : 1,
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 467.0, 330.0, 68.0, 17.0 ],
+					"text" : "loadmess set"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"id" : "obj-13",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 402.0, 350.0, 121.0, 15.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Verdana",
+					"fontsize" : 9.0,
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 402.0, 329.0, 62.0, 17.0 ],
+					"text" : "prepend set"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"bgcolor" : [ 0.262745, 0.254902, 0.419608, 1.0 ],
+					"bordercolor" : [ 0.501961, 0.043137, 0.039216, 1.0 ],
+					"id" : "obj-15",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 17.0, 13.0, 374.0, 63.0 ],
+					"rounded" : 0
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 1,
+					"midpoints" : [ 476.5, 349.0, 411.5, 349.0 ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+ ]
+	}
+
+}
