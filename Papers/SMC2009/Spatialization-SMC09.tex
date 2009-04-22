@@ -96,7 +96,7 @@ Moreover, even during the creation of one spatial art work, the importance of th
 %Several common paradigms for spatial sound synthesis are outlined in section \ref{sec:review}. %The availability of better CPU resources in recent years makes it possible to experiment more freely with these paradigms for seeking new ways of expressions, e.g. a generative mapping of a granular synth output to different spatial renderer from one common user interface, while also streaming spatial encoded audio to the internet. This paper shows how such complex spatialization scenarios can be conceptualized through a multi-layer structure.    
 
 
-Guaranteeing efficient workflow for sound spatialization requires structure, flexibility, and interoperability across all involved components. As outlined in section \ref{sec:review} common spatialization systems are too often self-contained, giving no consideration to these requirements. Therefore, we propose a multi-layer approach to mediate sound spatialization to meet these demands. 
+Guaranteeing efficient workflow for sound spatialization requires structure, flexibility, and interoperability across all involved components. As outlined in Section \ref{sec:review}, common spatialization systems are too often self-contained, giving no consideration to these requirements. Therefore, we propose a multi-layer approach to mediate sound spatialization to meet these demands. 
 
 
 %\begin{packed_item} 
@@ -176,8 +176,8 @@ Also, in art installations or concert hall environments, non-standard loudspeake
 %This was an useful approach for recording, multimedia or film prospects (cannot do business without standards), but still in a regular, circular, geometric and (FIXME: non-neutral ?we mean it influences the user) design, which cannot be acceptable and sufficient for creation or live applications. As an example, a non-flexible loudspeaker circle set-up is very rarely adapted to the concert hall.\\ 
 
 
-DAW surround panners often have a parameter named \emph{blur}, \emph{divergence}, or \emph{spread} to controls the apparent source width through modifying the distributed the sound energy among loudspeakers. Although this parameter enriches the creative possibilities, it is not always integrated in DAWs. %and because we would work with this parameter considering the specific features of the sound we have to spatialize. 
-Moreover, this parameter is often only indirectly controllable, e.g. through the distance of the sound source (Apple Logic Pro).%, and is related to parameters such as \emph{spread} or \emph{diversity} (e.g. in Apple's Logic Pro). To the authors' opinion, the most flexible control element can be found in Sequoia \footnote{\url{http://www.magix.com/us/sequoia/}}, with \emph{soundfield} offset and character (shape) settings for each track, a \emph{global divergence} to fit to the listening room size, and a complete flexibility for the speaker set-up in the listening area. 
+DAW surround panners often comprise a parameter named \emph{blur}, \emph{divergence}, or \emph{spread} that controls the apparent source width through modifying the distributed the sound energy among loudspeakers. Although this parameter enriches the creative possibilities, it is not always integrated in DAWs. %and because we would work with this parameter considering the specific features of the sound we have to spatialize. 
+Moreover, this parameter is often only indirectly accessible, e.g. through changing the distance of the sound source (Apple Logic Pro).%, and is related to parameters such as \emph{spread} or \emph{diversity} (e.g. in Apple's Logic Pro). To the authors' opinion, the most flexible control element can be found in Sequoia \footnote{\url{http://www.magix.com/us/sequoia/}}, with \emph{soundfield} offset and character (shape) settings for each track, a \emph{global divergence} to fit to the listening room size, and a complete flexibility for the speaker set-up in the listening area. 
 %
 %
 % Did we discuss all point below:? (moved above -> we should use them at the beginning IMHO)
@@ -209,20 +209,19 @@ A variety of powerful stand-alone spatialization systems are in development, ran
 
 \section{A stratified approach to the spatialization workflow}  
  
-When dealing with spatialisation in electroacoustic composition or linear sound editing, the workflow comprises a number of steps in order to construct, shape and realize the spatial qualities of the work. The creative workflow might appear to be different when working on audio installations or interactive/multimedia work. Still we find that there are underlying common elements that are always in play when spatialization is used. For this reason a layered approach is proposed, where the processes involved are organized according to levels of abstraction.
+When dealing with spatialization in electroacoustic composition or linear sound editing, the workflow comprises a number of steps in order to construct, shape and realize the spatial qualities of the work. The creative workflow might appear to be different when working on audio installations or interactive/multimedia work. Still we identified underlying common elements that are always in play when spatialization is used. For this reason a layered approach is proposed, where the required processes are organized according to levels of abstraction.
 
-This model gets its inspiration from the OSI network model\footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}, which is an abstract description for layered communications and computer network protocol design. OSI (Open Systems Interconnection) divides network architecture into seven layers that range from top to bottom between the Application and Physical Layers. Each OSI-layer contains a collection of conceptually similar functionalities that provide services to the layer above it and receives service from the layer below it. The adaptation of concepts originally designed for network protocols to computer music systems was legitimized, for instance, in creating the popular Open Sound Control (OSC) protocol \cite{wright1997osc}.
-
-In our proposed model, depicted in Figure \ref{fig:layers}, six layers have been identified.
+This model is inspired by the OSI network model\footnote{\url{http://en.wikipedia.org/wiki/OSI_model}}, which is an abstract description for layered communications and computer network protocol design. OSI (Open Systems Interconnection) divides network architecture into seven layers that range from top to bottom between the Application and Physical Layers. Each OSI-layer contains a collection of conceptually similar functionalities that provide services to the layer above it and receives service from the layer below it. \\
+\indent In our proposed model, depicted in Figure \ref{fig:layers}, six layers have been identified. The adaptation of concepts originally designed for network protocols to computer music systems was legitimized, for instance, in creating the popular Open Sound Control (OSC) protocol \cite{wright1997osc}.   
 
 	\begin{figure}
 		[ht] \centerline{\framebox{ 
-		\includegraphics[width=0.95\columnwidth]{layers2.pdf}}} \caption{Processing layers and communication stream} \label{fig:layers} 
+		\includegraphics[width=0.93\columnwidth]{layers2.pdf}}} \caption{Layers and streams in sound spatialization} \label{fig:layers} 
 	\end{figure}
 
 \subsection{Physical Device Layer}
 
-The major functionality of the \emph{Physical Device Layer} is to establish the physical relationship between computer and listener. 
+The major functionality of this layer is to establish the acoustical connection between computer and listener. 
                                                      
 It defines the electrical and physical specifications of devices that creates the acoustical signals, such as soundcards, amplifiers, loudspeakers, and headphones.
 
@@ -242,11 +241,11 @@ In the proposed model the spatial rendering is considered to consist of two laye
 	\item {The composition/recording/monitoring of the piece will become more flexible as headphones, or just a few speakers can be used. This will result in less space being needed. This is particularly useful for on-location recordings, or small studios, where space may be limited.}
 \end{packed_item}
 
-Examples of such hierarchical rendering methods are Directional Audio Coding (DIRAC) \cite{Pulkki2007dirac_1}, Ambisonics B-Format, Higher Order Ambisonics, MPEG Surround, AC-3, or DTS.
+Examples of such hierarchical rendering methods are Ambisonics B-Format, Higher Order Ambisonics, DIRAC \cite{Pulkki2007dirac_1}, MPEG Surround, AC-3, or DTS.
 
-Not every rendering technique generate intermediate encoded signals, but instead can be considered to encapsulate the encoding and decoding layers in one process. Some examples of such renderes are VBAP \cite{Pulkki:1997vbap}, DBAP \cite{dbapICMC09}, ViMiC \cite{CMJ08-VIMIC} and Ambisonics equivalent panning \cite{Neukom:2008ambipan}.
+Not every rendering technique generate intermediate encoded signals, but instead can be considered to encapsulate the \emph{Encoding} and \emph{Decoding Layers} in one process. Some examples of such renderers are VBAP \cite{Pulkki:1997vbap}, DBAP \cite{dbapICMC09}, ViMiC \cite{CMJ08-VIMIC} and Ambisonics equivalent panning \cite{Neukom:2008ambipan}.
 
-Processing of sources to create an impression of distance, such as Doppler effect, gain attenuation and air absorbtion filters, are considered to belong to the encoding layer. Likewise early reflections and reverberation belongs in the encoding layer. The Waves IR360 surround convolution reverb internally use B-format reverb impulse responses.
+Processing of sources to create an impression of distance, such as Doppler effect, gain attenuation and air absorption filters, are considered to belong to the encoding layer. Likewise early reflections and reverberation belongs in the encoding layer. The Waves IR360 surround convolution reverb internally use B-format reverb impulse responses.
 
 \subsection{Scene Description Layer}
 
@@ -259,7 +258,7 @@ This layer contains all software tools for the end-user to create spatial audio 
 Examples are symbolic authoring tools, generative algorithms, simulations of emergent behaviors (swarms or flock-of-birds); or more specifically, ICST ambimonitor/ambicontrol, and Holo-Edit.
 
 
-\subsection{Winding up comments for chapter 3}
+\subsection{Winding up comments for chapter 3 TODO!!}
 
 1) The idea we take from OSI is that for each layer (and for each level of communication between layers) there might be different ....
 2) Some frendering techniques will operate acress more than one level. E.g. VBAP, DBAP, ViMiC and ambipanning incorporates encoding and decoding.
@@ -278,23 +277,26 @@ In the following, several developments are discussed which are under development
 
 
 \subsection{SpatDIF} 
-The goal of the Spatial Sound Description Interchange Format (SpatDIF) is to develop a system-independent language for describing spatial audio \cite{Peters:2008spatdif} that can be applied in the \emph{Scene Description Layer} of Figure \ref{fig:layers}. 
-Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS or OpenAL did not fully succeed in the music or fine arts community because they are primary tailored to multimedia and gaming applications and don't necessarily consider the special requirements of spatial music, performances in concert venues, and site-specific media installations.
-To account for these specific requirements the development of SpatDIF is consequently a collaborative effort that jointly involves researcher and artists. A database\footnote{\scriptsize{\url{http://redmine.spatdif.org/wiki/spatdif/SpatBASE}}} has been created to gather informations about the syntax and functionalities of common spatialization tools. %Furthermore it is the authors' opinion that artists were not sufficiently involved in the development of these formats.\\
-%As can be seen in the layer section (... to be continued ...)
-
- 
+The goal of the Spatial Sound Description Interchange Format (SpatDIF) is to develop a system-independent language for describing spatial audio \cite{Peters:2008spatdif} that can be applied around the \emph{Scene Description Layer} of Figure \ref{fig:layers}, to communicate between authoring tools down to the encoding/decoding layers. 
+Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS \cite{Vaananen:2004lr} or OpenAL did not fully succeed in the music or fine arts community because they are primary tailored to multimedia or gaming applications and don't necessarily consider the special requirements of spatial music, performances in concert venues, and site-specific media installations.
+To account for these specific requirements, the SpatDIF development is consequently a collaborative effort that jointly involves researcher and artists.\\
+\indent A database\footnote{\scriptsize{\url{http://redmine.spatdif.org/wiki/spatdif/SpatBASE}}} has been created to gather information about syntax and functionalities of common spatialization tools and to identify the lowest common denominator, the ``Auditory Spatial Gist'', for describing spatialized sound.\\ \indent Beside these essential \emph{Core Descriptors}, a number of extensions have been proposed to systematically account for enhanced features, e.g. the \emph{Directivity Extension} which deals with directivity information of a virtual sound source, the \emph{Acoustic Spaces Extension} that contains acoustical properties of virtual rooms, or the \emph{Ambisonics Extension} that handles ambisonics-only parameter. The \emph{Ambisonics Extension} is an example where SpatDIF mediates between the processing layers, starting from Layer 3 to Layer 6 (see Figure \ref{fig:layers}).\\ 
+\indent Although SpatDIF does not imply a specific communication protocol or storing format, at present, OSC for streaming and SDIF \cite{schwarz2000eaa} as a storing solution are used for piloting. 
+%                                                                                                            
 \subsection{ICST Ambisonics}
-The ICST ambisonics tools comprise a set of four externals for Max/MSP \cite{Schacher:2006ambi_max}. The two DSP externals ambiencode$\sim$ and ambidecode$\sim$ generate and decode Higher Order Ambisonics. They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0. The two control externals ambimonitor and ambicontrol complete the set. Ambimonitor presents the user with a GUI displaying point sources in an abstract 2D or 3D space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the Ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. The import/export format for the trajectories and state snapshots is a simple XML text file, which will be replaced by a SpatDIF compliant formatting in a next release. At ICST a different panning algorithm \cite{Neukom:2008ambipan} was derived from in-phase ambisonics decoding and also coded as Max/MSP external. Ambipanning$\sim$ implements the Ambisonics Equivalent Panning, which transcodes in one step a set of mono sources onto a ideally circular speaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply per point individually varying directivity responses. This external understands the same command syntax and becomes interchangeable with the other ICST Ambisonics DSP objects. 
+The ICST Ambisonics Tools comprise a set of four externals for Max/MSP \cite{Schacher:2006ambi_max}.\\
+\indent The two DSP externals ambiencode$\sim$ and ambidecode$\sim$ generate and decode Higher Order Ambisonics and are being part of the \emph{Encoding} and \emph{Decoding Layer} in Figure \ref{fig:layers}. They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0.\\ 
+\indent The two externals ambimonitor and ambicontrol complete the set as control tools for the \emph{Authoring Layer}. Ambimonitor presents the user with a GUI displaying point sources in an abstract 2D or 3D space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the Ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. The import/export format for the trajectories and state snapshots is a simple XML text file, which will be replaced by a SpatDIF compliant formatting in a next release.\\
+\indent A novel panning algorithm \cite{Neukom:2008ambipan} was derived from in-phase ambisonics decoding and was implemented as a Max/MSP external entitled ambipanning$\sim$. It encapsulates the \emph{Encoding} and \emph{Decoding Layer} by transcoding a set of mono sources in one process onto an ideally circular speaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply individually varying directivity responses. This external understands the same command syntax and is therefore interchangeable with the two ICST Ambisonics Tools DSP objects. 
+%
 \subsection{Jamoma}
 
 Jamoma\footnote{\url{http://www.jamoma.org}} is a open-source software\cite{Place:2006jamoma} to facilitate artistic and scientific work with Max/MSP. It consists of a DSP library and a modular framework for structuring patches.
 
 
 Among others, the modular framework provides a set of popular spatialization algorithms, as there were VBAP \cite{Pulkki:2000vbap_max}, ambisonics \cite{Schacher:2006ambi_max}, ViMiC \cite{CMJ08-VIMIC}, and , DBAP \cite{dbapICMC09}. ViMiC and DBAP can be applied to non-conventional and non-standardized loudspeaker arrangements and therefore provides alternative solutions to the limitations outlined in section \ref{sec:digital audio workstations - DAW}. In particularly, DBAP has been proven to be useful in theaters and sound installation context.
-
   
-Furthermore, a number of spatial effects modules (Doppler, Airfilter, RollOff, Reverb), as well as multichannel recording \& playback modules, and other utilities to facilitate the work with multichannel audio (loudspeaker setup definition tools including sound-pressure and delay compensation for non-equidistant arrangements, multichannel auxiliaries, level-meters) are provided.
+\indent Furthermore, a number of spatial effects modules (Doppler, Airfilter, RollOff, Reverb), as well as multichannel recording \& playback modules, and other utilities to facilitate the work with multichannel audio (loudspeaker setup definition tools including sound-pressure and delay compensation for non-equidistant arrangements, multichannel auxiliaries, level-meters) are provided.
 %that can be combined and substituted with each other to quickly compare, audition, or adapt each of them to a specific context. 
 All these modules have been designed according to a common namespace model, that enables the user to rapidly combine or substituted modules in order to adapt to a specific requierements. In particular, the interoperability with Holo-Edit, ICST Ambimonitor and physical interfaces, such as Jazzmutant's Lemur %\footnote{\url{http://www.jazzmutant.com}} 
 or TUIO-compliant \cite{kaltenbrunner2005tpt} multitouch devices through MMF\footnote{\url{http://code.google.com/p/mmf}} facilitates the individual control to Jamoma's rendering modules.
@@ -340,8 +342,8 @@ By working symbolically during the composition/editing process, and separating t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Conclusion}
-A conclusion is the place when you get tired of thinking.\\
-
+We proposed a multi-layer approach to mediate across essential components involved in sound spatialization. We showed that current spatialization approaches lack in terms of structure, interoperability and flexibility and argued that an improved structure will facilitate the artistic work. Finally, we showed examples of current developments which strive to employ this multi-layer approach........ \\                        
+This work is partly funded by the Canadian Natural Sciences and Engineering Research Council (NSERC), the Canada Council for the Arts........... 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
