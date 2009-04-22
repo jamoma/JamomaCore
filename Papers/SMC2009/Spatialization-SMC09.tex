@@ -279,31 +279,42 @@ In the following, several developments are discussed which are under development
 \subsection{SpatDIF} 
 The goal of the Spatial Sound Description Interchange Format (SpatDIF) is to develop a system-independent language for describing spatial audio \cite{Peters:2008spatdif} that can be applied around the \emph{Scene Description Layer} of Figure \ref{fig:layers}, to communicate between authoring tools down to the encoding/decoding layers. 
 Formats that integrate spatial audio descriptors such as MPEG-4 Advanced Audio BIFS \cite{Vaananen:2004lr} or OpenAL did not fully succeed in the music or fine arts community because they are primary tailored to multimedia or gaming applications and don't necessarily consider the special requirements of spatial music, performances in concert venues, and site-specific media installations.
-To account for these specific requirements, the SpatDIF development is consequently a collaborative effort that jointly involves researcher and artists.\\
-\indent A database\footnote{\scriptsize{\url{http://redmine.spatdif.org/wiki/spatdif/SpatBASE}}} has been created to gather information about syntax and functionalities of common spatialization tools and to identify the lowest common denominator, the ``Auditory Spatial Gist'', for describing spatialized sound.\\ \indent Beside these essential \emph{Core Descriptors}, a number of extensions have been proposed to systematically account for enhanced features, e.g. the \emph{Directivity Extension} which deals with directivity information of a virtual sound source, the \emph{Acoustic Spaces Extension} that contains acoustical properties of virtual rooms, or the \emph{Ambisonics Extension} that handles ambisonics-only parameter. The \emph{Ambisonics Extension} is an example where SpatDIF mediates between the processing layers, starting from Layer 3 to Layer 6 (see Figure \ref{fig:layers}).\\ 
+To account for these specific requirements, the SpatDIF development is consequently a collaborative effort that jointly involves researcher and artists.
+
+\indent A database\footnote{\scriptsize{\url{http://redmine.spatdif.org/wiki/spatdif/SpatBASE}}} has been created to gather information about syntax and functionalities of common spatialization tools and to identify the lowest common denominator, the ``Auditory Spatial Gist'', for describing spatialized sound.
+
+\indent Beside these essential \emph{Core Descriptors}, a number of extensions have been proposed to systematically account for enhanced features, e.g. the \emph{Directivity Extension} which deals with directivity information of a virtual sound source, the \emph{Acoustic Spaces Extension} that contains acoustical properties of virtual rooms, or the \emph{Ambisonics Extension} that handles ambisonics-only parameter. The \emph{Ambisonics Extension} is an example where SpatDIF mediates between the processing layers, starting from Layer 3 to Layer 6 (see Figure \ref{fig:layers}).
+ 
 \indent Although SpatDIF does not imply a specific communication protocol or storing format, at present, OSC for streaming and SDIF \cite{schwarz2000eaa} as a storing solution are used for piloting. 
 %                                                                                                            
 \subsection{ICST Ambisonics}
-The ICST Ambisonics Tools comprise a set of four externals for Max/MSP \cite{Schacher:2006ambi_max}.\\
-\indent The two DSP externals ambiencode$\sim$ and ambidecode$\sim$ generate and decode Higher Order Ambisonics and are being part of the \emph{Encoding} and \emph{Decoding Layer} in Figure \ref{fig:layers}. They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0.\\ 
-\indent The two externals ambimonitor and ambicontrol complete the set as control tools for the \emph{Authoring Layer}. Ambimonitor presents the user with a GUI displaying point sources in an abstract 2D or 3D space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the Ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. The import/export format for the trajectories and state snapshots is a simple XML text file, which will be replaced by a SpatDIF compliant formatting in a next release.\\
-\indent A novel panning algorithm \cite{Neukom:2008ambipan} was derived from in-phase ambisonics decoding and was implemented as a Max/MSP external entitled ambipanning$\sim$. It encapsulates the \emph{Encoding} and \emph{Decoding Layer} by transcoding a set of mono sources in one process onto an ideally circular speaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply individually varying directivity responses. This external understands the same command syntax and is therefore interchangeable with the two ICST Ambisonics Tools DSP objects. 
+The ICST Ambisonics Tools comprise a set of four externals for Max/MSP \cite{Schacher:2006ambi_max}.
+
+\indent The two DSP externals ambiencode$\sim$ and ambidecode$\sim$ generate and decode Higher Order Ambisonics and are being part of the \emph{Encoding} and \emph{Decoding Layer} in Figure \ref{fig:layers}. They reach 3rd order with Furse-Malham Formulas in version 1.2, and 5th order using either the Furse-Malham or Normalized 3D formulas in version 2.0.
+
+\indent The two externals ambimonitor and ambicontrol complete the set as control tools for the \emph{Authoring Layer}. Ambimonitor presents the user with a GUI displaying point sources in an abstract 2D or 3D space, various key commands, snapshot and file I/O capabilities and it generates coordinate information for the DSP objects. Ambicontrol provides a number of methods that control motion of points in the Ambimonitor's dataset. Automated motions such as rotation, random motion, optionally constrained in bounding volumes and user defined trajectories can be applied to single or grouped points. The import/export format for the trajectories and state snapshots is a simple XML text file, which will be replaced by a SpatDIF compliant formatting in a next release.
+
+\indent A novel panning algorithm \cite{Neukom:2008ambipan} was derived from in-phase ambisonics decoding and was implemented as a Max/MSP external entitled ambipanning$\sim$. It encapsulates the \emph{Encoding} and \emph{Decoding Layer} by transcoding a set of mono sources in one process onto an ideally circular speaker setup with an arbitrary number of speakers. The algorithm works with a continuous order factor, which permits to apply individually varying directivity responses. This external understands the same \emph{Render Instructions} and is therefore interchangeable with the two ICST Ambisonics Tools DSP objects. 
 %
 \subsection{Jamoma}
 
 Jamoma\footnote{\url{http://www.jamoma.org}} is a open-source software\cite{Place:2006jamoma} to facilitate artistic and scientific work with Max/MSP. It consists of a DSP library and a modular framework for structuring patches.
 
 
-Among others, the modular framework provides a set of popular spatialization algorithms, as there were VBAP \cite{Pulkki:2000vbap_max}, ambisonics \cite{Schacher:2006ambi_max}, ViMiC \cite{CMJ08-VIMIC}, and , DBAP \cite{dbapICMC09}. ViMiC and DBAP can be applied to non-conventional and non-standardized loudspeaker arrangements and therefore provides alternative solutions to the limitations outlined in section \ref{sec:digital audio workstations - DAW}. In particularly, DBAP has been proven to be useful in theaters and sound installation context.
-  
-\indent Furthermore, a number of spatial effects modules (Doppler, Airfilter, RollOff, Reverb), as well as multichannel recording \& playback modules, and other utilities to facilitate the work with multichannel audio (loudspeaker setup definition tools including sound-pressure and delay compensation for non-equidistant arrangements, multichannel auxiliaries, level-meters) are provided.
+Among others, the modular framework provides a set of popular spatialization algorithms, as there were VBAP \cite{Pulkki:2000vbap_max}, ambisonics \cite{Schacher:2006ambi_max}, ViMiC \cite{CMJ08-VIMIC}, and DBAP \cite{dbapICMC09}, all situated at the \emph{Encoding} and \emph{Decoding Layer} and quickly connectable to a multichannel output module which represents the \emph{Hardware Abstraction Layer} in Figure \ref{fig:layers}. Each module is equipped with a ready-made graphical user interface (\emph{Authoring Layer}) and a standardized OSC-namespace for controlling modules remotely. The definition of the loudspeaker reproduction setup as well as the arrangement of the virtual sound sources is intentionally handled by external control modules and communicated through OSC to the renderer, thus makes it easy to exchange the spatialization algorithm while maintaining the global state.
+       
+\indent Furthermore, a number of spatial effects modules (Doppler, Airfilter, RollOff, Reverb), as well as multichannel recording \& playback modules, and utilities to facilitate the work with multichannel audio are provided, e.g. utilities to compensate for sound-pressure and time-delay in non-equidistant loudspeaker arrangements, or level-meters.
+
+\indent At present, arrangements with up to 32 discrete loudspeaker-feeds are supported by all spatialization modules. ViMiC and DBAP have been developed as solutions to limitations outlined in section \ref{sec:digital audio workstations - DAW} regarding non-conventional and non-standardized loudspeaker. In particularly, DBAP has been proven to be useful in theaters and sound installation context.
+
+
 %that can be combined and substituted with each other to quickly compare, audition, or adapt each of them to a specific context. 
-All these modules have been designed according to a common namespace model, that enables the user to rapidly combine or substituted modules in order to adapt to a specific requierements. In particular, the interoperability with Holo-Edit, ICST Ambimonitor and physical interfaces, such as Jazzmutant's Lemur %\footnote{\url{http://www.jazzmutant.com}} 
-or TUIO-compliant \cite{kaltenbrunner2005tpt} multitouch devices through MMF\footnote{\url{http://code.google.com/p/mmf}} facilitates the individual control to Jamoma's rendering modules.
+Because all modules have been equipped with a standardized OSC namespace, users can rapidly combine or substituted modules in order to adapt to specific requirements. For example the interoperability with Holo-Edit, ICST Ambimonitor and physical interfaces, such as Jazzmutant's Lemur %\footnote{\url{http://www.jazzmutant.com}} 
+or TUIO-compliant \cite{kaltenbrunner2005tpt} multitouch devices through MMF\footnote{\url{http://code.google.com/p/mmf}} facilitates the individual control of Jamoma.
 
 
-Current low-level spatial-systems development in Jamoma is focused on Jamoma Multicore, a coding layer for the creation of dynamic audio graph topologies. One application of Jamoma Multicore is the creation of ``multichannel signals" that can be passed between objects in Max/MSP or Pure Data. These multichannel signals are also dynamic, meaning that the number of channels can be changed instantaneously. % and the audio graph will adapt accordingly.  
-The signals can also carry encoded audio signals such as the Ambisonics B-format of any order.
+Current low-level spatial-systems development in Jamoma is focused on Jamoma Multicore, a coding layer for the creation multichannel audio streams that can be passed between objects in Max/MSP or in Pure Data. These multichannel signals are also dynamic, meaning that the number of channels can be changed instantaneously. % and the audio graph will adapt accordingly.  
+The signals can carry decoded or encoded audio signals such as ambisonics B-format of any order.
  
 \subsection{Holo-Edit}
 Initiated by L. Pottier \cite{PottierDAFX98}, Holo-Edit is part of the GMEM Holophon project and dedicated to multi-source and multi-speaker spatialization. This standalone application \cite{Pottier05} is written in Java / OpenGL and uses the timeline paradigm found in traditional DAWs for recording, editing, and playback of spatialization control messages. The data is manipulated in the form of trajectories or sequences of time-tagged points in a 3D space. These trajectories can be generated or modified by an expandable set of tools allowing specific spatial and temporal behaviors including symmetry, proportion, translation, acceleration, and local exaggeration. Different scene representation windows allow the user to view and modify data focusing on different aspects: \emph{Room} by a top view of the virtual space, \emph{Time Editor} which is related to the classic automation curve view in DAWs and \emph{Score} which represents the whole composition in a multi-track block-based view.
@@ -343,13 +354,14 @@ By working symbolically during the composition/editing process, and separating t
 
 \section{Conclusion}
 We proposed a multi-layer approach to mediate across essential components involved in sound spatialization. We showed that current spatialization approaches lack in terms of structure, interoperability and flexibility and argued that an improved structure will facilitate the artistic work. Finally, we showed examples of current developments which strive to employ this multi-layer approach........ \\                        
-This work is partly funded by the Canadian Natural Sciences and Engineering Research Council (NSERC), the Canada Council for the Arts........... 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Acknowledgment}
-ICMC 2008 panel discussion \url{http://redmine.spatdif.org/wiki/spatdif/Belfast_2008}
+ICMC 2008 panel discussion \url{http://redmine.spatdif.org/wiki/spatdif/Belfast_2008}         \\
+This work is partly funded by the Canadian Natural Sciences and Engineering Research Council (NSERC), the Canada Council for the Arts...........   
 \bibliographystyle{abbrv}  %\bibliographystyle{natbib}% ama, nar, alpha, plain, chicago,{plainnat}  abbrv, siam   
 \small
 \bibliography{smc09}
