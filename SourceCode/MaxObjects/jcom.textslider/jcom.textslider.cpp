@@ -47,7 +47,7 @@ typedef struct _textslider{
 	
 	float		attrValue;			///< The slider value
 	float		attrRange[2];		///< ATTRIBUTE: low, high
-	float       attrTextOffset[2];  //NP
+	float       attrTextOffset[2];  // horizontal & vertical offset for text display
 	float		anchorValue;		///< Used for mouse dragging
 	
 	// TODO: Display a list instead of just one symbol.
@@ -55,8 +55,8 @@ typedef struct _textslider{
 	t_symbol	*attrText;			///< The text displayed by the slider
 	
 	t_symbol	*attrTracking;		///< Set mouse drag mode
-	bool		attrClickJump;		///< Jump to new value onj mouse click
-	bool        attrShowValue;        ///  permits showing the value for hovering and mousediting 
+	long		attrClickJump;		///< Jump to new value onj mouse click
+	long        attrShowValue;      ///  permits showing the value for hovering and mousediting 
 	double		mousePositionY;		///< Used to redraw position mouse after dragging
 	bool		mouseDown;			///< Flag indicating mouse status
 	bool		mouseOver;			///< Flag indicating mouse status
@@ -196,10 +196,11 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_STYLE(c,						"clickjump",	0,	"onoff");	
 	
 	CLASS_ATTR_LONG(c,						"showvalue",	0,	t_textslider, attrShowValue);
-	CLASS_ATTR_LABEL(c,						"showvalue",	0,	"Shows Value while editing or hovering");
+	CLASS_ATTR_LABEL(c,						"showvalue",	0,	"Shows Value while editing & hovering");
+	CLASS_ATTR_STYLE(c,						"showvalue",	0,	"onoff");
 	CLASS_ATTR_DEFAULT(c,					"showvalue",	0,	"1");
 	CLASS_ATTR_SAVE(c,						"showvalue",	0);
-	CLASS_ATTR_STYLE(c,						"showvalue",	0,	"onoff");	
+		
 	
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");	
 	
@@ -299,7 +300,7 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 		textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
 		
 		char str[7];
-		if(x->mouseDown & x->attrShowValue) {
+		if((x->mouseDown) && (x->attrShowValue)) {
 			snprintf(str, sizeof(str), "%f", x->attrValue);
 			object_method(textfield, gensym("settext"), str);
 		}
@@ -353,9 +354,9 @@ void textslider_int(t_textslider *x, long value)
 
 // Method: float - update value, redraw and output
 void textslider_float(t_textslider *x, double value)
-{
+{   
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
-	if (x->attrShowValue & x->mouseOver) textslider_updatestringvalue(x);
+	if ((x->attrShowValue) && (x->mouseOver)) textslider_updatestringvalue(x);
 	else jbox_redraw((t_jbox*)x);
 	outlet_float(x->outlet, x->attrValue);
 
@@ -366,7 +367,7 @@ void textslider_float(t_textslider *x, double value)
 void textslider_set(t_textslider *x, double value)
 {
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
-	if (x->attrShowValue & x->mouseOver) textslider_updatestringvalue(x);
+	if ((x->attrShowValue) && (x->mouseOver)) textslider_updatestringvalue(x);
 	else jbox_redraw((t_jbox*)x);	
 }
 
@@ -479,27 +480,11 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	if (x->attrClickJump) {
 		delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
 		delta = delta/(rect.width-2.)*(x->attrRange[1]-x->attrRange[0]) + x->attrRange[0];
-		textslider_float(x, delta);
+		textslider_float(x, delta);					
 	}
 	x->anchorValue = x->attrValue;			
 	jbox_set_mousedragdelta((t_object *)x, 1);
 }
-
-
-/*void textslider_updatestringvalue(t_textslider *x)
-{   
-	if (x->attrShowValueue)
-    {
-	char		str[7];
-	t_object*	textfield = jbox_get_textfield((t_object*) x);
-	
-	if (textfield) {
-		snprintf(str, sizeof(str), "%f", x->attrValue);
-		object_method(textfield, gensym("settext"), str);
-	}
-		
-	jbox_redraw(&x->box);}
-}*/
 
 
 // mousedragdelta sends the amount the mouse moved in t_pt
