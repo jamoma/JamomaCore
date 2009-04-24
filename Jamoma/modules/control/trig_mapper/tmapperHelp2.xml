@@ -8,11 +8,11 @@
     <item name='in/message' type='msg_generic' priority='0'>0</item>
     <item name='in/value' type='msg_float' priority='0'>0.200000</item>
     <item name='in/action' type='msg_int' priority='0'>0</item>
-    <item name='in/module/function' type='msg_generic' priority='0'>/sf_report</item>
+    <item name='in/module/parameter' type='msg_generic' priority='0'>/sf_report</item>
     <item name='in/module/nr' type='msg_int' priority='0'>0</item>
     <item name='in/module/name' type='msg_generic' priority='0'>/input~</item>
     <item name='out/action' type='msg_int' priority='0'>0</item>
-    <item name='out/function' type='msg_generic' priority='0'>/audio/gain/midi</item>
+    <item name='out/parameter' type='msg_generic' priority='0'>/audio/gain/midi</item>
     <item name='out/module/nr' type='msg_int' priority='0'>0</item>
     <item name='out/module/name' type='msg_generic' priority='0'>/input~</item>
     <item name='out/message' type='msg_generic' priority='0'>0</item>
@@ -25,13 +25,13 @@
     <item name='edit' type='msg_symbol' priority='0'>edit</item>
     <item name='in/action' type='msg_int' priority='0'>4</item>
     <item name='in/message' type='msg_generic' priority='0'>0</item>
-    <item name='in/module/function' type='msg_symbol' priority='5'>/button</item>
+    <item name='in/module/parameter' type='msg_symbol' priority='5'>/button</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>/mouse</item>
     <item name='in/module/nr' type='msg_int' priority='2'>0</item>
     <item name='in/value' type='msg_float' priority='0'>0.500000</item>
     <item name='out/action' type='msg_int' priority='0'>2</item>
     <item name='out/message' type='msg_generic' priority='0'>exponential</item>
-    <item name='out/module/function' type='msg_symbol' priority='6'>/mode</item>
+    <item name='out/module/parameter' type='msg_symbol' priority='6'>/mode</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/limiter~</item>
     <item name='out/module/nr' type='msg_int' priority='4'>0</item>
     <item name='out/ramp' type='msg_float' priority='0'>0</item>
@@ -47,13 +47,13 @@
   <preset number='2' name='ramp audio gain'>
     <item name='in/action' type='msg_int' priority='0'>4</item>
     <item name='in/message' type='msg_generic' priority='0'>0</item>
-    <item name='in/module/function' type='msg_symbol' priority='5'>/position/x</item>
+    <item name='in/module/parameter' type='msg_symbol' priority='5'>/position/x</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>/mouse</item>
     <item name='in/module/nr' type='msg_int' priority='2'>0</item>
     <item name='in/value' type='msg_float' priority='0'>0.400000</item>
     <item name='out/action' type='msg_int' priority='0'>1</item>
     <item name='out/message' type='msg_generic' priority='0'>1</item>
-    <item name='out/module/function' type='msg_symbol' priority='6'>/audio/gain</item>
+    <item name='out/module/parameter' type='msg_symbol' priority='6'>/audio/gain</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/limiter~</item>
     <item name='out/module/nr' type='msg_int' priority='4'>0</item>
     <item name='out/ramp' type='msg_float' priority='0'>1.000000</item>
@@ -66,13 +66,13 @@
     <item name='edit' type='msg_symbol' priority='0'>edit</item>
     <item name='in/action' type='msg_int' priority='0'>4</item>
     <item name='in/message' type='msg_generic' priority='0'>0</item>
-    <item name='in/module/function' type='msg_symbol' priority='5'>/button</item>
+    <item name='in/module/parameter' type='msg_symbol' priority='5'>/button</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>/mouse</item>
     <item name='in/module/nr' type='msg_int' priority='2'>0</item>
     <item name='in/value' type='msg_float' priority='0'>0.500000</item>
     <item name='out/action' type='msg_int' priority='0'>2</item>
     <item name='out/message' type='msg_generic' priority='0'>exponential</item>
-    <item name='out/module/function' type='msg_symbol' priority='6'>/mode</item>
+    <item name='out/module/parameter' type='msg_symbol' priority='6'>/mode</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/limiter~</item>
     <item name='out/module/nr' type='msg_int' priority='4'>0</item>
     <item name='out/ramp' type='msg_float' priority='0'>1.000000</item>
