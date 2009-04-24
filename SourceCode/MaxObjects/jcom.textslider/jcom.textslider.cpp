@@ -56,9 +56,10 @@ typedef struct _textslider{
 	
 	t_symbol	*attrTracking;		///< Set mouse drag mode
 	bool		attrClickJump;		///< Jump to new value onj mouse click
+	bool        attrShowValue;        ///  permits showing the value for hovering and mousediting 
 	double		mousePositionY;		///< Used to redraw position mouse after dragging
 	bool		mouseDown;			///< Flag indicating mouse status
-	
+	bool		mouseOver;			///< Flag indicating mouse status
 	void		*outlet;			///< Outlet
 } t_textslider;
 
@@ -187,13 +188,19 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_DEFAULT(c,					"tracking",		0,	"horizontal");
 	CLASS_ATTR_SAVE(c,						"tracking",		0);
 	CLASS_ATTR_ENUM(c,						"tracking",		0,	"horizontal vertical both");
-	
+		
 	CLASS_ATTR_LONG(c,						"clickjump",	0,	t_textslider, attrClickJump);
 	CLASS_ATTR_LABEL(c,						"clickjump",	0,	"Jump to Value on Mouse Down");
 	CLASS_ATTR_DEFAULT(c,					"clickjump",	0,	"1");
 	CLASS_ATTR_SAVE(c,						"clickjump",	0);
-	CLASS_ATTR_STYLE(c,						"clickjump",	0,	"onoff");
-
+	CLASS_ATTR_STYLE(c,						"clickjump",	0,	"onoff");	
+	
+	CLASS_ATTR_LONG(c,						"showvalue",	0,	t_textslider, attrShowValue);
+	CLASS_ATTR_LABEL(c,						"showvalue",	0,	"Shows Value while editing or hovering");
+	CLASS_ATTR_DEFAULT(c,					"showvalue",	0,	"1");
+	CLASS_ATTR_SAVE(c,						"showvalue",	0);
+	CLASS_ATTR_STYLE(c,						"showvalue",	0,	"onoff");	
+	
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");	
 	
 	class_register(CLASS_BOX, c);
@@ -292,7 +299,7 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 		textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
 		
 		char str[7];
-		if(x->mouseDown) {
+		if(x->mouseDown & x->attrShowValue) {
 			snprintf(str, sizeof(str), "%f", x->attrValue);
 			object_method(textfield, gensym("settext"), str);
 		}
@@ -316,6 +323,18 @@ void textslider_assist(t_textslider *x, void *b, long msg, long arg, char *dst)
  	}		
 }
 
+void textslider_updatestringvalue(t_textslider *x)
+{   
+		char		str[7];
+		t_object*	textfield = jbox_get_textfield((t_object*) x);
+		
+		if (textfield) {
+			snprintf(str, sizeof(str), "%f", x->attrValue);
+			object_method(textfield, gensym("settext"), str);
+		}
+		
+	jbox_redraw(&x->box);
+}
 
 // Method: bang - output current value
 void textslider_bang(t_textslider *x)
@@ -336,7 +355,8 @@ void textslider_int(t_textslider *x, long value)
 void textslider_float(t_textslider *x, double value)
 {
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
-	jbox_redraw((t_jbox*)x);
+	if (x->attrShowValue & x->mouseOver) textslider_updatestringvalue(x);
+	else jbox_redraw((t_jbox*)x);
 	outlet_float(x->outlet, x->attrValue);
 
 }
@@ -346,7 +366,8 @@ void textslider_float(t_textslider *x, double value)
 void textslider_set(t_textslider *x, double value)
 {
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
-	jbox_redraw((t_jbox*)x);	
+	if (x->attrShowValue & x->mouseOver) textslider_updatestringvalue(x);
+	else jbox_redraw((t_jbox*)x);	
 }
 
 
@@ -465,8 +486,10 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 }
 
 
-void textslider_updatestringvalue(t_textslider *x)
-{
+/*void textslider_updatestringvalue(t_textslider *x)
+{   
+	if (x->attrShowValueue)
+    {
 	char		str[7];
 	t_object*	textfield = jbox_get_textfield((t_object*) x);
 	
@@ -474,8 +497,9 @@ void textslider_updatestringvalue(t_textslider *x)
 		snprintf(str, sizeof(str), "%f", x->attrValue);
 		object_method(textfield, gensym("settext"), str);
 	}
-	jbox_redraw(&x->box);
-}
+		
+	jbox_redraw(&x->box);}
+}*/
 
 
 // mousedragdelta sends the amount the mouse moved in t_pt
@@ -505,12 +529,10 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	}	
 	x->anchorValue = TTClip<float>(x->anchorValue + (delta/factor), x->attrRange[0], x->attrRange[1]);
 	
-	// TODO: Display of values during drag should be optional.
-	
 	// TODO: Add numdecimalplaces attribute
 	
 	textslider_float(x, x->anchorValue);
-	textslider_updatestringvalue(x);
+	//textslider_updatestringvalue(x); this is done now in the flaot method 
 }
 
 
@@ -530,8 +552,9 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 
 // Display value while hoverring
 void textslider_mouseenter(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers)
-{
-	textslider_updatestringvalue(x);
+{   
+	x->mouseOver = 1; 
+	if (x->attrShowValue) textslider_updatestringvalue(x);	
 }
 
 
@@ -541,6 +564,7 @@ void textslider_mouseleave(t_textslider *x, t_object *patcherview, t_pt pt, long
 	
 	if (textfield)
 		object_method(textfield, gensym("settext"), x->attrText->s_name);
+	x->mouseOver = 0;
 	jbox_redraw(&x->box);
 }
 
