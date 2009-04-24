@@ -130,7 +130,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-8",
-					"items" : [ "BCF2000", ",", "Fireface (2F) Port 1", ",", "to MaxMSP 1", ",", "to MaxMSP 2" ],
+					"items" : [ "IAC Driver IAC Bus 1", ",", "IAC Driver IAC Bus 2", ",", "IAC Driver IAC Bus 3", ",", "IAC Driver IAC Bus 4", ",", "BCF2000", ",", "to MaxMSP 1", ",", "to MaxMSP 2" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
@@ -149,7 +149,7 @@
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
 					"id" : "obj-9",
-					"items" : [ "AU DLS Synth 1", ",", "BCF2000", ",", "Fireface (2F) Port 1", ",", "from MaxMSP 1", ",", "from MaxMSP 2" ],
+					"items" : [ "AU DLS Synth 1", ",", "IAC Driver IAC Bus 1", ",", "IAC Driver IAC Bus 2", ",", "IAC Driver IAC Bus 3", ",", "IAC Driver IAC Bus 4", ",", "BCF2000", ",", "from MaxMSP 1", ",", "from MaxMSP 2" ],
 					"labelclick" : 1,
 					"maxclass" : "umenu",
 					"numinlets" : 1,
@@ -201,10 +201,10 @@
 					"numoutlets" : 0,
 					"patcher" : 					{
 						"fileversion" : 1,
-						"rect" : [ 254.0, 203.0, 543.0, 328.0 ],
+						"rect" : [ 100.0, 100.0, 544.0, 332.0 ],
 						"bgcolor" : [ 0.188235, 0.188235, 0.188235, 1.0 ],
 						"bglocked" : 0,
-						"defrect" : [ 254.0, 203.0, 543.0, 328.0 ],
+						"defrect" : [ 100.0, 100.0, 544.0, 332.0 ],
 						"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 						"openinpresentation" : 1,
 						"default_fontsize" : 10.0,
@@ -225,7 +225,7 @@
 									"name" : "jalg.bcf2000.maxpat",
 									"numinlets" : 0,
 									"numoutlets" : 0,
-									"patching_rect" : [ 393.0, 23.0, 51.0, 316.0 ],
+									"patching_rect" : [ 375.0, 8.0, 51.0, 316.0 ],
 									"presentation" : 1,
 									"presentation_rect" : [ 375.0, 8.0, 51.0, 316.0 ],
 									"varname" : "jalg.bcf2000[7]"
@@ -610,13 +610,13 @@
 ,
 									"patching_rect" : [ 652.0, 91.0, 79.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p Foot_Switch",
@@ -849,13 +849,13 @@
 ,
 									"patching_rect" : [ 748.0, 217.0, 64.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p Button_4",
@@ -1088,13 +1088,13 @@
 ,
 									"patching_rect" : [ 748.0, 162.0, 64.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p Button_2",
@@ -1249,13 +1249,13 @@
 ,
 									"patching_rect" : [ 431.0, 31.0, 42.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p front"
@@ -1544,13 +1544,13 @@
 ,
 									"patching_rect" : [ 748.0, 91.0, 82.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p Foot_Control",
@@ -1800,13 +1800,13 @@
 ,
 									"patching_rect" : [ 652.0, 217.0, 64.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p Button_3",
@@ -2039,13 +2039,13 @@
 ,
 									"patching_rect" : [ 652.0, 162.0, 64.0, 18.0 ],
 									"saved_object_attributes" : 									{
-										"default_fontface" : 0,
-										"default_fontname" : "Verdana",
-										"fontname" : "Verdana",
-										"default_fontsize" : 10.0,
-										"globalpatchername" : "",
 										"fontface" : 0,
-										"fontsize" : 10.0
+										"fontsize" : 10.0,
+										"default_fontname" : "Verdana",
+										"default_fontsize" : 10.0,
+										"fontname" : "Verdana",
+										"globalpatchername" : "",
+										"default_fontface" : 0
 									}
 ,
 									"text" : "p Button_1",
@@ -2063,7 +2063,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 431.0, 162.0, 64.0, 18.0 ],
-									"save" : [ "#N", "thispatcher", ";", "#Q", "window", "flags", "grow", "close", "zoom", "nofloat", "menu", "minimize", ";", "#Q", "window", "constrain", 2, 2, 32768, 32768, ";", "#Q", "window", "size", 254, 203, 797, 531, ";", "#Q", "window", "title", ";", "#Q", "window", "exec", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
+									"save" : [ "#N", "thispatcher", ";", "#Q", "savewindow", 1, ";", "#Q", "end", ";" ],
 									"text" : "thispatcher"
 								}
 
@@ -2404,13 +2404,13 @@
 ,
 					"patching_rect" : [ 119.0, 289.0, 64.0, 19.0 ],
 					"saved_object_attributes" : 					{
-						"default_fontface" : 0,
-						"default_fontname" : "Verdana",
-						"fontname" : "Verdana",
-						"default_fontsize" : 10.0,
-						"globalpatchername" : "",
 						"fontface" : 0,
-						"fontsize" : 10.0
+						"fontsize" : 10.0,
+						"default_fontname" : "Verdana",
+						"default_fontsize" : 10.0,
+						"fontname" : "Verdana",
+						"globalpatchername" : "",
+						"default_fontface" : 0
 					}
 ,
 					"text" : "p bcf2000",
@@ -2428,7 +2428,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 49.0, 91.0, 196.0, 17.0 ],
+					"patching_rect" : [ 50.0, 85.0, 196.0, 17.0 ],
 					"text" : "/preset/store 1 default, /preset/write"
 				}
 
@@ -2451,7 +2451,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-15",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -2459,8 +2459,7 @@
 					"patching_rect" : [ 4.0, 43.0, 65.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 10.0, 43.0, 65.0, 19.0 ],
-					"text" : "MIDI out:",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
+					"text" : "MIDI out:"
 				}
 
 			}
@@ -2489,7 +2488,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 194.0, 108.0, 32.0, 17.0 ],
+					"patching_rect" : [ 200.0, 105.0, 32.0, 17.0 ],
 					"text" : "/init"
 				}
 
@@ -2498,7 +2497,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 10.0,
-					"frgb" : [ 0.584314, 0.584314, 0.584314, 1.0 ],
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -2506,8 +2505,7 @@
 					"patching_rect" : [ 4.0, 21.0, 65.0, 19.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 10.0, 21.0, 65.0, 19.0 ],
-					"text" : "MIDI in:",
-					"textcolor" : [ 0.584314, 0.584314, 0.584314, 1.0 ]
+					"text" : "MIDI in:"
 				}
 
 			}
@@ -2576,7 +2574,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 231.0, 309.0, 155.0, 17.0 ],
-					"text" : "/panel/open"
+					"text" : "/ui/freeze 0"
 				}
 
 			}
@@ -2590,7 +2588,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 56.0, 108.0, 137.0, 17.0 ],
+					"patching_rect" : [ 60.0, 105.0, 137.0, 17.0 ],
 					"text" : "/documentation/generate"
 				}
 
@@ -2650,7 +2648,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 58.5, 129.0, 25.5, 129.0 ],
+					"midpoints" : [ 59.5, 129.0, 25.5, 129.0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -2659,7 +2657,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 65.5, 129.0, 25.5, 129.0 ],
+					"midpoints" : [ 69.5, 129.0, 25.5, 129.0 ],
 					"source" : [ "obj-28", 0 ]
 				}
 
@@ -2677,7 +2675,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-22", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 203.5, 129.0, 25.5, 129.0 ],
+					"midpoints" : [ 209.5, 129.0, 25.5, 129.0 ],
 					"source" : [ "obj-20", 0 ]
 				}
 
