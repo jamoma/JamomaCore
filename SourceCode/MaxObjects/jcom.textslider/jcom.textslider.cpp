@@ -46,14 +46,16 @@ typedef struct _textslider{
 	t_jrgba		attrTextColor;		///< Text color
 	
 	float		attrValue;			///< The slider value
+	float		attrValueUnclipped;	///< The slider value, unclipped
 	float		attrRange[2];		///< ATTRIBUTE: low, high
 	float       attrTextOffset[2];  // horizontal & vertical offset for text display
 	float		anchorValue;		///< Used for mouse dragging
+	float		attrDefaultValue;    // default value is used when click+CTRL
 	
 	// TODO: Display a list instead of just one symbol.
 	// Eventually: Implement "prepend text" and "append text" attributes 
 	t_symbol	*attrText;			///< The text displayed by the slider
-	
+	t_symbol    *attrUnit;			///< The unit which is displayed together with the number 
 	t_symbol	*attrTracking;		///< Set mouse drag mode
 	long		attrClickJump;		///< Jump to new value onj mouse click
 	long        attrShowValue;      ///  permits showing the value for hovering and mousediting 
@@ -79,6 +81,8 @@ t_max_err	textslider_getTextOffset(t_textslider *x, void *attr, long *argc, t_at
 t_max_err	textslider_setTextOffset(t_textslider *x, void *attr, long argc, t_atom *argv);
 t_max_err	textslider_get_text(t_textslider *x, void *attr, long *argc, t_atom **argv);
 t_max_err	textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *argv);
+t_max_err	textslider_get_unit(t_textslider *x, void *attr, long *argc, t_atom **argv);
+t_max_err	textslider_set_unit(t_textslider *x, void *attr, long argc, t_atom *argv);
 void		textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long modifiers);
 void		textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, long modifiers);
 void		textslider_mouseup(t_textslider *x, t_object *patcherview);
@@ -183,6 +187,12 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_SAVE(c,						"text",			0);
 	CLASS_ATTR_ACCESSORS(c,					"text",			textslider_get_text, textslider_set_text);
 	
+	CLASS_ATTR_SYM(c,						"unit",			0,	t_textslider, attrUnit);
+	CLASS_ATTR_LABEL(c,						"unit",			0,	"Displayed Unit");
+	CLASS_ATTR_DEFAULT(c,					"unit",			0,	"");
+	CLASS_ATTR_SAVE(c,						"unit",			0);
+	CLASS_ATTR_ACCESSORS(c,					"unit",			textslider_get_unit, textslider_set_unit);
+	
 	CLASS_ATTR_SYM(c,						"tracking",		0,	t_textslider, attrTracking);
 	CLASS_ATTR_LABEL(c,						"tracking",		0,	"Mouse Tracking");
 	CLASS_ATTR_DEFAULT(c,					"tracking",		0,	"horizontal");
@@ -201,6 +211,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_DEFAULT(c,					"showvalue",	0,	"1");
 	CLASS_ATTR_SAVE(c,						"showvalue",	0);
 		
+	CLASS_ATTR_FLOAT(c,						"defaultvalue",	0,	t_textslider, attrDefaultValue);
+	CLASS_ATTR_LABEL(c,						"defaultvalue",	0,	"Default value");
+	CLASS_ATTR_DEFAULT(c,					"defaultvalue",	0,	"0.0");
+	CLASS_ATTR_SAVE(c,						"defaultvalue",	0);
 	
 	CLASS_STICKY_ATTR_CLEAR(c,				"category");	
 	
@@ -227,7 +241,7 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 		return NULL;
 	
 	if (x = (t_textslider *)object_alloc(s_textslider_class))
-	{
+	{   
 		flags = 0 
 			| JBOX_DRAWFIRSTIN		// 0
 			| JBOX_NODRAWBOX		// 1
@@ -253,8 +267,9 @@ void *textslider_new(t_symbol *s, long argc, t_atom *argv)
 		
 		jbox_new(&x->box, flags, argc, argv);
 		x->box.b_firstin = (t_object *)x;
+		
 		x->outlet = outlet_new(x, 0);
-
+		        
 		attr_dictionary_process(x,d);
 		jbox_ready((t_jbox *)x);
 		
@@ -300,9 +315,11 @@ t_max_err textslider_notify(t_textslider *x, t_symbol *s, t_symbol *msg, void *s
 		textfield_set_textmargins(textfield, x->attrTextOffset[0], x->attrTextOffset[1], 2.0, 2.0);
 		
 		char str[7];
+		char str2[15];
 		if((x->mouseDown) && (x->attrShowValue)) {
-			snprintf(str, sizeof(str), "%f", x->attrValue);
-			object_method(textfield, gensym("settext"), str);
+			snprintf(str, sizeof(str), "%f", x->attrValueUnclipped);
+			snprintf(str2, sizeof(str2), "%s %s", str,x->attrUnit->s_name);
+			object_method(textfield, gensym("settext"), str2);
 		}
 		
 		jbox_redraw(&x->box);
@@ -325,13 +342,15 @@ void textslider_assist(t_textslider *x, void *b, long msg, long arg, char *dst)
 }
 
 void textslider_updatestringvalue(t_textslider *x)
-{   
+{       //TODO: do we need to declate two strings? Can this be done better? 
 		char		str[7];
+     	char		str2[15];
 		t_object*	textfield = jbox_get_textfield((t_object*) x);
 		
 		if (textfield) {
-			snprintf(str, sizeof(str), "%f", x->attrValue);
-			object_method(textfield, gensym("settext"), str);
+			snprintf(str, sizeof(str), "%f", x->attrValueUnclipped);
+			snprintf(str2, sizeof(str2), "%s %s", str,x->attrUnit->s_name);
+			object_method(textfield, gensym("settext"), str2);
 		}
 		
 	jbox_redraw(&x->box);
@@ -341,7 +360,7 @@ void textslider_updatestringvalue(t_textslider *x)
 void textslider_bang(t_textslider *x)
 {
 	// jbox_redraw((t_jbox*)x); I don't think it's necsessary to redraw here...
-	outlet_float(x->outlet, x->attrValue);
+	outlet_float(x->outlet, x->attrValueUnclipped);
 }
 
 
@@ -355,17 +374,20 @@ void textslider_int(t_textslider *x, long value)
 // Method: float - update value, redraw and output
 void textslider_float(t_textslider *x, double value)
 {   
+	x->attrValueUnclipped = value;
+	outlet_float(x->outlet, x->attrValueUnclipped);
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
 	if ((x->attrShowValue) && (x->mouseOver)) textslider_updatestringvalue(x);
 	else jbox_redraw((t_jbox*)x);
-	outlet_float(x->outlet, x->attrValue);
+	
 
 }
 
 
 // Method: set - update and redraw, but no output
 void textslider_set(t_textslider *x, double value)
-{
+{   
+	x->attrValueUnclipped = value;
 	x->attrValue = TTClip<float>(value, x->attrRange[0], x->attrRange[1]);
 	if ((x->attrShowValue) && (x->mouseOver)) textslider_updatestringvalue(x);
 	else jbox_redraw((t_jbox*)x);	
@@ -458,6 +480,28 @@ t_max_err textslider_set_text(t_textslider *x, void *attr, long argc, t_atom *ar
 	return MAX_ERR_NONE;
 }
 
+t_max_err textslider_get_unit(t_textslider *x, void *attr, long *argc, t_atom **argv)
+{
+	*argc = 1;
+	if (!(*argv)) // otherwise use memory passed in
+		*argv = (t_atom *)sysmem_newptr(sizeof(t_atom));
+	atom_setsym(*argv, x->attrUnit);
+	return MAX_ERR_NONE;
+}
+
+
+t_max_err textslider_set_unit(t_textslider *x, void *attr, long argc, t_atom *argv)
+{	
+	if(argc && argv)
+		x->attrUnit = atom_getsym(argv);
+	else
+		x->attrUnit = _sym_nothing;
+	
+	//jbox_redraw((t_jbox*)x); not necessary here I think
+	
+	return MAX_ERR_NONE;
+}
+
 
 #if 0
 #pragma mark -
@@ -469,13 +513,17 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 {
 	t_rect	rect;
 	double	delta;
-	
+		
+    if(modifiers & eControlKey) {
+	textslider_float(x, x->attrDefaultValue);	// CTRL+mouseclick sets the slider to the default value
+	x->mouseDown = 1;
+	x->anchorValue = x->attrDefaultValue;	
+	}
+	else{	
+	x->mouseDown = 1;	
 	// Get rect position and prepare for the mouse to show up properly affter dragging
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
-	x->mousePositionY = rect.y + px.y;
-	
-	x->mouseDown = 1;
-
+	x->mousePositionY = rect.y + px.y;	
 	// Jump to new value on mouse down?
 	if (x->attrClickJump) {
 		delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
@@ -484,6 +532,7 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	}
 	x->anchorValue = x->attrValue;			
 	jbox_set_mousedragdelta((t_object *)x, 1);
+	}
 }
 
 
@@ -496,7 +545,10 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 
 	double	factor = rect.width-2;	// factor determines how much precision (vs. immediacy) you have when dragging the knob
-	if(modifiers & eShiftKey)
+	
+	if(modifiers & eCommandKey)
+		factor = factor*0.8;
+	else if (modifiers & eShiftKey)
 		factor = factor*50.;
 	
 	factor = factor / (x->attrRange[1] - x->attrRange[0]);
@@ -511,12 +563,13 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 			delta = pt.x;
 		else
 			delta = -pt.y;
-	}	
+	}
 	x->anchorValue = TTClip<float>(x->anchorValue + (delta/factor), x->attrRange[0], x->attrRange[1]);
 	
 	// TODO: Add numdecimalplaces attribute
 	
-	textslider_float(x, x->anchorValue);
+	if (modifiers & eCommandKey) textslider_float(x, long(x->anchorValue)); //a change in integer-steps
+	else textslider_float(x, x->anchorValue);
 	//textslider_updatestringvalue(x); this is done now in the flaot method 
 }
 
