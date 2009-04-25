@@ -513,17 +513,17 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 {
 	t_rect	rect;
 	double	delta;
-		
-    if(modifiers & eControlKey) {
-	textslider_float(x, x->attrDefaultValue);	// CTRL+mouseclick sets the slider to the default value
-	x->mouseDown = 1;
-	x->anchorValue = x->attrDefaultValue;	
-	}
-	else{	
+	
 	x->mouseDown = 1;	
 	// Get rect position and prepare for the mouse to show up properly affter dragging
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	x->mousePositionY = rect.y + px.y;	
+	
+    if(modifiers & eControlKey) {
+	textslider_float(x, x->attrDefaultValue);	// CTRL+mouseclick sets the slider to the default value
+	x->anchorValue = x->attrDefaultValue;	
+	}
+	else{	
 	// Jump to new value on mouse down?
 	if (x->attrClickJump) {
 		delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
