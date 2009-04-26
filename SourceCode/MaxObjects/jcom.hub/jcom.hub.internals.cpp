@@ -133,7 +133,7 @@ void hub_internals_create(t_hub *x)
 	anObject = new hubInternalObject("jcom.message", 	"panel/open",				x->container,	"msg_none",		"none",	"Open an a module's control panel (inspector) if one is present.", 1);
 	hashtab_store(x->hash_internals, gensym("panel/open"), (t_object*)anObject);	
 
-	anObject = new hubInternalObject("jcom.message", 	"script",					x->container,	"msg_generic",	"none",	"Low-level module hacking.  Any arguments arguments to this message will be interpretted as patcher scripting for the top-level patcher of the module.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"script",					x->container,	"msg_generic",	"none",	"Low-level module hacking.  Any arguments arguments to this message will be interpreted as patcher scripting for the top-level patcher of the module.", 1);
 	anObject->setAction((method)hub_script, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("script"), (t_object*)anObject);
 }
