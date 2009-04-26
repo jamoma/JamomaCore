@@ -1,7 +1,7 @@
 /* 
 	jcom.meter~
 	External for Jamoma: signal level meter
-	By Tim Place, Copyright © 2005
+	By Tim Place, Copyright ï¿½ 2005
 	Modifications for Compiling on Windows by Thomas Grill, 2005
 	Re-write for Max 5 by Tim Place, 2008
 	
@@ -46,7 +46,7 @@ enum {
 typedef struct _meter{
 	t_pxjbox	obj;
 	t_symbol*	attrMode;			// TODO: options are 'fast' and 'pretty' -- fast mode doesn't scale properly when zooming a patcher, etc. but it's faster
-	char		attrDefeat;			// disable the meter
+	long		attrDefeat;			// disable the meter
 	char		attrNumChannels;	// TODO: number of audio channels to display
 	float		attrInterval;		// TODO: make the polling interval dynamic
 	t_jrgba		attrBgColor;
@@ -121,11 +121,18 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 //	CLASS_ATTR_STYLE_LABEL(c,			"bordercolor",		0,	"rgba",	"Border Color");
 //	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,	"bordercolor",		0,	"0.2 0.2 0.2 1.");
 
-	CLASS_ATTR_LONG(c,"orientation",0, t_meter, attrOrientation);
-	CLASS_ATTR_LABEL(c,"orientation", 0, "Orientation");
-	CLASS_ATTR_CATEGORY(c,"orientation",0,"Appearance");
-	CLASS_ATTR_ENUMINDEX(c,"orientation", 0, "Automatic Horizontal Vertical");
-	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,"orientation",0,"0");
+	CLASS_ATTR_LONG(c,						"orientation",	0, t_meter, attrOrientation);
+	CLASS_ATTR_LABEL(c,						"orientation",	0, "Orientation");
+	CLASS_ATTR_CATEGORY(c,					"orientation",	0,"Appearance");
+	CLASS_ATTR_ENUMINDEX(c,					"orientation",	0, "Automatic Horizontal Vertical");
+	CLASS_ATTR_DEFAULT_SAVE_PAINT(c,		"orientation",	0,"0");
+	
+	CLASS_ATTR_LONG(c,						"defeat",	0, t_meter, attrDefeat);
+	CLASS_ATTR_LABEL(c,						"defeat",	0, "defeat");	
+	CLASS_ATTR_DEFAULT(c,					"defeat",	0,	"0");
+	CLASS_ATTR_SAVE(c,						"defeat",	0);
+	CLASS_ATTR_STYLE(c,						"defeat",	0,	"onoff");	
+	CLASS_ATTR_CATEGORY(c,					"defeat",	0,"Behavior");
 	
 	CLASS_ATTR_DEFAULT(c,				"patching_rect",	0,	"0. 0. 100. 12.");
 	CLASS_ATTR_MIN(c,					"patching_size",	0,	"1. 1.");
@@ -208,12 +215,19 @@ t_max_err meter_notify(t_meter *x, t_symbol *s, t_symbol *msg, void *sender, voi
 	t_symbol*	name;
 	
 	if(msg == _sym_attr_modified){
+		
 		name = (t_symbol *)object_method((t_object *)data, _sym_getname);
 
 		if(name == _sym_bgcolor)
 			jbox_redraw((t_jbox*)x);
 		if(name == _sym_patching_rect || name == gensym("orientation"))
 			meterEffectOrientation(x);
+		if(name == gensym("defeat")){
+			if(sys_getdspstate())		{							// if dsp is on & defeat is off then we schedule another tick
+				if(x->attrDefeat == 0)
+					clock_delay(x->clock, kPollIntervalDefault);
+										}
+									 }
 	}
 	return jbox_notify((t_jbox*)x, s, msg, sender, data);
 }
