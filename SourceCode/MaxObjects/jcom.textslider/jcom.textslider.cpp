@@ -48,6 +48,7 @@ typedef struct _textslider{
 	float		attrValue;			///< The slider value
 	float		attrValueUnclipped;	///< The slider value, unclipped
 	float		attrRange[2];		///< ATTRIBUTE: low, high
+	float		attrRangeDelta;     /// attrRange[1] - attrRange[0]
 	float       attrTextOffset[2];  // horizontal & vertical offset for text display
 	float		anchorValue;		///< Used for mouse dragging
 	float		attrDefaultValue;    // default value is used when click+CTRL
@@ -421,9 +422,15 @@ t_max_err textslider_setRange(t_textslider *x, void *attr, long argc, t_atom *ar
 {
 	if(argc)
 		x->attrRange[0] = atom_getfloat(argv+0);
-	if(argc > 1)
-		x->attrRange[1] = atom_getfloat(argv+1);
-
+	if(argc > 1){
+		if (atom_getfloat(argv+1) >= atom_getfloat(argv+0))	
+			x->attrRange[1] = atom_getfloat(argv+1);
+		else {
+			x->attrRange[1] = atom_getfloat(argv+0);
+		    x->attrRange[0] = atom_getfloat(argv+1);
+			}
+		x->attrRangeDelta = x->attrRange[1] - x->attrRange[0];
+	}
 	jbox_redraw((t_jbox*)x);
 	
 	return MAX_ERR_NONE;
@@ -527,7 +534,7 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	// Jump to new value on mouse down?
 	if (x->attrClickJump) {
 		delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
-		delta = delta/(rect.width-2.)*(x->attrRange[1]-x->attrRange[0]) + x->attrRange[0];
+		delta = delta/(rect.width-2.)*(x->attrRangeDelta) + x->attrRange[0];
 		textslider_float(x, delta);					
 	}
 	x->anchorValue = x->attrValue;			
@@ -551,7 +558,7 @@ void textslider_mousedragdelta(t_textslider *x, t_object *patcherview, t_pt pt, 
 	else if (modifiers & eShiftKey)
 		factor = factor*50.;
 	
-	factor = factor / (x->attrRange[1] - x->attrRange[0]);
+	factor = factor / (x->attrRangeDelta);
 		
 	if (x->attrTracking==gensym("horizontal"))
 		delta = pt.x;
@@ -582,7 +589,7 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 	// Mouse show up again at current slider value
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	jmouse_setposition_view(patcherview, 
-							rect.x+((x->attrValue-x->attrRange[0])/(x->attrRange[1] - x->attrRange[0]))*(rect.width-2)+1, 
+							rect.x+((x->attrValue - x->attrRange[0])/(x->attrRangeDelta))*(rect.width-2)+1, 
 							x->mousePositionY);
 	jbox_redraw(&x->box);
 }
@@ -638,7 +645,7 @@ void textslider_paint(t_textslider *x, t_object *view)
 	if (x->attrRange[0] == x->attrRange[1])
 		value = 0.5;
 	else
-		value = TTClip( (x->attrValue - x->attrRange[0])/(x->attrRange[1] - x->attrRange[0]), 0.0f, 1.0f);
+		value = TTClip( (x->attrValue - x->attrRange[0])/(x->attrRangeDelta), 0.0f, 1.0f);
 	double			position;
 	t_jrgba			c;
 
