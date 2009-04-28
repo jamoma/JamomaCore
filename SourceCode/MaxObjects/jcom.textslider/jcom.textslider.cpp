@@ -582,7 +582,7 @@ void textslider_mouseup(t_textslider *x, t_object *patcherview)
 	// Mouse show up again at current slider value
 	jbox_get_rect_for_view((t_object *)x, patcherview, &rect);
 	jmouse_setposition_view(patcherview, 
-							rect.x+((x->attrValue/(x->attrRange[1] - x->attrRange[0]))*(rect.width-2)+1), 
+							rect.x+((x->attrValue-x->attrRange[0])/(x->attrRange[1] - x->attrRange[0]))*(rect.width-2)+1, 
 							x->mousePositionY);
 	jbox_redraw(&x->box);
 }
