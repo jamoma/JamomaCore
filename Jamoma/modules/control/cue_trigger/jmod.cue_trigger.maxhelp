@@ -15,243 +15,242 @@
 		"toolbarvisible" : 1,
 		"boxanimatetime" : 200,
 		"imprint" : 0,
-		"metadata" : [  ],
 		"boxes" : [ 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "3) Play around with the /cue_trigger interface.",
-					"patching_rect" : [ 23.0, 149.0, 359.0, 18.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-1",
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0
+					"patching_rect" : [ 23.0, 154.0, 416.0, 19.0 ],
+					"text" : "3) Play around with the /cue_trigger interface."
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "2) Load the cue script in this patch (not jmod.cuelist.help)",
-					"patching_rect" : [ 23.0, 134.0, 359.0, 18.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-2",
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0
+					"patching_rect" : [ 23.0, 137.0, 417.0, 19.0 ],
+					"text" : "2) Load the cue script in this patch (not jmod.cuelist.help)"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "jmod.cue_trigger",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"patching_rect" : [ 19.0, 29.0, 189.0, 27.0 ],
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 18.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-3",
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"fontsize" : 18.0
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "comment",
-					"text" : "graphical interface triggering cues",
-					"textcolor" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"patching_rect" : [ 20.0, 55.0, 331.0, 18.0 ],
-					"id" : "obj-4",
-					"frgb" : [ 1.0, 1.0, 1.0, 1.0 ],
-					"fontname" : "Arial",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0
+					"patching_rect" : [ 19.0, 29.0, 217.0, 28.0 ],
+					"text" : "jmod.cue_trigger"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "panel",
-					"patching_rect" : [ 13.0, 11.0, 354.0, 74.0 ],
-					"id" : "obj-5",
+					"bgcolor" : [ 1.0, 1.0, 1.0, 0.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
+					"id" : "obj-4",
+					"maxclass" : "comment",
 					"numinlets" : 1,
-					"rounded" : 15,
-					"numoutlets" : 0
+					"numoutlets" : 0,
+					"patching_rect" : [ 20.0, 55.0, 375.0, 19.0 ],
+					"text" : "graphical interface triggering cues"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "message",
-					"text" : "/load_script jmod.demo_cuescript.txt",
+					"id" : "obj-5",
+					"maxclass" : "panel",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 13.0, 11.0, 354.0, 74.0 ],
+					"rounded" : 15
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"bgcolor" : [ 0.4, 0.4, 0.8, 1.0 ],
-					"patching_rect" : [ 50.0, 215.0, 183.0, 15.0 ],
-					"id" : "obj-6",
 					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-6",
+					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
-					"fontsize" : 9.0,
-					"outlettype" : [ "" ]
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 50.0, 215.0, 153.0, 15.0 ],
+					"text" : "/loadScript jmod.demo_cuescript.txt"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "newobj",
-					"text" : "jcom.pass /cue @strip 0",
-					"patching_rect" : [ 50.0, 500.0, 121.0, 17.0 ],
+					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
 					"id" : "obj-7",
-					"fontname" : "Arial",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"fontsize" : 9.0,
-					"outlettype" : [ "", "" ],
-					"color" : [ 0.4, 0.4, 0.8, 1.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"maxclass" : "newobj",
-					"text" : "jcom.pass /cues @strip 0",
-					"patching_rect" : [ 50.0, 330.0, 126.0, 17.0 ],
-					"id" : "obj-8",
-					"fontname" : "Arial",
 					"numinlets" : 1,
 					"numoutlets" : 2,
-					"fontsize" : 9.0,
 					"outlettype" : [ "", "" ],
-					"color" : [ 0.4, 0.4, 0.8, 1.0 ]
+					"patching_rect" : [ 50.0, 500.0, 121.0, 17.0 ],
+					"text" : "jcom.pass /cue @strip 0"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "jmod.cuelist.mxt",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
-					"lockeddragscroll" : 1,
-					"patching_rect" : [ 50.0, 253.0, 300.0, 70.0 ],
-					"id" : "obj-9",
+					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
+					"fontname" : "Arial",
+					"fontsize" : 9.0,
+					"id" : "obj-8",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"name" : "jmod.cuelist.maxpat",
-					"numoutlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "" ],
+					"patching_rect" : [ 50.0, 330.0, 126.0, 17.0 ],
+					"text" : "jcom.pass /cues @strip 0"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "cue_script" ],
-					"outlettype" : [ "" ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"maxclass" : "bpatcher",
-					"varname" : "jmod.cue_trigger.mxt",
-					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"id" : "obj-9",
 					"lockeddragscroll" : 1,
-					"patching_rect" : [ 50.0, 356.0, 300.0, 140.0 ],
-					"id" : "obj-10",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.cuelist.maxpat",
 					"numinlets" : 1,
-					"name" : "jmod.cue_trigger.maxpat",
 					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 50.0, 253.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ],
+					"varname" : "jmod.cuelist.mxt"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"args" : [ "cue_trigger" ],
-					"outlettype" : [ "" ]
+					"id" : "obj-10",
+					"lockeddragscroll" : 1,
+					"maxclass" : "bpatcher",
+					"name" : "jmod.cue_trigger.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 50.0, 356.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 140.0 ],
+					"varname" : "jmod.cue_trigger.mxt"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "To test out:",
-					"patching_rect" : [ 23.0, 100.0, 108.0, 18.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-11",
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0
+					"patching_rect" : [ 23.0, 100.0, 125.0, 19.0 ],
+					"text" : "To test out:"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "1) Open the help file for jmod.cuelist",
-					"patching_rect" : [ 23.0, 119.0, 270.0, 18.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-12",
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 10.0
+					"patching_rect" : [ 23.0, 120.0, 310.0, 19.0 ],
+					"text" : "1) Open the help file for jmod.cuelist"
 				}
 
 			}
 , 			{
 				"box" : 				{
-					"maxclass" : "comment",
-					"text" : "Current limitation: Max 250 cues per script.",
-					"patching_rect" : [ 23.0, 536.0, 212.0, 17.0 ],
+					"fontname" : "Verdana",
+					"fontsize" : 10.0,
+					"frgb" : [ 0.0, 0.0, 0.0, 1.0 ],
 					"id" : "obj-13",
-					"frgb" : [ 0.933333, 0.937255, 0.968627, 1.0 ],
-					"fontname" : "Arial",
+					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"fontsize" : 9.0
+					"patching_rect" : [ 23.0, 536.0, 271.0, 19.0 ],
+					"text" : "Current limitation: Max 250 cues per script."
 				}
 
 			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"source" : [ "obj-8", 0 ],
+					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
 					"destination" : [ "obj-10", 0 ],
 					"hidden" : 0,
-					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-8", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-10", 0 ],
+					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
-					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-10", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-7", 0 ],
+					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
-					"midpoints" : [ 59.5, 523.0, 36.0, 523.0, 36.0, 245.0, 59.5, 245.0 ]
+					"midpoints" : [ 59.5, 523.0, 36.0, 523.0, 36.0, 245.0, 59.5, 245.0 ],
+					"source" : [ "obj-7", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-6", 0 ],
+					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
 					"destination" : [ "obj-9", 0 ],
 					"hidden" : 0,
-					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"source" : [ "obj-9", 0 ],
+					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
 					"destination" : [ "obj-8", 0 ],
 					"hidden" : 0,
-					"color" : [ 0.4, 0.4, 0.8, 1.0 ],
-					"midpoints" : [  ]
+					"midpoints" : [  ],
+					"source" : [ "obj-9", 0 ]
 				}
 
 			}
