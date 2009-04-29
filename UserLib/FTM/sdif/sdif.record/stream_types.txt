@@ -1,0 +1,3 @@
+"NONE"
+"3D Acceleration" XAC3 "X\\\, Y\\\, Z" "3D_acceleration"
+"6D Position-orientation" XPOR "X\\\, Y\\\, Z\\\, azimuth\\\, elevation\\\, roll" "6D_Position-orientation"

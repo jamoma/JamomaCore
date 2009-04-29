@@ -19,6 +19,20 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 10.0,
+					"id" : "obj-43",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 341.0, 347.0, 186.0, 16.0 ],
+					"text" : "/type_declarations_file stream_types.txt"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
 					"id" : "obj-41",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -77,7 +91,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 399.0, 604.0, 46.0, 17.0 ],
+					"patching_rect" : [ 399.0, 624.0, 46.0, 17.0 ],
 					"text" : "Note:"
 				}
 
@@ -90,7 +104,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 399.0, 617.0, 464.0, 17.0 ],
+					"patching_rect" : [ 399.0, 637.0, 464.0, 17.0 ],
 					"text" : "The SDIF record module is still lacking a good implemetation for standard SDIF streams"
 				}
 
@@ -807,7 +821,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 83.0, 554.0, 15.0, 15.0 ]
+					"patching_rect" : [ 83.0, 574.0, 15.0, 15.0 ]
 				}
 
 			}
@@ -819,7 +833,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 98.0, 554.0, 176.0, 17.0 ],
+					"patching_rect" : [ 98.0, 574.0, 176.0, 17.0 ],
 					"text" : "Information on the last recording"
 				}
 
@@ -838,8 +852,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 19.0, 601.0, 60.0, 14.349121 ],
-					"presentation_rect" : [ 19.0, 601.0, 60.0, 14.349121 ],
+					"patching_rect" : [ 19.0, 621.0, 60.0, 14.349121 ],
+					"presentation_rect" : [ 19.0, 621.0, 60.0, 14.349121 ],
 					"text" : [ "_set $1, print" ]
 				}
 
@@ -853,7 +867,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 19.0, 621.0, 61.0, 17.0 ],
+					"patching_rect" : [ 19.0, 641.0, 61.0, 17.0 ],
 					"saved_object_attributes" : 					{
 						"ftm_scope" : 2
 					}
@@ -871,7 +885,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 19.0, 528.0, 86.0, 17.0 ],
+					"patching_rect" : [ 19.0, 548.0, 86.0, 17.0 ],
 					"text" : "jcom.oscroute /file"
 				}
 
@@ -1146,7 +1160,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 19.0, 579.0, 509.0, 16.0 ]
+					"patching_rect" : [ 19.0, 599.0, 509.0, 16.0 ],
+					"text" : "UIO:/Users/krisny/Desktop/test/entotre1.gdif"
 				}
 
 			}
@@ -1159,21 +1174,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 19.0, 554.0, 57.0, 17.0 ],
+					"patching_rect" : [ 19.0, 574.0, 57.0, 17.0 ],
 					"text" : "prepend set"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 9.0,
-					"id" : "obj-27",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 186.0, 503.0, 199.0, 17.0 ],
-					"text" : "Variable names must be separated by \\\\,"
 				}
 
 			}
@@ -2005,8 +2007,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 19.0, 297.0, 600.0, 210.0 ],
-					"presentation_rect" : [ 0.0, 0.0, 600.0, 210.0 ],
+					"patching_rect" : [ 19.0, 297.0, 300.0, 245.0 ],
+					"presentation_rect" : [ 0.0, 0.0, 300.0, 245.0 ],
 					"varname" : "sdif.record"
 				}
 
@@ -2016,7 +2018,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-39", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 328.5, 282.0, 609.5, 282.0 ],
+					"midpoints" : [ 328.5, 282.0, 309.5, 282.0 ],
 					"source" : [ "obj-41", 0 ]
 				}
 
@@ -2079,7 +2081,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-25", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 92.0, 575.0, 28.5, 575.0 ],
+					"midpoints" : [ 92.0, 595.0, 28.5, 595.0 ],
 					"source" : [ "obj-14", 0 ]
 				}
 
@@ -2106,7 +2108,7 @@
 				"patchline" : 				{
 					"destination" : [ "obj-39", 1 ],
 					"hidden" : 0,
-					"midpoints" : [ 580.5, 172.0, 631.0, 172.0, 631.0, 290.0, 609.5, 290.0 ],
+					"midpoints" : [ 580.5, 172.0, 631.0, 172.0, 631.0, 290.0, 309.5, 290.0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -2187,8 +2189,17 @@
 				"patchline" : 				{
 					"destination" : [ "obj-18", 0 ],
 					"hidden" : 0,
-					"midpoints" : [ 28.5, 285.0, 9.0, 285.0, 9.0, 514.0, 28.5, 514.0 ],
+					"midpoints" : [ 28.5, 285.0, 9.0, 285.0, 9.0, 544.0, 28.5, 544.0 ],
 					"source" : [ "obj-40", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-39", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-43", 0 ]
 				}
 
 			}
