@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 126.0, 44.0, 1041.0, 826.0 ],
+		"rect" : [ 333.0, 44.0, 1010.0, 806.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 126.0, 44.0, 1041.0, 826.0 ],
+		"defrect" : [ 333.0, 44.0, 1010.0, 806.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -327,8 +327,7 @@
 													"numinlets" : 1,
 													"numoutlets" : 2,
 													"outlettype" : [ "int", "bang" ],
-													"patching_rect" : [ 425.0, 268.0, 50.0, 20.0 ],
-													"presentation_rect" : [ 427.0, 264.0, 0.0, 0.0 ]
+													"patching_rect" : [ 425.0, 268.0, 50.0, 20.0 ]
 												}
 
 											}
@@ -342,7 +341,6 @@
 													"numoutlets" : 1,
 													"outlettype" : [ "int" ],
 													"patching_rect" : [ 390.0, 300.0, 41.0, 20.0 ],
-													"presentation_rect" : [ 392.0, 296.0, 0.0, 0.0 ],
 													"text" : "+ 100"
 												}
 
@@ -1313,7 +1311,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 178.0, 198.0, 100.0, 20.0 ],
+					"patching_rect" : [ 105.0, 100.0, 47.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 10.0,
@@ -1337,7 +1335,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 652.0, 116.0, 300.0, 105.0 ],
+					"patching_rect" : [ 660.0, 100.0, 300.0, 105.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 30.0, 145.0, 300.0, 105.0 ],
 					"varname" : "/cueManager"
@@ -1349,11 +1347,11 @@
 					"args" : [ "Zdbapin.2" ],
 					"id" : "obj-8",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.Zdbapin.maxpat",
-					"numinlets" : 2,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "signal" ],
-					"patching_rect" : [ 320.0, 378.0, 300.0, 140.0 ],
+					"name" : "jmod.Zdbapin2.maxpat",
+					"numinlets" : 3,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "signal", "signal" ],
+					"patching_rect" : [ 325.0, 380.0, 300.0, 140.0 ],
 					"presentation_rect" : [ 566.0, 183.0, 300.0, 140.0 ]
 				}
 
@@ -1498,7 +1496,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 474.0, 104.0, 150.0, 70.0 ],
+					"patching_rect" : [ 395.0, 100.0, 150.0, 70.0 ],
 					"presentation_rect" : [ 30.0, 30.0, 150.0, 70.0 ],
 					"varname" : "jmod.control.mxt"
 				}
@@ -1510,11 +1508,11 @@
 					"fontsize" : 10.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-7",
-					"linecount" : 5,
+					"linecount" : 8,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 176.0, 132.0, 291.0, 64.0 ],
+					"patching_rect" : [ 175.0, 125.0, 144.0, 98.0 ],
 					"text" : "Speakers setup : \nThis is a customized version of Deflache's jmod.sursetup with initialisation patch and jmod.sursetup_toZdbap to communicate with zdbapin and zdbapout without making jcom.dbap to crash Max.."
 				}
 
@@ -1583,7 +1581,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 474.0, 180.0, 150.0, 35.0 ],
+					"patching_rect" : [ 395.0, 195.0, 150.0, 35.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 150.0, 35.0 ]
 				}
 
@@ -1624,7 +1622,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 15.0, 551.0, 300.0, 70.0 ],
+					"patching_rect" : [ 15.0, 550.0, 300.0, 70.0 ],
 					"presentation_rect" : [ 0.0, 0.0, 300.0, 70.0 ]
 				}
 
@@ -2209,7 +2207,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 18.0, 98.0, 128.0, 20.0 ],
+					"patching_rect" : [ 18.0, 98.0, 83.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"fontface" : 0,
 						"fontsize" : 12.0,
@@ -2226,15 +2224,15 @@
 			}
 , 			{
 				"box" : 				{
-					"args" : [ "Zloop.2" ],
+					"args" : [ "ZDtD.1" ],
 					"id" : "obj-4",
 					"maxclass" : "bpatcher",
-					"name" : "jmod.Zlooper~.maxpat",
+					"name" : "jmod.ZDtD2~.maxpat",
 					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "signal" ],
-					"patching_rect" : [ 320.0, 232.0, 300.0, 140.0 ],
-					"presentation_rect" : [ 551.0, 16.0, 300.0, 140.0 ]
+					"numoutlets" : 3,
+					"outlettype" : [ "", "signal", "signal" ],
+					"patching_rect" : [ 325.0, 307.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 551.0, 16.0, 300.0, 70.0 ]
 				}
 
 			}
@@ -2309,6 +2307,15 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 1 ],
+					"hidden" : 0,
+					"midpoints" : [ 521.833313, 523.0, 317.629028, 523.0 ],
+					"source" : [ "obj-8", 2 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-21", 15 ],
 					"hidden" : 0,
@@ -2545,7 +2552,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-32", 0 ],
-					"hidden" : 0,
+					"hidden" : 1,
 					"midpoints" : [  ],
 					"source" : [ "obj-2", 0 ]
 				}
@@ -2643,24 +2650,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-4", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-6", 1 ],
-					"hidden" : 0,
-					"midpoints" : [ 610.5, 523.0, 317.629028, 523.0 ],
-					"source" : [ "obj-8", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-110", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -2679,10 +2668,19 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-6", 0 ],
+					"destination" : [ "obj-8", 1 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
-					"source" : [ "obj-3", 2 ]
+					"source" : [ "obj-4", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-4", 2 ]
 				}
 
 			}
@@ -2692,6 +2690,24 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-5", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-3", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 2 ],
+					"hidden" : 0,
+					"midpoints" : [ 615.5, 527.0, 328.758057, 527.0 ],
+					"source" : [ "obj-8", 3 ]
 				}
 
 			}
