@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="jcom.mkdir"
-	ProjectGUID="{DD15BD3A-1750-4F92-A3D7-C39ABFEDEC84}"
+	Name="jcom.savebang"
+	ProjectGUID="{D2D5BC83-CD62-4DC4-9C74-003BB9B69309}"
 	RootNamespace="jcom.mkdir"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="0"
@@ -205,7 +205,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\jcom.mkdir.cpp"
+				RelativePath=".\jcom.savebang.cpp"
 				>
 			</File>
 		</Filter>
