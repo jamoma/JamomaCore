@@ -261,7 +261,7 @@ DBAP is implemented as an external for the real-time multimedia graphical enviro
 %\label{speaker_positions}
 %\end{figure}
 
-In order to provide users with an intuitive understanding of the algorithm, a visual representation of the behavior of the algorithm has been developed, using gradients to represent the ``predominance'' zone of each speaker. This is also intended to give a more intuitive manipulation of source positions, or parameters such as spatial blur, rolloff and spatial weights.
+A visual representation of the behaviour of the algorithm has been developed, using gradients to illustrate the ``predominance'' zone of each speaker. This is also intended to offer intuitive interactive manipulation of source positions and parameters such as spatial blur, rolloff and spatial weights.
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{spk4_r_6_b_0+nbrs}}
@@ -312,19 +312,19 @@ These pictures are generated in realtime by the algorithm, and can thus be used 
 
 \section{Conclusions and further work}
 
-DBAP offers a light-weight panning-based solution for spatialization that works for irregular loudspeaker layouts. The Jamoma module implementation makes DBAP available alongside modules for VBAP and ambisonics, enabling techniques to be interchanged and compared. %Jamoma also offers a more advanced spatialization technique that can be used for irregular loudspeaker layouts, ViMiC, incorporating distance-based signal delays between speakers, simulation of microphone patterns, early reflections and surface absorption \cite{Peters:2008vimic}. ViMiC is more CPU-intensive, and might require a dedicated computer for spatialization or limitations on the number of loudspeakers used as compared to DBAP.
+DBAP offers a light-weight panning-based solution for spatialization for irregular loudspeaker layouts. The Jamoma module implementation makes DBAP available with a similar interface as other Jamoma modules for rendering spatial sound, enabling various techniques to be interchanged and compared. %Jamoma also offers a more advanced spatialization technique that can be used for irregular loudspeaker layouts, ViMiC, incorporating distance-based signal delays between speakers, simulation of microphone patterns, early reflections and surface absorption \cite{Peters:2008vimic}. ViMiC is more CPU-intensive, and might require a dedicated computer for spatialization or limitations on the number of loudspeakers used as compared to DBAP.
 
-Implementations of convex hulls and spatial weights remains to be done for three-dimensional loudspeaker layouts. If spatial weights are used to define subspaces of speakers, it also remains to be investigated if and how the implementation of convex hulls can be dynamically reconfigured.
+Implementation of convex hulls and spatial weights remains to be done for three-dimensional loudspeaker layouts. If spatial weights are used to define subspaces of speakers, it also remains to be investigated if and how the implementation of convex hulls can be dynamically reconfigured.
 
 %In this paper DBAP has been discussed for spatialization to a static layout of speakers. For gaming applications the speaker layout relative to the player could be defined, and then the actual speaker layout could be changed dynamically as the gamer moves through the virtual world of the game.
 
-DBAP can also be used as a solution for dynamic routing of input sources to a spatial layout of effect processes. Instead of defining loudspeaker positions, the effects could be assigned positions in two or more spaces. The idea of having sources traverse a space of effects would resemble  e.g. the work by \cite{Momeni:2003hipnoscope}. 
+DBAP can also be used as a solution for dynamic routing of input sources to a spatial layout of effect processes. Instead of defining loudspeaker positions, the effects could be assigned positions in two or more spaces. The idea of having sources traverse a space of effects would resemble e.g. the work by \cite{Momeni:2003hipnoscope}. 
 %A project for designing multi-touch graphical interfaces to intuitively interact with DBAP has been initiated.
 
 
 \section{Acknowledgements}
 
-Initial development of DBAP was done for the workshop and exhibition ``Living room'' at Galleri KiT in Trondheim, 2003, produced by The Norwegian production Network for Electronic Arts. The initial implementation in C of the DBAP algorithm was done by Andr\'e Sierr. The authors would like to express their gratitude to the rest of Jamoma developers, and in particular to Mathieu Chamagne for extensive and valuable feedback and Tim Place for proof-reading. 
+Initial development of DBAP was done for the workshop and exhibition ``Living room'' at Galleri KiT in Trondheim, 2003, produced by PNEK. Initial implementation in C of the DBAP algorithm was done by Andr\'e Sierr. The authors would like to express their gratitude to the other Jamoma developers, in particular Mathieu Chamagne for extensive and valuable feedback and Tim Place for proof-reading. 
 
 
 
