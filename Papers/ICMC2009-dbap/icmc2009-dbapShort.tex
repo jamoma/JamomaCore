@@ -215,7 +215,7 @@ The \emph{convex hull} of the field of loudspeakers is calculated. In two dimens
 
 \subsection{Extending DBAP by introducing spatial weights}
 
-In the discussions thus far, the DBAP algorithm has dealt with the speakers in a transparent manner, with the aim of reproducing virtual sound sources in the best way possible without any further considerations for any loudspeaker properties apart from position. The extension of DBAP by introduction of a spatial weight $w_{i}$ in equation \ref{eq:inverse_distance} enables a source to be restricted to use a subset of speakers:
+So far speakers have been dealt with in a transparent manner, without any further considerations for loudspeaker properties apart from position. The extension of DBAP by introduction of a spatial weight $w_{i}$ in equation \ref{eq:inverse_distance} enables a source to be restricted to use a subset of speakers:
 
 \begin{equation} \label{eq:inverse_distance_weighed}
 v_{i} = \frac{k w_{i}}{2 d_{i} a} 
@@ -227,9 +227,7 @@ Equation \ref{eq:calculate_k} will now be modified to:
 k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{{w_{i}}^2}{{d_{i}}^2}}}
 \end{equation}
 
-This might offer several artistic possibilities. Within the tradition of the Acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large number of speakers are used, sorted in several groups with different qualities and characteristics, thought of as an orchestra of speakers and organized into different instrumental groups\cite{Prager:2002acousmatique}. Spatial weights can be used to ensure that a source is spatialized among members of one group only. This allows a timbral and spatial orchestration\cite{Lyon:2008spatial_orchestration} to be prepared or composed prior to performance, and then be adjusted to the specific room used for playback. 
-
-In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. For instance one source can be diffused in one room only while another source with a different set of spatial weights might be permitted to move between several or all rooms.
+This offer several artistic possibilities. Within the tradition of the Acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large orchestra of speakers is used, organized into instrumental groups according to sonic qualities and characteristics\cite{Prager:2002acousmatique}. Spatial weights can ensure that a source is diffused to one group only. This allows for a timbral and spatial orchestration to be prepared or composed prior to performance, and then adjusted to the specific room used for playback.  In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. One source might be present in one room only while another source is permitted to move between several or all rooms.
 
 Spatial weights can be changed dynamically, thus allowing smooth transitions from one state to another. They can be also used to define different spatial scopes for any loudspeaker, as shown in \ref{fig:5spk_weights}.
 
@@ -250,7 +248,7 @@ Spatial weights can be changed dynamically, thus allowing smooth transitions fro
 \subsection{Implementation}
 \label{sec:implementation}
 
-DBAP is implemented as an external for the real-time multimedia graphical environment Max/MSP \cite{Puckette:1988patcher, Zicarelli:1998} written in C as a part of the Jamoma library and framework \cite{Place:2006jamoma}. In addition to the features discussed already, the input gain of each source can be controlled prior to the DBAP processing, and each source can be muted.  In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
+DBAP is implemented as an external for the real-time multimedia graphical environment Max/MSP, written in C as part of the Jamoma library and framework \cite{Place:2006jamoma}. The external supports several independent sources. Input gain for each source can be controlled prior to the DBAP processing, and sources can be muted.  In addition a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules for e.g. VBAP and ambisonics, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
 
 
 
