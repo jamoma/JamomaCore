@@ -33,21 +33,19 @@
 
 %%---- set correspnding affiliation data for...
 %%-- 1 author
-%\affiliation{\paperauthorA}
-%  {School\\ Department, City, Country \\ {\tt \href{mailto:email@domain.icmc}{email@domain.icmc}}}
-
+\twoaffiliations{\paperauthorA}{BEK\\C. Sundtsgt. 55\\5004 Bergen\\Norway\\trond.lossius@bek.no}
 %%-- 2 authors with same affiliation
-%\affiliation{\paperauthorA, \paperauthorB}
-%  {School\\ Department, City, Country \\ {\tt \href{mailto:email@domain.icmc}{email@domain.icmc}}}
+{\paperauthorB, \paperauthorC}
+{GMEA\\4 rue Sainte Claire\\81000 Albi\\France \\pb,theod@gmea.net}
 
 %-- 2 authors with different affiliations
 %\twoaffiliations{\paperauthorA}{School\\ Department}
 %  {\paperauthorB}{Company\\ Address}
 
 %%-- 3 authors with different affiliations
-\threeaffiliations{\paperauthorA}{BEK\\C. Sundtsgt. 55\\5004 Bergen\\Norway\\trond.lossius@bek.no}
-  {\paperauthorB}{GMEA\\4 rue Sainte Claire\\81000 Albi\\France\\pb@gmea.net}
-  {\paperauthorC}{GMEA\\4 rue Sainte Claire\\81000 Albi\\France\\theod@gmea.net}
+%\threeaffiliations{\paperauthorA}{BEK\\C. Sundtsgt. 55\\5004 Bergen\\Norway\\trond.lossius@bek.no}
+%  {\paperauthorB}{GMEA\\4 rue Sainte Claire\\81000 Albi\\France\\pb@gmea.net}
+%  {\paperauthorC}{GMEA\\4 rue Sainte Claire\\81000 Albi\\France\\theod@gmea.net}
 
 %%-- 4 authors with different affiliations
 %\fouraffiliations{\paperauthorA}{School A\\ Department X}
@@ -296,11 +294,11 @@ The method for creating this visualization consists in creating a graphical map 
 
 % CHANGED: Tim may not know what he is talking about, but he thinks the numbers for the dB values look odd in the PDF.  The 6 dB in particular.  Ignore if you think he's nuts. Pascal agrees and suggests removing the dollar signs just in case it could look better, so he'll try that out, and let's see how it turns out
 
-\begin{figure}[ht]
-\centerline{\includegraphics[scale=0.5]{all_r_2_b_0}}
-\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are 2 dB for rolloff, and 0 for blur}}  
-\label{fig:allspk1}
-\end{figure}
+%\begin{figure}[ht]
+%\centerline{\includegraphics[scale=0.5]{all_r_2_b_0}}
+%\caption{{\it Representation of the 2D distribution of levels for all speakers. Parameter values are 2 dB for rolloff, and 0 for blur}}  
+%\label{fig:allspk1}
+%\end{figure}
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{all_r_6_b_0}}
@@ -314,7 +312,8 @@ The method for creating this visualization consists in creating a graphical map 
 \label{fig:allspk3}
 \end{figure}
 
-A visualization of the response ranges for all speakers can be created by combining all figures of the same class as in fig. \ref{fig:1spk}, and then finding the maximum amplitude for a given 2D-position. The graphical result shows segmented parts in space corresponding to every spatial zone of predominance for each loudspeaker. Here the darker pixels have to be explained as positions where the source is mixed equally between the closest loudspeakers. Figures \ref{fig:allspk1}, \ref{fig:allspk2} and \ref{fig:allspk3} illustrate several combinations of varying roll off and blur values. 
+A visualization of the response ranges for all speakers can be created by combining all figures of the same class as in fig. \ref{fig:1spk}, and then finding the maximum amplitude for a given 2D-position. The graphical result shows segmented parts in space corresponding to every spatial zone of predominance for each loudspeaker. Here the darker pixels have to be explained as positions where the source is mixed equally between the closest loudspeakers. Figures %\ref{fig:allspk1}
+, \ref{fig:allspk2} and \ref{fig:allspk3} illustrate several combinations of varying roll off and blur values. 
 
 \begin{figure}[ht]
 \centerline{\includegraphics[scale=0.5]{spk_groups}}
