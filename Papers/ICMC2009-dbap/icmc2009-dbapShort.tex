@@ -199,27 +199,23 @@ When the virtual source is located at the exact position of one of the loudspeak
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
 \end{equation}
 
-In two dimensions the blurring can be understood as a vertical displacement between source and speakers. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. Practical experience indicates that there is a limit to the amount of blur that can be applied, or the precedence effect \cite{Litovsky:1999precedence_effect} will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener.
+In two dimensions blur can be understood as a vertical displacement between source and speakers. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. Practical experience indicates that there is a limit to the amount of blur that can be applied, or the precedence effect \cite{Litovsky:1999precedence_effect} will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener.
 
 In the implementation of DBAP discussed in section \ref{sec:implementation} the blur coefficient is normalized, using the covariance of distance from centre of loudspeaker rig to loudspeakers as scaling factor, in order to make the blur coefficient less sensitive to changes in size of loudspeaker layouts.
 
-% TODO: Discuss variance
 
 
+\subsection{Sources positioned outside the field of speakers}
 
-\subsection{Sources positioned beyond the field of speakers}
+The model presented so far is not able to cater for sources located outside the field of speakers. As distance to the field increases, the relative difference in distance from source to each of the speakers diminishes, resulting in progressively less difference in levels between the speakers, much the same way as when increasing spatial blur. Additional steps are required to compensate for this.
 
-The presuppositions upon which DBAP is based do not hold true when sources move outside of the field of speakers. As the distance of a source position from a loudspeaker increases, the relative difference in distance from source to each of the loudspeakers diminishes, resulting in progressively less difference in levels between the loudspeakers.  This occurs in much the same manner as discussed for spatial blur in the previous subsection. To compensate for this, additional steps needs to be taken when the source moves outside the field of loudspeakers.
+The \emph{convex hull} of the field of loudspeakers is calculated. In two dimensions the convex hull ``is the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}. It is then determined if the source is outside the hull or not. If it is inside or on the boundary no additional steps needs to be taken. If the source is located outside, the projection of the source onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. The source position is then substituted for its projection in subsequent calculations. In addition, the distance from source to the convex hull is returned. This value can be used for optional added spatial processing such as gain attenuation, air filtering, Doppler effect, or gradual introduction of reverb with increasing distance from the hull.
 
-From the description of loudspeaker positions the \emph{convex hull} of the field of loudspeakers is calculated. In two dimensions the convex hull ``is the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}.
 
-For each source position it is first determined if the source is outside the hull or not. If it is inside or on the boundary no additional steps needs to be taken. If the source is positioned outside the convex hull, the projection of the point onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. The source position is then substituted for the projected point on the hull in subsequent DBAP calculations. In addition, the distance from the source position to the convex hull is returned. This value can be used for optional added spatial processing such as gain attenuation, air filtering, Doppler effect, or gradual introduction of reverb with increasing distance from the hull.
 
 \subsection{Extending DBAP by introducing spatial weights}
 
-In the discussions thus far, the DBAP algorithm has dealt with the speakers in a transparent manner, with the aim of reproducing virtual sound sources in the best way possible without any further considerations for any loudspeaker properties apart from position.
-
-The extension of DBAP by introduction of a spatial weight $w_{i}$ in equation \ref{eq:inverse_distance} enables a source to be restricted to use a subset of speakers:
+In the discussions thus far, the DBAP algorithm has dealt with the speakers in a transparent manner, with the aim of reproducing virtual sound sources in the best way possible without any further considerations for any loudspeaker properties apart from position. The extension of DBAP by introduction of a spatial weight $w_{i}$ in equation \ref{eq:inverse_distance} enables a source to be restricted to use a subset of speakers:
 
 \begin{equation} \label{eq:inverse_distance_weighed}
 v_{i} = \frac{k w_{i}}{2 d_{i} a} 
@@ -231,15 +227,11 @@ Equation \ref{eq:calculate_k} will now be modified to:
 k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{{w_{i}}^2}{{d_{i}}^2}}}
 \end{equation}
 
-This might offer several artistic possibilities. 
-
-For instance, within the tradition of the Acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large number of speakers are used, sorted in several groups with different qualities and characteristics, thought of as an orchestra of speakers and organized into different instrumental groups\cite{Prager:2002acousmatique}. Spatial weights can then be used to ensure that a source is spatialized among members of one group only. This allows a timbral and spatial orchestration\cite{Lyon:2008spatial_orchestration} to be prepared or composed prior to performance, and then be adjusted to the specific room used for playback. 
+This might offer several artistic possibilities. Within the tradition of the Acousmonium \cite{Bayle:1993MusiqueAcousmatique} a large number of speakers are used, sorted in several groups with different qualities and characteristics, thought of as an orchestra of speakers and organized into different instrumental groups\cite{Prager:2002acousmatique}. Spatial weights can be used to ensure that a source is spatialized among members of one group only. This allows a timbral and spatial orchestration\cite{Lyon:2008spatial_orchestration} to be prepared or composed prior to performance, and then be adjusted to the specific room used for playback. 
 
 In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. For instance one source can be diffused in one room only while another source with a different set of spatial weights might be permitted to move between several or all rooms.
 
-Spatial weights can be changed dynamically, thus allowing smooth transitions from one state to another. 
-
-They can be also used to define different spatial scopes for any loudspeaker, as shown in \ref{fig:5spk_weights}.
+Spatial weights can be changed dynamically, thus allowing smooth transitions from one state to another. They can be also used to define different spatial scopes for any loudspeaker, as shown in \ref{fig:5spk_weights}.
 
 %This weight parameter, after being submitted to listening tests and visualization (as described later in \ref{sec:visual_representation}), has revealed itself as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 
