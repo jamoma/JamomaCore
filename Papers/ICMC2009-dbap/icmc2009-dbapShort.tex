@@ -71,6 +71,9 @@
 
 \title{\papertitle}
 
+\hyphenation{pan-ning-based}
+\sloppy
+
 %------------------------------------------------------------------------------------------
 \begin{document}
 
@@ -92,7 +95,7 @@
 % TODO: Tim notes the use of the phrase "in terms of" a lot in this paper.  Too much.  This terminology should be limited to mathematical descriptions, and not aesthetic or perceptual issues.
 
 \begin{abstract}
-Most common techniques for spatialization require the listener to be positioned at a ``sweet spot'' surrounded by loudspeakers. For practical concert, stage and installation applications such layouts may not be undesirable. Distance-Based Amplitude Panning (DBAP) offers an alternative panning-based spatialization method where no assumptions are made concerning the layout of the speaker array nor the position of the listener.  DBAP is implemented both as an external for Max/MSP and as a module for the Jamoma framework.
+Most common techniques for spatialization require the listener to be positioned at a ``sweet spot'' surrounded by loudspeakers. For practical concert, stage and installation applications such layouts may not be undesirable. Distance-Based Amplitude Panning (DBAP) offers an alternative panning based spatialization method where no assumptions are made concerning the layout of the speaker array nor the position of the listener.  DBAP is implemented both as an external for Max/MSP and as a module for the Jamoma framework.
 \end{abstract}
 
 
@@ -111,20 +114,17 @@ Most common techniques for spatialization require the listener to be positioned 
 
 \section{Introduction}\label{sec:introduction}
 
-Multichannel and surround sound reproduction is becoming more common, both for consumer applications as well as for musical and artistic purposes. A number of techniques exist for virtual positioning of sound sources using an array of loudspeakers.  Techniques for spatialization commonly assume that the position of a listener is known and fixed, and that the speakers are surrounding the listener either on a two-dimensional ring or a three-dimensional sphere. Examples of such speaker layouts and spatialization techniques are stereo panning, 5.1-channel surround \cite{ITU:1993_surround_5:1}, further extended industrial multichannel configurations \cite{Rumsey:2001spatial_audio}, Vector-Based Amplitude Panning (VBAP) \cite{Pulkki:1997vbap}, as well as both first-order and higher-order ambisonics \cite{Gerzon:1974surround, Poletti:2000holographic_sound}.
+Multichannel and surround sound reproduction is getting common, for consumer applications as well as for musical and artistic purposes. A number of spatialization techniques exist for virtual positioning of sound sources using an array of loudspeakers. These often assume that the position of the listener is known and fixed, and that the speakers are surrounding the listener either on a two-dimensional ring or a three-dimensional sphere. Examples of such speaker layouts and spatialization techniques are stereo panning, ITU 5.1 surround \cite{ITU:1993_surround_5:1}, further extended industrial multichannel configurations \cite{Rumsey:2001spatial_audio}, vector-based amplitude panning (VBAP) \cite{Pulkki:1997vbap} and first- and higher-order ambisonics \cite{Gerzon:1974surround, Poletti:2000holographic_sound}.
 
-Wave field synthesis (WFS) and Virtual Microphone Control (ViMiC) \cite{Peters:2008vimic} are noticeable exceptions to the aforementioned ``sweet spot'' restriction :
+Wave field synthesis (WFS) and Virtual Microphone Control (ViMiC) \cite{Peters:2008vimic} are noticeable exceptions to the aforementioned ``sweet spot'' restriction.
 
-WFS reproduces signals resulting in a large listening area. The spatial properties of the acoustical scene can be perceived correctly by an arbitrarily large number of listeners regardless of their position inside this area \cite{Spors:2004sound_field_synthesis}. Due to the high number of loudspeakers required, WFS might be impractical to use for financial reasons as well as time constraints unless one is working on a site where a permanent setup for wave field synthesis is installed.
+WFS reproduces signals in a large listening area. The spatial properties of the acoustical scene can be perceived correctly by an arbitrarily large number of listeners regardless of their position inside this area \cite{Spors:2004sound_field_synthesis}. Due to the high number of loudspeakers required, WFS might be impractical to use for financial reasons and time constraints unless one is working on a site where a permanent setup for wave field synthesis is installed.
 
-ViMiC incorporates distance-based signal delays between speakers, simulation of microphone patterns, early reflections and surface absorption, but it is more CPU-intensive, and might require a dedicated computer for spatialization or limitations on the number of loudspeakers used as compared to DBAP.
+ViMiC incorporates distance-based signal delays between speakers, simulation of microphone patterns, early reflections and surface absorption. This makes it relatively CPU-intensive, and ViMiC might require a dedicated computer for spatialization or restrictions on the number of loudspeakers used as compared to DBAP.
 
-%A number of practical limitations tend to restrict what spatialization techniques are feasible for musical and artistic use.
+For real-time music and sound purposes, the low CPU requirements of matrix-based spatialization techniques make them popular choices. VBAP as well as ambisonics are readily available for use in common software environments for real-time processing such as Max/MSP \cite{Pulkki:2000vbap_max, Schacher:2006ambi_max, Neukom:2008ambipan}, but they require that the listeners are restricted to a relatively small listening area surrounded by loudspeakers arranged in a circle or sphere.  These requirements might be unfeasible or undesired in practical applications.  
 
-For real-time music and sound purposes, the relatively low CPU requirements of matrix-based spatialization techniques seem to make them popular choices. VBAP as well as ambisonics are readily available for use in common software environments for real-time processing such as Max/MSP \cite{Pulkki:2000vbap_max, Schacher:2006ambi_max, Neukom:2008ambipan}, but they require that the listeners are restricted to a relatively small listening area surrounded by loudspeakers arranged in a circle or sphere.  These requirements might be unfeasible or undesired in practical applications.  
-%In the ideal concert situation the entire audience should have a detailed impression of the spatial content of the music, not limiting the impression to those sitting in the middle of the concert hall. In a sound installation context one might want the audience to be able to move around the space \cite{lossius:2008installations}.  Finally, for pragmatic and/or artistic reasons it might not be possible or desired to have loudspeakers arranged in a ring or a sphere.
-
-Distance-Based Amplitude Panning (DBAP) is a matrix-based spatialization technique that takes the actual positions of the speakers in space as the point of departure, while making no assumptions as to where the listeners are situated. This makes DBAP useful for a number of real-world situations including music for concerts, works for stage, installations\cite{lossius:2008installations}, and museum sound design where predefined geometric speaker layouts might not apply.
+Distance-based amplitude panning (DBAP) is a matrix-based spatialization technique that takes the actual positions of the speakers in space as the point of departure, while making no assumptions as to where the listeners are situated. This makes DBAP useful for a number of real-world situations such as concerts, stage productions, installations\cite{lossius:2008installations} and museum sound design where predefined geometric speaker layouts might not apply.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,44 +133,38 @@ Distance-Based Amplitude Panning (DBAP) is a matrix-based spatialization techniq
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Distance-Based Amplitude Panning}
+\section{Distance-based amplitude panning}
 
 \subsection{Fundamentals}
 
-% TODO: Tim changed the capitalization above -- but here it is again.  They should be the same, so what should it be?
-% CHANGED: Tim changed a couple of places where the word 'setup' was used.  This is a bit colloquial.  I replaced it with the word 'model'.  Discard or consider as appropriate. 
+\textit{Distance-based amplitude panning (DBAP)} extends the principle of equal intensity panning from a pair of speakers to a loudspeaker array of any size, with no \textit{a priori} assumptions about their positions in space or relative to each other.
+For simplicity, the method will be discussed for a two-dimensional model. This can be readily extended to three dimensions.
 
-\textit{Distance-Based Amplitude Panning (DBAP)} extends the principle of equal intensity panning from a pair of speakers to a loudspeaker array of any size, with no \textit{a priori} assumptions about their positions in space or relative to each other.
-For simplicity, the method will be discussed in terms of a two-dimensional model with speakers and sources all positioned in the same horizontal plane. This can be readily extended to three dimensions.
-
-The position of a virtual source will be described in terms of Cartesian coordinates $(x_{s}, y_{s})$. For a model with $N$ speakers, the position of the $i$th speaker is given as $(x_{i}, y_{i})$. The distance from a source to each of the speakers can then be calculated as
+The Cartesian coordinates of a virtual source is given as $(x_{s}, y_{s})$. For a model with $N$ speakers, the position of the $i$th speaker is given as $(x_{i}, y_{i})$. The distance $d_{i}$ from a source to each of the speakers is
 
 \begin{equation} \label{eq:distance}
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 } \qquad \textrm{for } 1 \leq i \leq N \textrm{ .}
 \end{equation}
 
-For simplicity, the source is presumed as having unity amplitude. DBAP then makes two assumptions. The first is that intensity is to be constant regardless of the position of the virtual source. This can be considered an extension of the principle of constant intensity panning for stereo to multichannel setups. If the amplitude of the $i$th speaker is $v_{i}$, this implies
+For simplicity, the source is presumed as having unity amplitude. DBAP then makes two assumptions. The first is that intensity is to be constant regardless of the position of the virtual source. This can be considered an extension to multiple channels of the principle of constant intensity stereo panning. If the amplitude of the $i$th speaker is $v_{i}$, this implies
 
 \begin{equation} \label{eq:constant_intensity}
-I = \sum_{i=1}^{N} {v_{i}}^2 = 1
+I = \sum_{i=1}^{N} {v_{i}}^2 = 1 \textrm{ .}
 \end{equation}
 
-Secondly, it is assumed that all speakers are active at all times, and the relative amplitude of the $i$th speaker depends on the distance from the virtual source as 
+Secondly, it is assumed that all speakers are active at all times, and the relative amplitude of the $i$th speaker relates to the distance from the virtual source as 
 
 \begin{equation} \label{eq:inverse_distance}
-v_{i} = \frac{k}{2 d_{i} a} 
+v_{i} = \frac{k}{2 d_{i} a} \textrm{ ,}
 \end{equation}
 
-% TODO: Tim notes that 'depending' isn't quite the right word in this sentence.  In both places it should be a different word (not certain about the replacement yet)
 where $k$ is a coefficient depending on the position of the source and all speakers, while $a$ is a coefficient calculated from the rolloff $R$ in decibels per doubling of distance:
 
 \begin{equation} \label{eq:rolloff}
 	a = 10^{\frac{-R}{20}}
 \end{equation}
 
-A rolloff of $R = 6$ dB equals the inverse distance law for sound propagating in a free field. For closed or semiclosed environments $R$ will generally be lower, in the range 3-5 dB, and depending on reflections and reverberation \cite{Everest:2000handbook_acoustics} (pp. 84-88). In these circumstances (\ref{eq:rolloff}) represents a simplified description of attenuation with distance, but simulation of reflections and reverberation is anyway beyond the scope of an amplitude-panning based spatialization method.
-
-%The second is based on the inverse distance law for sound pressure for sound propagating in free field as discussed in section \ref{distance_hearing}. DBAP applies an adaption of this by assuming that the relative amplitude for each speaker is inversely proportional to the distance from source to speaker:
+A rolloff of $R = 6$ dB equals the inverse distance law for sound propagating in a free field. For closed or semi-closed environments $R$ will generally be lower, in the range 3-5 dB, and depend on reflections and reverberation \cite{Everest:2000handbook_acoustics} (pp. 84-88). The (\ref{eq:rolloff}) then represents a simplified description of attenuation with distance, but simulation of reflections and reverberation is anyway beyond the scope of an amplitude-panning based spatialization method.
 
 Combining equations (\ref{eq:constant_intensity}) and (\ref{eq:inverse_distance}) $k$ can be found as:
 
@@ -199,13 +193,13 @@ From this it can be shown that
 \end{array} \right.
 \end{equation}
 
-When the virtual source is located at the exact position of one of the loudspeakers, only that speaker will be emitting sound. This may cause unwanted changes in spatial spread and coloration of a virtual source in a similar way as observed for VBAP \cite{Pulkki:1999vbap}. To adjust for this a similar solution can be provided by introduction of a degree of \textit{spatial blur} $r_{s} \ge 0$ in equation (\ref{eq:distance}):
+When the virtual source is located at the exact position of one of the loudspeakers, only that speaker will be emitting sound. This may cause unwanted changes in spatial spread and coloration of a virtual source in a similar way as observed for VBAP \cite{Pulkki:1999vbap}. To adjust for this \textit{spatial blur} $r_{s} \ge 0$ is introduced in equation (\ref{eq:distance}):
 
 \begin{equation} \label{eq:mod_distance}
 d_{i} = \sqrt{ {(x_{i} - x_{s})}^2 + {(y_{i} - y_{s})}^2 + {r_{s}}^2}
 \end{equation}
 
-In two dimensions the blur coefficient $r_{s}$ can be understood as a displacement in vertical position introduced between the source and the speakers. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. There is a limitation, however, to how blurred the sources can be perceived.  Practical experience indicates that the precedence effect \cite{Litovsky:1999precedence_effect} will come into play as blur is increased, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener.
+In two dimensions the blurring can be understood as a vertical displacement between source and speakers. The larger $r$ gets, the less the source will be able to gravitate towards one speaker only. Practical experience indicates that there is a limit to the amount of blur that can be applied, or the precedence effect \cite{Litovsky:1999precedence_effect} will come into play, causing the perceived direction of the source to gravitate towards the speaker(s) closest to the listener.
 
 In the implementation of DBAP discussed in section \ref{sec:implementation} the blur coefficient is normalized, using the covariance of distance from centre of loudspeaker rig to loudspeakers as scaling factor, in order to make the blur coefficient less sensitive to changes in size of loudspeaker layouts.
 
