@@ -6,7 +6,7 @@
 >
   <preset number='1' name='default'>
     <item name='record' type='msg_toggle' priority='0'>0</item>
-    <item name='print' type='msg_toggle' priority='0'>1</item>
+    <item name='verbose' type='msg_toggle' priority='0'>1</item>
     <item name='streamcount' type='msg_int' priority='0'>1</item>
     <item name='ui/freeze' type='msg_toggle' priority='0'>0</item>
   </preset>
