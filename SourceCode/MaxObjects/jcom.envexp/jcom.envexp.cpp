@@ -127,7 +127,7 @@ t_symbol	*jps_dumpout;
   */
 int JAMOMA_EXPORT_MAXOBJ main(void)
 {
-	post("main");
+	//post("main");
 	
 	long attrflags = 0;
 	t_class *c;
@@ -192,9 +192,9 @@ void *envExp_new(Symbol *s, long argc, t_atom *argv)
 	//create the new instance and returns a pointer to it
 	t_envExp *x = (t_envExp *)object_alloc(this_class);
 	
-	post("new");
+	//post("new");
 	if (x) {
-			post("new_x");
+			//post("new_x");
 		// dumpout
 		object_obex_store((void *)x, jps_dumpout, (object *)outlet_new(x,NULL));
 		// create outlet
