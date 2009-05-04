@@ -72,7 +72,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method read a text file at the given path or,
 	// if there isn't path, open a dialog to select one.
-	class_addmethod(c, (method)cuemng_load,				"load",			A_DEFSYM, 0);
+	class_addmethod(c, (method)cuemng_load,				"load",			A_GIMME, 0);
 
 	// this method save the cuelist in a textfile
 	// at selected path (if the path already exist)
@@ -80,7 +80,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method save the cuelist in a textfile at the given path or,
 	// if there isn't path, open a dialog to select one.
-	class_addmethod(c, (method)cuemng_saveas,			"saveas",		A_DEFSYM, 0);
+	class_addmethod(c, (method)cuemng_saveas,			"saveas",		A_GIMME, 0);
 
 	// this method open a text editor to 
 	// show the entire cue list file
@@ -96,7 +96,10 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 
 	// this method set the time of the ramp of 
 	// the selected cue (or the current if no index)
-	class_addmethod(c, (method)cuemng_ramptime,			"ramptime",		A_GIMME, 0);
+	class_addmethod(c, (method)cuemng_set_ramp,			"set_ramp",		A_GIMME, 0);
+
+	// rename the selected cue (or the current if no index)
+	class_addmethod(c, (method)cuemng_set_name,			"set_name",		A_GIMME, 0);
 
 	// if there is an index, insert the temp cue 
 	// at this index in the cue list
@@ -126,9 +129,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	// the given index into the temp cue
 	// else, copy the current
 	class_addmethod(c, (method)cuemng_copy,				"copy",			A_GIMME, 0);
-
-	// rename the selected cue (or the current if no index)
-	class_addmethod(c, (method)cuemng_rename,			"rename",		A_GIMME, 0);
 
 	// the recall method constists in trigger all previous cue 
 	//(from the previous keycue)until to trigger the given cue.
@@ -189,7 +189,8 @@ void *cuemng_new(t_symbol *s, long argc, t_atom *argv)
 		x->cuelist = linklist_new();
 		linklist_flags(x->cuelist, OBJ_FLAG_DATA);
 
-		strcpy(x->filename,".txt");
+		x->cuelist_file = gensym("cuelist.txt");
+		x->cuelist_path = 0;
 
 		x->temp_cue = (t_cue *)malloc(sizeof(t_cue));
 		x->temp_cue->linelist = linklist_new();
@@ -288,6 +289,7 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 			x->Kcurrent = 0;
 		}
 		else{
+
 			// clear temp cue
 			cuemng_clear_temp(x);
 
@@ -346,7 +348,7 @@ void cuemng_bang(t_cuemng *x)
 	if(ccue){
 		if(x->trigeditmode){ // TRIGGER_MODE
 			// output the cue
-			cuemng_output_cue(x, ccue);
+			cuemng_output_cue(ccue, x);
 
 			if(x->current != -1){
 				// info operation /trigger id
@@ -369,8 +371,9 @@ void cuemng_bang(t_cuemng *x)
 				x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
 			
 			// create a new ptr to the text
-			// TODO : dynamic memory allocation ???
-			x->ht = sysmem_newptrclear(sizeof(char)*MAX_TEXT_SIZE);
+			x->eof = 0;
+			x->ht_size = TEXT_BUFFER_SIZE;
+			x->ht = sysmem_newptrclear(sizeof(char)*x->ht_size);
 
 			// write the cue in ht
 			cuemng_write_cue(ccue, x);
@@ -468,7 +471,8 @@ void cuemng_new_cuelist(t_cuemng *x){
 			x->Kcurrent = -1;
 		}
 
-		strcpy(x->filename,".txt");
+		x->cuelist_file = gensym("cuelist.txt");
+		x->cuelist_path = 0;
 
 		cuemng_clear_temp(x);
 
@@ -477,37 +481,48 @@ void cuemng_new_cuelist(t_cuemng *x){
 		x->current = -1;
 }
 
-void cuemng_load(t_cuemng *x, t_symbol *s)
+void cuemng_load(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	defer(x, (method)cuemng_doload, s, 0, NULL);
+	defer(x, (method)cuemng_doload, msg, argc, argv);
 }
 
-void cuemng_doload(t_cuemng *x, t_symbol *s)
+void cuemng_doload(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_filehandle fhd;
-	char **texthd;
-    long filetype = 'TEXT', outtype;
-    short numtypes = 1;
-	long stop_at;
+	t_symbol		*arg_path;
+	t_filehandle	fhd;
+	char			**texthd;
+    long			filetype = 'TEXT', outtype;
+	char			filename[MAX_FILENAME_CHARS];		// for storing the name of the file locally
+	char 			fullpath[MAX_PATH_CHARS];			// for storing the absolute path of the file
+	char 			path[MAX_PATH_CHARS];				// to split the fullpath : path + filename
+	short 			err;								// error number
+	long			stop_at;
 
-    if(s == gensym("")){      // if no argument supplied, ask for file
-        if(open_dialog(x->filename, &x->path, &outtype, &filetype, 1))       // non-zero: user cancelled
-            return;
-    } 
-	else{
-        strcpy(x->filename, s->s_name);    // must copy symbol before calling locatefile_extended
-        if(locatefile_extended(x->filename, &x->path, &outtype, &filetype, 1)){ // non-zero: not found
-            object_error((t_object *)x, "%s: not found", s->s_name);
+	// GET THE PATH
+	// check the args to see if there is a user_path
+	if(argc){
+		strcpy(fullpath, atom_getsym(argv)->s_name);
+		if(locatefile_extended(fullpath, &x->cuelist_path, &outtype, &filetype, 1)){	// non-zero: not found
+            object_error((t_object *)x, "%s: not found", fullpath);
             return;
         }
+	}
+	else{
+		// if no argument supplied, ask for file
+        if(open_dialog(fullpath, &x->cuelist_path, &outtype, &filetype, 1))			// non-zero: user cancelled
+            return;
     }
 
     // we have a file
 	// open the file before reading
-	if (path_opensysfile(x->filename, x->path, &fhd, READ_PERM)) {
-		object_error((t_object *)x, "load : error opening %s", x->filename);
+	if(path_opensysfile(fullpath, x->cuelist_path, &fhd, READ_PERM)) {
+		object_error((t_object *)x, "load : error opening %s", fullpath);
 		return;
 	}
+
+	// save filename in x->cuelist_file.
+	path_splitnames(fullpath,filename,path); // ?? the filename is the second arg (not the third) ??!
+	x->cuelist_file = gensym(filename);
 
 	// allocate some empty memory to receive text
 	texthd = sysmem_newhandle(0);
@@ -542,54 +557,90 @@ void cuemng_doload(t_cuemng *x, t_symbol *s)
 
 	sysfile_close(fhd);
 	sysmem_freehandle(texthd);
+
+	defer(x,(method)cuemng_info_operation,gensym("load"),0,0);
 }
 
-void cuemng_saveas(t_cuemng *x, t_symbol *s)
+void cuemng_saveas(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	long filetype = 'TEXT', outtype;
-	short numtypes = 1;
-
-	if (s == gensym("")){      // if no argument supplied, ask for file
-		if (saveasdialog_extended(x->filename, &x->path, &outtype, &filetype, 1))     // non-zero: user cancelled
-			return;
-	}
-	else{
-		strcpy(x->filename, s->s_name);
-		x->path = path_getdefault();
-	}
-	defer(x, (method)cuemng_dosave, 0, 0, NULL);
+	if(argc && argv)
+		defer((t_object*)x, (method)cuemng_dosave, 0, argc, argv);
+	else 
+		defer((t_object*)x, (method)cuemng_dosave, gensym("no args in save as"), argc, argv);
 }
 
 void cuemng_save(t_cuemng *x)
 {
-	if(strcmp(x->filename,".txt"))
-		defer(x, (method)cuemng_saveas, gensym(""), 0, NULL);
-	else
-		defer(x, (method)cuemng_dosave, gensym(x->filename), 0, NULL);
+	defer((t_object*)x, (method)cuemng_dosave, 0, 0, NULL);
 }
 
-void cuemng_dosave(t_cuemng *x)
+void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	long err;
-	t_filehandle fh;
-	long count;
+	t_symbol		*arg_path;
+	long 			type = 'TEXT';					// four-char code for Mac file type
+	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
+	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
+	short 			err;							// error number
+	long			outtype;						// the file type that is actually true
+	t_filehandle	fh;								// a reference to our file (for opening it, closing it, etc.)
 
-	// create a the file
-	err = path_createsysfile(x->filename, x->path, 'TEXT', &fh);
-	if (err)
+	// GET THE PATH
+	// check the args to see if there is a user_path
+	if(argc){
+		post("args");
+		strcpy(fullpath, atom_getsym(argv)->s_name);
+		path_frompathname(fullpath, &x->cuelist_path, filename);
+	}
+	else{
+		post("No args");
+		// Does a former cuelist_path exist ?
+		if(x->cuelist_path && (msg != gensym("no args in save as"))){
+			strcpy(filename,x->cuelist_file->s_name);
+		}
+		else{
+			post("No user_path");
+			// open a dialog to ask for a name
+			strcpy(filename,x->cuelist_file->s_name);
+			saveas_promptset("Save Cuelist...");									// Instructional Text in the dialog
+			err = saveasdialog_extended(filename, &x->cuelist_path, &outtype, &type, 1);		// Returns 0 if successful
+			if(err)																	// User Cancelled
+				return;
+		}
+	}
+
+	// NOW ATTEMPT TO CREATE THE FILE...
+	err = path_createsysfile(filename, x->cuelist_path, type, &fh);
+
+	if(err){
+		object_error((t_object *)x, "save : error saving %s", filename);
 		return;
+	}
 
+	// AND WE SAVE THE filename IN x->cuelist_file.
+	x->cuelist_file = gensym(filename);
+	post("cuelist_file = %s", x->cuelist_file->s_name);
+
+	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
 	// create a new ptr to the text
-	// TODO : dynamic memory allocation ???
-    count = MAX_TEXT_SIZE;
-	x->ht = sysmem_newptrclear(sizeof(char)*count);
+	x->eof = 0;
+	x->ht_size = TEXT_BUFFER_SIZE;
+	x->ht = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
 
 	// write all cues in ht
 	linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
 
 	// write ht into the text file
-	err = sysfile_write(fh, &count, x->ht);
+	err = sysfile_write(fh, &x->eof, x->ht);
+
+	// close the file
+	err = sysfile_seteof(fh, x->eof);
+	if(err){
+		object_error((t_object*)x, "save : error %d creating EOF of %s", err, filename);
+		return;	
+	}
 	sysfile_close(fh);
+
+	defer(x,(method)cuemng_info_operation,gensym("save"),0,0);
 }
 
 void cuemng_open(t_cuemng *x)
@@ -603,8 +654,9 @@ void cuemng_open(t_cuemng *x)
 			x->m_editor = (t_object *)object_new(CLASS_NOBOX, gensym("jed"), (t_object *)x , 0);
 		
 		// create a ptr to the text
-		// TODO : dynamic memory allocation ???
-		x->ht = sysmem_newptrclear(sizeof(char)*MAX_TEXT_SIZE);
+		x->eof = 0;
+		x->ht_size = TEXT_BUFFER_SIZE;
+		x->ht = sysmem_newptrclear(sizeof(char)*TEXT_BUFFER_SIZE);
 
 		// write all cues in ht
 		linklist_funall(x->cuelist,(method)cuemng_write_cue,x);
@@ -676,7 +728,7 @@ void cuemng_doramp(t_cuemng *x, long r){
 	x->do_ramp = (r != 0);
 }
 
-void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
 	long index;
 	t_cue *c;
@@ -686,7 +738,7 @@ void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	// if there is the temp flag
 	// do nothing
 	if(cuemng_check_temp(x,argc,argv)){
-		object_error((t_object *)x, "ramptime : bad index");
+		object_error((t_object *)x, "set_ramp : bad index");
 		return;
 	}
 	
@@ -695,7 +747,7 @@ void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		if(atom_gettype(&argv[1]) == A_LONG)
 			new_ramptime = atom_getlong(&argv[1]);
 		else{
-			object_error((t_object *)x, "ramptime : the new time have to be an integer (ms)");
+			object_error((t_object *)x, "set_ramp : the new time have to be an integer (ms)");
 			return;
 		}
 	}
@@ -705,12 +757,12 @@ void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 			if(atom_gettype(&argv[0]) == A_LONG)
 				new_ramptime = atom_getlong(&argv[0]);
 			else{
-				object_error((t_object *)x, "ramptime : the new time have to be an integer (ms)");
+				object_error((t_object *)x, "set_ramp : the new time have to be an integer (ms)");
 				return;
 			}
 		}
 		else{
-			object_error((t_object *)x, "ramptime : needs a new time");
+			object_error((t_object *)x, "set_ramp : needs a new time");
 			return;
 		}
 	}
@@ -726,7 +778,60 @@ void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		cuemng_info_operation(x,s,2,a);
 	}
 	else
-		object_error((t_object *)x, "ramptime : this index doesn't exist");
+		object_error((t_object *)x, "set_ramp : this index doesn't exist");
+}
+
+void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
+{
+	long index;
+	t_cue *c;
+	t_symbol *new_name;
+	t_atom a[2];
+
+	// if there is the temp flag
+	// do nothing
+	if(cuemng_check_temp(x,argc,argv)){
+		object_error((t_object *)x, "set_name : bad index");
+		return;
+	}
+	
+	if(argc >= 2){
+		index = cuemng_check_index(x,argc,argv);
+		if(atom_gettype(&argv[1]) == A_SYM)
+			new_name = atom_getsym(&argv[1]);
+		else{
+			object_error((t_object *)x, "set_name : the new name have to be a symbol");
+			return;
+		}
+	}
+	else{
+		if(argc == 1){
+			index = cuemng_check_index(x,0,0);		// to get the current
+			if(atom_gettype(&argv[0]) == A_SYM)
+				new_name = atom_getsym(&argv[0]);
+			else{
+				object_error((t_object *)x, "set_name : the new name have to be a symbol");
+				return;
+			}
+		}
+		else{
+			object_error((t_object *)x, "set_name : needs a new name");
+			return;
+		}
+	}
+	
+	c = (t_cue *)linklist_getindex(x->cuelist,index);
+	if(c){
+
+		strcpy(c->index->s_name, new_name->s_name);
+
+		// info operation
+		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		atom_setsym(&a[1],new_name);
+		cuemng_info_operation(x,s,2,a);
+	}
+	else
+		object_error((t_object *)x, "set_name : this index doesn't exist");
 }
 
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
@@ -1010,59 +1115,6 @@ void cuemng_copy(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	}
 	else
 		object_error((t_object *)x, "copy : this index doesn't exist");
-}
-
-void cuemng_rename(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
-{
-	long index;
-	t_cue *c;
-	t_symbol *new_name;
-	t_atom a[2];
-
-	// if there is the temp flag
-	// do nothing
-	if(cuemng_check_temp(x,argc,argv)){
-		object_error((t_object *)x, "rename : bad index");
-		return;
-	}
-	
-	if(argc >= 2){
-		index = cuemng_check_index(x,argc,argv);
-		if(atom_gettype(&argv[1]) == A_SYM)
-			new_name = atom_getsym(&argv[1]);
-		else{
-			object_error((t_object *)x, "rename : the new name have to be a symbol");
-			return;
-		}
-	}
-	else{
-		if(argc == 1){
-			index = cuemng_check_index(x,0,0);		// to get the current
-			if(atom_gettype(&argv[0]) == A_SYM)
-				new_name = atom_getsym(&argv[0]);
-			else{
-				object_error((t_object *)x, "rename : the new name have to be a symbol");
-				return;
-			}
-		}
-		else{
-			object_error((t_object *)x, "rename : needs a new name");
-			return;
-		}
-	}
-	
-	c = (t_cue *)linklist_getindex(x->cuelist,index);
-	if(c){
-
-		strcpy(c->index->s_name, new_name->s_name);
-
-		// info operation
-		atom_setlong(&a[0],index+1); // index starts at 1 for user
-		atom_setsym(&a[1],new_name);
-		cuemng_info_operation(x,s,2,a);
-	}
-	else
-		object_error((t_object *)x, "rename : this index doesn't exist");
 }
 
 void cuemng_recall(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
@@ -1707,7 +1759,7 @@ long cuemng_read_text(t_cuemng *x, char **texthd, long str)
 	return -1;
 }
 
-void cuemng_output_cue(t_cuemng *x, t_cue* c)
+void cuemng_output_cue(t_cue *c, t_cuemng *x)
 {
 	t_atom a[1];
 
@@ -1901,48 +1953,90 @@ void cuemng_write_line(t_line *l, t_cuemng *x)
 // append an atom to a string
 void cuemng_write_atom(t_cuemng *x, t_atom *src)
 {
-	if(atom_gettype(src) == A_SYM)cuemng_write_sym(x,atom_getsym(src));	
-	if(atom_gettype(src) == A_LONG)cuemng_write_long(x,atom_getlong(src));
-	if(atom_gettype(src) == A_FLOAT)cuemng_write_float(x,atom_getfloat(src));
+	char temp[512];
+	long len, err;
+	t_symbol* sym;
+	len = err = 0;
+
+	switch(src->a_type) 
+	{
+		case A_SYM:
+			sym = atom_getsym(src);
+			snprintf(temp, sizeof(temp), "%s ", sym->s_name);
+			break;
+		case A_FLOAT:
+			snprintf(temp, sizeof(temp), "%f ", atom_getfloat(src));
+			break;
+		case A_LONG:
+			snprintf(temp, sizeof(temp), "%ld ", atom_getlong(src));
+			break;
+	}
+	len = strlen(temp);
+	x->eof += len;
+	
+	if(x->eof >= x->ht_size){
+		x->ht_size += TEXT_BUFFER_SIZE;
+		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	}
+
+	strcat(x->ht,temp);
 }
 
-// append a symbol to a string
 void cuemng_write_sym(t_cuemng *x, t_symbol *src)
 {
-	char *temp;
+	char temp[256];
+	long len, err;
+	len = err = 0;
 
-	temp = new char[strlen(src->s_name)+1];
+	snprintf(temp, sizeof(temp), "%s ", src->s_name);
 
-	strcpy(temp,src->s_name);
+	len = strlen(temp);
+	x->eof += len;
+
+	if(x->eof >= x->ht_size){
+		x->ht_size += TEXT_BUFFER_SIZE;
+		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	}
+
 	strcat(x->ht,temp);
-	strcat(x->ht," ");
-	free(temp);
 }
 
-// append a long to a string
 void cuemng_write_long(t_cuemng *x, long src)
 {
-	char *temp;
+	char temp[32];
+	long len, err;
+	len = err = 0;
 
-	temp = new char[32];
+	snprintf(temp, sizeof(temp), "%ld ", src);
 
-	snprintf(temp, 32, "%ld", src);
+	len = strlen(temp);
+	x->eof += len;
+
+	if(x->eof >= x->ht_size){
+		x->ht_size += TEXT_BUFFER_SIZE;
+		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	}
+
 	strcat(x->ht,temp);
-	strcat(x->ht," ");
-	free(temp);
 }
 
-// append a float to a string
 void cuemng_write_float(t_cuemng *x, float src)
 {
-	char *temp;
+	char temp[32];
+	long len, err;
+	len = err = 0;
 
-	temp = new char[32];
+	snprintf(temp, sizeof(temp), "%f ", src);
 
-	snprintf(temp, 32, "%f", src);
+	len = strlen(temp);
+	x->eof += len;
+
+	if(x->eof >= x->ht_size){
+		x->ht_size += TEXT_BUFFER_SIZE;
+		sysmem_resizeptr(x->ht,sizeof(char)*x->ht_size);
+	}
+
 	strcat(x->ht,temp);
-	strcat(x->ht," ");
-	free(temp);
 }
 
 // look at the incoming args to check the temp flag

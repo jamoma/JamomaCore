@@ -10,9 +10,6 @@
 #include "jamoma.h"
 #include "string.h"
 
-// TODO : dynamic allocation for text
-#define MAX_TEXT_SIZE 100000
-
 // define default values
 #define CUE "CUE"
 #define KEYCUE "KEYCUE"
@@ -31,6 +28,8 @@
 #ifdef WIN_VERSION
 #define LB "\n"
 #endif
+
+#define TEXT_BUFFER_SIZE 5000
 
 #define NB_TAB_PARAM 4
 #define NB_TAB_ATTR 6
@@ -111,12 +110,14 @@ typedef struct _cuemng
 	bool		do_ramp;			// to enable/disable the trigger ramp driving
 	long		global_ramp;		// the current global ramp time
 
-	char		filename[512];		// a text file /path/name
-	short		path;				// a path id
+	short		cuelist_path;		// a text file /path/name
+	t_symbol	*cuelist_file;		// the name of the cuelist
 
 	t_object	*m_editor;			// a textfile editor
 	t_object	*editorview;		// the textfile window
-	char		*ht;				// a handler for text
+	char		*ht;				// a pointer to the text
+	long		eof;				// the number of written char in text
+	long		ht_size;			// the size of the text
 	long		show;				// to memorize what is showing in the text editor (0: temp_cue, 1: a cue, 2: the cuelist)
 
 	t_object	*dialog;			// a dialog window
@@ -157,20 +158,20 @@ void cuemng_temp(t_cuemng *x);
 void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_trigger(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_new_cuelist(t_cuemng *x);
-void cuemng_load(t_cuemng *x, t_symbol *s);
-void cuemng_saveas(t_cuemng *x, t_symbol *s);
+void cuemng_load(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
+void cuemng_saveas(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
 void cuemng_save(t_cuemng *x);
 void cuemng_open(t_cuemng *x);
 void cuemng_info(t_cuemng *x);
 void cuemng_doramp(t_cuemng *x, long r);
-void cuemng_ramptime(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
+void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_append(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_replace(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_clear(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_delete(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_copy(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
-void cuemng_rename(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_recall(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_join(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
@@ -181,8 +182,8 @@ void cuemng_modify(t_cuemng *x, t_symbol* s, long argc, t_atom *argv);
 void cuemng_anything(t_cuemng *x, t_symbol *s, long argc, t_atom *argv);
 
 // Private methods
-void cuemng_doload(t_cuemng *x, t_symbol *s);
-void cuemng_dosave(t_cuemng *x);
+void cuemng_doload(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
+void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv);
 
 void cuemng_clear_temp(t_cuemng *x);
 void cuemng_set_temp(t_cuemng *x,long mode, long argc, t_atom *argv);
@@ -201,7 +202,7 @@ t_cue* cuemng_current_cue(t_cuemng *x);
 t_cue* cuemng_current_key_cue(t_cuemng *x);
 long cuemng_previous_key_index(t_cuemng *x);
 
-void cuemng_output_cue(t_cuemng *x, t_cue* c);
+void cuemng_output_cue(t_cue *c, t_cuemng *x);
 void cuemng_output_line(t_line *line, t_cuemng *x);
 
 void cuemng_info_cue(t_cue *cue, t_cuemng *x);
@@ -209,7 +210,7 @@ void cuemng_info_operation(t_cuemng *x, t_symbol *s, long argc, t_atom *argv);
 
 long cuemng_read_text(t_cuemng *x, char **texthd, long start);
 
-void cuemng_write_cue(t_cue *cue, t_cuemng *x);
+void cuemng_write_cue(t_cue *c, t_cuemng *x);
 void cuemng_write_line(t_line *line, t_cuemng *x);
 void cuemng_write_atom(t_cuemng *x, t_atom *src);
 void cuemng_write_sym(t_cuemng *x, t_symbol *src);
