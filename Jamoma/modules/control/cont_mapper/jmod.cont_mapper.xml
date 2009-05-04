@@ -9,15 +9,17 @@
     <item name='edit' type='msg_symbol' priority='0'>edit</item>
     <item name='function' type='msg_symbol' priority='1'>linear</item>
     <item name='in/max' type='msg_float' priority='0'>1.000000</item>
-    <item name='in/min' type='msg_float' priority='0'>0.000000</item>
+    <item name='in/min' type='msg_float' priority='0'>0.000000</item> 
+    <item name='in/module/derivative' type='msg_int' priority='0'>0</item> 
+	<item name='in/module/listindex' type='msg_int' priority='0'>1</item>
     <item name='in/module/parameter' type='msg_symbol' priority='6'>/audio/amplitude.1</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>/input</item>
-    <item name='in/module/nr' type='msg_int' priority='2'>1</item>
+    <item name='in/module/instance' type='msg_int' priority='2'>0</item>
     <item name='out/max' type='msg_float' priority='0'>127.000000</item>
-    <item name='out/min' type='msg_float' priority='0'>0.000000</item>
+    <item name='out/min' type='msg_float' priority='0'>0.000000</item>  
     <item name='out/module/parameter' type='msg_symbol' priority='5'>/audio/gain</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/input</item>
-    <item name='out/module/nr' type='msg_int' priority='4'>1</item>
+    <item name='out/module/instance' type='msg_int' priority='4'>0</item>
     <item name='function/parameter1' type='msg_float' priority='5'>0.000000</item>
     <item name='function/parameter2' type='msg_float' priority='4'>0.000000</item>
     <item name='function/symmetry' type='msg_symbol' priority='3'>0</item> 
@@ -36,14 +38,16 @@
     <item name='function' type='msg_symbol' priority='1'>linear</item>
     <item name='in/max' type='msg_float' priority='0'>1.000000</item>
     <item name='in/min' type='msg_float' priority='0'>0.000000</item>
+    <item name='in/module/derivative' type='msg_int' priority='0'>0</item> 
+	<item name='in/module/listindex' type='msg_int' priority='0'>1</item>
     <item name='in/module/parameter' type='msg_symbol' priority='6'>/position/x</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>/mouse</item>
-    <item name='in/module/nr' type='msg_int' priority='2'>1</item>
+    <item name='in/module/instance' type='msg_int' priority='2'>0</item>
     <item name='out/max' type='msg_float' priority='0'>100.000000</item>
     <item name='out/min' type='msg_float' priority='0'>0.000000</item>
     <item name='out/module/parameter' type='msg_symbol' priority='5'>/audio/mix</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/filter~</item>
-    <item name='out/module/nr' type='msg_int' priority='4'>1</item>
+    <item name='out/module/instance' type='msg_int' priority='4'>0</item>
     <item name='function/parameter1' type='msg_float' priority='5'>0.000000</item>
     <item name='function/parameter2' type='msg_float' priority='4'>0.000000</item>
 	<item name='function/symmetry' type='msg_symbol' priority='3'>0</item>
@@ -61,15 +65,17 @@
     <item name='edit' type='msg_symbol' priority='0'>edit</item>
     <item name='function' type='msg_symbol' priority='1'>power</item>
     <item name='in/max' type='msg_float' priority='0'>1.000000</item>
-    <item name='in/min' type='msg_float' priority='0'>0.000000</item>
+    <item name='in/min' type='msg_float' priority='0'>0.000000</item> 
+    <item name='in/module/derivative' type='msg_int' priority='0'>0</item>
+	<item name='in/module/listindex' type='msg_int' priority='0'>1</item>
     <item name='in/module/parameter' type='msg_symbol' priority='6'>/audio/amplitude.1</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>/input~</item>
-    <item name='in/module/nr' type='msg_int' priority='2'>0</item>
+    <item name='in/module/instance' type='msg_int' priority='2'>0</item>
     <item name='out/max' type='msg_float' priority='0'>11025.000000</item>
     <item name='out/min' type='msg_float' priority='0'>30.000000</item>
     <item name='out/module/parameter' type='msg_symbol' priority='5'>/cf</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>/filter~</item>
-    <item name='out/module/nr' type='msg_int' priority='4'>1</item>
+    <item name='out/module/instance' type='msg_int' priority='4'>1</item>
     <item name='function/parameter1' type='msg_float' priority='5'>-0.520000</item>
     <item name='function/parameter2' type='msg_float' priority='4'>0.000000</item> 
 	<item name='function/symmetry' type='msg_symbol' priority='3'>0</item>
