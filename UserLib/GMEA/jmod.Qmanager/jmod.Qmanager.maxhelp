@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 4.0, 50.0, 1280.0, 694.0 ],
+		"rect" : [ 4.0, 50.0, 788.0, 694.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 4.0, 50.0, 1280.0, 694.0 ],
+		"defrect" : [ 4.0, 50.0, 788.0, 694.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -17,16 +17,29 @@
 		"imprint" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"args" : [  ],
-					"id" : "obj-1",
-					"maxclass" : "bpatcher",
-					"name" : "jmod.Qmanager.maxpat",
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-6",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 333.0, 29.0, 34.0, 16.0 ],
+					"text" : "/save"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 10.0,
+					"id" : "obj-69",
+					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 20.0, 85.0, 300.0, 210.0 ],
-					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 85.0, 300.0, 210.0 ]
+					"patching_rect" : [ 333.0, 8.0, 78.0, 18.0 ],
+					"text" : "jcom.savebang"
 				}
 
 			}
@@ -35,16 +48,48 @@
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"id" : "obj-5",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 480.0, 160.0, 280.0, 20.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 480.0, 160.0, 280.0, 20.0 ],
+					"text" : "update : store the last changes in the selected cue"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"args" : [  ],
+					"id" : "obj-1",
+					"maxclass" : "bpatcher",
+					"name" : "jmod.Qmanager.maxpat",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 20.0, 85.0, 450.0, 140.0 ],
+					"presentation" : 1,
+					"presentation_rect" : [ 20.0, 85.0, 450.0, 140.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"id" : "obj-14",
 					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 335.0, 85.0, 241.0, 48.0 ],
+					"patching_rect" : [ 480.0, 85.0, 241.0, 48.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 335.0, 85.0, 241.0, 48.0 ],
-					"text" : "<- INSPECTOR : \n- to manage the cue list (copy, remove)\n- to select the module to store in the cuelist"
+					"presentation_rect" : [ 480.0, 85.0, 241.0, 48.0 ],
+					"text" : "< INSPECTOR : \n- to manage the cue list (copy, remove)\n- to select the module to store in the cuelist",
+					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
 
 			}
@@ -52,18 +97,18 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.592157, 0.278431, 0.486275, 1.0 ],
+					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"id" : "obj-12",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 390.0, 299.0, 34.0 ],
+					"patching_rect" : [ 480.0, 205.0, 232.0, 34.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 20.0, 390.0, 299.0, 34.0 ],
-					"text" : "DIFFERENTIAL STORE MODE : store only changed parameters since the last stored or recalled cue.",
-					"textcolor" : [ 0.592157, 0.278431, 0.486275, 1.0 ]
+					"presentation_rect" : [ 480.0, 205.0, 232.0, 34.0 ],
+					"text" : "new cue : store only changed parameters since the last stored or recalled cue.",
+					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
 
 			}
@@ -71,16 +116,16 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.592157, 0.278431, 0.486275, 1.0 ],
+					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"id" : "obj-11",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 365.0, 298.0, 20.0 ],
+					"patching_rect" : [ 480.0, 185.0, 232.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 365.0, 298.0, 20.0 ],
-					"text" : "ABSOLUTE STORE MODE : store all parameters",
-					"textcolor" : [ 0.592157, 0.278431, 0.486275, 1.0 ]
+					"presentation_rect" : [ 480.0, 185.0, 232.0, 20.0 ],
+					"text" : "new keycue : store all parameters",
+					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
 
 			}
@@ -93,10 +138,10 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 20.0, 311.0, 302.0, 20.0 ],
+					"patching_rect" : [ 480.0, 140.0, 256.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 311.0, 302.0, 20.0 ],
-					"text" : "EDIT : open a text file to show the selected cue"
+					"presentation_rect" : [ 480.0, 140.0, 256.0, 20.0 ],
+					"text" : "edit : open a text file to show the selected cue"
 				}
 
 			}
@@ -104,15 +149,16 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"id" : "obj-3",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 335.0, 50.0, 295.0, 20.0 ],
+					"patching_rect" : [ 480.0, 50.0, 295.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 335.0, 50.0, 295.0, 20.0 ],
-					"text" : "2/ Use the \"Cue___Menu\" to select a cue and dump it"
+					"presentation_rect" : [ 480.0, 50.0, 295.0, 20.0 ],
+					"text" : "2/ Use the \"Cue___Menu\" to select a cue and dump it",
+					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
 
 			}
@@ -120,17 +166,18 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
+					"frgb" : [ 0.694118, 0.694118, 0.694118, 1.0 ],
 					"id" : "obj-2",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 335.0, 10.0, 294.0, 34.0 ],
+					"patching_rect" : [ 480.0, 10.0, 294.0, 34.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 335.0, 10.0, 294.0, 34.0 ],
-					"text" : "1/ Load a cuelist file example (or use the menu at the upper left corner of the jmod.cueManager)"
+					"presentation_rect" : [ 480.0, 10.0, 294.0, 34.0 ],
+					"text" : "1/ Load a cuelist file example (or use the menu at the upper left corner of the jmod.Qmanager)",
+					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
 
 			}
@@ -143,9 +190,9 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 700.0, 395.0, 300.0, 140.0 ],
+					"patching_rect" : [ 20.0, 545.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 700.0, 395.0, 300.0, 140.0 ]
+					"presentation_rect" : [ 20.0, 545.0, 300.0, 140.0 ]
 				}
 
 			}
@@ -159,9 +206,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 700.0, 85.0, 150.0, 70.0 ],
+					"patching_rect" : [ 20.0, 235.0, 150.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 700.0, 85.0, 150.0, 70.0 ],
+					"presentation_rect" : [ 20.0, 235.0, 150.0, 70.0 ],
 					"varname" : "/control"
 				}
 
@@ -176,9 +223,9 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 700.0, 165.0, 300.0, 140.0 ],
+					"patching_rect" : [ 20.0, 315.0, 300.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 700.0, 165.0, 300.0, 140.0 ],
+					"presentation_rect" : [ 20.0, 315.0, 300.0, 140.0 ],
 					"varname" : "/input~"
 				}
 
@@ -193,9 +240,9 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "signal", "signal" ],
-					"patching_rect" : [ 700.0, 315.0, 300.0, 70.0 ],
+					"patching_rect" : [ 20.0, 465.0, 300.0, 70.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 700.0, 315.0, 300.0, 70.0 ],
+					"presentation_rect" : [ 20.0, 465.0, 300.0, 70.0 ],
 					"varname" : "/degrade~"
 				}
 
@@ -247,6 +294,24 @@
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"hidden" : 0,
+					"midpoints" : [ 342.5, 80.5, 29.5, 80.5 ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-69", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-43", 2 ],
 					"hidden" : 0,

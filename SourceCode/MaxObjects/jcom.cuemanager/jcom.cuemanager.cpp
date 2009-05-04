@@ -287,6 +287,10 @@ void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 
 			x->current = 0;
 			x->Kcurrent = 0;
+			
+			// info operation /edit id
+			atom_setlong(&a[0],x->current+1); // index starts at 1 for user
+			defer(x,(method)cuemng_info_operation,gensym("edit"),1,a);
 		}
 		else{
 
@@ -587,18 +591,15 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 	// GET THE PATH
 	// check the args to see if there is a user_path
 	if(argc){
-		post("args");
 		strcpy(fullpath, atom_getsym(argv)->s_name);
 		path_frompathname(fullpath, &x->cuelist_path, filename);
 	}
 	else{
-		post("No args");
 		// Does a former cuelist_path exist ?
 		if(x->cuelist_path && (msg != gensym("no args in save as"))){
 			strcpy(filename,x->cuelist_file->s_name);
 		}
 		else{
-			post("No user_path");
 			// open a dialog to ask for a name
 			strcpy(filename,x->cuelist_file->s_name);
 			saveas_promptset("Save Cuelist...");									// Instructional Text in the dialog
@@ -618,7 +619,6 @@ void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 
 	// AND WE SAVE THE filename IN x->cuelist_file.
 	x->cuelist_file = gensym(filename);
-	post("cuelist_file = %s", x->cuelist_file->s_name);
 
 	// HERE WE CAN FINALLY WRITE THE DATA OUT TO THE FILE
 	// create a new ptr to the text
@@ -730,7 +730,7 @@ void cuemng_doramp(t_cuemng *x, long r){
 
 void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
-	long index;
+	long index, memo;
 	t_cue *c;
 	long new_ramptime;
 	t_atom a[2];
@@ -741,6 +741,9 @@ void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		object_error((t_object *)x, "set_ramp : bad index");
 		return;
 	}
+
+	// do not force the current on the changed cue
+	memo = x->current;
 	
 	if(argc >= 2){
 		index = cuemng_check_index(x,argc,argv);
@@ -766,6 +769,9 @@ void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 			return;
 		}
 	}
+
+	// do not force the current on the changed cue
+	x->current = memo;
 	
 	c = (t_cue *)linklist_getindex(x->cuelist,index);
 	if(c){
@@ -783,7 +789,7 @@ void cuemng_set_ramp(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 
 void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
-	long index;
+	long index, memo;
 	t_cue *c;
 	t_symbol *new_name;
 	t_atom a[2];
@@ -794,6 +800,9 @@ void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		object_error((t_object *)x, "set_name : bad index");
 		return;
 	}
+
+	// do not force the current on the renamed cue
+	memo = x->current;
 	
 	if(argc >= 2){
 		index = cuemng_check_index(x,argc,argv);
@@ -820,6 +829,9 @@ void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 		}
 	}
 	
+	// do not force the current on the renamed cue
+	x->current = memo;
+
 	c = (t_cue *)linklist_getindex(x->cuelist,index);
 	if(c){
 
