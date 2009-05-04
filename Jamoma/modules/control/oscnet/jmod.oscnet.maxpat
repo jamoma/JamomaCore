@@ -54,8 +54,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 194.0, 286.0, 587.0, 30.0 ],
-					"text" : "jcom.return receive @repetitions/allow 1 @description \"Open Sound Control messages coming in from the network are reported here.\""
+					"patching_rect" : [ 194.0, 286.0, 599.0, 30.0 ],
+					"text" : "jcom.return receive @repetitions/allow 1 @type msg_generic @description \"Open Sound Control messages coming in from the network are reported here.\""
 				}
 
 			}
@@ -208,6 +208,15 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-3", 0 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
 					"hidden" : 0,
 					"midpoints" : [  ],
@@ -248,15 +257,6 @@
 					"hidden" : 0,
 					"midpoints" : [  ],
 					"source" : [ "obj-15", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-14", 0 ]
 				}
 
 			}
