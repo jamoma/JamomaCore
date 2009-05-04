@@ -844,8 +844,10 @@ void param_makereceive(void* z)
 // DUMP: use for debugging - dump state to the Max window
 void param_dump(t_param *x)
 {
-	char	s[256];
-	t_atom	a[4];
+	char		s[256];
+	t_atom		a[4];
+	AtomCount	ac;
+	AtomPtr		av;
 	
 	if(x->common.hub != NULL){
 
@@ -855,9 +857,13 @@ void param_dump(t_param *x)
 		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
 		
 		snprintf(s, 256, "%s:/value", x->common.attr_name->s_name);
-		atom_setsym(&a[0], gensym(s));
-		jcom_core_atom_copy(&a[1], &x->attr_value);
-		object_method_typed(x->common.hub, jps_feedback, 2, a, NULL);
+		ac = x->list_size + 1;
+		av = (AtomPtr)malloc(sizeof(Atom) * ac);
+		atom_setsym(av+0, gensym(s));
+		memcpy(av+1, x->atom_list, sizeof(Atom) * x->list_size);
+		object_method_typed(x->common.hub, jps_feedback, ac, av, NULL);
+		if(ac && av)
+			free(av);
 		
 		snprintf(s, 256, "%s:/type", x->common.attr_name->s_name);
 		atom_setsym(&a[0], gensym(s));
