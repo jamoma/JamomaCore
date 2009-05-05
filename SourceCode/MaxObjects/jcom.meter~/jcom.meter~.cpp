@@ -59,6 +59,7 @@ typedef struct _meter{
 	t_jsurface*	gradientSurface;	///< precalculated and drawn gradient for the size of this instance
 	t_rect		gradientRect;
 	void*		clock;	
+	void		*outlet;			///< Outlet
 } t_meter;
 
 
@@ -70,6 +71,7 @@ void		meter_assist(t_meter *x, void *b, long m, long a, char *s);
 void		meter_bang(t_meter *x);
 void		meter_int(t_meter *x, long value);
 void		meter_float(t_meter *x, double value);
+void		meter_set(t_meter *x, double value);
 void		meter_clock(t_meter *x);
 t_int*		meter_perform(t_int *w);
 void		meter_dsp(t_meter *x, t_signal **sp, short *count);
@@ -79,7 +81,6 @@ void		meter_dopaint_vertical(t_meter *x, t_object *view);
 void*		meter_oksize(t_meter *x, t_rect *newrect);
 void		meterEffectOrientation(t_meter* x);
 void		meterCacheSurface(t_meter* x);
-
 
 // globals
 static t_class*	s_meter_class;
@@ -104,7 +105,8 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	class_addmethod(c, (method)meter_bang,		"bang",			0);
 	class_addmethod(c, (method)meter_int,		"int",			A_LONG, 0);
-	class_addmethod(c, (method)meter_float,		"float",		A_FLOAT, 0);	
+	class_addmethod(c, (method)meter_float,		"float",		A_FLOAT, 0);
+	class_addmethod(c, (method)meter_set,    	"set",			A_FLOAT, 0);
 	class_addmethod(c, (method)meter_dsp,		"dsp",			A_CANT, 0);
 	class_addmethod(c, (method)meter_paint,		"paint",		A_CANT, 0);
 	class_addmethod(c, (method)meter_oksize,	"oksize",		A_CANT, 0);
@@ -188,7 +190,7 @@ void *meter_new(t_symbol *s, long argc, t_atom *argv)
 	dsp_setupjbox((t_pxjbox *)x, 1);
 	x->clock = clock_new(x, (method)meter_clock);
 	meterEffectOrientation(x);
-			
+	x->outlet = outlet_new(x, 0); //adding a outlet 		
 	attr_dictionary_process(x,d);
 	jbox_ready((t_jbox *)x);
 	return x;
@@ -263,8 +265,19 @@ void meter_int(t_meter *x, long value)
 void meter_float(t_meter *x, double value)
 {
 	x->envelope = value;
+	outlet_float(x->outlet, x->envelope);
 	jbox_redraw((t_jbox*)x);
 }
+
+
+// Method: set - update and redraw, but no output
+void meter_set(t_meter *x, double value)
+{   
+	x->envelope = value;
+	jbox_redraw((t_jbox*)x);
+	
+}
+
 
 
 void meter_clock(t_meter *x)
@@ -278,9 +291,9 @@ void meter_clock(t_meter *x)
 	}
 	else
 		x->envelope = x->newEnvelope;
-
+   
 	x->newEnvelope = 0;
-
+    outlet_float(x->outlet, x->envelope); 
 	if(sys_getdspstate()) {							// if dsp is on then we schedule another tick
 		if(x->attrDefeat == 0)
 			clock_delay(x->clock, kPollIntervalDefault);
