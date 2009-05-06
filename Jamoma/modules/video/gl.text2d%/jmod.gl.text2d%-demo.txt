@@ -2,7 +2,7 @@ CUE initialization
 
 	
 	/qmetro/toggle 1
-	/qmetro/timw 40
+	/qmetro/time 40
 	
 	/movie_player/read sunset.jpg
 	/movie_player/start
