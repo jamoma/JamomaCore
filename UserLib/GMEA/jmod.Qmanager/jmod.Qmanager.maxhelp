@@ -1,9 +1,9 @@
 {
 	"patcher" : 	{
 		"fileversion" : 1,
-		"rect" : [ 6.0, 50.0, 788.0, 694.0 ],
+		"rect" : [ 9.0, 44.0, 672.0, 706.0 ],
 		"bglocked" : 0,
-		"defrect" : [ 6.0, 50.0, 788.0, 694.0 ],
+		"defrect" : [ 9.0, 44.0, 672.0, 706.0 ],
 		"openrect" : [ 0.0, 0.0, 0.0, 0.0 ],
 		"openinpresentation" : 1,
 		"default_fontsize" : 10.0,
@@ -47,14 +47,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-5",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 480.0, 160.0, 280.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 480.0, 160.0, 280.0, 20.0 ],
+					"presentation_rect" : [ 340.0, 160.0, 280.0, 20.0 ],
 					"text" : "update : store the last changes in the selected cue"
 				}
 
@@ -70,7 +70,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 20.0, 85.0, 450.0, 140.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 20.0, 85.0, 450.0, 140.0 ]
+					"presentation_rect" : [ 20.0, 85.0, 302.0, 141.0 ]
 				}
 
 			}
@@ -87,7 +87,7 @@
 					"patching_rect" : [ 480.0, 85.0, 241.0, 48.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 3,
-					"presentation_rect" : [ 480.0, 85.0, 241.0, 48.0 ],
+					"presentation_rect" : [ 340.0, 85.0, 241.0, 48.0 ],
 					"text" : "< INSPECTOR : \n- to manage the cue list (copy, remove)\n- to select the module to store in the cuelist",
 					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
@@ -106,7 +106,7 @@
 					"patching_rect" : [ 480.0, 205.0, 232.0, 34.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 480.0, 205.0, 232.0, 34.0 ],
+					"presentation_rect" : [ 340.0, 205.0, 232.0, 34.0 ],
 					"text" : "new cue : store only changed parameters since the last stored or recalled cue.",
 					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
@@ -123,7 +123,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 480.0, 185.0, 232.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 480.0, 185.0, 232.0, 20.0 ],
+					"presentation_rect" : [ 340.0, 185.0, 232.0, 20.0 ],
 					"text" : "new keycue : store all parameters",
 					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
@@ -133,14 +133,14 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-4",
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 480.0, 140.0, 256.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 480.0, 140.0, 256.0, 20.0 ],
+					"presentation_rect" : [ 340.0, 140.0, 256.0, 20.0 ],
 					"text" : "edit : open a text file to show the selected cue"
 				}
 
@@ -156,7 +156,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 480.0, 50.0, 295.0, 20.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 480.0, 50.0, 295.0, 20.0 ],
+					"presentation_rect" : [ 340.0, 50.0, 295.0, 20.0 ],
 					"text" : "2/ Use the \"Cue___Menu\" to select a cue and dump it",
 					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
@@ -175,7 +175,7 @@
 					"patching_rect" : [ 480.0, 10.0, 294.0, 34.0 ],
 					"presentation" : 1,
 					"presentation_linecount" : 2,
-					"presentation_rect" : [ 480.0, 10.0, 294.0, 34.0 ],
+					"presentation_rect" : [ 340.0, 10.0, 294.0, 34.0 ],
 					"text" : "1/ Load a cuelist file example (or use the menu at the upper left corner of the jmod.Qmanager)",
 					"textcolor" : [ 0.694118, 0.694118, 0.694118, 1.0 ]
 				}
@@ -251,7 +251,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 17.334082,
-					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-21",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -267,7 +267,7 @@
 				"box" : 				{
 					"fontname" : "Verdana",
 					"fontsize" : 9.873845,
-					"frgb" : [ 0.333333, 0.333333, 0.333333, 1.0 ],
+					"frgb" : [ 0.658824, 0.658824, 0.658824, 1.0 ],
 					"id" : "obj-22",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -295,37 +295,10 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 2 ],
+					"destination" : [ "obj-1", 0 ],
 					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-27", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-28", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-27", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-43", 1 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-28", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-43", 2 ],
-					"hidden" : 0,
-					"midpoints" : [  ],
-					"source" : [ "obj-28", 2 ]
+					"midpoints" : [ 342.5, 80.5, 29.5, 80.5 ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}
@@ -340,10 +313,37 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-43", 2 ],
 					"hidden" : 0,
-					"midpoints" : [ 342.5, 80.5, 29.5, 80.5 ],
-					"source" : [ "obj-6", 0 ]
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-43", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-28", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 1 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 2 ],
+					"hidden" : 0,
+					"midpoints" : [  ],
+					"source" : [ "obj-27", 2 ]
 				}
 
 			}
