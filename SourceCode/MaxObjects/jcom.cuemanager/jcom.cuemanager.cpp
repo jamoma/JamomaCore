@@ -794,24 +794,28 @@ void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	t_symbol *new_name;
 	t_atom a[2];
 
-	// if there is the temp flag
-	// do nothing
-	if(cuemng_check_temp(x,argc,argv)){
-		object_error((t_object *)x, "set_name : bad index");
-		return;
-	}
 
-	// do not force the current on the renamed cue
-	memo = x->current;
-	
 	if(argc >= 2){
-		index = cuemng_check_index(x,argc,argv);
 		if(atom_gettype(&argv[1]) == A_SYM)
 			new_name = atom_getsym(&argv[1]);
 		else{
 			object_error((t_object *)x, "set_name : the new name have to be a symbol");
 			return;
 		}
+
+		// if there is the temp flag
+		// rename the temp cue
+		if(cuemng_check_temp(x,argc,argv)){
+			index = -1;
+			return;
+		}
+		else{
+			// else rename the cue at the given index
+			// do not force the current on the renamed cue
+			memo = x->current;
+			index = cuemng_check_index(x,argc,argv);
+		}
+
 	}
 	else{
 		if(argc == 1){
@@ -831,19 +835,30 @@ void cuemng_set_name(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 	
 	// do not force the current on the renamed cue
 	x->current = memo;
-
-	c = (t_cue *)linklist_getindex(x->cuelist,index);
-	if(c){
-
-		strcpy(c->index->s_name, new_name->s_name);
+	
+	// rename the temp cue 
+	if(index == -1){
+		strcpy(x->temp_cue->index->s_name, new_name->s_name);
 
 		// info operation
-		atom_setlong(&a[0],index+1); // index starts at 1 for user
+		atom_setsym(&a[0],ps_tempindex);
 		atom_setsym(&a[1],new_name);
 		cuemng_info_operation(x,s,2,a);
 	}
-	else
-		object_error((t_object *)x, "set_name : this index doesn't exist");
+	else{
+		c = (t_cue *)linklist_getindex(x->cuelist,index);
+
+		if(c){
+			strcpy(c->index->s_name, new_name->s_name);
+
+			// info operation
+			atom_setlong(&a[0],index+1); // index starts at 1 for user
+			atom_setsym(&a[1],new_name);
+			cuemng_info_operation(x,s,2,a);
+		}
+		else
+			object_error((t_object *)x, "set_name : this index doesn't exist");
+	}
 }
 
 void cuemng_insert(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
@@ -1223,21 +1238,24 @@ void cuemng_optimize(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 			
 			i = x->Kcurrent;
 
+			// clear temp cue
+			cuemng_clear_temp(x);
+
 			while(i < index){
 
-				// clear temp cue
-				cuemng_clear_temp(x);
+				// set i as the current cue
+				x->current = i;
 
-				// copy a previous cue into
-				atom_setlong(&a[0],i+1);	// index starts at 1 for users
-				defer(x,(method)cuemng_copy,gensym("copy"),1,a);
-
-				// keep the diffrence into the selected cue
-				atom_setlong(&a[0],index+1); // index starts at 1 for users
-				defer(x,(method)cuemng_difference,gensym("difference"),1,a);
+				// modify the temp cue with the current
+				atom_setsym(&a[0],ps_tempindex);
+				defer(x,(method)cuemng_modify,gensym("modify"),1,a);
 
 				i++;
 			}
+
+			// keep the difference between the temp end the selected cue
+			atom_setlong(&a[0],index+1); // index starts at 1 for users
+			defer(x,(method)cuemng_difference,gensym("difference"),1,a);
 
 			x->current = index;
 			x->Kcurrent = cuemng_previous_key_index(x);
@@ -1322,45 +1340,65 @@ void cuemng_modify(t_cuemng *x, t_symbol* s, long argc, t_atom *argv){
 	long index;
 	t_cue *c;
 	t_atom a[1];
+	t_atom b[2];
 
 	// if there is the temp flag
-	// do nothing
+	// modify the temp cue with the current cue
 	if(cuemng_check_temp(x,argc,argv)){
-		object_error((t_object *)x, "modify : bad index");
-		return;
+
+		c = cuemng_current_cue(x);		// get the current cue
+		
+		if(c){
+			// all lines of the current cue are compared to
+			// temp cue :
+			//		> if the parameter (or attributs) already exists,
+			//		the current cue value replace the temp cue value
+			//		> if the parameter doesn't exist, this is appended 
+			//		to the temp cue.
+
+			linklist_funall(c->linelist, (method)cuemng_modify_linelist, x->temp_cue->linelist);
+
+			// info operation
+			atom_setsym(&b[0],ps_tempindex); 
+			atom_setlong(&b[1],x->current + 1);	// index starts at 1 for user
+			cuemng_info_operation(x,s,2,b);
+		}
+		else
+			object_error((t_object *)x, "modify : no current cue");
 	}
+	else{
+		index = cuemng_check_index(x,argc,argv);
+		
+		c = (t_cue *)linklist_getindex(x->cuelist,index);
+		if(c){
+			// all lines of the temp cue are compared to
+			// the cue which have the given index :
+			//		> if the parameter (or attributs) already exists,
+			//		the temp cue value replace the selcted cue value
+			//		> if the parameter doesn't exist, this is appended 
+			//		to the selected cue.
 
-	index = cuemng_check_index(x,argc,argv);
-	
-	c = (t_cue *)linklist_getindex(x->cuelist,index);
-	if(c){
-		// all lines of the temp cue are compared to
-		// the cue which have the given index :
-		//		> if the parameter (or attributs) already exists,
-		//		the temp cue value replace the selcted cue value
-		//		> if the parameter doesn't exist, this is appended 
-		//		to the selected cue.
+			if(x->temp_cue->index != ps_tempindex)
+				c->index = x->temp_cue->index;
 
-		if(x->temp_cue->index != ps_tempindex)
-			c->index = x->temp_cue->index;
+			if(x->temp_cue->mode != TEMP_CUE)
+				c->mode = x->temp_cue->mode;
 
-		if(x->temp_cue->mode != TEMP_CUE)
-			c->mode = x->temp_cue->mode;
+			if(x->temp_cue->ramp != NO_RAMP)
+				c->ramp = x->temp_cue->ramp;
 
-		if(x->temp_cue->ramp != NO_RAMP)
-			c->ramp = x->temp_cue->ramp;
+			linklist_funall(x->temp_cue->linelist, (method)cuemng_modify_linelist, c->linelist);
 
-		linklist_funall(x->temp_cue->linelist, (method)cuemng_modify_linelist, c->linelist);
+			x->current = index;
+			x->Kcurrent = cuemng_previous_key_index(x);
 
-		x->current = index;
-		x->Kcurrent = cuemng_previous_key_index(x);
-
-		// info operation
-		atom_setlong(&a[0],index+1); // index starts at 1 for user
-		cuemng_info_operation(x,s,1,a);
+			// info operation
+			atom_setlong(&a[0],index+1); // index starts at 1 for user
+			cuemng_info_operation(x,s,1,a);
+		}
+		else
+			object_error((t_object *)x, "modify : this index doesn't exist");
 	}
-	else
-		object_error((t_object *)x, "modify : this index doesn't exist");
 }
 
 // this method matches any incoming data to stored it in the temp cue
