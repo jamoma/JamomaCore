@@ -1,7 +1,7 @@
 /* 
  * jcom.cuemanager
  * External for Jamoma: to manage cues in a text file 
- * By Théo de la Hogue, Copyright 2009
+ * By ThÃˆo de la Hogue, Copyright 2009
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -252,7 +252,6 @@ void cuemng_assist(t_cuemng *x, void *b, long msg, long arg, char *dst)
 
 void cuemng_edclose(t_cuemng *x, char **handletext, long size)
 {
-	t_atom *rv = NULL;
 	t_atom argv[1];
 	t_atom a[1];
 	long stop_at = 0;
@@ -417,7 +416,6 @@ void cuemng_temp(t_cuemng *x){
 
 void cuemng_edit(t_cuemng *x, t_symbol* s, long argc, t_atom *argv)
 {
-	long index;
 
 	if(x->trigeditmode != EDIT_MODE){
 		x->trigeditmode = EDIT_MODE;
@@ -492,14 +490,12 @@ void cuemng_load(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 
 void cuemng_doload(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol		*arg_path;
 	t_filehandle	fhd;
 	char			**texthd;
     long			filetype = 'TEXT', outtype;
 	char			filename[MAX_FILENAME_CHARS];		// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];			// for storing the absolute path of the file
 	char 			path[MAX_PATH_CHARS];				// to split the fullpath : path + filename
-	short 			err;								// error number
 	long			stop_at;
 
 	// GET THE PATH
@@ -580,7 +576,6 @@ void cuemng_save(t_cuemng *x)
 
 void cuemng_dosave(t_cuemng *x, t_symbol *msg, long argc, t_atom *argv)
 {
-	t_symbol		*arg_path;
 	long 			type = 'TEXT';					// four-char code for Mac file type
 	char 			filename[MAX_FILENAME_CHARS];	// for storing the name of the file locally
 	char 			fullpath[MAX_PATH_CHARS];		// for storing the absolute path of the file
@@ -1571,8 +1566,7 @@ void cuemng_copy_linelist(t_line *src, t_linklist *dest)
 void cuemng_copy_line(t_line *src, t_line *dest){
 
 	long i;
-	char *tc;
-
+	
 	dest->index = src->index;
 	dest->type = src->type;
 	dest->ramp = src->ramp;
@@ -1646,7 +1640,6 @@ bool cuemng_diff_data(t_line *l1, t_line *l2){
 
 void cuemng_modify_linelist(t_line *src, t_linklist *dest){
 
-	t_line *l_dest;
 	t_line *l_new;
 	void *l_found;
 	long memo;
@@ -1750,7 +1743,6 @@ long cuemng_read_text(t_cuemng *x, char **texthd, long str)
 	long argc;
 	t_symbol *start;
 	t_atom *argv;
-	t_atom av[1];
 
 	size = sysmem_handlesize(texthd);
 	text = *texthd;
@@ -1775,7 +1767,7 @@ long cuemng_read_text(t_cuemng *x, char **texthd, long str)
 			nl++;
 			t++;
 			line[l] = x->ps_lb->s_name[0];
-
+			
 			// parse the line in an atom list
 			// and send the list to the anything method
 			atom_setparse(&argc,&argv,line);

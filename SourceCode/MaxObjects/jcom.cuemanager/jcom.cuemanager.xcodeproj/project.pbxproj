@@ -15,6 +15,7 @@
 		222B18F90F1D5B14008B1A46 /* JamomaDSP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B18F80F1D5B14008B1A46 /* JamomaDSP.framework */; };
 		222B19FE0F1D8D70008B1A46 /* Jamoma.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222B19FD0F1D8D70008B1A46 /* Jamoma.framework */; };
 		222B1A630F1D8EE8008B1A46 /* jcom.cuemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 222B1A620F1D8EE8008B1A46 /* jcom.cuemanager.cpp */; };
+		D7A2576F0FB1D0C500BAA863 /* jcom.cuemanager.h in Headers */ = {isa = PBXBuildFile; fileRef = D7A2576E0FB1D0C400BAA863 /* jcom.cuemanager.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		222B19FD0F1D8D70008B1A46 /* Jamoma.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Jamoma.framework; path = ../../Framework/build/UninstalledProducts/Jamoma.framework; sourceTree = SOURCE_ROOT; };
 		222B1A620F1D8EE8008B1A46 /* jcom.cuemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jcom.cuemanager.cpp; sourceTree = "<group>"; };
 		2FBBEAE508F335360078DB84 /* jcom.cuemanager.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jcom.cuemanager.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7A2576E0FB1D0C400BAA863 /* jcom.cuemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jcom.cuemanager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		08FB77ADFE841716C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				D7A2576E0FB1D0C400BAA863 /* jcom.cuemanager.h */,
 				222B1A620F1D8EE8008B1A46 /* jcom.cuemanager.cpp */,
 				222B15B00F1D1461008B1A46 /* commonsyms.cpp */,
 			);
@@ -92,6 +95,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7A2576F0FB1D0C500BAA863 /* jcom.cuemanager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

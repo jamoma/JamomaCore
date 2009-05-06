@@ -1,7 +1,7 @@
 /* 
  * jcom.cuemanager
  * External for Jamoma: to manage cues in a text file 
- * By Théo de la Hogue, Copyright 2009
+ * By ThÃˆo de la Hogue, Copyright 2009
  * 
  * License: This code is licensed under the terms of the GNU LGPL
  * http://www.gnu.org/licenses/lgpl.html 
@@ -20,14 +20,7 @@
 #define NO_RAMP 0
 #define GLOBAL_RAMP -1
 #define TAB "	"
-
-#ifdef MAC_VERSION
-#define LB "\r\n"
-#endif
-
-#ifdef WIN_VERSION
 #define LB "\n"
-#endif
 
 #define TEXT_BUFFER_SIZE 5000
 
