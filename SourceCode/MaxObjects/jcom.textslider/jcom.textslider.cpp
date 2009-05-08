@@ -128,7 +128,6 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	class_addmethod(c, (method)textslider_float,			"float",			A_FLOAT, 0);
 	class_addmethod(c, (method)textslider_set,				"set",				A_FLOAT, 0);
 	class_addmethod(c, (method)textslider_paint,			"paint",			A_CANT, 0);
-	class_addmethod(c, (method)textslider_notify,			"notify",			A_CANT, 0);
 	class_addmethod(c, (method)textslider_oksize,			"oksize",			A_CANT, 0);
 	class_addmethod(c, (method)textslider_mousedown,		"mousedown",		A_CANT, 0);
 	class_addmethod(c, (method)textslider_mousedragdelta,	"mousedragdelta",	A_CANT, 0);
