@@ -282,6 +282,28 @@ t_max_err attr_set_hasmute(t_ui *obj, void *attr, long argc, t_atom *argv)
 	return err;
 }
 
+t_max_err attr_set_hasinspector(t_ui *obj, void *attr, long argc, t_atom *argv)
+{
+	uiInternalObject	*anObject;
+	t_max_err			err = MAX_ERR_NONE;
+	
+	obj->attr_hasinspector = atom_getlong(argv);
+	
+	
+	if(obj->attr_hasinspector){
+		anObject = new uiInternalObject("jcom.message", 	"panel/open",	obj->box.b_patcher,	"msg_none",		"none",	"Open an a module's control panel (inspector) if one is present.", NULL, NULL, NULL, NULL);
+		hashtab_store(obj->hash_internals, gensym("panel/open"), (t_object*)anObject);	
+	}
+	else{
+		err = hashtab_lookup(obj->hash_internals, gensym("panel/open"), (t_object**)&anObject);
+		if(!err){
+			hashtab_chuckkey(obj->hash_internals, gensym("panel/open"));
+			delete anObject;
+		}
+	}
+	return err;
+}
+
 
 t_max_err attr_set_hasbypass(t_ui *obj, void *attr, long argc, t_atom *argv)
 {

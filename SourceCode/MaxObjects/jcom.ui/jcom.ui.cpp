@@ -120,6 +120,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_STYLE(c,		"has_panel",		0, "onoff");
 	CLASS_ATTR_DEFAULT(c,	"has_panel",		0, "0");
 	CLASS_ATTR_SAVE(c,		"has_panel",		0);
+	CLASS_ATTR_ACCESSORS(c,	"has_panel",		NULL,	attr_set_hasinspector);
 
 	// this is needed so that we know whether or not to offer the option of turning the meters on and off in the menu
 	CLASS_ATTR_LONG(c,		"has_meters",		0, t_ui, attr_hasmeters);
