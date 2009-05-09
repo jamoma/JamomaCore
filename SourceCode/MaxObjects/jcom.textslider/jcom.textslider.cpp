@@ -534,7 +534,10 @@ void textslider_mousedown(t_textslider *x, t_object *patcherview, t_pt px, long 
 	if (x->attrClickJump) {
 		delta = TTClip<float>(px.x-1., 0., rect.width-3.);	// substract for borders
 		delta = delta/(rect.width-2.)*(x->attrRangeDelta) + x->attrRange[0];
-		textslider_float(x, delta);					
+		if(modifiers & eCommandKey) 
+			textslider_float(x, long(delta)); //when command-key pressed, jump to the nearest integer-value
+		else 
+			textslider_float(x, delta); 	// otherwise jump to a float value				
 	}
 	x->anchorValue = x->attrValue;			
 	jbox_set_mousedragdelta((t_object *)x, 1);
