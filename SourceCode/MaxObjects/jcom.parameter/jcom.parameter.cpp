@@ -128,6 +128,26 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_class_attr_new(c,		"dataspace/unit/display",	_sym_symbol, (method)param_attr_setdisplayunit, (method)param_attr_getdisplayunit);
 	// the override dataspace is not exposed as an attribute
 	
+	// Default Attribute Order for the Inspector
+	CLASS_ATTR_ORDER(c, "name",						0, "1");
+	CLASS_ATTR_ORDER(c, "type",						0, "2");
+	CLASS_ATTR_ORDER(c, "range/bounds",				0, "3");
+	CLASS_ATTR_ORDER(c, "range/clipmode",			0, "4");
+	CLASS_ATTR_ORDER(c, "ramp/drive",				0, "5");
+	CLASS_ATTR_ORDER(c, "ramp/function",			0, "6");
+	CLASS_ATTR_ORDER(c, "repetitions/allow",		0, "7");
+	CLASS_ATTR_ORDER(c, "dataspace",				0, "8");
+	CLASS_ATTR_ORDER(c, "dataspace/unit/native",	0, "9");
+	CLASS_ATTR_ORDER(c, "dataspace/unit/active",	0, "10");
+	CLASS_ATTR_ORDER(c, "dataspace/unit/display",	0, "11");
+	CLASS_ATTR_ORDER(c, "priority",					0, "12");
+	CLASS_ATTR_ORDER(c, "description",				0, "13");	
+	CLASS_ATTR_ORDER(c, "readonly",					0, "14");	
+	CLASS_ATTR_ORDER(c, "ui/freeze",				0, "15");
+	CLASS_ATTR_ORDER(c, "value",					0, "16");
+	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
+	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
+	
 	// Finalize our class
 	class_register(_sym_box, c);
 	parameter_class = c;
