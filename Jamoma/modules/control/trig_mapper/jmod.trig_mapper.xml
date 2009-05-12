@@ -8,14 +8,14 @@
     <item name='in/action' type='msg_int' priority='0'>0</item>
     <item name='in/message' type='msg_generic' priority='0'>0</item>
     <item name='in/module/parameter' type='msg_symbol' priority='5'>0</item>
-    <item name='in/module/nr' type='msg_int' priority='2'>0</item>
+    <item name='in/module/instance' type='msg_int' priority='2'>0</item>
     <item name='in/module/name' type='msg_symbol' priority='1'>0</item>
     <item name='in/value' type='msg_float' priority='0'>0</item>
     <item name='out/action' type='msg_int' priority='0'>0</item>
     <item name='out/message' type='msg_generic' priority='0'>0</item>
     <item name='out/module/parameter' type='msg_symbol' priority='6'>0</item>
     <item name='out/module/name' type='msg_symbol' priority='3'>0</item>
-    <item name='out/module/nr' type='msg_int' priority='4'>0</item>
+    <item name='out/module/instance' type='msg_int' priority='4'>0</item>
     <item name='out/value' type='msg_float' priority='0'>0</item>
     <item name='time/repeat' type='msg_float' priority='0'>0</item>
     <item name='time/repeat' type='msg_float' priority='0'>0</item>
