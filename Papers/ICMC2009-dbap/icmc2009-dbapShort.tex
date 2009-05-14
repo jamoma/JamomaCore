@@ -172,7 +172,7 @@ k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{1}{{d_{i}}^2}}}
 
 
 
-\subsection{Spatial blur}
+\subsection{Spatial Blur}
 
 If the virtual source is located at the exact position of one of the loudspeakers, (\ref{eq:calculate_k}) will cause a division by zero. Combining equations (\ref{eq:inverse_distance}) and (\ref{eq:calculate_k}) we get
 
@@ -202,14 +202,14 @@ In the implementation of DBAP discussed in section \ref{sec:implementation} the 
 
 
 
-\subsection{Sources positioned outside the field of speakers}
+\subsection{Sources Positioned Outside the Field of Speakers}
 
 The model presented so far is not able to cater for sources located outside the field of speakers. As distance to the field increases, the relative difference in distance from source to each of the speakers diminishes, resulting in progressively less difference in levels between the speakers, much the same way as when increasing spatial blur. Compensating for this requires additional calculations.
 
 First, the \emph{convex hull} of the field of loudspeakers is calculated. In two dimensions the convex hull ``is the shape taken by a rubber band stretched around nails bounded into the plane at each point'' \cite{Rourke:1998_geometry}. It is then determined if the source is outside the hull or not. If it is inside or on the boundary no additional steps need to be taken. If the source is located outside, then the projection of the source onto the boundary of the hull is calculated, defined as the point on the boundary with the shortest possible distance to the source. This source position is  substituted for its projection in subsequent calculations. In addition, the distance from source to the convex hull is returned. This value can be used for optional added spatial processing such as gain attenuation, air filtering, Doppler effect, or gradual introduction of reverb with increasing distance from the hull.
 
 
-\subsection{Extending DBAP by introducing spatial weights}
+\subsection{Extending DBAP by Introducing Spatial Weights}
 
 % CHANGED: Tim changed this next sentence.  He doesn't think the new form is great, but its a lot better than it was...
 In its purest sense, DBAP deals with speakers in a transparent manner, without any further consideration for loudspeaker properties apart from position. The extension of DBAP by introduction of a spatial weight $w_{i}$ in equation \ref{eq:inverse_distance} enables a source to be restricted to use a subset of speakers:
@@ -224,9 +224,11 @@ Equation \ref{eq:calculate_k} will now be modified to:
 k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{{w_{i}}^2}{{d_{i}}^2}}}
 \end{equation}
 
-This offers several artistic possibilities: Used with an Acousmonium\footnote{the Acousmonium is a large orchestra of speakers organized into instrumental groups according to sonic qualities and characteristics} \cite{Bayle:1993MusiqueAcousmatique} spatial weights can allow one to diffuse several sources to different groups of speakers. This permits a spatial orchestration to be prepared or composed prior to performance, and then adjusted to the specific room used for performance.  In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. One source might be present in one room only while another source is permitted to move between several or all rooms.
+This opens up for several artistic possibilities: In installations or museum spaces spatial weights can be used to confine sources to restricted areas. One source might be present in one room only while another source is permitted to move between several or all rooms. Used with an Acousmonium\footnote{the Acousmonium is a large orchestra of speakers organized into instrumental groups according to sonic qualities and characteristics} \cite{Bayle:1993MusiqueAcousmatique} spatial weights can restrict diffusion of sources to specific groups of speakers. This permits a spatial orchestration to be prepared or composed prior to performance, and then adjusted to the specific room used for performance. 
 
-Spatial weights can be changed dynamically, thus allowing smooth transitions from one subset of speakers to another. Moreover, they can be used to define different spatial spreads for each loudspeaker, as shown in figure \ref{fig:5spk_weights}. Therefore, spatial weighting enables one to create independent topologies for each source.
+Spatial weights can be changed dynamically, allowing smooth transitions from one subset of speakers to another.
+
+Finally, weights can be used to differentiate the spatial spread for each loudspeaker, as shown in figure \ref{fig:5spk_weights}, enabling individual topologies for each source.
 
 %This weight parameter, after being submitted to listening tests and visualization (as described later in \ref{sec:visual_representation}), has revealed itself as being more of a spatial weight for each loudspeaker, or rather a spatial ``sharpness'' of the localization of each loudspeaker. This parameter, though, needs further research and listening tests, in laboratory and artistic contexts for a better understanding of its perceptual effect.
 
@@ -240,7 +242,7 @@ Spatial weights can be changed dynamically, thus allowing smooth transitions fro
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Implementation and visualization}
+\section{Implementation and Visualization}
 
 \subsection{Implementation}
 \label{sec:implementation}
@@ -249,7 +251,7 @@ DBAP is implemented as an external for the real-time multimedia graphical enviro
 
 
 
-\subsection{Visual representations}
+\subsection{Visual Representations}
 \label{sec:visual_representation}
 
 %\begin{figure}[ht]
@@ -305,7 +307,7 @@ A visualization of the response ranges for all speakers can be created by combin
 These pictures are generated in realtime by the algorithm, and may serve as a user-interface for source positioning and DBAP parameter setting.  Examples of this include use as back drops for mouse interaction or tactile-screen interaction.
 
 
-\section{Conclusions and further work}
+\section{Conclusions and Further Work}
 
 DBAP offers a light-weight panning-based solution for spatialization using irregular loudspeaker layouts. The Jamoma module implementation makes DBAP available with an interface similar to other Jamoma modules for rendering spatial sound, enabling various techniques to be interchanged and compared. %Jamoma also offers a more advanced spatialization technique that can be used for irregular loudspeaker layouts, ViMiC, incorporating distance-based signal delays between speakers, simulation of microphone patterns, early reflections and surface absorption \cite{Peters:2008vimic}. ViMiC is more CPU-intensive, and might require a dedicated computer for spatialization or limitations on the number of loudspeakers used as compared to DBAP.
 
