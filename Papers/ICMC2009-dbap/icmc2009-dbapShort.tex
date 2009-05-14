@@ -92,7 +92,7 @@
 
 
 \begin{abstract}
-Most common techniques for spatialization require the listener to be positioned at a ``sweet spot'' surrounded by loudspeakers. For practical concert, stage, and installation applications such layouts may not be desirable. Distance-Based Amplitude Panning (DBAP) offers an alternative panning-based spatialization method where no assumptions are made concerning the layout of the speaker array nor the position of the listener.  DBAP is implemented both as an external for Max/MSP and as a module for the Jamoma Modular framework.
+Most common techniques for spatialization require the listener to be positioned at a ``sweet spot'' surrounded by loudspeakers. For practical concert, stage, and installation applications such layouts may not be desirable. Distance-based amplitude panning (DBAP) offers an alternative panning-based spatialization method where no assumptions are made concerning the layout of the speaker array nor the position of the listener.  DBAP is implemented both as an external for Max/MSP and as a module for the Jamoma Modular framework.
 \end{abstract}
 
 
@@ -161,7 +161,7 @@ where $k$ is a coefficient depending on the position of the source and all speak
 	a = 10^{\frac{-R}{20}}
 \end{equation}
 
-A rolloff of $R = 6$ dB equals the inverse distance law for sound propagating in a free field. For closed or semi-closed environments $R$ will generally be lower, in the range 3-5 dB, and depend on reflections and reverberation \cite{Everest:2000handbook_acoustics} (pp. 84-88). The (\ref{eq:rolloff}) then represents a simplified description of attenuation with distance, but simulation of reflections and reverberation is anyway beyond the scope of an amplitude-panning based spatialization method.
+A rolloff of $R = 6$ dB equals the inverse distance law for sound propagating in a free field. For closed or semi-closed environments $R$ will generally be lower, in the range 3-5 dB, and depend on reflections and reverberation \cite{Everest:2000handbook_acoustics} (pp. 84-88). Equation (\ref{eq:rolloff}) then represents a simplified description of attenuation with distance, but simulation of reflections and reverberation is anyway beyond the scope of an amplitude-panning based spatialization method.
 
 Combining equations (\ref{eq:constant_intensity}) and (\ref{eq:inverse_distance}) $k$ can be found as:
 
@@ -224,7 +224,7 @@ Equation \ref{eq:calculate_k} will now be modified to:
 k = \frac{2a}{\sqrt{\sum_{i=1}^{N} \frac{{w_{i}}^2}{{d_{i}}^2}}}
 \end{equation}
 
-This offers several artistic possibilities : Used with an Acousmonium\footnote{the Acousmonium is a large orchestra of speakers organized into instrumental groups according to sonic qualities and characteristics} \cite{Bayle:1993MusiqueAcousmatique} spatial weights can allow one to diffuse several sources to different groups of speakers. This permits a spatial orchestration to be prepared or composed prior to performance, and then adjusted to the specific room used for performance.  In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. One source might be present in one room only while another source is permitted to move between several or all rooms.
+This offers several artistic possibilities: Used with an Acousmonium\footnote{the Acousmonium is a large orchestra of speakers organized into instrumental groups according to sonic qualities and characteristics} \cite{Bayle:1993MusiqueAcousmatique} spatial weights can allow one to diffuse several sources to different groups of speakers. This permits a spatial orchestration to be prepared or composed prior to performance, and then adjusted to the specific room used for performance.  In installations or museum spaces spatial weights can also be used to confine sources to restricted areas. One source might be present in one room only while another source is permitted to move between several or all rooms.
 
 Spatial weights can be changed dynamically, thus allowing smooth transitions from one subset of speakers to another. Moreover, they can be used to define different spatial spreads for each loudspeaker, as shown in figure \ref{fig:5spk_weights}. Therefore, spatial weighting enables one to create independent topologies for each source.
 
@@ -245,7 +245,7 @@ Spatial weights can be changed dynamically, thus allowing smooth transitions fro
 \subsection{Implementation}
 \label{sec:implementation}
 
-DBAP is implemented as an external for the real-time multimedia graphical environment Max/MSP, written in C as part of the Jamoma library and framework \cite{Place:2006jamoma}. The external supports several independent sources. Input gain for each source can be controlled prior to the DBAP processing and sources can be muted.  In addition, a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules (e.g. VBAP and ambisonics) according to the SpatDIF initiative \cite{Peters:2008spatdif}.
+DBAP is implemented as an external for the real-time multimedia graphical environment Max/MSP, written in C as part of Jamoma \cite{Place:2006jamoma}. The external supports several independent sources. Input gain for each source can be controlled prior to the DBAP processing and sources can be muted.  In addition, a Jamoma DBAP module is developed with a similar interface as other Jamoma spatialization modules such as VBAP, ambisonics and ViMiC, according to the SpatDIF initiative \cite{Peters:2008spatdif}.
 
 
 
@@ -314,7 +314,7 @@ Implementation of convex hulls and spatial weights remains to be combined (in th
 
 %In this paper DBAP has been discussed for spatialization to a static layout of speakers. For gaming applications the speaker layout relative to the player could be defined, and then the actual speaker layout could be changed dynamically as the gamer moves through the virtual world of the game.
 
-DBAP can also be used as a solution for dynamic routing of input sources to a spatial layout of effect processes. Instead of defining loudspeaker positions, the effects could be assigned positions in two or more spaces, similarly to
+DBAP can also be used as a solution for dynamic routing of input sources to a spatial layout of effect processes. Instead of defining loudspeaker positions, the effects could be assigned positions in a data space, similarly to
 %. The idea of having sources traverse a space of effects would resemble e.g. the work by 
 \cite{Momeni:2003hipnoscope}. 
 %A project for designing multi-touch graphical interfaces to intuitively interact with DBAP has been initiated.
