@@ -82,26 +82,33 @@ The \textbf{NodeLib} is a library within the Jamoma Modular framework for locati
 
 This spec is not complete.
 
+This work should be done in the experimental branch.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Use Cases}
 
-\subsection{Case 1: Pascal the message sender}
+\subsection{Phase 1 Use Cases}
+
+\subsubsection{Case 1: Pascal the message sender}
 
 Pascal, besides being a brilliant mathematician and developing his famous triangle for showing binomial coefficients, is obsessed with the efficiency of sending messages to nodes.  Without the NodeLib, messages are broadcast to all modules and then filtered at each module.  If there are 1653 modules, then to send one message will entail sending it once, receiving it 1653 times, adn then filtering it 1653 times -- even though it is only intended for one module.  In reality the filtering is much more expensive, particularly where wildcard patterns are involved.  Pascal knows this and wishes the message could be sent directly.
 
-\subsection{Case 2: Cartier the explorer}
+\subsubsection{Case 2: Cartier the explorer}
 
 Not happy with discovering Canada, Cartier wishes to explore the topology of the nodes in the Jamoma namespace.  To do this Cartier needs to know how to access the root of the namespace's tree structure.  Then any node within the tree structure (including the root) needs to be able to report what children it has (that it is aware of).  Any given node also needs to know some things about itself and be able to report them.
 
-\subsection{Case 3: Bob the tracker}
+\subsubsection{Case 3: Bob the tracker}
 Bob, a sound engineer, is used to using tracks for grouping effects, and would like to find the same thing in Jamoma. He would then organize his setup by having a series of /track nodes between his groups of modules (e.g. /track.2/filter.1, /track.3/player.1, etc...)
 
-\subsection{Case 4: ???? the instance manager}
+
+\subsection{Phase 2 Use Cases}
+
+\subsubsection{Case 4: ???? the instance manager}
 ???? wants to manage instances in his Jamoma setup. For example, he has a collection of player modules (named /player.1 to /player.n), and want to play a sound on one of them. As he is a lazy guy, and likes to outsource his brain activity to computers, ???? would like the system to automatically manage the instance to the first available player in this group. This could be the case as well for a module having sub-modules (consider e.g. a mixind console module, with several tracks) This would mean that modules (or nodes) would have to have a @busy attribute. 
 
-\subsection{Case 5: ???? the wildcard player}
+\subsubsection{Case 5: ???? the wildcard player}
 /module.*/parameter, /*/parameter, /module.2/track.*/parameter\\
 /module.[2-4]/parameter\\
 need to keep track of the namespace in a hashtab ?
