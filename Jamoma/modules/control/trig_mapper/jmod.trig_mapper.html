@@ -59,6 +59,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Destination module of the mapping </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> in/direct </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> use this parameter to alternatively provide a source for mapping </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> in/message </td>
 			<td class ="instructionType"> generic </td>
 			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
@@ -136,6 +147,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDescription"> Input number that fulfills trigger condition. </td>
 		<tr>
 		<tr>
+			<td class="instructionName"> in/value/variation </td>
+			<td class ="instructionType"> float </td>
+			<td class ="instructionRangeBounds"> 0.000000 100.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> none </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> optional amont of variation for /input/value to fulfill trigger condition. ranges are calculated in/value±/in/value/variation </td>
+		<tr>
+		<tr>
 			<td class="instructionName"> out/action </td>
 			<td class ="instructionType"> int </td>
 			<td class ="instructionRangeBounds"> 0 1 </td>
@@ -145,6 +167,17 @@ Number of signal outlets: <code> 0 </code> </p>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
 			<td class ="instructionDescription"> Destination module of the mapping </td>
+		<tr>
+		<tr>
+			<td class="instructionName"> out/direct </td>
+			<td class ="instructionType"> generic </td>
+			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
+			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRampDrive"> none </td>
+			<td class ="instructionRampFunction"> linear </td>
+			<td class ="instructionDataspace"> none </td>
+			<td class ="instructionRepetitionsAllow"> 1 </td>
+			<td class ="instructionDescription"> direct source for mapping </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> out/message </td>
@@ -215,19 +248,19 @@ Number of signal outlets: <code> 0 </code> </p>
 		<tr>
 			<td class="instructionName"> time/repeat </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRangeBounds"> 0.000000 99.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
 			<td class ="instructionRepetitionsAllow"> 1 </td>
-			<td class ="instructionDescription"> minimum time between two repetitions </td>
+			<td class ="instructionDescription"> minimum time between two trigger messages </td>
 		<tr>
 		<tr>
 			<td class="instructionName"> time/wait </td>
 			<td class ="instructionType"> float </td>
-			<td class ="instructionRangeBounds"> 0.000000 1.000000 </td>
-			<td class ="instructionRangeClipmode"> none </td>
+			<td class ="instructionRangeBounds"> 0.000000 99.000000 </td>
+			<td class ="instructionRangeClipmode"> low </td>
 			<td class ="instructionRampDrive"> none </td>
 			<td class ="instructionRampFunction"> none </td>
 			<td class ="instructionDataspace"> none </td>
