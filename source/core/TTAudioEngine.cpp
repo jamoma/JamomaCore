@@ -168,7 +168,7 @@ TTErr TTAudioEngine::stop()
 	if(stream){
 		err = Pa_StopStream(stream);
 		if(err != paNoError) 
-			TTLogError("PortAudio error starting engine: %s", Pa_GetErrorText(err));
+			TTLogError("PortAudio error stopping engine: %s", Pa_GetErrorText(err));
 	}
 	isRunning = false;
 	return (TTErr)err;
