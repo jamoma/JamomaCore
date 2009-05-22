@@ -1,0 +1,85 @@
+/* 
+ * TTGraphicsWindow Object for Jamoma
+ * Copyright © 2009 by Timothy Place
+ * 
+ * License: This code is licensed under the terms of the GNU LGPL
+ * http://www.gnu.org/licenses/lgpl.html 
+ */
+
+#ifndef __TTGRAPHICSWINDOW_H__
+#define __TTGRAPHICSWINDOW_H__
+
+#include "TTBlueAPI.h"
+#include "TTGraphicsContext.h"
+
+#ifdef TT_PLATFORM_MAC
+//#include <Carbon/Carbon.h>
+#include <Cocoa/Cocoa.h>
+#include "cairo-quartz.h"
+#else
+#include "cairo.h"
+#endif
+
+
+/****************************************************************************************************/
+// Class Specifications
+
+class TTGraphicsWindow;
+
+
+@interface TTGraphicsContentView : NSView
+{
+@public
+	TTGraphicsWindow*	x;
+}
+@end
+
+
+
+
+// A delegate class used for getting events from the NSWindow used by AudioUnit's
+// that have a Cocoa view instead of a Carbon view.
+
+@interface TTCocoaWindowDelegate : NSObject
+{
+@public
+	TTGraphicsWindow*	x;
+}
+- (BOOL)windowWillClose:(NSNotification *)notification;
+@end
+
+
+
+/**	Creates/Manages a Window on the host operating system.	*/
+class TTGraphicsWindow : public TTObject {
+	TTSymbolPtr				title;			///< Window's title	
+	TTCocoaWindowDelegate*	windowDelegate;
+	
+public:
+	NSWindow*				theWindow;
+	TTGraphicsContentView*	theContentView;
+	NSRect					bounds;			///< Window coords
+//	cairo_surface_t*		windowSurface;
+	TTGraphicsContext*		context;
+
+protected:
+	TTErr updateTitle();
+
+public:
+	TTGraphicsWindow(const TTValue& v);
+	virtual ~TTGraphicsWindow();
+
+	/**	Bring the window to the front and give it keyboard focus.	*/
+	TTErr front();
+	
+	/**	Accessor */
+	TTErr settitle(const TTValue& v);
+	
+	// Needs to be public for C-callback, but not intended for public use...
+	TTErr dispose();
+	
+	TTErr draw();
+};
+
+
+#endif // __TTGRAPHICSWINDOW_H__
