@@ -79,7 +79,9 @@ private:
 	TTSymbolPtr		objectName;			///< The class name of this object.
 	TTHash*			messages;			///< The collection of all messages for this object, keyed on the message name.
 	TTHash*			attributes;			///< The collection of all attributes for this object, keyed on the attribute name.
+protected:
 	TTList*			observers;			///< List of all objects watching this object for life-cycle and other changes.
+private:
 	TTList*			messageObservers;	///< List of all objects watching this object for messages sent to it.
 	TTList*			attributeObservers;	///< List of all objects watching this object for changes to attribute values.
 	TTUInt8			locked;				///< Is there a lock placed on this object using lock() or unlock()?
