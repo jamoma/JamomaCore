@@ -65,9 +65,9 @@ void hub_internals_create(t_hub *x)
 	anObject->setAction((method)hub_autodoc, (t_object*)x);
 	hashtab_store(x->hash_internals, gensym("documentation/generate"), (t_object*)anObject);
 
-	anObject = new hubInternalObject("jcom.message", 	"module/view_internals",	x->container,	"msg_none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.", 1);
+	anObject = new hubInternalObject("jcom.message", 	"module/viewInternals",	x->container,	"msg_none",		"none",	"Attempts to open the internal algorithm for viewing.  This works for most modules.  Some modules may choose to cloak the algorithms - preventing this message from functioning.", 1);
 	anObject->setAction((method)hub_module_view_alg, (t_object*)x);
-	hashtab_store(x->hash_internals, gensym("module/view_internals"), (t_object*)anObject);
+	hashtab_store(x->hash_internals, gensym("module/viewInternals"), (t_object*)anObject);
 
 	anObject = new hubInternalObject("jcom.message", 	"preset/read",				x->container,	"msg_generic",	"none",	"Open an xml-preset file and recall the first preset in that file.  An optional argument defines the file to open.", 1);
 	anObject->setAction((method)hub_preset_read, (t_object*)x);

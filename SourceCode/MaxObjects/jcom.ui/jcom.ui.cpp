@@ -868,7 +868,7 @@ void ui_menu_qfn(t_ui *x)
 	else if(item->sym == gensym("Get Current State as Text"))
 		object_method_sym(x->obj_remote, gensym("/getstate"), item->sym, NULL);
 	else if(item->sym == gensym("View Internal Components"))
-		object_method_sym(x->obj_remote, gensym("/module/view_internals"), item->sym, NULL);
+		object_method_sym(x->obj_remote, gensym("/module/viewInternals"), item->sym, NULL);
 	else if(item->sym == gensym("Open Help Patch"))
 		object_method_sym(x->obj_remote, gensym("/module/help"), item->sym, NULL);
 	else if(item->sym == gensym("Open Reference Page"))
