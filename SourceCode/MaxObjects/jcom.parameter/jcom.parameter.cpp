@@ -11,7 +11,7 @@
 
 // Globals
 static ClassPtr	parameter_class;	// Required: Global pointer for our class
-static char		units[2048];
+//static char		units[2048];
 
 // Prototypes
 int param_list_compare(t_atom *x, long lengthx, t_atom *y, long lengthy);
@@ -25,12 +25,13 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	ClassPtr		c;
 	ObjectPtr		attr = NULL;
 	long			numDataspaces = 0;
-	SymbolPtr*	dataspaceNames = NULL;
-	TTValue		functionNames;
+	SymbolPtr*		dataspaceNames = NULL;
+	TTValue			functionNames;
 	TTSymbol*		functionName;
 	char			dataspaces[2048];
 	char			functions[2048];
-	short		i;
+	char			drives[2048];
+	short			i;
 	
 	// Initialize Globals
 	jamoma_init();
@@ -53,7 +54,17 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 		strcat(functions, functionName->getCString());	
 		strcat(functions, " ");
 	}
-
+    
+	RampLib::getUnitNames(functionNames); //reusing TTValue functionNames again here
+	drives[0] = 0;
+	for(i=0; i<functionNames.getSize(); i++)
+	{
+		functionNames.get(i, &functionName); //reusing TTSymbol* functionName again here
+		strcat(drives, functionName->getCString());	
+		strcat(drives, " ");
+	}
+	
+	
 	// Define our class
 	c = class_new(OBJECT_CLASS_NAME,(method)param_new, (method)param_free, sizeof(t_param), (method)0L, A_GIMME, 0);
 		
@@ -84,8 +95,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	
 	// ATTRIBUTE: ramp stuff
 	jamoma_class_attr_new(c,		"ramp/drive",				_sym_symbol, (method)param_attr_setramp, (method)param_attr_getramp);
-	// TODO: CLASS_ATTR_ENUM for	"ramp/drive" should be autopopulated same way that "ramp/function" is.
-	CLASS_ATTR_ENUM(c,				"ramp/drive",				0, "async none queue scheduler ");
+	CLASS_ATTR_ENUM(c,				"ramp/drive",				0, drives);
 	
 	jamoma_class_attr_new(c,		"ramp/function",			_sym_symbol, (method)param_attr_setrampfunction, (method)param_attr_getrampfunction);
 	CLASS_ATTR_ENUM(c,				"ramp/function",			0, functions);
@@ -98,7 +108,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 #else
 	CLASS_ATTR_ENUM(c,				"type",	0,					"msg_int msg_float msg_toggle msg_symbol msg_list msg_generic");
 #endif
-	
+	CLASS_ATTR_STYLE(c,				"repetitions/allow",		0, "onoff");
 	// ATTRIBUTE: ui/freeze - toggles a "frozen" ui outlet so that you can save cpu
 	jamoma_class_attr_new(c,		"ui/freeze",				_sym_long, (method)param_attr_setfreeze, (method)param_attr_getfreeze);
 	CLASS_ATTR_STYLE(c,				"ui/freeze",				0,	"onoff");
@@ -116,12 +126,12 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	jamoma_class_attr_array_new(c,	"value/default",			_sym_atom, LISTSIZE, (method)param_attr_setdefault, (method)param_attr_getdefault);
 
 	jamoma_class_attr_new(c,		"readonly",					_sym_long, (method)param_attr_setreadonly, (method)param_attr_getreadonly);
-	
+	CLASS_ATTR_STYLE(c,				"readonly",					0, "onoff");
 	// ATTRIBUTES: dataspace stuff
 	jamoma_class_attr_new(c,		"dataspace",				_sym_symbol, (method)param_attr_setdataspace, (method)param_attr_getdataspace);
 	CLASS_ATTR_ENUM(c,				"dataspace",				0, dataspaces);
 	
-	units[0] = 0;
+	//units[0] = 0;
 	jamoma_class_attr_new(c,		"dataspace/unit/active", 	_sym_symbol, (method)param_attr_setactiveunit, (method)param_attr_getactiveunit);
 	//CLASS_ATTR_ENUM(c,			"dataspace/unit/active",	0, units);	
 	jamoma_class_attr_new(c,		"dataspace/unit/native",	_sym_symbol, (method)param_attr_setnativeunit, (method)param_attr_getnativeunit);
@@ -147,8 +157,7 @@ int JAMOMA_EXPORT_MAXOBJ main(void)
 	CLASS_ATTR_ORDER(c, "value",					0, "16");
 	CLASS_ATTR_ORDER(c, "value/default",			0, "17");
 	CLASS_ATTR_ORDER(c, "value/stepsize",			0, "18");
-	
-	// Finalize our class
+		// Finalize our class
 	class_register(_sym_box, c);
 	parameter_class = c;
 	return 0;
@@ -1648,8 +1657,9 @@ void param_ramp_setup(t_param *x)
 }
 
 void param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *data)
-{
-	t_symbol	**unitNames = NULL;
+{   //TODO: if Max5 can handle dynamically created menues in the inspector, then we can display the content of 'units'. 
+	//right now the menu items have to be provided at the time a parameter is created, therfore we can't change the items of the data units dynamically 
+	/*t_symbol	**unitNames = NULL;
 	long		numUnits = 0;
 	long		i;
 	
@@ -1661,13 +1671,13 @@ void param_notify(t_param *x, t_symbol *s, t_symbol *msg, void *sender, void *da
 			strcat(units, unitNames[i]->s_name);
 			strcat(units, " ");
 		}
-		//TODO: if Max5 can handle dynamic created menues in the inspector, then we can display the content of 'units'.
+		//
 		//post("available Dataspace-units: %s", units);
 		
 	}
 	
 	if(numUnits)
-		sysmem_freeptr(unitNames);
+		sysmem_freeptr(unitNames);*/
 
 }
 
