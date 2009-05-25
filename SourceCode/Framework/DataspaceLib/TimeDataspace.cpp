@@ -98,18 +98,18 @@ UpdaterateUnit::~UpdaterateUnit()
 
 
 void UpdaterateUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
-{
+{   
 	*outputNumArgs = 1;
 	*output = 1000.0 / atom_getfloat(inputAtoms);
 }
-
+//TODO: prevent division with zero
 
 void UpdaterateUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
 	*outputNumArgs = 1;
 	atom_setfloat(*outputAtoms, 1000.0 / *input);
 }
-
+//TODO: prevent division with zero
 /***********************************************************************************************/
 BpmUnit::BpmUnit()
 : DataspaceUnit("bpm") //beats per minute
@@ -125,14 +125,14 @@ void BpmUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outp
 	*outputNumArgs = 1;
 	*output = 60000.0 / atom_getfloat(inputAtoms);
 }
-
+//TODO: prevent division with zero
 
 void BpmUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
 {
 	*outputNumArgs = 1;
 	atom_setfloat(*outputAtoms, 60000.0 / *input);
 }
-
+//TODO: prevent division with zero
 
 
 /***********************************************************************************************/
