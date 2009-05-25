@@ -87,17 +87,68 @@ void SecondUnit::convertFromNeutral(long inputNumArgs, double *input, long *outp
 	atom_setfloat(*outputAtoms, *input * 0.001);
 }
 
+/***********************************************************************************************/
+UpdaterateUnit::UpdaterateUnit()
+	: DataspaceUnit("fps") //frames per second; also update rate e.g. of gestural devices etc. 
+{;}
+
+
+UpdaterateUnit::~UpdaterateUnit()
+{;}
+
+
+void UpdaterateUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	*outputNumArgs = 1;
+	*output = 1000.0 / atom_getfloat(inputAtoms);
+}
+
+
+void UpdaterateUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	*outputNumArgs = 1;
+	atom_setfloat(*outputAtoms, 1000.0 / *input);
+}
+
+/***********************************************************************************************/
+BpmUnit::BpmUnit()
+: DataspaceUnit("bpm") //beats per minute
+{;}
+
+
+BpmUnit::~BpmUnit()
+{;}
+
+
+void BpmUnit::convertToNeutral(long inputNumArgs, t_atom *inputAtoms, long *outputNumArgs, double *output)
+{
+	*outputNumArgs = 1;
+	*output = 60000.0 / atom_getfloat(inputAtoms);
+}
+
+
+void BpmUnit::convertFromNeutral(long inputNumArgs, double *input, long *outputNumArgs, t_atom **outputAtoms)
+{
+	*outputNumArgs = 1;
+	atom_setfloat(*outputAtoms, 60000.0 / *input);
+}
+
+
 
 /***********************************************************************************************/
 TimeDataspace::TimeDataspace()
 	: DataspaceLib("time", "millisecond")
 {
 	// Create one of each kind of unit, and cache them in a hash
+	registerUnit(new BpmUnit,			gensym("bpm"));
+	registerUnit(new UpdaterateUnit,	gensym("fps"));
+	registerUnit(new UpdaterateUnit,	gensym("Hz"));
 	registerUnit(new MillisecondUnit,	gensym("ms"));
 	registerUnit(new MillisecondUnit,	gensym("millisecond"));
 	registerUnit(new SecondUnit,		gensym("s"));
 	registerUnit(new SecondUnit,		gensym("second"));
 	registerUnit(new SampleUnit,		gensym("sample"));
+	
 	
 	// Now that the cache is created, we can create a set of default units
 	setInputUnit(neutralUnit);
