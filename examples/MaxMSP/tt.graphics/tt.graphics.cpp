@@ -78,34 +78,23 @@ public:
 			double angle1 = 45.0  * (kTTPi/180.0);  // angles are specified
 			double angle2 = 180.0 * (kTTPi/180.0);  // in radians
 			
-			//cairo_set_line_width (cr, 10.0);
-			//cairo_arc (cr, xc, yc, radius, angle1, angle2);
-			//cairo_stroke (cr);
 			gc->setLineWidth(10.0);
 			gc->arc(xc, yc, radius, angle1, angle2);
 			gc->stroke();
 			
-			/* draw helping lines */
-			//cairo_set_source_rgba (cr, 1, 0.2, 0.2, 0.6);
-			//cairo_set_line_width (cr, 6.0);
 			gc->setSourceRGBA(1.0, 0.2, 0.2, 0.6);
 			gc->setLineWidth(6.0);
-			//cairo_arc (cr, xc, yc, 10.0, 0, 2*M_PI);
-			//cairo_fill (cr);
 			gc->arc(xc, yc, 10.0, 0, 2.0*kTTPi);
 			gc->fill();
 			
-			//cairo_arc (cr, xc, yc, radius, angle1, angle1);
-			//cairo_line_to (cr, xc, yc);
-			//cairo_arc (cr, xc, yc, radius, angle2, angle2);
-			//cairo_line_to (cr, xc, yc);
-			//cairo_stroke (cr);
 			gc->arc(xc, yc, radius, angle1, angle1);
 			gc->lineTo(xc, yc);
 			gc->arc(xc, yc, radius, angle2, angle2);
 			gc->lineTo(xc, yc);
 			gc->stroke();
 		}
+		
+		// left as an exercise for someone else: implement the other examples @ http://cairographics.org/samples/
 		
 		return kTTErrNone;
 	}
