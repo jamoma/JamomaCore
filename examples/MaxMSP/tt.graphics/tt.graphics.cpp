@@ -10,13 +10,13 @@
  */
 
 #include "TTClassWrapperMax.h"
-//#include "TTGraphicsWindow.h"
 #include "TTGraphicsContext.h"
 #define thisTTClass TTGraphicsExample
 
 
 class TTGraphicsExample : public TTObject {
 	TTObjectPtr	graphicsWindow;
+	TTSymbolPtr	mode;
 	
 public:
 	
@@ -28,8 +28,12 @@ public:
 		TTObjectInstantiate(TT("TTGraphicsWindow"), &graphicsWindow, v);	// create the window
 		graphicsWindow->registerObserverForNotifications(*this);			// cause this object to receive 'draw' messages from the window
 
+		registerAttributeWithSetter(mode, kTypeSymbol);
 		registerMessageSimple(front);
+		registerMessageSimple(refresh);
 		registerMessageWithArgument(draw);
+		
+		setAttributeValue(TT("mode"), TT("hello"));
 	}
 	
 	// Destructor
@@ -44,16 +48,64 @@ public:
 		return graphicsWindow->sendMessage(TT("front"));
 	}
 	
+	TTErr refresh()
+	{
+		return graphicsWindow->sendMessage(TT("refresh"));
+	}
+	
+	TTErr setmode(const TTValue& v)
+	{
+		mode = v;
+		return refresh();
+	}
+	
 	
 	TTErr draw(const TTValue& v)
 	{
 		TTGraphicsContext* gc = (TTGraphicsContext*)TTPtr(v);
 		
-		gc->selectFontFace("serif", TT_FONT_SLANT_NORMAL, TT_FONT_WEIGHT_BOLD);
-		gc->setFontSize(32.0);
-		gc->setSourceRGB(0.0, 0.0, 1.0);
-		gc->moveTo(10.0, 50.0);
-		gc->showText("Hello world!");
+		if (mode == TT("hello")) {
+			gc->selectFontFace("serif", TT_FONT_SLANT_NORMAL, TT_FONT_WEIGHT_BOLD);
+			gc->setFontSize(32.0);
+			gc->setSourceRGB(0.0, 0.0, 1.0);
+			gc->moveTo(10.0, 50.0);
+			gc->showText("Hello world!");
+		}
+		else if (mode == TT("arc")) {
+			double xc = 128.0;
+			double yc = 128.0;
+			double radius = 100.0;
+			double angle1 = 45.0  * (kTTPi/180.0);  // angles are specified
+			double angle2 = 180.0 * (kTTPi/180.0);  // in radians
+			
+			//cairo_set_line_width (cr, 10.0);
+			//cairo_arc (cr, xc, yc, radius, angle1, angle2);
+			//cairo_stroke (cr);
+			gc->setLineWidth(10.0);
+			gc->arc(xc, yc, radius, angle1, angle2);
+			gc->stroke();
+			
+			/* draw helping lines */
+			//cairo_set_source_rgba (cr, 1, 0.2, 0.2, 0.6);
+			//cairo_set_line_width (cr, 6.0);
+			gc->setSourceRGBA(1.0, 0.2, 0.2, 0.6);
+			gc->setLineWidth(6.0);
+			//cairo_arc (cr, xc, yc, 10.0, 0, 2*M_PI);
+			//cairo_fill (cr);
+			gc->arc(xc, yc, 10.0, 0, 2.0*kTTPi);
+			gc->fill();
+			
+			//cairo_arc (cr, xc, yc, radius, angle1, angle1);
+			//cairo_line_to (cr, xc, yc);
+			//cairo_arc (cr, xc, yc, radius, angle2, angle2);
+			//cairo_line_to (cr, xc, yc);
+			//cairo_stroke (cr);
+			gc->arc(xc, yc, radius, angle1, angle1);
+			gc->lineTo(xc, yc);
+			gc->arc(xc, yc, radius, angle2, angle2);
+			gc->lineTo(xc, yc);
+			gc->stroke();
+		}
 		
 		return kTTErrNone;
 	}

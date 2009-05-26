@@ -96,6 +96,7 @@ TTGraphicsWindow::TTGraphicsWindow(const TTValue& v) :
 {
 	registerAttributeWithSetter(title, kTypeSymbol);
 	registerMessageSimple(front);
+	registerMessageSimple(refresh);
 
 	TTObjectInstantiate(TT("TTGraphicsContext"), (TTObjectPtr*)&context, v);
 	
@@ -150,11 +151,20 @@ TTErr TTGraphicsWindow::front()
 }
 
 
+TTErr TTGraphicsWindow::refresh()
+{
+	if (theWindow)
+		[theWindow display];
+	return kTTErrNone;
+}
+
+
 TTErr TTGraphicsWindow::updateTitle()
 {
 	NSString*	nsTitle = [[NSString alloc] initWithCString:title->getCString()];
 
-	[theWindow setTitle:nsTitle];
+	if (theWindow)
+		[theWindow setTitle:nsTitle];
 	// TODO: are we leaking an NSString here?
 	return kTTErrNone;
 }

@@ -72,6 +72,9 @@ public:
 	/**	Bring the window to the front and give it keyboard focus.	*/
 	TTErr front();
 	
+	/**	Request a re-draw of the window.	*/
+	TTErr refresh();
+	
 	/**	Accessor */
 	TTErr settitle(const TTValue& v);
 	

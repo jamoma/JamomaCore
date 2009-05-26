@@ -53,13 +53,45 @@ void TTGraphicsContext::setSourceRGB(double r, double g, double b)
 	cairo_set_source_rgb(cairoContext, r, g, b);
 }
 
+void TTGraphicsContext::setSourceRGBA(double r, double g, double b, double a)
+{
+	cairo_set_source_rgba(cairoContext, r, g, b, a);
+}
+
 void TTGraphicsContext::moveTo(double x, double y)
 {
 	cairo_move_to(cairoContext, x, y);
+}
+
+void TTGraphicsContext::lineTo(double x, double y)
+{
+	cairo_line_to(cairoContext, x, y);
 }
 
 void TTGraphicsContext::showText(TTCString text)
 {
 	cairo_show_text(cairoContext, text);
 }
+
+
+void TTGraphicsContext::setLineWidth(double width)
+{
+	cairo_set_line_width(cairoContext, width);
+}
+
+void TTGraphicsContext::arc(double xc, double yc, double radius, double angle1, double angle2)
+{
+	cairo_arc(cairoContext, xc, yc, radius, angle1, angle2);
+}
+
+void TTGraphicsContext::stroke()
+{
+	cairo_stroke(cairoContext);
+}
+
+void TTGraphicsContext::fill()
+{
+	cairo_fill(cairoContext);
+}
+
 
