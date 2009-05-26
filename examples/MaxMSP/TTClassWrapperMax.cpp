@@ -41,7 +41,6 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 	TTValue				sr(sys_getsr());
 	TTValue				v;
  	long				attrstart = attr_args_offset(argc, argv);		// support normal arguments
-	short				i;
 	TTErr				err = kTTErrNone;
 	
 	// Find the WrappedClass
@@ -101,7 +100,7 @@ ObjectPtr wrappedClass_new(SymbolPtr name, AtomCount argc, AtomPtr argv)
 		}
 		
 		dsp_setup((t_pxobject *)x, x->numInputs);			// inlets
-		for(i=0; i < x->numOutputs; i++)
+		for(short i=0; i < x->numOutputs; i++)
 			outlet_new((t_pxobject *)x, "signal");			// outlets
 
 		  
