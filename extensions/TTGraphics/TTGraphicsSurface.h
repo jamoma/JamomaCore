@@ -11,6 +11,16 @@
 
 #include "TTAudioObject.h"
 
+#ifdef TT_PLATFORM_MAC
+//#include <Carbon/Carbon.h>
+//#include <Cocoa/Cocoa.h>
+#include "cairo-quartz.h"
+#else
+#include "cairo.h"
+#endif
+
+class TTGraphicsContext;
+
 
 /****************************************************************************************************/
 // Class Specification
@@ -18,11 +28,26 @@
 
 /**	Creates/Manages a graphics surface (image) in the Cairo sense of a surface.	*/
 class TTGraphicsSurface : public TTObject {
+
+	cairo_surface_t*		surface;
+	TTGraphicsContext*		context;		///< context used for drawing
+
 public:
+	
+	/**	Constructor	*/
 	TTGraphicsSurface(const TTValue& v);
+	
+	/**	Destructor	*/
 	virtual ~TTGraphicsSurface();
 	
+	/**	Clear the contents to a completely transparent state. */
+	TTErr clear();
 	
+	/** Request a re-draw to our surface.	*/
+	TTErr draw();
+	
+	/**	Request surface data. */
+	TTErr getData(TTValue& returnedData);
 };
 
 
