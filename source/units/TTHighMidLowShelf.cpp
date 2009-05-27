@@ -193,7 +193,9 @@ TTErr TTHighMidLowShelf::init()
     /* stability check */
 	
     double discriminant = tempb1 * tempb1 + 4.0 * tempb2;
-    if(tempb1 <= -1.9999996)
+	TTClip<double>(tempb1, -1.9999996, 1.9999996)
+	TTClip<double>(tempb2, -0.9999998, 0.9999998)
+    /*if(tempb1 <= -1.9999996)
         tempb1 = -1.9999996;
     else if(tempb1 >= 1.9999996)
         tempb1 = 1.9999996;
@@ -201,7 +203,7 @@ TTErr TTHighMidLowShelf::init()
     if(tempb2 <= -0.9999998)
         tempb2 = -0.9999998;
     else if(tempb2 >= 0.9999998)
-        tempb2 = 0.9999998;
+        tempb2 = 0.9999998;*/
 	
     if(discriminant >= 0.0)
     {
