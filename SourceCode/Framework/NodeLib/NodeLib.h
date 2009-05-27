@@ -14,10 +14,10 @@
 
 class JamomaNode;
 typedef JamomaNode*	JamomaNodePtr;
-
+typedef TTHash* TTHashPtr;
+typedef TTList* TTListPtr;
 
 /**
-
 	We build a tree of nodes, and you can request a pointer for any node, or add an observer to any node, etc.
 	
 	Every time we create a node (or a string passed to something somewhere?) then this gets added to the tree.  
@@ -25,16 +25,12 @@ typedef JamomaNode*	JamomaNodePtr;
 	and we assume degrade~ has been added to the tree but 'audio' hasn't, then 'audio' is added followed by adding 'mute', 
 	so that the tree is properly completed.
 	
-	
-	
 	When a node is requested, the tree is traversed to find the pointer for the node.  
 	After the traversal (assuming no wildcards) the pointer is returned and also stored 
 	in a hash table so that future requests for that node are faster.
 	
 	The case of wildcards is handled, because a request is cached (keyed on the request),
 	and the value is a linked list of all of the matches.
-	
-	
 	
 	ADDITIONAL NODES:
 	
@@ -46,40 +42,48 @@ typedef JamomaNode*	JamomaNodePtr;
 	
 */
 
-class JamomaNode {
-protected:
-	SymbolPtr		name;
-	SymbolPtr		instanceName;			// default to "0" or to "unnamed" ?
 
-	SymbolPtr		type;					// hub, parameter, message, return, init, in, out, container, etc.
-	ObjectPtr		nodeObject;				// a jcom.hub, jcom.parameter, jcom.message (or even NULL for containters)
+class JamomaNode : public TTObject			///< we will subclass TTObject in order to gain some functionality -- like observers and notifications
+{
+protected:
+
+	SymbolPtr		name;					///< the name of the node
+	SymbolPtr		instanceName;			///< currently instances are only numbers, but they might be symbols in the future. default to "0" or to "unnamed" ?
+
+	SymbolPtr		type;					///< hub, parameter, message, return, init, in, out, container, etc.
+	ObjectPtr		maxObject;			///< a jcom.hub, jcom.parameter, jcom.message (or even NULL for containters)
 	
-	JamomaNodePtr	parent;
-	HashtabPtr		children;				// a hashtab of linked lists:
-	 										// hashed on JamomaNode::name, and linked list because of JamomaNode::instanceName
+	JamomaNodePtr	parent;					///< pointer to the parent node in the tree
+	TTHashPtr		children;				///< a hashtab of linked lists:
+	 										///< hashed on JamomaNode::name, and linked list because of JamomaNode::instanceName
 	
-	LinkedListPtr	observers;
-	LinkedListPtr	lifecycleObservers;		// for objects that just need to know when we do something critical, like the free the object
+	TTListPtr		observers;
+	TTListPtr		lifecycleObservers;		///< for objects that just need to know when we do something critical, like the free the object
 	
 	// future ideas: not immediately critical:
-	// HashtabPtr	properties				// if we wish to cache this information for speed, this is where we would do it
-	
+	// HashtabPtr	properties				///< if we wish to cache this information for speed, this is where we would do it
 	
 	/**	The Jamoma node tree's root node - e.g. the container at the '/' address				*/
 	static JamomaNodePtr root;
 	
 	/**	A fast lookup table that maps an entire address quickly and directly to a JamomaNode.	*/
-	static HashtabPtr table;
+	static TTHashPtr table;
 
 	
 public:
 	
 	/**	Create a new node, at the given location in the tree. */
-	JamomaNode(SymbolPtr newAddress, SymbolPtr newType, ObjectPtr newObject);
+	JamomaNode(SymbolPtr oscAddress, SymbolPtr newType, ObjectPtr newObject);
 	
 	/** Destroy a node. */
 	virtual ~JamomaNode();
 
+	SymbolPtr	getName();
+	SymbolPtr	getInstanceName();
+	SymbolPtr	getType();
+	ObjectPtr	getMaxObject();
+	JamomaNodePtr	getParent();
+	TTHashPtr	getChildren();
 
 	/*
 		We have methods:
@@ -99,9 +103,6 @@ public:
 	
 	TTErr	getDump();	// how do we return this?
 	
-	TTErr	getAddress(SymbolPtr& returnedAddress);
-	TTErr	getInstanceName(SymbolPtr& returnedInstanceName);
-	
 	
 	/**	Given a string with an OSC address, return a pointer to the JamomaNode.
 	
@@ -116,7 +117,6 @@ public:
 	
 	static TTErr getNodeForOSC(SymbolPtr oscAddress, JamomaNodePtr* returnedNode);
 
-	
 };
 
 
@@ -147,6 +147,44 @@ TTErr JamomaNodeLookup(SymbolPtr oscAddress, LinkedListPtr* returnedNodes, Jamom
 						
 	@return						An error code.				*/
 TTErr JamomaNodeCreate(SymbolPtr oscAddress, SymbolPtr newType, ObjectPtr newObject, JamomaNodePtr* returnedNode, TTBoolean* created);
+
+/**	A recursive method to ensure that the path to a node exist
+	@param	oscAddress			The OSC address to check
+		
+	@param	returnedNode		A pointer to the JamomaNode parent is returned in this parameter.
+
+	@param	created				This parameter will be set to true upon return if a new node was created, or false if one was not created - 
+								e.g. because a node already existed with this address and instance name.
+						
+	@return						An error code.				*/
+TTErr JamomaNodeCheck(SymbolPtr oscAddress, JamomaNodePtr* returnedNodeParent, TTBoolean* created);
+
+
+/**	An OSC parsing tool
+	@param	oscAddress					The OSC address to spilt.
+
+	@param	returnedParentOscAdress		A pointer to the oscAdress of the parent is returned in this parameter
+										
+	@param	returnedNodeName			A pointer to the name of the node is returned in this parameter
+						
+	@return								An error code.				*/
+TTErr splitOSCAddress(SymbolPtr oscAddress, SymbolPtr* returnedParentOscAdress, SymbolPtr* returnedNodeName);
+
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+JamomaNodePtr	jamoma_node_create_root(void);
+void			jamoma_node_free_root(JamomaNodePtr root);
+
+#ifdef __cplusplus
+}
+#endif
+
+
+
 
 
 #endif // __NODELIB_H__
