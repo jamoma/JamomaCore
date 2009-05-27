@@ -254,6 +254,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NodeLib\NodeLib.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DataspaceLib\NoneDataspace.h"
 				>
 			</File>
@@ -371,6 +375,10 @@
 			</File>
 			<File
 				RelativePath=".\Internals\jcom.send~.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NodeLib\NodeLib.cpp"
 				>
 			</File>
 			<File
