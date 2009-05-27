@@ -1,6 +1,6 @@
 /* 
  * TTBlue High-Mid-Low shelf filter 
- * portd by Nils Peters 2009, from the PD external hml_shelf~ by Thomas Musil
+ * ported by Nils Peters 2009, from the PD external hml_shelf~ by Thomas Musil
  * 
  */
 
@@ -98,7 +98,7 @@ TTErr TTHighMidLowShelf::clear()
 
 TTErr TTHighMidLowShelf::setfrequencyLm(const TTValue& newValue)
 {
-    if (newValue < hf_)
+    if (static_cast<TTFloat64>(newValue) < hf_)
     {
 		lf_ = newValue;
         mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
@@ -109,7 +109,7 @@ TTErr TTHighMidLowShelf::setfrequencyLm(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setfrequencyMh(const TTValue& newValue)
 {
-    if (newValue > lf_)
+     if (static_cast<TTFloat64>(newValue)  > lf_)
     {
 		hf_ = newValue;
 		mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
@@ -120,7 +120,7 @@ TTErr TTHighMidLowShelf::setfrequencyMh(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 {   
-    if (lg_ != newValue)
+    if (lg_ != static_cast<TTFloat64>(newValue))
     {
         lg_ = newValue;
         init();
@@ -132,7 +132,7 @@ TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setgainM(const TTValue& newValue)
 {   
-	if (mg_ != newValue)
+	if (mg_ != static_cast<TTFloat64>(newValue))
     {
         mg_ = newValue;
         init();
@@ -142,7 +142,7 @@ TTErr TTHighMidLowShelf::setgainM(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setgainH(const TTValue& newValue)
 {   
-	if (hg_ != newValue)
+	if (hg_ !=static_cast<TTFloat64>(newValue))
     {
         hg_ = newValue;
         init();
@@ -167,7 +167,7 @@ TTErr TTHighMidLowShelf::setgainH(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::init()
 {
-    double f = mf_ * sr;  //was sr_ TODO: is sr in Hz or in radians, becasue this code needs sr = M_PI / Samplerate[Hz]
+    double f = mf_ * (kTTPi/ sr);  //was sr_ TODO: is sr in Hz or in radians, becasue this code needs sr = M_PI / Samplerate[Hz]
     double rf = sqrt(hf_) / sqrt(lf_); 
     double l = cos(f) / sin(f);
     double invHg = 1.0 / hg_;
@@ -193,8 +193,8 @@ TTErr TTHighMidLowShelf::init()
     /* stability check */
 	
     double discriminant = tempb1 * tempb1 + 4.0 * tempb2;
-	TTClip<double>(tempb1, -1.9999996, 1.9999996)
-	TTClip<double>(tempb2, -0.9999998, 0.9999998)
+	TTClip<double>(tempb1, -1.9999996, 1.9999996);
+	TTClip<double>(tempb2, -0.9999998, 0.9999998);
     /*if(tempb1 <= -1.9999996)
         tempb1 = -1.9999996;
     else if(tempb1 >= 1.9999996)

@@ -227,6 +227,7 @@ void TTBlueLoadExternalClassesFromFolder(const TTString& fullpath)
 // Filtering
 #include "TTAllpass.h"
 #include "TTAverage.h"
+#include "TTHighMidLowShelf.h"
 #include "TTBandpassButterworth2.h"
 #include "TTBandrejectButterworth2.h"
 #include "TTDCBlock.h"
@@ -294,7 +295,8 @@ void TTBlueRegisterInternalClasses()
 	TTClassRegister(TT("bandpass.butterworth.2"),		"audio, processor, filter, bandpass, butterworth",					&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("bandreject.butterworth.2"),		"audio, processor, filter, notch",									&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("dcblock"),						"audio, processor, filter",											&TTBlueInstantiateInternalClass);
-
+	TTClassRegister(TT("highmidlowshelf"),				"audio, processor, filter",											&TTBlueInstantiateInternalClass);
+					
 	TTClassRegister(TT("highpass.butterworth.1"),		"audio, processor, filter, highpass, butterworth",					&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("highpass.butterworth.2"),		"audio, processor, filter, highpass, butterworth",					&TTBlueInstantiateInternalClass);
 	TTClassRegister(TT("highpass.butterworth.3"),		"audio, processor, filter, highpass, butterworth",					&TTBlueInstantiateInternalClass);
@@ -372,6 +374,8 @@ TTObject* TTBlueInstantiateInternalClass(TTSymbol* className, TTValue& arguments
 		return new TTAllpass(arguments);
 	else if(className == TT("average"))
 		return new TTAverage(arguments);
+	else if(className == TT("highmidlowshelf"))
+		return new TTHighMidLowShelf(arguments);
 	else if(className == TT("bandpass.butterworth.2"))
 		return new TTBandpassButterworth2(arguments);
 	else if(className == TT("bandreject.butterworth.2"))

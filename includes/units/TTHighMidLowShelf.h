@@ -19,6 +19,7 @@ protected:
 	TTFloat64		*xm1;
 	TTFloat64		*xm2;
 	TTFloat64		*xm0;
+	TTFloat64		lf_, mf_, hf_, lg_, mg_, hg_;
 	//TTFloat64		*ym2;						// previous input and output samples
 
 	/**	Receives notifications when there are changes to the inherited 
@@ -33,8 +34,8 @@ protected:
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
-	TTFloat64 lf_, mf_, hf_, lg_, mg_, hg_;
-	void init();
+	
+	TTErr init();
 	
 public:
 
