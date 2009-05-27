@@ -248,7 +248,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TTGRAPHICS_EXTENSION;
-				INSTALL_PATH = /usr/local/lib;
+				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/TTBlue/Extensions/$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/cairo\"",
@@ -279,7 +279,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = TTGRAPHICS_EXTENSION;
-				INSTALL_PATH = /usr/local/lib;
+				LD_DYLIB_INSTALL_NAME = "/Library/Application Support/TTBlue/Extensions/$(EXECUTABLE_PATH)";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/cairo\"",
