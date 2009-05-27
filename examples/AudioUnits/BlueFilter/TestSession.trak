@@ -40,7 +40,7 @@
 			<integer>1</integer>
 		</array>
 		<key>device ID</key>
-		<integer>287</integer>
+		<integer>276</integer>
 		<key>isCollapsed</key>
 		<false/>
 	</dict>
@@ -61,13 +61,13 @@
 					<key>file-references</key>
 					<dict>
 						<key>File 1</key>
-						<string>/Users/tim/Music/Samples/02 unnatural rhythm/unnatural rhythm 44k/BackAlley Tribal/BOOMklaks_90b.wav</string>
+						<string>/Applications/Max5/examples/sounds/drumLoop.aif</string>
 					</dict>
 					<key>kAUPresetPersistentStateKey</key>
 					<array>
 						<dict>
 							<key>FileName</key>
-							<string>/Users/tim/Music/Samples/02 unnatural rhythm/unnatural rhythm 44k/BackAlley Tribal/BOOMklaks_90b.wav</string>
+							<string>/Applications/Max5/examples/sounds/drumLoop.aif</string>
 							<key>IsSelectedFile</key>
 							<true/>
 							<key>Regions</key>
@@ -77,20 +77,20 @@
 									<true/>
 									<key>RegionData</key>
 									<data>
-								AAAAAAAAAACA
-								N3kWCO7/v6BL
-								KpCAN3kWIEh5
-								FuAWgBZIR3kW
-								IEh5FoA3eRag
-								ZQKgBgAAACw+
-								Tl4BAAAAm/Mq
-								kAAAAAAAAAAA
+								AAAAAAAAAACU
+								0I6gAAAAAAAg
+								a0AAAAAAAAAA
+								AOji/78EAAAA
+								oPyDGACAIgCQ
+								uQQAAwAAACw+
+								Tl4BAAAAkLkG
 								AAAAAAAAAAAA
-								AAAAAAAAAP9a
-								DgA=
+								AAAAAAAAAAAA
+								AAAAAAAAADhX
+								AgA=
 									</data>
 									<key>RegionDoesLoop</key>
-									<false/>
+									<true/>
 									<key>RegionName</key>
 									<string>New Region</string>
 								</dict>
@@ -232,13 +232,13 @@
 								<key>data</key>
 								<data>
 								AAAAAAAAAAAA
-								AAABAAAAAETF
-								e8o=
+								AAABAAAAAESv
+								jgk=
 								</data>
 								<key>manufacturer</key>
 								<integer>1414808172</integer>
 								<key>name</key>
-								<string>Low</string>
+								<string>High</string>
 								<key>subtype</key>
 								<integer>1718185076</integer>
 								<key>type</key>
@@ -306,7 +306,7 @@
 								<key>manufacturer</key>
 								<integer>1414808172</integer>
 								<key>name</key>
-								<string>BlueFilter</string>
+								<string>TTBlue: BlueFilter</string>
 								<key>subtype</key>
 								<integer>1718185076</integer>
 								<key>type</key>
@@ -442,7 +442,31 @@
 				<key>kAUInspectorStateKey_WindowLevel</key>
 				<integer>2147483647</integer>
 				<key>kAUInspectorStateKey_WindowRect</key>
-				<string>{{128, 414}, {340, 372}}</string>
+				<string>{{602, 446}, {340, 372}}</string>
+			</dict>
+			<dict>
+				<key>kAUInspectorStateKey_BusIndex</key>
+				<integer>0</integer>
+				<key>kAUInspectorStateKey_BusType</key>
+				<string>kBusType_Input</string>
+				<key>kAUInspectorStateKey_Bypassed</key>
+				<false/>
+				<key>kAUInspectorStateKey_CurrentViewName</key>
+				<string>Generic View</string>
+				<key>kAUInspectorStateKey_EffectIndex</key>
+				<integer>-1</integer>
+				<key>kAUInspectorStateKey_GenericViewShowExpertParams</key>
+				<false/>
+				<key>kAUInspectorStateKey_PresetDrawerExpandedItems</key>
+				<array/>
+				<key>kAUInspectorStateKey_PresetDrawerShowing</key>
+				<false/>
+				<key>kAUInspectorStateKey_TrackIndex</key>
+				<integer>0</integer>
+				<key>kAUInspectorStateKey_WindowLevel</key>
+				<integer>2147483647</integer>
+				<key>kAUInspectorStateKey_WindowRect</key>
+				<string>{{704, 273}, {522, 160}}</string>
 			</dict>
 		</array>
 	</dict>

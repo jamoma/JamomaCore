@@ -1,6 +1,6 @@
 #include "AUEffectBase.h"
 #include "BlueFilterVersion.h"
-#include "TTBlue/TTBlueAPI.h"
+#include "TTBlueAPI.h"
 
 #if AU_DEBUG_DISPATCHER
 	#include "AUDebugDispatcher.h"
@@ -124,7 +124,7 @@ protected:
 		
 		virtual ~BlueFilterKernel()
 		{
-			TTObjectRelease(mButter);
+			TTObjectRelease(&mButter);
 			delete mInput;
 			delete mOutput;
 		}
