@@ -33,7 +33,6 @@ protected:
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
-private: //TODO: What is the difference between private and protected ??
 	TTFloat64 lf_, mf_, hf_, lg_, mg_, hg_;
 	void init();
 	

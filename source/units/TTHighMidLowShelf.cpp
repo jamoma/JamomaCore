@@ -9,8 +9,8 @@
 
 
 TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
-	: TTAudioObject("filter.highpass.butterworth", newMaxNumChannels), 
-	xm1(NULL), xm2(NULL), xm0(NULL)//, ym1(NULL), ym2(NULL)//TODO: this might need to be changed
+	: TTAudioObject("filter.highmidlowshelf", newMaxNumChannels), 
+	xm1(NULL), xm2(NULL), xm0(NULL)
 {
 	// register attributes
 	registerAttributeWithSetter(frequencyLm,	kTypeFloat64);
@@ -57,10 +57,7 @@ TTHighMidLowShelf::~TTHighMidLowShelf()
 	delete[] xm1;
 	delete[] xm2;
 	delete[] xm0;
-	//delete[] ym2;
 }
-
-
 
 
 TTErr TTHighMidLowShelf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
@@ -68,12 +65,10 @@ TTErr TTHighMidLowShelf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 	delete[] xm1;
 	delete[] xm2;
 	delete[] xm0;
-	//delete[] ym2;
 	
 	xm1 = new TTFloat64[maxNumChannels];
 	xm2 = new TTFloat64[maxNumChannels];
 	xm0 = new TTFloat64[maxNumChannels];
-	//ym2 = new TTFloat64[maxNumChannels];
 	
 	clear();
 	return kTTErrNone;
@@ -97,7 +92,6 @@ TTErr TTHighMidLowShelf::clear()
 		xm1[i] = 0.0;
 		xm2[i] = 0.0;
 		xm0[i] = 0.0;
-		//ym2[i] = 0.0;
 	}
 	return kTTErrNone;
 }
@@ -110,8 +104,6 @@ TTErr TTHighMidLowShelf::setfrequencyLm(const TTValue& newValue)
         mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
         init();
 	}
-    /*else if (globWarningFlag)
-       error("HiMidLow: Low shelf frequency must be less than high shelf frequency %f.", hf_);*/
     return kTTErrNone;   
 }
 
@@ -123,15 +115,11 @@ TTErr TTHighMidLowShelf::setfrequencyMh(const TTValue& newValue)
 		mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
 		init();
 	}
-    /*else if (globWarningFlag)
-        error("HiMidLow: High shelf frequency must be greater than low shelf frequency %f.", lf_);*/
 	return kTTErrNone; 
 }
 
 TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 {   
-    //newLg = percentToGain(newLg);	// convert from percentage to gain
-    	
     if (lg_ != newValue)
     {
         lg_ = newValue;
@@ -144,8 +132,6 @@ TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setgainM(const TTValue& newValue)
 {   
-    //newLg = percentToGain(newLg);	// convert from percentage to gain
-	
 	if (mg_ != newValue)
     {
         mg_ = newValue;
@@ -156,8 +142,6 @@ TTErr TTHighMidLowShelf::setgainM(const TTValue& newValue)
 
 TTErr TTHighMidLowShelf::setgainH(const TTValue& newValue)
 {   
-    //newLg = percentToGain(newLg);	// convert from percentage to gain
-	
 	if (hg_ != newValue)
     {
         hg_ = newValue;
