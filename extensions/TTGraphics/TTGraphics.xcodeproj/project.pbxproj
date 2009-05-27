@@ -14,6 +14,7 @@
 		221A3EFF0FBFA3D700EE6C04 /* TTGraphicsContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 221A3EFB0FBFA3D700EE6C04 /* TTGraphicsContext.h */; };
 		221A3F000FBFA3D700EE6C04 /* TTGraphicsSurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 221A3EFC0FBFA3D700EE6C04 /* TTGraphicsSurface.cpp */; };
 		221A3F010FBFA3D700EE6C04 /* TTGraphicsSurface.h in Headers */ = {isa = PBXBuildFile; fileRef = 221A3EFD0FBFA3D700EE6C04 /* TTGraphicsSurface.h */; };
+		2243A8AD0FCD6D19008070E4 /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2243A8AC0FCD6D19008070E4 /* libpixman-1.a */; };
 		2267C5970FC205B8005D174F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267C5960FC205B8005D174F /* Cocoa.framework */; };
 		2267C7190FC32678005D174F /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2267C7180FC32678005D174F /* libcairo.a */; };
 		2267C7250FC3267F005D174F /* cairo-deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 2267C71B0FC3267F005D174F /* cairo-deprecated.h */; };
@@ -39,6 +40,7 @@
 		221A3EFB0FBFA3D700EE6C04 /* TTGraphicsContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGraphicsContext.h; sourceTree = "<group>"; };
 		221A3EFC0FBFA3D700EE6C04 /* TTGraphicsSurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TTGraphicsSurface.cpp; sourceTree = "<group>"; };
 		221A3EFD0FBFA3D700EE6C04 /* TTGraphicsSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGraphicsSurface.h; sourceTree = "<group>"; };
+		2243A8AC0FCD6D19008070E4 /* libpixman-1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpixman-1.a"; path = "cairo-lib/libpixman-1.a"; sourceTree = "<group>"; };
 		2267C5960FC205B8005D174F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2267C7180FC32678005D174F /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcairo.a; path = "cairo-lib/libcairo.a"; sourceTree = "<group>"; };
 		2267C71B0FC3267F005D174F /* cairo-deprecated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cairo-deprecated.h"; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				22D43C4C0F1DA02200C16BB0 /* JamomaDSP.framework in Frameworks */,
 				2267C5970FC205B8005D174F /* Cocoa.framework in Frameworks */,
 				2267C7190FC32678005D174F /* libcairo.a in Frameworks */,
+				2243A8AD0FCD6D19008070E4 /* libpixman-1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				2267C7180FC32678005D174F /* libcairo.a */,
+				2243A8AC0FCD6D19008070E4 /* libpixman-1.a */,
 				22D43C4B0F1DA02200C16BB0 /* JamomaDSP.framework */,
 				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
 				2267C5960FC205B8005D174F /* Cocoa.framework */,
