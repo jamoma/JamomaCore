@@ -41,12 +41,12 @@ TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
 	registerMessageSimple(clear);
 
 	// Set Defaults...
-	setAttributeValue(TT("maxNumChannels"),	newMaxNumChannels);			// This attribute is inherited
+	setAttributeValue(TT("maxNumChannels"),		newMaxNumChannels);			// This attribute is inherited
 	setAttributeValue(TT("frequencyLm"),		100.0);
 	setAttributeValue(TT("frequencyMh"),		3000.0);
-	setAttributeValue(TT("gainL"),		1.0);
-	setAttributeValue(TT("gainM"),		1.0);
-	setAttributeValue(TT("gainH"),		1.0);
+	setAttributeValue(TT("gainL"),				1.0);
+	setAttributeValue(TT("gainM"),				1.0);
+	setAttributeValue(TT("gainH"),				1.0);
 	setProcessMethod(processAudio);
 }
 
@@ -76,9 +76,7 @@ TTErr TTHighMidLowShelf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 
 TTErr TTHighMidLowShelf::updateSr()
-{ //TODO: this might need to be changed
-	//TTValue	v(frequency);
-	//return setfrequency(v);
+{ 
 	init();
 	return kTTErrNone;
 }
@@ -99,12 +97,12 @@ TTErr TTHighMidLowShelf::clear()
 TTErr TTHighMidLowShelf::setfrequencyLm(const TTValue& newValue)
 {
     if (static_cast<TTFloat64>(newValue) < hf_)
-    {
+    {   
 		lf_ = newValue;
         mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
-        init();
+        //init();
 	}
-    return kTTErrNone;   
+	return init();   
 }
 
 TTErr TTHighMidLowShelf::setfrequencyMh(const TTValue& newValue)
@@ -113,61 +111,50 @@ TTErr TTHighMidLowShelf::setfrequencyMh(const TTValue& newValue)
     {
 		hf_ = newValue;
 		mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
-		init();
+		//init();
 	}
-	return kTTErrNone; 
+	return init(); 
 }
 
 TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 {   
-    if (lg_ != static_cast<TTFloat64>(newValue))
-    {
+    //if (lg_ != static_cast<TTFloat64>(newValue))
+    //{
         lg_ = newValue;
-        init();
-    }
-	return kTTErrNone; 	
+        //init();
+    //}
+	return init();
 }
 
 
 
 TTErr TTHighMidLowShelf::setgainM(const TTValue& newValue)
 {   
-	if (mg_ != static_cast<TTFloat64>(newValue))
-    {
+	//if (mg_ != static_cast<TTFloat64>(newValue))
+    //{
         mg_ = newValue;
-        init();
-    }
-	return kTTErrNone; 	
+        //init();
+    //}
+	return init();
 }
 
 TTErr TTHighMidLowShelf::setgainH(const TTValue& newValue)
 {   
-	if (hg_ !=static_cast<TTFloat64>(newValue))
-    {
+	//if (hg_ != static_cast<TTFloat64>(newValue))
+    //{
         hg_ = newValue;
-        init();
-    }
-	return kTTErrNone; 	
+        //init();
+    //}
+	return init();
 }
 
 
 
-/*TTErr TTHighMidLowShelf::setfrequency(const TTValue& newValue)
-{	
-	frequency = newValue;
 
-	c = tan( kTTPi*(frequency/sr ) );
-	a0 = 1 / (1 + kTTSqrt2*c + c*c);
-	a1 = -2*a0;
-	a2 = a0;
-	b1 = 2*a0*( c*c - 1 );
-	b2 = a0 * (1 - kTTSqrt2*c + c*c);
-	return kTTErrNone;
-}*/
 
 TTErr TTHighMidLowShelf::init()
-{
-    double f = mf_ * (kTTPi/ sr);  //was sr_ TODO: is sr in Hz or in radians, becasue this code needs sr = M_PI / Samplerate[Hz]
+{   
+    double f = mf_ * (kTTPi/ sr);  
     double rf = sqrt(hf_) / sqrt(lf_); 
     double l = cos(f) / sin(f);
     double invHg = 1.0 / hg_;
@@ -195,16 +182,7 @@ TTErr TTHighMidLowShelf::init()
     double discriminant = tempb1 * tempb1 + 4.0 * tempb2;
 	TTClip<double>(tempb1, -1.9999996, 1.9999996);
 	TTClip<double>(tempb2, -0.9999998, 0.9999998);
-    /*if(tempb1 <= -1.9999996)
-        tempb1 = -1.9999996;
-    else if(tempb1 >= 1.9999996)
-        tempb1 = 1.9999996;
-	
-    if(tempb2 <= -0.9999998)
-        tempb2 = -0.9999998;
-    else if(tempb2 >= 0.9999998)
-        tempb2 = 0.9999998;*/
-	
+   	
     if(discriminant >= 0.0)
     {
         if(0.9999998 - tempb1 - tempb2 < 0.0)
@@ -212,7 +190,7 @@ TTErr TTHighMidLowShelf::init()
         if(0.9999998 + tempb1 - tempb2 < 0.0)
             tempb2 = 0.9999998 + tempb1;
     }
-	
+	//TTClip<double>(tempb2, 0.9999998 - tempb1, 0.9999998 + tempb1);  //[NP] is that what the loop above means ?
     a0 = tempa0;
     a1 = tempa1;
     a2 = tempa2;

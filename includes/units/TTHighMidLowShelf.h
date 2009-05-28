@@ -4,11 +4,8 @@
  * 
  */
 
-//#ifndef __TT_HIGHPASS_BUTTERWORTH_2_H__
-//#define __TT_HIGHPASS_BUTTERWORTH_2_H__
-
-#ifndef _HIMIDLOW_H_
-#define _HIMIDLOW_H_
+#ifndef _TT_HIMIDLOW_H_
+#define _TT_HIMIDLOW_H_
 
 #include "TTAudioObject.h"
 
