@@ -10,7 +10,7 @@
 
 //~~~~~~~~~~~~~~  Change!!! ~~~~~~~~~~~~~~~~~~~~~//
 #define BlueFilter_COMP_SUBTYPE		'filt'
-#define BlueFilter_COMP_MANF		'TTBl'
+#define BlueFilter_COMP_MANF		'JaM0'
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 #endif

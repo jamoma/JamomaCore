@@ -9,7 +9,7 @@
 #endif
 
 //~~~~~~~~~~~~~~  Change!!! ~~~~~~~~~~~~~~~~~~~~~//
-#define BlueButter_COMP_SUBTYPE		'filt'
+#define BlueButter_COMP_SUBTYPE		'bttr'
 #define BlueButter_COMP_MANF		'JaM0'
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
