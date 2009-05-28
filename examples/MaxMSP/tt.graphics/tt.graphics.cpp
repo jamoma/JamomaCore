@@ -40,6 +40,7 @@ public:
 	virtual ~TTGraphicsExample()
 	{
 		graphicsWindow->unregisterObserverForNotifications(*this);
+		TTObjectRelease(&graphicsWindow);
 	}
 	
 	
