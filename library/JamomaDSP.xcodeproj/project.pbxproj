@@ -73,6 +73,7 @@
 		222B17FA0F1D4009008B1A46 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1B0EC276B200A5EC32 /* AudioUnit.framework */; };
 		222B17FB0F1D4009008B1A46 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22578F1C0EC276B200A5EC32 /* CoreServices.framework */; };
 		22CED1020F29113300CD9A60 /* TTAudioSignalArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CED1010F29113300CD9A60 /* TTAudioSignalArray.cpp */; };
+		66F7C2190FCDE6F100FEBE4D /* TTHighMidLowShelf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66F7C2180FCDE6F100FEBE4D /* TTHighMidLowShelf.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -188,6 +189,8 @@
 		22E6CDF00D4D069000DA75EE /* TTSymbolTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTSymbolTable.h; path = ../includes/core/TTSymbolTable.h; sourceTree = SOURCE_ROOT; };
 		55332A6C0D9264AD00597792 /* TTAdsr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTAdsr.h; path = ../includes/units/TTAdsr.h; sourceTree = SOURCE_ROOT; };
 		55332A6E0D9264B700597792 /* TTAdsr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTAdsr.cpp; path = ../source/units/TTAdsr.cpp; sourceTree = SOURCE_ROOT; };
+		66F7C2180FCDE6F100FEBE4D /* TTHighMidLowShelf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighMidLowShelf.cpp; path = ../source/units/TTHighMidLowShelf.cpp; sourceTree = SOURCE_ROOT; };
+		66F7C21A0FCDE6FD00FEBE4D /* TTHighMidLowShelf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTHighMidLowShelf.h; path = ../includes/units/TTHighMidLowShelf.h; sourceTree = SOURCE_ROOT; };
 		A779B3CF0D5079F700EAD135 /* TTHighpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTHighpassLinkwitzRiley2.h; path = ../includes/units/TTHighpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
 		A779B3D10D507A0900EAD135 /* TTLowpassLinkwitzRiley2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TTLowpassLinkwitzRiley2.h; path = ../includes/units/TTLowpassLinkwitzRiley2.h; sourceTree = SOURCE_ROOT; };
 		A779B3D30D507A1900EAD135 /* TTHighpassLinkwitzRiley2.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TTHighpassLinkwitzRiley2.cpp; path = ../source/units/TTHighpassLinkwitzRiley2.cpp; sourceTree = SOURCE_ROOT; };
@@ -422,6 +425,8 @@
 				22569C410D3E419300328864 /* TTBandrejectButterworth2.cpp */,
 				22569C170D3E416F00328864 /* TTDCBlock.h */,
 				22569C440D3E419300328864 /* TTDCBlock.cpp */,
+				66F7C2180FCDE6F100FEBE4D /* TTHighMidLowShelf.cpp */,
+				66F7C21A0FCDE6FD00FEBE4D /* TTHighMidLowShelf.h */,
 				A779B4390D507FC100EAD135 /* TTHighpassButterworth1.h */,
 				A779B43B0D507FD300EAD135 /* TTHighpassButterworth1.cpp */,
 				22569C1A0D3E416F00328864 /* TTHighpassButterworth2.h */,
@@ -572,6 +577,7 @@
 				222B17F40F1D4009008B1A46 /* TTAudioEngine.cpp in Sources */,
 				221AD7710F24F2D000B5B388 /* TTMatrixMixer.cpp in Sources */,
 				22CED1020F29113300CD9A60 /* TTAudioSignalArray.cpp in Sources */,
+				66F7C2190FCDE6F100FEBE4D /* TTHighMidLowShelf.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
