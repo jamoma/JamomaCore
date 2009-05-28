@@ -5,7 +5,7 @@
  */
 
 #include "TTHighMidLowShelf.h"
-#define thisTTClass TTHighMidLowShelf // TODO: what is that 
+#define thisTTClass TTHighMidLowShelf 
 
 
 TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
@@ -14,24 +14,24 @@ TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
 {
 	// register attributes
 	registerAttributeWithSetter(frequencyLm,	kTypeFloat64);
-	addAttributeProperty(frequencyLm,			range,			TTValue(10.0, sr*0.475));
-	addAttributeProperty(frequencyLm,			rangeChecking,	TT("clip"));
+	//addAttributeProperty(frequencyLm,			range,			TTValue(10.0, sr*0.475));
+	//addAttributeProperty(frequencyLm,			rangeChecking,	TT("clip"));
     
 	registerAttributeWithSetter(frequencyMh,	kTypeFloat64);
-	addAttributeProperty(frequencyMh,			range,			TTValue(10.0, sr*0.475));
-	addAttributeProperty(frequencyMh,			rangeChecking,	TT("clip"));
+	//addAttributeProperty(frequencyMh,			range,			TTValue(10.0, sr*0.475));
+	//addAttributeProperty(frequencyMh,			rangeChecking,	TT("clip"));
 	
 	registerAttributeWithSetter(gainL,			kTypeFloat64);
-	addAttributeProperty(gainL,					range,			TTValue(0.0, 1.0));
-	addAttributeProperty(gainL,					rangeChecking,	TT("clip"));
+	//addAttributeProperty(gainL,					range,			TTValue(0.0000001, 1.0));
+	//addAttributeProperty(gainL,					rangeChecking,	TT("clip"));
 	
 	registerAttributeWithSetter(gainM,			kTypeFloat64);
-	addAttributeProperty(gainM,					range,			TTValue(0.0, 1.0));
-	addAttributeProperty(gainM,					rangeChecking,	TT("clip"));
+	//addAttributeProperty(gainM,					range,			TTValue(0.0000001, 1.0));
+	//addAttributeProperty(gainM,					rangeChecking,	TT("clip"));
 	
 	registerAttributeWithSetter(gainH,			kTypeFloat64);
-	addAttributeProperty(gainH,					range,			TTValue(0.0, 1.0));
-	addAttributeProperty(gainH,					rangeChecking,	TT("clip"));
+	//addAttributeProperty(gainH,					range,			TTValue(0.0000001, 1.0));
+	//addAttributeProperty(gainH,					rangeChecking,	TT("clip"));
 	
 	// register for notifications from the parent class so we can allocate memory as required
 	registerMessageWithArgument(updateMaxNumChannels);
@@ -42,7 +42,7 @@ TTHighMidLowShelf::TTHighMidLowShelf(TTUInt16 newMaxNumChannels)
 
 	// Set Defaults...
 	setAttributeValue(TT("maxNumChannels"),		newMaxNumChannels);			// This attribute is inherited
-	setAttributeValue(TT("frequencyLm"),		100.0);
+	setAttributeValue(TT("frequencyLm"),		300.0);
 	setAttributeValue(TT("frequencyMh"),		3000.0);
 	setAttributeValue(TT("gainL"),				1.0);
 	setAttributeValue(TT("gainM"),				1.0);
@@ -77,8 +77,7 @@ TTErr TTHighMidLowShelf::updateMaxNumChannels(const TTValue& oldMaxNumChannels)
 
 TTErr TTHighMidLowShelf::updateSr()
 { 
-	init();
-	return kTTErrNone;
+	return calculateCoefficients();
 }
 
 
@@ -96,85 +95,67 @@ TTErr TTHighMidLowShelf::clear()
 
 TTErr TTHighMidLowShelf::setfrequencyLm(const TTValue& newValue)
 {
-    if (static_cast<TTFloat64>(newValue) < hf_)
+    if (static_cast<TTFloat64>(newValue) < frequencyMh)
     {   
-		lf_ = newValue;
-        mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
-        //init();
+		frequencyLm = TTClip<TTFloat64>(newValue,10.0, sr*0.475); 
+        mf_ = sqrt(frequencyMh) * sqrt(frequencyLm); // mf_ depends on frequencyMh and frequencyLm
 	}
-	return init();   
+	return calculateCoefficients();   
 }
 
 TTErr TTHighMidLowShelf::setfrequencyMh(const TTValue& newValue)
 {
-     if (static_cast<TTFloat64>(newValue)  > lf_)
+     if (static_cast<TTFloat64>(newValue)  > frequencyLm)
     {
-		hf_ = newValue;
-		mf_ = sqrt(hf_) * sqrt(lf_); // mf_ depends on hf_ and lf_
-		//init();
+		frequencyMh = TTClip<TTFloat64>(newValue,10.0, sr*0.475);
+		mf_ = sqrt(frequencyMh) * sqrt(frequencyLm); // mf_ depends on frequencyMh and frequencyLm
 	}
-	return init(); 
+	return calculateCoefficients(); 
 }
 
 TTErr TTHighMidLowShelf::setgainL(const TTValue& newValue)
 {   
-    //if (lg_ != static_cast<TTFloat64>(newValue))
-    //{
-        lg_ = newValue;
-        //init();
-    //}
-	return init();
+	gainL = TTClip<TTFloat64>(newValue,0.0000001, 1.0);
+    return calculateCoefficients();
 }
 
 
 
 TTErr TTHighMidLowShelf::setgainM(const TTValue& newValue)
 {   
-	//if (mg_ != static_cast<TTFloat64>(newValue))
-    //{
-        mg_ = newValue;
-        //init();
-    //}
-	return init();
+	gainM = TTClip<TTFloat64>(newValue,0.0000001, 1.0);
+	return calculateCoefficients();
 }
 
 TTErr TTHighMidLowShelf::setgainH(const TTValue& newValue)
-{   
-	//if (hg_ != static_cast<TTFloat64>(newValue))
-    //{
-        hg_ = newValue;
-        //init();
-    //}
-	return init();
+{   gainH = TTClip<TTFloat64>(newValue,0.0000001, 1.0);
+	return calculateCoefficients();
 }
 
 
-
-
-
-TTErr TTHighMidLowShelf::init()
+TTErr TTHighMidLowShelf::calculateCoefficients()
 {   
-    double f = mf_ * (kTTPi/ sr);  
-    double rf = sqrt(hf_) / sqrt(lf_); 
+    double f = mf_ * (kTTPi/ sr);  //kTTPi / sr could be calculated outside
+    double rf = sqrt(frequencyMh) / sqrt(frequencyLm); //could be improved
     double l = cos(f) / sin(f);
-    double invHg = 1.0 / hg_;
-    double invLg = 1.0 / lg_;
-    double invMg = 1.0 / mg_;
+    double invHg = 1.0 / gainH;
+    double invLg = 1.0 / gainL;
+    double invMg = 1.0 / gainM;
     double k1 = rf * l;
     double k2 = l / rf;
     double k3 = l * l;
-    double k4 = k3 * hg_;
+    double k4 = k3 * gainH;
     double k5 = k3 * invHg;
     double k6 = invLg + k5;
-    double k7 = invMg * k1 +  k2 * invLg * invHg * mg_;
-    double k8 = lg_ + k4;
-    double k9 = (mg_ * k1) + (k2 * lg_ * hg_ * invMg);
+    double k7 = invMg * k1 +  k2 * invLg * invHg * gainM;
+    double k8 = gainL + k4;
+    double k9 = (gainM * k1) + (k2 * gainL * gainH * invMg);
     double k10 = 1.0 / (k6 + k7);
 	
     double tempb2 = k10 * (k7 - k6);
     double tempb1 = k10 * 2.0 * (k5 - invLg);
     double tempa2 = k10 * (k8 - k9);
-    double tempa1 = k10 * 2.0 * (lg_ - k4);
+    double tempa1 = k10 * 2.0 * (gainL - k4);
     double tempa0 = k10 * (k8 + k9);
 	
     /* stability check */

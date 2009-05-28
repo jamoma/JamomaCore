@@ -16,7 +16,7 @@ protected:
 	TTFloat64		*xm1;
 	TTFloat64		*xm2;
 	TTFloat64		*xm0;
-	TTFloat64		lf_, mf_, hf_, lg_, mg_, hg_;
+	TTFloat64		mf_;//, hf_, lg_, mg_, hg_,lf_;
 	//TTFloat64		*ym2;						// previous input and output samples
 
 	/**	Receives notifications when there are changes to the inherited 
@@ -27,12 +27,14 @@ protected:
 	/** Receives notifications when there are changes to the inherited 
 		sr attribute.						*/
 	TTErr updateSr();
+	
+	TTErr calculateCoefficients();
 
 	/**	Standard audio processing method as used by TTBlue objects. */
 	TTErr processAudio(TTAudioSignalArrayPtr inputs, TTAudioSignalArrayPtr outputs);
 
 	
-	TTErr init();
+	
 	
 public:
 
@@ -48,7 +50,6 @@ public:
 	TTErr setgainH(const TTValue& value);
 	TTErr setfrequencyLm(const TTValue& value);
 	TTErr setfrequencyMh(const TTValue& value);
-	
 	TTErr clear();
 };
 
