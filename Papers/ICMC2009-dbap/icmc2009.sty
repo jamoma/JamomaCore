@@ -108,9 +108,16 @@
 \renewcommand{\ttdefault}{pcr}
 
 %-- layout using geometry.sty
-\usepackage[letterpaper,text={6.9in,9in},margin=0.8in,top=1in,%
-  	headsep=0mm%bottom=1in,%marginratio=1:1,
+\usepackage[text={6.9in,9in},margin=0.8in,top=1in,%
+  	headsep=0mm,bottom=1in,%marginratio=1:1,
     ]{geometry}
+
+% We could potentially use the titlesec package as shown below to tighten up the spacing
+%-- layout using titlesec package
+%\usepackage[compact]{titlesec}
+%\titleformat{\section}[block]{\center\normalfont\normalsize\bfseries}{\thesection.}{0.5em}{\normalsize\uppercase}
+%\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{\normalsize}
+%\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection.}{0.5em}{\normalsize}
 
 %-- layout if not using geometry,sty
 %\oddsidemargin  -14pt
@@ -262,6 +269,7 @@
 
 %-- stolen from icmc2008.sty, for reformatting subsubsections (and subsections and sections)
 \def\@sect#1#2#3#4#5#6[#7]#8{
+ \vskip -0.2em 
    \refstepcounter{#1}\edef\@svsec{\csname the#1\endcsname.\hskip 0.6em}
        \begingroup \ifnum #2=1\bf\centering
           {\interlinepenalty \@M
